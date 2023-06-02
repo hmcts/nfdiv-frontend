@@ -5,9 +5,9 @@ import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, State } from '../case/defini
 
 import { DocumentManagerController } from './DocumentManagementController';
 
-const { mockCreate, mockDelete } = require('./DocumentManagementClient');
+const { mockCreate, mockDelete } = require('./CaseDocumentManagementClient');
 
-jest.mock('../document/DocumentManagementClient');
+jest.mock('../document/CaseDocumentManagementClient');
 
 describe('DocumentManagerController', () => {
   const documentManagerController = new DocumentManagerController();
