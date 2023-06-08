@@ -1,5 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import Axios from 'axios';
+import axios from 'axios';
 import config from 'config';
 
 const logger = Logger.getLogger('fee-register');
@@ -27,7 +27,8 @@ export const updateFee = (keyword: FeeKeyword): void => {
     `&keyword=${keyword}` +
     `&event=${fees[keyword].event}`;
 
-  Axios.get(url)
+  axios
+    .get(url)
     .then(response => (fees[keyword].amount = response.data.fee_amount))
     .catch(err => logger.error(err.response?.status, err.response?.data));
 };

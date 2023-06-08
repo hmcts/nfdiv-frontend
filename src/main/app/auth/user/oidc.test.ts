@@ -1,4 +1,4 @@
-import Axios, { AxiosResponse, AxiosStatic } from 'axios';
+import axios, { AxiosRequestHeaders, AxiosResponse, AxiosStatic } from 'axios';
 
 import { APPLICANT_2_SIGN_IN_URL, CALLBACK_URL, SIGN_IN_URL } from '../../../steps/urls';
 import { UserDetails } from '../../controller/AppRequest';
@@ -11,7 +11,7 @@ jest.mock('axios');
 jest.mock('config');
 
 const mockedConfig = config as jest.Mocked<typeof config>;
-const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
+const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 
 const token =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyIsInJvbGVzIjpbImNpdGl6ZW4iXX0.rxjx6XsSNNYavVppwKAqWiNWT_GxN4vjVzdLRe6q14I';
@@ -73,7 +73,7 @@ describe('getSystemUser', () => {
     },
     statusText: 'wsssw',
     headers: { test: 'now' },
-    config: {},
+    config: { headers: [] as unknown as AxiosRequestHeaders },
   };
 
   const expectedGetSystemUserResponse: UserDetails = {

@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
 
@@ -11,7 +11,7 @@ export class CaseDocumentManagementClient {
   BASE_URL: string = config.get('services.caseDocumentManagement.url');
 
   constructor(private readonly user: UserDetails) {
-    this.client = Axios.create({
+    this.client = axios.create({
       baseURL: this.BASE_URL,
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
