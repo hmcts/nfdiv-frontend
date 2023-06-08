@@ -24,6 +24,7 @@ describe('ContactUsGetController', () => {
           userCase: req.session.userCase,
         }),
         ...defaultViewArgs,
+        isAmendableStates: undefined
       })
     );
   });

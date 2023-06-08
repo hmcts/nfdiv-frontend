@@ -1,6 +1,6 @@
 jest.mock('axios');
 jest.mock('@hmcts/nodejs-logging');
-jest.useFakeTimers('legacy');
+jest.useFakeTimers({ legacyFakeTimers: true });
 
 import { Logger } from '@hmcts/nodejs-logging';
 import axios, { AxiosStatic } from 'axios';
