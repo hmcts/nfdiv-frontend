@@ -108,7 +108,7 @@
     "@typescript-eslint/parser": "^5.59.11",
     "@wdio/sauce-service": "^8.11.1",
     "allure-commandline": "^2.22.1",
-    "axios-debug-log": "^0.8.4",
+    "axios-debug-log": "^1.0.0",
     "codeceptjs": "^3.4.1",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
