@@ -14,6 +14,7 @@ import {
 
 import { CommonContent, en } from './common.content';
 import {
+  canIntendToSwitchToSoleFo,
   formattedCaseId,
   getAppSolAddressFields,
   getApplicant1PartnerContent,
@@ -221,6 +222,38 @@ describe('content.utils', () => {
       };
       const actual = latestLegalAdvisorDecisionContent(userCase, true);
       expect(actual).toEqual(expect.objectContaining(expected));
+    });
+  });
+
+  describe('canIntendToSwitchToSole', () => {
+    test('Applicant 1 can intend to switch to sole', () => {
+      const userCase = {
+        applicant1CanIntendToSwitchToSoleFo: YesOrNo.YES,
+        applicant2CanIntendToSwitchToSoleFo: YesOrNo.NO,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = false;
+      let expected = true;
+      let actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = true;
+      expected = false;
+      actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+    });
+
+    test('Applicant 2 can intend to switch to sole', () => {
+      const userCase = {
+        applicant1CanIntendToSwitchToSoleFo: YesOrNo.NO,
+        applicant2CanIntendToSwitchToSoleFo: YesOrNo.YES,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = true;
+      let expected = true;
+      let actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = false;
+      expected = false;
+      actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
     });
   });
 
