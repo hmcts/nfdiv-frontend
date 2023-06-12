@@ -7,7 +7,7 @@ import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
-import { hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
+import { canIntendToSwitchToSoleFo, hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
 import { getSwitchToSoleFoStatus } from '../../../common/switch-to-sole-content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HOW_TO_FINALISE_APPLICATION } from '../../../urls';
@@ -325,9 +325,7 @@ export const generateContent: TranslationFn = content => {
   const finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days =
     hasApplicantAppliedForFoFirst(userCase, isApplicant2) &&
     dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
-    dayjs().isAfter(
-      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-    ) &&
+    canIntendToSwitchToSoleFo(userCase, isApplicant2) &&
     userCase.state === State.AwaitingJointFinalOrder;
 
   const isFinalOrderAwaitingOrOverdue =

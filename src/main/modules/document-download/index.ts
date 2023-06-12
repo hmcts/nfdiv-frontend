@@ -4,7 +4,7 @@ import { Application } from 'express';
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 import { AppRequest } from '../../app/controller/AppRequest';
 
-import { isCdamEnabled, proxyList } from './proxy-list';
+import { proxyList } from './proxy-list';
 
 const proxy = require('express-http-proxy');
 
@@ -13,20 +13,14 @@ export class DocumentDownloadMiddleware {
     for (const downloadProxy of proxyList) {
       app.use(
         downloadProxy.endpoints,
-        proxy(config.get(`services.${isCdamEnabled() ? 'caseDocumentManagement' : 'documentManagement'}.url`), {
+        proxy(config.get('services.caseDocumentManagement.url'), {
           proxyReqPathResolver: downloadProxy.path,
-          proxyReqOptDecorator: isCdamEnabled() ? this.addCdamHeaders : this.addDmHeaders,
+          proxyReqOptDecorator: this.addCdamHeaders,
           secure: false,
           changeOrigin: true,
         })
       );
     }
-  }
-
-  addDmHeaders(proxyReqOpts: { headers: Record<string, unknown> }): { headers: Record<string, unknown> } {
-    proxyReqOpts.headers['ServiceAuthorization'] = getServiceAuthToken();
-    proxyReqOpts.headers['user-roles'] = ['caseworker'];
-    return proxyReqOpts;
   }
 
   addCdamHeaders(
