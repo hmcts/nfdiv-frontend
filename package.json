@@ -139,5 +139,8 @@
     "webpack-dev-middleware": "^6.0.2",
     "webpack-node-externals": "^3.0.0"
   },
+  "resolutions": {
+    "http-cache-semantics": "4.1.1"
+  },
   "packageManager": "yarn@3.4.1"
 }
