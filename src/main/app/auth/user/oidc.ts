@@ -1,5 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import Axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import jwt_decode from 'jwt-decode';
 import NodeCache from 'node-cache';
@@ -87,7 +87,7 @@ const createIdamToken = (params: Record<string, string>): Promise<AxiosResponse<
   } else {
     throw new Error('Missing data for createIdamToken.');
   }
-  return Axios.post(tokenUrl, data, { headers });
+  return axios.post(tokenUrl, data, { headers });
 };
 
 export const getIdamToken = async (
