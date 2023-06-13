@@ -13,11 +13,14 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 }
 
 module "nfdiv-frontend-session-storage" {
-  source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  source   = "git@github.com:hmcts/cnp-module-redis?ref=add-redis-version-flag"
   product  = "${var.product}-${var.component}-redis"
   location = var.location
   env      = var.env
-  subnetid = data.azurerm_subnet.core_infra_redis_subnet.id
+  private_endpoint_enabled = true
+  redis_version = "6"
+  business_area = "cft"
+  public_network_access_enabled = false
   common_tags  = var.common_tags
 }
 
