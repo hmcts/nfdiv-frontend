@@ -1,5 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import Axios from 'axios';
+import axios from 'axios';
 import config from 'config';
 import { authenticator } from 'otplib';
 
@@ -15,7 +15,8 @@ export const getTokenFromApi = (): void => {
   const oneTimePassword = authenticator.generate(secret);
   const body = { microservice, oneTimePassword };
 
-  Axios.post(url, body)
+  axios
+    .post(url, body)
     .then(response => (token = response.data))
     .catch(err => logger.error(err.response?.status, err.response?.data));
 };

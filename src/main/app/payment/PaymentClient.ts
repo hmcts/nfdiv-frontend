@@ -1,5 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import Axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
 import { SupportedLanguages } from '../../modules/i18n';
@@ -13,7 +13,7 @@ export class PaymentClient {
   client: AxiosInstance;
 
   constructor(private readonly session: AppSession, readonly returnUrl: string) {
-    this.client = Axios.create({
+    this.client = axios.create({
       baseURL: config.get('services.payments.url'),
       headers: {
         Authorization: 'Bearer ' + session.user.accessToken,

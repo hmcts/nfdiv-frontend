@@ -18,6 +18,7 @@ describe('TimedOutGetController', () => {
     expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...controller.getPageContent(req, res, language),
       ...defaultViewArgs,
+      isAmendableStates: undefined,
     });
   });
 });

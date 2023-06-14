@@ -1,7 +1,7 @@
 import config from 'config';
 import * as express from 'express';
 import { Express, RequestHandler } from 'express';
-import helmet from 'helmet';
+import helmet, { contentSecurityPolicy, referrerPolicy } from 'helmet';
 
 const googleAnalyticsDomain = '*.google-analytics.com';
 const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
@@ -81,7 +81,7 @@ export class Helmet {
     }
 
     app.use(
-      helmet.contentSecurityPolicy({
+      contentSecurityPolicy({
         directives: {
           connectSrc,
           defaultSrc: ["'none'"],
@@ -101,6 +101,6 @@ export class Helmet {
       throw new Error('Referrer policy configuration is required');
     }
 
-    app.use(helmet.referrerPolicy({ policy }) as RequestHandler);
+    app.use(referrerPolicy({ policy }) as RequestHandler);
   }
 }
