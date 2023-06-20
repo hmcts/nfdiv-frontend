@@ -287,7 +287,8 @@ export const generateCommonContent = ({
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isAmendableStates =
     userCase &&
-    [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state!);
+    userCase.state &&
+    [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
 
   return {
@@ -315,6 +316,6 @@ export type CommonContent = typeof en & {
   userEmail?: string;
   isJointApplication: boolean;
   referenceNumber?: string;
-  isAmendableStates: boolean;
+  isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
 };

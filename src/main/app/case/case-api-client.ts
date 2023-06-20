@@ -1,4 +1,4 @@
-import Axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
@@ -13,7 +13,7 @@ import { fromApiFormat } from './from-api-format';
 export class CaseApiClient {
   readonly maxRetries: number = 3;
 
-  constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
+  constructor(private readonly server: AxiosInstance, private readonly logger: LoggerInstance) {}
 
   public async findExistingUserCases(caseType: string, serviceType: string): Promise<CcdV1Response[] | false> {
     const query = {
@@ -48,7 +48,7 @@ export class CaseApiClient {
 
   private async findUserCases(caseType: string, serviceType: string, query: string): Promise<CcdV1Response[] | false> {
     try {
-      const response = await this.axios.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, query);
+      const response = await this.server.post<ES<CcdV1Response>>(`/searchCases?ctid=${caseType}`, query);
       return caseType === 'DIVORCE'
         ? response.data.cases
         : response.data.cases.filter(c => c.case_data.divorceOrDissolution === serviceType);
@@ -63,7 +63,7 @@ export class CaseApiClient {
 
   public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
-      const response = await this.axios.get<CcdV2Response>(`/cases/${caseId}`);
+      const response = await this.server.get<CcdV2Response>(`/cases/${caseId}`);
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
@@ -73,7 +73,7 @@ export class CaseApiClient {
   }
 
   public async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
-    const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.axios.get(
+    const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.server.get(
       `/case-types/${CASE_TYPE}/event-triggers/${CITIZEN_CREATE}`
     );
     const token = tokenResponse.data.token;
@@ -86,7 +86,7 @@ export class CaseApiClient {
     };
 
     try {
-      const response = await this.axios.post<CcdV2Response>(`/case-types/${CASE_TYPE}/cases`, {
+      const response = await this.server.post<CcdV2Response>(`/case-types/${CASE_TYPE}/cases`, {
         data,
         event,
         event_token: token,
@@ -101,7 +101,7 @@ export class CaseApiClient {
 
   public async getCaseUserRoles(caseId: string, userId: string): Promise<CaseAssignedUserRoles> {
     try {
-      const response = await this.axios.get<CaseAssignedUserRoles>(`case-users?case_ids=${caseId}&user_ids=${userId}`);
+      const response = await this.server.get<CaseAssignedUserRoles>(`case-users?case_ids=${caseId}&user_ids=${userId}`);
       return response.data;
     } catch (err) {
       this.logError(err);
@@ -111,10 +111,10 @@ export class CaseApiClient {
 
   public async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string, retries = 0): Promise<CaseWithId> {
     try {
-      const tokenResponse = await this.axios.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
+      const tokenResponse = await this.server.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
       const token = tokenResponse.data.token;
       const event = { id: eventName };
-      const response: AxiosResponse<CcdV2Response> = await this.axios.post(`/cases/${caseId}/events`, {
+      const response: AxiosResponse<CcdV2Response> = await this.server.post(`/cases/${caseId}/events`, {
         event,
         data,
         event_token: token,
@@ -134,10 +134,10 @@ export class CaseApiClient {
 
   private logError(error: AxiosError) {
     if (error.response) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
       this.logger.info('Response: ', error.response.data);
     } else if (error.request) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
     } else {
       this.logger.error('API Error', error.message);
     }
@@ -146,7 +146,7 @@ export class CaseApiClient {
 
 export const getCaseApiClient = (userDetails: UserDetails, logger: LoggerInstance): CaseApiClient => {
   return new CaseApiClient(
-    Axios.create({
+    axios.create({
       baseURL: config.get('services.case.url'),
       headers: {
         Authorization: 'Bearer ' + userDetails.accessToken,

@@ -1,13 +1,24 @@
 import config from 'config';
 import * as express from 'express';
 import { Express, RequestHandler } from 'express';
-import helmet from 'helmet';
+import helmet, { contentSecurityPolicy, referrerPolicy } from 'helmet';
 
 const googleAnalyticsDomain = '*.google-analytics.com';
 const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
 const azureBlob = '*.blob.core.windows.net';
 const doubleclick = 'stats.g.doubleclick.net';
 const self = "'self'";
+
+type ReferrerPolicyToken =
+  | 'no-referrer'
+  | 'no-referrer-when-downgrade'
+  | 'same-origin'
+  | 'origin'
+  | 'strict-origin'
+  | 'origin-when-cross-origin'
+  | 'strict-origin-when-cross-origin'
+  | 'unsafe-url'
+  | '';
 
 /**
  * Module that enables helmet in the application
@@ -70,7 +81,7 @@ export class Helmet {
     }
 
     app.use(
-      helmet.contentSecurityPolicy({
+      contentSecurityPolicy({
         directives: {
           connectSrc,
           defaultSrc: ["'none'"],
@@ -85,11 +96,11 @@ export class Helmet {
     );
   }
 
-  private setReferrerPolicy(app: express.Express, policy: string): void {
+  private setReferrerPolicy(app: express.Express, policy: ReferrerPolicyToken): void {
     if (!policy) {
       throw new Error('Referrer policy configuration is required');
     }
 
-    app.use(helmet.referrerPolicy({ policy }) as RequestHandler);
+    app.use(referrerPolicy({ policy }) as RequestHandler);
   }
 }
