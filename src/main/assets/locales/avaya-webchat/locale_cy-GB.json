@@ -1,58 +1,58 @@
 {
-  "iconAltText": "Web chat icon",
-  "hideChat": "Hide",
-  "noAvailableAgents": "No Advisors are currently available",
-  "contactCenterClosed": "The Contact Center is closed",
-  "connectionLost": "Connection lost",
-  "connected": "Connected",
-  "failedToSendRequest": "Something failed while sending the request",
+  "iconAltText": "Eicon sgwrsio dros y we",
+  "hideChat": "Cuddio",
+  "noAvailableAgents": "Nid oes Cynghorwyr ar gael ar hyn o bryd",
+  "contactCenterClosed": "Mae'r Ganolfan Gyswllt ar gau",
+  "connectionLost": "Cysylltiad wedi'i golli",
+  "connected": "Wedi cysylltu",
+  "failedToSendRequest": "Aeth rhywbeth o'i le wrth anfon y cais",
   "form": {
-    "title": "Before I transfer you to an adviser, complete the form below",
+    "title": "Cyn i mi eich trosglwyddo i gynghorydd, gofynnir i chi lenwi'r ffurflen isod ",
     "nameField": {
-      "title": "Name",
-      "placeholder": "Your name..."
+      "title": "Enw",
+      "placeholder": "Eich enw..."
     },
     "emailField": {
-      "title": "Email",
-      "placeholder": "Your email...",
-      "validationError": "Please enter a valid email address"
+      "title": "E-bost",
+      "placeholder": "Eich e-bost...",
+      "validationError": "Rhowch gyfeiriad e-bost dilys"
     },
     "caseIdField": {
-      "title": "Case Id",
-      "placeholder": "Your case Id..."
+      "title": "Rhif adnabod yr achos",
+      "placeholder": "Eich rhif achos..."
     },
     "serviceField": {
-      "title": "Service",
-      "placeholder": "Select service..."
+      "title": "Gwasanaeth",
+      "placeholder": "Dewiswch wasanaeth..."
     },
     "reasonForContactField": {
-      "title": "Reason for contact",
-      "placeholder": "Briefly tell us how we can help you..."
+      "title": "Rheswm dros gysylltu",
+      "placeholder": "Yn gryno, dywedwch wrthym sut y gallwn eich helpu..."
     },
     "transcriptField": {
-      "title": "Email the transcript to me"
+      "title": "Anfonwch y trawsgrifiad ataf ar e-bost"
     },
-    "startChat": "Start chat"
+    "startChat": "Dechrau sgwrs"
   },
   "chat": {
-    "waitingForParticipant": "Waiting for participant...",
-    "ewtUpdateStatus": "An Advisor will be with you in approximately {{time}}",
-    "ewtUpdateTimestamp": "Last updated: {{update}}",
-    "ewtAgentAvailableSoon": "An Advisor will be with you in less than one minute",
-    "ewtLongWait": "An Advisor will be with you in {{hours}} hours, {{minutes}} minutes and {{seconds}} seconds",
-    "ewtShortWait": "An Advisor will be with you in {{minutes}} minutes and {{seconds}} seconds",
-    "legalAdviceNotice": "Please note, the Web Chat Advisor cannot provide you with legal advice.",
-    "chatEndedNotice": "The customer has ended this conversation.",
-    "messageFieldPlaceholder": "Your message...",
-    "sendMessage": "Send message",
-    "agentIsTyping": "Advisor is typing...",
-    "conversationEnded": "The chat session has ended but you can start a new one if you need more help",
-    "startNewSession": "Start new session",
-    "endChat": "End chat",
+    "waitingForParticipant": "Aros am y cyfranogwr...",
+    "ewtUpdateStatus": "Bydd Cynghorydd gyda chi mewn oddeutu {{time}}!",
+    "ewtUpdateTimestamp": "Last updated: {{update}}!",
+    "ewtAgentAvailableSoon": "Bydd Cynghorydd gyda chi mewn llai na munud",
+    "ewtLongWait": "Bydd Cynghorydd gyda chi mewn {{hours}} awr, {{minutes}} munud a {{seconds}} eiliad",
+    "ewtShortWait": "Bydd Cynghorydd gyda chi mewn {{minutes}} munud a {{seconds}} eiliad",
+    "legalAdviceNotice": "Sylwer, ni all y Cynghorydd Sgwrsio Dros y We roi cyngor cyfreithiol i chi.",
+    "chatEndedNotice": "Mae'r cwsmer wedi dod a'r sgwrs hon i ben.",
+    "messageFieldPlaceholder": "Eich neges...",
+    "sendMessage": "Anfon y neges,",
+    "agentIsTyping": "Mae'rAsiantYnTeipio....",
+    "conversationEnded": "Mae'r sesiwn sgwrsio wedi dod i ben ond gallwch ddechrau sgwrs newydd os ydych angen rhagor o gymorth",
+    "startNewSession": "Dechrau sesiwn newydd",
+    "endChat": "Dod a'r sgwrs i ben,",
     "prompt": {
-      "message": "If you leave the chat you will lose your place in the queue. Are you sure?",
-      "yes": "Yes",
-      "no": "No"
+      "message": "Os byddwch yn gadael y sgwrs yna byddwch yn colli eich lle yn y ciw. Ydych chi'n siwr?",
+      "yes": "Ydw",
+      "no": "Nac ydw"
     }
   }
 }
