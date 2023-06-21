@@ -35,7 +35,7 @@ resource "azurerm_key_vault_secret" "redis_access_key" {
 module "nfdiv-frontend-redis6" {
   source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product  = var.product
-  name     = "${var.product}-${var.component}"
+  name     = "${var.product}-${var.component}-${var.env}"
   location = var.location
   env      = var.env
   private_endpoint_enabled = true
