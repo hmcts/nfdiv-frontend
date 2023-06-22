@@ -17,7 +17,8 @@ nodejs:
         - idam-secret
         - name: AppInsightsInstrumentationKey-Preview
           alias: AppInsightsInstrumentationKey
-        - redis-access-key
+        - name: redis6-access-key
+          alias: redis-access-key
         - frontend-secret
         - os-places-token
         - idam-systemupdate-username
