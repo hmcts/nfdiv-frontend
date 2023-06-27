@@ -2406,19 +2406,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:^3.0.4":
-  version: 3.2.0
-  resolution: "@uppy/core@npm:3.2.0"
+"@uppy/core@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "@uppy/core@npm:3.2.1"
   dependencies:
     "@transloadit/prettier-bytes": 0.0.9
     "@uppy/store-default": ^3.0.3
-    "@uppy/utils": ^5.3.0
-    lodash.throttle: ^4.1.1
+    "@uppy/utils": ^5.4.0
+    lodash: ^4.17.21
     mime-match: ^1.0.2
     namespace-emitter: ^2.0.1
     nanoid: ^4.0.0
     preact: ^10.5.13
-  checksum: 7924e3023d9a3481b117cc9213e9615fbae451be76892422eb6b00ac387fde59d58492a64fe57fa71425be3e7519bec6ecf3872a9b063796649ffa611863dfb5
+  checksum: 886aef81bf6bfef8c606678c1f453fb50d5b538636a4cb43f648be275e824a48dd7cbf101d82f7d6466971db2cfb953519acb6eff26c93db94186b037024af70
   languageName: node
   linkType: hard
 
@@ -9655,7 +9655,7 @@ __metadata:
     "@types/uuid": ^9.0.2
     "@typescript-eslint/eslint-plugin": ^5.60.1
     "@typescript-eslint/parser": ^5.60.1
-    "@uppy/core": ^3.0.4
+    "@uppy/core": ^3.2.1
     "@uppy/drop-target": ^2.0.1
     "@uppy/file-input": ^3.0.1
     "@uppy/progress-bar": ^3.0.1
