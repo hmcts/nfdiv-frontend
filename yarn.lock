@@ -5881,15 +5881,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-nunjucks@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "express-nunjucks@npm:3.0.1"
+"express-nunjucks@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "express-nunjucks@npm:3.1.0"
   dependencies:
     nunjucks-async-loader: ^2.0.0
   peerDependencies:
     express: ^4.18.2
     nunjucks: ^3.2.4
-  checksum: e61cde14777e9dcfc6a68ff350ad562c767d17fb49df783b30bec6457d8cd9d59b97a03477020211f1b30e6fdf768e15293b88208212ce8e373115ca596cae3f
+  checksum: c145d1cfebcad1d263b8db91acbc86289d9a0cd27dcd32d3081ffbe5b489fea912e79f978942090c746d94ed677a828cd051bdf305d170a9e06981046c75225e
   languageName: node
   linkType: hard
 
@@ -9676,7 +9676,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     express: ^4.18.2
     express-http-proxy: ^1.6.3
-    express-nunjucks: ^3.0.1
+    express-nunjucks: ^3.1.0
     express-session: ^1.17.3
     form-data: ^4.0.0
     glob: ^10.2.7
