@@ -1,16 +1,4 @@
 {
-  "enabledManagers": ["helm-requirements", "nvm", "terraform"],
-  "labels": ["dependencies"],
-  "helm-requirements": {
-    "fileMatch": ["\\Chart.yaml$"],
-    "aliases": {
-      "hmctspublic": "https://hmctspublic.azurecr.io/helm/v1/repo/"
-    }
-  },
-  "packageRules": [
-    {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": true
-    }
-  ]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>hmcts/.github//renovate/automerge-all", "local>hmcts/.github:renovate-config"]
 }
