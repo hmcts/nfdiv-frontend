@@ -1,11 +1,16 @@
 {
   "enabledManagers": ["helm-requirements", "nvm", "terraform"],
-  "automerge": true,
   "labels": ["dependencies"],
   "helm-requirements": {
     "fileMatch": ["\\Chart.yaml$"],
     "aliases": {
       "hmctspublic": "https://hmctspublic.azurecr.io/helm/v1/repo/"
     }
-  }
+  },
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ]
 }
