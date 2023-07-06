@@ -45,7 +45,6 @@ export class DocumentDownloadMiddleware {
   }
 }
 
-// user not logged in error
 class UserNotLoggedInError extends Error {
   constructor() {
     super('Error downloading document. User not logged in.');
