@@ -49,7 +49,7 @@ new Nunjucks().enableFor(app);
 new WebpackDev().enableFor(app);
 new Helmet().enableFor(app);
 new AppInsights().enable();
-new SessionStorage().enableFor(app);
+new SessionStorage().enableFor(app, logger);
 new TooBusy().enableFor(app);
 new HealthCheck().enableFor(app);
 new CSRFToken().enableFor(app);

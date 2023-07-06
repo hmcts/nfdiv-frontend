@@ -1,9 +1,9 @@
 jest.mock('axios');
 jest.mock('@hmcts/nodejs-logging');
-jest.useFakeTimers('legacy');
+jest.useFakeTimers({ legacyFakeTimers: true });
 
 import { Logger } from '@hmcts/nodejs-logging';
-import Axios, { AxiosStatic } from 'axios';
+import axios, { AxiosStatic } from 'axios';
 const logger = {
   info: jest.fn(),
   error: jest.fn(),
@@ -12,7 +12,7 @@ Logger.getLogger.mockReturnValue(logger);
 
 import { getFee, initFees } from './get-fee';
 
-const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
+const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 
 describe('initFees', () => {
   test('Should set an interval to start fetching a token', () => {

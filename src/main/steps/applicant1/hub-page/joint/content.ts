@@ -7,7 +7,7 @@ import { State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
-import { hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
+import { canIntendToSwitchToSoleFo, hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
 import { getSwitchToSoleFoStatus } from '../../../common/switch-to-sole-content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HOW_TO_FINALISE_APPLICATION } from '../../../urls';
@@ -259,16 +259,16 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     line2: "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu.",
   },
   awaitingJointFinalOrderOrFinalOrderOverdue: {
-    line1: `Your ${partner} has not yet applied for a final order. They also have to apply so your ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } can be finalised jointly.`,
-    subHeading: 'What you can do',
-    line2: `You should contact your ${partner} and ask them to apply, if it’s safe to do so.`,
-    line3: `If you do not think they will confirm the application then you can ${
-      isDivorce ? 'finalise your divorce' : 'end your civil partnership'
+    line1: `Nid yw eich ${partner} wedi gwneud cais am orchymyn terfynol o hyd. Mae'n rhaid iddo/iddi hefyd wneud cais fel y gellir cadarnhau eich ${
+      isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    } ar y cyd.`,
+    subHeading: 'Beth allwch chi ei wneud',
+    line2: `Dylech gysylltu â'ch ${partner} a gofyn iddo/iddi wneud cais, os yw'n ddiogel i chi wneud hynny. `,
+    line3: `Os nad ydych yn credu y bydd yn caniatáu'r cais yna gallwch ${
+      isDivorce ? 'gadarnhau eich ysgariad' : 'ddod â’ch partneriaeth sifil i ben'
     }`,
     link: `${isApplicant2 ? `${APPLICANT_2}${HOW_TO_FINALISE_APPLICATION}` : HOW_TO_FINALISE_APPLICATION}`,
-    linkText: ' as a sole applicant',
+    linkText: ' fel unig geisydd.',
   },
   finalOrderComplete: {
     line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
@@ -325,9 +325,7 @@ export const generateContent: TranslationFn = content => {
   const finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days =
     hasApplicantAppliedForFoFirst(userCase, isApplicant2) &&
     dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
-    dayjs().isAfter(
-      dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-    ) &&
+    canIntendToSwitchToSoleFo(userCase, isApplicant2) &&
     userCase.state === State.AwaitingJointFinalOrder;
 
   const isFinalOrderAwaitingOrOverdue =

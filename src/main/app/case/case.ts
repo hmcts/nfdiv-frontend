@@ -61,14 +61,22 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2FullNameOnCertificate: 'marriageApplicant2Name',
   applicant1ConfirmReceipt: 'applicant1ConfirmReceipt',
   applicant2ConfirmReceipt: 'applicant2ConfirmReceipt',
-  applicant1LastNameChangedWhenRelationshipFormed: 'applicant1LastNameChangedWhenMarried',
-  applicant2LastNameChangedWhenRelationshipFormed: 'applicant2LastNameChangedWhenMarried',
-  applicant1NameChangedSinceRelationshipFormed: 'applicant1NameDifferentToMarriageCertificate',
-  applicant2NameChangedSinceRelationshipFormed: 'applicant2NameDifferentToMarriageCertificate',
+  applicant1LastNameChangedWhenMarried: 'applicant1LastNameChangedWhenMarried',
+  applicant1NameDifferentToMarriageCertificate: 'applicant1NameDifferentToMarriageCertificate',
   applicant1NameChangedHow: 'applicant1NameChangedHow',
-  applicant1ChangedNameHowAnotherWay: 'applicant1NameChangedHowOtherDetails',
+  applicant1NameChangedHowOtherDetails: 'applicant1NameChangedHowOtherDetails',
+  applicant1LastNameChangedWhenMarriedMethod: 'applicant1LastNameChangedWhenMarriedMethod',
+  applicant1LastNameChangedWhenMarriedOtherDetails: 'applicant1LastNameChangedWhenMarriedOtherDetails',
+  applicant1NameDifferentToMarriageCertificateMethod: 'applicant1NameDifferentToMarriageCertificateMethod',
+  applicant1NameDifferentToMarriageCertificateOtherDetails: 'applicant1NameDifferentToMarriageCertificateOtherDetails',
+  applicant2LastNameChangedWhenMarried: 'applicant2LastNameChangedWhenMarried',
+  applicant2NameDifferentToMarriageCertificate: 'applicant2NameDifferentToMarriageCertificate',
   applicant2NameChangedHow: 'applicant2NameChangedHow',
-  applicant2ChangedNameHowAnotherWay: 'applicant2NameChangedHowOtherDetails',
+  applicant2NameChangedHowOtherDetails: 'applicant2NameChangedHowOtherDetails',
+  applicant2LastNameChangedWhenMarriedMethod: 'applicant2LastNameChangedWhenMarriedMethod',
+  applicant2LastNameChangedWhenMarriedOtherDetails: 'applicant2LastNameChangedWhenMarriedOtherDetails',
+  applicant2NameDifferentToMarriageCertificateMethod: 'applicant2NameDifferentToMarriageCertificateMethod',
+  applicant2NameDifferentToMarriageCertificateOtherDetails: 'applicant2NameDifferentToMarriageCertificateOtherDetails',
   applicant1Email: 'applicant1Email',
   applicant2Email: 'applicant2Email',
   applicant2EmailAddress: 'applicant2InviteEmailAddress',
@@ -145,6 +153,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   doesApplicant2IntendToSwitchToSole: 'doesApplicant2IntendToSwitchToSole',
   dateApplicant2DeclaredIntentionToSwitchToSoleFo: 'dateApplicant2DeclaredIntentionToSwitchToSoleFo',
   finalOrderSwitchedToSole: 'finalOrderSwitchedToSole',
+  applicant1CanIntendToSwitchToSoleFo: 'applicant1CanIntendToSwitchToSoleFo',
+  applicant2CanIntendToSwitchToSoleFo: 'applicant2CanIntendToSwitchToSoleFo',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -231,14 +241,22 @@ export interface Case {
   applicant2AddressCounty?: string;
   applicant2AddressPostcode?: string;
   applicant2AddressCountry?: string;
-  applicant1LastNameChangedWhenRelationshipFormed?: YesOrNo;
-  applicant2LastNameChangedWhenRelationshipFormed?: YesOrNo;
-  applicant1NameChangedSinceRelationshipFormed?: YesOrNo;
-  applicant2NameChangedSinceRelationshipFormed?: YesOrNo;
+  applicant1LastNameChangedWhenMarried?: YesOrNo;
+  applicant1LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
+  applicant1LastNameChangedWhenMarriedOtherDetails?: string;
+  applicant1NameDifferentToMarriageCertificate?: YesOrNo;
+  applicant1NameDifferentToMarriageCertificateMethod?: ChangedNameHow[];
+  applicant1NameDifferentToMarriageCertificateOtherDetails?: string;
   applicant1NameChangedHow?: ChangedNameHow[];
+  applicant1NameChangedHowOtherDetails?: string;
+  applicant2LastNameChangedWhenMarried?: YesOrNo;
+  applicant2LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
+  applicant2LastNameChangedWhenMarriedOtherDetails?: string;
+  applicant2NameDifferentToMarriageCertificate?: YesOrNo;
+  applicant2NameDifferentToMarriageCertificateMethod?: ChangedNameHow[];
+  applicant2NameDifferentToMarriageCertificateOtherDetails?: string;
   applicant2NameChangedHow?: ChangedNameHow[];
-  applicant1ChangedNameHowAnotherWay?: string;
-  applicant2ChangedNameHowAnotherWay?: string;
+  applicant2NameChangedHowOtherDetails?: string;
   applicant1Email?: string;
   applicant2Email?: string;
   applicant2EmailAddress?: string;
@@ -346,6 +364,8 @@ export interface Case {
   doesApplicant2IntendToSwitchToSole: YesOrNo;
   dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
   finalOrderSwitchedToSole: YesOrNo;
+  applicant1CanIntendToSwitchToSoleFo: YesOrNo;
+  applicant2CanIntendToSwitchToSoleFo: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

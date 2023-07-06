@@ -42,7 +42,7 @@ export class FileUploadEvents {
     }
     const uploadInfo = uppy.getState();
     if (result.failed.length || !result.successful.length || uploadInfo.info?.[0]?.message) {
-      return this.onError(uploadInfo.info![0]);
+      return this.onError({ name: 'Upload error', ...(uploadInfo.info ? uploadInfo.info[0] : new Error()) });
     }
 
     uploadGroupEl?.scrollIntoView({ block: 'center' });
