@@ -114,8 +114,8 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
    Applying for a ‘contested financial order’ costs ${getFee(
      config.get('fees.financialOrder')
    )}. Applying for a ‘financial order by consent’ costs ${getFee(
-    config.get('fees.consentOrder')
-  )}. You can get a solicitor to draft these for you.
+     config.get('fees.consentOrder')
+   )}. You can get a solicitor to draft these for you.
   <br><br>If you are not sure what to do then you should seek legal advice. `,
   subHeading7: "Applicant 1's correspondence address",
   applicantAddressCountry: `${

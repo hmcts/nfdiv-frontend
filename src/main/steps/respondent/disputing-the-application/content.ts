@@ -24,8 +24,8 @@ const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
     dayjs(userCase.issueDate).add(config.get('dates.disputeDueDateOffsetDays'), 'day')
   )} to submit the form. If you do not submit the form by the deadline,
    then your ${partner} will usually be able to continue with the ${
-    isDivorce ? 'divorce' : 'application to end your civil partnership'
-  }.`,
+     isDivorce ? 'divorce' : 'application to end your civil partnership'
+   }.`,
   line3: `The only valid reasons for disputing the ${
     isDivorce ? 'divorce' : 'ending of your civil partnership'
   } are because (one or more of the following):`,
@@ -64,8 +64,8 @@ const cy: typeof en = ({ isDivorce, partner, userCase }: CommonContent) => ({
     SupportedLanguages.Cy
   )} i gyflwyno’r ffurflen. Os na fyddwch yn cyflwyno’r ffurflen erbyn y dyddiad hwn,
     yna bydd eich ${partner} fel arfer yn gallu parhau â’r cais ${
-    isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
-  }.`,
+      isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
+    }.`,
   line3: `Yr unig resymau dilys dros herio’r ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil'
   } yw oherwydd (os yw un neu fwy o’r canlynol yn berthnasol):`,

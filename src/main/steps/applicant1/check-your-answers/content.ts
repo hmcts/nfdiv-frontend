@@ -53,10 +53,10 @@ const getEnHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivor
         config.get('fees.applicationFee')
       )}.
   You will not be asked to pay the fee. Your ${checkTheirAnswersPartner} will be asked to pay. ${
-        applicant1HelpPayingNeeded === YesOrNo.YES
-          ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
-          : 'They have said that they do not need help paying the fee.'
-      }`,
+    applicant1HelpPayingNeeded === YesOrNo.YES
+      ? 'They have said that they need help paying the fee. They can only use help if you apply too. That is why you were asked whether you needed help paying the fee.'
+      : 'They have said that they do not need help paying the fee.'
+  }`,
     },
   ];
 
@@ -72,10 +72,10 @@ const getCyHelpWithFeesMoreDetailsContent = (applicant1HelpPayingNeeded, isDivor
         config.get('fees.applicationFee')
       )}.
   Ni ofynnir i chi dalu'r ffi. Gofynnir i'ch ${checkTheirAnswersPartner} dalu. ${
-        applicant1HelpPayingNeeded === YesOrNo.YES
-          ? "Maent wedi dweud bod angen help arnynt i dalu'r ffi. Gallant ond gael help i dalu ffioedd os byddwch chi yn gwneud cais hefyd. Dyna pam y gofynnwyd ichi a oedd angen help arnoch i dalu'r ffi."
-          : "Maent wedi dweud nad oes angen help arnynt i dalu'r ffi."
-      }`,
+    applicant1HelpPayingNeeded === YesOrNo.YES
+      ? "Maent wedi dweud bod angen help arnynt i dalu'r ffi. Gallant ond gael help i dalu ffioedd os byddwch chi yn gwneud cais hefyd. Dyna pam y gofynnwyd ichi a oedd angen help arnoch i dalu'r ffi."
+      : "Maent wedi dweud nad oes angen help arnynt i dalu'r ffi."
+  }`,
     },
   ];
 

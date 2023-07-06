@@ -12,7 +12,10 @@ const logger = Logger.getLogger('payment');
 export class PaymentClient {
   client: AxiosInstance;
 
-  constructor(private readonly session: AppSession, readonly returnUrl: string) {
+  constructor(
+    private readonly session: AppSession,
+    readonly returnUrl: string
+  ) {
     this.client = axios.create({
       baseURL: config.get('services.payments.url'),
       headers: {
