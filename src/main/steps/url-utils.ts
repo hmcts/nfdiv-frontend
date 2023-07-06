@@ -13,6 +13,7 @@ import {
   RESIDUAL_JURISDICTION,
   RESPONDENT,
   TERMS_AND_CONDITIONS_URL,
+  TIMED_OUT_URL,
   WEBCHAT_URL,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
 } from './urls';
@@ -25,6 +26,7 @@ export const signInNotRequired = (reqPath: string): boolean =>
     PRIVACY_POLICY_URL,
     TERMS_AND_CONDITIONS_URL,
     WEBCHAT_URL,
+    TIMED_OUT_URL,
   ].includes(reqPath as PageLink);
 
 export const isLinkingUrl = (reqPath: string): boolean =>
