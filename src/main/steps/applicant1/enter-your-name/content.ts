@@ -32,7 +32,7 @@ const cy: typeof en = () => {
   return {
     title: 'Nodwch eich enw',
     line1: 'Mae’r llys angen gwybod eich enw llawn.',
-    insetText: 'You must enter your middle name if you have one.',
+    insetText: 'Rhaid ichi nodi eich enw canol os oes gennych un.',
     firstNames: 'Eich enw(au) cyntaf',
     middleNames: 'Eich enw(au) canol (os oes gennych un)',
     lastNames: 'Eich cyfenw(au)',

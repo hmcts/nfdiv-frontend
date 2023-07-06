@@ -13,7 +13,10 @@ import { fromApiFormat } from './from-api-format';
 export class CaseApiClient {
   readonly maxRetries: number = 3;
 
-  constructor(private readonly server: AxiosInstance, private readonly logger: LoggerInstance) {}
+  constructor(
+    private readonly server: AxiosInstance,
+    private readonly logger: LoggerInstance
+  ) {}
 
   public async findExistingUserCases(caseType: string, serviceType: string): Promise<CcdV1Response[] | false> {
     const query = {

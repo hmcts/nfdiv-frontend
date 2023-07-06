@@ -36,8 +36,8 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   applicationSubmittedLatestUpdate: {
     line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
   and checked by court staff. It has been sent to you and your ${partner} by ${
-      userCase.applicant1AgreeToReceiveEmails ? 'email' : 'post'
-    }.`,
+    userCase.applicant1AgreeToReceiveEmails ? 'email' : 'post'
+  }.`,
     line2: `You should confirm that you have received your application ${
       isDivorce ? 'for divorce' : 'to end your civil partnership'
     }.`,
