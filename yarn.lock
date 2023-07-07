@@ -10130,6 +10130,7 @@ __metadata:
     serve-favicon: ^2.5.0
     session-file-store: ^1.5.0
     sonar-scanner: ^3.1.0
+    striptags: ^3.2.0
     style-loader: ^3.3.3
     toobusy-js: ^0.5.1
     ts-jest: ^29.1.0
@@ -12969,6 +12970,13 @@ __metadata:
   dependencies:
     escape-string-regexp: ^1.0.2
   checksum: f8d65d33ca2b49aabc66bb41d689dda7b8b9959d320e3a40a2ef4d7079ff2f67ffb72db43f179f48dbf9495c2e33742863feab7a584d180fa62505439162c191
+  languageName: node
+  linkType: hard
+
+"striptags@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "striptags@npm:3.2.0"
+  checksum: 1b1f127ab46394665bd4f4dc3dc10f5f98c012cbdea93a68b10d78693671e98efc9ae7609f546af997ae0a02b81a5c9b7b916fa119482c31741406cdabaebf3b
   languageName: node
   linkType: hard
 

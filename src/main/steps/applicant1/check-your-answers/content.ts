@@ -1,4 +1,5 @@
 import config from 'config';
+import striptags from 'striptags';
 
 import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
@@ -135,7 +136,7 @@ const cannotUploadDocumentList = (
   return applicant1CannotUploadDocuments.map(document => documentText[document]).join('<br>');
 };
 
-const stripTags = value => (typeof value === 'string' ? value.replace(/(<([^>]+)>)/gi, '') : value);
+const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 
 const en = ({
   isDivorce,
