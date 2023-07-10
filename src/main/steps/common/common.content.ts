@@ -239,7 +239,7 @@ const cy: typeof en = {
     'Mae ein cynghorwyr i gyd yn brysur ar hyn o bryd.  Rhowch gynnig arall arni ymhen ychydig o funudau.',
   helpChatClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd.',
   helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltwch â ni dros y ffôn neu e-bost.',
-  webChatTitle: 'Gofyn cwestiwn i wasanaeth sgwrsio dros y we y gwasanaeth ysgaru',
+  webChatTitle: 'Sgwrsio dros y we gyda’r Gwasanaeth Ysgaru',
   allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
   useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
   doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
