@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Application } from 'express';
 
@@ -7,6 +8,7 @@ import { TIMED_OUT_URL } from '../../steps/urls';
 
 import { proxyList } from './proxy-list';
 
+const log = Logger.getLogger('document-download');
 const proxy = require('express-http-proxy');
 
 export class DocumentDownloadMiddleware {
@@ -21,6 +23,9 @@ export class DocumentDownloadMiddleware {
           changeOrigin: true,
           proxyErrorHandler: (err, res, next) => {
             if (err instanceof UserNotLoggedInError) {
+              return res.redirect(TIMED_OUT_URL);
+            } else if (err.code === 'ECONNRESET') {
+              log.info('Connection reset by peer. URL: ' + res.req.path);
               return res.redirect(TIMED_OUT_URL);
             }
             next(err);
