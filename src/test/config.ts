@@ -22,7 +22,7 @@ const generateTestUsername = () => `nfdiv.frontend.test.${new Date().getTime()}.
 const TestUser = generateTestUsername();
 const TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
 const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
-const LOGIN_TIMEOUT = 60;
+const LOGIN_TIMEOUT = 3 * 60;
 
 export const autoLogin = {
   login: (I: CodeceptJS.I, username = TestUser, password = TestPass, createCase = true): void => {
