@@ -6111,14 +6111,14 @@ __metadata:
   linkType: hard
 
 "express-nunjucks@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "express-nunjucks@npm:3.1.0"
+  version: 3.1.1
+  resolution: "express-nunjucks@npm:3.1.1"
   dependencies:
-    nunjucks-async-loader: ^2.0.0
+    nunjucks-async-loader: ^2.1.2
   peerDependencies:
     express: ^4.18.2
     nunjucks: ^3.2.4
-  checksum: c145d1cfebcad1d263b8db91acbc86289d9a0cd27dcd32d3081ffbe5b489fea912e79f978942090c746d94ed677a828cd051bdf305d170a9e06981046c75225e
+  checksum: f41928106dda3afcd8daae8a18753f110072bcc4d9db406f0f72c12943945636532eb8d0841385705c87f843607d606d80dd7b7d5e5a6a0bf248b1d187b0cce3
   languageName: node
   linkType: hard
 
@@ -10471,14 +10471,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nunjucks-async-loader@npm:^2.0.0":
-  version: 2.1.1
-  resolution: "nunjucks-async-loader@npm:2.1.1"
+"nunjucks-async-loader@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "nunjucks-async-loader@npm:2.1.2"
   dependencies:
     chokidar: 3.3.1
   peerDependencies:
     nunjucks: ^3.2.4
-  checksum: 6b1bd98c6f80cafd638beac8c981a4c8b239e70cc489bb40b3dd7a86c4c85b957637aed85da23e8270bc564e37135b2d020652cd4e3edc7dd400d9ea1f366ee5
+  checksum: 6a681533521d0e0a97cf6926dac52dc5e70ed64c3d7b9df89b2fc12e12dc61764b26d5e633adac7ecadecd7b448161817c91ddd3685455a58f4f349d13f877f4
   languageName: node
   linkType: hard
 
