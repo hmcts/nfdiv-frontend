@@ -29,8 +29,5 @@ export const config: CodeceptJS.Config = {
       enabled: true,
       fullPageScreenshots: true,
     },
-    stepTimeout: {
-      enabled: true,
-    },
   },
 };
