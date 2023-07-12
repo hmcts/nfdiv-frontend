@@ -2593,18 +2593,18 @@ __metadata:
   linkType: hard
 
 "@wdio/sauce-service@npm:^7.32.0":
-  version: 7.32.0
-  resolution: "@wdio/sauce-service@npm:7.32.0"
+  version: 7.32.1
+  resolution: "@wdio/sauce-service@npm:7.32.1"
   dependencies:
     "@types/node": ^18.0.0
     "@wdio/logger": 7.26.0
     "@wdio/types": 7.30.2
     "@wdio/utils": 7.30.2
     saucelabs: ^7.1.3
-    webdriverio: 7.32.0
+    webdriverio: 7.32.1
   peerDependencies:
     "@wdio/cli": ^7.0.0
-  checksum: 68e9c4b4a6846644fe7593009f617e95e8e3ec4c676918fe00b9297638993924ca267275bec79ec95cff55c35b86641fd89df71fa776e34aad24546be75c617b
+  checksum: ed2151590d4bc4e52fcc8c5c54f5cedb59f3f50dffc3a6bf88386ae157645116be9b3f5036eda46a92b1967846555617d9ee034c9e7fc4039be8015850394eca
   languageName: node
   linkType: hard
 
@@ -5249,17 +5249,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:^0.0.1161029":
-  version: 0.0.1161029
-  resolution: "devtools-protocol@npm:0.0.1161029"
-  checksum: 79184d65125c2160b7b748883603d512d04e906197ea21be9627551978844d40b7b7bf0473783406e5667b8fd8048a333ee334620559a2cf0ffa4675bfc03a5f
-  languageName: node
-  linkType: hard
-
 "devtools-protocol@npm:^0.0.1161598":
   version: 0.0.1161598
   resolution: "devtools-protocol@npm:0.0.1161598"
   checksum: 207d0733d0d67aaaf48a1800f1bb4e6ea7d6ac61e33aaf94080e2d252bd8e901260f6e805fcda164b58fc335393f77cdeadf50c4c5cbf2d1ab50fb60a4ee428d
+  languageName: node
+  linkType: hard
+
+"devtools-protocol@npm:^0.0.1168520":
+  version: 0.0.1168520
+  resolution: "devtools-protocol@npm:0.0.1168520"
+  checksum: a0ce78727dc7d9ae412e0a4a5d3037c16b9848c0e158390600e223f288161427c75c18b8765f82202c06f41f1a5ff81a2bfe8833c3ba2dd588061d14331c3d12
   languageName: node
   linkType: hard
 
@@ -13879,9 +13879,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webdriverio@npm:7.32.0":
-  version: 7.32.0
-  resolution: "webdriverio@npm:7.32.0"
+"webdriverio@npm:7.32.1":
+  version: 7.32.1
+  resolution: "webdriverio@npm:7.32.1"
   dependencies:
     "@types/aria-query": ^5.0.0
     "@types/node": ^18.0.0
@@ -13896,7 +13896,7 @@ __metadata:
     css-shorthand-properties: ^1.1.1
     css-value: ^0.0.1
     devtools: 7.32.0
-    devtools-protocol: ^0.0.1161029
+    devtools-protocol: ^0.0.1168520
     fs-extra: ^11.1.1
     grapheme-splitter: ^1.0.2
     lodash.clonedeep: ^4.5.0
@@ -13910,7 +13910,7 @@ __metadata:
     rgb2hex: 0.2.5
     serialize-error: ^8.0.0
     webdriver: 7.31.1
-  checksum: 4ec6688908dbbbbdc29c1840466a186ea6caffd3324bf27d8410669abdc6f8f8adb181c3cd927987b53812827bf9b9027e4534920a040580cc185725efb6404e
+  checksum: 12627c784f5a53e48d757f4e6099983e1eeb396dd6c2a2caf759a80e2b4f9eaad4cfa915325bf95536029ab193ca316dd7e0cbd2e5ab14bd0881c245a341e9b5
   languageName: node
   linkType: hard
 
