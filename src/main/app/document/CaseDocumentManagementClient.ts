@@ -1,18 +1,21 @@
-import Axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
 
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import { CASE_TYPE, JURISDICTION } from '../case/definition';
 import type { UserDetails } from '../controller/AppRequest';
 
-export class DocumentManagementClient {
+export class CaseDocumentManagementClient {
   client: AxiosInstance;
+  BASE_URL: string = config.get('services.caseDocumentManagement.url');
 
-  constructor(baseURL: string, authToken: string, private readonly user: UserDetails) {
-    this.client = Axios.create({
-      baseURL,
+  constructor(private readonly user: UserDetails) {
+    this.client = axios.create({
+      baseURL: this.BASE_URL,
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
-        ServiceAuthorization: authToken,
+        ServiceAuthorization: getServiceAuthToken(),
       },
     });
   }
@@ -25,22 +28,28 @@ export class DocumentManagementClient {
     classification: Classification;
   }): Promise<DocumentManagementFile[]> {
     const formData = new FormData();
+    formData.append('caseTypeId', CASE_TYPE);
+    formData.append('jurisdictionId', JURISDICTION);
     formData.append('classification', classification);
 
     for (const [, file] of Object.entries(files)) {
       formData.append('files', file.buffer, file.originalname);
     }
 
-    const response: AxiosResponse<DocumentManagementResponse> = await this.client.post('/documents', formData, {
-      headers: {
-        ...formData.getHeaders(),
-        'user-id': this.user.id,
-      },
-      maxContentLength: Infinity,
-      maxBodyLength: Infinity,
-      timeout: config.get<number>('uploadTimeout'),
-    });
-    return response.data?._embedded?.documents || [];
+    const response: AxiosResponse<CaseDocumentManagementResponse> = await this.client.post(
+      '/cases/documents',
+      formData,
+      {
+        headers: {
+          ...formData.getHeaders(),
+          'user-id': this.user.id,
+        },
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
+        timeout: config.get<number>('uploadTimeout'),
+      }
+    );
+    return response.data?.documents || [];
   }
 
   async delete({ url }: { url: string }): Promise<AxiosResponse> {
@@ -48,10 +57,8 @@ export class DocumentManagementClient {
   }
 }
 
-interface DocumentManagementResponse {
-  _embedded: {
-    documents: DocumentManagementFile[];
-  };
+interface CaseDocumentManagementResponse {
+  documents: DocumentManagementFile[];
 }
 
 export interface DocumentManagementFile {

@@ -2,12 +2,14 @@ import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, ChangedNameHow, State, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
+import { nameChangedHowPossibleValue } from './common/content.utils';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
   APPLY_FINANCIAL_ORDER,
   APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
+  CHANGING_TO_SOLE_APPLICATION,
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
@@ -19,13 +21,15 @@ import {
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   ENTER_YOUR_NAMES,
+  EXPLAIN_THE_DELAY,
+  FINALISING_YOUR_APPLICATION,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
-  HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
+  HOW_TO_FINALISE_APPLICATION,
   HUB_PAGE,
   JOINT_APPLICATION_SUBMITTED,
   MONEY_PROPERTY,
@@ -85,14 +89,6 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
-    getNextStep: data =>
-      data.applicant2LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      data.applicant2NameChangedSinceRelationshipFormed === YesOrNo.YES
-        ? HOW_DID_YOU_CHANGE_YOUR_NAME
-        : HOW_THE_COURTS_WILL_CONTACT_YOU,
-  },
-  {
-    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
@@ -128,14 +124,18 @@ export const preSubmissionSequence: Step[] = [
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
         ? APPLY_FINANCIAL_ORDER_DETAILS
-        : [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(value => data.applicant2NameChangedHow?.includes(value))
+        : [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(
+            value => nameChangedHowPossibleValue(data, true)?.includes(value)
+          )
         ? UPLOAD_YOUR_DOCUMENTS
         : CHECK_JOINT_APPLICATION,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
     getNextStep: data =>
-      [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(value => data.applicant2NameChangedHow?.includes(value))
+      [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(
+        value => nameChangedHowPossibleValue(data, true)?.includes(value)
+      )
         ? UPLOAD_YOUR_DOCUMENTS
         : CHECK_JOINT_APPLICATION,
   },
@@ -171,6 +171,10 @@ const postSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
+    url: HOW_TO_FINALISE_APPLICATION,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
   },
@@ -193,6 +197,18 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: FINALISING_YOUR_APPLICATION,
+    getNextStep: data => (data.previousState === State.FinalOrderOverdue ? EXPLAIN_THE_DELAY : HUB_PAGE),
+  },
+  {
+    url: EXPLAIN_THE_DELAY,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: CHANGING_TO_SOLE_APPLICATION,
     getNextStep: () => HUB_PAGE,
   },
   {

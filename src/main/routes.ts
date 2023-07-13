@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { extname } from 'path';
 
+import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
@@ -9,7 +10,6 @@ import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
-import { cookieMaxAge } from './modules/session';
 import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
@@ -24,6 +24,7 @@ import { ExistingApplicationPostController } from './steps/existing-application/
 import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { shouldHideRouteFromUser } from './steps/routeHiding';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
 import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get';
@@ -32,6 +33,7 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
+  ACTIVE,
   APPLICANT_2,
   CONTACT_US,
   COOKIES_URL,
@@ -39,6 +41,7 @@ import {
   DOCUMENT_MANAGER,
   ENTER_YOUR_ACCESS_CODE,
   EXISTING_APPLICATION,
+  EXIT_SERVICE,
   HOME_URL,
   NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
@@ -119,13 +122,13 @@ export class Routes {
     );
 
     app.get(
-      '/active',
+      ACTIVE,
       errorHandler((req: AppRequest, res: Response) => {
         if (!req.session.user) {
           return res.redirect(SIGN_OUT_URL);
         }
-        req.session.cookie.expires = new Date(Date.now() + cookieMaxAge);
-        req.session.cookie.maxAge = cookieMaxAge;
+        req.session.cookie.expires = new Date(Date.now() + (config.get('session.maxAge') as number));
+        req.session.cookie.maxAge = config.get('session.maxAge');
         req.session.save(err => {
           if (err) {
             throw err;
@@ -135,12 +138,28 @@ export class Routes {
       })
     );
 
+    app.get(
+      EXIT_SERVICE,
+      errorHandler((req: AppRequest, res: Response) => {
+        req.session.destroy(err => {
+          if (err) {
+            throw err;
+          }
+          res.redirect(config.get('govukUrls.applyForDivorce'));
+        });
+      })
+    );
+
     app.use(errorController.notFound as unknown as RequestHandler);
   }
 
   private isRouteForUser(req: AppRequest, res: Response, next: NextFunction): void {
     const isApp2Route = [APPLICANT_2, RESPONDENT].some(prefixUrl => req.path.includes(prefixUrl));
-    if (isApp2Route !== req.session.isApplicant2 || !getUserSequence(req).some(r => req.path.includes(r.url))) {
+    if (
+      isApp2Route !== req.session.isApplicant2 ||
+      !getUserSequence(req).some(r => req.path.includes(r.url)) ||
+      shouldHideRouteFromUser(req)
+    ) {
       return res.redirect('/error');
     }
     next();

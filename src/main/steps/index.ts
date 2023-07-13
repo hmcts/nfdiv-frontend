@@ -3,7 +3,7 @@ import { extname } from 'path';
 
 import { CaseWithId } from '../app/case/case';
 import { ApplicationType, State } from '../app/case/definition';
-import { AppRequest } from '../app/controller/AppRequest';
+import { AppRequest, AppSession } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent, FormFields, FormFieldsFn } from '../app/form/Form';
 
@@ -11,23 +11,18 @@ import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
 import { respondentSequence } from './respondentSequence';
 import { currentStateFn } from './state-sequence';
+import { jurisdictionUrls } from './url-utils';
 import {
   APPLICANT_2,
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
-  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JURISDICTION,
   CONFIRM_JOINT_APPLICATION,
-  HABITUALLY_RESIDENT_ENGLAND_WALES,
+  CONTINUE_WITH_YOUR_APPLICATION,
   HOME_URL,
   JOINT_APPLICATION_SUBMITTED,
-  JURISDICTION_DOMICILE,
-  JURISDICTION_LAST_TWELVE_MONTHS,
-  LIVING_ENGLAND_WALES_SIX_MONTHS,
   READ_THE_RESPONSE,
-  RESIDUAL_JURISDICTION,
   RESPONDENT,
-  WHERE_YOUR_LIVES_ARE_BASED_URL,
 } from './urls';
 
 const stepFields: Record<string, FormFields | FormFieldsFn> = {};
@@ -81,27 +76,21 @@ const getNextIncompleteStep = (data: CaseWithId, step: Step, sequence: Step[], c
 export const getNextIncompleteStepUrl = (req: AppRequest): string => {
   const { queryString } = getPathAndQueryString(req);
   const sequence = getUserSequence(req);
-  const sequenceIndex =
-    !req.session.isApplicant2 &&
-    [State.ConditionalOrderDrafted, State.ConditionalOrderPending].includes(req.session.userCase.state)
-      ? sequence.findIndex(s => s.url.includes(READ_THE_RESPONSE))
-      : 0;
-  const url = getNextIncompleteStep(req.session.userCase, sequence[sequenceIndex], sequence);
+  const url = getNextIncompleteStep(req.session.userCase, sequence[getSequenceIndex(sequence, req.session)], sequence);
 
-  const jurisdictionUrls = [
-    WHERE_YOUR_LIVES_ARE_BASED_URL,
-    JURISDICTION_DOMICILE,
-    JURISDICTION_LAST_TWELVE_MONTHS,
-    HABITUALLY_RESIDENT_ENGLAND_WALES,
-    LIVING_ENGLAND_WALES_SIX_MONTHS,
-    RESIDUAL_JURISDICTION,
-  ];
+  return jurisdictionUrls.some(jurisdictionUrl => url.includes(jurisdictionUrl))
+    ? `${CHECK_JURISDICTION}${queryString}`
+    : `${url}${queryString}`;
+};
 
-  if (jurisdictionUrls.some(jurisdictionUrl => url.includes(jurisdictionUrl))) {
-    return `${CHECK_JURISDICTION}${queryString}`;
+const getSequenceIndex = (sequence: Step[], session: AppSession): number => {
+  if ([State.ConditionalOrderDrafted, State.ConditionalOrderPending].includes(session.userCase.state)) {
+    return session.isApplicant2
+      ? sequence.findIndex(s => s.url.includes(CONTINUE_WITH_YOUR_APPLICATION))
+      : sequence.findIndex(s => s.url.includes(READ_THE_RESPONSE));
   }
 
-  return `${url}${queryString}`;
+  return 0;
 };
 
 export const isApplicationReadyToSubmit = (nextStepUrl: string): boolean => {
@@ -115,13 +104,10 @@ export const isApplicationReadyToSubmit = (nextStepUrl: string): boolean => {
   );
 };
 
-export const isConditionalOrderReadyToSubmit = (nextStepUrl: string): boolean => {
-  const finalUrls = [HOME_URL, `${APPLICANT_2 + HOME_URL}`];
-  const containsUrls = [CHECK_CONDITIONAL_ORDER_ANSWERS_URL];
-
-  return (
-    finalUrls.some(url => url === nextStepUrl.split('?')[0]) || containsUrls.some(url => nextStepUrl.includes(url))
-  );
+export const isConditionalOrderReadyToSubmit = (data: Partial<CaseWithId>, isApp2: boolean): boolean => {
+  return isApp2
+    ? Boolean(data.applicant2ConfirmInformationStillCorrect)
+    : Boolean(data.applicant1ConfirmInformationStillCorrect);
 };
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): string => {
@@ -134,7 +120,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
 };
 
 export const getUserSequence = (req: AppRequest): Step[] => {
-  const stateSequence = currentStateFn(req.session.userCase);
+  const stateSequence = currentStateFn(req.session.userCase.state);
 
   if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION && req.session.isApplicant2) {
     return respondentSequence;

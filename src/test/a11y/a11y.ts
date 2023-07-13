@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import Axios from 'axios';
+import axios from 'axios';
 import puppeteer from 'puppeteer';
 
 import * as urls from '../../main/steps/urls';
@@ -9,7 +9,7 @@ import { config } from '../config';
 const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
 
 const pa11y = require('pa11y');
-const axios = Axios.create({ baseURL: config.TEST_URL });
+const server = axios.create({ baseURL: config.TEST_URL });
 
 interface Pa11yResult {
   documentTitle: string;
@@ -27,7 +27,7 @@ interface PallyIssue {
 }
 
 function ensurePageCallWillSucceed(url: string): Promise<void> {
-  return axios.get(url);
+  return server.get(url);
 }
 
 function runPally(url: string, browser): Promise<Pa11yResult> {

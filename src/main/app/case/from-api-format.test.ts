@@ -43,6 +43,7 @@ describe('from-api-format', () => {
     confirmReadPetition: YesOrNo.YES,
     coClarificationResponses: [{ id: '1', value: 'test' }],
     coCannotUploadClarificationDocuments: YesOrNo.YES,
+    coIsAdminClarificationSubmitted: YesOrNo.YES,
   };
 
   const resultsWithSecondaryValues: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
@@ -88,6 +89,7 @@ describe('from-api-format', () => {
       confirmReadPetition: Checkbox.Checked,
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
+      coIsAdminClarificationSubmitted: YesOrNo.YES,
     });
   });
 
@@ -146,6 +148,7 @@ describe('from-api-format', () => {
       confirmReadPetition: Checkbox.Checked,
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
+      coIsAdminClarificationSubmitted: YesOrNo.YES,
     });
   });
 
@@ -185,6 +188,7 @@ describe('from-api-format', () => {
       confirmReadPetition: Checkbox.Checked,
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
+      coIsAdminClarificationSubmitted: YesOrNo.YES,
     });
   });
 
@@ -224,6 +228,7 @@ describe('from-api-format', () => {
       confirmReadPetition: Checkbox.Checked,
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
+      coIsAdminClarificationSubmitted: YesOrNo.YES,
     });
   });
 

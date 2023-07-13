@@ -108,7 +108,7 @@ Feature: Sole hub page
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You need to provide some information before your application can progress."
-    And the page should include "What you need to do now"
+    And the page should include "What you need to do"
 
     Given I click 'Provide information'
     Then the page URL should be '/provide-information-to-the-court'
@@ -123,28 +123,11 @@ Feature: Sole hub page
     Given I set the case state to "ConditionalOrderPronounced"
     When I go to "/"
     Then the page should include "You have been granted a 'conditional order' by the court."
-    And the page should include "You can view and download your 'conditional order'."
+    And the page should include "You can download and read your conditional order"
     Given I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You have been granted a 'conditional order' by the court."
     Then the page should include "You can view and download your 'conditional order'."
-
-    Given I set the case state to "FinalOrderRequested"
-    And I click "Sign out"
-    When I login with applicant "1"
-    Then the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
-    And the page should include "You should receive an email within 2 working days,"
-    Given I click "Sign out"
-    When I login with applicant "2"
-    Then the page should include "Your wife has applied for a ‘final order’. The application will be checked by court staff."
-    And the page should include "You should receive an email within 2 working days,"
-    Given a superuser updates "dateFinalOrderNoLongerEligible" with "2020-01-01"
-    And I click "Sign out"
-    When I login with applicant "1"
-    Then the page should include "You will receive an email by"
-    Given I click "Sign out"
-    When I login with applicant "2"
-    And the page should include "You will receive an email by"
 
     Given I set the case state to "AwaitingServiceConsideration"
     And I click "Sign out"

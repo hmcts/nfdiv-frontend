@@ -7,6 +7,7 @@ services:
     tokenURL: IDAM_API_URL
     clientID: IDAM_CLIENT_ID
     clientSecret: IDAM_SECRET
+    caching: IDAM_TOKEN_CACHE
   case:
     url: CCD_URL
     checkDivCases: SKIP_DIV_CASE_CHECK
@@ -14,8 +15,8 @@ services:
     url: PAYMENTS_API_URL
   fees:
     url: FEES_API_URL
-  documentManagement:
-    url: DOCUMENT_MANAGEMENT_URL
+  caseDocumentManagement:
+    url: CASE_DOCUMENT_MANAGEMENT_URL
   equalityAndDiversity:
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN

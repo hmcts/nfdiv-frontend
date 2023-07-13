@@ -1,6 +1,7 @@
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
   ApplicationType,
+  ChangedNameHow,
   ClarificationReason,
   Gender,
   LegalAdvisorDecision,
@@ -13,15 +14,19 @@ import {
 
 import { CommonContent, en } from './common.content';
 import {
+  canIntendToSwitchToSoleFo,
   formattedCaseId,
   getAppSolAddressFields,
   getApplicant1PartnerContent,
   getName,
+  getNameChangeOtherDetailsValidator,
   getPartner,
   getSelectedGender,
   getServiceName,
+  hasApplicantAppliedForFoFirst,
   isApplicant2EmailUpdatePossible,
   latestLegalAdvisorDecisionContent,
+  nameChangedHowPossibleValue,
 } from './content.utils';
 
 describe('content.utils', () => {
@@ -220,6 +225,38 @@ describe('content.utils', () => {
     });
   });
 
+  describe('canIntendToSwitchToSole', () => {
+    test('Applicant 1 can intend to switch to sole', () => {
+      const userCase = {
+        applicant1CanIntendToSwitchToSoleFo: YesOrNo.YES,
+        applicant2CanIntendToSwitchToSoleFo: YesOrNo.NO,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = false;
+      let expected = true;
+      let actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = true;
+      expected = false;
+      actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+    });
+
+    test('Applicant 2 can intend to switch to sole', () => {
+      const userCase = {
+        applicant1CanIntendToSwitchToSoleFo: YesOrNo.NO,
+        applicant2CanIntendToSwitchToSoleFo: YesOrNo.YES,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = true;
+      let expected = true;
+      let actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = false;
+      expected = false;
+      actual = canIntendToSwitchToSoleFo(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+    });
+  });
+
   test('pastLegalAdvisorDecisions ClarificationReason.OTHER filter', () => {
     const coLegalAdvisorDecisionsValue: ListValue<LegalAdvisorDecision>[] = [
       {
@@ -312,6 +349,127 @@ describe('content.utils', () => {
       const expected = false;
       const actual = isApplicant2EmailUpdatePossible(userCase);
       expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('hasApplicantAppliedForFinalOrderFirst', () => {
+    test('Applicant 1 has applied for final order first', () => {
+      const userCase = {
+        applicant1AppliedForFinalOrderFirst: YesOrNo.YES,
+        applicant2AppliedForFinalOrderFirst: YesOrNo.NO,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = false;
+      let expected = true;
+      let actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = true;
+      expected = false;
+      actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+    });
+
+    test('Applicant 2 has applied for final order first', () => {
+      const userCase = {
+        applicant1AppliedForFinalOrderFirst: YesOrNo.NO,
+        applicant2AppliedForFinalOrderFirst: YesOrNo.YES,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = true;
+      let expected = true;
+      let actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = false;
+      expected = false;
+      actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+    });
+
+    test('No Applicant has applied for final order first', () => {
+      const userCase = {
+        applicant1AppliedForFinalOrderFirst: YesOrNo.NO,
+        applicant2AppliedForFinalOrderFirst: YesOrNo.NO,
+      } as Partial<CaseWithId>;
+      let isApplicant2 = false;
+      const expected = false;
+      let actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+      isApplicant2 = true;
+      actual = hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('getNameChangeOtherDetailsValidator', () => {
+    test('Assert that the validator returns nothing if form data is valid', () => {
+      const validator = getNameChangeOtherDetailsValidator('applicant1LastNameChangedWhenMarriedOtherDetails');
+      const theValidator = validator([ChangedNameHow.OTHER], {
+        applicant1LastNameChangedWhenMarriedOtherDetails: 'details',
+      });
+      expect(theValidator).toEqual(undefined);
+    });
+
+    test('Assert that the validator returns field name when form data is invalid', () => {
+      const validator = getNameChangeOtherDetailsValidator('applicant1LastNameChangedWhenMarriedOtherDetails');
+      const theValidator = validator([ChangedNameHow.OTHER], {});
+      expect(theValidator).toEqual('applicant1LastNameChangedWhenMarriedOtherDetails');
+    });
+  });
+
+  describe('nameChangedHowPossibleValue', () => {
+    let userCase: Partial<CaseWithId>;
+
+    beforeEach(() => {
+      userCase = {
+        applicant1LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+        applicant1NameDifferentToMarriageCertificateMethod: [ChangedNameHow.DEED_POLL],
+        applicant1NameChangedHow: [ChangedNameHow.OTHER],
+        applicant2LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+        applicant2NameDifferentToMarriageCertificateMethod: [ChangedNameHow.DEED_POLL],
+        applicant2NameChangedHow: [ChangedNameHow.OTHER],
+      };
+    });
+
+    test('Assert that nameChangedHowPossibleValue returns the "method" fields if present (app1)', () => {
+      const actual = nameChangedHowPossibleValue(userCase, false);
+      expect(actual).toMatchObject(
+        expect.arrayContaining([ChangedNameHow.MARRIAGE_CERTIFICATE, ChangedNameHow.DEED_POLL])
+      );
+    });
+
+    test('Assert that nameChangedHowPossibleValue returns the deprecated fields if "method" fields not present (app1)', () => {
+      userCase.applicant1LastNameChangedWhenMarriedMethod = [];
+      userCase.applicant1NameDifferentToMarriageCertificateMethod = [];
+      const actual = nameChangedHowPossibleValue(userCase, false);
+      expect(actual).toMatchObject(expect.arrayContaining([ChangedNameHow.OTHER]));
+    });
+
+    test('Assert that nameChangedHowPossibleValue returns empty array if no name change how (app1)', () => {
+      userCase.applicant1LastNameChangedWhenMarriedMethod = [];
+      userCase.applicant1NameDifferentToMarriageCertificateMethod = [];
+      userCase.applicant1NameChangedHow = [];
+      const actual = nameChangedHowPossibleValue(userCase, false);
+      expect(actual).toMatchObject(expect.arrayContaining([]));
+    });
+
+    test('Assert that nameChangedHowPossibleValue returns the "method" fields if present (app2)', () => {
+      const actual = nameChangedHowPossibleValue(userCase, true);
+      expect(actual).toMatchObject(
+        expect.arrayContaining([ChangedNameHow.MARRIAGE_CERTIFICATE, ChangedNameHow.DEED_POLL])
+      );
+    });
+
+    test('Assert that nameChangedHowPossibleValue returns the deprecated fields if "method" fields not present (app2)', () => {
+      userCase.applicant2LastNameChangedWhenMarriedMethod = [];
+      userCase.applicant2NameDifferentToMarriageCertificateMethod = [];
+      const actual = nameChangedHowPossibleValue(userCase, true);
+      expect(actual).toMatchObject(expect.arrayContaining([ChangedNameHow.OTHER]));
+    });
+
+    test('Assert that nameChangedHowPossibleValue returns empty array if no name change how (app2)', () => {
+      userCase.applicant2LastNameChangedWhenMarriedMethod = [];
+      userCase.applicant2NameDifferentToMarriageCertificateMethod = [];
+      userCase.applicant2NameChangedHow = [];
+      const actual = nameChangedHowPossibleValue(userCase, true);
+      expect(actual).toMatchObject(expect.arrayContaining([]));
     });
   });
 });

@@ -1,9 +1,8 @@
-import Axios, { AxiosResponse } from 'axios';
-import sysConfig from 'config';
+import { AxiosResponse } from 'axios';
 import jwt_decode from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
-import { OidcResponse } from '../../main/app/auth/user/oidc';
+import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc';
 import { Case } from '../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
@@ -58,7 +57,12 @@ Given('I create a new user and login as applicant 2', async () => {
 });
 
 Given('I login with applicant {string}', async (applicant: string) => {
-  autoLogin.login(I, testConfig.GetUser(parseInt(applicant)).username);
+  autoLogin.login(
+    I,
+    testConfig.GetUser(parseInt(applicant)).username,
+    testConfig.GetUser(parseInt(applicant)).password,
+    false
+  );
 });
 
 export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
@@ -277,14 +281,8 @@ const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
 };
 
 export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
-  const id: string = sysConfig.get('services.idam.clientID');
-  const secret = sysConfig.get('services.idam.clientSecret');
-  const tokenUrl: string = sysConfig.get('services.idam.tokenURL');
-
-  const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
-  const data = `grant_type=password&username=${user.username}&password=${user.password}&client_id=${id}&client_secret=${secret}&scope=openid%20profile%20roles%20openid%20roles%20profile`;
-
-  const response: AxiosResponse<OidcResponse> = await Axios.post(tokenUrl, data, { headers });
+  const params = { username: user.username, password: user.password };
+  const response: AxiosResponse<OidcResponse> = await getIdamToken(params, params.username);
 
   const jwt = jwt_decode(response.data.id_token) as {
     uid: string;

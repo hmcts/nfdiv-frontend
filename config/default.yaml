@@ -7,11 +7,15 @@ dates:
   awaitingLegalAdvisorReferralOffsetDays: 28
   clarificationSubmittedOffsetDays: 28
   finalOrderSubmittedOffsetDays: 14
+  changingToSolePartnerConfirmationWeeks: 2
+  settlingFinancesConfirmationDays: 14
+  changingToSolePartnerResponseDays: 14
   jointConditionalOrderResponseDays: 28
   contactCourtBeforeHearingDays: 7
   applyForFoDays: 43
   applicationSubmittedOffsetDays: 28
   arrangeProcessServiceDays: 28
+  switchToSoleFinalOrderIntentionNotificationOffsetDays: 14
 fees:
   applicationFee: DivorceCivPart
   financialOrder: FinancialOrderOnNotice
@@ -36,15 +40,16 @@ services:
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
+    caching: false
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    #url: 'http://ccd-data-store-api-nfdiv-case-api-pr-2177.service.core-compute-preview.internal'
+    # url: 'https://ccd-data-store-api-nfdiv-case-api-pr-2745.preview.platform.hmcts.net'
     checkDivCases: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
-  documentManagement:
-    url: http://dm-store-aat.service.core-compute-aat.internal
+  caseDocumentManagement:
+    url: http://ccd-case-document-am-api-aat.service.core-compute-aat.internal
   payments:
     url: http://payment-api-aat.service.core-compute-aat.internal
   fees:
@@ -65,6 +70,7 @@ health:
   deadline: 15000
 session:
   secret: 'local'
+  maxAge: 1260000
   redis:
     host:
     key:
@@ -84,6 +90,8 @@ serviceAddress:
   postcode: 'CM20 9UG'
 govukUrls:
   d11Form: 'https://www.gov.uk/government/publications/form-d11-application-notice'
+  d36Form: 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/952032/d36-eng.pdf'
+  n215Form: 'https://www.gov.uk/government/publications/form-n215-certificate-of-service'
   mediation: 'https://www.gov.uk/money-property-when-relationship-ends/mediation'
   consentOrder: 'https://www.gov.uk/money-property-when-relationship-ends/apply-for-consent-order'
   financialOrder: 'https://www.gov.uk/money-property-when-relationship-ends/get-court-to-decide'
@@ -91,4 +99,5 @@ govukUrls:
   legalAdvisor: 'https://www.gov.uk/find-a-legal-adviser'
   callCharges: 'https://www.gov.uk/call-charges'
   domesticAbuse: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help'
-  feedbackSurvey: 'https://www.smartsurvey.co.uk/s/Divorce_ExitSurvey_Applicant?pageurl=/done'
+  feedbackExitSurvey: 'https://smartsurvey.co.uk/s/SurveyExit'
+  applyForDivorce: 'https://www.gov.uk/apply-for-divorce'

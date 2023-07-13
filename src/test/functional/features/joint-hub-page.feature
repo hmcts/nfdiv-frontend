@@ -72,6 +72,24 @@ Feature: Joint hub page
     And I login with applicant "1"
     Then the page should include "Either you or your husband can provide the information requested by the court"
 
+    Given I set the case state to "AwaitingFinalOrder"
+    And I go to "/"
+    Then the page should include "You can now apply for a ‘final order’."
+    And the page should include "Apply for final order"
+
+    Given I set the case state to "AwaitingJointFinalOrder"
+    And I go to "/"
+    Then the page should include "You can now apply for a ‘final order’."
+    And the page should include "Apply for final order"
+
+    Given I set the case state to "FinalOrderRequested"
+    And I go to "/"
+    Then the page should include "You and your wife have both confirmed you want to finalise the divorce"
+    Given I click "Sign out"
+    And I login with applicant "1"
+    Then the page URL should be "/hub-page"
+    Then the page should include "You and your husband have both confirmed you want to finalise the divorce"
+
   @nightly
   Scenario: Joint hub applicant 1 and applicant 2 submitted documents
     And I set the case state to "AwaitingClarification"

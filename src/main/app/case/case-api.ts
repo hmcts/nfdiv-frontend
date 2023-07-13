@@ -1,12 +1,14 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 
+import { getHighestPriorityPreSubmissionCases, preSubmittedStatePrioritySequence } from '../../steps/state-sequence';
 import { getSystemUser } from '../auth/user/oidc';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import { CASE_TYPE, CITIZEN_ADD_PAYMENT, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
+import { CaseAssignedUserRoles } from './case-roles';
+import { CASE_TYPE, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -26,6 +28,23 @@ export class CaseApi {
     return this.apiClient.getCaseById(caseId);
   }
 
+  public async getExistingAndNewUserCases(
+    email: string,
+    serviceType: string,
+    logger: LoggerInstance
+  ): Promise<{ existingUserCase: CaseWithId | false; newInviteUserCase: CaseWithId | false }> {
+    const existingUserCase: CaseWithId | false = await this.getExistingUserCase(serviceType);
+    const newInviteUserCase = await this.getNewInviteCase(email, serviceType, logger);
+
+    if (existingUserCase && newInviteUserCase) {
+      return {
+        existingUserCase,
+        newInviteUserCase: newInviteUserCase.id !== existingUserCase.id ? newInviteUserCase : false,
+      };
+    }
+    return { existingUserCase, newInviteUserCase };
+  }
+
   public async getNewInviteCase(
     email: string,
     serviceType: string,
@@ -38,20 +57,29 @@ export class CaseApi {
 
   public async getExistingUserCase(serviceType: string): Promise<CaseWithId | false> {
     const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
-    return this.getLatestUserCase(userCases);
+    return this.getPriorityUserCase(userCases);
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
-    const userRoles = await this.apiClient.getCaseUserRoles(caseId, userId);
-    return [UserRole.APPLICANT_2].includes(userRoles.case_users[0]?.case_role);
+    const userRole: UserRole = await this.getUsersRoleOnCase(caseId, userId);
+    return userRole === UserRole.APPLICANT_2;
+  }
+
+  public async getUsersRoleOnCase(caseId: string, userId: string): Promise<UserRole> {
+    const userRoles: CaseAssignedUserRoles = await this.apiClient.getCaseUserRoles(caseId, userId);
+    return userRoles.case_users[0]?.case_role;
   }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     return this.apiClient.sendEvent(caseId, toApiFormat(userData), eventName);
   }
 
-  public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
-    return this.apiClient.sendEvent(caseId, { applicationPayments: payments }, CITIZEN_ADD_PAYMENT);
+  public async triggerPaymentEvent(
+    caseId: string,
+    payments: ListValue<Payment>[],
+    eventName: string
+  ): Promise<CaseWithId> {
+    return this.apiClient.sendEvent(caseId, { applicationPayments: payments }, eventName);
   }
 
   public async hasInProgressDivorceCase(): Promise<boolean> {
@@ -74,6 +102,19 @@ export class CaseApi {
       return courtId === 'serviceCentre' && !states.includes(userCase.state);
     }
     return false;
+  }
+
+  private getPriorityUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
+    if (userCases && userCases.length > 1) {
+      const submittedUserCase = userCases.find(userCase => !preSubmittedStatePrioritySequence.includes(userCase.state));
+      const priorityUserCase = submittedUserCase || getHighestPriorityPreSubmissionCases(userCases)[0];
+      return {
+        ...fromApiFormat(priorityUserCase.case_data),
+        id: priorityUserCase.id.toString(),
+        state: priorityUserCase.state,
+      };
+    }
+    return this.getLatestUserCase(userCases);
   }
 
   private getLatestUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {

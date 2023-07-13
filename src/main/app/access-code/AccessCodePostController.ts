@@ -39,7 +39,7 @@ export class AccessCodePostController {
 
       if (caseData.accessCode !== formData.accessCode?.replace(/\s/g, '').toUpperCase()) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
-        req.locals.logger.error(
+        req.locals.logger.info(
           `UserId: "${req.session.user.id}" - Invalid access code for case id: "${caseReference}" (form), ${
             caseData.id
           } (retrieved) with ${caseData.accessCode ? '' : 'un'}defined retrieved access code`
@@ -66,10 +66,17 @@ export class AccessCodePostController {
 
     if (req.session.errors.length === 0) {
       if (req.session.existingCaseId) {
-        req.locals.logger.error(
-          `Unlinking userId: "${req.session.user.id}" from existing application: ${req.session.existingCaseId}`
-        );
-        await req.locals.api.triggerEvent(req.session.existingCaseId, {}, SYSTEM_UNLINK_APPLICANT);
+        try {
+          await req.locals.api.triggerEvent(req.session.existingCaseId, {}, SYSTEM_UNLINK_APPLICANT);
+          req.locals.logger.info(
+            `Unlinking userId: "${req.session.user.id}" from existing application: ${req.session.existingCaseId}`
+          );
+        } catch (err) {
+          req.locals.logger.error(
+            `Could not unlink user(${req.session.user.id}) from case(${req.session.existingCaseId})`
+          );
+          req.session.errors.push({ errorType: 'Unlinking Error', propertyName: 'SYSTEM-UNLINK-APPLICANT' });
+        }
       }
       req.session.existingCaseId = req.session.userCase.id;
       req.session.applicantChoosesNewInviteCase = undefined;

@@ -1,35 +1,66 @@
-import { State } from '../../../../app/case/definition';
+import { CaseWithId } from '../../../../app/case/case';
+import { State, YesOrNo } from '../../../../app/case/definition';
+import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
 export const getJointHubTemplate = (
   displayState: StateSequence,
-  hasApplicantAppliedForConditionalOrder: boolean
+  userCase: Partial<CaseWithId>,
+  {
+    hasApplicantAppliedForConditionalOrder = false,
+    isWithinSwitchToSoleFoIntentionNotificationPeriod = false,
+    hasSwitchToSoleFoIntentionNotificationPeriodExpired = false,
+  } = {}
 ): string | undefined => {
   switch (displayState.state()) {
+    case State.FinalOrderRequested: {
+      return HubTemplate.FinalOrderRequested;
+    }
     case State.AwaitingPronouncement: {
-      return '/awaiting-pronouncement.njk';
+      return HubTemplate.AwaitingPronouncement;
     }
     case State.Holding: {
-      return '/holding.njk';
+      return HubTemplate.Holding;
     }
     case State.ConditionalOrderPronounced: {
-      return '/conditional-order-pronounced.njk';
+      return HubTemplate.ConditionalOrderPronounced;
     }
     case State.AwaitingClarification:
-      return '/awaiting-clarification.njk';
+      return HubTemplate.AwaitingClarification;
     case State.ClarificationSubmitted:
-      return '/clarification-submitted.njk';
+      if (userCase.coIsAdminClarificationSubmitted === YesOrNo.YES) {
+        return HubTemplate.AwaitingLegalAdvisorReferral;
+      } else {
+        return HubTemplate.ClarificationSubmitted;
+      }
+    case State.AwaitingAmendedApplication:
+      return HubTemplate.AwaitingAmendedApplication;
     case State.ConditionalOrderPending:
-      return '/conditional-order-pending.njk';
+      return HubTemplate.ConditionalOrderPending;
+    case State.AwaitingAdminClarification:
     case State.AwaitingLegalAdvisorReferral:
-      return '/awaiting-legal-advisor-referral.njk';
+      return HubTemplate.AwaitingLegalAdvisorReferral;
+    case State.FinalOrderOverdue:
+    case State.AwaitingFinalOrder:
+      return HubTemplate.AwaitingFinalOrder;
+    case State.AwaitingJointFinalOrder:
+      if (isWithinSwitchToSoleFoIntentionNotificationPeriod) {
+        return HubTemplate.IntendToSwitchToSoleFinalOrder;
+      }
+      if (hasSwitchToSoleFoIntentionNotificationPeriodExpired) {
+        return HubTemplate.AwaitingFinalOrder;
+      }
+      return HubTemplate.AwaitingJointFinalOrder;
+    case State.FinalOrderComplete: {
+      return HubTemplate.FinalOrderComplete;
+    }
     default: {
       if (
         displayState.isAfter('Holding') &&
         displayState.isBefore('AwaitingLegalAdvisorReferral') &&
         !hasApplicantAppliedForConditionalOrder
       ) {
-        return '/applicant-not-yet-applied-for-conditional-order.njk';
+        return HubTemplate.ApplicantNotYetAppliedForConditionalOrder;
       }
     }
   }

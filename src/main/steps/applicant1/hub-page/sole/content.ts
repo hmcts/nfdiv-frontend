@@ -116,6 +116,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     alternativeServiceType === AlternativeServiceType.DISPENSED ? "'dispense with" : "for 'deemed"
   }service', which was granted. You can `,
   legalAdvisorReferral: {
+    switchToSoleCoLine: `You have changed the application to a ‘sole application’. Your ${partner} has been notified by email.`,
     line1: `You have applied for a ‘conditional order’. The court will check your application and send it to a judge. If the judge agrees that you should ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${getFormattedDate(
@@ -159,10 +160,13 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
+    applicant2AppliedFirstLine1: `Your ${partner} has applied for a ‘final order’.`,
+    applicant2AppliedFirstLine2:
+      'A judge will review the application. You will then receive an email telling you what they decide.',
     line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } will be legally ended.`,
+      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
+    }.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${getFormattedDate(
@@ -223,6 +227,10 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       link: '/downloads/bailiff-service',
     },
   },
+  subHeading1:
+    userCase.state === State.AwaitingAmendedApplication
+      ? 'Latest information'
+      : `${userCase.state === State.AwaitingClarification ? 'What you need to do now' : 'Latest update'}`,
 });
 
 // @TODO translations
@@ -267,7 +275,7 @@ const cy: typeof en = (
     line3: `Gallwch wneud cais am orchymyn amodol ar ${getFormattedDate(
       dayjs(userCase.issueDate).add(config.get('dates.issueDateOffsetDays'), 'day'),
       SupportedLanguages.Cy
-    )}. Y rheswm am hyn yw bod yn rhaid i chi aros tan 20 wythnos o'r adeg y cyhoeddwyd y ${
+    )}. Mae hyn oherwydd bod rhaid i chi aros tan 20 wythnos o'r adeg y cyhoeddwyd y ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     } Byddwch yn cael e-bost i'ch atgoffa.`,
   },
@@ -314,17 +322,23 @@ const cy: typeof en = (
       "Byddwch yn derbyn llythyr yn y post yn dweud wrthych a oes angen i chi ddod i'r gwrandawiad, a ble y bydd hynny yn digwydd.",
   },
   servedByBailiff: {
-    line1: `Mae'r llys wedi gweld tystiolaeth bod eich ${
+    line1: `Mae’r beili wedi cyflwyno (danfon) eich ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
-    } wedi cael ei 'gyflwyno' (ei anfon) yn llwyddiannus at eich ${partner}. Gallwch `,
-    line2: "weld a lawrlwytho eich 'tystysgrif cyflwyno'.",
-    downloadReference: '/downloads/certificate-of-service',
+    } i’ch ${partner} yn llwyddiannus. Bu iddynt gyflwyno’r dogfennu iddynt ar ${getFormattedDate(
+      userCase.alternativeServiceOutcomes?.[0].value.certificateOfServiceDate,
+      SupportedLanguages.Cy
+    )}.`,
   },
   awaitingConditionalOrder: `Gallwch nawr wneud cais am 'orchymyn amodol'. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
     isDivorce ? 'cael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
   }.`,
   awaitingConditionalOrderAndServedByBailiff: {
-    line1: `Mae'r llys wedi gweld tystiolaeth bod dogfennau'r llys wedi'u ‘cyflwyno’ (wedi'u danfon) yn llwyddiannus i'ch ${partner}. Gallwch`,
+    line1: `Mae’r beili wedi cyflwyno (danfon) eich ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    } i’ch ${partner} yn llwyddiannus. Bu iddynt gyflwyno’r dogfennu iddynt ar ${getFormattedDate(
+      userCase.alternativeServiceOutcomes?.[0].value.certificateOfServiceDate,
+      SupportedLanguages.Cy
+    )}.`,
     line2: `Ni fyddwch yn gweld ymateb eich ${partner} pan fyddwch yn gwneud cais am y gorchymyn amodol.`,
   },
   conditionalOrderWithDeemedOrDispensedService: `Ni fyddwch yn gweld ymateb gan eich ${partner} yn y cais am orchymyn amodol.
@@ -332,6 +346,7 @@ const cy: typeof en = (
      alternativeServiceType === AlternativeServiceType.DISPENSED ? 'gyflwyno tybiedig' : 'i hepgor cyflwyno’r cais'
    }, a gafodd ei gadarnhau. Gallwch `,
   legalAdvisorReferral: {
+    switchToSoleCoLine: `You have changed the application to a ‘sole application’. Your ${partner} has been notified by email.`,
     line1: `Rydych wedi gwneud cais am 'orchymyn amodol'. Bydd y llys yn gwirio'ch cais ac yn ei anfon at farnwr. Os yw'r barnwr yn cytuno y dylech ${
       isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
     }, bydd yn rhoi caniatâd i chi gael orchymyn amodol ac yn ei 'gyhoeddi' yn y llys. Byddwch yn cael e-bost erbyn ${getFormattedDate(
@@ -343,16 +358,16 @@ const cy: typeof en = (
       "Mae'n rhaid i chi  aros 6 wythnos tan ar ôl eich gorchymyn amodol, i wneud cais am y gorchymyn terfynol.",
   },
   awaitingFinalOrderOrFinalOrderOverdue: {
-    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    }.
-    It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
-    buttonText: 'Apply for a final order',
+    line1: `Gallwch nawr wneud cais am 'orchymyn terfynol'. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } i ben yn gyfreithiol.
+    Dyma'r cam olaf yn y ${isDivorce ? 'broses ysgaru' : "proses i ddod â'ch partneriaeth sifil i ben"}.`,
+    buttonText: 'Gwneud cais am orchymyn terfynol',
     buttonLink: FINALISING_YOUR_APPLICATION,
   },
   readMore: 'Darllenwch fwy am y camau nesaf',
-  readMoreSummary: `Mae'n rhaid i chi  gwblhau 2 gam arall cyn ${
-    isDivorce ? 'i chi fod wedi ysgaru’n gyfreithiol' : 'fod eich partneriaeth sifil wedi dod i ben yn gyfreithiol'
+  readMoreSummary: `Mae'n rhaid i chi gwblhau 2 gam arall cyn ${
+    isDivorce ? 'y byddwch wedi ysgaru’n gyfreithlon' : 'y bydd eich partneriaeth sifil wedi dod i ben yn gyfreithlon'
   }:`,
   readMoreSteps: {
     step1: {
@@ -363,8 +378,8 @@ const cy: typeof en = (
     },
     step2: {
       heading: 'Gwneud cais am orchymyn terfynol',
-      body: `Mae hyn yn dod â’r ${
-        isDivorce ? 'briodas' : 'partneriaeth sifil'
+      body: `Hwn sy’n dod â’r ${
+        isDivorce ? 'briodas' : 'bartneriaeth sifil'
       } i ben yn gyfreithiol. Ni allwch wneud cais am orchymyn terfynol tan 6 wythnos ar ôl y gorchymyn amodol.`,
     },
   },
@@ -376,18 +391,21 @@ const cy: typeof en = (
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
-    line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
-    line2: `If there are no other applications that need to be completed then your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } will be legally ended.`,
+    applicant2AppliedFirstLine1: `Your ${partner} has applied for a ‘final order’.`,
+    applicant2AppliedFirstLine2:
+      'A judge will review the application. You will then receive an email telling you what they decide.',
+    line1: "Rydych wedi gwneud cais am 'orchymyn terfynol'. Bydd eich cais yn cael ei wirio gan staff y llys.",
+    line2: `Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } yn dod i ben yn gyfreithiol.`,
     line3: `${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${getFormattedDate(
+        ? `Byddwch yn cael e-bost erbyn ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
           )}`
-        : 'You should receive an email within 2 working days,'
-    } confirming whether the final order has been granted.`,
+        : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith,'
+    } yn cadarnhau a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
   },
   awaitingServiceConsiderationOrBailiffReferral: {
     line1:
@@ -443,6 +461,24 @@ const cy: typeof en = (
       link: '/downloads/bailiff-service',
     },
   },
+  subHeading1:
+    userCase.state === State.AwaitingAmendedApplication
+      ? 'Yr wybodaeth ddiweddaraf'
+      : `${
+          userCase.state === State.AwaitingClarification ? 'Beth sydd angen i chi ei wneud' : 'Diweddariad diweddaraf'
+        }`,
+  finalOrderComplete: {
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} 
+    yn awr wedi dod i ben yn gyfreithiol.`,
+    line2: {
+      part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
+      part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
+        isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
+      }.`,
+      link: '/downloads/final-order-granted',
+      reference: 'Final-Order-Granted',
+    },
+  },
 });
 
 const languages = {
@@ -464,7 +500,7 @@ export const generateContent: TranslationFn = content => {
   const alternativeServiceType = userCase.alternativeServiceOutcomes?.[0].value
     .alternativeServiceType as AlternativeServiceType;
   const isAlternativeService = !!alternativeServiceType;
-  const displayState = currentStateFn(userCase).at(
+  const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const theLatestUpdateTemplate = getSoleHubTemplate(
@@ -473,6 +509,10 @@ export const generateContent: TranslationFn = content => {
     isSuccessfullyServedByBailiff,
     isAlternativeService
   );
+  const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
+  const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
+  const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
+
   return {
     ...languages[language](content, alternativeServiceType),
     displayState,
@@ -482,5 +522,8 @@ export const generateContent: TranslationFn = content => {
     isClarificationDocumentsUploaded,
     isAlternativeService,
     theLatestUpdateTemplate,
+    isSwitchToSoleCoApp,
+    hasApplicant1AppliedForFinalOrderFirst,
+    isFinalOrderCompleteState,
   };
 };

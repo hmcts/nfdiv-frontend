@@ -1,5 +1,6 @@
 import { CaseWithId } from '../../../app/case/case';
 import { State } from '../../../app/case/definition';
+import { HubTemplate } from '../../common/hubTemplates';
 import { StateSequence } from '../../state-sequence';
 
 export const getRespondentHubTemplate = (
@@ -8,32 +9,37 @@ export const getRespondentHubTemplate = (
   hasSubmittedAos: boolean
 ): string | undefined => {
   switch (displayState.state()) {
+    case State.RespondentFinalOrderRequested:
     case State.FinalOrderRequested: {
-      return '/final-order-requested.njk';
+      return HubTemplate.FinalOrderRequested;
     }
     case State.AwaitingFinalOrder:
     case State.FinalOrderOverdue: {
-      return '/awaiting-final-order-or-final-order-overdue.njk';
+      return HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue;
     }
     case State.ConditionalOrderPronounced: {
-      return '/conditional-order-pronounced.njk';
+      return HubTemplate.ConditionalOrderPronounced;
     }
     case State.ClarificationSubmitted:
-      return '/clarification-submitted.njk';
+      return HubTemplate.ClarificationSubmitted;
     case State.AwaitingLegalAdvisorReferral:
     case State.AwaitingPronouncement:
-      return '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk';
+      return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
+    case State.AwaitingAmendedApplication:
+      return HubTemplate.AwaitingAmendedApplication;
+    case State.FinalOrderComplete:
+      return HubTemplate.FinalOrderComplete;
     case State.AwaitingGeneralConsideration:
       if (userCase.aosStatementOfTruth) {
-        return '/awaiting-general-consideration.njk';
+        return HubTemplate.AwaitingGeneralConsideration;
       } else {
-        return '/awaiting-aos.njk';
+        return HubTemplate.AwaitingAoS;
       }
     case State.Holding:
-      return '/holding.njk';
+      return HubTemplate.Holding;
     default: {
       if (displayState.isAtOrBefore('AwaitingConditionalOrder') && !hasSubmittedAos) {
-        return '/awaiting-aos.njk';
+        return HubTemplate.AwaitingAoS;
       }
     }
   }

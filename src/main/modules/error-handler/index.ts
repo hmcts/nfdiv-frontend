@@ -4,18 +4,6 @@ import { LoggerInstance } from 'winston';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { ErrorController } from '../../steps/error/error.controller';
 
-const setupErrorHandler =
-  renderError =>
-  render =>
-  async (...args): Promise<void> => {
-    try {
-      await render(...args);
-    } catch (err) {
-      const [req, res] = args as [AppRequest, Response];
-      renderError(err, req, res);
-    }
-  };
-
 const errorController = new ErrorController();
 
 export class ErrorHandler {
@@ -30,7 +18,7 @@ export class ErrorHandler {
       logger.error('Unhandled Rejection at: Promise ', p, ' reason: ', reason);
     });
 
-    app.locals.errorHandler = setupErrorHandler(errorController.internalServerError);
+    app.locals.errorHandler = this.setupErrorHandler(errorController.internalServerError);
   }
 
   public handleNextErrorsFor(app: Application): void {
@@ -40,5 +28,17 @@ export class ErrorHandler {
       }
       next();
     });
+  }
+
+  private setupErrorHandler(runErrorHandler) {
+    return runPageController =>
+      async (...args): Promise<void> => {
+        try {
+          await runPageController(...args);
+        } catch (err) {
+          const [req, res] = args as [AppRequest, Response];
+          runErrorHandler(err, req, res);
+        }
+      };
   }
 }

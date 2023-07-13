@@ -1,11 +1,11 @@
-{% from "common/service-address.njk" import serviceAddressMacro %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
 
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--additional">
 <h2 class="govuk-heading-s">{{ iWantTo }}</h2>
 
 <p class="govuk-body"><a class="govuk-link" href={{applicationDownload.link}}
 download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
-{% if aosSubmitted %}
+{% if isAosSubmitted %}
   <p class="govuk-body"><a class="govuk-link" href={{respondentAnswersDownload.link}}
    download={{respondentAnswersDownload.reference}}>{{respondentAnswersDownload.text}}</a></p>
 {% endif %}
@@ -26,13 +26,33 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
 {% endif %}
 
 {% if hasConditionalOrderGranted %}
-  <p class="govuk-body"><a class="govuk-link" href={{ConditionalOrderGrantedDocumentDownload.link}}
-    download={{ConditionalOrderGrantedDocumentDownload.reference}}>{{ConditionalOrderGrantedDocumentDownload.text}}</a></p>
+  <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderGrantedDocumentDownload.link}}
+    download={{conditionalOrderGrantedDocumentDownload.reference}}>{{conditionalOrderGrantedDocumentDownload.text}}</a></p>
 {% endif %}
 
 {% if hasConditionalOrderAnswers %}
   <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderAnswersPdf.link}}
    download={{conditionalOrderAnswersPdf.reference}}>{{conditionalOrderAnswersPdf.text}}</a></p>
+{% endif %}
+
+{% if hasConditionalOrderApplication %}
+  <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderApplicationDownload.link}}
+   download={{conditionalOrderApplicationDownload.reference}}>{{conditionalOrderApplicationDownload.text}}</a></p>
+{% endif %}
+
+{% if hasFinalOrderGranted %}
+  <p class="govuk-body"><a class="govuk-link" href={{finalOrderGrantedDocumentDownload.link}}
+    download={{finalOrderGrantedDocumentDownload.reference}}>{{finalOrderGrantedDocumentDownload.text}}</a></p>
+{% endif %}
+
+{% if isAwaitingAmendedApplicationState %}
+  <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderRefusalPdf.link}}
+    download={{conditionalOrderRefusalPdf.reference}}>{{conditionalOrderRefusalPdf.text}}</a></p>
+{% endif %}
+
+{% if hasFinalOrderApplicationAndFinalOrderRequested %}
+  <p class="govuk-body"><a class="govuk-link" href={{finalOrderApplicationDownload.link}}
+   download={{finalOrderApplicationDownload.reference}}>{{finalOrderApplicationDownload.text}}</a></p>
 {% endif %}
 
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>

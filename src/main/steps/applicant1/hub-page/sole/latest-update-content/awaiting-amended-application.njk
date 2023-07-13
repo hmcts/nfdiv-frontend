@@ -1,0 +1,17 @@
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+<p class="govuk-body">{{ conditionalOrderRejected.line1 }}</p>
+<h4 class="govuk-heading-s">{{ conditionalOrderRejected.line2 }}</h4>
+<p class="govuk-body">{{ conditionalOrderRejected.line3 }}</p>
+<p class="govuk-body">{{ conditionalOrderRejected.part1 }}
+  <a class="govuk-link" href={{ conditionalOrderRejected.link }}
+    download={{ conditionalOrderRejected.downloadReference }}>
+      {{ conditionalOrderRejected.part2 }}</a>
+</p>
+<h4 class="govuk-heading-s">{{ conditionalOrderRejected.line4 }}</h4>
+<p class="govuk-body">{{ conditionalOrderRejected.line5 }}</p>
+<p class="govuk-body">{{ conditionalOrderRejected.line6 }}</p>
+<p class="govuk-body">{{ conditionalOrderRejected.line7 }}</p>
+<p class="govuk-body">{{ conditionalOrderRejected.line8 }}</p>
+
+{% include "applicant1/hub-page/common/court-feedback.njk" %}

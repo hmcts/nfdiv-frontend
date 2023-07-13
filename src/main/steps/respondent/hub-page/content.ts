@@ -56,8 +56,8 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
       dayjs(userCase.issueDate).add(config.get('dates.disputeDueDateOffsetDays'), 'day')
     )}
       to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
-      isDivorce ? 'the divorce' : 'ending your civil partnership'
-    }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">download the form here</a>.`,
+        isDivorce ? 'the divorce' : 'ending your civil partnership'
+      }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">download the form here</a>.`,
     line3: `Fill in the form and email it to: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
     line4: 'Or post it to:',
     line5: `You’ll have to pay a ${getFee(
@@ -87,15 +87,15 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     Your ${partner} still has to apply for a final order which will end the ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.
-    They can apply for a final order on ${getFormattedDate(userCase.dateFinalOrderEligibleFrom)}. This will end your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    }.`,
-    line3: `If they do not apply for a final order by ${getFormattedDate(
+    They can apply for a final order from ${getFormattedDate(
       userCase.dateFinalOrderEligibleFrom
+    )}. This will end your ${isDivorce ? 'marriage' : 'civil partnership'}.`,
+    line3: `If they do not apply for a final order by ${getFormattedDate(
+      dayjs(userCase.dateFinalOrderEligibleFrom).add(3, 'months')
     )} then you can apply for a final order.`,
     line4: {
       part1: 'You can ',
-      part2: "view and download your 'conditional order'.",
+      part2: 'download and read your conditional order.',
       downloadReference: 'Conditional-Order-Granted',
       link: '/downloads/conditional-order-granted',
     },
@@ -154,17 +154,49 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     buttonText: 'Apply for a final order',
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
+  conditionalOrderRejected: {
+    line1: `The court is not yet satisfied you are entitled to ${
+      isDivorce ? 'get divorced' : 'end your civil partnership'
+    }. You need to read the court’s feedback and update your application, before you can continue.`,
+    line2: 'The court’s feedback',
+    line3: userCase.coRefusalRejectionAdditionalInfo,
+    part1: 'You can download a copy of the court’s full',
+    part2: 'Refusal Order PDF.',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'What you need to do',
+    line5: 'You will need to change the application, and submit it to the court again.',
+    line6:
+      'You will receive a paper copy of the application in the post. It will include a letter with details of how to update the application and send it back to the court.',
+    line7: `You will need to agree the changes with your ${partner} before sending it back to the court.`,
+    line8: `You will also need to pay a ${getFee(config.get('fees.updateApplication'))} amendment fee.`,
+  },
   finalOrderRequested: {
     line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
-    }.`,
-    line2: `${
+    }. ${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
           )}`
         : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
+    line2: `You need to pay ${getFee(
+      config.get('fees.finalOrderApplicationFee')
+    )} for the application before it can be submitted. Phone 0300 303 0642 to make payment. Have your card details ready.`,
+    line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
+       number. You can `,
+    line4: 'apply for Help With Fees here',
+    link: 'https://www.gov.uk/get-help-with-court-fees',
+  },
+  finalOrderGranted: {
+    line1: `The court has granted you a final order.
+    Your ${isDivorce ? 'marriage' : 'civil partnership'} is now legally ended.`,
+    part1: "Download a copy of your 'final order'",
+    part2: `This is the official court document which proves
+      ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
+    downloadReference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
   },
 });
 
@@ -212,8 +244,8 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
       i gyflwyno'r ffurflen ateb i ${
         isDivorce ? 'gais am ysgariad' : 'diddymiad'
       }’. Dyma'r ffurflen ar gyfer herio’r cais am ${
-      isDivorce ? 'ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
-    }. Gallwch <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">lawrlwytho'r ffurflen yma</a>.`,
+        isDivorce ? 'ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+      }. Gallwch <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">lawrlwytho'r ffurflen yma</a>.`,
     line3: `Llenwch y ffurflen a'i hanfon drwy e-bost i: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
     line4: 'Neu ei phostio i:',
     line5: `Bydd yn rhaid i chi dalu ffi o ${getFee(
@@ -303,11 +335,14 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     } i ben yn gyfreithiol.`,
   },
   awaitingFinalOrderOrFinalOrderOverdue: {
-    line1: `Your ${partner} can now apply for a 'final order'. A final order is the document that will legally end your
-     ${isDivorce ? 'marriage' : 'civil partnership'}. It’s the final step in the
-     ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
-    line2: `If they do not apply by ${getFormattedDate(userCase.dateFinalOrderEligibleToRespondent)}
-     then you will be able to apply, and ${isDivorce ? 'finalise the divorce' : 'end the civil partnership'}.`,
+    line1: `Gall eich ${partner} wneud cais am 'orchymyn terfynol' yn awr. Gorchymyn terfynol yw'r ddogfen a fydd yn dod â'ch
+     ${isDivorce ? 'priodas' : 'partneriaeth sifil'} i ben yn gyfreithiol. Dyma'r cam olaf yn y
+     ${isDivorce ? 'broses ysgaru' : "i ddod â'ch partneriaeth sifil i ben"}.`,
+    line2: `Os na fyddant yn gwneud cais erbyn ${getFormattedDate(
+      userCase.dateFinalOrderEligibleToRespondent,
+      SupportedLanguages.Cy
+    )}
+     byddwch yn gallu gwneud cais, a ${isDivorce ? 'chadarnhau’r ysgariad' : "dod â'r bartneriaeth sifil i ben"}.`,
   },
   awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
     line1: `Your ${partner} has still not applied for a 'final order', which is the document that will legally end your  ${
@@ -318,18 +353,51 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     buttonText: 'Apply for a final order',
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
+  conditionalOrderRejected: {
+    line1: `Nid yw'r llys yn fodlon eto bod gennych hawl i ${
+      isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
+    }. Mae angen i chi ddarllen sylwadau’r llys a diweddaru eich cais, cyn y gallwch barhau.`,
+    line2: 'Sylwadau’r llys',
+    line3: userCase.coRefusalRejectionAdditionalInfo,
+    part1: 'Gallwch lawrlwytho copi o',
+    part2: 'Orchymyn Gwrthod (PDF) llawn y llys.',
+    downloadReference: 'Refusal-Order',
+    link: '/downloads/conditional-order-refusal',
+    line4: 'Beth sydd angen i chi ei wneud',
+    line5: "Bydd angen i chi newid y cais, a'i gyflwyno i'r llys eto.",
+    line6:
+      "Byddwch yn cael copi papur o’r cais drwy'r post. Bydd yn cynnwys llythyr gyda manylion am sut i ddiweddaru’r cais a’i anfon yn ôl i’r llys.",
+    line7: `Bydd arnoch angen cytuno ar y newidiadau gyda’ch ${partner} cyn ei anfon yn ôl i’r llys.`,
+    line8: `Bydd angen i chi hefyd dalu ffi ddiwygio o ${getFee(config.get('fees.updateApplication'))}.`,
+  },
   finalOrderRequested: {
-    line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
-      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
-    }.`,
-    line2: `${
+    line1: `Mae eich ${partner} wedi gwneud cais am 'orchymyn terfynol'. Bydd y cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
+      isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'bydd eich partneriaeth sifil yn dod i ben yn gyfreithiol'
+    }. ${
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${getFormattedDate(
+        ? `Byddwch yn cael e-bost erbyn ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
-          )}`
-        : 'You should receive an email within 2 working days,'
-    } confirming whether the final order has been granted.`,
+          )} yn cadarnhau`
+        : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith, gan gadarnhau'
+    } a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
+    line2: `Mae angen i chi dalu ${getFee(
+      config.get('fees.finalOrderApplicationFee')
+    )} am y cais cyn y gellir ei gyflwyno. Ffoniwch 0300 303 0642 i wneud taliad. Sicrhewch fod manylion eich cerdyn gennych wrth law.`,
+    line3:
+      "Os oes angen help arnoch i dalu'r ffi yna bydd angen i chi wneud cais am Help i Dalu Ffioedd yn gyntaf. Yna ffoniwch gyda'ch cyfeirnod Help i Dalu Ffioedd. Gallwch ",
+    line4: 'wneud cais am Help i Dalu Ffioedd yma.',
+    link: 'https://www.gov.uk/get-help-with-court-fees',
+  },
+  finalOrderGranted: {
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
+    yn awr wedi dod i ben yn gyfreithiol.`,
+    part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
+    part2: `. Dyma’r ddogfen swyddogol gan y llys sy’n profi ${
+      isDivorce ? 'eich bod wedi ysgaru' : 'bod eich partneriaeth sifil wedi dod i ben'
+    }.`,
+    downloadReference: 'Final-Order-Granted',
+    link: '/downloads/final-order-granted',
   },
 });
 
@@ -344,10 +412,11 @@ export const generateContent: TranslationFn = content => {
   const { userCase, language } = content;
   const isRespondentAbleToApplyForFinalOrder = dayjs(userCase.dateFinalOrderEligibleToRespondent).diff(dayjs()) < 0;
   const hasSubmittedAos = !isEmpty(userCase.dateAosSubmitted);
-  const displayState = currentStateFn(userCase).at(
+  const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, userCase, hasSubmittedAos);
+  const hasApplicant2AppliedForFinalOrderFirst = userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES;
   return {
     ...applicant1GenerateContent(content),
     ...languages[language](content),
@@ -355,5 +424,6 @@ export const generateContent: TranslationFn = content => {
     theLatestUpdateTemplate,
     isRespondentAbleToApplyForFinalOrder,
     hasSubmittedAos,
+    hasApplicant2AppliedForFinalOrderFirst,
   };
 };

@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State } from '../../app/case/definition';
-import { PageContent, TranslationFn } from '../../app/controller/GetController';
 import { SupportedLanguages } from '../../modules/i18n';
+import { SAVE_AND_SIGN_OUT } from '../urls';
 
 import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
@@ -9,12 +9,23 @@ export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
-  feedback:
-    'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">feedback</a> will help us to improve it.',
-  languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
+  feedback: {
+    part1: 'This is a new service – your ',
+    part2: 'feedback',
+    part3: ' will help us to improve it.',
+    ariaLabel:
+      'Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress.',
+    link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
+  },
+  languageToggle: {
+    text: 'Cymraeg',
+    link: '?lng=cy',
+  },
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Continue',
+  submit: 'Submit',
+  confirm: 'Confirm',
   change: 'Change',
   upload: 'Upload',
   download: 'Download',
@@ -117,6 +128,15 @@ export const en = {
   helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
   helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
+  timeout: {
+    title: 'You are about to be signed out',
+    part1: 'You are going to be signed out of your application in',
+    part2: 'because of inactivity. This is to protect your personal information.',
+    buttonText: 'Continue with your application',
+    twoMinutes: '2 minutes',
+    minutes: 'minute',
+    seconds: 'seconds',
+  },
   serviceAddress: {
     line1: 'Courts and Tribunals Service Centre',
     line2: 'HMCTS Divorce and Dissolution service',
@@ -124,7 +144,8 @@ export const en = {
     town: 'Harlow',
     postcode: 'CM20 9UG',
   },
-  contactEmail: 'divorcecase@justice.gov.uk',
+  contactEmail: 'contactdivorce@justice.gov.uk',
+  saveAndSignOutLink: SAVE_AND_SIGN_OUT,
 };
 
 const cy: typeof en = {
@@ -132,12 +153,23 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
-  feedback:
-    'Mae hwn yn wasanaeth newydd - <a class="govuk-link" aria-label="Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod." href="https://www.smartsurvey.co.uk/s/Divorce_Feedback" target="_blank">bydd eich sylwadau</a> yn ein helpu i wella’r gwasanaeth.',
-  languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
+  feedback: {
+    part1: 'Mae hwn yn wasanaeth newydd - ',
+    part2: 'bydd eich sylwadau',
+    part3: ' yn ein helpu i wella’r gwasanaeth.',
+    ariaLabel:
+      'Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod.',
+    link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
+  },
+  languageToggle: {
+    text: 'English',
+    link: '?lng=en',
+  },
   govUk: 'GOV.UK',
   back: 'Yn ôl',
   continue: 'Parhau',
+  submit: 'Cyflwyno',
+  confirm: 'Cadarnhau',
   change: 'Newid',
   upload: 'Uwchlwytho',
   download: 'Llwytho i lawr',
@@ -230,28 +262,22 @@ const cy: typeof en = {
     },
   },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
-  contactEmail: 'ymholiadaucymraeg@justice.gov.uk',
+  contactEmail: 'contactdivorce@justice.gov.uk',
 };
 
-export const generatePageContent = ({
+export const generateCommonContent = ({
   language,
   userCase,
-  pageContent,
   isDivorce = true,
   isApplicant2 = false,
   userEmail,
-  existingCaseId,
-  inviteCaseApplicationType,
 }: {
   language: SupportedLanguages;
   userCase: Partial<CaseWithId>;
-  pageContent?: TranslationFn;
   isDivorce?: boolean;
   isApplicant2?: boolean;
   userEmail?: string;
-  existingCaseId?: string;
-  inviteCaseApplicationType?: ApplicationType;
-}): PageContent => {
+}): CommonContent => {
   const commonTranslations: typeof en = language === SupportedLanguages.En ? en : cy;
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
@@ -259,10 +285,11 @@ export const generatePageContent = ({
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isAmendableStates =
     userCase &&
-    [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state!);
+    userCase.state &&
+    [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
 
-  const content: CommonContent = {
+  return {
     ...commonTranslations,
     serviceName,
     partner,
@@ -274,21 +301,12 @@ export const generatePageContent = ({
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
-    existingCaseId,
-    inviteCaseApplicationType,
   };
-
-  if (pageContent) {
-    Object.assign(content, pageContent(content));
-  }
-
-  return content;
 };
 
 export type CommonContent = typeof en & {
   language: SupportedLanguages;
   serviceName: string;
-  pageContent?: TranslationFn;
   isDivorce: boolean;
   isApplicant2: boolean;
   userCase: Partial<CaseWithId>;
@@ -296,8 +314,6 @@ export type CommonContent = typeof en & {
   userEmail?: string;
   isJointApplication: boolean;
   referenceNumber?: string;
-  isAmendableStates: boolean;
+  isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
-  existingCaseId?: string;
-  inviteCaseApplicationType?: ApplicationType;
 };

@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { isEmpty } from 'lodash';
 
-import { CaseWithId, Checkbox } from '../../app/case/case';
+import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Form, FormFields } from '../../app/form/Form';
@@ -32,12 +32,16 @@ import {
 
 export class HomeGetController {
   public get(req: AppRequest, res: Response): void {
-    if (req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
+    if (!req.session.userCase) {
+      return res.redirect(YOUR_DETAILS_URL);
+    }
+
+    if (req.session.userCase && req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
       throw new Error('Invalid case type');
     }
 
     const firstQuestionFormContent = req.session.isApplicant2
-      ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType!)
+      ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType as ApplicationType)
       : applicant1FirstQuestionForm;
 
     const firstQuestionForm = new Form(<FormFields>firstQuestionFormContent.fields);
@@ -75,14 +79,12 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     }
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
-      if (userCase.coApplicant1StatementOfTruth) {
+      if (userCase.coApplicant1SubmittedDate) {
         return HUB_PAGE;
       } else if (userCase.applicant1ApplyForConditionalOrder) {
         return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;
       } else if (userCase.applicant1ApplyForConditionalOrderStarted) {
-        return userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
-          (userCase.applicant2StatementOfTruth === Checkbox.Checked ||
-            userCase.aosStatementOfTruth === Checkbox.Checked)
+        return userCase.applicationType === ApplicationType.SOLE_APPLICATION && userCase.dateAosSubmitted
           ? READ_THE_RESPONSE
           : CONTINUE_WITH_YOUR_APPLICATION;
       } else {
@@ -101,11 +103,17 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
 const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: boolean) => {
   const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
   switch (req.session.userCase.state) {
+    case State.FinalOrderRequested:
     case State.AwaitingConditionalOrder:
     case State.AwaitingPronouncement:
     case State.ConditionalOrderPronounced:
     case State.AwaitingClarification:
+    case State.AwaitingAmendedApplication:
+    case State.FinalOrderComplete:
     case State.ClarificationSubmitted:
+    case State.AwaitingFinalOrder:
+    case State.AwaitingJointFinalOrder:
+    case State.FinalOrderOverdue:
     case State.Holding: {
       return HUB_PAGE;
     }
@@ -114,7 +122,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     }
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
-      if (req.session.userCase.coApplicant2StatementOfTruth) {
+      if (req.session.userCase.coApplicant2SubmittedDate) {
         return HUB_PAGE;
       }
       return req.session.userCase.applicant2ApplyForConditionalOrder

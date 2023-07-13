@@ -1,4 +1,4 @@
-@import '~govuk-frontend';
+@import 'govuk-frontend';
 @import '~@hmcts/frontend/all';
 
 @import './banner';
@@ -11,6 +11,7 @@
 @import './check-your-answers';
 @import './webchat';
 @import './review-pages';
+@import './timeout-modal';
 
 .hmcts-button-link,
 .uppy-FileInput-btn {

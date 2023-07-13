@@ -7,6 +7,8 @@ export const SIGN_IN_URL: PageLink = '/login';
 export const APPLICANT_2_SIGN_IN_URL: PageLink = '/login-applicant2';
 export const SIGN_OUT_URL: PageLink = '/logout';
 export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
+export const EXIT_SERVICE: PageLink = '/exit-service';
+export const ACTIVE: PageLink = '/active';
 export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 
@@ -64,7 +66,6 @@ export const ENTER_SOLICITOR_DETAILS: PageLink = '/enter-solicitor-details';
 
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
 export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
-export const HOW_DID_YOU_CHANGE_YOUR_NAME: PageLink = '/how-did-you-change-your-name';
 export const THEIR_EMAIL_ADDRESS: PageLink = '/their-email-address';
 export const YOU_NEED_THEIR_EMAIL_ADDRESS: PageLink = '/you-need-their-email-address';
 export const EMAIL_RESENT: PageLink = '/email-resent';
@@ -106,6 +107,7 @@ export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
 export const EQUALITY: PageLink = '/equality';
 
 export const SWITCH_TO_SOLE_APPLICATION: PageLink = '/switch-to-sole-application';
+export const CHANGING_TO_SOLE_APPLICATION: PageLink = '/changing-to-a-sole-application';
 
 export const PAYMENT_CALLBACK_URL: PageLink = '/payment-callback';
 
@@ -129,5 +131,6 @@ export const WITHDRAWING_YOUR_APPLICATION: PageLink = '/withdrawing-your-applica
 export const CHECK_CONDITIONAL_ORDER_ANSWERS_URL: PageLink = '/check-your-conditional-order-answers';
 export const PROVIDE_INFORMATION_TO_THE_COURT: PageLink = '/provide-information-to-the-court';
 
+export const HOW_TO_FINALISE_APPLICATION: PageLink = '/how-to-finalise';
 export const FINALISING_YOUR_APPLICATION: PageLink = '/finalising-your-application';
 export const EXPLAIN_THE_DELAY: PageLink = '/explain-the-delay';

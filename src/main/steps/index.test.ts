@@ -1,13 +1,15 @@
 import { completeCase } from '../../test/functional/fixtures/completeCase';
 import { mockRequest } from '../../test/unit/utils/mockRequest';
-import { Checkbox } from '../app/case/case';
+import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
+import { applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
+import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
+import { respondentSequence } from './respondentSequence';
 import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
-  CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CONTINUE_WITH_YOUR_APPLICATION,
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -23,6 +25,7 @@ import {
 import {
   getNextIncompleteStepUrl,
   getNextStepUrl,
+  getUserSequence,
   isApplicationReadyToSubmit,
   isConditionalOrderReadyToSubmit,
 } from './index';
@@ -130,10 +133,24 @@ describe('Steps', () => {
       expect(actual).toBe(`${RESPONDENT}${REVIEW_THE_APPLICATION}`);
     });
 
-    it("uses applicant 1's CO sequence if state is ConditionalOrderDrafted", () => {
-      mockReq.session.userCase.state = State.ConditionalOrderDrafted;
-      const actual = getNextIncompleteStepUrl(mockReq);
-      expect(actual).toBe(CONTINUE_WITH_YOUR_APPLICATION);
+    it("uses applicant 1's CO sequence if state is ConditionalOrderDrafted/ConditionalOrderPending", () => {
+      const testStates = [State.ConditionalOrderPending, State.ConditionalOrderDrafted];
+      for (const state of testStates) {
+        mockReq.session.userCase.state = state;
+        mockReq.session.isApplicant2 = false;
+        const actual = getNextIncompleteStepUrl(mockReq);
+        expect(actual).toBe(CONTINUE_WITH_YOUR_APPLICATION);
+      }
+    });
+
+    it("uses applicant 2's CO sequence if state is ConditionalOrderDrafted/ConditionalOrderPending", () => {
+      const testStates = [State.ConditionalOrderPending, State.ConditionalOrderDrafted];
+      for (const state of testStates) {
+        mockReq.session.userCase.state = state;
+        mockReq.session.isApplicant2 = true;
+        const actual = getNextIncompleteStepUrl(mockReq);
+        expect(actual).toBe(`${APPLICANT_2}${CONTINUE_WITH_YOUR_APPLICATION}`);
+      }
     });
   });
 
@@ -155,21 +172,114 @@ describe('Steps', () => {
   });
 
   describe('isConditionalOrderReadyToSubmit()', () => {
-    it('returns false if nextStepUrl is /continue-with-your-application', () => {
-      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(CONTINUE_WITH_YOUR_APPLICATION);
-      expect(isApplicationReadyToSubmitBoolean).toBeFalsy();
+    let mockReq: AppRequest;
+    beforeEach(() => {
+      mockReq = mockRequest();
     });
 
-    it('returns true if nextStepUrl is /', () => {
-      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(HOME_URL);
-      expect(isApplicationReadyToSubmitBoolean).toBeTruthy();
+    it('returns true if is app1 and applicant1ConfirmInformationStillCorrect not empty', () => {
+      mockReq.session.userCase.applicant1ConfirmInformationStillCorrect = YesOrNo.YES;
+      mockReq.session.userCase.applicant2ConfirmInformationStillCorrect = undefined;
+      const isApp2 = false;
+      const isConditionalOrderReadyToSubmitResult = isConditionalOrderReadyToSubmit(mockReq.session.userCase, isApp2);
+      expect(isConditionalOrderReadyToSubmitResult).toBe(true);
     });
 
-    it('returns true if nextStepUrl contains /check-your-conditional-order-answers', () => {
-      const isApplicationReadyToSubmitBoolean = isConditionalOrderReadyToSubmit(
-        `${CHECK_CONDITIONAL_ORDER_ANSWERS_URL}?lng=eng`
-      );
-      expect(isApplicationReadyToSubmitBoolean).toBeTruthy();
+    it('returns true if is app2 and applicant2ConfirmInformationStillCorrect not empty', () => {
+      mockReq.session.userCase.applicant1ConfirmInformationStillCorrect = undefined;
+      mockReq.session.userCase.applicant2ConfirmInformationStillCorrect = YesOrNo.NO;
+      const isApp2 = true;
+      const isConditionalOrderReadyToSubmitResult = isConditionalOrderReadyToSubmit(mockReq.session.userCase, isApp2);
+      expect(isConditionalOrderReadyToSubmitResult).toBe(true);
     });
+
+    it('returns false if is app1 and applicant1ConfirmInformationStillCorrect is empty', () => {
+      mockReq.session.userCase.applicant1ConfirmInformationStillCorrect = undefined;
+      mockReq.session.userCase.applicant2ConfirmInformationStillCorrect = YesOrNo.YES;
+      const isApp2 = false;
+      const isConditionalOrderReadyToSubmitResult = isConditionalOrderReadyToSubmit(mockReq.session.userCase, isApp2);
+      expect(isConditionalOrderReadyToSubmitResult).toBe(false);
+    });
+
+    it('returns false if is app2 and applicant2ConfirmInformationStillCorrect is empty', () => {
+      mockReq.session.userCase.applicant1ConfirmInformationStillCorrect = YesOrNo.YES;
+      mockReq.session.userCase.applicant2ConfirmInformationStillCorrect = undefined;
+      const isApp2 = true;
+      const isConditionalOrderReadyToSubmitResult = isConditionalOrderReadyToSubmit(mockReq.session.userCase, isApp2);
+      expect(isConditionalOrderReadyToSubmitResult).toBe(false);
+    });
+  });
+
+  describe('getUserSequence()', () => {
+    let mockReq: AppRequest;
+    beforeEach(() => {
+      mockReq = mockRequest();
+    });
+
+    it('returns respondentSequence if is applicant2 and sole', () => {
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.Holding,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      } as CaseWithId;
+      mockReq.session.isApplicant2 = true;
+
+      const result = getUserSequence(mockReq);
+      expect(result).toEqual(respondentSequence);
+    });
+
+    it('returns applicant2PreSubmissionSequence if is applicant2, joint and pre-submission state', () => {
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.Draft,
+        applicationType: ApplicationType.JOINT_APPLICATION,
+      } as CaseWithId;
+      mockReq.session.isApplicant2 = true;
+
+      const result = getUserSequence(mockReq);
+      expect(result).toEqual(applicant2PreSubmissionSequence);
+    });
+
+    it('returns applicant2PreSubmissionSequence if is applicant2, joint and post-submission state', () => {
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.AwaitingFinalOrder,
+        applicationType: ApplicationType.JOINT_APPLICATION,
+      } as CaseWithId;
+      mockReq.session.isApplicant2 = true;
+
+      const result = getUserSequence(mockReq);
+      expect(result).toEqual(applicant2PostSubmissionSequence);
+    });
+
+    test.each([[ApplicationType.JOINT_APPLICATION, ApplicationType.SOLE_APPLICATION]])(
+      'returns applicant1PreSubmissionSequence if is applicant 1, %s and pre-submission state',
+      async applicationType => {
+        mockReq.session.userCase = {
+          id: '1234',
+          state: State.Draft,
+          applicationType,
+        } as CaseWithId;
+        mockReq.session.isApplicant2 = false;
+
+        const result = getUserSequence(mockReq);
+        expect(result).toEqual(applicant1PreSubmissionSequence);
+      }
+    );
+
+    test.each([[ApplicationType.JOINT_APPLICATION, ApplicationType.SOLE_APPLICATION]])(
+      'returns applicant1PostSubmissionSequence if is applicant 1, %s and pre-submission state',
+      async applicationType => {
+        mockReq.session.userCase = {
+          id: '1234',
+          state: State.AwaitingConditionalOrder,
+          applicationType,
+        } as CaseWithId;
+        mockReq.session.isApplicant2 = false;
+
+        const result = getUserSequence(mockReq);
+        expect(result).toEqual(applicant1PostSubmissionSequence);
+      }
+    );
   });
 });

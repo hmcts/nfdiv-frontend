@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-
-// Generated using typescript-generator version 2.36.1070 on 2022-07-13 16:11:17.
+// Generated using typescript-generator version 3.0.1157 on 2022-12-01 15:37:33.
 
 export interface Address {
   AddressLine1: string;
@@ -165,20 +164,21 @@ export interface AcknowledgementOfService {
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: string;
+  reasonCourtsOfEnglandAndWalesHaveNoJurisdictionTranslated: string;
+  reasonCourtsOfEnglandAndWalesHaveNoJurisdictionTranslatedTo: TranslatedToLanguage;
   inWhichCountryIsYourLifeMainlyBased: string;
   statementOfTruth: YesOrNo;
-  prayerHasBeenGiven: YesOrNo;
   howToRespondApplication: HowToRespondApplication;
   solicitorName: string;
   solicitorFirm: string;
   additionalComments: string;
-  typeOfDocumentAttached: OfflineDocumentReceived;
   disputingFeeOrderSummary: OrderSummary;
   disputingFeePaymentMethod: ServicePaymentMethod;
   disputingFeeAccountNumber: string;
   disputingFeePbaNumbers: DynamicList;
   disputingFeeAccountReferenceNumber: string;
   disputingFeeHelpWithFeesReferenceNumber: string;
+  aosIsDrafted: YesOrNo;
 }
 
 export interface AlternativeService {
@@ -231,7 +231,11 @@ export interface Applicant {
   ConfirmReceipt: YesOrNo;
   LanguagePreferenceWelsh: YesOrNo;
   LastNameChangedWhenMarried: YesOrNo;
+  LastNameChangedWhenMarriedMethod: ChangedNameHow[];
+  LastNameChangedWhenMarriedOtherDetails: string;
   NameDifferentToMarriageCertificate: YesOrNo;
+  NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
+  NameDifferentToMarriageCertificateOtherDetails: string;
   NameChangedHow: ChangedNameHow[];
   NameChangedHowOtherDetails: string;
   Address: AddressGlobalUK;
@@ -239,7 +243,6 @@ export interface Applicant {
   Gender: Gender;
   ContactDetailsType: ContactDetailsType;
   SolicitorRepresented: YesOrNo;
-  UsedWelshTranslationOnSubmission: YesOrNo;
   SolicitorName: string;
   SolicitorReference: string;
   SolicitorPhone: string;
@@ -249,15 +252,19 @@ export interface Applicant {
   SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   FinancialOrder: YesOrNo;
+  UsedWelshTranslationOnSubmission: YesOrNo;
   FinancialOrdersFor: FinancialOrderFor[];
   LegalProceedings: YesOrNo;
   LegalProceedingsDetails: string;
+  LegalProceedingsDetailsTranslated: string;
+  LegalProceedingsDetailsTranslatedTo: TranslatedToLanguage;
   PcqId: string;
   ContinueApplication: YesOrNo;
   PrayerDissolveDivorce: DissolveDivorce[];
   PrayerEndCivilPartnership: EndCivilPartnership[];
   PrayerFinancialOrdersThemselves: FinancialOrdersThemselves[];
   PrayerFinancialOrdersChild: FinancialOrdersChild[];
+  CoPronouncedCoverLetterRegenerated: YesOrNo;
   Offline: YesOrNo;
 }
 
@@ -298,6 +305,7 @@ export interface Application {
   solServiceOnWhomServed: string;
   solServiceHowServed: DocumentsServedHow;
   solServiceServiceDetails: string;
+  solServiceServiceProcessedByProcessServer: ServiceProcessedByProcessServer[];
   solServiceAddressServed: string;
   solServiceBeingThe: DocumentsServedBeingThe;
   solServiceLocationServed: DocumentsServedWhere;
@@ -312,6 +320,17 @@ export interface Application {
   applicant2HWFReferenceNumber: string;
   applicant2HWFNeedHelp: YesOrNo;
   applicant2HWFAppliedForFees: YesOrNo;
+  stsApplicant1KnowsApplicant2EmailAddress: YesOrNo;
+  stsApplicant1KnowsApplicant2Address: YesOrNo;
+  stsApp2ContactMethodIsDigital: YesOrNo;
+  stsApplicant1WantsToHavePapersServedAnotherWay: YesOrNo;
+  stsApplicant2ConfirmApplicant1Information: YesOrNo;
+  stsApplicant2ExplainsApplicant1IncorrectInformation: string;
+  stsApplicant1IsApplicant2Represented: Applicant2Represented;
+  stsApplicant2AgreeToReceiveEmails: YesOrNo;
+  stsApplicant2NeedsHelpWithFees: YesOrNo;
+  stsSolStatementOfReconciliationCertify: YesOrNo;
+  stsSolStatementOfReconciliationDiscussed: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
@@ -361,6 +380,9 @@ export interface Application {
   applicant2ReminderSent: YesOrNo;
   respondentSolicitorReminderSent: YesOrNo;
   applicantsRemindedCanApplyForConditionalOrder: YesOrNo;
+  applicantsRemindedAwaitingJointFinalOrder: YesOrNo;
+  jointApplicantNotifiedCanSwitchToSole: YesOrNo;
+  coPronouncedCoverLetterResent: YesOrNo;
   reissueOption: ReissueOption;
   previousReissueOption: ReissueOption;
   applicant2NeedsHelpWithFees: YesOrNo;
@@ -370,6 +392,7 @@ export interface Application {
   progressPaperCase: ProgressPaperCase;
   paperCasePaymentMethod: PaperCasePaymentMethod;
   newPaperCase: YesOrNo;
+  switchedToSoleCo: YesOrNo;
 }
 
 export interface Bailiff {
@@ -411,6 +434,8 @@ export interface CaseData {
   labelContentApplicantOrApplicant1UC: string;
   labelContentGotMarriedOrFormedCivilPartnership: string;
   labelContentRespondentsOrApplicant2s: string;
+  labelContentDivorceOrEndingCivilPartnership: string;
+  labelContentFinaliseDivorceOrLegallyEndYourCivilPartnership: string;
   labelContentApplicationType: ApplicationType;
   applicant1FirstName: string;
   applicant1MiddleName: string;
@@ -420,7 +445,11 @@ export interface CaseData {
   applicant1ConfirmReceipt: YesOrNo;
   applicant1LanguagePreferenceWelsh: YesOrNo;
   applicant1LastNameChangedWhenMarried: YesOrNo;
+  applicant1LastNameChangedWhenMarriedMethod: ChangedNameHow[];
+  applicant1LastNameChangedWhenMarriedOtherDetails: string;
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
+  applicant1NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
+  applicant1NameDifferentToMarriageCertificateOtherDetails: string;
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;
@@ -428,7 +457,6 @@ export interface CaseData {
   applicant1Gender: Gender;
   applicant1ContactDetailsType: ContactDetailsType;
   applicant1SolicitorRepresented: YesOrNo;
-  applicant1UsedWelshTranslationOnSubmission: YesOrNo;
   applicant1SolicitorName: string;
   applicant1SolicitorReference: string;
   applicant1SolicitorPhone: string;
@@ -438,15 +466,19 @@ export interface CaseData {
   applicant1SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1FinancialOrder: YesOrNo;
+  applicant1UsedWelshTranslationOnSubmission: YesOrNo;
   applicant1FinancialOrdersFor: FinancialOrderFor[];
   applicant1LegalProceedings: YesOrNo;
   applicant1LegalProceedingsDetails: string;
+  applicant1LegalProceedingsDetailsTranslated: string;
+  applicant1LegalProceedingsDetailsTranslatedTo: TranslatedToLanguage;
   applicant1PcqId: string;
   applicant1ContinueApplication: YesOrNo;
   applicant1PrayerDissolveDivorce: DissolveDivorce[];
   applicant1PrayerEndCivilPartnership: EndCivilPartnership[];
   applicant1PrayerFinancialOrdersThemselves: FinancialOrdersThemselves[];
   applicant1PrayerFinancialOrdersChild: FinancialOrdersChild[];
+  applicant1CoPronouncedCoverLetterRegenerated: YesOrNo;
   applicant1Offline: YesOrNo;
   applicant2FirstName: string;
   applicant2MiddleName: string;
@@ -456,7 +488,11 @@ export interface CaseData {
   applicant2ConfirmReceipt: YesOrNo;
   applicant2LanguagePreferenceWelsh: YesOrNo;
   applicant2LastNameChangedWhenMarried: YesOrNo;
+  applicant2LastNameChangedWhenMarriedMethod: ChangedNameHow[];
+  applicant2LastNameChangedWhenMarriedOtherDetails: string;
   applicant2NameDifferentToMarriageCertificate: YesOrNo;
+  applicant2NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
+  applicant2NameDifferentToMarriageCertificateOtherDetails: string;
   applicant2NameChangedHow: ChangedNameHow[];
   applicant2NameChangedHowOtherDetails: string;
   applicant2Address: AddressGlobalUK;
@@ -464,7 +500,6 @@ export interface CaseData {
   applicant2Gender: Gender;
   applicant2ContactDetailsType: ContactDetailsType;
   applicant2SolicitorRepresented: YesOrNo;
-  applicant2UsedWelshTranslationOnSubmission: YesOrNo;
   applicant2SolicitorName: string;
   applicant2SolicitorReference: string;
   applicant2SolicitorPhone: string;
@@ -474,15 +509,19 @@ export interface CaseData {
   applicant2SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2FinancialOrder: YesOrNo;
+  applicant2UsedWelshTranslationOnSubmission: YesOrNo;
   applicant2FinancialOrdersFor: FinancialOrderFor[];
   applicant2LegalProceedings: YesOrNo;
   applicant2LegalProceedingsDetails: string;
+  applicant2LegalProceedingsDetailsTranslated: string;
+  applicant2LegalProceedingsDetailsTranslatedTo: TranslatedToLanguage;
   applicant2PcqId: string;
   applicant2ContinueApplication: YesOrNo;
   applicant2PrayerDissolveDivorce: DissolveDivorce[];
   applicant2PrayerEndCivilPartnership: EndCivilPartnership[];
   applicant2PrayerFinancialOrdersThemselves: FinancialOrdersThemselves[];
   applicant2PrayerFinancialOrdersChild: FinancialOrdersChild[];
+  applicant2CoPronouncedCoverLetterRegenerated: YesOrNo;
   applicant2Offline: YesOrNo;
   applicant1ScreenHasMarriageBroken: YesOrNo;
   applicant2ScreenHasMarriageBroken: YesOrNo;
@@ -513,6 +552,7 @@ export interface CaseData {
   solServiceOnWhomServed: string;
   solServiceHowServed: DocumentsServedHow;
   solServiceServiceDetails: string;
+  solServiceServiceProcessedByProcessServer: ServiceProcessedByProcessServer[];
   solServiceAddressServed: string;
   solServiceBeingThe: DocumentsServedBeingThe;
   solServiceLocationServed: DocumentsServedWhere;
@@ -527,6 +567,17 @@ export interface CaseData {
   applicant2HWFReferenceNumber: string;
   applicant2HWFNeedHelp: YesOrNo;
   applicant2HWFAppliedForFees: YesOrNo;
+  stsApplicant1KnowsApplicant2EmailAddress: YesOrNo;
+  stsApplicant1KnowsApplicant2Address: YesOrNo;
+  stsApp2ContactMethodIsDigital: YesOrNo;
+  stsApplicant1WantsToHavePapersServedAnotherWay: YesOrNo;
+  stsApplicant2ConfirmApplicant1Information: YesOrNo;
+  stsApplicant2ExplainsApplicant1IncorrectInformation: string;
+  stsApplicant1IsApplicant2Represented: Applicant2Represented;
+  stsApplicant2AgreeToReceiveEmails: YesOrNo;
+  stsApplicant2NeedsHelpWithFees: YesOrNo;
+  stsSolStatementOfReconciliationCertify: YesOrNo;
+  stsSolStatementOfReconciliationDiscussed: YesOrNo;
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
@@ -576,6 +627,9 @@ export interface CaseData {
   applicant2ReminderSent: YesOrNo;
   respondentSolicitorReminderSent: YesOrNo;
   applicantsRemindedCanApplyForConditionalOrder: YesOrNo;
+  applicantsRemindedAwaitingJointFinalOrder: YesOrNo;
+  jointApplicantNotifiedCanSwitchToSole: YesOrNo;
+  coPronouncedCoverLetterResent: YesOrNo;
   reissueOption: ReissueOption;
   previousReissueOption: ReissueOption;
   applicant2NeedsHelpWithFees: YesOrNo;
@@ -596,20 +650,21 @@ export interface CaseData {
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: string;
+  reasonCourtsOfEnglandAndWalesHaveNoJurisdictionTranslated: string;
+  reasonCourtsOfEnglandAndWalesHaveNoJurisdictionTranslatedTo: TranslatedToLanguage;
   inWhichCountryIsYourLifeMainlyBased: string;
   statementOfTruth: YesOrNo;
-  prayerHasBeenGiven: YesOrNo;
   howToRespondApplication: HowToRespondApplication;
   solicitorName: string;
   solicitorFirm: string;
   additionalComments: string;
-  typeOfDocumentAttached: OfflineDocumentReceived;
   disputingFeeOrderSummary: OrderSummary;
   disputingFeePaymentMethod: ServicePaymentMethod;
   disputingFeeAccountNumber: string;
   disputingFeePbaNumbers: DynamicList;
   disputingFeeAccountReferenceNumber: string;
   disputingFeeHelpWithFeesReferenceNumber: string;
+  aosIsDrafted: YesOrNo;
   coApplicant1SolicitorName: string;
   coApplicant1SolicitorFirm: string;
   coApplicant1SolicitorAdditionalComments: string;
@@ -617,12 +672,17 @@ export interface CaseData {
   coApplicant1IsDrafted: YesOrNo;
   coApplicant1SubmittedDate: DateAsString;
   coApplicant1ApplyForConditionalOrder: YesOrNo;
+  coApplicant1ApplyForConditionalOrderIfNo: YesOrNo;
   coApplicant1ConfirmInformationStillCorrect: YesOrNo;
   coApplicant1ReasonInformationNotCorrect: string;
+  coApplicant1ReasonInformationNotCorrectTranslated: string;
+  coApplicant1ReasonInformationNotCorrectTranslatedTo: TranslatedToLanguage;
   coApplicant1ApplyForConditionalOrderStarted: YesOrNo;
   coApplicant1ChangeOrAddToApplication: YesOrNo;
   coApplicant1IsEverythingInApplicationTrue: YesOrNo;
   coApplicant1StatementOfTruth: YesOrNo;
+  coApplicant1EnableSolicitorSwitchToSoleCo: YesOrNo;
+  coApplicant1ConfirmSwitchToSole: ConfirmSwitchToSole[];
   coApplicant2SolicitorName: string;
   coApplicant2SolicitorFirm: string;
   coApplicant2SolicitorAdditionalComments: string;
@@ -630,14 +690,24 @@ export interface CaseData {
   coApplicant2IsDrafted: YesOrNo;
   coApplicant2SubmittedDate: DateAsString;
   coApplicant2ApplyForConditionalOrder: YesOrNo;
+  coApplicant2ApplyForConditionalOrderIfNo: YesOrNo;
   coApplicant2ConfirmInformationStillCorrect: YesOrNo;
   coApplicant2ReasonInformationNotCorrect: string;
+  coApplicant2ReasonInformationNotCorrectTranslated: string;
+  coApplicant2ReasonInformationNotCorrectTranslatedTo: TranslatedToLanguage;
   coApplicant2ApplyForConditionalOrderStarted: YesOrNo;
   coApplicant2ChangeOrAddToApplication: YesOrNo;
   coApplicant2IsEverythingInApplicationTrue: YesOrNo;
   coApplicant2StatementOfTruth: YesOrNo;
+  coApplicant2EnableSolicitorSwitchToSoleCo: YesOrNo;
+  coApplicant2ConfirmSwitchToSole: ConfirmSwitchToSole[];
   coRespondentAnswersLink: Document;
   coOnlinePetitionLink: Document;
+  coScannedD84Form: Document;
+  coDateD84FormScanned: DateAsString;
+  coD84ApplicationType: OfflineApplicationType;
+  coD84WhoApplying: OfflineWhoApplying;
+  coSwitchedToSole: YesOrNo;
   coLastAlternativeServiceDocumentLink: Document;
   coGranted: YesOrNo;
   coClaimsGranted: YesOrNo;
@@ -649,8 +719,9 @@ export interface CaseData {
   coRefusalRejectionAdditionalInfo: string;
   coRefusalClarificationReason: ClarificationReason[];
   coRefusalClarificationAdditionalInfo: string;
+  coRefusalClarificationAdditionalInfoTranslated: string;
+  coRefusalClarificationAdditionalInfoTranslatedTo: TranslatedToLanguage;
   coClarificationResponses: ListValue<string>[];
-  coLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
   coClarificationUploadDocuments: ListValue<DivorceDocument>[];
   coCannotUploadClarificationDocuments: YesOrNo;
   coOutcomeCase: YesOrNo;
@@ -660,24 +731,46 @@ export interface CaseData {
   coJudgeCostsClaimGranted: JudgeCostsClaimGranted;
   coJudgeCostsOrderAdditionalInfo: string;
   coCertificateOfEntitlementDocument: DivorceDocument;
+  coOfflineCertificateOfEntitlementDocumentSentToApplicant1: YesOrNo;
+  coOfflineCertificateOfEntitlementDocumentSentToApplicant2: YesOrNo;
   coRefusalOrderDocument: Document;
   coConditionalOrderGrantedDocument: DivorceDocument;
+  coLegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
   coClarificationResponsesSubmitted: ListValue<ClarificationResponse>[];
+  coRescindedDate: DateAsString;
+  coServiceConfirmed: YesOrNo;
+  coProofOfServiceUploadDocuments: ListValue<DivorceDocument>[];
+  coLastApprovedServiceApplicationIsBailiffApplication: YesOrNo;
+  coCertificateOfServiceDate: DateAsString;
+  coSuccessfulServedByBailiff: YesOrNo;
   dateFinalOrderSubmitted: DateAsString;
   dateFinalOrderEligibleFrom: DateAsString;
   granted: Granted[];
   grantedDate: DateAsString;
   doesApplicant1WantToApplyForFinalOrder: YesOrNo;
+  applicant1AppliedForFinalOrderFirst: YesOrNo;
   doesApplicant2WantToApplyForFinalOrder: YesOrNo;
+  applicant2AppliedForFinalOrderFirst: YesOrNo;
   applicant2FinalOrderExplanation: string;
   dateFinalOrderEligibleToRespondent: DateAsString;
   applicant1FinalOrderLateExplanation: string;
+  applicant1FinalOrderLateExplanationTranslated: string;
+  applicant1FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
   applicant2FinalOrderLateExplanation: string;
   applicant2FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
+  finalOrderFirstInTimeNotifiedOtherApplicantNotApplied: YesOrNo;
+  finalOrderApplicant1NotifiedCanSwitchToSoleAfterIntention: YesOrNo;
+  finalOrderApplicant2NotifiedCanSwitchToSoleAfterIntention: YesOrNo;
   finalOrderReminderSentApplicant2: YesOrNo;
+  d36ApplicationType: OfflineApplicationType;
+  d36WhoApplying: OfflineWhoApplying;
+  applicant1CanIntendToSwitchToSoleFo: YesOrNo;
+  applicant1IntendsToSwitchToSole: (YesOrNo | null)[];
+  applicant2CanIntendToSwitchToSoleFo: YesOrNo;
+  applicant2IntendsToSwitchToSole: (YesOrNo | null)[];
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
@@ -724,6 +817,7 @@ export interface CaseData {
   generalApplicationFeePbaNumbers: DynamicList;
   generalApplicationFeeAccountReferenceNumber: string;
   generalApplicationFeeHelpWithFeesReferenceNumber: string;
+  generalApplications: ListValue<GeneralApplication>[];
   generalReferrals: ListValue<GeneralReferral>[];
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
   receivedServiceApplicationDate: DateAsString;
@@ -756,6 +850,9 @@ export interface CaseData {
   answerReceivedSupportingDocuments: ListValue<DivorceDocument>[];
   scannedDocumentNames: DynamicList;
   amendedApplications: ListValue<DivorceDocument>[];
+  documentsUploadedOnConfirmService: ListValue<DivorceDocument>[];
+  typeOfDocumentAttached: OfflineDocumentReceived;
+  scannedSubtypeReceived: ScannedDocumentSubtypes;
   divorceUnit: Court;
   generalOrders: ListValue<DivorceGeneralOrder>[];
   dueDate: DateAsString;
@@ -810,6 +907,13 @@ export interface CaseData {
   bulkScanCaseReference: string;
   evidenceHandled: YesOrNo;
   generalLetters: ListValue<GeneralLetterDetails>[];
+  switchedToSoleCo: YesOrNo;
+  coIsAdminClarificationSubmitted: YesOrNo;
+  doesApplicant1IntendToSwitchToSole: YesOrNo;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  doesApplicant2IntendToSwitchToSole: YesOrNo;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  finalOrderSwitchedToSole: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -823,6 +927,9 @@ export interface CaseDocuments {
   answerReceivedSupportingDocuments: ListValue<DivorceDocument>[];
   scannedDocumentNames: DynamicList;
   amendedApplications: ListValue<DivorceDocument>[];
+  documentsUploadedOnConfirmService: ListValue<DivorceDocument>[];
+  typeOfDocumentAttached: OfflineDocumentReceived;
+  scannedSubtypeReceived: ScannedDocumentSubtypes;
 }
 
 export interface CaseInvite {
@@ -846,12 +953,17 @@ export interface ConditionalOrder {
   Applicant1IsDrafted: YesOrNo;
   Applicant1SubmittedDate: DateAsString;
   Applicant1ApplyForConditionalOrder: YesOrNo;
+  Applicant1ApplyForConditionalOrderIfNo: YesOrNo;
   Applicant1ConfirmInformationStillCorrect: YesOrNo;
   Applicant1ReasonInformationNotCorrect: string;
+  Applicant1ReasonInformationNotCorrectTranslated: string;
+  Applicant1ReasonInformationNotCorrectTranslatedTo: TranslatedToLanguage;
   Applicant1ApplyForConditionalOrderStarted: YesOrNo;
   Applicant1ChangeOrAddToApplication: YesOrNo;
   Applicant1IsEverythingInApplicationTrue: YesOrNo;
   Applicant1StatementOfTruth: YesOrNo;
+  Applicant1EnableSolicitorSwitchToSoleCo: YesOrNo;
+  Applicant1ConfirmSwitchToSole: ConfirmSwitchToSole[];
   Applicant2SolicitorName: string;
   Applicant2SolicitorFirm: string;
   Applicant2SolicitorAdditionalComments: string;
@@ -859,14 +971,24 @@ export interface ConditionalOrder {
   Applicant2IsDrafted: YesOrNo;
   Applicant2SubmittedDate: DateAsString;
   Applicant2ApplyForConditionalOrder: YesOrNo;
+  Applicant2ApplyForConditionalOrderIfNo: YesOrNo;
   Applicant2ConfirmInformationStillCorrect: YesOrNo;
   Applicant2ReasonInformationNotCorrect: string;
+  Applicant2ReasonInformationNotCorrectTranslated: string;
+  Applicant2ReasonInformationNotCorrectTranslatedTo: TranslatedToLanguage;
   Applicant2ApplyForConditionalOrderStarted: YesOrNo;
   Applicant2ChangeOrAddToApplication: YesOrNo;
   Applicant2IsEverythingInApplicationTrue: YesOrNo;
   Applicant2StatementOfTruth: YesOrNo;
+  Applicant2EnableSolicitorSwitchToSoleCo: YesOrNo;
+  Applicant2ConfirmSwitchToSole: ConfirmSwitchToSole[];
   RespondentAnswersLink: Document;
   OnlinePetitionLink: Document;
+  ScannedD84Form: Document;
+  DateD84FormScanned: DateAsString;
+  D84ApplicationType: OfflineApplicationType;
+  D84WhoApplying: OfflineWhoApplying;
+  SwitchedToSole: YesOrNo;
   LastAlternativeServiceDocumentLink: Document;
   Granted: YesOrNo;
   ClaimsGranted: YesOrNo;
@@ -878,6 +1000,8 @@ export interface ConditionalOrder {
   RefusalRejectionAdditionalInfo: string;
   RefusalClarificationReason: ClarificationReason[];
   RefusalClarificationAdditionalInfo: string;
+  RefusalClarificationAdditionalInfoTranslated: string;
+  RefusalClarificationAdditionalInfoTranslatedTo: TranslatedToLanguage;
   ClarificationResponses: ListValue<string>[];
   ClarificationUploadDocuments: ListValue<DivorceDocument>[];
   CannotUploadClarificationDocuments: YesOrNo;
@@ -888,10 +1012,19 @@ export interface ConditionalOrder {
   JudgeCostsClaimGranted: JudgeCostsClaimGranted;
   JudgeCostsOrderAdditionalInfo: string;
   CertificateOfEntitlementDocument: DivorceDocument;
+  OfflineCertificateOfEntitlementDocumentSentToApplicant1: YesOrNo;
+  OfflineCertificateOfEntitlementDocumentSentToApplicant2: YesOrNo;
   RefusalOrderDocument: Document;
   ConditionalOrderGrantedDocument: DivorceDocument;
   LegalAdvisorDecisions: ListValue<LegalAdvisorDecision>[];
   ClarificationResponsesSubmitted: ListValue<ClarificationResponse>[];
+  RescindedDate: DateAsString;
+  ServiceConfirmed: YesOrNo;
+  ProofOfServiceUploadDocuments: ListValue<DivorceDocument>[];
+  LastApprovedServiceApplicationIsBailiffApplication: YesOrNo;
+  CertificateOfServiceDate: DateAsString;
+  SuccessfulServedByBailiff: YesOrNo;
+  IsAdminClarificationSubmitted: YesOrNo;
 }
 
 export interface ConditionalOrderQuestions {
@@ -902,12 +1035,17 @@ export interface ConditionalOrderQuestions {
   IsDrafted: YesOrNo;
   SubmittedDate: DateAsString;
   ApplyForConditionalOrder: YesOrNo;
+  ApplyForConditionalOrderIfNo: YesOrNo;
   ConfirmInformationStillCorrect: YesOrNo;
   ReasonInformationNotCorrect: string;
+  ReasonInformationNotCorrectTranslated: string;
+  ReasonInformationNotCorrectTranslatedTo: TranslatedToLanguage;
   ApplyForConditionalOrderStarted: YesOrNo;
   ChangeOrAddToApplication: YesOrNo;
   IsEverythingInApplicationTrue: YesOrNo;
   StatementOfTruth: YesOrNo;
+  EnableSolicitorSwitchToSoleCo: YesOrNo;
+  ConfirmSwitchToSole: ConfirmSwitchToSole[];
 }
 
 export interface CtscContactDetails {
@@ -940,16 +1078,34 @@ export interface FinalOrder {
   granted: Granted[];
   grantedDate: DateAsString;
   doesApplicant1WantToApplyForFinalOrder: YesOrNo;
+  applicant1AppliedForFinalOrderFirst: YesOrNo;
   doesApplicant2WantToApplyForFinalOrder: YesOrNo;
+  applicant2AppliedForFinalOrderFirst: YesOrNo;
   applicant2FinalOrderExplanation: string;
   dateFinalOrderEligibleToRespondent: DateAsString;
   applicant1FinalOrderLateExplanation: string;
+  applicant1FinalOrderLateExplanationTranslated: string;
+  applicant1FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
   applicant2FinalOrderLateExplanation: string;
   applicant2FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
+  finalOrderFirstInTimeNotifiedOtherApplicantNotApplied: YesOrNo;
+  finalOrderApplicant1NotifiedCanSwitchToSoleAfterIntention: YesOrNo;
+  finalOrderApplicant2NotifiedCanSwitchToSoleAfterIntention: YesOrNo;
   finalOrderReminderSentApplicant2: YesOrNo;
+  d36ApplicationType: OfflineApplicationType;
+  d36WhoApplying: OfflineWhoApplying;
+  finalOrderSwitchedToSole: YesOrNo;
+  applicant1CanIntendToSwitchToSoleFo: YesOrNo;
+  applicant1IntendsToSwitchToSole: (YesOrNo | null)[];
+  applicant2CanIntendToSwitchToSoleFo: YesOrNo;
+  applicant2IntendsToSwitchToSole: (YesOrNo | null)[];
+  doesApplicant1IntendToSwitchToSole: YesOrNo;
+  dateApplicant1DeclaredIntentionToSwitchToSoleFo: DateAsString;
+  doesApplicant2IntendToSwitchToSole: YesOrNo;
+  dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
 }
 
 export interface GeneralApplication {
@@ -1067,6 +1223,8 @@ export interface LabelContent {
   ApplicantOrApplicant1UC: string;
   GotMarriedOrFormedCivilPartnership: string;
   RespondentsOrApplicant2s: string;
+  DivorceOrEndingCivilPartnership: string;
+  FinaliseDivorceOrLegallyEndYourCivilPartnership: string;
   ApplicationType: ApplicationType;
 }
 
@@ -1166,6 +1324,7 @@ export interface SolicitorService {
   OnWhomServed: string;
   HowServed: DocumentsServedHow;
   ServiceDetails: string;
+  ServiceProcessedByProcessServer: ServiceProcessedByProcessServer[];
   AddressServed: string;
   BeingThe: DocumentsServedBeingThe;
   LocationServed: DocumentsServedWhere;
@@ -1176,15 +1335,18 @@ export interface SolicitorService {
   TruthStatement: string;
 }
 
-export interface LegalAdvisorDecision {
-  granted: YesOrNo;
-  decisionDate: DateAsString;
-  refusalDecision: RefusalOption;
-  refusalClarificationReason: ClarificationReason[];
-  refusalClarificationAdditionalInfo: string;
-  refusalAdminErrorInfo: string;
-  refusalRejectionReason: RejectionReason[];
-  refusalRejectionAdditionalInfo: string;
+export interface SwitchedToSole {
+  applicant1KnowsApplicant2EmailAddress: YesOrNo;
+  applicant1KnowsApplicant2Address: YesOrNo;
+  app2ContactMethodIsDigital: YesOrNo;
+  applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
+  applicant2ConfirmApplicant1Information: YesOrNo;
+  applicant2ExplainsApplicant1IncorrectInformation: string;
+  applicant1IsApplicant2Represented: Applicant2Represented;
+  applicant2AgreeToReceiveEmails: YesOrNo;
+  applicant2NeedsHelpWithFees: YesOrNo;
+  solStatementOfReconciliationCertify: YesOrNo;
+  solStatementOfReconciliationDiscussed: YesOrNo;
 }
 
 export interface ConfidentialDivorceDocument {
@@ -1210,6 +1372,9 @@ export interface DocAssemblyRequest {
   outputType: string;
   formPayload: any;
   outputFilename: string;
+  secureDocStoreEnabled: boolean;
+  caseTypeId: string;
+  jurisdictionId: string;
 }
 
 export interface DocAssemblyResponse {
@@ -1530,6 +1695,7 @@ export const enum GeneralReferralType {
   ORDER_ON_FILLING_OF_ANSWERS = 'orderOnFilingOfAnswers',
   PERMISSION_ON_DA_OOT = 'permissionOnDaOot',
   DISCLOSURE_VIA_DWP = 'disclosureViaDwp',
+  AMEND_APPLICATION = 'amendApplication',
   OTHER = 'other',
 }
 
@@ -1626,6 +1792,17 @@ export const enum MarriageFormation {
   OPPOSITE_SEX_COUPLE = 'oppositeSexCouple',
 }
 
+export const enum OfflineApplicationType {
+  SOLE = 'sole',
+  JOINT = 'joint',
+  SWITCH_TO_SOLE = 'switchToSole',
+}
+
+export const enum OfflineWhoApplying {
+  APPLICANT_1 = 'applicant1',
+  APPLICANT_2 = 'applicant2',
+}
+
 export const enum PaperCasePaymentMethod {
   PHONE = 'phone',
   CHEQUE_OR_POSTAL_ORDER = 'chequeOrPostalOrder',
@@ -1687,6 +1864,7 @@ export const enum State {
   AwaitingPayment = 'AwaitingPayment',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
+  Archived = 'Archived',
   AwaitingAdminClarification = 'AwaitingAdminClarification',
   AwaitingAlternativeService = 'AwaitingAlternativeService',
   AwaitingAmendedApplication = 'AwaitingAmendedApplication',
@@ -1703,6 +1881,7 @@ export const enum State {
   AwaitingGeneralReferralPayment = 'AwaitingGeneralReferralPayment',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   ConditionalOrderPending = 'ConditionalOrderPending',
+  AwaitingJointFinalOrder = 'AwaitingJointFinalOrder',
   AwaitingJudgeClarification = 'AwaitingJudgeClarification',
   AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
   AwaitingService = 'AwaitingService',
@@ -1717,6 +1896,7 @@ export const enum State {
   FinalOrderOverdue = 'FinalOrderOverdue',
   FinalOrderPending = 'FinalOrderPending',
   FinalOrderRequested = 'FinalOrderRequested',
+  RespondentFinalOrderRequested = 'RespondentFinalOrderRequested',
   GeneralApplicationReceived = 'GeneralApplicationReceived',
   GeneralConsiderationComplete = 'GeneralConsiderationComplete',
   IssuedToBailiff = 'IssuedToBailiff',
@@ -1726,7 +1906,13 @@ export const enum State {
   PendingHearingOutcome = 'PendingHearingOutcome',
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
+  WelshTranslationRequested = 'WelshTranslationRequested',
   WelshTranslationReview = 'WelshTranslationReview',
+}
+
+export const enum TranslatedToLanguage {
+  WELSH = 'translatedToWelsh',
+  ENGLISH = 'translatedToEnglish',
 }
 
 export const enum UserRole {
@@ -1777,6 +1963,7 @@ export const enum ConfidentialDocumentsReceived {
   FINAL_ORDER_APPLICATION = 'finalOrderApplication',
   FINAL_ORDER_GRANTED = 'finalOrderGranted',
   GENERAL_LETTER = 'generalLetter',
+  AOS_RESPONSE_LETTER = 'aosResponseLetter',
   MARRIAGE_CERT = 'marriageCert',
   MARRIAGE_CERT_TRANSLATION = 'marriageCertTranslation',
   NAME_CHANGE = 'nameChange',
@@ -1787,6 +1974,12 @@ export const enum ConfidentialDocumentsReceived {
   WELSH_TRANSLATION = 'welshTranslation',
   NOTICE_OF_PROCEEDINGS_APP_1 = 'noticeOfProceedings',
   NOTICE_OF_PROCEEDINGS_APP_2 = 'noticeOfProceedingsApp2',
+  CERTIFICATE_OF_ENTITLEMENT_COVER_LETTER_APP1 = 'certificateOfEntitlementCoverLetter',
+  CERTIFICATE_OF_ENTITLEMENT_COVER_LETTER_APP2 = 'certificateOfEntitlementCoverLetterApp2',
+  CONDITIONAL_ORDER_GRANTED_COVERSHEET_APP_1 = 'coGrantedCoversheet',
+  CONDITIONAL_ORDER_GRANTED_COVERSHEET_APP_2 = 'coGrantedCoversheetApp2',
+  FINAL_ORDER_GRANTED_COVER_LETTER_APP_1 = 'finalOrderGrantedCoverLetterApp1',
+  FINAL_ORDER_GRANTED_COVER_LETTER_APP_2 = 'finalOrderGrantedCoverLetterApp2',
 }
 
 /**
@@ -1796,20 +1989,27 @@ export const enum ConfidentialDocumentsReceived {
  * - `amendedApplication`
  * - `annexA`
  * - `application`
+ * - `appliedForCoLetter`
  * - `bailiffCertificateOfService`
  * - `bailiffService`
  * - `bailiffServiceRefused`
+ * - `certificateOfEntitlementCoverLetter`
+ * - `certificateOfEntitlementCoverLetterApp2`
  * - `certificateOfEntitlement`
  * - `certificateOfService`
  * - `conditionalOrderAnswers`
  * - `conditionalOrderApplication`
+ * - `conditionalOrderCanApply`
+ * - `conditionalOrderReminder`
  * - `conditionalOrderGranted`
  * - `conditionalOrderRefusal`
+ * - `conditionalOrderRefusalCoverLetter`
  * - `correspondence`
  * - `costs`
  * - `costsOrder`
  * - `coversheet`
  * - `d84`
+ * - `d36`
  * - `d9D`
  * - `d9H`
  * - `d10`
@@ -1821,8 +2021,11 @@ export const enum ConfidentialDocumentsReceived {
  * - `dispenseWithServiceGranted`
  * - `dispenseWithServiceRefused`
  * - `email`
+ * - `finalOrderCanApply`
  * - `finalOrderApplication`
  * - `finalOrderGranted`
+ * - `finalOrderGrantedCoverLetterApp1`
+ * - `finalOrderGrantedCoverLetterApp2`
  * - `generalOrder`
  * - `marriageCertificate`
  * - `marriageCertificateTranslation`
@@ -1840,6 +2043,10 @@ export const enum ConfidentialDocumentsReceived {
  * - `aosResponseLetter`
  * - `aosOverdueLetter`
  * - `generalLetter`
+ * - `generalApplication`
+ * - `coGrantedCoversheet`
+ * - `coGrantedCoversheetApp2`
+ * - `switchToSoleCoLetter`
  */
 export const enum DocumentType {
   AOS_OVERDUE_COVER_LETTER = 'aosOverdueCoverLetter',
@@ -1847,20 +2054,27 @@ export const enum DocumentType {
   AMENDED_APPLICATION = 'amendedApplication',
   ANNEX_A = 'annexA',
   APPLICATION = 'application',
+  APPLIED_FOR_CO_LETTER = 'appliedForCoLetter',
   BAILIFF_CERTIFICATE_OF_SERVICE = 'bailiffCertificateOfService',
   BAILIFF_SERVICE = 'bailiffService',
   BAILIFF_SERVICE_REFUSED = 'bailiffServiceRefused',
+  CERTIFICATE_OF_ENTITLEMENT_COVER_LETTER_APP1 = 'certificateOfEntitlementCoverLetter',
+  CERTIFICATE_OF_ENTITLEMENT_COVER_LETTER_APP2 = 'certificateOfEntitlementCoverLetterApp2',
   CERTIFICATE_OF_ENTITLEMENT = 'certificateOfEntitlement',
   CERTIFICATE_OF_SERVICE = 'certificateOfService',
   CONDITIONAL_ORDER_ANSWERS = 'conditionalOrderAnswers',
   CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
+  CONDITIONAL_ORDER_CAN_APPLY = 'conditionalOrderCanApply',
+  CONDITIONAL_ORDER_REMINDER = 'conditionalOrderReminder',
   CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
   CONDITIONAL_ORDER_REFUSAL = 'conditionalOrderRefusal',
+  CONDITIONAL_ORDER_REFUSAL_COVER_LETTER = 'conditionalOrderRefusalCoverLetter',
   CORRESPONDENCE = 'correspondence',
   COSTS = 'costs',
   COSTS_ORDER = 'costsOrder',
   COVERSHEET = 'coversheet',
   D84 = 'd84',
+  D36 = 'd36',
   D9D = 'd9D',
   D9H = 'd9H',
   D10 = 'd10',
@@ -1872,8 +2086,11 @@ export const enum DocumentType {
   DISPENSE_WITH_SERVICE_GRANTED = 'dispenseWithServiceGranted',
   DISPENSE_WITH_SERVICE_REFUSED = 'dispenseWithServiceRefused',
   EMAIL = 'email',
+  FINAL_ORDER_CAN_APPLY = 'finalOrderCanApply',
   FINAL_ORDER_APPLICATION = 'finalOrderApplication',
   FINAL_ORDER_GRANTED = 'finalOrderGranted',
+  FINAL_ORDER_GRANTED_COVER_LETTER_APP_1 = 'finalOrderGrantedCoverLetterApp1',
+  FINAL_ORDER_GRANTED_COVER_LETTER_APP_2 = 'finalOrderGrantedCoverLetterApp2',
   GENERAL_ORDER = 'generalOrder',
   MARRIAGE_CERTIFICATE = 'marriageCertificate',
   MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertificateTranslation',
@@ -1894,6 +2111,10 @@ export const enum DocumentType {
   AOS_RESPONSE_LETTER = 'aosResponseLetter',
   AOS_OVERDUE_LETTER = 'aosOverdueLetter',
   GENERAL_LETTER = 'generalLetter',
+  GENERAL_APPLICATION = 'generalApplication',
+  CONDITIONAL_ORDER_GRANTED_COVERSHEET_APP_1 = 'coGrantedCoversheet',
+  CONDITIONAL_ORDER_GRANTED_COVERSHEET_APP_2 = 'coGrantedCoversheetApp2',
+  SWITCH_TO_SOLE_CO_LETTER = 'switchToSoleCoLetter',
 }
 
 export const enum PaymentStatus {
@@ -1913,11 +2134,6 @@ export const enum PbaErrorMessage {
   GENERAL = 'GENERAL',
 }
 
-export const enum OfflineDocumentReceived {
-  AOS_D10 = 'D10',
-  OTHER = 'Other',
-}
-
 export const enum DissolveDivorce {
   DISSOLVE_DIVORCE = 'dissolveDivorce',
 }
@@ -1934,8 +2150,33 @@ export const enum FinancialOrdersChild {
   FINANCIAL_ORDERS_CHILD = 'financialOrdersChild',
 }
 
+export const enum OfflineDocumentReceived {
+  AOS_D10 = 'D10',
+  CO_D84 = 'D84',
+  FO_D36 = 'D36',
+  OTHER = 'Other',
+}
+
+export const enum ScannedDocumentSubtypes {
+  D10 = 'D10',
+  D84 = 'D84',
+  D36 = 'D36',
+  D10N = 'D10N',
+  D84NV = 'D84NV',
+  D84NVA = 'D84NVA',
+  D36N = 'D36N',
+}
+
+export const enum ConfirmSwitchToSole {
+  CONFIRM_SWITCH_TO_SOLE = 'confirmSwitchToSole',
+}
+
 export const enum Granted {
   YES = 'Yes',
+}
+
+export const enum IntendsToSwitchToSole {
+  I_INTEND_TO_SWITCH_TO_SOLE = 'Yes',
 }
 
 export const enum WhichApplicant {
@@ -1949,6 +2190,10 @@ export const enum ThePrayer {
 
 export const enum Prayer {
   CONFIRM = 'Yes',
+}
+
+export const enum ServiceProcessedByProcessServer {
+  CONFIRM = 'serviceProcessed',
 }
 
 /**
@@ -2114,68 +2359,80 @@ export const enum HttpStatus {
   NETWORK_AUTHENTICATION_REQUIRED = 'NETWORK_AUTHENTICATION_REQUIRED',
 }
 
-export const JURISDICTION = 'DIVORCE';
 export const CASE_TYPE = 'NFD';
-
-export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
-export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
-export const APPLICANT_2_APPROVE = 'applicant2-approve';
-export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
-export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
-export const APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
-export const APPLY_FOR_FINAL_ORDER = 'Apply for final order';
-export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
-export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
-export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
-export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
-export const CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS = 'citizen-applicant2-update-contact-details';
+export const JURISDICTION = 'DIVORCE';
+export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_CREATE = 'citizen-create-application';
-export const CITIZEN_FINAL_ORDER_DELAY_REASON = 'citizen-final-order-delay-reason';
+export const CITIZEN_UPDATE_CASE_STATE_AAT = 'citizen-update-case-state-aat';
+export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
+export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
-export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_UPDATE = 'citizen-update-application';
-export const CITIZEN_UPDATE_CASE_STATE_AAT = 'citizen-update-case-state-aat';
-export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
+export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
+export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
+export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
+export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
+export const INTEND_SWITCH_TO_SOLE_FO = 'intend-switch-to-sole-fo';
+export const CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS = 'citizen-applicant2-update-contact-details';
+export const CITIZEN_FINAL_ORDER_DELAY_REASON = 'citizen-final-order-delay-reason';
+export const APPLICANT_2_APPROVE = 'applicant2-approve';
 export const CONFIRM_RECEIPT = 'confirm-receipt';
-export const DRAFT_AOS = 'draft-aos';
+export const APPLICANT2_FINAL_ORDER_REQUESTED = 'applicant2-final-order-requested';
+export const APPLICANT2_APPLY_FOR_FINAL_ORDER = 'Apply for final order';
+export const INVITE_APPLICANT_2 = 'invite-applicant2';
+export const UPDATE_AOS = 'update-aos';
+export const SUBMIT_CLARIFICATION = 'submit-clarification';
 export const DRAFT_CONDITIONAL_ORDER = 'draft-conditional-order';
 export const DRAFT_JOINT_CONDITIONAL_ORDER = 'draft-joint-conditional-order';
+export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
+export const UPDATE_CONDITIONAL_ORDER = 'update-conditional-order';
 export const FINAL_ORDER_REQUESTED = 'final-order-requested';
-export const INVITE_APPLICANT_2 = 'invite-applicant2';
-export const SUBMIT_AOS = 'submit-aos';
-export const SUBMIT_CLARIFICATION = 'submit-clarification';
+export const APPLY_FOR_FINAL_ORDER = 'Apply for final order';
+export const UPDATE_JOINT_CONDITIONAL_ORDER = 'update-joint-conditional-order';
 export const SUBMIT_CONDITIONAL_ORDER = 'submit-conditional-order';
+export const SUBMIT_AOS = 'submit-aos';
+export const APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
+export const DRAFT_AOS = 'draft-aos';
 export const SUBMIT_JOINT_CONDITIONAL_ORDER = 'submit-joint-conditional-order';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
-export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
-export const SYSTEM_CANCEL_CASE_INVITE = 'system-cancel-case-invite';
-export const SYSTEM_FINAL_ORDER_OVERDUE = 'system-final-order-overdue';
-export const SYSTEM_ISSUE_AOS_DISPUTED = 'system-issue-aos-disputed';
-export const SYSTEM_ISSUE_AOS_UNDISPUTED = 'system-issue-aos-undisputed';
-export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
-export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
-export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
-export const SYSTEM_MIGRATE_BULK_CASE = 'system-migrate-bulk-case';
-export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
-export const SYSTEM_NOTIFY_APPLICANT_DISPUTE_FORM_OVERDUE = 'system-notify-applicant-dispute-form-overdue';
-export const SYSTEM_NOTIFY_RESPONDENT_APPLY_FINAL_ORDER = 'system-notify-respondent-apply-final-order';
+export const SWITCH_TO_SOLE_CO = 'switch-to-sole-co';
+export const SWITCH_TO_SOLE_FO = 'switch-to-sole-fo';
 export const SYSTEM_PROGRESS_CASE_TO_AWAITING_FINAL_ORDER = 'system-progress-case-awaiting-final-order';
-export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
-export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
-export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
-export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
-export const SYSTEM_REMIND_APPLICANTS_APPLY_FOR_FINAL_ORDER = 'system-remind-applicants-final-order';
-export const SYSTEM_REMIND_APPLICANTS_CONDITIONAL_ORDER = 'system-remind-applicants-conditional-order';
-export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
 export const SYSTEM_REMIND_RESPONDENT_SOLICITOR_TO_RESPOND = 'system-remind-respondent-solicitor-to-respond';
-export const SYSTEM_REMOVE_BULK_CASE = 'system-remove-bulk-case';
-export const SYSTEM_UNLINK_APPLICANT = 'system-unlink-applicant';
-export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
+export const SYSTEM_APPLICANT_SWITCH_TO_SOLE_AFTER_INTENTION =
+  'system-notify-applicant-can-switch-to-sole-after-intention-fo';
+export const SYSTEM_FINAL_ORDER_OVERDUE = 'system-final-order-overdue';
+export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
+export const SYSTEM_MIGRATE_BULK_CASE = 'system-migrate-bulk-case';
+export const SYSTEM_REMIND_APPLICANTS_CONDITIONAL_ORDER = 'system-remind-applicants-conditional-order';
+export const SYSTEM_RESEND_CO_PRONOUNCED_COVER_LETTER = 'system-resend-co-pronounced-letter';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
-export const UPDATE_AOS = 'update-aos';
-export const UPDATE_CONDITIONAL_ORDER = 'update-conditional-order';
-export const UPDATE_JOINT_CONDITIONAL_ORDER = 'update-joint-conditional-order';
-
+export const ADMIN_UNLINK_APPLICANT_2 = 'admin-unlink-applicant2';
+export const SYSTEM_ISSUE_AOS_UNDISPUTED = 'system-issue-aos-undisputed';
+export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_CANCEL_CASE_INVITE = 'system-cancel-case-invite';
+export const SYSTEM_MIGRATE_CASE_WITH_COE_GENERATION = 'system-migrate-case-and-generate-coe';
+export const SYSTEM_PRONOUNCE_CASE = 'system-pronounce-case';
+export const SYSTEM_REMIND_APPLICANTS_APPLY_FOR_FINAL_ORDER = 'system-remind-applicants-final-order';
+export const SYSTEM_REMIND_AWAITING_JOINT_FINAL_ORDER = 'system-remind-awaiting-joint-final-order';
+export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';
+export const SYSTEM_UNLINK_APPLICANT = 'system-unlink-applicant';
+export const SYSTEM_REMIND_APPLICANT_1_APPLICATION_REVIEWED = 'system-remind-applicant1';
+export const SYSTEM_MIGRATE_CASE = 'system-migrate-case';
+export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
+export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
+export const SYSTEM_NOTIFY_RESPONDENT_APPLY_FINAL_ORDER = 'system-notify-respondent-apply-final-order';
+export const SYSTEM_ISSUE_AOS_DISPUTED = 'system-issue-aos-disputed';
+export const SYSTEM_PROGRESS_HELD_CASE = 'system-progress-held-case';
+export const SYSTEM_REMOVE_BULK_CASE = 'system-remove-bulk-case';
+export const SYSTEM_PARTNER_NOT_APPLIED_FOR_FINAL_ORDER = 'system-notify-applicant-partner-not-applied-final-order';
+export const SYSTEM_APPLICATION_NOT_REVIEWED = 'system-application-not-reviewed';
+export const SYSTEM_NOTIFY_JOINT_APPLICANT_CAN_SWITCH_TO_SOLE = 'system-notify-joint-applicant-switch-to-sole';
+export const SYSTEM_NOTIFY_APPLICANT_DISPUTE_FORM_OVERDUE = 'system-notify-applicant-dispute-form-overdue';
+export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
+export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const birmingham = 'Birmingham Civil and Family Justice Centre';
 export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';

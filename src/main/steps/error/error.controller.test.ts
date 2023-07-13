@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { SupportedLanguages } from '../../modules/i18n';
-import { generatePageContent } from '../common/common.content';
+import { generateCommonContent } from '../common/common.content';
 
 import { errorContent } from './content';
 import { ErrorController, HTTPError } from './error.controller';
@@ -21,8 +21,8 @@ describe('ErrorController', () => {
 
     expect(logger.info.mock.calls[0][0]).toContain('404 Not Found: /request');
     expect(res.statusCode).toBe(404);
-    expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
+    expect(res.render).toHaveBeenCalledWith('error/error', {
+      ...generateCommonContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
       ...errorContent.en[404],
     });
   });
@@ -36,8 +36,8 @@ describe('ErrorController', () => {
 
     expect(logger.error.mock.calls[0][0]).toContain('Bad request');
     expect(res.statusCode).toBe(err.status);
-    expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
+    expect(res.render).toHaveBeenCalledWith('error/error', {
+      ...generateCommonContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
       ...errorContent.en[400],
     });
   });
@@ -51,8 +51,8 @@ describe('ErrorController', () => {
 
     expect(logger.error.mock.calls[0][0]).toContain('Bad request');
     expect(res.statusCode).toBe(500);
-    expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
+    expect(res.render).toHaveBeenCalledWith('error/error', {
+      ...generateCommonContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
       ...errorContent.en[500],
     });
   });
@@ -66,8 +66,8 @@ describe('ErrorController', () => {
 
     expect(logger.error.mock.calls[0][0]).toContain('HTTPError: Bad request');
     expect(res.statusCode).toBe(400);
-    expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
+    expect(res.render).toHaveBeenCalledWith('error/error', {
+      ...generateCommonContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
       ...errorContent.en[400],
     });
   });
@@ -80,8 +80,8 @@ describe('ErrorController', () => {
 
     expect(logger.error.mock.calls[0][0]).toContain('CSRF Token Failed');
     expect(res.statusCode).toBe(400);
-    expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
+    expect(res.render).toHaveBeenCalledWith('error/error', {
+      ...generateCommonContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
       ...errorContent.en[400],
     });
   });
@@ -98,8 +98,8 @@ describe('ErrorController', () => {
     expect(logger.error.mock.calls[0][0]).toBe('Internal Server Error');
     expect(res.statusCode).toBe(500);
     expect(res.render).toHaveBeenCalledTimes(1);
-    expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
+    expect(res.render).toHaveBeenCalledWith('error/error', {
+      ...generateCommonContent({ language: SupportedLanguages.En, userEmail: 'test@example.com', userCase: {} }),
       ...errorContent.en[500],
     });
   });
@@ -129,8 +129,8 @@ describe('ErrorController', () => {
       error: 'invalid_grant',
     });
     expect(res.statusCode).toBe(500);
-    expect(res.render).toBeCalledWith('error/error', {
-      ...generatePageContent({ language: SupportedLanguages.En, userCase: {} }),
+    expect(res.render).toHaveBeenCalledWith('error/error', {
+      ...generateCommonContent({ language: SupportedLanguages.En, userCase: {} }),
       ...errorContent.en[500],
     });
   });

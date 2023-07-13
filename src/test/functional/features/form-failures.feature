@@ -5,10 +5,6 @@ Feature: Form failures
 
   @nightly
   Scenario: They fail to fill out the applicant 1 forms
-    Given I go to "/your-details"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
     Given I go to "/irretrievable-breakdown"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
@@ -60,21 +56,21 @@ Feature: Form failures
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not entered their email address or said you do not know it. You have to do one or the other before continuing."
-    Given I select "Your spouse's email address"
+    Given I select "Your husband's email address"
     And I type "test.com"
     When I click "Continue"
     Then the page should include "You have entered an invalid email address. Check it and enter it again before continuing."
     Given I clear the form
-    And I select "Your spouse's email address"
+    And I select "Your husband's email address"
     And I type "simulate-delivered@notifications.service.gov.uk"
     And I select "I do not know their email address"
     When I click "Continue"
     Then the page should include "You have entered an email address and indicated that you do not know their email address. You can only do one before continuing."
     Given I clear the form
-    And I select "Your spouse's email address"
+    And I select "Your husband's email address"
     And I type my own email address
     When I click "Continue"
-    Then the page should include "You have entered your own email address. You need to enter your spouse's email address before continuing."
+    Then the page should include "You have entered your own email address. You need to enter your husband's email address before continuing."
 
     Given I go to "/do-you-have-address"
     When I click "Continue"
@@ -96,7 +92,7 @@ Feature: Form failures
 
     Given I go to "/enter-their-address"
     When I click "Find address"
-    Then the page should include "You have not entered your spouse’s postcode. Enter their postcode before continuing."
+    Then the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
     Given I reset the postcode lookup form
     And I wait "1" seconds
     And I select "Enter a UK postcode"
@@ -110,14 +106,14 @@ Feature: Form failures
     And I click "Find address"
     And I click "I cannot find the address in the list"
     And I click "Continue"
-    Then the page should include "You have not entered your spouse’s building and street address. Enter their building and street address before continuing."
-    And the page should include "You have not entered your spouse’s town or city. Enter their town or city before continuing."
-    And the page should include "You have not entered your spouse’s postcode. Enter their postcode before continuing."
+    Then the page should include "You have not entered your husband’s building and street address. Enter their building and street address before continuing."
+    And the page should include "You have not entered your husband’s town or city. Enter their town or city before continuing."
+    And the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
     Given I reset the postcode lookup form
     And I click "I cannot enter a UK postcode"
     When I click "Continue"
-    Then the page should include "You have not entered your spouse’s building and street address. Enter their building and street address before continuing."
-    And the page should include "You have not entered your spouse’s country. Enter their country before continuing."
+    Then the page should include "You have not entered your husband’s building and street address. Enter their building and street address before continuing."
+    And the page should include "You have not entered your husband’s country. Enter their country before continuing."
 
     Given I go to "/in-the-uk"
     When I click "Continue"
@@ -159,9 +155,9 @@ Feature: Form failures
     Then the page should include "You have not entered their first name. Enter it before continuing."
     And the page should include "You have not entered their last name. Enter it before continuing."
     Given I clear the form
-    When I select "Your spouse’s first name(s)"
+    When I select "Your husband’s first name(s)"
     And I type "Their first name!"
-    And I select "Your spouse’s last name(s)"
+    And I select "Your husband’s last name(s)"
     And I type "Their last-name1"
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter their name using letters only."
@@ -172,7 +168,7 @@ Feature: Form failures
     And the page should include "You have not entered anything. Enter their full name as it appears on your marriage certificate."
     Given I select "Copy your full name from the marriage certificate"
     And I type "Firstname Lastname1"
-    And I select "Copy your spouse's full name from the marriage certificate"
+    And I select "Copy your husband's full name from the marriage certificate"
     And I type "Husbands name1"
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
@@ -180,13 +176,10 @@ Feature: Form failures
     Given I go to "/changes-to-your-name"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/how-did-you-change-your-name"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "Yes"
     Given I select "Another way"
     When I click "Continue"
-    Then the page should include "You have said you changed your name another way but not provided details. Provide details of how you changed your name."
+    Then the page should include "You have not answered the question. You need to say how you changed your name so the court knows which document to check."
 
     Given I go to "/how-the-court-will-contact-you"
     And I click "Continue"
@@ -249,7 +242,7 @@ Feature: Form failures
     Then the page should include "You have not uploaded anything. Either upload your document or select that you cannot upload your documents."
 
     Given I go to "/how-do-you-want-to-apply"
-    And I select "I want to apply jointly, with my spouse"
+    And I select "I want to apply jointly, with my husband"
     When I click "Continue"
     Then the page URL should be "/their-email-address"
 
@@ -265,7 +258,7 @@ Feature: Form failures
 
     Given I set the case state to "AwaitingFinalOrder"
     And I go to "/finalising-your-application"
-    When I click "Continue"
+    When I click "Submit"
     Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
 
     Given I go to "/explain-the-delay"
@@ -277,7 +270,7 @@ Feature: Form failures
   @nightly
   Scenario: They fail to fill out the applicant 1 joint application forms
     Given I go to "/how-do-you-want-to-apply"
-    And I select "I want to apply jointly, with my spouse"
+    And I select "I want to apply jointly, with my husband"
     When I click "Continue"
     Then the page URL should be "/their-email-address"
     Given I click "Continue"
@@ -401,14 +394,10 @@ Feature: Form failures
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/applicant2/how-did-you-change-your-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "Yes"
     Given I select "Another way"
     When I click "Continue"
-    Then the page should include "You have said you changed your name another way but not provided details. Provide details of how you changed your name."
+    Then the page should include "You have not answered the question. You need to say how you changed your name so the court knows which document to check."
 
     Given I go to "/applicant2/how-the-court-will-contact-you"
     And I clear the form
@@ -523,11 +512,11 @@ Feature: Form failures
 
     When I click "Continue"
     Then the page URL should be "/check-your-conditional-order-answers"
-    When I click "Continue"
+    When I click "Submit"
     Then the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
     Given I select "I believe that the facts stated in this application are true"
 
-    When I click "Continue"
+    When I click "Submit"
     Then the page URL should be "/hub-page"
     When I click "Sign out"
     And I login with applicant "2"
