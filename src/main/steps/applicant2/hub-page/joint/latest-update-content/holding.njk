@@ -1,9 +1,0 @@
-{% if hasApplicantConfirmedReceipt %}
-  {% for property, line in applicantConfirmedReceiptLatestUpdate %}
-    <p class="govuk-body">{{ line }}</p>
-  {% endfor %}
-{% else %}
-  {% for property, line in applicationSubmittedLatestUpdate %}
-    <p class="govuk-body">{{ line }}</p>
-  {% endfor %}
-{% endif %}
