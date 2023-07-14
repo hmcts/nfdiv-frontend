@@ -159,5 +159,6 @@ config.helpers = {
     retries: 5,
     waitForNavigation: 'load',
     ignoreHTTPSErrors: true,
+    bypassCSP: true,
   },
 };
