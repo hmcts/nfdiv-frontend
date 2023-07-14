@@ -135,3 +135,23 @@ Feature: Joint final order
     Then I click "Submit"
     Then the page URL should be "/hub-page"
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
+
+  @nightly
+  Scenario: Applicant joint final order journey overdue
+    Given I login with applicant "1"
+    And I set the case state to "FinalOrderOverdue"
+    When I click "Sign out"
+    And I login with applicant "2"
+    Then the page should include "You can now apply for a ‘final order’."
+
+    When I click "Apply for final order"
+    Then the page should include "Do you want to finalise your divorce?"
+
+    Given I select "I want to finalise my divorce"
+    When I click "Submit"
+    Then the page URL should be "/applicant2/explain-the-delay"
+    Given I select "You are making this application for a final order over one year from when the conditional order was made. Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application."
+    And I type "Reason for delay"
+    And I select "I believe that the facts stated in this application are true"
+    When I click "Stop here"
+    Then the page URL should be "/hub-page"
