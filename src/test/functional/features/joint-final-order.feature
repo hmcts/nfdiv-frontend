@@ -136,7 +136,6 @@ Feature: Joint final order
     Then the page URL should be "/hub-page"
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
 
-  @nightly
   Scenario: Applicant joint final order journey overdue
     Given I login with applicant "1"
     And I set the case state to "FinalOrderOverdue"
