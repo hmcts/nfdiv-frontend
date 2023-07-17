@@ -45,8 +45,6 @@ export default class FinalisingYourApplicationPostController extends PostControl
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
-    console.log(req.session.userCase.state);
-    console.log(needsToExplainDelay(req.session.userCase));
     if (getSwitchToSoleFoStatus(req.session.userCase, req.session.isApplicant2).isIntendingAndAbleToSwitchToSoleFo) {
       return SWITCH_TO_SOLE_FO;
     } else if (needsToExplainDelay(req.session.userCase)) {
