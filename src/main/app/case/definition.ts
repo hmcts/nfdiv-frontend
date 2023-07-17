@@ -760,7 +760,6 @@ export interface CaseData {
   applicant2FinalOrderLateExplanationTranslated: string;
   applicant2FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
-  applicant2FinalOrderLateExplanation: string;
   applicant2FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;
@@ -1093,7 +1092,6 @@ export interface FinalOrder {
   applicant2FinalOrderLateExplanationTranslated: string;
   applicant2FinalOrderLateExplanationTranslatedTo: TranslatedToLanguage;
   applicant1FinalOrderStatementOfTruth: YesOrNo;
-  applicant2FinalOrderLateExplanation: string;
   applicant2FinalOrderStatementOfTruth: YesOrNo;
   dateFinalOrderNoLongerEligible: DateAsString;
   finalOrderReminderSentApplicant1: YesOrNo;

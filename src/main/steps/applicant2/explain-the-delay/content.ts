@@ -2,32 +2,20 @@ import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import {
+  form as applicant1Form,
+  generateContent as applicant1GenerateContent,
+} from '../../applicant1/explain-the-delay/content';
 
-const en = {
-  title: 'Explain the delay',
-  finalOrderLateExplanation:
-    'You are making this application for a final order over one year from when the conditional order was made. ' +
-    'Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application.',
-  finalOrderStatementOfTruth: 'I believe that the facts stated in this application are true',
-  confirmApplicationIsTrueMoreInformation:
-    'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. ' +
-    'It’s known as your ‘statement of truth’.',
+const labels = applicant1Content => ({
   errors: {
-    applicant2FinalOrderLateExplanation: {
-      required:
-        'You have not entered any information. You need to explain why your application has been delayed before continuing.',
-    },
-    applicant2FinalOrderStatementOfTruth: {
-      required:
-        'You have not confirmed you believe the information you have entered is true. Confirm you believe it’s true before continuing.',
-    },
+    applicant2FinalOrderLateExplanation: applicant1Content.errors.applicant1FinalOrderLateExplanation,
+    applicant2FinalOrderStatementOfTruth: applicant1Content.errors.applicant1FinalOrderStatementOfTruth,
   },
-};
-
-// @TODO translations
-const cy: typeof en = en;
+});
 
 export const form: FormContent = {
+  ...applicant1Form,
   fields: {
     applicant2FinalOrderLateExplanation: {
       type: 'textarea',
@@ -36,7 +24,7 @@ export const form: FormContent = {
       labelSize: 'normal',
       validator: isFieldFilledIn,
     },
-    applicant1FinalOrderStatementOfTruth: {
+    applicant2FinalOrderStatementOfTruth: {
       type: 'checkboxes',
       values: [
         {
@@ -48,20 +36,13 @@ export const form: FormContent = {
       ],
     },
   },
-  submit: {
-    text: l => l.continue,
-  },
-};
-
-const languages = {
-  en,
-  cy,
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+  const applicant1Content = applicant1GenerateContent(content);
   return {
-    ...translations,
+    ...applicant1Content,
+    ...labels(applicant1Content),
     form,
   };
 };

@@ -147,7 +147,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coApplicant1SubmittedDate: 'coApplicant1SubmittedDate',
   coApplicant2SubmittedDate: 'coApplicant2SubmittedDate',
   dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
-  applicant2FinalOrderLateExplanation: 'applicant2FinalOrderLateExplanation',
   applicant1AppliedForFinalOrderFirst: 'applicant1AppliedForFinalOrderFirst',
   applicant2AppliedForFinalOrderFirst: 'applicant2AppliedForFinalOrderFirst',
   doesApplicant1IntendToSwitchToSole: 'doesApplicant1IntendToSwitchToSole',
@@ -347,6 +346,7 @@ export interface Case {
   applicant1FinalOrderLateExplanation?: string;
   applicant2FinalOrderLateExplanation?: string;
   applicant1FinalOrderStatementOfTruth?: Checkbox;
+  applicant2FinalOrderStatementOfTruth?: Checkbox;
   applicant2SolicitorRepresented: YesOrNo;
   applicant1SolicitorRepresented: YesOrNo;
   dateFinalOrderSubmitted?: DateAsString;
@@ -358,8 +358,6 @@ export interface Case {
   applicant1UsedWelshTranslationOnSubmission?: YesOrNo;
   applicant2UsedWelshTranslationOnSubmission?: YesOrNo;
   applicant2Offline: YesOrNo;
-  applicant2FinalOrderLateExplanation?: string;
-  applicant2FinalOrderStatementOfTruth?: Checkbox;
   applicant1AppliedForFinalOrderFirst: YesOrNo;
   applicant2AppliedForFinalOrderFirst: YesOrNo;
   switchedToSoleCo: YesOrNo;
