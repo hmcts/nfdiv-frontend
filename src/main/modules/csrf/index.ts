@@ -16,7 +16,7 @@ export class CSRFToken {
 
     app.use((error, req, res, next) => {
       if (error.code === 'EBADCSRFTOKEN') {
-        logger.error(`${error.stack || error}`);
+        logger.debug(`${error.stack || error}`);
         return res.redirect(CSRF_TOKEN_ERROR_URL);
       }
       next();
