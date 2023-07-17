@@ -1,9 +1,16 @@
-import { HubTemplate, State } from '../../../../app/case/definition';
+import { CaseWithId } from '../../../../app/case/case';
+import { State, YesOrNo } from '../../../../app/case/definition';
+import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
 export const getJointHubTemplate = (
   displayState: StateSequence,
-  hasApplicantAppliedForConditionalOrder: boolean
+  userCase: Partial<CaseWithId>,
+  {
+    hasApplicantAppliedForConditionalOrder = false,
+    isWithinSwitchToSoleFoIntentionNotificationPeriod = false,
+    hasSwitchToSoleFoIntentionNotificationPeriodExpired = false,
+  } = {}
 ): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested: {
@@ -21,17 +28,29 @@ export const getJointHubTemplate = (
     case State.AwaitingClarification:
       return HubTemplate.AwaitingClarification;
     case State.ClarificationSubmitted:
-      return HubTemplate.ClarificationSubmitted;
+      if (userCase.coIsAdminClarificationSubmitted === YesOrNo.YES) {
+        return HubTemplate.AwaitingLegalAdvisorReferral;
+      } else {
+        return HubTemplate.ClarificationSubmitted;
+      }
     case State.AwaitingAmendedApplication:
       return HubTemplate.AwaitingAmendedApplication;
     case State.ConditionalOrderPending:
       return HubTemplate.ConditionalOrderPending;
+    case State.AwaitingAdminClarification:
     case State.AwaitingLegalAdvisorReferral:
       return HubTemplate.AwaitingLegalAdvisorReferral;
     case State.FinalOrderOverdue:
-    case State.AwaitingJointFinalOrder:
     case State.AwaitingFinalOrder:
       return HubTemplate.AwaitingFinalOrder;
+    case State.AwaitingJointFinalOrder:
+      if (isWithinSwitchToSoleFoIntentionNotificationPeriod) {
+        return HubTemplate.IntendToSwitchToSoleFinalOrder;
+      }
+      if (hasSwitchToSoleFoIntentionNotificationPeriodExpired) {
+        return HubTemplate.AwaitingFinalOrder;
+      }
+      return HubTemplate.AwaitingJointFinalOrder;
     case State.FinalOrderComplete: {
       return HubTemplate.FinalOrderComplete;
     }

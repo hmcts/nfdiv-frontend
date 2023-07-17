@@ -1,5 +1,6 @@
 import { CaseWithId } from '../../../app/case/case';
-import { HubTemplate, State } from '../../../app/case/definition';
+import { State } from '../../../app/case/definition';
+import { HubTemplate } from '../../common/hubTemplates';
 import { StateSequence } from '../../state-sequence';
 
 export const getRespondentHubTemplate = (
@@ -8,6 +9,7 @@ export const getRespondentHubTemplate = (
   hasSubmittedAos: boolean
 ): string | undefined => {
   switch (displayState.state()) {
+    case State.RespondentFinalOrderRequested:
     case State.FinalOrderRequested: {
       return HubTemplate.FinalOrderRequested;
     }

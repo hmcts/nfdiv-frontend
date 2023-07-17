@@ -1,215 +1,57 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Application } from 'express';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
-import { DocumentType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { TIMED_OUT_URL } from '../../steps/urls';
 
+import { proxyList } from './proxy-list';
+
+const log = Logger.getLogger('document-download');
 const proxy = require('express-http-proxy');
 
 export class DocumentDownloadMiddleware {
   public enableFor(app: Application): void {
-    const documentManagementTarget = config.get('services.documentManagement.url');
-
-    const addHeaders = proxyReqOpts => {
-      proxyReqOpts.headers['ServiceAuthorization'] = getServiceAuthToken();
-      proxyReqOpts.headers['user-roles'] = 'caseworker';
-      return proxyReqOpts;
-    };
-
-    const dmStoreProxyForApplicationPdf = {
-      endpoints: ['/downloads/divorce-application', '/downloads/application-to-end-civil-partnership'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(doc => doc.value.documentType === DocumentType.APPLICATION)
-          ?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForRespondentAnswersPdf = {
-      endpoints: ['/downloads/respondent-answers'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated
-          .concat(req.session.userCase?.documentsUploaded)
-          .find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)?.value.documentLink
-          .document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForCertificateOfServicePdf = {
-      endpoints: ['/downloads/certificate-of-service'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.alternativeServiceOutcomes.find(
-          doc =>
-            doc.value.successfulServedByBailiff === YesOrNo.YES &&
-            doc.value.certificateOfServiceDocument.documentType === DocumentType.CERTIFICATE_OF_SERVICE
-        )?.value.certificateOfServiceDocument.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForDeemedAsServicePdf = {
-      endpoints: ['/downloads/certificate-of-deemed-as-service'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.DEEMED_AS_SERVICE_GRANTED
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForDispenseWithServicePdf = {
-      endpoints: ['/downloads/certificate-of-dispense-with-service'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.DISPENSE_WITH_SERVICE_GRANTED
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForCertificateOfEntitlementPdf = {
-      endpoints: ['/downloads/certificate-of-entitlement'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.coCertificateOfEntitlementDocument.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForConditionalOrderGrantedPdf = {
-      endpoints: ['/downloads/conditional-order-granted'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.coConditionalOrderGrantedDocument.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForConditionalOrderRefusalPdf = {
-      endpoints: ['/downloads/conditional-order-refusal'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_REFUSAL
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForConditionalOrderAnswersPdf = {
-      endpoints: ['/downloads/conditional-order-answers'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyFinalOrderGrantedPdf = {
-      endpoints: ['/downloads/final-order-granted'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForDeemedServiceRefusedPdf = {
-      endpoints: ['/downloads/deemed-service-refused'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.DEEMED_SERVICE_REFUSED
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForDispenseWithServiceRefusedPdf = {
-      endpoints: ['/downloads/dispense-with-service-refused'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.DISPENSE_WITH_SERVICE_REFUSED
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForBailiffServiceRefusedPdf = {
-      endpoints: ['/downloads/bailiff-service-refused'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.BAILIFF_SERVICE_REFUSED
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForBailiffUnsuccessfulCertificateOfServicePdf = {
-      endpoints: ['/downloads/bailiff-unsuccessful-certificate-of-service'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.alternativeServiceOutcomes.find(
-          doc =>
-            doc.value.successfulServedByBailiff === YesOrNo.NO &&
-            doc.value.certificateOfServiceDocument.documentType === DocumentType.CERTIFICATE_OF_SERVICE
-        )?.value.certificateOfServiceDocument.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForBailiffServicePdf = {
-      endpoints: ['/downloads/bailiff-service'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.BAILIFF_SERVICE
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForConditionalOrderApplicationPdf = {
-      endpoints: ['/downloads/conditional-order-application'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForFinalOrderApplicationPdf = {
-      endpoints: ['/downloads/final-order-application'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxyForFinalOrderGrantedPdf = {
-      endpoints: ['/downloads/final-order-granted'],
-      path: (req: AppRequest) => {
-        return req.session.userCase?.documentsGenerated.find(
-          doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
-        )?.value.documentLink.document_binary_url;
-      },
-    };
-
-    const dmStoreProxies = [
-      dmStoreProxyForApplicationPdf,
-      dmStoreProxyForRespondentAnswersPdf,
-      dmStoreProxyForCertificateOfServicePdf,
-      dmStoreProxyForDeemedAsServicePdf,
-      dmStoreProxyForDispenseWithServicePdf,
-      dmStoreProxyForCertificateOfEntitlementPdf,
-      dmStoreProxyForConditionalOrderRefusalPdf,
-      dmStoreProxyForConditionalOrderAnswersPdf,
-      dmStoreProxyForDeemedServiceRefusedPdf,
-      dmStoreProxyForDispenseWithServiceRefusedPdf,
-      dmStoreProxyForBailiffServiceRefusedPdf,
-      dmStoreProxyForBailiffUnsuccessfulCertificateOfServicePdf,
-      dmStoreProxyForBailiffServicePdf,
-      dmStoreProxyForConditionalOrderGrantedPdf,
-      dmStoreProxyFinalOrderGrantedPdf,
-      dmStoreProxyForConditionalOrderApplicationPdf,
-      dmStoreProxyForFinalOrderApplicationPdf,
-      dmStoreProxyForFinalOrderGrantedPdf,
-    ];
-
-    for (const dmStoreProxy of dmStoreProxies) {
+    for (const downloadProxy of proxyList) {
       app.use(
-        dmStoreProxy.endpoints,
-        proxy(documentManagementTarget, {
-          proxyReqPathResolver: dmStoreProxy.path,
-          proxyReqOptDecorator: addHeaders,
+        downloadProxy.endpoints,
+        proxy(config.get('services.caseDocumentManagement.url'), {
+          proxyReqPathResolver: downloadProxy.path,
+          proxyReqOptDecorator: this.addCdamHeaders,
           secure: false,
           changeOrigin: true,
+          proxyErrorHandler: (err, res, next) => {
+            if (err instanceof UserNotLoggedInError) {
+              return res.redirect(TIMED_OUT_URL);
+            } else if (err.code === 'ECONNRESET') {
+              log.info('Connection reset by peer. URL: ' + res.req.path);
+              return res.redirect(TIMED_OUT_URL);
+            }
+            next(err);
+          },
         })
       );
     }
+  }
+
+  addCdamHeaders(
+    proxyReqOpts: { headers: Record<string, unknown> },
+    userReq: AppRequest
+  ): { headers: Record<string, unknown> } {
+    if (!userReq.session.user) {
+      throw new UserNotLoggedInError();
+    }
+
+    proxyReqOpts.headers['ServiceAuthorization'] = getServiceAuthToken();
+    proxyReqOpts.headers['Authorization'] = `Bearer ${userReq.session.user.accessToken}`;
+    proxyReqOpts.headers['user-roles'] = userReq.session.user.roles.join(',');
+    return proxyReqOpts;
+  }
+}
+
+class UserNotLoggedInError extends Error {
+  constructor() {
+    super('Error downloading document. User not logged in.');
   }
 }

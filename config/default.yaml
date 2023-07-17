@@ -15,6 +15,7 @@ dates:
   applyForFoDays: 43
   applicationSubmittedOffsetDays: 28
   arrangeProcessServiceDays: 28
+  switchToSoleFinalOrderIntentionNotificationOffsetDays: 14
 fees:
   applicationFee: DivorceCivPart
   financialOrder: FinancialOrderOnNotice
@@ -42,13 +43,13 @@ services:
     caching: false
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    #    url: 'https://ccd-data-store-api-nfdiv-case-api-pr-2402.service.core-compute-preview.internal'
+    # url: 'https://ccd-data-store-api-nfdiv-case-api-pr-2745.preview.platform.hmcts.net'
     checkDivCases: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
-  documentManagement:
-    url: http://dm-store-aat.service.core-compute-aat.internal
+  caseDocumentManagement:
+    url: http://ccd-case-document-am-api-aat.service.core-compute-aat.internal
   payments:
     url: http://payment-api-aat.service.core-compute-aat.internal
   fees:
@@ -69,6 +70,7 @@ health:
   deadline: 15000
 session:
   secret: 'local'
+  maxAge: 1260000
   redis:
     host:
     key:

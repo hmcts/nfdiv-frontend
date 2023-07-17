@@ -48,8 +48,8 @@ describe('to-api-format', () => {
     applicant2EnglishOrWelsh: LanguagePreference.English,
     applicant1NameChangedHow: [ChangedNameHow.OTHER],
     applicant2NameChangedHow: [ChangedNameHow.OTHER],
-    applicant1ChangedNameHowAnotherWay: 'Test',
-    applicant2ChangedNameHowAnotherWay: 'Test',
+    applicant1NameChangedHowOtherDetails: 'Test',
+    applicant2NameChangedHowOtherDetails: 'Test',
     applicant1CannotUploadDocuments: [],
     applicant2CannotUploadDocuments: [],
     applicant1IConfirmPrayer: Checkbox.Checked,
@@ -99,8 +99,8 @@ describe('to-api-format', () => {
     applicant1IsApplicant2Represented: Applicant2Represented.YES,
     applicant1NameChangedHow: [],
     applicant2NameChangedHow: [],
-    applicant1ChangedNameHowAnotherWay: 'Test',
-    applicant2ChangedNameHowAnotherWay: 'Test',
+    applicant1NameChangedHowOtherDetails: 'Test',
+    applicant2NameChangedHowOtherDetails: 'Test',
     applicant1CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
     applicant2CannotUploadDocuments: DocumentType.NAME_CHANGE_EVIDENCE,
     applicant1ApplyForFinancialOrder: YesOrNo.YES,
@@ -157,13 +157,13 @@ describe('to-api-format', () => {
       applicant1NameChangedHowOtherDetails: 'Test',
       applicant2NameChangedHowOtherDetails: 'Test',
       applicant2Address: {
-        AddressLine1: null,
-        AddressLine2: null,
-        AddressLine3: null,
-        PostTown: null,
-        County: null,
-        PostCode: null,
-        Country: null,
+        AddressLine1: '',
+        AddressLine2: '',
+        AddressLine3: '',
+        PostTown: '',
+        County: '',
+        PostCode: '',
+        Country: '',
       },
       applicant1FinalOrderStatementOfTruth: YesOrNo.YES,
       doesApplicant1WantToApplyForFinalOrder: YesOrNo.YES,
@@ -234,6 +234,26 @@ describe('to-api-format', () => {
       applicant1HWFReferenceNumber: '',
       applicant2HWFReferenceNumber: '',
       marriageDate: '',
+    });
+  });
+
+  test('converts applicant1IntendsToSwitchToSole with checkboxConverterSwitchToSoleIntention', async () => {
+    const apiFormat = toApiFormat({
+      applicant1IntendsToSwitchToSole: Checkbox.Checked,
+    } as Partial<Case>);
+
+    expect(apiFormat).toMatchObject({
+      applicant1IntendsToSwitchToSole: [YesOrNo.YES],
+    });
+  });
+
+  test('converts applicant2IntendsToSwitchToSole with checkboxConverterSwitchToSoleIntention', async () => {
+    const apiFormat = toApiFormat({
+      applicant2IntendsToSwitchToSole: Checkbox.Checked,
+    } as Partial<Case>);
+
+    expect(apiFormat).toMatchObject({
+      applicant2IntendsToSwitchToSole: [YesOrNo.YES],
     });
   });
 
@@ -308,35 +328,31 @@ describe('to-api-format', () => {
 
   test.each([
     {
-      applicant1LastNameChangedWhenRelationshipFormed: YesOrNo.YES,
-      applicant1NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      applicant1LastNameChangedWhenMarried: YesOrNo.YES,
+      applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
       expected: {
         applicant1LastNameChangedWhenMarried: YesOrNo.YES,
       },
     },
     {
-      applicant1LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
-      applicant1NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      applicant1LastNameChangedWhenMarried: YesOrNo.NO,
+      applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
       expected: {
         applicant1LastNameChangedWhenMarried: YesOrNo.NO,
-        applicant1NameChangedHow: null,
-        applicant1NameChangedHowOtherDetails: null,
       },
     },
     {
-      applicant2LastNameChangedWhenRelationshipFormed: YesOrNo.YES,
-      applicant2NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      applicant2LastNameChangedWhenMarried: YesOrNo.YES,
+      applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
       expected: {
         applicant2LastNameChangedWhenMarried: YesOrNo.YES,
       },
     },
     {
-      applicant2LastNameChangedWhenRelationshipFormed: YesOrNo.NO,
-      applicant2NameChangedSinceRelationshipFormed: YesOrNo.NO,
+      applicant2LastNameChangedWhenMarried: YesOrNo.NO,
+      applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
       expected: {
         applicant2LastNameChangedWhenMarried: YesOrNo.NO,
-        applicant2NameChangedHow: null,
-        applicant2NameChangedHowOtherDetails: null,
       },
     },
     {
@@ -377,13 +393,13 @@ describe('to-api-format', () => {
       expected: {
         applicant1KnowsApplicant2Address: YesOrNo.NO,
         applicant2Address: {
-          AddressLine1: null,
-          AddressLine2: null,
-          AddressLine3: null,
-          PostTown: null,
-          County: null,
-          PostCode: null,
-          Country: null,
+          AddressLine1: '',
+          AddressLine2: '',
+          AddressLine3: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+          Country: '',
         },
       },
     },
@@ -484,6 +500,115 @@ describe('to-api-format', () => {
       },
     },
   ])('sets correct solicitors address depending on the fields entered', ({ expected, ...formData }) => {
+    expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+  });
+
+  test.each([
+    {
+      applicant1LastNameChangedWhenMarried: YesOrNo.YES,
+      applicant1LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+      applicant2LastNameChangedWhenMarried: YesOrNo.YES,
+      applicant2LastNameChangedWhenMarriedMethod: [ChangedNameHow.DEED_POLL],
+      expected: {
+        applicant1LastNameChangedWhenMarried: YesOrNo.YES,
+        applicant1LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+        applicant2LastNameChangedWhenMarried: YesOrNo.YES,
+        applicant2LastNameChangedWhenMarriedMethod: [ChangedNameHow.DEED_POLL],
+      },
+    },
+    {
+      applicant1LastNameChangedWhenMarried: YesOrNo.NO,
+      applicant1LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+      applicant2LastNameChangedWhenMarried: YesOrNo.NO,
+      applicant2LastNameChangedWhenMarriedMethod: [ChangedNameHow.DEED_POLL],
+      expected: {
+        applicant1LastNameChangedWhenMarried: YesOrNo.NO,
+        applicant1LastNameChangedWhenMarriedMethod: [],
+        applicant2LastNameChangedWhenMarried: YesOrNo.NO,
+        applicant2LastNameChangedWhenMarriedMethod: [],
+      },
+    },
+    {
+      applicant1LastNameChangedWhenMarried: YesOrNo.YES,
+      applicant1LastNameChangedWhenMarriedMethod: [ChangedNameHow.OTHER],
+      applicant1LastNameChangedWhenMarriedOtherDetails: 'App1 when married details',
+      applicant2LastNameChangedWhenMarried: YesOrNo.YES,
+      applicant2LastNameChangedWhenMarriedMethod: [ChangedNameHow.OTHER],
+      applicant2LastNameChangedWhenMarriedOtherDetails: 'App2 when married details',
+      expected: {
+        applicant1LastNameChangedWhenMarriedMethod: [ChangedNameHow.OTHER],
+        applicant1LastNameChangedWhenMarriedOtherDetails: 'App1 when married details',
+        applicant2LastNameChangedWhenMarriedMethod: [ChangedNameHow.OTHER],
+        applicant2LastNameChangedWhenMarriedOtherDetails: 'App2 when married details',
+      },
+    },
+    {
+      applicant1LastNameChangedWhenMarried: YesOrNo.YES,
+      applicant1LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+      applicant1LastNameChangedWhenMarriedOtherDetails: 'App1 when married details',
+      applicant2LastNameChangedWhenMarried: YesOrNo.NO,
+      applicant2LastNameChangedWhenMarriedMethod: [],
+      applicant2LastNameChangedWhenMarriedOtherDetails: 'App2 when married details',
+      expected: {
+        applicant1LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+        applicant1LastNameChangedWhenMarriedOtherDetails: '',
+        applicant2LastNameChangedWhenMarriedMethod: [],
+        applicant2LastNameChangedWhenMarriedOtherDetails: '',
+      },
+    },
+    {
+      applicant1NameDifferentToMarriageCertificate: YesOrNo.YES,
+      applicant1NameDifferentToMarriageCertificateMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+      applicant2NameDifferentToMarriageCertificate: YesOrNo.YES,
+      applicant2NameDifferentToMarriageCertificateMethod: [ChangedNameHow.DEED_POLL],
+      expected: {
+        applicant1NameDifferentToMarriageCertificate: YesOrNo.YES,
+        applicant1NameDifferentToMarriageCertificateMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+        applicant2NameDifferentToMarriageCertificate: YesOrNo.YES,
+        applicant2NameDifferentToMarriageCertificateMethod: [ChangedNameHow.DEED_POLL],
+      },
+    },
+    {
+      applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
+      applicant1NameDifferentToMarriageCertificateMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+      applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
+      applicant2NameDifferentToMarriageCertificateMethod: [ChangedNameHow.DEED_POLL],
+      expected: {
+        applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
+        applicant1NameDifferentToMarriageCertificateMethod: [],
+        applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
+        applicant2NameDifferentToMarriageCertificateMethod: [],
+      },
+    },
+    {
+      applicant1NameDifferentToMarriageCertificate: YesOrNo.YES,
+      applicant1NameDifferentToMarriageCertificateMethod: [ChangedNameHow.OTHER],
+      applicant1NameDifferentToMarriageCertificateOtherDetails: 'App1 when married details',
+      applicant2NameDifferentToMarriageCertificate: YesOrNo.YES,
+      applicant2NameDifferentToMarriageCertificateMethod: [ChangedNameHow.OTHER],
+      applicant2NameDifferentToMarriageCertificateOtherDetails: 'App2 when married details',
+      expected: {
+        applicant1NameDifferentToMarriageCertificateMethod: [ChangedNameHow.OTHER],
+        applicant1NameDifferentToMarriageCertificateOtherDetails: 'App1 when married details',
+        applicant2NameDifferentToMarriageCertificateMethod: [ChangedNameHow.OTHER],
+        applicant2NameDifferentToMarriageCertificateOtherDetails: 'App2 when married details',
+      },
+    },
+    {
+      applicant1NameDifferentToMarriageCertificate: YesOrNo.YES,
+      applicant1NameDifferentToMarriageCertificateMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+      applicant1NameDifferentToMarriageCertificateOtherDetails: 'App1 when married details',
+      applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
+      applicant2NameDifferentToMarriageCertificateMethod: [],
+      applicant2NameDifferentToMarriageCertificateOtherDetails: 'App2 when married details',
+      expected: {
+        applicant1NameDifferentToMarriageCertificateMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+        applicant1NameDifferentToMarriageCertificateOtherDetails: '',
+        applicant2NameDifferentToMarriageCertificateMethod: [],
+        applicant2NameDifferentToMarriageCertificateOtherDetails: '',
+      },
+    },
+  ])('Name changed works', ({ expected, ...formData }) => {
     expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
   });
 });

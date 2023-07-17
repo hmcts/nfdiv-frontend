@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../../app/case/case';
-import { HubTemplate, State, YesOrNo } from '../../../../app/case/definition';
+import { State, YesOrNo } from '../../../../app/case/definition';
+import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
 export const getSoleHubTemplate = (
@@ -15,6 +16,7 @@ export const getSoleHubTemplate = (
   const isAosOverdue =
     !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   switch (displayState.state()) {
+    case State.RespondentFinalOrderRequested:
     case State.FinalOrderRequested: {
       return HubTemplate.FinalOrderRequested;
     }
@@ -25,6 +27,7 @@ export const getSoleHubTemplate = (
     case State.ConditionalOrderPronounced: {
       return HubTemplate.ConditionalOrderPronounced;
     }
+    case State.AwaitingAdminClarification:
     case State.AwaitingLegalAdvisorReferral:
     case State.AwaitingPronouncement:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
@@ -43,7 +46,11 @@ export const getSoleHubTemplate = (
     case State.AwaitingClarification:
       return HubTemplate.AwaitingClarification;
     case State.ClarificationSubmitted:
-      return HubTemplate.ClarificationSubmitted;
+      if (userCase.coIsAdminClarificationSubmitted === YesOrNo.YES) {
+        return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
+      } else {
+        return HubTemplate.ClarificationSubmitted;
+      }
     case State.AwaitingAmendedApplication:
       return HubTemplate.AwaitingAmendedApplication;
     case State.AwaitingBailiffService:

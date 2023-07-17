@@ -35,11 +35,23 @@ const en = ({ isDivorce, userCase }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: `${userCase.applicant2LastNameChangedWhenRelationshipFormed}`,
-      line5: `${userCase.applicant2NameChangedSinceRelationshipFormed}`,
-      line6: `${
-        userCase.applicant2NameChangedHow?.length
-          ? userCase.applicant2NameChangedHow
+      line4: `${userCase.applicant2LastNameChangedWhenMarried}`,
+      line5: `${
+        userCase.applicant2LastNameChangedWhenMarriedMethod?.length
+          ? userCase.applicant2LastNameChangedWhenMarriedMethod
+              .join(' / ')
+              .replace(ChangedNameHow.OTHER, 'Another way')
+              .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
+              .replace(
+                ChangedNameHow.MARRIAGE_CERTIFICATE,
+                `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`
+              )
+          : ''
+      }`,
+      line6: `${userCase.applicant2NameDifferentToMarriageCertificate}`,
+      line7: `${
+        userCase.applicant2NameDifferentToMarriageCertificateMethod?.length
+          ? userCase.applicant2NameDifferentToMarriageCertificateMethod
               .join(' / ')
               .replace(ChangedNameHow.OTHER, 'Another way')
               .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
@@ -146,11 +158,23 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: userCase.applicant2LastNameChangedWhenRelationshipFormed.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line5: userCase.applicant2NameChangedSinceRelationshipFormed.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line6: `${
-        userCase.applicant2NameChangedHow?.length
-          ? userCase.applicant2NameChangedHow
+      line4: userCase.applicant2LastNameChangedWhenMarried.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line5: `${
+        userCase.applicant2LastNameChangedWhenMarriedMethod?.length
+          ? userCase.applicant2LastNameChangedWhenMarriedMethod
+              .join(' / ')
+              .replace(ChangedNameHow.OTHER, 'Ffordd arall')
+              .replace(ChangedNameHow.DEED_POLL, 'Weithred newid enw')
+              .replace(
+                ChangedNameHow.MARRIAGE_CERTIFICATE,
+                `Tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`
+              )
+          : ''
+      }`,
+      line6: userCase.applicant2NameDifferentToMarriageCertificate.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line7: `${
+        userCase.applicant2NameDifferentToMarriageCertificateMethod?.length
+          ? userCase.applicant2NameDifferentToMarriageCertificateMethod
               .join(' / ')
               .replace(ChangedNameHow.OTHER, 'Ffordd arall')
               .replace(ChangedNameHow.DEED_POLL, 'Weithred newid enw')

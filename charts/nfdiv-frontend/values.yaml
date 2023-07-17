@@ -26,7 +26,8 @@ nodejs:
       secrets:
         - idam-secret
         - AppInsightsInstrumentationKey
-        - redis-access-key
+        - name: redis6-access-key
+          alias: redis-access-key
         - frontend-secret
         - os-places-token
         - idam-systemupdate-username
@@ -38,11 +39,11 @@ nodejs:
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
     PAYMENTS_API_URL: 'http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     FEES_API_URL: 'http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    REDIS_HOST: 'nfdiv-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
+    REDIS_HOST: 'nfdiv-frontend-{{ .Values.global.environment }}.redis.cache.windows.net'
     CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    #    CCD_URL: 'https://ccd-data-store-api-nfdiv-case-api-pr-2402.service.core-compute-preview.internal'
+    # CCD_URL: 'https://ccd-data-store-api-nfdiv-case-api-pr-2745.preview.platform.hmcts.net'
     #SKIP_DIV_CASE_CHECK: false #this is required to connect to nfdiv-case-api in preview
-    DOCUMENT_MANAGEMENT_URL: 'http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    CASE_DOCUMENT_MANAGEMENT_URL: 'http://ccd-case-document-am-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
     DECREE_NISI_URL: 'https://decree-nisi-aks.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_TOKEN_CACHE: false

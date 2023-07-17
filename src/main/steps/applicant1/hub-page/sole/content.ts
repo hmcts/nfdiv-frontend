@@ -275,7 +275,7 @@ const cy: typeof en = (
     line3: `Gallwch wneud cais am orchymyn amodol ar ${getFormattedDate(
       dayjs(userCase.issueDate).add(config.get('dates.issueDateOffsetDays'), 'day'),
       SupportedLanguages.Cy
-    )}. Y rheswm am hyn yw bod yn rhaid i chi aros tan 20 wythnos o'r adeg y cyhoeddwyd y ${
+    )}. Mae hyn oherwydd bod rhaid i chi aros tan 20 wythnos o'r adeg y cyhoeddwyd y ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     } Byddwch yn cael e-bost i'ch atgoffa.`,
   },
@@ -322,17 +322,23 @@ const cy: typeof en = (
       "Byddwch yn derbyn llythyr yn y post yn dweud wrthych a oes angen i chi ddod i'r gwrandawiad, a ble y bydd hynny yn digwydd.",
   },
   servedByBailiff: {
-    line1: `Mae'r llys wedi gweld tystiolaeth bod eich ${
+    line1: `Mae’r beili wedi cyflwyno (danfon) eich ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
-    } wedi cael ei 'gyflwyno' (ei anfon) yn llwyddiannus at eich ${partner}. Gallwch `,
-    line2: "weld a lawrlwytho eich 'tystysgrif cyflwyno'.",
-    downloadReference: '/downloads/certificate-of-service',
+    } i’ch ${partner} yn llwyddiannus. Bu iddynt gyflwyno’r dogfennu iddynt ar ${getFormattedDate(
+      userCase.alternativeServiceOutcomes?.[0].value.certificateOfServiceDate,
+      SupportedLanguages.Cy
+    )}.`,
   },
   awaitingConditionalOrder: `Gallwch nawr wneud cais am 'orchymyn amodol'. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
     isDivorce ? 'cael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
   }.`,
   awaitingConditionalOrderAndServedByBailiff: {
-    line1: `Mae'r llys wedi gweld tystiolaeth bod dogfennau'r llys wedi'u ‘cyflwyno’ (wedi'u danfon) yn llwyddiannus i'ch ${partner}. Gallwch`,
+    line1: `Mae’r beili wedi cyflwyno (danfon) eich ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    } i’ch ${partner} yn llwyddiannus. Bu iddynt gyflwyno’r dogfennu iddynt ar ${getFormattedDate(
+      userCase.alternativeServiceOutcomes?.[0].value.certificateOfServiceDate,
+      SupportedLanguages.Cy
+    )}.`,
     line2: `Ni fyddwch yn gweld ymateb eich ${partner} pan fyddwch yn gwneud cais am y gorchymyn amodol.`,
   },
   conditionalOrderWithDeemedOrDispensedService: `Ni fyddwch yn gweld ymateb gan eich ${partner} yn y cais am orchymyn amodol.
@@ -360,8 +366,8 @@ const cy: typeof en = (
     buttonLink: FINALISING_YOUR_APPLICATION,
   },
   readMore: 'Darllenwch fwy am y camau nesaf',
-  readMoreSummary: `Mae'n rhaid i chi  gwblhau 2 gam arall cyn ${
-    isDivorce ? 'i chi fod wedi ysgaru’n gyfreithiol' : 'fod eich partneriaeth sifil wedi dod i ben yn gyfreithiol'
+  readMoreSummary: `Mae'n rhaid i chi gwblhau 2 gam arall cyn ${
+    isDivorce ? 'y byddwch wedi ysgaru’n gyfreithlon' : 'y bydd eich partneriaeth sifil wedi dod i ben yn gyfreithlon'
   }:`,
   readMoreSteps: {
     step1: {
@@ -372,8 +378,8 @@ const cy: typeof en = (
     },
     step2: {
       heading: 'Gwneud cais am orchymyn terfynol',
-      body: `Mae hyn yn dod â’r ${
-        isDivorce ? 'briodas' : 'partneriaeth sifil'
+      body: `Hwn sy’n dod â’r ${
+        isDivorce ? 'briodas' : 'bartneriaeth sifil'
       } i ben yn gyfreithiol. Ni allwch wneud cais am orchymyn terfynol tan 6 wythnos ar ôl y gorchymyn amodol.`,
     },
   },
@@ -505,7 +511,6 @@ export const generateContent: TranslationFn = content => {
   );
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
   const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
-
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
 
   return {

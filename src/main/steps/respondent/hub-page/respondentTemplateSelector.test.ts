@@ -1,5 +1,6 @@
 import { Checkbox } from '../../../app/case/case';
-import { DivorceOrDissolution, HubTemplate, State } from '../../../app/case/definition';
+import { DivorceOrDissolution, State } from '../../../app/case/definition';
+import { HubTemplate } from '../../common/hubTemplates';
 import { currentStateFn } from '../../state-sequence';
 
 import { getRespondentHubTemplate } from './respondentTemplateSelector';
@@ -14,6 +15,12 @@ describe('RespondentTemplateSelector test', () => {
 
   test('should show /final-order-requested.njk for state FinalOrderRequested', () => {
     const theState = displayState.at(State.FinalOrderRequested);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.FinalOrderRequested);
+  });
+
+  test('should show /final-order-requested.njk for state RespondentFinalOrderRequested', () => {
+    const theState = displayState.at(State.RespondentFinalOrderRequested);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe(HubTemplate.FinalOrderRequested);
   });

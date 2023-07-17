@@ -56,8 +56,8 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
       dayjs(userCase.issueDate).add(config.get('dates.disputeDueDateOffsetDays'), 'day')
     )}
       to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
-      isDivorce ? 'the divorce' : 'ending your civil partnership'
-    }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">download the form here</a>.`,
+        isDivorce ? 'the divorce' : 'ending your civil partnership'
+      }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">download the form here</a>.`,
     line3: `Fill in the form and email it to: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
     line4: 'Or post it to:',
     line5: `You’ll have to pay a ${getFee(
@@ -183,7 +183,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     } confirming whether the final order has been granted.`,
     line2: `You need to pay ${getFee(
       config.get('fees.finalOrderApplicationFee')
-    )} for the application before it can be submitted. Phone 0300 123 1711 to make payment. Have your card details ready.`,
+    )} for the application before it can be submitted. Phone 0300 303 0642 to make payment. Have your card details ready.`,
     line3: `If you need help paying the fee then you will need to apply for Help With Fees first. Then phone with your Help With Fees reference
        number. You can `,
     line4: 'apply for Help With Fees here',
@@ -244,8 +244,8 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
       i gyflwyno'r ffurflen ateb i ${
         isDivorce ? 'gais am ysgariad' : 'diddymiad'
       }’. Dyma'r ffurflen ar gyfer herio’r cais am ${
-      isDivorce ? 'ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
-    }. Gallwch <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">lawrlwytho'r ffurflen yma</a>.`,
+        isDivorce ? 'ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+      }. Gallwch <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">lawrlwytho'r ffurflen yma</a>.`,
     line3: `Llenwch y ffurflen a'i hanfon drwy e-bost i: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
     line4: 'Neu ei phostio i:',
     line5: `Bydd yn rhaid i chi dalu ffi o ${getFee(
@@ -383,7 +383,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     } a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
     line2: `Mae angen i chi dalu ${getFee(
       config.get('fees.finalOrderApplicationFee')
-    )} am y cais cyn y gellir ei gyflwyno. Ffoniwch 0300 123 1711 i wneud taliad. Sicrhewch fod manylion eich cerdyn gennych wrth law.`,
+    )} am y cais cyn y gellir ei gyflwyno. Ffoniwch 0300 303 0642 i wneud taliad. Sicrhewch fod manylion eich cerdyn gennych wrth law.`,
     line3:
       "Os oes angen help arnoch i dalu'r ffi yna bydd angen i chi wneud cais am Help i Dalu Ffioedd yn gyntaf. Yna ffoniwch gyda'ch cyfeirnod Help i Dalu Ffioedd. Gallwch ",
     line4: 'wneud cais am Help i Dalu Ffioedd yma.',

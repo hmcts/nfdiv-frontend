@@ -7,7 +7,7 @@ import {
   YesOrNo,
 } from '../app/case/definition';
 import { needsToExplainDelay } from '../app/controller/controller.utils';
-import { isLessThanAYear } from '../app/form/validation';
+import { isLessThanAYearAgoInc } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
   previousConnectionMadeUptoLastHabituallyResident,
@@ -54,10 +54,10 @@ import {
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
-  HOW_DID_YOU_CHANGE_YOUR_NAME,
   HOW_DO_YOU_WANT_TO_APPLY,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
+  HOW_TO_FINALISE_APPLICATION,
   HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
   IN_THE_UK,
@@ -101,6 +101,11 @@ export interface Step {
   getNextStep: (data: Partial<CaseWithId>) => PageLink;
 }
 
+export interface RoutePermission {
+  urls: PageLink[];
+  condition: (data: Partial<CaseWithId>) => boolean;
+}
+
 export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: YOUR_DETAILS_URL,
@@ -118,7 +123,9 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: RELATIONSHIP_DATE_URL,
     getNextStep: data =>
-      isLessThanAYear(data.relationshipDate) === 'lessThanAYear' ? RELATIONSHIP_NOT_LONG_ENOUGH_URL : CERTIFICATE_URL,
+      isLessThanAYearAgoInc(data.relationshipDate) === 'lessThanAYearAgoInc'
+        ? RELATIONSHIP_NOT_LONG_ENOUGH_URL
+        : CERTIFICATE_URL,
   },
   {
     url: RELATIONSHIP_NOT_LONG_ENOUGH_URL,
@@ -270,14 +277,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
-    getNextStep: data =>
-      data.applicant1LastNameChangedWhenRelationshipFormed === YesOrNo.YES ||
-      data.applicant1NameChangedSinceRelationshipFormed === YesOrNo.YES
-        ? HOW_DID_YOU_CHANGE_YOUR_NAME
-        : HOW_THE_COURTS_WILL_CONTACT_YOU,
-  },
-  {
-    url: HOW_DID_YOU_CHANGE_YOUR_NAME,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
@@ -518,6 +517,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: CHANGING_TO_SOLE_APPLICATION,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: HOW_TO_FINALISE_APPLICATION,
     getNextStep: () => HUB_PAGE,
   },
   {

@@ -15,8 +15,8 @@ services:
     url: PAYMENTS_API_URL
   fees:
     url: FEES_API_URL
-  documentManagement:
-    url: DOCUMENT_MANAGEMENT_URL
+  caseDocumentManagement:
+    url: CASE_DOCUMENT_MANAGEMENT_URL
   equalityAndDiversity:
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN

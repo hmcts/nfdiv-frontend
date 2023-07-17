@@ -1,12 +1,24 @@
+import config from 'config';
 import * as express from 'express';
 import { Express, RequestHandler } from 'express';
-import helmet from 'helmet';
+import helmet, { contentSecurityPolicy, referrerPolicy } from 'helmet';
 
 const googleAnalyticsDomain = '*.google-analytics.com';
 const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
 const azureBlob = '*.blob.core.windows.net';
 const doubleclick = 'stats.g.doubleclick.net';
 const self = "'self'";
+
+type ReferrerPolicyToken =
+  | 'no-referrer'
+  | 'no-referrer-when-downgrade'
+  | 'same-origin'
+  | 'origin'
+  | 'strict-origin'
+  | 'origin-when-cross-origin'
+  | 'strict-origin-when-cross-origin'
+  | 'unsafe-url'
+  | '';
 
 /**
  * Module that enables helmet in the application
@@ -57,18 +69,24 @@ export class Helmet {
       "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
       "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
     ];
+    const formAction = [self, 'https://card.payments.service.gov.uk'];
+    // Equality URL added to work around redirects after form action - https://github.com/w3c/webappsec-csp/issues/8
+    const equalityUrl: string = config.get('services.equalityAndDiversity.url');
+    if (equalityUrl) {
+      formAction.push(equalityUrl);
+    }
 
     if (app.locals.developmentMode) {
       scriptSrc.push("'unsafe-eval'");
     }
 
     app.use(
-      helmet.contentSecurityPolicy({
+      contentSecurityPolicy({
         directives: {
           connectSrc,
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:', 'https://fonts.gstatic.com'],
-          formAction: [self, 'https://www.payments.service.gov.uk'],
+          formAction,
           imgSrc,
           objectSrc: [self],
           scriptSrc,
@@ -78,11 +96,11 @@ export class Helmet {
     );
   }
 
-  private setReferrerPolicy(app: express.Express, policy: string): void {
+  private setReferrerPolicy(app: express.Express, policy: ReferrerPolicyToken): void {
     if (!policy) {
       throw new Error('Referrer policy configuration is required');
     }
 
-    app.use(helmet.referrerPolicy({ policy }) as RequestHandler);
+    app.use(referrerPolicy({ policy }) as RequestHandler);
   }
 }
