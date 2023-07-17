@@ -4,12 +4,14 @@ import { Response } from 'express';
 import { Case, CaseWithId } from '../../../app/case/case';
 import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
+  CITIZEN_APPLICANT2_UPDATE,
   FINAL_ORDER_REQUESTED,
   SWITCH_TO_SOLE_FO,
   YesOrNo,
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import { needsToExplainDelay } from '../../../app/controller/controller.utils';
 import { getSwitchToSoleFoStatus } from '../../common/switch-to-sole-content.utils';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls';
 
@@ -45,6 +47,8 @@ export default class FinalisingYourApplicationPostController extends PostControl
   protected getEventName(req: AppRequest<AnyObject>): string {
     if (getSwitchToSoleFoStatus(req.session.userCase, req.session.isApplicant2).isIntendingAndAbleToSwitchToSoleFo) {
       return SWITCH_TO_SOLE_FO;
+    } else if (needsToExplainDelay(req.session.userCase)) {
+      return CITIZEN_APPLICANT2_UPDATE;
     } else if (req.session.isApplicant2) {
       return APPLICANT2_FINAL_ORDER_REQUESTED;
     }

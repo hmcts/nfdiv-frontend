@@ -6,6 +6,7 @@ import {
   State,
   YesOrNo,
 } from '../app/case/definition';
+import { needsToExplainDelay } from '../app/controller/controller.utils';
 import { isLessThanAYearAgoInc } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
@@ -504,7 +505,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: FINALISING_YOUR_APPLICATION,
-    getNextStep: data => (data.previousState === State.FinalOrderOverdue ? EXPLAIN_THE_DELAY : HUB_PAGE),
+    getNextStep: data => (needsToExplainDelay(data) ? EXPLAIN_THE_DELAY : HUB_PAGE),
   },
   {
     url: EXPLAIN_THE_DELAY,

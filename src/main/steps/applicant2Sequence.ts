@@ -1,5 +1,6 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, ChangedNameHow, State, YesOrNo } from '../app/case/definition';
+import { needsToExplainDelay } from '../app/controller/controller.utils';
 
 import { Step } from './applicant1Sequence';
 import { nameChangedHowPossibleValue } from './common/content.utils';
@@ -201,7 +202,7 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: FINALISING_YOUR_APPLICATION,
-    getNextStep: data => (data.previousState === State.FinalOrderOverdue ? EXPLAIN_THE_DELAY : HUB_PAGE),
+    getNextStep: data => (needsToExplainDelay(data) ? EXPLAIN_THE_DELAY : HUB_PAGE),
   },
   {
     url: EXPLAIN_THE_DELAY,
