@@ -2431,18 +2431,18 @@ __metadata:
   linkType: hard
 
 "@uppy/core@npm:^3.2.1":
-  version: 3.3.0
-  resolution: "@uppy/core@npm:3.3.0"
+  version: 3.3.1
+  resolution: "@uppy/core@npm:3.3.1"
   dependencies:
     "@transloadit/prettier-bytes": 0.0.9
     "@uppy/store-default": ^3.0.3
-    "@uppy/utils": ^5.4.0
+    "@uppy/utils": ^5.4.1
     lodash: ^4.17.21
     mime-match: ^1.0.2
     namespace-emitter: ^2.0.1
     nanoid: ^4.0.0
     preact: ^10.5.13
-  checksum: cb5e3260c2983784e8704882d52fced0b293ad162828a726b8d79587aa50d7d29baba0fb238b726c0d5f3e9c3ebdb08c86fa1d352ea4eebae1a09ddafd202c9d
+  checksum: 950da9e66a23b5cb839813c118374c3aaae5fa951ddf9bdadb51ae2234b1c61df0a6428c1db6a4290833a18e1fc1854a1f868e37191546fc8c457ef227ccaec3
   languageName: node
   linkType: hard
 
@@ -2494,6 +2494,15 @@ __metadata:
   dependencies:
     lodash: ^4.17.21
   checksum: a39eeba2bab8c4b98c824c26d6eed17e58c4ee4276292533c77a68c3c4a0beb75ad4c09ff193e1519ad78d15aab6776a6dbc5989d04ffd15049ffa23da2797cc
+  languageName: node
+  linkType: hard
+
+"@uppy/utils@npm:^5.4.1":
+  version: 5.4.1
+  resolution: "@uppy/utils@npm:5.4.1"
+  dependencies:
+    lodash: ^4.17.21
+  checksum: c32d864f83adcd1144da87a3bb5d9248b0ab10925f428bd04f5a1880c4457b3b55f02cea6f33189e2b64d8067ce7b75ed1e7e34404075dd34805df5fe35279c5
   languageName: node
   linkType: hard
 
