@@ -57,7 +57,7 @@ export class AccessCodePostController {
     }
 
     if (req.session.errors.length === 0) {
-      logger.info('Calling to link respondent/app2 to case ID: ', caseDataReference);
+      logger.info('Calling to link respondent/app2 to case ID: ' + caseDataReference);
       try {
         req.session.userCase = await caseworkerUserApi.triggerEvent(
           caseReference as string,
