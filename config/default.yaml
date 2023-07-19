@@ -42,8 +42,8 @@ services:
     systemPassword: 'dummy_password'
     caching: false
   case:
-    #    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    url: 'https://ccd-data-store-api-nfdiv-case-api-pr-2588.preview.platform.hmcts.net'
+    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
+    # url: 'https://ccd-data-store-api-nfdiv-case-api-pr-2745.preview.platform.hmcts.net'
     checkDivCases: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
