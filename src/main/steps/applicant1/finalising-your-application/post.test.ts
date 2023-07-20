@@ -4,6 +4,7 @@ import { CaseWithId, Checkbox } from '../../../app/case/case';
 import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
   CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_UPDATE,
   DivorceOrDissolution,
   FINAL_ORDER_REQUESTED,
   SWITCH_TO_SOLE_FO,
@@ -89,7 +90,7 @@ describe('FinalisingYourApplicationPostController', () => {
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_APPLICANT2_UPDATE);
     });
 
-    it('triggers CITIZEN_APPLICANT2_UPDATE if the other partner has given a delay reason', async () => {
+    it('triggers CITIZEN_APPLICANT2_UPDATE if applicant1 has given a delay reason', async () => {
       userCase.state = State.AwaitingJointFinalOrder;
       userCase.applicant1FinalOrderLateExplanation = 'applicant1FinalOrderLateExplanation test content';
 
@@ -110,6 +111,29 @@ describe('FinalisingYourApplicationPostController', () => {
       await finalisingYourApplicationPostController.post(req, res);
 
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_APPLICANT2_UPDATE);
+    });
+
+    it('triggers CITIZEN_UPDATE if applicant2 has given a delay reason', async () => {
+      userCase.state = State.AwaitingJointFinalOrder;
+      userCase.applicant2FinalOrderLateExplanation = 'applicant2FinalOrderLateExplanation test content';
+
+      const body = {
+        doesApplicant1WantToApplyForFinalOrder: Checkbox.Checked,
+      };
+      const mockFormContent = {
+        fields: {
+          doesApplicant1WantToApplyForFinalOrder: {},
+        },
+      } as unknown as FormContent;
+      const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(
+        mockFormContent.fields
+      );
+
+      const req = mockRequest({ body, userCase, session: { isApplicant2: false } });
+      const res = mockResponse();
+      await finalisingYourApplicationPostController.post(req, res);
+
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_UPDATE);
     });
   });
 

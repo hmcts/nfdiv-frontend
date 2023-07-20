@@ -5,6 +5,7 @@ import { Case, CaseWithId } from '../../../app/case/case';
 import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
   CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_UPDATE,
   FINAL_ORDER_REQUESTED,
   SWITCH_TO_SOLE_FO,
   YesOrNo,
@@ -48,7 +49,7 @@ export default class FinalisingYourApplicationPostController extends PostControl
     if (getSwitchToSoleFoStatus(req.session.userCase, req.session.isApplicant2).isIntendingAndAbleToSwitchToSoleFo) {
       return SWITCH_TO_SOLE_FO;
     } else if (needsToExplainDelay(req.session.userCase)) {
-      return CITIZEN_APPLICANT2_UPDATE;
+      return req.session.isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE;
     } else if (req.session.isApplicant2) {
       return APPLICANT2_FINAL_ORDER_REQUESTED;
     }
