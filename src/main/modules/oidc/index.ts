@@ -138,11 +138,16 @@ export class OidcMiddleware {
     return async (req, res) => {
       const isApp2Callback = req.path === APPLICANT_2_CALLBACK_URL;
       if (typeof req.query.code === 'string') {
-        req.session.user = await getUserDetails(
-          `${protocol}${res.locals.host}${port}`,
-          req.query.code,
-          isApp2Callback ? APPLICANT_2_CALLBACK_URL : CALLBACK_URL
-        );
+        try {
+          req.session.user = await getUserDetails(
+            `${protocol}${res.locals.host}${port}`,
+            req.query.code,
+            isApp2Callback ? APPLICANT_2_CALLBACK_URL : CALLBACK_URL
+          );
+        } catch (e) {
+          req.locals.logger.info('Failed to get user details: ', e);
+          return res.redirect(isApp2Callback ? APPLICANT_2_SIGN_IN_URL : SIGN_IN_URL);
+        }
 
         const url = isApp2Callback ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}` : HOME_URL;
 
