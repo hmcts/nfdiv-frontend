@@ -137,18 +137,21 @@ export class OidcMiddleware {
   private callbackHandler(protocol: string, port: string) {
     return async (req, res) => {
       const isApp2Callback = req.path === APPLICANT_2_CALLBACK_URL;
+      const callbackUrl = isApp2Callback ? APPLICANT_2_CALLBACK_URL : CALLBACK_URL;
+      const signInUrl = isApp2Callback ? APPLICANT_2_SIGN_IN_URL : SIGN_IN_URL;
+      const successUrl = isApp2Callback ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}` : HOME_URL;
+
       if (typeof req.query.code === 'string') {
-        req.session.user = await getUserDetails(
-          `${protocol}${res.locals.host}${port}`,
-          req.query.code,
-          isApp2Callback ? APPLICANT_2_CALLBACK_URL : CALLBACK_URL
-        );
+        try {
+          req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, callbackUrl);
+        } catch (e) {
+          req.locals.logger.info('Failed to get user details: ', e);
+          return res.redirect(signInUrl);
+        }
 
-        const url = isApp2Callback ? `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}` : HOME_URL;
-
-        return req.session.save(() => res.redirect(url));
+        return req.session.save(() => res.redirect(successUrl));
       } else {
-        return res.redirect(isApp2Callback ? APPLICANT_2_SIGN_IN_URL : SIGN_IN_URL);
+        return res.redirect(signInUrl);
       }
     };
   }
