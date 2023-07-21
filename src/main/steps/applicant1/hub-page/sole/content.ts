@@ -171,9 +171,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
         ? `You will receive an email by ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-          )}`
-        : 'You should receive an email within 2 working days,'
-    } confirming whether the final order has been granted.`,
+          )} confirming whether the final order has been granted.`
+        : 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
+    } `,
   },
   awaitingServiceConsiderationOrBailiffReferral: {
     line1:
@@ -468,7 +468,7 @@ const cy: typeof en = (
           userCase.state === State.AwaitingClarification ? 'Beth sydd angen i chi ei wneud' : 'Diweddariad diweddaraf'
         }`,
   finalOrderComplete: {
-    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'} 
+    line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
     yn awr wedi dod i ben yn gyfreithiol.`,
     line2: {
       part1: "Lawrlwythwch gopi o'ch 'gorchymyn terfynol'",
