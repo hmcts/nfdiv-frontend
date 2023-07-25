@@ -231,7 +231,7 @@ export const generateContent: TranslationFn = content => {
     alternativeServiceOutcome =>
       deemedOrDispensedService &&
       alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO &&
-      alternativeServiceOutcome.serviceApplicationRefusalReason === 'refusalOrderToApplicant'
+      alternativeServiceOutcome.value.serviceApplicationRefusalReason === 'refusalOrderToApplicant'
   );
 
   const hasCertificateOfDeemedOrDispensedServiceGranted = userCase.alternativeServiceOutcomes?.find(
