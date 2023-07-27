@@ -68,6 +68,12 @@ export const getSoleHubTemplate = (
       } else {
         return HubTemplate.AosAwaitingOrDrafted;
       }
+    case State.ServiceAdminRefusal:
+      if (isAlternativeService && !isServiceApplicationGranted) {
+        return HubTemplate.ServiceApplicationRejected;
+      } else {
+        return HubTemplate.AwaitingAoS;
+      }
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
         return HubTemplate.AoSDue;
