@@ -51,7 +51,7 @@ Feature: Sole final order
     Given I select "You are making this application for a final order over one year from when the conditional order was made. Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application."
     And I type "Reason for delay"
     And I select "I believe that the facts stated in this application are true"
-    When I click "Submit"
+    When I click "Continue"
     Then the page URL should be "/hub-page"
 
   Scenario: Respondent sole final order journey
