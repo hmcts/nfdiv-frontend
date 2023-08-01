@@ -72,7 +72,7 @@ export const getSoleHubTemplate = (
         return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.ServiceAdminRefusal:
-      if (isAlternativeService && !isServiceApplicationGranted) {
+      if (isAlternativeService && !isServiceApplicationGranted && isRefusalOrderToApplicant) {
         return HubTemplate.ServiceApplicationRejected;
       } else {
         return HubTemplate.AwaitingAoS;
