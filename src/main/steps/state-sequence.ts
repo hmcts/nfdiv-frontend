@@ -57,6 +57,7 @@ export const orderedStateSequence: State[] = [
   State.AosOverdue,
   State.AwaitingServicePayment,
   State.AwaitingServiceConsideration,
+  State.ServiceAdminRefusal,
   State.AwaitingBailiffReferral,
   State.AwaitingBailiffService,
   State.IssuedToBailiff,
@@ -91,7 +92,6 @@ export const orderedStateSequence: State[] = [
   State.NewPaperCase,
   State.OfflineDocumentReceived,
   State.BulkCaseReject,
-  State.ServiceAdminRefusal,
 ];
 
 export const preSubmittedStatePrioritySequence: State[] = orderedStateSequence.slice(
