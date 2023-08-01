@@ -66,7 +66,7 @@ export const getSoleHubTemplate = (
     case State.AwaitingAos:
       if (isServiceApplicationGranted && !isSuccessfullyServedByBailiff) {
         return HubTemplate.BailiffServiceUnsuccessful;
-      } else if (isAlternativeService && !isServiceApplicationGranted && isRefusalOrderToApplicant) {
+      } else if (isAlternativeService && !isServiceApplicationGranted) {
         return HubTemplate.ServiceApplicationRejected;
       } else {
         return HubTemplate.AosAwaitingOrDrafted;
