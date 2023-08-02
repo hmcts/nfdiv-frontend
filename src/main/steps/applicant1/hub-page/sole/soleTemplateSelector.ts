@@ -75,7 +75,7 @@ export const getSoleHubTemplate = (
       if (isAlternativeService && !isServiceApplicationGranted && isRefusalOrderToApplicant) {
         return HubTemplate.ServiceApplicationRejected;
       } else {
-        return HubTemplate.AosAwaitingOrDrafted;
+        return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
       }
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
