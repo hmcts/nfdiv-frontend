@@ -205,6 +205,7 @@ export interface AlternativeService {
 }
 
 export interface AlternativeServiceOutcome {
+  refusalReason: string;
   receivedServiceApplicationDate: DateAsString;
   receivedServiceAddedDate: DateAsString;
   alternativeServiceType: AlternativeServiceType;
