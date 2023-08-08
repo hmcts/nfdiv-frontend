@@ -76,7 +76,7 @@ export const proxyList: {
     path: (req: AppRequest): string =>
       getPath(
         req,
-        req.session.userCase?.alternativeServiceOutcomes.find(
+        req.session.userCase?.alternativeServiceOutcomes?.find(
           doc =>
             doc.value.successfulServedByBailiff === YesOrNo.NO &&
             doc.value.certificateOfServiceDocument.documentType === DocumentType.CERTIFICATE_OF_SERVICE
@@ -104,7 +104,7 @@ export const proxyList: {
 const findDocumentAndGetPath = (req: AppRequest, documentType: DocumentType): string => {
   return getPath(
     req,
-    req.session.userCase?.documentsGenerated.find(doc => doc.value.documentType === documentType)?.value
+    req.session.userCase?.documentsGenerated?.find(doc => doc.value.documentType === documentType)?.value
   );
 };
 
