@@ -205,6 +205,7 @@ export interface AlternativeService {
 }
 
 export interface AlternativeServiceOutcome {
+  refusalReason: string;
   receivedServiceApplicationDate: DateAsString;
   receivedServiceAddedDate: DateAsString;
   alternativeServiceType: AlternativeServiceType;
@@ -1912,6 +1913,7 @@ export const enum State {
   Submitted = 'Submitted',
   WelshTranslationRequested = 'WelshTranslationRequested',
   WelshTranslationReview = 'WelshTranslationReview',
+  ServiceAdminRefusal = 'ServiceAdminRefusal',
 }
 
 export const enum TranslatedToLanguage {
