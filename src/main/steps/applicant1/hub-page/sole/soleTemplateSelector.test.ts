@@ -178,8 +178,25 @@ describe('SoleTemplateSelector test', () => {
   });
 
   test('should show /service-application-rejected.njk for state AwaitingAos and isAlternativeService and not isServiceApplicationGranted', () => {
+    const userCaseWithServiceApplicationRefusedWithRefusalToApplicant = {
+      ...userCase,
+      alternativeServiceOutcomes: [
+        {
+          id: '123',
+          value: {
+            serviceApplicationGranted: YesOrNo.NO,
+            serviceApplicationRefusalReason: 'refusalOrderToApplicant',
+          },
+        },
+      ] as unknown as ListValue<AlternativeServiceOutcome>[],
+    };
     const theState = displayState.at(State.AwaitingAos);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, true);
+    const soleTemplate = getSoleHubTemplate(
+      theState,
+      userCaseWithServiceApplicationRefusedWithRefusalToApplicant,
+      false,
+      true
+    );
     expect(soleTemplate).toBe(HubTemplate.ServiceApplicationRejected);
   });
 

@@ -21,8 +21,30 @@ const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } (PDF)`,
   },
+  deemedOrDispensedRefusedDownload: {
+    reference:
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'dispense-with-service-refused'
+        : 'deemed-service-refused',
+    link: `/downloads/${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'dispense-with-service-refused'
+        : 'deemed-service-refused'
+    }`,
+    text: `View the court order refusing your application for
+    ${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'dispensed'
+        : 'deemed'
+    } service (PDF)`,
+  },
+
   deemedOrDispensedDownload: {
-    reference: 'Certificate-of-Service',
+    reference:
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'certificate-of-dispense-with-service'
+        : 'certificate-of-deemed-as-service',
+
     link: `/downloads/${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'certificate-of-dispense-with-service'
@@ -97,8 +119,30 @@ const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, ope
     link: '/downloads/respondent-answers',
     text: `Gweld yr ymateb i'r cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
   },
+  deemedOrDispensedRefusedDownload: {
+    reference:
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'dispense-with-service-refused'
+        : 'deemed-service-refused',
+    link: `/downloads/${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'dispense-with-service-refused'
+        : 'deemed-service-refused'
+    }`,
+    text: `View the court order refusing your application for
+    ${
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'dispensed'
+        : 'deemed'
+    } service (PDF)`,
+  },
+
   deemedOrDispensedDownload: {
-    reference: 'Certificate-of-Service',
+    reference:
+      userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
+        ? 'certificate-of-dispense-with-service'
+        : 'certificate-of-deemed-as-service',
+
     link: `/downloads/${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'certificate-of-dispense-with-service'
@@ -176,11 +220,25 @@ export const generateContent: TranslationFn = content => {
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
   const isAwaitingAmendedApplicationState = userCase.state === State.AwaitingAmendedApplication;
-  const hasCertificateOfDeemedOrDispensedService = userCase.alternativeServiceOutcomes?.find(
+
+  const deemedOrDispensedService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
+
+  const hasCertificateOfDeemedOrDispensedServiceRefused = userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      deemedOrDispensedService &&
+      alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO &&
+      alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant'
+  );
+
+  const hasCertificateOfDeemedOrDispensedServiceGranted = userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      deemedOrDispensedService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.YES
+  );
+
   const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
   const hasConditionalOrderGranted = content.userCase.coConditionalOrderGrantedDocument;
   const hasFinalOrderGranted = content.userCase.documentsGenerated?.find(
@@ -199,7 +257,8 @@ export const generateContent: TranslationFn = content => {
   return {
     isAosSubmitted,
     hasCertificateOfService,
-    hasCertificateOfDeemedOrDispensedService,
+    hasCertificateOfDeemedOrDispensedServiceGranted,
+    hasCertificateOfDeemedOrDispensedServiceRefused,
     hasCertificateOfEntitlement,
     isAwaitingAmendedApplicationState,
     hasConditionalOrderAnswers,
