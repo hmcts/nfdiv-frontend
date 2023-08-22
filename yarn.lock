@@ -2654,18 +2654,18 @@ __metadata:
   linkType: hard
 
 "@wdio/sauce-service@npm:^7.32.0":
-  version: 7.32.3
-  resolution: "@wdio/sauce-service@npm:7.32.3"
+  version: 7.32.4
+  resolution: "@wdio/sauce-service@npm:7.32.4"
   dependencies:
     "@types/node": ^18.0.0
     "@wdio/logger": 7.26.0
     "@wdio/types": 7.30.2
     "@wdio/utils": 7.30.2
     saucelabs: ^7.1.3
-    webdriverio: 7.32.3
+    webdriverio: 7.32.4
   peerDependencies:
     "@wdio/cli": ^7.0.0
-  checksum: ac4ef092a9e5c166a6d1760bf46dc5eb92764db824d44bbadcf0e4753e8940181bbaa13fd91459eafce1a9409f7d7bd8a0a9d4b619b6393d4829327305ff80dd
+  checksum: bb69a88a837783a26f7d9f67d00975de93175778e5777340bf6513e31e07961eacfc79dfc4e375472144cc2489933b1daa7036309c0c1ec514b046dd8c003124
   languageName: node
   linkType: hard
 
@@ -5454,13 +5454,6 @@ __metadata:
   version: 0.0.981744
   resolution: "devtools-protocol@npm:0.0.981744"
   checksum: 609901bff551f5fbe98e272bdda7269de527e28fab138de371ffd7e9a06fa68ca2eec2e961bd1cd6fd98223ccee562c55b7ce3235d4e37cc8d85d6681bc45593
-  languageName: node
-  linkType: hard
-
-"devtools-protocol@npm:^0.0.1173815":
-  version: 0.0.1173815
-  resolution: "devtools-protocol@npm:0.0.1173815"
-  checksum: d2a16437b0d9fdd4d430c556b97fd2cb6e6b227d568de48c75956339be0b437d7754102c40ed1acc1ada35c9bfbf05958f3eb5d5014b5e4673161f9719ed65a0
   languageName: node
   linkType: hard
 
@@ -14652,9 +14645,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webdriverio@npm:7.32.3":
-  version: 7.32.3
-  resolution: "webdriverio@npm:7.32.3"
+"webdriverio@npm:7.32.4":
+  version: 7.32.4
+  resolution: "webdriverio@npm:7.32.4"
   dependencies:
     "@types/aria-query": ^5.0.0
     "@types/node": ^18.0.0
@@ -14669,7 +14662,7 @@ __metadata:
     css-shorthand-properties: ^1.1.1
     css-value: ^0.0.1
     devtools: 7.32.0
-    devtools-protocol: ^0.0.1173815
+    devtools-protocol: ^0.0.1182435
     fs-extra: ^11.1.1
     grapheme-splitter: ^1.0.2
     lodash.clonedeep: ^4.5.0
@@ -14683,7 +14676,7 @@ __metadata:
     rgb2hex: 0.2.5
     serialize-error: ^8.0.0
     webdriver: 7.31.1
-  checksum: 1ac6ca4570ae683bf6dc67f5813bcec9158651dde9fa337f089f6ad9894a3c286bad2512a3273707ee77a6d0ceb30c63e3a7ad857777f0827d5cad80e8fbf91f
+  checksum: c02746dc39783c41f55029f934a4cd01745fb0538c14e077aa90bc16c4b7f5550f603da73fa999ec60af103a8ec37c31ab3031a2482edec27ac330966355a2bb
   languageName: node
   linkType: hard
 
