@@ -15,9 +15,14 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
    download={{certificateOfServiceDownload.reference}}>{{certificateOfServiceDownload.text}}</a></p>
 {% endif %}
 
-{% if hasCertificateOfDeemedOrDispensedService %}
+{% if hasCertificateOfDeemedOrDispensedServiceGranted %}
   <p class="govuk-body"><a class="govuk-link" href={{deemedOrDispensedDownload.link}}
    download={{deemedOrDispensedDownload.reference}}>{{deemedOrDispensedDownload.text}}</a></p>
+{% endif %}
+
+ {% if hasCertificateOfDeemedOrDispensedServiceRefused %}
+ <p class="govuk-body"><a class="govuk-link" href={{deemedOrDispensedRefusedDownload.link}}
+    download={{deemedOrDispensedRefusedDownload.reference}}>{{deemedOrDispensedRefusedDownload.text}}</a></p>
 {% endif %}
 
 {% if hasCertificateOfEntitlement %}
