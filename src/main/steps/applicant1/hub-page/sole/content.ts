@@ -172,7 +172,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
         ? `You will receive an email by ${getFormattedDate(
             dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
           )}`
-        : 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
+        : 'You should receive an email within 2 working days,'
     } confirming whether the final order has been granted.`,
   },
   awaitingServiceConsiderationOrBailiffReferral: {

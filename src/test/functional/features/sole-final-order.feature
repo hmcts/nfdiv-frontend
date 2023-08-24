@@ -25,7 +25,7 @@ Feature: Sole final order
     When I click "Submit"
     Then the page URL should be "/hub-page"
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
-    And the page should include "You will receive an email confirming whether it has been granted once a Judge has made a decision."
+    And the page should include "You should receive an email within 2 working days, confirming whether the final order has been granted."
 
   @nightly
   Scenario: Applicant sole final order journey overdue
