@@ -5,6 +5,7 @@ import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../app/case/case';
 import { State } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { needsToExplainDelay } from '../../../app/controller/controller.utils';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
@@ -148,10 +149,7 @@ const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: 
     },
   },
   continue: `${
-    State.FinalOrderOverdue.includes(userCase.state as State) ||
-    dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-      ? 'Continue'
-      : 'Submit'
+    needsToExplainDelay(userCase) || dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible) ? 'Continue' : 'Submit'
   }`,
 });
 
@@ -288,10 +286,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isJointApplication, isApp
     },
   },
   continue: `${
-    State.FinalOrderOverdue.includes(userCase.state as State) ||
-    dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-      ? 'Parhau'
-      : 'Cyflwyno'
+    needsToExplainDelay(userCase) || dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible) ? 'Parhau' : 'Cyflwyno'
   }`,
 });
 

@@ -15,6 +15,9 @@ export const getSoleHubTemplate = (
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
   const isAosOverdue =
     !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
+  const isRefusalOrderToApplicant =
+    userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationRefusalReason === 'refusalOrderToApplicant';
+
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
     case State.FinalOrderRequested: {
@@ -67,6 +70,12 @@ export const getSoleHubTemplate = (
         return HubTemplate.ServiceApplicationRejected;
       } else {
         return HubTemplate.AosAwaitingOrDrafted;
+      }
+    case State.ServiceAdminRefusal:
+      if (isAlternativeService && !isServiceApplicationGranted && isRefusalOrderToApplicant) {
+        return HubTemplate.ServiceApplicationRejected;
+      } else {
+        return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
       }
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {

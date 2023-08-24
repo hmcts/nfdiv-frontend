@@ -70,6 +70,9 @@ const fields: FromApiConverters = {
   applicant1FinalOrderStatementOfTruth: data => ({
     applicant1FinalOrderStatementOfTruth: checkboxConverter(data.applicant1FinalOrderStatementOfTruth),
   }),
+  applicant2FinalOrderStatementOfTruth: data => ({
+    applicant2FinalOrderStatementOfTruth: checkboxConverter(data.applicant2FinalOrderStatementOfTruth),
+  }),
   applicant1ContactDetailsType: ({ applicant1ContactDetailsType }) => ({
     applicant1AddressPrivate: applicant1ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),
