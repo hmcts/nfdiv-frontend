@@ -4,6 +4,7 @@ import { Express, RequestHandler } from 'express';
 import helmet, { contentSecurityPolicy, referrerPolicy } from 'helmet';
 
 const googleAnalyticsDomain = '*.google-analytics.com';
+const dynatraceDomain = '*.dynatrace.com';
 const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
 const azureBlob = '*.blob.core.windows.net';
 const doubleclick = 'stats.g.doubleclick.net';
@@ -64,6 +65,7 @@ export class Helmet {
       self,
       ...tagManager,
       googleAnalyticsDomain,
+      dynatraceDomain,
       ...webchatURLs,
       "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
       "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
