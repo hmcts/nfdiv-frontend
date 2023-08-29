@@ -24,6 +24,8 @@ export class DocumentDownloadMiddleware {
           proxyErrorHandler: (err, res, next) => {
             if (err instanceof UserNotLoggedInError) {
               return res.redirect(TIMED_OUT_URL);
+            } else if (err.status === 401) {
+              return res.redirect(TIMED_OUT_URL);
             } else if (err.code === 'ECONNRESET') {
               log.info('Connection reset by peer. URL: ' + res.req.path);
               return res.redirect(TIMED_OUT_URL);
