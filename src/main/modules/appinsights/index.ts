@@ -16,7 +16,9 @@ export class AppInsights {
 
       appInsights.defaultClient.addTelemetryProcessor(
         (env, ctx) =>
-          ctx['http.ServerResponse']?.req.url !== CSRF_TOKEN_ERROR_URL && ctx['http.ServerResponse']?.statusCode !== 404
+          ctx['http.ServerResponse']?.req.url !== CSRF_TOKEN_ERROR_URL &&
+          ctx['http.ServerResponse']?.statusCode !== 404 &&
+          ctx['http.ServerResponse']?.statusCode !== 0
       );
       appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'nfdiv-frontend';
       appInsights.defaultClient.trackTrace({ message: 'App insights activated' });
