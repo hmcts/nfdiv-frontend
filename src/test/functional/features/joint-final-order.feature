@@ -58,6 +58,7 @@ Feature: Joint final order
 
     Then I set the case state to "AwaitingJointFinalOrder"
     And a superuser updates "dateFinalOrderSubmitted" with "2022-09-21T08:08:34.548"
+    And a superuser updates "applicant1CanIntendToSwitchToSoleFo" with "Yes"
 
     Given I click "Sign out"
     When I login with applicant "1"
@@ -105,6 +106,7 @@ Feature: Joint final order
 
     Then I set the case state to "AwaitingJointFinalOrder"
     And a superuser updates "dateFinalOrderSubmitted" with "2022-09-21T08:08:34.548"
+    And a superuser updates "applicant2CanIntendToSwitchToSoleFo" with "Yes"
 
     Given I click "Sign out"
     When I login with applicant "2"
