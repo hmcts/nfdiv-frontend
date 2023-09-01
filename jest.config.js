@@ -3,7 +3,7 @@ module.exports = {
   testRegex: '(/src/test/.*|\\.test)\\.(ts|js)$',
   testEnvironment: 'node',
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.(ts|tsx)$': ['@swc/jest'],
   },
   moduleFileExtensions: ['ts', 'js', 'json'],
   setupFilesAfterEnv: [],
