@@ -128,6 +128,7 @@ export const en = {
   helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
   helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
+  webChatTitle: 'Ask Divorce Web Chat',
   timeout: {
     title: 'You are about to be signed out',
     part1: 'You are going to be signed out of your application in',
@@ -146,6 +147,8 @@ export const en = {
   },
   contactEmail: 'contactdivorce@justice.gov.uk',
   saveAndSignOutLink: SAVE_AND_SIGN_OUT,
+  avayaLanguage: 'English',
+  ayayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
 };
 
 const cy: typeof en = {
@@ -232,7 +235,12 @@ const cy: typeof en = {
   openingTimesHeading: 'Oriau agor',
   openingTimes: 'Dydd Llun i ddydd Iau 9am-5pm, dydd Gwener 9am-4.30pm',
   closingTimes: 'Ar gau ar ddydd Sadwrn, Sul a Gwyliau Banc',
+  helpChatWithAnAgent: 'Siarad â chynghorydd ar-lein (agor mewn ffenestr newydd)',
+  helpAllAgentsBusy:
+    'Mae ein cynghorwyr i gyd yn brysur ar hyn o bryd.  Rhowch gynnig arall arni ymhen ychydig o funudau.',
+  helpChatClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd.',
   helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltwch â ni dros y ffôn neu e-bost.',
+  webChatTitle: 'Sgwrsio dros y we gyda’r Gwasanaeth Ysgaru',
   allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
   useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
   doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
@@ -263,6 +271,8 @@ const cy: typeof en = {
   },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'contactdivorce@justice.gov.uk',
+  avayaLanguage: 'Welsh',
+  ayayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
 };
 
 export const generateCommonContent = ({
