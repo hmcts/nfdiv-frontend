@@ -107,6 +107,9 @@ const fields: ToApiConverters = {
   applicant1FinalOrderStatementOfTruth: data => ({
     applicant1FinalOrderStatementOfTruth: checkboxConverter(data.applicant1FinalOrderStatementOfTruth),
   }),
+  applicant2FinalOrderStatementOfTruth: data => ({
+    applicant2FinalOrderStatementOfTruth: checkboxConverter(data.applicant2FinalOrderStatementOfTruth),
+  }),
   applicant1HelpWithFeesRefNo: data => ({
     applicant1HWFReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
       ? data.applicant1HelpWithFeesRefNo
