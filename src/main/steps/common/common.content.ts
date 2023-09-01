@@ -148,6 +148,7 @@ export const en = {
   contactEmail: 'contactdivorce@justice.gov.uk',
   saveAndSignOutLink: SAVE_AND_SIGN_OUT,
   avayaLanguage: 'English',
+  ayayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
 };
 
 const cy: typeof en = {
@@ -271,6 +272,7 @@ const cy: typeof en = {
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'contactdivorce@justice.gov.uk',
   avayaLanguage: 'Welsh',
+  ayayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
 };
 
 export const generateCommonContent = ({
