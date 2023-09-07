@@ -27,6 +27,7 @@ Feature: Sole final order
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
     And the page should include "You should receive an email within 2 working days,"
 
+  @nightly
   Scenario: Applicant sole final order journey overdue
     Given I've already completed the form using the fixture "finalOrderOverdueCompleteCase"
     And I go to '/check-your-answers'
