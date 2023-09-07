@@ -1,6 +1,6 @@
 Feature: Homepage
 
-
+  @nightly
   Scenario: Test pages that don't require sign in
     Given I go to "/contact-us"
     Then the page should include "0300 303 0642"
@@ -21,7 +21,7 @@ Feature: Homepage
     When I click "Terms and conditions"
     Then the page should include "This page explains this service’s terms of use"
 
-
+  @nightly
   Scenario: Test save and sign out
     Given I login
     When I go to '/your-details'

@@ -3,7 +3,7 @@ Feature: Form failures
   Background:
     Given I create a new user and login
 
-
+  @nightly
   Scenario: They fail to fill out the applicant 1 forms
     Given I go to "/irretrievable-breakdown"
     When I click "Continue"
@@ -267,7 +267,7 @@ Feature: Form failures
     And the page should include "You have not confirmed you believe the information you have entered is true. Confirm you believe it’s true before continuing."
 
 
-
+  @nightly
   Scenario: They fail to fill out the applicant 1 joint application forms
     Given I go to "/how-do-you-want-to-apply"
     And I select "I want to apply jointly, with my husband"
@@ -276,7 +276,7 @@ Feature: Form failures
     Given I click "Continue"
     Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
 
-
+  @nightly
   Scenario: They fail to fill out the respondent forms
     Given I've already completed the form using the fixture "completeCase"
     And I go to '/check-your-answers'
@@ -350,7 +350,7 @@ Feature: Form failures
     Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
     Then the page should include "You need to explain why you are applying for the final order before continuing."
 
-
+  @nightly
   Scenario: They fail to fill out the applicant 2 forms
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "/"
@@ -481,7 +481,7 @@ Feature: Form failures
     And the page should include "You need to confirm the facts stated in this application are true"
 
 
-
+  @nightly
   Scenario: They fail to fill out joint conditional order questions
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "/"
@@ -546,7 +546,7 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
 
-
+  @nightly
   Scenario: Jurisdiction form failures
     Given I go to "/where-your-lives-are-based"
     When I click "Continue"
@@ -572,7 +572,7 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "There was a problem"
 
-
+  @nightly
   Scenario: Enter your access code form failures
     Given I go to "/your-details"
     And I click "Sign out"

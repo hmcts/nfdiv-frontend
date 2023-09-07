@@ -4,7 +4,7 @@ Feature: Applicant middleware
     Given I create a new user and login
     Then the page URL should be "/your-details"
 
-
+  @nightly
   Scenario: The applicants attempt to access the wrong page
     When I go to '/applicant2/other-court-cases'
     Then the page URL should be "/error"

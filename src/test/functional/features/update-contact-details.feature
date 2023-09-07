@@ -13,7 +13,7 @@ Feature: Update contact details
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
 
-
+  @nightly
   Scenario: Applicant and Respondent update contact details
     When I click "Review your contact details"
     Then the page should include "Review your contact details"

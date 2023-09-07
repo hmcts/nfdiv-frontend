@@ -1,6 +1,6 @@
 Feature: Jurisdiction - may not be able to get a divorce in England and Wales
 
-
+  @nightly
   Scenario: May not have jurisdiction
     Given I login
     And I've completed all questions correctly to get to the jurisdiction section

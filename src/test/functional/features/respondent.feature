@@ -52,7 +52,7 @@ Feature: Respondent
     When I click "Submit"
     Then the page URL should be "/respondent/hub-page"
 
-
+  @nightly
   Scenario: They fill out an unhappy path respondent journey
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"

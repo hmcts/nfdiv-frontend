@@ -25,13 +25,13 @@ Feature: Existing Application
     And I login with applicant "2"
     Then the page URL should be "/existing-application"
 
-
+  @nightly
   Scenario: Continuing with existing application
     When I click "I want to continue with my existing application"
     And I click "Continue"
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
 
-
+  @nightly
   Scenario: Joining new application
     When I click "I want to join the new application"
     And I click "Continue"

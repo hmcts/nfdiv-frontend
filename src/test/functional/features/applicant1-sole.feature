@@ -159,7 +159,7 @@ Feature: Applicant 1 sole application
     Then the page should include "Application submitted"
 
 
-
+  @nightly
   Scenario: They fill out an unhappy path applicant 1 sole journey with help with fees
     Given I select "My husband"
     And I select "We were a same-sex couple when we got married"

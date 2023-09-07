@@ -90,7 +90,7 @@ Feature: Joint hub page
     Then the page URL should be "/hub-page"
     Then the page should include "You and your husband have both confirmed you want to finalise the divorce"
 
-
+  @nightly
   Scenario: Joint hub applicant 1 and applicant 2 submitted documents
     And I set the case state to "AwaitingClarification"
     When I click "Sign out"
@@ -110,7 +110,7 @@ Feature: Joint hub page
     And I login with applicant "1"
     And the page should include "You have provided the information requested by the court."
 
-
+  @nightly
   Scenario: Joint hub applicant 1 and applicant 2 documents not submitted
     And I set the case state to "AwaitingClarification"
     When I click "Sign out"
