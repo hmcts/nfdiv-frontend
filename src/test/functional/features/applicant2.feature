@@ -112,7 +112,7 @@ Feature: Applicant 2
     Then the page should include "Application submitted"
 
 
-  @nightly
+
   Scenario: They fill out an unhappy path applicant 2 journey with help with fees
     When I go to "/help-with-your-fee"
     And I select "I need help paying the fee"
@@ -264,7 +264,7 @@ Feature: Applicant 2
     Then the page URL should be "/applicant2/your-comments-sent"
     And the page should include "Your comments have been sent to your wife"
 
-  @nightly
+
   Scenario: They end the joint application
     Given I go to "/"
     And I click "Send for review"
