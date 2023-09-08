@@ -56,6 +56,9 @@
   {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>
   {% endblock %}
+  {% block globalMessage %}
+    {% include "./global-warning.njk" %}
+  {% endblock %}
   {% block modal %}
     {% include "./timeout-dialog.njk" %}
   {% endblock %}
