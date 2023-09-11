@@ -7,7 +7,7 @@ import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
-import { AppInsights } from './modules/appinsights';
+// import { AppInsights } from './modules/appinsights';
 import { AuthProvider } from './modules/auth-provider';
 import { AxiosLogger } from './modules/axios-logger';
 import { CSRFToken } from './modules/csrf';
@@ -48,7 +48,7 @@ new LoadTimeouts().enableFor(app);
 new Nunjucks().enableFor(app);
 new WebpackDev().enableFor(app);
 new Helmet().enableFor(app);
-new AppInsights().enable();
+// new AppInsights().enable();
 new SessionStorage().enableFor(app, logger);
 new TooBusy().enableFor(app);
 new HealthCheck().enableFor(app);
@@ -60,9 +60,9 @@ new FeesRegister().enable();
 
 new OidcMiddleware().enableFor(app);
 new StateRedirectMiddleware().enableFor(app);
-new Routes().enableFor(app);
+await new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
-
+//
 const port = config.get('port');
 const server = app.listen(port, () => {
   logger.info(`Application started: http://localhost:${port}`);

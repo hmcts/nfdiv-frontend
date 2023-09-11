@@ -5,10 +5,10 @@ import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Form, FormFields } from '../../app/form/Form';
-import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
-import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable-breakdown/content';
+import * as Applicant1FirstQuestionForm from '../applicant1/your-details/content';
+import * as Applicant2FirstQuestionForm from '../applicant2/irretrievable-breakdown/content';
 import { getNextIncompleteStepUrl } from '../index';
-import { form as respondentFirstQuestionForm } from '../respondent/how-do-you-want-to-respond/content';
+import * as RespondentFirstQuestionForm from '../respondent/how-do-you-want-to-respond/content';
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
@@ -32,33 +32,33 @@ import {
 
 export class HomeGetController {
   public get(req: AppRequest, res: Response): void {
-    if (!req.session.userCase) {
-      return res.redirect(YOUR_DETAILS_URL);
-    }
-
-    if (req.session.userCase && req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
-      throw new Error('Invalid case type');
-    }
-
-    const firstQuestionFormContent = req.session.isApplicant2
-      ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType as ApplicationType)
-      : applicant1FirstQuestionForm;
-
-    const firstQuestionForm = new Form(<FormFields>firstQuestionFormContent.fields);
-    const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
-
-    if (!req.session.isApplicant2) {
-      res.redirect(applicant1RedirectPageSwitch(req.session.userCase, isFirstQuestionComplete));
-    } else if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-      res.redirect(RESPONDENT + respondentRedirectPageSwitch(req.session.userCase, isFirstQuestionComplete));
-    } else {
-      res.redirect(APPLICANT_2 + applicant2RedirectPageSwitch(req, isFirstQuestionComplete));
-    }
+    // if (!req.session.userCase) {
+    //   return res.redirect(YOUR_DETAILS_URL);
+    // }
+    //
+    // if (req.session.userCase && req.session.userCase.divorceOrDissolution !== res.locals.serviceType) {
+    //   throw new Error('Invalid case type');
+    // }
+    //
+    // const firstQuestionFormContent = req.session.isApplicant2
+    //   ? getApplicant2FirstQuestionForm(req.session.userCase.applicationType as ApplicationType)
+    //   : Applicant1FirstQuestionForm.form;
+    //
+    // const firstQuestionForm = new Form(<FormFields>firstQuestionFormContent.fields);
+    // const isFirstQuestionComplete = firstQuestionForm.getErrors(req.session.userCase).length === 0;
+    //
+    // if (!req.session.isApplicant2) {
+    //   res.redirect(applicant1RedirectPageSwitch(req.session.userCase, isFirstQuestionComplete));
+    // } else if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
+    //   res.redirect(RESPONDENT + respondentRedirectPageSwitch(req.session.userCase, isFirstQuestionComplete));
+    // } else {
+    //   res.redirect(APPLICANT_2 + applicant2RedirectPageSwitch(req, isFirstQuestionComplete));
+    // }
   }
 }
 
 const getApplicant2FirstQuestionForm = (applicationType: ApplicationType) =>
-  applicationType === ApplicationType.SOLE_APPLICATION ? respondentFirstQuestionForm : applicant2FirstQuestionForm;
+  applicationType === ApplicationType.SOLE_APPLICATION ? RespondentFirstQuestionForm.form : false; //Applicant2FirstQuestionForm.form;
 
 const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
   switch (userCase.state) {

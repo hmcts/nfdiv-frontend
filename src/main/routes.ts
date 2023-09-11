@@ -1,5 +1,5 @@
-import fs from 'fs';
-import { extname } from 'path';
+// import fs from 'fs';
+// import { extname } from 'path';
 
 import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
@@ -57,10 +57,10 @@ import {
 import { WebChatGetController } from './steps/webchat/get';
 
 const handleUploads = multer();
-const ext = extname(__filename);
+const ext = '.ts'; //extname(__filename);
 
 export class Routes {
-  public enableFor(app: Application): void {
+  public async enableFor(app: Application): Promise<void> {
     const { errorHandler } = app.locals;
     const errorController = new ErrorController();
 
@@ -86,7 +86,7 @@ export class Routes {
     app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
 
     for (const step of stepsWithContent) {
-      const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
+      const getController = await Bun.file(`${step.stepDir}/get${ext}`).exists()
         ? require(`${step.stepDir}/get${ext}`).default
         : GetController;
 
@@ -97,7 +97,7 @@ export class Routes {
       );
 
       if (step.form) {
-        const postController = fs.existsSync(`${step.stepDir}/post${ext}`)
+        const postController = await Bun.file(`${step.stepDir}/post${ext}`).exists()
           ? require(`${step.stepDir}/post${ext}`).default
           : PostController;
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
