@@ -262,7 +262,7 @@ Feature: Form failures
     Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
 
     Given I go to "/explain-the-delay"
-    When I click "Continue"
+    When I click "Submit"
     Then the page should include "You have not entered any information. You need to explain why your application has been delayed before continuing."
     And the page should include "You have not confirmed you believe the information you have entered is true. Confirm you believe it’s true before continuing."
 

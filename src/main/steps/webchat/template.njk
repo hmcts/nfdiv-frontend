@@ -9,18 +9,18 @@
         <p id="metrics"></p>
         <web-chat
                 id="avayaWebchat"
-                chat-title="Ask Divorce Web Chat"
+                chat-title="{{ webChatTitle }}"
                 chat-icon-url="img/icon.png"
                 url="{{ globals.webchat.avayaUrl }}"
                 secure-connections="true"
                 api-version="1.0"
                 metrics-polling-interval="20"
-                locale-url="/assets/locales/avaya-webchat"
+                locale-url="{{ avayaLocaleUrl }}"
                 route-point-identifier="Default"
                 work-flow-type=""
                 lease-time="24"
                 priority="5"
-                language="English"
+                language="{{ avayaLanguage }}"
                 service="{{ globals.webchat.avayaService }}"
                 page-name="Apply for No Fault Divorce"
                 User="Chat">
