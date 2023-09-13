@@ -69,7 +69,7 @@ describe('FinalisingYourApplicationPostController', () => {
     });
 
     it('triggers CITIZEN_APPLICANT2_UPDATE if FinalOrderOverdue', async () => {
-      userCase.state = State.FinalOrderOverdue;
+      userCase.isFinalOrderOverdue = YesOrNo.YES;
 
       const body = {
         doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,

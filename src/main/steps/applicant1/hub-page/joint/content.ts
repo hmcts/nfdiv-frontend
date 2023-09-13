@@ -328,13 +328,11 @@ export const generateContent: TranslationFn = content => {
     canIntendToSwitchToSoleFo(userCase, isApplicant2) &&
     userCase.state === State.AwaitingJointFinalOrder;
 
-  const isFinalOrderAwaitingOrOverdue =
-    displayState.state() === State.AwaitingFinalOrder ||
-    displayState.state() === State.AwaitingJointFinalOrder ||
-    displayState.state() === State.FinalOrderOverdue;
+  const isFinalOrderAwaiting =
+    displayState.state() === State.AwaitingFinalOrder || displayState.state() === State.AwaitingJointFinalOrder;
 
   const isFinalOrderAwaitingOrOverdueAndApplicantHasNotAppliedFirst =
-    isFinalOrderAwaitingOrOverdue && !hasApplicantAppliedForFoFirst(userCase, isApplicant2);
+    isFinalOrderAwaiting && !hasApplicantAppliedForFoFirst(userCase, isApplicant2);
 
   const applicantConfirmReceipt = isApplicant2 ? 'applicant2ConfirmReceipt' : 'applicant1ConfirmReceipt';
   const applicantApplyForConditionalOrderStarted = isApplicant2

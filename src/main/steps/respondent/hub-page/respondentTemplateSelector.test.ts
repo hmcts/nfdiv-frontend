@@ -1,5 +1,5 @@
 import { Checkbox } from '../../../app/case/case';
-import { DivorceOrDissolution, State } from '../../../app/case/definition';
+import { DivorceOrDissolution, State, YesOrNo } from '../../../app/case/definition';
 import { HubTemplate } from '../../common/hubTemplates';
 import { currentStateFn } from '../../state-sequence';
 
@@ -31,9 +31,10 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe(HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue);
   });
 
-  test('should show /awaiting-final-order-or-final-order-overdue.njk for state FinalOrderOverdue', () => {
-    const theState = displayState.at(State.FinalOrderOverdue);
-    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+  test('should show /awaiting-final-order-or-final-order-overdue.njk when FinalOrder is overdue', () => {
+    const theState = displayState.at(State.AwaitingFinalOrder);
+    const data = { ...userCase, isFinalOrderOverdue: YesOrNo.YES };
+    const respondentTemplate = getRespondentHubTemplate(theState, data, false);
     expect(respondentTemplate).toBe(HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue);
   });
 

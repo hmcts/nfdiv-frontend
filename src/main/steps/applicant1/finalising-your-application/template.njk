@@ -80,7 +80,7 @@
     iconFallbackText: "Warning"
   }) }}
   {% if not isIntendingAndAbleToSwitchToSoleFo %}
-    {% if isJointAppAndStateAwaitingFoOrFoOverdue %}
+    {% if isJointAppAndStateAwaitingFo %}
       {{ govukDetails({
         summaryText: readMoreJoint.subHeader,
         html: readMoreContentJoint

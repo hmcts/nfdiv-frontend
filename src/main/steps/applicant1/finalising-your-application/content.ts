@@ -322,9 +322,7 @@ export const generateContent: TranslationFn = content => {
   const { userCase, isApplicant2 } = content;
   const translations = languages[content.language](content);
 
-  const isJointAppAndStateAwaitingFoOrFoOverdue =
-    content.isJointApplication &&
-    (userCase.state === State.AwaitingFinalOrder || userCase.state === State.FinalOrderOverdue);
+  const isJointAppAndStateAwaitingFo = content.isJointApplication && userCase.state === State.AwaitingFinalOrder;
   const isJointAppAndStateAwaitingJointFo =
     content.isJointApplication && userCase.state === State.AwaitingJointFinalOrder;
   const isStateAwaitingJointFo = userCase.state === State.AwaitingJointFinalOrder;
@@ -337,7 +335,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     ...columnGenerateContent(content),
-    isJointAppAndStateAwaitingFoOrFoOverdue,
+    isJointAppAndStateAwaitingFo,
     isJointAppAndStateAwaitingJointFo,
     isStateAwaitingJointFo,
     isIntendingAndAbleToSwitchToSoleFo,
