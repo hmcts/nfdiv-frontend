@@ -56,7 +56,7 @@ Feature: Sole final order
     Then the page URL should be "/hub-page"
 
   Scenario: Respondent sole final order journey
-    Given I've already completed the form using the fixture "finalOrderOverdueCompleteCase"
+    Given I've already completed the form using the fixture "finalOrderCompleteCase"
     And I go to '/check-your-answers'
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
@@ -66,13 +66,12 @@ Feature: Sole final order
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
+    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2020-01-01"
     When I click "Sign out"
     And I login with applicant "2"
     Then the page should include "Your wife has still not applied for a 'final order'"
     And the page URL should be "/respondent/hub-page"
 
-    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2020-01-01"
-    When I set the case state to "AwaitingFinalOrder"
     And I click "Apply for a final order"
     Then the page URL should be "/respondent/finalising-your-application"
 
