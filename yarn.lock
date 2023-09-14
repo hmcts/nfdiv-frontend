@@ -2592,19 +2592,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/config@npm:8.16.3":
-  version: 8.16.3
-  resolution: "@wdio/config@npm:8.16.3"
+"@wdio/config@npm:8.16.7":
+  version: 8.16.7
+  resolution: "@wdio/config@npm:8.16.7"
   dependencies:
     "@wdio/logger": 8.11.0
-    "@wdio/types": 8.16.3
-    "@wdio/utils": 8.16.3
+    "@wdio/types": 8.16.7
+    "@wdio/utils": 8.16.7
     decamelize: ^6.0.0
     deepmerge-ts: ^5.0.0
     glob: ^10.2.2
     import-meta-resolve: ^3.0.0
     read-pkg-up: ^10.0.0
-  checksum: 8a9eb4a6472432ac6c3e1716b0aad38d88490e93f01fd0b3acc9087af65491f5bfb180fe21629bea27e1158487ec327d9fe85878fda58db1bafa95ab88b35f6f
+  checksum: 3eeaccfb8876c54101ad6d3c122e07d4e60dd3c69a9596b3b24333804835af60103bfa660c0d784dd1444263771a003879787eba3030f1179433b5330697a0a3
   languageName: node
   linkType: hard
 
@@ -2695,12 +2695,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/types@npm:8.16.3":
-  version: 8.16.3
-  resolution: "@wdio/types@npm:8.16.3"
+"@wdio/types@npm:8.16.7":
+  version: 8.16.7
+  resolution: "@wdio/types@npm:8.16.7"
   dependencies:
     "@types/node": ^20.1.0
-  checksum: c50be3244a80f24f905a16b58e1f2f45d8d00ba4304459386e0c00b3ee852e5a2ddcd0e2fffe35d38a4aa4bd33c65bae3f129203f69d343baa9a7c2b2a096381
+  checksum: ac1aeeac85935319e8b87241574db0c19905c4c706205a81a33fa66a67e01a76fec4e0af96df7c160a17351de180c7f3eceaed6b1fc9d543f4533257577605fe
   languageName: node
   linkType: hard
 
@@ -2715,13 +2715,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/utils@npm:8.16.3":
-  version: 8.16.3
-  resolution: "@wdio/utils@npm:8.16.3"
+"@wdio/utils@npm:8.16.7":
+  version: 8.16.7
+  resolution: "@wdio/utils@npm:8.16.7"
   dependencies:
     "@puppeteer/browsers": ^1.6.0
     "@wdio/logger": 8.11.0
-    "@wdio/types": 8.16.3
+    "@wdio/types": 8.16.7
     decamelize: ^6.0.0
     deepmerge-ts: ^5.1.0
     edgedriver: ^5.3.5
@@ -2732,7 +2732,7 @@ __metadata:
     locate-app: ^2.1.0
     safaridriver: ^0.1.0
     wait-port: ^1.0.4
-  checksum: bca49212218b69e9edd4af1142d16e8403b2918e70a630d5f7b2f408c65c2ac48faf5488aec26053d3c3550b73773e0ad9dbaeedcd49f2e31bab2e455e0863e0
+  checksum: 0d064f85f4b436728751574f1993cc541f0c395c583cd6d90dd24f3410c66ed120a69b073b344de96bfaf4203109e1c6abbc9fe1f57a19f6fc7e297cc3cc6fb7
   languageName: node
   linkType: hard
 
@@ -14774,22 +14774,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webdriver@npm:8.16.5":
-  version: 8.16.5
-  resolution: "webdriver@npm:8.16.5"
+"webdriver@npm:8.16.7":
+  version: 8.16.7
+  resolution: "webdriver@npm:8.16.7"
   dependencies:
     "@types/node": ^20.1.0
     "@types/ws": ^8.5.3
-    "@wdio/config": 8.16.3
+    "@wdio/config": 8.16.7
     "@wdio/logger": 8.11.0
     "@wdio/protocols": 8.16.5
-    "@wdio/types": 8.16.3
-    "@wdio/utils": 8.16.3
+    "@wdio/types": 8.16.7
+    "@wdio/utils": 8.16.7
     deepmerge-ts: ^5.1.0
     got: ^ 12.6.1
     ky: ^0.33.0
     ws: ^8.8.0
-  checksum: 989185d0514f6226a77b890e4a595e42ee45e9c4a903cd2c78833f10f6e3e41b45809547498438348b82b6401f69576480cbd910816a35ddba1107d9e0730202
+  checksum: e53546c5d330e93b21dfa1f970aed858d9c05408a2abab94196b6d51e9bbe2c3bcccd4f8e7e758cbec13148e31aabe4dd28050881d7aa09a336332d00610ab82
   languageName: node
   linkType: hard
 
@@ -14829,16 +14829,16 @@ __metadata:
   linkType: hard
 
 "webdriverio@npm:^8.11.2":
-  version: 8.16.6
-  resolution: "webdriverio@npm:8.16.6"
+  version: 8.16.7
+  resolution: "webdriverio@npm:8.16.7"
   dependencies:
     "@types/node": ^20.1.0
-    "@wdio/config": 8.16.3
+    "@wdio/config": 8.16.7
     "@wdio/logger": 8.11.0
     "@wdio/protocols": 8.16.5
     "@wdio/repl": 8.10.1
-    "@wdio/types": 8.16.3
-    "@wdio/utils": 8.16.3
+    "@wdio/types": 8.16.7
+    "@wdio/utils": 8.16.7
     archiver: ^6.0.0
     aria-query: ^5.0.0
     css-shorthand-properties: ^1.1.1
@@ -14855,13 +14855,13 @@ __metadata:
     resq: ^1.9.1
     rgb2hex: 0.2.5
     serialize-error: ^11.0.1
-    webdriver: 8.16.5
+    webdriver: 8.16.7
   peerDependencies:
     devtools: ^8.14.0
   peerDependenciesMeta:
     devtools:
       optional: true
-  checksum: 86aff096d39f4df7bed39017df2c15d651f87652a97bb04d49e8cdec23fa2bf967317f90693a9858b8ac4e87f11eb08640084d96f5e05728d76434e781c4f44d
+  checksum: 6be1952f7ce4a87bf95ef2624f674a9f3d0f1483f91bf6bcec47f2766d496ba670aa564fad547695913439ffccc36b9a702e2922538cb0d128fa9ee4a39d5929
   languageName: node
   linkType: hard
 
