@@ -304,7 +304,7 @@ export const iGetTheTestUser = async (user: { username: string; password: string
 
 export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
   const logger = new Logger({
-    transports: [new transports.Console(), new transports.File({ filename: 'test.log' })],
+    transports: [new transports.Console(), new transports.File({ filename: 'functional-output/ccd-api.log' })],
   });
 
   return getCaseApi(testUser, logger);
