@@ -140,7 +140,8 @@ Feature: Joint final order
 
   Scenario: Applicant joint final order journey overdue applicant 1 applies first
     Given I login with applicant "1"
-    And I set the case state to "FinalOrderOverdue"
+    # might need fixture?
+    And I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
     And I login with applicant "1"
     Then the page URL should be "/hub-page"
@@ -181,7 +182,8 @@ Feature: Joint final order
 
   Scenario: Applicant joint final order journey overdue applicant 2 applies first
     Given I login with applicant "1"
-    And I set the case state to "FinalOrderOverdue"
+    # might need fixture?
+    And I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
     And I login with applicant "2"
     Then the page should include "You can now apply for a ‘final order’."

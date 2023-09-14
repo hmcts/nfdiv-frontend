@@ -14,7 +14,7 @@ describe('Controller utils', () => {
       } as Partial<CaseWithId>;
     });
 
-    it('returns true if FinalOrderOverdue', () => {
+    it('returns true if Final Order overdue', () => {
       userCase.isFinalOrderOverdue = YesOrNo.YES;
       const result = needsToExplainDelay(userCase);
       expect(result).toBe(true);

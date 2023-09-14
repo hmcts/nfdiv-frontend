@@ -68,7 +68,7 @@ describe('FinalisingYourApplicationPostController', () => {
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, FINAL_ORDER_REQUESTED);
     });
 
-    it('triggers CITIZEN_APPLICANT2_UPDATE if FinalOrderOverdue', async () => {
+    it('triggers CITIZEN_APPLICANT2_UPDATE if Final Order overdue', async () => {
       userCase.isFinalOrderOverdue = YesOrNo.YES;
 
       const body = {

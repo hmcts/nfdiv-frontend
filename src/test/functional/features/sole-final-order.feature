@@ -38,7 +38,7 @@ Feature: Sole final order
     Then the page should include "Application submitted"
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
-    And I set the case state to "FinalOrderOverdue"
+    And I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
     And I login with applicant "1"
     Then the page should include "You can now apply for a 'final order'."
@@ -65,7 +65,7 @@ Feature: Sole final order
     Then the page should include "Application submitted"
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
-    And I set the case state to "FinalOrderOverdue"
+    And I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
     And I login with applicant "2"
     Then the page should include "Your wife has still not applied for a 'final order'"
