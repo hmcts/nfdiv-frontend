@@ -47,7 +47,7 @@ describe('StateSequence', () => {
   });
 
   test('orderedStateSequence should be appropriate', async () => {
-    expect(orderedStateSequence).toHaveLength(50);
+    expect(orderedStateSequence).toHaveLength(49);
   });
 
   describe('getHighestPriorityPreSubmissionCases', () => {

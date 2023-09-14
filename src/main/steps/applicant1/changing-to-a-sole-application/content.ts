@@ -46,9 +46,7 @@ export const generateContent: TranslationFn = content => {
   const isFinalOrderState =
     content.userCase &&
     content.userCase.state &&
-    [State.FinalOrderComplete, State.FinalOrderOverdue, State.FinalOrderPending, State.FinalOrderRequested].includes(
-      content.userCase.state
-    );
+    [State.FinalOrderComplete, State.FinalOrderPending, State.FinalOrderRequested].includes(content.userCase.state);
   const translations = languages[content.language]({ ...content, isFinalOrderState });
   return {
     ...translations,

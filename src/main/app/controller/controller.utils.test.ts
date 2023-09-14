@@ -1,5 +1,5 @@
 import { CaseWithId } from '../case/case';
-import { DivorceOrDissolution, State } from '../case/definition';
+import { DivorceOrDissolution, State, YesOrNo } from '../case/definition';
 
 import { needsToExplainDelay } from './controller.utils';
 
@@ -14,8 +14,8 @@ describe('Controller utils', () => {
       } as Partial<CaseWithId>;
     });
 
-    it('returns true if FinalOrderOverdue', () => {
-      userCase.state = State.FinalOrderOverdue;
+    it('returns true if Final Order overdue', () => {
+      userCase.isFinalOrderOverdue = YesOrNo.YES;
       const result = needsToExplainDelay(userCase);
       expect(result).toBe(true);
     });

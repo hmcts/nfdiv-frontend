@@ -13,8 +13,7 @@ export const getRespondentHubTemplate = (
     case State.FinalOrderRequested: {
       return HubTemplate.FinalOrderRequested;
     }
-    case State.AwaitingFinalOrder:
-    case State.FinalOrderOverdue: {
+    case State.AwaitingFinalOrder: {
       return HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue;
     }
     case State.ConditionalOrderPronounced: {

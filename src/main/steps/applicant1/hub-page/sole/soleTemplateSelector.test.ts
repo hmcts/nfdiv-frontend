@@ -154,9 +154,10 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.FinalOrderComplete);
   });
 
-  test('should show /awaiting-bailiff-service.njk for state FinalOrderOverdue', () => {
-    const theState = displayState.at(State.FinalOrderOverdue);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+  test('should show /awaiting-bailiff-service.njk when FinalOrder is overdue', () => {
+    const theState = displayState.at(State.AwaitingFinalOrder);
+    const data = { ...userCase, isFinalOrderOverdue: YesOrNo.YES };
+    const soleTemplate = getSoleHubTemplate(theState, data, false, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue);
   });
 

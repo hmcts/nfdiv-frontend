@@ -156,6 +156,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   finalOrderSwitchedToSole: 'finalOrderSwitchedToSole',
   applicant1CanIntendToSwitchToSoleFo: 'applicant1CanIntendToSwitchToSoleFo',
   applicant2CanIntendToSwitchToSoleFo: 'applicant2CanIntendToSwitchToSoleFo',
+  isFinalOrderOverdue: 'isFinalOrderOverdue',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -369,6 +370,7 @@ export interface Case {
   finalOrderSwitchedToSole: YesOrNo;
   applicant1CanIntendToSwitchToSoleFo: YesOrNo;
   applicant2CanIntendToSwitchToSoleFo: YesOrNo;
+  isFinalOrderOverdue: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
