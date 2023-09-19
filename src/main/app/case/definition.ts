@@ -2519,7 +2519,6 @@ export const enum HttpStatus {
   NOT_EXTENDED = 'NOT_EXTENDED',
   NETWORK_AUTHENTICATION_REQUIRED = 'NETWORK_AUTHENTICATION_REQUIRED',
 }
-export const CASE_TYPE = 'NFD';
 export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_UPDATE_CASE_STATE_AAT = 'citizen-update-case-state-aat';
