@@ -1,12 +1,12 @@
 # ---- Base image ----
 FROM hmctspublic.azurecr.io/base/node:18-alpine as base
 COPY --chown=hmcts:hmcts . .
-RUN yarn install --production \
+RUN yarn install --ignore-optional --production \
   && yarn cache clean
 
 # ---- Build image ----
 FROM base as build
-RUN yarn --version && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=true yarn install && yarn build:prod
+RUN yarn --version && yarn install --ignore-optional && yarn build:prod
 
 # ---- Runtime image ----
 FROM base as runtime
