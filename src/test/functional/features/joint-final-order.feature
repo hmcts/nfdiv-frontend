@@ -178,6 +178,7 @@ Feature: Joint final order
     When I click "Submit"
     Then the page URL should be "/applicant2/hub-page"
     Then the page should include "You and your wife have both confirmed you want to finalise the divorce."
+    Then the page should include "You will receive an email confirming whether it has been granted once a Judge has made a decision."
 
   Scenario: Applicant joint final order journey overdue applicant 2 applies first
     Given I login with applicant "1"
@@ -219,3 +220,4 @@ Feature: Joint final order
     When I click "Submit"
     Then the page URL should be "/hub-page"
     Then the page should include "You and your husband have both confirmed you want to finalise the divorce."
+    Then the page should include "You will receive an email confirming whether it has been granted once a Judge has made a decision."

@@ -54,6 +54,8 @@ Feature: Sole final order
     And I select "I believe that the facts stated in this application are true"
     When I click "Submit"
     Then the page URL should be "/hub-page"
+    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
+    And the page should include "You will receive an email confirming whether it has been granted once a Judge has made a decision."
 
   Scenario: Respondent sole final order journey
     Given I've already completed the form using the fixture "finalOrderCompleteCase"
