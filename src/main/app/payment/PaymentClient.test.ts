@@ -6,14 +6,15 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { DivorceOrDissolution } from '../case/definition';
 
-import { PaymentClient } from './PaymentClient';
-
-jest.mock('axios');
 jest.mock('config');
-jest.mock('../auth/service/get-service-auth-token');
-
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedConfig = config as jest.Mocked<typeof config>;
+mockedConfig.get.mockReturnValueOnce('NFD');
+
+import { PaymentClient } from './PaymentClient';
+jest.mock('axios');
+
+jest.mock('../auth/service/get-service-auth-token');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockGetServiceAuthToken = getServiceAuthToken as jest.Mocked<jest.Mock>;
 
 describe('PaymentClient', () => {
