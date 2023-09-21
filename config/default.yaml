@@ -1,7 +1,6 @@
 port: 3001
 timeout: 30000
 uploadTimeout: 60000
-caseType: NFD
 dates:
   issueDateOffsetDays: 141
   disputeDueDateOffsetDays: 37

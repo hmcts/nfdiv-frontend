@@ -4,16 +4,14 @@ import config from 'config';
 import * as serviceAuth from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-jest.mock('config');
-const mockedConfig = config as jest.Mocked<typeof config>;
-mockedConfig.get.mockReturnValueOnce('NFD');
-
 import { CaseDocumentManagementClient, Classification, UploadedFiles } from './CaseDocumentManagementClient';
 
 jest.mock('axios');
+jest.mock('config');
 jest.mock('../auth/service/get-service-auth-token');
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
+const mockedConfig = config as jest.Mocked<typeof config>;
 const mockServiceAuth = serviceAuth as jest.Mocked<typeof serviceAuth>;
 
 describe('CaseDocumentManagementClient', () => {

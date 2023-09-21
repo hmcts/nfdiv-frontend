@@ -1,4 +1,3 @@
-caseType: CASE_TYPE
 services:
   authProvider:
     url: SERVICE_AUTH_PROVIDER_URL

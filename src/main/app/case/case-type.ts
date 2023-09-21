@@ -1,3 +1,1 @@
-import config from 'config';
-
-export const CASE_TYPE: string = config.get('caseType');
+export const CASE_TYPE: string = process.env.CASE_TYPE || 'NFD';
