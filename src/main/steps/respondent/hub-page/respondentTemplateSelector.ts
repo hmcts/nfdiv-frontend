@@ -29,7 +29,9 @@ export const getRespondentHubTemplate = (
     case State.FinalOrderComplete:
       return HubTemplate.FinalOrderComplete;
     case State.AwaitingGeneralConsideration:
-      if (userCase.aosStatementOfTruth) {
+      if (userCase.dateFinalOrderSubmitted) {
+        return HubTemplate.FinalOrderRequested;
+      } else if (userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;
       } else {
         return HubTemplate.AwaitingAoS;
