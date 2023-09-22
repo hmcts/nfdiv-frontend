@@ -17,7 +17,7 @@ Feature: Joint final order
     And I set the case state to "AwaitingFinalOrder"
     Then I click "Sign out"
 
-  @nightly
+
   Scenario: [1] Applicant joint final order journey within a year
     Given I login with applicant "1"
     Then the page should include "You can now apply for a ‘final order’."
@@ -42,7 +42,7 @@ Feature: Joint final order
     Then the page URL should be "/applicant2/hub-page"
     Then the page should include "You and your wife have both confirmed you want to finalise the divorce."
 
-  @nightly
+
   Scenario: [2] Applicant 1 joint switch to sole final order journey
     Given I login with applicant "1"
     Then the page should include "You can now apply for a ‘final order’."
@@ -90,7 +90,7 @@ Feature: Joint final order
     Then the page URL should be "/hub-page"
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
 
-  @nightly
+
   Scenario: [3] Applicant 2 joint switch to sole final order journey
     Given I login with applicant "2"
     Then the page should include "You can now apply for a ‘final order’."
@@ -138,7 +138,7 @@ Feature: Joint final order
     Then the page URL should be "/hub-page"
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
 
-  @nightly
+
   Scenario: [4] Applicant 1 joint switch to sole final order journey when case goes overdue after applying
     Given I login with applicant "1"
     Then the page should include "You can now apply for a ‘final order’."
