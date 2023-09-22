@@ -99,6 +99,10 @@ export const proxyList: {
     endpoints: ['/downloads/final-order-granted'],
     path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.FINAL_ORDER_GRANTED),
   },
+  {
+    endpoints: ['downloads/general-order'],
+    path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.GENERAL_ORDER)
+  }
 ];
 
 const findDocumentAndGetPath = (req: AppRequest, documentType: DocumentType): string => {
