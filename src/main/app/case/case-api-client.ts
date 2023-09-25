@@ -7,7 +7,8 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
-import { CASE_TYPE, CITIZEN_CREATE, CaseData, DivorceOrDissolution, State } from './definition';
+import { CASE_TYPE } from './case-type';
+import { CITIZEN_CREATE, CaseData, DivorceOrDissolution, State } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CaseApiClient {
