@@ -173,14 +173,12 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
   },
   finalOrderRequested: {
     line1: `Your ${partner} has applied for a ‘final order’. The application will be checked by court staff. If there are no other applications that need to be completed then your ${
-      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
-    }. ${
-      dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${getFormattedDate(
-            dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-          )}`
-        : 'You should receive an email within 2 working days,'
-    } confirming whether the final order has been granted.`,
+      isDivorce ? 'marriage' : 'civil partnership'
+    } will be legally ended'. ${
+      userCase.isFinalOrderOverdue === YesOrNo.YES
+        ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
+        : 'You should receive an email within 2 working days, confirming whether the final order has been granted.'
+    }`,
     line2: `You need to pay ${getFee(
       config.get('fees.finalOrderApplicationFee')
     )} for the application before it can be submitted. Phone 0300 303 0642 to make payment. Have your card details ready.`,
