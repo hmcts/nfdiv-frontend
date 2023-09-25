@@ -327,7 +327,6 @@ export const generateContent: TranslationFn = content => {
 
   const finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days =
     hasApplicantAppliedForFoFirst(userCase, isApplicant2) &&
-    dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
     canIntendToSwitchToSoleFo(userCase, isApplicant2) &&
     userCase.state === State.AwaitingJointFinalOrder;
 
