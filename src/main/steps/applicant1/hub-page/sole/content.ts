@@ -165,15 +165,12 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       'A judge will review the application. You will then receive an email telling you what they decide.',
     line1: 'You have applied for a ‘final order’. Your application will be checked by court staff.',
     line2: `If there are no other applications that need to be completed then your ${
-      isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
-    }.`,
-    line3: `${
-      dayjs().isAfter(userCase.dateFinalOrderNoLongerEligible)
-        ? `You will receive an email by ${getFormattedDate(
-            dayjs(userCase.dateFinalOrderSubmitted).add(config.get('dates.finalOrderSubmittedOffsetDays'), 'day')
-          )}`
-        : 'You should receive an email within 2 working days,'
-    } confirming whether the final order has been granted.`,
+      isDivorce ? 'marriage' : 'civil partnership'
+    } will be legally ended.`,
+    line3:
+      userCase.isFinalOrderOverdue === YesOrNo.YES
+        ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
+        : 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
   },
   awaitingServiceConsiderationOrBailiffReferral: {
     line1:

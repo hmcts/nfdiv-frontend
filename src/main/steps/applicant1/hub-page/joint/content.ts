@@ -137,7 +137,10 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     }. Your application will be checked by court staff. If there are no other applications that need to be completed then your ${
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
     }.`,
-    line2: 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
+    line2:
+      userCase.isFinalOrderOverdue === YesOrNo.YES
+        ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
+        : 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
   },
   intendToSwitchToSoleFinalOrder: {
     line1: `The court has notified your ${partner} by email that you are intending to apply for a final order as a sole applicant.`,
@@ -324,7 +327,6 @@ export const generateContent: TranslationFn = content => {
 
   const finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days =
     hasApplicantAppliedForFoFirst(userCase, isApplicant2) &&
-    dayjs().isBefore(userCase.dateFinalOrderNoLongerEligible) &&
     canIntendToSwitchToSoleFo(userCase, isApplicant2) &&
     userCase.state === State.AwaitingJointFinalOrder;
 

@@ -8,7 +8,8 @@ import { UserDetails } from '../controller/AppRequest';
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
 import { CaseAssignedUserRoles } from './case-roles';
-import { CASE_TYPE, DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
+import { CASE_TYPE } from './case-type';
+import { DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 

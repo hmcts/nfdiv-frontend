@@ -4,7 +4,8 @@ import config from 'config';
 
 import { SupportedLanguages } from '../../modules/i18n';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { CASE_TYPE, DivorceOrDissolution } from '../case/definition';
+import { CASE_TYPE } from '../case/case-type';
+import { DivorceOrDissolution } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
 
 const logger = Logger.getLogger('payment');

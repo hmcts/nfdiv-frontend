@@ -3,7 +3,8 @@ import config from 'config';
 import FormData from 'form-data';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { CASE_TYPE, JURISDICTION } from '../case/definition';
+import { CASE_TYPE } from '../case/case-type';
+import { JURISDICTION } from '../case/definition';
 import type { UserDetails } from '../controller/AppRequest';
 
 export class CaseDocumentManagementClient {
