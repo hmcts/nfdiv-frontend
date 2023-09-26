@@ -50,9 +50,12 @@ new AppInsights().enable();
 new SessionStorage().enableFor(app, logger);
 new TooBusy().enableFor(app);
 new HealthCheck().enableFor(app);
+
+// Declare use of body-parser AFTER the use of proxy https://github.com/villadora/express-http-proxy
 new DocumentDownloadMiddleware().enableFor(app);
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
+
 new CSRFToken().enableFor(app);
 new LanguageToggle().enableFor(app);
 new AuthProvider().enable();
