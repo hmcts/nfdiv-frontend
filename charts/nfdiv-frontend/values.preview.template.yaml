@@ -10,6 +10,7 @@ nodejs:
     enabled: false
   environment:
     IDAM_TOKEN_CACHE: true
+    CASE_TYPE: NFD_PR_3221
   keyVaults:
     nfdiv:
       resourceGroup: nfdiv
