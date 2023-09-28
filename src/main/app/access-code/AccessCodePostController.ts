@@ -31,33 +31,33 @@ export class AccessCodePostController {
     const caseReference = formData.caseReference?.replace(/-/g, '');
 
     const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
-    let caseDataReference: string | undefined = '';
     try {
       const caseData = await caseworkerUserApi.getCaseById(caseReference as string);
-      caseDataReference = caseData.caseReference;
 
       if (caseData.applicationType === ApplicationType.JOINT_APPLICATION) {
         formData.applicant2FirstNames = req.session.user.givenName;
         formData.applicant2LastNames = req.session.user.familyName;
       }
 
-      logger.info('AccessCodePostController invoked for case ID: ', caseDataReference);
+      logger.info('AccessCodePostController invoked for case ID: ', caseReference);
 
       if (caseData.accessCode !== formData.accessCode?.replace(/\s/g, '').toUpperCase()) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         req.locals.logger.info(
-          `UserId: "${req.session.user.id}" - Invalid access code for case id: "${caseDataReference}" (form), ${
+          `UserId: "${req.session.user.id}" - Invalid access code for case id: "${caseReference}" (form), ${
             caseData.id
           } (retrieved) with ${caseData.accessCode ? '' : 'un'}defined retrieved access code`
         );
+        const formattedAccessCode = formData.accessCode?.replace(/\s/g, '').toUpperCase();
+        req.locals.logger.info(`XXXX ${caseData.accessCode} : ${formData.accessCode} : ${formattedAccessCode}`);
       }
     } catch (err) {
-      logger.error(`Error while retrieving data for case ID: "${caseDataReference}". Error: ${err}`);
+      logger.error(`Error while retrieving data for case ID: "${caseReference}". Error: ${err}`);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference' });
     }
 
     if (req.session.errors.length === 0) {
-      logger.info('Calling to link respondent/app2 to case ID: ' + caseDataReference);
+      logger.info('Calling to link respondent/app2 to case ID: ' + caseReference);
       try {
         req.session.userCase = await caseworkerUserApi.triggerEvent(
           caseReference as string,
@@ -68,7 +68,7 @@ export class AccessCodePostController {
         req.session.isApplicant2 = true;
       } catch (err) {
         req.locals.logger.error(
-          `Error linking applicant 2/respondent to joint application to case ${caseDataReference}, ${err}`
+          `Error linking applicant 2/respondent to joint application to case ${caseReference}, ${err}`
         );
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
       }
