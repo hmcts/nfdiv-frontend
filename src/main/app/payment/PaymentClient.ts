@@ -33,7 +33,7 @@ export class PaymentClient {
     const caseId = userCase.id.toString();
     const total = userCase.applicationFeeOrderSummary.Fees.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
     const body = {
-      case_type: CASE_TYPE,
+      case_type: CASE_TYPE === 'NFD' ? CASE_TYPE : undefined,
       amount: total,
       ccd_case_number: caseId,
       description: `${isDivorce ? 'Divorce' : 'Ending your civil partnership'} application fee`,
