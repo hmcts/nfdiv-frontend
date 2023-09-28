@@ -4,7 +4,6 @@ import config from 'config';
 
 import { SupportedLanguages } from '../../modules/i18n';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { CASE_TYPE } from '../case/case-type';
 import { DivorceOrDissolution } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
 
@@ -33,7 +32,7 @@ export class PaymentClient {
     const caseId = userCase.id.toString();
     const total = userCase.applicationFeeOrderSummary.Fees.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
     const body = {
-      case_type: CASE_TYPE === 'NFD' ? CASE_TYPE : undefined,
+      case_type: 'NFD', //hardcoded until it works with _PR_xxxx case types
       amount: total,
       ccd_case_number: caseId,
       description: `${isDivorce ? 'Divorce' : 'Ending your civil partnership'} application fee`,
