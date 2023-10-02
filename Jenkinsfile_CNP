@@ -39,4 +39,8 @@ withPipeline(type, product, component) {
   afterAlways('build') {
     yarnBuilder.yarn('build')
   }
+
+  onPR {
+    env.CASE_TYPE=NFD_PR_3221
+  }
 }
