@@ -41,6 +41,6 @@ withPipeline(type, product, component) {
   }
 
   onPR {
-    env.CASE_TYPE=NFD_PR_3221
+    env.CASE_TYPE="NFD_PR_3221"
   }
 }
