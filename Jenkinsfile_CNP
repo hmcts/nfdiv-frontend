@@ -39,4 +39,9 @@ withPipeline(type, product, component) {
   afterAlways('build') {
     yarnBuilder.yarn('build')
   }
+
+  // uncomment to connect backend PR
+  // onPR {
+  //   env.CASE_TYPE="NFD_PR_3221"
+  // }
 }
