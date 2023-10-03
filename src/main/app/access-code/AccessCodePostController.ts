@@ -43,13 +43,14 @@ export class AccessCodePostController {
 
       if (caseData.accessCode !== formData.accessCode?.replace(/\s/g, '').toUpperCase()) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        const formattedAccessCode = formData.accessCode?.replace(/\s/g, '').toUpperCase();
         req.locals.logger.info(
           `UserId: "${req.session.user.id}" - Invalid access code for case id: "${caseReference}" (form), ${
             caseData.id
-          } (retrieved) with ${caseData.accessCode ? '' : 'un'}defined retrieved access code`
+          } (retrieved) with ${caseData.accessCode ? '' : 'un'}defined retrieved access code ${caseData.accessCode} : ${
+            formData.accessCode
+          } : ${formattedAccessCode}`
         );
-        const formattedAccessCode = formData.accessCode?.replace(/\s/g, '').toUpperCase();
-        req.locals.logger.info(`XXXX ${caseData.accessCode} : ${formData.accessCode} : ${formattedAccessCode}`);
       }
     } catch (err) {
       logger.error(`Error while retrieving data for case ID: "${caseReference}". Error: ${err}`);
