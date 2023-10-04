@@ -15,6 +15,7 @@ export const config: CodeceptJS.Config = {
     autoLogin: testConfig.AutoLogin,
     allure: {
       enabled: true,
+      require: '@codeceptjs/allure-legacy',
     },
     pauseOnFail: {
       enabled: !testConfig.TestHeadlessBrowser,
