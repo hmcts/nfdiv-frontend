@@ -35,7 +35,9 @@ export const getSoleHubTemplate = (
     case State.AwaitingPronouncement:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.AwaitingGeneralConsideration:
-      if (userCase.aosStatementOfTruth) {
+      if (userCase.dateFinalOrderSubmitted) {
+        return HubTemplate.FinalOrderRequested;
+      } else if (userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;
       } else if (isAosOverdue) {
         return HubTemplate.AoSDue;
