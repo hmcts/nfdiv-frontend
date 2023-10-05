@@ -160,6 +160,9 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
       ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
     downloadReference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
+    line2: "Download a copy of your 'general order'.",
+    generalOrderDownloadReference: 'General-Order',
+    generalOrderLink: '/downloads/general-order',
   },
 });
 
@@ -323,6 +326,9 @@ const cy: typeof en = ({
       ${isDivorce ? 'you are divorced' : 'your civil partnership has ended'}.`,
     downloadReference: 'Refusal-Order',
     link: '/downloads/conditional-order-refusal',
+    line2: "Download a copy of your 'general FO order'.",
+    generalOrderDownloadReference: 'General-Order',
+    generalOrderLink: '/downloads/general-order',
   },
 });
 
