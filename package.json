@@ -111,7 +111,7 @@
     "@wdio/sauce-service": "8.16.18",
     "allure-commandline": "2.24.1",
     "axios-debug-log": "1.0.0",
-    "codeceptjs": "3.5.4",
+    "codeceptjs": "3.5.5",
     "copy-webpack-plugin": "11.0.0",
     "css-loader": "6.8.1",
     "eslint": "8.50.0",
