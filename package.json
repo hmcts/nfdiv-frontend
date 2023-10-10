@@ -106,8 +106,8 @@
   "devDependencies": {
     "@codeceptjs/allure-legacy": "1.0.2",
     "@types/jest": "29.5.5",
-    "@typescript-eslint/eslint-plugin": "6.7.4",
-    "@typescript-eslint/parser": "6.7.4",
+    "@typescript-eslint/eslint-plugin": "6.7.5",
+    "@typescript-eslint/parser": "6.7.5",
     "@wdio/cli": "8.16.22",
     "@wdio/sauce-service": "8.16.22",
     "allure-commandline": "2.24.1",
