@@ -22,7 +22,7 @@ def secrets = [
                 secret('frontend-secret', 'SERVICE_AUTH_SECRET'),
                 secret('idam-secret', 'IDAM_SECRET'),
                 secret('pcq-token-key', 'PCQ_TOKEN'),
-                secret('playwright-url', 'PLAYWRIGHT_SERVICE_URL'),
+                secret('playwright-service-url', 'PLAYWRIGHT_SERVICE_URL'),
                 secret('playwright-token', 'PLAYWRIGHT_SERVICE_ACCESS_TOKEN'),
 
         ]
