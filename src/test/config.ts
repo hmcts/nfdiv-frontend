@@ -148,6 +148,24 @@ export const config = {
   },
 };
 
+process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || new Date().toISOString();
+const azurePlaywright = process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN
+  ? {
+      connectOptions: {
+        wsEndpoint: `${process.env.PLAYWRIGHT_SERVICE_URL}?cap=${JSON.stringify({
+          os: 'linux',
+          runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
+        })}`,
+        timeout: 30000,
+        headers: {
+          'x-mpt-access-key': process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN,
+        },
+        // Allow service to access the localhost.
+        exposeNetwork: '<loopback>',
+      },
+    }
+  : undefined;
+
 config.helpers = {
   Playwright: {
     url: config.TEST_URL,
@@ -160,5 +178,7 @@ config.helpers = {
     waitForNavigation: 'load',
     ignoreHTTPSErrors: true,
     bypassCSP: true,
+    workers: 20,
+    use: azurePlaywright,
   },
 };
