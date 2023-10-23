@@ -2039,10 +2039,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/nunjucks@npm:3.2.4":
-  version: 3.2.4
-  resolution: "@types/nunjucks@npm:3.2.4"
-  checksum: d154c6cc98320b6b9f48892eb4238f961b0196e24eb98252f9dceaa0b17bf70cd480a11d4ffda9f419d2570abf6d96524ebd3193b101f0fcf73c65af3e56d064
+"@types/nunjucks@npm:3.2.5":
+  version: 3.2.5
+  resolution: "@types/nunjucks@npm:3.2.5"
+  checksum: 3b2990bb7999af5640d47c296ec01f9f96356a31b3aa935f3a7d9cac428b10b5061fe3b8328761ab267cb0151a040a4c8f9789d1f5c93179a00c9056c0676a64
   languageName: node
   linkType: hard
 
@@ -10697,7 +10697,7 @@ __metadata:
     "@types/multer": 1.4.9
     "@types/negotiator": 0.6.2
     "@types/node": 20.8.7
-    "@types/nunjucks": 3.2.4
+    "@types/nunjucks": 3.2.5
     "@types/require-directory": 2.1.4
     "@types/serve-favicon": 2.5.5
     "@types/session-file-store": 1.2.3
