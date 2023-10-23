@@ -1428,6 +1428,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/test@npm:1.39.0":
+  version: 1.39.0
+  resolution: "@playwright/test@npm:1.39.0"
+  dependencies:
+    playwright: 1.39.0
+  bin:
+    playwright: cli.js
+  checksum: e93e58fc1af4239f239b890374f066c9a758e2492d25e2c1a532f3f00782ab8e7706956a07540fd14882c74e75f5de36273621adce9b79afb8e36e6c15f1d539
+  languageName: node
+  linkType: hard
+
 "@puppeteer/browsers@npm:1.4.6":
   version: 1.4.6
   resolution: "@puppeteer/browsers@npm:1.4.6"
@@ -10685,6 +10696,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": 1.8.3
     "@hmcts/nodejs-logging": 4.0.4
     "@hmcts/properties-volume": 1.0.0
+    "@playwright/test": 1.39.0
     "@types/config": 3.3.2
     "@types/cookie-parser": 1.4.5
     "@types/csurf": 1.11.4
@@ -10758,7 +10770,6 @@ __metadata:
     otplib: 12.0.1
     pa11y: 6.2.3
     pdfjs-dist: 3.11.174
-    playwright: 1.39.0
     prettier: 3.0.3
     redis: 4.6.10
     require-directory: 2.1.1
