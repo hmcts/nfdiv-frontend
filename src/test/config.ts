@@ -167,7 +167,7 @@ config.helpers = {
       headers: {
         'x-mpt-access-key': process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN,
       },
-      exposeNetwork: '<loopback>',
+      exposeNetwork: process.env.TEST_URL ? process.env.TEST_URL.replace('https://', '') : '<loopback>',
       browserWSEndpoint: {
         wsEndpoint: `${process.env.PLAYWRIGHT_SERVICE_URL}?cap=${JSON.stringify({
           os: 'linux',
