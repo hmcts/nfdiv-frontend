@@ -65,7 +65,7 @@ const getNextIncompleteStep = (data: CaseWithId, step: Step, sequence: Step[], c
       const nextStepUrl = step.getNextStep(data);
       const nextStep = sequence.find(s => s.url === nextStepUrl);
 
-      return nextStep ? getNextIncompleteStep(data, nextStep, sequence, checkedSteps.concat(step)) : CHECK_ANSWERS_URL;
+      return nextStep ? getNextIncompleteStep(data, nextStep, sequence, checkedSteps.concat(step)) : step.url;
     }
   }
 
