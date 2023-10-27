@@ -345,7 +345,7 @@ describe('CaseApi', () => {
     expect(mockLogger.error).not.toHaveBeenCalled();
   });
 
-  test.each([409, 422])('Should throw an error if %s is returned more than maxRetries', async statusCode => {
+  test.each([409, 422, 504])('Should throw an error if %s is returned more than maxRetries', async statusCode => {
     mockedAxios.get.mockResolvedValue({ data: { token: '123' } });
     mockedAxios.post.mockRejectedValue({
       config: { method: 'POST', url: 'https://example.com' },
