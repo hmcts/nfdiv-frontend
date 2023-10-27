@@ -128,7 +128,10 @@ export class CaseApiClient {
     } catch (err) {
       if (
         retries < this.maxRetries &&
-        (err?.response.status === 409 || err?.response.status === 422 || err?.response.status === 504)
+        (err?.response.status === 409 ||
+          err?.response.status === 422 ||
+          err?.response.status === 502 ||
+          err?.response.status === 504)
       ) {
         ++retries;
         this.logger.info(`retrying send event due to ${err.response.status}. this is retry no (${retries})`);
