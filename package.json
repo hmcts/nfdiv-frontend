@@ -59,7 +59,7 @@
     "@types/serve-favicon": "2.5.6",
     "@types/session-file-store": "1.2.4",
     "@types/toobusy-js": "0.5.3",
-    "@types/uuid": "9.0.5",
+    "@types/uuid": "9.0.6",
     "@uppy/core": "3.5.1",
     "@uppy/drop-target": "2.0.1",
     "@uppy/file-input": "3.0.3",
