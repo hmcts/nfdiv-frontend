@@ -126,10 +126,7 @@ export class CaseApiClient {
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
-      if (
-        retries < this.maxRetries &&
-        ([409, 422, 502, 504].includes(err?.response.status))
-      ) {
+      if (retries < this.maxRetries && [409, 422, 502, 504].includes(err?.response.status)) {
         ++retries;
         this.logger.info(`retrying send event due to ${err.response.status}. this is retry no (${retries})`);
         return this.sendEvent(caseId, data, eventName, retries);
