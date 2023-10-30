@@ -92,14 +92,14 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     then they will grant your entitlement to a conditional order and then ‘pronounce’ it in court.
     You will receive an email by ${getFormattedDate(
       dayjs(userCase.coApplicant1SubmittedDate).isAfter(dayjs(userCase.coApplicant2SubmittedDate))
-        ? dayjs(userCase.coApplicant1SubmittedDate).add(28, 'day').add(
+        ? dayjs(userCase.coApplicant1SubmittedDate).add(
             config.get('dates.awaitingLegalAdvisorReferralOffsetDays'),
             'day'
-          )
-        : dayjs(userCase.coApplicant2SubmittedDate).add(28, 'day').add(
+          ).add(28, 'day')
+        : dayjs(userCase.coApplicant2SubmittedDate).add(
             config.get('dates.awaitingLegalAdvisorReferralOffsetDays'),
             'day'
-          )
+          ).add(28, 'day')
     )} after your application has been checked.
     This will have the time, date and court your conditional order will be pronounced.`,
   },
@@ -228,11 +228,11 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
         ? dayjs(userCase.coApplicant1SubmittedDate).add(
             config.get('dates.awaitingLegalAdvisorReferralOffsetDays'),
             'day'
-          )
+          ).add(28, 'day')
         : dayjs(userCase.coApplicant2SubmittedDate).add(
             config.get('dates.awaitingLegalAdvisorReferralOffsetDays'),
             'day'
-          ),
+          ).add(28, 'day'),
       SupportedLanguages.Cy
     )} ar ôl i'ch cais gael ei wirio.
     Bydd yn cynnwys yr amser, y dyddiad a manylion y llys lle bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
