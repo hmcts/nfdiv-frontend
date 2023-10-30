@@ -92,11 +92,11 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     then they will grant your entitlement to a conditional order and then ‘pronounce’ it in court.
     You will receive an email by ${getFormattedDate(
       dayjs(userCase.coApplicant1SubmittedDate).isAfter(dayjs(userCase.coApplicant2SubmittedDate))
-        ? dayjs(userCase.coApplicant1SubmittedDate).add(
+        ? dayjs(userCase.coApplicant1SubmittedDate).add(28, 'day').add(
             config.get('dates.awaitingLegalAdvisorReferralOffsetDays'),
             'day'
           )
-        : dayjs(userCase.coApplicant2SubmittedDate).add(
+        : dayjs(userCase.coApplicant2SubmittedDate).add(28, 'day').add(
             config.get('dates.awaitingLegalAdvisorReferralOffsetDays'),
             'day'
           )
