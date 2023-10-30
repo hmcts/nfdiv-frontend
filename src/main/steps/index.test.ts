@@ -1,4 +1,5 @@
 import { completeCase } from '../../test/functional/fixtures/completeCase';
+import { jointApplicant2CompleteCase } from '../../test/functional/fixtures/jointApplicant2CompleteCase';
 import { mockRequest } from '../../test/unit/utils/mockRequest';
 import { CaseWithId, Checkbox } from '../app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../app/case/definition';
@@ -10,6 +11,7 @@ import { respondentSequence } from './respondentSequence';
 import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
+  CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -131,6 +133,23 @@ describe('Steps', () => {
       mockReq.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
       const actual = getNextIncompleteStepUrl(mockReq);
       expect(actual).toBe(`${RESPONDENT}${REVIEW_THE_APPLICATION}`);
+    });
+
+    it('returns the last step if applicant2 has completed the form', () => {
+      mockReq.originalUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
+      mockReq.session.isApplicant2 = true;
+      mockReq.session.userCase = {
+        ...mockReq.session.userCase,
+        ...jointApplicant2CompleteCase,
+        state: State.AwaitingApplicant2Response,
+        applicant2Confirmation: YesOrNo.YES,
+        applicant2Explanation: YesOrNo.NO,
+        applicant2IConfirmPrayer: Checkbox.Checked,
+        applicant2StatementOfTruth: Checkbox.Checked,
+      };
+
+      const actual = getNextIncompleteStepUrl(mockReq);
+      expect(actual).toBe(`${APPLICANT_2}${CONFIRM_JOINT_APPLICATION}`);
     });
 
     it("uses applicant 1's CO sequence if state is ConditionalOrderDrafted/ConditionalOrderPending", () => {
