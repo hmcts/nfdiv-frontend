@@ -2396,94 +2396,94 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/companion-client@npm:^3.4.1":
-  version: 3.4.1
-  resolution: "@uppy/companion-client@npm:3.4.1"
+"@uppy/companion-client@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "@uppy/companion-client@npm:3.5.0"
   dependencies:
-    "@uppy/utils": ^5.5.1
+    "@uppy/utils": ^5.5.2
     namespace-emitter: ^2.0.1
-  checksum: 06d1be8cc7cb0d32a5ff4ec506c37962aa839df1b572a2dadf2ecc4d6bbcdf4ca922a17804b6c8891f15a9cbca07d3b4fb65a44ea1982d176f94127cb3f2c59c
+  checksum: 78a3253b9d7a3e0f771fb8a3d867e3c7133f9e931334ae64f28e3895ff673b9640ba1f80fb85e9d49c56338b25e399962659547c945b08b40eb0bd389a586213
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:3.5.1":
-  version: 3.5.1
-  resolution: "@uppy/core@npm:3.5.1"
+"@uppy/core@npm:3.6.1":
+  version: 3.6.1
+  resolution: "@uppy/core@npm:3.6.1"
   dependencies:
     "@transloadit/prettier-bytes": 0.0.9
-    "@uppy/store-default": ^3.0.4
-    "@uppy/utils": ^5.5.1
+    "@uppy/store-default": ^3.0.5
+    "@uppy/utils": ^5.5.2
     lodash: ^4.17.21
     mime-match: ^1.0.2
     namespace-emitter: ^2.0.1
     nanoid: ^4.0.0
     preact: ^10.5.13
-  checksum: c4097b93898534937e7c935bca5fc23c08ca5617f33040a677b425b17645f49c1cbeda3227526ef54c6428f813c3d59dd1945a034932428e1951630c16b4a522
+  checksum: 837ba3ff57ffcd79115c498e78284498e928959e970bc543721a092526e586ccabf6354bf4eaed1ee75cdf8472b9661632a4abf370d9ab8436b66f82db3e63c6
   languageName: node
   linkType: hard
 
-"@uppy/drop-target@npm:2.0.1":
-  version: 2.0.1
-  resolution: "@uppy/drop-target@npm:2.0.1"
+"@uppy/drop-target@npm:2.0.2":
+  version: 2.0.2
+  resolution: "@uppy/drop-target@npm:2.0.2"
   dependencies:
-    "@uppy/utils": ^5.0.2
+    "@uppy/utils": ^5.5.2
   peerDependencies:
-    "@uppy/core": ^3.0.2
-  checksum: fd38e33b07e81009ac724fc7b1893e2c5a4c68781083f6c3b6708a4f38346027a874de03ee7f753b6ecba705a03460c7a894eaec6c951569ed98ebbf4cf8d1b2
+    "@uppy/core": ^3.6.0
+  checksum: fec56361ec1b8f3c51ffbe10f60b089f81f97ea1e8bfb9b99eaca0e41b447d2268650058fdad9b59607fa8c023a4508b68d23bb9a1a548a9987e68cd61ecfecc
   languageName: node
   linkType: hard
 
-"@uppy/file-input@npm:3.0.3":
-  version: 3.0.3
-  resolution: "@uppy/file-input@npm:3.0.3"
-  dependencies:
-    "@uppy/utils": ^5.4.3
-    preact: ^10.5.13
-  peerDependencies:
-    "@uppy/core": ^3.4.0
-  checksum: 8170afc0dbcfdb454405b32f31d5e6de6a37e57bd6bbdb30712d4865b4a46885b40e77bec3aa805d6a933b129b2fae9a570cb70144330f3805a0064f26a83668
-  languageName: node
-  linkType: hard
-
-"@uppy/progress-bar@npm:3.0.3":
-  version: 3.0.3
-  resolution: "@uppy/progress-bar@npm:3.0.3"
-  dependencies:
-    "@uppy/utils": ^5.4.3
-    preact: ^10.5.13
-  peerDependencies:
-    "@uppy/core": ^3.4.0
-  checksum: 5b5d74ad31ed553499a46299c71af14a0d9a10374a517231d138d801c065ae9f721839979d3bd49dff5a5c1a02820442cb28b50e181b8ac06b1a8eb5001aedbf
-  languageName: node
-  linkType: hard
-
-"@uppy/store-default@npm:^3.0.4":
+"@uppy/file-input@npm:3.0.4":
   version: 3.0.4
-  resolution: "@uppy/store-default@npm:3.0.4"
-  checksum: af55286918b2f5a8d2df734e40b1d2057ce9aa658f0a1a90e64107ca4df7d9c279c75f4dbf7731b8ec923e8fb42be90014cf77f4cdc58ccd55d427d4d414e56d
+  resolution: "@uppy/file-input@npm:3.0.4"
+  dependencies:
+    "@uppy/utils": ^5.5.2
+    preact: ^10.5.13
+  peerDependencies:
+    "@uppy/core": ^3.6.0
+  checksum: 4e3e7e44d5651613fe531a2874f578e89060ecafa9a9eb77b8bb7caf16bea921982b55bf1f6930216d29749a5d9229eb48761e0812a6376c68f8cabda13ab915
   languageName: node
   linkType: hard
 
-"@uppy/utils@npm:^5.0.2, @uppy/utils@npm:^5.4.3, @uppy/utils@npm:^5.5.1":
-  version: 5.5.1
-  resolution: "@uppy/utils@npm:5.5.1"
+"@uppy/progress-bar@npm:3.0.4":
+  version: 3.0.4
+  resolution: "@uppy/progress-bar@npm:3.0.4"
+  dependencies:
+    "@uppy/utils": ^5.5.2
+    preact: ^10.5.13
+  peerDependencies:
+    "@uppy/core": ^3.6.0
+  checksum: 18cd69471946c11a1575ba760dc7c92cb17c4a72599b2377833ec0d76876e54dc2fdbf38d1fd35404f4b2031e4024c30fe0ad8ff7b91ce4028e9f8cf3334357d
+  languageName: node
+  linkType: hard
+
+"@uppy/store-default@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "@uppy/store-default@npm:3.0.5"
+  checksum: b609574033fd4564938f1db6bbe8eba3be979c55d37fd2f359bf0659e1c813d7254158616199041c6d1cf2ad97f4762c924bd73c28815192dc3ac0dcb5289773
+  languageName: node
+  linkType: hard
+
+"@uppy/utils@npm:^5.5.2":
+  version: 5.5.2
+  resolution: "@uppy/utils@npm:5.5.2"
   dependencies:
     lodash: ^4.17.21
     preact: ^10.5.13
-  checksum: 33ba5a725a239d1c7159051da7115ec41b57fabfb5263a55797d4bcf98490721d70c708f862b34484d1ed4a2616668857c3a377fb962e694d2c6d6b72ffc9d11
+  checksum: 6f9d542d500e12d53e53ecae55660e28171a15d2dc6a62176693104c919acb4671a84ada4e67b36851d7437f24ce6795923c5c9f280f6c0feabd93410ac2ce7e
   languageName: node
   linkType: hard
 
-"@uppy/xhr-upload@npm:3.4.1":
-  version: 3.4.1
-  resolution: "@uppy/xhr-upload@npm:3.4.1"
+"@uppy/xhr-upload@npm:3.4.2":
+  version: 3.4.2
+  resolution: "@uppy/xhr-upload@npm:3.4.2"
   dependencies:
-    "@uppy/companion-client": ^3.4.1
-    "@uppy/utils": ^5.5.1
+    "@uppy/companion-client": ^3.5.0
+    "@uppy/utils": ^5.5.2
     nanoid: ^4.0.0
   peerDependencies:
-    "@uppy/core": ^3.5.1
-  checksum: 2a88bd5b5c4671c24f664f4f24fa205ee43d54d887f46f99341e4450e753b578a3c09965039fc4b5a28be3000eb1f1b8f4012bf8cba561524dacb95db0ca63df
+    "@uppy/core": ^3.6.0
+  checksum: 0ba73abf335391dc0884ba29095272525d4fa75c3fc496615e798edfe76b21177290488e4cd07bdf1bddb5a6278759be3b6e0599592630f68b88d6f66ec2fc54
   languageName: node
   linkType: hard
 
@@ -10297,11 +10297,11 @@ __metadata:
     "@types/uuid": 9.0.6
     "@typescript-eslint/eslint-plugin": 6.9.0
     "@typescript-eslint/parser": 6.9.0
-    "@uppy/core": 3.5.1
-    "@uppy/drop-target": 2.0.1
-    "@uppy/file-input": 3.0.3
-    "@uppy/progress-bar": 3.0.3
-    "@uppy/xhr-upload": 3.4.1
+    "@uppy/core": 3.6.1
+    "@uppy/drop-target": 2.0.2
+    "@uppy/file-input": 3.0.4
+    "@uppy/progress-bar": 3.0.4
+    "@uppy/xhr-upload": 3.4.2
     "@wdio/cli": 8.20.5
     "@wdio/sauce-service": 8.20.5
     allure-commandline: 2.24.1
