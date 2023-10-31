@@ -32,6 +32,8 @@ import {
   CHECK_JURISDICTION,
   CHECK_PHONE_NUMBER,
   CONFIRM_JOINT_APPLICATION,
+  CONFIRM_THEIR_NAME,
+  CONFIRM_YOUR_NAME,
   CONTINUE_WITH_YOUR_APPLICATION,
   COUNTRY_AND_PLACE,
   DETAILS_OTHER_PROCEEDINGS,
@@ -261,15 +263,28 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: ENTER_YOUR_NAMES,
-    getNextStep: () => CERTIFICATE_NAME,
+    getNextStep: () => CONFIRM_YOUR_NAME,
   },
   {
     url: ENTER_YOUR_NAME,
-    getNextStep: () => THEIR_NAME,
+    getNextStep: () => CONFIRM_YOUR_NAME,
+  },
+  {
+    url: CONFIRM_YOUR_NAME,
+    getNextStep: data =>
+      data.applicant1ConfirmFullName === YesOrNo.NO
+        ? ENTER_YOUR_NAMES
+        : data.applicationType === ApplicationType.JOINT_APPLICATION
+        ? CERTIFICATE_NAME
+        : THEIR_NAME,
   },
   {
     url: THEIR_NAME,
-    getNextStep: () => CERTIFICATE_NAME,
+    getNextStep: () => CONFIRM_THEIR_NAME,
+  },
+  {
+    url: CONFIRM_THEIR_NAME,
+    getNextStep: data => (data.applicant2ConfirmFullName === YesOrNo.NO ? THEIR_NAME : CERTIFICATE_NAME),
   },
   {
     url: CERTIFICATE_NAME,

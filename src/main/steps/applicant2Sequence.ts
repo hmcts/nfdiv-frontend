@@ -17,6 +17,7 @@ import {
   CHECK_JOINT_APPLICATION,
   CHECK_PHONE_NUMBER,
   CONFIRM_JOINT_APPLICATION,
+  CONFIRM_YOUR_NAME,
   CONTINUE_WITH_YOUR_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
@@ -86,7 +87,11 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: ENTER_YOUR_NAMES,
-    getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
+    getNextStep: () => CONFIRM_YOUR_NAME,
+  },
+  {
+    url: CONFIRM_YOUR_NAME,
+    getNextStep: data => (data.applicant2ConfirmFullName === YesOrNo.NO ? ENTER_YOUR_NAMES : CHANGES_TO_YOUR_NAME_URL),
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,

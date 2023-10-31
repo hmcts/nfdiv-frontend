@@ -25,7 +25,7 @@ Feature: Applicant 2
     And I select "Your last name(s)"
     And I type "Bob"
 
-    When I click "Continue"
+    When I click "Stop here"
     Then the page URL should be "/applicant2/changes-to-your-name"
     And the page should include "Changes to your name"
     Given I select "No" for "Did you change your last name when you got married?"
