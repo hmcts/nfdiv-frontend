@@ -120,7 +120,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line1: `You have applied for a ‘conditional order’. The court will check your application and send it to a judge. If the judge agrees that you should ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }, they will grant your entitlement to a conditional order and ‘pronounce’ it in court. You will receive an email by ${getFormattedDate(
-      dayjs(userCase.coApplicant1SubmittedDate).add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day').add(28, 'day')
+      dayjs(userCase.coApplicant1SubmittedDate).add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day')
     )} after your application has been checked. This will have the time, date and court your conditional order will be pronounced.`,
     line2:
       'After your conditional order is pronounced, you then have to apply for a ‘final order’. This will finalise your divorce. ' +
@@ -347,7 +347,7 @@ const cy: typeof en = (
     line1: `Rydych wedi gwneud cais am 'orchymyn amodol'. Bydd y llys yn gwirio'ch cais ac yn ei anfon at farnwr. Os yw'r barnwr yn cytuno y dylech ${
       isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
     }, bydd yn rhoi caniatâd i chi gael orchymyn amodol ac yn ei 'gyhoeddi' yn y llys. Byddwch yn cael e-bost erbyn ${getFormattedDate(
-      dayjs(userCase.coApplicant1SubmittedDate).add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day').add(28, 'day'),
+      dayjs(userCase.coApplicant1SubmittedDate).add(config.get('dates.awaitingLegalAdvisorReferralOffsetDays'), 'day'),
       SupportedLanguages.Cy
     )} ar ôl i'ch cais gael ei wirio. Bydd hyn yn cael yr amser, y dyddiad a'r llys y bydd eich gorchymyn amodol yn cael ei gyhoeddi.`,
     line2:

@@ -4,7 +4,7 @@ uploadTimeout: 60000
 dates:
   issueDateOffsetDays: 141
   disputeDueDateOffsetDays: 37
-  awaitingLegalAdvisorReferralOffsetDays: 28
+  awaitingLegalAdvisorReferralOffsetDays: 56
   clarificationSubmittedOffsetDays: 28
   finalOrderSubmittedOffsetDays: 14
   changingToSolePartnerConfirmationWeeks: 2
