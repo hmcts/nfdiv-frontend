@@ -56,6 +56,8 @@ Feature: Joint hub page
     Then the page should include "You and your husband have applied for a 'conditional order'."
     Then the page should include "The court will check your application and send it to a judge."
 
+  Scenario: Joint hub applicant 1 and applicant 2 pages, Part two
+    Given I set the case state to "AwaitingPronouncement"
     And a case worker updates court case hearing
     When I click "Sign out"
     And I login with applicant "1"

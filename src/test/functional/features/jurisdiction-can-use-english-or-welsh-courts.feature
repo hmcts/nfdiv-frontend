@@ -4,7 +4,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     Given I login
     And I've completed all questions correctly to get to the jurisdiction section
 
-  Scenario: Jurisdiction happy path tests
+  Scenario: Jurisdiction happy path tests, part one
     # A Applicant1 and Applicant2 are habitually resident
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
@@ -84,6 +84,7 @@ Feature: Jurisdiction - can use English or Welsh courts
     Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband married each other in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case"
 
     # H, E, B Applicant1 domiciled, Applicant1 habitually resident for 6 months and both last habitually resident
+  Scenario: Jurisdiction happy path tests, part two
     Given I reset the jurisdiction connections
     When I go to '/your-details'
     Then the page should include "Who are you applying to divorce?"

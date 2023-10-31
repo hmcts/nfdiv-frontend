@@ -148,6 +148,8 @@ export const config = {
   },
 };
 
+process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || new Date().toISOString();
+
 config.helpers = {
   Playwright: {
     url: config.TEST_URL,
@@ -156,9 +158,22 @@ config.helpers = {
     waitForTimeout: config.WaitForTimeout,
     waitForAction: 350,
     timeout: config.WaitForTimeout,
-    retries: 5,
+    retries: 3,
     waitForNavigation: 'load',
     ignoreHTTPSErrors: true,
     bypassCSP: true,
+    chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && {
+      timeout: 30000,
+      headers: {
+        'x-mpt-access-key': process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN,
+      },
+      exposeNetwork: process.env.TEST_URL ? '*.preview.platform.hmcts.net' : '<loopback>',
+      browserWSEndpoint: {
+        wsEndpoint: `${process.env.PLAYWRIGHT_SERVICE_URL}?cap=${JSON.stringify({
+          os: 'linux',
+          runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
+        })}`,
+      },
+    },
   },
 };
