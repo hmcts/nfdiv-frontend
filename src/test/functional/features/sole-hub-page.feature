@@ -2,18 +2,11 @@ Feature: Sole hub page
 
   Background:
     Given I create a new user and login
-    And I've already completed the form using the fixture "completeCase"
-    And I go to '/check-your-answers'
-    And I click "I confirm"
-    And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
-    And I pay and submit the application
-    Then the page should include "Application submitted"
-    Given a case worker issues the application
+    And I've already completed the form using the fixture "issuedCase"
+    Given I set the case state to "AwaitingAos"
     And I enter my valid case reference and valid access code
 
   Scenario: Sole hub applicant and respondent pages
-    Given I set the case state to "AwaitingAos"
     When I go to "/"
     Then the page should include "Your wife has submitted an application for divorce."
     When I click "Respond to the application"
