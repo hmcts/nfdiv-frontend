@@ -4,7 +4,11 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = ({ userCase, partner, required }) => ({
-  title: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames} your ${partner}'s full name, including any middle names?`,
+  title: {
+    part1: 'Is ',
+    part2: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
+    part3: ` your ${partner}'s full name, including any middle names?`,
+  },
   yes: "Yes, that's their full name",
   no: "No, that's not their full name",
   errors: {
