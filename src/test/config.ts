@@ -73,7 +73,7 @@ export const autoLoginForApplicant2 = {
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
-  WaitForTimeout: 15000,
+  WaitForTimeout: 30000,
   GetCurrentUser: (): { username: string; password: string } => ({
     username: idamUserManager.getCurrentUsername(),
     password: TestPass,
@@ -156,14 +156,14 @@ config.helpers = {
     show: !config.TestHeadlessBrowser,
     browser: 'chromium',
     waitForTimeout: config.WaitForTimeout,
-    waitForAction: 500,
+    waitForAction: 350,
     timeout: config.WaitForTimeout,
-    retries: 5,
+    retries: 3,
     waitForNavigation: 'load',
     ignoreHTTPSErrors: true,
     bypassCSP: true,
     chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && {
-      timeout: 15000,
+      timeout: config.WaitForTimeout,
       headers: {
         'x-mpt-access-key': process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN,
       },
