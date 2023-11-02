@@ -163,7 +163,7 @@ config.helpers = {
     ignoreHTTPSErrors: true,
     bypassCSP: true,
     chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && {
-      timeout: 30000,
+      timeout: config.WaitForTimeout,
       headers: {
         'x-mpt-access-key': process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN,
       },

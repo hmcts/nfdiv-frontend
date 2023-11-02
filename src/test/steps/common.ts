@@ -321,7 +321,7 @@ const executeUserCaseScript = async data => {
   const api = iGetTheCaseApi(testUser);
 
   // add a delay after logging a user in because it creates an extra case that needs to be added to the ES index
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise(resolve => setTimeout(resolve, 2000));
   const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
   if (userCase) {
