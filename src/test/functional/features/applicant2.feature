@@ -27,7 +27,7 @@ Feature: Applicant 2
 
     When I click "Continue"
     Then the page should include "Is Billy Bob your full name, including any middle names?"
-    Given I select "Yes"
+    Given I select "Yes, that's my full name"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/changes-to-your-name"
@@ -178,7 +178,7 @@ Feature: Applicant 2
 
     When I click "Continue"
     Then the page should include "Is Sarah Smith your full name, including any middle names?"
-    Given I select "Yes"
+    Given I select "Yes, that's my full name"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/changes-to-your-name"

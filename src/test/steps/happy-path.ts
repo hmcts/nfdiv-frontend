@@ -106,12 +106,22 @@ Given("I've completed all happy path questions correctly", async () => {
   I.type('Test your last name');
   iClick('Continue');
 
+  I.waitInUrl('/confirm-your-name');
+  iClearTheForm();
+  iClick("Yes, that's my full name");
+  iClick('Continue');
+
   I.waitInUrl('/enter-their-name');
   iClearTheForm();
   iClick('first name');
   I.type('Test their name');
   iClick('last name');
   I.type('Test their last name');
+  iClick('Continue');
+
+  I.waitInUrl('/confirm-their-name');
+  iClearTheForm();
+  iClick("Yes, that's their full name");
   iClick('Continue');
 
   I.waitInUrl('/your-names-on-certificate');

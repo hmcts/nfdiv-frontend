@@ -149,6 +149,11 @@ Feature: Form failures
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
 
+    Given I go to "/confirm-your-name"
+    And I clear the form
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+
     Given I go to "/enter-their-name"
     And I clear the form
     When I click "Continue"
@@ -161,6 +166,11 @@ Feature: Form failures
     And I type "Their last-name1"
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter their name using letters only."
+
+    Given I go to "/confirm-their-name"
+    And I clear the form
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
     Given I go to "/your-names-on-certificate"
     When I click "Continue"
@@ -389,6 +399,11 @@ Feature: Form failures
     And I type "My last-name1"
     When I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
+
+    Given I go to "/applicant2/confirm-your-name"
+    And I clear the form
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
     Given I go to "/applicant2/changes-to-your-name"
     And I clear the form

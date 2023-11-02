@@ -58,7 +58,7 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Is Sarah Smith your full name, including any middle names?"
-    Given I select "Yes"
+    Given I select "Yes, that's my full name"
 
     When I click "Continue"
     Then the page should include "Enter your husband’s name"
@@ -70,7 +70,7 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Is Billy Bob your husband's full name, including any middle names?"
-    Given I select "Yes"
+    Given I select "Yes, that's their full name"
 
     When I click "Continue"
     Then the page should include "Your names on your marriage certificate"
@@ -287,7 +287,7 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Is Sarah Middle Smith your full name, including any middle names?"
-    Given I select "Yes"
+    Given I select "Yes, that's my full name"
 
     When I click "Continue"
     Then the page should include "Enter your husband’s name"
@@ -299,7 +299,7 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Is Billy Bob your husband's full name, including any middle names?"
-    Given I select "Yes"
+    Given I select "Yes, that's their full name"
 
     When I click "Continue"
     Then the page should include "Your names on your marriage certificate"
