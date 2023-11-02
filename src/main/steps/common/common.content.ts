@@ -146,6 +146,7 @@ export const en = {
     postcode: 'CM20 9UG',
   },
   contactEmail: 'contactdivorce@justice.gov.uk',
+  contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
   saveAndSignOutLink: SAVE_AND_SIGN_OUT,
   avayaLanguage: 'English',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
@@ -271,6 +272,7 @@ const cy: typeof en = {
   },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'contactdivorce@justice.gov.uk',
+  contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
   avayaLanguage: 'Welsh',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
 };
