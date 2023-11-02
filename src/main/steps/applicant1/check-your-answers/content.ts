@@ -216,24 +216,26 @@ const en = ({
       line1: 'Your first name(s)',
       line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
-      line4: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
-      line5: `How did you change your last name when you ${
+      line4: 'Have you confirmed your full name, including any middle name(s) (if you have one)',
+      line5: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
+      line6: `How did you change your last name when you ${
         isDivorce ? 'got married' : 'formed your civil partnership'
       }?`,
-      line6: `Have you changed any part of your name since ${
+      line7: `Have you changed any part of your name since ${
         isDivorce ? 'getting married' : 'forming your civil partnership'
       }?`,
-      line7: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
+      line8: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
     },
     contactYou: {
       line1: 'Your first name(s)',
       line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
-      line4: 'By email',
-      line5: 'By phone',
-      line6: 'What language do you want to receive emails and documents in?',
-      line7: `Do you need your contact details kept private from your ${partner}?`,
-      line8: 'Your postal address',
+      line4: 'Have you confirmed your full name, including any middle name(s) (if you have one)',
+      line5: 'By email',
+      line6: 'By phone',
+      line7: 'What language do you want to receive emails and documents in?',
+      line8: `Do you need your contact details kept private from your ${partner}?`,
+      line9: 'Your postal address',
     },
     contactThem: {
       line1: `Your ${partner}'s first name(s)`,
@@ -369,31 +371,32 @@ const en = ({
       line1: `${stripTags(userCase.applicant1FirstNames)}`,
       line2: `${stripTags(userCase.applicant1MiddleNames)}`,
       line3: `${stripTags(userCase.applicant1LastNames)}`,
-      line4: `${
+      line4: userCase.applicant1ConfirmFullName,
+      line5: `${
         userCase.applicant1AgreeToReceiveEmails
           ? `I agree that the ${
               isDivorce ? 'divorce' : 'civil partnership'
             } service can send me notifications and serve (deliver) court documents to me by email.`
           : ''
       }`,
-      line5: `${
+      line6: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : stripTags(userCase.applicant1PhoneNumber)
       }`,
-      line6: `${
+      line7: `${
         userCase.applicant1EnglishOrWelsh
           ? userCase.applicant1EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant1EnglishOrWelsh.slice(1)
           : ''
       }`,
-      line7: `${
+      line8: `${
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : userCase.applicant1AddressPrivate === YesOrNo.YES
           ? 'Keep my contact details private'
           : 'I do not need my contact details kept private'
       }`,
-      line8: `${
+      line9: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [
@@ -532,20 +535,22 @@ const en = ({
       line1: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
       line2: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
       line3: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
-      line4: urls.CHANGES_TO_YOUR_NAME_URL,
+      line4: urls.CONFIRM_YOUR_NAME,
       line5: urls.CHANGES_TO_YOUR_NAME_URL,
       line6: urls.CHANGES_TO_YOUR_NAME_URL,
       line7: urls.CHANGES_TO_YOUR_NAME_URL,
+      line8: urls.CHANGES_TO_YOUR_NAME_URL,
     },
     contactYou: {
       line1: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
       line2: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
       line3: isJointApplication ? urls.ENTER_YOUR_NAMES : urls.ENTER_YOUR_NAME,
-      line4: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
+      line4: urls.CONFIRM_YOUR_NAME,
       line5: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
-      line6: urls.ENGLISH_OR_WELSH,
-      line7: urls.ADDRESS_PRIVATE,
-      line8: urls.ENTER_YOUR_ADDRESS,
+      line6: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
+      line7: urls.ENGLISH_OR_WELSH,
+      line8: urls.ADDRESS_PRIVATE,
+      line9: urls.ENTER_YOUR_ADDRESS,
     },
     contactThem: {
       line1: urls.THEIR_NAME,
@@ -702,24 +707,26 @@ const cy: typeof en = ({
       line1: 'Eich enw(au) cyntaf',
       line2: 'Eich enw(au) canol (os oes gennych un)',
       line3: 'Eich cyfenw(au)',
-      line4: `A wnaethoch chi newid eich cyfenw pan wnaethoch ${
+      line4: 'Have you confirmed your full name, including any middle name(s) (if you have one)',
+      line5: `A wnaethoch chi newid eich cyfenw pan wnaethoch ${
         isDivorce ? 'chi briodi' : 'ffurfio eich partneriaeth sifil'
       }?`,
-      line5: `How did you change your last name when you ${
+      line6: `How did you change your last name when you ${
         isDivorce ? 'got married' : 'formed your civil partnership'
       }?`,
-      line6: `A ydych wedi newid unrhyw ran o'ch enw ers ${isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'}?`,
-      line7: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
+      line7: `A ydych wedi newid unrhyw ran o'ch enw ers ${isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'}?`,
+      line8: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
     },
     contactYou: {
       line1: 'Eich enw(au) cyntaf',
       line2: 'Eich enw(au) canol (os oes gennych un)',
       line3: 'Eich cyfenw(au)',
-      line4: 'Trwy e-bost',
-      line5: 'Dros y ffôn',
-      line6: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
-      line7: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
-      line8: 'Eich cyfeiriad post',
+      line4: 'Have you confirmed your full name, including any middle name(s) (if you have one)',
+      line5: 'Trwy e-bost',
+      line6: 'Dros y ffôn',
+      line7: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
+      line8: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
+      line9: 'Eich cyfeiriad post',
     },
     contactThem: {
       line1: `Enw(au) cyntaf eich ${partner}`,
@@ -864,31 +871,32 @@ const cy: typeof en = ({
       line1: `${stripTags(userCase.applicant1FirstNames)}`,
       line2: `${stripTags(userCase.applicant1MiddleNames)}`,
       line3: `${stripTags(userCase.applicant1LastNames)}`,
-      line4: `${
+      line4: userCase.applicant1ConfirmFullName,
+      line5: `${
         userCase.applicant1AgreeToReceiveEmails
           ? `Rwy'n cytuno y gall y ${
               isDivorce ? 'gwasanaeth ysgaru' : 'gwasanaeth diweddu partneriaeth sifil'
             } anfon hysbysiadau ataf a chyflwyno (danfon) dogfennau llys ataf drwy e-bost.`
           : ''
       }`,
-      line5: `${
+      line6: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : stripTags(userCase.applicant1PhoneNumber)
       }`,
-      line6: `${
+      line7: `${
         userCase.applicant1EnglishOrWelsh
           ? userCase.applicant1EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant1EnglishOrWelsh.slice(1)
           : ''
       }`,
-      line7: `${
+      line8: `${
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : userCase.applicant1AddressPrivate === YesOrNo.YES
           ? 'Cadwch fy manylion cyswllt yn breifat'
           : 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat'
       }`,
-      line8: `${
+      line9: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [

@@ -19,29 +19,29 @@
 
   {% for section, title in sectionTitles %}
     {% set answerRows = [] %}
-      {% for line, text in stepAnswers[section] %}
-        {% if text and text != 'undefined' and text != 'null' %}
+    {% for line, text in stepAnswers[section] %}
+      {% if text and text != 'undefined' and text != 'null' %}
 
-          {% set answerRows = (answerRows.push({
-            key: {
-              html: stepQuestions[section][line],
-              classes: 'govuk-!-width-two-thirds'
-            },
-            value: {
-              text: text | safe
-            },
-            actions: {
-              items: [
-                {
-                  href: applicant2Url + stepLinks[section][line],
-                  text: change,
-                  visuallyHiddenText: stepQuestions[section][line]
-                }
-              ]
-            }
-          }), answerRows) %}
-        {% endif %}
-      {% endfor %}
+        {% set answerRows = (answerRows.push({
+          key: {
+            html: stepQuestions[section][line],
+            classes: 'govuk-!-width-two-thirds'
+          },
+          value: {
+            text: text | safe
+          },
+          actions: {
+            items: [
+              {
+                href: applicant2Url + stepLinks[section][line],
+                text: change,
+                visuallyHiddenText: stepQuestions[section][line]
+              }
+            ]
+          }
+        }), answerRows) %}
+      {% endif %}
+    {% endfor %}
 
     {% if answerRows.length %}
       <h2 class="govuk-heading-m">{{sectionTitles[section]}}</h2>
