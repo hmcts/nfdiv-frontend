@@ -43,7 +43,7 @@
     "@hmcts/nodejs-healthcheck": "1.8.3",
     "@hmcts/nodejs-logging": "4.0.4",
     "@hmcts/properties-volume": "1.1.0",
-    "@types/config": "3.3.2",
+    "@types/config": "3.3.3",
     "@types/cookie-parser": "1.4.5",
     "@types/csurf": "1.11.4",
     "@types/es6-promisify": "6.0.3",
