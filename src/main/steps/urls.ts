@@ -54,7 +54,10 @@ export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-t
 
 export const ENTER_YOUR_NAME: PageLink = '/enter-your-name';
 export const ENTER_YOUR_NAMES: PageLink = '/enter-your-names';
+export const CONFIRM_YOUR_NAME: PageLink = '/confirm-your-name';
 export const THEIR_NAME: PageLink = '/enter-their-name';
+export const CONFIRM_THEIR_NAME: PageLink = '/confirm-their-name';
+
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
 export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';

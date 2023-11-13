@@ -26,6 +26,10 @@ Feature: Applicant 2
     And I type "Bob"
 
     When I click "Continue"
+    Then the page should include "Is Billy Bob your full name, including any middle names?"
+    Given I select "Yes, that's my full name"
+
+    When I click "Continue"
     Then the page URL should be "/applicant2/changes-to-your-name"
     And the page should include "Changes to your name"
     Given I select "No" for "Did you change your last name when you got married?"
@@ -111,7 +115,6 @@ Feature: Applicant 2
     And I login with applicant "2"
     Then the page should include "Application submitted"
 
-
   @nightly
   Scenario: They fill out an unhappy path applicant 2 journey with help with fees
     When I go to "/help-with-your-fee"
@@ -167,10 +170,15 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/enter-your-names"
     And the page should include "Enter your name"
+    When I clear the form
     Given I select "Your first name(s)"
     And I type "Sarah"
     And I select "Your last name(s)"
     And I type "Smith"
+
+    When I click "Continue"
+    Then the page should include "Is Sarah Smith your full name, including any middle names?"
+    Given I select "Yes, that's my full name"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/changes-to-your-name"

@@ -498,6 +498,7 @@ export interface CaseData {
   applicant1FirstName: string;
   applicant1MiddleName: string;
   applicant1LastName: string;
+  applicant1ConfirmFullName: YesOrNo;
   applicant1Email: string;
   applicant1AgreedToReceiveEmails: YesOrNo;
   applicant1ConfirmReceipt: YesOrNo;
@@ -543,6 +544,7 @@ export interface CaseData {
   applicant2FirstName: string;
   applicant2MiddleName: string;
   applicant2LastName: string;
+  applicant2ConfirmFullName: YesOrNo;
   applicant2Email: string;
   applicant2AgreedToReceiveEmails: YesOrNo;
   applicant2ConfirmReceipt: YesOrNo;

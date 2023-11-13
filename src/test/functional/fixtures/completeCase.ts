@@ -68,4 +68,6 @@ export const completeCase: Partial<BrowserCase> = {
   applicant1UploadedFiles: [],
   connections: [JurisdictionConnections.APP_1_APP_2_RESIDENT],
   applicant1IsApplicant2Represented: Applicant2Represented.NO,
+  applicant1ConfirmFullName: YesOrNo.YES,
+  applicant2ConfirmFullName: YesOrNo.YES,
 };

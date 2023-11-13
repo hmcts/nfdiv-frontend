@@ -63,6 +63,10 @@ Feature: Applicant 1 joint application
     And I type "Smith"
 
     When I click "Continue"
+    Then the page should include "Is Sarah Smith your full name, including any middle names?"
+    Given I select "Yes, that's my full name"
+
+    When I click "Continue"
     Then the page should include "Your names on your marriage certificate"
     Given I select "Copy your full name from the marriage certificate"
     And I type "Sarah Smith"
@@ -248,12 +252,17 @@ Feature: Applicant 1 joint application
 
     When I click "Continue"
     Then the page should include "Enter your name"
-    Given I select "Your first name"
+    Given I clear the form
+    And I select "Your first name"
     And I type "Sarah"
     And I select "Your middle name(s) (if you have one)"
     And I type "Middle"
     And I select "Your last name"
     And I type "Smith"
+
+    When I click "Continue"
+    Then the page should include "Is Sarah Middle Smith your full name, including any middle names?"
+    Given I select "Yes, that's my full name"
 
     When I click "Continue"
     Then the page should include "Your names on your marriage certificate"

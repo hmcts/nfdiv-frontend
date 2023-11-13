@@ -35,8 +35,9 @@ const en = ({ isDivorce, userCase }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: `${userCase.applicant2LastNameChangedWhenMarried}`,
-      line5: `${
+      line4: userCase.applicant2ConfirmFullName,
+      line5: `${userCase.applicant2LastNameChangedWhenMarried}`,
+      line6: `${
         userCase.applicant2LastNameChangedWhenMarriedMethod?.length
           ? userCase.applicant2LastNameChangedWhenMarriedMethod
               .join(' / ')
@@ -48,8 +49,8 @@ const en = ({ isDivorce, userCase }) => ({
               )
           : ''
       }`,
-      line6: `${userCase.applicant2NameDifferentToMarriageCertificate}`,
-      line7: `${
+      line7: `${userCase.applicant2NameDifferentToMarriageCertificate}`,
+      line8: `${
         userCase.applicant2NameDifferentToMarriageCertificateMethod?.length
           ? userCase.applicant2NameDifferentToMarriageCertificateMethod
               .join(' / ')
@@ -158,8 +159,9 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: userCase.applicant2LastNameChangedWhenMarried.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line5: `${
+      line4: userCase.applicant2ConfirmFullName,
+      line5: userCase.applicant2LastNameChangedWhenMarried.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line6: `${
         userCase.applicant2LastNameChangedWhenMarriedMethod?.length
           ? userCase.applicant2LastNameChangedWhenMarriedMethod
               .join(' / ')
@@ -171,8 +173,8 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
               )
           : ''
       }`,
-      line6: userCase.applicant2NameDifferentToMarriageCertificate.replace('Yes', 'Do').replace('No', 'Naddo'),
-      line7: `${
+      line7: userCase.applicant2NameDifferentToMarriageCertificate.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line8: `${
         userCase.applicant2NameDifferentToMarriageCertificateMethod?.length
           ? userCase.applicant2NameDifferentToMarriageCertificateMethod
               .join(' / ')
