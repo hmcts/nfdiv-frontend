@@ -58,7 +58,7 @@
     "@types/require-directory": "2.1.5",
     "@types/serve-favicon": "2.5.7",
     "@types/session-file-store": "1.2.5",
-    "@types/toobusy-js": "0.5.3",
+    "@types/toobusy-js": "0.5.4",
     "@types/uuid": "9.0.7",
     "@uppy/core": "3.6.1",
     "@uppy/drop-target": "2.0.2",
