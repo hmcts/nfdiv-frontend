@@ -2144,13 +2144,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/session-file-store@npm:1.2.4":
-  version: 1.2.4
-  resolution: "@types/session-file-store@npm:1.2.4"
+"@types/session-file-store@npm:1.2.5":
+  version: 1.2.5
+  resolution: "@types/session-file-store@npm:1.2.5"
   dependencies:
     "@types/express": "*"
     "@types/express-session": "*"
-  checksum: 58896f2b42ecd5ddbe0e53a31ede52a21c6b2c9d783d35ee162567df476be258311058ecc74472eb4b3efad2f836fe6bcae46b674075cd31bb227ad98915f103
+  checksum: 77205f83886a454071130bcc1fff1b4592558705617142623b64630db993050e5d0f112616f6ff6bd44449efcd06f3b4a19e8ac29b6a3e58ff2537bf55727277
   languageName: node
   linkType: hard
 
@@ -10282,7 +10282,7 @@ __metadata:
     "@types/nunjucks": 3.2.6
     "@types/require-directory": 2.1.4
     "@types/serve-favicon": 2.5.6
-    "@types/session-file-store": 1.2.4
+    "@types/session-file-store": 1.2.5
     "@types/toobusy-js": 0.5.3
     "@types/uuid": 9.0.6
     "@typescript-eslint/eslint-plugin": 6.9.1
