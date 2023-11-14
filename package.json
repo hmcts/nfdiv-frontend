@@ -54,7 +54,7 @@
     "@types/multer": "1.4.10",
     "@types/negotiator": "0.6.3",
     "@types/node": "20.8.10",
-    "@types/nunjucks": "3.2.5",
+    "@types/nunjucks": "3.2.6",
     "@types/require-directory": "2.1.4",
     "@types/serve-favicon": "2.5.6",
     "@types/session-file-store": "1.2.4",
