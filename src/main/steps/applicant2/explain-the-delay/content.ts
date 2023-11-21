@@ -31,6 +31,7 @@ export const form: FormContent = {
           name: 'applicant2FinalOrderStatementOfTruth',
           label: l => l.finalOrderStatementOfTruth,
           value: Checkbox.Checked,
+          selected: false,
           validator: isFieldFilledIn,
         },
       ],
