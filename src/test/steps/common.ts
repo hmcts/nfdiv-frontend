@@ -83,8 +83,9 @@ When('I select {string}', iClick);
 When('I click for more details', iClickMoreDetailsComponent);
 When('I wait {string} seconds', iWait);
 
-export const checkOptionFor = (optionLabel: string, fieldLabel: string): void =>
+export const checkOptionFor = (optionLabel: string, fieldLabel: string): Promise<void> =>
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
+
 When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
   checkOptionFor(optionLabel, fieldLabel);
 });
