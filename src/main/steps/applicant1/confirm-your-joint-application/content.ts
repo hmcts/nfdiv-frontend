@@ -76,20 +76,20 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
         '<br>' +
         userCase.applicant2LegalProceedingsDetails
       : userCase.applicant1LegalProceedings === YesOrNo.YES
-      ? `Applicant 1 has given details of other court cases relating to the ${
-          isDivorce ? 'marriage' : 'civil partnership'
-        }:` +
-        '<br>' +
-        userCase.applicant1LegalProceedingsDetails
-      : userCase.applicant2LegalProceedings === YesOrNo.YES
-      ? `Applicant 2 has given details of other court cases relating to the ${
-          isDivorce ? 'marriage' : 'civil partnership'
-        }:` +
-        '<br>' +
-        userCase.applicant2LegalProceedingsDetails
-      : `The applicants have indicated that there are no other court cases which are related to the ${
-          isDivorce ? 'marriage' : 'civil partnership'
-        }`
+        ? `Applicant 1 has given details of other court cases relating to the ${
+            isDivorce ? 'marriage' : 'civil partnership'
+          }:` +
+          '<br>' +
+          userCase.applicant1LegalProceedingsDetails
+        : userCase.applicant2LegalProceedings === YesOrNo.YES
+          ? `Applicant 2 has given details of other court cases relating to the ${
+              isDivorce ? 'marriage' : 'civil partnership'
+            }:` +
+            '<br>' +
+            userCase.applicant2LegalProceedingsDetails
+          : `The applicants have indicated that there are no other court cases which are related to the ${
+              isDivorce ? 'marriage' : 'civil partnership'
+            }`
   }.`,
   subHeading5: `Reason for ${isDivorce ? 'the divorce' : 'ending the civil partnership'}`,
   line18: `The ${isDivorce ? 'marriage' : 'relationship'} has broken down irretrievably (it cannot be saved).`,
@@ -239,20 +239,20 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
         '<br>' +
         userCase.applicant2LegalProceedingsDetails
       : userCase.applicant1LegalProceedings === YesOrNo.YES
-      ? `Mae Ceisydd 1 wedi rhoi manylion am achosion llys eraill sy’n ymwneud â’r ${
-          isDivorce ? 'briodas' : 'bartneriaeth sifil'
-        }:` +
-        '<br>' +
-        userCase.applicant1LegalProceedingsDetails
-      : userCase.applicant2LegalProceedings === YesOrNo.YES
-      ? `Mae Ceisydd 2 wedi rhoi manylion am achosion llys eraill sy’n ymwneud â’r ${
-          isDivorce ? 'briodas' : 'bartneriaeth sifil'
-        }:` +
-        '<br>' +
-        userCase.applicant2LegalProceedingsDetails
-      : `Mae’r ceiswyr wedi nodi nad oes unrhyw achosion llys eraill sy’n ymwneud â’r ${
-          isDivorce ? 'briodas' : 'bartneriaeth sifil'
-        }`
+        ? `Mae Ceisydd 1 wedi rhoi manylion am achosion llys eraill sy’n ymwneud â’r ${
+            isDivorce ? 'briodas' : 'bartneriaeth sifil'
+          }:` +
+          '<br>' +
+          userCase.applicant1LegalProceedingsDetails
+        : userCase.applicant2LegalProceedings === YesOrNo.YES
+          ? `Mae Ceisydd 2 wedi rhoi manylion am achosion llys eraill sy’n ymwneud â’r ${
+              isDivorce ? 'briodas' : 'bartneriaeth sifil'
+            }:` +
+            '<br>' +
+            userCase.applicant2LegalProceedingsDetails
+          : `Mae’r ceiswyr wedi nodi nad oes unrhyw achosion llys eraill sy’n ymwneud â’r ${
+              isDivorce ? 'briodas' : 'bartneriaeth sifil'
+            }`
   }.`,
   subHeading5: `Rheswm dros ${isDivorce ? 'yr ysgariad' : 'ddod â’r bartneriaeth sifil i ben'}`,
   line18: `Mae’r ${isDivorce ? 'briodas' : 'berthynas'} wedi chwalu’n gyfan gwbl (ni ellir ei hachub).`,

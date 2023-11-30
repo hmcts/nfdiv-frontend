@@ -128,8 +128,8 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
       return req.session.userCase.applicant2ApplyForConditionalOrder
         ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL
         : req.session.userCase.applicant2ApplyForConditionalOrderStarted
-        ? CONTINUE_WITH_YOUR_APPLICATION
-        : HUB_PAGE;
+          ? CONTINUE_WITH_YOUR_APPLICATION
+          : HUB_PAGE;
     }
     case State.AwaitingLegalAdvisorReferral: {
       return HUB_PAGE;

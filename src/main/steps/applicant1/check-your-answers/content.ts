@@ -393,8 +393,8 @@ const en = ({
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : userCase.applicant1AddressPrivate === YesOrNo.YES
-          ? 'Keep my contact details private'
-          : 'I do not need my contact details kept private'
+            ? 'Keep my contact details private'
+            : 'I do not need my contact details kept private'
       }`,
       line9: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
@@ -597,8 +597,8 @@ const en = ({
   continue: isJointApplication
     ? 'Send for review'
     : stripTags(userCase.applicant1HelpWithFeesRefNo)
-    ? 'Submit application'
-    : 'Continue to payment',
+      ? 'Submit application'
+      : 'Continue to payment',
   errors: isJointApplication
     ? undefined
     : {
@@ -893,8 +893,8 @@ const cy: typeof en = ({
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : userCase.applicant1AddressPrivate === YesOrNo.YES
-          ? 'Cadwch fy manylion cyswllt yn breifat'
-          : 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat'
+            ? 'Cadwch fy manylion cyswllt yn breifat'
+            : 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat'
       }`,
       line9: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
@@ -1024,8 +1024,8 @@ const cy: typeof en = ({
   continue: isJointApplication
     ? 'Send for review'
     : stripTags(userCase.applicant1HelpWithFeesRefNo)
-    ? 'Cyflwyno eich cais'
-    : 'Parhau i’r dudalen dalu',
+      ? 'Cyflwyno eich cais'
+      : 'Parhau i’r dudalen dalu',
   errors: isJointApplication
     ? undefined
     : {

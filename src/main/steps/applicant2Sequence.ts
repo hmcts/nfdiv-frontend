@@ -60,8 +60,8 @@ export const preSubmissionSequence: Step[] = [
       data.applicant2ScreenHasUnionBroken === YesOrNo.NO
         ? YOU_CANNOT_APPLY
         : data.applicant1HelpPayingNeeded === YesOrNo.YES
-        ? HELP_WITH_YOUR_FEE_URL
-        : ENTER_YOUR_NAMES,
+          ? HELP_WITH_YOUR_FEE_URL
+          : ENTER_YOUR_NAMES,
   },
   {
     url: YOU_CANNOT_APPLY,
@@ -131,10 +131,10 @@ export const preSubmissionSequence: Step[] = [
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
         ? APPLY_FINANCIAL_ORDER_DETAILS
         : [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(
-            value => nameChangedHowPossibleValue(data, true)?.includes(value)
-          )
-        ? UPLOAD_YOUR_DOCUMENTS
-        : CHECK_JOINT_APPLICATION,
+              value => nameChangedHowPossibleValue(data, true)?.includes(value)
+            )
+          ? UPLOAD_YOUR_DOCUMENTS
+          : CHECK_JOINT_APPLICATION,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,

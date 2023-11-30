@@ -53,8 +53,8 @@ const fields: FromApiConverters = {
       data.applicant2LanguagePreferenceWelsh === YesOrNo.YES
         ? LanguagePreference.Welsh
         : data.applicant2LanguagePreferenceWelsh === null
-        ? data.applicant2LanguagePreferenceWelsh
-        : LanguagePreference.English,
+          ? data.applicant2LanguagePreferenceWelsh
+          : LanguagePreference.English,
   }),
   applicant1Address: data => formatAddress(data, 'applicant1'),
   applicant1AgreedToReceiveEmails: data => ({
@@ -112,8 +112,8 @@ const fields: FromApiConverters = {
       howToRespondApplication === HowToRespondApplication.DISPUTE_DIVORCE
         ? YesOrNo.YES
         : howToRespondApplication === null
-        ? howToRespondApplication
-        : YesOrNo.NO,
+          ? howToRespondApplication
+          : YesOrNo.NO,
   }),
   coApplicant1StatementOfTruth: data => ({
     coApplicant1StatementOfTruth: checkboxConverter(data.coApplicant1StatementOfTruth),
