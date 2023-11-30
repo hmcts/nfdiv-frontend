@@ -1,7 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import axios, { AxiosResponse } from 'axios';
 import config from 'config';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import NodeCache from 'node-cache';
 
 import { APPLICANT_2_CALLBACK_URL, CALLBACK_URL, PageLink, SIGN_IN_URL } from '../../../steps/urls';
@@ -29,7 +29,7 @@ export const getUserDetails = async (
   const params = { callbackUrl, code };
 
   const response: AxiosResponse<OidcResponse> = await getIdamToken(params, params.code);
-  const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
+  const jwt = jwtDecode(response.data.id_token) as IdTokenJwtPayload;
 
   return {
     accessToken: response.data.access_token,
@@ -48,7 +48,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
 
   const response: AxiosResponse<OidcResponse> = await getIdamToken(params, params.username);
 
-  const jwt = jwt_decode(response.data.id_token) as IdTokenJwtPayload;
+  const jwt = jwtDecode(response.data.id_token) as IdTokenJwtPayload;
 
   return {
     accessToken: response.data.access_token,
