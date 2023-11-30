@@ -63,8 +63,8 @@ export default class PaymentCallbackGetController {
         req.query.back
           ? CHECK_ANSWERS_URL
           : req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION
-          ? PAY_AND_SUBMIT
-          : PAY_YOUR_FEE
+            ? PAY_AND_SUBMIT
+            : PAY_YOUR_FEE
       );
     });
   }

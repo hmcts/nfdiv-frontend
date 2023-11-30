@@ -83,8 +83,8 @@ const en = (
       )
         ? 'jurisdiction'
         : connections[0] === JurisdictionConnections.APP_1_APP_2_DOMICILED
-        ? 'domicile'
-        : 'habitual residence'
+          ? 'domicile'
+          : 'habitual residence'
     } and the other possible legal connections`,
     connectionCheckboxes,
     preMadeConnections: addConnectionsBasedOnQuestions(userCase),
@@ -155,8 +155,8 @@ const cy: typeof en = (
       )
         ? 'awdurdodaeth'
         : connections[0] === JurisdictionConnections.APP_1_APP_2_DOMICILED
-        ? 'domisil'
-        : 'preswylio’n arferol'
+          ? 'domisil'
+          : 'preswylio’n arferol'
     } a chysylltiadau cyfreithiol eraill posib`,
     connectionCheckboxes,
     preMadeConnections: addConnectionsBasedOnQuestions(userCase),

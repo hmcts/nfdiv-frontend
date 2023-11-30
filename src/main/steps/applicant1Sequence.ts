@@ -275,8 +275,8 @@ export const applicant1PreSubmissionSequence: Step[] = [
       data.applicant1ConfirmFullName === YesOrNo.NO
         ? ENTER_YOUR_NAMES
         : data.applicationType === ApplicationType.JOINT_APPLICATION
-        ? CERTIFICATE_NAME
-        : THEIR_NAME,
+          ? CERTIFICATE_NAME
+          : THEIR_NAME,
   },
   {
     url: THEIR_NAME,
@@ -312,8 +312,8 @@ export const applicant1PreSubmissionSequence: Step[] = [
       hasApp1Confirmed(data)
         ? ADDRESS_PRIVATE
         : data.applicationType === ApplicationType.JOINT_APPLICATION
-        ? OTHER_COURT_CASES
-        : DO_THEY_HAVE_A_SOLICITOR,
+          ? OTHER_COURT_CASES
+          : DO_THEY_HAVE_A_SOLICITOR,
   },
   {
     url: DO_THEY_HAVE_A_SOLICITOR,
@@ -333,8 +333,8 @@ export const applicant1PreSubmissionSequence: Step[] = [
         return data.applicant1DoesNotKnowApplicant2EmailAddress
           ? YOU_NEED_THEIR_EMAIL_ADDRESS
           : isApplicant2EmailUpdatePossible(data)
-          ? EMAIL_RESENT
-          : IN_THE_UK;
+            ? EMAIL_RESENT
+            : IN_THE_UK;
       } else {
         return DO_YOU_HAVE_ADDRESS;
       }
@@ -414,8 +414,8 @@ export const applicant1PreSubmissionSequence: Step[] = [
       data.applicationType === ApplicationType.JOINT_APPLICATION
         ? SENT_TO_APPLICANT2_FOR_REVIEW
         : data.applicant1HelpWithFeesRefNo
-        ? APPLICATION_SUBMITTED
-        : PAY_YOUR_FEE,
+          ? APPLICATION_SUBMITTED
+          : PAY_YOUR_FEE,
   },
   {
     url: SENT_TO_APPLICANT2_FOR_REVIEW,

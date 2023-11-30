@@ -20,8 +20,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       userCase.applicant2EmailAddress
         ? ' by email'
         : userCase.applicant1KnowsApplicant2Address === YesOrNo.YES
-        ? ' by post'
-        : ''
+          ? ' by post'
+          : ''
     }.`,
     line2: `Your ${partner} should respond to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -182,8 +182,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
         alternativeServiceType === AlternativeServiceType.BAILIFF
           ? 'for bailiff'
           : alternativeServiceType === AlternativeServiceType.DEEMED
-          ? 'for deemed'
-          : 'to dispense with'
+            ? 'for deemed'
+            : 'to dispense with'
       } service. You can read the reasons on the court’s `,
       part2: 'Refusal Order (PDF)',
       downloadReference: 'Refusal-Order',
@@ -191,8 +191,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
         alternativeServiceType === AlternativeServiceType.BAILIFF
           ? 'bailiff-service-refused'
           : alternativeServiceType === AlternativeServiceType.DEEMED
-          ? 'deemed-service-refused'
-          : 'dispense-with-service-refused'
+            ? 'deemed-service-refused'
+            : 'dispense-with-service-refused'
       }`,
     },
     line2: {
@@ -242,8 +242,8 @@ const cy: typeof en = (
       userCase.applicant2EmailAddress
         ? ' drwy e-bost'
         : userCase.applicant1KnowsApplicant2Address === YesOrNo.YES
-        ? " drwy'r post"
-        : ''
+          ? " drwy'r post"
+          : ''
     }.`,
     line2: `Dylai eich ${partner} ymateb i'r ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partner sifil i ben"
@@ -414,8 +414,8 @@ const cy: typeof en = (
         alternativeServiceType === AlternativeServiceType.BAILIFF
           ? 'am wasanaeth beili'
           : alternativeServiceType === AlternativeServiceType.DEEMED
-          ? 'cyflwyno tybiedig'
-          : 'hepgor cyflwyno’r cais'
+            ? 'cyflwyno tybiedig'
+            : 'hepgor cyflwyno’r cais'
       }. Gallwch ddarllen y rhesymau ar `,
       part2: 'Orchymyn Gwrthod y llys (PDF)',
       downloadReference: 'Refusal-Order',
@@ -423,8 +423,8 @@ const cy: typeof en = (
         alternativeServiceType === AlternativeServiceType.BAILIFF
           ? 'bailiff-service-refused'
           : alternativeServiceType === AlternativeServiceType.DEEMED
-          ? 'deemed-service-refused'
-          : 'dispense-with-service-refused'
+            ? 'deemed-service-refused'
+            : 'dispense-with-service-refused'
       }`,
     },
     line2: {

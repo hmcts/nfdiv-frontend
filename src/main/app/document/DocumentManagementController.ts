@@ -63,8 +63,8 @@ export class DocumentManagerController {
       req.session.userCase.state === State.AwaitingClarification
         ? 'coClarificationUploadDocuments'
         : isApplicant2
-        ? 'applicant2DocumentsUploaded'
-        : 'applicant1DocumentsUploaded';
+          ? 'applicant2DocumentsUploaded'
+          : 'applicant1DocumentsUploaded';
     const updatedDocumentsUploaded = newUploads.concat(req.session.userCase[documentsKey] || []);
 
     req.session.userCase = await req.locals.api.triggerEvent(
@@ -91,8 +91,8 @@ export class DocumentManagerController {
       req.session.userCase.state === State.AwaitingClarification
         ? 'coClarificationUploadDocuments'
         : isApplicant2
-        ? 'applicant2DocumentsUploaded'
-        : 'applicant1DocumentsUploaded';
+          ? 'applicant2DocumentsUploaded'
+          : 'applicant1DocumentsUploaded';
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
