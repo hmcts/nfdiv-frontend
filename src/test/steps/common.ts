@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
 import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc';
@@ -284,7 +284,7 @@ export const iGetTheTestUser = async (user: { username: string; password: string
   const params = { username: user.username, password: user.password };
   const response: AxiosResponse<OidcResponse> = await getIdamToken(params, params.username);
 
-  const jwt = jwt_decode(response.data.id_token) as {
+  const jwt = jwtDecode(response.data.id_token) as {
     uid: string;
     sub: string;
     given_name: string;
