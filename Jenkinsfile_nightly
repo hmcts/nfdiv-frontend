@@ -36,7 +36,9 @@ def secrets = [
                 secret('e2e-test-user-password', 'TEST_PASSWORD'),
                 secret('frontend-secret', 'SERVICE_AUTH_SECRET'),
                 secret('idam-secret', 'IDAM_SECRET'),
-                secret('pcq-token-key', 'PCQ_TOKEN')
+                secret('pcq-token-key', 'PCQ_TOKEN'),
+                secret('playwright-service-url', 'PLAYWRIGHT_SERVICE_URL'),
+                secret('playwright-token', 'PLAYWRIGHT_SERVICE_ACCESS_TOKEN'),
         ]
 ]
 
