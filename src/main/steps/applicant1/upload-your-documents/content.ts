@@ -13,13 +13,13 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
   const union = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Upload your documents',
-    youNeed: 'You need to upload a digital photo or scan of the following documents:',
+    youNeed: 'You need to upload a colour photo or scan of the following documents:',
     certificate: `your original ${union} certificate`,
     certificateForeign: `your original foreign ${union} certificate`,
     certificateForeignTranslation: `a certified translation of your foreign ${union} certificate`,
     proofOfNameChange: 'proof that you changed your name, for example a deed poll or ‘statutory declaration’',
     warningPhoto:
-      'Make sure the photo or scan shows the whole document. Check you can read all the text before uploading it. If court staff cannot read the details then it may be rejected.',
+      'Make sure the photo or scan is in colour and shows all 4 corners of the document. The certificate number (if it has one) and all the text must be readable. Blurred images will be rejected, delaying your application.',
     infoTakePhoto: 'You can take a picture with your phone and upload it',
     infoBullet1: 'Place your document on a flat service in a well-lit room. Use a flash if you need to.',
     infoBullet2: 'Take a picture of the whole document. You should be able to see its edges.',
