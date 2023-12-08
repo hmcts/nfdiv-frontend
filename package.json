@@ -109,7 +109,7 @@
     "@types/jest": "29.5.11",
     "@typescript-eslint/eslint-plugin": "6.13.2",
     "@typescript-eslint/parser": "6.13.2",
-    "@wdio/cli": "8.24.13",
+    "@wdio/cli": "8.24.16",
     "@wdio/sauce-service": "8.24.12",
     "allure-commandline": "2.25.0",
     "axios-debug-log": "1.0.0",
