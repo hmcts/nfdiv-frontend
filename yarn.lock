@@ -2531,9 +2531,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/cli@npm:8.24.13":
-  version: 8.24.13
-  resolution: "@wdio/cli@npm:8.24.13"
+"@wdio/cli@npm:8.24.16":
+  version: 8.24.16
+  resolution: "@wdio/cli@npm:8.24.16"
   dependencies:
     "@types/node": ^20.1.1
     "@wdio/config": 8.24.12
@@ -2560,7 +2560,7 @@ __metadata:
     yargs: ^17.7.2
   bin:
     wdio: bin/wdio.js
-  checksum: 24b56008ffbc0aade5528f452c0f49c04ef675b56329dbd7e29159ade5688c7c7a9de66298e1d7d04441edd0f8b4bcc7eea80dc022afa43e760674bc8a986359
+  checksum: f8d2c42ff66901740ea88b5e208b5619c395f4f7834a27d85e7e5cdbcf6e88355b9b63d8b59a5380b8f480e91b6698ae9d6c91f99d48fb1db377123defd524ed
   languageName: node
   linkType: hard
 
@@ -10365,7 +10365,7 @@ __metadata:
     "@uppy/file-input": 3.0.4
     "@uppy/progress-bar": 3.0.4
     "@uppy/xhr-upload": 3.5.0
-    "@wdio/cli": 8.24.13
+    "@wdio/cli": 8.24.16
     "@wdio/sauce-service": 8.24.12
     allure-commandline: 2.25.0
     applicationinsights: 2.9.1
