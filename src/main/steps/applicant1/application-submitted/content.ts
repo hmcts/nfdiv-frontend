@@ -130,15 +130,15 @@ const en = (
     part2: 'support is available',
     link: config.get('govukUrls.domesticAbuse'),
   },
-  feedback: 'Help improve this service',
-  feedbackDetails: {
-    part1: 'This is a new service. ',
-    part2: 'Your feedback',
-    part3: ' helps to improve it for others.',
+  feedback: "We'd like to hear your thoughts",
+  feedbackLine1: 'Complete this short, 5-minute survey to help improve our services for you and others.',
+  feedbackLine2: {
+    part1: 'Please leave your feedback here',
     link: feedbackLink,
   },
 });
 
+// @TODO Welsh
 const cy: typeof en = (
   {
     isDivorce,
@@ -259,10 +259,9 @@ const cy: typeof en = (
     link: config.get('govukUrls.domesticAbuse'),
   },
   feedback: "Helpwch ni i wella'r gwasanaeth hwn",
-  feedbackDetails: {
+  feedbackLine1: 'Complete this short, 5-minute survey to help improve our services for you and others.',
+  feedbackLine2: {
     part1: 'Mae hwn yn wasanaeth newydd.',
-    part2: 'Mae eich adborth',
-    part3: ' yn ein helpu i wella’r gwasanaeth i eraill.',
     link: feedbackLink,
   },
 });
