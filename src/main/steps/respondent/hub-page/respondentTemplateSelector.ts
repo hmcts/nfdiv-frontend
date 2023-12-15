@@ -37,6 +37,9 @@ export const getRespondentHubTemplate = (
         return HubTemplate.AwaitingAoS;
       }
     case State.Holding:
+      if (!hasSubmittedAos) {
+        return HubTemplate.AwaitingAoS;
+      }
       return HubTemplate.Holding;
     default: {
       if (displayState.isAtOrBefore('AwaitingConditionalOrder') && !hasSubmittedAos) {

@@ -93,6 +93,12 @@ describe('RespondentTemplateSelector test', () => {
   test('should show /holding.njk for state Holding', () => {
     const theState = displayState.at(State.Holding);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.AwaitingAoS);
+  });
+
+  test('should show /awaiting-aos.njk for state Holding but aos has been submitted', () => {
+    const theState = displayState.at(State.Holding);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, true);
     expect(respondentTemplate).toBe(HubTemplate.Holding);
   });
 
