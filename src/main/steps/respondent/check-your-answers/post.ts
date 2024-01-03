@@ -23,8 +23,7 @@ export default class RespondentCheckYourAnswersPostController extends PostContro
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
-    // If statement of truth checkbox is selected and they click save and sign out
-    // then force it to uncheck to allow them to submit AoS
+    // Force delete aosStatementOfTruth if user signs out to avoid causing an infinite loop with getNextSteps check
     formData.aosStatementOfTruth = Checkbox.Unchecked;
 
     return super.saveAndSignOut(req, res, form, formData);
