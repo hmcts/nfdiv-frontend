@@ -41,7 +41,10 @@ export class OidcMiddleware {
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (req.session?.user) {
           if (req.session.user.roles.includes('caseworker')) {
-            res.redirect('https://manage-case.platform.hmcts.net/');
+            const redirectUrl = app.locals.developmentMode
+              ? 'https://manage-case.aat.platform.hmcts.net/'
+              : 'https://manage-case.platform.hmcts.net/';
+            res.redirect(redirectUrl);
           }
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
