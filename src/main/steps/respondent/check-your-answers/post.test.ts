@@ -4,6 +4,7 @@ import { Checkbox } from '../../../app/case/case';
 import { SUBMIT_AOS, YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { SupportedLanguages } from '../../../modules/i18n';
+import { SAVE_AND_SIGN_OUT } from '../../urls';
 
 import RespondentCheckYourAnswersPostController from './post';
 
@@ -55,5 +56,27 @@ describe('RespondentCheckYourAnswersPostController', () => {
       },
       SUBMIT_AOS
     );
+  });
+  it('saves and signs out', async () => {
+    const body = {
+      aosStatementOfTruth: Checkbox.Checked,
+    };
+    const mockFormContent = {
+      fields: {
+        aosStatementOfTruth: {},
+      },
+    } as unknown as FormContent;
+    const respondentCheckYourAnswerPostController = new RespondentCheckYourAnswersPostController(
+      mockFormContent.fields
+    );
+
+    const req = mockRequest({ body });
+    req.body['saveAndSignOut'] = true;
+
+    const res = mockResponse();
+
+    await respondentCheckYourAnswerPostController.post(req, res);
+
+    expect(res.redirect).toHaveBeenLastCalledWith(SAVE_AND_SIGN_OUT);
   });
 });
