@@ -837,12 +837,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cucumber/cucumber-expressions@npm:16":
-  version: 16.1.2
-  resolution: "@cucumber/cucumber-expressions@npm:16.1.2"
+"@cucumber/cucumber-expressions@npm:17":
+  version: 17.0.1
+  resolution: "@cucumber/cucumber-expressions@npm:17.0.1"
   dependencies:
     regexp-match-indices: 1.0.2
-  checksum: 636a903a748da18d256097f898eac848ec352943507a02808cff71de9a713d47f7c214f9df45ea9e673e7b8f29d5708cf17c196bc80651fbab5d97e93c930b08
+  checksum: ab802efda6c674b2c4c30db8cd821ece06f6e2f70e197c005d23d89c36203653905f75609440f55e77c8ddf00851f480f291b470a4cadf0cf5ea424220b6103a
   languageName: node
   linkType: hard
 
@@ -4868,20 +4868,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codeceptjs@npm:3.5.10":
-  version: 3.5.10
-  resolution: "codeceptjs@npm:3.5.10"
+"codeceptjs@npm:3.5.11":
+  version: 3.5.11
+  resolution: "codeceptjs@npm:3.5.11"
   dependencies:
     "@codeceptjs/configure": 0.10.0
     "@codeceptjs/detox-helper": 1.0.2
     "@codeceptjs/helper": 2.0.1
-    "@cucumber/cucumber-expressions": 16
+    "@cucumber/cucumber-expressions": 17
     "@cucumber/gherkin": 26
     "@cucumber/messages": 22.0.0
     "@xmldom/xmldom": 0.8.10
     acorn: 8.11.2
     arrify: 2.0.1
-    axios: 1.6.2
+    axios: 1.6.3
     chai: 4.3.8
     chai-deep-match: 1.2.1
     chai-exclude: ^2.1.0
@@ -4913,7 +4913,7 @@ __metadata:
     parse-function: 5.6.4
     parse5: 7.1.2
     promise-retry: 1.1.1
-    resq: 1.10.2
+    resq: 1.11.0
     sprintf-js: 1.1.1
     uuid: 9.0
   dependenciesMeta:
@@ -4921,7 +4921,7 @@ __metadata:
       optional: true
   bin:
     codeceptjs: bin/codecept.js
-  checksum: b41c5c7fbe4c3ea631c99825865b5fb2259645e2e5a404ec91caddd2144778941de76a1cd6ed05e832f1a4f44e560d75d6393aca5f253580b9d8740d2dbacdba
+  checksum: 131874af379134ab441b6409a2cb3a20502b057e85bfdd4a864cb5b8c2d88e88c3c37e23c5e0c1a5cfa5706facee2d2456281846943bfd0f02e40bdd47019ea8
   languageName: node
   linkType: hard
 
@@ -10926,7 +10926,7 @@ __metadata:
     autobind-decorator: 2.4.0
     axios: 1.6.5
     axios-debug-log: 1.0.0
-    codeceptjs: 3.5.10
+    codeceptjs: 3.5.11
     config: 3.3.9
     connect-redis: 7.1.0
     cookie-parser: 1.4.6
@@ -12821,16 +12821,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resq@npm:1.10.2":
-  version: 1.10.2
-  resolution: "resq@npm:1.10.2"
-  dependencies:
-    fast-deep-equal: ^2.0.1
-  checksum: 24e2beea8645415d301af011728c4661699ff79b2bb87ba87a75994e7676c962f40c54bdb15fbcfa6dcb74eb390777a841e225f356ac7d6e0be68a3175afcee9
-  languageName: node
-  linkType: hard
-
-"resq@npm:^1.9.1":
+"resq@npm:1.11.0, resq@npm:^1.9.1":
   version: 1.11.0
   resolution: "resq@npm:1.11.0"
   dependencies:
