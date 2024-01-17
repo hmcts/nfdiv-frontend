@@ -31,8 +31,8 @@ export const getSoleHubTemplate = (
       return HubTemplate.ConditionalOrderPronounced;
     }
     case State.AwaitingAdminClarification:
-    case State.LAReview:
     case State.AwaitingLegalAdvisorReferral:
+    case State.LAReview:
     case State.AwaitingPronouncement:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.AwaitingGeneralConsideration:

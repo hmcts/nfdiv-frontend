@@ -39,8 +39,8 @@ export const getJointHubTemplate = (
     case State.ConditionalOrderPending:
       return HubTemplate.ConditionalOrderPending;
     case State.AwaitingAdminClarification:
-    case State.LAReview:
     case State.AwaitingLegalAdvisorReferral:
+    case State.LAReview:
       return HubTemplate.AwaitingLegalAdvisorReferral;
     case State.AwaitingFinalOrder:
       return HubTemplate.AwaitingFinalOrder;
