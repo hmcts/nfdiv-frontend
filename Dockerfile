@@ -1,12 +1,13 @@
 # ---- Base image ----
 FROM hmctspublic.azurecr.io/base/node:20-alpine as base
+USER root
+RUN corepack enable
 COPY --chown=hmcts:hmcts . .
-RUN yarn install --ignore-optional --production \
-  && yarn cache clean
-
+USER hmcts
 # ---- Build image ----
 FROM base as build
-RUN yarn --version && yarn install --ignore-optional && yarn build:prod
+RUN yarn --version
+&& yarn install && yarn build:prod
 
 # ---- Runtime image ----
 FROM base as runtime
