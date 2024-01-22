@@ -6,8 +6,7 @@ COPY --chown=hmcts:hmcts . .
 USER hmcts
 # ---- Build image ----
 FROM base as build
-RUN yarn --version
-&& yarn install && yarn build:prod
+RUN yarn --version && yarn install && yarn build:prod
 
 # ---- Runtime image ----
 FROM base as runtime
