@@ -13,3 +13,7 @@
 !config/**
 !webpack.config.js
 !version
+!.yarnrc.yml
+!.tsconfig.eslint.json
+!.yarn
+!.yarn/releases/**
