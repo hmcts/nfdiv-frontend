@@ -11054,7 +11054,7 @@ __metadata:
     nunjucks: 3.2.4
     otplib: 12.0.1
     pa11y: 7.0.0
-    pdfjs-dist: 4.0.379
+    pdfjs-dist: ^4.0.379
     prettier: 3.1.1
     redis: 4.6.12
     require-directory: 2.1.1
@@ -12039,7 +12039,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdfjs-dist@npm:4.0.379":
+"pdfjs-dist@npm:^4.0.379":
   version: 4.0.379
   resolution: "pdfjs-dist@npm:4.0.379"
   dependencies:
