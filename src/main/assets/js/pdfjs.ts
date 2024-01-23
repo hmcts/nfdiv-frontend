@@ -1,5 +1,4 @@
-import * as pdfjsLib from 'pdfjs-dist';
-import 'pdfjs-dist/build/pdf.worker.mjs';
+import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/pdf/pdf.worker.mjs';
 
