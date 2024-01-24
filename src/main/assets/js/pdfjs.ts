@@ -1,6 +1,7 @@
-import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
+import * as pdfjsLib from 'pdfjs-dist';
+import 'pdfjs-dist/build/pdf.worker.js';
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/pdf/pdf.worker.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/pdf/pdf.worker.js';
 
 const loadingMsg = document.getElementById('loading-msg') as HTMLDivElement;
 const pdfContainer = document.getElementById('pdf-container') as HTMLDivElement;
