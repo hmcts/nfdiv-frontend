@@ -2437,6 +2437,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uuid@npm:9.0.8":
+  version: 9.0.8
+  resolution: "@types/uuid@npm:9.0.8"
+  checksum: b8c60b7ba8250356b5088302583d1704a4e1a13558d143c549c408bf8920535602ffc12394ede77f8a8083511b023704bc66d1345792714002bfa261b17c5275
+  languageName: node
+  linkType: hard
+
 "@types/which@npm:^2.0.1":
   version: 2.0.2
   resolution: "@types/which@npm:2.0.2"
@@ -11075,7 +11082,7 @@ __metadata:
     "@types/serve-favicon": 2.5.7
     "@types/session-file-store": 1.2.5
     "@types/toobusy-js": 0.5.4
-    "@types/uuid": 9.0.7
+    "@types/uuid": 9.0.8
     "@typescript-eslint/eslint-plugin": 6.19.1
     "@typescript-eslint/parser": 6.19.1
     "@uppy/core": 3.8.0
