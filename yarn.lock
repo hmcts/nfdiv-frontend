@@ -11132,7 +11132,7 @@ __metadata:
     node-cache: 5.1.2
     node-sass: 9.0.0
     nodemon: 3.0.3
-    npm-run-all2: 6.1.1
+    npm-run-all2: 6.1.2
     nunjucks: 3.2.4
     otplib: 12.0.1
     pa11y: 7.0.0
@@ -11424,23 +11424,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-run-all2@npm:6.1.1":
-  version: 6.1.1
-  resolution: "npm-run-all2@npm:6.1.1"
+"npm-normalize-package-bin@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "npm-normalize-package-bin@npm:3.0.1"
+  checksum: de416d720ab22137a36292ff8a333af499ea0933ef2320a8c6f56a73b0f0448227fec4db5c890d702e26d21d04f271415eab6580b5546456861cc0c19498a4bf
+  languageName: node
+  linkType: hard
+
+"npm-run-all2@npm:6.1.2":
+  version: 6.1.2
+  resolution: "npm-run-all2@npm:6.1.2"
   dependencies:
     ansi-styles: ^6.2.1
     cross-spawn: ^7.0.3
     memorystream: ^0.3.1
     minimatch: ^9.0.0
     pidtree: ^0.6.0
-    read-pkg: ^8.0.0
+    read-package-json-fast: ^3.0.2
     shell-quote: ^1.7.3
   bin:
     npm-run-all: bin/npm-run-all/index.js
     npm-run-all2: bin/npm-run-all/index.js
     run-p: bin/run-p/index.js
     run-s: bin/run-s/index.js
-  checksum: d15f1472bedc3202a6dc9670eb40c5fdc323ac00313b74a55ed95cb02ce011c2a27a96a15e9d997c8539eae9745024259aeae13f9c0a1374f6c52c8d9988d756
+  checksum: dc595a8341eba7f1ac23496da1f5751b8372023716124d4204cee3e2e7005679902137247106861f01b9fc8976681245191ce925f2c6cea9c37a34c61cf1f9d0
   languageName: node
   linkType: hard
 
@@ -12665,6 +12672,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"read-package-json-fast@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "read-package-json-fast@npm:3.0.2"
+  dependencies:
+    json-parse-even-better-errors: ^3.0.0
+    npm-normalize-package-bin: ^3.0.0
+  checksum: 8d406869f045f1d76e2a99865a8fd1c1af9c1dc06200b94d2b07eef87ed734b22703a8d72e1cd36ea36cc48e22020bdd187f88243c7dd0563f72114d38c17072
+  languageName: node
+  linkType: hard
+
 "read-pkg-up@npm:^10.0.0":
   version: 10.1.0
   resolution: "read-pkg-up@npm:10.1.0"
@@ -12699,7 +12716,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"read-pkg@npm:^8.0.0, read-pkg@npm:^8.1.0":
+"read-pkg@npm:^8.1.0":
   version: 8.1.0
   resolution: "read-pkg@npm:8.1.0"
   dependencies:
