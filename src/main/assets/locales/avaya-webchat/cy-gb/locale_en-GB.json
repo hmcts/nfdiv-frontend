@@ -37,7 +37,7 @@
   "chat": {
     "waitingForParticipant": "Aros am y cyfranogwr...",
     "ewtUpdateStatus": "Bydd Cynghorydd gyda chi mewn oddeutu {{time}}!",
-    "ewtUpdateTimestamp": "Last updated: {{update}}!",
+    "ewtUpdateTimestamp": "Diweddarwyd diwethaf: {{update}}!",
     "ewtAgentAvailableSoon": "Bydd Cynghorydd gyda chi mewn llai na munud",
     "ewtLongWait": "Bydd Cynghorydd gyda chi mewn {{hours}} awr, {{minutes}} munud a {{seconds}} eiliad",
     "ewtShortWait": "Bydd Cynghorydd gyda chi mewn {{minutes}} munud a {{seconds}} eiliad",
