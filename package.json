@@ -92,7 +92,7 @@
     "nunjucks": "3.2.4",
     "otplib": "12.0.1",
     "pdfjs-dist": "4.0.379",
-    "redis": "4.6.12",
+    "redis": "4.6.13",
     "require-directory": "2.1.1",
     "serve-favicon": "2.5.0",
     "session-file-store": "1.5.0",
