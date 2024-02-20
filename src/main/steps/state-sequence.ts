@@ -73,6 +73,7 @@ export const orderedStateSequence: State[] = [
   State.ConditionalOrderDrafted,
   State.ConditionalOrderPending,
   State.AwaitingLegalAdvisorReferral,
+  State.LAReview,
   State.AwaitingAdminClarification,
   State.AwaitingClarification,
   State.ClarificationSubmitted,
