@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
@@ -27,6 +28,7 @@ const en = () => {
     notUK: 'I cannot enter a UK postcode',
     enterUkPostcode: 'Enter UK postcode',
     selectAddress: 'Select an address',
+    addressOverseas: 'Is this address overseas?',
     addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
     cannotFindAddress: 'I cannot find the address in the list',
     errors: {
@@ -160,6 +162,16 @@ export const form: FormContent = {
       label: l => l.country,
       labelSize: null,
       validator: isFieldFilledIn,
+    },
+    applicant1AddressOverseas: {
+      id: 'addressOverseas',
+      type: 'radios',
+      classes: 'govuk-radios--inline',
+      label: l => l.addressOverseas,
+      values: [
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
+      ],
     },
   },
   submit: {

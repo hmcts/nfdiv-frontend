@@ -236,6 +236,7 @@ const en = ({
       line7: 'What language do you want to receive emails and documents in?',
       line8: `Do you need your contact details kept private from your ${partner}?`,
       line9: 'Your postal address',
+      line10: 'Is this address overseas?',
     },
     contactThem: {
       line1: `Your ${partner}'s first name(s)`,
@@ -246,6 +247,7 @@ const en = ({
       line6: `Your ${partner}'s email address`,
       line7: `Do you have your ${partner}'s postal address?`,
       line8: `Your ${partner}'s postal address`,
+      line9: 'Is this address overseas?',
     },
     otherCourtCases: {
       line1: `Are there, or have there ever been, any other court cases relating to this ${
@@ -411,6 +413,12 @@ const en = ({
               .filter(Boolean)
               .join('<br>')
       }`,
+      line10: `${
+        (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2) ||
+        userCase.applicant1AddressOverseas === YesOrNo.NO
+          ? ''
+          : [stripTags(userCase.applicant1AddressOverseas)]
+      }`,
     },
     contactThem: {
       line1: `${isJointApplication ? '' : stripTags(userCase.applicant2FirstNames)}`,
@@ -451,6 +459,11 @@ const en = ({
             ]
               .filter(Boolean)
               .join('<br>')
+      }`,
+      line9: `${
+        isJointApplication || userCase.applicant2AddressOverseas === YesOrNo.NO
+          ? ''
+          : [stripTags(userCase.applicant2AddressOverseas)]
       }`,
     },
     otherCourtCases: {
@@ -551,6 +564,7 @@ const en = ({
       line7: urls.ENGLISH_OR_WELSH,
       line8: urls.ADDRESS_PRIVATE,
       line9: urls.ENTER_YOUR_ADDRESS,
+      line10: urls.ENTER_YOUR_ADDRESS,
     },
     contactThem: {
       line1: urls.THEIR_NAME,
@@ -561,6 +575,7 @@ const en = ({
       line6: urls.THEIR_EMAIL_ADDRESS,
       line7: urls.DO_YOU_HAVE_ADDRESS,
       line8: urls.ENTER_THEIR_ADDRESS,
+      line9: urls.ENTER_THEIR_ADDRESS,
     },
     otherCourtCases: {
       line1: urls.OTHER_COURT_CASES,
@@ -727,6 +742,7 @@ const cy: typeof en = ({
       line7: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
       line8: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
       line9: 'Eich cyfeiriad post',
+      line10: 'Is this address overseas?',
     },
     contactThem: {
       line1: `Enw(au) cyntaf eich ${partner}`,
@@ -737,6 +753,7 @@ const cy: typeof en = ({
       line6: `Cyfeiriad e-bost eich ${partner}`,
       line7: `A oes gennych gyfeiriad post eich ${partner}?`,
       line8: `Cyfeiriad post eich ${partner}`,
+      line9: 'Is this address overseas?',
     },
     otherCourtCases: {
       line1: `A oes, neu a oes wedi bod erioed, unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${
@@ -911,6 +928,12 @@ const cy: typeof en = ({
               .filter(Boolean)
               .join('<br>')
       }`,
+      line10: `${
+        (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2) ||
+        userCase.applicant1AddressOverseas === YesOrNo.NO
+          ? ''
+          : [stripTags(userCase.applicant1AddressOverseas)]
+      }`,
     },
     contactThem: {
       line1: `${isJointApplication ? '' : stripTags(userCase.applicant2FirstNames)}`,
@@ -958,6 +981,11 @@ const cy: typeof en = ({
             ]
               .filter(Boolean)
               .join('<br>')
+      }`,
+      line9: `${
+        isJointApplication || userCase.applicant2AddressOverseas === YesOrNo.NO
+          ? ''
+          : [stripTags(userCase.applicant2AddressOverseas)]
       }`,
     },
     otherCourtCases: {

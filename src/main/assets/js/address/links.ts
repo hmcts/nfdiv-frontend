@@ -2,9 +2,21 @@ import { getById, hidden, qs, qsa } from '../selectors';
 
 import { hideErrors } from './errors';
 
-const toggleLookupPostcode = (toggle: string) => (getById('enterPostcode') as HTMLElement).classList[toggle](hidden);
+const toggleLookupPostcode = (toggle: string) => {
+  (getById('enterPostcode') as HTMLElement).classList[toggle](hidden);
+};
 export const hideEnterPostcode = (): void => toggleLookupPostcode('add');
 export const showEnterPostcode = (): void => toggleLookupPostcode('remove');
+
+const toggleAddressOverseas = (toggle: string) => {
+  if (toggle === 'yes') {
+    (getById('addressOverseas') as HTMLInputElement).click();
+  } else {
+    (getById('addressOverseas-2') as HTMLInputElement).click();
+  }
+};
+export const yesAddressOverseas = (): void => toggleAddressOverseas('yes');
+export const noAddressOverseas = (): void => toggleAddressOverseas('no');
 
 const hideSelectAddress = () => (getById('selectAddress') as HTMLElement).classList.add(hidden);
 
@@ -30,6 +42,7 @@ const toggleInternationalAddressFields = (toggle: string) => {
 
   (qs('.govuk-form-group.address3') as HTMLElement).classList[toggle](hidden);
   (qs('.govuk-form-group.addressCountry') as HTMLElement).classList[toggle](hidden);
+  (qs('.govuk-form-group.addressOverseas') as HTMLElement).classList[toggle](hidden);
   (getById('enterUkPostcode') as HTMLElement).classList[toggle](hidden);
   (getById('main-form-submit') as HTMLElement).classList[toggle](hidden);
 };
@@ -58,6 +71,7 @@ if (cannotEnterUkPostcode) {
     e.preventDefault();
     hideErrors();
     hideEnterPostcode();
+    yesAddressOverseas();
     showUkAddressFields();
     showInternationalAddressFields();
   };
@@ -84,6 +98,7 @@ const onResetPostcodeLookup = e => {
   }
 
   showEnterPostcode();
+  noAddressOverseas();
 };
 
 const resetPostcodeLookupLinks = qsa('[data-link="resetPostcodeLookup"]') as NodeListOf<HTMLElement>;
