@@ -1,6 +1,6 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
-import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, CaseDate, Checkbox, formatCase, formFieldsToCaseMapping, LanguagePreference } from './case';
 import {
   Applicant2Represented,
   ApplicationType,
@@ -136,6 +136,10 @@ const fields: ToApiConverters = {
   applicant1AddressPrivate: ({ applicant1AddressPrivate }) => ({
     applicant1ContactDetailsType:
       applicant1AddressPrivate === YesOrNo.YES ? ContactDetailsType.PRIVATE : ContactDetailsType.PUBLIC,
+  }),
+  applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
+    applicant1AddressOverseas:
+      applicant1AddressOverseas === undefined || applicant1AddressOverseas === YesOrNo.NO ? YesOrNo.NO : YesOrNo.YES,
   }),
   applicant2AddressPrivate: ({ applicant2AddressPrivate }) => ({
     applicant2ContactDetailsType:
@@ -276,6 +280,10 @@ const fields: ToApiConverters = {
           ])
         )
       : setUnreachableAnswersToNull(['applicant1WantsToHavePapersServedAnotherWay'])),
+  }),
+  applicant2AddressOverseas: ({ applicant2AddressOverseas }) => ({
+    applicant2AddressOverseas:
+      applicant2AddressOverseas === undefined || applicant2AddressOverseas === YesOrNo.NO ? YesOrNo.NO : YesOrNo.YES,
   }),
   inTheUk: data => ({
     marriageMarriedInUk: data.inTheUk,
