@@ -512,6 +512,7 @@ export interface CaseData {
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;
+  applicant1AddressOverseas: YesOrNo;
   applicant1PhoneNumber: string;
   applicant1Gender: Gender;
   applicant1ContactDetailsType: ContactDetailsType;
@@ -558,6 +559,7 @@ export interface CaseData {
   applicant2NameChangedHow: ChangedNameHow[];
   applicant2NameChangedHowOtherDetails: string;
   applicant2Address: AddressGlobalUK;
+  applicant2AddressOverseas: YesOrNo;
   applicant2PhoneNumber: string;
   applicant2Gender: Gender;
   applicant2ContactDetailsType: ContactDetailsType;
