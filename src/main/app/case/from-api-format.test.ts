@@ -253,6 +253,7 @@ describe('from-api-format', () => {
           County: 'County',
           PostCode: 'Postcode',
         },
+        applicant1AddressOverseas: YesOrNo.NO,
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
@@ -261,6 +262,7 @@ describe('from-api-format', () => {
         applicant1AddressTown: 'Town',
         applicant1AddressCounty: 'County',
         applicant1AddressPostcode: 'Postcode',
+        applicant1AddressOverseas: YesOrNo.NO,
       });
     });
 
@@ -274,6 +276,7 @@ describe('from-api-format', () => {
           County: 'County',
           PostCode: 'Postcode',
         },
+        applicant2AddressOverseas: YesOrNo.NO,
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
@@ -282,6 +285,7 @@ describe('from-api-format', () => {
         applicant2AddressTown: 'Town',
         applicant2AddressCounty: 'County',
         applicant2AddressPostcode: 'Postcode',
+        applicant2AddressOverseas: YesOrNo.NO,
       });
     });
 
@@ -297,6 +301,7 @@ describe('from-api-format', () => {
           PostCode: 'Zip code',
           Country: 'Country',
         },
+        applicant1AddressOverseas: YesOrNo.YES,
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({});
