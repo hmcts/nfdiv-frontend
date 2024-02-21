@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CaseWithId } from '../../../app/case/case';
 import { CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS, YesOrNo } from '../../../app/case/definition';
+
 import EnterTheirAddressPostController from './post';
 
 describe('EnterTheirAddressPostController', () => {

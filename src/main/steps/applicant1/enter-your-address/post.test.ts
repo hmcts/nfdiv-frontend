@@ -6,6 +6,7 @@ import {
   CITIZEN_UPDATE_CONTACT_DETAILS,
   YesOrNo,
 } from '../../../app/case/definition';
+
 import EnterYourAddressPostController from './post';
 
 describe('EnterYourAddressPostController', () => {
