@@ -10,9 +10,9 @@ export const showEnterPostcode = (): void => toggleLookupPostcode('remove');
 
 const toggleAddressOverseas = (toggle: string) => {
   if (toggle === 'yes') {
-    (getById('addressOverseas') as HTMLInputElement).click();
+    (qs('.govuk-form-group.addressOverseas .govuk-radios__input[value="Yes"]') as HTMLInputElement).click();
   } else {
-    (getById('addressOverseas-2') as HTMLInputElement).click();
+    (qs('.govuk-form-group.addressOverseas .govuk-radios__input[value="No"]') as HTMLInputElement).click();
   }
 };
 export const yesAddressOverseas = (): void => toggleAddressOverseas('yes');
