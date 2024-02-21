@@ -22,6 +22,7 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2AddressPostcode: 'SW1H 9AJ',
   applicant2AddressPrivate: YesOrNo.NO,
   applicant2AddressTown: 'LONDON',
+  applicant2AddressOverseas: YesOrNo.NO,
   applicant2LastNameChangedWhenMarried: YesOrNo.YES,
   applicant2LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE, ChangedNameHow.OTHER],
   applicant2LastNameChangedWhenMarriedOtherDetails: 'Other reason',
