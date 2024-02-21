@@ -85,6 +85,9 @@ export class Nunjucks {
         avayaClientUrl: config.get('webchat.avayaClientUrl'),
         avayaService: config.get('webchat.avayaService'),
       },
+      dynatrace: {
+        dynatraceUrl: config.get('dynatrace.dynatraceUrl'),
+      },
     };
 
     env.addGlobal('globals', globals);
