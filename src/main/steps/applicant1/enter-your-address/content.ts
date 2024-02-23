@@ -73,6 +73,7 @@ const cy = () => {
     notUK: 'Ni allaf nodi cod post yn y DU',
     enterUkPostcode: 'Nodwch god post yn y DU',
     selectAddress: 'Dewiswch gyfeiriad',
+    addressOverseas: 'A yw’r cyfeiriad hwn dramor?',
     addressesFound: (addressesFound: number) =>
       `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
     cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
