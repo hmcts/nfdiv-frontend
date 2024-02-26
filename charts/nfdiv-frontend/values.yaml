@@ -49,8 +49,8 @@ nodejs:
     IDAM_TOKEN_CACHE: false
 #disable autoscaling because it doesnt deploy AAT
 autoscaling:
-  enabled: false
-  maxReplicas: 16
+  enabled: true
+  maxReplicas: 8
   targetCPUUtilizationPercentage: 80
 
 idam-pr:
