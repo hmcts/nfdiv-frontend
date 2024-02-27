@@ -48,10 +48,10 @@ nodejs:
     DECREE_NISI_URL: 'https://decree-nisi-aks.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_TOKEN_CACHE: false
 #disable autoscaling because it doesnt deploy AAT
-autoscaling:
-  enabled: false
-  maxReplicas: 16
-  targetCPUUtilizationPercentage: 80
+  autoscaling:
+    enabled: true
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 80
 
 idam-pr:
   enabled: false
