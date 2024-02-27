@@ -127,7 +127,7 @@
     "lint-staged": "15.2.2",
     "mini-css-extract-plugin": "2.8.0",
     "node-sass": "9.0.0",
-    "nodemon": "3.0.3",
+    "nodemon": "3.1.0",
     "npm-run-all2": "6.1.2",
     "pa11y": "7.0.0",
     "prettier": "3.1.1",
