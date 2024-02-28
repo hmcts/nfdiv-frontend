@@ -62,6 +62,12 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
   });
 
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state LAReview', () => {
+    const theState = displayState.at(State.LAReview);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
+  });
+
   test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
     const theState = displayState.at(State.FinalOrderComplete);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);

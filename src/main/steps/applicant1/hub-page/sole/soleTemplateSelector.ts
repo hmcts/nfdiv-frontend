@@ -32,6 +32,7 @@ export const getSoleHubTemplate = (
     }
     case State.AwaitingAdminClarification:
     case State.AwaitingLegalAdvisorReferral:
+    case State.LAReview:
     case State.AwaitingPronouncement:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.AwaitingGeneralConsideration:
