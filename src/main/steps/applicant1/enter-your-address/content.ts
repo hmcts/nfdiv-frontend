@@ -25,7 +25,7 @@ const en = () => {
     postcodeOptional: 'Postal code, zip code or area code (optional)',
     country: 'Country',
     findAddress: 'Find address',
-    notUK: 'I cannot enter a UK postcode',
+    notUK: 'I have an international address',
     enterUkPostcode: 'Enter UK postcode',
     selectAddress: 'Select an address',
     addressOverseas: 'Is this an international address?',
