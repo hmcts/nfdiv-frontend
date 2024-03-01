@@ -70,10 +70,10 @@ const cy = () => {
     postcodeOptional: 'Cod post, cod zip neu god ardal (dewisol)',
     country: 'Gwlad',
     findAddress: 'Dod o hyd i gyfeiriad',
-    notUK: 'Ni allaf nodi cod post yn y DU',
+    notUK: 'Mae gennyf gyfeiriad rhyngwladol',
     enterUkPostcode: 'Nodwch god post yn y DU',
     selectAddress: 'Dewiswch gyfeiriad',
-    addressOverseas: 'A yw’r cyfeiriad hwn dramor?',
+    addressOverseas: 'A yw hwn yn gyfeiriad rhyngwladol?',
     addressesFound: (addressesFound: number) =>
       `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
     cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
