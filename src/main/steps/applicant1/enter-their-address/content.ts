@@ -30,7 +30,7 @@ const en = ({ partner }: Partial<CommonContent>) => {
     notUK: 'I cannot enter a UK postcode',
     enterUkPostcode: 'Enter UK postcode',
     selectAddress: 'Select an address',
-    addressOverseas: 'Is this address overseas?',
+    addressOverseas: 'Is this an international address?',
     addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
     cannotFindAddress: 'I cannot find the address in the list',
     errors: {

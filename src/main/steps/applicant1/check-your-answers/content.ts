@@ -236,7 +236,7 @@ const en = ({
       line7: 'What language do you want to receive emails and documents in?',
       line8: `Do you need your contact details kept private from your ${partner}?`,
       line9: 'Your postal address',
-      line10: 'Is this address overseas?',
+      line10: 'Is this an international address?',
     },
     contactThem: {
       line1: `Your ${partner}'s first name(s)`,
@@ -247,7 +247,7 @@ const en = ({
       line6: `Your ${partner}'s email address`,
       line7: `Do you have your ${partner}'s postal address?`,
       line8: `Your ${partner}'s postal address`,
-      line9: 'Is this address overseas?',
+      line9: 'Is this an international address?',
     },
     otherCourtCases: {
       line1: `Are there, or have there ever been, any other court cases relating to this ${
@@ -742,7 +742,7 @@ const cy: typeof en = ({
       line7: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
       line8: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
       line9: 'Eich cyfeiriad post',
-      line10: 'Is this address overseas?',
+      line10: 'Is this an international address?',
     },
     contactThem: {
       line1: `Enw(au) cyntaf eich ${partner}`,
@@ -753,7 +753,7 @@ const cy: typeof en = ({
       line6: `Cyfeiriad e-bost eich ${partner}`,
       line7: `A oes gennych gyfeiriad post eich ${partner}?`,
       line8: `Cyfeiriad post eich ${partner}`,
-      line9: 'Is this address overseas?',
+      line9: 'Is this an international address?',
     },
     otherCourtCases: {
       line1: `A oes, neu a oes wedi bod erioed, unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${
