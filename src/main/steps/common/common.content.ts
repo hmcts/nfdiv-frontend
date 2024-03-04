@@ -244,7 +244,7 @@ const cy: typeof en = {
   helpChatClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd.',
   helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltwch â ni dros y ffôn neu e-bost.',
   webChatTitle: 'Sgwrsio dros y we gyda’r Gwasanaeth Ysgaru',
-  webChatPageName: 'Apply for No Fault Divorce',
+  webChatPageName: 'Gwneud cais am No Fault Divorce',
   allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
   useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
   doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
