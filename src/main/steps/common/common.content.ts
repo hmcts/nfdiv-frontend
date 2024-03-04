@@ -129,6 +129,7 @@ export const en = {
   helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
   webChatTitle: 'Ask Divorce Web Chat',
+  webChatPageName: 'Apply for No Fault Divorce',
   timeout: {
     title: 'You are about to be signed out',
     part1: 'You are going to be signed out of your application in',
@@ -243,6 +244,7 @@ const cy: typeof en = {
   helpChatClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd.',
   helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltwch â ni dros y ffôn neu e-bost.',
   webChatTitle: 'Sgwrsio dros y we gyda’r Gwasanaeth Ysgaru',
+  webChatPageName: 'Apply for No Fault Divorce',
   allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
   useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
   doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
