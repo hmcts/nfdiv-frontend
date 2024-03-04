@@ -68,6 +68,12 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferral);
   });
 
+  test('should show /awaiting-legal-advisor-referral.njk for state LAReview', () => {
+    const theState = displayState.at(State.LAReview);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferral);
+  });
+
   test('should show /awaiting-legal-advisor-referral.njk for state AwaitingAdminClarification', () => {
     const theState = displayState.at(State.AwaitingAdminClarification);
     const jointTemplate = getJointHubTemplate(theState, userCase);

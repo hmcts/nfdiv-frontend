@@ -13,13 +13,13 @@ nodejs:
   livenessDelay: 45
   livenessTimeout: 5
   livenessPeriod: 15
-  memoryLimits: '256Mi'
-  memoryRequests: '256Mi'
+  memoryLimits: '384Mi'
+  memoryRequests: '384Mi'
   cpuLimits: '1000m'
   cpuRequests: '200m'
   devcpuRequests: '400m'
-  devmemoryLimits: '256Mi'
-  devmemoryRequests: '256Mi'
+  devmemoryLimits: '384Mi'
+  devmemoryRequests: '384Mi'
   keyVaults:
     nfdiv:
       resourceGroup: nfdiv
@@ -48,10 +48,10 @@ nodejs:
     DECREE_NISI_URL: 'https://decree-nisi-aks.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_TOKEN_CACHE: false
 #disable autoscaling because it doesnt deploy AAT
-autoscaling:
-  enabled: false
-  maxReplicas: 16
-  targetCPUUtilizationPercentage: 80
+  autoscaling:
+    enabled: true
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 80
 
 idam-pr:
   enabled: false

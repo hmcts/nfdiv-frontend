@@ -58,6 +58,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
   });
 
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state LAReview', () => {
+    const theState = displayState.at(State.LAReview);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
+  });
+
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingPronouncement', () => {
     const theState = displayState.at(State.AwaitingPronouncement);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);

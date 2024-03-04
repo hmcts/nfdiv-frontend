@@ -131,6 +131,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
           ? CONTINUE_WITH_YOUR_APPLICATION
           : HUB_PAGE;
     }
+    case State.LAReview:
     case State.AwaitingLegalAdvisorReferral: {
       return HUB_PAGE;
     }
