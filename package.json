@@ -65,7 +65,7 @@
     "@uppy/file-input": "3.1.0",
     "@uppy/progress-bar": "3.1.0",
     "@uppy/xhr-upload": "3.6.4",
-    "applicationinsights": "2.9.4",
+    "applicationinsights": "2.9.5",
     "autobind-decorator": "2.4.0",
     "axios": "1.6.7",
     "config": "3.3.11",
