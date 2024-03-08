@@ -92,6 +92,7 @@ const fields: ToApiConverters = {
           'applicant2SolicitorEmail',
           'applicant2SolicitorFirmName',
           'applicant2SolicitorAddress',
+          'applicant2SolicitorAddressOverseas',
         ])
       : {}),
   }),
@@ -262,6 +263,7 @@ const fields: ToApiConverters = {
           'applicant2SolicitorEmail',
           'applicant2SolicitorFirmName',
           'applicant2SolicitorAddress',
+          'applicant2SolicitorAddressOverseas',
         ])
       : {}),
   }),
@@ -355,6 +357,12 @@ const fields: ToApiConverters = {
       data.applicant2SolicitorAddressPostcode,
       data.applicant2SolicitorAddressCountry,
     ]),
+  }),
+  applicant2SolicitorAddressOverseas: ({ applicant2SolicitorAddressOverseas }) => ({
+    applicant2SolicitorAddressOverseas:
+      applicant2SolicitorAddressOverseas === undefined || applicant2SolicitorAddressOverseas === YesOrNo.NO
+        ? YesOrNo.NO
+        : YesOrNo.YES,
   }),
   applicant1IntendsToSwitchToSole: data => ({
     applicant1IntendsToSwitchToSole: [checkboxConverter(data.applicant1IntendsToSwitchToSole)],
