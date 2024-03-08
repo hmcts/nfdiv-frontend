@@ -35,6 +35,7 @@ describe('to-api-format', () => {
     applicant2SolicitorAddressCounty: 'Address County',
     applicant2SolicitorAddressPostcode: 'Address Postcode',
     applicant2SolicitorAddressCountry: 'Address Country',
+    applicant2SolicitorAddressOverseas: YesOrNo.NO,
     applicant1IsApplicant2Represented: Applicant2Represented.NO,
     applicant2AlreadyAppliedForHelpPaying: YesOrNo.YES,
     applicant2HelpWithFeesRefNo: 'HWF-123-CBA',
@@ -99,6 +100,7 @@ describe('to-api-format', () => {
     applicant2SolicitorAddressCounty: 'Address County',
     applicant2SolicitorAddressPostcode: 'Address Postcode',
     applicant2SolicitorAddressCountry: 'Address Country',
+    applicant2SolicitorAddressOverseas: YesOrNo.NO,
     applicant1IsApplicant2Represented: Applicant2Represented.YES,
     applicant1NameChangedHow: [],
     applicant2NameChangedHow: [],
@@ -130,6 +132,7 @@ describe('to-api-format', () => {
       applicant2HWFAppliedForFees: YesOrNo.YES,
       applicant2HWFReferenceNumber: 'HWF-123-CBA',
       applicant2SolicitorAddress: null,
+      applicant2SolicitorAddressOverseas: null,
       applicant2SolicitorEmail: null,
       applicant2SolicitorFirmName: null,
       applicant2SolicitorName: null,
@@ -216,6 +219,7 @@ describe('to-api-format', () => {
       applicant2SolicitorFirmName: 'Solicitor Firm Name',
       applicant2SolicitorAddress:
         'Address 1\nAddress 2\nAddress 3\nAddress Town\nAddress County\nAddress Postcode\nAddress Country',
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
       applicant1NameChangedHowOtherDetails: '',
       applicant2NameChangedHowOtherDetails: '',
       applicant1NameChangedHow: [],
@@ -396,6 +400,7 @@ describe('to-api-format', () => {
         applicant2SolicitorEmail: null,
         applicant2SolicitorFirmName: null,
         applicant2SolicitorAddress: null,
+        applicant2SolicitorAddressOverseas: null,
       },
     },
     {
@@ -492,6 +497,7 @@ describe('to-api-format', () => {
       applicant2SolicitorAddressCounty: 'testLineCounty',
       applicant2SolicitorAddressPostcode: 'testLinePostcode',
       applicant2SolicitorAddressCountry: 'testLineCountry',
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
       expected: {
         applicant2SolicitorAddress:
           'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
@@ -505,6 +511,7 @@ describe('to-api-format', () => {
       applicant2SolicitorAddressCounty: '',
       applicant2SolicitorAddressPostcode: 'testLinePostcode',
       applicant2SolicitorAddressCountry: '',
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
       expected: {
         applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
       },
