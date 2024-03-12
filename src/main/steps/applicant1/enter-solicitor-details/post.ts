@@ -14,9 +14,7 @@ export default class EnterSolicitorDetailsPostController extends PostController<
       (formData.applicant2SolicitorAddressPostcode && formData.applicant2SolicitorAddress1)
     ) {
       formData.applicant2SolicitorRepresented = YesOrNo.YES;
-      if (formData.applicant2SolicitorAddressOverseas === undefined) {
-        formData.applicant2SolicitorAddressOverseas = YesOrNo.NO;
-      }
+      formData.applicant2SolicitorAddressOverseas ??= YesOrNo.NO;
     } else {
       formData.applicant2SolicitorRepresented = YesOrNo.NO;
       formData.applicant2SolicitorAddressOverseas = undefined;

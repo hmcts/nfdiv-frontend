@@ -147,10 +147,7 @@ const fields: FromApiConverters = {
     };
   },
   applicant2SolicitorAddressOverseas: ({ applicant2SolicitorAddressOverseas }) => ({
-    applicant2SolicitorAddressOverseas:
-      applicant2SolicitorAddressOverseas === undefined || applicant2SolicitorAddressOverseas === YesOrNo.NO
-        ? YesOrNo.NO
-        : YesOrNo.YES,
+    applicant2SolicitorAddressOverseas: applicant2SolicitorAddressOverseas ?? YesOrNo.NO,
   }),
   previousState: 'previousState',
   applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',

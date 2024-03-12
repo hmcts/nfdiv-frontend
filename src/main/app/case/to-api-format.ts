@@ -357,10 +357,7 @@ const fields: ToApiConverters = {
     ]),
   }),
   applicant2SolicitorAddressOverseas: ({ applicant2SolicitorAddressOverseas }) => ({
-    applicant2SolicitorAddressOverseas:
-      applicant2SolicitorAddressOverseas === undefined || applicant2SolicitorAddressOverseas === YesOrNo.NO
-        ? YesOrNo.NO
-        : YesOrNo.YES,
+    applicant2SolicitorAddressOverseas: applicant2SolicitorAddressOverseas ?? YesOrNo.NO,
   }),
   applicant1IntendsToSwitchToSole: data => ({
     applicant1IntendsToSwitchToSole: [checkboxConverter(data.applicant1IntendsToSwitchToSole)],
