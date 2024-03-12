@@ -58,8 +58,7 @@ const fields: FromApiConverters = {
   }),
   applicant1Address: data => formatAddress(data, 'applicant1'),
   applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
-    applicant1AddressOverseas:
-      applicant1AddressOverseas === undefined || applicant1AddressOverseas === YesOrNo.NO ? YesOrNo.NO : YesOrNo.YES,
+    applicant1AddressOverseas: applicant1AddressOverseas ?? YesOrNo.NO,
   }),
   applicant1AgreedToReceiveEmails: data => ({
     applicant1AgreeToReceiveEmails: checkboxConverter(data.applicant1AgreedToReceiveEmails),
@@ -88,8 +87,7 @@ const fields: FromApiConverters = {
   }),
   applicant2Address: data => formatAddress(data, 'applicant2'),
   applicant2AddressOverseas: ({ applicant2AddressOverseas }) => ({
-    applicant2AddressOverseas:
-      applicant2AddressOverseas === undefined || applicant2AddressOverseas === YesOrNo.NO ? YesOrNo.NO : YesOrNo.YES,
+    applicant2AddressOverseas: applicant2AddressOverseas ?? YesOrNo.NO,
   }),
   applicant1DocumentsUploaded: uploadedFilesFromApiApplicant1,
   applicant2DocumentsUploaded: uploadedFilesFromApiApplicant2,

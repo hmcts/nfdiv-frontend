@@ -9,9 +9,7 @@ import CitizenUpdateContactDetailsPostController from '../check-phone-number/pos
 @autobind
 export default class EnterTheirAddressPostController extends CitizenUpdateContactDetailsPostController {
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    if (formData.applicant2AddressOverseas === undefined) {
-      formData.applicant2AddressOverseas = YesOrNo.NO;
-    }
+    formData.applicant2AddressOverseas ??= YesOrNo.NO;
     return super.save(req, formData, eventName);
   }
 }
