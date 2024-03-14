@@ -25,12 +25,12 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'applicant1WhoIsFinancialOrderFor',
+          name: 'applicant2WhoIsFinancialOrderFor',
           label: l => l.me,
           value: FinancialOrderFor.APPLICANT,
         },
         {
-          name: 'applicant1WhoIsFinancialOrderFor',
+          name: 'applicant2WhoIsFinancialOrderFor',
           label: l => l.children,
           value: FinancialOrderFor.CHILDREN,
         }
