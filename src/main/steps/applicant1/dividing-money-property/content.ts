@@ -1,46 +1,59 @@
-import config from 'config';
-
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
+import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ partner }: CommonContent) => ({
+const en = ({ partner, isDivorce }: CommonContent) => ({
   title: 'Dividing your money and property',
-  line1: `It’s usually more straightforward and less expensive if you agree with your ${partner} on how to divide your savings, property, pensions and other assets. There are mediation services available to help you come to an agreement. You’ll be given links to more information after you have submitted this application.`,
-  agreeOnDividingAssets: 'If you agree about dividing money and property',
-  agreeOnDividingAssetsDetails: `You can ask the court to make your agreement legally binding. This is known as applying for a ‘financial order by consent’. There is an additional fee of ${getFee(
-    config.get('fees.consentOrder')
-  )}. You can get legal advice or ask a solicitor to draft a consent order for you. You will be given links to further guidance after you have submitted this application.`,
-  disagreeOnDividingAssets: 'If you disagree about dividing money and property',
-  disagreeOnDividingAssetsDetails:
-    'You can ask the court to decide for you. This is known as asking the court to make a ‘contested financial order’. This means the court will decide how assets will be split. You can also apply for a financial order for your children, if appropriate. The court can also order maintenance payments to be made.',
-  readMore: 'Read more about child maintenance',
-  readMoreContent: `The court can only make financial orders for children under certain circumstances. You can come to an agreement with your ${partner} and make it legally binding with a consent order, or you can use the Child Maintenance Service.`,
-  costs: `Applying to the court to make a ‘contested financial order’ is done separately, using another form. It costs an additional ${getFee(
-    config.get('fees.financialOrder')
-  )}.`,
+  line1: `It's important that you settle how to divide your money and property before the end of the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.
+  Otherwise you or your ${partner} could make financial claims against each other, after the ${isDivorce ? 'marriage' : 'civil partnership'} is ended. Even if you have kept
+  your finances separate during the ${isDivorce ? 'marriage' : 'civil partnership'}. The way to settle your finances is by applying to the court for a 'financial order'.`,
+  line2: `A financial order is a legal document that describes how you are going to split your money, property, pensions and other assets. You need a financial order whether
+  you can reach agreement with your ${partner} or whether you want the court to decide for you.`,
+  line3: `You need to apply for a financial order separately to the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}. You will pay an additional fee
+  when you apply (unless you are eligible for help with fees). The court will deal with it separately to the main ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.
+  You will probably need legal advice when applying for a financial order.`,
+  line4: `For legal reasons, the court needs confirmation now that you want to apply. You will receive an email with more information after you have submitted this application ${isDivorce ? 'for divorce' : 'to end your civil partnership'}.`,
+  noSelectedWarning: `It’s important to have a financial order in place by the time your ${isDivorce ? 'divorce is finalised' : 'civil partnership is legally ended'}. Otherwise you or your ${partner} could make claims on each other's
+  finances, after the ${isDivorce ? 'marriage' : 'civil partnership'} is ended. Even if you have kept your finances separate during the ${isDivorce ? 'marriage' : 'civil partnership'}. If you select yes, then you do not have to go ahead
+  with the application or pay any additional fees. It just gives you the option to apply later in the process, should you want&nbsp;to.`
 });
 
-const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: "Rhannu eich arian a'ch eiddo",
-  line1: `Gan amlaf, mae'n symlach ac yn llai costus os ydych yn cytuno â'ch ${partner} ynghylch sut i rannu eich cynilion, eiddo, pensiynau ac asedau eraill. Mae yna wasanaethau cyfryngu ar gael i'ch helpu i ddod i gytundeb. Byddwch yn cael dolenni i ragor o wybodaeth ar ôl i chi gyflwyno'r cais hwn.`,
-  agreeOnDividingAssets: 'Os ydych yn cytuno ynghylch rhannu arian ac eiddo',
-  agreeOnDividingAssetsDetails: `Gallwch ofyn i'r llys wneud eich cytundeb yn gyfreithiol rwymol. Gelwir hyn yn gwneud cais am 'orchymyn cydsynio' (sef math o orchymyn ariannol). Mae ffi ychwanegol o ${getFee(
-    config.get('fees.consentOrder')
-  )}. Gallwch gael cyngor cyfreithiol neu ofyn i gyfreithiwr ddrafftio gorchymyn cydsynio ar eich rhan. Byddwch yn cael dolenni i arweiniad pellach ar ôl i chi gyflwyno'r cais hwn.`,
-  disagreeOnDividingAssets: 'Os ydych yn anghytuno ynghylch rhannu arian ac eiddo',
-  disagreeOnDividingAssetsDetails:
-    "Gallwch ofyn i'r llys benderfynu ar eich rhan. Gelwir hyn yn gofyn i'r llys wneud 'gorchymyn ariannol'. Mae hyn yn golygu y bydd y llys yn penderfynu sut y caiff asedau eu rhannu. Gallwch hefyd wneud cais am orchymyn ariannol i'ch plant, os yw'n briodol. Gall y llys hefyd orchymyn i daliadau cynhaliaeth gael eu gwneud.",
-  readMore: 'Darllenwch fwy am gynhaliaeth plant',
-  readMoreContent: `Dim ond o dan rai amgylchiadau y gall y llys wneud gorchmynion ariannol i blant. Gallwch ddod i gytundeb â'ch ${partner} a'i wneud yn gyfreithiol rwymol gyda gorchymyn cydsynio, neu gallwch ddefnyddio'r Gwasanaeth Cynhaliaeth Plant.`,
-  costs: `Rhaid i chi wneud cais ar wahân i'r llys am orchymyn ariannol, gan ddefnyddio ffurflen arall. Mae'n costio ${getFee(
-    config.get('fees.financialOrder')
-  )} yn ychwanegol.`,
+const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
+  title: 'Dividing your money and property',
+  line1: `It's important that you settle how to divide your money and property before the end of the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.
+  Otherwise you or your ${partner} could make financial claims against each other, after the ${isDivorce ? 'marriage' : 'civil partnership'} is ended. Even if you have kept
+  your finances separate during the ${isDivorce ? 'marriage' : 'civil partnership'}. The way to settle your finances is by applying to the court for a 'financial order'.`,
+  line2: `A financial order is a legal document that describes how you are going to split your money, property, pensions and other assets. You need a financial order whether
+  you can reach agreement with your ${partner} or whether you want the court to decide for you.`,
+  line3: `You need to apply for a financial order separately to the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}. You will pay an additional fee
+  when you apply (unless you are eligible for help with fees). The court will deal with it separately to the main ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.
+  You will probably need legal advice when applying for a financial order.`,
+  line4: `For legal reasons, the court needs confirmation now that you want to apply. You will receive an email with more information after you have submitted this application ${isDivorce ? 'for divorce' : 'to end your civil partnership'}.`,
+  noSelectedWarning: `It's important to have a financial order in place by the time your ${isDivorce ? 'divorce is finalised' : 'civil partnership is legally ended'}. Otherwise you or your ${partner} could make claims on each other's
+  finances, after the ${isDivorce ? 'marriage' : 'civil partnership'} is ended. Even if you have kept your finances separate during the ${isDivorce ? 'marriage' : 'civil partnership'}. If you select yes, then you do not have to go ahead
+  with the application or pay any additional fees. It just gives you the option to apply later in the process, should you want&nbsp;to.`
 });
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    applicant1ApplyForFinancialOrder: {
+      type: 'radios',
+      classes: 'govuk-radios',
+      label: l => l.doYouWantToApplyForFinancialOrder,
+      hint: l => l.hint,
+      values: [
+        { label: l => l.yes, value: YesOrNo.YES },
+        {
+          label: l => l.no,
+          value: YesOrNo.NO,
+          conditionalText: l => `<p class="govuk-label">${l.noSelectedWarning}</p>`,
+        },
+      ],
+      validator: isFieldFilledIn,
+    },
+  },
   submit: {
     text: l => l.continue,
   },

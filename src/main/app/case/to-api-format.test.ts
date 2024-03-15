@@ -451,9 +451,7 @@ describe('to-api-format', () => {
     },
     {
       applicant1ApplyForFinancialOrder: YesOrNo.NO,
-      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       applicant2ApplyForFinancialOrder: YesOrNo.NO,
-      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       expected: {
         applicant1FinancialOrder: YesOrNo.NO,
         applicant1FinancialOrdersFor: [],

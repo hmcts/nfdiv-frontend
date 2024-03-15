@@ -7,8 +7,6 @@ import { nameChangedHowPossibleValue } from './common/content.utils';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
-  APPLY_FINANCIAL_ORDER,
-  APPLY_FINANCIAL_ORDER_DETAILS,
   CHANGES_TO_YOUR_NAME_URL,
   CHANGING_TO_SOLE_APPLICATION,
   CHECK_ANSWERS_URL,
@@ -42,6 +40,7 @@ import {
   REVIEW_YOUR_APPLICATION,
   REVIEW_YOUR_JOINT_APPLICATION,
   UPLOAD_YOUR_DOCUMENTS,
+  WHO_IS_THE_FINANCIAL_ORDER_FOR,
   WITHDRAWING_YOUR_APPLICATION,
   YOUR_COMMENTS_SENT,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
@@ -123,27 +122,19 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: MONEY_PROPERTY,
-    getNextStep: () => APPLY_FINANCIAL_ORDER,
-  },
-  {
-    url: APPLY_FINANCIAL_ORDER,
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
-        ? APPLY_FINANCIAL_ORDER_DETAILS
+        ? WHO_IS_THE_FINANCIAL_ORDER_FOR
         : [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(
               value => nameChangedHowPossibleValue(data, true)?.includes(value)
-            )
-          ? UPLOAD_YOUR_DOCUMENTS
-          : CHECK_JOINT_APPLICATION,
+            ) ? UPLOAD_YOUR_DOCUMENTS : CHECK_JOINT_APPLICATION,
   },
   {
-    url: APPLY_FINANCIAL_ORDER_DETAILS,
+    url: WHO_IS_THE_FINANCIAL_ORDER_FOR,
     getNextStep: data =>
       [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(
         value => nameChangedHowPossibleValue(data, true)?.includes(value)
-      )
-        ? UPLOAD_YOUR_DOCUMENTS
-        : CHECK_JOINT_APPLICATION,
+      ) ? UPLOAD_YOUR_DOCUMENTS : CHECK_JOINT_APPLICATION,
   },
   {
     url: UPLOAD_YOUR_DOCUMENTS,

@@ -567,8 +567,8 @@ const en = ({
       line2: urls.DETAILS_OTHER_PROCEEDINGS,
     },
     dividingAssets: {
-      line1: urls.APPLY_FINANCIAL_ORDER,
-      line2: urls.APPLY_FINANCIAL_ORDER,
+      line1: urls.MONEY_PROPERTY,
+      line2: urls.WHO_IS_THE_FINANCIAL_ORDER_FOR,
     },
     documents: {
       line1: urls.UPLOAD_YOUR_DOCUMENTS,

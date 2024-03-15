@@ -316,13 +316,13 @@ const fields: ToApiConverters = {
   coApplicant2StatementOfTruth: data => ({
     coApplicant2StatementOfTruth: checkboxConverter(data.coApplicant2StatementOfTruth),
   }),
-  applicant1WhoIsFinancialOrderFor: data => ({
-    applicant1FinancialOrdersFor:
-      data.applicant1ApplyForFinancialOrder === YesOrNo.YES ? data.applicant1WhoIsFinancialOrderFor : [],
+  applicant1ApplyForFinancialOrder: data => ({
+    applicant1FinancialOrder: data.applicant1ApplyForFinancialOrder,
+    ...data.applicant1ApplyForFinancialOrder !== YesOrNo.YES && { applicant1FinancialOrdersFor: [] }
   }),
-  applicant2WhoIsFinancialOrderFor: data => ({
-    applicant2FinancialOrdersFor:
-      data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? data.applicant2WhoIsFinancialOrderFor : [],
+  applicant2ApplyForFinancialOrder: data => ({
+    applicant2FinancialOrder: data.applicant2ApplyForFinancialOrder,
+    ...data.applicant2ApplyForFinancialOrder !== YesOrNo.YES && { applicant2FinancialOrdersFor: [] }
   }),
   coCannotUploadClarificationDocuments: data => ({
     coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),
