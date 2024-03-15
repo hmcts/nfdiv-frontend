@@ -318,11 +318,11 @@ const fields: ToApiConverters = {
   }),
   applicant1ApplyForFinancialOrder: data => ({
     applicant1FinancialOrder: data.applicant1ApplyForFinancialOrder,
-    ...data.applicant1ApplyForFinancialOrder !== YesOrNo.YES && { applicant1FinancialOrdersFor: [] }
+    ...data.applicant1ApplyForFinancialOrder === YesOrNo.NO && { applicant1FinancialOrdersFor: [] }
   }),
   applicant2ApplyForFinancialOrder: data => ({
     applicant2FinancialOrder: data.applicant2ApplyForFinancialOrder,
-    ...data.applicant2ApplyForFinancialOrder !== YesOrNo.YES && { applicant2FinancialOrdersFor: [] }
+    ...data.applicant2ApplyForFinancialOrder === YesOrNo.NO && { applicant2FinancialOrdersFor: [] }
   }),
   coCannotUploadClarificationDocuments: data => ({
     coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),

@@ -439,14 +439,10 @@ describe('to-api-format', () => {
   test.each([
     {
       applicant1ApplyForFinancialOrder: YesOrNo.YES,
-      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       applicant2ApplyForFinancialOrder: YesOrNo.YES,
-      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       expected: {
         applicant1FinancialOrder: YesOrNo.YES,
-        applicant1FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
         applicant2FinancialOrder: YesOrNo.YES,
-        applicant2FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       },
     },
     {
