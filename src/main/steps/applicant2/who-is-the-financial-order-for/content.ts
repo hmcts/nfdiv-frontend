@@ -33,7 +33,7 @@ export const form: FormContent = {
           name: 'applicant2WhoIsFinancialOrderFor',
           label: l => l.children,
           value: FinancialOrderFor.CHILDREN,
-        }
+        },
       ],
     },
   },

@@ -55,7 +55,7 @@ export const form: FormContent = {
           name: 'applicant1WhoIsFinancialOrderFor',
           label: l => l.children,
           value: FinancialOrderFor.CHILDREN,
-        }
+        },
       ],
     },
   },
