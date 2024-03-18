@@ -13,6 +13,7 @@ const en = ({ partner, required }: CommonContent) => ({
   or to also include money and property transferred to one of you, for the benefit of any children under the age of 18.`,
   inset: `If you say now that you want the financial order to be for your children then the financial order does not have to include them.
   It just gives you the option to include them on the financial order, should you need to.`,
+  whoIsTheFinancialOrderFor: 'Who is the financial order for?',
   applicant: 'I need a financial order for myself ',
   applicantAndChildren: 'I need a financial order for myself and my child(ren)',
   errors: {
@@ -31,6 +32,7 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   or to also include money and property transferred to one of you, for the benefit of any children under the age of 18.`,
   inset: `If you say now that you want the financial order to be for your children then the financial order does not have to include them.
   It just gives you the option to include them on the financial order, should you need to.`,
+  whoIsTheFinancialOrderFor: 'Who is the financial order for?',
   applicant: 'I need a financial order for myself ',
   applicantAndChildren: 'I need a financial order for myself and my child(ren)',
   errors: {
@@ -63,15 +65,17 @@ export class RadioButtons {
 
 export const form: FormContent = {
   fields: userCase => {
-    const previouslySelectedValue = userCase.applicant1WhoIsFinancialOrderFor;
+    const inputValueSelectedPreviously = userCase.applicant1WhoIsFinancialOrderFor;
 
     return {
       applicant1WhoIsFinancialOrderFor: {
         type: 'radios',
         classes: 'govuk-radios',
-        values: RadioButtons.getLabelledInputs(previouslySelectedValue),
+        label: l => l.whoIsTheFinancialOrderFor,
+        labelHidden: true,
+        values: RadioButtons.getLabelledInputs(inputValueSelectedPreviously),
         parser: body => RadioButtons.getParsedValue(body as Record<string, string>, 'applicant1WhoIsFinancialOrderFor'),
-        validator: value => isFieldFilledIn(value),
+        validator: isFieldFilledIn,
       },
     };
   },

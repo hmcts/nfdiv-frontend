@@ -20,16 +20,18 @@ const labels = applicant1Content => {
 export const form: FormContent = {
   ...applicant1Form,
   fields: userCase => {
-    const previouslySelectedValue = userCase.applicant2WhoIsFinancialOrderFor;
+    const inputValueSelectedPreviously = userCase.applicant2WhoIsFinancialOrderFor;
 
     return {
       applicant2WhoIsFinancialOrderFor: {
         type: 'radios',
         classes: 'govuk-radios',
-        values: RadioButtons.getLabelledInputs(previouslySelectedValue),
+        label: l => l.whoIsTheFinancialOrderFor,
+        labelHidden: true,
+        values: RadioButtons.getLabelledInputs(inputValueSelectedPreviously),
         parser: value =>
           RadioButtons.getParsedValue(value as Record<string, string>, 'applicant2WhoIsFinancialOrderFor'),
-        validator: value => isFieldFilledIn(value),
+        validator: isFieldFilledIn,
       },
     };
   },
