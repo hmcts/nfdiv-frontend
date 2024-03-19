@@ -12,8 +12,8 @@ describe('Applicant 2 Sequence test', () => {
         applicant2NameChangedHow: [ChangedNameHow.OTHER],
       };
 
-      const step = preSubmissionSequence.find(obj => obj.url === WHO_IS_THE_FINANCIAL_ORDER_FOR) as Step;
-      expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
+      const step = preSubmissionSequence.find(obj => obj.url === MONEY_PROPERTY) as Step;
+      expect(step.getNextStep(caseData)).toBe(WHO_IS_THE_FINANCIAL_ORDER_FOR);
     });
 
     test('applicant2ApplyForFinancialOrder - NO & deed poll', () => {
@@ -22,7 +22,7 @@ describe('Applicant 2 Sequence test', () => {
         applicant2NameChangedHow: [ChangedNameHow.DEED_POLL],
       };
 
-      const step = preSubmissionSequence.find(obj => obj.url === WHO_IS_THE_FINANCIAL_ORDER_FOR) as Step;
+      const step = preSubmissionSequence.find(obj => obj.url === MONEY_PROPERTY) as Step;
       expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
     });
 
@@ -32,7 +32,7 @@ describe('Applicant 2 Sequence test', () => {
         applicant2NameChangedHow: [ChangedNameHow.OTHER],
       };
 
-      const step = preSubmissionSequence.find(obj => obj.url === WHO_IS_THE_FINANCIAL_ORDER_FOR) as Step;
+      const step = preSubmissionSequence.find(obj => obj.url === MONEY_PROPERTY) as Step;
       expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
     });
 
@@ -42,7 +42,7 @@ describe('Applicant 2 Sequence test', () => {
         applicant2NameChangedHow: [ChangedNameHow.MARRIAGE_CERTIFICATE],
       };
 
-      const step = preSubmissionSequence.find(obj => obj.url === WHO_IS_THE_FINANCIAL_ORDER_FOR) as Step;
+      const step = preSubmissionSequence.find(obj => obj.url === MONEY_PROPERTY) as Step;
       expect(step.getNextStep(caseData)).toBe(CHECK_JOINT_APPLICATION);
     });
   });
@@ -53,7 +53,7 @@ describe('Applicant 2 Sequence test', () => {
         applicant2NameChangedHow: [ChangedNameHow.DEED_POLL],
       };
 
-      const step = preSubmissionSequence.find(obj => obj.url === MONEY_PROPERTY) as Step;
+      const step = preSubmissionSequence.find(obj => obj.url === WHO_IS_THE_FINANCIAL_ORDER_FOR) as Step;
       expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
     });
 
@@ -62,7 +62,7 @@ describe('Applicant 2 Sequence test', () => {
         applicant2NameChangedHow: [ChangedNameHow.OTHER],
       };
 
-      const step = preSubmissionSequence.find(obj => obj.url === MONEY_PROPERTY) as Step;
+      const step = preSubmissionSequence.find(obj => obj.url === WHO_IS_THE_FINANCIAL_ORDER_FOR) as Step;
       expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
     });
 
@@ -71,7 +71,7 @@ describe('Applicant 2 Sequence test', () => {
         applicant2NameChangedHow: [ChangedNameHow.MARRIAGE_CERTIFICATE],
       };
 
-      const step = preSubmissionSequence.find(obj => obj.url === MONEY_PROPERTY) as Step;
+      const step = preSubmissionSequence.find(obj => obj.url === WHO_IS_THE_FINANCIAL_ORDER_FOR) as Step;
       expect(step.getNextStep(caseData)).toBe(CHECK_JOINT_APPLICATION);
     });
   });

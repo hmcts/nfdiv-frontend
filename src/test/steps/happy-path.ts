@@ -177,9 +177,6 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('Continue');
 
   I.waitInUrl('/dividing-money-property');
-  iClick('Continue');
-
-  I.waitInUrl('/do-you-want-to-apply-financial-order');
   iClick('No');
   iClick('Continue');
 

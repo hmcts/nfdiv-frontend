@@ -32,6 +32,9 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   Even if you have kept your finances separate during the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }. If you select yes, then you do not have to go ahead with the application or pay any additional fees. It just gives you the option to apply later in the process, should you want&nbsp;to.`,
+  doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
+  yes: 'Yes, I want to apply for a financial order',
+  no: 'No, I do not want to apply for a financial order',
 });
 
 const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
@@ -62,6 +65,9 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   Even if you have kept your finances separate during the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }. If you select yes, then you do not have to go ahead with the application or pay any additional fees. It just gives you the option to apply later in the process, should you want&nbsp;to.`,
+  doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
+  yes: 'Yes, I want to apply for a financial order',
+  no: 'No, I do not want to apply for a financial order',
 });
 
 export const form: FormContent = {
@@ -70,6 +76,7 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.doYouWantToApplyForFinancialOrder,
+      labelHidden: true,
       hint: l => l.hint,
       values: [
         { label: l => l.yes, value: YesOrNo.YES },
