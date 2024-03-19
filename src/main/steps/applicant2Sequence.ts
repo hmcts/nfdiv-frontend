@@ -127,14 +127,18 @@ export const preSubmissionSequence: Step[] = [
         ? WHO_IS_THE_FINANCIAL_ORDER_FOR
         : [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(
               value => nameChangedHowPossibleValue(data, true)?.includes(value)
-            ) ? UPLOAD_YOUR_DOCUMENTS : CHECK_JOINT_APPLICATION,
+            )
+          ? UPLOAD_YOUR_DOCUMENTS
+          : CHECK_JOINT_APPLICATION,
   },
   {
     url: WHO_IS_THE_FINANCIAL_ORDER_FOR,
     getNextStep: data =>
       [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(
         value => nameChangedHowPossibleValue(data, true)?.includes(value)
-      ) ? UPLOAD_YOUR_DOCUMENTS : CHECK_JOINT_APPLICATION,
+      )
+        ? UPLOAD_YOUR_DOCUMENTS
+        : CHECK_JOINT_APPLICATION,
   },
   {
     url: UPLOAD_YOUR_DOCUMENTS,

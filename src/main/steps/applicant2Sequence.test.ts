@@ -2,12 +2,7 @@ import { ChangedNameHow, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import { preSubmissionSequence } from './applicant2Sequence';
-import {
-  MONEY_PROPERTY,
-  WHO_IS_THE_FINANCIAL_ORDER_FOR,
-  UPLOAD_YOUR_DOCUMENTS,
-  CHECK_JOINT_APPLICATION,
-} from './urls';
+import { CHECK_JOINT_APPLICATION, MONEY_PROPERTY, UPLOAD_YOUR_DOCUMENTS, WHO_IS_THE_FINANCIAL_ORDER_FOR } from './urls';
 
 describe('Applicant 2 Sequence test', () => {
   describe('MONEY_PROPERTY', () => {
