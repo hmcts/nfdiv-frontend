@@ -98,7 +98,11 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   clarificationSubmitted: {
     withDocuments: {
       youHaveProvided: `You have provided the information requested by the court. You'll receive an email by ${getFormattedDate(
-        dayjs(userCase.dateSubmitted).add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+        dayjs(
+          userCase.coClarificationResponsesSubmitted?.[0].value.clarificationDate,
+          config.get('dates.clarificationSubmittedOffsetDays'),
+          'day'
+        )
       )} after the court has reviewed it.`,
     },
     withoutDocuments: {
