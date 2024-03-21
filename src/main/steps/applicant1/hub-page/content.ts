@@ -269,7 +269,11 @@ const cy: typeof en = ({
   clarificationSubmitted: {
     withDocuments: {
       youHaveProvided: `Rydych wedi darparu'r wybodaeth y gofynnodd y llys amdani. Byddwch yn cael e-bost erbyn ${getFormattedDate(
-        dayjs(userCase.dateSubmitted).add(config.get('dates.clarificationSubmittedOffsetDays'), 'day'),
+        dayjs(
+          userCase.coClarificationResponsesSubmitted?.[0].value.clarificationDate,
+          config.get('dates.clarificationSubmittedOffsetDays'),
+          'day'
+        ),
         SupportedLanguages.Cy
       )} ar ôl i'r llys ei adolygu.`,
     },

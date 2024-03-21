@@ -111,7 +111,11 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line2: userCase.coRefusalClarificationAdditionalInfo,
     withDocuments: {
       line1: `Your ${partner} has provided the information requested by the court. You’ll receive an email by ${getFormattedDate(
-        dayjs(userCase.dateSubmitted).add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+        dayjs(
+          userCase.coClarificationResponsesSubmitted?.[0].value.clarificationDate,
+          config.get('dates.clarificationSubmittedOffsetDays'),
+          'day'
+        )
       )} after the court has reviewed it.`,
     },
     withoutDocuments: {
@@ -305,7 +309,11 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line2: userCase.coRefusalClarificationAdditionalInfo,
     withDocuments: {
       line1: `Your ${partner} has provided the information requested by the court. You’ll receive an email by ${getFormattedDate(
-        dayjs(userCase.dateSubmitted).add(config.get('dates.clarificationSubmittedOffsetDays'), 'day'),
+        dayjs(
+          userCase.coClarificationResponsesSubmitted?.[0].value.clarificationDate,
+          config.get('dates.clarificationSubmittedOffsetDays'),
+          'day'
+        ),
         SupportedLanguages.Cy
       )} after the court has reviewed it.`,
     },
