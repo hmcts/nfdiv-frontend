@@ -14,6 +14,7 @@ describe('EnterSolicitorDetailsPostController', () => {
       applicant2SolicitorAddress1: {},
       applicant2SolicitorAddress2: {},
       applicant2SolicitorAddressCounty: {},
+      applicant2SolicitorAddressOverseas: {},
     },
   } as unknown as FormContent;
 
@@ -33,6 +34,7 @@ describe('EnterSolicitorDetailsPostController', () => {
       {
         ...body,
         applicant2SolicitorRepresented: YesOrNo.YES,
+        applicant2SolicitorAddressOverseas: YesOrNo.NO,
       },
       CITIZEN_UPDATE
     );
@@ -55,6 +57,7 @@ describe('EnterSolicitorDetailsPostController', () => {
       {
         ...body,
         applicant2SolicitorRepresented: YesOrNo.YES,
+        applicant2SolicitorAddressOverseas: YesOrNo.NO,
       },
       CITIZEN_UPDATE
     );
@@ -77,6 +80,7 @@ describe('EnterSolicitorDetailsPostController', () => {
       {
         ...body,
         applicant2SolicitorRepresented: YesOrNo.YES,
+        applicant2SolicitorAddressOverseas: YesOrNo.NO,
       },
       CITIZEN_UPDATE
     );
@@ -99,6 +103,7 @@ describe('EnterSolicitorDetailsPostController', () => {
       {
         ...body,
         applicant2SolicitorRepresented: YesOrNo.NO,
+        applicant2SolicitorAddressOverseas: undefined,
       },
       CITIZEN_UPDATE
     );

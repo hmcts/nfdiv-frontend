@@ -244,10 +244,11 @@ const en = ({
       line3: `Your ${partner}'s last name(s)`,
       line4: `Does your ${partner} have a solicitor representing them?`,
       line5: `Your ${partner}'s solicitor's details`,
-      line6: `Your ${partner}'s email address`,
-      line7: `Do you have your ${partner}'s postal address?`,
-      line8: `Your ${partner}'s postal address`,
-      line9: 'Is this an international address?',
+      line6: 'Is this an international address?',
+      line7: `Your ${partner}'s email address`,
+      line8: `Do you have your ${partner}'s postal address?`,
+      line9: `Your ${partner}'s postal address`,
+      line10: 'Is this an international address?',
     },
     otherCourtCases: {
       line1: `Are there, or have there ever been, any other court cases relating to this ${
@@ -443,9 +444,14 @@ const en = ({
       ]
         .filter(Boolean)
         .join('<br>')}`,
-      line6: `${stripTags(userCase.applicant2EmailAddress)}`,
-      line7: `${isJointApplication ? '' : stripTags(userCase.applicant1KnowsApplicant2Address)}`,
-      line8: `${
+      line6: `${
+        userCase.applicant2SolicitorAddressOverseas === YesOrNo.NO
+          ? ''
+          : [stripTags(userCase.applicant2SolicitorAddressOverseas)]
+      }`,
+      line7: `${stripTags(userCase.applicant2EmailAddress)}`,
+      line8: `${isJointApplication ? '' : stripTags(userCase.applicant1KnowsApplicant2Address)}`,
+      line9: `${
         isJointApplication
           ? ''
           : [
@@ -460,7 +466,7 @@ const en = ({
               .filter(Boolean)
               .join('<br>')
       }`,
-      line9: `${
+      line10: `${
         isJointApplication || userCase.applicant2AddressOverseas === YesOrNo.NO
           ? ''
           : [stripTags(userCase.applicant2AddressOverseas)]
@@ -750,10 +756,11 @@ const cy: typeof en = ({
       line3: `Cyfenw(au) eich ${partner}`,
       line4: `A oes gan eich ${partner} gyfreithiwr sy'n eu cynrychioli?`,
       line5: `Manylion cyfreithiwr eich ${partner}`,
-      line6: `Cyfeiriad e-bost eich ${partner}`,
-      line7: `A oes gennych gyfeiriad post eich ${partner}?`,
-      line8: `Cyfeiriad post eich ${partner}`,
-      line9: 'Is this an international address?',
+      line6: 'Is this an international address?',
+      line7: `Cyfeiriad e-bost eich ${partner}`,
+      line8: `A oes gennych gyfeiriad post eich ${partner}?`,
+      line9: `Cyfeiriad post eich ${partner}`,
+      line10: 'Is this an international address?',
     },
     otherCourtCases: {
       line1: `A oes, neu a oes wedi bod erioed, unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${
@@ -961,13 +968,18 @@ const cy: typeof en = ({
       ]
         .filter(Boolean)
         .join('<br>')}`,
-      line6: `${stripTags(userCase.applicant2EmailAddress)}`,
-      line7: `${
+      line6: `${
+        userCase.applicant2SolicitorAddressOverseas === YesOrNo.NO
+          ? ''
+          : [stripTags(userCase.applicant2SolicitorAddressOverseas)]
+      }`,
+      line7: `${stripTags(userCase.applicant2EmailAddress)}`,
+      line8: `${
         isJointApplication
           ? ''
           : userCase.applicant1KnowsApplicant2Address?.replace('Yes', 'Oes').replace('No', 'Nac oes')
       }`,
-      line8: `${
+      line9: `${
         isJointApplication
           ? ''
           : [
@@ -982,7 +994,7 @@ const cy: typeof en = ({
               .filter(Boolean)
               .join('<br>')
       }`,
-      line9: `${
+      line10: `${
         isJointApplication || userCase.applicant2AddressOverseas === YesOrNo.NO
           ? ''
           : [stripTags(userCase.applicant2AddressOverseas)]

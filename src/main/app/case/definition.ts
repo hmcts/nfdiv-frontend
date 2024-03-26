@@ -302,6 +302,7 @@ export interface Applicant {
   SolicitorEmail: string;
   SolicitorFirmName: string;
   SolicitorAddress: string;
+  SolicitorAddressOverseas: YesOrNo;
   SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   FinancialOrder: YesOrNo;
@@ -523,6 +524,7 @@ export interface CaseData {
   applicant1SolicitorEmail: string;
   applicant1SolicitorFirmName: string;
   applicant1SolicitorAddress: string;
+  applicant1SolicitorAddressOverseas: YesOrNo;
   applicant1SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1FinancialOrder: YesOrNo;
@@ -570,6 +572,7 @@ export interface CaseData {
   applicant2SolicitorEmail: string;
   applicant2SolicitorFirmName: string;
   applicant2SolicitorAddress: string;
+  applicant2SolicitorAddressOverseas: YesOrNo;
   applicant2SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2FinancialOrder: YesOrNo;
