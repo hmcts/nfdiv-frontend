@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { Case, CaseWithId } from '../../../app/case/case';
 import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
+  ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_UPDATE,
   FINAL_ORDER_REQUESTED,
@@ -46,15 +47,28 @@ export default class FinalisingYourApplicationPostController extends PostControl
   }
 
   protected getEventName(req: AppRequest<AnyObject>): string {
-    if (needsToExplainDelay(req.session.userCase)) {
-      return req.session.isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE;
-    } else if (
-      getSwitchToSoleFoStatus(req.session.userCase, req.session.isApplicant2).isIntendingAndAbleToSwitchToSoleFo
-    ) {
-      return SWITCH_TO_SOLE_FO;
-    } else if (req.session.isApplicant2) {
-      return APPLICANT2_FINAL_ORDER_REQUESTED;
+    const { userCase, isApplicant2 } = req.session;
+    const userCaseType = userCase.applicationType;
+
+    // If a case is overdue (1 year since the final order was eligible), then we need to determine which
+    // event to call. For sole applications, only applicant1 needs to explain the delay and
+    // for joint applications, both applicants need to explain the delay. This is why we call the
+    // CITIZEN_UPDATE and CITIZEN_APPLICANT2_UPDATE if the delay needs to be explained.
+    if (needsToExplainDelay(userCase)) {
+      if (userCaseType === ApplicationType.SOLE_APPLICATION) {
+        return isApplicant2 ? APPLICANT2_FINAL_ORDER_REQUESTED : CITIZEN_UPDATE;
+      } else {
+        return isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE;
+      }
     }
-    return FINAL_ORDER_REQUESTED;
+
+    // If they are trying to switch to sole, we return the SWITCH_TO_SOLE_FO event.
+    const switchToSoleFoStatus = getSwitchToSoleFoStatus(userCase, isApplicant2);
+    if (switchToSoleFoStatus.isIntendingAndAbleToSwitchToSoleFo) {
+      return SWITCH_TO_SOLE_FO;
+    }
+
+    // If the final order is not overdue, and they're not trying to switch to sole then we follow the normal flow.
+    return isApplicant2 ? APPLICANT2_FINAL_ORDER_REQUESTED : FINAL_ORDER_REQUESTED;
   }
 }
