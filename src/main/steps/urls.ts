@@ -106,6 +106,7 @@ export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
 export const JOINT_APPLICATION_SUBMITTED: PageLink = '/joint-application-submitted';
 
 export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
+export const WHO_IS_THE_FINANCIAL_ORDER_FOR: PageLink = '/who-is-the-financial-order-for';
 
 export const EQUALITY: PageLink = '/equality';
 
