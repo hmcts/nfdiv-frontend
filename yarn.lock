@@ -3819,30 +3819,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:3.9.3":
-  version: 3.9.3
-  resolution: "@uppy/core@npm:3.9.3"
+"@uppy/core@npm:3.10.0":
+  version: 3.10.0
+  resolution: "@uppy/core@npm:3.10.0"
   dependencies:
     "@transloadit/prettier-bytes": ^0.3.0
     "@uppy/store-default": ^3.2.2
-    "@uppy/utils": ^5.7.4
+    "@uppy/utils": ^5.7.5
     lodash: ^4.17.21
     mime-match: ^1.0.2
     namespace-emitter: ^2.0.1
     nanoid: ^4.0.0
     preact: ^10.5.13
-  checksum: ef12594181a36e3fa79f21c097657ab503a5193fa6dc235f14326954b1e6d4af13d1b102baf0a19c4206ec2a6ed5046dcd8da4d665f38ebf77856c50edf6602c
+  checksum: 5b52ffee2d39dbe64cd829ecbf4b3b4442b0a2efeeebeb34e2e4e127e5e1c3f36aa0f0e4d97c773278ab94358866e293abc5510100f7f418bb2fa7fd1944610b
   languageName: node
   linkType: hard
 
-"@uppy/drop-target@npm:2.0.4":
-  version: 2.0.4
-  resolution: "@uppy/drop-target@npm:2.0.4"
+"@uppy/drop-target@npm:2.0.5":
+  version: 2.0.5
+  resolution: "@uppy/drop-target@npm:2.0.5"
   dependencies:
-    "@uppy/utils": ^5.7.2
+    "@uppy/utils": ^5.7.5
   peerDependencies:
-    "@uppy/core": ^3.9.1
-  checksum: ef1408a001a1c82cf291ae48316f54b43e67119448a936fd61f5d8332ded5d0a3cac84ee5f81da0370dddc21223878e81b5ef28f1f8152593f1b8d1e414b8bcc
+    "@uppy/core": ^3.10.0
+  checksum: cd464cd0c50473415c5d806bdeff502eeb4df37945d0a9249ca201b23f1629a28103de36986ffe2a67b0efe396ac3ed2500bac52fe7d65d225f37a2bed9199aa
   languageName: node
   linkType: hard
 
@@ -3858,15 +3858,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/progress-bar@npm:3.1.0":
-  version: 3.1.0
-  resolution: "@uppy/progress-bar@npm:3.1.0"
+"@uppy/progress-bar@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@uppy/progress-bar@npm:3.1.1"
   dependencies:
-    "@uppy/utils": ^5.7.4
+    "@uppy/utils": ^5.7.5
     preact: ^10.5.13
   peerDependencies:
-    "@uppy/core": ^3.9.3
-  checksum: 6e34c0be31fb2dfd820c4192955a50fcd5022420b035c0f97453539f22d5f04a97bc7b7eab716f80e6e7e73e5cc6fbe267d1d5f7241a4b45c51234e0e2d81e76
+    "@uppy/core": ^3.10.0
+  checksum: d3a0abd4974b0d764420e51d62ea66b6d3fbe222f6c49aa6916c216b3c60657d05c045326dcc33879eb1f74ef4d92e50e44a6ab986697d869631377eee41599d
   languageName: node
   linkType: hard
 
@@ -3877,16 +3877,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/utils@npm:^5.7.2":
-  version: 5.7.2
-  resolution: "@uppy/utils@npm:5.7.2"
-  dependencies:
-    lodash: ^4.17.21
-    preact: ^10.5.13
-  checksum: bb48fdbb83c0b3a03cfd88cad90775812e62d2ceb8cd35008522e93062412317b64072e9b377e4b3e507da84c48f08b0b621792b1f484015ca2ac9a88a45b521
-  languageName: node
-  linkType: hard
-
 "@uppy/utils@npm:^5.7.4":
   version: 5.7.4
   resolution: "@uppy/utils@npm:5.7.4"
@@ -3894,6 +3884,16 @@ __metadata:
     lodash: ^4.17.21
     preact: ^10.5.13
   checksum: 76330cece6bb08906166f5629326efb42c9f93c718ba4100fb9d8436b1cd1aab070924760b5e8d36374c04eca58fa1c12aa9728ff206046423cd5af39281adb8
+  languageName: node
+  linkType: hard
+
+"@uppy/utils@npm:^5.7.5":
+  version: 5.7.5
+  resolution: "@uppy/utils@npm:5.7.5"
+  dependencies:
+    lodash: ^4.17.21
+    preact: ^10.5.13
+  checksum: 96081251fb61f947302561c92e86b777929541da9f9beeb7b8fec6d006d43cbe499716f35fce03f091eafd1400a2bf61fefc772579180b874b901e4b2db8fe88
   languageName: node
   linkType: hard
 
@@ -13396,10 +13396,10 @@ __metadata:
     "@types/uuid": 9.0.8
     "@typescript-eslint/eslint-plugin": 7.4.0
     "@typescript-eslint/parser": 7.4.0
-    "@uppy/core": 3.9.3
-    "@uppy/drop-target": 2.0.4
+    "@uppy/core": 3.10.0
+    "@uppy/drop-target": 2.0.5
     "@uppy/file-input": 3.1.0
-    "@uppy/progress-bar": 3.1.0
+    "@uppy/progress-bar": 3.1.1
     "@uppy/xhr-upload": 3.6.4
     "@wdio/cli": 8.32.2
     "@wdio/sauce-service": 8.32.2
