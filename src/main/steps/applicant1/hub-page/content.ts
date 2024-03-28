@@ -98,7 +98,10 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   clarificationSubmitted: {
     withDocuments: {
       youHaveProvided: `You have provided the information requested by the court. You'll receive an email by ${getFormattedDate(
-        dayjs(userCase.dateSubmitted).add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+        dayjs(userCase.coClarificationResponsesSubmitted?.[0].value.clarificationDate).add(
+          config.get('dates.clarificationSubmittedOffsetDays'),
+          'day'
+        )
       )} after the court has reviewed it.`,
     },
     withoutDocuments: {
@@ -265,7 +268,10 @@ const cy: typeof en = ({
   clarificationSubmitted: {
     withDocuments: {
       youHaveProvided: `Rydych wedi darparu'r wybodaeth y gofynnodd y llys amdani. Byddwch yn cael e-bost erbyn ${getFormattedDate(
-        dayjs(userCase.dateSubmitted).add(config.get('dates.clarificationSubmittedOffsetDays'), 'day'),
+        dayjs(userCase.coClarificationResponsesSubmitted?.[0].value.clarificationDate).add(
+          config.get('dates.clarificationSubmittedOffsetDays'),
+          'day'
+        ),
         SupportedLanguages.Cy
       )} ar ôl i'r llys ei adolygu.`,
     },
