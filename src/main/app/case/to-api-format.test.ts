@@ -74,6 +74,8 @@ describe('to-api-format', () => {
     coApplicant2StatementOfTruth: Checkbox.Checked,
     coCannotUploadClarificationDocuments: Checkbox.Checked,
     coClarificationResponses: 'test',
+    applicant1AddressOverseas: YesOrNo.NO,
+    applicant2AddressOverseas: YesOrNo.NO,
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -108,6 +110,8 @@ describe('to-api-format', () => {
     applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
     applicant2ApplyForFinancialOrder: YesOrNo.NO,
     applicant2WhoIsFinancialOrderFor: [],
+    applicant1AddressOverseas: YesOrNo.YES,
+    applicant2AddressOverseas: YesOrNo.YES,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -166,6 +170,8 @@ describe('to-api-format', () => {
         PostCode: '',
         Country: '',
       },
+      applicant2AddressOverseas: YesOrNo.NO,
+      applicant1AddressOverseas: YesOrNo.NO,
       applicant1FinalOrderStatementOfTruth: YesOrNo.YES,
       applicant2FinalOrderStatementOfTruth: YesOrNo.YES,
       doesApplicant1WantToApplyForFinalOrder: YesOrNo.YES,
@@ -222,6 +228,8 @@ describe('to-api-format', () => {
       applicant1FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       applicant2FinancialOrder: YesOrNo.NO,
       applicant2FinancialOrdersFor: [],
+      applicant1AddressOverseas: YesOrNo.YES,
+      applicant2AddressOverseas: YesOrNo.YES,
     });
   });
 

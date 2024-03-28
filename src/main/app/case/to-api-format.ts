@@ -137,6 +137,9 @@ const fields: ToApiConverters = {
     applicant1ContactDetailsType:
       applicant1AddressPrivate === YesOrNo.YES ? ContactDetailsType.PRIVATE : ContactDetailsType.PUBLIC,
   }),
+  applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
+    applicant1AddressOverseas: applicant1AddressOverseas ?? YesOrNo.NO,
+  }),
   applicant2AddressPrivate: ({ applicant2AddressPrivate }) => ({
     applicant2ContactDetailsType:
       applicant2AddressPrivate === YesOrNo.YES ? ContactDetailsType.PRIVATE : ContactDetailsType.PUBLIC,
@@ -276,6 +279,9 @@ const fields: ToApiConverters = {
           ])
         )
       : setUnreachableAnswersToNull(['applicant1WantsToHavePapersServedAnotherWay'])),
+  }),
+  applicant2AddressOverseas: ({ applicant2AddressOverseas }) => ({
+    applicant2AddressOverseas: applicant2AddressOverseas ?? YesOrNo.NO,
   }),
   inTheUk: data => ({
     marriageMarriedInUk: data.inTheUk,

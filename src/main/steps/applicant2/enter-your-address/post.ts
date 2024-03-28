@@ -1,3 +1,3 @@
-import CitizenUpdateContactDetailsPostController from '../../applicant1/check-phone-number/post';
+import EnterYourAddressPostController from '../../applicant1/enter-your-address/post';
 
-export default CitizenUpdateContactDetailsPostController;
+export default EnterYourAddressPostController;

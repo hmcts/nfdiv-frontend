@@ -335,7 +335,7 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Enter your postal address"
-    Given I click "I cannot enter a UK postcode"
+    Given I click "I have an international address"
     And I select "Address line 1"
     And I type "Their line 1"
     And I select "Address line 2"
@@ -378,7 +378,7 @@ Feature: Applicant 1 sole application
     When I click "Continue"
     Then the page should include "Enter your husband’s postal address"
     Given I reset the postcode lookup form
-    And I click "I cannot enter a UK postcode"
+    And I click "I have an international address"
     Then the page should include "Address line 1"
     Given I select "Address line 1"
     And I type "Their line 1"

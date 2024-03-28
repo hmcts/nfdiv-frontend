@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
@@ -24,9 +25,10 @@ const en = () => {
     postcodeOptional: 'Postal code, zip code or area code (optional)',
     country: 'Country',
     findAddress: 'Find address',
-    notUK: 'I cannot enter a UK postcode',
+    notUK: 'I have an international address',
     enterUkPostcode: 'Enter UK postcode',
     selectAddress: 'Select an address',
+    addressOverseas: 'Is this an international address?',
     addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
     cannotFindAddress: 'I cannot find the address in the list',
     errors: {
@@ -68,9 +70,10 @@ const cy = () => {
     postcodeOptional: 'Cod post, cod zip neu god ardal (dewisol)',
     country: 'Gwlad',
     findAddress: 'Dod o hyd i gyfeiriad',
-    notUK: 'Ni allaf nodi cod post yn y DU',
+    notUK: 'Mae gennyf gyfeiriad rhyngwladol',
     enterUkPostcode: 'Nodwch god post yn y DU',
     selectAddress: 'Dewiswch gyfeiriad',
+    addressOverseas: 'A yw hwn yn gyfeiriad rhyngwladol?',
     addressesFound: (addressesFound: number) =>
       `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
     cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
@@ -160,6 +163,16 @@ export const form: FormContent = {
       label: l => l.country,
       labelSize: null,
       validator: isFieldFilledIn,
+    },
+    applicant1AddressOverseas: {
+      id: 'addressOverseas',
+      type: 'radios',
+      classes: 'govuk-radios--inline',
+      label: l => l.addressOverseas,
+      values: [
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
+      ],
     },
   },
   submit: {

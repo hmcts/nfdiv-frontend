@@ -223,6 +223,7 @@ export interface Case {
   applicant1AddressCounty?: string;
   applicant1AddressPostcode?: string;
   applicant1AddressCountry?: string;
+  applicant1AddressOverseas?: YesOrNo;
   applicant1PhoneNumber?: string;
   applicant1AgreeToReceiveEmails?: Checkbox;
   applicant1ConfirmReceipt: YesOrNo;
@@ -247,6 +248,7 @@ export interface Case {
   applicant2AddressCounty?: string;
   applicant2AddressPostcode?: string;
   applicant2AddressCountry?: string;
+  applicant2AddressOverseas?: YesOrNo;
   applicant1LastNameChangedWhenMarried?: YesOrNo;
   applicant1LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
   applicant1LastNameChangedWhenMarriedOtherDetails?: string;

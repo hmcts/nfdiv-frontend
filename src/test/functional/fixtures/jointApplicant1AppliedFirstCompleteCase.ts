@@ -17,6 +17,7 @@ export const jointApplicant1AppliedFirstCompleteCase: Partial<BrowserCase> = {
   applicant1AddressPostcode: 'SW1A 1AA',
   applicant1AddressPrivate: YesOrNo.NO,
   applicant1AddressTown: 'LONDON',
+  applicant1AddressOverseas: YesOrNo.NO,
   applicant1AgreeToReceiveEmails: Checkbox.Checked,
   applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
   applicant1FirstNames: 'Test your name',
