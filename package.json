@@ -130,7 +130,7 @@
     "nodemon": "3.1.0",
     "npm-run-all2": "6.1.2",
     "pa11y": "8.0.0",
-    "prettier": "3.1.1",
+    "prettier": "3.2.5",
     "sass-loader": "14.1.1",
     "sonar-scanner": "3.1.0",
     "style-loader": "3.3.4",
