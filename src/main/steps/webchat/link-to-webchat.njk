@@ -16,7 +16,7 @@
   metrics-polling-interval="30"
   Language="{{ avayaLanguage }}"
   service="{{ globals.webchat.avayaService }}"
-  page-name="Apply for No Fault Divorce"
+  page-name="{{ webChatPageName }}"
   User="Chat"
   aria-hidden="true"
   hidden
@@ -24,7 +24,7 @@
 </web-chat>
 
 <script
-  src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es2015.js"
+  src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/{{ avayaClientUrlFolder }}/app-es2015.js"
   defer
   type="module"
   crossorigin="anonymous"
