@@ -77,6 +77,7 @@ export class Helmet {
     if (equalityUrl) {
       formAction.push(equalityUrl);
     }
+    const manifestSrc = [self];
 
     if (app.locals.developmentMode) {
       scriptSrc.push("'unsafe-eval'");
@@ -92,6 +93,7 @@ export class Helmet {
           imgSrc,
           objectSrc: [self],
           scriptSrc,
+          manifestSrc,
           styleSrc: [self, ...tagManager, "'unsafe-inline'", 'https://fonts.googleapis.com'],
         },
       }) as RequestHandler
