@@ -3853,15 +3853,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/file-input@npm:3.1.0":
-  version: 3.1.0
-  resolution: "@uppy/file-input@npm:3.1.0"
+"@uppy/file-input@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@uppy/file-input@npm:3.1.1"
   dependencies:
-    "@uppy/utils": ^5.7.4
+    "@uppy/utils": ^5.7.5
     preact: ^10.5.13
   peerDependencies:
-    "@uppy/core": ^3.9.3
-  checksum: 5d1d56ac01b9d9daab1be22b5f81b5e2e4baa07049c21c25fb8a6224a5b1916201b275611f615b3325e3cb0450fe77945c4e2f4e883e0d3bd92c96f55c3dae61
+    "@uppy/core": ^3.10.0
+  checksum: 72ef1dca9f209de94d0705a528f4b9994c60020a477422ff34c0f116bc67c57efdc32abd3bd5bbf559ddf9e7ea243e727a9ebad13e07681dd59a1c477af85e2b
   languageName: node
   linkType: hard
 
@@ -13414,7 +13414,7 @@ __metadata:
     "@typescript-eslint/parser": 7.6.0
     "@uppy/core": 3.10.0
     "@uppy/drop-target": 2.0.5
-    "@uppy/file-input": 3.1.0
+    "@uppy/file-input": 3.1.1
     "@uppy/progress-bar": 3.1.1
     "@uppy/xhr-upload": 3.6.4
     "@wdio/cli": 8.32.2
