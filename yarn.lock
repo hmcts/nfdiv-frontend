@@ -3837,9 +3837,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:3.10.0":
-  version: 3.10.0
-  resolution: "@uppy/core@npm:3.10.0"
+"@uppy/core@npm:3.10.1":
+  version: 3.10.1
+  resolution: "@uppy/core@npm:3.10.1"
   dependencies:
     "@transloadit/prettier-bytes": ^0.3.0
     "@uppy/store-default": ^3.2.2
@@ -3849,7 +3849,7 @@ __metadata:
     namespace-emitter: ^2.0.1
     nanoid: ^4.0.0
     preact: ^10.5.13
-  checksum: 5b52ffee2d39dbe64cd829ecbf4b3b4442b0a2efeeebeb34e2e4e127e5e1c3f36aa0f0e4d97c773278ab94358866e293abc5510100f7f418bb2fa7fd1944610b
+  checksum: 286e1768eadf297964105a1bcd431fcd0d35a3b58969e2adb9af7cc555fc1db25a92dcf275d687a6befed3a6383cf041b749864adfd776348e70bfd91a062117
   languageName: node
   linkType: hard
 
@@ -13449,7 +13449,7 @@ __metadata:
     "@types/uuid": 9.0.8
     "@typescript-eslint/eslint-plugin": 7.6.0
     "@typescript-eslint/parser": 7.6.0
-    "@uppy/core": 3.10.0
+    "@uppy/core": 3.10.1
     "@uppy/drop-target": 2.0.5
     "@uppy/file-input": 3.1.1
     "@uppy/progress-bar": 3.1.1
