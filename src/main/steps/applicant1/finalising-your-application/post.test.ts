@@ -3,6 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CaseWithId, Checkbox } from '../../../app/case/case';
 import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
+  ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_UPDATE,
   DivorceOrDissolution,
@@ -212,6 +213,30 @@ describe('FinalisingYourApplicationPostController', () => {
       );
 
       const req = mockRequest({ body, session: { isApplicant2: true } });
+      req.locals.api.triggerEvent = jest.fn().mockReturnValue({});
+      const res = mockResponse();
+      await finalisingYourApplicationPostController.post(req, res);
+
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, APPLICANT2_FINAL_ORDER_REQUESTED);
+    });
+
+    it('triggers APPLICANT2_FINAL_ORDER_REQUESTED when sole application and respondent submitting FO Overdue', async () => {
+      userCase.isFinalOrderOverdue = YesOrNo.YES;
+      userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+
+      const body = {
+        doesApplicant2WantToApplyForFinalOrder: Checkbox.Checked,
+      };
+      const mockFormContent = {
+        fields: {
+          doesApplicant2WantToApplyForFinalOrder: {},
+        },
+      } as unknown as FormContent;
+      const finalisingYourApplicationPostController = new FinalisingYourApplicationPostController(
+        mockFormContent.fields
+      );
+
+      const req = mockRequest({ body, userCase, session: { isApplicant2: true } });
       req.locals.api.triggerEvent = jest.fn().mockReturnValue({});
       const res = mockResponse();
       await finalisingYourApplicationPostController.post(req, res);
