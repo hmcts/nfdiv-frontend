@@ -16,7 +16,7 @@ Feature: PCQ Equality and diversity questions
     And I type "2000"
     And I click "Continue"
     And the page should include "What is your main language?"
-    And I select "English or Welsh"
+    And I select "English"
     And I click "Continue"
     And the page should include "What is your sex?"
     And I select "Male"

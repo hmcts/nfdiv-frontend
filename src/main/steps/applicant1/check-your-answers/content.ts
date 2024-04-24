@@ -33,7 +33,7 @@ const moreDetailsComponent = (textAndTitleObject: {
     detailsText += section.body ? `<p class="govuk-body govuk-!-margin-bottom-2">${section.body}</p>` : '';
   }
   return `
-  <details class="govuk-details summary" data-module="govuk-details">
+  <details class="govuk-details summary">
     <summary class="govuk-details__summary">
       <span class="govuk-details__summary-text">
         ${textAndTitleObject.title || 'Find out more '}
