@@ -119,7 +119,7 @@ Feature: Joint conditional order
     When I click "Continue"
     Then the page URL should be "/applicant2/hub-page"
 
-  @flaky
+
   Scenario: Applicant 2 response with additional information and uploads for condition order journey
     And I set the case state to "AwaitingClarification"
     When I click "Sign out"

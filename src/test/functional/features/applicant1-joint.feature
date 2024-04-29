@@ -355,7 +355,7 @@ Feature: Applicant 1 joint application
     And the page should include "Your answers have been sent to your husband to review"
 
 
-  @flaky
+
   Scenario: Applicant 1 upload larry-the-cat
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "/upload-your-documents"
