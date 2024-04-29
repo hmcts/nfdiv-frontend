@@ -4,7 +4,6 @@ Feature: PCQ Equality and diversity questions
     Given I create a new user and login
     When I go to "/equality"
 
-
   Scenario: Answer all Equality and diversity questions
     Given I click "Continue to the questions"
     And the page should include "What is your date of birth?"
