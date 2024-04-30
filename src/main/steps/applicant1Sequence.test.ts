@@ -1,7 +1,14 @@
-import { ApplicationType } from '../app/case/definition';
+import { ApplicationType, YesOrNo } from '../app/case/definition';
 
 import { Step, applicant1PreSubmissionSequence, isCountryUk } from './applicant1Sequence';
-import { ENTER_THEIR_ADDRESS, OTHER_COURT_CASES, YOU_NEED_TO_SERVE } from './urls';
+import {
+  ENTER_THEIR_ADDRESS,
+  MONEY_PROPERTY,
+  OTHER_COURT_CASES,
+  UPLOAD_YOUR_DOCUMENTS,
+  WHO_IS_THE_FINANCIAL_ORDER_FOR,
+  YOU_NEED_TO_SERVE,
+} from './urls';
 
 describe('Applicant 1 Sequence test', () => {
   describe('ENTER_THEIR_ADDRESS', () => {
@@ -25,6 +32,26 @@ describe('Applicant 1 Sequence test', () => {
       caseData.applicant2AddressCountry = 'France';
       const step = applicant1PreSubmissionSequence.find(obj => obj.url === ENTER_THEIR_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(YOU_NEED_TO_SERVE);
+    });
+  });
+
+  describe('MONEY_PROPERTY', () => {
+    test('applicant1ApplyForFinancialOrder - YES', () => {
+      const caseData = {
+        applicant1ApplyForFinancialOrder: YesOrNo.YES,
+      };
+
+      const step = applicant1PreSubmissionSequence.find(obj => obj.url === MONEY_PROPERTY) as Step;
+      expect(step.getNextStep(caseData)).toBe(WHO_IS_THE_FINANCIAL_ORDER_FOR);
+    });
+
+    test('applicant1ApplyForFinancialOrder - NO', () => {
+      const caseData = {
+        applicant1ApplyForFinancialOrder: YesOrNo.NO,
+      };
+
+      const step = applicant1PreSubmissionSequence.find(obj => obj.url === MONEY_PROPERTY) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
     });
   });
 });

@@ -240,10 +240,11 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not provided any information. You need to enter details of the other legal proceedings."
 
-    Given I go to "/do-you-want-to-apply-financial-order"
+    Given I go to "/dividing-money-property"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "Yes, I want to apply for a financial order"
+
+    Given I go to "/who-is-the-financial-order-for"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
@@ -460,7 +461,7 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not provided any information. You need to enter details of the other legal proceedings."
 
-    Given I go to "/applicant2/do-you-want-to-apply-financial-order"
+    Given I go to "/applicant2/dividing-money-property"
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
