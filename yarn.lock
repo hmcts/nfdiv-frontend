@@ -3824,55 +3824,55 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/companion-client@npm:^3.7.4":
-  version: 3.7.4
-  resolution: "@uppy/companion-client@npm:3.7.4"
+"@uppy/companion-client@npm:^3.8.1":
+  version: 3.8.1
+  resolution: "@uppy/companion-client@npm:3.8.1"
   dependencies:
-    "@uppy/utils": ^5.7.4
+    "@uppy/utils": ^5.9.0
     namespace-emitter: ^2.0.1
     p-retry: ^6.1.0
   peerDependencies:
-    "@uppy/core": ^3.9.3
-  checksum: 3e0c7d1477cc7a9a9b978d7f66057da12440f9439ed3df5464f05267b04f8cff44260c9c087d0c99c63897629337a7f452470a91092af72e4b5f3692f6ab72a6
+    "@uppy/core": ^3.11.0
+  checksum: 56d2af8fb77e49a34f313c43bf44f2c1905901d3e099b9d48164a7ed5aaabe558fdf874923d54d5461f28bd3f27f1ff3d29f321c5510db472ab863e71e0b7a68
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:3.10.1":
-  version: 3.10.1
-  resolution: "@uppy/core@npm:3.10.1"
+"@uppy/core@npm:3.11.0":
+  version: 3.11.0
+  resolution: "@uppy/core@npm:3.11.0"
   dependencies:
     "@transloadit/prettier-bytes": ^0.3.0
     "@uppy/store-default": ^3.2.2
-    "@uppy/utils": ^5.7.5
+    "@uppy/utils": ^5.9.0
     lodash: ^4.17.21
     mime-match: ^1.0.2
     namespace-emitter: ^2.0.1
     nanoid: ^4.0.0
     preact: ^10.5.13
-  checksum: 286e1768eadf297964105a1bcd431fcd0d35a3b58969e2adb9af7cc555fc1db25a92dcf275d687a6befed3a6383cf041b749864adfd776348e70bfd91a062117
+  checksum: 050ea9fbef7267bdd6379b889e77ea629c6c1dcd966fb57d353088f290e7fcf52c0b52ab8a013ec294404a866100cff2e431c51d324c78763358d22ca597ed5f
   languageName: node
   linkType: hard
 
-"@uppy/drop-target@npm:2.0.5":
-  version: 2.0.5
-  resolution: "@uppy/drop-target@npm:2.0.5"
+"@uppy/drop-target@npm:2.1.0":
+  version: 2.1.0
+  resolution: "@uppy/drop-target@npm:2.1.0"
   dependencies:
-    "@uppy/utils": ^5.7.5
+    "@uppy/utils": ^5.9.0
   peerDependencies:
-    "@uppy/core": ^3.10.0
-  checksum: cd464cd0c50473415c5d806bdeff502eeb4df37945d0a9249ca201b23f1629a28103de36986ffe2a67b0efe396ac3ed2500bac52fe7d65d225f37a2bed9199aa
+    "@uppy/core": ^3.11.0
+  checksum: b1af2379023ce0f0183d2af416425395bd96ab21c11c7e0f27aeffc0a71cb4eed1684c9e4bdaafe733b0029578cbcc600b5db18333b26203abd2419175664ea7
   languageName: node
   linkType: hard
 
-"@uppy/file-input@npm:3.1.1":
-  version: 3.1.1
-  resolution: "@uppy/file-input@npm:3.1.1"
+"@uppy/file-input@npm:3.1.2":
+  version: 3.1.2
+  resolution: "@uppy/file-input@npm:3.1.2"
   dependencies:
-    "@uppy/utils": ^5.7.5
+    "@uppy/utils": ^5.9.0
     preact: ^10.5.13
   peerDependencies:
-    "@uppy/core": ^3.10.0
-  checksum: 72ef1dca9f209de94d0705a528f4b9994c60020a477422ff34c0f116bc67c57efdc32abd3bd5bbf559ddf9e7ea243e727a9ebad13e07681dd59a1c477af85e2b
+    "@uppy/core": ^3.11.0
+  checksum: 087cb18b446c77468b9cdc16c2d0df33da1012c21f5ae44e2985d2b6a8dc2f10643d99c8140e3c705a3bd3103792be61aaf39873d195ff498fc85dcbd750017e
   languageName: node
   linkType: hard
 
@@ -3895,16 +3895,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/utils@npm:^5.7.4":
-  version: 5.7.4
-  resolution: "@uppy/utils@npm:5.7.4"
-  dependencies:
-    lodash: ^4.17.21
-    preact: ^10.5.13
-  checksum: 76330cece6bb08906166f5629326efb42c9f93c718ba4100fb9d8436b1cd1aab070924760b5e8d36374c04eca58fa1c12aa9728ff206046423cd5af39281adb8
-  languageName: node
-  linkType: hard
-
 "@uppy/utils@npm:^5.7.5":
   version: 5.7.5
   resolution: "@uppy/utils@npm:5.7.5"
@@ -3915,16 +3905,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/xhr-upload@npm:3.6.4":
-  version: 3.6.4
-  resolution: "@uppy/xhr-upload@npm:3.6.4"
+"@uppy/utils@npm:^5.9.0":
+  version: 5.9.0
+  resolution: "@uppy/utils@npm:5.9.0"
   dependencies:
-    "@uppy/companion-client": ^3.7.4
-    "@uppy/utils": ^5.7.4
-    nanoid: ^4.0.0
+    lodash: ^4.17.21
+    preact: ^10.5.13
+  checksum: c8a8445a3675ba9a1ba96d6c0b3f9c71086fb59a49af05d249355a75a3c488f5d0be3a83827dac54495bfd9b9c697b22ec440b38b5a4192691403d3f6096ef5b
+  languageName: node
+  linkType: hard
+
+"@uppy/xhr-upload@npm:3.6.5":
+  version: 3.6.5
+  resolution: "@uppy/xhr-upload@npm:3.6.5"
+  dependencies:
+    "@uppy/companion-client": ^3.8.1
+    "@uppy/utils": ^5.9.0
   peerDependencies:
-    "@uppy/core": ^3.9.3
-  checksum: 51c4d26da8a62e47906aa6cceae660966d4b9b9b812950b6d848f6ef4fd7abb523cd0762b1d258fc941434c5c8947364f54eb2295c8b2bc7a8b1c345b3c69905
+    "@uppy/core": ^3.11.0
+  checksum: 22791777de903314c8f90f88c3cf49c666b8dd9d2e849d50b6c65696046129d388ef6773300efb691b09faa904f1b21862c39daead9f304c040535895618a4cd
   languageName: node
   linkType: hard
 
@@ -13532,11 +13531,11 @@ __metadata:
     "@types/uuid": 9.0.8
     "@typescript-eslint/eslint-plugin": 7.8.0
     "@typescript-eslint/parser": 7.8.0
-    "@uppy/core": 3.10.1
-    "@uppy/drop-target": 2.0.5
-    "@uppy/file-input": 3.1.1
+    "@uppy/core": 3.11.0
+    "@uppy/drop-target": 2.1.0
+    "@uppy/file-input": 3.1.2
     "@uppy/progress-bar": 3.1.1
-    "@uppy/xhr-upload": 3.6.4
+    "@uppy/xhr-upload": 3.6.5
     "@wdio/cli": 8.36.1
     "@wdio/sauce-service": 8.36.1
     allure-commandline: 2.29.0
