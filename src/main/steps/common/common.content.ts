@@ -88,7 +88,7 @@ export const en = {
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
   openingTimesHeading: 'Opening times (webchat and telephone)',
-  openingTimes: 'Monday to Friday, 8am to 6pm',
+  openingTimes: 'Monday to Friday, 10am to 6pm',
   closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
   cookiesBanner: {
     cookiesHeading: 'Cookies on',
