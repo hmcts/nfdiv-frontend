@@ -88,7 +88,7 @@ export const en = {
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
   openingTimesHeading: 'Opening times (webchat and telephone)',
-  openingTimes: 'Monday to Friday, 8am to 6pm',
+  openingTimes: 'Monday to Friday, 10am to 6pm',
   closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
   cookiesBanner: {
     cookiesHeading: 'Cookies on',
@@ -129,6 +129,7 @@ export const en = {
   helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
   webChatTitle: 'Ask Divorce Web Chat',
+  webChatPageName: 'Apply for No Fault Divorce',
   timeout: {
     title: 'You are about to be signed out',
     part1: 'You are going to be signed out of your application in',
@@ -149,6 +150,7 @@ export const en = {
   contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
   saveAndSignOutLink: SAVE_AND_SIGN_OUT,
   avayaLanguage: 'English',
+  avayaClientUrlFolder: '1',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
 };
 
@@ -242,6 +244,7 @@ const cy: typeof en = {
   helpChatClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd.',
   helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltwch â ni dros y ffôn neu e-bost.',
   webChatTitle: 'Sgwrsio dros y we gyda’r Gwasanaeth Ysgaru',
+  webChatPageName: 'Gwneud cais am Ysgariad Heb Fai',
   allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
   useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
   doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
@@ -274,6 +277,7 @@ const cy: typeof en = {
   contactEmail: 'contactdivorce@justice.gov.uk',
   contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
   avayaLanguage: 'Welsh',
+  avayaClientUrlFolder: 'welsh',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
 };
 

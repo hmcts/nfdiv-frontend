@@ -34,3 +34,5 @@ webchat:
   avayaUrl: WEBCHAT_AVAYA_URL
   avayaClientUrl: WEBCHAT_AVAYA_CLIENT_URL
   avayaService: WEBCHAT_AVAYA_SERVICE
+dynatrace:
+  dynatraceUrl: DYNATRACE_URL

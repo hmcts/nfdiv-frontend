@@ -7,6 +7,7 @@ import {
   CaseData,
   ChangedNameHow,
   ClarificationReason,
+  ClarificationResponse,
   ConditionalOrderCourt,
   DateAsString,
   DivorceDocument,
@@ -335,6 +336,7 @@ export interface Case {
   coRefusalClarificationAdditionalInfo?: string;
   dateFinalOrderEligibleToRespondent?: DateAsString;
   coClarificationResponses?: string;
+  coClarificationResponsesSubmitted?: ListValue<ClarificationResponse>[];
   coCannotUploadClarificationDocuments?: Checkbox;
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
   coClarificationUploadedFiles?: UploadedFile[];

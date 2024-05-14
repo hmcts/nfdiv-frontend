@@ -4,7 +4,6 @@ Feature: PCQ Equality and diversity questions
     Given I create a new user and login
     When I go to "/equality"
 
-  @flaky
   Scenario: Answer all Equality and diversity questions
     Given I click "Continue to the questions"
     And the page should include "What is your date of birth?"
@@ -16,7 +15,7 @@ Feature: PCQ Equality and diversity questions
     And I type "2000"
     And I click "Continue"
     And the page should include "What is your main language?"
-    And I select "English or Welsh"
+    And I select "English"
     And I click "Continue"
     And the page should include "What is your sex?"
     And I select "Male"
@@ -46,7 +45,7 @@ Feature: PCQ Equality and diversity questions
     And I click "Continue to the next steps"
     Then the page should include "Check your answers"
 
-  @flaky
+
   Scenario: Choose not to answer all Equality and diversity questions
     Given I click "I don't want to answer these questions"
     Then the page should include "Check your answers"
