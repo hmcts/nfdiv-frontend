@@ -146,6 +146,9 @@ const fields: FromApiConverters = {
       applicant2SolicitorAddressCountry: address?.[6],
     };
   },
+  applicant2SolicitorAddressOverseas: ({ applicant2SolicitorAddressOverseas }) => ({
+    applicant2SolicitorAddressOverseas: applicant2SolicitorAddressOverseas ?? YesOrNo.NO,
+  }),
   previousState: 'previousState',
   applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
   applicant2Offline: 'applicant2Offline',

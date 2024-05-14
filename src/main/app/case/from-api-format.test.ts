@@ -341,6 +341,7 @@ describe('from-api-format', () => {
     {
       applicant2SolicitorAddress:
         'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
       expected: {
         applicant2SolicitorAddress:
           'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
@@ -351,10 +352,12 @@ describe('from-api-format', () => {
         applicant2SolicitorAddressCounty: 'testLineCounty',
         applicant2SolicitorAddressPostcode: 'testLinePostcode',
         applicant2SolicitorAddressCountry: 'testLineCountry',
+        applicant2SolicitorAddressOverseas: YesOrNo.NO,
       },
     },
     {
       applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
       expected: {
         applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
         applicant2SolicitorAddress1: '',
@@ -364,6 +367,7 @@ describe('from-api-format', () => {
         applicant2SolicitorAddressCounty: '',
         applicant2SolicitorAddressPostcode: 'testLinePostcode',
         applicant2SolicitorAddressCountry: '',
+        applicant2SolicitorAddressOverseas: YesOrNo.NO,
       },
     },
   ])('sets correct solicitors address fields by splitting the answer', ({ expected, ...formData }) => {
