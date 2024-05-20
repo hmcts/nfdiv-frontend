@@ -13602,7 +13602,7 @@ __metadata:
     node-cache: 5.1.2
     node-sass: 9.0.0
     nodemon: 3.1.0
-    npm-run-all2: 6.1.2
+    npm-run-all2: 6.2.0
     nunjucks: 3.2.4
     otplib: 12.0.1
     pa11y: 8.0.0
@@ -13943,9 +13943,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-run-all2@npm:6.1.2":
-  version: 6.1.2
-  resolution: "npm-run-all2@npm:6.1.2"
+"npm-run-all2@npm:6.2.0":
+  version: 6.2.0
+  resolution: "npm-run-all2@npm:6.2.0"
   dependencies:
     ansi-styles: ^6.2.1
     cross-spawn: ^7.0.3
@@ -13959,7 +13959,7 @@ __metadata:
     npm-run-all2: bin/npm-run-all/index.js
     run-p: bin/run-p/index.js
     run-s: bin/run-s/index.js
-  checksum: dc595a8341eba7f1ac23496da1f5751b8372023716124d4204cee3e2e7005679902137247106861f01b9fc8976681245191ce925f2c6cea9c37a34c61cf1f9d0
+  checksum: ca5c109e6556684972af12a0b0f43e03ab20ba6042b12b38fc95bfa42ba4bb7ff8b7a3ce0772a1fc9f55eef60c26835f88e513185261c506a3832d53528c4f4c
   languageName: node
   linkType: hard
 
