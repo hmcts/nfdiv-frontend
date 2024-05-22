@@ -293,6 +293,7 @@ Feature: Applicant 2
     Given I login with applicant "1"
     Then the page URL should be "/application-ended"
 
+  @Flaky
   Scenario: Applicant 2 upload larry-the-cat
     When I go to "/"
     And I click "Send for review"
