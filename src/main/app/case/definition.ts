@@ -664,6 +664,7 @@ export interface CaseData {
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
+  serviceRequestReference: string;
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
@@ -1555,6 +1556,7 @@ export interface Payment {
   channel: string;
   reference: string;
   transactionId: string;
+  serviceRequestReference: string;
 }
 
 export interface PaymentItem {

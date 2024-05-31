@@ -46,4 +46,9 @@ export class PaymentModel {
       this.hasPayment && this.lastPayment.status === PaymentStatus.IN_PROGRESS && this.lastPayment.reference !== null
     );
   }
+
+  public getServiceRefNumberForFee(feeCode: string): string {
+    const paymentIdx = this.payments.findIndex(p => p.value.feeCode === feeCode);
+    return paymentIdx === -1 ? '' : this.payments[paymentIdx].value.serviceRequestReference;
+  }
 }
