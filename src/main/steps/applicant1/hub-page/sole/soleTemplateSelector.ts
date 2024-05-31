@@ -24,7 +24,8 @@ export const getSoleHubTemplate = (
       return HubTemplate.FinalOrderRequested;
     }
     case State.AwaitingServiceConsideration:
-    case State.AwaitingBailiffReferral: {
+    case State.AwaitingBailiffReferral:
+    case State.BailiffRefused: {
       return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
     }
     case State.ConditionalOrderPronounced: {
