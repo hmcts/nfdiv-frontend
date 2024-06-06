@@ -7,7 +7,7 @@ import PaymentPostController from './post';
 
 jest.mock('../../../app/payment/PaymentClient');
 
-const { mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
+const { mockCreateServiceRequest, mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
 
 describe('PaymentPostController', () => {
   const paymentController = new PaymentPostController();
@@ -15,6 +15,7 @@ describe('PaymentPostController', () => {
   beforeEach(() => {
     mockCreate.mockClear();
     mockGet.mockClear();
+    mockCreateServiceRequest.mockClear();
   });
 
   describe('payment', () => {
@@ -73,6 +74,10 @@ describe('PaymentPostController', () => {
         reference: 'mock ref',
         external_reference: 'mock external reference payment id',
         _links: { next_url: { href: 'http://example.com/pay' } },
+      });
+
+      (mockCreateServiceRequest as jest.Mock).mockReturnValueOnce({
+        service_request_reference: 'test1234',
       });
 
       await paymentController.post(req, res);
