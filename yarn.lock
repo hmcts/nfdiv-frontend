@@ -3430,12 +3430,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.12.12":
-  version: 20.12.12
-  resolution: "@types/node@npm:20.12.12"
+"@types/node@npm:20.12.13":
+  version: 20.12.13
+  resolution: "@types/node@npm:20.12.13"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 5373983874b9af7c216e7ca5d26b32a8d9829c703a69f1e66f2113598b5be8582c0e009ca97369f1ec9a6282b3f92812208d06eb1e9fc3bd9b939b022303d042
+  checksum: 9ec8971a76b2435379c10689c639ba1bbf4451075709bdf4bf23b7972a63f7d966947914410f2d3711a315e1157d782b76cfadc32944e29db9dd444221aea699
   languageName: node
   linkType: hard
 
@@ -13663,7 +13663,7 @@ __metadata:
     "@types/lodash": 4.17.4
     "@types/multer": 1.4.11
     "@types/negotiator": 0.6.3
-    "@types/node": 20.12.12
+    "@types/node": 20.12.13
     "@types/nunjucks": 3.2.6
     "@types/require-directory": 2.1.6
     "@types/serve-favicon": 2.5.7
@@ -13719,12 +13719,12 @@ __metadata:
     negotiator: 0.6.3
     node-cache: 5.1.2
     node-sass: 9.0.0
-    nodemon: 3.1.1
+    nodemon: 3.1.2
     npm-run-all2: 6.2.0
     nunjucks: 3.2.4
     otplib: 12.0.1
     pa11y: 8.0.0
-    pdfjs-dist: 4.2.67
+    pdfjs-dist: 4.3.136
     prettier: 3.1.1
     redis: 4.6.14
     require-directory: 2.1.1
@@ -13944,9 +13944,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemon@npm:3.1.1":
-  version: 3.1.1
-  resolution: "nodemon@npm:3.1.1"
+"nodemon@npm:3.1.2":
+  version: 3.1.2
+  resolution: "nodemon@npm:3.1.2"
   dependencies:
     chokidar: ^3.5.2
     debug: ^4
@@ -13960,7 +13960,7 @@ __metadata:
     undefsafe: ^2.0.5
   bin:
     nodemon: bin/nodemon.js
-  checksum: 43ed211d3a1eb267444265454c0dd306177fcef119c8c095b737d843648e7b51f10c033c262ec10a09df60aa2f237904fa659a96d0562541c55b87c3f5ba77ff
+  checksum: 8ab01dcf970c66d9910ede58db7c24afca4839eaaadbeebbfac4b5f755cc8ba9fa72e0e2c1f14ef5081514d3b9c37888426d896b356adbe0450ccb5b461de0b9
   languageName: node
   linkType: hard
 
@@ -14834,9 +14834,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdfjs-dist@npm:4.2.67":
-  version: 4.2.67
-  resolution: "pdfjs-dist@npm:4.2.67"
+"pdfjs-dist@npm:4.3.136":
+  version: 4.3.136
+  resolution: "pdfjs-dist@npm:4.3.136"
   dependencies:
     canvas: ^2.11.2
     path2d: ^0.2.0
@@ -14845,7 +14845,7 @@ __metadata:
       optional: true
     path2d:
       optional: true
-  checksum: 7aadfc2c36de22abed2722f116e4a160d195162d16b8c1b8f78aa63a4b4fc1e05bee51f7806ab1709e0758a137f689dd377a442463e25bc07dfbd34bbfb7c94d
+  checksum: 3f2a528cc004ae207cfe021edd132de88fc4bcb0ed2d94e88a2df4db30f903364e5beddfabfa308d1100d338378bd6b10d2580d239aadeed6653d94ccfe59772
   languageName: node
   linkType: hard
 
@@ -17441,8 +17441,8 @@ __metadata:
   linkType: hard
 
 "tar@npm:^7.0.0":
-  version: 7.1.0
-  resolution: "tar@npm:7.1.0"
+  version: 7.2.0
+  resolution: "tar@npm:7.2.0"
   dependencies:
     "@isaacs/fs-minipass": ^4.0.0
     chownr: ^3.0.0
@@ -17450,7 +17450,7 @@ __metadata:
     minizlib: ^3.0.1
     mkdirp: ^3.0.1
     yallist: ^5.0.0
-  checksum: 1539c71e93b57b71d7816b3173948d3865aae3c22dd06ba73174734564a95b8d34e8a278c419f3ae1af725bc346e6e1921d92654d90c40ec4cce2de6c0a5637a
+  checksum: 5e0bf32a1309b1d0efa65a3017b1bc892518e7af563afd7cc3819a279e31db8cd9660ae5159c356934c9aa88f209dd3c760b07b87de21f38b47655aeae3ddf70
   languageName: node
   linkType: hard
 
