@@ -13,6 +13,7 @@ import {
   APPLICANT_2,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
+  APP_REPRESENTED,
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
@@ -72,7 +73,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
       return CONFIRM_JOINT_APPLICATION;
     }
     case State.Submitted: {
-      return APPLICATION_SUBMITTED;
+      return userCase.applicant1SolicitorRepresented === YesOrNo.YES ? APP_REPRESENTED : APPLICATION_SUBMITTED;
     }
     case State.AwaitingPayment: {
       return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? PAY_AND_SUBMIT : PAY_YOUR_FEE;

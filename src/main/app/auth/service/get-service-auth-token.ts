@@ -14,7 +14,7 @@ export const getTokenFromApi = (): void => {
   const secret: string = config.get('services.authProvider.secret');
   const oneTimePassword = authenticator.generate(secret);
   const body = { microservice, oneTimePassword };
-
+  logger.info(body);
   axios
     .post(url, body)
     .then(response => (token = response.data))

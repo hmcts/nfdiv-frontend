@@ -1,0 +1,74 @@
+{% macro textWithVisuallyHiddenSpan(text, isComplete) %}
+  {{text}} <span class="govuk-visually-hidden">{{'' if isComplete else 'not '}}completed</span>
+{% endmacro %}
+
+{% if isJointApplication %}
+  {% set items = [{
+    label: {
+      html: textWithVisuallyHiddenSpan(submitted, true)
+    },
+    complete: true,
+    active: false
+  }, {
+    label: {
+      html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
+    },
+    complete: displayState.isAtOrAfter('ConditionalOrderPronounced'),
+    active: displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced'),
+    interval: weeksToConditionalOrder
+  }, {
+    label: {
+      html: textWithVisuallyHiddenSpan(finalOrder, displayState.state() == 'FinalOrderComplete')
+    },
+    complete: displayState.state() == 'FinalOrderComplete',
+    active: displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete'),
+    interval: weeksToFinalOrder
+  }] %}
+{% else %}
+  {% set items = [{
+    label: {
+      html: textWithVisuallyHiddenSpan(submitted, true)
+    },
+    complete: true,
+    active: false
+  }, {
+    label: {
+      html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))
+    },
+    complete: displayState.isAfter('IssuedToBailiff'),
+    active: displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding'),
+    interval: weeksToResponse
+  }, {
+    label: {
+      html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
+    },
+    complete: displayState.isAfter('ConditionalOrderPronounced'),
+    active: displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced'),
+    interval: weeksToConditionalOrder
+  }, {
+    label: {
+      html: textWithVisuallyHiddenSpan(finalOrder, displayState.isAtOrAfter('FinalOrderPending'))
+    },
+    complete: displayState.state() == 'FinalOrderComplete',
+    active: displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete'),
+    interval: weeksToFinalOrder
+  }] %}
+{% endif %}
+
+<div class='hub-progress-bar-container' aria-label='{{ progressBarAriaLabel }}'>
+  <div class="hmcts-progress-bar" id='application-submitted-bar'>
+    <ol class="hmcts-progress-bar__list">
+      {% for item in items %}
+        <li class="hmcts-progress-bar__list-item {{ 'joint' if isJointApplication else 'sole' }}-application-bar" {{ 'aria-current="step"' | safe if item.active }}>
+          <span class="hmcts-progress-bar__icon{{ ' hmcts-progress-bar__icon--complete' if item.complete }}"></span>
+          <span class="hmcts-progress-bar__label">{{ item.label.html | safe if item.label.html else item.label.text }}</span>
+          {% if item.interval %}
+            <span class='hmcts-progress-bar__label govuk-!-font-weight-bold govuk-!-font-size-16 progress-bar-next-stage'>
+              {{ item.interval }}
+            </span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
