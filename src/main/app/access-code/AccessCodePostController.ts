@@ -2,10 +2,22 @@ import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { APPLICANT_2, HUB_PAGE, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  HUB_PAGE,
+  RESPONDENT,
+  SIGN_OUT_URL,
+  YOU_NEED_TO_REVIEW_YOUR_APPLICATION
+} from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/case-api';
-import { ApplicationType, SYSTEM_LINK_APPLICANT_2, SYSTEM_UNLINK_APPLICANT } from '../case/definition';
+import {
+  ApplicationType,
+  SYSTEM_LINK_APPLICANT_1,
+  SYSTEM_LINK_APPLICANT_2,
+  SYSTEM_UNLINK_APPLICANT
+} from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -26,7 +38,19 @@ export class AccessCodePostController {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     formData.respondentUserId = req.session.user.id;
-    formData.applicant2Email = req.session.user.email;
+
+    //ToDo: confirm setting the first and last names from session is
+    //how it should work, we were doing this on joint application previously
+    //but oddly not on respondent
+    if (req.path.includes(APPLICANT_2)) {
+      formData.applicant2Email = req.session.user.email;
+      formData.applicant2FirstNames = req.session.user.givenName;
+      formData.applicant2LastNames = req.session.user.familyName;
+    } else {
+      formData.applicant1Email = req.session.user.email;
+      formData.applicant1FirstNames = req.session.user.givenName;
+      formData.applicant1LastNames = req.session.user.familyName;
+    }
     req.session.errors = form.getErrors(formData);
     const caseReference = formData.caseReference?.replace(/-/g, '');
 
@@ -34,14 +58,11 @@ export class AccessCodePostController {
     try {
       const caseData = await caseworkerUserApi.getCaseById(caseReference as string);
 
-      if (caseData.applicationType === ApplicationType.JOINT_APPLICATION) {
-        formData.applicant2FirstNames = req.session.user.givenName;
-        formData.applicant2LastNames = req.session.user.familyName;
-      }
+      logger.info(`AccessCodePostController invoked for case ID: ${caseReference}`);
 
-      logger.info('AccessCodePostController invoked for case ID: ', caseReference);
+      const expectedAccessCode = req.path.includes(APPLICANT_2) ? caseData.accessCode : caseData.accessCodeApplicant1;
 
-      if (caseData.accessCode !== formData.accessCode?.replace(/\s/g, '').toUpperCase()) {
+      if (expectedAccessCode !== formData.accessCode?.replace(/\s/g, '').toUpperCase()) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         const formattedAccessCode = formData.accessCode?.replace(/\s/g, '').toUpperCase();
         req.locals.logger.info(
@@ -58,18 +79,18 @@ export class AccessCodePostController {
     }
 
     if (req.session.errors.length === 0) {
-      logger.info('Calling to link respondent/app2 to case ID: ' + caseReference);
-      try {
-        req.session.userCase = await caseworkerUserApi.triggerEvent(
-          caseReference as string,
-          formData,
-          SYSTEM_LINK_APPLICANT_2
-        );
+      const systemEvent = req.path.includes(APPLICANT_2) ? SYSTEM_LINK_APPLICANT_2 : SYSTEM_LINK_APPLICANT_1;
 
-        req.session.isApplicant2 = true;
+      logger.info('Calling to link "$systemEvent" to case ID: ' + caseReference);
+      try {
+        req.session.userCase = await caseworkerUserApi.triggerEvent(caseReference as string, formData, systemEvent);
+
+        if (req.path.includes(APPLICANT_2)) {
+          req.session.isApplicant2 = true;
+        }
       } catch (err) {
         req.locals.logger.error(
-          `Error linking applicant 2/respondent to joint application to case ${caseReference}, ${err}`
+          `Error linking applicant/respondent to case ${caseReference}, ${err}`
         );
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
       }
@@ -93,13 +114,22 @@ export class AccessCodePostController {
       req.session.applicantChoosesNewInviteCase = undefined;
     }
 
-    const nextStep =
-      req.session.errors.length > 0
-        ? req.url
-        : req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION
-          ? `${RESPONDENT}${HUB_PAGE}`
-          : `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
-
+    let nextStep = req.url;
+    if (req.session.errors.length === 0) {
+      if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
+        if (req.session.isApplicant2) {
+          nextStep = `${RESPONDENT}${HUB_PAGE}`;
+        } else {
+          nextStep = `${APPLICANT_1}${HUB_PAGE}`;
+        }
+      } else if (req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION) {
+        if (req.session.isApplicant2) {
+          nextStep = `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
+        } else {
+          nextStep = `${APPLICANT_1}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
+        }
+      }
+    }
     req.session.save(err => {
       if (err) {
         throw err;

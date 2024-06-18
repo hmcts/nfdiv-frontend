@@ -1015,6 +1015,12 @@ export interface CaseInvite {
   applicant2UserId: string;
 }
 
+export interface CaseInviteApp1 {
+  applicant1InviteEmailAddress: string;
+  accessCode: string;
+  applicant1UserId: string;
+}
+
 export interface ClarificationResponse {
   clarificationDate: DateAsString;
   clarificationResponses: ListValue<string>[];
@@ -2573,6 +2579,7 @@ export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-dat
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
+export const SYSTEM_LINK_APPLICANT_1 = 'system-link-applicant1';
 export const SYSTEM_UNLINK_APPLICANT = 'system-unlink-applicant';
 export const SYSTEM_CANCEL_CASE_INVITE = 'system-cancel-case-invite';
 export const SYSTEM_JS_DISPUTED_ANSWER_OVERDUE = 'system-js-disputed-answer-overdue';

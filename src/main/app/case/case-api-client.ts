@@ -35,14 +35,33 @@ export class CaseApiClient {
     const query = {
       query: {
         bool: {
-          must: {
-            multi_match: {
-              query: email,
-              fields: ['data.applicant2InviteEmailAddress', 'data.applicant2Email'],
-              operator: 'and',
+          should: [
+            {
+              bool: {
+                must: {
+                  multi_match: {
+                    query: email,
+                    fields: ['data.applicant2InviteEmailAddress', 'data.applicant2Email'],
+                    operator: 'and',
+                  },
+                },
+                filter: { exists: { field: 'data.accessCode' } },
+              },
             },
-          },
-          filter: { exists: { field: 'data.accessCode' } },
+            {
+              bool: {
+                must: {
+                  multi_match: {
+                    query: email,
+                    fields: ['data.applicant1InviteEmailAddress', 'data.applicant1Email'],
+                    operator: 'and',
+                  },
+                },
+                filter: { exists: { field: 'data.accessCodeApp1' } },
+              },
+            },
+          ],
+          minimum_should_match: 1,
         },
       },
       sort: [{ created_date: { order: 'desc' } }],

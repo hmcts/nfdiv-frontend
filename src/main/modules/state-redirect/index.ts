@@ -2,19 +2,20 @@ import dayjs from 'dayjs';
 import { Application, NextFunction, Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, State } from '../../app/case/definition';
+import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
 import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
   APPLICATION_SUBMITTED,
+  APP_REPRESENTED,
   JOINT_APPLICATION_SUBMITTED,
   NO_RESPONSE_YET,
-  PAYMENT_CALLBACK_URL,
+  PageLink,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
-  PageLink,
+  PAYMENT_CALLBACK_URL,
   SAVE_AND_SIGN_OUT,
   SWITCH_TO_SOLE_APPLICATION,
 } from '../../steps/urls';
@@ -30,6 +31,16 @@ export class StateRedirectMiddleware {
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (signInNotRequired(req.path as PageLink)) {
           return next('route');
+        }
+
+        // Check if the applicant or their partner is represented by a solicitor
+        if (
+          this.isRepresentedBySolicitor(req.session.userCase, req.session.isApplicant2) &&
+          req.path !== APP_REPRESENTED
+        ) {
+          return res.redirect(APP_REPRESENTED);
+        } else {
+          return next();
         }
 
         if (
@@ -80,6 +91,16 @@ export class StateRedirectMiddleware {
       ((isApplicant2 && [State.AwaitingApplicant1Response, State.Applicant2Approved].includes(userCase?.state)) ||
         (!isApplicant2 && userCase?.state === State.AwaitingApplicant2Response)) &&
       dayjs(userCase.dueDate).diff(dayjs()) < 0
+    );
+  }
+
+  private isRepresentedBySolicitor(userCase: CaseWithId, isApplicant2: boolean) {
+    if (userCase === undefined || isApplicant2 === undefined) {
+      return false;
+    }
+    return (
+      userCase.applicant1SolicitorRepresented === YesOrNo.YES ||
+      (isApplicant2 && userCase.applicant2SolicitorRepresented === YesOrNo.YES)
     );
   }
 }

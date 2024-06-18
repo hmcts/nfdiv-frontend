@@ -103,6 +103,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1PcqId: 'applicant1PcqId',
   issueDate: 'issueDate',
   applicant1SolicitorAddress: 'applicant1SolicitorAddress',
+  app1SolicitorRepresented: 'applicant1SolicitorRepresented',
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
@@ -185,6 +186,7 @@ export interface Case {
   divorceOrDissolution: DivorceOrDissolution;
   issueDate?: DateAsString;
   applicant1SolicitorAddress?: string;
+  app1SolicitorRepresented?: YesOrNo;
   applicant2SolicitorAddress?: string;
   gender?: Gender;
   sameSex?: Checkbox;
@@ -289,6 +291,7 @@ export interface Case {
   applicant1CannotUploadDocuments?: DocumentType | DocumentType[];
   applicant2CannotUploadDocuments?: DocumentType | DocumentType[];
   accessCode?: string;
+  accessCodeApplicant1?: string;
   dueDate?: DateAsString;
   applicant1IConfirmPrayer?: Checkbox;
   applicant2IConfirmPrayer?: Checkbox;

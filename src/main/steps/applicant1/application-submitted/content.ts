@@ -153,6 +153,11 @@ const cy: typeof en = (
   feedbackLink: string
 ) => ({
   title: 'Cyflwynwyd y cais',
+  appRepresentedText: `${
+    userCase.applicant1SolicitorRepresented
+      ? "Nid oes gennych chi fynediad i'r achos hwn bellach oherwydd eich bod wedi rhoi gwybod i'r Llys eich bod yn cael eich cynrychioli. Cysylltwch â'ch Cyfreithiwr cyn gynted â phosibl."
+      : ''
+  }`,
   yourReferenceNumber: 'Eich cyfeirnod yw:',
   confirmationEmail: `Mae cadarnhad${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' a derbynneb am y taliad'
