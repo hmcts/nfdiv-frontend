@@ -299,7 +299,7 @@ Feature: Applicant 1 joint application
 
     When I click "Continue"
     Then the page should include "Enter your postal address"
-    Given I click "I cannot enter a UK postcode"
+    Given I click "I have an international address"
     And I select "Address line 1"
     And I type "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102 PETTY FRANCE"
     And I select "Town or city"
@@ -353,7 +353,6 @@ Feature: Applicant 1 joint application
     When I click "Send for review"
     Then the page URL should be "/application-sent-for-review"
     And the page should include "Your answers have been sent to your husband to review"
-
 
   @flaky
   Scenario: Applicant 1 upload larry-the-cat
