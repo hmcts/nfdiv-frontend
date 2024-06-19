@@ -7,6 +7,7 @@ import {
   APPLICANT_2,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
+  APP_REPRESENTED,
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
@@ -579,6 +580,23 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+  });
+
+  test('redirects to application represented page for applicant 1 users in submitted state when represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Submitted,
+          applicant1SolicitorRepresented: YesOrNo.YES,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
   });
 
   test('redirects to the check your answers page for applicant 1 users in awaitingApplicant1Response state', () => {
