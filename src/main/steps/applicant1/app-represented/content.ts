@@ -10,13 +10,7 @@ import { currentStateFn } from '../../state-sequence';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = (
-  { userCase,
-    partner,
-    isJointApplication,
-    webChat,
-    openingTimes,
-    telephoneNumber,
-  }: CommonContent,
+  { userCase, partner, isJointApplication, webChat, openingTimes, telephoneNumber }: CommonContent,
   feedbackLink: string
 ) => ({
   title: 'Application represented',
@@ -60,13 +54,7 @@ const en = (
 
 // @TODO Welsh
 const cy: typeof en = (
-  { userCase,
-    partner,
-    isJointApplication,
-    webChat,
-    telephoneNumber,
-    openingTimes,
-  }: CommonContent,
+  { userCase, partner, isJointApplication, webChat, telephoneNumber, openingTimes }: CommonContent,
   feedbackLink: string
 ) => ({
   title: 'Cyflwynwyd y cais',

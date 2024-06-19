@@ -318,7 +318,7 @@ export const generateCommonContent = ({
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
-    isApp1Represented
+    isApp1Represented,
   };
 };
 
