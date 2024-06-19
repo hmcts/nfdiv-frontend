@@ -94,8 +94,15 @@ export class StateRedirectMiddleware {
     );
   }
 
-  private isRepresentedBySolicitor(userCase: CaseWithId, isApplicant2: boolean) {
-    return (userCase.applicant1SolicitorRepresented === YesOrNo.YES ||
-      (isApplicant2 && userCase.applicant2SolicitorRepresented === YesOrNo.YES))
+  private isRepresentedBySolicitor(userCase: CaseWithId, isApplicant2?: boolean) {
+    if (userCase === undefined) {
+      return false;
+    }
+
+    if (isApplicant2 === true) {
+      return userCase.applicant2SolicitorRepresented === YesOrNo.YES;
+    } else {
+      return userCase.applicant1SolicitorRepresented === YesOrNo.YES;
+    }
   }
 }

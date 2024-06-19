@@ -8,7 +8,7 @@ import { DivorceOrDissolution } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
 
 const logger = Logger.getLogger('payment');
-logger.level = 'info';
+
 export class PaymentClient {
   client: AxiosInstance;
 
@@ -16,20 +16,14 @@ export class PaymentClient {
     private readonly session: AppSession,
     readonly returnUrl: string
   ) {
-    const headers = {
-      Authorization: `Bearer ${session.user.accessToken}`,
-      ServiceAuthorization: getServiceAuthToken(),
-      'return-url': returnUrl,
-    };
-
-    // Log the headers
-    logger.info('Axios request headers:', headers);
     this.client = axios.create({
       baseURL: config.get('services.payments.url'),
-      headers: headers
+      headers: {
+        Authorization: 'Bearer ' + session.user.accessToken,
+        ServiceAuthorization: getServiceAuthToken(),
+        'return-url': returnUrl,
+      },
     });
-    // Log the headers
-    logger.info('Axios request headers:', headers);
   }
 
   public async create(): Promise<Payment> {

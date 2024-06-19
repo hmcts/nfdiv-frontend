@@ -38,7 +38,7 @@ export class CaseApiClient {
           must: {
             multi_match: {
               query: email,
-              fields: ['data.applicant2InviteEmailAddress', 'data.applicant2Email', 'data.applicant1Email'],
+              fields: ['data.applicant2InviteEmailAddress', 'data.applicant2Email'],
               operator: 'and',
             },
           },
@@ -106,7 +106,6 @@ export class CaseApiClient {
   public async getCaseUserRoles(caseId: string, userId: string): Promise<CaseAssignedUserRoles> {
     try {
       const response = await this.server.get<CaseAssignedUserRoles>(`case-users?case_ids=${caseId}&user_ids=${userId}`);
-     console.info('Response: ' + response.data.toString());
       return response.data;
     } catch (err) {
       this.logError(err);
