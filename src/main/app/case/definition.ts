@@ -2005,6 +2005,7 @@ export const enum State {
   AwaitingServicePayment = 'AwaitingServicePayment',
   AwaitingAnswer = 'AwaitingAnswer',
   AwaitingJsNullity = 'AwaitingJsNullity',
+  BailiffRefused = 'BailiffRefused',
   ClarificationSubmitted = 'ClarificationSubmitted',
   ConditionalOrderDrafted = 'ConditionalOrderDrafted',
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',
