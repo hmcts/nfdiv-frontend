@@ -44,6 +44,7 @@ export const form: FormContent = {
       },
     },
     applicant2AddressCountry: applicant1FormFields.applicant1AddressCountry,
+    applicant2AddressOverseas: applicant1FormFields.applicant1AddressOverseas,
   },
 };
 

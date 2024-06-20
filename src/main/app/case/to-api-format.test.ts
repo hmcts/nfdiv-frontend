@@ -35,6 +35,7 @@ describe('to-api-format', () => {
     applicant2SolicitorAddressCounty: 'Address County',
     applicant2SolicitorAddressPostcode: 'Address Postcode',
     applicant2SolicitorAddressCountry: 'Address Country',
+    applicant2SolicitorAddressOverseas: YesOrNo.NO,
     applicant1IsApplicant2Represented: Applicant2Represented.NO,
     applicant2AlreadyAppliedForHelpPaying: YesOrNo.YES,
     applicant2HelpWithFeesRefNo: 'HWF-123-CBA',
@@ -74,6 +75,8 @@ describe('to-api-format', () => {
     coApplicant2StatementOfTruth: Checkbox.Checked,
     coCannotUploadClarificationDocuments: Checkbox.Checked,
     coClarificationResponses: 'test',
+    applicant1AddressOverseas: YesOrNo.NO,
+    applicant2AddressOverseas: YesOrNo.NO,
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -97,6 +100,7 @@ describe('to-api-format', () => {
     applicant2SolicitorAddressCounty: 'Address County',
     applicant2SolicitorAddressPostcode: 'Address Postcode',
     applicant2SolicitorAddressCountry: 'Address Country',
+    applicant2SolicitorAddressOverseas: YesOrNo.NO,
     applicant1IsApplicant2Represented: Applicant2Represented.YES,
     applicant1NameChangedHow: [],
     applicant2NameChangedHow: [],
@@ -108,6 +112,8 @@ describe('to-api-format', () => {
     applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
     applicant2ApplyForFinancialOrder: YesOrNo.NO,
     applicant2WhoIsFinancialOrderFor: [],
+    applicant1AddressOverseas: YesOrNo.YES,
+    applicant2AddressOverseas: YesOrNo.YES,
   };
 
   test('Should convert results from nfdiv to api fe format', async () => {
@@ -126,6 +132,7 @@ describe('to-api-format', () => {
       applicant2HWFAppliedForFees: YesOrNo.YES,
       applicant2HWFReferenceNumber: 'HWF-123-CBA',
       applicant2SolicitorAddress: null,
+      applicant2SolicitorAddressOverseas: null,
       applicant2SolicitorEmail: null,
       applicant2SolicitorFirmName: null,
       applicant2SolicitorName: null,
@@ -166,6 +173,8 @@ describe('to-api-format', () => {
         PostCode: '',
         Country: '',
       },
+      applicant2AddressOverseas: YesOrNo.NO,
+      applicant1AddressOverseas: YesOrNo.NO,
       applicant1FinalOrderStatementOfTruth: YesOrNo.YES,
       applicant2FinalOrderStatementOfTruth: YesOrNo.YES,
       doesApplicant1WantToApplyForFinalOrder: YesOrNo.YES,
@@ -210,6 +219,7 @@ describe('to-api-format', () => {
       applicant2SolicitorFirmName: 'Solicitor Firm Name',
       applicant2SolicitorAddress:
         'Address 1\nAddress 2\nAddress 3\nAddress Town\nAddress County\nAddress Postcode\nAddress Country',
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
       applicant1NameChangedHowOtherDetails: '',
       applicant2NameChangedHowOtherDetails: '',
       applicant1NameChangedHow: [],
@@ -222,6 +232,8 @@ describe('to-api-format', () => {
       applicant1FinancialOrdersFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
       applicant2FinancialOrder: YesOrNo.NO,
       applicant2FinancialOrdersFor: [],
+      applicant1AddressOverseas: YesOrNo.YES,
+      applicant2AddressOverseas: YesOrNo.YES,
     });
   });
 
@@ -388,6 +400,7 @@ describe('to-api-format', () => {
         applicant2SolicitorEmail: null,
         applicant2SolicitorFirmName: null,
         applicant2SolicitorAddress: null,
+        applicant2SolicitorAddressOverseas: null,
       },
     },
     {
@@ -484,6 +497,7 @@ describe('to-api-format', () => {
       applicant2SolicitorAddressCounty: 'testLineCounty',
       applicant2SolicitorAddressPostcode: 'testLinePostcode',
       applicant2SolicitorAddressCountry: 'testLineCountry',
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
       expected: {
         applicant2SolicitorAddress:
           'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
@@ -497,6 +511,7 @@ describe('to-api-format', () => {
       applicant2SolicitorAddressCounty: '',
       applicant2SolicitorAddressPostcode: 'testLinePostcode',
       applicant2SolicitorAddressCountry: '',
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
       expected: {
         applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
       },

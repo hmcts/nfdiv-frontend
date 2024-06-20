@@ -302,6 +302,7 @@ export interface Applicant {
   SolicitorEmail: string;
   SolicitorFirmName: string;
   SolicitorAddress: string;
+  SolicitorAddressOverseas: YesOrNo;
   SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   FinancialOrder: YesOrNo;
@@ -512,6 +513,7 @@ export interface CaseData {
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;
+  applicant1AddressOverseas: YesOrNo;
   applicant1PhoneNumber: string;
   applicant1Gender: Gender;
   applicant1ContactDetailsType: ContactDetailsType;
@@ -522,6 +524,7 @@ export interface CaseData {
   applicant1SolicitorEmail: string;
   applicant1SolicitorFirmName: string;
   applicant1SolicitorAddress: string;
+  applicant1SolicitorAddressOverseas: YesOrNo;
   applicant1SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant1SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant1FinancialOrder: YesOrNo;
@@ -558,6 +561,7 @@ export interface CaseData {
   applicant2NameChangedHow: ChangedNameHow[];
   applicant2NameChangedHowOtherDetails: string;
   applicant2Address: AddressGlobalUK;
+  applicant2AddressOverseas: YesOrNo;
   applicant2PhoneNumber: string;
   applicant2Gender: Gender;
   applicant2ContactDetailsType: ContactDetailsType;
@@ -568,6 +572,7 @@ export interface CaseData {
   applicant2SolicitorEmail: string;
   applicant2SolicitorFirmName: string;
   applicant2SolicitorAddress: string;
+  applicant2SolicitorAddressOverseas: YesOrNo;
   applicant2SolicitorAgreeToReceiveEmailsCheckbox: Prayer[];
   applicant2SolicitorOrganisationPolicy: OrganisationPolicy<UserRole>;
   applicant2FinancialOrder: YesOrNo;
