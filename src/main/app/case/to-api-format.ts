@@ -92,6 +92,7 @@ const fields: ToApiConverters = {
           'applicant2SolicitorEmail',
           'applicant2SolicitorFirmName',
           'applicant2SolicitorAddress',
+          'applicant2SolicitorAddressOverseas',
         ])
       : {}),
   }),
@@ -136,6 +137,9 @@ const fields: ToApiConverters = {
   applicant1AddressPrivate: ({ applicant1AddressPrivate }) => ({
     applicant1ContactDetailsType:
       applicant1AddressPrivate === YesOrNo.YES ? ContactDetailsType.PRIVATE : ContactDetailsType.PUBLIC,
+  }),
+  applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
+    applicant1AddressOverseas: applicant1AddressOverseas ?? YesOrNo.NO,
   }),
   applicant2AddressPrivate: ({ applicant2AddressPrivate }) => ({
     applicant2ContactDetailsType:
@@ -258,6 +262,7 @@ const fields: ToApiConverters = {
           'applicant2SolicitorEmail',
           'applicant2SolicitorFirmName',
           'applicant2SolicitorAddress',
+          'applicant2SolicitorAddressOverseas',
         ])
       : {}),
   }),
@@ -276,6 +281,9 @@ const fields: ToApiConverters = {
           ])
         )
       : setUnreachableAnswersToNull(['applicant1WantsToHavePapersServedAnotherWay'])),
+  }),
+  applicant2AddressOverseas: ({ applicant2AddressOverseas }) => ({
+    applicant2AddressOverseas: applicant2AddressOverseas ?? YesOrNo.NO,
   }),
   inTheUk: data => ({
     marriageMarriedInUk: data.inTheUk,
@@ -347,6 +355,9 @@ const fields: ToApiConverters = {
       data.applicant2SolicitorAddressPostcode,
       data.applicant2SolicitorAddressCountry,
     ]),
+  }),
+  applicant2SolicitorAddressOverseas: ({ applicant2SolicitorAddressOverseas }) => ({
+    applicant2SolicitorAddressOverseas: applicant2SolicitorAddressOverseas ?? YesOrNo.NO,
   }),
   applicant1IntendsToSwitchToSole: data => ({
     applicant1IntendsToSwitchToSole: [checkboxConverter(data.applicant1IntendsToSwitchToSole)],

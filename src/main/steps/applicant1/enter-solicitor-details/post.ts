@@ -14,8 +14,10 @@ export default class EnterSolicitorDetailsPostController extends PostController<
       (formData.applicant2SolicitorAddressPostcode && formData.applicant2SolicitorAddress1)
     ) {
       formData.applicant2SolicitorRepresented = YesOrNo.YES;
+      formData.applicant2SolicitorAddressOverseas ??= YesOrNo.NO;
     } else {
       formData.applicant2SolicitorRepresented = YesOrNo.NO;
+      formData.applicant2SolicitorAddressOverseas = undefined;
     }
 
     return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
