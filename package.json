@@ -59,7 +59,7 @@
     "@types/serve-favicon": "2.5.7",
     "@types/session-file-store": "1.2.5",
     "@types/toobusy-js": "0.5.4",
-    "@types/uuid": "9.0.8",
+    "@types/uuid": "10.0.0",
     "@uppy/core": "3.13.0",
     "@uppy/drop-target": "2.1.0",
     "@uppy/file-input": "3.1.2",
@@ -102,7 +102,7 @@
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
     "typescript": "5.4.5",
-    "uuid": "9.0.1"
+    "uuid": "10.0.0"
   },
   "devDependencies": {
     "@codeceptjs/allure-legacy": "1.0.2",
