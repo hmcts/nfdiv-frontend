@@ -1560,6 +1560,7 @@ export interface Payment {
   channel: string;
   reference: string;
   transactionId: string;
+  serviceRequestReference: string;
 }
 
 export interface PaymentItem {
