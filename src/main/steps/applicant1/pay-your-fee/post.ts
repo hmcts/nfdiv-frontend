@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
@@ -8,6 +9,8 @@ import { AnyObject } from '../../../app/controller/PostController';
 import { PaymentClient } from '../../../app/payment/PaymentClient';
 import { PaymentModel } from '../../../app/payment/PaymentModel';
 import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../urls';
+
+const logger = Logger.getLogger('payment');
 
 @autobind
 export default class PaymentPostController {
@@ -27,7 +30,14 @@ export default class PaymentPostController {
 
     const fee = req.session.userCase.applicationFeeOrderSummary.Fees[0].value;
     const client = this.getPaymentClient(req, res);
-    const payment = await client.create();
+    let serviceRefNumberForFee = payments.getServiceRefNumberForFee(fee.FeeCode);
+    if (!serviceRefNumberForFee) {
+      logger.info('Cannot find service reference number for fee code. creating one');
+      const serviceReqResponse = await client.createServiceRequest();
+      serviceRefNumberForFee = serviceReqResponse.service_request_reference;
+    }
+    //Take payment for service request reference
+    const payment = await client.create(serviceRefNumberForFee); //send service req number to this call
     const now = new Date().toISOString();
 
     payments.add({
@@ -36,9 +46,10 @@ export default class PaymentPostController {
       feeCode: fee.FeeCode,
       amount: parseInt(fee.FeeAmount, 10),
       status: PaymentStatus.IN_PROGRESS,
-      channel: payment._links.next_url.href,
-      reference: payment.reference,
+      channel: payment.next_url,
+      reference: payment.payment_reference,
       transactionId: payment.external_reference,
+      serviceRequestReference: serviceRefNumberForFee,
     });
 
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
@@ -46,8 +57,7 @@ export default class PaymentPostController {
       payments.list,
       CITIZEN_ADD_PAYMENT
     );
-
-    this.saveAndRedirect(req, res, payment._links.next_url.href);
+    this.saveAndRedirect(req, res, payment.next_url);
   }
 
   private saveAndRedirect(req: AppRequest, res: Response, url: string) {

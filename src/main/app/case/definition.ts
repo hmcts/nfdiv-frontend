@@ -1560,6 +1560,7 @@ export interface Payment {
   channel: string;
   reference: string;
   transactionId: string;
+  serviceRequestReference: string;
 }
 
 export interface PaymentItem {
@@ -2005,6 +2006,7 @@ export const enum State {
   AwaitingServicePayment = 'AwaitingServicePayment',
   AwaitingAnswer = 'AwaitingAnswer',
   AwaitingJsNullity = 'AwaitingJsNullity',
+  BailiffRefused = 'BailiffRefused',
   ClarificationSubmitted = 'ClarificationSubmitted',
   ConditionalOrderDrafted = 'ConditionalOrderDrafted',
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',

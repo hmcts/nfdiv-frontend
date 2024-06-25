@@ -157,6 +157,7 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.IssuedToBailiff:
     case State.AwaitingBailiffService:
     case State.AwaitingBailiffReferral:
+    case State.BailiffRefused:
     case State.AwaitingServiceConsideration:
     case State.AwaitingServicePayment:
     case State.AwaitingAlternativeService:
