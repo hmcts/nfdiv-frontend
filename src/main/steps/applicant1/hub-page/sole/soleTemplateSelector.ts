@@ -40,7 +40,7 @@ export const getSoleHubTemplate = (
     case State.GeneralConsiderationComplete:
       if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
-      } else if (userCase.coConditionalOrderGrantedDocument && State.GeneralConsiderationComplete) {
+      } else if (userCase.coGrantedDate && State.GeneralConsiderationComplete) {
         return HubTemplate.ConditionalOrderPronounced;
       } else if (
         (userCase.coApplicant1StatementOfTruth || userCase.coApplicant2StatementOfTruth) &&
