@@ -68,7 +68,7 @@
     "applicationinsights": "2.9.5",
     "autobind-decorator": "2.4.0",
     "axios": "1.7.2",
-    "config": "3.3.11",
+    "config": "3.3.12",
     "connect-redis": "7.1.1",
     "cookie-parser": "1.4.6",
     "csurf": "1.11.0",
