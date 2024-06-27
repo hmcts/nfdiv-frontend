@@ -46,6 +46,10 @@ withPipeline(type, product, component) {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/mochawesome.html'
   }
 
+  afterSuccess('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/mochawesome.html'
+  }
+
   // uncomment to connect backend PR
 //   onPR {
 //     env.CASE_TYPE="NFD-3562"
