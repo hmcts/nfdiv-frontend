@@ -5,7 +5,7 @@ Feature: Applicant 1 sole application
     Then the page URL should be "/your-details"
     And the page should include "Who are you applying to divorce?"
     And the page should not include "Back"
-
+@Will
   Scenario: They fill out a happy path applicant 1 sole journey
     Given I select "My husband"
     And I click "Continue"

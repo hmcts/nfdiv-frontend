@@ -13,13 +13,7 @@ export const config: CodeceptJS.Config = {
   teardown: testConfig.teardown,
   plugins: {
     autoLogin: testConfig.AutoLogin,
-    mocha: {
-      reporterOptions: {
-        reportDir: './functional-output/functional/reports',
-        reportFilename: 'Functional test report',
-        inlineAssets: true,
-      },
-    },
+
     pauseOnFail: {
       enabled: !testConfig.TestHeadlessBrowser,
     },
@@ -32,6 +26,13 @@ export const config: CodeceptJS.Config = {
     screenshotOnFail: {
       enabled: true,
       fullPageScreenshots: true,
+    },
+  },
+  mocha: {
+    reporterOptions: {
+      reportDir: './functional-output/functional/reports',
+      reportFilename: 'Functional test report',
+      inlineAssets: true,
     },
   },
 };
