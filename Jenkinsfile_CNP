@@ -40,6 +40,12 @@ withPipeline(type, product, component) {
 
   afterAlways('build') {
     yarnBuilder.yarn('build')
+    allure([
+      includeProperties: false,
+      properties: [],
+      reportBuildPolicy: 'ALWAYS',
+      results: [[path: 'functional-output/functional/reports/Functional-test-results']]
+    ])
   }
 
   // uncomment to connect backend PR

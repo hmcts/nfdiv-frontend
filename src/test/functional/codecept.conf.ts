@@ -16,6 +16,7 @@ export const config: CodeceptJS.Config = {
     allure: {
       enabled: true,
       require: '@codeceptjs/allure-legacy',
+      outputDir: '../../../functional-output/functional/reports/Functional-test-results',
     },
     pauseOnFail: {
       enabled: !testConfig.TestHeadlessBrowser,
