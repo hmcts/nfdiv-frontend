@@ -42,12 +42,12 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
-  afterSuccess('functionalTest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/mochawesome.html'
+  afterAlways('functionalTest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/mochawesome.html'
   }
 
-  afterSuccess('functionalTest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/mochawesome.html'
+  afterAlways('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/mochawesome.html'
   }
 
   // uncomment to connect backend PR
