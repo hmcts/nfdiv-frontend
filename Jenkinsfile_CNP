@@ -42,6 +42,14 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
+  afterAlways('functionalTest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/Functional test report.html'
+  }
+
+  afterAlways('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/Functional test report.html'
+  }
+
   // uncomment to connect backend PR
 //   onPR {
 //     env.CASE_TYPE="NFD-3562"
