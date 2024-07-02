@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { CaseWithId } from '../../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
@@ -37,9 +37,18 @@ export const getSoleHubTemplate = (
     case State.AwaitingPronouncement:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.AwaitingGeneralConsideration:
+    case State.GeneralConsiderationComplete:
       if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
-      } else if (userCase.aosStatementOfTruth) {
+      } else if (userCase.coGrantedDate && State.GeneralConsiderationComplete) {
+        return HubTemplate.ConditionalOrderPronounced;
+      } else if (
+        (userCase.coApplicant1StatementOfTruth === Checkbox.Checked ||
+          userCase.coApplicant2StatementOfTruth === Checkbox.Checked) &&
+        State.GeneralConsiderationComplete
+      ) {
+        return HubTemplate.AwaitingConditionalOrder;
+      } else if (userCase.aosStatementOfTruth && State.AwaitingGeneralConsideration) {
         return HubTemplate.AwaitingGeneralConsideration;
       } else if (isAosOverdue) {
         return HubTemplate.AoSDue;

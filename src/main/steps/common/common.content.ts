@@ -304,6 +304,17 @@ export const generateCommonContent = ({
     userCase.state &&
     [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
+  const isGeneralConsiderationFoRequested =
+    userCase &&
+    (userCase?.state === State.GeneralConsiderationComplete ||
+      userCase?.state === State.AwaitingGeneralConsideration) &&
+    userCase?.dateFinalOrderSubmitted !== undefined;
+  const isGeneralConsiderationCoPronounced =
+    userCase &&
+    (userCase?.state === State.GeneralConsiderationComplete ||
+      userCase?.state === State.AwaitingGeneralConsideration) &&
+    userCase?.coGrantedDate !== undefined &&
+    !isGeneralConsiderationFoRequested;
 
   return {
     ...commonTranslations,
@@ -317,6 +328,8 @@ export const generateCommonContent = ({
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
+    isGeneralConsiderationFoRequested,
+    isGeneralConsiderationCoPronounced,
   };
 };
 
@@ -332,4 +345,6 @@ export type CommonContent = typeof en & {
   referenceNumber?: string;
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
+  isGeneralConsiderationFoRequested: boolean;
+  isGeneralConsiderationCoPronounced: boolean;
 };

@@ -30,9 +30,12 @@ export const getRespondentHubTemplate = (
     case State.FinalOrderComplete:
       return HubTemplate.FinalOrderComplete;
     case State.AwaitingGeneralConsideration:
+    case State.GeneralConsiderationComplete:
       if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
-      } else if (userCase.aosStatementOfTruth) {
+      } else if (userCase.coGrantedDate && State.GeneralConsiderationComplete) {
+        return HubTemplate.ConditionalOrderPronounced;
+      } else if (userCase.aosStatementOfTruth && State.AwaitingGeneralConsideration) {
         return HubTemplate.AwaitingGeneralConsideration;
       } else {
         return HubTemplate.AwaitingAoS;

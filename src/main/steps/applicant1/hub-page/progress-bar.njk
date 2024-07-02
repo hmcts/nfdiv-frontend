@@ -15,14 +15,14 @@
     label: {
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
     },
-    complete: displayState.isAtOrAfter('ConditionalOrderPronounced'),
-    active: displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced')
+    complete: displayState.isAtOrAfter('ConditionalOrderPronounced') or isGeneralConsiderationCoPronounced or isGeneralConsiderationFoRequested,
+    active: (displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced')) or isGeneralConsiderationCoPronounced
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(finalOrder, displayState.state() == 'FinalOrderComplete')
     },
     complete: displayState.state() == 'FinalOrderComplete',
-    active: displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete')
+    active: (displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete')) or isGeneralConsiderationFoRequested
   }] %}
 {% else %}
   {% set items = [{
@@ -36,19 +36,19 @@
       html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))
     },
     complete: displayState.isAfter('IssuedToBailiff'),
-    active: displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding')
+    active: displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding') and (not isGeneralConsiderationCoPronounced and not isGeneralConsiderationFoRequested)
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
     },
-    complete: displayState.isAtOrAfter('ConditionalOrderPronounced'),
-    active: displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced')
+    complete: displayState.isAtOrAfter('ConditionalOrderPronounced') or isGeneralConsiderationCoPronounced or isGeneralConsiderationFoRequested,
+    active: (displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced')) or isGeneralConsiderationCoPronounced
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(finalOrder, displayState.isAtOrAfter('FinalOrderPending'))
     },
     complete: displayState.state() == 'FinalOrderComplete',
-    active: displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete')
+    active: (displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete')) or isGeneralConsiderationFoRequested
   }] %}
 {% endif %}
 
