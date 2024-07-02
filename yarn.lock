@@ -13150,7 +13150,7 @@ __metadata:
     ts-loader: 9.5.1
     ts-node: 10.9.2
     tsconfig-paths: 4.2.0
-    typescript: 5.5.2
+    typescript: 5.5.3
     uuid: 10.0.0
     webdriverio: 8.39.0
     webpack: 5.92.1
@@ -17490,7 +17490,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.5.2, typescript@npm:^5.1.3":
+"typescript@npm:5.5.3":
+  version: 5.5.3
+  resolution: "typescript@npm:5.5.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 4b4f14313484d5c86064d04ba892544801fa551f5cf72719b540b498056fec7fc192d0bbdb2ba1448e759b1548769956da9e43e7c16781e8d8856787b0575004
+  languageName: node
+  linkType: hard
+
+"typescript@npm:^5.1.3":
   version: 5.5.2
   resolution: "typescript@npm:5.5.2"
   bin:
@@ -17500,7 +17510,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@5.5.2#~builtin<compat/typescript>, typescript@patch:typescript@^5.1.3#~builtin<compat/typescript>":
+"typescript@patch:typescript@5.5.3#~builtin<compat/typescript>":
+  version: 5.5.3
+  resolution: "typescript@patch:typescript@npm%3A5.5.3#~builtin<compat/typescript>::version=5.5.3&hash=379a07"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 3c0f7fe66e0e3a5f6b531b3e20bfe4a846718d20c299a49f39d4594e0bedcf5820cb98b49a9c883f2dde7dc6942affa2c95a775ee0221ca1ef143147761b0e80
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^5.1.3#~builtin<compat/typescript>":
   version: 5.5.2
   resolution: "typescript@patch:typescript@npm%3A5.5.2#~builtin<compat/typescript>::version=5.5.2&hash=379a07"
   bin:
