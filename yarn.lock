@@ -3573,15 +3573,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/xhr-upload@npm:3.6.7":
-  version: 3.6.7
-  resolution: "@uppy/xhr-upload@npm:3.6.7"
+"@uppy/xhr-upload@npm:3.6.8":
+  version: 3.6.8
+  resolution: "@uppy/xhr-upload@npm:3.6.8"
   dependencies:
     "@uppy/companion-client": ^3.8.1
     "@uppy/utils": ^5.9.0
   peerDependencies:
-    "@uppy/core": ^3.11.3
-  checksum: 48b55e2049a8ab7efb1b2ed665129ee6f2efd36b8a6e2c5d5767e3fed3c897d6a5fc75ba30523f0d61e5a84b98b50312d1277e0b98ec41149b84146b0638aa0b
+    "@uppy/core": ^3.13.0
+  checksum: 02d2dbbaa97b0c69cc3a9f9198357364428a7af27afacec895957973da5d3954b69d747dfcaafae2a95414bac303a0f1dbffb0d391fe15fd35ca3b6def931484
   languageName: node
   linkType: hard
 
@@ -13084,7 +13084,7 @@ __metadata:
     "@uppy/drop-target": 2.1.0
     "@uppy/file-input": 3.1.2
     "@uppy/progress-bar": 3.1.1
-    "@uppy/xhr-upload": 3.6.7
+    "@uppy/xhr-upload": 3.6.8
     "@wdio/cli": 8.39.0
     "@wdio/sauce-service": 8.39.0
     allure-commandline: 2.29.0
