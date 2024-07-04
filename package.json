@@ -60,7 +60,7 @@
     "@types/session-file-store": "1.2.5",
     "@types/toobusy-js": "0.5.4",
     "@types/uuid": "10.0.0",
-    "@uppy/core": "3.13.0",
+    "@uppy/core": "3.13.1",
     "@uppy/drop-target": "2.1.0",
     "@uppy/file-input": "3.1.2",
     "@uppy/progress-bar": "3.1.1",
