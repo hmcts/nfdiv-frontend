@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Response } from 'express';
 
@@ -14,34 +15,32 @@ import {
   PAY_YOUR_FEE,
 } from '../../urls';
 
+const logger = Logger.getLogger('payment');
+
 export default class PaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (req.session.userCase.state !== State.AwaitingPayment) {
       return res.redirect(CHECK_ANSWERS_URL);
     }
-
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
     const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
     const returnUrl = `${protocol}${res.locals.host}${port}${PAYMENT_CALLBACK_URL}`;
 
     const paymentClient = new PaymentClient(req.session, returnUrl);
     const payments = new PaymentModel(req.session.userCase.payments);
-
     if (!payments.hasPayment) {
       return res.redirect(CHECK_ANSWERS_URL);
     }
-
     const lastPaymentAttempt = payments.lastPayment;
+    logger.info(lastPaymentAttempt);
     const payment = await paymentClient.get(lastPaymentAttempt.reference);
 
     if (!payment) {
       throw new Error('Could not retrieve payment status from payment service');
     }
-
     if (payment?.status === 'Initiated') {
       return res.redirect(lastPaymentAttempt.channel);
     }
-
     payments.setStatus(lastPaymentAttempt.transactionId, payment?.status);
 
     if (payments.wasLastPaymentSuccessful) {
@@ -51,14 +50,12 @@ export default class PaymentCallbackGetController {
         CITIZEN_PAYMENT_MADE
       );
     }
-
     req.session.save(() => {
       if (payments.wasLastPaymentSuccessful) {
         return req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION
           ? res.redirect(JOINT_APPLICATION_SUBMITTED)
           : res.redirect(APPLICATION_SUBMITTED);
       }
-
       res.redirect(
         req.query.back
           ? CHECK_ANSWERS_URL

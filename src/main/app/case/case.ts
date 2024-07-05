@@ -103,7 +103,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1PcqId: 'applicant1PcqId',
   issueDate: 'issueDate',
   applicant1SolicitorAddress: 'applicant1SolicitorAddress',
-  app1SolicitorRepresented: 'applicant1SolicitorRepresented',
+  applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
+  applicant1SolicitorAddressOverseas: 'applicant1SolicitorAddressOverseas',
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
@@ -186,8 +187,10 @@ export interface Case {
   divorceOrDissolution: DivorceOrDissolution;
   issueDate?: DateAsString;
   applicant1SolicitorAddress?: string;
-  app1SolicitorRepresented?: YesOrNo;
+  applicant1SolicitorAddressOverseas?: YesOrNo;
+  applicant1SolicitorRepresented?: YesOrNo;
   applicant2SolicitorAddress?: string;
+  applicant2SolicitorAddressOverseas?: YesOrNo;
   gender?: Gender;
   sameSex?: Checkbox;
   applicant1ScreenHasUnionBroken?: YesOrNo;
@@ -226,6 +229,7 @@ export interface Case {
   applicant1AddressCounty?: string;
   applicant1AddressPostcode?: string;
   applicant1AddressCountry?: string;
+  applicant1AddressOverseas?: YesOrNo;
   applicant1PhoneNumber?: string;
   applicant1AgreeToReceiveEmails?: Checkbox;
   applicant1ConfirmReceipt: YesOrNo;
@@ -250,6 +254,7 @@ export interface Case {
   applicant2AddressCounty?: string;
   applicant2AddressPostcode?: string;
   applicant2AddressCountry?: string;
+  applicant2AddressOverseas?: YesOrNo;
   applicant1LastNameChangedWhenMarried?: YesOrNo;
   applicant1LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
   applicant1LastNameChangedWhenMarriedOtherDetails?: string;
@@ -357,7 +362,6 @@ export interface Case {
   applicant1FinalOrderStatementOfTruth?: Checkbox;
   applicant2FinalOrderStatementOfTruth?: Checkbox;
   applicant2SolicitorRepresented: YesOrNo;
-  applicant1SolicitorRepresented: YesOrNo;
   dateFinalOrderSubmitted?: DateAsString;
   applicant1IntendsToSwitchToSole?: Checkbox;
   applicant2IntendsToSwitchToSole?: Checkbox;

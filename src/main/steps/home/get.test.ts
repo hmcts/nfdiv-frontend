@@ -22,7 +22,7 @@ import {
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
-  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+  YOU_NEED_TO_REVIEW_YOUR_APPLICATION, JOINT_APPLICATION_SUBMITTED,
 } from '../urls';
 
 import { HomeGetController } from './get';
@@ -597,6 +597,53 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
+  });
+
+  test('redirects to application represented page for applicant 2 users in submitted state when represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Submitted,
+          applicant2SolicitorRepresented: YesOrNo.YES,
+          confirmReadPetition: Checkbox.Checked,
+          disputeApplication: YesOrNo.NO,
+          applicationType: JOINT_APPLICATION_SUBMITTED,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
+  });
+
+  test('redirects to application submitted page for applicant 2 users in submitted state when only applicant 1 represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          isApplicant2: true,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+          applicant1SolicitorRepresented: YesOrNo.YES,
+          confirmReadPetition: Checkbox.Checked,
+          disputeApplication: YesOrNo.NO,
+          jurisdictionAgree: YesOrNo.YES,
+          reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: '',
+          inWhichCountryIsYourLifeMainlyBased: '',
+          applicant2LegalProceedings: YesOrNo.NO,
+          applicant2AgreeToReceiveEmails: Checkbox.Checked,
+          applicant2PhoneNumber: '',
+          applicant2StatementOfTruth: Checkbox.Checked,
+          state: State.AwaitingPronouncement,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
   });
 
   test('redirects to the check your answers page for applicant 1 users in awaitingApplicant1Response state', () => {

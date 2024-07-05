@@ -412,7 +412,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: CHECK_ANSWERS_URL,
     getNextStep: data =>
-      data.app1SolicitorRepresented === YesOrNo.YES
+      data.applicant1SolicitorRepresented === YesOrNo.YES
         ? APP_REPRESENTED
         : data.applicationType === ApplicationType.JOINT_APPLICATION
           ? SENT_TO_APPLICANT2_FOR_REVIEW
@@ -456,7 +456,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: data =>
       data.applicationType === ApplicationType.JOINT_APPLICATION
         ? JOINT_APPLICATION_SUBMITTED
-        : data.app1SolicitorRepresented === YesOrNo.YES
+        : data.applicant1SolicitorRepresented === YesOrNo.YES
           ? APP_REPRESENTED
           : APPLICATION_SUBMITTED,
   },

@@ -33,7 +33,7 @@ export class StateRedirectMiddleware {
           return next('route');
         }
 
-        // Check if the applicant or their partner is represented by a solicitor
+        // Check if user is represented by a solicitor redirect to represented page if they are
         if (
           this.isRepresentedBySolicitor(req.session.userCase, req.session.isApplicant2) &&
           req.path !== APP_REPRESENTED
@@ -95,14 +95,28 @@ export class StateRedirectMiddleware {
   }
 
   private isRepresentedBySolicitor(userCase: CaseWithId, isApplicant2?: boolean) {
+    console.log('isRepresentedBySolicitor called');
+    console.log('del checkin console logs!!');
+    console.log('userCase:', userCase);
+    console.log('isApplicant2:', isApplicant2);
+
     if (userCase === undefined) {
+      console.log('userCase is undefined');
       return false;
     }
 
     if (isApplicant2 === true) {
-      return userCase.applicant2SolicitorRepresented === YesOrNo.YES;
+      console.log('isApplicant2 is true');
+      const result = userCase.applicant2SolicitorRepresented === YesOrNo.YES;
+      console.log('applicant2SolicitorRepresented:', userCase.applicant2SolicitorRepresented);
+      console.log('Returning:', result);
+      return result;
     } else {
-      return userCase.applicant1SolicitorRepresented === YesOrNo.YES;
+      console.log('isApplicant2 is false or undefined');
+      const result = userCase.applicant1SolicitorRepresented === YesOrNo.YES;
+      console.log('applicant1SolicitorRepresented:', userCase.applicant1SolicitorRepresented);
+      console.log('Returning:', result);
+      return result;
     }
   }
 }
