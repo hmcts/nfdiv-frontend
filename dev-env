@@ -1,0 +1,42 @@
+#!/usr/bin/env zx
+
+// https://github.com/hmcts/cnp-jenkins-config/blob/master/team-config.yml
+// helm repo remove hmctspublic
+// helm repo add hmctspublic https://hmctspublic.azurecr.io/helm/v1/repo/
+const TEAM_ID = 'nfdiv';
+const TEAM_NAME = 'No Fault Divorce';
+const APPLICATION_NAME = 'no-fault-divorce';
+const NAMESPACE = 'nfdiv';
+const ENVIRONMENT = 'aat';
+const TENANT_ID = '531ff96d-0ae9-462a-8d2d-bec7c0b42082';
+const SUBSCRIPTION_ID = 'b3b6f4a9-2f6d-4b0f-8b3b-3b1e1e1b1e1b';
+const RESOURCE_GROUP = 'nfdiv-rg';
+const CHART_NAME = 'nfdiv-frontend';
+const USER = 'linus';
+const GIT_URL = 'https://github.com/HMCTS/nfdiv-frontend.git';
+
+$`
+export NAMESPACE=${NAMESPACE}
+export SERVICE_NAME=${CHART_NAME}
+export SERVICE_FQDN=${CHART_NAME}-dev-${USER}.preview.platform.hmcts.net
+export IMAGE_NAME=hmctspublic.azurecr.io/nfdiv/frontend:latest
+cat charts/${CHART_NAME}/values.preview.template.yaml | envsubst | tee charts/${CHART_NAME}/values.preview.yaml
+helm dependency update charts/nfdiv-frontend`;
+
+$`helm upgrade ${CHART_NAME}-dev-${USER} charts/${CHART_NAME} \
+ -f charts/${CHART_NAME}/values.yaml \
+ -f charts/${CHART_NAME}/values.preview.yaml \
+ --set global.tenantId=${TENANT_ID} \
+ --set global.environment=${ENVIRONMENT} \
+ --set global.enableKeyVaults=true \
+ --set global.devMode=true \
+ --set global.tags.teamName=${TEAM_NAME} \
+ --set global.tags.applicationName=${APPLICATION_NAME} \
+ --set global.tags.builtFrom=${GIT_URL} \
+ --set global.tags.businessArea=CFT \
+ --set global.tags.environment=development \
+ --set global.disableTraefikTls= \
+ --namespace ${NAMESPACE} \
+ --install \
+ --wait \
+ --timeout 1000s`;
