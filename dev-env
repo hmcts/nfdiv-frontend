@@ -36,7 +36,7 @@ async function deploy() {
   const gitUrl = 'https://' + gitRemote.replace('git@', '').replace(':', '/');
 
   const env = {
-    CHANGE_ID: '999' + Math.round(Math.random() * 1000),
+    CHANGE_ID: `${user}-DEV`,
     NAMESPACE: namespace,
     SERVICE_NAME: chartName,
     SERVICE_FQDN: `${chartName}-dev-${user}.preview.platform.hmcts.net`,
