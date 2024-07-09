@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { CaseWithId, Checkbox } from '../../../../app/case/case';
+import { CaseWithId } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
@@ -43,8 +43,7 @@ export const getSoleHubTemplate = (
       } else if (userCase.coGrantedDate && State.GeneralConsiderationComplete) {
         return HubTemplate.ConditionalOrderPronounced;
       } else if (
-        (userCase.coApplicant1StatementOfTruth === Checkbox.Checked ||
-          userCase.coApplicant2StatementOfTruth === Checkbox.Checked) &&
+        (userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate) &&
         State.GeneralConsiderationComplete
       ) {
         return HubTemplate.AwaitingConditionalOrder;
