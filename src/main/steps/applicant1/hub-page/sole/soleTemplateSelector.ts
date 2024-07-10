@@ -36,18 +36,24 @@ export const getSoleHubTemplate = (
     case State.LAReview:
     case State.AwaitingPronouncement:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
-    case State.AwaitingGeneralConsideration:
     case State.GeneralConsiderationComplete:
       if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
-      } else if (userCase.coGrantedDate && State.GeneralConsiderationComplete) {
+      } else if (userCase.coGrantedDate) {
         return HubTemplate.ConditionalOrderPronounced;
-      } else if (
-        (userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate) &&
-        State.GeneralConsiderationComplete
-      ) {
+      } else if (userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate) {
         return HubTemplate.AwaitingConditionalOrder;
-      } else if (userCase.aosStatementOfTruth && State.AwaitingGeneralConsideration) {
+      } else if (!userCase.dueDate && userCase.aosStatementOfTruth) {
+        return HubTemplate.AwaitingGeneralConsideration;
+      } else if (isAosOverdue) {
+        return HubTemplate.AoSDue;
+      } else {
+        return HubTemplate.AosAwaitingOrDrafted;
+      }
+    case State.AwaitingGeneralConsideration:
+      if (userCase.dateFinalOrderSubmitted) {
+        return HubTemplate.FinalOrderRequested;
+      } else if (userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;
       } else if (isAosOverdue) {
         return HubTemplate.AoSDue;
