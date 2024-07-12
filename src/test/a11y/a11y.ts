@@ -43,6 +43,7 @@ function runPally(url: string, browser): Promise<Pa11yResult> {
     browser,
     screenCapture,
     hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
+    standard: 'WCAG2AA'
   });
 }
 
