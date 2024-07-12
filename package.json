@@ -140,7 +140,7 @@
     "ts-jest": "29.2.2",
     "ts-loader": "9.5.1",
     "webdriverio": "8.39.1",
-    "webpack": "5.92.1",
+    "webpack": "5.93.0",
     "webpack-cli": "5.1.4",
     "webpack-dev-middleware": "7.2.1",
     "webpack-node-externals": "3.0.0"
