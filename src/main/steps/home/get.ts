@@ -104,6 +104,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
   const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
   switch (req.session.userCase.state) {
     case State.AwaitingGeneralConsideration:
+    case State.GeneralConsiderationComplete:
     case State.FinalOrderRequested:
     case State.AwaitingConditionalOrder:
     case State.AwaitingPronouncement:
