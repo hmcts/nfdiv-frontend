@@ -62,6 +62,9 @@ const getApplicant2FirstQuestionForm = (applicationType: ApplicationType) =>
   applicationType === ApplicationType.SOLE_APPLICATION ? respondentFirstQuestionForm : applicant2FirstQuestionForm;
 
 const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
+  // Check if applicant1 is solicitor represented
+  const isSolicitorRepresented = userCase.applicant1SolicitorRepresented === YesOrNo.YES;
+
   switch (userCase.state) {
     case State.AwaitingApplicant1Response: {
       return userCase.applicant2ScreenHasUnionBroken === YesOrNo.NO ? APPLICATION_ENDED : CHECK_ANSWERS_URL;
@@ -73,7 +76,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
       return CONFIRM_JOINT_APPLICATION;
     }
     case State.Submitted: {
-      return userCase.applicant1SolicitorRepresented === YesOrNo.YES ? APP_REPRESENTED : APPLICATION_SUBMITTED;
+      return isSolicitorRepresented ? APP_REPRESENTED : APPLICATION_SUBMITTED;
     }
     case State.AwaitingPayment: {
       return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? PAY_AND_SUBMIT : PAY_YOUR_FEE;
@@ -81,7 +84,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
       if (userCase.coApplicant1SubmittedDate) {
-        return HUB_PAGE;
+        return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
       } else if (userCase.applicant1ApplyForConditionalOrder) {
         return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;
       } else if (userCase.applicant1ApplyForConditionalOrderStarted) {
@@ -89,20 +92,24 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
           ? READ_THE_RESPONSE
           : CONTINUE_WITH_YOUR_APPLICATION;
       } else {
-        return HUB_PAGE;
+        return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
       }
     }
     case State.Draft: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
     }
     default: {
-      return HUB_PAGE;
+      return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
     }
   }
 };
 
 const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: boolean) => {
   const isLastQuestionComplete = getNextIncompleteStepUrl(req).endsWith(CHECK_JOINT_APPLICATION);
+
+  // Check if applicant2 is solicitor represented
+  const isSolicitorRepresented = req.session.userCase.applicant2SolicitorRepresented === YesOrNo.YES;
+
   switch (req.session.userCase.state) {
     case State.AwaitingGeneralConsideration:
     case State.FinalOrderRequested:
@@ -115,8 +122,10 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.ClarificationSubmitted:
     case State.AwaitingFinalOrder:
     case State.AwaitingJointFinalOrder:
-    case State.Holding: {
-      return HUB_PAGE;
+    case State.Holding:
+    case State.LAReview:
+    case State.AwaitingLegalAdvisorReferral: {
+      return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
     }
     case State.Applicant2Approved: {
       return YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION;
@@ -124,17 +133,15 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
       if (req.session.userCase.coApplicant2SubmittedDate) {
-        return HUB_PAGE;
+        return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
       }
       return req.session.userCase.applicant2ApplyForConditionalOrder
         ? CHECK_CONDITIONAL_ORDER_ANSWERS_URL
         : req.session.userCase.applicant2ApplyForConditionalOrderStarted
           ? CONTINUE_WITH_YOUR_APPLICATION
-          : HUB_PAGE;
-    }
-    case State.LAReview:
-    case State.AwaitingLegalAdvisorReferral: {
-      return HUB_PAGE;
+          : isSolicitorRepresented
+            ? APP_REPRESENTED
+            : HUB_PAGE;
     }
     default: {
       if (isLastQuestionComplete) {
@@ -152,6 +159,10 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
   const hasReviewedTheApplication = !isEmpty(userCase.confirmReadPetition);
   const isLastQuestionComplete =
     !isEmpty(userCase.aosStatementOfTruth) || !isEmpty(userCase.applicant2StatementOfTruth); // todo - remove applicant2StatementOfTruth check after NFDIV-2321 is complete
+
+  // Check if applicant2/respondent is solicitor represented
+  const isSolicitorRepresented = userCase.applicant2SolicitorRepresented === YesOrNo.YES;
+
   switch (userCase.state) {
     case State.Holding:
     case State.AwaitingConditionalOrder:
@@ -171,7 +182,7 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
       if (hasReviewedTheApplication && !isLastQuestionComplete) {
         return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;
       } else {
-        return HUB_PAGE;
+        return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
       }
     }
     case State.AosDrafted:
@@ -179,7 +190,7 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;
     }
     default: {
-      return HUB_PAGE;
+      return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
     }
   }
 };
