@@ -39,8 +39,6 @@ export class StateRedirectMiddleware {
           req.path !== APP_REPRESENTED
         ) {
           return res.redirect(APP_REPRESENTED);
-        } else {
-          return next();
         }
 
         if (
@@ -53,19 +51,9 @@ export class StateRedirectMiddleware {
         if (
           [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(req.session.userCase?.state)
         ) {
-          if (
-            req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
-            req.path !== APPLICATION_SUBMITTED
-          ) {
-            return res.redirect(APPLICATION_SUBMITTED);
-          }
-          if (
-            req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION &&
-            ![JOINT_APPLICATION_SUBMITTED, APPLICANT_2 + JOINT_APPLICATION_SUBMITTED].includes(req.path)
-          ) {
-            return req.session.isApplicant2
-              ? res.redirect(APPLICANT_2 + JOINT_APPLICATION_SUBMITTED)
-              : res.redirect(JOINT_APPLICATION_SUBMITTED);
+          const redirectPath = this.getApplicationSubmittedRedirectPath(req);
+          if (redirectPath) {
+            return res.redirect(redirectPath);
           }
         }
 
@@ -86,6 +74,23 @@ export class StateRedirectMiddleware {
     );
   }
 
+  private getApplicationSubmittedRedirectPath(req: AppRequest): string | null {
+    const userCase = req.session.userCase;
+
+    if (userCase?.applicationType === ApplicationType.SOLE_APPLICATION && req.path !== APPLICATION_SUBMITTED) {
+      return APPLICATION_SUBMITTED;
+    }
+
+    if (
+      userCase?.applicationType === ApplicationType.JOINT_APPLICATION &&
+      ![JOINT_APPLICATION_SUBMITTED, APPLICANT_2 + JOINT_APPLICATION_SUBMITTED].includes(req.path)
+    ) {
+      return req.session.isApplicant2 ? APPLICANT_2 + JOINT_APPLICATION_SUBMITTED : JOINT_APPLICATION_SUBMITTED;
+    }
+
+    return null;
+  }
+
   private hasPartnerNotResponded(userCase: CaseWithId, isApplicant2: boolean) {
     return (
       ((isApplicant2 && [State.AwaitingApplicant1Response, State.Applicant2Approved].includes(userCase?.state)) ||
@@ -95,28 +100,14 @@ export class StateRedirectMiddleware {
   }
 
   private isRepresentedBySolicitor(userCase: CaseWithId, isApplicant2?: boolean) {
-    console.log('isRepresentedBySolicitor called');
-    console.log('del checkin console logs!!');
-    console.log('userCase:', userCase);
-    console.log('isApplicant2:', isApplicant2);
-
     if (userCase === undefined) {
-      console.log('userCase is undefined');
       return false;
     }
 
     if (isApplicant2 === true) {
-      console.log('isApplicant2 is true');
-      const result = userCase.applicant2SolicitorRepresented === YesOrNo.YES;
-      console.log('applicant2SolicitorRepresented:', userCase.applicant2SolicitorRepresented);
-      console.log('Returning:', result);
-      return result;
+      return userCase.applicant2SolicitorRepresented === YesOrNo.YES;
     } else {
-      console.log('isApplicant2 is false or undefined');
-      const result = userCase.applicant1SolicitorRepresented === YesOrNo.YES;
-      console.log('applicant1SolicitorRepresented:', userCase.applicant1SolicitorRepresented);
-      console.log('Returning:', result);
-      return result;
+      return userCase.applicant1SolicitorRepresented === YesOrNo.YES;
     }
   }
 }

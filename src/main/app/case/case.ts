@@ -188,7 +188,6 @@ export interface Case {
   issueDate?: DateAsString;
   applicant1SolicitorAddress?: string;
   applicant1SolicitorAddressOverseas?: YesOrNo;
-  applicant1SolicitorRepresented?: YesOrNo;
   applicant2SolicitorAddress?: string;
   applicant2SolicitorAddressOverseas?: YesOrNo;
   gender?: Gender;
@@ -362,6 +361,7 @@ export interface Case {
   applicant1FinalOrderStatementOfTruth?: Checkbox;
   applicant2FinalOrderStatementOfTruth?: Checkbox;
   applicant2SolicitorRepresented: YesOrNo;
+  applicant1SolicitorRepresented: YesOrNo;
   dateFinalOrderSubmitted?: DateAsString;
   applicant1IntendsToSwitchToSole?: Checkbox;
   applicant2IntendsToSwitchToSole?: Checkbox;
