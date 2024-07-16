@@ -104,7 +104,7 @@ export class StateRedirectMiddleware {
       return false;
     }
 
-    if (isApplicant2 === true) {
+    if (isApplicant2) {
       return userCase.applicant2SolicitorRepresented === YesOrNo.YES;
     } else {
       return userCase.applicant1SolicitorRepresented === YesOrNo.YES;
