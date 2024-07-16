@@ -14,11 +14,8 @@ const en = (
   feedbackLink: string
 ) => ({
   title: 'Application represented',
-  appRepresentedText: `${
-    userCase.applicant1SolicitorRepresented
-      ? 'You no longer have access to this case due to informing the Court that you are represented. Please contact your Solicitor at your earliest convenience.'
-      : ''
-  }`,
+  appRepresentedText:
+    'You no longer have access to this case due to informing the Court that you are represented. Please contact your Solicitor at your earliest convenience.',
   yourReferenceNumber: 'Your reference number is:',
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
     userCase.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
