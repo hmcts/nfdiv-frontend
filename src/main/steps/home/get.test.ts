@@ -899,4 +899,40 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toHaveBeenCalledWith(YOUR_DETAILS_URL);
   });
+  test('redirects to submitte for applicant 1 users in submitted state when not represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Submitted,
+          applicant1SolicitorRepresented: YesOrNo.NO,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+  });
+  test('redirects to hub page for applicant 2 users in post submission state when not represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderDrafted,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          confirmReadPetition: Checkbox.Checked,
+          disputeApplication: YesOrNo.NO,
+          applicationType: JOINT_APPLICATION_SUBMITTED,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
 });
