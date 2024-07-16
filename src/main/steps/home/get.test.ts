@@ -899,7 +899,7 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toHaveBeenCalledWith(YOUR_DETAILS_URL);
   });
-  test('redirects to submitte for applicant 1 users in submitted state when not represented', () => {
+  test('redirects to submitted page for applicant 1 users in submitted state when not represented', () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -914,6 +914,22 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+  });
+  test('redirects to represented page for applicant 1 users in submitted state when represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Submitted,
+          applicant1SolicitorRepresented: YesOrNo.YES,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
   });
   test('redirects to hub page for applicant 2 users in post submission state when not represented', () => {
     const req = mockRequest({
@@ -934,5 +950,39 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+  test('redirects to hub page for applicant 1 users when coApplicant1SubmittedDate is present and not represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+          applicant1SolicitorRepresented: YesOrNo.NO,
+          coApplicant1SubmittedDate: '2022-01-01',
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+  });
+  test('redirects to hub page for applicant 1 users when coApplicant1SubmittedDate is present and represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+          coApplicant1SubmittedDate: '2022-01-01',
+          applicant1SolicitorRepresented: YesOrNo.YES,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
   });
 });
