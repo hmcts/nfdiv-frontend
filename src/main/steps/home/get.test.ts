@@ -600,13 +600,14 @@ describe('HomeGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
   });
 
-  test('redirects to application represented page for applicant 2 users in submitted state when represented', () => {
+  test('redirects to application represented page for applicant 2 users in post submission state when represented', () => {
     const req = mockRequest({
       session: {
+        isApplicant2: true,
         userCase: {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-          state: State.Submitted,
+          state: State.ConditionalOrderDrafted,
           applicant2SolicitorRepresented: YesOrNo.YES,
           confirmReadPetition: Checkbox.Checked,
           disputeApplication: YesOrNo.NO,
@@ -617,12 +618,13 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${APP_REPRESENTED}`);
   });
 
   test('redirects to application submitted page for applicant 2 users in submitted state when only applicant 1 represented', () => {
     const req = mockRequest({
       session: {
+        isApplicant2: true,
         userCase: {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -644,7 +646,7 @@ describe('HomeGetController', () => {
     });
     const res = mockResponse();
     controller.get(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
   });
 
   test('redirects to the check your answers page for applicant 1 users in awaitingApplicant1Response state', () => {
