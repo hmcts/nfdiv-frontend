@@ -126,6 +126,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coConditionalOrderGrantedDocument: 'coConditionalOrderGrantedDocument',
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
+  coGrantedDate: 'coGrantedDate',
   applicant1IsApplicant2Represented: 'applicant1IsApplicant2Represented',
   coRefusalClarificationReason: 'coRefusalClarificationReason',
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
@@ -332,6 +333,7 @@ export interface Case {
   coRefusalRejectionAdditionalInfo?: string;
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
+  coGrantedDate: DateAsString;
   applicant1IsApplicant2Represented: Applicant2Represented;
   coRefusalClarificationReason?: ClarificationReason[];
   coRefusalClarificationAdditionalInfo?: string;

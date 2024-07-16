@@ -112,6 +112,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
 
   switch (req.session.userCase.state) {
     case State.AwaitingGeneralConsideration:
+    case State.GeneralConsiderationComplete:
     case State.FinalOrderRequested:
     case State.AwaitingConditionalOrder:
     case State.AwaitingPronouncement:
