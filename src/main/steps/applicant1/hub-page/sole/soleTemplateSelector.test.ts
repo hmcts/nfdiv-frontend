@@ -82,6 +82,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });
 
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state ConditionalOrderReview', () => {
+    const theState = displayState.at(State.ConditionalOrderReview);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
+  });
+
   test('should show /final-order-requested.njk for state GeneralConsiderationComplete and dateFinalOrderSubmitted', () => {
     const userCaseWithDateFinalOrderSubmitted = {
       ...userCase,
