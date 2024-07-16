@@ -331,7 +331,7 @@ export const generateCommonContent = ({
     isClarificationAmendableState,
     isApp1Represented,
     isGeneralConsiderationFoRequested,
-    isGeneralConsiderationCoPronounced
+    isGeneralConsiderationCoPronounced,
   };
 };
 
