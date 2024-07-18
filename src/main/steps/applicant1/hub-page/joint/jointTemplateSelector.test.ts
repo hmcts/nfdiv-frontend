@@ -138,4 +138,10 @@ describe('JointTemplateSelector test', () => {
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.FinalOrderComplete);
   });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingOutcome', () => {
+    const theState = displayState.at(State.PendingHearingOutcome);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
 });
