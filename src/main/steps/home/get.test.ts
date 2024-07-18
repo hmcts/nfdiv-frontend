@@ -963,7 +963,7 @@ describe('HomeGetController', () => {
           confirmReadPetition: Checkbox.Checked,
           disputeApplication: YesOrNo.NO,
           applicationType: JOINT_APPLICATION_SUBMITTED,
-          applicant1SolicitorRepresented: YesOrNo.YES,
+          applicant2SolicitorRepresented: YesOrNo.YES,
         },
       },
     });
