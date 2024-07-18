@@ -1004,7 +1004,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
   });
   test('redirects to represented page for applicant 2 users when coApplicant2SubmittedDate is present and represented', () => {
     const req = mockRequest({
