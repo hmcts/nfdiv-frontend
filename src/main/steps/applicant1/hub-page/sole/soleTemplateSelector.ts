@@ -16,7 +16,8 @@ export const getSoleHubTemplate = (
   const isAosOverdue =
     !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   const isRefusalOrderToApplicant =
-    userCase.alternativeServiceOutcomes?.[0].value.refusalReason === ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
+    userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
+    ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
