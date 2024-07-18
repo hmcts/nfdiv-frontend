@@ -2011,6 +2011,7 @@ export const enum State {
   ConditionalOrderDrafted = 'ConditionalOrderDrafted',
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',
   ConditionalOrderRefused = 'ConditionalOrderRefused',
+  ConditionalOrderReview = 'ConditionalOrderReview',
   Draft = 'Draft',
   FinalOrderComplete = 'FinalOrderComplete',
   FinalOrderPending = 'FinalOrderPending',
