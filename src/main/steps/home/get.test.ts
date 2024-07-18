@@ -621,7 +621,7 @@ describe('HomeGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${APP_REPRESENTED}`);
   });
 
-  test('redirects to application submitted page for applicant 2 users in submitted state when only applicant 1 represented', () => {
+  test('redirects to application submitted page for applicant 2 users in post submission when only applicant 1 represented', () => {
     const req = mockRequest({
       session: {
         isApplicant2: true,
@@ -951,6 +951,27 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
   });
+  test('redirects to represented page for applicant 2 users in post submission state when represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderDrafted,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          confirmReadPetition: Checkbox.Checked,
+          disputeApplication: YesOrNo.NO,
+          applicationType: JOINT_APPLICATION_SUBMITTED,
+          applicant1SolicitorRepresented: YesOrNo.YES,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${APP_REPRESENTED}`);
+  });
   test('redirects to hub page for applicant 1 users when coApplicant1SubmittedDate is present and not represented', () => {
     const req = mockRequest({
       session: {
@@ -967,6 +988,42 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+  });
+  test('redirects to hub page for applicant 2 users when coApplicant2SubmittedDate is present and not represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          isApplicant2: true,
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          coApplicant1SubmittedDate: '2022-01-01',
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+  });
+  test('redirects to represented page for applicant 2 users when coApplicant2SubmittedDate is present and represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          isApplicant2: true,
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+          applicant2SolicitorRepresented: YesOrNo.YES,
+          coApplicant2SubmittedDate: '2022-01-01',
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${APP_REPRESENTED}`);
   });
   test('redirects to hub page for applicant 1 users when coApplicant1SubmittedDate is present and represented', () => {
     const req = mockRequest({

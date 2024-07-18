@@ -34,11 +34,12 @@ export class StateRedirectMiddleware {
         }
 
         // Check if user is represented by a solicitor redirect to represented page if they are
-        if (
-          this.isRepresentedBySolicitor(req.session.userCase, req.session.isApplicant2) &&
-          req.path !== APP_REPRESENTED
-        ) {
-          return res.redirect(APP_REPRESENTED);
+        if (this.isRepresentedBySolicitor(req.session.userCase, req.session.isApplicant2)) {
+          if (!req.path.includes(APP_REPRESENTED)) {
+            return res.redirect(req.session.isApplicant2 ? APPLICANT_2 + APP_REPRESENTED : APP_REPRESENTED);
+          } else {
+            return next();
+          }
         }
 
         if (
