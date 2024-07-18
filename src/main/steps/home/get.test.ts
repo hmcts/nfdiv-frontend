@@ -959,11 +959,10 @@ describe('HomeGetController', () => {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.ConditionalOrderDrafted,
-          applicant2SolicitorRepresented: YesOrNo.NO,
+          applicant2SolicitorRepresented: YesOrNo.YES,
           confirmReadPetition: Checkbox.Checked,
           disputeApplication: YesOrNo.NO,
           applicationType: JOINT_APPLICATION_SUBMITTED,
-          applicant2SolicitorRepresented: YesOrNo.YES,
         },
       },
     });
