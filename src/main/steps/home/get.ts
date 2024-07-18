@@ -91,6 +91,8 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
         return HUB_PAGE;
       }
     }
+    case State.PendingHearingOutcome:
+      return HUB_PAGE;
     case State.Draft: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
     }
@@ -105,6 +107,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
   switch (req.session.userCase.state) {
     case State.AwaitingGeneralConsideration:
     case State.GeneralConsiderationComplete:
+    case State.PendingHearingOutcome:
     case State.FinalOrderRequested:
     case State.AwaitingConditionalOrder:
     case State.AwaitingPronouncement:

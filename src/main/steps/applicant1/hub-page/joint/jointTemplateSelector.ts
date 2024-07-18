@@ -56,6 +56,9 @@ export const getJointHubTemplate = (
     case State.FinalOrderComplete: {
       return HubTemplate.FinalOrderComplete;
     }
+    case State.PendingHearingOutcome: {
+      return HubTemplate.PendingHearingOutcome;
+    }
     default: {
       if (
         displayState.isAfter('Holding') &&

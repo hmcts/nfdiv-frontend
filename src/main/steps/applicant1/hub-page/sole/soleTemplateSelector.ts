@@ -94,6 +94,8 @@ export const getSoleHubTemplate = (
       } else {
         return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
       }
+    case State.PendingHearingOutcome:
+      return HubTemplate.PendingHearingOutcome;
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
         return HubTemplate.AoSDue;
