@@ -315,6 +315,13 @@ export const generateCommonContent = ({
       userCase?.state === State.AwaitingGeneralConsideration) &&
     userCase?.coGrantedDate !== undefined &&
     !isGeneralConsiderationFoRequested;
+  const isPendingHearingOutcomeCoPronounced =
+    userCase &&
+    userCase?.state === State.PendingHearingOutcome &&
+    userCase?.coGrantedDate !== undefined &&
+    userCase?.dateFinalOrderSubmitted === undefined;
+  const isPendingHearingOutcomeFoRequested =
+    userCase && userCase?.state === State.PendingHearingOutcome && userCase?.dateFinalOrderSubmitted !== undefined;
 
   return {
     ...commonTranslations,
@@ -330,6 +337,8 @@ export const generateCommonContent = ({
     isClarificationAmendableState,
     isGeneralConsiderationFoRequested,
     isGeneralConsiderationCoPronounced,
+    isPendingHearingOutcomeCoPronounced,
+    isPendingHearingOutcomeFoRequested,
   };
 };
 
@@ -347,4 +356,6 @@ export type CommonContent = typeof en & {
   isClarificationAmendableState: boolean;
   isGeneralConsiderationFoRequested: boolean;
   isGeneralConsiderationCoPronounced: boolean;
+  isPendingHearingOutcomeCoPronounced: boolean;
+  isPendingHearingOutcomeFoRequested: boolean;
 };
