@@ -991,8 +991,8 @@ describe('HomeGetController', () => {
   test('redirects to hub page for applicant 2 users when coApplicant2SubmittedDate is present and not represented', () => {
     const req = mockRequest({
       session: {
+        isApplicant2: true,
         userCase: {
-          isApplicant2: true,
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.ConditionalOrderPending,
@@ -1009,13 +1009,14 @@ describe('HomeGetController', () => {
   test('redirects to represented page for applicant 2 users when coApplicant2SubmittedDate is present and represented', () => {
     const req = mockRequest({
       session: {
+        isApplicant2: true,
         userCase: {
-          isApplicant2: true,
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.ConditionalOrderPending,
           applicant2SolicitorRepresented: YesOrNo.YES,
           coApplicant2SubmittedDate: '2022-01-01',
+          applicationType: ApplicationType.JOINT_APPLICATION,
         },
       },
     });
