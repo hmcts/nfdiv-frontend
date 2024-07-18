@@ -9,7 +9,7 @@
   <p class="govuk-body">{{ awaitingPronouncement.line4 }}</p>
   {{ certificateOfEntitlementLineHtml | safe }}
 
-{% elif displayState.state() == 'AwaitingLegalAdvisorReferral' or displayState.state() == 'AwaitingAdminClarification' or displayState.state() == 'AwaitingPronouncement' or displayState.state() == 'ClarificationSubmitted' or displayState.state() == 'LAReview' and not isCoFieldsSet %}
+{% elif displayState.state() == 'AwaitingLegalAdvisorReferral' or displayState.state() == 'AwaitingAdminClarification' or displayState.state() == 'AwaitingPronouncement' or displayState.state() == 'ClarificationSubmitted' or displayState.state() == 'LAReview' or displayState.state() == 'ConditionalOrderReview' and not isCoFieldsSet %}
   {% if isSwitchToSoleCoApp and displayState.state() == 'AwaitingLegalAdvisorReferral' %}
     <p class="govuk-body">{{ legalAdvisorReferral.switchToSoleCoLine }}</p>
   {% endif %}

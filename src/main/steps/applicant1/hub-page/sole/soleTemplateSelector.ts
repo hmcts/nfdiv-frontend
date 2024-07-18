@@ -35,6 +35,7 @@ export const getSoleHubTemplate = (
     case State.AwaitingLegalAdvisorReferral:
     case State.LAReview:
     case State.AwaitingPronouncement:
+    case State.ConditionalOrderReview:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.GeneralConsiderationComplete:
       if (userCase.dateFinalOrderSubmitted) {
