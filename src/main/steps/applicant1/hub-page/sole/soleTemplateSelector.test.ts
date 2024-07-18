@@ -312,7 +312,7 @@ describe('SoleTemplateSelector test', () => {
           id: '123',
           value: {
             serviceApplicationGranted: YesOrNo.NO,
-            serviceApplicationRefusalReason: 'refusalOrderToApplicant',
+            refusalReason: 'refusalOrderToApplicant',
           },
         },
       ] as unknown as ListValue<AlternativeServiceOutcome>[],
