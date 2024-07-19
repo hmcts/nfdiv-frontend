@@ -332,4 +332,10 @@ describe('SoleTemplateSelector test', () => {
     );
     expect(soleTemplate).toBe(HubTemplate.ServiceApplicationRejected);
   });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingOutcome', () => {
+    const theState = displayState.at(State.PendingHearingOutcome);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
 });

@@ -157,6 +157,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       isDivorce ? 'marriage' : 'civil partnership'
     } will be legally ended.`,
   },
+  pendingHearingOutcome: {},
 });
 
 const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
@@ -301,6 +302,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       isDivorce ? 'marriage' : 'civil partnership'
     } will be legally ended.`,
   },
+  pendingHearingOutcome: {},
 });
 
 const languages = {

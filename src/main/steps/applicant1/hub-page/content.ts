@@ -167,6 +167,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     generalOrderDownloadReference: 'General-Order',
     generalOrderLink: '/downloads/general-order',
   },
+  pendingHearingOutcome: {},
 });
 
 const cy: typeof en = ({
@@ -336,6 +337,7 @@ const cy: typeof en = ({
     generalOrderDownloadReference: 'General-Order',
     generalOrderLink: '/downloads/general-order',
   },
+  pendingHearingOutcome: {},
 });
 
 export const form: FormContent = {

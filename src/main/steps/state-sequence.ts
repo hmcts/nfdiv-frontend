@@ -94,6 +94,7 @@ export const orderedStateSequence: State[] = [
   State.NewPaperCase,
   State.OfflineDocumentReceived,
   State.BulkCaseReject,
+  State.PendingHearingOutcome,
 ];
 
 export const preSubmittedStatePrioritySequence: State[] = orderedStateSequence.slice(

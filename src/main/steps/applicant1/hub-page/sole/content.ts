@@ -224,6 +224,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       link: '/downloads/bailiff-service',
     },
   },
+  pendingHearingOutcome: {},
   subHeading1:
     userCase.state === State.AwaitingAmendedApplication
       ? 'Latest information'
@@ -476,6 +477,7 @@ const cy: typeof en = (
       reference: 'Final-Order-Granted',
     },
   },
+  pendingHearingOutcome: {},
 });
 
 const languages = {

@@ -45,6 +45,8 @@ export const getRespondentHubTemplate = (
         return HubTemplate.AwaitingAoS;
       }
       return HubTemplate.Holding;
+    case State.PendingHearingOutcome:
+      return HubTemplate.PendingHearingOutcome;
     default: {
       if (displayState.isAtOrBefore('AwaitingConditionalOrder') && !hasSubmittedAos) {
         return HubTemplate.AwaitingAoS;

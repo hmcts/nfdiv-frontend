@@ -202,6 +202,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     generalOrderDownloadReference: 'General-Order',
     generalOrderLink: '/downloads/general-order',
   },
+  pendingHearingOutcome: {},
 });
 
 // @TODO translations
@@ -409,6 +410,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     generalOrderDownloadReference: 'General-Order',
     generalOrderLink: '/downloads/general-order',
   },
+  pendingHearingOutcome: {},
 });
 
 const languages = {
