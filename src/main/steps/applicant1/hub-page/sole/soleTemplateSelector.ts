@@ -35,6 +35,7 @@ export const getSoleHubTemplate = (
     case State.AwaitingLegalAdvisorReferral:
     case State.LAReview:
     case State.AwaitingPronouncement:
+    case State.ConditionalOrderReview:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.GeneralConsiderationComplete:
       if (userCase.dateFinalOrderSubmitted) {
@@ -94,6 +95,8 @@ export const getSoleHubTemplate = (
       } else {
         return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
       }
+    case State.PendingHearingOutcome:
+      return HubTemplate.PendingHearingOutcome;
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
         return HubTemplate.AoSDue;

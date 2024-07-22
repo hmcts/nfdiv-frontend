@@ -80,6 +80,12 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferral);
   });
 
+  test('should show /awaiting-legal-advisor-referral.njk for state ConditionalOrderReview', () => {
+    const theState = displayState.at(State.ConditionalOrderReview);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferral);
+  });
+
   test('should show /applicant-not-yet-applied-for-conditional-order.njk for states after Holding and before AwaitingLegalAdvisorReferral and not hasApplicantAppliedForConditionalOrder', () => {
     const theState = displayState.at(State.AwaitingConditionalOrder);
     const jointTemplate = getJointHubTemplate(theState, userCase);
@@ -137,5 +143,11 @@ describe('JointTemplateSelector test', () => {
     const theState = displayState.at(State.FinalOrderComplete);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.FinalOrderComplete);
+  });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingOutcome', () => {
+    const theState = displayState.at(State.PendingHearingOutcome);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
 });
