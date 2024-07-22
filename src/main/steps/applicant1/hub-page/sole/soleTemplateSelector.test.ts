@@ -338,4 +338,10 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingDate', () => {
+    const theState = displayState.at(State.PendingHearingDate);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
 });

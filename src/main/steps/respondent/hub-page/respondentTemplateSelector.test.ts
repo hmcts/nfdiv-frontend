@@ -119,4 +119,10 @@ describe('RespondentTemplateSelector test', () => {
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingDate', () => {
+    const theState = displayState.at(State.PendingHearingDate);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
 });
