@@ -103,6 +103,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1PcqId: 'applicant1PcqId',
   issueDate: 'issueDate',
   applicant1SolicitorAddress: 'applicant1SolicitorAddress',
+  applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
   applicant1SolicitorAddressOverseas: 'applicant1SolicitorAddressOverseas',
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
