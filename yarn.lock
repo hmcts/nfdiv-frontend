@@ -6857,7 +6857,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.11, dayjs@npm:^1.8.15":
+"dayjs@npm:1.11.12":
+  version: 1.11.12
+  resolution: "dayjs@npm:1.11.12"
+  checksum: 40a4f67c2df3af125ae0ddec68d3a6d806d3009a7414bf45479aaf82f1dd82f3e139e6642e72391abccc37488897830c56afcabb4c819014130d283644df8128
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.8.15":
   version: 1.11.11
   resolution: "dayjs@npm:1.11.11"
   checksum: 84788275aad8a87fee4f1ce4be08861df29687aae6b7b43dd65350118a37dda56772a3902f802cb2dc651dfed447a5a8df62d88f0fb900dba8333e411190a5d5
@@ -13235,7 +13242,7 @@ __metadata:
     copy-webpack-plugin: 12.0.2
     css-loader: 7.1.2
     csurf: 1.11.0
-    dayjs: 1.11.11
+    dayjs: 1.11.12
     email-validator: 2.0.4
     eslint: 8.57.0
     eslint-config-prettier: 9.1.0
