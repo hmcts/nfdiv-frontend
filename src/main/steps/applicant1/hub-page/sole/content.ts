@@ -224,7 +224,10 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       link: '/downloads/bailiff-service',
     },
   },
-  pendingHearingOutcome: {},
+  pendingHearingOutcome: {
+    line1:
+      "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
+  },
   subHeading1:
     userCase.state === State.AwaitingAmendedApplication
       ? 'Latest information'
@@ -477,7 +480,10 @@ const cy: typeof en = (
       reference: 'Final-Order-Granted',
     },
   },
-  pendingHearingOutcome: {},
+  pendingHearingOutcome: {
+    line1:
+      "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
+  },
 });
 
 const languages = {

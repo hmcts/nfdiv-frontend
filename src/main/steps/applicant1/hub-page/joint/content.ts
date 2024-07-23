@@ -157,7 +157,10 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       isDivorce ? 'marriage' : 'civil partnership'
     } will be legally ended.`,
   },
-  pendingHearingOutcome: {},
+  pendingHearingOutcome: {
+    line1:
+      "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
+  },
 });
 
 const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
@@ -302,7 +305,10 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       isDivorce ? 'marriage' : 'civil partnership'
     } will be legally ended.`,
   },
-  pendingHearingOutcome: {},
+  pendingHearingOutcome: {
+    line1:
+      "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
+  },
 });
 
 const languages = {
