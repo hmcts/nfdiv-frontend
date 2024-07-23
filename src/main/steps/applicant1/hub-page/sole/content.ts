@@ -482,7 +482,7 @@ const cy: typeof en = (
   },
   pendingHearingOutcome: {
     line1:
-      "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
+      'Mae eich cais wedi cyrraedd y llys a bydd yn cael ei gyfeirio at farnwr i ystyried eich cais. Dylech glywed gan\n y llys am benderfyniad y barnwr.',
   },
 });
 
