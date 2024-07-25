@@ -20,6 +20,7 @@ import {
   APPLICATION_SUBMITTED,
   APPLY_FINANCIAL_ORDER,
   APPLY_FINANCIAL_ORDER_DETAILS,
+  APP_REPRESENTED,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
@@ -411,11 +412,13 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: CHECK_ANSWERS_URL,
     getNextStep: data =>
-      data.applicationType === ApplicationType.JOINT_APPLICATION
-        ? SENT_TO_APPLICANT2_FOR_REVIEW
-        : data.applicant1HelpWithFeesRefNo
-          ? APPLICATION_SUBMITTED
-          : PAY_YOUR_FEE,
+      data.applicant1SolicitorRepresented === YesOrNo.YES
+        ? APP_REPRESENTED
+        : data.applicationType === ApplicationType.JOINT_APPLICATION
+          ? SENT_TO_APPLICANT2_FOR_REVIEW
+          : data.applicant1HelpWithFeesRefNo
+            ? APPLICATION_SUBMITTED
+            : PAY_YOUR_FEE,
   },
   {
     url: SENT_TO_APPLICANT2_FOR_REVIEW,
@@ -451,10 +454,18 @@ export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: PAYMENT_CALLBACK_URL,
     getNextStep: data =>
-      data.applicationType === ApplicationType.JOINT_APPLICATION ? JOINT_APPLICATION_SUBMITTED : APPLICATION_SUBMITTED,
+      data.applicant1SolicitorRepresented === YesOrNo.YES
+        ? APP_REPRESENTED
+        : data.applicationType === ApplicationType.JOINT_APPLICATION
+          ? JOINT_APPLICATION_SUBMITTED
+          : APPLICATION_SUBMITTED,
   },
   {
     url: APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: APP_REPRESENTED,
     getNextStep: () => HOME_URL,
   },
   {
@@ -545,7 +556,9 @@ export const applicant1PostSubmissionSequence: Step[] = [
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
-  ![State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft].includes(data.state as State) &&
+  !([State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.Draft] as State[]).includes(
+    data.state as State
+  ) &&
   data.applicant1IConfirmPrayer === Checkbox.Checked &&
   data.applicant1StatementOfTruth === Checkbox.Checked;
 

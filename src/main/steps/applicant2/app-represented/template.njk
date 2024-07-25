@@ -1,0 +1,43 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "components/hmcts-progress-bar/macro.njk" import hmctsProgressBar %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block backLink %}{% endblock %}
+
+{% block page_content %}
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1 class="govuk-panel__title">{{ title }}</h1>
+    <div class="govuk-body">
+      {{ yourReferenceNumber }}
+      <div class="govuk-panel__body">
+        <strong>{{ referenceNumber }}</strong>
+      </div>
+    </div>
+    <p><strong>{{ appRepresentedText }}</strong></p>
+  </div>
+
+  {% include "./progress-bar.njk" %}
+  <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
+  <p class="govuk-body">{{ line16.part1 }}<a class="govuk-link" href={{ line16.link }}>{{ line16.linkText }}</a></p>
+  <h3 class="govuk-heading-m">{{ webChat }}</h3>
+    {% include "webchat/link-to-webchat.njk" %}
+  <h3 class="govuk-heading-m">{{ sendUsAMessage }}</h3>
+  <p class="govuk-body"><a class="govuk-link" href="mailto:{{ contactEmail }}">{{ contactEmail }}</a></p>
+  <h3 class="govuk-heading-m">{{ telephone }}</h3>
+  <p class="govuk-body">{{ telephoneNumber }}</p>
+  <p class="govuk-body">{{ openingTimes }}</p>
+  <p class="govuk-body"><a class="govuk-link" href={{ telephoneCharges.link }}>{{ telephoneCharges.part1 }}</a></p>
+  <p class="govuk-body">{{ domesticAbuse.part1 }}<a class="govuk-link" href={{ domesticAbuse.link }}>{{ domesticAbuse.part2 }}</a></p>
+
+  <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__content">
+      <p class="govuk-notification-banner__heading">{{ feedback }}</p>
+      <p class="govuk-body">{{ feedbackLine1 }}</p>
+      <p class="govuk-body"><a class="govuk-link" href={{ feedbackLine2.link }}>{{ feedbackLine2.part1 }}</a></p>
+    </div>
+  </div>
+{% endblock %}
+
+{% block contact_us %}{% endblock %}

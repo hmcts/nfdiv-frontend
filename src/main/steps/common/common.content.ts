@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, State } from '../../app/case/definition';
+import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
 import { SAVE_AND_SIGN_OUT } from '../urls';
 
@@ -299,6 +299,7 @@ export const generateCommonContent = ({
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
+  const isApp1Represented = userCase?.applicant1SolicitorRepresented === YesOrNo.YES;
   const isAmendableStates =
     userCase &&
     userCase.state &&
@@ -335,6 +336,7 @@ export const generateCommonContent = ({
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
+    isApp1Represented,
     isGeneralConsiderationFoRequested,
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
@@ -354,6 +356,7 @@ export type CommonContent = typeof en & {
   referenceNumber?: string;
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
+  isApp1Represented: boolean;
   isGeneralConsiderationFoRequested: boolean;
   isGeneralConsiderationCoPronounced: boolean;
   isPendingHearingOutcomeCoPronounced: boolean;

@@ -9,6 +9,7 @@ import {
   APPLICANT_2,
   APPLY_FINANCIAL_ORDER,
   APPLY_FINANCIAL_ORDER_DETAILS,
+  APP_REPRESENTED,
   CHANGES_TO_YOUR_NAME_URL,
   CHANGING_TO_SOLE_APPLICATION,
   CHECK_ANSWERS_URL,
@@ -182,6 +183,10 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: APP_REPRESENTED,
     getNextStep: () => HOME_URL,
   },
   {
