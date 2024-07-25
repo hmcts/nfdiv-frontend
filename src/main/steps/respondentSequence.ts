@@ -3,6 +3,7 @@ import { YesOrNo } from '../app/case/definition';
 import { Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
+  APPLICANT_2,
   APP_REPRESENTED,
   CHECK_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
@@ -92,9 +93,10 @@ const sequence: Step[] = [
   },
 ];
 
+// Generate respondentSequence from the baseSequence
 export const respondentSequence = ((): Step[] => {
   return sequence.map(step => ({
-    url: `${RESPONDENT}${step.url}`,
+    url: step.url === APP_REPRESENTED ? `${APPLICANT_2}${APP_REPRESENTED}` : `${RESPONDENT}${step.url}`,
     getNextStep: data => `${RESPONDENT}${step.getNextStep(data)}`,
   }));
 })();
