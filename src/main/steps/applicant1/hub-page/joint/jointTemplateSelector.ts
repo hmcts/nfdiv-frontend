@@ -57,7 +57,8 @@ export const getJointHubTemplate = (
     case State.FinalOrderComplete: {
       return HubTemplate.FinalOrderComplete;
     }
-    case State.PendingHearingOutcome: {
+    case State.PendingHearingOutcome:
+    case State.PendingHearingDate: {
       return HubTemplate.PendingHearingOutcome;
     }
     default: {
