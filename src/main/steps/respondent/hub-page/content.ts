@@ -202,6 +202,10 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     generalOrderDownloadReference: 'General-Order',
     generalOrderLink: '/downloads/general-order',
   },
+  pendingHearingOutcome: {
+    line1:
+      "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
+  },
 });
 
 // @TODO translations
@@ -408,6 +412,10 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line2: "Download a copy of your 'general order'.",
     generalOrderDownloadReference: 'General-Order',
     generalOrderLink: '/downloads/general-order',
+  },
+  pendingHearingOutcome: {
+    line1:
+      'Mae eich cais wedi cyrraedd y llys a bydd yn cael ei gyfeirio at farnwr i ystyried eich cais. Dylech glywed gan\n y llys am benderfyniad y barnwr.',
   },
 });
 

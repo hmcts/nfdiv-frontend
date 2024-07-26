@@ -14,7 +14,7 @@
     {{ certificateOfEntitlementLine.part3 }}
   </p>
 
-{% elif displayState.state() == 'AwaitingLegalAdvisorReferral' or displayState.state() == 'AwaitingPronouncement' or displayState.state() == 'LAReview' and not isCoFieldsSet %}
+{% elif displayState.state() == 'AwaitingLegalAdvisorReferral' or displayState.state() == 'AwaitingPronouncement' or displayState.state() == 'LAReview' or displayState.state() == 'ConditionalOrderReview' and not isCoFieldsSet %}
   <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
   <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
 {% endif %}

@@ -35,20 +35,20 @@
     label: {
       html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))
     },
-    complete: displayState.isAfter('IssuedToBailiff'),
-    active: displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding') and (not isGeneralConsiderationCoPronounced and not isGeneralConsiderationFoRequested)
+    complete: displayState.isAfter('IssuedToBailiff') or isPendingHearingOutcomeCoPronounced or isPendingHearingOutcomeFoRequested,
+    active: displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding') and (not isGeneralConsiderationCoPronounced and not isGeneralConsiderationFoRequested and not isPendingHearingOutcomeCoPronounced and not isPendingHearingOutcomeFoRequested)
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
     },
-    complete: displayState.isAtOrAfter('ConditionalOrderPronounced') or isGeneralConsiderationCoPronounced or isGeneralConsiderationFoRequested,
-    active: (displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced')) or isGeneralConsiderationCoPronounced
+    complete: displayState.isAtOrAfter('ConditionalOrderPronounced') or isGeneralConsiderationCoPronounced or isGeneralConsiderationFoRequested or isPendingHearingOutcomeCoPronounced or isPendingHearingOutcomeFoRequested,
+    active: (displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced')) or isGeneralConsiderationCoPronounced or isPendingHearingOutcomeCoPronounced
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(finalOrder, displayState.isAtOrAfter('FinalOrderPending'))
     },
     complete: displayState.state() == 'FinalOrderComplete',
-    active: (displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete')) or isGeneralConsiderationFoRequested
+    active: (displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete')) or isGeneralConsiderationFoRequested or isPendingHearingOutcomeFoRequested
   }] %}
 {% endif %}
 

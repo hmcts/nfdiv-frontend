@@ -1,0 +1,5 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% for property, line in pendingHearingOutcome %}
+  <p class="govuk-body">{{ line }}</p>
+{% endfor %}

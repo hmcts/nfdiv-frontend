@@ -103,6 +103,7 @@ export const YOUR_COMMENTS_SENT: PageLink = '/your-comments-sent';
 export const NO_RESPONSE_YET: PageLink = '/no-response-yet';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
+export const APP_REPRESENTED: PageLink = '/app-represented';
 export const JOINT_APPLICATION_SUBMITTED: PageLink = '/joint-application-submitted';
 
 export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
