@@ -92,7 +92,7 @@
     "node-cache": "5.1.2",
     "nunjucks": "3.2.4",
     "otplib": "12.0.1",
-    "pdfjs-dist": "4.4.168",
+    "pdfjs-dist": "4.5.136",
     "redis": "4.6.15",
     "require-directory": "2.1.1",
     "serve-favicon": "2.5.0",
