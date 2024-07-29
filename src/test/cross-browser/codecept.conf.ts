@@ -81,7 +81,7 @@ export const config: CodeceptJS.Config = {
       reportDir: './functional-output/crossbrowser/reports',
       reportFilename: 'Crossbrowser test report',
       inlineAssets: true,
-      overwrite: false,
+      overwrite: true,
       html: true,
     },
   },
