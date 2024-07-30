@@ -2025,6 +2025,7 @@ export const enum State {
   NewPaperCase = 'NewPaperCase',
   OfflineDocumentReceived = 'OfflineDocumentReceived',
   PendingHearingOutcome = 'PendingHearingOutcome',
+  PendingHearingDate = 'PendingHearingDate',
   BulkCaseReject = 'BulkCaseReject',
   RespondentFinalOrderRequested = 'RespondentFinalOrderRequested',
   SeparationOrderGranted = 'SeparationOrderGranted',

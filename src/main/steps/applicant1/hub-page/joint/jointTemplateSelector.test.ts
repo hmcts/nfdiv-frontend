@@ -150,4 +150,10 @@ describe('JointTemplateSelector test', () => {
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingDate', () => {
+    const theState = displayState.at(State.PendingHearingDate);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
 });

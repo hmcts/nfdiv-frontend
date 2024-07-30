@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../../app/case/case';
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { ServiceApplicationRefusalReason, State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
@@ -16,7 +16,8 @@ export const getSoleHubTemplate = (
   const isAosOverdue =
     !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   const isRefusalOrderToApplicant =
-    userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationRefusalReason === 'refusalOrderToApplicant';
+    userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
+    ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -96,6 +97,7 @@ export const getSoleHubTemplate = (
         return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
       }
     case State.PendingHearingOutcome:
+    case State.PendingHearingDate:
       return HubTemplate.PendingHearingOutcome;
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
