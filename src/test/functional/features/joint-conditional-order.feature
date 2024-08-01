@@ -138,3 +138,54 @@ Feature: Joint conditional order
 
     When I click "Continue"
     Then the page URL should be "/applicant2/hub-page"
+
+
+  Scenario: Del test Applicant 2 is first in time applicant for conditional order journey and responds with additional information
+    Given I set the case state to "AwaitingConditionalOrder"
+    And I go to "/"
+    Then the page URL should be "/applicant2/hub-page"
+
+    When I click "Apply for conditional order"
+    Then the page URL should be "/applicant2/continue-with-your-application"
+    And the page should include "This is a joint application so your wife will also have to apply. They have been sent an email to tell them."
+
+    Given I select "I want to continue with my divorce application"
+    When I click "Continue"
+    Then the page URL should be "/applicant2/review-your-joint-application"
+    And the page should include "Read your joint application for divorce and confirm the information is still correct."
+
+    Given I select "Yes"
+    When I click "Continue"
+    Then the page URL should be "/applicant2/check-your-conditional-order-answers"
+
+    Given I select "I believe that the facts stated in this application are true"
+    When I click "Continue"
+    Then the page URL should be "/applicant2/hub-page"
+    And the page should include "You have applied for a conditional order. Your wife also needs to apply"
+    When I click "Sign out"
+    And I login with applicant "1"
+    Then the page URL should be "/hub-page"
+
+    When I click "Review your contact details"
+    When I click "Change"
+    And I select "Town or city"
+    And I type "LONDON"
+    When I click "Save and sign out"
+    And I login with applicant "1"
+    Then the page URL should be "/hub-page"
+    When I click "Apply for conditional order"
+    Then the page URL should be "/continue-with-your-application"
+
+    Given I select "I want to continue with my divorce application"
+    When I click "Continue"
+    Then the page URL should be "/review-your-joint-application"
+    And the page should include "Read your joint application for divorce and confirm the information is still correct."
+
+    Given I select "Yes"
+    When I click "Continue"
+    Then the page URL should be "/check-your-conditional-order-answers"
+
+    Given I select "I believe that the facts stated in this application are true"
+    When I click "Submit"
+    Then the page URL should be "/hub-page"
+    And the page should include "You and your husband have applied for a 'conditional order'"
