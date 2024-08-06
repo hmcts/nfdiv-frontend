@@ -378,6 +378,9 @@ export interface Application {
   applicant2HWFReferenceNumber: string;
   applicant2HWFNeedHelp: YesOrNo;
   applicant2HWFAppliedForFees: YesOrNo;
+  applicant2FoHWFReferenceNumber: string;
+  applicant2FoHWFNeedHelp: YesOrNo;
+  applicant2FoHWFAppliedForFees: YesOrNo;
   stsapplicant1KnowsApplicant2EmailAddress: YesOrNo;
   stsapplicant1KnowsApplicant2Address: YesOrNo;
   stsapp2ContactMethodIsDigital: YesOrNo;
@@ -636,6 +639,9 @@ export interface CaseData {
   applicant2HWFReferenceNumber: string;
   applicant2HWFNeedHelp: YesOrNo;
   applicant2HWFAppliedForFees: YesOrNo;
+  applicant2FoHWFReferenceNumber: string;
+  applicant2FoHWFNeedHelp: YesOrNo;
+  applicant2FoHWFAppliedForFees: YesOrNo;
   stsapplicant1KnowsApplicant2EmailAddress: YesOrNo;
   stsapplicant1KnowsApplicant2Address: YesOrNo;
   stsapp2ContactMethodIsDigital: YesOrNo;
@@ -691,6 +697,7 @@ export interface CaseData {
   welshPreviousState: State;
   stateToTransitionApplicationTo: State;
   applicationPayments: ListValue<Payment>[];
+  finalOrderPayments: ListValue<Payment>[];
   overdueNotificationSent: YesOrNo;
   applicant1ReminderSent: YesOrNo;
   applicant2ReminderSent: YesOrNo;
@@ -1977,6 +1984,7 @@ export const enum State {
   AosOverdue = 'AosOverdue',
   Applicant2Approved = 'Applicant2Approved',
   AwaitingPayment = 'AwaitingPayment',
+  AwaitingRespondentFOPayment = 'AwaitingRespondentFOPayment',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   Archived = 'Archived',
@@ -2542,6 +2550,7 @@ export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const INTEND_SWITCH_TO_SOLE_FO = 'intend-switch-to-sole-fo';
 export const CITIZEN_UPDATE = 'citizen-update-application';
 export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
+export const RESPONDENT_FINAL_ORDER_PAYMENT_MADE = 'respondent-final-order-payment-made';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
 export const SWITCH_TO_SOLE = 'switch-to-sole';
 export const CITIZEN_ADD_PAYMENT = 'citizen-add-payment';
@@ -2567,6 +2576,7 @@ export const INVITE_APPLICANT_2 = 'invite-applicant2';
 export const SWITCH_TO_SOLE_CO = 'switch-to-sole-co';
 export const APPLICANT_2_REQUEST_CHANGES = 'applicant2-request-changes';
 export const APPLICANT_1_RESUBMIT = 'applicant1-resubmit';
+export const RESPONDENT_APPLY_FOR_FINAL_ORDER = 'respondent-final-order-requested';
 export const SYSTEM_PROGRESS_CASE_TO_AWAITING_FINAL_ORDER = 'system-progress-case-awaiting-final-order';
 export const SYSTEM_REMIND_APPLICANTS_CONDITIONAL_ORDER = 'system-remind-applicants-conditional-order';
 export const SYSTEM_UPDATE_CASE_COURT_HEARING = 'system-update-case-court-hearing';

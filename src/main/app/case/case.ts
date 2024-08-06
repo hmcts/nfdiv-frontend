@@ -35,6 +35,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1AlreadyAppliedForHelpPaying: 'applicant1HWFAppliedForFees',
   applicant1HelpWithFeesRefNo: 'applicant1HWFReferenceNumber',
   applicant2HelpPayingNeeded: 'applicant2HWFNeedHelp',
+  applicant2FoHelpPayingNeeded: 'applicant2FoHWFNeedHelp',
   applicant2AlreadyAppliedForHelpPaying: 'applicant2HWFAppliedForFees',
   applicant2HelpWithFeesRefNo: 'applicant2HWFReferenceNumber',
   inTheUk: 'marriageMarriedInUk',
@@ -108,6 +109,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   payments: 'applicationPayments',
+  finalOrderPayments: 'finalOrderPayments',
   confirmDisputeApplication: 'confirmDisputeApplication',
   jurisdictionAgree: 'jurisdictionAgree',
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
@@ -201,6 +203,7 @@ export interface Case {
   applicant1AlreadyAppliedForHelpPaying?: YesOrNo;
   applicant1HelpWithFeesRefNo?: string;
   applicant2HelpPayingNeeded?: YesOrNo;
+  applicant2FoHelpPayingNeeded?: YesOrNo;
   applicant2AlreadyAppliedForHelpPaying?: YesOrNo;
   applicant2HelpWithFeesRefNo?: string;
   inTheUk?: YesOrNo;
@@ -305,6 +308,7 @@ export interface Case {
   respondentUserId?: string;
   dateSubmitted?: DateAsString;
   payments: ListValue<Payment>[];
+  finalOrderPayments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
   applicant2Confirmation: YesOrNo;
   applicant2Explanation: string;
