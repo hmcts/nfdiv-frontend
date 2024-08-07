@@ -8,19 +8,19 @@ import {
 } from '../../urls';
 
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
-  protected noPaymentRequiredUrl(req: AppRequest) {
+  protected noPaymentRequiredUrl() {
     return HUB_PAGE;
   }
 
-  protected paymentMadeUrl(req: AppRequest) {
+  protected paymentMadeUrl() {
     return RESPONDENT_FINAL_ORDER_PAYMENT_MADE;
   }
 
-  protected paymentSuccessfulUrl(req: AppRequest) {
+  protected paymentSuccessUrl() {
     return HUB_PAGE;
   }
 
-  protected paymentFailedUrl(req: AppRequest) {
+  protected paymentFailureUrl() {
     return PAY_YOUR_FINAL_ORDER_FEE;
   }
 

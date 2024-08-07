@@ -12,21 +12,21 @@ import BasePaymentCallbackGetController from '../../../app/controller/BasePaymen
 
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
 
-  protected noPaymentRequiredUrl(req: AppRequest) {
+  protected noPaymentRequiredUrl() {
     return CHECK_ANSWERS_URL;
   }
 
-  protected paymentMadeUrl(req: AppRequest) {
+  protected paymentMadeUrl() {
     return CITIZEN_PAYMENT_MADE;
   }
 
-  protected paymentSuccessfulUrl(req: AppRequest) {
+  protected paymentSuccessUrl(req: AppRequest) {
     return req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION
       ? JOINT_APPLICATION_SUBMITTED
       : APPLICATION_SUBMITTED;
   }
 
-  protected paymentFailedUrl(req: AppRequest) {
+  protected paymentFailureUrl(req: AppRequest) {
     return req.query.back
       ? CHECK_ANSWERS_URL
       : req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION

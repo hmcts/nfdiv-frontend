@@ -47,16 +47,16 @@ export default abstract class BasePaymentCallbackGetController {
     }
     req.session.save(() => {
       if (payments.wasLastPaymentSuccessful) {
-        res.redirect(this.paymentSuccessfulUrl(req));
+        res.redirect(this.paymentSuccessUrl(req));
       }
 
-      res.redirect(this.paymentFailedUrl(req));
+      res.redirect(this.paymentFailureUrl(req));
     });
   }
 
   protected abstract noPaymentRequiredUrl(req: AppRequest): string;
   protected abstract paymentMadeUrl(req: AppRequest): string;
-  protected abstract paymentSuccessfulUrl(req: AppRequest): string;
-  protected abstract paymentFailedUrl(req: AppRequest): string;
+  protected abstract paymentSuccessUrl(req: AppRequest): string;
+  protected abstract paymentFailureUrl(req: AppRequest): string;
   protected abstract getPayments(req: AppRequest): PaymentModel;
 }
