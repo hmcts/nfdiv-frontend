@@ -2174,12 +2174,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@promptbook/utils@npm:0.61.0-23":
-  version: 0.61.0-23
-  resolution: "@promptbook/utils@npm:0.61.0-23"
+"@promptbook/utils@npm:0.61.0":
+  version: 0.61.0
+  resolution: "@promptbook/utils@npm:0.61.0"
   dependencies:
     spacetrim: 0.11.37
-  checksum: e55a6cd58444b9a29d050ba1673e2bb299029a4232209f7b3365989c7e1757d1318964f2fd75d512be953f7990fa20e1a512b65d2e17380c3b10910c82af16cc
+  checksum: 597a0e1d49053bfc20f2f83df9795db90e29118d321de148273ade3bd6b5c5b6c5ae9a62b881e465c19270e507fe1c2700b43f2aee6dcb9ddb47ccad2ab4ce32
   languageName: node
   linkType: hard
 
@@ -4150,12 +4150,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"allure-commandline@npm:2.29.0":
-  version: 2.29.0
-  resolution: "allure-commandline@npm:2.29.0"
+"allure-commandline@npm:2.30.0":
+  version: 2.30.0
+  resolution: "allure-commandline@npm:2.30.0"
   bin:
     allure: bin/allure
-  checksum: 29f3f7334744f0f75894bd230ad6a6cacb325f20a0d3a9e82034e2f78521313fc50c94461aedfd619bedb84207ac773325f3c426cef1257ae1b9f687a581412e
+  checksum: ed7347a2966a1599513efa1ccf7ab2e86f70f2bf405bf49812e12c874a44bbdf9f62d61f687c71aef586352facafdfdd36c7b5fccc23fa9c7d562440e4586b8f
   languageName: node
   linkType: hard
 
@@ -11543,13 +11543,13 @@ __metadata:
   linkType: hard
 
 "locate-app@npm:^2.1.0":
-  version: 2.4.22
-  resolution: "locate-app@npm:2.4.22"
+  version: 2.4.23
+  resolution: "locate-app@npm:2.4.23"
   dependencies:
-    "@promptbook/utils": 0.61.0-23
+    "@promptbook/utils": 0.61.0
     type-fest: 2.13.0
     userhome: 1.0.0
-  checksum: fcb2ec6a2e3043b0df2e302bc2d3fcc0f2a737e7a5dc533f806fe25afed5cf8ead1d29907dc5f05bcc8fad422f2418de0d5e343ccb8b376fda3e357ff90ba8a5
+  checksum: 1b72a51769e4269232e3e921bc6d9fbee34fafb127e22f8ae9d2626b716f69b4bb36d32c18de3856de01ad6f232e550c78f112fbdaf7a02cfe629d7783509509
   languageName: node
   linkType: hard
 
@@ -13142,7 +13142,7 @@ __metadata:
     "@uppy/xhr-upload": 3.6.8
     "@wdio/cli": 8.39.1
     "@wdio/sauce-service": 8.39.1
-    allure-commandline: 2.29.0
+    allure-commandline: 2.30.0
     applicationinsights: 2.9.5
     autobind-decorator: 2.4.0
     axios: 1.7.3
@@ -16988,8 +16988,8 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.10.0, terser@npm:^5.15.0, terser@npm:^5.15.1, terser@npm:^5.26.0":
-  version: 5.31.3
-  resolution: "terser@npm:5.31.3"
+  version: 5.31.4
+  resolution: "terser@npm:5.31.4"
   dependencies:
     "@jridgewell/source-map": ^0.3.3
     acorn: ^8.8.2
@@ -16997,7 +16997,7 @@ __metadata:
     source-map-support: ~0.5.20
   bin:
     terser: bin/terser
-  checksum: cb4ccd5cb42c719272959dcae63d41e4696fb304123392943282caa6dfcdc49f94e7c48353af8bcd4fbc34457b240b7f843db7fec21bb2bdc18e01d4f45b035e
+  checksum: c134d2e964af3ff1b7c93d10756ffbc1f754b800ca115fb33cec72db16e5338f74c2fc6f8b5ac7f7770b187f3958e82a3e746110a2d9a8b1d91abaf3c91639a7
   languageName: node
   linkType: hard
 
