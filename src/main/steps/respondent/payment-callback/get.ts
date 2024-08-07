@@ -1,10 +1,14 @@
-import { RESPONDENT_FINAL_ORDER_PAYMENT_MADE } from '../../../app/case/definition';
+import { RESPONDENT_FINAL_ORDER_PAYMENT_MADE, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
 import { PaymentModel } from '../../../app/payment/PaymentModel';
 import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE } from '../../urls';
 
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
+  protected awaitingPaymentState(): State {
+    return State.AwaitingRespondentFOPayment;
+  }
+
   protected noPaymentRequiredUrl(): string {
     return HUB_PAGE;
   }

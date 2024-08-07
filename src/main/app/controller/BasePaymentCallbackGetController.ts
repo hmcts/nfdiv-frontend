@@ -12,7 +12,7 @@ const logger = Logger.getLogger('payment');
 
 export default abstract class BasePaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (req.session.userCase.state !== State.AwaitingPayment) {
+    if (req.session.userCase.state !== this.awaitingPaymentState()) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
@@ -54,6 +54,7 @@ export default abstract class BasePaymentCallbackGetController {
     });
   }
 
+  protected abstract awaitingPaymentState(): State;
   protected abstract noPaymentRequiredUrl(req: AppRequest): string;
   protected abstract paymentMadeUrl(req: AppRequest): string;
   protected abstract paymentSuccessUrl(req: AppRequest): string;

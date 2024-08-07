@@ -1,4 +1,4 @@
-import { ApplicationType, CITIZEN_PAYMENT_MADE } from '../../../app/case/definition';
+import { ApplicationType, CITIZEN_PAYMENT_MADE, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
 import { PaymentModel } from '../../../app/payment/PaymentModel';
@@ -11,6 +11,10 @@ import {
 } from '../../urls';
 
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
+  protected awaitingPaymentState(): State {
+    return State.AwaitingPayment;
+  }
+
   protected noPaymentRequiredUrl(): string {
     return CHECK_ANSWERS_URL;
   }

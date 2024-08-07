@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CITIZEN_SUBMIT, PaymentStatus, State } from '../../../app/case/definition';
+import { PaymentStatus, RESPONDENT_APPLY_FOR_FINAL_ORDER, State } from '../../../app/case/definition';
 import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../urls';
 
 import PaymentPostController from './post';
@@ -22,11 +22,11 @@ describe('PaymentPostController', () => {
     it('creates a new payment and redirects to payment URL', async () => {
       const req = mockRequest({
         userCase: {
-          state: State.AwaitingPayment,
+          state: State.AwaitingRespondentFOPayment,
           applicationFeeOrderSummary: {
             Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
           },
-          payments: [
+          finalOrderPayments: [
             {
               id: 'timed out payment',
               value: {
@@ -58,12 +58,12 @@ describe('PaymentPostController', () => {
       expect(res.redirect).toHaveBeenCalledWith('/payment-callback');
     });
 
-    it('transitions the case to awaiting payment if the state is draft', async () => {
+    it('transitions the case to awaiting payment if the state is awaiting final order', async () => {
       const req = mockRequest();
       const res = mockResponse();
 
       (req.locals.api.triggerEvent as jest.Mock).mockReturnValueOnce({
-        state: State.AwaitingPayment,
+        state: State.AwaitingFinalOrder,
         applicationFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
@@ -82,14 +82,14 @@ describe('PaymentPostController', () => {
 
       await paymentController.post(req, res);
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SUBMIT);
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, RESPONDENT_APPLY_FOR_FINAL_ORDER);
     });
 
-    it('redirects to the check your answers page if last payment is in progress', async () => {
+    it('redirects to hub page if last payment is in progress', async () => {
       const req = mockRequest({
         userCase: {
-          state: State.AwaitingPayment,
-          payments: [
+          state: State.AwaitingRespondentFOPayment,
+          finalOrderPayments: [
             {
               id: 'mock external reference payment id',
               value: {
