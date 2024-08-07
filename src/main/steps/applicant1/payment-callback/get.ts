@@ -1,5 +1,6 @@
 import { ApplicationType, CITIZEN_PAYMENT_MADE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
 import { PaymentModel } from '../../../app/payment/PaymentModel';
 import {
   APPLICATION_SUBMITTED,
@@ -8,30 +9,28 @@ import {
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
 } from '../../urls';
-import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
 
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
-
-  protected noPaymentRequiredUrl() {
+  protected noPaymentRequiredUrl(): string {
     return CHECK_ANSWERS_URL;
   }
 
-  protected paymentMadeUrl() {
+  protected paymentMadeUrl(): string {
     return CITIZEN_PAYMENT_MADE;
   }
 
-  protected paymentSuccessUrl(req: AppRequest) {
+  protected paymentSuccessUrl(req: AppRequest): string {
     return req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION
       ? JOINT_APPLICATION_SUBMITTED
       : APPLICATION_SUBMITTED;
   }
 
-  protected paymentFailureUrl(req: AppRequest) {
+  protected paymentFailureUrl(req: AppRequest): string {
     return req.query.back
       ? CHECK_ANSWERS_URL
       : req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION
         ? PAY_AND_SUBMIT
-        : PAY_YOUR_FEE
+        : PAY_YOUR_FEE;
   }
 
   protected getPayments(req: AppRequest): PaymentModel {

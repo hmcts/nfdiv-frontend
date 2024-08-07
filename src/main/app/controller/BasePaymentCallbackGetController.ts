@@ -2,11 +2,11 @@ import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Response } from 'express';
 
+import { PAYMENT_CALLBACK_URL } from '../../steps/urls';
 import { State } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
-import { PAYMENT_CALLBACK_URL } from '../../steps/urls';
 
 const logger = Logger.getLogger('payment');
 
@@ -20,8 +20,8 @@ export default abstract class BasePaymentCallbackGetController {
     const returnUrl = `${protocol}${res.locals.host}${port}${PAYMENT_CALLBACK_URL}`;
 
     const paymentClient = new PaymentClient(req.session, returnUrl);
-    
-    const payments = this.getPayments(req)
+
+    const payments = this.getPayments(req);
     if (!payments.hasPayment) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }

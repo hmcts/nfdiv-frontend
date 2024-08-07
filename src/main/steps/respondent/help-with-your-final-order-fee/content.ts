@@ -6,9 +6,11 @@ import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ isDivorce, required, partner }) => ({
-  title: `Do you need help paying the fee for your final order?`,
-  line1: `This final order application costs ${getFee(config.get('fees.finalOrderApplicationFee'))}. You may be able to get help paying the fee if you (one or more of the following):`,
+const en = ({ required }) => ({
+  title: 'Do you need help paying the fee for your final order?',
+  line1: `This final order application costs ${getFee(
+    config.get('fees.finalOrderApplicationFee')
+  )}. You may be able to get help paying the fee if you (one or more of the following):`,
   helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
   yes: 'I need help paying the fee',
   no: 'I do not need help paying the fee',
@@ -19,9 +21,11 @@ const en = ({ isDivorce, required, partner }) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, required, partner }) => ({
-  title: `Do you need help paying the fee for your final order?`,
-  line1: `This final order application costs ${getFee(config.get('fees.finalOrderApplicationFee'))}. You may be able to get help paying the fee if you (one or more of the following):`,
+const cy: typeof en = ({ required }) => ({
+  title: 'Do you need help paying the fee for your final order?',
+  line1: `This final order application costs ${getFee(
+    config.get('fees.finalOrderApplicationFee')
+  )}. You may be able to get help paying the fee if you (one or more of the following):`,
   helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
   yes: 'I need help paying the fee',
   no: 'I do not need help paying the fee',

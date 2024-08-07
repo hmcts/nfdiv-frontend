@@ -2,10 +2,9 @@ import autobind from 'autobind-decorator';
 
 import { CITIZEN_SUBMIT, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../app/controller/PostController';
 import { PaymentModel } from '../../../app/payment/PaymentModel';
-
-import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
 
 @autobind
 export default class PaymentPostController extends BasePaymentPostController {

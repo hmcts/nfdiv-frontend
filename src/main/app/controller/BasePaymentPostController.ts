@@ -3,12 +3,12 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
+import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { CITIZEN_ADD_PAYMENT, PaymentStatus, State } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
-import { PaymentClient, Payment } from '../payment/PaymentClient';
+import { Payment, PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
-import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 
 const logger = Logger.getLogger('payment');
 
@@ -20,7 +20,11 @@ export default abstract class BasePaymentPostController {
     }
 
     if (req.session.userCase.state !== this.awaitingPaymentState()) {
-      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, this.awaitingPaymentEvent());
+      req.session.userCase = await req.locals.api.triggerEvent(
+        req.session.userCase.id,
+        {},
+        this.awaitingPaymentEvent()
+      );
     }
 
     const payments = this.getPayments(req);
@@ -29,7 +33,7 @@ export default abstract class BasePaymentPostController {
       return this.saveAndRedirect(req, res, PAYMENT_CALLBACK_URL);
     }
 
-    const paymentClient = this.getPaymentClient(req, res, PAYMENT_CALLBACK_URL);
+    const paymentClient = this.getPaymentClient(req, res);
     const payment = await this.createServiceRefAndTakePayment(req, paymentClient, payments);
 
     this.saveAndRedirect(req, res, payment.next_url);
@@ -45,7 +49,7 @@ export default abstract class BasePaymentPostController {
     });
   }
 
-  private getPaymentClient(req: AppRequest, res: Response, callbackUrl: String) {
+  private getPaymentClient(req: AppRequest, res: Response) {
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
     const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
     const returnUrl = `${protocol}${res.locals.host}${port}${PAYMENT_CALLBACK_URL}`;
