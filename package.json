@@ -154,5 +154,5 @@
     "http-cache-semantics": "4.1.1",
     "axios": "1.7.3"
   },
-  "packageManager": "yarn@3.8.3"
+  "packageManager": "yarn@3.8.4"
 }
