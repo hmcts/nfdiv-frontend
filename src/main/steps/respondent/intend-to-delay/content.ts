@@ -39,11 +39,12 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.intendToDelay,
       values: [
-        { label: l => l.no,
-          value: YesOrNo.NO },
-        { label: l => l.yes,
+        { label: l => l.no, value: YesOrNo.NO },
+        {
+          label: l => l.yes,
           value: YesOrNo.YES,
-          conditionalText: l => `<p class="govuk-label">${l.delaySelected}</p>`},
+          conditionalText: l => `<p class="govuk-label">${l.delaySelected}</p>`,
+        },
       ],
       validator: value => isFieldFilledIn(value),
     },
