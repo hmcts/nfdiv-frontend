@@ -64,27 +64,27 @@ const en = ({ isDivorce, userCase }) => ({
       }`,
     },
     contactYou: {
-      line4: `${
+      line5: `${
         userCase.applicant2AgreeToReceiveEmails
           ? `I agree that the ${
               isDivorce ? 'divorce' : 'civil partnership'
             } service can send me notifications and serve (deliver) court documents to me by email.`
           : ''
       }`,
-      line5: `${userCase.applicant2PhoneNumber}`,
-      line6: `${
+      line6: `${userCase.applicant2PhoneNumber}`,
+      line7: `${
         userCase.applicant2EnglishOrWelsh
           ? userCase.applicant2EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant2EnglishOrWelsh.slice(1)
           : ''
       }`,
-      line7: `${
+      line8: `${
         userCase.applicant2AddressPrivate
           ? userCase.applicant2AddressPrivate === YesOrNo.YES
             ? 'Keep my contact details private'
             : 'I do not need my contact details kept private'
           : ''
       }`,
-      line8: `${[
+      line9: `${[
         userCase.applicant2Address1,
         userCase.applicant2Address2,
         userCase.applicant2Address3,
@@ -188,27 +188,27 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       }`,
     },
     contactYou: {
-      line4: `${
+      line5: `${
         userCase.applicant2AgreeToReceiveEmails
           ? `Rwy'n cytuno y gall y ${
               isDivorce ? 'gwasanaeth ysgaru' : 'gwasanaeth diweddu partneriaeth sifil'
             } anfon hysbysiadau ataf a chyflwyno (danfon) dogfennau llys ataf drwy e-bost.`
           : ''
       }`,
-      line5: `${userCase.applicant2PhoneNumber}`,
-      line6: `${
+      line6: `${userCase.applicant2PhoneNumber}`,
+      line7: `${
         userCase.applicant2EnglishOrWelsh
           ? userCase.applicant2EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant2EnglishOrWelsh.slice(1)
           : ''
       }`,
-      line7: `${
+      line8: `${
         userCase.applicant2AddressPrivate
           ? userCase.applicant2AddressPrivate === YesOrNo.YES
             ? 'Cadwch fy manylion cyswllt yn breifat'
             : 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat'
           : ''
       }`,
-      line8: `${[
+      line9: `${[
         userCase.applicant2Address1,
         userCase.applicant2Address2,
         userCase.applicant2Address3,
