@@ -1,10 +1,9 @@
 import autobind from 'autobind-decorator';
 
-import { CITIZEN_SUBMIT, State } from '../../../app/case/definition';
+import { CaseData, CITIZEN_SUBMIT, Fee, ListValue, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../app/controller/PostController';
-import { PaymentModel } from '../../../app/payment/PaymentModel';
 
 @autobind
 export default class PaymentPostController extends BasePaymentPostController {
@@ -16,7 +15,15 @@ export default class PaymentPostController extends BasePaymentPostController {
     return CITIZEN_SUBMIT;
   }
 
-  protected getPayments(req: AppRequest<AnyObject>): PaymentModel {
-    return new PaymentModel(req.session.userCase.payments || []);
+  protected getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[] {
+    return req.session.userCase.applicationFeeOrderSummary.Fees;
+  }
+
+  protected paymentsCaseField(): keyof CaseData {
+    return "payments" as keyof CaseData;
+  }
+
+  protected getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined {
+    return req.session.userCase.applicant1FullNameOnCertificate;
   }
 }

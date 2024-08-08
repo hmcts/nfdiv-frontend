@@ -1,31 +1,32 @@
-import { RESPONDENT_FINAL_ORDER_PAYMENT_MADE, State } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
-import { PaymentModel } from '../../../app/payment/PaymentModel';
-import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE } from '../../urls';
+import autobind from 'autobind-decorator';
 
+import { CaseData, RESPONDENT_FINAL_ORDER_PAYMENT_MADE, State } from '../../../app/case/definition';
+import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
+import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT } from '../../urls';
+
+@autobind
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
   protected awaitingPaymentState(): State {
     return State.AwaitingRespondentFOPayment;
   }
 
   protected noPaymentRequiredUrl(): string {
-    return HUB_PAGE;
+    return RESPONDENT + HUB_PAGE;
   }
 
-  protected paymentMadeUrl(): string {
+  protected paymentMadeEvent(): string {
     return RESPONDENT_FINAL_ORDER_PAYMENT_MADE;
   }
 
   protected paymentSuccessUrl(): string {
-    return HUB_PAGE;
+    return RESPONDENT + HUB_PAGE;
   }
 
   protected paymentFailureUrl(): string {
-    return PAY_YOUR_FINAL_ORDER_FEE;
+    return RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE;
   }
 
-  protected getPayments(req: AppRequest): PaymentModel {
-    return new PaymentModel(req.session.userCase.finalOrderPayments);
+  protected paymentsCaseField(): keyof CaseData {
+    return "finalOrderPayments" as keyof CaseData;
   }
 }

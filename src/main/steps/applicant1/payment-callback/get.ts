@@ -1,7 +1,8 @@
-import { ApplicationType, CITIZEN_PAYMENT_MADE, State } from '../../../app/case/definition';
+import autobind from 'autobind-decorator';
+
+import { ApplicationType, CaseData, CITIZEN_PAYMENT_MADE, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
-import { PaymentModel } from '../../../app/payment/PaymentModel';
 import {
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
@@ -10,6 +11,7 @@ import {
   PAY_YOUR_FEE,
 } from '../../urls';
 
+@autobind
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
   protected awaitingPaymentState(): State {
     return State.AwaitingPayment;
@@ -19,7 +21,7 @@ export default class PaymentCallbackGetController extends BasePaymentCallbackGet
     return CHECK_ANSWERS_URL;
   }
 
-  protected paymentMadeUrl(): string {
+  protected paymentMadeEvent(): string {
     return CITIZEN_PAYMENT_MADE;
   }
 
@@ -37,7 +39,7 @@ export default class PaymentCallbackGetController extends BasePaymentCallbackGet
         : PAY_YOUR_FEE;
   }
 
-  protected getPayments(req: AppRequest): PaymentModel {
-    return new PaymentModel(req.session.userCase.payments);
+  protected paymentsCaseField(): keyof CaseData {
+    return "payments" as keyof CaseData;
   }
 }

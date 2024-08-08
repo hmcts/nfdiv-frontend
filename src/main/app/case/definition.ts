@@ -414,6 +414,7 @@ export interface Application {
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
+  applicant2FinalOrderFeeOrderSummary: OrderSummary;
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
@@ -675,6 +676,7 @@ export interface CaseData {
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
+  applicant2FinalOrderFeeOrderSummary: OrderSummary;
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;

@@ -3,11 +3,11 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
-import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { CITIZEN_ADD_PAYMENT, PaymentStatus, State } from '../case/definition';
+import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { CaseData, CITIZEN_ADD_PAYMENT, PaymentStatus, State, Fee, ListValue } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
-import { Payment, PaymentClient } from '../payment/PaymentClient';
+import { Payment, PaymentClient, getPaymentCallbackUrl } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 
 const logger = Logger.getLogger('payment');
@@ -27,10 +27,10 @@ export default abstract class BasePaymentPostController {
       );
     }
 
-    const payments = this.getPayments(req);
+    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
 
     if (payments.isPaymentInProgress()) {
-      return this.saveAndRedirect(req, res, PAYMENT_CALLBACK_URL);
+      return this.saveAndRedirect(req, res, getPaymentCallbackUrl(req));
     }
 
     const paymentClient = this.getPaymentClient(req, res);
@@ -52,7 +52,7 @@ export default abstract class BasePaymentPostController {
   private getPaymentClient(req: AppRequest, res: Response) {
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
     const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-    const returnUrl = `${protocol}${res.locals.host}${port}${PAYMENT_CALLBACK_URL}`;
+    const returnUrl = `${protocol}${res.locals.host}${port}${getPaymentCallbackUrl(req)}`;
 
     return new PaymentClient(req.session, returnUrl);
   }
@@ -62,17 +62,21 @@ export default abstract class BasePaymentPostController {
     client: PaymentClient,
     payments: PaymentModel
   ): Promise<Payment> {
-    const fee = req.session.userCase.applicationFeeOrderSummary.Fees[0].value;
+    const fee = this.getFeesFromOrderSummary(req)[0].value;
 
     let serviceRefNumberForFee = payments.getServiceRefNumberForFee(fee.FeeCode);
     if (!serviceRefNumberForFee) {
       logger.info('Cannot find service reference number for fee code. creating one');
-      const serviceReqResponse = await client.createServiceRequest();
+      const serviceReqResponse = await client.createServiceRequest(
+        this.getResponsiblePartyName(req), this.getFeesFromOrderSummary(req)
+      );
       serviceRefNumberForFee = serviceReqResponse.service_request_reference;
     }
 
     //Take payment for service request reference
-    const payment = await client.create(serviceRefNumberForFee); //send service req number to this call
+    const payment = await client.create(
+      serviceRefNumberForFee, this.getFeesFromOrderSummary(req)
+    );
     const now = new Date().toISOString();
 
     payments.add({
@@ -89,7 +93,7 @@ export default abstract class BasePaymentPostController {
 
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
-      payments.list,
+      { [this.paymentsCaseField()]: payments.list },
       CITIZEN_ADD_PAYMENT
     );
 
@@ -98,5 +102,7 @@ export default abstract class BasePaymentPostController {
 
   protected abstract awaitingPaymentState(): State;
   protected abstract awaitingPaymentEvent(): string;
-  protected abstract getPayments(req: AppRequest<AnyObject>): PaymentModel;
+  protected abstract getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[];
+  protected abstract paymentsCaseField(): keyof CaseData;
+  protected abstract getResponsiblePartyName(req: AppRequest<AnyObject>):  string | undefined;
 }

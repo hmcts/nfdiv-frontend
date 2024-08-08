@@ -1,15 +1,16 @@
 import { Logger } from '@hmcts/nodejs-logging';
+import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
-import { PAYMENT_CALLBACK_URL } from '../../steps/urls';
-import { State } from '../case/definition';
+import { CaseData, State } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
-import { PaymentClient } from '../payment/PaymentClient';
+import { PaymentClient, getPaymentCallbackUrl } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 
 const logger = Logger.getLogger('payment');
 
+@autobind
 export default abstract class BasePaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (req.session.userCase.state !== this.awaitingPaymentState()) {
@@ -17,11 +18,11 @@ export default abstract class BasePaymentCallbackGetController {
     }
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
     const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-    const returnUrl = `${protocol}${res.locals.host}${port}${PAYMENT_CALLBACK_URL}`;
+    const returnUrl = `${protocol}${res.locals.host}${port}${getPaymentCallbackUrl(req)}`;
 
     const paymentClient = new PaymentClient(req.session, returnUrl);
 
-    const payments = this.getPayments(req);
+    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
     if (!payments.hasPayment) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
@@ -41,8 +42,8 @@ export default abstract class BasePaymentCallbackGetController {
     if (payments.wasLastPaymentSuccessful) {
       req.session.userCase = await req.locals.api.triggerPaymentEvent(
         req.session.userCase.id,
-        payments.list,
-        this.paymentMadeUrl(req)
+        { [this.paymentsCaseField()]: payments.list },
+        this.paymentMadeEvent(req)
       );
     }
     req.session.save(() => {
@@ -56,8 +57,8 @@ export default abstract class BasePaymentCallbackGetController {
 
   protected abstract awaitingPaymentState(): State;
   protected abstract noPaymentRequiredUrl(req: AppRequest): string;
-  protected abstract paymentMadeUrl(req: AppRequest): string;
+  protected abstract paymentMadeEvent(req: AppRequest): string;
   protected abstract paymentSuccessUrl(req: AppRequest): string;
   protected abstract paymentFailureUrl(req: AppRequest): string;
-  protected abstract getPayments(req: AppRequest): PaymentModel;
+  protected abstract paymentsCaseField(): keyof CaseData;
 }

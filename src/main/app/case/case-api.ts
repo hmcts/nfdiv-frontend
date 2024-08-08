@@ -77,10 +77,10 @@ export class CaseApi {
 
   public async triggerPaymentEvent(
     caseId: string,
-    payments: ListValue<Payment>[],
+    eventPayload: { [key: string]: ListValue<Payment>[] },
     eventName: string
   ): Promise<CaseWithId> {
-    return this.apiClient.sendEvent(caseId, { applicationPayments: payments }, eventName);
+    return this.apiClient.sendEvent(caseId, eventPayload, eventName);
   }
 
   public async hasInProgressDivorceCase(): Promise<boolean> {

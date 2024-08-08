@@ -9,6 +9,7 @@ import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
   APPLICATION_SUBMITTED,
+  RESPONDENT,
   APP_REPRESENTED,
   JOINT_APPLICATION_SUBMITTED,
   NO_RESPONSE_YET,
@@ -58,11 +59,17 @@ export class StateRedirectMiddleware {
           }
         }
 
+        console.log(req.path);
         if (
-          req.session.userCase?.state !== State.AwaitingPayment ||
-          [PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT].includes(req.path as PageLink)
+          ![State.AwaitingPayment, State.AwaitingRespondentFOPayment].includes(req.session.userCase?.state) ||
+          [PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL, RESPONDENT + PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT].includes(req.path as PageLink)
         ) {
           return next();
+        }
+
+        const finalOrderPayments = new PaymentModel(req.session.userCase.payments);
+        if (req.session.isApplicant2 && finalOrderPayments.hasPayment) {
+          return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
         }
 
         const payments = new PaymentModel(req.session.userCase.payments);

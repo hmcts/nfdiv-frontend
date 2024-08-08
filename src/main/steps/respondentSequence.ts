@@ -20,6 +20,7 @@ import {
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
+  PAYMENT_CALLBACK_URL,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
 } from './urls';
@@ -92,6 +93,14 @@ const sequence: Step[] = [
     url: HELP_WITH_YOUR_FINAL_ORDER_FEE_URL,
     getNextStep: data =>
       data.applicant2FoHelpPayingNeeded === YesOrNo.YES ? PAY_YOUR_FINAL_ORDER_FEE : PAY_YOUR_FINAL_ORDER_FEE,
+  },
+  {
+    url: PAY_YOUR_FINAL_ORDER_FEE,
+    getNextStep: () => PAYMENT_CALLBACK_URL,
+  },
+  {
+    url: PAYMENT_CALLBACK_URL,
+    getNextStep: () => HOME_URL,
   },
   {
     url: APP_REPRESENTED,
