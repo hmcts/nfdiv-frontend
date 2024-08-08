@@ -110,6 +110,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   payments: 'applicationPayments',
   confirmDisputeApplication: 'confirmDisputeApplication',
   jurisdictionAgree: 'jurisdictionAgree',
+  intendToDelay: 'intendToDelay',
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
   inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
   alternativeServiceOutcomes: 'alternativeServiceOutcomes',
@@ -313,6 +314,7 @@ export interface Case {
   confirmDisputeApplication?: YesOrNo;
   confirmReadPetition?: Checkbox;
   jurisdictionAgree?: YesOrNo;
+  intendToDelay?: YesOrNo;
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction?: string;
   inWhichCountryIsYourLifeMainlyBased?: string;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];

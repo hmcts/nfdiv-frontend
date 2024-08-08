@@ -17,6 +17,7 @@ import {
   HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
+  INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
   RESPONDENT,
@@ -40,6 +41,10 @@ const sequence: Step[] = [
   },
   {
     url: LEGAL_JURISDICTION_OF_THE_COURTS,
+    getNextStep: () => INTEND_TO_DELAY,
+  },
+  {
+    url: INTEND_TO_DELAY,
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
