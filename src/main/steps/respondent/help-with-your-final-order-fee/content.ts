@@ -22,13 +22,16 @@ const en = ({ required }) => ({
 });
 
 const cy: typeof en = ({ required }) => ({
-  title: 'Do you need help paying the fee for your final order?',
-  line1: `This final order application costs ${getFee(
-    config.get('fees.finalOrderApplicationFee')
-  )}. You may be able to get help paying the fee if you (one or more of the following):`,
-  helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
-  yes: 'I need help paying the fee',
-  no: 'I do not need help paying the fee',
+  title: 'A ydych angen help i dalu’r ffi ar gyfer eich gorchymyn terfynol?',
+  line1: `Mae'r cais am orchymyn terfynol hwn yn costio ${getFee(config.get('fees.finalOrderApplicationFee'))}.
+  Efallai y gallwch gael help i dalu ffioedd os ydych chi (os yw un neu fwy o’r canlynol yn berthnasol):`,
+  helpPayingWhen: [
+    'os ydych yn cael budd-daliadau penodol,',
+    'os oes gennych ychydig o gynilion neu ddim cynilion o gwbl,',
+    'os ydych ar incwm isel',
+  ],
+  yes: "Mae angen help arnaf i dalu'r ffi",
+  no: "Nid oes angen help arnaf i dalu'r ffi",
   errors: {
     applicant2FoHelpPayingNeeded: {
       required,

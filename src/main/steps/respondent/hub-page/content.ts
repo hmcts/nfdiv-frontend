@@ -152,8 +152,9 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line1: `Your ${partner} has still not applied for a 'final order', which is the document that will legally end your  ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.`,
-    line2: 'You can now apply because it has been three months since they could apply and they have not yet done so.',
-    line3: 'If you apply then you may both have to come to court.',
+    line2: `You can now apply because it has been three months since they could apply and they have not yet done so. You will also need to pay an application fee of ${getFee(
+    config.get('fees.finalOrderApplicationFee'))}, unless you are eligible for Help with Fees.`,
+    line3: 'If you apply, then you may both have to come to court.',
     buttonText: 'Apply for a final order',
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
@@ -353,11 +354,10 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
      byddwch yn gallu gwneud cais, a ${isDivorce ? 'chadarnhau’r ysgariad' : "dod â'r bartneriaeth sifil i ben"}.`,
   },
   awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
-    line1: `Your ${partner} has still not applied for a 'final order', which is the document that will legally end your  ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    }.`,
-    line2: 'You can now apply because it has been three months since they could apply and they have not yet done so.',
-    line3: 'If you apply then you may both have to come to court.',
+    line1: `Nid yw eich ${partner} wedi gwneud cais o hyd am 'orchymyn terfynol', sef y ddogfen a fydd yn dod â'ch priodas i ben yn gyfreithiol.`,
+    line2: `Gallwch wneud cais yn awr oherwydd ei fod wedi bod yn dri mis ers y gallent wneud cais, ac nid ydynt wedi gwneud hynny eto. Bydd hefyd angen i chi dalu ffi ymgeisio o ${getFee(
+    config.get('fees.finalOrderApplicationFee'))}, oni bai eich bod yn gymwys i gael Help i Dalu Ffioedd.`,
+    line3: 'Os byddwch yn gwneud cais, efallai y bydd yn rhaid i’r ddau ohonoch ddod i’r Llys.',
     buttonText: 'Apply for a final order',
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
