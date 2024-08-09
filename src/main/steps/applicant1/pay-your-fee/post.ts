@@ -20,7 +20,7 @@ export default class PaymentPostController extends BasePaymentPostController {
   }
 
   protected paymentsCaseField(): keyof CaseData {
-    return 'payments' as keyof CaseData;
+    return 'applicationPayments' as keyof CaseData;
   }
 
   protected getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined {

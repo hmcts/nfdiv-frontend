@@ -26,7 +26,7 @@ describe('PaymentPostController', () => {
           applicationFeeOrderSummary: {
             Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
           },
-          payments: [
+          applicationPayments: [
             {
               id: 'timed out payment',
               value: {
@@ -40,7 +40,7 @@ describe('PaymentPostController', () => {
       const res = mockResponse();
 
       (req.locals.api.triggerPaymentEvent as jest.Mock).mockReturnValueOnce({
-        payments: [{ new: 'payment' }],
+        applicationPayments: [{ new: 'payment' }],
         applicationFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
@@ -89,7 +89,7 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingPayment,
-          payments: [
+          applicationPayments: [
             {
               id: 'mock external reference payment id',
               value: {

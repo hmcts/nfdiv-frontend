@@ -79,7 +79,7 @@ export class StateRedirectMiddleware {
           return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
         }
 
-        const payments = new PaymentModel(req.session.userCase.payments);
+        const payments = new PaymentModel(req.session.userCase.applicationPayments);
         if (payments.hasPayment) {
           return res.redirect(PAYMENT_CALLBACK_URL);
         }

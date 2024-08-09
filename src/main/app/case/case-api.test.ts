@@ -184,7 +184,7 @@ describe('CaseApi', () => {
         state: State.Draft,
         divorceOrDissolution: caseType,
         applicationFeeOrderSummary: [{ test: 'fees' }],
-        payments: [{ test: 'payment' }],
+        applicationPayments: [{ test: 'payment' }],
       });
     }
   );

@@ -40,7 +40,7 @@ describe('PaymentPostController', () => {
       const res = mockResponse();
 
       (req.locals.api.triggerPaymentEvent as jest.Mock).mockReturnValueOnce({
-        payments: [{ new: 'payment' }],
+        finalOrderPayments: [{ new: 'payment' }],
         applicationFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },

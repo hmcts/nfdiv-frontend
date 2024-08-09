@@ -109,7 +109,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   applicant2FinalOrderFeeOrderSummary: 'applicant2FinalOrderFeeOrderSummary',
-  payments: 'applicationPayments',
+  applicationPayments: 'applicationPayments',
   finalOrderPayments: 'finalOrderPayments',
   confirmDisputeApplication: 'confirmDisputeApplication',
   jurisdictionAgree: 'jurisdictionAgree',
@@ -308,7 +308,7 @@ export interface Case {
   caseReference?: string;
   respondentUserId?: string;
   dateSubmitted?: DateAsString;
-  payments: ListValue<Payment>[];
+  applicationPayments: ListValue<Payment>[];
   finalOrderPayments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
   applicant2FinalOrderFeeOrderSummary: OrderSummary;

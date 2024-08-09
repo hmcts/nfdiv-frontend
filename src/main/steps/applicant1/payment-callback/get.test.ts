@@ -28,7 +28,7 @@ describe('PaymentCallbackGetController', () => {
       const userCase = {
         state: State.AwaitingPayment,
         applicationType: ApplicationType.SOLE_APPLICATION,
-        payments: [
+        applicationPayments: [
           {
             id: 'mock payment id',
             value: {
@@ -59,7 +59,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith(
         '1234',
-        { payments: expect.any(Array) },
+        { applicationPayments: expect.any(Array) },
         CITIZEN_PAYMENT_MADE
       );
 
@@ -70,7 +70,7 @@ describe('PaymentCallbackGetController', () => {
       const userCase = {
         state: State.AwaitingPayment,
         applicationType: ApplicationType.JOINT_APPLICATION,
-        payments: [
+        applicationPayments: [
           {
             id: 'mock payment id',
             value: {
@@ -101,7 +101,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith(
         '1234',
-        { payments: expect.any(Array) },
+        { applicationPayments: expect.any(Array) },
         CITIZEN_PAYMENT_MADE
       );
 
@@ -142,7 +142,7 @@ describe('PaymentCallbackGetController', () => {
       const userCase = {
         state: State.AwaitingPayment,
         applicationType: ApplicationType.SOLE_APPLICATION,
-        payments: [
+        applicationPayments: [
           {
             id: 'mock payment id',
             value: {
@@ -181,7 +181,7 @@ describe('PaymentCallbackGetController', () => {
       const userCase = {
         state: State.AwaitingPayment,
         applicationType: ApplicationType.JOINT_APPLICATION,
-        payments: [
+        applicationPayments: [
           {
             id: 'mock payment id',
             value: {
@@ -215,7 +215,7 @@ describe('PaymentCallbackGetController', () => {
       const userCase = {
         state: State.AwaitingPayment,
         applicationType: ApplicationType.JOINT_APPLICATION,
-        payments: [
+        applicationPayments: [
           {
             id: 'mock payment id',
             value: {
