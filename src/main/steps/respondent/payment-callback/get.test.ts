@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import {
   ApplicationType,
   PaymentStatus,
-  RESPONDENT_FINAL_ORDER_PAYMENT_MADE,
+  FINAL_ORDER_PAYMENT_MADE,
   State,
 } from '../../../app/case/definition';
 import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT } from '../../urls';
@@ -59,7 +59,7 @@ describe('PaymentCallbackGetController', () => {
       expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith(
         '1234',
         { finalOrderPayments: expect.any(Array) },
-        RESPONDENT_FINAL_ORDER_PAYMENT_MADE
+        FINAL_ORDER_PAYMENT_MADE
       );
 
       expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + HUB_PAGE);

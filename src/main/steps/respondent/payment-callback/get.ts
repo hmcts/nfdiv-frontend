@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 
-import { CaseData, RESPONDENT_FINAL_ORDER_PAYMENT_MADE, State } from '../../../app/case/definition';
+import { CaseData, FINAL_ORDER_PAYMENT_MADE, State } from '../../../app/case/definition';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
 import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT } from '../../urls';
 
@@ -15,7 +15,7 @@ export default class PaymentCallbackGetController extends BasePaymentCallbackGet
   }
 
   protected paymentMadeEvent(): string {
-    return RESPONDENT_FINAL_ORDER_PAYMENT_MADE;
+    return FINAL_ORDER_PAYMENT_MADE;
   }
 
   protected paymentSuccessUrl(): string {
