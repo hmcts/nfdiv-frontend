@@ -57,7 +57,11 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith('1234', expect.any(Array), CITIZEN_PAYMENT_MADE);
+      expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith(
+        '1234',
+        { payments: expect.any(Array) },
+        CITIZEN_PAYMENT_MADE
+      );
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
     });
@@ -95,7 +99,11 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith('1234', expect.any(Array), CITIZEN_PAYMENT_MADE);
+      expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith(
+        '1234',
+        { payments: expect.any(Array) },
+        CITIZEN_PAYMENT_MADE
+      );
 
       expect(res.redirect).toHaveBeenCalledWith(JOINT_APPLICATION_SUBMITTED);
     });

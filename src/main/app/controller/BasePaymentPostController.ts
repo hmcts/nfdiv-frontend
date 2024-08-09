@@ -3,11 +3,19 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
-import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { CaseData, CITIZEN_ADD_PAYMENT, PaymentStatus, State, Fee, ListValue } from '../case/definition';
+import { PAYMENT_CALLBACK_URL, RESPONDENT, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import {
+  ApplicationType,
+  CITIZEN_ADD_PAYMENT,
+  CaseData,
+  Fee,
+  ListValue,
+  PaymentStatus,
+  State,
+} from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
-import { Payment, PaymentClient, getPaymentCallbackUrl } from '../payment/PaymentClient';
+import { Payment, PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 
 const logger = Logger.getLogger('payment');
@@ -68,15 +76,14 @@ export default abstract class BasePaymentPostController {
     if (!serviceRefNumberForFee) {
       logger.info('Cannot find service reference number for fee code. creating one');
       const serviceReqResponse = await client.createServiceRequest(
-        this.getResponsiblePartyName(req), this.getFeesFromOrderSummary(req)
+        this.getResponsiblePartyName(req),
+        this.getFeesFromOrderSummary(req)
       );
       serviceRefNumberForFee = serviceReqResponse.service_request_reference;
     }
 
     //Take payment for service request reference
-    const payment = await client.create(
-      serviceRefNumberForFee, this.getFeesFromOrderSummary(req)
-    );
+    const payment = await client.create(serviceRefNumberForFee, this.getFeesFromOrderSummary(req));
     const now = new Date().toISOString();
 
     payments.add({
@@ -104,5 +111,12 @@ export default abstract class BasePaymentPostController {
   protected abstract awaitingPaymentEvent(): string;
   protected abstract getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[];
   protected abstract paymentsCaseField(): keyof CaseData;
-  protected abstract getResponsiblePartyName(req: AppRequest<AnyObject>):  string | undefined;
+  protected abstract getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined;
+}
+
+export function getPaymentCallbackUrl(req: AppRequest): string {
+  const isRespondent: boolean =
+    req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+
+  return isRespondent ? RESPONDENT + PAYMENT_CALLBACK_URL : PAYMENT_CALLBACK_URL;
 }

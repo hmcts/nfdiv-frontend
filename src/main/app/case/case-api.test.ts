@@ -292,7 +292,11 @@ describe('CaseApi', () => {
     mockApiClient.sendEvent.mockResolvedValue(expectedRes);
     const payments = new PaymentModel([]);
 
-    const actualRes = await api.triggerPaymentEvent('1234', payments.list, CITIZEN_ADD_PAYMENT);
+    const actualRes = await api.triggerPaymentEvent(
+      '1234',
+      { applicationPayments: payments.list },
+      CITIZEN_ADD_PAYMENT
+    );
 
     expect(mockApiClient.sendEvent).toHaveBeenCalledWith('1234', { applicationPayments: [] }, CITIZEN_ADD_PAYMENT);
     expect(actualRes).toStrictEqual(expectedRes);

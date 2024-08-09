@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 
-import { ApplicationType, CaseData, CITIZEN_PAYMENT_MADE, State } from '../../../app/case/definition';
+import { ApplicationType, CITIZEN_PAYMENT_MADE, CaseData, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
 import {
@@ -40,6 +40,6 @@ export default class PaymentCallbackGetController extends BasePaymentCallbackGet
   }
 
   protected paymentsCaseField(): keyof CaseData {
-    return "payments" as keyof CaseData;
+    return 'payments' as keyof CaseData;
   }
 }

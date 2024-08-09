@@ -6,7 +6,7 @@ import {
   RESPONDENT_FINAL_ORDER_PAYMENT_MADE,
   State,
 } from '../../../app/case/definition';
-import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE } from '../../urls';
+import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT } from '../../urls';
 
 import PaymentCallbackGetController from './get';
 
@@ -58,11 +58,11 @@ describe('PaymentCallbackGetController', () => {
 
       expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith(
         '1234',
-        expect.any(Array),
+        { finalOrderPayments: expect.any(Array) },
         RESPONDENT_FINAL_ORDER_PAYMENT_MADE
       );
 
-      expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + HUB_PAGE);
     });
 
     it('redirects to the hub page if the state is not awaiting payment', async () => {
@@ -77,7 +77,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).not.toHaveBeenCalled();
       expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + HUB_PAGE);
     });
 
     it('redirects to the hub page if there is no last payment', async () => {
@@ -92,7 +92,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).not.toHaveBeenCalled();
       expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + HUB_PAGE);
     });
 
     it('saves and redirects to the pay your final order fee page if last payment was unsuccessful', async () => {
@@ -131,7 +131,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
 
-      expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FINAL_ORDER_FEE);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE);
     });
 
     it('throws an error if the payment API is down', async () => {
@@ -204,7 +204,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
 
-      expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FINAL_ORDER_FEE);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE);
     });
   });
 });

@@ -5,8 +5,10 @@ import { Response } from 'express';
 
 import { CaseData, State } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
-import { PaymentClient, getPaymentCallbackUrl } from '../payment/PaymentClient';
+import { PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
+
+import { getPaymentCallbackUrl } from './BasePaymentPostController';
 
 const logger = Logger.getLogger('payment');
 

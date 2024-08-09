@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 
-import { CaseData, CITIZEN_SUBMIT, Fee, ListValue, State } from '../../../app/case/definition';
+import { CITIZEN_SUBMIT, CaseData, Fee, ListValue, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../app/controller/PostController';
@@ -20,7 +20,7 @@ export default class PaymentPostController extends BasePaymentPostController {
   }
 
   protected paymentsCaseField(): keyof CaseData {
-    return "payments" as keyof CaseData;
+    return 'payments' as keyof CaseData;
   }
 
   protected getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined {

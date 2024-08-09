@@ -2,11 +2,10 @@ import { Logger } from '@hmcts/nodejs-logging';
 import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
-import { ApplicationType, Fee, ListValue } from '../case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import type { AppRequest, AppSession } from '../controller/AppRequest';
-import { PAYMENT_CALLBACK_URL, RESPONDENT } from 'steps/urls';
+import { Fee, ListValue } from '../case/definition';
+import type { AppSession } from '../controller/AppRequest';
 
 const logger = Logger.getLogger('payment');
 
@@ -27,7 +26,10 @@ export class PaymentClient {
     this.returnUrl = returnUrl;
   }
 
-  public async createServiceRequest(responsibleParty:  string | undefined, feesFromOrderSummary: ListValue<Fee>[]): Promise<Payment> {
+  public async createServiceRequest(
+    responsibleParty: string | undefined,
+    feesFromOrderSummary: ListValue<Fee>[]
+  ): Promise<Payment> {
     const userCase = this.session.userCase;
     const caseId = userCase.id.toString();
     const bodyServiceReq = {
@@ -95,13 +97,6 @@ export class PaymentClient {
       logger.error(errMsg, e.data);
     }
   }
-}
-
-export function getPaymentCallbackUrl(req: AppRequest) {
-  const isRespondent: boolean = req.session.isApplicant2 &&
-    req.session.userCase.applicationType == ApplicationType.SOLE_APPLICATION;
-
-  return isRespondent ? RESPONDENT + PAYMENT_CALLBACK_URL : PAYMENT_CALLBACK_URL;
 }
 
 export interface Payment {

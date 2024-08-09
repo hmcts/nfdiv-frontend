@@ -9,14 +9,15 @@ import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
   APPLICATION_SUBMITTED,
-  RESPONDENT,
   APP_REPRESENTED,
   JOINT_APPLICATION_SUBMITTED,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
+  PAY_YOUR_FINAL_ORDER_FEE,
   PageLink,
+  RESPONDENT,
   SAVE_AND_SIGN_OUT,
   SWITCH_TO_SOLE_APPLICATION,
 } from '../../steps/urls';
@@ -59,15 +60,21 @@ export class StateRedirectMiddleware {
           }
         }
 
-        console.log(req.path);
         if (
           ![State.AwaitingPayment, State.AwaitingRespondentFOPayment].includes(req.session.userCase?.state) ||
-          [PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL, RESPONDENT + PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT].includes(req.path as PageLink)
+          [
+            PAY_YOUR_FEE,
+            RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,
+            PAY_AND_SUBMIT,
+            PAYMENT_CALLBACK_URL,
+            RESPONDENT + PAYMENT_CALLBACK_URL,
+            SAVE_AND_SIGN_OUT,
+          ].includes(req.path as PageLink)
         ) {
           return next();
         }
 
-        const finalOrderPayments = new PaymentModel(req.session.userCase.payments);
+        const finalOrderPayments = new PaymentModel(req.session.userCase.finalOrderPayments);
         if (req.session.isApplicant2 && finalOrderPayments.hasPayment) {
           return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
         }
