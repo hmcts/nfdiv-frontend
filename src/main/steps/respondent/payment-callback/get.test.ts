@@ -1,11 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import {
-  ApplicationType,
-  PaymentStatus,
-  FINAL_ORDER_PAYMENT_MADE,
-  State,
-} from '../../../app/case/definition';
+import { ApplicationType, FINAL_ORDER_PAYMENT_MADE, PaymentStatus, State } from '../../../app/case/definition';
 import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT } from '../../urls';
 
 import PaymentCallbackGetController from './get';

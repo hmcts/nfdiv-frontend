@@ -42,12 +42,15 @@ export default abstract class BasePaymentCallbackGetController {
     payments.setStatus(lastPaymentAttempt.transactionId, payment?.status);
 
     if (payments.wasLastPaymentSuccessful) {
+      const eventPayload = { [this.paymentsCaseField()]: payments.list };
+
       req.session.userCase = await req.locals.api.triggerPaymentEvent(
         req.session.userCase.id,
-        { [this.paymentsCaseField()]: payments.list },
+        eventPayload,
         this.paymentMadeEvent(req)
       );
     }
+
     req.session.save(() => {
       if (payments.wasLastPaymentSuccessful) {
         res.redirect(this.paymentSuccessUrl(req));

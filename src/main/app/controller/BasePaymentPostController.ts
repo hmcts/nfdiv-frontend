@@ -98,9 +98,10 @@ export default abstract class BasePaymentPostController {
       serviceRequestReference: serviceRefNumberForFee,
     });
 
+    const eventPayload = { [this.paymentsCaseField()]: payments.list };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
-      { [this.paymentsCaseField()]: payments.list },
+      eventPayload,
       CITIZEN_ADD_PAYMENT
     );
 
