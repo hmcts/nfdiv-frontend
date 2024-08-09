@@ -69,7 +69,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       They have been sent an email to remind them.`,
       line2: `If they do not apply by ${getFormattedDate(
         dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate).add(
-          config.get('dates.jointConditionalOrderResponseDays'),
+          config.get('dates.changingToSolePartnerResponseDays'),
           'day'
         )
       )} then you will be sent an email telling you how you can progress the application.`,
@@ -204,7 +204,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
       Anfonwyd e-bost ato/ati i'w (h)atgoffa.`,
       line2: `Os nad yw’n gwneud cais erbyn ${getFormattedDate(
         dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate).add(
-          config.get('dates.jointConditionalOrderResponseDays'),
+          config.get('dates.changingToSolePartnerResponseDays'),
           'day'
         ),
         SupportedLanguages.Cy
@@ -326,7 +326,7 @@ export const generateContent: TranslationFn = content => {
     ? userCase.coApplicant2StatementOfTruth === Checkbox.Checked
     : userCase.coApplicant1StatementOfTruth === Checkbox.Checked;
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
-    .add(config.get('dates.jointConditionalOrderResponseDays'), 'day')
+    .add(config.get('dates.changingToSolePartnerResponseDays'), 'day')
     .isBefore(dayjs());
 
   const displayState = currentStateFn(userCase.state).at(
