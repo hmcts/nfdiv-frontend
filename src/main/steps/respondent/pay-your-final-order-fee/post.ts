@@ -8,7 +8,7 @@ import { AnyObject } from '../../../app/controller/PostController';
 @autobind
 export default class FinalOrderPaymentPostController extends BasePaymentPostController {
   protected awaitingPaymentState(): State {
-    return State.AwaitingRespondentFOPayment;
+    return State.AwaitingFinalOrderPayment;
   }
 
   protected awaitingPaymentEvent(): string {

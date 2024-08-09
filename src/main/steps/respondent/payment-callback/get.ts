@@ -7,7 +7,7 @@ import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT } from '../../urls';
 @autobind
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
   protected awaitingPaymentState(): State {
-    return State.AwaitingRespondentFOPayment;
+    return State.AwaitingFinalOrderPayment;
   }
 
   protected noPaymentRequiredUrl(): string {

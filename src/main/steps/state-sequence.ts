@@ -86,7 +86,7 @@ export const orderedStateSequence: State[] = [
   State.AwaitingFinalOrder,
   State.AwaitingJointFinalOrder,
   State.FinalOrderRequested,
-  State.AwaitingRespondentFOPayment,
+  State.AwaitingFinalOrderPayment,
   State.RespondentFinalOrderRequested,
   State.FinalOrderPending,
   State.FinalOrderComplete,

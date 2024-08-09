@@ -61,7 +61,7 @@ export class StateRedirectMiddleware {
         }
 
         if (
-          ![State.AwaitingPayment, State.AwaitingRespondentFOPayment].includes(req.session.userCase?.state) ||
+          ![State.AwaitingPayment, State.AwaitingFinalOrderPayment].includes(req.session.userCase?.state) ||
           [
             PAY_YOUR_FEE,
             RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,

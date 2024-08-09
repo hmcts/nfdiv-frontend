@@ -126,7 +126,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.FinalOrderComplete:
     case State.ClarificationSubmitted:
     case State.AwaitingFinalOrder:
-    case State.AwaitingRespondentFOPayment:
+    case State.AwaitingFinalOrderPayment:
     case State.AwaitingJointFinalOrder:
     case State.Holding:
     case State.LAReview:
@@ -191,7 +191,7 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
         return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
       }
     }
-    case State.AwaitingRespondentFOPayment: {
+    case State.AwaitingFinalOrderPayment: {
       return PAY_YOUR_FINAL_ORDER_FEE;
     }
     case State.AosDrafted:

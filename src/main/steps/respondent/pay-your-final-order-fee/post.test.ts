@@ -22,7 +22,7 @@ describe('PaymentPostController', () => {
     it('creates a new payment and redirects to payment URL', async () => {
       const req = mockRequest({
         userCase: {
-          state: State.AwaitingRespondentFOPayment,
+          state: State.AwaitingFinalOrderPayment,
           applicationFeeOrderSummary: {
             Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
           },
@@ -88,7 +88,7 @@ describe('PaymentPostController', () => {
     it('redirects to hub page if last payment is in progress', async () => {
       const req = mockRequest({
         userCase: {
-          state: State.AwaitingRespondentFOPayment,
+          state: State.AwaitingFinalOrderPayment,
           finalOrderPayments: [
             {
               id: 'mock external reference payment id',

@@ -25,7 +25,7 @@ describe('PaymentCallbackGetController', () => {
   describe('callback', () => {
     it('saves and redirects to the submitted page if last payment was successful', async () => {
       const userCase = {
-        state: State.AwaitingRespondentFOPayment,
+        state: State.AwaitingFinalOrderPayment,
         applicationType: ApplicationType.SOLE_APPLICATION,
         finalOrderPayments: [
           {
@@ -83,7 +83,7 @@ describe('PaymentCallbackGetController', () => {
     it('redirects to the hub page if there is no last payment', async () => {
       const req = mockRequest({
         userCase: {
-          state: State.AwaitingRespondentFOPayment,
+          state: State.AwaitingFinalOrderPayment,
         },
       });
       const res = mockResponse();
@@ -97,7 +97,7 @@ describe('PaymentCallbackGetController', () => {
 
     it('saves and redirects to the pay your final order fee page if last payment was unsuccessful', async () => {
       const userCase = {
-        state: State.AwaitingRespondentFOPayment,
+        state: State.AwaitingFinalOrderPayment,
         applicationType: ApplicationType.SOLE_APPLICATION,
         finalOrderPayments: [
           {
@@ -136,7 +136,7 @@ describe('PaymentCallbackGetController', () => {
 
     it('throws an error if the payment API is down', async () => {
       const userCase = {
-        state: State.AwaitingRespondentFOPayment,
+        state: State.AwaitingFinalOrderPayment,
         applicationType: ApplicationType.JOINT_APPLICATION,
         finalOrderPayments: [
           {
@@ -170,7 +170,7 @@ describe('PaymentCallbackGetController', () => {
 
     it('saves and redirects to the pay and submit page if last payment was unsuccessful and is joint application', async () => {
       const userCase = {
-        state: State.AwaitingRespondentFOPayment,
+        state: State.AwaitingFinalOrderPayment,
         applicationType: ApplicationType.SOLE_APPLICATION,
         finalOrderPayments: [
           {
