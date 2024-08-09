@@ -15,6 +15,7 @@ import {
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
+  PAY_YOUR_FINAL_ORDER_FEE,
   PageLink,
   RESPONDENT,
   SAVE_AND_SIGN_OUT,
@@ -67,13 +68,26 @@ export class StateRedirectMiddleware {
         }
 
         if (
-          req.session.userCase?.state !== State.AwaitingPayment ||
-          [PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT].includes(req.path as PageLink)
+          this.applicantAndNotAwaitingPayment(req) ||
+          this.respondentAndNotAwaitingPayment(req) ||
+          [
+            PAY_YOUR_FEE,
+            PAY_AND_SUBMIT,
+            PAYMENT_CALLBACK_URL,
+            RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,
+            RESPONDENT + PAYMENT_CALLBACK_URL,
+            SAVE_AND_SIGN_OUT,
+          ].includes(req.path as PageLink)
         ) {
           return next();
         }
 
-        const payments = new PaymentModel(req.session.userCase.payments);
+        const finalOrderPayments = new PaymentModel(req.session.userCase.finalOrderPayments);
+        if (req.session.isApplicant2 && finalOrderPayments.hasPayment) {
+          return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
+        }
+
+        const payments = new PaymentModel(req.session.userCase.applicationPayments);
         if (payments.hasPayment) {
           return res.redirect(PAYMENT_CALLBACK_URL);
         }
@@ -81,6 +95,14 @@ export class StateRedirectMiddleware {
         return next();
       })
     );
+  }
+
+  private applicantAndNotAwaitingPayment(req: AppRequest): boolean {
+    return ![State.AwaitingPayment].includes(req.session.userCase?.state);
+  }
+
+  private respondentAndNotAwaitingPayment(req: AppRequest): boolean {
+    return req.session.isApplicant2 && ![State.AwaitingFinalOrderPayment].includes(req.session.userCase?.state);
   }
 
   private getApplicationSubmittedRedirectPath(req: AppRequest): string | null {

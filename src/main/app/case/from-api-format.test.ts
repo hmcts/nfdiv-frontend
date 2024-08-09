@@ -318,7 +318,7 @@ describe('from-api-format', () => {
         ],
       } as unknown as CaseData)
     ).toStrictEqual({
-      payments: [
+      applicationPayments: [
         {
           id: 'mock-payment',
         },

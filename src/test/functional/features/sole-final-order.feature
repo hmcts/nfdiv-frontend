@@ -80,10 +80,14 @@ Feature: Sole final order
     Given I click "I want permission to apply for a final order, and to finalise my divorce"
     And I select "Explain why you need to apply for the final order"
     And I type "I want to apply myself"
-    When I click "Submit"
-    Then the page URL should be '/respondent/hub-page'
-    And the page should include "You need to pay"
-    And the page should include "If you need help paying the fee"
+    When I click "Continue"
+    Then the page URL should be '/respondent/help-with-your-final-order-fee'
+    Then the page should include "Do you need help paying the fee for your final order?"
+    Given I select "I do not need help paying the fee"
+    When I click "Continue"
+    Then the page URL should be '/respondent/pay-your-final-order-fee'
+    Given I pay and submit the final order application
+    Then the page should include "You have submitted your final order application"
 
     Given I click "Sign out"
     When I login with applicant "1"

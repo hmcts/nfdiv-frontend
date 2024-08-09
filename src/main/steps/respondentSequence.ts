@@ -13,12 +13,15 @@ import {
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   FINALISING_YOUR_APPLICATION,
+  HELP_WITH_YOUR_FINAL_ORDER_FEE_URL,
   HOME_URL,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
+  PAYMENT_CALLBACK_URL,
+  PAY_YOUR_FINAL_ORDER_FEE,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
 } from './urls';
@@ -85,7 +88,20 @@ const sequence: Step[] = [
   },
   {
     url: FINALISING_YOUR_APPLICATION,
-    getNextStep: () => HUB_PAGE,
+    getNextStep: () => HELP_WITH_YOUR_FINAL_ORDER_FEE_URL,
+  },
+  {
+    url: HELP_WITH_YOUR_FINAL_ORDER_FEE_URL,
+    getNextStep: data =>
+      data.applicant2FoHelpPayingNeeded === YesOrNo.YES ? PAY_YOUR_FINAL_ORDER_FEE : PAY_YOUR_FINAL_ORDER_FEE,
+  },
+  {
+    url: PAY_YOUR_FINAL_ORDER_FEE,
+    getNextStep: () => PAYMENT_CALLBACK_URL,
+  },
+  {
+    url: PAYMENT_CALLBACK_URL,
+    getNextStep: () => HOME_URL,
   },
   {
     url: APP_REPRESENTED,

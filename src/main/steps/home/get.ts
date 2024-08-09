@@ -23,6 +23,7 @@ import {
   HUB_PAGE,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
+  PAY_YOUR_FINAL_ORDER_FEE,
   READ_THE_RESPONSE,
   RESPONDENT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
@@ -126,6 +127,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.FinalOrderComplete:
     case State.ClarificationSubmitted:
     case State.AwaitingFinalOrder:
+    case State.AwaitingFinalOrderPayment:
     case State.AwaitingJointFinalOrder:
     case State.Holding:
     case State.LAReview:
@@ -189,6 +191,9 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
       } else {
         return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
       }
+    }
+    case State.AwaitingFinalOrderPayment: {
+      return PAY_YOUR_FINAL_ORDER_FEE;
     }
     case State.AosDrafted:
     case State.AosOverdue: {

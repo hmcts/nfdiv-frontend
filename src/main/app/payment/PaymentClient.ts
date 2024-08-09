@@ -4,6 +4,7 @@ import config from 'config';
 
 import { SupportedLanguages } from '../../modules/i18n';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import { Fee, ListValue } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
 
 const logger = Logger.getLogger('payment');
@@ -25,18 +26,21 @@ export class PaymentClient {
     this.returnUrl = returnUrl;
   }
 
-  public async createServiceRequest(): Promise<Payment> {
+  public async createServiceRequest(
+    responsibleParty: string | undefined,
+    feesFromOrderSummary: ListValue<Fee>[]
+  ): Promise<Payment> {
     const userCase = this.session.userCase;
     const caseId = userCase.id.toString();
     const bodyServiceReq = {
       call_back_url: this.returnUrl,
       case_payment_request: {
         action: 'payment',
-        responsible_party: userCase.applicant1FullNameOnCertificate,
+        responsible_party: responsibleParty,
       },
       case_reference: caseId,
       ccd_case_number: caseId,
-      fees: userCase.applicationFeeOrderSummary.Fees.map(fee => ({
+      fees: feesFromOrderSummary.map(fee => ({
         calculated_amount: `${parseInt(fee.value.FeeAmount, 10) / 100}`,
         code: fee.value.FeeCode,
         version: fee.value.FeeVersion,
@@ -58,9 +62,8 @@ export class PaymentClient {
     }
   }
 
-  public async create(serviceRequestNumber: string): Promise<Payment> {
-    const userCase = this.session.userCase;
-    const total = userCase.applicationFeeOrderSummary.Fees.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
+  public async create(serviceRequestNumber: string, feesFromOrderSummary: ListValue<Fee>[]): Promise<Payment> {
+    const total = feesFromOrderSummary.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
 
     const bodyCardPay = {
       amount: total,
