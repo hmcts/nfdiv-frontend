@@ -391,8 +391,10 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
           )} yn cadarnhau`
         : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith, gan gadarnhau'
     } a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
-    line2: "Rydych chi wedi cyflwyno'ch cais am orchymyn terfynol. Bydd eich cais yn cael ei wirio gan staff y llys. Unwaith y caiff ei dderbyn, bydd eich cais yn cael ei restru ar gyfer gwrandawiad gerbron Barnwr.",
-    line3: "Fe gewch neges e-bost o fewn pedair wythnos yn cadarnhau p'un a yw wedi'i dderbyn ai peidio. Gwiriwch eich ffolder 'junk' neu 'spam'."
+    line2:
+      "Rydych chi wedi cyflwyno'ch cais am orchymyn terfynol. Bydd eich cais yn cael ei wirio gan staff y llys. Unwaith y caiff ei dderbyn, bydd eich cais yn cael ei restru ar gyfer gwrandawiad gerbron Barnwr.",
+    line3:
+      "Fe gewch neges e-bost o fewn pedair wythnos yn cadarnhau p'un a yw wedi'i dderbyn ai peidio. Gwiriwch eich ffolder 'junk' neu 'spam'.",
   },
   finalOrderGranted: {
     line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
