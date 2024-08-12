@@ -391,13 +391,8 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
           )} yn cadarnhau`
         : 'Dylech gael e-bost o fewn 2 ddiwrnod gwaith, gan gadarnhau'
     } a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
-    line2: `Mae angen i chi dalu ${getFee(
-      config.get('fees.finalOrderApplicationFee')
-    )} am y cais cyn y gellir ei gyflwyno. Ffoniwch 0300 303 0642 i wneud taliad. Sicrhewch fod manylion eich cerdyn gennych wrth law.`,
-    line3:
-      "Os oes angen help arnoch i dalu'r ffi yna bydd angen i chi wneud cais am Help i Dalu Ffioedd yn gyntaf. Yna ffoniwch gyda'ch cyfeirnod Help i Dalu Ffioedd. Gallwch ",
-    line4: 'wneud cais am Help i Dalu Ffioedd yma.',
-    link: 'https://www.gov.uk/get-help-with-court-fees',
+    line2: "Rydych chi wedi cyflwyno'ch cais am orchymyn terfynol. Bydd eich cais yn cael ei wirio gan staff y llys. Unwaith y caiff ei dderbyn, bydd eich cais yn cael ei restru ar gyfer gwrandawiad gerbron Barnwr.",
+    line3: "Fe gewch neges e-bost o fewn pedair wythnos yn cadarnhau p'un a yw wedi'i dderbyn ai peidio. Gwiriwch eich ffolder 'junk' neu 'spam'."
   },
   finalOrderGranted: {
     line1: `Mae’r llys wedi caniatáu gorchymyn terfynol ichi. Mae eich ${isDivorce ? 'priodas' : 'partneriaeth sifil'}
