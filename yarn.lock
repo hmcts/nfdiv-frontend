@@ -8088,14 +8088,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-http-proxy@npm:2.0.0":
-  version: 2.0.0
-  resolution: "express-http-proxy@npm:2.0.0"
+"express-http-proxy@npm:2.1.1":
+  version: 2.1.1
+  resolution: "express-http-proxy@npm:2.1.1"
   dependencies:
     debug: ^3.0.1
     es6-promise: ^4.1.1
     raw-body: ^2.3.0
-  checksum: 7d96105bd570d2231a435fd2b8476613b8680300f0d8ab0723268eb4f0da5f988ae7addb832a213234f6f28a6ca5632cec3e5554bf1cb8151195c22707aa9a56
+  checksum: eefe11853ea6b4f4fd21edfe92630cebb72d1bb8bf1e610b8aaf8bc784ee380625c120ba0c3a6787c34bf80516897ff086e85c370fed1d7dc6e992b712b56acf
   languageName: node
   linkType: hard
 
@@ -9723,9 +9723,9 @@ __metadata:
   linkType: hard
 
 "ignore@npm:^5.2.0, ignore@npm:^5.2.4, ignore@npm:^5.3.1":
-  version: 5.3.1
-  resolution: "ignore@npm:5.3.1"
-  checksum: 71d7bb4c1dbe020f915fd881108cbe85a0db3d636a0ea3ba911393c53946711d13a9b1143c7e70db06d571a5822c0a324a6bcde5c9904e7ca5047f01f1bf8cd3
+  version: 5.3.2
+  resolution: "ignore@npm:5.3.2"
+  checksum: 2acfd32a573260ea522ea0bfeff880af426d68f6831f973129e2ba7363f422923cf53aab62f8369cbf4667c7b25b6f8a3761b34ecdb284ea18e87a5262a865be
   languageName: node
   linkType: hard
 
@@ -13120,7 +13120,7 @@ __metadata:
     eslint-plugin-jest: 28.8.0
     eslint-plugin-prettier: 5.2.1
     express: 4.19.2
-    express-http-proxy: 2.0.0
+    express-http-proxy: 2.1.1
     express-nunjucks: 3.1.2
     express-session: 1.18.0
     form-data: 4.0.0
