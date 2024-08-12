@@ -100,7 +100,7 @@ const sequence: Step[] = [
   },
   {
     url: PAYMENT_CALLBACK_URL,
-    getNextStep: () => HOME_URL,
+    getNextStep: () => HUB_PAGE,
   },
   {
     url: APP_REPRESENTED,
