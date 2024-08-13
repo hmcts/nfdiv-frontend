@@ -6,6 +6,7 @@ export const respondentCompleteCase: Partial<BrowserCase> = {
   confirmReadPetition: Checkbox.Checked,
   disputeApplication: YesOrNo.NO,
   jurisdictionAgree: YesOrNo.YES,
+  intendToDelay: YesOrNo.NO,
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: '',
   inWhichCountryIsYourLifeMainlyBased: '',
   applicant2PhoneNumber: '',
