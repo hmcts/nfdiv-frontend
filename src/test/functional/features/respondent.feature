@@ -30,7 +30,6 @@ Feature: Respondent
     Given I select "Yes, I agree the courts have jurisdiction"
     When I click "Continue"
 
-    When I click "Continue"
     Then the page URL should be "/respondent/intend-to-delay"
     And the page should include "Do you intend to ask the court to delay the divorce until it is satisfied with your financial situation?"
     Given I select "No"
