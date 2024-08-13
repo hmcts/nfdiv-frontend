@@ -31,7 +31,7 @@ Feature: Respondent
     When I click "Continue"
 
     When I click "Continue"
-    Then the page URL should be "intend-to-delay"
+    Then the page URL should be "/respondent/intend-to-delay"
     And the page should include "Do you intend to ask the court to delay"
     Given I select "No"
     When I click "Continue"
@@ -99,7 +99,7 @@ Feature: Respondent
     And I type "test details"
 
     When I click "Continue"
-    Then the page URL should be "intend-to-delay"
+    Then the page URL should be "/respondent/intend-to-delay"
     And the page should include "Do you intend to ask the court to delay"
     Given I select "No"
 
