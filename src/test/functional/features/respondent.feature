@@ -32,7 +32,7 @@ Feature: Respondent
 
     When I click "Continue"
     Then the page URL should be "/respondent/intend-to-delay"
-    And the page should include "Do you intend to ask the court to delay"
+    And the page should include "Do you intend to ask the court to delay the divorce until it is satisfied with your financial situation?"
     Given I select "No"
     When I click "Continue"
 
@@ -100,7 +100,7 @@ Feature: Respondent
 
     When I click "Continue"
     Then the page URL should be "/respondent/intend-to-delay"
-    And the page should include "Do you intend to ask the court to delay"
+    And the page should include "Do you intend to ask the court to delay the divorce until it is satisfied with your financial situation?"
     Given I select "No"
 
     When I click "Continue"

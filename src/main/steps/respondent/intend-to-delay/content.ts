@@ -37,7 +37,6 @@ export const form: FormContent = {
     intendToDelay: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.intendToDelay,
       values: [
         { label: l => l.no, value: YesOrNo.NO },
         {
