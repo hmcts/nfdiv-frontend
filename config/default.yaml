@@ -10,7 +10,6 @@ dates:
   changingToSolePartnerConfirmationWeeks: 2
   settlingFinancesConfirmationDays: 14
   changingToSolePartnerResponseDays: 14
-  jointConditionalOrderResponseDays: 28
   contactCourtBeforeHearingDays: 7
   applyForFoDays: 43
   applicationSubmittedOffsetDays: 28
