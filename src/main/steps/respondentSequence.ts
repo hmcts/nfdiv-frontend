@@ -13,6 +13,8 @@ import {
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   FINALISING_YOUR_APPLICATION,
+  HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
+  HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
   HELP_WITH_YOUR_FINAL_ORDER_FEE_URL,
   HOME_URL,
   HOW_DO_YOU_WANT_TO_RESPOND,
@@ -98,7 +100,18 @@ const sequence: Step[] = [
   {
     url: HELP_WITH_YOUR_FINAL_ORDER_FEE_URL,
     getNextStep: data =>
-      data.applicant2FoHelpPayingNeeded === YesOrNo.YES ? PAY_YOUR_FINAL_ORDER_FEE : PAY_YOUR_FINAL_ORDER_FEE,
+      data.applicant2FoHelpPayingNeeded === YesOrNo.YES
+        ? HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED
+        : PAY_YOUR_FINAL_ORDER_FEE,
+  },
+  {
+    url: HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
+    getNextStep: data =>
+      data.applicant2FoAlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY : HUB_PAGE,
+  },
+  {
+    url: HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
+    getNextStep: data => HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
   },
   {
     url: PAY_YOUR_FINAL_ORDER_FEE,

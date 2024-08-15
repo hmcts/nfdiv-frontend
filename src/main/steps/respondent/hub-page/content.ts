@@ -186,6 +186,8 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     }`,
     line2:
       'You have submitted your final order application. Your application will be checked by Court staff. Once accepted your application will be listed for a hearing before the judge.',
+    line2hwf:
+      'You have submitted your final order application. Your Help With Fees reference will be checked by court staff. Once accepted your application will be listed for a hearing before the judge.',
     line3:
       'You will receive an email notification within four weeks confirming whether it has been accepted. Check your junk or spam email folder.',
   },
@@ -393,6 +395,8 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     } a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
     line2:
       "Rydych chi wedi cyflwyno'ch cais am orchymyn terfynol. Bydd eich cais yn cael ei wirio gan staff y llys. Unwaith y caiff ei dderbyn, bydd eich cais yn cael ei restru ar gyfer gwrandawiad gerbron Barnwr.",
+    line2hwf:
+      "Rydych chi wedi cyflwyno'ch cais am orchymyn terfynol. Bydd staff y llys yn gwirio eich cyfeirnod Help i Dalu Ffioedd. Unwaith y caiff ei dderbyn, bydd eich cais yn cael ei restru ar gyfer gwrandawiad gerbron Barnwr.",
     line3:
       "Fe gewch neges e-bost o fewn pedair wythnos yn cadarnhau p'un a yw wedi'i dderbyn ai peidio. Gwiriwch eich ffolder 'junk' neu 'spam'.",
   },
@@ -431,6 +435,9 @@ export const generateContent: TranslationFn = content => {
   );
   const theLatestUpdateTemplate = getRespondentHubTemplate(displayState, userCase, hasSubmittedAos);
   const hasApplicant2AppliedForFinalOrderFirst = userCase.applicant2AppliedForFinalOrderFirst === YesOrNo.YES;
+  const applicant2FoHelpPayingNeeded = userCase.applicant2FoHelpPayingNeeded === YesOrNo.YES;
+  const applicant2FoHasHwfRef =
+    userCase.applicant2FoHelpWithFeesRefNo && userCase.applicant2FoHelpWithFeesRefNo.length > 0;
   return {
     ...applicant1GenerateContent(content),
     ...languages[language](content),
@@ -439,5 +446,7 @@ export const generateContent: TranslationFn = content => {
     isRespondentAbleToApplyForFinalOrder,
     hasSubmittedAos,
     hasApplicant2AppliedForFinalOrderFirst,
+    applicant2FoHelpPayingNeeded,
+    applicant2FoHasHwfRef,
   };
 };

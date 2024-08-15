@@ -251,13 +251,13 @@ const fields: ToApiConverters = {
   applicant2HelpPayingNeeded: data => ({
     applicant2HWFNeedHelp: data.applicant2HelpPayingNeeded,
     ...(data.applicant2HelpPayingNeeded === YesOrNo.NO
-      ? setUnreachableAnswersToNull(['applicant2HWFAppliedForFees', 'applicant2HWFReferenceNumber'])
+      ? setUnreachableAnswersToNull(['applicant2FoHWFAppliedForFees', 'applicant2FoHWFReferenceNumber'])
       : {}),
   }),
   applicant2FoHelpPayingNeeded: data => ({
     applicant2FoHWFNeedHelp: data.applicant2FoHelpPayingNeeded,
     ...(data.applicant2FoHelpPayingNeeded === YesOrNo.NO
-      ? setUnreachableAnswersToNull(['applicant2HWFAppliedForFees', 'applicant2HWFReferenceNumber'])
+      ? setUnreachableAnswersToNull(['applicant2FoHWFAppliedForFees', 'applicant2FoHWFReferenceNumber'])
       : {}),
   }),
   applicant1IsApplicant2Represented: data => ({

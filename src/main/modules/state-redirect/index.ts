@@ -67,7 +67,8 @@ export class StateRedirectMiddleware {
           }
         }
 
-        if (!this.caseAwaitingPayment(req) ||
+        if (
+          !this.caseAwaitingPayment(req) ||
           [
             PAY_YOUR_FEE,
             PAY_AND_SUBMIT,
