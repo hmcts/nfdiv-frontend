@@ -56,8 +56,8 @@ export const routeHideConditions: RoutePermission[] = [
       ]),
     ],
     condition: data =>
-      data.state == State.FinalOrderRequested ||
-      data.state == State.RespondentFinalOrderRequested ||
+      data.state === State.FinalOrderRequested ||
+      data.state === State.RespondentFinalOrderRequested ||
       (data.applicant2AppliedForFinalOrderFirst === YesOrNo.YES &&
         !getSwitchToSoleFoStatus(data, true).isIntendingAndAbleToSwitchToSoleFo),
   },

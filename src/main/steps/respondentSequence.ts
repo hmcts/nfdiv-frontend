@@ -111,7 +111,7 @@ const sequence: Step[] = [
   },
   {
     url: HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
-    getNextStep: data => HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
+    getNextStep: () => HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
   },
   {
     url: PAY_YOUR_FINAL_ORDER_FEE,
