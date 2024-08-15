@@ -211,6 +211,7 @@ export interface AcknowledgementOfService {
   confirmDisputeApplication: YesOrNo;
   applicantNotifiedDisputeFormOverdue: YesOrNo;
   jurisdictionAgree: YesOrNo;
+  intendToDelay: YesOrNo;
   dateAosSubmitted: DateAsString;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
@@ -725,6 +726,7 @@ export interface CaseData {
   confirmDisputeApplication: YesOrNo;
   applicantNotifiedDisputeFormOverdue: YesOrNo;
   jurisdictionAgree: YesOrNo;
+  intendToDelay: YesOrNo;
   dateAosSubmitted: DateAsString;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
@@ -2035,6 +2037,7 @@ export const enum State {
   NewPaperCase = 'NewPaperCase',
   OfflineDocumentReceived = 'OfflineDocumentReceived',
   PendingHearingOutcome = 'PendingHearingOutcome',
+  PendingHearingDate = 'PendingHearingDate',
   BulkCaseReject = 'BulkCaseReject',
   RespondentFinalOrderRequested = 'RespondentFinalOrderRequested',
   SeparationOrderGranted = 'SeparationOrderGranted',

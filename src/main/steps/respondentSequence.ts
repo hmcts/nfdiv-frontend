@@ -3,6 +3,7 @@ import { YesOrNo } from '../app/case/definition';
 import { Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
+  APPLICANT_2,
   APP_REPRESENTED,
   CHECK_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
@@ -17,6 +18,7 @@ import {
   HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
+  INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
@@ -42,6 +44,10 @@ const sequence: Step[] = [
   },
   {
     url: LEGAL_JURISDICTION_OF_THE_COURTS,
+    getNextStep: () => INTEND_TO_DELAY,
+  },
+  {
+    url: INTEND_TO_DELAY,
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
@@ -108,9 +114,10 @@ const sequence: Step[] = [
   },
 ];
 
+// Generate respondentSequence from the baseSequence
 export const respondentSequence = ((): Step[] => {
   return sequence.map(step => ({
-    url: `${RESPONDENT}${step.url}`,
+    url: step.url === APP_REPRESENTED ? `${APPLICANT_2}${APP_REPRESENTED}` : `${RESPONDENT}${step.url}`,
     getNextStep: data => `${RESPONDENT}${step.getNextStep(data)}`,
   }));
 })();

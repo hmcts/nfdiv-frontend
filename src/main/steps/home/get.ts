@@ -96,6 +96,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
         return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
       }
     }
+    case State.PendingHearingDate:
     case State.PendingHearingOutcome:
       return HUB_PAGE;
     case State.Draft: {

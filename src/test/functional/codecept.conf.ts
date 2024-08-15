@@ -30,9 +30,12 @@ export const config: CodeceptJS.Config = {
   },
   mocha: {
     reporterOptions: {
-      reportDir: './functional-output/functional/reports',
+      reportDir: './temp-reports',
       reportFilename: 'Functional test report',
       inlineAssets: true,
+      overwrite: false,
+      html: true,
+      json: true,
     },
   },
 };

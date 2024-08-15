@@ -76,4 +76,13 @@ export const config: CodeceptJS.Config = {
     },
     ...plugins,
   },
+  mocha: {
+    reporterOptions: {
+      reportDir: './functional-output/crossbrowser/reports',
+      reportFilename: 'Crossbrowser test report',
+      inlineAssets: true,
+      overwrite: true,
+      html: true,
+    },
+  },
 };

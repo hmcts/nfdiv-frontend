@@ -318,7 +318,7 @@ describe('SoleTemplateSelector test', () => {
           id: '123',
           value: {
             serviceApplicationGranted: YesOrNo.NO,
-            serviceApplicationRefusalReason: 'refusalOrderToApplicant',
+            refusalReason: 'refusalOrderToApplicant',
           },
         },
       ] as unknown as ListValue<AlternativeServiceOutcome>[],
@@ -335,6 +335,12 @@ describe('SoleTemplateSelector test', () => {
 
   test('should show /pending-hearing-outcome.njk for state PendingHearingOutcome', () => {
     const theState = displayState.at(State.PendingHearingOutcome);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingDate', () => {
+    const theState = displayState.at(State.PendingHearingDate);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });

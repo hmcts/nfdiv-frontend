@@ -30,6 +30,11 @@ Feature: Respondent
     Given I select "Yes, I agree the courts have jurisdiction"
     When I click "Continue"
 
+    Then the page URL should be "/respondent/intend-to-delay"
+    And the page should include "Do you intend to ask the court to delay the divorce until it is satisfied with your financial situation?"
+    Given I select "No"
+    When I click "Continue"
+
     Then the page URL should be "/respondent/other-court-cases"
     And the page should include "Other court cases relating to this marriage"
     Given I select "No"
@@ -91,6 +96,11 @@ Feature: Respondent
     And I type "test details"
     And I select "Which country is your life mainly based?"
     And I type "test details"
+
+    When I click "Continue"
+    Then the page URL should be "/respondent/intend-to-delay"
+    And the page should include "Do you intend to ask the court to delay the divorce until it is satisfied with your financial situation?"
+    Given I select "No"
 
     When I click "Continue"
     Then the page URL should be "/respondent/other-court-cases"
