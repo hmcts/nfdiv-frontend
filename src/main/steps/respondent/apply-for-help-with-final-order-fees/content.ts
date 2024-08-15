@@ -11,7 +11,7 @@ const en = () => ({
     'After you have applied then you will receive a Help With Fees reference number. You should enter the reference number when you return to this final order application.',
   line4: `If you have a Help With Fees reference number then you can <a class="govuk-link" href="${
     RESPONDENT + HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED
-  }">enter it here.</a>`,
+  }">enter it here</a>.`,
 });
 
 const cy: typeof en = () => ({
@@ -24,7 +24,7 @@ const cy: typeof en = () => ({
     "Ar ôl i chi wneud cais, yna byddwch yn cael cyfeirnod Help i Dalu Ffioedd. Dylech nodi'r rhif cyfeirnod pan fyddwch yn dychwelyd i'r cais am orchymyn terfynol hwn.",
   line4: `Os oes gennych gyfeirnod Help i Dalu Ffioedd, yna gallwch <a class="govuk-link" href="${
     RESPONDENT + HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED
-  }">ei nodi yma.</a>`,
+  }">ei nodi yma</a>.`,
 });
 
 const languages = {
