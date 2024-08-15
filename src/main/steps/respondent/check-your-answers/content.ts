@@ -31,6 +31,8 @@ const en = ({ isDivorce, userCase }) => ({
         isDivorce ? 'grant your divorce' : 'end your civil partnership'
       }.`,
       line4: 'Which country is your life mainly based?',
+      line5: `Do you intend to ask the court to delay the ${isDivorce ? 'divorce' : 'dissolution'}
+  until it is satisfied with your financial situation?`,
     },
     contactYou: {
       line1: 'By email',
@@ -81,6 +83,7 @@ const en = ({ isDivorce, userCase }) => ({
           ? userCase.inWhichCountryIsYourLifeMainlyBased
           : ''
       }`,
+      line5: `${userCase.intendToDelay ? (userCase.intendToDelay === YesOrNo.YES ? 'Yes' : 'No') : ''}`,
     },
     contactYou: {
       line1: `${
@@ -111,6 +114,7 @@ const en = ({ isDivorce, userCase }) => ({
       line2: urls.LEGAL_JURISDICTION_OF_THE_COURTS,
       line3: urls.LEGAL_JURISDICTION_OF_THE_COURTS,
       line4: urls.LEGAL_JURISDICTION_OF_THE_COURTS,
+      line5: urls.INTEND_TO_DELAY,
     },
     contactYou: {
       line1: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
@@ -169,6 +173,8 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
         isDivorce ? 'ganiatáu i chi gael ysgariad' : 'ddod â’ch priodas sifil i ben'
       }.`,
       line4: 'Ym mha wlad ydych chi’n byw yn bennaf?',
+      line5: `A ydych yn bwriadu gofyn i’r llys ohirio’r ${isDivorce ? 'ysgariad' : 'diddymiad'}
+  nes ei fod yn fodlon â’ch sefyllfa ariannol?`,
     },
     contactYou: {
       line1: 'Trwy e-bost',
@@ -219,6 +225,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
           ? userCase.inWhichCountryIsYourLifeMainlyBased
           : ''
       }`,
+      line5: `${userCase.intendToDelay ? (userCase.intendToDelay === YesOrNo.YES ? 'Ydw' : 'Nac ydw') : ''}`,
     },
     contactYou: {
       line1: `${

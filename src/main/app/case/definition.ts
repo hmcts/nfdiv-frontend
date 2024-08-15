@@ -211,6 +211,7 @@ export interface AcknowledgementOfService {
   confirmDisputeApplication: YesOrNo;
   applicantNotifiedDisputeFormOverdue: YesOrNo;
   jurisdictionAgree: YesOrNo;
+  intendToDelay: YesOrNo;
   dateAosSubmitted: DateAsString;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
@@ -716,6 +717,7 @@ export interface CaseData {
   confirmDisputeApplication: YesOrNo;
   applicantNotifiedDisputeFormOverdue: YesOrNo;
   jurisdictionAgree: YesOrNo;
+  intendToDelay: YesOrNo;
   dateAosSubmitted: DateAsString;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
