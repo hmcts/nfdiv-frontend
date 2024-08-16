@@ -257,7 +257,7 @@ const fields: ToApiConverters = {
   applicant2FoHelpPayingNeeded: data => ({
     applicant2FoHWFNeedHelp: data.applicant2FoHelpPayingNeeded,
     ...(data.applicant2FoHelpPayingNeeded === YesOrNo.NO
-      ? setUnreachableAnswersToNull(['applicant2HWFAppliedForFees', 'applicant2HWFReferenceNumber'])
+      ? setUnreachableAnswersToNull(['applicant2FoHWFAppliedForFees', 'applicant2FoHWFReferenceNumber'])
       : {}),
   }),
   applicant1IsApplicant2Represented: data => ({
