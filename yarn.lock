@@ -3918,9 +3918,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/cli@npm:9.0.1":
-  version: 9.0.1
-  resolution: "@wdio/cli@npm:9.0.1"
+"@wdio/cli@npm:9.0.3":
+  version: 9.0.3
+  resolution: "@wdio/cli@npm:9.0.3"
   dependencies:
     "@types/node": ^20.1.1
     "@vitest/snapshot": ^1.2.1
@@ -3949,7 +3949,7 @@ __metadata:
     yargs: ^17.7.2
   bin:
     wdio: ./bin/wdio.js
-  checksum: b48e71d0f829569096608e3783897aa351dda1689d7d317f4e13db203cff728b20152a721b83c4519727ef4675869ed247a86994c4ea3e457866ce94698c227b
+  checksum: de09dadeed1b3eb4a4173f22a9cb060373a44ba5473735849c03d2d93500bf39e6e5ed80d849673e6802c0d6f5ba58f0c8af700df44aa48de3a47a75514654f0
   languageName: node
   linkType: hard
 
@@ -3998,7 +3998,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/logger@npm:8.38.0, @wdio/logger@npm:^8.28.0, @wdio/logger@npm:^8.38.0":
+"@wdio/logger@npm:8.38.0, @wdio/logger@npm:^8.38.0":
   version: 8.38.0
   resolution: "@wdio/logger@npm:8.38.0"
   dependencies:
@@ -4010,7 +4010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/logger@npm:9.0.0":
+"@wdio/logger@npm:9.0.0, @wdio/logger@npm:^9.0.0":
   version: 9.0.0
   resolution: "@wdio/logger@npm:9.0.0"
   dependencies:
@@ -4324,7 +4324,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zip.js/zip.js@npm:^2.7.44, @zip.js/zip.js@npm:^2.7.48":
+"@zip.js/zip.js@npm:^2.7.48":
   version: 2.7.48
   resolution: "@zip.js/zip.js@npm:2.7.48"
   checksum: 231d3e473c67648c0966428bda9a9ed28b67c716607f472bdacae71cc512435468034da8ec337b58a02db6a55598a9ed2a470787bf4a6598f6f508156dd3419f
@@ -7757,9 +7757,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.4":
-  version: 1.5.9
-  resolution: "electron-to-chromium@npm:1.5.9"
-  checksum: 6be72b08540830554c71c9bf96c27fa53275ca12159659a49a47bb8905713c488c5bc025d4dca66ffdd899eb95548b09cc23310551c67f153d2a4f6fd0015231
+  version: 1.5.10
+  resolution: "electron-to-chromium@npm:1.5.10"
+  checksum: 44dcdf428286abf63790deb9fcf67608e5ab2594d4aa5c7e5c66422be7074d3cc453d0a2f0508080cf0f2363b9bcb6376dd4690eff8a5feae01f49b3c394d4ec
   languageName: node
   linkType: hard
 
@@ -9358,20 +9358,20 @@ __metadata:
   linkType: hard
 
 "geckodriver@npm:^4.3.1, geckodriver@npm:^4.3.3":
-  version: 4.4.2
-  resolution: "geckodriver@npm:4.4.2"
+  version: 4.4.3
+  resolution: "geckodriver@npm:4.4.3"
   dependencies:
-    "@wdio/logger": ^8.28.0
-    "@zip.js/zip.js": ^2.7.44
+    "@wdio/logger": ^9.0.0
+    "@zip.js/zip.js": ^2.7.48
     decamelize: ^6.0.0
     http-proxy-agent: ^7.0.2
-    https-proxy-agent: ^7.0.4
+    https-proxy-agent: ^7.0.5
     node-fetch: ^3.3.2
     tar-fs: ^3.0.6
     which: ^4.0.0
   bin:
     geckodriver: bin/geckodriver.js
-  checksum: 3aacdf716a5f84860f84fccbda127b65e639008b2aeadd616a70e7d5f6d742730b59d9dd12dfba81cd8fb6ec4eaa875af05e5af38965adc997906d9971a80d99
+  checksum: e755d6a27f26041d02082ee2b9a3ad22e206a5d17243114ed59b53a4609f08d34e98b2da73f47506d2f2236492fd49efa1ccb1c2d31f48e29e738a4b119c9278
   languageName: node
   linkType: hard
 
@@ -10145,7 +10145,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"https-proxy-agent@npm:^7.0.0, https-proxy-agent@npm:^7.0.1, https-proxy-agent@npm:^7.0.2, https-proxy-agent@npm:^7.0.3, https-proxy-agent@npm:^7.0.4, https-proxy-agent@npm:^7.0.5":
+"https-proxy-agent@npm:^7.0.0, https-proxy-agent@npm:^7.0.1, https-proxy-agent@npm:^7.0.2, https-proxy-agent@npm:^7.0.3, https-proxy-agent@npm:^7.0.5":
   version: 7.0.5
   resolution: "https-proxy-agent@npm:7.0.5"
   dependencies:
@@ -13605,7 +13605,7 @@ __metadata:
     "@uppy/file-input": 3.1.2
     "@uppy/progress-bar": 3.1.1
     "@uppy/xhr-upload": 3.6.8
-    "@wdio/cli": 9.0.1
+    "@wdio/cli": 9.0.3
     "@wdio/sauce-service": 9.0.1
     allure-commandline: 2.30.0
     applicationinsights: 2.9.6
