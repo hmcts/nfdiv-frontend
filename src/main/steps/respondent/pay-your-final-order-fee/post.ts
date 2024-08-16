@@ -19,7 +19,7 @@ export default class FinalOrderPaymentPostController extends BasePaymentPostCont
     return req.session.userCase.applicant2FinalOrderFeeOrderSummary.Fees;
   }
 
-  protected paymentsCaseField(): keyof CaseData {
+  protected getPaymentsCaseFieldKey(): keyof CaseData {
     return 'finalOrderPayments' as keyof CaseData;
   }
 

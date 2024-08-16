@@ -39,7 +39,7 @@ export default class PaymentCallbackGetController extends BasePaymentCallbackGet
         : PAY_YOUR_FEE;
   }
 
-  protected paymentsCaseField(): keyof CaseData {
+  protected getPaymentsCaseFieldKey(): keyof CaseData {
     return 'applicationPayments' as keyof CaseData;
   }
 }

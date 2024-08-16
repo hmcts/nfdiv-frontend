@@ -26,7 +26,7 @@ export default class PaymentCallbackGetController extends BasePaymentCallbackGet
     return RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE;
   }
 
-  protected paymentsCaseField(): keyof CaseData {
+  protected getPaymentsCaseFieldKey(): keyof CaseData {
     return 'finalOrderPayments' as keyof CaseData;
   }
 }

@@ -67,17 +67,7 @@ export class StateRedirectMiddleware {
           }
         }
 
-        if (
-          !this.caseAwaitingPayment(req) ||
-          [
-            PAY_YOUR_FEE,
-            PAY_AND_SUBMIT,
-            PAYMENT_CALLBACK_URL,
-            RESPONDENT + PAYMENT_CALLBACK_URL,
-            RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,
-            SAVE_AND_SIGN_OUT,
-          ].includes(req.path as PageLink)
-        ) {
+        if (!this.caseAwaitingPayment(req) || this.paymentUrlsWithNextStep().includes(req.path as PageLink)) {
           return next();
         }
 
@@ -98,6 +88,13 @@ export class StateRedirectMiddleware {
 
   private caseAwaitingPayment(req: AppRequest): boolean {
     return [State.AwaitingPayment, State.AwaitingFinalOrderPayment].includes(req.session.userCase?.state);
+  }
+
+  private paymentUrlsWithNextStep(): string[] {
+    return [
+      PAY_YOUR_FEE, PAY_AND_SUBMIT, PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT,
+      RESPONDENT + PAYMENT_CALLBACK_URL, RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,
+    ]
   }
 
   private getApplicationSubmittedRedirectPath(req: AppRequest): string | null {

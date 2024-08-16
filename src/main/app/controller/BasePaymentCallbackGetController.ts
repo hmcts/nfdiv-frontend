@@ -24,7 +24,7 @@ export default abstract class BasePaymentCallbackGetController {
 
     const paymentClient = new PaymentClient(req.session, returnUrl);
 
-    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
+    const payments = new PaymentModel(req.session.userCase[this.getPaymentsCaseFieldKey()] || []);
     if (!payments.hasPayment) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
@@ -42,7 +42,7 @@ export default abstract class BasePaymentCallbackGetController {
     payments.setStatus(lastPaymentAttempt.transactionId, payment?.status);
 
     if (payments.wasLastPaymentSuccessful) {
-      const eventPayload = { [this.paymentsCaseField()]: payments.list };
+      const eventPayload = { [this.getPaymentsCaseFieldKey()]: payments.list };
 
       req.session.userCase = await req.locals.api.triggerPaymentEvent(
         req.session.userCase.id,
@@ -65,5 +65,5 @@ export default abstract class BasePaymentCallbackGetController {
   protected abstract paymentMadeEvent(req: AppRequest): string;
   protected abstract paymentSuccessUrl(req: AppRequest): string;
   protected abstract paymentFailureUrl(req: AppRequest): string;
-  protected abstract paymentsCaseField(): keyof CaseData;
+  protected abstract getPaymentsCaseFieldKey(): keyof CaseData;
 }

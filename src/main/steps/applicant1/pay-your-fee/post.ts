@@ -19,7 +19,7 @@ export default class PaymentPostController extends BasePaymentPostController {
     return req.session.userCase.applicationFeeOrderSummary.Fees;
   }
 
-  protected paymentsCaseField(): keyof CaseData {
+  protected getPaymentsCaseFieldKey(): keyof CaseData {
     return 'applicationPayments' as keyof CaseData;
   }
 

@@ -35,7 +35,7 @@ export default abstract class BasePaymentPostController {
       );
     }
 
-    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
+    const payments = new PaymentModel(req.session.userCase[this.getPaymentsCaseFieldKey()] || []);
 
     if (payments.isPaymentInProgress()) {
       return this.saveAndRedirect(req, res, getPaymentCallbackUrl(req));
@@ -98,7 +98,7 @@ export default abstract class BasePaymentPostController {
       serviceRequestReference: serviceRefNumberForFee,
     });
 
-    const eventPayload = { [this.paymentsCaseField()]: payments.list };
+    const eventPayload = { [this.getPaymentsCaseFieldKey()]: payments.list };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
       eventPayload,
@@ -111,7 +111,7 @@ export default abstract class BasePaymentPostController {
   protected abstract awaitingPaymentState(): State;
   protected abstract awaitingPaymentEvent(): string;
   protected abstract getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[];
-  protected abstract paymentsCaseField(): keyof CaseData;
+  protected abstract getPaymentsCaseFieldKey(): keyof CaseData;
   protected abstract getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined;
 }
 
