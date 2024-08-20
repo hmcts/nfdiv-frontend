@@ -2504,12 +2504,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@promptbook/utils@npm:0.63.4":
-  version: 0.63.4
-  resolution: "@promptbook/utils@npm:0.63.4"
+"@promptbook/utils@npm:0.66.0":
+  version: 0.66.0
+  resolution: "@promptbook/utils@npm:0.66.0"
   dependencies:
     spacetrim: 0.11.39
-  checksum: 90143c098e62b135428457e968a08c3ef782d3830de64a79d65ed2c07aed04f4b470bb6b29999f38543d6fb575d1b397b0129892828b3406d84d464c29bfd7e7
+  checksum: ac421a014f4606922eae9a540c42b34a6f9f6cbc7fe3bef9693b20389f51aacfeaf974a822024f4ddb8ebec218028b20b017edc53a4d271066120fd29c0f2911
   languageName: node
   linkType: hard
 
@@ -5001,9 +5001,9 @@ __metadata:
   linkType: hard
 
 "async@npm:^3.2.3, async@npm:^3.2.4":
-  version: 3.2.5
-  resolution: "async@npm:3.2.5"
-  checksum: 5ec77f1312301dee02d62140a6b1f7ee0edd2a0f983b6fd2b0849b969f245225b990b47b8243e7b9ad16451a53e7f68e753700385b706198ced888beedba3af4
+  version: 3.2.6
+  resolution: "async@npm:3.2.6"
+  checksum: ee6eb8cd8a0ab1b58bd2a3ed6c415e93e773573a91d31df9d5ef559baafa9dab37d3b096fa7993e84585cac3697b2af6ddb9086f45d3ac8cae821bb2aab65682
   languageName: node
   linkType: hard
 
@@ -7769,9 +7769,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.4":
-  version: 1.5.11
-  resolution: "electron-to-chromium@npm:1.5.11"
-  checksum: 9dbf480ff39005b3c9657e6b8df534a4597d0747472f2982315cc169024ebfb45f99b16dd57d8be4a51a063f14590f9f585f179e55f68591f870f38b9a5e491a
+  version: 1.5.12
+  resolution: "electron-to-chromium@npm:1.5.12"
+  checksum: 9ce8d5be88357e71213c12f3d2d47b74666bb17d5dfbd30be77e4c1ed6782c7349803018b0fbefd95bf99ae69ab5918a50cdebf0d5b2c4c9a2e5d0e897d2e32b
   languageName: node
   linkType: hard
 
@@ -12034,13 +12034,13 @@ __metadata:
   linkType: hard
 
 "locate-app@npm:^2.1.0, locate-app@npm:^2.2.24":
-  version: 2.4.27
-  resolution: "locate-app@npm:2.4.27"
+  version: 2.4.28
+  resolution: "locate-app@npm:2.4.28"
   dependencies:
-    "@promptbook/utils": 0.63.4
+    "@promptbook/utils": 0.66.0
     type-fest: 2.13.0
     userhome: 1.0.0
-  checksum: b5a3d992fb9b2f40b56afe39709df764fd2c5f9fbca1d2c28a070f405b61678b758a468b0b24223371b8b218ba7e77d036f885b25b53151ef9d2f2e43ee65fed
+  checksum: baedb1a18c1cf5bf64b2388ee61bc5e93a4106e1d71722b9e8f928424639613372adc77a8d9bf951be9f693b3cc46500bb067296c4494fab0de188c85ba19a22
   languageName: node
   linkType: hard
 
@@ -13691,7 +13691,7 @@ __metadata:
     webdriverio: 9.0.1
     webpack: 5.93.0
     webpack-cli: 5.1.4
-    webpack-dev-middleware: 7.3.0
+    webpack-dev-middleware: 7.4.1
     webpack-node-externals: 3.0.0
   languageName: unknown
   linkType: soft
@@ -18529,9 +18529,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:7.3.0":
-  version: 7.3.0
-  resolution: "webpack-dev-middleware@npm:7.3.0"
+"webpack-dev-middleware@npm:7.4.1":
+  version: 7.4.1
+  resolution: "webpack-dev-middleware@npm:7.4.1"
   dependencies:
     colorette: ^2.0.10
     memfs: ^4.6.0
@@ -18544,7 +18544,7 @@ __metadata:
   peerDependenciesMeta:
     webpack:
       optional: true
-  checksum: c760bc85ce48ddd86461093ddcd40bbafebc10698392a78ec71cc43dddf3a029ddc2c74a9d4fcd61a18423eec1a42bd6a41cbb2564f6b76e98ce3b3b15aa0325
+  checksum: 786a2b47e08e7081c35cfdb80a0999af69dcc53bc8a2d9a849f97cf83a6b115bdd58d51ee5a4cc57f776b71ec4253d9351d054f974684d739ee8ac72382886c7
   languageName: node
   linkType: hard
 
