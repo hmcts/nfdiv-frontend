@@ -11,12 +11,14 @@ import HaveYouAppliedForHelpWithFinalOrderFeesPostController from './post';
 
 describe('HaveYouAppliedForHelpWithFinalOrderFeesPostController', () => {
   const mockFormContent = {
-    fields: { applicant2FoHelpWithFeesRefNo: null },
+    fields: {
+      applicant2FoHelpWithFeesRefNo: {},
+    },
   } as unknown as FormContent;
 
   it('triggers RESPONDENT_APPLY_FOR_FINAL_ORDER when HWF Ref has been provided', async () => {
     const body = {
-      applicant2FoHelpWithFeesRefNo: 'Dummy Ref',
+      applicant2FoHelpWithFeesRefNo: 'HWF-ABC-123',
     };
     const haveYouAppliedForHelpPostController = new HaveYouAppliedForHelpWithFinalOrderFeesPostController(
       mockFormContent.fields
