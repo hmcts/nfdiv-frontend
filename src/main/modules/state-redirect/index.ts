@@ -86,8 +86,8 @@ export class StateRedirectMiddleware {
           return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
         }
 
-        const payments = new PaymentModel(req.session.userCase.applicationPayments);
-        if (payments.hasPayment) {
+        const applicationPayments = new PaymentModel(req.session.userCase.applicationPayments);
+        if (!req.session.isApplicant2 && applicationPayments.hasPayment) {
           return res.redirect(PAYMENT_CALLBACK_URL);
         }
 
