@@ -7115,10 +7115,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.12, dayjs@npm:^1.8.15":
-  version: 1.11.12
-  resolution: "dayjs@npm:1.11.12"
-  checksum: 40a4f67c2df3af125ae0ddec68d3a6d806d3009a7414bf45479aaf82f1dd82f3e139e6642e72391abccc37488897830c56afcabb4c819014130d283644df8128
+"dayjs@npm:1.11.13, dayjs@npm:^1.8.15":
+  version: 1.11.13
+  resolution: "dayjs@npm:1.11.13"
+  checksum: f388db88a6aa93956c1f6121644e783391c7b738b73dbc54485578736565c8931bdfba4bb94e9b1535c6e509c97d5deb918bbe1ae6b34358d994de735055cca9
   languageName: node
   linkType: hard
 
@@ -13639,7 +13639,7 @@ __metadata:
     copy-webpack-plugin: 12.0.2
     css-loader: 7.1.2
     csurf: 1.11.0
-    dayjs: 1.11.12
+    dayjs: 1.11.13
     email-validator: 2.0.4
     eslint: 8.57.0
     eslint-config-prettier: 9.1.0
@@ -16944,8 +16944,8 @@ __metadata:
   linkType: hard
 
 "streamx@npm:^2.15.0, streamx@npm:^2.18.0":
-  version: 2.18.0
-  resolution: "streamx@npm:2.18.0"
+  version: 2.19.0
+  resolution: "streamx@npm:2.19.0"
   dependencies:
     bare-events: ^2.2.0
     fast-fifo: ^1.3.2
@@ -16954,7 +16954,7 @@ __metadata:
   dependenciesMeta:
     bare-events:
       optional: true
-  checksum: 88193eb37ad194e18cf62a7d6392180a0565017d494e2c96ee09f1e7ff64c16cdf97059e39cab4b16972e812d08d744d1e3c5117f4213e8057c44ad3963f2461
+  checksum: bc80a820039f6ab0f0386ad6f9081748b58408e66466e72358dfb673e3176a8078c3f4a54a256af48a645208a24cc9d8c348fcf67598129281bda09c37dbfb09
   languageName: node
   linkType: hard
 
