@@ -116,6 +116,10 @@ const en = (
     linkText: 'solicitor or legal adviser',
     link: config.get('govukUrls.legalAdvisor'),
   },
+  subHeading7: 'Visit your application hub',
+  line17: {
+    part1: 'You can <a href="/" class="govuk-link">view the progress of your application</a> in the application hub.',
+  },
   webChat,
   sendUsAMessage: 'Send us a message',
   telephone: 'Telephone',
@@ -243,6 +247,10 @@ const cy: typeof en = (
     part1: 'Gall staff y llys eich helpu gyda’ch cais. Ni allant roi cyngor cyfreithiol i chi. Dylech siarad â ',
     linkText: 'chyfreithiwr neu gynghorydd cyfreithiol',
     link: config.get('govukUrls.legalAdvisor'),
+  },
+  subHeading7: 'Ymweld â’ch gwasanaeth ceisiadau',
+  line17: {
+    part1: 'Gallwch <a href="/" class="govuk-link">weld cynnydd eich cais</a> yn y gwasanaeth ceisiadau.',
   },
   webChat,
   sendUsAMessage: 'Anfonwch neges atom ',

@@ -12,22 +12,17 @@ import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls'
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
-const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceType: AlternativeServiceType) => ({
+const en = (
+  { isDivorce, partner, userCase, telephoneNumber }: CommonContent,
+  alternativeServiceType: AlternativeServiceType
+) => ({
   aosAwaitingOrDrafted: {
-    line1: `Your application ${
-      isDivorce ? 'for divorce' : 'to end your civil partnership'
-    } has been submitted and checked by court staff. It's been ‘served’ (sent) to you and your ${partner}${
-      userCase.applicant2EmailAddress
-        ? ' by email'
-        : userCase.applicant1KnowsApplicant2Address === YesOrNo.YES
-          ? ' by post'
-          : ''
-    }.`,
-    line2: `Your ${partner} should respond to the ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } by ${getFormattedDate(userCase.dueDate)}.`,
-    line3:
-      'You will be notified by email when they have responded. Or told what you can do next if they do not respond.',
+    line1: `Your application will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+      dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
+    )} confirming whether it has been accepted. Check your junk or spam email folder.`,
+    line2: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
+    line3: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
+    line4: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${telephoneNumber}.`,
   },
   aosDue: {
     line1: `Your ${partner} should have responded to your ${
@@ -172,6 +167,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
         ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
         : 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
   },
+  finalOrderComplete: {},
   awaitingServiceConsiderationOrBailiffReferral: {
     line1:
       'Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful.',
@@ -236,24 +232,17 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
 
 // @TODO translations
 const cy: typeof en = (
-  { isDivorce, partner, userCase }: CommonContent,
+  { isDivorce, partner, userCase, telephoneNumber }: CommonContent,
   alternativeServiceType: AlternativeServiceType
 ) => ({
   aosAwaitingOrDrafted: {
-    line1: `Mae eich cais ${
-      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
-    } wedi'i gyflwyno a'i wirio gan staff y llys. Mae wedi cael ei ‘gyflwyno’ (ei anfon) at eich ${partner}${
-      userCase.applicant2EmailAddress
-        ? ' drwy e-bost'
-        : userCase.applicant1KnowsApplicant2Address === YesOrNo.YES
-          ? " drwy'r post"
-          : ''
-    }.`,
-    line2: `Dylai eich ${partner} ymateb i'r ${
-      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partner sifil i ben"
-    } erbyn ${getFormattedDate(userCase.dueDate, SupportedLanguages.Cy)}.`,
-    line3:
-      "Byddwch yn cael eich hysbysu drwy e-bost pan fyddant wedi ymateb. Neu cewch wybod beth i’w wneud nesaf os nad ydyn nhw'n ymateb.",
+    line1: `Bydd eich cais yn cael ei wirio gan staff y llys. Fe gewch neges e-bost erbyn ${getFormattedDate(
+      dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+      SupportedLanguages.Cy
+    )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+    line2: `Yna fe anfonir copi o’r cais at eich ${partner}. Fe ofynnir iddynt wirio’r wybodaeth ac ymateb. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
+    line3: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau at eich ${partner} eich hun, yna ffoniwch ${telephoneNumber} i ofyn am gael gwneud hynny. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
+    line4: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais i’w gyflwyno drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
   },
   aosDue: {
     line1: `Dylai eich ${partner} fod wedi ymateb i'ch ${

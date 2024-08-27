@@ -17,9 +17,7 @@
     </div>
     <p><strong>{{ confirmationEmail }}</strong></p>
   </div>
-
-  {% include "./progress-bar.njk" %}
-
+  <br/>
   {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
@@ -94,6 +92,8 @@
   <p class="govuk-body">{{ line13.part1 }}<a class="govuk-link" href={{ line13.link }}>{{ line13.part2 }}</a></p>
   <p class="govuk-body">{{ line14.part1 }}<a class="govuk-link" href={{ line14.link }}>{{ line14.part2 }}</a></p>
   <p class="govuk-body">{{ line15.part1 }}<a class="govuk-link" href={{ line15.link }}>{{ line15.part2 }}</a></p>
+  <h3 class="govuk-heading-m">{{ subHeading7 }}</h3>
+  <p class="govuk-body">{{ line17.part1|safe}}</p>
   <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
   <p class="govuk-body">{{ line16.part1 }}<a class="govuk-link" href={{ line16.link }}>{{ line16.linkText }}</a></p>
   <h3 class="govuk-heading-m">{{ webChat }}</h3>

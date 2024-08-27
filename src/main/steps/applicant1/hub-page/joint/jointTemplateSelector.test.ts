@@ -25,6 +25,12 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe(HubTemplate.Holding);
   });
 
+  test('should show /holding.njk for state Submitted', () => {
+    const theState = displayState.at(State.Submitted);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.Holding);
+  });
+
   test('should show /conditional-order-pronounced.njk for state ConditionalOrderPronounced', () => {
     const theState = displayState.at(State.ConditionalOrderPronounced);
     const jointTemplate = getJointHubTemplate(theState, userCase);

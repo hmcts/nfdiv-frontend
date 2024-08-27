@@ -34,13 +34,10 @@ const hubPageSubheading = (
 const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
-    line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
-  and checked by court staff. It has been sent to you and your ${partner} by ${
-    userCase.applicant1AgreeToReceiveEmails ? 'email' : 'post'
-  }.`,
-    line2: `You should confirm that you have received your application ${
-      isDivorce ? 'for divorce' : 'to end your civil partnership'
-    }.`,
+    line1: `Your joint application will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+      dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
+    )} confirming whether it has been accepted.`,
+    line2: 'Check your junk or spam email folder.',
   },
   applicantConfirmedReceiptLatestUpdate: {
     line1: `You have confirmed receipt of the ${
@@ -142,6 +139,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
         ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
         : 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
   },
+  finalOrderComplete: {},
   intendToSwitchToSoleFinalOrder: {
     line1: `The court has notified your ${partner} by email that you are intending to apply for a final order as a sole applicant.`,
     line2: `You will be able to apply for a final order from ${getFormattedDate(
@@ -166,14 +164,11 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
 const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
-    line1: `Mae eich cais ${
-      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
-    } wedi'i gyflwyno a'i wirio gan staff y llys. Fe'i anfonwyd atoch chi a'ch ${partner} ${
-      userCase.applicant1AgreeToReceiveEmails ? 'drwy e-bost' : 'drwy’r post'
-    }.`,
-    line2: `Dylech gadarnhau eich bod wedi cael eich cais ${
-      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
-    }.`,
+    line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Fe gewch neges e-bost erbyn ${getFormattedDate(
+      dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+      SupportedLanguages.Cy
+    )} yn cadarnhau p’un a yw wedi’i dderbyn.`,
+    line2: 'Gwiriwch eich ffolder ‘junk’ neu ‘spam’.',
   },
   applicantConfirmedReceiptLatestUpdate: {
     line1: `Rydych wedi cadarnhau eich bod wedi cael y ${

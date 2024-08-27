@@ -44,3 +44,49 @@ section {
 .red-text {
   color: govuk-colour('red');
 }
+
+.hmcts-progress-bar__icon {
+  position: relative;
+  background-color: #ffffff;
+  border: 2px solid #1D70B8;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: block;
+  height: 44px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 44px; }
+
+.hmcts-progress-bar__icon--complete {
+  background-color: #1D70B8;
+  background-image: url(/hmcts-assets/images/icon-progress-tick.svg);
+  background-position: 50% 50%;
+  background-repeat: no-repeat; }
+
+.hmcts-progress-bar__list {
+  font-size: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-align: justify;
+  vertical-align: top; }
+
+.hmcts-progress-bar__list::after {
+  content: "";
+  display: inline-block;
+  width: 100%; }
+
+.hmcts-progress-bar__list::before {
+  border-top: 6px solid lightgray;
+  content: "";
+  left: 30px;
+  position: absolute;
+  top: 20px;
+  bottom: 0;
+  width: 90%; }
+
+.hmcts-progress-bar__icon--active {
+  background-color: #1D70B8;
+  font-weight: 700; }
+

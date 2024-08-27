@@ -21,7 +21,8 @@ export const getJointHubTemplate = (
     case State.AwaitingPronouncement: {
       return HubTemplate.AwaitingPronouncement;
     }
-    case State.Holding: {
+    case State.Holding:
+    case State.Submitted: {
       return HubTemplate.Holding;
     }
     case State.ConditionalOrderPronounced: {
