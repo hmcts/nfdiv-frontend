@@ -59,9 +59,7 @@ export class StateRedirectMiddleware {
         }
 
         const caseState = req.session.userCase?.state;
-        if (
-          [State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(caseState)
-        ) {
+        if ([State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(caseState)) {
           const redirectPath = this.getApplicationSubmittedRedirectPath(req);
           if (redirectPath) {
             return res.redirect(redirectPath);
@@ -83,12 +81,12 @@ export class StateRedirectMiddleware {
         }
 
         const finalOrderPayments = new PaymentModel(req.session.userCase.finalOrderPayments);
-        if (caseState == State.AwaitingFinalOrderPayment && req.session.isApplicant2 && finalOrderPayments.hasPayment) {
+        if (caseState === State.AwaitingFinalOrderPayment && req.session.isApplicant2 && finalOrderPayments.hasPayment) {
           return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
         }
 
         const applicationPayments = new PaymentModel(req.session.userCase.applicationPayments);
-        if (caseState == State.AwaitingPayment && !req.session.isApplicant2 && applicationPayments.hasPayment) {
+        if (caseState === State.AwaitingPayment && !req.session.isApplicant2 && applicationPayments.hasPayment) {
           return res.redirect(PAYMENT_CALLBACK_URL);
         }
 
