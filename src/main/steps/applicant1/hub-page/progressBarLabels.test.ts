@@ -78,6 +78,15 @@ describe('getProgressBarContent', () => {
     });
   });
 
+  test('should return response arial label when state is at  or after awaiting aos', () => {
+    const displayState = currentStateFn(State.AwaitingAos);
+    const labels = getProgressBarContent(true, displayState, true);
+    expect(labels).toMatchObject({
+      progressBarAriaLabel:
+        'A progress bar showing the application has been submitted and court checks completed. The next steps are receiving a response, a conditional order being granted and a final order being granted, which is the last stage in the process. The next steps are not complete yet.',
+    });
+  });
+
   test('should return conditional order arial label', () => {
     const displayState = currentStateFn(State.AwaitingFinalOrder);
     const labels = getProgressBarContent(true, displayState, true);

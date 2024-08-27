@@ -61,7 +61,7 @@ const getAriaLabel = (displayState: StateSequence, isEnglish: boolean): string =
     return ariaLabels.conditionalOrder;
   } else if (displayState.isAfter('IssuedToBailiff')) {
     return ariaLabels.response;
-  } else if (displayState.isAfter('Submitted')) {
+  } else if (displayState.isAtOrAfter('AwaitingAos')) {
     return ariaLabels.courtChecks;
   }
   return ariaLabels.submitted;
