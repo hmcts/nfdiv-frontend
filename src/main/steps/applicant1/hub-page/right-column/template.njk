@@ -40,7 +40,7 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
    download={{conditionalOrderAnswersPdf.reference}}>{{conditionalOrderAnswersPdf.text}}</a></p>
 {% endif %}
 
-{% if hasConditionalOrderApplication %}
+{% if hasConditionalOrderApplication and shouldHaveAccessToCoApplication %}
   <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderApplicationDownload.link}}
    download={{conditionalOrderApplicationDownload.reference}}>{{conditionalOrderApplicationDownload.text}}</a></p>
 {% endif %}
@@ -50,7 +50,7 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
     download={{finalOrderGrantedDocumentDownload.reference}}>{{finalOrderGrantedDocumentDownload.text}}</a></p>
 {% endif %}
 
-{% if isAwaitingAmendedApplicationState %}
+{% if isAwaitingAmendedApplicationState and shouldHaveAccessToCoApplication %}
   <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderRefusalPdf.link}}
     download={{conditionalOrderRefusalPdf.reference}}>{{conditionalOrderRefusalPdf.text}}</a></p>
 {% endif %}
