@@ -81,7 +81,11 @@ export class StateRedirectMiddleware {
         }
 
         const finalOrderPayments = new PaymentModel(req.session.userCase.finalOrderPayments);
-        if (caseState === State.AwaitingFinalOrderPayment && req.session.isApplicant2 && finalOrderPayments.hasPayment) {
+        if (
+          caseState === State.AwaitingFinalOrderPayment &&
+          req.session.isApplicant2 &&
+          finalOrderPayments.hasPayment
+        ) {
           return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
         }
 
