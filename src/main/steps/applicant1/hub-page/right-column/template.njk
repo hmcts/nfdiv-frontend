@@ -35,7 +35,7 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
     download={{conditionalOrderGrantedDocumentDownload.reference}}>{{conditionalOrderGrantedDocumentDownload.text}}</a></p>
 {% endif %}
 
-{% if hasConditionalOrderAnswers %}
+{% if hasConditionalOrderAnswers and shouldHaveAccessToCoApplication %}
   <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderAnswersPdf.link}}
    download={{conditionalOrderAnswersPdf.reference}}>{{conditionalOrderAnswersPdf.text}}</a></p>
 {% endif %}
