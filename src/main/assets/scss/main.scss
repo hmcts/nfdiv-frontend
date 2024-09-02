@@ -58,7 +58,8 @@ section {
   width: 44px; }
 
 .hmcts-progress-bar__icon--complete {
-  background-color: #1D70B8;
+  background-color: govuk-colour('blue');
+  border: 4px solid govuk-colour('blue');
   background-image: url(/hmcts-assets/images/icon-progress-tick.svg);
   background-position: 50% 50%;
   background-repeat: no-repeat; }
