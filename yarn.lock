@@ -2515,12 +2515,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@promptbook/utils@npm:0.68.0":
-  version: 0.68.0
-  resolution: "@promptbook/utils@npm:0.68.0"
+"@promptbook/utils@npm:0.70.0-0":
+  version: 0.70.0-0
+  resolution: "@promptbook/utils@npm:0.70.0-0"
   dependencies:
     spacetrim: 0.11.39
-  checksum: e6591cf55c8612efcb6935a6b744337e402720f9f225c72c809af4f23671c33740d1935053a29421e478311ae7f67f91cfc57e3b94c8d3e461f9242a2c4ba4e2
+  checksum: 54ba12d2147fa0981b000f78354f88ca4766e8697dbd79c01671af7d46c1a8114e0b023fb952142edd3c5864eea09a3886341e6b99cafefa866ebd82cd2e83a2
   languageName: node
   linkType: hard
 
@@ -12033,13 +12033,13 @@ __metadata:
   linkType: hard
 
 "locate-app@npm:^2.1.0, locate-app@npm:^2.2.24":
-  version: 2.4.35
-  resolution: "locate-app@npm:2.4.35"
+  version: 2.4.36
+  resolution: "locate-app@npm:2.4.36"
   dependencies:
-    "@promptbook/utils": 0.68.0
+    "@promptbook/utils": 0.70.0-0
     type-fest: 2.13.0
     userhome: 1.0.0
-  checksum: a21afc2c197f74dede345dbce00634cbfb52fe150380b0a5d946f1e97ee175fb052a1d76756a22ecda2874a02591fc01312a4d96e14209e5c9df8dc9f8616980
+  checksum: 0232068187603ae46f2ecd1172adc84b6228296e4fdbaecf82b092f8d91e9db66283d7bb790f7103e3149258fd6bf2120c844dc25d37caff8134547b4632daf6
   languageName: node
   linkType: hard
 
@@ -13669,7 +13669,7 @@ __metadata:
     nunjucks: 3.2.4
     otplib: 12.0.1
     pa11y: 8.0.0
-    pdfjs-dist: 4.5.136
+    pdfjs-dist: 4.6.82
     prettier: 3.1.1
     redis: 4.7.0
     require-directory: 2.1.1
@@ -14786,9 +14786,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdfjs-dist@npm:4.5.136":
-  version: 4.5.136
-  resolution: "pdfjs-dist@npm:4.5.136"
+"pdfjs-dist@npm:4.6.82":
+  version: 4.6.82
+  resolution: "pdfjs-dist@npm:4.6.82"
   dependencies:
     canvas: ^2.11.2
     path2d: ^0.2.1
@@ -14797,7 +14797,7 @@ __metadata:
       optional: true
     path2d:
       optional: true
-  checksum: 328ca69be90d8ab0f319ff52310be07e6cd70489befb2524cba1cbee8cd2ddfa8c310fb896a1bc0de31ee36ce18cb54e25f7916e7b7ded812a32cd13bf1d9662
+  checksum: 556d90750c6293fe3400ef4aa80e55a8c52f5fc29c135c0a518aefc27b1f0ae77aa594e604eacaca9972335f40cad316a228395f417e8d30d110611b66eb48eb
   languageName: node
   linkType: hard
 
