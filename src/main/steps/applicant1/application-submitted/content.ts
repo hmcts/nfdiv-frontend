@@ -25,10 +25,7 @@ const en = (
   feedbackLink: string
 ) => ({
   title: 'Application submitted',
-  yourReferenceNumber: 'Your reference number is:',
-  confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
-    userCase.applicant1HelpWithFeesRefNo ? '' : ' and payment receipt'
-  } by email.`,
+  yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
   line1: 'Your application will not be processed until you have done the following:',
   subHeading2: 'Send your documents to the court',
@@ -157,10 +154,7 @@ const cy: typeof en = (
   feedbackLink: string
 ) => ({
   title: 'Cyflwynwyd y cais',
-  yourReferenceNumber: 'Eich cyfeirnod yw:',
-  confirmationEmail: `Mae cadarnhad${
-    userCase.applicant1HelpWithFeesRefNo ? '' : ' a derbynneb am y taliad'
-  } wedi’i anfon atoch chi${isJointApplication ? ' a’ch ' + partner : ''} drwy e-bost.`,
+  yourReferenceNumber: 'Eich cyfeirnod yw',
   subHeading1: 'Beth sydd angen i chi ei wneud nawr',
   line1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
   subHeading2: 'Anfon eich dogfennau i’r llys',

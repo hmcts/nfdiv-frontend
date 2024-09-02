@@ -48,7 +48,7 @@
       html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))
     },
     complete: displayState.isAfter('IssuedToBailiff') or isPendingHearingOutcomeCoPronounced or isPendingHearingOutcomeFoRequested,
-    active: true
+    active: displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding') and (not isGeneralConsiderationCoPronounced and not isGeneralConsiderationFoRequested and not isPendingHearingOutcomeCoPronounced and not isPendingHearingOutcomeFoRequested)
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
