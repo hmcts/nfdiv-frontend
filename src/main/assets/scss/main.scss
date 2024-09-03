@@ -81,7 +81,7 @@ section {
   width: 100%; }
 
 .hmcts-progress-bar__list::before {
-  border-top: 6px solid lightgray;
+  border-top: 4px solid govuk-colour('mid-grey');
   content: "";
   left: 30px;
   position: absolute;
