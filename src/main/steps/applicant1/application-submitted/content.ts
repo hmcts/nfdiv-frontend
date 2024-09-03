@@ -9,6 +9,7 @@ import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
+import { HUB_PAGE } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = (
@@ -115,7 +116,7 @@ const en = (
   },
   subHeading7: 'Visit your application hub',
   line17: {
-    part1: 'You can <a href="/" class="govuk-link">view the progress of your application</a> in the application hub.',
+    part1: `You can <a href=${HUB_PAGE} class="govuk-link">view the progress of your application</a> in the application hub.`,
   },
   webChat,
   sendUsAMessage: 'Send us a message',
@@ -244,7 +245,7 @@ const cy: typeof en = (
   },
   subHeading7: 'Ymweld â’ch gwasanaeth ceisiadau',
   line17: {
-    part1: 'Gallwch <a href="/" class="govuk-link">weld cynnydd eich cais</a> yn y gwasanaeth ceisiadau.',
+    part1: `Gallwch <a href=${HUB_PAGE} class="govuk-link">weld cynnydd eich cais</a> yn y gwasanaeth ceisiadau.`,
   },
   webChat,
   sendUsAMessage: 'Anfonwch neges atom ',
