@@ -62,7 +62,9 @@ section {
   border: 4px solid govuk-colour('blue');
   background-image: url(/hmcts-assets/images/icon-progress-tick.svg);
   background-position: 50% 50%;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  background-size: 23px;
+}
 
 .hmcts-progress-bar__list {
   font-size: 0;
