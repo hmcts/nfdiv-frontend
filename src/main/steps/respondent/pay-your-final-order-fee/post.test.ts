@@ -210,7 +210,7 @@ describe('PaymentPostController', () => {
       expect(req.session.save).toHaveBeenCalled();
       expect(mockCreatePaymentForServiceRequest).toHaveBeenCalledWith(
         dummyServiceRef,
-        applicant2FinalOrderFeeOrderSummary.Fees
+        applicant2FinalOrderFeeOrderSummary
       );
       expect(res.redirect).toHaveBeenCalledWith(paymentRedirectUrl);
     });

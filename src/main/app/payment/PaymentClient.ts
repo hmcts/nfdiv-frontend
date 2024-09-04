@@ -5,7 +5,7 @@ import config from 'config';
 import { SupportedLanguages } from '../../modules/i18n';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { getSystemUser } from '../auth/user/oidc';
-import { Fee, ListValue, OrderSummary } from '../case/definition';
+import { OrderSummary } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
 
 const logger = Logger.getLogger('payment');
@@ -25,29 +25,30 @@ export class PaymentClient {
         'return-url': returnUrl,
       },
     });
+    this.returnUrl = returnUrl;
   }
 
   public async getCasePaymentGroups(): Promise<PaymentGroup[]> {
-    const userCase = this.session.userCase;
+    const caseId = this.session.userCase.id.toString();
     const systemUser = await getSystemUser();
-    const caseId = userCase.id.toString();
-
-    const data = { Authorization: 'Bearer ' + systemUser.accessToken };
+    const requestHeaders = { headers: { Authorization: 'Bearer ' + systemUser.accessToken } };
 
     try {
       const casePaymentsResponse = await this.client.get<{ payment_groups: PaymentGroup[] }>(
         `/cases/${caseId}/paymentgroups`,
-        { headers: data }
+        requestHeaders
       );
       const paymentGroups: PaymentGroup[] = casePaymentsResponse.data?.payment_groups ?? [];
 
-      if (paymentGroups.length === 0) {
-        logger.info(`No payment groups returned by payments API for case ${caseId}`);
-      }
-
       return paymentGroups;
     } catch (e) {
-      const errMsg = `Error retrieving payment groups for ${caseId}`;
+      if (e.response.status === 404) {
+        logger.info(`No payment groups returned by F&P API for case ${caseId}`)
+
+        return [];
+      }
+
+      const errMsg = `Error fetching payment groups for ${caseId}`;
       logger.error(errMsg, e.data);
       throw new Error(errMsg);
     }
@@ -79,14 +80,15 @@ export class PaymentClient {
 
   public async createPaymentForServiceRequest(
     serviceRequestNumber: string,
-    feesFromOrderSummary: ListValue<Fee>[]
+    orderSummary: OrderSummary
   ): Promise<Payment> {
-    const total = feesFromOrderSummary.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
+    const total = orderSummary.Fees.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
 
     const body = {
       amount: total,
       currency: 'GBP',
       language: this.session.lang === SupportedLanguages.En ? 'English' : this.session.lang?.toUpperCase(),
+      'return-url': this.returnUrl
     };
 
     return this.sendPostRequest(`/service-request/${serviceRequestNumber}/card-payments`, body);
@@ -106,7 +108,7 @@ export class PaymentClient {
     try {
       const response = await this.client.post<Payment>(url, body);
 
-      if (!response.data || !response.data.next_url) {
+      if (!response.data || !(response.data.next_url || response.data._links?.next_url.href)) {
         throw response;
       }
       return response.data;

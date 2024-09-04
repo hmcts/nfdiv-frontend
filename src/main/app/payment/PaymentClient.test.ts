@@ -5,7 +5,7 @@ import { mockLogger } from '../../../test/unit/mocks/hmcts/nodejs-logging';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import * as oidc from '../auth/user/oidc';
-import { DivorceOrDissolution, Fee, ListValue, OrderSummary } from '../case/definition';
+import { DivorceOrDissolution, OrderSummary } from '../case/definition';
 
 import { PaymentClient } from './PaymentClient';
 
@@ -52,7 +52,7 @@ describe('PaymentClient', () => {
     });
 
     const client = new PaymentClient(req.session, 'http://return-url');
-    const actual = await client.createPaymentForServiceRequest(serviceRequestNumber, applicationFeeOrderSummary.Fees);
+    const actual = await client.createPaymentForServiceRequest(serviceRequestNumber, applicationFeeOrderSummary);
 
     expect(mockedAxios.create).toHaveBeenCalledWith({
       baseURL: 'http://mock-service-url',
@@ -67,6 +67,7 @@ describe('PaymentClient', () => {
       amount: 123.45,
       currency: 'GBP',
       language: 'English',
+      "return-url": "http://return-url"
     });
 
     expect(actual).toEqual({
@@ -147,30 +148,32 @@ describe('PaymentClient', () => {
     mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
     const mockPost = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data, but missing _links' } });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
-    const orderSummaryFees: ListValue<Fee>[] = [
-      {
-        id: '1',
-        value: {
-          FeeAmount: '12345',
-          FeeCode: 'mock code',
-          FeeVersion: 'mock version',
-          FeeDescription: 'mock description',
+    const applicationFeeOrderSummary: OrderSummary = {
+      Fees: [
+        {
+          id: '1',
+          value: {
+            FeeAmount: '12345',
+            FeeCode: 'mock code',
+            FeeVersion: 'mock version',
+            FeeDescription: 'mock description',
+          },
         },
-      },
-    ];
+      ],
+      PaymentReference: 'dummyRef',
+      PaymentTotal: '100',
+    };
     const req = mockRequest({
       userCase: {
         id: '1234',
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-        applicationFeeOrderSummary: {
-          Fees: orderSummaryFees,
-        },
+        applicationFeeOrderSummary
       },
     });
 
     const client = new PaymentClient(req.session, 'http://return-url');
 
-    await expect(() => client.createPaymentForServiceRequest(serviceRequestNumber, orderSummaryFees)).rejects.toThrow(
+    await expect(() => client.createPaymentForServiceRequest(serviceRequestNumber, applicationFeeOrderSummary)).rejects.toThrow(
       'Error creating payment'
     );
 

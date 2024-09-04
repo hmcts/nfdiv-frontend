@@ -81,7 +81,7 @@ export default abstract class BasePaymentPostController {
       payment = await client.createPaymentWithNewServiceRequest(this.getFeeDescription(req), orderSummary);
     } else {
       logger.info(`Reattempting payment with the same service request for ${caseId}.`);
-      payment = await client.createPaymentForServiceRequest(serviceRequestReference, orderSummary.Fees);
+      payment = await client.createPaymentForServiceRequest(serviceRequestReference, orderSummary);
     }
 
     const now = new Date().toISOString();
