@@ -31,7 +31,7 @@ export default abstract class BasePaymentCallbackGetController {
     const lastPaymentAttempt = payments.lastPayment;
     logger.info(lastPaymentAttempt);
 
-    const payment = await paymentClient.get(lastPaymentAttempt.reference);
+    const payment = await paymentClient.getPayment(lastPaymentAttempt.reference);
     if (!payment) {
       throw new Error('Could not retrieve payment status from payment service');
     }

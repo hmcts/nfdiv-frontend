@@ -2297,6 +2297,12 @@ export const enum PaymentStatus {
   ERROR = 'error',
 }
 
+export const enum ServiceRequestStatus {
+  PAID = 'Paid',
+  NOT_PAID = 'Not paid',
+  PARTIALLY_PAUD = 'Partially paid'
+}
+
 export const enum PbaErrorMessage {
   CAE0001 = 'CAE0001',
   CAE0003 = 'CAE0003',

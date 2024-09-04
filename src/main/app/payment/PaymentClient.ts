@@ -4,7 +4,8 @@ import config from 'config';
 
 import { SupportedLanguages } from '../../modules/i18n';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { Fee, ListValue } from '../case/definition';
+import { getSystemUser } from '../auth/user/oidc';
+import { Fee, ListValue, OrderSummary } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
 
 const logger = Logger.getLogger('payment');
@@ -21,61 +22,89 @@ export class PaymentClient {
       headers: {
         Authorization: 'Bearer ' + session.user.accessToken,
         ServiceAuthorization: getServiceAuthToken(),
+        'return-url': returnUrl,
       },
     });
-    this.returnUrl = returnUrl;
   }
 
-  public async createServiceRequest(
-    responsibleParty: string | undefined,
-    feesFromOrderSummary: ListValue<Fee>[]
-  ): Promise<Payment> {
+  public async getCasePaymentGroups(): Promise<PaymentGroup[]> {
     const userCase = this.session.userCase;
+    const systemUser = await getSystemUser();
     const caseId = userCase.id.toString();
-    const bodyServiceReq = {
-      call_back_url: this.returnUrl,
-      case_payment_request: {
-        action: 'payment',
-        responsible_party: responsibleParty,
-      },
-      case_reference: caseId,
-      ccd_case_number: caseId,
-      fees: feesFromOrderSummary.map(fee => ({
-        calculated_amount: `${parseInt(fee.value.FeeAmount, 10) / 100}`,
-        code: fee.value.FeeCode,
-        version: fee.value.FeeVersion,
-      })),
-      hmcts_org_id: 'ABA1',
-    };
+
+    const data = { Authorization: 'Bearer ' + systemUser.accessToken };
 
     try {
-      const serviceRequestResponse = await this.client.post<Payment>('/service-request', bodyServiceReq);
-      logger.info(serviceRequestResponse.data);
-      if (!serviceRequestResponse.data) {
-        throw serviceRequestResponse;
+      const casePaymentsResponse = await this.client.get<{ payment_groups: PaymentGroup[] }>(
+        `/cases/${caseId}/paymentgroups`,
+        { headers: data }
+      );
+      const paymentGroups: PaymentGroup[] = casePaymentsResponse.data?.payment_groups ?? [];
+
+      if (paymentGroups.length === 0) {
+        logger.info(`No payment groups returned by payments API for case ${caseId}`);
       }
-      return serviceRequestResponse.data;
+
+      return paymentGroups;
     } catch (e) {
-      const errMsg = 'Error creating service request number';
+      const errMsg = `Error retrieving payments for ${caseId}`;
       logger.error(errMsg, e.data);
       throw new Error(errMsg);
     }
   }
 
-  public async create(serviceRequestNumber: string, feesFromOrderSummary: ListValue<Fee>[]): Promise<Payment> {
+  public async createPaymentWithNewServiceRequest(
+    feeDescription: string,
+    orderSummary: OrderSummary
+  ): Promise<Payment> {
+    const userCase = this.session.userCase;
+    const total = orderSummary.Fees.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
+
+    const body = {
+      case_type: 'NFD',
+      amount: total,
+      ccd_case_number: userCase.id.toString(),
+      description: feeDescription,
+      currency: 'GBP',
+      fees: orderSummary.Fees.map(fee => ({
+        calculated_amount: `${parseInt(fee.value.FeeAmount, 10) / 100}`,
+        code: fee.value.FeeCode,
+        version: fee.value.FeeVersion,
+      })),
+      language: this.session.lang === SupportedLanguages.En ? '' : this.session.lang?.toUpperCase(),
+    };
+
+    return this.sendPostRequest('/card-payments', body);
+  }
+
+  public async createPaymentForServiceRequest(
+    serviceRequestNumber: string,
+    feesFromOrderSummary: ListValue<Fee>[]
+  ): Promise<Payment> {
     const total = feesFromOrderSummary.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
 
-    const bodyCardPay = {
+    const body = {
       amount: total,
       currency: 'GBP',
       language: this.session.lang === SupportedLanguages.En ? 'English' : this.session.lang?.toUpperCase(),
-      'return-url': this.returnUrl,
     };
+
+    return this.sendPostRequest(`/service-request/${serviceRequestNumber}/card-payments`, body);
+  }
+
+  public async getPayment(paymentReference: string): Promise<Payment | undefined> {
     try {
-      const response = await this.client.post<Payment>(
-        `/service-request/${serviceRequestNumber}/card-payments`,
-        bodyCardPay
-      );
+      const response = await this.client.get<Payment>(`/card-payments/${paymentReference}`);
+      return response.data;
+    } catch (e) {
+      const errMsg = 'Error fetching payment';
+      logger.error(errMsg, e.data);
+    }
+  }
+
+  private async sendPostRequest(url: string, body: Record<string, unknown>) {
+    try {
+      const response = await this.client.post<Payment>(url, body);
 
       if (!response.data || !response.data.next_url) {
         throw response;
@@ -85,16 +114,6 @@ export class PaymentClient {
       const errMsg = 'Error creating payment';
       logger.error(errMsg, e.data);
       throw new Error(errMsg);
-    }
-  }
-
-  public async get(paymentReference: string): Promise<Payment | undefined> {
-    try {
-      const response = await this.client.get<Payment>(`/card-payments/${paymentReference}`);
-      return response.data;
-    } catch (e) {
-      const errMsg = 'Error fetching payment';
-      logger.error(errMsg, e.data);
     }
   }
 }
@@ -132,6 +151,15 @@ export interface Payment {
   next_url: string;
 }
 
+export interface PaymentGroup {
+  date_created: string;
+  date_updated: string;
+  payment_group_reference: string;
+  service_request_status: string;
+  fees: FeeDto[];
+  payments: Payment[];
+}
+
 interface LinksDto {
   next_url: LinkDto;
   self: LinkDto;
@@ -162,6 +190,7 @@ export interface FeeDto {
   id: number;
   jurisdiction1: string;
   jurisdiction2: string;
+  payment_group_reference: string;
   memo_line: string;
   natural_account_code: string;
   net_amount: number;

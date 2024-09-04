@@ -8,15 +8,18 @@ import {
   ApplicationType,
   CITIZEN_ADD_PAYMENT,
   CaseData,
-  Fee,
-  ListValue,
+  OrderSummary,
   PaymentStatus,
+  ServiceRequestStatus,
   State,
 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 import { Payment, PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
+
+import { AppRequest } from './AppRequest';
+import { AnyObject } from './PostController';
 
 const logger = Logger.getLogger('payment');
 
@@ -36,13 +39,13 @@ export default abstract class BasePaymentPostController {
     }
 
     const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
-
     if (payments.isPaymentInProgress()) {
       return this.saveAndRedirect(req, res, getPaymentCallbackUrl(req));
     }
 
     const paymentClient = this.getPaymentClient(req, res);
-    const payment = await this.createServiceRefAndTakePayment(req, paymentClient, payments);
+
+    const payment = await this.createPayment(req, paymentClient, payments);
 
     this.saveAndRedirect(req, res, payment.next_url);
   }
@@ -65,54 +68,70 @@ export default abstract class BasePaymentPostController {
     return new PaymentClient(req.session, returnUrl);
   }
 
-  private async createServiceRefAndTakePayment(
+  private async createPayment(
     req: AppRequest<AnyObject>,
     client: PaymentClient,
     payments: PaymentModel
   ): Promise<Payment> {
-    const fee = this.getFeesFromOrderSummary(req)[0].value;
+    let payment;
+    const orderSummary = this.getOrderSummary(req);
+    const fee = orderSummary.Fees[0].value;
+    const serviceRequestReference = await this.findServiceRequestReference(fee.FeeCode, client);
+    const caseId = req.session.userCase.id.toString();
 
-    let serviceRefNumberForFee = payments.getServiceRefNumberForFee(fee.FeeCode);
-    if (!serviceRefNumberForFee) {
-      logger.info('Cannot find service reference number for fee code. creating one');
-      const serviceReqResponse = await client.createServiceRequest(
-        this.getResponsiblePartyName(req),
-        this.getFeesFromOrderSummary(req)
+    if (!serviceRequestReference) {
+      logger.info(
+        `Cannot find a service request reference for ${caseId}. Creating payment with a new service request.`
       );
-      serviceRefNumberForFee = serviceReqResponse.service_request_reference;
+      payment = await client.createPaymentWithNewServiceRequest(this.getFeeDescription(req), orderSummary);
+    } else {
+      logger.info(
+        `Payment has already been attempted for ${caseId}. Attempting payment again with the same service request reference.`
+      );
+      payment = await client.createPaymentForServiceRequest(serviceRequestReference, orderSummary.Fees);
     }
 
-    //Take payment for service request reference
-    const payment = await client.create(serviceRefNumberForFee, this.getFeesFromOrderSummary(req));
     const now = new Date().toISOString();
-
     payments.add({
       created: now,
       updated: now,
       feeCode: fee.FeeCode,
       amount: parseInt(fee.FeeAmount, 10),
       status: PaymentStatus.IN_PROGRESS,
-      channel: payment.next_url,
-      reference: payment.payment_reference,
       transactionId: payment.external_reference,
-      serviceRequestReference: serviceRefNumberForFee,
+      channel: payment.next_url || payment._links.next_url.href,
+      reference: payment.payment_reference || payment.reference,
+      serviceRequestReference: serviceRequestReference || payment.payment_group_reference,
     });
 
-    const eventPayload = { [this.paymentsCaseField()]: payments.list };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
-      eventPayload,
+      { [this.paymentsCaseField()]: payments.list },
       CITIZEN_ADD_PAYMENT
     );
 
     return payment;
   }
 
+  public async findServiceRequestReference(feeCode: string, client: PaymentClient): Promise<string | undefined> {
+    const paymentGroups = await client.getCasePaymentGroups();
+
+    const paymentGroupWithMatchingFee = paymentGroups.find(paymentGroup => {
+      return (
+        paymentGroup.fees.map(fee => fee.code).includes(feeCode) &&
+        paymentGroup.service_request_status !== ServiceRequestStatus.PAID
+      );
+    });
+
+    return paymentGroupWithMatchingFee?.payment_group_reference;
+  }
+
   protected abstract awaitingPaymentState(): State;
   protected abstract awaitingPaymentEvent(): string;
-  protected abstract getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[];
+  protected abstract getOrderSummary(req: AppRequest<AnyObject>): OrderSummary;
   protected abstract paymentsCaseField(): keyof CaseData;
   protected abstract getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined;
+  protected abstract getFeeDescription(req: AppRequest<AnyObject>): string;
 }
 
 export function getPaymentCallbackUrl(req: AppRequest): string {
