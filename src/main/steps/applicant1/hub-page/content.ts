@@ -357,6 +357,7 @@ export const generateContent: TranslationFn = content => {
   const referenceNumber = formattedCaseId(userCase.id);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
+  const shouldHaveAccessToCoApplication = content.isJointApplication || !content.isApplicant2;
   const applicationTranslations = content.isJointApplication
     ? jointGenerateContent(content)
     : soleGenerateContent(content);
@@ -370,6 +371,7 @@ export const generateContent: TranslationFn = content => {
     ...columnGenerateContent(content),
     ...applicationTranslations,
     isCoFieldsSet,
+    shouldHaveAccessToCoApplication,
     ...latestLegalAdvisorDecisionContent(userCase, true),
     ...progressBarContent,
   };
