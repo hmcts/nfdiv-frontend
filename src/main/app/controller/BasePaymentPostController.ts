@@ -112,9 +112,8 @@ export default abstract class BasePaymentPostController {
     const paymentGroups = await client.getCasePaymentGroups();
 
     const paymentGroupWithMatchingFee = paymentGroups.find(
-      paymentGroup =>
-        paymentGroup.fees.map(fee => fee.code).includes(feeCode) &&
-        paymentGroup.service_request_status !== ServiceRequestStatus.PAID
+      ({ fees, service_request_status }) =>
+        fees?.some(fee => fee.code === feeCode) && service_request_status !== ServiceRequestStatus.PAID
     );
 
     return paymentGroupWithMatchingFee?.payment_group_reference;

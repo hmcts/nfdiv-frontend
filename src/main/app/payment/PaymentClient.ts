@@ -34,16 +34,16 @@ export class PaymentClient {
     const requestHeaders = { headers: { Authorization: 'Bearer ' + systemUser.accessToken } };
 
     try {
-      const casePaymentsResponse = await this.client.get<{ payment_groups: PaymentGroup[] }>(
+      const casePaymentGroupsResponse = await this.client.get<{ payment_groups: PaymentGroup[] }>(
         `/cases/${caseId}/paymentgroups`,
         requestHeaders
       );
-      const paymentGroups: PaymentGroup[] = casePaymentsResponse.data?.payment_groups ?? [];
+      const paymentGroups: PaymentGroup[] = casePaymentGroupsResponse.data?.payment_groups ?? [];
 
       return paymentGroups;
     } catch (e) {
       if (e.response.status === 404) {
-        logger.info(`No payment groups returned by F&P API for case ${caseId}`)
+        logger.info(`No payment groups returned by F&P API for case ${caseId}`);
 
         return [];
       }
@@ -88,7 +88,7 @@ export class PaymentClient {
       amount: total,
       currency: 'GBP',
       language: this.session.lang === SupportedLanguages.En ? 'English' : this.session.lang?.toUpperCase(),
-      'return-url': this.returnUrl
+      'return-url': this.returnUrl,
     };
 
     return this.sendPostRequest(`/service-request/${serviceRequestNumber}/card-payments`, body);

@@ -67,7 +67,7 @@ describe('PaymentClient', () => {
       amount: 123.45,
       currency: 'GBP',
       language: 'English',
-      "return-url": "http://return-url"
+      'return-url': 'http://return-url',
     });
 
     expect(actual).toEqual({
@@ -167,15 +167,15 @@ describe('PaymentClient', () => {
       userCase: {
         id: '1234',
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-        applicationFeeOrderSummary
+        applicationFeeOrderSummary,
       },
     });
 
     const client = new PaymentClient(req.session, 'http://return-url');
 
-    await expect(() => client.createPaymentForServiceRequest(serviceRequestNumber, applicationFeeOrderSummary)).rejects.toThrow(
-      'Error creating payment'
-    );
+    await expect(() =>
+      client.createPaymentForServiceRequest(serviceRequestNumber, applicationFeeOrderSummary)
+    ).rejects.toThrow('Error creating payment');
 
     expect(mockLogger.error).toHaveBeenCalledWith('Error creating payment', {
       mockPayment: 'data, but missing _links',

@@ -2300,7 +2300,7 @@ export const enum PaymentStatus {
 export const enum ServiceRequestStatus {
   PAID = 'Paid',
   NOT_PAID = 'Not paid',
-  PARTIALLY_PAUD = 'Partially paid'
+  PARTIALLY_PAID = 'Partially paid'
 }
 
 export const enum PbaErrorMessage {
