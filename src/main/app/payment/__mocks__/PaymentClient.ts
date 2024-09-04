@@ -1,6 +1,12 @@
-export const mockCreate = jest.fn();
-export const mockCreateServiceRequest = jest.fn();
-export const mockGet = jest.fn();
+export const mockCreatePaymentWithNewServiceRequest = jest.fn();
+export const mockCreatePaymentForServiceRequest = jest.fn();
+export const mockGetPayment = jest.fn();
+export const mockGetCasePaymentGroups = jest.fn();
 export const PaymentClient = jest.fn().mockImplementation(() => {
-  return { createServiceRequest: mockCreateServiceRequest, create: mockCreate, get: mockGet };
+  return {
+    createPaymentWithNewServiceRequest: mockCreatePaymentWithNewServiceRequest,
+    createPaymentForServiceRequest: mockCreatePaymentForServiceRequest,
+    getCasePaymentGroups: mockGetCasePaymentGroups,
+    getPayment: mockGetPayment
+  };
 });

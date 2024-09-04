@@ -47,7 +47,7 @@ export class PaymentClient {
 
       return paymentGroups;
     } catch (e) {
-      const errMsg = `Error retrieving payments for ${caseId}`;
+      const errMsg = `Error retrieving payment groups for ${caseId}`;
       logger.error(errMsg, e.data);
       throw new Error(errMsg);
     }

@@ -15,7 +15,7 @@ import {
 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
-import { Payment, PaymentClient } from '../payment/PaymentClient';
+import { PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 
 import { AppRequest } from './AppRequest';
@@ -44,10 +44,9 @@ export default abstract class BasePaymentPostController {
     }
 
     const paymentClient = this.getPaymentClient(req, res);
+    const redirectUrl = await this.takePayment(req, paymentClient, payments);
 
-    const payment = await this.createPayment(req, paymentClient, payments);
-
-    this.saveAndRedirect(req, res, payment.next_url);
+    this.saveAndRedirect(req, res, redirectUrl);
   }
 
   private saveAndRedirect(req: AppRequest, res: Response, url: string) {
@@ -68,16 +67,16 @@ export default abstract class BasePaymentPostController {
     return new PaymentClient(req.session, returnUrl);
   }
 
-  private async createPayment(
+  private async takePayment(
     req: AppRequest<AnyObject>,
     client: PaymentClient,
     payments: PaymentModel
-  ): Promise<Payment> {
+  ): Promise<string> {
     let payment;
     const orderSummary = this.getOrderSummary(req);
     const fee = orderSummary.Fees[0].value;
     const serviceRequestReference = await this.findServiceRequestReference(fee.FeeCode, client);
-    const caseId = req.session.userCase.id.toString();
+    const caseId = req.session.userCase.id?.toString();
 
     if (!serviceRequestReference) {
       logger.info(
@@ -92,6 +91,7 @@ export default abstract class BasePaymentPostController {
     }
 
     const now = new Date().toISOString();
+    const redirectUrl = payment.next_url ?? payment._links.next_url.href;
     payments.add({
       created: now,
       updated: now,
@@ -99,9 +99,9 @@ export default abstract class BasePaymentPostController {
       amount: parseInt(fee.FeeAmount, 10),
       status: PaymentStatus.IN_PROGRESS,
       transactionId: payment.external_reference,
-      channel: payment.next_url || payment._links.next_url.href,
-      reference: payment.payment_reference || payment.reference,
-      serviceRequestReference: serviceRequestReference || payment.payment_group_reference,
+      channel: redirectUrl,
+      reference: payment.payment_reference ?? payment.reference,
+      serviceRequestReference: serviceRequestReference ?? payment.payment_group_reference,
     });
 
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
@@ -110,7 +110,7 @@ export default abstract class BasePaymentPostController {
       CITIZEN_ADD_PAYMENT
     );
 
-    return payment;
+    return redirectUrl;
   }
 
   public async findServiceRequestReference(feeCode: string, client: PaymentClient): Promise<string | undefined> {
