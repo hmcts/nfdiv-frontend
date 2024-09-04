@@ -27,7 +27,7 @@ export default class FinalOrderPaymentPostController extends BasePaymentPostCont
     return req.session.userCase.applicant2FullNameOnCertificate;
   }
 
-  protected getFeeDescription(req: AppRequest<AnyObject>): string {
+  protected getFeeDescription(): string {
     return 'Final Order application fee';
   }
 }
