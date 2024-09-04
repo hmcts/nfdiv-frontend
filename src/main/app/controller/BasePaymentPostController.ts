@@ -18,9 +18,6 @@ import { AnyObject } from '../controller/PostController';
 import { PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 
-import { AppRequest } from './AppRequest';
-import { AnyObject } from './PostController';
-
 const logger = Logger.getLogger('payment');
 
 @autobind
@@ -44,9 +41,10 @@ export default abstract class BasePaymentPostController {
     }
 
     const paymentClient = this.getPaymentClient(req, res);
-    const redirectUrl = await this.takePayment(req, paymentClient, payments);
 
-    this.saveAndRedirect(req, res, redirectUrl);
+    const paymentRedirectUrl = await this.takePayment(req, paymentClient, payments);
+
+    this.saveAndRedirect(req, res, paymentRedirectUrl);
   }
 
   private saveAndRedirect(req: AppRequest, res: Response, url: string) {
@@ -79,14 +77,10 @@ export default abstract class BasePaymentPostController {
     const caseId = req.session.userCase.id?.toString();
 
     if (!serviceRequestReference) {
-      logger.info(
-        `Cannot find a service request reference for ${caseId}. Creating payment with a new service request.`
-      );
+      logger.info(`Creating payment with a new service request for ${caseId}.`);
       payment = await client.createPaymentWithNewServiceRequest(this.getFeeDescription(req), orderSummary);
     } else {
-      logger.info(
-        `Payment has already been attempted for ${caseId}. Attempting payment again with the same service request reference.`
-      );
+      logger.info(`Reattempting payment with the same service request for ${caseId}.`);
       payment = await client.createPaymentForServiceRequest(serviceRequestReference, orderSummary.Fees);
     }
 
@@ -104,9 +98,10 @@ export default abstract class BasePaymentPostController {
       serviceRequestReference: serviceRequestReference ?? payment.payment_group_reference,
     });
 
+    const eventPayload = { [this.paymentsCaseField()]: payments.list };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
-      { [this.paymentsCaseField()]: payments.list },
+      eventPayload,
       CITIZEN_ADD_PAYMENT
     );
 
@@ -116,12 +111,10 @@ export default abstract class BasePaymentPostController {
   public async findServiceRequestReference(feeCode: string, client: PaymentClient): Promise<string | undefined> {
     const paymentGroups = await client.getCasePaymentGroups();
 
-    const paymentGroupWithMatchingFee = paymentGroups.find(paymentGroup => {
-      return (
-        paymentGroup.fees.map(fee => fee.code).includes(feeCode) &&
+    const paymentGroupWithMatchingFee = paymentGroups.find(paymentGroup => 
+      paymentGroup.fees.map(fee => fee.code).includes(feeCode) &&
         paymentGroup.service_request_status !== ServiceRequestStatus.PAID
-      );
-    });
+    );
 
     return paymentGroupWithMatchingFee?.payment_group_reference;
   }
