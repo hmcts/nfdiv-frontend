@@ -11,7 +11,7 @@ const {
   mockCreatePaymentWithNewServiceRequest,
   mockCreatePaymentForServiceRequest,
   mockGetCasePaymentGroups,
-  mockGetPayment
+  mockGetPayment,
 } = require('../../../app/payment/PaymentClient');
 
 describe('PaymentPostController', () => {
@@ -194,7 +194,7 @@ describe('PaymentPostController', () => {
 
       const paymentGroupWithMatchingFee = {
         payment_group_reference: dummyServiceRef,
-        fees: [ { code: dummyFeeCode } ]
+        fees: [{ code: dummyFeeCode }],
       };
       (mockGetCasePaymentGroups as jest.Mock).mockReturnValueOnce([paymentGroupWithMatchingFee]);
 
@@ -211,5 +211,5 @@ describe('PaymentPostController', () => {
       expect(mockCreatePaymentForServiceRequest).toHaveBeenCalledWith(dummyServiceRef, applicationFeeOrderSummary.Fees);
       expect(res.redirect).toHaveBeenCalledWith(paymentRedirectUrl);
     });
-  })
+  });
 });

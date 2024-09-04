@@ -111,8 +111,9 @@ export default abstract class BasePaymentPostController {
   public async findServiceRequestReference(feeCode: string, client: PaymentClient): Promise<string | undefined> {
     const paymentGroups = await client.getCasePaymentGroups();
 
-    const paymentGroupWithMatchingFee = paymentGroups.find(paymentGroup => 
-      paymentGroup.fees.map(fee => fee.code).includes(feeCode) &&
+    const paymentGroupWithMatchingFee = paymentGroups.find(
+      paymentGroup =>
+        paymentGroup.fees.map(fee => fee.code).includes(feeCode) &&
         paymentGroup.service_request_status !== ServiceRequestStatus.PAID
     );
 

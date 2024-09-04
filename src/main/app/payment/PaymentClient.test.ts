@@ -1,10 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
 import config from 'config';
-import * as oidc from '../auth/user/oidc';
 
 import { mockLogger } from '../../../test/unit/mocks/hmcts/nodejs-logging';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import * as oidc from '../auth/user/oidc';
 import { DivorceOrDissolution, Fee, ListValue, OrderSummary } from '../case/definition';
 
 import { PaymentClient } from './PaymentClient';
@@ -41,13 +41,13 @@ describe('PaymentClient', () => {
         },
       ],
       PaymentReference: 'dummyRef',
-      PaymentTotal: '100'
+      PaymentTotal: '100',
     };
     const req = mockRequest({
       userCase: {
         id: '1234',
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-        applicationFeeOrderSummary: applicationFeeOrderSummary,
+        applicationFeeOrderSummary,
       },
     });
 
@@ -59,14 +59,14 @@ describe('PaymentClient', () => {
       headers: {
         Authorization: 'Bearer mock-user-access-token',
         ServiceAuthorization: 'mock-server-auth-token',
-        'return-url': "http://return-url"
+        'return-url': 'http://return-url',
       },
     });
 
     expect(mockPost).toHaveBeenCalledWith(`/service-request/${serviceRequestNumber}/card-payments`, {
       amount: 123.45,
       currency: 'GBP',
-      language: 'English'
+      language: 'English',
     });
 
     expect(actual).toEqual({
@@ -97,13 +97,13 @@ describe('PaymentClient', () => {
         },
       ],
       PaymentReference: 'dummyRef',
-      PaymentTotal: '100'
+      PaymentTotal: '100',
     };
     const req = mockRequest({
       userCase: {
         id: '1234',
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-        applicationFeeOrderSummary: applicationFeeOrderSummary,
+        applicationFeeOrderSummary,
       },
     });
 
@@ -115,22 +115,23 @@ describe('PaymentClient', () => {
       headers: {
         Authorization: 'Bearer mock-user-access-token',
         ServiceAuthorization: 'mock-server-auth-token',
-        'return-url': "http://return-url"
+        'return-url': 'http://return-url',
       },
     });
 
-    expect(mockPost).toHaveBeenCalledWith(`/card-payments`, {
+    expect(mockPost).toHaveBeenCalledWith('/card-payments', {
       amount: 123.45,
-      case_type: "NFD",
-      ccd_case_number: "1234",
-      currency: "GBP",
-      language: "",
-      description: "test123",
-      fees: [{
-          calculated_amount: "123.45",
-          code: "mock code",
-          version: "mock version",
-        }
+      case_type: 'NFD',
+      ccd_case_number: '1234',
+      currency: 'GBP',
+      language: '',
+      description: 'test123',
+      fees: [
+        {
+          calculated_amount: '123.45',
+          code: 'mock code',
+          version: 'mock version',
+        },
       ],
     });
 
@@ -213,10 +214,9 @@ describe('PaymentClient', () => {
 
     const actual = await client.getCasePaymentGroups();
 
-    expect(mockGet).toHaveBeenCalledWith(
-      `/cases/1234/paymentgroups`,
-      { headers: { Authorization: 'Bearer ' + systemUserAccessToken }}
-    );
+    expect(mockGet).toHaveBeenCalledWith('/cases/1234/paymentgroups', {
+      headers: { Authorization: 'Bearer ' + systemUserAccessToken },
+    });
 
     expect(actual).toEqual([]);
   });

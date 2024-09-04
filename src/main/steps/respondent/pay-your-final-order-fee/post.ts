@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 
-import { CaseData, Fee, ListValue, OrderSummary, RESPONDENT_APPLY_FOR_FINAL_ORDER, State } from '../../../app/case/definition';
+import { CaseData, OrderSummary, RESPONDENT_APPLY_FOR_FINAL_ORDER, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../app/controller/PostController';
@@ -28,6 +28,6 @@ export default class FinalOrderPaymentPostController extends BasePaymentPostCont
   }
 
   protected getFeeDescription(req: AppRequest<AnyObject>): string {
-    return `Final Order application fee`;
+    return 'Final Order application fee';
   }
 }
