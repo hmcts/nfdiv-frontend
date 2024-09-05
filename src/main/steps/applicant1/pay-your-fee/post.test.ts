@@ -25,7 +25,7 @@ describe('PaymentPostController', () => {
   });
 
   describe('Payment attempted for the first time', () => {
-    it('takes payment and creates new service reference', async () => {
+    it('takes payment with new service request', async () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingPayment,
@@ -81,7 +81,7 @@ describe('PaymentPostController', () => {
 
       await paymentController.post(req, res);
       expect(req.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/payment-callback');
+      expect(res.redirect).toHaveBeenCalledWith(PAYMENT_CALLBACK_URL);
     });
 
     it('transitions the case to awaiting payment if the state is draft', async () => {
@@ -109,37 +109,6 @@ describe('PaymentPostController', () => {
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SUBMIT);
     });
 
-    it('redirects to the check your answers page if last payment is in progress', async () => {
-      const req = mockRequest({
-        userCase: {
-          state: State.AwaitingPayment,
-          applicationPayments: [
-            {
-              id: 'mock external reference payment id',
-              value: {
-                amount: 123,
-                channel: 'HMCTS Pay',
-                create: '1999-12-31T20:00:01.123',
-                feeCode: 'mock fee code',
-                reference: 'mock ref',
-                siteId: 'AA00',
-                status: 'inProgress',
-                transactionId: 'mock external reference payment id',
-              },
-            },
-          ],
-        },
-      });
-      const res = mockResponse();
-
-      await paymentController.post(req, res);
-
-      expect(mockCreatePaymentWithNewServiceRequest).not.toHaveBeenCalled();
-      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-      expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(PAYMENT_CALLBACK_URL);
-    });
-
     it('saves and signs out', async () => {
       const req = mockRequest();
       req.body['saveAndSignOut'] = true;
@@ -162,7 +131,7 @@ describe('PaymentPostController', () => {
   });
 
   describe('Payment was attempted previously', () => {
-    it('creates new payment with the same service request reference', async () => {
+    it('finds payment group and creates payment for the same service request', async () => {
       const applicationFeeOrderSummary = {
         Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
       };

@@ -13,13 +13,12 @@ import PaymentCallbackGetController from './get';
 
 jest.mock('../../../app/payment/PaymentClient');
 
-const { mockCreatePaymentWithNewServiceRequest, mockGetPayment } = require('../../../app/payment/PaymentClient');
+const { mockGetPayment } = require('../../../app/payment/PaymentClient');
 
 describe('PaymentCallbackGetController', () => {
   const paymentController = new PaymentCallbackGetController();
 
   beforeEach(() => {
-    mockCreatePaymentWithNewServiceRequest.mockClear();
     mockGetPayment.mockClear();
   });
 

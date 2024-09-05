@@ -19,7 +19,7 @@ const mockGetServiceAuthToken = getServiceAuthToken as jest.Mocked<jest.Mock>;
 const serviceRequestNumber = 'test123';
 
 describe('PaymentClient', () => {
-  it('creates payment for existing service reference', async () => {
+  it('creates payments for existing service requests', async () => {
     mockedConfig.get.mockReturnValueOnce('http://mock-service-url');
     mockedConfig.get.mockReturnValueOnce('mock-api-key');
     mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
@@ -76,7 +76,7 @@ describe('PaymentClient', () => {
     });
   });
 
-  it('creates payment for new service reference', async () => {
+  it('creates payments with new service requests', async () => {
     mockedConfig.get.mockReturnValueOnce('http://mock-service-url');
     mockedConfig.get.mockReturnValueOnce('mock-api-key');
     mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
