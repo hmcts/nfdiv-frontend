@@ -4,7 +4,7 @@ import config from 'config';
 import { mockLogger } from '../../../test/unit/mocks/hmcts/nodejs-logging';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { DivorceOrDissolution } from '../case/definition';
+import { DivorceOrDissolution, Fee, ListValue } from '../case/definition';
 
 import { PaymentClient } from './PaymentClient';
 
@@ -26,18 +26,30 @@ describe('PaymentClient', () => {
       data: { mockPayment: 'data', next_url: 'http://example.com/pay' },
     });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
+
+    const orderSummaryFees: ListValue<Fee>[] = [
+      {
+        id: '1',
+        value: {
+          FeeAmount: '12345',
+          FeeCode: 'mock code',
+          FeeVersion: 'mock version',
+          FeeDescription: 'mock description',
+        },
+      },
+    ];
     const req = mockRequest({
       userCase: {
         id: '1234',
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
         applicationFeeOrderSummary: {
-          Fees: [{ value: { FeeAmount: 12345, FeeCode: 'mock fee code', FeeVersion: 'mock fee version' } }],
+          Fees: orderSummaryFees,
         },
       },
     });
 
     const client = new PaymentClient(req.session, 'http://return-url');
-    const actual = await client.create(serviceRequestNumber);
+    const actual = await client.create(serviceRequestNumber, orderSummaryFees);
 
     expect(mockedAxios.create).toHaveBeenCalledWith({
       baseURL: 'http://mock-service-url',
@@ -66,19 +78,30 @@ describe('PaymentClient', () => {
     mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
     const mockPost = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data, but missing _links' } });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
+    const orderSummaryFees: ListValue<Fee>[] = [
+      {
+        id: '1',
+        value: {
+          FeeAmount: '12345',
+          FeeCode: 'mock code',
+          FeeVersion: 'mock version',
+          FeeDescription: 'mock description',
+        },
+      },
+    ];
     const req = mockRequest({
       userCase: {
         id: '1234',
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
         applicationFeeOrderSummary: {
-          Fees: [{ value: { FeeAmount: 12345, FeeCode: 'mock fee code', FeeVersion: 'mock fee version' } }],
+          Fees: orderSummaryFees,
         },
       },
     });
 
     const client = new PaymentClient(req.session, 'http://return-url');
 
-    await expect(() => client.create(serviceRequestNumber)).rejects.toThrow('Error creating payment');
+    await expect(() => client.create(serviceRequestNumber, orderSummaryFees)).rejects.toThrow('Error creating payment');
 
     expect(mockLogger.error).toHaveBeenCalledWith('Error creating payment', {
       mockPayment: 'data, but missing _links',
@@ -119,32 +142,43 @@ describe('PaymentClient', () => {
       data: { mockPayment: 'data', service_request_reference: 'test1234' },
     });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
+    const orderSummaryFees: ListValue<Fee>[] = [
+      {
+        id: '1',
+        value: {
+          FeeAmount: '12345',
+          FeeCode: 'mock code',
+          FeeVersion: 'mock version',
+          FeeDescription: 'mock description',
+        },
+      },
+    ];
     const req = mockRequest({
       userCase: {
         id: '1234',
         applicant1FullNameOnCertificate: 'User 1',
         applicationFeeOrderSummary: {
-          Fees: [{ value: { FeeAmount: 12345, FeeCode: 'mock fee code', FeeVersion: 'mock fee version' } }],
+          Fees: orderSummaryFees,
         },
       },
     });
 
     const client = new PaymentClient(req.session, 'http://return-url');
-    const actual = await client.createServiceRequest();
+    const actual = await client.createServiceRequest('mock applicant', orderSummaryFees);
 
     expect(mockPost).toHaveBeenCalledWith('/service-request', {
       call_back_url: 'http://return-url',
       case_payment_request: {
         action: 'payment',
-        responsible_party: 'User 1',
+        responsible_party: 'mock applicant',
       },
       case_reference: '1234',
       ccd_case_number: '1234',
       fees: [
         {
           calculated_amount: '123.45',
-          code: 'mock fee code',
-          version: 'mock fee version',
+          code: 'mock code',
+          version: 'mock version',
         },
       ],
       hmcts_org_id: 'ABA1',

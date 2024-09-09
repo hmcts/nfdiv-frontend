@@ -37,6 +37,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2HelpPayingNeeded: 'applicant2HWFNeedHelp',
   applicant2AlreadyAppliedForHelpPaying: 'applicant2HWFAppliedForFees',
   applicant2HelpWithFeesRefNo: 'applicant2HWFReferenceNumber',
+  applicant2FoHelpPayingNeeded: 'applicant2FoHWFNeedHelp',
+  applicant2FoAlreadyAppliedForHelpPaying: 'applicant2FoHWFAppliedForFees',
+  applicant2FoHelpWithFeesRefNo: 'applicant2FoHWFReferenceNumber',
   inTheUk: 'marriageMarriedInUk',
   certificateInEnglish: 'marriageCertificateInEnglish',
   certifiedTranslation: 'marriageCertifiedTranslation',
@@ -107,7 +110,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1SolicitorAddressOverseas: 'applicant1SolicitorAddressOverseas',
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
-  payments: 'applicationPayments',
+  applicant2FinalOrderFeeOrderSummary: 'applicant2FinalOrderFeeOrderSummary',
+  applicationPayments: 'applicationPayments',
+  finalOrderPayments: 'finalOrderPayments',
   confirmDisputeApplication: 'confirmDisputeApplication',
   jurisdictionAgree: 'jurisdictionAgree',
   intendToDelay: 'intendToDelay',
@@ -204,6 +209,9 @@ export interface Case {
   applicant2HelpPayingNeeded?: YesOrNo;
   applicant2AlreadyAppliedForHelpPaying?: YesOrNo;
   applicant2HelpWithFeesRefNo?: string;
+  applicant2FoHelpPayingNeeded?: YesOrNo;
+  applicant2FoAlreadyAppliedForHelpPaying?: YesOrNo;
+  applicant2FoHelpWithFeesRefNo?: string;
   inTheUk?: YesOrNo;
   certificateInEnglish?: YesOrNo;
   certifiedTranslation?: YesOrNo;
@@ -305,8 +313,10 @@ export interface Case {
   caseReference?: string;
   respondentUserId?: string;
   dateSubmitted?: DateAsString;
-  payments: ListValue<Payment>[];
+  applicationPayments: ListValue<Payment>[];
+  finalOrderPayments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
+  applicant2FinalOrderFeeOrderSummary: OrderSummary;
   applicant2Confirmation: YesOrNo;
   applicant2Explanation: string;
   applicant1PcqId?: string;
