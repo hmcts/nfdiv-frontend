@@ -1,1 +1,1 @@
-export const CASE_TYPE: string = 'NFD-3926';
+export const CASE_TYPE: string = process.env.CASE_TYPE || 'NFD';
