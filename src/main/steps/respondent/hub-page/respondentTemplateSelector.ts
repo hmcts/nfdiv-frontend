@@ -24,9 +24,8 @@ export const getRespondentHubTemplate = (
     case State.AwaitingLegalAdvisorReferral:
     case State.LAReview:
     case State.AwaitingPronouncement:
-      return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.AwaitingAmendedApplication:
-      return HubTemplate.AwaitingAmendedApplication;
+      return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.FinalOrderComplete:
       return HubTemplate.FinalOrderComplete;
     case State.AwaitingGeneralConsideration:
