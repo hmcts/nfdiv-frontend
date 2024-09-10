@@ -80,14 +80,14 @@ const en = (
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
-  line9: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${telephoneNumber}.`,
+  line9: `If you want the court to serve (send) the application by post instead of by email, then phone ${telephoneNumber}.`,
   line10: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
     isDivorce ? 'the divorce' : 'ending the civil partnership'
   }.`,
   line11: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
   subHeading5: 'Dividing your money and property',
   line12: {
-    part1: `It’s usually more straightforward and less expensive if you agree with your ${partner} on how to divide your money and property.`,
+    part1: `It’s usually easier and less expensive if you agree with your ${partner} on how to divide your money and property.`,
     part2: 'Get help agreeing.',
     link: config.get('govukUrls.mediation'),
   },
@@ -110,8 +110,8 @@ const en = (
   subHeading6: 'If you need help',
   line16: {
     part1:
-      'Court staff can give you help with your application. They cannot give you legal advice. You should speak to a ',
-    linkText: 'solicitor or legal adviser',
+      'Court staff can give you help with your application. They cannot give you legal advice. If you need legal advice, you should speak to a ',
+    linkText: 'solicitor or legal advisor',
     link: config.get('govukUrls.legalAdvisor'),
   },
   subHeading7: 'Visit your application hub',
@@ -135,9 +135,10 @@ const en = (
   feedback: "We'd like to hear your thoughts",
   feedbackLine1: 'Complete this short, 5-minute survey to help improve our services for you and others.',
   feedbackLine2: {
-    part1: 'Please leave your feedback here',
+    part1: 'Leave your feedback',
     link: feedbackLink,
   },
+  useOurOnlineForm: 'Use our online form',
 });
 
 // @TODO Welsh
@@ -217,8 +218,8 @@ const cy: typeof en = (
   line11: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a drwy’r post, ar ôl i’r cais gael ei wirio.`,
   subHeading5: 'Rhannu eich arian a’ch eiddo',
   line12: {
-    part1: `Fel arfer, mae’n symlach ac yn costio llai os ydych yn cytuno gyda’ch ${partner} ynghylch sut i rannu eich arian a’ch eiddo.`,
-    part2: 'Cael cymorth i gytuno ar faterion.',
+    part1: `Fel arfer, mae’n symlach ac yn costio llai os ydych yn cytuno gyda’ch ${partner} ar sut i rannu eich arian a’ch eiddo.`,
+    part2: 'Cael cymorth i gytuno.',
     link: config.get('govukUrls.mediation'),
   },
   line13: {
@@ -239,7 +240,8 @@ const cy: typeof en = (
   },
   subHeading6: 'Os oes arnoch angen cymorth',
   line16: {
-    part1: 'Gall staff y llys eich helpu gyda’ch cais. Ni allant roi cyngor cyfreithiol i chi. Dylech siarad â ',
+    part1:
+      'Gall staff y llys eich helpu gyda’ch cais. Ni allant roi cyngor cyfreithiol i chi. Os oes angen cyngor cyfreithiol arnoch, dylech siarad â ',
     linkText: 'chyfreithiwr neu gynghorydd cyfreithiol',
     link: config.get('govukUrls.legalAdvisor'),
   },
@@ -248,6 +250,7 @@ const cy: typeof en = (
     part1: `Gallwch <a href=${HUB_PAGE} class="govuk-link">weld cynnydd eich cais</a> yn y gwasanaeth ceisiadau.`,
   },
   webChat,
+  useOurOnlineForm: 'Defnyddio ein ffurflen ar-lein',
   sendUsAMessage: 'Anfonwch neges atom ',
   telephone: 'Ffoniwch',
   telephoneNumber: `Rhif ffôn: ${telephoneNumber}`,
@@ -264,7 +267,7 @@ const cy: typeof en = (
   feedback: "Helpwch ni i wella'r gwasanaeth hwn",
   feedbackLine1: 'Complete this short, 5-minute survey to help improve our services for you and others.',
   feedbackLine2: {
-    part1: 'Mae hwn yn wasanaeth newydd.',
+    part1: 'Rhoi adborth.',
     link: feedbackLink,
   },
 });
