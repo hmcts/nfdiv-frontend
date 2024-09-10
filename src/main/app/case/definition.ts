@@ -706,7 +706,9 @@ export interface CaseData {
   switchedToSoleCo: YesOrNo;
   applicant2InviteEmailAddress: string;
   accessCode: string;
+  accessCodeApplicant1: string;
   applicant2UserId: string;
+  applicant1UserId: string;
   confirmReadPetition: YesOrNo;
   confirmDisputeApplication: YesOrNo;
   applicantNotifiedDisputeFormOverdue: YesOrNo;
@@ -1017,7 +1019,7 @@ export interface CaseInvite {
 
 export interface CaseInviteApp1 {
   applicant1InviteEmailAddress: string;
-  accessCode: string;
+  accessCodeApplicant1: string;
   applicant1UserId: string;
 }
 

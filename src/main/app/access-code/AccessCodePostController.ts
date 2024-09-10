@@ -8,7 +8,7 @@ import {
   HUB_PAGE,
   RESPONDENT,
   SIGN_OUT_URL,
-  YOU_NEED_TO_REVIEW_YOUR_APPLICATION
+  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/case-api';
@@ -16,7 +16,7 @@ import {
   ApplicationType,
   SYSTEM_LINK_APPLICANT_1,
   SYSTEM_LINK_APPLICANT_2,
-  SYSTEM_UNLINK_APPLICANT
+  SYSTEM_UNLINK_APPLICANT,
 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
@@ -37,8 +37,6 @@ export class AccessCodePostController {
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    formData.respondentUserId = req.session.user.id;
-
     //ToDo: confirm setting the first and last names from session is
     //how it should work, we were doing this on joint application previously
     //but oddly not on respondent
@@ -46,10 +44,12 @@ export class AccessCodePostController {
       formData.applicant2Email = req.session.user.email;
       formData.applicant2FirstNames = req.session.user.givenName;
       formData.applicant2LastNames = req.session.user.familyName;
+      formData.respondentUserId = req.session.user.id;
     } else {
       formData.applicant1Email = req.session.user.email;
       formData.applicant1FirstNames = req.session.user.givenName;
       formData.applicant1LastNames = req.session.user.familyName;
+      formData.applicant1UserId = req.session.user.id;
     }
     req.session.errors = form.getErrors(formData);
     const caseReference = formData.caseReference?.replace(/-/g, '');
@@ -68,7 +68,7 @@ export class AccessCodePostController {
         req.locals.logger.info(
           `UserId: "${req.session.user.id}" - Invalid access code for case id: "${caseReference}" (form), ${
             caseData.id
-          } (retrieved) with ${caseData.accessCode ? '' : 'un'}defined retrieved access code ${caseData.accessCode} : ${
+          } (retrieved) with ${expectedAccessCode ? '' : 'un'}defined retrieved access code ${expectedAccessCode} : ${
             formData.accessCode
           } : ${formattedAccessCode}`
         );
@@ -89,9 +89,7 @@ export class AccessCodePostController {
           req.session.isApplicant2 = true;
         }
       } catch (err) {
-        req.locals.logger.error(
-          `Error linking applicant/respondent to case ${caseReference}, ${err}`
-        );
+        req.locals.logger.error(`Error linking applicant/respondent to case ${caseReference}, ${err}`);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
       }
     }
