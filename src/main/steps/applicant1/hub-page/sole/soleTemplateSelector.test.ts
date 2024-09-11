@@ -344,4 +344,10 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
+
+  test('should show /information-requested.njk for state InformationRequested', () => {
+    const theState = displayState.at(State.InformationRequested);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.InformationRequested);
+  });
 });
