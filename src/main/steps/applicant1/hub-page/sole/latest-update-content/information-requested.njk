@@ -1,0 +1,15 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+<p class="govuk-body">{{ informationRequested.line1 }}</p>
+<p class="govuk-body">{{ informationRequested.line2 }}</p>
+<h4 class="govuk-heading-s">{{ informationRequested.line3 }}</h4>
+<p class="govuk-body">{{ informationRequested.line4 }}</p>
+<p class="govuk-body">{{ informationRequested.line5 }}</p>
+{{ govukButton({
+  text: informationRequested.buttonText,
+  href: informationRequested.buttonLink,
+  preventDoubleClick: true
+}) }}
+<p class="govuk-body">{{ informationRequested.line6 }}</p>
+
+{% include "applicant1/hub-page/common/court-feedback.njk" %}

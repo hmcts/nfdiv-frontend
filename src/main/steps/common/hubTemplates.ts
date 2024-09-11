@@ -23,6 +23,7 @@ export const enum HubTemplate {
   FinalOrderComplete = '/final-order-complete.njk',
   FinalOrderRequested = '/final-order-requested.njk',
   Holding = '/holding.njk',
+  InformationRequested = '/information-requested.njk',
   IntendToSwitchToSoleFinalOrder = '/intend-to-switch-to-sole-final-order.njk',
   ServiceApplicationRejected = '/service-application-rejected.njk',
 }

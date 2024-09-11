@@ -228,6 +228,16 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line1:
       "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
   },
+  informationRequested: {
+    line1:
+      'The court has reviewed your application for divorce. You need to provide some additional information before your application can progress.',
+    line2: 'We have sent you an email with the information the court needs.',
+    line3: 'What you need to do next',
+    line4: 'Read the court’s reasons for stopping the application and provide the requested information.',
+    line5: 'If documents have been requested, you will be able to upload them to the court when you respond.',
+    buttonText: 'Provide information',
+    line6: 'We will let you know once we have reviewed the information you provided.',
+  },
   subHeading1:
     userCase.state === State.AwaitingAmendedApplication
       ? 'Latest information'
@@ -461,6 +471,16 @@ const cy: typeof en = (
       downloadReference: 'Bailiff-service-application-approval',
       link: '/downloads/bailiff-service',
     },
+  },
+  informationRequested: {
+    line1:
+      'Mae’r llys wedi adolygu eich cais am ysgariad. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.',
+    line2: 'Rydym wedi anfon neges e-bost atoch gyda gwybodaeth y mae’r llys ei hangen.',
+    line3: 'Beth sydd angen i chi wneud nesaf',
+    line4: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
+    line5: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
+    buttonText: 'Darparu gwybodaeth',
+    line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
   },
   subHeading1:
     userCase.state === State.AwaitingAmendedApplication
