@@ -50,6 +50,8 @@ export const orderedStateSequence: State[] = [
   State.WelshTranslationReview,
   State.AwaitingPayment,
   State.AwaitingDocuments,
+  State.InformationRequested,
+  State.RequestedInformationSubmitted,
   State.Submitted,
   State.AwaitingAos,
   State.AwaitingService,
