@@ -1,0 +1,25 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+
+  <h3 class="govuk-heading-m">{{ responseHeading }}</h3>
+  <p class="govuk-body">{{ line2 }}</p>
+  <h3 class="govuk-heading-m">{{ uploadHeading }}</h3>
+  <p class="govuk-body">{{ line3 }}</p>
+  <p class="govuk-body">{{ line4 }}</p>
+
+  <p>TAKEAPICTUREHERE</p>
+
+  <p class="govuk-body">{{ line5 }}</p>
+  <p class="govuk-body">
+    {{ line6.part1 }}<br>
+    {{ line6.part2 }}
+  </p>
+
+  <p>CONTROLSHERE</p>
+
+{% endblock %}
