@@ -1,5 +1,5 @@
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
-{% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
+{% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload %}
   <p class="govuk-body">{{ sendDocumentLine1 }}</p>
     <h3 class="govuk-heading-s">{{ sendDocumentHeading }}</h3>
     <p class="govuk-body">{{ line2 }}</p>
