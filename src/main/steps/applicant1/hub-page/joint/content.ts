@@ -391,12 +391,12 @@ const cy: typeof en = ({
     [DocumentType.NAME_CHANGE_EVIDENCE]:
       'Prawf eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
   },
-  documentsByOnlineForm: 'Sending documents using our online form',
+  documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
   documentsByOnlineFormSteps: {
-    line1: 'You can send photographs or scans of your documents to us by',
-    line2: 'uploading them using our online form.',
+    line1: 'Gallwch anfon lluniau neu sganiau o’ch dogfennau atom trwy ',
+    line2: 'llwytho gan ddefnyddio ein ffurflen ar-lein.',
     line3:
-      'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
+      "Gwnewch yn siŵr eich bod yn dilyn y cyfarwyddiadau ar sut i lwytho eich dogfennau'n ofalus neu gellid eu gwrthod, gan arwain at oedi pellach.",
   },
   documentsByPost: 'Anfon eich dogfennau drwy’r post',
   documentsByPostSteps: {
@@ -404,7 +404,7 @@ const cy: typeof en = ({
     step2: 'Postiwch y dogfennau gwreiddiol i:',
   },
   documentsByPostMoreDetails:
-    'Rhaid i chi bostio’r dogfennau gwreiddiol neu gopïau ardystiedig. Bydd eich tystysgrif priodas yn cael ei dychwelyd i chi, os ydych yn ei phostio. Ni fydd y dogfennau eraill yn cael eu dychwelyd.',
+    'Gwnewch yn siŵr eich bod hefyd yn cynnwys cyfeiriad dychwelyd yn eich ymateb. Bydd unrhyw ddogfennau y byddwch yn eu hanfon, fel tystysgrifau priodas, tystysgrifau geni, pasbortau neu weithred newid enw yn cael eu dychwelyd atoch. Ni fydd y dogfennau eraill yn cael eu dychwelyd.',
   subHeading3: `Gwneud cais i gyflwyno papurau’r ${isDivorce ? 'ysgariad' : 'bartneriaeth sifil'} mewn ffordd arall`,
   line3: {
     p1: `Mae angen i chi wneud cais i gyflwyno papurau’r ${
