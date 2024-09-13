@@ -100,6 +100,8 @@ export const getSoleHubTemplate = (
     case State.PendingHearingOutcome:
     case State.PendingHearingDate:
       return HubTemplate.PendingHearingOutcome;
+    case State.AwaitingDocuments:
+      return HubTemplate.AwaitingDocuments;
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
         return HubTemplate.AoSDue;

@@ -62,6 +62,8 @@ export const getJointHubTemplate = (
     case State.PendingHearingDate: {
       return HubTemplate.PendingHearingOutcome;
     }
+    case State.AwaitingDocuments:
+      return HubTemplate.AwaitingDocuments;
     default: {
       if (
         displayState.isAfter('Holding') &&

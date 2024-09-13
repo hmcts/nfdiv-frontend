@@ -29,11 +29,13 @@
             {% include "./sole/hub.njk" %}
           {% endblock %}
         {% endif %}
-        <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
+        {% if not displayState.at('AwaitingDocuments') %}
+        <h3 class="govuk-heading-s">{{ subHeading3 }}</h3>
         <p class="govuk-body">
           <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">{{ line1 }}
           </a>
         </p>
+        {% endif %}
       </div>
     </div>
 

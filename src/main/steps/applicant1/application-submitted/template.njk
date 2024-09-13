@@ -29,20 +29,13 @@
         {% endfor %}
       </ul>
 
-      {% set sendingDocumentsByEmail %}
-        <ol class="govuk-list govuk-list--number">
-          {% for property, step in documentsByEmailSteps %}
-            {% if loop.last %}
-              <li>{{ step }}<a class="govuk-link" href="mailto:{{ contactEmail }}">{{ contactEmail }}</a></li>
-            {% else %}
-              <li>{{ step }}</li>
-            {% endif %}
-          {% endfor %}
-        </ol>
+      {% set sendingDocumentsByOnlineForm %}
+        <p class="govuk-body">{{ documentsByOnlineFormSteps.line1 }} <a href="{{ contactWebForm }}">{{ documentsByOnlineFormSteps.line2}}</a> </p>
+        <p class="govuk-body">{{ documentsByOnlineFormSteps.line3 }}</p>
       {% endset %}
       {{ govukDetails({
-        summaryText: documentsByEmail,
-        html: sendingDocumentsByEmail
+        summaryText: documentsByOnlineForm,
+        html: sendingDocumentsByOnlineForm
       }) }}
 
       {% set sendingDocumentsByPost %}
@@ -105,9 +98,9 @@
   <p class="govuk-body"><a class="govuk-link" href={{ telephoneCharges.link }}>{{ telephoneCharges.part1 }}</a></p>
   <p class="govuk-body">{{ domesticAbuse.part1 }}<a class="govuk-link" href={{ domesticAbuse.link }}>{{ domesticAbuse.part2 }}</a></p>
 
-  <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-    <div class="govuk-notification-banner__content">
-      <p class="govuk-notification-banner__heading">{{ feedback }}</p>
+  <div class="govuk-body" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-body">
+      <p class="govuk-heading-m">{{ feedback }}</p>
       <p class="govuk-body">{{ feedbackLine1 }}</p>
       <p class="govuk-body"><a class="govuk-link" href={{ feedbackLine2.link }}>{{ feedbackLine2.part1 }}</a></p>
     </div>

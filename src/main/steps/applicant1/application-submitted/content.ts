@@ -25,7 +25,11 @@ const en = (
   }: CommonContent,
   feedbackLink: string
 ) => ({
-  title: 'Application submitted',
+  title: `Application ${
+    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
+      ? 'saved'
+      : 'submitted'
+  }`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
   line1: 'Your application will not be processed until you have done the following:',
@@ -42,13 +46,12 @@ const en = (
     [DocumentType.NAME_CHANGE_EVIDENCE]:
       'Proof that you changed your name. For example, deed poll or statutory declaration.',
   },
-  documentsByEmail: 'Sending documents by email',
-  documentsByEmailSteps: {
-    step1: 'Take a photo or scan of the document',
-    step2: 'Check the image shows the whole document and all the text is readable',
-    step3: 'Attach it to an email',
-    step4: `Include your reference number in the subject line: ${referenceNumber}`,
-    step5: 'Email the documents to:',
+  documentsByOnlineForm: 'Sending documents using our online form',
+  documentsByOnlineFormSteps: {
+    line1: 'You can send photographs or scans of your documents to us by',
+    line2: 'uploading them using our online form.',
+    line3:
+      'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
   },
   documentsByPost: 'Sending your documents by post',
   documentsByPostSteps: {
@@ -56,7 +59,7 @@ const en = (
     step2: 'Post the original documents to:',
   },
   documentsByPostMoreDetails:
-    'You must post the original documents or certified copies. Your marriage certificate will be returned to you, if you are posting it in. Other documents will not be returned.',
+    'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
   subHeading3: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
   line3: {
     p1: `You need to apply to serve the ${
@@ -155,7 +158,11 @@ const cy: typeof en = (
   }: CommonContent,
   feedbackLink: string
 ) => ({
-  title: 'Cyflwynwyd y cais',
+  title: `${
+    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
+      ? 'Cyflwynwyd y cais'
+      : 'Cyflwynwyd y cais'
+  }`,
   yourReferenceNumber: 'Eich cyfeirnod yw',
   subHeading1: 'Beth sydd angen i chi ei wneud nawr',
   line1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
@@ -172,13 +179,12 @@ const cy: typeof en = (
     [DocumentType.NAME_CHANGE_EVIDENCE]:
       'Prawf eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
   },
-  documentsByEmail: 'Anfon dogfennau trwy e-bost',
-  documentsByEmailSteps: {
-    step1: 'Cymerwch lun neu sganiwch y ddogfen ',
-    step2: 'Gwnewch yn siŵr bod y ddelwedd yn dangos y ddogfen gyfan a bod modd darllen yr holl destun',
-    step3: 'Atodwch y ddelwedd i neges e-bost ',
-    step4: `Dylech gynnwys eich cyfeirnod yn y llinell pwnc: ${referenceNumber}`,
-    step5: 'Anfonwch y dogfennau i:',
+  documentsByOnlineForm: 'Sending documents using our online form',
+  documentsByOnlineFormSteps: {
+    line1: 'You can send photographs or scans of your documents to us by',
+    line2: 'uploading them using our online form.',
+    line3:
+      'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
   },
   documentsByPost: 'Anfon eich dogfennau drwy’r post',
   documentsByPostSteps: {

@@ -10,6 +10,7 @@ import {
 } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { currentStateFn } from '../../../state-sequence';
+import { getJointHubTemplate } from '../joint/jointTemplateSelector';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -343,5 +344,11 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.PendingHearingDate);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
+
+  test('should show /awaiting-documents.njk for state AwaitingDocuments', () => {
+    const theState = displayState.at(State.AwaitingDocuments);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 });

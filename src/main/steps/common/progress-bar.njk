@@ -7,16 +7,16 @@
 {% if isJointApplication %}
   {% set items = [{
     label: {
-      html: textWithVisuallyHiddenSpan(submitted, true)
+      html: textWithVisuallyHiddenSpan(submitted, displayState.isAtOrAfter('Submitted'))
     },
-    complete: true,
-    active: false
+    complete: displayState.isAtOrAfter('Submitted'),
+    active: displayState.at('AwaitingDocuments')
   }, {
     label: {
-    html: textWithVisuallyHiddenSpan(courtChecks, displayState.isBefore('Submitted'))
+    html: textWithVisuallyHiddenSpan(courtChecks, displayState.isAfter('Submitted'))
   },
     complete: displayState.isAfter('Submitted'),
-    active: displayState.isBefore('Holding')
+    active: displayState.isAfter('Submitted')
     }, {
     label: {
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
@@ -33,10 +33,10 @@
 {% else %}
   {% set items = [{
     label: {
-      html: textWithVisuallyHiddenSpan(submitted, true)
+      html: textWithVisuallyHiddenSpan(submitted, displayState.isAtOrAfter('Submitted'))
     },
-    complete: true,
-    active: false
+    complete: displayState.isAtOrAfter('Submitted'),
+    active: displayState.at('AwaitingDocuments')
   },  {
     label: {
       html: textWithVisuallyHiddenSpan(courtChecks, displayState.isBefore('Submitted'))
