@@ -136,7 +136,7 @@
     "mochawesome-report-generator": "^6.2.0",
     "node-sass": "9.0.0",
     "nodemon": "3.1.4",
-    "npm-run-all2": "6.2.2",
+    "npm-run-all2": "6.2.3",
     "pa11y": "8.0.0",
     "prettier": "3.1.1",
     "sass-loader": "16.0.1",
