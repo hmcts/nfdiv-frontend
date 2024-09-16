@@ -42,7 +42,12 @@ const en = ({
 }: CommonContent) => ({
   subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
-    line1: `Your joint application will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+    line1: `Your joint application and ${
+      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ||
+      userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
+        ? 'help with fees reference number '
+        : ''
+    } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     )} confirming whether it has been accepted.`,
     line2: 'Check your junk or spam email folder.',
@@ -211,7 +216,7 @@ const en = ({
   line5: `Your${isJointApplication ? ' joint' : ''} application${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
     (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
-      ? ' and Help With Fees reference number'
+      ? ' and help with fees reference number'
       : ''
   } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
     dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
@@ -237,7 +242,12 @@ const cy: typeof en = ({
 }: CommonContent) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
-    line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Fe gewch neges e-bost erbyn ${getFormattedDate(
+    line1: `Bydd staff y llys yn gwirio eich cais  a’ch ${
+      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ||
+      userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
+        ? 'cyfeirnod Help i Dalu Ffioedd '
+        : ''
+    }. Fe gewch neges e-bost erbyn  ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
       SupportedLanguages.Cy
     )} yn cadarnhau p’un a yw wedi’i dderbyn.`,
