@@ -17,8 +17,8 @@ const en = (
   alternativeServiceType: AlternativeServiceType
 ) => ({
   aosAwaitingOrDrafted: {
-    line1: `Your application and ${
-      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? 'help with fees reference number ' : ''
+    line1: `Your application ${
+      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? 'and help with fees reference number ' : ''
     }will be checked by court staff. You will receive an email notification by ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     )} confirming whether it has been accepted. Check your junk or spam email folder.`,
@@ -295,8 +295,8 @@ const cy: typeof en = (
   alternativeServiceType: AlternativeServiceType
 ) => ({
   aosAwaitingOrDrafted: {
-    line1: `Bydd staff y llys yn gwirio eich cais a’ch ${
-      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? 'cyfeirnod Help i Dalu Ffioedd' : ''
+    line1: `Bydd staff y llys yn gwirio eich cais ${
+      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? 'a’ch cyfeirnod Help i Dalu Ffioedd' : ''
     }. Fe gewch neges e-bost erbyn ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
       SupportedLanguages.Cy

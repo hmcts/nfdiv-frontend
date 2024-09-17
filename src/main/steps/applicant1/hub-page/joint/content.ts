@@ -242,10 +242,10 @@ const cy: typeof en = ({
 }: CommonContent) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
-    line1: `Bydd staff y llys yn gwirio eich cais  a’ch ${
+    line1: `Bydd staff y llys yn gwirio eich cais ${
       userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ||
       userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
-        ? 'cyfeirnod Help i Dalu Ffioedd '
+        ? 'a’ch cyfeirnod Help i Dalu Ffioedd '
         : ''
     }. Fe gewch neges e-bost erbyn  ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
