@@ -1,6 +1,6 @@
 <p class="govuk-body">{{ aosAwaitingOrDrafted.line1 }}</p>
 <p class="govuk-body">{{ aosAwaitingOrDrafted.line2 }}</p>
-{% if !isRespondentOverseas %}
+{% if not isRespondentOverseas %}
 <p class="govuk-body">{{ aosAwaitingOrDrafted.line3 }}</p>
 <p class="govuk-body">{{ aosAwaitingOrDrafted.line4 }}</p>
 {% else %}
