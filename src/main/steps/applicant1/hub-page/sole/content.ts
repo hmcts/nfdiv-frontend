@@ -3,7 +3,13 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../app/case/case';
-import { AlternativeServiceType, DocumentType, State, YesOrNo } from '../../../../app/case/definition';
+import {
+  AlternativeServiceType,
+  Applicant2Represented,
+  DocumentType,
+  State,
+  YesOrNo,
+} from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
@@ -18,7 +24,9 @@ const en = (
   alternativeServiceType: AlternativeServiceType
 ) => ({
   aosAwaitingOrDrafted: {
-    line1: `Your application will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+    line1: `Your application ${
+      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? 'and help with fees reference number ' : ''
+    } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     )} confirming whether it has been accepted. Check your junk or spam email folder.`,
     line2: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
@@ -28,6 +36,7 @@ const en = (
       isDivorce ? 'the divorce' : 'ending the civil partnership'
     }`,
     line6: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
+    line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   },
   aosDue: {
     line1: `Your ${partner} should have responded to your ${
@@ -298,7 +307,9 @@ const cy: typeof en = (
   alternativeServiceType: AlternativeServiceType
 ) => ({
   aosAwaitingOrDrafted: {
-    line1: `Bydd eich cais yn cael ei wirio gan staff y llys. Fe gewch neges e-bost erbyn ${getFormattedDate(
+    line1: `Bydd staff y llys yn gwirio eich cais ${
+      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? 'a’ch cyfeirnod Help i Dalu Ffioedd' : ''
+    }. Fe gewch neges e-bost erbyn ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
       SupportedLanguages.Cy
     )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
@@ -307,6 +318,7 @@ const cy: typeof en = (
     line4: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais i’w gyflwyno drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
     line5: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu mai chi sy’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sy’n hysbysu’ch ${partner} am yr ysgariad.`,
     line6: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a llythyr, ar ôl i’r cais gael ei wirio.`,
+    line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddynt gadarnhau eu bod yn eu cynrychioli. Fe anfonir copi o’r cais atynt ac fe ofynnir iddynt ymateb.`,
   },
   aosDue: {
     line1: `Dylai eich ${partner} fod wedi ymateb i'ch ${
@@ -632,6 +644,7 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
+  const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   return {
     ...languages[language](content, alternativeServiceType),
     displayState,
@@ -646,5 +659,6 @@ export const generateContent: TranslationFn = content => {
     isFinalOrderCompleteState,
     cannotUploadDocuments,
     isRespondentOverseas,
+    isRespondentRepresented,
   };
 };
