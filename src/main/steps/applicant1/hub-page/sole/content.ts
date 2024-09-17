@@ -21,18 +21,13 @@ const en = (
     line1: `Your application will be checked by court staff. You will receive an email notification by ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     )} confirming whether it has been accepted. Check your junk or spam email folder.`,
-    line2: `${
-      isCountryUk(userCase.applicant2AddressCountry)
-        ? `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`
-        : `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
-            isDivorce ? 'the divorce' : 'ending the civil partnership'
-          }`
-    }.`,
-    line3: `${
-      isCountryUk(userCase.applicant2AddressCountry)
-        ? `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`
-        : `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`
+    line2: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
+    line3: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
+    line4: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${telephoneNumber}.`,
+    line5: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+      isDivorce ? 'the divorce' : 'ending the civil partnership'
     }`,
+    line6: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
   },
   aosDue: {
     line1: `Your ${partner} should have responded to your ${
@@ -634,6 +629,7 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
+  const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
   return {
     ...languages[language](content, alternativeServiceType),
     displayState,
@@ -647,5 +643,6 @@ export const generateContent: TranslationFn = content => {
     hasApplicant1AppliedForFinalOrderFirst,
     isFinalOrderCompleteState,
     cannotUploadDocuments,
+    isRespondentOverseas,
   };
 };
