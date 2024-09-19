@@ -3242,9 +3242,9 @@ __metadata:
   linkType: hard
 
 "@types/estree@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@types/estree@npm:1.0.5"
-  checksum: dd8b5bed28e6213b7acd0fb665a84e693554d850b0df423ac8076cc3ad5823a6bc26b0251d080bdc545af83179ede51dd3f6fa78cad2c46ed1f29624ddf3e41a
+  version: 1.0.6
+  resolution: "@types/estree@npm:1.0.6"
+  checksum: 8825d6e729e16445d9a1dd2fb1db2edc5ed400799064cd4d028150701031af012ba30d6d03fe9df40f4d7a437d0de6d2b256020152b7b09bde9f2e420afdffd9
   languageName: node
   linkType: hard
 
@@ -12543,14 +12543,14 @@ __metadata:
   linkType: hard
 
 "memfs@npm:^4.6.0":
-  version: 4.11.2
-  resolution: "memfs@npm:4.11.2"
+  version: 4.12.0
+  resolution: "memfs@npm:4.12.0"
   dependencies:
     "@jsonjoy.com/json-pack": ^1.0.3
     "@jsonjoy.com/util": ^1.3.0
     tree-dump: ^1.0.1
     tslib: ^2.0.0
-  checksum: 1a2e45145c07a5dcd7f39f090968d47139142378f13290e159bc02ef2f34258281765961adc89299a68a6eadcfa4b6fb0a8de5b767406f648654d553485d97e3
+  checksum: f05b9c32d1fb25038ecadb99527e483b5f2e592f0360c393e6bc95c4e5be95d4c714a7a3f91bff21e610352b44631aede521604596e621132c695749b8dcedbc
   languageName: node
   linkType: hard
 
@@ -13618,7 +13618,7 @@ __metadata:
     negotiator: 0.6.3
     node-cache: 5.1.2
     node-sass: 9.0.0
-    nodemon: 3.1.4
+    nodemon: 3.1.5
     npm-run-all2: 6.2.3
     nunjucks: 3.2.4
     otplib: 12.0.1
@@ -13836,9 +13836,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemon@npm:3.1.4":
-  version: 3.1.4
-  resolution: "nodemon@npm:3.1.4"
+"nodemon@npm:3.1.5":
+  version: 3.1.5
+  resolution: "nodemon@npm:3.1.5"
   dependencies:
     chokidar: ^3.5.2
     debug: ^4
@@ -13852,7 +13852,7 @@ __metadata:
     undefsafe: ^2.0.5
   bin:
     nodemon: bin/nodemon.js
-  checksum: 3f003fc2c7bdaba559108320f188b7cb063220455e5da218ff3bf4f7468ad7059852da6e35a52b8c690cc27f6e36a433a9ad1f1bdb8096ec1ee3d930629cbeca
+  checksum: 56a41473b4990efebe8341f1da360af49d3b9e62c164d76ef6ec7f81efeca56c990dd4f275f03ddd1afde83d27c1ed3abe9c73d712fbebe08406c459b9f030ab
   languageName: node
   linkType: hard
 
