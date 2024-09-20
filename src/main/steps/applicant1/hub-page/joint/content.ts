@@ -49,8 +49,7 @@ const en = ({
         : ''
     } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
-    )} confirming whether it has been accepted.`,
-    line2: 'Check your junk or spam email folder.',
+    )} confirming whether it has been accepted. Check your junk or spam email folder.`,
   },
   applicantConfirmedReceiptLatestUpdate: {
     line1: `You have confirmed receipt of the ${
@@ -250,8 +249,7 @@ const cy: typeof en = ({
     }. Fe gewch neges e-bost erbyn  ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
       SupportedLanguages.Cy
-    )} yn cadarnhau p’un a yw wedi’i dderbyn.`,
-    line2: 'Gwiriwch eich ffolder ‘junk’ neu ‘spam’.',
+    )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
   },
   applicantConfirmedReceiptLatestUpdate: {
     line1: `Rydych wedi cadarnhau eich bod wedi cael y ${
