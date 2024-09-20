@@ -195,29 +195,29 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^3.14.0":
-  version: 3.23.0
-  resolution: "@azure/msal-browser@npm:3.23.0"
+  version: 3.24.0
+  resolution: "@azure/msal-browser@npm:3.24.0"
   dependencies:
-    "@azure/msal-common": 14.14.2
-  checksum: c519eb42d76e4324b8ddc93c67e7a5f7812de506c28b2e1f50df7f7ad84421e24f5cd694cf6138b4d6b772f3e85117c82dbdedae5bd95b3378d768fc19f28ed0
+    "@azure/msal-common": 14.15.0
+  checksum: 3108b13aa16b0fb8ab5e080838ba0b4f4a6155d98674a084399642fc627562af8200810256f0fa8591acb831e48bd7841ddbe0e265f50f8924b0d3aecef7b766
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:14.14.2":
-  version: 14.14.2
-  resolution: "@azure/msal-common@npm:14.14.2"
-  checksum: 72698e3ec359954c918b11d86e38e1451efabd7062f40a35c3b703acae78fbfeb0c1074e8ae740755f02782d264bef0dc30c3d074c153bf87d552f804d6ccd71
+"@azure/msal-common@npm:14.15.0":
+  version: 14.15.0
+  resolution: "@azure/msal-common@npm:14.15.0"
+  checksum: 072e4ca58856997df2e82935c818801a69a85df16d7dccdfed02c1b8f8a772751594efe1b918433c760202348a99aa6ec9d99cc0f018ab2f1659186ad2a8b88e
   languageName: node
   linkType: hard
 
 "@azure/msal-node@npm:^2.9.2":
-  version: 2.13.1
-  resolution: "@azure/msal-node@npm:2.13.1"
+  version: 2.14.0
+  resolution: "@azure/msal-node@npm:2.14.0"
   dependencies:
-    "@azure/msal-common": 14.14.2
+    "@azure/msal-common": 14.15.0
     jsonwebtoken: ^9.0.0
     uuid: ^8.3.0
-  checksum: fb7df660fabd5cc337adb4fa9a72004997afaf8d7f14259906b4428d8244810031d6362764c08e4033b0f2533abed11a72a8213897e8058298c3871b0da3da39
+  checksum: 79cddfa4cee9a18e4778db3b4e6e714a0216baaaee60eb364fbfbd9156ed7f10471a91944043f7c5506756a0a305cee535a70b78d587481851cd155ad4709d95
   languageName: node
   linkType: hard
 
@@ -13618,7 +13618,7 @@ __metadata:
     negotiator: 0.6.3
     node-cache: 5.1.2
     node-sass: 9.0.0
-    nodemon: 3.1.5
+    nodemon: 3.1.6
     npm-run-all2: 6.2.3
     nunjucks: 3.2.4
     otplib: 12.0.1
@@ -13836,9 +13836,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemon@npm:3.1.5":
-  version: 3.1.5
-  resolution: "nodemon@npm:3.1.5"
+"nodemon@npm:3.1.6":
+  version: 3.1.6
+  resolution: "nodemon@npm:3.1.6"
   dependencies:
     chokidar: ^3.5.2
     debug: ^4
@@ -13852,7 +13852,7 @@ __metadata:
     undefsafe: ^2.0.5
   bin:
     nodemon: bin/nodemon.js
-  checksum: 56a41473b4990efebe8341f1da360af49d3b9e62c164d76ef6ec7f81efeca56c990dd4f275f03ddd1afde83d27c1ed3abe9c73d712fbebe08406c459b9f030ab
+  checksum: efa0e5cd34db4d38e6abdb54b468b968bdfa6ea366abb08707e8f4335894730d4f57b826daab995141f4b952aa110b6b3084c25d71a0560c363df3b95d51374d
   languageName: node
   linkType: hard
 
