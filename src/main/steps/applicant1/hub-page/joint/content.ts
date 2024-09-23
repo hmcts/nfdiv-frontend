@@ -42,10 +42,10 @@ const en = ({
 }: CommonContent) => ({
   subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
-    line1: `Your joint application and ${
-      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ||
+    line1: `Your joint application ${
+      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
       userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
-        ? 'help with fees reference number '
+        ? 'and help with fees reference number '
         : ''
     } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
@@ -242,7 +242,7 @@ const cy: typeof en = ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
     line1: `Bydd staff y llys yn gwirio eich cais ${
-      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ||
+      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
       userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
         ? 'a’ch cyfeirnod Help i Dalu Ffioedd '
         : ''
