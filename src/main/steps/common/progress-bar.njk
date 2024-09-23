@@ -42,7 +42,7 @@
       html: textWithVisuallyHiddenSpan(courtChecks, displayState.isBefore('Submitted'))
     },
     complete: displayState.isAfter('Submitted'),
-    active: displayState.isAfter('AwaitingAos') or displayState.at('AwaitingHWFDecision')
+    active: displayState.isAtOrAfter('AwaitingAos') or displayState.at('AwaitingHWFDecision')
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))
