@@ -8,7 +8,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
-import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
+import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, RESPOND_TO_COURT_FEEDBACK } from '../../../urls';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -236,6 +236,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line4: 'Read the court’s reasons for stopping the application and provide the requested information.',
     line5: 'If documents have been requested, you will be able to upload them to the court when you respond.',
     buttonText: 'Provide information',
+    buttonLink: RESPOND_TO_COURT_FEEDBACK,
     line6: 'We will let you know once we have reviewed the information you provided.',
   },
   subHeading1:
@@ -480,6 +481,7 @@ const cy: typeof en = (
     line4: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
     line5: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
     buttonText: 'Darparu gwybodaeth',
+    buttonLink: RESPOND_TO_COURT_FEEDBACK,
     line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
   },
   subHeading1:

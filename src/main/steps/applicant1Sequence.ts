@@ -84,6 +84,7 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RELATIONSHIP_NOT_LONG_ENOUGH_URL,
   RESIDUAL_JURISDICTION,
+  RESPOND_TO_COURT_FEEDBACK,
   REVIEW_THE_APPLICATION,
   REVIEW_YOUR_APPLICATION,
   REVIEW_YOUR_JOINT_APPLICATION,
@@ -552,6 +553,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: RESPOND_TO_COURT_FEEDBACK,
+    getNextStep: () => HUB_PAGE,
   },
 ];
 
