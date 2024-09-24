@@ -933,6 +933,9 @@ export interface CaseData {
   documentsUploaded: ListValue<DivorceDocument>[];
   confidentialDocumentsUploaded: ListValue<ConfidentialDivorceDocument>[];
   confidentialDocumentsGenerated: ListValue<ConfidentialDivorceDocument>[];
+  requestForInformationResponseCannotUploadDocs: YesOrNo;
+  requestForInformationResponseDocs: ListValue<DivorceDocument>[];
+  requestForInformationResponseDetails: string;
   documentsGenerated: ListValue<DivorceDocument>[];
   scannedDocuments: ListValue<ScannedDocument>[];
   answerReceivedSupportingDocuments: ListValue<DivorceDocument>[];
@@ -1014,6 +1017,11 @@ export interface CaseDocuments {
   documentsUploadedOnConfirmService: ListValue<DivorceDocument>[];
   typeOfDocumentAttached: OfflineDocumentReceived;
   scannedSubtypeReceived: ScannedDocumentSubtypes;
+}
+
+export interface RequestForInformationResponse {
+  requestForInformationResponseDetails: string;
+  requestForInformationResponseDocs: ListValue<DivorceDocument>[];
 }
 
 export interface CaseInvite {
@@ -2561,6 +2569,7 @@ export const FINAL_ORDER_REQUESTED = 'final-order-requested';
 export const APPLY_FOR_FINAL_ORDER = 'Apply for final order';
 export const UPDATE_CONDITIONAL_ORDER = 'update-conditional-order';
 export const SUBMIT_CLARIFICATION = 'submit-clarification';
+export const RESPOND_TO_REQUEST_FOR_INFORMATION = 'respond-request-for-info';
 export const UPDATE_JOINT_CONDITIONAL_ORDER = 'update-joint-conditional-order';
 export const SUBMIT_JOINT_CONDITIONAL_ORDER = 'submit-joint-conditional-order';
 export const DRAFT_CONDITIONAL_ORDER = 'draft-conditional-order';
