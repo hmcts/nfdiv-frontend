@@ -415,7 +415,9 @@ export interface Application {
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
+  applicationFeeServiceRequestReference: string;
   applicant2FinalOrderFeeOrderSummary: OrderSummary;
+  applicant2FinalOrderFeeServiceRequestReference: string;
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
@@ -677,7 +679,9 @@ export interface CaseData {
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
+  applicationFeeServiceRequestReference: string;
   applicant2FinalOrderFeeOrderSummary: OrderSummary;
+  applicant2FinalOrderFeeServiceRequestReference: string;
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
@@ -1006,6 +1010,7 @@ export interface CaseData {
   evidenceHandled: YesOrNo;
   generalLetters: ListValue<GeneralLetterDetails>[];
   sentNotifications: SentNotifications;
+  citizenPaymentCallbackUrl: String;
 }
 
 export interface CaseDocuments {

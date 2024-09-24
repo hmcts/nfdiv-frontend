@@ -8,7 +8,7 @@ import { AppRequest } from '../controller/AppRequest';
 import { PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 
-import { getPaymentCallbackUrl } from './BasePaymentPostController';
+import { getPaymentCallbackPath } from './BasePaymentPostController';
 
 const logger = Logger.getLogger('payment');
 
@@ -20,7 +20,7 @@ export default abstract class BasePaymentCallbackGetController {
     }
     const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
     const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-    const returnUrl = `${protocol}${res.locals.host}${port}${getPaymentCallbackUrl(req)}`;
+    const returnUrl = `${protocol}${res.locals.host}${port}${getPaymentCallbackPath(req)}`;
 
     const paymentClient = new PaymentClient(req.session, returnUrl);
 
