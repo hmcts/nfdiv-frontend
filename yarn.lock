@@ -6315,9 +6315,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codeceptjs@npm:3.6.6":
-  version: 3.6.6
-  resolution: "codeceptjs@npm:3.6.6"
+"codeceptjs@npm:3.6.7":
+  version: 3.6.7
+  resolution: "codeceptjs@npm:3.6.7"
   dependencies:
     "@codeceptjs/configure": 1.0.1
     "@codeceptjs/detox-helper": 1.1.2
@@ -6342,7 +6342,7 @@ __metadata:
     css-to-xpath: 0.1.0
     csstoxpath: 1.6.0
     devtools: 8.40.2
-    envinfo: 7.11.1
+    envinfo: 7.14.0
     escape-string-regexp: 4.0.0
     figures: 3.2.0
     fn-args: 4.0.0
@@ -6371,7 +6371,7 @@ __metadata:
       optional: true
   bin:
     codeceptjs: bin/codecept.js
-  checksum: c50ea4d51ee9af397058f457af7c5666b0de66fbe0e1fd4ca1fbb38fec9370f6300e297cb39736267b129b0aeb6c7067066674d082b8a1c1aa631b133e82d2b2
+  checksum: 240f41542907e3b674a7c2f12681dc13f1811a0e09cde89580d2c07ab6e43b2f4092d7c4fe381eef9c07e6c623877ef2bbade9bb6eb982a907f9564316fc0b1e
   languageName: node
   linkType: hard
 
@@ -7862,21 +7862,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"envinfo@npm:7.11.1, envinfo@npm:~7.11.1":
-  version: 7.11.1
-  resolution: "envinfo@npm:7.11.1"
-  bin:
-    envinfo: dist/cli.js
-  checksum: f3d38ab6bc62388466e86e2f5665f90f238ca349c81bb36b311d908cb5ca96650569b43b308c9dcb6725a222693f6c43a704794e74a68fb445ec5575a90ca05e
-  languageName: node
-  linkType: hard
-
-"envinfo@npm:^7.10.0, envinfo@npm:^7.7.3":
+"envinfo@npm:7.14.0, envinfo@npm:^7.10.0, envinfo@npm:^7.7.3":
   version: 7.14.0
   resolution: "envinfo@npm:7.14.0"
   bin:
     envinfo: dist/cli.js
   checksum: 137c1dd9a4d5781c4a6cdc6b695454ba3c4ba1829f73927198aa4122f11b35b59d7b2cb7e1ceea1364925a30278897548511d22f860c14253a33797d0bebd551
+  languageName: node
+  linkType: hard
+
+"envinfo@npm:~7.11.1":
+  version: 7.11.1
+  resolution: "envinfo@npm:7.11.1"
+  bin:
+    envinfo: dist/cli.js
+  checksum: f3d38ab6bc62388466e86e2f5665f90f238ca349c81bb36b311d908cb5ca96650569b43b308c9dcb6725a222693f6c43a704794e74a68fb445ec5575a90ca05e
   languageName: node
   linkType: hard
 
@@ -8231,14 +8231,14 @@ __metadata:
   linkType: hard
 
 "eslint-module-utils@npm:^2.8.0":
-  version: 2.11.0
-  resolution: "eslint-module-utils@npm:2.11.0"
+  version: 2.11.1
+  resolution: "eslint-module-utils@npm:2.11.1"
   dependencies:
     debug: ^3.2.7
   peerDependenciesMeta:
     eslint:
       optional: true
-  checksum: 8c2ecff3484835e031c8f1aa44119be65a058d195cce7b3ac827ad7ccc8bb5f9bcdd85230e2e3398981d07789bf4d90f3b81d106e67faf3cd26e0b34d73093af
+  checksum: 9602122625c05c971c98edfe54075c3147bdeb388375e5f8df55e62dfd894b042dc0eedba97347effba2ca458237edadd88fbc0d015f195c42853d6dc23697a1
   languageName: node
   linkType: hard
 
@@ -10918,15 +10918,11 @@ __metadata:
   linkType: hard
 
 "jackspeak@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "jackspeak@npm:4.0.1"
+  version: 4.0.2
+  resolution: "jackspeak@npm:4.0.2"
   dependencies:
     "@isaacs/cliui": ^8.0.2
-    "@pkgjs/parseargs": ^0.11.0
-  dependenciesMeta:
-    "@pkgjs/parseargs":
-      optional: true
-  checksum: 7989d19eddeff0631ef653df413e26290db77dc3791438bd12b56bed1c0b24d5d535fdfec13cf35775cd5b47f8ee57d36fd0bceaf2df672b1f523533fd4184cc
+  checksum: 210030029edfa1658328799ad88c3d0fc057c4cb8a069fc4137cc8d2cc4b65c9721c6e749e890f9ca77a954bb54f200f715b8896e50d330e5f3e902e72b40974
   languageName: node
   linkType: hard
 
@@ -13577,7 +13573,7 @@ __metadata:
     autobind-decorator: 2.4.0
     axios: 1.7.7
     axios-debug-log: 1.0.0
-    codeceptjs: 3.6.6
+    codeceptjs: 3.6.7
     config: 3.3.12
     connect-redis: 7.1.1
     cookie-parser: 1.4.6
