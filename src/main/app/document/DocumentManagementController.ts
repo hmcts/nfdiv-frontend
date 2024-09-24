@@ -5,7 +5,14 @@ import { LoggerInstance } from 'winston';
 
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
+import {
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_UPDATE,
+  DivorceDocument,
+  ListValue,
+  RESPOND_TO_REQUEST_FOR_INFORMATION,
+  State,
+} from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
@@ -15,16 +22,34 @@ import { CaseDocumentManagementClient, Classification } from './CaseDocumentMana
 export class DocumentManagerController {
   logger: LoggerInstance | undefined;
 
+  private redirect(req, res, isApplicant2) {
+    if (req.session.userCase.state === State.AwaitingClarification) {
+      return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
+    } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
+      return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_REQUEST_FOR_INFORMATION}`);
+    }
+    return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
+  }
+
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
     this.logger = req.locals.logger;
     if (
       (!isApplicant2 &&
-        ![State.Draft, State.AwaitingApplicant1Response, State.AwaitingClarification].includes(
-          req.session.userCase.state
-        )) ||
+        ![
+          State.Draft,
+          State.AwaitingApplicant1Response,
+          State.AwaitingClarification,
+          State.InformationRequested,
+          State.RequestedInformationSubmitted,
+        ].includes(req.session.userCase.state)) ||
       (isApplicant2 &&
-        ![State.AwaitingApplicant2Response, State.AwaitingClarification].includes(req.session.userCase.state))
+        ![
+          State.AwaitingApplicant2Response,
+          State.AwaitingClarification,
+          State.InformationRequested,
+          State.RequestedInformationSubmitted,
+        ].includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot upload new documents as case is not in the correct state');
     }
@@ -32,12 +57,8 @@ export class DocumentManagerController {
     if (!req.files?.length) {
       if (req.headers.accept?.includes('application/json')) {
         throw new Error('No files were uploaded');
-      } else if (req.session.userCase.state === State.AwaitingClarification) {
-        return res.redirect(
-          isApplicant2 ? `${APPLICANT_2}${PROVIDE_INFORMATION_TO_THE_COURT}` : PROVIDE_INFORMATION_TO_THE_COURT
-        );
       } else {
-        return res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
+        return this.redirect(req, res, isApplicant2);
       }
     }
 
@@ -59,12 +80,13 @@ export class DocumentManagerController {
       },
     }));
 
-    const documentsKey =
-      req.session.userCase.state === State.AwaitingClarification
-        ? 'coClarificationUploadDocuments'
-        : isApplicant2
-          ? 'applicant2DocumentsUploaded'
-          : 'applicant1DocumentsUploaded';
+    let documentsKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
+    if (req.session.userCase.state === State.AwaitingClarification) {
+      documentsKey = 'coClarificationUploadDocuments';
+    } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
+      documentsKey = 'requestForInformationResponseDocs';
+    }
+
     const updatedDocumentsUploaded = newUploads.concat(req.session.userCase[documentsKey] || []);
 
     req.session.userCase = await req.locals.api.triggerEvent(
@@ -74,35 +96,42 @@ export class DocumentManagerController {
     );
 
     req.session.save(() => {
-      this.logNewUploads(newUploads, req);
+      this.logNewUploads(newUploads, documentsKey, req);
       if (req.headers.accept?.includes('application/json')) {
         return res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
-      } else if (req.session.userCase.state === State.AwaitingClarification) {
-        return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
       } else {
-        return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
+        return this.redirect(req, res, isApplicant2);
       }
     });
   }
 
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
-    const documentsUploadedKey =
-      req.session.userCase.state === State.AwaitingClarification
-        ? 'coClarificationUploadDocuments'
-        : isApplicant2
-          ? 'applicant2DocumentsUploaded'
-          : 'applicant1DocumentsUploaded';
+    let documentsUploadedKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
+    if (req.session.userCase.state === State.AwaitingClarification) {
+      documentsUploadedKey = 'coClarificationUploadDocuments';
+    } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
+      documentsUploadedKey = 'requestForInformationResponseDocs';
+    }
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
     if (
       (!isApplicant2 &&
-        ![State.Draft, State.AwaitingApplicant1Response, State.AwaitingClarification].includes(
-          req.session.userCase.state
-        )) ||
+        ![
+          State.Draft,
+          State.AwaitingApplicant1Response,
+          State.AwaitingClarification,
+          State.InformationRequested,
+          State.RequestedInformationSubmitted,
+        ].includes(req.session.userCase.state)) ||
       (isApplicant2 &&
-        ![State.AwaitingApplicant2Response, State.AwaitingClarification].includes(req.session.userCase.state))
+        ![
+          State.AwaitingApplicant2Response,
+          State.AwaitingClarification,
+          State.InformationRequested,
+          State.RequestedInformationSubmitted,
+        ].includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot delete documents as case is not in the correct state');
     }
@@ -110,12 +139,7 @@ export class DocumentManagerController {
     const documentIndexToDelete = parseInt(req.params.index, 10);
     const documentToDelete = documentsUploaded[documentIndexToDelete];
     if (!documentToDelete?.value?.documentLink?.document_url) {
-      if (req.session.userCase.state === State.AwaitingClarification) {
-        return res.redirect(
-          isApplicant2 ? `${APPLICANT_2}${PROVIDE_INFORMATION_TO_THE_COURT}` : PROVIDE_INFORMATION_TO_THE_COURT
-        );
-      }
-      return res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
+      return this.redirect(req, res, isApplicant2);
     }
     const documentUrlToDelete = documentToDelete.value.documentLink.document_url;
 
@@ -133,12 +157,7 @@ export class DocumentManagerController {
       if (err) {
         throw err;
       }
-      if (req.session.userCase.state === State.AwaitingClarification) {
-        return res.redirect(
-          isApplicant2 ? `${APPLICANT_2}${PROVIDE_INFORMATION_TO_THE_COURT}` : PROVIDE_INFORMATION_TO_THE_COURT
-        );
-      }
-      return res.redirect(isApplicant2 ? `${APPLICANT_2}${UPLOAD_YOUR_DOCUMENTS}` : UPLOAD_YOUR_DOCUMENTS);
+      return this.redirect(req, res, isApplicant2);
     });
   }
 
@@ -147,10 +166,14 @@ export class DocumentManagerController {
     return new CaseDocumentManagementClient(user);
   }
 
-  private logNewUploads(newUploads: ListValue<Partial<DivorceDocument> | null>[], req: AppRequest): void {
+  private logNewUploads(
+    newUploads: ListValue<Partial<DivorceDocument> | null>[],
+    documentsKey: string,
+    req: AppRequest
+  ): void {
     newUploads.forEach(file =>
       req.locals.logger.info(
-        `uploaded file(url=${file.value?.documentLink?.document_binary_url}) to case(id=${req.session.userCase.id})`
+        `uploaded file(url=${file.value?.documentLink?.document_binary_url}) using documentsKey(${documentsKey}) to case(id=${req.session.userCase.id})`
       )
     );
   }
