@@ -16,6 +16,12 @@ export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
       id: `${file.id}`,
       name: `${getFilename(file.value)}`,
     })) || [],
+  requestForInformationResponseDocs: data.requestForInformationResponseDocs,
+  requestForInformationResponseUploadedFiles:
+    data.requestForInformationResponseDocs?.map(file => ({
+      id: `${file.id}`,
+      name: `${getFilename(file.value)}`,
+    })) || [],
 });
 
 export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
@@ -27,6 +33,12 @@ export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
   applicant2DocumentsUploaded: data.applicant2DocumentsUploaded,
   applicant2CannotUpload: data.applicant2CannotUploadSupportingDocument?.length ? Checkbox.Checked : Checkbox.Unchecked,
   applicant2CannotUploadDocuments: data.applicant2CannotUploadSupportingDocument,
+  requestForInformationResponseDocs: data.requestForInformationResponseDocs,
+  requestForInformationResponseUploadedFiles:
+    data.requestForInformationResponseDocs?.map(file => ({
+      id: `${file.id}`,
+      name: `${getFilename(file.value)}`,
+    })) || [],
 });
 
 export const getFilename = (document: Partial<DivorceDocument> | undefined | null): string | undefined => {
