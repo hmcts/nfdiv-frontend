@@ -365,6 +365,15 @@ const fields: ToApiConverters = {
   applicant2IntendsToSwitchToSole: data => ({
     applicant2IntendsToSwitchToSole: [checkboxConverter(data.applicant2IntendsToSwitchToSole)],
   }),
+  requestForInformationResponseCannotUploadDocs: data => ({
+    requestForInformationResponseCannotUploadDocs: checkboxConverter(
+      data.requestForInformationResponseCannotUploadDocs
+    ),
+  }),
+  requestForInformationResponseDetails: data => ({
+    requestForInformationResponseDetails: data.requestForInformationResponseDetails,
+  }),
+  requestForInformationResponseUploadedFiles: () => ({}),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

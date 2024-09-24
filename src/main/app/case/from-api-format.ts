@@ -160,6 +160,13 @@ const fields: FromApiConverters = {
   dateApplicant1DeclaredIntentionToSwitchToSoleFo: 'dateApplicant1DeclaredIntentionToSwitchToSoleFo',
   doesApplicant2IntendToSwitchToSole: 'doesApplicant2IntendToSwitchToSole',
   dateApplicant2DeclaredIntentionToSwitchToSoleFo: 'dateApplicant2DeclaredIntentionToSwitchToSoleFo',
+  requestForInformationResponseDocs: uploadedFilesFromApiApplicant1,
+  requestForInformationResponseDetails: 'requestForInformationResponseDetails',
+  requestForInformationResponseCannotUploadDocs: data => ({
+    requestForInformationResponseCannotUploadDocs: checkboxConverter(
+      data.requestForInformationResponseCannotUploadDocs
+    ),
+  }),
 };
 
 const fromApiDate = date => {
