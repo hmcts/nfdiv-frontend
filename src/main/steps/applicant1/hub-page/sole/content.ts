@@ -3,9 +3,16 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../app/case/case';
-import { AlternativeServiceType, DocumentType, State, YesOrNo } from '../../../../app/case/definition';
+import {
+  AlternativeServiceType,
+  Applicant2Represented,
+  DocumentType,
+  State,
+  YesOrNo,
+} from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
+import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
 import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED } from '../../../urls';
@@ -19,12 +26,17 @@ const en = (
   aosAwaitingOrDrafted: {
     line1: `Your application ${
       userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? 'and help with fees reference number ' : ''
-    }will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+    } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     )} confirming whether it has been accepted. Check your junk or spam email folder.`,
     line2: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
     line3: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
     line4: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${telephoneNumber}.`,
+    line5: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+      isDivorce ? 'the divorce' : 'ending the civil partnership'
+    }`,
+    line6: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
+    line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   },
   aosDue: {
     line1: `Your ${partner} should have responded to your ${
@@ -304,6 +316,9 @@ const cy: typeof en = (
     line2: `Yna fe anfonir copi o’r cais at eich ${partner}. Fe ofynnir iddynt wirio’r wybodaeth ac ymateb. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
     line3: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau at eich ${partner} eich hun, yna ffoniwch ${telephoneNumber} i ofyn am gael gwneud hynny. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
     line4: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais i’w gyflwyno drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
+    line5: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu mai chi sy’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sy’n hysbysu’ch ${partner} am yr ysgariad.`,
+    line6: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a llythyr, ar ôl i’r cais gael ei wirio.`,
+    line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddynt gadarnhau eu bod yn eu cynrychioli. Fe anfonir copi o’r cais atynt ac fe ofynnir iddynt ymateb.`,
   },
   aosDue: {
     line1: `Dylai eich ${partner} fod wedi ymateb i'ch ${
@@ -628,6 +643,8 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
+  const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
+  const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   return {
     ...languages[language](content, alternativeServiceType),
     displayState,
@@ -641,5 +658,7 @@ export const generateContent: TranslationFn = content => {
     hasApplicant1AppliedForFinalOrderFirst,
     isFinalOrderCompleteState,
     cannotUploadDocuments,
+    isRespondentOverseas,
+    isRespondentRepresented,
   };
 };

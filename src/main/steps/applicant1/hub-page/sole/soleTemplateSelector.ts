@@ -100,6 +100,10 @@ export const getSoleHubTemplate = (
     case State.PendingHearingOutcome:
     case State.PendingHearingDate:
       return HubTemplate.PendingHearingOutcome;
+    case State.AwaitingHWFDecision:
+      return userCase.applicant1CannotUpload === Checkbox.Checked
+        ? HubTemplate.AwaitingDocuments
+        : HubTemplate.AosAwaitingOrDrafted;
     case State.AwaitingDocuments:
       return HubTemplate.AwaitingDocuments;
     case State.AwaitingHWFDecision:
