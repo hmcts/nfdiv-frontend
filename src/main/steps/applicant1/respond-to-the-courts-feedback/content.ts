@@ -1,4 +1,9 @@
+import { isEmpty, isObject } from 'lodash';
+
+import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form';
+import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
 
 const en = () => ({
   title: "Respond to the court's feedback",
@@ -67,11 +72,64 @@ const cy: typeof en = () => ({
   havingTroubleUploading: 'Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.',
 });
 
+export const form: FormContent = {
+  fields: userCase => ({
+    requestForInformationResponseDetails: {
+      type: 'textarea',
+      classes: 'govuk-input--width-40',
+      label: l => l.response,
+      validator: (value, formData) => {
+        const hasUploadedFiles =
+          (formData.requestForInformationResponseUploadedFiles as unknown as string[])?.length &&
+          (formData.requestForInformationResponseUploadedFiles as unknown as string) !== '[]';
+        const selectedCannotUploadDocuments = !!formData.requestForInformationResponseCannotUploadDocs?.length;
+        const hasEnteredResponse = !isEmpty(value);
+        if (!hasUploadedFiles && !selectedCannotUploadDocuments && !hasEnteredResponse) {
+          return 'required';
+        }
+      },
+    },
+    requestForInformationResponseUploadedFiles: {
+      type: 'hidden',
+      label: l => l.uploadFiles,
+      labelHidden: true,
+      value:
+        (isObject(userCase.requestForInformationResponseUploadedFiles)
+          ? JSON.stringify(userCase.requestForInformationResponseUploadedFiles)
+          : userCase.requestForInformationResponseUploadedFiles) || '[]',
+      parser: data => JSON.parse((data as Record<string, string>).requestForInformationResponseUploadedFiles || '[]'),
+    },
+    requestForInformationCannotUploadDocs: {
+      type: 'hidden',
+      values: [],
+    },
+  }),
+  submit: {
+    text: l => l.continue,
+  },
+};
+
 const languages = {
   en,
   cy,
 };
 
 export const generateContent: TranslationFn = content => {
-  return languages[content.language]();
+  const applicant1UploadDocumentContent = uploadDocumentGenerateContent(content);
+  const uploadedDocsFilenames = content.userCase.requestForInformationResponseDocs?.map(item =>
+    getFilename(item.value)
+  );
+  const amendable = content.isRequestForInformationAmendableState;
+  const uploadContentScript = `{
+    "isRequestForInformationAmendableState": ${content.isRequestForInformationAmendableState},
+    "delete": "${content.delete}"
+  }`;
+  return {
+    ...applicant1UploadDocumentContent,
+    ...languages[content.language](),
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    uploadedDocsFilenames,
+    amendable,
+    uploadContentScript,
+  };
 };

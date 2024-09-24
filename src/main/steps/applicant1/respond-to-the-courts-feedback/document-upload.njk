@@ -1,0 +1,82 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+<br>
+<h3 class="govuk-heading-m">{{ uploadHeading }}</h3>
+<p class="govuk-body">{{ line3 }}</p>
+{{ govukInsetText({
+  text: line4
+}) }}
+
+{% set infoTakePhotoDetails %}
+  <ol class="govuk-list govuk-list--number">
+    <li>{{ infoBullet1 }}</li>
+    <li>{{ infoBullet2 }}</li>
+    <li>{{ infoBullet3 }}</li>
+    <li>{{ infoBullet4 }}</li>
+    <li>{{ infoBullet5 }}</li>
+  </ol>
+{% endset %}
+{{ govukDetails({
+  summaryHtml: infoTakePhotoAccessibleSpan,
+  html: infoTakePhotoDetails
+}) }}
+
+<p class="govuk-body">{{ line5 }}</p>
+<p class="govuk-body">
+  {{ line6.part1 }}<br>
+  {{ line6.part2 }}
+</p>
+
+<script id="uploadContent" type="application/json">
+  {{ uploadContentScript | safe }}
+</script>
+
+<div class="govuk-form-group {{ 'hidden' if not amendable }}">
+  <div class="govuk-panel upload hidden">
+    <span class="upload-arrow-icon govuk-!-margin-bottom-5"></span>
+    <div class="govuk-form-group">
+      <p class="govuk-body govuk-!-margin-bottom-0">
+        <span id="upload"></span>
+        <strong>{{ orStr }}</strong><br>
+        {{ dragDropHere }}
+      </p>
+      <div id="uploadProgressBar"></div>
+    </div>
+  </div>
+
+  <noscript>
+    <form action="/document-manager?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
+      {{ govukFileUpload({
+        name: "files[]",
+        attributes: {
+          multiple: true,
+          accept: "image/jpeg,image/tiff,image/png,application/pdf"
+        },
+        label: {
+          text: chooseFilePhoto
+        },
+        classes: "govuk-!-margin-bottom-4"
+      }) }}
+      {{ govukButton({
+        text: upload,
+        type: "submit",
+        classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+      }) }}
+    </form>
+  </noscript>
+</div>
+
+<div id="uploadGroup" tabindex="0" class="uploadGroup">
+  <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
+  <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if uploadedDocsFilenames|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+  <ul id="filesUploaded" class="govuk-list">
+    {% for filename in uploadedDocsFilenames %}
+      <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
+        {{ filename }} <a href="/document-manager/delete/{{ loop.index0 }}?_csrf={{ csrfToken }}" class="govuk-link govuk-link--no-visited-state">{{ delete }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

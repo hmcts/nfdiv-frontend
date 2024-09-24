@@ -1,0 +1,46 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/form/form.njk"%}
+
+{% set requestForInformationResponseCannotUploadDocs %}
+  {{ govukCheckboxes({
+    idPrefix: 'requestForInformationResponseCannotUploadDocs',
+    name: 'requestForInformationResponseCannotUploadDocs',
+    fieldset: {
+      legend: {
+        text: cannotUploadDocuments,
+        classes: "govuk-visually-hidden"
+      }
+    },
+    items: [{
+        name: 'requestForInformationResponseCannotUploadDocs',
+        text: cannotUploadDocuments,
+        value: 'checked',
+        checked: userCase.requestForInformationResponseCannotUploadDocs == 'Yes',
+        conditional: {
+          html: conditionalText
+        }
+    }],
+    errorMessage: getError('requestForInformationResponseCannotUploadDocs'),
+    formGroup: {
+      classes: 'requestForInformationResponseCannotUploadDocs'
+    }
+  }) }}
+{% endset %}
+
+{% block form_content %}
+
+  {% for fieldName, field in form.fields %}
+    {% if fieldName == 'requestForInformationResponseCannotUploadDocs' %}
+      {{ requestForInformationResponseCannotUploadDocs | safe }}
+    {% else %}
+      {% include "common/form/fields/" + field.type + ".njk" %}
+
+      {% if fieldName == 'requestForInformationResponseDetails' %}
+        {% include "./document-upload.njk" %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+{% endblock %}
