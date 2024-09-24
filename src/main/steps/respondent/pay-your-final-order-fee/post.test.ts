@@ -80,7 +80,7 @@ describe('PaymentPostController', () => {
 
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
         '1234',
-        {"citizenPaymentCallbackUrl": "https://undefined/payment-callback"},
+        { citizenPaymentCallbackUrl: 'https://undefined/payment-callback' },
         RESPONDENT_APPLY_FOR_FINAL_ORDER
       );
     });

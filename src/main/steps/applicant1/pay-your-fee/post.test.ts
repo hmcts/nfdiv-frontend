@@ -67,7 +67,7 @@ describe('PaymentPostController', () => {
         applicationFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
-        applicationFeeServiceRequestReference: "mock-service-ref"
+        applicationFeeServiceRequestReference: 'mock-service-ref',
       });
 
       (mockCreate as jest.Mock).mockReturnValueOnce({
@@ -80,7 +80,9 @@ describe('PaymentPostController', () => {
       await paymentController.post(req, res);
 
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-        '1234', {"citizenPaymentCallbackUrl": "https://undefined/payment-callback"}, CITIZEN_SUBMIT
+        '1234',
+        { citizenPaymentCallbackUrl: 'https://undefined/payment-callback' },
+        CITIZEN_SUBMIT
       );
     });
 
@@ -88,7 +90,7 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingPayment,
-          applicationFeeServiceRequestReference: "mock-service-ref",
+          applicationFeeServiceRequestReference: 'mock-service-ref',
           applicationPayments: [
             {
               id: 'mock external reference payment id',

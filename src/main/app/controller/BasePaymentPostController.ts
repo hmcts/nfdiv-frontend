@@ -101,7 +101,7 @@ export default abstract class BasePaymentPostController {
 export function getPaymentCallbackUrl(req: AppRequest, res: Response): string {
   const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
   const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-  return`${protocol}${res.locals.host}${port}${getPaymentCallbackPath(req)}`;
+  return `${protocol}${res.locals.host}${port}${getPaymentCallbackPath(req)}`;
 }
 
 export function getPaymentCallbackPath(req: AppRequest): string {
