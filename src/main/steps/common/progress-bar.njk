@@ -7,16 +7,16 @@
 {% if isJointApplication %}
   {% set items = [{
     label: {
-      html: textWithVisuallyHiddenSpan(submitted, true)
+      html: textWithVisuallyHiddenSpan(submitted, displayState.isAtOrAfter('Submitted'))
     },
-    complete: true,
-    active: false
+    complete: displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'),
+    active: displayState.at('AwaitingDocuments') and not (displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'))
   }, {
     label: {
-    html: textWithVisuallyHiddenSpan(courtChecks, displayState.isBefore('Submitted'))
+    html: textWithVisuallyHiddenSpan(courtChecks, displayState.isAfter('Submitted'))
   },
     complete: displayState.isAfter('Submitted'),
-    active: displayState.isBefore('Holding')
+    active: displayState.isAfter('Submitted') or displayState.at('AwaitingHWFDecision')
     }, {
     label: {
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
@@ -33,16 +33,16 @@
 {% else %}
   {% set items = [{
     label: {
-      html: textWithVisuallyHiddenSpan(submitted, true)
+      html: textWithVisuallyHiddenSpan(submitted, displayState.isAtOrAfter('Submitted'))
     },
-    complete: true,
-    active: false
+    complete: displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'),
+    active: displayState.at('AwaitingDocuments') and not (displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'))
   },  {
     label: {
       html: textWithVisuallyHiddenSpan(courtChecks, displayState.isBefore('Submitted'))
     },
     complete: displayState.isAfter('Submitted'),
-    active: displayState.isAtOrAfter('AwaitingAos')
+    active: displayState.isAtOrAfter('AwaitingAos') or displayState.at('AwaitingHWFDecision')
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))

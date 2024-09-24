@@ -1,6 +1,8 @@
+import { Checkbox } from '../../../../app/case/case';
 import { DivorceOrDissolution, State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { currentStateFn } from '../../../state-sequence';
+import { getSoleHubTemplate } from '../sole/soleTemplateSelector';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -161,5 +163,21 @@ describe('JointTemplateSelector test', () => {
     const theState = displayState.at(State.PendingHearingDate);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
+
+  test('should show /awaiting-documents.njk for state AwaitingDocuments', () => {
+    const theState = displayState.at(State.AwaitingDocuments);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingDocuments);
+  });
+
+  test('should show /awaiting-documents.njk for state AwaitingHWFDecision and reason is "cannot upload documents"', () => {
+    const userCaseWithApplicant1CannotUploadDocuments = {
+      ...userCase,
+      applicant1CannotUpload: Checkbox.Checked,
+    };
+    const theState = displayState.at(State.AwaitingHWFDecision);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 });

@@ -1,4 +1,4 @@
-import { CaseWithId } from '../../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
@@ -62,6 +62,10 @@ export const getJointHubTemplate = (
     case State.PendingHearingDate: {
       return HubTemplate.PendingHearingOutcome;
     }
+    case State.AwaitingDocuments:
+      return HubTemplate.AwaitingDocuments;
+    case State.AwaitingHWFDecision:
+      return userCase.applicant1CannotUpload === Checkbox.Checked ? HubTemplate.AwaitingDocuments : HubTemplate.Holding;
     default: {
       if (
         displayState.isAfter('Holding') &&

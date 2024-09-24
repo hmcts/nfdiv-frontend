@@ -25,7 +25,11 @@ const en = (
   }: CommonContent,
   feedbackLink: string
 ) => ({
-  title: 'Application submitted',
+  title: `Application ${
+    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
+      ? 'saved'
+      : 'submitted'
+  }`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
   line1: 'Your application will not be processed until you have done the following:',
@@ -42,13 +46,12 @@ const en = (
     [DocumentType.NAME_CHANGE_EVIDENCE]:
       'Proof that you changed your name. For example, deed poll or statutory declaration.',
   },
-  documentsByEmail: 'Sending documents by email',
-  documentsByEmailSteps: {
-    step1: 'Take a photo or scan of the document',
-    step2: 'Check the image shows the whole document and all the text is readable',
-    step3: 'Attach it to an email',
-    step4: `Include your reference number in the subject line: ${referenceNumber}`,
-    step5: 'Email the documents to:',
+  documentsByOnlineForm: 'Sending documents using our online form',
+  documentsByOnlineFormSteps: {
+    line1: 'You can send photographs or scans of your documents to us by',
+    line2: 'uploading them using our online form.',
+    line3:
+      'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
   },
   documentsByPost: 'Sending your documents by post',
   documentsByPostSteps: {
@@ -56,7 +59,7 @@ const en = (
     step2: 'Post the original documents to:',
   },
   documentsByPostMoreDetails:
-    'You must post the original documents or certified copies. Your marriage certificate will be returned to you, if you are posting it in. Other documents will not be returned.',
+    'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
   subHeading3: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
   line3: {
     p1: `You need to apply to serve the ${
@@ -155,7 +158,11 @@ const cy: typeof en = (
   }: CommonContent,
   feedbackLink: string
 ) => ({
-  title: 'Cyflwynwyd y cais',
+  title: `${
+    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
+      ? 'Cais wedi’i gadw'
+      : 'Cyflwynwyd y cais'
+  }`,
   yourReferenceNumber: 'Eich cyfeirnod yw',
   subHeading1: 'Beth sydd angen i chi ei wneud nawr',
   line1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
@@ -172,13 +179,12 @@ const cy: typeof en = (
     [DocumentType.NAME_CHANGE_EVIDENCE]:
       'Prawf eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
   },
-  documentsByEmail: 'Anfon dogfennau trwy e-bost',
-  documentsByEmailSteps: {
-    step1: 'Cymerwch lun neu sganiwch y ddogfen ',
-    step2: 'Gwnewch yn siŵr bod y ddelwedd yn dangos y ddogfen gyfan a bod modd darllen yr holl destun',
-    step3: 'Atodwch y ddelwedd i neges e-bost ',
-    step4: `Dylech gynnwys eich cyfeirnod yn y llinell pwnc: ${referenceNumber}`,
-    step5: 'Anfonwch y dogfennau i:',
+  documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
+  documentsByOnlineFormSteps: {
+    line1: 'Gallwch anfon lluniau neu sganiau o’ch dogfennau atom trwy ',
+    line2: 'llwytho gan ddefnyddio ein ffurflen ar-lein.',
+    line3:
+      "Gwnewch yn siŵr eich bod yn dilyn y cyfarwyddiadau ar sut i lwytho eich dogfennau'n ofalus neu gellid eu gwrthod, gan arwain at oedi pellach.",
   },
   documentsByPost: 'Anfon eich dogfennau drwy’r post',
   documentsByPostSteps: {
@@ -186,7 +192,7 @@ const cy: typeof en = (
     step2: 'Postiwch y dogfennau gwreiddiol i:',
   },
   documentsByPostMoreDetails:
-    'Rhaid i chi bostio’r dogfennau gwreiddiol neu gopïau ardystiedig. Bydd eich tystysgrif priodas yn cael ei dychwelyd i chi, os ydych yn ei phostio. Ni fydd y dogfennau eraill yn cael eu dychwelyd.',
+    'Gwnewch yn siŵr eich bod hefyd yn cynnwys cyfeiriad dychwelyd yn eich ymateb. Bydd unrhyw ddogfennau y byddwch yn eu hanfon, fel tystysgrifau priodas, tystysgrifau geni, pasbortau neu weithred newid enw yn cael eu dychwelyd atoch. Ni fydd y dogfennau eraill yn cael eu dychwelyd.',
   subHeading3: `Gwneud cais i gyflwyno papurau’r ${isDivorce ? 'ysgariad' : 'bartneriaeth sifil'} mewn ffordd arall`,
   line3: {
     p1: `Mae angen i chi wneud cais i gyflwyno papurau’r ${
