@@ -6,6 +6,7 @@ import { PAYMENT_CALLBACK_URL, RESPONDENT, SAVE_AND_SIGN_OUT } from '../../steps
 import {
   ApplicationType,
   CITIZEN_ADD_PAYMENT,
+  CITIZEN_CREATE_SERVICE_REQUEST,
   CaseData,
   Fee,
   ListValue,
@@ -24,12 +25,17 @@ export default abstract class BasePaymentPostController {
       return res.redirect(SAVE_AND_SIGN_OUT);
     }
 
-    let serviceReference = this.getServiceReferenceForFee(req);
-    if (req.session.userCase.state !== this.awaitingPaymentState() || !serviceReference) {
+    if (req.session.userCase.state !== this.awaitingPaymentState()) {
+      req.session.userCase = await req.locals.api.triggerEvent(
+        req.session.userCase.id, {}, this.awaitingPaymentEvent()
+      );
+    }
+
+    if (!this.getServiceReferenceForFee(req)) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
         { citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
-        this.awaitingPaymentEvent()
+        CITIZEN_CREATE_SERVICE_REQUEST
       );
     }
 
@@ -38,7 +44,7 @@ export default abstract class BasePaymentPostController {
       return this.saveAndRedirect(req, res, getPaymentCallbackPath(req));
     }
 
-    serviceReference = this.getServiceReferenceForFee(req);
+    const serviceReference = this.getServiceReferenceForFee(req);
     const payment = await this.attemptPayment(req, payments, serviceReference, getPaymentCallbackUrl(req, res));
 
     this.saveAndRedirect(req, res, payment.next_url);
