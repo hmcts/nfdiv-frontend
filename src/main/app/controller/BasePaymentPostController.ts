@@ -27,7 +27,9 @@ export default abstract class BasePaymentPostController {
 
     if (req.session.userCase.state !== this.awaitingPaymentState()) {
       req.session.userCase = await req.locals.api.triggerEvent(
-        req.session.userCase.id, {}, this.awaitingPaymentEvent()
+        req.session.userCase.id,
+        {},
+        this.awaitingPaymentEvent()
       );
     }
 
