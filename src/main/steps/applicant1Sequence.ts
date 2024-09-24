@@ -426,7 +426,11 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: CONFIRM_JOINT_APPLICATION,
-    getNextStep: () => PAY_AND_SUBMIT,
+    getNextStep: data =>
+      data.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+      data.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
+        ? JOINT_APPLICATION_SUBMITTED
+        : PAY_AND_SUBMIT,
   },
   {
     url: APPLICATION_ENDED,
