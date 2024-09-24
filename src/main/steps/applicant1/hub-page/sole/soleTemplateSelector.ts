@@ -106,10 +106,6 @@ export const getSoleHubTemplate = (
         : HubTemplate.AosAwaitingOrDrafted;
     case State.AwaitingDocuments:
       return HubTemplate.AwaitingDocuments;
-    case State.AwaitingHWFDecision:
-      return userCase.applicant1CannotUpload === Checkbox.Checked
-        ? HubTemplate.AwaitingDocuments
-        : HubTemplate.AosAwaitingOrDrafted;
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
         return HubTemplate.AoSDue;
