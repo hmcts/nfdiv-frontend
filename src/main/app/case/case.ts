@@ -171,7 +171,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1CanIntendToSwitchToSoleFo: 'applicant1CanIntendToSwitchToSoleFo',
   applicant2CanIntendToSwitchToSoleFo: 'applicant2CanIntendToSwitchToSoleFo',
   isFinalOrderOverdue: 'isFinalOrderOverdue',
-  citizenPaymentCallbackUrl: 'citizenPaymentCallbackUrl',
+  citizenPaymentCallbackUrl: 'citizenPaymentCallbackUrl'
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
