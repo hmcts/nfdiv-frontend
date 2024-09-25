@@ -64,6 +64,7 @@ describe('PaymentPostController', () => {
 
       (req.locals.api.triggerEvent as jest.Mock).mockReturnValueOnce({
         state: State.AwaitingFinalOrder,
+        applicant2FinalOrderFeeServiceRequestReference: 'mock-service-ref',
         applicant2FinalOrderFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },

@@ -28,7 +28,7 @@ export default abstract class BasePaymentPostController {
     if (req.session.userCase.state !== this.awaitingPaymentState()) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
-        {},
+        { citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
         this.awaitingPaymentEvent()
       );
     }
@@ -69,24 +69,25 @@ export default abstract class BasePaymentPostController {
   private async attemptPayment(
     req: AppRequest<AnyObject>,
     payments: PaymentModel,
-    serviceRefNumber: string,
+    serviceReference: string,
     callbackUrl: string
   ): Promise<Payment> {
     const fees = this.getFeesFromOrderSummary(req);
+    const fee = fees[0];
     const client = this.getPaymentClient(req, callbackUrl);
-    const payment = await client.create(serviceRefNumber, fees);
+    const payment = await client.create(serviceReference, fees);
     const now = new Date().toISOString();
 
     payments.add({
       created: now,
       updated: now,
-      feeCode: fees[0].value.FeeCode,
-      amount: parseInt(fees[0].value.FeeAmount, 10),
+      feeCode: fee.value.FeeCode,
+      amount: parseInt(fee.value.FeeAmount, 10),
       status: PaymentStatus.IN_PROGRESS,
       channel: payment.next_url,
       reference: payment.payment_reference,
       transactionId: payment.external_reference,
-      serviceRequestReference: serviceRefNumber,
+      serviceRequestReference: serviceReference,
     });
 
     const eventPayload = { [this.paymentsCaseField()]: payments.list };
