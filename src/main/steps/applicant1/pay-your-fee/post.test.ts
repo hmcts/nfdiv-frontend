@@ -22,7 +22,7 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingPayment,
-          applicationFeeServiceRequestReference: 'dummy-service-ref',
+          applicationFeeServiceRequestReference: '/payment-callback',
           applicationFeeOrderSummary: {
             Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
           },
@@ -67,7 +67,7 @@ describe('PaymentPostController', () => {
         applicationFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
-        applicationFeeServiceRequestReference: 'mock-service-ref',
+        applicationFeeServiceRequestReference: '/payment-callback',
       });
 
       (mockCreate as jest.Mock).mockReturnValueOnce({
@@ -90,7 +90,7 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingPayment,
-          applicationFeeServiceRequestReference: 'mock-service-ref',
+          applicationFeeServiceRequestReference: '/payment-callback',
           applicationPayments: [
             {
               id: 'mock external reference payment id',

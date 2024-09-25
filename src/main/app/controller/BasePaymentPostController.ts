@@ -73,7 +73,7 @@ export default abstract class BasePaymentPostController {
     callbackUrl: string
   ): Promise<Payment> {
     const fees = this.getFeesFromOrderSummary(req);
-    const fee = fees[0];
+    const fee = fees[0].value;
     const client = this.getPaymentClient(req, callbackUrl);
     const payment = await client.create(serviceReference, fees);
     const now = new Date().toISOString();
@@ -81,8 +81,8 @@ export default abstract class BasePaymentPostController {
     payments.add({
       created: now,
       updated: now,
-      feeCode: fee.value.FeeCode,
-      amount: parseInt(fee.value.FeeAmount, 10),
+      feeCode: fee.FeeCode,
+      amount: parseInt(fee.FeeAmount, 10),
       status: PaymentStatus.IN_PROGRESS,
       channel: payment.next_url,
       reference: payment.payment_reference,

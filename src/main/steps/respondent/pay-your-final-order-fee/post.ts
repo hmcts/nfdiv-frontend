@@ -15,15 +15,15 @@ export default class FinalOrderPaymentPostController extends BasePaymentPostCont
     return RESPONDENT_APPLY_FOR_FINAL_ORDER;
   }
 
-  protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
-    return req.session.userCase.applicant2FinalOrderFeeServiceRequestReference;
+  protected getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[] {
+    return req.session.userCase.applicant2FinalOrderFeeOrderSummary.Fees;
   }
 
   protected paymentsCaseField(): keyof CaseData {
     return 'finalOrderPayments' as keyof CaseData;
   }
 
-  protected getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[] {
-    return req.session.userCase.applicant2FinalOrderFeeOrderSummary.Fees;
+  protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
+    return req.session.userCase.applicant2FinalOrderFeeServiceRequestReference;
   }
 }

@@ -22,7 +22,7 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingFinalOrderPayment,
-          applicant2FinalOrderFeeServiceRequestReference: 'mock-service-ref',
+          applicant2FinalOrderFeeServiceRequestReference: '/payment-callback',
           applicant2FinalOrderFeeOrderSummary: {
             Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
           },
@@ -64,7 +64,7 @@ describe('PaymentPostController', () => {
 
       (req.locals.api.triggerEvent as jest.Mock).mockReturnValueOnce({
         state: State.AwaitingFinalOrder,
-        applicant2FinalOrderFeeServiceRequestReference: 'mock-service-ref',
+        applicant2FinalOrderFeeServiceRequestReference: '/payment-callback',
         applicant2FinalOrderFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
@@ -90,7 +90,7 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingFinalOrderPayment,
-          applicant2FinalOrderFeeServiceRequestReference: 'mock-service-ref',
+          applicant2FinalOrderFeeServiceRequestReference: '/payment-callback',
           finalOrderPayments: [
             {
               id: 'mock external reference payment id',

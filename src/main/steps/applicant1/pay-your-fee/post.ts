@@ -15,15 +15,15 @@ export default class PaymentPostController extends BasePaymentPostController {
     return CITIZEN_SUBMIT;
   }
 
-  protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
-    return req.session.userCase.applicationFeeServiceRequestReference;
+  protected getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[] {
+    return req.session.userCase.applicationFeeOrderSummary.Fees;
   }
 
   protected paymentsCaseField(): keyof CaseData {
     return 'applicationPayments' as keyof CaseData;
   }
 
-  protected getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[] {
-    return req.session.userCase.applicationFeeOrderSummary.Fees;
+  protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
+    return req.session.userCase.applicationFeeServiceRequestReference;
   }
 }
