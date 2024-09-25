@@ -3,16 +3,14 @@ import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
-import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
-import { CaseWithId } from '../case/case';
 import {
-  CITIZEN_APPLICANT2_UPDATE,
-  CITIZEN_UPDATE,
-  DivorceDocument,
-  ListValue,
-  RESPOND_TO_REQUEST_FOR_INFORMATION,
-  State,
-} from '../case/definition';
+  APPLICANT_2,
+  PROVIDE_INFORMATION_TO_THE_COURT,
+  RESPOND_TO_COURT_FEEDBACK,
+  UPLOAD_YOUR_DOCUMENTS,
+} from '../../steps/urls';
+import { CaseWithId } from '../case/case';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
@@ -22,11 +20,11 @@ import { CaseDocumentManagementClient, Classification } from './CaseDocumentMana
 export class DocumentManagerController {
   logger: LoggerInstance | undefined;
 
-  private redirect(req, res, isApplicant2) {
+  private redirect(req: AppRequest, res: Response, isApplicant2: boolean) {
     if (req.session.userCase.state === State.AwaitingClarification) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
-      return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_REQUEST_FOR_INFORMATION}`);
+      return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
     }
     return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
   }
@@ -139,6 +137,9 @@ export class DocumentManagerController {
     const documentIndexToDelete = parseInt(req.params.index, 10);
     const documentToDelete = documentsUploaded[documentIndexToDelete];
     if (!documentToDelete?.value?.documentLink?.document_url) {
+      req.locals.logger.info(
+        `Could not find url for document to delete at index(${documentIndexToDelete}) using documentsKey(${documentsUploadedKey}) from case(id=${req.session.userCase.id})`
+      );
       return this.redirect(req, res, isApplicant2);
     }
     const documentUrlToDelete = documentToDelete.value.documentLink.document_url;
@@ -154,6 +155,9 @@ export class DocumentManagerController {
     await this.getApiClient(req.session.user).delete({ url: documentUrlToDelete });
 
     req.session.save(err => {
+      req.locals.logger.info(
+        `deleted file(url=${documentUrlToDelete}) using documentsKey(${documentsUploadedKey}) from case(id=${req.session.userCase.id})`
+      );
       if (err) {
         throw err;
       }
