@@ -5,7 +5,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
 
-const en = () => ({
+const en = applicant1UploadDocumentContent => ({
   title: "Respond to the court's feedback",
   line1:
     'Read the court’s reasons for stopping the application in the email we sent you and provide the information they’ve asked for.',
@@ -36,9 +36,22 @@ const en = () => ({
   uploadedFiles: 'Uploaded files',
   noFilesUploaded: 'No files uploaded',
   havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
+  errors: {
+    requestForInformationResponseDetails: {
+      required:
+        'You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. If you are having trouble uploading any documents, select that option.',
+    },
+    requestForInformationResponseUploadedFiles: {
+      notUploaded:
+        'You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. If you are having trouble uploading any documents, select that option.',
+      errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
+      fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
+      fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
+    },
+  },
 });
 
-const cy: typeof en = () => ({
+const cy: typeof en = applicant1UploadDocumentContent => ({
   title: 'Ymateb i adborth y llys',
   line1:
     'Darllenwch resymau’r llys dros atal y cais yn yr e-bost a anfonom atoch a rhowch yr wybodaeth y maent wedi gofyn amdani.',
@@ -70,6 +83,19 @@ const cy: typeof en = () => ({
   uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
   noFilesUploaded: 'Nid oes ffeiliau wedi cael eu llwytho',
   havingTroubleUploading: 'Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.',
+  errors: {
+    requestForInformationResponseDetails: {
+      required:
+        'Nid ydych wedi darparu unrhyw wybodaeth neu lwytho unrhyw ddogfennau. Mae angen i chi ddarparu’r wybodaeth neu’r dogfennau y mae’r llys wedi gofyn amdani/ynt. Os ydych trafferth wrth lwytho dogfennau, dewiswch yr opsiwn hwnnw.',
+    },
+    requestForInformationResponseUploadedFiles: {
+      notUploaded:
+        'Nid ydych wedi darparu unrhyw wybodaeth neu lwytho unrhyw ddogfennau. Mae angen i chi ddarparu’r wybodaeth neu’r dogfennau y mae’r llys wedi gofyn amdani/ynt. Os ydych trafferth wrth lwytho dogfennau, dewiswch yr opsiwn hwnnw.',
+      errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
+      fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
+      fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
+    },
+  },
 });
 
 export const form: FormContent = {
@@ -83,8 +109,8 @@ export const form: FormContent = {
           (formData.requestForInformationResponseUploadedFiles as unknown as string[])?.length &&
           (formData.requestForInformationResponseUploadedFiles as unknown as string) !== '[]';
         const selectedCannotUploadDocuments = !!formData.requestForInformationResponseCannotUploadDocs?.length;
-        const hasEnteredResponse = !isEmpty(value);
-        if (!hasUploadedFiles && !selectedCannotUploadDocuments && !hasEnteredResponse) {
+        const hasEnteredDetails = !isEmpty(value);
+        if (!hasUploadedFiles && !selectedCannotUploadDocuments && !hasEnteredDetails) {
           return 'required';
         }
       },
@@ -98,6 +124,14 @@ export const form: FormContent = {
           ? JSON.stringify(userCase.requestForInformationResponseUploadedFiles)
           : userCase.requestForInformationResponseUploadedFiles) || '[]',
       parser: data => JSON.parse((data as Record<string, string>).requestForInformationResponseUploadedFiles || '[]'),
+      validator: (value, formData) => {
+        const hasEnteredDetails = !isEmpty(formData.requestForInformationResponseDetails);
+        const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
+        const selectedCannotUploadDocuments = !!formData.requestForInformationResponseCannotUploadDocs?.length;
+        if (!hasEnteredDetails && !hasUploadedFiles && !selectedCannotUploadDocuments) {
+          return 'notUploaded';
+        }
+      },
     },
     requestForInformationCannotUploadDocs: {
       type: 'hidden',
@@ -126,7 +160,7 @@ export const generateContent: TranslationFn = content => {
   }`;
   return {
     ...applicant1UploadDocumentContent,
-    ...languages[content.language](),
+    ...languages[content.language](applicant1UploadDocumentContent),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     uploadedDocsFilenames,
     amendable,
