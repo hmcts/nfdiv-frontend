@@ -31,7 +31,7 @@ describe('CheckYourAnswersPostController', () => {
       applicationType: ApplicationType.SOLE_APPLICATION,
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant1StatementOfTruth: Checkbox.Checked,
-      citizenPaymentCallbackUrl: "https://undefined/payment-callback"
+      citizenPaymentCallbackUrl: 'https://undefined/payment-callback',
     };
     const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 
@@ -113,7 +113,7 @@ describe('CheckYourAnswersPostController', () => {
       state: State.Draft,
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant1StatementOfTruth: Checkbox.Checked,
-      "citizenPaymentCallbackUrl": "https://undefined/payment-callback"
+      citizenPaymentCallbackUrl: 'https://undefined/payment-callback',
     };
     const checkYourAnswerPostController = new CheckYourAnswersPostController(mockFormContent.fields);
 

@@ -12,7 +12,7 @@ describe('Applicant1ConfirmYourJointApplicationPostController', () => {
     const body = {
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant1StatementOfTruth: Checkbox.Checked,
-      "citizenPaymentCallbackUrl": "https://undefined/payment-callback"
+      citizenPaymentCallbackUrl: 'https://undefined/payment-callback',
     };
     const mockFormContent = {
       fields: {
@@ -39,7 +39,7 @@ describe('Applicant1ConfirmYourJointApplicationPostController', () => {
     const body = {
       applicant1IConfirmPrayer: Checkbox.Checked,
       applicant1StatementOfTruth: Checkbox.Checked,
-      "citizenPaymentCallbackUrl": "https://undefined/payment-callback"
+      citizenPaymentCallbackUrl: 'https://undefined/payment-callback',
     };
     const mockFormContent = {
       fields: {
