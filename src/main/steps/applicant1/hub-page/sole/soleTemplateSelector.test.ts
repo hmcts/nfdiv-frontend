@@ -348,8 +348,13 @@ describe('SoleTemplateSelector test', () => {
 
   test('should show /awaiting-documents.njk for state AwaitingDocuments', () => {
     const theState = displayState.at(State.AwaitingDocuments);
+<<<<<<< HEAD
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.AwaitingDocuments);
+=======
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
+>>>>>>> origin/NFDIV-4177-pre-request-information-feature
   });
 
   test('should show /awaiting-documents.njk for state AwaitingHWFDecision and reason is "cannot upload documents"', () => {
@@ -360,5 +365,11 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingHWFDecision);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments, false, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
+  });
+
+  test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFDecision', () => {
+    const theState = displayState.at(State.AwaitingHWFDecision);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 });

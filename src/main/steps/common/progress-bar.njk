@@ -15,8 +15,8 @@
     label: {
     html: textWithVisuallyHiddenSpan(courtChecks, displayState.isAfter('Submitted'))
   },
-    complete: displayState.isAfter('Submitted'),
-    active: displayState.isAfter('Submitted') or displayState.at('AwaitingHWFDecision')
+    complete: displayState.isAtOrAfter('Holding'),
+    active: displayState.isBefore('Holding')
     }, {
     label: {
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
@@ -41,8 +41,8 @@
     label: {
       html: textWithVisuallyHiddenSpan(courtChecks, displayState.isBefore('Submitted'))
     },
-    complete: displayState.isAfter('Submitted'),
-    active: displayState.isAtOrAfter('AwaitingAos') or displayState.at('AwaitingHWFDecision')
+    complete: displayState.isAtOrAfter('AwaitingAos'),
+    active: displayState.isBefore('AwaitingAos')
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))

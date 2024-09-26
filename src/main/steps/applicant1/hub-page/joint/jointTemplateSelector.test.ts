@@ -180,4 +180,10 @@ describe('JointTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments, false, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
+
+  test('should show /holding.njk for state AwaitingHWFDecision', () => {
+    const theState = displayState.at(State.AwaitingHWFDecision);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.Holding);
+  });
 });
