@@ -10,7 +10,6 @@ import {
 } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { currentStateFn } from '../../../state-sequence';
-import { getJointHubTemplate } from '../joint/jointTemplateSelector';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
