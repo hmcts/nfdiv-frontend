@@ -14,7 +14,8 @@ export const getJointHubTemplate = (
 ): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested:
-    case State.AwaitingGeneralConsideration: {
+    case State.AwaitingGeneralConsideration:
+    case State.GeneralConsiderationComplete: {
       return HubTemplate.FinalOrderRequested;
     }
     case State.AwaitingPronouncement: {
@@ -40,6 +41,7 @@ export const getJointHubTemplate = (
       return HubTemplate.ConditionalOrderPending;
     case State.AwaitingAdminClarification:
     case State.AwaitingLegalAdvisorReferral:
+    case State.ConditionalOrderReview:
     case State.LAReview:
       return HubTemplate.AwaitingLegalAdvisorReferral;
     case State.AwaitingFinalOrder:
@@ -54,6 +56,10 @@ export const getJointHubTemplate = (
       return HubTemplate.AwaitingJointFinalOrder;
     case State.FinalOrderComplete: {
       return HubTemplate.FinalOrderComplete;
+    }
+    case State.PendingHearingOutcome:
+    case State.PendingHearingDate: {
+      return HubTemplate.PendingHearingOutcome;
     }
     default: {
       if (

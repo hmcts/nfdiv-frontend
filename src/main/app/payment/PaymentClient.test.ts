@@ -4,7 +4,7 @@ import config from 'config';
 import { mockLogger } from '../../../test/unit/mocks/hmcts/nodejs-logging';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { DivorceOrDissolution } from '../case/definition';
+import { DivorceOrDissolution, Fee, ListValue } from '../case/definition';
 
 import { PaymentClient } from './PaymentClient';
 
@@ -15,6 +15,7 @@ jest.mock('../auth/service/get-service-auth-token');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedConfig = config as jest.Mocked<typeof config>;
 const mockGetServiceAuthToken = getServiceAuthToken as jest.Mocked<jest.Mock>;
+const serviceRequestNumber = 'test123';
 
 describe('PaymentClient', () => {
   it('creates payments', async () => {
@@ -22,55 +23,52 @@ describe('PaymentClient', () => {
     mockedConfig.get.mockReturnValueOnce('mock-api-key');
     mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
     const mockPost = jest.fn().mockResolvedValueOnce({
-      data: { mockPayment: 'data', _links: { next_url: { href: 'http://example.com/pay' } } },
+      data: { mockPayment: 'data', next_url: 'http://example.com/pay' },
     });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
+
+    const orderSummaryFees: ListValue<Fee>[] = [
+      {
+        id: '1',
+        value: {
+          FeeAmount: '12345',
+          FeeCode: 'mock code',
+          FeeVersion: 'mock version',
+          FeeDescription: 'mock description',
+        },
+      },
+    ];
     const req = mockRequest({
       userCase: {
         id: '1234',
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
         applicationFeeOrderSummary: {
-          Fees: [{ value: { FeeAmount: 12345, FeeCode: 'mock fee code', FeeVersion: 'mock fee version' } }],
+          Fees: orderSummaryFees,
         },
       },
     });
 
     const client = new PaymentClient(req.session, 'http://return-url');
-
-    const actual = await client.create();
+    const actual = await client.create(serviceRequestNumber, orderSummaryFees);
 
     expect(mockedAxios.create).toHaveBeenCalledWith({
       baseURL: 'http://mock-service-url',
       headers: {
         Authorization: 'Bearer mock-user-access-token',
         ServiceAuthorization: 'mock-server-auth-token',
-        'return-url': 'http://return-url',
       },
     });
 
-    expect(mockPost).toHaveBeenCalledWith('/card-payments', {
+    expect(mockPost).toHaveBeenCalledWith(`/service-request/${serviceRequestNumber}/card-payments`, {
       amount: 123.45,
-      ccd_case_number: '1234',
       currency: 'GBP',
-      description: 'Divorce application fee',
-      fees: [
-        {
-          calculated_amount: '123.45',
-          code: 'mock fee code',
-          version: 'mock fee version',
-        },
-      ],
-      language: '',
-      case_type: 'NFD',
+      language: 'English',
+      'return-url': 'http://return-url',
     });
 
     expect(actual).toEqual({
       mockPayment: 'data',
-      _links: {
-        next_url: {
-          href: 'http://example.com/pay',
-        },
-      },
+      next_url: 'http://example.com/pay',
     });
   });
 
@@ -80,19 +78,30 @@ describe('PaymentClient', () => {
     mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
     const mockPost = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data, but missing _links' } });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
+    const orderSummaryFees: ListValue<Fee>[] = [
+      {
+        id: '1',
+        value: {
+          FeeAmount: '12345',
+          FeeCode: 'mock code',
+          FeeVersion: 'mock version',
+          FeeDescription: 'mock description',
+        },
+      },
+    ];
     const req = mockRequest({
       userCase: {
         id: '1234',
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
         applicationFeeOrderSummary: {
-          Fees: [{ value: { FeeAmount: 12345, FeeCode: 'mock fee code', FeeVersion: 'mock fee version' } }],
+          Fees: orderSummaryFees,
         },
       },
     });
 
     const client = new PaymentClient(req.session, 'http://return-url');
 
-    await expect(() => client.create()).rejects.toThrow('Error creating payment');
+    await expect(() => client.create(serviceRequestNumber, orderSummaryFees)).rejects.toThrow('Error creating payment');
 
     expect(mockLogger.error).toHaveBeenCalledWith('Error creating payment', {
       mockPayment: 'data, but missing _links',
@@ -123,5 +132,61 @@ describe('PaymentClient', () => {
     await client.get('1234');
 
     expect(mockLogger.error).toHaveBeenCalledWith('Error fetching payment', { some: 'error' });
+  });
+
+  it('creates service request reference number', async () => {
+    mockedConfig.get.mockReturnValueOnce('http://mock-service-url');
+    mockedConfig.get.mockReturnValueOnce('mock-api-key');
+    mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
+    const mockPost = jest.fn().mockResolvedValueOnce({
+      data: { mockPayment: 'data', service_request_reference: 'test1234' },
+    });
+    mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
+    const orderSummaryFees: ListValue<Fee>[] = [
+      {
+        id: '1',
+        value: {
+          FeeAmount: '12345',
+          FeeCode: 'mock code',
+          FeeVersion: 'mock version',
+          FeeDescription: 'mock description',
+        },
+      },
+    ];
+    const req = mockRequest({
+      userCase: {
+        id: '1234',
+        applicant1FullNameOnCertificate: 'User 1',
+        applicationFeeOrderSummary: {
+          Fees: orderSummaryFees,
+        },
+      },
+    });
+
+    const client = new PaymentClient(req.session, 'http://return-url');
+    const actual = await client.createServiceRequest('mock applicant', orderSummaryFees);
+
+    expect(mockPost).toHaveBeenCalledWith('/service-request', {
+      call_back_url: 'http://return-url',
+      case_payment_request: {
+        action: 'payment',
+        responsible_party: 'mock applicant',
+      },
+      case_reference: '1234',
+      ccd_case_number: '1234',
+      fees: [
+        {
+          calculated_amount: '123.45',
+          code: 'mock code',
+          version: 'mock version',
+        },
+      ],
+      hmcts_org_id: 'ABA1',
+    });
+
+    expect(actual).toEqual({
+      mockPayment: 'data',
+      service_request_reference: 'test1234',
+    });
   });
 });

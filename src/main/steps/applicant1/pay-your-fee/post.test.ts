@@ -7,7 +7,7 @@ import PaymentPostController from './post';
 
 jest.mock('../../../app/payment/PaymentClient');
 
-const { mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
+const { mockCreateServiceRequest, mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
 
 describe('PaymentPostController', () => {
   const paymentController = new PaymentPostController();
@@ -15,6 +15,7 @@ describe('PaymentPostController', () => {
   beforeEach(() => {
     mockCreate.mockClear();
     mockGet.mockClear();
+    mockCreateServiceRequest.mockClear();
   });
 
   describe('payment', () => {
@@ -25,7 +26,7 @@ describe('PaymentPostController', () => {
           applicationFeeOrderSummary: {
             Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
           },
-          payments: [
+          applicationPayments: [
             {
               id: 'timed out payment',
               value: {
@@ -39,7 +40,7 @@ describe('PaymentPostController', () => {
       const res = mockResponse();
 
       (req.locals.api.triggerPaymentEvent as jest.Mock).mockReturnValueOnce({
-        payments: [{ new: 'payment' }],
+        applicationPayments: [{ new: 'payment' }],
         applicationFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
@@ -75,6 +76,10 @@ describe('PaymentPostController', () => {
         _links: { next_url: { href: 'http://example.com/pay' } },
       });
 
+      (mockCreateServiceRequest as jest.Mock).mockReturnValueOnce({
+        service_request_reference: 'test1234',
+      });
+
       await paymentController.post(req, res);
 
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SUBMIT);
@@ -84,7 +89,7 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingPayment,
-          payments: [
+          applicationPayments: [
             {
               id: 'mock external reference payment id',
               value: {

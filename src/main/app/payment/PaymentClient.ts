@@ -4,7 +4,7 @@ import config from 'config';
 
 import { SupportedLanguages } from '../../modules/i18n';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { DivorceOrDissolution } from '../case/definition';
+import { Fee, ListValue } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';
 
 const logger = Logger.getLogger('payment');
@@ -21,41 +21,65 @@ export class PaymentClient {
       headers: {
         Authorization: 'Bearer ' + session.user.accessToken,
         ServiceAuthorization: getServiceAuthToken(),
-        'return-url': returnUrl,
       },
     });
+    this.returnUrl = returnUrl;
   }
 
-  public async create(): Promise<Payment> {
+  public async createServiceRequest(
+    responsibleParty: string | undefined,
+    feesFromOrderSummary: ListValue<Fee>[]
+  ): Promise<Payment> {
     const userCase = this.session.userCase;
-    const isDivorce = userCase.divorceOrDissolution === DivorceOrDissolution.DIVORCE;
     const caseId = userCase.id.toString();
-    const total = userCase.applicationFeeOrderSummary.Fees.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
-    const body = {
-      case_type: 'NFD', //hardcoded until it works with _PR_xxxx case types
-      amount: total,
+    const bodyServiceReq = {
+      call_back_url: this.returnUrl,
+      case_payment_request: {
+        action: 'payment',
+        responsible_party: responsibleParty,
+      },
+      case_reference: caseId,
       ccd_case_number: caseId,
-      description: `${isDivorce ? 'Divorce' : 'Ending your civil partnership'} application fee`,
-      currency: 'GBP',
-      fees: userCase.applicationFeeOrderSummary.Fees.map(fee => ({
+      fees: feesFromOrderSummary.map(fee => ({
         calculated_amount: `${parseInt(fee.value.FeeAmount, 10) / 100}`,
         code: fee.value.FeeCode,
         version: fee.value.FeeVersion,
       })),
-      language: this.session.lang === SupportedLanguages.En ? '' : this.session.lang?.toUpperCase(),
+      hmcts_org_id: 'ABA1',
     };
 
-    logger.info(body);
-
     try {
-      const response = await this.client.post<Payment>('/card-payments', body);
-      logger.info('Payment response');
-      logger.info(response.data);
+      const serviceRequestResponse = await this.client.post<Payment>('/service-request', bodyServiceReq);
+      logger.info(serviceRequestResponse.data);
+      if (!serviceRequestResponse.data) {
+        throw serviceRequestResponse;
+      }
+      return serviceRequestResponse.data;
+    } catch (e) {
+      const errMsg = 'Error creating service request number';
+      logger.error(errMsg, e.data);
+      throw new Error(errMsg);
+    }
+  }
 
-      if (!response.data || !response.data._links?.next_url.href) {
+  public async create(serviceRequestNumber: string, feesFromOrderSummary: ListValue<Fee>[]): Promise<Payment> {
+    const total = feesFromOrderSummary.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
+
+    const bodyCardPay = {
+      amount: total,
+      currency: 'GBP',
+      language: this.session.lang === SupportedLanguages.En ? 'English' : this.session.lang?.toUpperCase(),
+      'return-url': this.returnUrl,
+    };
+    try {
+      const response = await this.client.post<Payment>(
+        `/service-request/${serviceRequestNumber}/card-payments`,
+        bodyCardPay
+      );
+
+      if (!response.data || !response.data.next_url) {
         throw response;
       }
-
       return response.data;
     } catch (e) {
       const errMsg = 'Error creating payment';
@@ -79,6 +103,7 @@ export interface Payment {
   _links: LinksDto;
   account_number: string;
   amount: number;
+  call_back_url: string;
   case_reference: string;
   ccd_case_number: string;
   channel: string;
@@ -102,6 +127,9 @@ export interface Payment {
   site_id: string;
   status: HmctsPayStatus;
   status_histories: StatusHistoryDto[];
+  service_request_reference: string;
+  hmcts_org_id: string;
+  next_url: string;
 }
 
 interface LinksDto {

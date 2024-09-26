@@ -28,8 +28,12 @@ export const YOUR_DETAILS_URL: PageLink = '/your-details';
 export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';
 export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/relationship-not-broken';
 export const HELP_WITH_YOUR_FEE_URL: PageLink = '/help-with-your-fee';
+export const HELP_WITH_YOUR_FINAL_ORDER_FEE_URL: PageLink = '/help-with-your-final-order-fee';
+export const PAY_YOUR_FINAL_ORDER_FEE: PageLink = '/pay-your-final-order-fee';
 export const HELP_PAYING_HAVE_YOU_APPLIED: PageLink = '/have-you-applied-for-help-with-fees';
 export const HELP_PAYING_NEED_TO_APPLY: PageLink = '/apply-for-help-with-fees';
+export const HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED: PageLink = '/have-you-applied-for-help-with-final-order-fees';
+export const HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY: PageLink = '/apply-for-help-with-final-order-fees';
 export const IN_THE_UK: PageLink = '/in-the-uk';
 export const CERTIFICATE_IN_ENGLISH: PageLink = '/certificate-in-english';
 export const CERTIFIED_TRANSLATION: PageLink = '/certified-translation';
@@ -102,6 +106,7 @@ export const YOUR_COMMENTS_SENT: PageLink = '/your-comments-sent';
 export const NO_RESPONSE_YET: PageLink = '/no-response-yet';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
+export const APP_REPRESENTED: PageLink = '/app-represented';
 export const JOINT_APPLICATION_SUBMITTED: PageLink = '/joint-application-submitted';
 
 export const HOW_DO_YOU_WANT_TO_APPLY: PageLink = '/how-do-you-want-to-apply';
@@ -124,6 +129,7 @@ export const CHECK_PHONE_NUMBER: PageLink = '/check-phone-number';
 export const HOW_DO_YOU_WANT_TO_RESPOND: PageLink = '/how-do-you-want-to-respond';
 export const DISPUTING_THE_APPLICATION: PageLink = '/disputing-the-application';
 export const LEGAL_JURISDICTION_OF_THE_COURTS: PageLink = '/legal-jurisdiction-of-the-courts';
+export const INTEND_TO_DELAY: PageLink = '/intend-to-delay';
 
 export const HOW_YOU_CAN_PROCEED: PageLink = '/how-you-can-proceed';
 

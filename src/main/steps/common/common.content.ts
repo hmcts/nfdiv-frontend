@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, State } from '../../app/case/definition';
+import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
 import { SAVE_AND_SIGN_OUT } from '../urls';
 
@@ -88,7 +88,7 @@ export const en = {
   telephone: 'Telephone',
   telephoneNumber: '0300 303 0642',
   openingTimesHeading: 'Opening times (webchat and telephone)',
-  openingTimes: 'Monday to Friday, 8am to 6pm',
+  openingTimes: 'Monday to Friday, 10am to 6pm',
   closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
   cookiesBanner: {
     cookiesHeading: 'Cookies on',
@@ -129,6 +129,7 @@ export const en = {
   helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
   webChatTitle: 'Ask Divorce Web Chat',
+  webChatPageName: 'Apply for No Fault Divorce',
   timeout: {
     title: 'You are about to be signed out',
     part1: 'You are going to be signed out of your application in',
@@ -149,6 +150,7 @@ export const en = {
   contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
   saveAndSignOutLink: SAVE_AND_SIGN_OUT,
   avayaLanguage: 'English',
+  avayaClientUrlFolder: '1',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
 };
 
@@ -242,6 +244,7 @@ const cy: typeof en = {
   helpChatClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd.',
   helpChatMaintenance: 'Yn anffodus, rydym yn cael problemau technegol. Cysylltwch â ni dros y ffôn neu e-bost.',
   webChatTitle: 'Sgwrsio dros y we gyda’r Gwasanaeth Ysgaru',
+  webChatPageName: 'Gwneud cais am Ysgariad Heb Fai',
   allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
   useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
   doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
@@ -274,6 +277,7 @@ const cy: typeof en = {
   contactEmail: 'contactdivorce@justice.gov.uk',
   contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
   avayaLanguage: 'Welsh',
+  avayaClientUrlFolder: 'welsh',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
 };
 
@@ -295,11 +299,30 @@ export const generateCommonContent = ({
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
+  const isApp1Represented = userCase?.applicant1SolicitorRepresented === YesOrNo.YES;
   const isAmendableStates =
     userCase &&
     userCase.state &&
     [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
+  const isGeneralConsiderationFoRequested =
+    userCase &&
+    (userCase?.state === State.GeneralConsiderationComplete ||
+      userCase?.state === State.AwaitingGeneralConsideration) &&
+    userCase?.dateFinalOrderSubmitted !== undefined;
+  const isGeneralConsiderationCoPronounced =
+    userCase &&
+    (userCase?.state === State.GeneralConsiderationComplete ||
+      userCase?.state === State.AwaitingGeneralConsideration) &&
+    userCase?.coGrantedDate !== undefined &&
+    !isGeneralConsiderationFoRequested;
+  const isPendingHearingOutcomeCoPronounced =
+    userCase &&
+    userCase?.state === State.PendingHearingOutcome &&
+    userCase?.coGrantedDate !== undefined &&
+    userCase?.dateFinalOrderSubmitted === undefined;
+  const isPendingHearingOutcomeFoRequested =
+    userCase && userCase?.state === State.PendingHearingOutcome && userCase?.dateFinalOrderSubmitted !== undefined;
 
   return {
     ...commonTranslations,
@@ -313,6 +336,11 @@ export const generateCommonContent = ({
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
+    isApp1Represented,
+    isGeneralConsiderationFoRequested,
+    isGeneralConsiderationCoPronounced,
+    isPendingHearingOutcomeCoPronounced,
+    isPendingHearingOutcomeFoRequested,
   };
 };
 
@@ -328,4 +356,9 @@ export type CommonContent = typeof en & {
   referenceNumber?: string;
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
+  isApp1Represented: boolean;
+  isGeneralConsiderationFoRequested: boolean;
+  isGeneralConsiderationCoPronounced: boolean;
+  isPendingHearingOutcomeCoPronounced: boolean;
+  isPendingHearingOutcomeFoRequested: boolean;
 };

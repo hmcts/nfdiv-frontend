@@ -167,6 +167,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     generalOrderDownloadReference: 'General-Order',
     generalOrderLink: '/downloads/general-order',
   },
+  pendingHearingOutcome: {},
 });
 
 const cy: typeof en = ({
@@ -336,6 +337,7 @@ const cy: typeof en = ({
     generalOrderDownloadReference: 'General-Order',
     generalOrderLink: '/downloads/general-order',
   },
+  pendingHearingOutcome: {},
 });
 
 export const form: FormContent = {
@@ -355,6 +357,7 @@ export const generateContent: TranslationFn = content => {
   const referenceNumber = formattedCaseId(userCase.id);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
+  const shouldHaveAccessToCoApplication = content.isJointApplication || !content.isApplicant2;
   const applicationTranslations = content.isJointApplication
     ? jointGenerateContent(content)
     : soleGenerateContent(content);
@@ -368,6 +371,7 @@ export const generateContent: TranslationFn = content => {
     ...columnGenerateContent(content),
     ...applicationTranslations,
     isCoFieldsSet,
+    shouldHaveAccessToCoApplication,
     ...latestLegalAdvisorDecisionContent(userCase, true),
     ...progressBarContent,
   };

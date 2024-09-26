@@ -24,6 +24,7 @@ dist/
 coverage/
 .env
 functional-output/
+temp-reports/
 tsconfig.lint.json
 yarn-error.log
 

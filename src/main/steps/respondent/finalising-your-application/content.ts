@@ -65,7 +65,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.submit,
+    text: l => l.continue,
   },
 };
 

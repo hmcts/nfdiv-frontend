@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isEmailValid } from '../../../app/form/validation';
@@ -25,6 +26,7 @@ const en = ({ partner, isDivorce }) => ({
   county: 'County, district, state or province',
   postcode: 'Postal code, zip code or area code',
   country: 'Country',
+  solicitorAddressOverseas: 'Is this an international address?',
   errors: {
     applicant2SolicitorEmail: {
       invalid: 'You have entered the email address in the wrong format. Check it and enter it again.',
@@ -56,6 +58,7 @@ const cy: typeof en = ({ partner, isDivorce }) => ({
   county: 'Sir, rhanbarth,  gwladwriaeth neu dalaith',
   postcode: 'Cod post, cod zip neu god rhanbarth',
   country: 'Gwlad',
+  solicitorAddressOverseas: 'A yw hwn yn gyfeiriad rhyngwladol?',
   errors: {
     applicant2SolicitorEmail: {
       invalid:
@@ -132,6 +135,16 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.country,
+    },
+    applicant2SolicitorAddressOverseas: {
+      id: 'solicitorAddressOverseas',
+      type: 'radios',
+      classes: 'govuk-radios--inline',
+      label: l => l.solicitorAddressOverseas,
+      values: [
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
+      ],
     },
   },
   submit: {

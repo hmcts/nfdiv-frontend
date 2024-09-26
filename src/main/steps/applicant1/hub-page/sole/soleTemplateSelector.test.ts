@@ -46,6 +46,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
   });
 
+  test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state BailiffRefused', () => {
+    const theState = displayState.at(State.BailiffRefused);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
+  });
+
   test('should show /conditional-order-pronounced.njk for state ConditionalOrderPronounced', () => {
     const theState = displayState.at(State.ConditionalOrderPronounced);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
@@ -76,6 +82,85 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });
 
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state ConditionalOrderReview', () => {
+    const theState = displayState.at(State.ConditionalOrderReview);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
+  });
+
+  test('should show /final-order-requested.njk for state GeneralConsiderationComplete and dateFinalOrderSubmitted', () => {
+    const userCaseWithDateFinalOrderSubmitted = {
+      ...userCase,
+      dateFinalOrderSubmitted: '2024-06-27T14:13:41.478',
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithDateFinalOrderSubmitted, false, false);
+    expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
+  });
+  test('should show /conditional-order-pronounced.njk for state AwaitingGeneralConsideration and coGrantedDate', () => {
+    const userCaseWithCoGrantedDate = {
+      ...userCase,
+      coGrantedDate: '2024-01-27',
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithCoGrantedDate, false, false);
+    expect(soleTemplate).toBe(HubTemplate.ConditionalOrderPronounced);
+  });
+  test('should show /awaiting-conditional-order.njk for state GeneralConsiderationComplete and coApplicant1SubmittedDate', () => {
+    const userCaseWithApplicantSubmittedDate = {
+      ...userCase,
+      coApplicant1SubmittedDate: '2024-01-27',
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingConditionalOrder);
+  });
+  test('should show /awaiting-conditional-order.njk for state GeneralConsiderationComplete and coApplicant2SubmittedDate', () => {
+    const userCaseWithApplicantSubmittedDate = {
+      ...userCase,
+      coApplicant2SubmittedDate: '2024-01-27',
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingConditionalOrder);
+  });
+  test('should show /awaiting-general-consideration.njk for state GeneralConsiderationComplete and aosStatementOfTruth and no dueDate', () => {
+    const userCaseWithApplicantSubmittedDate = {
+      ...userCase,
+      aosStatementOfTruth: Checkbox.Checked,
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingGeneralConsideration);
+  });
+  test('should show /aos-due.njk for state GeneralConsiderationComplete and isAosOverdue', () => {
+    const userCaseWithAosOverdue = {
+      ...userCase,
+      issueDate: '01.01.2022',
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AoSDue);
+  });
+  test('should show /aos-awaiting-or-drafted.njk for state GeneralConsiderationComplete and not isAosOverdue', () => {
+    const userCaseWithNotAosOverdue = {
+      ...userCase,
+      issueDate: dayjs().format('D MMMM YYYY'),
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+  });
+
+  test('should show /final-order-requested.njk for state AwaitingGeneralConsideration and dateFinalOrderSubmitted', () => {
+    const userCaseWithDateFinalOrderSubmitted = {
+      ...userCase,
+      dateFinalOrderSubmitted: '2024-06-27T14:13:41.478',
+    };
+    const theState = displayState.at(State.AwaitingGeneralConsideration);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithDateFinalOrderSubmitted, false, false);
+    expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
+  });
   test('should show /awaiting-general-consideration.njk for state AwaitingGeneralConsideration and aosStatementOfTruth', () => {
     const userCaseWithAosStatementOfTruth = {
       ...userCase,
@@ -233,7 +318,7 @@ describe('SoleTemplateSelector test', () => {
           id: '123',
           value: {
             serviceApplicationGranted: YesOrNo.NO,
-            serviceApplicationRefusalReason: 'refusalOrderToApplicant',
+            refusalReason: 'refusalOrderToApplicant',
           },
         },
       ] as unknown as ListValue<AlternativeServiceOutcome>[],
@@ -246,5 +331,17 @@ describe('SoleTemplateSelector test', () => {
       true
     );
     expect(soleTemplate).toBe(HubTemplate.ServiceApplicationRejected);
+  });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingOutcome', () => {
+    const theState = displayState.at(State.PendingHearingOutcome);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingDate', () => {
+    const theState = displayState.at(State.PendingHearingDate);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
 });

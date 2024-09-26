@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../../app/case/case';
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { ServiceApplicationRefusalReason, State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
@@ -16,7 +16,8 @@ export const getSoleHubTemplate = (
   const isAosOverdue =
     !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   const isRefusalOrderToApplicant =
-    userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationRefusalReason === 'refusalOrderToApplicant';
+    userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
+    ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -24,7 +25,8 @@ export const getSoleHubTemplate = (
       return HubTemplate.FinalOrderRequested;
     }
     case State.AwaitingServiceConsideration:
-    case State.AwaitingBailiffReferral: {
+    case State.AwaitingBailiffReferral:
+    case State.BailiffRefused: {
       return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
     }
     case State.ConditionalOrderPronounced: {
@@ -34,7 +36,22 @@ export const getSoleHubTemplate = (
     case State.AwaitingLegalAdvisorReferral:
     case State.LAReview:
     case State.AwaitingPronouncement:
+    case State.ConditionalOrderReview:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
+    case State.GeneralConsiderationComplete:
+      if (userCase.dateFinalOrderSubmitted) {
+        return HubTemplate.FinalOrderRequested;
+      } else if (userCase.coGrantedDate) {
+        return HubTemplate.ConditionalOrderPronounced;
+      } else if (userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate) {
+        return HubTemplate.AwaitingConditionalOrder;
+      } else if (!userCase.dueDate && userCase.aosStatementOfTruth) {
+        return HubTemplate.AwaitingGeneralConsideration;
+      } else if (isAosOverdue) {
+        return HubTemplate.AoSDue;
+      } else {
+        return HubTemplate.AosAwaitingOrDrafted;
+      }
     case State.AwaitingGeneralConsideration:
       if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
@@ -62,6 +79,7 @@ export const getSoleHubTemplate = (
     case State.AwaitingBailiffService:
       return HubTemplate.AwaitingBailiffService;
     case State.AwaitingFinalOrder:
+    case State.AwaitingFinalOrderPayment:
       return HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue;
     case State.FinalOrderComplete:
       return HubTemplate.FinalOrderComplete;
@@ -79,6 +97,9 @@ export const getSoleHubTemplate = (
       } else {
         return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
       }
+    case State.PendingHearingOutcome:
+    case State.PendingHearingDate:
+      return HubTemplate.PendingHearingOutcome;
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
         return HubTemplate.AoSDue;

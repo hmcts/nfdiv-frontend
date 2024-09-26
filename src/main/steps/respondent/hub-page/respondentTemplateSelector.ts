@@ -24,15 +24,17 @@ export const getRespondentHubTemplate = (
     case State.AwaitingLegalAdvisorReferral:
     case State.LAReview:
     case State.AwaitingPronouncement:
-      return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.AwaitingAmendedApplication:
-      return HubTemplate.AwaitingAmendedApplication;
+      return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.FinalOrderComplete:
       return HubTemplate.FinalOrderComplete;
     case State.AwaitingGeneralConsideration:
+    case State.GeneralConsiderationComplete:
       if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
-      } else if (userCase.aosStatementOfTruth) {
+      } else if (userCase.coGrantedDate && State.GeneralConsiderationComplete) {
+        return HubTemplate.ConditionalOrderPronounced;
+      } else if (userCase.aosStatementOfTruth && State.AwaitingGeneralConsideration) {
         return HubTemplate.AwaitingGeneralConsideration;
       } else {
         return HubTemplate.AwaitingAoS;
@@ -42,6 +44,9 @@ export const getRespondentHubTemplate = (
         return HubTemplate.AwaitingAoS;
       }
       return HubTemplate.Holding;
+    case State.PendingHearingOutcome:
+    case State.PendingHearingDate:
+      return HubTemplate.PendingHearingOutcome;
     default: {
       if (displayState.isAtOrBefore('AwaitingConditionalOrder') && !hasSubmittedAos) {
         return HubTemplate.AwaitingAoS;

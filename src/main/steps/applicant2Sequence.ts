@@ -7,6 +7,7 @@ import { nameChangedHowPossibleValue } from './common/content.utils';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
+  APP_REPRESENTED,
   CHANGES_TO_YOUR_NAME_URL,
   CHANGING_TO_SOLE_APPLICATION,
   CHECK_ANSWERS_URL,
@@ -177,6 +178,10 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: HUB_PAGE,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: APP_REPRESENTED,
     getNextStep: () => HOME_URL,
   },
   {

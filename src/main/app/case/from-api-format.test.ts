@@ -253,6 +253,7 @@ describe('from-api-format', () => {
           County: 'County',
           PostCode: 'Postcode',
         },
+        applicant1AddressOverseas: YesOrNo.NO,
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
@@ -261,6 +262,7 @@ describe('from-api-format', () => {
         applicant1AddressTown: 'Town',
         applicant1AddressCounty: 'County',
         applicant1AddressPostcode: 'Postcode',
+        applicant1AddressOverseas: YesOrNo.NO,
       });
     });
 
@@ -274,6 +276,7 @@ describe('from-api-format', () => {
           County: 'County',
           PostCode: 'Postcode',
         },
+        applicant2AddressOverseas: YesOrNo.NO,
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
@@ -282,6 +285,7 @@ describe('from-api-format', () => {
         applicant2AddressTown: 'Town',
         applicant2AddressCounty: 'County',
         applicant2AddressPostcode: 'Postcode',
+        applicant2AddressOverseas: YesOrNo.NO,
       });
     });
 
@@ -297,6 +301,7 @@ describe('from-api-format', () => {
           PostCode: 'Zip code',
           Country: 'Country',
         },
+        applicant1AddressOverseas: YesOrNo.YES,
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({});
@@ -313,7 +318,7 @@ describe('from-api-format', () => {
         ],
       } as unknown as CaseData)
     ).toStrictEqual({
-      payments: [
+      applicationPayments: [
         {
           id: 'mock-payment',
         },
@@ -336,6 +341,7 @@ describe('from-api-format', () => {
     {
       applicant2SolicitorAddress:
         'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
       expected: {
         applicant2SolicitorAddress:
           'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
@@ -346,10 +352,12 @@ describe('from-api-format', () => {
         applicant2SolicitorAddressCounty: 'testLineCounty',
         applicant2SolicitorAddressPostcode: 'testLinePostcode',
         applicant2SolicitorAddressCountry: 'testLineCountry',
+        applicant2SolicitorAddressOverseas: YesOrNo.NO,
       },
     },
     {
       applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
       expected: {
         applicant2SolicitorAddress: '\n\n\n\n\ntestLinePostcode\n',
         applicant2SolicitorAddress1: '',
@@ -359,6 +367,7 @@ describe('from-api-format', () => {
         applicant2SolicitorAddressCounty: '',
         applicant2SolicitorAddressPostcode: 'testLinePostcode',
         applicant2SolicitorAddressCountry: '',
+        applicant2SolicitorAddressOverseas: YesOrNo.NO,
       },
     },
   ])('sets correct solicitors address fields by splitting the answer', ({ expected, ...formData }) => {
