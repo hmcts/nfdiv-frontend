@@ -348,13 +348,8 @@ describe('SoleTemplateSelector test', () => {
 
   test('should show /awaiting-documents.njk for state AwaitingDocuments', () => {
     const theState = displayState.at(State.AwaitingDocuments);
-<<<<<<< HEAD
-    const jointTemplate = getJointHubTemplate(theState, userCase);
-    expect(jointTemplate).toBe(HubTemplate.AwaitingDocuments);
-=======
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
->>>>>>> origin/NFDIV-4177-pre-request-information-feature
   });
 
   test('should show /awaiting-documents.njk for state AwaitingHWFDecision and reason is "cannot upload documents"', () => {
