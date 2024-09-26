@@ -7,6 +7,7 @@ import {
   CaseData,
   ChangedNameHow,
   ClarificationReason,
+  ClarificationResponse,
   ConditionalOrderCourt,
   DateAsString,
   DivorceDocument,
@@ -36,6 +37,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2HelpPayingNeeded: 'applicant2HWFNeedHelp',
   applicant2AlreadyAppliedForHelpPaying: 'applicant2HWFAppliedForFees',
   applicant2HelpWithFeesRefNo: 'applicant2HWFReferenceNumber',
+  applicant2FoHelpPayingNeeded: 'applicant2FoHWFNeedHelp',
+  applicant2FoAlreadyAppliedForHelpPaying: 'applicant2FoHWFAppliedForFees',
+  applicant2FoHelpWithFeesRefNo: 'applicant2FoHWFReferenceNumber',
   inTheUk: 'marriageMarriedInUk',
   certificateInEnglish: 'marriageCertificateInEnglish',
   certifiedTranslation: 'marriageCertifiedTranslation',
@@ -102,11 +106,16 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1PcqId: 'applicant1PcqId',
   issueDate: 'issueDate',
   applicant1SolicitorAddress: 'applicant1SolicitorAddress',
+  applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
+  applicant1SolicitorAddressOverseas: 'applicant1SolicitorAddressOverseas',
   accessCode: 'accessCode',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
-  payments: 'applicationPayments',
+  applicant2FinalOrderFeeOrderSummary: 'applicant2FinalOrderFeeOrderSummary',
+  applicationPayments: 'applicationPayments',
+  finalOrderPayments: 'finalOrderPayments',
   confirmDisputeApplication: 'confirmDisputeApplication',
   jurisdictionAgree: 'jurisdictionAgree',
+  intendToDelay: 'intendToDelay',
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: 'reasonCourtsOfEnglandAndWalesHaveNoJurisdiction',
   inWhichCountryIsYourLifeMainlyBased: 'inWhichCountryIsYourLifeMainlyBased',
   alternativeServiceOutcomes: 'alternativeServiceOutcomes',
@@ -123,6 +132,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coConditionalOrderGrantedDocument: 'coConditionalOrderGrantedDocument',
   coDateAndTimeOfHearing: 'coDateAndTimeOfHearing',
   coDecisionDate: 'coDecisionDate',
+  coGrantedDate: 'coGrantedDate',
   applicant1IsApplicant2Represented: 'applicant1IsApplicant2Represented',
   coRefusalClarificationReason: 'coRefusalClarificationReason',
   coRefusalClarificationAdditionalInfo: 'coRefusalClarificationAdditionalInfo',
@@ -184,7 +194,9 @@ export interface Case {
   divorceOrDissolution: DivorceOrDissolution;
   issueDate?: DateAsString;
   applicant1SolicitorAddress?: string;
+  applicant1SolicitorAddressOverseas?: YesOrNo;
   applicant2SolicitorAddress?: string;
+  applicant2SolicitorAddressOverseas?: YesOrNo;
   gender?: Gender;
   sameSex?: Checkbox;
   applicant1ScreenHasUnionBroken?: YesOrNo;
@@ -197,6 +209,9 @@ export interface Case {
   applicant2HelpPayingNeeded?: YesOrNo;
   applicant2AlreadyAppliedForHelpPaying?: YesOrNo;
   applicant2HelpWithFeesRefNo?: string;
+  applicant2FoHelpPayingNeeded?: YesOrNo;
+  applicant2FoAlreadyAppliedForHelpPaying?: YesOrNo;
+  applicant2FoHelpWithFeesRefNo?: string;
   inTheUk?: YesOrNo;
   certificateInEnglish?: YesOrNo;
   certifiedTranslation?: YesOrNo;
@@ -223,6 +238,7 @@ export interface Case {
   applicant1AddressCounty?: string;
   applicant1AddressPostcode?: string;
   applicant1AddressCountry?: string;
+  applicant1AddressOverseas?: YesOrNo;
   applicant1PhoneNumber?: string;
   applicant1AgreeToReceiveEmails?: Checkbox;
   applicant1ConfirmReceipt: YesOrNo;
@@ -247,6 +263,7 @@ export interface Case {
   applicant2AddressCounty?: string;
   applicant2AddressPostcode?: string;
   applicant2AddressCountry?: string;
+  applicant2AddressOverseas?: YesOrNo;
   applicant1LastNameChangedWhenMarried?: YesOrNo;
   applicant1LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
   applicant1LastNameChangedWhenMarriedOtherDetails?: string;
@@ -296,8 +313,10 @@ export interface Case {
   caseReference?: string;
   respondentUserId?: string;
   dateSubmitted?: DateAsString;
-  payments: ListValue<Payment>[];
+  applicationPayments: ListValue<Payment>[];
+  finalOrderPayments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
+  applicant2FinalOrderFeeOrderSummary: OrderSummary;
   applicant2Confirmation: YesOrNo;
   applicant2Explanation: string;
   applicant1PcqId?: string;
@@ -305,6 +324,7 @@ export interface Case {
   confirmDisputeApplication?: YesOrNo;
   confirmReadPetition?: Checkbox;
   jurisdictionAgree?: YesOrNo;
+  intendToDelay?: YesOrNo;
   reasonCourtsOfEnglandAndWalesHaveNoJurisdiction?: string;
   inWhichCountryIsYourLifeMainlyBased?: string;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
@@ -325,11 +345,13 @@ export interface Case {
   coRefusalRejectionAdditionalInfo?: string;
   coDateAndTimeOfHearing: DateAsString;
   coDecisionDate: DateAsString;
+  coGrantedDate: DateAsString;
   applicant1IsApplicant2Represented: Applicant2Represented;
   coRefusalClarificationReason?: ClarificationReason[];
   coRefusalClarificationAdditionalInfo?: string;
   dateFinalOrderEligibleToRespondent?: DateAsString;
   coClarificationResponses?: string;
+  coClarificationResponsesSubmitted?: ListValue<ClarificationResponse>[];
   coCannotUploadClarificationDocuments?: Checkbox;
   coClarificationUploadDocuments?: ListValue<Partial<DivorceDocument> | null>[];
   coClarificationUploadedFiles?: UploadedFile[];

@@ -60,6 +60,7 @@ export const orderedStateSequence: State[] = [
   State.ServiceAdminRefusal,
   State.AwaitingBailiffReferral,
   State.AwaitingBailiffService,
+  State.BailiffRefused,
   State.IssuedToBailiff,
   State.GeneralApplicationReceived,
   State.AwaitingGeneralReferralPayment,
@@ -75,6 +76,7 @@ export const orderedStateSequence: State[] = [
   State.AwaitingLegalAdvisorReferral,
   State.LAReview,
   State.AwaitingAdminClarification,
+  State.ConditionalOrderReview,
   State.AwaitingClarification,
   State.ClarificationSubmitted,
   State.AwaitingAmendedApplication,
@@ -84,6 +86,7 @@ export const orderedStateSequence: State[] = [
   State.AwaitingFinalOrder,
   State.AwaitingJointFinalOrder,
   State.FinalOrderRequested,
+  State.AwaitingFinalOrderPayment,
   State.RespondentFinalOrderRequested,
   State.FinalOrderPending,
   State.FinalOrderComplete,
@@ -92,6 +95,8 @@ export const orderedStateSequence: State[] = [
   State.NewPaperCase,
   State.OfflineDocumentReceived,
   State.BulkCaseReject,
+  State.PendingHearingOutcome,
+  State.PendingHearingDate,
 ];
 
 export const preSubmittedStatePrioritySequence: State[] = orderedStateSequence.slice(

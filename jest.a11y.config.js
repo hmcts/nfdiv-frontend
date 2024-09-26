@@ -6,4 +6,16 @@ module.exports = {
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
+  reporters: [
+    'default',
+    [
+      'jest-html-reporters',
+      {
+        publicPath: './functional-output/accessibility/reports',
+        filename: 'Accessibility report.html',
+        expand: true,
+        disableAttachReport: true,
+      },
+    ],
+  ],
 };

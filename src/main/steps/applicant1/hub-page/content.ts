@@ -98,7 +98,10 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   clarificationSubmitted: {
     withDocuments: {
       youHaveProvided: `You have provided the information requested by the court. You'll receive an email by ${getFormattedDate(
-        dayjs(userCase.dateSubmitted).add(config.get('dates.clarificationSubmittedOffsetDays'), 'day')
+        dayjs(userCase.coClarificationResponsesSubmitted?.[0].value.clarificationDate).add(
+          config.get('dates.clarificationSubmittedOffsetDays'),
+          'day'
+        )
       )} after the court has reviewed it.`,
     },
     withoutDocuments: {
@@ -164,6 +167,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     generalOrderDownloadReference: 'General-Order',
     generalOrderLink: '/downloads/general-order',
   },
+  pendingHearingOutcome: {},
 });
 
 const cy: typeof en = ({
@@ -265,7 +269,10 @@ const cy: typeof en = ({
   clarificationSubmitted: {
     withDocuments: {
       youHaveProvided: `Rydych wedi darparu'r wybodaeth y gofynnodd y llys amdani. Byddwch yn cael e-bost erbyn ${getFormattedDate(
-        dayjs(userCase.dateSubmitted).add(config.get('dates.clarificationSubmittedOffsetDays'), 'day'),
+        dayjs(userCase.coClarificationResponsesSubmitted?.[0].value.clarificationDate).add(
+          config.get('dates.clarificationSubmittedOffsetDays'),
+          'day'
+        ),
         SupportedLanguages.Cy
       )} ar ôl i'r llys ei adolygu.`,
     },
@@ -330,6 +337,7 @@ const cy: typeof en = ({
     generalOrderDownloadReference: 'General-Order',
     generalOrderLink: '/downloads/general-order',
   },
+  pendingHearingOutcome: {},
 });
 
 export const form: FormContent = {
@@ -349,6 +357,7 @@ export const generateContent: TranslationFn = content => {
   const referenceNumber = formattedCaseId(userCase.id);
   const isCoFieldsSet =
     userCase.coCourt && userCase.coDateAndTimeOfHearing && userCase.coCertificateOfEntitlementDocument;
+  const shouldHaveAccessToCoApplication = content.isJointApplication || !content.isApplicant2;
   const applicationTranslations = content.isJointApplication
     ? jointGenerateContent(content)
     : soleGenerateContent(content);
@@ -362,6 +371,7 @@ export const generateContent: TranslationFn = content => {
     ...columnGenerateContent(content),
     ...applicationTranslations,
     isCoFieldsSet,
+    shouldHaveAccessToCoApplication,
     ...latestLegalAdvisorDecisionContent(userCase, true),
     ...progressBarContent,
   };

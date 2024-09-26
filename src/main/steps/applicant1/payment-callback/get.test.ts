@@ -28,7 +28,7 @@ describe('PaymentCallbackGetController', () => {
       const userCase = {
         state: State.AwaitingPayment,
         applicationType: ApplicationType.SOLE_APPLICATION,
-        payments: [
+        applicationPayments: [
           {
             id: 'mock payment id',
             value: {
@@ -57,7 +57,11 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith('1234', expect.any(Array), CITIZEN_PAYMENT_MADE);
+      expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith(
+        '1234',
+        { applicationPayments: expect.any(Array) },
+        CITIZEN_PAYMENT_MADE
+      );
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
     });
@@ -66,7 +70,7 @@ describe('PaymentCallbackGetController', () => {
       const userCase = {
         state: State.AwaitingPayment,
         applicationType: ApplicationType.JOINT_APPLICATION,
-        payments: [
+        applicationPayments: [
           {
             id: 'mock payment id',
             value: {
@@ -95,7 +99,11 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).toHaveBeenCalledWith('mock ref');
 
-      expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith('1234', expect.any(Array), CITIZEN_PAYMENT_MADE);
+      expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith(
+        '1234',
+        { applicationPayments: expect.any(Array) },
+        CITIZEN_PAYMENT_MADE
+      );
 
       expect(res.redirect).toHaveBeenCalledWith(JOINT_APPLICATION_SUBMITTED);
     });
@@ -134,7 +142,7 @@ describe('PaymentCallbackGetController', () => {
       const userCase = {
         state: State.AwaitingPayment,
         applicationType: ApplicationType.SOLE_APPLICATION,
-        payments: [
+        applicationPayments: [
           {
             id: 'mock payment id',
             value: {
@@ -173,7 +181,7 @@ describe('PaymentCallbackGetController', () => {
       const userCase = {
         state: State.AwaitingPayment,
         applicationType: ApplicationType.JOINT_APPLICATION,
-        payments: [
+        applicationPayments: [
           {
             id: 'mock payment id',
             value: {
@@ -207,7 +215,7 @@ describe('PaymentCallbackGetController', () => {
       const userCase = {
         state: State.AwaitingPayment,
         applicationType: ApplicationType.JOINT_APPLICATION,
-        payments: [
+        applicationPayments: [
           {
             id: 'mock payment id',
             value: {

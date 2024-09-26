@@ -13,10 +13,7 @@ export const config: CodeceptJS.Config = {
   teardown: testConfig.teardown,
   plugins: {
     autoLogin: testConfig.AutoLogin,
-    allure: {
-      enabled: true,
-      require: '@codeceptjs/allure-legacy',
-    },
+
     pauseOnFail: {
       enabled: !testConfig.TestHeadlessBrowser,
     },
@@ -29,6 +26,16 @@ export const config: CodeceptJS.Config = {
     screenshotOnFail: {
       enabled: true,
       fullPageScreenshots: true,
+    },
+  },
+  mocha: {
+    reporterOptions: {
+      reportDir: './temp-reports',
+      reportFilename: 'Functional test report',
+      inlineAssets: true,
+      overwrite: false,
+      html: true,
+      json: true,
     },
   },
 };

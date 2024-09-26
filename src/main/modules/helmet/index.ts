@@ -67,7 +67,7 @@ export class Helmet {
       googleAnalyticsDomain,
       dynatraceDomain,
       ...webchatURLs,
-      "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
+      "'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw='",
       "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
       "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
     ];
@@ -77,6 +77,7 @@ export class Helmet {
     if (equalityUrl) {
       formAction.push(equalityUrl);
     }
+    const manifestSrc = [self];
 
     if (app.locals.developmentMode) {
       scriptSrc.push("'unsafe-eval'");
@@ -92,6 +93,7 @@ export class Helmet {
           imgSrc,
           objectSrc: [self],
           scriptSrc,
+          manifestSrc,
           styleSrc: [self, ...tagManager, "'unsafe-inline'", 'https://fonts.googleapis.com'],
         },
       }) as RequestHandler

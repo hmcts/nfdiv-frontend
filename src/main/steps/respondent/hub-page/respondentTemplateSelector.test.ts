@@ -50,10 +50,10 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe(HubTemplate.ClarificationSubmitted);
   });
 
-  test('should show /awaiting-amended-application.njk for state AwaitingAmendedApplication', () => {
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingAmendedApplication', () => {
     const theState = displayState.at(State.AwaitingAmendedApplication);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
-    expect(respondentTemplate).toBe(HubTemplate.AwaitingAmendedApplication);
+    expect(respondentTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
   });
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingLegalAdvisorReferral', () => {
@@ -112,5 +112,17 @@ describe('RespondentTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingConditionalOrder);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe(HubTemplate.AwaitingAoS);
+  });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingOutcome', () => {
+    const theState = displayState.at(State.PendingHearingOutcome);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
+
+  test('should show /pending-hearing-outcome.njk for state PendingHearingDate', () => {
+    const theState = displayState.at(State.PendingHearingDate);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
 });

@@ -3,6 +3,8 @@ import { YesOrNo } from '../app/case/definition';
 import { Step } from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
+  APPLICANT_2,
+  APP_REPRESENTED,
   CHECK_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
   CHECK_PHONE_NUMBER,
@@ -11,12 +13,18 @@ import {
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
   FINALISING_YOUR_APPLICATION,
+  HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
+  HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
+  HELP_WITH_YOUR_FINAL_ORDER_FEE_URL,
   HOME_URL,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
+  INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
+  PAYMENT_CALLBACK_URL,
+  PAY_YOUR_FINAL_ORDER_FEE,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
 } from './urls';
@@ -38,6 +46,10 @@ const sequence: Step[] = [
   },
   {
     url: LEGAL_JURISDICTION_OF_THE_COURTS,
+    getNextStep: () => INTEND_TO_DELAY,
+  },
+  {
+    url: INTEND_TO_DELAY,
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
@@ -83,13 +95,42 @@ const sequence: Step[] = [
   },
   {
     url: FINALISING_YOUR_APPLICATION,
+    getNextStep: () => HELP_WITH_YOUR_FINAL_ORDER_FEE_URL,
+  },
+  {
+    url: HELP_WITH_YOUR_FINAL_ORDER_FEE_URL,
+    getNextStep: data =>
+      data.applicant2FoHelpPayingNeeded === YesOrNo.YES
+        ? HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED
+        : PAY_YOUR_FINAL_ORDER_FEE,
+  },
+  {
+    url: HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
+    getNextStep: data =>
+      data.applicant2FoAlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY : HUB_PAGE,
+  },
+  {
+    url: HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
+    getNextStep: () => HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
+  },
+  {
+    url: PAY_YOUR_FINAL_ORDER_FEE,
+    getNextStep: () => PAYMENT_CALLBACK_URL,
+  },
+  {
+    url: PAYMENT_CALLBACK_URL,
     getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: APP_REPRESENTED,
+    getNextStep: () => HOME_URL,
   },
 ];
 
+// Generate respondentSequence from the baseSequence
 export const respondentSequence = ((): Step[] => {
   return sequence.map(step => ({
-    url: `${RESPONDENT}${step.url}`,
+    url: step.url === APP_REPRESENTED ? `${APPLICANT_2}${APP_REPRESENTED}` : `${RESPONDENT}${step.url}`,
     getNextStep: data => `${RESPONDENT}${step.getNextStep(data)}`,
   }));
 })();

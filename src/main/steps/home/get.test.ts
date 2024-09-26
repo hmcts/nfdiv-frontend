@@ -7,6 +7,7 @@ import {
   APPLICANT_2,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
+  APP_REPRESENTED,
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
@@ -14,6 +15,7 @@ import {
   CONTINUE_WITH_YOUR_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
+  JOINT_APPLICATION_SUBMITTED,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
   READ_THE_RESPONSE,
@@ -581,6 +583,72 @@ describe('HomeGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
   });
 
+  test('redirects to application represented page for applicant 1 users in submitted state when represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Submitted,
+          applicant1SolicitorRepresented: YesOrNo.YES,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
+  });
+
+  test('redirects to application represented page for applicant 2 users in post submission state when represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderDrafted,
+          applicant2SolicitorRepresented: YesOrNo.YES,
+          confirmReadPetition: Checkbox.Checked,
+          disputeApplication: YesOrNo.NO,
+          applicationType: JOINT_APPLICATION_SUBMITTED,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${APP_REPRESENTED}`);
+  });
+
+  test('redirects to application submitted page for applicant 2 users in post submission when only applicant 1 represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          isApplicant2: true,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+          applicant1SolicitorRepresented: YesOrNo.YES,
+          confirmReadPetition: Checkbox.Checked,
+          disputeApplication: YesOrNo.NO,
+          jurisdictionAgree: YesOrNo.YES,
+          reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: '',
+          inWhichCountryIsYourLifeMainlyBased: '',
+          applicant2LegalProceedings: YesOrNo.NO,
+          applicant2AgreeToReceiveEmails: Checkbox.Checked,
+          applicant2PhoneNumber: '',
+          applicant2StatementOfTruth: Checkbox.Checked,
+          state: State.AwaitingPronouncement,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
   test('redirects to the check your answers page for applicant 1 users in awaitingApplicant1Response state', () => {
     const req = mockRequest({
       session: {
@@ -830,5 +898,148 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(YOUR_DETAILS_URL);
+  });
+  test('redirects to submitted page for applicant 1 users in submitted state when not represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Submitted,
+          applicant1SolicitorRepresented: YesOrNo.NO,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+  });
+  test('redirects to represented page for applicant 1 users in submitted state when represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Submitted,
+          applicant1SolicitorRepresented: YesOrNo.YES,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
+  });
+  test('redirects to hub page for applicant 2 users in post submission state when not represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderDrafted,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          confirmReadPetition: Checkbox.Checked,
+          disputeApplication: YesOrNo.NO,
+          applicationType: JOINT_APPLICATION_SUBMITTED,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+  test('redirects to represented page for applicant 2 users in post submission state when represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderDrafted,
+          applicant2SolicitorRepresented: YesOrNo.YES,
+          confirmReadPetition: Checkbox.Checked,
+          disputeApplication: YesOrNo.NO,
+          applicationType: JOINT_APPLICATION_SUBMITTED,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${APP_REPRESENTED}`);
+  });
+  test('redirects to hub page for applicant 1 users when coApplicant1SubmittedDate is present and not represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+          applicant1SolicitorRepresented: YesOrNo.NO,
+          coApplicant1SubmittedDate: '2022-01-01',
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+  });
+  test('redirects to hub page for applicant 2 users when coApplicant2SubmittedDate is present and not represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          coApplicant1SubmittedDate: '2022-01-01',
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+  test('redirects to represented page for applicant 2 users when coApplicant2SubmittedDate is present and represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+          applicant2SolicitorRepresented: YesOrNo.YES,
+          coApplicant2SubmittedDate: '2022-01-01',
+          applicationType: ApplicationType.JOINT_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${APP_REPRESENTED}`);
+  });
+  test('redirects to hub page for applicant 1 users when coApplicant1SubmittedDate is present and represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderPending,
+          coApplicant1SubmittedDate: '2022-01-01',
+          applicant1SolicitorRepresented: YesOrNo.YES,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
   });
 });

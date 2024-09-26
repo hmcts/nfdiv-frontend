@@ -110,7 +110,7 @@ Feature: Form failures
     And the page should include "You have not entered your husband’s town or city. Enter their town or city before continuing."
     And the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
     Given I reset the postcode lookup form
-    And I click "I cannot enter a UK postcode"
+    And I click "I have an international address"
     When I click "Continue"
     Then the page should include "You have not entered your husband’s building and street address. Enter their building and street address before continuing."
     And the page should include "You have not entered your husband’s country. Enter their country before continuing."

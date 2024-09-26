@@ -22,13 +22,13 @@
                 priority="5"
                 language="{{ avayaLanguage }}"
                 service="{{ globals.webchat.avayaService }}"
-                page-name="Apply for No Fault Divorce"
+                page-name="{{ webChatPageName }}"
                 User="Chat">
         </web-chat>
     </div>
 {% endblock %}
 
 {% block footer %}
-<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
+<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/{{ avayaClientUrlFolder }}/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
 <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es5.js" nomodule defer crossorigin="anonymous"></script>
 {% endblock %}

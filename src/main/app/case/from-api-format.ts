@@ -57,6 +57,9 @@ const fields: FromApiConverters = {
           : LanguagePreference.English,
   }),
   applicant1Address: data => formatAddress(data, 'applicant1'),
+  applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
+    applicant1AddressOverseas: applicant1AddressOverseas ?? YesOrNo.NO,
+  }),
   applicant1AgreedToReceiveEmails: data => ({
     applicant1AgreeToReceiveEmails: checkboxConverter(data.applicant1AgreedToReceiveEmails),
   }),
@@ -83,6 +86,9 @@ const fields: FromApiConverters = {
     applicant2AddressPrivate: applicant2ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),
   applicant2Address: data => formatAddress(data, 'applicant2'),
+  applicant2AddressOverseas: ({ applicant2AddressOverseas }) => ({
+    applicant2AddressOverseas: applicant2AddressOverseas ?? YesOrNo.NO,
+  }),
   applicant1DocumentsUploaded: uploadedFilesFromApiApplicant1,
   applicant2DocumentsUploaded: uploadedFilesFromApiApplicant2,
   applicant1CannotUploadSupportingDocument: uploadedFilesFromApiApplicant1,
@@ -140,6 +146,9 @@ const fields: FromApiConverters = {
       applicant2SolicitorAddressCountry: address?.[6],
     };
   },
+  applicant2SolicitorAddressOverseas: ({ applicant2SolicitorAddressOverseas }) => ({
+    applicant2SolicitorAddressOverseas: applicant2SolicitorAddressOverseas ?? YesOrNo.NO,
+  }),
   previousState: 'previousState',
   applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
   applicant2Offline: 'applicant2Offline',
