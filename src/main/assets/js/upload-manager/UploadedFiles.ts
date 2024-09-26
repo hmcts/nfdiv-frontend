@@ -10,7 +10,8 @@ export class UploadedFiles {
       (getById('applicant1UploadedFiles') as HTMLInputElement) ||
       (getById('applicant2UploadedFiles') as HTMLInputElement) ||
       (getById('coClarificationUploadedFiles') as HTMLInputElement) ||
-      (getById('requestForInformationResponseUploadedFiles') as HTMLInputElement);
+      (getById('app1RfiDraftResponseUploadedFiles') as HTMLInputElement) ||
+      (getById('app2RfiDraftResponseUploadedFiles') as HTMLInputElement);
     this.documents = JSON.parse(this.storeEl?.value || '[]');
   }
 

@@ -164,7 +164,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1CanIntendToSwitchToSoleFo: 'applicant1CanIntendToSwitchToSoleFo',
   applicant2CanIntendToSwitchToSoleFo: 'applicant2CanIntendToSwitchToSoleFo',
   isFinalOrderOverdue: 'isFinalOrderOverdue',
-  requestForInformationResponseDocs: 'requestForInformationResponseDocs',
+  app1RfiDraftResponseDocs: 'app1RfiDraftResponseDocs',
+  app2RfiDraftResponseDocs: 'app2RfiDraftResponseDocs',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -388,10 +389,14 @@ export interface Case {
   applicant1CanIntendToSwitchToSoleFo: YesOrNo;
   applicant2CanIntendToSwitchToSoleFo: YesOrNo;
   isFinalOrderOverdue: YesOrNo;
-  requestForInformationResponseDocs?: ListValue<Partial<DivorceDocument> | null>[];
-  requestForInformationResponseUploadedFiles?: UploadedFile[];
-  requestForInformationResponseCannotUploadDocs?: Checkbox;
-  requestForInformationResponseDetails?: string;
+  app1RfiDraftResponseDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  app1RfiDraftResponseUploadedFiles?: UploadedFile[];
+  app1RfiDraftResponseCannotUploadDocs?: Checkbox;
+  app1RfiDraftResponseDetails?: string;
+  app2RfiDraftResponseDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  app2RfiDraftResponseUploadedFiles?: UploadedFile[];
+  app2RfiDraftResponseCannotUploadDocs?: Checkbox;
+  app2RfiDraftResponseDetails?: string;
 }
 
 export interface CaseWithId extends Case {

@@ -37,11 +37,11 @@ const en = applicant1UploadDocumentContent => ({
   noFilesUploaded: 'No files uploaded',
   havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
   errors: {
-    requestForInformationResponseDetails: {
+    app1RfiDraftResponseDetails: {
       required:
         'You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. If you are having trouble uploading any documents, select that option.',
     },
-    requestForInformationResponseUploadedFiles: {
+    app1RfiDraftResponseUploadedFiles: {
       notUploaded:
         'You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. If you are having trouble uploading any documents, select that option.',
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
@@ -84,11 +84,11 @@ const cy: typeof en = applicant1UploadDocumentContent => ({
   noFilesUploaded: 'Nid oes ffeiliau wedi cael eu llwytho',
   havingTroubleUploading: 'Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.',
   errors: {
-    requestForInformationResponseDetails: {
+    app1RfiDraftResponseDetails: {
       required:
         'Nid ydych wedi darparu unrhyw wybodaeth neu lwytho unrhyw ddogfennau. Mae angen i chi ddarparu’r wybodaeth neu’r dogfennau y mae’r llys wedi gofyn amdani/ynt. Os ydych trafferth wrth lwytho dogfennau, dewiswch yr opsiwn hwnnw.',
     },
-    requestForInformationResponseUploadedFiles: {
+    app1RfiDraftResponseUploadedFiles: {
       notUploaded:
         'Nid ydych wedi darparu unrhyw wybodaeth neu lwytho unrhyw ddogfennau. Mae angen i chi ddarparu’r wybodaeth neu’r dogfennau y mae’r llys wedi gofyn amdani/ynt. Os ydych trafferth wrth lwytho dogfennau, dewiswch yr opsiwn hwnnw.',
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
@@ -100,40 +100,40 @@ const cy: typeof en = applicant1UploadDocumentContent => ({
 
 export const form: FormContent = {
   fields: userCase => ({
-    requestForInformationResponseDetails: {
+    app1RfiDraftResponseDetails: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.response,
       validator: (value, formData) => {
         const hasUploadedFiles =
-          (formData.requestForInformationResponseUploadedFiles as unknown as string[])?.length &&
-          (formData.requestForInformationResponseUploadedFiles as unknown as string) !== '[]';
-        const selectedCannotUploadDocuments = !!formData.requestForInformationResponseCannotUploadDocs?.length;
+          (formData.app1RfiDraftResponseUploadedFiles as unknown as string[])?.length &&
+          (formData.app1RfiDraftResponseUploadedFiles as unknown as string) !== '[]';
+        const selectedCannotUploadDocuments = !!formData.app1RfiDraftResponseCannotUploadDocs?.length;
         const hasEnteredDetails = !isEmpty(value);
         if (!hasUploadedFiles && !selectedCannotUploadDocuments && !hasEnteredDetails) {
           return 'required';
         }
       },
     },
-    requestForInformationResponseUploadedFiles: {
+    app1RfiDraftResponseUploadedFiles: {
       type: 'hidden',
       label: l => l.uploadFiles,
       labelHidden: true,
       value:
-        (isObject(userCase.requestForInformationResponseUploadedFiles)
-          ? JSON.stringify(userCase.requestForInformationResponseUploadedFiles)
-          : userCase.requestForInformationResponseUploadedFiles) || '[]',
-      parser: data => JSON.parse((data as Record<string, string>).requestForInformationResponseUploadedFiles || '[]'),
+        (isObject(userCase.app1RfiDraftResponseUploadedFiles)
+          ? JSON.stringify(userCase.app1RfiDraftResponseUploadedFiles)
+          : userCase.app1RfiDraftResponseUploadedFiles) || '[]',
+      parser: data => JSON.parse((data as Record<string, string>).app1RfiDraftResponseUploadedFiles || '[]'),
       validator: (value, formData) => {
-        const hasEnteredDetails = !isEmpty(formData.requestForInformationResponseDetails);
+        const hasEnteredDetails = !isEmpty(formData.app1RfiDraftResponseDetails);
         const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-        const selectedCannotUploadDocuments = !!formData.requestForInformationResponseCannotUploadDocs?.length;
+        const selectedCannotUploadDocuments = !!formData.app1RfiDraftResponseCannotUploadDocs?.length;
         if (!hasEnteredDetails && !hasUploadedFiles && !selectedCannotUploadDocuments) {
           return 'notUploaded';
         }
       },
     },
-    requestForInformationCannotUploadDocs: {
+    app1RfiDraftResponseCannotUploadDocs: {
       type: 'hidden',
       values: [],
     },
@@ -150,9 +150,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const applicant1UploadDocumentContent = uploadDocumentGenerateContent(content);
-  const uploadedDocsFilenames = content.userCase.requestForInformationResponseDocs?.map(item =>
-    getFilename(item.value)
-  );
+  const uploadedDocsFilenames = content.userCase.app1RfiDraftResponseDocs?.map(item => getFilename(item.value));
   const amendable = content.isRequestForInformationAmendableState;
   const uploadContentScript = `{
     "isRequestForInformationAmendableState": ${content.isRequestForInformationAmendableState},

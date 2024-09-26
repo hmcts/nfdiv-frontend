@@ -5,10 +5,10 @@
 
 {% extends "common/form/form.njk"%}
 
-{% set requestForInformationResponseCannotUploadDocs %}
+{% set app1RfiDraftResponseCannotUploadDocs %}
   {{ govukCheckboxes({
-    idPrefix: 'requestForInformationResponseCannotUploadDocs',
-    name: 'requestForInformationResponseCannotUploadDocs',
+    idPrefix: 'app1RfiDraftResponseCannotUploadDocs',
+    name: 'app1RfiDraftResponseCannotUploadDocs',
     fieldset: {
       legend: {
         text: cannotUploadDocuments,
@@ -16,17 +16,17 @@
       }
     },
     items: [{
-        name: 'requestForInformationResponseCannotUploadDocs',
+        name: 'app1RfiDraftResponseCannotUploadDocs',
         text: cannotUploadDocuments,
         value: 'checked',
-        checked: userCase.requestForInformationResponseCannotUploadDocs == 'Yes',
+        checked: userCase.app1RfiDraftResponseCannotUploadDocs == 'Yes',
         conditional: {
           html: conditionalText
         }
     }],
-    errorMessage: getError('requestForInformationResponseCannotUploadDocs'),
+    errorMessage: getError('app1RfiDraftResponseCannotUploadDocs'),
     formGroup: {
-      classes: 'requestForInformationResponseCannotUploadDocs'
+      classes: 'app1RfiDraftResponseCannotUploadDocs'
     }
   }) }}
 {% endset %}
@@ -34,11 +34,11 @@
 {% block form_content %}
 
   {% for fieldName, field in form.fields %}
-    {% if fieldName == 'requestForInformationResponseCannotUploadDocs' %}
-      {{ requestForInformationResponseCannotUploadDocs | safe }}
-    {% elseif fieldName == 'requestForInformationResponseDetails' %}
+    {% if fieldName == 'app1RfiDraftResponseCannotUploadDocs' %}
+      {{ app1RfiDraftResponseCannotUploadDocs | safe }}
+    {% elseif fieldName == 'app1RfiDraftResponseDetails' %}
       {% include "common/form/fields/" + field.type + ".njk" %}
-    {% elseif fieldName == 'requestForInformationResponseUploadedFiles'%}
+    {% elseif fieldName == 'app1RfiDraftResponseUploadedFiles'%}
       <br>
       <h3 class="govuk-heading-m">{{ uploadHeading }}</h3>
       <p class="govuk-body">{{ line3 }}</p>

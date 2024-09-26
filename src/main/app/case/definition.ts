@@ -933,9 +933,12 @@ export interface CaseData {
   documentsUploaded: ListValue<DivorceDocument>[];
   confidentialDocumentsUploaded: ListValue<ConfidentialDivorceDocument>[];
   confidentialDocumentsGenerated: ListValue<ConfidentialDivorceDocument>[];
-  requestForInformationResponseCannotUploadDocs: YesOrNo;
-  requestForInformationResponseDocs: ListValue<DivorceDocument>[];
-  requestForInformationResponseDetails: string;
+  app1RfiDraftResponseCannotUploadDocs: YesOrNo;
+  app1RfiDraftResponseDocs: ListValue<DivorceDocument>[];
+  app1RfiDraftResponseDetails: string;
+  app2RfiDraftResponseCannotUploadDocs: YesOrNo;
+  app2RfiDraftResponseDocs: ListValue<DivorceDocument>[];
+  app2RfiDraftResponseDetails: string;
   documentsGenerated: ListValue<DivorceDocument>[];
   scannedDocuments: ListValue<ScannedDocument>[];
   answerReceivedSupportingDocuments: ListValue<DivorceDocument>[];
@@ -1019,9 +1022,14 @@ export interface CaseDocuments {
   scannedSubtypeReceived: ScannedDocumentSubtypes;
 }
 
-export interface RequestForInformationResponse {
-  requestForInformationResponseDetails: string;
-  requestForInformationResponseDocs: ListValue<DivorceDocument>[];
+export interface RequestForInformationResponseApplicant1 {
+  app1RfiDraftResponseDetails: string;
+  app1RfiDraftResponseDocs: ListValue<DivorceDocument>[];
+}
+
+export interface RequestForInformationResponseApplicant2 {
+  app2RfiDraftResponseDetails: string;
+  app2RfiDraftResponseDocs: ListValue<DivorceDocument>[];
 }
 
 export interface CaseInvite {
