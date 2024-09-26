@@ -3928,14 +3928,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/cli@npm:9.1.0":
-  version: 9.1.0
-  resolution: "@wdio/cli@npm:9.1.0"
+"@wdio/cli@npm:9.1.1":
+  version: 9.1.1
+  resolution: "@wdio/cli@npm:9.1.1"
   dependencies:
     "@types/node": ^20.1.1
     "@vitest/snapshot": ^1.2.1
     "@wdio/config": 9.1.0
-    "@wdio/globals": 9.1.0
+    "@wdio/globals": 9.1.1
     "@wdio/logger": 9.1.0
     "@wdio/protocols": 9.0.8
     "@wdio/types": 9.1.0
@@ -3955,11 +3955,11 @@ __metadata:
     read-pkg-up: ^10.0.0
     recursive-readdir: ^2.2.3
     tsx: ^4.7.2
-    webdriverio: 9.1.0
+    webdriverio: 9.1.1
     yargs: ^17.7.2
   bin:
     wdio: ./bin/wdio.js
-  checksum: ce28d39035baa6ac6c8966cf3bcbed34f4c98c50461021610555f0921158d0e5795eda3242f769db9bace1be64e7fc0e7d45d6d44e545d37d81bf4194b2451d9
+  checksum: 1b8f4a41a1ebdc370175453df58bccd4d99fc50e280770a05adceaf41e947b587e98dc95687c00f1ae2bbd2acc1f9261d5085d04a76e09e3228a269a3f4df52d
   languageName: node
   linkType: hard
 
@@ -3993,18 +3993,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/globals@npm:9.1.0":
-  version: 9.1.0
-  resolution: "@wdio/globals@npm:9.1.0"
+"@wdio/globals@npm:9.1.1":
+  version: 9.1.1
+  resolution: "@wdio/globals@npm:9.1.1"
   dependencies:
     expect-webdriverio: ^5.0.1
-    webdriverio: 9.1.0
+    webdriverio: 9.1.1
   dependenciesMeta:
     expect-webdriverio:
       optional: true
     webdriverio:
       optional: true
-  checksum: d26aa3b865ff684dec2ad3754f780d23a28f7f3f64d367d6258432144455c2b0d327c635996b57f8930ccd6c647cb3b823293858427349292e33594dc2f44455
+  checksum: 7fee017ef917811842d4438ad3719750b8488ab8fb462016829b09edd352a60cde63f9e421a3955598301752c99b5df201c9e568e523e9d7d57ba4dfa898f155
   languageName: node
   linkType: hard
 
@@ -4055,17 +4055,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/sauce-service@npm:9.1.0":
-  version: 9.1.0
-  resolution: "@wdio/sauce-service@npm:9.1.0"
+"@wdio/sauce-service@npm:9.1.1":
+  version: 9.1.1
+  resolution: "@wdio/sauce-service@npm:9.1.1"
   dependencies:
     "@wdio/logger": 9.1.0
     "@wdio/types": 9.1.0
     "@wdio/utils": 9.1.0
     ip: ^2.0.1
     saucelabs: 8.0.0
-    webdriverio: 9.1.0
-  checksum: a5d8fef273cc48da08666ab67c4a3706164f65208d53933e395eb5510d65c66b669b215d92cc90626af33aa752226ad65427c729a621f04ebe4036e91b0b7996
+    webdriverio: 9.1.1
+  checksum: 149ce0d607d7899d176c13060802ff5854c7254d3d60244f5f822fb709dc88f3739de40af160c3c1f9298fc1407788930a1bd201d80c68ece008b04eaf7f7734
   languageName: node
   linkType: hard
 
@@ -13590,8 +13590,8 @@ __metadata:
     "@uppy/file-input": 3.1.2
     "@uppy/progress-bar": 3.1.1
     "@uppy/xhr-upload": 3.6.8
-    "@wdio/cli": 9.1.0
-    "@wdio/sauce-service": 9.1.0
+    "@wdio/cli": 9.1.1
+    "@wdio/sauce-service": 9.1.1
     allure-commandline: 2.30.0
     applicationinsights: 2.9.6
     autobind-decorator: 2.4.0
@@ -13661,7 +13661,7 @@ __metadata:
     tsconfig-paths: 4.2.0
     typescript: 5.6.2
     uuid: 10.0.0
-    webdriverio: 9.1.0
+    webdriverio: 9.1.1
     webpack: 5.95.0
     webpack-cli: 5.1.4
     webpack-dev-middleware: 7.4.2
@@ -18378,9 +18378,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webdriver@npm:9.1.0":
-  version: 9.1.0
-  resolution: "webdriver@npm:9.1.0"
+"webdriver@npm:9.1.1":
+  version: 9.1.1
+  resolution: "webdriver@npm:9.1.1"
   dependencies:
     "@types/node": ^20.1.0
     "@types/ws": ^8.5.3
@@ -18391,13 +18391,13 @@ __metadata:
     "@wdio/utils": 9.1.0
     deepmerge-ts: ^7.0.3
     ws: ^8.8.0
-  checksum: 5bdd09be1c1504059c8aa9b4449137bad76c93930a58ac017b5ee018f3d0710b8d8b3bcbe3bcfc42d95c90a6e1fd8b5ea793795b3b0b974d2552f78b0e249e23
+  checksum: 7ad12bb1b2c957ceec6b1ee879e6d365b1592ab21c62d1e467d1010f871170dea9002a06ca292a2245ddfb8b538d2feaa8caba5d6c4259beec33bccc05b9673b
   languageName: node
   linkType: hard
 
-"webdriverio@npm:9.1.0":
-  version: 9.1.0
-  resolution: "webdriverio@npm:9.1.0"
+"webdriverio@npm:9.1.1":
+  version: 9.1.1
+  resolution: "webdriverio@npm:9.1.1"
   dependencies:
     "@types/node": ^20.11.30
     "@types/sinonjs__fake-timers": ^8.1.5
@@ -18425,13 +18425,13 @@ __metadata:
     rgb2hex: 0.2.5
     serialize-error: ^11.0.3
     urlpattern-polyfill: ^10.0.0
-    webdriver: 9.1.0
+    webdriver: 9.1.1
   peerDependencies:
     puppeteer-core: ^22.3.0
   peerDependenciesMeta:
     puppeteer-core:
       optional: true
-  checksum: 12d5c3875004f7beccc251eb4baea5ef59067769788b679916945f07845709c2cf48eeee97c55a780fee30fa2f6e4eb722137df536cf6819050df95a346fd1db
+  checksum: f20b189d7cb6a5fed04e38af679641a8aeb4693ef41e0f1e6a3aa9d1f947c5e7f52b71a625671f6ee0a0631117b934190d11877efa0193fe71f48eb9f007e771
   languageName: node
   linkType: hard
 
