@@ -10,7 +10,6 @@ import {
 } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { currentStateFn } from '../../../state-sequence';
-import { getJointHubTemplate } from '../joint/jointTemplateSelector';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -348,8 +347,8 @@ describe('SoleTemplateSelector test', () => {
 
   test('should show /awaiting-documents.njk for state AwaitingDocuments', () => {
     const theState = displayState.at(State.AwaitingDocuments);
-    const jointTemplate = getJointHubTemplate(theState, userCase);
-    expect(jointTemplate).toBe(HubTemplate.AwaitingDocuments);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 
   test('should show /awaiting-documents.njk for state AwaitingHWFDecision and reason is "cannot upload documents"', () => {
@@ -360,5 +359,11 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingHWFDecision);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments, false, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
+  });
+
+  test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFDecision', () => {
+    const theState = displayState.at(State.AwaitingHWFDecision);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 });
