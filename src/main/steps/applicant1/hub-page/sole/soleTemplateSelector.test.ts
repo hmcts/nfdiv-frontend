@@ -106,19 +106,19 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithCoGrantedDate, false, false);
     expect(soleTemplate).toBe(HubTemplate.ConditionalOrderPronounced);
   });
-  test('should show /awaiting-conditional-order.njk for state GeneralConsiderationComplete and coApplicant1SubmittedDate', () => {
+  test('should show /awaiting-conditional-order.njk for state GeneralConsiderationComplete and coApplicant1IsSubmitted', () => {
     const userCaseWithApplicantSubmittedDate = {
       ...userCase,
-      coApplicant1SubmittedDate: '2024-01-27',
+      coApplicant1IsSubmitted: YesOrNo.YES,
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingConditionalOrder);
   });
-  test('should show /awaiting-conditional-order.njk for state GeneralConsiderationComplete and coApplicant2SubmittedDate', () => {
+  test('should show /awaiting-conditional-order.njk for state GeneralConsiderationComplete and coApplicant2IsSubmitted', () => {
     const userCaseWithApplicantSubmittedDate = {
       ...userCase,
-      coApplicant2SubmittedDate: '2024-01-27',
+      coApplicant2IsSubmitted: YesOrNo.YES,
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false, false);
