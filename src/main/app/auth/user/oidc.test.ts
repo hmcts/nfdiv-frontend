@@ -59,7 +59,6 @@ describe('getUserDetails', () => {
 });
 
 describe('getSystemUser', () => {
-
   const accessTokenResponse: AxiosResponse<OidcResponse> = {
     status: 200,
     data: {
