@@ -84,7 +84,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     }
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {
-      if (userCase.coApplicant1SubmittedDate) {
+      if (userCase.coApplicant1IsSubmitted === YesOrNo.YES) {
         return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
       } else if (userCase.applicant1ApplyForConditionalOrder) {
         return CHECK_CONDITIONAL_ORDER_ANSWERS_URL;

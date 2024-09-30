@@ -43,7 +43,7 @@ export const getSoleHubTemplate = (
         return HubTemplate.FinalOrderRequested;
       } else if (userCase.coGrantedDate) {
         return HubTemplate.ConditionalOrderPronounced;
-      } else if (userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate) {
+      } else if (userCase.coApplicant1IsSubmitted === YesOrNo.YES || userCase.coApplicant2IsSubmitted === YesOrNo.YES) {
         return HubTemplate.AwaitingConditionalOrder;
       } else if (!userCase.dueDate && userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;

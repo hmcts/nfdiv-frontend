@@ -156,6 +156,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateSubmitted: 'dateSubmitted',
   dateAosSubmitted: 'dateAosSubmitted',
   dateFinalOrderSubmitted: 'dateFinalOrderSubmitted',
+  coApplicant1IsSubmitted: 'coApplicant1IsSubmitted',
+  coApplicant2IsSubmitted: 'coApplicant2IsSubmitted',
   coApplicant1SubmittedDate: 'coApplicant1SubmittedDate',
   coApplicant2SubmittedDate: 'coApplicant2SubmittedDate',
   dateFinalOrderEligibleFrom: 'dateFinalOrderEligibleFrom',
@@ -340,6 +342,8 @@ export interface Case {
   dateFinalOrderEligibleFrom: DateAsString;
   coCertificateOfEntitlementDocument: DivorceDocument;
   coConditionalOrderGrantedDocument: DivorceDocument;
+  coApplicant1IsSubmitted: YesOrNo;
+  coApplicant2IsSubmitted: YesOrNo;
   coApplicant1SubmittedDate?: DateAsString;
   coApplicant2SubmittedDate?: DateAsString;
   coRefusalRejectionAdditionalInfo?: string;
