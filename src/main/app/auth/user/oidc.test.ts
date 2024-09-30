@@ -13,9 +13,6 @@ jest.mock('config');
 const mockedConfig = config as jest.Mocked<typeof config>;
 const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyIsInJvbGVzIjpbImNpdGl6ZW4iXX0.rxjx6XsSNNYavVppwKAqWiNWT_GxN4vjVzdLRe6q14I';
-
 describe('getRedirectUrl', () => {
   test('should create a valid URL to redirect to the login screen', () => {
     mockedConfig.get.mockReturnValueOnce('divorce');
@@ -38,14 +35,14 @@ describe('getUserDetails', () => {
   test('should exchange a code for a token and decode a JWT to get the user details', async () => {
     mockedAxios.post.mockResolvedValue({
       data: {
-        access_token: token,
-        id_token: token,
+        access_token: 'token',
+        id_token: 'token',
       },
     });
 
     const result = await getUserDetails('http://localhost', '123', CALLBACK_URL);
     expect(result).toStrictEqual({
-      accessToken: token,
+      accessToken: 'token',
       email: 'test@test.com',
       givenName: 'John',
       familyName: 'Dorian',
@@ -62,14 +59,12 @@ describe('getUserDetails', () => {
 });
 
 describe('getSystemUser', () => {
-  const getSystemUserTestToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyIsInJvbGVzIjpbImNhc2V3b3JrZXItZGl2b3JjZS1zeXN0ZW11cGRhdGUiLCJjYXNld29ya2VyLWNhYSIsImNhc2V3b3JrZXIiLCJjYXNld29ya2VyLWRpdm9yY2UiXX0.NDab3XAV8NWQTuuxBQ9mpwTIdw4KMWWiJ37Dp3EHG7s';
 
   const accessTokenResponse: AxiosResponse<OidcResponse> = {
     status: 200,
     data: {
-      id_token: getSystemUserTestToken,
-      access_token: getSystemUserTestToken,
+      id_token: 'systemUserTestToken',
+      access_token: 'systemUserTestToken',
     },
     statusText: 'wsssw',
     headers: { test: 'now' },
@@ -77,7 +72,7 @@ describe('getSystemUser', () => {
   };
 
   const expectedGetSystemUserResponse: UserDetails = {
-    accessToken: getSystemUserTestToken,
+    accessToken: 'systemUserTestToken',
     email: 'test@test.com',
     givenName: 'John',
     familyName: 'Dorian',

@@ -40,7 +40,10 @@ app.use((req, res, next) => {
 });
 
 new AxiosLogger().enableFor(app);
-new PropertiesVolume().enableFor(app);
+const propertiesVolume = new PropertiesVolume();
+(async () => {
+  await propertiesVolume.enableFor(app);
+})();
 new ErrorHandler().enableFor(app, logger);
 new LoadTimeouts().enableFor(app);
 new Nunjucks().enableFor(app);
