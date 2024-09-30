@@ -8,6 +8,10 @@
     "esModuleInterop": true,
     "module": "commonjs",
     "strictNullChecks": true,
-    "types": ["codeceptjs", "jest"]
+    "types": ["codeceptjs", "jest"],
+    "compilerOptions": {
+      "strict": false, // Disable strict checking for tests
+      "noEmit": true
+    }
   }
 }
