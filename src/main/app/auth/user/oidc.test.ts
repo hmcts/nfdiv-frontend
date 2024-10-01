@@ -2,7 +2,6 @@ import axios, { AxiosRequestHeaders, AxiosResponse, AxiosStatic } from 'axios';
 import jwt from 'jsonwebtoken';
 
 import { APPLICANT_2_SIGN_IN_URL, CALLBACK_URL, SIGN_IN_URL } from '../../../steps/urls';
-import { UserDetails } from '../../controller/AppRequest';
 
 import { OidcResponse, getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
 
@@ -24,7 +23,12 @@ const mockPayload = {
   family_name: 'Dorian',
   roles: ['citizen'],
 };
-const mockSystemPayload = { sub: 'user-id', name: 'System' };
+const mockSystemPayload = {
+  uid: '456',
+  sub: 'user-email',
+  name: 'System',
+  roles: ['caseworker-divorce-systemupdate', 'caseworker-caa', 'caseworker', 'caseworker-divorce'],
+};
 // Generate a mock JWT for testing
 const mockToken = jwt.sign(mockPayload, mockSecret, { expiresIn: '1h' });
 const mockSystemToken = jwt.sign(mockSystemPayload, mockSecret, { expiresIn: '1h' });
@@ -86,12 +90,12 @@ describe('getSystemUser', () => {
     config: { headers: [] as unknown as AxiosRequestHeaders },
   };
 
-  const expectedGetSystemUserResponse: UserDetails = {
+  const expectedGetSystemUserResponse: { givenName: undefined; familyName: undefined; roles: string[]; id: string; accessToken: string; email: string } = {
+    email: 'user-email',
     accessToken: 'systemUserTestToken',
-    email: 'test@test.com',
-    givenName: 'John',
-    familyName: 'Dorian',
-    id: '123',
+    id: '456',
+    givenName: undefined,
+    familyName: undefined,
     roles: ['caseworker-divorce-systemupdate', 'caseworker-caa', 'caseworker', 'caseworker-divorce'],
   };
 
