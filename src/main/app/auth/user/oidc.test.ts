@@ -1,4 +1,5 @@
 import axios, { AxiosRequestHeaders, AxiosResponse, AxiosStatic } from 'axios';
+import jwt from 'jsonwebtoken';
 
 import { APPLICANT_2_SIGN_IN_URL, CALLBACK_URL, SIGN_IN_URL } from '../../../steps/urls';
 import { UserDetails } from '../../controller/AppRequest';
@@ -12,6 +13,21 @@ jest.mock('config');
 
 const mockedConfig = config as jest.Mocked<typeof config>;
 const mockedAxios = axios as jest.Mocked<AxiosStatic>;
+
+const mockSecret = 'mock-secret';
+const mockPayload = {
+  uid: '123',
+  id: '123',
+  sub: 'test@test.com',
+  email: 'test@test.com',
+  given_name: 'John',
+  family_name: 'Dorian',
+  roles: ['citizen'],
+};
+const mockSystemPayload = { sub: 'user-id', name: 'System' };
+// Generate a mock JWT for testing
+const mockToken = jwt.sign(mockPayload, mockSecret, { expiresIn: '1h' });
+const mockSystemToken = jwt.sign(mockSystemPayload, mockSecret, { expiresIn: '1h' });
 
 describe('getRedirectUrl', () => {
   test('should create a valid URL to redirect to the login screen', () => {
@@ -33,12 +49,12 @@ describe('getRedirectUrl', () => {
 
 describe('getUserDetails', () => {
   test('should exchange a code for a token and decode a JWT to get the user details', async () => {
-    mockedAxios.post.mockResolvedValue({
+    mockedAxios.post.mockResolvedValueOnce({
       data: {
+        id_token: mockToken,
         access_token: 'token',
-        id_token: 'token',
       },
-    });
+    } as AxiosResponse);
 
     const result = await getUserDetails('http://localhost', '123', CALLBACK_URL);
     expect(result).toStrictEqual({
@@ -62,7 +78,7 @@ describe('getSystemUser', () => {
   const accessTokenResponse: AxiosResponse<OidcResponse> = {
     status: 200,
     data: {
-      id_token: 'systemUserTestToken',
+      id_token: mockSystemToken,
       access_token: 'systemUserTestToken',
     },
     statusText: 'wsssw',

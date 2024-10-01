@@ -3425,6 +3425,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jsonwebtoken@npm:^9.0.7":
+  version: 9.0.7
+  resolution: "@types/jsonwebtoken@npm:9.0.7"
+  dependencies:
+    "@types/node": "*"
+  checksum: 872b62e2a50ec399d695402ccddfeb5cd66a6c3d28511f27453b932b6b67eb82c2d0ecaa864939848b88b3a8276c2492647bf5707bc82a6ac7e420d3412b9047
+  languageName: node
+  linkType: hard
+
 "@types/keyv@npm:^3.1.4":
   version: 3.1.4
   resolution: "@types/keyv@npm:3.1.4"
@@ -11996,7 +12005,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^9.0.0":
+"jsonwebtoken@npm:^9.0.0, jsonwebtoken@npm:^9.0.2":
   version: 9.0.2
   resolution: "jsonwebtoken@npm:9.0.2"
   dependencies:
@@ -13821,6 +13830,7 @@ __metadata:
     "@types/express-session": 1.18.0
     "@types/glob": 8.1.0
     "@types/jest": ^29.5.13
+    "@types/jsonwebtoken": ^9.0.7
     "@types/lodash": 4.17.9
     "@types/multer": 1.4.12
     "@types/negotiator": 0.6.3
@@ -13874,6 +13884,7 @@ __metadata:
     jest-html-reporters: ^3.1.7
     jest-junit: ^16.0.0
     js-yaml: 4.1.0
+    jsonwebtoken: ^9.0.2
     jwt-decode: 4.0.0
     lint-staged: 15.2.10
     lodash: 4.17.21
