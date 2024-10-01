@@ -90,7 +90,14 @@ describe('getSystemUser', () => {
     config: { headers: [] as unknown as AxiosRequestHeaders },
   };
 
-  const expectedGetSystemUserResponse: { givenName: undefined; familyName: undefined; roles: string[]; id: string; accessToken: string; email: string } = {
+  const expectedGetSystemUserResponse: {
+    givenName: undefined;
+    familyName: undefined;
+    roles: string[];
+    id: string;
+    accessToken: string;
+    email: string;
+  } = {
     email: 'user-email',
     accessToken: 'systemUserTestToken',
     id: '456',
