@@ -4,7 +4,6 @@ USER root
 RUN corepack enable
 COPY --chown=hmcts:hmcts . .
 USER hmcts
-
 # ---- Build image ----
 FROM base AS build
 RUN yarn --version && yarn install
@@ -15,6 +14,6 @@ FROM build AS runtime
 RUN rm -rf webpack/ webpack.config.js
 COPY --from=build $WORKDIR/src/main ./src/main
 RUN yarn build:ts
+
 USER hmcts
 EXPOSE 3001
-CMD ["node", "src/main/app.js"]
