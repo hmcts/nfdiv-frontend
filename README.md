@@ -238,6 +238,12 @@ Make sure you have those values set correctly for your application.
 
 The application exposes a health endpoint [https://localhost:3001/health](https://localhost:3001/health), created with the use of [Nodejs Healthcheck](https://github.com/hmcts/nodejs-healthcheck) library. This endpoint is defined in [health.ts](src/main/routes/health.ts) file. Make sure you adjust it correctly in your application. In particular, remember to replace the sample check with checks specific to your frontend app, e.g. the ones verifying the state of each service it depends on.
 
+### Fortify check new code
+To scan latest code on local
+set fortify-client.properties or in env
+fortify.client.password = access token from fortify
+fortify.client.username = fortify username
+and then run gradle fortifyScan
 ## Migrating backend field changes
 
 Once you have created a NFDIV-Case-API Pull Request with the case definition changes, update `CCD_URL` in [values.yaml](charts/nfdiv-frontend/values.yaml) and `services.case.url` in [default.yaml](config/default.yaml) so that the CCD Data Store is pointing at the Preview version deployed as part of your No Fault Divorce Case API pull request.
