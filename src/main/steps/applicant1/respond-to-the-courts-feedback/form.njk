@@ -5,37 +5,12 @@
 
 {% extends "common/form/form.njk"%}
 
-{% set app1RfiDraftResponseCannotUploadDocs %}
-  {{ govukCheckboxes({
-    idPrefix: 'app1RfiDraftResponseCannotUploadDocs',
-    name: 'app1RfiDraftResponseCannotUploadDocs',
-    fieldset: {
-      legend: {
-        text: cannotUploadDocuments,
-        classes: "govuk-visually-hidden"
-      }
-    },
-    items: [{
-        name: 'app1RfiDraftResponseCannotUploadDocs',
-        text: cannotUploadDocuments,
-        value: 'checked',
-        checked: userCase.app1RfiDraftResponseCannotUploadDocs == 'Yes',
-        conditional: {
-          html: conditionalText
-        }
-    }],
-    errorMessage: getError('app1RfiDraftResponseCannotUploadDocs'),
-    formGroup: {
-      classes: 'app1RfiDraftResponseCannotUploadDocs'
-    }
-  }) }}
-{% endset %}
-
 {% block form_content %}
 
   {% for fieldName, field in form.fields %}
     {% if fieldName == 'app1RfiDraftResponseCannotUploadDocs' %}
-      {{ app1RfiDraftResponseCannotUploadDocs | safe }}
+      <div id="havingTroubleUploading"><div>
+      {% include "common/form/fields/" + field.type + ".njk" %}
     {% elseif fieldName == 'app1RfiDraftResponseDetails' %}
       {% include "common/form/fields/" + field.type + ".njk" %}
     {% elseif fieldName == 'app1RfiDraftResponseUploadedFiles'%}
@@ -62,11 +37,11 @@
 
       <p class="govuk-body">{{ line5 }}</p>
       <p class="govuk-body">
-        {{ line6.part1 }}<br>
-        {{ line6.part2 }}
+        <strong>{{ acceptedFileFormats }}</strong> {{ fileFormats }}<br>
+        <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
       </p>
 
-      <h2 class="govuk-heading-s">{{ uploadAFile }}</h2>
+      <h2 id="uploadAFile" class="govuk-heading-s">{{ uploadAFile }}</h2>
       {% include "common/form/fields/" + field.type + ".njk" %}
 
       {% include "./document-upload.njk" %}
