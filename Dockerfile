@@ -15,5 +15,4 @@ RUN rm -rf webpack/ webpack.config.js
 COPY --from=build $WORKDIR/src/main ./src/main
 RUN yarn build:ts
 
-USER hmcts
 EXPOSE 3001
