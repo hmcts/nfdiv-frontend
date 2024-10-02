@@ -52,6 +52,6 @@ withPipeline(type, product, component) {
 
   // uncomment to connect backend PR
   onPR {
-    env.CASE_TYPE="NFD-4025"
+    env.CASE_TYPE="NFD-4050"
   }
 }
