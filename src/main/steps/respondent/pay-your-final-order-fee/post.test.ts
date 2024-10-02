@@ -85,7 +85,8 @@ describe('PaymentPostController', () => {
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
         '1234',
         { citizenPaymentCallbackUrl: 'https://undefined/payment-callback' },
-        RESPONDENT_APPLY_FOR_FINAL_ORDER);
+        RESPONDENT_APPLY_FOR_FINAL_ORDER
+      );
     });
 
     it('redirects to hub page if last payment is in progress', async () => {

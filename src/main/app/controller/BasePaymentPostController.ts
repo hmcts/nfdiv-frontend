@@ -30,7 +30,7 @@ export default abstract class BasePaymentPostController {
     if (req.session.userCase.state !== this.awaitingPaymentState()) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
-        {  citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
+        { citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
         this.awaitingPaymentEvent()
       );
     }
