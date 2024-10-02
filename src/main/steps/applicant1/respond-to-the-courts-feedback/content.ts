@@ -1,5 +1,6 @@
 import { isEmpty, isObject } from 'lodash';
 
+import { Checkbox } from '../../../app/case/case';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
@@ -36,6 +37,8 @@ const en = applicant1UploadDocumentContent => ({
   uploadedFiles: 'Uploaded files',
   noFilesUploaded: 'No files uploaded',
   havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
+  havingTroubleUploadingInfo:
+    'If you are unable to upload your documents due to a technical issue, you can post or email your documents instead. You will receive details on how to send them after you have submitted your response.',
   errors: {
     app1RfiDraftResponseDetails: {
       required:
@@ -47,6 +50,10 @@ const en = applicant1UploadDocumentContent => ({
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
+    },
+    app1RfiDraftResponseCannotUploadDocs: {
+      notUploaded:
+        'You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. If you are having trouble uploading any documents, select that option.',
     },
   },
 });
@@ -83,6 +90,8 @@ const cy: typeof en = applicant1UploadDocumentContent => ({
   uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
   noFilesUploaded: 'Nid oes ffeiliau wedi cael eu llwytho',
   havingTroubleUploading: 'Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.',
+  havingTroubleUploadingInfo:
+    'If you are unable to upload your documents due to a technical issue, you can post or email your documents instead. You will receive details on how to send them after you have submitted your response.',
   errors: {
     app1RfiDraftResponseDetails: {
       required:
@@ -94,6 +103,10 @@ const cy: typeof en = applicant1UploadDocumentContent => ({
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
+    },
+    app1RfiDraftResponseCannotUploadDocs: {
+      notUploaded:
+        'Nid ydych wedi darparu unrhyw wybodaeth neu lwytho unrhyw ddogfennau. Mae angen i chi ddarparu’r wybodaeth neu’r dogfennau y mae’r llys wedi gofyn amdani/ynt. Os ydych trafferth wrth lwytho dogfennau, dewiswch yr opsiwn hwnnw.',
     },
   },
 });
@@ -134,8 +147,27 @@ export const form: FormContent = {
       },
     },
     app1RfiDraftResponseCannotUploadDocs: {
-      type: 'hidden',
-      values: [],
+      type: 'checkboxes',
+      label: l => l.havingTroubleUploading,
+      labelHidden: true,
+      validator: (value, formData) => {
+        const hasEnteredDetails = !isEmpty(formData.app1RfiDraftResponseDetails);
+        const hasUploadedFiles =
+          (formData.app1RfiDraftResponseUploadedFiles as unknown as string[])?.length &&
+          (formData.app1RfiDraftResponseUploadedFiles as unknown as string) !== '[]';
+        const selectedCannotUploadDocuments = !!formData.app1RfiDraftResponseCannotUploadDocs?.length;
+        if (!hasEnteredDetails && !hasUploadedFiles && !selectedCannotUploadDocuments) {
+          return 'notUploaded';
+        }
+      },
+      values: [
+        {
+          name: 'app1RfiDraftResponseCannotUploadDocs',
+          label: l => l.havingTroubleUploading,
+          value: Checkbox.Checked,
+          conditionalText: l => `<p class="govuk-body govuk-!-margin-top-5">${l.havingTroubleUploadingInfo}</p>`,
+        },
+      ],
     },
   }),
   submit: {
