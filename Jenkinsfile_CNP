@@ -50,8 +50,8 @@ withPipeline(type, product, component) {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/Functional test report.html'
   }
 
-  // uncomment to connect backend PR
- //  onPR {
- //    env.CASE_TYPE="NFD-3939"
- //  }
+  uncomment to connect backend PR
+  onPR {
+    env.CASE_TYPE="NFD-4025"
+  }
 }

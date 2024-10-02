@@ -30,7 +30,7 @@ export default abstract class BasePaymentPostController {
     if (req.session.userCase.state !== this.awaitingPaymentState()) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
-        {},
+        {  citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
         this.awaitingPaymentEvent()
       );
     }
@@ -38,10 +38,10 @@ export default abstract class BasePaymentPostController {
     const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
 
     if (payments.isPaymentInProgress()) {
-      return this.saveAndRedirect(req, res, getPaymentCallbackUrl(req));
+      return this.saveAndRedirect(req, res, getPaymentCallbackPath(req));
     }
 
-    const paymentClient = this.getPaymentClient(req, res);
+    const paymentClient = this.getPaymentClient(req, getPaymentCallbackUrl(req, res));
     const payment = await this.createServiceRefAndTakePayment(req, paymentClient, payments);
 
     this.saveAndRedirect(req, res, payment.next_url);
@@ -57,12 +57,8 @@ export default abstract class BasePaymentPostController {
     });
   }
 
-  private getPaymentClient(req: AppRequest, res: Response) {
-    const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
-    const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-    const returnUrl = `${protocol}${res.locals.host}${port}${getPaymentCallbackUrl(req)}`;
-
-    return new PaymentClient(req.session, returnUrl);
+  private getPaymentClient(req: AppRequest, callbackUrl: string) {
+    return new PaymentClient(req.session, callbackUrl);
   }
 
   private async createServiceRefAndTakePayment(
@@ -115,7 +111,13 @@ export default abstract class BasePaymentPostController {
   protected abstract getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined;
 }
 
-export function getPaymentCallbackUrl(req: AppRequest): string {
+export function getPaymentCallbackUrl(req: AppRequest, res: Response): string {
+  const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
+  const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
+  return `${protocol}${res.locals.host}${port}${getPaymentCallbackPath(req)}`;
+}
+
+export function getPaymentCallbackPath(req: AppRequest): string {
   const isRespondent: boolean =
     req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
 

@@ -4,10 +4,11 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CITIZEN_SUBMIT } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
+import { getPaymentCallbackUrl } from './BasePaymentPostController';
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -76,6 +77,7 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length === 0) {
       try {
         req.session.userCase = await this.save(req, formData, this.getEventName(req));
+        this.setPaymentCallbackUrlIfPaymentRequired(req, res, formData);
       } catch (err) {
         req.locals.logger.error('Error saving', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
@@ -94,6 +96,12 @@ export class PostController<T extends AnyObject> {
       return CITIZEN_APPLICANT2_UPDATE;
     } else {
       return CITIZEN_UPDATE;
+    }
+  }
+
+  private setPaymentCallbackUrlIfPaymentRequired(req: AppRequest<T>, res: Response, formData: Partial<Case>) {
+    if (this.getEventName(req) === CITIZEN_SUBMIT) {
+      formData.citizenPaymentCallbackUrl = getPaymentCallbackUrl(req, res);
     }
   }
 }
