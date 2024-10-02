@@ -1,0 +1,59 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+
+  {% set answerRows = [] %}
+    {% for question, text in stepQuestions %}
+      {% if (stepAnswers[question] and stepAnswers[question] != 'undefined' and stepAnswers[question] != 'null') or question === 'yourResponse' %}
+
+        {% set answerText %}
+          {% if question === 'uploadedFiles' %}
+            {% set filenames %}
+              {% for filename in uploadedDocsFilenames %}
+                {{ filename }}
+              {% endfor %}
+            {% endset %}
+            {{ filenames }}
+          {% elif question === 'yourResponse' and not detailsText.length %}
+            {{ notProvided }}
+          {% else %}
+            {{ stepAnswers[question] }}
+          {% endif %}
+        {% endset %}
+
+        {% set answerRows = (answerRows.push({
+          key: {
+            html: text,
+            classes: 'govuk-!-width-two-thirds'
+          },
+          value: {
+              text: answerText
+          },
+          actions: {
+            items: [
+              {
+                href: stepLinks[question],
+                text: change,
+                visuallyHiddenText: text
+              }
+            ]
+          }
+        }), answerRows) %}
+      {% endif %}
+    {% endfor %}
+
+    {% if answerRows.length %}
+      {{ govukSummaryList({
+        classes: 'govuk-!-margin-bottom-9',
+        rows: answerRows
+      }) }}
+    {% endif %}
+
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
+{% endblock %}

@@ -88,6 +88,7 @@ import {
   REVIEW_THE_APPLICATION,
   REVIEW_YOUR_APPLICATION,
   REVIEW_YOUR_JOINT_APPLICATION,
+  REVIEW_YOUR_RESPONSE,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
@@ -556,6 +557,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: RESPOND_TO_COURT_FEEDBACK,
+    getNextStep: () => REVIEW_YOUR_RESPONSE,
+  },
+  {
+    url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
   },
 ];
