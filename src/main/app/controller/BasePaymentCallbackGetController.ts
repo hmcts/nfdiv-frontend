@@ -1,6 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
-import config from 'config';
 import { Response } from 'express';
 
 import { CaseData, State } from '../case/definition';
