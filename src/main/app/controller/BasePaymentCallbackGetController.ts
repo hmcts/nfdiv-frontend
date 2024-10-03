@@ -7,7 +7,7 @@ import { AppRequest } from '../controller/AppRequest';
 import { PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 
-import { getPaymentCallbackUrl} from './BasePaymentPostController';
+import { getPaymentCallbackUrl } from './BasePaymentPostController';
 
 const logger = Logger.getLogger('payment');
 
