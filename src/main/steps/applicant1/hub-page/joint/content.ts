@@ -323,8 +323,8 @@ export const generateContent: TranslationFn = content => {
     ? userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : userCase.applicant1ConfirmReceipt === YesOrNo.YES;
   const hasApplicantAppliedForConditionalOrder = isApplicant2
-    ? userCase.coApplicant2StatementOfTruth === Checkbox.Checked
-    : userCase.coApplicant1StatementOfTruth === Checkbox.Checked;
+    ? userCase.coApplicant2IsSubmitted === YesOrNo.YES
+    : userCase.coApplicant1IsSubmitted === YesOrNo.YES;
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
     .add(config.get('dates.changingToSolePartnerResponseDays'), 'day')
     .isBefore(dayjs());
