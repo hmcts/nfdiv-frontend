@@ -39,43 +39,49 @@ app.use((req, res, next) => {
   next();
 });
 
-new AxiosLogger().enableFor(app);
-const propertiesVolume = new PropertiesVolume();
 (async () => {
-  await propertiesVolume.enableFor(app);
+  try {
+    new AxiosLogger().enableFor(app);
+
+    const propertiesVolume = new PropertiesVolume();
+    await propertiesVolume.enableFor(app);
+
+    new ErrorHandler().enableFor(app, logger);
+    new LoadTimeouts().enableFor(app);
+    new Nunjucks().enableFor(app);
+    new WebpackDev().enableFor(app);
+    new Helmet().enableFor(app);
+    new AppInsights().enable();
+    new SessionStorage().enableFor(app, logger);
+    new TooBusy().enableFor(app);
+    new HealthCheck().enableFor(app);
+
+    new DocumentDownloadMiddleware().enableFor(app);
+    app.use(bodyParser.json() as RequestHandler);
+    app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
+
+    new CSRFToken().enableFor(app);
+    new LanguageToggle().enableFor(app);
+    new AuthProvider().enable();
+    new FeesRegister().enable();
+
+    new OidcMiddleware().enableFor(app);
+    new StateRedirectMiddleware().enableFor(app);
+    new Routes().enableFor(app);
+    new ErrorHandler().handleNextErrorsFor(app);
+
+    const port = config.get('port');
+    const server = app.listen(port, () => {
+      logger.info(`Application started: http://localhost:${port}`);
+    });
+
+    process.on('SIGINT', function () {
+      server.close();
+      toobusy.shutdown();
+      process.exit();
+    });
+  } catch (error) {
+    logger.error('Failed to initialize secrets:', error);
+    process.exit(1);
+  }
 })();
-new ErrorHandler().enableFor(app, logger);
-new LoadTimeouts().enableFor(app);
-new Nunjucks().enableFor(app);
-new WebpackDev().enableFor(app);
-new Helmet().enableFor(app);
-new AppInsights().enable();
-new SessionStorage().enableFor(app, logger);
-new TooBusy().enableFor(app);
-new HealthCheck().enableFor(app);
-
-// Declare use of body-parser AFTER the use of proxy https://github.com/villadora/express-http-proxy
-new DocumentDownloadMiddleware().enableFor(app);
-app.use(bodyParser.json() as RequestHandler);
-app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
-
-new CSRFToken().enableFor(app);
-new LanguageToggle().enableFor(app);
-new AuthProvider().enable();
-new FeesRegister().enable();
-
-new OidcMiddleware().enableFor(app);
-new StateRedirectMiddleware().enableFor(app);
-new Routes().enableFor(app);
-new ErrorHandler().handleNextErrorsFor(app);
-
-const port = config.get('port');
-const server = app.listen(port, () => {
-  logger.info(`Application started: http://localhost:${port}`);
-});
-
-process.on('SIGINT', function () {
-  server.close();
-  toobusy.shutdown();
-  process.exit();
-});
