@@ -228,6 +228,10 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line1:
       "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
   },
+  subHeading1:
+    userCase.state === State.AwaitingAmendedApplication
+      ? 'Latest information'
+      : `${userCase.state === State.AwaitingClarification ? 'What you need to do now' : 'Latest update'}`,
   informationRequested: {
     line1:
       'The court has reviewed your application for divorce. You need to provide some additional information before your application can progress.',
@@ -239,10 +243,20 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     buttonLink: RESPOND_TO_COURT_FEEDBACK,
     line6: 'We will let you know once we have reviewed the information you provided.',
   },
-  subHeading1:
-    userCase.state === State.AwaitingAmendedApplication
-      ? 'Latest information'
-      : `${userCase.state === State.AwaitingClarification ? 'What you need to do now' : 'Latest update'}`,
+  respondedToRequestForInformation: {
+    line1: 'You have responded to the court.',
+    line2: 'DEVS NEED HUBPAGE TEXT FOR CITIZENS FROM THE BUSINESS',
+  },
+  awaitingRequestedInformation: {
+    line1:
+      'You have told us that you cannot upload some or all of your documents. We cannot progress your application until we have received them.',
+    line2: 'What you need to do next',
+    line3: 'We have sent you an email with details on how to send your documents.',
+    line4: 'You can ',
+    formLinkText: 'upload your documents using our online form',
+    line4a: ' or send them by post along with a cover sheet with your case reference number.',
+    line5: 'We will then review your response',
+  },
 });
 
 // @TODO translations
@@ -473,17 +487,6 @@ const cy: typeof en = (
       link: '/downloads/bailiff-service',
     },
   },
-  informationRequested: {
-    line1:
-      'Mae’r llys wedi adolygu eich cais am ysgariad. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.',
-    line2: 'Rydym wedi anfon neges e-bost atoch gyda gwybodaeth y mae’r llys ei hangen.',
-    line3: 'Beth sydd angen i chi wneud nesaf',
-    line4: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
-    line5: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
-    buttonText: 'Darparu gwybodaeth',
-    buttonLink: RESPOND_TO_COURT_FEEDBACK,
-    line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
-  },
   subHeading1:
     userCase.state === State.AwaitingAmendedApplication
       ? 'Yr wybodaeth ddiweddaraf'
@@ -505,6 +508,31 @@ const cy: typeof en = (
   pendingHearingOutcome: {
     line1:
       'Mae eich cais wedi cyrraedd y llys a bydd yn cael ei gyfeirio at farnwr i ystyried eich cais. Dylech glywed gan\n y llys am benderfyniad y barnwr.',
+  },
+  informationRequested: {
+    line1:
+      'Mae’r llys wedi adolygu eich cais am ysgariad. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.',
+    line2: 'Rydym wedi anfon neges e-bost atoch gyda gwybodaeth y mae’r llys ei hangen.',
+    line3: 'Beth sydd angen i chi wneud nesaf',
+    line4: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
+    line5: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
+    buttonText: 'Darparu gwybodaeth',
+    buttonLink: RESPOND_TO_COURT_FEEDBACK,
+    line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
+  },
+  respondedToRequestForInformation: {
+    line1: 'You have responded to the court.',
+    line2: 'DEVS NEED HUBPAGE TEXT FOR CITIZENS FROM THE BUSINESS',
+  },
+  awaitingRequestedInformation: {
+    line1:
+      'You have told us that you cannot upload some or all of your documents. We cannot progress your application until we have received them.',
+    line2: 'What you need to do next',
+    line3: 'We have sent you an email with details on how to send your documents.',
+    line4: 'You can ',
+    formLinkText: 'upload your documents using our online form',
+    line4a: ' or send them by post along with a cover sheet with your case reference number.',
+    line5: 'We will then review your response',
   },
 });
 
@@ -530,11 +558,21 @@ export const generateContent: TranslationFn = content => {
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
+  const latestRequestForInformation = userCase.requestsForInformation?.at(0)?.value;
+  const isSoleRequestForInformation =
+    latestRequestForInformation !== null && latestRequestForInformation?.requestForInformationSoleParties !== undefined;
+  const soleParties = isSoleRequestForInformation
+    ? latestRequestForInformation.requestForInformationSoleParties
+    : undefined;
+  const isSoleRequestForInformationForApplicant = soleParties === 'applicant';
+  const isApplicantAbleToRespondToRequestForInformation =
+    isSoleRequestForInformation && isSoleRequestForInformationForApplicant;
   const theLatestUpdateTemplate = getSoleHubTemplate(
     displayState,
     userCase,
     isSuccessfullyServedByBailiff,
-    isAlternativeService
+    isAlternativeService,
+    isApplicantAbleToRespondToRequestForInformation
   );
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
   const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
@@ -552,5 +590,6 @@ export const generateContent: TranslationFn = content => {
     isSwitchToSoleCoApp,
     hasApplicant1AppliedForFinalOrderFirst,
     isFinalOrderCompleteState,
+    isApplicantAbleToRespondToRequestForInformation,
   };
 };

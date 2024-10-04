@@ -15,6 +15,7 @@ export const enum HubTemplate {
   AwaitingLegalAdvisorReferral = '/awaiting-legal-advisor-referral.njk',
   AwaitingLegalAdvisorReferralOrAwaitingPronouncement = '/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk',
   AwaitingPronouncement = '/awaiting-pronouncement.njk',
+  AwaitingRequestedInformation = '/awaiting-requested-information.njk',
   AwaitingServiceConsiderationOrAwaitingBailiffReferral = '/awaiting-service-consideration-or-awaiting-bailiff-referral.njk',
   BailiffServiceUnsuccessful = '/bailiff-service-unsuccessful.njk',
   ClarificationSubmitted = '/clarification-submitted.njk',
@@ -24,6 +25,7 @@ export const enum HubTemplate {
   FinalOrderRequested = '/final-order-requested.njk',
   Holding = '/holding.njk',
   InformationRequested = '/information-requested.njk',
+  RespondedToInformationRequest = '/responded-to-information-request.njk',
   IntendToSwitchToSoleFinalOrder = '/intend-to-switch-to-sole-final-order.njk',
   ServiceApplicationRejected = '/service-application-rejected.njk',
 }
