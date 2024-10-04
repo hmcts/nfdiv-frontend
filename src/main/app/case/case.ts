@@ -20,6 +20,7 @@ import {
   ListValue,
   OrderSummary,
   Payment,
+  RequestForInformation,
   State,
   YesOrNo,
 } from './definition';
@@ -389,6 +390,8 @@ export interface Case {
   applicant1CanIntendToSwitchToSoleFo: YesOrNo;
   applicant2CanIntendToSwitchToSoleFo: YesOrNo;
   isFinalOrderOverdue: YesOrNo;
+  requestsForInformation?: ListValue<Partial<RequestForInformation> | null>[];
+  requestForInformation?: RequestForInformation;
   app1RfiDraftResponseDocs?: ListValue<Partial<DivorceDocument> | null>[];
   app1RfiDraftResponseUploadedFiles?: UploadedFile[];
   app1RfiDraftResponseCannotUploadDocs?: Checkbox;

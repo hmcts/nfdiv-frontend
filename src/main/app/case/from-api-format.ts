@@ -170,6 +170,7 @@ const fields: FromApiConverters = {
   app2RfiDraftResponseCannotUploadDocs: data => ({
     app2RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app2RfiDraftResponseCannotUploadDocs),
   }),
+  requestsForInformation: 'requestsForInformation',
 };
 
 const fromApiDate = date => {

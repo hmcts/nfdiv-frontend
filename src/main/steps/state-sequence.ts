@@ -51,6 +51,7 @@ export const orderedStateSequence: State[] = [
   State.AwaitingPayment,
   State.AwaitingDocuments,
   State.InformationRequested,
+  State.AwaitingRequestedInformation,
   State.RequestedInformationSubmitted,
   State.Submitted,
   State.AwaitingAos,

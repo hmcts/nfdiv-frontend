@@ -2,6 +2,8 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2023-09-13 16:10:38.
 
+import { Checkbox } from './case';
+
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
@@ -933,6 +935,7 @@ export interface CaseData {
   documentsUploaded: ListValue<DivorceDocument>[];
   confidentialDocumentsUploaded: ListValue<ConfidentialDivorceDocument>[];
   confidentialDocumentsGenerated: ListValue<ConfidentialDivorceDocument>[];
+  requestsForInformation: ListValue<RequestForInformation>[];
   app1RfiDraftResponseCannotUploadDocs: YesOrNo;
   app1RfiDraftResponseDocs: ListValue<DivorceDocument>[];
   app1RfiDraftResponseDetails: string;
@@ -1022,14 +1025,26 @@ export interface CaseDocuments {
   scannedSubtypeReceived: ScannedDocumentSubtypes;
 }
 
+export interface RequestForInformationResponse {
+  requestForInformationResponseCannotUploadDocs: YesOrNo;
+}
+export interface RequestForInformation {
+  requestForInformationJointParties: string;
+  requestForInformationSoleParties: string;
+
+  requestForInformationResponses: ListValue<RequestForInformationResponse>[];
+}
+
 export interface RequestForInformationResponseApplicant1 {
   app1RfiDraftResponseDetails: string;
   app1RfiDraftResponseDocs: ListValue<DivorceDocument>[];
+  app1RfiDraftResponseCannotUploadDocs: Checkbox;
 }
 
 export interface RequestForInformationResponseApplicant2 {
   app2RfiDraftResponseDetails: string;
   app2RfiDraftResponseDocs: ListValue<DivorceDocument>[];
+  app2RfiDraftResponseCannotUploadDocs: Checkbox;
 }
 
 export interface CaseInvite {
@@ -2015,6 +2030,7 @@ export const enum State {
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   AwaitingHWFEvidence = 'AwaitingHWFEvidence',
   AwaitingHWFPartPayment = 'AwaitingHWFPartPayment',
+  AwaitingRequestedInformation = 'AwaitingRequestedInformation',
   ConditionalOrderPending = 'ConditionalOrderPending',
   AwaitingJointFinalOrder = 'AwaitingJointFinalOrder',
   AwaitingJudgeClarification = 'AwaitingJudgeClarification',
