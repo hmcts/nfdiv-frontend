@@ -33,17 +33,17 @@ export default abstract class BasePaymentPostController {
       );
     }
 
+    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
+    if (payments.isPaymentInProgress()) {
+      return this.saveAndRedirect(req, res, getPaymentCallbackPath(req));
+    }
+
     if (!this.getServiceReferenceForFee(req)) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
         { citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
         CITIZEN_CREATE_SERVICE_REQUEST
       );
-    }
-
-    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
-    if (payments.isPaymentInProgress()) {
-      return this.saveAndRedirect(req, res, getPaymentCallbackPath(req));
     }
 
     const serviceReference = this.getServiceReferenceForFee(req);
