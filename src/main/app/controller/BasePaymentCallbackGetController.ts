@@ -1,6 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
-import config from 'config';
 import { Response } from 'express';
 
 import { CaseData, State } from '../case/definition';
@@ -18,11 +17,8 @@ export default abstract class BasePaymentCallbackGetController {
     if (req.session.userCase.state !== this.awaitingPaymentState()) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
-    const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
-    const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-    const returnUrl = `${protocol}${res.locals.host}${port}${getPaymentCallbackUrl(req)}`;
 
-    const paymentClient = new PaymentClient(req.session, returnUrl);
+    const paymentClient = new PaymentClient(req.session, getPaymentCallbackUrl(req, res));
 
     const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
     if (!payments.hasPayment) {
