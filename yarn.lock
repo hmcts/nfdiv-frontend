@@ -144,7 +144,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/identity@npm:^4.2.1":
+"@azure/identity@npm:^4.2.1, @azure/identity@npm:^4.4.1":
   version: 4.4.1
   resolution: "@azure/identity@npm:4.4.1"
   dependencies:
@@ -166,7 +166,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/keyvault-secrets@npm:^4.7.0":
+"@azure/keyvault-secrets@npm:^4.7.0, @azure/keyvault-secrets@npm:^4.8.0":
   version: 4.8.0
   resolution: "@azure/keyvault-secrets@npm:4.8.0"
   dependencies:
@@ -3463,7 +3463,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:29.5.13":
+"@types/jest@npm:^29.5.13":
   version: 29.5.13
   resolution: "@types/jest@npm:29.5.13"
   dependencies:
@@ -3484,6 +3484,15 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: e60b153664572116dfea673c5bda7778dbff150498f44f998e34b5886d8afc47f16799280e4b6e241c0472aef1bc36add771c569c68fc5125fc2ae519a3eb9ac
+  languageName: node
+  linkType: hard
+
+"@types/jsonwebtoken@npm:^9.0.7":
+  version: 9.0.7
+  resolution: "@types/jsonwebtoken@npm:9.0.7"
+  dependencies:
+    "@types/node": "*"
+  checksum: 872b62e2a50ec399d695402ccddfeb5cd66a6c3d28511f27453b932b6b67eb82c2d0ecaa864939848b88b3a8276c2492647bf5707bc82a6ac7e420d3412b9047
   languageName: node
   linkType: hard
 
@@ -4149,7 +4158,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/sauce-service@npm:9.1.2":
+"@wdio/sauce-service@npm:^9.0.0":
   version: 9.1.2
   resolution: "@wdio/sauce-service@npm:9.1.2"
   dependencies:
@@ -6460,7 +6469,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codeceptjs@npm:3.6.7":
+"codeceptjs@npm:^3.5.11":
   version: 3.6.7
   resolution: "codeceptjs@npm:3.6.7"
   dependencies:
@@ -7859,9 +7868,9 @@ __metadata:
   linkType: hard
 
 "eight-colors@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "eight-colors@npm:1.3.0"
-  checksum: 71d5543a2053926b0bed9a10c59109f8f15c9bcc1cec2ef916adaebe084d3557841d3149ea80959d32071cbfd3a54a98e65364e2ef67f4a94059257ab903cf8f
+  version: 1.3.1
+  resolution: "eight-colors@npm:1.3.1"
+  checksum: 141f86f4e805c92d54ff84bc5594a40e7a3538c8eee2b453f67f4d758dd4a7de0018899d4df048b459fe7493a13a565cc2d8740635f6d266637155d3f114f420
   languageName: node
   linkType: hard
 
@@ -11572,7 +11581,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:29.7.0":
+"jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest@npm:29.7.0"
   dependencies:
@@ -11902,7 +11911,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^9.0.0":
+"jsonwebtoken@npm:^9.0.0, jsonwebtoken@npm:^9.0.2":
   version: 9.0.2
   resolution: "jsonwebtoken@npm:9.0.2"
   dependencies:
@@ -13689,6 +13698,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nfdiv-frontend@workspace:."
   dependencies:
+    "@azure/identity": ^4.4.1
+    "@azure/keyvault-secrets": ^4.8.0
     "@codeceptjs/allure-legacy": 1.0.2
     "@hmcts/cookie-manager": 1.0.0
     "@hmcts/frontend": 0.0.50-alpha
@@ -13703,7 +13714,8 @@ __metadata:
     "@types/express": 4.17.21
     "@types/express-session": 1.18.0
     "@types/glob": 8.1.0
-    "@types/jest": 29.5.13
+    "@types/jest": ^29.5.13
+    "@types/jsonwebtoken": ^9.0.7
     "@types/lodash": 4.17.10
     "@types/multer": 1.4.12
     "@types/negotiator": 0.6.3
@@ -13722,13 +13734,13 @@ __metadata:
     "@uppy/progress-bar": 3.1.1
     "@uppy/xhr-upload": 3.6.8
     "@wdio/cli": 9.1.2
-    "@wdio/sauce-service": 9.1.2
+    "@wdio/sauce-service": ^9.0.0
     allure-commandline: 2.30.0
     applicationinsights: 2.9.6
     autobind-decorator: 2.4.0
     axios: 1.7.7
     axios-debug-log: 1.0.0
-    codeceptjs: 3.6.7
+    codeceptjs: ^3.5.11
     config: 3.3.12
     connect-redis: 7.1.1
     cookie-parser: 1.4.6
@@ -13753,10 +13765,11 @@ __metadata:
     html-webpack-plugin: 5.6.0
     http-status-codes: 2.3.0
     husky: 9.1.6
-    jest: 29.7.0
+    jest: ^29.7.0
     jest-html-reporters: ^3.1.7
     jest-junit: ^16.0.0
     js-yaml: 4.1.0
+    jsonwebtoken: ^9.0.2
     jwt-decode: 4.0.0
     lint-staged: 15.2.10
     lodash: 4.17.21
@@ -13774,7 +13787,7 @@ __metadata:
     nunjucks: 3.2.4
     otplib: 12.0.1
     pa11y: 8.0.0
-    pdfjs-dist: 4.6.82
+    pdfjs-dist: ^4.6.82
     prettier: 3.1.1
     redis: 4.7.0
     require-directory: 2.1.1
@@ -13786,7 +13799,7 @@ __metadata:
     style-loader: 4.0.0
     tar: ^7.0.0
     toobusy-js: 0.5.1
-    ts-jest: 29.2.5
+    ts-jest: ^29.2.5
     ts-loader: 9.5.1
     ts-node: 10.9.2
     tsconfig-paths: 4.2.0
@@ -14893,7 +14906,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdfjs-dist@npm:4.6.82":
+"pdfjs-dist@npm:^4.6.82":
   version: 4.6.82
   resolution: "pdfjs-dist@npm:4.6.82"
   dependencies:
@@ -17745,7 +17758,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:29.2.5":
+"ts-jest@npm:^29.2.5":
   version: 29.2.5
   resolution: "ts-jest@npm:29.2.5"
   dependencies:
