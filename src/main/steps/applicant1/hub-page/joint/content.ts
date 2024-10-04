@@ -10,7 +10,12 @@ import type { CommonContent } from '../../../common/common.content';
 import { canIntendToSwitchToSoleFo, hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
 import { getSwitchToSoleFoStatus } from '../../../common/switch-to-sole-content.utils';
 import { currentStateFn } from '../../../state-sequence';
-import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HOW_TO_FINALISE_APPLICATION } from '../../../urls';
+import {
+  APPLICANT_2,
+  FINALISING_YOUR_APPLICATION,
+  HOW_TO_FINALISE_APPLICATION,
+  RESPOND_TO_COURT_FEEDBACK,
+} from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -161,6 +166,17 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     line1:
       "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
   },
+  informationRequested: {
+    line1:
+      'The court has reviewed your application for divorce. You need to provide some additional information before your application can progress.',
+    line2: 'We have sent you an email with the information the court needs.',
+    line3: 'What you need to do next',
+    line4: 'Read the court’s reasons for stopping the application and provide the requested information.',
+    line5: 'If documents have been requested, you will be able to upload them to the court when you respond.',
+    buttonText: 'Provide information',
+    buttonLink: RESPOND_TO_COURT_FEEDBACK,
+    line6: 'We will let you know once we have reviewed the information you provided.',
+  },
 });
 
 const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
@@ -309,6 +325,17 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     line1:
       'Mae eich cais wedi cyrraedd y llys a bydd yn cael ei gyfeirio at farnwr i ystyried eich cais. Dylech glywed gan\n y llys am benderfyniad y barnwr.',
   },
+  informationRequested: {
+    line1:
+      'Mae’r llys wedi adolygu eich cais am ysgariad. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.',
+    line2: 'Rydym wedi anfon neges e-bost atoch gyda gwybodaeth y mae’r llys ei hangen.',
+    line3: 'Beth sydd angen i chi wneud nesaf',
+    line4: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
+    line5: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
+    buttonText: 'Darparu gwybodaeth',
+    buttonLink: RESPOND_TO_COURT_FEEDBACK,
+    line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
+  },
 });
 
 const languages = {
@@ -328,6 +355,26 @@ export const generateContent: TranslationFn = content => {
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
     .add(config.get('dates.changingToSolePartnerResponseDays'), 'day')
     .isBefore(dayjs());
+  const latestRequestForInformation = userCase.requestsForInformation?.at(0)?.value;
+  const isJointRequestForInformation =
+    latestRequestForInformation !== null &&
+    latestRequestForInformation?.requestForInformationJointParties !== undefined;
+  const jointParties = isJointRequestForInformation
+    ? latestRequestForInformation.requestForInformationJointParties
+    : undefined;
+  const isJointRequestForInformationForBothParties = jointParties === 'both';
+  const isJointRequestForInformationForApplicant2 = jointParties === 'applicant2';
+  const isJointRequestForInformationForApplicant1 = jointParties === 'applicant1';
+  const isApplicant1AbleToRespondToRequestForInformation =
+    isJointRequestForInformation &&
+    !isApplicant2 &&
+    (isJointRequestForInformationForApplicant1 || isJointRequestForInformationForBothParties);
+  const isApplicant2AbleToRespondToRequestForInformation =
+    isJointRequestForInformation &&
+    isApplicant2 &&
+    (isJointRequestForInformationForApplicant2 || isJointRequestForInformationForBothParties);
+  const isApplicantAbleToRespondToRequestForInformation =
+    isApplicant1AbleToRespondToRequestForInformation || isApplicant2AbleToRespondToRequestForInformation;
 
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
@@ -358,6 +405,7 @@ export const generateContent: TranslationFn = content => {
       switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod,
     hasSwitchToSoleFoIntentionNotificationPeriodExpired:
       switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired,
+    isApplicantAbleToRespondToRequestForInformation,
   });
 
   return {
@@ -376,5 +424,6 @@ export const generateContent: TranslationFn = content => {
     isFinalOrderCompleteState,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
     isIntendingAndAbleToSwitchToSoleFinalOrder: switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo,
+    isApplicantAbleToRespondToRequestForInformation,
   };
 };
