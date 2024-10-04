@@ -82,7 +82,11 @@ describe('PaymentPostController', () => {
 
       await paymentController.post(req, res);
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SUBMIT);
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+        '1234',
+        { citizenPaymentCallbackUrl: 'https://undefined/payment-callback' },
+        CITIZEN_SUBMIT
+      );
     });
 
     it('redirects to the check your answers page if last payment is in progress', async () => {
