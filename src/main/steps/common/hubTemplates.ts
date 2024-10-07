@@ -25,6 +25,7 @@ export const enum HubTemplate {
   FinalOrderRequested = '/final-order-requested.njk',
   Holding = '/holding.njk',
   InformationRequested = '/information-requested.njk',
+  InformationRequestedFromPartner = '/information-requested-from-partner.njk',
   RespondedToInformationRequest = '/responded-to-information-request.njk',
   IntendToSwitchToSoleFinalOrder = '/intend-to-switch-to-sole-final-order.njk',
   ServiceApplicationRejected = '/service-application-rejected.njk',
