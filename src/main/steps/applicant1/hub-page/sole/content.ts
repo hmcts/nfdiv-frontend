@@ -233,8 +233,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
       ? 'Latest information'
       : `${userCase.state === State.AwaitingClarification ? 'What you need to do now' : 'Latest update'}`,
   informationRequested: {
-    line1:
-      'The court has reviewed your application for divorce. You need to provide some additional information before your application can progress.',
+    line1: `The court has reviewed your application for ${
+      isDivorce ? 'divorce' : 'dissolution'
+    }. You need to provide some additional information before your application can progress.`,
     line2: 'We have sent you an email with the information the court needs.',
     line3: 'What you need to do next',
     line4: 'Read the court’s reasons for stopping the application and provide the requested information.',
@@ -512,8 +513,9 @@ const cy: typeof en = (
       'Mae eich cais wedi cyrraedd y llys a bydd yn cael ei gyfeirio at farnwr i ystyried eich cais. Dylech glywed gan\n y llys am benderfyniad y barnwr.',
   },
   informationRequested: {
-    line1:
-      'Mae’r llys wedi adolygu eich cais am ysgariad. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.',
+    line1: `Mae’r llys wedi adolygu eich cais am ${
+      isDivorce ? 'ysgariad' : 'diddymiad'
+    }. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.`,
     line2: 'Rydym wedi anfon neges e-bost atoch gyda gwybodaeth y mae’r llys ei hangen.',
     line3: 'Beth sydd angen i chi wneud nesaf',
     line4: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
