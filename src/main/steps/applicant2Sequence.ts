@@ -48,6 +48,8 @@ import {
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_CANNOT_APPLY,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+  RESPOND_TO_COURT_FEEDBACK,
+  REVIEW_YOUR_RESPONSE,
 } from './urls';
 
 export const preSubmissionSequence: Step[] = [
@@ -240,6 +242,14 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: PROVIDE_INFORMATION_TO_THE_COURT,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: RESPOND_TO_COURT_FEEDBACK,
+    getNextStep: () => REVIEW_YOUR_RESPONSE,
+  },
+  {
+    url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
   },
 ];

@@ -114,6 +114,9 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
   const isSolicitorRepresented = req.session.userCase.applicant2SolicitorRepresented === YesOrNo.YES;
 
   switch (req.session.userCase.state) {
+    case State.InformationRequested:
+    case State.AwaitingRequestedInformation:
+    case State.RequestedInformationSubmitted:
     case State.AwaitingGeneralConsideration:
     case State.GeneralConsiderationComplete:
     case State.PendingHearingOutcome:
