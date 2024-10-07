@@ -9,7 +9,7 @@ import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/review-your-response-to-the-courts-feedback/content';
-import { RESPOND_TO_COURT_FEEDBACK } from '../../urls';
+import { APPLICANT_2, RESPOND_TO_COURT_FEEDBACK } from '../../urls';
 
 const labels = (detailsText, uploadedDocsFilenames, cannotUploadDocs) => ({
   stepAnswers: {
@@ -49,7 +49,7 @@ export const generateContent: TranslationFn = content => {
   const detailsText = content.userCase.app2RfiDraftResponseDetails;
   const cannotUploadDocs =
     content.userCase.app2RfiDraftResponseCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
-  const changeUrl = RESPOND_TO_COURT_FEEDBACK;
+  const changeUrl = APPLICANT_2 + RESPOND_TO_COURT_FEEDBACK;
   return {
     ...applicant1GenerateContent(content),
     ...labels(detailsText, uploadedDocsFilenames, cannotUploadDocs),
