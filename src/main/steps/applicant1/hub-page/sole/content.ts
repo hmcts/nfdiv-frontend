@@ -245,7 +245,9 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
   },
   respondedToRequestForInformation: {
     line1: 'You have responded to the court.',
-    line2: 'DEVS NEED HUBPAGE TEXT FOR CITIZENS FROM THE BUSINESS',
+    //don't know what the date variable is, and still need welsh translation
+    line2:
+      'Your application will be checked by court staff. You will receive an email notification by {{date}} confirming whether it has been accepted. Check your junk or spam email folder.',
   },
   awaitingRequestedInformation: {
     line1:
@@ -254,7 +256,7 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
     line3: 'We have sent you an email with details on how to send your documents.',
     line4: 'You can ',
     formLinkText: 'upload your documents using our online form',
-    line4a: ' or send them by post along with a cover sheet with your case reference number.',
+    line4a: ', or send them by post along with a cover sheet with your case reference number.',
     line5: 'We will then review your response',
   },
 });
@@ -522,17 +524,19 @@ const cy: typeof en = (
   },
   respondedToRequestForInformation: {
     line1: 'You have responded to the court.',
-    line2: 'DEVS NEED HUBPAGE TEXT FOR CITIZENS FROM THE BUSINESS',
+    //don't know what the date variable is, and still need welsh translation
+    line2:
+      'Your application will be checked by court staff. You will receive an email notification by {{date}} confirming whether it has been accepted. Check your junk or spam email folder.',
   },
   awaitingRequestedInformation: {
     line1:
-      'You have told us that you cannot upload some or all of your documents. We cannot progress your application until we have received them.',
-    line2: 'What you need to do next',
-    line3: 'We have sent you an email with details on how to send your documents.',
-    line4: 'You can ',
-    formLinkText: 'upload your documents using our online form',
-    line4a: ' or send them by post along with a cover sheet with your case reference number.',
-    line5: 'We will then review your response',
+      'Rydych wedi dweud wrthym na allwch lwytho rhai neu’r cyfan o’ch dogfennau.  Ni allwn symud eich cais yn ei flaen hyd nes y byddwn wedi’u derbyn.',
+    line2: 'Beth sydd angen i chi wneud nesaf',
+    line3: 'Rydym wedi anfon e-bost atoch gyda manylion ar sut i anfon eich dogfennau.',
+    line4: 'Gallwch ',
+    formLinkText: 'lwytho eich dogfennau gan ddefnyddio ein ffurflen ar-lein',
+    line4a: ', neu eu hanfon drwy’r post ynghyd â dalen flaen gyda chyfeirnod eich achos.',
+    line5: 'Byddwn wedyn yn adolygu eich ymateb',
   },
 });
 
