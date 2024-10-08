@@ -36,7 +36,10 @@ const hubPageSubheading = (
   }
 };
 
-const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+const en = (
+  { isDivorce, userCase, partner, isApplicant2 }: CommonContent,
+  dateOfCourtReplyToRequestForInformationResponse: string
+) => ({
   subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
     line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
@@ -180,9 +183,7 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   },
   respondedToRequestForInformation: {
     line1: 'You have responded to the court.',
-    //don't know what the date variable is, and still need welsh translation
-    line2:
-      'Your application will be checked by court staff. You will receive an email notification by {{date}} confirming whether it has been accepted. Check your junk or spam email folder.',
+    line2: `Your application will be checked by court staff. You will receive an email notification by ${dateOfCourtReplyToRequestForInformationResponse} confirming whether it has been accepted. Check your junk or spam email folder.`,
   },
   awaitingRequestedInformation: {
     line1:
@@ -202,7 +203,10 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+const cy: typeof en = (
+  { isDivorce, userCase, partner, isApplicant2 }: CommonContent,
+  dateOfCourtReplyToRequestForInformationResponse: string
+) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
     line1: `Mae eich cais ${
@@ -361,10 +365,8 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
   },
   respondedToRequestForInformation: {
-    line1: 'You have responded to the court.',
-    //don't know what the date variable is, and still need welsh translation
-    line2:
-      'Your application will be checked by court staff. You will receive an email notification by {{date}} confirming whether it has been accepted. Check your junk or spam email folder.',
+    line1: 'Rydych wedi ymateb i’r llys.',
+    line2: `Bydd eich cais yn cael ei wirio gan staff y llys. Fe gewch neges e-bost erbyn ${dateOfCourtReplyToRequestForInformationResponse} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
   },
   awaitingRequestedInformation: {
     line1:
@@ -424,6 +426,13 @@ export const generateContent: TranslationFn = content => {
 
   const isRequestForInformationForYourPartner = isApplicant1RequestForApplicant2 || isApplicant2RequestForApplicant1;
 
+  const dateOfCourtReplyToRequestForInformationResponse =
+    getFormattedDate(
+      dayjs(
+        latestRequestForInformation?.requestForInformationResponses?.at(0)?.value.requestForInformationResponseDateTime
+      ).add(config.get('dates.requestForInformationResponseCourtReplyOffsetDays'), 'day')
+    ) || '';
+
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
@@ -458,7 +467,7 @@ export const generateContent: TranslationFn = content => {
   });
 
   return {
-    ...languages[content.language](content),
+    ...languages[content.language](content, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
     hasApplicantConfirmedReceipt,
     hasApplicantAppliedForConditionalOrder,
@@ -475,5 +484,6 @@ export const generateContent: TranslationFn = content => {
     isIntendingAndAbleToSwitchToSoleFinalOrder: switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo,
     isApplicantAbleToRespondToRequestForInformation,
     isRequestForInformationForYourPartner,
+    dateOfCourtReplyToRequestForInformationResponse,
   };
 };

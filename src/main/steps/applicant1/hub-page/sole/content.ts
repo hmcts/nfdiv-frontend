@@ -12,7 +12,11 @@ import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, RESPOND_TO_COURT_FEED
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
-const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceType: AlternativeServiceType) => ({
+const en = (
+  { isDivorce, partner, userCase }: CommonContent,
+  alternativeServiceType: AlternativeServiceType,
+  dateOfCourtReplyToRequestForInformationResponse: string
+) => ({
   aosAwaitingOrDrafted: {
     line1: `Your application ${
       isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -246,9 +250,11 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
   },
   respondedToRequestForInformation: {
     line1: 'You have responded to the court.',
-    //don't know what the date variable is, and still need welsh translation
-    line2:
-      'Your application will be checked by court staff. You will receive an email notification by {{date}} confirming whether it has been accepted. Check your junk or spam email folder.',
+    line2: `Your application will be checked by court staff. You will receive an email notification by ${dateOfCourtReplyToRequestForInformationResponse} confirming whether it has been accepted. Check your junk or spam email folder.`,
+    line3: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
+    line4: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone 0300 303 0642 to request it. Otherwise the court will do it.`,
+    line5:
+      'If you want the court to serve (send) the application to be served by post instead of by email, then phone 0300 303 0642.',
   },
   awaitingRequestedInformation: {
     line1:
@@ -265,7 +271,8 @@ const en = ({ isDivorce, partner, userCase }: CommonContent, alternativeServiceT
 // @TODO translations
 const cy: typeof en = (
   { isDivorce, partner, userCase }: CommonContent,
-  alternativeServiceType: AlternativeServiceType
+  alternativeServiceType: AlternativeServiceType,
+  dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   aosAwaitingOrDrafted: {
     line1: `Mae eich cais ${
@@ -525,10 +532,12 @@ const cy: typeof en = (
     line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
   },
   respondedToRequestForInformation: {
-    line1: 'You have responded to the court.',
-    //don't know what the date variable is, and still need welsh translation
-    line2:
-      'Your application will be checked by court staff. You will receive an email notification by {{date}} confirming whether it has been accepted. Check your junk or spam email folder.',
+    line1: 'Rydych wedi ymateb i’r llys.',
+    line2: `Bydd eich cais yn cael ei wirio gan staff y llys. Fe gewch neges e-bost erbyn ${dateOfCourtReplyToRequestForInformationResponse} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+    line3: `Yna fe anfonir copi o’r cais at eich ${partner}. Fe ofynnir iddynt wirio’r wybodaeth ac ymateb. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
+    line4: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau at eich ${partner} eich hun, yna ffoniwch 0300 303 5171 i ofyn am gael gwneud hynny. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
+    line5:
+      'Os ydych eisiau i’r llys gyflwyno (anfon) y cais i’w gyflwyno drwy’r post yn hytrach na drwy e-bost, ffoniwch 0300 303 5171.',
   },
   awaitingRequestedInformation: {
     line1:
@@ -573,6 +582,12 @@ export const generateContent: TranslationFn = content => {
   const isSoleRequestForInformationForApplicant = soleParties === 'applicant';
   const isApplicantAbleToRespondToRequestForInformation =
     isSoleRequestForInformation && isSoleRequestForInformationForApplicant;
+  const dateOfCourtReplyToRequestForInformationResponse =
+    getFormattedDate(
+      dayjs(
+        latestRequestForInformation?.requestForInformationResponses?.at(0)?.value.requestForInformationResponseDateTime
+      ).add(config.get('dates.requestForInformationResponseCourtReplyOffsetDays'), 'day')
+    ) || '';
   const theLatestUpdateTemplate = getSoleHubTemplate(
     displayState,
     userCase,
@@ -585,7 +600,7 @@ export const generateContent: TranslationFn = content => {
   const isFinalOrderCompleteState = userCase.state === State.FinalOrderComplete;
 
   return {
-    ...languages[language](content, alternativeServiceType),
+    ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
@@ -597,5 +612,6 @@ export const generateContent: TranslationFn = content => {
     hasApplicant1AppliedForFinalOrderFirst,
     isFinalOrderCompleteState,
     isApplicantAbleToRespondToRequestForInformation,
+    dateOfCourtReplyToRequestForInformationResponse,
   };
 };

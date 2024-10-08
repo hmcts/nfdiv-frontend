@@ -1027,6 +1027,7 @@ export interface CaseDocuments {
 
 export interface RequestForInformationResponse {
   requestForInformationResponseCannotUploadDocs: YesOrNo;
+  requestForInformationResponseDateTime: DateAsString;
 }
 export interface RequestForInformation {
   requestForInformationJointParties: string;
