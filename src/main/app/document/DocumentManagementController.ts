@@ -39,6 +39,7 @@ export class DocumentManagerController {
           State.AwaitingApplicant1Response,
           State.AwaitingClarification,
           State.InformationRequested,
+          State.AwaitingRequestedInformation,
           State.RequestedInformationSubmitted,
         ].includes(req.session.userCase.state)) ||
       (isApplicant2 &&
@@ -46,6 +47,7 @@ export class DocumentManagerController {
           State.AwaitingApplicant2Response,
           State.AwaitingClarification,
           State.InformationRequested,
+          State.AwaitingRequestedInformation,
           State.RequestedInformationSubmitted,
         ].includes(req.session.userCase.state))
     ) {
@@ -81,7 +83,11 @@ export class DocumentManagerController {
     let documentsKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
     if (req.session.userCase.state === State.AwaitingClarification) {
       documentsKey = 'coClarificationUploadDocuments';
-    } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
+    } else if (
+      [State.InformationRequested, State.AwaitingRequestedInformation, State.RequestedInformationSubmitted].includes(
+        req.session.userCase.state
+      )
+    ) {
       documentsKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
     }
 
@@ -108,7 +114,11 @@ export class DocumentManagerController {
     let documentsUploadedKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
     if (req.session.userCase.state === State.AwaitingClarification) {
       documentsUploadedKey = 'coClarificationUploadDocuments';
-    } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
+    } else if (
+      [State.InformationRequested, State.AwaitingRequestedInformation, State.RequestedInformationSubmitted].includes(
+        req.session.userCase.state
+      )
+    ) {
       documentsUploadedKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
     }
     const documentsUploaded =
@@ -121,6 +131,7 @@ export class DocumentManagerController {
           State.AwaitingApplicant1Response,
           State.AwaitingClarification,
           State.InformationRequested,
+          State.AwaitingRequestedInformation,
           State.RequestedInformationSubmitted,
         ].includes(req.session.userCase.state)) ||
       (isApplicant2 &&
@@ -128,6 +139,7 @@ export class DocumentManagerController {
           State.AwaitingApplicant2Response,
           State.AwaitingClarification,
           State.InformationRequested,
+          State.AwaitingRequestedInformation,
           State.RequestedInformationSubmitted,
         ].includes(req.session.userCase.state))
     ) {
