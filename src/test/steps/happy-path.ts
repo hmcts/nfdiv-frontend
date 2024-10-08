@@ -207,6 +207,14 @@ Given('I pay and submit the application', () => {
   I.waitInUrl('/application-submitted', 15);
 });
 
+Given('I pay and submit the final order application', () => {
+  I.waitInUrl('/respondent/pay-your-final-order-fee');
+  iClick('Pay and submit application');
+
+  completePayment();
+  I.waitInUrl('/respondent/hub-page', 15);
+});
+
 Given('I pay and submit the joint application', () => {
   I.waitInUrl('/pay-and-submit');
   iClick('Pay and submit');

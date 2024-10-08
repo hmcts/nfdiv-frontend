@@ -1,29 +1,29 @@
 import autobind from 'autobind-decorator';
 
-import { CITIZEN_SUBMIT, CaseData, Fee, ListValue, State } from '../../../app/case/definition';
+import { CaseData, Fee, ListValue, RESPONDENT_APPLY_FOR_FINAL_ORDER, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../app/controller/PostController';
 
 @autobind
-export default class PaymentPostController extends BasePaymentPostController {
+export default class FinalOrderPaymentPostController extends BasePaymentPostController {
   protected awaitingPaymentState(): State {
-    return State.AwaitingPayment;
+    return State.AwaitingFinalOrderPayment;
   }
 
   protected awaitingPaymentEvent(): string {
-    return CITIZEN_SUBMIT;
+    return RESPONDENT_APPLY_FOR_FINAL_ORDER;
   }
 
   protected getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[] {
-    return req.session.userCase.applicationFeeOrderSummary.Fees;
+    return req.session.userCase.applicant2FinalOrderFeeOrderSummary.Fees;
   }
 
   protected paymentsCaseField(): keyof CaseData {
-    return 'applicationPayments' as keyof CaseData;
+    return 'finalOrderPayments' as keyof CaseData;
   }
 
   protected getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined {
-    return req.session.userCase.applicant1FullNameOnCertificate;
+    return req.session.userCase.applicant2FullNameOnCertificate;
   }
 }
