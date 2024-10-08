@@ -173,7 +173,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   app1RfiDraftResponseDocs: 'app1RfiDraftResponseDocs',
   app2RfiDraftResponseDocs: 'app2RfiDraftResponseDocs',
   citizenPaymentCallbackUrl: 'citizenPaymentCallbackUrl',
-
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
