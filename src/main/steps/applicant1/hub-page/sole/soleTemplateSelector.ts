@@ -10,7 +10,7 @@ export const getSoleHubTemplate = (
   userCase: Partial<CaseWithId>,
   isSuccessfullyServedByBailiff: boolean,
   isAlternativeService: boolean,
-  isApplicantAbleToRespondToRequestForInformation = false
+  isApplicantAbleToRespondToRequestForInformation: boolean = false
 ): string | undefined => {
   const isServiceApplicationGranted =
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
