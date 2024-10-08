@@ -1,4 +1,5 @@
 import { isObject } from 'lodash';
+
 import { Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
@@ -7,47 +8,43 @@ import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import * as urls from '../../urls';
 import { RESPOND_TO_COURT_FEEDBACK } from '../../urls';
 
-const en = (detailsText, uploadedDocsFilenames, cannotUploadDocs) => ({
+const en = (detailsText, uploadedDocsFilenames) => ({
   title: 'Review your response',
   line1: 'Review your response before submitting',
   noFilesUploaded: 'No files uploaded',
   notProvided: 'Not provided',
+  havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
   stepQuestions: {
     yourResponse: 'Your response',
     uploadedFiles: 'Uploaded files',
-    havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
   },
   stepAnswers: {
     yourResponse: `${detailsText}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
-    havingTroubleUploading: `${cannotUploadDocs}`,
   },
   stepLinks: {
     yourResponse: `${urls.RESPOND_TO_COURT_FEEDBACK}#responseHeading`,
     uploadedFiles: `${urls.RESPOND_TO_COURT_FEEDBACK}#uploadAFile`,
-    havingTroubleUploading: `${urls.RESPOND_TO_COURT_FEEDBACK}#havingTroubleUploading`,
   },
 });
 
-const cy: typeof en = (detailsText, uploadedDocsFilenames, cannotUploadDocs) => ({
-  title: 'Review your response',
-  line1: 'Review your response before submitting',
-  noFilesUploaded: 'No files uploaded',
-  notProvided: 'Not provided',
+const cy: typeof en = (detailsText, uploadedDocsFilenames) => ({
+  title: 'Adolygu eich ymateb',
+  line1: 'Adolygu eich ymateb cyn cyflwyno',
+  noFilesUploaded: 'Nid oes ffeiliau wedi cael eu llwytho',
+  notProvided: 'Dim byd wedi ei ddarparu',
+  havingTroubleUploading: 'Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.',
   stepQuestions: {
-    yourResponse: 'Your response',
-    uploadedFiles: 'Uploaded files',
-    havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
+    yourResponse: 'Eich ymateb',
+    uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
   },
   stepAnswers: {
     yourResponse: `${detailsText}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
-    havingTroubleUploading: `${cannotUploadDocs}`,
   },
   stepLinks: {
     yourResponse: `${urls.RESPOND_TO_COURT_FEEDBACK}#responseHeading`,
     uploadedFiles: `${urls.RESPOND_TO_COURT_FEEDBACK}#uploadAFile`,
-    havingTroubleUploading: `${urls.RESPOND_TO_COURT_FEEDBACK}#havingTroubleUploading`,
   },
 });
 
@@ -90,7 +87,7 @@ export const generateContent: TranslationFn = content => {
     content.userCase.app1RfiDraftResponseCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
   const changeUrl = RESPOND_TO_COURT_FEEDBACK;
   return {
-    ...languages[content.language](detailsText, uploadedDocsFilenames, cannotUploadDocs),
+    ...languages[content.language](detailsText, uploadedDocsFilenames),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     detailsText,
     uploadedDocsFilenames,

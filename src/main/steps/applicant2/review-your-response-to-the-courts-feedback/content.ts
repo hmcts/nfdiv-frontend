@@ -11,11 +11,10 @@ import {
 } from '../../applicant1/review-your-response-to-the-courts-feedback/content';
 import { APPLICANT_2, RESPOND_TO_COURT_FEEDBACK } from '../../urls';
 
-const labels = (detailsText, uploadedDocsFilenames, cannotUploadDocs) => ({
+const labels = (detailsText, uploadedDocsFilenames) => ({
   stepAnswers: {
     yourResponse: `${detailsText}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
-    havingTroubleUploading: `${cannotUploadDocs}`,
   },
 });
 
@@ -52,7 +51,7 @@ export const generateContent: TranslationFn = content => {
   const changeUrl = APPLICANT_2 + RESPOND_TO_COURT_FEEDBACK;
   return {
     ...applicant1GenerateContent(content),
-    ...labels(detailsText, uploadedDocsFilenames, cannotUploadDocs),
+    ...labels(detailsText, uploadedDocsFilenames),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     detailsText,
     uploadedDocsFilenames,

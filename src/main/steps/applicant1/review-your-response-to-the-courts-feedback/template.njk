@@ -10,15 +10,18 @@
       {% if (stepAnswers[question] and stepAnswers[question] != 'undefined' and stepAnswers[question] != 'null') or question === 'yourResponse' %}
 
         {% set answerText %}
-          {% if question === 'uploadedFiles' %}
+          {% if question === 'yourResponse' and not detailsText.length %}
+            {{ notProvided }}
+          {% elif question === 'uploadedFiles' %}
             {% set filenames %}
               {% for filename in uploadedDocsFilenames %}
                 {{ filename }}
               {% endfor %}
             {% endset %}
             {{ filenames }}
-          {% elif question === 'yourResponse' and not detailsText.length %}
-            {{ notProvided }}
+            {% if cannotUploadDocs === 'Yes' %}
+              <br><br>{{ havingTroubleUploading }}
+            {% endif %}
           {% else %}
             {{ stepAnswers[question] }}
           {% endif %}
@@ -30,7 +33,7 @@
             classes: 'govuk-!-width-two-thirds'
           },
           value: {
-              text: answerText
+              text: answerText | safe
           },
           actions: {
             items: [
