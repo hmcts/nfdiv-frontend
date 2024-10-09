@@ -10,6 +10,8 @@ export const getJointHubTemplate = (
     hasApplicantAppliedForConditionalOrder = false,
     isWithinSwitchToSoleFoIntentionNotificationPeriod = false,
     hasSwitchToSoleFoIntentionNotificationPeriodExpired = false,
+    isApplicantAbleToRespondToRequestForInformation = false,
+    isRequestForInformationForYourPartner = false,
   } = {}
 ): string | undefined => {
   switch (displayState.state()) {
@@ -61,6 +63,31 @@ export const getJointHubTemplate = (
     case State.PendingHearingDate: {
       return HubTemplate.PendingHearingOutcome;
     }
+    case State.InformationRequested: {
+      if (isApplicantAbleToRespondToRequestForInformation) {
+        return HubTemplate.InformationRequested;
+      }
+      if (isRequestForInformationForYourPartner) {
+        return HubTemplate.InformationRequestedFromPartner;
+      }
+      break;
+    }
+    case State.AwaitingRequestedInformation:
+      if (isApplicantAbleToRespondToRequestForInformation) {
+        return HubTemplate.AwaitingRequestedInformation;
+      }
+      if (isRequestForInformationForYourPartner) {
+        return HubTemplate.InformationRequestedFromPartner;
+      }
+      break; //Need a hub for awaitingRequestedInfo for different party
+    case State.RequestedInformationSubmitted:
+      if (isApplicantAbleToRespondToRequestForInformation) {
+        return HubTemplate.RespondedToInformationRequest;
+      }
+      if (isRequestForInformationForYourPartner) {
+        return HubTemplate.InformationRequestedFromPartner;
+      }
+      break; //Need a hub for RequestedInfoSubmitted by different party
     default: {
       if (
         displayState.isAfter('Holding') &&

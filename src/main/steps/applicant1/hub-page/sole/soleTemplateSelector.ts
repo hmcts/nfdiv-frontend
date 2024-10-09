@@ -9,8 +9,9 @@ export const getSoleHubTemplate = (
   displayState: StateSequence,
   userCase: Partial<CaseWithId>,
   isSuccessfullyServedByBailiff: boolean,
-  isAlternativeService: boolean
-): string => {
+  isAlternativeService: boolean,
+  isApplicantAbleToRespondToRequestForInformation: boolean = false
+): string | undefined => {
   const isServiceApplicationGranted =
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
   const isAosOverdue =
@@ -100,6 +101,21 @@ export const getSoleHubTemplate = (
     case State.PendingHearingOutcome:
     case State.PendingHearingDate:
       return HubTemplate.PendingHearingOutcome;
+    case State.InformationRequested:
+      if (isApplicantAbleToRespondToRequestForInformation) {
+        return HubTemplate.InformationRequested;
+      }
+      break; //Need a hub for infoRequested for different party
+    case State.AwaitingRequestedInformation:
+      if (isApplicantAbleToRespondToRequestForInformation) {
+        return HubTemplate.AwaitingRequestedInformation;
+      }
+      break; //Need a hub for awaitingRequestedInfo for different party
+    case State.RequestedInformationSubmitted:
+      if (isApplicantAbleToRespondToRequestForInformation) {
+        return HubTemplate.RespondedToInformationRequest;
+      }
+      break; //Need a hub for RequestedInfoSubmitted by different party
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
         return HubTemplate.AoSDue;
