@@ -13740,7 +13740,7 @@ __metadata:
     nunjucks: 3.2.4
     otplib: 12.0.1
     pa11y: 8.0.0
-    pdfjs-dist: 4.6.82
+    pdfjs-dist: 4.7.76
     prettier: 3.1.1
     redis: 4.7.0
     require-directory: 2.1.1
@@ -14859,9 +14859,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdfjs-dist@npm:4.6.82":
-  version: 4.6.82
-  resolution: "pdfjs-dist@npm:4.6.82"
+"pdfjs-dist@npm:4.7.76":
+  version: 4.7.76
+  resolution: "pdfjs-dist@npm:4.7.76"
   dependencies:
     canvas: ^2.11.2
     path2d: ^0.2.1
@@ -14870,7 +14870,7 @@ __metadata:
       optional: true
     path2d:
       optional: true
-  checksum: 556d90750c6293fe3400ef4aa80e55a8c52f5fc29c135c0a518aefc27b1f0ae77aa594e604eacaca9972335f40cad316a228395f417e8d30d110611b66eb48eb
+  checksum: 3f6946f4861329ad40142d0c3ee923482c238daeca0a5126be57863be95e1285072417e815d6ec8214f1ff5fed5b31eb9fb6181bbea0d352df5cd0d94bdc4923
   languageName: node
   linkType: hard
 
