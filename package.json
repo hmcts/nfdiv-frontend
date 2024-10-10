@@ -75,7 +75,7 @@
     "csurf": "1.11.0",
     "dayjs": "1.11.13",
     "email-validator": "2.0.4",
-    "express": "4.21.0",
+    "express": "4.21.1",
     "express-http-proxy": "2.1.1",
     "express-nunjucks": "3.1.2",
     "express-session": "1.18.1",
@@ -152,8 +152,7 @@
   },
   "resolutions": {
     "http-cache-semantics": "4.1.1",
-    "axios": "1.7.7",
-    "cookie": "0.7.2"
+    "axios": "1.7.7"
   },
   "packageManager": "yarn@3.8.5"
 }
