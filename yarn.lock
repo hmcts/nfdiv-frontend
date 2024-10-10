@@ -9214,18 +9214,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:4.0.0":
-  version: 4.0.0
-  resolution: "form-data@npm:4.0.0"
-  dependencies:
-    asynckit: ^0.4.0
-    combined-stream: ^1.0.8
-    mime-types: ^2.1.12
-  checksum: 01135bf8675f9d5c61ff18e2e2932f719ca4de964e3be90ef4c36aacfc7b9cb2fceb5eca0b7e0190e3383fe51c5b37f4cb80b62ca06a99aaabfcfd6ac7c9328c
-  languageName: node
-  linkType: hard
-
-"form-data@npm:^4.0.0":
+"form-data@npm:4.0.1, form-data@npm:^4.0.0":
   version: 4.0.1
   resolution: "form-data@npm:4.0.1"
   dependencies:
@@ -13723,7 +13712,7 @@ __metadata:
     express-http-proxy: 2.1.1
     express-nunjucks: 3.1.2
     express-session: 1.18.1
-    form-data: 4.0.0
+    form-data: 4.0.1
     glob: 11.0.0
     govuk-frontend: 5.6.0
     helmet: 8.0.0
