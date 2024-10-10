@@ -110,10 +110,11 @@ Feature: Applicant 2
     When I click "Continue to payment"
     Then the page URL should be "/pay-and-submit"
     When I pay and submit the joint application
-    Then the page should include "Application submitted"
+    Then the page should include "Application saved"
     Given I click "Sign out"
     And I login with applicant "2"
-    Then the page should include "Application submitted"
+    Then the page URL should be "/hub-page"
+    And the page should include "Send your documents"
 
   @nightly
   Scenario: They fill out an unhappy path applicant 2 journey with help with fees
