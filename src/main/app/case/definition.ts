@@ -1006,6 +1006,7 @@ export interface CaseData {
   evidenceHandled: YesOrNo;
   generalLetters: ListValue<GeneralLetterDetails>[];
   sentNotifications: SentNotifications;
+  citizenPaymentCallbackUrl: string;
 }
 
 export interface CaseDocuments {
