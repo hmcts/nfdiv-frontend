@@ -46,33 +46,4 @@ export class PaymentModel {
       this.hasPayment && this.lastPayment.status === PaymentStatus.IN_PROGRESS && this.lastPayment.reference !== null
     );
   }
-
-  public getServiceRefNumberForFee(feeCode: string): string {
-    const filteredPayments = this.payments.filter(payment => payment.value.feeCode === feeCode);
-
-    //if no payments match the given fee code, return blank
-    if (filteredPayments.length === 0) {
-      return '';
-    }
-
-    //create a map to track payment statuses by reference number
-    const referenceMap = new Map();
-
-    //Populate map with payment statuses
-    filteredPayments.forEach(payment => {
-      if (!referenceMap.has(payment.value.serviceRequestReference)) {
-        referenceMap.set(payment.value.serviceRequestReference, []);
-      }
-      referenceMap.get(payment.value.serviceRequestReference).push(payment.value.status);
-    });
-
-    //Find a reference number with no successful payment
-    for (const [referenceNumber, statuses] of referenceMap) {
-      if (!statuses.includes(PaymentStatus.SUCCESS)) {
-        return referenceNumber || '';
-      }
-    }
-
-    return '';
-  }
 }

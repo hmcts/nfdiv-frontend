@@ -7,7 +7,7 @@ import PaymentPostController from './post';
 
 jest.mock('../../../app/payment/PaymentClient');
 
-const { mockCreateServiceRequest, mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
+const { mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
 
 describe('PaymentPostController', () => {
   const paymentController = new PaymentPostController();
@@ -15,7 +15,6 @@ describe('PaymentPostController', () => {
   beforeEach(() => {
     mockCreate.mockClear();
     mockGet.mockClear();
-    mockCreateServiceRequest.mockClear();
   });
 
   describe('payment', () => {
@@ -23,7 +22,8 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingFinalOrderPayment,
-          applicationFeeOrderSummary: {
+          applicant2FinalOrderFeeServiceRequestReference: '/payment-callback',
+          applicant2FinalOrderFeeOrderSummary: {
             Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
           },
           finalOrderPayments: [
@@ -41,7 +41,7 @@ describe('PaymentPostController', () => {
 
       (req.locals.api.triggerPaymentEvent as jest.Mock).mockReturnValueOnce({
         finalOrderPayments: [{ new: 'payment' }],
-        applicationFeeOrderSummary: {
+        applicant2FinalOrderFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
       });
@@ -64,6 +64,7 @@ describe('PaymentPostController', () => {
 
       (req.locals.api.triggerEvent as jest.Mock).mockReturnValueOnce({
         state: State.AwaitingFinalOrder,
+        applicant2FinalOrderFeeServiceRequestReference: '/payment-callback',
         applicant2FinalOrderFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
@@ -74,10 +75,6 @@ describe('PaymentPostController', () => {
         reference: 'mock ref',
         external_reference: 'mock external reference payment id',
         _links: { next_url: { href: 'http://example.com/pay' } },
-      });
-
-      (mockCreateServiceRequest as jest.Mock).mockReturnValueOnce({
-        service_request_reference: 'test1234',
       });
 
       await paymentController.post(req, res);
@@ -93,6 +90,7 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingFinalOrderPayment,
+          applicant2FinalOrderFeeServiceRequestReference: '/payment-callback',
           finalOrderPayments: [
             {
               id: 'mock external reference payment id',
