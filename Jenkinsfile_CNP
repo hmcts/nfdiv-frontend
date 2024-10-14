@@ -34,8 +34,6 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withPipeline(type, product, component) {
-  enableFortifyScan()
-  afterSuccess('fortify-scan') { steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*' }
   disableLegacyDeployment()
   loadVaultSecrets(secrets)
   syncBranchesWithMaster(branchesToSync)
