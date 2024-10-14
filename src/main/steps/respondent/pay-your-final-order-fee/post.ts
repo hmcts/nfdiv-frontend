@@ -23,7 +23,7 @@ export default class FinalOrderPaymentPostController extends BasePaymentPostCont
     return 'finalOrderPayments' as keyof CaseData;
   }
 
-  protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
-    return req.session.userCase.applicant2FinalOrderFeeServiceRequestReference;
+  protected getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined {
+    return req.session.userCase.applicant2FullNameOnCertificate;
   }
 }

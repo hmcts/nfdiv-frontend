@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
@@ -6,7 +7,6 @@ import { PAYMENT_CALLBACK_URL, RESPONDENT, SAVE_AND_SIGN_OUT } from '../../steps
 import {
   ApplicationType,
   CITIZEN_ADD_PAYMENT,
-  CITIZEN_CREATE_SERVICE_REQUEST,
   CaseData,
   Fee,
   ListValue,
@@ -17,6 +17,8 @@ import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 import { Payment, PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
+
+const logger = Logger.getLogger('payment');
 
 @autobind
 export default abstract class BasePaymentPostController {
@@ -34,20 +36,13 @@ export default abstract class BasePaymentPostController {
     }
 
     const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
+
     if (payments.isPaymentInProgress()) {
       return this.saveAndRedirect(req, res, getPaymentCallbackPath(req));
     }
 
-    if (!this.getServiceReferenceForFee(req)) {
-      req.session.userCase = await req.locals.api.triggerEvent(
-        req.session.userCase.id,
-        { citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
-        CITIZEN_CREATE_SERVICE_REQUEST
-      );
-    }
-
-    const serviceReference = this.getServiceReferenceForFee(req);
-    const payment = await this.attemptPayment(req, payments, serviceReference, getPaymentCallbackUrl(req, res));
+    const paymentClient = this.getPaymentClient(req, getPaymentCallbackUrl(req, res));
+    const payment = await this.createServiceRefAndTakePayment(req, paymentClient, payments);
 
     this.saveAndRedirect(req, res, payment.next_url);
   }
@@ -66,16 +61,25 @@ export default abstract class BasePaymentPostController {
     return new PaymentClient(req.session, callbackUrl);
   }
 
-  private async attemptPayment(
+  private async createServiceRefAndTakePayment(
     req: AppRequest<AnyObject>,
-    payments: PaymentModel,
-    serviceReference: string,
-    callbackUrl: string
+    client: PaymentClient,
+    payments: PaymentModel
   ): Promise<Payment> {
-    const fees = this.getFeesFromOrderSummary(req);
-    const fee = fees[0].value;
-    const client = this.getPaymentClient(req, callbackUrl);
-    const payment = await client.create(serviceReference, fees);
+    const fee = this.getFeesFromOrderSummary(req)[0].value;
+
+    let serviceRefNumberForFee = payments.getServiceRefNumberForFee(fee.FeeCode);
+    if (!serviceRefNumberForFee) {
+      logger.info('Cannot find service reference number for fee code. creating one');
+      const serviceReqResponse = await client.createServiceRequest(
+        this.getResponsiblePartyName(req),
+        this.getFeesFromOrderSummary(req)
+      );
+      serviceRefNumberForFee = serviceReqResponse.service_request_reference;
+    }
+
+    //Take payment for service request reference
+    const payment = await client.create(serviceRefNumberForFee, this.getFeesFromOrderSummary(req));
     const now = new Date().toISOString();
 
     payments.add({
@@ -87,7 +91,7 @@ export default abstract class BasePaymentPostController {
       channel: payment.next_url,
       reference: payment.payment_reference,
       transactionId: payment.external_reference,
-      serviceRequestReference: serviceReference,
+      serviceRequestReference: serviceRefNumberForFee,
     });
 
     const eventPayload = { [this.paymentsCaseField()]: payments.list };
@@ -103,8 +107,8 @@ export default abstract class BasePaymentPostController {
   protected abstract awaitingPaymentState(): State;
   protected abstract awaitingPaymentEvent(): string;
   protected abstract getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[];
-  protected abstract getServiceReferenceForFee(req: AppRequest<AnyObject>): string;
   protected abstract paymentsCaseField(): keyof CaseData;
+  protected abstract getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined;
 }
 
 export function getPaymentCallbackUrl(req: AppRequest, res: Response): string {

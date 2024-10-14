@@ -26,6 +26,42 @@ export class PaymentClient {
     this.returnUrl = returnUrl;
   }
 
+  public async createServiceRequest(
+    responsibleParty: string | undefined,
+    feesFromOrderSummary: ListValue<Fee>[]
+  ): Promise<Payment> {
+    const userCase = this.session.userCase;
+    const caseId = userCase.id.toString();
+    const bodyServiceReq = {
+      call_back_url: this.returnUrl,
+      case_payment_request: {
+        action: 'payment',
+        responsible_party: responsibleParty,
+      },
+      case_reference: caseId,
+      ccd_case_number: caseId,
+      fees: feesFromOrderSummary.map(fee => ({
+        calculated_amount: `${parseInt(fee.value.FeeAmount, 10) / 100}`,
+        code: fee.value.FeeCode,
+        version: fee.value.FeeVersion,
+      })),
+      hmcts_org_id: 'ABA1',
+    };
+
+    try {
+      const serviceRequestResponse = await this.client.post<Payment>('/service-request', bodyServiceReq);
+      logger.info(serviceRequestResponse.data);
+      if (!serviceRequestResponse.data) {
+        throw serviceRequestResponse;
+      }
+      return serviceRequestResponse.data;
+    } catch (e) {
+      const errMsg = 'Error creating service request number';
+      logger.error(errMsg, e.data);
+      throw new Error(errMsg);
+    }
+  }
+
   public async create(serviceRequestNumber: string, feesFromOrderSummary: ListValue<Fee>[]): Promise<Payment> {
     const total = feesFromOrderSummary.reduce((sum, item) => sum + +item.value.FeeAmount, 0) / 100;
 
