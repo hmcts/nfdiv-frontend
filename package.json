@@ -37,7 +37,7 @@
     "test:crossbrowser:sauce": "SAUCE='true' yarn test:crossbrowser:codeceptjs run --grep '^(?!.*@flaky)'",
     "test:crossbrowser:codeceptjs": "codeceptjs run --config ./src/test/cross-browser/codecept.conf.js",
     "cichecks": "yarn && run-p build lint test",
-    "fortifyScan": "./src/test/java/gradlew -p test/java fortifyScan"
+    "fortifyScan": "./src/test/java/gradlew -p ./src/test/java fortifyScan"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "1.0.0",
