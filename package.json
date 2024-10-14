@@ -36,7 +36,8 @@
     "test:crossbrowser:playwright:docker": "docker pull mcr.microsoft.com/playwright:focal && docker run --rm --volume $PWD:/home/app --workdir='/home/app' --env TEST_PASSWORD --env TEST_URL mcr.microsoft.com/playwright:focal bash -x src/test/docker-yarn.sh test:crossbrowser:playwright $UID",
     "test:crossbrowser:sauce": "SAUCE='true' yarn test:crossbrowser:codeceptjs run --grep '^(?!.*@flaky)'",
     "test:crossbrowser:codeceptjs": "codeceptjs run --config ./src/test/cross-browser/codecept.conf.js",
-    "cichecks": "yarn && run-p build lint test"
+    "cichecks": "yarn && run-p build lint test",
+    "fortifyScan": "./src/test/java/gradlew -p ./src/test/java fortifyScan"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "1.0.0",
