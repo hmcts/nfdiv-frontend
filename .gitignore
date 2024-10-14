@@ -5,6 +5,8 @@ node_modules/
 
 .idea/
 *.iml
+*.iws
+*.ipr
 
 *swp
 *log
@@ -18,6 +20,13 @@ node-rpm-packaging/
 mochawesome-report/
 npm-debug.log.*
 
+.gradle/
+out/
+bin/
+build/
+
+.classpath
+target/
 .project
 .settings/
 dist/
