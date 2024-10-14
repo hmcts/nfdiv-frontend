@@ -6,6 +6,7 @@ export const APPLICANT_2_CALLBACK_URL: PageLink = '/oauth2/callback-applicant2';
 export const SIGN_IN_URL: PageLink = '/login';
 export const APPLICANT_2_SIGN_IN_URL: PageLink = '/login-applicant2';
 export const SIGN_OUT_URL: PageLink = '/logout';
+export const REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT: PageLink = '/request-for-information-save-sign-out';
 export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
 export const EXIT_SERVICE: PageLink = '/exit-service';
 export const ACTIVE: PageLink = '/active';
