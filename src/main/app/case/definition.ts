@@ -417,7 +417,9 @@ export interface Application {
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
+  applicationFeeServiceRequestReference: string;
   applicant2FinalOrderFeeOrderSummary: OrderSummary;
+  applicant2FinalOrderFeeServiceRequestReference: string;
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
@@ -679,7 +681,9 @@ export interface CaseData {
   pbaNumbers: DynamicList;
   feeAccountReference: string;
   applicationFeeOrderSummary: OrderSummary;
+  applicationFeeServiceRequestReference: string;
   applicant2FinalOrderFeeOrderSummary: OrderSummary;
+  applicant2FinalOrderFeeServiceRequestReference: string;
   applicant2AgreeToReceiveEmails: YesOrNo;
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
@@ -2585,6 +2589,7 @@ export const CITIZEN_CREATE = 'citizen-create-application';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
