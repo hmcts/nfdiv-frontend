@@ -405,26 +405,14 @@ export const generateContent: TranslationFn = content => {
     .isBefore(dayjs());
 
   const latestRequestForInformation = userCase.requestsForInformation?.at(0)?.value;
-  const jointParties = latestRequestForInformation?.requestForInformationJointParties;
+  const requestForInformationParties = latestRequestForInformation?.requestForInformationJointParties || '';
 
-  const isJointRequestForInformationForBothParties = jointParties === 'both';
-  const isJointRequestForInformationForApplicant2 = jointParties === 'applicant2';
-  const isJointRequestForInformationForApplicant1 = jointParties === 'applicant1';
+  const isApplicantAbleToRespondToRequestForInformation = ['both', isApplicant2 ? 'applicant2' : 'applicant1'].includes(
+    requestForInformationParties
+  );
 
-  const isApplicant1AbleToRespondToRequestForInformation =
-    !isApplicant2 && (isJointRequestForInformationForApplicant1 || isJointRequestForInformationForBothParties);
-
-  const isApplicant1RequestForApplicant2 = !isApplicant2 && isJointRequestForInformationForApplicant2;
-
-  const isApplicant2AbleToRespondToRequestForInformation =
-    isApplicant2 && (isJointRequestForInformationForApplicant2 || isJointRequestForInformationForBothParties);
-
-  const isApplicant2RequestForApplicant1 = isApplicant2 && isJointRequestForInformationForApplicant1;
-
-  const isApplicantAbleToRespondToRequestForInformation =
-    isApplicant1AbleToRespondToRequestForInformation || isApplicant2AbleToRespondToRequestForInformation;
-
-  const isRequestForInformationForYourPartner = isApplicant1RequestForApplicant2 || isApplicant2RequestForApplicant1;
+  const isRequestForInformationForYourPartner =
+    requestForInformationParties === (isApplicant2 ? 'applicant1' : 'applicant2');
 
   const dateOfCourtReplyToRequestForInformationResponse =
     getFormattedDate(
