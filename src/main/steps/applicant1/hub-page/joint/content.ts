@@ -469,7 +469,6 @@ export const generateContent: TranslationFn = content => {
     hasSwitchToSoleFoIntentionNotificationPeriodExpired:
       switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired,
     isApplicantAbleToRespondToRequestForInformation,
-    isRequestForInformationForYourPartner,
   });
 
   return {

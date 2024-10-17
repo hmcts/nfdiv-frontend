@@ -11,7 +11,6 @@ export const getJointHubTemplate = (
     isWithinSwitchToSoleFoIntentionNotificationPeriod = false,
     hasSwitchToSoleFoIntentionNotificationPeriodExpired = false,
     isApplicantAbleToRespondToRequestForInformation = false,
-    isRequestForInformationForYourPartner = false,
   } = {}
 ): string | undefined => {
   switch (displayState.state()) {
