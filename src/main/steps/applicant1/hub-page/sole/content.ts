@@ -13,7 +13,7 @@ import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, RESPOND_TO_COURT_FEED
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
 const en = (
-  { isDivorce, partner, userCase }: CommonContent,
+  { isDivorce, partner, userCase, telephoneNumber }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
@@ -252,9 +252,8 @@ const en = (
     line1: 'You have responded to the court.',
     line2: `Your application will be checked by court staff. You will receive an email notification by ${dateOfCourtReplyToRequestForInformationResponse} confirming whether it has been accepted. Check your junk or spam email folder.`,
     line3: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
-    line4: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone 0300 303 0642 to request it. Otherwise the court will do it.`,
-    line5:
-      'If you want the court to serve (send) the application to be served by post instead of by email, then phone 0300 303 0642.',
+    line4: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
+    line5: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${telephoneNumber}.`,
   },
   awaitingRequestedInformation: {
     line1:
@@ -270,7 +269,7 @@ const en = (
 
 // @TODO translations
 const cy: typeof en = (
-  { isDivorce, partner, userCase }: CommonContent,
+  { isDivorce, partner, userCase, telephoneNumber }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
@@ -535,9 +534,8 @@ const cy: typeof en = (
     line1: 'Rydych wedi ymateb i’r llys.',
     line2: `Bydd eich cais yn cael ei wirio gan staff y llys. Fe gewch neges e-bost erbyn ${dateOfCourtReplyToRequestForInformationResponse} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
     line3: `Yna fe anfonir copi o’r cais at eich ${partner}. Fe ofynnir iddynt wirio’r wybodaeth ac ymateb. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
-    line4: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau at eich ${partner} eich hun, yna ffoniwch 0300 303 5171 i ofyn am gael gwneud hynny. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
-    line5:
-      'Os ydych eisiau i’r llys gyflwyno (anfon) y cais i’w gyflwyno drwy’r post yn hytrach na drwy e-bost, ffoniwch 0300 303 5171.',
+    line4: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau at eich ${partner} eich hun, yna ffoniwch ${telephoneNumber} i ofyn am gael gwneud hynny. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
+    line5: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais i’w gyflwyno drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
   },
   awaitingRequestedInformation: {
     line1:
