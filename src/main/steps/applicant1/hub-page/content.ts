@@ -180,12 +180,6 @@ const cy: typeof en = ({
 }: CommonContent) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
   referenceNumber: `Cyfeirnod: ${referenceNumber}`,
-  applicationSubmitted: 'Application submitted',
-  response: 'Response',
-  conditionalOrderApplication: 'Conditional order application',
-  conditionalOrderGranted: 'Conditional order granted',
-  finalOrderApplication: 'Final order application',
-  applicationEnded: isDivorce ? 'Divorced' : 'Civil partnership ended',
   subHeading1:
     userCase.state === 'AwaitingClarification' ? 'Beth sydd angen i chi ei wneud nawr' : 'Diweddariad diweddaraf',
   subHeading2: 'Gwybodaeth ddefnyddiol',
