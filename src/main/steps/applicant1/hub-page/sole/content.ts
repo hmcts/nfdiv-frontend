@@ -265,6 +265,13 @@ const en = (
     line4a: ', or send them by post along with a cover sheet with your case reference number.',
     line5: 'We will then review your response',
   },
+  informationRequestedFromOther: {
+    line1: `The court has reviewed your application for ${
+      isDivorce ? 'divorce' : 'dissolution'
+    }. We have sent an email to a Third party with the information that the court needs.`,
+    line2:
+      'The court will review the information from the Third party once provided, then the application can progress.',
+  },
 });
 
 // @TODO translations
@@ -546,6 +553,13 @@ const cy: typeof en = (
     formLinkText: 'lwytho eich dogfennau gan ddefnyddio ein ffurflen ar-lein',
     line4a: ', neu eu hanfon drwy’r post ynghyd â dalen flaen gyda chyfeirnod eich achos.',
     line5: 'Byddwn wedyn yn adolygu eich ymateb',
+  },
+  informationRequestedFromOther: {
+    line1: `The court has reviewed your application for ${
+      isDivorce ? 'divorce' : 'dissolution'
+    }. We have sent an email to a Third party with the information that the court needs.`,
+    line2:
+      'The court will review the information from the Third party once provided, then the application can progress.',
   },
 });
 

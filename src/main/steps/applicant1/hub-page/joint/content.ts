@@ -195,11 +195,20 @@ const en = (
     line4a: ', or send them by post along with a cover sheet with your case reference number.',
     line5: 'We will then review your response',
   },
-  informationRequestedFromPartner: {
-    line1: `The court has reviewed your application for ${
-      isDivorce ? 'divorce' : 'dissolution'
-    }. We have sent an email to your ${partner} with the information that the court needs.`,
-    line2: `The court will review the information from your ${partner} once provided, then the application can progress.`,
+  informationRequestedFromPartnerOrOther: {
+    partner: {
+      line1: `The court has reviewed your application for ${
+        isDivorce ? 'divorce' : 'dissolution'
+      }. We have sent an email to your ${partner} with the information that the court needs.`,
+      line2: `The court will review the information from your ${partner} once provided, then the application can progress.`,
+    },
+    other: {
+      line1: `The court has reviewed your application for ${
+        isDivorce ? 'divorce' : 'dissolution'
+      }. We have sent an email to a Third party with the information that the court needs.`,
+      line2:
+        'The court will review the information from the Third party once provided, then the application can progress.',
+    },
   },
 });
 
@@ -378,11 +387,20 @@ const cy: typeof en = (
     line4a: ', neu eu hanfon drwy’r post ynghyd â dalen flaen gyda chyfeirnod eich achos.',
     line5: 'Byddwn wedyn yn adolygu eich ymateb',
   },
-  informationRequestedFromPartner: {
-    line1: `Mae'r llys wedi adolygu eich cais am ${
-      isDivorce ? 'ysgariad' : 'diddymiad'
-    }. Rydym wedi anfon e-bost at eich ${partner} gyda'r wybodaeth sydd ei hangen ar y llys.`,
-    line2: `Bydd y llys yn adolygu'r wybodaeth gan eich ${partner} ar ôl ei darparu, yna gall y cais symud ymlaen.`,
+  informationRequestedFromPartnerOrOther: {
+    partner: {
+      line1: `Mae'r llys wedi adolygu eich cais am ${
+        isDivorce ? 'ysgariad' : 'diddymiad'
+      }. Rydym wedi anfon e-bost at eich ${partner} gyda'r wybodaeth sydd ei hangen ar y llys.`,
+      line2: `Bydd y llys yn adolygu'r wybodaeth gan eich ${partner} ar ôl ei darparu, yna gall y cais symud ymlaen.`,
+    },
+    other: {
+      line1: `The court has reviewed your application for ${
+        isDivorce ? 'divorce' : 'dissolution'
+      }. We have sent an email to a Third party with the information that the court needs.`,
+      line2:
+        'The court will review the information from the Third party once provided, then the application can progress.',
+    },
   },
 });
 

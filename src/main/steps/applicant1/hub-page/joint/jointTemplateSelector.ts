@@ -64,30 +64,20 @@ export const getJointHubTemplate = (
       return HubTemplate.PendingHearingOutcome;
     }
     case State.InformationRequested: {
-      if (isApplicantAbleToRespondToRequestForInformation) {
-        return HubTemplate.InformationRequested;
-      }
-      if (isRequestForInformationForYourPartner) {
-        return HubTemplate.InformationRequestedFromPartner;
-      }
-      break;
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.InformationRequested
+        : HubTemplate.InformationRequestedFromPartnerOrOther;
     }
-    case State.AwaitingRequestedInformation:
-      if (isApplicantAbleToRespondToRequestForInformation) {
-        return HubTemplate.AwaitingRequestedInformation;
-      }
-      if (isRequestForInformationForYourPartner) {
-        return HubTemplate.InformationRequestedFromPartner;
-      }
-      break; //Need a hub for awaitingRequestedInfo for different party
-    case State.RequestedInformationSubmitted:
-      if (isApplicantAbleToRespondToRequestForInformation) {
-        return HubTemplate.RespondedToInformationRequest;
-      }
-      if (isRequestForInformationForYourPartner) {
-        return HubTemplate.InformationRequestedFromPartner;
-      }
-      break; //Need a hub for RequestedInfoSubmitted by different party
+    case State.AwaitingRequestedInformation: {
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.AwaitingRequestedInformation
+        : HubTemplate.InformationRequestedFromPartnerOrOther;
+    }
+    case State.RequestedInformationSubmitted: {
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.RespondedToInformationRequest
+        : HubTemplate.InformationRequestedFromPartnerOrOther;
+    }
     default: {
       if (
         displayState.isAfter('Holding') &&

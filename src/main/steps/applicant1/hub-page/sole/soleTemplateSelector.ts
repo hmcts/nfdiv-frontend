@@ -102,20 +102,17 @@ export const getSoleHubTemplate = (
     case State.PendingHearingDate:
       return HubTemplate.PendingHearingOutcome;
     case State.InformationRequested:
-      if (isApplicantAbleToRespondToRequestForInformation) {
-        return HubTemplate.InformationRequested;
-      }
-      break; //Need a hub for infoRequested for different party
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.InformationRequested
+        : HubTemplate.InformationRequestedFromOther;
     case State.AwaitingRequestedInformation:
-      if (isApplicantAbleToRespondToRequestForInformation) {
-        return HubTemplate.AwaitingRequestedInformation;
-      }
-      break; //Need a hub for awaitingRequestedInfo for different party
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.AwaitingRequestedInformation
+        : HubTemplate.InformationRequestedFromOther;
     case State.RequestedInformationSubmitted:
-      if (isApplicantAbleToRespondToRequestForInformation) {
-        return HubTemplate.RespondedToInformationRequest;
-      }
-      break; //Need a hub for RequestedInfoSubmitted by different party
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.RespondedToInformationRequest
+        : HubTemplate.InformationRequestedFromOther;
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
         return HubTemplate.AoSDue;

@@ -186,7 +186,7 @@ describe('JointTemplateSelector test', () => {
     const jointTemplate = getJointHubTemplate(theState, userCase, {
       isRequestForInformationForYourPartner: true,
     });
-    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartner);
+    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
   });
 
   test('should show /information-requested-from-partner.njk for state AwaitingRequestedInformation if request party matches partner', () => {
@@ -194,7 +194,7 @@ describe('JointTemplateSelector test', () => {
     const jointTemplate = getJointHubTemplate(theState, userCase, {
       isRequestForInformationForYourPartner: true,
     });
-    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartner);
+    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
   });
 
   test('should show /information-requested-from-partner.njk for state RequestedInformationSubmitted if request party matches partner', () => {
@@ -202,6 +202,6 @@ describe('JointTemplateSelector test', () => {
     const jointTemplate = getJointHubTemplate(theState, userCase, {
       isRequestForInformationForYourPartner: true,
     });
-    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartner);
+    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
   });
 });
