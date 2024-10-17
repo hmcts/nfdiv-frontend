@@ -1,0 +1,9 @@
+{% if isRequestForInformationForYourPartner %}
+  <p class="govuk-body">{{ informationRequestedFromPartnerOrOther.partner.line1 }}</p>
+  <p class="govuk-body">{{ informationRequestedFromPartnerOrOther.partner.line2 }}</p>
+{% else %}
+  <p class="govuk-body">{{ informationRequestedFromPartnerOrOther.other.line1 }}</p>
+  <p class="govuk-body">{{ informationRequestedFromPartnerOrOther.other.line2 }}</p>
+{% endif %}
+
+{% include "applicant1/hub-page/common/court-feedback.njk" %}

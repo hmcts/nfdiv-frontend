@@ -10,7 +10,12 @@ import type { CommonContent } from '../../../common/common.content';
 import { canIntendToSwitchToSoleFo, hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
 import { getSwitchToSoleFoStatus } from '../../../common/switch-to-sole-content.utils';
 import { currentStateFn } from '../../../state-sequence';
-import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HOW_TO_FINALISE_APPLICATION } from '../../../urls';
+import {
+  APPLICANT_2,
+  FINALISING_YOUR_APPLICATION,
+  HOW_TO_FINALISE_APPLICATION,
+  RESPOND_TO_COURT_FEEDBACK,
+} from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -31,7 +36,10 @@ const hubPageSubheading = (
   }
 };
 
-const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+const en = (
+  { isDivorce, userCase, partner, isApplicant2 }: CommonContent,
+  dateOfCourtReplyToRequestForInformationResponse: string
+) => ({
   subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
     line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
@@ -161,9 +169,53 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     line1:
       "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
   },
+  informationRequested: {
+    line1: `The court has reviewed your application for ${
+      isDivorce ? 'divorce' : 'dissolution'
+    }. You need to provide some additional information before your application can progress.`,
+    line2: 'We have sent you an email with the information the court needs.',
+    line3: 'What you need to do next',
+    line4: 'Read the court’s reasons for stopping the application and provide the requested information.',
+    line5: 'If documents have been requested, you will be able to upload them to the court when you respond.',
+    buttonText: 'Provide information',
+    buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`,
+    line6: 'We will let you know once we have reviewed the information you provided.',
+  },
+  respondedToRequestForInformation: {
+    line1: 'You have responded to the court.',
+    line2: `Your application will be checked by court staff. You will receive an email notification by ${dateOfCourtReplyToRequestForInformationResponse} confirming whether it has been accepted. Check your junk or spam email folder.`,
+  },
+  awaitingRequestedInformation: {
+    line1:
+      'You have told us that you cannot upload some or all of your documents. We cannot progress your application until we have received them.',
+    line2: 'What you need to do next',
+    line3: 'We have sent you an email with details on how to send your documents.',
+    line4: 'You can ',
+    formLinkText: 'upload your documents using our online form',
+    line4a: ', or send them by post along with a cover sheet with your case reference number.',
+    line5: 'We will then review your response',
+  },
+  informationRequestedFromPartnerOrOther: {
+    partner: {
+      line1: `The court has reviewed your application for ${
+        isDivorce ? 'divorce' : 'dissolution'
+      }. We have sent an email to your ${partner} with the information that the court needs.`,
+      line2: `The court will review the information from your ${partner} once provided, then the application can progress.`,
+    },
+    other: {
+      line1: `The court has reviewed your application for ${
+        isDivorce ? 'divorce' : 'dissolution'
+      }. We have sent an email to a Third party with the information that the court needs.`,
+      line2:
+        'The court will review the information from the Third party once provided, then the application can progress.',
+    },
+  },
 });
 
-const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+const cy: typeof en = (
+  { isDivorce, userCase, partner, isApplicant2 }: CommonContent,
+  dateOfCourtReplyToRequestForInformationResponse: string
+) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
     line1: `Mae eich cais ${
@@ -309,6 +361,47 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     line1:
       'Mae eich cais wedi cyrraedd y llys a bydd yn cael ei gyfeirio at farnwr i ystyried eich cais. Dylech glywed gan\n y llys am benderfyniad y barnwr.',
   },
+  informationRequested: {
+    line1: `Mae’r llys wedi adolygu eich cais am ${
+      isDivorce ? 'ysgariad' : 'diddymiad'
+    }. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.`,
+    line2: 'Rydym wedi anfon neges e-bost atoch gyda gwybodaeth y mae’r llys ei hangen.',
+    line3: 'Beth sydd angen i chi wneud nesaf',
+    line4: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
+    line5: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
+    buttonText: 'Darparu gwybodaeth',
+    buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`,
+    line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
+  },
+  respondedToRequestForInformation: {
+    line1: 'Rydych wedi ymateb i’r llys.',
+    line2: `Bydd eich cais yn cael ei wirio gan staff y llys. Fe gewch neges e-bost erbyn ${dateOfCourtReplyToRequestForInformationResponse} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+  },
+  awaitingRequestedInformation: {
+    line1:
+      'Rydych wedi dweud wrthym na allwch lwytho rhai neu’r cyfan o’ch dogfennau.  Ni allwn symud eich cais yn ei flaen hyd nes y byddwn wedi’u derbyn.',
+    line2: 'Beth sydd angen i chi wneud nesaf',
+    line3: 'Rydym wedi anfon e-bost atoch gyda manylion ar sut i anfon eich dogfennau.',
+    line4: 'Gallwch ',
+    formLinkText: 'lwytho eich dogfennau gan ddefnyddio ein ffurflen ar-lein',
+    line4a: ', neu eu hanfon drwy’r post ynghyd â dalen flaen gyda chyfeirnod eich achos.',
+    line5: 'Byddwn wedyn yn adolygu eich ymateb',
+  },
+  informationRequestedFromPartnerOrOther: {
+    partner: {
+      line1: `Mae'r llys wedi adolygu eich cais am ${
+        isDivorce ? 'ysgariad' : 'diddymiad'
+      }. Rydym wedi anfon e-bost at eich ${partner} gyda'r wybodaeth sydd ei hangen ar y llys.`,
+      line2: `Bydd y llys yn adolygu'r wybodaeth gan eich ${partner} ar ôl ei darparu, yna gall y cais symud ymlaen.`,
+    },
+    other: {
+      line1: `The court has reviewed your application for ${
+        isDivorce ? 'divorce' : 'dissolution'
+      }. We have sent an email to a Third party with the information that the court needs.`,
+      line2:
+        'The court will review the information from the Third party once provided, then the application can progress.',
+    },
+  },
 });
 
 const languages = {
@@ -328,6 +421,23 @@ export const generateContent: TranslationFn = content => {
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
     .add(config.get('dates.changingToSolePartnerResponseDays'), 'day')
     .isBefore(dayjs());
+
+  const latestRequestForInformation = userCase.requestsForInformation?.at(0)?.value;
+  const requestForInformationParties = latestRequestForInformation?.requestForInformationJointParties || '';
+
+  const isApplicantAbleToRespondToRequestForInformation = ['both', isApplicant2 ? 'applicant2' : 'applicant1'].includes(
+    requestForInformationParties
+  );
+
+  const isRequestForInformationForYourPartner =
+    requestForInformationParties === (isApplicant2 ? 'applicant1' : 'applicant2');
+
+  const dateOfCourtReplyToRequestForInformationResponse =
+    getFormattedDate(
+      dayjs(
+        latestRequestForInformation?.requestForInformationResponses?.at(0)?.value.requestForInformationResponseDateTime
+      ).add(config.get('dates.requestForInformationResponseCourtReplyOffsetDays'), 'day')
+    ) || '';
 
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
@@ -358,10 +468,11 @@ export const generateContent: TranslationFn = content => {
       switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod,
     hasSwitchToSoleFoIntentionNotificationPeriodExpired:
       switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired,
+    isApplicantAbleToRespondToRequestForInformation,
   });
 
   return {
-    ...languages[content.language](content),
+    ...languages[content.language](content, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
     hasApplicantConfirmedReceipt,
     hasApplicantAppliedForConditionalOrder,
@@ -376,5 +487,8 @@ export const generateContent: TranslationFn = content => {
     isFinalOrderCompleteState,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
     isIntendingAndAbleToSwitchToSoleFinalOrder: switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo,
+    isApplicantAbleToRespondToRequestForInformation,
+    isRequestForInformationForYourPartner,
+    dateOfCourtReplyToRequestForInformationResponse,
   };
 };
