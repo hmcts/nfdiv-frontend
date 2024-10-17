@@ -572,14 +572,8 @@ export const generateContent: TranslationFn = content => {
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
   const latestRequestForInformation = userCase.requestsForInformation?.at(0)?.value;
-  const isSoleRequestForInformation =
-    latestRequestForInformation !== null && latestRequestForInformation?.requestForInformationSoleParties !== undefined;
-  const soleParties = isSoleRequestForInformation
-    ? latestRequestForInformation.requestForInformationSoleParties
-    : undefined;
-  const isSoleRequestForInformationForApplicant = soleParties === 'applicant';
   const isApplicantAbleToRespondToRequestForInformation =
-    isSoleRequestForInformation && isSoleRequestForInformationForApplicant;
+    latestRequestForInformation?.requestForInformationSoleParties === 'applicant';
   const dateOfCourtReplyToRequestForInformationResponse =
     getFormattedDate(
       dayjs(
