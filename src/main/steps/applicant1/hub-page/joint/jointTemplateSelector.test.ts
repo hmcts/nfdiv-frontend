@@ -181,27 +181,21 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe(HubTemplate.RespondedToInformationRequest);
   });
 
-  test('should show /information-requested-from-partner.njk for state InformationRequested if request party matches partner', () => {
+  test('should show /information-requested-from-partner-or-other.njk for state InformationRequested if request party does not match applicant', () => {
     const theState = displayState.at(State.InformationRequested);
-    const jointTemplate = getJointHubTemplate(theState, userCase, {
-      isRequestForInformationForYourPartner: true,
-    });
+    const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
   });
 
-  test('should show /information-requested-from-partner.njk for state AwaitingRequestedInformation if request party matches partner', () => {
+  test('should show /information-requested-from-partner-or-other.njk for state AwaitingRequestedInformation if request party does not match applicant', () => {
     const theState = displayState.at(State.AwaitingRequestedInformation);
-    const jointTemplate = getJointHubTemplate(theState, userCase, {
-      isRequestForInformationForYourPartner: true,
-    });
+    const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
   });
 
-  test('should show /information-requested-from-partner.njk for state RequestedInformationSubmitted if request party matches partner', () => {
+  test('should show /information-requested-from-partner-or-other.njk for state RequestedInformationSubmitted if request party does not match applicant', () => {
     const theState = displayState.at(State.RequestedInformationSubmitted);
-    const jointTemplate = getJointHubTemplate(theState, userCase, {
-      isRequestForInformationForYourPartner: true,
-    });
+    const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
   });
 });
