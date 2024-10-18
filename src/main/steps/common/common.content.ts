@@ -126,7 +126,7 @@ export const en = {
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
   helpChatWithAnAgent: 'Speak to an advisor online (opens in a new window)',
   //helpAllAgentsBusy: 'All our advisors are busy. Try again in a few minutes.',
-  helpAllAgentsBusy: 'Webchat is currently unavailable, please use one of the other methods of contact.',
+  helpAllAgentsBusy: 'Webchat is currently unavailable, please use one of the other methods of contact.', //temporary
   helpChatClosed: 'Our online advice service is currently closed.',
   helpChatMaintenance: 'Sorry, we’re having technical difficulties. Try email or telephone instead.',
   webChatTitle: 'Ask Divorce Web Chat',
