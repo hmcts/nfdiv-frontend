@@ -3,6 +3,7 @@
 @Library("Infrastructure")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
+import uk.gov.hmcts.contino.GithubAPI
 
 def type = "nodejs"
 def product = "nfdiv"
@@ -33,6 +34,10 @@ def branchesToSync = ['demo', 'perftest', 'ithc']
 def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
+def checkForFortifyLabel(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "fortify").contains("fortify")
+}
+
 withPipeline(type, product, component) {
   disableLegacyDeployment()
   loadVaultSecrets(secrets)
@@ -41,7 +46,9 @@ withPipeline(type, product, component) {
   afterAlways('build') {
     yarnBuilder.yarn('build')
   }
-
+  if(checkForFortifyLabel(env.BRANCH_NAME)) {
+    enableFortifyScan()
+  }
   afterAlways('functionalTest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/Functional test report.html'
   }
