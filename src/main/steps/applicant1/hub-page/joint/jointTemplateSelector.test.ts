@@ -156,4 +156,46 @@ describe('JointTemplateSelector test', () => {
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
+
+  test('should show /information-requested.njk for state InformationRequested if request party matches applicant', () => {
+    const theState = displayState.at(State.InformationRequested);
+    const jointTemplate = getJointHubTemplate(theState, userCase, {
+      isApplicantAbleToRespondToRequestForInformation: true,
+    });
+    expect(jointTemplate).toBe(HubTemplate.InformationRequested);
+  });
+
+  test('should show /awaiting-requested-information.njk for state AwaitingRequestedInformation if request party matches applicant', () => {
+    const theState = displayState.at(State.AwaitingRequestedInformation);
+    const jointTemplate = getJointHubTemplate(theState, userCase, {
+      isApplicantAbleToRespondToRequestForInformation: true,
+    });
+    expect(jointTemplate).toBe(HubTemplate.AwaitingRequestedInformation);
+  });
+
+  test('should show /requested-information-submitted.njk for state RequestedInformationSubmitted if request party matches applicant', () => {
+    const theState = displayState.at(State.RequestedInformationSubmitted);
+    const jointTemplate = getJointHubTemplate(theState, userCase, {
+      isApplicantAbleToRespondToRequestForInformation: true,
+    });
+    expect(jointTemplate).toBe(HubTemplate.RespondedToInformationRequest);
+  });
+
+  test('should show /information-requested-from-partner-or-other.njk for state InformationRequested if request party does not match applicant', () => {
+    const theState = displayState.at(State.InformationRequested);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
+  });
+
+  test('should show /information-requested-from-partner-or-other.njk for state AwaitingRequestedInformation if request party does not match applicant', () => {
+    const theState = displayState.at(State.AwaitingRequestedInformation);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
+  });
+
+  test('should show /information-requested-from-partner-or-other.njk for state RequestedInformationSubmitted if request party does not match applicant', () => {
+    const theState = displayState.at(State.RequestedInformationSubmitted);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
+  });
 });

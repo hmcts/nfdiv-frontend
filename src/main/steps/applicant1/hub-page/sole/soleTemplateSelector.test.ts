@@ -344,4 +344,22 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
+
+  test('should show /information-requested.njk for state InformationRequested if request party is Applicant', () => {
+    const theState = displayState.at(State.InformationRequested);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, true);
+    expect(soleTemplate).toBe(HubTemplate.InformationRequested);
+  });
+
+  test('should show /awaiting-requested-information.njk for state AwaitingRequestedInformation if request party is Applicant', () => {
+    const theState = displayState.at(State.AwaitingRequestedInformation);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, true);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingRequestedInformation);
+  });
+
+  test('should show /requested-information-submitted.njk for state RequestedInformationSubmitted if request party is Applicant', () => {
+    const theState = displayState.at(State.RequestedInformationSubmitted);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, true);
+    expect(soleTemplate).toBe(HubTemplate.RespondedToInformationRequest);
+  });
 });
