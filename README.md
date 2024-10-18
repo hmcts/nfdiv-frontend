@@ -95,7 +95,7 @@ docker-compose build
 Run the application by executing the following command:
 
 ```bash
-docker-compose up
+yarn start:docker
 ```
 
 This will start the frontend container exposing the application's port `3001`.

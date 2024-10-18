@@ -46,6 +46,8 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
+  //enableFortifyScan()
+  //afterSuccess('fortify-scan') { steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*' }
   enableCrossBrowserTest()
   enableFullFunctionalTest()
   loadVaultSecrets(secrets)
