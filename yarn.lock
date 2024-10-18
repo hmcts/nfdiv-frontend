@@ -5172,7 +5172,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"b4a@npm:^1.6.4, b4a@npm:^1.6.6":
+"b4a@npm:^1.6.4":
   version: 1.6.7
   resolution: "b4a@npm:1.6.7"
   checksum: afe4e239b49c0ef62236fe0d788ac9bd9d7eac7e9855b0d1835593cd0efcc7be394f9cc28a747a2ed2cdcb0a48c3528a551a196f472eb625457c711169c9efa2
@@ -5361,12 +5361,11 @@ __metadata:
   linkType: hard
 
 "bare-stream@npm:^2.0.0":
-  version: 2.3.0
-  resolution: "bare-stream@npm:2.3.0"
+  version: 2.3.1
+  resolution: "bare-stream@npm:2.3.1"
   dependencies:
-    b4a: ^1.6.6
     streamx: ^2.20.0
-  checksum: 17de9dbd5a6d70863b6e55f0acdfe1cb5d2b05f22d87e79986372cc796095eb4882a868ee6ba3dc543243085d27f618b4b81ef2bf384bc1c690dd3a557b6e30d
+  checksum: d4f7a303f8b0ffcbfbd52d581ff0e9687590217d6c37cc3224b8da91050ddc4d4037ae062e0fb86b883d73fb2bd81c1c33b0a006d4811fc031fdb9804141ae55
   languageName: node
   linkType: hard
 
@@ -10143,9 +10142,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-webpack-plugin@npm:5.6.0":
-  version: 5.6.0
-  resolution: "html-webpack-plugin@npm:5.6.0"
+"html-webpack-plugin@npm:5.6.2":
+  version: 5.6.2
+  resolution: "html-webpack-plugin@npm:5.6.2"
   dependencies:
     "@types/html-minifier-terser": ^6.0.0
     html-minifier-terser: ^6.0.2
@@ -10160,7 +10159,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 32a6e41da538e798fd0be476637d7611a5e8a98a3508f031996e9eb27804dcdc282cb01f847cf5d066f21b49cfb8e21627fcf977ffd0c9bea81cf80e5a65070d
+  checksum: c579ce8b34ef1cd903829402aa6a62a6c92fe1cdfcd81d17ebc87f39eaab1381438b9d805a63457b255238db8f2865d71f48cd382375aa28718881e3ab2d2f9a
   languageName: node
   linkType: hard
 
@@ -13763,7 +13762,7 @@ __metadata:
     glob: 11.0.0
     govuk-frontend: 5.7.1
     helmet: 8.0.0
-    html-webpack-plugin: 5.6.0
+    html-webpack-plugin: 5.6.2
     http-status-codes: 2.3.0
     husky: 9.1.6
     jest: 29.7.0
@@ -17564,11 +17563,9 @@ __metadata:
   linkType: hard
 
 "text-decoder@npm:^1.1.0":
-  version: 1.2.0
-  resolution: "text-decoder@npm:1.2.0"
-  dependencies:
-    b4a: ^1.6.4
-  checksum: 9f4c23900b42153af0e4a902577eba37cb70cd1d5b187732b81c74c705d3206952cf1dcecf97537794374f55aac6c547ac3860f1facc9560007ca9a06b0e309d
+  version: 1.2.1
+  resolution: "text-decoder@npm:1.2.1"
+  checksum: 0f42deda4a8f111af67f81f292e823f2bdcc85057fdeef35e3a5dda6b501605a1d449927a4a440af4485fbd02198b5baf722d146a195c1b1b211cdd37292ac66
   languageName: node
   linkType: hard
 
