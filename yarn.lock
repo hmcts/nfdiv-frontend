@@ -13683,7 +13683,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"negotiator@npm:0.6.4, negotiator@npm:^0.6.2, negotiator@npm:^0.6.3":
+"negotiator@npm:1.0.0":
+  version: 1.0.0
+  resolution: "negotiator@npm:1.0.0"
+  checksum: 20ebfe79b2d2e7cf9cbc8239a72662b584f71164096e6e8896c8325055497c96f6b80cd22c258e8a2f2aa382a787795ec3ee8b37b422a302c7d4381b0d5ecfbb
+  languageName: node
+  linkType: hard
+
+"negotiator@npm:^0.6.2, negotiator@npm:^0.6.3":
   version: 0.6.4
   resolution: "negotiator@npm:0.6.4"
   checksum: 7ded10aa02a0707d1d12a9973fdb5954f98547ca7beb60e31cb3a403cc6e8f11138db7a3b0128425cf836fc85d145ec4ce983b2bdf83dca436af879c2d683510
@@ -13785,7 +13792,7 @@ __metadata:
     mochawesome-merge: ^4.3.0
     mochawesome-report-generator: ^6.2.0
     multer: 1.4.5-lts.1
-    negotiator: 0.6.4
+    negotiator: 1.0.0
     node-cache: 5.1.2
     node-sass: 9.0.0
     nodemon: 3.1.7
