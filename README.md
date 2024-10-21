@@ -240,9 +240,9 @@ The application exposes a health endpoint [https://localhost:3001/health](https:
 
 ### Fortify check new code
 To scan latest code on local
-set fortify-client.properties or in env
-fortify.client.password = access token from fortify
-fortify.client.username = fortify username
+fortify-client.properties will read variables set in env FORTIFY_CLIENT_PASSWORD and FORTIFY_CLIENT_USERNAME
+these need to be your valid token and login, exporting them in your ~/.zshrc file is handy
+
 and then run gradle fortifyScan
 ## Migrating backend field changes
 
