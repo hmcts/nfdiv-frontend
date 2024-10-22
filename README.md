@@ -95,13 +95,14 @@ docker-compose build
 Run the application by executing the following command:
 
 ```bash
-docker-compose up
+yarn start:docker
 ```
 
 This will start the frontend container exposing the application's port `3001`.
 
 In order to test if the application is up, you can visit [https://localhost:3001](https://localhost:3001) in your browser.
 
+#### Note: Document download functionality doesn't work  in local environment with docker. To test document download, use yarn start:dev which will run it againsts CCD in AAT.
 ## Developing
 
 Starting the server in development mode:
