@@ -3486,13 +3486,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:29.5.13":
-  version: 29.5.13
-  resolution: "@types/jest@npm:29.5.13"
+"@types/jest@npm:29.5.14":
+  version: 29.5.14
+  resolution: "@types/jest@npm:29.5.14"
   dependencies:
     expect: ^29.0.0
     pretty-format: ^29.0.0
-  checksum: 875ac23c2398cdcf22aa56c6ba24560f11d2afda226d4fa23936322dde6202f9fdbd2b91602af51c27ecba223d9fc3c1e33c9df7e47b3bf0e2aefc6baf13ce53
+  checksum: 18dba4623f26661641d757c63da2db45e9524c9be96a29ef713c703a9a53792df9ecee9f7365a0858ddbd6440d98fe6b65ca67895ca5884b73cbc7ffc11f3838
   languageName: node
   linkType: hard
 
@@ -5360,11 +5360,11 @@ __metadata:
   linkType: hard
 
 "bare-stream@npm:^2.0.0":
-  version: 2.3.1
-  resolution: "bare-stream@npm:2.3.1"
+  version: 2.3.2
+  resolution: "bare-stream@npm:2.3.2"
   dependencies:
     streamx: ^2.20.0
-  checksum: d4f7a303f8b0ffcbfbd52d581ff0e9687590217d6c37cc3224b8da91050ddc4d4037ae062e0fb86b883d73fb2bd81c1c33b0a006d4811fc031fdb9804141ae55
+  checksum: 051c817f0b74617d99002a91c61e6fa2b56bff3bb329c5ab4a817287bc1f46f3aef5f13bc11201b344a91873782a45f755d3910012381f16e47feee2194fd792
   languageName: node
   linkType: hard
 
@@ -13735,7 +13735,7 @@ __metadata:
     "@types/express": 4.17.21
     "@types/express-session": 1.18.0
     "@types/glob": 8.1.0
-    "@types/jest": 29.5.13
+    "@types/jest": 29.5.14
     "@types/lodash": 4.17.12
     "@types/multer": 1.4.12
     "@types/negotiator": 0.6.3
