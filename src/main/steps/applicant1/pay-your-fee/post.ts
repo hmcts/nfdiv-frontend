@@ -23,7 +23,7 @@ export default class PaymentPostController extends BasePaymentPostController {
     return 'applicationPayments' as keyof CaseData;
   }
 
-  protected getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined {
-    return req.session.userCase.applicant1FullNameOnCertificate;
+  protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
+    return req.session.userCase.applicationFeeServiceRequestReference;
   }
 }
