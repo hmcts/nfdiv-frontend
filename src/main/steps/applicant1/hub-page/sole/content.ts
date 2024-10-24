@@ -555,11 +555,11 @@ const cy: typeof en = (
     line5: 'Byddwn wedyn yn adolygu eich ymateb',
   },
   informationRequestedFromOther: {
-    line1: `The court has reviewed your application for ${
-      isDivorce ? 'divorce' : 'dissolution'
-    }. We have sent an email to a Third party with the information that the court needs.`,
+    line1: `Mae’r llys wedi adolygu eich cais am ${
+      isDivorce ? 'ysgariad' : 'ddiddymiad'
+    }. Rydym wedi anfon neges e-bost at drydydd parti gyda’r wybodaeth y mae’r llys ei hangen.`,
     line2:
-      'The court will review the information from the Third party once provided, then the application can progress.',
+      'Bydd y llys yn adolygu’r wybodaeth gan y trydydd parti unwaith y bydd wedi dod i law, ac yna gall y cais barhau.',
   },
 });
 
