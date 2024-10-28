@@ -1042,4 +1042,22 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toHaveBeenCalledWith(APP_REPRESENTED);
   });
+
+  test('redirects applicant 2 to spouse needs to confirm application page if joint application awaiting payment', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingPayment,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION);
+  });
 });
