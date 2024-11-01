@@ -83,11 +83,6 @@
   vertical-align: top;
   width:100px;
 
-  // IE8 does not support the text justify approach for spacing
-  @include govuk-if-ie8 {
-    display: table-cell;
-  }
-
   &:first-child, &:last-child {
     &::before {
       border-top: 6px solid govuk-colour("white");
