@@ -20,10 +20,6 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: 23px;
-
-    @include govuk-if-ie8 {
-      background-image: url('/img/icon-progress-tick.svg');
-    }
   }
 
   &--active {
@@ -50,12 +46,6 @@
   position: relative;
   text-align: justify;
   vertical-align: top;
-
-  @include govuk-if-ie8 {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-  }
 
   &::after {
     content: "";
