@@ -1,6 +1,7 @@
 port: 3001
 timeout: 30000
 uploadTimeout: 60000
+forceCivilMode: false
 dates:
   issueDateOffsetDays: 141
   disputeDueDateOffsetDays: 37
