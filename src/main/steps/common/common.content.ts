@@ -327,8 +327,8 @@ export const generateCommonContent = ({
     userCase && userCase?.state === State.PendingHearingOutcome && userCase?.dateFinalOrderSubmitted !== undefined;
   const feedbackParty = isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : isApplicant2 ? 'resp' : 'app';
   const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
-      isDivorce ? 'Divorce' : 'Civil'
-    }&party=${feedbackParty}`;
+    isDivorce ? 'Divorce' : 'Civil'
+  }&party=${feedbackParty}`;
 
   return {
     ...commonTranslations,

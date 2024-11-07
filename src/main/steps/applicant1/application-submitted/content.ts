@@ -11,19 +11,17 @@ import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
-const en = (
-  {
-    isDivorce,
-    userCase,
-    partner,
-    referenceNumber,
-    isJointApplication,
-    webChat,
-    openingTimes,
-    telephoneNumber,
-    feedbackLink
-  }: CommonContent
-) => ({
+const en = ({
+  isDivorce,
+  userCase,
+  partner,
+  referenceNumber,
+  isJointApplication,
+  webChat,
+  openingTimes,
+  telephoneNumber,
+  feedbackLink,
+}: CommonContent) => ({
   title: 'Application submitted',
   yourReferenceNumber: 'Your reference number is:',
   confirmationEmail: `You${isJointApplication ? ' and your ' + partner : ''} have been sent a confirmation${
@@ -139,19 +137,17 @@ const en = (
 });
 
 // @TODO Welsh
-const cy: typeof en = (
-  {
-    isDivorce,
-    userCase,
-    partner,
-    referenceNumber,
-    isJointApplication,
-    webChat,
-    telephoneNumber,
-    openingTimes,
-    feedbackLink
-  }: CommonContent
-) => ({
+const cy: typeof en = ({
+  isDivorce,
+  userCase,
+  partner,
+  referenceNumber,
+  isJointApplication,
+  webChat,
+  telephoneNumber,
+  openingTimes,
+  feedbackLink,
+}: CommonContent) => ({
   title: 'Cyflwynwyd y cais',
   yourReferenceNumber: 'Eich cyfeirnod yw:',
   confirmationEmail: `Mae cadarnhad${
@@ -272,7 +268,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, language, isJointApplication, isDivorce, isApplicant2 } = content;
+  const { userCase, language, isJointApplication, isDivorce } = content;
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );

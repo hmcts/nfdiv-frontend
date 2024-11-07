@@ -9,9 +9,15 @@ import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
 
-const en = (
-  { userCase, partner, isJointApplication, webChat, openingTimes, telephoneNumber, feedbackLink }: CommonContent
-) => ({
+const en = ({
+  userCase,
+  partner,
+  isJointApplication,
+  webChat,
+  openingTimes,
+  telephoneNumber,
+  feedbackLink,
+}: CommonContent) => ({
   title: 'Application represented',
   appRepresentedText: `${
     userCase.applicant2SolicitorRepresented
@@ -51,9 +57,15 @@ const en = (
   },
 });
 
-const cy: typeof en = (
-  { userCase, partner, isJointApplication, webChat, telephoneNumber, openingTimes, feedbackLink }: CommonContent
-) => ({
+const cy: typeof en = ({
+  userCase,
+  partner,
+  isJointApplication,
+  webChat,
+  telephoneNumber,
+  openingTimes,
+  feedbackLink,
+}: CommonContent) => ({
   title: 'Cyflwynwyd y cais',
   appRepresentedText: `${
     userCase.applicant1SolicitorRepresented
@@ -98,7 +110,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, language, isJointApplication, isDivorce, isApplicant2 } = content;
+  const { userCase, language, isJointApplication, isDivorce } = content;
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );

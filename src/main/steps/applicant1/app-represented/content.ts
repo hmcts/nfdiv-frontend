@@ -9,9 +9,15 @@ import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
-const en = (
-  { userCase, partner, isJointApplication, webChat, openingTimes, telephoneNumber, feedbackLink }: CommonContent
-) => ({
+const en = ({
+  userCase,
+  partner,
+  isJointApplication,
+  webChat,
+  openingTimes,
+  telephoneNumber,
+  feedbackLink,
+}: CommonContent) => ({
   title: 'Application represented',
   appRepresentedText:
     'You no longer have access to this case due to informing the Court that you are represented. Please contact your Solicitor at your earliest convenience.',
@@ -49,9 +55,15 @@ const en = (
 });
 
 // @TODO Welsh
-const cy: typeof en = (
-  { userCase, partner, isJointApplication, webChat, telephoneNumber, openingTimes, feedbackLink }: CommonContent
-) => ({
+const cy: typeof en = ({
+  userCase,
+  partner,
+  isJointApplication,
+  webChat,
+  telephoneNumber,
+  openingTimes,
+  feedbackLink,
+}: CommonContent) => ({
   title: 'Cyflwynwyd y cais',
   appRepresentedText: `${
     userCase.applicant1SolicitorRepresented
