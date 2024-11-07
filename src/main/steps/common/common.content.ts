@@ -275,7 +275,7 @@ const cy: typeof en = {
   },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'contactdivorce@justice.gov.uk',
-  contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
+  contactWebForm: 'https://contact-us-about-a-divorce-application-cy.form.service.justice.gov.uk/',
   avayaLanguage: 'Welsh',
   avayaClientUrlFolder: 'welsh',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
