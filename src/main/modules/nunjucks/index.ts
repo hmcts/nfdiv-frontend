@@ -104,7 +104,9 @@ export class Nunjucks {
       res.locals.host = req.headers['x-forwarded-host'] || req.hostname;
       res.locals.pagePath = req.path;
       res.locals.serviceType =
-        res.locals.host.includes('civil') || 'forceCivilMode' in req.query
+        res.locals.host.includes('civil') ||
+        'forceCivilMode' in req.query ||
+        (process.env.NODE_ENV !== 'production' && config.get('forceCivilMode').toString().toLowerCase() === 'true')
           ? DivorceOrDissolution.DISSOLUTION
           : DivorceOrDissolution.DIVORCE;
       next();
