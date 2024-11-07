@@ -1,3 +1,4 @@
+forceCivilMode: FORCE_CIVIL_MODE
 services:
   authProvider:
     url: SERVICE_AUTH_PROVIDER_URL
