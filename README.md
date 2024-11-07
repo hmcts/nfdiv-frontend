@@ -97,6 +97,7 @@ Run the application by executing the following command:
 ```bash
 yarn start:docker
 ```
+or start:docker:civil `to force FORCE_CIVIL_MODE true`
 
 This will start the frontend container exposing the application's port `3001`.
 
@@ -228,8 +229,10 @@ There is a configuration section related with those headers, where you can speci
 Here's an example setup:
 
 ```json
-"security": {
-  "referrerPolicy": "origin",
+{
+  "security": {
+    "referrerPolicy": "origin"
+  }
 }
 ```
 
