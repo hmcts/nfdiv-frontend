@@ -23,7 +23,13 @@ const initUploadManager = (): void => {
   location.hash = '';
 
   const chooseFilePhoto = language === SupportedLanguages.Cy ? 'Dewiswch ffeil' : 'Choose a file';
-
+  const pluralize = (count: number) => {
+    if (language === SupportedLanguages.Cy) {
+      return count === 1 ? '' : 'au';
+    } else {
+      return count === 1 ? '' : 's';
+    }
+  };
   const uppy = new Uppy({
     restrictions: {
       maxFileSize: 26214400,
@@ -43,6 +49,7 @@ const initUploadManager = (): void => {
         strings: {
           chooseFiles: chooseFilePhoto,
         },
+        pluralize,
       },
     })
     .use(DropTarget, { target: document.body })
