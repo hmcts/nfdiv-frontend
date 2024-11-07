@@ -10,8 +10,7 @@ import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
 
 const en = (
-  { userCase, partner, isJointApplication, webChat, openingTimes, telephoneNumber }: CommonContent,
-  feedbackLink: string
+  { userCase, partner, isJointApplication, webChat, openingTimes, telephoneNumber, feedbackLink }: CommonContent
 ) => ({
   title: 'Application represented',
   appRepresentedText: `${
@@ -53,8 +52,7 @@ const en = (
 });
 
 const cy: typeof en = (
-  { userCase, partner, isJointApplication, webChat, telephoneNumber, openingTimes }: CommonContent,
-  feedbackLink: string
+  { userCase, partner, isJointApplication, webChat, telephoneNumber, openingTimes, feedbackLink }: CommonContent
 ) => ({
   title: 'Cyflwynwyd y cais',
   appRepresentedText: `${
@@ -120,11 +118,9 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
-  const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
-    isDivorce ? 'Divorce' : 'Civil'
-  }&party=${isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : 'app'}`;
+
   return {
-    ...languages[language]({ ...content, referenceNumber }, feedbackLink),
+    ...languages[language]({ ...content, referenceNumber }),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,

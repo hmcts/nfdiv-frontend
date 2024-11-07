@@ -10,8 +10,7 @@ import { currentStateFn } from '../../state-sequence';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = (
-  { userCase, partner, isJointApplication, webChat, openingTimes, telephoneNumber }: CommonContent,
-  feedbackLink: string
+  { userCase, partner, isJointApplication, webChat, openingTimes, telephoneNumber, feedbackLink }: CommonContent
 ) => ({
   title: 'Application represented',
   appRepresentedText:
@@ -51,8 +50,7 @@ const en = (
 
 // @TODO Welsh
 const cy: typeof en = (
-  { userCase, partner, isJointApplication, webChat, telephoneNumber, openingTimes }: CommonContent,
-  feedbackLink: string
+  { userCase, partner, isJointApplication, webChat, telephoneNumber, openingTimes, feedbackLink }: CommonContent
 ) => ({
   title: 'Cyflwynwyd y cais',
   appRepresentedText: `${
@@ -98,7 +96,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, language, isJointApplication, isDivorce, isApplicant2 } = content;
+  const { userCase, language, isJointApplication, isDivorce } = content;
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
@@ -118,11 +116,8 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
-  const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
-    isDivorce ? 'Divorce' : 'Civil'
-  }&party=${isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : 'app'}`;
   return {
-    ...languages[language]({ ...content, referenceNumber }, feedbackLink),
+    ...languages[language]({ ...content, referenceNumber }),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,

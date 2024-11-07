@@ -21,8 +21,8 @@ const en = (
     webChat,
     openingTimes,
     telephoneNumber,
-  }: CommonContent,
-  feedbackLink: string
+    feedbackLink
+  }: CommonContent
 ) => ({
   title: 'Application submitted',
   yourReferenceNumber: 'Your reference number is:',
@@ -149,8 +149,8 @@ const cy: typeof en = (
     webChat,
     telephoneNumber,
     openingTimes,
-  }: CommonContent,
-  feedbackLink: string
+    feedbackLink
+  }: CommonContent
 ) => ({
   title: 'Cyflwynwyd y cais',
   yourReferenceNumber: 'Eich cyfeirnod yw:',
@@ -292,11 +292,9 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
-  const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
-    isDivorce ? 'Divorce' : 'Civil'
-  }&party=${isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : 'app'}`;
+
   return {
-    ...languages[language]({ ...content, referenceNumber }, feedbackLink),
+    ...languages[language]({ ...content, referenceNumber }),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,
