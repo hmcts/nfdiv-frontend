@@ -101,6 +101,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   documentsGenerated: 'documentsGenerated',
   documentsUploaded: 'documentsUploaded',
   respondentUserId: 'applicant2UserId',
+  applicant1UserId: 'applicant1UserId',
   applicant2Confirmation: 'applicant2ConfirmApplicant1Information',
   applicant2Explanation: 'applicant2ExplainsApplicant1IncorrectInformation',
   applicant1PcqId: 'applicant1PcqId',
@@ -109,6 +110,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
   applicant1SolicitorAddressOverseas: 'applicant1SolicitorAddressOverseas',
   accessCode: 'accessCode',
+  accessCodeApplicant1: 'accessCodeApplicant1',
   applicationFeeOrderSummary: 'applicationFeeOrderSummary',
   applicationFeeServiceRequestReference: 'applicationFeeServiceRequestReference',
   applicant2FinalOrderFeeOrderSummary: 'applicant2FinalOrderFeeOrderSummary',
@@ -308,6 +310,7 @@ export interface Case {
   applicant1CannotUploadDocuments?: DocumentType | DocumentType[];
   applicant2CannotUploadDocuments?: DocumentType | DocumentType[];
   accessCode?: string;
+  accessCodeApplicant1?: string;
   dueDate?: DateAsString;
   applicant1IConfirmPrayer?: Checkbox;
   applicant2IConfirmPrayer?: Checkbox;
@@ -315,6 +318,7 @@ export interface Case {
   applicant2StatementOfTruth?: Checkbox;
   caseReference?: string;
   respondentUserId?: string;
+  applicant1UserId?: string;
   dateSubmitted?: DateAsString;
   applicationPayments: ListValue<Payment>[];
   finalOrderPayments: ListValue<Payment>[];

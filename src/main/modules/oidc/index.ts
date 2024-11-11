@@ -8,6 +8,7 @@ import { ApplicationType, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils';
 import {
+  APPLICANT_1,
   APPLICANT_2,
   APPLICANT_2_CALLBACK_URL,
   APPLICANT_2_SIGN_IN_URL,
@@ -99,7 +100,11 @@ export class OidcMiddleware {
         req.session.inviteCaseId = newInviteUserCase.id;
         if (!isLinkingUrl(req.path)) {
           logger.info(`User (${req.session.user.id}) is being redirected to linking page`);
-          redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
+          if (req.session.user.email === newInviteUserCase.applicant1Email) {
+            redirectUrl = `${APPLICANT_1}${ENTER_YOUR_ACCESS_CODE}`;
+          } else {
+            redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
+          }
         }
       } else {
         if (!existingUserCase) {

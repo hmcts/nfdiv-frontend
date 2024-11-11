@@ -12,8 +12,10 @@ import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your-access-code/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
+import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
@@ -34,6 +36,7 @@ import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   ACTIVE,
+  APPLICANT_1,
   APPLICANT_2,
   CONTACT_US,
   COOKIES_URL,
@@ -111,6 +114,16 @@ export class Routes {
     app.post(
       [APPLICANT_2, RESPONDENT, `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`],
       errorHandler(new AccessCodePostController(applicant2AccessCodeContent.form.fields).post)
+    );
+
+    // New routes for APPLICANT_1
+    app.get(
+      [APPLICANT_1, `${APPLICANT_1}${ENTER_YOUR_ACCESS_CODE}`],
+      errorHandler(new Applicant1AccessCodeGetController().get)
+    );
+    app.post(
+      [APPLICANT_1, `${APPLICANT_1}${ENTER_YOUR_ACCESS_CODE}`],
+      errorHandler(new AccessCodePostController(applicant1AccessCodeContent.form.fields).post)
     );
 
     app.get(NO_RESPONSE_YET, errorHandler(new NoResponseYetApplicationGetController().get));
