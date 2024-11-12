@@ -11,7 +11,7 @@ const en = applicant1UploadDocumentContent => ({
   line1:
     'Read the court’s reasons for stopping the application in the email we sent you and provide the information they’ve asked for.',
   responseHeading: 'Enter your response',
-  line2:
+  responseLabel:
     "Write your response below if the court has asked you to explain something or provide additional information. If the court has just asked you to upload documents, then you do not have to write anything unless you think it's useful information.",
   uploadHeading: 'Upload any documents',
   line3:
@@ -63,7 +63,7 @@ const cy: typeof en = applicant1UploadDocumentContent => ({
   line1:
     'Darllenwch resymau’r llys dros atal y cais yn yr e-bost a anfonom atoch a rhowch yr wybodaeth y maent wedi gofyn amdani.',
   responseHeading: 'Nodi eich ymateb',
-  line2:
+  responseLabel:
     "Ysgrifennwch eich ymateb isod os yw’r llys wedi gofyn i chi egluro rhywbeth neu ddarparu gwybodaeth ychwanegol. Os yw'r llys newydd ofyn i chi lwytho dogfennau yna nid oes rhaid i chi ysgrifennu unrhyw beth, oni bai eich bod yn credu ei fod yn wybodaeth ddefnyddiol.",
   uploadHeading: 'Llwytho eich dogfennau',
   line3:
@@ -116,7 +116,7 @@ export const form: FormContent = {
     app1RfiDraftResponseDetails: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.response,
+      label: l => l.responseLabel,
       validator: (value, formData) => {
         const hasUploadedFiles =
           (formData.app1RfiDraftResponseUploadedFiles as unknown as string[])?.length &&
