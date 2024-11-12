@@ -175,6 +175,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   app1RfiDraftResponseDocs: 'app1RfiDraftResponseDocs',
   app2RfiDraftResponseDocs: 'app2RfiDraftResponseDocs',
   citizenPaymentCallbackUrl: 'citizenPaymentCallbackUrl',
+  requestForInformationSoleParties: 'requestForInformationSoleParties',
+  requestForInformationJointParties: 'requestForInformationJointParties',
+  requestForInformationDetails: 'requestForInformationDetails',
+  requestForInformationName: 'requestForInformationName',
+  requestForInformationEmailAddress: 'requestForInformationEmailAddress',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -407,6 +412,11 @@ export interface Case {
   isFinalOrderOverdue: YesOrNo;
   requestsForInformation?: ListValue<Partial<RequestForInformation> | null>[];
   requestForInformation?: RequestForInformation;
+  requestForInformationSoleParties?: string;
+  requestForInformationJointParties?: string;
+  requestForInformationDetails?: string;
+  requestForInformationName?: string;
+  requestForInformationEmailAddress?: string;
   app1RfiDraftResponseDocs?: ListValue<Partial<DivorceDocument> | null>[];
   app1RfiDraftResponseUploadedFiles?: UploadedFile[];
   app1RfiDraftResponseCannotUploadDocs?: Checkbox;
