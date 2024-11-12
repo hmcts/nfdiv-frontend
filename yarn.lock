@@ -4024,14 +4024,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/cli@npm:9.2.11":
-  version: 9.2.11
-  resolution: "@wdio/cli@npm:9.2.11"
+"@wdio/cli@npm:9.2.12":
+  version: 9.2.12
+  resolution: "@wdio/cli@npm:9.2.12"
   dependencies:
     "@types/node": ^20.1.1
     "@vitest/snapshot": ^2.1.1
     "@wdio/config": 9.2.8
-    "@wdio/globals": 9.2.11
+    "@wdio/globals": 9.2.12
     "@wdio/logger": 9.1.3
     "@wdio/protocols": 9.2.2
     "@wdio/types": 9.2.2
@@ -4051,11 +4051,11 @@ __metadata:
     read-pkg-up: ^10.0.0
     recursive-readdir: ^2.2.3
     tsx: ^4.7.2
-    webdriverio: 9.2.11
+    webdriverio: 9.2.12
     yargs: ^17.7.2
   bin:
     wdio: ./bin/wdio.js
-  checksum: 7ea52c9414640da5de5ccbf8c34863bde31407a38431db09e5c64b6d7cbb4ee45564d8c1ad8109c360565c0abf027254fdd7176e99866811ed1bf7ce6a52966d
+  checksum: 92e6906fd8d99b61b1c4d0080da9676cdedc88d7725f79df2c99a79bf1aa47d74128c60ae954a87fd9f07569832353c943c6553873d7af3e89c156cdcf28262f
   languageName: node
   linkType: hard
 
@@ -4089,18 +4089,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/globals@npm:9.2.11":
-  version: 9.2.11
-  resolution: "@wdio/globals@npm:9.2.11"
+"@wdio/globals@npm:9.2.12":
+  version: 9.2.12
+  resolution: "@wdio/globals@npm:9.2.12"
   dependencies:
     expect-webdriverio: ^5.0.1
-    webdriverio: 9.2.11
+    webdriverio: 9.2.12
   dependenciesMeta:
     expect-webdriverio:
       optional: true
     webdriverio:
       optional: true
-  checksum: 91f33383bd803d91976e335ac66c353eaeda92eacf1550091b6047bff33553a1bce2205aaf9b077c69de423be1356dbd86a38ad4ee50dc95675f5d8e8a604dc8
+  checksum: 85fbeb7959d0939dba274d8b96668cc9f54fd0ab5e919f95ab1fedea3b25e3d3a54e68c5c2e9b6211b53b356d7a8570f17131074a19cc22f4ed618c2a6a7e15a
   languageName: node
   linkType: hard
 
@@ -4151,17 +4151,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/sauce-service@npm:9.2.11":
-  version: 9.2.11
-  resolution: "@wdio/sauce-service@npm:9.2.11"
+"@wdio/sauce-service@npm:9.2.12":
+  version: 9.2.12
+  resolution: "@wdio/sauce-service@npm:9.2.12"
   dependencies:
     "@wdio/logger": 9.1.3
     "@wdio/types": 9.2.2
     "@wdio/utils": 9.2.8
     ip: ^2.0.1
     saucelabs: 8.0.0
-    webdriverio: 9.2.11
-  checksum: 598210c48da619634cd62cbedf05108b59717cb24e966de06175c71feae0ce1ed3da4abb3e4d6110b218b1dbb0963130ef9ca7c84b7a8f9469c4a952d03a8a40
+    webdriverio: 9.2.12
+  checksum: dc13abc2f0cdc36570643048c9a97d3a48d0099442c499aae36ff1dd89834f201cfd20cd2de2daa31089526cdb2711141cc12290b940ef949de3be6edb892973
   languageName: node
   linkType: hard
 
@@ -5411,9 +5411,9 @@ __metadata:
   linkType: hard
 
 "bn.js@npm:^4.0.0":
-  version: 4.12.0
-  resolution: "bn.js@npm:4.12.0"
-  checksum: 39afb4f15f4ea537b55eaf1446c896af28ac948fdcf47171961475724d1bb65118cca49fa6e3d67706e4790955ec0e74de584e45c8f1ef89f46c812bee5b5a12
+  version: 4.12.1
+  resolution: "bn.js@npm:4.12.1"
+  checksum: f7f84a909bd07bdcc6777cccbf280b629540792e6965fb1dd1aeafba96e944f197ca10cbec2692f51e0a906ff31da1eb4317f3d1cd659d6f68b8bcd211f7ecbc
   languageName: node
   linkType: hard
 
@@ -8705,8 +8705,8 @@ __metadata:
   linkType: hard
 
 "expect-webdriverio@npm:^5.0.1":
-  version: 5.0.3
-  resolution: "expect-webdriverio@npm:5.0.3"
+  version: 5.0.4
+  resolution: "expect-webdriverio@npm:5.0.4"
   dependencies:
     "@vitest/snapshot": ^2.0.5
     expect: ^29.7.0
@@ -8723,7 +8723,7 @@ __metadata:
       optional: false
     webdriverio:
       optional: false
-  checksum: f394ef2c6ee5469be29335e87f5a49f4193debf6211a2a5e647ff36a32086f1eaf06ff78232e3cfb72daec39615f5d0314d623f33d6318ff51271be9f74eab7f
+  checksum: 2676ac48edc7a932f7ff6f72a3457c34499a6a115154a450ffd0c05372ad1ae893cec09a6217eafd6dd8598dcfe53d2efd4496329ea29ee32abbc8140b5b580b
   languageName: node
   linkType: hard
 
@@ -13756,8 +13756,8 @@ __metadata:
     "@uppy/file-input": 3.1.2
     "@uppy/progress-bar": 3.1.1
     "@uppy/xhr-upload": 3.6.8
-    "@wdio/cli": 9.2.11
-    "@wdio/sauce-service": 9.2.11
+    "@wdio/cli": 9.2.12
+    "@wdio/sauce-service": 9.2.12
     allure-commandline: 2.32.0
     applicationinsights: 2.9.6
     autobind-decorator: 2.4.0
@@ -13827,7 +13827,7 @@ __metadata:
     tsconfig-paths: 4.2.0
     typescript: 5.6.3
     uuid: 11.0.3
-    webdriverio: 9.2.11
+    webdriverio: 9.2.12
     webpack: 5.96.1
     webpack-cli: 5.1.4
     webpack-dev-middleware: 7.4.2
@@ -15081,26 +15081,26 @@ __metadata:
   linkType: hard
 
 "postcss-modules-local-by-default@npm:^4.0.5":
-  version: 4.0.5
-  resolution: "postcss-modules-local-by-default@npm:4.0.5"
+  version: 4.1.0
+  resolution: "postcss-modules-local-by-default@npm:4.1.0"
   dependencies:
     icss-utils: ^5.0.0
-    postcss-selector-parser: ^6.0.2
+    postcss-selector-parser: ^7.0.0
     postcss-value-parser: ^4.1.0
   peerDependencies:
     postcss: ^8.1.0
-  checksum: ca9b01f4a0a3dfb33e016299e2dfb7e85c3123292f7aec2efc0c6771b9955648598bfb4c1561f7ee9732fb27fb073681233661b32eef98baab43743f96735452
+  checksum: 64ac4803c21dd82e227179cf0a8489c645ea99a8c514475da028c9afe5d5b915485d00d8efbe94295d688a23a172965cc15f20d550168d1fed272dbdbbe053f0
   languageName: node
   linkType: hard
 
 "postcss-modules-scope@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "postcss-modules-scope@npm:3.2.0"
+  version: 3.2.1
+  resolution: "postcss-modules-scope@npm:3.2.1"
   dependencies:
-    postcss-selector-parser: ^6.0.4
+    postcss-selector-parser: ^7.0.0
   peerDependencies:
     postcss: ^8.1.0
-  checksum: 2ffe7e98c1fa993192a39c8dd8ade93fc4f59fbd1336ce34fcedaee0ee3bafb29e2e23fb49189256895b30e4f21af661c6a6a16ef7b17ae2c859301e4a4459ae
+  checksum: 085f65863bb7d8bf08209a979ceb22b2b07bb466574e0e698d34aaad832d614957bb05f2418348a14e4035f65e23b2be2951369d26ea429dd5762c6a020f0f7c
   languageName: node
   linkType: hard
 
@@ -15115,13 +15115,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:^6.0.2, postcss-selector-parser@npm:^6.0.4":
-  version: 6.1.2
-  resolution: "postcss-selector-parser@npm:6.1.2"
+"postcss-selector-parser@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "postcss-selector-parser@npm:7.0.0"
   dependencies:
     cssesc: ^3.0.0
     util-deprecate: ^1.0.2
-  checksum: ce9440fc42a5419d103f4c7c1847cb75488f3ac9cbe81093b408ee9701193a509f664b4d10a2b4d82c694ee7495e022f8f482d254f92b7ffd9ed9dea696c6f84
+  checksum: f906b7449fcbe9fa6ae739b6fc324ee3c6201aaf5224f26da27de64ccba68d878d734dd182a467881e463f7ede08972d0129b0cc4d6b671d78c6492cddcef154
   languageName: node
   linkType: hard
 
@@ -15133,13 +15133,13 @@ __metadata:
   linkType: hard
 
 "postcss@npm:^8.4.33":
-  version: 8.4.48
-  resolution: "postcss@npm:8.4.48"
+  version: 8.4.49
+  resolution: "postcss@npm:8.4.49"
   dependencies:
     nanoid: ^3.3.7
     picocolors: ^1.1.1
     source-map-js: ^1.2.1
-  checksum: 9bf75be1b45aa31f24b5f2ba2d9cf3021a788c3dd41d4d0491f4e2d7f9fe3329eb5e7b76ad96e2490ed1ebfeec0e484dc49cdef0071da2575d009c1dde5f8923
+  checksum: eb5d6cbdca24f50399aafa5d2bea489e4caee4c563ea1edd5a2485bc5f84e9ceef3febf170272bc83a99c31d23a316ad179213e853f34c2a7a8ffa534559d63a
   languageName: node
   linkType: hard
 
@@ -18672,9 +18672,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webdriverio@npm:9.2.11":
-  version: 9.2.11
-  resolution: "webdriverio@npm:9.2.11"
+"webdriverio@npm:9.2.12":
+  version: 9.2.12
+  resolution: "webdriverio@npm:9.2.12"
   dependencies:
     "@types/node": ^20.11.30
     "@types/sinonjs__fake-timers": ^8.1.5
@@ -18708,7 +18708,7 @@ __metadata:
   peerDependenciesMeta:
     puppeteer-core:
       optional: true
-  checksum: 1ed006da9251b7b5f046474e8d4cbe3a70a87199646b9d6744586cc6910c1dfb1bc9c6d07f20cde5d0d8b18e1c942285986e4d01637a23a7b63bc5bd72cbb523
+  checksum: de7e06be5a1a8c5e9a62cba2ff15f2346fece04ae4721d6f1c7fd9ce8149031d98d762ccfdb911a7a7a4f9d5d5cdd6ed436d146363237cde40bebe994cd5992d
   languageName: node
   linkType: hard
 
