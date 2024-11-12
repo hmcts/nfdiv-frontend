@@ -7,6 +7,7 @@ import { Case } from '../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
   CASEWORKER_ISSUE_APPLICATION,
+  CASEWORKER_REQUEST_FOR_INFORMATION,
   CITIZEN_UPDATE_CASE_STATE_AAT,
   ConditionalOrderCourt,
   DivorceOrDissolution,
@@ -215,6 +216,52 @@ When('I enter my valid case reference and valid access code', async () => {
     console.error('Could not get case data as ' + user.username);
     process.exit(-1);
   }
+});
+
+When('a case worker issues a request for information', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationSoleParties: 'applicant',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to a third party', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationSoleParties: 'other',
+    requestForInformationDetails: 'test',
+    requestForInformationName: 'third party',
+    requestForInformationEmailAddress: 'thirdparty@hmcts.net',
+  });
+});
+
+When('a case worker issues a request for information to app1 on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'applicant1',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to app2 on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'applicant2',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to both parties on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'both',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to a third party on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'other',
+    requestForInformationDetails: 'test',
+    requestForInformationName: 'third party',
+    requestForInformationEmailAddress: 'thirdparty@hmcts.net',
+  });
 });
 
 When('a case worker issues the application', async () => {
