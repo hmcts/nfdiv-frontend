@@ -2,22 +2,10 @@ import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import {
-  APPLICANT_1,
-  APPLICANT_2,
-  HUB_PAGE,
-  RESPONDENT,
-  SIGN_OUT_URL,
-  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-} from '../../steps/urls';
+import { APPLICANT_2, HOME_URL, SIGN_OUT_URL } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/case-api';
-import {
-  ApplicationType,
-  SYSTEM_LINK_APPLICANT_1,
-  SYSTEM_LINK_APPLICANT_2,
-  SYSTEM_UNLINK_APPLICANT,
-} from '../case/definition';
+import { SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, SYSTEM_UNLINK_APPLICANT } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -86,6 +74,8 @@ export class AccessCodePostController {
 
         if (req.path.includes(APPLICANT_2)) {
           req.session.isApplicant2 = true;
+        } else {
+          req.session.isApplicant2 = false;
         }
       } catch (err) {
         req.locals.logger.error(`Error linking applicant/respondent to case ${caseReference}, ${err}`);
@@ -113,19 +103,7 @@ export class AccessCodePostController {
 
     let nextStep = req.url;
     if (req.session.errors.length === 0) {
-      if (req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION) {
-        if (req.session.isApplicant2) {
-          nextStep = `${RESPONDENT}${HUB_PAGE}`;
-        } else {
-          nextStep = `${APPLICANT_1}${HUB_PAGE}`;
-        }
-      } else if (req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION) {
-        if (req.session.isApplicant2) {
-          nextStep = `${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`;
-        } else {
-          nextStep = `${APPLICANT_1}${HUB_PAGE}`;
-        }
-      }
+      nextStep = `${HOME_URL}`;
     }
 
     req.session.save(err => {
