@@ -15,49 +15,45 @@ Feature: Sole request for information
     When I click "Sign out"
     And I login with applicant "1"
     Then the page URL should be "/hub-page"
-    And the page should include "The court has reviewed your application for divorce."
+    And the page should include element "#informationRequestedLine1Sole"
 
     When I click "Provide information"
     Then the page URL should be "/respond-to-the-courts-feedback"
-    And the page should include "Respond to the court's feedback"
+    And the page should include element "#respondToCourtsFeedbackTitle"
 
-    Given I select "Write your response below if the court has asked you to explain something or provide additional information. If the court has just asked you to upload documents, then you do not have to write anything unless you think it's useful information."
+    Given I select element "#app1RfiDraftResponseDetails"
     And I type "Response Details"
     When I click "Continue"
     Then the page URL should be "/review-your-response-to-the-courts-feedback"
-    And the page should include "Review your response"
+    And the page should include element "#reviewYourResponseTitle"
 
     When I click "Submit"
     Then the page URL should be "/hub-page"
-    And the page should include "You have responded to the court."
+    And the page should include element "#respondedToRfiLine1Sole"
 
-  @nightly
   Scenario: Applicant sole rfi journey can't upload all documents
     Given a case worker issues a request for information
     When I click "Sign out"
     And I login with applicant "1"
     Then the page URL should be "/hub-page"
-    And the page should include "The court has reviewed your application for divorce."
+    And the page should include element "#informationRequestedLine1Sole"
 
     When I click "Provide information"
     Then the page URL should be "/respond-to-the-courts-feedback"
-    And the page should include "Respond to the court's feedback"
+    And the page should include element "#respondToCourtsFeedbackTitle"
 
-    Given I select "I'm having trouble uploading some or all of my documents"
+    Given I select element "#app1RfiDraftResponseCannotUploadDocs"
     When I click "Continue"
     Then the page URL should be "/review-your-response-to-the-courts-feedback"
-    And the page should include "Review your response"
+    And the page should include element "#reviewYourResponseTitle"
 
     When I click "Submit"
     Then the page URL should be "/hub-page"
-    And the page should include "You have told us that you cannot upload some or all of your documents."
+    And the page should include element "#awaitingRequestedInformationLine1Sole"
 
-  @nightly
   Scenario: Applicant sole rfi third party journey
     Given a case worker issues a request for information to a third party
     When I click "Sign out"
     And I login with applicant "1"
     Then the page URL should be "/hub-page"
-    And the page should include "The court has reviewed your application for divorce."
-    And the page should include "We have sent an email to a Third party with the information that the court needs."
-    And the page should include "The court will review the information from the Third party once provided, then the application can progress."
+    And the page should include element "#otherLine1Sole"
