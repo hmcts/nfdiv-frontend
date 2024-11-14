@@ -102,6 +102,15 @@ Then('the page should include {string}', (text: string) => {
   I.waitForText(text);
 });
 
+Then('the page should include element {string}', (elemId: string) => {
+  I.waitForElement(elemId);
+});
+
+When('I select element {string}', (elemId: string) => {
+  I.waitForElement(elemId);
+  I.click(elemId);
+});
+
 Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
 });
