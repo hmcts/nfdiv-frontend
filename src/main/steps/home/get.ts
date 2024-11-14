@@ -134,6 +134,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingLegalAdvisorReferral: {
       return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
     }
+    case State.AwaitingPayment:
     case State.Applicant2Approved: {
       return YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION;
     }
