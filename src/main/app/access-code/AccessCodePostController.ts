@@ -25,9 +25,7 @@ export class AccessCodePostController {
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
-    //ToDo: confirm setting the first and last names from session is
-    //how it should work, we were doing this on joint application previously
-    //but oddly not on respondent
+    //Set app2 name in form data only when state is AwaitingApplicant2Response
     if (req.path.includes(APPLICANT_2)) {
       formData.applicant2Email = req.session.user.email;
       formData.respondentUserId = req.session.user.id;
