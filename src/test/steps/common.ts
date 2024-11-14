@@ -106,6 +106,10 @@ Then('the page should include element {string}', (elemId: string) => {
   I.waitForElement(elemId);
 });
 
+Then('the page should include visible element {string}', (elemId: string) => {
+  I.waitForVisible(elemId + ':not(.hidden)');
+});
+
 When('I select element {string}', (elemId: string) => {
   I.waitForElement(elemId);
   I.click(elemId);
@@ -113,6 +117,10 @@ When('I select element {string}', (elemId: string) => {
 
 Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
+});
+
+Then('I wait until the page contains file element {string}', (elemId: string) => {
+  I.waitForElement(elemId, 30);
 });
 
 Then('the page should not include {string}', (text: string) => {
