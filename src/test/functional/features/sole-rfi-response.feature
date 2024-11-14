@@ -10,7 +10,6 @@ Feature: Sole request for information
     And I pay and submit the application
     Then the page should include "Application submitted"
 
-  @nightly
   Scenario: Applicant sole rfi journey
     Given a case worker issues a request for information
     When I click "Sign out"

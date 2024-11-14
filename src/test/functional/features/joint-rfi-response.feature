@@ -15,7 +15,6 @@ Feature: Joint request for information
     When I click "Submit"
     Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
 
-  @nightly
   Scenario: [1] Applicant 1 joint rfi journey
     Given a case worker issues a request for information to app1 on a joint case
     When I click "Sign out"
@@ -43,7 +42,6 @@ Feature: Joint request for information
     Then the page URL should be "/hub-page"
     And the page should include "You have responded to the court."
 
-  @nightly
   Scenario: [1] Applicant 2 joint rfi journey
     Given a case worker issues a request for information to app2 on a joint case
     When I click "Sign out"
