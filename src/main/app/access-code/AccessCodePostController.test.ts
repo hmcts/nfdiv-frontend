@@ -3,7 +3,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { HOME_URL, SIGN_OUT_URL } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/case-api';
-import { ApplicationType, State, SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
+import { ApplicationType, SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, State } from '../case/definition';
 import { FormContent, FormFields } from '../form/Form';
 
 import { AccessCodePostController } from './AccessCodePostController';
