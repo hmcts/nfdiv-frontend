@@ -23,6 +23,12 @@ Feature: Sole request for information
 
     Given I select element "#app1RfiDraftResponseDetails"
     And I type "Response Details"
+
+    Given I delete any previously uploaded files
+    Then the page should include visible element "#noFilesUploaded"
+    When I upload the file "fixtures/larry-the-cat.jpg"
+    Then I wait until the page contains file element "#Document1"
+
     When I click "Continue"
     Then the page URL should be "/review-your-response-to-the-courts-feedback"
     And the page should include element "#reviewYourResponseTitle"
