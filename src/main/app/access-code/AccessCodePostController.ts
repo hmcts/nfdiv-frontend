@@ -5,7 +5,7 @@ import { Response } from 'express';
 import { APPLICANT_2, HOME_URL, SIGN_OUT_URL } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/case-api';
-import { SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, SYSTEM_UNLINK_APPLICANT } from '../case/definition';
+import { State, SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, SYSTEM_UNLINK_APPLICANT } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -30,13 +30,14 @@ export class AccessCodePostController {
     //but oddly not on respondent
     if (req.path.includes(APPLICANT_2)) {
       formData.applicant2Email = req.session.user.email;
-      formData.applicant2FirstNames = req.session.user.givenName;
-      formData.applicant2LastNames = req.session.user.familyName;
       formData.respondentUserId = req.session.user.id;
+      const caseState = req.session.userCase?.state;
+      if (caseState === State.AwaitingApplicant2Response) {
+        formData.applicant2FirstNames = req.session.user.givenName;
+        formData.applicant2LastNames = req.session.user.familyName;
+      }
     } else {
       formData.applicant1Email = req.session.user.email;
-      formData.applicant1FirstNames = req.session.user.givenName;
-      formData.applicant1LastNames = req.session.user.familyName;
       formData.applicant1UserId = req.session.user.id;
     }
     req.session.errors = form.getErrors(formData);

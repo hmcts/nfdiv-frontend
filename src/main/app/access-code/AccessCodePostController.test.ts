@@ -3,7 +3,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { HOME_URL, SIGN_OUT_URL } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/case-api';
-import { ApplicationType, SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
+import { ApplicationType, State, SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
 import { FormContent, FormFields } from '../form/Form';
 
 import { AccessCodePostController } from './AccessCodePostController';
@@ -69,8 +69,6 @@ describe('AccessCodePostController', () => {
         accessCode: 'QWERTY78',
         caseReference: '1234123412341234',
         applicant1Email: 'test@example.com',
-        applicant1FirstNames: 'First name',
-        applicant1LastNames: 'Last name',
         applicant1UserId: '123456',
       },
       SYSTEM_LINK_APPLICANT_1
@@ -115,8 +113,6 @@ describe('AccessCodePostController', () => {
         accessCode: 'QWERTY78',
         caseReference: '1234123412341234',
         applicant2Email: 'test@example.com',
-        applicant2FirstNames: 'First name',
-        applicant2LastNames: 'Last name',
         respondentUserId: '123456',
       },
       SYSTEM_LINK_APPLICANT_2
@@ -153,6 +149,7 @@ describe('AccessCodePostController', () => {
 
     const req = mockRequestApp2({ body });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+    req.session.userCase.state = State.AwaitingApplicant2Response;
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -209,8 +206,6 @@ describe('AccessCodePostController', () => {
         accessCode: '  Qwer TY 78  ',
         caseReference: '1234123412341234',
         applicant2Email: 'test@example.com',
-        applicant2FirstNames: 'First name',
-        applicant2LastNames: 'Last name',
         respondentUserId: '123456',
       },
       SYSTEM_LINK_APPLICANT_2
