@@ -32,7 +32,7 @@ export const form: FormContent = {
     app2RfiDraftResponseDetails: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.response,
+      label: l => l.responseLabel,
       validator: (value, formData) => {
         const hasUploadedFiles =
           (formData.app2RfiDraftResponseUploadedFiles as unknown as string[])?.length &&
