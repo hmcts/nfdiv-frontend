@@ -64,8 +64,8 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 <h3 class="govuk-heading-s govuk-!-margin-bottom-2">{{ gettingHelp }}</h3>
 <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ telephone.heading }}</h3>
-<p class="govuk-body">{{ telephone.number }}<br>{{ telephone.openingTimes }}<br> {{ telephone.closingTimes }}</p>
-<h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ onlineForm.heading }}</h3>
-<p class="govuk-body"><a class="govuk-link" href={{ onlineForm.link }}>{{ onlineForm.text }}</a></p>
+<p class="govuk-body govuk-!-margin-bottom-0">{{ telephone.number }}<br>{{ telephone.openingTimes }}</p>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{ email }}</h3>
+<p class="govuk-body govuk-!-margin-bottom-1"><a class="govuk-link" href="mailto:{{ contactEmail }}">{{ contactEmail }}</a></p>
 <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ post }}</h3>
 {{ serviceAddressMacro(serviceAddress) }}

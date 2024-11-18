@@ -164,7 +164,7 @@ Feature: Applicant 1 sole application
     When I click "Continue to payment"
     Then the page should include "Pay your divorce fee"
     Given I pay and submit the application
-    Then the page should include "Application saved"
+    Then the page should include "Application submitted"
 
 
   @nightly
@@ -452,4 +452,4 @@ Feature: Applicant 1 sole application
     And I select "I believe that the facts stated in this application are true"
 
     When I click "Submit application"
-    Then the page should include "Application saved"
+    Then the page should include "Application submitted"

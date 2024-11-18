@@ -25,5 +25,4 @@ export const enum HubTemplate {
   Holding = '/holding.njk',
   IntendToSwitchToSoleFinalOrder = '/intend-to-switch-to-sole-final-order.njk',
   ServiceApplicationRejected = '/service-application-rejected.njk',
-  AwaitingDocuments = '/awaiting-documents.njk',
 }

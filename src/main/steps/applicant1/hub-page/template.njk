@@ -13,9 +13,10 @@
         {{ referenceNumber }}
       </div>
 
-      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--additional">
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-section-break--thinner">
+      <div class="govuk-!-padding-bottom-8"></div>
 
-      {% include "../../common/progress-bar.njk" %}
+      {% include "./progress-bar.njk" %}
 
       <h2 class="govuk-heading-m">{{ subHeading1 }}</h2>
       <div class="govuk-panel govuk-panel--outstanding">
@@ -28,13 +29,11 @@
             {% include "./sole/hub.njk" %}
           {% endblock %}
         {% endif %}
-        {% if displayState.isAfter('AwaitingDocuments') or displayState.isAtOrAfter('AwaitingHWFDecision') %}
         <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
         <p class="govuk-body">
           <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">{{ line1 }}
           </a>
         </p>
-        {% endif %}
       </div>
     </div>
 

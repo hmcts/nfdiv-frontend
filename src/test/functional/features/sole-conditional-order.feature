@@ -9,7 +9,7 @@ Feature: Sole conditional order
 
     When I click "Continue to payment"
     And I pay and submit the application
-    Then the page should include "Application saved"
+    Then the page should include "Application submitted"
 
     Given a case worker issues the application
     And I enter my valid case reference and valid access code

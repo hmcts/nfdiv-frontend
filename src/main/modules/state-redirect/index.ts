@@ -10,7 +10,6 @@ import {
   APPLICANT_2,
   APPLICATION_SUBMITTED,
   APP_REPRESENTED,
-  HUB_PAGE,
   JOINT_APPLICATION_SUBMITTED,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
@@ -107,19 +106,15 @@ export class StateRedirectMiddleware {
   private getApplicationSubmittedRedirectPath(req: AppRequest): string | null {
     const userCase = req.session.userCase;
 
-    if (
-      userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
-      req.path !== APPLICATION_SUBMITTED &&
-      req.path !== HUB_PAGE
-    ) {
-      return HUB_PAGE;
+    if (userCase?.applicationType === ApplicationType.SOLE_APPLICATION && req.path !== APPLICATION_SUBMITTED) {
+      return APPLICATION_SUBMITTED;
     }
 
     if (
       userCase?.applicationType === ApplicationType.JOINT_APPLICATION &&
-      ![JOINT_APPLICATION_SUBMITTED, HUB_PAGE, APPLICANT_2 + HUB_PAGE].includes(req.path)
+      ![JOINT_APPLICATION_SUBMITTED, APPLICANT_2 + JOINT_APPLICATION_SUBMITTED].includes(req.path)
     ) {
-      return req.session.isApplicant2 ? APPLICANT_2 + HUB_PAGE : HUB_PAGE;
+      return req.session.isApplicant2 ? APPLICANT_2 + JOINT_APPLICATION_SUBMITTED : JOINT_APPLICATION_SUBMITTED;
     }
 
     return null;

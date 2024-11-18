@@ -1,4 +1,4 @@
-{% from "./hmcts-progress-bar/macro.njk" import hmctsProgressBar %}
+{% from "components/hmcts-progress-bar/macro.njk" import hmctsProgressBar %}
 
 {% macro textWithVisuallyHiddenSpan(text, isComplete) %}
   {{text}} <span class="govuk-visually-hidden">{{'' if isComplete else 'not '}}completed</span>
@@ -7,17 +7,11 @@
 {% if isJointApplication %}
   {% set items = [{
     label: {
-      html: textWithVisuallyHiddenSpan(submitted, displayState.isAtOrAfter('Submitted'))
+      html: textWithVisuallyHiddenSpan(submitted, true)
     },
-    complete: displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'),
-    active: displayState.at('AwaitingDocuments') and not (displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'))
+    complete: true,
+    active: false
   }, {
-    label: {
-    html: textWithVisuallyHiddenSpan(courtChecks, displayState.isAfter('Submitted'))
-  },
-    complete: displayState.isAtOrAfter('Holding'),
-    active: displayState.isBefore('Holding')
-    }, {
     label: {
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
     },
@@ -33,16 +27,10 @@
 {% else %}
   {% set items = [{
     label: {
-      html: textWithVisuallyHiddenSpan(submitted, displayState.isAtOrAfter('Submitted'))
+      html: textWithVisuallyHiddenSpan(submitted, true)
     },
-    complete: displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'),
-    active: displayState.at('AwaitingDocuments') and not (displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'))
-  },  {
-    label: {
-      html: textWithVisuallyHiddenSpan(courtChecks, displayState.isBefore('Submitted'))
-    },
-    complete: displayState.isAtOrAfter('AwaitingAos'),
-    active: displayState.isBefore('AwaitingAos')
+    complete: true,
+    active: false
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))

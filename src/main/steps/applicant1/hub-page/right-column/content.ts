@@ -3,15 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
 
-const en = ({
-  isDivorce,
-  isApplicant2,
-  userCase,
-  telephoneNumber,
-  openingTimes,
-  closingTimes,
-  contactWebForm,
-}: CommonContent) => ({
+const en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }: CommonContent) => ({
   applicationDownload: {
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
@@ -90,11 +82,6 @@ const en = ({
     link: '/downloads/conditional-order-refusal',
     text: 'View the conditional order refusal (PDF)',
   },
-  finalOrderApplicationDownload: {
-    reference: 'Final-Order-Application',
-    link: '/downloads/final-order-application',
-    text: 'View the final order application (PDF)',
-  },
   finalOrderGrantedDocumentDownload: {
     reference: 'Final-Order-Granted',
     link: '/downloads/final-order-granted',
@@ -108,29 +95,15 @@ const en = ({
   gettingHelp: 'Getting help',
   telephone: {
     heading: 'Phone',
-    openingTimes: `${openingTimes}`,
-    closingTimes: `${closingTimes}`,
+    openingTimes: `(${openingTimes})`,
     number: telephoneNumber,
   },
   email: 'Email',
   post: 'Post',
-  onlineForm: {
-    heading: 'Online form',
-    text: 'Send us a message using our online form',
-    link: `${contactWebForm}`,
-  },
 });
 
 // @TODO translations
-const cy: typeof en = ({
-  isDivorce,
-  isApplicant2,
-  userCase,
-  telephoneNumber,
-  openingTimes,
-  closingTimes,
-  contactWebForm,
-}: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, isApplicant2, userCase, telephoneNumber, openingTimes }: CommonContent) => ({
   applicationDownload: {
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
@@ -226,16 +199,10 @@ const cy: typeof en = ({
   telephone: {
     heading: 'Rhif ffôn',
     openingTimes: `(${openingTimes})`,
-    closingTimes: `${closingTimes}`,
     number: telephoneNumber,
   },
   email: 'E-bost',
   post: "Drwy'r post",
-  onlineForm: {
-    heading: 'Online form',
-    text: 'Anfonwch neges atom drwy ddefnyddio ein ffurflen ar-lein',
-    link: `${contactWebForm}`,
-  },
 });
 
 const languages = {

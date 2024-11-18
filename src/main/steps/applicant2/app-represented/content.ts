@@ -87,7 +87,7 @@ const cy: typeof en = (
     link: config.get('govukUrls.domesticAbuse'),
   },
   feedback: "Helpwch ni i wella'r gwasanaeth hwn",
-  feedbackLine1: 'Cwblhewch yr arolwg 5 munud hwn i helpu i wella ein gwasanaethau i chi ac eraill.',
+  feedbackLine1: 'Complete this short, 5-minute survey to help improve our services for you and others.',
   feedbackLine2: {
     part1: 'Mae hwn yn wasanaeth newydd.',
     link: feedbackLink,
