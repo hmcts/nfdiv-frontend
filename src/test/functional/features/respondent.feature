@@ -8,7 +8,7 @@ Feature: Respondent
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     And I pay and submit the application
-    Then the page should include "Application submitted"
+    Then the page should include "Application saved"
     Given a case worker issues the application
 
   Scenario: They fill out a happy path respondent journey

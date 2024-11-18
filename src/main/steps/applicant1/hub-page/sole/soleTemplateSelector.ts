@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { CaseWithId } from '../../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import { ServiceApplicationRefusalReason, State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
@@ -113,6 +113,12 @@ export const getSoleHubTemplate = (
       return isApplicantAbleToRespondToRequestForInformation
         ? HubTemplate.RespondedToInformationRequest
         : HubTemplate.InformationRequestedFromOther;
+    case State.AwaitingHWFDecision:
+      return userCase.applicant1CannotUpload === Checkbox.Checked
+        ? HubTemplate.AwaitingDocuments
+        : HubTemplate.AosAwaitingOrDrafted;
+    case State.AwaitingDocuments:
+      return HubTemplate.AwaitingDocuments;
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
         return HubTemplate.AoSDue;

@@ -30,4 +30,5 @@ export const enum HubTemplate {
   RespondedToInformationRequest = '/responded-to-information-request.njk',
   IntendToSwitchToSoleFinalOrder = '/intend-to-switch-to-sole-final-order.njk',
   ServiceApplicationRejected = '/service-application-rejected.njk',
+  AwaitingDocuments = '/awaiting-documents.njk',
 }

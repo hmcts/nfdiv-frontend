@@ -1,6 +1,8 @@
+import { Checkbox } from '../../../../app/case/case';
 import { DivorceOrDissolution, State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { currentStateFn } from '../../../state-sequence';
+import { getSoleHubTemplate } from '../sole/soleTemplateSelector';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -21,6 +23,12 @@ describe('JointTemplateSelector test', () => {
 
   test('should show /holding.njk for state Holding', () => {
     const theState = displayState.at(State.Holding);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.Holding);
+  });
+
+  test('should show /holding.njk for state Submitted', () => {
+    const theState = displayState.at(State.Submitted);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.Holding);
   });
@@ -197,5 +205,27 @@ describe('JointTemplateSelector test', () => {
     const theState = displayState.at(State.RequestedInformationSubmitted);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
+  });
+
+  test('should show /awaiting-documents.njk for state AwaitingDocuments', () => {
+    const theState = displayState.at(State.AwaitingDocuments);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingDocuments);
+  });
+
+  test('should show /awaiting-documents.njk for state AwaitingHWFDecision and reason is "cannot upload documents"', () => {
+    const userCaseWithApplicant1CannotUploadDocuments = {
+      ...userCase,
+      applicant1CannotUpload: Checkbox.Checked,
+    };
+    const theState = displayState.at(State.AwaitingHWFDecision);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
+  });
+
+  test('should show /holding.njk for state AwaitingHWFDecision', () => {
+    const theState = displayState.at(State.AwaitingHWFDecision);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.Holding);
   });
 });
