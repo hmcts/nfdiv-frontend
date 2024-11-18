@@ -91,7 +91,10 @@ export class StateRedirectMiddleware {
         }
 
         const applicationPayments = new PaymentModel(req.session.userCase.applicationPayments);
-        if (caseState === State.AwaitingPayment && !req.session.isApplicant2 && applicationPayments.hasPayment) {
+        if (
+          [State.AwaitingPayment, State.AwaitingResponseToHwfDecision].includes(caseState) &&
+          !req.session.isApplicant2 && applicationPayments.hasPayment
+        ) {
           return res.redirect(PAYMENT_CALLBACK_URL);
         }
 
@@ -101,7 +104,11 @@ export class StateRedirectMiddleware {
   }
 
   private caseAwaitingPayment(req: AppRequest): boolean {
-    return [State.AwaitingPayment, State.AwaitingFinalOrderPayment].includes(req.session.userCase?.state);
+    return [
+      State.AwaitingPayment,
+      State.AwaitingResponseToHwfDecision,
+      State.AwaitingFinalOrderPayment
+    ].includes(req.session.userCase?.state);
   }
 
   private getApplicationSubmittedRedirectPath(req: AppRequest): string | null {

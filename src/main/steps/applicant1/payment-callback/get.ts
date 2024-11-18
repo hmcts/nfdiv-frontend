@@ -13,8 +13,8 @@ import {
 
 @autobind
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
-  protected awaitingPaymentState(): State {
-    return State.AwaitingPayment;
+  protected awaitingPaymentStates(): State[] {
+    return [State.AwaitingPayment, State.AwaitingResponseToHwfDecision];
   }
 
   protected noPaymentRequiredUrl(): string {
