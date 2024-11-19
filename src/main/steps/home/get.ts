@@ -79,7 +79,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.Submitted: {
       return isSolicitorRepresented ? APP_REPRESENTED : APPLICATION_SUBMITTED;
     }
-    case State.AwaitingResponseToHwfDecision:
+    case State.AwaitingResponseToHWFDecision:
     case State.AwaitingPayment: {
       return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? PAY_AND_SUBMIT : PAY_YOUR_FEE;
     }
@@ -135,7 +135,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingLegalAdvisorReferral: {
       return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
     }
-    case State.AwaitingResponseToHwfDecision:
+    case State.AwaitingResponseToHWFDecision:
     case State.AwaitingPayment:
     case State.Applicant2Approved: {
       return YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION;

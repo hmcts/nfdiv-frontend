@@ -1069,7 +1069,7 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-          state: State.AwaitingResponseToHwfDecision,
+          state: State.AwaitingResponseToHWFDecision,
           applicationType: ApplicationType.JOINT_APPLICATION,
         },
       },
@@ -1087,7 +1087,7 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-          state: State.AwaitingResponseToHwfDecision,
+          state: State.AwaitingResponseToHWFDecision,
           applicationType: ApplicationType.JOINT_APPLICATION,
         },
       },
@@ -1105,7 +1105,7 @@ describe('HomeGetController', () => {
         userCase: {
           id: '123',
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-          state: State.AwaitingResponseToHwfDecision,
+          state: State.AwaitingResponseToHWFDecision,
           applicationType: ApplicationType.SOLE_APPLICATION,
         },
       },
