@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 
-import { ApplicationType, CITIZEN_PAYMENT_MADE, CaseData, State } from '../../../app/case/definition';
+import { APPLICATION_PAYMENT_STATES, ApplicationType, CITIZEN_PAYMENT_MADE, CaseData, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
 import {
@@ -13,8 +13,8 @@ import {
 
 @autobind
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
-  protected awaitingPaymentStates(): State[] {
-    return [State.AwaitingPayment, State.AwaitingResponseToHwfDecision];
+  protected awaitingPaymentStates(): Set<State> {
+    return APPLICATION_PAYMENT_STATES;
   }
 
   protected noPaymentRequiredUrl(): string {

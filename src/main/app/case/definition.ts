@@ -2053,6 +2053,14 @@ export const enum State {
   WelshTranslationReview = 'WelshTranslationReview',
 }
 
+export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
+  State.AwaitingPayment, State.AwaitingResponseToHwfDecision
+]);
+
+export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([
+  State.AwaitingFinalOrderPayment
+]);
+
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
   JUDICIAL_SEPARATION = 'judicialSeparation',

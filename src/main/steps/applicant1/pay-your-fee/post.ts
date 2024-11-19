@@ -1,14 +1,14 @@
 import autobind from 'autobind-decorator';
 
-import { CITIZEN_SUBMIT, CaseData, Fee, ListValue, State } from '../../../app/case/definition';
+import { APPLICATION_PAYMENT_STATES, CITIZEN_SUBMIT, CaseData, Fee, ListValue, State } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../app/controller/PostController';
 
 @autobind
 export default class PaymentPostController extends BasePaymentPostController {
-  protected awaitingPaymentStates(): State[] {
-    return [State.AwaitingPayment, State.AwaitingResponseToHwfDecision];
+  protected awaitingPaymentStates(): Set<State> {
+    return APPLICATION_PAYMENT_STATES;
   }
 
   protected awaitingPaymentEvent(): string {

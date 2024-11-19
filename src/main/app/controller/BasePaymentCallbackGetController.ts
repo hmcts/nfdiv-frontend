@@ -14,7 +14,7 @@ const logger = Logger.getLogger('payment');
 @autobind
 export default abstract class BasePaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (!this.awaitingPaymentStates().includes(req.session.userCase.state)) {
+    if (!this.awaitingPaymentStates().has(req.session.userCase.state)) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
 
@@ -56,7 +56,7 @@ export default abstract class BasePaymentCallbackGetController {
     });
   }
 
-  protected abstract awaitingPaymentStates(): State[];
+  protected abstract awaitingPaymentStates(): Set<State>;
   protected abstract noPaymentRequiredUrl(req: AppRequest): string;
   protected abstract paymentMadeEvent(req: AppRequest): string;
   protected abstract paymentSuccessUrl(req: AppRequest): string;
