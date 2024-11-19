@@ -1025,6 +1025,7 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${APP_REPRESENTED}`);
   });
+
   test('redirects to hub page for applicant 1 users when coApplicant1SubmittedDate is present and represented', () => {
     const req = mockRequest({
       session: {
@@ -1059,5 +1060,59 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION);
+  });
+
+  test('redirects applicant 2 to spouse needs to confirm application page if joint application awaiting response to hwf decision', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingResponseToHwfDecision,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION);
+  });
+
+  test('redirects to pay and submit page for applicant 1 if joint application awaiting response to hwf decision', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: false,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingResponseToHwfDecision,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(PAY_AND_SUBMIT);
+  });
+
+  test('redirects to pay your fee page for applicant 1 if sole application awaiting response to hwf decision', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: false,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingResponseToHwfDecision,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
   });
 });
