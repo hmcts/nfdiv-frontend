@@ -71,6 +71,15 @@ export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?
   I.click(locator || text);
 };
 
+export const iClickElement = (elemId: string, wait?: number): void => {
+  I.waitForElement(elemId, wait);
+  I.click(elemId);
+};
+
+export const iClickSubmit = (): void => {
+  iClickElement('#main-form-submit');
+};
+
 export const iWait = (time: number): void => {
   I.wait(time);
 };
@@ -110,10 +119,18 @@ Then('the page should include visible element {string}', (elemId: string) => {
   I.waitForVisible(elemId + ':not(.hidden)');
 });
 
-When('I select element {string}', (elemId: string) => {
-  I.waitForElement(elemId);
-  I.click(elemId);
+When('I select element {string}', iClickElement);
+When('I click element {string}', iClickElement);
+
+When('I sign out', () => {
+  iClickElement('#navigation > li > a[href="/logout"]');
 });
+
+When('I click submit', iClickSubmit);
+When('I click continue', iClickSubmit);
+When('I click send for review', iClickSubmit);
+When('I click submit application', iClickSubmit);
+When('I click continue to payment', iClickSubmit);
 
 Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
