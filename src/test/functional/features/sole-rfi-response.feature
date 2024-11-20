@@ -37,7 +37,6 @@ Feature: Sole request for information
     Then the page URL should be "/hub-page"
     And the page should include element "#respondedToRfiLine1Sole"
 
-  Scenario: Applicant sole rfi journey can't upload all documents
     Given a case worker issues a request for information
     When I sign out
     And I login with applicant "1"
@@ -57,7 +56,6 @@ Feature: Sole request for information
     Then the page URL should be "/hub-page"
     And the page should include element "#awaitingRequestedInformationLine1Sole"
 
-  Scenario: Applicant sole rfi third party journey
     Given a case worker issues a request for information to a third party
     When I sign out
     And I login with applicant "1"
