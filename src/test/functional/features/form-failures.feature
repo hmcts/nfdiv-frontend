@@ -345,6 +345,10 @@ Feature: Form failures
     Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
     And I go to "/respondent/legal-jurisdiction-of-the-courts"
     When I click "Continue"
+    Then the page should include "Do you intend to ask the court to delay"
+
+    Given I select "No"
+    And I click "Continue"
     Then the page should include "Other court cases relating to this marriage"
 
     Given I go to "/respondent/how-the-court-will-contact-you"
