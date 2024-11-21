@@ -34,8 +34,8 @@ export const config: CodeceptJS.Config = {
       reportFilename: 'Functional test report',
       inlineAssets: true,
       overwrite: false,
-      html: true,
-      json: true,
+      html: false,
+      json: false,
     },
   },
 };
