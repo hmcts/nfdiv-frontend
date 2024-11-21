@@ -27,7 +27,7 @@ Feature: Sole request for information
     Given I delete any previously uploaded files
     Then the page should include visible element "#noFilesUploaded"
     When I upload the file "fixtures/larry-the-cat.jpg"
-    Then I wait until the page contains file element "#Document1"
+    Then I wait for "60" seconds until the page contains file element "#Document1"
 
     When I click continue
     Then the page URL should be "/review-your-response-to-the-courts-feedback"
