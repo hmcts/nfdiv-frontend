@@ -140,10 +140,6 @@ Then('I wait until the page contains file element {string}', (elemId: string) =>
   I.waitForElement(elemId, 30);
 });
 
-Then('I wait for {string} seconds until the page contains file element {string}', (wait: number, elemId: string) => {
-  I.waitForElement(elemId, wait);
-});
-
 Then('the page should not include {string}', (text: string) => {
   I.dontSee(text);
 });
