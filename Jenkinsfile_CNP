@@ -43,11 +43,11 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('functionalTest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '/functional-output/functional/reports/Functional test report.html'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '/functional-output/functional/reports/**/*'
   }
 
   afterAlways('functionalTest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '/functional-output/functional/reports/Functional test report.html'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '/functional-output/functional/reports/**/*'
   }
 
   // uncomment to connect backend PR
