@@ -36,7 +36,6 @@ export const config: CodeceptJS.Config = {
       overwrite: false,
       html: false,
       json: false,
-      xml: true,
     },
   },
 };
