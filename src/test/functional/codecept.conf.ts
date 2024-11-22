@@ -41,7 +41,7 @@ export const config: CodeceptJS.Config = {
       mochawesome: {
         stdout: './functional-output/console.log',
         options: {
-          reportDir: './functional-output',
+          reportDir: './temp-reports',
           reportName: 'index',
           inlineAssets: true,
         },
