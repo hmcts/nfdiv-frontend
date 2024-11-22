@@ -7649,6 +7649,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"diff@npm:4.0.1":
+  version: 4.0.1
+  resolution: "diff@npm:4.0.1"
+  checksum: d426381c0847ce1038771007622998ce31962e00d5d1a1f02d17e53b9af3bec9dfa24b967c9208e34f35bd13f9bd807392fbc399fe8898df96175dae09fa2afc
+  languageName: node
+  linkType: hard
+
 "diff@npm:^4.0.1":
   version: 4.0.2
   resolution: "diff@npm:4.0.2"
@@ -10863,7 +10870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-string@npm:^1.0.5, is-string@npm:^1.0.7":
+"is-string@npm:^1.0.4, is-string@npm:^1.0.5, is-string@npm:^1.0.7":
   version: 1.0.7
   resolution: "is-string@npm:1.0.7"
   dependencies:
@@ -12358,7 +12365,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.once@npm:^4.0.0":
+"lodash.once@npm:^4.0.0, lodash.once@npm:^4.1.1":
   version: 4.1.1
   resolution: "lodash.once@npm:4.1.1"
   checksum: d768fa9f9b4e1dc6453be99b753906f58990e0c45e7b2ca5a3b40a33111e5d17f6edf2f768786e2716af90a8e78f8f91431ab8435f761fef00f9b0c256f6d245
@@ -13396,6 +13403,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mocha-jenkins-reporter@npm:^0.4.8":
+  version: 0.4.8
+  resolution: "mocha-jenkins-reporter@npm:0.4.8"
+  dependencies:
+    diff: 4.0.1
+    mkdirp: ^1.0.4
+    xml: ^1.0.1
+  peerDependencies:
+    mocha: ^5.2.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0
+  checksum: df42cdf4fb2cd7fbdc236637fb680e9019861dd9745239a4ff8b1e7278b980bcda50e28769c03739730d2c44ec40b72db6caf548bd2a5751850f016aebd2b103
+  languageName: node
+  linkType: hard
+
 "mocha-junit-reporter@npm:^2.0.0":
   version: 2.2.1
   resolution: "mocha-junit-reporter@npm:2.2.1"
@@ -13408,6 +13428,28 @@ __metadata:
   peerDependencies:
     mocha: ">=2.2.5"
   checksum: 752c30b1ef7c99eff6d82104f1b7a8179a21f3afefa3df38edb4e2478986a7c74d28b6c4525da5109cba8a4bf31cf697f4cff7584a3784fb9fc40be804fd7351
+  languageName: node
+  linkType: hard
+
+"mocha-lcov-reporter@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "mocha-lcov-reporter@npm:1.3.0"
+  checksum: 6cd9e294bb10fcc370dc07bcf0fd24cf3b0e91851bf721ab13227887023c2b4fb251dd76fd42154d63a354d824fc087ea4e6d9ad0dd661a17b5f0dc65a77b003
+  languageName: node
+  linkType: hard
+
+"mocha-multi@npm:^1.1.7":
+  version: 1.1.7
+  resolution: "mocha-multi@npm:1.1.7"
+  dependencies:
+    debug: ^4.1.1
+    is-string: ^1.0.4
+    lodash.once: ^4.1.1
+    mkdirp: ^1.0.4
+    object-assign: ^4.1.1
+  peerDependencies:
+    mocha: ">=2.2.0 <7 || >=9"
+  checksum: 1718fccd9178ac38fad0fc63de436b3ece9e688818a1fe3a44bdea9ac26b4a3f6e731e35f19857fd6c769b01bb57b30f4f095902189031a372f1a556a96a1cbc
   languageName: node
   linkType: hard
 
@@ -13836,7 +13878,10 @@ __metadata:
     lodash: 4.17.21
     mini-css-extract-plugin: 2.9.2
     mocha: ^10.5.2
+    mocha-jenkins-reporter: ^0.4.8
     mocha-junit-reporter: ^2.0.0
+    mocha-lcov-reporter: ^1.3.0
+    mocha-multi: ^1.1.7
     mochawesome: ^7.1.3
     mochawesome-merge: ^4.3.0
     mochawesome-report-generator: ^6.2.0
