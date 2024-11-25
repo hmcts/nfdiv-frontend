@@ -21,16 +21,12 @@ services:
   equalityAndDiversity:
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN
-  # divorce:
-  #   url: NFDIV_URL
-  # dissolution:
-  #   url: NFDIV_DISSOLUTION_URL
   decreeNisi:
     url: DECREE_NISI_URL
-  divorce:
-    url: https://nfdiv-apply-for-divorce.aat.platform.hmcts.net
-  dissolution:
-    url: https://nfdiv-apply-for-divorce.aat.platform.hmcts.net
+  nfdiv_divorce:
+    url: NFDIV_DIVORCE_URL
+  nfdiv_dissolution:
+    url: NFDIV_DISSOLUTION_URL
 port: PORT
 session:
   redis:

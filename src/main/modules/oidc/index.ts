@@ -78,24 +78,14 @@ export class OidcMiddleware {
 
   private async findExistingAndNewUserCases(req: AppRequest, res: Response, next: NextFunction): Promise<void> {
     const logger = Logger.getLogger('find-existing-and-new-user-cases');
-    const serviceType = res.locals.serviceType;
 
     try {
       // Search using Service Type in redirect URL
       let { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
         req.session.user.email,
-        serviceType,
+        res.locals.serviceType,
         req.locals.logger
       );
-
-      // Try alternative Service Type
-      const alternativeServiceType =
-        serviceType === DivorceOrDissolution.DIVORCE ? DivorceOrDissolution.DISSOLUTION : DivorceOrDissolution.DIVORCE;
-      ({ newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
-        req.session.user.email,
-        alternativeServiceType,
-        req.locals.logger
-      ));
 
       let redirectUrl;
       if (newInviteUserCase && existingUserCase) {
@@ -103,19 +93,23 @@ export class OidcMiddleware {
         req.session.inviteCaseApplicationType = newInviteUserCase.applicationType;
         req.session.existingCaseId = existingUserCase.id;
         if (!req.path.includes(EXISTING_APPLICATION)) {
-          logger.info(`User (${req.session.user.id}) is being redirected to existing-application page`);
           redirectUrl = EXISTING_APPLICATION;
         }
       } else if (newInviteUserCase) {
         req.session.inviteCaseId = newInviteUserCase.id;
         if (!isLinkingUrl(req.path)) {
-          logger.info(`User (${req.session.user.id}) is being redirected to linking page`);
           redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
         }
       } else {
         if (!existingUserCase) {
+          if (await this.hasDivorceOrDissolutionCaseForOtherDomain(req, res)) {
+            return res.redirect(
+              (res.locals.serviceType === DivorceOrDissolution.DIVORCE
+                ? config.get('services.nfdiv_dissolution.url')
+                : config.get('services.nfdiv_divorce.url')) as (string)
+              );
+          }
           if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
-            logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
             const token = encodeURIComponent(req.session.user.accessToken);
             return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
           }
@@ -138,16 +132,7 @@ export class OidcMiddleware {
         if (err) {
           return res.redirect(SIGN_OUT_URL);
         } else if (redirectUrl) {
-          if (req.session.userCase.divorceOrDissolution === serviceType) {
-            return res.redirect(redirectUrl);
-          }
-
-          const redirectDomain =
-            serviceType === DivorceOrDissolution.DIVORCE
-              ? config.get('services.dissolution.url')
-              : config.get('services.divorce.url');
-
-          return res.redirect(redirectDomain + redirectUrl);
+          return res.redirect(redirectUrl);
         } else {
           return next();
         }
@@ -155,6 +140,18 @@ export class OidcMiddleware {
     } catch (e) {
       return res.redirect(SIGN_OUT_URL);
     }
+  }
+
+  private async hasDivorceOrDissolutionCaseForOtherDomain(req: AppRequest, res: Response): Promise<boolean> {
+    const alternativeServiceType = res.locals.serviceType === DivorceOrDissolution.DIVORCE
+      ? DivorceOrDissolution.DISSOLUTION
+      : DivorceOrDissolution.DIVORCE;
+
+    const { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
+      req.session.user.email, alternativeServiceType, req.locals.logger
+    );
+
+    return !!newInviteUserCase || !!existingUserCase;
   }
 
   private callbackHandler(protocol: string, port: string) {
