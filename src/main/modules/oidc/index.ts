@@ -102,12 +102,14 @@ export class OidcMiddleware {
       } else {
         if (!existingUserCase) {
           if (await this.hasDivorceOrDissolutionCaseForOtherDomain(req, res)) {
-            logger.info(`UserID ${req.session.user.id} being redirected to nfdiv domain for other divorceOrDissolution type`);
+            logger.info(
+              `UserID ${req.session.user.id} being redirected to nfdiv domain for other divorceOrDissolution type`
+            );
             return res.redirect(
               (res.locals.serviceType === DivorceOrDissolution.DIVORCE
                 ? config.get('services.nfdiv_dissolution.url')
-                : config.get('services.nfdiv_divorce.url')) as (string)
-              );
+                : config.get('services.nfdiv_divorce.url')) as string
+            );
           }
           if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
             logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
@@ -144,12 +146,15 @@ export class OidcMiddleware {
   }
 
   private async hasDivorceOrDissolutionCaseForOtherDomain(req: AppRequest, res: Response): Promise<boolean> {
-    const alternativeServiceType = res.locals.serviceType === DivorceOrDissolution.DIVORCE
-      ? DivorceOrDissolution.DISSOLUTION
-      : DivorceOrDissolution.DIVORCE;
+    const alternativeServiceType =
+      res.locals.serviceType === DivorceOrDissolution.DIVORCE
+        ? DivorceOrDissolution.DISSOLUTION
+        : DivorceOrDissolution.DIVORCE;
 
     const { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
-      req.session.user.email, alternativeServiceType, req.locals.logger
+      req.session.user.email,
+      alternativeServiceType,
+      req.locals.logger
     );
 
     return !!newInviteUserCase || !!existingUserCase;
