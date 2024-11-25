@@ -91,7 +91,7 @@ export const en = {
   telephoneNumber: '0300 303 0642',
   openingTimesHeading: 'Opening times (webchat and telephone)',
   openingTimes: 'Monday to Friday, 10am to 6pm',
-  closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
+  closingTimes: 'Closed on bank holidays',
   cookiesBanner: {
     cookiesHeading: 'Cookies on',
     cookiesLine1: 'We use some essential cookies to make this service work.',
@@ -274,6 +274,13 @@ const cy: typeof en = {
       part2: 'newid gosodiadau eich cwcis ar',
       part3: ' unrhyw adeg.',
     },
+  },
+  serviceAddress: {
+    line1: 'Canolfan Gwasanaethau Llysoedd a Thribiwnlysoedd',
+    line2: 'Gwasanaeth Ysgariadau a Diddymiadau GLlTEF',
+    poBox: 'Blwch Post 13226',
+    town: 'Harlow',
+    postcode: 'CM20 9UG',
   },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'contactdivorce@justice.gov.uk',
