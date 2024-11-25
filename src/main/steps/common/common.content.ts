@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
@@ -330,6 +332,10 @@ export const generateCommonContent = ({
     userCase?.dateFinalOrderSubmitted === undefined;
   const isPendingHearingOutcomeFoRequested =
     userCase && userCase?.state === State.PendingHearingOutcome && userCase?.dateFinalOrderSubmitted !== undefined;
+  const feedbackParty = isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : isApplicant2 ? 'resp' : 'app';
+  const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
+    isDivorce ? 'Divorce' : 'Civil'
+  }&party=${feedbackParty}`;
 
   return {
     ...commonTranslations,
@@ -338,6 +344,7 @@ export const generateCommonContent = ({
     language,
     isDivorce,
     isApplicant2,
+    feedbackLink,
     userCase,
     userEmail,
     isJointApplication,
@@ -356,6 +363,7 @@ export type CommonContent = typeof en & {
   serviceName: string;
   isDivorce: boolean;
   isApplicant2: boolean;
+  feedbackLink: string;
   userCase: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;
