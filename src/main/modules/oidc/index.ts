@@ -80,8 +80,7 @@ export class OidcMiddleware {
     const logger = Logger.getLogger('find-existing-and-new-user-cases');
 
     try {
-      // Search using Service Type in redirect URL
-      let { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
+      const { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
         req.session.user.email,
         res.locals.serviceType,
         req.locals.logger
@@ -103,6 +102,7 @@ export class OidcMiddleware {
       } else {
         if (!existingUserCase) {
           if (await this.hasDivorceOrDissolutionCaseForOtherDomain(req, res)) {
+            logger.info(`UserID ${req.session.user.id} being redirected to nfdiv domain for other divorceOrDissolution type`);
             return res.redirect(
               (res.locals.serviceType === DivorceOrDissolution.DIVORCE
                 ? config.get('services.nfdiv_dissolution.url')
@@ -110,6 +110,7 @@ export class OidcMiddleware {
               );
           }
           if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
+            logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
             const token = encodeURIComponent(req.session.user.accessToken);
             return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
           }
