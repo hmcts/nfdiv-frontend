@@ -4,7 +4,7 @@ import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, State } from '../../app/case/definition';
+import { ApplicationType, DivorceOrDissolution, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils';
 import {
@@ -78,13 +78,24 @@ export class OidcMiddleware {
 
   private async findExistingAndNewUserCases(req: AppRequest, res: Response, next: NextFunction): Promise<void> {
     const logger = Logger.getLogger('find-existing-and-new-user-cases');
+    const serviceType = res.locals.serviceType;
 
     try {
-      const { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
+      // Search using Service Type in redirect URL
+      let { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
         req.session.user.email,
-        res.locals.serviceType,
+        serviceType,
         req.locals.logger
       );
+
+      // Try alternative Service Type
+      const alternativeServiceType =
+        serviceType === DivorceOrDissolution.DIVORCE ? DivorceOrDissolution.DISSOLUTION : DivorceOrDissolution.DIVORCE;
+      ({ newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
+        req.session.user.email,
+        alternativeServiceType,
+        req.locals.logger
+      ));
 
       let redirectUrl;
       if (newInviteUserCase && existingUserCase) {
@@ -127,7 +138,16 @@ export class OidcMiddleware {
         if (err) {
           return res.redirect(SIGN_OUT_URL);
         } else if (redirectUrl) {
-          return res.redirect(redirectUrl);
+          if (req.session.userCase.divorceOrDissolution === serviceType) {
+            return res.redirect(redirectUrl);
+          }
+
+          const redirectDomain =
+            serviceType === DivorceOrDissolution.DIVORCE
+              ? config.get('services.dissolution.url')
+              : config.get('services.divorce.url');
+
+          return res.redirect(redirectDomain + redirectUrl);
         } else {
           return next();
         }
