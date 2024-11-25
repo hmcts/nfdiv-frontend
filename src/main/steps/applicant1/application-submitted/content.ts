@@ -12,19 +12,17 @@ import { currentStateFn } from '../../state-sequence';
 import { HUB_PAGE } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
-const en = (
-  {
-    isDivorce,
-    userCase,
-    partner,
-    referenceNumber,
-    isJointApplication,
-    webChat,
-    openingTimes,
-    telephoneNumber,
-    feedbackLink
-  }: CommonContent
-) => ({
+const en = ({
+  isDivorce,
+  userCase,
+  partner,
+  referenceNumber,
+  isJointApplication,
+  webChat,
+  openingTimes,
+  telephoneNumber,
+  feedbackLink,
+}: CommonContent) => ({
   title: `Application ${
     userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
       ? 'saved'
@@ -145,19 +143,17 @@ const en = (
 });
 
 // @TODO Welsh
-const cy: typeof en = (
-  {
-    isDivorce,
-    userCase,
-    partner,
-    referenceNumber,
-    isJointApplication,
-    webChat,
-    telephoneNumber,
-    openingTimes,
-    feedbackLink
-  }: CommonContent
-) => ({
+const cy: typeof en = ({
+  isDivorce,
+  userCase,
+  partner,
+  referenceNumber,
+  isJointApplication,
+  webChat,
+  telephoneNumber,
+  openingTimes,
+  feedbackLink,
+}: CommonContent) => ({
   title: `${
     userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
       ? 'Cais wedi’i gadw'
