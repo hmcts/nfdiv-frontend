@@ -294,7 +294,7 @@ Feature: Form failures
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     And I pay and submit the application
-    Then the page should include "Application submitted"
+    Then the page should include "Application saved"
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
@@ -345,6 +345,10 @@ Feature: Form failures
     Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
     And I go to "/respondent/legal-jurisdiction-of-the-courts"
     When I click "Continue"
+    Then the page should include "Do you intend to ask the court to delay"
+
+    Given I select "No"
+    And I click "Continue"
     Then the page should include "Other court cases relating to this marriage"
 
     Given I go to "/respondent/how-the-court-will-contact-you"
@@ -356,7 +360,7 @@ Feature: Form failures
     Then the page should include "You have not confirmed that you are the respondent and that you believe the facts in the application are true. You need to confirm before continuing."
 
     Given I go to "/respondent/finalising-your-application"
-    When I click "Submit"
+    When I click "Continue"
     Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
     Then the page should include "You need to explain why you are applying for the final order before continuing."
 
