@@ -42,30 +42,12 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
-//  afterAlways('functionalTest:aat') {
-//    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/Functional test report.html'
-//  }
-//
-//  afterAlways('functionalTest:preview') {
-//    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/Functional test report.html'
-//  }
-
-  afterAlways('functionalTest:preview') {
-    publishHTML target: [
-      reportDir            : "functional-output/",
-      reportFiles          : "mochawesome.html",
-      reportName           : "Preview Functional Tests",
-      alwaysLinkToLastBuild: true
-    ]
+  afterAlways('functionalTest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/Functional test report.html'
   }
 
-  afterAlways('functionalTest:aat') {
-    publishHTML target: [
-      reportDir            : "functional-output/",
-      reportFiles          : "mochawesome.html",
-      reportName           : "AAT Functional Tests",
-      alwaysLinkToLastBuild: true
-    ]
+  afterAlways('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/Functional test report.html'
   }
 
   // uncomment to connect backend PR
