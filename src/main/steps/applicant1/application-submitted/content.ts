@@ -12,19 +12,17 @@ import { currentStateFn } from '../../state-sequence';
 import { HUB_PAGE } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
-const en = (
-  {
-    isDivorce,
-    userCase,
-    partner,
-    referenceNumber,
-    isJointApplication,
-    webChat,
-    openingTimes,
-    telephoneNumber,
-  }: CommonContent,
-  feedbackLink: string
-) => ({
+const en = ({
+  isDivorce,
+  userCase,
+  partner,
+  referenceNumber,
+  isJointApplication,
+  webChat,
+  openingTimes,
+  telephoneNumber,
+  feedbackLink,
+}: CommonContent) => ({
   title: `Application ${
     userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
       ? 'saved'
@@ -145,19 +143,17 @@ const en = (
 });
 
 // @TODO Welsh
-const cy: typeof en = (
-  {
-    isDivorce,
-    userCase,
-    partner,
-    referenceNumber,
-    isJointApplication,
-    webChat,
-    telephoneNumber,
-    openingTimes,
-  }: CommonContent,
-  feedbackLink: string
-) => ({
+const cy: typeof en = ({
+  isDivorce,
+  userCase,
+  partner,
+  referenceNumber,
+  isJointApplication,
+  webChat,
+  telephoneNumber,
+  openingTimes,
+  feedbackLink,
+}: CommonContent) => ({
   title: `${
     userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
       ? 'Cais wedi’i gadw'
@@ -284,7 +280,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, language, isJointApplication, isDivorce, isApplicant2 } = content;
+  const { userCase, language, isJointApplication, isDivorce } = content;
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
@@ -304,11 +300,9 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
-  const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
-    isDivorce ? 'Divorce' : 'Civil'
-  }&party=${isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : 'app'}`;
+
   return {
-    ...languages[language]({ ...content, referenceNumber }, feedbackLink),
+    ...languages[language]({ ...content, referenceNumber }),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,
