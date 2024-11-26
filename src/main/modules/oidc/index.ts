@@ -105,7 +105,7 @@ export class OidcMiddleware {
         if (!existingUserCase) {
           if (await req.locals.api.hasDivorceOrDissolutionCaseForOtherDomain(userEmail, serviceType, logger)) {
             logger.info(
-              `UserID ${req.session.user.id} being redirected to nfdiv domain for other divorceOrDissolution type`
+              `UserID ${req.session.user.id} has a case with the other divorceOrDissolution type - redirecting to the correct domain`
             );
 
             return res.redirect(
