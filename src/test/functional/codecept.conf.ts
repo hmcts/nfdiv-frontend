@@ -30,10 +30,6 @@ export const config: CodeceptJS.Config = {
   },
   mocha: {
     reporterOptions: {
-      'mocha-junit-reporter': {
-        stdout: '-',
-        options: { mochaFile: './temp-reports/result.xml' },
-      },
       reportDir: './temp-reports',
       reportFilename: 'Functional test report',
       inlineAssets: true,
