@@ -44,7 +44,6 @@ export const config: CodeceptJS.Config = {
           reportDir: './functional-output',
           reportName: 'index',
           inlineAssets: true,
-          overwrite: false,
         },
       },
     },
