@@ -351,7 +351,7 @@ describe('CaseApi', () => {
     };
     mockApiClient.findExistingUserCases.mockResolvedValue(false);
     (getCaseApiClientMock as jest.Mock).mockReturnValue({
-      findUserInviteCases: jest.fn(() => userCase1),
+      findUserInviteCases: jest.fn(() => [userCase1]),
     });
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
@@ -406,7 +406,7 @@ describe('CaseApi', () => {
     };
     mockApiClient.findExistingUserCases.mockResolvedValue(false);
     (getCaseApiClientMock as jest.Mock).mockReturnValue({
-      findUserInviteCases: jest.fn(() => userCase1),
+      findUserInviteCases: jest.fn(() => [userCase1]),
     });
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
