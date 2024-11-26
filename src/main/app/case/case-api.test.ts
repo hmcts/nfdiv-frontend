@@ -324,13 +324,19 @@ describe('CaseApi', () => {
   });
 
   test('hasDivorceOrDissolutionCaseForOtherDomain should return true if service is divorce and finds dissolution case', async () => {
-    const userCase1 = { id: '1', state: State.Draft, case_data: { divorceOrDissolution: DivorceOrDissolution.DISSOLUTION } };
+    const userCase1 = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DISSOLUTION },
+    };
     mockApiClient.findExistingUserCases.mockResolvedValue([userCase1]);
     (getCaseApiClientMock as jest.Mock).mockReturnValue({
       findUserInviteCases: jest.fn(() => false),
     });
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
-      'user.email@gmail.com', DivorceOrDissolution.DIVORCE, {} as never
+      'user.email@gmail.com',
+      DivorceOrDissolution.DIVORCE,
+      {} as never
     );
 
     expect(result).toStrictEqual(true);
@@ -338,13 +344,19 @@ describe('CaseApi', () => {
   });
 
   test('hasDivorceOrDissolutionCaseForOtherDomain should return true if service is divorce and finds dissolution invite', async () => {
-    const userCase1 = { id: '1', state: State.Draft, case_data: { divorceOrDissolution: DivorceOrDissolution.DISSOLUTION } };
+    const userCase1 = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DISSOLUTION },
+    };
     mockApiClient.findExistingUserCases.mockResolvedValue(false);
     (getCaseApiClientMock as jest.Mock).mockReturnValue({
       findUserInviteCases: jest.fn(() => userCase1),
     });
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
-      'user.email@gmail.com', DivorceOrDissolution.DIVORCE, {} as never
+      'user.email@gmail.com',
+      DivorceOrDissolution.DIVORCE,
+      {} as never
     );
 
     expect(result).toStrictEqual(true);
@@ -357,7 +369,9 @@ describe('CaseApi', () => {
       findUserInviteCases: jest.fn(() => false),
     });
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
-      'user.email@gmail.com', DivorceOrDissolution.DIVORCE, {} as never
+      'user.email@gmail.com',
+      DivorceOrDissolution.DIVORCE,
+      {} as never
     );
 
     expect(result).toStrictEqual(false);
@@ -365,13 +379,19 @@ describe('CaseApi', () => {
   });
 
   test('hasDivorceOrDissolutionCaseForOtherDomain should return true if service is dissolution and finds divorce case', async () => {
-    const userCase1 = { id: '1', state: State.Draft, case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE } };
+    const userCase1 = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
     mockApiClient.findExistingUserCases.mockResolvedValue([userCase1]);
     (getCaseApiClientMock as jest.Mock).mockReturnValue({
       findUserInviteCases: jest.fn(() => false),
     });
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
-      'user.email@gmail.com', DivorceOrDissolution.DISSOLUTION, {} as never
+      'user.email@gmail.com',
+      DivorceOrDissolution.DISSOLUTION,
+      {} as never
     );
 
     expect(result).toStrictEqual(true);
@@ -379,13 +399,19 @@ describe('CaseApi', () => {
   });
 
   test('hasDivorceOrDissolutionCaseForOtherDomain should return true if service is dissolution and finds divorce invite', async () => {
-    const userCase1 = { id: '1', state: State.Draft, case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE } };
+    const userCase1 = {
+      id: '1',
+      state: State.Draft,
+      case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+    };
     mockApiClient.findExistingUserCases.mockResolvedValue(false);
     (getCaseApiClientMock as jest.Mock).mockReturnValue({
       findUserInviteCases: jest.fn(() => userCase1),
     });
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
-      'user.email@gmail.com', DivorceOrDissolution.DISSOLUTION, {} as never
+      'user.email@gmail.com',
+      DivorceOrDissolution.DISSOLUTION,
+      {} as never
     );
 
     expect(result).toStrictEqual(true);
@@ -398,7 +424,9 @@ describe('CaseApi', () => {
       findUserInviteCases: jest.fn(() => false),
     });
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
-      'user.email@gmail.com', DivorceOrDissolution.DISSOLUTION, {} as never
+      'user.email@gmail.com',
+      DivorceOrDissolution.DISSOLUTION,
+      {} as never
     );
 
     expect(result).toStrictEqual(false);

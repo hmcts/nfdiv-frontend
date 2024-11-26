@@ -111,12 +111,12 @@ export class CaseApi {
     logger: LoggerInstance
   ): Promise<boolean> {
     const alternativeServiceType =
-      serviceType === DivorceOrDissolution.DIVORCE
-        ? DivorceOrDissolution.DISSOLUTION
-        : DivorceOrDissolution.DIVORCE;
+      serviceType === DivorceOrDissolution.DIVORCE ? DivorceOrDissolution.DISSOLUTION : DivorceOrDissolution.DIVORCE;
 
     const { newInviteUserCase, existingUserCase } = await this.getExistingAndNewUserCases(
-      email, alternativeServiceType, logger
+      email,
+      alternativeServiceType,
+      logger
     );
 
     return !!newInviteUserCase || !!existingUserCase;
