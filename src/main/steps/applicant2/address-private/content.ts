@@ -56,9 +56,7 @@ export const form: FormContent = {
   },
 };
 
-export const generateContent
-  :
-  TranslationFn = content => {
+export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
   return {
     ...applicant1Content,

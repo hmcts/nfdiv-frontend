@@ -65,7 +65,6 @@ export const form: FormContent = {
       ],
       validator: value => isFieldFilledIn(value),
     },
-
   },
   submit: {
     text: l => l.continue,

@@ -21,8 +21,6 @@ describe('CitizenUpdateContactDetailsPostControllerApp1WithRefuge', () => {
     userCase = { id: '1234' };
   });
 
-
-
   it('should set applicant1InRefuge to NO if it is undefined', async () => {
     const body = {}; // Empty body as we're testing the default behavior
 
