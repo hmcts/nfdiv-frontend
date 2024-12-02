@@ -8,8 +8,8 @@ import { FormContent, FormFields } from '../form/Form';
 
 import { AccessCodePostController } from './AccessCodePostController';
 
-const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
-const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
+const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser', 'get');
+const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi', 'get');
 
 describe('AccessCodePostController', () => {
   beforeEach(() => {

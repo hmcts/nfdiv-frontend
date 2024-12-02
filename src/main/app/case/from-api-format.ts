@@ -48,14 +48,11 @@ const fields: FromApiConverters = {
     applicant1EnglishOrWelsh:
       data.applicant1LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
-  applicant2LanguagePreferenceWelsh: data => ({
-    applicant2EnglishOrWelsh:
-      data.applicant2LanguagePreferenceWelsh === YesOrNo.YES
-        ? LanguagePreference.Welsh
-        : data.applicant2LanguagePreferenceWelsh === null
-          ? data.applicant2LanguagePreferenceWelsh
-          : LanguagePreference.English,
-  }),
+  applicant2LanguagePreferenceWelsh: (data: Partial<CaseData>) => ({
+    ...(data.applicant2LanguagePreferenceWelsh === YesOrNo.YES
+      ? { applicant2EnglishOrWelsh: LanguagePreference.Welsh }
+      : { applicant2EnglishOrWelsh: LanguagePreference.English ?? undefined }),
+  }),  
   applicant1Address: data => formatAddress(data, 'applicant1'),
   applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
     applicant1AddressOverseas: applicant1AddressOverseas ?? YesOrNo.NO,
@@ -79,11 +76,17 @@ const fields: FromApiConverters = {
   applicant1ContactDetailsType: ({ applicant1ContactDetailsType }) => ({
     applicant1AddressPrivate: applicant1ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),
+  applicant1InRefuge: ({ applicant1InRefuge }) => ({
+    applicant1InRefuge: applicant1InRefuge ?? YesOrNo.NO,
+  }),
   applicant1WantsToHavePapersServedAnotherWay: data => ({
     iWantToHavePapersServedAnotherWay: checkboxConverter(data.applicant1WantsToHavePapersServedAnotherWay),
   }),
   applicant2ContactDetailsType: ({ applicant2ContactDetailsType }) => ({
     applicant2AddressPrivate: applicant2ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
+  }),
+  applicant2InRefuge: ({ applicant2InRefuge }) => ({
+    applicant2InRefuge: applicant2InRefuge ?? YesOrNo.NO,
   }),
   applicant2Address: data => formatAddress(data, 'applicant2'),
   applicant2AddressOverseas: ({ applicant2AddressOverseas }) => ({
@@ -118,7 +121,7 @@ const fields: FromApiConverters = {
       howToRespondApplication === HowToRespondApplication.DISPUTE_DIVORCE
         ? YesOrNo.YES
         : howToRespondApplication === null
-          ? howToRespondApplication
+          ? null
           : YesOrNo.NO,
   }),
   coApplicant1StatementOfTruth: data => ({

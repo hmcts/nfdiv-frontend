@@ -29,8 +29,13 @@ const en = ({ isDivorce, required, isJointApplication, partner }) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, required }) => ({
+const cy: typeof en = ({ isDivorce, required, isJointApplication, partner }) => ({
   title: `Ydych chi eisoes wedi gwneud cais am help i dalu ${isDivorce ? 'ffi eich ysgariad' : 'eich ffi'}?`,
+  ...(isJointApplication && {
+    line1: `Peidiwch ag ymateb ar ran eich ${partner}. Mae angen i chi'ch dau wneud cais am gymorth gyda ffioedd yn unigol oherwydd eich bod yn gwneud cais ar y cyd ${
+      isDivorce ? 'ar gyfer eich ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
+    }.`,
+  }),
   enterRefNo: 'Nodwch eich cyfeirnod Help i Dalu Ffioedd:',
   refReceivedWhenApplied: 'Fe gawsoch hwn pan wnaethoch gais am help i dalu ffioedd.',
   refExample: 'Er enghraifft, HWF-A1B-23C',

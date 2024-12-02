@@ -96,7 +96,7 @@ describe('CaseApi', () => {
     getSystemUserMock.mockClear();
   });
 
-  test('should return false for if there is no invite case', async () => {
+  test('should return null for if there is no invite case', async () => {
     getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
       id: '1234',
@@ -106,11 +106,11 @@ describe('CaseApi', () => {
       roles: ['caseworker'],
     });
     (getCaseApiClientMock as jest.Mock).mockReturnValue({
-      findUserInviteCases: jest.fn(() => false),
+      findUserInviteCases: jest.fn(() => null),
     });
     const results = await api.getNewInviteCase('user.email@gmail.com', serviceType, {} as never);
 
-    expect(results).toStrictEqual(false);
+    expect(results).toStrictEqual(null);
     getSystemUserMock.mockClear();
   });
 
@@ -138,7 +138,7 @@ describe('CaseApi', () => {
     getSystemUserMock.mockClear();
   });
 
-  test('getExistingAndNewUserCases should return existing case and false if invited case is an existing case', async () => {
+  test('getExistingAndNewUserCases should return existing case and null if invited case is an existing case', async () => {
     getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
       id: '1234',
@@ -156,7 +156,7 @@ describe('CaseApi', () => {
 
     expect(results).toStrictEqual({
       existingUserCase: { id: '1234', state: State.Draft, divorceOrDissolution: serviceType },
-      newInviteUserCase: false,
+      newInviteUserCase: null,
     });
     getSystemUserMock.mockClear();
   });
