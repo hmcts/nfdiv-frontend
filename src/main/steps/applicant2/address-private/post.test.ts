@@ -71,7 +71,7 @@ describe('CitizenUpdateContactDetailsPostControllerApp2WithRefuge', () => {
     );
   });
 
-  it('should not set applicant2InRefuge if applicant2AddressPrivate is not NO', async () => {
+  it('should set applicant2InRefuge to NO if applicant2AddressPrivate is not NO', async () => {
     const body = {}; // Empty body as we're testing the default behavior
 
     const req = mockRequest({
@@ -91,7 +91,7 @@ describe('CitizenUpdateContactDetailsPostControllerApp2WithRefuge', () => {
     // Check that no payload is sent for applicant2InRefuge
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      {}, // Empty payload since no defaulting was needed
+      { applicant2InRefuge: YesOrNo.NO },
       expect.any(String) // Replace with actual event name, if applicable
     );
   });
