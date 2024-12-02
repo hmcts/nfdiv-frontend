@@ -7,14 +7,6 @@ import { AppRequest } from '../app/controller/AppRequest';
 
 import { applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
-
-import {
-  getNextIncompleteStepUrl,
-  getNextStepUrl,
-  getUserSequence,
-  isApplicationReadyToSubmit,
-  isConditionalOrderReadyToSubmit,
-} from './index';
 import { respondentSequence } from './respondentSequence';
 import {
   APPLICANT_2,
@@ -31,6 +23,14 @@ import {
   UPLOAD_YOUR_DOCUMENTS,
   YOUR_DETAILS_URL,
 } from './urls';
+
+import {
+  getNextIncompleteStepUrl,
+  getNextStepUrl,
+  getUserSequence,
+  isApplicationReadyToSubmit,
+  isConditionalOrderReadyToSubmit,
+} from './index';
 
 describe('Steps', () => {
   describe('getNextStepUrl()', () => {
