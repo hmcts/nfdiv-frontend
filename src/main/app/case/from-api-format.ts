@@ -52,7 +52,7 @@ const fields: FromApiConverters = {
     ...(data.applicant2LanguagePreferenceWelsh === YesOrNo.YES
       ? { applicant2EnglishOrWelsh: LanguagePreference.Welsh }
       : { applicant2EnglishOrWelsh: LanguagePreference.English ?? undefined }),
-  }),  
+  }),
   applicant1Address: data => formatAddress(data, 'applicant1'),
   applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
     applicant1AddressOverseas: applicant1AddressOverseas ?? YesOrNo.NO,
