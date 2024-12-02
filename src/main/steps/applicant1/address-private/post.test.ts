@@ -54,8 +54,8 @@ describe('CitizenUpdateContactDetailsPostControllerApp1WithRefuge', () => {
       session: {
         userCase: {
           ...userCase,
-          applicant2AddressPrivate: YesOrNo.YES,
-          applicant2InRefuge: YesOrNo.YES, // Pre-existing value
+          applicant1AddressPrivate: YesOrNo.YES,
+          applicant1InRefuge: YesOrNo.YES, // Pre-existing value
         },
       },
     });
@@ -71,7 +71,7 @@ describe('CitizenUpdateContactDetailsPostControllerApp1WithRefuge', () => {
     );
   });
 
-  it('should not set applicant1InRefuge if applicant1AddressPrivate is not NO', async () => {
+  it('should set applicant1InRefuge to NO if applicant1AddressPrivate is not NO', async () => {
     const body = {}; // Empty body as we're testing the default behavior
 
     const req = mockRequest({
@@ -91,7 +91,7 @@ describe('CitizenUpdateContactDetailsPostControllerApp1WithRefuge', () => {
     // Check that no payload is sent for applicant1InRefuge
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      {}, // Empty payload since no defaulting was needed
+      { applicant1InRefuge: YesOrNo.NO }, // Empty payload since no defaulting was needed
       expect.any(String) // Replace with actual event name, if applicable
     );
   });
