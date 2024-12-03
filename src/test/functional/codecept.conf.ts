@@ -30,12 +30,6 @@ export const config: CodeceptJS.Config = {
   },
   mocha: {
     reporterOptions: {
-      Progress: {
-        stdout: './functional-output/mocha-multi.Progress.out',
-        options: {
-          verbose: true,
-        },
-      },
       'mocha-junit-reporter': {
         stdout: '-',
         options: {
