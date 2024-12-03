@@ -30,12 +30,28 @@ export const config: CodeceptJS.Config = {
   },
   mocha: {
     reporterOptions: {
-      reportDir: './temp-reports',
-      reportFilename: 'Functional test report',
-      inlineAssets: true,
-      overwrite: false,
-      html: true,
-      json: true,
+      Progress: {
+        stdout: './functional-output/mocha-multi.Progress.out',
+        options: {
+          verbose: true,
+        },
+      },
+      'mocha-junit-reporter': {
+        stdout: '-',
+        options: {
+          mochaFile: './functional-output/result.xml',
+        },
+      },
+      mochawesome: {
+        stdout: './functional-output/console.log',
+        options: {
+          reportDir: './temp-reports',
+          inlineAssets: true,
+          overwrite: false,
+          html: false,
+          json: true,
+        },
+      },
     },
   },
 };
