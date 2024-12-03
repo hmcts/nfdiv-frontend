@@ -19,4 +19,5 @@ export const defaultViewArgs = {
   htmlLang: expect.any(String),
   userEmail: expect.any(String),
   pageUrl: expect.any(String),
+  feedbackLink: expect.any(String),
 };
