@@ -49,7 +49,7 @@ describe('CitizenUpdateContactDetailsPostControllerApp1WithRefuge', () => {
       session: {
         userCase: {
           ...userCase,
-          applicant1AddressPrivate: YesOrNo.NO,
+          applicant1AddressPrivate: YesOrNo.YES,
           applicant1InRefuge: YesOrNo.YES,
         },
       },
