@@ -23,6 +23,10 @@ services:
     tokenKey: PCQ_TOKEN
   decreeNisi:
     url: DECREE_NISI_URL
+  nfdiv_divorce:
+    url: NFDIV_DIVORCE_URL
+  nfdiv_dissolution:
+    url: NFDIV_DISSOLUTION_URL
 port: PORT
 session:
   redis:

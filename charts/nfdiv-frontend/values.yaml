@@ -46,6 +46,8 @@ nodejs:
     CASE_DOCUMENT_MANAGEMENT_URL: 'http://ccd-case-document-am-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
     DECREE_NISI_URL: 'https://decree-nisi-aks.{{ .Values.global.environment }}.platform.hmcts.net'
+    NFDIV_DIVORCE_URL: 'https://nfdiv-apply-for-divorce.{{ .Values.global.environment }}.platform.hmcts.net'
+    NFDIV_DISSOLUTION_URL: 'https://nfdiv-end-civil-partnership.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_TOKEN_CACHE: false
 #disable autoscaling because it doesnt deploy AAT
   autoscaling:

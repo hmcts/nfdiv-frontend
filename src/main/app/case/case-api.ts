@@ -105,6 +105,23 @@ export class CaseApi {
     return false;
   }
 
+  public async hasDivorceOrDissolutionCaseForOtherDomain(
+    email: string,
+    serviceType: string,
+    logger: LoggerInstance
+  ): Promise<boolean> {
+    const alternativeServiceType =
+      serviceType === DivorceOrDissolution.DIVORCE ? DivorceOrDissolution.DISSOLUTION : DivorceOrDissolution.DIVORCE;
+
+    const { newInviteUserCase, existingUserCase } = await this.getExistingAndNewUserCases(
+      email,
+      alternativeServiceType,
+      logger
+    );
+
+    return !!newInviteUserCase || !!existingUserCase;
+  }
+
   private getPriorityUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
     if (userCases && userCases.length > 1) {
       const submittedUserCase = userCases.find(userCase => !preSubmittedStatePrioritySequence.includes(userCase.state));
