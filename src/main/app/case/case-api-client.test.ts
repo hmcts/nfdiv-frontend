@@ -220,7 +220,7 @@ describe('CaseApi', () => {
       },
     });
 
-    expect(await api.findExistingUserCases(CASE_TYPE, DivorceOrDissolution.DIVORCE)).toStrictEqual(null);
+    expect(await api.findExistingUserCases(CASE_TYPE, DivorceOrDissolution.DIVORCE)).toStrictEqual(false);
   });
 
   test('Should create a case', async () => {

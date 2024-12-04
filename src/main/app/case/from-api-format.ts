@@ -48,10 +48,14 @@ const fields: FromApiConverters = {
     applicant1EnglishOrWelsh:
       data.applicant1LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
-  applicant2LanguagePreferenceWelsh: (data: Partial<CaseData>) => ({
-    ...(data.applicant2LanguagePreferenceWelsh === YesOrNo.YES
-      ? { applicant2EnglishOrWelsh: LanguagePreference.Welsh }
-      : { applicant2EnglishOrWelsh: LanguagePreference.English ?? undefined }),
+  // @ts-ignore
+  applicant2LanguagePreferenceWelsh: data => ({
+    applicant2EnglishOrWelsh:
+      data.applicant2LanguagePreferenceWelsh === YesOrNo.YES
+        ? LanguagePreference.Welsh
+        : data.applicant2LanguagePreferenceWelsh === null
+          ? data.applicant2LanguagePreferenceWelsh
+          : LanguagePreference.English,
   }),
   applicant1Address: data => formatAddress(data, 'applicant1'),
   applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
@@ -116,12 +120,13 @@ const fields: FromApiConverters = {
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
   }),
+  // @ts-ignore
   howToRespondApplication: ({ howToRespondApplication }) => ({
     disputeApplication:
       howToRespondApplication === HowToRespondApplication.DISPUTE_DIVORCE
         ? YesOrNo.YES
         : howToRespondApplication === null
-          ? null
+          ? howToRespondApplication
           : YesOrNo.NO,
   }),
   coApplicant1StatementOfTruth: data => ({

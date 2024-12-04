@@ -54,7 +54,7 @@ export const form: FormContent = {
                 { label: l => l.yes, value: YesOrNo.YES },
                 { label: l => l.no, value: YesOrNo.NO },
               ],
-              value: YesOrNo.NO, // Default value
+              validator: value => isFieldFilledIn(value), // Only validate if this field is shown
             },
           },
         },
