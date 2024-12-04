@@ -87,7 +87,7 @@ describe('CitizenUpdateContactDetailsPostControllerApp1WithRefuge', () => {
       session: {
         userCase: {
           ...userCase,
-          applicant1AddressPrivate: YesOrNo.NO,
+          applicant1AddressPrivate: YesOrNo.YES,
           applicant1InRefuge: undefined,
         },
       },
@@ -97,7 +97,7 @@ describe('CitizenUpdateContactDetailsPostControllerApp1WithRefuge', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { someField: 'value', applicant1InRefuge: YesOrNo.NO },
+      { applicant1InRefuge: YesOrNo.NO },
       expect.any(String)
     );
   });
