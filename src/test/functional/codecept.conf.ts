@@ -30,6 +30,10 @@ export const config: CodeceptJS.Config = {
   },
   mocha: {
     reporterOptions: {
+      'codeceptjs-cli-reporter': {
+        stdout: '-',
+        options: { steps: true },
+      },
       'mocha-junit-reporter': {
         stdout: '-',
         options: {
