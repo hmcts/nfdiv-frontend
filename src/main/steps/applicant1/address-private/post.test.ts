@@ -4,7 +4,7 @@ import { CaseWithId } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 
-import CitizenUpdateContactDetailsPostControllerApp1WithRefuge from './post'; // Replace with actual path
+import CitizenUpdateContactDetailsPostControllerApp1WithRefuge from './post';
 
 describe('CitizenUpdateContactDetailsPostControllerApp1WithRefuge', () => {
   let userCase: Partial<CaseWithId>;
@@ -19,26 +19,23 @@ describe('CitizenUpdateContactDetailsPostControllerApp1WithRefuge', () => {
 
   beforeEach(() => {
     userCase = { id: '1234' };
+    controller = new CitizenUpdateContactDetailsPostControllerApp1WithRefuge(mockFormContent.fields);
   });
 
-  it('should set applicant1InRefuge to NO if it is undefined', async () => {
-    const body = {}; // Empty body as we're testing the default behavior
-
+  it('should set applicant1InRefuge to NO if it is undefined and applicant1AddressPrivate is NO', async () => {
     const req = mockRequest({
-      body,
+      body: {},
       session: {
         userCase: {
           ...userCase,
-          applicant1AddressPrivate: YesOrNo.NO, // Address is not private
-          applicant1InRefuge: undefined, // Undefined value
+          applicant1AddressPrivate: YesOrNo.NO,
+          applicant1InRefuge: undefined,
         },
       },
     });
     const res = mockResponse();
-    controller = new CitizenUpdateContactDetailsPostControllerApp1WithRefuge(mockFormContent.fields);
     await controller.post(req, res);
 
-    // Check the payload sent to the API
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
       { applicant1InRefuge: YesOrNo.NO },
@@ -46,53 +43,79 @@ describe('CitizenUpdateContactDetailsPostControllerApp1WithRefuge', () => {
     );
   });
 
-  it('should not overwrite applicant1InRefuge if it is already set', async () => {
-    const body = {}; // Empty body as we're testing the default behavior
-
+  it('should not set applicant1InRefuge if it is already defined', async () => {
     const req = mockRequest({
-      body,
+      body: {},
       session: {
         userCase: {
           ...userCase,
-          applicant1AddressPrivate: YesOrNo.YES,
-          applicant1InRefuge: YesOrNo.YES, // Pre-existing value
+          applicant1AddressPrivate: YesOrNo.NO,
+          applicant1InRefuge: YesOrNo.YES,
         },
       },
     });
     const res = mockResponse();
-    controller = new CitizenUpdateContactDetailsPostControllerApp1WithRefuge(mockFormContent.fields);
     await controller.post(req, res);
 
-    // Check that the payload retains the existing value
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, expect.any(String));
+  });
+
+  it('should set applicant1InRefuge to NO if applicant1AddressPrivate is undefined', async () => {
+    const req = mockRequest({
+      body: {},
+      session: {
+        userCase: {
+          ...userCase,
+          applicant1AddressPrivate: undefined,
+          applicant1InRefuge: undefined,
+        },
+      },
+    });
+    const res = mockResponse();
+    await controller.post(req, res);
+
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      {}, // Empty payload since not changing refuge field as already set
+      { applicant1InRefuge: YesOrNo.NO },
       expect.any(String)
     );
   });
 
-  it('should set applicant1InRefuge to NO if applicant1AddressPrivate is not NO', async () => {
-    const body = {}; // Empty body as we're testing the default behavior
-
+  it('should correctly merge formData and default values', async () => {
     const req = mockRequest({
-      body,
+      body: { someField: 'value' },
       session: {
         userCase: {
           ...userCase,
-          applicant1AddressPrivate: YesOrNo.YES, // Address is private
-          applicant1InRefuge: undefined, // Undefined value
+          applicant1AddressPrivate: YesOrNo.NO,
+          applicant1InRefuge: undefined,
         },
       },
     });
     const res = mockResponse();
-
     await controller.post(req, res);
 
-    // Check that no payload is sent for applicant1InRefuge
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { applicant1InRefuge: YesOrNo.NO }, // Empty payload since no defaulting was needed
-      expect.any(String) // Replace with actual event name, if applicable
+      { someField: 'value', applicant1InRefuge: YesOrNo.NO },
+      expect.any(String)
     );
+  });
+
+  it('should call the API even if no additional defaults are needed', async () => {
+    const req = mockRequest({
+      body: {},
+      session: {
+        userCase: {
+          ...userCase,
+          applicant1AddressPrivate: YesOrNo.YES,
+          applicant1InRefuge: YesOrNo.NO,
+        },
+      },
+    });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, expect.any(String));
   });
 });
