@@ -48,6 +48,7 @@ const fields: FromApiConverters = {
     applicant1EnglishOrWelsh:
       data.applicant1LanguagePreferenceWelsh === YesOrNo.YES ? LanguagePreference.Welsh : LanguagePreference.English,
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   applicant2LanguagePreferenceWelsh: data => ({
     applicant2EnglishOrWelsh:
@@ -120,6 +121,7 @@ const fields: FromApiConverters = {
   confirmReadPetition: data => ({
     confirmReadPetition: checkboxConverter(data.confirmReadPetition),
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   howToRespondApplication: ({ howToRespondApplication }) => ({
     disputeApplication:
