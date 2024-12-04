@@ -1,0 +1,64 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l" id="reviewYourResponseTitle">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+
+  {% set answerRows = [] %}
+    {% for question, text in stepQuestions %}
+      {% if (stepAnswers[question] and stepAnswers[question] != 'undefined' and stepAnswers[question] != 'null') or question === 'yourResponse' or (question === 'uploadedFiles' and cannotUploadDocs === 'Yes') %}
+
+        {% set answerText %}
+          {% if question === 'yourResponse' and not detailsText.length %}
+            {{ notProvided }}
+          {% elif question === 'uploadedFiles' %}
+            {% set filenames %}
+              {% for filename in uploadedDocsFilenames %}
+                {{ filename }}
+              {% endfor %}
+            {% endset %}
+            {{ filenames }}
+            {% if cannotUploadDocs === 'Yes' %}
+              {% if uploadedDocsFilenames.length %}
+                <br><br>
+              {% endif %}
+              {{ havingTroubleUploading }}
+            {% endif %}
+          {% else %}
+            {{ stepAnswers[question] }}
+          {% endif %}
+        {% endset %}
+
+        {% set answerRows = (answerRows.push({
+          key: {
+            html: text,
+            classes: 'govuk-!-width-two-thirds'
+          },
+          value: {
+              text: answerText | safe
+          },
+          actions: {
+            items: [
+              {
+                href: stepLinks[question],
+                text: change,
+                visuallyHiddenText: text
+              }
+            ]
+          }
+        }), answerRows) %}
+      {% endif %}
+    {% endfor %}
+
+    {% if answerRows.length %}
+      {{ govukSummaryList({
+        classes: 'govuk-!-margin-bottom-9',
+        rows: answerRows
+      }) }}
+    {% endif %}
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
+{% endblock %}

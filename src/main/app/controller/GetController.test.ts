@@ -34,6 +34,7 @@ describe('GetController', () => {
       text: 'english',
       userCase: req.session.userCase,
       userEmail,
+      isRequestForInformationAmendableState: false,
     });
   });
 
@@ -47,6 +48,7 @@ describe('GetController', () => {
     expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
       isAmendableStates: false,
+      isRequestForInformationAmendableState: false,
     });
   });
 
@@ -183,6 +185,7 @@ describe('GetController', () => {
         ...defaultViewArgs,
         isAmendableStates: true,
         userCase: req.session.userCase,
+        isRequestForInformationAmendableState: false,
       });
     });
 

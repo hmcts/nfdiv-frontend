@@ -345,6 +345,42 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
 
+  test('should show /information-requested.njk for state InformationRequested if request party is Applicant', () => {
+    const theState = displayState.at(State.InformationRequested);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, true);
+    expect(soleTemplate).toBe(HubTemplate.InformationRequested);
+  });
+
+  test('should show /information-requested-from-other.njk for state InformationRequested if request party is Other', () => {
+    const theState = displayState.at(State.InformationRequested);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, false);
+    expect(soleTemplate).toBe(HubTemplate.InformationRequestedFromOther);
+  });
+
+  test('should show /awaiting-requested-information.njk for state AwaitingRequestedInformation if request party is Applicant', () => {
+    const theState = displayState.at(State.AwaitingRequestedInformation);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, true);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingRequestedInformation);
+  });
+
+  test('should show /awaiting-requested-information-from-other.njk for state AwaitingRequestedInformation if request party is Other', () => {
+    const theState = displayState.at(State.AwaitingRequestedInformation);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, false);
+    expect(soleTemplate).toBe(HubTemplate.InformationRequestedFromOther);
+  });
+
+  test('should show /requested-information-submitted.njk for state RequestedInformationSubmitted if request party is Applicant', () => {
+    const theState = displayState.at(State.RequestedInformationSubmitted);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, true);
+    expect(soleTemplate).toBe(HubTemplate.RespondedToInformationRequest);
+  });
+
+  test('should show /requested-information-submitted-from-other.njk for state RequestedInformationSubmitted if request party is Other', () => {
+    const theState = displayState.at(State.RequestedInformationSubmitted);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, false);
+    expect(soleTemplate).toBe(HubTemplate.InformationRequestedFromOther);
+  });
+
   test('should show /awaiting-documents.njk for state AwaitingDocuments', () => {
     const theState = displayState.at(State.AwaitingDocuments);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
