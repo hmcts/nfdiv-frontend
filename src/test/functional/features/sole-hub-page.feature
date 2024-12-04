@@ -14,7 +14,7 @@ Feature: Sole hub page
     Then the page URL should be "/respondent/review-the-application"
     When I click "Sign out"
     And I login with applicant "1"
-    Then the page should include "Your application for divorce has been submitted and checked by court staff. It's been ‘served’ (sent) to you and your husband by email."
+    Then the page should include "Your application will be checked by court staff."
 
     Given I set the case state to "AosOverdue"
     When I click "Sign out"
