@@ -95,7 +95,7 @@ Feature: Sole final order
     And the page should include "A judge will review the application"
     And the page should include "You will then receive an email telling you what they decide."
 
-  Scenario: Applicant sole final order after respondent does not complete payment
+  Scenario: Applicant sole final order within a year after respondent does not complete payment
     Given I've already completed the form using the fixture "finalOrderCompleteCase"
     And I go to '/check-your-answers'
     And I click "I confirm"
@@ -126,7 +126,50 @@ Feature: Sole final order
     Then the page URL should be '/respondent/pay-your-final-order-fee'
     And I click "Pay and submit application"
 
+    When I go to "/logout"
+    And I login with applicant "1"
+    Then the page should include "You can now apply for a 'final order'."
+
+    When I click "Apply for a final order"
+    Then the page should include "Do you want to finalise your divorce?"
+    Given I select "I want to finalise my divorce"
+    When I click "Submit"
+    Then the page URL should be "/hub-page"
+    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
+    And the page should include "You should receive an email within 2 working days, confirming whether the final order has been granted."
+
+  @nightly
+  Scenario: Applicant sole final order after respondent does not complete payment when overdue
+    Given I've already completed the form using the fixture "finalOrderOverdueCompleteCase"
+    And I go to '/check-your-answers'
+    And I click "I confirm"
+    And I click "I believe that the facts stated in this application are true"
+    When I click "Continue to payment"
+    And I pay and submit the application
+    Then the page should include "Application saved"
+    Given a case worker issues the application
+    And I enter my valid case reference and valid access code
+    And I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
+    And I login with applicant "2"
+    Then the page should include "Your wife has still not applied for a 'final order'"
+    And the page URL should be "/respondent/hub-page"
+
+    And I click "Apply for a final order"
+    Then the page URL should be "/respondent/finalising-your-application"
+
+    Given I click "I want permission to apply for a final order, and to finalise my divorce"
+    And I select "Explain why you need to apply for the final order"
+    And I type "I want to apply myself"
+    When I click "Continue"
+    Then the page URL should be '/respondent/help-with-your-final-order-fee'
+    Then the page should include "Do you need help paying the fee for your final order?"
+    Given I select "I do not need help paying the fee"
+    When I click "Continue"
+    Then the page URL should be '/respondent/pay-your-final-order-fee'
+    And I click "Pay and submit application"
+
+    When I go to "/logout"
     And I login with applicant "1"
     Then the page should include "You can now apply for a 'final order'."
 
