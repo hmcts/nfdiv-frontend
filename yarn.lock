@@ -4074,21 +4074,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/config@npm:9.2.5":
-  version: 9.2.5
-  resolution: "@wdio/config@npm:9.2.5"
-  dependencies:
-    "@wdio/logger": 9.1.3
-    "@wdio/types": 9.2.2
-    "@wdio/utils": 9.2.5
-    decamelize: ^6.0.0
-    deepmerge-ts: ^7.0.3
-    glob: ^10.2.2
-    import-meta-resolve: ^4.0.0
-  checksum: 0a79a92a70a3de62faf424511cb91cb9ed4ab27bf3a329b0b80eac1afd63bd8cd7f03ffe9458b16cec69434adcf4f7d071874946158d414eb50bd18477a319aa
-  languageName: node
-  linkType: hard
-
 "@wdio/config@npm:9.2.8":
   version: 9.2.8
   resolution: "@wdio/config@npm:9.2.8"
@@ -4215,27 +4200,6 @@ __metadata:
     split2: ^4.2.0
     wait-port: ^1.0.4
   checksum: d592d482d40822b81d3bc92286dd406e5cf74b1e7e2b0f96efc92e82f39f6952f0131b57059c5fa4479aa2161aaa09ca6e1dc6fded0a3029495ef36c79e0f9ce
-  languageName: node
-  linkType: hard
-
-"@wdio/utils@npm:9.2.5":
-  version: 9.2.5
-  resolution: "@wdio/utils@npm:9.2.5"
-  dependencies:
-    "@puppeteer/browsers": ^2.2.0
-    "@wdio/logger": 9.1.3
-    "@wdio/types": 9.2.2
-    decamelize: ^6.0.0
-    deepmerge-ts: ^7.0.3
-    edgedriver: ^5.6.1
-    geckodriver: ^4.3.3
-    get-port: ^7.0.0
-    import-meta-resolve: ^4.0.0
-    locate-app: ^2.2.24
-    safaridriver: ^0.1.2
-    split2: ^4.2.0
-    wait-port: ^1.1.0
-  checksum: d72a57cf15e5029d745f785c7512155bd4598aedfd5776b36646a9910c64d81c89be20cd6116e0c34b0effee49d923478bf32c9067828055e5044a8741ac5623
   languageName: node
   linkType: hard
 
