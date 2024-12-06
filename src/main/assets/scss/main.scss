@@ -1,6 +1,4 @@
-@import './_ie8';
 @import 'govuk-frontend';
-@import '~@hmcts/frontend/all';
 
 @import './banner';
 @import './header';
@@ -13,6 +11,7 @@
 @import './webchat';
 @import './review-pages';
 @import './timeout-modal';
+@import './progress-bar';
 
 .hmcts-button-link,
 .uppy-FileInput-btn {
@@ -43,4 +42,13 @@ section {
 
 .red-text {
   color: govuk-colour('red');
+}
+
+.govuk-panel--confirmation {
+  background-color: #00703C; }
+
+.govuk-panel--outstanding {
+  background-color: #F3F2F1;
+  text-align: left;
+  padding: 20px;
 }

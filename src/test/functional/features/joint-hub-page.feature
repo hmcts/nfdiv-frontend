@@ -12,7 +12,7 @@ Feature: Joint hub page
   Scenario: Joint hub applicant 1 and applicant 2 pages
     Given I set the case state to "Holding"
     And I go to "/"
-    Then the page should include "Your application for divorce has been submitted and checked by court staff."
+    Then the page should include "Your joint application will be checked by court staff"
     When I click "Confirm receipt"
     Then the page should include "You have confirmed receipt of the divorce application"
     And the page should include "The next step is to apply for a 'conditional order'."
@@ -20,7 +20,7 @@ Feature: Joint hub page
 
     Given I click "Sign out"
     And I login with applicant "1"
-    Then the page should include "Your application for divorce has been submitted and checked by court staff."
+    Then the page should include "Your joint application will be checked by court staff."
     When I click "Confirm receipt"
     Then the page should include "You have confirmed receipt of the divorce application"
     And the page should include "The next step is to apply for a 'conditional order'."

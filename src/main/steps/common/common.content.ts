@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
@@ -89,7 +91,7 @@ export const en = {
   telephoneNumber: '0300 303 0642',
   openingTimesHeading: 'Opening times (webchat and telephone)',
   openingTimes: 'Monday to Friday, 10am to 6pm',
-  closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
+  closingTimes: 'Closed on bank holidays',
   cookiesBanner: {
     cookiesHeading: 'Cookies on',
     cookiesLine1: 'We use some essential cookies to make this service work.',
@@ -273,6 +275,13 @@ const cy: typeof en = {
       part3: ' unrhyw adeg.',
     },
   },
+  serviceAddress: {
+    line1: 'Canolfan Gwasanaethau Llysoedd a Thribiwnlysoedd',
+    line2: 'Gwasanaeth Ysgariadau a Diddymiadau GLlTEF',
+    poBox: 'Blwch Post 13226',
+    town: 'Harlow',
+    postcode: 'CM20 9UG',
+  },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'contactdivorce@justice.gov.uk',
   contactWebForm: 'https://contact-us-about-a-divorce-application-cy.form.service.justice.gov.uk/',
@@ -323,6 +332,10 @@ export const generateCommonContent = ({
     userCase?.dateFinalOrderSubmitted === undefined;
   const isPendingHearingOutcomeFoRequested =
     userCase && userCase?.state === State.PendingHearingOutcome && userCase?.dateFinalOrderSubmitted !== undefined;
+  const feedbackParty = isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : isApplicant2 ? 'resp' : 'app';
+  const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
+    isDivorce ? 'Divorce' : 'Civil'
+  }&party=${feedbackParty}`;
 
   return {
     ...commonTranslations,
@@ -331,6 +344,7 @@ export const generateCommonContent = ({
     language,
     isDivorce,
     isApplicant2,
+    feedbackLink,
     userCase,
     userEmail,
     isJointApplication,
@@ -349,6 +363,7 @@ export type CommonContent = typeof en & {
   serviceName: string;
   isDivorce: boolean;
   isApplicant2: boolean;
+  feedbackLink: string;
   userCase: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;

@@ -1,3 +1,16 @@
-{% for property, line in aosAwaitingOrDrafted %}
-  <p class="govuk-body">{{ line }}</p>
-{% endfor %}
+<p class="govuk-body">{{ aosAwaitingOrDrafted.line1 }}</p>
+{% if isRespondentOverseas %}
+  {% if isRespondentRepresented %}
+    <p class="govuk-body">{{ aosAwaitingOrDrafted.line7 }}</p>
+  {% else %}
+    <p class="govuk-body">{{ aosAwaitingOrDrafted.line2 }}</p>
+  {% endif %}
+  <p class="govuk-body">{{ aosAwaitingOrDrafted.line5 }}</p>
+  <p class="govuk-body">{{ aosAwaitingOrDrafted.line6 }}</p>
+{% elif isRespondentRepresented %}
+  <p class="govuk-body">{{ aosAwaitingOrDrafted.line7 }}</p>
+{% else %}
+  <p class="govuk-body">{{ aosAwaitingOrDrafted.line2 }}</p>
+  <p class="govuk-body">{{ aosAwaitingOrDrafted.line3 }}</p>
+  <p class="govuk-body">{{ aosAwaitingOrDrafted.line4 }}</p>
+{% endif %}
