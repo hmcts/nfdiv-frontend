@@ -1,5 +1,6 @@
 import { existingOrNew } from '../../steps/existing-application/content';
 import { Case, CaseDate, CaseWithId } from '../case/case';
+import { YesOrNo } from '../case/definition';
 import { AnyObject } from '../controller/PostController';
 
 import { setupCheckboxParser } from './parser';
@@ -106,6 +107,13 @@ export class Form {
 
   public isComplete(body: Partial<Case>): boolean {
     for (const field of this.getFieldNames().values()) {
+      // Skip refuge flags if AddressPrivate is "No"
+      if (
+        (field === 'applicant1InRefuge' && body['applicant1AddressPrivate'] === YesOrNo.NO) ||
+        (field === 'applicant2InRefuge' && body['applicant2AddressPrivate'] === YesOrNo.NO)
+      ) {
+        continue; // Skip this field
+      }
       if (body[field] === undefined || body[field] === null) {
         return false;
       }
