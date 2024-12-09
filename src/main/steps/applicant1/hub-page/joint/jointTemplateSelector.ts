@@ -10,6 +10,7 @@ export const getJointHubTemplate = (
     hasApplicantAppliedForConditionalOrder = false,
     isWithinSwitchToSoleFoIntentionNotificationPeriod = false,
     hasSwitchToSoleFoIntentionNotificationPeriodExpired = false,
+    isApplicantAbleToRespondToRequestForInformation = false,
   } = {}
 ): string | undefined => {
   switch (displayState.state()) {
@@ -61,6 +62,21 @@ export const getJointHubTemplate = (
     case State.PendingHearingOutcome:
     case State.PendingHearingDate: {
       return HubTemplate.PendingHearingOutcome;
+    }
+    case State.InformationRequested: {
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.InformationRequested
+        : HubTemplate.InformationRequestedFromPartnerOrOther;
+    }
+    case State.AwaitingRequestedInformation: {
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.AwaitingRequestedInformation
+        : HubTemplate.InformationRequestedFromPartnerOrOther;
+    }
+    case State.RequestedInformationSubmitted: {
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.RespondedToInformationRequest
+        : HubTemplate.InformationRequestedFromPartnerOrOther;
     }
     case State.AwaitingDocuments:
       return HubTemplate.AwaitingDocuments;

@@ -1,0 +1,49 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  {{ govukErrorSummary({
+    titleText: errorSummaryHeading,
+    classes: "hidden",
+    attributes: {
+      id: "uploadErrorSummary"
+    },
+    errorList: [
+      {
+        text: errors.app1RfiDraftResponseUploadedFiles.errorUploading,
+        href: "#upload",
+        attributes: {
+          id: "errorGeneric",
+          class: "hidden"
+        }
+      },
+      {
+        text: errors.app1RfiDraftResponseUploadedFiles.fileSizeTooBig,
+        href: "#upload",
+        attributes: {
+          id: "errorFileSizeTooBig",
+          class: "hidden"
+        }
+      },
+      {
+        text: errors.app1RfiDraftResponseUploadedFiles.fileWrongFormat,
+        href: "#upload",
+        attributes: {
+          id: "errorFileWrongFormat",
+          class: "hidden"
+        }
+      }
+    ]
+  }) }}
+
+  <h1 class="govuk-heading-l" id="respondToCourtsFeedbackTitle">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+
+  <h3 id="responseHeading" class="govuk-heading-m">{{ responseHeading }}</h3>
+
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
+{% endblock %}
