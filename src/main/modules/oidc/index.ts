@@ -4,7 +4,7 @@ import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, State } from '../../app/case/definition';
+import { ApplicationType, DivorceOrDissolution, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils';
 import {
@@ -81,11 +81,13 @@ export class OidcMiddleware {
 
   private async findExistingAndNewUserCases(req: AppRequest, res: Response, next: NextFunction): Promise<void> {
     const logger = Logger.getLogger('find-existing-and-new-user-cases');
+    const userEmail = req.session.user.email;
+    const serviceType = res.locals.serviceType;
 
     try {
       const { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
-        req.session.user.email,
-        res.locals.serviceType,
+        userEmail,
+        serviceType,
         req.locals.logger
       );
 
@@ -106,6 +108,17 @@ export class OidcMiddleware {
         }
       } else {
         if (!existingUserCase) {
+          if (await req.locals.api.hasDivorceOrDissolutionCaseForOtherDomain(userEmail, serviceType, logger)) {
+            logger.info(
+              `UserID ${req.session.user.id} is being redirected to domain for the other divorceOrDissolution type`
+            );
+
+            return res.redirect(
+              (res.locals.serviceType === DivorceOrDissolution.DIVORCE
+                ? config.get('services.nfdiv_dissolution.url')
+                : config.get('services.nfdiv_divorce.url')) as string
+            );
+          }
           if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
             logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
             const token = encodeURIComponent(req.session.user.accessToken);
