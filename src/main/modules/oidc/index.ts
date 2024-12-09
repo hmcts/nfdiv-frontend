@@ -40,7 +40,10 @@ export class OidcMiddleware {
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (req.session?.user) {
-          if (req.session.user.roles.includes('caseworker')) {
+          if (
+            req.session.user.roles.includes('caseworker') ||
+            req.session.user.roles.includes('caseworker-divorce-solicitor')
+          ) {
             const redirectUrl = app.locals.developmentMode
               ? 'https://manage-case.aat.platform.hmcts.net/'
               : 'https://manage-case.platform.hmcts.net/';
