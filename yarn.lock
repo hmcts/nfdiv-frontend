@@ -6053,6 +6053,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"charenc@npm:0.0.2":
+  version: 0.0.2
+  resolution: "charenc@npm:0.0.2"
+  checksum: 81dcadbe57e861d527faf6dd3855dc857395a1c4d6781f4847288ab23cffb7b3ee80d57c15bba7252ffe3e5e8019db767757ee7975663ad2ca0939bb8fcaf2e5
+  languageName: node
+  linkType: hard
+
 "check-error@npm:^2.1.1":
   version: 2.1.1
   resolution: "check-error@npm:2.1.1"
@@ -7025,6 +7032,13 @@ __metadata:
     shebang-command: ^2.0.0
     which: ^2.0.1
   checksum: 8d306efacaf6f3f60e0224c287664093fa9185680b2d195852ba9a863f85d02dcc737094c6e512175f8ee0161f9b87c73c6826034c2422e39de7d6569cf4503b
+  languageName: node
+  linkType: hard
+
+"crypt@npm:0.0.2":
+  version: 0.0.2
+  resolution: "crypt@npm:0.0.2"
+  checksum: baf4c7bbe05df656ec230018af8cf7dbe8c14b36b98726939cef008d473f6fe7a4fad906cfea4062c93af516f1550a3f43ceb4d6615329612c6511378ed9fe34
   languageName: node
   linkType: hard
 
@@ -8757,7 +8771,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-nunjucks@npm:3.1.2":
+"express-nunjucks@npm:^3.1.2":
   version: 3.1.2
   resolution: "express-nunjucks@npm:3.1.2"
   dependencies:
@@ -8785,9 +8799,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:4.21.1":
-  version: 4.21.1
-  resolution: "express@npm:4.21.1"
+"express@npm:^4.21.2":
+  version: 4.21.2
+  resolution: "express@npm:4.21.2"
   dependencies:
     accepts: ~1.3.8
     array-flatten: 1.1.1
@@ -8808,7 +8822,7 @@ __metadata:
     methods: ~1.1.2
     on-finished: 2.4.1
     parseurl: ~1.3.3
-    path-to-regexp: 0.1.10
+    path-to-regexp: 0.1.12
     proxy-addr: ~2.0.7
     qs: 6.13.0
     range-parser: ~1.2.1
@@ -8820,7 +8834,7 @@ __metadata:
     type-is: ~1.6.18
     utils-merge: 1.0.1
     vary: ~1.1.2
-  checksum: 5ac2b26d8aeddda5564fc0907227d29c100f90c0ead2ead9d474dc5108e8fb306c2de2083c4e3ba326e0906466f2b73417dbac16961f4075ff9f03785fd940fe
+  checksum: 3aef1d355622732e20b8f3a7c112d4391d44e2131f4f449e1f273a309752a41abfad714e881f177645517cbe29b3ccdc10b35e7e25c13506114244a5b72f549d
   languageName: node
   linkType: hard
 
@@ -10627,6 +10641,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-buffer@npm:~1.1.6":
+  version: 1.1.6
+  resolution: "is-buffer@npm:1.1.6"
+  checksum: 4a186d995d8bbf9153b4bd9ff9fd04ae75068fe695d29025d25e592d9488911eeece84eefbd8fa41b8ddcc0711058a71d4c466dcf6f1f6e1d83830052d8ca707
+  languageName: node
+  linkType: hard
+
 "is-callable@npm:^1.1.3, is-callable@npm:^1.1.4, is-callable@npm:^1.2.7":
   version: 1.2.7
   resolution: "is-callable@npm:1.2.7"
@@ -10880,6 +10901,16 @@ __metadata:
   version: 4.0.1
   resolution: "is-stream@npm:4.0.1"
   checksum: cbea3f1fc271b21ceb228819d0c12a0965a02b57f39423925f99530b4eb86935235f258f06310b67cd02b2d10b49e9a0998f5ececf110ab7d3760bae4055ad23
+  languageName: node
+  linkType: hard
+
+"is-string@npm:^1.0.4":
+  version: 1.1.0
+  resolution: "is-string@npm:1.1.0"
+  dependencies:
+    call-bind: ^1.0.7
+    has-tostringtag: ^1.0.2
+  checksum: 1e330e9fe0984cdf37371f704f9babf9b56d50b1e9d2e6c19b8b78443be3e9771c33309b4aadde9ba2a8870769374538681e01f54113a335dd393c80a72e7d11
   languageName: node
   linkType: hard
 
@@ -12395,7 +12426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.once@npm:^4.0.0":
+"lodash.once@npm:^4.0.0, lodash.once@npm:^4.1.1":
   version: 4.1.1
   resolution: "lodash.once@npm:4.1.1"
   checksum: d768fa9f9b4e1dc6453be99b753906f58990e0c45e7b2ca5a3b40a33111e5d17f6edf2f768786e2716af90a8e78f8f91431ab8435f761fef00f9b0c256f6d245
@@ -12716,6 +12747,17 @@ __metadata:
   dependencies:
     "@arr/every": ^1.0.0
   checksum: 14617343d9f77a5f2a2e9e5213b1d6c1c7b3efda10758d1502e632edf63bf77f260e3f1aa2afdc97dd7e259fae7845a1b07719cd4680d2f1d23b2aa45a393934
+  languageName: node
+  linkType: hard
+
+"md5@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "md5@npm:2.3.0"
+  dependencies:
+    charenc: 0.0.2
+    crypt: 0.0.2
+    is-buffer: ~1.1.6
+  checksum: a63cacf4018dc9dee08c36e6f924a64ced735b37826116c905717c41cebeb41a522f7a526ba6ad578f9c80f02cb365033ccd67fe186ffbcc1a1faeb75daa9b6e
   languageName: node
   linkType: hard
 
@@ -13413,12 +13455,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mkdirp@npm:^3.0.1":
+"mkdirp@npm:^3.0.0, mkdirp@npm:^3.0.1":
   version: 3.0.1
   resolution: "mkdirp@npm:3.0.1"
   bin:
     mkdirp: dist/cjs/src/bin.js
   checksum: 972deb188e8fb55547f1e58d66bd6b4a3623bf0c7137802582602d73e6480c1c2268dcbafbfb1be466e00cc7e56ac514d7fd9334b7cf33e3e2ab547c16f83a8d
+  languageName: node
+  linkType: hard
+
+"mocha-junit-reporter@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "mocha-junit-reporter@npm:2.2.1"
+  dependencies:
+    debug: ^4.3.4
+    md5: ^2.3.0
+    mkdirp: ^3.0.0
+    strip-ansi: ^6.0.1
+    xml: ^1.0.1
+  peerDependencies:
+    mocha: ">=2.2.5"
+  checksum: 752c30b1ef7c99eff6d82104f1b7a8179a21f3afefa3df38edb4e2478986a7c74d28b6c4525da5109cba8a4bf31cf697f4cff7584a3784fb9fc40be804fd7351
+  languageName: node
+  linkType: hard
+
+"mocha-multi@npm:^1.1.7":
+  version: 1.1.7
+  resolution: "mocha-multi@npm:1.1.7"
+  dependencies:
+    debug: ^4.1.1
+    is-string: ^1.0.4
+    lodash.once: ^4.1.1
+    mkdirp: ^1.0.4
+    object-assign: ^4.1.1
+  peerDependencies:
+    mocha: ">=2.2.0 <7 || >=9"
+  checksum: 1718fccd9178ac38fad0fc63de436b3ece9e688818a1fe3a44bdea9ac26b4a3f6e731e35f19857fd6c769b01bb57b30f4f095902189031a372f1a556a96a1cbc
   languageName: node
   linkType: hard
 
@@ -13826,9 +13898,9 @@ __metadata:
     eslint-plugin-import: 2.29.1
     eslint-plugin-jest: 28.9.0
     eslint-plugin-prettier: 5.2.1
-    express: 4.21.1
+    express: ^4.21.2
     express-http-proxy: 2.1.1
-    express-nunjucks: 3.1.2
+    express-nunjucks: ^3.1.2
     express-session: 1.18.1
     form-data: 4.0.1
     glob: 11.0.0
@@ -13846,6 +13918,8 @@ __metadata:
     lodash: 4.17.21
     mini-css-extract-plugin: 2.9.2
     mocha: ^10.5.2
+    mocha-junit-reporter: ^2.2.1
+    mocha-multi: ^1.1.7
     mochawesome: ^7.1.3
     mochawesome-merge: ^4.3.0
     mochawesome-report-generator: ^6.2.0
@@ -14951,10 +15025,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-to-regexp@npm:0.1.10":
-  version: 0.1.10
-  resolution: "path-to-regexp@npm:0.1.10"
-  checksum: ab7a3b7a0b914476d44030340b0a65d69851af2a0f33427df1476100ccb87d409c39e2182837a96b98fb38c4ef2ba6b87bdad62bb70a2c153876b8061760583c
+"path-to-regexp@npm:0.1.12":
+  version: 0.1.12
+  resolution: "path-to-regexp@npm:0.1.12"
+  checksum: ab237858bee7b25ecd885189f175ab5b5161e7b712b360d44f5c4516b8d271da3e4bf7bf0a7b9153ecb04c7d90ce8ff5158614e1208819cf62bac2b08452722e
   languageName: node
   linkType: hard
 
