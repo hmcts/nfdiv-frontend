@@ -170,6 +170,17 @@ const fields: FromApiConverters = {
   dateApplicant1DeclaredIntentionToSwitchToSoleFo: 'dateApplicant1DeclaredIntentionToSwitchToSoleFo',
   doesApplicant2IntendToSwitchToSole: 'doesApplicant2IntendToSwitchToSole',
   dateApplicant2DeclaredIntentionToSwitchToSoleFo: 'dateApplicant2DeclaredIntentionToSwitchToSoleFo',
+  app1RfiDraftResponseDocs: uploadedFilesFromApiApplicant1,
+  app1RfiDraftResponseDetails: 'app1RfiDraftResponseDetails',
+  app1RfiDraftResponseCannotUploadDocs: data => ({
+    app1RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app1RfiDraftResponseCannotUploadDocs),
+  }),
+  app2RfiDraftResponseDocs: uploadedFilesFromApiApplicant2,
+  app2RfiDraftResponseDetails: 'app2RfiDraftResponseDetails',
+  app2RfiDraftResponseCannotUploadDocs: data => ({
+    app2RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app2RfiDraftResponseCannotUploadDocs),
+  }),
+  requestsForInformation: 'requestsForInformation',
 };
 
 const fromApiDate = date => {

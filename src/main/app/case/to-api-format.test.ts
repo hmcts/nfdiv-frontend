@@ -81,6 +81,12 @@ describe('to-api-format', () => {
     coClarificationResponses: 'test',
     applicant1AddressOverseas: YesOrNo.NO,
     applicant2AddressOverseas: YesOrNo.NO,
+    app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+    app1RfiDraftResponseDetails: 'test',
+    app1RfiDraftResponseUploadedFiles: [],
+    app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+    app2RfiDraftResponseDetails: 'test',
+    app2RfiDraftResponseUploadedFiles: [],
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -201,6 +207,10 @@ describe('to-api-format', () => {
       coApplicant2StatementOfTruth: YesOrNo.YES,
       coClarificationResponses: [{ id: '1', value: 'test' }],
       coCannotUploadClarificationDocuments: YesOrNo.YES,
+      app1RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
+      app1RfiDraftResponseDetails: 'test',
+      app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
+      app2RfiDraftResponseDetails: 'test',
     });
   });
 

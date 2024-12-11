@@ -9,8 +9,9 @@ export const getSoleHubTemplate = (
   displayState: StateSequence,
   userCase: Partial<CaseWithId>,
   isSuccessfullyServedByBailiff: boolean,
-  isAlternativeService: boolean
-): string => {
+  isAlternativeService: boolean,
+  isApplicantAbleToRespondToRequestForInformation: boolean = false
+): string | undefined => {
   const isServiceApplicationGranted =
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
   const isAosOverdue =
@@ -100,6 +101,18 @@ export const getSoleHubTemplate = (
     case State.PendingHearingOutcome:
     case State.PendingHearingDate:
       return HubTemplate.PendingHearingOutcome;
+    case State.InformationRequested:
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.InformationRequested
+        : HubTemplate.InformationRequestedFromOther;
+    case State.AwaitingRequestedInformation:
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.AwaitingRequestedInformation
+        : HubTemplate.InformationRequestedFromOther;
+    case State.RequestedInformationSubmitted:
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.RespondedToInformationRequest
+        : HubTemplate.InformationRequestedFromOther;
     case State.AwaitingHWFDecision:
       return userCase.applicant1CannotUpload === Checkbox.Checked
         ? HubTemplate.AwaitingDocuments

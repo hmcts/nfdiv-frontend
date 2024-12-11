@@ -20,6 +20,7 @@ import {
   ListValue,
   OrderSummary,
   Payment,
+  RequestForInformation,
   State,
   YesOrNo,
 } from './definition';
@@ -171,7 +172,14 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1CanIntendToSwitchToSoleFo: 'applicant1CanIntendToSwitchToSoleFo',
   applicant2CanIntendToSwitchToSoleFo: 'applicant2CanIntendToSwitchToSoleFo',
   isFinalOrderOverdue: 'isFinalOrderOverdue',
+  app1RfiDraftResponseDocs: 'app1RfiDraftResponseDocs',
+  app2RfiDraftResponseDocs: 'app2RfiDraftResponseDocs',
   citizenPaymentCallbackUrl: 'citizenPaymentCallbackUrl',
+  requestForInformationSoleParties: 'requestForInformationSoleParties',
+  requestForInformationJointParties: 'requestForInformationJointParties',
+  requestForInformationDetails: 'requestForInformationDetails',
+  requestForInformationName: 'requestForInformationName',
+  requestForInformationEmailAddress: 'requestForInformationEmailAddress',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -404,6 +412,21 @@ export interface Case {
   applicant1CanIntendToSwitchToSoleFo: YesOrNo;
   applicant2CanIntendToSwitchToSoleFo: YesOrNo;
   isFinalOrderOverdue: YesOrNo;
+  requestsForInformation?: ListValue<Partial<RequestForInformation> | null>[];
+  requestForInformation?: RequestForInformation;
+  requestForInformationSoleParties?: string;
+  requestForInformationJointParties?: string;
+  requestForInformationDetails?: string;
+  requestForInformationName?: string;
+  requestForInformationEmailAddress?: string;
+  app1RfiDraftResponseDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  app1RfiDraftResponseUploadedFiles?: UploadedFile[];
+  app1RfiDraftResponseCannotUploadDocs?: Checkbox;
+  app1RfiDraftResponseDetails?: string;
+  app2RfiDraftResponseDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  app2RfiDraftResponseUploadedFiles?: UploadedFile[];
+  app2RfiDraftResponseCannotUploadDocs?: Checkbox;
+  app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
 }
 

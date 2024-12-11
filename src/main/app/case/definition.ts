@@ -2,6 +2,8 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2023-09-13 16:10:38.
 
+import { Checkbox } from './case';
+
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
@@ -949,6 +951,18 @@ export interface CaseData {
   documentsUploaded: ListValue<DivorceDocument>[];
   confidentialDocumentsUploaded: ListValue<ConfidentialDivorceDocument>[];
   confidentialDocumentsGenerated: ListValue<ConfidentialDivorceDocument>[];
+  requestsForInformation: ListValue<RequestForInformation>[];
+  requestForInformationSoleParties: string;
+  requestForInformationJointParties: string;
+  requestForInformationDetails: string;
+  requestForInformationName: string;
+  requestForInformationEmailAddress: string;
+  app1RfiDraftResponseCannotUploadDocs: YesOrNo;
+  app1RfiDraftResponseDocs: ListValue<DivorceDocument>[];
+  app1RfiDraftResponseDetails: string;
+  app2RfiDraftResponseCannotUploadDocs: YesOrNo;
+  app2RfiDraftResponseDocs: ListValue<DivorceDocument>[];
+  app2RfiDraftResponseDetails: string;
   documentsGenerated: ListValue<DivorceDocument>[];
   scannedDocuments: ListValue<ScannedDocument>[];
   answerReceivedSupportingDocuments: ListValue<DivorceDocument>[];
@@ -1031,6 +1045,28 @@ export interface CaseDocuments {
   documentsUploadedOnConfirmService: ListValue<DivorceDocument>[];
   typeOfDocumentAttached: OfflineDocumentReceived;
   scannedSubtypeReceived: ScannedDocumentSubtypes;
+}
+
+export interface RequestForInformationResponse {
+  requestForInformationResponseCannotUploadDocs: YesOrNo;
+  requestForInformationResponseDateTime: DateAsString;
+}
+export interface RequestForInformation {
+  requestForInformationJointParties: string;
+  requestForInformationSoleParties: string;
+  requestForInformationResponses: ListValue<RequestForInformationResponse>[];
+}
+
+export interface RequestForInformationResponseApplicant1 {
+  app1RfiDraftResponseDetails: string;
+  app1RfiDraftResponseDocs: ListValue<DivorceDocument>[];
+  app1RfiDraftResponseCannotUploadDocs: Checkbox;
+}
+
+export interface RequestForInformationResponseApplicant2 {
+  app2RfiDraftResponseDetails: string;
+  app2RfiDraftResponseDocs: ListValue<DivorceDocument>[];
+  app2RfiDraftResponseCannotUploadDocs: Checkbox;
 }
 
 export interface CaseInvite {
@@ -2017,6 +2053,7 @@ export const enum State {
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   AwaitingHWFEvidence = 'AwaitingHWFEvidence',
   AwaitingHWFPartPayment = 'AwaitingHWFPartPayment',
+  AwaitingRequestedInformation = 'AwaitingRequestedInformation',
   ConditionalOrderPending = 'ConditionalOrderPending',
   AwaitingJointFinalOrder = 'AwaitingJointFinalOrder',
   AwaitingJudgeClarification = 'AwaitingJudgeClarification',
@@ -2038,6 +2075,7 @@ export const enum State {
   FinalOrderRequested = 'FinalOrderRequested',
   GeneralApplicationReceived = 'GeneralApplicationReceived',
   GeneralConsiderationComplete = 'GeneralConsiderationComplete',
+  InformationRequested = 'InformationRequested',
   IssuedToBailiff = 'IssuedToBailiff',
   JSAwaitingLA = 'JSAwaitingLA',
   LAReview = 'LAReview',
@@ -2047,6 +2085,7 @@ export const enum State {
   PendingHearingOutcome = 'PendingHearingOutcome',
   PendingHearingDate = 'PendingHearingDate',
   BulkCaseReject = 'BulkCaseReject',
+  RequestedInformationSubmitted = 'RequestedInformationSubmitted',
   RespondentFinalOrderRequested = 'RespondentFinalOrderRequested',
   SeparationOrderGranted = 'SeparationOrderGranted',
   ServiceAdminRefusal = 'ServiceAdminRefusal',
@@ -2579,6 +2618,7 @@ export const FINAL_ORDER_REQUESTED = 'final-order-requested';
 export const APPLY_FOR_FINAL_ORDER = 'Apply for final order';
 export const UPDATE_CONDITIONAL_ORDER = 'update-conditional-order';
 export const SUBMIT_CLARIFICATION = 'submit-clarification';
+export const RESPOND_TO_REQUEST_FOR_INFORMATION = 'citizen-respond-request-for-information';
 export const UPDATE_JOINT_CONDITIONAL_ORDER = 'update-joint-conditional-order';
 export const SUBMIT_JOINT_CONDITIONAL_ORDER = 'submit-joint-conditional-order';
 export const DRAFT_CONDITIONAL_ORDER = 'draft-conditional-order';
@@ -2602,6 +2642,7 @@ export const SYSTEM_UPDATE_CASE = 'system-update-nfd-case';
 export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
 export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
+export const CASEWORKER_REQUEST_FOR_INFORMATION = 'caseworker-request-for-information';
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
