@@ -34,6 +34,19 @@ describe('uploadedFilesFromApiApplicant1', () => {
     expect(result.coClarificationUploadedFiles?.length).toBe(1);
     expect(result.coClarificationUploadedFiles?.[0].id).toBe('1');
   });
+
+  it('converts rfi response documents', async () => {
+    const result = fromApiApplicant1({
+      app1RfiDraftResponseDocs: [
+        { id: '1', value: { documentFileName: 'filename' } as DivorceDocument },
+        { id: '2', value: { documentFileName: 'filename' } as DivorceDocument },
+      ],
+    });
+
+    expect(result.app1RfiDraftResponseUploadedFiles?.length).toBe(2);
+    expect(result.app1RfiDraftResponseUploadedFiles?.[0].id).toBe('1');
+    expect(result.app1RfiDraftResponseUploadedFiles?.[1].id).toBe('2');
+  });
 });
 
 describe('uploadedFilesFromApiApplicant2', () => {
@@ -57,5 +70,18 @@ describe('uploadedFilesFromApiApplicant2', () => {
     });
 
     expect(result.applicant2CannotUpload).toBe(Checkbox.Checked);
+  });
+
+  it('converts rfi response documents', async () => {
+    const result = fromApiApplicant2({
+      app2RfiDraftResponseDocs: [
+        { id: '1', value: { documentFileName: 'filename' } as DivorceDocument },
+        { id: '2', value: { documentFileName: 'filename' } as DivorceDocument },
+      ],
+    });
+
+    expect(result.app2RfiDraftResponseUploadedFiles?.length).toBe(2);
+    expect(result.app2RfiDraftResponseUploadedFiles?.[0].id).toBe('1');
+    expect(result.app2RfiDraftResponseUploadedFiles?.[1].id).toBe('2');
   });
 });

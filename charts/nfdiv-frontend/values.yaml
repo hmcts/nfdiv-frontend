@@ -41,7 +41,7 @@ nodejs:
     FEES_API_URL: 'http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     REDIS_HOST: 'nfdiv-frontend-{{ .Values.global.environment }}.redis.cache.windows.net'
     CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    #CCD_URL: 'https://ccd-data-store-api-nfdiv-case-api-pr-3562.preview.platform.hmcts.net'
+    #CCD_URL: 'https://nfdiv-case-api-pr-3980.preview.platform.hmcts.net'
     #SKIP_DIV_CASE_CHECK: false #this is required to connect to nfdiv-case-api in preview
     CASE_DOCUMENT_MANAGEMENT_URL: 'http://ccd-case-document-am-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'

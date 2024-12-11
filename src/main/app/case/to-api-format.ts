@@ -371,6 +371,20 @@ const fields: ToApiConverters = {
   applicant2IntendsToSwitchToSole: data => ({
     applicant2IntendsToSwitchToSole: [checkboxConverter(data.applicant2IntendsToSwitchToSole)],
   }),
+  app1RfiDraftResponseCannotUploadDocs: data => ({
+    app1RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app1RfiDraftResponseCannotUploadDocs),
+  }),
+  app1RfiDraftResponseDetails: data => ({
+    app1RfiDraftResponseDetails: data.app1RfiDraftResponseDetails,
+  }),
+  app1RfiDraftResponseUploadedFiles: () => ({}),
+  app2RfiDraftResponseCannotUploadDocs: data => ({
+    app2RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app2RfiDraftResponseCannotUploadDocs),
+  }),
+  app2RfiDraftResponseDetails: data => ({
+    app2RfiDraftResponseDetails: data.app2RfiDraftResponseDetails,
+  }),
+  app2RfiDraftResponseUploadedFiles: () => ({}),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

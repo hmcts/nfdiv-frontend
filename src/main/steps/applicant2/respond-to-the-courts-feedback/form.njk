@@ -1,0 +1,53 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/form/form.njk"%}
+
+{% block form_content %}
+
+  {% for fieldName, field in form.fields %}
+    {% if fieldName == 'app2RfiDraftResponseCannotUploadDocs' %}
+      <div id="havingTroubleUploading"><div>
+      {% include "common/form/fields/" + field.type + ".njk" %}
+    {% elseif fieldName == 'app2RfiDraftResponseDetails' %}
+      {% include "common/form/fields/" + field.type + ".njk" %}
+    {% elseif fieldName == 'app2RfiDraftResponseUploadedFiles'%}
+      <br>
+      <h3 class="govuk-heading-m">{{ uploadHeading }}</h3>
+      <p class="govuk-body">{{ line3 }}</p>
+      {{ govukInsetText({
+        text: line4
+      }) }}
+
+      {% set infoTakePhotoDetails %}
+        <ol class="govuk-list govuk-list--number">
+          <li>{{ infoBullet1 }}</li>
+          <li>{{ infoBullet2 }}</li>
+          <li>{{ infoBullet3 }}</li>
+          <li>{{ infoBullet4 }}</li>
+          <li>{{ infoBullet5 }}</li>
+        </ol>
+      {% endset %}
+      {{ govukDetails({
+        summaryHtml: infoTakePhotoAccessibleSpan,
+        html: infoTakePhotoDetails
+      }) }}
+
+      <p class="govuk-body">{{ line5 }}</p>
+      <p class="govuk-body">
+        <strong>{{ acceptedFileFormats }}</strong> {{ fileFormats }}<br>
+        <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
+      </p>
+
+      <h2 id="uploadAFile" class="govuk-heading-s">{{ uploadAFile }}</h2>
+      {% include "common/form/fields/" + field.type + ".njk" %}
+
+      {% include "../../applicant1/respond-to-the-courts-feedback/document-upload.njk" %}
+    {% else %}
+      {% include "common/form/fields/" + field.type + ".njk" %}
+    {% endif %}
+  {% endfor %}
+
+{% endblock %}

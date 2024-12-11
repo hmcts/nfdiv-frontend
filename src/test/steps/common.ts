@@ -7,6 +7,7 @@ import { Case } from '../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
   CASEWORKER_ISSUE_APPLICATION,
+  CASEWORKER_REQUEST_FOR_INFORMATION,
   CITIZEN_UPDATE_CASE_STATE_AAT,
   ConditionalOrderCourt,
   DivorceOrDissolution,
@@ -70,6 +71,15 @@ export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?
   I.click(locator || text);
 };
 
+export const iClickElement = (elemId: string, wait?: number): void => {
+  I.waitForElement(elemId, wait);
+  I.click(elemId);
+};
+
+export const iClickSubmit = (): void => {
+  iClickElement('#main-form-submit');
+};
+
 export const iWait = (time: number): void => {
   I.wait(time);
 };
@@ -101,8 +111,33 @@ Then('the page should include {string}', (text: string) => {
   I.waitForText(text);
 });
 
+Then('the page should include element {string}', (elemId: string) => {
+  I.waitForElement(elemId);
+});
+
+Then('the page should include visible element {string}', (elemId: string) => {
+  I.waitForVisible(elemId + ':not(.hidden)');
+});
+
+When('I select element {string}', iClickElement);
+When('I click element {string}', iClickElement);
+
+When('I sign out', () => {
+  iClickElement('#navigation > li > a[href="/logout"]');
+});
+
+When('I click submit', iClickSubmit);
+When('I click continue', iClickSubmit);
+When('I click send for review', iClickSubmit);
+When('I click submit application', iClickSubmit);
+When('I click continue to payment', iClickSubmit);
+
 Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
+});
+
+Then('I wait until the page contains file element {string}', (elemId: string) => {
+  I.waitForElement(elemId, 30);
 });
 
 Then('the page should not include {string}', (text: string) => {
@@ -215,6 +250,52 @@ When('I enter my valid case reference and valid access code', async () => {
     console.error('Could not get case data as ' + user.username);
     process.exit(-1);
   }
+});
+
+When('a case worker issues a request for information', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationSoleParties: 'applicant',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to a third party', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationSoleParties: 'other',
+    requestForInformationDetails: 'test',
+    requestForInformationName: 'third party',
+    requestForInformationEmailAddress: 'thirdparty@hmcts.net',
+  });
+});
+
+When('a case worker issues a request for information to app1 on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'applicant1',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to app2 on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'applicant2',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to both parties on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'both',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to a third party on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'other',
+    requestForInformationDetails: 'test',
+    requestForInformationName: 'third party',
+    requestForInformationEmailAddress: 'thirdparty@hmcts.net',
+  });
 });
 
 When('a case worker issues the application', async () => {
