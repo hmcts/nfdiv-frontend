@@ -128,7 +128,7 @@ export class OidcMiddleware {
             return next();
           }
         }
-        req.session.userCase = req.session.userCase ?? (existingUserCase !== false ? existingUserCase : undefined);
+        req.session.userCase = req.session.userCase || existingUserCase;
 
         req.session.existingCaseId = req.session.userCase?.id;
 
