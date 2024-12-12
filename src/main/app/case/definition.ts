@@ -298,6 +298,7 @@ export interface Applicant {
   PhoneNumber: string;
   Gender: Gender;
   ContactDetailsType: ContactDetailsType;
+  InRefuge: YesOrNo;
   SolicitorRepresented: YesOrNo;
   SolicitorName: string;
   SolicitorReference: string;
@@ -526,6 +527,7 @@ export interface CaseData {
   applicant1PhoneNumber: string;
   applicant1Gender: Gender;
   applicant1ContactDetailsType: ContactDetailsType;
+  applicant1InRefuge: YesOrNo;
   applicant1SolicitorRepresented: YesOrNo;
   applicant1SolicitorName: string;
   applicant1SolicitorReference: string;
@@ -574,6 +576,7 @@ export interface CaseData {
   applicant2PhoneNumber: string;
   applicant2Gender: Gender;
   applicant2ContactDetailsType: ContactDetailsType;
+  applicant2InRefuge: YesOrNo;
   applicant2SolicitorRepresented: YesOrNo;
   applicant2SolicitorName: string;
   applicant2SolicitorReference: string;
