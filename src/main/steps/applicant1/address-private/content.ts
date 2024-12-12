@@ -83,4 +83,3 @@ export const generateContent: TranslationFn = (content: CommonContent) => {
     form,
   };
 };
-
