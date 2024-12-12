@@ -36,8 +36,8 @@ export const form: FormContent = {
               classes: 'govuk-radios--inline',
               label: l => l.inRefugeLabel,
               values: [
-                { label: l => l.yes, value: YesOrNo.YES },
-                { label: l => l.no, value: YesOrNo.NO },
+                { label: l => (l.language === 'cy' ? 'Yndw' : l.yes), value: YesOrNo.YES },
+                { label: l => (l.language === 'cy' ? 'Nac ydw' : l.no), value: YesOrNo.NO },
               ],
               value: YesOrNo.NO, // Default value
             },
