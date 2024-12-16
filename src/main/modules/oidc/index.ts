@@ -119,8 +119,27 @@ export class OidcMiddleware {
           }
           if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
             logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
-            const token = encodeURIComponent(req.session.user.accessToken);
-            return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
+            const axios = require('axios');
+
+            const token = req.session.user.accessToken;
+            const decreeNisiUrl = config.get('services.decreeNisi.url') + '/authenticated';
+            axios
+              .post(
+                decreeNisiUrl,
+                {},
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              )
+              .then(() => {
+                res.redirect(decreeNisiUrl);
+              })
+              .catch(error => {
+                console.error('Error authenticating with Old Divorce service:', error);
+                res.status(500).send('Internal Server Error');
+              });
           }
           if (isLinkingUrl(req.path)) {
             return next();
