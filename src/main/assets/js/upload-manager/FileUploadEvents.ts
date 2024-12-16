@@ -37,19 +37,27 @@ export class FileUploadEvents {
 
     const result = await uppy.upload();
     location.hash = '#';
-    if (result.successful[0]?.response?.body) {
+    if (result && result.successful?.[0]?.response?.body) {
       uploadedFiles.add(Object.values(result.successful[0].response.body) as []);
     }
+
     const uploadInfo = uppy.getState();
-    if (result.failed.length || !result.successful.length || uploadInfo.info?.[0]?.message) {
+    if (result?.failed?.length || !result?.successful?.length || uploadInfo.info?.[0]?.message) {
       return this.onError({ name: 'Upload error', ...(uploadInfo.info ? uploadInfo.info[0] : new Error()) });
     }
 
-    uploadGroupEl?.scrollIntoView({ block: 'center' });
+    if (uploadGroupEl) {
+      uploadGroupEl.scrollIntoView({ block: 'center' });
+      uploadGroupEl.classList.add('uploaded');
+      uploadGroupEl.addEventListener(
+        'animationend',
+        () => {
+          uploadGroupEl.classList.remove('uploaded');
+        },
+        { once: true }
+      );
+    }
     uploadProcessEl?.classList.remove('govuk-!-margin-top-5');
-
-    uploadGroupEl?.classList.add('uploaded');
-    uploadGroupEl?.addEventListener('animationend', () => uploadGroupEl.classList.remove('uploaded'), { once: true });
     uploadGroupEl?.focus();
   };
 

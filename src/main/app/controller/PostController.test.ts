@@ -1,3 +1,8 @@
+// noinspection TypeScriptValidateTypes
+
+import config from 'config';
+import { set } from 'lodash';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
@@ -17,6 +22,8 @@ import { isPhoneNoValid } from '../form/validation';
 import { PostController } from './PostController';
 
 import Mock = jest.Mock;
+
+set(config, 'services.idam.systemPassword', 'DUMMY_VALUE_REPLACE');
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
