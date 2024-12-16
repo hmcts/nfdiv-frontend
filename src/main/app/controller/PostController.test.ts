@@ -7,7 +7,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
-import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Checkbox } from '../case/case';
 import {
   ApplicationType,
@@ -15,6 +15,7 @@ import {
   CITIZEN_SAVE_AND_CLOSE,
   CITIZEN_UPDATE,
   Gender,
+  State,
 } from '../case/definition';
 import { isPhoneNoValid } from '../form/validation';
 
@@ -218,6 +219,20 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
   });
 
+  test('Should save the users data and end response for session timeout when InformationRequested', async () => {
+    const userCase = { state: State.InformationRequested };
+    const body = { gender: Gender.FEMALE, saveBeforeSessionTimeout: true };
+    const controller = new PostController(mockFormContent.fields);
+
+    const req = mockRequest({ body, userCase });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_SAVE_AND_CLOSE);
+
+    expect(res.redirect).toHaveBeenCalledWith(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
+  });
+
   it('saves and signs out with empty form data if there are errors', async () => {
     const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
     const body = { applicant1PhoneNumber: 'invalid phone number', saveAndSignOut: true };
@@ -241,6 +256,30 @@ describe('PostController', () => {
     expect(req.session.errors).toEqual(errors);
   });
 
+  it('saves and signs out with empty form data if there are errors when InformationRequested', async () => {
+    const userCase = { state: State.InformationRequested };
+    const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const body = { applicant1PhoneNumber: 'invalid phone number', saveAndSignOut: true };
+    const mockPhoneNumberFormContent = {
+      fields: {
+        applicant1PhoneNumber: {
+          type: 'tel',
+          validator: isPhoneNoValid,
+        },
+      },
+    } as unknown as FormContent;
+    const controller = new PostController(mockPhoneNumberFormContent.fields);
+
+    const req = mockRequest({ body, userCase });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SAVE_AND_CLOSE);
+
+    expect(res.redirect).toHaveBeenCalledWith(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
+    expect(req.session.errors).toEqual(errors);
+  });
+
   it('saves and signs out even if was an error saving data', async () => {
     const body = { gender: Gender.FEMALE, saveAndSignOut: true };
     const controller = new PostController(mockFormContent.fields);
@@ -257,6 +296,25 @@ describe('PostController', () => {
     );
 
     expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+  });
+
+  it('saves and signs out even if was an error saving data when InformationRequested', async () => {
+    const userCase = { state: State.InformationRequested };
+    const body = { gender: Gender.FEMALE, saveAndSignOut: true };
+    const controller = new PostController(mockFormContent.fields);
+
+    const req = mockRequest({ body, userCase, session: { user: { email: 'test@example.com' } } });
+    (req.locals.api.triggerEvent as jest.Mock).mockRejectedValue('Error saving');
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      '1234',
+      { gender: 'female', sameSex: null },
+      CITIZEN_SAVE_AND_CLOSE
+    );
+
+    expect(res.redirect).toHaveBeenCalledWith(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
   });
 
   test('triggers citizen-applicant2-update-application event if user is applicant2', async () => {

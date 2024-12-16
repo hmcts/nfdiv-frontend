@@ -16,6 +16,7 @@ dates:
   applicationSubmittedOffsetDays: 28
   arrangeProcessServiceDays: 28
   switchToSoleFinalOrderIntentionNotificationOffsetDays: 14
+  requestForInformationResponseCourtReplyOffsetDays: 28
 fees:
   applicationFee: DivorceCivPart
   financialOrder: FinancialOrderOnNotice
@@ -65,6 +66,10 @@ services:
     tokenKey: 'SERVICE_TOKEN_KEY'
   decreeNisi:
     url: 'https://decree-nisi-aks.aat.platform.hmcts.net'
+  nfdiv_divorce:
+    url: https://nfdiv-apply-for-divorce.aat.platform.hmcts.net
+  nfdiv_dissolution:
+    url: https://nfdiv-end-civil-partnership.aat.platform.hmcts.net
 health:
   timeout: 5000
   deadline: 15000

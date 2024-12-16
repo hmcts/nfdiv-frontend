@@ -40,7 +40,10 @@ export class OidcMiddleware {
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (req.session?.user) {
-          if (req.session.user.roles.includes('caseworker')) {
+          if (
+            req.session.user.roles.includes('caseworker') ||
+            req.session.user.roles.includes('caseworker-divorce-solicitor')
+          ) {
             const redirectUrl = app.locals.developmentMode ? safeListedUrls[0] : safeListedUrls[1];
             res.redirect(redirectUrl);
           }
@@ -76,11 +79,13 @@ export class OidcMiddleware {
 
   private async findExistingAndNewUserCases(req: AppRequest, res: Response, next: NextFunction): Promise<void> {
     const logger = Logger.getLogger('find-existing-and-new-user-cases');
+    const userEmail = req.session.user.email;
+    const serviceType = res.locals.serviceType;
 
     try {
       const { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
-        req.session.user.email,
-        res.locals.serviceType,
+        userEmail,
+        serviceType,
         req.locals.logger
       );
 
@@ -126,6 +131,21 @@ export class OidcMiddleware {
                   res.status(500).send('Internal Server Error');
                 });
             }
+          if (await req.locals.api.hasDivorceOrDissolutionCaseForOtherDomain(userEmail, serviceType, logger)) {
+            logger.info(
+              `UserID ${req.session.user.id} is being redirected to domain for the other divorceOrDissolution type`
+            );
+
+            return res.redirect(
+              (res.locals.serviceType === DivorceOrDissolution.DIVORCE
+                ? config.get('services.nfdiv_dissolution.url')
+                : config.get('services.nfdiv_divorce.url')) as string
+            );
+          }
+          if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
+            logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
+            const token = encodeURIComponent(req.session.user.accessToken);
+            return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
           }
           if (isLinkingUrl(req.path)) {
             return next();

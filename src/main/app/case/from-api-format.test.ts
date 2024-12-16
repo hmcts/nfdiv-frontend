@@ -44,6 +44,8 @@ describe('from-api-format', () => {
     coClarificationResponses: [{ id: '1', value: 'test' }],
     coCannotUploadClarificationDocuments: YesOrNo.YES,
     coIsAdminClarificationSubmitted: YesOrNo.YES,
+    app1RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
+    app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
   };
 
   const resultsWithSecondaryValues: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
@@ -90,6 +92,8 @@ describe('from-api-format', () => {
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       coIsAdminClarificationSubmitted: YesOrNo.YES,
+      app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
     });
   });
 
@@ -149,6 +153,8 @@ describe('from-api-format', () => {
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       coIsAdminClarificationSubmitted: YesOrNo.YES,
+      app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
     });
   });
 
@@ -189,6 +195,8 @@ describe('from-api-format', () => {
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       coIsAdminClarificationSubmitted: YesOrNo.YES,
+      app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
     });
   });
 
@@ -229,6 +237,8 @@ describe('from-api-format', () => {
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       coIsAdminClarificationSubmitted: YesOrNo.YES,
+      app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
     });
   });
 
