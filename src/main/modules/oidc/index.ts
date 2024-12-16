@@ -4,7 +4,7 @@ import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, State } from '../../app/case/definition';
+import { ApplicationType, DivorceOrDissolution, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils';
 import {
@@ -106,31 +106,6 @@ export class OidcMiddleware {
         }
       } else {
         if (!existingUserCase) {
-          if (config.get('services.case.checkDivCases')) {
-            if (await req.locals.api.hasInProgressDivorceCase()) {
-              logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
-              const axios = require('axios');
-
-              const token = req.session.user.accessToken;
-              const decreeNisiUrl = config.get('services.decreeNisi.url') + '/authenticated';
-              axios
-                .post(
-                  decreeNisiUrl,
-                  {},
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
-                )
-                .then(() => {
-                  res.redirect(decreeNisiUrl);
-                })
-                .catch(error => {
-                  console.error('Error authenticating with Old Divorce service:', error);
-                  res.status(500).send('Internal Server Error');
-                });
-            }
           if (await req.locals.api.hasDivorceOrDissolutionCaseForOtherDomain(userEmail, serviceType, logger)) {
             logger.info(
               `UserID ${req.session.user.id} is being redirected to domain for the other divorceOrDissolution type`
