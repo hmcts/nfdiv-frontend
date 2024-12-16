@@ -553,7 +553,8 @@ export const generateContent: TranslationFn = content => {
     getFormattedDate(
       dayjs(
         latestRequestForInformation?.requestForInformationResponses?.at(0)?.value.requestForInformationResponseDateTime
-      ).add(config.get('dates.requestForInformationResponseCourtReplyOffsetDays'), 'day')
+      ).add(config.get('dates.requestForInformationResponseCourtReplyOffsetDays'), 'day'),
+      content.language
     ) || '';
 
   const displayState = currentStateFn(userCase.state).at(
