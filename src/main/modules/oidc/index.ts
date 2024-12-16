@@ -30,7 +30,7 @@ export class OidcMiddleware {
     const protocol = app.locals.developmentMode ? 'http://' : 'https://';
     const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
-
+    const safeListedUrls = ['https://manage-case.aat.platform.hmcts.net/', 'https://manage-case.platform.hmcts.net/'];
     app.get([SIGN_IN_URL, APPLICANT_2_SIGN_IN_URL], (req, res) =>
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, req.path))
     );
@@ -44,9 +44,7 @@ export class OidcMiddleware {
             req.session.user.roles.includes('caseworker') ||
             req.session.user.roles.includes('caseworker-divorce-solicitor')
           ) {
-            const redirectUrl = app.locals.developmentMode
-              ? 'https://manage-case.aat.platform.hmcts.net/'
-              : 'https://manage-case.platform.hmcts.net/';
+            const redirectUrl = app.locals.developmentMode ? safeListedUrls[0] : safeListedUrls[1];
             res.redirect(redirectUrl);
           }
           res.locals.isLoggedIn = true;
@@ -121,8 +119,27 @@ export class OidcMiddleware {
           }
           if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
             logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
-            const token = encodeURIComponent(req.session.user.accessToken);
-            return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
+            const axios = require('axios');
+
+            const token = req.session.user.accessToken;
+            const decreeNisiUrl = config.get('services.decreeNisi.url') + '/authenticated';
+            axios
+              .post(
+                decreeNisiUrl,
+                {},
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              )
+              .then(() => {
+                res.redirect(decreeNisiUrl);
+              })
+              .catch(error => {
+                console.error('Error authenticating with Old Divorce service:', error);
+                res.status(500).send('Internal Server Error');
+              });
           }
           if (isLinkingUrl(req.path)) {
             return next();

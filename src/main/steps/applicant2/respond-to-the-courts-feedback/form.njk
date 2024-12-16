@@ -9,7 +9,7 @@
 
   {% for fieldName, field in form.fields %}
     {% if fieldName == 'app2RfiDraftResponseCannotUploadDocs' %}
-      <div id="havingTroubleUploading"><div>
+      <div id="havingTroubleUploading"></div>
       {% include "common/form/fields/" + field.type + ".njk" %}
     {% elseif fieldName == 'app2RfiDraftResponseDetails' %}
       {% include "common/form/fields/" + field.type + ".njk" %}
