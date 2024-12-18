@@ -6,7 +6,7 @@ dates:
   issueDateOffsetDays: 141
   disputeDueDateOffsetDays: 37
   awaitingLegalAdvisorReferralOffsetDays: 56
-  clarificationSubmittedOffsetDays: 28
+  clarificationSubmittedOffsetDays: 56
   finalOrderSubmittedOffsetDays: 14
   changingToSolePartnerConfirmationWeeks: 2
   settlingFinancesConfirmationDays: 14
