@@ -262,11 +262,13 @@ export interface Case {
   applicant1FullNameOnCertificate?: string;
   applicant2FullNameOnCertificate?: string;
   applicant1AddressPrivate: YesOrNo;
+  applicant1InRefuge?: YesOrNo;
   applicant2FirstNames?: string;
   applicant2MiddleNames?: string;
   applicant2LastNames?: string;
   applicant2ConfirmFullName?: YesOrNo | null;
   applicant2AddressPrivate: YesOrNo;
+  applicant2InRefuge?: YesOrNo;
   applicant2Address1?: string;
   applicant2Address2?: string;
   applicant2Address3?: string;
@@ -333,7 +335,7 @@ export interface Case {
   applicant2Confirmation: YesOrNo;
   applicant2Explanation: string;
   applicant1PcqId?: string;
-  disputeApplication?: YesOrNo;
+  disputeApplication?: YesOrNo | null;
   confirmDisputeApplication?: YesOrNo;
   confirmReadPetition?: Checkbox;
   jurisdictionAgree?: YesOrNo;

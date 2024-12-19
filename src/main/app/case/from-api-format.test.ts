@@ -22,6 +22,7 @@ describe('from-api-format', () => {
     applicant1HWFReferenceNumber: 'HWF-ABC-123',
     applicant1AgreedToReceiveEmails: YesOrNo.YES,
     applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
+    applicant1InRefuge: YesOrNo.NO,
     applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
     applicant1WantsToHavePapersServedAnotherWay: undefined,
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
@@ -70,6 +71,7 @@ describe('from-api-format', () => {
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
+      applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
@@ -138,6 +140,7 @@ describe('from-api-format', () => {
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
+      applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
@@ -180,6 +183,7 @@ describe('from-api-format', () => {
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
+      applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
@@ -222,6 +226,7 @@ describe('from-api-format', () => {
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
+      applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
@@ -382,5 +387,55 @@ describe('from-api-format', () => {
     },
   ])('sets correct solicitors address fields by splitting the answer', ({ expected, ...formData }) => {
     expect(fromApiFormat(formData as unknown as CaseData)).toMatchObject(expected);
+  });
+  describe('fromApiFormat - applicant2InRefuge transformation', () => {
+    test('defaults applicant2InRefuge to NO if undefined', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant2InRefuge: undefined, // Simulate missing value
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant2InRefuge: YesOrNo.NO,
+      });
+    });
+
+    test('retains applicant2InRefuge value if set to YES', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant2InRefuge: YesOrNo.YES, // Explicit value set
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant2InRefuge: YesOrNo.YES,
+      });
+    });
+
+    test('retains applicant2InRefuge value if set to NO', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant2InRefuge: YesOrNo.NO, // Explicit value set
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant2InRefuge: YesOrNo.NO,
+      });
+    });
+
+    test.each([
+      { applicant2InRefuge: undefined, expected: YesOrNo.NO },
+      { applicant2InRefuge: YesOrNo.YES, expected: YesOrNo.YES },
+      { applicant2InRefuge: YesOrNo.NO, expected: YesOrNo.NO },
+    ])('correctly handles applicant2InRefuge with value %p', ({ applicant2InRefuge, expected }) => {
+      const nfdivFormat = fromApiFormat({ applicant2InRefuge } as unknown as CaseData);
+      expect(nfdivFormat).toMatchObject({ applicant2InRefuge: expected });
+    });
+
+    test('handles null applicant2InRefuge gracefully', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant2InRefuge: null, // Explicit null value
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant2InRefuge: YesOrNo.NO, // Defaults to NO
+      });
+    });
   });
 });

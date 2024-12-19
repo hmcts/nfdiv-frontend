@@ -14,6 +14,7 @@ const en = ({ partner, required }: CommonContent) => ({
   errors: {
     applicant1AddressPrivate: { required },
   },
+  inRefugeLabel: 'Are you currently in a refuge?', // Label for the 'inRefuge' question
 });
 
 const cy: typeof en = ({ partner, required }: CommonContent) => ({
@@ -27,6 +28,7 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   errors: {
     applicant1AddressPrivate: { required },
   },
+  inRefugeLabel: 'Ydych chi’n preswylio mewn lloches ar hyn o bryd?',
 });
 
 export const form: FormContent = {
@@ -42,8 +44,24 @@ export const form: FormContent = {
           value: YesOrNo.YES,
           conditionalText: l =>
             `<p class="govuk-label">${l.detailsPrivateMoreDetails} <a class="govuk-link" href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help">${l.supportAvailable}</a></p>`,
+          subFields: {
+            applicant1InRefuge: {
+              id: 'inRefuge',
+              type: 'radios',
+              classes: 'govuk-radios--inline',
+              label: l => l.inRefugeLabel,
+              values: [
+                { label: l => (l.language === 'cy' ? 'Yndw' : l.yes), value: YesOrNo.YES },
+                { label: l => (l.language === 'cy' ? 'Nac ydw' : l.no), value: YesOrNo.NO },
+              ],
+              validator: value => isFieldFilledIn(value), // Only validate if this field is shown
+            },
+          },
         },
-        { label: l => l.detailsNotPrivate, value: YesOrNo.NO },
+        {
+          label: l => l.detailsNotPrivate,
+          value: YesOrNo.NO,
+        },
       ],
       validator: value => isFieldFilledIn(value),
     },
