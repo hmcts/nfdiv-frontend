@@ -23,6 +23,9 @@ const initUploadManager = (): void => {
   location.hash = '';
 
   const chooseFilePhoto = language === SupportedLanguages.Cy ? 'Dewiswch ffeil' : 'Choose a file';
+  const pluralize = (count: number): number => {
+    return count === 1 ? 0 : 1;
+  };
 
   const uppy = new Uppy({
     restrictions: {
@@ -43,6 +46,7 @@ const initUploadManager = (): void => {
         strings: {
           chooseFiles: chooseFilePhoto,
         },
+        pluralize, // Uses the adjusted `pluralize` function
       },
     })
     .use(DropTarget, { target: document.body })

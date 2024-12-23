@@ -1,5 +1,4 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
-{% from "components/hmcts-progress-bar/macro.njk" import hmctsProgressBar %}
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
 
 {% extends "common/page.njk" %}
@@ -8,7 +7,7 @@
 
 {% block page_content %}
   <div class="govuk-panel govuk-panel--confirmation">
-    <h1 class="govuk-panel__title">{{ title }}</h1>
+    <h1 id="applicationSubmittedTitle" class="govuk-panel__title">{{ title }}</h1>
     <div class="govuk-body">
       {{ yourReferenceNumber }}
       <div class="govuk-panel__body">
