@@ -25,7 +25,7 @@ export default abstract class BasePaymentPostController {
       return res.redirect(SAVE_AND_SIGN_OUT);
     }
 
-    if (req.session.userCase.state !== this.awaitingPaymentState()) {
+    if (!this.awaitingPaymentStates().has(req.session.userCase.state)) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
         { citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
@@ -100,7 +100,7 @@ export default abstract class BasePaymentPostController {
     return payment;
   }
 
-  protected abstract awaitingPaymentState(): State;
+  protected abstract awaitingPaymentStates(): Set<State>;
   protected abstract awaitingPaymentEvent(): string;
   protected abstract getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[];
   protected abstract getServiceReferenceForFee(req: AppRequest<AnyObject>): string;
