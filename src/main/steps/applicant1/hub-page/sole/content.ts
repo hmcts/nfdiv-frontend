@@ -20,13 +20,23 @@ import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, RESPOND_TO_COURT_FEED
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
 const en = (
-  { applicationHasBeenPaidFor, isDivorce, partner, userCase, telephoneNumber, referenceNumber, isJointApplication }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    partner,
+    userCase,
+    telephoneNumber,
+    referenceNumber,
+    isJointApplication,
+  }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   aosAwaitingOrDrafted: {
     line1: `Your application ${
-      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES && !applicationHasBeenPaidFor ? 'and help with fees reference number ' : ''
+      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES && !applicationHasBeenPaidFor
+        ? 'and help with fees reference number '
+        : ''
     } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
     )} confirming whether it has been accepted. Check your junk or spam email folder.`,
@@ -341,13 +351,23 @@ const en = (
 
 // @TODO translations
 const cy: typeof en = (
-  { applicationHasBeenPaidFor, isDivorce, partner, userCase, telephoneNumber, referenceNumber, isJointApplication }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    partner,
+    userCase,
+    telephoneNumber,
+    referenceNumber,
+    isJointApplication,
+  }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   aosAwaitingOrDrafted: {
     line1: `Bydd staff y llys yn gwirio eich cais ${
-      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES && !applicationHasBeenPaidFor ? 'a’ch cyfeirnod Help i Dalu Ffioedd' : ''
+      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES && !applicationHasBeenPaidFor
+        ? 'a’ch cyfeirnod Help i Dalu Ffioedd'
+        : ''
     }. Fe gewch neges e-bost erbyn ${getFormattedDate(
       dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
       SupportedLanguages.Cy

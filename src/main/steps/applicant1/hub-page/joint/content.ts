@@ -37,7 +37,16 @@ const hubPageSubheading = (
 };
 
 const en = (
-  { applicationHasBeenPaidFor, isDivorce, userCase, partner, isApplicant2, isJointApplication, referenceNumber, telephoneNumber }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    userCase,
+    partner,
+    isApplicant2,
+    isJointApplication,
+    referenceNumber,
+    telephoneNumber,
+  }: CommonContent,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   subHeading1: hubPageSubheading(userCase),
@@ -274,7 +283,16 @@ const en = (
 });
 
 const cy: typeof en = (
-  { applicationHasBeenPaidFor, isDivorce, userCase, partner, isApplicant2, isJointApplication, referenceNumber, telephoneNumber }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    userCase,
+    partner,
+    isApplicant2,
+    isJointApplication,
+    referenceNumber,
+    telephoneNumber,
+  }: CommonContent,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),

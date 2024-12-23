@@ -1,7 +1,7 @@
 import config from 'config';
 
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, State, YesOrNo, PaymentStatus } from '../../app/case/definition';
+import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
 import { SAVE_AND_SIGN_OUT } from '../urls';
 
@@ -310,7 +310,7 @@ export const generateCommonContent = ({
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isApp1Represented = userCase?.applicant1SolicitorRepresented === YesOrNo.YES;
   const applicationHasBeenPaidFor = userCase.applicationPayments?.some(
-    (payment) => payment.value.status === PaymentStatus.SUCCESS
+    payment => payment.value.status === PaymentStatus.SUCCESS
   );
   const isAmendableStates =
     userCase &&
@@ -368,7 +368,7 @@ export const generateCommonContent = ({
 };
 
 export type CommonContent = typeof en & {
-  applicationHasBeenPaidFor: boolean;
+  applicationHasBeenPaidFor: boolean | undefined;
   language: SupportedLanguages;
   serviceName: string;
   isDivorce: boolean;
