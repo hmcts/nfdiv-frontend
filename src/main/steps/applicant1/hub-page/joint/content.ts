@@ -37,14 +37,15 @@ const hubPageSubheading = (
 };
 
 const en = (
-  { isDivorce, userCase, partner, isApplicant2, isJointApplication, referenceNumber, telephoneNumber }: CommonContent,
+  { applicationHasBeenPaidFor, isDivorce, userCase, partner, isApplicant2, isJointApplication, referenceNumber, telephoneNumber }: CommonContent,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
     line1: `Your joint application ${
       userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-      userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
+      userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+      !applicationHasBeenPaidFor
         ? 'and help with fees reference number '
         : ''
     } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
@@ -214,7 +215,8 @@ const en = (
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
+    !applicationHasBeenPaidFor
       ? ' and help with fees reference number'
       : ''
   } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
@@ -272,14 +274,15 @@ const en = (
 });
 
 const cy: typeof en = (
-  { isDivorce, userCase, partner, isApplicant2, isJointApplication, referenceNumber, telephoneNumber }: CommonContent,
+  { applicationHasBeenPaidFor, isDivorce, userCase, partner, isApplicant2, isJointApplication, referenceNumber, telephoneNumber }: CommonContent,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
     line1: `Bydd staff y llys yn gwirio eich cais ${
       userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-      userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
+      userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+      !applicationHasBeenPaidFor
         ? 'a’ch cyfeirnod Help i Dalu Ffioedd '
         : ''
     }. Fe gewch neges e-bost erbyn  ${getFormattedDate(
@@ -463,7 +466,8 @@ const cy: typeof en = (
   subHeading4: 'Beth fydd yn digwydd nesaf',
   line5: `Bydd staff y llys yn gwirio eich cais ${isJointApplication ? ' ar y cyd' : ''}${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
+    !applicationHasBeenPaidFor
       ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
       : ''
   }. Fe gewch neges e-bost erbyn ${getFormattedDate(
