@@ -309,7 +309,7 @@ export const generateCommonContent = ({
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isApp1Represented = userCase?.applicant1SolicitorRepresented === YesOrNo.YES;
-  const applicationHasBeenPaidFor = userCase.applicationPayments?.some(
+  const applicationHasBeenPaidFor = userCase?.applicationPayments?.some(
     payment => payment.value.status === PaymentStatus.SUCCESS
   );
   const isAmendableStates =
