@@ -4,7 +4,7 @@ import { Application, NextFunction, Response } from 'express';
 
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, State } from '../../app/case/definition';
+import { ApplicationType, DivorceOrDissolution, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils';
 import {
@@ -31,7 +31,7 @@ export class OidcMiddleware {
     const protocol = app.locals.developmentMode ? 'http://' : 'https://';
     const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
-
+    const safeListedUrls = ['https://manage-case.aat.platform.hmcts.net/', 'https://manage-case.platform.hmcts.net/'];
     app.get([SIGN_IN_URL, APPLICANT_2_SIGN_IN_URL], (req, res) =>
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, req.path))
     );
@@ -41,10 +41,11 @@ export class OidcMiddleware {
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (req.session?.user) {
-          if (req.session.user.roles.includes('caseworker')) {
-            const redirectUrl = app.locals.developmentMode
-              ? 'https://manage-case.aat.platform.hmcts.net/'
-              : 'https://manage-case.platform.hmcts.net/';
+          if (
+            req.session.user.roles.includes('caseworker') ||
+            req.session.user.roles.includes('caseworker-divorce-solicitor')
+          ) {
+            const redirectUrl = app.locals.developmentMode ? safeListedUrls[0] : safeListedUrls[1];
             res.redirect(redirectUrl);
           }
           res.locals.isLoggedIn = true;
@@ -79,11 +80,13 @@ export class OidcMiddleware {
 
   private async findExistingAndNewUserCases(req: AppRequest, res: Response, next: NextFunction): Promise<void> {
     const logger = Logger.getLogger('find-existing-and-new-user-cases');
+    const userEmail = req.session.user.email;
+    const serviceType = res.locals.serviceType;
 
     try {
       const { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
-        req.session.user.email,
-        res.locals.serviceType,
+        userEmail,
+        serviceType,
         req.locals.logger
       );
 
@@ -108,10 +111,40 @@ export class OidcMiddleware {
         }
       } else {
         if (!existingUserCase) {
+          if (await req.locals.api.hasDivorceOrDissolutionCaseForOtherDomain(userEmail, serviceType, logger)) {
+            logger.info(
+              `UserID ${req.session.user.id} is being redirected to domain for the other divorceOrDissolution type`
+            );
+
+            return res.redirect(
+              (res.locals.serviceType === DivorceOrDissolution.DIVORCE
+                ? config.get('services.nfdiv_dissolution.url')
+                : config.get('services.nfdiv_divorce.url')) as string
+            );
+          }
           if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
             logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
-            const token = encodeURIComponent(req.session.user.accessToken);
-            return res.redirect(config.get('services.decreeNisi.url') + `/authenticated?__auth-token=${token}`);
+            const axios = require('axios');
+
+            const token = req.session.user.accessToken;
+            const decreeNisiUrl = config.get('services.decreeNisi.url') + '/authenticated';
+            axios
+              .post(
+                decreeNisiUrl,
+                {},
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              )
+              .then(() => {
+                res.redirect(decreeNisiUrl);
+              })
+              .catch(error => {
+                console.error('Error authenticating with Old Divorce service:', error);
+                res.status(500).send('Internal Server Error');
+              });
           }
           if (isLinkingUrl(req.path)) {
             return next();

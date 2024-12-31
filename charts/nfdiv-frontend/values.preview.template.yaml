@@ -10,7 +10,7 @@ nodejs:
     enabled: false
   environment:
     IDAM_TOKEN_CACHE: true
-    # CASE_TYPE: NFD-3939 # Uncomment to connect to backend PR, don't forget Jenkinsfile_CNP too
+#    CASE_TYPE: NFD-3980 # Uncomment to connect to backend PR, don't forget Jenkinsfile_CNP too
   keyVaults:
     nfdiv:
       resourceGroup: nfdiv

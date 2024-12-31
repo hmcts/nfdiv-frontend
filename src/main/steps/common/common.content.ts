@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
@@ -312,6 +314,10 @@ export const generateCommonContent = ({
     userCase.state &&
     [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
+  const isRequestForInformationAmendableState =
+    userCase &&
+    userCase.state &&
+    [State.InformationRequested, State.RequestedInformationSubmitted].includes(userCase.state);
   const isGeneralConsiderationFoRequested =
     userCase &&
     (userCase?.state === State.GeneralConsiderationComplete ||
@@ -330,6 +336,10 @@ export const generateCommonContent = ({
     userCase?.dateFinalOrderSubmitted === undefined;
   const isPendingHearingOutcomeFoRequested =
     userCase && userCase?.state === State.PendingHearingOutcome && userCase?.dateFinalOrderSubmitted !== undefined;
+  const feedbackParty = isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : isApplicant2 ? 'resp' : 'app';
+  const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
+    isDivorce ? 'Divorce' : 'Civil'
+  }&party=${feedbackParty}`;
 
   return {
     ...commonTranslations,
@@ -338,11 +348,13 @@ export const generateCommonContent = ({
     language,
     isDivorce,
     isApplicant2,
+    feedbackLink,
     userCase,
     userEmail,
     isJointApplication,
     isAmendableStates,
     isClarificationAmendableState,
+    isRequestForInformationAmendableState,
     isApp1Represented,
     isGeneralConsiderationFoRequested,
     isGeneralConsiderationCoPronounced,
@@ -356,6 +368,7 @@ export type CommonContent = typeof en & {
   serviceName: string;
   isDivorce: boolean;
   isApplicant2: boolean;
+  feedbackLink: string;
   userCase: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;
@@ -363,6 +376,7 @@ export type CommonContent = typeof en & {
   referenceNumber?: string;
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
+  isRequestForInformationAmendableState: boolean | undefined;
   isApp1Represented: boolean;
   isGeneralConsiderationFoRequested: boolean;
   isGeneralConsiderationCoPronounced: boolean;

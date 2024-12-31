@@ -26,6 +26,7 @@ import { ExistingApplicationPostController } from './steps/existing-application/
 import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { RequestForInformationSaveSignOutGetController } from './steps/request-for-information-save-sign-out/get';
 import { shouldHideRouteFromUser } from './steps/routeHiding';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
@@ -49,6 +50,7 @@ import {
   NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
+  REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   RESPONDENT,
   SAVE_AND_SIGN_OUT,
   SIGN_OUT_URL,
@@ -74,6 +76,10 @@ export class Routes {
       errorHandler(new ExistingApplicationPostController(existingApplicationContent.form.fields).post)
     );
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
+    app.get(
+      REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
+      errorHandler(new RequestForInformationSaveSignOutGetController().get)
+    );
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(PRIVACY_POLICY_URL, errorHandler(new PrivacyPolicyGetController().get));
