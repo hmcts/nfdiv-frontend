@@ -84,7 +84,8 @@ const en = ({ isDivorce, userCase }) => ({
             : 'I do not need my contact details kept private'
           : ''
       }`,
-      line9: `${[
+      line9: 'Are you currently in a refuge?',
+      line10: `${[
         userCase.applicant2Address1,
         userCase.applicant2Address2,
         userCase.applicant2Address3,
@@ -208,7 +209,8 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
             : 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat'
           : ''
       }`,
-      line9: `${[
+      line9: 'Ydych chi’n preswylio mewn lloches ar hyn o bryd?',
+      line10: `${[
         userCase.applicant2Address1,
         userCase.applicant2Address2,
         userCase.applicant2Address3,
