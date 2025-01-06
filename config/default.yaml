@@ -40,7 +40,7 @@ services:
     clientID: 'divorce'
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
-    systemPassword: 'dummy_password'
+    systemPassword:
     caching: false
   case:
     #url: 'http://localhost:4452'

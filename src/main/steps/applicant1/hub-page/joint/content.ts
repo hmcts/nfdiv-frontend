@@ -241,15 +241,15 @@ const en = (
     line6: 'We will let you know once we have reviewed the information you provided.',
   },
   respondedToRequestForInformation: {
-    line1: 'You have responded to the court.',
+    line1: 'You or your partner have responded to the court.',
     line2: `Your application will be checked by court staff. You will receive an email notification by ${dateOfCourtReplyToRequestForInformationResponse} confirming whether it has been accepted. Check your junk or spam email folder.`,
   },
   awaitingRequestedInformation: {
     line1:
-      'You have told us that you cannot upload some or all of your documents. We cannot progress your application until we have received them.',
+      'You or your partner have told us that you cannot upload some or all of your documents. We cannot progress your application until we have received them.',
     line2: 'What you need to do next',
     line3: 'We have sent you an email with details on how to send your documents.',
-    line4: 'You can ',
+    line4: 'You or your partner can ',
     formLinkText: 'upload your documents using our online form',
     line4a: ', or send them by post along with a cover sheet with your case reference number.',
     line5: 'We will then review your response',
@@ -491,16 +491,16 @@ const cy: typeof en = (
     line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
   },
   respondedToRequestForInformation: {
-    line1: 'Rydych wedi ymateb i’r llys.',
+    line1: "Rydych chi neu'ch partner wedi ymateb i'r llys.",
     line2: `Bydd eich cais yn cael ei wirio gan staff y llys. Fe gewch neges e-bost erbyn ${dateOfCourtReplyToRequestForInformationResponse} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
   },
   awaitingRequestedInformation: {
     line1:
-      'Rydych wedi dweud wrthym na allwch lwytho rhai neu’r cyfan o’ch dogfennau.  Ni allwn symud eich cais yn ei flaen hyd nes y byddwn wedi’u derbyn.',
+      'Rydych chi neu eich partner wedi dweud wrthym nad ydych yn gallu uwchlwytho rhai neu’r cyfan o’ch dogfennau.  Ni allwn symud eich cais yn ei flaen hyd nes y byddwn wedi’u derbyn.',
     line2: 'Beth sydd angen i chi wneud nesaf',
     line3: 'Rydym wedi anfon e-bost atoch gyda manylion ar sut i anfon eich dogfennau.',
-    line4: 'Gallwch ',
-    formLinkText: 'lwytho eich dogfennau gan ddefnyddio ein ffurflen ar-lein',
+    line4: 'Gallwch chi neu eich partner ',
+    formLinkText: 'uwchlwytho eich dogfennau gan ddefnyddio ein ffurflen ar-lein',
     line4a: ', neu eu hanfon drwy’r post ynghyd â dalen flaen gyda chyfeirnod eich achos.',
     line5: 'Byddwn wedyn yn adolygu eich ymateb',
   },
@@ -553,7 +553,8 @@ export const generateContent: TranslationFn = content => {
     getFormattedDate(
       dayjs(
         latestRequestForInformation?.requestForInformationResponses?.at(0)?.value.requestForInformationResponseDateTime
-      ).add(config.get('dates.requestForInformationResponseCourtReplyOffsetDays'), 'day')
+      ).add(config.get('dates.requestForInformationResponseCourtReplyOffsetDays'), 'day'),
+      content.language
     ) || '';
 
   const displayState = currentStateFn(userCase.state).at(
