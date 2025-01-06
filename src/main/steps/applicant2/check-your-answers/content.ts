@@ -4,7 +4,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
 
-const en = ({ isDivorce, userCase }) => ({
+const en = ({ isDivorce, userCase, isApplicant2 }) => ({
   stepAnswers: {
     aboutPartnership: {
       line3: `${
@@ -84,7 +84,13 @@ const en = ({ isDivorce, userCase }) => ({
             : 'I do not need my contact details kept private'
           : ''
       }`,
-      line9: 'Are you currently in a refuge?',
+      line9: `${
+        !userCase.applicant2AddressPrivate || (userCase.applicant2AddressPrivate === YesOrNo.YES && !isApplicant2)
+          ? ''
+          : userCase.applicant2InRefuge === YesOrNo.YES
+            ? 'Yes'
+            : 'No'
+      }`,
       line10: `${[
         userCase.applicant2Address1,
         userCase.applicant2Address2,
@@ -133,7 +139,7 @@ const en = ({ isDivorce, userCase }) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, userCase }) => ({
+const cy: typeof en = ({ isDivorce, userCase, isApplicant2 }) => ({
   stepAnswers: {
     aboutPartnership: {
       line3: `${
@@ -209,7 +215,13 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
             : 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat'
           : ''
       }`,
-      line9: 'Ydych chi’n preswylio mewn lloches ar hyn o bryd?',
+      line9: `${
+        !userCase.applicant2AddressPrivate || (userCase.applicant2AddressPrivate === YesOrNo.YES && !isApplicant2)
+          ? ''
+          : userCase.applicant2InRefuge === YesOrNo.YES
+            ? 'Yndw'
+            : 'Nac ydw'
+      }`,
       line10: `${[
         userCase.applicant2Address1,
         userCase.applicant2Address2,
