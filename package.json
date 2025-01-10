@@ -165,5 +165,5 @@
     "axios": "1.7.7",
     "nanoid": "3.3.8"
   },
-  "packageManager": "yarn@3.8.6"
+  "packageManager": "yarn@3.8.7"
 }
