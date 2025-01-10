@@ -1,5 +1,5 @@
 import csurf from 'csurf';
-import type { Application } from 'express';
+import type { Application, RequestHandler } from 'express';
 import type { LoggerInstance } from 'winston';
 
 import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
@@ -9,7 +9,7 @@ const logger: LoggerInstance = Logger.getLogger('app');
 
 export class CSRFToken {
   public enableFor(app: Application): void {
-    app.use(csurf(), (req, res, next) => {
+    app.use(csurf() as unknown as RequestHandler, (req, res, next) => {
       res.locals.csrfToken = req.csrfToken();
       next();
     });
