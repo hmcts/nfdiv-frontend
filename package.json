@@ -76,7 +76,7 @@
     "@uppy/xhr-upload": "4.2.2",
     "applicationinsights": "2.9.6",
     "autobind-decorator": "2.4.0",
-    "axios": "1.7.7",
+    "axios": "1.7.9",
     "config": "3.3.12",
     "connect-redis": "7.1.1",
     "cookie-parser": "1.4.7",
@@ -162,7 +162,7 @@
   },
   "resolutions": {
     "http-cache-semantics": "4.1.1",
-    "axios": "1.7.7",
+    "axios": "1.7.9",
     "nanoid": "3.3.8"
   },
   "packageManager": "yarn@3.8.7"
