@@ -114,6 +114,7 @@ export const getSoleHubTemplate = (
         ? HubTemplate.RespondedToInformationRequest
         : HubTemplate.InformationRequestedFromOther;
     case State.AwaitingHWFDecision:
+    case State.AwaitingHWFEvidence:
       return userCase.applicant1CannotUpload === Checkbox.Checked
         ? HubTemplate.AwaitingDocuments
         : HubTemplate.AosAwaitingOrDrafted;

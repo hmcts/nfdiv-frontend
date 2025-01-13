@@ -217,9 +217,10 @@ const en = (
     (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
       ? ' and help with fees reference number'
       : ''
-  } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
-    dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
-  )} confirming whether it has been accepted. Check your junk or spam email folder.`,
+  } will be checked by court staff. You will receive an email notification${userCase.state !== State.AwaitingHWFEvidence ?
+    ' by ' + getFormattedDate(dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')) :
+    ''
+  } confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
