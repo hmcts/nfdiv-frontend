@@ -42,14 +42,17 @@ const en = (
 ) => ({
   subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
-    line1: `Your joint application ${
-      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-      userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
-        ? 'and help with fees reference number '
-        : ''
-    } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
-      dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
-    )} confirming whether it has been accepted. Check your junk or spam email folder.`,
+    line1:
+      userCase.state === State.AwaitingHWFEvidence
+        ? 'Your joint application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
+        : `Your joint application ${
+            userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+            userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
+              ? 'and help with fees reference number '
+              : ''
+          } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+            dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
+          )} confirming whether it has been accepted. Check your junk or spam email folder.`,
   },
   applicantConfirmedReceiptLatestUpdate: {
     line1: `You have confirmed receipt of the ${
@@ -212,14 +215,17 @@ const en = (
     link: config.get('govukUrls.d11Form'),
   },
   subHeading4: 'What happens next',
-  line5: `Your${isJointApplication ? ' joint' : ''} application${
-    userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
-      ? ' and help with fees reference number'
-      : ''
-  } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
-    dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
-  )} confirming whether it has been accepted. Check your junk or spam email folder.`,
+  line5:
+    userCase.state === State.AwaitingHWFEvidence
+      ? 'Your joint application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
+      : `Your joint application${
+          userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+          (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+            ? ' and help with fees reference number'
+            : ''
+        } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+          dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
+        )} confirming whether it has been accepted. Check your junk or spam email folder.`,
   line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
@@ -277,15 +283,18 @@ const cy: typeof en = (
 ) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
-    line1: `Bydd staff y llys yn gwirio eich cais ${
-      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-      userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
-        ? 'a’ch cyfeirnod Help i Dalu Ffioedd '
-        : ''
-    }. Fe gewch neges e-bost erbyn  ${getFormattedDate(
-      dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
-      SupportedLanguages.Cy
-    )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+    line1:
+      userCase.state === State.AwaitingHWFEvidence
+        ? "Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'."
+        : `Bydd staff y llys yn gwirio eich cais ar y cyd' ${
+            userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+            (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+              ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
+              : ''
+          }. Fe gewch neges e-bost erbyn ${getFormattedDate(
+            dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+            SupportedLanguages.Cy
+          )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
   },
   applicantConfirmedReceiptLatestUpdate: {
     line1: `Rydych wedi cadarnhau eich bod wedi cael y ${
@@ -461,15 +470,18 @@ const cy: typeof en = (
     link: config.get('govukUrls.d11Form'),
   },
   subHeading4: 'Beth fydd yn digwydd nesaf',
-  line5: `Bydd staff y llys yn gwirio eich cais ${isJointApplication ? ' ar y cyd' : ''}${
-    userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
-      ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
-      : ''
-  }. Fe gewch neges e-bost erbyn ${getFormattedDate(
-    dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
-    SupportedLanguages.Cy
-  )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+  line5:
+    userCase.state === State.AwaitingHWFEvidence
+      ? "Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'."
+      : `Bydd staff y llys yn gwirio eich cais ar y cyd' ${
+          userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+          (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+            ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
+            : ''
+        }. Fe gewch neges e-bost erbyn ${getFormattedDate(
+          dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+          SupportedLanguages.Cy
+        )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
   line6: `Yna fe anfonir copi o’r cais at eich ${partner}. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
   line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
   line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${telephoneNumber}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,

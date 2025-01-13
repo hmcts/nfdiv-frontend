@@ -228,4 +228,10 @@ describe('JointTemplateSelector test', () => {
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.Holding);
   });
+
+  test('should show /holding.njk for state AwaitingHWFEvidence', () => {
+    const theState = displayState.at(State.AwaitingHWFEvidence);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.Holding);
+  });
 });
