@@ -235,8 +235,9 @@ const en = ({
       line6: 'By phone',
       line7: 'What language do you want to receive emails and documents in?',
       line8: `Do you need your contact details kept private from your ${partner}?`,
-      line9: 'Your postal address',
-      line10: 'Is this an international address?',
+      line9: 'Are you currently in a refuge?',
+      line10: 'Your postal address',
+      line11: 'Is this an international address?',
     },
     contactThem: {
       line1: `Your ${partner}'s first name(s)`,
@@ -400,6 +401,13 @@ const en = ({
             : 'I do not need my contact details kept private'
       }`,
       line9: `${
+        !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
+          ? ''
+          : userCase.applicant1InRefuge === YesOrNo.YES
+            ? 'Yes'
+            : 'No'
+      }`,
+      line10: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [
@@ -414,7 +422,7 @@ const en = ({
               .filter(Boolean)
               .join('<br>')
       }`,
-      line10: `${
+      line11: `${
         (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2) ||
         userCase.applicant1AddressOverseas === YesOrNo.NO
           ? ''
@@ -569,8 +577,9 @@ const en = ({
       line6: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
       line7: urls.ENGLISH_OR_WELSH,
       line8: urls.ADDRESS_PRIVATE,
-      line9: urls.ENTER_YOUR_ADDRESS,
+      line9: urls.ADDRESS_PRIVATE,
       line10: urls.ENTER_YOUR_ADDRESS,
+      line11: urls.ENTER_YOUR_ADDRESS,
     },
     contactThem: {
       line1: urls.THEIR_NAME,
@@ -747,8 +756,9 @@ const cy: typeof en = ({
       line6: 'Dros y ffôn',
       line7: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
       line8: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
-      line9: 'Eich cyfeiriad post',
-      line10: 'Is this an international address?',
+      line9: 'Ydych chi’n preswylio mewn lloches ar hyn o bryd?',
+      line10: 'Eich cyfeiriad post',
+      line11: 'Is this an international address?',
     },
     contactThem: {
       line1: `Enw(au) cyntaf eich ${partner}`,
@@ -921,6 +931,13 @@ const cy: typeof en = ({
             : 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat'
       }`,
       line9: `${
+        !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
+          ? ''
+          : userCase.applicant1InRefuge === YesOrNo.YES
+            ? 'Yndw'
+            : 'Nac ydw'
+      }`,
+      line10: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [
@@ -935,7 +952,7 @@ const cy: typeof en = ({
               .filter(Boolean)
               .join('<br>')
       }`,
-      line10: `${
+      line11: `${
         (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2) ||
         userCase.applicant1AddressOverseas === YesOrNo.NO
           ? ''
