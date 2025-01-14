@@ -81,6 +81,7 @@ export const getJointHubTemplate = (
     case State.AwaitingDocuments:
       return HubTemplate.AwaitingDocuments;
     case State.AwaitingHWFDecision:
+    case State.AwaitingHWFEvidence:
       return userCase.applicant1CannotUpload === Checkbox.Checked ? HubTemplate.AwaitingDocuments : HubTemplate.Holding;
     default: {
       if (

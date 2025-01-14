@@ -45,6 +45,7 @@ describe('to-api-format', () => {
     applicant1AgreeToReceiveEmails: Checkbox.Checked,
     applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
     applicant1AddressPrivate: YesOrNo.YES,
+    applicant1InRefuge: YesOrNo.YES,
     applicant1KnowsApplicant2Address: YesOrNo.NO,
     applicant2AddressPrivate: YesOrNo.YES,
     iWantToHavePapersServedAnotherWay: null,
@@ -154,6 +155,7 @@ describe('to-api-format', () => {
       applicant1IsApplicant2Represented: Applicant2Represented.NO,
       applicant1AgreedToReceiveEmails: YesOrNo.YES,
       applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
+      applicant1InRefuge: YesOrNo.YES,
       applicant1KnowsApplicant2Address: YesOrNo.NO,
       applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
       applicant1WantsToHavePapersServedAnotherWay: null,
@@ -649,5 +651,44 @@ describe('to-api-format', () => {
     },
   ])('Name changed works', ({ expected, ...formData }) => {
     expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+  });
+
+  describe('applicant2InRefuge transformation', () => {
+    test('defaults applicant2InRefuge to NO if undefined', () => {
+      const apiFormat = toApiFormat({
+        applicant2InRefuge: undefined, // Simulate missing value
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant2InRefuge: YesOrNo.NO,
+      });
+    });
+
+    test('retains applicant2InRefuge value if set', () => {
+      const apiFormatYes = toApiFormat({
+        applicant2InRefuge: YesOrNo.YES, // Simulate value is already set
+      } as Partial<Case>);
+
+      expect(apiFormatYes).toMatchObject({
+        applicant2InRefuge: YesOrNo.YES,
+      });
+
+      const apiFormatNo = toApiFormat({
+        applicant2InRefuge: YesOrNo.NO, // Simulate value is already set
+      } as Partial<Case>);
+
+      expect(apiFormatNo).toMatchObject({
+        applicant2InRefuge: YesOrNo.NO,
+      });
+    });
+
+    test.each([
+      { applicant2InRefuge: undefined, expected: YesOrNo.NO },
+      { applicant2InRefuge: YesOrNo.YES, expected: YesOrNo.YES },
+      { applicant2InRefuge: YesOrNo.NO, expected: YesOrNo.NO },
+    ])('correctly handles applicant2InRefuge with value %p', ({ applicant2InRefuge, expected }) => {
+      const apiFormat = toApiFormat({ applicant2InRefuge } as Partial<Case>);
+      expect(apiFormat).toMatchObject({ applicant2InRefuge: expected });
+    });
   });
 });
