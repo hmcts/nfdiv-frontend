@@ -210,6 +210,8 @@ Feature: Applicant 2
     Then the page URL should be "/applicant2/address-private"
     And the page should include "Do you need your contact details kept private from your wife?"
     Given I select "Keep my contact details private"
+    Then the page should include "Are you currently resident in a refuge?"
+    Given I select "No"
     Then the page should include "If you think you might be experiencing domestic abuse or you feel unsafe, then support is available"
 
     When I click "Continue"
