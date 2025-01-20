@@ -225,12 +225,12 @@ When('I enter my valid case reference and valid access code', async () => {
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+  const userCase = await caseApi.getExistingUserCases(DivorceOrDissolution.DIVORCE);
 
   if (userCase) {
-    const fetchedCase = await caseApi.getCaseById(userCase.id);
+    const fetchedCase = await caseApi.getCaseById(userCase[0].id);
 
-    const caseReference = userCase.id;
+    const caseReference = userCase[0].id;
     const accessCode = fetchedCase.accessCode;
 
     if (!caseReference || !accessCode) {
@@ -342,10 +342,10 @@ const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+  const userCase = await caseApi.getExistingUserCases(DivorceOrDissolution.DIVORCE);
 
   if (userCase) {
-    const caseReference = userCase.id;
+    const caseReference = userCase[0].id;
 
     if (!caseReference) {
       throw new Error(`No case reference or access code was returned for ${testUser}`);
@@ -403,10 +403,10 @@ const executeUserCaseScript = async data => {
 
   // add a delay after logging a user in because it creates an extra case that needs to be added to the ES index
   await new Promise(resolve => setTimeout(resolve, 2000));
-  const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+  const userCase = await api.getExistingUserCases(DivorceOrDissolution.DIVORCE);
 
   if (userCase) {
-    data.applicant2MiddleNames = data.state || userCase.state;
+    data.applicant2MiddleNames = data.state || userCase[0].state;
 
     const connections = addConnectionsBasedOnQuestions(data);
 
@@ -414,7 +414,7 @@ const executeUserCaseScript = async data => {
     data.connections = connections.length > 0 ? connections : undefined;
 
     try {
-      await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
+      await api.triggerEvent(userCase[0].id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
     } catch (error) {
       console.error('Could not set fixture data as ' + user.username);
       console.error(toApiFormat(data));

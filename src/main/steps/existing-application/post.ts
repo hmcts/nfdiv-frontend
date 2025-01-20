@@ -28,14 +28,28 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
       if (req.session.errors.length === 0) {
         try {
           const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
-          const existingCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId);
+          let existingCase;
+          if (req.session.existingCaseId) {
+            existingCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId);
+          }
 
-          if (formData.existingOrNewApplication === existingOrNew.Existing) {
+          if (formData.existingOrNewApplication === existingOrNew.Completed) {
+            const completedCase = await caseworkerUserApi.getCaseById(req.session.completedCaseId);
+            req.session.userCase = completedCase;
+            req.session.isApplicant2 = await caseworkerUserApi.isApplicant2(
+              req.session.completedCaseId,
+              req.session.user.id
+            );
+            nextUrl = HOME_URL;
+          } else if (formData.existingOrNewApplication === existingOrNew.Existing) {
             req.locals.logger.info(
               `UserId: ${req.session.user.id} has chosen to continue with existing application: ${req.session.existingCaseId}
                     and cancelling case invite: ${req.session.inviteCaseId}`
             );
-            await caseworkerUserApi.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
+
+            if (req.session.inviteCaseId) {
+              await caseworkerUserApi.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
+            }
 
             req.session.userCase = existingCase;
             req.session.isApplicant2 = await caseworkerUserApi.isApplicant2(
@@ -44,7 +58,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
             );
             nextUrl = HOME_URL;
           } else if (formData.existingOrNewApplication === existingOrNew.New) {
-            if (await this.isAllowedToUnlinkFromCase(existingCase, caseworkerUserApi, req.session.user.id)) {
+            if (existingCase == null || await this.isAllowedToUnlinkFromCase(existingCase, caseworkerUserApi, req.session.user.id)) {
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {

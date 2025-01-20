@@ -20,6 +20,7 @@ export class ExistingApplicationGetController extends GetController {
       inviteCaseApplicationType: req.session?.inviteCaseApplicationType,
       existingApplicationType: req.session?.existingApplicationType,
       cannotLinkToNewCase: req.session?.cannotLinkToNewCase,
+      completedCaseId: req.session?.completedCaseId
     };
 
     Object.assign(content, generateContent(content));
@@ -32,4 +33,5 @@ export interface ExistingApplicationContent extends CommonContent {
   inviteCaseApplicationType?: ApplicationType;
   existingApplicationType?: ApplicationType;
   cannotLinkToNewCase?: boolean;
+  completedCaseId?: string;
 }

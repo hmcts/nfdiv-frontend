@@ -9,7 +9,7 @@ import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
 import { CaseAssignedUserRoles } from './case-roles';
 import { CASE_TYPE } from './case-type';
-import { DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
+import { DivorceOrDissolution, ListValue, Payment, UserRole, State } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -33,17 +33,22 @@ export class CaseApi {
     email: string,
     serviceType: string,
     logger: LoggerInstance
-  ): Promise<{ existingUserCase: CaseWithId | false; newInviteUserCase: CaseWithId | false }> {
-    const existingUserCase: CaseWithId | false = await this.getExistingUserCase(serviceType);
+  ): Promise<{
+      completedUserCases: CaseWithId[] | false;
+      existingUserCase: CaseWithId | false;
+      newInviteUserCase: CaseWithId | false
+    }> {
+    const { completedUserCases, existingUserCase } = await this.getExistingUserCases(serviceType);
     const newInviteUserCase = await this.getNewInviteCase(email, serviceType, logger);
 
     if (existingUserCase && newInviteUserCase) {
       return {
+        completedUserCases,
         existingUserCase,
         newInviteUserCase: newInviteUserCase.id !== existingUserCase.id ? newInviteUserCase : false,
       };
     }
-    return { existingUserCase, newInviteUserCase };
+    return { completedUserCases, existingUserCase, newInviteUserCase };
   }
 
   public async getNewInviteCase(
@@ -56,9 +61,21 @@ export class CaseApi {
     return this.getLatestUserCase(userCases);
   }
 
-  public async getExistingUserCase(serviceType: string): Promise<CaseWithId | false> {
-    const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
-    return this.getPriorityUserCase(userCases);
+  public async getExistingUserCases(serviceType: string): Promise<{
+    completedUserCases: CaseWithId[] | false,
+    existingUserCase: CaseWithId | false
+  }> {
+    let cases: false | CcdV1Response[] = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
+
+    if (!cases) return { completedUserCases: false, existingUserCase: false };
+
+    let completedUserCases = cases.filter(userCase => userCase.state == State.FinalOrderComplete);
+    let incompleteCases = cases.filter(userCase => userCase.state !== State.FinalOrderComplete);
+
+    return { 
+      completedUserCases: completedUserCases ? completedUserCases.map(userCase => this.mapCcdResponseToCaseWithId(userCase)) : false,
+      existingUserCase: this.getPriorityUserCase(incompleteCases)
+    };
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
@@ -126,11 +143,7 @@ export class CaseApi {
     if (userCases && userCases.length > 1) {
       const submittedUserCase = userCases.find(userCase => !preSubmittedStatePrioritySequence.includes(userCase.state));
       const priorityUserCase = submittedUserCase || getHighestPriorityPreSubmissionCases(userCases)[0];
-      return {
-        ...fromApiFormat(priorityUserCase.case_data),
-        id: priorityUserCase.id.toString(),
-        state: priorityUserCase.state,
-      };
+      return this.mapCcdResponseToCaseWithId(priorityUserCase);
     }
     return this.getLatestUserCase(userCases);
   }
@@ -138,10 +151,18 @@ export class CaseApi {
   private getLatestUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
     if (userCases) {
       return userCases[0]
-        ? { ...fromApiFormat(userCases[0].case_data), id: userCases[0].id.toString(), state: userCases[0].state }
+        ? this.mapCcdResponseToCaseWithId(userCases[0])
         : false;
     }
     return false;
+  }
+
+  private mapCcdResponseToCaseWithId(userCase: CcdV1Response): CaseWithId {
+    return {
+      ...fromApiFormat(userCase.case_data),
+      id: userCase.id.toString(),
+      state: userCase.state,
+    }
   }
 }
 

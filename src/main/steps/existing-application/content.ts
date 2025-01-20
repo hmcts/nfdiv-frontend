@@ -7,24 +7,26 @@ import { formattedCaseId } from '../common/content.utils';
 import { ExistingApplicationContent } from './get';
 
 export enum existingOrNew {
+  Completed = 'completed',
   Existing = 'existing',
   New = 'new',
 }
 
 const en = (
-  { isDivorce, partner, required, existingCaseId, contactEmail, existingApplicationType }: ExistingApplicationContent,
+  { isDivorce, partner, required, existingCaseId, completedCaseId, contactEmail, existingApplicationType }: ExistingApplicationContent,
   isInviteCaseJoint: boolean
 ) => {
   const respondJoin = `${isInviteCaseJoint ? 'join' : 'respond to'}`;
   return {
-    title: 'You have an existing application',
-    line1: `You have an existing application for ${
+    title: 'You have multiple divorce cases',
+    lineCompleted: `You have a completed divorce case from a previous marriage. The application number for this divorce was ${completedCaseId ? formattedCaseId(completedCaseId) : null}.`,
+    line1: `You have an ongoing application for ${
       isDivorce ? 'divorce' : 'to end your civil partnership'
-    }. Your existing application number is ${formattedCaseId(existingCaseId)}.`,
-    line2: `You are now being invited to ${respondJoin} a new application created by your ${partner}.
-            If you choose to ${respondJoin} it then you will lose access to your existing application.`,
+    }. The application number is ${formattedCaseId(existingCaseId)}.`,
+    line2: `You are now being invited to ${respondJoin} a new application created by your current ${partner}.`,
+    completedApplication: `I want to view my completed divorce`,
     newApplication: `I want to ${respondJoin} the new application`,
-    existingApplication: 'I want to continue with my existing application',
+    existingApplication: 'I want to continue with my ongoing application',
     newSelected: 'You will lose access to your existing application',
     existingSelected: 'You will not ever be able to access the new application',
     cannotJoin: `${
@@ -56,17 +58,19 @@ const en = (
 };
 
 const cy: typeof en = (
-  { isDivorce, partner, required, existingCaseId, contactEmail, existingApplicationType }: ExistingApplicationContent,
+  { isDivorce, partner, required, existingCaseId, contactEmail, existingApplicationType, completedCaseId }: ExistingApplicationContent,
   isInviteCaseJoint: boolean
 ) => {
   const respondJoin = `${isInviteCaseJoint ? 'ymateb i gais' : 'ymuno â chais'}`;
   return {
     title: 'Mae gennych gais sydd eisoes yn bod',
+    lineCompleted: `You have a completed divorce case from a previous marriage ${ completedCaseId ? formattedCaseId(completedCaseId) : null}`,
     line1: `Mae gennych gais sydd eisoes yn bod ${
       isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
     }. Eich rhif cais presennol yw ${formattedCaseId(existingCaseId)}.`,
     line2: `Rydych nawr yn cael eich gwahodd i ${respondJoin} newydd a grëwyd gan eich ${partner}.
             Os byddwch yn dewis ${respondJoin} yna byddwch yn colli mynediad at eich cais presennol.`,
+    completedApplication: `I want to view my previously completed divorce`,
     newApplication: `Rwyf eisiau ${respondJoin} cais newydd`,
     existingApplication: 'Rwyf eisiau parhau â fy nghais presennol',
     newSelected: 'Byddwch yn colli mynediad at eich cais presennol',
@@ -107,8 +111,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.newApplication, value: existingOrNew.New, warning: l => l.newSelected },
-        { label: l => l.existingApplication, value: existingOrNew.Existing, warning: l => l.existingSelected },
+        { label: l => l.completedApplication, value: existingOrNew.Completed },
+        { label: l => l.existingApplication, value: existingOrNew.Existing },
       ],
       validator: value => isFieldFilledIn(value),
     },

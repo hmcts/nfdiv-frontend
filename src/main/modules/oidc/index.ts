@@ -83,14 +83,43 @@ export class OidcMiddleware {
     const serviceType = res.locals.serviceType;
 
     try {
-      const { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
+      const {
+        completedUserCases,
+        newInviteUserCase,
+        existingUserCase
+      } = await req.locals.api.getExistingAndNewUserCases(
         userEmail,
         serviceType,
         req.locals.logger
       );
 
       let redirectUrl;
-      if (newInviteUserCase && existingUserCase) {
+      if (completedUserCases && !existingUserCase && !completedUserCases) {
+        req.session.userCase = req.session.userCase || completedUserCases;
+
+        req.session.existingCaseId = req.session.userCase?.id;
+
+        req.session.isApplicant2 =
+          req.session.isApplicant2 ??
+          (req.session.userCase
+            ? await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id)
+            : false);
+      } else if (completedUserCases && (newInviteUserCase || existingUserCase)) {
+        logger.info("COMPLETED:");
+        logger.info(completedUserCases[0]);
+        req.session.completedCaseId = completedUserCases[0].id;
+        if (newInviteUserCase) {
+          req.session.inviteCaseId = newInviteUserCase.id;
+          req.session.inviteCaseApplicationType = newInviteUserCase.applicationType;
+        }
+        if (existingUserCase) {
+          req.session.existingCaseId = existingUserCase.id;
+        }
+        if (!req.path.includes(EXISTING_APPLICATION)) {
+          logger.info(`User (${req.session.user.id}) is being redirected to existing-application page`);
+          redirectUrl = EXISTING_APPLICATION;
+        }
+      } else if (newInviteUserCase && existingUserCase) {
         req.session.inviteCaseId = newInviteUserCase.id;
         req.session.inviteCaseApplicationType = newInviteUserCase.applicationType;
         req.session.existingCaseId = existingUserCase.id;

@@ -5,7 +5,12 @@
 
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body">{{ line1 }}</p>
+  {% if completedCaseId %}
+    <p class="govuk-body">{{ lineCompleted }}</p>
+  {% endif %}
+  {% if existingCaseId %}
+    <p class="govuk-body">{{ line1 }}</p>
+  {% endif %}
   {% if cannotLinkToNewCase %}
     <p class="govuk-body">{{ cannotJoin }}</p>
     {{ govukDetails({
@@ -18,7 +23,9 @@
     }) }}
     <p class="govuk-body"><a href="/exit-service" class="govuk-link">{{ exitService }}</a></p>
   {% else %}
-    <p class="govuk-body">{{ line2 }}</p>
+    {% if newInviteUserCase %}
+      <p class="govuk-body">{{ line2 }}</p>
+    {% endif %}
   {% endif %}
 {% endblock %}
 
