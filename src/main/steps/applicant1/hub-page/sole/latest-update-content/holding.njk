@@ -1,11 +1,15 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% if isDisputedApplication %}
+  {% if isAosSubmitted %}
   <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
-
+  {% else %}
+    isAosNotSubmittedOrUndisputedAos
+    }) }}
+  {% endif %}
 {% else %}
   {% if isDeemedOrDispensedApplication %}
     <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted }}
@@ -22,6 +26,10 @@
     <p class="govuk-body">{{ holding.line1 | safe }}</p>
   {% endif %}
 
+  isAosNotSubmittedOrUndisputedAos
+{% endif %}
+
+{% macro isAosNotSubmittedOrUndisputedAos() %}
   <p class="govuk-body">{{ holding.line2 }}</p>
   <p class="govuk-body">{{ holding.line3 }}</p>
 
@@ -29,4 +37,4 @@
     summaryText: readMore,
     html: readMoreContent
   }) }}
-{% endif %}
+{% endmacro %}

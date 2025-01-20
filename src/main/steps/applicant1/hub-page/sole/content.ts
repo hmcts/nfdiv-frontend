@@ -1,5 +1,6 @@
 import config from 'config';
 import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../app/case/case';
@@ -733,6 +734,7 @@ export const generateContent: TranslationFn = content => {
   ]);
   const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
+  const isAosSubmitted = !isEmpty(userCase.dateAosSubmitted);
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
@@ -750,5 +752,6 @@ export const generateContent: TranslationFn = content => {
     cannotUploadDocuments,
     isRespondentOverseas,
     isRespondentRepresented,
+    isAosSubmitted,
   };
 };
