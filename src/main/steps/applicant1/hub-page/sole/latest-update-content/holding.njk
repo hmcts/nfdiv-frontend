@@ -1,40 +1,32 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
-{% if isDisputedApplication %}
-  {% if isAosSubmitted %}
-  <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
-  <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
-  <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
-  <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
+{% if isAosSubmitted %}
+  {% if isDisputedApplication %}
+    <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
+    <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
+    <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
+    <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
   {% else %}
-    isAosNotSubmittedOrUndisputedAos
-    }) }}
+    {% if isDeemedOrDispensedApplication %}
+      <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted }}
+        <a class="govuk-link" href={{ deemedOrDispensedAccepted.downloadReference }}
+        download="Certificate-of-Service">
+          {{ deemedOrDispensedAccepted.line1 }}</a>
+      </p>
+
+      {% elif isSuccessfullyServedByBailiff %}
+      <p class="govuk-body">{{ servedByBailiff.line1 | safe }}
+      </p>
+
+    {% else %}
+      <p class="govuk-body">{{ holding.line1 | safe }}</p>
+    {% endif %}
   {% endif %}
-{% else %}
-  {% if isDeemedOrDispensedApplication %}
-    <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted }}
-    <a class="govuk-link" href={{ deemedOrDispensedAccepted.downloadReference }}
-      download="Certificate-of-Service">
-      {{ deemedOrDispensedAccepted.line1 }}</a>
-    </p>
-
-  {% elif isSuccessfullyServedByBailiff %}
-    <p class="govuk-body">{{ servedByBailiff.line1 | safe }}
-    </p>
-
-  {% else %}
-    <p class="govuk-body">{{ holding.line1 | safe }}</p>
-  {% endif %}
-
-  isAosNotSubmittedOrUndisputedAos
 {% endif %}
+<p class="govuk-body">{{ holding.line2 }}</p>
+<p class="govuk-body">{{ holding.line3 }}</p>
 
-{% macro isAosNotSubmittedOrUndisputedAos() %}
-  <p class="govuk-body">{{ holding.line2 }}</p>
-  <p class="govuk-body">{{ holding.line3 }}</p>
-
-  {{ govukDetails({
-    summaryText: readMore,
-    html: readMoreContent
-  }) }}
-{% endmacro %}
+{{ govukDetails({
+  summaryText: readMore,
+  html: readMoreContent
+}) }}
