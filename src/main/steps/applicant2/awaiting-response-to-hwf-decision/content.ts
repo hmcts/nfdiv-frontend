@@ -10,7 +10,7 @@ const en = ({ partner }: CommonContent) => ({
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: 'Mae eich cais am Help i Dalu Ffioedd wedi cael ei wrthod',
-  line1: `Mae eich cais ar y cyd wedi'i gytuno gennych chi a'ch ${partner} sifil.`,
+  line1: `Mae eich cais ar y cyd wedi'i gytuno gennych chi a'ch ${partner}.`,
   line2:
     'Mae’r cais am Help i Dalu Ffioedd wedi’i wrthod a bydd y llys yn cysylltu â chi ynghylch beth sydd angen i chi ei wneud i barhau â’ch cais.',
 });
