@@ -228,7 +228,8 @@ const en = (
     },
   },
   awaitingServicePayment: {
-    line1: 'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request.  The court will contact you on how payment can be made.'
+    line1:
+      'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request.  The court will contact you on how payment can be made.',
   },
   awaitingBailiffService: {
     line1: `Your application for bailiff service was successful. The court bailiff will attempt to serve the ${
@@ -562,7 +563,8 @@ const cy: typeof en = (
     },
   },
   awaitingServicePayment: {
-    line1: "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu."
+    line1:
+      "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
   },
   awaitingBailiffService: {
     line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${
