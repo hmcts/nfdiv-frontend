@@ -17,14 +17,15 @@
     <p class="govuk-body">{{ servedByBailiff.line1 | safe }}
     </p>
 
-  {% else %}
+    {% elif isAosSubmitted %}
     <p class="govuk-body">{{ holding.line1 | safe }}</p>
   {% endif %}
-{% endif %}
-<p class="govuk-body">{{ holding.line2 }}</p>
-<p class="govuk-body">{{ holding.line3 }}</p>
 
-{{ govukDetails({
-  summaryText: readMore,
-  html: readMoreContent
-}) }}
+  <p class="govuk-body">{{ holding.line2 }}</p>
+  <p class="govuk-body">{{ holding.line3 }}</p>
+
+  {{ govukDetails({
+    summaryText: readMore,
+    html: readMoreContent
+  }) }}
+{% endif %}
