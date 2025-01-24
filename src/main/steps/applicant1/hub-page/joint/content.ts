@@ -306,7 +306,7 @@ const cy: typeof en = (
     line1:
       userCase.state === State.AwaitingHWFEvidence
         ? "Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'."
-        : `Bydd staff y llys yn gwirio eich cais ${
+        : `Bydd staff y llys yn gwirio eich cais ar y cyd' ${
             userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
             userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
             !applicationHasBeenPaidFor
@@ -494,9 +494,9 @@ const cy: typeof en = (
   line5:
     userCase.state === State.AwaitingHWFEvidence
       ? "Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'."
-      : `Bydd staff y llys yn gwirio eich cais ${isJointApplication ? ' ar y cyd' : ''}${
+      : `Bydd staff y llys yn gwirio eich cais ar y cyd' ${
           userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-          (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
+          userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
           !applicationHasBeenPaidFor
             ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
             : ''
