@@ -33,13 +33,16 @@ const en = (
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   aosAwaitingOrDrafted: {
-    line1: `Your application ${
-      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES && !applicationHasBeenPaidFor
-        ? 'and help with fees reference number '
-        : ''
-    } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
-      dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
-    )} confirming whether it has been accepted. Check your junk or spam email folder.`,
+    line1:
+      userCase.state === State.AwaitingHWFEvidence
+        ? 'Your application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
+        : `Your application ${
+            userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES && !applicationHasBeenPaidFor
+              ? 'and help with fees reference number '
+              : ''
+          } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+            dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
+          )} confirming whether it has been accepted. Check your junk or spam email folder.`,
     line2: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
     line3: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
     line4: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${telephoneNumber}.`,
@@ -364,14 +367,13 @@ const cy: typeof en = (
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   aosAwaitingOrDrafted: {
-    line1: `Bydd staff y llys yn gwirio eich cais ${
-      userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES && !applicationHasBeenPaidFor
-        ? 'a’ch cyfeirnod Help i Dalu Ffioedd'
+    line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau
+    ${
+      userCase.state !== State.AwaitingHWFEvidence
+        ? ' p’un ' +
+          getFormattedDate(dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'))
         : ''
-    }. Fe gewch neges e-bost erbyn ${getFormattedDate(
-      dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
-      SupportedLanguages.Cy
-    )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+    } a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'.`,
     line2: `Yna fe anfonir copi o’r cais at eich ${partner}. Fe ofynnir iddynt wirio’r wybodaeth ac ymateb. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
     line3: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau at eich ${partner} eich hun, yna ffoniwch ${telephoneNumber} i ofyn am gael gwneud hynny. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
     line4: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais i’w gyflwyno drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,

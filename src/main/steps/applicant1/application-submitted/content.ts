@@ -204,7 +204,7 @@ const cy: typeof en = ({
     link: config.get('govukUrls.d11Form'),
   },
   subHeading4: 'Beth fydd yn digwydd nesaf',
-  line5: `Bydd staff y llys yn gwirio eich cais ${isJointApplication ? ' ar y cyd' : ''}${
+  line5: `Bydd staff y llys yn gwirio eich cais${isJointApplication ? ' ar y cyd' : ''}${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
     (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
     !applicationHasBeenPaidFor
