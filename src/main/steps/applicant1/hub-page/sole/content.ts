@@ -20,7 +20,15 @@ import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, RESPOND_TO_COURT_FEED
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
 const en = (
-  { isDivorce, partner, userCase, telephoneNumber, referenceNumber, isJointApplication }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    partner,
+    userCase,
+    telephoneNumber,
+    referenceNumber,
+    isJointApplication,
+  }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
@@ -29,7 +37,9 @@ const en = (
       userCase.state === State.AwaitingHWFEvidence
         ? 'Your application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
         : `Your application ${
-            userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? 'and help with fees reference number ' : ''
+            userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES && !applicationHasBeenPaidFor
+              ? 'and help with fees reference number '
+              : ''
           } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
             dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
           )} confirming whether it has been accepted. Check your junk or spam email folder.`,
@@ -285,7 +295,8 @@ const en = (
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
+    !applicationHasBeenPaidFor
       ? ' and Help With Fees reference number'
       : ''
   } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
@@ -345,7 +356,15 @@ const en = (
 
 // @TODO translations
 const cy: typeof en = (
-  { isDivorce, partner, userCase, telephoneNumber, referenceNumber, isJointApplication }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    partner,
+    userCase,
+    telephoneNumber,
+    referenceNumber,
+    isJointApplication,
+  }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
@@ -635,7 +654,8 @@ const cy: typeof en = (
   subHeading4: 'Beth fydd yn digwydd nesaf',
   line5: `Bydd staff y llys yn gwirio eich cais ${isJointApplication ? ' ar y cyd' : ''}${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
+    !applicationHasBeenPaidFor
       ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
       : ''
   }. Fe gewch neges e-bost erbyn ${getFormattedDate(
