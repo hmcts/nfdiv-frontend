@@ -77,7 +77,9 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.Applicant2Approved: {
       return CONFIRM_JOINT_APPLICATION;
     }
-    case State.Submitted: {
+    case State.Submitted:
+    case State.AwaitingDocuments:
+    case State.AwaitingHWFDecision: {
       return isSolicitorRepresented ? APP_REPRESENTED : APPLICATION_SUBMITTED;
     }
     case State.AwaitingResponseToHWFDecision:
@@ -136,6 +138,8 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingJointFinalOrder:
     case State.Holding:
     case State.LAReview:
+    case State.Submitted:
+    case State.AwaitingDocuments:
     case State.AwaitingHWFDecision:
     case State.AwaitingHWFEvidence:
     case State.AwaitingLegalAdvisorReferral: {

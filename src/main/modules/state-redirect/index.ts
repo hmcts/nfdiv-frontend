@@ -14,10 +14,7 @@ import { PaymentModel } from '../../app/payment/PaymentModel';
 import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
-  APPLICATION_SUBMITTED,
   APP_REPRESENTED,
-  HUB_PAGE,
-  JOINT_APPLICATION_SUBMITTED,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
@@ -67,13 +64,6 @@ export class StateRedirectMiddleware {
         }
 
         const caseState = req.session.userCase?.state;
-        if ([State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(caseState)) {
-          const redirectPath = this.getApplicationSubmittedRedirectPath(req);
-          if (redirectPath) {
-            return res.redirect(redirectPath);
-          }
-        }
-
         if (
           !this.caseAwaitingPayment(req.session.userCase?.state) ||
           [
@@ -106,27 +96,6 @@ export class StateRedirectMiddleware {
 
   private caseAwaitingPayment(state: State): boolean {
     return new Set([...APPLICATION_PAYMENT_STATES, ...FINAL_ORDER_PAYMENT_STATES]).has(state);
-  }
-
-  private getApplicationSubmittedRedirectPath(req: AppRequest): string | null {
-    const userCase = req.session.userCase;
-
-    if (
-      userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
-      req.path !== APPLICATION_SUBMITTED &&
-      req.path !== HUB_PAGE
-    ) {
-      return HUB_PAGE;
-    }
-
-    if (
-      userCase?.applicationType === ApplicationType.JOINT_APPLICATION &&
-      ![JOINT_APPLICATION_SUBMITTED, HUB_PAGE, APPLICANT_2 + HUB_PAGE].includes(req.path)
-    ) {
-      return req.session.isApplicant2 ? APPLICANT_2 + HUB_PAGE : HUB_PAGE;
-    }
-
-    return null;
   }
 
   private hasPartnerNotResponded(userCase: CaseWithId, isApplicant2: boolean) {
