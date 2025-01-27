@@ -43,7 +43,6 @@ const en = (
     userCase,
     partner,
     isApplicant2,
-    isJointApplication,
     referenceNumber,
     telephoneNumber,
   }: CommonContent,
@@ -228,9 +227,9 @@ const en = (
   line5:
     userCase.state === State.AwaitingHWFEvidence
       ? 'Your joint application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
-      : `Your${isJointApplication ? ' joint' : ''} application${
+      : `Your joint application${
           userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-          (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
+          userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
           !applicationHasBeenPaidFor
             ? ' and help with fees reference number'
             : ''
@@ -295,7 +294,6 @@ const cy: typeof en = (
     userCase,
     partner,
     isApplicant2,
-    isJointApplication,
     referenceNumber,
     telephoneNumber,
   }: CommonContent,
