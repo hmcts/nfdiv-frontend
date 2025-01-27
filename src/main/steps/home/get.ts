@@ -14,6 +14,7 @@ import {
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   APP_REPRESENTED,
+  AWAITING_RESPONSE_TO_HWF_DECISION,
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
@@ -79,6 +80,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.Submitted: {
       return isSolicitorRepresented ? APP_REPRESENTED : APPLICATION_SUBMITTED;
     }
+    case State.AwaitingResponseToHWFDecision:
     case State.AwaitingPayment: {
       return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? PAY_AND_SUBMIT : PAY_YOUR_FEE;
     }
@@ -134,12 +136,17 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingJointFinalOrder:
     case State.Holding:
     case State.LAReview:
+    case State.AwaitingHWFDecision:
+    case State.AwaitingHWFEvidence:
     case State.AwaitingLegalAdvisorReferral: {
       return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
     }
     case State.AwaitingPayment:
     case State.Applicant2Approved: {
       return YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION;
+    }
+    case State.AwaitingResponseToHWFDecision: {
+      return AWAITING_RESPONSE_TO_HWF_DECISION;
     }
     case State.ConditionalOrderDrafted:
     case State.ConditionalOrderPending: {

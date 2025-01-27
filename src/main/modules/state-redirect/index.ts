@@ -2,7 +2,13 @@ import dayjs from 'dayjs';
 import { Application, NextFunction, Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
+import {
+  APPLICATION_PAYMENT_STATES,
+  ApplicationType,
+  FINAL_ORDER_PAYMENT_STATES,
+  State,
+  YesOrNo,
+} from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
 import { signInNotRequired } from '../../steps/url-utils';
@@ -69,7 +75,7 @@ export class StateRedirectMiddleware {
         }
 
         if (
-          !this.caseAwaitingPayment(req) ||
+          !this.caseAwaitingPayment(req.session.userCase?.state) ||
           [
             PAY_YOUR_FEE,
             PAY_AND_SUBMIT,
@@ -84,16 +90,12 @@ export class StateRedirectMiddleware {
         }
 
         const finalOrderPayments = new PaymentModel(req.session.userCase.finalOrderPayments);
-        if (
-          caseState === State.AwaitingFinalOrderPayment &&
-          req.session.isApplicant2 &&
-          finalOrderPayments.hasPayment
-        ) {
+        if (FINAL_ORDER_PAYMENT_STATES.has(caseState) && req.session.isApplicant2 && finalOrderPayments.hasPayment) {
           return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
         }
 
         const applicationPayments = new PaymentModel(req.session.userCase.applicationPayments);
-        if (caseState === State.AwaitingPayment && !req.session.isApplicant2 && applicationPayments.hasPayment) {
+        if (APPLICATION_PAYMENT_STATES.has(caseState) && !req.session.isApplicant2 && applicationPayments.hasPayment) {
           return res.redirect(PAYMENT_CALLBACK_URL);
         }
 
@@ -102,8 +104,8 @@ export class StateRedirectMiddleware {
     );
   }
 
-  private caseAwaitingPayment(req: AppRequest): boolean {
-    return [State.AwaitingPayment, State.AwaitingFinalOrderPayment].includes(req.session.userCase?.state);
+  private caseAwaitingPayment(state: State): boolean {
+    return new Set([...APPLICATION_PAYMENT_STATES, ...FINAL_ORDER_PAYMENT_STATES]).has(state);
   }
 
   private getApplicationSubmittedRedirectPath(req: AppRequest): string | null {

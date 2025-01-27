@@ -43,8 +43,9 @@ services:
     systemPassword:
     caching: false
   case:
+    #url: 'http://localhost:4452' #uncomment for local
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    # url: 'https://ccd-data-store-api-nfdiv-case-api-pr-2745.preview.platform.hmcts.net'
+    #url: 'https://nfdiv-case-api-pr-4188.preview.platform.hmcts.net' #uncomment to run against pr
     checkDivCases: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'

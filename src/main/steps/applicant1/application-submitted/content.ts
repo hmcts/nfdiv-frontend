@@ -13,6 +13,7 @@ import { HUB_PAGE } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = ({
+  applicationHasBeenPaidFor,
   isDivorce,
   userCase,
   partner,
@@ -72,7 +73,8 @@ const en = ({
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
+    !applicationHasBeenPaidFor
       ? ' and Help With Fees reference number'
       : ''
   } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
@@ -144,6 +146,7 @@ const en = ({
 
 // @TODO Welsh
 const cy: typeof en = ({
+  applicationHasBeenPaidFor,
   isDivorce,
   userCase,
   partner,
@@ -201,9 +204,10 @@ const cy: typeof en = ({
     link: config.get('govukUrls.d11Form'),
   },
   subHeading4: 'Beth fydd yn digwydd nesaf',
-  line5: `Bydd staff y llys yn gwirio eich cais ${isJointApplication ? ' ar y cyd' : ''}${
+  line5: `Bydd staff y llys yn gwirio eich cais${isJointApplication ? ' ar y cyd' : ''}${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
+    !applicationHasBeenPaidFor
       ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
       : ''
   }. Fe gewch neges e-bost erbyn ${getFormattedDate(

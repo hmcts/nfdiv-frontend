@@ -146,6 +146,7 @@ describe('Steps', () => {
         applicant2Explanation: YesOrNo.NO,
         applicant2IConfirmPrayer: Checkbox.Checked,
         applicant2StatementOfTruth: Checkbox.Checked,
+        applicant2InRefuge: YesOrNo.NO,
       };
 
       const actual = getNextIncompleteStepUrl(mockReq);
