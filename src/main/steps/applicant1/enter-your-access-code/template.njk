@@ -1,0 +1,16 @@
+{% extends "common/page.njk" %}
+
+{% block header %}
+  {% include "cookie-banner/template.njk" %}
+  {{ govukHeader({
+    containerClasses: "govuk-width-container",
+    serviceName: serviceName,
+    serviceUrl: (globals.basePath if globals.basePath) + "/applicant1/enter-your-access-code",
+    navigation: [
+      {
+        href: "/logout" if isLoggedIn else "/login",
+        text: signOut if isLoggedIn else signIn
+      }
+    ]
+  }) }}
+{% endblock %}

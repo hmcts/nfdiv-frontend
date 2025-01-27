@@ -1,9 +1,9 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { mockRequest, mockRequestApp2 } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { APPLICANT_2, HUB_PAGE, RESPONDENT, SIGN_OUT_URL, YOU_NEED_TO_REVIEW_YOUR_APPLICATION } from '../../steps/urls';
+import { HOME_URL, SIGN_OUT_URL } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/case-api';
-import { ApplicationType, SYSTEM_LINK_APPLICANT_2 } from '../case/definition';
+import { ApplicationType, SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, State } from '../case/definition';
 import { FormContent, FormFields } from '../form/Form';
 
 import { AccessCodePostController } from './AccessCodePostController';
@@ -34,6 +34,50 @@ describe('AccessCodePostController', () => {
     },
   } as unknown as FormContent;
 
+  test('Should have no errors and redirect to the next page when applicant request access', async () => {
+    const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234' };
+    const controller = new AccessCodePostController(mockFormContent.fields);
+
+    const caseApiMockFn = {
+      triggerEvent: jest.fn(() => {
+        return {
+          accessCodeApplicant1: 'QWERTY78',
+          id: '1234123412341234',
+          applicationType: ApplicationType.SOLE_APPLICATION,
+        };
+      }),
+      getCaseById: jest.fn(() => {
+        return {
+          accessCodeApplicant1: 'QWERTY78',
+          id: '1234123412341234',
+          applicationType: ApplicationType.SOLE_APPLICATION,
+        };
+      }),
+      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+        return undefined;
+      }),
+    };
+    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(caseApiMockFn.triggerEvent).toHaveBeenCalledWith(
+      '1234123412341234',
+      {
+        accessCode: 'QWERTY78',
+        caseReference: '1234123412341234',
+        applicant1Email: 'test@example.com',
+        applicant1UserId: '123456',
+      },
+      SYSTEM_LINK_APPLICANT_1
+    );
+    expect(res.redirect).toHaveBeenCalledWith(`${HOME_URL}`);
+    expect(req.session.errors).toStrictEqual([]);
+    expect(req.session.existingCaseId).toStrictEqual('1234123412341234');
+  });
+
   test('Should have no errors and redirect to the next page in joint application journey', async () => {
     const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234' };
     const controller = new AccessCodePostController(mockFormContent.fields);
@@ -59,7 +103,7 @@ describe('AccessCodePostController', () => {
     };
     (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
 
-    const req = mockRequest({ body });
+    const req = mockRequestApp2({ body });
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -69,13 +113,11 @@ describe('AccessCodePostController', () => {
         accessCode: 'QWERTY78',
         caseReference: '1234123412341234',
         applicant2Email: 'test@example.com',
-        applicant2FirstNames: 'First name',
-        applicant2LastNames: 'Last name',
         respondentUserId: '123456',
       },
       SYSTEM_LINK_APPLICANT_2
     );
-    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${YOU_NEED_TO_REVIEW_YOUR_APPLICATION}`);
+    expect(res.redirect).toHaveBeenCalledWith(`${HOME_URL}`);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.existingCaseId).toStrictEqual('1234123412341234');
   });
@@ -105,8 +147,9 @@ describe('AccessCodePostController', () => {
     };
     (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
 
-    const req = mockRequest({ body });
+    const req = mockRequestApp2({ body });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+    req.session.userCase.state = State.AwaitingApplicant2Response;
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -116,11 +159,13 @@ describe('AccessCodePostController', () => {
         accessCode: 'QWERTY78',
         caseReference: '1234123412341234',
         applicant2Email: 'test@example.com',
+        applicant2FirstNames: 'First name',
+        applicant2LastNames: 'Last name',
         respondentUserId: '123456',
       },
       SYSTEM_LINK_APPLICANT_2
     );
-    expect(res.redirect).toHaveBeenCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+    expect(res.redirect).toHaveBeenCalledWith(`${HOME_URL}`);
     expect(req.session.errors).toStrictEqual([]);
     expect(req.session.existingCaseId).toStrictEqual('1234123412341234');
   });
@@ -150,7 +195,7 @@ describe('AccessCodePostController', () => {
     };
     (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
 
-    const req = mockRequest({ body });
+    const req = mockRequestApp2({ body });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
     const res = mockResponse();
     await controller.post(req, res);
@@ -165,7 +210,7 @@ describe('AccessCodePostController', () => {
       },
       SYSTEM_LINK_APPLICANT_2
     );
-    expect(res.redirect).toHaveBeenCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+    expect(res.redirect).toHaveBeenCalledWith(`${HOME_URL}`);
     expect(req.session.errors).toStrictEqual([]);
   });
 
@@ -173,7 +218,7 @@ describe('AccessCodePostController', () => {
     const body = { accessCode: 'QWERTY67', caseReference: '1234123412341234' };
     const controller = new AccessCodePostController(mockFormContent.fields);
 
-    const req = mockRequest({ body });
+    const req = mockRequestApp2({ body });
     (getCaseApiMock as jest.Mock).mockReturnValue({
       triggerEvent: jest.fn(),
       getCaseById: jest.fn(() => {
@@ -204,7 +249,7 @@ describe('AccessCodePostController', () => {
     const body = { accessCode: 'QWERTY67', caseReference: 'INVALID' };
     const controller = new AccessCodePostController(mockFormContent.fields);
 
-    const req = mockRequest({ body });
+    const req = mockRequestApp2({ body });
     (getCaseApiMock as jest.Mock).mockReturnValue({
       triggerEvent: jest.fn(),
       getCaseById: jest.fn(() => {
@@ -230,7 +275,7 @@ describe('AccessCodePostController', () => {
     const body = { accessCode: 'QWERTY78', caseReference: '1234123412341234' };
     const controller = new AccessCodePostController(mockFormContent.fields);
 
-    const req = mockRequest({ body });
+    const req = mockRequestApp2({ body });
     (getCaseApiMock as jest.Mock).mockReturnValue({
       triggerEvent: jest.fn(() => {
         throw Error;
