@@ -5,6 +5,7 @@ export const enum HubTemplate {
   AwaitingAmendedApplication = '/awaiting-amended-application.njk',
   PendingHearingOutcome = '/pending-hearing-outcome.njk',
   AwaitingAoS = '/awaiting-aos.njk',
+  AwaitingServicePayment = '/awaiting-service-payment.njk',
   AwaitingBailiffService = '/awaiting-bailiff-service.njk',
   AwaitingClarification = '/awaiting-clarification.njk',
   AwaitingConditionalOrder = '/awaiting-conditional-order.njk',
