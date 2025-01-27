@@ -961,7 +961,7 @@ describe('HomeGetController', () => {
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.Submitted,
           applicant2SolicitorRepresented: YesOrNo.NO,
-          applicationType: ApplicationType.JOINT_APPLICATION
+          applicationType: ApplicationType.JOINT_APPLICATION,
         },
       },
     });
@@ -980,7 +980,7 @@ describe('HomeGetController', () => {
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.AwaitingHWFDecision,
           applicant2SolicitorRepresented: YesOrNo.NO,
-          applicationType: ApplicationType.JOINT_APPLICATION
+          applicationType: ApplicationType.JOINT_APPLICATION,
         },
       },
     });
@@ -999,7 +999,7 @@ describe('HomeGetController', () => {
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.AwaitingDocuments,
           applicant2SolicitorRepresented: YesOrNo.NO,
-          applicationType: ApplicationType.JOINT_APPLICATION
+          applicationType: ApplicationType.JOINT_APPLICATION,
         },
       },
     });
