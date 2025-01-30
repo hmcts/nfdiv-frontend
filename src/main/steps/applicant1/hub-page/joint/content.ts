@@ -37,7 +37,15 @@ const hubPageSubheading = (
 };
 
 const en = (
-  { isDivorce, userCase, partner, isApplicant2, isJointApplication, referenceNumber, telephoneNumber }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    userCase,
+    partner,
+    isApplicant2,
+    referenceNumber,
+    telephoneNumber,
+  }: CommonContent,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   subHeading1: hubPageSubheading(userCase),
@@ -47,7 +55,8 @@ const en = (
         ? 'Your joint application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
         : `Your joint application ${
             userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-            userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
+            userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+            !applicationHasBeenPaidFor
               ? 'and help with fees reference number '
               : ''
           } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
@@ -220,7 +229,8 @@ const en = (
       ? 'Your joint application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
       : `Your joint application${
           userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-          (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+          userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+          !applicationHasBeenPaidFor
             ? ' and help with fees reference number'
             : ''
         } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
@@ -278,7 +288,15 @@ const en = (
 });
 
 const cy: typeof en = (
-  { isDivorce, userCase, partner, isApplicant2, isJointApplication, referenceNumber, telephoneNumber }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    userCase,
+    partner,
+    isApplicant2,
+    referenceNumber,
+    telephoneNumber,
+  }: CommonContent,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
@@ -288,10 +306,11 @@ const cy: typeof en = (
         ? "Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'."
         : `Bydd staff y llys yn gwirio eich cais ar y cyd' ${
             userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-            (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
-              ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
+            userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+            !applicationHasBeenPaidFor
+              ? 'a’ch cyfeirnod Help i Dalu Ffioedd '
               : ''
-          }. Fe gewch neges e-bost erbyn ${getFormattedDate(
+          }. Fe gewch neges e-bost erbyn  ${getFormattedDate(
             dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
           )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
@@ -475,7 +494,8 @@ const cy: typeof en = (
       ? "Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'."
       : `Bydd staff y llys yn gwirio eich cais ar y cyd' ${
           userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-          (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+          userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+          !applicationHasBeenPaidFor
             ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
             : ''
         }. Fe gewch neges e-bost erbyn ${getFormattedDate(

@@ -2032,6 +2032,7 @@ export const enum State {
   AosOverdue = 'AosOverdue',
   Applicant2Approved = 'Applicant2Approved',
   AwaitingPayment = 'AwaitingPayment',
+  AwaitingResponseToHWFDecision = 'AwaitingResponseToHWFDecision',
   AwaitingFinalOrderPayment = 'AwaitingFinalOrderPayment',
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
@@ -2093,6 +2094,14 @@ export const enum State {
   WelshTranslationRequested = 'WelshTranslationRequested',
   WelshTranslationReview = 'WelshTranslationReview',
 }
+
+export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
+  State.AwaitingPayment, State.AwaitingResponseToHWFDecision
+]);
+
+export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([
+  State.AwaitingFinalOrderPayment
+]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
