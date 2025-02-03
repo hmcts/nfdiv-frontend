@@ -90,7 +90,7 @@ export default abstract class BasePaymentPostController {
         reference: payment.payment_reference,
         transactionId: payment.external_reference,
         serviceRequestReference: serviceReference,
-      }
+      },
     };
 
     const eventPayload = { [this.paymentsCaseField()]: [...payments.list, newPaymentWithID] };
