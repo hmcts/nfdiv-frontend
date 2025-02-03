@@ -78,7 +78,7 @@ export default abstract class BasePaymentPostController {
     const payment = await client.create(serviceReference, fees);
     const now = new Date().toISOString();
 
-    const newPaymentWithID = {
+    const newPaymentWithId = {
       id: payment.external_reference,
       value: {
         created: now,
@@ -93,7 +93,7 @@ export default abstract class BasePaymentPostController {
       },
     };
 
-    const eventPayload = { [this.paymentsCaseField()]: [...payments.list, newPaymentWithID] };
+    const eventPayload = { [this.paymentsCaseField()]: [...payments.list, newPaymentWithId] };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
       eventPayload,
