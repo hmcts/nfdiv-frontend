@@ -1,4 +1,5 @@
 import autobind from 'autobind-decorator';
+import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Response } from 'express';
 
@@ -18,6 +19,8 @@ import { AnyObject } from '../controller/PostController';
 import { Payment, PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 
+const logger = Logger.getLogger('payment');
+
 @autobind
 export default abstract class BasePaymentPostController {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
@@ -34,6 +37,7 @@ export default abstract class BasePaymentPostController {
     }
 
     const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
+    logger.info(payments);
     if (payments.isPaymentInProgress()) {
       return this.saveAndRedirect(req, res, getPaymentCallbackPath(req));
     }
@@ -49,6 +53,10 @@ export default abstract class BasePaymentPostController {
     const serviceReference = this.getServiceReferenceForFee(req);
     const payment = await this.attemptPayment(req, payments, serviceReference, getPaymentCallbackUrl(req, res));
 
+    logger.info(payments);
+    logger.info("REDIRECT");
+    logger.info(payment.next_url);
+    logger.info(payment.payment_reference);
     this.saveAndRedirect(req, res, payment.next_url);
   }
 
@@ -78,19 +86,22 @@ export default abstract class BasePaymentPostController {
     const payment = await client.create(serviceReference, fees);
     const now = new Date().toISOString();
 
-    payments.add({
-      created: now,
-      updated: now,
-      feeCode: fee.FeeCode,
-      amount: parseInt(fee.FeeAmount, 10),
-      status: PaymentStatus.IN_PROGRESS,
-      channel: payment.next_url,
-      reference: payment.payment_reference,
-      transactionId: payment.external_reference,
-      serviceRequestReference: serviceReference,
-    });
+    const newPaymentWithID = {
+      id: payment.external_reference,
+      value: {
+        created: now,
+        updated: now,
+        feeCode: fee.FeeCode,
+        amount: parseInt(fee.FeeAmount, 10),
+        status: PaymentStatus.IN_PROGRESS,
+        channel: payment.next_url,
+        reference: payment.payment_reference,
+        transactionId: payment.external_reference,
+        serviceRequestReference: serviceReference,
+      }
+    };
 
-    const eventPayload = { [this.paymentsCaseField()]: payments.list };
+    const eventPayload = { [this.paymentsCaseField()]: [...payments.list, newPaymentWithID] };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
       eventPayload,
