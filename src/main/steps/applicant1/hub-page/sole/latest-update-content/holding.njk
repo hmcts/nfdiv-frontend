@@ -1,24 +1,23 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
-{% if isDisputedApplication %}
+{% if isDisputedApplication and isAosSubmitted %}
   <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
-
 {% else %}
   {% if isDeemedOrDispensedApplication %}
     <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted }}
-    <a class="govuk-link" href={{ deemedOrDispensedAccepted.downloadReference }}
+      <a class="govuk-link" href={{ deemedOrDispensedAccepted.downloadReference }}
       download="Certificate-of-Service">
-      {{ deemedOrDispensedAccepted.line1 }}</a>
+        {{ deemedOrDispensedAccepted.line1 }}</a>
     </p>
 
-  {% elif isSuccessfullyServedByBailiff %}
+    {% elif isSuccessfullyServedByBailiff %}
     <p class="govuk-body">{{ servedByBailiff.line1 | safe }}
     </p>
 
-  {% else %}
+    {% elif isAosSubmitted %}
     <p class="govuk-body">{{ holding.line1 | safe }}</p>
   {% endif %}
 

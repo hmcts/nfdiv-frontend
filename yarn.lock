@@ -3376,10 +3376,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:4.17.14":
-  version: 4.17.14
-  resolution: "@types/lodash@npm:4.17.14"
-  checksum: 2dbeaff92b31cb523f6bc4bb99a3d8c88fbb001d54f2367a888add85784fb213744a9b1600e1e98b6790ab191fdb6ec839eb0e3d63fcf6fb6cf1ebe4c3d21149
+"@types/lodash@npm:4.17.15":
+  version: 4.17.15
+  resolution: "@types/lodash@npm:4.17.15"
+  checksum: 5037564154411f4ac0b187b914031c150520a7ca037dea007f774b7123c97c0da55b2e41ae81dc1bc80ff09e8d6a236455ea676d5062af12c592b8e81baec7bf
   languageName: node
   linkType: hard
 
@@ -12129,9 +12129,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:15.4.2":
-  version: 15.4.2
-  resolution: "lint-staged@npm:15.4.2"
+"lint-staged@npm:15.4.3":
+  version: 15.4.3
+  resolution: "lint-staged@npm:15.4.3"
   dependencies:
     chalk: ^5.4.1
     commander: ^13.1.0
@@ -12145,7 +12145,7 @@ __metadata:
     yaml: ^2.7.0
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: bdb031d64f388aea166b3beaaff8a0a1503e50433959805985b43fcd788c9bfaf1e3a6c0852d830a6c75345b9c0809c5e6dab80d48460e3d6317b7ca0f842df8
+  checksum: b12b246c13fc1c7b0023a234244699fa1ec9b8ee15fae71e8109e7f10aa5f43c5cfa9d7eba6aa109cae6b6ffe7a1a50244f5df84e4b30d14e3764dbb66c5f66f
   languageName: node
   linkType: hard
 
@@ -13784,7 +13784,7 @@ __metadata:
     "@types/express-session": 1.18.1
     "@types/glob": 8.1.0
     "@types/jest": 29.5.14
-    "@types/lodash": 4.17.14
+    "@types/lodash": 4.17.15
     "@types/multer": 1.4.12
     "@types/negotiator": 0.6.3
     "@types/node": 22.9.1
@@ -13838,7 +13838,7 @@ __metadata:
     jest-junit: ^16.0.0
     js-yaml: 4.1.0
     jwt-decode: 4.0.0
-    lint-staged: 15.4.2
+    lint-staged: 15.4.3
     lodash: 4.17.21
     mini-css-extract-plugin: 2.9.2
     mocha: ^10.5.2
