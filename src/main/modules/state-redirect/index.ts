@@ -63,7 +63,7 @@ export class StateRedirectMiddleware {
         }
 
         if (
-          this.hasPartnerNotResponded(req.session.userCase, isApplicant2) &&
+          this.hasPartnerNotRespondedInTime(req.session.userCase, isApplicant2) &&
           ![NO_RESPONSE_YET, SWITCH_TO_SOLE_APPLICATION].includes(req.path as PageLink)
         ) {
           return res.redirect(NO_RESPONSE_YET);
@@ -113,7 +113,7 @@ export class StateRedirectMiddleware {
     return new Set([...APPLICATION_PAYMENT_STATES, ...FINAL_ORDER_PAYMENT_STATES]).has(state);
   }
 
-  private hasPartnerNotResponded(userCase: CaseWithId, isApplicant2: boolean) {
+  private hasPartnerNotRespondedInTime(userCase: CaseWithId, isApplicant2: boolean) {
     return (
       ((isApplicant2 && [State.AwaitingApplicant1Response, State.Applicant2Approved].includes(userCase?.state)) ||
         (!isApplicant2 && userCase?.state === State.AwaitingApplicant2Response)) &&
