@@ -72,9 +72,13 @@ export class StateRedirectMiddleware {
           return res.redirect(NO_RESPONSE_YET);
         }
 
-        const jointApp1AwaitingReviewByApplicant2 = !isSole && !isApplicant2 && state === State.AwaitingApplicant2Response
-          && dayjs(req.session.userCase.dueDate).diff(dayjs()) > 0;
-        if (jointApp1AwaitingReviewByApplicant2 && ![SENT_TO_APPLICANT2_FOR_REVIEW, THEIR_EMAIL_ADDRESS].includes(req.path as PageLink)) {
+        const awaitingReviewByApplicant2 = !isSole && !isApplicant2 && state === State.AwaitingApplicant2Response;
+        if (
+          awaitingReviewByApplicant2 &&
+          ![SENT_TO_APPLICANT2_FOR_REVIEW, THEIR_EMAIL_ADDRESS, NO_RESPONSE_YET, SWITCH_TO_SOLE_APPLICATION].includes(
+            req.path as PageLink
+          )
+        ) {
           return res.redirect(SENT_TO_APPLICANT2_FOR_REVIEW);
         }
 
