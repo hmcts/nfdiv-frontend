@@ -21,7 +21,13 @@ describe('CheckYourConditionalOrderAnswersPostController', () => {
     };
     const checkYourAnswerPostController = new CheckYourConditionalOrderAnswersPostController(mockFormContent.fields);
 
-    const req = mockRequest({ body, userCase: { applicationType: ApplicationType.SOLE_APPLICATION } });
+    const req = mockRequest({
+      body,
+      userCase: {
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        applicant1ConfirmInformationStillCorrect: YesOrNo.YES,
+      },
+    });
     const res = mockResponse();
     await checkYourAnswerPostController.post(req, res);
 
@@ -80,8 +86,8 @@ describe('CheckYourConditionalOrderAnswersPostController', () => {
         applicationType: ApplicationType.SOLE_APPLICATION,
         applicant2ConfirmInformationStillCorrect: YesOrNo.NO,
       },
-      session: { isApplicant2: true },
     });
+    req.session.isApplicant2 = true;
     const res = mockResponse();
     await checkYourAnswerPostController.post(req, res);
 
@@ -98,7 +104,7 @@ describe('CheckYourConditionalOrderAnswersPostController', () => {
       mockFormContent.fields
     );
 
-    const req = mockRequest({ body });
+    const req = mockRequest({ body, userCase: { applicant1ConfirmInformationStillCorrect: YesOrNo.YES } });
     req.session.lang = SupportedLanguages.Cy;
 
     const res = mockResponse();
@@ -127,7 +133,7 @@ describe('CheckYourConditionalOrderAnswersPostController', () => {
       mockFormContentApplicant2.fields
     );
 
-    const req = mockRequest({ body });
+    const req = mockRequest({ body, userCase: { applicant2ConfirmInformationStillCorrect: YesOrNo.YES } });
     req.session.lang = SupportedLanguages.Cy;
     req.session.isApplicant2 = true;
 
