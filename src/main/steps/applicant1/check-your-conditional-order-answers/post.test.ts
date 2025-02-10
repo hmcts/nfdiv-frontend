@@ -27,6 +27,44 @@ describe('CheckYourConditionalOrderAnswersPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, SUBMIT_CONDITIONAL_ORDER);
   });
 
+  it('Triggers SUBMIT_CONDITIONAL_ORDER when submitting conditional order application with information not correct and reason provided', async () => {
+    const body = {
+      coApplicant1StatementOfTruth: Checkbox.Checked,
+    };
+    const checkYourAnswerPostController = new CheckYourConditionalOrderAnswersPostController(mockFormContent.fields);
+
+    const req = mockRequest({
+      body,
+      userCase: {
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        applicant1ConfirmInformationStillCorrect: YesOrNo.NO,
+        applicant1ReasonInformationNotCorrect: 'test',
+      },
+    });
+    const res = mockResponse();
+    await checkYourAnswerPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, SUBMIT_CONDITIONAL_ORDER);
+  });
+
+  it("Doesn't trigger SUBMIT_CONDITIONAL_ORDER when submitting conditional order application with information not correct and no reason provided", async () => {
+    const body = {
+      coApplicant1StatementOfTruth: Checkbox.Checked,
+    };
+    const checkYourAnswerPostController = new CheckYourConditionalOrderAnswersPostController(mockFormContent.fields);
+
+    const req = mockRequest({
+      body,
+      userCase: {
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      },
+    });
+    const res = mockResponse();
+    await checkYourAnswerPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalledWith('1234', body, SUBMIT_CONDITIONAL_ORDER);
+  });
+
   it('sets applicant1UsedWelshTranslationOnSubmission to Yes if applicant 1 and Welsh translation used', async () => {
     const body = {
       coApplicant1StatementOfTruth: Checkbox.Checked,
