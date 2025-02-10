@@ -13,6 +13,7 @@ export const ACTIVE: PageLink = '/active';
 export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 
+export const APPLICANT_1: PageLink = '/applicant1';
 export const APPLICANT_2: PageLink = '/applicant2';
 export const RESPONDENT: PageLink = '/respondent';
 
@@ -103,6 +104,7 @@ export const ENTER_YOUR_ACCESS_CODE: PageLink = '/enter-your-access-code';
 export const YOU_NEED_TO_REVIEW_YOUR_APPLICATION: PageLink = '/you-need-to-review-your-application';
 export const NOT_CONFIRMED_JOINT_APPLICATION: PageLink = '/you-have-not-confirmed-joint-application';
 export const YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION: PageLink = '/needs-to-confirm-joint-application';
+export const AWAITING_RESPONSE_TO_HWF_DECISION: PageLink = '/awaiting-response-to-hwf-decision';
 export const CHECK_JOINT_APPLICATION: PageLink = '/check-your-joint-application';
 export const YOUR_COMMENTS_SENT: PageLink = '/your-comments-sent';
 export const NO_RESPONSE_YET: PageLink = '/no-response-yet';

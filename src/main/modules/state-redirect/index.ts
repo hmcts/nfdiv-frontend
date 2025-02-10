@@ -2,16 +2,19 @@ import dayjs from 'dayjs';
 import { Application, NextFunction, Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
+import {
+  APPLICATION_PAYMENT_STATES,
+  ApplicationType,
+  FINAL_ORDER_PAYMENT_STATES,
+  State,
+  YesOrNo,
+} from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
 import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
-  APPLICATION_SUBMITTED,
   APP_REPRESENTED,
-  HUB_PAGE,
-  JOINT_APPLICATION_SUBMITTED,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
@@ -61,15 +64,8 @@ export class StateRedirectMiddleware {
         }
 
         const caseState = req.session.userCase?.state;
-        if ([State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(caseState)) {
-          const redirectPath = this.getApplicationSubmittedRedirectPath(req);
-          if (redirectPath) {
-            return res.redirect(redirectPath);
-          }
-        }
-
         if (
-          !this.caseAwaitingPayment(req) ||
+          !this.caseAwaitingPayment(req.session.userCase?.state) ||
           [
             PAY_YOUR_FEE,
             PAY_AND_SUBMIT,
@@ -84,16 +80,12 @@ export class StateRedirectMiddleware {
         }
 
         const finalOrderPayments = new PaymentModel(req.session.userCase.finalOrderPayments);
-        if (
-          caseState === State.AwaitingFinalOrderPayment &&
-          req.session.isApplicant2 &&
-          finalOrderPayments.hasPayment
-        ) {
+        if (FINAL_ORDER_PAYMENT_STATES.has(caseState) && req.session.isApplicant2 && finalOrderPayments.hasPayment) {
           return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
         }
 
         const applicationPayments = new PaymentModel(req.session.userCase.applicationPayments);
-        if (caseState === State.AwaitingPayment && !req.session.isApplicant2 && applicationPayments.hasPayment) {
+        if (APPLICATION_PAYMENT_STATES.has(caseState) && !req.session.isApplicant2 && applicationPayments.hasPayment) {
           return res.redirect(PAYMENT_CALLBACK_URL);
         }
 
@@ -102,29 +94,8 @@ export class StateRedirectMiddleware {
     );
   }
 
-  private caseAwaitingPayment(req: AppRequest): boolean {
-    return [State.AwaitingPayment, State.AwaitingFinalOrderPayment].includes(req.session.userCase?.state);
-  }
-
-  private getApplicationSubmittedRedirectPath(req: AppRequest): string | null {
-    const userCase = req.session.userCase;
-
-    if (
-      userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
-      req.path !== APPLICATION_SUBMITTED &&
-      req.path !== HUB_PAGE
-    ) {
-      return HUB_PAGE;
-    }
-
-    if (
-      userCase?.applicationType === ApplicationType.JOINT_APPLICATION &&
-      ![JOINT_APPLICATION_SUBMITTED, HUB_PAGE, APPLICANT_2 + HUB_PAGE].includes(req.path)
-    ) {
-      return req.session.isApplicant2 ? APPLICANT_2 + HUB_PAGE : HUB_PAGE;
-    }
-
-    return null;
+  private caseAwaitingPayment(state: State): boolean {
+    return new Set([...APPLICATION_PAYMENT_STATES, ...FINAL_ORDER_PAYMENT_STATES]).has(state);
   }
 
   private hasPartnerNotResponded(userCase: CaseWithId, isApplicant2: boolean) {
