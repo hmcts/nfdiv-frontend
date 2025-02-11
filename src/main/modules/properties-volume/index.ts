@@ -1,3 +1,5 @@
+import { execSync } from 'child_process';
+
 import { DefaultAzureCredential } from '@azure/identity';
 import { SecretClient } from '@azure/keyvault-secrets';
 import * as propertiesVolume from '@hmcts/properties-volume';
@@ -30,14 +32,13 @@ export class PropertiesVolume {
       await this.setSecret('secrets.nfdiv.idam-systemupdate-password', 'services.idam.systemPassword');
       await this.setSecret('secrets.nfdiv.pcq-token-key', 'services.equalityAndDiversity.tokenKey');
     } else {
-      // Load local secrets using Azure SDK
-      await this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
-      await this.setLocalSecret('frontend-secret', 'services.authProvider.secret');
-      await this.setLocalSecret('os-places-token', 'services.postcodeLookup.token');
-      await this.setLocalSecret('idam-systemupdate-username', 'services.idam.systemUsername');
-      await this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
-      await this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
-      await this.setLocalSecret('pcq-token-key', 'services.equalityAndDiversity.tokenKey');
+      this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
+      this.setLocalSecret('frontend-secret', 'services.authProvider.secret');
+      this.setLocalSecret('os-places-token', 'services.postcodeLookup.token');
+      this.setLocalSecret('idam-systemupdate-username', 'services.idam.systemUsername');
+      this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
+      this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
+      this.setLocalSecret('pcq-token-key', 'services.equalityAndDiversity.tokenKey');
     }
   };
 
@@ -48,16 +49,10 @@ export class PropertiesVolume {
   }
 
   /**
-   * Load a secret from the Azure Key Vault using the Azure SDK
+   * Load a secret from the AAT vault using azure cli
    */
-  private async setLocalSecret(secret: string, toPath: string): Promise<void> {
-    try {
-      // Retrieve the secret using Azure SDK
-      const secretResponse = await this.client.getSecret(secret);
-      // Set the secret value in the config
-      set(config, toPath, secretResponse.value);
-    } catch (error) {
-      throw new Error(`Failed to retrieve secret ${secret}: ${error.message}`);
-    }
+  private setLocalSecret(secret: string, toPath: string): void {
+    const result = execSync('az keyvault secret show --vault-name nfdiv-aat -o tsv --query value --name ' + secret);
+    set(config, toPath, result.toString().replace('\n', ''));
   }
 }
