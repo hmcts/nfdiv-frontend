@@ -17,7 +17,7 @@ describe('SoleTemplateSelector test', () => {
   const userCase = {
     id: '123',
     state: State.Draft,
-    coIsAdminClarificationSubmitted: YesOrNo.NO,
+    coIsAdminClarificationSubmitted: YesOrNo.NO as YesOrNo,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
   const displayState = currentStateFn(userCase.state);
@@ -231,6 +231,12 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingBailiffService);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingBailiffService);
+  });
+
+  test('should show /awaiting-service-payment.njk for state AwaitingServicePayment', () => {
+    const theState = displayState.at(State.AwaitingServicePayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingServicePayment);
   });
 
   test('should show /awaiting-final-order-or-final-order-overdue.njk for state AwaitingFinalOrder', () => {
