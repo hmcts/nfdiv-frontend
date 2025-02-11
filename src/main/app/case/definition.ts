@@ -1056,6 +1056,7 @@ export interface RequestForInformationResponse {
 export interface RequestForInformation {
   requestForInformationJointParties: string;
   requestForInformationSoleParties: string;
+  requestForInformationDetails: string;
   requestForInformationResponses: ListValue<RequestForInformationResponse>[];
 }
 
