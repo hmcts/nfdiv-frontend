@@ -78,19 +78,22 @@ export default abstract class BasePaymentPostController {
     const payment = await client.create(serviceReference, fees);
     const now = new Date().toISOString();
 
-    payments.add({
-      created: now,
-      updated: now,
-      feeCode: fee.FeeCode,
-      amount: parseInt(fee.FeeAmount, 10),
-      status: PaymentStatus.IN_PROGRESS,
-      channel: payment.next_url,
-      reference: payment.payment_reference,
-      transactionId: payment.external_reference,
-      serviceRequestReference: serviceReference,
-    });
+    const newPaymentWithId = {
+      id: payment.external_reference,
+      value: {
+        created: now,
+        updated: now,
+        feeCode: fee.FeeCode,
+        amount: parseInt(fee.FeeAmount, 10),
+        status: PaymentStatus.IN_PROGRESS,
+        channel: payment.next_url,
+        reference: payment.payment_reference,
+        transactionId: payment.external_reference,
+        serviceRequestReference: serviceReference,
+      },
+    };
 
-    const eventPayload = { [this.paymentsCaseField()]: payments.list };
+    const eventPayload = { [this.paymentsCaseField()]: [...payments.list, newPaymentWithId] };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
       eventPayload,
