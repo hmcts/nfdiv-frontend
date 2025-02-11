@@ -4,7 +4,7 @@ import { Checkbox } from '../../../app/case/case';
 import { ApplicationType, SUBMIT_CONDITIONAL_ORDER, YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { SupportedLanguages } from '../../../modules/i18n';
-import { APPLICANT_2, REVIEW_YOUR_JOINT_APPLICATION } from '../../urls';
+import { APPLICANT_2, REVIEW_YOUR_APPLICATION, REVIEW_YOUR_JOINT_APPLICATION } from '../../urls';
 
 import CheckYourConditionalOrderAnswersPostController from './post';
 
@@ -64,6 +64,26 @@ describe('CheckYourConditionalOrderAnswersPostController', () => {
       body,
       userCase: {
         applicationType: ApplicationType.SOLE_APPLICATION,
+      },
+    });
+    const res = mockResponse();
+    await checkYourAnswerPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalledWith('1234', body, SUBMIT_CONDITIONAL_ORDER);
+    expect(res.redirect).toHaveBeenCalledWith(`${REVIEW_YOUR_APPLICATION}`);
+    expect(req.session.errors).toStrictEqual([]);
+  });
+
+  it("Doesn't trigger SUBMIT_CONDITIONAL_ORDER when submitting conditional order application for joint applicant1 with information not correct and no reason provided", async () => {
+    const body = {
+      coApplicant1StatementOfTruth: Checkbox.Checked,
+    };
+    const checkYourAnswerPostController = new CheckYourConditionalOrderAnswersPostController(mockFormContent.fields);
+
+    const req = mockRequest({
+      body,
+      userCase: {
+        applicationType: ApplicationType.JOINT_APPLICATION,
       },
     });
     const res = mockResponse();

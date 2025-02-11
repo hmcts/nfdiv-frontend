@@ -3,11 +3,11 @@ import { Response } from 'express';
 import { isEmpty } from 'lodash';
 
 import { Case, CaseWithId } from '../../../app/case/case';
-import { SUBMIT_CONDITIONAL_ORDER, YesOrNo } from '../../../app/case/definition';
+import { ApplicationType, SUBMIT_CONDITIONAL_ORDER, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
-import { APPLICANT_2, REVIEW_YOUR_JOINT_APPLICATION } from '../../urls';
+import { APPLICANT_2, REVIEW_YOUR_APPLICATION, REVIEW_YOUR_JOINT_APPLICATION } from '../../urls';
 
 @autobind
 export default class CheckYourConditionalOrderAnswersPostController extends PostController<AnyObject> {
@@ -44,7 +44,11 @@ export default class CheckYourConditionalOrderAnswersPostController extends Post
           req.session.userCase.applicant1ConfirmInformationStillCorrect !== YesOrNo.YES &&
           isEmpty(req.session.userCase.applicant1ReasonInformationNotCorrect)
         ) {
-          res.redirect(REVIEW_YOUR_JOINT_APPLICATION);
+          res.redirect(
+            req.session.userCase.applicationType === ApplicationType.JOINT_APPLICATION
+              ? REVIEW_YOUR_JOINT_APPLICATION
+              : REVIEW_YOUR_APPLICATION
+          );
         } else {
           req.session.userCase = await this.save(req, formData, SUBMIT_CONDITIONAL_ORDER);
         }
