@@ -1,5 +1,6 @@
 import config from 'config';
 import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../app/case/case';
@@ -236,6 +237,10 @@ const en = (
       downloadReference: 'Bailiff-certificate',
       link: '/downloads/bailiff-unsuccessful-certificate-of-service',
     },
+  },
+  awaitingServicePayment: {
+    line1:
+      'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.',
   },
   awaitingBailiffService: {
     line1: `Your application for bailiff service was successful. The court bailiff will attempt to serve the ${
@@ -579,6 +584,10 @@ const cy: typeof en = (
       link: '/downloads/bailiff-unsuccessful-certificate-of-service',
     },
   },
+  awaitingServicePayment: {
+    line1:
+      "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
+  },
   awaitingBailiffService: {
     line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${
       isDivorce ? 'papurau’r ysgariad' : "papurau i ddod â'ch partneriaeth sifil i ben"
@@ -757,6 +766,7 @@ export const generateContent: TranslationFn = content => {
   ]);
   const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
+  const isAosSubmitted = !isEmpty(userCase.dateAosSubmitted);
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
@@ -774,5 +784,6 @@ export const generateContent: TranslationFn = content => {
     cannotUploadDocuments,
     isRespondentOverseas,
     isRespondentRepresented,
+    isAosSubmitted,
   };
 };
