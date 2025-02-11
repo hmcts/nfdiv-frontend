@@ -1,0 +1,24 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  <p class="govuk-body">Please click the button below if you would like to withdraw. Your draft will be deleted immediately and you will lose access to the case.</p>
+  <p class="govuk-body">If you change your mind afterwards, you will need to create a new draft and re-enter your answers to the application questions.</p>
+{% endblock %}
+
+<form class="form" id="main-form" method="post" action="" novalidate="novalidate">
+  <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+
+  <div class="govuk-form-group">
+    {{ govukButton({
+      text: getContent(form.submit.text),
+      classes: form.submit.classes,
+      type: "submit",
+      preventDoubleClick: true,
+      attributes: {
+        id: 'main-form-submit'
+      }
+    }) }}
+  </div>
+</form>

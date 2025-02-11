@@ -8,6 +8,7 @@ export const APPLICANT_2_SIGN_IN_URL: PageLink = '/login-applicant2';
 export const SIGN_OUT_URL: PageLink = '/logout';
 export const REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT: PageLink = '/request-for-information-save-sign-out';
 export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
+export const APPLICATION_WITHDRAWN: PageLink = '/application-withdrawn';
 export const EXIT_SERVICE: PageLink = '/exit-service';
 export const ACTIVE: PageLink = '/active';
 export const TIMED_OUT_URL: PageLink = '/timed-out';
@@ -21,6 +22,7 @@ export const TERMS_AND_CONDITIONS_URL: PageLink = '/terms-and-conditions';
 export const COOKIES_URL: PageLink = '/cookies';
 export const ACCESSIBILITY_STATEMENT_URL: PageLink = '/accessibility-statement';
 export const WEBCHAT_URL: PageLink = '/webchat';
+export const WITHDRAW_APPLICATION: PageLink = '/withdraw-application';
 export const CONTACT_US: PageLink = '/contact-us';
 export const CHECK_ANSWERS_URL: PageLink = '/check-your-answers';
 
