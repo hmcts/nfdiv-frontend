@@ -17,7 +17,7 @@ describe('SoleTemplateSelector test', () => {
   const userCase = {
     id: '123',
     state: State.Draft,
-    coIsAdminClarificationSubmitted: YesOrNo.NO,
+    coIsAdminClarificationSubmitted: YesOrNo.NO as YesOrNo,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
   };
   const displayState = currentStateFn(userCase.state);

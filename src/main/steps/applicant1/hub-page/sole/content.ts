@@ -729,7 +729,7 @@ export const generateContent: TranslationFn = content => {
   const isDisputedApplication = userCase.disputeApplication === YesOrNo.YES;
   const isSuccessfullyServedByBailiff =
     userCase.alternativeServiceOutcomes?.[0].value.successfulServedByBailiff === YesOrNo.YES;
-  const isDeemedOrDispensedApplication = userCase.alternativeServiceOutcomes?.find(
+  const isDeemedOrDispensedApplication = (userCase.alternativeServiceOutcomes ?? []).find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
