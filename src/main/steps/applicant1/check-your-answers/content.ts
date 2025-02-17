@@ -745,7 +745,7 @@ const cy: typeof en = ({
         isDivorce ? 'briodi' : 'chi ffurfio eich partneriaeth sifil?'
       }?`,
       line7: `A ydych wedi newid unrhyw ran o'ch enw ers ${isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'}?`,
-      line8:  `Sut wnaethoch chi newid eich enw ers ${isDivorce ? 'i chi briodi' : 'ffurfio eich partneriaeth sifil'}?`,
+      line8: `Sut wnaethoch chi newid eich enw ers ${isDivorce ? 'i chi briodi' : 'ffurfio eich partneriaeth sifil'}?`,
     },
     contactYou: {
       line1: 'Eich enw(au) cyntaf',

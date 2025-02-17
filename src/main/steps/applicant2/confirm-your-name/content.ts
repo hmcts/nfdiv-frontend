@@ -16,8 +16,8 @@ const en = ({ userCase, required }) => ({
 
 const cy = ({ userCase, required }) => ({
   title: `Ai ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames} yw eich enw llawn, gan gynnwys unrhyw enwau canol?`,
-  yes: "Ie, dyna fy enw llawn",
-  no: "Na, nid dyna fy enw llawn",
+  yes: 'Ie, dyna fy enw llawn',
+  no: 'Na, nid dyna fy enw llawn',
   errors: {
     applicant1ConfirmFullName: {
       required,

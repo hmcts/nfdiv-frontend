@@ -50,7 +50,8 @@ const cy = ({ isDivorce, required }) => ({
   applicant1NameDifferentToMarriageCertificate: "A ydych wedi newid unrhyw ran o'ch enw ers priodi?",
   applicant1NameDifferentToMarriageCertificateHint: 'Er enghraifft, trwy weithred newid enw',
   howDidYouChangeYourNameTitle: 'Sut wnaethoch chi newid eich enw?',
-  howDidYouChangeYourNameHint: "Mae’r llys angen gwybod sut y gwnaethoch newid eich enw, fel bod y llys yn gwybod pa ddogfen i'w gwirio",
+  howDidYouChangeYourNameHint:
+    "Mae’r llys angen gwybod sut y gwnaethoch newid eich enw, fel bod y llys yn gwybod pa ddogfen i'w gwirio",
   sendingOffMarriageCertificate: `Trwy anfon fy nhystysgrif ${isDivorce ? 'briodas' : 'partneriaeth sifil'}`,
   deedPoll: 'Trwy weithred newid enw neu ddatganiad statudol',
   deedPollMoreDetails:
