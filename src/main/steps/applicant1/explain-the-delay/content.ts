@@ -24,8 +24,26 @@ const en = {
   },
 };
 
-// @TODO translations
-const cy: typeof en = en;
+const cy: typeof en = {
+  title: 'Esboniwch yr oedi',
+  finalOrderLateExplanation:
+    'Rydych yn gwneud y cais hwn am orchymyn terfynol dros flwyddyn ar ôl i’r gorchymyn amodol gael ei wneud. ' +
+    'Esboniwch i’r llys pam na wnaethoch gais am orchymyn terfynol yn gynharach. Bydd eich ateb yn cael ei adolygu fel rhan o’ch cais.',
+  finalOrderStatementOfTruth: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir',
+  confirmApplicationIsTrueMoreInformation:
+    'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. ' +
+    '\tGelwir hwn yn eich ‘datganiad gwirionedd’.',
+  errors: {
+    applicant1FinalOrderLateExplanation: {
+      required:
+        'Nid ydych wedi darparu unrhyw wybodaeth. Mae arnoch angen esbonio pam bod oedi wedi bod gyda’ch cais cyn parhau.',
+    },
+    applicant1FinalOrderStatementOfTruth: {
+      required:
+        "Nid ydych wedi cadarnhau eich bod yn credu bod yr wybodaeth rydych wedi'i nodi yn wir. Cadarnhewch eich bod yn credu ei bod yn wir cyn parhau.",
+    },
+  },
+};
 
 export const form: FormContent = {
   fields: {
