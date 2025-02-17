@@ -49,27 +49,27 @@ const cy = ({ isDivorce, required }) => ({
   applicant1LastNameChangedWhenMarriedHint: "Er enghraifft, o'ch enw morwynaidd",
   applicant1NameDifferentToMarriageCertificate: "A ydych wedi newid unrhyw ran o'ch enw ers priodi?",
   applicant1NameDifferentToMarriageCertificateHint: 'Er enghraifft, trwy weithred newid enw',
-  howDidYouChangeYourNameTitle: 'How did you change your name?',
-  howDidYouChangeYourNameHint: 'The court needs to know how you changed your name so it knows which document to check.',
-  sendingOffMarriageCertificate: `By sending off my ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
-  deedPoll: 'By deed poll or ‘statutory declaration’',
+  howDidYouChangeYourNameTitle: 'Sut wnaethoch chi newid eich enw?',
+  howDidYouChangeYourNameHint: "Mae’r llys angen gwybod sut y gwnaethoch newid eich enw, fel bod y llys yn gwybod pa ddogfen i'w gwirio",
+  sendingOffMarriageCertificate: `Trwy anfon fy nhystysgrif ${isDivorce ? 'briodas' : 'partneriaeth sifil'}`,
+  deedPoll: 'Trwy weithred newid enw neu ddatganiad statudol',
   deedPollMoreDetails:
-    'The court needs to see the deed poll or ‘statutory declaration’ document. You can upload a photo or scan later in this application, or you can post it.',
-  anotherWay: 'Another way',
+    'Mae’r llys angen gweld y ddogfen ‘datganiad statudol’ neu’r weithred newid enw. Gallwch uwchlwytho llun neu sgan yn ddiweddarach yn y cais hwn, neu gallwch ei bostio.',
+  anotherWay: 'Ffordd arall',
   anotherWayMoreDetails:
-    'Provide details of when and how you changed your name. You will be asked to upload a photo or scan of the documents that prove you changed your name later in this application, or you can post them in. If you do not have any documents, explain why here.',
+    "Darparwch fanylion sy’n dangos sut a pryd wnaethoch chi newid eich enw. Gofynnir i chi uwchlwytho llun neu sgan o'r dogfennau sy'n profi eich bod wedi newid eich enw yn nes ymlaen yn y cais hwn, neu gallwch eu postio. Os nad oes gennych unrhyw ddogfennau, esboniwch pam yma.",
   errors: {
     applicant1LastNameChangedWhenMarried: { required },
     applicant1LastNameChangedWhenMarriedMethod: {
       required,
       applicant1LastNameChangedWhenMarriedOtherDetails:
-        'You have not answered the question. You need to say how you changed your name so the court knows which document to check.',
+        'Nid ydych wedi ateb y cwestiwn. Mae angen i chi ddweud sut y gwnaethoch newid eich enw, fel bod y llys yn gwybod pa ddogfen i’w gwirio.',
     },
     applicant1NameDifferentToMarriageCertificate: { required },
     applicant1NameDifferentToMarriageCertificateMethod: {
       required,
       applicant1NameDifferentToMarriageCertificateOtherDetails:
-        'You have not answered the question. You need to say how you changed your name so the court knows which document to check.',
+        'Nid ydych wedi ateb y cwestiwn. Mae angen i chi ddweud sut y gwnaethoch newid eich enw, fel bod y llys yn gwybod pa ddogfen i’w gwirio.',
     },
   },
 });
