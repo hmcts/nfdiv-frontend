@@ -400,7 +400,7 @@ export interface Case {
   applicant1IntendsToSwitchToSole?: Checkbox;
   applicant2IntendsToSwitchToSole?: Checkbox;
   dateAosSubmitted?: DateAsString;
-  aosIsDrafted?: YesOrNo
+  aosIsDrafted?: YesOrNo;
   aosStatementOfTruth: Checkbox;
   previousState: State;
   applicant1UsedWelshTranslationOnSubmission?: YesOrNo;

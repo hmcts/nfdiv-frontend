@@ -55,7 +55,8 @@ const en = (
   },
   aosDrafted: {
     line1: `Your ${partner} has started drafting a response to your application.`,
-    line2: 'If they do not complete the response and submit it then you will be told what you can do next to progress the application.',
+    line2:
+      'If they do not complete the response and submit it then you will be told what you can do next to progress the application.',
   },
   aosDue: {
     line1: `Your ${partner} should have responded to your ${
@@ -394,7 +395,8 @@ const cy: typeof en = (
   },
   aosDrafted: {
     line1: `Mae ${partner} wedi dechrau drafftio ymateb i’ch cais.`,
-    line2: 'Os na fyddant yn cwblhau’r ymateb ac yn ei gyflwyno, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.',
+    line2:
+      'Os na fyddant yn cwblhau’r ymateb ac yn ei gyflwyno, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.',
   },
   aosDue: {
     line1: `Dylai eich ${partner} fod wedi ymateb i'ch ${
@@ -795,6 +797,6 @@ export const generateContent: TranslationFn = content => {
     isRespondentOverseas,
     isRespondentRepresented,
     isAosSubmitted,
-    aosIsDrafted
+    aosIsDrafted,
   };
 };
