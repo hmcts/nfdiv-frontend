@@ -3,6 +3,18 @@ import { FormContent } from '../../../app/form/Form';
 import { isPhoneNoValid } from '../../../app/form/validation';
 
 const en = ({ partner }) => ({
+  title: 'Your phone number',
+  line1: `Enter your phone number so court staff can contact you quickly, if they need to. You can choose to keep your phone number private from your ${partner} later in this application.`,
+  enterPhoneNumber: 'Enter your phone number (optional)',
+  errors: {
+    applicant1PhoneNumber: {
+      invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
+    },
+  },
+});
+
+// @TODO translations
+const cy = ({ partner }) => ({
   title: 'Eich rhif ffôn',
   line1: `Rhowch eich rhif ffôn fel y gall staff y llys gysylltu â chi'n gyflym os oes angen. Gallwch ddewis i gadw eich rhif ffôn yn breifat oddi wrth eich ${partner} yn ddiweddarach yn y cais hwn.`,
   enterPhoneNumber: 'Rhowch eich rhif ffôn (dewisol)',
@@ -12,9 +24,6 @@ const en = ({ partner }) => ({
     },
   },
 });
-
-// @TODO translations
-const cy = en;
 
 export const form: FormContent = {
   fields: {
