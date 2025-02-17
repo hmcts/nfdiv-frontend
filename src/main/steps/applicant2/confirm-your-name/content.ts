@@ -6,11 +6,7 @@ import {
 } from '../../applicant1/confirm-your-name/content';
 
 const en = ({ userCase, required }) => ({
-  title: {
-    part1: 'Is ',
-    part2: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
-    part3: ' your full name, including any middle names?',
-  },
+  title: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames} your full name, including any middle names?`,
   errors: {
     applicant2ConfirmFullName: {
       required,
