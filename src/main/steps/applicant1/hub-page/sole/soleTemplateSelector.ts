@@ -54,7 +54,7 @@ export const getSoleHubTemplate = (
       } else if (isAosOverdue) {
         return HubTemplate.AoSDue;
       } else {
-        return HubTemplate.AosAwaitingOrDrafted;
+        return HubTemplate.AosAwaiting;
       }
     case State.AwaitingGeneralConsideration:
       if (userCase.dateFinalOrderSubmitted) {
@@ -64,7 +64,7 @@ export const getSoleHubTemplate = (
       } else if (isAosOverdue) {
         return HubTemplate.AoSDue;
       } else {
-        return HubTemplate.AosAwaitingOrDrafted;
+        return HubTemplate.AosAwaiting;
       }
     case State.AwaitingConditionalOrder:
       return HubTemplate.AwaitingConditionalOrder;
@@ -93,7 +93,7 @@ export const getSoleHubTemplate = (
       } else if (isAlternativeService && !isServiceApplicationGranted) {
         return HubTemplate.ServiceApplicationRejected;
       } else {
-        return HubTemplate.AosAwaitingOrDrafted;
+        return HubTemplate.AosAwaiting;
       }
     case State.ServiceAdminRefusal:
       if (isAlternativeService && !isServiceApplicationGranted && isRefusalOrderToApplicant) {
@@ -120,14 +120,16 @@ export const getSoleHubTemplate = (
     case State.AwaitingHWFEvidence:
       return userCase.applicant1CannotUpload === Checkbox.Checked
         ? HubTemplate.AwaitingDocuments
-        : HubTemplate.AosAwaitingOrDrafted;
+        : HubTemplate.AosAwaiting;
     case State.AwaitingDocuments:
       return HubTemplate.AwaitingDocuments;
     default: {
       if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
         return HubTemplate.AoSDue;
+      } else if (displayState.at(State.AosDrafted)) {
+        return HubTemplate.AosDrafted;
       }
-      return HubTemplate.AosAwaitingOrDrafted;
+      return HubTemplate.AosAwaiting;
     }
   }
 };

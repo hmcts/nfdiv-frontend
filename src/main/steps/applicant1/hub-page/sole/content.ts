@@ -33,7 +33,7 @@ const en = (
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
-  aosAwaitingOrDrafted: {
+  aosAwaiting: {
     line1:
       userCase.state === State.AwaitingHWFEvidence
         ? 'Your application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
@@ -52,6 +52,10 @@ const en = (
     }`,
     line6: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
     line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
+  },
+  aosDrafted: {
+    line1: `Your ${partner} has started drafting a response to your application.`,
+    line2: 'If they do not complete the response and submit it then you will be told what you can do next to progress the application.',
   },
   aosDue: {
     line1: `Your ${partner} should have responded to your ${
@@ -373,7 +377,7 @@ const cy: typeof en = (
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
-  aosAwaitingOrDrafted: {
+  aosAwaiting: {
     line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau
     ${
       userCase.state !== State.AwaitingHWFEvidence
@@ -387,6 +391,10 @@ const cy: typeof en = (
     line5: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu mai chi sy’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sy’n hysbysu’ch ${partner} am yr ysgariad.`,
     line6: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a llythyr, ar ôl i’r cais gael ei wirio.`,
     line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddynt gadarnhau eu bod yn eu cynrychioli. Fe anfonir copi o’r cais atynt ac fe ofynnir iddynt ymateb.`,
+  },
+  aosDrafted: {
+    line1: `Mae ${partner} wedi dechrau drafftio ymateb i’ch cais.`,
+    line2: 'Os na fyddant yn cwblhau’r ymateb ac yn ei gyflwyno, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.',
   },
   aosDue: {
     line1: `Dylai eich ${partner} fod wedi ymateb i'ch ${

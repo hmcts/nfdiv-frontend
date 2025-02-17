@@ -1,0 +1,16 @@
+<p class="govuk-body">{{ aosAwaiting.line1 }}</p>
+{% if isRespondentOverseas %}
+  {% if isRespondentRepresented %}
+    <p class="govuk-body">{{ aosAwaiting.line7 }}</p>
+  {% else %}
+    <p class="govuk-body">{{ aosAwaiting.line2 }}</p>
+  {% endif %}
+  <p class="govuk-body">{{ aosAwaiting.line5 }}</p>
+  <p class="govuk-body">{{ aosAwaiting.line6 }}</p>
+{% elif isRespondentRepresented %}
+  <p class="govuk-body">{{ aosAwaiting.line7 }}</p>
+{% else %}
+  <p class="govuk-body">{{ aosAwaiting.line2 }}</p>
+  <p class="govuk-body">{{ aosAwaiting.line3 }}</p>
+  <p class="govuk-body">{{ aosAwaiting.line4 }}</p>
+{% endif %}

@@ -149,7 +149,7 @@ describe('SoleTemplateSelector test', () => {
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+    expect(soleTemplate).toBe(HubTemplate.AosAwaiting);
   });
 
   test('should show /final-order-requested.njk for state AwaitingGeneralConsideration and dateFinalOrderSubmitted', () => {
@@ -187,7 +187,7 @@ describe('SoleTemplateSelector test', () => {
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+    expect(soleTemplate).toBe(HubTemplate.AosAwaiting);
   });
 
   test('should show /awaiting-conditional-order.njk for state AwaitingConditionalOrder', () => {
@@ -295,7 +295,7 @@ describe('SoleTemplateSelector test', () => {
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingAos', () => {
     const theState = displayState.at(State.AwaitingAos);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+    expect(soleTemplate).toBe(HubTemplate.AosAwaiting);
   });
 
   test('should show /aos-due.njk for states after AosDrafted and before Holding', () => {
@@ -304,10 +304,16 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AoSDue);
   });
 
-  test('should show /aos-awaiting-or-drafted.njk', () => {
-    const theState = displayState.at(State.NewPaperCase);
+  test('should show /aos-awaiting.njk', () => {
+    const theState = displayState.at(State.AwaitingAos);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+    expect(soleTemplate).toBe(HubTemplate.AosAwaiting);
+  });
+
+  test('should show /aos-drafted.njk', () => {
+    const theState = displayState.at(State.AosDrafted);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AosDrafted);
   });
 
   test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state ServiceAdminRefusal', () => {
@@ -406,12 +412,12 @@ describe('SoleTemplateSelector test', () => {
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFDecision', () => {
     const theState = displayState.at(State.AwaitingHWFDecision);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+    expect(soleTemplate).toBe(HubTemplate.AosAwaiting);
   });
 
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFEvidence', () => {
     const theState = displayState.at(State.AwaitingHWFEvidence);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+    expect(soleTemplate).toBe(HubTemplate.AosAwaiting);
   });
 });
