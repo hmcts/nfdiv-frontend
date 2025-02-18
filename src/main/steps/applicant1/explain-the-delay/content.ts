@@ -32,7 +32,7 @@ const cy: typeof en = {
   finalOrderStatementOfTruth: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir',
   confirmApplicationIsTrueMoreInformation:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. ' +
-    '\tGelwir hwn yn eich ‘datganiad gwirionedd’.',
+    'Gelwir hwn yn eich ‘datganiad gwirionedd’.',
   errors: {
     applicant1FinalOrderLateExplanation: {
       required:
