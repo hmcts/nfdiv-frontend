@@ -175,12 +175,12 @@ const cy: typeof en = ({
         ? 'certificate-of-dispense-with-service'
         : 'certificate-of-deemed-as-service'
     }`,
-    text: `View the court order granting your application for
+    text: `Gweld y gorchymyn llys sy’n caniatáu eich cais am
     ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-        ? 'dispensed'
-        : 'deemed'
-    } service (PDF)`,
+        ? 'hepgor cyflwyno'
+        : 'gyflwyno tybiedig'
+    } (PDF)`,
   },
   certificateOfEntitlementDownload: {
     reference: 'Certificate-of-Entitlement',
