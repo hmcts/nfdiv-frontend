@@ -156,7 +156,7 @@ const cy: typeof en = ({
         ? 'dispense-with-service-refused'
         : 'deemed-service-refused'
     }`,
-    text: `Gweld y gorchymyn llys sy’n caniatáu eich cais am
+    text: `Gweld y gorchymyn llys yn gwrthod eich cais am
     ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'hepgor cyflwyno'
