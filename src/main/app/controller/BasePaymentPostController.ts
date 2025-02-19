@@ -25,7 +25,7 @@ export default abstract class BasePaymentPostController {
       return res.redirect(SAVE_AND_SIGN_OUT);
     }
 
-    if (req.session.userCase.state !== this.awaitingPaymentState()) {
+    if (!this.awaitingPaymentStates().has(req.session.userCase.state)) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
         { citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
@@ -78,19 +78,22 @@ export default abstract class BasePaymentPostController {
     const payment = await client.create(serviceReference, fees);
     const now = new Date().toISOString();
 
-    payments.add({
-      created: now,
-      updated: now,
-      feeCode: fee.FeeCode,
-      amount: parseInt(fee.FeeAmount, 10),
-      status: PaymentStatus.IN_PROGRESS,
-      channel: payment.next_url,
-      reference: payment.payment_reference,
-      transactionId: payment.external_reference,
-      serviceRequestReference: serviceReference,
-    });
+    const newPaymentWithId = {
+      id: payment.external_reference,
+      value: {
+        created: now,
+        updated: now,
+        feeCode: fee.FeeCode,
+        amount: parseInt(fee.FeeAmount, 10),
+        status: PaymentStatus.IN_PROGRESS,
+        channel: payment.next_url,
+        reference: payment.payment_reference,
+        transactionId: payment.external_reference,
+        serviceRequestReference: serviceReference,
+      },
+    };
 
-    const eventPayload = { [this.paymentsCaseField()]: payments.list };
+    const eventPayload = { [this.paymentsCaseField()]: [...payments.list, newPaymentWithId] };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
       eventPayload,
@@ -100,7 +103,7 @@ export default abstract class BasePaymentPostController {
     return payment;
   }
 
-  protected abstract awaitingPaymentState(): State;
+  protected abstract awaitingPaymentStates(): Set<State>;
   protected abstract awaitingPaymentEvent(): string;
   protected abstract getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[];
   protected abstract getServiceReferenceForFee(req: AppRequest<AnyObject>): string;

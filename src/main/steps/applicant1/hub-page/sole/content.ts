@@ -1,5 +1,6 @@
 import config from 'config';
 import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../app/case/case';
@@ -20,7 +21,15 @@ import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, RESPOND_TO_COURT_FEED
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
 const en = (
-  { isDivorce, partner, userCase, telephoneNumber, referenceNumber, isJointApplication }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    partner,
+    userCase,
+    telephoneNumber,
+    referenceNumber,
+    isJointApplication,
+  }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
@@ -29,7 +38,9 @@ const en = (
       userCase.state === State.AwaitingHWFEvidence
         ? 'Your application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
         : `Your application ${
-            userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES ? 'and help with fees reference number ' : ''
+            userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES && !applicationHasBeenPaidFor
+              ? 'and help with fees reference number '
+              : ''
           } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
             dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
           )} confirming whether it has been accepted. Check your junk or spam email folder.`,
@@ -227,6 +238,10 @@ const en = (
       link: '/downloads/bailiff-unsuccessful-certificate-of-service',
     },
   },
+  awaitingServicePayment: {
+    line1:
+      'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.',
+  },
   awaitingBailiffService: {
     line1: `Your application for bailiff service was successful. The court bailiff will attempt to serve the ${
       isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
@@ -285,7 +300,8 @@ const en = (
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
+    !applicationHasBeenPaidFor
       ? ' and Help With Fees reference number'
       : ''
   } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
@@ -308,12 +324,14 @@ const en = (
       isDivorce ? 'divorce' : 'dissolution'
     }. You need to provide some additional information before your application can progress.`,
     line2: 'We have sent you an email with the information the court needs.',
-    line3: 'What you need to do next',
-    line4: 'Read the court’s reasons for stopping the application and provide the requested information.',
-    line5: 'If documents have been requested, you will be able to upload them to the court when you respond.',
+    line3:
+      'You can also see the information that the court needs on the next page after you select "Provide information".',
+    line4: 'What you need to do next',
+    line5: 'Read the court’s reasons for stopping the application and provide the requested information.',
+    line6: 'If documents have been requested, you will be able to upload them to the court when you respond.',
     buttonText: 'Provide information',
     buttonLink: RESPOND_TO_COURT_FEEDBACK,
-    line6: 'We will let you know once we have reviewed the information you provided.',
+    line7: 'We will let you know once we have reviewed the information you provided.',
   },
   respondedToRequestForInformation: {
     line1: 'You have responded to the court.',
@@ -343,7 +361,15 @@ const en = (
 
 // @TODO translations
 const cy: typeof en = (
-  { isDivorce, partner, userCase, telephoneNumber, referenceNumber, isJointApplication }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    partner,
+    userCase,
+    telephoneNumber,
+    referenceNumber,
+    isJointApplication,
+  }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
@@ -558,6 +584,10 @@ const cy: typeof en = (
       link: '/downloads/bailiff-unsuccessful-certificate-of-service',
     },
   },
+  awaitingServicePayment: {
+    line1:
+      "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
+  },
   awaitingBailiffService: {
     line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${
       isDivorce ? 'papurau’r ysgariad' : "papurau i ddod â'ch partneriaeth sifil i ben"
@@ -633,7 +663,8 @@ const cy: typeof en = (
   subHeading4: 'Beth fydd yn digwydd nesaf',
   line5: `Bydd staff y llys yn gwirio eich cais ${isJointApplication ? ' ar y cyd' : ''}${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+    (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES) &&
+    !applicationHasBeenPaidFor
       ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
       : ''
   }. Fe gewch neges e-bost erbyn ${getFormattedDate(
@@ -653,12 +684,14 @@ const cy: typeof en = (
       isDivorce ? 'ysgariad' : 'diddymiad'
     }. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.`,
     line2: 'Rydym wedi anfon neges e-bost atoch gyda gwybodaeth y mae’r llys ei hangen.',
-    line3: 'Beth sydd angen i chi wneud nesaf',
-    line4: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
-    line5: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
+    line3:
+      'Gallwch hefyd weld yr wybodaeth mae’r llys ei hangen ar y dudalen nesaf ar ôl i chi ddewis “Darparu Gwybodaeth”.',
+    line4: 'Beth sydd angen i chi wneud nesaf',
+    line5: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
+    line6: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
     buttonText: 'Darparu gwybodaeth',
     buttonLink: RESPOND_TO_COURT_FEEDBACK,
-    line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
+    line7: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
   },
   respondedToRequestForInformation: {
     line1: 'Rydych wedi ymateb i’r llys.',
@@ -733,6 +766,7 @@ export const generateContent: TranslationFn = content => {
   ]);
   const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
+  const isAosSubmitted = !isEmpty(userCase.dateAosSubmitted);
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
@@ -750,5 +784,6 @@ export const generateContent: TranslationFn = content => {
     cannotUploadDocuments,
     isRespondentOverseas,
     isRespondentRepresented,
+    isAosSubmitted,
   };
 };

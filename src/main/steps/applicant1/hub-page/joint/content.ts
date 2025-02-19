@@ -37,7 +37,15 @@ const hubPageSubheading = (
 };
 
 const en = (
-  { isDivorce, userCase, partner, isApplicant2, isJointApplication, referenceNumber, telephoneNumber }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    userCase,
+    partner,
+    isApplicant2,
+    referenceNumber,
+    telephoneNumber,
+  }: CommonContent,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   subHeading1: hubPageSubheading(userCase),
@@ -47,7 +55,8 @@ const en = (
         ? 'Your joint application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
         : `Your joint application ${
             userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-            userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
+            userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+            !applicationHasBeenPaidFor
               ? 'and help with fees reference number '
               : ''
           } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
@@ -220,7 +229,8 @@ const en = (
       ? 'Your joint application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
       : `Your joint application${
           userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-          (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+          userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+          !applicationHasBeenPaidFor
             ? ' and help with fees reference number'
             : ''
         } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
@@ -239,12 +249,14 @@ const en = (
       isDivorce ? 'divorce' : 'dissolution'
     }. You need to provide some additional information before your application can progress.`,
     line2: 'We have sent you an email with the information the court needs.',
-    line3: 'What you need to do next',
-    line4: 'Read the court’s reasons for stopping the application and provide the requested information.',
-    line5: 'If documents have been requested, you will be able to upload them to the court when you respond.',
+    line3:
+      'You can also see the information that the court needs on the next page after you select "Provide information".',
+    line4: 'What you need to do next',
+    line5: 'Read the court’s reasons for stopping the application and provide the requested information.',
+    line6: 'If documents have been requested, you will be able to upload them to the court when you respond.',
     buttonText: 'Provide information',
     buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`,
-    line6: 'We will let you know once we have reviewed the information you provided.',
+    line7: 'We will let you know once we have reviewed the information you provided.',
   },
   respondedToRequestForInformation: {
     line1: 'You or your partner have responded to the court.',
@@ -278,7 +290,15 @@ const en = (
 });
 
 const cy: typeof en = (
-  { isDivorce, userCase, partner, isApplicant2, isJointApplication, referenceNumber, telephoneNumber }: CommonContent,
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    userCase,
+    partner,
+    isApplicant2,
+    referenceNumber,
+    telephoneNumber,
+  }: CommonContent,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
@@ -288,10 +308,11 @@ const cy: typeof en = (
         ? "Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'."
         : `Bydd staff y llys yn gwirio eich cais ar y cyd' ${
             userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-            (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
-              ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
+            userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+            !applicationHasBeenPaidFor
+              ? 'a’ch cyfeirnod Help i Dalu Ffioedd '
               : ''
-          }. Fe gewch neges e-bost erbyn ${getFormattedDate(
+          }. Fe gewch neges e-bost erbyn  ${getFormattedDate(
             dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
             SupportedLanguages.Cy
           )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
@@ -475,7 +496,8 @@ const cy: typeof en = (
       ? "Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'."
       : `Bydd staff y llys yn gwirio eich cais ar y cyd' ${
           userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
-          (!isJointApplication || userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES)
+          userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+          !applicationHasBeenPaidFor
             ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
             : ''
         }. Fe gewch neges e-bost erbyn ${getFormattedDate(
@@ -495,12 +517,14 @@ const cy: typeof en = (
       isDivorce ? 'ysgariad' : 'diddymiad'
     }. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.`,
     line2: 'Rydym wedi anfon neges e-bost atoch gyda gwybodaeth y mae’r llys ei hangen.',
-    line3: 'Beth sydd angen i chi wneud nesaf',
-    line4: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
-    line5: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
+    line3:
+      'Gallwch hefyd weld yr wybodaeth mae’r llys ei hangen ar y dudalen nesaf ar ôl i chi ddewis “Darparu Gwybodaeth”.',
+    line4: 'Beth sydd angen i chi wneud nesaf',
+    line5: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
+    line6: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
     buttonText: 'Darparu gwybodaeth',
     buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`,
-    line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
+    line7: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
   },
   respondedToRequestForInformation: {
     line1: "Rydych chi neu'ch partner wedi ymateb i'r llys.",

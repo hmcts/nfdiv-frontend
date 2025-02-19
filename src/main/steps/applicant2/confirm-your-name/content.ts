@@ -6,11 +6,7 @@ import {
 } from '../../applicant1/confirm-your-name/content';
 
 const en = ({ userCase, required }) => ({
-  title: {
-    part1: 'Is ',
-    part2: `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`,
-    part3: ' your full name, including any middle names?',
-  },
+  title: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames} your full name, including any middle names?`,
   errors: {
     applicant2ConfirmFullName: {
       required,
@@ -18,7 +14,16 @@ const en = ({ userCase, required }) => ({
   },
 });
 
-const cy: typeof en = en;
+const cy = ({ userCase, required }) => ({
+  title: `Ai ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames} yw eich enw llawn, gan gynnwys unrhyw enwau canol?`,
+  yes: 'Ie, dyna fy enw llawn',
+  no: 'Na, nid dyna fy enw llawn',
+  errors: {
+    applicant1ConfirmFullName: {
+      required,
+    },
+  },
+});
 
 const applicant1FormFields = applicant1Form.fields as FormFields;
 export const form: FormContent = {

@@ -8,6 +8,7 @@ import {
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   APP_REPRESENTED,
+  AWAITING_RESPONSE_TO_HWF_DECISION,
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
@@ -899,6 +900,7 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toHaveBeenCalledWith(YOUR_DETAILS_URL);
   });
+
   test('redirects to submitted page for applicant 1 users in submitted state when not represented', () => {
     const req = mockRequest({
       session: {
@@ -915,6 +917,98 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
   });
+
+  test('redirects to submitted page for applicant 1 users in awaiting HWF decision state when not represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingHWFDecision,
+          applicant1SolicitorRepresented: YesOrNo.NO,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+  });
+
+  test('redirects to submitted page for applicant 1 users in awaiting documents state when not represented', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingDocuments,
+          applicant1SolicitorRepresented: YesOrNo.NO,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+  });
+
+  test('redirects to hub page for applicant 2 users in submitted state when not represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Submitted,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + HUB_PAGE);
+  });
+
+  test('redirects to hub page for applicant 2 users in awaiting HWF Decision state when not represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingHWFDecision,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + HUB_PAGE);
+  });
+
+  test('redirects to hub page for applicant 2 users in Awaiting Documents state when not represented', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingDocuments,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + HUB_PAGE);
+  });
+
   test('redirects to represented page for applicant 1 users in submitted state when represented', () => {
     const req = mockRequest({
       session: {
@@ -1025,6 +1119,7 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${APP_REPRESENTED}`);
   });
+
   test('redirects to hub page for applicant 1 users when coApplicant1SubmittedDate is present and represented', () => {
     const req = mockRequest({
       session: {
@@ -1059,5 +1154,59 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION);
+  });
+
+  test('redirects applicant 2 to awaiting response to hwf decision page if joint application awaiting response to hwf decision', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingResponseToHWFDecision,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + AWAITING_RESPONSE_TO_HWF_DECISION);
+  });
+
+  test('redirects to pay and submit page for applicant 1 if joint application awaiting response to hwf decision', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: false,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingResponseToHWFDecision,
+          applicationType: ApplicationType.JOINT_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(PAY_AND_SUBMIT);
+  });
+
+  test('redirects to pay your fee page for applicant 1 if sole application awaiting response to hwf decision', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: false,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingResponseToHWFDecision,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
   });
 });
