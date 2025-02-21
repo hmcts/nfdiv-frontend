@@ -10,7 +10,15 @@ const en = ({ isDivorce, partner }) => ({
   line2: `Your ${partner} has been notified by email.`,
 });
 
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, partner }) => ({
+  title: 'Nid ydych wedi cadarnhau eich cais ar y cyd',
+  line1: `Rydych chi wedi dweud nad yw eich ${
+    isDivorce ? 'priodas' : 'partneriaeth sifil'
+  } wedi chwalu'n anadferadwy. Felly, ni allwch wneud cais ar y cyd ${
+    isDivorce ? 'ar gyfer ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+  }.`,
+  line2: `Mae eich ${partner} wedi cael ei hysbysu drwy e-bost.`,
+});
 
 const languages = {
   en,
