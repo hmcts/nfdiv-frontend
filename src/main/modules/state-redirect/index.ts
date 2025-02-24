@@ -72,9 +72,13 @@ export class StateRedirectMiddleware {
         const awaitingReviewByApplicant2 = !isSole && !isApplicant2 && state === State.AwaitingApplicant2Response;
         if (
           awaitingReviewByApplicant2 &&
-          ![SENT_TO_APPLICANT2_FOR_REVIEW, THEIR_EMAIL_ADDRESS, NO_RESPONSE_YET, SWITCH_TO_SOLE_APPLICATION].includes(
-            req.path as PageLink
-          )
+          ![
+            SENT_TO_APPLICANT2_FOR_REVIEW,
+            THEIR_EMAIL_ADDRESS,
+            NO_RESPONSE_YET,
+            SWITCH_TO_SOLE_APPLICATION,
+            SAVE_AND_SIGN_OUT,
+          ].includes(req.path as PageLink)
         ) {
           return res.redirect(SENT_TO_APPLICANT2_FOR_REVIEW);
         }
