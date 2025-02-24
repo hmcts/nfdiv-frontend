@@ -4,11 +4,7 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = ({ userCase, required }) => ({
-  title: {
-    part1: 'Is ',
-    part2: `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`,
-    part3: ' your full name, including any middle names?',
-  },
+  title: `Is ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames} your full name, including any middle names?`,
   yes: "Yes, that's my full name",
   no: "No, that's not my full name",
   errors: {
@@ -18,7 +14,16 @@ const en = ({ userCase, required }) => ({
   },
 });
 
-const cy: typeof en = en;
+const cy = ({ userCase, required }) => ({
+  title: `Ai ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames} yw eich enw llawn, gan gynnwys unrhyw enwau canol?`,
+  yes: 'Ie, dyna fy enw llawn',
+  no: 'Na, nid dyna fy enw llawn',
+  errors: {
+    applicant1ConfirmFullName: {
+      required,
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
