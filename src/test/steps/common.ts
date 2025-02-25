@@ -18,7 +18,7 @@ import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
 import { SupportedLanguages } from '../../main/modules/i18n';
-import { APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
+import { APPLICANT_1, APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
 const { I, login } = inject();
@@ -240,6 +240,40 @@ When('I enter my valid case reference and valid access code', async () => {
     iClick('Sign out');
     await login('citizenApplicant2');
     I.amOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
+
+    iClick('Your reference number');
+    I.type(caseReference);
+    iClick('Your access code');
+    I.type(accessCode);
+    iClick('Continue');
+  } else {
+    console.error('Could not get case data as ' + user.username);
+    process.exit(-1);
+  }
+});
+
+When('I as applicant1 enter my valid case reference and valid access code', async () => {
+  I.amOnPage(HOME_URL);
+  await iClearTheForm();
+
+  const user = testConfig.GetCurrentUser();
+  const testUser = await iGetTheTestUser(user);
+  const caseApi = iGetTheCaseApi(testUser);
+  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+  if (userCase) {
+    const fetchedCase = await caseApi.getCaseById(userCase.id);
+
+    const caseReference = userCase.id;
+    const accessCode = fetchedCase.accessCodeApplicant1;
+
+    if (!caseReference || !accessCode) {
+      throw new Error(`No case reference or access code was returned for Applicant1 ${testUser}`);
+    }
+
+    iClick('Sign out');
+    await login('citizenSingleton');
+    I.amOnPage(APPLICANT_1 + ENTER_YOUR_ACCESS_CODE);
 
     iClick('Your reference number');
     I.type(caseReference);

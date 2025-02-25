@@ -727,38 +727,38 @@ const cy: typeof en = ({
       line3: `Wnaethoch chi newid eich cyfenw pan wnaethoch chi ${
         isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
       }?`,
-      line4: `How did you change your last name when you ${
-        isDivorce ? 'got married' : 'formed your civil partnership'
+      line4: `Sut wnaethoch chi newid eich enw olaf pan wnaethoch ${
+        isDivorce ? 'briodi' : 'chi ffurfio eich partneriaeth sifil?'
       }?`,
       line5: `A ydych wedi newid eich enw ers i chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
-      line6: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
+      line6: `Sut wnaethoch chi newid eich enw ers ${isDivorce ? 'i chi briodi' : 'ffurfio eich partneriaeth sifil'}?`,
     },
     aboutYouForApplicant2: {
       line1: 'Eich enw(au) cyntaf',
       line2: 'Eich enw(au) canol (os oes gennych un)',
       line3: 'Eich cyfenw(au)',
-      line4: 'Have you confirmed your full name, including any middle name(s) (if you have one)',
+      line4: 'A ydych wedi cadarnhau eich enw llawn, gan gynnwys unrhyw enw(au) canol (os oes gennych un)',
       line5: `A wnaethoch chi newid eich cyfenw pan wnaethoch ${
         isDivorce ? 'chi briodi' : 'ffurfio eich partneriaeth sifil'
       }?`,
-      line6: `How did you change your last name when you ${
-        isDivorce ? 'got married' : 'formed your civil partnership'
+      line6: `Sut wnaethoch chi newid eich enw olaf pan wnaethoch ${
+        isDivorce ? 'briodi' : 'chi ffurfio eich partneriaeth sifil?'
       }?`,
       line7: `A ydych wedi newid unrhyw ran o'ch enw ers ${isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'}?`,
-      line8: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
+      line8: `Sut wnaethoch chi newid eich enw ers ${isDivorce ? 'i chi briodi' : 'ffurfio eich partneriaeth sifil'}?`,
     },
     contactYou: {
       line1: 'Eich enw(au) cyntaf',
       line2: 'Eich enw(au) canol (os oes gennych un)',
       line3: 'Eich cyfenw(au)',
-      line4: 'Have you confirmed your full name, including any middle name(s) (if you have one)',
+      line4: 'A ydych wedi cadarnhau eich enw llawn, gan gynnwys unrhyw enw(au) canol (os oes gennych un)',
       line5: 'Trwy e-bost',
       line6: 'Dros y ffôn',
       line7: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
       line8: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
       line9: 'Ydych chi’n preswylio mewn lloches ar hyn o bryd?',
       line10: 'Eich cyfeiriad post',
-      line11: 'Is this an international address?',
+      line11: 'Ydy hwn yn gyfeiriad rhyngwladol?',
     },
     contactThem: {
       line1: `Enw(au) cyntaf eich ${partner}`,
@@ -766,11 +766,11 @@ const cy: typeof en = ({
       line3: `Cyfenw(au) eich ${partner}`,
       line4: `A oes gan eich ${partner} gyfreithiwr sy'n eu cynrychioli?`,
       line5: `Manylion cyfreithiwr eich ${partner}`,
-      line6: 'Is this an international address?',
+      line6: 'Ydy hwn yn gyfeiriad rhyngwladol?',
       line7: `Cyfeiriad e-bost eich ${partner}`,
       line8: `A oes gennych gyfeiriad post eich ${partner}?`,
       line9: `Cyfeiriad post eich ${partner}`,
-      line10: 'Is this an international address?',
+      line10: 'Ydy hwn yn gyfeiriad rhyngwladol?',
     },
     otherCourtCases: {
       line1: `A oes, neu a oes wedi bod erioed, unrhyw achosion cyfreithiol eraill yng nghyswllt eich ${
