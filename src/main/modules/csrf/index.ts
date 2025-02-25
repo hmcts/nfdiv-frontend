@@ -44,7 +44,7 @@ export class CSRFToken {
       if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
         const csrfHeader = req.headers['x-csrf-token'];
         const csrfBody = req.body?._csrf;
-        const csrfSessionToken = req.session.csrfToken; // ✅ Use session value
+        const csrfSessionToken = req.session.csrfToken;
 
         if (!csrfSessionToken || (csrfHeader !== csrfSessionToken && csrfBody !== csrfSessionToken)) {
           logger.debug(`CSRF validation failed for ${req.method} ${req.originalUrl}`);
