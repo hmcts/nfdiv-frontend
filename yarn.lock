@@ -3533,12 +3533,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/multer@npm:1.4.7":
-  version: 1.4.7
-  resolution: "@types/multer@npm:1.4.7"
+"@types/multer@npm:1.4.12":
+  version: 1.4.12
+  resolution: "@types/multer@npm:1.4.12"
   dependencies:
     "@types/express": "*"
-  checksum: 680cb0710aa25264d20cdcdaf34c212b636b55ea141310f06c25354ab1401193c7aa6839f9d22abf64a223fab1f2b8287f2512b0bef7e1628c4e9ffe54b4aeb2
+  checksum: 719cacf88ec83ed77e250e45bee830fd7a505323825efa2a2c1144f5f3d7d36e67408ec988e571bcbaa571e0c214b5ede42d57ebb0f9b453a5eb8faba8ff12d0
   languageName: node
   linkType: hard
 
@@ -3648,12 +3648,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/serve-favicon@npm:2.5.5":
-  version: 2.5.5
-  resolution: "@types/serve-favicon@npm:2.5.5"
+"@types/serve-favicon@npm:2.5.7":
+  version: 2.5.7
+  resolution: "@types/serve-favicon@npm:2.5.7"
   dependencies:
     "@types/express": "*"
-  checksum: 7e0b85c1a7f19b1b724d5346cc8eee6d5af33801b67b8c8c824fdf387e89564f9a52c9802d1c4704af4d347e3a26c854c0e467effc44743c627c1786840c810b
+  checksum: 1ae98ff01c977307ab989d2c31ea7ffa51977ad2aa2e5877e4e6829a647b0c01301483a8c53585b3655dda394867e83852ea13e02728b6d65ba7121a66141d62
   languageName: node
   linkType: hard
 
@@ -3668,13 +3668,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/session-file-store@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@types/session-file-store@npm:1.2.0"
+"@types/session-file-store@npm:1.2.5":
+  version: 1.2.5
+  resolution: "@types/session-file-store@npm:1.2.5"
   dependencies:
     "@types/express": "*"
     "@types/express-session": "*"
-  checksum: bef89e0aba82251c3a413f280ca28c6281dd56b9de25367ac911842445981fe3cc5926b77b6760300d8f4abd6a1227276287ca59f9d2252bf0b3413fbd425aaf
+  checksum: 77205f83886a454071130bcc1fff1b4592558705617142623b64630db993050e5d0f112616f6ff6bd44449efcd06f3b4a19e8ac29b6a3e58ff2537bf55727277
   languageName: node
   linkType: hard
 
@@ -13866,13 +13866,13 @@ __metadata:
     "@types/glob": 8.1.0
     "@types/jest": 29.5.14
     "@types/lodash": 4.17.15
-    "@types/multer": 1.4.7
+    "@types/multer": 1.4.12
     "@types/negotiator": 0.6.3
     "@types/node": 22.9.1
     "@types/nunjucks": 3.2.6
     "@types/require-directory": 2.1.6
-    "@types/serve-favicon": 2.5.5
-    "@types/session-file-store": 1.2.0
+    "@types/serve-favicon": 2.5.7
+    "@types/session-file-store": 1.2.5
     "@types/supertest": ^6.0.2
     "@types/toobusy-js": 0.5.4
     "@types/uuid": 10.0.0
