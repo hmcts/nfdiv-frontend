@@ -443,9 +443,9 @@ const cy: typeof en = (
     )}. Byddwch yn cael e-bost i'ch atgoffa.`,
   },
   intendingAndAbleToSwitchToSoleFinalOrder: {
-    line1: `You can now apply for a ‘final order’ as a sole applicant. If it’s granted then your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } will be legally ended.`,
+    line1: `Gallwch nawr wneud cais am orchymyn terfynol fel unig geisydd. Os caiff ei ganiatáu, yna bydd eich ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } yn dod i ben yn gyfreithiol.`,
   },
   pendingHearingOutcome: {
     line1:
