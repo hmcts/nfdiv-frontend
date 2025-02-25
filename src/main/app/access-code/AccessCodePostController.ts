@@ -47,7 +47,9 @@ export class AccessCodePostController {
 
       logger.info(`AccessCodePostController invoked for case ID: ${caseReference}`);
 
-      const expectedAccessCode = this.joiningCaseAsApplicant2(req) ? caseData.accessCode : caseData.accessCodeApplicant1;
+      const expectedAccessCode = this.joiningCaseAsApplicant2(req)
+        ? caseData.accessCode
+        : caseData.accessCodeApplicant1;
       if (expectedAccessCode !== formData.accessCode?.replace(/\s/g, '').toUpperCase()) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         const formattedAccessCode = formData.accessCode?.replace(/\s/g, '').toUpperCase();
@@ -70,12 +72,7 @@ export class AccessCodePostController {
       logger.info(`Calling to link ${systemEvent} to case ID: ${caseReference}`);
       try {
         req.session.userCase = await caseworkerUserApi.triggerEvent(caseReference as string, formData, systemEvent);
-
-        if (this.joiningCaseAsApplicant2(req)) {
-          req.session.isApplicant2 = true;
-        } else {
-          req.session.isApplicant2 = false;
-        }
+        req.session.isApplicant2 = this.joiningCaseAsApplicant2(req);
       } catch (err) {
         req.locals.logger.error(`Error linking applicant/respondent to case ${caseReference}, ${err}`);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
