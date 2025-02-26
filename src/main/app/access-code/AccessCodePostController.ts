@@ -2,7 +2,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { APPLICANT_2, HOME_URL, SIGN_OUT_URL } from '../../steps/urls';
+import { APPLICANT_2, HOME_URL, RESPONDENT, SIGN_OUT_URL } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/case-api';
 import { SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, SYSTEM_UNLINK_APPLICANT, State } from '../case/definition';
@@ -26,7 +26,7 @@ export class AccessCodePostController {
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
     //Set app2 name in form data only when state is AwaitingApplicant2Response
-    if (req.path.includes(APPLICANT_2)) {
+    if (this.joiningCaseAsApplicant2(req)) {
       formData.applicant2Email = req.session.user.email;
       formData.respondentUserId = req.session.user.id;
       const caseState = req.session.userCase?.state;
@@ -47,7 +47,9 @@ export class AccessCodePostController {
 
       logger.info(`AccessCodePostController invoked for case ID: ${caseReference}`);
 
-      const expectedAccessCode = req.path.includes(APPLICANT_2) ? caseData.accessCode : caseData.accessCodeApplicant1;
+      const expectedAccessCode = this.joiningCaseAsApplicant2(req)
+        ? caseData.accessCode
+        : caseData.accessCodeApplicant1;
       if (expectedAccessCode !== formData.accessCode?.replace(/\s/g, '').toUpperCase()) {
         req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
         const formattedAccessCode = formData.accessCode?.replace(/\s/g, '').toUpperCase();
@@ -65,17 +67,12 @@ export class AccessCodePostController {
     }
 
     if (req.session.errors.length === 0) {
-      const systemEvent = req.path.includes(APPLICANT_2) ? SYSTEM_LINK_APPLICANT_2 : SYSTEM_LINK_APPLICANT_1;
+      const systemEvent = this.joiningCaseAsApplicant2(req) ? SYSTEM_LINK_APPLICANT_2 : SYSTEM_LINK_APPLICANT_1;
 
       logger.info(`Calling to link ${systemEvent} to case ID: ${caseReference}`);
       try {
         req.session.userCase = await caseworkerUserApi.triggerEvent(caseReference as string, formData, systemEvent);
-
-        if (req.path.includes(APPLICANT_2)) {
-          req.session.isApplicant2 = true;
-        } else {
-          req.session.isApplicant2 = false;
-        }
+        req.session.isApplicant2 = this.joiningCaseAsApplicant2(req);
       } catch (err) {
         req.locals.logger.error(`Error linking applicant/respondent to case ${caseReference}, ${err}`);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
@@ -111,5 +108,9 @@ export class AccessCodePostController {
       }
       res.redirect(nextStep);
     });
+  }
+
+  private joiningCaseAsApplicant2(req: AppRequest<AnyObject>): boolean {
+    return req.path.includes(APPLICANT_2) || req.path.includes(RESPONDENT);
   }
 }
