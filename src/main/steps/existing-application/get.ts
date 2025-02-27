@@ -18,6 +18,7 @@ export class ExistingApplicationGetController extends GetController {
       ...this.getCommonContent(req, res, language),
       existingCaseId: req.session?.existingCaseId,
       inviteCaseApplicationType: req.session?.inviteCaseApplicationType,
+      inviteCaseIsApplicant1: req.session?.inviteCaseIsApplicant1,
       existingApplicationType: req.session?.existingApplicationType,
       cannotLinkToNewCase: req.session?.cannotLinkToNewCase,
     };
@@ -30,6 +31,7 @@ export class ExistingApplicationGetController extends GetController {
 export interface ExistingApplicationContent extends CommonContent {
   existingCaseId?: string;
   inviteCaseApplicationType?: ApplicationType;
+  inviteCaseIsApplicant1?: boolean;
   existingApplicationType?: ApplicationType;
   cannotLinkToNewCase?: boolean;
 }
