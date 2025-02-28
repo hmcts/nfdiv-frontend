@@ -13,9 +13,9 @@ export enum existingOrNew {
 
 const en = (
   { isDivorce, partner, required, existingCaseId, contactEmail, existingApplicationType }: ExistingApplicationContent,
-  isInviteCaseJoint: boolean
+  isInviteCaseJointOrApplicant1: boolean
 ) => {
-  const respondJoin = `${isInviteCaseJoint ? 'join' : 'respond to'}`;
+  const respondJoin = `${isInviteCaseJointOrApplicant1 ? 'join' : 'respond to'}`;
   return {
     title: 'You have an existing application',
     line1: `You have an existing application for ${
@@ -57,9 +57,9 @@ const en = (
 
 const cy: typeof en = (
   { isDivorce, partner, required, existingCaseId, contactEmail, existingApplicationType }: ExistingApplicationContent,
-  isInviteCaseJoint: boolean
+  isInviteCaseJointOrApplicant1: boolean
 ) => {
-  const respondJoin = `${isInviteCaseJoint ? 'ymateb i gais' : 'ymuno â chais'}`;
+  const respondJoin = `${isInviteCaseJointOrApplicant1 ? 'ymateb i gais' : 'ymuno â chais'}`;
   return {
     title: 'Mae gennych gais sydd eisoes yn bod',
     line1: `Mae gennych gais sydd eisoes yn bod ${
@@ -124,8 +124,9 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = (content: ExistingApplicationContent) => {
-  const isInviteCaseJoint = content.inviteCaseApplicationType === ApplicationType.JOINT_APPLICATION;
-  const translations = languages[content.language](content, isInviteCaseJoint);
+  const isInviteCaseJointOrApplicant1 =
+    content.inviteCaseApplicationType === ApplicationType.JOINT_APPLICATION || !!content.inviteCaseIsApplicant1;
+  const translations = languages[content.language](content, isInviteCaseJointOrApplicant1);
   return {
     ...translations,
     form: content.cannotLinkToNewCase ? undefined : form,
