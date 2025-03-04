@@ -60,10 +60,6 @@ describe('ExistingApplicationPostController', () => {
     async applicationType => {
       const body = {
         existingOrNewApplication: existingOrNew.New,
-        session: {
-          inviteCaseIsApplicant1: false,
-          inviteCaseRef: '123456',
-        },
       };
 
       const mockCaseApi = caseApiMockFn({ applicationType, id: '1234' });
@@ -87,9 +83,6 @@ describe('ExistingApplicationPostController', () => {
     async applicationType => {
       const body = {
         existingOrNewApplication: existingOrNew.New,
-        session: {
-          inviteCaseRef: '123456',
-        },
       };
 
       const mockCaseApi = caseApiMockFn({ applicationType, id: '1234' });

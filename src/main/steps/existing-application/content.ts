@@ -11,17 +11,15 @@ export enum existingOrNew {
   New = 'new',
 }
 
-const en = (
-  {
-    isDivorce,
-    partner,
-    required,
-    existingCaseId,
-    inviteCaseId,
-    contactEmail,
-    existingApplicationType,
-  }: ExistingApplicationContent
-) => {
+const en = ({
+  isDivorce,
+  partner,
+  required,
+  existingCaseId,
+  inviteCaseId,
+  contactEmail,
+  existingApplicationType,
+}: ExistingApplicationContent) => {
   return {
     title: 'You have an existing application',
     line1: `You have an existing application for ${
@@ -60,16 +58,14 @@ const en = (
   };
 };
 
-const cy: typeof en = (
-  {
-    isDivorce,
-    partner,
-    required,
-    existingCaseId,
-    contactEmail,
-    existingApplicationType,
-  }: ExistingApplicationContent
-) => {
+const cy: typeof en = ({
+  isDivorce,
+  partner,
+  required,
+  existingCaseId,
+  contactEmail,
+  existingApplicationType,
+}: ExistingApplicationContent) => {
   return {
     title: 'Mae gennych gais sydd eisoes yn bod',
     line1: `Mae gennych gais sydd eisoes yn bod ${
@@ -134,9 +130,8 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = (content: ExistingApplicationContent) => {
-  const isInviteCaseJointOrApplicant1 =
-    content.inviteCaseApplicationType === ApplicationType.JOINT_APPLICATION || !!content.inviteCaseIsApplicant1;
-  const translations = languages[content.language](content, isInviteCaseJointOrApplicant1);
+  const translations = languages[content.language](content);
+
   return {
     ...translations,
     form: content.cannotLinkToNewCase ? undefined : form,
