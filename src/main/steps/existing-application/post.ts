@@ -3,13 +3,13 @@ import { Response } from 'express';
 import { isEmpty } from 'lodash';
 
 import { getSystemUser } from '../../app/auth/user/oidc';
-import { CaseWithId } from '../../app/case/case';
+import { CaseWithId, formFieldsToCaseMapping } from '../../app/case/case';
 import { CaseApi, getCaseApi } from '../../app/case/case-api';
 import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
-import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
+import { APPLICANT_1, APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { existingOrNew } from './content';
 
@@ -35,7 +35,8 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
               `UserId: ${req.session.user.id} has chosen to continue with existing application: ${req.session.existingCaseId}
                     and cancelling case invite: ${req.session.inviteCaseId}`
             );
-            await caseworkerUserApi.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
+
+            await this.cancelCaseInvite(req, caseworkerUserApi);
 
             req.session.userCase = existingCase;
             req.session.isApplicant2 = await caseworkerUserApi.isApplicant2(
@@ -46,13 +47,14 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
           } else if (formData.existingOrNewApplication === existingOrNew.New) {
             if (await this.isAllowedToUnlinkFromCase(existingCase, caseworkerUserApi, req.session.user.id)) {
               req.session.applicantChoosesNewInviteCase = true;
-              nextUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
+              nextUrl = `${req.session.inviteCaseIsApplicant1 ? APPLICANT_1 : APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
               req.locals.logger.info(
                 `UserId: ${req.session.user.id} not allowed to link to case ${req.session.inviteCaseId}
                       so invite will be cancelled`
               );
-              await caseworkerUserApi.triggerEvent(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
+
+              await this.cancelCaseInvite(req, caseworkerUserApi);
               req.session.cannotLinkToNewCase = true;
               req.session.existingApplicationType = existingCase.applicationType;
               nextUrl = req.url;
@@ -74,6 +76,18 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
         res.redirect(nextUrl);
       });
     }
+  }
+
+  private async cancelCaseInvite(req: AppRequest, caseworkerUserApi: CaseApi) {
+    const accessCodeToDelete = req.session.inviteCaseIsApplicant1
+      ? formFieldsToCaseMapping.accessCodeApplicant1
+      : formFieldsToCaseMapping.accessCode;
+
+    await caseworkerUserApi.triggerEvent(
+      req.session.inviteCaseId,
+      { [accessCodeToDelete as string]: null },
+      SYSTEM_CANCEL_CASE_INVITE
+    );
   }
 
   private async isAllowedToUnlinkFromCase(
