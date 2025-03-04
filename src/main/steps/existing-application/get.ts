@@ -30,6 +30,7 @@ export class ExistingApplicationGetController extends GetController {
 
 export interface ExistingApplicationContent extends CommonContent {
   existingCaseId?: string;
+  inviteCaseId?: string;
   inviteCaseApplicationType?: ApplicationType;
   inviteCaseIsApplicant1?: boolean;
   existingApplicationType?: ApplicationType;

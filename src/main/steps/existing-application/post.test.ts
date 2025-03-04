@@ -5,7 +5,14 @@ import * as caseApi from '../../app/case/case-api';
 import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/case/definition';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
-import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, EXISTING_APPLICATION, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  ENTER_YOUR_ACCESS_CODE,
+  EXISTING_APPLICATION,
+  HOME_URL,
+  SAVE_AND_SIGN_OUT,
+} from '../urls';
 
 import { existingOrNew } from './content';
 import { ExistingApplicationPostController } from './post';
@@ -49,10 +56,14 @@ describe('ExistingApplicationPostController', () => {
   });
 
   test.each([[ApplicationType.JOINT_APPLICATION, ApplicationType.SOLE_APPLICATION]])(
-    'When new case chosen and user is allowed to unlink from existing case where they are applicant / app1 (%s)',
+    'When applicant 2 case invite chosen and user can unlink from existing case where they are applicant / app1 (%s)',
     async applicationType => {
       const body = {
         existingOrNewApplication: existingOrNew.New,
+        session: {
+          inviteCaseIsApplicant1: false,
+          inviteCaseRef: '123456',
+        },
       };
 
       const mockCaseApi = caseApiMockFn({ applicationType, id: '1234' });
@@ -65,6 +76,33 @@ describe('ExistingApplicationPostController', () => {
       await controller.post(req, res);
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
+      expect(req.session.errors).toStrictEqual([]);
+      expect(req.session.cannotLinkToNewCase).toBeFalsy();
+      expect(req.session.existingApplicationType).toBeFalsy();
+    }
+  );
+
+  test.each([[ApplicationType.JOINT_APPLICATION, ApplicationType.SOLE_APPLICATION]])(
+    'When applicant 1 case invite chosen and user can unlink from existing case where they are applicant / app1 (%s)',
+    async applicationType => {
+      const body = {
+        existingOrNewApplication: existingOrNew.New,
+        session: {
+          inviteCaseRef: '123456',
+        },
+      };
+
+      const mockCaseApi = caseApiMockFn({ applicationType, id: '1234' });
+      (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+      const req = mockRequest({ body });
+      req.url = EXISTING_APPLICATION;
+      req.session.inviteCaseIsApplicant1 = true;
+      const res = mockResponse();
+
+      const controller = new ExistingApplicationPostController(mockFormContent.fields);
+      await controller.post(req, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(APPLICANT_1 + ENTER_YOUR_ACCESS_CODE);
       expect(req.session.errors).toStrictEqual([]);
       expect(req.session.cannotLinkToNewCase).toBeFalsy();
       expect(req.session.existingApplicationType).toBeFalsy();
@@ -93,7 +131,13 @@ describe('ExistingApplicationPostController', () => {
       expect(res.redirect).toHaveBeenCalledWith(EXISTING_APPLICATION);
       expect(req.session.cannotLinkToNewCase).toBeTruthy();
       expect(req.session.existingApplicationType).toBe(applicationType);
-      expect(mockCaseApi.triggerEvent).toHaveBeenCalledWith(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
+      expect(mockCaseApi.triggerEvent).toHaveBeenCalledWith(
+        req.session.inviteCaseId,
+        {
+          accessCode: null,
+        },
+        SYSTEM_CANCEL_CASE_INVITE
+      );
     }
   );
 
@@ -124,7 +168,7 @@ describe('ExistingApplicationPostController', () => {
     expect(req.session.existingApplicationType).toBeFalsy();
   });
 
-  test('When new case chosen and user is respondent on sole existing case where AOS submitted', async () => {
+  test('When applicant 2 case invite chosen and user is respondent on sole existing case where AOS submitted (cannot unlink)', async () => {
     const body = {
       existingOrNewApplication: existingOrNew.New,
     };
@@ -142,6 +186,7 @@ describe('ExistingApplicationPostController', () => {
 
     const req = mockRequest({ body });
     req.url = EXISTING_APPLICATION;
+    req.session.inviteCaseIsApplicant1 = false;
     const res = mockResponse();
 
     const controller = new ExistingApplicationPostController(mockFormContent.fields);
@@ -150,10 +195,52 @@ describe('ExistingApplicationPostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(EXISTING_APPLICATION);
     expect(req.session.cannotLinkToNewCase).toBeTruthy();
     expect(req.session.existingApplicationType).toBe(caseData.applicationType);
-    expect(mockCaseApi.triggerEvent).toHaveBeenCalledWith(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
+    expect(mockCaseApi.triggerEvent).toHaveBeenCalledWith(
+      req.session.inviteCaseId,
+      {
+        accessCode: null,
+      },
+      SYSTEM_CANCEL_CASE_INVITE
+    );
   });
 
-  test('When Existing case chosen, should cancel new case invite and continue with existing case', async () => {
+  test('When applicant 1 case invite chosen and user is respondent on sole existing case where AOS submitted (cannot unlink)', async () => {
+    const body = {
+      existingOrNewApplication: existingOrNew.New,
+    };
+
+    const caseData = {
+      applicationType: ApplicationType.SOLE_APPLICATION,
+      dateSubmitted: '2022-08-22',
+      dateAosSubmitted: '2022-09-22',
+      id: '1234',
+    };
+
+    const mockCaseApi = caseApiMockFn(caseData);
+    mockCaseApi.getUsersRoleOnCase = jest.fn(() => UserRole.APPLICANT_2);
+    (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+
+    const req = mockRequest({ body });
+    req.url = EXISTING_APPLICATION;
+    req.session.inviteCaseIsApplicant1 = true;
+    const res = mockResponse();
+
+    const controller = new ExistingApplicationPostController(mockFormContent.fields);
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(EXISTING_APPLICATION);
+    expect(req.session.cannotLinkToNewCase).toBeTruthy();
+    expect(req.session.existingApplicationType).toBe(caseData.applicationType);
+    expect(mockCaseApi.triggerEvent).toHaveBeenCalledWith(
+      req.session.inviteCaseId,
+      {
+        accessCodeApplicant1: null,
+      },
+      SYSTEM_CANCEL_CASE_INVITE
+    );
+  });
+
+  test('When Existing case chosen, should cancel new case invite for applicant 1 and continue with existing case', async () => {
     const body = {
       existingOrNewApplication: existingOrNew.Existing,
     };
@@ -167,12 +254,52 @@ describe('ExistingApplicationPostController', () => {
     req.originalUrl = EXISTING_APPLICATION;
     req.session.existingCaseId = '1234';
     req.session.inviteCaseId = '5678';
+    req.session.inviteCaseIsApplicant1 = true;
     const res = mockResponse();
 
     const controller = new ExistingApplicationPostController(mockFormContent.fields);
     await controller.post(req, res);
 
-    expect(mockCaseApi.triggerEvent).toHaveBeenCalledWith(req.session.inviteCaseId, {}, SYSTEM_CANCEL_CASE_INVITE);
+    expect(mockCaseApi.triggerEvent).toHaveBeenCalledWith(
+      req.session.inviteCaseId,
+      {
+        accessCodeApplicant1: null,
+      },
+      SYSTEM_CANCEL_CASE_INVITE
+    );
+    expect(mockCaseApi.getCaseById).toHaveBeenCalledWith(req.session.existingCaseId);
+    expect(mockCaseApi.isApplicant2).toHaveBeenCalledWith(req.session.existingCaseId, req.session.user.id);
+    expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
+    expect(req.session.errors).toStrictEqual([]);
+  });
+
+  test('When Existing case chosen, should cancel new case invite for applicant 2 and continue with existing case', async () => {
+    const body = {
+      existingOrNewApplication: existingOrNew.Existing,
+    };
+
+    const req = mockRequest({ body });
+
+    const caseData = { id: '1234' };
+    const mockCaseApi = caseApiMockFn(caseData);
+    (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+
+    req.originalUrl = EXISTING_APPLICATION;
+    req.session.existingCaseId = '1234';
+    req.session.inviteCaseId = '5678';
+    req.session.inviteCaseIsApplicant1 = false;
+    const res = mockResponse();
+
+    const controller = new ExistingApplicationPostController(mockFormContent.fields);
+    await controller.post(req, res);
+
+    expect(mockCaseApi.triggerEvent).toHaveBeenCalledWith(
+      req.session.inviteCaseId,
+      {
+        accessCode: null,
+      },
+      SYSTEM_CANCEL_CASE_INVITE
+    );
     expect(mockCaseApi.getCaseById).toHaveBeenCalledWith(req.session.existingCaseId);
     expect(mockCaseApi.isApplicant2).toHaveBeenCalledWith(req.session.existingCaseId, req.session.user.id);
     expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
