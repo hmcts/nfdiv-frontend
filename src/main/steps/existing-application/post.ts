@@ -51,9 +51,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${req.session.inviteCaseIsApplicant1 ? APPLICANT_1 : APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
-              logger.info(
-                `UserId: ${req.session.user.id} not allowed to link to case ${req.session.inviteCaseId}`
-              );
+              logger.info(`UserId: ${req.session.user.id} not allowed to link to case ${req.session.inviteCaseId}`);
 
               await this.cancelCaseInvite(req, caseworkerUserApi);
               req.session.cannotLinkToNewCase = true;
@@ -84,9 +82,11 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
       ? formFieldsToCaseMapping.accessCodeApplicant1
       : formFieldsToCaseMapping.accessCode;
 
-      logger.info(
-        `Cancelling: ${req.session.inviteCaseIsApplicant1 ? 'Applicant 1' : 'Applicant 2/Respondent'} case invite on: ${req.session.inviteCaseId}`
-      );
+    logger.info(
+      `Cancelling: ${req.session.inviteCaseIsApplicant1 ? 'Applicant 1' : 'Applicant 2/Respondent'} case invite on: ${
+        req.session.inviteCaseId
+      }`
+    );
 
     await caseworkerUserApi.triggerEvent(
       req.session.inviteCaseId,
