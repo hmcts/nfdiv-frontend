@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import { isEmpty } from 'lodash';
@@ -12,6 +13,8 @@ import { Form, FormFields } from '../../app/form/Form';
 import { APPLICANT_1, APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { existingOrNew } from './content';
+
+const logger = Logger.getLogger('existing-application-post-controller');
 
 @autobind
 export class ExistingApplicationPostController extends PostController<AnyObject> {
@@ -31,9 +34,8 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
           const existingCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId);
 
           if (formData.existingOrNewApplication === existingOrNew.Existing) {
-            req.locals.logger.info(
-              `UserId: ${req.session.user.id} has chosen to continue with existing application: ${req.session.existingCaseId}
-                    and cancelling case invite: ${req.session.inviteCaseId}`
+            logger.info(
+              `UserId: ${req.session.user.id} has chosen to continue with existing application instead of ${req.session.inviteCaseId}`
             );
 
             await this.cancelCaseInvite(req, caseworkerUserApi);
@@ -49,9 +51,8 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${req.session.inviteCaseIsApplicant1 ? APPLICANT_1 : APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
-              req.locals.logger.info(
-                `UserId: ${req.session.user.id} not allowed to link to case ${req.session.inviteCaseId}
-                      so invite will be cancelled`
+              logger.info(
+                `UserId: ${req.session.user.id} not allowed to link to case ${req.session.inviteCaseId}`
               );
 
               await this.cancelCaseInvite(req, caseworkerUserApi);
@@ -82,6 +83,10 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
     const accessCodeToDelete = req.session.inviteCaseIsApplicant1
       ? formFieldsToCaseMapping.accessCodeApplicant1
       : formFieldsToCaseMapping.accessCode;
+
+      logger.info(
+        `Cancelling: ${req.session.inviteCaseIsApplicant1 ? 'Applicant 1' : 'Applicant 2/Respondent'} case invite on: ${req.session.inviteCaseId}`
+      );
 
     await caseworkerUserApi.triggerEvent(
       req.session.inviteCaseId,
