@@ -25,7 +25,9 @@ const en = ({
     line1: `You have an existing application for ${
       isDivorce ? 'divorce' : 'to end your civil partnership'
     }. Your existing application number is ${formattedCaseId(existingCaseId)}.`,
-    line2: `You are now being invited to join another application. The application which you are being invited to is ${formattedCaseId(inviteCaseId)}. If you choose to join it then you will lose access to your existing application.`,
+    line2: `You are now being invited to join another application. The application which you are being invited to is ${formattedCaseId(
+      inviteCaseId
+    )}. If you choose to join it then you will lose access to your existing application.`,
     newApplication: 'I want to join the new application',
     existingApplication: 'I want to continue with my existing application',
     newSelected: 'You will lose access to your existing application',
@@ -72,7 +74,9 @@ const cy: typeof en = ({
     line1: `Mae gennych gais sydd eisoes yn bod ${
       isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
     }. Eich rhif cais presennol yw ${formattedCaseId(existingCaseId)}.`,
-    line2: `Rydych nawr yn cael eich gwahodd i ymuno i gais arall. Y cais yr ydych yn cael eich gwahodd iddo yw ${formattedCaseId(inviteCaseId)}. Os byddwch yn dewis ymateb i gais yna byddwch yn colli mynediad at eich cais presennol.`,
+    line2: `Rydych nawr yn cael eich gwahodd i ymuno i gais arall. Y cais yr ydych yn cael eich gwahodd iddo yw ${formattedCaseId(
+      inviteCaseId
+    )}. Os byddwch yn dewis ymateb i gais yna byddwch yn colli mynediad at eich cais presennol.`,
     newApplication: 'Rwyf eisiau ymateb i gais cais newydd',
     existingApplication: 'Rwyf eisiau parhau â fy nghais presennol',
     newSelected: 'Byddwch yn colli mynediad at eich cais presennol',
