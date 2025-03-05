@@ -35,7 +35,8 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
 
           if (formData.existingOrNewApplication === existingOrNew.Existing) {
             logger.info(
-              `UserId: ${req.session.user.id} has chosen to continue with existing application instead of ${req.session.inviteCaseId}`
+              `UserId: ${req.session.user.id} has chosen to continue with existing application: ${req.session.existingCaseId}
+                    and rejected case invite: ${req.session.inviteCaseId}`
             );
 
             await this.cancelCaseInvite(req, caseworkerUserApi);
@@ -51,7 +52,10 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
               req.session.applicantChoosesNewInviteCase = true;
               nextUrl = `${req.session.inviteCaseIsApplicant1 ? APPLICANT_1 : APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;
             } else {
-              logger.info(`UserId: ${req.session.user.id} not allowed to link to case ${req.session.inviteCaseId}`);
+              logger.info(
+                `UserId: ${req.session.user.id} not allowed to link to case ${req.session.inviteCaseId}
+                      so invite will be cancelled`
+              );
 
               await this.cancelCaseInvite(req, caseworkerUserApi);
               req.session.cannotLinkToNewCase = true;

@@ -17,6 +17,7 @@ export class ExistingApplicationGetController extends GetController {
     const content = {
       ...this.getCommonContent(req, res, language),
       existingCaseId: req.session?.existingCaseId,
+      inviteCaseId: req.session?.inviteCaseId,
       inviteCaseApplicationType: req.session?.inviteCaseApplicationType,
       inviteCaseIsApplicant1: req.session?.inviteCaseIsApplicant1,
       existingApplicationType: req.session?.existingApplicationType,
