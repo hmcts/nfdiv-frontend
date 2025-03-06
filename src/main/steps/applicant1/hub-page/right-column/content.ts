@@ -156,12 +156,12 @@ const cy: typeof en = ({
         ? 'dispense-with-service-refused'
         : 'deemed-service-refused'
     }`,
-    text: `View the court order refusing your application for
+    text: `Gweld y gorchymyn llys yn gwrthod eich cais am
     ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-        ? 'dispensed'
-        : 'deemed'
-    } service (PDF)`,
+        ? 'hepgor cyflwyno'
+        : 'gyflwyno tybiedig'
+    } (PDF)`,
   },
 
   deemedOrDispensedDownload: {
@@ -175,12 +175,12 @@ const cy: typeof en = ({
         ? 'certificate-of-dispense-with-service'
         : 'certificate-of-deemed-as-service'
     }`,
-    text: `View the court order granting your application for
+    text: `Gweld y gorchymyn llys sy’n caniatáu eich cais am
     ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
-        ? 'dispensed'
-        : 'deemed'
-    } service (PDF)`,
+        ? 'hepgor cyflwyno'
+        : 'gyflwyno tybiedig'
+    } (PDF)`,
   },
   certificateOfEntitlementDownload: {
     reference: 'Certificate-of-Entitlement',
@@ -205,12 +205,12 @@ const cy: typeof en = ({
   conditionalOrderRefusalPdf: {
     reference: 'Refusal-Order',
     link: '/downloads/conditional-order-refusal',
-    text: 'View the conditional order refusal (PDF)',
+    text: 'Gweld y gwrthodiad am orchymyn amodol (PDF)',
   },
   finalOrderApplicationDownload: {
     reference: 'Final-Order-Application',
     link: '/downloads/final-order-application',
-    text: 'View the final order application (PDF)',
+    text: 'Gweld y cais am orchymyn terfynol (PDF)',
   },
   finalOrderGrantedDocumentDownload: {
     reference: 'Final-Order-Granted',

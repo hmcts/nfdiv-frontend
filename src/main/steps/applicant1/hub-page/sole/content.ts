@@ -33,7 +33,7 @@ const en = (
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
-  aosAwaitingOrDrafted: {
+  aosAwaiting: {
     line1:
       userCase.state === State.AwaitingHWFEvidence
         ? 'Your application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
@@ -52,6 +52,11 @@ const en = (
     }`,
     line6: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
     line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
+  },
+  aosDrafted: {
+    line1: `Your ${partner} has started drafting a response to your application.`,
+    line2:
+      'If they do not complete the response and submit it then you will be told what you can do next to progress the application.',
   },
   aosDue: {
     line1: `Your ${partner} should have responded to your ${
@@ -238,6 +243,10 @@ const en = (
       link: '/downloads/bailiff-unsuccessful-certificate-of-service',
     },
   },
+  awaitingServicePayment: {
+    line1:
+      'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.',
+  },
   awaitingBailiffService: {
     line1: `Your application for bailiff service was successful. The court bailiff will attempt to serve the ${
       isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
@@ -320,12 +329,14 @@ const en = (
       isDivorce ? 'divorce' : 'dissolution'
     }. You need to provide some additional information before your application can progress.`,
     line2: 'We have sent you an email with the information the court needs.',
-    line3: 'What you need to do next',
-    line4: 'Read the court’s reasons for stopping the application and provide the requested information.',
-    line5: 'If documents have been requested, you will be able to upload them to the court when you respond.',
+    line3:
+      'You can also see the information that the court needs on the next page after you select "Provide information".',
+    line4: 'What you need to do next',
+    line5: 'Read the court’s reasons for stopping the application and provide the requested information.',
+    line6: 'If documents have been requested, you will be able to upload them to the court when you respond.',
     buttonText: 'Provide information',
     buttonLink: RESPOND_TO_COURT_FEEDBACK,
-    line6: 'We will let you know once we have reviewed the information you provided.',
+    line7: 'We will let you know once we have reviewed the information you provided.',
   },
   respondedToRequestForInformation: {
     line1: 'You have responded to the court.',
@@ -367,7 +378,7 @@ const cy: typeof en = (
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
-  aosAwaitingOrDrafted: {
+  aosAwaiting: {
     line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau
     ${
       userCase.state !== State.AwaitingHWFEvidence
@@ -381,6 +392,11 @@ const cy: typeof en = (
     line5: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu mai chi sy’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sy’n hysbysu’ch ${partner} am yr ysgariad.`,
     line6: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a llythyr, ar ôl i’r cais gael ei wirio.`,
     line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddynt gadarnhau eu bod yn eu cynrychioli. Fe anfonir copi o’r cais atynt ac fe ofynnir iddynt ymateb.`,
+  },
+  aosDrafted: {
+    line1: `Mae ${partner} wedi dechrau drafftio ymateb i’ch cais.`,
+    line2:
+      'Os na fyddant yn cwblhau’r ymateb ac yn ei gyflwyno, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.',
   },
   aosDue: {
     line1: `Dylai eich ${partner} fod wedi ymateb i'ch ${
@@ -578,6 +594,10 @@ const cy: typeof en = (
       link: '/downloads/bailiff-unsuccessful-certificate-of-service',
     },
   },
+  awaitingServicePayment: {
+    line1:
+      "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
+  },
   awaitingBailiffService: {
     line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${
       isDivorce ? 'papurau’r ysgariad' : "papurau i ddod â'ch partneriaeth sifil i ben"
@@ -674,12 +694,14 @@ const cy: typeof en = (
       isDivorce ? 'ysgariad' : 'diddymiad'
     }. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.`,
     line2: 'Rydym wedi anfon neges e-bost atoch gyda gwybodaeth y mae’r llys ei hangen.',
-    line3: 'Beth sydd angen i chi wneud nesaf',
-    line4: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
-    line5: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
+    line3:
+      'Gallwch hefyd weld yr wybodaeth mae’r llys ei hangen ar y dudalen nesaf ar ôl i chi ddewis “Darparu Gwybodaeth”.',
+    line4: 'Beth sydd angen i chi wneud nesaf',
+    line5: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
+    line6: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
     buttonText: 'Darparu gwybodaeth',
     buttonLink: RESPOND_TO_COURT_FEEDBACK,
-    line6: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
+    line7: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
   },
   respondedToRequestForInformation: {
     line1: 'Rydych wedi ymateb i’r llys.',
@@ -755,6 +777,8 @@ export const generateContent: TranslationFn = content => {
   const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const isAosSubmitted = !isEmpty(userCase.dateAosSubmitted);
+  const aosIsDrafted = userCase.aosIsDrafted === YesOrNo.YES;
+
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
@@ -773,5 +797,6 @@ export const generateContent: TranslationFn = content => {
     isRespondentOverseas,
     isRespondentRepresented,
     isAosSubmitted,
+    aosIsDrafted,
   };
 };
