@@ -83,12 +83,6 @@
         {% endblock %}
       {% endif %}
 
-      {% if not hideWithdraw %}
-        {% block withdraw %}
-          {% include "common/withdraw/withdraw.njk" %}
-        {% endblock %}
-      {% endif %}
-
       {% block contact_us %}
         {% include "./contact-us/details.njk" %}
       {% endblock %}

@@ -343,7 +343,6 @@ export const generateCommonContent = ({
   const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
     isDivorce ? 'Divorce' : 'Civil'
   }&party=${feedbackParty}`;
-  const hideWithdraw = false;
 
   return {
     ...commonTranslations,
@@ -364,8 +363,7 @@ export const generateCommonContent = ({
     isGeneralConsiderationFoRequested,
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
-    isPendingHearingOutcomeFoRequested,
-    hideWithdraw
+    isPendingHearingOutcomeFoRequested
   };
 };
 
@@ -389,5 +387,4 @@ export type CommonContent = typeof en & {
   isGeneralConsiderationCoPronounced: boolean;
   isPendingHearingOutcomeCoPronounced: boolean;
   isPendingHearingOutcomeFoRequested: boolean;
-  hideWithdraw: boolean;
 };
