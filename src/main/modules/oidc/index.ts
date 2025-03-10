@@ -94,6 +94,8 @@ export class OidcMiddleware {
       if (newInviteUserCase && existingUserCase) {
         req.session.inviteCaseId = newInviteUserCase.id;
         req.session.inviteCaseApplicationType = newInviteUserCase.applicationType;
+        req.session.inviteCaseIsApplicant1 =
+          req.session.user.email.toLowerCase() === newInviteUserCase.applicant1Email?.toLowerCase();
         req.session.existingCaseId = existingUserCase.id;
         if (!req.path.includes(EXISTING_APPLICATION)) {
           logger.info(`User (${req.session.user.id}) is being redirected to existing-application page`);
