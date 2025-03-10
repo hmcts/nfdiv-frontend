@@ -1,6 +1,7 @@
 import {
   ACCESSIBILITY_STATEMENT_URL,
   APPLICANT_2,
+  APPLICATION_WITHDRAWN,
   CONTACT_US,
   COOKIES_URL,
   ENTER_YOUR_ACCESS_CODE,
@@ -21,6 +22,7 @@ import {
 export const signInNotRequired = (reqPath: string): boolean =>
   [
     ACCESSIBILITY_STATEMENT_URL,
+    APPLICATION_WITHDRAWN,
     CONTACT_US,
     COOKIES_URL,
     PRIVACY_POLICY_URL,
