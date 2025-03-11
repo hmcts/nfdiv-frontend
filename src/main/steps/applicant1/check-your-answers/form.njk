@@ -11,6 +11,9 @@
   }) }}
 {% endblock %}
 
+
 {% block help_links %}
-  {% include "common/withdraw/withdraw.njk" %}
+  {% if not isApplicant2 %}
+    {% include "common/withdraw/withdraw.njk" %}
+  {% endif %}
 {% endblock %}

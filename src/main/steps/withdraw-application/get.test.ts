@@ -9,7 +9,7 @@ import { WithdrawApplicationGetController } from './get';
 describe('WithdrawApplicationController', () => {
   const controller = new WithdrawApplicationGetController();
 
-  test('Should render the contact us page', async () => {
+  test('Should render the withdraw application page', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);

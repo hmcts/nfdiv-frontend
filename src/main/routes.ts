@@ -94,9 +94,13 @@ export class Routes {
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
     app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(WITHDRAW_APPLICATION, errorHandler(new WithdrawApplicationGetController().get))
+    app.get(WITHDRAW_APPLICATION,
+      this.isRouteForUser as RequestHandler,
+      errorHandler(new WithdrawApplicationGetController().get)
+    )
     app.post(
       WITHDRAW_APPLICATION,
+      this.isRouteForUser as RequestHandler,
       errorHandler(new WithdrawApplicationPostController(existingApplicationContent.form.fields).post)
     );
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));

@@ -363,7 +363,7 @@ export const generateCommonContent = ({
     isGeneralConsiderationFoRequested,
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
-    isPendingHearingOutcomeFoRequested
+    isPendingHearingOutcomeFoRequested,
   };
 };
 
