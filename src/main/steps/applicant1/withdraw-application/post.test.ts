@@ -16,7 +16,7 @@ describe('WithdrawApplicationPostController', () => {
     },
   } as unknown as FormContent;
 
-  test('Should withdraw case and sign user out', async () => {
+  test('Should withdraw case and delete user session', async () => {
     const req = mockRequest();
     const res = mockResponse();
 

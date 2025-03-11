@@ -1,5 +1,5 @@
-import type { TranslationFn } from '../../app/controller/GetController';
-import { FormContent } from '../../app/form/Form';
+import type { TranslationFn } from '../../../app/controller/GetController';
+import { FormContent } from '../../../app/form/Form';
 
 const en = () => ({
   title: 'Withdraw your application',

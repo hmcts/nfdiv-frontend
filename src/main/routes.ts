@@ -59,12 +59,9 @@ import {
   SWITCH_TO_SOLE_APPLICATION,
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
-  WEBCHAT_URL,
-  WITHDRAW_APPLICATION,
+  WEBCHAT_URL
 } from './steps/urls';
 import { WebChatGetController } from './steps/webchat/get';
-import { WithdrawApplicationGetController } from './steps/withdraw-application/get';
-import { WithdrawApplicationPostController } from './steps/withdraw-application/post';
 
 const handleUploads = multer();
 const ext = extname(__filename);
@@ -76,7 +73,6 @@ export class Routes {
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(EXISTING_APPLICATION, errorHandler(new ExistingApplicationGetController().get));
-    app.get(APPLICATION_WITHDRAWN, errorHandler(new ApplicationWithdrawnGetController().get));
     app.post(
       EXISTING_APPLICATION,
       errorHandler(new ExistingApplicationPostController(existingApplicationContent.form.fields).post)
@@ -93,17 +89,8 @@ export class Routes {
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
     app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
+    app.get(APPLICATION_WITHDRAWN, errorHandler(new ApplicationWithdrawnGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(
-      WITHDRAW_APPLICATION,
-      this.isRouteForUser as RequestHandler,
-      errorHandler(new WithdrawApplicationGetController().get)
-    );
-    app.post(
-      WITHDRAW_APPLICATION,
-      this.isRouteForUser as RequestHandler,
-      errorHandler(new WithdrawApplicationPostController(existingApplicationContent.form.fields).post)
-    );
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
     const documentManagerController = new DocumentManagerController();

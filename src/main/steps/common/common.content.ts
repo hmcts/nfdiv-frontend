@@ -3,7 +3,7 @@ import config from 'config';
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
-import { SAVE_AND_SIGN_OUT } from '../urls';
+import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
 
 import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
@@ -42,6 +42,7 @@ export const en = {
   errorSummaryHeading: 'There was a problem',
   saveAndSignOut: 'Save and sign out',
   wantToWithdrawApplication: 'I want to withdraw this application',
+  withdrawApplicationPath: WITHDRAW_APPLICATION,
   exitService: 'Exit this service',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -192,6 +193,7 @@ const cy: typeof en = {
   errorSummaryHeading: 'Roedd yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
   wantToWithdrawApplication: "Rwyf eisiau tynnu'r cais hwn yn ôl",
+  withdrawApplicationPath: WITHDRAW_APPLICATION,
   exitService: 'Gadael y gwasanaeth hwn',
   signOut: 'Allgofnodi',
   signIn: 'Mewngofnodi',
