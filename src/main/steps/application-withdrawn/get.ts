@@ -1,8 +1,9 @@
 import autobind from 'autobind-decorator';
-import { GetController } from '../../app/controller/GetController';
 import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
+import { GetController } from '../../app/controller/GetController';
+
 import { generateContent } from './content';
 
 @autobind

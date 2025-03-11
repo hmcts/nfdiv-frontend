@@ -4,12 +4,12 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { SupportedLanguages } from '../../modules/i18n';
 import { generateCommonContent } from '../common/common.content';
 
-import { WithdrawApplicationGetController } from './get';
+import { ApplicationWithdrawnGetController } from './get';
 
 describe('WithdrawApplicationController', () => {
-  const controller = new WithdrawApplicationGetController();
+  const controller = new ApplicationWithdrawnGetController();
 
-  test('Should render the contact us page', async () => {
+  test('Should render application withdrawn page', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);

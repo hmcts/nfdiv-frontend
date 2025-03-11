@@ -449,14 +449,14 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: WITHDRAW_APPLICATION,
-    getNextStep: () => HOME_URL
-  }
+    getNextStep: () => HOME_URL,
+  },
 ];
 
 export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: WITHDRAW_APPLICATION,
-    getNextStep: () => HOME_URL
+    getNextStep: () => HOME_URL,
   },
   {
     url: PAY_YOUR_FEE,

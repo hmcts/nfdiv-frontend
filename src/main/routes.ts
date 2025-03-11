@@ -17,6 +17,7 @@ import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
+import { ApplicationWithdrawnGetController } from './steps/application-withdrawn/get';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
@@ -31,9 +32,6 @@ import { shouldHideRouteFromUser } from './steps/routeHiding';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
 import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get';
-import { ApplicationWithdrawnGetController } from './steps/application-withdrawn/get'
-import { WithdrawApplicationGetController } from './steps/withdraw-application/get';
-import { WithdrawApplicationPostController } from './steps/withdraw-application/post';
 import { SwitchToSoleApplicationPostController } from './steps/switch-to-sole-application/post';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
@@ -62,9 +60,11 @@ import {
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
   WEBCHAT_URL,
-  WITHDRAW_APPLICATION
+  WITHDRAW_APPLICATION,
 } from './steps/urls';
 import { WebChatGetController } from './steps/webchat/get';
+import { WithdrawApplicationGetController } from './steps/withdraw-application/get';
+import { WithdrawApplicationPostController } from './steps/withdraw-application/post';
 
 const handleUploads = multer();
 const ext = extname(__filename);
@@ -76,7 +76,7 @@ export class Routes {
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(EXISTING_APPLICATION, errorHandler(new ExistingApplicationGetController().get));
-    app.get(APPLICATION_WITHDRAWN,  errorHandler(new ApplicationWithdrawnGetController().get))
+    app.get(APPLICATION_WITHDRAWN, errorHandler(new ApplicationWithdrawnGetController().get));
     app.post(
       EXISTING_APPLICATION,
       errorHandler(new ExistingApplicationPostController(existingApplicationContent.form.fields).post)
@@ -94,10 +94,11 @@ export class Routes {
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
     app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(WITHDRAW_APPLICATION,
+    app.get(
+      WITHDRAW_APPLICATION,
       this.isRouteForUser as RequestHandler,
       errorHandler(new WithdrawApplicationGetController().get)
-    )
+    );
     app.post(
       WITHDRAW_APPLICATION,
       this.isRouteForUser as RequestHandler,
