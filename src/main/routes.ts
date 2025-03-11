@@ -59,7 +59,7 @@ import {
   SWITCH_TO_SOLE_APPLICATION,
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
-  WEBCHAT_URL
+  WEBCHAT_URL,
 } from './steps/urls';
 import { WebChatGetController } from './steps/webchat/get';
 
