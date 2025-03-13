@@ -4,7 +4,7 @@ Feature: Citizen Withdraw
     Given I've already completed the form using the fixture "completeCase"
     And I go to '/check-your-answers'
 
-  Scenario: Withdraw from check your answers
+  Scenario: Withdraw from the check your answers page
     Given I click element "withdrawLink"
     Then the page should include "Withdraw your application"
     And if I click element "main-form-submit"
