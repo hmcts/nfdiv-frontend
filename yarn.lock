@@ -6730,12 +6730,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"connect-redis@npm:7.1.1":
-  version: 7.1.1
-  resolution: "connect-redis@npm:7.1.1"
+"connect-redis@npm:8.0.2":
+  version: 8.0.2
+  resolution: "connect-redis@npm:8.0.2"
   peerDependencies:
     express-session: ">=1"
-  checksum: ac91ee818d0f467866b6982f66b3423fee58de9da3562618f6d1df2ddeea426354c1efe70b3f799be1b52e3cc67f2043b9ae203678fd3ff9db5dff44b078f0ca
+  checksum: 879f774ff9a65397dea210c9f14ca9d4ceb3a1735462b0f4a4cb8946ba18f49fc9833474fe6af4e01223ca661838dd3d6a64fd2078ba2d1512c5085dcd01f31a
   languageName: node
   linkType: hard
 
@@ -13839,7 +13839,7 @@ __metadata:
     axios-debug-log: 1.0.0
     codeceptjs: 3.6.7
     config: 3.3.12
-    connect-redis: 7.1.1
+    connect-redis: 8.0.2
     cookie-parser: 1.4.7
     copy-webpack-plugin: 13.0.0
     css-loader: 7.1.2
