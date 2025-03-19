@@ -1,2 +1,13 @@
-<p class="govuk-body">{{ aosDue.line1 }}</p>
-<p class="govuk-body">{{ aosDue.line2 | safe }}</p>
+{% if aosOverdueAndDrafted %}
+  <p class="govuk-body">{{ aosDueAndDrafted.line1 }}</p>
+  <p class="govuk-body">{{ aosDueAndDrafted.line2 }}</p>
+  <h4 class="govuk-heading-s">{{ aosDueAndDrafted.doNext }}</h4>
+  <p class="govuk-body">{{ aosDueAndDrafted.line3 }}</p>
+  <p class="govuk-body">{{ aosDueAndDrafted.line4 }}</p>
+  <p class="govuk-body">
+    <a class="govuk-link" href={{ aosDueAndDrafted.linkUrl }}>{{ aosDueAndDrafted.linkText }}</a>
+  </p>
+{% else %}
+  <p class="govuk-body">{{ aosDue.line1 }}</p>
+  <p class="govuk-body">{{ aosDue.line2 | safe }}</p>
+{% endif %}
