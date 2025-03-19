@@ -124,7 +124,10 @@ export const getSoleHubTemplate = (
     case State.AwaitingDocuments:
       return HubTemplate.AwaitingDocuments;
     default: {
-      if (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding')) {
+      if (
+        (State.AosDrafted && isAosOverdue) ||
+        (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding'))
+      ) {
         return HubTemplate.AoSDue;
       }
       return HubTemplate.AosAwaitingOrDrafted;
