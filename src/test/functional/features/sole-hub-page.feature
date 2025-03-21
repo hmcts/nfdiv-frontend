@@ -17,11 +17,13 @@ Feature: Sole hub page
     Then the page should include "Your application will be checked by court staff."
 
     Given I set the case state to "AosDrafted"
+    And a superuser updates "aosIsDrafted" with "Yes"
     When I sign out
     And I login with applicant "1"
     Then the page should include element "#aosDueAndDraftedLine1"
 
     Given I set the case state to "AosOverdue"
+    And a superuser updates "aosIsDrafted" with "No"
     When I sign out
     And I login with applicant "1"
     Then the page should include element "#aosDueLine1"
