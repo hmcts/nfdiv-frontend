@@ -809,7 +809,7 @@ export const generateContent: TranslationFn = content => {
   const isAosSubmitted = !isEmpty(userCase.dateAosSubmitted);
   const aosIsDrafted = userCase.aosIsDrafted === YesOrNo.YES;
   const aosOverdueAndDrafted =
-    userCase.state === State.AosDrafted &&
+    aosIsDrafted &&
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
