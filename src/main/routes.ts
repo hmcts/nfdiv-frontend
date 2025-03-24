@@ -57,7 +57,8 @@ import {
   SIGN_OUT_URL,
   SWITCH_TO_SOLE_APPLICATION,
   TERMS_AND_CONDITIONS_URL,
-  TIMED_OUT_URL, VIEW_YOUR_ANSWERS,
+  TIMED_OUT_URL,
+  VIEW_YOUR_ANSWERS,
   WEBCHAT_URL,
 } from './steps/urls';
 import { WebChatGetController } from './steps/webchat/get';
