@@ -1,3 +1,14 @@
-{% extends "common/template.njk" %}
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% if line1 %}
+    <p class="govuk-body">{{ line1 }}</p>
+  {% endif %}
+  {% if line2 %}
+    <p class="govuk-body">{{ line2 }}</p>
+  {% endif %}
+  <p class="govuk-body">{{ line3|safe}}</p>
+{% endblock %}
 
 {% block backLink %}{% endblock %}

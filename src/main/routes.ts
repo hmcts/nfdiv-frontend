@@ -15,6 +15,7 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content';
 import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your-access-code/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
+import { ViewAnswersGetController } from './steps/applicant1/view-your-answers/get';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
 import { ContactUsGetController } from './steps/contact-us/get';
@@ -56,7 +57,7 @@ import {
   SIGN_OUT_URL,
   SWITCH_TO_SOLE_APPLICATION,
   TERMS_AND_CONDITIONS_URL,
-  TIMED_OUT_URL,
+  TIMED_OUT_URL, VIEW_YOUR_ANSWERS,
   WEBCHAT_URL,
 } from './steps/urls';
 import { WebChatGetController } from './steps/webchat/get';
@@ -89,6 +90,8 @@ export class Routes {
     app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
+
+    app.get(VIEW_YOUR_ANSWERS, errorHandler(new ViewAnswersGetController().get));
 
     const documentManagerController = new DocumentManagerController();
     app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));

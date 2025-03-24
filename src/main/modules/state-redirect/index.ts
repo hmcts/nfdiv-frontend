@@ -26,7 +26,7 @@ import {
   SAVE_AND_SIGN_OUT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   SWITCH_TO_SOLE_APPLICATION,
-  THEIR_EMAIL_ADDRESS,
+  THEIR_EMAIL_ADDRESS, VIEW_YOUR_ANSWERS,
 } from '../../steps/urls';
 
 /**
@@ -101,6 +101,10 @@ export class StateRedirectMiddleware {
         const finalOrderPayments = new PaymentModel(req.session.userCase.finalOrderPayments);
         if (FINAL_ORDER_PAYMENT_STATES.has(state) && req.session.isApplicant2 && finalOrderPayments.hasPayment) {
           return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
+        }
+
+        if (APPLICATION_PAYMENT_STATES.has(state) && [VIEW_YOUR_ANSWERS].includes(req.path as PageLink)) {
+          return next();
         }
 
         const applicationPayments = new PaymentModel(req.session.userCase.applicationPayments);
