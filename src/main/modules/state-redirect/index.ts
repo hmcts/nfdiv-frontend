@@ -94,6 +94,7 @@ export class StateRedirectMiddleware {
             RESPONDENT + PAYMENT_CALLBACK_URL,
             RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,
             SAVE_AND_SIGN_OUT,
+            VIEW_YOUR_ANSWERS,
           ].includes(req.path as PageLink)
         ) {
           return next();
@@ -102,10 +103,6 @@ export class StateRedirectMiddleware {
         const finalOrderPayments = new PaymentModel(req.session.userCase.finalOrderPayments);
         if (FINAL_ORDER_PAYMENT_STATES.has(state) && req.session.isApplicant2 && finalOrderPayments.hasPayment) {
           return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
-        }
-
-        if (APPLICATION_PAYMENT_STATES.has(state) && [VIEW_YOUR_ANSWERS].includes(req.path as PageLink)) {
-          return next();
         }
 
         const applicationPayments = new PaymentModel(req.session.userCase.applicationPayments);

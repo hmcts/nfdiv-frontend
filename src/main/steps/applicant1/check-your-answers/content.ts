@@ -1153,10 +1153,7 @@ export const generateContent: TranslationFn = content => {
 
 export const generateViewAnswersContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const applicant2Url = content.isApplicant2 ? urls.APPLICANT_2 : '';
   return {
     ...translations,
-    isApplicationReadyToSubmit,
-    applicant2Url,
   };
 };

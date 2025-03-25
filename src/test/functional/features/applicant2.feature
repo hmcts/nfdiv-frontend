@@ -109,6 +109,7 @@ Feature: Applicant 2
     And I select "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     Then the page URL should be "/pay-and-submit"
+    And the page should include "Check your answers"
     When I pay and submit the joint application
     Then the page should include "Application saved"
     Given I click "Sign out"

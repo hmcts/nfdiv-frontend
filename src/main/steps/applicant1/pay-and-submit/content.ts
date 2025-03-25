@@ -4,7 +4,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
-import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
+import { SWITCH_TO_SOLE_APPLICATION, VIEW_YOUR_ANSWERS } from '../../urls';
 
 const en = ({ partner }: CommonContent) => ({
   title: 'Pay and submit',
@@ -18,6 +18,7 @@ const en = ({ partner }: CommonContent) => ({
     'Or you could submit a sole application. If you apply as a sole applicant, only you have to apply for Help With Fees. You will not have to re-enter the information you have already provided but you will have to provide some new information.',
   line5: `You can <a href="${SWITCH_TO_SOLE_APPLICATION}" class="govuk-link">create a new application here.</a>`,
   line6: 'This joint application will not be submitted until you pay the fee.',
+  line7: `To see the answers you have provided on your application, click on this link: <a href=${VIEW_YOUR_ANSWERS} class="govuk-link">Check your answers</a>`,
   continue: 'Pay and submit',
 });
 
@@ -33,6 +34,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
     "Neu gallwch gyflwyno cais unigol. Os byddwch yn gwneud cais fel ceisydd unigol, dim ond chi sydd angen gwneud cais am Help i Dalu Ffioedd. Ni fydd yn rhaid i chi ail-gofnodi'r wybodaeth rydych eisoes wedi'i darparu ond bydd yn rhaid i chi ddarparu rhywfaint o wybodaeth newydd.",
   line5: `Gallwch <a href="${SWITCH_TO_SOLE_APPLICATION}" class="govuk-link">greu cais newydd yma.</a>`,
   line6: "Ni fydd y cais hwn ar y cyd yn cael ei gyflwyno nes i chi dalu'r ffi.",
+  line7: `I weld yr atebion yr ydych wedi darparu ar eich cais, cliciwch ar y ddolen hon: <a href=${VIEW_YOUR_ANSWERS} class="govuk-link">Gwirio eich atebion</a>`,
   continue: 'Talu a chyflwyno',
 });
 
