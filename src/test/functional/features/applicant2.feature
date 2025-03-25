@@ -110,6 +110,11 @@ Feature: Applicant 2
     When I click "Continue to payment"
     Then the page URL should be "/pay-and-submit"
     And the page should include "Check your answers"
+    When I click "Check your answers"
+    Then the page URL should be "/view-your-answers"
+    And the page should include "About your divorce"
+    When I click "back"
+    Then the page URL should be "/pay-and-submit"
     When I pay and submit the joint application
     Then the page should include "Application saved"
     Given I click "Sign out"
