@@ -115,7 +115,7 @@ Feature: Applicant 2
     And the page should include "I confirm my marriage has broken down irretrievably"
     And the page should include "When did you get married?	31 December 1999"
     And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate with me"
-    When I click "back"
+    When I click "Back"
     Then the page URL should be "/pay-and-submit"
     When I pay and submit the joint application
     Then the page should include "Application saved"
