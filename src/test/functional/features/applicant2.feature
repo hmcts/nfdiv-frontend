@@ -112,7 +112,9 @@ Feature: Applicant 2
     And the page should include "Check your answers"
     When I click "Check your answers"
     Then the page URL should be "/view-your-answers"
-    And the page should include "About your divorce"
+    And the page should include "I confirm my marriage has broken down irretrievably"
+    And the page should include "When did you get married?	31 December 1999"
+    And the page should include "Do you have your marriage certificate with you?	Yes, I have my marriage certificate with me"
     When I click "back"
     Then the page URL should be "/pay-and-submit"
     When I pay and submit the joint application
