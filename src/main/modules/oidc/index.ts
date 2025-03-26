@@ -94,6 +94,8 @@ export class OidcMiddleware {
       if (newInviteUserCase && existingUserCase) {
         req.session.inviteCaseId = newInviteUserCase.id;
         req.session.inviteCaseApplicationType = newInviteUserCase.applicationType;
+        req.session.inviteCaseIsApplicant1 =
+          req.session.user.email.toLowerCase() === newInviteUserCase.applicant1Email?.toLowerCase();
         req.session.existingCaseId = existingUserCase.id;
         if (!req.path.includes(EXISTING_APPLICATION)) {
           logger.info(`User (${req.session.user.id}) is being redirected to existing-application page`);
@@ -103,7 +105,7 @@ export class OidcMiddleware {
         req.session.inviteCaseId = newInviteUserCase.id;
         if (!isLinkingUrl(req.path)) {
           logger.info(`User (${req.session.user.id}) is being redirected to linking page`);
-          if (req.session.user.email === newInviteUserCase.applicant1Email) {
+          if (req.session.user.email.toLowerCase() === newInviteUserCase.applicant1Email?.toLowerCase()) {
             redirectUrl = `${APPLICANT_1}${ENTER_YOUR_ACCESS_CODE}`;
           } else {
             redirectUrl = `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`;

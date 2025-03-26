@@ -6,10 +6,15 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
 
-const en = applicant1UploadDocumentContent => ({
+const en = (courtsReasons: string, applicant1UploadDocumentContent) => ({
   title: "Respond to the court's feedback",
   line1:
     'Read the court’s reasons for stopping the application in the email we sent you and provide the information they’ve asked for.',
+  line2: "The court's reason can also be found below.",
+  courtsReasons: {
+    heading: 'The court has made the following comments:',
+    comments: courtsReasons,
+  },
   responseHeading: 'Enter your response',
   responseLabel:
     "Write your response below if the court has asked you to explain something or provide additional information. If the court has just asked you to upload documents, then you do not have to write anything unless you think it's useful information.",
@@ -58,10 +63,15 @@ const en = applicant1UploadDocumentContent => ({
   },
 });
 
-const cy: typeof en = applicant1UploadDocumentContent => ({
+const cy: typeof en = (courtsReasons: string, applicant1UploadDocumentContent) => ({
   title: 'Ymateb i adborth y llys',
   line1:
     'Darllenwch resymau’r llys dros atal y cais yn yr e-bost a anfonom atoch a rhowch yr wybodaeth y maent wedi gofyn amdani.',
+  line2: 'Gellir dod o hyd i reswm y llys isod hefyd.',
+  courtsReasons: {
+    heading: 'Mae’r llys wedi gwneud y sylwadau canlynol:',
+    comments: courtsReasons,
+  },
   responseHeading: 'Nodi eich ymateb',
   responseLabel:
     "Ysgrifennwch eich ymateb isod os yw’r llys wedi gofyn i chi egluro rhywbeth neu ddarparu gwybodaeth ychwanegol. Os yw'r llys newydd ofyn i chi lwytho dogfennau yna nid oes rhaid i chi ysgrifennu unrhyw beth, oni bai eich bod yn credu ei fod yn wybodaeth ddefnyddiol.",
@@ -188,9 +198,11 @@ export const generateContent: TranslationFn = content => {
     "isRequestForInformationAmendableState": ${content.isRequestForInformationAmendableState},
     "delete": "${content.delete}"
   }`;
+  const latestRequestForInformation = content.userCase.requestsForInformation?.at(0)?.value;
+  const courtsReasons = latestRequestForInformation?.requestForInformationDetails || '';
   return {
     ...applicant1UploadDocumentContent,
-    ...languages[content.language](applicant1UploadDocumentContent),
+    ...languages[content.language](courtsReasons, applicant1UploadDocumentContent),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     uploadedDocsFilenames,
     amendable,
