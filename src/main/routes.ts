@@ -4,6 +4,7 @@ import { extname } from 'path';
 import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
+import type { LoggerInstance } from 'winston';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
 import { AppRequest } from './app/controller/AppRequest';
@@ -15,7 +16,6 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content';
 import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your-access-code/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
-import { ViewAnswersGetController } from './steps/applicant1/view-your-answers/get';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
 import { ContactUsGetController } from './steps/contact-us/get';
@@ -58,10 +58,12 @@ import {
   SWITCH_TO_SOLE_APPLICATION,
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
-  VIEW_YOUR_ANSWERS,
   WEBCHAT_URL,
 } from './steps/urls';
 import { WebChatGetController } from './steps/webchat/get';
+
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger: LoggerInstance = Logger.getLogger('routes');
 
 const handleUploads = multer();
 const ext = extname(__filename);
@@ -91,14 +93,14 @@ export class Routes {
     app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
-
-    app.get(VIEW_YOUR_ANSWERS, errorHandler(new ViewAnswersGetController().get));
+    app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
     const documentManagerController = new DocumentManagerController();
     app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
     app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
 
     for (const step of stepsWithContent) {
+      logger.info(`${step.url}`);
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
         ? require(`${step.stepDir}/get${ext}`).default
         : GetController;

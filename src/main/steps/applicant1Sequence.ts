@@ -98,7 +98,7 @@ import {
   YOUR_DETAILS_URL,
   YOU_CANNOT_UPDATE_THEIR_EMAIL,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
-  YOU_NEED_TO_SERVE,
+  YOU_NEED_TO_SERVE, VIEW_YOUR_ANSWERS,
 } from './urls';
 
 export interface Step {
@@ -566,6 +566,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: VIEW_YOUR_ANSWERS,
+    getNextStep: () => HOME_URL,
   },
 ];
 
