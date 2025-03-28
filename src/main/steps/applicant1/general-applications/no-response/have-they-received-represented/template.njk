@@ -1,0 +1,35 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l" id="solicitorDetailsTitle">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+
+  {% set solicitorDetailsRows = [] %}
+  {% set solicitorDetailsRows = (solicitorDetailsRows.push({
+    key: {
+      html: "Name of organisation",
+      classes: ''
+    },
+    value: {
+      text: applicant2SolicitorFirmName | safe
+    }
+  }), solicitorDetailsRows) %}
+
+  {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-7',
+    rows: solicitorDetailsRows
+  }) }}
+
+  <p class="govuk-body govuk-!-margin-bottom-6">{{ line2 }}</p>
+
+  {{ govukButton({
+    text: continueButton.text,
+    href: continueButton.url
+  }) }}
+{% endblock %}
