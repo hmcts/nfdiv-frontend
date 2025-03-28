@@ -149,3 +149,22 @@ export const FINALISING_YOUR_APPLICATION: PageLink = '/finalising-your-applicati
 export const EXPLAIN_THE_DELAY: PageLink = '/explain-the-delay';
 export const RESPOND_TO_COURT_FEEDBACK: PageLink = '/respond-to-the-courts-feedback';
 export const REVIEW_YOUR_RESPONSE: PageLink = '/review-your-response-to-the-courts-feedback';
+
+export const OPTIONS_FOR_PROGRESSING: PageLink = '/general-applications/no-response/options-for-progressing';
+export const HAVE_THEY_RECEIVED: PageLink = '/general-applications/no-response/have-they-received';
+export const HAVE_THEY_RECEIVED_REPRESENTED: PageLink =
+  '/general-applications/no-response/have-they-received-represented';
+export const EVIDENCE_RECEIVED_APPLICATION: PageLink =
+  '/general-applications/no-response/evidence-received-application';
+export const NEW_POSTAL_AND_EMAIL: PageLink = '/general-applications/no-response/new-postal-and-email';
+export const NO_NEW_ADDRESS: PageLink = '/general-applications/no-response/no-new-address';
+export const DEEMED_SERVICE_APPLICATION: PageLink = '/general-applications/deemed-service/deemed-service-application';
+export const SERVE_AGAIN: PageLink = '/general-applications/no-response/serve-again';
+export const DEEMED_INTERRUPTION: PageLink = '/general-applications/deemed-service/deemed-interruption';
+export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
+  '/general-applications/alternative-service/alternative-service-application';
+export const PARTNER_IN_PRISON: PageLink = '/general-applications/no-response/partner-in-prison';
+export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
+  '/general-applications/search-gov-records/search-gov-records-application';
+export const DISPENSE_SERVICE_APPLICATION: PageLink =
+  '/general-applications/dispense-service/dispense-service-application';
