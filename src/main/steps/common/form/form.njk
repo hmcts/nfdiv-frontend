@@ -21,12 +21,14 @@
 
     {% block after_form %}{% endblock %}
 
-    {% block save_and_sign_out %}
-      <p class="govuk-body">
-        <button class="hmcts-button-link disable-upon-submit" type="submit" name="saveAndSignOut" value="true" data-prevent-double-click="true" data-module="govuk-button" />
+    <p class="govuk-body form-links">
+      {% block save_and_sign_out %}
+        <button class="hmcts-button-link disable-upon-submit" type="submit" name="saveAndSignOut" value="true" data-prevent-double-click="true" data-module="govuk-button">
           {{ saveAndSignOut }}
         </button>
-      </p>
-    {% endblock %}
+      {% endblock %}
+
+      {% block withdrawLink %}{% endblock %}
+    </p>
   </div>
 </form>
