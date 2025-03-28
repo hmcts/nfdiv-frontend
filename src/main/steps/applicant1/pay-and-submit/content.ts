@@ -1,4 +1,5 @@
 import config from 'config';
+import { isEmpty } from 'lodash';
 
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
@@ -6,11 +7,9 @@ import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
 
-const en = ({ partner }: CommonContent) => ({
+const en = ({ partner }: CommonContent, applicationFee) => ({
   title: 'Pay and submit',
-  line1: `Your joint application has been agreed by you and your ${partner}. You need to pay the application fee of ${getFee(
-    config.get('fees.applicationFee')
-  )} before it can be submitted. The payment system does not allow you to split the payment.`,
+  line1: `Your joint application has been agreed by you and your ${partner}. You need to pay the application fee of ${applicationFee} before it can be submitted. The payment system does not allow you to split the payment.`,
   line2: `You cannot use help with fees to pay because your ${partner} did not apply for help with fees. Both of you need to apply and be eligible in a joint application.`,
   detailsHeading: 'If you cannot pay',
   line3: `The payment system will only allow you to pay, but you could talk to your ${partner} about whether they would be prepared to send you some money.`,
@@ -21,11 +20,9 @@ const en = ({ partner }: CommonContent) => ({
   continue: 'Pay and submit',
 });
 
-const cy: typeof en = ({ partner }: CommonContent) => ({
+const cy: typeof en = ({ partner }: CommonContent, applicationFee) => ({
   title: 'Talu a chyflwyno',
-  line1: `Mae eich cais ar y cyd wedi'i gytuno gennych chi a'ch ${partner}. Mae angen i chi dalu’r ffi am wneud cais, sef ${getFee(
-    config.get('fees.applicationFee')
-  )} cyn y gellir ei gyflwyno. Nid yw’r system dalu yn caniatáu i chi rannu’r taliad.`,
+  line1: `Mae eich cais ar y cyd wedi'i gytuno gennych chi a'ch ${partner}. Mae angen i chi dalu’r ffi am wneud cais, sef ${applicationFee} cyn y gellir ei gyflwyno. Nid yw’r system dalu yn caniatáu i chi rannu’r taliad.`,
   line2: `Ni allwch ddefnyddio Help i Dalu Ffioedd i dalu oherwydd nad oedd eich ${partner} wedi gwneud cais am Help i Dalu Ffioedd. Mewn cais ar y cyd mae angen i'r ddau ohonoch wneud cais a bod yn gymwys.`,
   detailsHeading: 'Os na allwch dalu',
   line3: `Dim ond chi fydd yn gallu talu drwy’r system daliadau, ond gallwch siarad gyda’ch ${partner} a gofyn a fydd yn fodlon anfon rhywfaint o arian atoch.`,
@@ -49,7 +46,10 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const applicationFee = !isEmpty(content.userCase.applicationFeeOrderSummary)
+    ? '£' + parseInt(<string>content.userCase.applicationFeeOrderSummary?.PaymentTotal, 10) / 100
+    : getFee(config.get('fees.applicationFee'));
+  const translations = languages[content.language](content, applicationFee);
   return {
     ...translations,
     form,
