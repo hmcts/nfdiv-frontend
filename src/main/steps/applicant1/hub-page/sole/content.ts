@@ -16,7 +16,12 @@ import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
-import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, RESPOND_TO_COURT_FEEDBACK } from '../../../urls';
+import {
+  FINALISING_YOUR_APPLICATION,
+  HOW_YOU_CAN_PROCEED,
+  OPTIONS_FOR_PROGRESSING,
+  RESPOND_TO_COURT_FEEDBACK,
+} from '../../../urls';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -81,7 +86,7 @@ const en = (
     linkText: `View the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } without needing a response.`,
-    linkUrl: 'URL_HERE',
+    linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   holding: {
     line1: `Your ${partner} has responded to your ${
@@ -437,7 +442,7 @@ const cy: typeof en = (
     linkText: `View the options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } without needing a response.`,
-    linkUrl: 'URL_HERE',
+    linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   holding: {
     line1: `Mae eich ${partner} wedi ymateb i'ch ${
