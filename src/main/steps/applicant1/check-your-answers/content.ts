@@ -1150,3 +1150,10 @@ export const generateContent: TranslationFn = content => {
     applicant2Url,
   };
 };
+
+export const generateViewAnswersContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
+  return {
+    ...translations,
+  };
+};
