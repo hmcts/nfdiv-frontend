@@ -1,6 +1,6 @@
 import { invert } from 'lodash';
 
-import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, Checkbox, formatCase, formFieldsToCaseMapping, LanguagePreference } from './case';
 import { CaseData, ContactDetailsType, HowToRespondApplication, MarriageFormation, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 import {
@@ -181,6 +181,9 @@ const fields: FromApiConverters = {
     app2RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app2RfiDraftResponseCannotUploadDocs),
   }),
   requestsForInformation: 'requestsForInformation',
+  noResponseJourneyOptions: 'noResponseJourneyOptions',
+  noResponseCheckContactDetails: 'noResponseCheckContactDetails',
+  noResponsePartnerHasReceivedPapers: 'noResponsePartnerHasReceivedPapers',
 };
 
 const fromApiDate = date => {
