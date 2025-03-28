@@ -38,10 +38,12 @@ export const form: FormContent = {
       values: [
         {
           label: l => l.proveYes,
+          id: 'proveYes',
           value: YesOrNo.YES,
         },
         {
           label: l => l.proveNo,
+          id: 'proveNo',
           value: YesOrNo.NO,
         },
       ],

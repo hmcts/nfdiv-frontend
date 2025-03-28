@@ -36,14 +36,17 @@ export let form: FormContent = {
       values: [
         {
           label: l => l.upToDate,
+          id: 'upToDate',
           value: NoResponseCheckContactDetails.UP_TO_DATE,
         },
         {
           label: l => l.newAddress,
+          id: 'newAddress',
           value: NoResponseCheckContactDetails.NEW_ADDRESS,
         },
         {
           label: l => l.notKnown,
+          id: 'notKnown',
           value: NoResponseCheckContactDetails.NOT_KNOWN,
         },
       ],
@@ -65,10 +68,12 @@ const formNoDetails: FormContent = {
       values: [
         {
           label: l => l.newAddressOrEmailAddress,
+          id: 'newAddress',
           value: NoResponseCheckContactDetails.NEW_ADDRESS,
         },
         {
           label: l => l.notKnown,
+          id: 'notKnown',
           value: NoResponseCheckContactDetails.NOT_KNOWN,
         },
       ],

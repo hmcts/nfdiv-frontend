@@ -7,7 +7,7 @@
 {% extends "common/page.njk" %}
 
 {% block page_content %}
-  <h1 class="govuk-heading-l" id="solicitorDetailsTitle">{{ title }}</h1>
+  <h1 class="govuk-heading-l" id="haveTheyReceivedRepresentedTitle">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
 
   {% set solicitorDetailsRows = [] %}
@@ -29,6 +29,7 @@
   <p class="govuk-body govuk-!-margin-bottom-6">{{ line2 }}</p>
 
   {{ govukButton({
+    id: "noFormContinue",
     text: continueButton.text,
     href: continueButton.url
   }) }}
