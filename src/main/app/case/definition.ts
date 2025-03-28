@@ -1030,6 +1030,9 @@ export interface CaseData {
   generalLetters: ListValue<GeneralLetterDetails>[];
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
+  noResponseJourneyOptions: NoResponseJourneyOptions;
+  noResponseCheckContactDetails: NoResponseCheckContactDetails;
+  noResponsePartnerHasReceivedPapers: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1047,6 +1050,11 @@ export interface CaseDocuments {
   documentsUploadedOnConfirmService: ListValue<DivorceDocument>[];
   typeOfDocumentAttached: OfflineDocumentReceived;
   scannedSubtypeReceived: ScannedDocumentSubtypes;
+}
+
+export interface NoResponseJourneyOptions {
+  noResponseCheckContactDetails: NoResponseCheckContactDetails;
+  noResponsePartnerHasReceivedPapers: YesOrNo;
 }
 
 export interface RequestForInformationResponse {
@@ -2105,12 +2113,11 @@ export const enum State {
 }
 
 export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingPayment, State.AwaitingResponseToHWFDecision
+  State.AwaitingPayment,
+  State.AwaitingResponseToHWFDecision,
 ]);
 
-export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingFinalOrderPayment
-]);
+export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
@@ -2440,6 +2447,12 @@ export const enum ServiceProcessedByProcessServer {
   CONFIRM = 'serviceProcessed',
 }
 
+export const enum NoResponseCheckContactDetails {
+  UP_TO_DATE = 'upToDate',
+  NEW_ADDRESS = 'newAddress',
+  NOT_KNOWN = 'notKnown',
+}
+
 /**
  * Values:
  * - `CONTINUE`
@@ -2684,5 +2697,6 @@ export const SYSTEM_REMIND_RESPONDENT_SOLICITOR_TO_RESPOND = 'system-remind-resp
 export const ADMIN_UNLINK_APPLICANT_2 = 'admin-unlink-applicant2';
 export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronouncement-judge';
 export const SYSTEM_NOTIFY_APPLICANT_DISPUTE_FORM_OVERDUE = 'system-notify-applicant-dispute-form-overdue';
+export const CITIZEN_NO_RESPONSE_JOURNEY = 'citizen-no-response-journey';
 export const birmingham = 'Birmingham Civil and Family Justice Centre';
 export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';
