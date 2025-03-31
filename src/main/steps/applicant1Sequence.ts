@@ -6,7 +6,7 @@ import {
   State,
   YesOrNo,
 } from '../app/case/definition';
-import { needsToExplainDelay, noResponseJourneyNextStep } from '../app/controller/controller.utils';
+import { needsToExplainDelay } from '../app/controller/controller.utils';
 import { isLessThanAYearAgoInc } from '../app/form/validation';
 import {
   allowedToAnswerResidualJurisdiction,
@@ -14,13 +14,15 @@ import {
 } from '../app/jurisdiction/connections';
 
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
+import { deemedServiceApplication } from './deemedServiceApplication';
+import { noResponseJourneyOptions } from './noResponseJourneyOptions';
 import {
   ADDRESS_PRIVATE,
-  APP_REPRESENTED,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   APPLY_FINANCIAL_ORDER,
   APPLY_FINANCIAL_ORDER_DETAILS,
+  APP_REPRESENTED,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_NAME,
   CERTIFICATE_URL,
@@ -37,8 +39,6 @@ import {
   CONFIRM_YOUR_NAME,
   CONTINUE_WITH_YOUR_APPLICATION,
   COUNTRY_AND_PLACE,
-  DEEMED_INTERRUPTION,
-  DEEMED_SERVICE_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
   DO_THEY_HAVE_A_SOLICITOR,
   DO_YOU_HAVE_ADDRESS,
@@ -50,14 +50,11 @@ import {
   ENTER_YOUR_NAME,
   ENTER_YOUR_NAMES,
   EQUALITY,
-  EVIDENCE_RECEIVED_APPLICATION,
   EXPLAIN_THE_DELAY,
   FINALISING_YOUR_APPLICATION,
   GET_CERTIFIED_TRANSLATION,
   HABITUALLY_RESIDENT_ENGLAND_WALES,
   HAS_RELATIONSHIP_BROKEN_URL,
-  HAVE_THEY_RECEIVED,
-  HAVE_THEY_RECEIVED_REPRESENTED,
   HELP_PAYING_HAVE_YOU_APPLIED,
   HELP_PAYING_NEED_TO_APPLY,
   HELP_WITH_YOUR_FEE_URL,
@@ -78,13 +75,12 @@ import {
   MONEY_PROPERTY,
   NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
-  OPTIONS_FOR_PROGRESSING,
   OTHER_COURT_CASES,
-  PageLink,
+  PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
-  PAYMENT_CALLBACK_URL,
   PROVIDE_INFORMATION_TO_THE_COURT,
+  PageLink,
   READ_THE_RESPONSE,
   RELATIONSHIP_DATE_URL,
   RELATIONSHIP_NOT_BROKEN_URL,
@@ -101,10 +97,10 @@ import {
   UPLOAD_YOUR_DOCUMENTS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   WITHDRAWING_YOUR_APPLICATION,
+  YOUR_DETAILS_URL,
   YOU_CANNOT_UPDATE_THEIR_EMAIL,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
   YOU_NEED_TO_SERVE,
-  YOUR_DETAILS_URL,
 } from './urls';
 
 export interface Step {
@@ -573,26 +569,8 @@ export const applicant1PostSubmissionSequence: Step[] = [
     url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
   },
-  {
-    url: OPTIONS_FOR_PROGRESSING,
-    getNextStep: data => noResponseJourneyNextStep(data, OPTIONS_FOR_PROGRESSING),
-  },
-  {
-    url: HAVE_THEY_RECEIVED,
-    getNextStep: data => noResponseJourneyNextStep(data, HAVE_THEY_RECEIVED),
-  },
-  {
-    url: HAVE_THEY_RECEIVED_REPRESENTED,
-    getNextStep: () => EVIDENCE_RECEIVED_APPLICATION,
-  },
-  {
-    url: EVIDENCE_RECEIVED_APPLICATION,
-    getNextStep: data => noResponseJourneyNextStep(data, EVIDENCE_RECEIVED_APPLICATION),
-  },
-  {
-    url: DEEMED_SERVICE_APPLICATION,
-    getNextStep: () => DEEMED_INTERRUPTION,
-  },
+  ...noResponseJourneyOptions,
+  ...deemedServiceApplication,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
