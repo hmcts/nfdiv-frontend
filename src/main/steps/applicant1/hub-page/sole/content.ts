@@ -73,7 +73,7 @@ const en = (
     linkText: `View your options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } without a response.`,
-    linkUrl: 'URL_HERE',
+    linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   aosDueAndDrafted: {
     line1: `Your ${partner} has started a response to your ${
@@ -430,7 +430,7 @@ const cy: typeof en = (
     linkText: `View your options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } without a response.`,
-    linkUrl: 'URL_HERE',
+    linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   aosDueAndDrafted: {
     line1: `Your ${partner} has started a response to your ${
