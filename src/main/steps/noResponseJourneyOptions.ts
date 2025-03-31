@@ -47,7 +47,7 @@ export const noResponseJourneyNextStep = (userCase: Partial<CaseWithId>, current
   }
 };
 
-export const noResponseJourneyOptions: Step[] = [
+export const noResponseJourneySteps: Step[] = [
   {
     url: OPTIONS_FOR_PROGRESSING,
     getNextStep: data => noResponseJourneyNextStep(data, OPTIONS_FOR_PROGRESSING),

@@ -1,6 +1,6 @@
 import { invert } from 'lodash';
 
-import { Case, Checkbox, formatCase, formFieldsToCaseMapping, LanguagePreference } from './case';
+import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, ContactDetailsType, HowToRespondApplication, MarriageFormation, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
 import {

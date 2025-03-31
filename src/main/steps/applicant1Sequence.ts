@@ -15,7 +15,7 @@ import {
 
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplication } from './deemedServiceApplication';
-import { noResponseJourneyOptions } from './noResponseJourneyOptions';
+import { noResponseJourneySteps } from './noResponseJourneyOptions';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
@@ -569,7 +569,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
     url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
   },
-  ...noResponseJourneyOptions,
+  ...noResponseJourneySteps,
   ...deemedServiceApplication,
 ];
 
