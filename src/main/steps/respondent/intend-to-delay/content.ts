@@ -20,7 +20,7 @@ const en = ({ isDivorce, required }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ isDivorce, required }: CommonContent) => ({
-  title: 'Do you intend to delay the application',
+  title: 'A ydych yn bwriadu oedi’r cais',
   intendToDelay: `A ydych yn bwriadu gofyn i’r llys ohirio’r ${isDivorce ? 'ysgariad' : 'diddymiad'}
   nes ei fod yn fodlon â’ch sefyllfa ariannol?`,
   yes: 'Ydw',
