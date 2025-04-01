@@ -5,7 +5,7 @@ import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ partner }: CommonContent) => ({
+const en = ({ partner, isApplicant2 }: CommonContent) => ({
   title: 'Dividing your money and property',
   line1: `It’s usually more straightforward and less expensive if you agree with your ${partner} on how to divide your savings, property, pensions and other assets. There are mediation services available to help you come to an agreement. You’ll be given links to more information after you have submitted this application.`,
   agreeOnDividingAssets: 'If you agree about dividing money and property',
@@ -15,14 +15,14 @@ const en = ({ partner }: CommonContent) => ({
   disagreeOnDividingAssets: 'If you disagree about dividing money and property',
   disagreeOnDividingAssetsDetails:
     'You can ask the court to decide for you. This is known as asking the court to make a ‘contested financial order’. This means the court will decide how assets will be split. You can also apply for a financial order for your children, if appropriate. The court can also order maintenance payments to be made.',
-  readMore: 'Read more about child maintenance',
+  readMore: `Read more about child maintenance ${isApplicant2 ? 'and financial orders' : ''}`,
   readMoreContent: `The court can only make financial orders for children under certain circumstances. You can come to an agreement with your ${partner} and make it legally binding with a consent order, or you can use the Child Maintenance Service.`,
   costs: `Applying to the court to make a ‘contested financial order’ is done separately, using another form. It costs an additional ${getFee(
     config.get('fees.financialOrder')
   )}.`,
 });
 
-const cy: typeof en = ({ partner }: CommonContent) => ({
+const cy: typeof en = ({ partner, isApplicant2 }: CommonContent) => ({
   title: "Rhannu eich arian a'ch eiddo",
   line1: `Gan amlaf, mae'n symlach ac yn llai costus os ydych yn cytuno â'ch ${partner} ynghylch sut i rannu eich cynilion, eiddo, pensiynau ac asedau eraill. Mae yna wasanaethau cyfryngu ar gael i'ch helpu i ddod i gytundeb. Byddwch yn cael dolenni i ragor o wybodaeth ar ôl i chi gyflwyno'r cais hwn.`,
   agreeOnDividingAssets: 'Os ydych yn cytuno ynghylch rhannu arian ac eiddo',
@@ -32,7 +32,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   disagreeOnDividingAssets: 'Os ydych yn anghytuno ynghylch rhannu arian ac eiddo',
   disagreeOnDividingAssetsDetails:
     "Gallwch ofyn i'r llys benderfynu ar eich rhan. Gelwir hyn yn gofyn i'r llys wneud 'gorchymyn ariannol'. Mae hyn yn golygu y bydd y llys yn penderfynu sut y caiff asedau eu rhannu. Gallwch hefyd wneud cais am orchymyn ariannol i'ch plant, os yw'n briodol. Gall y llys hefyd orchymyn i daliadau cynhaliaeth gael eu gwneud.",
-  readMore: 'Darllenwch fwy am gynhaliaeth plant',
+  readMore: `Darllenwch fwy am gynhaliaeth plant ${isApplicant2 ? 'a gorchmynion ariannol' : ''}`,
   readMoreContent: `Dim ond o dan rai amgylchiadau y gall y llys wneud gorchmynion ariannol i blant. Gallwch ddod i gytundeb â'ch ${partner} a'i wneud yn gyfreithiol rwymol gyda gorchymyn cydsynio, neu gallwch ddefnyddio'r Gwasanaeth Cynhaliaeth Plant.`,
   costs: `Rhaid i chi wneud cais ar wahân i'r llys am orchymyn ariannol, gan ddefnyddio ffurflen arall. Mae'n costio ${getFee(
     config.get('fees.financialOrder')
