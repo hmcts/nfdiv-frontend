@@ -7,7 +7,7 @@ import { FormContent } from '../../../app/form/Form';
 
 const en = applicant2FinalOrderPayment => ({
   title: 'Pay your Final Order fee',
-  line1: `The Final Order application is ${applicant2FinalOrderPayment} . Your application will not be submitted to the Court until you have paid.`,
+  line1: `The Final Order application is ${applicant2FinalOrderPayment}. Your application will not be submitted to the Court until you have paid.`,
   line2:
     'You’ll need a valid debit or credit card. If you cannot pay now, save the application and return to it when you are ready.',
   continue: 'Pay and submit application',
