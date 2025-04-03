@@ -13,5 +13,4 @@ export const respondentCompleteCase: Partial<BrowserCase> = {
   applicant2LegalProceedings: YesOrNo.NO,
   applicant2AgreeToReceiveEmails: Checkbox.Checked,
   applicant2EnglishOrWelsh: LanguagePreference.English,
-  dateAosSubmitted: '2024-10-10',
 };

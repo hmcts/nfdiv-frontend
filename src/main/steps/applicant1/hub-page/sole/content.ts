@@ -59,14 +59,31 @@ const en = (
       'If they do not complete the response and submit it then you will be told what you can do next to progress the application.',
   },
   aosDue: {
-    line1: `Your ${partner} should have responded to your ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } by ${getFormattedDate(
-      userCase.dueDate
-    )}. They can still respond and have been sent a reminder. You can also contact them to remind them if it’s safe to do so.`,
-    line2: `If you do not think they will respond then you can <a class="govuk-link" href="${HOW_YOU_CAN_PROCEED}">view the options for proceeding with your ${
+    line1: `Your ${partner} has not responded to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership.'
+    }.`,
+    line2: `The simplest way to progress your application is for your ${partner} to respond. They can still respond, even though it's past the date when they should have responded. You can contact them to remind them if it is safe to do so.`,
+    line3:
+      'However if you cannot contact them or do not think they will respond, there are a number of ways to progress your application without needing a response from them.',
+    linkText: `View your options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
-    }</a>.`,
+    } without a response.`,
+    linkUrl: 'URL_HERE',
+  },
+  aosDueAndDrafted: {
+    line1: `Your ${partner} has started a response to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but has not submitted it. They should have submitted it by ${getFormattedDate(userCase.dueDate)}.`,
+    line2: 'You may wish to use this as proof that your partner has received your application.',
+    doNext: 'What you can do next',
+    line3: `The simplest way to progress your application is for your ${partner} to submit their response. You can contact them and ask them to submit their response, if it is safe to do so.`,
+    line4: `Alternatively, you can view your options for proceeding with your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } without needing a response.`,
+    linkText: `View the options for proceeding with your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } without needing a response.`,
+    linkUrl: 'URL_HERE',
   },
   holding: {
     line1: `Your ${partner} has responded to your ${
@@ -399,15 +416,31 @@ const cy: typeof en = (
       'Os na fyddant yn cwblhau’r ymateb ac yn ei gyflwyno, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.',
   },
   aosDue: {
-    line1: `Dylai eich ${partner} fod wedi ymateb i'ch ${
-      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partner sifil i ben"
-    } erbyn ${getFormattedDate(
-      userCase.dueDate,
-      SupportedLanguages.Cy
-    )}. Gallant barhau i ymateb er eu bod wedi cael nodyn atgoffa. Gallwch hefyd gysylltu â nhw i'w hatgoffa os yw'n ddiogel gwneud hynny.`,
-    line2: `Os nad ydych yn credu y byddant yn ymateb yna gallwch <a class="govuk-link" href="${HOW_YOU_CAN_PROCEED}">weld yr opsiynau ar gyfer bwrw ymlaen â'ch ${
-      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
-    }</a>.`,
+    line1: `Your ${partner} has not responded to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership.'
+    }.`,
+    line2: `The simplest way to progress your application is for your ${partner} to respond. They can still respond, even though it's past the date when they should have responded. You can contact them to remind them if it is safe to do so.`,
+    line3:
+      'However if you cannot contact them or do not think they will respond, there are a number of ways to progress your application without needing a response from them.',
+    linkText: `View your options for proceeding with your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } without a response.`,
+    linkUrl: 'URL_HERE',
+  },
+  aosDueAndDrafted: {
+    line1: `Your ${partner} has started a response to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but has not submitted it. They should have submitted it by ${getFormattedDate(userCase.dueDate)}.`,
+    line2: 'You may wish to use this as proof that your partner has received your application.',
+    doNext: 'What you can do next',
+    line3: `The simplest way to progress your application is for your ${partner} to submit their response. You can contact them and ask them to submit their response, if it is safe to do so.`,
+    line4: `Alternatively, you can view your options for proceeding with your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } without needing a response.`,
+    linkText: `View the options for proceeding with your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } without needing a response.`,
+    linkUrl: 'URL_HERE',
   },
   holding: {
     line1: `Mae eich ${partner} wedi ymateb i'ch ${
@@ -778,6 +811,11 @@ export const generateContent: TranslationFn = content => {
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const isAosSubmitted = !isEmpty(userCase.dateAosSubmitted);
   const aosIsDrafted = userCase.aosIsDrafted === YesOrNo.YES;
+  const aosOverdueAndDrafted =
+    aosIsDrafted &&
+    !userCase.aosStatementOfTruth &&
+    userCase.issueDate &&
+    dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
 
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
@@ -798,5 +836,6 @@ export const generateContent: TranslationFn = content => {
     isRespondentRepresented,
     isAosSubmitted,
     aosIsDrafted,
+    aosOverdueAndDrafted,
   };
 };
