@@ -23,7 +23,7 @@ export const noResponseJourneyNextStep = (userCase: Partial<CaseWithId>, current
         : HAVE_THEY_RECEIVED;
     }
     case HAVE_THEY_RECEIVED: {
-      switch (userCase.noResponseCheckContactDetails) {
+      switch (userCase.applicant1NoResponseCheckContactDetails) {
         case NoResponseCheckContactDetails.UP_TO_DATE: {
           return EVIDENCE_RECEIVED_APPLICATION;
         }
@@ -39,7 +39,9 @@ export const noResponseJourneyNextStep = (userCase: Partial<CaseWithId>, current
       }
     }
     case EVIDENCE_RECEIVED_APPLICATION: {
-      return userCase.noResponsePartnerHasReceivedPapers === YesOrNo.YES ? DEEMED_SERVICE_APPLICATION : SERVE_AGAIN;
+      return userCase.applicant1NoResponsePartnerHasReceivedPapers === YesOrNo.YES
+        ? DEEMED_SERVICE_APPLICATION
+        : SERVE_AGAIN;
     }
     default: {
       return HUB_PAGE;

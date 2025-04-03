@@ -30,7 +30,7 @@ const cy: typeof en = en;
 
 export const form: FormContent = {
   fields: {
-    noResponsePartnerHasReceivedPapers: {
+    applicant1NoResponsePartnerHasReceivedPapers: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.canYouProveHeader,

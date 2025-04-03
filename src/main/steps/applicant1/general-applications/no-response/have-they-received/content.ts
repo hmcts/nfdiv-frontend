@@ -28,7 +28,7 @@ const cy: typeof en = en;
 
 export let form: FormContent = {
   fields: {
-    noResponseCheckContactDetails: {
+    applicant1NoResponseCheckContactDetails: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.detailsUpToDateHeader,
@@ -60,7 +60,7 @@ export let form: FormContent = {
 
 const formNoDetails: FormContent = {
   fields: {
-    noResponseCheckContactDetails: {
+    applicant1NoResponseCheckContactDetails: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.doYouKnowYourPartnersDetailsHeader,

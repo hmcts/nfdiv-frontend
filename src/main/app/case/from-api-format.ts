@@ -181,9 +181,8 @@ const fields: FromApiConverters = {
     app2RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app2RfiDraftResponseCannotUploadDocs),
   }),
   requestsForInformation: 'requestsForInformation',
-  noResponseJourneyOptions: 'noResponseJourneyOptions',
-  noResponseCheckContactDetails: 'noResponseCheckContactDetails',
-  noResponsePartnerHasReceivedPapers: 'noResponsePartnerHasReceivedPapers',
+  applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
+  applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
 };
 
 const fromApiDate = date => {

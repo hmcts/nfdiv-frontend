@@ -391,14 +391,11 @@ const fields: ToApiConverters = {
     app2RfiDraftResponseDetails: data.app2RfiDraftResponseDetails,
   }),
   app2RfiDraftResponseUploadedFiles: () => ({}),
-  noResponseJourneyOptions: data => ({
-    noResponseJourneyOptions: data.noResponseJourneyOptions,
+  applicant1NoResponseCheckContactDetails: data => ({
+    applicant1NoResponseCheckContactDetails: data.applicant1NoResponseCheckContactDetails,
   }),
-  noResponseCheckContactDetails: data => ({
-    noResponseCheckContactDetails: data.noResponseCheckContactDetails,
-  }),
-  noResponsePartnerHasReceivedPapers: data => ({
-    noResponsePartnerHasReceivedPapers: data.noResponsePartnerHasReceivedPapers,
+  applicant1NoResponsePartnerHasReceivedPapers: data => ({
+    applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
   }),
 };
 

@@ -1030,9 +1030,8 @@ export interface CaseData {
   generalLetters: ListValue<GeneralLetterDetails>[];
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
-  noResponseJourneyOptions: NoResponseJourneyOptions;
-  noResponseCheckContactDetails: NoResponseCheckContactDetails;
-  noResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
+  applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
 }
 
 export interface CaseDocuments {
