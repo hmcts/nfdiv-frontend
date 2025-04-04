@@ -57,7 +57,7 @@ Feature: No response journey
 #    Given I click element "#newAddress"
 #    When I click continue
 
-  Scenario: No response (respondent represented) happy path to deemed service
+  Scenario: No response respondent represented happy path to deemed service
     When I sign out
     And I login with applicant "1"
     Then the page should include "Your application will be checked by court staff."
@@ -80,3 +80,42 @@ Feature: No response journey
     Given I click element "#proveYes"
     When I click continue
     Then the page should include element "#deemedServiceApplicationTitle"
+
+  Scenario: No response respondent confidential happy path to deemed service
+    When I sign out
+    And I login with applicant "1"
+    Then the page should include "Your application will be checked by court staff."
+
+    Given I set the case state to "AosDrafted"
+    And a superuser updates "aosIsDrafted" with "Yes"
+    And a superuser updates "applicant2AddressPrivate" with "Yes"
+    When I sign out
+    And I login with applicant "1"
+    Then the page should include element "#aosDueAndDraftedLine1"
+    When I click element "#aosDueAndDraftedLink"
+    Then the page should include element "#optionsForProgressingTitle"
+    When I click start
+    Then the page should include element "#evidenceReceivedApplicationTitle"
+
+    Given I click element "#proveYes"
+    When I click continue
+    Then the page should include element "#deemedServiceApplicationTitle"
+
+  Scenario: No response respondent confidential /have-they-received throws error
+    When I sign out
+    And I login with applicant "1"
+    Then the page should include "Your application will be checked by court staff."
+
+    Given I set the case state to "AosDrafted"
+    And a superuser updates "aosIsDrafted" with "Yes"
+    And a superuser updates "applicant2AddressPrivate" with "Yes"
+    When I sign out
+    And I login with applicant "1"
+    Then the page should include element "#aosDueAndDraftedLine1"
+    When I click element "#aosDueAndDraftedLink"
+    Then the page should include element "#optionsForProgressingTitle"
+    When I click start
+    Then the page should include element "#evidenceReceivedApplicationTitle"
+
+    When I go to "/have-they-received"
+    Then the page should include element "#errorTitle"
