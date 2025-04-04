@@ -310,6 +310,7 @@ export const generateCommonContent = ({
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isApp1Represented = userCase?.applicant1SolicitorRepresented === YesOrNo.YES;
   const isApp2Represented = userCase?.applicant2SolicitorRepresented === YesOrNo.YES;
+  const isApp2Confidential = userCase?.applicant2AddressPrivate === YesOrNo.YES;
   const applicationHasBeenPaidFor = userCase?.applicationPayments?.some(
     payment => payment.value.status === PaymentStatus.SUCCESS
   );
@@ -362,6 +363,7 @@ export const generateCommonContent = ({
     isRequestForInformationAmendableState,
     isApp1Represented,
     isApp2Represented,
+    isApp2Confidential,
     isGeneralConsiderationFoRequested,
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
@@ -386,6 +388,7 @@ export type CommonContent = typeof en & {
   isRequestForInformationAmendableState: boolean | undefined;
   isApp1Represented: boolean;
   isApp2Represented: boolean;
+  isApp2Confidential: boolean;
   isGeneralConsiderationFoRequested: boolean;
   isGeneralConsiderationCoPronounced: boolean;
   isPendingHearingOutcomeCoPronounced: boolean;
