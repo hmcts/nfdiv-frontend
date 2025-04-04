@@ -10,6 +10,7 @@ import {
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
   FINALISING_YOUR_APPLICATION,
+  HAVE_THEY_RECEIVED,
   HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
   HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
   HELP_WITH_YOUR_FINAL_ORDER_FEE_URL,
@@ -75,5 +76,9 @@ export const routeHideConditions: RoutePermission[] = [
       CHECK_ANSWERS_URL,
     ]),
     condition: data => Boolean(data.dateAosSubmitted),
+  },
+  {
+    urls: [HAVE_THEY_RECEIVED],
+    condition: data => data.applicant2AddressPrivate === YesOrNo.YES,
   },
 ];

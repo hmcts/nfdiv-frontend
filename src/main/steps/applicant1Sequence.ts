@@ -14,6 +14,8 @@ import {
 } from '../app/jurisdiction/connections';
 
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
+import { deemedServiceApplication } from './deemedServiceApplication';
+import { noResponseJourneySteps } from './noResponseJourneyOptions';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
@@ -567,6 +569,8 @@ export const applicant1PostSubmissionSequence: Step[] = [
     url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
   },
+  ...noResponseJourneySteps,
+  ...deemedServiceApplication,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
