@@ -91,6 +91,10 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  if (content.userCase?.applicant2AddressPrivate === YesOrNo.YES) {
+    //Should never display this page if app2 is confidential
+    throw 404;
+  }
   const translations = languages[content.language](content);
   const checkAddressString = address => {
     return address !== null && address !== undefined && address.length > 0 ? address + ', ' : '';
@@ -112,10 +116,6 @@ export const generateContent: TranslationFn = content => {
     app2Address().length > 0 ||
     (applicant2Email !== null && applicant2Email !== undefined && applicant2Email.length > 0);
   form = contactDetailsProvided ? form : formNoDetails;
-  if (content.userCase?.applicant2AddressPrivate === YesOrNo.YES) {
-    //Should never display this page if app2 is confidential
-    throw 404;
-  }
   return {
     ...translations,
     form,
