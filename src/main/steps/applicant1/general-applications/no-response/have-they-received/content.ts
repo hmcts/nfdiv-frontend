@@ -1,4 +1,4 @@
-import { NoResponseCheckContactDetails } from '../../../../../app/case/definition';
+import { NoResponseCheckContactDetails, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -95,7 +95,7 @@ export const generateContent: TranslationFn = content => {
   const checkAddressString = address => {
     return address !== null && address !== undefined && address.length > 0 ? address + ', ' : '';
   };
-  const app1Address = () => {
+  const app2Address = () => {
     const userCase = content.userCase;
     let address = checkAddressString(userCase.applicant2Address1);
     address += checkAddressString(userCase.applicant2Address2);
@@ -106,12 +106,16 @@ export const generateContent: TranslationFn = content => {
     address += checkAddressString(userCase.applicant2AddressPostcode);
     return address;
   };
-  const applicant2Address = app1Address();
+  const applicant2Address = app2Address();
   const applicant2Email = content.userCase.applicant2Email;
   const contactDetailsProvided =
-    app1Address().length > 0 ||
+    app2Address().length > 0 ||
     (applicant2Email !== null && applicant2Email !== undefined && applicant2Email.length > 0);
   form = contactDetailsProvided ? form : formNoDetails;
+  if (content.userCase?.applicant2AddressPrivate === YesOrNo.YES) {
+    //Should never display this page if app2 is confidential
+    throw 404;
+  }
   return {
     ...translations,
     form,
