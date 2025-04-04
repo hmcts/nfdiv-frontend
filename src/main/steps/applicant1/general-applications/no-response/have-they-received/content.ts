@@ -1,4 +1,4 @@
-import { NoResponseCheckContactDetails, YesOrNo } from '../../../../../app/case/definition';
+import { NoResponseCheckContactDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -91,10 +91,6 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  if (content.userCase?.applicant2AddressPrivate === YesOrNo.YES) {
-    //Should never display this page if app2 is confidential
-    throw 404;
-  }
   const translations = languages[content.language](content);
   const checkAddressString = address => {
     return address !== null && address !== undefined && address.length > 0 ? address + ', ' : '';
