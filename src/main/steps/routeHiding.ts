@@ -21,7 +21,7 @@ import {
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
   PageLink,
-  REVIEW_THE_APPLICATION
+  REVIEW_THE_APPLICATION,
 } from './urls';
 
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
