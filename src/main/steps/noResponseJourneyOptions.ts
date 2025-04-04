@@ -18,6 +18,11 @@ import {
 export const noResponseJourneyNextStep = (userCase: Partial<CaseWithId>, currentPage: PageLink): PageLink => {
   switch (currentPage) {
     case OPTIONS_FOR_PROGRESSING: {
+      if (userCase?.applicant2AddressPrivate === YesOrNo.YES) {
+        return userCase?.applicant2SolicitorRepresented === YesOrNo.YES
+          ? HAVE_THEY_RECEIVED_REPRESENTED
+          : EVIDENCE_RECEIVED_APPLICATION;
+      }
       return userCase?.applicant2SolicitorRepresented === YesOrNo.YES
         ? HAVE_THEY_RECEIVED_REPRESENTED
         : HAVE_THEY_RECEIVED;

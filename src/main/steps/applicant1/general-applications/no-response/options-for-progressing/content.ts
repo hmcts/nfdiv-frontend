@@ -2,9 +2,9 @@ import config from 'config';
 
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { CommonContent } from '../../../../common/common.content';
-import { HAVE_THEY_RECEIVED, HAVE_THEY_RECEIVED_REPRESENTED } from '../../../../urls';
+import { EVIDENCE_RECEIVED_APPLICATION, HAVE_THEY_RECEIVED, HAVE_THEY_RECEIVED_REPRESENTED } from '../../../../urls';
 
-const en = ({ isDivorce, partner, isApp2Represented }: CommonContent) => ({
+const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: CommonContent) => ({
   title: `Options for progressing with ${isDivorce ? 'your divorce' : 'ending your civil partnership'}`,
   line1: `There are a number of ways to progress your ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -22,7 +22,12 @@ const en = ({ isDivorce, partner, isApp2Represented }: CommonContent) => ({
   }`,
   startButton: {
     text: 'Start now',
-    url: isApp2Represented ? HAVE_THEY_RECEIVED_REPRESENTED : HAVE_THEY_RECEIVED,
+    url: () => {
+      if (isApp2Represented) {
+        return HAVE_THEY_RECEIVED_REPRESENTED;
+      }
+      return isApp2Confidential ? EVIDENCE_RECEIVED_APPLICATION : HAVE_THEY_RECEIVED;
+    },
   },
 });
 

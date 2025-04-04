@@ -13,7 +13,7 @@
   <p class="govuk-body">{{ line4 }}</p>
   {{ govukButton({
     text: startButton.text,
-    href: startButton.url,
+    href: startButton.url(),
     isStartButton: true
   }) }}
 {% endblock %}
