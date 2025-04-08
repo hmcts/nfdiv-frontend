@@ -95,7 +95,7 @@ export class StateRedirectMiddleware {
             RESPONDENT + PAYMENT_CALLBACK_URL,
             RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,
             SAVE_AND_SIGN_OUT,
-            WITHDRAW_APPLICATION
+            WITHDRAW_APPLICATION,
           ].includes(req.path as PageLink)
         ) {
           return next();
