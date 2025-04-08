@@ -418,7 +418,7 @@ const cy: typeof en = (
     line2: `Y ffordd symlaf i symud eich cais yn ei flaen yw i’ch ${partner} ymateb. Gallant dal ymateb, er bod y dyddiad erbyn pryd y dylent ymateb wedi pasio. Gallwch gysylltu â nhw i’w hatgoffa, os yw’n ddiogel i chi wneud hynny.`,
     line3:
       'Fodd bynnag, os na allwch gysylltu â nhw neu os nad ydych chi’n meddwl y byddant yn ymateb, mae yna sawl ffordd i symud eich cais yn ei flaen heb fod angen ymateb ganddynt.',
-    linkText: 'Gweld yr opsiynau ar gyfer parhau heb ymateb.',
+    linkText: 'Gweld eich opsiynau ar gyfer parhau heb ymateb.',
     linkUrl: 'URL_HERE',
   },
   aosDueAndDrafted: {
@@ -431,7 +431,7 @@ const cy: typeof en = (
     line4: `Fel arall, gallwch edrych ar eich opsiynau i barhau â’ch ${
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     } heb fod angen ymateb.`,
-    linkText: 'Gweld yr opsiynau ar gyfer parhau heb ymateb.',
+    linkText: 'Gweld eich opsiynau ar gyfer parhau heb ymateb.',
     linkUrl: 'URL_HERE',
   },
   holding: {
