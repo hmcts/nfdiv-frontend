@@ -30,7 +30,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
   startButton: {
-    text: 'Start now',
+    text: 'Start application',
     url: DEEMED_INTERRUPTION,
   },
   line6: 'You could also try:',
@@ -47,8 +47,42 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
-const cy: typeof en = en;
+// @TODO translations should be verified
+const cy = ({ isDivorce, partner }: CommonContent) => ({
+  title: 'Gallwch wneud cais am gyflwyno tybiedig',
+  line1: `Os oes gennych dystiolaeth bod eich ${partner} neu eu cynrychiolydd cyfreithiol wedi cael papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  }, gallwch wneud cais am gyflwyno tybiedig.`,
+  line2: `Mae’n rhaid i’ch tystiolaeth ddangos bod eich ${partner} wedi cael y papurau, nid dim ond eu bod wedi cael eu postio i’w cyfeiriad.`,
+  line3: 'Mae tystiolaeth addas yn cynnwys:',
+  suitableEvidence: {
+    photo: `llun neu sgrinlun o neges gan eich ${partner} sy’n dangos eu bod wedi cael y papurau.`,
+    statement: `datganiad gennych chi neu drydydd parti yn egluro sut rydych yn gwybod bod eich ${partner} wedi cael y papurau.`,
+    message: `neges gennym ni i ddweud wrthych bod eich ${partner} wedi dechrau eu hymateb.`,
+  },
+  line4: `Fe ofynnir i chi ddarparu’r dystiolaeth sydd gennych i brofi bod eich ${partner} wedi cael y ${
+    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  }. Heb y dystiolaeth hon, mae’n debyg y bydd eich cais yn cael ei wrthod.`,
+  line5: `Mae’r cais am gyflwyno tybiedig yn costio £58. Efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
+    'govukUrls.getHelpWithCourtFees'
+  )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
+  startButton: {
+    text: 'Dechrau gwneud y cais',
+    url: DEEMED_INTERRUPTION,
+  },
+  line6: 'Gallwch hefyd geisio:',
+  alsoTry: {
+    differentWay: `gwneud cais i <a class="govuk-link" href="${ALTERNATIVE_SERVICE_APPLICATION}">bapurau eich ${
+      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    } gael eu hanfon at eich ${partner} mewn ffordd wahanol</a>.`,
+    updateDetails: `<a class="govuk-link" href="${NEW_POSTAL_AND_EMAIL}">diweddaru manylion cyswllt eich ${partner}</a> fel y gall y llys anfon papurau’r ${
+      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    } i’w cyfeiriad newydd.`,
+    applyBailiff: `gwneud cais i <a class="govuk-link" href="${PARTNER_IN_PRISON}"">feili neu weinyddwr proses gyflwyno’r papurau</a> i’ch ${partner} yn bersonol.`,
+    searchRecords: `gwneud cais i’r llys <a class="govuk-link" href="${SEARCH_GOV_RECORDS_APPLICATION}">chwilio cofnodion y llywodraeth</a> am fanylion cyswllt eich ${partner} os nad oes gennych ffordd o gysylltu â nhw`,
+    dispenseService: `gwneud cais i <a class="govuk-link" href="${DISPENSE_SERVICE_APPLICATION}">hepgor cyflwyno</a> os ydych wedi gwneud popeth y gallwch i ddod o hyd i fanylion eich ${partner} ac wedi bod yn aflwyddiannus`,
+  },
+});
 
 const languages = {
   en,

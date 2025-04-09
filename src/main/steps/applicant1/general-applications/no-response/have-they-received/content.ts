@@ -13,9 +13,10 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   detailsUpToDateHeader: `Are these details for your ${partner} correct and up to date?`,
   doYouKnowYourPartnersDetailsHeader: `Do you know your ${partner}'s contact details?`,
   upToDate: 'Yes, these details are up to date',
-  newAddress: `I have a new address for my ${partner}`,
   newAddressOrEmailAddress: `I have a new postal or email address for my ${partner}`,
   notKnown: 'Not known',
+  homeAddress: 'Home address',
+  emailAddress: 'Email address',
   errors: {
     noResponseCheckContactDetails: {
       required: `You must confirm whether or not your ${partner}'s contact details are correct.`,
@@ -23,8 +24,26 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
-const cy: typeof en = en;
+// @TODO translations should be completed then verified
+const cy = ({ isDivorce, partner }: CommonContent) => ({
+  title: `Gwirio manylion cyswllt eich ${partner}`,
+  detailsProvided: `Dyma’r manylion a ddarparwyd gennych yn flaenorol ac i ble rydym wedi anfon papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  }.`,
+  noDetailsProvided: `Ni wnaethoch ddarparu unrhyw fanylion cyswllt ar gyfer eich ${partner}.`,
+  detailsUpToDateHeader: `A yw’r manylion hyn ar gyfer eich ${partner} yn gywir ac yn gyfredol?`,
+  doYouKnowYourPartnersDetailsHeader: `Ydych chi’n gwybod manylion eich ${partner}?`,
+  upToDate: 'Ydy, mae’r manylion hyn yn gyfredol',
+  newAddressOrEmailAddress: `Mae gennyf gyfeiriad post neu gyfeiriad e-bost newydd ar gyfer fy ${partner}`,
+  notKnown: 'Ddim yn hysbys',
+  homeAddress: 'Cyfeiriad cartref',
+  emailAddress: 'Cyfeiriad e-bost',
+  errors: {
+    noResponseCheckContactDetails: {
+      required: `You must confirm whether or not your ${partner}'s contact details are correct.`,
+    },
+  },
+});
 
 export let form: FormContent = {
   fields: {
@@ -40,7 +59,7 @@ export let form: FormContent = {
           value: NoResponseCheckContactDetails.UP_TO_DATE,
         },
         {
-          label: l => l.newAddress,
+          label: l => l.newAddressOrEmailAddress,
           id: 'newAddress',
           value: NoResponseCheckContactDetails.NEW_ADDRESS,
         },
@@ -109,7 +128,7 @@ export const generateContent: TranslationFn = content => {
   const applicant2Address = app2Address();
   const applicant2Email = content.userCase.applicant2Email;
   const contactDetailsProvided =
-    app2Address().length > 0 ||
+    applicant2Address.length > 0 ||
     (applicant2Email !== null && applicant2Email !== undefined && applicant2Email.length > 0);
   form = contactDetailsProvided ? form : formNoDetails;
   return {
