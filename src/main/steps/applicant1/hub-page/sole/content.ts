@@ -16,7 +16,12 @@ import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
-import { FINALISING_YOUR_APPLICATION, HOW_YOU_CAN_PROCEED, RESPOND_TO_COURT_FEEDBACK } from '../../../urls';
+import {
+  FINALISING_YOUR_APPLICATION,
+  HOW_YOU_CAN_PROCEED,
+  OPTIONS_FOR_PROGRESSING,
+  RESPOND_TO_COURT_FEEDBACK,
+} from '../../../urls';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -66,7 +71,7 @@ const en = (
     line3:
       'However if you cannot contact them or do not think they will respond, there are a number of ways to progress your application without needing a response from them.',
     linkText: 'View your options for proceeding without a response.',
-    linkUrl: 'URL_HERE',
+    linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   aosDueAndDrafted: {
     line1: `Your ${partner} has started a response to your ${
@@ -79,7 +84,7 @@ const en = (
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } without needing a response.`,
     linkText: 'View your options for proceeding without a response.',
-    linkUrl: 'URL_HERE',
+    linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   holding: {
     line1: `Your ${partner} has responded to your ${
@@ -419,7 +424,7 @@ const cy: typeof en = (
     line3:
       'Fodd bynnag, os na allwch gysylltu â nhw neu os nad ydych chi’n meddwl y byddant yn ymateb, mae yna sawl ffordd i symud eich cais yn ei flaen heb fod angen ymateb ganddynt.',
     linkText: 'Gweld eich opsiynau ar gyfer parhau heb ymateb.',
-    linkUrl: 'URL_HERE',
+    linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   aosDueAndDrafted: {
     line1: `Mae eich ${partner} wedi dechrau ymateb i’ch ${
@@ -432,7 +437,7 @@ const cy: typeof en = (
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     } heb fod angen ymateb.`,
     linkText: 'Gweld eich opsiynau ar gyfer parhau heb ymateb.',
-    linkUrl: 'URL_HERE',
+    linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   holding: {
     line1: `Mae eich ${partner} wedi ymateb i'ch ${
