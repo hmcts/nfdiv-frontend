@@ -1,18 +1,8 @@
 import { PropertiesVolume } from '../main/modules/properties-volume';
 import { Application } from 'express';
-
-if (!process.env.TEST_PASSWORD) {
-  const propertiesVolume = new PropertiesVolume();
-  (async () => {
-    await propertiesVolume.enableFor({ locals: { developmentMode: true } } as unknown as Application);
-  })();
-
-}
-
 import sysConfig from 'config';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
-
 import { IdamUserManager } from './steps/IdamUserManager';
 
 // better handling of unhandled exceptions
@@ -20,13 +10,29 @@ process.on('unhandledRejection', reason => {
   throw reason;
 });
 
-getTokenFromApi();
+let TestUser: string;
+let TestPass: string;
+let idamUserManager: IdamUserManager;
+const LOGIN_TIMEOUT = 60;
+
+const setupTestSecrets = async () => {
+  const propertiesVolume = new PropertiesVolume();
+  await propertiesVolume.enableFor({ locals: { developmentMode: true } } as unknown as Application);
+};
 
 const generateTestUsername = () => `nfdiv.frontend.test.${new Date().getTime()}.${Math.random()}@hmcts.net`;
-const TestUser = generateTestUsername();
-const TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
-const idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
-const LOGIN_TIMEOUT = 60;
+
+const initializeTestEnvironment = async () => {
+  if (!process.env.TEST_PASSWORD) {
+    await setupTestSecrets();
+  }
+
+  getTokenFromApi();
+
+  TestUser = generateTestUsername();
+  TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
+  idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
+};
 
 export const autoLogin = {
   login: (I: CodeceptJS.I, username = TestUser, password = TestPass, createCase = true): void => {
@@ -112,7 +118,10 @@ export const config = {
       '../steps/you-need-to-review-your-application.ts',
     ],
   },
-  bootstrap: async (): Promise<void> => idamUserManager.createUser(TestUser, TestPass),
+  bootstrap: async (): Promise<void> => {
+    await initializeTestEnvironment(); 
+    await idamUserManager.createUser(TestUser, TestPass);
+  },
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   helpers: {},
   AutoLogin: {
