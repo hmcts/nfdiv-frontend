@@ -12,23 +12,23 @@ import {
   NO_NEW_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   PageLink,
-  SERVE_AGAIN,
+  SERVE_AGAIN
 } from './urls';
 
-export const noResponseJourneyNextStep = (userCase: Partial<CaseWithId>, currentPage: PageLink): PageLink => {
-  switch (currentPage) {
-    case OPTIONS_FOR_PROGRESSING: {
-      if (userCase?.applicant2AddressPrivate === YesOrNo.YES) {
-        return userCase?.applicant2SolicitorRepresented === YesOrNo.YES
-          ? HAVE_THEY_RECEIVED_REPRESENTED
-          : EVIDENCE_RECEIVED_APPLICATION;
+export const noResponseJourneySteps: Step[] = [
+  {
+    url: OPTIONS_FOR_PROGRESSING,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data?.applicant2SolicitorRepresented === YesOrNo.YES) {
+        return HAVE_THEY_RECEIVED_REPRESENTED;
       }
-      return userCase?.applicant2SolicitorRepresented === YesOrNo.YES
-        ? HAVE_THEY_RECEIVED_REPRESENTED
-        : HAVE_THEY_RECEIVED;
-    }
-    case HAVE_THEY_RECEIVED: {
-      switch (userCase.applicant1NoResponseCheckContactDetails) {
+      return data?.applicant2AddressPrivate ? EVIDENCE_RECEIVED_APPLICATION : HAVE_THEY_RECEIVED;
+    },
+  },
+  {
+    url: HAVE_THEY_RECEIVED,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      switch (data.applicant1NoResponseCheckContactDetails) {
         case NoResponseCheckContactDetails.UP_TO_DATE: {
           return EVIDENCE_RECEIVED_APPLICATION;
         }
@@ -42,26 +42,7 @@ export const noResponseJourneyNextStep = (userCase: Partial<CaseWithId>, current
           return HUB_PAGE;
         }
       }
-    }
-    case EVIDENCE_RECEIVED_APPLICATION: {
-      return userCase.applicant1NoResponsePartnerHasReceivedPapers === YesOrNo.YES
-        ? DEEMED_SERVICE_APPLICATION
-        : SERVE_AGAIN;
-    }
-    default: {
-      return HUB_PAGE;
-    }
-  }
-};
-
-export const noResponseJourneySteps: Step[] = [
-  {
-    url: OPTIONS_FOR_PROGRESSING,
-    getNextStep: data => noResponseJourneyNextStep(data, OPTIONS_FOR_PROGRESSING),
-  },
-  {
-    url: HAVE_THEY_RECEIVED,
-    getNextStep: data => noResponseJourneyNextStep(data, HAVE_THEY_RECEIVED),
+    },
   },
   {
     url: HAVE_THEY_RECEIVED_REPRESENTED,
@@ -69,6 +50,11 @@ export const noResponseJourneySteps: Step[] = [
   },
   {
     url: EVIDENCE_RECEIVED_APPLICATION,
-    getNextStep: data => noResponseJourneyNextStep(data, EVIDENCE_RECEIVED_APPLICATION),
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data?.applicant1NoResponsePartnerHasReceivedPapers === YesOrNo.YES) {
+        return DEEMED_SERVICE_APPLICATION;
+      }
+      return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SERVE_AGAIN;
+    },
   },
 ];
