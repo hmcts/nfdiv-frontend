@@ -12,7 +12,7 @@ import {
   NO_NEW_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   PageLink,
-  SERVE_AGAIN
+  SERVE_AGAIN,
 } from './urls';
 
 export const noResponseJourneySteps: Step[] = [
