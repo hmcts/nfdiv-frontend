@@ -29,6 +29,6 @@ Feature: Homepage
     And the page should include "Who are you applying to divorce?"
     And I click "Save and sign out"
     Then the page should include "Your application has been saved"
-    And I expect the page title to be "Your application has been saved - Apply for a divorce - GOV.UK"
+    And I expect the page title to be "Your application has been saved - GOV.UK"
     And the page should not include "Apply for a divorce"
     And the page should not include "Back"

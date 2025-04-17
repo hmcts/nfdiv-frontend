@@ -12,6 +12,7 @@ const fees = {
   FinancialOrderOnNotice: { amount: 0, service: 'other', event: 'miscellaneous' },
   GeneralAppWithoutNotice: { amount: 0, service: 'other', event: 'general application' },
   GAOnNotice: { amount: 0, service: 'other', event: 'general application' },
+  DivAnswerReceived: { amount: 0, service: 'other', event: 'issue' },
 };
 
 type FeeKeyword = keyof typeof fees;

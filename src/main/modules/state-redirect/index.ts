@@ -28,6 +28,7 @@ import {
   SWITCH_TO_SOLE_APPLICATION,
   THEIR_EMAIL_ADDRESS,
   VIEW_YOUR_ANSWERS,
+  WITHDRAW_APPLICATION,
 } from '../../steps/urls';
 
 /**
@@ -65,7 +66,7 @@ export class StateRedirectMiddleware {
 
         if (
           this.hasPartnerNotRespondedInTime(req.session.userCase, isApplicant2) &&
-          ![NO_RESPONSE_YET, SWITCH_TO_SOLE_APPLICATION].includes(req.path as PageLink)
+          ![NO_RESPONSE_YET, WITHDRAW_APPLICATION, SWITCH_TO_SOLE_APPLICATION].includes(req.path as PageLink)
         ) {
           return res.redirect(NO_RESPONSE_YET);
         }
@@ -75,6 +76,7 @@ export class StateRedirectMiddleware {
           awaitingReviewByApplicant2 &&
           ![
             SENT_TO_APPLICANT2_FOR_REVIEW,
+            WITHDRAW_APPLICATION,
             THEIR_EMAIL_ADDRESS,
             NO_RESPONSE_YET,
             SWITCH_TO_SOLE_APPLICATION,
@@ -95,6 +97,7 @@ export class StateRedirectMiddleware {
             RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,
             SAVE_AND_SIGN_OUT,
             VIEW_YOUR_ANSWERS,
+            WITHDRAW_APPLICATION,
           ].includes(req.path as PageLink)
         ) {
           return next();
