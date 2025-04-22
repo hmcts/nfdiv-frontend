@@ -27,6 +27,7 @@ import {
   SENT_TO_APPLICANT2_FOR_REVIEW,
   SWITCH_TO_SOLE_APPLICATION,
   THEIR_EMAIL_ADDRESS,
+  VIEW_YOUR_ANSWERS,
   WITHDRAW_APPLICATION,
 } from '../../steps/urls';
 
@@ -95,6 +96,7 @@ export class StateRedirectMiddleware {
             RESPONDENT + PAYMENT_CALLBACK_URL,
             RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,
             SAVE_AND_SIGN_OUT,
+            VIEW_YOUR_ANSWERS,
             WITHDRAW_APPLICATION,
           ].includes(req.path as PageLink)
         ) {
