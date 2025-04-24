@@ -1,8 +1,8 @@
+import { Checkbox } from '../../../../../app/case/case';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { CommonContent } from '../../../../common/common.content';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
-import { Checkbox } from '../../../../../app/case/case';
+import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
   title: "You're about to apply for deemed service",

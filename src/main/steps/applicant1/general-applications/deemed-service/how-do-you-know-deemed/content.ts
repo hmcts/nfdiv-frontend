@@ -31,7 +31,7 @@ export const form: FormContent = {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.responseLabel,
-      validator: (value) => {
+      validator: value => {
         const hasEnteredDetails = !isEmpty(value);
         if (!hasEnteredDetails) {
           return 'required';
