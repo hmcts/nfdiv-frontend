@@ -6,9 +6,9 @@ import { LoggerInstance } from 'winston';
 import {
   APPLICANT_2,
   PROVIDE_INFORMATION_TO_THE_COURT,
-  RESPOND_TO_COURT_FEEDBACK,
-  UPLOAD_YOUR_DOCUMENTS,
-} from '../../steps/urls';
+  RESPOND_TO_COURT_FEEDBACK, UPLOAD_EVIDENCE_DEEMED,
+  UPLOAD_YOUR_DOCUMENTS
+} from "../../steps/urls";
 import { CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
@@ -25,6 +25,8 @@ export class DocumentManagerController {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
+    } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
+      return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DEEMED}`);
     }
     return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
   }
@@ -36,6 +38,8 @@ export class DocumentManagerController {
       (!isApplicant2 &&
         ![
           State.Draft,
+          State.AosDrafted,
+          State.AosOverdue,
           State.AwaitingApplicant1Response,
           State.AwaitingClarification,
           State.InformationRequested,
@@ -89,6 +93,8 @@ export class DocumentManagerController {
       )
     ) {
       documentsKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
+    } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
+      documentsKey = isApplicant2 ? 'applicant2DeemedEvidenceDocs' : 'applicant1DeemedEvidenceDocs';
     }
 
     const updatedDocumentsUploaded = newUploads.concat(req.session.userCase[documentsKey] || []);
@@ -120,6 +126,8 @@ export class DocumentManagerController {
       )
     ) {
       documentsUploadedKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
+    } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
+      documentsUploadedKey = isApplicant2 ? 'applicant2DeemedEvidenceDocs' : 'applicant1DeemedEvidenceDocs';
     }
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
@@ -128,6 +136,8 @@ export class DocumentManagerController {
       (!isApplicant2 &&
         ![
           State.Draft,
+          State.AosDrafted,
+          State.AosOverdue,
           State.AwaitingApplicant1Response,
           State.AwaitingClarification,
           State.InformationRequested,
