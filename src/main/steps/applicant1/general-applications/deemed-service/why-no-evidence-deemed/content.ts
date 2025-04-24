@@ -1,9 +1,10 @@
 import { isEmpty } from 'lodash';
+
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ partner, isDivorce}: CommonContent) => ({
+const en = ({ partner, isDivorce }: CommonContent) => ({
   title: 'Provide a statement',
   line1: `Tell us how you know your ${partner} has received the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
@@ -17,7 +18,7 @@ const en = ({ partner, isDivorce}: CommonContent) => ({
   },
 });
 
-const cy: typeof en = ({ partner, isDivorce}: CommonContent) => ({
+const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   title: 'Provide a statement',
   line1: `Tell us how you know your ${partner} has received the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
@@ -37,7 +38,7 @@ export const form: FormContent = {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.responseLabel,
-      validator: (value) => {
+      validator: value => {
         const hasEnteredDetails = !isEmpty(value);
         if (!hasEnteredDetails) {
           return 'required';

@@ -6,9 +6,10 @@ import { LoggerInstance } from 'winston';
 import {
   APPLICANT_2,
   PROVIDE_INFORMATION_TO_THE_COURT,
-  RESPOND_TO_COURT_FEEDBACK, UPLOAD_EVIDENCE_DEEMED,
-  UPLOAD_YOUR_DOCUMENTS
-} from "../../steps/urls";
+  RESPOND_TO_COURT_FEEDBACK,
+  UPLOAD_EVIDENCE_DEEMED,
+  UPLOAD_YOUR_DOCUMENTS,
+} from '../../steps/urls';
 import { CaseWithId } from '../case/case';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';

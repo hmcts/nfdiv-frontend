@@ -7,7 +7,8 @@ import {
   DEEMED_INTERRUPTION,
   DEEMED_SERVICE_APPLICATION,
   HELP_WITH_FEES_DEEMED,
-  HOW_DO_YOU_KNOW_DEEMED, HUB_PAGE,
+  HOW_DO_YOU_KNOW_DEEMED,
+  HUB_PAGE,
   HWF_REFERENCE_NUMBER_DEEMED,
   HWF_REFERENCE_NUMBER_INPUT_DEEMED,
   UPLOAD_EVIDENCE_DEEMED,
@@ -27,16 +28,12 @@ export const deemedServiceApplication: Step[] = [
   {
     url: HELP_WITH_FEES_DEEMED,
     getNextStep: data =>
-      data?.applicant1DeemedUseHelpWithFees === YesOrNo.YES
-        ? HWF_REFERENCE_NUMBER_DEEMED
-        : WANT_UPLOAD_EVIDENCE_DEEMED,
+      data?.applicant1DeemedUseHelpWithFees === YesOrNo.YES ? HWF_REFERENCE_NUMBER_DEEMED : WANT_UPLOAD_EVIDENCE_DEEMED,
   },
   {
     url: HWF_REFERENCE_NUMBER_DEEMED,
     getNextStep: data =>
-      data?.applicant1DeemedHaveHwfReference === YesOrNo.YES
-        ? HWF_REFERENCE_NUMBER_INPUT_DEEMED
-        : APPLY_FOR_HWF_DEEMED,
+      data?.applicant1DeemedHaveHwfReference === YesOrNo.YES ? HWF_REFERENCE_NUMBER_INPUT_DEEMED : APPLY_FOR_HWF_DEEMED,
   },
   {
     url: HWF_REFERENCE_NUMBER_INPUT_DEEMED,

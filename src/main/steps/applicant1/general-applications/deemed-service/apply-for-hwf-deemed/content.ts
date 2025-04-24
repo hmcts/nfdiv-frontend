@@ -1,4 +1,4 @@
-import config from "config";
+import config from 'config';
 
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { HWF_REFERENCE_NUMBER_INPUT_DEEMED } from '../../../../urls';

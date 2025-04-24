@@ -5,9 +5,9 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
-import * as urls from '../../../../urls';
 import { isInvalidHelpWithFeesRef } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
+import * as urls from '../../../../urls';
 
 const en = (
   iUnderstand,
