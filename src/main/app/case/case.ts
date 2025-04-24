@@ -186,6 +186,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
+  applicant1DeemedIUnderstand: 'applicant1DeemedIUnderstand',
+  applicant1DeemedUseHelpWithFees: 'applicant1DeemedUseHelpWithFees',
+  applicant1DeemedHaveHwfReference: 'applicant1DeemedHaveHwfReference',
+  applicant1DeemedCanUploadEvidence: 'applicant1DeemedCanUploadEvidence',
+  applicant1DeemedHwfRefNumber: 'applicant1DeemedHwfRefNumber',
+  applicant1DeemedEvidenceDocs: 'applicant1DeemedEvidenceDocs',
+  applicant1DeemedCannotUploadDocs: 'applicant1DeemedCannotUploadDocs',
+  applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
+  applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -439,6 +448,16 @@ export interface Case {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1DeemedIUnderstand?: Checkbox;
+  applicant1DeemedUseHelpWithFees?: YesOrNo;
+  applicant1DeemedHaveHwfReference?: YesOrNo;
+  applicant1DeemedCanUploadEvidence?: YesOrNo;
+  applicant1DeemedHwfRefNumber?: string;
+  applicant1DeemedEvidenceUploadedFiles?: UploadedFile[];
+  applicant1DeemedEvidenceDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant1DeemedCannotUploadDocs?: Checkbox;
+  applicant1DeemedEvidenceDetails?: string;
+  applicant1DeemedNoEvidenceStatement?: string;
 }
 
 export interface CaseWithId extends Case {

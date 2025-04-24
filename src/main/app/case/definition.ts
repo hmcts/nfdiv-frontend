@@ -1032,6 +1032,15 @@ export interface CaseData {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1DeemedIUnderstand: YesOrNo;
+  applicant1DeemedUseHelpWithFees: YesOrNo;
+  applicant1DeemedHaveHwfReference: YesOrNo;
+  applicant1DeemedCanUploadEvidence: YesOrNo;
+  applicant1DeemedHwfRefNumber: string;
+  applicant1DeemedEvidenceDocs: ListValue<DivorceDocument>[];
+  applicant1DeemedCannotUploadDocs: YesOrNo;
+  applicant1DeemedEvidenceDetails: string;
+  applicant1DeemedNoEvidenceStatement: string;
 }
 
 export interface CaseDocuments {
@@ -1054,6 +1063,18 @@ export interface CaseDocuments {
 export interface NoResponseJourneyOptions {
   noResponseCheckContactDetails: NoResponseCheckContactDetails;
   noResponsePartnerHasReceivedPapers: YesOrNo;
+}
+
+export interface DeemedServiceJourneyOptions {
+  deemedIUnderstand: Checkbox;
+  deemedUseHelpWithFees: YesOrNo;
+  deemedHaveHwfReference: YesOrNo;
+  deemedCanUploadEvidence: YesOrNo;
+  deemedRefNumber: string;
+  deemedEvidenceDocs: ListValue<DivorceDocument>[];
+  deemedCannotUploadDocs: Checkbox;
+  deemedEvidenceDetails: string;
+  deemedNoEvidenceStatement: string;
 }
 
 export interface RequestForInformationResponse {

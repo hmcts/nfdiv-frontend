@@ -168,3 +168,13 @@ export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
   '/general-applications/search-gov-records/search-gov-records-application';
 export const DISPENSE_SERVICE_APPLICATION: PageLink =
   '/general-applications/dispense-service/dispense-service-application';
+export const HELP_WITH_FEES_DEEMED: PageLink = '/general-applications/deemed-service/help-with-fees-deemed';
+export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/general-applications/deemed-service/hwf-reference-number-deemed';
+export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/want-upload-evidence-deemed';
+export const HWF_REFERENCE_NUMBER_INPUT_DEEMED: PageLink =
+  '/general-applications/deemed-service/hwf-reference-number-input-deemed';
+export const APPLY_FOR_HWF_DEEMED: PageLink = '/general-applications/deemed-service/apply-for-hwf-deemed';
+export const UPLOAD_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/upload-evidence-deemed';
+export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/why-no-evidence-deemed';
+export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/general-applications/deemed-service/how-do-you-know-deemed';
+export const CHECK_ANSWERS_DEEMED: PageLink = '/general-applications/deemed-service/check-answers-deemed';
