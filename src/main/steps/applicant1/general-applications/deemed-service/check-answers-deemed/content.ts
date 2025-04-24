@@ -1,0 +1,206 @@
+import { isObject } from 'lodash';
+
+import { Checkbox } from '../../../../../app/case/case';
+import { YesOrNo } from '../../../../../app/case/definition';
+import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+import * as urls from '../../../../urls';
+import { isInvalidHelpWithFeesRef } from '../../../../../app/form/validation';
+import { CommonContent } from '../../../../common/common.content';
+
+const en = (
+  iUnderstand,
+  useHwf,
+  haveHwfReference,
+  hwfReference,
+  canUpload,
+  uploadedDocsFilenames,
+  evidenceDetails,
+  noEvidenceStatement,
+  usingHwf,
+  { submit, continueToPay }: CommonContent
+) => ({
+  title: 'Check your answers',
+  noFilesUploaded: 'No files uploaded',
+  notProvided: 'Not provided',
+  havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
+  stepQuestions: {
+    iUnderstand: 'I Understand',
+    useHwf: 'Use Help With Fees',
+    haveHwfReference: 'I have an HWF Reference',
+    hwfReference: 'HWF Reference',
+    canUploadEvidence: 'I can upload evidence',
+    uploadedFiles: 'Uploaded files',
+    evidenceDetails: 'Details',
+    noEvidenceStatement: 'No Evidence Statement',
+  },
+  stepAnswers: {
+    iUnderstand: `${iUnderstand}`,
+    useHwf: `${useHwf}`,
+    haveHwfReference: `${haveHwfReference}`,
+    hwfReference: `${hwfReference}`,
+    canUploadEvidence: `${canUpload}`,
+    uploadedFiles: `${uploadedDocsFilenames}`,
+    evidenceDetails: `${evidenceDetails}`,
+    noEvidenceStatement: `${noEvidenceStatement}`,
+  },
+  stepLinks: {
+    iUnderstand: `${urls.DEEMED_INTERRUPTION}`,
+    useHwf: `${urls.HELP_WITH_FEES_DEEMED}`,
+    haveHwfReference: `${urls.HWF_REFERENCE_NUMBER_DEEMED}`,
+    hwfReference: `${urls.HWF_REFERENCE_NUMBER_INPUT_DEEMED}`,
+    canUploadEvidence: `${urls.WANT_UPLOAD_EVIDENCE_DEEMED}`,
+    uploadedFiles: `${urls.UPLOAD_EVIDENCE_DEEMED}`,
+    evidenceDetails: `${urls.HOW_DO_YOU_KNOW_DEEMED}`,
+    noEvidenceStatement: `${urls.WHY_NO_EVIDENCE_DEEMED}`,
+  },
+  submitText: usingHwf ? submit : continueToPay,
+});
+
+const cy: typeof en = (
+  iUnderstand,
+  useHwf,
+  haveHwfReference,
+  hwfReference,
+  canUpload,
+  uploadedDocsFilenames,
+  evidenceDetails,
+  noEvidenceStatement,
+  usingHwf,
+  { submit, continueToPay }: CommonContent
+) => ({
+  title: 'Check your answers',
+  noFilesUploaded: 'No files uploaded',
+  notProvided: 'Not provided',
+  havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
+  stepQuestions: {
+    iUnderstand: 'I Understand',
+    useHwf: 'Use Help With Fees',
+    haveHwfReference: 'I have an HWF Reference',
+    hwfReference: 'HWF Reference',
+    canUploadEvidence: 'I can upload evidence',
+    uploadedFiles: 'Uploaded files',
+    evidenceDetails: 'Details',
+    noEvidenceStatement: 'No Evidence Statement',
+  },
+  stepAnswers: {
+    iUnderstand: `${iUnderstand}`,
+    useHwf: `${useHwf}`,
+    haveHwfReference: `${haveHwfReference}`,
+    hwfReference: `${hwfReference}`,
+    canUploadEvidence: `${canUpload}`,
+    uploadedFiles: `${uploadedDocsFilenames}`,
+    evidenceDetails: `${evidenceDetails}`,
+    noEvidenceStatement: `${noEvidenceStatement}`,
+  },
+  stepLinks: {
+    iUnderstand: `${urls.DEEMED_INTERRUPTION}`,
+    useHwf: `${urls.HELP_WITH_FEES_DEEMED}`,
+    haveHwfReference: `${urls.HWF_REFERENCE_NUMBER_DEEMED}`,
+    hwfReference: `${urls.HWF_REFERENCE_NUMBER_INPUT_DEEMED}`,
+    canUploadEvidence: `${urls.WANT_UPLOAD_EVIDENCE_DEEMED}`,
+    uploadedFiles: `${urls.UPLOAD_EVIDENCE_DEEMED}`,
+    evidenceDetails: `${urls.HOW_DO_YOU_KNOW_DEEMED}`,
+    noEvidenceStatement: `${urls.WHY_NO_EVIDENCE_DEEMED}`,
+  },
+  submitText: usingHwf ? submit : continueToPay,
+});
+
+export const form: FormContent = {
+  fields: userCase => ({
+    applicant1DeemedIUnderstand: {
+      type: 'hidden',
+      values: [],
+    },
+    applicant1DeemedUseHelpWithFees: {
+      type: 'hidden',
+      values: [],
+    },
+    applicant1DeemedHaveHwfReference: {
+      type: 'hidden',
+      values: [],
+    },
+    applicant1DeemedHwfRefNumber: {
+      type: 'hidden',
+      label: l => l.response,
+      labelHidden: true,
+    },
+    applicant1DeemedCanUploadEvidence: {
+      type: 'hidden',
+      values: [],
+    },
+    applicant1DeemedEvidenceUploadedFiles: {
+      type: 'hidden',
+      label: l => l.uploadFiles,
+      labelHidden: true,
+      value:
+        (isObject(userCase.applicant1DeemedEvidenceUploadedFiles)
+          ? JSON.stringify(userCase.applicant1DeemedEvidenceUploadedFiles)
+          : userCase.applicant1DeemedEvidenceUploadedFiles) || '[]',
+      parser: data => JSON.parse((data as Record<string, string>).applicant1DeemedEvidenceUploadedFiles || '[]'),
+    },
+    applicant1DeemedCannotUploadDocs: {
+      type: 'hidden',
+      values: [],
+    },
+    applicant1DeemedEvidenceDetails: {
+      type: 'hidden',
+      label: l => l.response,
+      labelHidden: true,
+    },
+    applicant1DeemedNoEvidenceStatement: {
+      type: 'hidden',
+      label: l => l.response,
+      labelHidden: true,
+    },
+  }),
+  submit: {
+    text: l => l.submitText,
+  },
+};
+
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const iUnderstand = content.userCase.applicant1DeemedIUnderstand === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+  const useHwf = content.userCase.applicant1DeemedUseHelpWithFees;
+  const haveHwfReference = content.userCase.applicant1DeemedHaveHwfReference;
+  const hwfReference = content.userCase.applicant1DeemedHwfRefNumber;
+  const canUpload = content.userCase.applicant1DeemedCanUploadEvidence;
+  const uploadedDocsFilenames = content.userCase.applicant1DeemedEvidenceDocs?.map(item => getFilename(item.value));
+  const cannotUploadDocs =
+    content.userCase.applicant1DeemedCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+  const evidenceDetails = content.userCase.applicant1DeemedEvidenceDetails;
+  const noEvidenceStatement = content.userCase.applicant1DeemedNoEvidenceStatement;
+  const usingHwf =
+    useHwf === YesOrNo.YES && haveHwfReference === YesOrNo.YES && isInvalidHelpWithFeesRef(hwfReference) === undefined;
+  const translations = languages[content.language](
+    iUnderstand,
+    useHwf,
+    haveHwfReference,
+    hwfReference,
+    canUpload,
+    uploadedDocsFilenames,
+    evidenceDetails,
+    noEvidenceStatement,
+    usingHwf,
+    content
+  );
+  return {
+    ...translations,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    iUnderstand,
+    useHwf,
+    haveHwfReference,
+    hwfReference,
+    canUpload,
+    uploadedDocsFilenames,
+    cannotUploadDocs,
+    evidenceDetails,
+    noEvidenceStatement,
+  };
+};
