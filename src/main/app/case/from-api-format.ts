@@ -183,6 +183,19 @@ const fields: FromApiConverters = {
   requestsForInformation: 'requestsForInformation',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
+  applicant1DeemedIUnderstand: data => ({
+    applicant1DeemedIUnderstand: checkboxConverter(data.applicant1DeemedIUnderstand),
+  }),
+  applicant1DeemedUseHelpWithFees: 'applicant1DeemedUseHelpWithFees',
+  applicant1DeemedHaveHwfReference: 'applicant1DeemedHaveHwfReference',
+  applicant1DeemedCanUploadEvidence: 'applicant1DeemedCanUploadEvidence',
+  applicant1DeemedHwfRefNumber: 'applicant1DeemedHwfRefNumber',
+  applicant1DeemedEvidenceDocs: uploadedFilesFromApiApplicant1,
+  applicant1DeemedCannotUploadDocs: data => ({
+    applicant1DeemedCannotUploadDocs: checkboxConverter(data.applicant1DeemedCannotUploadDocs),
+  }),
+  applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
+  applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
 };
 
 const fromApiDate = date => {
