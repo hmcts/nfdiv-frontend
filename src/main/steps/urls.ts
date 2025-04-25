@@ -130,6 +130,7 @@ export const CONFIRM_JOINT_APPLICATION: PageLink = '/confirm-your-joint-applicat
 export const REVIEW_THE_APPLICATION: PageLink = '/review-the-application';
 export const READ_THE_RESPONSE: PageLink = '/read-the-response';
 export const HUB_PAGE: PageLink = '/hub-page';
+export const VIEW_YOUR_ANSWERS: PageLink = '/view-your-answers';
 export const CHECK_CONTACT_DETAILS: PageLink = '/check-contact-details';
 export const CHECK_PHONE_NUMBER: PageLink = '/check-phone-number';
 export const HOW_DO_YOU_WANT_TO_RESPOND: PageLink = '/how-do-you-want-to-respond';

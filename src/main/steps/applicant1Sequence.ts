@@ -93,6 +93,7 @@ import {
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
   UPLOAD_YOUR_DOCUMENTS,
+  VIEW_YOUR_ANSWERS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   WITHDRAWING_YOUR_APPLICATION,
   WITHDRAW_APPLICATION,
@@ -575,6 +576,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: VIEW_YOUR_ANSWERS,
+    getNextStep: () => HOME_URL,
   },
 ];
 
