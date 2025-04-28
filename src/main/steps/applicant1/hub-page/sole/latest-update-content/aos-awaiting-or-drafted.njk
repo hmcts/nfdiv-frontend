@@ -6,12 +6,10 @@
   {% if isRespondentOverseas %}
     {% if isRespondentRepresented %}
       <p class="govuk-body">{{ aosAwaiting.line7 }}</p>
-    {% else %}
-      <p class="govuk-body">{{ aosAwaiting.line2 }}</p>
     {% endif %}
     <p class="govuk-body">{{ aosAwaiting.line5 }}</p>
     <p class="govuk-body">{{ aosAwaiting.line6 }}</p>
-    {% elif isRespondentRepresented %}
+  {% elif isRespondentRepresented %}
     <p class="govuk-body">{{ aosAwaiting.line7 }}</p>
   {% else %}
     <p class="govuk-body">{{ aosAwaiting.line2 }}</p>
