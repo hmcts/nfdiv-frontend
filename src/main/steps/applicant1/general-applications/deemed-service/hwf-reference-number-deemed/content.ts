@@ -2,24 +2,7 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
-
-const en = () => ({
-  title: 'Do you have a help with fees reference number?',
-  line1:
-    "Your reference number must be unique to this deemed service application. You cannot use a reference number you've used for a previous application.",
-});
-
-// @TODO translations
-const cy = () => ({
-  title: 'Do you have a help with fees reference number?',
-  line1:
-    "Your reference number must be unique to this deemed service application. You cannot use a reference number you've used for a previous application.",
-});
-
-const languages = {
-  en,
-  cy,
-};
+import { generateContent as hwfReferenceNumberGenerateContent } from '../../common/hwf-reference-number/content';
 
 export const form: FormContent = {
   fields: {
@@ -47,9 +30,9 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const hwfReferenceNumberContent = hwfReferenceNumberGenerateContent(content);
   return {
-    ...translations,
+    ...hwfReferenceNumberContent,
     form,
   };
 };

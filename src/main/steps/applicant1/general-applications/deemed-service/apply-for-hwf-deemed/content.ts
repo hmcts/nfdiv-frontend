@@ -1,55 +1,9 @@
-import config from 'config';
-
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { HWF_REFERENCE_NUMBER_INPUT_DEEMED } from '../../../../urls';
-
-const en = () => ({
-  title: 'Apply for help with fees',
-  line1: 'You must apply for help with fees before submitting your application.',
-  nextSteps: 'Next steps',
-  steps: {
-    applyHwf: `Go to <a class="govuk-link" target="_blank" href="${config.get(
-      'govukUrls.getHelpWithCourtFees'
-    )}">apply for help with fees (opens in a new tab)</a>.`,
-    enterD11: 'Enter D11 when you are asked to enter a court or tribunal number',
-    completeHwf: 'Complete the help with fees application',
-    returnD11: 'Return to complete your D11 application to apply for deemed service',
-    enterHwfRefNo: 'Enter your help with fees reference number',
-  },
-  continueButton: {
-    text: 'Continue',
-    url: HWF_REFERENCE_NUMBER_INPUT_DEEMED,
-  },
-});
-
-// @TODO translations
-const cy = () => ({
-  title: 'Apply for help with fees',
-  line1: 'You must apply for help with fees before submitting your application.',
-  nextSteps: 'Next steps',
-  steps: {
-    applyHwf: `Go to <a class="govuk-link" target="_blank" href="${config.get(
-      'govukUrls.getHelpWithCourtFees'
-    )}">apply for help with fees (opens in a new tab)</a>.`,
-    enterD11: 'Enter D11 when you are asked to enter a court or tribunal number',
-    completeHwf: 'Complete the help with fees application',
-    returnD11: 'Return to complete your D11 application to apply for deemed service',
-    enterHwfRefNo: 'Enter your help with fees reference number',
-  },
-  continueButton: {
-    text: 'Continue',
-    url: HWF_REFERENCE_NUMBER_INPUT_DEEMED,
-  },
-});
-
-const languages = {
-  en,
-  cy,
-};
+import { generateContent as applyForHwfGenerateContent } from '../../common/apply-for-hwf/content';
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const applyForHwfContent = applyForHwfGenerateContent(content);
   return {
-    ...translations,
+    ...applyForHwfContent,
   };
 };

@@ -196,6 +196,7 @@ const fields: FromApiConverters = {
   }),
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1GeneralApplicationType: 'applicant1GeneralApplicationType',
 };
 
 const fromApiDate = date => {

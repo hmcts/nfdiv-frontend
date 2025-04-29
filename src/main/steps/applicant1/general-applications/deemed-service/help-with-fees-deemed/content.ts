@@ -1,31 +1,8 @@
-import config from 'config';
-
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
-
-const en = () => ({
-  title: 'Help with fees',
-  line1: `The cost of this deemed service application is £58. You can <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.getHelpWithCourtFees'
-  )}">check the help with fees guidance on GOV.UK (opens in a new tab)</a> to find out if you are eligible for support.`,
-  useHelpWithFees: 'Will you be using help with fees to pay for this application?',
-});
-
-// @TODO translations
-const cy = () => ({
-  title: 'Help with fees',
-  line1: `The cost of this deemed service application si £58. You can <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.getHelpWithCourtFees'
-  )}">check the hlep with fees guidance on GOV.UK (opens in a new tab)</a> to find out if you are eligible for support.`,
-  useHelpWithFees: 'Will you be using help with fees to pay for this application?',
-});
-
-const languages = {
-  en,
-  cy,
-};
+import { generateContent as helpWithFeesGenerateContent } from '../../common/help-with-fees/content';
 
 export const form: FormContent = {
   fields: {
@@ -55,9 +32,9 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const helpWithFeesContent = helpWithFeesGenerateContent(content);
   return {
-    ...translations,
+    ...helpWithFeesContent,
     form,
   };
 };

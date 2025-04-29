@@ -1,0 +1,49 @@
+import config from 'config';
+
+import { GeneralApplicationType } from '../../../../../app/case/definition';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { generateCommonContent } from '../../../../common/common.content';
+
+const en = (serviceType: string, serviceFee: string) => ({
+  title: 'Help with fees',
+  line1: `The cost of this ${serviceType} application is £${serviceFee}. You can <a class="govuk-link" target="_blank" href="${config.get(
+    'govukUrls.getHelpWithCourtFees'
+  )}">check the help with fees guidance on GOV.UK (opens in a new tab)</a> to find out if you are eligible for support.`,
+  useHelpWithFees: 'Will you be using help with fees to pay for this application?',
+});
+
+// @TODO translations
+const cy = (serviceType: string, serviceFee: string) => ({
+  title: 'Help with fees',
+  line1: `The cost of this ${serviceType} application is £${serviceFee}. You can <a class="govuk-link" target="_blank" href="${config.get(
+    'govukUrls.getHelpWithCourtFees'
+  )}">check the help with fees guidance on GOV.UK (opens in a new tab)</a> to find out if you are eligible for support.`,
+  useHelpWithFees: 'Will you be using help with fees to pay for this application?',
+});
+
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  let serviceType;
+  let serviceFee;
+
+  switch (content.userCase.applicant1GeneralApplicationType) {
+    case GeneralApplicationType.DEEMED_SERVICE: {
+      serviceType = generateCommonContent(content).generalApplication.deemed;
+      serviceFee = '58';
+      break;
+    }
+    default: {
+      serviceType = '';
+      serviceFee = '';
+    }
+  }
+
+  const translations = languages[content.language](serviceType, serviceFee);
+  return {
+    ...translations,
+  };
+};

@@ -15,6 +15,7 @@ import {
   DocumentType,
   FinancialOrderFor,
   Gender,
+  GeneralApplicationType,
   JurisdictionConnections,
   LegalAdvisorDecision,
   ListValue,
@@ -195,6 +196,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DeemedCannotUploadDocs: 'applicant1DeemedCannotUploadDocs',
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1GeneralApplicationType: 'applicant1GeneralApplicationType',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -458,6 +460,7 @@ export interface Case {
   applicant1DeemedCannotUploadDocs?: Checkbox;
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
+  applicant1GeneralApplicationType?: GeneralApplicationType;
 }
 
 export interface CaseWithId extends Case {

@@ -1041,6 +1041,7 @@ export interface CaseData {
   applicant1DeemedCannotUploadDocs: YesOrNo;
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
+  applicant1GeneralApplicationType: GeneralApplicationType;
 }
 
 export interface CaseDocuments {

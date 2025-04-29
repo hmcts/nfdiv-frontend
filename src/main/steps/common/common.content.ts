@@ -11,6 +11,9 @@ export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
+  generalApplication: {
+    deemed: 'deemed service',
+  },
   feedback: {
     part1: 'This is a new service – your ',
     part2: 'feedback',
@@ -162,6 +165,9 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
+  generalApplication: {
+    deemed: 'deemed service',
+  },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
     part2: 'bydd eich sylwadau',

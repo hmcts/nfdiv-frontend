@@ -424,6 +424,9 @@ const fields: ToApiConverters = {
   applicant1DeemedNoEvidenceStatement: data => ({
     applicant1DeemedNoEvidenceStatement: data.applicant1DeemedNoEvidenceStatement,
   }),
+  applicant1GeneralApplicationType: data => ({
+    applicant1GeneralApplicationType: data.applicant1GeneralApplicationType,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
