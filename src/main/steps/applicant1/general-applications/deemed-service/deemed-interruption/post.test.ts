@@ -5,7 +5,7 @@ import { CITIZEN_UPDATE, GeneralApplicationType, YesOrNo } from '../../../../../
 
 import DeemedInterruptionPostController from './post';
 
-describe('EnterYourAddressPostController', () => {
+describe('DeemedInterruptionPostController', () => {
   let userCase: Partial<CaseWithId>;
   beforeEach(() => {
     userCase = { id: '1234' };
