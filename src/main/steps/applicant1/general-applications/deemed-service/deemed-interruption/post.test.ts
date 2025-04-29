@@ -1,11 +1,7 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { CaseWithId } from '../../../../../app/case/case';
-import {
-  CITIZEN_UPDATE,
-  GeneralApplicationType,
-  YesOrNo,
-} from '../../../../../app/case/definition';
+import { CITIZEN_UPDATE, GeneralApplicationType, YesOrNo } from '../../../../../app/case/definition';
 
 import DeemedInterruptionPostController from './post';
 

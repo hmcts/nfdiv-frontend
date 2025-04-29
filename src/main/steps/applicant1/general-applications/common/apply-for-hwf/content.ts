@@ -1,7 +1,7 @@
 import config from 'config';
 
-import { TranslationFn } from '../../../../../app/controller/GetController';
 import { GeneralApplicationType } from '../../../../../app/case/definition';
+import { TranslationFn } from '../../../../../app/controller/GetController';
 import { HWF_REFERENCE_NUMBER_INPUT_DEEMED } from '../../../../urls';
 
 const en = (continueButtonUrl: string) => ({
