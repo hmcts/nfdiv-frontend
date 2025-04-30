@@ -1,29 +1,31 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { CaseWithId } from '../../../../../app/case/case';
-import { CITIZEN_UPDATE, GeneralApplicationType, YesOrNo } from '../../../../../app/case/definition';
+import { Checkbox } from '../../../../../app/case/case';
+import { CITIZEN_UPDATE, GeneralApplicationType } from '../../../../../app/case/definition';
+import { FormContent } from '../../../../../app/form/Form';
 
 import DeemedInterruptionPostController from './post';
 
 describe('DeemedInterruptionPostController', () => {
-  let userCase: Partial<CaseWithId>;
-  beforeEach(() => {
-    userCase = { id: '1234' };
-  });
+  const mockFormContent = {
+    fields: {
+      applicant1DeemedIUnderstand: {},
+    },
+  } as unknown as FormContent;
 
   it('Set deemed service general application type', async () => {
     const body = {
-      applicant1DeemedIUnderstand: YesOrNo.YES,
+      applicant1DeemedIUnderstand: Checkbox.Checked,
     };
 
     const expectedBody = {
-      applicant1DeemedIUnderstand: YesOrNo.YES,
+      applicant1DeemedIUnderstand: Checkbox.Checked,
       applicant1GeneralApplicationType: GeneralApplicationType.DEEMED_SERVICE,
     };
 
-    const deemedInterruptionPostController = new DeemedInterruptionPostController({});
+    const deemedInterruptionPostController = new DeemedInterruptionPostController(mockFormContent.fields);
 
-    const req = mockRequest({ body, session: { userCase, isApplicant2: false } });
+    const req = mockRequest({ body });
     const res = mockResponse();
     await deemedInterruptionPostController.post(req, res);
 
