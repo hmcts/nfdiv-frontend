@@ -36,15 +36,15 @@ Feature: Deemed service journey
 
     Given I click element "#applicant1DeemedIUnderstand"
     When I click continue
-    Then the page should include element "#helpWithFeesDeemedTitle"
+    Then the page should include element "#helpWithFeesTitle"
 
     Given I click element "#yes"
     When I click continue
-    Then the page should include element "#hwfReferenceNumberDeemedTitle"
+    Then the page should include element "#hwfReferenceNumberTitle"
 
     Given I click element "#yes"
     When I click continue
-    Then the page should include element "#hwfReferenceNumberInputDeemedTitle"
+    Then the page should include element "#hwfReferenceNumberInputTitle"
 
     Given I select element "#applicant1DeemedHwfRefNumber"
     And I type "HWF-A1B-23D"
