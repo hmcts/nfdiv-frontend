@@ -10,7 +10,6 @@ import { CommonContent } from '../../../../common/common.content';
 import * as urls from '../../../../urls';
 
 const en = (
-  iUnderstand,
   useHwf,
   haveHwfReference,
   hwfReference,
@@ -26,7 +25,6 @@ const en = (
   notProvided: 'Not provided',
   havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
   stepQuestions: {
-    iUnderstand: 'I Understand',
     useHwf: 'Use Help With Fees',
     haveHwfReference: 'I have an HWF Reference',
     hwfReference: 'HWF Reference',
@@ -36,7 +34,6 @@ const en = (
     noEvidenceStatement: 'No Evidence Statement',
   },
   stepAnswers: {
-    iUnderstand: `${iUnderstand}`,
     useHwf: `${useHwf}`,
     haveHwfReference: `${haveHwfReference}`,
     hwfReference: `${hwfReference}`,
@@ -46,7 +43,6 @@ const en = (
     noEvidenceStatement: `${noEvidenceStatement}`,
   },
   stepLinks: {
-    iUnderstand: `${urls.DEEMED_INTERRUPTION}`,
     useHwf: `${urls.HELP_WITH_FEES_DEEMED}`,
     haveHwfReference: `${urls.HWF_REFERENCE_NUMBER_DEEMED}`,
     hwfReference: `${urls.HWF_REFERENCE_NUMBER_INPUT_DEEMED}`,
@@ -59,7 +55,6 @@ const en = (
 });
 
 const cy: typeof en = (
-  iUnderstand,
   useHwf,
   haveHwfReference,
   hwfReference,
@@ -75,7 +70,6 @@ const cy: typeof en = (
   notProvided: 'Not provided',
   havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
   stepQuestions: {
-    iUnderstand: 'I Understand',
     useHwf: 'Use Help With Fees',
     haveHwfReference: 'I have an HWF Reference',
     hwfReference: 'HWF Reference',
@@ -85,7 +79,6 @@ const cy: typeof en = (
     noEvidenceStatement: 'No Evidence Statement',
   },
   stepAnswers: {
-    iUnderstand: `${iUnderstand}`,
     useHwf: `${useHwf}`,
     haveHwfReference: `${haveHwfReference}`,
     hwfReference: `${hwfReference}`,
@@ -95,7 +88,6 @@ const cy: typeof en = (
     noEvidenceStatement: `${noEvidenceStatement}`,
   },
   stepLinks: {
-    iUnderstand: `${urls.DEEMED_INTERRUPTION}`,
     useHwf: `${urls.HELP_WITH_FEES_DEEMED}`,
     haveHwfReference: `${urls.HWF_REFERENCE_NUMBER_DEEMED}`,
     hwfReference: `${urls.HWF_REFERENCE_NUMBER_INPUT_DEEMED}`,
@@ -166,7 +158,6 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const iUnderstand = content.userCase.applicant1DeemedIUnderstand === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
   const useHwf = content.userCase.applicant1DeemedUseHelpWithFees;
   const haveHwfReference = content.userCase.applicant1DeemedHaveHwfReference;
   const hwfReference = content.userCase.applicant1DeemedHwfRefNumber;
@@ -179,7 +170,6 @@ export const generateContent: TranslationFn = content => {
   const usingHwf =
     useHwf === YesOrNo.YES && haveHwfReference === YesOrNo.YES && isInvalidHelpWithFeesRef(hwfReference) === undefined;
   const translations = languages[content.language](
-    iUnderstand,
     useHwf,
     haveHwfReference,
     hwfReference,
@@ -193,7 +183,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
-    iUnderstand,
     useHwf,
     haveHwfReference,
     hwfReference,
