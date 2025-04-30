@@ -2,11 +2,11 @@ import { isEmpty } from 'lodash';
 
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { CommonContent } from '../../../../common/common.content';
 
-const en = () => ({
+const en = ({ partner }: CommonContent) => ({
   title: 'Tell us about your evidence',
-  line1:
-    "Give as much detail as you can. The judge needs to be satisfied that your partner has received the papers before they can grant your application. If your upload does not show the date you'll need to explain when you got it.",
+  line1: `Give as much detail as you can. The judge needs to be satisfied that your ${partner} has received the papers before they can grant your application. If your upload does not show the date you'll need to explain when you got it.`,
   errors: {
     applicant1DeemedEvidenceDetails: {
       required: 'You have not provided any information. You need to provide the information the court has requested.',
@@ -14,10 +14,9 @@ const en = () => ({
   },
 });
 
-const cy: typeof en = () => ({
+const cy: typeof en = ({ partner }: CommonContent) => ({
   title: 'Tell us about your evidence',
-  line1:
-    "Give as much detail as you can. The judge needs to be satisfied that your partner has received the papers before they can grant your application. If your upload does not show the date you'll need to explain when you got it.",
+  line1: `Give as much detail as you can. The judge needs to be satisfied that your ${partner} has received the papers before they can grant your application. If your upload does not show the date you'll need to explain when you got it.`,
   errors: {
     applicant1DeemedEvidenceDetails: {
       required: 'You have not provided any information. You need to provide the information the court has requested.',
@@ -50,7 +49,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,
