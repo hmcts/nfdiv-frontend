@@ -3,7 +3,7 @@ import config from 'config';
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
-import { SAVE_AND_SIGN_OUT } from '../urls';
+import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
 
 import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
@@ -41,6 +41,8 @@ export const en = {
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
   errorSummaryHeading: 'There was a problem',
   saveAndSignOut: 'Save and sign out',
+  wantToWithdrawApplication: 'I want to withdraw this application',
+  withdrawApplicationPath: WITHDRAW_APPLICATION,
   exitService: 'Exit this service',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -190,6 +192,8 @@ const cy: typeof en = {
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   errorSummaryHeading: 'Roedd yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
+  wantToWithdrawApplication: "Rwyf eisiau tynnu'r cais hwn yn ôl",
+  withdrawApplicationPath: WITHDRAW_APPLICATION,
   exitService: 'Gadael y gwasanaeth hwn',
   signOut: 'Allgofnodi',
   signIn: 'Mewngofnodi',

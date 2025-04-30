@@ -5,6 +5,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 
 const en = ({ isDivorce, required }: CommonContent) => ({
+  title: 'Do you intend to delay the application',
   intendToDelay: `Do you intend to ask the court to delay the ${isDivorce ? 'divorce' : 'dissolution'}
   until it is satisfied with your financial situation?`,
   no: 'No',
@@ -19,6 +20,7 @@ const en = ({ isDivorce, required }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ isDivorce, required }: CommonContent) => ({
+  title: 'A ydych yn bwriadu oedi’r cais',
   intendToDelay: `A ydych yn bwriadu gofyn i’r llys ohirio’r ${isDivorce ? 'ysgariad' : 'diddymiad'}
   nes ei fod yn fodlon â’ch sefyllfa ariannol?`,
   yes: 'Ydw',
@@ -38,12 +40,12 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
-        { label: l => l.no, value: YesOrNo.NO },
         {
           label: l => l.yes,
           value: YesOrNo.YES,
           conditionalText: l => `<p class="govuk-label">${l.delaySelected}</p>`,
         },
+        { label: l => l.no, value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
