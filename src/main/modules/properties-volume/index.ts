@@ -10,7 +10,7 @@ export class PropertiesVolume {
 
   constructor() {
     const vaultName = 'nfdiv-aat';
-    const url = `https://${vaultName}.vault.azure.net/`;
+    const url = `https://${vaultName}.vault.azure.net`;
     const credential = new DefaultAzureCredential();
 
     this.client = new SecretClient(url, credential);
