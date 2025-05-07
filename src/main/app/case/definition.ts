@@ -1030,6 +1030,8 @@ export interface CaseData {
   generalLetters: ListValue<GeneralLetterDetails>[];
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
+  applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
+  applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1047,6 +1049,11 @@ export interface CaseDocuments {
   documentsUploadedOnConfirmService: ListValue<DivorceDocument>[];
   typeOfDocumentAttached: OfflineDocumentReceived;
   scannedSubtypeReceived: ScannedDocumentSubtypes;
+}
+
+export interface NoResponseJourneyOptions {
+  noResponseCheckContactDetails: NoResponseCheckContactDetails;
+  noResponsePartnerHasReceivedPapers: YesOrNo;
 }
 
 export interface RequestForInformationResponse {
@@ -2105,12 +2112,11 @@ export const enum State {
 }
 
 export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingPayment, State.AwaitingResponseToHWFDecision
+  State.AwaitingPayment,
+  State.AwaitingResponseToHWFDecision,
 ]);
 
-export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingFinalOrderPayment
-]);
+export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
@@ -2438,6 +2444,12 @@ export const enum Prayer {
 
 export const enum ServiceProcessedByProcessServer {
   CONFIRM = 'serviceProcessed',
+}
+
+export const enum NoResponseCheckContactDetails {
+  UP_TO_DATE = 'upToDate',
+  NEW_ADDRESS = 'newAddress',
+  NOT_KNOWN = 'notKnown',
 }
 
 /**

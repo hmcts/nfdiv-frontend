@@ -391,6 +391,12 @@ const fields: ToApiConverters = {
     app2RfiDraftResponseDetails: data.app2RfiDraftResponseDetails,
   }),
   app2RfiDraftResponseUploadedFiles: () => ({}),
+  applicant1NoResponseCheckContactDetails: data => ({
+    applicant1NoResponseCheckContactDetails: data.applicant1NoResponseCheckContactDetails,
+  }),
+  applicant1NoResponsePartnerHasReceivedPapers: data => ({
+    applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

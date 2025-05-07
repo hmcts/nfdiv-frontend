@@ -122,6 +122,10 @@ Then('the page should include visible element {string}', (elemId: string) => {
 When('I select element {string}', iClickElement);
 When('I click element {string}', iClickElement);
 
+When('I click start', () => {
+  iClickElement('a.govuk-button--start');
+});
+
 When('I sign out', () => {
   iClickElement('#navigation > li > a[href="/logout"]');
 });
