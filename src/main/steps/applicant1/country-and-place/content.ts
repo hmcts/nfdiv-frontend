@@ -10,11 +10,15 @@ const en = ({ isDivorce, notAnswered }: CommonContent, certInEnglish: boolean) =
   return {
     title: `Where you ${formedCeremony}`,
     ceremonyCountry: `Enter the country where you ${formedCeremony}`,
-    ceremonyCountryHint: `For example, ${certInEnglish ? 'Australia' : 'France'}.`,
+    ceremonyCountryHint: `You must enter only the name of the country.  For example, ${
+      certInEnglish ? 'Australia' : 'France'
+    }.</br></br>Do not enter the name of the city, county, town, region or province.`,
     ceremonyPlace: `Enter the place where you ${formedCeremony}`,
-    ceremonyPlaceHint: `Copy all the information relating to the place, exactly as it appears on your ${
-      !certInEnglish ? 'translated' : ''
-    } certificate.`,
+    ceremonyPlaceHint: `Copy all the information relating to the place, exactly as it appears on your translated certificate.<br><br>If your ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } certificate does not say the place where ${
+      isDivorce ? 'you got married' : 'your civil partnership took place'
+    }, then enter: Not stated`,
     errors: {
       ceremonyCountry: {
         required: `${notAnswered} You need to enter the country.`,
@@ -32,11 +36,15 @@ const cy = ({ isDivorce, notAnswered }: CommonContent, certInEnglish: boolean) =
   return {
     title: `Lle y gwnaethoch ${formedCeremony}`,
     ceremonyCountry: `Nodwch enw'r wlad lle y gwnaethoch ${formedCeremony}`,
-    ceremonyCountryHint: `Er enghraifft, ${certInEnglish ? 'Awstralia' : 'Ffrainc'}.`,
+    ceremonyCountryHint: `Rhaid i chi nodi enw'r wlad yn unig. Er enghraifft, ${
+      certInEnglish ? 'Awstralia' : 'Ffrainc'
+    }.<br><br>Peidiwch â nodi enw'r ddinas, sir, tref, rhanbarth neu dalaith.`,
     ceremonyPlace: `Nodwch enw'r lle y gwnaethoch ${formedCeremony}`,
-    ceremonyPlaceHint: `Copïwch yr holl wybodaeth am y lle, yn union fel y mae'n ymddangos ar eich tystysgrif${
-      !certInEnglish ? " wedi'i chyfieithu" : ''
-    }.`,
+    ceremonyPlaceHint: `Copïwch yr holl wybodaeth sy'n ymwneud â'r lle, yn union fel y mae'n ymddangos ar eich tystysgrif wedi'i chyfieithu.<br><br>Os nad yw eich ${
+      isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
+    } yn dweud y man lle ${
+      isDivorce ? 'priodoch chi' : 'digwyddodd eich partneriaeth sifil'
+    }, yna nodwch: Heb ei nodi.`,
     errors: {
       ceremonyCountry: {
         required: `${notAnswered} Mae angen ichi nodi'r wlad.`,
