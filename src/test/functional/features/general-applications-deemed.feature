@@ -46,16 +46,16 @@ Feature: Deemed service journey
     When I click continue
     Then the page should include element "#hwfReferenceNumberInputTitle"
 
-    Given I select element "#applicant1DeemedHwfRefNumber"
+    Given I select element "#applicant1GenAppsHwfRefNumber"
     And I type "HWF-A1B-23D"
     When I click continue
-    Then the page should include element "#wantUploadEvidenceDeemedTitle"
+    Then the page should include element "#wantUploadEvidenceTitle"
 
     Given I click element "#yes"
     When I click continue
-    Then the page should include element "#uploadEvidenceDeemedTitle"
+    Then the page should include element "#uploadEvidenceTitle"
 
-    Given I click element "#applicant1DeemedCannotUploadDocs"
+    Given I click element "#applicant1GenAppsCannotUploadDocs"
     When I click continue
     Then the page should include element "#howDoYouKnowDeemedTitle"
 
