@@ -397,6 +397,36 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerHasReceivedPapers: data => ({
     applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
   }),
+  applicant1DeemedIUnderstand: data => ({
+    applicant1DeemedIUnderstand: checkboxConverter(data.applicant1DeemedIUnderstand),
+  }),
+  applicant1GenAppsUseHelpWithFees: data => ({
+    applicant1GenAppsUseHelpWithFees: data.applicant1GenAppsUseHelpWithFees,
+  }),
+  applicant1GenAppsHaveHwfReference: data => ({
+    applicant1GenAppsHaveHwfReference: data.applicant1GenAppsHaveHwfReference,
+  }),
+  applicant1GenAppsCanUploadEvidence: data => ({
+    applicant1GenAppsCanUploadEvidence: data.applicant1GenAppsCanUploadEvidence,
+  }),
+  applicant1GenAppsHwfRefNumber: data => ({
+    applicant1GenAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant1GenAppsHwfRefNumber)
+      ? data.applicant1GenAppsHwfRefNumber
+      : '',
+  }),
+  applicant1GenAppsEvidenceUploadedFiles: () => ({}),
+  applicant1GenAppsCannotUploadDocs: data => ({
+    applicant1GenAppsCannotUploadDocs: checkboxConverter(data.applicant1GenAppsCannotUploadDocs),
+  }),
+  applicant1DeemedEvidenceDetails: data => ({
+    applicant1DeemedEvidenceDetails: data.applicant1DeemedEvidenceDetails,
+  }),
+  applicant1DeemedNoEvidenceStatement: data => ({
+    applicant1DeemedNoEvidenceStatement: data.applicant1DeemedNoEvidenceStatement,
+  }),
+  applicant1GeneralApplicationType: data => ({
+    applicant1GeneralApplicationType: data.applicant1GeneralApplicationType,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
