@@ -1,5 +1,7 @@
-import { GeneralApplicationType } from '../../../../../app/case/definition';
+import { GeneralApplicationType, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { FormContent } from '../../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateCommonContent } from '../../../../common/common.content';
 
 const en = (serviceType: string) => ({
@@ -18,6 +20,31 @@ const languages = {
   cy,
 };
 
+export const form: FormContent = {
+  fields: {
+    applicant1GenAppsHaveHwfReference: {
+      type: 'radios',
+      classes: 'govuk-radios govuk-radios--inline',
+      values: [
+        {
+          label: l => l.yes,
+          id: 'yes',
+          value: YesOrNo.YES,
+        },
+        {
+          label: l => l.no,
+          id: 'no',
+          value: YesOrNo.NO,
+        },
+      ],
+      validator: value => isFieldFilledIn(value),
+    },
+  },
+  submit: {
+    text: l => l.continue,
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   let serviceType;
 
@@ -34,5 +61,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](serviceType);
   return {
     ...translations,
+    form,
   };
 };

@@ -1,4 +1,6 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { FormContent } from '../../../../../app/form/Form';
+import { isInvalidHelpWithFeesRef } from '../../../../../app/form/validation';
 
 const en = () => ({
   title: 'Enter your Help With Fees reference number',
@@ -33,9 +35,29 @@ const languages = {
   cy,
 };
 
+export const form: FormContent = {
+  fields: {
+    applicant1GenAppsHwfRefNumber: {
+      type: 'text',
+      attributes: {
+        maxLength: 11,
+      },
+      classes: 'govuk-!-width-one-third',
+      label: '',
+      labelHidden: true,
+      hint: l => l.refExample,
+      validator: isInvalidHelpWithFeesRef,
+    },
+  },
+  submit: {
+    text: l => l.continue,
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
+    form,
   };
 };

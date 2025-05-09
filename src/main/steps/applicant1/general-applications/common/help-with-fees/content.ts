@@ -1,7 +1,9 @@
 import config from 'config';
 
-import { GeneralApplicationType } from '../../../../../app/case/definition';
+import { GeneralApplicationType, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { FormContent } from '../../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateCommonContent } from '../../../../common/common.content';
 
 const en = (serviceType: string, serviceFee: string) => ({
@@ -26,6 +28,33 @@ const languages = {
   cy,
 };
 
+export const form: FormContent = {
+  fields: {
+    applicant1GenAppsUseHelpWithFees: {
+      type: 'radios',
+      classes: 'govuk-radios govuk-radios--inline',
+      label: l => l.useHelpWithFees,
+      labelHidden: false,
+      values: [
+        {
+          label: l => l.yes,
+          id: 'yes',
+          value: YesOrNo.YES,
+        },
+        {
+          label: l => l.no,
+          id: 'no',
+          value: YesOrNo.NO,
+        },
+      ],
+      validator: value => isFieldFilledIn(value),
+    },
+  },
+  submit: {
+    text: l => l.continue,
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   let serviceType;
   let serviceFee;
@@ -45,5 +74,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](serviceType, serviceFee);
   return {
     ...translations,
+    form,
   };
 };
