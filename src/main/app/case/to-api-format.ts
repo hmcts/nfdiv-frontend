@@ -400,23 +400,23 @@ const fields: ToApiConverters = {
   applicant1DeemedIUnderstand: data => ({
     applicant1DeemedIUnderstand: checkboxConverter(data.applicant1DeemedIUnderstand),
   }),
-  applicant1DeemedUseHelpWithFees: data => ({
-    applicant1DeemedUseHelpWithFees: data.applicant1DeemedUseHelpWithFees,
+  applicant1GenAppsUseHelpWithFees: data => ({
+    applicant1GenAppsUseHelpWithFees: data.applicant1GenAppsUseHelpWithFees,
   }),
-  applicant1DeemedHaveHwfReference: data => ({
-    applicant1DeemedHaveHwfReference: data.applicant1DeemedHaveHwfReference,
+  applicant1GenAppsHaveHwfReference: data => ({
+    applicant1GenAppsHaveHwfReference: data.applicant1GenAppsHaveHwfReference,
   }),
-  applicant1DeemedCanUploadEvidence: data => ({
-    applicant1DeemedCanUploadEvidence: data.applicant1DeemedCanUploadEvidence,
+  applicant1GenAppsCanUploadEvidence: data => ({
+    applicant1GenAppsCanUploadEvidence: data.applicant1GenAppsCanUploadEvidence,
   }),
-  applicant1DeemedHwfRefNumber: data => ({
-    applicant1DeemedHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant1DeemedHwfRefNumber)
-      ? data.applicant1DeemedHwfRefNumber
+  applicant1GenAppsHwfRefNumber: data => ({
+    applicant1GenAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant1GenAppsHwfRefNumber)
+      ? data.applicant1GenAppsHwfRefNumber
       : '',
   }),
-  applicant1DeemedEvidenceUploadedFiles: () => ({}),
-  applicant1DeemedCannotUploadDocs: data => ({
-    applicant1DeemedCannotUploadDocs: checkboxConverter(data.applicant1DeemedCannotUploadDocs),
+  applicant1GenAppsEvidenceUploadedFiles: () => ({}),
+  applicant1GenAppsCannotUploadDocs: data => ({
+    applicant1GenAppsCannotUploadDocs: checkboxConverter(data.applicant1GenAppsCannotUploadDocs),
   }),
   applicant1DeemedEvidenceDetails: data => ({
     applicant1DeemedEvidenceDetails: data.applicant1DeemedEvidenceDetails,

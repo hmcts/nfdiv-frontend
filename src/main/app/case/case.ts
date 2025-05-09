@@ -188,12 +188,12 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1DeemedIUnderstand: 'applicant1DeemedIUnderstand',
-  applicant1DeemedUseHelpWithFees: 'applicant1DeemedUseHelpWithFees',
-  applicant1DeemedHaveHwfReference: 'applicant1DeemedHaveHwfReference',
-  applicant1DeemedCanUploadEvidence: 'applicant1DeemedCanUploadEvidence',
-  applicant1DeemedHwfRefNumber: 'applicant1DeemedHwfRefNumber',
-  applicant1DeemedEvidenceDocs: 'applicant1DeemedEvidenceDocs',
-  applicant1DeemedCannotUploadDocs: 'applicant1DeemedCannotUploadDocs',
+  applicant1GenAppsUseHelpWithFees: 'applicant1GenAppsUseHelpWithFees',
+  applicant1GenAppsHaveHwfReference: 'applicant1GenAppsHaveHwfReference',
+  applicant1GenAppsCanUploadEvidence: 'applicant1GenAppsCanUploadEvidence',
+  applicant1GenAppsHwfRefNumber: 'applicant1GenAppsHwfRefNumber',
+  applicant1GenAppsEvidenceDocs: 'applicant1GenAppsEvidenceDocs',
+  applicant1GenAppsCannotUploadDocs: 'applicant1GenAppsCannotUploadDocs',
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1GeneralApplicationType: 'applicant1GeneralApplicationType',
@@ -451,13 +451,13 @@ export interface Case {
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
   applicant1DeemedIUnderstand?: Checkbox;
-  applicant1DeemedUseHelpWithFees?: YesOrNo;
-  applicant1DeemedHaveHwfReference?: YesOrNo;
-  applicant1DeemedCanUploadEvidence?: YesOrNo;
-  applicant1DeemedHwfRefNumber?: string;
-  applicant1DeemedEvidenceUploadedFiles?: UploadedFile[];
-  applicant1DeemedEvidenceDocs?: ListValue<Partial<DivorceDocument> | null>[];
-  applicant1DeemedCannotUploadDocs?: Checkbox;
+  applicant1GenAppsUseHelpWithFees?: YesOrNo;
+  applicant1GenAppsHaveHwfReference?: YesOrNo;
+  applicant1GenAppsCanUploadEvidence?: YesOrNo;
+  applicant1GenAppsHwfRefNumber?: string;
+  applicant1GenAppsEvidenceUploadedFiles?: UploadedFile[];
+  applicant1GenAppsEvidenceDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant1GenAppsCannotUploadDocs?: Checkbox;
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
   applicant1GeneralApplicationType?: GeneralApplicationType;

@@ -1033,12 +1033,12 @@ export interface CaseData {
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
   applicant1DeemedIUnderstand: YesOrNo;
-  applicant1DeemedUseHelpWithFees: YesOrNo;
-  applicant1DeemedHaveHwfReference: YesOrNo;
-  applicant1DeemedCanUploadEvidence: YesOrNo;
-  applicant1DeemedHwfRefNumber: string;
-  applicant1DeemedEvidenceDocs: ListValue<DivorceDocument>[];
-  applicant1DeemedCannotUploadDocs: YesOrNo;
+  applicant1GenAppsUseHelpWithFees: YesOrNo;
+  applicant1GenAppsHaveHwfReference: YesOrNo;
+  applicant1GenAppsCanUploadEvidence: YesOrNo;
+  applicant1GenAppsHwfRefNumber: string;
+  applicant1GenAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  applicant1GenAppsCannotUploadDocs: YesOrNo;
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
   applicant1GeneralApplicationType: GeneralApplicationType;
@@ -1068,12 +1068,12 @@ export interface NoResponseJourneyOptions {
 
 export interface DeemedServiceJourneyOptions {
   deemedIUnderstand: Checkbox;
-  deemedUseHelpWithFees: YesOrNo;
-  deemedHaveHwfReference: YesOrNo;
-  deemedCanUploadEvidence: YesOrNo;
-  deemedRefNumber: string;
-  deemedEvidenceDocs: ListValue<DivorceDocument>[];
-  deemedCannotUploadDocs: Checkbox;
+  genAppsUseHelpWithFees: YesOrNo;
+  genAppsHaveHwfReference: YesOrNo;
+  genAppsCanUploadEvidence: YesOrNo;
+  genAppsRefNumber: string;
+  genAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  genAppsCannotUploadDocs: Checkbox;
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
 }

@@ -186,13 +186,13 @@ const fields: FromApiConverters = {
   applicant1DeemedIUnderstand: data => ({
     applicant1DeemedIUnderstand: checkboxConverter(data.applicant1DeemedIUnderstand),
   }),
-  applicant1DeemedUseHelpWithFees: 'applicant1DeemedUseHelpWithFees',
-  applicant1DeemedHaveHwfReference: 'applicant1DeemedHaveHwfReference',
-  applicant1DeemedCanUploadEvidence: 'applicant1DeemedCanUploadEvidence',
-  applicant1DeemedHwfRefNumber: 'applicant1DeemedHwfRefNumber',
-  applicant1DeemedEvidenceDocs: uploadedFilesFromApiApplicant1,
-  applicant1DeemedCannotUploadDocs: data => ({
-    applicant1DeemedCannotUploadDocs: checkboxConverter(data.applicant1DeemedCannotUploadDocs),
+  applicant1GenAppsUseHelpWithFees: 'applicant1GenAppsUseHelpWithFees',
+  applicant1GenAppsHaveHwfReference: 'applicant1GenAppsHaveHwfReference',
+  applicant1GenAppsCanUploadEvidence: 'applicant1GenAppsCanUploadEvidence',
+  applicant1GenAppsHwfRefNumber: 'applicant1GenAppsHwfRefNumber',
+  applicant1GenAppsEvidenceDocs: uploadedFilesFromApiApplicant1,
+  applicant1GenAppsCannotUploadDocs: data => ({
+    applicant1GenAppsCannotUploadDocs: checkboxConverter(data.applicant1GenAppsCannotUploadDocs),
   }),
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
