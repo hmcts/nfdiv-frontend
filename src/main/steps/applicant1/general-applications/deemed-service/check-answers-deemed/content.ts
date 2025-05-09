@@ -105,34 +105,34 @@ export const form: FormContent = {
       type: 'hidden',
       values: [],
     },
-    applicant1DeemedUseHelpWithFees: {
+    applicant1GenAppsUseHelpWithFees: {
       type: 'hidden',
       values: [],
     },
-    applicant1DeemedHaveHwfReference: {
+    applicant1GenAppsHaveHwfReference: {
       type: 'hidden',
       values: [],
     },
-    applicant1DeemedHwfRefNumber: {
+    applicant1GenAppsHwfRefNumber: {
       type: 'hidden',
       label: l => l.response,
       labelHidden: true,
     },
-    applicant1DeemedCanUploadEvidence: {
+    applicant1GenAppsCanUploadEvidence: {
       type: 'hidden',
       values: [],
     },
-    applicant1DeemedEvidenceUploadedFiles: {
+    applicant1GenAppsEvidenceUploadedFiles: {
       type: 'hidden',
       label: l => l.uploadFiles,
       labelHidden: true,
       value:
-        (isObject(userCase.applicant1DeemedEvidenceUploadedFiles)
-          ? JSON.stringify(userCase.applicant1DeemedEvidenceUploadedFiles)
-          : userCase.applicant1DeemedEvidenceUploadedFiles) || '[]',
-      parser: data => JSON.parse((data as Record<string, string>).applicant1DeemedEvidenceUploadedFiles || '[]'),
+        (isObject(userCase.applicant1GenAppsEvidenceUploadedFiles)
+          ? JSON.stringify(userCase.applicant1GenAppsEvidenceUploadedFiles)
+          : userCase.applicant1GenAppsEvidenceUploadedFiles) || '[]',
+      parser: data => JSON.parse((data as Record<string, string>).applicant1GenAppsEvidenceUploadedFiles || '[]'),
     },
-    applicant1DeemedCannotUploadDocs: {
+    applicant1GenAppsCannotUploadDocs: {
       type: 'hidden',
       values: [],
     },
@@ -158,13 +158,13 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const useHwf = content.userCase.applicant1DeemedUseHelpWithFees;
-  const haveHwfReference = content.userCase.applicant1DeemedHaveHwfReference;
-  const hwfReference = content.userCase.applicant1DeemedHwfRefNumber;
-  const canUpload = content.userCase.applicant1DeemedCanUploadEvidence;
-  const uploadedDocsFilenames = content.userCase.applicant1DeemedEvidenceDocs?.map(item => getFilename(item.value));
+  const useHwf = content.userCase.applicant1GenAppsUseHelpWithFees;
+  const haveHwfReference = content.userCase.applicant1GenAppsHaveHwfReference;
+  const hwfReference = content.userCase.applicant1GenAppsHwfRefNumber;
+  const canUpload = content.userCase.applicant1GenAppsCanUploadEvidence;
+  const uploadedDocsFilenames = content.userCase.applicant1GenAppsEvidenceDocs?.map(item => getFilename(item.value));
   const cannotUploadDocs =
-    content.userCase.applicant1DeemedCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+    content.userCase.applicant1GenAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
   const evidenceDetails = content.userCase.applicant1DeemedEvidenceDetails;
   const noEvidenceStatement = content.userCase.applicant1DeemedNoEvidenceStatement;
   const usingHwf =
