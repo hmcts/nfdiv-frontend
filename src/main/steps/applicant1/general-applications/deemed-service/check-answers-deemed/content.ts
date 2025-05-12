@@ -16,7 +16,7 @@ const en = (
   canUpload,
   uploadedDocsFilenames,
   evidenceDetails,
-  noEvidenceStatement,
+  noEvidenceStatement
 ) => ({
   stepQuestions: {
     useHwf: 'Use Help With Fees',
@@ -54,7 +54,7 @@ const cy: typeof en = (
   canUpload,
   uploadedDocsFilenames,
   evidenceDetails,
-  noEvidenceStatement,
+  noEvidenceStatement
 ) => ({
   stepQuestions: {
     useHwf: 'Use Help With Fees',
@@ -110,7 +110,7 @@ export const generateContent: TranslationFn = content => {
     canUpload,
     uploadedDocsFilenames,
     evidenceDetails,
-    noEvidenceStatement,
+    noEvidenceStatement
   );
   return {
     ...checkAnswersContent,
