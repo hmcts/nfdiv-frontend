@@ -32,9 +32,9 @@ Feature: Deemed service journey
 
   Scenario: Deemed service happy path
     When I click start
-    Then the page should include element "#deemedInterruptionTitle"
+    Then the page should include element "#interruptionTitle"
 
-    Given I click element "#applicant1DeemedIUnderstand"
+    Given I click element "#applicant1GenAppsIUnderstand"
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 

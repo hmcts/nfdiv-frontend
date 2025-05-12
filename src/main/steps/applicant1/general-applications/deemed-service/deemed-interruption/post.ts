@@ -8,7 +8,7 @@ import { AnyObject, PostController } from '../../../../../app/controller/PostCon
 @autobind
 export default class DeemedInterruptionPostController extends PostController<AnyObject> {
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    if (!req.session.isApplicant2 && formData.applicant1DeemedIUnderstand === Checkbox.Checked) {
+    if (!req.session.isApplicant2 && formData.applicant1GenAppsIUnderstand === Checkbox.Checked) {
       formData.applicant1GeneralApplicationType = GeneralApplicationType.DEEMED_SERVICE;
     }
     return super.save(req, formData, eventName);

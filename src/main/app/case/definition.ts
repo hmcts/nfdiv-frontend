@@ -1032,7 +1032,7 @@ export interface CaseData {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
-  applicant1DeemedIUnderstand: YesOrNo;
+  applicant1GenAppsIUnderstand: YesOrNo;
   applicant1GenAppsUseHelpWithFees: YesOrNo;
   applicant1GenAppsHaveHwfReference: YesOrNo;
   applicant1GenAppsCanUploadEvidence: YesOrNo;
@@ -1067,7 +1067,7 @@ export interface NoResponseJourneyOptions {
 }
 
 export interface DeemedServiceJourneyOptions {
-  deemedIUnderstand: Checkbox;
+  GenAppsIUnderstand: Checkbox;
   genAppsUseHelpWithFees: YesOrNo;
   genAppsHaveHwfReference: YesOrNo;
   genAppsCanUploadEvidence: YesOrNo;

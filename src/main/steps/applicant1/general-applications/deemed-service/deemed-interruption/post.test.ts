@@ -9,17 +9,17 @@ import DeemedInterruptionPostController from './post';
 describe('DeemedInterruptionPostController', () => {
   const mockFormContent = {
     fields: {
-      applicant1DeemedIUnderstand: {},
+      applicant1GenAppsIUnderstand: {},
     },
   } as unknown as FormContent;
 
   it('Set deemed service general application type', async () => {
     const body = {
-      applicant1DeemedIUnderstand: Checkbox.Checked,
+      applicant1GenAppsIUnderstand: Checkbox.Checked,
     };
 
     const expectedBody = {
-      applicant1DeemedIUnderstand: Checkbox.Checked,
+      applicant1GenAppsIUnderstand: Checkbox.Checked,
       applicant1GeneralApplicationType: GeneralApplicationType.DEEMED_SERVICE,
     };
 

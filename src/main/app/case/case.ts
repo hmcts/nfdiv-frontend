@@ -187,7 +187,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
-  applicant1DeemedIUnderstand: 'applicant1DeemedIUnderstand',
+  applicant1GenAppsIUnderstand: 'applicant1GenAppsIUnderstand',
   applicant1GenAppsUseHelpWithFees: 'applicant1GenAppsUseHelpWithFees',
   applicant1GenAppsHaveHwfReference: 'applicant1GenAppsHaveHwfReference',
   applicant1GenAppsCanUploadEvidence: 'applicant1GenAppsCanUploadEvidence',
@@ -450,7 +450,7 @@ export interface Case {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
-  applicant1DeemedIUnderstand?: Checkbox;
+  applicant1GenAppsIUnderstand?: Checkbox;
   applicant1GenAppsUseHelpWithFees?: YesOrNo;
   applicant1GenAppsHaveHwfReference?: YesOrNo;
   applicant1GenAppsCanUploadEvidence?: YesOrNo;

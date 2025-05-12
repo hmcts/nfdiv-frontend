@@ -1,22 +1,17 @@
-import { Checkbox } from '../../../../../app/case/case';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
-import { CommonContent } from '../../../../common/common.content';
+import {
+  generateContent as generateInterruptionContent,
+  form as interruptionForm,
+} from '../../common/interruption/content';
 
-const en = ({ partner }: CommonContent) => ({
+const en = () => ({
   title: "You're about to apply for deemed service",
-  line1: `If your application is successful, we will share your answers and any evidence you provide with your ${partner}.`,
-  line2: "We will not share your contact details if you've told us to keep them private.",
-  iUnderstand: 'I understand',
 });
 
 // @TODO translations
-const cy = ({ partner }: CommonContent) => ({
+const cy = () => ({
   title: "You're about to apply for deemed service",
-  line1: `If your application is successful, we will share your answers and any evidence you provide with your ${partner}.`,
-  line2: "We will not share your contact details if you've told us to keep them private.",
-  iUnderstand: 'I understand',
 });
 
 const languages = {
@@ -24,28 +19,13 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: {
-    applicant1DeemedIUnderstand: {
-      type: 'checkboxes',
-      values: [
-        {
-          name: 'applicant1DeemedIUnderstand',
-          label: l => l.iUnderstand,
-          value: Checkbox.Checked,
-          validator: isFieldFilledIn,
-        },
-      ],
-    },
-  },
-  submit: {
-    text: l => l.continue,
-  },
-};
+export const form: FormContent = interruptionForm;
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const interruptionContent = generateInterruptionContent(content);
+  const translations = languages[content.language]();
   return {
+    ...interruptionContent,
     ...translations,
     form,
   };
