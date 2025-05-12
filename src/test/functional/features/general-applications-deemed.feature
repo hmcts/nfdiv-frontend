@@ -63,8 +63,8 @@ Feature: Deemed service journey
     And I type "Evidence Details"
     When I click continue
     Then the page should include element "#checkAnswersDeemedTitle"
-    And the page should include element "#STOP"
 
+#    Given I click element "#applicant1GenAppsStatementOfTruth"
 #    When I click submit
 #    Finish this journey when payment options are added
 
