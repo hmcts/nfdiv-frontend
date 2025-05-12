@@ -1042,6 +1042,7 @@ export interface CaseData {
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
   applicant1GeneralApplicationType: GeneralApplicationType;
+  applicant1GenAppsStatementOfTruth: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1076,6 +1077,7 @@ export interface DeemedServiceJourneyOptions {
   genAppsCannotUploadDocs: Checkbox;
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
+  genAppsStatementOfTruth: Checkbox;
 }
 
 export interface RequestForInformationResponse {

@@ -197,6 +197,9 @@ const fields: FromApiConverters = {
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1GeneralApplicationType: 'applicant1GeneralApplicationType',
+  applicant1GenAppsStatementOfTruth: data => ({
+    applicant1GenAppsStatementOfTruth: checkboxConverter(data.applicant1GenAppsStatementOfTruth),
+  }),
 };
 
 const fromApiDate = date => {

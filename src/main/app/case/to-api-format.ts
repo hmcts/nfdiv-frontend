@@ -427,6 +427,9 @@ const fields: ToApiConverters = {
   applicant1GeneralApplicationType: data => ({
     applicant1GeneralApplicationType: data.applicant1GeneralApplicationType,
   }),
+  applicant1GenAppsStatementOfTruth: data => ({
+    applicant1GenAppsStatementOfTruth: checkboxConverter(data.applicant1GenAppsStatementOfTruth),
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

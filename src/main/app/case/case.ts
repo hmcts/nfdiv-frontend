@@ -197,6 +197,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1GeneralApplicationType: 'applicant1GeneralApplicationType',
+  applicant1GenAppsStatementOfTruth: 'applicant1GenAppsStatementOfTruth',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -461,6 +462,7 @@ export interface Case {
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
   applicant1GeneralApplicationType?: GeneralApplicationType;
+  applicant1GenAppsStatementOfTruth?: Checkbox;
 }
 
 export interface CaseWithId extends Case {
