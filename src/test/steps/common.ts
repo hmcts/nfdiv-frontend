@@ -82,7 +82,6 @@ export const iClickSubmit = (): void => {
 
 export const iRejectCookies = (): void => {
   iClickElement('button.cookie-banner-reject-button');
-  I.waitForElement('button.cookie-banner-hide-button', 1);
   iClickElement('button.cookie-banner-hide-button');
 };
 
