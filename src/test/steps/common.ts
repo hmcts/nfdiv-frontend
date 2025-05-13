@@ -80,6 +80,14 @@ export const iClickSubmit = (): void => {
   iClickElement('#main-form-submit');
 };
 
+export const iRejectCookies = (): void => {
+  iClickElement('button.cookie-banner-reject-button');
+  I.waitForElement('button.cookie-banner-hide-button', 1);
+  iClickElement('button.cookie-banner-hide-button');
+};
+
+When('I reject cookies', iRejectCookies);
+
 export const iWait = (time: number): void => {
   I.wait(time);
 };
