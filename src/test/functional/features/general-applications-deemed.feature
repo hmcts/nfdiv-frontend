@@ -2,6 +2,7 @@ Feature: Deemed service journey
 
   Background:
     Given I create a new user and login
+    Then I reject cookies
     And I've already completed the form using the fixture "issuedCase"
     Given a superuser updates "issueDate" with "2023-10-31"
     Then I set the case state to "AwaitingAos"
@@ -62,10 +63,39 @@ Feature: Deemed service journey
     Given I select element "#applicant1DeemedEvidenceDetails"
     And I type "Evidence Details"
     When I click continue
-    Then the page should include element "#checkAnswersDeemedTitle"
+    Then the page should include element "#checkAnswersTitle"
 
 #    Given I click element "#applicant1GenAppsStatementOfTruth"
 #    When I click submit
 #    Finish this journey when payment options are added
 
+  Scenario: Deemed service no evidence journey
+    When I click start
+    Then the page should include element "#interruptionTitle"
+
+    Given I click element "#applicant1GenAppsIUnderstand"
+    When I click continue
+    Then the page should include element "#helpWithFeesTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#hwfReferenceNumberTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#hwfReferenceNumberInputTitle"
+
+    Given I select element "#applicant1GenAppsHwfRefNumber"
+    And I type "HWF-A1B-23D"
+    When I click continue
+    Then the page should include element "#wantUploadEvidenceTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#whyNoEvidenceDeemedTitle"
+
+    Given I select element "#applicant1DeemedNoEvidenceStatement"
+    And I type "No Evidence"
+    When I click continue
+    Then the page should include element "#checkAnswersTitle"
 
