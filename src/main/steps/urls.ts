@@ -169,8 +169,7 @@ export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
 export const PARTNER_IN_PRISON: PageLink = '/general-applications/no-response/partner-in-prison';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
   '/general-applications/search-gov-records/search-gov-records-application';
-export const DISPENSE_SERVICE_APPLICATION: PageLink =
-  '/general-applications/dispense-service/service-application';
+export const DISPENSE_SERVICE_APPLICATION: PageLink = '/general-applications/dispense-service/service-application';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/general-applications/deemed-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/general-applications/deemed-service/hwf-reference-number';
 export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/want-upload-evidence';
