@@ -161,23 +161,23 @@ export const EVIDENCE_RECEIVED_APPLICATION: PageLink =
   '/general-applications/no-response/evidence-received-application';
 export const NEW_POSTAL_AND_EMAIL: PageLink = '/general-applications/no-response/new-postal-and-email';
 export const NO_NEW_ADDRESS: PageLink = '/general-applications/no-response/no-new-address';
-export const DEEMED_SERVICE_APPLICATION: PageLink = '/general-applications/deemed-service/deemed-service-application';
+export const DEEMED_SERVICE_APPLICATION: PageLink = '/general-applications/deemed-service/service-application';
 export const SERVE_AGAIN: PageLink = '/general-applications/no-response/serve-again';
-export const DEEMED_INTERRUPTION: PageLink = '/general-applications/deemed-service/deemed-interruption';
+export const DEEMED_INTERRUPTION: PageLink = '/general-applications/deemed-service/interruption';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
-  '/general-applications/alternative-service/alternative-service-application';
+  '/general-applications/alternative-service/service-application';
 export const PARTNER_IN_PRISON: PageLink = '/general-applications/no-response/partner-in-prison';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
   '/general-applications/search-gov-records/search-gov-records-application';
 export const DISPENSE_SERVICE_APPLICATION: PageLink =
-  '/general-applications/dispense-service/dispense-service-application';
-export const HELP_WITH_FEES_DEEMED: PageLink = '/general-applications/deemed-service/help-with-fees-deemed';
-export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/general-applications/deemed-service/hwf-reference-number-deemed';
-export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/want-upload-evidence-deemed';
+  '/general-applications/dispense-service/service-application';
+export const HELP_WITH_FEES_DEEMED: PageLink = '/general-applications/deemed-service/help-with-fees';
+export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/general-applications/deemed-service/hwf-reference-number';
+export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/want-upload-evidence';
 export const HWF_REFERENCE_NUMBER_INPUT_DEEMED: PageLink =
-  '/general-applications/deemed-service/hwf-reference-number-input-deemed';
-export const APPLY_FOR_HWF_DEEMED: PageLink = '/general-applications/deemed-service/apply-for-hwf-deemed';
-export const UPLOAD_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/upload-evidence-deemed';
-export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/why-no-evidence-deemed';
-export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/general-applications/deemed-service/how-do-you-know-deemed';
-export const CHECK_ANSWERS_DEEMED: PageLink = '/general-applications/deemed-service/check-answers-deemed';
+  '/general-applications/deemed-service/hwf-reference-number-input';
+export const APPLY_FOR_HWF_DEEMED: PageLink = '/general-applications/deemed-service/apply-for-hwf';
+export const UPLOAD_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/upload-evidence';
+export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/why-no-evidence';
+export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/general-applications/deemed-service/how-do-you-know';
+export const CHECK_ANSWERS_DEEMED: PageLink = '/general-applications/deemed-service/check-answers';
