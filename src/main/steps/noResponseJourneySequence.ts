@@ -15,7 +15,7 @@ import {
   SERVE_AGAIN,
 } from './urls';
 
-export const noResponseJourneySteps: Step[] = [
+export const noResponseJourneySequence: Step[] = [
   {
     url: OPTIONS_FOR_PROGRESSING,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {

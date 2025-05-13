@@ -16,7 +16,7 @@ import {
   WHY_NO_EVIDENCE_DEEMED,
 } from './urls';
 
-export const deemedServiceApplication: Step[] = [
+export const deemedServiceApplicationSequence: Step[] = [
   {
     url: DEEMED_SERVICE_APPLICATION,
     getNextStep: () => DEEMED_INTERRUPTION,
