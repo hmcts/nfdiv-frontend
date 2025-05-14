@@ -1,4 +1,5 @@
 import config from 'config';
+
 import { TranslationFn } from '../../../../../app/controller/GetController';
 
 const en = () => ({
@@ -37,7 +38,8 @@ const languages = {
   cy,
 };
 
-export const generateContent: TranslationFn = content => {const translations = languages[content.language]();
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language]();
   return {
     ...translations,
   };
