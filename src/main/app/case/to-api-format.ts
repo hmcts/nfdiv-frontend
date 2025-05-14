@@ -402,12 +402,9 @@ const fields: ToApiConverters = {
   }),
   applicant1GenAppsUseHelpWithFees: data => ({
     applicant1GenAppsUseHelpWithFees: data.applicant1GenAppsUseHelpWithFees,
-  }),
-  applicant1GenAppsHaveHwfReference: data => ({
-    applicant1GenAppsHaveHwfReference: data.applicant1GenAppsHaveHwfReference,
-  }),
-  applicant1GenAppsCanUploadEvidence: data => ({
-    applicant1GenAppsCanUploadEvidence: data.applicant1GenAppsCanUploadEvidence,
+    ...(data.applicant1GenAppsUseHelpWithFees === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1GenAppsHaveHwfReference', 'applicant1GenAppsHwfRefNumber'])
+      : {}),
   }),
   applicant1GenAppsHwfRefNumber: data => ({
     applicant1GenAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant1GenAppsHwfRefNumber)
@@ -417,15 +414,6 @@ const fields: ToApiConverters = {
   applicant1GenAppsEvidenceUploadedFiles: () => ({}),
   applicant1GenAppsCannotUploadDocs: data => ({
     applicant1GenAppsCannotUploadDocs: checkboxConverter(data.applicant1GenAppsCannotUploadDocs),
-  }),
-  applicant1DeemedEvidenceDetails: data => ({
-    applicant1DeemedEvidenceDetails: data.applicant1DeemedEvidenceDetails,
-  }),
-  applicant1DeemedNoEvidenceStatement: data => ({
-    applicant1DeemedNoEvidenceStatement: data.applicant1DeemedNoEvidenceStatement,
-  }),
-  applicant1GeneralApplicationType: data => ({
-    applicant1GeneralApplicationType: data.applicant1GeneralApplicationType,
   }),
   applicant1GenAppsStatementOfTruth: data => ({
     applicant1GenAppsStatementOfTruth: checkboxConverter(data.applicant1GenAppsStatementOfTruth),
