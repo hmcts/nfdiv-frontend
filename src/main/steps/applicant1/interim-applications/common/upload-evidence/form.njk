@@ -8,9 +8,9 @@
 {% block form_content %}
 
   {% for fieldName, field in form.fields %}
-    {% if fieldName == 'applicant1GenAppsCannotUploadDocs' %}
+    {% if fieldName == 'applicant1InterimAppsCannotUploadDocs' %}
       {% include "common/form/fields/" + field.type + ".njk" %}
-    {% elseif fieldName == 'applicant1GenAppsEvidenceUploadedFiles'%}
+    {% elseif fieldName == 'applicant1InterimAppsEvidenceUploadedFiles'%}
       <p class="govuk-body">
         <strong>{{ acceptedFileFormats }}</strong> {{ fileFormats }}<br>
         <strong>{{ maximumFileSize }}</strong> {{ fileSize }}

@@ -9,7 +9,7 @@ import { AnyObject, PostController } from '../../../../../app/controller/PostCon
 export default class DeemedInterruptionPostController extends PostController<AnyObject> {
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     if (!req.session.isApplicant2) {
-      formData.applicant1GeneralApplicationType = GeneralApplicationType.DEEMED_SERVICE;
+      formData.applicant1InterimApplicationType = GeneralApplicationType.DEEMED_SERVICE;
     }
     return super.save(req, formData, eventName);
   }

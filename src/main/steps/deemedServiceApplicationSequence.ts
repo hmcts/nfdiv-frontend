@@ -28,14 +28,14 @@ export const deemedServiceApplicationSequence: Step[] = [
   {
     url: HELP_WITH_FEES_DEEMED,
     getNextStep: data =>
-      data?.applicant1GenAppsUseHelpWithFees === YesOrNo.YES
+      data?.applicant1InterimAppsUseHelpWithFees === YesOrNo.YES
         ? HWF_REFERENCE_NUMBER_DEEMED
         : WANT_UPLOAD_EVIDENCE_DEEMED,
   },
   {
     url: HWF_REFERENCE_NUMBER_DEEMED,
     getNextStep: data =>
-      data?.applicant1GenAppsHaveHwfReference === YesOrNo.YES
+      data?.applicant1InterimAppsHaveHwfReference === YesOrNo.YES
         ? HWF_REFERENCE_NUMBER_INPUT_DEEMED
         : APPLY_FOR_HWF_DEEMED,
   },
@@ -50,7 +50,7 @@ export const deemedServiceApplicationSequence: Step[] = [
   {
     url: WANT_UPLOAD_EVIDENCE_DEEMED,
     getNextStep: data =>
-      data?.applicant1GenAppsCanUploadEvidence === YesOrNo.YES ? UPLOAD_EVIDENCE_DEEMED : WHY_NO_EVIDENCE_DEEMED,
+      data?.applicant1InterimAppsCanUploadEvidence === YesOrNo.YES ? UPLOAD_EVIDENCE_DEEMED : WHY_NO_EVIDENCE_DEEMED,
   },
   {
     url: WHY_NO_EVIDENCE_DEEMED,

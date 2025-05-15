@@ -22,9 +22,9 @@ export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
       id: `${file.id}`,
       name: `${getFilename(file.value)}`,
     })) || [],
-  applicant1GenAppsEvidenceDocs: data.applicant1GenAppsEvidenceDocs,
-  applicant1GenAppsEvidenceUploadedFiles:
-    data.applicant1GenAppsEvidenceDocs?.map(file => ({
+  applicant1InterimAppsEvidenceDocs: data.applicant1InterimAppsEvidenceDocs,
+  applicant1InterimAppsEvidenceUploadedFiles:
+    data.applicant1InterimAppsEvidenceDocs?.map(file => ({
       id: `${file.id}`,
       name: `${getFilename(file.value)}`,
     })) || [],

@@ -187,17 +187,17 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
-  applicant1GenAppsIUnderstand: 'applicant1GenAppsIUnderstand',
-  applicant1GenAppsUseHelpWithFees: 'applicant1GenAppsUseHelpWithFees',
-  applicant1GenAppsHaveHwfReference: 'applicant1GenAppsHaveHwfReference',
-  applicant1GenAppsCanUploadEvidence: 'applicant1GenAppsCanUploadEvidence',
-  applicant1GenAppsHwfRefNumber: 'applicant1GenAppsHwfRefNumber',
-  applicant1GenAppsEvidenceDocs: 'applicant1GenAppsEvidenceDocs',
-  applicant1GenAppsCannotUploadDocs: 'applicant1GenAppsCannotUploadDocs',
+  applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
+  applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
+  applicant1InterimAppsHaveHwfReference: 'applicant1InterimAppsHaveHwfReference',
+  applicant1InterimAppsCanUploadEvidence: 'applicant1InterimAppsCanUploadEvidence',
+  applicant1InterimAppsHwfRefNumber: 'applicant1InterimAppsHwfRefNumber',
+  applicant1InterimAppsEvidenceDocs: 'applicant1InterimAppsEvidenceDocs',
+  applicant1InterimAppsCannotUploadDocs: 'applicant1InterimAppsCannotUploadDocs',
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
-  applicant1GeneralApplicationType: 'applicant1GeneralApplicationType',
-  applicant1GenAppsStatementOfTruth: 'applicant1GenAppsStatementOfTruth',
+  applicant1InterimApplicationType: 'applicant1InterimApplicationType',
+  applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -451,18 +451,18 @@ export interface Case {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
-  applicant1GenAppsIUnderstand?: Checkbox;
-  applicant1GenAppsUseHelpWithFees?: YesOrNo;
-  applicant1GenAppsHaveHwfReference?: YesOrNo;
-  applicant1GenAppsCanUploadEvidence?: YesOrNo;
-  applicant1GenAppsHwfRefNumber?: string;
-  applicant1GenAppsEvidenceUploadedFiles?: UploadedFile[];
-  applicant1GenAppsEvidenceDocs?: ListValue<Partial<DivorceDocument> | null>[];
-  applicant1GenAppsCannotUploadDocs?: Checkbox;
+  applicant1InterimAppsIUnderstand?: Checkbox;
+  applicant1InterimAppsUseHelpWithFees?: YesOrNo;
+  applicant1InterimAppsHaveHwfReference?: YesOrNo;
+  applicant1InterimAppsCanUploadEvidence?: YesOrNo;
+  applicant1InterimAppsHwfRefNumber?: string;
+  applicant1InterimAppsEvidenceUploadedFiles?: UploadedFile[];
+  applicant1InterimAppsEvidenceDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant1InterimAppsCannotUploadDocs?: Checkbox;
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
-  applicant1GeneralApplicationType?: GeneralApplicationType;
-  applicant1GenAppsStatementOfTruth?: Checkbox;
+  applicant1InterimApplicationType?: GeneralApplicationType;
+  applicant1InterimAppsStatementOfTruth?: Checkbox;
 }
 
 export interface CaseWithId extends Case {

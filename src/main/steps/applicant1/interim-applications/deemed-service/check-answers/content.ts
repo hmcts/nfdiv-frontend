@@ -94,13 +94,13 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const checkAnswersContent = checkAnswersGenerateContent(content);
-  const useHwf = content.userCase.applicant1GenAppsUseHelpWithFees;
-  const haveHwfReference = content.userCase.applicant1GenAppsHaveHwfReference;
-  const hwfReference = content.userCase.applicant1GenAppsHwfRefNumber;
-  const canUpload = content.userCase.applicant1GenAppsCanUploadEvidence;
-  const uploadedDocsFilenames = content.userCase.applicant1GenAppsEvidenceDocs?.map(item => getFilename(item.value));
+  const useHwf = content.userCase.applicant1InterimAppsUseHelpWithFees;
+  const haveHwfReference = content.userCase.applicant1InterimAppsHaveHwfReference;
+  const hwfReference = content.userCase.applicant1InterimAppsHwfRefNumber;
+  const canUpload = content.userCase.applicant1InterimAppsCanUploadEvidence;
+  const uploadedDocsFilenames = content.userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value));
   const cannotUploadDocs =
-    content.userCase.applicant1GenAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+    content.userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
   const evidenceDetails = content.userCase.applicant1DeemedEvidenceDetails;
   const noEvidenceStatement = content.userCase.applicant1DeemedNoEvidenceStatement;
   const translations = languages[content.language](

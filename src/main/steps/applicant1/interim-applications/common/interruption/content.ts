@@ -26,11 +26,11 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    applicant1GenAppsIUnderstand: {
+    applicant1InterimAppsIUnderstand: {
       type: 'checkboxes',
       values: [
         {
-          name: 'applicant1GenAppsIUnderstand',
+          name: 'applicant1InterimAppsIUnderstand',
           label: l => l.iUnderstand,
           value: Checkbox.Checked,
           validator: isFieldFilledIn,

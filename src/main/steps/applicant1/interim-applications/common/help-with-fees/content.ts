@@ -30,7 +30,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    applicant1GenAppsUseHelpWithFees: {
+    applicant1InterimAppsUseHelpWithFees: {
       type: 'radios',
       classes: 'govuk-radios govuk-radios--inline',
       label: l => l.useHelpWithFees,
@@ -59,7 +59,7 @@ export const generateContent: TranslationFn = content => {
   let serviceType;
   let serviceFee;
 
-  switch (content.userCase.applicant1GeneralApplicationType) {
+  switch (content.userCase.applicant1InterimApplicationType) {
     case GeneralApplicationType.DEEMED_SERVICE: {
       serviceType = generateCommonContent(content).generalApplication.deemed;
       serviceFee = '58';

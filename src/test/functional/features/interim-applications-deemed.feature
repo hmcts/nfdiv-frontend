@@ -35,7 +35,7 @@ Feature: Deemed service journey
     When I click start
     Then the page should include element "#interruptionTitle"
 
-    Given I click element "#applicant1GenAppsIUnderstand"
+    Given I click element "#applicant1InterimAppsIUnderstand"
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 
@@ -47,7 +47,7 @@ Feature: Deemed service journey
     When I click continue
     Then the page should include element "#hwfReferenceNumberInputTitle"
 
-    Given I select element "#applicant1GenAppsHwfRefNumber"
+    Given I select element "#applicant1InterimAppsHwfRefNumber"
     And I type "HWF-A1B-23D"
     When I click continue
     Then the page should include element "#wantUploadEvidenceTitle"
@@ -56,7 +56,7 @@ Feature: Deemed service journey
     When I click continue
     Then the page should include element "#uploadEvidenceTitle"
 
-    Given I click element "#applicant1GenAppsCannotUploadDocs"
+    Given I click element "#applicant1InterimAppsCannotUploadDocs"
     When I click continue
     Then the page should include element "#howDoYouKnowDeemedTitle"
 
@@ -65,7 +65,7 @@ Feature: Deemed service journey
     When I click continue
     Then the page should include element "#checkAnswersTitle"
 
-#    Given I click element "#applicant1GenAppsStatementOfTruth"
+#    Given I click element "#applicant1InterimAppsStatementOfTruth"
 #    When I click submit
 #    Finish this journey when payment options are added
 
@@ -73,7 +73,7 @@ Feature: Deemed service journey
     When I click start
     Then the page should include element "#interruptionTitle"
 
-    Given I click element "#applicant1GenAppsIUnderstand"
+    Given I click element "#applicant1InterimAppsIUnderstand"
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 
@@ -85,7 +85,7 @@ Feature: Deemed service journey
     When I click continue
     Then the page should include element "#hwfReferenceNumberInputTitle"
 
-    Given I select element "#applicant1GenAppsHwfRefNumber"
+    Given I select element "#applicant1InterimAppsHwfRefNumber"
     And I type "HWF-A1B-23D"
     When I click continue
     Then the page should include element "#wantUploadEvidenceTitle"

@@ -37,7 +37,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    applicant1GenAppsHwfRefNumber: {
+    applicant1InterimAppsHwfRefNumber: {
       type: 'text',
       attributes: {
         maxLength: 11,

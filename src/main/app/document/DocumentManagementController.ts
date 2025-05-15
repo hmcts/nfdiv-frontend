@@ -95,7 +95,7 @@ export class DocumentManagerController {
     ) {
       documentsKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
     } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
-      documentsKey = isApplicant2 ? 'applicant2GenAppsEvidenceDocs' : 'applicant1GenAppsEvidenceDocs';
+      documentsKey = isApplicant2 ? 'applicant2InterimAppsEvidenceDocs' : 'applicant1InterimAppsEvidenceDocs';
     }
 
     const updatedDocumentsUploaded = newUploads.concat(req.session.userCase[documentsKey] || []);
@@ -128,7 +128,7 @@ export class DocumentManagerController {
     ) {
       documentsUploadedKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
     } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
-      documentsUploadedKey = isApplicant2 ? 'applicant2GenAppsEvidenceDocs' : 'applicant1GenAppsEvidenceDocs';
+      documentsUploadedKey = isApplicant2 ? 'applicant2InterimAppsEvidenceDocs' : 'applicant1InterimAppsEvidenceDocs';
     }
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];

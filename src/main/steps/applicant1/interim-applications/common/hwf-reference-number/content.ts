@@ -22,7 +22,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    applicant1GenAppsHaveHwfReference: {
+    applicant1InterimAppsHaveHwfReference: {
       type: 'radios',
       classes: 'govuk-radios govuk-radios--inline',
       values: [
@@ -48,7 +48,7 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   let serviceType;
 
-  switch (content.userCase.applicant1GeneralApplicationType) {
+  switch (content.userCase.applicant1InterimApplicationType) {
     case GeneralApplicationType.DEEMED_SERVICE: {
       serviceType = generateCommonContent(content).generalApplication.deemed;
       break;

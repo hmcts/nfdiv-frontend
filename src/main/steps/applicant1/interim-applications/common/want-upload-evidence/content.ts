@@ -21,7 +21,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    applicant1GenAppsCanUploadEvidence: {
+    applicant1InterimAppsCanUploadEvidence: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [

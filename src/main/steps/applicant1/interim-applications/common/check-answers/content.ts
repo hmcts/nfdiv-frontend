@@ -41,14 +41,14 @@ const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1GenAppsStatementOfTruth: {
+    applicant1InterimAppsStatementOfTruth: {
       type: 'checkboxes',
       label: l => l.statementOfTruthLabel,
       labelHidden: true,
       validator: value => isFieldFilledIn(value),
       values: [
         {
-          name: 'applicant1GenAppsStatementOfTruth',
+          name: 'applicant1InterimAppsStatementOfTruth',
           label: l => l.statementOfTruthLabel,
           value: Checkbox.Checked,
         },
@@ -66,9 +66,9 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const useHwf = content.userCase.applicant1GenAppsUseHelpWithFees;
-  const haveHwfReference = content.userCase.applicant1GenAppsHaveHwfReference;
-  const hwfReference = content.userCase.applicant1GenAppsHwfRefNumber;
+  const useHwf = content.userCase.applicant1InterimAppsUseHelpWithFees;
+  const haveHwfReference = content.userCase.applicant1InterimAppsHaveHwfReference;
+  const hwfReference = content.userCase.applicant1InterimAppsHwfRefNumber;
   const usingHwf =
     useHwf === YesOrNo.YES && haveHwfReference === YesOrNo.YES && isInvalidHelpWithFeesRef(hwfReference) === undefined;
   const translations = languages[content.language](usingHwf, content);

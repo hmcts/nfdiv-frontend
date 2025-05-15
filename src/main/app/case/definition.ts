@@ -1032,17 +1032,17 @@ export interface CaseData {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
-  applicant1GenAppsIUnderstand: YesOrNo;
-  applicant1GenAppsUseHelpWithFees: YesOrNo;
-  applicant1GenAppsHaveHwfReference: YesOrNo;
-  applicant1GenAppsCanUploadEvidence: YesOrNo;
-  applicant1GenAppsHwfRefNumber: string;
-  applicant1GenAppsEvidenceDocs: ListValue<DivorceDocument>[];
-  applicant1GenAppsCannotUploadDocs: YesOrNo;
+  applicant1InterimAppsIUnderstand: YesOrNo;
+  applicant1InterimAppsUseHelpWithFees: YesOrNo;
+  applicant1InterimAppsHaveHwfReference: YesOrNo;
+  applicant1InterimAppsCanUploadEvidence: YesOrNo;
+  applicant1InterimAppsHwfRefNumber: string;
+  applicant1InterimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  applicant1InterimAppsCannotUploadDocs: YesOrNo;
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
-  applicant1GeneralApplicationType: GeneralApplicationType;
-  applicant1GenAppsStatementOfTruth: YesOrNo;
+  applicant1InterimApplicationType: GeneralApplicationType;
+  applicant1InterimAppsStatementOfTruth: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1068,16 +1068,16 @@ export interface NoResponseJourneyOptions {
 }
 
 export interface DeemedServiceJourneyOptions {
-  GenAppsIUnderstand: Checkbox;
-  genAppsUseHelpWithFees: YesOrNo;
-  genAppsHaveHwfReference: YesOrNo;
-  genAppsCanUploadEvidence: YesOrNo;
-  genAppsRefNumber: string;
-  genAppsEvidenceDocs: ListValue<DivorceDocument>[];
-  genAppsCannotUploadDocs: Checkbox;
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  interimAppsCannotUploadDocs: Checkbox;
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
-  genAppsStatementOfTruth: Checkbox;
+  interimAppsStatementOfTruth: Checkbox;
 }
 
 export interface RequestForInformationResponse {
