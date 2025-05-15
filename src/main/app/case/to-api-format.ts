@@ -410,6 +410,8 @@ const fields: ToApiConverters = {
     applicant1GenAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant1GenAppsHwfRefNumber)
       ? data.applicant1GenAppsHwfRefNumber
       : '',
+    applicant1GenAppsHaveHwfReference:
+      data.applicant1GenAppsHwfRefNumber === '' ? data.applicant1GenAppsHaveHwfReference : YesOrNo.YES,
   }),
   applicant1GenAppsEvidenceUploadedFiles: () => ({}),
   applicant1GenAppsCannotUploadDocs: data => ({
