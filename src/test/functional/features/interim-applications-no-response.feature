@@ -2,6 +2,7 @@ Feature: No response journey
 
   Background:
     Given I create a new user and login
+    Then I reject cookies
     And I've already completed the form using the fixture "issuedCase"
     Given a superuser updates "issueDate" with "2023-10-31"
     Then I set the case state to "AwaitingAos"
