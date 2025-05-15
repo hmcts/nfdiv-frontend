@@ -1,6 +1,7 @@
 import config from 'config';
 
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { getFee } from '../../../../../app/fees/service/get-fee';
 import { CommonContent } from '../../../../common/common.content';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
@@ -26,7 +27,9 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   line4: `You will be asked to provide the evidence you have to prove that your ${partner} has received the ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   }. Without this your application is likely to be rejected.`,
-  line5: `The application for deemed service costs £58. You may be able to <a class="govuk-link" target="_blank" href="${config.get(
+  line5: `The application for deemed service costs ${getFee(
+    config.get('fees.deemedService')
+  )}. You may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
   startButton: {
@@ -63,7 +66,9 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   line4: `Fe ofynnir i chi ddarparu’r dystiolaeth sydd gennych i brofi bod eich ${partner} wedi cael y ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   }. Heb y dystiolaeth hon, mae’n debyg y bydd eich cais yn cael ei wrthod.`,
-  line5: `Mae’r cais am gyflwyno tybiedig yn costio £58. Efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
+  line5: `Mae’r cais am gyflwyno tybiedig yn costio ${getFee(
+    config.get('fees.deemedService')
+  )}. Efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
   )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
   startButton: {
