@@ -139,7 +139,9 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const applicant1UploadDocumentContent = uploadDocumentGenerateContent(content);
   const translations = languages[content.language](content, applicant1UploadDocumentContent);
-  const uploadedDocsFilenames = content.userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value));
+  const uploadedDocsFilenames = content.userCase.applicant1InterimAppsEvidenceDocs?.map(item =>
+    getFilename(item.value)
+  );
   const amendable = content.isAmendableStates;
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},

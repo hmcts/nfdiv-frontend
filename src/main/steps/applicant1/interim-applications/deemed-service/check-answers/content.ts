@@ -98,7 +98,9 @@ export const generateContent: TranslationFn = content => {
   const haveHwfReference = content.userCase.applicant1InterimAppsHaveHwfReference;
   const hwfReference = content.userCase.applicant1InterimAppsHwfRefNumber;
   const canUpload = content.userCase.applicant1InterimAppsCanUploadEvidence;
-  const uploadedDocsFilenames = content.userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value));
+  const uploadedDocsFilenames = content.userCase.applicant1InterimAppsEvidenceDocs?.map(item =>
+    getFilename(item.value)
+  );
   const cannotUploadDocs =
     content.userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
   const evidenceDetails = content.userCase.applicant1DeemedEvidenceDetails;
