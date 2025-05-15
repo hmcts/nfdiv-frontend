@@ -1,6 +1,7 @@
 import config from 'config';
 
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { getFee } from '../../../../../app/fees/service/get-fee';
 import { CommonContent } from '../../../../common/common.content';
 import { EVIDENCE_RECEIVED_APPLICATION, HAVE_THEY_RECEIVED, HAVE_THEY_RECEIVED_REPRESENTED } from '../../../../urls';
 
@@ -14,7 +15,11 @@ const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   } to your ${partner}'s postal address, as well as their email address if your provided one. If you want to progress your ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } in a different way, you will need to apply to the court to do so.`,
-  line3: `Depending on the application you make, it could cost either £45 or £58, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+  line3: `Depending on the application you make, it could cost either ${getFee(
+    config.get('fees.courtBailiffService')
+  )} or ${getFee(
+    config.get('fees.deemedService')
+  )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
   line4: `We will ask you some questions so that we can show you which options are available for you for proceeding with your ${
@@ -42,7 +47,11 @@ const cy = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   } i gyfeiriad post eich ${partner}, yn ogystal â’u cyfeiriad e-bost os gwnaethoch ddarparu un. Os ydych chi eisiau symud eich ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } ymlaen mewn ffordd wahanol, bydd angen i chi wneud cais i’r llys.`,
-  line3: `Gan ddibynnu ar y cais a wnewch, gall gostio naill ai £45 neu £58, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
+  line3: `Gan ddibynnu ar y cais a wnewch, gall gostio naill ai ${getFee(
+    config.get('fees.courtBailiffService')
+  )} neu ${getFee(
+    config.get('fees.deemedService')
+  )}, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
   )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
   line4: `Byddwn yn gofyn cwestiynau i chi fel y gallwn ddangos pa opsiynau sydd ar gael ei chi ar gyfer parhau â’ch ${
