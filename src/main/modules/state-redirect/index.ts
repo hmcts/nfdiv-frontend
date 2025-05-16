@@ -37,11 +37,6 @@ import {
 /**
  * Adds the state redirect middleware to redirect when application is in certain states
  */
-
-import { Logger } from '@hmcts/nodejs-logging';
-
-const logger = Logger.getLogger('StateRedirectMiddleware');
-
 export class StateRedirectMiddleware {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
@@ -123,8 +118,6 @@ export class StateRedirectMiddleware {
           return res.redirect(PAYMENT_CALLBACK_URL);
         }
 
-        console.log(req.session.userCase.applicant1ServicePayments);
-        logger.info(req.session.userCase.applicant1ServicePayments);
         const servicePayments = new PaymentModel(req.session.userCase.applicant1ServicePayments);
         if (SERVICE_PAYMENT_STATES.has(state) && !req.session.isApplicant2 && servicePayments.hasPayment) {
           return res.redirect(SERVICE_PAYMENT_CALLBACK);
