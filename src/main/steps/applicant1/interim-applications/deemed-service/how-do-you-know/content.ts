@@ -9,7 +9,7 @@ const en = ({ partner }: CommonContent) => ({
   line1: `Give as much detail as you can. The judge needs to be satisfied that your ${partner} has received the papers before they can grant your application. If your upload does not show the date you'll need to explain when you got it.`,
   errors: {
     applicant1DeemedEvidenceDetails: {
-      required: 'You have not provided any information. You need to provide the information the court has requested.',
+      required: 'You must provide a statement before continuing.',
     },
   },
 });
@@ -19,7 +19,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   line1: `Give as much detail as you can. The judge needs to be satisfied that your ${partner} has received the papers before they can grant your application. If your upload does not show the date you'll need to explain when you got it.`,
   errors: {
     applicant1DeemedEvidenceDetails: {
-      required: 'You have not provided any information. You need to provide the information the court has requested.',
+      required: 'You must provide a statement before continuing.',
     },
   },
 });

@@ -20,7 +20,7 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
   },
   line3: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
-  )}">certified translation (opens in a new tab).</a>`,
+  )}">certified translation</a>.`,
   line4: 'You may need to upload multiple documents.',
   line5: 'The court cannot accept video or audio recordings as evidence.',
   uploadAFile: 'Upload a file',
@@ -30,18 +30,18 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
   noFilesUploaded: 'No files uploaded',
   cannotUpload: 'I cannot upload some or all of my documents',
   cannotUploadInfo:
-    'You can post or email your documents to the court. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
+    'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
   errors: {
     applicant1InterimAppsEvidenceUploadedFiles: {
       notUploaded:
-        'You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. If you are having trouble uploading any documents, select that option.',
+        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
     },
     applicant1InterimAppsCannotUploadDocs: {
       notUploaded:
-        'You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. If you are having trouble uploading any documents, select that option.',
+        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
     },
   },
 });
@@ -58,7 +58,7 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
   },
   line3: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
-  )}">certified translation (opens in a new tab).</a>`,
+  )}">certified translation</a>.`,
   line4: 'You may need to upload multiple documents.',
   line5: 'The court cannot accept video or audio recordings as evidence.',
   uploadAFile: 'Upload a file',
@@ -68,18 +68,18 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
   noFilesUploaded: 'No files uploaded',
   cannotUpload: 'I cannot upload some or all of my documents',
   cannotUploadInfo:
-    'You can post or email your documents to the court. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
+    'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
   errors: {
     applicant1InterimAppsEvidenceUploadedFiles: {
       notUploaded:
-        'You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. If you are having trouble uploading any documents, select that option.',
+        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
     },
     applicant1InterimAppsCannotUploadDocs: {
       notUploaded:
-        'You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. If you are having trouble uploading any documents, select that option.',
+        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
     },
   },
 });

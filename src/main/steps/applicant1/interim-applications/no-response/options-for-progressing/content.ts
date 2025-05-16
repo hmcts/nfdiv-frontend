@@ -25,6 +25,9 @@ const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   line4: `We will ask you some questions so that we can show you which options are available for you for proceeding with your ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   }.`,
+  line5: `You can <a class="govuk-link" target="_blank" href="${config.get(
+    'govukUrls.legalAdvisor'
+  )}">speak to a legal adviser or a solicitor</a> at any point in the application process if you feel you need legal advice.`,
   startButton: {
     text: 'Start now',
     url: () => {
@@ -57,6 +60,7 @@ const cy = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   line4: `Byddwn yn gofyn cwestiynau i chi fel y gallwn ddangos pa opsiynau sydd ar gael ei chi ar gyfer parhau â’ch ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   }.`,
+  line5: '', //INSERT TRANSLATION
   startButton: {
     text: 'Dechrau nawr',
     url: () => {
