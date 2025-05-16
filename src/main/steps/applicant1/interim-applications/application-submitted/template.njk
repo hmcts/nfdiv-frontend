@@ -1,0 +1,20 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block backLink %}{% endblock %}
+
+{% block page_content %}
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1 id="applicationSubmittedTitle" class="govuk-panel__title">{{ title }}</h1>
+  </div>
+  <br/>
+  <p class="govuk-body">{{ line1 }}</p>
+  <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
+  <p class="govuk-body">{{ line2 }}</p>
+  <p class="govuk-body">{{ line3 }}</p>
+  <p class="govuk-body">
+    <a class="govuk-link" href="/">{{ returnToHub }}</a>
+  </p>
+{% endblock %}

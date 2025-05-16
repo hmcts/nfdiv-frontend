@@ -174,9 +174,12 @@ export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-ser
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
 export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/want-upload-evidence';
 export const HWF_REFERENCE_NUMBER_INPUT_DEEMED: PageLink =
-  '/interim-applications/deemed-service/hwf-reference-number-input';
+  '/general-applications/deemed-service/hwf-reference-number-input-deemed';
 export const APPLY_FOR_HWF_DEEMED: PageLink = '/interim-applications/deemed-service/apply-for-hwf';
 export const UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/upload-evidence';
 export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/why-no-evidence';
 export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/interim-applications/deemed-service/how-do-you-know';
 export const CHECK_ANSWERS_DEEMED: PageLink = '/interim-applications/deemed-service/check-answers';
+export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
+export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
+export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';

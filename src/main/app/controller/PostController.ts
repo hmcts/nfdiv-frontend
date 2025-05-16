@@ -12,6 +12,7 @@ import {
   State,
 } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
+import { PAYMENT_CALLBACK_URL } from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';
 import { getPaymentCallbackUrl } from './BasePaymentPostController';
@@ -112,7 +113,7 @@ export class PostController<T extends AnyObject> {
 
   private setPaymentCallbackUrlIfPaymentRequired(req: AppRequest<T>, res: Response, formData: Partial<Case>) {
     if (this.getEventName(req) === CITIZEN_SUBMIT) {
-      formData.citizenPaymentCallbackUrl = getPaymentCallbackUrl(req, res);
+      formData.citizenPaymentCallbackUrl = getPaymentCallbackUrl(req, res, PAYMENT_CALLBACK_URL);
     }
   }
 }
