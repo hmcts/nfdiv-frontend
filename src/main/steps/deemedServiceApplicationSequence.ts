@@ -66,6 +66,6 @@ export const deemedServiceApplicationSequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_DEEMED,
-    getNextStep: () => HUB_PAGE,
+    getNextStep: () => HUB_PAGE, // Correct this when the rest of the journey is implemented
   },
 ];
