@@ -431,7 +431,10 @@ const cy: typeof en = (
   aosDueAndDrafted: {
     line1: `Mae eich ${partner} wedi dechrau ymateb i’ch ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-    } ond nid ydynt wedi’i gyflwyno. Dylent fod wedi ymateb erbyn ${getFormattedDate(userCase.dueDate)}.`,
+    } ond nid ydynt wedi’i gyflwyno. Dylent fod wedi ymateb erbyn ${getFormattedDate(
+      userCase.dueDate,
+      SupportedLanguages.Cy
+    )}.`,
     line2: `Efallai yr hoffech ddefnyddio hwn fel prawf bod eich ${partner} wedi cael eich cais.`,
     doNext: 'Beth allwch chi ei wneud nesaf',
     line3: `Y ffordd symlaf i symud eich cais yn ei flaen yw i’ch ${partner} gyflwyno eu hymateb. Gallwch gysylltu â nhw a gofyn iddynt gyflwyno eu hymateb, os yw’n ddiogel i chi wneud hynny.`,
