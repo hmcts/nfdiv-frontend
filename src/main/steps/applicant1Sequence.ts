@@ -93,8 +93,10 @@ import {
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
   UPLOAD_YOUR_DOCUMENTS,
+  VIEW_YOUR_ANSWERS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   WITHDRAWING_YOUR_APPLICATION,
+  WITHDRAW_APPLICATION,
   YOUR_DETAILS_URL,
   YOU_CANNOT_UPDATE_THEIR_EMAIL,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
@@ -446,9 +448,17 @@ export const applicant1PreSubmissionSequence: Step[] = [
     url: YOU_CANNOT_UPDATE_THEIR_EMAIL,
     getNextStep: () => HOME_URL,
   },
+  {
+    url: WITHDRAW_APPLICATION,
+    getNextStep: () => HOME_URL,
+  },
 ];
 
 export const applicant1PostSubmissionSequence: Step[] = [
+  {
+    url: WITHDRAW_APPLICATION,
+    getNextStep: () => HOME_URL,
+  },
   {
     url: PAY_YOUR_FEE,
     getNextStep: () => PAYMENT_CALLBACK_URL,
@@ -566,6 +576,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
   {
     url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: VIEW_YOUR_ANSWERS,
+    getNextStep: () => HOME_URL,
   },
 ];
 
