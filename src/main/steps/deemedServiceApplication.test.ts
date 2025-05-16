@@ -60,7 +60,7 @@ describe('Deemed Service Application Sequence test', () => {
 
     test('Do not have HWF Ref', () => {
       const caseData = {
-        applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+        applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
       };
       const step = deemedServiceApplicationSequence.find(obj => obj.url === HWF_REFERENCE_NUMBER_DEEMED) as Step;
       expect(step.getNextStep(caseData)).toBe(APPLY_FOR_HWF_DEEMED);
@@ -85,7 +85,7 @@ describe('Deemed Service Application Sequence test', () => {
 
     test('Do not have Evidence', () => {
       const caseData = {
-        applicant1InterimAppsCanUploadEvidence: YesOrNo.YES,
+        applicant1InterimAppsCanUploadEvidence: YesOrNo.NO,
       };
       const step = deemedServiceApplicationSequence.find(obj => obj.url === WANT_UPLOAD_EVIDENCE_DEEMED) as Step;
       expect(step.getNextStep(caseData)).toBe(WHY_NO_EVIDENCE_DEEMED);
