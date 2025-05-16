@@ -16,8 +16,8 @@ import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
   APP_REPRESENTED,
-  GENERAL_APPLICATION_PAYMENT_CALLBACK,
-  GENERAL_APPLICATION_PAY_YOUR_FEE,
+  SERVICE_PAYMENT_CALLBACK,
+  PAY_YOUR_SERVICE_FEE,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
@@ -102,8 +102,8 @@ export class StateRedirectMiddleware {
             PAYMENT_CALLBACK_URL,
             RESPONDENT + PAYMENT_CALLBACK_URL,
             RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,
-            GENERAL_APPLICATION_PAYMENT_CALLBACK,
-            GENERAL_APPLICATION_PAY_YOUR_FEE,
+            SERVICE_PAYMENT_CALLBACK,
+            PAY_YOUR_SERVICE_FEE,
             REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
             SAVE_AND_SIGN_OUT,
             VIEW_YOUR_ANSWERS,
@@ -127,7 +127,7 @@ export class StateRedirectMiddleware {
         logger.info(req.session.userCase.applicant1ServicePayments);
         const servicePayments = new PaymentModel(req.session.userCase.applicant1ServicePayments);
         if (SERVICE_PAYMENT_STATES.has(state) && !req.session.isApplicant2 && servicePayments.hasPayment) {
-          return res.redirect(GENERAL_APPLICATION_PAYMENT_CALLBACK);
+          return res.redirect(SERVICE_PAYMENT_CALLBACK);
         }
 
         return next();

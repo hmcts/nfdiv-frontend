@@ -183,22 +183,22 @@ const fields: FromApiConverters = {
   requestsForInformation: 'requestsForInformation',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
-  applicant1GenAppsIUnderstand: data => ({
-    applicant1GenAppsIUnderstand: checkboxConverter(data.applicant1GenAppsIUnderstand),
+  applicant1InterimAppsIUnderstand: data => ({
+    applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
   }),
-  applicant1GenAppsUseHelpWithFees: 'applicant1GenAppsUseHelpWithFees',
-  applicant1GenAppsHaveHwfReference: 'applicant1GenAppsHaveHwfReference',
-  applicant1GenAppsCanUploadEvidence: 'applicant1GenAppsCanUploadEvidence',
-  applicant1GenAppsHwfRefNumber: 'applicant1GenAppsHwfRefNumber',
-  applicant1GenAppsEvidenceDocs: uploadedFilesFromApiApplicant1,
-  applicant1GenAppsCannotUploadDocs: data => ({
-    applicant1GenAppsCannotUploadDocs: checkboxConverter(data.applicant1GenAppsCannotUploadDocs),
+  applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
+  applicant1InterimAppsHaveHwfReference: 'applicant1InterimAppsHaveHwfReference',
+  applicant1InterimAppsCanUploadEvidence: 'applicant1InterimAppsCanUploadEvidence',
+  applicant1InterimAppsHwfRefNumber: 'applicant1InterimAppsHwfRefNumber',
+  applicant1InterimAppsEvidenceDocs: uploadedFilesFromApiApplicant1,
+  applicant1InterimAppsCannotUploadDocs: data => ({
+    applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
   }),
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
-  applicant1GeneralApplicationType: 'applicant1GeneralApplicationType',
-  applicant1GenAppsStatementOfTruth: data => ({
-    applicant1GenAppsStatementOfTruth: checkboxConverter(data.applicant1GenAppsStatementOfTruth),
+  applicant1InterimApplicationType: 'applicant1InterimApplicationType',
+  applicant1InterimAppsStatementOfTruth: data => ({
+    applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
   }),
 };
 
