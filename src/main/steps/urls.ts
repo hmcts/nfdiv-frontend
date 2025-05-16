@@ -181,3 +181,6 @@ export const UPLOAD_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-se
 export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/general-applications/deemed-service/why-no-evidence-deemed';
 export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/general-applications/deemed-service/how-do-you-know-deemed';
 export const CHECK_ANSWERS_DEEMED: PageLink = '/general-applications/deemed-service/check-answers-deemed';
+export const GENERAL_APPLICATION_PAY_YOUR_FEE: PageLink = '/general-applications/pay-your-fee';
+export const GENERAL_APPLICATION_PAYMENT_CALLBACK: PageLink = '/general-applications/payment-callback';
+export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/general-applications/application-submitted';

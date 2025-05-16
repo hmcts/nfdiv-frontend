@@ -2,25 +2,26 @@ import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseData, State } from '../case/definition';
+import { CaseWithId } from '../../app/case/case';
+import { CaseData } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
-
-import { getPaymentCallbackUrl } from './BasePaymentPostController';
 
 const logger = Logger.getLogger('payment');
 
 @autobind
 export default abstract class BasePaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (!this.awaitingPaymentStates().has(req.session.userCase.state)) {
+    logger.info('Payment callback get');
+    if (!this.isAwaitingPayment(req.session.userCase)) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
 
-    const paymentClient = new PaymentClient(req.session, getPaymentCallbackUrl(req, res));
+    const paymentClient = new PaymentClient(req.session, "");
 
     const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
+    logger.info(payments);
     if (!payments.hasPayment) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
@@ -35,6 +36,7 @@ export default abstract class BasePaymentCallbackGetController {
       return res.redirect(lastPaymentAttempt.channel);
     }
 
+    logger.info(payment?.status);
     payments.setStatus(lastPaymentAttempt.transactionId, payment?.status);
 
     if (payments.wasLastPaymentSuccessful) {
@@ -56,7 +58,7 @@ export default abstract class BasePaymentCallbackGetController {
     });
   }
 
-  protected abstract awaitingPaymentStates(): Set<State>;
+  protected abstract isAwaitingPayment(userCase: CaseWithId): boolean;
   protected abstract noPaymentRequiredUrl(req: AppRequest): string;
   protected abstract paymentMadeEvent(req: AppRequest): string;
   protected abstract paymentSuccessUrl(req: AppRequest): string;

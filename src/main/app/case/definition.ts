@@ -257,6 +257,7 @@ export interface AlternativeService {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  servicePaymentFeeServiceRequestReference: string;
 }
 
 export interface AlternativeServiceOutcome {
@@ -948,6 +949,7 @@ export interface CaseData {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  servicePaymentFeeServiceRequestReference: string;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   documentsUploaded: ListValue<DivorceDocument>[];
@@ -1043,6 +1045,7 @@ export interface CaseData {
   applicant1DeemedNoEvidenceStatement: string;
   applicant1GeneralApplicationType: GeneralApplicationType;
   applicant1GenAppsStatementOfTruth: YesOrNo;
+  applicant1ServicePayments: ListValue<Payment>[];
 }
 
 export interface CaseDocuments {
@@ -1862,6 +1865,15 @@ export const enum GeneralApplicationType {
   OTHER = 'other',
 }
 
+export const GeneralApplicationLabels: Record<GeneralApplicationType, string> = {
+  [GeneralApplicationType.DISPENSED_WITH_SERVICE]: 'Dispensed service',
+  [GeneralApplicationType.DEEMED_SERVICE]: 'deemed service',
+  [GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT]: 'Issue without marriage certificate',
+  [GeneralApplicationType.EXPEDITE]: 'Expedite',
+  [GeneralApplicationType.OTHER_ALTERNATIVE_SERVICE_METHODS]: 'Other alternative service method',
+  [GeneralApplicationType.OTHER]: 'Other',
+};
+
 export const enum GeneralOrderDivorceParties {
   APPLICANT = 'applicant',
   RESPONDENT = 'respondent',
@@ -2141,6 +2153,8 @@ export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
 ]);
 
 export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
+
+export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
@@ -2650,6 +2664,8 @@ export const CITIZEN_CREATE = 'citizen-create-application';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_SERVICE_APPLICATION = 'citizen-service-application';
+export const CITIZEN_SERVICE_PAYMENT_MADE = 'citizen-service-payment-made';
 export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';

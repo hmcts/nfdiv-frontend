@@ -5,8 +5,8 @@ import {
   ApplicationType,
   CITIZEN_PAYMENT_MADE,
   CaseData,
-  State,
 } from '../../../app/case/definition';
+import { CaseWithId } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
 import {
@@ -19,8 +19,8 @@ import {
 
 @autobind
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
-  protected awaitingPaymentStates(): Set<State> {
-    return APPLICATION_PAYMENT_STATES;
+  protected isAwaitingPayment(userCase: CaseWithId): boolean {
+    return APPLICATION_PAYMENT_STATES.has(userCase.state);
   }
 
   protected noPaymentRequiredUrl(): string {

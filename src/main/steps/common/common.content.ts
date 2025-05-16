@@ -386,6 +386,7 @@ export const generateCommonContent = ({
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
+    generalApplicationFee: undefined
   };
 };
 
@@ -411,4 +412,5 @@ export type CommonContent = typeof en & {
   isGeneralConsiderationCoPronounced: boolean;
   isPendingHearingOutcomeCoPronounced: boolean;
   isPendingHearingOutcomeFoRequested: boolean;
+  generalApplicationFee?: string;
 };
