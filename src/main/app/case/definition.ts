@@ -1045,7 +1045,7 @@ export interface CaseData {
   applicant1DeemedNoEvidenceStatement: string;
   applicant1InterimApplicationType: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
-  applicant1ServicePayments: ListValue<Payment>[];
+  servicePayments: ListValue<Payment>[];
 }
 
 export interface CaseDocuments {

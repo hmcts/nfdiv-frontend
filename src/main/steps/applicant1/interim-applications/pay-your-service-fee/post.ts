@@ -28,7 +28,7 @@ export default class ServicePaymentPostController extends BasePaymentPostControl
   }
 
   protected paymentsCaseField(): keyof CaseData {
-    return 'applicant1ServicePayments' as keyof CaseData;
+    return 'servicePayments' as keyof CaseData;
   }
 
   protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {

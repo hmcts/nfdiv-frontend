@@ -28,6 +28,6 @@ export default class ServiceApplicationPaymentCallbackGetController extends Base
   }
 
   protected paymentsCaseField(): keyof CaseData {
-    return 'applicant1ServicePayments' as keyof CaseData;
+    return 'servicePayments' as keyof CaseData;
   }
 }

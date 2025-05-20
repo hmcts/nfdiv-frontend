@@ -200,7 +200,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
   servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
-  applicant1ServicePayments: 'applicant1ServicePayments',
+  servicePayments: 'servicePayments',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -468,7 +468,7 @@ export interface Case {
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
-  applicant1ServicePayments: ListValue<Payment>[];
+  servicePayments: ListValue<Payment>[];
 }
 
 export interface CaseWithId extends Case {
