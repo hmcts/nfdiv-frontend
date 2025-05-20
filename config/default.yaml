@@ -104,7 +104,7 @@ govukUrls:
   consentOrder: 'https://www.gov.uk/money-property-when-relationship-ends/apply-for-consent-order'
   financialOrder: 'https://www.gov.uk/money-property-when-relationship-ends/get-court-to-decide'
   moneyAndProperty: 'https://www.gov.uk/money-property-when-relationship-ends'
-  legalAdvisor: 'https://www.gov.uk/find-a-legal-adviser'
+  legalAdvisor: 'https://www.gov.uk/find-legal-advice/find-legal-adviser'
   callCharges: 'https://www.gov.uk/call-charges'
   domesticAbuse: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help'
   feedbackExitSurvey: 'https://smartsurvey.co.uk/s/SurveyExit'

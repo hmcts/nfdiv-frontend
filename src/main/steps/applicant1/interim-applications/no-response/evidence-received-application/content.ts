@@ -8,21 +8,21 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   title: `Has your ${partner} received the ${isDivorce ? 'divorce papers' : 'papers to end your civil partnership'}?`,
   line1: `If you have evidence that your ${partner} has received all the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-  }, you may be able to apply for 'deemed service'. This means that the court accepts that your ${partner} has received the papers, so your ${
+  }, you may be able to apply for 'deemed service'. This means that the court is satisfied that your ${partner} has received the papers, so your ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } can proceed without their response.`,
   line2: 'Suitable evidence includes:',
   suitableEvidence: {
     photo: `a photo or screenshot of a message from your ${partner} that shows they have received the papers.`,
-    statement: `a statement from your or a third party explaining how your know your ${partner} has received the papers.`,
+    statement: `a statement from you or a third party explaining how your know your ${partner} has received the papers.`,
     message: `a message from us to tell you that your ${partner} has started a response.`,
   },
-  canYouProveHeader: `Can you prove that your ${partner} has received the papers?`,
-  proveYes: `Yes, I can prove that my ${partner} has received the papers.`,
+  canYouProveHeader: `Do you have evidence that your ${partner} has received the papers?`,
+  proveYes: `Yes, I have evidence that my ${partner} has received the papers.`,
   proveNo: 'No, I do not have any suitable evidence.',
   errors: {
     noResponsePartnerHasReceivedPapers: {
-      required: `You must confirm whether or not you can prove that your ${partner} has received the papers.`,
+      required: 'You must select an option before continuing.',
     },
   },
 });

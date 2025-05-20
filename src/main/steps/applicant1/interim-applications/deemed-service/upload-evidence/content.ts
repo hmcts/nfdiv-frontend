@@ -1,3 +1,4 @@
+import { getFormattedDate } from '../../../../../app/case/answers/formatDate';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
@@ -7,11 +8,15 @@ import {
 } from '../../common/upload-evidence/content';
 
 const en = ({ userCase }: CommonContent) => ({
-  statement: `Upload your evidence to support your application for deemed service. This should be evidence you've found from after the date that your application was issued: ${userCase.issueDate}`,
+  statement: `Upload your evidence to support your application for deemed service. This should be evidence you've found from after the date that your application was issued: ${getFormattedDate(
+    userCase.issueDate
+  )}`,
 });
 
 const cy: typeof en = ({ userCase }: CommonContent) => ({
-  statement: `Upload your evidence to support your application for deemed service. This should be evidence you've found from after the date that your application was issued: ${userCase.issueDate}`,
+  statement: `Upload your evidence to support your application for deemed service. This should be evidence you've found from after the date that your application was issued: ${getFormattedDate(
+    userCase.issueDate
+  )}`,
 });
 
 const languages = {

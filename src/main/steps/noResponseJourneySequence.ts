@@ -22,7 +22,7 @@ export const noResponseJourneySequence: Step[] = [
       if (data?.applicant2SolicitorRepresented === YesOrNo.YES) {
         return HAVE_THEY_RECEIVED_REPRESENTED;
       }
-      return data?.applicant2AddressPrivate ? EVIDENCE_RECEIVED_APPLICATION : HAVE_THEY_RECEIVED;
+      return data?.applicant2AddressPrivate === YesOrNo.YES ? EVIDENCE_RECEIVED_APPLICATION : HAVE_THEY_RECEIVED;
     },
   },
   {

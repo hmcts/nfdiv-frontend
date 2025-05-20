@@ -9,6 +9,11 @@ const en = ({ partner }: CommonContent) => ({
   line1: `If your application is successful, we will share your answers and any evidence you provide with your ${partner}.`,
   line2: "We will not share your contact details if you've told us to keep them private.",
   iUnderstand: 'I understand',
+  errors: {
+    applicant1InterimAppsIUnderstand: {
+      required: "You must select 'I understand' before continuing.",
+    },
+  },
 });
 
 // @TODO translations
@@ -17,6 +22,11 @@ const cy = ({ partner }: CommonContent) => ({
   line1: `If your application is successful, we will share your answers and any evidence you provide with your ${partner}.`,
   line2: "We will not share your contact details if you've told us to keep them private.",
   iUnderstand: 'I understand',
+  errors: {
+    applicant1InterimAppsIUnderstand: {
+      required: "You must select 'I understand' before continuing.",
+    },
+  },
 });
 
 const languages = {

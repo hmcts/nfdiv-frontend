@@ -3372,15 +3372,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:*, @types/express@npm:4.17.21":
-  version: 4.17.21
-  resolution: "@types/express@npm:4.17.21"
+"@types/express@npm:*, @types/express@npm:4.17.22":
+  version: 4.17.22
+  resolution: "@types/express@npm:4.17.22"
   dependencies:
     "@types/body-parser": "*"
     "@types/express-serve-static-core": ^4.17.33
     "@types/qs": "*"
     "@types/serve-static": "*"
-  checksum: fb238298630370a7392c7abdc80f495ae6c716723e114705d7e3fb67e3850b3859bbfd29391463a3fb8c0b32051847935933d99e719c0478710f8098ee7091c5
+  checksum: 977b1da93765983d823c32898c74c159f30b98341f4fd9400724f18196913fe0a07fa12eaa4efdad3cc8cf31e4036e06a16a88d43e9e1f78bbbb84365026aab0
   languageName: node
   linkType: hard
 
@@ -8434,9 +8434,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:5.2.6":
-  version: 5.2.6
-  resolution: "eslint-plugin-prettier@npm:5.2.6"
+"eslint-plugin-prettier@npm:5.4.0":
+  version: 5.4.0
+  resolution: "eslint-plugin-prettier@npm:5.4.0"
   dependencies:
     prettier-linter-helpers: ^1.0.0
     synckit: ^0.11.0
@@ -8450,7 +8450,7 @@ __metadata:
       optional: true
     eslint-config-prettier:
       optional: true
-  checksum: 2626c123916c4afe88d423bac9c3644d30af8beac4963b77bf447f42ba75ab592076716dfa9d43333bfde0ac482d8f8b6a49699403d128aee5effd609ca54bec
+  checksum: 1d71d4fb42b8f9654232c6f9c6805549f7e9da6ee3207069dac122ab1c55eae90a0840f5c109e821e3a5145ec223dbbdfa7cfd3c3a28267316d08d55d5812e21
   languageName: node
   linkType: hard
 
@@ -9858,10 +9858,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:5.9.0":
-  version: 5.9.0
-  resolution: "govuk-frontend@npm:5.9.0"
-  checksum: cfff85041038bd2161b6e718589239205ac020e6bc867dbf77ccbc7615b4af3c64ad6eb883f9c2f2f12bf4808c3f7bbccdc7c5d3210adc1b428863fab1cdbc08
+"govuk-frontend@npm:5.10.1":
+  version: 5.10.1
+  resolution: "govuk-frontend@npm:5.10.1"
+  checksum: 797046af4305191ae6a314337bac40cfed817b051e0f3efc16f37bb6d149a71b522ce54bc6bb8190ca780a9e5c04bd709c25c4cb13c34f8bf577b19cc6af2a4e
   languageName: node
   linkType: hard
 
@@ -13809,7 +13809,7 @@ __metadata:
     "@types/cookie-parser": 1.4.8
     "@types/csurf": 1.11.5
     "@types/es6-promisify": 6.0.4
-    "@types/express": 4.17.21
+    "@types/express": 4.17.22
     "@types/express-session": 1.18.1
     "@types/glob": 8.1.0
     "@types/jest": 29.5.14
@@ -13850,14 +13850,14 @@ __metadata:
     eslint-config-prettier: 10.1.5
     eslint-plugin-import: 2.29.1
     eslint-plugin-jest: 28.11.0
-    eslint-plugin-prettier: 5.2.6
+    eslint-plugin-prettier: 5.4.0
     express: ^4.21.2
     express-http-proxy: 2.1.1
     express-nunjucks: ^3.1.2
     express-session: 1.18.1
     form-data: 4.0.2
     glob: 11.0.2
-    govuk-frontend: 5.9.0
+    govuk-frontend: 5.10.1
     helmet: 8.1.0
     html-webpack-plugin: 5.6.3
     http-status-codes: 2.3.0
@@ -13897,7 +13897,7 @@ __metadata:
     style-loader: 4.0.0
     tar: ^7.0.0
     toobusy-js: 0.5.1
-    ts-jest: 29.3.2
+    ts-jest: 29.3.4
     ts-loader: 9.5.2
     ts-node: 10.9.2
     tsconfig-paths: 4.2.0
@@ -16549,6 +16549,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"semver@npm:^7.7.2":
+  version: 7.7.2
+  resolution: "semver@npm:7.7.2"
+  bin:
+    semver: bin/semver.js
+  checksum: dd94ba8f1cbc903d8eeb4dd8bf19f46b3deb14262b6717d0de3c804b594058ae785ef2e4b46c5c3b58733c99c83339068203002f9e37cfe44f7e2cc5e3d2f621
+  languageName: node
+  linkType: hard
+
 "send@npm:0.19.0":
   version: 0.19.0
   resolution: "send@npm:0.19.0"
@@ -17909,9 +17918,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:29.3.2":
-  version: 29.3.2
-  resolution: "ts-jest@npm:29.3.2"
+"ts-jest@npm:29.3.4":
+  version: 29.3.4
+  resolution: "ts-jest@npm:29.3.4"
   dependencies:
     bs-logger: ^0.2.6
     ejs: ^3.1.10
@@ -17920,8 +17929,8 @@ __metadata:
     json5: ^2.2.3
     lodash.memoize: ^4.1.2
     make-error: ^1.3.6
-    semver: ^7.7.1
-    type-fest: ^4.39.1
+    semver: ^7.7.2
+    type-fest: ^4.41.0
     yargs-parser: ^21.1.1
   peerDependencies:
     "@babel/core": ">=7.0.0-beta.0 <8"
@@ -17943,7 +17952,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: aad8f81ba57aea7c6725f8700307948a5cb50a6d329c1a38457f81294cc868709ab9b9510bb0713e7f417188538b722edb4f84d6159bbf377ae13bf58f4ad145
+  checksum: 26341342230704fa29ae72d6e4d5e823602ef1caf68badf849d188cf144675b9129069e7ecb9656e3138e8477ed0dea8239a9ca1d04fd112322d59feecc22bdc
   languageName: node
   linkType: hard
 
@@ -18170,10 +18179,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.39.1":
-  version: 4.39.1
-  resolution: "type-fest@npm:4.39.1"
-  checksum: 71ce0e25822d5d984c8882e3243c42c741f089c003d89222dc361a133698d8ac021c18a9139ba3baf0fee2f523383422b8c5aaa390b1b3a98140f23dd0f44795
+"type-fest@npm:^4.41.0":
+  version: 4.41.0
+  resolution: "type-fest@npm:4.41.0"
+  checksum: 7055c0e3eb188425d07403f1d5dc175ca4c4f093556f26871fe22041bc93d137d54bef5851afa320638ca1379106c594f5aa153caa654ac1a7f22c71588a4e80
   languageName: node
   linkType: hard
 

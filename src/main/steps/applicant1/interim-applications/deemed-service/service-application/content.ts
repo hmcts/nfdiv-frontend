@@ -13,25 +13,23 @@ import {
 } from '../../../../urls';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
-  title: 'You can apply for deemed service',
+  title: 'Apply for deemed service (D11)',
   line1: `If you have evidence that your ${partner} or their legal representative have received the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   }, you could apply for deemed service.`,
-  line2: `Your evidence must show that your ${partner} has received the papers, not just that they have been posted to their address.`,
-  line3: 'Suitable evidence includes:',
+  line2: `The judge must be satisfied that that your ${partner} has received the papers, not just that they have been posted to their address.`,
+  line3: 'Suitable evidence may includee:',
   suitableEvidence: {
     photo: `a photo or screenshot of a message from your ${partner} that shows they have received the papers.`,
     statement: `a statement from your or a third party explaining how your know your ${partner} has received the papers.`,
     message: `a message from us to tell you that your ${partner} has started a response.`,
   },
-  line4: `You will be asked to provide the evidence you have to prove that your ${partner} has received the ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  }. Without this your application is likely to be rejected.`,
+  line4: 'If you do not provide any evidence your application is likely to be rejected.',
   line5: `The application for deemed service costs ${getFee(
     config.get('fees.deemedService')
   )}. You may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
-  )}">get help paying this fee (opens in a new tab)</a>.`,
+  )}">get help paying this fee</a>.`,
   startButton: {
     text: 'Start application',
     url: DEEMED_INTERRUPTION,
@@ -70,7 +68,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     config.get('fees.deemedService')
   )}. Efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
-  )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
+  )}">gael help i dalu’r ffi hon</a>.`,
   startButton: {
     text: 'Dechrau gwneud y cais',
     url: DEEMED_INTERRUPTION,

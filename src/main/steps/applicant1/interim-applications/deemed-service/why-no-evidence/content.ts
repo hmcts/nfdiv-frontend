@@ -13,7 +13,7 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   line3: `Give as much detail as you can. The judge needs to be satisfied that your ${partner} has received the papers before they can grant your application.`,
   errors: {
     applicant1DeemedNoEvidenceStatement: {
-      required: 'You have not provided any information. You need to provide the information the court has requested.',
+      required: 'You must provide a statement before continuing.',
     },
   },
 });
@@ -27,7 +27,7 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   line3: `Give as much detail as you can. The judge needs to be satisfied that your ${partner} has received the papers before they can grant your application.`,
   errors: {
     applicant1DeemedNoEvidenceStatement: {
-      required: 'You have not provided any information. You need to provide the information the court has requested.',
+      required: 'You must provide a statement before continuing.',
     },
   },
 });
