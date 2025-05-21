@@ -269,14 +269,7 @@ const en = (
   },
   awaitingServicePayment: {
     line1OfflineApplication:
-      'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.',
-    line2Hwf:
-      'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
-    line3Hwf:
-      'If your help with fees reference number is accepted, the court will review your application and any evidence you have submitted.',
-    line4Hwf:
-      'If your application is successful, your divorce will proceed without a response from your partner. We will then tell you when you can apply for your conditional order.',
-    line5Hwf: 'We will email you to let you know whether your application has been successful.',
+      'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.'
   },
   serviceApplicationSubmitted: {
     line1: `You have submitted your application for ${serviceApplicationType}.`,
@@ -666,15 +659,7 @@ const cy: typeof en = (
   },
   awaitingServicePayment: {
     line1OfflineApplication:
-      "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
-    line1OnlineApplication: `You have submitted your application for ${serviceApplicationType}.`,
-    line2Hwf:
-      'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
-    line3Hwf:
-      'If your help with fees reference number is accepted, the court will review your application and any evidence you have submitted.',
-    line4Hwf:
-      'If your application is successful, your divorce will proceed without a response from your partner. We will then tell you when you can apply for your conditional order.',
-    line5Hwf: 'We will email you to let you know whether your application has been successful.',
+      "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu."
   },
   serviceApplicationSubmitted: {
     line1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,

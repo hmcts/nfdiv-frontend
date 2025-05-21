@@ -13,7 +13,6 @@ const logger = Logger.getLogger('payment');
 @autobind
 export default abstract class BasePaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    logger.info('Payment callback get');
     if (!this.isAwaitingPayment(req.session.userCase)) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
@@ -21,7 +20,6 @@ export default abstract class BasePaymentCallbackGetController {
     const paymentClient = new PaymentClient(req.session, '');
 
     const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
-    logger.info(payments);
     if (!payments.hasPayment) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
@@ -36,7 +34,6 @@ export default abstract class BasePaymentCallbackGetController {
       return res.redirect(lastPaymentAttempt.channel);
     }
 
-    logger.info(payment?.status);
     payments.setStatus(lastPaymentAttempt.transactionId, payment?.status);
 
     if (payments.wasLastPaymentSuccessful) {
