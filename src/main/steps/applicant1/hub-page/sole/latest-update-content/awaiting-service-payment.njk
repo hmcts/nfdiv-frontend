@@ -1,1 +1,13 @@
-<p class="govuk-body">{{ awaitingServicePayment.line1 }}</p>
+{% if serviceApplicationSubmittedOnline %}
+    {% if serviceAppFeeRequired %}
+        <p class="govuk-body">{{ awaitingServicePayment.line1OfflineApplication }}</p>
+    {% else %}
+        <p class="govuk-body">{{ serviceApplicationSubmitted.line1 }}</p>
+        <p class="govuk-body">{{ serviceApplicationSubmitted.line2Hwf }}</p>
+        <h3 class="govuk-heading-s">{{ serviceApplicationSubmitted.happensNextHeading }}</h3>
+        <p class="govuk-body">{{ serviceApplicationSubmitted.happensNextLine1 }}</p>
+        <p class="govuk-body">{{ serviceApplicationSubmitted.happensNextLine2 }}</p>
+    {% endif %}
+{% else %}
+    <p class="govuk-body">{{ awaitingServicePayment.line1OfflineApplication }}</p>
+{% endif %}

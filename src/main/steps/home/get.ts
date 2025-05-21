@@ -66,6 +66,7 @@ const getApplicant2FirstQuestionForm = (applicationType: ApplicationType) =>
 const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
   // Check if applicant1 is solicitor represented
   const isSolicitorRepresented = userCase.applicant1SolicitorRepresented === YesOrNo.YES;
+  const hasServiceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
 
   switch (userCase.state) {
     case State.AwaitingApplicant1Response: {
@@ -80,7 +81,9 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.Submitted:
     case State.AwaitingDocuments:
     case State.AwaitingHWFDecision: {
-      return isSolicitorRepresented ? APP_REPRESENTED : APPLICATION_SUBMITTED;
+      return hasServiceApplicationInProgress
+        ? HUB_PAGE
+        : isSolicitorRepresented ? APP_REPRESENTED : APPLICATION_SUBMITTED;
     }
     case State.AwaitingResponseToHWFDecision:
     case State.AwaitingPayment: {

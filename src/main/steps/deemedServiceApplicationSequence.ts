@@ -69,7 +69,9 @@ export const deemedServiceApplicationSequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_DEEMED,
-    getNextStep: () => PAY_YOUR_SERVICE_FEE,
+    getNextStep: data => data?.alternativeServiceFeeRequired === YesOrNo.YES
+      ? PAY_YOUR_SERVICE_FEE
+      : SERVICE_APPLICATION_SUBMITTED,
   },
   {
     url: PAY_YOUR_SERVICE_FEE,

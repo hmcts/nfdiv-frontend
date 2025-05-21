@@ -257,6 +257,7 @@ export interface AlternativeService {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   servicePaymentFeeServiceRequestReference: string;
 }
 
@@ -949,6 +950,7 @@ export interface CaseData {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   servicePaymentFeeServiceRequestReference: string;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
@@ -1046,6 +1048,8 @@ export interface CaseData {
   applicant1InterimApplicationType: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   servicePayments: ListValue<Payment>[];
+  serviceApplicationSubmittedOnline: YesOrNo,
+  alternativeServiceFeeRequired: YesOrNo;
 }
 
 export interface CaseDocuments {

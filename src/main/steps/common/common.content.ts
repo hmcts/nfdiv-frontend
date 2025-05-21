@@ -1,5 +1,9 @@
 import config from 'config';
+import dayjs from 'dayjs';
 
+import { formattedCaseId } from '../common/content.utils';
+
+import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
@@ -363,6 +367,16 @@ export const generateCommonContent = ({
   const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
     isDivorce ? 'Divorce' : 'Civil'
   }&party=${feedbackParty}`;
+  const caseHasBeenIssued = !!userCase?.issueDate;
+  const hasServiceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
+
+  const referenceNumber = formattedCaseId(userCase.id);
+  const serviceApplicationType = commonTranslations.generalApplication[userCase.alternativeServiceType as string];
+  const serviceApplicationDate = getFormattedDate(userCase.receivedServiceAddedDate, language);
+  const serviceAppResponseDate = getFormattedDate(dayjs(userCase.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'), language);
+  const serviceAppFeeRequired = userCase.alternativeServiceFeeRequired === YesOrNo.YES;
+  const serviceAppDocsWereProvided = userCase.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationSubmittedOnline = userCase.serviceApplicationSubmittedOnline === YesOrNo.YES;
 
   return {
     ...commonTranslations,
@@ -376,6 +390,8 @@ export const generateCommonContent = ({
     userCase,
     userEmail,
     isJointApplication,
+    caseHasBeenIssued,
+    hasServiceApplicationInProgress,
     isAmendableStates,
     isClarificationAmendableState,
     isRequestForInformationAmendableState,
@@ -386,7 +402,14 @@ export const generateCommonContent = ({
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
-    generalApplicationFee: undefined
+    generalApplicationFee: undefined,
+    referenceNumber,
+    serviceApplicationType,
+    serviceApplicationDate,
+    serviceAppResponseDate,
+    serviceAppFeeRequired,
+    serviceAppDocsWereProvided,
+    serviceApplicationSubmittedOnline
   };
 };
 
@@ -401,6 +424,8 @@ export type CommonContent = typeof en & {
   partner: string;
   userEmail?: string;
   isJointApplication: boolean;
+  caseHasBeenIssued: boolean;
+  hasServiceApplicationInProgress: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
@@ -413,4 +438,10 @@ export type CommonContent = typeof en & {
   isPendingHearingOutcomeCoPronounced: boolean;
   isPendingHearingOutcomeFoRequested: boolean;
   generalApplicationFee?: string;
+  serviceApplicationType: string,
+  serviceApplicationDate: string | false,
+  serviceAppResponseDate: string | false,
+  serviceAppFeeRequired: boolean,
+  serviceAppDocsWereProvided: boolean,
+  serviceApplicationSubmittedOnline: boolean
 };

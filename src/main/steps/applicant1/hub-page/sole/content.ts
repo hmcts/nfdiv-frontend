@@ -34,6 +34,11 @@ const en = (
     telephoneNumber,
     referenceNumber,
     isJointApplication,
+    serviceApplicationType,
+    serviceApplicationDate,
+    serviceAppResponseDate,
+    serviceAppDocsWereProvided,
+    serviceAppFeeRequired
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -222,8 +227,8 @@ const en = (
   },
   finalOrderComplete: {},
   awaitingServiceConsiderationOrBailiffReferral: {
-    line1:
-      'Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful.',
+    line1: `The court is currently considering your ${serviceApplicationType} application that you submitted on ${serviceApplicationDate}.`,
+    line2: `We will email you by ${serviceAppResponseDate} once a decision has been made to tell you your next steps.`
   },
   serviceApplicationRejected: {
     line1: {
@@ -263,8 +268,23 @@ const en = (
     },
   },
   awaitingServicePayment: {
-    line1:
+    line1OfflineApplication:
       'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.',
+    line2Hwf: 'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
+    line3Hwf: 'If your help with fees reference number is accepted, the court will review your application and any evidence you have submitted.',
+    line4Hwf: 'If your application is successful, your divorce will proceed without a response from your partner. We will then tell you when you can apply for your conditional order.',
+    line5Hwf: 'We will email you to let you know whether your application has been successful.'
+  },
+  serviceApplicationSubmitted: {
+    line1: `You have submitted your application for ${serviceApplicationType}.`,
+    line2Hwf: 'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
+    happensNextHeading: 'What happens next',
+    happensNextLine1: `${!serviceAppFeeRequired && serviceAppDocsWereProvided ? "If your help with fees reference number is accepted, the" : "The"} court will review your application and any evidence you have submitted. If your application is successful, your divorce will proceed without a response from your partner. We will then tell you when you can apply for your conditional order.`,
+    happensNextLine2: `We will email you ${serviceAppFeeRequired && serviceAppDocsWereProvided ? `by ${serviceAppResponseDate} ` : ''}to let you know whether your application has been successful.`,
+  },
+  awaitingServiceApplicationDocuments: {
+    heading1: 'Send your evidence to the court',
+    line1: 'You now need to send us your documents. You can do this in the following ways:'
   },
   awaitingBailiffService: {
     line1: `Your application for bailiff service was successful. The court bailiff will attempt to serve the ${
@@ -393,6 +413,11 @@ const cy: typeof en = (
     telephoneNumber,
     referenceNumber,
     isJointApplication,
+    serviceApplicationType,
+    serviceAppResponseDate,
+    serviceApplicationDate,
+    serviceAppFeeRequired,
+    serviceAppDocsWereProvided
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -587,8 +612,8 @@ const cy: typeof en = (
     } yn cadarnhau a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
   },
   awaitingServiceConsiderationOrBailiffReferral: {
-    line1:
-      'Mae eich cais wedi dod i law a bydd yn cael ei adolygu gan farnwr. Byddwch yn cael e-bost yn dweud wrthych a yw eich cais wedi bod yn llwyddiannus ai peidio.',
+    line1: `The court is currently considering your ${serviceApplicationType} application that you submitted on ${serviceApplicationDate}.`,
+    line2: `We will email you by ${serviceAppResponseDate} once a decision has been made to tell you your next steps.`
   },
   serviceApplicationRejected: {
     line1: {
@@ -630,8 +655,24 @@ const cy: typeof en = (
     },
   },
   awaitingServicePayment: {
-    line1:
+    line1OfflineApplication:
       "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
+    line1OnlineApplication: `You have submitted your application for ${serviceApplicationType}.`,
+    line2Hwf: 'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
+    line3Hwf: 'If your help with fees reference number is accepted, the court will review your application and any evidence you have submitted.',
+    line4Hwf: 'If your application is successful, your divorce will proceed without a response from your partner. We will then tell you when you can apply for your conditional order.',
+    line5Hwf: 'We will email you to let you know whether your application has been successful.'
+  },
+  serviceApplicationSubmitted: {
+    line1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
+    line2Hwf: 'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
+    happensNextHeading: 'Beth fydd yn digwydd nesaf',
+    happensNextLine1: 'Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ysgariad yn mynd yn ei flaen heb ymateb gan eich partner. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.',
+    happensNextLine2: `Byddwn yn anfon e-bost atoch ${serviceAppFeeRequired && serviceAppDocsWereProvided ? `erbyn ${serviceAppResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus` : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'}.`,
+  },
+  awaitingServiceApplicationDocuments: {
+    heading1: 'Anfon eich tystiolaeth i’r llys',
+    line1: 'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:'
   },
   awaitingBailiffService: {
     line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${
