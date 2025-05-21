@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 
-import { CaseData, CITIZEN_SERVICE_PAYMENT_MADE, SERVICE_PAYMENT_STATES } from '../../../../app/case/definition';
 import { CaseWithId } from '../../../../app/case/case';
+import { CITIZEN_SERVICE_PAYMENT_MADE, CaseData, SERVICE_PAYMENT_STATES } from '../../../../app/case/definition';
 import BasePaymentCallbackGetController from '../../../../app/controller/BasePaymentCallbackGetController';
 import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED } from '../../../urls';
 

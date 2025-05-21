@@ -1,10 +1,17 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 
-const en = ({serviceAppResponseDate, serviceAppFeeRequired, serviceAppDocsWereProvided, serviceApplicationType, referenceNumber}: CommonContent) => ({
+const en = ({
+  serviceAppResponseDate,
+  serviceAppFeeRequired,
+  serviceAppDocsWereProvided,
+  serviceApplicationType,
+  referenceNumber,
+}: CommonContent) => ({
   title: 'Application submitted',
   introLine1: `You have submitted your application for ${serviceApplicationType}.`,
-  introLine2: 'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
+  introLine2:
+    'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
   sendDocumentsHeading: 'Send your evidence to the court',
   sendDocumentsLine1: 'You now need to send us your documents. You can do this in the following ways:',
   documentsByOnlineForm: 'Sending documents using our online form',
@@ -20,16 +27,29 @@ const en = ({serviceAppResponseDate, serviceAppFeeRequired, serviceAppDocsWerePr
     step2: 'Post the original documents to:',
   },
   happensNextHeading: 'What happens next',
-  happensNextLine1: `${!serviceAppFeeRequired && serviceAppDocsWereProvided ? "If your help with fees reference number is accepted, the" : "The"} court will review your application and any evidence you have submitted. If your application is successful, your divorce will proceed without a response from your partner. We will then tell you when you can apply for your conditional order.`,
-  happensNextLine2: `We will email you ${serviceAppFeeRequired && serviceAppDocsWereProvided ? `by ${serviceAppResponseDate} ` : ''}to let you know whether your application has been successful.`,
+  happensNextLine1: `${
+    !serviceAppFeeRequired && serviceAppDocsWereProvided
+      ? 'If your help with fees reference number is accepted, the'
+      : 'The'
+  } court will review your application and any evidence you have submitted. If your application is successful, your divorce will proceed without a response from your partner. We will then tell you when you can apply for your conditional order.`,
+  happensNextLine2: `We will email you ${
+    serviceAppFeeRequired && serviceAppDocsWereProvided ? `by ${serviceAppResponseDate} ` : ''
+  }to let you know whether your application has been successful.`,
   returnToHub: 'Return to hub screen',
 });
 
 // @TODO Welsh
-const cy: typeof en = ({serviceAppResponseDate, serviceAppFeeRequired, serviceAppDocsWereProvided, serviceApplicationType, referenceNumber}: CommonContent) => ({
+const cy: typeof en = ({
+  serviceAppResponseDate,
+  serviceAppFeeRequired,
+  serviceAppDocsWereProvided,
+  serviceApplicationType,
+  referenceNumber,
+}: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
   introLine1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
-  introLine2: `Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.`,
+  introLine2:
+    'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
   sendDocumentsHeading: 'Anfon eich tystiolaeth i’r llys',
   sendDocumentsLine1: 'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
@@ -45,8 +65,13 @@ const cy: typeof en = ({serviceAppResponseDate, serviceAppFeeRequired, serviceAp
     step2: 'Postiwch y dogfennau gwreiddiol i:',
   },
   happensNextHeading: 'Beth fydd yn digwydd nesaf',
-  happensNextLine1: 'Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ysgariad yn mynd yn ei flaen heb ymateb gan eich partner. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.',
-  happensNextLine2: `Byddwn yn anfon e-bost atoch ${serviceAppFeeRequired && serviceAppDocsWereProvided ? `erbyn ${serviceAppResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus` : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'}.`,
+  happensNextLine1:
+    'Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ysgariad yn mynd yn ei flaen heb ymateb gan eich partner. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.',
+  happensNextLine2: `Byddwn yn anfon e-bost atoch ${
+    serviceAppFeeRequired && serviceAppDocsWereProvided
+      ? `erbyn ${serviceAppResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
+      : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
+  }.`,
   returnToHub: 'Dychwelyd i sgrin yr hyb',
 });
 

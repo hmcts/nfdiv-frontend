@@ -481,7 +481,7 @@ export interface Case {
   servicePayments: ListValue<Payment>[];
   receivedServiceApplicationDate: DateAsString;
   receivedServiceAddedDate: DateAsString;
-  serviceApplicationSubmittedOnline: YesOrNo,
+  serviceApplicationSubmittedOnline: YesOrNo;
   alternativeServiceFeeRequired: YesOrNo;
   alternativeServiceType: AlternativeServiceType;
 }

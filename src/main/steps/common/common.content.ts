@@ -1,15 +1,12 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { formattedCaseId } from '../common/content.utils';
-
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
+import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
-
-import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
 export const en = {
   phase: 'Beta',
@@ -373,7 +370,10 @@ export const generateCommonContent = ({
   const referenceNumber = formattedCaseId(userCase.id);
   const serviceApplicationType = commonTranslations.generalApplication[userCase.alternativeServiceType as string];
   const serviceApplicationDate = getFormattedDate(userCase.receivedServiceAddedDate, language);
-  const serviceAppResponseDate = getFormattedDate(dayjs(userCase.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'), language);
+  const serviceAppResponseDate = getFormattedDate(
+    dayjs(userCase.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    language
+  );
   const serviceAppFeeRequired = userCase.alternativeServiceFeeRequired === YesOrNo.YES;
   const serviceAppDocsWereProvided = userCase.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
   const serviceApplicationSubmittedOnline = userCase.serviceApplicationSubmittedOnline === YesOrNo.YES;
@@ -409,7 +409,7 @@ export const generateCommonContent = ({
     serviceAppResponseDate,
     serviceAppFeeRequired,
     serviceAppDocsWereProvided,
-    serviceApplicationSubmittedOnline
+    serviceApplicationSubmittedOnline,
   };
 };
 
@@ -438,10 +438,10 @@ export type CommonContent = typeof en & {
   isPendingHearingOutcomeCoPronounced: boolean;
   isPendingHearingOutcomeFoRequested: boolean;
   generalApplicationFee?: string;
-  serviceApplicationType: string,
-  serviceApplicationDate: string | false,
-  serviceAppResponseDate: string | false,
-  serviceAppFeeRequired: boolean,
-  serviceAppDocsWereProvided: boolean,
-  serviceApplicationSubmittedOnline: boolean
+  serviceApplicationType: string;
+  serviceApplicationDate: string | false;
+  serviceAppResponseDate: string | false;
+  serviceAppFeeRequired: boolean;
+  serviceAppDocsWereProvided: boolean;
+  serviceApplicationSubmittedOnline: boolean;
 };

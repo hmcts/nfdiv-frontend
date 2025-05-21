@@ -117,4 +117,3 @@ export function getPaymentCallbackUrl(req: AppRequest, res: Response, callbackPa
   const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
   return `${protocol}${res.locals.host}${port}${callbackPath}`;
 }
-

@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { PAYMENT_CALLBACK_URL, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 import {
   CITIZEN_APPLICANT2_UPDATE,
@@ -12,7 +12,6 @@ import {
   State,
 } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
-import { PAYMENT_CALLBACK_URL } from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';
 import { getPaymentCallbackUrl } from './BasePaymentPostController';

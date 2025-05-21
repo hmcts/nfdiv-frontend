@@ -16,18 +16,18 @@ import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
   APP_REPRESENTED,
-  SERVICE_PAYMENT_CALLBACK,
-  PAY_YOUR_SERVICE_FEE,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
   PAY_YOUR_FINAL_ORDER_FEE,
+  PAY_YOUR_SERVICE_FEE,
   PageLink,
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   RESPONDENT,
   SAVE_AND_SIGN_OUT,
   SENT_TO_APPLICANT2_FOR_REVIEW,
+  SERVICE_PAYMENT_CALLBACK,
   SWITCH_TO_SOLE_APPLICATION,
   THEIR_EMAIL_ADDRESS,
   VIEW_YOUR_ANSWERS,
@@ -129,11 +129,9 @@ export class StateRedirectMiddleware {
   }
 
   private caseAwaitingPayment(state: State): boolean {
-    return new Set([
-      ...APPLICATION_PAYMENT_STATES,
-      ...FINAL_ORDER_PAYMENT_STATES,
-      ...SERVICE_PAYMENT_STATES
-    ]).has(state);
+    return new Set([...APPLICATION_PAYMENT_STATES, ...FINAL_ORDER_PAYMENT_STATES, ...SERVICE_PAYMENT_STATES]).has(
+      state
+    );
   }
 
   private hasPartnerNotRespondedInTime(userCase: CaseWithId, isApplicant2: boolean) {

@@ -123,7 +123,9 @@ export const getSoleHubTemplate = (
         ? HubTemplate.AwaitingDocuments
         : HubTemplate.AosAwaitingOrDrafted;
     case State.AwaitingDocuments:
-      return serviceApplicationInProgress ? HubTemplate.AwaitingServiceApplicationDocuments  : HubTemplate.AwaitingDocuments;
+      return serviceApplicationInProgress
+        ? HubTemplate.AwaitingServiceApplicationDocuments
+        : HubTemplate.AwaitingDocuments;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||

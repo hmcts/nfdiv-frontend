@@ -18,7 +18,7 @@ export default abstract class BasePaymentCallbackGetController {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
 
-    const paymentClient = new PaymentClient(req.session, "");
+    const paymentClient = new PaymentClient(req.session, '');
 
     const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
     logger.info(payments);

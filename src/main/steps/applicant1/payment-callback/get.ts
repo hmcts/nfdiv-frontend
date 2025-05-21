@@ -1,12 +1,12 @@
 import autobind from 'autobind-decorator';
 
+import { CaseWithId } from '../../../app/case/case';
 import {
   APPLICATION_PAYMENT_STATES,
   ApplicationType,
   CITIZEN_PAYMENT_MADE,
   CaseData,
 } from '../../../app/case/definition';
-import { CaseWithId } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
 import {

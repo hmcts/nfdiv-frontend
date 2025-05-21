@@ -6,12 +6,12 @@ import {
   FINAL_ORDER_PAYMENT_STATES,
   Fee,
   ListValue,
-  RESPONDENT_APPLY_FOR_FINAL_ORDER
+  RESPONDENT_APPLY_FOR_FINAL_ORDER,
 } from '../../../app/case/definition';
-import { PAYMENT_CALLBACK_URL, RESPONDENT } from '../../../steps/urls';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../app/controller/PostController';
+import { PAYMENT_CALLBACK_URL, RESPONDENT } from '../../../steps/urls';
 
 @autobind
 export default class FinalOrderPaymentPostController extends BasePaymentPostController {
