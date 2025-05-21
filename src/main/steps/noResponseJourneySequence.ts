@@ -1,13 +1,16 @@
 import { CaseWithId } from '../app/case/case';
-import { NoResponseCheckContactDetails, YesOrNo } from '../app/case/definition';
+import { NoResponseCheckContactDetails, NoResponseNewEmailOrPostalAddress, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
+  BOTH_EMAIL_AND_POSTAL,
   DEEMED_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
   HUB_PAGE,
+  NEW_EMAIL,
+  NEW_POSTAL_ADDRESS,
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
@@ -37,6 +40,44 @@ export const noResponseJourneySequence: Step[] = [
         }
         case NoResponseCheckContactDetails.NOT_KNOWN: {
           return NO_NEW_ADDRESS;
+        }
+        default: {
+          return HUB_PAGE;
+        }
+      }
+    },
+  },
+  {
+    url: NEW_POSTAL_AND_EMAIL,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      switch (data.applicant1NoResponseUpdateEmailAndPostalAddress) {
+        case NoResponseNewEmailOrPostalAddress.NEW_POSTAL: {
+          return NEW_POSTAL_ADDRESS;
+        }
+        case NoResponseNewEmailOrPostalAddress.NEW_EMAIL: {
+          return NEW_EMAIL;
+        }
+        case NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL: {
+          return BOTH_EMAIL_AND_POSTAL;
+        }
+        default: {
+          return HUB_PAGE;
+        }
+      }
+    },
+  },
+  {
+    url: NEW_POSTAL_ADDRESS,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      switch (data.applicant1NoResponseUpdateEmailAndPostalAddress) {
+        case NoResponseNewEmailOrPostalAddress.NEW_POSTAL: {
+          return NEW_POSTAL_ADDRESS;
+        }
+        case NoResponseNewEmailOrPostalAddress.NEW_EMAIL: {
+          return NEW_EMAIL;
+        }
+        case NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL: {
+          return BOTH_EMAIL_AND_POSTAL;
         }
         default: {
           return HUB_PAGE;
