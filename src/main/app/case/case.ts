@@ -19,13 +19,13 @@ import {
   JurisdictionConnections,
   LegalAdvisorDecision,
   ListValue,
-  NoResponseCheckContactDetails,
+  NoResponseCheckContactDetails, NoResponseNoNewContactDetails,
   OrderSummary,
   Payment,
   RequestForInformation,
   State,
-  YesOrNo,
-} from './definition';
+  YesOrNo
+} from "./definition";
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   applicationType: 'applicationType',
@@ -451,6 +451,7 @@ export interface Case {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponseNoNewContactDetails?: NoResponseNoNewContactDetails;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
   applicant1InterimAppsHaveHwfReference?: YesOrNo;

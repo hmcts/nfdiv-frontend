@@ -397,6 +397,9 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerHasReceivedPapers: data => ({
     applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
   }),
+  applicant1NoResponseNoNewContactDetails: data => ({
+    applicant1NoResponseNoNewContactDetails: data.applicant1NoResponseNoNewContactDetails,
+  }),
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
   }),

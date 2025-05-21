@@ -183,6 +183,7 @@ const fields: FromApiConverters = {
   requestsForInformation: 'requestsForInformation',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
+  applicant1NoResponseNoNewContactDetails: 'applicant1NoResponseNoNewContactDetails',
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
   }),

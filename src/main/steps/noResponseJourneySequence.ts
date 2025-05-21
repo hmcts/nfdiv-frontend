@@ -57,4 +57,8 @@ export const noResponseJourneySequence: Step[] = [
       return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SERVE_AGAIN;
     },
   },
+  {
+    url: NO_NEW_ADDRESS,
+    getNextStep: () => HUB_PAGE,
+  },
 ];

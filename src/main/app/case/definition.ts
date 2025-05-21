@@ -1032,6 +1032,7 @@ export interface CaseData {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1NoResponseNoNewContactDetails: NoResponseNoNewContactDetails;
   applicant1InterimAppsIUnderstand: YesOrNo;
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
   applicant1InterimAppsHaveHwfReference: YesOrNo;
@@ -2474,6 +2475,12 @@ export const enum NoResponseCheckContactDetails {
   UP_TO_DATE = 'upToDate',
   NEW_ADDRESS = 'newAddress',
   NOT_KNOWN = 'notKnown',
+}
+
+export const enum NoResponseNoNewContactDetails {
+  IN_PERSON_SERVICE = 'inPersonService',
+  ALTERNATIVE_SERVICE = 'alternativeService',
+  NO_CONTACT_DETAILS = 'noContactDetails',
 }
 
 /**
