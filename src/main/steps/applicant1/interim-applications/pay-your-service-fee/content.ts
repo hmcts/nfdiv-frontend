@@ -17,7 +17,7 @@ const cy: typeof en = applicationFee => ({
   title: 'Talu’r ffi ar gyfer y cais hwn',
   line1: `Y ffi ar gyfer y cais hwn yw ${applicationFee}. Ni fydd eich cais yn cael ei gyflwyno i’r Llys nes i chi dalu.`,
   line2:
-    "Bydd angen cerdyn debyd neu gerdyn credyd dilys arnoch. Os na allwch dalu nawr, dylech gadw’r cais a dychwelyd ato pan fyddwch yn barod.",
+    'Bydd angen cerdyn debyd neu gerdyn credyd dilys arnoch. Os na allwch dalu nawr, dylech gadw’r cais a dychwelyd ato pan fyddwch yn barod.',
   continue: 'Talu am a chyflwyno eich cais',
 });
 
