@@ -1,4 +1,4 @@
-import { NoResponseNoNewContactDetails } from '../../../../../app/case/definition';
+import { NoResponseNoNewAddressDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -32,7 +32,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   alternativeService: 'I want to apply for alternative service',
   somethingElse: 'I do not have any other way to contact them',
   errors: {
-    noResponseNoNewContactDetails: {
+    noResponseNoNewAddressDetails: {
       required: 'You must choose an option to progress your application.',
     },
   },
@@ -67,7 +67,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   alternativeService: 'I want to apply for alternative service',
   somethingElse: 'I do not have any other way to contact them',
   errors: {
-    noResponseNoNewContactDetails: {
+    noResponseNoNewAddressDetails: {
       required: 'You must choose an option to progress your application.',
     },
   },
@@ -75,7 +75,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1NoResponseNoNewContactDetails: {
+    applicant1NoResponseNoNewAddressDetails: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.wantToApplyChoiceHeader,
@@ -84,17 +84,17 @@ export const form: FormContent = {
         {
           label: l => l.inPersonService,
           id: 'inPersonService',
-          value: NoResponseNoNewContactDetails.IN_PERSON_SERVICE,
+          value: NoResponseNoNewAddressDetails.IN_PERSON_SERVICE,
         },
         {
           label: l => l.alternativeService,
           id: 'alternativeService',
-          value: NoResponseNoNewContactDetails.ALTERNATIVE_SERVICE,
+          value: NoResponseNoNewAddressDetails.ALTERNATIVE_SERVICE,
         },
         {
           label: l => l.somethingElse,
           id: 'noContactDetails',
-          value: NoResponseNoNewContactDetails.NO_CONTACT_DETAILS,
+          value: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
         },
       ],
       validator: value => isFieldFilledIn(value),

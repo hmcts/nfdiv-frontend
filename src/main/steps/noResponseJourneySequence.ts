@@ -1,8 +1,9 @@
 import { CaseWithId } from '../app/case/case';
-import { NoResponseCheckContactDetails, YesOrNo } from '../app/case/definition';
+import { NoResponseCheckContactDetails, NoResponseNoNewAddressDetails, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
+  ALTERNATIVE_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
   HAVE_THEY_RECEIVED,
@@ -11,6 +12,8 @@ import {
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
+  OWN_SEARCHES,
+  PARTNER_IN_PERSON,
   PageLink,
   SERVE_AGAIN,
 } from './urls';
@@ -59,6 +62,25 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: NO_NEW_ADDRESS,
-    getNextStep: () => HUB_PAGE,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      switch (data.applicant1NoResponseNoNewAddressDetails) {
+        case NoResponseNoNewAddressDetails.IN_PERSON_SERVICE: {
+          return PARTNER_IN_PERSON;
+        }
+        case NoResponseNoNewAddressDetails.ALTERNATIVE_SERVICE: {
+          return ALTERNATIVE_SERVICE_APPLICATION;
+        }
+        case NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS: {
+          return OWN_SEARCHES;
+        }
+        default: {
+          return HUB_PAGE;
+        }
+      }
+    },
   },
+  {
+    url: PARTNER_IN_PERSON,
+    getNextStep: () => HUB_PAGE,
+  }
 ];

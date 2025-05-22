@@ -1032,7 +1032,8 @@ export interface CaseData {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
-  applicant1NoResponseNoNewContactDetails: NoResponseNoNewContactDetails;
+  applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
+  applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand: YesOrNo;
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
   applicant1InterimAppsHaveHwfReference: YesOrNo;
@@ -2477,10 +2478,15 @@ export const enum NoResponseCheckContactDetails {
   NOT_KNOWN = 'notKnown',
 }
 
-export const enum NoResponseNoNewContactDetails {
+export const enum NoResponseNoNewAddressDetails {
   IN_PERSON_SERVICE = 'inPersonService',
   ALTERNATIVE_SERVICE = 'alternativeService',
   NO_CONTACT_DETAILS = 'noContactDetails',
+}
+
+export const enum NoResponseProcessServerOrBailiff {
+  PROCESS_SERVER = 'processServer',
+  COURT_BAILIFF = 'courtBailiff',
 }
 
 /**
