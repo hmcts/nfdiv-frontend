@@ -164,15 +164,18 @@ export const NO_NEW_ADDRESS: PageLink = '/interim-applications/no-response/no-ne
 export const PARTNER_IN_PERSON: PageLink = '/interim-applications/no-response/partner-in-person';
 export const OWN_SEARCHES: PageLink = '/interim-applications/no-response/own-searches';
 export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';
+export const BAILIFF_SERVICE_APPLICATION: PageLink = '/interim-applications/bailiff-service/service-application';
+export const PROCESS_SERVER: PageLink = '/interim-applications/no-response/process-server';
+export const CHECK_DETAILS_PROCESS_SERVER: PageLink = '/interim-applications/no-response/check-details-process-server';
 export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
 export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
-export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/partner-in-prison';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
   '/interim-applications/search-gov-records/search-gov-records-application';
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
+export const HELP_WITH_FEES_BAILIFF: PageLink = '/interim-applications/bailiff-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
 export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/want-upload-evidence';
 export const HWF_REFERENCE_NUMBER_INPUT_DEEMED: PageLink =
