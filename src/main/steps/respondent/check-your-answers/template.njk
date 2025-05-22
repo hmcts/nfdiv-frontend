@@ -1,1 +1,9 @@
 {% extends "../../applicant1/check-your-answers/template.njk" %}
+
+<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__content">
+        <p class="govuk-notification-banner__heading">{{ feedback }}</p>
+        <p class="govuk-body">{{ feedbackLine1 }}</p>
+        <p class="govuk-body"><a class="govuk-link" href={{ feedbackLine2.link }}>{{ feedbackLine2.part1 }}</a></p>
+    </div>
+</div>
