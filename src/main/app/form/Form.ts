@@ -142,6 +142,7 @@ export interface FormContent {
   submit: {
     text: Label;
     classes?: string;
+    isStartButton?: boolean;
   };
   fields: FormFields | FormFieldsFn;
 }
