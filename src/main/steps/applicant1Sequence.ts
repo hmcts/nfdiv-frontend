@@ -13,6 +13,7 @@ import {
   previousConnectionMadeUptoLastHabituallyResident,
 } from '../app/jurisdiction/connections';
 
+import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
@@ -585,6 +586,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   ...noResponseJourneySequence,
   ...deemedServiceApplicationSequence,
+  ...bailiffServiceApplicationSequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>

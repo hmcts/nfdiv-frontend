@@ -20,6 +20,8 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
+  NoResponseNoNewAddressDetails,
+  NoResponseProcessServerOrBailiff,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -451,6 +453,8 @@ export interface Case {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponseNoNewAddressDetails?: NoResponseNoNewAddressDetails;
+  applicant1NoResponseProcessServerOrBailiff?: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
   applicant1InterimAppsHaveHwfReference?: YesOrNo;
