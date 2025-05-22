@@ -2,15 +2,9 @@ import config from 'config';
 
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
+import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
-import {
-  ALTERNATIVE_SERVICE_APPLICATION,
-  DEEMED_INTERRUPTION,
-  DISPENSE_SERVICE_APPLICATION,
-  NEW_POSTAL_AND_EMAIL,
-  PARTNER_IN_PRISON,
-  SEARCH_GOV_RECORDS_APPLICATION,
-} from '../../../../urls';
+import { generateContent as alsoTryGenerateContent } from '../../common/also-try/content';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: 'Apply for deemed service (D11)',
@@ -30,22 +24,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   )}. You may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee</a>.`,
-  startButton: {
-    text: 'Start application',
-    url: DEEMED_INTERRUPTION,
-  },
-  line6: 'You could also try:',
-  alsoTry: {
-    differentWay: `applying to <a class="govuk-link" href="${ALTERNATIVE_SERVICE_APPLICATION}">have your ${
-      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-    } sent to your ${partner} in a different way</a>.`,
-    updateDetails: `<a class="govuk-link" href="${NEW_POSTAL_AND_EMAIL}">updating your ${partner}'s contact details</a> so that the court can send the ${
-      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-    } to their new address.`,
-    applyBailiff: `applying to have a <a class="govuk-link" href="${PARTNER_IN_PRISON}"">bailiff or process server serve the papers</a> to your ${partner} in person.`,
-    searchRecords: `applying to have the court <a class="govuk-link" href="${SEARCH_GOV_RECORDS_APPLICATION}">search government records</a> for your ${partner}'s contact details if you have no way to contact them.`,
-    dispenseService: `applying to <a class="govuk-link" href="${DISPENSE_SERVICE_APPLICATION}">dispense with service</a> if you have done everything you can to find your ${partner}'s details and been unsuccessful.`,
-  },
+  buttonText: 'Start application',
 });
 
 // @TODO translations should be verified
@@ -69,22 +48,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   )}. Efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
   )}">gael help i dalu’r ffi hon</a>.`,
-  startButton: {
-    text: 'Dechrau gwneud y cais',
-    url: DEEMED_INTERRUPTION,
-  },
-  line6: 'Gallwch hefyd geisio:',
-  alsoTry: {
-    differentWay: `gwneud cais i <a class="govuk-link" href="${ALTERNATIVE_SERVICE_APPLICATION}">bapurau eich ${
-      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-    } gael eu hanfon at eich ${partner} mewn ffordd wahanol</a>.`,
-    updateDetails: `<a class="govuk-link" href="${NEW_POSTAL_AND_EMAIL}">diweddaru manylion cyswllt eich ${partner}</a> fel y gall y llys anfon papurau’r ${
-      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-    } i’w cyfeiriad newydd.`,
-    applyBailiff: `gwneud cais i <a class="govuk-link" href="${PARTNER_IN_PRISON}"">feili neu weinyddwr proses gyflwyno’r papurau</a> i’ch ${partner} yn bersonol.`,
-    searchRecords: `gwneud cais i’r llys <a class="govuk-link" href="${SEARCH_GOV_RECORDS_APPLICATION}">chwilio cofnodion y llywodraeth</a> am fanylion cyswllt eich ${partner} os nad oes gennych ffordd o gysylltu â nhw`,
-    dispenseService: `gwneud cais i <a class="govuk-link" href="${DISPENSE_SERVICE_APPLICATION}">hepgor cyflwyno</a> os ydych wedi gwneud popeth y gallwch i ddod o hyd i fanylion eich ${partner} ac wedi bod yn aflwyddiannus`,
-  },
+  buttonText: 'Dechrau gwneud y cais',
 });
 
 const languages = {
@@ -92,9 +56,20 @@ const languages = {
   cy,
 };
 
+export const form: FormContent = {
+  fields: {},
+  submit: {
+    text: l => l.buttonText,
+    isStartButton: true,
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const alsoTry = alsoTryGenerateContent(content);
   return {
     ...translations,
+    ...alsoTry,
+    form,
   };
 };
