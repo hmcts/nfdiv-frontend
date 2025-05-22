@@ -370,13 +370,13 @@ export const generateCommonContent = ({
   const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
   const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
   const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
-  const serviceAppResponseDate = getFormattedDate(
+  const serviceApplicationResponseDate = getFormattedDate(
     dayjs(userCase?.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
     language
   );
-  const serviceAppFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
-  const serviceAppDocsWereProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
-  const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
+  const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsAllUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationWasMadeOnline = userCase?.serviceApplicationWasMadeOnline === YesOrNo.YES;
 
   return {
     ...commonTranslations,
@@ -405,10 +405,10 @@ export const generateCommonContent = ({
     referenceNumber,
     serviceApplicationType,
     serviceApplicationDate,
-    serviceAppResponseDate,
-    serviceAppFeeRequired,
-    serviceAppDocsWereProvided,
-    serviceApplicationSubmittedOnline,
+    serviceApplicationResponseDate,
+    serviceApplicationFeeRequired,
+    serviceApplicationDocsAllProvided,
+    serviceApplicationWasMadeOnline,
   };
 };
 
@@ -438,8 +438,8 @@ export type CommonContent = typeof en & {
   isPendingHearingOutcomeFoRequested: boolean;
   serviceApplicationType: string;
   serviceApplicationDate: string | false;
-  serviceAppResponseDate: string | false;
-  serviceAppFeeRequired: boolean;
-  serviceAppDocsWereProvided: boolean;
-  serviceApplicationSubmittedOnline: boolean;
+  serviceApplicationResponseDate: string | false;
+  serviceApplicationFeeRequired: boolean;
+  serviceApplicationDocsAllProvided: boolean;
+  serviceApplicationWasMadeOnline: boolean;
 };

@@ -257,7 +257,7 @@ export interface AlternativeService {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
-  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
+  serviceApplicationDocsAllUploadedPreSubmission: YesOrNo;
   servicePaymentFeeServiceRequestReference: string;
 }
 
@@ -945,13 +945,16 @@ export interface CaseData {
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
   servicePaymentFeeOrderSummary: OrderSummary;
+  servicePaymentFeeServiceRequestReference: string;
+  alternativeServiceFeeRequired: YesOrNo;
+  servicePayments: ListValue<Payment>[];
+  serviceApplicationWasMadeOnline: YesOrNo,
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
-  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
-  servicePaymentFeeServiceRequestReference: string;
+  serviceApplicationDocsAllUploadedPreSubmission: YesOrNo;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   documentsUploaded: ListValue<DivorceDocument>[];
@@ -1047,9 +1050,6 @@ export interface CaseData {
   applicant1DeemedNoEvidenceStatement: string;
   applicant1InterimApplicationType: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
-  servicePayments: ListValue<Payment>[];
-  serviceApplicationSubmittedOnline: YesOrNo,
-  alternativeServiceFeeRequired: YesOrNo;
 }
 
 export interface CaseDocuments {

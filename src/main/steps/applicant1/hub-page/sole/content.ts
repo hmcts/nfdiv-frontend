@@ -37,9 +37,9 @@ const en = (
     isJointApplication,
     serviceApplicationType,
     serviceApplicationDate,
-    serviceAppResponseDate,
-    serviceAppDocsWereProvided,
-    serviceAppFeeRequired,
+    serviceApplicationResponseDate,
+    serviceApplicationDocsAllProvided,
+    serviceApplicationFeeRequired,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -229,7 +229,7 @@ const en = (
   finalOrderComplete: {},
   awaitingServiceConsiderationOrBailiffReferral: {
     line1: `The court is currently considering your ${serviceApplicationType} application that you submitted on ${serviceApplicationDate}.`,
-    line2: `We will email you by ${serviceAppResponseDate} once a decision has been made to tell you your next steps.`,
+    line2: `We will email you by ${serviceApplicationResponseDate} once a decision has been made to tell you your next steps.`,
   },
   serviceApplicationRejected: {
     line1: {
@@ -284,12 +284,12 @@ const en = (
       'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
     happensNextHeading: 'What happens next',
     happensNextLine1: `${
-      !serviceAppFeeRequired && serviceAppDocsWereProvided
+      !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
         ? 'If your help with fees reference number is accepted, the'
         : 'The'
     } court will review your application and any evidence you have submitted. If your application is successful, your divorce will proceed without a response from your partner. We will then tell you when you can apply for your conditional order.`,
     happensNextLine2: `We will email you ${
-      serviceAppFeeRequired && serviceAppDocsWereProvided ? `by ${serviceAppResponseDate} ` : ''
+      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
     }to let you know whether your application has been successful.`,
   },
   awaitingServiceApplicationDocuments: {
@@ -424,10 +424,10 @@ const cy: typeof en = (
     referenceNumber,
     isJointApplication,
     serviceApplicationType,
-    serviceAppResponseDate,
+    serviceApplicationResponseDate,
     serviceApplicationDate,
-    serviceAppFeeRequired,
-    serviceAppDocsWereProvided,
+    serviceApplicationFeeRequired,
+    serviceApplicationDocsAllProvided,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -622,8 +622,8 @@ const cy: typeof en = (
     } yn cadarnhau a yw'r gorchymyn terfynol wedi'i gadarnhau.`,
   },
   awaitingServiceConsiderationOrBailiffReferral: {
-    line1: `The court is currently considering your ${serviceApplicationType} application that you submitted on ${serviceApplicationDate}.`,
-    line2: `We will email you by ${serviceAppResponseDate} once a decision has been made to tell you your next steps.`,
+    line1: `Mae'r llys wrthi’n ystyried eich ${serviceApplicationType} application a gyflwynwyd gennych ar ${serviceApplicationDate}.`,
+    line2: `Byddwn yn anfon e-bost atoch erbyn ${serviceApplicationResponseDate} unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.`,
   },
   serviceApplicationRejected: {
     line1: {
@@ -682,8 +682,8 @@ const cy: typeof en = (
     happensNextLine1:
       'Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ysgariad yn mynd yn ei flaen heb ymateb gan eich partner. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.',
     happensNextLine2: `Byddwn yn anfon e-bost atoch ${
-      serviceAppFeeRequired && serviceAppDocsWereProvided
-        ? `erbyn ${serviceAppResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
+      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+        ? `erbyn ${serviceApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
         : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
     }.`,
   },

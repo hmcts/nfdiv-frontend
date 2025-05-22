@@ -199,14 +199,14 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
   servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
   servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
-  serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
-  servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
+  serviceApplicationDocsAllUploadedPreSubmission: 'serviceApplicationDocsAllUploadedPreSubmission',
   servicePayments: 'servicePayments',
   receivedServiceApplicationDate: 'receivedServiceApplicationDate',
   receivedServiceAddedDate: 'receivedServiceAddedDate',
-  serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
+  serviceApplicationWasMadeOnline: 'serviceApplicationWasMadeOnline',
   alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
   alternativeServiceType: 'alternativeServiceType',
 };
@@ -475,13 +475,13 @@ export interface Case {
   applicant1InterimApplicationType?: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   servicePaymentFeeOrderSummary: OrderSummary;
-  servicePaymentFeeHelpWithFeesReferenceNumber: string;
-  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   servicePaymentFeeServiceRequestReference: string;
+  servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsAllUploadedPreSubmission: YesOrNo;
   servicePayments: ListValue<Payment>[];
   receivedServiceApplicationDate: DateAsString;
   receivedServiceAddedDate: DateAsString;
-  serviceApplicationSubmittedOnline: YesOrNo;
+  serviceApplicationWasMadeOnline: YesOrNo;
   alternativeServiceFeeRequired: YesOrNo;
   alternativeServiceType: AlternativeServiceType;
 }

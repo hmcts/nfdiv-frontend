@@ -14,11 +14,11 @@ const en = applicationFee => ({
 });
 
 const cy: typeof en = applicationFee => ({
-  title: 'Pay the fee for this application',
-  line1: `The fee for this application is ${applicationFee}. Your application will not be submitted to the court until you have paid.`,
+  title: 'Talu’r ffi ar gyfer y cais hwn',
+  line1: `Y ffi ar gyfer y cais hwn yw ${applicationFee}. Ni fydd eich cais yn cael ei gyflwyno i’r Llys nes i chi dalu.`,
   line2:
-    "You'll need a valid debit or credit card. If you cannot pay now, save the application and return to it when you are ready.",
-  continue: 'Pay and submit application',
+    "Bydd angen cerdyn debyd neu gerdyn credyd dilys arnoch. Os na allwch dalu nawr, dylech gadw’r cais a dychwelyd ato pan fyddwch yn barod.",
+  continue: 'Talu am a chyflwyno eich cais',
 });
 
 const languages = {

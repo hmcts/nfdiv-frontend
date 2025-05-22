@@ -2,9 +2,9 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 
 const en = ({
-  serviceAppResponseDate,
-  serviceAppFeeRequired,
-  serviceAppDocsWereProvided,
+  serviceApplicationResponseDate,
+  serviceApplicationFeeRequired,
+  serviceApplicationDocsAllProvided,
   serviceApplicationType,
   referenceNumber,
 }: CommonContent) => ({
@@ -28,21 +28,21 @@ const en = ({
   },
   happensNextHeading: 'What happens next',
   happensNextLine1: `${
-    !serviceAppFeeRequired && serviceAppDocsWereProvided
+    !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
       ? 'If your help with fees reference number is accepted, the'
       : 'The'
   } court will review your application and any evidence you have submitted. If your application is successful, your divorce will proceed without a response from your partner. We will then tell you when you can apply for your conditional order.`,
   happensNextLine2: `We will email you ${
-    serviceAppFeeRequired && serviceAppDocsWereProvided ? `by ${serviceAppResponseDate} ` : ''
+    serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
   }to let you know whether your application has been successful.`,
   returnToHub: 'Return to hub screen',
 });
 
 // @TODO Welsh
 const cy: typeof en = ({
-  serviceAppResponseDate,
-  serviceAppFeeRequired,
-  serviceAppDocsWereProvided,
+  serviceApplicationResponseDate,
+  serviceApplicationFeeRequired,
+  serviceApplicationDocsAllProvided,
   serviceApplicationType,
   referenceNumber,
 }: CommonContent) => ({
@@ -68,8 +68,8 @@ const cy: typeof en = ({
   happensNextLine1:
     'Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ysgariad yn mynd yn ei flaen heb ymateb gan eich partner. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.',
   happensNextLine2: `Byddwn yn anfon e-bost atoch ${
-    serviceAppFeeRequired && serviceAppDocsWereProvided
-      ? `erbyn ${serviceAppResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
+    serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+      ? `erbyn ${serviceApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
       : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
   }.`,
   returnToHub: 'Dychwelyd i sgrin yr hyb',
