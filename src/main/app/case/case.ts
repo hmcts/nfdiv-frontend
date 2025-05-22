@@ -19,13 +19,15 @@ import {
   JurisdictionConnections,
   LegalAdvisorDecision,
   ListValue,
-  NoResponseCheckContactDetails, NoResponseNoNewAddressDetails, NoResponseProcessServerOrBailiff,
+  NoResponseCheckContactDetails,
+  NoResponseNoNewAddressDetails,
+  NoResponseProcessServerOrBailiff,
   OrderSummary,
   Payment,
   RequestForInformation,
   State,
-  YesOrNo
-} from "./definition";
+  YesOrNo,
+} from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   applicationType: 'applicationType',
