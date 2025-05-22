@@ -1,9 +1,15 @@
 import { CaseWithId } from '../app/case/case';
-import { NoResponseCheckContactDetails, NoResponseNoNewAddressDetails, YesOrNo } from '../app/case/definition';
+import {
+  NoResponseCheckContactDetails,
+  NoResponseNoNewAddressDetails,
+  NoResponseProcessServerOrBailiff,
+  YesOrNo,
+} from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
+  BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
   HAVE_THEY_RECEIVED,
@@ -15,8 +21,8 @@ import {
   OWN_SEARCHES,
   PARTNER_IN_PERSON,
   PageLink,
-  SERVE_AGAIN,
-} from './urls';
+  SERVE_AGAIN, PROCESS_SERVER, CHECK_DETAILS_PROCESS_SERVER
+} from "./urls";
 
 export const noResponseJourneySequence: Step[] = [
   {
@@ -81,6 +87,22 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: PARTNER_IN_PERSON,
-    getNextStep: () => HUB_PAGE,
-  }
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      switch (data.applicant1NoResponseProcessServerOrBailiff) {
+        case NoResponseProcessServerOrBailiff.PROCESS_SERVER: {
+          return PROCESS_SERVER;
+        }
+        case NoResponseProcessServerOrBailiff.COURT_BAILIFF: {
+          return BAILIFF_SERVICE_APPLICATION;
+        }
+        default: {
+          return HUB_PAGE;
+        }
+      }
+    },
+  },
+  {
+    url: PROCESS_SERVER,
+    getNextStep: () => CHECK_DETAILS_PROCESS_SERVER,
+  },
 ];
