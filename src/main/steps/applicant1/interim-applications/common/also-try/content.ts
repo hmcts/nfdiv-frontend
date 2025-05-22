@@ -6,7 +6,7 @@ import {
   DISPENSE_SERVICE_APPLICATION,
   NEW_POSTAL_AND_EMAIL,
   PARTNER_IN_PERSON,
-  SEARCH_GOV_RECORDS_APPLICATION
+  SEARCH_GOV_RECORDS_APPLICATION,
 } from '../../../../urls';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
