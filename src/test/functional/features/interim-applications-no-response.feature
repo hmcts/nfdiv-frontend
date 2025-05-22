@@ -23,8 +23,6 @@ Feature: No response journey
     Then the page should include element "#haveTheyReceivedTitle"
     And the page should include element "#detailsProvided"
 
-    And the page should include element "#STOP"
-
     Given I click element "#upToDate"
     When I click continue
     Then the page should include element "#evidenceReceivedApplicationTitle"
