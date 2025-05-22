@@ -1,7 +1,13 @@
 import autobind from 'autobind-decorator';
 
 import { CaseWithId } from '../../../../app/case/case';
-import { CITIZEN_SERVICE_APPLICATION, CaseData, Fee, ListValue, SERVICE_PAYMENT_STATES, State } from '../../../../app/case/definition';
+import {
+  CITIZEN_SERVICE_APPLICATION,
+  CaseData,
+  Fee,
+  ListValue,
+  SERVICE_PAYMENT_STATES,
+} from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../../app/controller/PostController';

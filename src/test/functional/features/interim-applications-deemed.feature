@@ -99,3 +99,10 @@ Feature: Deemed service journey
     When I click continue
     Then the page should include element "#checkAnswersTitle"
 
+    When I click continue
+    Then the page should include element "#payYourServiceFeeTitle"
+
+    When I click continue
+    And I pay and submit the application
+    Then the page should include element "#applicationSubmittedTitle"
+

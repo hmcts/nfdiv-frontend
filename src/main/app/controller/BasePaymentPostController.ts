@@ -29,7 +29,7 @@ export default abstract class BasePaymentPostController {
     if (!this.readyForPayment(req.session.userCase)) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
-        { citizenPaymentCallbackUrl },
+        {},
         this.awaitingPaymentEvent()
       );
     }
@@ -42,7 +42,7 @@ export default abstract class BasePaymentPostController {
     if (!this.getServiceReferenceForFee(req)) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
-        { citizenPaymentCallbackUrl },
+        {},
         CITIZEN_CREATE_SERVICE_REQUEST
       );
     }

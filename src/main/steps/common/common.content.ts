@@ -365,18 +365,18 @@ export const generateCommonContent = ({
     isDivorce ? 'Divorce' : 'Civil'
   }&party=${feedbackParty}`;
   const caseHasBeenIssued = !!userCase?.issueDate;
-  const hasServiceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
+  const referenceNumber = formattedCaseId(userCase?.id);
 
-  const referenceNumber = formattedCaseId(userCase.id);
-  const serviceApplicationType = commonTranslations.generalApplication[userCase.alternativeServiceType as string];
-  const serviceApplicationDate = getFormattedDate(userCase.receivedServiceAddedDate, language);
+  const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
+  const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
+  const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
   const serviceAppResponseDate = getFormattedDate(
-    dayjs(userCase.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    dayjs(userCase?.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
     language
   );
-  const serviceAppFeeRequired = userCase.alternativeServiceFeeRequired === YesOrNo.YES;
-  const serviceAppDocsWereProvided = userCase.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
-  const serviceApplicationSubmittedOnline = userCase.serviceApplicationSubmittedOnline === YesOrNo.YES;
+  const serviceAppFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
+  const serviceAppDocsWereProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
 
   return {
     ...commonTranslations,
@@ -402,7 +402,6 @@ export const generateCommonContent = ({
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
-    generalApplicationFee: undefined,
     referenceNumber,
     serviceApplicationType,
     serviceApplicationDate,
@@ -437,7 +436,6 @@ export type CommonContent = typeof en & {
   isGeneralConsiderationCoPronounced: boolean;
   isPendingHearingOutcomeCoPronounced: boolean;
   isPendingHearingOutcomeFoRequested: boolean;
-  generalApplicationFee?: string;
   serviceApplicationType: string;
   serviceApplicationDate: string | false;
   serviceAppResponseDate: string | false;

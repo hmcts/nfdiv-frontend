@@ -20,6 +20,7 @@ import {
   FINALISING_YOUR_APPLICATION,
   HOW_YOU_CAN_PROCEED,
   OPTIONS_FOR_PROGRESSING,
+  PAY_YOUR_SERVICE_FEE,
   RESPOND_TO_COURT_FEEDBACK,
 } from '../../../urls';
 
@@ -269,7 +270,13 @@ const en = (
   },
   awaitingServicePayment: {
     line1OfflineApplication:
-      'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.'
+      'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.',
+    line1: 'Your partner has not responded to your divorce application.',
+    line2: `You have have started a ${serviceApplicationType} application.`,
+    doNext: 'What you can do next',
+    line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
+    linkText: 'Complete payment',
+    linkUrl: PAY_YOUR_SERVICE_FEE,
   },
   serviceApplicationSubmitted: {
     line1: `You have submitted your application for ${serviceApplicationType}.`,
@@ -659,7 +666,13 @@ const cy: typeof en = (
   },
   awaitingServicePayment: {
     line1OfflineApplication:
-      "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu."
+      "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
+    line1: 'Your partner has not responded to your divorce application.',
+    line2: `You have have started a ${serviceApplicationType} application.`,
+    doNext: 'What you can do next',
+    line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
+    linkText: 'Complete payment',
+    linkUrl: PAY_YOUR_SERVICE_FEE,
   },
   serviceApplicationSubmitted: {
     line1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,

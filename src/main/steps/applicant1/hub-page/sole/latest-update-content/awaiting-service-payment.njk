@@ -1,12 +1,23 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 {% if serviceApplicationSubmittedOnline %}
     {% if serviceAppFeeRequired %}
-        <p class="govuk-body">{{ awaitingServicePayment.line1OfflineApplication }}</p>
+        <p class="govuk-body">{{ awaitingServicePayment.line1 }}</p>
+        <p class="govuk-body">{{ awaitingServicePayment.line2 }}</p>
+        <h3 class="govuk-heading-s">{{ awaitingServicePayment.doNext }}</h3>
+        <p class="govuk-body">{{ awaitingServicePayment.line3 }}</p>
+        {{ govukButton({
+            text: awaitingServicePayment.linkText,
+            href: awaitingServicePayment.linkUrl,
+            preventDoubleClick: true
+        }) }}
     {% else %}
         <p class="govuk-body">{{ serviceApplicationSubmitted.line1 }}</p>
         <p class="govuk-body">{{ serviceApplicationSubmitted.line2Hwf }}</p>
         <h3 class="govuk-heading-s">{{ serviceApplicationSubmitted.happensNextHeading }}</h3>
         <p class="govuk-body">{{ serviceApplicationSubmitted.happensNextLine1 }}</p>
         <p class="govuk-body">{{ serviceApplicationSubmitted.happensNextLine2 }}</p>
+  </p>
     {% endif %}
 {% else %}
     <p class="govuk-body">{{ awaitingServicePayment.line1OfflineApplication }}</p>

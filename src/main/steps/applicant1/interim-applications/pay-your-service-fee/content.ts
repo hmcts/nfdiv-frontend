@@ -1,18 +1,47 @@
 import config from 'config';
+import { isEmpty } from 'lodash';
 
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { getFee } from '../../../../app/fees/service/get-fee';
 import { FormContent } from '../../../../app/form/Form';
-import { generateContent as payYourFeeContent, form as payYourFeeForm } from '../common/pay-your-fee/content';
 
-export const form: FormContent = payYourFeeForm;
+const en = applicationFee => ({
+  title: 'Pay the fee for this application',
+  line1: `The fee for this application is ${applicationFee}. Your application will not be submitted to the court until you have paid.`,
+  line2:
+    "You'll need a valid debit or credit card. If you cannot pay now, save the application and return to it when you are ready.",
+  continue: 'Pay and submit application',
+});
+
+const cy: typeof en = applicationFee => ({
+  title: 'Pay the fee for this application',
+  line1: `The fee for this application is ${applicationFee}. Your application will not be submitted to the court until you have paid.`,
+  line2:
+    "You'll need a valid debit or credit card. If you cannot pay now, save the application and return to it when you are ready.",
+  continue: 'Pay and submit application',
+});
+
+const languages = {
+  en,
+  cy,
+};
+
+export const form: FormContent = {
+  fields: {},
+  submit: {
+    text: l => l.continue,
+  },
+};
 
 export const generateContent: TranslationFn = content => {
-  content.generalApplicationFee = getFee(config.get('fees.deemedService'));
+  const applicationFee = !isEmpty(content.userCase.applicationFeeOrderSummary)
+    ? '£' + parseInt(<string>content.userCase.applicationFeeOrderSummary?.PaymentTotal, 10) / 100
+    : getFee(config.get('fees.deemedService'));
 
-  const payYourFeePageContent = payYourFeeContent(content);
+  const translations = languages[content.language](applicationFee);
 
   return {
-    ...payYourFeePageContent,
+    ...translations,
+    form,
   };
 };

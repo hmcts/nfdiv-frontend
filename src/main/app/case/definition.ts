@@ -1869,15 +1869,6 @@ export const enum GeneralApplicationType {
   OTHER = 'other',
 }
 
-export const GeneralApplicationLabels: Record<GeneralApplicationType, string> = {
-  [GeneralApplicationType.DISPENSED_WITH_SERVICE]: 'Dispensed service',
-  [GeneralApplicationType.DEEMED_SERVICE]: 'deemed service',
-  [GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT]: 'Issue without marriage certificate',
-  [GeneralApplicationType.EXPEDITE]: 'Expedite',
-  [GeneralApplicationType.OTHER_ALTERNATIVE_SERVICE_METHODS]: 'Other alternative service method',
-  [GeneralApplicationType.OTHER]: 'Other',
-};
-
 export const enum GeneralOrderDivorceParties {
   APPLICANT = 'applicant',
   RESPONDENT = 'respondent',
