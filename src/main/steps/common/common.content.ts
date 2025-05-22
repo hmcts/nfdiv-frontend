@@ -325,6 +325,7 @@ export const generateCommonContent = ({
     userCase &&
     userCase.state &&
     [State.InformationRequested, State.RequestedInformationSubmitted].includes(userCase.state);
+  const isAosAmendableState = userCase && (userCase.state === State.AwaitingAos || userCase.state === State.AosDrafted);
   const isGeneralConsiderationFoRequested =
     userCase &&
     (userCase?.state === State.GeneralConsiderationComplete ||
@@ -368,6 +369,7 @@ export const generateCommonContent = ({
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
+    isAosAmendableState,
   };
 };
 
@@ -386,6 +388,7 @@ export type CommonContent = typeof en & {
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
   isRequestForInformationAmendableState: boolean | undefined;
+  isAosAmendableState: boolean | undefined;
   isApp1Represented: boolean;
   isGeneralConsiderationFoRequested: boolean;
   isGeneralConsiderationCoPronounced: boolean;

@@ -18,6 +18,17 @@ const en = ({ isDivorce }: CommonContent) => ({
   point7: 'the dates of any hearings that have been scheduled',
   point8: 'the details of any orders that have been made',
   legalProceedingsDetails: 'Provide details about the other legal proceedings.',
+  legalProceedingsConcluded: 'Have the ongoing proceedings been concluded?',
+  unableToUploadEvidence: 'Cannot upload some or all of the evidence documents',
+  uploadAFile: 'Upload a file',
+  chooseFileButtonText: 'Choose file',
+  noFileChosen: 'No file chosen',
+  uploadedFiles: 'Uploaded files',
+  noFilesUploaded: 'No files uploaded',
+  legalProceedingsConcludedEvidence:
+    'You will have to upload evidence to show that the proceedings have been concluded or withdrawn. For example, an order or confirmation email from the court that the proceedings have been concluded or withdrawn.',
+  legalProceedingsOngoingEvidence:
+    'You will have to upload evidence to show that the proceedings are ongoing. For example, an email or notice from the court that the proceedings are ongoing.',
   errors: {
     applicant1LegalProceedingsDetails: {
       required: 'You have not provided any information. You need to enter details of the other legal proceedings.',
@@ -40,6 +51,17 @@ const cy: typeof en = ({ isDivorce }: CommonContent) => ({
   point7: "dyddiadau unrhyw wrandawiadau sydd wedi'u trefnu ",
   point8: 'manylion unrhyw orchmynion sydd wedi’u gwneud',
   legalProceedingsDetails: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
+  legalProceedingsConcluded: 'Have the ongoing proceedings been concluded?',
+  unableToUploadEvidence: 'Cannot upload some or all of the evidence documents',
+  uploadAFile: 'Upload a file',
+  chooseFileButtonText: 'Choose file',
+  noFileChosen: 'No file chosen',
+  uploadedFiles: 'Uploaded files',
+  noFilesUploaded: 'No files uploaded',
+  legalProceedingsConcludedEvidence:
+    'You will have to upload evidence to show that the proceedings have been concluded or withdrawn. For example, an order or confirmation email from the court that the proceedings have been concluded or withdrawn.',
+  legalProceedingsOngoingEvidence:
+    'You will have to upload evidence to show that the proceedings are ongoing. For example, an email or notice from the court that the proceedings are ongoing.',
   errors: {
     applicant1LegalProceedingsDetails: {
       required:
@@ -70,8 +92,15 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const amendable = true;
+  const uploadContentScript = `{
+    "isAmendableStates": ${content.isAosAmendableState},
+    "delete": "${content.delete}"
+  }`;
   return {
     ...translations,
+    amendable,
+    uploadContentScript,
     form,
   };
 };
