@@ -50,8 +50,9 @@ export const routeHideConditions: RoutePermission[] = [
   {
     urls: [PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED],
     condition: data =>
-      [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(data.state as State) &&
-      data.serviceApplicationWasMadeOnline === YesOrNo.YES
+      [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
+        data.state as State
+      ) && data.serviceApplicationWasMadeOnline === YesOrNo.YES,
   },
   {
     urls: [

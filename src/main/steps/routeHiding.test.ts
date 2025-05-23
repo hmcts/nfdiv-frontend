@@ -7,8 +7,8 @@ import { routeHideConditions, shouldHideRouteFromUser } from './routeHiding';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   FINALISING_YOUR_APPLICATION,
-  PageLink,
   PAY_YOUR_SERVICE_FEE,
+  PageLink,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
   SERVICE_APPLICATION_SUBMITTED,

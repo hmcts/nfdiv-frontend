@@ -664,7 +664,8 @@ const cy: typeof en = (
       link: '/downloads/bailiff-unsuccessful-certificate-of-service',
     },
   },
-  awaitingServicePayment: { // TODO: Welsh for AwaitingServicePayment hub
+  awaitingServicePayment: {
+    // TODO: Welsh for AwaitingServicePayment hub
     line1OfflineApplication:
       "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
     line1: 'Your partner has not responded to your divorce application.',
