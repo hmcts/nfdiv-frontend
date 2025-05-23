@@ -81,11 +81,11 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.Submitted:
     case State.AwaitingDocuments:
     case State.AwaitingHWFDecision: {
-      return hasServiceApplicationInProgress
-        ? HUB_PAGE
-        : isSolicitorRepresented
+      return isSolicitorRepresented
           ? APP_REPRESENTED
-          : APPLICATION_SUBMITTED;
+          : hasServiceApplicationInProgress
+            ? HUB_PAGE
+            : APPLICATION_SUBMITTED;
     }
     case State.AwaitingResponseToHWFDecision:
     case State.AwaitingPayment: {

@@ -49,7 +49,7 @@ const cy: typeof en = ({
   title: "Cais wedi'i gyflwyno",
   introLine1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
   introLine2:
-    'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
+    "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
   sendDocumentsHeading: 'Anfon eich tystiolaeth i’r llys',
   sendDocumentsLine1: 'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',

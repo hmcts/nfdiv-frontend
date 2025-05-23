@@ -664,12 +664,12 @@ const cy: typeof en = (
       link: '/downloads/bailiff-unsuccessful-certificate-of-service',
     },
   },
-  awaitingServicePayment: {
+  awaitingServicePayment: { // TODO: Welsh for AwaitingServicePayment hub
     line1OfflineApplication:
       "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
     line1: 'Your partner has not responded to your divorce application.',
     line2: `You have have started a ${serviceApplicationType} application.`,
-    doNext: 'What you can do next',
+    doNext: 'Beth allwch chi ei wneud nesaf',
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
@@ -677,7 +677,7 @@ const cy: typeof en = (
   serviceApplicationSubmitted: {
     line1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
     line2Hwf:
-      'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
+      "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
     happensNextHeading: 'Beth fydd yn digwydd nesaf',
     happensNextLine1:
       'Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ysgariad yn mynd yn ei flaen heb ymateb gan eich partner. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.',

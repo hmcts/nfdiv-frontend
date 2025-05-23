@@ -41,7 +41,7 @@
     label: {
       html: textWithVisuallyHiddenSpan(courtChecks, displayState.isBefore('Submitted'))
     },
-    complete: displayState.isAtOrAfter('AwaitingAos') or caseHasBeenIssued,
+    complete: caseHasBeenIssued or displayState.isAtOrAfter('AwaitingAos'),
     active: displayState.isBefore('AwaitingAos')
   }, {
     label: {
