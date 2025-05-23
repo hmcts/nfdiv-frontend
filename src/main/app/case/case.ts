@@ -206,9 +206,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   servicePayments: 'servicePayments',
   receivedServiceApplicationDate: 'receivedServiceApplicationDate',
   receivedServiceAddedDate: 'receivedServiceAddedDate',
-  serviceApplicationWasMadeOnline: 'serviceApplicationWasMadeOnline',
+  serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
   alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
   alternativeServiceType: 'alternativeServiceType',
+  serviceApplicationAnswers: 'serviceApplicationAnswers',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -481,9 +482,10 @@ export interface Case {
   servicePayments: ListValue<Payment>[];
   receivedServiceApplicationDate: DateAsString;
   receivedServiceAddedDate: DateAsString;
-  serviceApplicationWasMadeOnline: YesOrNo;
+  serviceApplicationSubmittedOnline: YesOrNo;
   alternativeServiceFeeRequired: YesOrNo;
   alternativeServiceType: AlternativeServiceType;
+  serviceApplicationAnswers: DivorceDocument;
 }
 
 export interface CaseWithId extends Case {

@@ -52,7 +52,7 @@ export const routeHideConditions: RoutePermission[] = [
     condition: data =>
       [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
         data.state as State
-      ) && data.serviceApplicationWasMadeOnline === YesOrNo.YES,
+      ) && data.serviceApplicationSubmittedOnline !== YesOrNo.YES,
   },
   {
     urls: [

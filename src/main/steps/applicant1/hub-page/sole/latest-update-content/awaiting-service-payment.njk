@@ -1,6 +1,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% if serviceApplicationWasMadeOnline %}
+{% if serviceApplicationSubmittedOnline %}
     {% if serviceApplicationFeeRequired %}
         <p class="govuk-body">{{ awaitingServicePayment.line1 }}</p>
         <p class="govuk-body">{{ awaitingServicePayment.line2 }}</p>

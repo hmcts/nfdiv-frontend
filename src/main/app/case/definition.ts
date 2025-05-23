@@ -947,8 +947,9 @@ export interface CaseData {
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
   alternativeServiceFeeRequired: YesOrNo;
+  serviceApplicationAnswers: DivorceDocument;
   servicePayments: ListValue<Payment>[];
-  serviceApplicationWasMadeOnline: YesOrNo,
+  serviceApplicationSubmittedOnline: YesOrNo,
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;

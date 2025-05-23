@@ -138,16 +138,16 @@ describe('routeHiding', () => {
       test('Visible when service application was made online', () => {
         mockReq.url = PAY_YOUR_SERVICE_FEE;
         mockReq.session.userCase.state = State.AwaitingServicePayment;
-        mockReq.session.userCase.serviceApplicationWasMadeOnline = YesOrNo.YES;
+        mockReq.session.userCase.serviceApplicationSubmittedOnline = YesOrNo.YES;
         const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeTruthy();
+        expect(result).toBeFalsy();
       });
 
       test('Not visible when service application was made offline', () => {
         mockReq.url = PAY_YOUR_SERVICE_FEE;
         mockReq.session.userCase.state = State.AwaitingServicePayment;
         const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeFalsy();
+        expect(result).toBeTruthy();
       });
     });
 
@@ -155,16 +155,16 @@ describe('routeHiding', () => {
       test('Visible when service application was made online', () => {
         mockReq.url = SERVICE_APPLICATION_SUBMITTED;
         mockReq.session.userCase.state = State.AwaitingServiceConsideration;
-        mockReq.session.userCase.serviceApplicationWasMadeOnline = YesOrNo.YES;
+        mockReq.session.userCase.serviceApplicationSubmittedOnline = YesOrNo.YES;
         const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeTruthy();
+        expect(result).toBeFalsy();
       });
 
       test('Not visible when service application was made offline', () => {
         mockReq.url = SERVICE_APPLICATION_SUBMITTED;
         mockReq.session.userCase.state = State.AwaitingServiceConsideration;
         const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeFalsy();
+        expect(result).toBeTruthy();
       });
     });
   });

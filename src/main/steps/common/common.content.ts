@@ -376,7 +376,7 @@ export const generateCommonContent = ({
   );
   const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
   const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsAllUploadedPreSubmission === YesOrNo.YES;
-  const serviceApplicationWasMadeOnline = userCase?.serviceApplicationWasMadeOnline === YesOrNo.YES;
+  const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
 
   return {
     ...commonTranslations,
@@ -408,7 +408,7 @@ export const generateCommonContent = ({
     serviceApplicationResponseDate,
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
-    serviceApplicationWasMadeOnline,
+    serviceApplicationSubmittedOnline,
   };
 };
 
@@ -441,5 +441,5 @@ export type CommonContent = typeof en & {
   serviceApplicationResponseDate: string | false;
   serviceApplicationFeeRequired: boolean;
   serviceApplicationDocsAllProvided: boolean;
-  serviceApplicationWasMadeOnline: boolean;
+  serviceApplicationSubmittedOnline: boolean;
 };
