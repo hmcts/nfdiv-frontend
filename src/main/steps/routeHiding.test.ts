@@ -8,8 +8,10 @@ import {
   ACCESSIBILITY_STATEMENT_URL,
   FINALISING_YOUR_APPLICATION,
   PageLink,
+  PAY_YOUR_SERVICE_FEE,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
+  SERVICE_APPLICATION_SUBMITTED,
 } from './urls';
 
 describe('routeHiding', () => {
@@ -130,6 +132,40 @@ describe('routeHiding', () => {
       mockReq.session.userCase.dateAosSubmitted = '2021-05-10';
       const result = shouldHideRouteFromUser(mockReq);
       expect(result).toBeTruthy();
+    });
+
+    describe('Pay Service Fee URL condition', () => {
+      test('Visible when service application was made online', () => {
+        mockReq.url = PAY_YOUR_SERVICE_FEE;
+        mockReq.session.userCase.state = State.AwaitingServicePayment;
+        mockReq.session.userCase.serviceApplicationWasMadeOnline = YesOrNo.YES;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Not visible when service application was made offline', () => {
+        mockReq.url = PAY_YOUR_SERVICE_FEE;
+        mockReq.session.userCase.state = State.AwaitingServicePayment;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+    });
+
+    describe('Service Application Submitted URL condition', () => {
+      test('Visible when service application was made online', () => {
+        mockReq.url = SERVICE_APPLICATION_SUBMITTED;
+        mockReq.session.userCase.state = State.AwaitingServiceConsideration;
+        mockReq.session.userCase.serviceApplicationWasMadeOnline = YesOrNo.YES;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Not visible when service application was made offline', () => {
+        mockReq.url = SERVICE_APPLICATION_SUBMITTED;
+        mockReq.session.userCase.state = State.AwaitingServiceConsideration;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
     });
   });
 });
