@@ -23,6 +23,8 @@ export const en = {
     text: 'Cymraeg',
     link: '?lng=cy',
   },
+  idamInactivityPolicy:
+    'If you do not log into your online account within 90 days, your account will become inactive, and you will have to reset your account. You do this by requesting a password reset with the email you used when creating your account.',
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Continue',
@@ -175,6 +177,8 @@ const cy: typeof en = {
     text: 'English',
     link: '?lng=en',
   },
+  idamInactivityPolicy:
+    "Os na fyddwch yn mewngofnodi i'ch cyfrif ar-lein o fewn 90 diwrnod, bydd eich cyfrif yn cael ei nodi fel cyfrif segur a bydd rhaid i chi ailosod eich cyfrif. Gallwch wneud hyn drwy ddefnyddio'r cyfeiriad e-bost a ddefnyddiwyd gennych i greu eich cyfrif i ofyn i'ch cyfrinair gael ei ailosod.",
   govUk: 'GOV.UK',
   back: 'Yn ôl',
   continue: 'Parhau',
