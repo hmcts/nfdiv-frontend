@@ -1045,6 +1045,7 @@ export interface CaseData {
   applicant1DeemedNoEvidenceStatement: string;
   applicant1InterimApplicationType: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
+  applicant1NoResponseOwnSearches: NoResponseOwnSearches;
 }
 
 export interface CaseDocuments {
@@ -2489,6 +2490,12 @@ export const enum NoResponseProcessServerOrBailiff {
   COURT_BAILIFF = 'courtBailiff',
 }
 
+export const enum NoResponseOwnSearches {
+  YES = 'yes',
+  NO = 'no',
+  NOT_FOUND = 'notFound',
+}
+
 /**
  * Values:
  * - `CONTINUE`
@@ -2669,6 +2676,7 @@ export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const INTEND_SWITCH_TO_SOLE_FO = 'intend-switch-to-sole-fo';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const APPLICANT1_RESEND_PAPERS = 'applicant1-resend-papers';
 export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
 export const FINAL_ORDER_PAYMENT_MADE = 'final-order-payment-made';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';

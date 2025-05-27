@@ -202,6 +202,7 @@ const fields: FromApiConverters = {
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
   }),
+  applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
 };
 
 const fromApiDate = date => {
