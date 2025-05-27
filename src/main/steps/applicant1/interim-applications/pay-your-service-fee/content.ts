@@ -34,8 +34,8 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const applicationFee = !isEmpty(content.userCase.applicationFeeOrderSummary)
-    ? '£' + parseInt(<string>content.userCase.applicationFeeOrderSummary?.PaymentTotal, 10) / 100
+  const applicationFee = !isEmpty(content.userCase.servicePaymentFeeOrderSummary)
+    ? '£' + parseInt(<string>content.userCase.servicePaymentFeeOrderSummary?.PaymentTotal, 10) / 100
     : getFee(config.get('fees.deemedService'));
 
   const translations = languages[content.language](applicationFee);
