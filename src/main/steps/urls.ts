@@ -163,12 +163,18 @@ export const NEW_POSTAL_AND_EMAIL: PageLink = '/interim-applications/no-response
 export const NO_NEW_ADDRESS: PageLink = '/interim-applications/no-response/no-new-address';
 export const PARTNER_IN_PERSON: PageLink = '/interim-applications/no-response/partner-in-person';
 export const OWN_SEARCHES: PageLink = '/interim-applications/no-response/own-searches';
+export const IS_PARTNER_ABROAD: PageLink = '/interim-applications/no-response/is-partner-abroad';
+export const SEARCH_TIPS: PageLink = '/interim-applications/no-response/search-tips';
+
 export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';
 export const BAILIFF_SERVICE_APPLICATION: PageLink = '/interim-applications/bailiff-service/service-application';
 export const PROCESS_SERVER: PageLink = '/interim-applications/no-response/process-server';
 export const CHECK_DETAILS_PROCESS_SERVER: PageLink = '/interim-applications/no-response/check-details-process-server';
+export const SUCCESS_SCREEN_PROCESS_SERVER: PageLink =
+  '/interim-applications/no-response/success-screen-process-server';
 export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
 export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
+export const ALTERNATIVE_INTERRUPTION: PageLink = '/interim-applications/alternative-service/interruption';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
