@@ -8,14 +8,15 @@ import {
   DEEMED_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
   HAVE_THEY_RECEIVED,
-  HAVE_THEY_RECEIVED_REPRESENTED,
+  HAVE_THEY_RECEIVED_REPRESENTED, HUB_PAGE,
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   PARTNER_IN_PERSON,
   PROCESS_SERVER,
   SERVE_AGAIN,
-} from './urls';
+  SUCCESS_SCREEN_PROCESS_SERVER
+} from "./urls";
 
 describe('No Response Journey Sequence test', () => {
   describe('OPTIONS_FOR_PROGRESSING', () => {
@@ -130,6 +131,20 @@ describe('No Response Journey Sequence test', () => {
     test('PROCESS_SERVER', () => {
       const step = noResponseJourneySequence.find(obj => obj.url === PROCESS_SERVER) as Step;
       expect(step.getNextStep({})).toBe(CHECK_DETAILS_PROCESS_SERVER);
+    });
+  });
+
+  describe('CHECK_DETAILS_PROCESS_SERVER', () => {
+    test('CHECK_DETAILS_PROCESS_SERVER', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === CHECK_DETAILS_PROCESS_SERVER) as Step;
+      expect(step.getNextStep({})).toBe(SUCCESS_SCREEN_PROCESS_SERVER);
+    });
+  });
+
+  describe('SUCCESS_SCREEN_PROCESS_SERVER', () => {
+    test('SUCCESS_SCREEN_PROCESS_SERVER', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === SUCCESS_SCREEN_PROCESS_SERVER) as Step;
+      expect(step.getNextStep({})).toBe(HUB_PAGE);
     });
   });
 });
