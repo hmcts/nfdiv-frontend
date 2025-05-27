@@ -32,8 +32,8 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   alternativeService: 'I want to apply for alternative service',
   somethingElse: 'I do not have any other way to contact them',
   errors: {
-    noResponseNoNewAddressDetails: {
-      required: 'You must choose an option to progress your application.',
+    applicant1NoResponseNoNewAddressDetails: {
+      required: 'You must select an option before continuing',
     },
   },
 });
@@ -67,8 +67,8 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   alternativeService: 'I want to apply for alternative service',
   somethingElse: 'I do not have any other way to contact them',
   errors: {
-    noResponseNoNewAddressDetails: {
-      required: 'You must choose an option to progress your application.',
+    applicant1NoResponseNoNewAddressDetails: {
+      required: 'You must select an option before continuing',
     },
   },
 });

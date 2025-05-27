@@ -44,8 +44,8 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   processServer: 'I want to arrange for service by a process server',
   bailiffService: 'I want to request bailiff service',
   errors: {
-    noResponseProcessServerOrBailiff: {
-      required: 'You must choose an option to progress your application.',
+    applicant1NoResponseProcessServerOrBailiff: {
+      required: 'You must select an option before continuing',
     },
   },
 });
@@ -88,8 +88,8 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   processServer: 'I want to arrange for service by a process server',
   bailiffService: 'I want to request bailiff service',
   errors: {
-    noResponseProcessServerOrBailiff: {
-      required: 'You must choose an option to progress your application.',
+    applicant1NoResponseProcessServerOrBailiff: {
+      required: 'You must select an option before continuing',
     },
   },
 });
@@ -128,7 +128,6 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-
   return {
     ...translations,
     form,
