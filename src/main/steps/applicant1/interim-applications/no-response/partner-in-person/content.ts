@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { NoResponseProcessServerOrBailiff } from '../../../../../app/case/definition';
+import { NoResponseProcessServerOrBailiff, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
 import { FormContent } from '../../../../../app/form/Form';
@@ -46,6 +46,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
       required: 'You must select an option before continuing',
+      notEnglandOrWales: `You cannot request bailiff service because your ${partner}'s address is outside England and Wales.`,
     },
   },
 });
@@ -90,12 +91,33 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
       required: 'You must select an option before continuing',
+      notEnglandOrWales: `You cannot request bailiff service because your ${partner}'s address is outside England and Wales.`,
     },
   },
 });
 
 export const form: FormContent = {
   fields: {
+    applicant2DomicileInEnglandWales: {
+      type: 'hidden',
+      classes: 'govuk-radios--inline',
+      label: l => l.applicant2DomicileInEnglandWales,
+      labelHidden: true,
+      values: [
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
+      ],
+    },
+    applicant2AddressOverseas: {
+      type: 'hidden',
+      classes: 'govuk-radios--inline',
+      label: l => l.addressOverseas,
+      labelHidden: true,
+      values: [
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
+      ],
+    },
     applicant1NoResponseProcessServerOrBailiff: {
       type: 'radios',
       classes: 'govuk-radios',
@@ -113,7 +135,15 @@ export const form: FormContent = {
           value: NoResponseProcessServerOrBailiff.COURT_BAILIFF,
         },
       ],
-      validator: value => isFieldFilledIn(value),
+      // validator: value => isFieldFilledIn(value),
+      validator: (value, formData) => {
+        const respondentLivesInEnglandOrWales =
+          formData.applicant2DomicileInEnglandWales === 'Yes' && formData.applicant2AddressOverseas === 'No';
+        if (!respondentLivesInEnglandOrWales && value === NoResponseProcessServerOrBailiff.COURT_BAILIFF) {
+          return 'notEnglandOrWales';
+        }
+        return isFieldFilledIn(value);
+      },
     },
   },
   submit: {
