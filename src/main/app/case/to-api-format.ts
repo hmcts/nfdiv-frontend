@@ -397,6 +397,12 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerHasReceivedPapers: data => ({
     applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
   }),
+  applicant1NoResponseNoNewAddressDetails: data => ({
+    applicant1NoResponseNoNewAddressDetails: data.applicant1NoResponseNoNewAddressDetails,
+  }),
+  applicant1NoResponseProcessServerOrBailiff: data => ({
+    applicant1NoResponseProcessServerOrBailiff: data.applicant1NoResponseProcessServerOrBailiff,
+  }),
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
   }),
@@ -419,6 +425,11 @@ const fields: ToApiConverters = {
   }),
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  }),
+  applicant1NoResponseRespondentAddressInEnglandWales: data => ({
+    applicant1NoResponseRespondentAddressInEnglandWales: checkboxConverter(
+      data.applicant1NoResponseRespondentAddressInEnglandWales
+    ),
   }),
 };
 

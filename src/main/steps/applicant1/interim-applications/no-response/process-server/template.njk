@@ -6,17 +6,18 @@
 {% extends "common/page.njk" %}
 
 {% block page_content %}
-  <h1 class="govuk-heading-l" id="deemedServiceApplicationTitle">{{ title }}</h1>
+  <h1 class="govuk-heading-l" id="processServerTitle">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
+  <h2 class="govuk-heading-m">{{ howItWorks.header }}</h2>
+  <ol class="govuk-list govuk-list--number">
+    <li>{{ howItWorks.steps.one }}</li>
+    <li>{{ howItWorks.steps.two }}</li>
+    <li>{{ howItWorks.steps.three }}</li>
+    <li>{{ howItWorks.steps.four }}</li>
+    <li>{{ howItWorks.steps.five }}</li>
+    <li>{{ howItWorks.steps.six }}</li>
+  </ol>
   <p class="govuk-body">{{ line2 }}</p>
-  <p class="govuk-body">{{ line3 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ suitableEvidence.photo }}</li>
-    <li>{{ suitableEvidence.statement }}</li>
-    <li>{{ suitableEvidence.message }}</li>
-  </ul>
-  <p class="govuk-body">{{ line4 }}</p>
-  <p class="govuk-body">{{ line5 | safe }}</p>
 {% endblock %}
 
 {% block form %}
