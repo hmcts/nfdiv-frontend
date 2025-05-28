@@ -7,5 +7,5 @@ import { AnyObject, PostController } from '../../../../../app/controller/PostCon
 export default class CheckDetailsProcessServerPostController extends PostController<AnyObject> {
   protected getEventName(): string {
     return APPLICANT1_RESEND_PAPERS;
-  };
+  }
 }
