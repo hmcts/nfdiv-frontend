@@ -72,5 +72,4 @@ export const completeCase: Partial<BrowserCase> = {
   applicant1IsApplicant2Represented: Applicant2Represented.NO,
   applicant1ConfirmFullName: YesOrNo.YES,
   applicant2ConfirmFullName: YesOrNo.YES,
-  applicant2DomicileInEnglandWales: YesOrNo.YES,
 };

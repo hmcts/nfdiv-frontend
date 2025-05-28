@@ -20,14 +20,15 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
-  NoResponseNoNewAddressDetails, NoResponseOwnSearches,
+  NoResponseNoNewAddressDetails,
+  NoResponseOwnSearches,
   NoResponseProcessServerOrBailiff,
   OrderSummary,
   Payment,
   RequestForInformation,
   State,
-  YesOrNo
-} from "./definition";
+  YesOrNo,
+} from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   applicationType: 'applicationType',
@@ -201,6 +202,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
+  applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -469,6 +471,7 @@ export interface Case {
   applicant1InterimApplicationType?: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
+  applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
 }
 
 export interface CaseWithId extends Case {
