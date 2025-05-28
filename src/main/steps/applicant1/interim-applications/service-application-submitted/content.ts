@@ -7,6 +7,8 @@ const en = ({
   serviceApplicationDocsAllProvided,
   serviceApplicationType,
   referenceNumber,
+  isDivorce,
+  partner,
 }: CommonContent) => ({
   title: 'Application submitted',
   introLine1: `You have submitted your application for ${serviceApplicationType}.`,
@@ -31,7 +33,9 @@ const en = ({
     !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
       ? 'If your help with fees reference number is accepted, the'
       : 'The'
-  } court will review your application and any evidence you have submitted. If your application is successful, your divorce will proceed without a response from your partner. We will then tell you when you can apply for your conditional order.`,
+  } court will review your application and any evidence you have submitted. If your application is successful, your ${
+    isDivorce ? 'divorce' : 'dissolution'
+  } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`,
   happensNextLine2: `We will email you ${
     serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
   }to let you know whether your application has been successful.`,
@@ -45,6 +49,8 @@ const cy: typeof en = ({
   serviceApplicationDocsAllProvided,
   serviceApplicationType,
   referenceNumber,
+  isDivorce,
+  partner,
 }: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
   introLine1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
@@ -65,8 +71,9 @@ const cy: typeof en = ({
     step2: 'Postiwch y dogfennau gwreiddiol i:',
   },
   happensNextHeading: 'Beth fydd yn digwydd nesaf',
-  happensNextLine1:
-    'Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ysgariad yn mynd yn ei flaen heb ymateb gan eich partner. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.',
+  happensNextLine1: `Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ${
+    isDivorce ? 'ysgariad' : 'diddymiad'
+  } yn mynd yn ei flaen heb ymateb gan eich ${partner}. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.`,
   happensNextLine2: `Byddwn yn anfon e-bost atoch ${
     serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
       ? `erbyn ${serviceApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
