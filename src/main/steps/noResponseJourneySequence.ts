@@ -1,13 +1,13 @@
-import { CaseWithId } from "../app/case/case";
+import { CaseWithId } from '../app/case/case';
 import {
   NoResponseCheckContactDetails,
   NoResponseNoNewAddressDetails,
   NoResponseOwnSearches,
   NoResponseProcessServerOrBailiff,
-  YesOrNo
-} from "../app/case/definition";
+  YesOrNo,
+} from '../app/case/definition';
 
-import { Step } from "./applicant1Sequence";
+import { Step } from './applicant1Sequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
   BAILIFF_SERVICE_APPLICATION,
@@ -16,17 +16,19 @@ import {
   EVIDENCE_RECEIVED_APPLICATION,
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
-  HUB_PAGE, IS_PARTNER_ABROAD,
+  HUB_PAGE,
+  IS_PARTNER_ABROAD,
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
-  PageLink,
   PARTNER_IN_PERSON,
-  PROCESS_SERVER, SEARCH_TIPS,
+  PROCESS_SERVER,
+  PageLink,
+  SEARCH_TIPS,
   SERVE_AGAIN,
-  SUCCESS_SCREEN_PROCESS_SERVER
-} from "./urls";
+  SUCCESS_SCREEN_PROCESS_SERVER,
+} from './urls';
 
 export const noResponseJourneySequence: Step[] = [
   {
@@ -120,7 +122,7 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: OWN_SEARCHES,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      switch(data.applicant1NoResponseOwnSearches) {
+      switch (data.applicant1NoResponseOwnSearches) {
         case NoResponseOwnSearches.YES:
         case NoResponseOwnSearches.NOT_FOUND: {
           return IS_PARTNER_ABROAD;
@@ -132,6 +134,6 @@ export const noResponseJourneySequence: Step[] = [
           return HUB_PAGE;
         }
       }
-    }
+    },
   },
 ];
