@@ -18,7 +18,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   homeAddress: 'Home address',
   emailAddress: 'Email address',
   errors: {
-    noResponseCheckContactDetails: {
+    applicant1NoResponseCheckContactDetails: {
       required: `You must confirm whether or not your ${partner}'s contact details are correct.`,
     },
   },
@@ -39,7 +39,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   homeAddress: 'Cyfeiriad cartref',
   emailAddress: 'Cyfeiriad e-bost',
   errors: {
-    noResponseCheckContactDetails: {
+    applicant1NoResponseCheckContactDetails: {
       required: `You must confirm whether or not your ${partner}'s contact details are correct.`,
     },
   },

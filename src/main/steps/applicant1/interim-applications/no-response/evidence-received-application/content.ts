@@ -21,7 +21,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   proveYes: `Yes, I have evidence that my ${partner} has received the papers.`,
   proveNo: 'No, I do not have any suitable evidence.',
   errors: {
-    noResponsePartnerHasReceivedPapers: {
+    applicant1NoResponsePartnerHasReceivedPapers: {
       required: 'You must select an option before continuing.',
     },
   },
@@ -47,7 +47,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   proveYes: `Gallaf, mi allaf brofi bod fy ${partner} wedi cael y papurau.`,
   proveNo: 'Na allaf, nid oes gennyf unrhyw dystiolaeth addas.',
   errors: {
-    noResponsePartnerHasReceivedPapers: {
+    applicant1NoResponsePartnerHasReceivedPapers: {
       required: `You must confirm whether or not you can prove that your ${partner} has received the papers.`,
     },
   },
