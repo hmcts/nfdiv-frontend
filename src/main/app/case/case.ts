@@ -22,7 +22,7 @@ import {
   NoResponseCheckContactDetails,
   NoResponseNewEmailOrPostalAddress,
   OrderSummary,
-  Payment,
+  Payment, ReissueOption,
   RequestForInformation,
   State,
   YesOrNo,
@@ -466,6 +466,14 @@ export interface Case {
   applicant1DeemedNoEvidenceStatement?: string;
   applicant1InterimApplicationType?: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
+  previousApplicant2Address1?: string;
+  previousApplicant2Address2?: string;
+  previousApplicant2Address3?: string;
+  previousApplicant2AddressTown?: string;
+  previousApplicant2AddressCounty?: string;
+  previousApplicant2AddressCountry?: string;
+  previousApplicant2AddressPostcode?: string;
+  reissueOption?: ReissueOption;
 }
 
 export interface CaseWithId extends Case {

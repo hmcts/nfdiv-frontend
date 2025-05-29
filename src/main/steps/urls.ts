@@ -163,6 +163,8 @@ export const NEW_POSTAL_AND_EMAIL: PageLink = '/interim-applications/no-response
 export const NEW_POSTAL_ADDRESS: PageLink = '/interim-applications/no-response/new-postal-address';
 export const NEW_EMAIL: PageLink = '/interim-applications/no-response/new-email-address';
 export const BOTH_EMAIL_AND_POSTAL: PageLink = '/interim-applications/no-response/new-email';
+export const NEW_CONTACT_DETAIL_CHECK_ANSWERS: PageLink = '/interim-applications/no-response/check-your-answers';
+export const NO_RESPONSE_DETAILS_UPDATED: PageLink = '/interim-applications/no-response/details-updated';
 
 export const NO_NEW_ADDRESS: PageLink = '/interim-applications/no-response/no-new-address';
 export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';

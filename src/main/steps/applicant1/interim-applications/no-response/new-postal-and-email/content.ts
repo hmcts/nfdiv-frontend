@@ -21,7 +21,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 // @TODO translations should be verified once provided
 const cy: typeof en = en;
 
-const form: FormContent = {
+export const form: FormContent = {
   fields: {
     applicant1NoResponseUpdateEmailAndPostalAddress: {
       type: 'radios',
@@ -36,12 +36,12 @@ const form: FormContent = {
         },
         {
           label: l => l.newEmailAddress,
-          id: 'notKnown',
+          id: 'newEmailAddress',
           value: NoResponseNewEmailOrPostalAddress.NEW_EMAIL,
         },
         {
           label: l => l.newEmailAndPostalAddress,
-          id: 'notKnown',
+          id: 'bothEmailAndPostalAddress',
           value: NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
         },
       ],

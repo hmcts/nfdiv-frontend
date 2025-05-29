@@ -13,3 +13,13 @@
 {% block form %}
   {% include "./form.njk" %}
 {% endblock %}
+
+<script>
+  import { hideUkAddressFields, showEnterPostcode } from "../../../../../assets/js/address/links";
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide address fields and show postcode entry on page load
+    hideUkAddressFields();
+    showEnterPostcode();
+  });
+</script>

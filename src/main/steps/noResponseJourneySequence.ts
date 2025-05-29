@@ -9,10 +9,12 @@ import {
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
   HUB_PAGE,
+  NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   NEW_EMAIL,
   NEW_POSTAL_ADDRESS,
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
+  NO_RESPONSE_DETAILS_UPDATED,
   OPTIONS_FOR_PROGRESSING,
   PageLink,
   SERVE_AGAIN,
@@ -68,21 +70,32 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: NEW_POSTAL_ADDRESS,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      switch (data.applicant1NoResponseUpdateEmailAndPostalAddress) {
-        case NoResponseNewEmailOrPostalAddress.NEW_POSTAL: {
-          return NEW_POSTAL_ADDRESS;
-        }
-        case NoResponseNewEmailOrPostalAddress.NEW_EMAIL: {
-          return NEW_EMAIL;
-        }
-        case NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL: {
-          return BOTH_EMAIL_AND_POSTAL;
-        }
-        default: {
-          return HUB_PAGE;
-        }
-      }
+    getNextStep: (): PageLink => {
+      return NEW_CONTACT_DETAIL_CHECK_ANSWERS;
+    },
+  },
+  {
+    url: NEW_EMAIL,
+    getNextStep: (): PageLink => {
+      return NEW_CONTACT_DETAIL_CHECK_ANSWERS;
+    },
+  },
+  {
+    url: BOTH_EMAIL_AND_POSTAL,
+    getNextStep: (): PageLink => {
+      return NEW_CONTACT_DETAIL_CHECK_ANSWERS;
+    },
+  },
+  {
+    url: NEW_CONTACT_DETAIL_CHECK_ANSWERS,
+    getNextStep: (): PageLink => {
+      return NO_RESPONSE_DETAILS_UPDATED;
+    },
+  },
+  {
+    url: NO_RESPONSE_DETAILS_UPDATED,
+    getNextStep: (): PageLink => {
+      return HUB_PAGE;
     },
   },
   {
