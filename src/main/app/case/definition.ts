@@ -1031,6 +1031,7 @@ export interface CaseData {
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
+  applicant1NoResponseUpdateEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
   applicant1InterimAppsIUnderstand: YesOrNo;
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
@@ -2476,6 +2477,14 @@ export const enum NoResponseCheckContactDetails {
   NOT_KNOWN = 'notKnown',
 }
 
+export const enum NoResponseNewEmailOrPostalAddress {
+  NEW_POSTAL = 'newPostalAddress',
+  NEW_EMAIL = 'newEmailAddress',
+  BOTH_EMAIL_AND_POSTAL = 'newEmailAndPostalAddress',
+  PROVIDE_NEW_EMAIL = 'provideNewEmailAddress',
+  APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
+}
+
 /**
  * Values:
  * - `CONTINUE`
@@ -2699,6 +2708,7 @@ export const CITIZEN_WITHDRAWN = 'citizen-withdrawn';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 export const CASEWORKER_REQUEST_FOR_INFORMATION = 'caseworker-request-for-information';
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
+export const CASEWORKER_REISSUE_APPLICATION = 'caseworker-reissue-application';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_LINK_APPLICANT_1 = 'system-link-applicant1';

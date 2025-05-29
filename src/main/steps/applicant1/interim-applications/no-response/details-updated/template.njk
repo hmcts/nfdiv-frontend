@@ -1,0 +1,17 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "common/page.njk" %}
+
+<div class="govuk-panel govuk-panel--confirmation">
+  <h1 id="detailsUpdatedTitle" class="govuk-panel__title">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  <br/>
+  <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
+  <br/>
+  <p class="govuk-body">{{ line2 }}</p>
+  <p class="govuk-body">{{ line3 }}</p>
+  <p class="govuk-body">{{ line4 }}</p>
+  <p class="govuk-body">{{ returnToHubScreen }}</p>
+</div>
+<br/>

@@ -394,6 +394,9 @@ const fields: ToApiConverters = {
   applicant1NoResponseCheckContactDetails: data => ({
     applicant1NoResponseCheckContactDetails: data.applicant1NoResponseCheckContactDetails,
   }),
+  applicant1NoResponseUpdateEmailAndPostalAddress: data => ({
+    applicant1NoResponseUpdateEmailAndPostalAddress: data.applicant1NoResponseUpdateEmailAndPostalAddress,
+  }),
   applicant1NoResponsePartnerHasReceivedPapers: data => ({
     applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
   }),

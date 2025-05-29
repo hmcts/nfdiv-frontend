@@ -1,0 +1,103 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "common/page.njk" %}
+
+{% block backLink %}{% endblock %}
+
+{% block content %}
+  {% block error_summary %}
+    {% include "common/error/summary.njk" %}
+  {% endblock %}
+
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+
+  {% set answerRows = [] %}
+  {% set answerRows = (answerRows.push({
+    key: {
+      html: 'Name',
+      classes: 'govuk-!-width-two-thirds'
+    },
+    value: {
+      text: stepAnswers['name'] | safe
+    },
+    actions: {
+    }
+  }), answerRows) %}
+
+  {% if updateWhat == 'newPostalAddress' %}
+    {% set answerRows = (answerRows.push({
+      key: {
+        html: 'Address',
+        classes: 'govuk-!-width-two-thirds'
+      },
+      value: {
+        text: stepAnswers['newPostalAddress'] | safe
+      },
+      actions: {
+        items: [
+          {
+            href: stepLinks['newAddress'],
+            text: change,
+            visuallyHiddenText: text
+          }
+        ]
+      }
+    }), answerRows) %}
+    {% elif updateWhat == 'newEmailAddress' %}
+    {% set answerRows = (answerRows.push({
+      key: {
+        html: 'Email address',
+        classes: 'govuk-!-width-two-thirds'
+      },
+      value: {
+        text: stepAnswers['newEmailAddress'] | safe
+      },
+      actions: {
+        items: [
+          {
+            href: stepLinks['newEmailAddress'],
+            text: change,
+            visuallyHiddenText: text
+          }
+        ]
+      }
+    }), answerRows) %}
+    {% else %}
+      {% for question, questionText in stepQuestions %}
+        {% if stepAnswers[question] and stepAnswers[question] != 'undefined' and stepAnswers[question] != 'null' and questionText != 'Name' %}
+          {% set answerRows = (answerRows.push({
+            key: {
+              html: questionText,
+              classes: 'govuk-!-width-two-thirds'
+            },
+            value: {
+              text: stepAnswers[question] | safe
+            },
+            actions: {
+              items: [
+                {
+                  href: stepLinks[question],
+                  text: change,
+                  visuallyHiddenText: text
+                } if questionText != 'Name'
+              ]
+            }
+          }), answerRows) %}
+        {% endif %}
+      {% endfor %}
+  {% endif %}
+
+  {% if answerRows.length %}
+    {{ govukSummaryList({
+      classes: 'govuk-!-margin-bottom-9',
+      rows: answerRows
+    }) }}
+  {% endif %}
+
+  {% block form %}
+    {% include "./form.njk" %}
+  {% endblock %}
+
+  {% include "common/contact-us/details.njk" %}
+{% endblock %}

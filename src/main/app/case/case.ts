@@ -20,8 +20,9 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
+  NoResponseNewEmailOrPostalAddress,
   OrderSummary,
-  Payment,
+  Payment, ReissueOption,
   RequestForInformation,
   State,
   YesOrNo,
@@ -186,6 +187,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
+  applicant1NoResponseUpdateEmailAndPostalAddress: 'applicant1NoResponseUpdateEmailAndPostalAddress',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -450,6 +452,7 @@ export interface Case {
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
+  applicant1NoResponseUpdateEmailAndPostalAddress?: NoResponseNewEmailOrPostalAddress;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
@@ -463,6 +466,14 @@ export interface Case {
   applicant1DeemedNoEvidenceStatement?: string;
   applicant1InterimApplicationType?: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
+  previousApplicant2Address1?: string;
+  previousApplicant2Address2?: string;
+  previousApplicant2Address3?: string;
+  previousApplicant2AddressTown?: string;
+  previousApplicant2AddressCounty?: string;
+  previousApplicant2AddressCountry?: string;
+  previousApplicant2AddressPostcode?: string;
+  reissueOption?: ReissueOption;
 }
 
 export interface CaseWithId extends Case {
