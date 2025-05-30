@@ -551,8 +551,8 @@ const en = ({
       line14: urls.CHECK_JURISDICTION,
     },
     aboutPartners: {
-      line1: urls.CERTIFICATE_NAME,
-      line2: urls.CERTIFICATE_NAME,
+      line1: urls.YOUR_CERTIFICATE_NAME,
+      line2: urls.YOUR_CERTIFICATE_NAME,
       line3: urls.CHANGES_TO_YOUR_NAME_URL,
       line4: urls.CHANGES_TO_YOUR_NAME_URL,
       line5: urls.CHANGES_TO_YOUR_NAME_URL,

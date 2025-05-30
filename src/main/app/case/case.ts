@@ -60,6 +60,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1MiddleNames: 'applicant1MiddleName',
   applicant1LastNames: 'applicant1LastName',
   applicant1ConfirmFullName: 'applicant1ConfirmFullName',
+  applicant1ConfirmNameMatchesCertificate: 'applicant1ConfirmNameMatchesCertificate',
   applicant2FirstNames: 'applicant2FirstName',
   applicant2MiddleNames: 'applicant2MiddleName',
   applicant2LastNames: 'applicant2LastName',
@@ -70,6 +71,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2ConfirmReceipt: 'applicant2ConfirmReceipt',
   applicant1LastNameChangedWhenMarried: 'applicant1LastNameChangedWhenMarried',
   applicant1NameDifferentToMarriageCertificate: 'applicant1NameDifferentToMarriageCertificate',
+  applicant1WhyNameDifferentToMarriageCertificate: 'applicant1WhyNameDifferentToMarriageCertificate',
   applicant1NameChangedHow: 'applicant1NameChangedHow',
   applicant1NameChangedHowOtherDetails: 'applicant1NameChangedHowOtherDetails',
   applicant1LastNameChangedWhenMarriedMethod: 'applicant1LastNameChangedWhenMarriedMethod',
@@ -245,6 +247,7 @@ export interface Case {
   applicant1MiddleNames?: string;
   applicant1LastNames?: string;
   applicant1ConfirmFullName?: YesOrNo | null;
+  applicant1ConfirmNameMatchesCertificate?: YesOrNo | null
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1Address3?: string;

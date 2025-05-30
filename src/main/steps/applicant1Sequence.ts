@@ -22,7 +22,7 @@ import {
   APPLY_FINANCIAL_ORDER_DETAILS,
   APP_REPRESENTED,
   CERTIFICATE_IN_ENGLISH,
-  CERTIFICATE_NAME,
+  YOUR_CERTIFICATE_NAME,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
   CHANGES_TO_YOUR_NAME_URL,
@@ -30,6 +30,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
+  CHECK_YOUR_NAME,
   CHECK_JURISDICTION,
   CHECK_PHONE_NUMBER,
   CONFIRM_JOINT_APPLICATION,
@@ -272,16 +273,17 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: ENTER_YOUR_NAME,
-    getNextStep: () => CONFIRM_YOUR_NAME,
+    getNextStep: () => CHECK_YOUR_NAME,
   },
   {
-    url: CONFIRM_YOUR_NAME,
-    getNextStep: data =>
-      data.applicant1ConfirmFullName === YesOrNo.NO
-        ? ENTER_YOUR_NAMES
-        : data.applicationType === ApplicationType.JOINT_APPLICATION
-          ? CERTIFICATE_NAME
-          : THEIR_NAME,
+    url: CHECK_YOUR_NAME,
+    getNextStep: () => YOUR_CERTIFICATE_NAME,
+  },
+  {
+    url: YOUR_CERTIFICATE_NAME,
+    getNextStep: data => data.applicant1ConfirmNameMatchesCertificate === YesOrNo.NO ?
+      CHANGES_TO_YOUR_NAME_URL
+      : THEIR_NAME,
   },
   {
     url: THEIR_NAME,
@@ -289,10 +291,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: CONFIRM_THEIR_NAME,
-    getNextStep: data => (data.applicant2ConfirmFullName === YesOrNo.NO ? THEIR_NAME : CERTIFICATE_NAME),
+    getNextStep: data => (data.applicant2ConfirmFullName === YesOrNo.NO ? THEIR_NAME : YOUR_CERTIFICATE_NAME),
   },
   {
-    url: CERTIFICATE_NAME,
+    url: YOUR_CERTIFICATE_NAME,
     getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
   },
   {

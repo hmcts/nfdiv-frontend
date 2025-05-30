@@ -7,7 +7,8 @@ const en = () => {
   return {
     title: 'Enter your name',
     line1: 'The court needs to know your full name.',
-    insetText: 'You must enter your middle name if you have one.',
+    enterFullNameHint: 'The court needs to know your full name.  Do not enter an abbreviated name or a nickname unless it is your legal name. For example, if David is your legal name, do not enter Dave instead of David.',
+    middleNameHint: 'You must enter your middle name if you have one.',
     firstNames: 'Your first name(s)',
     middleNames: 'Your middle name(s) (if you have one)',
     lastNames: 'Your last name(s)',
@@ -32,7 +33,8 @@ const cy: typeof en = () => {
   return {
     title: 'Nodwch eich enw',
     line1: 'Mae’r llys angen gwybod eich enw llawn.',
-    insetText: 'Rhaid ichi nodi eich enw canol os oes gennych un.',
+    enterFullNameHint: 'The court needs to know your full name.  Do not enter an abbreviated name or a nickname unless it is your legal name. For example, if David is your legal name, do not enter Dave instead of David.',
+    middleNameHint: 'Rhaid ichi nodi eich enw canol os oes gennych un.',
     firstNames: 'Eich enw(au) cyntaf',
     middleNames: 'Eich enw(au) canol (os oes gennych un)',
     lastNames: 'Eich cyfenw(au)',

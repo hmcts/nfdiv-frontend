@@ -510,6 +510,7 @@ export interface CaseData {
   applicant1MiddleName: string;
   applicant1LastName: string;
   applicant1ConfirmFullName: YesOrNo;
+  applicant1ConfirmNameMatchesCertificate: YesOrNo;
   applicant1Email: string;
   applicant1AgreedToReceiveEmails: YesOrNo;
   applicant1ConfirmReceipt: YesOrNo;
@@ -1727,6 +1728,15 @@ export const enum Applicant2Represented {
 export const enum ApplicationType {
   SOLE_APPLICATION = 'soleApplication',
   JOINT_APPLICATION = 'jointApplication',
+}
+
+export const enum ChangedNameWhy {
+  DEED_POLL = 'deedPoll',
+  CHANGED_PARTS_OF_NAME = 'changedPartsOfName',
+  PART_OF_NAME_NOT_INCLUDED = 'partOfNameNotIncluded',
+  PART_OF_NAME_ABBREVIATED = 'partOfNameAbbreviated',
+  LEGAL_NAME_SPELLED_DIFFERENTLY = 'legalNameSpelledDifferently',
+  OTHER = 'other',
 }
 
 export const enum ChangedNameHow {

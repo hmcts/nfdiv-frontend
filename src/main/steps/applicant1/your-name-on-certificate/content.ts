@@ -5,7 +5,7 @@ import type { CommonContent } from '../../common/common.content';
 
 const en = ({ isDivorce, partner }: CommonContent, relationship: string) => {
   return {
-    title: `Your names on your ${relationship} certificate`,
+    title: `How is your name written on your ${relationship} certificate`,
     line1: `These are the names you and your ${partner} used before you ${
       isDivorce ? 'were married' : 'formed your civil partnership'
     }. They can sometimes be different from your current names. For example, if you or your ${partner} had a maiden name or changed your name by deed poll.`,
@@ -60,14 +60,6 @@ export const form: FormContent = {
       classes: 'govuk-input--width-20',
       autocomplete: 'full-name',
       label: l => l.applicant1FullNameOnCertificate,
-      hint: l => l.hint,
-      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
-    },
-    applicant2FullNameOnCertificate: {
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      autocomplete: 'full-name',
-      label: l => l.applicant2FullNameOnCertificate,
       hint: l => l.hint,
       validator: value => isFieldFilledIn(value) || isFieldLetters(value),
     },
