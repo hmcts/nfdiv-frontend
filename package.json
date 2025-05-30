@@ -161,7 +161,7 @@
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
-    "http-cache-semantics": "4.1.1",
+    "http-cache-semantics": "4.2.0",
     "axios": "1.9.0",
     "nanoid": "5.1.5",
     "formidable": "3.5.4"
