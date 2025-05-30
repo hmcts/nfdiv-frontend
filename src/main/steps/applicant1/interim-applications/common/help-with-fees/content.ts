@@ -13,6 +13,11 @@ const en = (serviceType: string, serviceFee: string) => ({
     'govukUrls.getHelpWithCourtFees'
   )}">check the help with fees guidance on GOV.UK (opens in a new tab)</a> to find out if you are eligible for support.`,
   useHelpWithFees: 'Will you be using help with fees to pay for this application?',
+  errors: {
+    applicant1InterimAppsUseHelpWithFees: {
+      required: 'You must select an option before continuing.',
+    },
+  },
 });
 
 // @TODO translations
@@ -22,6 +27,11 @@ const cy = (serviceType: string, serviceFee: string) => ({
     'govukUrls.getHelpWithCourtFees'
   )}">check the help with fees guidance on GOV.UK (opens in a new tab)</a> to find out if you are eligible for support.`,
   useHelpWithFees: 'Will you be using help with fees to pay for this application?',
+  errors: {
+    applicant1InterimAppsUseHelpWithFees: {
+      required: 'You must select an option before continuing.',
+    },
+  },
 });
 
 const languages = {
