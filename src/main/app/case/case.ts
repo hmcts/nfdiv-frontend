@@ -202,7 +202,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
   servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
   servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
-  serviceApplicationDocsAllUploadedPreSubmission: 'serviceApplicationDocsAllUploadedPreSubmission',
+  serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
   servicePayments: 'servicePayments',
   receivedServiceApplicationDate: 'receivedServiceApplicationDate',
   receivedServiceAddedDate: 'receivedServiceAddedDate',
@@ -478,7 +478,7 @@ export interface Case {
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
-  serviceApplicationDocsAllUploadedPreSubmission: YesOrNo;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   servicePayments: ListValue<Payment>[];
   receivedServiceApplicationDate: DateAsString;
   receivedServiceAddedDate: DateAsString;
