@@ -146,7 +146,7 @@ const cy: typeof en = ({
   serviceApplicationDownload: {
     reference: 'Service-application',
     link: '/downloads/service-application',
-    text: `View your ${serviceApplicationType} application (PDF)`,
+    text: `Gweld y cais am ${serviceApplicationType} (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',

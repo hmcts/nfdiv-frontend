@@ -257,7 +257,7 @@ export interface AlternativeService {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
-  serviceApplicationDocsAllUploadedPreSubmission: YesOrNo;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   servicePaymentFeeServiceRequestReference: string;
 }
 
@@ -955,7 +955,7 @@ export interface CaseData {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
-  serviceApplicationDocsAllUploadedPreSubmission: YesOrNo;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   documentsUploaded: ListValue<DivorceDocument>[];

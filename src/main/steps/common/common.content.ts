@@ -375,7 +375,7 @@ export const generateCommonContent = ({
     language
   );
   const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
-  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsAllUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
 
   return {

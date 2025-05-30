@@ -11,11 +11,11 @@
   </div>
   <br/>
   <p class="govuk-body">{{ introLine1 }}</p>
-  {% if serviceAppDocsWereUploaded and not serviceApplicationFeeRequired %}
+  {% if serviceApplicationDocsAllProvided and not serviceApplicationFeeRequired %}
     <p class="govuk-body">{{ introLine2 }}</p>
   {% endif %}
 
-  {% if not serviceAppDocsWereUploaded %}
+  {% if not serviceApplicationDocsAllProvided %}
     <h2 class="govuk-heading-l">{{ sendDocumentsHeading }}</h2>
     <p class="govuk-body">{{ sendDocumentsLine1 }}</p>
 
