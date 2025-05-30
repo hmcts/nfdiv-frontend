@@ -49,6 +49,8 @@ export class DocumentManagerController {
           State.InformationRequested,
           State.AwaitingRequestedInformation,
           State.RequestedInformationSubmitted,
+          State.AosDrafted,
+          State.AwaitingAos,
         ].includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot upload new documents as case is not in the correct state');
@@ -89,6 +91,8 @@ export class DocumentManagerController {
       )
     ) {
       documentsKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
+    } else if (req.session.userCase.state === State.AosDrafted) {
+      documentsKey = 'applicant2LegalProceedingDocs';
     }
 
     const updatedDocumentsUploaded = newUploads.concat(req.session.userCase[documentsKey] || []);
