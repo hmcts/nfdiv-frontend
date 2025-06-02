@@ -1045,7 +1045,9 @@ export interface CaseData {
   applicant1DeemedNoEvidenceStatement: string;
   applicant1InterimApplicationType: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
-  newApplicant2Address: AddressGlobalUK;
+  applicant1NoResponsePartnerAddress: AddressGlobalUK;
+  applicant1NoResponsePartnerAddressOverseas: YesOrNo;
+  applicant1NoResponsePartnerEmail: string;
 }
 
 export interface CaseDocuments {

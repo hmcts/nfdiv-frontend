@@ -1,7 +1,6 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
-  AddressGlobalUK,
   AlternativeServiceOutcome,
   Applicant2Represented,
   ApplicationType,
@@ -204,7 +203,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
-  newApplicant2Address: 'newApplicant2Address',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -302,7 +300,6 @@ export interface Case {
   applicant2AddressPostcode?: string;
   applicant2AddressCountry?: string;
   applicant2AddressOverseas?: YesOrNo;
-  applicant2Address?: AddressGlobalUK;
   applicant1LastNameChangedWhenMarried?: YesOrNo;
   applicant1LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
   applicant1LastNameChangedWhenMarriedOtherDetails?: string;
@@ -473,15 +470,15 @@ export interface Case {
   applicant1DeemedNoEvidenceStatement?: string;
   applicant1InterimApplicationType?: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
-  newApplicant2Address1?: string;
-  newApplicant2Address2?: string;
-  newApplicant2Address3?: string;
-  newApplicant2AddressTown?: string;
-  newApplicant2AddressCounty?: string;
-  newApplicant2AddressCountry?: string;
-  newApplicant2AddressPostcode?: string;
-  newApplicant2EmailAddress?: string;
-  newApplicant2Address;
+  applicant1NoResponsePartnerAddress1?: string;
+  applicant1NoResponsePartnerAddress2?: string;
+  applicant1NoResponsePartnerAddress3?: string;
+  applicant1NoResponsePartnerAddressTown?: string;
+  applicant1NoResponsePartnerAddressCounty?: string;
+  applicant1NoResponsePartnerAddressCountry?: string;
+  applicant1NoResponsePartnerAddressPostcode?: string;
+  applicant1NoResponsePartnerAddressOverseas?: YesOrNo;
+  applicant1NoResponsePartnerEmailAddress?: string;
 }
 
 export interface CaseWithId extends Case {
