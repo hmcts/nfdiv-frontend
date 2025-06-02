@@ -4,7 +4,6 @@ import { Response } from 'express';
 import { getSystemUser } from '../../../../../app/auth/user/oidc';
 import { getCaseApi } from '../../../../../app/case/case-api';
 import { CASEWORKER_REISSUE_APPLICATION } from '../../../../../app/case/definition';
-import { toApiFormat } from '../../../../../app/case/to-api-format';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields } from '../../../../../app/form/Form';
@@ -17,19 +16,15 @@ export default class CheckAnswersPostController extends PostController<AnyObject
 
     const { ...formData } = form.getParsedBody(req.body);
     const userCase = req.session.userCase;
-    userCase.applicant2Address1 = req.session.userCase.newApplicant2Address1;
-    userCase.applicant2Address2 = req.session.userCase.newApplicant2Address2;
-    userCase.applicant2Address3 = req.session.userCase.newApplicant2Address3;
-    userCase.applicant2AddressTown = req.session.userCase.newApplicant2AddressTown;
-    userCase.applicant2AddressCountry = req.session.userCase.newApplicant2AddressCountry;
-    userCase.applicant2AddressPostcode = req.session.userCase.newApplicant2AddressPostcode;
-
-    formData.applicant2Address = toApiFormat(userCase).applicant2Address;
+    userCase.applicant2Address1 = userCase.applicant1NoResponsePartnerAddress1;
+    userCase.applicant2Address2 = userCase.applicant1NoResponsePartnerAddress2;
+    userCase.applicant2Address3 = userCase.applicant1NoResponsePartnerAddress3;
+    userCase.applicant2AddressTown = userCase.applicant1NoResponsePartnerAddressTown;
+    userCase.applicant2AddressCountry = userCase.applicant1NoResponsePartnerAddressCountry;
+    userCase.applicant2AddressPostcode = userCase.applicant1NoResponsePartnerAddressPostcode;
 
     formData.applicant2Email =
-      req.session.userCase.applicant2Email !== ''
-        ? req.session.userCase.applicant2Email
-        : req.session.userCase.newApplicant2EmailAddress;
+      userCase.applicant2Email !== '' ? userCase.applicant2Email : userCase.applicant1NoResponsePartnerEmailAddress;
 
     let nextUrl: string;
     req.session.errors = form.getErrors(formData);
