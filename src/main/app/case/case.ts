@@ -1,6 +1,7 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
+  AddressGlobalUK,
   AlternativeServiceOutcome,
   Applicant2Represented,
   ApplicationType,
@@ -21,8 +22,9 @@ import {
   ListValue,
   NoResponseCheckContactDetails,
   NoResponseNewEmailOrPostalAddress,
+  NoResponseProvideNewEmailOrApplyForAlternativeService,
   OrderSummary,
-  Payment, ReissueOption,
+  Payment,
   RequestForInformation,
   State,
   YesOrNo,
@@ -188,6 +190,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponseUpdateEmailAndPostalAddress: 'applicant1NoResponseUpdateEmailAndPostalAddress',
+  applicant1NoResponseProvideNewEmailOrApplyForAlternativeService:
+    'applicant1NoResponseProvideNewEmailOrApplyForAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -200,6 +204,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  newApplicant2Address: 'newApplicant2Address',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -297,6 +302,7 @@ export interface Case {
   applicant2AddressPostcode?: string;
   applicant2AddressCountry?: string;
   applicant2AddressOverseas?: YesOrNo;
+  applicant2Address?: AddressGlobalUK;
   applicant1LastNameChangedWhenMarried?: YesOrNo;
   applicant1LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
   applicant1LastNameChangedWhenMarriedOtherDetails?: string;
@@ -453,6 +459,7 @@ export interface Case {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponseUpdateEmailAndPostalAddress?: NoResponseNewEmailOrPostalAddress;
+  applicant1NoResponseProvideNewEmailOrApplyForAlternativeService?: NoResponseProvideNewEmailOrApplyForAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
@@ -466,14 +473,15 @@ export interface Case {
   applicant1DeemedNoEvidenceStatement?: string;
   applicant1InterimApplicationType?: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
-  previousApplicant2Address1?: string;
-  previousApplicant2Address2?: string;
-  previousApplicant2Address3?: string;
-  previousApplicant2AddressTown?: string;
-  previousApplicant2AddressCounty?: string;
-  previousApplicant2AddressCountry?: string;
-  previousApplicant2AddressPostcode?: string;
-  reissueOption?: ReissueOption;
+  newApplicant2Address1?: string;
+  newApplicant2Address2?: string;
+  newApplicant2Address3?: string;
+  newApplicant2AddressTown?: string;
+  newApplicant2AddressCounty?: string;
+  newApplicant2AddressCountry?: string;
+  newApplicant2AddressPostcode?: string;
+  newApplicant2EmailAddress?: string;
+  newApplicant2Address;
 }
 
 export interface CaseWithId extends Case {

@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { NoResponseNewEmailOrPostalAddress } from '../../../../../app/case/definition';
+import { NoResponseProvideNewEmailOrApplyForAlternativeService } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
 import { FormContent } from '../../../../../app/form/Form';
@@ -25,9 +25,9 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 // @TODO translations should be verified once provided
 const cy: typeof en = en;
 
-const form: FormContent = {
+export const form: FormContent = {
   fields: {
-    applicant1NoResponseNewEmailOrAlternativeService: {
+    applicant1NoResponseProvideNewEmailOrApplyForAlternativeService: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.newEmailHeader,
@@ -35,13 +35,13 @@ const form: FormContent = {
       values: [
         {
           label: l => l.provideNewEmail,
-          id: 'newEmail',
-          value: NoResponseNewEmailOrPostalAddress.PROVIDE_NEW_EMAIL,
+          id: 'provideNewEmail',
+          value: NoResponseProvideNewEmailOrApplyForAlternativeService.PROVIDE_NEW_EMAIL,
         },
         {
           label: l => l.applyForAlternativeService,
-          id: 'notKnown',
-          value: NoResponseNewEmailOrPostalAddress.APPLY_FOR_ALTERNATIVE_SERVICE,
+          id: 'applyForAlternativeService',
+          value: NoResponseProvideNewEmailOrApplyForAlternativeService.APPLY_FOR_ALTERNATIVE_SERVICE,
         },
       ],
       validator: value => isFieldFilledIn(value),

@@ -22,6 +22,7 @@ Feature: No response journey
     When I click start
     Then the page should include element "#haveTheyReceivedTitle"
     And the page should include element "#detailsProvided"
+    And the page should include "stop"
 
     Given I click element "#upToDate"
     When I click continue

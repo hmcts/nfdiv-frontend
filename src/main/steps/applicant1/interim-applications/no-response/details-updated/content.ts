@@ -1,26 +1,51 @@
 import config from 'config';
 
+import { NoResponseNewEmailOrPostalAddress, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { CommonContent } from '../../../../common/common.content';
 import { HUB_PAGE } from '../../../../urls';
 
-const en = ({ partner, isDivorce }: CommonContent) => ({
-  title: 'Details updated',
-  line1: `You have successfully updated your ${partner}’s contact details.`,
-  whatHappensNext: 'What happens next',
-  line2: `We will now serve your ${
-    isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-  } again using the new contact details you have provided.`,
-  line3: `Your ${partner} will have ${config.get(
-    'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
-  )} days from receiving the ${
-    isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-  } to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
+const en = ({ partner, isDivorce, userCase }: CommonContent) => {
+  const addressOverseas = userCase.applicant2AddressOverseas === YesOrNo.YES;
+  const isAddressOnlyUpdate =
+    userCase.applicant1NoResponseUpdateEmailAndPostalAddress === NoResponseNewEmailOrPostalAddress.NEW_POSTAL;
+  const divorceOrDissolutionPapers = isDivorce ? 'divorce papers' : 'papers to end your civil partnership';
+  const otherOptionsText = `If ${
+    addressOverseas ? 'they do' : `your ${partner} does`
+  } not respond, we will help you explore the other options you have to progress your ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  }.`,
-  line4: 'This will not affect when you can apply for your conditional order.',
-  returnToHubScreen: `<a href=${HUB_PAGE} class="govuk-link">Return to hub screen</a>`,
-});
+  }`;
+  return {
+    title: `${addressOverseas && isAddressOnlyUpdate ? 'Address' : 'Details'} updated`,
+    line1: `You have successfully updated your ${partner}’s ${
+      addressOverseas && isAddressOnlyUpdate
+        ? 'address'
+        : userCase.applicant1NoResponseUpdateEmailAndPostalAddress ===
+            NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
+          ? 'email and postal address'
+          : 'contact details'
+    }.`,
+    whatHappensNext: 'What happens next',
+    line2: `${
+      addressOverseas
+        ? `You will need to arrange delivery of the ${divorceOrDissolutionPapers} to your ${partner} yourself`
+        : `We will now serve your ${divorceOrDissolutionPapers} again using the new contact details you have provided`
+    }.`,
+    line3: `${
+      addressOverseas
+        ? `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in`
+        : `Your ${partner} will have ${config.get(
+            'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
+          )} days from receiving the ${divorceOrDissolutionPapers} to respond. ${otherOptionsText}`
+    }.`,
+    line4: `${
+      addressOverseas
+        ? `The amount of time your ${partner} has to respond depends on the country they’re living in. ${otherOptionsText}`
+        : 'This will not affect when you can apply for your conditional order'
+    }.`,
+    returnToHubScreen: `<a href=${HUB_PAGE} class="govuk-link">Return to hub screen</a>`,
+  };
+};
 
 //TODO: Welsh translation required
 

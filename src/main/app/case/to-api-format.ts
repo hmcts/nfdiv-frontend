@@ -217,6 +217,9 @@ const fields: ToApiConverters = {
     applicant2LastNameChangedWhenMarriedMethod:
       data.applicant2LastNameChangedWhenMarried === YesOrNo.YES ? data.applicant2LastNameChangedWhenMarriedMethod : [],
   }),
+  applicant2Address: data => ({
+    applicant2Address: data.applicant2Address,
+  }),
   applicant2LastNameChangedWhenMarriedOtherDetails: data => ({
     applicant2LastNameChangedWhenMarriedOtherDetails: data.applicant2LastNameChangedWhenMarriedMethod?.includes(
       ChangedNameHow.OTHER
@@ -393,6 +396,10 @@ const fields: ToApiConverters = {
   app2RfiDraftResponseUploadedFiles: () => ({}),
   applicant1NoResponseCheckContactDetails: data => ({
     applicant1NoResponseCheckContactDetails: data.applicant1NoResponseCheckContactDetails,
+  }),
+  applicant1NoResponseProvideNewEmailOrApplyForAlternativeService: data => ({
+    applicant1NoResponseProvideNewEmailOrApplyForAlternativeService:
+      data.applicant1NoResponseProvideNewEmailOrApplyForAlternativeService,
   }),
   applicant1NoResponseUpdateEmailAndPostalAddress: data => ({
     applicant1NoResponseUpdateEmailAndPostalAddress: data.applicant1NoResponseUpdateEmailAndPostalAddress,

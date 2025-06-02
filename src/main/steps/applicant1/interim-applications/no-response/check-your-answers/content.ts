@@ -18,35 +18,23 @@ const en = ({ userCase }: CommonContent) => ({
   stepAnswers: {
     name: `${userCase.applicant2FirstNames}  ${userCase.applicant2LastNames}`,
     newPostalAddress: [
-      stripTags(userCase.applicant2Address1 !== '' ? userCase.applicant2Address1 : userCase.previousApplicant2Address1),
-      stripTags(userCase.applicant2Address2 !== '' ? userCase.applicant2Address2 : userCase.previousApplicant2Address2),
-      stripTags(userCase.applicant2Address3 !== '' ? userCase.applicant2Address3 : userCase.previousApplicant2Address3),
-      stripTags(
-        userCase.applicant2AddressTown !== '' ? userCase.applicant2AddressTown : userCase.previousApplicant2AddressTown
-      ),
-      stripTags(
-        userCase.applicant2AddressCounty !== ''
-          ? userCase.applicant2AddressCounty
-          : userCase.previousApplicant2AddressCounty
-      ),
-      stripTags(
-        userCase.applicant2AddressPostcode !== ''
-          ? userCase.applicant2AddressPostcode
-          : userCase.previousApplicant2AddressPostcode
-      ),
-      stripTags(
-        userCase.applicant2AddressCountry !== ''
-          ? userCase.applicant2AddressCountry
-          : userCase.previousApplicant2AddressCountry
-      ),
+      stripTags(userCase.newApplicant2Address1),
+      stripTags(userCase.newApplicant2Address2),
+      stripTags(userCase.newApplicant2Address3),
+      stripTags(userCase.newApplicant2AddressTown),
+      stripTags(userCase.newApplicant2AddressCounty),
+      stripTags(userCase.newApplicant2AddressPostcode),
+      stripTags(userCase.newApplicant2AddressCountry),
     ]
       .filter(Boolean)
       .join('<br>'),
-    newEmailAddress: stripTags(userCase.applicant2Email),
+    newEmailAddress: stripTags(
+      userCase.applicant2Email !== '' ? userCase.applicant2Email : userCase.newApplicant2EmailAddress
+    ),
   },
   stepLinks: {
-    newAddress: `${urls.NEW_POSTAL_ADDRESS}`,
-    newEmailAddress: `${urls.NEW_EMAIL}`,
+    newPostalAddress: `${urls.NEW_POSTAL_ADDRESS}`,
+    newEmailAddress: `${urls.PROVIDE_NEW_EMAIL_ADDRESS}`,
   },
   acceptAndSend: 'Accept and send',
 });

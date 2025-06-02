@@ -1032,6 +1032,7 @@ export interface CaseData {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponseUpdateEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress;
+  applicant1NoResponseProvideNewEmailOrApplyForAlternativeService: NoResponseProvideNewEmailOrApplyForAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
   applicant1InterimAppsIUnderstand: YesOrNo;
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
@@ -1044,6 +1045,7 @@ export interface CaseData {
   applicant1DeemedNoEvidenceStatement: string;
   applicant1InterimApplicationType: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
+  newApplicant2Address: AddressGlobalUK;
 }
 
 export interface CaseDocuments {
@@ -2481,6 +2483,9 @@ export const enum NoResponseNewEmailOrPostalAddress {
   NEW_POSTAL = 'newPostalAddress',
   NEW_EMAIL = 'newEmailAddress',
   BOTH_EMAIL_AND_POSTAL = 'newEmailAndPostalAddress',
+}
+
+export const enum NoResponseProvideNewEmailOrApplyForAlternativeService {
   PROVIDE_NEW_EMAIL = 'provideNewEmailAddress',
   APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
 }
