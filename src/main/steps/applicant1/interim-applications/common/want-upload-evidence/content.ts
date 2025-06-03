@@ -6,12 +6,22 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 const en = () => ({
   title: 'Are you able to upload evidence?',
   statement: '',
+  errors: {
+    applicant1InterimAppsCanUploadEvidence: {
+      required: 'You must select an option before continuing.',
+    },
+  },
 });
 
 // @TODO translations
 const cy = () => ({
   title: 'Are you able to upload evidence?',
   statement: '',
+  errors: {
+    applicant1InterimAppsCanUploadEvidence: {
+      required: 'You must select an option before continuing.',
+    },
+  },
 });
 
 const languages = {
