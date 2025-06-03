@@ -18,18 +18,18 @@ const en = ({ userCase }: CommonContent) => ({
   stepAnswers: {
     name: `${userCase.applicant2FirstNames}  ${userCase.applicant2LastNames}`,
     newPostalAddress: [
-      stripTags(userCase.newApplicant2Address1),
-      stripTags(userCase.newApplicant2Address2),
-      stripTags(userCase.newApplicant2Address3),
-      stripTags(userCase.newApplicant2AddressTown),
-      stripTags(userCase.newApplicant2AddressCounty),
-      stripTags(userCase.newApplicant2AddressPostcode),
-      stripTags(userCase.newApplicant2AddressCountry),
+      stripTags(userCase.applicant1NoResponsePartnerAddress1),
+      stripTags(userCase.applicant1NoResponsePartnerAddress2),
+      stripTags(userCase.applicant1NoResponsePartnerAddress3),
+      stripTags(userCase.applicant1NoResponsePartnerAddressTown),
+      stripTags(userCase.applicant1NoResponsePartnerAddressCounty),
+      stripTags(userCase.applicant1NoResponsePartnerAddressPostcode),
+      stripTags(userCase.applicant1NoResponsePartnerAddressCountry),
     ]
       .filter(Boolean)
       .join('<br>'),
     newEmailAddress: stripTags(
-      userCase.applicant2Email !== '' ? userCase.applicant2Email : userCase.newApplicant2EmailAddress
+      userCase.applicant2Email !== '' ? userCase.applicant2Email : userCase.applicant1NoResponsePartnerEmailAddress
     ),
   },
   stepLinks: {

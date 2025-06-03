@@ -23,7 +23,7 @@ const cy: typeof en = en;
 
 export const form: FormContent = {
   fields: userCase => ({
-    applicant2Email: {
+    applicant1NoResponsePartnerEmail: {
       type: 'text',
       label: l => l.provideNewEmailHeader,
       labelSize: null,
@@ -46,8 +46,8 @@ const languages = {
 export const generateContent: TranslationFn = (content: CommonContent): Record<string, unknown> => {
   const translations = languages[content.language](content);
   const userCase = content.userCase;
-  if (!userCase.newApplicant2EmailAddress) {
-    userCase.newApplicant2EmailAddress = userCase.applicant2Email; // Save the currently populated email address to userCase.applicant2EmailAddress
+  if (!userCase.applicant1NoResponsePartnerEmailAddress) {
+    userCase.applicant1NoResponsePartnerEmailAddress = userCase.applicant2Email; // Save the currently populated email address to userCase.applicant2EmailAddress
   }
   return {
     ...applicant2EmailGenerateContent(content),
