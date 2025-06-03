@@ -68,7 +68,7 @@ const en = (
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
     line2: "They can still respond, even though it's past the date when they should have responded.",
-    line3: `The simplest way to progress your application is for your ${partner} to respond. You can contact them to remind them if it is safe to do so.`,
+    line3: `The simplest way to progress your application is to wait for your ${partner} to respond. You can contact them to remind them if it is safe to do so.`,
     line4:
       'If you cannot contact them or do not think they will respond, there are a number of ways to progress your application without needing a response from them.',
     linkText: 'View your options for proceeding without a response.',
