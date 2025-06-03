@@ -11,7 +11,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   }, you may be able to apply for 'deemed service'. This means that the court is satisfied that your ${partner} has received the papers, so your ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } can proceed without their response.`,
-  line2: 'Suitable evidence includes:',
+  line2: 'Suitable evidence may include:',
   suitableEvidence: {
     photo: `a photo or screenshot of a message from your ${partner} that shows they have received the papers.`,
     statement: `a statement from you or a third party explaining how your know your ${partner} has received the papers.`,
