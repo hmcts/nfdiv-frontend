@@ -71,7 +71,7 @@ const en = (
     line3: `The simplest way to progress your application is to wait for your ${partner} to respond. You can contact them to remind them if it is safe to do so.`,
     line4:
       'If you cannot contact them or do not think they will respond, there are a number of ways to progress your application without needing a response from them.',
-    linkText: 'View your options for proceeding without a response.',
+    linkText: 'View your options for proceeding without a response from the respondent.',
     linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   aosDueAndDrafted: {
