@@ -18,6 +18,7 @@ import {
   JurisdictionConnections,
   LegalAdvisorDecision,
   ListValue,
+  NoResponseCheckContactDetails,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -183,6 +184,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationDetails: 'requestForInformationDetails',
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
+  applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
+  applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -434,6 +437,8 @@ export interface Case {
   app2RfiDraftResponseCannotUploadDocs?: Checkbox;
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
+  applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
+  applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
