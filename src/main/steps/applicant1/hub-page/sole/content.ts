@@ -70,20 +70,20 @@ const en = (
     line2: `The simplest way to progress your application is for your ${partner} to respond. They can still respond, even though it's past the date when they should have responded. You can contact them to remind them if it is safe to do so.`,
     line3:
       'However if you cannot contact them or do not think they will respond, there are a number of ways to progress your application without needing a response from them.',
-    linkText: 'View your options for proceeding without a response.',
+    linkText: 'View your options for proceeding without a response from the respondent.',
     linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   aosDueAndDrafted: {
     line1: `Your ${partner} has started a response to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } but has not submitted it. They should have submitted it by ${getFormattedDate(userCase.dueDate)}.`,
-    line2: `You may wish to use this as proof that your ${partner} has received your application.`,
+    line2: `You may wish to use this to prove that your ${partner} has received your application.`,
     doNext: 'What you can do next',
     line3: `The simplest way to progress your application is for your ${partner} to submit their response. You can contact them and ask them to submit their response, if it is safe to do so.`,
     line4: `Alternatively, you can view your options for proceeding with your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } without needing a response.`,
-    linkText: 'View your options for proceeding without a response.',
+    linkText: 'View your options for proceeding without a response from the respondent.',
     linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   holding: {
@@ -423,7 +423,7 @@ const cy: typeof en = (
     line2: `Y ffordd symlaf i symud eich cais yn ei flaen yw i’ch ${partner} ymateb. Gallant dal ymateb, er bod y dyddiad erbyn pryd y dylent ymateb wedi pasio. Gallwch gysylltu â nhw i’w hatgoffa, os yw’n ddiogel i chi wneud hynny.`,
     line3:
       'Fodd bynnag, os na allwch gysylltu â nhw neu os nad ydych chi’n meddwl y byddant yn ymateb, mae yna sawl ffordd i symud eich cais yn ei flaen heb fod angen ymateb ganddynt.',
-    linkText: 'Gweld eich opsiynau ar gyfer parhau heb ymateb.',
+    linkText: 'Gweld eich opsiynau ar gyfer bwrw ymlaen heb ymateb gan yr atebydd.',
     linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   aosDueAndDrafted: {
@@ -433,13 +433,13 @@ const cy: typeof en = (
       userCase.dueDate,
       SupportedLanguages.Cy
     )}.`,
-    line2: `Efallai yr hoffech ddefnyddio hwn fel prawf bod eich ${partner} wedi cael eich cais.`,
+    line2: `Efallai yr hoffech ddefnyddio hwn i brofi bod eich ${partner} wedi cael eich cais.`,
     doNext: 'Beth allwch chi ei wneud nesaf',
     line3: `Y ffordd symlaf i symud eich cais yn ei flaen yw i’ch ${partner} gyflwyno eu hymateb. Gallwch gysylltu â nhw a gofyn iddynt gyflwyno eu hymateb, os yw’n ddiogel i chi wneud hynny.`,
     line4: `Fel arall, gallwch edrych ar eich opsiynau i barhau â’ch ${
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     } heb fod angen ymateb.`,
-    linkText: 'Gweld eich opsiynau ar gyfer parhau heb ymateb.',
+    linkText: 'Gweld eich opsiynau ar gyfer bwrw ymlaen heb ymateb gan yr atebydd.',
     linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   holding: {
