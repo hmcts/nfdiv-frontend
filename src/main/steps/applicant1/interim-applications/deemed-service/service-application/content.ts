@@ -17,8 +17,8 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   line1: `If you have evidence that your ${partner} or their legal representative have received the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   }, you could apply for deemed service.`,
-  line2: `The judge must be satisfied that that your ${partner} has received the papers, not just that they have been posted to their address.`,
-  line3: 'Suitable evidence may includee:',
+  line2: `The judge must be satisfied that your ${partner} has received the papers, not just that they have been posted to their address.`,
+  line3: 'Suitable evidence may include:',
   suitableEvidence: {
     photo: `a photo or screenshot of a message from your ${partner} that shows they have received the papers.`,
     statement: `a statement from your or a third party explaining how your know your ${partner} has received the papers.`,

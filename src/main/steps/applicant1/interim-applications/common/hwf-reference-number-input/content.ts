@@ -6,7 +6,7 @@ const en = () => ({
   title: 'Enter your Help With Fees reference number',
   refExample: 'For example, HWF-A1B-23C',
   errors: {
-    applicant1HelpWithFeesRefNo: {
+    applicant1InterimAppsHwfRefNumber: {
       required: 'You must enter your Help With Fees reference number before continuing.',
       invalid: 'You must enter a valid Help With Fees reference number.',
       invalidUsedExample:
@@ -19,7 +19,7 @@ const cy: typeof en = () => ({
   title: 'Enter your Help With Fees reference number:',
   refExample: 'For example, HWF-A1B-23C',
   errors: {
-    applicant1HelpWithFeesRefNo: {
+    applicant1InterimAppsHwfRefNumber: {
       required: 'You must enter your Help With Fees reference number before continuing.',
       invalid: 'You must enter a valid Help With Fees reference number.',
       invalidUsedExample:

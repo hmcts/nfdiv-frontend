@@ -22,7 +22,7 @@ const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
-  line4: `We will ask you some questions so that we can show you which options are available for you for proceeding with your ${
+  line4: `We will ask you some questions so that we can show you which options are available to you for proceeding with your ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   }.`,
   line5: `You can <a class="govuk-link" target="_blank" href="${config.get(
