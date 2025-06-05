@@ -82,18 +82,14 @@ export const generateContent: TranslationFn = content => {
   const useHwf = content.userCase.applicant1InterimAppsUseHelpWithFees;
   const hwfReference = content.userCase.applicant1InterimAppsHwfRefNumber;
   const canUpload = content.userCase.applicant1InterimAppsCanUploadEvidence;
-  let uploadedDocsFilenames;
-  let cannotUploadDocs;
-  let evidenceDetails;
-  let noEvidenceStatement;
-  if (canUpload === YesOrNo.YES) {
-    uploadedDocsFilenames = content.userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value));
-    cannotUploadDocs =
-      content.userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
-    evidenceDetails = content.userCase.applicant1DeemedEvidenceDetails;
-  } else {
-    noEvidenceStatement = content.userCase.applicant1DeemedNoEvidenceStatement;
-  }
+  const uploadedDocsFilenames =
+    canUpload === YesOrNo.YES
+      ? content.userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value))
+      : undefined;
+  const cannotUploadDocs =
+    content.userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+  const evidenceDetails = content.userCase.applicant1DeemedEvidenceDetails;
+  const noEvidenceStatement = content.userCase.applicant1DeemedNoEvidenceStatement;
   const translations = languages[content.language](
     useHwf,
     hwfReference,
