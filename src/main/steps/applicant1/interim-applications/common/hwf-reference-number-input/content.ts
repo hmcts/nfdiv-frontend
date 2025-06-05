@@ -24,7 +24,7 @@ const cy: typeof en = () => ({
       required: 'You must enter your Help With Fees reference number before continuing.',
       invalid: 'You must enter a valid Help With Fees reference number.',
       invalidUsedExample:
-        'You have entered the example Help With Fees number. Enter the number you were sent before continuing.',
+        'Rydych wedi nodi’r rhif Help i Dalu Ffioedd sy’n cael ei ddefnyddio fel enghraifft. Nodwch y rhif a anfonwyd atoch cyn parhau.',
     },
   },
 });
