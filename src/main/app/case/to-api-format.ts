@@ -6,6 +6,7 @@ import {
   ApplicationType,
   CaseData,
   ChangedNameHow,
+  ChangedNameWhy,
   ContactDetailsType,
   DissolveDivorce,
   DivorceOrDissolution,
@@ -234,6 +235,30 @@ const fields: ToApiConverters = {
     applicant1NameDifferentToMarriageCertificateOtherDetails:
       data.applicant1NameDifferentToMarriageCertificateMethod?.includes(ChangedNameHow.OTHER)
         ? data.applicant1NameDifferentToMarriageCertificateOtherDetails
+        : '',
+  }),
+  applicant1WhyNameDifferent: data => ({
+    applicant1WhyNameDifferent: data.applicant1ConfirmNameMatchesCertificate === YesOrNo.NO
+        ? data.applicant1WhyNameDifferent
+        : undefined,
+  }),
+  applicant2WhyNameDifferent: data => ({
+    applicant2WhyNameDifferent: data.applicant1ConfirmNameMatchesCertificate === YesOrNo.NO
+        ? data.applicant2WhyNameDifferent
+        : undefined,
+  }),
+  applicant1WhyNameDifferentOtherDetails: data => ({
+    applicant1WhyNameDifferentOtherDetails:
+      data.applicant1ConfirmNameMatchesCertificate === YesOrNo.NO
+        && data.applicant1WhyNameDifferent === ChangedNameWhy.OTHER
+        ? data.applicant1WhyNameDifferentOtherDetails
+        : '',
+  }),
+  applicant2WhyNameDifferentOtherDetails: data => ({
+    applicant2WhyNameDifferentOtherDetails:
+      data.applicant2ConfirmNameMatchesCertificate === YesOrNo.NO
+        && data.applicant2WhyNameDifferent === ChangedNameWhy.OTHER
+        ? data.applicant2WhyNameDifferentOtherDetails
         : '',
   }),
   applicant2NameDifferentToMarriageCertificateMethod: data => ({

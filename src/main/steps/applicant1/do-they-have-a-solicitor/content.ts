@@ -51,7 +51,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.continue,
-  },
+  }
 };
 
 const languages = {

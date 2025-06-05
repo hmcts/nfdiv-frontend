@@ -1,9 +1,9 @@
 import { capitalize } from 'lodash';
-
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
   ApplicationType,
   ChangedNameHow,
+  ChangedNameWhy,
   ClarificationReason,
   Gender,
   LegalAdvisorDecision,
@@ -144,9 +144,13 @@ export const getNameChangeOtherDetailsValidator = (
     | 'applicant1NameDifferentToMarriageCertificateOtherDetails'
     | 'applicant2LastNameChangedWhenMarriedOtherDetails'
     | 'applicant2NameDifferentToMarriageCertificateOtherDetails'
+    | 'applicant1WhyNameDifferentOtherDetails'
+    | 'applicant2WhyNameDifferentOtherDetails'
 ): ValidationCheck => {
   return ((value, formData) => {
     if ((value as string[])?.includes(ChangedNameHow.OTHER) && !formData[fieldName]?.length) {
+      return fieldName;
+    } else if ((value as ChangedNameWhy) === ChangedNameWhy.OTHER && !formData[fieldName]?.length) {
       return fieldName;
     }
   }) as ValidationCheck;

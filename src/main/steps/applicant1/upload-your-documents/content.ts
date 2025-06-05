@@ -1,6 +1,6 @@
 import { isObject } from 'lodash';
 
-import { Checkbox } from '../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../app/case/case';
 import { ChangedNameHow, DocumentType, YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -9,7 +9,7 @@ import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan, nameChangedHowPossibleValue } from '../../common/content.utils';
 
-const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
+const en = ({ isDivorce, marriage, civilPartnership, partner }: CommonContent) => {
   const union = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Upload your documents',
@@ -17,7 +17,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     certificate: `your original ${union} certificate`,
     certificateForeign: `your original foreign ${union} certificate`,
     certificateForeignTranslation: `a certified translation of your foreign ${union} certificate`,
-    proofOfNameChange: 'proof that you changed your name, for example a deed poll or ‘statutory declaration’',
+    proofOfNameChange: `Proof showing why your name or your ${partner}'s name is written differently on your ${union} certificate. For example, a government issued ID, a passport, driving license or birth certificate, deed poll or statutory declaration`,
     warningPhoto:
       'Make sure the photo or scan is in colour and shows all 4 corners of the document. The certificate number (if it has one) and all the text must be readable. Blurred images will be rejected, delaying your application.',
     infoTakePhoto: 'You can take a picture with your phone and upload it',
@@ -48,7 +48,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     cannotUploadCertificate: `My original ${union} certificate`,
     cannotUploadForeignCertificate: `My original foreign ${union} certificate`,
     cannotUploadForeignCertificateTranslation: `A certified translation of my foreign ${union} certificate`,
-    cannotUploadNameChangeProof: 'Proof that I changed my name',
+    cannotUploadNameChangeProof: `Proof showing why my name or my ${partner}'s name is written differently on my ${union} certificate.`,
     errors: {
       applicant1UploadedFiles: {
         notUploaded:
@@ -125,6 +125,20 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
   };
 };
 
+const userIndicatedNameHasChanged = (userCase: Partial<CaseWithId>) => {
+  const nameChangedHowValuesAreSet = nameChangedHowPossibleValue(userCase, false) &&
+    !(
+      nameChangedHowPossibleValue(userCase, false)?.length === 1 &&
+      nameChangedHowPossibleValue(userCase, false)?.includes(ChangedNameHow.MARRIAGE_CERTIFICATE)
+    );
+
+  return (
+    nameChangedHowValuesAreSet ||
+    userCase.applicant1ConfirmNameMatchesCertificate === YesOrNo.NO ||
+    userCase.applicant2ConfirmNameMatchesCertificate === YesOrNo.NO
+  );
+}
+
 export const form: FormContent = {
   fields: userCase => {
     const checkboxes: { id: string; value: DocumentType }[] = [];
@@ -148,13 +162,7 @@ export const form: FormContent = {
       });
     }
 
-    if (
-      nameChangedHowPossibleValue(userCase, false) &&
-      !(
-        nameChangedHowPossibleValue(userCase, false)?.length === 1 &&
-        nameChangedHowPossibleValue(userCase, false)?.includes(ChangedNameHow.MARRIAGE_CERTIFICATE)
-      )
-    ) {
+    if (userIndicatedNameHasChanged(userCase)) {
       checkboxes.push({
         id: 'cannotUploadNameChangeProof',
         value: DocumentType.NAME_CHANGE_EVIDENCE,
@@ -244,12 +252,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
-  const shouldMentionProofOfNameChange: boolean | undefined =
-    nameChangedHowPossibleValue(content.userCase, false) &&
-    !(
-      nameChangedHowPossibleValue(content.userCase, false)?.length === 1 &&
-      nameChangedHowPossibleValue(content.userCase, false)?.includes(ChangedNameHow.MARRIAGE_CERTIFICATE)
-    );
+  const shouldMentionProofOfNameChange = userIndicatedNameHasChanged(content.userCase);
   const applicant1HasChangedName =
     content.userCase.applicant1LastNameChangedWhenMarried === YesOrNo.YES ||
     content.userCase.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES;

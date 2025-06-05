@@ -511,6 +511,7 @@ export interface CaseData {
   applicant1LastName: string;
   applicant1ConfirmFullName: YesOrNo;
   applicant1ConfirmNameMatchesCertificate: YesOrNo;
+  applicant2ConfirmNameMatchesCertificate: YesOrNo;
   applicant1Email: string;
   applicant1AgreedToReceiveEmails: YesOrNo;
   applicant1ConfirmReceipt: YesOrNo;
@@ -521,6 +522,10 @@ export interface CaseData {
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
   applicant1NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
   applicant1NameDifferentToMarriageCertificateOtherDetails: string;
+  applicant1WhyNameDifferent: ChangedNameWhy;
+  applicant1WhyNameDifferentOtherDetails: string,
+  applicant2WhyNameDifferent: ChangedNameWhy;
+  applicant2WhyNameDifferentOtherDetails: string,
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;

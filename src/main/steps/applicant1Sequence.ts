@@ -31,10 +31,10 @@ import {
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
   CHECK_YOUR_NAME,
+  CHECK_THEIR_NAME,
   CHECK_JURISDICTION,
   CHECK_PHONE_NUMBER,
   CONFIRM_JOINT_APPLICATION,
-  CONFIRM_THEIR_NAME,
   CONFIRM_YOUR_NAME,
   CONTINUE_WITH_YOUR_APPLICATION,
   COUNTRY_AND_PLACE,
@@ -91,6 +91,8 @@ import {
   REVIEW_YOUR_JOINT_APPLICATION,
   REVIEW_YOUR_RESPONSE,
   SENT_TO_APPLICANT2_FOR_REVIEW,
+  THEIR_CERTIFICATE_NAME,
+  CHANGES_TO_THEIR_NAME_URL,
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
   UPLOAD_YOUR_DOCUMENTS,
@@ -286,19 +288,25 @@ export const applicant1PreSubmissionSequence: Step[] = [
       : THEIR_NAME,
   },
   {
-    url: THEIR_NAME,
-    getNextStep: () => CONFIRM_THEIR_NAME,
-  },
-  {
-    url: CONFIRM_THEIR_NAME,
-    getNextStep: data => (data.applicant2ConfirmFullName === YesOrNo.NO ? THEIR_NAME : YOUR_CERTIFICATE_NAME),
-  },
-  {
-    url: YOUR_CERTIFICATE_NAME,
-    getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
-  },
-  {
     url: CHANGES_TO_YOUR_NAME_URL,
+    getNextStep: () => THEIR_NAME,
+  },
+  {
+    url: THEIR_NAME,
+    getNextStep: () => CHECK_THEIR_NAME,
+  },
+  {
+    url: CHECK_THEIR_NAME,
+    getNextStep: () => THEIR_CERTIFICATE_NAME,
+  },
+  {
+    url: THEIR_CERTIFICATE_NAME,
+    getNextStep: data => data.applicant2ConfirmNameMatchesCertificate === YesOrNo.NO ?
+      CHANGES_TO_THEIR_NAME_URL
+      : HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
+    url: CHANGES_TO_THEIR_NAME_URL,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {

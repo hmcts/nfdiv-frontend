@@ -14,9 +14,9 @@ const labels = ({ required }: CommonContent) => {
     errors: {
       applicant2LastNameChangedWhenMarried: { required },
       applicant2NameDifferentToMarriageCertificate: { required },
-      applicant2LastNameChangedWhenMarriedMethod: {
+      applicant2WhyNameDifferentOtherDetails: {
         required,
-        applicant2LastNameChangedWhenMarriedOtherDetails:
+        applicant2WhyNameDifferentOtherDetails:
           'You have not answered the question. You need to say how you changed your name so the court knows which document to check.',
       },
       applicant2NameDifferentToMarriageCertificateMethod: {
@@ -111,14 +111,14 @@ export const form: FormContent = {
                   label: l => l.anotherWay,
                   value: ChangedNameHow.OTHER,
                   subFields: {
-                    applicant2NameDifferentToMarriageCertificateOtherDetails: {
+                    applicant2WhyNameDifferentOtherDetails: {
                       type: 'textarea',
                       label: l => l.anotherWayMoreDetails,
                       labelSize: null,
                     },
                   },
                   validator: getNameChangeOtherDetailsValidator(
-                    'applicant2NameDifferentToMarriageCertificateOtherDetails'
+                    'applicant2WhyNameDifferentOtherDetails'
                   ),
                 },
               ],
