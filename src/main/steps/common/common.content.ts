@@ -168,7 +168,7 @@ const cy: typeof en = {
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   generalApplication: {
-    deemed: 'deemed service',
+    deemed: 'gyflwyno tybiedig',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',

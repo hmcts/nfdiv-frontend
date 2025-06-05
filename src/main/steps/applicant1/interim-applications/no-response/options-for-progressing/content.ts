@@ -27,7 +27,7 @@ const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   }.`,
   line5: `You can <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.legalAdvisor'
-  )}">speak to a legal adviser or a solicitor</a> at any point in the application process if you feel you need legal advice.`,
+  )}">speak to a legal adviser or a solicitor (opens in a new tab)</a> at any point in the application process if you feel you need legal advice.`,
   startButton: {
     text: 'Start now',
     url: () => {

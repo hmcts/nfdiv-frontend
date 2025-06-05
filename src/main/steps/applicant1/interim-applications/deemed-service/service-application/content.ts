@@ -29,20 +29,18 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 
 // @TODO translations should be verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
-  title: 'Gallwch wneud cais am gyflwyno tybiedig',
+  title: 'Gwneud cais am gyflwyno tybiedig (D11)',
   line1: `Os oes gennych dystiolaeth bod eich ${partner} neu eu cynrychiolydd cyfreithiol wedi cael papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   }, gallwch wneud cais am gyflwyno tybiedig.`,
-  line2: `Mae’n rhaid i’ch tystiolaeth ddangos bod eich ${partner} wedi cael y papurau, nid dim ond eu bod wedi cael eu postio i’w cyfeiriad.`,
-  line3: 'Mae tystiolaeth addas yn cynnwys:',
+  line2: `Rhaid bod y barnwr yn fodlon bod eich ${partner} wedi cael y papurau, nid yn unig eu bod nhw wedi cael eu postio i’w cyfeiriad.`,
+  line3: 'Gall tystiolaeth briodol gynnwys:',
   suitableEvidence: {
     photo: `llun neu sgrinlun o neges gan eich ${partner} sy’n dangos eu bod wedi cael y papurau.`,
     statement: `datganiad gennych chi neu drydydd parti yn egluro sut rydych yn gwybod bod eich ${partner} wedi cael y papurau.`,
-    message: `neges gennym ni i ddweud wrthych bod eich ${partner} wedi dechrau eu hymateb.`,
+    message: `neges gennym ni yn eich hysbysu bod eich ${partner} wedi cychwyn ymateb`,
   },
-  line4: `Fe ofynnir i chi ddarparu’r dystiolaeth sydd gennych i brofi bod eich ${partner} wedi cael y ${
-    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-  }. Heb y dystiolaeth hon, mae’n debyg y bydd eich cais yn cael ei wrthod.`,
+  line4: 'Os nad ydych yn darparu unrhyw dystiolaeth, mae’n debygol bydd eich cais yn cael ei wrthod.',
   line5: `Mae’r cais am gyflwyno tybiedig yn costio ${getFee(
     config.get('fees.deemedService')
   )}. Efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(

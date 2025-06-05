@@ -15,9 +15,10 @@ const en = () => ({
   },
 });
 
+// @TODO translations
 const cy: typeof en = () => ({
-  title: 'Enter your Help With Fees reference number:',
-  refExample: 'For example, HWF-A1B-23C',
+  title: 'Rhowch eich cyfeirnod Help i Dalu Ffioedd',
+  refExample: 'Er enghraifft, HWF-A1B-23C',
   errors: {
     applicant1InterimAppsHwfRefNumber: {
       required: 'You must enter your Help With Fees reference number before continuing.',
