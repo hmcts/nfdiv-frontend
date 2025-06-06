@@ -72,7 +72,6 @@ export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-co
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
 export const YOUR_CERTIFICATE_NAME: PageLink = '/your-name-on-certificate';
 export const THEIR_CERTIFICATE_NAME: PageLink = '/their-name-on-certificate';
-export const PATNERS_CERTIFICATE_NAME: PageLink = '/partners-name-on-certificate';
 export const ADDRESS_PRIVATE: PageLink = '/address-private';
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
