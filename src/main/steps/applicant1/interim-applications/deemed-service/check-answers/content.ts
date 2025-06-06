@@ -9,18 +9,9 @@ import {
   generateContent as checkAnswersGenerateContent,
 } from '../../common/check-answers/content';
 
-const en = (
-  useHwf,
-  haveHwfReference,
-  hwfReference,
-  canUpload,
-  uploadedDocsFilenames,
-  evidenceDetails,
-  noEvidenceStatement
-) => ({
+const en = (useHwf, hwfReference, canUpload, uploadedDocsFilenames, evidenceDetails, noEvidenceStatement) => ({
   stepQuestions: {
     useHwf: 'Use Help With Fees',
-    haveHwfReference: 'I have an HWF Reference',
     hwfReference: 'HWF Reference',
     canUploadEvidence: 'I can upload evidence',
     uploadedFiles: 'Uploaded files',
@@ -29,7 +20,6 @@ const en = (
   },
   stepAnswers: {
     useHwf: `${useHwf}`,
-    haveHwfReference: `${haveHwfReference}`,
     hwfReference: `${hwfReference}`,
     canUploadEvidence: `${canUpload}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
@@ -38,7 +28,6 @@ const en = (
   },
   stepLinks: {
     useHwf: `${urls.HELP_WITH_FEES_DEEMED}`,
-    haveHwfReference: `${urls.HWF_REFERENCE_NUMBER_DEEMED}`,
     hwfReference: `${urls.HWF_REFERENCE_NUMBER_INPUT_DEEMED}`,
     canUploadEvidence: `${urls.WANT_UPLOAD_EVIDENCE_DEEMED}`,
     uploadedFiles: `${urls.UPLOAD_EVIDENCE_DEEMED}`,
@@ -49,7 +38,6 @@ const en = (
 
 const cy: typeof en = (
   useHwf,
-  haveHwfReference,
   hwfReference,
   canUpload,
   uploadedDocsFilenames,
@@ -58,7 +46,6 @@ const cy: typeof en = (
 ) => ({
   stepQuestions: {
     useHwf: 'Use Help With Fees',
-    haveHwfReference: 'I have an HWF Reference',
     hwfReference: 'HWF Reference',
     canUploadEvidence: 'I can upload evidence',
     uploadedFiles: 'Uploaded files',
@@ -67,7 +54,6 @@ const cy: typeof en = (
   },
   stepAnswers: {
     useHwf: `${useHwf}`,
-    haveHwfReference: `${haveHwfReference}`,
     hwfReference: `${hwfReference}`,
     canUploadEvidence: `${canUpload}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
@@ -76,7 +62,6 @@ const cy: typeof en = (
   },
   stepLinks: {
     useHwf: `${urls.HELP_WITH_FEES_DEEMED}`,
-    haveHwfReference: `${urls.HWF_REFERENCE_NUMBER_DEEMED}`,
     hwfReference: `${urls.HWF_REFERENCE_NUMBER_INPUT_DEEMED}`,
     canUploadEvidence: `${urls.WANT_UPLOAD_EVIDENCE_DEEMED}`,
     uploadedFiles: `${urls.UPLOAD_EVIDENCE_DEEMED}`,
@@ -95,19 +80,18 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const checkAnswersContent = checkAnswersGenerateContent(content);
   const useHwf = content.userCase.applicant1InterimAppsUseHelpWithFees;
-  const haveHwfReference = content.userCase.applicant1InterimAppsHaveHwfReference;
   const hwfReference = content.userCase.applicant1InterimAppsHwfRefNumber;
   const canUpload = content.userCase.applicant1InterimAppsCanUploadEvidence;
-  const uploadedDocsFilenames = content.userCase.applicant1InterimAppsEvidenceDocs?.map(item =>
-    getFilename(item.value)
-  );
+  const uploadedDocsFilenames =
+    canUpload === YesOrNo.YES
+      ? content.userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value))
+      : undefined;
   const cannotUploadDocs =
     content.userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
   const evidenceDetails = content.userCase.applicant1DeemedEvidenceDetails;
   const noEvidenceStatement = content.userCase.applicant1DeemedNoEvidenceStatement;
   const translations = languages[content.language](
     useHwf,
-    haveHwfReference,
     hwfReference,
     canUpload,
     uploadedDocsFilenames,
@@ -119,7 +103,6 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     form,
     useHwf,
-    haveHwfReference,
     hwfReference,
     canUpload,
     uploadedDocsFilenames,

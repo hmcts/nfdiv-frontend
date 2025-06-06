@@ -7,12 +7,22 @@ import { generateCommonContent } from '../../../../common/common.content';
 const en = (serviceType: string) => ({
   title: 'Do you have a help with fees reference number?',
   line1: `Your reference number must be unique to this ${serviceType} application. You cannot use a reference number you've used for a previous application.`,
+  errors: {
+    applicant1InterimAppsHaveHwfReference: {
+      required: 'You must select an option before continuing.',
+    },
+  },
 });
 
 // @TODO translations
 const cy = (serviceType: string) => ({
   title: 'Do you have a help with fees reference number?',
   line1: `Your reference number must be unique to this ${serviceType} application. You cannot use a reference number you've used for a previous application.`,
+  errors: {
+    applicant1InterimAppsHaveHwfReference: {
+      required: 'You must select an option before continuing.',
+    },
+  },
 });
 
 const languages = {

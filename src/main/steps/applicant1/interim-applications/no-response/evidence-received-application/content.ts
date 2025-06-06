@@ -11,17 +11,17 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   }, you may be able to apply for 'deemed service'. This means that the court is satisfied that your ${partner} has received the papers, so your ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } can proceed without their response.`,
-  line2: 'Suitable evidence includes:',
+  line2: 'Suitable evidence may include:',
   suitableEvidence: {
     photo: `a photo or screenshot of a message from your ${partner} that shows they have received the papers.`,
-    statement: `a statement from you or a third party explaining how your know your ${partner} has received the papers.`,
+    statement: `a statement from you or a third party explaining how you know your ${partner} has received the papers.`,
     message: `a message from us to tell you that your ${partner} has started a response.`,
   },
   canYouProveHeader: `Do you have evidence that your ${partner} has received the papers?`,
   proveYes: `Yes, I have evidence that my ${partner} has received the papers.`,
   proveNo: 'No, I do not have any suitable evidence.',
   errors: {
-    noResponsePartnerHasReceivedPapers: {
+    applicant1NoResponsePartnerHasReceivedPapers: {
       required: 'You must select an option before continuing.',
     },
   },
@@ -47,7 +47,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   proveYes: `Gallaf, mi allaf brofi bod fy ${partner} wedi cael y papurau.`,
   proveNo: 'Na allaf, nid oes gennyf unrhyw dystiolaeth addas.',
   errors: {
-    noResponsePartnerHasReceivedPapers: {
+    applicant1NoResponsePartnerHasReceivedPapers: {
       required: `You must confirm whether or not you can prove that your ${partner} has received the papers.`,
     },
   },

@@ -6,10 +6,9 @@ const en = () => ({
   title: 'Enter your Help With Fees reference number',
   refExample: 'For example, HWF-A1B-23C',
   errors: {
-    applicant1HelpWithFeesRefNo: {
-      required:
-        'You need to enter your Help With Fees reference number before continuing. You received this when you applied.',
-      invalid: 'You have entered an invalid Help With Fees reference number. Check the number and enter it again.',
+    applicant1InterimAppsHwfRefNumber: {
+      required: 'You must enter your Help With Fees reference number before continuing.',
+      invalid: 'You must enter a valid Help With Fees reference number.',
       invalidUsedExample:
         'You have entered the example Help With Fees number. Enter the number you were sent before continuing.',
     },
@@ -20,10 +19,9 @@ const cy: typeof en = () => ({
   title: 'Enter your Help With Fees reference number:',
   refExample: 'For example, HWF-A1B-23C',
   errors: {
-    applicant1HelpWithFeesRefNo: {
-      required:
-        'You need to enter your Help With Fees reference number before continuing. You received this when you applied.',
-      invalid: 'You have entered an invalid Help With Fees reference number. Check the number and enter it again.',
+    applicant1InterimAppsHwfRefNumber: {
+      required: 'You must enter your Help With Fees reference number before continuing.',
+      invalid: 'You must enter a valid Help With Fees reference number.',
       invalidUsedExample:
         'You have entered the example Help With Fees number. Enter the number you were sent before continuing.',
     },

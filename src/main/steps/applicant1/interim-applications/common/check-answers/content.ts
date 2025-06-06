@@ -16,10 +16,15 @@ const en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
   statementOfTruth: {
     title: 'Statement of truth',
     warning:
-      "I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement in a document verified by a statement of truth without an honest belief in it's truth.",
+      'I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement in a document verified by a statement of truth without an honest belief in its truth.',
   },
   statementOfTruthLabel: 'I believe that the facts stated in this form and any continuation sheets are true.',
   submitText: usingHwf ? submit : continueToPay,
+  errors: {
+    applicant1InterimAppsStatementOfTruth: {
+      required: 'You must agree to the statement of truth before continuing',
+    },
+  },
 });
 
 const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
@@ -37,6 +42,11 @@ const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
   },
   statementOfTruthLabel: 'I believe that the facts stated in this form and any continuation sheets are true.',
   submitText: usingHwf ? submit : continueToPay,
+  errors: {
+    applicant1InterimAppsStatementOfTruth: {
+      required: 'You must agree to the statement of truth before continuing',
+    },
+  },
 });
 
 export const form: FormContent = {

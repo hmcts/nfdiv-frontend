@@ -428,6 +428,12 @@ const fields: ToApiConverters = {
   applicant1InterimAppsCannotUploadDocs: data => ({
     applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
   }),
+  applicant1InterimAppsCanUploadEvidence: data => ({
+    applicant1InterimAppsCanUploadEvidence: data.applicant1InterimAppsCanUploadEvidence,
+    ...(data.applicant1InterimAppsCanUploadEvidence === YesOrNo.YES
+      ? setUnreachableAnswersToNull(['applicant1DeemedNoEvidenceStatement'])
+      : setUnreachableAnswersToNull(['applicant1DeemedEvidenceDetails', 'applicant1InterimAppsCannotUploadDocs'])),
+  }),
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
   }),
