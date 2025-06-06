@@ -225,11 +225,25 @@ const fields: ToApiConverters = {
       ? data.applicant2LastNameChangedWhenMarriedOtherDetails
       : '',
   }),
+  applicant1NameDifferentToMarriageCertificateMethod: data => ({
+    applicant1NameDifferentToMarriageCertificateMethod:
+      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES ||
+      data.applicant1WhyNameDifferent === ChangedNameWhy.CHANGED_PARTS_OF_NAME
+        ? data.applicant1NameDifferentToMarriageCertificateMethod
+        : [],
+  }),
   applicant1NameDifferentToMarriageCertificateOtherDetails: data => ({
     applicant1NameDifferentToMarriageCertificateOtherDetails:
       data.applicant1NameDifferentToMarriageCertificateMethod?.includes(ChangedNameHow.OTHER)
         ? data.applicant1NameDifferentToMarriageCertificateOtherDetails
         : '',
+  }),
+  applicant2NameDifferentToMarriageCertificateMethod: data => ({
+    applicant2NameDifferentToMarriageCertificateMethod:
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES ||
+      data.applicant2WhyNameDifferent === ChangedNameWhy.CHANGED_PARTS_OF_NAME
+        ? data.applicant2NameDifferentToMarriageCertificateMethod
+        : [],
   }),
   applicant1ConfirmNameMatchesCertificate: data => ({
     applicant1ConfirmNameMatchesCertificate: data.applicant1ConfirmNameMatchesCertificate,

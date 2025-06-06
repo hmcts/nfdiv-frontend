@@ -57,8 +57,13 @@ Feature: Applicant 1 sole application
     And I type "Smith"
 
     When I click "Continue"
-    Then the page should include "Is Sarah Smith your full name, including any middle names?"
-    Given I select "Yes, that's my full name"
+    Then the page should include "Is Sarah Smith exactly how your name is written on your marriage certificate?"
+    Given I select "Yes"
+
+    When I click "Continue"
+    Then the page should include "How is your name written on your marriage certificate"
+    Given I select "Copy your full name from the marriage certificate"
+    And I type "Sarah Smith"
 
     When I click "Continue"
     Then the page should include "Enter your husband’s name"
@@ -69,20 +74,13 @@ Feature: Applicant 1 sole application
     And I type "Bob"
 
     When I click "Continue"
-    Then the page should include "Is Billy Bob your husband's full name, including any middle names?"
-    Given I select "Yes, that's their full name"
+    Then the page should include "Is Billy Bob exactly how your husband's name is written on your marriage certificate?"
+    Given I select "Yes"
 
     When I click "Continue"
-    Then the page should include "Your names on your marriage certificate"
-    Given I select "Copy your full name from the marriage certificate"
-    And I type "Sarah Smith"
-    And I select "Copy your husband's full name from the marriage certificate"
+    Then the page should include "How is your husband's name written on your marriage certificate"
+    Given I select "Copy your husband's full name from the marriage certificate"
     And I type "Billy Bob"
-
-    When I click "Continue"
-    Then the page should include "Changes to your name"
-    Given I select "No" for "Did you change your last name when you got married?"
-    And I select "No" for "Have you changed any part of your name since getting married?"
 
     When I click "Continue"
     Then the page should include "How the court will contact you"
