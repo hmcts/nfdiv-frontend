@@ -14,7 +14,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   line2: 'Suitable evidence may include:',
   suitableEvidence: {
     photo: `a photo or screenshot of a message from your ${partner} that shows they have received the papers.`,
-    statement: `a statement from you or a third party explaining how your know your ${partner} has received the papers.`,
+    statement: `a statement from you or a third party explaining how you know your ${partner} has received the papers.`,
     message: `a message from us to tell you that your ${partner} has started a response.`,
   },
   canYouProveHeader: `Do you have evidence that your ${partner} has received the papers?`,
