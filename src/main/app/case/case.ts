@@ -20,6 +20,9 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
+  NoResponseNoNewAddressDetails,
+  NoResponseOwnSearches,
+  NoResponseProcessServerOrBailiff,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -198,6 +201,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
+  applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -451,6 +456,8 @@ export interface Case {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponseNoNewAddressDetails?: NoResponseNoNewAddressDetails;
+  applicant1NoResponseProcessServerOrBailiff?: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
   applicant1InterimAppsHaveHwfReference?: YesOrNo;
@@ -463,6 +470,8 @@ export interface Case {
   applicant1DeemedNoEvidenceStatement?: string;
   applicant1InterimApplicationType?: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
+  applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
+  applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
 }
 
 export interface CaseWithId extends Case {

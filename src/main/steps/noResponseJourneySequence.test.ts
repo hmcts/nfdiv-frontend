@@ -1,16 +1,22 @@
-import { NoResponseCheckContactDetails, YesOrNo } from '../app/case/definition';
+import { NoResponseCheckContactDetails, NoResponseProcessServerOrBailiff, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import {
+  BAILIFF_SERVICE_APPLICATION,
+  CHECK_DETAILS_PROCESS_SERVER,
   DEEMED_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
+  HUB_PAGE,
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
+  PARTNER_IN_PERSON,
+  PROCESS_SERVER,
   SERVE_AGAIN,
+  SUCCESS_SCREEN_PROCESS_SERVER,
 } from './urls';
 
 describe('No Response Journey Sequence test', () => {
@@ -101,6 +107,45 @@ describe('No Response Journey Sequence test', () => {
       };
       const step = noResponseJourneySequence.find(obj => obj.url === EVIDENCE_RECEIVED_APPLICATION) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_NEW_ADDRESS);
+    });
+  });
+
+  describe('PARTNER_IN_PERSON', () => {
+    test('PROCESS_SERVER', () => {
+      const caseData = {
+        applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === PARTNER_IN_PERSON) as Step;
+      expect(step.getNextStep(caseData)).toBe(PROCESS_SERVER);
+    });
+
+    test('COURT_BAILIFF', () => {
+      const caseData = {
+        applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.COURT_BAILIFF,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === PARTNER_IN_PERSON) as Step;
+      expect(step.getNextStep(caseData)).toBe(BAILIFF_SERVICE_APPLICATION);
+    });
+  });
+
+  describe('PROCESS_SERVER', () => {
+    test('PROCESS_SERVER', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === PROCESS_SERVER) as Step;
+      expect(step.getNextStep({})).toBe(CHECK_DETAILS_PROCESS_SERVER);
+    });
+  });
+
+  describe('CHECK_DETAILS_PROCESS_SERVER', () => {
+    test('CHECK_DETAILS_PROCESS_SERVER', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === CHECK_DETAILS_PROCESS_SERVER) as Step;
+      expect(step.getNextStep({})).toBe(SUCCESS_SCREEN_PROCESS_SERVER);
+    });
+  });
+
+  describe('SUCCESS_SCREEN_PROCESS_SERVER', () => {
+    test('SUCCESS_SCREEN_PROCESS_SERVER', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === SUCCESS_SCREEN_PROCESS_SERVER) as Step;
+      expect(step.getNextStep({})).toBe(HUB_PAGE);
     });
   });
 });
