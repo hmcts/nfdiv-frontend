@@ -126,7 +126,8 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
 };
 
 const userIndicatedNameHasChanged = (userCase: Partial<CaseWithId>) => {
-  const nameChangedHowValuesAreSet = nameChangedHowPossibleValue(userCase, false) &&
+  const nameChangedHowValuesAreSet =
+    nameChangedHowPossibleValue(userCase, false) &&
     !(
       nameChangedHowPossibleValue(userCase, false)?.length === 1 &&
       nameChangedHowPossibleValue(userCase, false)?.includes(ChangedNameHow.MARRIAGE_CERTIFICATE)
@@ -137,7 +138,7 @@ const userIndicatedNameHasChanged = (userCase: Partial<CaseWithId>) => {
     userCase.applicant1ConfirmNameMatchesCertificate === YesOrNo.NO ||
     userCase.applicant2ConfirmNameMatchesCertificate === YesOrNo.NO
   );
-}
+};
 
 export const form: FormContent = {
   fields: userCase => {

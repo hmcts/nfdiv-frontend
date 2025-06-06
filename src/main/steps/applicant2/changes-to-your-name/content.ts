@@ -117,9 +117,7 @@ export const form: FormContent = {
                       labelSize: null,
                     },
                   },
-                  validator: getNameChangeOtherDetailsValidator(
-                    'applicant2WhyNameDifferentOtherDetails'
-                  ),
+                  validator: getNameChangeOtherDetailsValidator('applicant2WhyNameDifferentOtherDetails'),
                 },
               ],
             },

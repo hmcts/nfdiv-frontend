@@ -63,10 +63,11 @@ export class Nunjucks {
 
           if (i.subFields) {
             output += env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
-              ...this.ctx, form: { fields: i.subFields },
+              ...this.ctx,
+              form: { fields: i.subFields },
             });
           }
-          
+
           if (i.conditionalText) {
             output += this.env.globals.getContent.call(this, i.conditionalText);
           }

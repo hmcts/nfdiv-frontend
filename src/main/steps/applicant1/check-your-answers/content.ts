@@ -7,6 +7,7 @@ import {
   Applicant2Represented,
   ApplicationType,
   ChangedNameHow,
+  ChangedNameWhy,
   DocumentType,
   FinancialOrderFor,
   Gender,
@@ -201,18 +202,28 @@ const en = ({
       line14: "How you're connected to England and Wales",
     },
     aboutPartners: {
-      line1: `Is ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames} exactly how your name is written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line1: `Is ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
+        userCase.applicant1LastNames
+      } exactly how your name is written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line2: `How is your name written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line3: `Why is your legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
-      line4: `How did you change your name?`,
-      line5: `Provide details of how you changed your name:`,
-      line6: `Provide details of why you changed your name:`,
-      line7: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames} exactly how your ${partner}'s name is written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
-      line8: `How is your ${partner}'s name written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
-      line9: `Why is your ${partner}'s legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
-      line10: `How did they change their name?`,
-      line11: `Provide details of how your ${partner} changed your name:`,
-      line12: `Provide details of why your ${partner} changed your name:`,
+      line4: 'How did you change your name?',
+      line5: 'Other details of how you changed your name',
+      line6: 'Other details of why you changed your name',
+      line7: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
+        userCase.applicant2LastNames
+      } exactly how your ${partner}'s name is written on the ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      } certificate?`,
+      line8: `How is your ${partner}'s name written on the ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      } certificate?`,
+      line9: `Why is your ${partner}'s legal name different on the ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      } certificate?`,
+      line10: 'How did they change their name?',
+      line11: `Other details of how your ${partner} changed your name`,
+      line12: `Other details of why your ${partner} changed your name`,
     },
     aboutYouForApplicant2: {
       line1: 'Your first name(s)',
@@ -346,7 +357,16 @@ const en = ({
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1ConfirmNameMatchesCertificate)}`,
       line2: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
-      line3: `${stripTags(userCase.applicant1WhyNameDifferent)}`,
+      line3: `${stripTags(userCase.applicant1WhyNameDifferent)
+        ?.replace(ChangedNameWhy.DEED_POLL, 'I changed my name by deed poll')
+        ?.replace(ChangedNameWhy.CHANGED_PARTS_OF_NAME, 'I changed my last name or parts of my name')
+        ?.replace(ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED, 'Part of my legal name was not included on the certificate')
+        ?.replace(ChangedNameWhy.PART_OF_NAME_ABBREVIATED, 'Part of my legal name is abbreviated on the certificate')
+        ?.replace(
+          ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
+          'My legal name is spelled differently on the certificate'
+        )
+        ?.replace(ChangedNameWhy.OTHER, 'Another reason')}`,
       line4: `${
         userCase.applicant1NameDifferentToMarriageCertificateMethod?.length
           ? userCase.applicant1NameDifferentToMarriageCertificateMethod
@@ -363,7 +383,24 @@ const en = ({
       line6: `${stripTags(userCase.applicant2WhyNameDifferentOtherDetails)}`,
       line7: `${stripTags(userCase.applicant2ConfirmNameMatchesCertificate)}`,
       line8: `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
-      line9: `${stripTags(userCase.applicant2WhyNameDifferent)}`,
+      line9: `${stripTags(
+        userCase.applicant2WhyNameDifferent
+          ?.replace(ChangedNameWhy.DEED_POLL, 'They changed their name by deed poll')
+          ?.replace(ChangedNameWhy.CHANGED_PARTS_OF_NAME, 'They changed their last name or parts of their name')
+          ?.replace(
+            ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
+            'Part of their legal name was not included on the certificate'
+          )
+          ?.replace(
+            ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
+            'Part of their legal name is abbreviated on the certificate'
+          )
+          ?.replace(
+            ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
+            'Their legal name is spelled differently on the certificate'
+          )
+          ?.replace(ChangedNameWhy.OTHER, 'Another reason')
+      )}`,
       line10: `${
         userCase.applicant2NameDifferentToMarriageCertificateMethod?.length
           ? userCase.applicant2NameDifferentToMarriageCertificateMethod
@@ -732,18 +769,28 @@ const cy: typeof en = ({
       line14: "Sut rydych wedi'ch cysylltu â Chymru a Lloegr",
     },
     aboutPartners: {
-      line1: `Is ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames} exactly how your name is written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line1: `Is ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
+        userCase.applicant1LastNames
+      } exactly how your name is written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line2: `How is your name written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line3: `Why is your legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
-      line4: `How did you change your name?`,
-      line5: `Provide details of how you changed your name:`,
-      line6: `Provide details of why you changed your name:`,
-      line7: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames} exactly how your ${partner}'s name is written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
-      line8: `How is your ${partner}'s name written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
-      line9: `Why is your ${partner}'s legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
-      line10: `How did they change their name?`,
-      line11: `Provide details of how your ${partner} changed your name:`,
-      line12: `Provide details of why your ${partner} changed your name:`,
+      line4: 'How did you change your name?',
+      line5: 'Provide details of how you changed your name:',
+      line6: 'Provide details of why you changed your name:',
+      line7: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
+        userCase.applicant2LastNames
+      } exactly how your ${partner}'s name is written on the ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      } certificate?`,
+      line8: `How is your ${partner}'s name written on the ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      } certificate?`,
+      line9: `Why is your ${partner}'s legal name different on the ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      } certificate?`,
+      line10: 'How did they change their name?',
+      line11: `Details of how your ${partner} changed their name`,
+      line12: `Details of why your ${partner} changed their name`,
       line13: `A ydych wedi newid eich enw ers i chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'}?`,
       line14: `Sut wnaethoch chi newid eich enw ers ${isDivorce ? 'i chi briodi' : 'ffurfio eich partneriaeth sifil'}?`,
     },
@@ -886,13 +933,13 @@ const cy: typeof en = ({
     aboutPartners: {
       line1: `${stripTags(userCase.applicant1ConfirmNameMatchesCertificate)}`,
       line2: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
-      line3: `${stripTags(userCase.applicant1WhyNameDifferent)}`,
+      line3: `${stripTags(userCase.applicant1WhyNameDifferent).replace(ChangedNameWhy.OTHER, 'Another reason')}`,
       line4: `${
         userCase.applicant1NameDifferentToMarriageCertificateMethod?.length
           ? userCase.applicant1NameDifferentToMarriageCertificateMethod
               .join(' / ')
               .replace(ChangedNameHow.OTHER, 'Another way')
-              .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
+              .replace(ChangedNameHow.DEED_POLL, 'I changed my name by deed poll')
               .replace(
                 ChangedNameHow.MARRIAGE_CERTIFICATE,
                 `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`

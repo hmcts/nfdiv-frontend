@@ -252,8 +252,8 @@ export interface Case {
   applicant1MiddleNames?: string;
   applicant1LastNames?: string;
   applicant1ConfirmFullName?: YesOrNo | null;
-  applicant1ConfirmNameMatchesCertificate?: YesOrNo | null
-  applicant2ConfirmNameMatchesCertificate?: YesOrNo | null
+  applicant1ConfirmNameMatchesCertificate?: YesOrNo | null;
+  applicant2ConfirmNameMatchesCertificate?: YesOrNo | null;
   applicant1Address1?: string;
   applicant1Address2?: string;
   applicant1Address3?: string;
@@ -293,10 +293,10 @@ export interface Case {
   applicant1LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
   applicant1LastNameChangedWhenMarriedOtherDetails?: string;
   applicant1NameDifferentToMarriageCertificate?: YesOrNo;
-  applicant1WhyNameDifferent: ChangedNameWhy,
-  applicant1WhyNameDifferentOtherDetails: string,
-  applicant2WhyNameDifferent: ChangedNameWhy,
-  applicant2WhyNameDifferentOtherDetails: string,
+  applicant1WhyNameDifferent: ChangedNameWhy;
+  applicant1WhyNameDifferentOtherDetails: string;
+  applicant2WhyNameDifferent: ChangedNameWhy;
+  applicant2WhyNameDifferentOtherDetails: string;
   applicant1NameDifferentToMarriageCertificateMethod?: ChangedNameHow[];
   applicant1NameDifferentToMarriageCertificateOtherDetails?: string;
   applicant1NameChangedHow?: ChangedNameHow[];

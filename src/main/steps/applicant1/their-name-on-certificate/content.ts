@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn, isFieldLetters } from '../../../app/form/validation';
+import { isFieldFilledIn } from '../../../app/form/validation';
 import type { CommonContent } from '../../common/common.content';
 
 const en = ({ isDivorce, partner }: CommonContent, relationship: string) => {
@@ -49,7 +49,7 @@ export const form: FormContent = {
       autocomplete: 'full-name',
       label: l => l.applicant2FullNameOnCertificate,
       hint: l => l.hint,
-      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
+      validator: value => isFieldFilledIn(value),
     },
   },
   submit: {

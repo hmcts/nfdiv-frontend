@@ -1,4 +1,5 @@
 import { capitalize } from 'lodash';
+
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
   ApplicationType,
