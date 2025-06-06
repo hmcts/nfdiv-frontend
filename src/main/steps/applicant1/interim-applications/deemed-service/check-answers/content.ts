@@ -48,7 +48,7 @@ const cy: typeof en = (
     useHwf: 'Use Help With Fees',
     hwfReference: 'HWF Reference',
     canUploadEvidence: 'I can upload evidence',
-    uploadedFiles: 'Uploaded files',
+    uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
     evidenceDetails: 'Details',
     noEvidenceStatement: 'No Evidence Statement',
   },

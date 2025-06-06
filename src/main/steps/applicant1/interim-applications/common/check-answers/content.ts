@@ -28,7 +28,7 @@ const en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
 });
 
 const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
-  title: 'Check your answers',
+  title: 'Gwirio eich atebion',
   noFilesUploaded: 'No files uploaded',
   notProvided: 'Not provided',
   havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
@@ -36,11 +36,12 @@ const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
   stepAnswers: {},
   stepLinks: {},
   statementOfTruth: {
-    title: 'Statement of truth',
+    title: 'Datganiad gwirionedd',
     warning:
-      "I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement in a document verified by a statement of truth without an honest belief in it's truth.",
+      'Deallaf y gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   },
-  statementOfTruthLabel: 'I believe that the facts stated in this form and any continuation sheets are true.',
+  statementOfTruthLabel:
+    'Rwy’n credu bod y ffeithiau a nodir yn y ffurflen hon, ac ar unrhyw ddalennau parhau, yn wir.',
   submitText: usingHwf ? submit : continueToPay,
   errors: {
     applicant1InterimAppsStatementOfTruth: {
