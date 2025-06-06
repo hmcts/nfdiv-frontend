@@ -429,9 +429,9 @@ const cy: typeof en = (
     linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   aosDueAndDrafted: {
-    line1: `Mae eich ${partner} wedi dechrau ymateb i’ch ${
+    line1: `Mae eich ${partner} wedi cyflwyno eu hymateb i’ch ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-    } ond nid ydynt wedi’i gyflwyno. Dylent fod wedi ymateb erbyn ${getFormattedDate(
+    }. Dylai bod nhw wedi ymateb erbyn ${getFormattedDate(
       userCase.dueDate,
       SupportedLanguages.Cy
     )}.`,

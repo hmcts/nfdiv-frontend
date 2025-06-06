@@ -60,7 +60,9 @@ const cy = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   line4: `Byddwn yn gofyn cwestiynau i chi fel y gallwn ddangos pa opsiynau sydd ar gael ei chi ar gyfer parhau â’ch ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   }.`,
-  line5: '', //INSERT TRANSLATION
+  line5: `Gallwch <a class="govuk-link" target="_blank" href="${config.get(
+    'govukUrls.legalAdvisor'
+  )}">siarad gyda chynghorydd cyfreithiol neu gyfreithiwr (yn agor mewn tab newydd)</a> ar unrhyw bwynt yn y broses ymgeisio os oes arnoch angen cymorth cyfreithiol.`,
   startButton: {
     text: 'Dechrau nawr',
     url: () => {
