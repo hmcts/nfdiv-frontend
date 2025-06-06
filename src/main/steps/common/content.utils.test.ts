@@ -2,6 +2,7 @@ import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
   ApplicationType,
   ChangedNameHow,
+  ChangedNameWhy,
   ClarificationReason,
   Gender,
   LegalAdvisorDecision,
@@ -411,6 +412,12 @@ describe('content.utils', () => {
       const validator = getNameChangeOtherDetailsValidator('applicant1LastNameChangedWhenMarriedOtherDetails');
       const theValidator = validator([ChangedNameHow.OTHER], {});
       expect(theValidator).toEqual('applicant1LastNameChangedWhenMarriedOtherDetails');
+    });
+  
+    test('Assert that the validator returns field name when form data is invalid', () => {
+      const validator = getNameChangeOtherDetailsValidator('applicant1WhyNameDifferentOtherDetails');
+      const theValidator = validator(ChangedNameWhy.OTHER, {});
+      expect(theValidator).toEqual('applicant1WhyNameDifferentOtherDetails');
     });
   });
 
