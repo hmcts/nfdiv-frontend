@@ -20,8 +20,10 @@ import {
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
+  PAY_YOUR_SERVICE_FEE,
   PageLink,
   REVIEW_THE_APPLICATION,
+  SERVICE_APPLICATION_SUBMITTED,
 } from './urls';
 
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
@@ -44,6 +46,13 @@ export const routeHideConditions: RoutePermission[] = [
       data.state === State.FinalOrderRequested ||
       (data.applicant1AppliedForFinalOrderFirst === YesOrNo.YES &&
         !getSwitchToSoleFoStatus(data, false).isIntendingAndAbleToSwitchToSoleFo),
+  },
+  {
+    urls: [PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED],
+    condition: data =>
+      [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
+        data.state as State
+      ) && data.serviceApplicationSubmittedOnline !== YesOrNo.YES,
   },
   {
     urls: [
