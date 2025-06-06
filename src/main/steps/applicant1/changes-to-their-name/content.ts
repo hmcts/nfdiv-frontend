@@ -52,14 +52,20 @@ const en = ({ isDivorce, required, partner }) => ({
   },
 });
 
-const cy = ({ isDivorce, required }) => ({
+const cy = ({ isDivorce, required, partner }) => ({
   title: "Newidiadau i'ch enw",
   line1: "Mae angen ichi roi gwybod i'r llys os ydych wedi newid eich enw",
-  changedByDeedPoll: 'I changed my name by deed poll',
-  changedPartsOfName: 'I changed my last name or parts of my name when I got married',
-  partOfNameNotIncluded: 'Part of my legal name was not included on the marriage certificate',
-  partOfNameAbbreviated: 'Part of my legal name is abbreviated on the marriage certificate',
-  legalNameSpelledDifferently: 'My legal name is spelled differently on the marriage certificate',
+  changedByDeedPoll: `Newidiodd fy ${partner} eu henw trwy weithred newid enw`,
+  changedPartsOfName: `Newidiodd fy ${partner} ei gyfenw neu rannau o'i enw pan wnaethom ni ${
+    isDivorce ? 'briodi' : ''
+  }`,
+  partOfNameNotIncluded: `Ni gafodd rhan o enw cyfreithiol fy ${partner} ei chynnwys ar y dystysgrif ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  }`,
+  partOfNameAbbreviated: `Mae rhan o enw cyfreithiol fy ${partner} wedi’i dalfyrru ar y dystysgrif ${
+    isDivorce ? 'briodas' : 'bartneriaeth sifil'
+  }`,
+  legalNameSpelledDifferently: 'Mae ei enw cyfreithiol wedi’i sillafu’n wahanol ar y dystysgrif briodas',
   other: 'Other',
   howDidYouChangeYourNameTitle: 'Sut wnaethoch chi newid eich enw?',
   howDidYouChangeYourNameHint:

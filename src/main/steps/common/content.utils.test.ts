@@ -413,8 +413,8 @@ describe('content.utils', () => {
       const theValidator = validator([ChangedNameHow.OTHER], {});
       expect(theValidator).toEqual('applicant1LastNameChangedWhenMarriedOtherDetails');
     });
-  
-    test('Assert that the validator returns field name when form data is invalid', () => {
+
+    test('Assert that the validator returns field name when why changed name form data is invalid', () => {
       const validator = getNameChangeOtherDetailsValidator('applicant1WhyNameDifferentOtherDetails');
       const theValidator = validator(ChangedNameWhy.OTHER, {});
       expect(theValidator).toEqual('applicant1WhyNameDifferentOtherDetails');

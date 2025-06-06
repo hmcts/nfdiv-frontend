@@ -693,59 +693,59 @@ describe('to-api-format', () => {
     });
   });
 
-    describe('applicant 1 name confirmation', () => {
-      test('blanks out unreachable fields if name matches certificate', () => {
-        const apiFormat = toApiFormat({
-          applicant1ConfirmNameMatchesCertificate: YesOrNo.YES
-        } as Partial<Case>);
+  describe('applicant 1 name confirmation', () => {
+    test('blanks out unreachable fields if name matches certificate', () => {
+      const apiFormat = toApiFormat({
+        applicant1ConfirmNameMatchesCertificate: YesOrNo.YES,
+      } as Partial<Case>);
 
-        expect(apiFormat).toMatchObject({
-          applicant1ConfirmNameMatchesCertificate: YesOrNo.YES,
-          applicant1WhyNameDifferent: null,
-          applicant1WhyNameDifferentOtherDetails: null,
-          applicant1NameDifferentToMarriageCertificateMethod: null,
-          applicant1NameDifferentToMarriageCertificateOtherDetails: null,
-        });
+      expect(apiFormat).toMatchObject({
+        applicant1ConfirmNameMatchesCertificate: YesOrNo.YES,
+        applicant1WhyNameDifferent: null,
+        applicant1WhyNameDifferentOtherDetails: null,
+        applicant1NameDifferentToMarriageCertificateMethod: null,
+        applicant1NameDifferentToMarriageCertificateOtherDetails: null,
       });
+    });
 
-      test('blanks out unreachable fields if didnt change parts of name', () => {
-        const apiFormat = toApiFormat({
-          applicant1WhyNameDifferent: ChangedNameWhy.DEED_POLL
-        } as Partial<Case>);
+    test('blanks out unreachable fields if didnt change parts of name', () => {
+      const apiFormat = toApiFormat({
+        applicant1WhyNameDifferent: ChangedNameWhy.DEED_POLL,
+      } as Partial<Case>);
 
-        expect(apiFormat).toMatchObject({
-          applicant1WhyNameDifferentOtherDetails: null,
-          applicant1NameDifferentToMarriageCertificateMethod: null,
-          applicant1NameDifferentToMarriageCertificateOtherDetails: null,
-        });
+      expect(apiFormat).toMatchObject({
+        applicant1WhyNameDifferentOtherDetails: null,
+        applicant1NameDifferentToMarriageCertificateMethod: null,
+        applicant1NameDifferentToMarriageCertificateOtherDetails: null,
       });
-    })
+    });
+  });
 
-    describe('applicant 2 name confirmation', () => {
-      test('blanks out unreachable fields if name matches certificate', () => {
-        const apiFormat = toApiFormat({
-          applicant2ConfirmNameMatchesCertificate: YesOrNo.YES
-        } as Partial<Case>);
+  describe('applicant 2 name confirmation', () => {
+    test('blanks out unreachable fields if name matches certificate', () => {
+      const apiFormat = toApiFormat({
+        applicant2ConfirmNameMatchesCertificate: YesOrNo.YES,
+      } as Partial<Case>);
 
-        expect(apiFormat).toMatchObject({
-          applicant2ConfirmNameMatchesCertificate: YesOrNo.YES,
-          applicant2WhyNameDifferent: null,
-          applicant2WhyNameDifferentOtherDetails: null,
-          applicant2NameDifferentToMarriageCertificateMethod: null,
-          applicant2NameDifferentToMarriageCertificateOtherDetails: null,
-        });
+      expect(apiFormat).toMatchObject({
+        applicant2ConfirmNameMatchesCertificate: YesOrNo.YES,
+        applicant2WhyNameDifferent: null,
+        applicant2WhyNameDifferentOtherDetails: null,
+        applicant2NameDifferentToMarriageCertificateMethod: null,
+        applicant2NameDifferentToMarriageCertificateOtherDetails: null,
       });
+    });
 
-      test('blanks out unreachable fields if didnt change parts of name', () => {
-        const apiFormat = toApiFormat({
-          applicant2WhyNameDifferent: ChangedNameWhy.DEED_POLL
-        } as Partial<Case>);
+    test('blanks out unreachable fields if didnt change parts of name', () => {
+      const apiFormat = toApiFormat({
+        applicant2WhyNameDifferent: ChangedNameWhy.DEED_POLL,
+      } as Partial<Case>);
 
-        expect(apiFormat).toMatchObject({
-          applicant2WhyNameDifferentOtherDetails: null,
-          applicant2NameDifferentToMarriageCertificateMethod: null,
-          applicant2NameDifferentToMarriageCertificateOtherDetails: null,
-        });
+      expect(apiFormat).toMatchObject({
+        applicant2WhyNameDifferentOtherDetails: null,
+        applicant2NameDifferentToMarriageCertificateMethod: null,
+        applicant2NameDifferentToMarriageCertificateOtherDetails: null,
       });
-    })
+    });
+  });
 });
