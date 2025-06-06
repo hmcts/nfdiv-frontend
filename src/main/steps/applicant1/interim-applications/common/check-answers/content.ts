@@ -29,9 +29,9 @@ const en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
 
 const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
   title: 'Gwirio eich atebion',
-  noFilesUploaded: 'No files uploaded',
-  notProvided: 'Not provided',
-  havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
+  noFilesUploaded: 'Nid oes ffeiliau wedi cael eu llwytho',
+  notProvided: 'Dim byd wedi ei ddarparu',
+  havingTroubleUploading: 'Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.',
   stepQuestions: {},
   stepAnswers: {},
   stepLinks: {},
