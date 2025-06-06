@@ -63,7 +63,7 @@ Feature: Applicant 1 joint application
     And I type "Smith"
 
     When I click "Continue"
-    Then the page should include "Is Sarah Smith your full name, including any middle names?"
+    Then the page should include "Is Sarah Smith exactly how your name is written on your marriage certificate?"
     Given I select "Yes, that's my full name"
 
     When I click "Continue"
@@ -261,7 +261,7 @@ Feature: Applicant 1 joint application
     And I type "Smith"
 
     When I click "Continue"
-    Then the page should include "Is Sarah Middle Smith your full name, including any middle names?"
+    Then the page should include "Is Sarah Middle Smith exactly how your name is written on your marriage certificate?"
     Given I select "Yes, that's my full name"
 
     When I click "Continue"
