@@ -28,9 +28,7 @@ const en = ({ userCase }: CommonContent) => ({
     ]
       .filter(Boolean)
       .join('<br>'),
-    newEmailAddress: stripTags(
-      userCase.applicant2Email !== '' ? userCase.applicant2Email : userCase.applicant1NoResponsePartnerEmailAddress
-    ),
+    newEmailAddress: stripTags(userCase.applicant1NoResponsePartnerEmailAddress),
   },
   stepLinks: {
     newPostalAddress: `${urls.NEW_POSTAL_ADDRESS}`,

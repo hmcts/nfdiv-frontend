@@ -1,13 +1,16 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import { isEmpty } from 'lodash';
 
 import { getSystemUser } from '../../../../../app/auth/user/oidc';
+import { Case } from '../../../../../app/case/case';
 import { getCaseApi } from '../../../../../app/case/case-api';
 import { CASEWORKER_REISSUE_APPLICATION } from '../../../../../app/case/definition';
+import { toApiFormat } from '../../../../../app/case/to-api-format';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields } from '../../../../../app/form/Form';
-import { NO_RESPONSE_DETAILS_UPDATED } from '../../../../urls';
+import { NO_RESPONSE_DETAILS_UPDATED, PROVIDE_NEW_EMAIL_ADDRESS } from '../../../../urls';
 
 @autobind
 export default class CheckAnswersPostController extends PostController<AnyObject> {
@@ -23,8 +26,10 @@ export default class CheckAnswersPostController extends PostController<AnyObject
     userCase.applicant2AddressCountry = userCase.applicant1NoResponsePartnerAddressCountry;
     userCase.applicant2AddressPostcode = userCase.applicant1NoResponsePartnerAddressPostcode;
 
-    formData.applicant2Email =
-      userCase.applicant2Email !== '' ? userCase.applicant2Email : userCase.applicant1NoResponsePartnerEmailAddress;
+    formData.applicant2Email = userCase.applicant1NoResponsePartnerEmailAddress;
+    formData.applicant2Address = toApiFormat(userCase).applicant2Address;
+
+    await this.saveAndContinue(req, res, form, formData);
 
     let nextUrl: string;
     req.session.errors = form.getErrors(formData);
@@ -48,5 +53,28 @@ export default class CheckAnswersPostController extends PostController<AnyObject
       }
       res.redirect(nextUrl);
     });
+  }
+
+  protected async saveAndContinue(
+    req: AppRequest<AnyObject>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
+    Object.assign(req.session.userCase, formData);
+    req.session.errors = form.getErrors(formData);
+    if (req.session.errors.length === 0) {
+      try {
+        if (isEmpty(req.session.userCase.applicant1NoResponsePartnerEmailAddress)) {
+          res.redirect(PROVIDE_NEW_EMAIL_ADDRESS);
+        } else {
+          req.session.userCase = await this.save(req, formData, super.getEventName(req));
+        }
+      } catch (err) {
+        req.locals.logger.error('Error saving', err);
+        req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+      }
+    }
+    this.saveSessionAndRedirect(req, res);
   }
 }

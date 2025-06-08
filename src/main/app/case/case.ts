@@ -1,6 +1,7 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
+  AddressGlobalUK,
   AlternativeServiceOutcome,
   Applicant2Represented,
   ApplicationType,
@@ -203,6 +204,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -479,6 +481,7 @@ export interface Case {
   applicant1NoResponsePartnerAddressPostcode?: string;
   applicant1NoResponsePartnerAddressOverseas?: YesOrNo;
   applicant1NoResponsePartnerEmailAddress?: string;
+  applicant2Address?: AddressGlobalUK;
 }
 
 export interface CaseWithId extends Case {

@@ -1047,7 +1047,7 @@ export interface CaseData {
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
-  applicant1NoResponsePartnerEmail: string;
+  applicant1NoResponsePartnerEmailAddress: string;
 }
 
 export interface CaseDocuments {
