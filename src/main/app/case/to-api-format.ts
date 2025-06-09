@@ -228,7 +228,7 @@ const fields: ToApiConverters = {
   applicant1NameDifferentToMarriageCertificateMethod: data => ({
     applicant1NameDifferentToMarriageCertificateMethod:
       data.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES ||
-      data.applicant1WhyNameDifferent === ChangedNameWhy.CHANGED_PARTS_OF_NAME
+      data.applicant1WhyNameDifferent?.includes(ChangedNameWhy.CHANGED_PARTS_OF_NAME)
         ? data.applicant1NameDifferentToMarriageCertificateMethod
         : [],
   }),
@@ -241,7 +241,7 @@ const fields: ToApiConverters = {
   applicant2NameDifferentToMarriageCertificateMethod: data => ({
     applicant2NameDifferentToMarriageCertificateMethod:
       data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES ||
-      data.applicant2WhyNameDifferent === ChangedNameWhy.CHANGED_PARTS_OF_NAME
+      data.applicant2WhyNameDifferent?.includes(ChangedNameWhy.CHANGED_PARTS_OF_NAME)
         ? data.applicant2NameDifferentToMarriageCertificateMethod
         : [],
   }),
@@ -269,10 +269,10 @@ const fields: ToApiConverters = {
   }),
   applicant1WhyNameDifferent: data => ({
     applicant1WhyNameDifferent: data.applicant1WhyNameDifferent,
-    ...(data.applicant1WhyNameDifferent !== ChangedNameWhy.OTHER
+    ...(!data.applicant1WhyNameDifferent?.includes(ChangedNameWhy.OTHER)
       ? setUnreachableAnswersToNull(['applicant1WhyNameDifferentOtherDetails'])
       : {}),
-    ...(data.applicant1WhyNameDifferent !== ChangedNameWhy.CHANGED_PARTS_OF_NAME
+    ...(!data.applicant1WhyNameDifferent?.includes(ChangedNameWhy.CHANGED_PARTS_OF_NAME)
       ? setUnreachableAnswersToNull([
           'applicant1NameDifferentToMarriageCertificateMethod',
           'applicant1NameDifferentToMarriageCertificateOtherDetails',
@@ -281,10 +281,10 @@ const fields: ToApiConverters = {
   }),
   applicant2WhyNameDifferent: data => ({
     applicant2WhyNameDifferent: data.applicant2WhyNameDifferent,
-    ...(data.applicant2WhyNameDifferent !== ChangedNameWhy.OTHER
+    ...(!data.applicant2WhyNameDifferent?.includes(ChangedNameWhy.OTHER)
       ? setUnreachableAnswersToNull(['applicant2WhyNameDifferentOtherDetails'])
       : {}),
-    ...(data.applicant2WhyNameDifferent !== ChangedNameWhy.CHANGED_PARTS_OF_NAME
+    ...(!data.applicant2WhyNameDifferent?.includes(ChangedNameWhy.CHANGED_PARTS_OF_NAME)
       ? setUnreachableAnswersToNull([
           'applicant2NameDifferentToMarriageCertificateMethod',
           'applicant2NameDifferentToMarriageCertificateOtherDetails',

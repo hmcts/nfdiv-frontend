@@ -291,6 +291,7 @@ export interface Applicant {
   LastNameChangedWhenMarriedOtherDetails: string;
   NameDifferentToMarriageCertificate: YesOrNo;
   NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
+  ChangedNameWhy: ChangedNameWhy[];
   NameDifferentToMarriageCertificateOtherDetails: string;
   NameChangedHow: ChangedNameHow[];
   NameChangedHowOtherDetails: string;
@@ -522,9 +523,9 @@ export interface CaseData {
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
   applicant1NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
   applicant1NameDifferentToMarriageCertificateOtherDetails: string;
-  applicant1WhyNameDifferent: ChangedNameWhy;
+  applicant1WhyNameDifferent: ChangedNameWhy[];
   applicant1WhyNameDifferentOtherDetails: string,
-  applicant2WhyNameDifferent: ChangedNameWhy;
+  applicant2WhyNameDifferent: ChangedNameWhy[];
   applicant2WhyNameDifferentOtherDetails: string,
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;

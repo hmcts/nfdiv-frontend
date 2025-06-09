@@ -710,10 +710,11 @@ describe('to-api-format', () => {
 
     test('blanks out unreachable fields if didnt change parts of name', () => {
       const apiFormat = toApiFormat({
-        applicant1WhyNameDifferent: ChangedNameWhy.DEED_POLL,
+        applicant1WhyNameDifferent: [ChangedNameWhy.DEED_POLL],
       } as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
+        applicant1WhyNameDifferent: [ChangedNameWhy.DEED_POLL],
         applicant1WhyNameDifferentOtherDetails: null,
         applicant1NameDifferentToMarriageCertificateMethod: null,
         applicant1NameDifferentToMarriageCertificateOtherDetails: null,
@@ -738,10 +739,11 @@ describe('to-api-format', () => {
 
     test('blanks out unreachable fields if didnt change parts of name', () => {
       const apiFormat = toApiFormat({
-        applicant2WhyNameDifferent: ChangedNameWhy.DEED_POLL,
+        applicant2WhyNameDifferent: [ChangedNameWhy.DEED_POLL],
       } as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
+        applicant2WhyNameDifferent: [ChangedNameWhy.DEED_POLL],
         applicant2WhyNameDifferentOtherDetails: null,
         applicant2NameDifferentToMarriageCertificateMethod: null,
         applicant2NameDifferentToMarriageCertificateOtherDetails: null,

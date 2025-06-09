@@ -1,7 +1,7 @@
 import { ChangedNameHow, ChangedNameWhy } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { getNameChangeOtherDetailsValidator } from '../../common/content.utils';
 
 const en = ({ isDivorce, required }) => ({
@@ -103,17 +103,19 @@ const cy = ({ isDivorce, required }) => ({
 export const form: FormContent = {
   fields: {
     applicant1WhyNameDifferent: {
-      type: 'radios',
-      classes: 'govuk-radios',
+      type: 'checkboxes',
       label: l => l.title,
       labelHidden: true,
+      validator: atLeastOneFieldIsChecked,
       values: [
         {
+          name: 'applicant1WhyNameDifferent',
           label: l => l.changedByDeedPoll,
           value: ChangedNameWhy.DEED_POLL,
           warning: l => l.warningMustUploadEvidence,
         },
         {
+          name: 'applicant1WhyNameDifferent',
           label: l => l.changedPartsOfName,
           value: ChangedNameWhy.CHANGED_PARTS_OF_NAME,
           subFields: {
@@ -154,21 +156,25 @@ export const form: FormContent = {
           },
         },
         {
+          name: 'applicant1WhyNameDifferent',
           label: l => l.partOfNameNotIncluded,
           value: ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
           warning: l => l.warningMustUploadEvidence,
         },
         {
+          name: 'applicant1WhyNameDifferent',
           label: l => l.partOfNameAbbreviated,
           value: ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
           warning: l => l.warningMustUploadEvidence,
         },
         {
+          name: 'applicant1WhyNameDifferent',
           label: l => l.legalNameSpelledDifferently,
           value: ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
           warning: l => l.warningMustUploadEvidence,
         },
         {
+          name: 'applicant1WhyNameDifferent',
           label: l => l.other,
           value: ChangedNameWhy.OTHER,
           warning: l => l.warningMustUploadEvidence,
@@ -182,7 +188,6 @@ export const form: FormContent = {
           validator: getNameChangeOtherDetailsValidator('applicant1WhyNameDifferentOtherDetails'),
         },
       ],
-      validator: value => isFieldFilledIn(value),
     },
   },
   submit: {

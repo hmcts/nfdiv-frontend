@@ -284,11 +284,16 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: YOUR_CERTIFICATE_NAME,
     getNextStep: data =>
-      data.applicant1ConfirmNameMatchesCertificate === YesOrNo.NO ? CHANGES_TO_YOUR_NAME_URL : THEIR_NAME,
+      data.applicant1ConfirmNameMatchesCertificate === YesOrNo.NO
+        ? CHANGES_TO_YOUR_NAME_URL
+        : data.applicationType === ApplicationType.SOLE_APPLICATION
+          ? THEIR_NAME
+          : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
-    getNextStep: () => THEIR_NAME,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.SOLE_APPLICATION ? THEIR_NAME : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: THEIR_NAME,

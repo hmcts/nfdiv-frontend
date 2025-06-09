@@ -1,7 +1,7 @@
 import { ChangedNameHow, ChangedNameWhy } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { getNameChangeOtherDetailsValidator } from '../../common/content.utils';
 
 const en = ({ isDivorce, required, partner }) => ({
@@ -11,15 +11,17 @@ const en = ({ isDivorce, required, partner }) => ({
   line1: `You must explain the reason for the difference, for example, your ${partner} changed their name when they ${
     isDivorce ? 'got married' : 'formed your civil partnership'
   }, or part of the legal name was not included in the ${isDivorce ? 'marriage' : 'civil partnership'} certificate.`,
-  changedByDeedPoll: 'I changed my name by deed poll',
-  changedPartsOfName: 'I changed my last name or parts of my name when I got married',
+  changedByDeedPoll: `My ${partner} changed their name by deed poll`,
+  changedPartsOfName: `My ${partner} changes their last name or parts of their name when they ${
+    isDivorce ? 'got married' : 'formed the civil partnership'
+  }`,
   partOfNameNotIncluded: `Part of my ${partner}'s legal name was not included on the ${
     isDivorce ? 'marriage' : 'civil partnership'
   } certificate`,
   partOfNameAbbreviated: `Part of my ${partner}'s legal name is abbreviated on the ${
     isDivorce ? 'marriage' : 'civil partnership'
   } certificate`,
-  legalNameSpelledDifferently: `The legal name is spelled differently on the ${
+  legalNameSpelledDifferently: `Their legal name is spelled differently on the ${
     isDivorce ? 'marriage' : 'civil partnership'
   } certificate`,
   other: 'Other',
@@ -57,7 +59,7 @@ const cy = ({ isDivorce, required, partner }) => ({
   line1: "Mae angen ichi roi gwybod i'r llys os ydych wedi newid eich enw",
   changedByDeedPoll: `Newidiodd fy ${partner} eu henw trwy weithred newid enw`,
   changedPartsOfName: `Newidiodd fy ${partner} ei gyfenw neu rannau o'i enw pan wnaethom ni ${
-    isDivorce ? 'briodi' : ''
+    isDivorce ? 'briodi' : "ffurfio'r bartneriaeth sifil"
   }`,
   partOfNameNotIncluded: `Ni gafodd rhan o enw cyfreithiol fy ${partner} ei chynnwys ar y dystysgrif ${
     isDivorce ? 'briodas' : 'bartneriaeth sifil'
@@ -104,17 +106,19 @@ const cy = ({ isDivorce, required, partner }) => ({
 export const form: FormContent = {
   fields: {
     applicant2WhyNameDifferent: {
-      type: 'radios',
-      classes: 'govuk-radios',
+      type: 'checkboxes',
       label: l => l.title,
       labelHidden: true,
+      validator: atLeastOneFieldIsChecked,
       values: [
         {
+          name: 'applicant2WhyNameDifferent',
           label: l => l.changedByDeedPoll,
           value: ChangedNameWhy.DEED_POLL,
           warning: l => l.warningMustUploadEvidence,
         },
         {
+          name: 'applicant2WhyNameDifferent',
           label: l => l.changedPartsOfName,
           value: ChangedNameWhy.CHANGED_PARTS_OF_NAME,
           subFields: {
@@ -155,21 +159,25 @@ export const form: FormContent = {
           },
         },
         {
+          name: 'applicant2WhyNameDifferent',
           label: l => l.partOfNameNotIncluded,
           value: ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
           warning: l => l.warningMustUploadEvidence,
         },
         {
+          name: 'applicant2WhyNameDifferent',
           label: l => l.partOfNameAbbreviated,
           value: ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
           warning: l => l.warningMustUploadEvidence,
         },
         {
+          name: 'applicant2WhyNameDifferent',
           label: l => l.legalNameSpelledDifferently,
           value: ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
           warning: l => l.warningMustUploadEvidence,
         },
         {
+          name: 'applicant2WhyNameDifferent',
           label: l => l.other,
           value: ChangedNameWhy.OTHER,
           warning: l => l.warningMustUploadEvidence,
@@ -183,7 +191,6 @@ export const form: FormContent = {
           validator: getNameChangeOtherDetailsValidator('applicant2WhyNameDifferentOtherDetails'),
         },
       ],
-      validator: value => isFieldFilledIn(value),
     },
   },
   submit: {
