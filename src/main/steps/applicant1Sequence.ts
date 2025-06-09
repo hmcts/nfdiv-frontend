@@ -266,8 +266,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: data =>
-      data.applicationType === ApplicationType.JOINT_APPLICATION ? ENTER_YOUR_NAMES : ENTER_YOUR_NAME,
+    getNextStep: () => ENTER_YOUR_NAME,
   },
   {
     url: ENTER_YOUR_NAMES,
