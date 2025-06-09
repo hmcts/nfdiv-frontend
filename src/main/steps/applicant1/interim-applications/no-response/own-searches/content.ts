@@ -36,7 +36,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   notFound: "I've not been able to",
   errors: {
     applicant1NoResponseOwnSearches: {
-      required: 'You must select an option before continuing',
+      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
     },
   },
 });

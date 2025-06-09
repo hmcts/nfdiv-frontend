@@ -29,7 +29,7 @@ const cy = (serviceType: string, serviceFee: string) => ({
   useHelpWithFees: 'Will you be using help with fees to pay for this application?',
   errors: {
     applicant1InterimAppsUseHelpWithFees: {
-      required: 'You must select an option before continuing.',
+      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
     },
   },
 });
