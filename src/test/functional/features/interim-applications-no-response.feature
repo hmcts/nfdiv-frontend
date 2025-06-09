@@ -120,3 +120,36 @@ Feature: No response journey
 
     When I go to "/have-they-received"
     Then the page should include element "#errorTitle"
+
+  Scenario: No response happy path to update contact details
+
+    Given I go to "/interim-applications/no-response/new-postal-and-email"
+    And I click element "#aosDueAndDraftedLink"
+    When I click continue
+    Then the page should include element "#optionsForProgressingTitle"
+
+    When I click element "#aosDueAndDraftedLink"
+    And I click continue
+    Then the page should include "Enter your postal address"
+
+    Given I select "Enter a UK postcode"
+    And I type "SW1H 9AJ"
+    When I click "Find address"
+    Then the page should include "SW1H 9AJ"
+    And I wait for the postcode lookup to return results
+
+    Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    When I click "Continue"
+    Then the page should include "Check your answers"
+
+    When I click start
+    Then the page should include element "#haveTheyReceivedTitle"
+    And the page should include element "#detailsProvided"
+
+    Given I click element "#upToDate"
+    When I click continue
+    Then the page should include element "#evidenceReceivedApplicationTitle"
+
+    Given I click element "#proveYes"
+    When I click continue
+    Then the page should include element "#deemedServiceApplicationTitle"
