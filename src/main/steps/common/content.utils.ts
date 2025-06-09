@@ -149,9 +149,9 @@ export const getNameChangeOtherDetailsValidator = (
     | 'applicant2WhyNameDifferentOtherDetails'
 ): ValidationCheck => {
   return ((value, formData) => {
-    if ((value as string[])?.includes(ChangedNameHow.OTHER) && !formData[fieldName]?.length) {
-      return fieldName;
-    } else if ((value as ChangedNameWhy) === ChangedNameWhy.OTHER && !formData[fieldName]?.length) {
+    const otherValues = [ChangedNameHow.OTHER, ChangedNameWhy.OTHER];
+
+    if (otherValues.find(otherValue => (value as string[])?.includes(otherValue)) && !formData[fieldName]?.length) {
       return fieldName;
     }
   }) as ValidationCheck;
