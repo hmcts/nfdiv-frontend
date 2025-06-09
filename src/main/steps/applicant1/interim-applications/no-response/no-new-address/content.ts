@@ -62,7 +62,8 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     header: `Dim manylion cyswllt ar gyfer eich ${partner}`,
     details: `Os nad oes gennych chi unrhyw fanylion cyswllt eraill ar gyfer eich ${partner}, gallwch geisio symud eich cais yn ei flaen rhyw ffordd arall.`,
   },
-  wantToApplyChoiceHeader: 'Ydych chi eisiau gwneud cais am gyflwyno personol, cyflwyno amgen, neu ydych chi eisiau rhoi cynnig ar rywbeth arall?',
+  wantToApplyChoiceHeader:
+    'Ydych chi eisiau gwneud cais am gyflwyno personol, cyflwyno amgen, neu ydych chi eisiau rhoi cynnig ar rywbeth arall?',
   inPersonService: 'Rwyf eisiau trefnu i’r papurau gael eu cyflwyno’n bersonol',
   alternativeService: 'Rwyf eisiau gwneud cais am gyflwyno amgen',
   somethingElse: 'Nid oes gennyf unrhyw ffordd arall o gysylltu â nhw',
