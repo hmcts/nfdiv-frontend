@@ -1,70 +1,71 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import * as oidc from '../../../../../app/auth/user/oidc';
-import * as caseApi from '../../../../../app/case/case-api';
-import { ApplicationType, CASEWORKER_REISSUE_APPLICATION } from '../../../../../app/case/definition';
+import { SYSTEM_UPDATE_CONTACT_DETAILS } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 
 import CheckAnswersPostController from './post';
 
-const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
-const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
-
-describe('CheckYourAnswerPostController', () => {
-  beforeEach(() => {
-    getSystemUserMock.mockResolvedValue({
-      accessToken: 'token',
-      id: '1234',
-      email: 'user@caseworker.com',
-      givenName: 'case',
-      familyName: 'worker',
-      roles: ['caseworker'],
-    });
-  });
+describe('CheckAnswersPostController', () => {
   const mockFormContent = {
-    fields: {},
+    fields: {
+      applicant1NoResponsePartnerAddressOverseas: 'No',
+      applicant1NoResponsePartnerAddress1: '',
+      applicant1NoResponsePartnerAddress2: '',
+      applicant1NoResponsePartnerAddress3: {},
+      applicant1NoResponsePartnerAddressPostcode: '',
+      applicant1NoResponsePartnerAddressCountry: '',
+      applicant1NoResponsePartnerAddressTown: '',
+      applicant1NoResponsePartnerAddressCounty: '',
+      applicant2Address: {
+        AddressLine1: 'Line 1',
+        AddressLine2: 'Line 2',
+        PostTown: 'Town',
+        County: 'County',
+        PostCode: 'Postcode',
+        Country: 'Country',
+      },
+    },
   } as unknown as FormContent;
 
-  it('triggers CASEWORKER_REISSUE_APPLICATION when sole application', async () => {
+  it('No response update contact details check your answers page', async () => {
     const body = {
-      applicationType: ApplicationType.SOLE_APPLICATION,
-      applicant2Address1: '123',
-      applicant2Address2: 'street',
-      applicant2Address3: '',
-      applicant2AddressPostcode: 'SW1A 1AA',
-      applicant2AddressCountry: 'United Kingdom',
-      applicant2FirstName: 'John',
-      applicant2LastName: 'Smith',
-      applicant2AddressPrivate: 'No',
-      applicant2AddressPrivateOtherDetails: '',
-      applicant2AddressPublic: 'No',
+      applicant1NoResponsePartnerAddressOverseas: 'No',
+      applicant1NoResponsePartnerAddress1: 'Line1',
+      applicant1NoResponsePartnerAddress2: 'Line2',
+      applicant1NoResponsePartnerAddress3: {},
+      applicant1NoResponsePartnerAddressPostcode: 'Postcode',
+      applicant1NoResponsePartnerAddressCountry: 'Country',
+      applicant1NoResponsePartnerAddressTown: 'Town',
+      applicant1NoResponsePartnerAddressCounty: 'County',
+      applicant1NoResponsePartnerEmailAddress: 'test@test.com',
     };
-    const checkYourAnswerPostController = new CheckAnswersPostController(mockFormContent.fields);
 
-    const caseApiMockFn = {
-      triggerEvent: jest.fn(() => {
-        return {
-          id: '123456',
-          applicationType: ApplicationType.SOLE_APPLICATION,
-          applicant2Address: '123 street, SW1A 1AA, United Kingdom',
-        };
-      }),
-      getCaseById: jest.fn(() => {
-        return {
-          id: '123456',
-          applicationType: ApplicationType.SOLE_APPLICATION,
-        };
-      }),
-      unlinkStaleDraftCaseIfFound: jest.fn(() => {
-        return undefined;
-      }),
+    const expectedBody = {
+      applicant1NoResponsePartnerAddressOverseas: 'No',
+      applicant2Address: {
+        AddressLine1: 'Line 1',
+        AddressLine2: 'Line 2',
+        PostTown: 'Town',
+        County: 'County',
+        PostCode: 'Postcode',
+        Country: 'Country',
+      },
+      applicant1NoResponsePartnerAddress1: 'Line1',
+      applicant1NoResponsePartnerAddress2: 'Line2',
+      applicant1NoResponsePartnerAddress3: {},
+      applicant1NoResponsePartnerAddressPostcode: 'Postcode',
+      applicant1NoResponsePartnerAddressCountry: 'Country',
+      applicant1NoResponsePartnerAddressTown: 'Town',
+      applicant1NoResponsePartnerAddressCounty: 'County',
+      applicant1NoResponsePartnerEmailAddress: 'test@test.com',
     };
-    (getCaseApiMock as jest.Mock).mockReturnValue(caseApiMockFn);
+
+    const checkAnswersPostController = new CheckAnswersPostController(mockFormContent.fields);
+
     const req = mockRequest({ body });
-
     const res = mockResponse();
-    await checkYourAnswerPostController.post(req, res);
+    await checkAnswersPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('123456', { ...body }, CASEWORKER_REISSUE_APPLICATION);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, SYSTEM_UPDATE_CONTACT_DETAILS);
   });
 });

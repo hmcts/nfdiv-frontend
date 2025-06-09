@@ -2,10 +2,8 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import { isEmpty } from 'lodash';
 
-import { getSystemUser } from '../../../../../app/auth/user/oidc';
 import { Case } from '../../../../../app/case/case';
-import { getCaseApi } from '../../../../../app/case/case-api';
-import { CASEWORKER_REISSUE_APPLICATION } from '../../../../../app/case/definition';
+import { SYSTEM_UPDATE_CONTACT_DETAILS } from '../../../../../app/case/definition';
 import { toApiFormat } from '../../../../../app/case/to-api-format';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
@@ -29,14 +27,13 @@ export default class CheckAnswersPostController extends PostController<AnyObject
     formData.applicant2Email = userCase.applicant1NoResponsePartnerEmailAddress;
     formData.applicant2Address = toApiFormat(userCase).applicant2Address;
 
-    await this.saveAndContinue(req, res, form, formData);
+    //await this.saveAndContinue(req, res, form, formData);
 
     let nextUrl: string;
     req.session.errors = form.getErrors(formData);
     if (req.session.errors.length === 0) {
       try {
-        const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
-        await caseworkerUserApi.triggerEvent(req.session.existingCaseId, formData, CASEWORKER_REISSUE_APPLICATION);
+        await super.save(req, formData, this.getEventName());
         nextUrl = NO_RESPONSE_DETAILS_UPDATED;
       } catch (err) {
         req.locals.logger.error('Error saving', err);
@@ -76,5 +73,9 @@ export default class CheckAnswersPostController extends PostController<AnyObject
       }
     }
     this.saveSessionAndRedirect(req, res);
+  }
+
+  protected getEventName(): string {
+    return SYSTEM_UPDATE_CONTACT_DETAILS;
   }
 }
