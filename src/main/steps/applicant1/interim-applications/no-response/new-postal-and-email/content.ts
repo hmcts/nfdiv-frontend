@@ -4,7 +4,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ isDivorce, partner }: CommonContent) => ({
+const en = ({ isDivorce, partner, required }: CommonContent) => ({
   title: `Update your ${partner}'s contact details`,
   line1: `We will try to send the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
@@ -16,6 +16,11 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   newPostalAddress: 'I have a new postal address',
   newEmailAddress: 'I have a new email address',
   newEmailAndPostalAddress: 'I have a new email address and postal address',
+  errors: {
+    applicant1NoResponseNewEmailAndPostalAddress: {
+      required,
+    },
+  },
 });
 
 // @TODO translations should be verified once provided
@@ -23,7 +28,7 @@ const cy: typeof en = en;
 
 export const form: FormContent = {
   fields: {
-    applicant1NoResponseUpdateEmailAndPostalAddress: {
+    applicant1NoResponseNewEmailAndPostalAddress: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.newDetailsHeader,

@@ -182,7 +182,7 @@ const fields: FromApiConverters = {
   }),
   requestsForInformation: 'requestsForInformation',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
-  applicant1NoResponseUpdateEmailAndPostalAddress: 'applicant1NoResponseUpdateEmailAndPostalAddress',
+  applicant1NoResponseNewEmailAndPostalAddress: 'applicant1NoResponseNewEmailAndPostalAddress',
   applicant1NoResponseProvideNewEmailOrApplyForAlternativeService:
     'applicant1NoResponseProvideNewEmailOrApplyForAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',

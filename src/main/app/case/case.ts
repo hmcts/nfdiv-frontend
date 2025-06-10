@@ -189,7 +189,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
-  applicant1NoResponseUpdateEmailAndPostalAddress: 'applicant1NoResponseUpdateEmailAndPostalAddress',
+  applicant1NoResponseNewEmailAndPostalAddress: 'applicant1NoResponseNewEmailAndPostalAddress',
   applicant1NoResponseProvideNewEmailOrApplyForAlternativeService:
     'applicant1NoResponseProvideNewEmailOrApplyForAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
@@ -457,7 +457,7 @@ export interface Case {
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
-  applicant1NoResponseUpdateEmailAndPostalAddress?: NoResponseNewEmailOrPostalAddress;
+  applicant1NoResponseNewEmailAndPostalAddress?: NoResponseNewEmailOrPostalAddress;
   applicant1NoResponseProvideNewEmailOrApplyForAlternativeService?: NoResponseProvideNewEmailOrApplyForAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
   applicant1InterimAppsIUnderstand?: Checkbox;

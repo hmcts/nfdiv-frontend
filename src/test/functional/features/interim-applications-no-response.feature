@@ -121,16 +121,12 @@ Feature: No response journey
     When I go to "/have-they-received"
     Then the page should include element "#errorTitle"
 
-  Scenario: No response happy path to update contact details
+  Scenario: No response /new-postal-and-email happy path
 
     Given I go to "/interim-applications/no-response/new-postal-and-email"
-    And I click element "#aosDueAndDraftedLink"
+    And I click element "#newPostalAddress"
     When I click continue
-    Then the page should include element "#optionsForProgressingTitle"
-
-    When I click element "#aosDueAndDraftedLink"
-    And I click continue
-    Then the page should include "Enter your postal address"
+    Then the page should include element "#enterPostcode"
 
     Given I select "Enter a UK postcode"
     And I type "SW1H 9AJ"
@@ -142,14 +138,50 @@ Feature: No response journey
     When I click "Continue"
     Then the page should include "Check your answers"
 
-    When I click start
-    Then the page should include element "#haveTheyReceivedTitle"
-    And the page should include element "#detailsProvided"
+    When I click "Accept and send"
+    Then the page should include element "#detailsUpdatedTitle"
 
-    Given I click element "#upToDate"
+    Given I go to "/interim-applications/no-response/new-postal-and-email"
+    And I click element "#newEmailAddress"
     When I click continue
-    Then the page should include element "#evidenceReceivedApplicationTitle"
+    Then the page should include element "#provideNewEmail"
 
-    Given I click element "#proveYes"
+    When I click element "#provideNewEmail"
+    And I click continue
+    Then the page should include element "#applicant1NoResponsePartnerEmailAddress"
+
+    Given I select "Enter the new email address"
+    And I type "test@test.com"
     When I click continue
-    Then the page should include element "#deemedServiceApplicationTitle"
+    Then the page should include "Check your answers"
+
+    When I click "Accept and send"
+    Then the page should include element "#detailsUpdatedTitle"
+
+    Given I go to "/interim-applications/no-response/new-postal-and-email"
+    And I click element "#bothEmailAndPostalAddress"
+    When I click continue
+    Then the page should include element "#enterPostcode"
+
+    Given I select "Enter a UK postcode"
+    And I type "SW1H 9AJ"
+    When I click "Find address"
+    Then the page should include "SW1H 9AJ"
+    And I wait for the postcode lookup to return results
+
+    Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    When I click "Continue"
+    Then the page should include element "#applicant1NoResponsePartnerEmailAddress"
+    When I select "Enter the new email address"
+    And I type "test@testing.com"
+    When I click 'Continue'
+    Then the page should include "Check your answers"
+
+    When I click "Accept and send"
+    Then the page should include element "#detailsUpdatedTitle"
+
+  Scenario: No response update contact details /new-postal-and-email throws error
+
+    Given I go to "/interim-applications/no-response/new-postal-and-email"
+    When I click continue
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."

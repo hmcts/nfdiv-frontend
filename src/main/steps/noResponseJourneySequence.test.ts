@@ -125,42 +125,42 @@ describe('No Response Journey Sequence test', () => {
     });
     test('NEW_POSTAL_ADDRESS', () => {
       const caseData = {
-        applicant1NoResponseUpdateEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.NEW_POSTAL,
+        applicant1NoResponseNewEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.NEW_POSTAL,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_AND_EMAIL) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_POSTAL_ADDRESS);
     });
     test('NEW_EMAIL_ADDRESS', () => {
       const caseData = {
-        applicant1NoResponseUpdateEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.NEW_EMAIL,
+        applicant1NoResponseNewEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.NEW_EMAIL,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_AND_EMAIL) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_EMAIL);
     });
     test('BOTH_NEW_EMAIL_AND_POSTAL_ADDRESS_UPDATE_POSTAL_ADDRESS', () => {
       const caseData = {
-        applicant1NoResponseUpdateEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+        applicant1NoResponseNewEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_AND_EMAIL) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_POSTAL_ADDRESS);
     });
     test('BOTH_NEW_EMAIL_AND_POSTAL_ADDRESS_UPDATE_EMAIL', () => {
       const caseData = {
-        applicant1NoResponseUpdateEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+        applicant1NoResponseNewEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(PROVIDE_NEW_EMAIL_ADDRESS);
     });
     test('CHECK_YOUR_ANSWERS', () => {
       const caseData = {
-        applicant1NoResponseUpdateEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+        applicant1NoResponseNewEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === PROVIDE_NEW_EMAIL_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_CONTACT_DETAIL_CHECK_ANSWERS);
     });
     test('DETAILS_UPDATED', () => {
       const caseData = {
-        applicant1NoResponseUpdateEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+        applicant1NoResponseNewEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_CONTACT_DETAIL_CHECK_ANSWERS) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESPONSE_DETAILS_UPDATED);
@@ -183,7 +183,7 @@ describe('No Response Journey Sequence test', () => {
     });
     test('NEW_POSTAL_ADDRESS_CHECK_YOUR_ANSWERS', () => {
       const caseData = {
-        applicant1NoResponseUpdateEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.NEW_POSTAL,
+        applicant1NoResponseNewEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress.NEW_POSTAL,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_CONTACT_DETAIL_CHECK_ANSWERS);

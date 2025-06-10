@@ -402,8 +402,8 @@ const fields: ToApiConverters = {
     applicant1NoResponseProvideNewEmailOrApplyForAlternativeService:
       data.applicant1NoResponseProvideNewEmailOrApplyForAlternativeService,
   }),
-  applicant1NoResponseUpdateEmailAndPostalAddress: data => ({
-    applicant1NoResponseUpdateEmailAndPostalAddress: data.applicant1NoResponseUpdateEmailAndPostalAddress,
+  applicant1NoResponseNewEmailAndPostalAddress: data => ({
+    applicant1NoResponseNewEmailAndPostalAddress: data.applicant1NoResponseNewEmailAndPostalAddress,
   }),
   applicant1NoResponsePartnerHasReceivedPapers: data => ({
     applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,

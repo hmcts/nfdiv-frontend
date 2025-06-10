@@ -1031,7 +1031,7 @@ export interface CaseData {
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
-  applicant1NoResponseUpdateEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress;
+  applicant1NoResponseNewEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress;
   applicant1NoResponseProvideNewEmailOrApplyForAlternativeService: NoResponseProvideNewEmailOrApplyForAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
   applicant1InterimAppsIUnderstand: YesOrNo;

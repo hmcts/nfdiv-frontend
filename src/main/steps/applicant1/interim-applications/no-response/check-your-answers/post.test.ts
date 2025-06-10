@@ -5,60 +5,15 @@ import { FormContent } from '../../../../../app/form/Form';
 
 import CheckAnswersPostController from './post';
 
-describe('CheckAnswersPostController', () => {
+describe('NewPostalAddressPostController', () => {
   const mockFormContent = {
-    fields: {
-      applicant1NoResponsePartnerAddressOverseas: 'No',
-      applicant1NoResponsePartnerAddress1: '',
-      applicant1NoResponsePartnerAddress2: '',
-      applicant1NoResponsePartnerAddress3: {},
-      applicant1NoResponsePartnerAddressPostcode: '',
-      applicant1NoResponsePartnerAddressCountry: '',
-      applicant1NoResponsePartnerAddressTown: '',
-      applicant1NoResponsePartnerAddressCounty: '',
-      applicant2Address: {
-        AddressLine1: 'Line 1',
-        AddressLine2: 'Line 2',
-        PostTown: 'Town',
-        County: 'County',
-        PostCode: 'Postcode',
-        Country: 'Country',
-      },
-    },
+    fields: {},
   } as unknown as FormContent;
 
-  it('No response update contact details check your answers page', async () => {
-    const body = {
-      applicant1NoResponsePartnerAddressOverseas: 'No',
-      applicant1NoResponsePartnerAddress1: 'Line1',
-      applicant1NoResponsePartnerAddress2: 'Line2',
-      applicant1NoResponsePartnerAddress3: {},
-      applicant1NoResponsePartnerAddressPostcode: 'Postcode',
-      applicant1NoResponsePartnerAddressCountry: 'Country',
-      applicant1NoResponsePartnerAddressTown: 'Town',
-      applicant1NoResponsePartnerAddressCounty: 'County',
-      applicant1NoResponsePartnerEmailAddress: 'test@test.com',
-    };
+  it('Set deemed service general application type', async () => {
+    const body = {};
 
-    const expectedBody = {
-      applicant1NoResponsePartnerAddressOverseas: 'No',
-      applicant2Address: {
-        AddressLine1: 'Line 1',
-        AddressLine2: 'Line 2',
-        PostTown: 'Town',
-        County: 'County',
-        PostCode: 'Postcode',
-        Country: 'Country',
-      },
-      applicant1NoResponsePartnerAddress1: 'Line1',
-      applicant1NoResponsePartnerAddress2: 'Line2',
-      applicant1NoResponsePartnerAddress3: {},
-      applicant1NoResponsePartnerAddressPostcode: 'Postcode',
-      applicant1NoResponsePartnerAddressCountry: 'Country',
-      applicant1NoResponsePartnerAddressTown: 'Town',
-      applicant1NoResponsePartnerAddressCounty: 'County',
-      applicant1NoResponsePartnerEmailAddress: 'test@test.com',
-    };
+    const expectedBody = {};
 
     const checkAnswersPostController = new CheckAnswersPostController(mockFormContent.fields);
 

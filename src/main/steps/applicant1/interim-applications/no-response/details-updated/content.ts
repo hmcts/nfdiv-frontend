@@ -8,7 +8,7 @@ import { HUB_PAGE } from '../../../../urls';
 const en = ({ partner, isDivorce, userCase }: CommonContent) => {
   const addressOverseas = userCase.applicant2AddressOverseas === YesOrNo.YES;
   const isAddressOnlyUpdate =
-    userCase.applicant1NoResponseUpdateEmailAndPostalAddress === NoResponseNewEmailOrPostalAddress.NEW_POSTAL;
+    userCase.applicant1NoResponseNewEmailAndPostalAddress === NoResponseNewEmailOrPostalAddress.NEW_POSTAL;
   const divorceOrDissolutionPapers = isDivorce ? 'divorce papers' : 'papers to end your civil partnership';
   const otherOptionsText = `If ${
     addressOverseas ? 'they do' : `your ${partner} does`
@@ -20,7 +20,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
     line1: `You have successfully updated your ${partner}’s ${
       addressOverseas && isAddressOnlyUpdate
         ? 'address'
-        : userCase.applicant1NoResponseUpdateEmailAndPostalAddress ===
+        : userCase.applicant1NoResponseNewEmailAndPostalAddress ===
             NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
           ? 'email and postal address'
           : 'contact details'

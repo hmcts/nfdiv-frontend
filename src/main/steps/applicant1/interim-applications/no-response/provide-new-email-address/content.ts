@@ -24,6 +24,7 @@ export const form: FormContent = {
   fields: userCase => ({
     applicant1NoResponsePartnerEmailAddress: {
       type: 'text',
+      value: '',
       label: l => l.provideNewEmailHeader,
       labelSize: null,
       validator: value => {
