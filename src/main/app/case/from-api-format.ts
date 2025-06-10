@@ -208,6 +208,7 @@ const fields: FromApiConverters = {
       data.applicant1NoResponseRespondentAddressInEnglandWales
     ),
   }),
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
 };
 
 const fromApiDate = date => {

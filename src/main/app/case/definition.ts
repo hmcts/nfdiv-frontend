@@ -1047,6 +1047,7 @@ export interface CaseData {
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1073,6 +1074,7 @@ export interface NoResponseJourneyOptions {
   noResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
   noResponseOwnSearches: NoResponseOwnSearches;
   noResponseRespondentAddressInEnglandWales: YesOrNo;
+  noResponsePartnerInUkOrReceivingBenefits: YesOrNo;
 }
 
 export interface DeemedServiceJourneyOptions {
