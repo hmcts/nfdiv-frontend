@@ -5,9 +5,7 @@ import { dispenseServiceApplicationSequence } from './dispenseServiceApplication
 describe('Dispense With Service Application Sequence test', () => {
   describe('DISPENSE_SERVICE_APPLICATION', () => {
     test('DISPENSE_SERVICE_APPLICATION', () => {
-      const step = dispenseServiceApplicationSequence.find(
-        obj => obj.url === DISPENSE_SERVICE_APPLICATION
-      ) as Step;
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === DISPENSE_SERVICE_APPLICATION) as Step;
       expect(step.getNextStep({})).toBe(HELP_WITH_FEES_DISPENSE);
     });
   });

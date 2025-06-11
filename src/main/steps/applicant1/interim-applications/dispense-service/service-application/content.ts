@@ -12,7 +12,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } without serving the papers on your ${partner}.`,
   line2: `In most cases, you cannot ${
-    isDivorce ? `divorce your` : 'end your civil partnership with your'
+    isDivorce ? 'divorce your' : 'end your civil partnership with your'
   } ${partner} without their knowledge. Therefore, dispensing with service is considered by the court to be a last resort.`,
   whatYouNeedToDoHeader: 'What you need to do',
   proveToTheCourt: {

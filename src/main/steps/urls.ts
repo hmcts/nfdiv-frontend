@@ -177,8 +177,7 @@ export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-servi
 export const ALTERNATIVE_INTERRUPTION: PageLink = '/interim-applications/alternative-service/interruption';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
-export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
-  '/interim-applications/search-gov-records/general-application';
+export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
 export const HELP_WITH_FEES_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/help-with-fees';

@@ -22,13 +22,14 @@ import {
   NoResponseCheckContactDetails,
   NoResponseNoNewAddressDetails,
   NoResponseOwnSearches,
-  NoResponseProcessServerOrBailiff, NoResponseSearchOrDispense,
+  NoResponseProcessServerOrBailiff,
+  NoResponseSearchOrDispense,
   OrderSummary,
   Payment,
   RequestForInformation,
   State,
-  YesOrNo
-} from "./definition";
+  YesOrNo,
+} from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   applicationType: 'applicationType',
