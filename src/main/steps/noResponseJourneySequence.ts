@@ -1,19 +1,22 @@
-import { CaseWithId } from '../app/case/case';
+import { CaseWithId } from "../app/case/case";
 import {
   NoResponseCheckContactDetails,
   NoResponseNoNewAddressDetails,
   NoResponseOwnSearches,
   NoResponseProcessServerOrBailiff,
-  YesOrNo,
-} from '../app/case/definition';
+  NoResponseSearchOrDispense,
+  YesOrNo
+} from "../app/case/definition";
 
-import { Step } from './applicant1Sequence';
+import { Step } from "./applicant1Sequence";
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
   BAILIFF_SERVICE_APPLICATION,
   CHECK_DETAILS_PROCESS_SERVER,
   DEEMED_SERVICE_APPLICATION,
+  DISPENSE_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
+  GOV_SEARCH_POSSIBLE,
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
   HUB_PAGE,
@@ -22,13 +25,13 @@ import {
   NO_NEW_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
-  PARTNER_IN_PERSON,
-  PROCESS_SERVER,
   PageLink,
+  PARTNER_IN_PERSON,
+  PROCESS_SERVER, SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_TIPS,
   SERVE_AGAIN,
-  SUCCESS_SCREEN_PROCESS_SERVER,
-} from './urls';
+  SUCCESS_SCREEN_PROCESS_SERVER
+} from "./urls";
 
 export const noResponseJourneySequence: Step[] = [
   {
@@ -135,5 +138,27 @@ export const noResponseJourneySequence: Step[] = [
         }
       }
     },
+  },
+  {
+    url: IS_PARTNER_ABROAD,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data.applicant1NoResponsePartnerInUkOrReceivingBenefits === YesOrNo.YES) {
+        return DISPENSE_SERVICE_APPLICATION;
+      }
+      return GOV_SEARCH_POSSIBLE;
+    },
+  },
+  {
+    url: GOV_SEARCH_POSSIBLE,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data.applicant1NoResponseSearchOrDispense === NoResponseSearchOrDispense.SEARCH) {
+        return SEARCH_GOV_RECORDS_APPLICATION;
+      }
+      return DISPENSE_SERVICE_APPLICATION;
+    },
+  },
+  {
+    url: SEARCH_TIPS,
+    getNextStep: (): PageLink => HUB_PAGE,
   },
 ];
