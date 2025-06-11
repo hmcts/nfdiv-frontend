@@ -1,14 +1,14 @@
-import { CaseWithId } from "../app/case/case";
+import { CaseWithId } from '../app/case/case';
 import {
   NoResponseCheckContactDetails,
   NoResponseNoNewAddressDetails,
   NoResponseOwnSearches,
   NoResponseProcessServerOrBailiff,
   NoResponseSearchOrDispense,
-  YesOrNo
-} from "../app/case/definition";
+  YesOrNo,
+} from '../app/case/definition';
 
-import { Step } from "./applicant1Sequence";
+import { Step } from './applicant1Sequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
   BAILIFF_SERVICE_APPLICATION,
@@ -25,13 +25,14 @@ import {
   NO_NEW_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
-  PageLink,
   PARTNER_IN_PERSON,
-  PROCESS_SERVER, SEARCH_GOV_RECORDS_APPLICATION,
+  PROCESS_SERVER,
+  PageLink,
+  SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_TIPS,
   SERVE_AGAIN,
-  SUCCESS_SCREEN_PROCESS_SERVER
-} from "./urls";
+  SUCCESS_SCREEN_PROCESS_SERVER,
+} from './urls';
 
 export const noResponseJourneySequence: Step[] = [
   {
