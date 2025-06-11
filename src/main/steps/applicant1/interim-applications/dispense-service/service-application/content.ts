@@ -45,9 +45,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
   buttonText: 'Start now',
-  alsoTry: {
-    header: `Before applying to dispense with service, you should have made every reasonable attempt to serve the papers on your ${partner}, including:`,
-  },
+  alsoTryHeader: `Before applying to dispense with service, you should have made every reasonable attempt to serve the papers on your ${partner}, including:`,
 });
 
 // @TODO translations should be verified
@@ -90,9 +88,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
   buttonText: 'Start now',
-  alsoTry: {
-    header: `Before applying to dispense with service, you should have made every reasonable attempt to serve the papers on your ${partner}, including:`,
-  },
+  alsoTryHeader: `Before applying to dispense with service, you should have made every reasonable attempt to serve the papers on your ${partner}, including:`,
 });
 
 const languages = {
