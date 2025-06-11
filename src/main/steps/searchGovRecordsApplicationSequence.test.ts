@@ -1,6 +1,6 @@
 import { Step } from './applicant1Sequence';
-import { HELP_WITH_FEES_SEARCH_GOV_RECORDS, SEARCH_GOV_RECORDS_APPLICATION } from './urls';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
+import { HELP_WITH_FEES_SEARCH_GOV_RECORDS, SEARCH_GOV_RECORDS_APPLICATION } from './urls';
 
 describe('Search Gov Records General Application Sequence test', () => {
   describe('SEARCH_GOV_RECORDS_APPLICATION', () => {

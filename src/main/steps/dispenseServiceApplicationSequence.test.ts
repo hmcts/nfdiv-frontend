@@ -1,6 +1,6 @@
 import { Step } from './applicant1Sequence';
-import { DISPENSE_SERVICE_APPLICATION, HELP_WITH_FEES_DISPENSE } from './urls';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
+import { DISPENSE_SERVICE_APPLICATION, HELP_WITH_FEES_DISPENSE } from './urls';
 
 describe('Dispense With Service Application Sequence test', () => {
   describe('DISPENSE_SERVICE_APPLICATION', () => {
