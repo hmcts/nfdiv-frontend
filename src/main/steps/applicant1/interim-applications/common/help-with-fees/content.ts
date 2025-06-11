@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { GeneralApplicationType, YesOrNo } from '../../../../../app/case/definition';
+import { InterimApplicationType, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
 import { FormContent } from '../../../../../app/form/Form';
@@ -71,7 +71,7 @@ export const generateContent: TranslationFn = content => {
   let serviceFee;
 
   switch (content.userCase.applicant1InterimApplicationType) {
-    case GeneralApplicationType.DEEMED_SERVICE: {
+    case InterimApplicationType.DEEMED_SERVICE: {
       serviceType = generateCommonContent(content).generalApplication.deemed;
       serviceFee = getFee(config.get('fees.deemedService'));
       break;
