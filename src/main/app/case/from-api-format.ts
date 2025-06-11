@@ -209,6 +209,7 @@ const fields: FromApiConverters = {
     ),
   }),
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
+  applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
 };
 
 const fromApiDate = date => {
