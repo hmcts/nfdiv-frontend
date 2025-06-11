@@ -57,19 +57,12 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: NEW_POSTAL_AND_EMAIL,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      switch (data.applicant1NoResponseNewEmailAndPostalAddress) {
-        case NoResponseNewEmailOrPostalAddress.NEW_POSTAL:
-        case NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL: {
-          return NEW_POSTAL_ADDRESS;
-        }
-        case NoResponseNewEmailOrPostalAddress.NEW_EMAIL: {
-          return NEW_EMAIL;
-        }
-        default: {
-          return HUB_PAGE;
-        }
-      }
+    getNextStep: (data: Partial<CaseWithId>): PageLink => [
+      NoResponseNewEmailOrPostalAddress.NEW_POSTAL:
+      NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
+    ].includes(data.applicant1NoResponseNewEmailAndPostalAddress)
+      ? NEW_POSTAL_ADDRESS;
+      : NEW_EMAIL;
     },
   },
   {
