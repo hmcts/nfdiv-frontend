@@ -21,8 +21,8 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
-  NoResponseNewEmailOrPostalAddress,
-  NoResponseProvideNewEmailOrApplyForAlternativeService,
+  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponseProvidePartnerNewEmailOrAlternativeService,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -189,9 +189,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
-  applicant1NoResponseNewEmailAndPostalAddress: 'applicant1NoResponseNewEmailAndPostalAddress',
-  applicant1NoResponseProvideNewEmailOrApplyForAlternativeService:
-    'applicant1NoResponseProvideNewEmailOrApplyForAlternativeService',
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+    'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -457,8 +457,8 @@ export interface Case {
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
-  applicant1NoResponseNewEmailAndPostalAddress?: NoResponseNewEmailOrPostalAddress;
-  applicant1NoResponseProvideNewEmailOrApplyForAlternativeService?: NoResponseProvideNewEmailOrApplyForAlternativeService;
+  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;

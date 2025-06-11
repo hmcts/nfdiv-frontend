@@ -11,12 +11,10 @@ const stripTags = value => (typeof value === 'string' ? striptags(value) : value
 const en = ({ userCase }: CommonContent) => ({
   title: 'Check your answers',
   stepQuestions: {
-    name: 'Name',
     newPostalAddress: 'Address',
     newEmailAddress: 'Email address',
   },
   stepAnswers: {
-    name: `${userCase.applicant2FirstNames}  ${userCase.applicant2LastNames}`,
     newPostalAddress: [
       stripTags(userCase.applicant1NoResponsePartnerAddress1),
       stripTags(userCase.applicant1NoResponsePartnerAddress2),
@@ -56,7 +54,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content);
-  const updateWhat = content.userCase.applicant1NoResponseNewEmailAndPostalAddress;
+  const updateWhat = content.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress;
   return {
     ...translation,
     form,

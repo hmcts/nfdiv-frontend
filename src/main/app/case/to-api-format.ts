@@ -398,18 +398,15 @@ const fields: ToApiConverters = {
   applicant1NoResponseCheckContactDetails: data => ({
     applicant1NoResponseCheckContactDetails: data.applicant1NoResponseCheckContactDetails,
   }),
-  applicant1NoResponseProvideNewEmailOrApplyForAlternativeService: data => ({
-    applicant1NoResponseProvideNewEmailOrApplyForAlternativeService:
-      data.applicant1NoResponseProvideNewEmailOrApplyForAlternativeService,
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: data => ({
+    applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+      data.applicant1NoResponseProvidePartnerNewEmailOrAlternativeService,
   }),
-  applicant1NoResponseNewEmailAndPostalAddress: data => ({
-    applicant1NoResponseNewEmailAndPostalAddress: data.applicant1NoResponseNewEmailAndPostalAddress,
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: data => ({
+    applicant1NoResponsePartnerNewEmailOrPostalAddress: data.applicant1NoResponsePartnerNewEmailOrPostalAddress,
   }),
   applicant1NoResponsePartnerHasReceivedPapers: data => ({
     applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
-  }),
-  applicant1NoResponsePartnerEmailAddress: data => ({
-    applicant1NoResponsePartnerEmailAddress: data.applicant1NoResponsePartnerEmailAddress,
   }),
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),

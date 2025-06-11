@@ -1,8 +1,8 @@
 import { CaseWithId } from '../app/case/case';
 import {
   NoResponseCheckContactDetails,
-  NoResponseNewEmailOrPostalAddress,
-  NoResponseProvideNewEmailOrApplyForAlternativeService,
+  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponseProvidePartnerNewEmailOrAlternativeService,
   YesOrNo,
 } from '../app/case/definition';
 
@@ -57,29 +57,30 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: NEW_POSTAL_AND_EMAIL,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => [
-      NoResponseNewEmailOrPostalAddress.NEW_POSTAL:
-      NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
-    ].includes(data.applicant1NoResponseNewEmailAndPostalAddress)
-      ? NEW_POSTAL_ADDRESS;
-      : NEW_EMAIL;
-    },
+    getNextStep: (data: Partial<CaseWithId>): PageLink =>
+      [
+        NoResponsePartnerNewEmailOrPostalAddress.NEW_POSTAL,
+        NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+      ].includes(data.applicant1NoResponsePartnerNewEmailOrPostalAddress as NoResponsePartnerNewEmailOrPostalAddress)
+        ? NEW_POSTAL_ADDRESS
+        : NEW_EMAIL,
   },
   {
     url: NEW_POSTAL_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-        data.applicant1NoResponseNewEmailAndPostalAddress === NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
-        ? PROVIDE_NEW_EMAIL_ADDRESS;
+      return data.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+        NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
+        ? PROVIDE_NEW_EMAIL_ADDRESS
         : NEW_CONTACT_DETAIL_CHECK_ANSWERS;
     },
   },
   {
     url: NEW_EMAIL,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-         data.applicant1NoResponseProvideNewEmailOrApplyForAlternativeService ===
-        NoResponseProvideNewEmailOrApplyForAlternativeService.APPLY_FOR_ALTERNATIVE_SERVICE
-          ? APPLY_FOR_ALTERNATIVE_SERVICE;
-          : PROVIDE_NEW_EMAIL_ADDRESS;
+      return data.applicant1NoResponseProvidePartnerNewEmailOrAlternativeService ===
+        NoResponseProvidePartnerNewEmailOrAlternativeService.APPLY_FOR_ALTERNATIVE_SERVICE
+        ? APPLY_FOR_ALTERNATIVE_SERVICE
+        : PROVIDE_NEW_EMAIL_ADDRESS;
     },
   },
   {

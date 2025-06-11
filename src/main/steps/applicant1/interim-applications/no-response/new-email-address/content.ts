@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { NoResponseProvideNewEmailOrApplyForAlternativeService } from '../../../../../app/case/definition';
+import { NoResponseProvidePartnerNewEmailOrAlternativeService } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
 import { FormContent } from '../../../../../app/form/Form';
@@ -36,12 +36,12 @@ export const form: FormContent = {
         {
           label: l => l.provideNewEmail,
           id: 'provideNewEmail',
-          value: NoResponseProvideNewEmailOrApplyForAlternativeService.PROVIDE_NEW_EMAIL,
+          value: NoResponseProvidePartnerNewEmailOrAlternativeService.PROVIDE_NEW_EMAIL,
         },
         {
           label: l => l.applyForAlternativeService,
           id: 'applyForAlternativeService',
-          value: NoResponseProvideNewEmailOrApplyForAlternativeService.APPLY_FOR_ALTERNATIVE_SERVICE,
+          value: NoResponseProvidePartnerNewEmailOrAlternativeService.APPLY_FOR_ALTERNATIVE_SERVICE,
         },
       ],
       validator: value => isFieldFilledIn(value),

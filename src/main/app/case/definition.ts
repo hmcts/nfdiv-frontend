@@ -1031,8 +1031,8 @@ export interface CaseData {
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
-  applicant1NoResponseNewEmailAndPostalAddress: NoResponseNewEmailOrPostalAddress;
-  applicant1NoResponseProvideNewEmailOrApplyForAlternativeService: NoResponseProvideNewEmailOrApplyForAlternativeService;
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
   applicant1InterimAppsIUnderstand: YesOrNo;
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
@@ -2481,13 +2481,13 @@ export const enum NoResponseCheckContactDetails {
   NOT_KNOWN = 'notKnown',
 }
 
-export const enum NoResponseNewEmailOrPostalAddress {
+export const enum NoResponsePartnerNewEmailOrPostalAddress {
   NEW_POSTAL = 'newPostalAddress',
   NEW_EMAIL = 'newEmailAddress',
   BOTH_EMAIL_AND_POSTAL = 'newEmailAndPostalAddress',
 }
 
-export const enum NoResponseProvideNewEmailOrApplyForAlternativeService {
+export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
   PROVIDE_NEW_EMAIL = 'provideNewEmailAddress',
   APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
 }

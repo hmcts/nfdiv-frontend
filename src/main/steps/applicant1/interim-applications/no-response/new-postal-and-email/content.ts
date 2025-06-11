@@ -1,4 +1,4 @@
-import { NoResponseNewEmailOrPostalAddress } from '../../../../../app/case/definition';
+import { NoResponsePartnerNewEmailOrPostalAddress } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -17,7 +17,7 @@ const en = ({ isDivorce, partner, required }: CommonContent) => ({
   newEmailAddress: 'I have a new email address',
   newEmailAndPostalAddress: 'I have a new email address and postal address',
   errors: {
-    applicant1NoResponseNewEmailAndPostalAddress: {
+    applicant1NoResponsePartnerNewEmailOrPostalAddress: {
       required,
     },
   },
@@ -28,7 +28,7 @@ const cy: typeof en = en;
 
 export const form: FormContent = {
   fields: {
-    applicant1NoResponseNewEmailAndPostalAddress: {
+    applicant1NoResponsePartnerNewEmailOrPostalAddress: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.newDetailsHeader,
@@ -37,17 +37,17 @@ export const form: FormContent = {
         {
           label: l => l.newPostalAddress,
           id: 'newPostalAddress',
-          value: NoResponseNewEmailOrPostalAddress.NEW_POSTAL,
+          value: NoResponsePartnerNewEmailOrPostalAddress.NEW_POSTAL,
         },
         {
           label: l => l.newEmailAddress,
           id: 'newEmailAddress',
-          value: NoResponseNewEmailOrPostalAddress.NEW_EMAIL,
+          value: NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL,
         },
         {
           label: l => l.newEmailAndPostalAddress,
           id: 'bothEmailAndPostalAddress',
-          value: NoResponseNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+          value: NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
         },
       ],
       validator: value => isFieldFilledIn(value),

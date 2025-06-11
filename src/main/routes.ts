@@ -14,8 +14,6 @@ import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content';
 import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your-access-code/get';
-import * as noResponseCheckAnswers from './steps/applicant1/interim-applications/no-response/check-your-answers/content';
-import CheckAnswersPostController from './steps/applicant1/interim-applications/no-response/check-your-answers/post';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
@@ -51,7 +49,6 @@ import {
   EXISTING_APPLICATION,
   EXIT_SERVICE,
   HOME_URL,
-  NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
@@ -79,10 +76,6 @@ export class Routes {
     app.post(
       EXISTING_APPLICATION,
       errorHandler(new ExistingApplicationPostController(existingApplicationContent.form.fields).post)
-    );
-    app.post(
-      NEW_CONTACT_DETAIL_CHECK_ANSWERS,
-      errorHandler(new CheckAnswersPostController(noResponseCheckAnswers.form.fields).post)
     );
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
     app.get(
