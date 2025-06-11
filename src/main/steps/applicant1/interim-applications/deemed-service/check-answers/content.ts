@@ -11,12 +11,12 @@ import {
 
 const en = (useHwf, hwfReference, canUpload, uploadedDocsFilenames, evidenceDetails, noEvidenceStatement) => ({
   stepQuestions: {
-    useHwf: 'Use Help With Fees',
-    hwfReference: 'HWF Reference',
-    canUploadEvidence: 'I can upload evidence',
+    useHwf: 'Help paying the application fee',
+    hwfReference: 'Help with fees reference number',
+    canUploadEvidence: 'Are you able to upload evidence?',
     uploadedFiles: 'Uploaded files',
-    evidenceDetails: 'Details',
-    noEvidenceStatement: 'No Evidence Statement',
+    evidenceDetails: 'Details about your evidence',
+    noEvidenceStatement: 'Supporting statement',
   },
   stepAnswers: {
     useHwf: `${useHwf}`,
@@ -45,12 +45,12 @@ const cy: typeof en = (
   noEvidenceStatement
 ) => ({
   stepQuestions: {
-    useHwf: 'Use Help With Fees',
-    hwfReference: 'HWF Reference',
-    canUploadEvidence: 'I can upload evidence',
-    uploadedFiles: 'Uploaded files',
-    evidenceDetails: 'Details',
-    noEvidenceStatement: 'No Evidence Statement',
+    useHwf: 'Help paying the application fee',
+    hwfReference: 'Help with fees reference number',
+    canUploadEvidence: 'Are you able to upload evidence?',
+    uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
+    evidenceDetails: 'Details about your evidence',
+    noEvidenceStatement: 'Supporting statement',
   },
   stepAnswers: {
     useHwf: `${useHwf}`,
