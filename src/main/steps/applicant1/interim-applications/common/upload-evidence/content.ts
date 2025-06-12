@@ -72,14 +72,14 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
   errors: {
     applicant1InterimAppsEvidenceUploadedFiles: {
       notUploaded:
-        'Nid ydych wedi darparu unrhyw wybodaeth neu lwytho unrhyw ddogfennau. Mae angen i chi ddarparu’r wybodaeth neu’r dogfennau y mae’r llys wedi gofyn amdani/ynt. Os ydych trafferth wrth lwytho dogfennau, dewiswch yr opsiwn hwnnw.',
+        "Rhaid i chi uwchlwytho'ch dogfennau, neu ddewis 'Ni allaf uwchlwytho rhai neu'r cyfan o'm dogfennau' cyn parhau.",
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
     },
     applicant1InterimAppsCannotUploadDocs: {
       notUploaded:
-        'Nid ydych wedi darparu unrhyw wybodaeth neu lwytho unrhyw ddogfennau. Mae angen i chi ddarparu’r wybodaeth neu’r dogfennau y mae’r llys wedi gofyn amdani/ynt. Os ydych trafferth wrth lwytho dogfennau, dewiswch yr opsiwn hwnnw.',
+        "Rhaid i chi uwchlwytho'ch dogfennau, neu ddewis 'Ni allaf uwchlwytho rhai neu'r cyfan o'm dogfennau' cyn parhau.",
     },
   },
 });

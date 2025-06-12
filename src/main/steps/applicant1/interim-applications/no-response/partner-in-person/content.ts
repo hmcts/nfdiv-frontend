@@ -48,7 +48,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
       required: 'You must select an option before continuing',
-      // notEnglandOrWales: `You cannot request bailiff service because your ${partner}'s address is outside England and Wales.`,
     },
     applicant1NoResponseRespondentAddressInEnglandWales: {
       required: `You must confirm that your ${partner}'s address is in England or Wales before continuing`,
@@ -58,46 +57,45 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 
 // @TODO translations should be completed then verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
-  title: 'In person service by process server or court bailiff',
+  title: 'Cyflwyno personol gan weinyddwr proses neu feili llys',
   line1: `You can have the papers served on your ${partner} in person, either by a process server or a county court bailiff.`,
   processServerService: {
-    header: 'Service by a process server',
+    header: 'Cyflwyno gan weinyddwr proses',
     details: {
       line1:
-        'A process server is an independent third party who is professionally trained to deliver court documents by hand to the recipient.',
+        'Mae gweinyddwr proses yn drydydd parti annibynnol sydd wedi’i hyfforddi’n broffesiynol i ddanfon dogfennau’r llys â llaw i’r derbynnydd.',
       line2:
-        'Process servers may be more flexible as to where and when they can serve documents, and can deliver to addresses outside of England and Wales. Using a process server is usually much quicker than requesting for bailiff service.',
+        'Mae gweinyddwyr proses yn fwy hyblyg o ran i ble a phryd y gallant gyflwyno dogfennau, a gallant gyflwyno dogfennau i gyfeiriadau y tu allan i Gymru a Lloegr. Gan amlaf, mae defnyddio gweinyddwr proses yn gyflymach na gwneud cais am gyflwyno gan feili.',
       line3:
-        'If you need to send the documents to an international address, you may need to seek legal advice so you can tell the process server what types of service are legal in that country.',
+        'Os ydych chi angen anfon y dogfennau i gyfeiriad rhyngwladol, efallai yr hoffech geisio cyngor cyfreithiol fel y gallwch ddweud wrth y gweinyddwr proses pa fath o gyflwyno sy’n gyfreithiol yn y wlad honno.',
       line4:
-        'Process servers will charge you a fee to serve documents, normally between £50 - £200 depending on which process server you choose.',
-      line5: `You will need to find a process server yourself. We will send you the ${
-        isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-      }, so that you can give them to the process server to serve on your behalf.`,
+        'Bydd gweinyddwyr proses yn codi ffi arnoch i gyflwyno dogfennau, fel arfer rhwng £50 - £200 gan ddibynnu ar ba weinyddwr proses rydych yn dewis.',
+      line5: `Bydd angen i chi ddod o hyd i weinyddwr proses eich hun. Byddwn yn anfon papurau’r ${
+        isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+      } atoch, fel y gallwch chi eu rhoi i’r gweinyddwr proses i’w cyflwyno ar eich rhan.`,
     },
   },
   courtBailiffService: {
-    header: 'Service by court bailiff',
+    header: 'Cyflwyno gan feili llys sirol',
     details: {
-      line1: `A bailiff of the county court will serve the papers on your ${partner} by hand.`,
+      line1: `Bydd beili llys sirol yn cyflwyno’r papurau i’ch ${partner} â llaw.`,
       line2:
-        'Court bailiffs can only serve your papers to an address in England or Wales where postal delivery has already been tried.',
-      line3: `There is a fee of ${getFee(
+        'Dim ond i gyfeiriad yng Nghymru a Lloegr sydd wedi’i ddefnyddio’n barod i anfon papurau drwy’r post y gall beilïaid llys gyflwyno’ch papurau iddo.',
+      line3: `Mae yna ffi o ${getFee(
         config.get('fees.courtBailiffService')
-      )} for bailiff service, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      )} yn daladwy am hyn, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
         'govukUrls.getHelpWithCourtFees'
-      )}">get help paying this fee (opens in a new tab)</a>.`,
-      line4: 'Due to the high demand, service by court bailiff could take a long time.',
+      )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
+      line4: 'Oherwydd y galw mawr am y gwasanaeth hwn gan feili llys, gall gymryd llawer o amser.',
     },
   },
-  howToProceedHeader: 'How would you like to proceed?',
-  processServer: 'I want to arrange for service by a process server',
+  howToProceedHeader: 'Sut hoffech chi barhau?',
+  processServer: 'Rwyf eisiau trefnu i’r dogfennau gael eu cyflwyno gan weinyddwr proses',
   bailiffService: 'I want to request bailiff service',
   respondentAddressInEnglandWales: `I confirm that my ${partner}'s address is in England or Wales`,
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
-      required: 'You must select an option before continuing',
-      // notEnglandOrWales: `You cannot request bailiff service because your ${partner}'s address is outside England and Wales.`,
+      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
     },
     applicant1NoResponseRespondentAddressInEnglandWales: {
       required: `You must confirm that your ${partner}'s address is in England or Wales before continuing`,
@@ -107,26 +105,6 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    // applicant2DomicileInEnglandWales: {
-    //   type: 'hidden',
-    //   classes: 'govuk-radios--inline',
-    //   label: l => l.applicant2DomicileInEnglandWales,
-    //   labelHidden: true,
-    //   values: [
-    //     { label: l => l.yes, value: YesOrNo.YES },
-    //     { label: l => l.no, value: YesOrNo.NO },
-    //   ],
-    // },
-    // applicant2AddressOverseas: {
-    //   type: 'hidden',
-    //   classes: 'govuk-radios--inline',
-    //   label: l => l.addressOverseas,
-    //   labelHidden: true,
-    //   values: [
-    //     { label: l => l.yes, value: YesOrNo.YES },
-    //     { label: l => l.no, value: YesOrNo.NO },
-    //   ],
-    // },
     applicant1NoResponseProcessServerOrBailiff: {
       type: 'radios',
       classes: 'govuk-radios',
@@ -160,14 +138,6 @@ export const form: FormContent = {
         },
       ],
       validator: value => isFieldFilledIn(value),
-      // validator: (value, formData) => {
-      //   const respondentLivesInEnglandOrWales =
-      //     formData.applicant2DomicileInEnglandWales === 'Yes' && formData.applicant2AddressOverseas === 'No';
-      //   if (!respondentLivesInEnglandOrWales && value === NoResponseProcessServerOrBailiff.COURT_BAILIFF) {
-      //     return 'notEnglandOrWales';
-      //   }
-      //   return isFieldFilledIn(value);
-      // },
     },
   },
   submit: {

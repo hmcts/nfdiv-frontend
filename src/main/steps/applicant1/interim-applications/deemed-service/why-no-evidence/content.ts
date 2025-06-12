@@ -27,7 +27,7 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   line3: `Rhowch gymaint o fanylion â phosib. Mae’r barnwr angen bod yn fodlon bod eich ${partner} wedi cael y papurau cyn y gallant ganiatáu eich cais.`,
   errors: {
     applicant1DeemedNoEvidenceStatement: {
-      required: 'You must provide a statement before continuing.',
+      required: 'Rhaid i chi ddarparu datganiad cyn parhau.',
     },
   },
 });

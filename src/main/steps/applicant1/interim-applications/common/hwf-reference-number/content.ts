@@ -1,4 +1,4 @@
-import { GeneralApplicationType, YesOrNo } from '../../../../../app/case/definition';
+import { InterimApplicationType, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -58,7 +58,7 @@ export const generateContent: TranslationFn = content => {
   let serviceType;
 
   switch (content.userCase.applicant1InterimApplicationType) {
-    case GeneralApplicationType.DEEMED_SERVICE: {
+    case InterimApplicationType.DEEMED_SERVICE: {
       serviceType = generateCommonContent(content).generalApplication.deemed;
       break;
     }

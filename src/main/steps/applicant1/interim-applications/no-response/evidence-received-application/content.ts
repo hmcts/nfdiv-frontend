@@ -48,7 +48,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   proveNo: 'Na allaf, nid oes gennyf unrhyw dystiolaeth addas.',
   errors: {
     applicant1NoResponsePartnerHasReceivedPapers: {
-      required: `You must confirm whether or not you can prove that your ${partner} has received the papers.`,
+      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
     },
   },
 });

@@ -9,7 +9,7 @@ const en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
   title: 'Check your answers',
   noFilesUploaded: 'No files uploaded',
   notProvided: 'Not provided',
-  havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
+  havingTroubleUploading: "I'm having trouble uploading some or all of my documents.",
   stepQuestions: {},
   stepAnswers: {},
   stepLinks: {},
@@ -22,7 +22,7 @@ const en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
   submitText: usingHwf ? submit : continueToPay,
   errors: {
     applicant1InterimAppsStatementOfTruth: {
-      required: 'You must agree to the statement of truth before continuing',
+      required: 'You must agree to the statement of truth before continuing.',
     },
   },
 });
@@ -45,7 +45,7 @@ const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
   submitText: usingHwf ? submit : continueToPay,
   errors: {
     applicant1InterimAppsStatementOfTruth: {
-      required: 'You must agree to the statement of truth before continuing',
+      required: "Rhaid i chi gytuno â'r datganiad gwirionedd cyn parhau.",
     },
   },
 });
