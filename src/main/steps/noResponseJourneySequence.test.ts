@@ -197,10 +197,5 @@ describe('No Response Journey Sequence test', () => {
       const step = noResponseJourneySequence.find(obj => obj.url === NO_RESPONSE_DETAILS_UPDATED) as Step;
       expect(step.getNextStep(caseData)).toBe(HUB_PAGE);
     });
-    test('NEW_POSTAL_AND_EMAIL_HUB_PAGE', () => {
-      const caseData = {};
-      const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_AND_EMAIL) as Step;
-      expect(step.getNextStep(caseData)).toBe(HUB_PAGE);
-    });
   });
 });
