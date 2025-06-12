@@ -23,7 +23,7 @@ import {
   OPTIONS_FOR_PROGRESSING,
   PROVIDE_NEW_EMAIL_ADDRESS,
   PageLink,
-  SERVE_AGAIN,
+  SEND_PAPERS_AGAIN,
 } from './urls';
 
 export const noResponseJourneySequence: Step[] = [
@@ -111,7 +111,16 @@ export const noResponseJourneySequence: Step[] = [
       if (data?.applicant1NoResponsePartnerHasReceivedPapers === YesOrNo.YES) {
         return DEEMED_SERVICE_APPLICATION;
       }
-      return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SERVE_AGAIN;
+      return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SEND_PAPERS_AGAIN;
+    },
+  },
+  {
+    url: SEND_PAPERS_AGAIN,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data?.applicant1NoResponsePartnerHasReceivedPapers === YesOrNo.YES) {
+        return DEEMED_SERVICE_APPLICATION;
+      }
+      return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SEND_PAPERS_AGAIN;
     },
   },
 ];

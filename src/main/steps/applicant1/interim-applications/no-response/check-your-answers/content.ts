@@ -1,5 +1,6 @@
 import striptags from 'striptags';
 
+import { NoResponsePartnerSendPapersAgainOrTrySomethingElse } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
@@ -54,10 +55,13 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content);
-  const updateWhat = content.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress;
+  const readOnlyPage =
+    content.userCase.applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse ===
+    NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
+
   return {
     ...translation,
     form,
-    updateWhat,
+    readOnlyPage,
   };
 };

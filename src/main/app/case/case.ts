@@ -22,6 +22,7 @@ import {
   ListValue,
   NoResponseCheckContactDetails,
   NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerSendPapersAgainOrTrySomethingElse,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
   OrderSummary,
   Payment,
@@ -192,6 +193,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
     'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
+  applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse:
+    'applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -460,6 +463,7 @@ export interface Case {
   applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse?: NoResponsePartnerSendPapersAgainOrTrySomethingElse;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
   applicant1InterimAppsHaveHwfReference?: YesOrNo;

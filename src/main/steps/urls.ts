@@ -170,7 +170,7 @@ export const NO_RESPONSE_DETAILS_UPDATED: PageLink = '/interim-applications/no-r
 
 export const NO_NEW_ADDRESS: PageLink = '/interim-applications/no-response/no-new-address';
 export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';
-export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
+export const SEND_PAPERS_AGAIN: PageLink = '/interim-applications/no-response/send-papers-again';
 export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
