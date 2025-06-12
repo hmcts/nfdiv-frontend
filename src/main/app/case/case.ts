@@ -197,8 +197,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimAppsHwfRefNumber: 'applicant1InterimAppsHwfRefNumber',
   applicant1InterimAppsEvidenceDocs: 'applicant1InterimAppsEvidenceDocs',
   applicant1InterimAppsCannotUploadDocs: 'applicant1InterimAppsCannotUploadDocs',
-  applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
+  applicant1DeemedEvidenceDetails:  'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1BailiffPartnersName:  'applicant1BailiffPartnersName',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
@@ -468,6 +469,7 @@ export interface Case {
   applicant1InterimAppsCannotUploadDocs?: Checkbox;
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
+  applicant1BailiffPartnersName?: string;
   applicant1InterimApplicationType?: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;

@@ -167,7 +167,6 @@ export const IS_PARTNER_ABROAD: PageLink = '/interim-applications/no-response/is
 export const SEARCH_TIPS: PageLink = '/interim-applications/no-response/search-tips';
 
 export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';
-export const BAILIFF_SERVICE_APPLICATION: PageLink = '/interim-applications/bailiff-service/service-application';
 export const PROCESS_SERVER: PageLink = '/interim-applications/no-response/process-server';
 export const CHECK_DETAILS_PROCESS_SERVER: PageLink = '/interim-applications/no-response/check-details-process-server';
 export const SUCCESS_SCREEN_PROCESS_SERVER: PageLink =
@@ -181,7 +180,6 @@ export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
   '/interim-applications/search-gov-records/search-gov-records-application';
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
-export const HELP_WITH_FEES_BAILIFF: PageLink = '/interim-applications/bailiff-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
 export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/want-upload-evidence';
 export const HWF_REFERENCE_NUMBER_INPUT_DEEMED: PageLink =
@@ -191,3 +189,11 @@ export const UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-se
 export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/why-no-evidence';
 export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/interim-applications/deemed-service/how-do-you-know';
 export const CHECK_ANSWERS_DEEMED: PageLink = '/interim-applications/deemed-service/check-answers';
+
+// Bailiff Service URLs
+export const BAILIFF_SERVICE_APPLICATION: PageLink = '/interim-applications/bailiff-service/service-application';
+export const HELP_WITH_FEES_BAILIFF: PageLink = '/interim-applications/bailiff-service/help-with-fees';
+export const HWF_REFERENCE_NUMBER_BAILIFF: PageLink = '/interim-applications/bailiff-service/hwf-reference-number';
+export const HWF_REFERENCE_NUMBER_INPUT_BAILIFF: PageLink = '/interim-applications/bailiff-service/hwf-reference-number-input';
+export const APPLY_FOR_HWF_BAILIFF: PageLink = '/interim-applications/bailiff-service/apply-for-hwf';
+export const ENTER_PARTNERS_NAME_BAILIFF: PageLink = '/interim-applications/bailiff-service/enter-partners-name';

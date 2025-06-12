@@ -1043,6 +1043,7 @@ export interface CaseData {
   applicant1InterimAppsCannotUploadDocs: YesOrNo;
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
+  applicant1BailiffPartnersName: string;
   applicant1InterimApplicationType: GeneralApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
@@ -1087,6 +1088,18 @@ export interface DeemedServiceJourneyOptions {
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
 }
+
+export interface BailiffServiceJourneyOptions {
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  interimAppsCannotUploadDocs: Checkbox;
+  bailiffPartnersName: string;
+}
+
 
 export interface RequestForInformationResponse {
   requestForInformationResponseCannotUploadDocs: YesOrNo;
@@ -1868,6 +1881,7 @@ export const enum GeneralApplicationType {
   EXPEDITE = 'expedite',
   OTHER_ALTERNATIVE_SERVICE_METHODS = 'otherAlternativeServiceMethod',
   OTHER = 'other',
+  BAILIFF_SERVICE = 'bailiffService',
 }
 
 export const enum GeneralOrderDivorceParties {
