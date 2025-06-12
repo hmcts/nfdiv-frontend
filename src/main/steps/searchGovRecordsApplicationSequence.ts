@@ -30,14 +30,14 @@ export const searchGovRecordsApplicationSequence: Step[] = [
   {
     url: SEARCH_GOV_RECORDS_HWF,
     getNextStep: (data: Partial<CaseWithId>): PageLink =>
-      data.applicant1InterimAppsHaveHwfReference === YesOrNo.YES
+      data.applicant1InterimAppsUseHelpWithFees === YesOrNo.YES
         ? HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS
         : WHY_SEARCH_GOV_RECORDS,
   },
   {
     url: HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      return data.applicant1InterimAppsHwfRefNumber === YesOrNo.YES
+      return data.applicant1InterimAppsHaveHwfReference === YesOrNo.YES
         ? HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS
         : HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS;
     },

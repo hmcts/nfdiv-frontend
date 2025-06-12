@@ -1,18 +1,19 @@
 import { GeneralApplication, GeneralParties, OrderSummary } from '../case/definition';
+import { CaseWithId } from '../case/case';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 
 export const findUnpaidGeneralApplication = (req: AppRequest<AnyObject>): GeneralApplication | undefined => {
-  return getGeneralApplicationsForUser(req)?.find(
+  return getGeneralApplicationsForUser(req.session.userCase, req.session.isApplicant2)?.find(
     generalApplication =>
       isAwaitingPayment(generalApplication, req) && hasMatchingApplicationType(generalApplication, req)
   );
 };
 
-const getGeneralApplicationsForUser = (req: AppRequest<AnyObject>): GeneralApplication[] | undefined => {
-  const generalApplicationParty = req.session.isApplicant2 ? GeneralParties.RESPONDENT : GeneralParties.APPLICANT;
+export const getGeneralApplicationsForUser = (userCase: Partial<CaseWithId>, isApplicant2: boolean): GeneralApplication[] | undefined => {
+  const generalApplicationParty = isApplicant2 ? GeneralParties.RESPONDENT : GeneralParties.APPLICANT;
 
-  return req.session.userCase.generalApplications
+  return userCase.generalApplications
     ?.map(generalApplicationValue => generalApplicationValue.value)
     ?.filter(generalApplication => generalApplication.generalApplicationFrom === generalApplicationParty);
 };
