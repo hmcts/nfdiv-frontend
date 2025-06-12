@@ -30,15 +30,15 @@ export const bailiffServiceApplicationSequence: Step[] = [
         : APPLY_FOR_HWF_BAILIFF,
   },
   {
+    url: APPLY_FOR_HWF_BAILIFF,
+    getNextStep: () => HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
+  },
+  {
     url: HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
     getNextStep: () => ENTER_PARTNERS_NAME_BAILIFF,
   },
   {
     url: ENTER_PARTNERS_NAME_BAILIFF,
     getNextStep: () => ENTER_PARTNERS_NAME_BAILIFF,
-  },
-  {
-    url: APPLY_FOR_HWF_BAILIFF,
-    getNextStep: () => HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
-  },
+  }
 ];
