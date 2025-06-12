@@ -2,12 +2,12 @@ import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
-  BAILIFF_SERVICE_APPLICATION,
-  HELP_WITH_FEES_BAILIFF,
-  HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
-  HWF_REFERENCE_NUMBER_BAILIFF,
   APPLY_FOR_HWF_BAILIFF,
+  BAILIFF_SERVICE_APPLICATION,
   ENTER_PARTNERS_NAME_BAILIFF,
+  HELP_WITH_FEES_BAILIFF,
+  HWF_REFERENCE_NUMBER_BAILIFF,
+  HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
 } from './urls';
 
 export const bailiffServiceApplicationSequence: Step[] = [
@@ -37,8 +37,8 @@ export const bailiffServiceApplicationSequence: Step[] = [
     url: ENTER_PARTNERS_NAME_BAILIFF,
     getNextStep: () => ENTER_PARTNERS_NAME_BAILIFF,
   },
-    {
-      url: APPLY_FOR_HWF_BAILIFF,
-      getNextStep: () => HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
-    },
+  {
+    url: APPLY_FOR_HWF_BAILIFF,
+    getNextStep: () => HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
+  },
 ];

@@ -194,6 +194,7 @@ export const CHECK_ANSWERS_DEEMED: PageLink = '/interim-applications/deemed-serv
 export const BAILIFF_SERVICE_APPLICATION: PageLink = '/interim-applications/bailiff-service/service-application';
 export const HELP_WITH_FEES_BAILIFF: PageLink = '/interim-applications/bailiff-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_BAILIFF: PageLink = '/interim-applications/bailiff-service/hwf-reference-number';
-export const HWF_REFERENCE_NUMBER_INPUT_BAILIFF: PageLink = '/interim-applications/bailiff-service/hwf-reference-number-input';
+export const HWF_REFERENCE_NUMBER_INPUT_BAILIFF: PageLink =
+  '/interim-applications/bailiff-service/hwf-reference-number-input';
 export const APPLY_FOR_HWF_BAILIFF: PageLink = '/interim-applications/bailiff-service/apply-for-hwf';
 export const ENTER_PARTNERS_NAME_BAILIFF: PageLink = '/interim-applications/bailiff-service/enter-partners-name';

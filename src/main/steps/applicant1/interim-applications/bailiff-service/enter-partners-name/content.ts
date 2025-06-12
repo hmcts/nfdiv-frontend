@@ -1,6 +1,5 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
 const en = () => ({
@@ -16,7 +15,7 @@ const cy: typeof en = () => ({
   title: "Enter your partner's name",
   errors: {
     applicant1BailiffPartnersName: {
-      required: "You must enter your partners name.",
+      required: 'You must enter your partners name.',
     },
   },
 });
