@@ -198,3 +198,6 @@ export const HWF_REFERENCE_NUMBER_INPUT_BAILIFF: PageLink =
   '/interim-applications/bailiff-service/hwf-reference-number-input';
 export const APPLY_FOR_HWF_BAILIFF: PageLink = '/interim-applications/bailiff-service/apply-for-hwf';
 export const ENTER_PARTNERS_NAME_BAILIFF: PageLink = '/interim-applications/bailiff-service/enter-partners-name';
+export const PARTNER_IN_REFUGE_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-in-refuge';
+export const PARTNER_ADDRESS_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-address';
+export const PARTNER_PHONE_NUMBER_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-phone-number';

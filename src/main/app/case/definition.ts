@@ -1044,6 +1044,9 @@ export interface CaseData {
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
   applicant1BailiffPartnersName: string;
+  applicant1BailiffPartnerInARefuge: YesOrNoOrNotKnown;
+  applicant1BailiffKnowPartnersPhone: YesOrNo;
+  applicant1BailiffPartnersPhone: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
@@ -1755,6 +1758,12 @@ export const enum ScannedDocumentType {
 export const enum YesOrNo {
   YES = 'Yes',
   NO = 'No',
+}
+
+export const enum YesOrNoOrNotKnown {
+  YES = 'Yes',
+  NO = 'No',
+  NOT_KNOWN = 'NotKnown',
 }
 
 export const enum AlternativeServiceMediumType {
