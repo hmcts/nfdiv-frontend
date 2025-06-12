@@ -36,7 +36,11 @@ describe('EnterYourNamePostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { ...body, applicant1ConfirmFullName: null },
+      {
+        ...body,
+        applicant1ConfirmFullName: null,
+        applicant1ConfirmNameMatchesCertificate: null,
+      },
       CITIZEN_UPDATE
     );
   });
@@ -64,7 +68,11 @@ describe('EnterYourNamePostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { ...body, applicant2ConfirmFullName: null },
+      {
+        ...body,
+        applicant2ConfirmFullName: null,
+        applicant2ConfirmNameMatchesCertificate: null,
+      },
       CITIZEN_APPLICANT2_UPDATE
     );
   });
