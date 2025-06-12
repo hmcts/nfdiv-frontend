@@ -188,4 +188,4 @@ Feature: No response journey
 
     Given I go to "/interim-applications/no-response/new-postal-and-email"
     When I click continue
-    Then the page should include "There was a problem"
+    Then the page should show an error for field "applicant1NoResponsePartnerNewEmailOrPostalAddress"
