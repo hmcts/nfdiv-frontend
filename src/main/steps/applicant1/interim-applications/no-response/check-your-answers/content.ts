@@ -55,9 +55,11 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content);
   const updateWhat = content.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress;
+  const showStatementOfTruth = false;
   return {
     ...translation,
     form,
     updateWhat,
+    showStatementOfTruth,
   };
 };
