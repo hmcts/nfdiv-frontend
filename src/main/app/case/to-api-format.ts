@@ -18,7 +18,11 @@ import {
   MarriageFormation,
   YesOrNo,
 } from './definition';
-import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
+import {
+  applicant1AddressToApi,
+  applicant1NoResponsePartnerAddressToApi,
+  applicant2AddressToApi,
+} from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
@@ -394,6 +398,13 @@ const fields: ToApiConverters = {
   applicant1NoResponseCheckContactDetails: data => ({
     applicant1NoResponseCheckContactDetails: data.applicant1NoResponseCheckContactDetails,
   }),
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: data => ({
+    applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+      data.applicant1NoResponseProvidePartnerNewEmailOrAlternativeService,
+  }),
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: data => ({
+    applicant1NoResponsePartnerNewEmailOrPostalAddress: data.applicant1NoResponsePartnerNewEmailOrPostalAddress,
+  }),
   applicant1NoResponsePartnerHasReceivedPapers: data => ({
     applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
   }),
@@ -425,6 +436,10 @@ const fields: ToApiConverters = {
   }),
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  }),
+  applicant1NoResponsePartnerAddressPostcode: applicant1NoResponsePartnerAddressToApi,
+  applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
+    applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
 };
 

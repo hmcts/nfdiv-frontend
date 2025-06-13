@@ -1,9 +1,22 @@
 import { Case } from '../case';
 import { AddressGlobalUK, CaseData } from '../definition';
 
-export const fromApi = (data: Partial<CaseData>, address: 'applicant1' | 'applicant2'): Partial<Case> => {
-  const isApplicant1Address = address === 'applicant1';
-  const fullAddress = isApplicant1Address ? data.applicant1Address : data.applicant2Address;
+export const fromApi = (
+  data: Partial<CaseData>,
+  address: 'applicant1' | 'applicant2' | 'applicant1NoResponsePartner'
+): Partial<Case> => {
+  let fullAddress;
+  switch (address) {
+    case 'applicant1':
+      fullAddress = data.applicant1Address;
+      break;
+    case 'applicant2':
+      fullAddress = data.applicant2Address;
+      break;
+    case 'applicant1NoResponsePartner':
+      fullAddress = data.applicant1NoResponsePartnerAddress;
+      break;
+  }
 
   return {
     [`${address}Address1`]: fullAddress?.AddressLine1 || '',
@@ -16,7 +29,10 @@ export const fromApi = (data: Partial<CaseData>, address: 'applicant1' | 'applic
   };
 };
 
-const toApiAddress = (data: Partial<Case>, address: 'applicant1' | 'applicant2'): AddressGlobalUK => ({
+const toApiAddress = (
+  data: Partial<Case>,
+  address: 'applicant1' | 'applicant2' | 'applicant1NoResponsePartner'
+): AddressGlobalUK => ({
   AddressLine1: data[`${address}Address1`] || '',
   AddressLine2: data[`${address}Address2`] || '',
   AddressLine3: data[`${address}Address3`] || '',
@@ -32,4 +48,8 @@ export const applicant1AddressToApi = (data: Partial<Case>): Partial<CaseData> =
 
 export const applicant2AddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
   applicant2Address: toApiAddress(data, 'applicant2'),
+});
+
+export const applicant1NoResponsePartnerAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
+  applicant1NoResponsePartnerAddress: toApiAddress(data, 'applicant1NoResponsePartner'),
 });
