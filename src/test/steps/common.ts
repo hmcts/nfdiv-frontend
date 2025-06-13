@@ -142,6 +142,7 @@ When('I click continue', iClickSubmit);
 When('I click send for review', iClickSubmit);
 When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
+When('I click accept and send', iClickSubmit);
 
 Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);

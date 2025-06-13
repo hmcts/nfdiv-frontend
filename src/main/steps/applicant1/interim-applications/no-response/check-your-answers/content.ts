@@ -55,6 +55,8 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content);
+  const updateWhat = content.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress;
+  const showStatementOfTruth = false;
   const readOnlyPage =
     content.userCase.applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse ===
     NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
@@ -62,6 +64,8 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translation,
     form,
+    updateWhat,
+    showStatementOfTruth,
     readOnlyPage,
   };
 };

@@ -32,6 +32,8 @@
               {% endif %}
               {{ havingTroubleUploading }}
             {% endif %}
+          {% elif question === 'newPostalAddress' %}
+            {{ stepAnswers[question] | safe}}
           {% else %}
             {{ stepAnswers[question] }}
           {% endif %}
@@ -61,10 +63,12 @@
 {% endblock %}
 
 {% block form %}
-  <h1 class="govuk-heading-m">{{ statementOfTruth.title }}</h1>
-  {{ govukWarningText({
-    text: statementOfTruth.warning,
-    iconFallbackText: "Warning"
-  }) }}
+  {% if showStatementOfTruth %}
+    <h1 class="govuk-heading-m">{{ statementOfTruth.title }}</h1>
+    {{ govukWarningText({
+      text: statementOfTruth.warning,
+      iconFallbackText: "Warning"
+    }) }}
+  {% endif %}
   {% include "./form.njk" %}
 {% endblock %}
