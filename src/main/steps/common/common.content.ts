@@ -13,6 +13,7 @@ export const en = {
   applyForDissolution: 'apply to end a civil partnership',
   generalApplication: {
     deemed: 'deemed service',
+    bailiff: 'bailiff service',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -88,6 +89,7 @@ export const en = {
   },
   yes: 'Yes',
   no: 'No',
+  notKnown: 'Not known',
   english: 'English',
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
@@ -169,6 +171,7 @@ const cy: typeof en = {
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   generalApplication: {
     deemed: 'gyflwyno tybiedig',
+    bailiff: 'gwasanaeth bailiff',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
@@ -242,6 +245,7 @@ const cy: typeof en = {
   },
   yes: 'Do',
   no: 'Naddo',
+  notKnown: 'Not known',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',

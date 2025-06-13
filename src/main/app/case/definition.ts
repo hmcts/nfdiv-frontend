@@ -1043,6 +1043,10 @@ export interface CaseData {
   applicant1InterimAppsCannotUploadDocs: YesOrNo;
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
+  applicant1BailiffPartnersName: string;
+  applicant1BailiffPartnerInARefuge: YesOrNoOrNotKnown;
+  applicant1BailiffKnowPartnersPhone: YesOrNo;
+  applicant1BailiffPartnersPhone: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
@@ -1087,6 +1091,18 @@ export interface DeemedServiceJourneyOptions {
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
 }
+
+export interface BailiffServiceJourneyOptions {
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  interimAppsCannotUploadDocs: Checkbox;
+  bailiffPartnersName: string;
+}
+
 
 export interface RequestForInformationResponse {
   requestForInformationResponseCannotUploadDocs: YesOrNo;
@@ -1744,6 +1760,12 @@ export const enum YesOrNo {
   NO = 'No',
 }
 
+export const enum YesOrNoOrNotKnown {
+  YES = 'Yes',
+  NO = 'No',
+  NOT_KNOWN = 'NotKnown',
+}
+
 export const enum AlternativeServiceMediumType {
   TEXT = 'text',
   EMAIL = 'email',
@@ -1876,6 +1898,7 @@ export const enum GeneralApplicationType {
   EXPEDITE = 'expedite',
   OTHER_ALTERNATIVE_SERVICE_METHODS = 'otherAlternativeServiceMethod',
   OTHER = 'other',
+  BAILIFF_SERVICE = 'bailiffService',
 }
 
 export const enum GeneralOrderDivorceParties {
