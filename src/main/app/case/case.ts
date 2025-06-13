@@ -23,6 +23,7 @@ import {
   NoResponseNoNewAddressDetails,
   NoResponseOwnSearches,
   NoResponseProcessServerOrBailiff,
+  NoResponseSearchOrDispense,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -203,6 +204,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
   applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
+  applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -472,6 +475,8 @@ export interface Case {
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
+  applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
+  applicant1NoResponseSearchOrDispense?: NoResponseSearchOrDispense;
 }
 
 export interface CaseWithId extends Case {
