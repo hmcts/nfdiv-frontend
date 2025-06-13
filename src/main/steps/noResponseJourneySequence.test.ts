@@ -1,16 +1,30 @@
-import { NoResponseCheckContactDetails, YesOrNo } from '../app/case/definition';
+import {
+  NoResponseCheckContactDetails,
+  NoResponseOwnSearches,
+  NoResponseProcessServerOrBailiff,
+  YesOrNo,
+} from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import {
+  BAILIFF_SERVICE_APPLICATION,
+  CHECK_DETAILS_PROCESS_SERVER,
   DEEMED_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
+  HUB_PAGE,
+  IS_PARTNER_ABROAD,
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
+  OWN_SEARCHES,
+  PARTNER_IN_PERSON,
+  PROCESS_SERVER,
+  SEARCH_TIPS,
   SERVE_AGAIN,
+  SUCCESS_SCREEN_PROCESS_SERVER,
 } from './urls';
 
 describe('No Response Journey Sequence test', () => {
@@ -101,6 +115,71 @@ describe('No Response Journey Sequence test', () => {
       };
       const step = noResponseJourneySequence.find(obj => obj.url === EVIDENCE_RECEIVED_APPLICATION) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_NEW_ADDRESS);
+    });
+  });
+
+  describe('PARTNER_IN_PERSON', () => {
+    test('PROCESS_SERVER', () => {
+      const caseData = {
+        applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === PARTNER_IN_PERSON) as Step;
+      expect(step.getNextStep(caseData)).toBe(PROCESS_SERVER);
+    });
+
+    test('COURT_BAILIFF', () => {
+      const caseData = {
+        applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.COURT_BAILIFF,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === PARTNER_IN_PERSON) as Step;
+      expect(step.getNextStep(caseData)).toBe(BAILIFF_SERVICE_APPLICATION);
+    });
+  });
+
+  describe('PROCESS_SERVER', () => {
+    test('PROCESS_SERVER', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === PROCESS_SERVER) as Step;
+      expect(step.getNextStep({})).toBe(CHECK_DETAILS_PROCESS_SERVER);
+    });
+  });
+
+  describe('CHECK_DETAILS_PROCESS_SERVER', () => {
+    test('CHECK_DETAILS_PROCESS_SERVER', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === CHECK_DETAILS_PROCESS_SERVER) as Step;
+      expect(step.getNextStep({})).toBe(SUCCESS_SCREEN_PROCESS_SERVER);
+    });
+  });
+
+  describe('SUCCESS_SCREEN_PROCESS_SERVER', () => {
+    test('SUCCESS_SCREEN_PROCESS_SERVER', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === SUCCESS_SCREEN_PROCESS_SERVER) as Step;
+      expect(step.getNextStep({})).toBe(HUB_PAGE);
+    });
+  });
+
+  describe('OWN_SEARCHES', () => {
+    test('IS_PARTNER_ABROAD', () => {
+      const caseData = {
+        applicant1NoResponseOwnSearches: NoResponseOwnSearches.YES,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === OWN_SEARCHES) as Step;
+      expect(step.getNextStep(caseData)).toBe(IS_PARTNER_ABROAD);
+    });
+
+    test('IS_PARTNER_ABROAD (NOT_FOUND)', () => {
+      const caseData = {
+        applicant1NoResponseOwnSearches: NoResponseOwnSearches.NOT_FOUND,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === OWN_SEARCHES) as Step;
+      expect(step.getNextStep(caseData)).toBe(IS_PARTNER_ABROAD);
+    });
+
+    test('SEARCH_TIPS', () => {
+      const caseData = {
+        applicant1NoResponseOwnSearches: NoResponseOwnSearches.NO,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === OWN_SEARCHES) as Step;
+      expect(step.getNextStep(caseData)).toBe(SEARCH_TIPS);
     });
   });
 });

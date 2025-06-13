@@ -1032,6 +1032,8 @@ export interface CaseData {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
+  applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand: YesOrNo;
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
   applicant1InterimAppsHaveHwfReference: YesOrNo;
@@ -1043,6 +1045,8 @@ export interface CaseData {
   applicant1DeemedNoEvidenceStatement: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
+  applicant1NoResponseOwnSearches: NoResponseOwnSearches;
+  applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1065,6 +1069,10 @@ export interface CaseDocuments {
 export interface NoResponseJourneyOptions {
   noResponseCheckContactDetails: NoResponseCheckContactDetails;
   noResponsePartnerHasReceivedPapers: YesOrNo;
+  noResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
+  noResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
+  noResponseOwnSearches: NoResponseOwnSearches;
+  noResponseRespondentAddressInEnglandWales: YesOrNo;
 }
 
 export interface DeemedServiceJourneyOptions {
@@ -2484,6 +2492,23 @@ export const enum NoResponseCheckContactDetails {
   NOT_KNOWN = 'notKnown',
 }
 
+export const enum NoResponseNoNewAddressDetails {
+  IN_PERSON_SERVICE = 'inPersonService',
+  ALTERNATIVE_SERVICE = 'alternativeService',
+  NO_CONTACT_DETAILS = 'noContactDetails',
+}
+
+export const enum NoResponseProcessServerOrBailiff {
+  PROCESS_SERVER = 'processServer',
+  COURT_BAILIFF = 'courtBailiff',
+}
+
+export const enum NoResponseOwnSearches {
+  YES = 'yes',
+  NO = 'no',
+  NOT_FOUND = 'notFound',
+}
+
 /**
  * Values:
  * - `CONTINUE`
@@ -2664,6 +2689,7 @@ export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const INTEND_SWITCH_TO_SOLE_FO = 'intend-switch-to-sole-fo';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const APPLICANT1_RESEND_PAPERS = 'applicant1-resend-papers';
 export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
 export const FINAL_ORDER_PAYMENT_MADE = 'final-order-payment-made';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';

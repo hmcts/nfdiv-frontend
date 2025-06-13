@@ -168,7 +168,7 @@ const cy: typeof en = {
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   generalApplication: {
-    deemed: 'deemed service',
+    deemed: 'gyflwyno tybiedig',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
@@ -192,7 +192,7 @@ const cy: typeof en = {
   download: 'Llwytho i lawr',
   delete: 'Dileu',
   warning: 'Rhybudd',
-  continueToPay: 'Continue to pay',
+  continueToPay: 'Parhau i dalu',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   errorSaving:
