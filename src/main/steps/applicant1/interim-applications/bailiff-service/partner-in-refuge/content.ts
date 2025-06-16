@@ -1,22 +1,22 @@
-import { YesOrNoOrNotKnown } from 'app/case/definition';
+import { YesOrNoOrNotKnown } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
 const en = () => ({
-  title: "Is your partner currently resident in a refuge?",
+  title: 'Is your partner currently resident in a refuge?',
   errors: {
     applicant1BailiffPartnerInARefuge: {
-      required: "You must select an option.",
+      required: 'You must select an option.',
     },
   },
 });
 
 const cy: typeof en = () => ({
-  title: "Is your partner currently resident in a refuge?",
+  title: 'Is your partner currently resident in a refuge?',
   errors: {
     applicant1BailiffPartnerInARefuge: {
-      required: "You must select an option.",
+      required: 'You must select an option.',
     },
   },
 });

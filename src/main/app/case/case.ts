@@ -28,7 +28,7 @@ import {
   RequestForInformation,
   State,
   YesOrNo,
-  YesOrNoOrNotKnown
+  YesOrNoOrNotKnown,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {

@@ -8,9 +8,9 @@ import {
   HELP_WITH_FEES_BAILIFF,
   HWF_REFERENCE_NUMBER_BAILIFF,
   HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
-  PARTNER_IN_REFUGE_BAILIFF,
   PARTNER_ADDRESS_BAILIFF,
-  PARTNER_PHONE_NUMBER_BAILIFF
+  PARTNER_IN_REFUGE_BAILIFF,
+  PARTNER_PHONE_NUMBER_BAILIFF,
 } from './urls';
 
 export const bailiffServiceApplicationSequence: Step[] = [
@@ -55,5 +55,5 @@ export const bailiffServiceApplicationSequence: Step[] = [
   {
     url: PARTNER_PHONE_NUMBER_BAILIFF,
     getNextStep: () => PARTNER_PHONE_NUMBER_BAILIFF,
-  }
+  },
 ];

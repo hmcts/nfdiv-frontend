@@ -1,4 +1,4 @@
-import { YesOrNo } from 'app/case/definition';
+import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isPhoneNoValid } from '../../../../../app/form/validation';
@@ -6,14 +6,14 @@ import { isFieldFilledIn, isPhoneNoValid } from '../../../../../app/form/validat
 const en = () => ({
   title: "Do you know your partner's phone number?",
   enterPhoneNumber: "Enter your partner's phone number",
-  enterPhoneNumberHint: "For international numbers include the country code, for example +33 1234 567890",
+  enterPhoneNumberHint: 'For international numbers include the country code, for example +33 1234 567890',
   errors: {
     applicant1BailiffKnowPartnersPhone: {
-      required: "You must select an option.",
+      required: 'You must select an option.',
     },
     applicant1BailiffPartnersPhone: {
       required: "Please enter your partner's phone number.",
-      invalid: "Please enter a valid phone number."
+      invalid: 'Please enter a valid phone number.',
     },
   },
 });
@@ -21,14 +21,14 @@ const en = () => ({
 const cy: typeof en = () => ({
   title: "Do you know your partner's phone number?",
   enterPhoneNumber: "Enter your partner's phone number",
-  enterPhoneNumberHint: "For international numbers include the country code, for example +33 1234 567890",
+  enterPhoneNumberHint: 'For international numbers include the country code, for example +33 1234 567890',
   errors: {
     applicant1BailiffKnowPartnersPhone: {
-      required: "You must select an option."
+      required: 'You must select an option.',
     },
     applicant1BailiffPartnersPhone: {
       required: "Please enter your partner's phone number.",
-      invalid: "Please enter a valid phone number."
+      invalid: 'Please enter a valid phone number.',
     },
   },
 });
@@ -53,7 +53,7 @@ export const form: FormContent = {
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
             },
-          }
+          },
         },
         { label: l => l.no, value: YesOrNo.NO },
       ],
