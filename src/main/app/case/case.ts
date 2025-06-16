@@ -16,7 +16,7 @@ import {
   DocumentType,
   FinancialOrderFor,
   Gender,
-  GeneralApplicationType,
+  InterimApplicationType,
   JurisdictionConnections,
   LegalAdvisorDecision,
   ListValue,
@@ -473,7 +473,7 @@ export interface Case {
   applicant1InterimAppsCannotUploadDocs?: Checkbox;
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
-  applicant1InterimApplicationType?: GeneralApplicationType;
+  applicant1InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;

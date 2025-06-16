@@ -1049,7 +1049,7 @@ export interface CaseData {
   applicant1InterimAppsCannotUploadDocs: YesOrNo;
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
-  applicant1InterimApplicationType: GeneralApplicationType;
+  applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
 }
 
@@ -1859,6 +1859,14 @@ export const enum Gender {
 export const enum GeneralApplicationFee {
   FEE0227 = 'FEE0227',
   FEE0228 = 'FEE0228',
+}
+
+export const enum InterimApplicationType {
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  DEEMED_SERVICE = 'deemedService',
+  ALTERNATIVE_SERVICE = 'alternativeService',
+  BAILIFF_SERVICE = 'bailiffService',
+  SEARCH_GOV_RECORDS = 'searchGovRecords',
 }
 
 export const enum GeneralApplicationType {
