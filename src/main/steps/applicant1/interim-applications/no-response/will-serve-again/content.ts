@@ -1,9 +1,6 @@
 import config from 'config';
 
-import { NoResponseCheckContactDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 import { HUB_PAGE } from '../../../../urls';
 
@@ -52,65 +49,6 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-export let form: FormContent = {
-  fields: {
-    applicant1NoResponseCheckContactDetails: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.detailsUpToDateHeader,
-      labelHidden: false,
-      values: [
-        {
-          label: l => l.upToDate,
-          id: 'upToDate',
-          value: NoResponseCheckContactDetails.UP_TO_DATE,
-        },
-        {
-          label: l => l.newAddressOrEmailAddress,
-          id: 'newAddress',
-          value: NoResponseCheckContactDetails.NEW_ADDRESS,
-        },
-        {
-          label: l => l.notKnown,
-          id: 'notKnown',
-          value: NoResponseCheckContactDetails.NOT_KNOWN,
-        },
-      ],
-      validator: value => isFieldFilledIn(value),
-    },
-  },
-  submit: {
-    text: l => l.continue,
-  },
-};
-
-const formNoDetails: FormContent = {
-  fields: {
-    applicant1NoResponseCheckContactDetails: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.doYouKnowYourPartnersDetailsHeader,
-      labelHidden: false,
-      values: [
-        {
-          label: l => l.newAddressOrEmailAddress,
-          id: 'newAddress',
-          value: NoResponseCheckContactDetails.NEW_ADDRESS,
-        },
-        {
-          label: l => l.notKnown,
-          id: 'notKnown',
-          value: NoResponseCheckContactDetails.NOT_KNOWN,
-        },
-      ],
-      validator: value => isFieldFilledIn(value),
-    },
-  },
-  submit: {
-    text: l => l.continue,
-  },
-};
-
 const languages = {
   en,
   cy,
@@ -118,19 +56,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-const applicant2Address = getAddressFields('applicant2', userCase)
-  .filter(addressLine => addressLine?.length > 0)
-  .join(', ');
-  const applicant2Email = content.userCase.applicant2Email;
-  const contactDetailsProvided =
-    applicant2Address.length > 0 ||
-    (applicant2Email !== null && applicant2Email !== undefined && applicant2Email.length > 0);
-  form = contactDetailsProvided ? form : formNoDetails;
   return {
     ...translations,
-    form,
-    applicant2Address,
-    applicant2Email,
-    contactDetailsProvided,
   };
 };
