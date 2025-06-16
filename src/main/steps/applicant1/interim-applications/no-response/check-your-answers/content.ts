@@ -29,8 +29,9 @@ const en = ({ userCase }: CommonContent) => ({
     newEmailAddress: stripTags(userCase.applicant1NoResponsePartnerEmailAddress),
   },
   stepLinks: {
-    newPostalAddress: `${urls.NEW_POSTAL_ADDRESS}`,
-    newEmailAddress: `${urls.PROVIDE_NEW_EMAIL_ADDRESS}`,
+    newPostalAddress: userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse && `${urls.NEW_POSTAL_ADDRESS}`,
+    newEmailAddress:
+      userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse && `${urls.PROVIDE_NEW_EMAIL_ADDRESS}`,
   },
   acceptAndSend: 'Accept and send',
 });
@@ -56,6 +57,7 @@ export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content);
   const updateWhat = content.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress;
   const showStatementOfTruth = false;
+
   return {
     ...translation,
     form,
