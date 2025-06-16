@@ -9,6 +9,7 @@ export const form: FormContent = applyForHwfForm;
 
 export const generateContent: TranslationFn = content => {
   const applyForHwfContent = applyForHwfGenerateContent(content);
+
   return {
     ...applyForHwfContent,
   };

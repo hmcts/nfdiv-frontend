@@ -7,7 +7,7 @@ const en = () => ({
   title: 'Is your partner currently resident in a refuge?',
   errors: {
     applicant1BailiffPartnerInARefuge: {
-      required: 'You must select an option.',
+      required: 'You must select an option before continuing.',
     },
   },
 });
@@ -16,7 +16,7 @@ const cy: typeof en = () => ({
   title: 'Is your partner currently resident in a refuge?',
   errors: {
     applicant1BailiffPartnerInARefuge: {
-      required: 'You must select an option.',
+      required: 'You must select an option before continuing.',
     },
   },
 });

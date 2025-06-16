@@ -87,6 +87,10 @@ export const en = {
     month: 'Month',
     year: 'Year',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Yes',
   no: 'No',
   notKnown: 'Not known',
@@ -242,6 +246,10 @@ const cy: typeof en = {
     day: 'Diwrnod',
     month: 'Mis',
     year: 'Blwyddyn',
+  },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
   },
   yes: 'Do',
   no: 'Naddo',
