@@ -47,12 +47,10 @@ export const form: FormContent = {
   },
 };
 
-export const generateContent: TranslationFn = (content) => {
+export const generateContent: TranslationFn = content => {
   const applicationType = content.userCase.applicant1InterimApplicationType;
 
-  const formName = InterimApplicationType.BAILIFF_SERVICE === applicationType
-    ? content.forms.d89
-    : content.forms.d11;
+  const formName = InterimApplicationType.BAILIFF_SERVICE === applicationType ? content.forms.d89 : content.forms.d11;
 
   const translations = languages[content.language](formName);
 
