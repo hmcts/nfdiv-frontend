@@ -118,21 +118,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const checkAddressString = address => {
-    return address !== null && address !== undefined && address.length > 0 ? address + ', ' : '';
-  };
-  const app2Address = () => {
-    const userCase = content.userCase;
-    let address = checkAddressString(userCase.applicant2Address1);
-    address += checkAddressString(userCase.applicant2Address2);
-    address += checkAddressString(userCase.applicant2Address3);
-    address += checkAddressString(userCase.applicant2AddressTown);
-    address += checkAddressString(userCase.applicant2AddressCounty);
-    address += checkAddressString(userCase.applicant2AddressCountry);
-    address += checkAddressString(userCase.applicant2AddressPostcode);
-    return address;
-  };
-  const applicant2Address = app2Address();
+const applicant2Address = getAddressFields('applicant2', userCase)
+  .filter(addressLine => addressLine?.length > 0)
+  .join(', ');
   const applicant2Email = content.userCase.applicant2Email;
   const contactDetailsProvided =
     applicant2Address.length > 0 ||
