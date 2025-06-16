@@ -3535,10 +3535,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/negotiator@npm:0.6.3":
-  version: 0.6.3
-  resolution: "@types/negotiator@npm:0.6.3"
-  checksum: c6a97e6f2285d6d73fc56d9fedd1f8b7a009ab8124f63dd9c9efddb6c8942e1bb6b7046b8c117eb1e4b8dd8d7da8231e43a5ccf60d283c65c5b7fa9327906cef
+"@types/negotiator@npm:0.6.4":
+  version: 0.6.4
+  resolution: "@types/negotiator@npm:0.6.4"
+  checksum: 7d1f4e5c9d0a0cbccd4b74f04baf7887299c629a192f5d16669b3d1a24d914ee16cdfa2088761ef8bb617438aff2f61fff5c40a5c55d55f6b59dafec00b2aa45
   languageName: node
   linkType: hard
 
@@ -13799,7 +13799,7 @@ __metadata:
     "@types/jest": 29.5.14
     "@types/lodash": 4.17.17
     "@types/multer": 1.4.12
-    "@types/negotiator": 0.6.3
+    "@types/negotiator": 0.6.4
     "@types/node": 22.15.17
     "@types/nunjucks": 3.2.6
     "@types/require-directory": 2.1.6
