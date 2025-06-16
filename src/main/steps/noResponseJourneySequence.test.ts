@@ -1,6 +1,7 @@
 import {
   NoResponseCheckContactDetails,
   NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerSendPapersAgainOrTrySomethingElse,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
   YesOrNo,
 } from '../app/case/definition';
@@ -23,6 +24,7 @@ import {
   OPTIONS_FOR_PROGRESSING,
   PROVIDE_NEW_EMAIL_ADDRESS,
   SERVE_AGAIN,
+  WILL_SERVE_AGAIN,
 } from './urls';
 
 describe('No Response Journey Sequence test', () => {
@@ -196,6 +198,31 @@ describe('No Response Journey Sequence test', () => {
       const caseData = {};
       const step = noResponseJourneySequence.find(obj => obj.url === NO_RESPONSE_DETAILS_UPDATED) as Step;
       expect(step.getNextStep(caseData)).toBe(HUB_PAGE);
+    });
+    test('WILL_SERVE_AGAIN_ADDRESS_PRIVATE', () => {
+      const caseData = {
+        applicant2AddressPrivate: YesOrNo.YES,
+        applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse:
+          NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
+      expect(step.getNextStep(caseData)).toBe(WILL_SERVE_AGAIN);
+    });
+    test('WILL_SERVE_AGAIN_ADDRESS_PUBLIC', () => {
+      const caseData = {
+        applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse:
+          NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
+      expect(step.getNextStep(caseData)).toBe(NEW_CONTACT_DETAIL_CHECK_ANSWERS);
+    });
+    test('SERVE_AGAIN_TYR_SOMETHING_ELSE', () => {
+      const caseData = {
+        applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse:
+          NoResponsePartnerSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
+      expect(step.getNextStep(caseData)).toBe(NO_NEW_ADDRESS);
     });
   });
 });

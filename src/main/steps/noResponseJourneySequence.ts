@@ -2,6 +2,7 @@ import { CaseWithId } from '../app/case/case';
 import {
   NoResponseCheckContactDetails,
   NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerSendPapersAgainOrTrySomethingElse,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
   YesOrNo,
 } from '../app/case/definition';
@@ -23,7 +24,8 @@ import {
   OPTIONS_FOR_PROGRESSING,
   PROVIDE_NEW_EMAIL_ADDRESS,
   PageLink,
-  SEND_PAPERS_AGAIN,
+  SERVE_AGAIN,
+  WILL_SERVE_AGAIN,
 } from './urls';
 
 export const noResponseJourneySequence: Step[] = [
@@ -91,8 +93,11 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: NEW_CONTACT_DETAIL_CHECK_ANSWERS,
-    getNextStep: (): PageLink => {
-      return NO_RESPONSE_DETAILS_UPDATED;
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      return data?.applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse ===
+        NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
+        ? WILL_SERVE_AGAIN
+        : NO_RESPONSE_DETAILS_UPDATED;
     },
   },
   {
@@ -111,16 +116,20 @@ export const noResponseJourneySequence: Step[] = [
       if (data?.applicant1NoResponsePartnerHasReceivedPapers === YesOrNo.YES) {
         return DEEMED_SERVICE_APPLICATION;
       }
-      return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SEND_PAPERS_AGAIN;
+      return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SERVE_AGAIN;
     },
   },
   {
-    url: SEND_PAPERS_AGAIN,
+    url: SERVE_AGAIN,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data?.applicant1NoResponsePartnerHasReceivedPapers === YesOrNo.YES) {
-        return DEEMED_SERVICE_APPLICATION;
+      if (
+        data?.applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse ===
+        NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
+      ) {
+        return data?.applicant2AddressPrivate === YesOrNo.YES ? WILL_SERVE_AGAIN : NEW_CONTACT_DETAIL_CHECK_ANSWERS;
+      } else {
+        return NO_NEW_ADDRESS;
       }
-      return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SEND_PAPERS_AGAIN;
     },
   },
 ];
