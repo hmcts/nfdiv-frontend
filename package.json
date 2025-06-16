@@ -60,7 +60,7 @@
     "@types/express-session": "1.18.2",
     "@types/glob": "8.1.0",
     "@types/lodash": "4.17.17",
-    "@types/multer": "1.4.12",
+    "@types/multer": "1.4.13",
     "@types/negotiator": "0.6.4",
     "@types/node": "22.15.17",
     "@types/nunjucks": "3.2.6",
