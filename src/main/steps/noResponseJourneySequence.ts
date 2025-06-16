@@ -2,8 +2,8 @@ import { CaseWithId } from '../app/case/case';
 import {
   NoResponseCheckContactDetails,
   NoResponsePartnerNewEmailOrPostalAddress,
-  NoResponsePartnerSendPapersAgainOrTrySomethingElse,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   YesOrNo,
 } from '../app/case/definition';
 
@@ -94,8 +94,8 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: NEW_CONTACT_DETAIL_CHECK_ANSWERS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      return data?.applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse ===
-        NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
+      return data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+        NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
         ? WILL_SERVE_AGAIN
         : NO_RESPONSE_DETAILS_UPDATED;
     },
@@ -123,8 +123,8 @@ export const noResponseJourneySequence: Step[] = [
     url: SERVE_AGAIN,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (
-        data?.applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse ===
-        NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
+        data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+        NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
       ) {
         return data?.applicant2AddressPrivate === YesOrNo.YES ? WILL_SERVE_AGAIN : NEW_CONTACT_DETAIL_CHECK_ANSWERS;
       } else {

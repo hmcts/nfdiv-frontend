@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { NoResponsePartnerSendPapersAgainOrTrySomethingElse } from '../../../../../app/case/definition';
+import { NoResponseSendPapersAgainOrTrySomethingElse } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -19,7 +19,7 @@ const en = ({ isDivorce, partner, required }: CommonContent) => ({
   sendPapersAgain: `Send the ${isDivorce ? 'divorce' : 'application to end your civil partnership'} papers again`,
   trySomethingElse: 'Try something else',
   errors: {
-    applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse: {
+    applicant1NoResponseSendPapersAgainOrTrySomethingElse: {
       required,
     },
   },
@@ -39,7 +39,7 @@ const cy: typeof en = ({ isDivorce, partner, required }: CommonContent) => ({
   sendPapersAgain: `Anfon papurau’r ${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} eto`,
   trySomethingElse: 'Ceisio gwneud rhywbeth arall',
   errors: {
-    applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse: {
+    applicant1NoResponseSendPapersAgainOrTrySomethingElse: {
       required,
     },
   },
@@ -47,7 +47,7 @@ const cy: typeof en = ({ isDivorce, partner, required }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse: {
+    applicant1NoResponseSendPapersAgainOrTrySomethingElse: {
       type: 'radios',
       classes: 'govuk-radios',
       labelHidden: false,
@@ -55,12 +55,12 @@ export const form: FormContent = {
         {
           label: l => l.sendPapersAgain,
           id: 'sendPapersAgain',
-          value: NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN,
+          value: NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN,
         },
         {
           label: l => l.trySomethingElse,
           id: 'trySomethingElse',
-          value: NoResponsePartnerSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE,
+          value: NoResponseSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE,
         },
       ],
       validator: value => isFieldFilledIn(value),

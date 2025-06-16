@@ -1033,7 +1033,7 @@ export interface CaseData {
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
-  applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse: NoResponsePartnerSendPapersAgainOrTrySomethingElse;
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
   applicant1InterimAppsIUnderstand: YesOrNo;
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
@@ -2501,7 +2501,7 @@ export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
   APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
 }
 
-export const enum NoResponsePartnerSendPapersAgainOrTrySomethingElse {
+export const enum NoResponseSendPapersAgainOrTrySomethingElse {
   SEND_PAPERS_AGAIN = 'sendPapersAgain',
   TRY_SOMETHING_ELSE = 'trySomethingElse',
 }

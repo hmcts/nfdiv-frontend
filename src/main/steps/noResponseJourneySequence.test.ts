@@ -1,8 +1,8 @@
 import {
   NoResponseCheckContactDetails,
   NoResponsePartnerNewEmailOrPostalAddress,
-  NoResponsePartnerSendPapersAgainOrTrySomethingElse,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   YesOrNo,
 } from '../app/case/definition';
 
@@ -202,24 +202,24 @@ describe('No Response Journey Sequence test', () => {
     test('WILL_SERVE_AGAIN_ADDRESS_PRIVATE', () => {
       const caseData = {
         applicant2AddressPrivate: YesOrNo.YES,
-        applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse:
-          NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN,
+        applicant1NoResponseSendPapersAgainOrTrySomethingElse:
+          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
       expect(step.getNextStep(caseData)).toBe(WILL_SERVE_AGAIN);
     });
     test('WILL_SERVE_AGAIN_ADDRESS_PUBLIC', () => {
       const caseData = {
-        applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse:
-          NoResponsePartnerSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN,
+        applicant1NoResponseSendPapersAgainOrTrySomethingElse:
+          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_CONTACT_DETAIL_CHECK_ANSWERS);
     });
     test('SERVE_AGAIN_TYR_SOMETHING_ELSE', () => {
       const caseData = {
-        applicant1NoResponsePartnerSendPapersAgainOrTrySomethingElse:
-          NoResponsePartnerSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE,
+        applicant1NoResponseSendPapersAgainOrTrySomethingElse:
+          NoResponseSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_NEW_ADDRESS);
