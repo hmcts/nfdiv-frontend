@@ -9,14 +9,12 @@
   {% set answerRows = [] %}
     {% for question, text in stepQuestions %}
       {% if (stepAnswers[question] and stepAnswers[question] != 'undefined' and stepAnswers[question] != 'null') or question === 'yourResponse' or (question === 'uploadedFiles' and cannotUploadDocs === 'Yes') %}
-          {% if not readOnlyPage %}
+          {% if stepLinks[question] %}
               {% set items = [{
                   href: stepLinks[question],
                   text: 'Change',
                   visuallyHiddenText: text
               }] %}
-          {% else %}
-              {% set items = [] %}
           {% endif %}
         {% set answerText %}
           {% if question === 'uploadedFiles' %}
