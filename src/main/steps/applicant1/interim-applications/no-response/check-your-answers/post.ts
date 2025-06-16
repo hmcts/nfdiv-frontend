@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { Case } from '../../../../../app/case/case';
 import {
   NoResponsePartnerNewEmailOrPostalAddress,
-  SYSTEM_UPDATE_CONTACT_DETAILS,
+  UPDATE_CONTACT_DETAILS_AND_REISSUE,
 } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
@@ -31,6 +31,6 @@ export default class CheckAnswersPostController extends PostController<AnyObject
   }
 
   protected getEventName(): string {
-    return SYSTEM_UPDATE_CONTACT_DETAILS;
+    return UPDATE_CONTACT_DETAILS_AND_REISSUE;
   }
 }
