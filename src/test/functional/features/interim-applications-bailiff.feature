@@ -51,14 +51,23 @@ Feature: Bailiff service journey
     Given I select element "#applicant1InterimAppsHwfRefNumber"
     And I type "HWF-A1B-23D"
     When I click continue
-    Then the page should include element "#wantUploadEvidenceTitle"
-
-    Given I click element "#yes"
-    When I click continue
     Then the page should include element "#bailiffPartnersNameTitle"
 
     Given I select element "#applicant1BailiffPartnersName"
     And I type "test name"
+    When I click continue
+    Then the page should include element "#bailiffPartnerInRefugeTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#bailiffPartnersAddressTitle"
+
+    When I click continue
+    Then the page should include element "#bailiffPartnerPhoneTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffPartnersPhone"
+    And I enter "07777777777"
     When I click continue
     Then the page should include element "#bailiffPartnersDateOfBirthTitle"
 

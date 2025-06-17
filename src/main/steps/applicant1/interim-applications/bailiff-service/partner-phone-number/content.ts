@@ -44,6 +44,7 @@ export const form: FormContent = {
         {
           label: l => l.yes,
           value: YesOrNo.YES,
+          id: 'yes',
           subFields: {
             applicant1BailiffPartnersPhone: {
               type: 'text',
@@ -55,7 +56,7 @@ export const form: FormContent = {
             },
           },
         },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l.no, value: YesOrNo.NO, id: 'no' },
       ],
       validator: value => isFieldFilledIn(value),
     },
