@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2023-09-13 16:10:38.
 
-import { Checkbox } from './case';
+import { Checkbox, CaseDate } from './case';
 
 export interface Address {
   AddressLine1: string;
@@ -1047,6 +1047,14 @@ export interface CaseData {
   applicant1BailiffPartnerInARefuge: YesOrNoOrNotKnown;
   applicant1BailiffKnowPartnersPhone: YesOrNo;
   applicant1BailiffPartnersPhone: string;
+  applicant1BailiffKnowPartnersDateOfBirth: YesOrNo;
+  applicant1BailiffPartnersDateOfBirth: CaseDate | DateAsString;
+  applicant1BailiffPartnersApproximateAge: number;
+  applicant1BailiffPartnersHeight: string;
+  applicant1BailiffPartnersHairColour: string;
+  applicant1BailiffPartnersEyeColour: string;
+  applicant1BailiffPartnersEthnicGroup: string;
+  applicant1BailiffPartnersDistinguishingFeatures: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;

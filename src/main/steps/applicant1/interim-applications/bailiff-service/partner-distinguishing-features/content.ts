@@ -1,0 +1,51 @@
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { FormContent } from '../../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
+
+const en = () => ({
+  title: 'Does your partner have any other distinguishing features?',
+  hint: 'For example, a tattoo of a word on left arm, or a scar on the right side of forehead. Give as much detail as possible.',
+  errors: {
+    applicant1BailiffPartnersDistinguishingFeatures: {
+      required: "Please enter any distinguishing features or 'none'.",
+    },
+  },
+});
+
+const cy: typeof en = () => ({
+  title: 'Does your partner have any other distinguishing features?',
+  hint: 'For example, a tattoo of a word on left arm, or a scar on the right side of forehead. Give as much detail as possible.',
+  errors: {
+    applicant1BailiffPartnersDistinguishingFeatures: {
+      required: "You must enter any distinguishing features or enter 'none'.",
+    },
+  },
+});
+
+export const form: FormContent = {
+  fields: {
+    applicant1BailiffPartnersDistinguishingFeatures: {
+      type: 'textarea',
+      label: l => l.title,
+      labelHidden: true,
+      hint: l => l.hint,
+      validator: value => isFieldFilledIn(value),
+    },
+  },
+  submit: {
+    text: l => l.continue,
+  },
+};
+
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language]();
+  return {
+    ...translations,
+    form,
+  };
+};

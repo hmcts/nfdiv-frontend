@@ -7,6 +7,11 @@ import { Case, CaseDate } from '../case/case';
 dayjs.extend(customParseFormat);
 
 export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
+export type NumberValidator = (
+  value: string | string[] | CaseDate | Partial<Case> | undefined,
+  minValue: number,
+  maxValue: number
+) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 export type EmailValidator = (value: string | undefined, emailToCompare: string | undefined) => void | string;
 
@@ -14,6 +19,25 @@ export const isFieldFilledIn: Validator = value => {
   if (!value || (value as string).trim?.().length === 0) {
     return 'required';
   }
+};
+
+export const isValidNumber: NumberValidator = (value, minValue, maxValue) => {
+  if (!value || (value as string).trim?.().length === 0) {
+    return 'required';
+  }
+
+  const trimmed = (value as string).trim();
+  const number = Number(trimmed);
+
+  if (isNaN(number) || !/^\d+$/.test(trimmed)) {
+    return 'invalid';
+  }
+
+  if (number < minValue || number > maxValue) {
+    return 'invalid';
+  }
+
+  return undefined;
 };
 
 export const atLeastOneFieldIsChecked: Validator = fields => {
