@@ -76,6 +76,7 @@ export const form: FormContent = {
         {
           label: l => l.yes,
           value: YesOrNo.YES,
+          id: 'yes',
           subFields: {
             applicant1BailiffPartnersDateOfBirth: {
               type: 'date',
@@ -114,6 +115,7 @@ export const form: FormContent = {
         {
           label: l => l.no,
           value: YesOrNo.NO,
+          id: 'no',
           subFields: {
             applicant1BailiffPartnersApproximateAge: {
               type: 'text',
