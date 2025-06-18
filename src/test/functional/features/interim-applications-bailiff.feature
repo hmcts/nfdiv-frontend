@@ -67,7 +67,7 @@ Feature: Bailiff service journey
 
     Given I click element "#yes"
     Then I select element "#applicant1BailiffPartnersPhone"
-    And I enter "07777777777"
+    And I type "07777777777"
     When I click continue
     Then the page should include element "#bailiffPartnersDateOfBirthTitle"
 
@@ -78,7 +78,7 @@ Feature: Bailiff service journey
     Then the page should include element "#bailiffPartnersHeightTitle"
 
     Given I select element "#applicant1BailiffPartnersHeight"
-    And I type `5'10"`
+    And I type "6 feet"
     When I click continue
     Then the page should include element "#bailiffPartnersHairColourTitle"
 
