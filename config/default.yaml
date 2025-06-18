@@ -110,4 +110,5 @@ govukUrls:
   feedbackExitSurvey: 'https://smartsurvey.co.uk/s/SurveyExit'
   applyForDivorce: 'https://www.gov.uk/apply-for-divorce'
   getHelpWithCourtFees: 'https://www.gov.uk/get-help-with-court-fees'
+  getHelpWithCourtFeesCY: 'https://www.gov.uk/help-i-dalu-ffioedd-llysoedd-a-thribiwnlysoedd'
   certifiedTranslation: 'https://www.gov.uk/certifying-a-document#certifying-a-translation'
