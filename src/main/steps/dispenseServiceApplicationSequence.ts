@@ -1,4 +1,5 @@
 import { YesOrNo } from '../app/case/definition';
+
 import { Step } from './applicant1Sequence';
 import {
   APPLY_FOR_HWF_DISPENSE,
