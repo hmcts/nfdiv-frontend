@@ -13,7 +13,10 @@ export const en = {
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
   generalApplication: {
+    for: 'for',
+    to: 'to',
     deemed: 'deemed service',
+    deemedCode: 'D11',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -169,7 +172,10 @@ const cy: typeof en = {
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   generalApplication: {
+    for: 'am',
+    to: 'i',
     deemed: 'gyflwyno tybiedig',
+    deemedCode: 'D11',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
