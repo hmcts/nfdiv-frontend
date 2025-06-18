@@ -52,9 +52,10 @@ export const bailiffServiceApplicationSequence: Step[] = [
   },
   {
     url: PARTNER_IN_REFUGE_BAILIFF,
-    getNextStep: data => data?.applicant1BailiffPartnerInARefuge === YesOrNoOrNotKnown.YES
-      ? PARTNER_PHONE_NUMBER_BAILIFF
-      : PARTNER_ADDRESS_BAILIFF,
+    getNextStep: data =>
+      data?.applicant1BailiffPartnerInARefuge === YesOrNoOrNotKnown.YES
+        ? PARTNER_PHONE_NUMBER_BAILIFF
+        : PARTNER_ADDRESS_BAILIFF,
   },
   {
     url: PARTNER_ADDRESS_BAILIFF,
