@@ -3,7 +3,8 @@
 {% block header %}
   {% include "cookie-banner/template.njk" %}
   {{ govukHeader({
-    containerClasses: "govuk-width-container"
+    containerClasses: "govuk-width-container",
+    classes: "govuk-header--full-width-border"
   }) }}
   {{ govukServiceNavigation({
     serviceName: serviceName,
