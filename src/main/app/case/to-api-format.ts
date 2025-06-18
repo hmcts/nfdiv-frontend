@@ -437,6 +437,9 @@ const fields: ToApiConverters = {
       data.applicant1NoResponseRespondentAddressInEnglandWales
     ),
   }),
+  applicant1DispenseLastLivedTogetherDate: data => ({
+    applicant1DispenseLivedTogetherDate: toApiDate(data.applicant1DispenseLastLivedTogetherDate),
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
