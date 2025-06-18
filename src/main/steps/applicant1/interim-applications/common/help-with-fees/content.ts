@@ -1,11 +1,11 @@
-import config from "config";
+import config from 'config';
 
-import { InterimApplicationType, YesOrNo } from "../../../../../app/case/definition";
-import { TranslationFn } from "../../../../../app/controller/GetController";
-import { getFee } from "../../../../../app/fees/service/get-fee";
-import { FormContent } from "../../../../../app/form/Form";
-import { isFieldFilledIn } from "../../../../../app/form/validation";
-import { generateCommonContent } from "../../../../common/common.content";
+import { InterimApplicationType, YesOrNo } from '../../../../../app/case/definition';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { getFee } from '../../../../../app/fees/service/get-fee';
+import { FormContent } from '../../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { generateCommonContent } from '../../../../common/common.content';
 
 const en = (serviceType: string, serviceFee: string) => ({
   title: 'Help with fees',
