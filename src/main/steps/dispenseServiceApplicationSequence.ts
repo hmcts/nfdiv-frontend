@@ -8,7 +8,7 @@ import {
   HUB_PAGE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
-  LAST_DATE_DISPENSE
+  LAST_DATE_DISPENSE,
 } from './urls';
 
 export const dispenseServiceApplicationSequence: Step[] = [
