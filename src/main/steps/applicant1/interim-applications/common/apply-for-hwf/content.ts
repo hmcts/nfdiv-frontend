@@ -1,8 +1,8 @@
 import config from 'config';
 
+import { InterimApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { InterimApplicationType } from '../../../../../app/case/definition';
 import { generateCommonContent } from '../../../../common/common.content';
 
 const en = (serviceType: string, serviceCode: string, forTo: string) => ({
@@ -52,7 +52,7 @@ export const generateContent: TranslationFn = content => {
   let serviceType;
   let serviceCode;
   let forTo;
-  const commonContent = generateCommonContent(content)
+  const commonContent = generateCommonContent(content);
 
   switch (content.userCase.applicant1InterimApplicationType) {
     case InterimApplicationType.DEEMED_SERVICE: {
