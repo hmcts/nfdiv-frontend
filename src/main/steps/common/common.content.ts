@@ -173,7 +173,7 @@ const cy: typeof en = {
   generalApplication: {
     for: 'am',
     to: 'i',
-    deemed: 'deemed service',
+    deemed: 'gyflwyno tybiedig',
     deemedCode: 'D11',
   },
   feedback: {
