@@ -15,7 +15,7 @@ export const en = {
     for: 'for',
     to: 'to',
     deemed: 'deemed service',
-    deemedCode: 'D11'
+    deemedCode: 'D11',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -171,8 +171,8 @@ const cy: typeof en = {
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   generalApplication: {
-    for: 'for',
-    to: 'to',
+    for: 'am',
+    to: 'i',
     deemed: 'deemed service',
     deemedCode: 'D11',
   },
