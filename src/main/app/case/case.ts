@@ -28,6 +28,7 @@ import {
   RequestForInformation,
   State,
   YesOrNo,
+  YesOrNoOrNotKnown,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -199,6 +200,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimAppsCannotUploadDocs: 'applicant1InterimAppsCannotUploadDocs',
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1BailiffPartnersName: 'applicant1BailiffPartnersName',
+  applicant1BailiffPartnerInARefuge: 'applicant1BailiffPartnerInARefuge',
+  applicant1BailiffKnowPartnersPhone: 'applicant1BailiffKnowPartnersPhone',
+  applicant1BailiffPartnersPhone: 'applicant1BailiffPartnersPhone',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
@@ -468,6 +473,10 @@ export interface Case {
   applicant1InterimAppsCannotUploadDocs?: Checkbox;
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
+  applicant1BailiffPartnerInARefuge: YesOrNoOrNotKnown;
+  applicant1BailiffPartnersName?: string;
+  applicant1BailiffKnowPartnersPhone: YesOrNo;
+  applicant1BailiffPartnersPhone?: string;
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
