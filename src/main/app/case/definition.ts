@@ -1050,6 +1050,7 @@ export interface CaseData {
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
   applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
   applicant1DispenseLiveTogether: YesOrNo;
+  applicant1DispenseLivedTogetherDate: DateAsString;
 }
 
 export interface CaseDocuments {
@@ -1096,6 +1097,7 @@ export interface DeemedServiceJourneyOptions {
 export interface DispenseWithServiceJourneyOptions {
   interimAppsUseHelpWithFees: YesOrNo;
   dispenseLiveTogether: YesOrNo;
+  dispenseLivedTogetherDate: DateAsString;
 }
 
 export interface RequestForInformationResponse {

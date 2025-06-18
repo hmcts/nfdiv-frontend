@@ -211,6 +211,9 @@ const fields: FromApiConverters = {
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
   applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
   applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
+  applicant1DispenseLivedTogetherDate: data => ({
+    applicant1DispenseLastLivedTogetherDate: fromApiDate(data.applicant1DispenseLivedTogetherDate),
+  }),
 };
 
 const fromApiDate = date => {
