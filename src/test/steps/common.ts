@@ -80,6 +80,13 @@ export const iClickSubmit = (): void => {
   iClickElement('#main-form-submit');
 };
 
+export const iRejectCookies = (): void => {
+  iClickElement('button.cookie-banner-reject-button');
+  iClickElement('button.cookie-banner-hide-button');
+};
+
+When('I reject cookies', iRejectCookies);
+
 export const iWait = (time: number): void => {
   I.wait(time);
 };
@@ -135,6 +142,10 @@ When('I click continue', iClickSubmit);
 When('I click send for review', iClickSubmit);
 When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
+
+Then('the page should show an error for field {string}', (fieldName: string) => {
+  I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
+});
 
 Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
