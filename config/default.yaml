@@ -30,7 +30,7 @@ fees:
   updateApplication: DivorceAmendPetition
   finalOrderApplicationFee: GAOnNotice
 govuk:
-  enableRebrand: true
+  enableRebrand: ENABLE_GOVUK_REBRAND
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
