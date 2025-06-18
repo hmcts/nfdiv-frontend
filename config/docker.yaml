@@ -4,3 +4,5 @@ services:
     checkDivCases: false
   idam:
     caching: true
+govuk:
+  enableRebrand: true

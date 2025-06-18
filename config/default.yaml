@@ -29,6 +29,8 @@ fees:
   d8bFormSubmission: DivAnswerReceived
   updateApplication: DivorceAmendPetition
   finalOrderApplicationFee: GAOnNotice
+govuk:
+  enableRebrand: true
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
