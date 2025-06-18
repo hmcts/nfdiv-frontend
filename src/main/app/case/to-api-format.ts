@@ -99,6 +99,17 @@ const fields: ToApiConverters = {
   relationshipDate: data => ({
     marriageDate: toApiDate(data.relationshipDate),
   }),
+  applicant1BailiffPartnersDateOfBirth: data => ({
+    applicant1BailiffPartnersDateOfBirth: toApiDate(data.applicant1BailiffPartnersDateOfBirth),
+  }),
+  applicant1BailiffKnowPartnersDateOfBirth: data => ({
+    applicant1BailiffKnowPartnersDateOfBirth: data.applicant1BailiffKnowPartnersDateOfBirth,
+    ...setUnreachableAnswersToNull([
+      data.applicant1BailiffKnowPartnersDateOfBirth === YesOrNo.YES
+        ? 'applicant1BailiffPartnersApproximateAge'
+        : 'applicant1BailiffPartnersDateOfBirth',
+    ]),
+  }),
   doesApplicant1WantToApplyForFinalOrder: data => ({
     doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
   }),
@@ -439,10 +450,15 @@ const fields: ToApiConverters = {
   }),
 };
 
-const toApiDate = (date: CaseDate | undefined) => {
+const toApiDate = (date: CaseDate | undefined | string) => {
+  if (typeof date === 'string') {
+    return date;
+  }
+
   if (!date?.year || !date?.month || !date?.day) {
     return '';
   }
+
   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
 };
 

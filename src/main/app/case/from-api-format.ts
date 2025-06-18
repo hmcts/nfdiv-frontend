@@ -38,6 +38,9 @@ const fields: FromApiConverters = {
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
   }),
+  applicant1BailiffPartnersDateOfBirth: data => ({
+    applicant1BailiffPartnersDateOfBirth: fromApiDate(data.applicant1BailiffPartnersDateOfBirth),
+  }),
   doesApplicant1WantToApplyForFinalOrder: data => ({
     doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
   }),

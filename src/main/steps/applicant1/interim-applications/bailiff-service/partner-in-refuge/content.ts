@@ -29,9 +29,9 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.yes, value: YesOrNoOrNotKnown.YES },
-        { label: l => l.no, value: YesOrNoOrNotKnown.NO },
-        { label: l => l.notKnown, value: YesOrNoOrNotKnown.NOT_KNOWN },
+        { label: l => l.yes, value: YesOrNoOrNotKnown.YES, id: 'yes' },
+        { label: l => l.no, value: YesOrNoOrNotKnown.NO, id: 'no' },
+        { label: l => l.notKnown, value: YesOrNoOrNotKnown.NOT_KNOWN, id: 'notKnown' },
       ],
       validator: value => isFieldFilledIn(value),
     },

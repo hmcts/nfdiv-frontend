@@ -691,4 +691,28 @@ describe('to-api-format', () => {
       expect(apiFormat).toMatchObject({ applicant2InRefuge: expected });
     });
   });
+
+  describe('applicant1BailiffKnowPartnersDateOfBirth transformation', () => {
+    test('sets date of birth to null if the date of birth is not known', () => {
+      const apiFormat = toApiFormat({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.NO,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.NO,
+        applicant1BailiffPartnersDateOfBirth: null,
+      });
+    });
+
+    test('sets approx age to null if the date of birth is known', () => {
+      const apiFormat = toApiFormat({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
+        applicant1BailiffPartnersApproximateAge: null,
+      });
+    });
+  });
 });

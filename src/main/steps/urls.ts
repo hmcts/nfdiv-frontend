@@ -201,3 +201,10 @@ export const ENTER_PARTNERS_NAME_BAILIFF: PageLink = '/interim-applications/bail
 export const PARTNER_IN_REFUGE_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-in-refuge';
 export const PARTNER_ADDRESS_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-address';
 export const PARTNER_PHONE_NUMBER_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-phone-number';
+export const PARTNER_DATE_OF_BIRTH_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-date-of-birth';
+export const PARTNER_HEIGHT_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-height';
+export const PARTNER_HAIR_COLOUR_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-hair-colour';
+export const PARTNER_EYE_COLOUR_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-eye-colour';
+export const PARTNER_ETHNIC_GROUP_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-ethnic-group';
+export const PARTNER_DISTINGUISHING_FEATURES_BAILIFF: PageLink =
+  '/interim-applications/bailiff-service/partner-distinguishing-features';
