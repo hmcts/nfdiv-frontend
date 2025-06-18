@@ -1,0 +1,29 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l" id="dispensedServiceApplicationTitle">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
+  <h2 class="govuk-heading-m">{{ whatYouNeedToDoHeader }}</h2>
+  <p class="govuk-body">{{ proveToTheCourt.title }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ proveToTheCourt.options.contact }}</li>
+    <li>{{ proveToTheCourt.options.friends }}</li>
+    <li>{{ proveToTheCourt.options.find }}</li>
+    <li>{{ proveToTheCourt.options.online }}</li>
+    <li>{{ proveToTheCourt.options.searchGovRecords }}</li>
+    <li>{{ proveToTheCourt.options.employer }}</li>
+  </ul>
+  <p class="govuk-body">{{ line3 | safe }}</p>
+  <p class="govuk-body">{{ line4 }}</p>
+  <p class="govuk-body">{{ line5 | safe }}</p>
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
+{% endblock %}

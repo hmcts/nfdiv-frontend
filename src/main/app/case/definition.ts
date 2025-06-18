@@ -1047,6 +1047,8 @@ export interface CaseData {
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
+  applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
 }
 
 export interface CaseDocuments {
@@ -1073,6 +1075,8 @@ export interface NoResponseJourneyOptions {
   noResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
   noResponseOwnSearches: NoResponseOwnSearches;
   noResponseRespondentAddressInEnglandWales: YesOrNo;
+  noResponsePartnerInUkOrReceivingBenefits: YesOrNo;
+  noResponseSearchOrDispense: NoResponseSearchOrDispense;
 }
 
 export interface DeemedServiceJourneyOptions {
@@ -2507,6 +2511,11 @@ export const enum NoResponseOwnSearches {
   YES = 'yes',
   NO = 'no',
   NOT_FOUND = 'notFound',
+}
+
+export const enum NoResponseSearchOrDispense {
+  SEARCH = 'search',
+  DISPENSE = 'dispense',
 }
 
 /**
