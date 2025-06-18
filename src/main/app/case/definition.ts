@@ -1049,6 +1049,7 @@ export interface CaseData {
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
   applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
+  applicant1DispenseLiveTogether: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1090,6 +1091,11 @@ export interface DeemedServiceJourneyOptions {
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
+}
+
+export interface DispenseWithServiceJourneyOptions {
+  interimAppsUseHelpWithFees: YesOrNo;
+  dispenseLiveTogether: YesOrNo;
 }
 
 export interface RequestForInformationResponse {
