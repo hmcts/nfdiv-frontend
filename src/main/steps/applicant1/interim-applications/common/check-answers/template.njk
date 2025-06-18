@@ -28,6 +28,8 @@
               {% endif %}
               {{ havingTroubleUploading }}
             {% endif %}
+          {% elif question === 'newPostalAddress' %}
+            {{ stepAnswers[question] | safe}}
           {% else %}
             {{ stepAnswers[question] }}
           {% endif %}
@@ -62,11 +64,13 @@
     {% endif %}
 
   {% block form %}
+    {% if showStatementOfTruth %}
     <h1 class="govuk-heading-m">{{ statementOfTruth.title }}</h1>
     {{ govukWarningText({
       text: statementOfTruth.warning,
       iconFallbackText: "Warning"
     }) }}
+  {% endif %}
     {% include "./form.njk" %}
   {% endblock %}
 {% endblock %}
