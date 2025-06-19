@@ -8,6 +8,7 @@ import {
   HUB_PAGE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
+  LAST_ADDRESS_DISPENSE,
   LAST_DATE_DISPENSE,
 } from './urls';
 
@@ -38,6 +39,10 @@ export const dispenseServiceApplicationSequence: Step[] = [
   },
   {
     url: LAST_DATE_DISPENSE,
+    getNextStep: () => LAST_ADDRESS_DISPENSE,
+  },
+  {
+    url: LAST_ADDRESS_DISPENSE,
     getNextStep: () => HUB_PAGE,
   },
 ];
