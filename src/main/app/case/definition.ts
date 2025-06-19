@@ -548,8 +548,6 @@ export interface CaseData {
   applicant1LegalProceedingsDetails: string;
   applicant1LegalProceedingsDetailsTranslated: string;
   applicant1LegalProceedingsDetailsTranslatedTo: TranslatedToLanguage;
-  applicant1LegalProceedingsConcluded: YesOrNo;
-  applicant1UnableToUploadEvidence: YesOrNo;
   applicant1PcqId: string;
   applicant1ContinueApplication: YesOrNo;
   applicant1PrayerDissolveDivorce: DissolveDivorce[];

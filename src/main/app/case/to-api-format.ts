@@ -330,9 +330,6 @@ const fields: ToApiConverters = {
       ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails'])
       : {}),
   }),
-  applicant1UnableToUploadEvidence: data => ({
-    applicant1UnableToUploadEvidence: checkboxConverter(data.applicant1UnableToUploadEvidence),
-  }),
   applicant2UnableToUploadEvidence: data => ({
     applicant2UnableToUploadEvidence: checkboxConverter(data.applicant2UnableToUploadEvidence),
   }),

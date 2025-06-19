@@ -182,9 +182,6 @@ const fields: FromApiConverters = {
   }),
   requestsForInformation: 'requestsForInformation',
   applicant2LegalProceedingDocs: uploadedFilesFromApiApplicant2,
-  applicant1UnableToUploadEvidence: data => ({
-    applicant1UnableToUploadEvidence: checkboxConverter(data.applicant1UnableToUploadEvidence),
-  }),
   applicant2UnableToUploadEvidence: data => ({
     applicant2UnableToUploadEvidence: checkboxConverter(data.applicant2UnableToUploadEvidence),
   }),
