@@ -6,6 +6,7 @@ import {
   ApplicationType,
   CaseData,
   ChangedNameHow,
+  ChangedNameWhy,
   ClarificationReason,
   ClarificationResponse,
   ConditionalOrderCourt,
@@ -70,6 +71,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2ConfirmReceipt: 'applicant2ConfirmReceipt',
   applicant1LastNameChangedWhenMarried: 'applicant1LastNameChangedWhenMarried',
   applicant1NameDifferentToMarriageCertificate: 'applicant1NameDifferentToMarriageCertificate',
+  applicant1WhyNameDifferent: 'applicant1WhyNameDifferent',
+  applicant1WhyNameDifferentOtherDetails: 'applicant1WhyNameDifferentOtherDetails',
+  applicant2WhyNameDifferent: 'applicant2WhyNameDifferent',
+  applicant2WhyNameDifferentOtherDetails: 'applicant2WhyNameDifferentOtherDetails',
   applicant1NameChangedHow: 'applicant1NameChangedHow',
   applicant1NameChangedHowOtherDetails: 'applicant1NameChangedHowOtherDetails',
   applicant1LastNameChangedWhenMarriedMethod: 'applicant1LastNameChangedWhenMarriedMethod',
@@ -284,6 +289,10 @@ export interface Case {
   applicant1LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
   applicant1LastNameChangedWhenMarriedOtherDetails?: string;
   applicant1NameDifferentToMarriageCertificate?: YesOrNo;
+  applicant1WhyNameDifferent: ChangedNameWhy[];
+  applicant1WhyNameDifferentOtherDetails: string;
+  applicant2WhyNameDifferent: ChangedNameWhy[];
+  applicant2WhyNameDifferentOtherDetails: string;
   applicant1NameDifferentToMarriageCertificateMethod?: ChangedNameHow[];
   applicant1NameDifferentToMarriageCertificateOtherDetails?: string;
   applicant1NameChangedHow?: ChangedNameHow[];
