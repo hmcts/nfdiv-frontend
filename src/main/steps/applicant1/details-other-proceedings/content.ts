@@ -92,15 +92,8 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const amendable = true;
-  const uploadContentScript = `{
-    "isAmendableStates": ${content.isAosAmendableState},
-    "delete": "${content.delete}"
-  }`;
   return {
     ...translations,
-    amendable,
-    uploadContentScript,
     form,
   };
 };

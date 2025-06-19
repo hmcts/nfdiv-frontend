@@ -185,6 +185,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationDetails: 'requestForInformationDetails',
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
+  applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {

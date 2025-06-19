@@ -124,7 +124,10 @@ export class DocumentManagerController {
       )
     ) {
       documentsUploadedKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
+    } else if (req.session.userCase.state === State.AosDrafted) {
+      documentsUploadedKey = 'applicant2LegalProceedingDocs';
     }
+
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
@@ -145,6 +148,7 @@ export class DocumentManagerController {
           State.InformationRequested,
           State.AwaitingRequestedInformation,
           State.RequestedInformationSubmitted,
+          State.AosDrafted,
         ].includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot delete documents as case is not in the correct state');

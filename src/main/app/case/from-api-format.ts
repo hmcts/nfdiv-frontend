@@ -181,6 +181,7 @@ const fields: FromApiConverters = {
     app2RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app2RfiDraftResponseCannotUploadDocs),
   }),
   requestsForInformation: 'requestsForInformation',
+  applicant2LegalProceedingDocs: uploadedFilesFromApiApplicant2,
   applicant1UnableToUploadEvidence: data => ({
     applicant1UnableToUploadEvidence: checkboxConverter(data.applicant1UnableToUploadEvidence),
   }),

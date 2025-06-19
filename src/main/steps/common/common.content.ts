@@ -319,13 +319,14 @@ export const generateCommonContent = ({
   const isAmendableStates =
     userCase &&
     userCase.state &&
-    [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state);
+    [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response, State.AosDrafted].includes(
+      userCase.state
+    );
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
   const isRequestForInformationAmendableState =
     userCase &&
     userCase.state &&
     [State.InformationRequested, State.RequestedInformationSubmitted].includes(userCase.state);
-  const isAosAmendableState = userCase && (userCase.state === State.AwaitingAos || userCase.state === State.AosDrafted);
   const isGeneralConsiderationFoRequested =
     userCase &&
     (userCase?.state === State.GeneralConsiderationComplete ||
@@ -369,7 +370,6 @@ export const generateCommonContent = ({
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
-    isAosAmendableState,
   };
 };
 
@@ -388,7 +388,6 @@ export type CommonContent = typeof en & {
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
   isRequestForInformationAmendableState: boolean | undefined;
-  isAosAmendableState: boolean | undefined;
   isApp1Represented: boolean;
   isGeneralConsiderationFoRequested: boolean;
   isGeneralConsiderationCoPronounced: boolean;
