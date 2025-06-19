@@ -142,7 +142,14 @@ const en = ({ isApplicant2, isDivorce, userCase, partner, required, isJointAppli
   },
 });
 
-const cy: typeof en = ({ isApplicant2, isDivorce, userCase, partner, required, isJointApplication }: CommonContent) => ({
+const cy: typeof en = ({
+  isApplicant2,
+  isDivorce,
+  userCase,
+  partner,
+  required,
+  isJointApplication,
+}: CommonContent) => ({
   title: `Eich cais ar y cyd ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'}`,
   subtitle: `Darllenwch eich cais ar y cyd ${
     isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
