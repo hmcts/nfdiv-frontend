@@ -63,7 +63,7 @@ Feature: Applicant 1 joint application
     And I type "Smith"
 
     When I click "Continue"
-    Then the page should include "Is Sarah Smith exactly how your name is written on your marriage certificate?"
+    Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
     Given I select "Yes"
 
     When I click "Continue"
@@ -252,7 +252,7 @@ Feature: Applicant 1 joint application
     And I type "Smith"
 
     When I click "Continue"
-    Then the page should include "Is Sarah Smith exactly how your name is written on your marriage certificate?"
+    Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
     Given I select "Yes"
 
     When I click "Continue"

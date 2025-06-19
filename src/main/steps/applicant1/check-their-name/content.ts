@@ -22,13 +22,13 @@ const en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required
     warningPart2: `If you do not provide evidence to explain the difference in your ${partner}'s legal name and how it is written on the ${
       isDivorce ? 'marriage' : 'civil partnership'
     } certificate, your conditional order will be delayed until an explanation or evidence is provided.`,
-    doesNameMatchTheCertificate: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
+    doesNameMatchTheCertificate: `Is any part of your ${partner}'s full name (${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
       userCase.applicant2LastNames
-    } exactly how your ${partner}'s name is written on your ${isDivorce ? marriage : civilPartnership} certificate?`,
+    }) written differently on your ${isDivorce ? marriage : civilPartnership} certificate?`,
     yes: 'Yes',
     no: 'No',
     errors: {
-      applicant2ConfirmNameMatchesCertificate: {
+      applicant2NameDifferentToMarriageCertificate: {
         required,
       },
     },
@@ -68,7 +68,7 @@ const cy: typeof en = ({ userCase, isDivorce, partner, required }) => {
     yes: 'Ydy',
     no: 'Nac ydy',
     errors: {
-      applicant2ConfirmNameMatchesCertificate: {
+      applicant2NameDifferentToMarriageCertificate: {
         required,
       },
     },
@@ -77,7 +77,7 @@ const cy: typeof en = ({ userCase, isDivorce, partner, required }) => {
 
 export const form: FormContent = {
   fields: {
-    applicant2ConfirmNameMatchesCertificate: {
+    applicant2NameDifferentToMarriageCertificate: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.doesNameMatchTheCertificate,

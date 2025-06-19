@@ -283,7 +283,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: YOUR_CERTIFICATE_NAME,
     getNextStep: data =>
-      data.applicant1ConfirmNameMatchesCertificate === YesOrNo.NO
+      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES
         ? CHANGES_TO_YOUR_NAME_URL
         : data.applicationType === ApplicationType.SOLE_APPLICATION
           ? THEIR_NAME
@@ -305,7 +305,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: THEIR_CERTIFICATE_NAME,
     getNextStep: data =>
-      data.applicant2ConfirmNameMatchesCertificate === YesOrNo.NO
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
         ? CHANGES_TO_THEIR_NAME_URL
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },

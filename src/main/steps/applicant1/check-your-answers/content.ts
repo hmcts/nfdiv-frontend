@@ -202,19 +202,17 @@ const en = ({
       line14: "How you're connected to England and Wales",
     },
     aboutPartners: {
-      line1: `Is ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
+      line1: `Is any part of your full name (${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
         userCase.applicant1LastNames
-      } exactly how your name is written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      }) written differently on your ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line2: `How is your name written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line3: `Why is your legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line4: 'Other details of why you changed your name',
       line5: 'How did you change your name?',
       line6: 'Other details of how you changed your name',
-      line7: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
+      line7: `Is any part of your ${partner}'s full name (${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
         userCase.applicant2LastNames
-      } exactly how your ${partner}'s name is written on the ${
-        isDivorce ? 'marriage' : 'civil partnership'
-      } certificate?`,
+      }) written differently on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line8: `How is your ${partner}'s name written on the ${
         isDivorce ? 'marriage' : 'civil partnership'
       } certificate?`,
@@ -355,7 +353,7 @@ const en = ({
           : '',
     },
     aboutPartners: {
-      line1: `${stripTags(userCase.applicant1ConfirmNameMatchesCertificate)}`,
+      line1: `${stripTags(userCase.applicant1NameDifferentToMarriageCertificate)}`,
       line2: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
       line3: `${stripTags(userCase.applicant1WhyNameDifferent)
         ?.join(' / ')
@@ -382,7 +380,7 @@ const en = ({
           : ''
       }`,
       line6: `${stripTags(userCase.applicant1NameDifferentToMarriageCertificateOtherDetails)}`,
-      line7: `${stripTags(userCase.applicant2ConfirmNameMatchesCertificate)}`,
+      line7: `${stripTags(userCase.applicant2NameDifferentToMarriageCertificate)}`,
       line8: `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
       line9: `${stripTags(
         userCase.applicant2WhyNameDifferent
@@ -771,19 +769,17 @@ const cy: typeof en = ({
       line14: "Sut rydych wedi'ch cysylltu â Chymru a Lloegr",
     },
     aboutPartners: {
-      line1: `Is ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
+      line1: `Is any part of your full name (${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
         userCase.applicant1LastNames
-      } exactly how your name is written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      }) written differently on your ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line2: `How is your name written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line3: `Why is your legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line4: 'Details of why you changed your name:',
       line5: 'How did you change your name?',
       line6: 'Details of how you changed your name:',
-      line7: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
+      line7: `Is any part of your ${partner}'s full name (${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
         userCase.applicant2LastNames
-      } exactly how your ${partner}'s name is written on the ${
-        isDivorce ? 'marriage' : 'civil partnership'
-      } certificate?`,
+      }) written differently on your ${partner}'s ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line8: `How is your ${partner}'s name written on the ${
         isDivorce ? 'marriage' : 'civil partnership'
       } certificate?`,
@@ -931,7 +927,7 @@ const cy: typeof en = ({
           : '',
     },
     aboutPartners: {
-      line1: `${stripTags(userCase.applicant1ConfirmNameMatchesCertificate)}`,
+      line1: `${stripTags(userCase.applicant1NameDifferentToMarriageCertificate)}`,
       line2: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
       line3: `${stripTags(userCase.applicant1WhyNameDifferent)
         ?.join(' / ')
@@ -958,7 +954,7 @@ const cy: typeof en = ({
           : ''
       }`,
       line6: `${stripTags(userCase.applicant1NameDifferentToMarriageCertificateOtherDetails)}`,
-      line7: `${stripTags(userCase.applicant2ConfirmNameMatchesCertificate)}`,
+      line7: `${stripTags(userCase.applicant2NameDifferentToMarriageCertificate)}`,
       line8: `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
       line9: `${stripTags(userCase.applicant2WhyNameDifferent)
         ?.join(' / ')

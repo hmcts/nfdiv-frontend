@@ -19,13 +19,13 @@ const en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required
     warning: `If the name on your ${
       isDivorce ? marriage : civilPartnership
     } certificate does not match the name you have provided, you will have to upload some evidence like a government issued ID, a passport, driving license, birth certificate, or deed poll.`,
-    doesNameMatchTheCertificate: `Is ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
+    doesNameMatchTheCertificate: `Is any part of your full name (${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
       userCase.applicant1LastNames
-    } exactly how your name is written on your ${isDivorce ? marriage : civilPartnership} certificate?`,
+    }) written differently on your ${isDivorce ? marriage : civilPartnership} certificate?`,
     yes: 'Yes',
     no: 'No',
     errors: {
-      applicant1ConfirmNameMatchesCertificate: {
+      applicant1NameDifferentToMarriageCertificate: {
         required,
       },
     },
@@ -60,7 +60,7 @@ const cy: typeof en = ({ userCase, isDivorce, marriage, civilPartnership, partne
     yes: 'Ydy',
     no: 'Nac ydy',
     errors: {
-      applicant1ConfirmNameMatchesCertificate: {
+      applicant1NameDifferentToMarriageCertificate: {
         required,
       },
     },
@@ -69,7 +69,7 @@ const cy: typeof en = ({ userCase, isDivorce, marriage, civilPartnership, partne
 
 export const form: FormContent = {
   fields: {
-    applicant1ConfirmNameMatchesCertificate: {
+    applicant1NameDifferentToMarriageCertificate: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.doesNameMatchTheCertificate,

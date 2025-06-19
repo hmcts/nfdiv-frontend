@@ -57,7 +57,7 @@ Feature: Applicant 1 sole application
     And I type "Smith"
 
     When I click "Continue"
-    Then the page should include "Is Sarah Smith exactly how your name is written on your marriage certificate?"
+    Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
     Given I select "Yes"
 
     When I click "Continue"
@@ -74,7 +74,7 @@ Feature: Applicant 1 sole application
     And I type "Bob"
 
     When I click "Continue"
-    Then the page should include "Is Billy Bob exactly how your husband's name is written on your marriage certificate?"
+    Then the page should include "Is any part of your husband's full name (Billy Bob) written differently on your marriage certificate?"
     Given I select "Yes"
 
     When I click "Continue"
@@ -282,7 +282,7 @@ Feature: Applicant 1 sole application
     And I type "Smith"
 
     When I click "Continue"
-    Then the page should include "Is Sarah Smith exactly how your name is written on your marriage certificate?"
+    Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
     Given I select "No"
 
     When I click "Continue"
@@ -303,7 +303,7 @@ Feature: Applicant 1 sole application
     And I type "Bob"
 
     When I click "Continue"
-    Then the page should include "Is Billy Bob exactly how your husband's name is written on your marriage certificate?"
+    Then the page should include "Is any part of your husband's full name written differently on your marriage certificate?"
     Given I select "Yes"
 
     When I click "Continue"

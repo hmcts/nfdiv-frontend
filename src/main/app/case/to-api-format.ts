@@ -245,9 +245,9 @@ const fields: ToApiConverters = {
         ? data.applicant2NameDifferentToMarriageCertificateMethod
         : [],
   }),
-  applicant1ConfirmNameMatchesCertificate: data => ({
-    applicant1ConfirmNameMatchesCertificate: data.applicant1ConfirmNameMatchesCertificate,
-    ...(data.applicant1ConfirmNameMatchesCertificate === YesOrNo.YES
+  applicant1NameDifferentToMarriageCertificate: data => ({
+    applicant1NameDifferentToMarriageCertificate: data.applicant1NameDifferentToMarriageCertificate,
+    ...(data.applicant1NameDifferentToMarriageCertificate === YesOrNo.NO
       ? setUnreachableAnswersToNull([
           'applicant1WhyNameDifferent',
           'applicant1WhyNameDifferentOtherDetails',
@@ -256,9 +256,9 @@ const fields: ToApiConverters = {
         ])
       : {}),
   }),
-  applicant2ConfirmNameMatchesCertificate: data => ({
-    applicant2ConfirmNameMatchesCertificate: data.applicant2ConfirmNameMatchesCertificate,
-    ...(data.applicant2ConfirmNameMatchesCertificate === YesOrNo.YES
+  applicant2NameDifferentToMarriageCertificate: data => ({
+    applicant2NameDifferentToMarriageCertificate: data.applicant2NameDifferentToMarriageCertificate,
+    ...(data.applicant2NameDifferentToMarriageCertificate === YesOrNo.NO
       ? setUnreachableAnswersToNull([
           'applicant2WhyNameDifferent',
           'applicant2WhyNameDifferentOtherDetails',

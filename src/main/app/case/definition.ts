@@ -511,8 +511,6 @@ export interface CaseData {
   applicant1MiddleName: string;
   applicant1LastName: string;
   applicant1ConfirmFullName: YesOrNo;
-  applicant1ConfirmNameMatchesCertificate: YesOrNo;
-  applicant2ConfirmNameMatchesCertificate: YesOrNo;
   applicant1Email: string;
   applicant1AgreedToReceiveEmails: YesOrNo;
   applicant1ConfirmReceipt: YesOrNo;

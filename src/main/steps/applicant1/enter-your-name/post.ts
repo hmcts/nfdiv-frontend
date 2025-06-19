@@ -12,10 +12,10 @@ export default class EnterYourNamePostController extends PostController<AnyObjec
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     if (req.session.isApplicant2) {
       formData.applicant2ConfirmFullName = null;
-      formData.applicant2ConfirmNameMatchesCertificate = null;
+      formData.applicant2NameDifferentToMarriageCertificate = undefined;
     } else {
       formData.applicant1ConfirmFullName = null;
-      formData.applicant1ConfirmNameMatchesCertificate = null;
+      formData.applicant1NameDifferentToMarriageCertificate = undefined;
     }
     return super.save(req, formData, eventName);
   }

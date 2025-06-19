@@ -39,7 +39,7 @@ describe('EnterYourNamePostController', () => {
       {
         ...body,
         applicant1ConfirmFullName: null,
-        applicant1ConfirmNameMatchesCertificate: null,
+        applicant1NameDifferentToMarriageCertificate: null,
       },
       CITIZEN_UPDATE
     );
@@ -71,7 +71,7 @@ describe('EnterYourNamePostController', () => {
       {
         ...body,
         applicant2ConfirmFullName: null,
-        applicant2ConfirmNameMatchesCertificate: null,
+        applicant2NameDifferentToMarriageCertificate: null,
       },
       CITIZEN_APPLICANT2_UPDATE
     );

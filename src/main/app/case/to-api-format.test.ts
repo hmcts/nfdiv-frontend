@@ -696,11 +696,11 @@ describe('to-api-format', () => {
   describe('applicant 1 name confirmation', () => {
     test('blanks out unreachable fields if name matches certificate', () => {
       const apiFormat = toApiFormat({
-        applicant1ConfirmNameMatchesCertificate: YesOrNo.YES,
+        applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
       } as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
-        applicant1ConfirmNameMatchesCertificate: YesOrNo.YES,
+        applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
         applicant1WhyNameDifferent: null,
         applicant1WhyNameDifferentOtherDetails: null,
         applicant1NameDifferentToMarriageCertificateMethod: null,
@@ -725,11 +725,11 @@ describe('to-api-format', () => {
   describe('applicant 2 name confirmation', () => {
     test('blanks out unreachable fields if name matches certificate', () => {
       const apiFormat = toApiFormat({
-        applicant2ConfirmNameMatchesCertificate: YesOrNo.YES,
+        applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
       } as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
-        applicant2ConfirmNameMatchesCertificate: YesOrNo.YES,
+        applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
         applicant2WhyNameDifferent: null,
         applicant2WhyNameDifferentOtherDetails: null,
         applicant2NameDifferentToMarriageCertificateMethod: null,
