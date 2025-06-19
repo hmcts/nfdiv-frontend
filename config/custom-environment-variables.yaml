@@ -1,4 +1,6 @@
 forceCivilMode: FORCE_CIVIL_MODE
+govuk:
+  enableRebrand: ENABLE_GOVUK_REBRAND
 services:
   authProvider:
     url: SERVICE_AUTH_PROVIDER_URL

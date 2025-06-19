@@ -91,6 +91,8 @@ export class Nunjucks {
 
     env.addGlobal('globals', globals);
 
+    env.addGlobal('govukRebrand', config.get('govuk.enableRebrand'));
+
     env.addFilter('json', function (value, spaces) {
       if (value instanceof nunjucks.runtime.SafeString) {
         value = value.toString();
