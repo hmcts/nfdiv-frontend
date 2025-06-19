@@ -5,7 +5,9 @@ import { LoggerInstance } from 'winston';
 
 import {
   APPLICANT_2,
+  DETAILS_OTHER_PROCEEDINGS,
   PROVIDE_INFORMATION_TO_THE_COURT,
+  RESPONDENT,
   RESPOND_TO_COURT_FEEDBACK,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
@@ -25,6 +27,8 @@ export class DocumentManagerController {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
+    } else if ([State.AosDrafted].includes(req.session.userCase.state)) {
+      return res.redirect(`${isApplicant2 ? RESPONDENT : ''}${DETAILS_OTHER_PROCEEDINGS}`);
     }
     return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
   }

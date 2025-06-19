@@ -1,12 +1,26 @@
 import { isObject } from 'lodash';
+
 import { Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
+import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { generateContent as applicant2GenerateContent } from '../../applicant2/details-other-proceedings/content';
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
+import { generateContent as applicant1GenerateContent } from '../../applicant1/details-other-proceedings/content';
 
+const labels = applicant1Content => ({
+  errors: {
+    applicant2LegalProceedingsDetails: applicant1Content.errors.applicant1LegalProceedingsDetails,
+    applicant2LegalProceedingUploadedFiles: {
+      notUploaded:
+        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
+    },
+    applicant2UnableToUploadEvidence: {
+      notUploaded:
+        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: userCase => ({
@@ -44,10 +58,27 @@ export const form: FormContent = {
           ? JSON.stringify(userCase.applicant2LegalProceedingUploadedFiles)
           : userCase.applicant2LegalProceedingUploadedFiles) || '[]',
       parser: data => JSON.parse((data as Record<string, string>).applicant2LegalProceedingUploadedFiles || '[]'),
+      validator: (value, formData) => {
+        const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
+        const selectedCannotUploadDocuments = !!formData.applicant2UnableToUploadEvidence?.length;
+        if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
+          return 'notUploaded';
+        }
+      },
     },
     applicant2UnableToUploadEvidence: {
       type: 'checkboxes',
-      label: 'test',
+      label: l => l.unableToUploadEvidence,
+      labelHidden: true,
+      validator: (value, formData) => {
+        const hasUploadedFiles =
+          (formData.applicant2LegalProceedingUploadedFiles as unknown as string[])?.length &&
+          (formData.applicant2LegalProceedingUploadedFiles as unknown as string) !== '[]';
+        const selectedCannotUploadDocuments = !!formData.applicant2UnableToUploadEvidence?.length;
+        if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
+          return 'notUploaded';
+        }
+      },
       values: [
         {
           name: 'applicant2UnableToUploadEvidence',
@@ -63,7 +94,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const applicant2Content = applicant2GenerateContent(content);
+  const applicant1Content = applicant1GenerateContent(content);
   const uploadedDocsFilenames = content.userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
   const uploadContentScript = `{
@@ -71,7 +102,8 @@ export const generateContent: TranslationFn = content => {
     "delete": "${content.delete}"
   }`;
   return {
-    ...applicant2Content,
+    ...applicant1Content,
+    ...labels(applicant1Content),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     amendable,
     uploadedDocsFilenames,
