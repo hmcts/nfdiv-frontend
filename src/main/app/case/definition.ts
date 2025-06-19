@@ -1053,6 +1053,7 @@ export interface CaseData {
   applicant1DispenseLivedTogetherDate: DateAsString;
   applicant1DispenseLivedTogetherAddress: AddressGlobalUK;
   applicant1DispenseLivedTogetherAddressOverseas: YesOrNo;
+  applicant1DispenseAwarePartnerLived: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1102,6 +1103,7 @@ export interface DispenseWithServiceJourneyOptions {
   dispenseLivedTogetherDate: DateAsString;
   dispenseLivedTogetherAddress: AddressGlobalUK;
   dispenseLivedTogetherAddressOverseas: YesOrNo;
+  dispenseAwarePartnerLived: YesOrNo;
 }
 
 export interface RequestForInformationResponse {
