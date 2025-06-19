@@ -214,6 +214,10 @@ const fields: FromApiConverters = {
   applicant1DispenseLivedTogetherDate: data => ({
     applicant1DispenseLastLivedTogetherDate: fromApiDate(data.applicant1DispenseLivedTogetherDate),
   }),
+  applicant1DispenseLivedTogetherAddress: data => formatAddress(data, 'applicant1DispenseLivedTogether'),
+  applicant1DispenseLivedTogetherAddressOverseas: ({ applicant1DispenseLivedTogetherAddressOverseas }) => ({
+    applicant1DispenseLivedTogetherAddressOverseas: applicant1DispenseLivedTogetherAddressOverseas ?? YesOrNo.NO,
+  }),
 };
 
 const fromApiDate = date => {

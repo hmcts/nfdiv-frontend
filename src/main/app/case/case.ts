@@ -482,6 +482,14 @@ export interface Case {
   applicant1DispenseLiveTogether?: YesOrNo;
   applicant1DispenseLivedTogetherDate?: DateAsString;
   applicant1DispenseLastLivedTogetherDate?: CaseDate;
+  applicant1DispenseLivedTogetherAddress1?: string;
+  applicant1DispenseLivedTogetherAddress2?: string;
+  applicant1DispenseLivedTogetherAddress3?: string;
+  applicant1DispenseLivedTogetherAddressTown?: string;
+  applicant1DispenseLivedTogetherAddressCounty?: string;
+  applicant1DispenseLivedTogetherAddressPostcode?: string;
+  applicant1DispenseLivedTogetherAddressCountry?: string;
+  applicant1DispenseLivedTogetherAddressOverseas?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

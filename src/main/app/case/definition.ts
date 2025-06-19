@@ -1051,6 +1051,8 @@ export interface CaseData {
   applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
   applicant1DispenseLiveTogether: YesOrNo;
   applicant1DispenseLivedTogetherDate: DateAsString;
+  applicant1DispenseLivedTogetherAddress: AddressGlobalUK;
+  applicant1DispenseLivedTogetherAddressOverseas: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1098,6 +1100,8 @@ export interface DispenseWithServiceJourneyOptions {
   interimAppsUseHelpWithFees: YesOrNo;
   dispenseLiveTogether: YesOrNo;
   dispenseLivedTogetherDate: DateAsString;
+  dispenseLivedTogetherAddress: AddressGlobalUK;
+  dispenseLivedTogetherAddressOverseas: YesOrNo;
 }
 
 export interface RequestForInformationResponse {
