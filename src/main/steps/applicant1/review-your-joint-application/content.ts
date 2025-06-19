@@ -15,9 +15,9 @@ import {
 } from '../../../app/jurisdiction/moreDetailsContent';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields, getName } from '../../common/content.utils';
-import { CHECK_CONTACT_DETAILS } from '../../urls';
+import { APPLICANT_2, CHECK_CONTACT_DETAILS } from '../../urls';
 
-const en = ({ isDivorce, userCase, partner, required, isJointApplication }: CommonContent) => ({
+const en = ({ isApplicant2, isDivorce, userCase, partner, required, isJointApplication }: CommonContent) => ({
   title: `Review your joint ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   subtitle: `Read your joint application ${
     isDivorce ? 'for divorce' : 'to end your civil partnership'
@@ -122,7 +122,7 @@ const en = ({ isDivorce, userCase, partner, required, isJointApplication }: Comm
   reasonInformationNotCorrect: {
     heading1: 'Changing your contact details',
     part1: 'You can update your email address, phone number and postal address in the ',
-    link: CHECK_CONTACT_DETAILS,
+    link: `${isApplicant2 ? APPLICANT_2 + CHECK_CONTACT_DETAILS : CHECK_CONTACT_DETAILS}`,
     linkText: `'contact details' section of your ${isDivorce ? 'divorce' : ''} account.`,
     part2: 'There is no cost for this.',
     heading2: 'Changing any other information',
@@ -142,7 +142,7 @@ const en = ({ isDivorce, userCase, partner, required, isJointApplication }: Comm
   },
 });
 
-const cy: typeof en = ({ isDivorce, userCase, partner, required, isJointApplication }: CommonContent) => ({
+const cy: typeof en = ({ isApplicant2, isDivorce, userCase, partner, required, isJointApplication }: CommonContent) => ({
   title: `Eich cais ar y cyd ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'}`,
   subtitle: `Darllenwch eich cais ar y cyd ${
     isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
@@ -250,7 +250,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, required, isJointApplicat
   reasonInformationNotCorrect: {
     heading1: 'Newid eich manylion cyswllt',
     part1: 'Gallwch ddiweddaru eich cyfeiriad e-bost, eich rhif ffôn a’ch cyfeiriad post yn yr ',
-    link: CHECK_CONTACT_DETAILS,
+    link: `${isApplicant2 ? APPLICANT_2 + CHECK_CONTACT_DETAILS : CHECK_CONTACT_DETAILS}`,
     linkText: `'hwb' ${isDivorce ? 'divorce' : ''}.`,
     part2: 'Ni chodir tâl am hyn.',
     heading2: 'Newid unrhyw wybodaeth arall',
