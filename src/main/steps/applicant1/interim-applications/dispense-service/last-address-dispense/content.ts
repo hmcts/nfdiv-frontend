@@ -5,93 +5,85 @@ import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/vali
 import { isCountryUk } from '../../../../applicant1Sequence';
 import type { CommonContent } from '../../../../common/common.content';
 
-const en = ({ partner }: Partial<CommonContent>) => {
-  const addressPostcode = {
-    required: 'You have not entered a postcode. Enter a postcode before continuing.',
-    invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
-    notSelected: 'You have not selected an address. Select an address from the list before continuing.',
-  };
-
-  return {
-    title: `Where did you and your ${partner} live together?`,
-    enterPostcode: 'Enter a UK postcode',
-    buildingStreet: 'Building and street',
-    line1: 'Address line 1',
-    line2Optional: 'Address line 2 (optional)',
-    line3Optional: 'Address line 3 (optional)',
-    town: 'Town or city',
-    townOptional: 'Town or city (optional)',
-    county: 'County',
-    countyOptional: 'County, district, state or province (optional)',
-    postcode: 'Postcode',
-    postcodeOptional: 'Postal code, zip code or area code (optional)',
-    country: 'Country',
-    findAddress: 'Find address',
-    notUK: 'I have an international address',
-    enterUkPostcode: 'Enter UK postcode',
-    selectAddress: 'Select an address',
-    addressOverseas: 'Is this an international address?',
-    addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
-    cannotFindAddress: 'I cannot find the address in the list',
-    errors: {
-      applicant2Address1: {
-        required: `You have not entered a building and street address. Enter a building and street address before continuing.`,
-      },
-      applicant2AddressTown: {
-        required: `You have not entered a town or city. Enter a town or city before continuing.`,
-      },
-      addressPostcode,
-      applicant2AddressPostcode: addressPostcode,
-      applicant2AddressCountry: {
-        required: `You have not entered a country. Enter a country before continuing.`,
-      },
+const en = ({ partner }: Partial<CommonContent>) => ({
+  title: `Where did you and your ${partner} live together?`,
+  enterPostcode: 'Enter a UK postcode',
+  buildingStreet: 'Building and street',
+  line1: 'Address line 1',
+  line2Optional: 'Address line 2 (optional)',
+  line3Optional: 'Address line 3 (optional)',
+  town: 'Town or city',
+  townOptional: 'Town or city (optional)',
+  county: 'County',
+  countyOptional: 'County, district, state or province (optional)',
+  postcode: 'Postcode',
+  postcodeOptional: 'Postal code, zip code or area code (optional)',
+  country: 'Country',
+  findAddress: 'Find address',
+  notUK: "I've forgotten the postcode or we lived at an international address",
+  enterUkPostcode: 'Enter UK postcode',
+  selectAddress: 'Select an address',
+  addressOverseas: 'Is this an international address?',
+  addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
+  cannotFindAddress: 'I cannot find the address in the list',
+  errors: {
+    applicant1DispenseLivedTogetherAddress1: {
+      required:
+        'You have not entered a building and street address. Enter a building and street address before continuing.',
     },
-  };
-};
-
-const cy = ({ partner }: CommonContent) => {
-  const addressPostcode = {
-    required: 'You have not entered a postcode. Enter a postcode before continuing.',
-    invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
-    notSelected: 'You have not selected an address. Select an address from the list before continuing.',
-  };
-
-  return {
-    title: `Where did you and your ${partner} live together?`,
-    enterPostcode: 'Enter a UK postcode',
-    buildingStreet: 'Building and street',
-    line1: 'Address line 1',
-    line2Optional: 'Address line 2 (optional)',
-    line3Optional: 'Address line 3 (optional)',
-    town: 'Town or city',
-    townOptional: 'Town or city (optional)',
-    county: 'County',
-    countyOptional: 'County, district, state or province (optional)',
-    postcode: 'Postcode',
-    postcodeOptional: 'Postal code, zip code or area code (optional)',
-    country: 'Country',
-    findAddress: 'Find address',
-    notUK: 'I have an international address',
-    enterUkPostcode: 'Enter UK postcode',
-    selectAddress: 'Select an address',
-    addressOverseas: 'Is this an international address?',
-    addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
-    cannotFindAddress: 'I cannot find the address in the list',
-    errors: {
-      applicant2Address1: {
-        required: `You have not entered a building and street address. Enter a building and street address before continuing.`,
-      },
-      applicant2AddressTown: {
-        required: `You have not entered a town or city. Enter a town or city before continuing.`,
-      },
-      addressPostcode,
-      applicant2AddressPostcode: addressPostcode,
-      applicant2AddressCountry: {
-        required: `You have not entered a country. Enter a country before continuing.`,
-      },
+    applicant1DispenseLivedTogetherAddressTown: {
+      required: 'You have not entered a town or city. Enter a town or city before continuing.',
     },
-  };
-};
+    applicant1DispenseLivedTogetherAddressPostcode: {
+      required: 'You have not entered a postcode. Enter a postcode before continuing.',
+      invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
+      notSelected: 'You have not selected an address. Select an address from the list before continuing.',
+    },
+    applicant1DispenseLivedTogetherAddressCountry: {
+      required: 'You have not entered a country. Enter a country before continuing.',
+    },
+  },
+});
+
+const cy = ({ partner }: CommonContent) => ({
+  title: `Where did you and your ${partner} live together?`,
+  enterPostcode: 'Nodwch god post yn y DU',
+  buildingStreet: 'Adeilad a stryd',
+  line1: 'Llinell 1 y cyfeiriad',
+  line2Optional: 'Llinell 2 y cyfeiriad (dewisol)',
+  line3Optional: 'Llinell 3 y cyfeiriad (dewisol)',
+  town: 'Tref neu ddinas',
+  townOptional: 'Tref neu ddinas (dewisol)',
+  county: 'Sir',
+  countyOptional: 'Sir, ardal, gwladwriaeth neu dalaith (dewisol)',
+  postcode: 'Cod post',
+  postcodeOptional: 'Cod post, cod zip neu god ardal (dewisol)',
+  country: 'Gwlad',
+  findAddress: 'Dod o hyd i gyfeiriad',
+  notUK: "I've forgotten the postcode or we lived at an international address",
+  enterUkPostcode: 'Nodwch god post yn y DU',
+  selectAddress: 'Dewiswch gyfeiriad',
+  addressesFound: (addressesFound: number) =>
+    `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
+  cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
+  errors: {
+    applicant1DispenseLivedTogetherAddress1: {
+      required:
+        'You have not entered a building and street address. Enter a building and street address before continuing.',
+    },
+    applicant1DispenseLivedTogetherAddressTown: {
+      required: 'You have not entered a town or city. Enter a town or city before continuing.',
+    },
+    applicant1DispenseLivedTogetherAddressPostcode: {
+      required: 'You have not entered a postcode. Enter a postcode before continuing.',
+      invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
+      notSelected: 'You have not selected an address. Select an address from the list before continuing.',
+    },
+    applicant1DispenseLivedTogetherAddressCountry: {
+      required: 'You have not entered a country. Enter a country before continuing.',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
