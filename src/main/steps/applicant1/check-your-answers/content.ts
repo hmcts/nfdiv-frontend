@@ -210,9 +210,11 @@ const en = ({
       line4: 'Other details of why you changed your name',
       line5: 'How did you change your name?',
       line6: 'Other details of how you changed your name',
-      line7: `Is any part of your ${partner}'s full name (${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
-        userCase.applicant2LastNames
-      }) written differently on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line7: `Is any part of your ${partner}'s full name (${userCase.applicant2FirstNames} ${
+        userCase.applicant2MiddleNames
+      } ${userCase.applicant2LastNames}) written differently on the ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      } certificate?`,
       line8: `How is your ${partner}'s name written on the ${
         isDivorce ? 'marriage' : 'civil partnership'
       } certificate?`,
@@ -777,9 +779,11 @@ const cy: typeof en = ({
       line4: 'Details of why you changed your name:',
       line5: 'How did you change your name?',
       line6: 'Details of how you changed your name:',
-      line7: `Is any part of your ${partner}'s full name (${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
-        userCase.applicant2LastNames
-      }) written differently on your ${partner}'s ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line7: `Is any part of your ${partner}'s full name (${userCase.applicant2FirstNames} ${
+        userCase.applicant2MiddleNames
+      } ${userCase.applicant2LastNames}) written differently on your ${partner}'s ${
+        isDivorce ? 'marriage' : 'civil partnership'
+      } certificate?`,
       line8: `How is your ${partner}'s name written on the ${
         isDivorce ? 'marriage' : 'civil partnership'
       } certificate?`,
