@@ -1,5 +1,13 @@
 import { Case, Checkbox } from '../case';
-import { CaseData, DivorceDocument } from '../definition';
+import { CaseData, DivorceDocument, YesOrNo } from '../definition';
+
+const checkboxConverter = (value: string | undefined) => {
+  if (!value) {
+    return undefined;
+  }
+
+  return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
+};
 
 export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
   applicant1UploadedFiles:
@@ -45,9 +53,7 @@ export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
       id: `${file.id}`,
       name: `${getFilename(file.value)}`,
     })) || [],
-  applicant2UnableToUploadEvidence: data.applicant2UnableToUploadEvidence?.length
-    ? Checkbox.Checked
-    : Checkbox.Unchecked,
+  applicant2UnableToUploadEvidence: checkboxConverter(data.applicant2UnableToUploadEvidence),
 });
 
 export const getFilename = (document: Partial<DivorceDocument> | undefined | null): string | undefined => {

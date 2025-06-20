@@ -87,6 +87,7 @@ describe('to-api-format', () => {
     app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
     app2RfiDraftResponseDetails: 'test',
     app2RfiDraftResponseUploadedFiles: [],
+    applicant2UnableToUploadEvidence: Checkbox.Checked,
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -211,6 +212,7 @@ describe('to-api-format', () => {
       app1RfiDraftResponseDetails: 'test',
       app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
       app2RfiDraftResponseDetails: 'test',
+      applicant2UnableToUploadEvidence: YesOrNo.YES,
     });
   });
 

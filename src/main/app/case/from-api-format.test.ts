@@ -47,6 +47,7 @@ describe('from-api-format', () => {
     coIsAdminClarificationSubmitted: YesOrNo.YES,
     app1RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
     app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
+    applicant2UnableToUploadEvidence: YesOrNo.YES,
   };
 
   const resultsWithSecondaryValues: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
@@ -96,6 +97,7 @@ describe('from-api-format', () => {
       coIsAdminClarificationSubmitted: YesOrNo.YES,
       app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
       app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      applicant2UnableToUploadEvidence: Checkbox.Checked,
     });
   });
 
