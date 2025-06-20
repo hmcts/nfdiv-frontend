@@ -321,8 +321,11 @@ const fields: ToApiConverters = {
   applicant2LegalProceedings: data => ({
     applicant2LegalProceedings: data.applicant2LegalProceedings,
     ...(data.applicant2LegalProceedings !== YesOrNo.YES
-      ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails'])
+      ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails', 'applicant2LegalProceedingsConcluded'])
       : {}),
+  }),
+  applicant2UnableToUploadEvidence: data => ({
+    applicant2UnableToUploadEvidence: checkboxConverter(data.applicant2UnableToUploadEvidence),
   }),
   disputeApplication: ({ disputeApplication }) => ({
     howToRespondApplication:
@@ -391,6 +394,7 @@ const fields: ToApiConverters = {
     app2RfiDraftResponseDetails: data.app2RfiDraftResponseDetails,
   }),
   app2RfiDraftResponseUploadedFiles: () => ({}),
+  applicant2LegalProceedingUploadedFiles: () => ({}),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

@@ -181,6 +181,8 @@ const fields: FromApiConverters = {
     app2RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app2RfiDraftResponseCannotUploadDocs),
   }),
   requestsForInformation: 'requestsForInformation',
+  applicant2LegalProceedingDocs: uploadedFilesFromApiApplicant2,
+  applicant2UnableToUploadEvidence: uploadedFilesFromApiApplicant2,
 };
 
 const fromApiDate = date => {

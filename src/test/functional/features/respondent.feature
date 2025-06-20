@@ -112,6 +112,9 @@ Feature: Respondent
     And the page should include "Details of the other legal proceedings"
     Given I select "Provide details about the other legal proceedings."
     And I type "test details"
+    And I select "Yes" for "Have the ongoing proceedings been concluded?"
+    And I check "I cannot upload some or all of my documents"
+
 
     When I click "Continue"
     Then the page URL should be "/respondent/how-the-court-will-contact-you"
