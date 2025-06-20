@@ -203,6 +203,7 @@ describe('to-api-format', () => {
       applicant1LegalProceedingsDetails: null,
       applicant2LegalProceedings: YesOrNo.NO,
       applicant2LegalProceedingsDetails: null,
+      applicant2LegalProceedingsConcluded: null,
       howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
       coApplicant1StatementOfTruth: YesOrNo.YES,
       coApplicant2StatementOfTruth: YesOrNo.YES,

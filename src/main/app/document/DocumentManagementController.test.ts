@@ -1,9 +1,9 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import {
-  APPLICANT_2,
+  APPLICANT_2, DETAILS_OTHER_PROCEEDINGS,
   PROVIDE_INFORMATION_TO_THE_COURT,
-  RESPOND_TO_COURT_FEEDBACK,
+  RESPOND_TO_COURT_FEEDBACK, RESPONDENT,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, State } from '../case/definition';
@@ -70,6 +70,14 @@ describe('DocumentManagerController', () => {
         uploadFields: {
           field1: 'app2RfiDraftResponseDocs',
           field2: 'app2RfiDraftResponseUploadedFiles',
+        },
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        uploadFields: {
+          field1: 'applicant2LegalProceedingDocs',
+          field2: 'applicant2LegalProceedingUploadedFiles',
         },
       },
     ])('handles file uploads - %o', async ({ isApplicant2, state, uploadFields }) => {
@@ -191,6 +199,15 @@ describe('DocumentManagerController', () => {
         },
         redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
       },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        uploadFields: {
+          field1: 'applicant2LegalProceedingDocs',
+          field2: 'applicant2LegalProceedingUploadedFiles',
+        },
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
+      },
     ])(
       "redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
       async ({ isApplicant2, state, uploadFields, redirectUrl }) => {
@@ -277,6 +294,10 @@ describe('DocumentManagerController', () => {
         isApplicant2: true,
         state: State.InformationRequested,
       },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+      },
     ])('throws an error if no files were uploaded - %o', async ({ state, isApplicant2 }) => {
       const req = mockRequest({
         isApplicant2,
@@ -320,6 +341,11 @@ describe('DocumentManagerController', () => {
         isApplicant2: true,
         state: State.InformationRequested,
         redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
     ])(
       'redirects if no files were uploaded & JavaScript is disabled - %o',
@@ -367,6 +393,11 @@ describe('DocumentManagerController', () => {
         isApplicant2: true,
         state: State.InformationRequested,
         redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
     ])('redirects if deleting & JavaScript is disabled - %o', async ({ state, isApplicant2, redirectUrl }) => {
       const req = mockRequest({
@@ -435,6 +466,15 @@ describe('DocumentManagerController', () => {
           field2: 'app2RfiDraftResponseUploadedFiles',
         },
         redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        uploadFields: {
+          field1: 'applicant2LegalProceedingDocs',
+          field2: 'applicant2LegalProceedingUploadedFiles',
+        },
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
     ])('deletes an existing file - %o', async ({ isApplicant2, state, uploadFields, redirectUrl }) => {
       const req = mockRequest({
@@ -532,6 +572,15 @@ describe('DocumentManagerController', () => {
         },
         redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
       },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        uploadFields: {
+          field1: 'applicant2LegalProceedingDocs',
+          field2: 'applicant2LegalProceedingUploadedFiles',
+        },
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
+      },
     ])(
       "redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
       async ({ state, isApplicant2, uploadFields, redirectUrl }) => {
@@ -586,6 +635,11 @@ describe('DocumentManagerController', () => {
         isApplicant2: true,
         state: State.InformationRequested,
         redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
     ])("redirects if file to deletes doesn't exist - %o", async ({ state, isApplicant2, redirectUrl }) => {
       const req = mockRequest({
