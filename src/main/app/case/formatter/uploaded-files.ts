@@ -45,6 +45,9 @@ export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
       id: `${file.id}`,
       name: `${getFilename(file.value)}`,
     })) || [],
+  applicant2UnableToUploadEvidence: data.applicant2UnableToUploadEvidence?.length
+    ? Checkbox.Checked
+    : Checkbox.Unchecked,
 });
 
 export const getFilename = (document: Partial<DivorceDocument> | undefined | null): string | undefined => {
