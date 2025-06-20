@@ -1,9 +1,11 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import {
-  APPLICANT_2, DETAILS_OTHER_PROCEEDINGS,
+  APPLICANT_2,
+  DETAILS_OTHER_PROCEEDINGS,
   PROVIDE_INFORMATION_TO_THE_COURT,
-  RESPOND_TO_COURT_FEEDBACK, RESPONDENT,
+  RESPONDENT,
+  RESPOND_TO_COURT_FEEDBACK,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
 import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, State } from '../case/definition';
