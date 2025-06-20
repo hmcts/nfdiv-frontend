@@ -11,14 +11,8 @@ import { generateContent as applicant1GenerateContent } from '../../applicant1/d
 const labels = applicant1Content => ({
   errors: {
     applicant2LegalProceedingsDetails: applicant1Content.errors.applicant1LegalProceedingsDetails,
-    applicant2LegalProceedingUploadedFiles: {
-      notUploaded:
-        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
-    },
-    applicant2UnableToUploadEvidence: {
-      notUploaded:
-        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
-    },
+    applicant2LegalProceedingUploadedFiles: applicant1Content.errors.applicant2LegalProceedingUploadedFiles,
+    applicant2UnableToUploadEvidence: applicant1Content.errors.applicant2UnableToUploadEvidence,
   },
 });
 

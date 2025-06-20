@@ -327,7 +327,7 @@ const fields: ToApiConverters = {
   applicant2LegalProceedingsConcluded: data => ({
     applicant2LegalProceedingsConcluded: data.applicant2LegalProceedingsConcluded,
     ...(data.applicant2LegalProceedingsConcluded !== YesOrNo.YES
-      ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails'])
+      ? setUnreachableAnswersToNull(['applicant2LegalProceedingsConcluded'])
       : {}),
   }),
   applicant2UnableToUploadEvidence: data => ({

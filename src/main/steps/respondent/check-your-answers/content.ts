@@ -46,8 +46,8 @@ const en = ({ isDivorce, userCase }) => ({
       }?`,
       line2: 'Provide details about the other legal proceedings.',
       line3: 'Have the ongoing proceedings been concluded?',
-      line4: 'Document evidence uploaded',
-      line5: 'Cannot upload some or all of the evidence documents',
+      line4: 'Uploaded files',
+      line5: 'I cannot upload some or all of my documents',
     },
   },
   stepAnswers: {
@@ -198,9 +198,9 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
         isDivorce ? 'priodas' : 'partneriaeth sifil'
       }, eich eiddo, neu'ch plant?`,
       line2: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
-      line3: 'Have the ongoing proceedings been concluded?',
-      line4: 'Document evidence uploaded',
-      line5: 'Cannot upload some or all of the evidence documents',
+      line3: 'A yw’r achos sy’n mynd rhagddo wedi’i gwblhau?',
+      line4: 'Ffeiliau sydd wedi cael eu llwytho',
+      line5: 'Ni allaf lwytho rhai o fy nogfennau / fy holl ddogfennau.',
     },
   },
   stepAnswers: {
@@ -261,7 +261,11 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       line1: `${userCase.applicant2LegalProceedings?.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
       line3: `${
-        userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsConcluded : ''
+        userCase.applicant2LegalProceedings === YesOrNo.YES
+          ? userCase.applicant2LegalProceedingsConcluded === YesOrNo.YES
+            ? 'Ydw'
+            : 'Nac ydw'
+          : ''
       }`,
       line4: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
       line5: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2UnableToUploadEvidence : ''}`,
