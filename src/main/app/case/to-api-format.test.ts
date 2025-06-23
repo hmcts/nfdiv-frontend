@@ -725,7 +725,7 @@ describe('to-api-format', () => {
   describe('applicant 2 name confirmation', () => {
     test('blanks out unreachable fields if name matches certificate', () => {
       const apiFormat = toApiFormat({
-        applicant1NameDifferentToMarriageCertificate: YesOrNo.NO,
+        applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
       } as Partial<Case>);
 
       expect(apiFormat).toMatchObject({

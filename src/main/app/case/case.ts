@@ -288,7 +288,7 @@ export interface Case {
   applicant1LastNameChangedWhenMarried?: YesOrNo;
   applicant1LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
   applicant1LastNameChangedWhenMarriedOtherDetails?: string;
-  applicant1NameDifferentToMarriageCertificate?: YesOrNo;
+  applicant1NameDifferentToMarriageCertificate?: YesOrNo | null;
   applicant1WhyNameDifferent: ChangedNameWhy[];
   applicant1WhyNameDifferentOtherDetails: string;
   applicant2WhyNameDifferent: ChangedNameWhy[];
@@ -300,7 +300,7 @@ export interface Case {
   applicant2LastNameChangedWhenMarried?: YesOrNo;
   applicant2LastNameChangedWhenMarriedMethod?: ChangedNameHow[];
   applicant2LastNameChangedWhenMarriedOtherDetails?: string;
-  applicant2NameDifferentToMarriageCertificate?: YesOrNo;
+  applicant2NameDifferentToMarriageCertificate?: YesOrNo | null;
   applicant2NameDifferentToMarriageCertificateMethod?: ChangedNameHow[];
   applicant2NameDifferentToMarriageCertificateOtherDetails?: string;
   applicant2NameChangedHow?: ChangedNameHow[];
