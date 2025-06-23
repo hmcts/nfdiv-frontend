@@ -12,7 +12,7 @@ import {
 } from '../../../../../app/form/validation';
 import { SupportedLanguages } from '../../../../../modules/i18n';
 
-const en = (partner) => ({
+const en = partner => ({
   title: `Your ${partner}`,
   line1: `We will now ask you a few questions about what your ${partner} looks like to help the bailiff identify them.`,
   knowDateOfBirthLabel: `Do you know your ${partner}'s date of birth?`,
@@ -39,7 +39,7 @@ const en = (partner) => ({
   },
 });
 
-const cy: typeof en = (partner) => ({
+const cy: typeof en = partner => ({
   title: `Your ${partner}`,
   line1: `We will now ask you a few questions about what your ${partner} looks like to help the bailiff identify them.`,
   knowDateOfBirthLabel: `Do you know your ${partner}'s date of birth?`,

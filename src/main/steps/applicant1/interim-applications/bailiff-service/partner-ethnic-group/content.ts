@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = (partner) => ({
+const en = partner => ({
   title: `What is your ${partner}'s ethnic group?`,
   hint: 'For example, Bangladeshi',
   errors: {
@@ -12,7 +12,7 @@ const en = (partner) => ({
   },
 });
 
-const cy: typeof en = (partner) => ({
+const cy: typeof en = partner => ({
   title: `What is your ${partner}'s ethnic group?`,
   hint: 'For example, Bangladeshi',
   errors: {

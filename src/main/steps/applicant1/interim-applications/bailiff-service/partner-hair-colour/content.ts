@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = (partner) => ({
+const en = partner => ({
   title: `What hair colour does your ${partner} have?`,
   errors: {
     applicant1BailiffPartnersHairColour: {
@@ -11,7 +11,7 @@ const en = (partner) => ({
   },
 });
 
-const cy: typeof en = (partner) => ({
+const cy: typeof en = partner => ({
   title: `What hair colour does your ${partner} have?`,
   errors: {
     applicant1BailiffPartnersHairColour: {

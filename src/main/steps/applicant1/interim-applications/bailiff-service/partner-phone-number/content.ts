@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isPhoneNoValid } from '../../../../../app/form/validation';
 
-const en = (partner) => ({
+const en = partner => ({
   title: `Do you know your ${partner}'s phone number?`,
   enterPhoneNumber: `Enter your ${partner}'s phone number`,
   enterPhoneNumberHint: 'For international numbers include the country code, for example +33 1234 567890',
@@ -18,7 +18,7 @@ const en = (partner) => ({
   },
 });
 
-const cy: typeof en = (partner) => ({
+const cy: typeof en = partner => ({
   title: `Do you know your ${partner}'s phone number?`,
   enterPhoneNumber: `Enter your ${partner}'s phone number`,
   enterPhoneNumberHint: 'For international numbers include the country code, for example +33 1234 567890',

@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = (partner) => ({
+const en = partner => ({
   title: `How tall is your ${partner}?`,
   enterHeightHint: 'For example, 185cm or 6\'1"',
   errors: {
@@ -12,7 +12,7 @@ const en = (partner) => ({
   },
 });
 
-const cy: typeof en = (partner) => ({
+const cy: typeof en = partner => ({
   title: `How tall is your ${partner}?`,
   enterHeightHint: 'For example, 185cm or 6\'1"',
   errors: {
