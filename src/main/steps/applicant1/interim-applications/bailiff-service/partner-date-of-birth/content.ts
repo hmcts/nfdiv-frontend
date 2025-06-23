@@ -12,13 +12,13 @@ import {
 } from '../../../../../app/form/validation';
 import { SupportedLanguages } from '../../../../../modules/i18n';
 
-const en = () => ({
-  title: 'Your partner',
-  line1: 'We will now ask you a few questions about what your partner looks like to help the bailiff identify them.',
-  knowDateOfBirthLabel: "Do you know your partner's date of birth?",
-  enterDateOfBirthLabel: "Enter your partner's date of birth",
+const en = (partner) => ({
+  title: `Your ${partner}`,
+  line1: `We will now ask you a few questions about what your ${partner} looks like to help the bailiff identify them.`,
+  knowDateOfBirthLabel: `Do you know your ${partner}'s date of birth?`,
+  enterDateOfBirthLabel: `Enter your ${partner}'s date of birth`,
   enterDateOfBirthHint: 'For example, 27 3 2007',
-  enterApproximateAgeLabel: "Enter your partner's approximate age",
+  enterApproximateAgeLabel: `Enter your ${partner}'s approximate age`,
   enterApproximateAgeHint: 'For example, 65 years old',
   errors: {
     applicant1BailiffKnowPartnersDateOfBirth: {
@@ -39,13 +39,13 @@ const en = () => ({
   },
 });
 
-const cy: typeof en = () => ({
-  title: 'Your partner',
-  line1: 'We will now ask you a few questions about what your partner looks like to help the bailiff identify them.',
-  knowDateOfBirthLabel: "Do you know your partner's date of birth?",
-  enterDateOfBirthLabel: "Enter your partner's date of birth",
+const cy: typeof en = (partner) => ({
+  title: `Your ${partner}`,
+  line1: `We will now ask you a few questions about what your ${partner} looks like to help the bailiff identify them.`,
+  knowDateOfBirthLabel: `Do you know your ${partner}'s date of birth?`,
+  enterDateOfBirthLabel: `Enter your ${partner}'s date of birth`,
   enterDateOfBirthHint: 'For example, 27 3 2007',
-  enterApproximateAgeLabel: "Enter your partner's approximate age",
+  enterApproximateAgeLabel: `Enter your ${partner}'s approximate age`,
   enterApproximateAgeHint: 'For example, 65 years old',
   errors: {
     applicant1BailiffKnowPartnersDateOfBirth: {
@@ -142,7 +142,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.language) },

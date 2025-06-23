@@ -2,22 +2,22 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = () => ({
-  title: 'How tall is your partner?',
+const en = (partner) => ({
+  title: `How tall is your ${partner}?`,
   enterHeightHint: 'For example, 185cm or 6\'1"',
   errors: {
     applicant1BailiffPartnersHeight: {
-      required: "Please enter your partner's height.",
+      required: `Please enter your ${partner}'s height.`,
     },
   },
 });
 
-const cy: typeof en = () => ({
-  title: 'How tall is your partner?',
+const cy: typeof en = (partner) => ({
+  title: `How tall is your ${partner}?`,
   enterHeightHint: 'For example, 185cm or 6\'1"',
   errors: {
     applicant1BailiffPartnersHeight: {
-      required: "Please enter your partner's height.",
+      required: `Please enter your ${partner}'s height.`,
     },
   },
 });
@@ -44,7 +44,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,

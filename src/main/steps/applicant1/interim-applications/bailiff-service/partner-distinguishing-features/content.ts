@@ -2,8 +2,8 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = () => ({
-  title: 'Does your partner have any other distinguishing features?',
+const en = (partner) => ({
+  title: `Does your ${partner} have any other distinguishing features?`,
   hint: 'For example, a tattoo of a word on left arm, or a scar on the right side of forehead. Give as much detail as possible.',
   errors: {
     applicant1BailiffPartnersDistinguishingFeatures: {
@@ -12,8 +12,8 @@ const en = () => ({
   },
 });
 
-const cy: typeof en = () => ({
-  title: 'Does your partner have any other distinguishing features?',
+const cy: typeof en = (partner) => ({
+  title: `Does your ${partner} have any other distinguishing features?`,
   hint: 'For example, a tattoo of a word on left arm, or a scar on the right side of forehead. Give as much detail as possible.',
   errors: {
     applicant1BailiffPartnersDistinguishingFeatures: {
@@ -43,7 +43,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,

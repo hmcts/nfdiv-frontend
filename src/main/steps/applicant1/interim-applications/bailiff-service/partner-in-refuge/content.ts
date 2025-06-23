@@ -3,8 +3,8 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = () => ({
-  title: 'Is your partner currently resident in a refuge?',
+const en = (partner) => ({
+  title: `Is your ${partner} currently resident in a refuge?`,
   errors: {
     applicant1BailiffPartnerInARefuge: {
       required: 'You must select an option before continuing.',
@@ -12,8 +12,8 @@ const en = () => ({
   },
 });
 
-const cy: typeof en = () => ({
-  title: 'Is your partner currently resident in a refuge?',
+const cy: typeof en = (partner) => ({
+  title: `Is your ${partner} currently resident in a refuge?`,
   errors: {
     applicant1BailiffPartnerInARefuge: {
       required: 'You must select an option before continuing.',
@@ -47,7 +47,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,
