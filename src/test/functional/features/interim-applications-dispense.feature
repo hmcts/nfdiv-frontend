@@ -64,5 +64,6 @@ Feature: Dispense with service journey
     Then I select element "#applicant1DispenseLastLivedTogetherDate-year"
     And I type "2000"
     When I click continue
+    Then the page should include element "#enterAddressTitle"
     # Fix and continue this scenario as the journey progresses
-    Then the page should include element "#aosDueAndDraftedLine1"
+    And the page should include element "#STOP"
