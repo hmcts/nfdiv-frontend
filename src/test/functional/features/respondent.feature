@@ -113,7 +113,7 @@ Feature: Respondent
     Given I select "Provide details about the other legal proceedings."
     And I type "test details"
     And I select "Yes" for "Have the ongoing proceedings been concluded?"
-    And I check "I cannot upload some or all of my documents"
+    And I select "I cannot upload some or all of my documents"
 
 
     When I click "Continue"
