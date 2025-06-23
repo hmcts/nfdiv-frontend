@@ -75,7 +75,7 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Is any part of your husband's full name (Billy Bob) written differently on your marriage certificate?"
-    Given I select "Yes"
+    Given I select "No"
 
     When I click "Continue"
     Then the page should include "How is your husband's name written on your marriage certificate"
@@ -304,7 +304,7 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Is any part of your husband's full name written differently on your marriage certificate?"
-    Given I select "Yes"
+    Given I select "No"
 
     When I click "Continue"
     Then the page should include "How is your husband's name written on your marriage certificate"
