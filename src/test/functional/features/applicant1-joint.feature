@@ -64,7 +64,7 @@ Feature: Applicant 1 joint application
 
     When I click "Continue"
     Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
-    Given I select "Yes"
+    Given I select "No"
 
     When I click "Continue"
     Then the page should include "How is your name written on your marriage certificate"
@@ -253,7 +253,7 @@ Feature: Applicant 1 joint application
 
     When I click "Continue"
     Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
-    Given I select "Yes"
+    Given I select "No"
 
     When I click "Continue"
     Then the page should include "How is your name written on your marriage certificate"
