@@ -12,5 +12,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...applyForHwfContent,
+    form,
   };
 };
