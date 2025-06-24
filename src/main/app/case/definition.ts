@@ -1032,6 +1032,17 @@ export interface CaseData {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1InterimAppsIUnderstand: YesOrNo;
+  applicant1InterimAppsUseHelpWithFees: YesOrNo;
+  applicant1InterimAppsHaveHwfReference: YesOrNo;
+  applicant1InterimAppsCanUploadEvidence: YesOrNo;
+  applicant1InterimAppsHwfRefNumber: string;
+  applicant1InterimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  applicant1InterimAppsCannotUploadDocs: YesOrNo;
+  applicant1DeemedEvidenceDetails: string;
+  applicant1DeemedNoEvidenceStatement: string;
+  applicant1InterimApplicationType: InterimApplicationType;
+  applicant1InterimAppsStatementOfTruth: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1054,6 +1065,19 @@ export interface CaseDocuments {
 export interface NoResponseJourneyOptions {
   noResponseCheckContactDetails: NoResponseCheckContactDetails;
   noResponsePartnerHasReceivedPapers: YesOrNo;
+}
+
+export interface DeemedServiceJourneyOptions {
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  interimAppsCannotUploadDocs: Checkbox;
+  deemedEvidenceDetails: string;
+  deemedNoEvidenceStatement: string;
+  interimAppsStatementOfTruth: Checkbox;
 }
 
 export interface RequestForInformationResponse {
@@ -1827,6 +1851,14 @@ export const enum Gender {
 export const enum GeneralApplicationFee {
   FEE0227 = 'FEE0227',
   FEE0228 = 'FEE0228',
+}
+
+export const enum InterimApplicationType {
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  DEEMED_SERVICE = 'deemedService',
+  ALTERNATIVE_SERVICE = 'alternativeService',
+  BAILIFF_SERVICE = 'bailiffService',
+  SEARCH_GOV_RECORDS = 'searchGovRecords',
 }
 
 export const enum GeneralApplicationType {
