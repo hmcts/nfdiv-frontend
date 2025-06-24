@@ -2,20 +2,20 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = () => ({
-  title: "Enter your partner's name",
+const en = partner => ({
+  title: `Enter your ${partner}'s name`,
   errors: {
     applicant1BailiffPartnersName: {
-      required: "You must enter your partner's name.",
+      required: `You must enter your ${partner}'s name.`,
     },
   },
 });
 
-const cy: typeof en = () => ({
-  title: "Enter your partner's name",
+const cy: typeof en = partner => ({
+  title: `Enter your ${partner}'s name`,
   errors: {
     applicant1BailiffPartnersName: {
-      required: 'You must enter your partners name.',
+      required: `You must enter your ${partner}'s name.`,
     },
   },
 });
@@ -41,7 +41,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language](content);
   return {
     ...translations,
     form,

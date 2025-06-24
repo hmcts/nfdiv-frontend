@@ -4,28 +4,28 @@ import type { CommonContent } from '../../../../common/common.content';
 import { getAddressFields } from '../../../../common/content.utils';
 import { NEW_POSTAL_AND_EMAIL } from '../../../../urls';
 
-const en = ({ isApp2Confidential }: CommonContent, applicant2Address, updateEmailLinkPath) => ({
+const en = ({ isApp2Confidential, partner }: CommonContent, applicant2Address, updateEmailLinkPath) => ({
   title: 'Which address (in England or Wales) should bailiff service be attempted at?',
   line1:
     'Bailiff service can only be attempted at an address in England and Wales where postal delivery has already been tried.',
-  line2: `If the address below is not correct you should stop this application and <a class="govuk-link" href="${updateEmailLinkPath}">update your partner’s address</a>. If your partner still does not respond, you can then apply for bailiff service.`,
+  line2: `If the address below is not correct you should stop this application and <a class="govuk-link" href="${updateEmailLinkPath}">update your ${partner}’s address</a>. If your ${partner} still does not respond, you can then apply for bailiff service.`,
   homeAddress: 'Address',
   partnerAddress: `${
     isApp2Confidential
-      ? 'We have a confidential address for your partner. You can apply to attempt bailiff service at this address.'
+      ? `We have a confidential address for your ${partner}. You can apply to attempt bailiff service at this address.`
       : applicant2Address
   }`,
 });
 
-const cy: typeof en = ({ isApp2Confidential }: CommonContent, applicant2Address, updateEmailLinkPath) => ({
+const cy: typeof en = ({ isApp2Confidential, partner }: CommonContent, applicant2Address, updateEmailLinkPath) => ({
   title: 'Which address (in England or Wales) should bailiff service be attempted at?',
   line1:
     'Bailiff service can only be attempted at an address in England and Wales where postal delivery has already been tried.',
-  line2: `If the address below is not correct you should stop this application and <a class="govuk-link" href="${updateEmailLinkPath}">update your partner’s address</a>. If your partner still does not respond, you can then apply for bailiff service.`,
+  line2: `If the address below is not correct you should stop this application and <a class="govuk-link" href="${updateEmailLinkPath}">update your ${partner}’s address</a>. If your ${partner} still does not respond, you can then apply for bailiff service.`,
   homeAddress: 'Address',
   partnerAddress: `${
     isApp2Confidential
-      ? 'We have a confidential address for your partner. You can apply to attempt bailiff service at this address.'
+      ? `We have a confidential address for your ${partner}. You can apply to attempt bailiff service at this address.`
       : applicant2Address
   }`,
 });
