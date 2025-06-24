@@ -11,8 +11,9 @@ import {
   isValidNumber,
 } from '../../../../../app/form/validation';
 import { SupportedLanguages } from '../../../../../modules/i18n';
+import type { CommonContent } from '../../../../common/common.content';
 
-const en = partner => ({
+const en = ({ partner }: CommonContent) => ({
   title: `Your ${partner}`,
   line1: `We will now ask you a few questions about what your ${partner} looks like to help the bailiff identify them.`,
   knowDateOfBirthLabel: `Do you know your ${partner}'s date of birth?`,
@@ -39,7 +40,7 @@ const en = partner => ({
   },
 });
 
-const cy: typeof en = partner => ({
+const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Your ${partner}`,
   line1: `We will now ask you a few questions about what your ${partner} looks like to help the bailiff identify them.`,
   knowDateOfBirthLabel: `Do you know your ${partner}'s date of birth?`,

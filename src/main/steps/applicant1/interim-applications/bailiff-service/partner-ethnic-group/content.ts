@@ -1,8 +1,9 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
+import type { CommonContent } from '../../../../common/common.content';
 
-const en = partner => ({
+const en = ({ partner }: CommonContent) => ({
   title: `What is your ${partner}'s ethnic group?`,
   hint: 'For example, Bangladeshi',
   errors: {
@@ -12,7 +13,7 @@ const en = partner => ({
   },
 });
 
-const cy: typeof en = partner => ({
+const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `What is your ${partner}'s ethnic group?`,
   hint: 'For example, Bangladeshi',
   errors: {
