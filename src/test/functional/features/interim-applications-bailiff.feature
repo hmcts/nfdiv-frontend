@@ -32,6 +32,7 @@ Feature: Bailiff service journey
     Then the page should include element "#partnerInPersonTitle"
 
     Given I click element "#bailiffService"
+    Given I click element "#respondentAddressInEnglandWales"
     When I click continue
     Then the page should include element "#bailiffServiceApplicationTitle"
 
@@ -50,8 +51,48 @@ Feature: Bailiff service journey
     Given I select element "#applicant1InterimAppsHwfRefNumber"
     And I type "HWF-A1B-23D"
     When I click continue
-    Then the page should include element "#wantUploadEvidenceTitle"
+    Then the page should include element "#bailiffPartnersNameTitle"
+
+    Given I select element "#applicant1BailiffPartnersName"
+    And I type "test name"
+    When I click continue
+    Then the page should include element "#bailiffPartnerInRefugeTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#bailiffPartnersAddressTitle"
+
+    When I click continue
+    Then the page should include element "#bailiffPartnerPhoneTitle"
 
     Given I click element "#yes"
+    Then I select element "#applicant1BailiffPartnersPhone"
+    And I type "07777777777"
     When I click continue
-    Then the page should include element "#partnersNameTitle"
+    Then the page should include element "#bailiffPartnersDateOfBirthTitle"
+
+    Given I click element "#no"
+    And I select element "#applicant1BailiffPartnersApproximateAge"
+    And I type "52"
+    When I click continue
+    Then the page should include element "#bailiffPartnersHeightTitle"
+
+    Given I select element "#applicant1BailiffPartnersHeight"
+    And I type "6 feet"
+    When I click continue
+    Then the page should include element "#bailiffPartnersHairColourTitle"
+
+    Given I select element "#applicant1BailiffPartnersHairColour"
+    And I type "brown"
+    When I click continue
+    Then the page should include element "#bailiffPartnersEyeColourTitle"
+
+    Given I select element "#applicant1BailiffPartnersEyeColour"
+    And I type "green"
+    When I click continue
+    Then the page should include element "#bailiffPartnersEthnicGroupTitle"
+
+    Given I select element "#applicant1BailiffPartnersEthnicGroup"
+    And I type "Bangladeshi"
+    When I click continue
+    Then the page should include element "#bailiffPartnersDistinguishingFeaturesTitle"
