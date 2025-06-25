@@ -27,8 +27,11 @@ export class DocumentManagerController {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
-    } else if ([State.AosDrafted].includes(req.session.userCase.state)) {
-      return res.redirect(`${isApplicant2 ? RESPONDENT : ''}${DETAILS_OTHER_PROCEEDINGS}`);
+    } else if (
+      [State.AosDrafted, State.AosOverdue, State.AwaitingConditionalOrder].includes(req.session.userCase.state) &&
+      isApplicant2
+    ) {
+      return res.redirect(RESPONDENT + DETAILS_OTHER_PROCEEDINGS);
     }
     return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
   }
@@ -55,6 +58,8 @@ export class DocumentManagerController {
           State.RequestedInformationSubmitted,
           State.AosDrafted,
           State.AwaitingAos,
+          State.AosOverdue,
+          State.AwaitingConditionalOrder,
         ].includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot upload new documents as case is not in the correct state');
@@ -95,7 +100,10 @@ export class DocumentManagerController {
       )
     ) {
       documentsKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
-    } else if (req.session.userCase.state === State.AosDrafted) {
+    } else if (
+      isApplicant2 &&
+      [State.AosDrafted, State.AosOverdue, State.AwaitingConditionalOrder].includes(req.session.userCase.state)
+    ) {
       documentsKey = 'applicant2LegalProceedingDocs';
     }
 
@@ -128,7 +136,10 @@ export class DocumentManagerController {
       )
     ) {
       documentsUploadedKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
-    } else if (req.session.userCase.state === State.AosDrafted) {
+    } else if (
+      isApplicant2 &&
+      [State.AosDrafted, State.AosOverdue, State.AwaitingConditionalOrder].includes(req.session.userCase.state)
+    ) {
       documentsUploadedKey = 'applicant2LegalProceedingDocs';
     }
 
@@ -153,6 +164,8 @@ export class DocumentManagerController {
           State.AwaitingRequestedInformation,
           State.RequestedInformationSubmitted,
           State.AosDrafted,
+          State.AosOverdue,
+          State.AwaitingConditionalOrder,
         ].includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot delete documents as case is not in the correct state');

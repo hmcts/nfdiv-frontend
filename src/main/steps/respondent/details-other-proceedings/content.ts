@@ -31,12 +31,12 @@ export const form: FormContent = {
       label: l => l.legalProceedingsConcluded,
       values: [
         {
-          label: 'Yes',
+          label: l => l.yes,
           value: YesOrNo.YES,
           conditionalText: l => `<p class="govuk-label">${l.legalProceedingsConcludedEvidence}</p>`,
         },
         {
-          label: 'No',
+          label: l => l.no,
           value: YesOrNo.NO,
           conditionalText: l => `<p class="govuk-label">${l.legalProceedingsOngoingEvidence}</p>`,
         },

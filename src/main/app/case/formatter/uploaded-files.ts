@@ -1,13 +1,6 @@
 import { Case, Checkbox } from '../case';
-import { CaseData, DivorceDocument, YesOrNo } from '../definition';
-
-const checkboxConverter = (value: string | undefined) => {
-  if (!value) {
-    return undefined;
-  }
-
-  return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
-};
+import { CaseData, DivorceDocument } from '../definition';
+import { checkboxConverter } from '../from-api-format';
 
 export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
   applicant1UploadedFiles:
