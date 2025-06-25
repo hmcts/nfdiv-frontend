@@ -36,6 +36,7 @@ import {
   HOW_TO_FINALISE_APPLICATION,
   HUB_PAGE,
   JOINT_APPLICATION_SUBMITTED,
+  JOINT_APPLICATION_MUST_BE_CONFIRMED,
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
@@ -167,13 +168,21 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: CONFIRM_JOINT_APPLICATION,
-    getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+    getNextStep: () => JOINT_APPLICATION_MUST_BE_CONFIRMED
   },
+  {
+    url: JOINT_APPLICATION_MUST_BE_CONFIRMED,
+    getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+  }
 ];
 
 const postSubmissionSequence: Step[] = [
   {
     url: JOINT_APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: JOINT_APPLICATION_MUST_BE_CONFIRMED,
     getNextStep: () => HOME_URL,
   },
   {
