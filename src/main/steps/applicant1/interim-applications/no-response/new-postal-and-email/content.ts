@@ -47,7 +47,7 @@ export const form: FormContent = {
         {
           label: l => l.newEmailAndPostalAddress,
           id: 'bothEmailAndPostalAddress',
-          value: NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+          value: NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS,
         },
       ],
       validator: value => isFieldFilledIn(value),
