@@ -1,0 +1,104 @@
+import { CaseDate } from '../../../../../app/case/case';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+import { covertToDateObject } from '../../../../../app/form/parser';
+import {
+  areDateFieldsFilledIn,
+  isDateInputInvalid,
+  isFieldFilledIn,
+  isFutureDate,
+} from '../../../../../app/form/validation';
+import { SupportedLanguages } from '../../../../../modules/i18n';
+import { CommonContent } from '../../../../common/common.content';
+
+const en = ({ partner }: CommonContent) => ({
+  title: `When was your ${partner} last seen or heard of?`,
+  lastSeenDate:
+    "If you're not sure of the day you can enter the last day of the month. If you are not sure of the month you can enter '12' for December.",
+  lastSeenDescription: `Describe the last time that you saw or heard of your ${partner}. Include the source of this information and give brief details of all enquiries made to trace them as a result.`,
+  errors: {
+    applicant1DispensePartnerLastSeenOrHeardOfDate: {
+      required: 'You must enter a date before continuing.',
+    },
+    applicant1DispensePartnerLastSeenDescription: {
+      required: 'You must provide a statement before continuing.',
+    },
+  },
+});
+
+// @TODO translations
+const cy = ({ partner }: CommonContent) => ({
+  title: `When was your ${partner} last seen or heard of?`,
+  lastSeenDate:
+    "If you're not sure of the day you can enter the last day of the month. If you are not sure of the month you can enter '12' for December.",
+  lastSeenDescription: `Describe the last time that you saw or heard of your ${partner}. Include the source of this information and give brief details of all enquiries made to trace them as a result.`,
+  errors: {
+    applicant1DispensePartnerLastSeenOrHeardOfDate: {
+      required: 'You must enter a date before continuing.',
+    },
+    applicant1DispensePartnerLastSeenDescription: {
+      required: 'You must provide a statement before continuing.',
+    },
+  },
+});
+
+const languages = {
+  en,
+  cy,
+};
+
+export const form: FormContent = {
+  fields: (userCase, language) => ({
+    applicant1DispensePartnerLastSeenOrHeardOfDate: {
+      type: 'date',
+      classes: 'govuk-date-input',
+      label: l => l.lastSeenDate,
+      labelHidden: true,
+      hint: l => `<div class="govuk-label">${l.lastSeenDate}</div>`,
+      values: [
+        {
+          label: language === SupportedLanguages.Cy ? 'Diwrnod' : 'Day',
+          name: 'day',
+          classes: 'govuk-input--width-2',
+          attributes: { maxLength: 2 },
+        },
+        {
+          label: language === SupportedLanguages.Cy ? 'Mis' : 'Month',
+          name: 'month',
+          classes: 'govuk-input--width-2',
+          attributes: { maxLength: 2 },
+        },
+        {
+          label: language === SupportedLanguages.Cy ? 'Blwyddyn' : 'Year',
+          name: 'year',
+          classes: 'govuk-input--width-4',
+          attributes: { maxLength: 4 },
+        },
+      ],
+      parser: body => covertToDateObject('applicant1DispensePartnerLastSeenOrHeardOfDate', body as Record<string, unknown>),
+      validator: value =>
+        areDateFieldsFilledIn(value as CaseDate) ||
+        isDateInputInvalid(value as CaseDate) ||
+        isFutureDate(value as CaseDate),
+    },
+    applicant1DispensePartnerLastSeenDescription: {
+      type: 'textarea',
+      label: l => l.lastSeenDescription,
+      labelHidden: true,
+      classes: 'govuk-textarea--l',
+      hint: l => `<div class="govuk-label">${l.lastSeenDescription}</div>`,
+      validator: value => isFieldFilledIn(value),
+    },
+  }),
+  submit: {
+    text: l => l.continue,
+  },
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
+  return {
+    ...translations,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.language) },
+  };
+};
