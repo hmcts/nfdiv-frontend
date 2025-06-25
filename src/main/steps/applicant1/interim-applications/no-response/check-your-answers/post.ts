@@ -21,8 +21,10 @@ export default class CheckAnswersPostController extends PostController<AnyObject
     formData: Partial<Case>
   ): Promise<void> {
     if (
-      req.session.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress !==
-        NoResponsePartnerNewEmailOrPostalAddress.NEW_POSTAL &&
+      (req.session.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+        NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL ||
+        req.session.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+          NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS) &&
       isEmpty(req.session.userCase.applicant1NoResponsePartnerEmailAddress)
     ) {
       res.redirect(PROVIDE_NEW_EMAIL_ADDRESS);

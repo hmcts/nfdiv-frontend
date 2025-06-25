@@ -21,7 +21,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
       addressOverseas && isAddressOnlyUpdate
         ? 'address'
         : userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
-            NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
+            NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS
           ? 'email and postal address'
           : 'contact details'
     }.`,

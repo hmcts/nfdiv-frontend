@@ -142,7 +142,7 @@ describe('No Response Journey Sequence test', () => {
     test('BOTH_NEW_EMAIL_AND_POSTAL_ADDRESS_UPDATE_POSTAL_ADDRESS', () => {
       const caseData = {
         applicant1NoResponsePartnerNewEmailOrPostalAddress:
-          NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+          NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_AND_EMAIL) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_EMAIL);
@@ -150,7 +150,7 @@ describe('No Response Journey Sequence test', () => {
     test('BOTH_NEW_EMAIL_AND_POSTAL_ADDRESS_UPDATE_EMAIL', () => {
       const caseData = {
         applicant1NoResponsePartnerNewEmailOrPostalAddress:
-          NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+          NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_EMAIL) as Step;
       expect(step.getNextStep(caseData)).toBe(PROVIDE_NEW_EMAIL_ADDRESS);
@@ -158,7 +158,7 @@ describe('No Response Journey Sequence test', () => {
     test('CHECK_YOUR_ANSWERS', () => {
       const caseData = {
         applicant1NoResponsePartnerNewEmailOrPostalAddress:
-          NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+          NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_CONTACT_DETAIL_CHECK_ANSWERS);
@@ -166,7 +166,7 @@ describe('No Response Journey Sequence test', () => {
     test('DETAILS_UPDATED', () => {
       const caseData = {
         applicant1NoResponsePartnerNewEmailOrPostalAddress:
-          NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+          NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_CONTACT_DETAIL_CHECK_ANSWERS) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESPONSE_DETAILS_UPDATED);
