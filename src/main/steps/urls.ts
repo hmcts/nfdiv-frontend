@@ -185,6 +185,7 @@ export const AWARE_PARTNER_ADDRESS_DISPENSE: PageLink =
   '/interim-applications/dispense-service/aware-partner-address-dispense';
 export const PARTNER_NEW_ADDRESS_DISPENSE: PageLink =
   '/interim-applications/dispense-service/partner-new-address-dispense';
+export const LAST_SEEN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-seen-dispense';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
 export const HELP_WITH_FEES_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/help-with-fees';
 export const HELP_WITH_FEES_DISPENSE: PageLink = '/interim-applications/dispense-service/help-with-fees';
