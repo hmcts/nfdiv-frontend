@@ -1,6 +1,7 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
+  AddressGlobalUK,
   AlternativeServiceOutcome,
   Applicant2Represented,
   ApplicationType,
@@ -20,6 +21,8 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
+  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponseProvidePartnerNewEmailOrAlternativeService,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -186,6 +189,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+    'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -198,6 +204,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -450,6 +457,8 @@ export interface Case {
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
+  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
@@ -463,6 +472,16 @@ export interface Case {
   applicant1DeemedNoEvidenceStatement?: string;
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
+  applicant1NoResponsePartnerAddress1?: string;
+  applicant1NoResponsePartnerAddress2?: string;
+  applicant1NoResponsePartnerAddress3?: string;
+  applicant1NoResponsePartnerAddressTown?: string;
+  applicant1NoResponsePartnerAddressCounty?: string;
+  applicant1NoResponsePartnerAddressCountry?: string;
+  applicant1NoResponsePartnerAddressPostcode?: string;
+  applicant1NoResponsePartnerAddressOverseas?: YesOrNo;
+  applicant1NoResponsePartnerEmailAddress?: string;
+  applicant2Address?: AddressGlobalUK;
 }
 
 export interface CaseWithId extends Case {

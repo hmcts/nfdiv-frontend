@@ -1,16 +1,27 @@
 import { CaseWithId } from '../app/case/case';
-import { NoResponseCheckContactDetails, YesOrNo } from '../app/case/definition';
+import {
+  NoResponseCheckContactDetails,
+  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponseProvidePartnerNewEmailOrAlternativeService,
+  YesOrNo,
+} from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
+  APPLY_FOR_ALTERNATIVE_SERVICE,
   DEEMED_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
   HUB_PAGE,
+  NEW_CONTACT_DETAIL_CHECK_ANSWERS,
+  NEW_EMAIL,
+  NEW_POSTAL_ADDRESS,
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
+  NO_RESPONSE_DETAILS_UPDATED,
   OPTIONS_FOR_PROGRESSING,
+  PROVIDE_NEW_EMAIL_ADDRESS,
   PageLink,
   SERVE_AGAIN,
 } from './urls';
@@ -42,6 +53,52 @@ export const noResponseJourneySequence: Step[] = [
           return HUB_PAGE;
         }
       }
+    },
+  },
+  {
+    url: NEW_POSTAL_AND_EMAIL,
+    getNextStep: (data: Partial<CaseWithId>): PageLink =>
+      [
+        NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL,
+        NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+      ].includes(data.applicant1NoResponsePartnerNewEmailOrPostalAddress as NoResponsePartnerNewEmailOrPostalAddress)
+        ? NEW_EMAIL
+        : NEW_POSTAL_ADDRESS,
+  },
+  {
+    url: NEW_POSTAL_ADDRESS,
+    getNextStep: (): PageLink => {
+      return NEW_CONTACT_DETAIL_CHECK_ANSWERS;
+    },
+  },
+  {
+    url: NEW_EMAIL,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      return data.applicant1NoResponseProvidePartnerNewEmailOrAlternativeService ===
+        NoResponseProvidePartnerNewEmailOrAlternativeService.APPLY_FOR_ALTERNATIVE_SERVICE
+        ? APPLY_FOR_ALTERNATIVE_SERVICE
+        : PROVIDE_NEW_EMAIL_ADDRESS;
+    },
+  },
+  {
+    url: PROVIDE_NEW_EMAIL_ADDRESS,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      return data.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+        NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
+        ? NEW_POSTAL_ADDRESS
+        : NEW_CONTACT_DETAIL_CHECK_ANSWERS;
+    },
+  },
+  {
+    url: NEW_CONTACT_DETAIL_CHECK_ANSWERS,
+    getNextStep: (): PageLink => {
+      return NO_RESPONSE_DETAILS_UPDATED;
+    },
+  },
+  {
+    url: NO_RESPONSE_DETAILS_UPDATED,
+    getNextStep: (): PageLink => {
+      return HUB_PAGE;
     },
   },
   {
