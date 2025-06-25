@@ -1054,6 +1054,12 @@ export interface CaseData {
   applicant1DispenseLivedTogetherAddress: AddressGlobalUK;
   applicant1DispenseLivedTogetherAddressOverseas: YesOrNo;
   applicant1DispenseAwarePartnerLived: YesOrNo;
+  applicant1DispensePartnerPastAddress1: string;
+  applicant1DispensePartnerPastAddressEnquiries1: string;
+  applicant1DispensePartnerPastAddress2: string;
+  applicant1DispensePartnerPastAddressEnquiries2: string;
+  applicant1DispensePartnerLastSeenDate: DateAsString;
+  applicant1DispensePartnerLastSeenDescription: string;
 }
 
 export interface CaseDocuments {
@@ -1104,6 +1110,12 @@ export interface DispenseWithServiceJourneyOptions {
   dispenseLivedTogetherAddress: AddressGlobalUK;
   dispenseLivedTogetherAddressOverseas: YesOrNo;
   dispenseAwarePartnerLived: YesOrNo;
+  dispensePartnerPastAddress1: string;
+  dispensePartnerPastAddressEnquiries1: string;
+  dispensePartnerPastAddress2: string;
+  dispensePartnerPastAddressEnquiries2: string;
+  dispensePartnerLastSeenDate: DateAsString;
+  dispensePartnerLastSeenDescription: string;
 }
 
 export interface RequestForInformationResponse {

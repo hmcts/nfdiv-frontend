@@ -1,6 +1,6 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
-import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, CaseDate, Checkbox, formatCase, formFieldsToCaseMapping, LanguagePreference } from './case';
 import {
   Applicant2Represented,
   ApplicationType,
@@ -18,7 +18,11 @@ import {
   MarriageFormation,
   YesOrNo,
 } from './definition';
-import { applicant1AddressToApi, applicant2AddressToApi, applicant1DispenseLivedTogetherAddressToApi } from './formatter/address';
+import {
+  applicant1AddressToApi,
+  applicant1DispenseLivedTogetherAddressToApi,
+  applicant2AddressToApi,
+} from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
@@ -443,6 +447,9 @@ const fields: ToApiConverters = {
   applicant1DispenseLivedTogetherAddressPostcode: applicant1DispenseLivedTogetherAddressToApi,
   applicant1DispenseLivedTogetherAddressOverseas: ({ applicant1DispenseLivedTogetherAddressOverseas }) => ({
     applicant1DispenseLivedTogetherAddressOverseas: applicant1DispenseLivedTogetherAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1DispensePartnerLastSeenOrHeardOfDate: data => ({
+    applicant1DispensePartnerLastSeenDate: toApiDate(data.applicant1DispensePartnerLastSeenOrHeardOfDate),
   }),
 };
 
