@@ -37,7 +37,8 @@ export const form: FormContent = {
     applicant1DeemedNoEvidenceStatement: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.responseLabel,
+      label: l => l.title,
+      labelHidden: true,
       validator: value => {
         const hasEnteredDetails = !isEmpty(value);
         if (!hasEnteredDetails) {

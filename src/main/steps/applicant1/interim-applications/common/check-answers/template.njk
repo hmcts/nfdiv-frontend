@@ -24,13 +24,13 @@
           {% if question === 'uploadedFiles' %}
             {% set filenames %}
               {% for filename in uploadedDocsFilenames %}
-                {{ filename }}
+                {{ filename }}<br>
               {% endfor %}
             {% endset %}
-            {{ filenames }}
+            {{ filenames | safe}}
             {% if cannotUploadDocs === 'Yes' %}
               {% if uploadedDocsFilenames.length %}
-                <br><br>
+                <br>
               {% endif %}
               {{ havingTroubleUploading }}
             {% endif %}
