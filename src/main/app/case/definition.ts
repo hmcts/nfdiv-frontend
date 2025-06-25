@@ -1055,6 +1055,13 @@ export interface CaseData {
   applicant1BailiffPartnersEyeColour: string;
   applicant1BailiffPartnersEthnicGroup: string;
   applicant1BailiffPartnersDistinguishingFeatures: string;
+  applicant1BailiffBestTimeToServePapers: string;
+  applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerVehicleModel: string;
+  applicant1BailiffPartnerVehicleColour: string;
+  applicant1BailiffPartnerVehicleRegistration: string;
+  applicant1BailiffPartnerVehicleOtherDetails: string;
+  applicant1BailiffHasPartnerBeenViolent: YesOrNoOrNotKnown;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
@@ -1110,7 +1117,6 @@ export interface BailiffServiceJourneyOptions {
   interimAppsCannotUploadDocs: Checkbox;
   bailiffPartnersName: string;
 }
-
 
 export interface RequestForInformationResponse {
   requestForInformationResponseCannotUploadDocs: YesOrNo;

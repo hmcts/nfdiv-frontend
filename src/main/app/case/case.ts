@@ -212,6 +212,13 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1BailiffPartnersEyeColour: 'applicant1BailiffPartnersEyeColour',
   applicant1BailiffPartnersEthnicGroup: 'applicant1BailiffPartnersEthnicGroup',
   applicant1BailiffPartnersDistinguishingFeatures: 'applicant1BailiffPartnersDistinguishingFeatures',
+  applicant1BailiffBestTimeToServePapers: 'applicant1BailiffBestTimeToServePapers',
+  applicant1BailiffDoesPartnerHaveVehicle: 'applicant1BailiffDoesPartnerHaveVehicle',
+  applicant1BailiffPartnerVehicleModel: 'applicant1BailiffPartnerVehicleModel',
+  applicant1BailiffPartnerVehicleColour: 'applicant1BailiffPartnerVehicleColour',
+  applicant1BailiffPartnerVehicleRegistration: 'applicant1BailiffPartnerVehicleRegistration',
+  applicant1BailiffPartnerVehicleOtherDetails: 'applicant1BailiffPartnerVehicleOtherDetails',
+  applicant1BailiffHasPartnerBeenViolent: 'applicant1BailiffHasPartnerBeenViolent',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
@@ -493,6 +500,13 @@ export interface Case {
   applicant1BailiffPartnersEyeColour: string;
   applicant1BailiffPartnersEthnicGroup: string;
   applicant1BailiffPartnersDistinguishingFeatures: string;
+  applicant1BailiffBestTimeToServePapers: string;
+  applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerVehicleModel: string;
+  applicant1BailiffPartnerVehicleColour: string;
+  applicant1BailiffPartnerVehicleRegistration: string;
+  applicant1BailiffPartnerVehicleOtherDetails: string;
+  applicant1BailiffHasPartnerBeenViolent: YesOrNoOrNotKnown;
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
