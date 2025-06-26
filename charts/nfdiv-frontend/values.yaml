@@ -49,7 +49,6 @@ nodejs:
     NFDIV_DIVORCE_URL: 'https://nfdiv-apply-for-divorce.{{ .Values.global.environment }}.platform.hmcts.net'
     NFDIV_DISSOLUTION_URL: 'https://nfdiv-end-civil-partnership.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_TOKEN_CACHE: false
-    ENABLE_GOVUK_REBRAND: false
 #disable autoscaling because it doesnt deploy AAT
   autoscaling:
     enabled: true
