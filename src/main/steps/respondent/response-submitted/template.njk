@@ -1,0 +1,49 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block backLink %}{% endblock %}
+
+{% block page_content %}
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1 id="responseSubmittedTitle" class="govuk-panel__title">{{ responseSubmittedTitle }}</h1>
+    <div class="govuk-body">
+      {{ yourReferenceNumber }}
+      <div class="govuk-panel__body">
+        <strong>{{ referenceNumber }}</strong>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <h2 class="govuk-heading-l">{{ whatHappensNext }}</h2>
+  {% if isDisputedApplication %}
+    <p class="govuk-body">{{ d8Awaiting.line1 }}</p>
+    <p class="govuk-body">{{ d8Awaiting.line2 | safe }}</p>
+    <p class="govuk-body">{{ d8Awaiting.line3 | safe }}</p>
+    <p class="govuk-body">{{ d8Awaiting.line4 }}</p>
+    {{ serviceAddressMacro(serviceAddress) }}
+    <p class="govuk-body">{{ d8Awaiting.line5 | safe }}</p>
+    <p class="govuk-body">{{ d8Awaiting.line6 }}</p>
+  {% else %}
+    <p class="govuk-body">{{ holding.line1 }}</p>
+    <p class="govuk-body">{{ holding.line2 }}</p>
+    <p class="govuk-body">{{ holding.line3 }}</p>
+    <p class="govuk-body">{{ holding.line4 }}</p>
+    <p class="govuk-body">{{ holding.line5 | safe }}</p>
+  {% endif %}
+
+  <br/>
+  <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__content">
+      <p class="govuk-notification-banner__heading">{{ feedback }}</p>
+      <p class="govuk-body">{{ feedbackLine1 }}</p>
+      <p class="govuk-body"><a class="govuk-link" href={{ feedbackLine2.link }}>{{ feedbackLine2.part1 }}</a></p>
+    </div>
+  </div>
+
+  <h3 class="govuk-heading-m">{{ visitHubSubHeading }}</h3>
+  <p class="govuk-body">{{ visitHubText | safe }}</p>
+{% endblock %}
+
+{% block contact_us %}{% endblock %}
