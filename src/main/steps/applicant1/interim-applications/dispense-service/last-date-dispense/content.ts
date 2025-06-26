@@ -18,7 +18,7 @@ const en = ({ partner }: CommonContent) => ({
     "Give the date of when you last lived together. If you're not sure of the day you can enter the last day of the month.",
   errors: {
     applicant1DispenseLiveTogether: {
-      required: 'You must select an option before continuing.',
+      required: `Select yes if you and your ${partner} lived together.`,
     },
   },
 });
@@ -30,7 +30,7 @@ const cy = ({ partner }: CommonContent) => ({
     "Give the date of when you last lived together. If you're not sure of the day you can enter the last day of the month.",
   errors: {
     applicant1DispenseLiveTogether: {
-      required: 'You must select an option before continuing.',
+      required: `Select yes if you and your ${partner} lived together.`,
     },
   },
 });

@@ -18,10 +18,10 @@ const en = ({ partner }: CommonContent) => ({
   lastSeenDescription: `Describe the last time that you saw or heard of your ${partner}. Include the source of this information and give brief details of all enquiries made to trace them as a result.`,
   errors: {
     applicant1DispensePartnerLastSeenOrHeardOfDate: {
-      required: 'You must enter a date before continuing.',
+      required: `Enter the date your ${partner} was last seen or heard of.`,
     },
     applicant1DispensePartnerLastSeenDescription: {
-      required: 'You must provide a statement before continuing.',
+      required: `Enter details of the last time you saw or heard of your ${partner}.`,
     },
   },
 });
@@ -34,10 +34,10 @@ const cy = ({ partner }: CommonContent) => ({
   lastSeenDescription: `Describe the last time that you saw or heard of your ${partner}. Include the source of this information and give brief details of all enquiries made to trace them as a result.`,
   errors: {
     applicant1DispensePartnerLastSeenOrHeardOfDate: {
-      required: 'You must enter a date before continuing.',
+      required: `Enter the date your ${partner} was last seen or heard of.`,
     },
     applicant1DispensePartnerLastSeenDescription: {
-      required: 'You must provide a statement before continuing.',
+      required: `Enter details of the last time you saw or heard of your ${partner}.`,
     },
   },
 });

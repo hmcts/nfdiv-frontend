@@ -8,7 +8,7 @@ const en = ({ partner }: CommonContent) => ({
   title: `Are you aware of where your ${partner} lived after parting?`,
   errors: {
     applicant1DispenseAwarePartnerLived: {
-      required: 'You must select an option before continuing.',
+      required: `Select yes if you know where your ${partner} lived after parting.`,
     },
   },
 });
@@ -18,7 +18,7 @@ const cy = ({ partner }: CommonContent) => ({
   title: `Are you aware of where your ${partner} lived after parting?`,
   errors: {
     applicant1DispenseAwarePartnerLived: {
-      required: 'You must select an option before continuing.',
+      required: `Select yes if you know where your ${partner} lived after parting.`,
     },
   },
 });
