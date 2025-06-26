@@ -13,6 +13,7 @@ const labels = applicant1Content => ({
     applicant2LegalProceedingsDetails: applicant1Content.errors.applicant1LegalProceedingsDetails,
     applicant2LegalProceedingUploadedFiles: applicant1Content.errors.applicant2LegalProceedingUploadedFiles,
     applicant2UnableToUploadEvidence: applicant1Content.errors.applicant2UnableToUploadEvidence,
+    applicant2LegalProceedingsConcluded: applicant1Content.errors.applicant2LegalProceedingsConcluded,
   },
 });
 
