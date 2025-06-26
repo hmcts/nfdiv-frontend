@@ -73,6 +73,19 @@ const en = (
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
+  contactDetailsSaveAndSignOut: {
+    line1: `Your partner has not responded to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    line2: `You have started a ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+    line3: `You can continue with your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    line4: `If your circumstances have changed or you want to try something else, you can <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">view your options to proceed with your divorce application</a>.`,
+    line5: 'If you begin a new application, your current draft application will be deleted',
+    whatYouCanDoNext: 'What you can do next',
+    completeApplication: 'Complete Application',
+  },
   aosDrafted: {
     line1: `Your ${partner} has started drafting a response to your application.`,
     line2:
@@ -440,6 +453,19 @@ const cy: typeof en = (
     } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
+  },
+  contactDetailsSaveAndSignOut: {
+    line1: `Your partner has not responded to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    line2: `You have started a ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+    line3: `You can continue with your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    line4: `If your circumstances have changed or you want to try something else, you can <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">view your options to proceed with your divorce application</a>.`,
+    line5: 'If you begin a new application, your current draft application will be deleted',
+    whatYouCanDoNext: 'What you can do next',
+    completeApplication: 'Complete Application',
   },
   aosDrafted: {
     line1: `Mae ${partner} wedi dechrau drafftio ymateb i’ch cais.`,
