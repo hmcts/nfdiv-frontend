@@ -319,7 +319,14 @@ export const generateCommonContent = ({
   const isAmendableStates =
     userCase &&
     userCase.state &&
-    [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state);
+    [
+      State.Draft,
+      State.AwaitingApplicant1Response,
+      State.AwaitingApplicant2Response,
+      State.AosDrafted,
+      State.AosOverdue,
+      State.AwaitingConditionalOrder,
+    ].includes(userCase.state);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
   const isRequestForInformationAmendableState =
     userCase &&
