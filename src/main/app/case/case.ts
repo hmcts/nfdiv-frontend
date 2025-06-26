@@ -1,8 +1,8 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
-  AlternativeDifferentWay,
-  AlternativeOptions,
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
   AlternativeServiceOutcome,
   Applicant2Represented,
   ApplicationType,
@@ -208,15 +208,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
   applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
-  applicant1AlternativeReason: 'applicant1AlternativeReason',
-  applicant1AlternativeOptions: 'applicant1AlternativeOptions',
-  applicant1AlternativePartnerEmail: 'applicant1AlternativePartnerEmail',
-  applicant1AlternativePhoneNumber: 'applicant1AlternativePhoneNumber',
-  applicant1AlternativeWhatsApp: 'applicant1AlternativeWhatsApp',
-  applicant1AlternativeSocialDetails: 'applicant1AlternativeSocialDetails',
-  applicant1AlternativeOtherDetails: 'applicant1AlternativeOtherDetails',
-  applicant1AlternativeMethodReason: 'applicant1AlternativeMethodReason',
-  applicant1AlternativeDifferentWays: 'applicant1AlternativeDifferentWays',
+  applicant1AltServiceReasonForApplying: 'applicant1AltServiceReasonForApplying',
+  applicant1AltServiceMethod: 'applicant1AltServiceMethod',
+  applicant1AltServicePartnerEmail: 'applicant1AltServicePartnerEmail',
+  applicant1AltServicePartnerPhone: 'applicant1AltServicePartnerPhone',
+  applicant1AltServicePartnerWANum: 'applicant1AltServicePartnerWANum',
+  applicant1AltServicePartnerSocialDetails: 'applicant1AltServicePartnerSocialDetails',
+  applicant1AltServicePartnerOtherDetails: 'applicant1AltServicePartnerOtherDetails',
+  applicant1AltServiceMethodJustification: 'applicant1AltServiceMethodJustification',
+  applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -488,15 +488,15 @@ export interface Case {
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
   applicant1NoResponseSearchOrDispense?: NoResponseSearchOrDispense;
-  applicant1AlternativeReason?: string;
-  applicant1AlternativeOptions?: AlternativeOptions;
-  applicant1AlternativePartnerEmail?: string;
-  applicant1AlternativePhoneNumber?: string;
-  applicant1AlternativeWhatsApp?: string;
-  applicant1AlternativeSocialDetails?: string;
-  applicant1AlternativeOtherDetails?: string;
-  applicant1AlternativeMethodReason?: string;
-  applicant1AlternativeDifferentWays?: AlternativeDifferentWay[];
+  applicant1AltServiceReasonForApplying?: string;
+  applicant1AltServiceMethod?: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail?: string;
+  applicant1AltServicePartnerPhone?: string;
+  applicant1AltServicePartnerWANum?: string;
+  applicant1AltServicePartnerSocialDetails?: string;
+  applicant1AltServicePartnerOtherDetails?: string;
+  applicant1AltServiceMethodJustification?: string;
+  applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
 }
 
 export interface CaseWithId extends Case {

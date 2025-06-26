@@ -1049,15 +1049,15 @@ export interface CaseData {
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
   applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
-  applicant1AlternativeReason: string;
-  applicant1AlternativeOptions: AlternativeOptions;
-  applicant1AlternativePartnerEmail: string;
-  applicant1AlternativePhoneNumber: string;
-  applicant1AlternativeWhatsApp: string;
-  applicant1AlternativeSocialDetails: string;
-  applicant1AlternativeOtherDetails: string;
-  applicant1AlternativeMethodReason: string;
-  applicant1AlternativeDifferentWays: AlternativeDifferentWay[];
+  applicant1AltServiceReasonForApplying: string;
+  applicant1AltServiceMethod: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail: string;
+  applicant1AltServicePartnerPhone: string;
+  applicant1AltServicePartnerWANum: string;
+  applicant1AltServicePartnerSocialDetails: string;
+  applicant1AltServicePartnerOtherDetails: string;
+  applicant1AltServiceMethodJustification: string;
+  applicant1AltServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface CaseDocuments {
@@ -1108,15 +1108,15 @@ export interface AlternativeServiceJourneyOptions {
   interimAppsCanUploadEvidence: YesOrNo;
   interimAppsRefNumber: string;
   interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
-  alternativeReason: string;
-  alternativeOptions: AlternativeOptions;
-  alternativePartnerEmail: string;
-  alternativePhone: string;
-  alternativeWhatsApp: string;
-  alternativeSocialDetails: string;
-  alternativeOtherDetails: string;
-  alternativeMethodReason: string;
-  alternativeDifferentWays: AlternativeDifferentWay[];
+  altServiceReasonForApplying: string;
+  altServiceMethod: AlternativeServiceMethod;
+  altServicePartnerEmail: string;
+  altServicePartnerPhone: string;
+  altServicePartnerWANum: string;
+  altServicePartnerSocialDetails: string;
+  altServicePartnerOtherDetails: string;
+  altServiceMethodJustification: string;
+  altServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface RequestForInformationResponse {
@@ -2545,13 +2545,13 @@ export const enum NoResponseSearchOrDispense {
   DISPENSE = 'dispense',
 }
 
-export const enum AlternativeOptions {
+export const enum AlternativeServiceMethod {
   EMAIL = 'byEmail',
   DIFFERENT_WAY = 'inADifferentWay',
   EMAIL_AND_DIFFERENT = 'emailAndDifferentWay',
 }
 
-export const enum AlternativeDifferentWay {
+export const enum AlternativeServiceDifferentWays {
   TEXT_MESSAGE = 'textMessage',
   WHATSAPP = 'whatsapp',
   SOCIAL_MEDIA = 'socialMedia',
