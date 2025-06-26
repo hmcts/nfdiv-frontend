@@ -4,12 +4,18 @@ import { alternativeServiceApplicationSequence } from './alternativeServiceAppli
 import { Step } from './applicant1Sequence';
 import {
   ALTERNATIVE_INTERRUPTION,
+  ALTERNATIVE_SENDING_PAPERS_TO_PARTNER,
   ALTERNATIVE_SERVICE_APPLICATION,
+  ALTERNATIVE_WHY_APPLY_THIS_WAY,
   ALTERNATIVE_WHY_OTHER_WAY,
   APPLY_FOR_HWF_ALTERNATIVE,
+  CHECK_ANSWERS_ALTERNATIVE,
   HELP_WITH_FEES_ALTERNATIVE,
+  HUB_PAGE,
   HWF_REFERENCE_NUMBER_ALTERNATIVE,
   HWF_REFERENCE_NUMBER_INPUT_ALTERNATIVE,
+  UPLOAD_EVIDENCE_ALTERNATIVE,
+  WANT_UPLOAD_EVIDENCE_ALTERNATIVE,
 } from './urls';
 
 describe('Alternative Service Application Sequence test', () => {
@@ -82,6 +88,67 @@ describe('Alternative Service Application Sequence test', () => {
     test('APPLY_FOR_HWF_ALTERNATIVE', () => {
       const step = alternativeServiceApplicationSequence.find(obj => obj.url === APPLY_FOR_HWF_ALTERNATIVE) as Step;
       expect(step.getNextStep({})).toBe(HWF_REFERENCE_NUMBER_INPUT_ALTERNATIVE);
+    });
+  });
+
+  describe('ALTERNATIVE_WHY_OTHER_WAY', () => {
+    test('ALTERNATIVE_WHY_OTHER_WAY', () => {
+      const step = alternativeServiceApplicationSequence.find(obj => obj.url === ALTERNATIVE_WHY_OTHER_WAY) as Step;
+      expect(step.getNextStep({})).toBe(ALTERNATIVE_SENDING_PAPERS_TO_PARTNER);
+    });
+  });
+
+  describe('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER', () => {
+    test('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER', () => {
+      const step = alternativeServiceApplicationSequence.find(
+        obj => obj.url === ALTERNATIVE_SENDING_PAPERS_TO_PARTNER
+      ) as Step;
+      expect(step.getNextStep({})).toBe(WANT_UPLOAD_EVIDENCE_ALTERNATIVE);
+    });
+  });
+
+  describe('WANT_UPLOAD_EVIDENCE_ALTERNATIVE', () => {
+    test('Have Evidence', () => {
+      const caseData = {
+        applicant1InterimAppsCanUploadEvidence: YesOrNo.YES,
+      };
+      const step = alternativeServiceApplicationSequence.find(
+        obj => obj.url === WANT_UPLOAD_EVIDENCE_ALTERNATIVE
+      ) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_ALTERNATIVE);
+    });
+
+    test('Do not have Evidence', () => {
+      const caseData = {
+        applicant1InterimAppsCanUploadEvidence: YesOrNo.NO,
+      };
+      const step = alternativeServiceApplicationSequence.find(
+        obj => obj.url === WANT_UPLOAD_EVIDENCE_ALTERNATIVE
+      ) as Step;
+      expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_WHY_APPLY_THIS_WAY);
+    });
+  });
+
+  describe('UPLOAD_EVIDENCE_ALTERNATIVE', () => {
+    test('UPLOAD_EVIDENCE_ALTERNATIVE', () => {
+      const step = alternativeServiceApplicationSequence.find(obj => obj.url === UPLOAD_EVIDENCE_ALTERNATIVE) as Step;
+      expect(step.getNextStep({})).toBe(ALTERNATIVE_WHY_APPLY_THIS_WAY);
+    });
+  });
+
+  describe('ALTERNATIVE_WHY_APPLY_THIS_WAY', () => {
+    test('ALTERNATIVE_WHY_APPLY_THIS_WAY', () => {
+      const step = alternativeServiceApplicationSequence.find(
+        obj => obj.url === ALTERNATIVE_WHY_APPLY_THIS_WAY
+      ) as Step;
+      expect(step.getNextStep({})).toBe(CHECK_ANSWERS_ALTERNATIVE);
+    });
+  });
+
+  describe('CHECK_ANSWERS_ALTERNATIVE', () => {
+    test('CHECK_ANSWERS_ALTERNATIVE', () => {
+      const step = alternativeServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_ALTERNATIVE) as Step;
+      expect(step.getNextStep({})).toBe(HUB_PAGE); // Correct this when the rest of the journey is implemented
     });
   });
 });
