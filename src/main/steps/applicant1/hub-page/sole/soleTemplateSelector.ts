@@ -128,9 +128,7 @@ export const getSoleHubTemplate = (
         (State.AosDrafted && isAosOverdue) ||
         (displayState.isAfter('AosDrafted') && displayState.isBefore('Holding'))
       ) {
-        return userCase.applicant1InterimApplicationType
-          ? HubTemplate.AosAwaitingOrDraftedUpdateContactDetails
-          : HubTemplate.AoSDue;
+        return HubTemplate.AoSDue;
       }
       return HubTemplate.AosAwaitingOrDrafted;
     }

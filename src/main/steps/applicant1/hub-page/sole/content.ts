@@ -872,11 +872,13 @@ export const generateContent: TranslationFn = content => {
     aosIsDrafted &&
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
-    dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
+    dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs()) &&
+    isEmpty(userCase.applicant1InterimApplicationType);
   const contactDetailsUpdatedUKBased =
     userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
       NoResponsePartnerNewEmailOrPostalAddress.CONTACT_DETAILS_UPDATED &&
     userCase.applicant2AddressOverseas !== YesOrNo.YES;
+  const interimApplicationStarted = !isEmpty(userCase.applicant1InterimApplicationType);
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
@@ -898,5 +900,6 @@ export const generateContent: TranslationFn = content => {
     aosIsDrafted,
     aosOverdueAndDrafted,
     contactDetailsUpdatedUKBased,
+    interimApplicationStarted,
   };
 };

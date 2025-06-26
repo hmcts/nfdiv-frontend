@@ -1,8 +1,10 @@
-{% if contactDetailsUpdatedUKBased %}
+{% if interimApplicationStarted %}
     <p class="govuk-body">{{ contactDetailsUpdated.line1 }}</p>
     <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
     <p class="govuk-body">{{ contactDetailsUpdated.line2 }}</p>
     <p class="govuk-body">{{ contactDetailsUpdated.line3 }}</p>
+{% elif contactDetailsUpdatedUKBased %}
+    {% include "./complete-interim-application.njk" %}
 {% else %}
 
     {% if aosIsDrafted %}

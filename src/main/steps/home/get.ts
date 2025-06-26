@@ -10,12 +10,12 @@ import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable
 import { getNextIncompleteStepUrl } from '../index';
 import { form as respondentFirstQuestionForm } from '../respondent/how-do-you-want-to-respond/content';
 import {
+  ALTERNATIVE_SERVICE_APPLICATION,
   APPLICANT_2,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   APP_REPRESENTED,
   AWAITING_RESPONSE_TO_HWF_DECISION,
-  CHECK_ANSWERS_DEEMED,
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
@@ -113,11 +113,12 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.AosOverdue: {
       switch (userCase.applicant1InterimApplicationType) {
         case InterimApplicationType.ALTERNATIVE_SERVICE:
+          return ALTERNATIVE_SERVICE_APPLICATION;
         case InterimApplicationType.DEEMED_SERVICE:
-          return isFirstQuestionComplete ? CHECK_ANSWERS_DEEMED : DEEMED_SERVICE_APPLICATION;
+          return DEEMED_SERVICE_APPLICATION;
         case InterimApplicationType.BAILIFF_SERVICE:
         case InterimApplicationType.DISPENSE_WITH_SERVICE:
-        default:
+        default: // Remove when all the options are completed
           return HUB_PAGE;
       }
     }

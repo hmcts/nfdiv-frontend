@@ -7,6 +7,8 @@
   <p class="govuk-body">
     <a class="govuk-link" id="aosDueAndDraftedLink" href={{ aosDueAndDrafted.linkUrl }}>{{ aosDueAndDrafted.linkText }}</a>
   </p>
+{% elif interimApplicationStarted %}
+  {% include "./complete-interim-application.njk" %}
 {% else %}
   <p class="govuk-body" id="aosDueLine1">{{ aosDue.line1 }}</p>
   <p class="govuk-body" id="aosDueLine2">{{ aosDue.line2 }}</p>
