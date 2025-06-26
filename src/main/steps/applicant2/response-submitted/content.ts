@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import type { CommonContent } from '../../common/common.content';
-import { generateContent as hubPageContent } from '../needs-to-confirm-joint-application/content';
 import { formattedCaseId } from '../../common/content.utils';
+import { generateContent as hubPageContent } from '../needs-to-confirm-joint-application/content';
 
 const en = ({ partner, feedbackLink }: CommonContent) => ({
   title: `Your ${partner} needs to confirm your joint application`,
@@ -39,6 +39,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...languages[language]({ ...content, referenceNumber }),
     ...hubPageContent(content),
-    referenceNumber
+    referenceNumber,
   };
 };

@@ -1,13 +1,12 @@
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
+import { HUB_PAGE, RESPONDENT } from '../../urls';
 import { generateContent as hubPageContent } from '../hub-page/content';
-import { RESPONDENT, HUB_PAGE } from '../../urls';
-
-import { YesOrNo } from '../../../app/case/definition';
 
 const en = ({ feedbackLink }: CommonContent) => ({
-  responseSubmittedTitle: `Response submitted`,
+  responseSubmittedTitle: 'Response submitted',
   yourReferenceNumber: 'Reference number',
   whatHappensNext: 'What happens next',
   feedback: "We'd like to hear your thoughts",
@@ -17,11 +16,13 @@ const en = ({ feedbackLink }: CommonContent) => ({
     link: feedbackLink,
   },
   visitHubSubHeading: 'Visit your application hub',
-  visitHubText: `You can <a href=${RESPONDENT + HUB_PAGE} class="govuk-link">view the progress of your application</a> in the application hub.`,
+  visitHubText: `You can <a href=${
+    RESPONDENT + HUB_PAGE
+  } class="govuk-link">view the progress of your application</a> in the application hub.`,
 });
 
 const cy: typeof en = ({ feedbackLink }: CommonContent) => ({
-  responseSubmittedTitle: `Ymateb wedi'i gyflwyno`,
+  responseSubmittedTitle: "Ymateb wedi'i gyflwyno",
   yourReferenceNumber: 'Cyfeirnod yr achos',
   whatHappensNext: 'Beth fydd yn digwydd nesaf',
   feedback: "Helpwch ni i wella'r gwasanaeth hwn",
@@ -31,7 +32,9 @@ const cy: typeof en = ({ feedbackLink }: CommonContent) => ({
     link: feedbackLink,
   },
   visitHubSubHeading: "Ymweld â'ch gwasanaeth ceisiadau",
-  visitHubText: `Gallwch <a href=${RESPONDENT + HUB_PAGE} class="govuk-link">weld cynnydd eich cais</a> yn y gwasanaeth ceisiadau.`,
+  visitHubText: `Gallwch <a href=${
+    RESPONDENT + HUB_PAGE
+  } class="govuk-link">weld cynnydd eich cais</a> yn y gwasanaeth ceisiadau.`,
 });
 
 const languages = {
@@ -47,6 +50,6 @@ export const generateContent: TranslationFn = content => {
     ...languages[language]({ ...content, referenceNumber }),
     ...hubPageContent(content),
     referenceNumber,
-    isDisputedApplication: userCase.disputeApplication === YesOrNo.YES
+    isDisputedApplication: userCase.disputeApplication === YesOrNo.YES,
   };
 };
