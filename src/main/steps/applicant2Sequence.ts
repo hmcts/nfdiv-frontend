@@ -170,10 +170,6 @@ export const preSubmissionSequence: Step[] = [
     url: CONFIRM_JOINT_APPLICATION,
     getNextStep: () => RESPONSE_SUBMITTED,
   },
-  {
-    url: RESPONSE_SUBMITTED,
-    getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
-  },
 ];
 
 const postSubmissionSequence: Step[] = [
