@@ -210,6 +210,17 @@ const fields: FromApiConverters = {
   }),
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
   applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
+  applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
+  applicant1DispenseLivedTogetherDate: data => ({
+    applicant1DispenseLastLivedTogetherDate: fromApiDate(data.applicant1DispenseLivedTogetherDate),
+  }),
+  applicant1DispenseLivedTogetherAddress: data => formatAddress(data, 'applicant1DispenseLivedTogether'),
+  applicant1DispenseLivedTogetherAddressOverseas: ({ applicant1DispenseLivedTogetherAddressOverseas }) => ({
+    applicant1DispenseLivedTogetherAddressOverseas: applicant1DispenseLivedTogetherAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1DispensePartnerLastSeenDate: data => ({
+    applicant1DispensePartnerLastSeenOrHeardOfDate: fromApiDate(data.applicant1DispensePartnerLastSeenDate),
+  }),
 };
 
 const fromApiDate = date => {
