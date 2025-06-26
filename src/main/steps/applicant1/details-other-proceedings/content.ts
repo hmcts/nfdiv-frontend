@@ -46,6 +46,9 @@ const en = ({ isDivorce }: CommonContent) => ({
       notUploaded:
         "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
     },
+    applicant2LegalProceedingsConcluded: {
+      required: 'You must select if the ongoing proceedings have been concluded.',
+    },
   },
 });
 
@@ -93,6 +96,9 @@ const cy: typeof en = ({ isDivorce }: CommonContent) => ({
     applicant2UnableToUploadEvidence: {
       notUploaded:
         "Rhaid i chi uwchlwytho'ch dogfennau, neu ddewis 'Ni allaf uwchlwytho rhai neu'r cyfan o'm dogfennau' cyn parhau.",
+    },
+    applicant2LegalProceedingsConcluded: {
+      required: "Rhaid i chi ddewis a yw'r achos parhaus wedi dod i ben.",
     },
   },
 });
