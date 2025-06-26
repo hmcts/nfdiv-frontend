@@ -65,5 +65,37 @@ Feature: Dispense with service journey
     And I type "2000"
     When I click continue
     Then the page should include element "#enterAddressTitle"
+
+    Given I select element "#postcode"
+    And I type "SW1H 9AJ"
+    When I click "Find address"
+    Then the page should include "SW1H 9AJ"
+    And I wait for the postcode lookup to return results
+
+    Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    When I click continue
+    Then the page should include element "#awarePartnerAddressDispenseTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#partnerNewAddressDispenseTitle"
+
+    Given I select element "#applicant1DispensePartnerPastAddress1"
+    And I type "123 Example Street"
+    Then I select element "#applicant1DispensePartnerPastAddressEnquiries1"
+    And I type "Example Enquiries"
+    When I click continue
+    Then the page should include element "#lastSeenDispenseTitle"
+
+    Given I select element "#applicant1DispensePartnerLastSeenOrHeardOfDate-day"
+    And I type "1"
+    Then I select element "#applicant1DispensePartnerLastSeenOrHeardOfDate-month"
+    And I type "1"
+    Then I select element "#applicant1DispensePartnerLastSeenOrHeardOfDate-year"
+    And I type "2000"
+    Then I select element "#applicant1DispensePartnerLastSeenDescription"
+    And I type "Last seen description"
+    When I click continue
+
     # Fix and continue this scenario as the journey progresses
-    And the page should include element "#STOP"
+#    Then the page should include element "#STOP"
