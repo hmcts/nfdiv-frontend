@@ -96,3 +96,26 @@ Feature: Bailiff service journey
     And I type "Bangladeshi"
     When I click continue
     Then the page should include element "#bailiffPartnersDistinguishingFeaturesTitle"
+
+    Given I select element "#applicant1BailiffPartnersDistinguishingFeatures"
+    And I type "none"
+    When I click continue
+    Then the page should include element "#bailiffAbleToUploadPhotoTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#bailiffBestTimeToServeTitle"
+
+    Given I select element "#applicant1BailiffBestTimeToServe"
+    And I type "Saturday afternoon"
+    When I click continue
+    Then the page should include element "#bailiffDoesPartnerHaveVehicleTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#bailiffPartnerVehicleDetailsTitle"
+
+    Given I select element "#applicant1BailiffPartnerVehicleModel"
+    And I type "A car"
+    When I click continue
+    Then the page should include element "#bailiffHasPartnerBeenViolentTitle"
