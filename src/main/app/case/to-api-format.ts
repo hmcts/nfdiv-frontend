@@ -1,6 +1,6 @@
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
-import { Case, CaseDate, Checkbox, formatCase, formFieldsToCaseMapping, LanguagePreference } from './case';
+import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import {
   Applicant2Represented,
   ApplicationType,
