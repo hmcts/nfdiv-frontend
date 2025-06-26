@@ -876,8 +876,7 @@ export const generateContent: TranslationFn = content => {
     aosIsDrafted &&
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
-    dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs()) &&
-    isEmpty(userCase.applicant1InterimApplicationType);
+    dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   const contactDetailsUpdatedUKBased =
     userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
       NoResponsePartnerNewEmailOrPostalAddress.CONTACT_DETAILS_UPDATED &&
