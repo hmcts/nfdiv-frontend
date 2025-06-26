@@ -1049,6 +1049,15 @@ export interface CaseData {
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
   applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
+  applicant1AlternativeReason: string;
+  applicant1AlternativeOptions: AlternativeOptions;
+  applicant1AlternativePartnerEmail: string;
+  applicant1AlternativePhoneNumber: string;
+  applicant1AlternativeWhatsApp: string;
+  applicant1AlternativeSocialDetails: string;
+  applicant1AlternativeOtherDetails: string;
+  applicant1AlternativeMethodReason: string;
+  applicant1AlternativeDifferentWays: AlternativeDifferentWay[];
 }
 
 export interface CaseDocuments {
@@ -1090,6 +1099,24 @@ export interface DeemedServiceJourneyOptions {
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
+}
+
+export interface AlternativeServiceJourneyOptions {
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  alternativeReason: string;
+  alternativeOptions: AlternativeOptions;
+  alternativePartnerEmail: string;
+  alternativePhone: string;
+  alternativeWhatsApp: string;
+  alternativeSocialDetails: string;
+  alternativeOtherDetails: string;
+  alternativeMethodReason: string;
+  alternativeDifferentWays: AlternativeDifferentWay[];
 }
 
 export interface RequestForInformationResponse {
@@ -2516,6 +2543,19 @@ export const enum NoResponseOwnSearches {
 export const enum NoResponseSearchOrDispense {
   SEARCH = 'search',
   DISPENSE = 'dispense',
+}
+
+export const enum AlternativeOptions {
+  EMAIL = 'byEmail',
+  DIFFERENT_WAY = 'inADifferentWay',
+  EMAIL_AND_DIFFERENT = 'emailAndDifferentWay',
+}
+
+export const enum AlternativeDifferentWay {
+  TEXT_MESSAGE = 'textMessage',
+  WHATSAPP = 'whatsapp',
+  SOCIAL_MEDIA = 'socialMedia',
+  OTHER = 'other',
 }
 
 /**

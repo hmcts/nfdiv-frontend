@@ -1,6 +1,8 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
+  AlternativeDifferentWay,
+  AlternativeOptions,
   AlternativeServiceOutcome,
   Applicant2Represented,
   ApplicationType,
@@ -206,6 +208,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
   applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
+  applicant1AlternativeReason: 'applicant1AlternativeReason',
+  applicant1AlternativeOptions: 'applicant1AlternativeOptions',
+  applicant1AlternativePartnerEmail: 'applicant1AlternativePartnerEmail',
+  applicant1AlternativePhoneNumber: 'applicant1AlternativePhoneNumber',
+  applicant1AlternativeWhatsApp: 'applicant1AlternativeWhatsApp',
+  applicant1AlternativeSocialDetails: 'applicant1AlternativeSocialDetails',
+  applicant1AlternativeOtherDetails: 'applicant1AlternativeOtherDetails',
+  applicant1AlternativeMethodReason: 'applicant1AlternativeMethodReason',
+  applicant1AlternativeDifferentWays: 'applicant1AlternativeDifferentWays',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -477,6 +488,15 @@ export interface Case {
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
   applicant1NoResponseSearchOrDispense?: NoResponseSearchOrDispense;
+  applicant1AlternativeReason?: string;
+  applicant1AlternativeOptions?: AlternativeOptions;
+  applicant1AlternativePartnerEmail?: string;
+  applicant1AlternativePhoneNumber?: string;
+  applicant1AlternativeWhatsApp?: string;
+  applicant1AlternativeSocialDetails?: string;
+  applicant1AlternativeOtherDetails?: string;
+  applicant1AlternativeMethodReason?: string;
+  applicant1AlternativeDifferentWays?: AlternativeDifferentWay[];
 }
 
 export interface CaseWithId extends Case {

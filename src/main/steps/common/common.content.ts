@@ -15,6 +15,7 @@ export const en = {
     for: 'for',
     to: 'to',
     deemed: 'deemed service',
+    alternativeService: 'alternative service',
     deemedCode: 'D11',
   },
   feedback: {
@@ -174,6 +175,7 @@ const cy: typeof en = {
     for: 'am',
     to: 'i',
     deemed: 'gyflwyno tybiedig',
+    alternativeService: 'gwasanaeth amgen',
     deemedCode: 'D11',
   },
   feedback: {
