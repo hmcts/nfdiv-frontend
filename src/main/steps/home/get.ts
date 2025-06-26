@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { isEmpty } from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, InterimApplicationType, State, YesOrNo } from '../../app/case/definition';
+import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Form, FormFields } from '../../app/form/Form';
 import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
@@ -10,7 +10,6 @@ import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable
 import { getNextIncompleteStepUrl } from '../index';
 import { form as respondentFirstQuestionForm } from '../respondent/how-do-you-want-to-respond/content';
 import {
-  ALTERNATIVE_SERVICE_APPLICATION,
   APPLICANT_2,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
@@ -21,7 +20,6 @@ import {
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
-  DEEMED_SERVICE_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
@@ -107,20 +105,6 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
       return HUB_PAGE;
     case State.Draft: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
-    }
-    case State.AwaitingAos:
-    case State.AosDrafted:
-    case State.AosOverdue: {
-      switch (userCase.applicant1InterimApplicationType) {
-        case InterimApplicationType.ALTERNATIVE_SERVICE:
-          return ALTERNATIVE_SERVICE_APPLICATION;
-        case InterimApplicationType.DEEMED_SERVICE:
-          return DEEMED_SERVICE_APPLICATION;
-        case InterimApplicationType.BAILIFF_SERVICE:
-        case InterimApplicationType.DISPENSE_WITH_SERVICE:
-        default: // Remove when all the options are completed
-          return HUB_PAGE;
-      }
     }
     default: {
       return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;

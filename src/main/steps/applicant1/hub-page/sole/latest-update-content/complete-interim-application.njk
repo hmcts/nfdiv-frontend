@@ -1,20 +1,13 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-<p class="govuk-body">{{ contactDetailsSaveAndSignOut.line1 }}</p>
-<p class="govuk-body">{{ contactDetailsSaveAndSignOut.line2 }}</p>
-<h4 class="govuk-heading-s">{{ contactDetailsSaveAndSignOut.whatYouCanDoNext }}</h4>
-<p class="govuk-body">{{ contactDetailsSaveAndSignOut.line3 }}</p>
-<form class="form" id="main-form" method="post" action="" novalidate="novalidate">
-    <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
-    {% block form_content %}
-        {% include "common/form/fields.njk" %}
-    {% endblock %}
-
-    {{ govukButton({
-        text: contactDetailsSaveAndSignOut.completeApplication,
-        classes: 'disable-upon-submit'
-    }) }}
-</form>
-
-<p class="govuk-body">{{ contactDetailsSaveAndSignOut.line4 | safe }}</p>
-<p class="govuk-body">{{ contactDetailsSaveAndSignOut.line5 }}</p>
+<p class="govuk-body">{{ interimApplicationsSaveAndSignOut.line1 }}</p>
+<p class="govuk-body">{{ interimApplicationsSaveAndSignOut.line2 }}</p>
+<h4 class="govuk-heading-s">{{ interimApplicationsSaveAndSignOut.whatYouCanDoNext }}</h4>
+<p class="govuk-body">{{ interimApplicationsSaveAndSignOut.line3 }}</p>
+{{ govukButton({
+    text: interimApplicationsSaveAndSignOut.completeApplication,
+    href: interimApplicationStartPagePath,
+    preventDoubleClick: true
+}) }}
+<p class="govuk-body">{{ interimApplicationsSaveAndSignOut.line4 | safe }}</p>
+<p class="govuk-body">{{ interimApplicationsSaveAndSignOut.line5 }}</p>
