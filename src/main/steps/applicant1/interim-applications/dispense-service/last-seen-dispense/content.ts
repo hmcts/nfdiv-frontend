@@ -75,7 +75,8 @@ export const form: FormContent = {
           attributes: { maxLength: 4 },
         },
       ],
-      parser: body => covertToDateObject('applicant1DispensePartnerLastSeenOrHeardOfDate', body as Record<string, unknown>),
+      parser: body =>
+        covertToDateObject('applicant1DispensePartnerLastSeenOrHeardOfDate', body as Record<string, unknown>),
       validator: value =>
         areDateFieldsFilledIn(value as CaseDate) ||
         isDateInputInvalid(value as CaseDate) ||
