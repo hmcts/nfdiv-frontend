@@ -13496,8 +13496,8 @@ __metadata:
   linkType: hard
 
 "mocha@npm:^11.0.0":
-  version: 11.6.0
-  resolution: "mocha@npm:11.6.0"
+  version: 11.7.0
+  resolution: "mocha@npm:11.7.0"
   dependencies:
     browser-stdout: ^1.3.1
     chokidar: ^4.0.1
@@ -13522,7 +13522,7 @@ __metadata:
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
-  checksum: 5414b5ffad354937feb3f27e80b00c0a4c72e6eb163ed6cb758dc8d39ddd554bc404ba186e524504957b113833d55fee3503832baf1fbefae52e558e92cfa82c
+  checksum: 9d5902522f2e31529380966f5186eb522ea6396edd0d7b36b16bcf062b6168df38f6429d11fbce1a2a3911e3d422d857bdcce64283e90aa3ea8e4f4660921352
   languageName: node
   linkType: hard
 
@@ -13879,7 +13879,7 @@ __metadata:
     otplib: 12.0.1
     pa11y: 8.0.0
     pdfjs-dist: 5.2.133
-    prettier: 3.1.1
+    prettier: 3.6.2
     redis: 5.0.1
     require-directory: 2.1.1
     sass-loader: 16.0.3
@@ -15249,12 +15249,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.1.1":
-  version: 3.1.1
-  resolution: "prettier@npm:3.1.1"
+"prettier@npm:3.6.2":
+  version: 3.6.2
+  resolution: "prettier@npm:3.6.2"
   bin:
     prettier: bin/prettier.cjs
-  checksum: e386855e3a1af86a748e16953f168be555ce66d6233f4ba54eb6449b88eb0c6b2ca79441b11eae6d28a7f9a5c96440ce50864b9d5f6356d331d39d6bb66c648e
+  checksum: 0206f5f437892e8858f298af8850bf9d0ef1c22e21107a213ba56bfb9c2387a2020bfda244a20161d8e3dad40c6b04101609a55d370dece53d0a31893b64f861
   languageName: node
   linkType: hard
 
