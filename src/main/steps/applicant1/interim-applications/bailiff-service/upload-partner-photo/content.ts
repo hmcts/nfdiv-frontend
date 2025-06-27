@@ -6,7 +6,7 @@ import {
   generateContent as uploadEvidenceGenerateContent,
 } from '../../common/upload-evidence/content';
 
-const en = ({ partner }: CommonContent, applicant1UploadEvidenceContent) => ({
+const en = ({ partner }: CommonContent) => ({
   title: `Upload a recent picture of your ${partner}`,
   statement: '',
   line2: 'Make sure your picture:',
@@ -22,7 +22,7 @@ const en = ({ partner }: CommonContent, applicant1UploadEvidenceContent) => ({
     'You can send your documents to the court by post or webform. You’ll receive details of how to send them after you’ve submitted this application.',
 });
 
-const cy: typeof en = ({ partner }: CommonContent, applicant1UploadEvidenceContent) => ({
+const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Upload a recent picture of your ${partner}`,
   statement: '',
   line2: 'Make sure your picture:',
@@ -47,7 +47,7 @@ export const form: FormContent = uploadEvidenceForm;
 
 export const generateContent: TranslationFn = content => {
   const applicant1UploadEvidenceContent = uploadEvidenceGenerateContent(content);
-  const translations = languages[content.language](content, applicant1UploadEvidenceContent);
+  const translations = languages[content.language](content);
   return {
     ...applicant1UploadEvidenceContent,
     ...translations,
