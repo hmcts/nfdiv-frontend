@@ -5,9 +5,6 @@
 {% block header %}
   {{ govukHeader({
     containerClasses: "govuk-width-container",
-    classes: "govuk-header--full-width-border"
-  }) }}
-  {{ govukServiceNavigation({
     serviceUrl: (globals.basePath if globals.basePath) + "/"
   }) }}
 {% endblock %}

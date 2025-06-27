@@ -4,9 +4,6 @@
   {% include "cookie-banner/template.njk" %}
   {{ govukHeader({
     containerClasses: "govuk-width-container",
-    classes: "govuk-header--full-width-border"
-  }) }}
-  {{ govukServiceNavigation({
     serviceName: serviceName,
     serviceUrl: (globals.basePath if globals.basePath) + "/applicant1/enter-your-access-code",
     navigation: [
