@@ -6,7 +6,9 @@ import {
   ABLE_TO_UPLOAD_PARTNER_PHOTO,
   APPLY_FOR_HWF_BAILIFF,
   BAILIFF_SERVICE_APPLICATION,
+  DOES_PARTNER_HAVE_A_VEHICLE,
   ENTER_PARTNERS_NAME_BAILIFF,
+  HAS_PARTNER_BEEN_VIOLENT,
   HELP_WITH_FEES_BAILIFF,
   HWF_REFERENCE_NUMBER_BAILIFF,
   HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
@@ -20,8 +22,6 @@ import {
   PARTNER_IN_REFUGE_BAILIFF,
   PARTNER_PHONE_NUMBER_BAILIFF,
   PARTNER_VEHICLE_DETAILS,
-  DOES_PARTNER_HAVE_A_VEHICLE,
-  HAS_PARTNER_BEEN_VIOLENT,
   UPLOAD_PARTNER_PHOTO,
   WHEN_IS_BEST_TO_SERVE,
 } from './urls';
@@ -134,21 +134,21 @@ describe('Bailiff Service Application Sequence test', () => {
 
   describe('ABLE_TO_UPLOAD_PARTNER_PHOTO', () => {
     test('redirects to UPLOAD_PARTNER_PHOTO if able to upload', () => {
-      const step = bailiffServiceApplicationSequence.find(
-        obj => obj.url === ABLE_TO_UPLOAD_PARTNER_PHOTO
-      ) as Step;
-      expect(step.getNextStep({
-        applicant1InterimAppsCanUploadEvidence: YesOrNo.YES
-      })).toBe(UPLOAD_PARTNER_PHOTO);
+      const step = bailiffServiceApplicationSequence.find(obj => obj.url === ABLE_TO_UPLOAD_PARTNER_PHOTO) as Step;
+      expect(
+        step.getNextStep({
+          applicant1InterimAppsCanUploadEvidence: YesOrNo.YES,
+        })
+      ).toBe(UPLOAD_PARTNER_PHOTO);
     });
 
     test('redirects to WHEN_IS_BEST_TO_SERVE if not able to upload', () => {
-      const step = bailiffServiceApplicationSequence.find(
-        obj => obj.url === ABLE_TO_UPLOAD_PARTNER_PHOTO
-      ) as Step;
-      expect(step.getNextStep({
-        applicant1InterimAppsCanUploadEvidence: YesOrNo.NO
-      })).toBe(WHEN_IS_BEST_TO_SERVE);
+      const step = bailiffServiceApplicationSequence.find(obj => obj.url === ABLE_TO_UPLOAD_PARTNER_PHOTO) as Step;
+      expect(
+        step.getNextStep({
+          applicant1InterimAppsCanUploadEvidence: YesOrNo.NO,
+        })
+      ).toBe(WHEN_IS_BEST_TO_SERVE);
     });
   });
 
@@ -164,21 +164,21 @@ describe('Bailiff Service Application Sequence test', () => {
 
   describe('DOES_PARTNER_HAVE_A_VEHICLE', () => {
     test('redirects to PARTNER_VEHICLE_DETAILS if partner has a vehicle', () => {
-      const step = bailiffServiceApplicationSequence.find(
-        obj => obj.url === DOES_PARTNER_HAVE_A_VEHICLE
-      ) as Step;
-      expect(step.getNextStep({
-        applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown.YES
-      })).toBe(PARTNER_VEHICLE_DETAILS);
+      const step = bailiffServiceApplicationSequence.find(obj => obj.url === DOES_PARTNER_HAVE_A_VEHICLE) as Step;
+      expect(
+        step.getNextStep({
+          applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown.YES,
+        })
+      ).toBe(PARTNER_VEHICLE_DETAILS);
     });
 
     test('redirects to HAS_PARTNER_BEEN_VIOLENT if partner does not have a vehicle', () => {
-      const step = bailiffServiceApplicationSequence.find(
-        obj => obj.url === DOES_PARTNER_HAVE_A_VEHICLE
-      ) as Step;
-      expect(step.getNextStep({
-        applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown.NO
-      })).toBe(HAS_PARTNER_BEEN_VIOLENT);
+      const step = bailiffServiceApplicationSequence.find(obj => obj.url === DOES_PARTNER_HAVE_A_VEHICLE) as Step;
+      expect(
+        step.getNextStep({
+          applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown.NO,
+        })
+      ).toBe(HAS_PARTNER_BEEN_VIOLENT);
     });
-  })
+  });
 });
