@@ -8,6 +8,7 @@ import {
 
 const en = ({ partner }: CommonContent, applicant1UploadEvidenceContent) => ({
   title: `Upload a recent picture of your ${partner}`,
+  statement: '',
   line2: 'Make sure your picture:',
   toInclude: {
     bulletOne: `Clearly shows your ${partner}'s face`,
@@ -15,19 +16,15 @@ const en = ({ partner }: CommonContent, applicant1UploadEvidenceContent) => ({
     bulletThree: 'Does not include any children',
   },
   line3: 'Any blurred images, or images that show children or other people cannot be accepted by the court.',
-  uploadAFile: 'Upload a file',
-  chooseFileButtonText: 'Choose file',
-  noFileChosen: 'No file chosen',
-  uploadedFiles: 'Uploaded files',
-  noFilesUploaded: 'No files uploaded',
-  cannotUpload: 'I cannot upload some or all of my documents',
+  line4: '',
+  line5: '',
   cannotUploadInfo:
     'You can send your documents to the court by post or webform. You’ll receive details of how to send them after you’ve submitted this application.',
-  errors: applicant1UploadEvidenceContent.errors,
 });
 
 const cy: typeof en = ({ partner }: CommonContent, applicant1UploadEvidenceContent) => ({
   title: `Upload a recent picture of your ${partner}`,
+  statement: '',
   line2: 'Make sure your picture:',
   toInclude: {
     bulletOne: `Clearly shows your ${partner}'s face`,
@@ -35,15 +32,10 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadEvidenceConte
     bulletThree: 'Does not include any children',
   },
   line3: 'Any blurred images, or images that show children or other people cannot be accepted by the court.',
-  uploadAFile: 'Upload a file',
-  chooseFileButtonText: 'Choose file',
-  noFileChosen: 'No file chosen',
-  uploadedFiles: 'Uploaded files',
-  noFilesUploaded: 'No files uploaded',
-  cannotUpload: 'I cannot upload some or all of my documents',
+  line4: '',
+  line5: '',
   cannotUploadInfo:
     'You can send your documents to the court by post or webform. You’ll receive details of how to send them after you’ve submitted this application.',
-  errors: applicant1UploadEvidenceContent.errors,
 });
 
 const languages = {
