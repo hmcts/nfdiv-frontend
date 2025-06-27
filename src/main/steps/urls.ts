@@ -208,3 +208,11 @@ export const PARTNER_EYE_COLOUR_BAILIFF: PageLink = '/interim-applications/baili
 export const PARTNER_ETHNIC_GROUP_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-ethnic-group';
 export const PARTNER_DISTINGUISHING_FEATURES_BAILIFF: PageLink =
   '/interim-applications/bailiff-service/partner-distinguishing-features';
+export const ABLE_TO_UPLOAD_PARTNER_PHOTO: PageLink =
+  '/interim-applications/bailiff-service/able-to-upload-partner-photo';
+export const UPLOAD_PARTNER_PHOTO: PageLink = '/interim-applications/bailiff-service/upload-partner-photo';
+export const WHEN_IS_BEST_TO_SERVE: PageLink = '/interim-applications/bailiff-service/when-is-best-to-serve';
+export const DOES_PARTNER_HAVE_A_VEHICLE: PageLink =
+  '/interim-applications/bailiff-service/does-partner-have-a-vehicle';
+export const PARTNER_VEHICLE_DETAILS: PageLink = '/interim-applications/bailiff-service/partner-vehicle-details';
+export const HAS_PARTNER_BEEN_VIOLENT: PageLink = '/interim-applications/bailiff-service/has-your-partner-been-violent';

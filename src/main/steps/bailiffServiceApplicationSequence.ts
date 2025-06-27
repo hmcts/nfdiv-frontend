@@ -2,9 +2,12 @@ import { YesOrNo, YesOrNoOrNotKnown } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
+  ABLE_TO_UPLOAD_PARTNER_PHOTO,
   APPLY_FOR_HWF_BAILIFF,
   BAILIFF_SERVICE_APPLICATION,
+  DOES_PARTNER_HAVE_A_VEHICLE,
   ENTER_PARTNERS_NAME_BAILIFF,
+  HAS_PARTNER_BEEN_VIOLENT,
   HELP_WITH_FEES_BAILIFF,
   HWF_REFERENCE_NUMBER_BAILIFF,
   HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
@@ -17,6 +20,9 @@ import {
   PARTNER_HEIGHT_BAILIFF,
   PARTNER_IN_REFUGE_BAILIFF,
   PARTNER_PHONE_NUMBER_BAILIFF,
+  PARTNER_VEHICLE_DETAILS,
+  UPLOAD_PARTNER_PHOTO,
+  WHEN_IS_BEST_TO_SERVE,
 } from './urls';
 
 export const bailiffServiceApplicationSequence: Step[] = [
@@ -87,6 +93,34 @@ export const bailiffServiceApplicationSequence: Step[] = [
   },
   {
     url: PARTNER_DISTINGUISHING_FEATURES_BAILIFF,
+    getNextStep: () => ABLE_TO_UPLOAD_PARTNER_PHOTO,
+  },
+  {
+    url: ABLE_TO_UPLOAD_PARTNER_PHOTO,
+    getNextStep: data =>
+      data.applicant1InterimAppsCanUploadEvidence === YesOrNo.YES ? UPLOAD_PARTNER_PHOTO : WHEN_IS_BEST_TO_SERVE,
+  },
+  {
+    url: UPLOAD_PARTNER_PHOTO,
+    getNextStep: () => WHEN_IS_BEST_TO_SERVE,
+  },
+  {
+    url: WHEN_IS_BEST_TO_SERVE,
+    getNextStep: () => DOES_PARTNER_HAVE_A_VEHICLE,
+  },
+  {
+    url: DOES_PARTNER_HAVE_A_VEHICLE,
+    getNextStep: data =>
+      data?.applicant1BailiffDoesPartnerHaveVehicle === YesOrNoOrNotKnown.YES
+        ? PARTNER_VEHICLE_DETAILS
+        : HAS_PARTNER_BEEN_VIOLENT,
+  },
+  {
+    url: PARTNER_VEHICLE_DETAILS,
+    getNextStep: () => HAS_PARTNER_BEEN_VIOLENT,
+  },
+  {
+    url: HAS_PARTNER_BEEN_VIOLENT,
     getNextStep: () => BAILIFF_SERVICE_APPLICATION,
   },
 ];
