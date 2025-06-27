@@ -1,6 +1,5 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
-{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% extends "govuk/template.njk" %}
 
@@ -30,9 +29,6 @@
   {% include "../cookie-banner/template.njk" %}
   {{ govukHeader({
     containerClasses: "govuk-width-container",
-    classes: "govuk-header--full-width-border"
-  }) }}
-  {{ govukServiceNavigation({
     serviceName: serviceName,
     serviceUrl: (globals.basePath if globals.basePath) + "/",
     navigation: [

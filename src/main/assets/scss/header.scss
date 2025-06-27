@@ -1,12 +1,18 @@
-.govuk-header nav {
+.govuk-template--rebranded nav {
   float: right;
   margin: 0;
+
+  .govuk-header__navigation-item {
+    padding: 0 0 0 10px;
+
+    a {
+      font-weight: 700;
+    }
+  }
 }
 
-.govuk-header__link {
-  font-weight: bold;
-}
-
-.govuk-service-navigation {
-  margin-bottom: 0;
+@media (min-width: map-get($govuk-breakpoints, desktop)) {
+  .govuk-template--rebranded nav {
+    margin-top: 24px;
+  }
 }
