@@ -43,7 +43,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
         ? `The amount of time your ${partner} has to respond depends on the country they’re living in. ${otherOptionsText}.`
         : ''
     }`,
-    returnToHubScreen: `<a href=${HUB_PAGE} class="govuk-link">Return to hub screen</a>`,
+    returnToYourAccount: `<a href=${HUB_PAGE} class="govuk-link">Return to your account</a>`,
   };
 };
 

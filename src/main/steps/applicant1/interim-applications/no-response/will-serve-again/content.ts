@@ -18,7 +18,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   }.`,
-  returnToHubScreen: `<a href=${HUB_PAGE} class="govuk-link">Return to hub screen</a>`,
+  returnToYourAccount: `<a href=${HUB_PAGE} class="govuk-link">Return to your account</a>`,
   errors: {
     applicant1NoResponseCheckContactDetails: {
       required: `You must confirm whether or not your ${partner}'s contact details are correct.`,
@@ -41,7 +41,7 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   )} diwrnod i ymateb. Byddwn yn anfon neges e-bost atoch os na fydd eich ${partner} yn ymateb. Yna byddwch yn gallu ceisio gwneud rhywbeth arall i symud eich ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } yn ei flaen.`,
-  returnToHubScreen: `<a href=${HUB_PAGE} class="govuk-link">Dychwelyd i sgrin yr hyb</a>`,
+  returnToYourAccount: `<a href=${HUB_PAGE} class="govuk-link">Dychwelyd i sgrin yr hyb</a>`, // update Welsh text once available
   errors: {
     applicant1NoResponseCheckContactDetails: {
       required: `You must confirm whether or not your ${partner}'s contact details are correct.`,
