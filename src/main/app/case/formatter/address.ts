@@ -3,23 +3,9 @@ import { AddressGlobalUK, CaseData } from '../definition';
 
 export const fromApi = (
   data: Partial<CaseData>,
-  address: 'applicant1' | 'applicant2' | 'applicant1DispenseLivedTogether'
+  addressPrefix: 'applicant1' | 'applicant2' | 'applicant1DispenseLivedTogether'
 ): Partial<Case> => {
-  let fullAddress;
-  switch (address) {
-    case 'applicant1': {
-      fullAddress = data.applicant1Address;
-      break;
-    }
-    case 'applicant2': {
-      fullAddress = data.applicant2Address;
-      break;
-    }
-    case 'applicant1DispenseLivedTogether': {
-      fullAddress = data.applicant1DispenseLivedTogetherAddress;
-      break;
-    }
-  }
+   const fullAddress = data[`${addressPrefix}Address`];
 
   return {
     [`${address}Address1`]: fullAddress?.AddressLine1 || '',
