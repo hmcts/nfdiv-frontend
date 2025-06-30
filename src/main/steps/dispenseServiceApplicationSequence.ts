@@ -42,7 +42,8 @@ export const dispenseServiceApplicationSequence: Step[] = [
   },
   {
     url: LAST_DATE_DISPENSE,
-    getNextStep: () => LAST_ADDRESS_DISPENSE,
+    getNextStep: data =>
+      data?.applicant1DispenseLiveTogether === YesOrNo.YES ? LAST_ADDRESS_DISPENSE : AWARE_PARTNER_ADDRESS_DISPENSE,
   },
   {
     url: LAST_ADDRESS_DISPENSE,
@@ -50,7 +51,8 @@ export const dispenseServiceApplicationSequence: Step[] = [
   },
   {
     url: AWARE_PARTNER_ADDRESS_DISPENSE,
-    getNextStep: () => PARTNER_NEW_ADDRESS_DISPENSE,
+    getNextStep: data =>
+      data?.applicant1DispenseAwarePartnerLived === YesOrNo.YES ? PARTNER_NEW_ADDRESS_DISPENSE : LAST_SEEN_DISPENSE,
   },
   {
     url: PARTNER_NEW_ADDRESS_DISPENSE,
