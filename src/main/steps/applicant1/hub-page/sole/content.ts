@@ -893,7 +893,8 @@ export const generateContent: TranslationFn = content => {
         return HUB_PAGE;
     }
   })();
-  const interimApplicationStarted = userCase.applicant1InterimApplicationType !== undefined;
+  const interimApplicationStartedAosOverdue =
+    userCase.applicant1InterimApplicationType !== undefined && userCase.state === State.AosOverdue;
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
@@ -916,6 +917,6 @@ export const generateContent: TranslationFn = content => {
     aosOverdueAndDrafted,
     contactDetailsUpdatedUKBased,
     interimApplicationStartPagePath,
-    interimApplicationStarted,
+    interimApplicationStartedAosOverdue,
   };
 };
