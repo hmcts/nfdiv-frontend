@@ -894,7 +894,7 @@ export const generateContent: TranslationFn = content => {
     }
   })();
   const interimApplicationStartedAosOverdue =
-    userCase.applicant1InterimApplicationType !== undefined && userCase.state === State.AosOverdue;
+    userCase.applicant1InterimApplicationType && userCase.state === State.AosOverdue;
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
