@@ -5,16 +5,16 @@ export const fromApi = (
   data: Partial<CaseData>,
   addressPrefix: 'applicant1' | 'applicant2' | 'applicant1DispenseLivedTogether'
 ): Partial<Case> => {
-   const fullAddress = data[`${addressPrefix}Address`];
+  const fullAddress = data[`${addressPrefix}Address`];
 
   return {
-    [`${address}Address1`]: fullAddress?.AddressLine1 || '',
-    [`${address}Address2`]: fullAddress?.AddressLine2 || '',
-    [`${address}Address3`]: fullAddress?.AddressLine3 || '',
-    [`${address}AddressTown`]: fullAddress?.PostTown || '',
-    [`${address}AddressCounty`]: fullAddress?.County || '',
-    [`${address}AddressPostcode`]: fullAddress?.PostCode || '',
-    [`${address}AddressCountry`]: fullAddress?.Country || '',
+    [`${addressPrefix}Address1`]: fullAddress?.AddressLine1 || '',
+    [`${addressPrefix}Address2`]: fullAddress?.AddressLine2 || '',
+    [`${addressPrefix}Address3`]: fullAddress?.AddressLine3 || '',
+    [`${addressPrefix}AddressTown`]: fullAddress?.PostTown || '',
+    [`${addressPrefix}AddressCounty`]: fullAddress?.County || '',
+    [`${addressPrefix}AddressPostcode`]: fullAddress?.PostCode || '',
+    [`${addressPrefix}AddressCountry`]: fullAddress?.Country || '',
   };
 };
 
