@@ -119,3 +119,32 @@ Feature: Bailiff service journey
     And I type "A car"
     When I click continue
     Then the page should include element "#bailiffHasPartnerBeenViolentTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffPartnerViolenceDetails"
+    And I type "example"
+    When I click continue
+    Then the page should include element "#bailiffHasPartnerMadeThreatsTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffPoliceInvolvedDetails"
+    And I type "example"
+    When I click continue
+    Then the page should include element "#bailiffHavePoliceBeenInvolvedTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffSocialServicesInvolvedDetails"
+    And I type "example"
+    When I click continue
+    Then the page should include element "#bailiffHaveSocialServicesBeenInvolvedTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffSocialServicesInvolvedDetails"
+    And I type "example"
+    When I click continue
+    Then the page should include element "#bailiffDangerousAnimalsTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffDangerousAnimalsDetails"
+    And I type "example"
+

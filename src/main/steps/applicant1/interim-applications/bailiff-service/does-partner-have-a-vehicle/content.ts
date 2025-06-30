@@ -8,7 +8,7 @@ const en = ({ partner }: CommonContent) => ({
   title: `Does your ${partner} have access to a vehicle?`,
   errors: {
     applicant1BailiffDoesPartnerHaveVehicle: {
-      required: 'Select yes if your partner has a vehicle.',
+      required: `Select yes if your ${partner} has a vehicle.`,
     },
   },
 });
@@ -17,7 +17,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Does your ${partner} have access to a vehicle?`,
   errors: {
     applicant1BailiffDoesPartnerHaveVehicle: {
-      required: 'Select yes if your partner has a vehicle.',
+      required: `Select yes if your ${partner} has a vehicle.`,
     },
   },
 });

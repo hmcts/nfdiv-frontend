@@ -5,10 +5,14 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import {
   ABLE_TO_UPLOAD_PARTNER_PHOTO,
   APPLY_FOR_HWF_BAILIFF,
+  ARE_THERE_DANGEROUS_ANIMALS,
   BAILIFF_SERVICE_APPLICATION,
   DOES_PARTNER_HAVE_A_VEHICLE,
   ENTER_PARTNERS_NAME_BAILIFF,
   HAS_PARTNER_BEEN_VIOLENT,
+  HAS_PARTNER_MADE_THREATS,
+  HAVE_POLICE_BEEN_INVOLVED,
+  HAVE_SOCIAL_SERVICES_BEEN_INVOLVED,
   HELP_WITH_FEES_BAILIFF,
   HWF_REFERENCE_NUMBER_BAILIFF,
   HWF_REFERENCE_NUMBER_INPUT_BAILIFF,
@@ -180,5 +184,35 @@ describe('Bailiff Service Application Sequence test', () => {
         })
       ).toBe(HAS_PARTNER_BEEN_VIOLENT);
     });
+  });
+
+  test('PARTNER_VEHICLE_DETAILS redirects to HAS_PARTNER_BEEN_VIOLENT', () => {
+    const step = bailiffServiceApplicationSequence.find(obj => obj.url === PARTNER_VEHICLE_DETAILS) as Step;
+    expect(step.getNextStep({})).toBe(HAS_PARTNER_BEEN_VIOLENT);
+  });
+
+  test('HAS_PARTNER_BEEN_VIOLENT redirects to HAS_PARTNER_MADE_THREATS', () => {
+    const step = bailiffServiceApplicationSequence.find(obj => obj.url === HAS_PARTNER_BEEN_VIOLENT) as Step;
+    expect(step.getNextStep({})).toBe(HAS_PARTNER_MADE_THREATS);
+  });
+
+  test('HAS_PARTNER_MADE_THREATS redirects to HAVE_POLICE_BEEN_INVOLVED', () => {
+    const step = bailiffServiceApplicationSequence.find(obj => obj.url === HAS_PARTNER_MADE_THREATS) as Step;
+    expect(step.getNextStep({})).toBe(HAVE_POLICE_BEEN_INVOLVED);
+  });
+
+  test('HAVE_POLICE_BEEN_INVOLVED redirects to HAVE_SOCIAL_SERVICES_BEEN_INVOLVED', () => {
+    const step = bailiffServiceApplicationSequence.find(obj => obj.url === HAVE_POLICE_BEEN_INVOLVED) as Step;
+    expect(step.getNextStep({})).toBe(HAVE_SOCIAL_SERVICES_BEEN_INVOLVED);
+  });
+
+  test('HAVE_SOCIAL_SERVICES_BEEN_INVOLVED redirects to ARE_THERE_DANGEROUS_ANIMALS', () => {
+    const step = bailiffServiceApplicationSequence.find(obj => obj.url === HAVE_SOCIAL_SERVICES_BEEN_INVOLVED) as Step;
+    expect(step.getNextStep({})).toBe(ARE_THERE_DANGEROUS_ANIMALS);
+  });
+
+  test('ARE_THERE_DANGEROUS_ANIMALS redirects to BAILIFF_SERVICE_APPLICATION', () => {
+    const step = bailiffServiceApplicationSequence.find(obj => obj.url === ARE_THERE_DANGEROUS_ANIMALS) as Step;
+    expect(step.getNextStep({})).toBe(BAILIFF_SERVICE_APPLICATION);
   });
 });

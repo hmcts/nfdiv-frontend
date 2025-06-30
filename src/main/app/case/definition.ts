@@ -1062,6 +1062,15 @@ export interface CaseData {
   applicant1BailiffPartnerVehicleRegistration: string;
   applicant1BailiffPartnerVehicleOtherDetails: string;
   applicant1BailiffHasPartnerBeenViolent: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerViolenceDetails: string;
+  applicant1BailiffHasPartnerMadeThreats: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerThreatsDetails: string;
+  applicant1BailiffHavePoliceBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffPoliceInvolvedDetails: string;
+  applicant1BailiffHaveSocialServicesBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffSocialServicesInvolvedDetails: string;
+  applicant1BailiffAreThereDangerousAnimals: YesOrNoOrNotKnown;
+  applicant1BailiffDangerousAnimalsDetails: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
