@@ -2,6 +2,7 @@ import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, formatCase, formFieldsToCaseMapping, LanguagePreference } from './case';
 import {
+  AlternativeServiceMethod,
   Applicant2Represented,
   ApplicationType,
   CaseData,
@@ -436,6 +437,22 @@ const fields: ToApiConverters = {
     applicant1NoResponseRespondentAddressInEnglandWales: checkboxConverter(
       data.applicant1NoResponseRespondentAddressInEnglandWales
     ),
+  }),
+  applicant1AltServicePartnerEmail: data => ({
+    applicant1AltServicePartnerEmail:
+      data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
+        ? data.applicant1AltServicePartnerEmail
+        : data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? data.applicant1AltServicePartnerEmailWhenDifferent
+          : null,
+  }),
+  applicant1AltServicePartnerEmailWhenDifferent: data => ({
+    applicant1AltServicePartnerEmail:
+      data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
+        ? data.applicant1AltServicePartnerEmail
+        : data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? data.applicant1AltServicePartnerEmailWhenDifferent
+          : null,
   }),
 };
 

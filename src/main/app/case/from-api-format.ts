@@ -210,6 +210,10 @@ const fields: FromApiConverters = {
   }),
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
   applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
+  applicant1AltServicePartnerEmail: data => ({
+    applicant1AltServicePartnerEmail: data.applicant1AltServicePartnerEmail,
+    applicant1AltServicePartnerEmailWhenDifferent: data.applicant1AltServicePartnerEmail,
+  }),
 };
 
 const fromApiDate = date => {

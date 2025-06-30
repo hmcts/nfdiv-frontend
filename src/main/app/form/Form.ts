@@ -170,7 +170,7 @@ export interface FormInput {
   hint?: Label;
   classes?: string;
   autocomplete?: string;
-  hidden?: boolean | ((formData: Case) => boolean);
+  hidden?: boolean;
   selected?: boolean;
   value?: string | number;
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;

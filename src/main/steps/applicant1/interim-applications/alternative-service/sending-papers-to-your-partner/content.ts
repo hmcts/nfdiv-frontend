@@ -1,20 +1,11 @@
-import { Logger } from '@hmcts/nodejs-logging';
-
 import { AlternativeServiceMethod } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isEmailValid, isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const logger = Logger.getLogger('alternate service');
-
-const emailMustBeProvided = (formData): boolean => {
-  logger.info('formData:', JSON.stringify(formData.applicant1AltServiceMethod));
-  return formData.applicant1AltServiceMethod === AlternativeServiceMethod.DIFFERENT_WAY;
-};
-
 const en = ({ partner }: CommonContent) => ({
-  title: `Sending papers to your ${partner}`,
+  title: `Sending the papers to your ${partner}`,
   line1: `If you can show that your ${partner} has an email address that they actively use, the court may be able to email the papers to that address.`,
   line2:
     'If you do not have an email address, or would prefer to send them in a different way (for example text, WhatsApp or social media), you can do so but you will need to arrange this yourself. In these cases, we will email the papers to you so you can do so.',
@@ -30,11 +21,14 @@ const en = ({ partner }: CommonContent) => ({
     applicant1AltServicePartnerEmail: {
       invalid: 'You must enter a valid email address.',
     },
+    applicant1AltServicePartnerEmailWhenDifferent: {
+      invalid: 'You must enter a valid email address.',
+    },
   },
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Sending papers to your ${partner}`,
+  title: `Sending the papers to your ${partner}`,
   line1: `If you can show that your ${partner} has an email address that they actively use, the court may be able to email the papers to that address.`,
   line2:
     'If you do not have an email address, or would prefer to send them in a different way (for example text, WhatsApp or social media), you can do so but you will need to arrange this yourself. In these cases, we will email the papers to you so you can do so.',
@@ -48,6 +42,9 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       required: 'Rhaid i chi ddewis opsiwn cyn parhau.',
     },
     applicant1AltServicePartnerEmail: {
+      invalid: 'You must enter a valid email address.',
+    },
+    applicant1AltServicePartnerEmailWhenDifferent: {
       invalid: 'You must enter a valid email address.',
     },
   },
@@ -65,6 +62,15 @@ export const form: FormContent = {
           label: l => l.email,
           id: 'byEmail',
           value: AlternativeServiceMethod.EMAIL,
+          subFields: {
+            applicant1AltServicePartnerEmail: {
+              type: 'text',
+              classes: 'govuk-input--width-20',
+              labelSize: null,
+              label: l => l.emailAddress,
+              validator: isEmailValid,
+            },
+          },
         },
         {
           label: l => l.different,
@@ -74,23 +80,19 @@ export const form: FormContent = {
         {
           label: l => l.emailAndDifferent,
           id: 'byEmailAndDifferent',
-          classes: 'govuk-input--width-20',
           value: AlternativeServiceMethod.EMAIL_AND_DIFFERENT,
+          subFields: {
+            applicant1AltServicePartnerEmailWhenDifferent: {
+              type: 'text',
+              classes: 'govuk-input--width-20',
+              labelSize: null,
+              label: l => l.emailAddress,
+              validator: isEmailValid,
+            },
+          },
         },
       ],
       validator: value => isFieldFilledIn(value),
-    },
-    applicant1AltServicePartnerEmail: {
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      label: l => l.emailAddress,
-      validator: value => {
-        logger.info('Validating email address:');
-        if (value) {
-          return isEmailValid(value);
-        }
-      },
-      hidden: formData => emailMustBeProvided(formData),
     },
   },
   submit: {

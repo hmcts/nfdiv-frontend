@@ -211,6 +211,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1AltServiceReasonForApplying: 'applicant1AltServiceReasonForApplying',
   applicant1AltServiceMethod: 'applicant1AltServiceMethod',
   applicant1AltServicePartnerEmail: 'applicant1AltServicePartnerEmail',
+  applicant1AltServicePartnerEmailWhenDifferent: 'applicant1AltServicePartnerEmail',
   applicant1AltServicePartnerPhone: 'applicant1AltServicePartnerPhone',
   applicant1AltServicePartnerWANum: 'applicant1AltServicePartnerWANum',
   applicant1AltServicePartnerSocialDetails: 'applicant1AltServicePartnerSocialDetails',
@@ -491,6 +492,7 @@ export interface Case {
   applicant1AltServiceReasonForApplying?: string;
   applicant1AltServiceMethod?: AlternativeServiceMethod;
   applicant1AltServicePartnerEmail?: string;
+  applicant1AltServicePartnerEmailWhenDifferent?: string;
   applicant1AltServicePartnerPhone?: string;
   applicant1AltServicePartnerWANum?: string;
   applicant1AltServicePartnerSocialDetails?: string;
