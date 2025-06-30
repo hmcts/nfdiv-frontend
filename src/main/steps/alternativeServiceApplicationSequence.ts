@@ -2,6 +2,7 @@ import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
+  ALTERNATIVE_HOW_TO_SERVE,
   ALTERNATIVE_INTERRUPTION,
   ALTERNATIVE_SENDING_PAPERS_TO_PARTNER,
   ALTERNATIVE_SERVICE_APPLICATION,
@@ -54,6 +55,10 @@ export const alternativeServiceApplicationSequence: Step[] = [
   },
   {
     url: ALTERNATIVE_SENDING_PAPERS_TO_PARTNER,
+    getNextStep: () => ALTERNATIVE_HOW_TO_SERVE,
+  },
+  {
+    url: ALTERNATIVE_HOW_TO_SERVE,
     getNextStep: () => WANT_UPLOAD_EVIDENCE_ALTERNATIVE,
   },
   {

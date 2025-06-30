@@ -174,6 +174,7 @@ export const SUCCESS_SCREEN_PROCESS_SERVER: PageLink =
   '/interim-applications/no-response/success-screen-process-server';
 export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
 export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
+export const ALTERNATIVE_HOW_TO_SERVE: PageLink = '/interim-applications/alternative-service/how-you-want-to-serve';
 export const ALTERNATIVE_INTERRUPTION: PageLink = '/interim-applications/alternative-service/interruption';
 export const ALTERNATIVE_WHY_OTHER_WAY: PageLink = '/interim-applications/alternative-service/why-other-way';
 export const ALTERNATIVE_SENDING_PAPERS_TO_PARTNER: PageLink =
