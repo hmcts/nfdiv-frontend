@@ -60,3 +60,9 @@ Feature: Alternative service journey
     Given I click element "#inADifferentWay"
     When I click continue
     Then the page should include element "#alternativeHowToServeTitle"
+
+    Given I select element "#applicant1AltServiceDifferentWays"
+    And I select element "#applicant1AltServicePartnerPhone"
+    And I type "01234567890"
+    When I click continue
+    Then the page should include element "#wantUploadEvidenceTitle"
