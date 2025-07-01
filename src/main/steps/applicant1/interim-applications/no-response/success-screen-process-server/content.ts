@@ -4,7 +4,7 @@ import { HUB_PAGE, PROCESS_SERVER_DOCS } from '../../../../urls';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: 'You need to arrange a process server',
-  line1: `You can now <a class="govuk-link" href="${PROCESS_SERVER_DOCS}">download the ${
+  line1: `You can now <a class="govuk-link" id="downloadPapersLink" href="${PROCESS_SERVER_DOCS}">download the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } from your account</a>`,
   whatHappensNextHeader: 'What happens next',
@@ -22,7 +22,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 // @TODO translations should be completed then verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: 'You need to arrange a process server',
-  line1: `You can now <a class="govuk-link" href="${PROCESS_SERVER_DOCS}">download the ${
+  line1: `You can now <a class="govuk-link" id="downloadPapersLink" href="${PROCESS_SERVER_DOCS}">download the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } from your account</a>`,
   whatHappensNextHeader: 'What happens next',
