@@ -132,4 +132,10 @@ export const noResponseJourneySequence: Step[] = [
       }
     },
   },
+  {
+    url: WILL_SERVE_AGAIN,
+    getNextStep: (): PageLink => {
+      return HUB_PAGE;
+    },
+  },
 ];
