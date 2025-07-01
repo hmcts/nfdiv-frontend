@@ -1,7 +1,11 @@
 import { AlternativeServiceDifferentWays } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn, isPhoneNoValid } from '../../../../../app/form/validation';
+import {
+  atLeastOneFieldIsChecked,
+  isFieldFilledIn,
+  isPhoneNoFilledAndValid,
+} from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
@@ -93,7 +97,8 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-input--width-20',
               label: l => l.enterMobileNumberLabel,
-              validator: isPhoneNoValid,
+              labelSize: null,
+              validator: isPhoneNoFilledAndValid,
             },
           },
         },
@@ -106,7 +111,8 @@ export const form: FormContent = {
               type: 'text',
               classes: 'govuk-input--width-20',
               label: l => l.whatsAppNumberLabel,
-              validator: isPhoneNoValid,
+              labelSize: null,
+              validator: isPhoneNoFilledAndValid,
             },
           },
         },
