@@ -40,7 +40,7 @@ const cy: typeof en = ({ isDivorce, partner, required }: CommonContent) => ({
   trySomethingElse: 'Ceisio gwneud rhywbeth arall',
   errors: {
     applicant1NoResponseSendPapersAgainOrTrySomethingElse: {
-      required,
+      required: 'Select if you want to send the papers again or try something else',
     },
   },
 });

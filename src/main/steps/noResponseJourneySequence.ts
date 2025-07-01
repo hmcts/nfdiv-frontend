@@ -138,4 +138,10 @@ export const noResponseJourneySequence: Step[] = [
       return HUB_PAGE;
     },
   },
+  {
+    url: NO_NEW_ADDRESS,
+    getNextStep: (): PageLink => {
+      return HUB_PAGE;
+    },
+  },
 ];
