@@ -1,4 +1,4 @@
-import { YesOrNo } from '../app/case/definition';
+import { AlternativeServiceMethod, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
@@ -55,7 +55,10 @@ export const alternativeServiceApplicationSequence: Step[] = [
   },
   {
     url: ALTERNATIVE_SENDING_PAPERS_TO_PARTNER,
-    getNextStep: () => ALTERNATIVE_HOW_TO_SERVE,
+    getNextStep: data =>
+      data?.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
+        ? UPLOAD_EVIDENCE_ALTERNATIVE
+        : ALTERNATIVE_HOW_TO_SERVE,
   },
   {
     url: ALTERNATIVE_HOW_TO_SERVE,

@@ -25,9 +25,11 @@ const en = ({ partner }: CommonContent) => ({
     },
     applicant1AltServicePartnerPhone: {
       invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
+      required: 'You must enter a mobile phone number to continue.',
     },
     applicant1AltServicePartnerWANum: {
       invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
+      required: 'You must enter a mobile phone number to continue.',
     },
     applicant1AltServicePartnerSocialDetails: {
       required: 'You must enter details.',
@@ -59,9 +61,11 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
     },
     applicant1AltServicePartnerPhone: {
       invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
+      required: 'You must enter a mobile phone number to continue.',
     },
     applicant1AltServicePartnerWANum: {
       invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
+      required: 'You must enter a mobile phone number to continue.',
     },
     applicant1AltServicePartnerSocialDetails: {
       required: 'You must enter details.',
@@ -113,9 +117,10 @@ export const form: FormContent = {
           subFields: {
             applicant1AltServicePartnerSocialDetails: {
               type: 'textarea',
+              classes: 'govuk-input--width-20',
               label: l => l.socialMediaLabel,
               labelSize: null,
-              validator: isFieldFilledIn,
+              validator: value => isFieldFilledIn(value),
             },
           },
         },
@@ -128,7 +133,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.otherWayLabel,
               labelSize: null,
-              validator: isFieldFilledIn,
+              validator: value => isFieldFilledIn(value),
             },
           },
         },

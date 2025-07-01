@@ -51,3 +51,12 @@ Feature: Alternative service journey
     And I type "HWF-A1B-23D"
     When I click continue
     Then the page should include element "#whyAlternativeServiceTitle"
+
+    Given I select element "#applicant1AltServiceReasonForApplying"
+    And I type "Alternative service reason"
+    When I click continue
+    Then the page should include element "#alternativeSendingPapersTitle"
+
+    Given I click element "#inADifferentWay"
+    When I click continue
+    Then the page should include element "#alternativeHowToServeTitle"
