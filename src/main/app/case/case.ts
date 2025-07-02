@@ -212,6 +212,22 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1BailiffPartnersEyeColour: 'applicant1BailiffPartnersEyeColour',
   applicant1BailiffPartnersEthnicGroup: 'applicant1BailiffPartnersEthnicGroup',
   applicant1BailiffPartnersDistinguishingFeatures: 'applicant1BailiffPartnersDistinguishingFeatures',
+  applicant1BailiffBestTimeToServePapers: 'applicant1BailiffBestTimeToServePapers',
+  applicant1BailiffDoesPartnerHaveVehicle: 'applicant1BailiffDoesPartnerHaveVehicle',
+  applicant1BailiffPartnerVehicleModel: 'applicant1BailiffPartnerVehicleModel',
+  applicant1BailiffPartnerVehicleColour: 'applicant1BailiffPartnerVehicleColour',
+  applicant1BailiffPartnerVehicleRegistration: 'applicant1BailiffPartnerVehicleRegistration',
+  applicant1BailiffPartnerVehicleOtherDetails: 'applicant1BailiffPartnerVehicleOtherDetails',
+  applicant1BailiffHasPartnerBeenViolent: 'applicant1BailiffHasPartnerBeenViolent',
+  applicant1BailiffPartnerViolenceDetails: 'applicant1BailiffPartnerViolenceDetails',
+  applicant1BailiffHasPartnerMadeThreats: 'applicant1BailiffHasPartnerMadeThreats',
+  applicant1BailiffPartnerThreatsDetails: 'applicant1BailiffPartnerThreatsDetails',
+  applicant1BailiffHavePoliceBeenInvolved: 'applicant1BailiffHavePoliceBeenInvolved',
+  applicant1BailiffPoliceInvolvedDetails: 'applicant1BailiffPoliceInvolvedDetails',
+  applicant1BailiffHaveSocialServicesBeenInvolved: 'applicant1BailiffHaveSocialServicesBeenInvolved',
+  applicant1BailiffSocialServicesInvolvedDetails: 'applicant1BailiffSocialServicesInvolvedDetails',
+  applicant1BailiffAreThereDangerousAnimals: 'applicant1BailiffAreThereDangerousAnimals',
+  applicant1BailiffDangerousAnimalsDetails: 'applicant1BailiffDangerousAnimalsDetails',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
@@ -493,6 +509,22 @@ export interface Case {
   applicant1BailiffPartnersEyeColour: string;
   applicant1BailiffPartnersEthnicGroup: string;
   applicant1BailiffPartnersDistinguishingFeatures: string;
+  applicant1BailiffBestTimeToServePapers: string;
+  applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerVehicleModel: string;
+  applicant1BailiffPartnerVehicleColour: string;
+  applicant1BailiffPartnerVehicleRegistration: string;
+  applicant1BailiffPartnerVehicleOtherDetails: string;
+  applicant1BailiffHasPartnerBeenViolent: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerViolenceDetails: string;
+  applicant1BailiffHasPartnerMadeThreats: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerThreatsDetails: string;
+  applicant1BailiffHavePoliceBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffPoliceInvolvedDetails: string;
+  applicant1BailiffHaveSocialServicesBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffSocialServicesInvolvedDetails: string;
+  applicant1BailiffAreThereDangerousAnimals: YesOrNoOrNotKnown;
+  applicant1BailiffDangerousAnimalsDetails: string;
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;

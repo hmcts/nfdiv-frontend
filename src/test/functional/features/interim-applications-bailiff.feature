@@ -96,3 +96,55 @@ Feature: Bailiff service journey
     And I type "Bangladeshi"
     When I click continue
     Then the page should include element "#bailiffPartnersDistinguishingFeaturesTitle"
+
+    Given I select element "#applicant1BailiffPartnersDistinguishingFeatures"
+    And I type "none"
+    When I click continue
+    Then the page should include element "#bailiffAbleToUploadPhotoTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#bailiffBestTimeToServeTitle"
+
+    Given I select element "#applicant1BailiffBestTimeToServe"
+    And I type "Saturday afternoon"
+    When I click continue
+    Then the page should include element "#bailiffDoesPartnerHaveVehicleTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#bailiffPartnerVehicleDetailsTitle"
+
+    Given I select element "#applicant1BailiffPartnerVehicleModel"
+    And I type "A car"
+    When I click continue
+    Then the page should include element "#bailiffHasPartnerBeenViolentTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffPartnerViolenceDetails"
+    And I type "example"
+    When I click continue
+    Then the page should include element "#bailiffPartnerMadeThreatsTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffPartnerThreatsDetails"
+    And I type "example"
+    When I click continue
+    Then the page should include element "#bailiffHavePoliceBeenInvolvedTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffPoliceInvolvedDetails"
+    And I type "example"
+    When I click continue
+    Then the page should include element "#bailiffHaveSocialServicesBeenInvolvedTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffSocialServicesInvolvedDetails"
+    And I type "example"
+    When I click continue
+    Then the page should include element "#bailiffDangerousAnimalsTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffDangerousAnimalsDetails"
+    And I type "example"
+
