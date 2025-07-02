@@ -124,16 +124,16 @@ Feature: Bailiff service journey
     Then I select element "#applicant1BailiffPartnerViolenceDetails"
     And I type "example"
     When I click continue
-    Then the page should include element "#bailiffHasPartnerMadeThreatsTitle"
+    Then the page should include element "#bailiffPartnerMadeThreatsTitle"
 
     Given I click element "#yes"
-    Then I select element "#applicant1BailiffPoliceInvolvedDetails"
+    Then I select element "#applicant1BailiffPartnerThreatsDetails"
     And I type "example"
     When I click continue
     Then the page should include element "#bailiffHavePoliceBeenInvolvedTitle"
 
     Given I click element "#yes"
-    Then I select element "#applicant1BailiffSocialServicesInvolvedDetails"
+    Then I select element "#applicant1BailiffPoliceInvolvedDetails"
     And I type "example"
     When I click continue
     Then the page should include element "#bailiffHaveSocialServicesBeenInvolvedTitle"
