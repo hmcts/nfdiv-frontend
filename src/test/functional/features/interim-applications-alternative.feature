@@ -67,6 +67,10 @@ Feature: Alternative service journey
     When I click continue
     Then the page should include element "#wantUploadEvidenceTitle"
 
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#uploadEvidenceTitle"
+
     Given I click element "#applicant1InterimAppsCannotUploadDocs"
     When I click continue
     Then the page should include element "#whyApplyThisWayTitle"
