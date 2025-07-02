@@ -10,7 +10,8 @@ export const getSoleHubTemplate = (
   userCase: Partial<CaseWithId>,
   isSuccessfullyServedByBailiff: boolean,
   isAlternativeService: boolean,
-  isApplicantAbleToRespondToRequestForInformation: boolean = false
+  isApplicantAbleToRespondToRequestForInformation: boolean = false,
+  isAwaitingProcessServerService: boolean = false
 ): string | undefined => {
   const isServiceApplicationGranted =
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
@@ -123,6 +124,10 @@ export const getSoleHubTemplate = (
         : HubTemplate.AosAwaitingOrDrafted;
     case State.AwaitingDocuments:
       return HubTemplate.AwaitingDocuments;
+    case State.AwaitingService:
+      return isAwaitingProcessServerService
+        ? HubTemplate.AwaitingProcessServerService
+        : HubTemplate.AosAwaitingOrDrafted;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||

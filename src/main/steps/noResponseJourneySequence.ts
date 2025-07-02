@@ -12,7 +12,6 @@ import { Step } from './applicant1Sequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
   BAILIFF_SERVICE_APPLICATION,
-  CHECK_DETAILS_PROCESS_SERVER,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
@@ -27,6 +26,7 @@ import {
   OWN_SEARCHES,
   PARTNER_IN_PERSON,
   PROCESS_SERVER,
+  PROCESS_SERVER_DOCS,
   PageLink,
   SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_TIPS,
@@ -113,15 +113,15 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: PROCESS_SERVER,
-    getNextStep: () => CHECK_DETAILS_PROCESS_SERVER,
-  },
-  {
-    url: CHECK_DETAILS_PROCESS_SERVER,
     getNextStep: () => SUCCESS_SCREEN_PROCESS_SERVER,
   },
   {
     url: SUCCESS_SCREEN_PROCESS_SERVER,
-    getNextStep: () => HUB_PAGE,
+    getNextStep: () => PROCESS_SERVER_DOCS,
+  },
+  {
+    url: PROCESS_SERVER_DOCS,
+    getNextStep: (): PageLink => HUB_PAGE,
   },
   {
     url: OWN_SEARCHES,
