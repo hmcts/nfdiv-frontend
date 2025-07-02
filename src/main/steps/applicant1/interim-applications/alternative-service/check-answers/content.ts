@@ -1,9 +1,8 @@
 import { Checkbox } from '../../../../../app/case/case';
-import { YesOrNo } from '../../../../../app/case/definition';
+import { AlternativeServiceDifferentWays, AlternativeServiceMethod, YesOrNo } from '../../../../../app/case/definition';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { AlternativeServiceDifferentWays,AlternativeServiceMethod } from '../../../../../app/case/definition';
 import * as urls from '../../../../urls';
 import {
   form as checkAnswersForm,
@@ -31,7 +30,6 @@ const en = (
     canUploadEvidence: 'Are you able to upload evidence?',
     uploadedFiles: 'Uploaded files',
     alternativeServiceReason: 'Why are you applying for alternative service?',
-    alternativeServiceMethodJustification: 'Why are you applying to send the papers this way?',
     alternativeServiceMethod: 'How do you want to send the papers?',
     alternativeServicePartnerEmail: 'Email Address?',
     alternativeServiceDifferentWays: 'Choose how you want to send the divorce papers',
@@ -39,6 +37,7 @@ const en = (
     alternativeServicePartnerWANumber: 'WhatsApp number?',
     alternativeServicePartnerSocialMedia: 'Social media details?',
     alternativeServicePartnerOtherDetails: 'Other details?',
+    alternativeServiceMethodJustification: 'Why are you applying to send the papers this way?',
   },
   stepAnswers: {
     useHwf: `${useHwf}`,
@@ -46,7 +45,6 @@ const en = (
     canUploadEvidence: `${canUpload}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
     alternativeServiceReason: `${alternativeServiceReason}`,
-    alternativeServiceMethodJustification: `${alternativeServiceMethodJustification}`,
     alternativeServiceMethod:
       {
         [AlternativeServiceMethod.EMAIL]: 'By email',
@@ -56,8 +54,23 @@ const en = (
     alternativeServicePartnerEmail: `${alternativeServicePartnerEmail}`,
     alternativeServiceDifferentWays: Array.isArray(alternativeServiceDifferentWays)
       ? alternativeServiceDifferentWays
-        .map((way: AlternativeServiceDifferentWays) => {
-          switch (way) {
+          .map((way: AlternativeServiceDifferentWays) => {
+            switch (way) {
+              case AlternativeServiceDifferentWays.TEXT_MESSAGE:
+                return 'Text message';
+              case AlternativeServiceDifferentWays.WHATSAPP:
+                return 'WhatsApp';
+              case AlternativeServiceDifferentWays.SOCIAL_MEDIA:
+                return 'Social media';
+              case AlternativeServiceDifferentWays.OTHER:
+                return 'Other';
+              default:
+                return way;
+            }
+          })
+          .join(', ')
+      : (() => {
+          switch (alternativeServiceDifferentWays) {
             case AlternativeServiceDifferentWays.TEXT_MESSAGE:
               return 'Text message';
             case AlternativeServiceDifferentWays.WHATSAPP:
@@ -67,28 +80,14 @@ const en = (
             case AlternativeServiceDifferentWays.OTHER:
               return 'Other';
             default:
-              return way;
+              return alternativeServiceDifferentWays;
           }
-        })
-        .join(', ')
-      : (() => {
-        switch (alternativeServiceDifferentWays) {
-          case AlternativeServiceDifferentWays.TEXT_MESSAGE:
-            return 'Text message';
-          case AlternativeServiceDifferentWays.WHATSAPP:
-            return 'WhatsApp';
-          case AlternativeServiceDifferentWays.SOCIAL_MEDIA:
-            return 'Social media';
-          case AlternativeServiceDifferentWays.OTHER:
-            return 'Other';
-          default:
-            return alternativeServiceDifferentWays;
-        }
-      })(),
+        })(),
     alternativeServicePartnerPhone: `${alternativeServicePartnerPhone}`,
     alternativeServicePartnerWANumber: `${alternativeServicePartnerWANumber}`,
     alternativeServicePartnerSocialMedia: `${alternativeServicePartnerSocialMedia}`,
     alternativeServicePartnerOtherDetails: `${alternativeServicePartnerOtherDetails}`,
+    alternativeServiceMethodJustification: `${alternativeServiceMethodJustification}`,
   },
   stepLinks: {
     useHwf: `${urls.HELP_WITH_FEES_DEEMED}`,
@@ -96,7 +95,6 @@ const en = (
     canUploadEvidence: `${urls.WANT_UPLOAD_EVIDENCE_DEEMED}`,
     uploadedFiles: `${urls.UPLOAD_EVIDENCE_DEEMED}`,
     alternativeServiceReason: `${urls.ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS}`,
-    alternativeServiceMethodJustification: `${urls.ALTERNATIVE_WHY_APPLY_THIS_WAY}`,
     alternativeServiceMethod: `${urls.ALTERNATIVE_SENDING_PAPERS_TO_PARTNER}`,
     alternativeServicePartnerEmail: `${urls.ALTERNATIVE_SENDING_PAPERS_TO_PARTNER}`,
     alternativeServiceDifferentWays: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
@@ -104,6 +102,7 @@ const en = (
     alternativeServicePartnerWANumber: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
     alternativeServicePartnerSocialMedia: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
     alternativeServicePartnerOtherDetails: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
+    alternativeServiceMethodJustification: `${urls.ALTERNATIVE_WHY_APPLY_THIS_WAY}`,
   },
 });
 
@@ -128,7 +127,6 @@ const cy: typeof en = (
     canUploadEvidence: 'Are you able to upload evidence?',
     uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
     alternativeServiceReason: 'Why are you applying for alternative service?',
-    alternativeServiceMethodJustification: 'Why are you applying to send the papers this way?',
     alternativeServiceMethod: 'How do you want to send the papers?',
     alternativeServicePartnerEmail: 'Email Address?',
     alternativeServiceDifferentWays: 'Choose how you want to send the divorce papers',
@@ -136,6 +134,7 @@ const cy: typeof en = (
     alternativeServicePartnerWANumber: 'WhatsApp number?',
     alternativeServicePartnerSocialMedia: 'Social media details?',
     alternativeServicePartnerOtherDetails: 'Other details?',
+    alternativeServiceMethodJustification: 'Why are you applying to send the papers this way?',
   },
   stepAnswers: {
     useHwf: `${useHwf}`,
@@ -143,7 +142,6 @@ const cy: typeof en = (
     canUploadEvidence: `${canUpload}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
     alternativeServiceReason: `${alternativeServiceReason}`,
-    alternativeServiceMethodJustification: `${alternativeServiceMethodJustification}`,
     alternativeServiceMethod:
       {
         [AlternativeServiceMethod.EMAIL]: 'By email',
@@ -153,8 +151,23 @@ const cy: typeof en = (
     alternativeServicePartnerEmail: `${alternativeServicePartnerEmail}`,
     alternativeServiceDifferentWays: Array.isArray(alternativeServiceDifferentWays)
       ? alternativeServiceDifferentWays
-        .map((way: AlternativeServiceDifferentWays) => {
-          switch (way) {
+          .map((way: AlternativeServiceDifferentWays) => {
+            switch (way) {
+              case AlternativeServiceDifferentWays.TEXT_MESSAGE:
+                return 'Text message';
+              case AlternativeServiceDifferentWays.WHATSAPP:
+                return 'WhatsApp';
+              case AlternativeServiceDifferentWays.SOCIAL_MEDIA:
+                return 'Social media';
+              case AlternativeServiceDifferentWays.OTHER:
+                return 'Other';
+              default:
+                return way;
+            }
+          })
+          .join(', ')
+      : (() => {
+          switch (alternativeServiceDifferentWays) {
             case AlternativeServiceDifferentWays.TEXT_MESSAGE:
               return 'Text message';
             case AlternativeServiceDifferentWays.WHATSAPP:
@@ -164,28 +177,14 @@ const cy: typeof en = (
             case AlternativeServiceDifferentWays.OTHER:
               return 'Other';
             default:
-              return way;
+              return alternativeServiceDifferentWays;
           }
-        })
-        .join(', ')
-      : (() => {
-        switch (alternativeServiceDifferentWays) {
-          case AlternativeServiceDifferentWays.TEXT_MESSAGE:
-            return 'Text message';
-          case AlternativeServiceDifferentWays.WHATSAPP:
-            return 'WhatsApp';
-          case AlternativeServiceDifferentWays.SOCIAL_MEDIA:
-            return 'Social media';
-          case AlternativeServiceDifferentWays.OTHER:
-            return 'Other';
-          default:
-            return alternativeServiceDifferentWays;
-        }
-      })(),
+        })(),
     alternativeServicePartnerPhone: `${alternativeServicePartnerPhone}`,
     alternativeServicePartnerWANumber: `${alternativeServicePartnerWANumber}`,
     alternativeServicePartnerSocialMedia: `${alternativeServicePartnerSocialMedia}`,
     alternativeServicePartnerOtherDetails: `${alternativeServicePartnerOtherDetails}`,
+    alternativeServiceMethodJustification: `${alternativeServiceMethodJustification}`,
   },
   stepLinks: {
     useHwf: `${urls.HELP_WITH_FEES_DEEMED}`,
@@ -193,7 +192,6 @@ const cy: typeof en = (
     canUploadEvidence: `${urls.WANT_UPLOAD_EVIDENCE_DEEMED}`,
     uploadedFiles: `${urls.UPLOAD_EVIDENCE_DEEMED}`,
     alternativeServiceReason: `${urls.ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS}`,
-    alternativeServiceMethodJustification: `${urls.ALTERNATIVE_WHY_APPLY_THIS_WAY}`,
     alternativeServiceMethod: `${urls.ALTERNATIVE_SENDING_PAPERS_TO_PARTNER}`,
     alternativeServicePartnerEmail: `${urls.ALTERNATIVE_SENDING_PAPERS_TO_PARTNER}`,
     alternativeServiceDifferentWays: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
@@ -201,6 +199,7 @@ const cy: typeof en = (
     alternativeServicePartnerWANumber: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
     alternativeServicePartnerSocialMedia: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
     alternativeServicePartnerOtherDetails: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
+    alternativeServiceMethodJustification: `${urls.ALTERNATIVE_WHY_APPLY_THIS_WAY}`,
   },
 });
 

@@ -12,21 +12,22 @@ const en = (
   emailSelected: boolean,
   textMessageSelected: boolean,
   whatsAppSelected: boolean,
-  socialMediaSelected: boolean,
-  otherWaySelected: boolean
+  socialMediaSelected: boolean
 ) => ({
-  title: `Why are you applying to send the papers
-    ${multipleWaysSelected
-    ? 'in this way'
-    : emailSelected
-      ? 'by email'
-      : textMessageSelected
-        ? 'by text message'
-        : whatsAppSelected
-          ? 'by WhatsApp'
-          : socialMediaSelected
-            ? 'by private message on social media'
-            : 'in this way'} will be successful?`,
+  title: `Why do you think sending the papers
+    ${
+      multipleWaysSelected
+        ? 'in this way'
+        : emailSelected
+          ? 'by email'
+          : textMessageSelected
+            ? 'by text message'
+            : whatsAppSelected
+              ? 'by WhatsApp'
+              : socialMediaSelected
+                ? 'by private message on social media'
+                : 'in this way'
+    } will be successful?`,
   line1: `Tell us why you think your ${partner} will receive the papers in this way. If a friend or relative will be sending the papers on your behalf, you’ll need to tell us who this is.`,
   unableToUploadLine1: 'You should also explain why you are not able to upload evidence.',
   unableToUploadLine2:
@@ -45,21 +46,22 @@ const cy: typeof en = (
   emailSelected: boolean,
   textMessageSelected: boolean,
   whatsAppSelected: boolean,
-  socialMediaSelected: boolean,
-  otherWaySelected: boolean
+  socialMediaSelected: boolean
 ) => ({
-  title: `Why are you applying to send the papers
-    ${multipleWaysSelected
-    ? 'in this way'
-    : emailSelected
-      ? 'by email'
-      : textMessageSelected
-        ? 'by text message'
-        : whatsAppSelected
-          ? 'by WhatsApp'
-          : socialMediaSelected
-            ? 'by private message on social media'
-            : 'in this way'} will be successful?`,
+  title: `Why do you think sending the papers
+    ${
+      multipleWaysSelected
+        ? 'in this way'
+        : emailSelected
+          ? 'by email'
+          : textMessageSelected
+            ? 'by text message'
+            : whatsAppSelected
+              ? 'by WhatsApp'
+              : socialMediaSelected
+                ? 'by private message on social media'
+                : 'in this way'
+    } will be successful?`,
   line1: `Tell us why you think your ${partner} will receive the papers in this way. If a friend or relative will be sending the papers on your behalf, you’ll need to tell us who this is.`,
   unableToUploadLine1: 'You should also explain why you are not able to upload evidence.',
   unableToUploadLine2:
@@ -112,9 +114,6 @@ export const generateContent: TranslationFn = content => {
   const socialMediaSelected = content.userCase.applicant1AltServiceDifferentWays?.includes(
     AlternativeServiceDifferentWays.SOCIAL_MEDIA
   );
-  const otherWaySelected = content.userCase.applicant1AltServiceDifferentWays?.includes(
-    AlternativeServiceDifferentWays.OTHER
-  );
   const cannotUploadEvidence =
     content.userCase.applicant1InterimAppsCanUploadEvidence === YesOrNo.NO ||
     content.userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked;
@@ -124,8 +123,7 @@ export const generateContent: TranslationFn = content => {
     !!emailSelected,
     !!textMessageSelected,
     !!whatsAppSelected,
-    !!socialMediaSelected,
-    !!otherWaySelected
+    !!socialMediaSelected
   );
   return {
     ...translations,
