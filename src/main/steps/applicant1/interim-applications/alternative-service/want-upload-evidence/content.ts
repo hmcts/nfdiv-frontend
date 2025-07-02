@@ -6,12 +6,12 @@ import {
   generateContent as wantUploadEvidenceGenerateContent,
 } from '../../common/want-upload-evidence/content';
 
-const en = ({ partner, isDivorce }: CommonContent) => ({
+const en = ({ partner }: CommonContent) => ({
   statement: `The evidence you provide may help the court decide whether your papers can be served in the way you've requested. For example, this may include a photo or screenshot of a recent conversation by text or email, or a post by your ${partner} on social media.`,
 });
 
 // @TODO translations
-const cy = ({ partner, isDivorce }: CommonContent) => ({
+const cy = ({ partner }: CommonContent) => ({
   statement: `The evidence you provide may help the court decide whether your papers can be served in the way you've requested. For example, this may include a photo or screenshot of a recent conversation by text or email, or a post by your ${partner} on social media.`,
 });
 

@@ -1,11 +1,7 @@
 import { AlternativeServiceDifferentWays } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import {
-  atLeastOneFieldIsChecked,
-  isFieldFilledIn,
-  isPhoneNoFilledAndValid,
-} from '../../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isPhoneNoFilledAndValid } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({

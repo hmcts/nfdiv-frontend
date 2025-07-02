@@ -3,11 +3,11 @@ import { YesOrNo } from '../app/case/definition';
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { Step } from './applicant1Sequence';
 import {
+  ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS,
   ALTERNATIVE_INTERRUPTION,
   ALTERNATIVE_SENDING_PAPERS_TO_PARTNER,
   ALTERNATIVE_SERVICE_APPLICATION,
   ALTERNATIVE_WHY_APPLY_THIS_WAY,
-  ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS,
   APPLY_FOR_HWF_ALTERNATIVE,
   CHECK_ANSWERS_ALTERNATIVE,
   HELP_WITH_FEES_ALTERNATIVE,

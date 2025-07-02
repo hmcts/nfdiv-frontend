@@ -203,10 +203,10 @@ export const UPLOAD_EVIDENCE_ALTERNATIVE: PageLink = '/interim-applications/alte
 export const CHECK_ANSWERS_ALTERNATIVE: PageLink = '/interim-applications/alternative-service/check-answers';
 export const ALTERNATIVE_HOW_TO_SERVE: PageLink = '/interim-applications/alternative-service/how-you-want-to-serve';
 export const ALTERNATIVE_INTERRUPTION: PageLink = '/interim-applications/alternative-service/interruption';
-export const ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS: PageLink = '/interim-applications/alternative-service/explain-serve-documents';
+export const ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS: PageLink =
+  '/interim-applications/alternative-service/explain-serve-documents';
 export const ALTERNATIVE_SENDING_PAPERS_TO_PARTNER: PageLink =
   '/interim-applications/alternative-service/sending-papers-to-your-partner';
 export const ALTERNATIVE_WHY_APPLY_THIS_WAY: PageLink = '/interim-applications/alternative-service/why-apply-this-way';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
-
