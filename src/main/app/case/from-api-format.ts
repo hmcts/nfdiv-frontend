@@ -183,6 +183,23 @@ const fields: FromApiConverters = {
   requestsForInformation: 'requestsForInformation',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
+  applicant1InterimAppsIUnderstand: data => ({
+    applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
+  }),
+  applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
+  applicant1InterimAppsHaveHwfReference: 'applicant1InterimAppsHaveHwfReference',
+  applicant1InterimAppsCanUploadEvidence: 'applicant1InterimAppsCanUploadEvidence',
+  applicant1InterimAppsHwfRefNumber: 'applicant1InterimAppsHwfRefNumber',
+  applicant1InterimAppsEvidenceDocs: uploadedFilesFromApiApplicant1,
+  applicant1InterimAppsCannotUploadDocs: data => ({
+    applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
+  }),
+  applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
+  applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1InterimApplicationType: 'applicant1InterimApplicationType',
+  applicant1InterimAppsStatementOfTruth: data => ({
+    applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  }),
 };
 
 const fromApiDate = date => {

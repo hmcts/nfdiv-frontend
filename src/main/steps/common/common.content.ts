@@ -11,6 +11,12 @@ export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
+  generalApplication: {
+    for: 'for',
+    to: 'to',
+    deemed: 'deemed service',
+    deemedCode: 'D11',
+  },
   feedback: {
     part1: 'This is a new service – your ',
     part2: 'feedback',
@@ -33,6 +39,7 @@ export const en = {
   download: 'Download',
   delete: 'Delete',
   warning: 'Warning',
+  continueToPay: 'Continue to pay',
   required: 'You have not answered the question. You need to select an answer before continuing.',
   notAnswered: 'You have not answered the question.',
   errorSaving: 'Sorry, we’re having technical problems saving your application. Please try again in a few minutes.',
@@ -163,6 +170,12 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
+  generalApplication: {
+    for: 'am',
+    to: 'i',
+    deemed: 'gyflwyno tybiedig',
+    deemedCode: 'D11',
+  },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
     part2: 'bydd eich sylwadau',
@@ -185,6 +198,7 @@ const cy: typeof en = {
   download: 'Llwytho i lawr',
   delete: 'Dileu',
   warning: 'Rhybudd',
+  continueToPay: 'Continue to pay',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   errorSaving:
@@ -321,7 +335,13 @@ export const generateCommonContent = ({
   const isAmendableStates =
     userCase &&
     userCase.state &&
-    [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state);
+    [
+      State.Draft,
+      State.AosDrafted,
+      State.AosOverdue,
+      State.AwaitingApplicant1Response,
+      State.AwaitingApplicant2Response,
+    ].includes(userCase.state);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
   const isRequestForInformationAmendableState =
     userCase &&

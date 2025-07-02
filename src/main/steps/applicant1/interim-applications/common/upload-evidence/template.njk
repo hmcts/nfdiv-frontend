@@ -1,0 +1,56 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  {{ govukErrorSummary({
+    titleText: errorSummaryHeading,
+    classes: "hidden",
+    attributes: {
+      id: "uploadErrorSummary"
+    },
+    errorList: [
+      {
+        text: errors.applicant1InterimAppsEvidenceUploadedFiles.errorUploading,
+        href: "#upload",
+        attributes: {
+          id: "errorGeneric",
+          class: "hidden"
+        }
+      },
+      {
+        text: errors.applicant1InterimAppsEvidenceUploadedFiles.fileSizeTooBig,
+        href: "#upload",
+        attributes: {
+          id: "errorFileSizeTooBig",
+          class: "hidden"
+        }
+      },
+      {
+        text: errors.applicant1InterimAppsEvidenceUploadedFiles.fileWrongFormat,
+        href: "#upload",
+        attributes: {
+          id: "errorFileWrongFormat",
+          class: "hidden"
+        }
+      }
+    ]
+  }) }}
+
+  <h1 class="govuk-heading-l" id="uploadEvidenceTitle">{{ title }}</h1>
+  <p class="govuk-body">{{ statement }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ toInclude.partnersName }}</li>
+    <li>{{ toInclude.dateMessageSent }}</li>
+    <li>{{ toInclude.partnersContactInfo }}</li>
+  </ul>
+  <p class="govuk-body">{{ line3 | safe }}</p>
+  <p class="govuk-body">{{ line4 }}</p>
+  <p class="govuk-body">{{ line5 }}</p>
+
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
+{% endblock %}
