@@ -7,7 +7,7 @@ import {
   ALTERNATIVE_SENDING_PAPERS_TO_PARTNER,
   ALTERNATIVE_SERVICE_APPLICATION,
   ALTERNATIVE_WHY_APPLY_THIS_WAY,
-  ALTERNATIVE_WHY_OTHER_WAY,
+  ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS,
   APPLY_FOR_HWF_ALTERNATIVE,
   CHECK_ANSWERS_ALTERNATIVE,
   HELP_WITH_FEES_ALTERNATIVE,
@@ -49,7 +49,7 @@ describe('Alternative Service Application Sequence test', () => {
         applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
       };
       const step = alternativeServiceApplicationSequence.find(obj => obj.url === HELP_WITH_FEES_ALTERNATIVE) as Step;
-      expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_WHY_OTHER_WAY);
+      expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS);
     });
   });
 
@@ -80,7 +80,7 @@ describe('Alternative Service Application Sequence test', () => {
       const step = alternativeServiceApplicationSequence.find(
         obj => obj.url === HWF_REFERENCE_NUMBER_INPUT_ALTERNATIVE
       ) as Step;
-      expect(step.getNextStep({})).toBe(ALTERNATIVE_WHY_OTHER_WAY);
+      expect(step.getNextStep({})).toBe(ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS);
     });
   });
 
@@ -93,7 +93,7 @@ describe('Alternative Service Application Sequence test', () => {
 
   describe('ALTERNATIVE_WHY_OTHER_WAY', () => {
     test('ALTERNATIVE_WHY_OTHER_WAY', () => {
-      const step = alternativeServiceApplicationSequence.find(obj => obj.url === ALTERNATIVE_WHY_OTHER_WAY) as Step;
+      const step = alternativeServiceApplicationSequence.find(obj => obj.url === ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS) as Step;
       expect(step.getNextStep({})).toBe(ALTERNATIVE_SENDING_PAPERS_TO_PARTNER);
     });
   });
