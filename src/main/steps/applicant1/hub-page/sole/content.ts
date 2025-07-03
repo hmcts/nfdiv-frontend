@@ -7,7 +7,8 @@ import { Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceType,
   Applicant2Represented,
-  DocumentType, InterimApplicationType,
+  DocumentType,
+  InterimApplicationType,
   State,
   YesOrNo,
 } from '../../../../app/case/definition';
@@ -19,7 +20,8 @@ import { currentStateFn } from '../../../state-sequence';
 import {
   FINALISING_YOUR_APPLICATION,
   HOW_YOU_CAN_PROCEED,
-  OPTIONS_FOR_PROGRESSING, PROCESS_SERVER_DOCS,
+  OPTIONS_FOR_PROGRESSING,
+  PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
 } from '../../../urls';
 
@@ -839,7 +841,7 @@ export const generateContent: TranslationFn = content => {
     isSuccessfullyServedByBailiff,
     isAlternativeService,
     isApplicantAbleToRespondToRequestForInformation,
-    isAwaitingProcessServerService,
+    isAwaitingProcessServerService
   );
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
   const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
