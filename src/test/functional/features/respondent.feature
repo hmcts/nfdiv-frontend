@@ -132,7 +132,10 @@ Feature: Respondent
 
     When I click "Submit"
     Then the page URL should be "/respondent/response-submitted"
+<<<<<<< Updated upstream
     And the page should include "Test your name Test your last name & Test their name Test their last name"
+=======
+>>>>>>> Stashed changes
 
   Scenario: They fill out a happy path respondent journey when case is in AwaitingConditionalOrder
     Given I set the case state to "AwaitingConditionalOrder"
