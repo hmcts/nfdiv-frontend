@@ -10,7 +10,6 @@ import { Step } from './applicant1Sequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import {
   BAILIFF_SERVICE_APPLICATION,
-  CHECK_DETAILS_PROCESS_SERVER,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
@@ -25,6 +24,7 @@ import {
   OWN_SEARCHES,
   PARTNER_IN_PERSON,
   PROCESS_SERVER,
+  PROCESS_SERVER_DOCS,
   SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_TIPS,
   SERVE_AGAIN,
@@ -143,21 +143,12 @@ describe('No Response Journey Sequence test', () => {
   describe('PROCESS_SERVER', () => {
     test('PROCESS_SERVER', () => {
       const step = noResponseJourneySequence.find(obj => obj.url === PROCESS_SERVER) as Step;
-      expect(step.getNextStep({})).toBe(CHECK_DETAILS_PROCESS_SERVER);
-    });
-  });
-
-  describe('CHECK_DETAILS_PROCESS_SERVER', () => {
-    test('CHECK_DETAILS_PROCESS_SERVER', () => {
-      const step = noResponseJourneySequence.find(obj => obj.url === CHECK_DETAILS_PROCESS_SERVER) as Step;
       expect(step.getNextStep({})).toBe(SUCCESS_SCREEN_PROCESS_SERVER);
     });
-  });
 
-  describe('SUCCESS_SCREEN_PROCESS_SERVER', () => {
     test('SUCCESS_SCREEN_PROCESS_SERVER', () => {
       const step = noResponseJourneySequence.find(obj => obj.url === SUCCESS_SCREEN_PROCESS_SERVER) as Step;
-      expect(step.getNextStep({})).toBe(HUB_PAGE);
+      expect(step.getNextStep({})).toBe(PROCESS_SERVER_DOCS);
     });
   });
 

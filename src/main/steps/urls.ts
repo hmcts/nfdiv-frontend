@@ -169,9 +169,9 @@ export const GOV_SEARCH_POSSIBLE: PageLink = '/interim-applications/no-response/
 export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';
 export const BAILIFF_SERVICE_APPLICATION: PageLink = '/interim-applications/bailiff-service/service-application';
 export const PROCESS_SERVER: PageLink = '/interim-applications/no-response/process-server';
-export const CHECK_DETAILS_PROCESS_SERVER: PageLink = '/interim-applications/no-response/check-details-process-server';
 export const SUCCESS_SCREEN_PROCESS_SERVER: PageLink =
   '/interim-applications/no-response/success-screen-process-server';
+export const PROCESS_SERVER_DOCS: PageLink = '/interim-applications/no-response/process-server-documents';
 export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
 export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
