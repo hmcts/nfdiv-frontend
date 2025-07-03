@@ -1092,19 +1092,6 @@ export interface DeemedServiceJourneyOptions {
   interimAppsStatementOfTruth: Checkbox;
 }
 
-export interface DeemedServiceJourneyOptions {
-  interimAppsIUnderstand: Checkbox;
-  interimAppsUseHelpWithFees: YesOrNo;
-  interimAppsHaveHwfReference: YesOrNo;
-  interimAppsCanUploadEvidence: YesOrNo;
-  interimAppsRefNumber: string;
-  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
-  interimAppsCannotUploadDocs: Checkbox;
-  deemedEvidenceDetails: string;
-  deemedNoEvidenceStatement: string;
-  interimAppsStatementOfTruth: Checkbox;
-}
-
 export interface RequestForInformationResponse {
   requestForInformationResponseCannotUploadDocs: YesOrNo;
   requestForInformationResponseDateTime: DateAsString;
