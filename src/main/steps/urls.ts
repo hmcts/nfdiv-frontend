@@ -179,13 +179,11 @@ export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
-export const LAST_DATE_DISPENSE: PageLink = '/interim-applications/dispense-service/last-date-dispense';
-export const LAST_ADDRESS_DISPENSE: PageLink = '/interim-applications/dispense-service/last-address-dispense';
-export const AWARE_PARTNER_ADDRESS_DISPENSE: PageLink =
-  '/interim-applications/dispense-service/aware-partner-address-dispense';
-export const PARTNER_NEW_ADDRESS_DISPENSE: PageLink =
-  '/interim-applications/dispense-service/partner-new-address-dispense';
-export const LAST_SEEN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-seen-dispense';
+export const LAST_DATE_DISPENSE: PageLink = '/interim-applications/dispense-service/last-date';
+export const LAST_ADDRESS_DISPENSE: PageLink = '/interim-applications/dispense-service/last-address';
+export const AWARE_PARTNER_ADDRESS_DISPENSE: PageLink = '/interim-applications/dispense-service/aware-partner-address';
+export const PARTNER_NEW_ADDRESS_DISPENSE: PageLink = '/interim-applications/dispense-service/partner-new-address';
+export const LAST_SEEN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-seen';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
 export const HELP_WITH_FEES_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/help-with-fees';
 export const HELP_WITH_FEES_DISPENSE: PageLink = '/interim-applications/dispense-service/help-with-fees';
