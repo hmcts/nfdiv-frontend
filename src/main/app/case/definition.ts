@@ -1049,6 +1049,17 @@ export interface CaseData {
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
   applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
+  applicant1DispenseLiveTogether: YesOrNo;
+  applicant1DispenseLivedTogetherDate: DateAsString;
+  applicant1DispenseLivedTogetherAddress: AddressGlobalUK;
+  applicant1DispenseLivedTogetherAddressOverseas: YesOrNo;
+  applicant1DispenseAwarePartnerLived: YesOrNo;
+  applicant1DispensePartnerPastAddress1: string;
+  applicant1DispensePartnerPastAddressEnquiries1: string;
+  applicant1DispensePartnerPastAddress2: string;
+  applicant1DispensePartnerPastAddressEnquiries2: string;
+  applicant1DispensePartnerLastSeenDate: DateAsString;
+  applicant1DispensePartnerLastSeenDescription: string;
 }
 
 export interface CaseDocuments {
@@ -1090,6 +1101,21 @@ export interface DeemedServiceJourneyOptions {
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
+}
+
+export interface DispenseWithServiceJourneyOptions {
+  interimAppsUseHelpWithFees: YesOrNo;
+  dispenseLiveTogether: YesOrNo;
+  dispenseLivedTogetherDate: DateAsString;
+  dispenseLivedTogetherAddress: AddressGlobalUK;
+  dispenseLivedTogetherAddressOverseas: YesOrNo;
+  dispenseAwarePartnerLived: YesOrNo;
+  dispensePartnerPastAddress1: string;
+  dispensePartnerPastAddressEnquiries1: string;
+  dispensePartnerPastAddress2: string;
+  dispensePartnerPastAddressEnquiries2: string;
+  dispensePartnerLastSeenDate: DateAsString;
+  dispensePartnerLastSeenDescription: string;
 }
 
 export interface RequestForInformationResponse {
