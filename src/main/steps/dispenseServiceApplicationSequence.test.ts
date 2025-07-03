@@ -1,3 +1,5 @@
+import dayjs, { Dayjs } from 'dayjs';
+import { CaseDate } from '../app/case/case';
 import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
@@ -5,7 +7,9 @@ import { dispenseServiceApplicationSequence } from './dispenseServiceApplication
 import {
   APPLY_FOR_HWF_DISPENSE,
   AWARE_PARTNER_ADDRESS_DISPENSE,
+  DA_SEARCH_DISPENSE,
   DISPENSE_SERVICE_APPLICATION,
+  EMAIL_DISPENSE,
   HELP_WITH_FEES_DISPENSE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
@@ -117,4 +121,30 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep({})).toBe(LAST_SEEN_DISPENSE);
     });
   });
+
+  describe('LAST_SEEN_DISPENSE', () => {
+    test('EMAIL_DISPENSE', () => {
+      const testDate = dayjs(Date.now()).subtract(1, 'year');
+      const caseData = {
+        applicant1DispensePartnerLastSeenOrHeardOfDate: getCaseDate(testDate),
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === LAST_SEEN_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(EMAIL_DISPENSE);
+    });
+
+    test('DA_SEARCH_DISPENSE', () => {
+      const testDate = dayjs(Date.now()).subtract(3, 'year');
+      const caseData = {
+        applicant1DispensePartnerLastSeenOrHeardOfDate: getCaseDate(testDate),
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === LAST_SEEN_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(DA_SEARCH_DISPENSE);
+    });
+  });
+});
+
+const getCaseDate = (date: Dayjs): CaseDate => ({
+  year: date.year().toString(),
+  month: date.month().toString(),
+  day: date.date().toString(),
 });

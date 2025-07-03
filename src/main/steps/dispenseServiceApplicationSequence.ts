@@ -1,12 +1,16 @@
+import dayjs from 'dayjs';
+import { getFormattedCaseDate } from '../app/case/answers/formatDate';
+
 import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
   APPLY_FOR_HWF_DISPENSE,
   AWARE_PARTNER_ADDRESS_DISPENSE,
+  DA_SEARCH_DISPENSE,
   DISPENSE_SERVICE_APPLICATION,
-  HELP_WITH_FEES_DISPENSE,
-  HUB_PAGE,
+  EMAIL_DISPENSE,
+  HELP_WITH_FEES_DISPENSE, HUB_PAGE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
   LAST_ADDRESS_DISPENSE,
@@ -60,6 +64,19 @@ export const dispenseServiceApplicationSequence: Step[] = [
   },
   {
     url: LAST_SEEN_DISPENSE,
+    getNextStep: data =>
+      dayjs(Date.now())
+        .subtract(2, 'year')
+        .isBefore(getFormattedCaseDate(data?.applicant1DispensePartnerLastSeenOrHeardOfDate) as string)
+        ? EMAIL_DISPENSE
+        : DA_SEARCH_DISPENSE,
+  },
+  {
+    url: EMAIL_DISPENSE,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: DA_SEARCH_DISPENSE,
     getNextStep: () => HUB_PAGE,
   },
 ];
