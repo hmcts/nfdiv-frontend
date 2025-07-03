@@ -11,7 +11,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   howItWorks: {
     header: 'How it works',
     steps: {
-      one: 'Once you confirm that this is what you want to do, we will send you the papers by email.',
+      one: "Once you confirm that this is what you want to do, you'll be able to download the papers from your account.",
       two: 'You will need to find and employ a process server. You may wish to consider how many times they will attempt to serve, over what period of time, and at what times of the day.',
       three: `They will attempt to serve the papers on your ${partner}.`,
       four: 'If they serve successfully, they will complete the certificate of service (form FP6) and send it to you.',
@@ -22,10 +22,10 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     },
   },
   line2: `If they fail to serve, you may be able to apply for alternative service by letterbox, if your ${partner}'s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
-  buttonText: 'Check details',
+  iWantToArrangeService: 'I want to arrange service by process server',
 });
 
-// @TODO translations should be verified
+// @TODO translations should be completed and verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: 'Trefnu i’r dogfennau gael eu cyflwyno gan weinyddwr proses',
   line1: `Gallwch drefnu i weinyddwr proses annibynnol ddanfon papurau eich ${
@@ -34,7 +34,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   howItWorks: {
     header: 'Sut mae’n gweithio',
     steps: {
-      one: 'Unwaith y byddwch yn cadarnhau dyma beth rydych eisiau gwneud, byddwn yn anfon y papurau atoch drwy e-bost.',
+      one: "Once you confirm that this is what you want to do, you'll be able to download the papers from your account.",
       two: 'Bydd angen i chi ddod o hyd i weinyddwr proses a’u cyflogi. Efallai yr hoffech ystyried faint o weithiau y byddant yn ceisio cyflwyno’r dogfennau, dros pa gyfnod o amser ac am ba amser o’r dydd.',
       three: `Byddant yn ceisio cyflwyno’r papurau i’ch ${partner}.`,
       four: 'Os byddant yn eu cyflwyno’n llwyddiannus, byddant yn llenwi tystysgrif cyflwyno (ffurflen FP6) a’i hanfon atoch.',
@@ -45,13 +45,13 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     },
   },
   line2: `Os byddant yn methu â chyflwyno’r papurau, efallai y gallwch wneud cais am gyflwyno amgen drwy flwch llythyrau, os yw cyfeiriad eich ${partner} wedi’i gadarnhau. Fel arall, bydd angen i chi gyflwyno’r papurau mewn rhyw ffordd arall.`,
-  buttonText: 'Gwirio’r manylion',
+  iWantToArrangeService: 'I want to arrange service by process server',
 });
 
 export const form: FormContent = {
   fields: {},
   submit: {
-    text: l => l.buttonText,
+    text: l => l.continue,
   },
 };
 
