@@ -19,6 +19,7 @@ export const getSoleHubTemplate = (
   const isRefusalOrderToApplicant =
     userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
+  const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -122,7 +123,9 @@ export const getSoleHubTemplate = (
         ? HubTemplate.AwaitingDocuments
         : HubTemplate.AosAwaitingOrDrafted;
     case State.AwaitingDocuments:
-      return HubTemplate.AwaitingDocuments;
+      return serviceApplicationInProgress
+        ? HubTemplate.AwaitingServiceApplicationDocuments
+        : HubTemplate.AwaitingDocuments;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||
