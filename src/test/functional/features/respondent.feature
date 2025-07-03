@@ -133,7 +133,10 @@ Feature: Respondent
     When I click "Submit"
     Then the page URL should be "/respondent/response-submitted"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     And the page should include "Test your name Test your last name & Test their name Test their last name"
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
