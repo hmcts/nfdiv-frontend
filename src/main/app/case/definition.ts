@@ -1060,6 +1060,8 @@ export interface CaseData {
   applicant1DispensePartnerPastAddressEnquiries2: string;
   applicant1DispensePartnerLastSeenDate: DateAsString;
   applicant1DispensePartnerLastSeenDescription: string;
+  applicant1DispenseHavePartnerEmailAddresses: YesOrNo;
+  applicant1DispenseHaveSearchedFinalOrder: YesOrNo
 }
 
 export interface CaseDocuments {
@@ -1116,6 +1118,8 @@ export interface DispenseWithServiceJourneyOptions {
   dispensePartnerPastAddressEnquiries2: string;
   dispensePartnerLastSeenDate: DateAsString;
   dispensePartnerLastSeenDescription: string;
+  dispenseHavePartnerEmailAddresses: YesOrNo;
+  dispenseHaveSearchedFinalOrder: YesOrNo;
 }
 
 export interface RequestForInformationResponse {
