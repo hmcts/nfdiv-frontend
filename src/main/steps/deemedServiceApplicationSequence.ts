@@ -67,11 +67,7 @@ export const deemedServiceApplicationSequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_DEEMED,
-<<<<<<< HEAD
     getNextStep: data =>
       data?.alternativeServiceFeeRequired === YesOrNo.YES ? PAY_YOUR_SERVICE_FEE : SERVICE_APPLICATION_SUBMITTED,
-=======
-    getNextStep: () => HUB_PAGE, // Correct this when the rest of the journey is implemented
->>>>>>> origin/NFDIV-4713
   },
 ];
