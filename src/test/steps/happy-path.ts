@@ -212,7 +212,7 @@ Given('I pay and submit the service application', () => {
   iClick('Pay and submit application');
 
   completePayment();
-  I.waitInUrl('/respondent/hub-page', 15);
+  I.waitInUrl('/interim-applications/service-application-submitted', 15);
 });
 
 Given('I pay and submit the final order application', () => {
