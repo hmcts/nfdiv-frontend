@@ -1,3 +1,7 @@
 .govuk-summary-list__value {
   width: 50%;
+
+  @media screen and (max-width: map-get($govuk-breakpoints, tablet)) {
+    width: auto;
+  }
 }

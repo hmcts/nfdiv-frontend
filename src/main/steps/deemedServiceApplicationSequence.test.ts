@@ -123,6 +123,7 @@ describe('Deemed Service Application Sequence test', () => {
   });
 
   describe('CHECK_ANSWERS_DEEMED', () => {
+<<<<<<< HEAD
     test('CHECK_ANSWERS_DEEMED should redirect to PAY_YOUR_SERVICE_FEE if payment is required', () => {
       const step = deemedServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DEEMED) as Step;
       const caseData = {
@@ -139,6 +140,11 @@ describe('Deemed Service Application Sequence test', () => {
       };
 
       expect(step.getNextStep(caseData)).toBe(SERVICE_APPLICATION_SUBMITTED);
+=======
+    test('CHECK_ANSWERS_DEEMED', () => {
+      const step = deemedServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DEEMED) as Step;
+      expect(step.getNextStep({})).toBe(HUB_PAGE); // Correct this when the rest of the journey is implemented
+>>>>>>> origin/NFDIV-4713
     });
   });
 });

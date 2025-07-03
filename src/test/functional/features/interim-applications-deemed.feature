@@ -39,7 +39,16 @@ Feature: Deemed service journey
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 
-    Given I click element "#no"
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#hwfReferenceNumberTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#hwfReferenceNumberInputTitle"
+
+    Given I select element "#applicant1InterimAppsHwfRefNumber"
+    And I type "HWF-A1B-23D"
     When I click continue
     Then the page should include element "#wantUploadEvidenceTitle"
 
