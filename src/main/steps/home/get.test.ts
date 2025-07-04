@@ -824,7 +824,7 @@ describe('HomeGetController', () => {
 
       expect(res.redirect).toHaveBeenCalledWith(`${RESPONDENT}${HUB_PAGE}`);
     });
-  })
+  });
 
   test('redirects to the hub page for respondent users in holding state and aos is completed', () => {
     const req = mockRequest({
