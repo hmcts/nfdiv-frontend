@@ -45,7 +45,7 @@ const en = ({ isDivorce, userCase }) => ({
         isDivorce ? 'marriage' : 'civil partnership'
       }?`,
       line2: 'Provide details about the other legal proceedings.',
-      line3: 'Have the ongoing proceedings been concluded?',
+      line3: 'Have the proceedings been concluded?',
       line4: 'Uploaded files',
       line5: 'I cannot upload some or all of my documents',
     },
@@ -198,7 +198,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
         isDivorce ? 'priodas' : 'partneriaeth sifil'
       }, eich eiddo, neu'ch plant?`,
       line2: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
-      line3: 'A yw’r achos sy’n mynd rhagddo wedi’i gwblhau?',
+      line3: "A yw'r achos wedi'i gwblhau?",
       line4: 'Ffeiliau sydd wedi cael eu llwytho',
       line5: 'Ni allaf lwytho rhai o fy nogfennau / fy holl ddogfennau.',
     },
