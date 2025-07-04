@@ -206,3 +206,6 @@ export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-se
 export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/interim-applications/deemed-service/how-do-you-know';
 export const CHECK_ANSWERS_ALTERNATIVE: PageLink = '/interim-applications/alternative-service/check-answers';
 export const CHECK_ANSWERS_DEEMED: PageLink = '/interim-applications/deemed-service/check-answers';
+export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
+export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
+export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
