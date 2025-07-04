@@ -8,6 +8,7 @@ import {
   AlternativeServiceType,
   Applicant2Represented,
   DocumentType,
+  InterimApplicationType,
   State,
   YesOrNo,
 } from '../../../../app/case/definition';
@@ -20,6 +21,7 @@ import {
   FINALISING_YOUR_APPLICATION,
   HOW_YOU_CAN_PROCEED,
   OPTIONS_FOR_PROGRESSING,
+  PROCESS_SERVER_DOCS,
   PAY_YOUR_SERVICE_FEE,
   RESPOND_TO_COURT_FEEDBACK,
 } from '../../../urls';
@@ -415,6 +417,25 @@ const en = (
     line2:
       'The court will review the information from the Third party once provided, then the application can progress.',
   },
+  awaitingProcessServerService: {
+    line1: `You have chosen to arrange for an independent process server to serve the papers on your ${partner}.`,
+    line2: `You can <a class="govuk-link" href="${PROCESS_SERVER_DOCS}">download the papers from the documents tab</a>. You will need to print these out and give them to your process server.`,
+    whatYouNeedToDoHeader: 'What you need to do',
+    steps: {
+      one: 'You will need to find and employ a process server. You may wish to consider how many times they will attempt to serve, over what period of time, and at what times of the day.',
+      two: `They will attempt to serve the papers on your ${partner}.`,
+      three:
+        'If they serve successfully, they will complete the certificate of service form (form FP6) and send it to you.',
+      four: 'You will then need to send the certificate of service to the court.',
+      five: `If the papers have been correctly served and your ${partner} still has not responded, your ${
+        isDivorce ? 'divorce' : 'application to end your civil partnership'
+      } can continue without their response.`,
+    },
+    line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
+    line4: `You can <a class="govuk-link" href="${OPTIONS_FOR_PROGRESSING}">view your other options for progressing your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    }</a> if you later decide that you no longer want to arrange service by a process server.`,
+  },
 });
 
 // @TODO translations
@@ -468,12 +489,9 @@ const cy: typeof en = (
     linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   aosDueAndDrafted: {
-    line1: `Mae eich ${partner} wedi dechrau ymateb i’ch ${
+    line1: `Mae eich ${partner} wedi cyflwyno eu hymateb i’ch ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-    } ond nid ydynt wedi’i gyflwyno. Dylent fod wedi ymateb erbyn ${getFormattedDate(
-      userCase.dueDate,
-      SupportedLanguages.Cy
-    )}.`,
+    }. Dylai bod nhw wedi ymateb erbyn ${getFormattedDate(userCase.dueDate, SupportedLanguages.Cy)}.`,
     line2: `Efallai yr hoffech ddefnyddio hwn i brofi bod eich ${partner} wedi cael eich cais.`,
     doNext: 'Beth allwch chi ei wneud nesaf',
     line3: `Y ffordd symlaf i symud eich cais yn ei flaen yw i’ch ${partner} gyflwyno eu hymateb. Gallwch gysylltu â nhw a gofyn iddynt gyflwyno eu hymateb, os yw’n ddiogel i chi wneud hynny.`,
@@ -828,6 +846,25 @@ const cy: typeof en = (
     line2:
       'Bydd y llys yn adolygu’r wybodaeth gan y trydydd parti unwaith y bydd wedi dod i law, ac yna gall y cais barhau.',
   },
+  awaitingProcessServerService: {
+    line1: `You have chosen to arrange for an independent process server to serve the papers on your ${partner}.`,
+    line2: `You can <a class="govuk-link" href="${PROCESS_SERVER_DOCS}">download the papers from the documents tab</a>. You will need to print these out and give them to your process server.`,
+    whatYouNeedToDoHeader: 'What you need to do',
+    steps: {
+      one: 'You will need to find and employ a process server. You may wish to consider how many times they will attempt to serve, over what period of time, and at what times of the day.',
+      two: `They will attempt to serve the papers on your ${partner}.`,
+      three:
+        'If they serve successfully, they will complete the certificate of service form (form FP6) and send it to you.',
+      four: 'You will then need to send the certificate of service to the court.',
+      five: `If the papers have been correctly served and your ${partner} still has not responded, your ${
+        isDivorce ? 'divorce' : 'application to end your civil partnership'
+      } can continue without their response.`,
+    },
+    line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
+    line4: `You can <a class="govuk-link" href="${OPTIONS_FOR_PROGRESSING}">view your other options for progressing your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    }</a> if you later decide that you no longer want to arrange service by a process server.`,
+  },
 });
 
 const languages = {
@@ -861,12 +898,16 @@ export const generateContent: TranslationFn = content => {
         latestRequestForInformation?.requestForInformationResponses?.at(0)?.value.requestForInformationResponseDateTime
       ).add(config.get('dates.requestForInformationResponseCourtReplyOffsetDays'), 'day')
     ) || '';
+  const isAwaitingProcessServerService =
+    userCase.state === State.AwaitingService &&
+    userCase.applicant1InterimApplicationType === InterimApplicationType.PROCESS_SERVER_SERVICE;
   const theLatestUpdateTemplate = getSoleHubTemplate(
     displayState,
     userCase,
     isSuccessfullyServedByBailiff,
     isAlternativeService,
-    isApplicantAbleToRespondToRequestForInformation
+    isApplicantAbleToRespondToRequestForInformation,
+    isAwaitingProcessServerService
   );
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
   const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
@@ -905,5 +946,6 @@ export const generateContent: TranslationFn = content => {
     isAosSubmitted,
     aosIsDrafted,
     aosOverdueAndDrafted,
+    isAwaitingProcessServerService,
   };
 };

@@ -1040,6 +1040,8 @@ export interface CaseData {
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
+  applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand: YesOrNo;
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
   applicant1InterimAppsHaveHwfReference: YesOrNo;
@@ -1051,6 +1053,10 @@ export interface CaseData {
   applicant1DeemedNoEvidenceStatement: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
+  applicant1NoResponseOwnSearches: NoResponseOwnSearches;
+  applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
+  applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
 }
 
 export interface CaseDocuments {
@@ -1073,6 +1079,12 @@ export interface CaseDocuments {
 export interface NoResponseJourneyOptions {
   noResponseCheckContactDetails: NoResponseCheckContactDetails;
   noResponsePartnerHasReceivedPapers: YesOrNo;
+  noResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
+  noResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
+  noResponseOwnSearches: NoResponseOwnSearches;
+  noResponseRespondentAddressInEnglandWales: YesOrNo;
+  noResponsePartnerInUkOrReceivingBenefits: YesOrNo;
+  noResponseSearchOrDispense: NoResponseSearchOrDispense;
 }
 
 export interface DeemedServiceJourneyOptions {
@@ -1867,6 +1879,7 @@ export const enum InterimApplicationType {
   ALTERNATIVE_SERVICE = 'alternativeService',
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'searchGovRecords',
+  PROCESS_SERVER_SERVICE = 'processServerService',
 }
 
 export const enum GeneralApplicationType {
@@ -2494,6 +2507,28 @@ export const enum NoResponseCheckContactDetails {
   NOT_KNOWN = 'notKnown',
 }
 
+export const enum NoResponseNoNewAddressDetails {
+  IN_PERSON_SERVICE = 'inPersonService',
+  ALTERNATIVE_SERVICE = 'alternativeService',
+  NO_CONTACT_DETAILS = 'noContactDetails',
+}
+
+export const enum NoResponseProcessServerOrBailiff {
+  PROCESS_SERVER = 'processServer',
+  COURT_BAILIFF = 'courtBailiff',
+}
+
+export const enum NoResponseOwnSearches {
+  YES = 'yes',
+  NO = 'no',
+  NOT_FOUND = 'notFound',
+}
+
+export const enum NoResponseSearchOrDispense {
+  SEARCH = 'search',
+  DISPENSE = 'dispense',
+}
+
 /**
  * Values:
  * - `CONTINUE`
@@ -2676,6 +2711,7 @@ export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const INTEND_SWITCH_TO_SOLE_FO = 'intend-switch-to-sole-fo';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_GENERATE_PROCESS_SERVER_DOCS = 'citizen-generate-process-server-docs';
 export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
 export const FINAL_ORDER_PAYMENT_MADE = 'final-order-payment-made';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
