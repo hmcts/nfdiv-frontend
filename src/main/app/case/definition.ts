@@ -257,6 +257,8 @@ export interface AlternativeService {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
+  servicePaymentFeeServiceRequestReference: string;
 }
 
 export interface AlternativeServiceOutcome {
@@ -943,11 +945,17 @@ export interface CaseData {
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
   servicePaymentFeeOrderSummary: OrderSummary;
+  servicePaymentFeeServiceRequestReference: string;
+  alternativeServiceFeeRequired: YesOrNo;
+  serviceApplicationAnswers: DivorceDocument;
+  servicePayments: ListValue<Payment>[];
+  serviceApplicationSubmittedOnline: YesOrNo,
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   documentsUploaded: ListValue<DivorceDocument>[];
@@ -2163,6 +2171,8 @@ export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
 
 export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
 
+export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
+
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
   JUDICIAL_SEPARATION = 'judicialSeparation',
@@ -2693,6 +2703,8 @@ export const CITIZEN_CREATE = 'citizen-create-application';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_SERVICE_APPLICATION = 'citizen-service-application';
+export const CITIZEN_SERVICE_PAYMENT_MADE = 'citizen-service-payment-made';
 export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';

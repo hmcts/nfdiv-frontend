@@ -1,13 +1,14 @@
 import autobind from 'autobind-decorator';
 
-import { CaseData, FINAL_ORDER_PAYMENT_MADE, FINAL_ORDER_PAYMENT_STATES, State } from '../../../app/case/definition';
+import { CaseWithId } from '../../../app/case/case';
+import { CaseData, FINAL_ORDER_PAYMENT_MADE, FINAL_ORDER_PAYMENT_STATES } from '../../../app/case/definition';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
 import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT } from '../../urls';
 
 @autobind
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
-  protected awaitingPaymentStates(): Set<State> {
-    return FINAL_ORDER_PAYMENT_STATES;
+  protected isAwaitingPayment(userCase: CaseWithId): boolean {
+    return FINAL_ORDER_PAYMENT_STATES.has(userCase.state);
   }
 
   protected noPaymentRequiredUrl(): string {
