@@ -13878,7 +13878,7 @@ __metadata:
     nunjucks: 3.2.4
     otplib: 12.0.1
     pa11y: 8.0.0
-    pdfjs-dist: 5.2.133
+    pdfjs-dist: 5.3.31
     prettier: 3.1.1
     redis: 5.0.1
     require-directory: 2.1.1
@@ -15016,15 +15016,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdfjs-dist@npm:5.2.133":
-  version: 5.2.133
-  resolution: "pdfjs-dist@npm:5.2.133"
+"pdfjs-dist@npm:5.3.31":
+  version: 5.3.31
+  resolution: "pdfjs-dist@npm:5.3.31"
   dependencies:
     "@napi-rs/canvas": ^0.1.67
   dependenciesMeta:
     "@napi-rs/canvas":
       optional: true
-  checksum: caee716e7b79416b905c341addbe0f371e81756c442732fef4ab2a5b424d3ff8fea7c7f2b9dd9a0693449c7f393b1bc7df95dc8210780612e692ba873d897798
+  checksum: 21ca8a53fd07636cc2ecbbf51158a41c93ca60bf6e736eb514b0a19ad5a14aa7a60c2886bf0ab49c250fdc9b258b208aa8ba19fc91e0e53678e68191dce623b4
   languageName: node
   linkType: hard
 
