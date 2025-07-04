@@ -1,7 +1,7 @@
 import { AlternativeServiceMethod } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { isEmailValid, isFieldFilledIn } from '../../../../../app/form/validation';
+import { isEmailFilledAndValid, isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
@@ -16,13 +16,15 @@ const en = ({ partner }: CommonContent) => ({
   emailAddress: 'Email address',
   errors: {
     applicant1AltServiceMethod: {
-      required: 'You must select an option before continuing.',
+      required: 'Select how you want to send the papers.',
     },
     applicant1AltServicePartnerEmail: {
-      invalid: 'You must enter a valid email address.',
+      required: 'Email address cannot be blank.',
+      invalid: 'Enter an email address in the correct format, like name@example.com',
     },
     applicant1AltServicePartnerEmailWhenDifferent: {
-      invalid: 'You must enter a valid email address.',
+      required: 'Email address cannot be blank.',
+      invalid: 'Enter an email address in the correct format, like name@example.com',
     },
   },
 });
@@ -39,13 +41,15 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   emailAddress: 'Email address',
   errors: {
     applicant1AltServiceMethod: {
-      required: 'Rhaid i chi ddewis opsiwn cyn parhau.',
+      required: 'Select how you want to send the papers.',
     },
     applicant1AltServicePartnerEmail: {
-      invalid: 'You must enter a valid email address.',
+      required: 'Email address cannot be blank.',
+      invalid: 'Enter an email address in the correct format, like name@example.com',
     },
     applicant1AltServicePartnerEmailWhenDifferent: {
-      invalid: 'You must enter a valid email address.',
+      required: 'Email address cannot be blank.',
+      invalid: 'Enter an email address in the correct format, like name@example.com',
     },
   },
 });
@@ -68,7 +72,7 @@ export const form: FormContent = {
               classes: 'govuk-input--width-20',
               labelSize: null,
               label: l => l.emailAddress,
-              validator: isEmailValid,
+              validator: isEmailFilledAndValid,
             },
           },
         },
@@ -87,7 +91,7 @@ export const form: FormContent = {
               classes: 'govuk-input--width-20',
               labelSize: null,
               label: l => l.emailAddress,
-              validator: isEmailValid,
+              validator: isEmailFilledAndValid,
             },
           },
         },

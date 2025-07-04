@@ -18,24 +18,24 @@ const en = ({ partner }: CommonContent) => ({
   privateSocialMedia: 'Private message on social media',
   socialMediaLabel: 'Provide details (profile link, username and platform)',
   otherWay: 'Other',
-  otherWayLabel: `Provide details about the platform and how to contact your ${partner}`,
+  otherWayLabel: `Provide details about how to contact your ${partner}`,
   errors: {
     applicant1AltServiceDifferentWays: {
-      required: 'You must check an option before continuing.',
+      required: 'Select if you want to send the papers by text message, WhatsApp, social media, or other.',
     },
     applicant1AltServicePartnerPhone: {
-      invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
-      required: 'You must enter a mobile phone number to continue.',
+      invalid: 'Enter a phone number in the correct format, like 07234567890.',
+      required: 'Mobile phone number cannot be blank.',
     },
     applicant1AltServicePartnerWANum: {
-      invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
-      required: 'You must enter a mobile phone number to continue.',
+      invalid: 'Enter a phone number in the correct format, like 07234567890.',
+      required: 'Mobile phone number cannot be blank.',
     },
     applicant1AltServicePartnerSocialDetails: {
-      required: 'You must enter details.',
+      required: 'You must provide social media details.',
     },
     applicant1AltServicePartnerOtherDetails: {
-      required: 'You must enter details.',
+      required: 'You must provide details about how to contact your partner.',
     },
   },
 });
@@ -54,24 +54,24 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   privateSocialMedia: 'Private message on social media',
   socialMediaLabel: 'Provide details (profile link, username and platform)',
   otherWay: 'Other',
-  otherWayLabel: `Provide details about the platform and how to contact your ${partner}`,
+  otherWayLabel: `Provide details about how to contact your ${partner}`,
   errors: {
     applicant1AltServiceDifferentWays: {
-      required: 'You must check an option before continuing.',
+      required: 'Select if you want to send the papers by text message, WhatsApp, social media, or other.',
     },
     applicant1AltServicePartnerPhone: {
-      invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
-      required: 'You must enter a mobile phone number to continue.',
+      invalid: 'Enter a phone number in the correct format, like 07234567890.',
+      required: 'Mobile phone number cannot be blank.',
     },
     applicant1AltServicePartnerWANum: {
-      invalid: 'The phone number you have entered is invalid. Enter a valid phone number to continue.',
-      required: 'You must enter a mobile phone number to continue.',
+      invalid: 'Enter a phone number in the correct format, like 07234567890.',
+      required: 'Mobile phone number cannot be blank.',
     },
     applicant1AltServicePartnerSocialDetails: {
-      required: 'You must enter details.',
+      required: 'You must provide social media details.',
     },
     applicant1AltServicePartnerOtherDetails: {
-      required: 'You must enter details.',
+      required: 'You must provide details about how to contact your partner.',
     },
   },
 });
@@ -81,6 +81,7 @@ export const form: FormContent = {
     applicant1AltServiceDifferentWays: {
       type: 'checkboxes',
       label: l => l.howToSend,
+      labelSize: 'm',
       hint: l => l.selectAllThatApply,
       validator: atLeastOneFieldIsChecked,
       values: [

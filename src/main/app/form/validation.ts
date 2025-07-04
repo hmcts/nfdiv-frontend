@@ -137,6 +137,17 @@ export const isEmailValid: Validator = value => {
   }
 };
 
+export const isEmailFilledAndValid: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+
+  if (!isValidEmail(value as string)) {
+    return 'invalid';
+  }
+};
+
 export const isApplicant2EmailValid: EmailValidator = (value, applicant1Email) => {
   if (value === applicant1Email) {
     return 'sameEmail';

@@ -12,9 +12,10 @@ const en = (
   emailSelected: boolean,
   textMessageSelected: boolean,
   whatsAppSelected: boolean,
-  socialMediaSelected: boolean
+  socialMediaSelected: boolean,
+  cannotUploadEvidence: boolean
 ) => ({
-  title: `Why do you think sending the papers
+  title: `${cannotUploadEvidence ? 'Why are you applying to send the papers' : 'Why do you think sending the papers'}
     ${
       multipleWaysSelected
         ? 'in this way'
@@ -27,14 +28,14 @@ const en = (
               : socialMediaSelected
                 ? 'by private message on social media'
                 : 'in this way'
-    } will be successful?`,
+    } ${cannotUploadEvidence ? '?' : 'will be successful?'}`,
   line1: `Tell us why you think your ${partner} will receive the papers in this way. If a friend or relative will be sending the papers on your behalf, you’ll need to tell us who this is.`,
   unableToUploadLine1: 'You should also explain why you are not able to upload evidence.',
   unableToUploadLine2:
     'Explain in as much detail as you can so that the judge can consider whether to grant your application.',
   errors: {
     applicant1AltServiceMethodJustification: {
-      required: 'You must provide a reason before continuing.',
+      required: 'You must explain why you are applying to send the papers in this way.',
     },
   },
 });
@@ -46,9 +47,10 @@ const cy: typeof en = (
   emailSelected: boolean,
   textMessageSelected: boolean,
   whatsAppSelected: boolean,
-  socialMediaSelected: boolean
+  socialMediaSelected: boolean,
+  cannotUploadEvidence: boolean
 ) => ({
-  title: `Why do you think sending the papers
+  title: `${cannotUploadEvidence ? 'Why are you applying to send the papers' : 'Why do you think sending the papers'}
     ${
       multipleWaysSelected
         ? 'in this way'
@@ -61,14 +63,14 @@ const cy: typeof en = (
               : socialMediaSelected
                 ? 'by private message on social media'
                 : 'in this way'
-    } will be successful?`,
+    } ${cannotUploadEvidence ? '?' : 'will be successful?'}`,
   line1: `Tell us why you think your ${partner} will receive the papers in this way. If a friend or relative will be sending the papers on your behalf, you’ll need to tell us who this is.`,
   unableToUploadLine1: 'You should also explain why you are not able to upload evidence.',
   unableToUploadLine2:
     'Explain in as much detail as you can so that the judge can consider whether to grant your application.',
   errors: {
     applicant1AltServiceMethodJustification: {
-      required: 'You must provide a reason before continuing.',
+      required: 'You must explain why you are applying to send the papers in this way.',
     },
   },
 });
@@ -123,7 +125,8 @@ export const generateContent: TranslationFn = content => {
     !!emailSelected,
     !!textMessageSelected,
     !!whatsAppSelected,
-    !!socialMediaSelected
+    !!socialMediaSelected,
+    !!cannotUploadEvidence
   );
   return {
     ...translations,
