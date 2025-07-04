@@ -391,6 +391,41 @@ const fields: ToApiConverters = {
     app2RfiDraftResponseDetails: data.app2RfiDraftResponseDetails,
   }),
   app2RfiDraftResponseUploadedFiles: () => ({}),
+  applicant1NoResponseCheckContactDetails: data => ({
+    applicant1NoResponseCheckContactDetails: data.applicant1NoResponseCheckContactDetails,
+  }),
+  applicant1NoResponsePartnerHasReceivedPapers: data => ({
+    applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
+  }),
+  applicant1InterimAppsIUnderstand: data => ({
+    applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
+  }),
+  applicant1InterimAppsUseHelpWithFees: data => ({
+    applicant1InterimAppsUseHelpWithFees: data.applicant1InterimAppsUseHelpWithFees,
+    ...(data.applicant1InterimAppsUseHelpWithFees === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1InterimAppsHaveHwfReference', 'applicant1InterimAppsHwfRefNumber'])
+      : {}),
+  }),
+  applicant1InterimAppsHwfRefNumber: data => ({
+    applicant1InterimAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant1InterimAppsHwfRefNumber)
+      ? data.applicant1InterimAppsHwfRefNumber
+      : '',
+    applicant1InterimAppsHaveHwfReference:
+      data.applicant1InterimAppsHwfRefNumber === '' ? data.applicant1InterimAppsHaveHwfReference : YesOrNo.YES,
+  }),
+  applicant1InterimAppsEvidenceUploadedFiles: () => ({}),
+  applicant1InterimAppsCannotUploadDocs: data => ({
+    applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
+  }),
+  applicant1InterimAppsCanUploadEvidence: data => ({
+    applicant1InterimAppsCanUploadEvidence: data.applicant1InterimAppsCanUploadEvidence,
+    ...(data.applicant1InterimAppsCanUploadEvidence === YesOrNo.YES
+      ? setUnreachableAnswersToNull(['applicant1DeemedNoEvidenceStatement'])
+      : setUnreachableAnswersToNull(['applicant1DeemedEvidenceDetails', 'applicant1InterimAppsCannotUploadDocs'])),
+  }),
+  applicant1InterimAppsStatementOfTruth: data => ({
+    applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {

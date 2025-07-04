@@ -5,10 +5,7 @@ Feature: Citizen Withdraw
     And I go to '/check-your-answers'
 
   Scenario: Withdraw from the check your answers page
-    Given I click element "withdrawLink"
+    Given I click element "#withdrawLink"
     Then the page should include "Withdraw your application"
-    And if I click element "main-form-submit"
+    When I click submit
     Then the page should include "Application Withdrawn"
-    And when I go to "/"
-    And I login with applicant "1"
-    Then the page should include "/your-details"

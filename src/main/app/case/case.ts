@@ -2,6 +2,7 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   AlternativeServiceOutcome,
+  AlternativeServiceType,
   Applicant2Represented,
   ApplicationType,
   CaseData,
@@ -15,9 +16,11 @@ import {
   DocumentType,
   FinancialOrderFor,
   Gender,
+  InterimApplicationType,
   JurisdictionConnections,
   LegalAdvisorDecision,
   ListValue,
+  NoResponseCheckContactDetails,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -183,6 +186,30 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationDetails: 'requestForInformationDetails',
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
+  applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
+  applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
+  applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
+  applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
+  applicant1InterimAppsHaveHwfReference: 'applicant1InterimAppsHaveHwfReference',
+  applicant1InterimAppsCanUploadEvidence: 'applicant1InterimAppsCanUploadEvidence',
+  applicant1InterimAppsHwfRefNumber: 'applicant1InterimAppsHwfRefNumber',
+  applicant1InterimAppsEvidenceDocs: 'applicant1InterimAppsEvidenceDocs',
+  applicant1InterimAppsCannotUploadDocs: 'applicant1InterimAppsCannotUploadDocs',
+  applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
+  applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1InterimApplicationType: 'applicant1InterimApplicationType',
+  applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
+  servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
+  servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
+  serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
+  servicePayments: 'servicePayments',
+  receivedServiceApplicationDate: 'receivedServiceApplicationDate',
+  receivedServiceAddedDate: 'receivedServiceAddedDate',
+  serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
+  alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
+  alternativeServiceType: 'alternativeServiceType',
+  serviceApplicationAnswers: 'serviceApplicationAnswers',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -434,6 +461,31 @@ export interface Case {
   app2RfiDraftResponseCannotUploadDocs?: Checkbox;
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
+  applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
+  applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1InterimAppsIUnderstand?: Checkbox;
+  applicant1InterimAppsUseHelpWithFees?: YesOrNo;
+  applicant1InterimAppsHaveHwfReference?: YesOrNo;
+  applicant1InterimAppsCanUploadEvidence?: YesOrNo;
+  applicant1InterimAppsHwfRefNumber?: string;
+  applicant1InterimAppsEvidenceUploadedFiles?: UploadedFile[];
+  applicant1InterimAppsEvidenceDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant1InterimAppsCannotUploadDocs?: Checkbox;
+  applicant1DeemedEvidenceDetails?: string;
+  applicant1DeemedNoEvidenceStatement?: string;
+  applicant1InterimApplicationType?: InterimApplicationType;
+  applicant1InterimAppsStatementOfTruth?: Checkbox;
+  servicePaymentFeeOrderSummary: OrderSummary;
+  servicePaymentFeeServiceRequestReference: string;
+  servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
+  servicePayments: ListValue<Payment>[];
+  receivedServiceApplicationDate: DateAsString;
+  receivedServiceAddedDate: DateAsString;
+  serviceApplicationSubmittedOnline: YesOrNo;
+  alternativeServiceFeeRequired: YesOrNo;
+  alternativeServiceType: AlternativeServiceType;
+  serviceApplicationAnswers: DivorceDocument;
 }
 
 export interface CaseWithId extends Case {

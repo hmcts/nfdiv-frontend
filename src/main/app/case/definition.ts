@@ -257,6 +257,8 @@ export interface AlternativeService {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
+  servicePaymentFeeServiceRequestReference: string;
 }
 
 export interface AlternativeServiceOutcome {
@@ -943,11 +945,17 @@ export interface CaseData {
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
   servicePaymentFeeOrderSummary: OrderSummary;
+  servicePaymentFeeServiceRequestReference: string;
+  alternativeServiceFeeRequired: YesOrNo;
+  serviceApplicationAnswers: DivorceDocument;
+  servicePayments: ListValue<Payment>[];
+  serviceApplicationSubmittedOnline: YesOrNo,
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   documentsUploaded: ListValue<DivorceDocument>[];
@@ -1030,6 +1038,19 @@ export interface CaseData {
   generalLetters: ListValue<GeneralLetterDetails>[];
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
+  applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
+  applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1InterimAppsIUnderstand: YesOrNo;
+  applicant1InterimAppsUseHelpWithFees: YesOrNo;
+  applicant1InterimAppsHaveHwfReference: YesOrNo;
+  applicant1InterimAppsCanUploadEvidence: YesOrNo;
+  applicant1InterimAppsHwfRefNumber: string;
+  applicant1InterimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  applicant1InterimAppsCannotUploadDocs: YesOrNo;
+  applicant1DeemedEvidenceDetails: string;
+  applicant1DeemedNoEvidenceStatement: string;
+  applicant1InterimApplicationType: InterimApplicationType;
+  applicant1InterimAppsStatementOfTruth: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1047,6 +1068,24 @@ export interface CaseDocuments {
   documentsUploadedOnConfirmService: ListValue<DivorceDocument>[];
   typeOfDocumentAttached: OfflineDocumentReceived;
   scannedSubtypeReceived: ScannedDocumentSubtypes;
+}
+
+export interface NoResponseJourneyOptions {
+  noResponseCheckContactDetails: NoResponseCheckContactDetails;
+  noResponsePartnerHasReceivedPapers: YesOrNo;
+}
+
+export interface DeemedServiceJourneyOptions {
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  interimAppsCannotUploadDocs: Checkbox;
+  deemedEvidenceDetails: string;
+  deemedNoEvidenceStatement: string;
+  interimAppsStatementOfTruth: Checkbox;
 }
 
 export interface RequestForInformationResponse {
@@ -1822,6 +1861,14 @@ export const enum GeneralApplicationFee {
   FEE0228 = 'FEE0228',
 }
 
+export const enum InterimApplicationType {
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  DEEMED_SERVICE = 'deemedService',
+  ALTERNATIVE_SERVICE = 'alternativeService',
+  BAILIFF_SERVICE = 'bailiffService',
+  SEARCH_GOV_RECORDS = 'searchGovRecords',
+}
+
 export const enum GeneralApplicationType {
   DISPENSED_WITH_SERVICE = 'dispensedWithService',
   DEEMED_SERVICE = 'deemedService',
@@ -2105,12 +2152,13 @@ export const enum State {
 }
 
 export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingPayment, State.AwaitingResponseToHWFDecision
+  State.AwaitingPayment,
+  State.AwaitingResponseToHWFDecision,
 ]);
 
-export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingFinalOrderPayment
-]);
+export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
+
+export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
@@ -2440,6 +2488,12 @@ export const enum ServiceProcessedByProcessServer {
   CONFIRM = 'serviceProcessed',
 }
 
+export const enum NoResponseCheckContactDetails {
+  UP_TO_DATE = 'upToDate',
+  NEW_ADDRESS = 'newAddress',
+  NOT_KNOWN = 'notKnown',
+}
+
 /**
  * Values:
  * - `CONTINUE`
@@ -2614,6 +2668,8 @@ export const CITIZEN_CREATE = 'citizen-create-application';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_SERVICE_APPLICATION = 'citizen-service-application';
+export const CITIZEN_SERVICE_PAYMENT_MADE = 'citizen-service-payment-made';
 export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
