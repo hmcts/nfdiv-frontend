@@ -99,7 +99,7 @@ Feature: Applicant 2
     And I select "I believe that the facts stated in this application are true"
 
     When I click "Submit"
-    Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
+    Then the page URL should be "/applicant2/response-submitted"
     And the page should include "Your wife needs to confirm your joint application"
 
     Given I click "Sign out"

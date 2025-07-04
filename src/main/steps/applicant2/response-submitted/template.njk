@@ -1,0 +1,33 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block backLink %}{% endblock %}
+
+{% block page_content %}
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1 id="responseSubmittedTitle" class="govuk-panel__title">{{ title }}</h1>
+    <div class="govuk-body">
+      {{ yourReferenceNumber }}
+      <div class="govuk-panel__body">
+        <strong>{{ referenceNumber }}</strong>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <h2 class="govuk-heading-l">{{ whatHappensNext }}</h2>
+  <p class="govuk-body">{{ line1 }} <strong>{{ reviewDate }}</strong>.</p>
+  <p class="govuk-body">{{ line2 }}</p>
+
+  <br/>
+  <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__content">
+      <p class="govuk-notification-banner__heading">{{ feedback }}</p>
+      <p class="govuk-body">{{ feedbackLine1 }}</p>
+      <p class="govuk-body"><a class="govuk-link" href={{ feedbackLine2.link }}>{{ feedbackLine2.part1 }}</a></p>
+    </div>
+  </div>
+{% endblock %}
+
+{% block contact_us %}{% endblock %}

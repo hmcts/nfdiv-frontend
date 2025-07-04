@@ -13,7 +13,7 @@ Feature: Joint conditional order
     Given I select "I confirm that I’m applying to the court to dissolve my marriage (get a divorce)"
     And I select "I believe that the facts stated in this application are true"
     When I click "Submit"
-    Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
+    Then the page URL should be "/applicant2/response-submitted"
 
   Scenario: Applicant 1 is first in time applicant for conditional order journey
     Given I set the case state to "AwaitingConditionalOrder"
