@@ -11,9 +11,10 @@ import {
   APPLY_FOR_HWF_ALTERNATIVE,
   CHECK_ANSWERS_ALTERNATIVE,
   HELP_WITH_FEES_ALTERNATIVE,
-  HUB_PAGE,
   HWF_REFERENCE_NUMBER_ALTERNATIVE,
   HWF_REFERENCE_NUMBER_INPUT_ALTERNATIVE,
+  PAY_YOUR_SERVICE_FEE,
+  SERVICE_APPLICATION_SUBMITTED,
   UPLOAD_EVIDENCE_ALTERNATIVE,
   WANT_UPLOAD_EVIDENCE_ALTERNATIVE,
 } from './urls';
@@ -81,6 +82,7 @@ export const alternativeServiceApplicationSequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_ALTERNATIVE,
-    getNextStep: () => HUB_PAGE, // Correct this when the rest of the journey is implemented
+    getNextStep: data =>
+      data?.alternativeServiceFeeRequired === YesOrNo.YES ? PAY_YOUR_SERVICE_FEE : SERVICE_APPLICATION_SUBMITTED,
   },
 ];
