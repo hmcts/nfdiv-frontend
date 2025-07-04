@@ -1,5 +1,5 @@
 import { Checkbox } from '../case';
-import { DivorceDocument, DocumentType } from '../definition';
+import { DivorceDocument, DocumentType, YesOrNo } from '../definition';
 
 import { fromApiApplicant1, fromApiApplicant2 } from './uploaded-files';
 
@@ -83,5 +83,26 @@ describe('uploadedFilesFromApiApplicant2', () => {
     expect(result.app2RfiDraftResponseUploadedFiles?.length).toBe(2);
     expect(result.app2RfiDraftResponseUploadedFiles?.[0].id).toBe('1');
     expect(result.app2RfiDraftResponseUploadedFiles?.[1].id).toBe('2');
+  });
+
+  it('sets cannot upload evidence', async () => {
+    const result = fromApiApplicant2({
+      applicant2UnableToUploadEvidence: YesOrNo.YES,
+    });
+
+    expect(result.applicant2UnableToUploadEvidence).toBe(Checkbox.Checked);
+  });
+
+  it('converts legal proceeding documents', async () => {
+    const result = fromApiApplicant2({
+      applicant2LegalProceedingDocs: [
+        { id: '1', value: { documentFileName: 'filename' } as DivorceDocument },
+        { id: '2', value: { documentFileName: 'filename' } as DivorceDocument },
+      ],
+    });
+
+    expect(result.applicant2LegalProceedingUploadedFiles?.length).toBe(2);
+    expect(result.applicant2LegalProceedingUploadedFiles?.[0].id).toBe('1');
+    expect(result.applicant2LegalProceedingUploadedFiles?.[1].id).toBe('2');
   });
 });

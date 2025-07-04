@@ -316,6 +316,9 @@ export interface Applicant {
   LegalProceedingsDetails: string;
   LegalProceedingsDetailsTranslated: string;
   LegalProceedingsDetailsTranslatedTo: TranslatedToLanguage;
+  LegalProceedingsConcluded: YesOrNo;
+  UnableToUploadEvidence: YesOrNo;
+  LegalProceedingDocs: ListValue<DivorceDocument>[];
   PcqId: string;
   ContinueApplication: YesOrNo;
   PrayerDissolveDivorce: DissolveDivorce[];
@@ -594,6 +597,9 @@ export interface CaseData {
   applicant2LegalProceedingsDetails: string;
   applicant2LegalProceedingsDetailsTranslated: string;
   applicant2LegalProceedingsDetailsTranslatedTo: TranslatedToLanguage;
+  applicant2LegalProceedingsConcluded: YesOrNo;
+  applicant2UnableToUploadEvidence: YesOrNo;
+  applicant2LegalProceedingDocs: ListValue<DivorceDocument>[];
   applicant2PcqId: string;
   applicant2ContinueApplication: YesOrNo;
   applicant2PrayerDissolveDivorce: DissolveDivorce[];
