@@ -2603,14 +2603,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.53.0":
-  version: 1.53.0
-  resolution: "@playwright/test@npm:1.53.0"
+"@playwright/test@npm:1.53.2":
+  version: 1.53.2
+  resolution: "@playwright/test@npm:1.53.2"
   dependencies:
-    playwright: 1.53.0
+    playwright: 1.53.2
   bin:
     playwright: cli.js
-  checksum: 63c8264134b9ceb1a9e40af9a2e262f11f74c791c739ade6d39177de42a28016d3a9c807ce893048b2c3247a633b5e8c7805e013c6f87c85b1360a83363d74ba
+  checksum: b13cb56e60132ad1b0cfa245a89b203623c43287251e359e164380e6fd3a439435133ece52c6242bc925c96cc7afd15b52e596fd2e20f7c87b95d574a157da15
   languageName: node
   linkType: hard
 
@@ -13496,8 +13496,8 @@ __metadata:
   linkType: hard
 
 "mocha@npm:^11.0.0":
-  version: 11.6.0
-  resolution: "mocha@npm:11.6.0"
+  version: 11.7.0
+  resolution: "mocha@npm:11.7.0"
   dependencies:
     browser-stdout: ^1.3.1
     chokidar: ^4.0.1
@@ -13522,7 +13522,7 @@ __metadata:
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
-  checksum: 5414b5ffad354937feb3f27e80b00c0a4c72e6eb163ed6cb758dc8d39ddd554bc404ba186e524504957b113833d55fee3503832baf1fbefae52e558e92cfa82c
+  checksum: 9d5902522f2e31529380966f5186eb522ea6396edd0d7b36b16bcf062b6168df38f6429d11fbce1a2a3911e3d422d857bdcce64283e90aa3ea8e4f4660921352
   languageName: node
   linkType: hard
 
@@ -13798,7 +13798,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": 1.8.5
     "@hmcts/nodejs-logging": 4.0.4
     "@hmcts/properties-volume": 1.2.0
-    "@playwright/test": 1.53.0
+    "@playwright/test": 1.53.2
     "@types/config": 3.3.5
     "@types/cookie-parser": 1.4.9
     "@types/csurf": 1.11.5
@@ -13878,7 +13878,7 @@ __metadata:
     nunjucks: 3.2.4
     otplib: 12.0.1
     pa11y: 8.0.0
-    pdfjs-dist: 5.2.133
+    pdfjs-dist: 5.3.31
     prettier: 3.1.1
     redis: 5.0.1
     require-directory: 2.1.1
@@ -15016,15 +15016,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdfjs-dist@npm:5.2.133":
-  version: 5.2.133
-  resolution: "pdfjs-dist@npm:5.2.133"
+"pdfjs-dist@npm:5.3.31":
+  version: 5.3.31
+  resolution: "pdfjs-dist@npm:5.3.31"
   dependencies:
     "@napi-rs/canvas": ^0.1.67
   dependenciesMeta:
     "@napi-rs/canvas":
       optional: true
-  checksum: caee716e7b79416b905c341addbe0f371e81756c442732fef4ab2a5b424d3ff8fea7c7f2b9dd9a0693449c7f393b1bc7df95dc8210780612e692ba873d897798
+  checksum: 21ca8a53fd07636cc2ecbbf51158a41c93ca60bf6e736eb514b0a19ad5a14aa7a60c2886bf0ab49c250fdc9b258b208aa8ba19fc91e0e53678e68191dce623b4
   languageName: node
   linkType: hard
 
@@ -15106,27 +15106,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.53.0":
-  version: 1.53.0
-  resolution: "playwright-core@npm:1.53.0"
+"playwright-core@npm:1.53.2":
+  version: 1.53.2
+  resolution: "playwright-core@npm:1.53.2"
   bin:
     playwright-core: cli.js
-  checksum: 00d6c8f566608681e1ab529ecb86a4e8c818f77605438e38e1b7ebf04b41b4df115217fe89cfe535d0a0a9f08807ab0b66d4f9da61c5609060cc68859c7c4354
+  checksum: 01530abe93a094482e5cc171e195001bd351c1b75430fb8820e17a2cfc6d67e34e0e59871dd738e1754cd2720fb0c797acb10295bcdc092a268cd297ae4bb3bd
   languageName: node
   linkType: hard
 
-"playwright@npm:1.53.0":
-  version: 1.53.0
-  resolution: "playwright@npm:1.53.0"
+"playwright@npm:1.53.2":
+  version: 1.53.2
+  resolution: "playwright@npm:1.53.2"
   dependencies:
     fsevents: 2.3.2
-    playwright-core: 1.53.0
+    playwright-core: 1.53.2
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: a8e69cecac82515e018f68aeccdae0bd8d4e18e3741330e79129c1705780fef6591294c0fe0f71f1ab4242a00032c3896eae9ceb40c5e03d53265f993de8cd42
+  checksum: f5a1cb319eb8f1c30d4f934bbc0c48a3cb0c796286bbb008c82cb2b0666a318c6f910ed5db6cf44f68bac64e6d42485e834306b8bed08f6385ff348337b23c61
   languageName: node
   linkType: hard
 
