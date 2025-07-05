@@ -61,6 +61,12 @@ export const generateContent: TranslationFn = content => {
       forTo = commonContent.generalApplication.for;
       break;
     }
+    case InterimApplicationType.ALTERNATIVE_SERVICE: {
+      serviceType = commonContent.generalApplication.alternativeService;
+      serviceCode = commonContent.generalApplication.deemedCode;
+      forTo = commonContent.generalApplication.for;
+      break;
+    }
     default: {
       serviceType = '';
       serviceCode = '';
