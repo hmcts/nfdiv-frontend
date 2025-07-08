@@ -81,6 +81,9 @@ Feature: Alternative service journey
     When I click continue
     Then the page should include element "#checkAnswersTitle"
 
-    #    Given I click element "#applicant1InterimAppsStatementOfTruth
-    #    When I click submit
-    #    Finish this journey when payment options are added
+    Given I click element "#applicant1InterimAppsStatementOfTruth"
+    When I click submit
+    Then the page should include element "#payYourServiceFeeTitle"
+
+    Given I pay and submit the service application
+    Then the page should include "You have submitted your application"
