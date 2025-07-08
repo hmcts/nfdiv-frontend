@@ -11,9 +11,10 @@ import {
   APPLY_FOR_HWF_ALTERNATIVE,
   CHECK_ANSWERS_ALTERNATIVE,
   HELP_WITH_FEES_ALTERNATIVE,
-  HUB_PAGE,
   HWF_REFERENCE_NUMBER_ALTERNATIVE,
   HWF_REFERENCE_NUMBER_INPUT_ALTERNATIVE,
+  PAY_YOUR_SERVICE_FEE,
+  SERVICE_APPLICATION_SUBMITTED,
   UPLOAD_EVIDENCE_ALTERNATIVE,
   WANT_UPLOAD_EVIDENCE_ALTERNATIVE,
 } from './urls';
@@ -148,9 +149,22 @@ describe('Alternative Service Application Sequence test', () => {
   });
 
   describe('CHECK_ANSWERS_ALTERNATIVE', () => {
-    test('CHECK_ANSWERS_ALTERNATIVE', () => {
+    test('CHECK_ANSWERS_ALTERNATIVE should redirect to PAY_YOUR_SERVICE_FEE if payment is required', () => {
       const step = alternativeServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_ALTERNATIVE) as Step;
-      expect(step.getNextStep({})).toBe(HUB_PAGE); // Correct this when the rest of the journey is implemented
+      const caseData = {
+        alternativeServiceFeeRequired: YesOrNo.YES,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(PAY_YOUR_SERVICE_FEE);
+    });
+
+    test('CHECK_ANSWERS_ALTERNATIVE should redirect to SERVICE_APPLICATION_SUBMITTED if payment is not required', () => {
+      const step = alternativeServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_ALTERNATIVE) as Step;
+      const caseData = {
+        alternativeServiceFeeRequired: YesOrNo.NO,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(SERVICE_APPLICATION_SUBMITTED);
     });
   });
 });
