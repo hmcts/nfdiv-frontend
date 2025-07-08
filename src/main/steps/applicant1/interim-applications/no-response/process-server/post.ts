@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 
 import { Case, CaseWithId } from '../../../../../app/case/case';
-import { CITIZEN_GENERATE_D10, InterimApplicationType } from '../../../../../app/case/definition';
+import { CITIZEN_GENERATE_PROCESS_SERVER_DOCS, InterimApplicationType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 
@@ -14,6 +14,6 @@ export default class ProcessServerPostController extends PostController<AnyObjec
   }
 
   protected getEventName(): string {
-    return CITIZEN_GENERATE_D10;
+    return CITIZEN_GENERATE_PROCESS_SERVER_DOCS;
   }
 }
