@@ -17,6 +17,8 @@ export const en = {
     to: 'to',
     deemed: 'deemed service',
     deemedCode: 'D11',
+    dispense: 'dispense with service',
+    dispenseCode: 'D13b',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -176,6 +178,8 @@ const cy: typeof en = {
     to: 'i',
     deemed: 'gyflwyno tybiedig',
     deemedCode: 'D11',
+    dispense: 'dispense with service',
+    dispenseCode: 'D13b',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
