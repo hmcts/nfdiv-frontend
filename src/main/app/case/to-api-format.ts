@@ -439,6 +439,18 @@ const fields: ToApiConverters = {
       data.applicant1NoResponseRespondentAddressInEnglandWales
     ),
   }),
+  applicant1AltServiceMethod: data => ({
+    applicant1AltServiceMethod: data.applicant1AltServiceMethod,
+    ...(data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
+      ? setUnreachableAnswersToNull([
+          'applicant1AltServiceDifferentWays',
+          'applicant1AltServicePartnerPhone',
+          'applicant1AltServicePartnerWANum',
+          'applicant1AltServicePartnerSocialDetails',
+          'applicant1AltServicePartnerOtherDetails',
+        ])
+      : {}),
+  }),
   applicant1AltServicePartnerEmail: data => ({
     applicant1AltServicePartnerEmail:
       data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
