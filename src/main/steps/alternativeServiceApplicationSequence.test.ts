@@ -93,7 +93,9 @@ describe('Alternative Service Application Sequence test', () => {
 
   describe('ALTERNATIVE_WHY_OTHER_WAY', () => {
     test('ALTERNATIVE_WHY_OTHER_WAY', () => {
-      const step = alternativeServiceApplicationSequence.find(obj => obj.url === ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS) as Step;
+      const step = alternativeServiceApplicationSequence.find(
+        obj => obj.url === ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS
+      ) as Step;
       expect(step.getNextStep({})).toBe(ALTERNATIVE_SENDING_PAPERS_TO_PARTNER);
     });
   });
