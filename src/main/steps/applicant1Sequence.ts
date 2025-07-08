@@ -20,6 +20,7 @@ import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequ
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
+import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
@@ -593,6 +594,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...alternativeServiceApplicationSequence,
   ...dispenseServiceApplicationSequence,
   ...searchGovRecordsApplicationSequence,
+  ...serviceApplicationPaymentSequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
