@@ -98,17 +98,9 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: PARTNER_IN_PERSON,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      switch (data.applicant1NoResponseProcessServerOrBailiff) {
-        case NoResponseProcessServerOrBailiff.PROCESS_SERVER: {
-          return PROCESS_SERVER;
-        }
-        case NoResponseProcessServerOrBailiff.COURT_BAILIFF: {
-          return BAILIFF_SERVICE_APPLICATION;
-        }
-        default: {
-          return HUB_PAGE;
-        }
-      }
+      return data.applicant1NoResponseProcessServerOrBailiff === NoResponseProcessServerOrBailiff.PROCESS_SERVER
+        ? PROCESS_SERVER
+        : BAILIFF_SERVICE_APPLICATION;
     },
   },
   {
@@ -126,18 +118,7 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: OWN_SEARCHES,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      switch (data.applicant1NoResponseOwnSearches) {
-        case NoResponseOwnSearches.YES:
-        case NoResponseOwnSearches.NOT_FOUND: {
-          return IS_PARTNER_ABROAD;
-        }
-        case NoResponseOwnSearches.NO: {
-          return SEARCH_TIPS;
-        }
-        default: {
-          return HUB_PAGE;
-        }
-      }
+      return data.applicant1NoResponseOwnSearches === NoResponseOwnSearches.NO ? SEARCH_TIPS : IS_PARTNER_ABROAD;
     },
   },
   {
