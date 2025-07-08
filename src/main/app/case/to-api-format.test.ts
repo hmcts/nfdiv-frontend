@@ -1,5 +1,7 @@
 import { Case, Checkbox, LanguagePreference } from './case';
 import {
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
   Applicant2Represented,
   ApplicationType,
   ChangedNameHow,
@@ -689,6 +691,27 @@ describe('to-api-format', () => {
     ])('correctly handles applicant2InRefuge with value %p', ({ applicant2InRefuge, expected }) => {
       const apiFormat = toApiFormat({ applicant2InRefuge } as Partial<Case>);
       expect(apiFormat).toMatchObject({ applicant2InRefuge: expected });
+    });
+  });
+
+  describe('applicant1AltServiceMethod transformation', () => {
+    test('sets applicant1AltServiceDifferentWays to null if applicantAlternativeServiceMethod is Email only', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServiceMethod: AlternativeServiceMethod.EMAIL,
+        applicant1AltServiceDifferentWays: [AlternativeServiceDifferentWays.TEXT_MESSAGE],
+        applicant1AltServicePartnerPhone: '1234567890',
+        applicant1AltServicePartnerOtherDetails: 'some details',
+        applicant1AltServicePartnerWANum: '1234567890',
+        applicant1AltServicePartnerSocialDetails: 'some social details',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServiceDifferentWays: [],
+        applicant1AltServicePartnerPhone: null,
+        applicant1AltServicePartnerOtherDetails: null,
+        applicant1AltServicePartnerWANum: null,
+        applicant1AltServicePartnerSocialDetails: null,
+      });
     });
   });
 });
