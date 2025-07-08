@@ -57,7 +57,7 @@ export const alternativeServiceApplicationSequence: Step[] = [
     url: ALTERNATIVE_SENDING_PAPERS_TO_PARTNER,
     getNextStep: data =>
       data?.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
-        ? UPLOAD_EVIDENCE_ALTERNATIVE
+        ? WANT_UPLOAD_EVIDENCE_ALTERNATIVE
         : ALTERNATIVE_HOW_TO_SERVE,
   },
   {

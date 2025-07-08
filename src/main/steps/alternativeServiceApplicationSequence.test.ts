@@ -1,9 +1,10 @@
-import { YesOrNo } from '../app/case/definition';
+import { AlternativeServiceMethod, YesOrNo } from '../app/case/definition';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { Step } from './applicant1Sequence';
 import {
   ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS,
+  ALTERNATIVE_HOW_TO_SERVE,
   ALTERNATIVE_INTERRUPTION,
   ALTERNATIVE_SENDING_PAPERS_TO_PARTNER,
   ALTERNATIVE_SERVICE_APPLICATION,
@@ -100,11 +101,31 @@ describe('Alternative Service Application Sequence test', () => {
     });
   });
 
-  describe('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER', () => {
-    test('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER', () => {
+  describe('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER redirects based on method selected', () => {
+    test('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER send to WANT_UPLOAD_EVIDENCE_ALTERNATIVE', () => {
+      const caseData = {
+        applicant1AltServiceMethod: AlternativeServiceMethod.EMAIL,
+      };
       const step = alternativeServiceApplicationSequence.find(
         obj => obj.url === ALTERNATIVE_SENDING_PAPERS_TO_PARTNER
       ) as Step;
+      expect(step.getNextStep(caseData)).toBe(WANT_UPLOAD_EVIDENCE_ALTERNATIVE);
+    });
+
+    test('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER send to ALTERNATIVE_HOW_TO_SERVE', () => {
+      const caseData = {
+        applicant1AltServiceMethod: AlternativeServiceMethod.DIFFERENT_WAY,
+      };
+      const step = alternativeServiceApplicationSequence.find(
+        obj => obj.url === ALTERNATIVE_SENDING_PAPERS_TO_PARTNER
+      ) as Step;
+      expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_HOW_TO_SERVE);
+    });
+  });
+
+  describe('ALTERNATIVE_HOW_TO_SERVE', () => {
+    test('ALTERNATIVE_HOW_TO_SERVE', () => {
+      const step = alternativeServiceApplicationSequence.find(obj => obj.url === ALTERNATIVE_HOW_TO_SERVE) as Step;
       expect(step.getNextStep({})).toBe(WANT_UPLOAD_EVIDENCE_ALTERNATIVE);
     });
   });
