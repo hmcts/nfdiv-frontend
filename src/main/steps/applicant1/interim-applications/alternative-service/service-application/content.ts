@@ -8,7 +8,7 @@ import { generateContent as alsoTryGenerateContent } from '../../common/also-try
 
 const en = ({ partner }: CommonContent) => ({
   title: 'Apply for alternative service (D11)',
-  line1: `Alternative service means sending the papers to your ${partner} in a way other than by post`,
+  line1: `Alternative service means sending the papers to your ${partner} in a way other than by post.`,
   thisMayInclude: {
     title: 'This may include:',
     options: {
@@ -31,7 +31,7 @@ const en = ({ partner }: CommonContent) => ({
 // @TODO translations should be verified
 const cy = ({ partner }: CommonContent) => ({
   title: 'Apply for alternative service (D11)',
-  line1: `Alternative service means sending the papers to your ${partner} in a way other than by post`,
+  line1: `Alternative service means sending the papers to your ${partner} in a way other than by post.`,
   thisMayInclude: {
     title: 'This may include:',
     options: {

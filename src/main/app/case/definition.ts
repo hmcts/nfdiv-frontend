@@ -1057,6 +1057,15 @@ export interface CaseData {
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
   applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
+  applicant1AltServiceReasonForApplying: string;
+  applicant1AltServiceMethod: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail: string;
+  applicant1AltServicePartnerPhone: string;
+  applicant1AltServicePartnerWANum: string;
+  applicant1AltServicePartnerSocialDetails: string;
+  applicant1AltServicePartnerOtherDetails: string;
+  applicant1AltServiceMethodJustification: string;
+  applicant1AltServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface CaseDocuments {
@@ -1098,6 +1107,24 @@ export interface DeemedServiceJourneyOptions {
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
+}
+
+export interface AlternativeServiceJourneyOptions {
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  altServiceReasonForApplying: string;
+  altServiceMethod: AlternativeServiceMethod;
+  altServicePartnerEmail: string;
+  altServicePartnerPhone: string;
+  altServicePartnerWANum: string;
+  altServicePartnerSocialDetails: string;
+  altServicePartnerOtherDetails: string;
+  altServiceMethodJustification: string;
+  altServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface RequestForInformationResponse {
@@ -2527,6 +2554,19 @@ export const enum NoResponseOwnSearches {
 export const enum NoResponseSearchOrDispense {
   SEARCH = 'search',
   DISPENSE = 'dispense',
+}
+
+export const enum AlternativeServiceMethod {
+  EMAIL = 'byEmail',
+  DIFFERENT_WAY = 'inADifferentWay',
+  EMAIL_AND_DIFFERENT = 'emailAndDifferentWay',
+}
+
+export const enum AlternativeServiceDifferentWays {
+  TEXT_MESSAGE = 'textMessage',
+  WHATSAPP = 'whatsapp',
+  SOCIAL_MEDIA = 'socialMedia',
+  OTHER = 'other',
 }
 
 /**
