@@ -184,7 +184,7 @@ const cy: typeof en = {
     deemed: 'gyflwyno tybiedig',
     bailiff: 'gwasanaeth bailiff',
     deemedCode: 'D11',
-    bailiffCode: 'D89'
+    bailiffCode: 'D89',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
