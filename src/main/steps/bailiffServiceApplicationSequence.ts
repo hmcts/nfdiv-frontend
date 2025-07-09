@@ -30,6 +30,8 @@ import {
   PARTNER_VEHICLE_DETAILS,
   UPLOAD_PARTNER_PHOTO,
   WHEN_IS_BEST_TO_SERVE,
+  PAY_YOUR_SERVICE_FEE,
+  SERVICE_APPLICATION_SUBMITTED,
 } from './urls';
 
 export const bailiffServiceApplicationSequence: Step[] = [
@@ -157,5 +159,10 @@ export const bailiffServiceApplicationSequence: Step[] = [
   {
     url: CHECK_ANSWERS_BAILIFF,
     getNextStep: () => CHECK_ANSWERS_BAILIFF,
+  },
+  {
+    url: CHECK_ANSWERS_BAILIFF,
+    getNextStep: data =>
+      data?.alternativeServiceFeeRequired === YesOrNo.YES ? PAY_YOUR_SERVICE_FEE : SERVICE_APPLICATION_SUBMITTED,
   },
 ];
