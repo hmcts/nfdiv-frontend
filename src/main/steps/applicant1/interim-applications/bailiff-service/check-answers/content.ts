@@ -120,10 +120,10 @@ const en = ({ userCase, partner }: CommonContent, useHwf, hwfReference, canUploa
     socialServicesInvolvedDetails: userCase.applicant1BailiffHaveSocialServicesBeenInvolved === YesOrNoOrNotKnown.YES && `${urls.HAVE_SOCIAL_SERVICES_BEEN_INVOLVED}`,
     areThereDangerousAnimals: `${urls.ARE_THERE_DANGEROUS_ANIMALS}`,
     dangerousAnimalsDetails: userCase.applicant1BailiffAreThereDangerousAnimals === YesOrNoOrNotKnown.YES && `${urls.ARE_THERE_DANGEROUS_ANIMALS}`,
-    doesPartnerHaveMentalIssues: `${urls.DOES_PARTNER_HAVE_MENTAL_HEALTH_ISSUES}`,
-    partnerMentalIssuesDetails: userCase.applicant1BailiffDoesPartnerHaveMentalIssues === YesOrNoOrNotKnown.YES && `${urls.DOES_PARTNER_HAVE_MENTAL_HEALTH_ISSUES}`,
-    doesPartnerHoldFirearmsLicense: `${urls.DOES_PARTNER_HOLD_FIREARMS_LICENSE}`,
-    partnerFirearmsLicenseDetails: userCase.applicant1BailiffDoesPartnerHoldFirearmsLicense === YesOrNoOrNotKnown.YES && `${urls.DOES_PARTNER_HOLD_FIREARMS_LICENSE}`,
+    doesPartnerHaveMentalIssues: `${urls.PARTNER_MENTAL_HEALTH_BAILIFF}`,
+    partnerMentalIssuesDetails: userCase.applicant1BailiffDoesPartnerHaveMentalIssues === YesOrNoOrNotKnown.YES && `${urls.PARTNER_MENTAL_HEALTH_BAILIFF}`,
+    doesPartnerHoldFirearmsLicense: `${urls.PARTNER_FIREARMS_LICENSE_BAILIFF}`,
+    partnerFirearmsLicenseDetails: userCase.applicant1BailiffDoesPartnerHoldFirearmsLicense === YesOrNoOrNotKnown.YES && `${urls.PARTNER_FIREARMS_LICENSE_BAILIFF}`,
   },
 });
 
@@ -243,10 +243,10 @@ const cy: typeof en = (
     socialServicesInvolvedDetails: userCase.applicant1BailiffHaveSocialServicesBeenInvolved === YesOrNoOrNotKnown.YES && `${urls.HAVE_SOCIAL_SERVICES_BEEN_INVOLVED}`,
     areThereDangerousAnimals: `${urls.ARE_THERE_DANGEROUS_ANIMALS}`,
     dangerousAnimalsDetails: userCase.applicant1BailiffAreThereDangerousAnimals === YesOrNoOrNotKnown.YES && `${urls.ARE_THERE_DANGEROUS_ANIMALS}`,
-    doesPartnerHaveMentalIssues: `${urls.DOES_PARTNER_HAVE_MENTAL_HEALTH_ISSUES}`,
-    partnerMentalIssuesDetails: userCase.applicant1BailiffDoesPartnerHaveMentalIssues === YesOrNoOrNotKnown.YES && `${urls.DOES_PARTNER_HAVE_MENTAL_HEALTH_ISSUES}`,
-    doesPartnerHoldFirearmsLicense: `${urls.DOES_PARTNER_HOLD_FIREARMS_LICENSE}`,
-    partnerFirearmsLicenseDetails: userCase.applicant1BailiffDoesPartnerHoldFirearmsLicense === YesOrNoOrNotKnown.YES && `${urls.DOES_PARTNER_HOLD_FIREARMS_LICENSE}`,
+    doesPartnerHaveMentalIssues: `${urls.PARTNER_MENTAL_HEALTH_BAILIFF}`,
+    partnerMentalIssuesDetails: userCase.applicant1BailiffDoesPartnerHaveMentalIssues === YesOrNoOrNotKnown.YES && `${urls.PARTNER_MENTAL_HEALTH_BAILIFF}`,
+    doesPartnerHoldFirearmsLicense: `${urls.PARTNER_FIREARMS_LICENSE_BAILIFF}`,
+    partnerFirearmsLicenseDetails: userCase.applicant1BailiffDoesPartnerHoldFirearmsLicense === YesOrNoOrNotKnown.YES && `${urls.PARTNER_FIREARMS_LICENSE_BAILIFF}`,
   },
 });
 

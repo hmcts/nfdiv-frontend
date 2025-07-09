@@ -25,9 +25,14 @@ import {
   PARTNER_HEIGHT_BAILIFF,
   PARTNER_IN_REFUGE_BAILIFF,
   PARTNER_PHONE_NUMBER_BAILIFF,
+  PARTNER_MENTAL_HEALTH_BAILIFF,
+  PARTNER_FIREARMS_LICENSE_BAILIFF,
   PARTNER_VEHICLE_DETAILS,
   UPLOAD_PARTNER_PHOTO,
   WHEN_IS_BEST_TO_SERVE,
+  PAY_YOUR_SERVICE_FEE,
+  SERVICE_APPLICATION_SUBMITTED,
+  CHECK_ANSWERS_BAILIFF,
 } from './urls';
 
 describe('Bailiff Service Application Sequence test', () => {
@@ -211,8 +216,38 @@ describe('Bailiff Service Application Sequence test', () => {
     expect(step.getNextStep({})).toBe(ARE_THERE_DANGEROUS_ANIMALS);
   });
 
-  test('ARE_THERE_DANGEROUS_ANIMALS redirects to BAILIFF_SERVICE_APPLICATION', () => {
+  test('ARE_THERE_DANGEROUS_ANIMALS redirects to PARTNER_MENTAL_HEALTH_BAILIFF', () => {
     const step = bailiffServiceApplicationSequence.find(obj => obj.url === ARE_THERE_DANGEROUS_ANIMALS) as Step;
-    expect(step.getNextStep({})).toBe(BAILIFF_SERVICE_APPLICATION);
+    expect(step.getNextStep({})).toBe(PARTNER_MENTAL_HEALTH_BAILIFF);
+  });
+
+  test('PARTNER_MENTAL_HEALTH_BAILIFF redirects to PARTNER_FIREARMS_LICENSE_BAILIFF', () => {
+    const step = bailiffServiceApplicationSequence.find(obj => obj.url === PARTNER_MENTAL_HEALTH_BAILIFF) as Step;
+    expect(step.getNextStep({})).toBe(PARTNER_FIREARMS_LICENSE_BAILIFF);
+  });
+
+  test('PARTNER_FIREARMS_LICENSE_BAILIFF redirects to CHECK_ANSWERS_BAILIFF', () => {
+    const step = bailiffServiceApplicationSequence.find(obj => obj.url === PARTNER_FIREARMS_LICENSE_BAILIFF) as Step;
+    expect(step.getNextStep({})).toBe(CHECK_ANSWERS_BAILIFF);
+  });
+
+  describe('CHECK_ANSWERS_BAILIFF', () => {
+    test('redirects to PAY_YOUR_SERVICE_FEE if alternativeServiceFeeRequired is YES', () => {
+      const step = bailiffServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_BAILIFF) as Step;
+      expect(
+        step.getNextStep({
+          alternativeServiceFeeRequired: YesOrNo.YES,
+        })
+      ).toBe(PAY_YOUR_SERVICE_FEE);
+    });
+
+    test('redirects to SERVICE_APPLICATION_SUBMITTED if alternativeServiceFeeRequired is NO', () => {
+      const step = bailiffServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_BAILIFF) as Step;
+      expect(
+        step.getNextStep({
+          alternativeServiceFeeRequired: YesOrNo.NO,
+        })
+      ).toBe(SERVICE_APPLICATION_SUBMITTED);
+    });
   });
 });
