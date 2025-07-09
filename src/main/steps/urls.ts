@@ -165,21 +165,22 @@ export const PARTNER_IN_PERSON: PageLink = '/interim-applications/no-response/pa
 export const OWN_SEARCHES: PageLink = '/interim-applications/no-response/own-searches';
 export const IS_PARTNER_ABROAD: PageLink = '/interim-applications/no-response/is-partner-abroad';
 export const SEARCH_TIPS: PageLink = '/interim-applications/no-response/search-tips';
-
+export const GOV_SEARCH_POSSIBLE: PageLink = '/interim-applications/no-response/gov-search-possible';
 export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';
 export const PROCESS_SERVER: PageLink = '/interim-applications/no-response/process-server';
-export const CHECK_DETAILS_PROCESS_SERVER: PageLink = '/interim-applications/no-response/check-details-process-server';
 export const SUCCESS_SCREEN_PROCESS_SERVER: PageLink =
   '/interim-applications/no-response/success-screen-process-server';
+export const PROCESS_SERVER_DOCS: PageLink = '/interim-applications/no-response/process-server-documents';
 export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
 export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
 export const ALTERNATIVE_INTERRUPTION: PageLink = '/interim-applications/alternative-service/interruption';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
-export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
-  '/interim-applications/search-gov-records/search-gov-records-application';
+export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
+export const HELP_WITH_FEES_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/help-with-fees';
+export const HELP_WITH_FEES_DISPENSE: PageLink = '/interim-applications/dispense-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
 export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/want-upload-evidence';
 export const HWF_REFERENCE_NUMBER_INPUT_DEEMED: PageLink =
@@ -208,3 +209,8 @@ export const PARTNER_EYE_COLOUR_BAILIFF: PageLink = '/interim-applications/baili
 export const PARTNER_ETHNIC_GROUP_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-ethnic-group';
 export const PARTNER_DISTINGUISHING_FEATURES_BAILIFF: PageLink =
   '/interim-applications/bailiff-service/partner-distinguishing-features';
+
+// Service Payment URLs
+export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
+export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
+export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
