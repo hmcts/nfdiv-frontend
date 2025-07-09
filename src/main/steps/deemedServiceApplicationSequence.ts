@@ -8,9 +8,10 @@ import {
   DEEMED_SERVICE_APPLICATION,
   HELP_WITH_FEES_DEEMED,
   HOW_DO_YOU_KNOW_DEEMED,
-  HUB_PAGE,
   HWF_REFERENCE_NUMBER_DEEMED,
   HWF_REFERENCE_NUMBER_INPUT_DEEMED,
+  PAY_YOUR_SERVICE_FEE,
+  SERVICE_APPLICATION_SUBMITTED,
   UPLOAD_EVIDENCE_DEEMED,
   WANT_UPLOAD_EVIDENCE_DEEMED,
   WHY_NO_EVIDENCE_DEEMED,
@@ -66,6 +67,7 @@ export const deemedServiceApplicationSequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_DEEMED,
-    getNextStep: () => HUB_PAGE, // Correct this when the rest of the journey is implemented
+    getNextStep: data =>
+      data?.alternativeServiceFeeRequired === YesOrNo.YES ? PAY_YOUR_SERVICE_FEE : SERVICE_APPLICATION_SUBMITTED,
   },
 ];

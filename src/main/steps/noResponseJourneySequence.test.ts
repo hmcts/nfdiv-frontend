@@ -2,6 +2,7 @@ import {
   NoResponseCheckContactDetails,
   NoResponseOwnSearches,
   NoResponseProcessServerOrBailiff,
+  NoResponseSearchOrDispense,
   YesOrNo,
 } from '../app/case/definition';
 
@@ -9,9 +10,10 @@ import { Step } from './applicant1Sequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import {
   BAILIFF_SERVICE_APPLICATION,
-  CHECK_DETAILS_PROCESS_SERVER,
   DEEMED_SERVICE_APPLICATION,
+  DISPENSE_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
+  GOV_SEARCH_POSSIBLE,
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
   HUB_PAGE,
@@ -22,6 +24,8 @@ import {
   OWN_SEARCHES,
   PARTNER_IN_PERSON,
   PROCESS_SERVER,
+  PROCESS_SERVER_DOCS,
+  SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_TIPS,
   SERVE_AGAIN,
   SUCCESS_SCREEN_PROCESS_SERVER,
@@ -139,21 +143,12 @@ describe('No Response Journey Sequence test', () => {
   describe('PROCESS_SERVER', () => {
     test('PROCESS_SERVER', () => {
       const step = noResponseJourneySequence.find(obj => obj.url === PROCESS_SERVER) as Step;
-      expect(step.getNextStep({})).toBe(CHECK_DETAILS_PROCESS_SERVER);
-    });
-  });
-
-  describe('CHECK_DETAILS_PROCESS_SERVER', () => {
-    test('CHECK_DETAILS_PROCESS_SERVER', () => {
-      const step = noResponseJourneySequence.find(obj => obj.url === CHECK_DETAILS_PROCESS_SERVER) as Step;
       expect(step.getNextStep({})).toBe(SUCCESS_SCREEN_PROCESS_SERVER);
     });
-  });
 
-  describe('SUCCESS_SCREEN_PROCESS_SERVER', () => {
     test('SUCCESS_SCREEN_PROCESS_SERVER', () => {
       const step = noResponseJourneySequence.find(obj => obj.url === SUCCESS_SCREEN_PROCESS_SERVER) as Step;
-      expect(step.getNextStep({})).toBe(HUB_PAGE);
+      expect(step.getNextStep({})).toBe(PROCESS_SERVER_DOCS);
     });
   });
 
@@ -180,6 +175,49 @@ describe('No Response Journey Sequence test', () => {
       };
       const step = noResponseJourneySequence.find(obj => obj.url === OWN_SEARCHES) as Step;
       expect(step.getNextStep(caseData)).toBe(SEARCH_TIPS);
+    });
+  });
+
+  describe('IS_PARTNER_ABROAD', () => {
+    test('DISPENSE_SERVICE_APPLICATION', () => {
+      const caseData = {
+        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.YES,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === IS_PARTNER_ABROAD) as Step;
+      expect(step.getNextStep(caseData)).toBe(DISPENSE_SERVICE_APPLICATION);
+    });
+
+    test('GOV_SEARCH_POSSIBLE', () => {
+      const caseData = {
+        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.NO,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === IS_PARTNER_ABROAD) as Step;
+      expect(step.getNextStep(caseData)).toBe(GOV_SEARCH_POSSIBLE);
+    });
+  });
+
+  describe('GOV_SEARCH_POSSIBLE', () => {
+    test('SEARCH_GOV_RECORDS_APPLICATION', () => {
+      const caseData = {
+        applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense.SEARCH,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === GOV_SEARCH_POSSIBLE) as Step;
+      expect(step.getNextStep(caseData)).toBe(SEARCH_GOV_RECORDS_APPLICATION);
+    });
+
+    test('DISPENSE_SERVICE_APPLICATION', () => {
+      const caseData = {
+        applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense.DISPENSE,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === GOV_SEARCH_POSSIBLE) as Step;
+      expect(step.getNextStep(caseData)).toBe(DISPENSE_SERVICE_APPLICATION);
+    });
+  });
+
+  describe('SEARCH_TIPS', () => {
+    test('SEARCH_TIPS', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === SEARCH_TIPS) as Step;
+      expect(step.getNextStep({})).toBe(HUB_PAGE);
     });
   });
 });

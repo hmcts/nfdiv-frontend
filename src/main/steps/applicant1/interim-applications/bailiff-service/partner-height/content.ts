@@ -27,7 +27,7 @@ export const form: FormContent = {
   fields: {
     applicant1BailiffPartnersHeight: {
       type: 'text',
-      label: l => l.enterHeight,
+      label: l => l.title,
       labelHidden: true,
       hint: l => l.enterHeightHint,
       labelSize: null,
