@@ -184,6 +184,7 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
 
   // Check if applicant2/respondent is solicitor represented
   const isSolicitorRepresented = userCase.applicant2SolicitorRepresented === YesOrNo.YES;
+  const defaultRedirectPath = isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
 
   switch (userCase.state) {
     case State.Holding:
@@ -204,18 +205,20 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
       if (hasReviewedTheApplication && !isLastQuestionComplete) {
         return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;
       } else {
-        return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
+        return defaultRedirectPath;
       }
     }
     case State.AwaitingFinalOrderPayment: {
       return PAY_YOUR_FINAL_ORDER_FEE;
     }
-    case State.AosDrafted:
-    case State.AosOverdue: {
+    case State.AosDrafted: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;
     }
+    case State.AosOverdue: {
+      return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HUB_PAGE;
+    }
     default: {
-      return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
+      return defaultRedirectPath;
     }
   }
 };
