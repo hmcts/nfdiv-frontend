@@ -257,6 +257,8 @@ export interface AlternativeService {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
+  servicePaymentFeeServiceRequestReference: string;
 }
 
 export interface AlternativeServiceOutcome {
@@ -943,11 +945,17 @@ export interface CaseData {
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
   servicePaymentFeeOrderSummary: OrderSummary;
+  servicePaymentFeeServiceRequestReference: string;
+  alternativeServiceFeeRequired: YesOrNo;
+  serviceApplicationAnswers: DivorceDocument;
+  servicePayments: ListValue<Payment>[];
+  serviceApplicationSubmittedOnline: YesOrNo,
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   documentsUploaded: ListValue<DivorceDocument>[];
@@ -1075,6 +1083,8 @@ export interface CaseData {
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
+  applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
 }
 
 export interface CaseDocuments {
@@ -1101,6 +1111,8 @@ export interface NoResponseJourneyOptions {
   noResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
   noResponseOwnSearches: NoResponseOwnSearches;
   noResponseRespondentAddressInEnglandWales: YesOrNo;
+  noResponsePartnerInUkOrReceivingBenefits: YesOrNo;
+  noResponseSearchOrDispense: NoResponseSearchOrDispense;
 }
 
 export interface DeemedServiceJourneyOptions {
@@ -1912,6 +1924,7 @@ export const enum InterimApplicationType {
   ALTERNATIVE_SERVICE = 'alternativeService',
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'searchGovRecords',
+  PROCESS_SERVER_SERVICE = 'processServerService',
 }
 
 export const enum GeneralApplicationType {
@@ -2203,6 +2216,8 @@ export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
 ]);
 
 export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
+
+export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
@@ -2555,6 +2570,11 @@ export const enum NoResponseOwnSearches {
   NOT_FOUND = 'notFound',
 }
 
+export const enum NoResponseSearchOrDispense {
+  SEARCH = 'search',
+  DISPENSE = 'dispense',
+}
+
 /**
  * Values:
  * - `CONTINUE`
@@ -2729,13 +2749,15 @@ export const CITIZEN_CREATE = 'citizen-create-application';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_SERVICE_APPLICATION = 'citizen-service-application';
+export const CITIZEN_SERVICE_PAYMENT_MADE = 'citizen-service-payment-made';
 export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const INTEND_SWITCH_TO_SOLE_FO = 'intend-switch-to-sole-fo';
 export const CITIZEN_UPDATE = 'citizen-update-application';
-export const APPLICANT1_RESEND_PAPERS = 'applicant1-resend-papers';
+export const CITIZEN_GENERATE_PROCESS_SERVER_DOCS = 'citizen-generate-process-server-docs';
 export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
 export const FINAL_ORDER_PAYMENT_MADE = 'final-order-payment-made';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
