@@ -228,6 +228,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1BailiffSocialServicesInvolvedDetails: 'applicant1BailiffSocialServicesInvolvedDetails',
   applicant1BailiffAreThereDangerousAnimals: 'applicant1BailiffAreThereDangerousAnimals',
   applicant1BailiffDangerousAnimalsDetails: 'applicant1BailiffDangerousAnimalsDetails',
+  applicant1BailiffDoesPartnerHaveMentalIssues: 'applicant1BailiffDoesPartnerHaveMentalIssues',
+  applicant1BailiffPartnerMentalIssuesDetails: 'applicant1BailiffPartnerMentalIssuesDetails',
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: 'applicant1BailiffDoesPartnerHoldFirearmsLicense',
+  applicant1BailiffPartnerFirearmsLicenseDetails: 'applicant1BailiffPartnerFirearmsLicenseDetails',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
@@ -525,6 +529,10 @@ export interface Case {
   applicant1BailiffSocialServicesInvolvedDetails: string;
   applicant1BailiffAreThereDangerousAnimals: YesOrNoOrNotKnown;
   applicant1BailiffDangerousAnimalsDetails: string;
+  applicant1BailiffDoesPartnerHaveMentalIssues: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerMentalIssuesDetails: string;
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;

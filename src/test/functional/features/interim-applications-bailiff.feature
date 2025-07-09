@@ -147,4 +147,19 @@ Feature: Bailiff service journey
     Given I click element "#yes"
     Then I select element "#applicant1BailiffDangerousAnimalsDetails"
     And I type "example"
+    When I click continue
+    Then the page should include element "#bailiffPartnerMentalHealthTitle"
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffPartnerMentalIssuesDetails"
+    And I type "example"
+    When I click continue
+    Then the page should include element "#bailiffPartnerFirearmsLicenseTitle"
+
+
+    Given I click element "#yes"
+    Then I select element "#applicant1BailiffPartnerFirearmsLicenseDetails"
+    And I type "example"
+    When I click continue
+    Then the page should include element "#checkAnswersTitle"
 
