@@ -167,7 +167,6 @@ export const IS_PARTNER_ABROAD: PageLink = '/interim-applications/no-response/is
 export const SEARCH_TIPS: PageLink = '/interim-applications/no-response/search-tips';
 export const GOV_SEARCH_POSSIBLE: PageLink = '/interim-applications/no-response/gov-search-possible';
 export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';
-export const BAILIFF_SERVICE_APPLICATION: PageLink = '/interim-applications/bailiff-service/service-application';
 export const PROCESS_SERVER: PageLink = '/interim-applications/no-response/process-server';
 export const SUCCESS_SCREEN_PROCESS_SERVER: PageLink =
   '/interim-applications/no-response/success-screen-process-server';
@@ -182,7 +181,6 @@ export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dis
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
 export const HELP_WITH_FEES_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/help-with-fees';
 export const HELP_WITH_FEES_DISPENSE: PageLink = '/interim-applications/dispense-service/help-with-fees';
-export const HELP_WITH_FEES_BAILIFF: PageLink = '/interim-applications/bailiff-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
 export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/want-upload-evidence';
 export const HWF_REFERENCE_NUMBER_INPUT_DEEMED: PageLink =
@@ -192,6 +190,27 @@ export const UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-se
 export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/why-no-evidence';
 export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/interim-applications/deemed-service/how-do-you-know';
 export const CHECK_ANSWERS_DEEMED: PageLink = '/interim-applications/deemed-service/check-answers';
+
+// Bailiff Service URLs
+export const BAILIFF_SERVICE_APPLICATION: PageLink = '/interim-applications/bailiff-service/service-application';
+export const HELP_WITH_FEES_BAILIFF: PageLink = '/interim-applications/bailiff-service/help-with-fees';
+export const HWF_REFERENCE_NUMBER_BAILIFF: PageLink = '/interim-applications/bailiff-service/hwf-reference-number';
+export const HWF_REFERENCE_NUMBER_INPUT_BAILIFF: PageLink =
+  '/interim-applications/bailiff-service/hwf-reference-number-input';
+export const APPLY_FOR_HWF_BAILIFF: PageLink = '/interim-applications/bailiff-service/apply-for-hwf';
+export const ENTER_PARTNERS_NAME_BAILIFF: PageLink = '/interim-applications/bailiff-service/enter-partners-name';
+export const PARTNER_IN_REFUGE_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-in-refuge';
+export const PARTNER_ADDRESS_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-address';
+export const PARTNER_PHONE_NUMBER_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-phone-number';
+export const PARTNER_DATE_OF_BIRTH_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-date-of-birth';
+export const PARTNER_HEIGHT_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-height';
+export const PARTNER_HAIR_COLOUR_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-hair-colour';
+export const PARTNER_EYE_COLOUR_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-eye-colour';
+export const PARTNER_ETHNIC_GROUP_BAILIFF: PageLink = '/interim-applications/bailiff-service/partner-ethnic-group';
+export const PARTNER_DISTINGUISHING_FEATURES_BAILIFF: PageLink =
+  '/interim-applications/bailiff-service/partner-distinguishing-features';
+
+// Service Payment URLs
 export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
 export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
 export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';

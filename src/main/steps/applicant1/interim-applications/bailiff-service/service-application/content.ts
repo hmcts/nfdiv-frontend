@@ -7,7 +7,7 @@ import { CommonContent } from '../../../../common/common.content';
 import { generateContent as alsoTryGenerateContent } from '../../common/also-try/content';
 
 const en = ({ partner }: CommonContent) => ({
-  title: 'Apply for bailiff service (D89)',
+  title: 'Request bailiff service (D89)',
   line1: `Request to have your papers served on your ${partner} by a county court bailiff.`,
   line2:
     'Court bailiffs can only serve documents to an address in England or Wales where postal delivery has already been tried.',
@@ -23,7 +23,7 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations should be verified
 const cy = ({ partner }: CommonContent) => ({
-  title: 'Apply for bailiff service (D89)',
+  title: 'Request bailiff service (D89)',
   line1: `Request to have your papers served on your ${partner} by a county court bailiff.`,
   line2:
     'Dim ond i gyfeiriad yng Nghymru a Lloegr sydd wedi’i ddefnyddio’n barod i anfon dogfennau drwy’r post y gall beilïaid llys gyflwyno dogfennau iddo.',
