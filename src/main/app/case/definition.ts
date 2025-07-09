@@ -1063,7 +1063,7 @@ export interface CaseData {
   applicant1BailiffPartnersEyeColour: string;
   applicant1BailiffPartnersEthnicGroup: string;
   applicant1BailiffPartnersDistinguishingFeatures: string;
-  applicant1BailiffBestTimeToServePapers: string;
+  applicant1BailiffBestTimeToServe: string;
   applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown;
   applicant1BailiffPartnerVehicleModel: string;
   applicant1BailiffPartnerVehicleColour: string;

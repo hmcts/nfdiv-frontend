@@ -158,10 +158,6 @@ export const bailiffServiceApplicationSequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_BAILIFF,
-    getNextStep: () => CHECK_ANSWERS_BAILIFF,
-  },
-  {
-    url: CHECK_ANSWERS_BAILIFF,
     getNextStep: data =>
       data?.alternativeServiceFeeRequired === YesOrNo.YES ? PAY_YOUR_SERVICE_FEE : SERVICE_APPLICATION_SUBMITTED,
   },

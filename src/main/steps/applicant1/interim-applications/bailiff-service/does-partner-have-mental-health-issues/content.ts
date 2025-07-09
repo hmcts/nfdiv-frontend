@@ -8,7 +8,7 @@ const en = ({ partner }: CommonContent) => ({
   title: `Is your ${partner} known to have any mental health issues or known to use any drugs or alcohol in any way that may affect their behaviour?`,
   otherDetailsLabel: 'Provide as much information as you can',
   errors: {
-    applicant1BailiffDoesPartnerHaveMentalHealthIssues: {
+    applicant1BailiffDoesPartnerHaveMentalIssues: {
       required: `Select yes if you know your ${partner} has mental health issues or uses drugs or alcohol`,
     },
     applicant1BailiffPartnerMentalIssuesDetails: {
@@ -21,7 +21,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Is your ${partner} known to have any mental health issues or known to use any drugs or alcohol in any way that may affect their behaviour?`,
   otherDetailsLabel: 'Provide as much information as you can',
   errors: {
-    applicant1BailiffDoesPartnerHaveMentalHealthIssues: {
+    applicant1BailiffDoesPartnerHaveMentalIssues: {
       required: `Select yes if you know your ${partner} has mental health issues or uses drugs or alcohol`,
     },
     applicant1BailiffPartnerMentalIssuesDetails: {
@@ -32,7 +32,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1BailiffDoesPartnerHaveMentalHealthIssues: {
+    applicant1BailiffDoesPartnerHaveMentalIssues: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.title,
