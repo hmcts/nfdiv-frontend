@@ -456,37 +456,33 @@ const fields: ToApiConverters = {
           ? data.applicant1AltServicePartnerEmailWhenDifferent
           : null,
   }),
-  applicant1AltServiceDifferentWays: data => ({
-    applicant1AltServiceDifferentWays:
-      data.applicant1AltServiceMethod !== AlternativeServiceMethod.EMAIL ? data.applicant1AltServiceDifferentWays : [],
-  }),
   applicant1AltServicePartnerPhone: data => ({
-    applicant1AltServicePartnerPhone:
-      data.applicant1AltServiceDifferentWays?.includes(AlternativeServiceDifferentWays.TEXT_MESSAGE) &&
-      data.applicant1AltServiceMethod !== AlternativeServiceMethod.EMAIL
-        ? data.applicant1AltServicePartnerPhone
-        : null,
+    applicant1AltServicePartnerPhone: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.TEXT_MESSAGE
+    )
+      ? data.applicant1AltServicePartnerPhone
+      : null,
   }),
   applicant1AltServicePartnerWANum: data => ({
-    applicant1AltServicePartnerWANum:
-      data.applicant1AltServiceDifferentWays?.includes(AlternativeServiceDifferentWays.WHATSAPP) &&
-      data.applicant1AltServiceMethod !== AlternativeServiceMethod.EMAIL
-        ? data.applicant1AltServicePartnerWANum
-        : null,
+    applicant1AltServicePartnerWANum: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.WHATSAPP
+    )
+      ? data.applicant1AltServicePartnerWANum
+      : null,
   }),
   applicant1AltServicePartnerSocialDetails: data => ({
-    applicant1AltServicePartnerSocialDetails:
-      data.applicant1AltServiceDifferentWays?.includes(AlternativeServiceDifferentWays.SOCIAL_MEDIA) &&
-      data.applicant1AltServiceMethod !== AlternativeServiceMethod.EMAIL
-        ? data.applicant1AltServicePartnerSocialDetails
-        : null,
+    applicant1AltServicePartnerSocialDetails: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.SOCIAL_MEDIA
+    )
+      ? data.applicant1AltServicePartnerSocialDetails
+      : null,
   }),
   applicant1AltServicePartnerOtherDetails: data => ({
-    applicant1AltServicePartnerOtherDetails:
-      data.applicant1AltServiceDifferentWays?.includes(AlternativeServiceDifferentWays.OTHER) &&
-      data.applicant1AltServiceMethod !== AlternativeServiceMethod.EMAIL
-        ? data.applicant1AltServicePartnerOtherDetails
-        : null,
+    applicant1AltServicePartnerOtherDetails: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.OTHER
+    )
+      ? data.applicant1AltServicePartnerOtherDetails
+      : null,
   }),
 };
 

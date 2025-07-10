@@ -694,11 +694,14 @@ describe('to-api-format', () => {
     });
   });
 
-  describe('applicant1AltServiceMethod transformation', () => {
-    test('sets applicant1AltServiceDifferentWays to null if applicantAlternativeServiceMethod is Email only', () => {
+  describe('applicant1AltServiceDifferentWays transformation', () => {
+    test('sets other fields to null when not selected in applicant1AltServiceDifferentWays', () => {
       const apiFormat = toApiFormat({
-        applicant1AltServiceMethod: AlternativeServiceMethod.EMAIL,
-        applicant1AltServiceDifferentWays: [AlternativeServiceDifferentWays.TEXT_MESSAGE],
+        applicant1AltServiceMethod: AlternativeServiceMethod.DIFFERENT_WAY,
+        applicant1AltServiceDifferentWays: [
+          AlternativeServiceDifferentWays.TEXT_MESSAGE,
+          AlternativeServiceDifferentWays.SOCIAL_MEDIA,
+        ],
         applicant1AltServicePartnerPhone: '1234567890',
         applicant1AltServicePartnerOtherDetails: 'some details',
         applicant1AltServicePartnerWANum: '1234567890',
@@ -706,11 +709,8 @@ describe('to-api-format', () => {
       } as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
-        applicant1AltServiceDifferentWays: [],
-        applicant1AltServicePartnerPhone: null,
-        applicant1AltServicePartnerOtherDetails: null,
         applicant1AltServicePartnerWANum: null,
-        applicant1AltServicePartnerSocialDetails: null,
+        applicant1AltServicePartnerOtherDetails: null,
       });
     });
   });
