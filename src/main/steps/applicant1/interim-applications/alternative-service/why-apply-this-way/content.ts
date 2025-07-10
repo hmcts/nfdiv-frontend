@@ -1,6 +1,5 @@
 import { isEmpty } from 'lodash';
 
-import { Checkbox } from '../../../../../app/case/case';
 import { AlternativeServiceDifferentWays, AlternativeServiceMethod, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
@@ -117,8 +116,7 @@ export const generateContent: TranslationFn = content => {
     AlternativeServiceDifferentWays.SOCIAL_MEDIA
   );
   const cannotUploadEvidence =
-    content.userCase.applicant1InterimAppsCanUploadEvidence === YesOrNo.NO ||
-    content.userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked;
+    content.userCase.applicant1InterimAppsCanUploadEvidence === YesOrNo.NO;
   const translations = languages[content.language](
     content,
     !!multipleWaysSelected,
