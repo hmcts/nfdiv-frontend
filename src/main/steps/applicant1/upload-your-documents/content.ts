@@ -1,7 +1,7 @@
 import { isObject } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../../app/case/case';
-import { ChangedNameWhy, DocumentType, YesOrNo } from '../../../app/case/definition';
+import { ApplicationType, ChangedNameWhy, DocumentType, YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
@@ -9,7 +9,7 @@ import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan } from '../../common/content.utils';
 
-const en = ({ isDivorce, marriage, civilPartnership, partner }: CommonContent) => {
+const en = ({ isDivorce, marriage, civilPartnership, partner, isJointApplication }: CommonContent, nameChangeEvidenceRequired: boolean) => {
   const union = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Upload your documents',
@@ -17,7 +17,9 @@ const en = ({ isDivorce, marriage, civilPartnership, partner }: CommonContent) =
     certificate: `your original ${union} certificate`,
     certificateForeign: `your original foreign ${union} certificate`,
     certificateForeignTranslation: `a certified translation of your foreign ${union} certificate`,
-    proofOfNameChange: `Proof showing why your name or your ${partner}'s name is written differently on your ${union} certificate. For example, a government issued ID, a passport, driving license or birth certificate, deed poll or statutory declaration`,
+    proofOfNameChange: nameChangeEvidenceRequired
+      ? `Proof that you${isJointApplication ? ' changed your name' : ` or your ${partner} changed your names`}, for example a deed poll or 'statutory declaration'`
+      : `Proof showing why your name${isJointApplication ? '' : ` or your ${partner}'s name`} is written differently on your ${union} certificate. For example, a government issued ID, a passport, driving license or birth certificate, deed poll or 'statutory declaration'`,
     warningPhoto:
       'Make sure the photo or scan is in colour and shows all 4 corners of the document. The certificate number (if it has one) and all the text must be readable. Blurred images will be rejected, delaying your application.',
     infoTakePhoto: 'You can take a picture with your phone and upload it',
@@ -48,7 +50,9 @@ const en = ({ isDivorce, marriage, civilPartnership, partner }: CommonContent) =
     cannotUploadCertificate: `My original ${union} certificate`,
     cannotUploadForeignCertificate: `My original foreign ${union} certificate`,
     cannotUploadForeignCertificateTranslation: `A certified translation of my foreign ${union} certificate`,
-    cannotUploadNameChangeProof: `Proof showing why my name or my ${partner}'s name is written differently on my ${union} certificate.`,
+    cannotUploadNameChangeProof: nameChangeEvidenceRequired
+      ? `Proof that I ${isJointApplication ? 'changed my name' : `or my ${partner} changed our names`}.`
+      : `Proof showing why my name${isJointApplication ? '' : ` or my ${partner}'s name`} is written differently on my ${union} certificate.`,
     errors: {
       applicant1UploadedFiles: {
         notUploaded:
@@ -129,23 +133,25 @@ const cy = ({ isDivorce, marriage, civilPartnership, partner }: CommonContent) =
   };
 };
 
-const userMustUploadNameChangeEvidence = (userCase: Partial<CaseWithId>) => {
+const nameHasChangedSinceMarriage = (userCase: Partial<CaseWithId>, isApplicant2: boolean) => {
+  const isJointApplication = userCase.applicationType === ApplicationType.JOINT_APPLICATION;
+  
   const nameChangedValues: Set<ChangedNameWhy> = new Set(
-    (userCase.applicant1WhyNameDifferent || []).concat(userCase.applicant2WhyNameDifferent || [])
+    (isApplicant2 ? [] : (userCase.applicant1WhyNameDifferent ?? [])).concat(
+      (isApplicant2 || !isJointApplication) ? (userCase.applicant2WhyNameDifferent ?? []) : []
+    )
   );
 
   const valuesRequiringEvidence = [
-    ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
-    ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
-    ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
-    ChangedNameWhy.OTHER,
+    ChangedNameWhy.CHANGED_PARTS_OF_NAME,
+    ChangedNameWhy.DEED_POLL
   ];
 
   return valuesRequiringEvidence.some(value => nameChangedValues.has(value));
 };
 
 export const form: FormContent = {
-  fields: userCase => {
+  fields: (userCase) => {
     const checkboxes: { id: string; value: DocumentType }[] = [];
 
     if (userCase.inTheUk === YesOrNo.NO) {
@@ -167,7 +173,7 @@ export const form: FormContent = {
       });
     }
 
-    if (userMustUploadNameChangeEvidence(userCase)) {
+    if (nameHasChangedSinceMarriage(userCase, false)) {
       checkboxes.push({
         id: 'cannotUploadNameChangeProof',
         value: DocumentType.NAME_CHANGE_EVIDENCE,
@@ -254,13 +260,13 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
   const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
-  const shouldMentionProofOfNameChange = userMustUploadNameChangeEvidence(content.userCase);
+  const nameChangeEvidenceRequired = nameHasChangedSinceMarriage(content.userCase, false);
   const applicant1HasChangedName =
     content.userCase.applicant1LastNameChangedWhenMarried === YesOrNo.YES ||
     content.userCase.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES;
+  const translations = languages[content.language](content, nameChangeEvidenceRequired);
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
@@ -277,6 +283,6 @@ export const generateContent: TranslationFn = content => {
     uploadContentScript,
     infoTakePhotoAccessibleSpan,
     applicant1HasChangedName,
-    shouldMentionProofOfNameChange,
+    nameChangeEvidenceRequired,
   };
 };
