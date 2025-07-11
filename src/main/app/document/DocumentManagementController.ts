@@ -8,10 +8,18 @@ import {
   PROVIDE_INFORMATION_TO_THE_COURT,
   RESPOND_TO_COURT_FEEDBACK,
   UPLOAD_EVIDENCE_DEEMED,
+  UPLOAD_PARTNER_PHOTO,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
+import {
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_UPDATE,
+  DivorceDocument,
+  InterimApplicationType,
+  ListValue,
+  State,
+} from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
@@ -27,9 +35,20 @@ export class DocumentManagerController {
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
     } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
-      return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DEEMED}`);
+      return res.redirect(this.interimApplicationRedirectPath(req, isApplicant2));
     }
     return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
+  }
+
+  private interimApplicationRedirectPath(req: AppRequest, isApplicant2: boolean): string {
+    const interimApplicationType = req.session.userCase.applicant1InterimApplicationType;
+    if (interimApplicationType === InterimApplicationType.DEEMED_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DEEMED}`;
+    } else if (interimApplicationType === InterimApplicationType.BAILIFF_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_PARTNER_PHOTO}`;
+    }
+
+    return req.get('Referrer') as string;
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
