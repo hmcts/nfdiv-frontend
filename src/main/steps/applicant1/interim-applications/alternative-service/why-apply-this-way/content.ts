@@ -115,8 +115,7 @@ export const generateContent: TranslationFn = content => {
   const socialMediaSelected = content.userCase.applicant1AltServiceDifferentWays?.includes(
     AlternativeServiceDifferentWays.SOCIAL_MEDIA
   );
-  const cannotUploadEvidence =
-    content.userCase.applicant1InterimAppsCanUploadEvidence === YesOrNo.NO;
+  const cannotUploadEvidence = content.userCase.applicant1InterimAppsCanUploadEvidence === YesOrNo.NO;
   const translations = languages[content.language](
     content,
     !!multipleWaysSelected,

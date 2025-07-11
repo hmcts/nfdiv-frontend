@@ -214,6 +214,14 @@ const fields: FromApiConverters = {
     applicant1AltServicePartnerEmail: data.applicant1AltServicePartnerEmail,
     applicant1AltServicePartnerEmailWhenDifferent: data.applicant1AltServicePartnerEmail,
   }),
+  applicant1AltServiceReasonForApplying: 'applicant1AltServiceReasonForApplying',
+  applicant1AltServiceMethod: 'applicant1AltServiceMethod',
+  applicant1AltServicePartnerPhone: 'applicant1AltServicePartnerPhone',
+  applicant1AltServicePartnerWANum: 'applicant1AltServicePartnerWANum',
+  applicant1AltServicePartnerSocialDetails: 'applicant1AltServicePartnerSocialDetails',
+  applicant1AltServicePartnerOtherDetails: 'applicant1AltServicePartnerOtherDetails',
+  applicant1AltServiceMethodJustification: 'applicant1AltServiceMethodJustification',
+  applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
 };
 
 const fromApiDate = date => {
