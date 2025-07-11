@@ -6,8 +6,8 @@ import type { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner, isDivorce }: CommonContent) => ({
   title: `Has your ${partner} ever made verbal or written threats against you, either generally or specifically in relation to the ${
-    isDivorce ? 'divorce' : 'separation'
-  } application?`,
+    isDivorce ? 'divorce application' : 'application to end your civil partnership'
+  }?`,
   enterMadeThreatsDetailsLabel: 'Provide details of any incidents',
   errors: {
     applicant1BailiffHasPartnerMadeThreats: {
@@ -21,8 +21,8 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
 
 const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   title: `Has your ${partner} ever made verbal or written threats against you, either generally or specifically in relation to the ${
-    isDivorce ? 'divorce' : 'separation'
-  } application?`,
+    isDivorce ? 'divorce application' : 'application to end your civil partnership'
+  }?`,
   enterMadeThreatsDetailsLabel: 'Provide details of any incidents',
   errors: {
     applicant1BailiffHasPartnerMadeThreats: {
