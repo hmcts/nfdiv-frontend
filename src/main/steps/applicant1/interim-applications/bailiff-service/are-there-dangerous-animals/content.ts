@@ -7,7 +7,7 @@ const en = () => ({
   title: 'Are any dogs or other potentially dangerous animals kept at the property?',
   enterDangerousAnimalsDetailsLabel: 'Provide details of any incidents',
   errors: {
-    applicant1BailiffHaveSocialServicesBeenInvolved: {
+    applicant1BailiffAreThereDangerousAnimals: {
       required: 'Select yes if any dogs or other dangerous animals are kepty at the property.',
     },
     applicant1BailiffDangerousAnimalsDetails: {
@@ -20,7 +20,7 @@ const cy: typeof en = () => ({
   title: 'Are any dogs or other potentially dangerous animals kept at the property?',
   enterDangerousAnimalsDetailsLabel: 'Provide details of any incidents',
   errors: {
-    applicant1BailiffHaveSocialServicesBeenInvolved: {
+    applicant1BailiffAreThereDangerousAnimals: {
       required: 'Select yes if any dogs or other dangerous animals are kepty at the property.',
     },
     applicant1BailiffDangerousAnimalsDetails: {

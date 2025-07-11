@@ -1063,7 +1063,7 @@ export interface CaseData {
   applicant1BailiffPartnersEyeColour: string;
   applicant1BailiffPartnersEthnicGroup: string;
   applicant1BailiffPartnersDistinguishingFeatures: string;
-  applicant1BailiffBestTimeToServePapers: string;
+  applicant1BailiffBestTimeToServe: string;
   applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown;
   applicant1BailiffPartnerVehicleModel: string;
   applicant1BailiffPartnerVehicleColour: string;
@@ -1079,6 +1079,10 @@ export interface CaseData {
   applicant1BailiffSocialServicesInvolvedDetails: string;
   applicant1BailiffAreThereDangerousAnimals: YesOrNoOrNotKnown;
   applicant1BailiffDangerousAnimalsDetails: string;
+  applicant1BailiffDoesPartnerHaveMentalIssues: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerMentalIssuesDetails: string;
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;

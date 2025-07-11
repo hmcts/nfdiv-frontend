@@ -223,6 +223,11 @@ export const HAVE_SOCIAL_SERVICES_BEEN_INVOLVED: PageLink =
   '/interim-applications/bailiff-service/have-social-services-been-involved';
 export const ARE_THERE_DANGEROUS_ANIMALS: PageLink =
   '/interim-applications/bailiff-service/are-there-dangerous-animals';
+export const PARTNER_MENTAL_HEALTH_BAILIFF: PageLink =
+  '/interim-applications/bailiff-service/does-partner-have-mental-health-issues';
+export const PARTNER_FIREARMS_LICENSE_BAILIFF: PageLink =
+  '/interim-applications/bailiff-service/does-partner-hold-firearms-license';
+export const CHECK_ANSWERS_BAILIFF: PageLink = '/interim-applications/bailiff-service/check-answers';
 
 // Service Payment URLs
 export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
