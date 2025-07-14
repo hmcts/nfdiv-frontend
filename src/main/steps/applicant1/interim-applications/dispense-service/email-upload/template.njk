@@ -1,0 +1,47 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  {{ govukErrorSummary({
+    titleText: errorSummaryHeading,
+    classes: "hidden",
+    attributes: {
+      id: "uploadErrorSummary"
+    },
+    errorList: [
+      {
+        text: errors.applicant1InterimAppsEvidenceUploadedFiles.errorUploading,
+        href: "#upload",
+        attributes: {
+          id: "errorGeneric",
+          class: "hidden"
+        }
+      },
+      {
+        text: errors.applicant1InterimAppsEvidenceUploadedFiles.fileSizeTooBig,
+        href: "#upload",
+        attributes: {
+          id: "errorFileSizeTooBig",
+          class: "hidden"
+        }
+      },
+      {
+        text: errors.applicant1InterimAppsEvidenceUploadedFiles.fileWrongFormat,
+        href: "#upload",
+        attributes: {
+          id: "errorFileWrongFormat",
+          class: "hidden"
+        }
+      }
+    ]
+  }) }}
+
+  <h1 class="govuk-heading-l" id="emailUploadTitle">{{ title }}</h1>
+
+{% endblock %}
+
+{% block form %}
+  {% include "../../common/upload-evidence/form.njk" %}
+{% endblock %}
+
