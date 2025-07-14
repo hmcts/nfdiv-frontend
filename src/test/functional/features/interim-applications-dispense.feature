@@ -96,6 +96,33 @@ Feature: Dispense with service journey
     Then I select element "#applicant1DispensePartnerLastSeenDescription"
     And I type "Last seen description"
     When I click continue
+    Then the page should include element "#daSearchDispenseTitle"
 
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#uploadEvidenceDispenseTitle"
+
+    Given I click element "#applicant1InterimAppsCannotUploadDocs"
+    When I click continue
+    Then the page should include element "#emailDispenseTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#emailUploadTitle"
+
+    Given I select element "#applicant1DispensePartnerEmailAddresses"
+    And I type "test@test.com - no response to email"
+    When I click continue
+    Then the page should include element "#phoneNumbersDispenseTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#phoneUploadTitle"
+
+    Given I select element "#applicant1DispensePartnerPhoneNumbers"
+    And I type "01234 567890 - no response to phone"
+    When I click continue
+    Then the page should include element "#enquiryAgentDispenseTitle"
+
+    #Then the page should include element "#STOP"
     # Fix and continue this scenario as the journey progresses
-#    Then the page should include element "#STOP"
