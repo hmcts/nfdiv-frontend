@@ -12,7 +12,7 @@ const en = ({ partner }: CommonContent) => ({
   havePartnerEmailAddressesHeader: `Do you have any email addresses for your ${partner}?`,
   errors: {
     applicant1DispenseHavePartnerEmailAddresses: {
-      required: 'You must select an option before continuing.',
+      required: `Select yes if you know any email addresses for your ${partner}`,
     },
   },
 });
@@ -25,7 +25,7 @@ const cy = ({ partner }: CommonContent) => ({
   havePartnerEmailAddressesHeader: `Do you have any email addresses for your ${partner}?`,
   errors: {
     applicant1DispenseHavePartnerEmailAddresses: {
-      required: 'You must select an option before continuing.',
+      required: `Select yes if you know any email addresses for your ${partner}`,
     },
   },
 });
