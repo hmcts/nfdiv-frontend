@@ -23,7 +23,7 @@ const en = (serviceType: string, serviceFee: string) => ({
 // @TODO translations
 const cy = (serviceType: string, serviceFee: string) => ({
   title: 'Help i Dalu Ffioedd',
-  line1: `Cost y cais hwn am ${serviceType} yw £${serviceFee}. Gallwch <a class="govuk-link" target="_blank" href="${config.get(
+  line1: `Cost y cais hwn am ${serviceType} yw ${serviceFee}. Gallwch <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFeesCY'
   )}">wirio'r cyfarwyddyd ar help i dalu ffioedd ar GOV.UK (yn agor mewn tab newydd)</a> i ganfod a ydych yn gymwys i gael cymorth. `,
   useHelpWithFees: 'Will you be using help with fees to pay for this application?',
