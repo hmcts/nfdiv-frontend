@@ -5,9 +5,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
-import {
-  generateContent as uploadEvidenceGenerateContent,
-} from '../../common/upload-evidence/content';
+import { generateContent as uploadEvidenceGenerateContent } from '../../common/upload-evidence/content';
 
 const en = ({ partner }: CommonContent) => ({
   title: 'Telephone Numbers',

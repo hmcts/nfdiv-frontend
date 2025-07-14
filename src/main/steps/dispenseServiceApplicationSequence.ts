@@ -1,22 +1,28 @@
 import dayjs from 'dayjs';
-import { getFormattedCaseDate } from '../app/case/answers/formatDate';
 
+import { getFormattedCaseDate } from '../app/case/answers/formatDate';
 import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
   APPLY_FOR_HWF_DISPENSE,
   AWARE_PARTNER_ADDRESS_DISPENSE,
-  DA_SEARCH_DISPENSE, DA_UPLOAD,
+  DA_SEARCH_DISPENSE,
+  DA_UPLOAD,
   DISPENSE_SERVICE_APPLICATION,
-  EMAIL_DISPENSE, EMAIL_UPLOAD_DISPENSE, ENQUIRY_AGENT_DISPENSE,
-  HELP_WITH_FEES_DISPENSE, HUB_PAGE,
+  EMAIL_DISPENSE,
+  EMAIL_UPLOAD_DISPENSE,
+  ENQUIRY_AGENT_DISPENSE,
+  HELP_WITH_FEES_DISPENSE,
+  HUB_PAGE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
   LAST_ADDRESS_DISPENSE,
   LAST_DATE_DISPENSE,
   LAST_SEEN_DISPENSE,
-  PARTNER_NEW_ADDRESS_DISPENSE, PHONE_NUMBER_DISPENSE, PHONE_UPLOAD_DISPENSE,
+  PARTNER_NEW_ADDRESS_DISPENSE,
+  PHONE_NUMBER_DISPENSE,
+  PHONE_UPLOAD_DISPENSE,
 } from './urls';
 
 export const dispenseServiceApplicationSequence: Step[] = [
