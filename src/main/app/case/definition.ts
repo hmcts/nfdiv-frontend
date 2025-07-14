@@ -1070,6 +1070,11 @@ export interface CaseData {
   applicant1DispensePartnerLastSeenDescription: string;
   applicant1DispenseHavePartnerEmailAddresses: YesOrNo;
   applicant1DispenseHaveSearchedFinalOrder: YesOrNo
+  applicant1DispenseWhyNoFinalOrderSearch: string;
+  applicant1DispensePartnerEmailAddresses: string;
+  applicant1DispenseHavePartnerPhoneNumbers: YesOrNo;
+  applicant1DispensePartnerPhoneNumbers: string;
+  applicant1DispenseTriedTracingAgent: YesOrNo;
 }
 
 export interface CaseDocuments {
@@ -1128,6 +1133,11 @@ export interface DispenseWithServiceJourneyOptions {
   dispensePartnerLastSeenDescription: string;
   dispenseHavePartnerEmailAddresses: YesOrNo;
   dispenseHaveSearchedFinalOrder: YesOrNo;
+  dispenseWhyNoFinalOrderSearch: string;
+  dispensePartnerEmailAddresses: string;
+  dispenseHavePartnerPhoneNumbers: YesOrNo;
+  dispensePartnerPhoneNumbers: string;
+  dispenseTriedTracingAgent: YesOrNo;
 }
 
 export interface RequestForInformationResponse {
