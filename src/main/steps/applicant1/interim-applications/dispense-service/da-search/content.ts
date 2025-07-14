@@ -29,9 +29,15 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   haveSearchedFinalOrderHeader: `Have you searched for an existing ${
     isDivorce ? 'decree absolute or ' : ''
   }final order?`,
+  whyNoFinalOrderSearchHeader: 'Explain why you have not requested a search',
   errors: {
     applicant1DispenseHaveSearchedFinalOrder: {
-      required: 'You must select an option before continuing.',
+      required: `Select yes if you have already searched for an existing ${
+        isDivorce ? 'decree absolute or ' : ''
+      }final order`,
+    },
+    applicant1DispenseWhyNoFinalOrderSearch: {
+      required: 'Enter details about why you have not requested a search',
     },
   },
 });
@@ -58,9 +64,15 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   haveSearchedFinalOrderHeader: `Have you searched for an existing ${
     isDivorce ? 'decree absolute or ' : ''
   }final order?`,
+  whyNoFinalOrderSearchHeader: 'Explain why you have not requested a search',
   errors: {
     applicant1DispenseHaveSearchedFinalOrder: {
-      required: 'You must select an option before continuing.',
+      required: `Select yes if you have already searched for an existing ${
+        isDivorce ? 'decree absolute or ' : ''
+      }final order`,
+    },
+    applicant1DispenseWhyNoFinalOrderSearch: {
+      required: 'Enter details about why you have not requested a search',
     },
   },
 });
@@ -74,7 +86,7 @@ export const form: FormContent = {
   fields: {
     applicant1DispenseHaveSearchedFinalOrder: {
       type: 'radios',
-      classes: 'govuk-radios govuk-radios--inline',
+      classes: 'govuk-radios',
       label: l => l.haveSearchedFinalOrderHeader,
       labelHidden: false,
       values: [
@@ -87,6 +99,15 @@ export const form: FormContent = {
           label: l => l.no,
           id: 'no',
           value: YesOrNo.NO,
+          subFields: {
+            applicant1DispenseWhyNoFinalOrderSearch: {
+              type: 'textarea',
+              label: l => l.whyNoFinalOrderSearchHeader,
+              labelHidden: true,
+              hint: l => l.whyNoFinalOrderSearchHeader,
+              validator: isFieldFilledIn,
+            },
+          },
         },
       ],
       validator: value => isFieldFilledIn(value),
