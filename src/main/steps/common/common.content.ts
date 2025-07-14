@@ -178,7 +178,7 @@ const cy: typeof en = {
     to: 'i',
     deemed: 'gyflwyno tybiedig',
     deemedCode: 'D11',
-    dispense: 'dispense with service',
+    dispense: 'hepgor cyflwyno',
     dispenseCode: 'D13b',
   },
   feedback: {
