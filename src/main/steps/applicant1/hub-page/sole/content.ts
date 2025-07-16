@@ -82,8 +82,8 @@ const en = (
     line1: `Your partner has not responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
-    line2: `You have started a ${getInterimApplicationType(userCase)}`,
-    line3: `You can continue with your ${getInterimApplicationType(userCase)}.`,
+    line2: `You have started a ${getInterimApplicationType(userCase)} application.`,
+    line3: `You can continue with your ${getInterimApplicationType(userCase)} application.`,
     line4: `If your circumstances have changed or you want to try something else, you can <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">view your options to proceed with your divorce application</a>.`,
     line5: 'If you begin a new application, your current draft application will be deleted',
     whatYouCanDoNext: 'What you can do next',
@@ -461,8 +461,8 @@ const cy: typeof en = (
     line1: `Your partner has not responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
-    line2: `You have started a ${getInterimApplicationType(userCase)}`,
-    line3: `You can continue with your ${getInterimApplicationType(userCase)}.`,
+    line2: `You have started a ${getInterimApplicationType(userCase)} application.`,
+    line3: `You can continue with your ${getInterimApplicationType(userCase)} application.`,
     line4: `If your circumstances have changed or you want to try something else, you can <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">view your options to proceed with your divorce application</a>.`,
     line5: 'If you begin a new application, your current draft application will be deleted',
     whatYouCanDoNext: 'What you can do next',
