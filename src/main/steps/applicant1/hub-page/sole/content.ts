@@ -12,6 +12,7 @@ import {
   NoResponsePartnerNewEmailOrPostalAddress,
   State,
   YesOrNo,
+  getInterimApplicationType,
 } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
@@ -81,7 +82,7 @@ const en = (
     line1: `Your partner has not responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
-    line2: `You have started a ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+    line2: `You have started a ${getInterimApplicationType(userCase)}`,
     line3: `You can continue with your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
@@ -462,7 +463,7 @@ const cy: typeof en = (
     line1: `Your partner has not responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
-    line2: `You have started a ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+    line2: `You have started a ${getInterimApplicationType(userCase)}`,
     line3: `You can continue with your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,

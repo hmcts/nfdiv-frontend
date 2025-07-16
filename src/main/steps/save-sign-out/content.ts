@@ -1,8 +1,9 @@
+import { getInterimApplicationType } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = ({ isDivorce }) => ({
-  title: 'Your application has been saved',
-  applicationSentTo: 'A link to your application has been sent to:',
+const en = ({ isDivorce, userCase }) => ({
+  title: `Your ${getInterimApplicationType(userCase)}application has been saved`,
+  applicationSentTo: `A link to your ${getInterimApplicationType(userCase)}application has been sent to:`,
   applicationSavedFor6Months: `While you're filling out or responding to a ${
     isDivorce ? 'divorce' : 'ending a civil partnership'
   } application we will hold your data for up to 6 months. If you do not complete the application during this time you'll have to start again.`,
@@ -10,6 +11,7 @@ const en = ({ isDivorce }) => ({
   signBackIn: 'Sign back in and continue',
 });
 
+//TODO update Welsh for interim application type
 const cy: typeof en = ({ isDivorce }) => ({
   title: 'Mae eich cais wedi cael ei gadw',
   applicationSentTo: 'Anfonwyd dolen sy’n arwain at eich cais i:',
