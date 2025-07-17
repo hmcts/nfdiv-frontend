@@ -5,12 +5,6 @@ import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/vali
 import { isCountryUk } from '../../../../applicant1Sequence';
 import type { CommonContent } from '../../../../common/common.content';
 
-const addressPostcode = {
-  required: 'You have not entered a postcode. Enter a postcode before continuing.',
-  invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
-  notSelected: 'You have not selected an address. Select an address from the list before continuing.',
-};
-
 const en = ({ partner }: Partial<CommonContent>) => ({
   title: `Where did you and your ${partner} live together?`,
   enterPostcode: 'Enter a UK postcode',
@@ -40,19 +34,16 @@ const en = ({ partner }: Partial<CommonContent>) => ({
     applicant1DispenseLivedTogetherAddressTown: {
       required: 'You have not entered a town or city. Enter a town or city before continuing.',
     },
-    addressPostcode,
-    applicant1DispenseLivedTogetherAddressPostcode: addressPostcode,
+    applicant1DispenseLivedTogetherAddressPostcode: {
+      required: 'You have not entered a postcode. Enter a postcode before continuing.',
+      invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
+      notSelected: 'You have not selected an address. Select an address from the list before continuing.',
+    },
     applicant1DispenseLivedTogetherAddressCountry: {
       required: 'You have not entered a country. Enter a country before continuing.',
     },
   },
 });
-
-const addressPostcodeCY = {
-  required: 'You have not entered a postcode. Enter a postcode before continuing.',
-  invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
-  notSelected: 'You have not selected an address. Select an address from the list before continuing.',
-};
 
 const cy = ({ partner }: CommonContent) => ({
   title: `Where did you and your ${partner} live together?`,
@@ -83,8 +74,11 @@ const cy = ({ partner }: CommonContent) => ({
     applicant1DispenseLivedTogetherAddressTown: {
       required: 'You have not entered a town or city. Enter a town or city before continuing.',
     },
-    addressPostcode: addressPostcodeCY,
-    applicant1DispenseLivedTogetherAddressPostcode: addressPostcodeCY,
+    applicant1DispenseLivedTogetherAddressPostcode: {
+      required: 'You have not entered a postcode. Enter a postcode before continuing.',
+      invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
+      notSelected: 'You have not selected an address. Select an address from the list before continuing.',
+    },
     applicant1DispenseLivedTogetherAddressCountry: {
       required: 'You have not entered a country. Enter a country before continuing.',
     },
