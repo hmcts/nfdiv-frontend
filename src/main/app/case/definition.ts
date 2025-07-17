@@ -2750,25 +2750,3 @@ export const SYSTEM_UPDATE_CASE_PRONOUNCEMENT_JUDGE = 'system-update-case-pronou
 export const SYSTEM_NOTIFY_APPLICANT_DISPUTE_FORM_OVERDUE = 'system-notify-applicant-dispute-form-overdue';
 export const birmingham = 'Birmingham Civil and Family Justice Centre';
 export const buryStEdmunds = 'Bury St. Edmunds Regional Divorce Centre';
-export const getInterimApplicationType = (userCase: any): string | null => {
-  let interimApplicationType: string | null = null;
-  if (userCase.state === State.AosOverdue) {
-    switch (userCase.applicant1InterimApplicationType) {
-      case InterimApplicationType.ALTERNATIVE_SERVICE:
-        interimApplicationType = 'alternative service ';
-        break;
-      case InterimApplicationType.DEEMED_SERVICE:
-        interimApplicationType = 'deemed service ';
-        break;
-      case InterimApplicationType.BAILIFF_SERVICE:
-        interimApplicationType = 'bailiff service ';
-        break;
-      case InterimApplicationType.DISPENSE_WITH_SERVICE:
-        interimApplicationType = 'dispense with service ';
-        break;
-      case InterimApplicationType.SEARCH_GOV_RECORDS:
-        interimApplicationType = 'search government records ';
-    }
-  }
-  return interimApplicationType;
-}

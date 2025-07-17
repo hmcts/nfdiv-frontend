@@ -1,9 +1,9 @@
-import { getInterimApplicationType } from '../../app/case/definition';
+import { State } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = ({ isDivorce, userCase }) => ({
-  title: `Your ${getInterimApplicationType(userCase)}application has been saved`,
-  applicationSentTo: `A link to your ${getInterimApplicationType(userCase)}application has been sent to:`,
+const en = ({ isDivorce }) => ({
+  title: 'Your application has been saved',
+  applicationSentTo: 'A link to your application has been sent to:',
   applicationSavedFor6Months: `While you're filling out or responding to a ${
     isDivorce ? 'divorce' : 'ending a civil partnership'
   } application we will hold your data for up to 6 months. If you do not complete the application during this time you'll have to start again.`,
@@ -28,5 +28,10 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  return languages[content.language](content);
+  const isInterimApplicationType =
+    content.userCase.state === State.AosOverdue && content.userCase.applicant1InterimApplicationType;
+  return {
+    ...languages[content.language](content),
+    isInterimApplicationType,
+  };
 };
