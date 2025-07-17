@@ -948,6 +948,7 @@ export interface CaseData {
   servicePaymentFeeServiceRequestReference: string;
   alternativeServiceFeeRequired: YesOrNo;
   serviceApplicationAnswers: DivorceDocument;
+  alternativeServiceMediumSelected: AlternativeServiceMediumType[];
   servicePayments: ListValue<Payment>[];
   serviceApplicationSubmittedOnline: YesOrNo,
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
@@ -1787,6 +1788,7 @@ export const enum AlternativeServiceMediumType {
   TEXT = 'text',
   EMAIL = 'email',
   SOCIAL_MEDIA = 'socialMedia',
+  WHATSAPP = 'whatsApp',
   OTHER = 'other',
 }
 
@@ -1794,6 +1796,7 @@ export const enum AlternativeServiceType {
   DEEMED = 'deemed',
   DISPENSED = 'dispensed',
   BAILIFF = 'bailiff',
+  ALTERNATIVE_SERVICE = 'alternativeService',
 }
 
 export const enum Applicant2Represented {
