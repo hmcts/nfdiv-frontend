@@ -452,11 +452,11 @@ const fields: ToApiConverters = {
 
 const toApiDate = (date: CaseDate | undefined | string) => {
   if (typeof date === 'string') {
-    return date;
+    return date || undefined;
   }
 
   if (!date?.year || !date?.month || !date?.day) {
-    return '';
+    return undefined;
   }
 
   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
