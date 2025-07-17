@@ -1,6 +1,8 @@
 import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../../../app/case/case';
+import { DocumentType } from '../../../../../app/case/definition';
+import { getFilenamesToDisplay } from "../../../../../app/case/formatter/uploaded-files";
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -75,10 +77,19 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const applicant1UploadEvidenceContent = uploadEvidenceGenerateContent(content);
   const translations = languages[content.language](content);
+  content.userCase.applicant1InterimAppsTempDocUploadType = DocumentType.DISPENSE_EMAIL_EVIDENCE;
+
+  const filesToDisplay = getFilenamesToDisplay(
+    content.userCase.applicant1InterimAppsEvidenceDocs,
+    DocumentType.DISPENSE_EMAIL_EVIDENCE
+  );
+
   return {
     ...applicant1UploadEvidenceContent,
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     hideUploadAFile: true,
+    filesToDisplay,
+    useFilesToDisplay: true,
   };
 };

@@ -5,14 +5,25 @@ import { LoggerInstance } from 'winston';
 
 import {
   APPLICANT_2,
+  DA_UPLOAD,
+  EMAIL_UPLOAD_DISPENSE,
+  PHONE_UPLOAD_DISPENSE,
   PROVIDE_INFORMATION_TO_THE_COURT,
   RESPOND_TO_COURT_FEEDBACK,
   UPLOAD_EVIDENCE_DEEMED,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
-import { CaseWithId } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
-import { getFilename } from '../case/formatter/uploaded-files';
+import { Case, CaseWithId } from '../case/case';
+import {
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_UPDATE,
+  DivorceDocument,
+  DocumentType,
+  InterimApplicationType,
+  ListValue,
+  State,
+} from '../case/definition';
+import { getDocumentType, getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
@@ -27,6 +38,19 @@ export class DocumentManagerController {
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
     } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
+      if (req.session.userCase.applicant1InterimApplicationType === InterimApplicationType.DISPENSE_WITH_SERVICE) {
+        switch (req.session.userCase.applicant1InterimAppsTempDocUploadType) {
+          case DocumentType.DISPENSE_NO_TRACE_CERTIFICATE:
+            return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${DA_UPLOAD}`);
+            break;
+          case DocumentType.DISPENSE_EMAIL_EVIDENCE:
+            return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${EMAIL_UPLOAD_DISPENSE}`);
+            break;
+          case DocumentType.DISPENSE_PHONE_NUMBER_EVIDENCE:
+            return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PHONE_UPLOAD_DISPENSE}`);
+            break;
+        }
+      }
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DEEMED}`);
     }
     return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
@@ -86,6 +110,7 @@ export class DocumentManagerController {
     }));
 
     let documentsKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
+    const documentType = req.session.userCase.applicant1InterimAppsTempDocUploadType;
     if (req.session.userCase.state === State.AwaitingClarification) {
       documentsKey = 'coClarificationUploadDocuments';
     } else if (
@@ -96,20 +121,38 @@ export class DocumentManagerController {
       documentsKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
     } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
       documentsKey = isApplicant2 ? 'applicant2InterimAppsEvidenceDocs' : 'applicant1InterimAppsEvidenceDocs';
+      if (req.session.userCase.applicant1InterimApplicationType === InterimApplicationType.DISPENSE_WITH_SERVICE) {
+        newUploads.forEach(file => {
+          if (file.value !== null) {
+            file.value.documentType = documentType;
+          }
+        });
+      }
     }
 
     const updatedDocumentsUploaded = newUploads.concat(req.session.userCase[documentsKey] || []);
 
+    const uploadObject: Partial<Case> = { [documentsKey]: updatedDocumentsUploaded };
+    if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
+      uploadObject.applicant1InterimAppsTempDocUploadType = documentType;
+    }
+
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
-      { [documentsKey]: updatedDocumentsUploaded },
+      uploadObject,
       isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
     );
 
     req.session.save(() => {
       this.logNewUploads(newUploads, documentsKey, req);
       if (req.headers.accept?.includes('application/json')) {
-        return res.json(newUploads.map(file => ({ id: file.id, name: getFilename(file.value) })));
+        return res.json(
+          newUploads.map(file => ({
+            id: file.id,
+            name: getFilename(file.value),
+            documentType: getDocumentType(file.value),
+          }))
+        );
       } else {
         return this.redirect(req, res, isApplicant2);
       }
@@ -200,7 +243,9 @@ export class DocumentManagerController {
   ): void {
     newUploads.forEach(file =>
       req.locals.logger.info(
-        `uploaded file(url=${file.value?.documentLink?.document_binary_url}) using documentsKey(${documentsKey}) to case(id=${req.session.userCase.id})`
+        `uploaded file(url=${file.value?.documentLink?.document_binary_url}) with documentType(${getDocumentType(
+          file.value
+        )}) using documentsKey(${documentsKey}) to case(id=${req.session.userCase.id})`
       )
     );
   }

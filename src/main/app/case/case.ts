@@ -234,6 +234,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispenseHavePartnerPhoneNumbers: 'applicant1DispenseHavePartnerPhoneNumbers',
   applicant1DispensePartnerPhoneNumbers: 'applicant1DispensePartnerPhoneNumbers',
   applicant1DispenseTriedTracingAgent: 'applicant1DispenseTriedTracingAgent',
+  applicant1InterimAppsTempDocUploadType: 'applicant1InterimAppsTempDocUploadType',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -542,6 +543,8 @@ export interface Case {
   applicant1DispenseHavePartnerPhoneNumbers?: YesOrNo;
   applicant1DispensePartnerPhoneNumbers?: string;
   applicant1DispenseTriedTracingAgent?: YesOrNo;
+  applicant1InterimAppsTempDocUploadType?: DocumentType;
+  applicant1DispenseNoTraceCertificate?: UploadedFile[];
 }
 
 export interface CaseWithId extends Case {
@@ -566,6 +569,7 @@ export enum LanguagePreference {
 }
 
 export interface UploadedFile {
+  documentType: DocumentType | undefined;
   id: string;
   name: string;
 }

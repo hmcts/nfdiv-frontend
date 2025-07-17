@@ -1075,6 +1075,7 @@ export interface CaseData {
   applicant1DispenseHavePartnerPhoneNumbers: YesOrNo;
   applicant1DispensePartnerPhoneNumbers: string;
   applicant1DispenseTriedTracingAgent: YesOrNo;
+  applicant1InterimAppsTempDocUploadType: DocumentType;
 }
 
 export interface CaseDocuments {
@@ -1138,6 +1139,7 @@ export interface DispenseWithServiceJourneyOptions {
   dispenseHavePartnerPhoneNumbers: YesOrNo;
   dispensePartnerPhoneNumbers: string;
   dispenseTriedTracingAgent: YesOrNo;
+  interimAppsTempDocUploadType: DocumentType;
 }
 
 export interface RequestForInformationResponse {
@@ -2439,6 +2441,9 @@ export const enum DocumentType {
   OTHER = 'other',
   PRONOUNCEMENT_LIST = 'pronouncementList',
   RESPONDENT_ANSWERS = 'respondentAnswers',
+  DISPENSE_NO_TRACE_CERTIFICATE = 'dispenseNoTraceCertificate',
+  DISPENSE_EMAIL_EVIDENCE = 'dispenseEmailEvidence',
+  DISPENSE_PHONE_NUMBER_EVIDENCE = 'dispensePhoneNumberEvidence',
   /**
    * @deprecated
    */

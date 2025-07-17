@@ -1,6 +1,7 @@
 import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../../../app/case/case';
+import { DocumentType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -75,6 +76,7 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const applicant1UploadEvidenceContent = uploadEvidenceGenerateContent(content);
   const translations = languages[content.language](content);
+  content.userCase.applicant1InterimAppsTempDocUploadType = DocumentType.DISPENSE_PHONE_NUMBER_EVIDENCE;
   return {
     ...applicant1UploadEvidenceContent,
     ...translations,

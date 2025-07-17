@@ -102,6 +102,8 @@ Feature: Dispense with service journey
     When I click continue
     Then the page should include element "#uploadEvidenceDispenseTitle"
 
+    And the page should include element "#STOP"
+
     Given I click element "#applicant1InterimAppsCannotUploadDocs"
     When I click continue
     Then the page should include element "#emailDispenseTitle"
