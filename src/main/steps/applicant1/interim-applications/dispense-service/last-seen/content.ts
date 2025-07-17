@@ -19,6 +19,11 @@ const en = ({ partner }: CommonContent) => ({
   errors: {
     applicant1DispensePartnerLastSeenOrHeardOfDate: {
       required: `Enter the date your ${partner} was last seen or heard of.`,
+      invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
+      invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
+      invalidDateInFuture:
+        'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
+      invalidDateTooFarInPast: `You have entered a year which is too far in the past. Enter the date your ${partner} was last seen or heard of.`,
     },
     applicant1DispensePartnerLastSeenDescription: {
       required: `Enter details of the last time you saw or heard of your ${partner}.`,
@@ -35,6 +40,11 @@ const cy = ({ partner }: CommonContent) => ({
   errors: {
     applicant1DispensePartnerLastSeenOrHeardOfDate: {
       required: `Enter the date your ${partner} was last seen or heard of.`,
+      invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
+      invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
+      invalidDateInFuture:
+        'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
+      invalidDateTooFarInPast: `You have entered a year which is too far in the past. Enter the date your ${partner} was last seen or heard of.`,
     },
     applicant1DispensePartnerLastSeenDescription: {
       required: `Enter details of the last time you saw or heard of your ${partner}.`,
