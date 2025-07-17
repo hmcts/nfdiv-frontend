@@ -13,7 +13,7 @@
       <h2 id="uploadSupportingDocuments" class="govuk-heading-s">{{ uploadSupportingDocuments }}</h2>
     {% elseif fieldName == 'applicant1InterimAppsCannotUploadDocs' %}
       {% include "common/form/fields/" + field.type + ".njk" %}
-    {% elseif fieldName == 'applicant1InterimAppsEvidenceUploadedFiles' or fieldName == 'applicant1DispenseNoTraceCertificate'%}
+    {% elseif fieldName == 'applicant1InterimAppsEvidenceUploadedFiles' or fieldName == 'applicant1DispenseNoTraceCertificate' or fieldName === 'applicant1DispenseEmailEvidence' or fieldName === 'applicant1DispensePhoneNumberEvidence'%}
       <p class="govuk-body">
         <strong>{{ acceptedFileFormats }}</strong> {{ fileFormats }}<br>
         <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
