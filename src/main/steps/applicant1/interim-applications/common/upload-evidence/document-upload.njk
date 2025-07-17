@@ -47,7 +47,7 @@
     {% if useFilesToDisplay %}
       {% for file in filesToDisplay %}
         <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-          {{ file.name }} - {{ file.documentType }}<a href="/document-manager/delete/{{ file.id }}?_csrf={{ csrfToken }}" class="govuk-link govuk-link--no-visited-state">{{ delete }}</a>
+          {{ file.name }} <a href="/document-manager/delete/{{ file.index }}?_csrf={{ csrfToken }}" class="govuk-link govuk-link--no-visited-state">{{ delete }}</a>
         </li>
       {% endfor %}
     {% else %}
@@ -59,21 +59,3 @@
     {% endif %}
   </ul>
 </div>
-
-<h2>uploadedDocsFilenames: {{ uploadedDocsFilenames|length }}</h2>
-<ul id="uploaded" class="govuk-list">
-  {% for filename in uploadedDocsFilenames %}
-    <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-      {{ filename }} <a href="/document-manager/delete/{{ loop.index0 }}?_csrf={{ csrfToken }}" class="govuk-link govuk-link--no-visited-state">{{ delete }}</a>
-    </li>
-  {% endfor %}
-</ul>
-
-<h2>useFilesToDisplay: {{ useFilesToDisplay }} | filesToDisplay: {{ filesToDisplay|length }}</h2>
-<ul id="displayUploaded" class="govuk-list">
-  {% for file in filesToDisplay %}
-    <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-      {{ file.name }} - {{file.documentType}}<a href="/document-manager/delete/{{ file.id }}?_csrf={{ csrfToken }}" class="govuk-link govuk-link--no-visited-state">{{ delete }}</a>
-    </li>
-  {% endfor %}
-</ul>
