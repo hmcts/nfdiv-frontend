@@ -2,6 +2,7 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   AlternativeServiceDifferentWays,
+  AlternativeServiceMediumType,
   AlternativeServiceMethod,
   AlternativeServiceOutcome,
   AlternativeServiceType,
@@ -230,6 +231,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
   alternativeServiceType: 'alternativeServiceType',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
+  alternativeServiceMediumSelected: 'alternativeServiceMediumSelected',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -522,6 +524,7 @@ export interface Case {
   alternativeServiceFeeRequired: YesOrNo;
   alternativeServiceType: AlternativeServiceType;
   serviceApplicationAnswers: DivorceDocument;
+  alternativeServiceMediumSelected?: AlternativeServiceMediumType[];
 }
 
 export interface CaseWithId extends Case {

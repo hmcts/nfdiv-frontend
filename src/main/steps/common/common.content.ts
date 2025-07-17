@@ -3,7 +3,14 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
+import {
+  AlternativeServiceMediumType,
+  AlternativeServiceType,
+  ApplicationType,
+  PaymentStatus,
+  State,
+  YesOrNo,
+} from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
@@ -386,6 +393,15 @@ export const generateCommonContent = ({
   const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
 
+  const multipleWaysSelectedForAlternativeService =
+    userCase?.alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE &&
+    (userCase?.alternativeServiceMediumSelected?.length ?? 0) > 1;
+
+  const singleWaySelectedForAlternativeService =
+    userCase?.alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE &&
+    (userCase?.alternativeServiceMediumSelected?.length ?? 0) === 1 &&
+    !userCase?.alternativeServiceMediumSelected?.includes(AlternativeServiceMediumType.EMAIL);
+
   return {
     ...commonTranslations,
     applicationHasBeenPaidFor,
@@ -417,6 +433,8 @@ export const generateCommonContent = ({
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
     serviceApplicationSubmittedOnline,
+    multipleWaysSelectedForAlternativeService,
+    singleWaySelectedForAlternativeService,
   };
 };
 
@@ -450,4 +468,6 @@ export type CommonContent = typeof en & {
   serviceApplicationFeeRequired: boolean;
   serviceApplicationDocsAllProvided: boolean;
   serviceApplicationSubmittedOnline: boolean;
+  multipleWaysSelectedForAlternativeService: boolean;
+  singleWaySelectedForAlternativeService: boolean;
 };
