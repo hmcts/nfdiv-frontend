@@ -12,8 +12,12 @@ export class UploadedFiles {
       (getById('coClarificationUploadedFiles') as HTMLInputElement) ||
       (getById('app1RfiDraftResponseUploadedFiles') as HTMLInputElement) ||
       (getById('app2RfiDraftResponseUploadedFiles') as HTMLInputElement) ||
-      (getById('applicant1InterimAppsEvidenceUploadedFiles') as HTMLInputElement);
+      (getById('applicant1InterimAppsEvidenceUploadedFiles') as HTMLInputElement) ||
+      (getById('applicant1DispenseNoTraceCertificate') as HTMLInputElement) ||
+      (getById('applicant1DispenseEmailEvidence') as HTMLInputElement) ||
+      (getById('applicant1DispensePhoneNumberEvidence') as HTMLInputElement);
     this.documents = JSON.parse(this.storeEl?.value || '[]');
+    console.log(this.documents);
   }
 
   add(documents: UploadedFile[]): void {
