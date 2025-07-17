@@ -545,6 +545,8 @@ export interface Case {
   applicant1DispenseTriedTracingAgent?: YesOrNo;
   applicant1InterimAppsTempDocUploadType?: DocumentType;
   applicant1DispenseNoTraceCertificate?: UploadedFile[];
+  applicant1DispenseEmailEvidence?: UploadedFile[];
+  applicant1DispensePhoneNumberEvidence?: UploadedFile[];
 }
 
 export interface CaseWithId extends Case {
@@ -569,7 +571,8 @@ export enum LanguagePreference {
 }
 
 export interface UploadedFile {
-  documentType: DocumentType | undefined;
   id: string;
+  index: number;
   name: string;
+  documentType: DocumentType | undefined;
 }
