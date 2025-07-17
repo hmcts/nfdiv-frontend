@@ -16,6 +16,14 @@ export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
     data.applicant1InterimAppsEvidenceDocs,
     DocumentType.DISPENSE_NO_TRACE_CERTIFICATE
   ),
+  applicant1DispenseEmailEvidence: getFileMapByDocumentType(
+    data.applicant1InterimAppsEvidenceDocs,
+    DocumentType.DISPENSE_EMAIL_EVIDENCE
+  ),
+  applicant1DispensePhoneNumberEvidence: getFileMapByDocumentType(
+    data.applicant1InterimAppsEvidenceDocs,
+    DocumentType.DISPENSE_PHONE_NUMBER_EVIDENCE
+  ),
 });
 
 export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
@@ -27,21 +35,29 @@ export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
   app2RfiDraftResponseUploadedFiles: getFileMap(data.app2RfiDraftResponseDocs),
 });
 
-export const getFileMap = (docCollection: ListValue<DivorceDocument>[] | undefined): UploadedFile[] => {
-  return (
-    docCollection?.map(doc => ({
-      id: `${doc.id}`,
-      name: `${getFilename(doc.value)}`,
-      documentType: getDocumentType(doc.value),
-    })) || []
-  );
+export const getUploadedFile = (
+  doc: ListValue<DivorceDocument> | ListValue<Partial<DivorceDocument> | null>,
+  index: number
+): UploadedFile => {
+  return {
+    id: `${doc.id}`,
+    index,
+    name: `${getFilename(doc.value)}`,
+    documentType: getDocumentType(doc.value),
+  };
+};
+
+export const getFileMap = (
+  docCollection: ListValue<DivorceDocument>[] | ListValue<Partial<DivorceDocument> | null>[] | undefined
+): UploadedFile[] => {
+  return docCollection?.map((doc, index) => getUploadedFile(doc, index)) || [];
 };
 
 export const getFileMapByDocumentType = (
-  docCollection: ListValue<DivorceDocument>[] | undefined,
+  docCollection: ListValue<DivorceDocument>[] | ListValue<Partial<DivorceDocument> | null>[] | undefined,
   documentType: DocumentType
 ): UploadedFile[] => {
-  return getFileMap(docCollection?.filter(doc => doc.value?.documentType === documentType));
+  return getFileMap(docCollection).filter(doc => doc.documentType === documentType) || [];
 };
 
 export const getFilename = (document: Partial<DivorceDocument> | undefined | null): string | undefined => {
@@ -50,23 +66,4 @@ export const getFilename = (document: Partial<DivorceDocument> | undefined | nul
 
 export const getDocumentType = (document: Partial<DivorceDocument> | undefined | null): DocumentType | undefined => {
   return document?.documentType;
-};
-
-export const getFilenamesToDisplay = (
-  documents: ListValue<Partial<DivorceDocument> | null>[] | undefined,
-  documentType: DocumentType
-): UploadedFile[] | undefined => {
-  const filenamesToDisplay: UploadedFile[] = [];
-
-  documents?.forEach((item, index) => {
-    if (item.value && item.value.documentType === documentType) {
-      filenamesToDisplay.push({
-        name: `${getFilename(item.value)}`,
-        documentType: getDocumentType(item.value),
-        id: `${index}`,
-      });
-    }
-  });
-
-  return filenamesToDisplay;
 };
