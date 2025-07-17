@@ -2,12 +2,23 @@ import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../../../app/case/case';
 import { DocumentType } from '../../../../../app/case/definition';
-import { getFilenamesToDisplay } from "../../../../../app/case/formatter/uploaded-files";
+import { getFileMapByDocumentType } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 import { generateContent as uploadEvidenceGenerateContent } from '../../common/upload-evidence/content';
+
+const errors = content => ({
+  errors: {
+    applicant1DispenseEmailEvidence: {
+      notUploaded: content.errors.applicant1InterimAppsEvidenceUploadedFiles.notUploaded,
+      errorUploading: content.errors.applicant1InterimAppsEvidenceUploadedFiles.errorUploading,
+      fileSizeTooBig: content.errors.applicant1InterimAppsEvidenceUploadedFiles.fileSizeTooBig,
+      fileWrongFormat: content.errors.applicant1InterimAppsEvidenceUploadedFiles.fileWrongFormat,
+    },
+  },
+});
 
 const en = ({ partner }: CommonContent) => ({
   title: 'Email Addresses',
@@ -45,15 +56,15 @@ export const form: FormContent = {
       labelHidden: false,
       validator: value => isFieldFilledIn(value),
     },
-    applicant1InterimAppsEvidenceUploadedFiles: {
+    applicant1DispenseEmailEvidence: {
       type: 'hidden',
       label: l => l.uploadFiles,
       labelHidden: true,
       value:
-        (isObject(userCase.applicant1InterimAppsEvidenceUploadedFiles)
-          ? JSON.stringify(userCase.applicant1InterimAppsEvidenceUploadedFiles)
-          : userCase.applicant1InterimAppsEvidenceUploadedFiles) || '[]',
-      parser: data => JSON.parse((data as Record<string, string>).applicant1InterimAppsEvidenceUploadedFiles || '[]'),
+        (isObject(userCase.applicant1DispenseEmailEvidence)
+          ? JSON.stringify(userCase.applicant1DispenseEmailEvidence)
+          : userCase.applicant1DispenseEmailEvidence) || '[]',
+      parser: data => JSON.parse((data as Record<string, string>).applicant1DispenseEmailEvidence || '[]'),
     },
     applicant1InterimAppsCannotUploadDocs: {
       type: 'checkboxes',
@@ -79,13 +90,14 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   content.userCase.applicant1InterimAppsTempDocUploadType = DocumentType.DISPENSE_EMAIL_EVIDENCE;
 
-  const filesToDisplay = getFilenamesToDisplay(
+  const filesToDisplay = getFileMapByDocumentType(
     content.userCase.applicant1InterimAppsEvidenceDocs,
     DocumentType.DISPENSE_EMAIL_EVIDENCE
   );
 
   return {
     ...applicant1UploadEvidenceContent,
+    ...errors(applicant1UploadEvidenceContent),
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     hideUploadAFile: true,
