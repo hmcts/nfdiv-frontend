@@ -28,7 +28,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const isInterimApplicationType =
+  const interimApplicationInProgress =
     content.userCase.state === State.AosOverdue && content.userCase.applicant1InterimApplicationType;
   return {
     ...languages[content.language](content),
