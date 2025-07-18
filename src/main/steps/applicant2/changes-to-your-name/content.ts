@@ -1,6 +1,6 @@
 import { ChangedNameHow, ChangedNameWhy } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFields } from '../../../app/form/Form';
+import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import {
   form as applicant1Form,
@@ -23,7 +23,6 @@ const labels = content => ({
   },
 });
 
-const applicant1FormFields = applicant1Form.fields as FormFields;
 export const form: FormContent = {
   ...applicant1Form,
   fields: {
@@ -34,46 +33,46 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'applicant1WhyNameDifferent',
+          name: 'applicant2WhyNameDifferent',
           label: l => l.changedByDeedPoll,
           value: ChangedNameWhy.DEED_POLL,
           warning: l => l.warningMustUploadEvidence,
         },
         {
-          name: 'applicant1WhyNameDifferent',
+          name: 'applicant2WhyNameDifferent',
           label: l => l.changedPartsOfName,
           value: ChangedNameWhy.CHANGED_PARTS_OF_NAME,
           subFields: {
-            applicant1NameDifferentToMarriageCertificateMethod: {
+            applicant2NameDifferentToMarriageCertificateMethod: {
               type: 'checkboxes',
               label: l => l.howDidYouChangeYourNameTitle,
               hint: l => l.howDidYouChangeYourNameHint,
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
-                  name: 'applicant1NameDifferentToMarriageCertificateMethod',
+                  name: 'applicant2NameDifferentToMarriageCertificateMethod',
                   label: l => l.sendingOffMarriageCertificate,
                   value: ChangedNameHow.MARRIAGE_CERTIFICATE,
                 },
                 {
-                  name: 'applicant1NameDifferentToMarriageCertificateMethod',
+                  name: 'applicant2NameDifferentToMarriageCertificateMethod',
                   label: l => l.deedPoll,
                   value: ChangedNameHow.DEED_POLL,
                   conditionalText: l => `<p class="govuk-label">${l.deedPollMoreDetails}</p>`,
                 },
                 {
-                  name: 'applicant1NameDifferentToMarriageCertificateMethod',
+                  name: 'applicant2NameDifferentToMarriageCertificateMethod',
                   label: l => l.anotherWay,
                   value: ChangedNameHow.OTHER,
                   subFields: {
-                    applicant1NameDifferentToMarriageCertificateOtherDetails: {
+                    applicant2NameDifferentToMarriageCertificateOtherDetails: {
                       type: 'textarea',
                       label: l => l.anotherWayMoreDetails,
                       labelSize: null,
                     },
                   },
                   validator: getNameChangeOtherDetailsValidator(
-                    'applicant1NameDifferentToMarriageCertificateOtherDetails'
+                    'applicant2NameDifferentToMarriageCertificateOtherDetails'
                   ),
                 },
               ],
@@ -81,36 +80,36 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'applicant1WhyNameDifferent',
+          name: 'applicant2WhyNameDifferent',
           label: l => l.partOfNameNotIncluded,
           value: ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
           warning: l => l.warningMustUploadEvidence,
         },
         {
-          name: 'applicant1WhyNameDifferent',
+          name: 'applicant2WhyNameDifferent',
           label: l => l.partOfNameAbbreviated,
           value: ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
           warning: l => l.warningMustUploadEvidence,
         },
         {
-          name: 'applicant1WhyNameDifferent',
+          name: 'applicant2WhyNameDifferent',
           label: l => l.legalNameSpelledDifferently,
           value: ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
           warning: l => l.warningMustUploadEvidence,
         },
         {
-          name: 'applicant1WhyNameDifferent',
+          name: 'applicant2WhyNameDifferent',
           label: l => l.other,
           value: ChangedNameWhy.OTHER,
           warning: l => l.warningMustUploadEvidence,
           subFields: {
-            applicant1WhyNameDifferentOtherDetails: {
+            applicant2WhyNameDifferentOtherDetails: {
               type: 'textarea',
-              label: l => l.applicant1WhyNameDifferentOtherDetails,
+              label: l => l.applicant2WhyNameDifferentOtherDetails,
               labelSize: null,
             },
           },
-          validator: getNameChangeOtherDetailsValidator('applicant1WhyNameDifferentOtherDetails'),
+          validator: getNameChangeOtherDetailsValidator('applicant2WhyNameDifferentOtherDetails'),
         },
       ],
     },

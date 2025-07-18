@@ -229,15 +229,14 @@ const en = ({
       line1: 'Your first name(s)',
       line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
-      line4: 'Have you confirmed your full name, including any middle name(s) (if you have one)',
-      line5: `Did you change your last name when you ${isDivorce ? 'got married' : 'formed your civil partnership'}?`,
-      line6: `How did you change your last name when you ${
-        isDivorce ? 'got married' : 'formed your civil partnership'
-      }?`,
-      line7: `Have you changed any part of your name since ${
-        isDivorce ? 'getting married' : 'forming your civil partnership'
-      }?`,
-      line8: `How did you change your name since ${isDivorce ? 'getting married' : 'forming your civil partnership'}?`,
+      line4: `Is any part of your full name (${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
+        userCase.applicant2LastNames
+      }) written differently on your ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line5: `How is your name written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line6: `Why is your legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line7: 'Other details of why you changed your name',
+      line8: 'How did you change your name?',
+      line9: 'Other details of how you changed your name'
     },
     contactYou: {
       line1: 'Your first name(s)',
@@ -615,11 +614,12 @@ const en = ({
       line1: urls.ENTER_YOUR_NAME,
       line2: urls.ENTER_YOUR_NAME,
       line3: urls.ENTER_YOUR_NAME,
-      line4: urls.CONFIRM_YOUR_NAME,
-      line5: urls.CHANGES_TO_YOUR_NAME_URL,
+      line4: urls.CHECK_YOUR_NAME,
+      line5: urls.YOUR_CERTIFICATE_NAME,
       line6: urls.CHANGES_TO_YOUR_NAME_URL,
       line7: urls.CHANGES_TO_YOUR_NAME_URL,
       line8: urls.CHANGES_TO_YOUR_NAME_URL,
+      line9: urls.CHANGES_TO_YOUR_NAME_URL,
     },
     contactYou: {
       line1: urls.ENTER_YOUR_NAME,
@@ -795,18 +795,17 @@ const cy: typeof en = ({
       line12: `Details of how your ${partner} changed their name`,
     },
     aboutYouForApplicant2: {
-      line1: 'Eich enw(au) cyntaf',
-      line2: 'Eich enw(au) canol (os oes gennych un)',
-      line3: 'Eich cyfenw(au)',
-      line4: 'A ydych wedi cadarnhau eich enw llawn, gan gynnwys unrhyw enw(au) canol (os oes gennych un)',
-      line5: `A wnaethoch chi newid eich cyfenw pan wnaethoch ${
-        isDivorce ? 'chi briodi' : 'ffurfio eich partneriaeth sifil'
-      }?`,
-      line6: `Sut wnaethoch chi newid eich enw olaf pan wnaethoch ${
-        isDivorce ? 'briodi' : 'chi ffurfio eich partneriaeth sifil?'
-      }?`,
-      line7: `A ydych wedi newid unrhyw ran o'ch enw ers ${isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'}?`,
-      line8: `Sut wnaethoch chi newid eich enw ers ${isDivorce ? 'i chi briodi' : 'ffurfio eich partneriaeth sifil'}?`,
+      line1: 'Your first name(s)',
+      line2: 'Your middle name(s) (if you have one)',
+      line3: 'Your last name(s)',
+      line4: `Is any part of your full name (${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
+        userCase.applicant2LastNames
+      }) written differently on your ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line5: `How is your name written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line6: `Why is your legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line7: 'Other details of why you changed your name',
+      line8: 'How did you change your name?',
+      line9: 'Other details of how you changed your name'
     },
     contactYou: {
       line1: 'Eich enw(au) cyntaf',
