@@ -236,7 +236,7 @@ const en = ({
       line6: `Why is your legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line7: 'Other details of why you changed your name',
       line8: 'How did you change your name?',
-      line9: 'Other details of how you changed your name'
+      line9: 'Other details of how you changed your name',
     },
     contactYou: {
       line1: 'Your first name(s)',
@@ -805,7 +805,7 @@ const cy: typeof en = ({
       line6: `Why is your legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line7: 'Other details of why you changed your name',
       line8: 'How did you change your name?',
-      line9: 'Other details of how you changed your name'
+      line9: 'Other details of how you changed your name',
     },
     contactYou: {
       line1: 'Eich enw(au) cyntaf',

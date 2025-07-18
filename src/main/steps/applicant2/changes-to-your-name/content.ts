@@ -127,4 +127,3 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
-
