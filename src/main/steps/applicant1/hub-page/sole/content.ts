@@ -8,6 +8,7 @@ import {
   AlternativeServiceType,
   Applicant2Represented,
   DocumentType,
+  InterimApplicationType,
   NoResponsePartnerNewEmailOrPostalAddress,
   State,
   YesOrNo,
@@ -18,8 +19,11 @@ import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
 import {
+  ALTERNATIVE_SERVICE_APPLICATION,
+  DEEMED_SERVICE_APPLICATION,
   FINALISING_YOUR_APPLICATION,
   HOW_YOU_CAN_PROCEED,
+  HUB_PAGE,
   OPTIONS_FOR_PROGRESSING,
   RESPOND_TO_COURT_FEEDBACK,
 } from '../../../urls';
@@ -35,6 +39,7 @@ const en = (
     telephoneNumber,
     referenceNumber,
     isJointApplication,
+    interimApplicationType,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -72,6 +77,17 @@ const en = (
     } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
+  },
+  interimApplicationsSaveAndSignOut: {
+    line1: `Your partner has not responded to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    line2: `You have started a ${interimApplicationType} application.`,
+    line3: `You can continue with your ${interimApplicationType} application.`,
+    line4: `If your circumstances have changed or you want to try something else, you can <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">view your options to proceed with your divorce application</a>.`,
+    line5: 'If you begin a new application, your current draft application will be deleted',
+    whatYouCanDoNext: 'What you can do next',
+    completeApplication: 'Complete application',
   },
   aosDrafted: {
     line1: `Your ${partner} has started drafting a response to your application.`,
@@ -408,6 +424,7 @@ const cy: typeof en = (
     telephoneNumber,
     referenceNumber,
     isJointApplication,
+    interimApplicationType,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -440,6 +457,17 @@ const cy: typeof en = (
     } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
+  },
+  interimApplicationsSaveAndSignOut: {
+    line1: `Your partner has not responded to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    line2: `You have started a ${interimApplicationType} application.`,
+    line3: `You can continue with your ${interimApplicationType} application.`,
+    line4: `If your circumstances have changed or you want to try something else, you can <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">view your options to proceed with your divorce application</a>.`,
+    line5: 'If you begin a new application, your current draft application will be deleted',
+    whatYouCanDoNext: 'What you can do next',
+    completeApplication: 'Complete application',
   },
   aosDrafted: {
     line1: `Mae ${partner} wedi dechrau drafftio ymateb i’ch cais.`,
@@ -851,6 +879,20 @@ export const generateContent: TranslationFn = content => {
     userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
       NoResponsePartnerNewEmailOrPostalAddress.CONTACT_DETAILS_UPDATED &&
     userCase.applicant2AddressOverseas !== YesOrNo.YES;
+  const interimApplicationStartPagePath = (() => {
+    switch (userCase.applicant1InterimApplicationType) {
+      case InterimApplicationType.ALTERNATIVE_SERVICE:
+        return ALTERNATIVE_SERVICE_APPLICATION;
+      case InterimApplicationType.DEEMED_SERVICE:
+        return DEEMED_SERVICE_APPLICATION;
+      case InterimApplicationType.BAILIFF_SERVICE:
+      case InterimApplicationType.DISPENSE_WITH_SERVICE:
+      default: // Remove when all the options are completed
+        return HUB_PAGE;
+    }
+  })();
+  const interimApplicationStartedAosOverdue =
+    userCase.applicant1InterimApplicationType && userCase.state === State.AosOverdue;
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
@@ -872,5 +914,7 @@ export const generateContent: TranslationFn = content => {
     aosIsDrafted,
     aosOverdueAndDrafted,
     contactDetailsUpdatedUKBased,
+    interimApplicationStartPagePath,
+    interimApplicationStartedAosOverdue,
   };
 };
