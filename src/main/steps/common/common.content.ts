@@ -14,6 +14,13 @@ export const en = {
   generalApplication: {
     deemed: 'deemed service',
   },
+  interimApplicationType: {
+    deemedService: 'deemed service',
+    dispenseService: 'dispensed with service',
+    bailiffService: 'bailiff service',
+    alternativeService: 'alternative service',
+    searchGoveRecord: 'search government record',
+  },
   feedback: {
     part1: 'This is a new service – your ',
     part2: 'feedback',
@@ -169,6 +176,13 @@ const cy: typeof en = {
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   generalApplication: {
     deemed: 'deemed service',
+  },
+  interimApplicationType: {
+    deemedService: 'deemed service',
+    dispenseService: 'dispensed with service',
+    bailiffService: 'bailiff service',
+    alternativeService: 'alternative service',
+    searchGoveRecord: 'search government record',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
@@ -363,7 +377,8 @@ export const generateCommonContent = ({
   const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
     isDivorce ? 'Divorce' : 'Civil'
   }&party=${feedbackParty}`;
-
+  const interimApplicationType =
+    commonTranslations.interimApplicationType[userCase?.applicant1InterimApplicationType as string];
   return {
     ...commonTranslations,
     applicationHasBeenPaidFor,
@@ -386,6 +401,7 @@ export const generateCommonContent = ({
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
+    interimApplicationType,
   };
 };
 
