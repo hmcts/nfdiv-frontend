@@ -32,6 +32,6 @@ export const generateContent: TranslationFn = content => {
     content.userCase.state === State.AosOverdue && content.userCase.applicant1InterimApplicationType;
   return {
     ...languages[content.language](content),
-    isInterimApplicationType,
+    interimApplicationInProgress,
   };
 };
