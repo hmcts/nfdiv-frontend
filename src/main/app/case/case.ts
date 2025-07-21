@@ -98,6 +98,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1LegalProceedingsDetails: 'applicant1LegalProceedingsDetails',
   applicant2LegalProceedings: 'applicant2LegalProceedings',
   applicant2LegalProceedingsDetails: 'applicant2LegalProceedingsDetails',
+  applicant2LegalProceedingsConcluded: 'applicant2LegalProceedingsConcluded',
   applicant1ApplyForFinancialOrder: 'applicant1FinancialOrder',
   applicant1WhoIsFinancialOrderFor: 'applicant1FinancialOrdersFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
@@ -188,6 +189,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationDetails: 'requestForInformationDetails',
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
+  applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -315,6 +317,8 @@ export interface Case {
   applicant1LegalProceedingsDetails?: string;
   applicant2LegalProceedings?: YesOrNo;
   applicant2LegalProceedingsDetails?: string;
+  applicant2LegalProceedingsConcluded?: YesOrNo;
+  applicant2UnableToUploadEvidence?: Checkbox;
   applicant1ApplyForFinancialOrder?: YesOrNo;
   applicant1WhoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;
@@ -443,6 +447,8 @@ export interface Case {
   app2RfiDraftResponseCannotUploadDocs?: Checkbox;
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
+  applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant2LegalProceedingUploadedFiles?: UploadedFile[];
 }
 
 export interface CaseWithId extends Case {
