@@ -291,9 +291,13 @@ const en = (
       !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
         ? 'If your help with fees reference number is accepted, the'
         : 'The'
-    } court will review your application and any evidence you have submitted. If your application is successful, your ${
-      isDivorce ? 'divorce' : 'dissolution'
-    } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`,
+    } court will review your application and any evidence you have submitted.${
+      serviceApplicationType !== 'alternative service'
+        ? ` If your application is successful, your ${
+            isDivorce ? 'divorce' : 'dissolution'
+          } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`
+        : ''
+    }`,
     happensNextLine2: `We will email you ${
       serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
     }to let you know whether your application has been successful.`,
@@ -435,6 +439,10 @@ const en = (
     line4: `You can <a class="govuk-link" href="${OPTIONS_FOR_PROGRESSING}">view your other options for progressing your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     }</a> if you later decide that you no longer want to arrange service by a process server.`,
+  },
+  alternativeService: {
+    alternativeServiceLine1:
+      'If your application is successful, we will email you detailed information about what to do next.',
   },
 });
 
@@ -864,6 +872,10 @@ const cy: typeof en = (
     line4: `You can <a class="govuk-link" href="${OPTIONS_FOR_PROGRESSING}">view your other options for progressing your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     }</a> if you later decide that you no longer want to arrange service by a process server.`,
+  },
+  alternativeService: {
+    alternativeServiceLine1:
+      'If your application is successful, we will email you detailed information about what to do next.',
   },
 });
 
