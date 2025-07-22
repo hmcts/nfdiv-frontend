@@ -102,7 +102,7 @@ export const preSubmissionSequence: Step[] = [
   {
     url: YOUR_CERTIFICATE_NAME,
     getNextStep: data =>
-      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
         ? CHANGES_TO_YOUR_NAME_URL
         : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },

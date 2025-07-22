@@ -381,9 +381,9 @@ const en = ({
           : ''
       }`,
       line6: `${stripTags(userCase.applicant1NameDifferentToMarriageCertificateOtherDetails)}`,
-      line7: `${stripTags(userCase.applicant2NameDifferentToMarriageCertificate)}`,
-      line8: `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
-      line9: `${stripTags(
+      line7: !isJointApplication && `${stripTags(userCase.applicant2NameDifferentToMarriageCertificate)}`,
+      line8: !isJointApplication && `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
+      line9: !isJointApplication && `${stripTags(
         userCase.applicant2WhyNameDifferent
           ?.join(' / ')
           ?.replace(ChangedNameWhy.DEED_POLL, 'They changed their name by deed poll')
@@ -402,8 +402,8 @@ const en = ({
           )
           ?.replace(ChangedNameWhy.OTHER, 'Another reason')
       )}`,
-      line10: `${stripTags(userCase.applicant2WhyNameDifferentOtherDetails)}`,
-      line11: `${
+      line10: !isJointApplication && `${stripTags(userCase.applicant2WhyNameDifferentOtherDetails)}`,
+      line11: !isJointApplication && `${
         userCase.applicant2NameDifferentToMarriageCertificateMethod?.length
           ? userCase.applicant2NameDifferentToMarriageCertificateMethod
               .join(' / ')
@@ -415,7 +415,7 @@ const en = ({
               )
           : ''
       }`,
-      line12: `${stripTags(userCase.applicant2NameDifferentToMarriageCertificateOtherDetails)}`,
+      line12: !isJointApplication && `${stripTags(userCase.applicant2NameDifferentToMarriageCertificateOtherDetails)}`,
     },
     contactYou: {
       line1: `${stripTags(userCase.applicant1FirstNames)}`,

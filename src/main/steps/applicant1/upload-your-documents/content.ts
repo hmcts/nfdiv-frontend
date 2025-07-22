@@ -21,10 +21,10 @@ const en = (
     certificateForeign: `your original foreign ${union} certificate`,
     certificateForeignTranslation: `a certified translation of your foreign ${union} certificate`,
     proofOfNameChange: nameChangedIntentionally
-      ? `Proof that you${
+      ? `proof that you${
           isJointApplication ? ' changed your name' : ` or your ${partner} changed your names`
-        }, for example a deed poll or 'statutory declaration'.`
-      : `Proof to show why your name${
+        }, for example a deed poll or 'statutory declaration'`
+      : `proof to show why your name${
           isJointApplication ? '' : ` or your ${partner}'s name`
         } is written differently on your ${union} certificate. For example, a government issued ID, a passport, driving license or birth certificate, deed poll or 'statutory declaration'`,
     warningPhoto:
