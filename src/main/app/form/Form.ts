@@ -60,7 +60,8 @@ export class Form {
 
   private getErrorsFromField(body: Partial<Case>, id: string, field: FormField): FormError[] {
     const errorType = field.validator && field.validator(body[id], body);
-    const errors: FormError[] = errorType ? [{ errorType, propertyName: id }] : [];
+    const focusId = isFormOptions(field) && field.values[0]?.id || id;
+    const errors: FormError[] = errorType ? [{ errorType, propertyName: id, focusId: focusId }] : [];
 
     // if there are checkboxes or options, check them for errors
     if (isFormOptions(field)) {
@@ -191,6 +192,7 @@ export interface CsrfField {
 export type FormError = {
   propertyName: string;
   errorType: string;
+  focusId?: string;
 };
 
 interface CaseWithFormData extends CaseWithId {
