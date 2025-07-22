@@ -25,6 +25,7 @@ Feature: Applicant 2
     And I select "Your last name(s)"
     And I type "Bob"
 
+    When I click "Continue"
     Then the page should include "Is any part of your full name (Billy Bob) written differently on your marriage certificate?"
     Given I select "No"
 
@@ -188,6 +189,7 @@ Feature: Applicant 2
     And I select "Your last name(s)"
     And I type "Smith"
 
+    When I click "Continue"
     Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
     Given I select "Yes"
 
