@@ -280,16 +280,14 @@ const fields: ToApiConverters = {
       : {}),
   }),
   applicant1WhyNameDifferentOtherDetails: data => ({
-    applicant1WhyNameDifferentOtherDetails:
-      data.applicant1WhyNameDifferent?.includes(ChangedNameWhy.OTHER)
-        ? data.applicant1WhyNameDifferentOtherDetails
-        : '',
+    applicant1WhyNameDifferentOtherDetails: data.applicant1WhyNameDifferent?.includes(ChangedNameWhy.OTHER)
+      ? data.applicant1WhyNameDifferentOtherDetails
+      : '',
   }),
   applicant2WhyNameDifferentOtherDetails: data => ({
-    applicant2WhyNameDifferentOtherDetails:
-      data.applicant2WhyNameDifferent?.includes(ChangedNameWhy.OTHER)
-        ? data.applicant2WhyNameDifferentOtherDetails
-        : '',
+    applicant2WhyNameDifferentOtherDetails: data.applicant2WhyNameDifferent?.includes(ChangedNameWhy.OTHER)
+      ? data.applicant2WhyNameDifferentOtherDetails
+      : '',
   }),
   applicant2WhyNameDifferent: data => ({
     applicant2WhyNameDifferent: data.applicant2WhyNameDifferent,
