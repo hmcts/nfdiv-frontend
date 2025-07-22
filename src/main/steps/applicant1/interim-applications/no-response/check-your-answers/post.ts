@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 
 import { Case } from '../../../../../app/case/case';
 import {
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerNewEmailOrAddress,
   UPDATE_CONTACT_DETAILS_AND_REISSUE,
 } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
@@ -22,9 +22,9 @@ export default class CheckAnswersPostController extends PostController<AnyObject
   ): Promise<void> {
     if (
       (req.session.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
-        NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL ||
+        NoResponsePartnerNewEmailOrAddress.EMAIL ||
         req.session.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
-          NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS) &&
+          NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS) &&
       isEmpty(req.session.userCase.applicant1NoResponsePartnerEmailAddress)
     ) {
       res.redirect(PROVIDE_NEW_EMAIL_ADDRESS);

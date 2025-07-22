@@ -1,4 +1,4 @@
-import { NoResponsePartnerNewEmailOrPostalAddress } from '../../../../../app/case/definition';
+import { NoResponsePartnerNewEmailOrAddress } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -37,17 +37,17 @@ export const form: FormContent = {
         {
           label: l => l.newPostalAddress,
           id: 'newPostalAddress',
-          value: NoResponsePartnerNewEmailOrPostalAddress.NEW_POSTAL,
+          value: NoResponsePartnerNewEmailOrAddress.ADDRESS,
         },
         {
           label: l => l.newEmailAddress,
           id: 'newEmailAddress',
-          value: NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL,
+          value: NoResponsePartnerNewEmailOrAddress.EMAIL,
         },
         {
           label: l => l.newEmailAndPostalAddress,
           id: 'bothEmailAndPostalAddress',
-          value: NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS,
+          value: NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
         },
       ],
       validator: value => isFieldFilledIn(value),

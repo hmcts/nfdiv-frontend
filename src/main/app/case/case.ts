@@ -21,7 +21,7 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerNewEmailOrAddress,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
   NoResponseSendPapersAgainOrTrySomethingElse,
   OrderSummary,
@@ -459,7 +459,7 @@ export interface Case {
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
-  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
   applicant1NoResponseSendPapersAgainOrTrySomethingElse?: NoResponseSendPapersAgainOrTrySomethingElse;

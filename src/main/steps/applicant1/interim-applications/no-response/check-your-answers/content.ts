@@ -1,7 +1,7 @@
 import striptags from 'striptags';
 
 import {
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerNewEmailOrAddress,
   NoResponseSendPapersAgainOrTrySomethingElse,
   YesOrNo,
 } from '../../../../../app/case/definition';
@@ -78,13 +78,13 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const applicant1Choice = content.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress;
   const showAddress = [
-    NoResponsePartnerNewEmailOrPostalAddress.NEW_POSTAL,
-    NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS,
-  ].includes(applicant1Choice as NoResponsePartnerNewEmailOrPostalAddress);
+    NoResponsePartnerNewEmailOrAddress.ADDRESS,
+    NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
+  ].includes(applicant1Choice as NoResponsePartnerNewEmailOrAddress);
   const showEmail = [
-    NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL,
-    NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS,
-  ].includes(applicant1Choice as NoResponsePartnerNewEmailOrPostalAddress);
+    NoResponsePartnerNewEmailOrAddress.EMAIL,
+    NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
+  ].includes(applicant1Choice as NoResponsePartnerNewEmailOrAddress);
   const translation = languages[content.language](content, showAddress, showEmail);
   const updateWhat = content.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress;
   const showStatementOfTruth = false;

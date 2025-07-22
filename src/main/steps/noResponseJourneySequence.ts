@@ -1,7 +1,7 @@
 import { CaseWithId } from '../app/case/case';
 import {
   NoResponseCheckContactDetails,
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerNewEmailOrAddress,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
   NoResponseSendPapersAgainOrTrySomethingElse,
   YesOrNo,
@@ -60,10 +60,9 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: NEW_POSTAL_AND_EMAIL,
     getNextStep: (data: Partial<CaseWithId>): PageLink =>
-      [
-        NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL,
-        NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS,
-      ].includes(data.applicant1NoResponsePartnerNewEmailOrPostalAddress as NoResponsePartnerNewEmailOrPostalAddress)
+      [NoResponsePartnerNewEmailOrAddress.EMAIL, NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS].includes(
+        data.applicant1NoResponsePartnerNewEmailOrPostalAddress as NoResponsePartnerNewEmailOrAddress
+      )
         ? NEW_EMAIL
         : NEW_POSTAL_ADDRESS,
   },
@@ -86,7 +85,7 @@ export const noResponseJourneySequence: Step[] = [
     url: PROVIDE_NEW_EMAIL_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       return data.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
-        NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL_AND_POSTAL_ADDRESS
+        NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS
         ? NEW_POSTAL_ADDRESS
         : NEW_CONTACT_DETAIL_CHECK_ANSWERS;
     },
