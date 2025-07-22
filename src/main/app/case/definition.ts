@@ -2493,7 +2493,10 @@ export const enum NoResponseCheckContactDetails {
 export const enum NoResponsePartnerNewEmailOrPostalAddress {
   NEW_POSTAL = 'newPostalAddress',
   NEW_EMAIL = 'newEmailAddress',
-  NEW_EMAIL_AND_POSTAL_ADDRESS = 'newEmailAndPostalAddress',
+export const enum NoResponsePartnerNewEmailOrAddress {
+  ADDRESS = 'address',
+  EMAIL = 'emailAddress',
+  EMAIL_AND_ADDRESS = 'emailAndAddress'
 }
 
 export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
