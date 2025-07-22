@@ -847,7 +847,9 @@ export const generateContent: TranslationFn = content => {
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
-  const applicant1NoResponseSendPapersAgain = NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
+  const applicant1NoResponseSendPapersAgain =
+    userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+    NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,

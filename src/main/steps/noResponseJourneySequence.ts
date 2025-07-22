@@ -116,7 +116,11 @@ export const noResponseJourneySequence: Step[] = [
       if (data?.applicant1NoResponsePartnerHasReceivedPapers === YesOrNo.YES) {
         return DEEMED_SERVICE_APPLICATION;
       }
-      return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SERVE_AGAIN;
+      return data.applicant2AddressOverseas === YesOrNo.YES ||
+        data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
+        ? NO_NEW_ADDRESS
+        : SERVE_AGAIN;
     },
   },
   {
