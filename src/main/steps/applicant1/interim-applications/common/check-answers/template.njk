@@ -50,7 +50,13 @@
               text: answerText | safe
           },
           actions: {
-            items: items
+            items: stepLinks[question] && [
+              {
+                href: stepLinks[question],
+                text: change,
+                visuallyHiddenText: text
+              }
+            ]
           }
         }), answerRows) %}
       {% endif %}
