@@ -161,6 +161,7 @@
   },
   "resolutions": {
     "http-cache-semantics": "4.2.0",
+    "axios": "1.10.0",
     "nanoid": "5.1.5",
     "formidable": "3.5.4",
     "form-data": "4.0.4"
