@@ -6,7 +6,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ isDivorce, partner, required }: CommonContent) => ({
+const en = ({ isDivorce, partner }: CommonContent) => ({
   title: `Would you like us to send the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } papers again or try something else?`,
@@ -20,13 +20,13 @@ const en = ({ isDivorce, partner, required }: CommonContent) => ({
   trySomethingElse: 'Try something else',
   errors: {
     applicant1NoResponseSendPapersAgainOrTrySomethingElse: {
-      required,
+      required: 'Select if you want to send the papers again or try something else',
     },
   },
 });
 
 // @TODO translations should be completed then verified
-const cy: typeof en = ({ isDivorce, partner, required }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   title: `A hoffech i ni anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } eto neu a hoffech geisio gwneud rhywbeth arall?`,
