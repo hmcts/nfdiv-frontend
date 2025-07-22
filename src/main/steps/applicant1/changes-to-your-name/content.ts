@@ -54,7 +54,9 @@ const en = ({ isDivorce, required }) => ({
 });
 
 const cy = ({ isDivorce, required }) => ({
-  title: "Newidiadau i'ch enw",
+  title: `Pam bod eich enw cyfreithiol ym wahanol i sut mae wedi’i ysgrifennu ar y ${
+    isDivorce ? 'dystysgrif briodas' : 'dystysgrif partneriaeth sifil'
+  }?`,
   line1: "Mae angen ichi roi gwybod i'r llys os ydych wedi newid eich enw",
   changedByDeedPoll: 'Newidiais fy enw trwy weithred newid enw',
   changedPartsOfName: `Newidiais fy nghyfenw neu rannau o fy enw pan wnes i ${
