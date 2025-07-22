@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required }, fullName) => {
+const en = ({ isDivorce, marriage, civilPartnership, partner, required }, fullName) => {
   return {
     title: `Check the ${isDivorce ? marriage : civilPartnership} certificate for differences in your name`,
     line1: `We need to know if your name is written differently on the ${
@@ -32,7 +32,7 @@ const en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required
   };
 };
 
-const cy: typeof en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required }, fullName) => {
+const cy: typeof en = ({ isDivorce, marriage, civilPartnership, partner, required }, fullName) => {
   return {
     title: `Gwiriwch y dystysgrif ${isDivorce ? marriage : civilPartnership} am wahaniaethau yn eich enw`,
     line1: `Mae arnom angen gwybod os yw eich enw yn wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
@@ -92,7 +92,7 @@ export const generateContent: TranslationFn = content => {
   const userCase = content.userCase;
   const fullName = content.isApplicant2
     ? `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`
-    : `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`; 
+    : `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`;
   const translations = languages[content.language](content, fullName);
   return {
     ...translations,
