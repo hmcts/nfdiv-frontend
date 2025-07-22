@@ -148,6 +148,7 @@ const en = ({
   checkTheirAnswersPartner,
   marriage,
   civilPartnership,
+  relationship
 }) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
@@ -710,6 +711,7 @@ const cy: typeof en = ({
   checkTheirAnswersPartner,
   marriage,
   civilPartnership,
+  relationship
 }) => ({
   ...en({
     isDivorce,
@@ -720,6 +722,7 @@ const cy: typeof en = ({
     checkTheirAnswersPartner,
     marriage,
     civilPartnership,
+    relationship
   }),
   titleSoFar: 'Gwiriwch eich atebion hyd yma',
   titleSubmit: 'Gwiriwch eich atebion',
@@ -778,7 +781,7 @@ const cy: typeof en = ({
       line1: `Is any part of your full name (${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
         userCase.applicant1LastNames
       }) written differently on your ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
-      line2: `How is your name written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line2: `Eich enwau fel y maent yn ymddangos ar eich tystysgrif ${relationship}?`,
       line3: `Why is your legal name different on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
       line4: 'Details of why you changed your name:',
       line5: 'How did you change your name?',
@@ -807,12 +810,12 @@ const cy: typeof en = ({
       } yn union y ffordd mae eich enw wedi'i ysgrifennu ar eich tystysgrif ${
         isDivorce ? 'priodas' : 'tystysgrif partneriaeth sifil'
       }?`,
-      line5: `How is your name written on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate?`,
+      line5: `Eich enwau fel y maent yn ymddangos ar eich tystysgrif ${relationship}?`,
       line6: `Pam bod eich enw cyfreithiol ym wahanol i sut mae wedi’i ysgrifennu ar y ${
         isDivorce ? 'dystysgrif briodas' : 'dystysgrif partneriaeth sifil'
       }?`,
       line7: 'Other details of why you changed your name',
-      line8: 'How did you change your name?',
+      line8: 'Sut wnaethoch chi newid eich enw?',
       line9: 'Other details of how you changed your name',
     },
     contactYou: {
