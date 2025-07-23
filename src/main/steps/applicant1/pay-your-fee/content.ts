@@ -15,7 +15,7 @@ const en = ({ isDivorce }, applicationFee) => ({
     'You’ll need a valid debit or credit card. If you cannot pay now, save the application and return to it when you are ready.',
   line3: `To see the answers you have provided on your application, click on this link: <a href=${VIEW_YOUR_ANSWERS} class="govuk-link">Check your answers</a>`,
   line4: `If you do not pay the application fee within ${config.get(
-    'dates.applicationSubmittedOffsetDays'
+    'dates.paymentOverdueOffsetDays'
   )} days, then your application will be rejected, and you will have to start a new application.`,
   continue: 'Pay and submit application',
 });
