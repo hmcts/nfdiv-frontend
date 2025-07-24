@@ -103,6 +103,6 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-
-  return { ...translations };
+  const isAlternativeService = content.userCase?.alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE;
+  return { ...translations, isAlternativeService };
 };

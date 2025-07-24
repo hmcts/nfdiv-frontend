@@ -937,6 +937,8 @@ export const generateContent: TranslationFn = content => {
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
+  const isAlternativeServiceApplication =
+    userCase.alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE;
 
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
@@ -959,5 +961,6 @@ export const generateContent: TranslationFn = content => {
     aosIsDrafted,
     aosOverdueAndDrafted,
     isAwaitingProcessServerService,
+    isAlternativeServiceApplication,
   };
 };
