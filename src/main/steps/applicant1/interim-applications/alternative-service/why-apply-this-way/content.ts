@@ -98,7 +98,8 @@ const cy: typeof en = (
               ? 'by WhatsApp'
               : socialMediaSelected
                 ? 'by private message on social media'
-                : 'in this way'} ${cannotUploadEvidence ? '.' : 'will be successful.'}`,
+                : 'in this way'
+    } ${cannotUploadEvidence ? '.' : 'will be successful.'}`,
     },
   },
 });
@@ -113,7 +114,8 @@ export const form: FormContent = {
     applicant1AltServiceMethodJustification: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.responseLabel,
+      label: l => l.title,
+      labelHidden: true,
       validator: value => {
         const hasEnteredDetails = !isEmpty(value);
         if (!hasEnteredDetails) {
