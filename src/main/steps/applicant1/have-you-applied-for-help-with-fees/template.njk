@@ -1,0 +1,11 @@
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% if line1 %}
+    <p class="govuk-body">{{ line1 }}</p>
+  {% endif %}
+  <p class="govuk-body">{{ sendEvidenceGuidanceLine1 }}</p>
+  <p class="govuk-body">{{ sendEvidenceGuidanceLine2 }}</p>
+  <p class="govuk-body">{{ sendEvidenceGuidanceLine3 | safe }}</p>
+{% endblock %}
