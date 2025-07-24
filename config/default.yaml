@@ -17,6 +17,7 @@ dates:
   arrangeProcessServiceDays: 28
   switchToSoleFinalOrderIntentionNotificationOffsetDays: 14
   requestForInformationResponseCourtReplyOffsetDays: 28
+  paymentOverdueOffsetDays: 14
 fees:
   applicationFee: DivorceCivPart
   financialOrder: FinancialOrderOnNotice
