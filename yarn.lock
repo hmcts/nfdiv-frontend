@@ -4110,19 +4110,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:4.4.3":
-  version: 4.4.3
-  resolution: "@uppy/core@npm:4.4.3"
+"@uppy/core@npm:4.4.7":
+  version: 4.4.7
+  resolution: "@uppy/core@npm:4.4.7"
   dependencies:
     "@transloadit/prettier-bytes": ^0.3.4
     "@uppy/store-default": ^4.2.0
-    "@uppy/utils": ^6.1.2
+    "@uppy/utils": ^6.1.5
     lodash: ^4.17.21
     mime-match: ^1.0.2
     namespace-emitter: ^2.0.1
     nanoid: ^5.0.9
     preact: ^10.5.13
-  checksum: 2ac9834b824c9772e8ab3be456e30a8de815adadd157faf401522b76edbbe1f4a636618c20ec5275bdaae68e41086b82294a9de5398c1b39a5bd0d23eee2d54c
+  checksum: d127dbf028e42b06aa531e8ae58b3794d2fd2b0d9eef560d7d8453221fa199a3bcc60c84c005e3b5029b09d253ea1e0dec5e47c22e01fb9c5ab30d381c4965ae
   languageName: node
   linkType: hard
 
@@ -4137,15 +4137,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/file-input@npm:4.1.1":
-  version: 4.1.1
-  resolution: "@uppy/file-input@npm:4.1.1"
+"@uppy/file-input@npm:4.1.3":
+  version: 4.1.3
+  resolution: "@uppy/file-input@npm:4.1.3"
   dependencies:
-    "@uppy/utils": ^6.1.1
+    "@uppy/utils": ^6.1.4
     preact: ^10.5.13
   peerDependencies:
-    "@uppy/core": ^4.4.1
-  checksum: b135231a7a709314e30f46e5424a9673f3ec66d70aa9de79645a74921cfebb25dbd32e259c909a8aedfbd94c9fc43ac6a041c73508641cde2e797eec03d41fe3
+    "@uppy/core": ^4.4.5
+  checksum: e554e838827cbebf8b26aa0d1acd11b0f4096453646894f2e051946b6ce323c2f7c9d29c5f77539f4cc3002c1247f8ba1ef2d65a0fdee2655f3a002c4ceb8b07
   languageName: node
   linkType: hard
 
@@ -4175,6 +4175,16 @@ __metadata:
     lodash: ^4.17.21
     preact: ^10.5.13
   checksum: 51bd81c1fd6e74bc0f23ce108bd59e29de1d563f9c68eb16fd682b0dd46334e6be122d872c688ee1b27b900ec4141b9812898822fcd4d146e994852b658f303e
+  languageName: node
+  linkType: hard
+
+"@uppy/utils@npm:^6.1.4, @uppy/utils@npm:^6.1.5":
+  version: 6.1.5
+  resolution: "@uppy/utils@npm:6.1.5"
+  dependencies:
+    lodash: ^4.17.21
+    preact: ^10.5.13
+  checksum: 6af04d4c27679ff0dfec0ae838bf7922f88eba377ed16c9af7726d6b220c6d5c798e8bc1588442a02f1db84b5a532c24aea8878ffeb440025464d517bb15b1a7
   languageName: node
   linkType: hard
 
@@ -13804,9 +13814,9 @@ __metadata:
     "@types/uuid": 10.0.0
     "@typescript-eslint/eslint-plugin": 7.18.0
     "@typescript-eslint/parser": 7.18.0
-    "@uppy/core": 4.4.3
+    "@uppy/core": 4.4.7
     "@uppy/drop-target": 3.1.1
-    "@uppy/file-input": 4.1.1
+    "@uppy/file-input": 4.1.3
     "@uppy/progress-bar": 4.2.1
     "@uppy/xhr-upload": 4.3.3
     "@wdio/cli": 9.15.0
