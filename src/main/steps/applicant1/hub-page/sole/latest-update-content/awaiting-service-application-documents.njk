@@ -28,6 +28,6 @@
 <h3 class="govuk-heading-s">{{ serviceApplicationSubmitted.happensNextHeading }}</h3>
 <p class="govuk-body">{{ serviceApplicationSubmitted.happensNextLine1 }}</p>
 <p class="govuk-body">{{ serviceApplicationSubmitted.happensNextLine2 }}</p>
-{% if serviceApplicationType == 'alternative service' %}
+{% if userCase.alternativeServiceType == 'alternativeService' %}
     <p class="govuk-body">{{ alternativeService.alternativeServiceLine1 }}</p>
 {% endif %}

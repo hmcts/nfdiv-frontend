@@ -46,7 +46,7 @@
   <h2 class="govuk-heading-l">{{ happensNextHeading }}</h2>
   <p class="govuk-body">{{ happensNextLine1 }}</p>
   <p class="govuk-body">{{ happensNextLine2 }}</p>
-  {% if serviceApplicationType == 'alternative service' %}
+  {% if userCase.alternativeServiceType == 'alternativeService' %}
     <p class="govuk-body">{{ alternativeService.alternativeServiceLine1 }}</p>
   {% endif %}
 

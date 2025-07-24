@@ -292,7 +292,7 @@ const en = (
         ? 'If your help with fees reference number is accepted, the'
         : 'The'
     } court will review your application and any evidence you have submitted.${
-      serviceApplicationType !== 'alternative service'
+      userCase?.alternativeServiceType !== AlternativeServiceType.ALTERNATIVE_SERVICE
         ? ` If your application is successful, your ${
             isDivorce ? 'divorce' : 'dissolution'
           } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`
