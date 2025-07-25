@@ -15,9 +15,11 @@ export default class WithdrawServiceApplicationPostController extends PostContro
     try {
       await super.save(req, {}, WITHDRAW_SERVICE_APPLICATION);
     } catch (err) {
-      logger.error(`Failed to withdraw citizen case: ${req.session.userCase.caseReference}, error: ${err}`);
+      logger.error(
+        `Failed to withdraw service application for case: ${req.session.userCase.caseReference}, error: ${err}`
+      );
 
-      throw new Error('Failed to withdraw case. Please try again later.');
+      throw new Error('Failed to withdraw service application. Please try again later.');
     }
 
     req.session.save(err => {
