@@ -20,6 +20,10 @@ export const proxyList: {
       ),
   },
   {
+    endpoints: ['/downloads/service-application'],
+    path: (req: AppRequest): string => getPath(req, req.session.userCase?.serviceApplicationAnswers),
+  },
+  {
     endpoints: ['/downloads/certificate-of-service'],
     path: (req: AppRequest): string =>
       getPath(

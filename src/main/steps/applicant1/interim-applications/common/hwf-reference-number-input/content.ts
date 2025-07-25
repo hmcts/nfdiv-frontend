@@ -41,7 +41,7 @@ export const form: FormContent = {
         maxLength: 11,
       },
       classes: 'govuk-!-width-one-third',
-      label: '',
+      label: l => l.title,
       labelHidden: true,
       hint: l => l.refExample,
       validator: isInvalidHelpWithFeesRef,

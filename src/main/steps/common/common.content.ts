@@ -1,18 +1,22 @@
 import config from 'config';
+import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
+import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
-
-import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
 export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
   generalApplication: {
+    for: 'for',
+    to: 'to',
     deemed: 'deemed service',
+    deemedCode: 'D11',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -168,7 +172,10 @@ const cy: typeof en = {
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   generalApplication: {
-    deemed: 'deemed service',
+    for: 'am',
+    to: 'i',
+    deemed: 'gyflwyno tybiedig',
+    deemedCode: 'D11',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
@@ -363,6 +370,19 @@ export const generateCommonContent = ({
   const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
     isDivorce ? 'Divorce' : 'Civil'
   }&party=${feedbackParty}`;
+  const caseHasBeenIssued = !!userCase?.issueDate;
+  const referenceNumber = formattedCaseId(userCase?.id);
+
+  const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
+  const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
+  const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
+  const serviceApplicationResponseDate = getFormattedDate(
+    dayjs(userCase?.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    language
+  );
+  const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
 
   return {
     ...commonTranslations,
@@ -376,6 +396,8 @@ export const generateCommonContent = ({
     userCase,
     userEmail,
     isJointApplication,
+    caseHasBeenIssued,
+    hasServiceApplicationInProgress,
     isAmendableStates,
     isClarificationAmendableState,
     isRequestForInformationAmendableState,
@@ -386,6 +408,13 @@ export const generateCommonContent = ({
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
+    referenceNumber,
+    serviceApplicationType,
+    serviceApplicationDate,
+    serviceApplicationResponseDate,
+    serviceApplicationFeeRequired,
+    serviceApplicationDocsAllProvided,
+    serviceApplicationSubmittedOnline,
   };
 };
 
@@ -400,6 +429,8 @@ export type CommonContent = typeof en & {
   partner: string;
   userEmail?: string;
   isJointApplication: boolean;
+  caseHasBeenIssued: boolean;
+  hasServiceApplicationInProgress: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
@@ -411,4 +442,10 @@ export type CommonContent = typeof en & {
   isGeneralConsiderationCoPronounced: boolean;
   isPendingHearingOutcomeCoPronounced: boolean;
   isPendingHearingOutcomeFoRequested: boolean;
+  serviceApplicationType: string;
+  serviceApplicationDate: string | false;
+  serviceApplicationResponseDate: string | false;
+  serviceApplicationFeeRequired: boolean;
+  serviceApplicationDocsAllProvided: boolean;
+  serviceApplicationSubmittedOnline: boolean;
 };
