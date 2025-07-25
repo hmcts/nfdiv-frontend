@@ -24,6 +24,7 @@ import {
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
+  WITHDRAW_SERVICE_APPLICATION,
 } from '../../../urls';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
@@ -281,6 +282,11 @@ const en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
+    withdrawText: `If your circumstances have changed or you want to try something else, you can withdraw this ${serviceApplicationType} application after which you can view your options to proceed with your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    withdrawLinkText: 'I want to withdraw this application',
+    withdrawLinkUrl: WITHDRAW_SERVICE_APPLICATION,
   },
   serviceApplicationSubmitted: {
     line1: `You have submitted your application for ${serviceApplicationType}.`,
@@ -698,6 +704,11 @@ const cy: typeof en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
+    withdrawText: `If your circumstances have changed or you want to try something else, you can withdraw this ${serviceApplicationType} application after which you can view your options to proceed with your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    withdrawLinkText: 'I want to withdraw this application',
+    withdrawLinkUrl: WITHDRAW_SERVICE_APPLICATION,
   },
   serviceApplicationSubmitted: {
     line1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
