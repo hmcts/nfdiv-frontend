@@ -202,7 +202,7 @@ function updateChatWidget(status) {
    Bootstrap on DOM ready
 --------------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', async () => {
-  if (!getGenesysConfig(genesysConfigId, requiredConfigAttributes)){
+  if (!getGenesysConfig(genesysConfigId, requiredConfigAttributes)) {
     return;
   }
   // const chatContent = document.getElementById('chatContent');
