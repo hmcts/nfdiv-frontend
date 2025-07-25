@@ -22,8 +22,9 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerNewEmailOrAddress,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -193,6 +194,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
     'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse: 'applicant1NoResponseSendPapersAgainOrTrySomethingElse',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -468,9 +470,10 @@ export interface Case {
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
-  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse?: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
   applicant1InterimAppsHaveHwfReference?: YesOrNo;
