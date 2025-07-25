@@ -8,15 +8,15 @@ const requiredConfigAttributes = [
   'genesysApiKey',
 ];
 
-function getGenesysConfig(configElemId: string, requiredAttributes: string[]) {
+function getGenesysConfig(configElemId: string, requiredAttributes: string[]): boolean {
   if (requiredAttributes.length < 1) {
     console.error('No required attributes provided.');
-    return;
+    return false;
   }
   const genesysConfigElem = document.getElementById(configElemId);
   if (!genesysConfigElem) {
     console.error('Genesys configuration element not found.');
-    return;
+    return false;
   }
   const missingAttributes: string[] = [];
   requiredAttributes.forEach(attribute => {
@@ -29,8 +29,9 @@ function getGenesysConfig(configElemId: string, requiredAttributes: string[]) {
   });
   if (missingAttributes.length > 0) {
     console.error('Missing required attributes:', missingAttributes.join(', '));
-    return;
+    return false;
   }
+  return true;
 }
 
 /* ---------------------------------------------------------------
@@ -201,7 +202,9 @@ function updateChatWidget(status) {
    Bootstrap on DOM ready
 --------------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', async () => {
-  getGenesysConfig(genesysConfigId, requiredConfigAttributes);
+  if (!getGenesysConfig(genesysConfigId, requiredConfigAttributes)){
+    return;
+  }
   // const chatContent = document.getElementById('chatContent');
   // chatContent.innerHTML = '<p><span class="genesys-spinner"></span>{{ checkingAvailability }}</p>';
   renderSpinner();
