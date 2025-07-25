@@ -148,6 +148,10 @@ Then('the page should show an error for field {string}', (fieldName: string) => 
   I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
 });
 
+Then('the page should show an error for field {string}', (fieldName: string) => {
+  I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
+});
+
 Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
 });

@@ -11,11 +11,17 @@ const en = ({
   openingTimes,
   closingTimes,
   contactWebForm,
+  serviceApplicationType,
 }: CommonContent) => ({
   applicationDownload: {
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
     text: `View the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} (PDF)`,
+  },
+  serviceApplicationDownload: {
+    reference: 'Service-application',
+    link: '/downloads/service-application',
+    text: `View your ${serviceApplicationType} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
@@ -130,11 +136,17 @@ const cy: typeof en = ({
   openingTimes,
   closingTimes,
   contactWebForm,
+  serviceApplicationType,
 }: CommonContent) => ({
   applicationDownload: {
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
     text: `Gweld y cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
+  },
+  serviceApplicationDownload: {
+    reference: 'Service-application',
+    link: '/downloads/service-application',
+    text: `Gweld y cais am ${serviceApplicationType} (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
