@@ -13,7 +13,7 @@ const logger = Logger.getLogger('withdraw-service-application-controller');
 export default class WithdrawServiceApplicationPostController extends PostController<AnyObject> {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     try {
-      await super.save(req, {}, WITHDRAW_SERVICE_APPLICATION);
+      req.session.userCase = await super.save(req, {}, WITHDRAW_SERVICE_APPLICATION);
     } catch (err) {
       logger.error(
         `Failed to withdraw service application for case: ${req.session.userCase.caseReference}, error: ${err}`
