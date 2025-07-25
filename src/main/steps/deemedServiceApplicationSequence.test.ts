@@ -9,6 +9,7 @@ import {
   DEEMED_SERVICE_APPLICATION,
   HELP_WITH_FEES_DEEMED,
   HOW_DO_YOU_KNOW_DEEMED,
+  HUB_PAGE,
   HWF_REFERENCE_NUMBER_DEEMED,
   HWF_REFERENCE_NUMBER_INPUT_DEEMED,
   PAY_YOUR_SERVICE_FEE,
@@ -123,7 +124,7 @@ describe('Deemed Service Application Sequence test', () => {
   });
 
   describe('CHECK_ANSWERS_DEEMED', () => {
-    test('CHECK_ANSWERS_DEEMED should redirect to PAY_YOUR_SERVICE_FEE if payment is required', () => {
+    test('CHECK_ANSWERS_DEEMED', () => {
       const step = deemedServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DEEMED) as Step;
       const caseData = {
         alternativeServiceFeeRequired: YesOrNo.YES,
@@ -131,9 +132,9 @@ describe('Deemed Service Application Sequence test', () => {
 
       expect(step.getNextStep(caseData)).toBe(PAY_YOUR_SERVICE_FEE);
     });
-
     test('CHECK_ANSWERS_DEEMED should redirect to SERVICE_APPLICATION_SUBMITTED if payment is not required', () => {
       const step = deemedServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DEEMED) as Step;
+      expect(step.getNextStep({})).toBe(HUB_PAGE); // Correct this when the rest of the journey is implemented
       const caseData = {
         alternativeServiceFeeRequired: YesOrNo.NO,
       };
