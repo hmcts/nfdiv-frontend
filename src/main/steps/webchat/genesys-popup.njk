@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{{ chatWithUs }}</title>
+  <script type="text/javascript">
+    (function (g, e, n, es) {
+      g._genesysJs = e;
+      g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
+      g[e].t = Date.now();
+      g[e].c = es;
+
+      /* inject the Genesys bootstrap script */
+      var s = document.createElement('script');
+      s.async = true;
+      s.src   = n;
+      document.head.appendChild(s);
+    })(window, 'Genesys',
+       '{{ globals.webchat.genesysBaseUrl }}/genesys-bootstrap/genesys.min.js',
+       { environment: '{{ globals.webchat.genesysEnvironment }}', deploymentId: '{{ globals.webchat.genesysDeploymentId }});
+
+    Genesys("command", "Database.set", {
+      messaging: { customAttributes: { webReferrerPage: '{{ globals.webchat.genesysReferrerPage }}'}}
+          },
+      function(data){ /* fulfilled, returns data */}, function(){ /* rejected */ }
+    );
+
+    window.addEventListener('load', function () {
+      Genesys('subscribe', 'Messenger.ready', function () {
+        Genesys('command', 'Messenger.open');
+      });
+    });
+  <\/script>
+</head>
+<body class="genesys-popup-body">
+  <div id="genesys-web-messaging"></div>
+</body>
+</html>
