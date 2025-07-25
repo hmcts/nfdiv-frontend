@@ -88,6 +88,12 @@ webchat:
   avayaUrl: 'webchat.pp.ctsc.hmcts.net'
   avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
   avayaService: 'Divorce'
+  genesysReferrerPage: 'Divorce Site'
+  genesysDeploymentId: '3ccd9792-0530-4a2e-9e84-aaf8a59c0ef5'
+  genesysBaseUrl: 'https://apps.euw2.pure.cloud'
+  genesysEnvironment: 'prod-euw2'
+  genesysKervBaseUrl: 'https://api.hmcts.hs-cx.com/web-availability'
+  genesysApiKey: 'ym6o8p96s32iYJ7p7uWlB4UlSgl576Ef7gg5DxJY'
 dynatrace:
   dynatraceUrl: 'https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/2ab4686fc177447_complete.js'
 serviceAddress:
