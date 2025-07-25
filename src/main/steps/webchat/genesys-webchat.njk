@@ -2,10 +2,10 @@
 <script type="text/javascript" src="/jira/ruxitagentjs_ICA7NVfhqrux_10317250630095842.js" data-dtconfig="app=10a49b80ad3f1d2e|cuc=ogh5o57r|mdl=mdcc6=20|owasp=1|mel=100000|featureHash=ICA7NVfhqrux|md=mdcc1=a[id^e^dqheader-details-user-fullname^dq].dataset.username,mdcc2=a[name='ajs-remote-user']@content,mdcc3=a[name='ajs-issue-key']@content,mdcc4=a#key-val,mdcc5=bdocument.referrer,mdcc6=bnavigator.userAgent,mdcc7=a#footer-build-information,mdcc8=bnavigator.connection.downlink|lastModification=1752839996695|tp=500,50,0|rdnt=1|uxrgce=1|agentUri=/jira/ruxitagentjs_ICA7NVfhqrux_10317250630095842.js|reportUrl=/jira/rb_bf00910jpo|rid=RID_-86454413|rpid=-1972245221|domain=hmcts.net"></script>
 <!--  Config — change these in one place-->
 <genesys-config class="hidden" id="genesysConfig"
-data-genesysDeploymentId="{{globals.webchat.genesysDeploymentId}}"
-data-genesysKervBaseUrl="{{globals.webchat.genesysKervUrl}}"
-data-genesysApiKey="{{globals.webchat.genesysApiKey}}"
-data-genesysHtml="{% include genesys-popup.njk %}"
+data-genesysDeploymentId="{{ globals.webchat.genesysDeploymentId }}"
+data-genesysKervBaseUrl="{{ globals.webchat.genesysKervUrl }}"
+data-genesysApiKey="{{ globals.webchat.genesysApiKey }}"
+data-genesysHtml="{% include 'genesys/genesys-popup.njk' %}"
 data-genesysPopupBlocked="{{ popupBlocked }}">
 </genesys-config>
 
@@ -15,25 +15,25 @@ data-genesysPopupBlocked="{{ popupBlocked }}">
       <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6" id="chatWidget">
         <div id="chatContent" class="govuk-body">
           <div id="genesysSpinner">
-            {% include genesys-spinner.njk %}
+            {% include "genesys/genesys-spinner.njk" %}
           </div>
           <div class="hidden" id="genesysOpenWidget">
-            {% include genesys-open-widget.njk %}
+            {% include "genesys/genesys-open-widget.njk" %}
           </div>
           <div class="hidden" id="genesysBusyNoAgentsWidget">
-            {% include genesys-busy-no-agents-widget.njk %}
+            {% include "genesys/genesys-busy-no-agents-widget.njk" %}
           </div>
           <div class="hidden" id="genesysBusyEWTWidget">
-            {% include genesys-busy-ewt-widget.njk %}
+            {% include "genesys/genesys-busy-ewt-widget.njk" %}
           </div>
           <div class="hidden" id="genesysClosedWidget">
-            {% include genesys-closed-widget.njk %}
+            {% include "genesys/genesys-closed-widget.njk" %}
           </div>
           <div class="hidden" id="genesysErrorWidget">
-            {% include genesys-error-widget.njk %}
+            {% include "genesys/genesys-error-widget.njk" %}
           </div>
           <div class="hidden" id="genesysErrorCheckingAvailabilityWidget">
-            {% include genesys-error-checking-availability-widget.njk %}
+            {% include "genesys/genesys-error-checking-availability-widget.njk" %}
           </div>
         </div>
       </div>
