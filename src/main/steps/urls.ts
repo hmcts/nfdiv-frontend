@@ -160,6 +160,10 @@ export const HAVE_THEY_RECEIVED_REPRESENTED: PageLink =
 export const EVIDENCE_RECEIVED_APPLICATION: PageLink =
   '/interim-applications/no-response/evidence-received-application';
 export const NEW_POSTAL_AND_EMAIL: PageLink = '/interim-applications/no-response/new-postal-and-email';
+export const NO_NEW_ADDRESS: PageLink = '/interim-applications/no-response/no-new-address';
+export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';
+export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
+export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
 export const NEW_POSTAL_ADDRESS: PageLink = '/interim-applications/no-response/new-postal-address';
 export const NEW_EMAIL: PageLink = '/interim-applications/no-response/new-email-address';
 export const PROVIDE_NEW_EMAIL_ADDRESS: PageLink = '/interim-applications/no-response/provide-new-email-address';
@@ -168,10 +172,6 @@ export const APPLY_FOR_ALTERNATIVE_SERVICE: PageLink =
 export const NEW_CONTACT_DETAIL_CHECK_ANSWERS: PageLink = '/interim-applications/no-response/check-your-answers';
 export const NO_RESPONSE_DETAILS_UPDATED: PageLink = '/interim-applications/no-response/details-updated';
 
-export const NO_NEW_ADDRESS: PageLink = '/interim-applications/no-response/no-new-address';
-export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';
-export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
-export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
 export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/partner-in-prison';
@@ -188,3 +188,6 @@ export const UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-se
 export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/why-no-evidence';
 export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/interim-applications/deemed-service/how-do-you-know';
 export const CHECK_ANSWERS_DEEMED: PageLink = '/interim-applications/deemed-service/check-answers';
+export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
+export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
+export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
