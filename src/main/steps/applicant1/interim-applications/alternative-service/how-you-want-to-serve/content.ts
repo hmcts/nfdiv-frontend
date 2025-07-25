@@ -4,12 +4,16 @@ import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isPhoneNoFilledAndValid } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ partner }: CommonContent) => ({
-  title: 'Choose how you want to send the divorce papers',
+const en = ({ partner, isDivorce }: CommonContent) => ({
+  title: `Choose how you want to send the ${
+    isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+  }`,
   line1: `You will need to provide evidence that your ${partner} actively uses each method you choose.`,
   line2: `You can only use social media platforms where you or a friend or relative can upload documents in a private message to your ${partner}.`,
   line3: `You will be responsible for making sure the papers are sent to your ${partner} in the way you choose, even if someone helps you. You will need to complete a certificate of service form (FP6) and send it to the court once you have sent the papers.`,
-  howToSend: `How do you want to send the divorce papers to your ${partner}?`,
+  howToSend: `How do you want to send the ${
+    isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+  } to your ${partner}?`,
   selectAllThatApply: 'Select all that apply',
   textMessage: 'Text message',
   enterMobileNumberLabel: 'Enter a mobile phone number',
@@ -40,12 +44,16 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: 'Choose how you want to send the divorce papers',
+const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
+  title: `Choose how you want to send the ${
+    isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+  }`,
   line1: `You will need to provide evidence that your ${partner} actively uses each method you choose.`,
   line2: `You can only use social media platforms where you or a friend or relative can upload documents in a private message to your ${partner}.`,
   line3: `You will be responsible for making sure the papers are sent to your ${partner} in the way you choose, even if someone helps you. You will need to complete a certificate of service form (FP6) and send it to the court once you have sent the papers.`,
-  howToSend: `How do you want to send the divorce papers to your ${partner}?`,
+  howToSend: `How do you want to send the ${
+    isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+  } to your ${partner}?`,
   selectAllThatApply: 'Select all that apply',
   textMessage: 'Text message',
   enterMobileNumberLabel: 'Enter a mobile phone number',

@@ -46,6 +46,9 @@
   <h2 class="govuk-heading-l">{{ happensNextHeading }}</h2>
   <p class="govuk-body">{{ happensNextLine1 }}</p>
   <p class="govuk-body">{{ happensNextLine2 }}</p>
+  {% if isAlternativeService %}
+    <p class="govuk-body">{{ alternativeService.alternativeServiceLine1 }}</p>
+  {% endif %}
 
   <p class="govuk-body">
     <a class="govuk-link" href="/">{{ returnToHub }}</a>

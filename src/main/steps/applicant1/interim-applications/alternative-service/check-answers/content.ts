@@ -3,6 +3,7 @@ import { AlternativeServiceDifferentWays, AlternativeServiceMethod, YesOrNo } fr
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { CommonContent } from '../../../../common/common.content';
 import * as urls from '../../../../urls';
 import {
   form as checkAnswersForm,
@@ -10,6 +11,7 @@ import {
 } from '../../common/check-answers/content';
 
 const en = (
+  { isDivorce }: CommonContent,
   useHwf,
   hwfReference,
   canUpload,
@@ -32,7 +34,9 @@ const en = (
     alternativeServiceReason: 'Why are you applying for alternative service?',
     alternativeServiceMethod: 'How do you want to send the papers?',
     alternativeServicePartnerEmail: 'Email Address?',
-    alternativeServiceDifferentWays: 'Choose how you want to send the divorce papers',
+    alternativeServiceDifferentWays: `Choose how you want to send the ${
+      isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+    }`,
     alternativeServicePartnerPhone: 'Mobile phone number?',
     alternativeServicePartnerWANumber: 'WhatsApp number?',
     alternativeServicePartnerSocialMedia: 'Social media details?',
@@ -107,6 +111,7 @@ const en = (
 });
 
 const cy: typeof en = (
+  { isDivorce }: CommonContent,
   useHwf,
   hwfReference,
   canUpload,
@@ -129,7 +134,9 @@ const cy: typeof en = (
     alternativeServiceReason: 'Why are you applying for alternative service?',
     alternativeServiceMethod: 'How do you want to send the papers?',
     alternativeServicePartnerEmail: 'Email Address?',
-    alternativeServiceDifferentWays: 'Choose how you want to send the divorce papers',
+    alternativeServiceDifferentWays: `Choose how you want to send the ${
+      isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+    }`,
     alternativeServicePartnerPhone: 'Mobile phone number?',
     alternativeServicePartnerWANumber: 'WhatsApp number?',
     alternativeServicePartnerSocialMedia: 'Social media details?',
@@ -231,6 +238,7 @@ export const generateContent: TranslationFn = content => {
   const alternativeServicePartnerSocialMedia = content.userCase.applicant1AltServicePartnerSocialDetails;
   const alternativeServicePartnerOtherDetails = content.userCase.applicant1AltServicePartnerOtherDetails;
   const translations = languages[content.language](
+    content,
     useHwf,
     hwfReference,
     canUpload,

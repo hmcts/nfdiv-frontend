@@ -1794,6 +1794,7 @@ export const enum AlternativeServiceType {
   DEEMED = 'deemed',
   DISPENSED = 'dispensed',
   BAILIFF = 'bailiff',
+  ALTERNATIVE_SERVICE = 'alternativeService',
 }
 
 export const enum Applicant2Represented {
