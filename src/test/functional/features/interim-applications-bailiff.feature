@@ -159,7 +159,10 @@ Feature: Bailiff service journey
     Then the page should include element "#payYourServiceFeeTitle"
 
     Given I pay and submit the service application
-    Then the page should include "You have submitted your application"
+    Then the page should include "You have submitted your request"
+
+    Given I click element "#returnToHub"
+    Then the page should include "considering your request for bailiff service"
 
   @nightly
   Scenario: Bailiff service HWF journey
@@ -291,5 +294,4 @@ Feature: Bailiff service journey
 
     Given I click element "#applicant1InterimAppsStatementOfTruth"
     When I click submit
-    Then the page should include "You have submitted your application"
-
+    Then the page should include "You have submitted your request"

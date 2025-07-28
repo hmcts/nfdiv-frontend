@@ -25,6 +25,7 @@ import {
   PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
 } from '../../../urls';
+import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -230,7 +231,11 @@ const en = (
   },
   finalOrderComplete: {},
   awaitingServiceConsiderationOrBailiffReferral: {
-    line1: `The court is currently considering your ${serviceApplicationType} application that you submitted on ${serviceApplicationDate}.`,
+    line1: `The court is currently considering your ${
+      userCase.alternativeServiceType === AlternativeServiceType.BAILIFF
+        ? `request for ${serviceApplicationType}`
+        : `${serviceApplicationType} application`
+    } that you submitted on ${serviceApplicationDate}.`,
     line2: `We will email you by ${serviceApplicationResponseDate} once a decision has been made to tell you your next steps.`,
   },
   serviceApplicationRejected: {
@@ -283,8 +288,8 @@ const en = (
     linkUrl: PAY_YOUR_SERVICE_FEE,
   },
   serviceApplicationSubmitted: {
-    line1: `You have submitted your application for ${serviceApplicationType}.`,
-    line2Hwf:
+    introLine1: `You have submitted your application for ${serviceApplicationType}.`,
+    introLine2:
       'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
     happensNextHeading: 'What happens next',
     happensNextLine1: `${
@@ -297,10 +302,8 @@ const en = (
     happensNextLine2: `We will email you ${
       serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
     }to let you know whether your application has been successful.`,
-  },
-  awaitingServiceApplicationDocuments: {
-    heading1: 'Send your evidence to the court',
-    line1: 'You now need to send us your documents. You can do this in the following ways:',
+    sendDocumentsHeading: 'Send your evidence to the court',
+    sendDocumentsLine1: 'You now need to send us your documents. You can do this in the following ways:',
   },
   awaitingBailiffService: {
     line1: `Your application for bailiff service was successful. The court bailiff will attempt to serve the ${
@@ -700,8 +703,8 @@ const cy: typeof en = (
     linkUrl: PAY_YOUR_SERVICE_FEE,
   },
   serviceApplicationSubmitted: {
-    line1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
-    line2Hwf:
+    introLine1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
+    introLine2:
       "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
     happensNextHeading: 'Beth fydd yn digwydd nesaf',
     happensNextLine1: `Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ${
@@ -712,10 +715,9 @@ const cy: typeof en = (
         ? `erbyn ${serviceApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
         : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
     }.`,
-  },
-  awaitingServiceApplicationDocuments: {
-    heading1: 'Anfon eich tystiolaeth i’r llys',
-    line1: 'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
+    sendDocumentsHeading: 'Anfon eich tystiolaeth i’r llys',
+    sendDocumentsLine1:
+      'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
   },
   awaitingBailiffService: {
     line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${
@@ -928,6 +930,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
+    serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
     displayState,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
