@@ -16,6 +16,7 @@ import {
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
+import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
@@ -585,6 +586,9 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   ...noResponseJourneySequence,
   ...deemedServiceApplicationSequence,
+  ...noResponseJourneySequence,
+  ...deemedServiceApplicationSequence,
+  ...serviceApplicationPaymentSequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
