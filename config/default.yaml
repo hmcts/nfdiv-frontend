@@ -27,6 +27,7 @@ fees:
   deemedService: GeneralAppWithoutNotice
   dispensedService: GeneralAppWithoutNotice
   searchForAddress: GeneralAppWithoutNotice
+  searchGovRecords: GeneralAppWithoutNotice
   d8bFormSubmission: DivAnswerReceived
   updateApplication: DivorceAmendPetition
   finalOrderApplicationFee: GAOnNotice

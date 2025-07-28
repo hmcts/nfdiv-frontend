@@ -13,6 +13,7 @@ export const en = {
   applyForDissolution: 'apply to end a civil partnership',
   generalApplication: {
     deemed: 'deemed service',
+    searchGovRecords: 'searchGovRecords',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -169,6 +170,7 @@ const cy: typeof en = {
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   generalApplication: {
     deemed: 'deemed service',
+    searchGovRecords: 'searchGovRecords',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',

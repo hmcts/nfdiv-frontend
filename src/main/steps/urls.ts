@@ -188,3 +188,5 @@ export const UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-se
 export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/why-no-evidence';
 export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/interim-applications/deemed-service/how-do-you-know';
 export const CHECK_ANSWERS_DEEMED: PageLink = '/interim-applications/deemed-service/check-answers';
+export const SEARCH_GOV_RECORDS: PageLink = '/interim-applications/no-response/search-gov-records-application';
+export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/no-response/help-with-fees-search-gov-records';
