@@ -1,3 +1,4 @@
+import { AlternativeServiceType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 
@@ -40,6 +41,31 @@ const en = ({
     serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
   }to let you know whether your application has been successful.`,
   returnToHub: 'Return to hub screen',
+  // Application type specific content overrides:
+  contentOverrides: {
+    bailiff: {
+      title: 'Request submitted',
+      introLine1: 'You have submitted your request for bailiff service.',
+      happensNextLine1: `${
+        !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+          ? 'If your help with fees reference number is accepted, the'
+          : 'The'
+      } court will review your request and any evidence you have submitted.`,
+      happensNextLine2: `We will email you ${
+        serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+          ? `by ${serviceApplicationResponseDate} `
+          : ''
+      }to let you know whether your request has been successful.`,
+      happensNextLine3:
+        'If the judge approves your request for bailiff service, it will be passed to the bailiff for review.',
+      sendDocumentsHeading: `Send your ${partner}'s photo to the court`,
+      sendDocumentsLine1: `You can send us your ${partner}'s photo in the following ways:`,
+      uploadGuidance: 'Make sure your picture:',
+      uploadGuidanceBulletOne: `Clearly shows your ${partner}'s face`,
+      uploadGuidanceBulletTwo: 'Does not include any other people, to avoid confusion',
+      uploadGuidanceBulletThree: 'Does not include any children',
+    },
+  },
 });
 
 // @TODO Welsh
@@ -80,6 +106,27 @@ const cy: typeof en = ({
       : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
   }.`,
   returnToHub: 'Dychwelyd i sgrin yr hyb',
+  // Application type specific content overrides:
+  contentOverrides: {
+    bailiff: {
+      title: 'Request submitted',
+      introLine1: 'You have submitted your request for bailiff service.',
+      happensNextLine1: 'The court will consider your request and any evidence you have submitted.',
+      happensNextLine2: `We will email you ${
+        serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+          ? `by ${serviceApplicationResponseDate} `
+          : ''
+      }to let you know whether your request has been successful.`,
+      happensNextLine3:
+        'If the judge approves your request for bailiff service, it will be passed to the bailiff for review.',
+      sendDocumentsHeading: `Send your ${partner}'s photo to the court`,
+      sendDocumentsLine1: `You can send us your ${partner}'s photo in the following ways:`,
+      uploadGuidance: 'Make sure your picture:',
+      uploadGuidanceBulletOne: `Clearly shows your ${partner}'s face`,
+      uploadGuidanceBulletTwo: 'Does not include any other people, to avoid confusion',
+      uploadGuidanceBulletThree: 'Does not include any children',
+    },
+  },
 });
 
 const languages = {
@@ -88,7 +135,13 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const defaultTranslations = languages[content.language](content);
+  const serviceType = content.userCase?.alternativeServiceType as AlternativeServiceType;
 
-  return { ...translations };
+  const contentOverrides = defaultTranslations.contentOverrides[serviceType] || {};
+
+  return {
+    ...defaultTranslations,
+    ...contentOverrides,
+  };
 };
