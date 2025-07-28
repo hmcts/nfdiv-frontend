@@ -20,12 +20,12 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     fullName: 'full name',
     dateOfBirth: 'date of birth',
   },
-  line4:
+  line3:
     'It will help with the search if you can also provide their National Insurance number and their last known address, but it is not mandatory.',
-  line5: `Government record searches are typically completed within 6-8 weeks. If the search is successful, your ${partner}'s contact details will only be shared with the court and not with you. The court will send the ${
+  line4: `Government record searches are typically completed within 6-8 weeks. If the search is successful, your ${partner}'s contact details will only be shared with the court and not with you. The court will send the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } to your ${partner}.`,
-  line6: `There is a fee of ${getFee(
+  line5: `There is a fee of ${getFee(
     config.get('fees.searchForAddress')
   )} to apply to search government records, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
@@ -52,12 +52,12 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
     fullName: 'full name',
     dateOfBirth: 'date of birth',
   },
-  line4:
+  line3:
     'It will help with the search if you can also provide their National Insurance number and their last known address, but it is not mandatory.',
-  line5: `Government record searches are typically completed within 6-8 weeks. If the search is successful, your ${partner}'s contact details will only be shared with the court and not with you. The court will send the ${
+  line4: `Government record searches are typically completed within 6-8 weeks. If the search is successful, your ${partner}'s contact details will only be shared with the court and not with you. The court will send the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } to your ${partner}.`,
-  line6: `There is a fee of ${getFee(
+  line5: `There is a fee of ${getFee(
     config.get('fees.searchForAddress')
   )} to apply to search government records, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'

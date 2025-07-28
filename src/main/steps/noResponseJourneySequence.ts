@@ -7,6 +7,7 @@ import {
 } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
+import { searchGovRecordsJourneySequence } from './searchGovRecordsJourneySequence';
 import {
   APPLY_FOR_ALTERNATIVE_SERVICE,
   DEEMED_SERVICE_APPLICATION,
@@ -114,4 +115,5 @@ export const noResponseJourneySequence: Step[] = [
       return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SERVE_AGAIN;
     },
   },
+  ...searchGovRecordsJourneySequence,
 ];
