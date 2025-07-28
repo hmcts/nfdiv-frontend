@@ -271,7 +271,7 @@ describe('to-api-format', () => {
     expect(apiFormat).toMatchObject({
       applicant1HWFReferenceNumber: '',
       applicant2HWFReferenceNumber: '',
-      marriageDate: '',
+      marriageDate: undefined,
     });
   });
 
