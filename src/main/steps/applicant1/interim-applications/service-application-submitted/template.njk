@@ -10,6 +10,55 @@
     <h1 id="serviceApplicationSubmittedTitle" class="govuk-panel__title">{{ title }}</h1>
   </div>
   <br/>
+  <p class="govuk-body">{{ introLine1 }}</p>
+  {% if serviceApplicationDocsAllProvided and not serviceApplicationFeeRequired %}
+    <p class="govuk-body">{{ introLine2 }}</p>
+  {% endif %}
 
-  {% include './latest-update.njk' %}
+  {% if not serviceApplicationDocsAllProvided %}
+    <h2 class="govuk-heading-l">{{ sendDocumentsHeading }}</h2>
+    <p class="govuk-body">{{ sendDocumentsLine1 }}</p>
+
+    {% set sendingDocumentsByOnlineForm %}
+        <p class="govuk-body">{{ documentsByOnlineFormSteps.line1 }} <a href="{{ contactWebForm }}">{{ documentsByOnlineFormSteps.line2}}</a> </p>
+        <p class="govuk-body">{{ documentsByOnlineFormSteps.line3 }}</p>
+    {% endset %}
+    {{ govukDetails({
+        summaryText: documentsByOnlineForm,
+        html: sendingDocumentsByOnlineForm
+    }) }}
+
+    {% set sendingDocumentsByPost %}
+        <ol class="govuk-list govuk-list--number">
+        {% for property, step in documentsByPostSteps %}
+            <li>{{ step }}</li>
+        {% endfor %}
+        </ol>
+        {{ serviceAddressMacro(serviceAddress) }}
+        <p class="govuk-body">{{ documentsByPostMoreDetails }}</p>
+    {% endset %}
+    {{ govukDetails({
+        summaryText: documentsByPost,
+        html: sendingDocumentsByPost
+    }) }}
+
+    {% if uploadGuidance %}
+        <p class="govuk-body">{{ uploadGuidance }}</p>
+        <ul class="govuk-list govuk-list--bullet">
+        <li>{{ uploadGuidanceBulletOne }}</li>
+        <li>{{ uploadGuidanceBulletTwo }}</li>
+        <li>{{ uploadGuidanceBulletThree }}</li>
+        </ul>
+    {% endif %}
+  {% endif %}
+
+  <h2 class="govuk-heading-l">{{ happensNextHeading }}</h2>
+  <p class="govuk-body">{{ happensNextLine1 }}</p>
+  <p class="govuk-body">{{ happensNextLine2 }}</p>
+  <p class="govuk-body">{{ happensNextLine3 }}</p>
+
+  <p class="govuk-body">
+      <a class="govuk-link" href="/" id="returnToHub">{{ returnToHub }}</a>
+  </p>
+
 {% endblock %}

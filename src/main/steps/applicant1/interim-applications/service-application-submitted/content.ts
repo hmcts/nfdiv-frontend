@@ -1,5 +1,4 @@
-import { AlternativeServiceType } from 'app/case/definition';
-
+import { AlternativeServiceType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import type { CommonContent } from '../../../common/common.content';
 

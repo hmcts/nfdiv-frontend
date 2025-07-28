@@ -295,3 +295,6 @@ Feature: Bailiff service journey
     Given I click element "#applicant1InterimAppsStatementOfTruth"
     When I click submit
     Then the page should include "You have submitted your request"
+
+    Given I click element "#returnToHub"
+    Then the page should include "help with fees reference number will be checked"

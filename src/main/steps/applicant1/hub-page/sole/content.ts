@@ -41,8 +41,6 @@ const en = (
     serviceApplicationType,
     serviceApplicationDate,
     serviceApplicationResponseDate,
-    serviceApplicationDocsAllProvided,
-    serviceApplicationFeeRequired,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -287,24 +285,6 @@ const en = (
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
   },
-  serviceApplicationSubmitted: {
-    introLine1: `You have submitted your application for ${serviceApplicationType}.`,
-    introLine2:
-      'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
-    happensNextHeading: 'What happens next',
-    happensNextLine1: `${
-      !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
-        ? 'If your help with fees reference number is accepted, the'
-        : 'The'
-    } court will review your application and any evidence you have submitted. If your application is successful, your ${
-      isDivorce ? 'divorce' : 'dissolution'
-    } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`,
-    happensNextLine2: `We will email you ${
-      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
-    }to let you know whether your application has been successful.`,
-    sendDocumentsHeading: 'Send your evidence to the court',
-    sendDocumentsLine1: 'You now need to send us your documents. You can do this in the following ways:',
-  },
   awaitingBailiffService: {
     line1: `Your application for bailiff service was successful. The court bailiff will attempt to serve the ${
       isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
@@ -454,8 +434,6 @@ const cy: typeof en = (
     serviceApplicationType,
     serviceApplicationResponseDate,
     serviceApplicationDate,
-    serviceApplicationFeeRequired,
-    serviceApplicationDocsAllProvided,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -701,23 +679,6 @@ const cy: typeof en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
-  },
-  serviceApplicationSubmitted: {
-    introLine1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
-    introLine2:
-      "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
-    happensNextHeading: 'Beth fydd yn digwydd nesaf',
-    happensNextLine1: `Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ${
-      isDivorce ? 'ysgariad' : 'diddymiad'
-    } yn mynd yn ei flaen heb ymateb gan eich ${partner}. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.`,
-    happensNextLine2: `Byddwn yn anfon e-bost atoch ${
-      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
-        ? `erbyn ${serviceApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
-        : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
-    }.`,
-    sendDocumentsHeading: 'Anfon eich tystiolaeth i’r llys',
-    sendDocumentsLine1:
-      'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
   },
   awaitingBailiffService: {
     line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${
