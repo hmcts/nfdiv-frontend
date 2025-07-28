@@ -41,7 +41,7 @@ const en = ({
     serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
   }to let you know whether your application has been successful.`,
   returnToHub: 'Return to hub screen',
-
+  // Application type specific content overrides:
   contentOverrides: {
     bailiff: {
       title: 'Request submitted',
@@ -106,7 +106,7 @@ const cy: typeof en = ({
       : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
   }.`,
   returnToHub: 'Dychwelyd i sgrin yr hyb',
-
+  // Application type specific content overrides:
   contentOverrides: {
     bailiff: {
       title: 'Request submitted',
