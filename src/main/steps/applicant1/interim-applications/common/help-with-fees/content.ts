@@ -78,7 +78,7 @@ export const generateContent: TranslationFn = content => {
     }
     case InterimApplicationType.SEARCH_GOV_RECORDS: {
       serviceType = generateCommonContent(content).generalApplication.searchGovRecords;
-      serviceFee = getFee(config.get('fees.searchGovRecords'));
+      serviceFee = getFee(config.get('fees.searchForAddress'));
       break;
     }
     default: {

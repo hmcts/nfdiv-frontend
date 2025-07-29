@@ -177,6 +177,14 @@ export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
 export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/partner-in-prison';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
   '/interim-applications/search-gov-records/search-gov-records-application';
+export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/help-with-fees-gov-records';
+export const WHY_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/why-gov-records';
+export const HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS: PageLink =
+  '/interim-applications/hwf-reference-number-input-gov-records';
+export const HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS: PageLink =
+  '/interim-applications/hwf-reference-number-gov-records';
+export const HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/apply-for-hwf-gov-records';
+
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
@@ -191,11 +199,3 @@ export const CHECK_ANSWERS_DEEMED: PageLink = '/interim-applications/deemed-serv
 export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
 export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
 export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
-export const SEARCH_GOV_RECORDS: PageLink = '/interim-applications/no-response/search-gov-records-application';
-export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/no-response/help-with-fees-gov-records';
-export const WHY_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/no-response/why-gov-records';
-export const HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS: PageLink =
-  '/interim-applications/no-response/hwf-reference-number-input-gov-records';
-export const HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS: PageLink =
-  '/interim-applications/no-response/hwf-reference-number-gov-records';
-export const HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS: PageLink = '/apply-for-hwf-gov-records';

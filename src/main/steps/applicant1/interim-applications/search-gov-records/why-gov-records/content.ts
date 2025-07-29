@@ -1,7 +1,6 @@
-import { isEmpty } from 'lodash';
-
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
@@ -31,12 +30,7 @@ export const form: FormContent = {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.whatIsAlreadyDone,
-      validator: value => {
-        const hasEnteredDetails = !isEmpty(value);
-        if (!hasEnteredDetails) {
-          return 'required';
-        }
-      },
+      validator: isFieldFilledIn,
     },
   },
   submit: {

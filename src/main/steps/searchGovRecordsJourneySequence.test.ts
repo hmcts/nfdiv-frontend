@@ -7,7 +7,7 @@ import {
   HUB_PAGE,
   HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS,
   HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS,
-  SEARCH_GOV_RECORDS,
+  SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_GOV_RECORDS_HWF,
   WHY_SEARCH_GOV_RECORDS,
 } from './urls';
@@ -15,7 +15,7 @@ import {
 describe('SEARCH_GOV_RECORDS', () => {
   test('Search gov records', () => {
     const caseData = {};
-    const step = searchGovRecordsJourneySequence.find(obj => obj.url === SEARCH_GOV_RECORDS) as Step;
+    const step = searchGovRecordsJourneySequence.find(obj => obj.url === SEARCH_GOV_RECORDS_APPLICATION) as Step;
     expect(step.getNextStep(caseData)).toBe(SEARCH_GOV_RECORDS_HWF);
   });
 

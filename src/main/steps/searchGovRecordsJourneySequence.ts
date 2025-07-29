@@ -8,14 +8,14 @@ import {
   HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS,
   HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS,
   PageLink,
-  SEARCH_GOV_RECORDS,
+  SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_GOV_RECORDS_HWF,
   WHY_SEARCH_GOV_RECORDS,
 } from './urls';
 
 export const searchGovRecordsJourneySequence: Step[] = [
   {
-    url: SEARCH_GOV_RECORDS,
+    url: SEARCH_GOV_RECORDS_APPLICATION,
     getNextStep: () => SEARCH_GOV_RECORDS_HWF,
   },
   {

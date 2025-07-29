@@ -16,8 +16,8 @@ export const en = {
     for: 'for',
     to: 'to',
     deemed: 'deemed service',
-    searchGovRecords: 'searchGovRecords',
-    deemedCode: 'D11',
+    searchGovRecords: 'search government records',
+    serviceCode: 'D11',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -176,8 +176,8 @@ const cy: typeof en = {
     for: 'am',
     to: 'i',
     deemed: 'gyflwyno tybiedig',
-    deemedCode: 'D11',
-    searchGovRecords: 'searchGovRecords',
+    serviceCode: 'D11',
+    searchGovRecords: 'search government records',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
