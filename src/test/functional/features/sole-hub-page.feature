@@ -51,7 +51,7 @@ Feature: Sole hub page
     And I select "I confirm that:"
 
     When I click submit
-    Then the page URL should be "/respondent/hub-page"
+    Then the page URL should be "/respondent/response-submitted"
     Given I set the case state to "Holding"
     When I go to "/"
     Then the page should include "You have responded to the divorce application. You do not have to do anything further."
