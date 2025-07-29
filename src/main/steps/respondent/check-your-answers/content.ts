@@ -1,5 +1,6 @@
 import { Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
+import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
@@ -44,6 +45,9 @@ const en = ({ isDivorce, userCase }) => ({
         isDivorce ? 'marriage' : 'civil partnership'
       }?`,
       line2: 'Provide details about the other legal proceedings.',
+      line3: 'Have the proceedings been concluded?',
+      line4: 'Uploaded files',
+      line5: 'I cannot upload some or all of my documents',
     },
   },
   stepAnswers: {
@@ -103,6 +107,11 @@ const en = ({ isDivorce, userCase }) => ({
     otherCourtCases: {
       line1: `${userCase.applicant2LegalProceedings}`,
       line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+      line3: `${
+        userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsConcluded : ''
+      }`,
+      line4: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
+      line5: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2UnableToUploadEvidence : ''}`,
     },
   },
   stepLinks: {
@@ -124,6 +133,9 @@ const en = ({ isDivorce, userCase }) => ({
     otherCourtCases: {
       line1: urls.OTHER_COURT_CASES,
       line2: urls.DETAILS_OTHER_PROCEEDINGS,
+      line3: urls.DETAILS_OTHER_PROCEEDINGS,
+      line4: urls.DETAILS_OTHER_PROCEEDINGS,
+      line5: urls.DETAILS_OTHER_PROCEEDINGS,
     },
   },
   continueApplication: 'Continue application',
@@ -186,6 +198,9 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
         isDivorce ? 'priodas' : 'partneriaeth sifil'
       }, eich eiddo, neu'ch plant?`,
       line2: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
+      line3: "A yw'r achos wedi'i gwblhau?",
+      line4: 'Ffeiliau sydd wedi cael eu llwytho',
+      line5: 'Ni allaf lwytho rhai o fy nogfennau / fy holl ddogfennau.',
     },
   },
   stepAnswers: {
@@ -245,6 +260,15 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
     otherCourtCases: {
       line1: `${userCase.applicant2LegalProceedings?.replace('Yes', 'Do').replace('No', 'Naddo')}`,
       line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
+      line3: `${
+        userCase.applicant2LegalProceedings === YesOrNo.YES
+          ? userCase.applicant2LegalProceedingsConcluded === YesOrNo.YES
+            ? 'Ydw'
+            : 'Nac ydw'
+          : ''
+      }`,
+      line4: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
+      line5: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2UnableToUploadEvidence : ''}`,
     },
   },
   continueApplication: 'Parhau gyda’r cais',
@@ -300,10 +324,12 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const applicant2Url = urls.RESPONDENT;
+  const uploadedDocsFilenames = content.userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value));
   return {
     ...translations,
     isApplicationReadyToSubmit,
     form,
     applicant2Url,
+    uploadedDocsFilenames,
   };
 };
