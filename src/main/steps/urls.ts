@@ -112,6 +112,7 @@ export const YOUR_COMMENTS_SENT: PageLink = '/your-comments-sent';
 export const NO_RESPONSE_YET: PageLink = '/no-response-yet';
 
 export const APPLICATION_SUBMITTED: PageLink = '/application-submitted';
+export const RESPONSE_SUBMITTED: PageLink = '/response-submitted';
 export const APP_REPRESENTED: PageLink = '/app-represented';
 export const JOINT_APPLICATION_SUBMITTED: PageLink = '/joint-application-submitted';
 
@@ -172,6 +173,7 @@ export const APPLY_FOR_ALTERNATIVE_SERVICE: PageLink =
 export const NEW_CONTACT_DETAIL_CHECK_ANSWERS: PageLink = '/interim-applications/no-response/check-your-answers';
 export const NO_RESPONSE_DETAILS_UPDATED: PageLink = '/interim-applications/no-response/details-updated';
 
+export const WILL_SERVE_AGAIN: PageLink = '/interim-applications/no-response/will-serve-again';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
 export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/partner-in-prison';

@@ -22,8 +22,9 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerNewEmailOrAddress,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -99,6 +100,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1LegalProceedingsDetails: 'applicant1LegalProceedingsDetails',
   applicant2LegalProceedings: 'applicant2LegalProceedings',
   applicant2LegalProceedingsDetails: 'applicant2LegalProceedingsDetails',
+  applicant2LegalProceedingsConcluded: 'applicant2LegalProceedingsConcluded',
   applicant1ApplyForFinancialOrder: 'applicant1FinancialOrder',
   applicant1WhoIsFinancialOrderFor: 'applicant1FinancialOrdersFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
@@ -193,6 +195,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
     'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse: 'applicant1NoResponseSendPapersAgainOrTrySomethingElse',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -216,6 +219,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
   alternativeServiceType: 'alternativeServiceType',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
+  applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -339,6 +343,8 @@ export interface Case {
   applicant1LegalProceedingsDetails?: string;
   applicant2LegalProceedings?: YesOrNo;
   applicant2LegalProceedingsDetails?: string;
+  applicant2LegalProceedingsConcluded?: YesOrNo;
+  applicant2UnableToUploadEvidence?: Checkbox;
   applicant1ApplyForFinancialOrder?: YesOrNo;
   applicant1WhoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;
@@ -468,9 +474,10 @@ export interface Case {
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
-  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse?: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
   applicant1InterimAppsHaveHwfReference?: YesOrNo;
@@ -504,6 +511,8 @@ export interface Case {
   alternativeServiceFeeRequired: YesOrNo;
   alternativeServiceType: AlternativeServiceType;
   serviceApplicationAnswers: DivorceDocument;
+  applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant2LegalProceedingUploadedFiles?: UploadedFile[];
 }
 
 export interface CaseWithId extends Case {
