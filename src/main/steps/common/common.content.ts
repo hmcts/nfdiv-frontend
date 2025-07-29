@@ -17,7 +17,9 @@ export const en = {
     to: 'to',
     deemed: 'deemed service',
     searchGovRecords: 'search government records',
-    serviceCode: 'D11',
+    formTypes: {
+        d11: 'D11',
+    }
   },
   feedback: {
     part1: 'This is a new service – your ',
