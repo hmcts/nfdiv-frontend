@@ -325,8 +325,11 @@ const fields: ToApiConverters = {
   applicant2LegalProceedings: data => ({
     applicant2LegalProceedings: data.applicant2LegalProceedings,
     ...(data.applicant2LegalProceedings !== YesOrNo.YES
-      ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails'])
+      ? setUnreachableAnswersToNull(['applicant2LegalProceedingsDetails', 'applicant2LegalProceedingsConcluded'])
       : {}),
+  }),
+  applicant2UnableToUploadEvidence: data => ({
+    applicant2UnableToUploadEvidence: checkboxConverter(data.applicant2UnableToUploadEvidence),
   }),
   disputeApplication: ({ disputeApplication }) => ({
     howToRespondApplication:
@@ -437,6 +440,7 @@ const fields: ToApiConverters = {
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
   }),
+  applicant2LegalProceedingUploadedFiles: () => ({}),
   applicant1NoResponsePartnerAddressPostcode: applicant1NoResponsePartnerAddressToApi,
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
