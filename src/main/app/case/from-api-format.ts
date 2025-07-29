@@ -10,7 +10,7 @@ import {
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
-const checkboxConverter = (value: string | undefined) => {
+export const checkboxConverter = (value: string | undefined): Checkbox | undefined => {
   if (!value) {
     return undefined;
   }
@@ -204,6 +204,8 @@ const fields: FromApiConverters = {
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
   }),
+  applicant2LegalProceedingDocs: uploadedFilesFromApiApplicant2,
+  applicant2UnableToUploadEvidence: uploadedFilesFromApiApplicant2,
   applicant1NoResponsePartnerAddress: data => formatAddress(data, 'applicant1NoResponsePartner'),
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
