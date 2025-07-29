@@ -134,7 +134,6 @@ describe('Deemed Service Application Sequence test', () => {
     });
     test('CHECK_ANSWERS_DEEMED should redirect to SERVICE_APPLICATION_SUBMITTED if payment is not required', () => {
       const step = deemedServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DEEMED) as Step;
-      expect(step.getNextStep({})).toBe(HUB_PAGE); // Correct this when the rest of the journey is implemented
       const caseData = {
         alternativeServiceFeeRequired: YesOrNo.NO,
       };
