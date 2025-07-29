@@ -87,7 +87,7 @@ export class Nunjucks {
         genesysDeploymentId: config.get('webchat.genesysDeploymentId'),
         genesysBaseUrl: config.get('webchat.genesysBaseUrl'),
         genesysEnvironment: config.get('webchat.genesysEnvironment'),
-        genesysKervBaseUrl: config.get('webchat.genesysKervUrl'),
+        genesysKervBaseUrl: config.get('webchat.genesysKervBaseUrl'),
         genesysApiKey: config.get('webchat.genesysApiKey'),
       },
       dynatrace: {
