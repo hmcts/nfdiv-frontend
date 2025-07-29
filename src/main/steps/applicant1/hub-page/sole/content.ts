@@ -8,7 +8,8 @@ import {
   AlternativeServiceType,
   Applicant2Represented,
   DocumentType,
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerNewEmailOrAddress,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   State,
   YesOrNo,
 } from '../../../../app/case/definition';
@@ -429,6 +430,20 @@ const en = (
     }. We have sent an email to a Third party with the information that the court needs.`,
     line2:
       'The court will review the information from the Third party once provided, then the application can progress.',
+  },
+  sendPapersAgain: {
+    line1: `You have asked the court to send the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers again to your ${partner}.`,
+    line2: `The court will now send the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers to your ${partner} again using the postal address and any email addresses you provided before. The papers will be sent to the address by first class post, and will be sent by email now, if applicable.`,
+    whatsNext: 'What happens next',
+    line3: `Your ${partner} will have ${config.get(
+      'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
+    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your (${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
   },
 });
 
@@ -857,6 +872,20 @@ const cy: typeof en = (
     line2:
       'Bydd y llys yn adolygu’r wybodaeth gan y trydydd parti unwaith y bydd wedi dod i law, ac yna gall y cais barhau.',
   },
+  sendPapersAgain: {
+    line1: `You have asked the court to send the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers again to your ${partner}.`,
+    line2: `The court will now send the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers to your ${partner} again using the postal address and any email addresses you provided before. The papers will be sent to the address by first class post, and will be sent by email now, if applicable.`,
+    whatsNext: 'What happens next',
+    line3: `Your ${partner} will have ${config.get(
+      'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
+    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your (${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+  },
 });
 
 const languages = {
@@ -915,8 +944,11 @@ export const generateContent: TranslationFn = content => {
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   const contactDetailsUpdatedUKBased =
     userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
-      NoResponsePartnerNewEmailOrPostalAddress.CONTACT_DETAILS_UPDATED &&
+      NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED &&
     userCase.applicant2AddressOverseas !== YesOrNo.YES;
+  const applicant1NoResponseSendPapersAgain =
+    userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+    NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
@@ -938,5 +970,6 @@ export const generateContent: TranslationFn = content => {
     aosIsDrafted,
     aosOverdueAndDrafted,
     contactDetailsUpdatedUKBased,
+    applicant1NoResponseSendPapersAgain,
   };
 };

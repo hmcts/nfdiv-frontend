@@ -3,15 +3,12 @@
 
 {% extends "common/page.njk" %}
 {% block page_content %}
-<div class="govuk-panel govuk-panel--confirmation">
-  <h1 id="detailsUpdatedTitle" class="govuk-panel__title">{{ title }}</h1>
-</div>
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1 id="sendPapersAgainTitle" class="govuk-panel__title">{{ title }}</h1>
+  </div>
   <p class="govuk-body">{{ line1 }}</p>
   <br/>
   <h2 class="govuk-heading-m">{{ whatHappensNext }}</h2>
-  <br/>
   <p class="govuk-body">{{ line2 }}</p>
-  <p class="govuk-body">{{ line3 }}</p>
-  <p class="govuk-body">{{ line4 }}</p>
   <p class="govuk-body">{{ returnToYourAccount | safe }}</p>
 {% endblock %}
