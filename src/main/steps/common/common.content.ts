@@ -18,8 +18,8 @@ export const en = {
     deemed: 'deemed service',
     searchGovRecords: 'search government records',
     formTypes: {
-        d11: 'D11',
-    }
+      d11: 'D11',
+    },
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -178,7 +178,9 @@ const cy: typeof en = {
     for: 'am',
     to: 'i',
     deemed: 'gyflwyno tybiedig',
-    serviceCode: 'D11',
+    formTypes: {
+      d11: 'D11',
+    },
     searchGovRecords: 'search government records',
   },
   feedback: {
