@@ -19,7 +19,6 @@ import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
 import {
   FINALISING_YOUR_APPLICATION,
-  HOW_YOU_CAN_PROCEED,
   OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER_DOCS,
@@ -240,7 +239,9 @@ const en = (
           ? 'for bailiff'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'for deemed'
-            : 'to dispense with'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'for alternative'
+              : 'to dispense with'
       } service. You can read the reasons on the court’s `,
       part2: 'Refusal Order (PDF)',
       downloadReference: 'Refusal-Order',
@@ -249,13 +250,15 @@ const en = (
           ? 'bailiff-service-refused'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'deemed-service-refused'
-            : 'dispense-with-service-refused'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'alternative-service-refused'
+              : 'dispense-with-service-refused'
       }`,
     },
     line2: {
       part1: 'Find out about the ',
       part2: `other ways you can progress your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}.`,
-      link: HOW_YOU_CAN_PROCEED,
+      link: OPTIONS_FOR_PROGRESSING,
     },
   },
   bailiffServiceUnsuccessful: {
@@ -662,7 +665,9 @@ const cy: typeof en = (
           ? 'am wasanaeth beili'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'cyflwyno tybiedig'
-            : 'hepgor cyflwyno’r cais'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? ' for alternative'
+              : 'hepgor cyflwyno’r cais'
       }. Gallwch ddarllen y rhesymau ar `,
       part2: 'Orchymyn Gwrthod y llys (PDF)',
       downloadReference: 'Refusal-Order',
@@ -671,7 +676,9 @@ const cy: typeof en = (
           ? 'bailiff-service-refused'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'deemed-service-refused'
-            : 'dispense-with-service-refused'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'dispense-with-service-refused'
+              : 'alternative-service-refused'
       }`,
     },
     line2: {
@@ -679,7 +686,7 @@ const cy: typeof en = (
       part2: `ffyrdd eraill y gallwch symud ymlaen â'ch ${
         isDivorce ? 'cais am ysgariad' : "cais ddod â'ch partneriaeth sifil i ben"
       }.`,
-      link: HOW_YOU_CAN_PROCEED,
+      link: OPTIONS_FOR_PROGRESSING,
     },
   },
   bailiffServiceUnsuccessful: {

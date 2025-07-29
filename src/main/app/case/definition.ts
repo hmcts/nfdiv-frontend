@@ -2402,6 +2402,7 @@ export const enum DocumentType {
   D9H = 'd9H',
   D10 = 'd10',
   D11 = 'd11',
+  ALTERNATIVE_SERVICE_REFUSED = 'alternativeServiceRefused',
   DEEMED_SERVICE = 'deemedService',
   DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
   DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
