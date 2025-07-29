@@ -2,10 +2,13 @@ const genesysConfig = {};
 const genesysConfigId = 'genesysConfig';
 const requiredConfigAttributes = [
   'genesysPopupBlocked',
-  'genesysHtml',
   'genesysKervBaseUrl',
   'genesysDeploymentId',
   'genesysApiKey',
+  'genesysChatWithUs',
+  'genesysBaseUrl',
+  'genesysEnvironment',
+  'genesysReferrerPage',
 ];
 
 function getGenesysConfig(configElemId: string, requiredAttributes: string[]): boolean {
@@ -20,7 +23,7 @@ function getGenesysConfig(configElemId: string, requiredAttributes: string[]): b
   }
   const missingAttributes: string[] = [];
   requiredAttributes.forEach(attribute => {
-    const value = genesysConfigElem.getAttribute('data-' + attribute);
+    const value = genesysConfigElem.getAttribute('data-' + attribute.toLowerCase());
     if (value) {
       genesysConfig[attribute] = value;
     } else {
@@ -52,12 +55,48 @@ function attachStartChatHandler() {
     }
 
     /* build the popup document in one go */
-    // const genesysHTML = `{% include genesys-popup.njk %}`;
+    const genesysHTML = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>${genesysConfig['genesysChatWithUs']}</title>
+  <script type="text/javascript">
+    (function (g, e, n, es) {
+      g._genesysJs = e;
+      g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
+      g[e].t = Date.now();
+      g[e].c = es;
 
-    popup.document.body = genesysConfig['genesysHTML'];
-    // popup.document.open();
-    // popup.document.write(genesysHTML);
-    // popup.document.close();
+      /* inject the Genesys bootstrap script */
+      var s = document.createElement('script');
+      s.async = true;
+      s.src   = n;
+      document.head.appendChild(s);
+    })(window, 'Genesys',
+       '${genesysConfig['genesysBaseUrl']}/genesys-bootstrap/genesys.min.js',
+       { environment: '${genesysConfig['genesysEnvironment']}', deploymentId: '${genesysConfig['genesysDeploymentId']}'});
+
+    Genesys("command", "Database.set", {
+      messaging: { customAttributes: { webReferrerPage: '${genesysConfig['genesysReferrerPage']}'}}
+          },
+      function(data){ /* fulfilled, returns data */}, function(){ /* rejected */ }
+    );
+
+    window.addEventListener('load', function () {
+      Genesys('subscribe', 'Messenger.ready', function () {
+        Genesys('command', 'Messenger.open');
+      });
+    });
+  </script>
+</head>
+<body class="genesys-popup-body">
+  <div id="genesys-web-messaging"></div>
+</body>
+</html>`;
+
+    popup.document.open();
+    popup.document.write(genesysHTML);
+    popup.document.close();
   });
 }
 
@@ -201,22 +240,21 @@ function updateChatWidget(status) {
 /* ---------------------------------------------------------------
    Bootstrap on DOM ready
 --------------------------------------------------------------- */
-document.addEventListener('DOMContentLoaded', async () => {
-  if (!getGenesysConfig(genesysConfigId, requiredConfigAttributes)) {
-    return;
-  }
-  // const chatContent = document.getElementById('chatContent');
-  // chatContent.innerHTML = '<p><span class="genesys-spinner"></span>{{ checkingAvailability }}</p>';
-  renderSpinner();
+function initGenesysWebchat() {
+  document.addEventListener('DOMContentLoaded', async () => {
+    if (!getGenesysConfig(genesysConfigId, requiredConfigAttributes)) {
+      console.error('Error loading Genesys configuration.');
+      return;
+    }
+    renderSpinner();
 
-  try {
-    const status = await checkChatAvailability();
-    updateChatWidget(status);
-  } catch (err) {
-    console.error('Error checking availability:', err);
-    // chatContent.innerHTML = `
-    //     <p>Sorry, we couldn’t check the availability of our team.</p>
-    //     <p>Please try refreshing the page or contact us at <a class="govuk-link" href="mailto:help@gov.uk">help@gov.uk</a>.</p>`;
-    renderErrorCheckingAvailabilityWidget();
-  }
-});
+    try {
+      const status = await checkChatAvailability();
+      updateChatWidget(status);
+    } catch (err) {
+      console.error('Error checking availability:', err);
+      renderErrorCheckingAvailabilityWidget();
+    }
+  });
+}
+initGenesysWebchat();
