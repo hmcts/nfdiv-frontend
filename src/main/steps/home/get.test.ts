@@ -787,6 +787,45 @@ describe('HomeGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(`${RESPONDENT}${CHECK_ANSWERS_URL}`);
   });
 
+  describe('respondent redirect in AosOverdue', () => {
+    test('redirects to the check your answers page if a question has been answered', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {
+            id: '123',
+            divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+            applicationType: ApplicationType.SOLE_APPLICATION,
+            disputeApplication: YesOrNo.NO,
+            state: State.AosOverdue,
+          },
+          isApplicant2: true,
+        },
+      });
+      const res = mockResponse();
+      controller.get(req, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(`${RESPONDENT}${CHECK_ANSWERS_URL}`);
+    });
+
+    test('redirects to the hub page if no question has been answered', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {
+            id: '123',
+            divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+            applicationType: ApplicationType.SOLE_APPLICATION,
+            state: State.AosOverdue,
+          },
+          isApplicant2: true,
+        },
+      });
+      const res = mockResponse();
+      controller.get(req, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(`${RESPONDENT}${HUB_PAGE}`);
+    });
+  });
+
   test('redirects to the hub page for respondent users in holding state and aos is completed', () => {
     const req = mockRequest({
       session: {

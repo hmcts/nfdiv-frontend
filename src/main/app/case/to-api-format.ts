@@ -439,7 +439,7 @@ const fields: ToApiConverters = {
       data.applicant1NoResponseRespondentAddressInEnglandWales
     ),
   }),
-
+  applicant2LegalProceedingUploadedFiles: () => ({}),
   applicant1AltServicePartnerEmail: data => ({
     applicant1AltServicePartnerEmail:
       data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
