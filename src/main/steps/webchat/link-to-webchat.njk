@@ -1,0 +1,37 @@
+<div id="avaya-webchat-open" class="govuk-body" hidden>
+  <a href="#" class="govuk-link" rel="noreferrer noopener" id="avaya-webchat-link">{{ helpChatWithAnAgent | safe }}</a>
+</div>
+<p class="govuk-body" id="avaya-webchat-close" hidden>{{ helpChatClosed | replace("\n", "\\n") | safe }}</p>
+<p class="govuk-body" id="webchat-agent-busy" hidden>{{ helpAllAgentsBusy | replace("\n", "\\n") | safe }}</p>
+<p class="govuk-body" id="webchat-maintenance">{{ helpChatMaintenance | replace("\n", "\\n") | safe }}</p>
+
+<web-chat
+  id="avayaWebchatMetric"
+  class="hidden"
+  chat-title="{{ webChatTitle }}"
+  locale-url="{{ avayaLocaleUrl }}"
+  url="{{ globals.webchat.avayaUrl }}"
+  secure-connections="true"
+  api-version="1.0"
+  metrics-polling-interval="30"
+  Language="{{ avayaLanguage }}"
+  service="{{ globals.webchat.avayaService }}"
+  page-name="{{ webChatPageName }}"
+  User="Chat"
+  aria-hidden="true"
+  hidden
+>
+</web-chat>
+
+<script
+  src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/{{ avayaClientUrlFolder }}/app-es2015.js"
+  defer
+  type="module"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es5.js"
+  nomodule
+  defer
+  crossorigin="anonymous"
+></script>
