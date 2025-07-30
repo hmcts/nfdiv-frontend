@@ -85,9 +85,6 @@ e2e:
 appInsights:
   instrumentationKey:
 webchat:
-  avayaUrl: 'webchat.pp.ctsc.hmcts.net'
-  avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
-  avayaService: 'Divorce'
   genesysReferrerPage: 'Divorce Site'
   genesysDeploymentId: '3ccd9792-0530-4a2e-9e84-aaf8a59c0ef5'
   genesysBaseUrl: 'https://apps.euw2.pure.cloud'
