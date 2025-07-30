@@ -240,21 +240,18 @@ function updateChatWidget(status) {
 /* ---------------------------------------------------------------
    Bootstrap on DOM ready
 --------------------------------------------------------------- */
-function initGenesysWebchat() {
-  document.addEventListener('DOMContentLoaded', async () => {
-    if (!getGenesysConfig(genesysConfigId, requiredConfigAttributes)) {
-      console.error('Error loading Genesys configuration.');
-      return;
-    }
-    renderSpinner();
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!getGenesysConfig(genesysConfigId, requiredConfigAttributes)) {
+    console.error('Error loading Genesys configuration.');
+    return;
+  }
+  renderSpinner();
 
-    try {
-      const status = await checkChatAvailability();
-      updateChatWidget(status);
-    } catch (err) {
-      console.error('Error checking availability:', err);
-      renderErrorCheckingAvailabilityWidget();
-    }
-  });
-}
-initGenesysWebchat();
+  try {
+    const status = await checkChatAvailability();
+    updateChatWidget(status);
+  } catch (err) {
+    console.error('Error checking availability:', err);
+    renderErrorCheckingAvailabilityWidget();
+  }
+});
