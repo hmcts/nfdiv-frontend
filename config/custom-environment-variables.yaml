@@ -43,5 +43,6 @@ webchat:
   genesysEnvironment: GENESYS_ENVIRONMENT
   genesysKervBaseUrl: GENESYS_KERV_BASE_URL
   genesysApiKey: GENESYS_API_KEY
+  useGenesys: USE_GENESYS
 dynatrace:
   dynatraceUrl: DYNATRACE_URL
