@@ -42,6 +42,7 @@ import {
   PROVIDE_INFORMATION_TO_THE_COURT,
   RELATIONSHIP_NOT_BROKEN_URL,
   RESPOND_TO_COURT_FEEDBACK,
+  RESPONSE_SUBMITTED,
   REVIEW_YOUR_APPLICATION,
   REVIEW_YOUR_JOINT_APPLICATION,
   REVIEW_YOUR_RESPONSE,
@@ -167,13 +168,17 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: CONFIRM_JOINT_APPLICATION,
-    getNextStep: () => YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
+    getNextStep: () => RESPONSE_SUBMITTED,
   },
 ];
 
 const postSubmissionSequence: Step[] = [
   {
     url: JOINT_APPLICATION_SUBMITTED,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: RESPONSE_SUBMITTED,
     getNextStep: () => HOME_URL,
   },
   {

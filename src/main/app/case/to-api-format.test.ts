@@ -89,6 +89,7 @@ describe('to-api-format', () => {
     app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
     app2RfiDraftResponseDetails: 'test',
     app2RfiDraftResponseUploadedFiles: [],
+    applicant2UnableToUploadEvidence: Checkbox.Checked,
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -204,6 +205,7 @@ describe('to-api-format', () => {
       applicant1LegalProceedingsDetails: null,
       applicant2LegalProceedings: YesOrNo.NO,
       applicant2LegalProceedingsDetails: null,
+      applicant2LegalProceedingsConcluded: null,
       howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
       coApplicant1StatementOfTruth: YesOrNo.YES,
       coApplicant2StatementOfTruth: YesOrNo.YES,
@@ -213,6 +215,7 @@ describe('to-api-format', () => {
       app1RfiDraftResponseDetails: 'test',
       app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
       app2RfiDraftResponseDetails: 'test',
+      applicant2UnableToUploadEvidence: YesOrNo.YES,
     });
   });
 
