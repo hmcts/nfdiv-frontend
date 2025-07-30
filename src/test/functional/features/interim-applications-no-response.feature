@@ -123,28 +123,45 @@ Feature: No response journey
 
   Scenario: No response /new-postal-and-email new postal address
 
-    Given I go to "/interim-applications/no-response/new-postal-and-email"
-    And I click element "#newPostalAddress"
+    Given I set the case state to "AosOverdue"
+    Then the page should include "View your options for proceeding without a response from the respondent"
+    When I click element "#aosDueLink"
+    Then the page should include element "#optionsForProgressingTitle"
+    When I click start
+    Then the page should include element "#upToDate"
+
+    Given I click element "#newAddress"
+    When I click continue
+    Then the page should include element "#newPostalAddress"
+    When I click element "#newPostalAddress"
     When I click continue
     Then the page should include element "#enterPostcode"
 
-    Given I select element "#postcode"
+    When I select element "#postcode"
     And I type "SW1H 9AJ"
     When I click element "#findAddressButton"
     Then the page should include "SW1H 9AJ"
     And I wait for the postcode lookup to return results
 
-    Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
-    When I click continue
+    When I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    And I click continue
     Then the page should include element "#checkAnswersTitle"
-
     When I click accept and send
     Then the page should include element "#detailsUpdatedTitle"
 
   Scenario: No response /new-postal-and-email new email address
 
-    Given I go to "/interim-applications/no-response/new-postal-and-email"
-    And I click element "#newEmailAddress"
+    Given I set the case state to "AosOverdue"
+    Then the page should include "View your options for proceeding without a response from the respondent"
+    When I click element "#aosDueLink"
+    Then the page should include element "#optionsForProgressingTitle"
+    When I click start
+    Then the page should include element "#upToDate"
+
+    Given I click element "#newAddress"
+    When I click continue
+    Then the page should include element "#newPostalAddress"
+    When I click element "#newEmailAddress"
     When I click continue
     Then the page should include element "#provideNewEmail"
 
@@ -156,14 +173,30 @@ Feature: No response journey
     And I type "test@test.com"
     When I click continue
     Then the page should include element "#checkAnswersTitle"
-
     When I click accept and send
     Then the page should include element "#detailsUpdatedTitle"
 
   Scenario: No response /new-postal-and-email new postal and email address
 
-    Given I go to "/interim-applications/no-response/new-postal-and-email"
+    Given I set the case state to "AosOverdue"
+    Then the page should include "View your options for proceeding without a response from the respondent"
+    When I click element "#aosDueLink"
+    Then the page should include element "#optionsForProgressingTitle"
+    When I click start
+    Then the page should include element "#upToDate"
+
+    Given I click element "#newAddress"
+    When I click continue
+    Then the page should include element "#newPostalAddress"
     And I click element "#bothEmailAndPostalAddress"
+    When I click continue
+    Then the page should include element "#provideNewEmail"
+
+    When I click element "#provideNewEmail"
+    And I click continue
+    Then the page should include element "#applicant1NoResponsePartnerEmailAddress"
+    When I select element "#applicant1NoResponsePartnerEmailAddress"
+    And I type "test@testing.com"
     When I click continue
     Then the page should include element "#enterPostcode"
 
@@ -175,12 +208,7 @@ Feature: No response journey
 
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
     When I click continue
-    Then the page should include element "#applicant1NoResponsePartnerEmailAddress"
-    When I select element "#applicant1NoResponsePartnerEmailAddress"
-    And I type "test@testing.com"
-    When I click continue
     Then the page should include element "#checkAnswersTitle"
-
     When I click "Accept and send"
     Then the page should include element "#detailsUpdatedTitle"
 
