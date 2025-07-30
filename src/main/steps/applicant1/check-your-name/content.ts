@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required }) => {
+const en = ({ isDivorce, marriage, civilPartnership, partner, required }, fullName) => {
   return {
     title: `Check the ${isDivorce ? marriage : civilPartnership} certificate for differences in your name`,
     line1: `We need to know if your name is written differently on the ${
@@ -19,9 +19,7 @@ const en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required
     warning: `If the name on your ${
       isDivorce ? marriage : civilPartnership
     } certificate does not match the name you have provided, you will have to upload some evidence like a government issued ID, a passport, driving license, birth certificate, or deed poll.`,
-    doesNameMatchTheCertificate: `Is any part of your full name (${userCase.applicant1FirstNames} ${
-      userCase.applicant1MiddleNames
-    } ${userCase.applicant1LastNames}) written differently on your ${
+    doesNameMatchTheCertificate: `Is any part of your full name (${fullName}) written differently on your ${
       isDivorce ? marriage : civilPartnership
     } certificate?`,
     yes: 'Yes',
@@ -34,7 +32,7 @@ const en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required
   };
 };
 
-const cy: typeof en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required }) => {
+const cy: typeof en = ({ isDivorce, marriage, civilPartnership, partner, required }, fullName) => {
   return {
     title: `Gwiriwch y dystysgrif ${isDivorce ? marriage : civilPartnership} am wahaniaethau yn eich enw`,
     line1: `Mae arnom angen gwybod os yw eich enw yn wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
@@ -54,9 +52,7 @@ const cy: typeof en = ({ userCase, isDivorce, marriage, civilPartnership, partne
     warning: `Os nad yw'r enw ar y dystysgrif ${
       isDivorce ? 'briodas' : 'tystysgrif partneriaeth sifil'
     } yn cyd-fynd â'r enw rydych wedi'i ddarparu, bydd rhaid i chi uwchlwytho tystiolaeth fel cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru neu dystysgrif geni, gweithred newid enw.`,
-    doesNameMatchTheCertificate: `A yw ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
-      userCase.applicant1LastNames
-    } yn union y ffordd mae eich enw wedi'i ysgrifennu ar eich tystysgrif ${
+    doesNameMatchTheCertificate: `A yw ${fullName} yn union y ffordd mae eich enw wedi'i ysgrifennu ar eich tystysgrif ${
       isDivorce ? 'priodas' : 'tystysgrif partneriaeth sifil'
     }?`,
     yes: 'Ydy',
@@ -93,7 +89,11 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const userCase = content.userCase;
+  const fullName = content.isApplicant2
+    ? `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`
+    : `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`;
+  const translations = languages[content.language](content, fullName);
   return {
     ...translations,
     form,
