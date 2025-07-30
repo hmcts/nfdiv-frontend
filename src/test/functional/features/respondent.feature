@@ -112,7 +112,7 @@ Feature: Respondent
     And the page should include "Details of the other legal proceedings"
     Given I select "Provide details about the other legal proceedings."
     And I type "test details"
-    And I select "Yes" for "Have the ongoing proceedings been concluded?"
+    And I select "Yes" for "Have the proceedings been concluded?"
     And I select "I cannot upload some or all of my documents"
 
 
