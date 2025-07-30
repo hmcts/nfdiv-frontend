@@ -80,6 +80,9 @@ export class Nunjucks {
 
     const globals = {
       webchat: {
+        avayaUrl: config.get('webchat.avayaUrl'),
+        avayaClientUrl: config.get('webchat.avayaClientUrl'),
+        avayaService: config.get('webchat.avayaService'),
         genesysReferrerPage: config.get('webchat.genesysReferrerPage'),
         genesysDeploymentId: config.get('webchat.genesysDeploymentId'),
         genesysBaseUrl: config.get('webchat.genesysBaseUrl'),
