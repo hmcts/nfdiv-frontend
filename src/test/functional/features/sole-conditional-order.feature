@@ -27,7 +27,7 @@ Feature: Sole conditional order
     And I select "I confirm that:"
 
     When I click "Submit"
-    Then the page URL should be "/respondent/hub-page"
+    Then the page URL should be "/respondent/response-submitted"
 
   Scenario: Applicant 1 applies for conditional order and responds with additional information
     Given I set the case state to "AwaitingConditionalOrder"

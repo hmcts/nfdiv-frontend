@@ -338,10 +338,11 @@ export const generateCommonContent = ({
     userCase.state &&
     [
       State.Draft,
-      State.AosDrafted,
-      State.AosOverdue,
       State.AwaitingApplicant1Response,
       State.AwaitingApplicant2Response,
+      State.AosDrafted,
+      State.AosOverdue,
+      State.AwaitingConditionalOrder,
     ].includes(userCase.state);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
   const isRequestForInformationAmendableState =
