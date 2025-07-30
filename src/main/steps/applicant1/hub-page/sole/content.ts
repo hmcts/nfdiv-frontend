@@ -666,7 +666,7 @@ const cy: typeof en = (
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'cyflwyno tybiedig'
             : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
-              ? ' for alternative'
+              ? 'ar cyflwyno amgen'
               : 'hepgor cyflwyno’r cais'
       }. Gallwch ddarllen y rhesymau ar `,
       part2: 'Orchymyn Gwrthod y llys (PDF)',
