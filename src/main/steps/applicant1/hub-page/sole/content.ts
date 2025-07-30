@@ -232,6 +232,10 @@ const en = (
     line1: `The court is currently considering your ${serviceApplicationType} application that you submitted on ${serviceApplicationDate}.`,
     line2: `We will email you by ${serviceApplicationResponseDate} once a decision has been made to tell you your next steps.`,
   },
+  serviceAdminRefusalOrBailiffRefusal: {
+    line1: 'The court is currently considering your service application.',
+    line2: 'We will email you once a decision has been made to tell you your next steps.',
+  },
   serviceApplicationRejected: {
     line1: {
       part1: `The court has refused your application ${
@@ -657,6 +661,10 @@ const cy: typeof en = (
   awaitingServiceConsiderationOrBailiffReferral: {
     line1: `Mae'r llys wrthi’n ystyried eich hysbysiad o ${serviceApplicationType} a gyflwynwyd gennych ar ${serviceApplicationDate}.`,
     line2: `Byddwn yn anfon e-bost atoch erbyn ${serviceApplicationResponseDate} unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.`,
+  },
+  serviceAdminRefusalOrBailiffRefusal: {
+    line1: 'The court is currently considering your service application.',
+    line2: 'We will email you once a decision has been made to tell you your next steps.',
   },
   serviceApplicationRejected: {
     line1: {
