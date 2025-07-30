@@ -34,6 +34,9 @@ session:
 appInsights:
   instrumentationKey: APPINSIGHTS_KEY
 webchat:
+  avayaUrl: WEBCHAT_AVAYA_URL
+  avayaClientUrl: WEBCHAT_AVAYA_CLIENT_URL
+  avayaService: WEBCHAT_AVAYA_SERVICE
   genesysReferrerPage: GENESYS_REFERRER_PAGE
   genesysDeploymentId: GENESYS_DEPLOYMENT_ID
   genesysBaseUrl: GENESYS_BASE_URL
