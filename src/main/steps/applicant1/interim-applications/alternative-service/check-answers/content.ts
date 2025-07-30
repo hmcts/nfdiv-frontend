@@ -33,14 +33,14 @@ const en = (
     uploadedFiles: 'Uploaded files',
     alternativeServiceReason: 'Why are you applying for alternative service?',
     alternativeServiceMethod: 'How do you want to send the papers?',
-    alternativeServicePartnerEmail: 'Email Address?',
+    alternativeServicePartnerEmail: 'Email Address',
     alternativeServiceDifferentWays: `Choose how you want to send the ${
       isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
     }`,
-    alternativeServicePartnerPhone: 'Mobile phone number?',
-    alternativeServicePartnerWANumber: 'WhatsApp number?',
-    alternativeServicePartnerSocialMedia: 'Social media details?',
-    alternativeServicePartnerOtherDetails: 'Other details?',
+    alternativeServicePartnerPhone: 'Mobile phone number',
+    alternativeServicePartnerWANumber: 'WhatsApp number',
+    alternativeServicePartnerSocialMedia: 'Social media details',
+    alternativeServicePartnerOtherDetails: 'Other details',
     alternativeServiceMethodJustification: 'Why are you applying to send the papers this way?',
   },
   stepAnswers: {
@@ -133,14 +133,14 @@ const cy: typeof en = (
     uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
     alternativeServiceReason: 'Why are you applying for alternative service?',
     alternativeServiceMethod: 'How do you want to send the papers?',
-    alternativeServicePartnerEmail: 'Email Address?',
+    alternativeServicePartnerEmail: 'Email Address',
     alternativeServiceDifferentWays: `Choose how you want to send the ${
       isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
     }`,
-    alternativeServicePartnerPhone: 'Mobile phone number?',
-    alternativeServicePartnerWANumber: 'WhatsApp number?',
-    alternativeServicePartnerSocialMedia: 'Social media details?',
-    alternativeServicePartnerOtherDetails: 'Other details?',
+    alternativeServicePartnerPhone: 'Mobile phone number',
+    alternativeServicePartnerWANumber: 'WhatsApp number',
+    alternativeServicePartnerSocialMedia: 'Social media details',
+    alternativeServicePartnerOtherDetails: 'Other details',
     alternativeServiceMethodJustification: 'Why are you applying to send the papers this way?',
   },
   stepAnswers: {
