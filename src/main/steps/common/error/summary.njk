@@ -9,7 +9,7 @@
       }), errorList) %}
     {% else %}
       {% set errorList = (errorList.push({
-        href: '#' + item.propertyName,
+        href: '#' + item.focusId,
         text: errors[item.propertyName][item.errorType]
       }), errorList) %}
     {% endif %}
