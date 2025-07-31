@@ -63,6 +63,10 @@ export const generateContent: TranslationFn = content => {
       serviceType = generateCommonContent(content).generalApplication.deemed;
       break;
     }
+    case InterimApplicationType.SEARCH_GOV_RECORDS: {
+      serviceType = generateCommonContent(content).generalApplication.searchGovRecords;
+      break;
+    }
     default: {
       serviceType = '';
     }

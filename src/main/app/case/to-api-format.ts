@@ -445,6 +445,12 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
+  applicant1SearchGovRecordsWhichDepartments: data => ({
+    applicant1SearchGovRecordsWhichDepartments: data.applicant1SearchGovRecordsWhichDepartments,
+  }),
+  applicant1SearchGovRecordsWhyTheseDepartments: data => ({
+    applicant1SearchGovRecordsWhyTheseDepartments: data.applicant1SearchGovRecordsWhyTheseDepartments,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
