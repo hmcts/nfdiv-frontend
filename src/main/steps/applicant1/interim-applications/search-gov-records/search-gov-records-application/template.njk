@@ -22,4 +22,9 @@
             <li>{{ line | safe  }}</li>
         {% endfor %}
     </ul>
+    {{ govukButton({
+        text: startButton.text,
+        href: startButton.url,
+        isStartButton: true
+    }) }}
 {% endblock %}
