@@ -157,7 +157,6 @@ export const en = {
   avayaClientUrlFolder: '1',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
   genesys: {
-    contactUs: 'Contact Us',
     chatWithUs: 'Chat with us',
     webchat: 'Webchat',
     webchatEnglandAndWales: 'Web chat (England and Wales)',
@@ -318,7 +317,6 @@ const cy: typeof en = {
   avayaClientUrlFolder: 'welsh',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
   genesys: {
-    contactUs: 'Contact Us',
     chatWithUs: 'Chat with us',
     webchat: 'Sgwrsio dros y we',
     webchatEnglandAndWales: 'Web chat (England and Wales)',
