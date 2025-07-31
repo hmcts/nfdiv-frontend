@@ -7,7 +7,7 @@ const en = ({ partner }: CommonContent) => ({
   title: `What have you already done to try to find your ${partner}’s details?`,
   whatIsAlreadyDone: `Tell us about anything you’ve already done to try to find your ${partner}’s contact details, and the results of these actions.`,
   errors: {
-    applicant1SearchEvidenceDetails: {
+    applicant1WhySearchGovRecords: {
       required: 'You must provide a statement before continuing.',
     },
   },
@@ -18,7 +18,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `What have you already done to try to find your ${partner}’s details?`,
   whatIsAlreadyDone: `Tell us about anything you’ve already done to try to find your ${partner}’s contact details, and the results of these actions.`,
   errors: {
-    applicant1SearchEvidenceDetails: {
+    applicant1WhySearchGovRecords: {
       required: 'You must provide a statement before continuing.',
     },
   },
@@ -26,10 +26,11 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1SearchEvidenceDetails: {
+    applicant1WhySearchGovRecords: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.whatIsAlreadyDone,
+      labelSize: 'normal',
       validator: isFieldFilledIn,
     },
   },
@@ -46,6 +47,7 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
+    form,
     ...translations,
   };
 };
