@@ -14,19 +14,19 @@ data-genesysChatWithUs="{{ genesys.chatWithUs }}">
   <div id="chatWidget">
     <div id="chatContent" class="govuk-body">
       <div class="hidden" id="genesysSpinner">
-        <p><span class="genesys-spinner"></span>{{ genesys.checkingAvailability }}</p>
+        <p class="govuk-body"><span class="genesys-spinner"></span>{{ genesys.checkingAvailability }}</p>
       </div>
       <div class="hidden" id="genesysOpenWidget">
         {% include "../webchat/genesys/genesys-open-widget.njk" %}
       </div>
       <div class="hidden" id="genesysBusyNoAgentsWidget">
-        {% include "../webchat/genesys/genesys-busy-no-agents-widget.njk" %}
+        <p class="govuk-body">{{ genesys.noAgentsAvailable }}</p>
       </div>
       <div class="hidden" id="genesysBusyEWTWidget">
-        {% include "../webchat/genesys/genesys-busy-ewt-widget.njk" %}
+        <p class="govuk-body">{{ genesys.busy }}</p>
       </div>
       <div class="hidden" id="genesysClosedWidget">
-        {% include "../webchat/genesys/genesys-closed-widget.njk" %}
+        <p class="govuk-body">{{ genesys.onlineAdviceClosed }}<span id="genesysWebchatClosedReason"></span>.</p>
       </div>
       <div class="hidden" id="genesysErrorWidget">
         {% include "../webchat/genesys/genesys-error-widget.njk" %}
