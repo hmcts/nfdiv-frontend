@@ -184,7 +184,6 @@ export const en = {
       line2: 'Please try refreshing the page or contact us at',
       email: 'help@gov.uk',
     },
-    deploymentId: config.get('webchat.genesysDeploymentId'),
     popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
   },
 };
@@ -351,7 +350,6 @@ const cy: typeof en = {
       line2: 'Please try refreshing the page or contact us at',
       email: 'help@gov.uk',
     },
-    deploymentId: config.get('webchat.genesysDeploymentIdCy'),
     popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
   },
 };
