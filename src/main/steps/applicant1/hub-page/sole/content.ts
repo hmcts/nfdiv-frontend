@@ -663,8 +663,9 @@ const cy: typeof en = (
     line2: `Byddwn yn anfon e-bost atoch erbyn ${serviceApplicationResponseDate} unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.`,
   },
   serviceAdminRefusalOrBailiffRefusal: {
-    line1: 'The court is currently considering your service application.',
-    line2: 'We will email you once a decision has been made to tell you your next steps.',
+    line1: "Mae'r llys ar hyn o bryd yn ystyried eich cais am gyflwyno.",
+    line2:
+      "Byddwn yn anfon e-bost atoch unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.",
   },
   serviceApplicationRejected: {
     line1: {
