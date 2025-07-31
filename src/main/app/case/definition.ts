@@ -1063,9 +1063,6 @@ export interface CaseData {
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
   applicant1NoResponsePartnerEmailAddress: string;
-  applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
-  applicant1SearchGovRecordsWhyTheseDepartments: string;
-  applicant1SearchGovRecordsOtherDepartmentNames?: string;
 }
 
 export interface CaseDocuments {
@@ -1883,13 +1880,6 @@ export const enum InterimApplicationType {
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'searchGovRecords',
 }
-
-export const enum SearchGovRecordsWhichDepartment {
-  DWP = 'dwp',
-  HMRC = 'hmrc',
-  OTHER = 'other',
-}
-
 
 export const enum GeneralApplicationType {
   DISPENSED_WITH_SERVICE = 'dispensedWithService',

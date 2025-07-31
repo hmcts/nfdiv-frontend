@@ -10,7 +10,6 @@ import {
   PageLink,
   SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_GOV_RECORDS_HWF,
-  WHICH_GOV_DEPARTMENTS,
   WHY_SEARCH_GOV_RECORDS,
 } from './urls';
 
@@ -44,10 +43,6 @@ export const searchGovRecordsJourneySequence: Step[] = [
   },
   {
     url: WHY_SEARCH_GOV_RECORDS,
-    getNextStep: (): PageLink => WHICH_GOV_DEPARTMENTS,
-  },
-  {
-    url: WHICH_GOV_DEPARTMENTS,
     getNextStep: (): PageLink => HUB_PAGE,
   },
 ];
