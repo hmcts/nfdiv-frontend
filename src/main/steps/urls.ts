@@ -173,6 +173,7 @@ export const APPLY_FOR_ALTERNATIVE_SERVICE: PageLink =
 export const NEW_CONTACT_DETAIL_CHECK_ANSWERS: PageLink = '/interim-applications/no-response/check-your-answers';
 export const NO_RESPONSE_DETAILS_UPDATED: PageLink = '/interim-applications/no-response/details-updated';
 
+export const WILL_SERVE_AGAIN: PageLink = '/interim-applications/no-response/will-serve-again';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
 export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/partner-in-prison';
