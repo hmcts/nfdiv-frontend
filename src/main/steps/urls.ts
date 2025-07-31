@@ -179,13 +179,14 @@ export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
 export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/partner-in-prison';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink =
   '/interim-applications/search-gov-records/search-gov-records-application';
-export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/help-with-fees-gov-records';
-export const WHY_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/why-gov-records';
+export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/search-gov-records/help-with-fees-gov-records';
+export const WHY_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/why-gov-records';
 export const HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS: PageLink =
-  '/interim-applications/hwf-reference-number-input-gov-records';
+  '/interim-applications/search-gov-records/hwf-reference-number-input-gov-records';
 export const HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS: PageLink =
-  '/interim-applications/hwf-reference-number-gov-records';
-export const HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/apply-for-hwf-gov-records';
+  '/interim-applications/search-gov-records/hwf-reference-number-gov-records';
+export const HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS: PageLink =
+  '/interim-applications/search-gov-records/apply-for-hwf-gov-records';
 
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
