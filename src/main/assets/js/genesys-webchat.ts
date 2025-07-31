@@ -150,8 +150,8 @@ async function checkChatAvailability(maxRetries = 5, initialDelay = 1000) {
 /* ---------------------------------------------------------------
    Widget templates
 --------------------------------------------------------------- */
-const widgetTemplates = {
-  templates: {
+const widgets = {
+  elements: {
     spinner: document.getElementById('genesysSpinner'),
     open: document.getElementById('genesysOpenWidget'),
     busyNoAgents: document.getElementById('genesysBusyNoAgentsWidget'),
@@ -161,16 +161,16 @@ const widgetTemplates = {
     errorCheckingAvailability: document.getElementById('genesysErrorCheckingAvailabilityWidget'),
   },
   hideAll: () => {
-    Object.values(widgetTemplates.templates).forEach(widget => {
+    Object.values(widgets.elements).forEach(widget => {
       if (widget) {
         widget.classList.add('hidden');
       }
     });
   },
   show: key => {
-    widgetTemplates.hideAll();
-    if (widgetTemplates.templates[key]) {
-      widgetTemplates.templates[key].classList.remove('hidden');
+    widgets.hideAll();
+    if (widgets.elements[key]) {
+      widgets.elements[key].classList.remove('hidden');
     }
   },
   closedReason: reason => {
@@ -182,32 +182,32 @@ const widgetTemplates = {
 };
 
 function renderSpinner() {
-  widgetTemplates.show('spinner');
+  widgets.show('spinner');
 }
 
 function renderOpenWidget() {
-  widgetTemplates.show('open');
+  widgets.show('open');
 }
 
 function renderBusyNoAgentsWidget() {
-  widgetTemplates.show('busyNoAgents');
+  widgets.show('busyNoAgents');
 }
 
 function renderBusyEWTWidget() {
-  widgetTemplates.show('busyEWT');
+  widgets.show('busyEWT');
 }
 
 function renderClosedWidget(reason) {
-  widgetTemplates.closedReason(reason);
-  widgetTemplates.show('closed');
+  widgets.closedReason(reason);
+  widgets.show('closed');
 }
 
 function renderErrorWidget() {
-  widgetTemplates.show('error');
+  widgets.show('error');
 }
 
 function renderErrorCheckingAvailabilityWidget() {
-  widgetTemplates.show('errorCheckingAvailability');
+  widgets.show('errorCheckingAvailability');
 }
 
 /* ---------------------------------------------------------------
