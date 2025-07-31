@@ -1,14 +1,14 @@
 import autobind from 'autobind-decorator';
 
-import { CaseWithId } from '../../../../app/case/case';
+import { AppRequest } from '../../../../app/controller/AppRequest';
 import { CITIZEN_SERVICE_PAYMENT_MADE, CaseData, SERVICE_PAYMENT_STATES } from '../../../../app/case/definition';
 import BasePaymentCallbackGetController from '../../../../app/controller/BasePaymentCallbackGetController';
 import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED } from '../../../urls';
 
 @autobind
 export default class ServiceApplicationPaymentCallbackGetController extends BasePaymentCallbackGetController {
-  protected isAwaitingPayment(userCase: CaseWithId): boolean {
-    return SERVICE_PAYMENT_STATES.has(userCase.state);
+  protected isAwaitingPayment(req: AppRequest): boolean {
+    return SERVICE_PAYMENT_STATES.has(req.session.userCase.state);
   }
 
   protected noPaymentRequiredUrl(): string {

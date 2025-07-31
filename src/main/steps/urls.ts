@@ -234,3 +234,8 @@ export const CHECK_ANSWERS_BAILIFF: PageLink = '/interim-applications/bailiff-se
 export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
 export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
 export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
+
+// General Application Payment URLs
+export const PAY_YOUR_GENERAL_APPLICATION_FEE: PageLink = '/interim-applications/pay-your-general-application-fee';
+export const GENERAL_APPLICATION_PAYMENT_CALLBACK: PageLink = '/interim-applications/general-application-payment-callback';
+export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/interim-applications/general-application-submitted';
