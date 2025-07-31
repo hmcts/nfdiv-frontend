@@ -586,6 +586,8 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   ...noResponseJourneySequence,
   ...deemedServiceApplicationSequence,
+  ...noResponseJourneySequence,
+  ...deemedServiceApplicationSequence,
   ...serviceApplicationPaymentSequence,
 ];
 
