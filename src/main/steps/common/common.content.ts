@@ -170,11 +170,6 @@ export const en = {
     startWebchat: 'Start web chat (opens in a new window)',
     busy: 'All out web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
     noAgentsAvailable: 'No agents are available, please try again later.',
-    sendUsAMessage: 'Send us a message',
-    telephone: 'Telephone',
-    phoneNumber: '0300 303 0642',
-    openingTimes: 'Opening times (webchat and telephone)',
-    openingHours: 'Monday to Friday, 10 am to 6 pm<br>Closed on bank holidays',
     checkingAvailability: 'Checking availability...',
     serviceUnavailable: 'Service unavailable',
     error:
@@ -336,11 +331,6 @@ const cy: typeof en = {
     startWebchat: 'Start web chat (opens in a new window)',
     busy: 'All out web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
     noAgentsAvailable: 'No agents are available, please try again later.',
-    sendUsAMessage: 'Send us a message',
-    telephone: 'Telephone',
-    phoneNumber: '0300 303 0642',
-    openingTimes: 'Opening times (webchat and telephone)',
-    openingHours: 'Monday to Friday, 10 am to 6 pm<br>Closed on bank holidays',
     checkingAvailability: 'Checking availability...',
     serviceUnavailable: 'Service unavailable',
     error:

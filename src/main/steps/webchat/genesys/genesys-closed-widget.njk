@@ -2,11 +2,12 @@
 <p class="govuk-body"><strong class="govuk-!-font-weight-bold">{{ genesys.webchat }}</strong><br>
   {{ genesys.onlineAdviceClosed }}<span id="genesysWebchatClosedReason"></span>.
 </p>
-<p class="govuk-body"><strong class="govuk-!-font-weight-bold">{{ genesys.sendUsAMessage }}</strong><br>
-  <a href="#" class="govuk-link">{{ genesys.sendUsAMessage }}</a></p>
-<p class="govuk-body"><strong class="govuk-!-font-weight-bold">{{ genesys.telephone }}</strong><br>
-  {{ genesys.phoneNumber}}
+<p class="govuk-body"><strong class="govuk-!-font-weight-bold">{{ sendUsAMessage }}</strong><br>
+  <a href="{{ contactWebForm }}" class="govuk-link">{{ sendUsAMessage }}</a>
 </p>
-<p class="govuk-body"><strong class="govuk-!-font-weight-bold">{{ genesys.openingTimes }}</strong><br>
-  {{ genesys.openingHours | safe }}
+<p class="govuk-body"><strong class="govuk-!-font-weight-bold">{{ telephone }}</strong><br>
+  {{ telephoneNumber }}
+</p>
+<p class="govuk-body"><strong class="govuk-!-font-weight-bold">{{ openingTimesHeading }}</strong><br>
+  {{ openingTimes }}<br>{{ closingTimes }}
 </p>
