@@ -29,6 +29,9 @@ export class PropertiesVolume {
       await this.setSecret('secrets.nfdiv.idam-systemupdate-username', 'services.idam.systemUsername');
       await this.setSecret('secrets.nfdiv.idam-systemupdate-password', 'services.idam.systemPassword');
       await this.setSecret('secrets.nfdiv.pcq-token-key', 'services.equalityAndDiversity.tokenKey');
+      await this.setSecret('secrets.nfdiv.genesys-deployment-id', 'webchat.genesysDeploymentId');
+      await this.setSecret('secrets.nfdiv.genesys-deployment-id-cy', 'webchat.genesysDeploymentIdCy');
+      await this.setSecret('secrets.nfdiv.genesys-api-key', 'webchat.genesysApiKey');
     } else {
       // Load local secrets using Azure SDK
       await this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
@@ -38,6 +41,9 @@ export class PropertiesVolume {
       await this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
       await this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
       await this.setLocalSecret('pcq-token-key', 'services.equalityAndDiversity.tokenKey');
+      await this.setLocalSecret('genesys-deployment-id', 'webchat.genesysDeploymentId');
+      await this.setLocalSecret('genesys-deployment-id-cy', 'webchat.genesysDeploymentIdCy');
+      await this.setLocalSecret('genesys-api-key', 'webchat.genesysApiKey');
     }
   };
 

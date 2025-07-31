@@ -89,12 +89,12 @@ webchat:
   avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
   avayaService: 'Divorce'
   genesysReferrerPage: 'Divorce Site'
-  genesysDeploymentId: 'd49ce902-8c4c-44ec-8419-a3b2ce734545'
-  genesysDeploymentIdCy: '7fbe99a8-680d-42b8-b8bb-e389d5b36ea2'
+  genesysDeploymentId: 'NEED TO INSERT SECRET'
+  genesysDeploymentIdCy: 'NEED TO INSERT SECRET'
   genesysBaseUrl: 'https://apps.euw2.pure.cloud'
   genesysEnvironment: 'prod-euw2'
   genesysKervBaseUrl: 'https://api.hmcts.hs-cx.com/web-availability'
-  genesysApiKey: 'ym6o8p96s32iYJ7p7uWlB4UlSgl576Ef7gg5DxJY'
+  genesysApiKey: 'NEED TO INSERT SECRET'
   useGenesys: false
 dynatrace:
   dynatraceUrl: 'https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/2ab4686fc177447_complete.js'
