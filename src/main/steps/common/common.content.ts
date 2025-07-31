@@ -414,6 +414,10 @@ export const generateCommonContent = ({
   const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
     isDivorce ? 'Divorce' : 'Civil'
   }&party=${feedbackParty}`;
+  const genesysDeploymentId: string =
+    language === SupportedLanguages.En
+      ? config.get('webchat.genesysDeploymentId')
+      : config.get('webchat.genesysDeploymentIdCy');
 
   return {
     ...commonTranslations,
@@ -435,6 +439,7 @@ export const generateCommonContent = ({
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
+    genesysDeploymentId,
   };
 };
 
@@ -458,4 +463,5 @@ export type CommonContent = typeof en & {
   isGeneralConsiderationCoPronounced: boolean;
   isPendingHearingOutcomeCoPronounced: boolean;
   isPendingHearingOutcomeFoRequested: boolean;
+  genesysDeploymentId: string;
 };
