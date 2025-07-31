@@ -131,7 +131,6 @@ async function checkChatAvailability(maxRetries = 5, initialDelay = 1000) {
       }
 
       const data = await response.json();
-      console.log(data.Status);
       return data.Status;
     } catch (err) {
       if (attempt >= maxRetries - 1) {
