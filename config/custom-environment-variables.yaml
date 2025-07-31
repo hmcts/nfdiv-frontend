@@ -39,7 +39,6 @@ webchat:
   avayaService: WEBCHAT_AVAYA_SERVICE
   genesysReferrerPage: GENESYS_REFERRER_PAGE
   genesysDeploymentId: GENESYS_DEPLOYMENT_ID
-  genesysDeploymentIdCy: GENESYS_DEPLOYMENT_ID_CY
   genesysBaseUrl: GENESYS_BASE_URL
   genesysEnvironment: GENESYS_ENVIRONMENT
   genesysKervBaseUrl: GENESYS_KERV_BASE_URL
