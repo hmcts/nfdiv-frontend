@@ -1,17 +1,16 @@
-<!--  Config — change these in one place-->
-<genesys-config class="hidden" id="genesysConfig"
-data-genesysBaseUrl="{{ globals.webchat.genesysBaseUrl }}"
-data-genesysEnvironment="{{ globals.webchat.genesysEnvironment }}"
-data-genesysReferrerPage="{{ globals.webchat.genesysReferrerPage }}"
-data-genesysDeploymentId="{{ genesysDeploymentId }}"
-data-genesysKervBaseUrl="{{ globals.webchat.genesysKervBaseUrl }}"
-data-genesysApiKey="{{ globals.webchat.genesysApiKey }}"
-data-genesysPopupBlocked="{{ genesys.popupBlocked }}"
-data-genesysChatWithUs="{{ genesys.chatWithUs }}">
-</genesys-config>
+<div id="genesysWebchat">
+    <!--  Config — change these in one place-->
+    <genesys-config class="hidden" id="genesysConfig"
+    data-genesysBaseUrl="{{ globals.webchat.genesysBaseUrl }}"
+    data-genesysEnvironment="{{ globals.webchat.genesysEnvironment }}"
+    data-genesysReferrerPage="{{ globals.webchat.genesysReferrerPage }}"
+    data-genesysDeploymentId="{{ genesysDeploymentId }}"
+    data-genesysKervBaseUrl="{{ globals.webchat.genesysKervBaseUrl }}"
+    data-genesysApiKey="{{ globals.webchat.genesysApiKey }}"
+    data-genesysPopupBlocked="{{ genesys.popupBlocked }}"
+    data-genesysChatWithUs="{{ genesys.chatWithUs }}">
+    </genesys-config>
 
-<div class="genesys-availability-widget">
-  <div id="chatWidget">
     <div id="chatContent" class="govuk-body">
       <div class="hidden" id="genesysSpinner">
         <p class="govuk-body"><span class="genesys-spinner"></span>{{ genesys.checkingAvailability }}</p>
@@ -35,5 +34,4 @@ data-genesysChatWithUs="{{ genesys.chatWithUs }}">
         {% include "../webchat/genesys/genesys-error-checking-availability.njk" %}
       </div>
     </div>
-  </div>
 </div>
