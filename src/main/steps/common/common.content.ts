@@ -158,7 +158,6 @@ export const en = {
   avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
   genesys: {
     chatWithUs: 'Chat with us',
-    webchat: 'Webchat',
     webchatEnglandAndWales: 'Web chat (England and Wales)',
     webchatScotland: 'Web chat (Scotland only)',
     closedForTheDay: 'I’m sorry but our Webchat service is now closed for the day.',
@@ -318,7 +317,6 @@ const cy: typeof en = {
   avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
   genesys: {
     chatWithUs: 'Chat with us',
-    webchat: 'Sgwrsio dros y we',
     webchatEnglandAndWales: 'Web chat (England and Wales)',
     webchatScotland: 'Web chat (Scotland only)',
     closedForTheDay: 'I’m sorry but our Webchat service is now closed for the day.',
