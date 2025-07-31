@@ -38,7 +38,7 @@ cookieManager.init({
     {
       categoryName: 'essential',
       optional: false,
-      cookies: ['nfdiv-cookie-preferences']
+      cookies: ['nfdiv-cookie-preferences'],
     },
     {
       categoryName: 'analytics',
