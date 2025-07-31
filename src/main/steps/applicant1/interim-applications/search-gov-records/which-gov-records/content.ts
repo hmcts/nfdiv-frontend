@@ -1,7 +1,4 @@
 //import { SearchGovRecordsWhichDepartment } from '../../../../../app/case/definition';
-import { isEmpty } from 'lodash';
-
-import { Case, CaseDate } from '../../../../../app/case/case';
 import { SearchGovRecordsWhichDepartment } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
@@ -20,11 +17,13 @@ const en = ({ partner, required }: CommonContent) => ({
   otherFieldText: 'Please specify',
   whyTheseDepartments: `Why do you think these departments are most suited to getting the contact details of your ${partner}?`,
   errors: {
-    applicant1SearchGovRecordsWhichDepartments: {
+    applicant1InterimAppsSearchGovRecordsWhichDepartments: {
       required,
-      applicant1SearchGovRecordsOtherDepartmentNames: { required },
     },
-    applicant1SearchGovRecordsWhyTheseDepartments: {
+    applicant1InterimAppsSearchGovRecordsWhyTheseDepartments: {
+      required,
+    },
+    applicant1InterimAppsSearchGovRecordsOtherEnterName: {
       required,
     },
   },
@@ -43,11 +42,13 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   otherFieldText: 'Please specify',
   whyTheseDepartments: `Why do you think these departments are most suited to getting the contact details of your ${partner}?`,
   errors: {
-    applicant1SearchGovRecordsWhichDepartments: {
+    applicant1InterimAppsSearchGovRecordsWhichDepartments: {
       required,
-      applicant1SearchGovRecordsOtherDepartmentNames: { required },
     },
-    applicant1SearchGovRecordsWhyTheseDepartments: {
+    applicant1InterimAppsSearchGovRecordsWhyTheseDepartments: {
+      required,
+    },
+    applicant1InterimAppsSearchGovRecordsOtherEnterName: {
       required,
     },
   },
@@ -55,44 +56,41 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1SearchGovRecordsWhichDepartments: {
+    applicant1InterimAppsSearchGovRecordsWhichDepartments: {
       type: 'checkboxes',
+      label: l => l.title,
+      hint: l => l.titleHint,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'applicant1SearchGovRecordsWhichDepartments',
+          name: 'applicant1SearchGovRecordsDwp',
           label: l => l.dwp,
           hint: l => l.dwpHint,
           value: SearchGovRecordsWhichDepartment.DWP,
         },
         {
-          name: 'applicant1SearchGovRecordsWhichDepartments',
+          name: 'applicant1SearchGovRecordsHmrc',
           label: l => l.hmrc,
           hint: l => l.hmrcHint,
           value: SearchGovRecordsWhichDepartment.HMRC,
         },
         {
-          name: 'applicant1SearchGovRecordsWhichDepartments',
+          name: 'applicant1InterimAppsSearchGovRecordsOther',
           label: l => l.other,
           hint: l => l.otherHint,
           value: SearchGovRecordsWhichDepartment.OTHER,
           subFields: {
-            applicant1SearchGovRecordsOtherDepartmentNames: {
+            applicant1InterimAppsSearchGovRecordsOtherEnterName: {
               type: 'text',
               classes: 'govuk-input',
               label: l => l.otherFieldText,
-              labelSize: 'normal',
-              validator: (value: string | string[] | CaseDate | Partial<Case> | undefined): string | undefined => {
-                if (isEmpty(value)) {
-                  return 'required';
-                }
-              },
+              validator: isFieldFilledIn,
             },
           },
         },
       ],
     },
-    applicant1SearchGovRecordsWhyTheseDepartments: {
+    applicant1InterimAppsSearchGovRecordsWhyTheseDepartments: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.whyTheseDepartments,
@@ -112,7 +110,6 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
-    form,
     ...translations,
   };
 };

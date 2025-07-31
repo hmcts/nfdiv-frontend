@@ -28,7 +28,6 @@ import {
   OrderSummary,
   Payment,
   RequestForInformation,
-  SearchGovRecordsWhichDepartment,
   State,
   YesOrNo,
 } from './definition';
@@ -221,9 +220,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   alternativeServiceType: 'alternativeServiceType',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
-  applicant1SearchGovRecordsWhichDepartments: 'applicant1SearchGovRecordsWhichDepartments',
-  applicant1SearchGovRecordsWhyTheseDepartments: 'applicant1SearchGovRecordsWhyTheseDepartments',
-  applicant1SearchGovRecordsOtherDepartmentNames: 'applicant1SearchGovRecordsOtherDepartmentNames',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -517,9 +513,6 @@ export interface Case {
   serviceApplicationAnswers: DivorceDocument;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
-  applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
-  applicant1SearchGovRecordsWhyTheseDepartments: string;
-  applicant1SearchGovRecordsOtherDepartmentNames?: string;
 }
 
 export interface CaseWithId extends Case {

@@ -187,7 +187,6 @@ export const HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS: PageLink =
   '/interim-applications/search-gov-records/hwf-reference-number-gov-records';
 export const HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS: PageLink =
   '/interim-applications/search-gov-records/apply-for-hwf-gov-records';
-export const WHICH_GOV_DEPARTMENTS: PageLink = '/interim-applications/search-gov-records/which-gov-records';
 
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
