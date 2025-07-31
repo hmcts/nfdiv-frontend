@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 
-import { CaseWithId } from '../../../app/case/case';
 import {
   CaseData,
   FINAL_ORDER_PAYMENT_STATES,
@@ -15,8 +14,8 @@ import { PAYMENT_CALLBACK_URL, RESPONDENT } from '../../../steps/urls';
 
 @autobind
 export default class FinalOrderPaymentPostController extends BasePaymentPostController {
-  protected readyForPayment(userCase: CaseWithId): boolean {
-    return FINAL_ORDER_PAYMENT_STATES.has(userCase.state);
+  protected readyForPayment(req: AppRequest<AnyObject>): boolean {
+    return FINAL_ORDER_PAYMENT_STATES.has(req.session.userCase.state);
   }
 
   protected awaitingPaymentEvent(): string {
@@ -27,7 +26,7 @@ export default class FinalOrderPaymentPostController extends BasePaymentPostCont
     return req.session.userCase.applicant2FinalOrderFeeOrderSummary.Fees;
   }
 
-  protected paymentsCaseField(): keyof CaseData {
+  protected paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData {
     return 'finalOrderPayments' as keyof CaseData;
   }
 

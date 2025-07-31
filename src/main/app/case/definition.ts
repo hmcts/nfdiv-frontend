@@ -932,6 +932,10 @@ export interface CaseData {
   generalApplicationFeeAccountReferenceNumber: string;
   generalApplicationFeeHelpWithFeesReferenceNumber: string;
   generalApplications: ListValue<GeneralApplication>[];
+  applicant1GeneralApplicationServiceRequest: string;
+  applicant2GeneralApplicationServiceRequest: string;
+  applicant1GeneralApplicationFeeOrderSummary: OrderSummary;
+  applicant2GeneralApplicationFeeOrderSummary: OrderSummary;
   generalReferrals: ListValue<GeneralReferral>[];
   isJudicialSeparation: YesOrNo;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
@@ -1090,6 +1094,7 @@ export interface CaseData {
   applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
   applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType: InterimApplicationType;
+  applicant2InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
@@ -1379,6 +1384,9 @@ export interface GeneralApplication {
   generalApplicationFeePbaNumbers: DynamicList;
   generalApplicationFeeAccountReferenceNumber: string;
   generalApplicationFeeHelpWithFeesReferenceNumber: string;
+  generalApplicationFrom: GeneralParties;
+  generalApplicationFeeServiceRequestReference: string;
+  generalApplicationFeePaymentReference: string;
 }
 
 export interface GeneralEmail {
@@ -2229,6 +2237,10 @@ export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFin
 
 export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
 
+export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([
+  State.GeneralApplicationReceived,
+]);
+
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
   JUDICIAL_SEPARATION = 'judicialSeparation',
@@ -2761,6 +2773,8 @@ export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_SERVICE_APPLICATION = 'citizen-service-application';
 export const CITIZEN_SERVICE_PAYMENT_MADE = 'citizen-service-payment-made';
+export const CITIZEN_GENERAL_APPLICATION = 'citizen-general-application';
+export const CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE = 'citizen-general-application-payment-made';
 export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';

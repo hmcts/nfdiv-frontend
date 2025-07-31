@@ -2,7 +2,6 @@ import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseWithId } from '../../app/case/case';
 import { CaseData } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { PaymentClient } from '../payment/PaymentClient';
@@ -13,7 +12,7 @@ const logger = Logger.getLogger('payment');
 @autobind
 export default abstract class BasePaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (!this.isAwaitingPayment(req.session.userCase)) {
+    if (!this.isAwaitingPayment(req)) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
 
@@ -55,7 +54,7 @@ export default abstract class BasePaymentCallbackGetController {
     });
   }
 
-  protected abstract isAwaitingPayment(userCase: CaseWithId): boolean;
+  protected abstract isAwaitingPayment(req: AppRequest): boolean;
   protected abstract noPaymentRequiredUrl(req: AppRequest): string;
   protected abstract paymentMadeEvent(req: AppRequest): string;
   protected abstract paymentSuccessUrl(req: AppRequest): string;

@@ -16,6 +16,7 @@ import {
   DocumentType,
   FinancialOrderFor,
   Gender,
+  GeneralApplication,
   InterimApplicationType,
   JurisdictionConnections,
   LegalAdvisorDecision,
@@ -253,6 +254,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   alternativeServiceType: 'alternativeServiceType',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
+  generalApplications: 'generalApplications',
+  applicant1GeneralApplicationServiceRequest: 'applicant1GeneralApplicationServiceRequest',
+  applicant2GeneralApplicationServiceRequest: 'applicant2GeneralApplicationServiceRequest'
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -553,6 +557,7 @@ export interface Case {
   applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
   applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType?: InterimApplicationType;
+  applicant2InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
@@ -571,6 +576,11 @@ export interface Case {
   serviceApplicationAnswers: DivorceDocument;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
+  generalApplications?: ListValue<GeneralApplication>[];
+  applicant1GeneralApplicationServiceRequest: string;
+  applicant2GeneralApplicationServiceRequest: string;
+  applicant1GeneralApplicationFeeOrderSummary: OrderSummary;
+  applicant2GeneralApplicationFeeOrderSummary: OrderSummary;
 }
 
 export interface CaseWithId extends Case {
