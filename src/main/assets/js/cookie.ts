@@ -32,12 +32,13 @@ cookieManager.on('PreferenceFormSubmitted', () => {
 cookieManager.init({
   userPreferences: {
     cookieName: 'nfdiv-cookie-preferences',
+    cookieSecure: true
   },
   cookieManifest: [
     {
       categoryName: 'essential',
       optional: false,
-      cookies: ['nfdiv-cookie-preferences'],
+      cookies: ['nfdiv-cookie-preferences']
     },
     {
       categoryName: 'analytics',
