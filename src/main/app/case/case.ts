@@ -2,6 +2,8 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   AddressGlobalUK,
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
   AlternativeServiceOutcome,
   AlternativeServiceType,
   Applicant2Represented,
@@ -22,8 +24,12 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
+  NoResponseNoNewAddressDetails,
+  NoResponseOwnSearches,
   NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponseProcessServerOrBailiff,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
+  NoResponseSearchOrDispense,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -206,6 +212,20 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
+  applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
+  applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
+  applicant1AltServiceReasonForApplying: 'applicant1AltServiceReasonForApplying',
+  applicant1AltServiceMethod: 'applicant1AltServiceMethod',
+  applicant1AltServicePartnerEmail: 'applicant1AltServicePartnerEmail',
+  applicant1AltServicePartnerEmailWhenDifferent: 'applicant1AltServicePartnerEmail',
+  applicant1AltServicePartnerPhone: 'applicant1AltServicePartnerPhone',
+  applicant1AltServicePartnerWANum: 'applicant1AltServicePartnerWANum',
+  applicant1AltServicePartnerSocialDetails: 'applicant1AltServicePartnerSocialDetails',
+  applicant1AltServicePartnerOtherDetails: 'applicant1AltServicePartnerOtherDetails',
+  applicant1AltServiceMethodJustification: 'applicant1AltServiceMethodJustification',
+  applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
   servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
   servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
   servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
@@ -475,6 +495,8 @@ export interface Case {
   applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponseNoNewAddressDetails?: NoResponseNoNewAddressDetails;
+  applicant1NoResponseProcessServerOrBailiff?: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
   applicant1InterimAppsHaveHwfReference?: YesOrNo;
@@ -487,6 +509,10 @@ export interface Case {
   applicant1DeemedNoEvidenceStatement?: string;
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
+  applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
+  applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
+  applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
+  applicant1NoResponseSearchOrDispense?: NoResponseSearchOrDispense;
   applicant1NoResponsePartnerAddress1?: string;
   applicant1NoResponsePartnerAddress2?: string;
   applicant1NoResponsePartnerAddress3?: string;
@@ -497,6 +523,16 @@ export interface Case {
   applicant1NoResponsePartnerAddressOverseas?: YesOrNo;
   applicant1NoResponsePartnerEmailAddress?: string;
   applicant2Address?: AddressGlobalUK;
+  applicant1AltServiceReasonForApplying?: string;
+  applicant1AltServiceMethod?: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail?: string;
+  applicant1AltServicePartnerEmailWhenDifferent?: string;
+  applicant1AltServicePartnerPhone?: string;
+  applicant1AltServicePartnerWANum?: string;
+  applicant1AltServicePartnerSocialDetails?: string;
+  applicant1AltServicePartnerOtherDetails?: string;
+  applicant1AltServiceMethodJustification?: string;
+  applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;

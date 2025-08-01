@@ -186,6 +186,8 @@ const fields: FromApiConverters = {
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
     'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
+  applicant1NoResponseNoNewAddressDetails: 'applicant1NoResponseNoNewAddressDetails',
+  applicant1NoResponseProcessServerOrBailiff: 'applicant1NoResponseProcessServerOrBailiff',
   applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
@@ -204,12 +206,32 @@ const fields: FromApiConverters = {
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
   }),
+  applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
+  applicant1NoResponseRespondentAddressInEnglandWales: data => ({
+    applicant1NoResponseRespondentAddressInEnglandWales: checkboxConverter(
+      data.applicant1NoResponseRespondentAddressInEnglandWales
+    ),
+  }),
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
+  applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
   applicant2LegalProceedingDocs: uploadedFilesFromApiApplicant2,
   applicant2UnableToUploadEvidence: uploadedFilesFromApiApplicant2,
   applicant1NoResponsePartnerAddress: data => formatAddress(data, 'applicant1NoResponsePartner'),
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
+  applicant1AltServicePartnerEmail: data => ({
+    applicant1AltServicePartnerEmail: data.applicant1AltServicePartnerEmail,
+    applicant1AltServicePartnerEmailWhenDifferent: data.applicant1AltServicePartnerEmail,
+  }),
+  applicant1AltServiceReasonForApplying: 'applicant1AltServiceReasonForApplying',
+  applicant1AltServiceMethod: 'applicant1AltServiceMethod',
+  applicant1AltServicePartnerPhone: 'applicant1AltServicePartnerPhone',
+  applicant1AltServicePartnerWANum: 'applicant1AltServicePartnerWANum',
+  applicant1AltServicePartnerSocialDetails: 'applicant1AltServicePartnerSocialDetails',
+  applicant1AltServicePartnerOtherDetails: 'applicant1AltServicePartnerOtherDetails',
+  applicant1AltServiceMethodJustification: 'applicant1AltServiceMethodJustification',
+  applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
 };
 
 const fromApiDate = date => {

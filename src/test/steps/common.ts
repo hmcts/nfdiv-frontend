@@ -130,7 +130,7 @@ When('I select element {string}', iClickElement);
 When('I click element {string}', iClickElement);
 
 When('I click start', () => {
-  iClickElement('a.govuk-button--start');
+  iClickElement('.govuk-button--start');
 });
 
 When('I sign out', () => {

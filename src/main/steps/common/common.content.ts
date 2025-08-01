@@ -16,6 +16,7 @@ export const en = {
     for: 'for',
     to: 'to',
     deemed: 'deemed service',
+    alternativeService: 'alternative service',
     deemedCode: 'D11',
   },
   feedback: {
@@ -175,6 +176,7 @@ const cy: typeof en = {
     for: 'am',
     to: 'i',
     deemed: 'gyflwyno tybiedig',
+    alternativeService: 'gwasanaeth amgen',
     deemedCode: 'D11',
   },
   feedback: {
@@ -199,7 +201,7 @@ const cy: typeof en = {
   download: 'Llwytho i lawr',
   delete: 'Dileu',
   warning: 'Rhybudd',
-  continueToPay: 'Continue to pay',
+  continueToPay: 'Parhau i dalu',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   errorSaving:

@@ -1048,6 +1048,8 @@ export interface CaseData {
   applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
+  applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand: YesOrNo;
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
   applicant1InterimAppsHaveHwfReference: YesOrNo;
@@ -1059,9 +1061,22 @@ export interface CaseData {
   applicant1DeemedNoEvidenceStatement: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
+  applicant1NoResponseOwnSearches: NoResponseOwnSearches;
+  applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
+  applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
   applicant1NoResponsePartnerEmailAddress: string;
+  applicant1AltServiceReasonForApplying: string;
+  applicant1AltServiceMethod: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail: string;
+  applicant1AltServicePartnerPhone: string;
+  applicant1AltServicePartnerWANum: string;
+  applicant1AltServicePartnerSocialDetails: string;
+  applicant1AltServicePartnerOtherDetails: string;
+  applicant1AltServiceMethodJustification: string;
+  applicant1AltServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface CaseDocuments {
@@ -1084,6 +1099,12 @@ export interface CaseDocuments {
 export interface NoResponseJourneyOptions {
   noResponseCheckContactDetails: NoResponseCheckContactDetails;
   noResponsePartnerHasReceivedPapers: YesOrNo;
+  noResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
+  noResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
+  noResponseOwnSearches: NoResponseOwnSearches;
+  noResponseRespondentAddressInEnglandWales: YesOrNo;
+  noResponsePartnerInUkOrReceivingBenefits: YesOrNo;
+  noResponseSearchOrDispense: NoResponseSearchOrDispense;
 }
 
 export interface DeemedServiceJourneyOptions {
@@ -1097,6 +1118,24 @@ export interface DeemedServiceJourneyOptions {
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
+}
+
+export interface AlternativeServiceJourneyOptions {
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  altServiceReasonForApplying: string;
+  altServiceMethod: AlternativeServiceMethod;
+  altServicePartnerEmail: string;
+  altServicePartnerPhone: string;
+  altServicePartnerWANum: string;
+  altServicePartnerSocialDetails: string;
+  altServicePartnerOtherDetails: string;
+  altServiceMethodJustification: string;
+  altServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface RequestForInformationResponse {
@@ -1766,6 +1805,7 @@ export const enum AlternativeServiceType {
   DEEMED = 'deemed',
   DISPENSED = 'dispensed',
   BAILIFF = 'bailiff',
+  ALTERNATIVE_SERVICE = 'alternativeService',
 }
 
 export const enum Applicant2Represented {
@@ -1878,6 +1918,7 @@ export const enum InterimApplicationType {
   ALTERNATIVE_SERVICE = 'alternativeService',
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'searchGovRecords',
+  PROCESS_SERVER_SERVICE = 'processServerService',
 }
 
 export const enum GeneralApplicationType {
@@ -2505,6 +2546,28 @@ export const enum NoResponseCheckContactDetails {
   NOT_KNOWN = 'notKnown',
 }
 
+export const enum NoResponseNoNewAddressDetails {
+  IN_PERSON_SERVICE = 'inPersonService',
+  ALTERNATIVE_SERVICE = 'alternativeService',
+  NO_CONTACT_DETAILS = 'noContactDetails',
+}
+
+export const enum NoResponseProcessServerOrBailiff {
+  PROCESS_SERVER = 'processServer',
+  COURT_BAILIFF = 'courtBailiff',
+}
+
+export const enum NoResponseOwnSearches {
+  YES = 'yes',
+  NO = 'no',
+  NOT_FOUND = 'notFound',
+}
+
+export const enum NoResponseSearchOrDispense {
+  SEARCH = 'search',
+  DISPENSE = 'dispense',
+}
+
 export const enum NoResponsePartnerNewEmailOrPostalAddress {
   NEW_POSTAL = 'newPostalAddress',
   NEW_EMAIL = 'newEmailAddress',
@@ -2514,6 +2577,19 @@ export const enum NoResponsePartnerNewEmailOrPostalAddress {
 export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
   PROVIDE_NEW_EMAIL = 'provideNewEmailAddress',
   APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
+}
+
+export const enum AlternativeServiceMethod {
+  EMAIL = 'byEmail',
+  DIFFERENT_WAY = 'inADifferentWay',
+  EMAIL_AND_DIFFERENT = 'emailAndDifferentWay',
+}
+
+export const enum AlternativeServiceDifferentWays {
+  TEXT_MESSAGE = 'textMessage',
+  WHATSAPP = 'whatsapp',
+  SOCIAL_MEDIA = 'socialMedia',
+  OTHER = 'other',
 }
 
 /**
@@ -2698,6 +2774,7 @@ export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const INTEND_SWITCH_TO_SOLE_FO = 'intend-switch-to-sole-fo';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_GENERATE_PROCESS_SERVER_DOCS = 'citizen-generate-process-server-docs';
 export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
 export const FINAL_ORDER_PAYMENT_MADE = 'final-order-payment-made';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
