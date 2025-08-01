@@ -14,7 +14,7 @@ const en = (
   socialMediaSelected: boolean,
   cannotUploadEvidence: boolean
 ) => ({
-  title: `${cannotUploadEvidence ? 'Why are you applying to send the papers' : 'Why do you think sending the papers'}
+  title: `${cannotUploadEvidence ? 'Why are you applying to send the papers ' : 'Why do you think sending the papers '}
     ${
       multipleWaysSelected
         ? 'in this way'
@@ -27,14 +27,29 @@ const en = (
               : socialMediaSelected
                 ? 'by private message on social media'
                 : 'in this way'
-    } ${cannotUploadEvidence ? '?' : 'will be successful?'}`,
+    }${cannotUploadEvidence ? '?' : ' will be successful?'}`,
   line1: `Tell us why you think your ${partner} will receive the papers in this way. If a friend or relative will be sending the papers on your behalf, you’ll need to tell us who this is.`,
   unableToUploadLine1: 'You should also explain why you are not able to upload evidence.',
   unableToUploadLine2:
     'Explain in as much detail as you can so that the judge can consider whether to grant your application.',
   errors: {
     applicant1AltServiceMethodJustification: {
-      required: 'You must explain why you are applying to send the papers in this way.',
+      required: `You must explain why you ${
+        cannotUploadEvidence ? 'are applying to send the papers ' : 'think sending the papers'
+      }
+    ${
+      multipleWaysSelected
+        ? 'in this way'
+        : emailSelected
+          ? 'by email'
+          : textMessageSelected
+            ? 'by text message'
+            : whatsAppSelected
+              ? 'by WhatsApp'
+              : socialMediaSelected
+                ? 'by private message on social media'
+                : 'in this way'
+    } ${cannotUploadEvidence ? '.' : ' will be successful.'}`,
     },
   },
 });
@@ -69,7 +84,22 @@ const cy: typeof en = (
     'Explain in as much detail as you can so that the judge can consider whether to grant your application.',
   errors: {
     applicant1AltServiceMethodJustification: {
-      required: 'You must explain why you are applying to send the papers in this way.',
+      required: `You must explain why you ${
+        cannotUploadEvidence ? 'are applying to send the papers ' : 'think sending the papers'
+      }
+    ${
+      multipleWaysSelected
+        ? 'in this way'
+        : emailSelected
+          ? 'by email'
+          : textMessageSelected
+            ? 'by text message'
+            : whatsAppSelected
+              ? 'by WhatsApp'
+              : socialMediaSelected
+                ? 'by private message on social media'
+                : 'in this way'
+    } ${cannotUploadEvidence ? '.' : 'will be successful.'}`,
     },
   },
 });
@@ -84,7 +114,8 @@ export const form: FormContent = {
     applicant1AltServiceMethodJustification: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.responseLabel,
+      label: l => l.title,
+      labelHidden: true,
       validator: value => {
         const hasEnteredDetails = !isEmpty(value);
         if (!hasEnteredDetails) {
