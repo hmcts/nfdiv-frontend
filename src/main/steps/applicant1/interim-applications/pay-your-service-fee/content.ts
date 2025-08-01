@@ -20,14 +20,14 @@ const en = (applicationFee, { isDivorce, serviceApplicationType }: CommonContent
   withdrawLinkUrl: WITHDRAW_SERVICE_APPLICATION,
 });
 
-const cy: typeof en = (applicationFee, { isDivorce, serviceApplicationType }: CommonContent) => ({
+const cy: typeof en = (applicationFee, { isDivorce }: CommonContent) => ({
   title: 'Talu’r ffi ar gyfer y cais hwn',
   line1: `Y ffi ar gyfer y cais hwn yw ${applicationFee}. Ni fydd eich cais yn cael ei gyflwyno i’r Llys nes i chi dalu.`,
   line2:
     'Bydd angen cerdyn debyd neu gerdyn credyd dilys arnoch. Os na allwch dalu nawr, dylech gadw’r cais a dychwelyd ato pan fyddwch yn barod.',
   continue: 'Talu am a chyflwyno eich cais',
-  withdrawText: `If your circumstances have changed or you want to try something else, you can withdraw this ${serviceApplicationType} application after which you can view your options to proceed with your ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
+  withdrawText: `Os yw’ch amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch dynnu’r cais hwn yn ôl ac ar ôl hynny gallwch wirio eich opsiynau i fwrw ymlaen â'ch ${
+    isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
   }.`,
   withdrawLinkText: 'I want to withdraw this application',
   withdrawLinkUrl: WITHDRAW_SERVICE_APPLICATION,

@@ -8,9 +8,9 @@ const en = () => ({
 });
 
 const cy: typeof en = () => ({
-  title: 'Withdraw your service application',
-  line1: 'Your service application will be withdrawn, and you will have to make a new application.',
-  withdrawApplication: 'Withdraw application',
+  title: 'Tynnu eich cais yn ôl',
+  line1: "Bydd eich cais yn cael ei dynnu'n ôl, a bydd yn rhaid i chi wneud cais newydd.",
+  withdrawApplication: "Tynnu'r cais yn ôl",
 });
 
 export const form: FormContent = {

@@ -704,10 +704,10 @@ const cy: typeof en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
-    withdrawText: `If your circumstances have changed or you want to try something else, you can withdraw this ${serviceApplicationType} application after which you can view your options to proceed with your ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    withdrawText: `Os yw’ch amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch dynnu’r cais hwn yn ôl ac ar ôl hynny gallwch wirio eich opsiynau i fwrw ymlaen â'ch ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }.`,
-    withdrawLinkText: 'I want to withdraw this application',
+    withdrawLinkText: "Rwyf eisiau tynnu'r cais hwn yn ôl",
     withdrawLinkUrl: WITHDRAW_SERVICE_APPLICATION,
   },
   serviceApplicationSubmitted: {
