@@ -41,6 +41,9 @@ export class Helmet {
       'https://webchat-client.ctsc.hmcts.net',
       'https://webchat.pp.ctsc.hmcts.net',
       'https://webchat-client.pp.ctsc.hmcts.net',
+      'https://apps.euw2.pure.cloud',
+      'https://api.hmcts.hs-cx.com/web-availability',
+      'https://api-cdn.euw2.pure.cloud',
     ];
 
     const connectSrc = [
@@ -51,6 +54,7 @@ export class Helmet {
       'wss://webchat.ctsc.hmcts.net',
       'wss://webchat.training.ctsc.hmcts.net',
       'wss://webchat.pp.ctsc.hmcts.net',
+      'wss://webmessaging.euw2.pure.cloud',
     ];
     const imgSrc = [
       self,
@@ -88,6 +92,7 @@ export class Helmet {
         directives: {
           connectSrc,
           defaultSrc: ["'none'"],
+          frameSrc: ['https://apps.euw2.pure.cloud'],
           fontSrc: [self, 'data:', 'https://fonts.gstatic.com'],
           formAction,
           imgSrc,
