@@ -257,6 +257,8 @@ export interface AlternativeService {
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
+  servicePaymentFeeServiceRequestReference: string;
 }
 
 export interface AlternativeServiceOutcome {
@@ -949,11 +951,17 @@ export interface CaseData {
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
   servicePaymentFeeOrderSummary: OrderSummary;
+  servicePaymentFeeServiceRequestReference: string;
+  alternativeServiceFeeRequired: YesOrNo;
+  serviceApplicationAnswers: DivorceDocument;
+  servicePayments: ListValue<Payment>[];
+  serviceApplicationSubmittedOnline: YesOrNo,
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
   applicant2DocumentsUploaded: ListValue<DivorceDocument>[];
   documentsUploaded: ListValue<DivorceDocument>[];
@@ -1036,6 +1044,24 @@ export interface CaseData {
   generalLetters: ListValue<GeneralLetterDetails>[];
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
+  applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
+  applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1InterimAppsIUnderstand: YesOrNo;
+  applicant1InterimAppsUseHelpWithFees: YesOrNo;
+  applicant1InterimAppsHaveHwfReference: YesOrNo;
+  applicant1InterimAppsCanUploadEvidence: YesOrNo;
+  applicant1InterimAppsHwfRefNumber: string;
+  applicant1InterimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  applicant1InterimAppsCannotUploadDocs: YesOrNo;
+  applicant1DeemedEvidenceDetails: string;
+  applicant1DeemedNoEvidenceStatement: string;
+  applicant1InterimApplicationType: InterimApplicationType;
+  applicant1InterimAppsStatementOfTruth: YesOrNo;
+  applicant1NoResponsePartnerAddress: AddressGlobalUK;
+  applicant1NoResponsePartnerAddressOverseas: YesOrNo;
+  applicant1NoResponsePartnerEmailAddress: string;
 }
 
 export interface CaseDocuments {
@@ -1053,6 +1079,24 @@ export interface CaseDocuments {
   documentsUploadedOnConfirmService: ListValue<DivorceDocument>[];
   typeOfDocumentAttached: OfflineDocumentReceived;
   scannedSubtypeReceived: ScannedDocumentSubtypes;
+}
+
+export interface NoResponseJourneyOptions {
+  noResponseCheckContactDetails: NoResponseCheckContactDetails;
+  noResponsePartnerHasReceivedPapers: YesOrNo;
+}
+
+export interface DeemedServiceJourneyOptions {
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  interimAppsCannotUploadDocs: Checkbox;
+  deemedEvidenceDetails: string;
+  deemedNoEvidenceStatement: string;
+  interimAppsStatementOfTruth: Checkbox;
 }
 
 export interface RequestForInformationResponse {
@@ -1828,6 +1872,14 @@ export const enum GeneralApplicationFee {
   FEE0228 = 'FEE0228',
 }
 
+export const enum InterimApplicationType {
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  DEEMED_SERVICE = 'deemedService',
+  ALTERNATIVE_SERVICE = 'alternativeService',
+  BAILIFF_SERVICE = 'bailiffService',
+  SEARCH_GOV_RECORDS = 'searchGovRecords',
+}
+
 export const enum GeneralApplicationType {
   DISPENSED_WITH_SERVICE = 'dispensedWithService',
   DEEMED_SERVICE = 'deemedService',
@@ -2111,12 +2163,13 @@ export const enum State {
 }
 
 export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingPayment, State.AwaitingResponseToHWFDecision
+  State.AwaitingPayment,
+  State.AwaitingResponseToHWFDecision,
 ]);
 
-export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingFinalOrderPayment
-]);
+export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
+
+export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
@@ -2446,6 +2499,23 @@ export const enum ServiceProcessedByProcessServer {
   CONFIRM = 'serviceProcessed',
 }
 
+export const enum NoResponseCheckContactDetails {
+  UP_TO_DATE = 'upToDate',
+  NEW_ADDRESS = 'newAddress',
+  NOT_KNOWN = 'notKnown',
+}
+
+export const enum NoResponsePartnerNewEmailOrPostalAddress {
+  NEW_POSTAL = 'newPostalAddress',
+  NEW_EMAIL = 'newEmailAddress',
+  BOTH_EMAIL_AND_POSTAL = 'newEmailAndPostalAddress',
+}
+
+export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
+  PROVIDE_NEW_EMAIL = 'provideNewEmailAddress',
+  APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
+}
+
 /**
  * Values:
  * - `CONTINUE`
@@ -2620,6 +2690,8 @@ export const CITIZEN_CREATE = 'citizen-create-application';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
+export const CITIZEN_SERVICE_APPLICATION = 'citizen-service-application';
+export const CITIZEN_SERVICE_PAYMENT_MADE = 'citizen-service-payment-made';
 export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
@@ -2669,6 +2741,8 @@ export const CITIZEN_WITHDRAWN = 'citizen-withdrawn';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 export const CASEWORKER_REQUEST_FOR_INFORMATION = 'caseworker-request-for-information';
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
+export const CASEWORKER_REISSUE_APPLICATION = 'caseworker-reissue-application';
+export const UPDATE_CONTACT_DETAILS_AND_REISSUE = 'update-partner-details-and-reissue';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_LINK_APPLICANT_1 = 'system-link-applicant1';
