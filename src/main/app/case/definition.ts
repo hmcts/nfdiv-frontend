@@ -1068,6 +1068,15 @@ export interface CaseData {
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
   applicant1NoResponsePartnerEmailAddress: string;
+  applicant1AltServiceReasonForApplying: string;
+  applicant1AltServiceMethod: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail: string;
+  applicant1AltServicePartnerPhone: string;
+  applicant1AltServicePartnerWANum: string;
+  applicant1AltServicePartnerSocialDetails: string;
+  applicant1AltServicePartnerOtherDetails: string;
+  applicant1AltServiceMethodJustification: string;
+  applicant1AltServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface CaseDocuments {
@@ -1109,6 +1118,24 @@ export interface DeemedServiceJourneyOptions {
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
+}
+
+export interface AlternativeServiceJourneyOptions {
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  altServiceReasonForApplying: string;
+  altServiceMethod: AlternativeServiceMethod;
+  altServicePartnerEmail: string;
+  altServicePartnerPhone: string;
+  altServicePartnerWANum: string;
+  altServicePartnerSocialDetails: string;
+  altServicePartnerOtherDetails: string;
+  altServiceMethodJustification: string;
+  altServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface RequestForInformationResponse {
@@ -1778,6 +1805,7 @@ export const enum AlternativeServiceType {
   DEEMED = 'deemed',
   DISPENSED = 'dispensed',
   BAILIFF = 'bailiff',
+  ALTERNATIVE_SERVICE = 'alternativeService',
 }
 
 export const enum Applicant2Represented {
@@ -2549,6 +2577,19 @@ export const enum NoResponsePartnerNewEmailOrPostalAddress {
 export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
   PROVIDE_NEW_EMAIL = 'provideNewEmailAddress',
   APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
+}
+
+export const enum AlternativeServiceMethod {
+  EMAIL = 'byEmail',
+  DIFFERENT_WAY = 'inADifferentWay',
+  EMAIL_AND_DIFFERENT = 'emailAndDifferentWay',
+}
+
+export const enum AlternativeServiceDifferentWays {
+  TEXT_MESSAGE = 'textMessage',
+  WHATSAPP = 'whatsapp',
+  SOCIAL_MEDIA = 'socialMedia',
+  OTHER = 'other',
 }
 
 /**

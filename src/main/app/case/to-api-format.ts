@@ -2,6 +2,8 @@ import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import {
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
   Applicant2Represented,
   ApplicationType,
   CaseData,
@@ -458,6 +460,50 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerAddressPostcode: applicant1NoResponsePartnerAddressToApi,
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1AltServicePartnerEmail: data => ({
+    applicant1AltServicePartnerEmail:
+      data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
+        ? data.applicant1AltServicePartnerEmail
+        : data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? data.applicant1AltServicePartnerEmailWhenDifferent
+          : null,
+  }),
+  applicant1AltServicePartnerEmailWhenDifferent: data => ({
+    applicant1AltServicePartnerEmail:
+      data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
+        ? data.applicant1AltServicePartnerEmail
+        : data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? data.applicant1AltServicePartnerEmailWhenDifferent
+          : null,
+  }),
+  applicant1AltServicePartnerPhone: data => ({
+    applicant1AltServicePartnerPhone: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.TEXT_MESSAGE
+    )
+      ? data.applicant1AltServicePartnerPhone
+      : null,
+  }),
+  applicant1AltServicePartnerWANum: data => ({
+    applicant1AltServicePartnerWANum: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.WHATSAPP
+    )
+      ? data.applicant1AltServicePartnerWANum
+      : null,
+  }),
+  applicant1AltServicePartnerSocialDetails: data => ({
+    applicant1AltServicePartnerSocialDetails: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.SOCIAL_MEDIA
+    )
+      ? data.applicant1AltServicePartnerSocialDetails
+      : null,
+  }),
+  applicant1AltServicePartnerOtherDetails: data => ({
+    applicant1AltServicePartnerOtherDetails: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.OTHER
+    )
+      ? data.applicant1AltServicePartnerOtherDetails
+      : null,
   }),
 };
 
