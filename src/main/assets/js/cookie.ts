@@ -32,6 +32,7 @@ cookieManager.on('PreferenceFormSubmitted', () => {
 cookieManager.init({
   userPreferences: {
     cookieName: 'nfdiv-cookie-preferences',
+    cookieSecure: true,
   },
   cookieManifest: [
     {
