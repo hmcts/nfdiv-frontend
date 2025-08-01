@@ -9,11 +9,19 @@ import {
   PROVIDE_INFORMATION_TO_THE_COURT,
   RESPONDENT,
   RESPOND_TO_COURT_FEEDBACK,
+  UPLOAD_EVIDENCE_ALTERNATIVE,
   UPLOAD_EVIDENCE_DEEMED,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
+import {
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_UPDATE,
+  DivorceDocument,
+  InterimApplicationType,
+  ListValue,
+  State,
+} from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
@@ -28,8 +36,18 @@ export class DocumentManagerController {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
-    } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state) && !isApplicant2) {
+    } else if (
+      [State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state) &&
+      req.session.userCase.applicant1InterimApplicationType === InterimApplicationType.DEEMED_SERVICE &&
+      !isApplicant2
+    ) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DEEMED}`);
+    } else if (
+      [State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state) &&
+      req.session.userCase.applicant1InterimApplicationType === InterimApplicationType.ALTERNATIVE_SERVICE &&
+      !isApplicant2
+    ) {
+      return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_ALTERNATIVE}`);
     } else if (
       [State.AosDrafted, State.AosOverdue, State.AwaitingConditionalOrder].includes(req.session.userCase.state) &&
       isApplicant2

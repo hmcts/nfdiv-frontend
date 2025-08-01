@@ -1,19 +1,21 @@
-import { YesOrNo } from '../app/case/definition';
+import { AlternativeServiceMethod, YesOrNo } from '../app/case/definition';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { Step } from './applicant1Sequence';
 import {
+  ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS,
+  ALTERNATIVE_HOW_TO_SERVE,
   ALTERNATIVE_INTERRUPTION,
   ALTERNATIVE_SENDING_PAPERS_TO_PARTNER,
   ALTERNATIVE_SERVICE_APPLICATION,
   ALTERNATIVE_WHY_APPLY_THIS_WAY,
-  ALTERNATIVE_WHY_OTHER_WAY,
   APPLY_FOR_HWF_ALTERNATIVE,
   CHECK_ANSWERS_ALTERNATIVE,
   HELP_WITH_FEES_ALTERNATIVE,
-  HUB_PAGE,
   HWF_REFERENCE_NUMBER_ALTERNATIVE,
   HWF_REFERENCE_NUMBER_INPUT_ALTERNATIVE,
+  PAY_YOUR_SERVICE_FEE,
+  SERVICE_APPLICATION_SUBMITTED,
   UPLOAD_EVIDENCE_ALTERNATIVE,
   WANT_UPLOAD_EVIDENCE_ALTERNATIVE,
 } from './urls';
@@ -49,7 +51,7 @@ describe('Alternative Service Application Sequence test', () => {
         applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
       };
       const step = alternativeServiceApplicationSequence.find(obj => obj.url === HELP_WITH_FEES_ALTERNATIVE) as Step;
-      expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_WHY_OTHER_WAY);
+      expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS);
     });
   });
 
@@ -80,7 +82,7 @@ describe('Alternative Service Application Sequence test', () => {
       const step = alternativeServiceApplicationSequence.find(
         obj => obj.url === HWF_REFERENCE_NUMBER_INPUT_ALTERNATIVE
       ) as Step;
-      expect(step.getNextStep({})).toBe(ALTERNATIVE_WHY_OTHER_WAY);
+      expect(step.getNextStep({})).toBe(ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS);
     });
   });
 
@@ -93,16 +95,38 @@ describe('Alternative Service Application Sequence test', () => {
 
   describe('ALTERNATIVE_WHY_OTHER_WAY', () => {
     test('ALTERNATIVE_WHY_OTHER_WAY', () => {
-      const step = alternativeServiceApplicationSequence.find(obj => obj.url === ALTERNATIVE_WHY_OTHER_WAY) as Step;
+      const step = alternativeServiceApplicationSequence.find(
+        obj => obj.url === ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS
+      ) as Step;
       expect(step.getNextStep({})).toBe(ALTERNATIVE_SENDING_PAPERS_TO_PARTNER);
     });
   });
 
-  describe('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER', () => {
-    test('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER', () => {
+  describe('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER redirects based on method selected', () => {
+    test('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER send to WANT_UPLOAD_EVIDENCE_ALTERNATIVE', () => {
+      const caseData = {
+        applicant1AltServiceMethod: AlternativeServiceMethod.EMAIL,
+      };
       const step = alternativeServiceApplicationSequence.find(
         obj => obj.url === ALTERNATIVE_SENDING_PAPERS_TO_PARTNER
       ) as Step;
+      expect(step.getNextStep(caseData)).toBe(WANT_UPLOAD_EVIDENCE_ALTERNATIVE);
+    });
+
+    test('ALTERNATIVE_SENDING_PAPERS_TO_PARTNER send to ALTERNATIVE_HOW_TO_SERVE', () => {
+      const caseData = {
+        applicant1AltServiceMethod: AlternativeServiceMethod.DIFFERENT_WAY,
+      };
+      const step = alternativeServiceApplicationSequence.find(
+        obj => obj.url === ALTERNATIVE_SENDING_PAPERS_TO_PARTNER
+      ) as Step;
+      expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_HOW_TO_SERVE);
+    });
+  });
+
+  describe('ALTERNATIVE_HOW_TO_SERVE', () => {
+    test('ALTERNATIVE_HOW_TO_SERVE', () => {
+      const step = alternativeServiceApplicationSequence.find(obj => obj.url === ALTERNATIVE_HOW_TO_SERVE) as Step;
       expect(step.getNextStep({})).toBe(WANT_UPLOAD_EVIDENCE_ALTERNATIVE);
     });
   });
@@ -146,9 +170,22 @@ describe('Alternative Service Application Sequence test', () => {
   });
 
   describe('CHECK_ANSWERS_ALTERNATIVE', () => {
-    test('CHECK_ANSWERS_ALTERNATIVE', () => {
+    test('CHECK_ANSWERS_ALTERNATIVE should redirect to PAY_YOUR_SERVICE_FEE if payment is required', () => {
       const step = alternativeServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_ALTERNATIVE) as Step;
-      expect(step.getNextStep({})).toBe(HUB_PAGE); // Correct this when the rest of the journey is implemented
+      const caseData = {
+        alternativeServiceFeeRequired: YesOrNo.YES,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(PAY_YOUR_SERVICE_FEE);
+    });
+
+    test('CHECK_ANSWERS_ALTERNATIVE should redirect to SERVICE_APPLICATION_SUBMITTED if payment is not required', () => {
+      const step = alternativeServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_ALTERNATIVE) as Step;
+      const caseData = {
+        alternativeServiceFeeRequired: YesOrNo.NO,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(SERVICE_APPLICATION_SUBMITTED);
     });
   });
 });

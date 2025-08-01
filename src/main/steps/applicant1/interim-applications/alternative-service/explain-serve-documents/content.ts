@@ -9,7 +9,7 @@ const en = () => ({
     'Explain why you have not been able to send the papers. Give as much detail as you can. This information may be considered by a judge as part of your application.',
   errors: {
     applicant1AltServiceReasonForApplying: {
-      required: 'You must provide a reason before continuing.',
+      required: 'You must explain why are applying for alternative service.',
     },
   },
 });
@@ -21,7 +21,7 @@ const cy = () => ({
     'Explain why you have not been able to send the papers. Give as much detail as you can. This information may be considered by a judge as part of your application.',
   errors: {
     applicant1AltServiceReasonForApplying: {
-      required: 'You must provide a reason before continuing.',
+      required: 'You must explain why are applying for alternative service.',
     },
   },
 });
@@ -36,7 +36,8 @@ export const form: FormContent = {
     applicant1AltServiceReasonForApplying: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.responseLabel,
+      label: l => l.title,
+      labelHidden: true,
       validator: value => {
         const hasEnteredDetails = !isEmpty(value);
         if (!hasEnteredDetails) {
