@@ -79,6 +79,7 @@ export class Nunjucks {
     });
 
     const globals = {
+      nonce: config.get('nonce'),
       webchat: {
         avayaUrl: config.get('webchat.avayaUrl'),
         avayaClientUrl: config.get('webchat.avayaClientUrl'),
