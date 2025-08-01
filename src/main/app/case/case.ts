@@ -1,6 +1,7 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
+  AddressGlobalUK,
   AlternativeServiceOutcome,
   AlternativeServiceType,
   Applicant2Represented,
@@ -25,6 +26,8 @@ import {
   NoResponseOwnSearches,
   NoResponseProcessServerOrBailiff,
   NoResponseSearchOrDispense,
+  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponseProvidePartnerNewEmailOrAlternativeService,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -192,6 +195,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+    'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -474,6 +480,8 @@ export interface Case {
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
+  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
   applicant1NoResponseNoNewAddressDetails?: NoResponseNoNewAddressDetails;
   applicant1NoResponseProcessServerOrBailiff?: NoResponseProcessServerOrBailiff;
@@ -493,6 +501,16 @@ export interface Case {
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
   applicant1NoResponseSearchOrDispense?: NoResponseSearchOrDispense;
+  applicant1NoResponsePartnerAddress1?: string;
+  applicant1NoResponsePartnerAddress2?: string;
+  applicant1NoResponsePartnerAddress3?: string;
+  applicant1NoResponsePartnerAddressTown?: string;
+  applicant1NoResponsePartnerAddressCounty?: string;
+  applicant1NoResponsePartnerAddressCountry?: string;
+  applicant1NoResponsePartnerAddressPostcode?: string;
+  applicant1NoResponsePartnerAddressOverseas?: YesOrNo;
+  applicant1NoResponsePartnerEmailAddress?: string;
+  applicant2Address?: AddressGlobalUK;
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;

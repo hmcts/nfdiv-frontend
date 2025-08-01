@@ -3,7 +3,9 @@ import {
   NoResponseCheckContactDetails,
   NoResponseNoNewAddressDetails,
   NoResponseOwnSearches,
+  NoResponsePartnerNewEmailOrPostalAddress,
   NoResponseProcessServerOrBailiff,
+  NoResponseProvidePartnerNewEmailOrAlternativeService,
   NoResponseSearchOrDispense,
   YesOrNo,
 } from '../app/case/definition';
@@ -11,6 +13,7 @@ import {
 import { Step } from './applicant1Sequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
+  APPLY_FOR_ALTERNATIVE_SERVICE,
   BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
@@ -20,13 +23,18 @@ import {
   HAVE_THEY_RECEIVED_REPRESENTED,
   HUB_PAGE,
   IS_PARTNER_ABROAD,
+  NEW_CONTACT_DETAIL_CHECK_ANSWERS,
+  NEW_EMAIL,
+  NEW_POSTAL_ADDRESS,
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
+  NO_RESPONSE_DETAILS_UPDATED,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PARTNER_IN_PERSON,
   PROCESS_SERVER,
   PROCESS_SERVER_DOCS,
+  PROVIDE_NEW_EMAIL_ADDRESS,
   PageLink,
   SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_TIPS,
@@ -61,6 +69,52 @@ export const noResponseJourneySequence: Step[] = [
           return HUB_PAGE;
         }
       }
+    },
+  },
+  {
+    url: NEW_POSTAL_AND_EMAIL,
+    getNextStep: (data: Partial<CaseWithId>): PageLink =>
+      [
+        NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL,
+        NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+      ].includes(data.applicant1NoResponsePartnerNewEmailOrPostalAddress as NoResponsePartnerNewEmailOrPostalAddress)
+        ? NEW_EMAIL
+        : NEW_POSTAL_ADDRESS,
+  },
+  {
+    url: NEW_POSTAL_ADDRESS,
+    getNextStep: (): PageLink => {
+      return NEW_CONTACT_DETAIL_CHECK_ANSWERS;
+    },
+  },
+  {
+    url: NEW_EMAIL,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      return data.applicant1NoResponseProvidePartnerNewEmailOrAlternativeService ===
+        NoResponseProvidePartnerNewEmailOrAlternativeService.APPLY_FOR_ALTERNATIVE_SERVICE
+        ? APPLY_FOR_ALTERNATIVE_SERVICE
+        : PROVIDE_NEW_EMAIL_ADDRESS;
+    },
+  },
+  {
+    url: PROVIDE_NEW_EMAIL_ADDRESS,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      return data.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+        NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
+        ? NEW_POSTAL_ADDRESS
+        : NEW_CONTACT_DETAIL_CHECK_ANSWERS;
+    },
+  },
+  {
+    url: NEW_CONTACT_DETAIL_CHECK_ANSWERS,
+    getNextStep: (): PageLink => {
+      return NO_RESPONSE_DETAILS_UPDATED;
+    },
+  },
+  {
+    url: NO_RESPONSE_DETAILS_UPDATED,
+    getNextStep: (): PageLink => {
+      return HUB_PAGE;
     },
   },
   {

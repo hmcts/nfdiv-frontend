@@ -176,6 +176,13 @@ export const PROCESS_SERVER_DOCS: PageLink = '/interim-applications/no-response/
 export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
 export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
 export const ALTERNATIVE_INTERRUPTION: PageLink = '/interim-applications/alternative-service/interruption';
+export const NEW_POSTAL_ADDRESS: PageLink = '/interim-applications/no-response/new-postal-address';
+export const NEW_EMAIL: PageLink = '/interim-applications/no-response/new-email-address';
+export const PROVIDE_NEW_EMAIL_ADDRESS: PageLink = '/interim-applications/no-response/provide-new-email-address';
+export const APPLY_FOR_ALTERNATIVE_SERVICE: PageLink =
+  '/interim-applications/no-response/apply-for-alternative-service';
+export const NEW_CONTACT_DETAIL_CHECK_ANSWERS: PageLink = '/interim-applications/no-response/check-your-answers';
+export const NO_RESPONSE_DETAILS_UPDATED: PageLink = '/interim-applications/no-response/details-updated';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
