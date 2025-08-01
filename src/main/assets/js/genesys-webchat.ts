@@ -9,6 +9,7 @@ const requiredConfigAttributes = [
   'genesysBaseUrl',
   'genesysEnvironment',
   'genesysReferrerPage',
+  'genesysNonce',
 ];
 
 function getGenesysConfig(configElemId: string, requiredAttributes: string[]): boolean {
@@ -57,41 +58,41 @@ function attachStartChatHandler() {
     /* build the popup document in one go */
     const genesysHTML = `<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>${genesysConfig['genesysChatWithUs']}</title>
-  <script type="text/javascript">
-    (function (g, e, n, es) {
-      g._genesysJs = e;
-      g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
-      g[e].t = Date.now();
-      g[e].c = es;
+  <head>
+    <meta charset="UTF-8">
+    <title>${genesysConfig['genesysChatWithUs']}</title>
+    <script nonce="${genesysConfig['genesysNonce']}" type="text/javascript">
+      (function (g, e, n, es) {
+        g._genesysJs = e;
+        g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
+        g[e].t = Date.now();
+        g[e].c = es;
 
-      /* inject the Genesys bootstrap script */
-      var s = document.createElement('script');
-      s.async = true;
-      s.src   = n;
-      document.head.appendChild(s);
-    })(window, 'Genesys',
-       '${genesysConfig['genesysBaseUrl']}/genesys-bootstrap/genesys.min.js',
-       { environment: '${genesysConfig['genesysEnvironment']}', deploymentId: '${genesysConfig['genesysDeploymentId']}'});
+        /* inject the Genesys bootstrap script */
+        var s = document.createElement('script');
+        s.async = true;
+        s.src   = n;
+        document.head.appendChild(s);
+      })(window, 'Genesys',
+         '${genesysConfig['genesysBaseUrl']}/genesys-bootstrap/genesys.min.js',
+         { environment: '${genesysConfig['genesysEnvironment']}', deploymentId: '${genesysConfig['genesysDeploymentId']}'});
 
-    Genesys("command", "Database.set", {
-      messaging: { customAttributes: { webReferrerPage: '${genesysConfig['genesysReferrerPage']}'}}
-          },
-      function(data){ /* fulfilled, returns data */}, function(){ /* rejected */ }
-    );
+      Genesys("command", "Database.set", {
+        messaging: { customAttributes: { webReferrerPage: '${genesysConfig['genesysReferrerPage']}'}}
+            },
+        function(data){ /* fulfilled, returns data */}, function(){ /* rejected */ }
+      );
 
-    window.addEventListener('load', function () {
-      Genesys('subscribe', 'Messenger.ready', function () {
-        Genesys('command', 'Messenger.open');
+      window.addEventListener('load', function () {
+        Genesys('subscribe', 'Messenger.ready', function () {
+          Genesys('command', 'Messenger.open');
+        });
       });
-    });
-  </script>
-</head>
-<body class="genesys-popup-body">
-  <div id="genesys-web-messaging"></div>
-</body>
+    </script>
+  </head>
+  <body class="genesys-popup-body">
+    <div id="genesys-web-messaging"></div>
+  </body>
 </html>`;
 
     popup.document.open();
