@@ -88,6 +88,7 @@ describe('to-api-format', () => {
     app2RfiDraftResponseDetails: 'test',
     app2RfiDraftResponseUploadedFiles: [],
     applicant2UnableToUploadEvidence: Checkbox.Checked,
+    applicant1InterimAppsStatementOfTruth: Checkbox.Checked
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -214,6 +215,7 @@ describe('to-api-format', () => {
       app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
       app2RfiDraftResponseDetails: 'test',
       applicant2UnableToUploadEvidence: YesOrNo.YES,
+      applicant1InterimAppsStatementOfTruth: YesOrNo.YES,
     });
   });
 
@@ -443,6 +445,18 @@ describe('to-api-format', () => {
           PostCode: '',
           Country: '',
         },
+      },
+    },
+    {
+      applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+      expected: {
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1NoResponsePartnerAddressOverseas: null,
+      expected: {
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
       },
     },
     {
