@@ -182,9 +182,13 @@ const fields: FromApiConverters = {
   }),
   requestsForInformation: 'requestsForInformation',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+    'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1NoResponseNoNewAddressDetails: 'applicant1NoResponseNoNewAddressDetails',
   applicant1NoResponseProcessServerOrBailiff: 'applicant1NoResponseProcessServerOrBailiff',
+  applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
   }),
@@ -212,6 +216,10 @@ const fields: FromApiConverters = {
   applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
   applicant2LegalProceedingDocs: uploadedFilesFromApiApplicant2,
   applicant2UnableToUploadEvidence: uploadedFilesFromApiApplicant2,
+  applicant1NoResponsePartnerAddress: data => formatAddress(data, 'applicant1NoResponsePartner'),
+  applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
+    applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
+  }),
   applicant1AltServicePartnerEmail: data => ({
     applicant1AltServicePartnerEmail: data.applicant1AltServicePartnerEmail,
     applicant1AltServicePartnerEmailWhenDifferent: data.applicant1AltServicePartnerEmail,

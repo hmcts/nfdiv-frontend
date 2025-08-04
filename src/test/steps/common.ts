@@ -142,6 +142,11 @@ When('I click continue', iClickSubmit);
 When('I click send for review', iClickSubmit);
 When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
+When('I click accept and send', iClickSubmit);
+
+Then('the page should show an error for field {string}', (fieldName: string) => {
+  I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
+});
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
   I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");

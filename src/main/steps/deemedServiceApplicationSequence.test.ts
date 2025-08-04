@@ -123,7 +123,7 @@ describe('Deemed Service Application Sequence test', () => {
   });
 
   describe('CHECK_ANSWERS_DEEMED', () => {
-    test('CHECK_ANSWERS_DEEMED should redirect to PAY_YOUR_SERVICE_FEE if payment is required', () => {
+    test('CHECK_ANSWERS_DEEMED', () => {
       const step = deemedServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DEEMED) as Step;
       const caseData = {
         alternativeServiceFeeRequired: YesOrNo.YES,
@@ -131,7 +131,6 @@ describe('Deemed Service Application Sequence test', () => {
 
       expect(step.getNextStep(caseData)).toBe(PAY_YOUR_SERVICE_FEE);
     });
-
     test('CHECK_ANSWERS_DEEMED should redirect to SERVICE_APPLICATION_SUBMITTED if payment is not required', () => {
       const step = deemedServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DEEMED) as Step;
       const caseData = {
