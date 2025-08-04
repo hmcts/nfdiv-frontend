@@ -157,10 +157,8 @@ export class DocumentManagerController {
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
     if (
-      (!isApplicant2 &&
-        !APPLICANT_ONE_DOC_UPLOAD_STATES.includes(req.session.userCase.state)) ||
-      (isApplicant2 &&
-        !APPLICANT_TWO_DOC_UPLOAD_STATES.includes(req.session.userCase.state))
+      (!isApplicant2 && !APPLICANT_ONE_DOC_UPLOAD_STATES.includes(req.session.userCase.state)) ||
+      (isApplicant2 && !APPLICANT_TWO_DOC_UPLOAD_STATES.includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot delete documents as case is not in the correct state');
     }
