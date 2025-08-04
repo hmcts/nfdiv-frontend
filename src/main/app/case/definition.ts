@@ -1045,6 +1045,8 @@ export interface CaseData {
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
   applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
   applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
@@ -1063,6 +1065,18 @@ export interface CaseData {
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
   applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
+  applicant1NoResponsePartnerAddress: AddressGlobalUK;
+  applicant1NoResponsePartnerAddressOverseas: YesOrNo;
+  applicant1NoResponsePartnerEmailAddress: string;
+  applicant1AltServiceReasonForApplying: string;
+  applicant1AltServiceMethod: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail: string;
+  applicant1AltServicePartnerPhone: string;
+  applicant1AltServicePartnerWANum: string;
+  applicant1AltServicePartnerSocialDetails: string;
+  applicant1AltServicePartnerOtherDetails: string;
+  applicant1AltServiceMethodJustification: string;
+  applicant1AltServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface CaseDocuments {
@@ -1104,6 +1118,24 @@ export interface DeemedServiceJourneyOptions {
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
+}
+
+export interface AlternativeServiceJourneyOptions {
+  interimAppsIUnderstand: Checkbox;
+  interimAppsUseHelpWithFees: YesOrNo;
+  interimAppsHaveHwfReference: YesOrNo;
+  interimAppsCanUploadEvidence: YesOrNo;
+  interimAppsRefNumber: string;
+  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  altServiceReasonForApplying: string;
+  altServiceMethod: AlternativeServiceMethod;
+  altServicePartnerEmail: string;
+  altServicePartnerPhone: string;
+  altServicePartnerWANum: string;
+  altServicePartnerSocialDetails: string;
+  altServicePartnerOtherDetails: string;
+  altServiceMethodJustification: string;
+  altServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface RequestForInformationResponse {
@@ -1773,6 +1805,7 @@ export const enum AlternativeServiceType {
   DEEMED = 'deemed',
   DISPENSED = 'dispensed',
   BAILIFF = 'bailiff',
+  ALTERNATIVE_SERVICE = 'alternativeService',
 }
 
 export const enum Applicant2Represented {
@@ -2535,6 +2568,30 @@ export const enum NoResponseSearchOrDispense {
   DISPENSE = 'dispense',
 }
 
+export const enum NoResponsePartnerNewEmailOrPostalAddress {
+  NEW_POSTAL = 'newPostalAddress',
+  NEW_EMAIL = 'newEmailAddress',
+  BOTH_EMAIL_AND_POSTAL = 'newEmailAndPostalAddress',
+}
+
+export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
+  PROVIDE_NEW_EMAIL = 'provideNewEmailAddress',
+  APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
+}
+
+export const enum AlternativeServiceMethod {
+  EMAIL = 'byEmail',
+  DIFFERENT_WAY = 'inADifferentWay',
+  EMAIL_AND_DIFFERENT = 'emailAndDifferentWay',
+}
+
+export const enum AlternativeServiceDifferentWays {
+  TEXT_MESSAGE = 'textMessage',
+  WHATSAPP = 'whatsapp',
+  SOCIAL_MEDIA = 'socialMedia',
+  OTHER = 'other',
+}
+
 /**
  * Values:
  * - `CONTINUE`
@@ -2762,6 +2819,8 @@ export const WITHDRAW_SERVICE_APPLICATION = 'service-application-withdrawn';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 export const CASEWORKER_REQUEST_FOR_INFORMATION = 'caseworker-request-for-information';
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
+export const CASEWORKER_REISSUE_APPLICATION = 'caseworker-reissue-application';
+export const UPDATE_CONTACT_DETAILS_AND_REISSUE = 'update-partner-details-and-reissue';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_LINK_APPLICANT_1 = 'system-link-applicant1';
