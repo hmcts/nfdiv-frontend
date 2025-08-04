@@ -88,7 +88,7 @@ describe('to-api-format', () => {
     app2RfiDraftResponseDetails: 'test',
     app2RfiDraftResponseUploadedFiles: [],
     applicant2UnableToUploadEvidence: Checkbox.Checked,
-    applicant1InterimAppsStatementOfTruth: Checkbox.Checked
+    applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
