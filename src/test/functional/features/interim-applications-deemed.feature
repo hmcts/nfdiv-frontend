@@ -93,7 +93,7 @@ Feature: Deemed service journey
     Then the page should include element "#hwfReferenceNumberInputTitle"
 
     Given I select element "#applicant1InterimAppsHwfRefNumber"
-    And I type "HWF-A1B-23D"
+    And I type "HWF-A1B-236"
     When I click continue
     Then the page should include element "#wantUploadEvidenceTitle"
 

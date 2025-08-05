@@ -19,6 +19,28 @@ import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
 
+const APPLICANT_ONE_DOC_UPLOAD_STATES = [
+  State.Draft,
+  State.AosDrafted,
+  State.AosOverdue,
+  State.AwaitingApplicant1Response,
+  State.AwaitingClarification,
+  State.InformationRequested,
+  State.AwaitingRequestedInformation,
+  State.RequestedInformationSubmitted,
+];
+
+const APPLICANT_TWO_DOC_UPLOAD_STATES = [
+  State.AwaitingApplicant2Response,
+  State.AwaitingClarification,
+  State.InformationRequested,
+  State.AwaitingRequestedInformation,
+  State.RequestedInformationSubmitted,
+  State.AosDrafted,
+  State.AosOverdue,
+  State.AwaitingConditionalOrder,
+];
+
 @autobind
 export class DocumentManagerController {
   logger: LoggerInstance | undefined;
@@ -43,29 +65,8 @@ export class DocumentManagerController {
     const isApplicant2 = req.session.isApplicant2;
     this.logger = req.locals.logger;
     if (
-      (!isApplicant2 &&
-        ![
-          State.Draft,
-          State.AosDrafted,
-          State.AosOverdue,
-          State.AwaitingApplicant1Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-        ].includes(req.session.userCase.state)) ||
-      (isApplicant2 &&
-        ![
-          State.AwaitingApplicant2Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-          State.AosDrafted,
-          State.AwaitingAos,
-          State.AosOverdue,
-          State.AwaitingConditionalOrder,
-        ].includes(req.session.userCase.state))
+      (!isApplicant2 && !APPLICANT_ONE_DOC_UPLOAD_STATES.includes(req.session.userCase.state)) ||
+      (isApplicant2 && !APPLICANT_TWO_DOC_UPLOAD_STATES.includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot upload new documents as case is not in the correct state');
     }
@@ -156,28 +157,8 @@ export class DocumentManagerController {
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
     if (
-      (!isApplicant2 &&
-        ![
-          State.Draft,
-          State.AosDrafted,
-          State.AosOverdue,
-          State.AwaitingApplicant1Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-        ].includes(req.session.userCase.state)) ||
-      (isApplicant2 &&
-        ![
-          State.AwaitingApplicant2Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-          State.AosDrafted,
-          State.AosOverdue,
-          State.AwaitingConditionalOrder,
-        ].includes(req.session.userCase.state))
+      (!isApplicant2 && !APPLICANT_ONE_DOC_UPLOAD_STATES.includes(req.session.userCase.state)) ||
+      (isApplicant2 && !APPLICANT_TWO_DOC_UPLOAD_STATES.includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot delete documents as case is not in the correct state');
     }
