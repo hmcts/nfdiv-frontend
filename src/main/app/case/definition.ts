@@ -1063,10 +1063,23 @@ export interface CaseData {
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
   applicant1NoResponsePartnerEmailAddress: string;
+  applicant1SearchGovRecordsReason: string;
   applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
   applicant1SearchGovRecordsWhyTheseDepartments: string;
   applicant1SearchGovRecordsOtherDepartmentNames?: string;
-}
+  applicant1SearchGovRecordsApplicant2Name: string;
+  applicant1SearchGovRecordsApplicant2NationalInsurance?: string;
+  applicant1SearchGovRecordsApplicant2ApproximateAge?: string;
+  applicant1SearchGovRecordsKnowApplicant2DateOfBirth: YesOrNo;
+  applicant1SearchGovRecordsApplicant2DateOfBirth: DateAsString;
+  applicant1SearchGovRecordsKnowApplicant2NationalInsurance: YesOrNo;
+  applicant1SearchGovRecordsApplicant2LastKnownAddress: string;
+  applicant1SearchGovRecordsApplicant2LastKnownAddressDates: string;
+  applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: YesOrNo;
+  applicant1SearchGovRecordsApplicant2AdditionalAddress1: string;
+  applicant1SearchGovRecordsApplicant2AdditionalAddressDates1: string;
+  applicant1SearchGovRecordsApplicant2AdditionalAddress2?: string;
+  applicant1SearchGovRecordsApplicant2AdditionalAddressDates2?: string;}
 
 export interface CaseDocuments {
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];

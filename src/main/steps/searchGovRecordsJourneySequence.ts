@@ -3,10 +3,17 @@ import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
+  CHECK_YOUR_ANSWERS_GOV_RECORDS,
   HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS,
   HUB_PAGE,
   HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS,
   HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS,
+  PARTNER_ADDRESS_ADDITIONAL_ADDRESSES,
+  PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS,
+  PARTNER_ADDRESS_GOV_RECORDS,
+  PARTNER_DOB_GOV_RECORDS,
+  PARTNER_NAME_GOV_RECORDS,
+  PARTNER_NI_GOV_RECORDS,
   PageLink,
   SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_GOV_RECORDS_HWF,
@@ -48,6 +55,34 @@ export const searchGovRecordsJourneySequence: Step[] = [
   },
   {
     url: WHICH_GOV_DEPARTMENTS,
+    getNextStep: (): PageLink => PARTNER_NAME_GOV_RECORDS,
+  },
+  {
+    url: PARTNER_NAME_GOV_RECORDS,
+    getNextStep: (): PageLink => PARTNER_DOB_GOV_RECORDS,
+  },
+  {
+    url: PARTNER_DOB_GOV_RECORDS,
+    getNextStep: (): PageLink => PARTNER_NI_GOV_RECORDS,
+  },
+  {
+    url: PARTNER_NI_GOV_RECORDS,
+    getNextStep: (): PageLink => PARTNER_ADDRESS_GOV_RECORDS,
+  },
+  {
+    url: PARTNER_ADDRESS_GOV_RECORDS,
+    getNextStep: (): PageLink => PARTNER_ADDRESS_ADDITIONAL_ADDRESSES,
+  },
+  {
+    url: PARTNER_ADDRESS_ADDITIONAL_ADDRESSES,
+    getNextStep: (): PageLink => PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS,
+  },
+  {
+    url: PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS,
+    getNextStep: (): PageLink => CHECK_YOUR_ANSWERS_GOV_RECORDS,
+  },
+  {
+    url: CHECK_YOUR_ANSWERS_GOV_RECORDS,
     getNextStep: (): PageLink => HUB_PAGE,
   },
 ];

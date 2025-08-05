@@ -188,6 +188,17 @@ export const HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS: PageLink =
 export const HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS: PageLink =
   '/interim-applications/search-gov-records/apply-for-hwf-gov-records';
 export const WHICH_GOV_DEPARTMENTS: PageLink = '/interim-applications/search-gov-records/which-gov-records';
+export const PARTNER_DOB_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/partner-dob-gov-records';
+export const PARTNER_NAME_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/partner-name-gov-records';
+export const PARTNER_NI_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/partner-ni-gov-records';
+export const PARTNER_ADDRESS_GOV_RECORDS: PageLink =
+  '/interim-applications/search-gov-records/partner-address-gov-records';
+export const PARTNER_ADDRESS_ADDITIONAL_ADDRESSES: PageLink =
+  '/interim-applications/search-gov-records/partner-address-additional-addresses';
+export const PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS: PageLink =
+  '/interim-applications/search-gov-records/partner-address-additional-gov-records';
+export const CHECK_YOUR_ANSWERS_GOV_RECORDS: PageLink =
+  '/interim-applications/search-gov-records/check-answers-gov-records';
 
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';

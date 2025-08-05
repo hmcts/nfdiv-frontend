@@ -103,6 +103,23 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
   }
 };
 
+export const isInvalidNationalInsuranceNumber: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+
+  if (typeof value === 'string') {
+    if (!value.match(/^[A-Za-z]{2} [0-9]{2} [0-9]{2} [0-9]{2} [A-Za-z]{1}$/i)) {
+      return 'invalid';
+    }
+
+    if (value.toUpperCase() === 'JB 34 66 84 D') {
+      return 'invalidUsedExample';
+    }
+  }
+};
+
 export const isInvalidPostcode: Validator = value => {
   const fieldNotFilledIn = isFieldFilledIn(value);
   if (fieldNotFilledIn) {

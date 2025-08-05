@@ -224,6 +224,25 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1SearchGovRecordsWhichDepartments: 'applicant1SearchGovRecordsWhichDepartments',
   applicant1SearchGovRecordsWhyTheseDepartments: 'applicant1SearchGovRecordsWhyTheseDepartments',
   applicant1SearchGovRecordsOtherDepartmentNames: 'applicant1SearchGovRecordsOtherDepartmentNames',
+  applicant1SearchGovRecordsApplicant2Name: 'applicant1SearchGovRecordsApplicant2Name',
+  applicant1SearchGovRecordsReason: 'applicant1SearchGovRecordsReason',
+  applicant1SearchGovRecordsApplicant2NationalInsurance: 'applicant1SearchGovRecordsApplicant2NationalInsurance',
+  applicant1SearchGovRecordsKnowApplicant2DateOfBirth: 'applicant1SearchGovRecordsKnowApplicant2DateOfBirth',
+  applicant1SearchGovRecordsApplicant2ApproximateAge: 'applicant1SearchGovRecordsApplicant2ApproximateAge',
+  applicant1SearchGovRecordsApplicant2DateOfBirth: 'applicant1SearchGovRecordsApplicant2DateOfBirth',
+  applicant1SearchGovRecordsKnowApplicant2NationalInsurance:
+    'applicant1SearchGovRecordsKnowApplicant2NationalInsurance',
+  applicant1SearchGovRecordsApplicant2LastKnownAddress: 'applicant1SearchGovRecordsApplicant2LastKnownAddress',
+  applicant1SearchGovRecordsApplicant2LastKnownAddressDates:
+    'applicant1SearchGovRecordsApplicant2LastKnownAddressDates',
+  applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses:
+    'applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses',
+  applicant1SearchGovRecordsApplicant2AdditionalAddress1: 'applicant1SearchGovRecordsApplicant2AdditionalAddress1',
+  applicant1SearchGovRecordsApplicant2AdditionalAddressDates1:
+    'applicant1SearchGovRecordsApplicant2AdditionalAddressDates1',
+  applicant1SearchGovRecordsApplicant2AdditionalAddress2: 'applicant1SearchGovRecordsApplicant2AdditionalAddress2',
+  applicant1SearchGovRecordsApplicant2AdditionalAddressDates2:
+    'applicant1SearchGovRecordsApplicant2AdditionalAddressDates2',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -517,9 +536,24 @@ export interface Case {
   serviceApplicationAnswers: DivorceDocument;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
+  applicant1SearchGovRecordsReason?: string;
   applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
   applicant1SearchGovRecordsWhyTheseDepartments: string;
   applicant1SearchGovRecordsOtherDepartmentNames?: string;
+  applicant1SearchGovRecordsApplicant2Name: string;
+  applicant1SearchGovRecordsApplicant2NationalInsurance?: string;
+  applicant1SearchGovRecordsApplicant2DateOfBirth?: DateAsString;
+  applicant2DateOfBirth?: CaseDate;
+  applicant1SearchGovRecordsKnowApplicant2DateOfBirth: YesOrNo;
+  applicant1SearchGovRecordsApplicant2ApproximateAge?: string;
+  applicant1SearchGovRecordsKnowApplicant2NationalInsurance: YesOrNo;
+  applicant1SearchGovRecordsApplicant2LastKnownAddress: string;
+  applicant1SearchGovRecordsApplicant2LastKnownAddressDates: string;
+  applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: YesOrNo;
+  applicant1SearchGovRecordsApplicant2AdditionalAddress1: string;
+  applicant1SearchGovRecordsApplicant2AdditionalAddressDates1: string;
+  applicant1SearchGovRecordsApplicant2AdditionalAddress2?: string;
+  applicant1SearchGovRecordsApplicant2AdditionalAddressDates2?: string;
 }
 
 export interface CaseWithId extends Case {

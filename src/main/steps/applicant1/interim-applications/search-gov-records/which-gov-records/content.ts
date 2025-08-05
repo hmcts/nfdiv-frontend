@@ -1,6 +1,3 @@
-//import { SearchGovRecordsWhichDepartment } from '../../../../../app/case/definition';
-import { isEmpty } from 'lodash';
-
 import { Case, CaseDate } from '../../../../../app/case/case';
 import { SearchGovRecordsWhichDepartment } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
@@ -82,12 +79,18 @@ export const form: FormContent = {
               classes: 'govuk-input',
               label: l => l.otherFieldText,
               labelSize: 'normal',
-              validator: (value: string | string[] | CaseDate | Partial<Case> | undefined): string | undefined => {
-                if (isEmpty(value)) {
-                  return 'required';
-                }
-              },
             },
+          },
+          validator: (
+            value: string | string[] | CaseDate | Partial<Case> | undefined,
+            formData: Partial<Case>
+          ): string | undefined => {
+            if (
+              (value as string[])?.includes(SearchGovRecordsWhichDepartment.OTHER) &&
+              !formData['applicant1SearchGovRecordsOtherDepartmentNames']?.length
+            ) {
+              return 'required';
+            }
           },
         },
       ],
