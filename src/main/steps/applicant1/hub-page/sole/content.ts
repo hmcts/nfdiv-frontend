@@ -944,8 +944,7 @@ export const generateContent: TranslationFn = content => {
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   const contactDetailsUpdatedUKBased =
     userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
-      NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED &&
-    userCase.applicant2AddressOverseas !== YesOrNo.YES;
+      NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED && userCase.applicant2AddressOverseas !== YesOrNo.YES;
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
     NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
