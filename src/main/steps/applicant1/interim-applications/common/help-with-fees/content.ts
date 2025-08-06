@@ -81,6 +81,11 @@ export const generateContent: TranslationFn = content => {
       serviceFee = getFee(config.get('fees.courtBailiffService'));
       break;
     }
+    case InterimApplicationType.ALTERNATIVE_SERVICE: {
+      serviceType = generateCommonContent(content).generalApplication.alternativeService;
+      serviceFee = getFee(config.get('fees.alternativeService'));
+      break;
+    }
     default: {
       serviceType = '';
       serviceFee = '';

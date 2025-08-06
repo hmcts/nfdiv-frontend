@@ -1,5 +1,7 @@
 import { Case, Checkbox, LanguagePreference } from './case';
 import {
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
   Applicant2Represented,
   ApplicationType,
   ChangedNameHow,
@@ -715,6 +717,27 @@ describe('to-api-format', () => {
       expect(apiFormat).toMatchObject({
         applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
         applicant1BailiffPartnersApproximateAge: null,
+      })
+    });
+  });
+  
+  describe('applicant1AltServiceDifferentWays transformation', () => {
+    test('sets other fields to null when not selected in applicant1AltServiceDifferentWays', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServiceMethod: AlternativeServiceMethod.DIFFERENT_WAY,
+        applicant1AltServiceDifferentWays: [
+          AlternativeServiceDifferentWays.TEXT_MESSAGE,
+          AlternativeServiceDifferentWays.SOCIAL_MEDIA,
+        ],
+        applicant1AltServicePartnerPhone: '1234567890',
+        applicant1AltServicePartnerOtherDetails: 'some details',
+        applicant1AltServicePartnerWANum: '1234567890',
+        applicant1AltServicePartnerSocialDetails: 'some social details',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerWANum: null,
+        applicant1AltServicePartnerOtherDetails: null,
       });
     });
   });

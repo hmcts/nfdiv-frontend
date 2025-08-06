@@ -174,9 +174,13 @@ export const SUCCESS_SCREEN_PROCESS_SERVER: PageLink =
 export const PROCESS_SERVER_DOCS: PageLink = '/interim-applications/no-response/process-server-documents';
 export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
 export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
-export const ALTERNATIVE_INTERRUPTION: PageLink = '/interim-applications/alternative-service/interruption';
-export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
-  '/interim-applications/alternative-service/service-application';
+export const NEW_POSTAL_ADDRESS: PageLink = '/interim-applications/no-response/new-postal-address';
+export const NEW_EMAIL: PageLink = '/interim-applications/no-response/new-email-address';
+export const PROVIDE_NEW_EMAIL_ADDRESS: PageLink = '/interim-applications/no-response/provide-new-email-address';
+export const APPLY_FOR_ALTERNATIVE_SERVICE: PageLink =
+  '/interim-applications/no-response/apply-for-alternative-service';
+export const NEW_CONTACT_DETAIL_CHECK_ANSWERS: PageLink = '/interim-applications/no-response/check-your-answers';
+export const NO_RESPONSE_DETAILS_UPDATED: PageLink = '/interim-applications/no-response/details-updated';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
@@ -234,3 +238,24 @@ export const CHECK_ANSWERS_BAILIFF: PageLink = '/interim-applications/bailiff-se
 export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
 export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
 export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
+
+//Alternative Service URLs
+export const HWF_REFERENCE_NUMBER_ALTERNATIVE: PageLink =
+  '/interim-applications/alternative-service/hwf-reference-number';
+export const WANT_UPLOAD_EVIDENCE_ALTERNATIVE: PageLink =
+  '/interim-applications/alternative-service/want-upload-evidence';
+export const HELP_WITH_FEES_ALTERNATIVE: PageLink = '/interim-applications/alternative-service/help-with-fees';
+export const HWF_REFERENCE_NUMBER_INPUT_ALTERNATIVE: PageLink =
+  '/interim-applications/alternative-service/hwf-reference-number-input';
+export const APPLY_FOR_HWF_ALTERNATIVE: PageLink = '/interim-applications/alternative-service/apply-for-hwf';
+export const UPLOAD_EVIDENCE_ALTERNATIVE: PageLink = '/interim-applications/alternative-service/upload-evidence';
+export const CHECK_ANSWERS_ALTERNATIVE: PageLink = '/interim-applications/alternative-service/check-answers';
+export const ALTERNATIVE_HOW_TO_SERVE: PageLink = '/interim-applications/alternative-service/how-you-want-to-serve';
+export const ALTERNATIVE_INTERRUPTION: PageLink = '/interim-applications/alternative-service/interruption';
+export const ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS: PageLink =
+  '/interim-applications/alternative-service/explain-serve-documents';
+export const ALTERNATIVE_SENDING_PAPERS_TO_PARTNER: PageLink =
+  '/interim-applications/alternative-service/sending-papers-to-your-partner';
+export const ALTERNATIVE_WHY_APPLY_THIS_WAY: PageLink = '/interim-applications/alternative-service/why-apply-this-way';
+export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
+  '/interim-applications/alternative-service/service-application';

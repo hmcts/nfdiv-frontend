@@ -144,7 +144,29 @@ export const isPhoneNoValid: Validator = value => {
   }
 };
 
+export const isPhoneNoFilledAndValid: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+  // If the field is filled in, check if it is a valid phone number
+  if (typeof value === 'string') {
+    return !value.match(/^$|^[0-9 +().-]{9,}$/) ? 'invalid' : undefined;
+  }
+};
+
 export const isEmailValid: Validator = value => {
+  if (!isValidEmail(value as string)) {
+    return 'invalid';
+  }
+};
+
+export const isEmailFilledAndValid: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+
   if (!isValidEmail(value as string)) {
     return 'invalid';
   }

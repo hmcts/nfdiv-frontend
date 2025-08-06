@@ -10,6 +10,7 @@ const en = ({
   referenceNumber,
   isDivorce,
   partner,
+  userCase,
 }: CommonContent) => ({
   title: 'Application submitted',
   introLine1: `You have submitted your application for ${serviceApplicationType}.`,
@@ -34,15 +35,23 @@ const en = ({
     !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
       ? 'If your help with fees reference number is accepted, the'
       : 'The'
-  } court will review your application and any evidence you have submitted. If your application is successful, your ${
-    isDivorce ? 'divorce' : 'dissolution'
-  } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`,
+  } court will review your application and any evidence you have submitted.${
+    userCase?.alternativeServiceType !== AlternativeServiceType.ALTERNATIVE_SERVICE
+      ? ` If your application is successful, your ${
+          isDivorce ? 'divorce' : 'dissolution'
+        } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`
+      : ''
+  }`,
   happensNextLine2: `We will email you ${
     serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
   }to let you know whether your application has been successful.`,
   returnToHub: 'Return to hub screen',
+
   // Application type specific content overrides:
   contentOverrides: {
+    alternativeService: {
+      happensNextLine3: 'If your application is successful, we will email you detailed information about what to do next.',
+    },
     bailiff: {
       title: 'Request submitted',
       introLine1: 'You have submitted your request for bailiff service.',
@@ -108,6 +117,9 @@ const cy: typeof en = ({
   returnToHub: 'Dychwelyd i sgrin yr hyb',
   // Application type specific content overrides:
   contentOverrides: {
+    alternativeService: {
+      happensNextLine3: 'If your application is successful, we will email you detailed information about what to do next.',
+    },
     bailiff: {
       title: 'Request submitted',
       introLine1: 'You have submitted your request for bailiff service.',
@@ -142,6 +154,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...defaultTranslations,
-    ...contentOverrides,
+    ...contentOverrides
   };
 };

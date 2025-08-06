@@ -285,6 +285,10 @@ const en = (
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
   },
+  awaitingServiceApplicationDocuments: {
+    heading1: 'Send your evidence to the court',
+    line1: 'You now need to send us your documents. You can do this in the following ways:',
+  },
   awaitingBailiffService: {
     line1: `Your application for bailiff service was successful. The court bailiff will attempt to serve the ${
       isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
@@ -910,6 +914,6 @@ export const generateContent: TranslationFn = content => {
     isAosSubmitted,
     aosIsDrafted,
     aosOverdueAndDrafted,
-    isAwaitingProcessServerService,
+    isAwaitingProcessServerService
   };
 };

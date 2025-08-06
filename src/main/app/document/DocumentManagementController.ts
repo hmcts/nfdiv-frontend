@@ -9,6 +9,7 @@ import {
   PROVIDE_INFORMATION_TO_THE_COURT,
   RESPONDENT,
   RESPOND_TO_COURT_FEEDBACK,
+  UPLOAD_EVIDENCE_ALTERNATIVE,
   UPLOAD_EVIDENCE_DEEMED,
   UPLOAD_PARTNER_PHOTO,
   UPLOAD_YOUR_DOCUMENTS,
@@ -53,8 +54,9 @@ export class DocumentManagerController {
       return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DEEMED}`;
     } else if (interimApplicationType === InterimApplicationType.BAILIFF_SERVICE) {
       return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_PARTNER_PHOTO}`;
+    } else if (interimApplicationType === InterimApplicationType.ALTERNATIVE_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_ALTERNATIVE}`;
     }
-
     return req.get('Referrer') as string;
   }
 
