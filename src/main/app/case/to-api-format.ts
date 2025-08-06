@@ -448,8 +448,8 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
-  applicant1SearchGovRecordsReason: data => ({
-    applicant1SearchGovRecordsReason: data.applicant1SearchGovRecordsReason,
+  applicant1SearchGovRecordsReasonForApplying: data => ({
+    applicant1SearchGovRecordsReasonForApplying: data.applicant1SearchGovRecordsReasonForApplying,
   }),
   applicant1SearchGovRecordsWhichDepartments: data => ({
     applicant1SearchGovRecordsWhichDepartments: data.applicant1SearchGovRecordsWhichDepartments,

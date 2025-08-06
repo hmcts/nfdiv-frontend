@@ -1063,7 +1063,7 @@ export interface CaseData {
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
   applicant1NoResponsePartnerEmailAddress: string;
-  applicant1SearchGovRecordsReason: string;
+  applicant1SearchGovRecordsReasonForApplying: string;
   applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
   applicant1SearchGovRecordsWhyTheseDepartments: string;
   applicant1SearchGovRecordsOtherDepartmentNames?: string;

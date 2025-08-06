@@ -225,7 +225,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1SearchGovRecordsWhyTheseDepartments: 'applicant1SearchGovRecordsWhyTheseDepartments',
   applicant1SearchGovRecordsOtherDepartmentNames: 'applicant1SearchGovRecordsOtherDepartmentNames',
   applicant1SearchGovRecordsApplicant2Name: 'applicant1SearchGovRecordsApplicant2Name',
-  applicant1SearchGovRecordsReason: 'applicant1SearchGovRecordsReason',
+  applicant1SearchGovRecordsReasonForApplying: 'applicant1SearchGovRecordsReasonForApplying',
   applicant1SearchGovRecordsApplicant2NationalInsurance: 'applicant1SearchGovRecordsApplicant2NationalInsurance',
   applicant1SearchGovRecordsKnowApplicant2DateOfBirth: 'applicant1SearchGovRecordsKnowApplicant2DateOfBirth',
   applicant1SearchGovRecordsApplicant2ApproximateAge: 'applicant1SearchGovRecordsApplicant2ApproximateAge',
@@ -536,7 +536,7 @@ export interface Case {
   serviceApplicationAnswers: DivorceDocument;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
-  applicant1SearchGovRecordsReason?: string;
+  applicant1SearchGovRecordsReasonForApplying?: string;
   applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
   applicant1SearchGovRecordsWhyTheseDepartments: string;
   applicant1SearchGovRecordsOtherDepartmentNames?: string;

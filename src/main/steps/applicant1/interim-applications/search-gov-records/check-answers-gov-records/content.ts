@@ -35,7 +35,7 @@ const en = ({ partner, userCase }: CommonContent, useHwf: YesOrNo, hwfReference:
   stepAnswers: {
     useHwf: `${useHwf}`,
     hwfReference: `${hwfReference}`,
-    whySearchGovRecords: stripTags(userCase.applicant1SearchGovRecordsReason),
+    whySearchGovRecords: stripTags(userCase.applicant1SearchGovRecordsReasonForApplying),
     whichGovDepartmentsToSearch: stripTags(userCase.applicant1SearchGovRecordsWhichDepartments),
     whySearchTheseDepartments: stripTags(userCase.applicant1SearchGovRecordsWhyTheseDepartments),
     partnerName: stripTags(userCase.applicant1SearchGovRecordsApplicant2Name),
