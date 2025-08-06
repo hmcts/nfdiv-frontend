@@ -50,7 +50,8 @@ const en = ({
   // Application type specific content overrides:
   contentOverrides: {
     alternativeService: {
-      happensNextLine3: 'If your application is successful, we will email you detailed information about what to do next.',
+      happensNextLine3:
+        'If your application is successful, we will email you detailed information about what to do next.',
     },
     bailiff: {
       title: 'Request submitted',
@@ -118,7 +119,8 @@ const cy: typeof en = ({
   // Application type specific content overrides:
   contentOverrides: {
     alternativeService: {
-      happensNextLine3: 'If your application is successful, we will email you detailed information about what to do next.',
+      happensNextLine3:
+        'If your application is successful, we will email you detailed information about what to do next.',
     },
     bailiff: {
       title: 'Request submitted',
@@ -154,6 +156,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...defaultTranslations,
-    ...contentOverrides
+    ...contentOverrides,
   };
 };

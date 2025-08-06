@@ -717,10 +717,10 @@ describe('to-api-format', () => {
       expect(apiFormat).toMatchObject({
         applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
         applicant1BailiffPartnersApproximateAge: null,
-      })
+      });
     });
   });
-  
+
   describe('applicant1AltServiceDifferentWays transformation', () => {
     test('sets other fields to null when not selected in applicant1AltServiceDifferentWays', () => {
       const apiFormat = toApiFormat({
