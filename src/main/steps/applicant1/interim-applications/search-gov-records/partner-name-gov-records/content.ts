@@ -1,3 +1,5 @@
+import { capitalize } from 'lodash';
+
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isFieldLetters } from '../../../../../app/form/validation';
@@ -10,7 +12,7 @@ const en = ({ partner }: CommonContent) => {
     partnerNameHint: `Include your ${partner}’s middle names, if they have any`,
     errors: {
       applicant1SearchGovRecordsApplicant2Name: {
-        required: 'You have not entered their first name. Enter it before continuing.',
+        required: `${capitalize(partner)}'s name cannot be blank`,
         invalid,
       },
     },
@@ -25,7 +27,7 @@ const cy: typeof en = ({ partner }: CommonContent) => {
     partnerNameHint: `Include your ${partner}’s middle names, if they have any`,
     errors: {
       applicant1SearchGovRecordsApplicant2Name: {
-        required: 'You have not entered their first name. Enter it before continuing.',
+        required: `${capitalize(partner)}'s name cannot be blank`,
         invalid,
       },
     },

@@ -12,7 +12,7 @@ const en = ({ partner }: CommonContent) => ({
       required: `You have not entered your ${partner}'s last known address. Enter it before continuing.`,
     },
     applicant1SearchGovRecordsApplicant2LastKnownAddressDates: {
-      required: `You have not entered your ${partner}'s dates at the address. Enter it before continuing.`,
+      required: `Enter the dates your ${partner} lived at this address. Enter it before continuing.`,
     },
   },
 });
@@ -27,7 +27,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       required: `You have not entered your ${partner}'s last known address. Enter it before continuing.`,
     },
     applicant1SearchGovRecordsApplicant2LastKnownAddressDates: {
-      required: `You have not entered your ${partner}'s dates at the address. Enter it before continuing.`,
+      required: `Enter the dates your ${partner} lived at this address. Enter it before continuing.`,
     },
   },
 });

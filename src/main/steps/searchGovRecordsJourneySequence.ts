@@ -75,7 +75,11 @@ export const searchGovRecordsJourneySequence: Step[] = [
   },
   {
     url: PARTNER_ADDRESS_ADDITIONAL_ADDRESSES,
-    getNextStep: (): PageLink => PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      return data.applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses === YesOrNo.YES
+        ? PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS
+        : CHECK_YOUR_ANSWERS_GOV_RECORDS;
+    },
   },
   {
     url: PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS,

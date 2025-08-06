@@ -4,39 +4,37 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidNationalInsuranceNumber } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ partner, required }: CommonContent) => ({
+const en = ({ partner }: CommonContent) => ({
   title: `Do you know your ${partner}'s National Insurance number?`,
   partnerNationalInsuranceHint: `If you’re able to provide your ${partner}’s National Insurance number it will help with the search.`,
   nationalInsuranceHint: 'For example, JB 34 66 84 D',
   enterNationalInsurance: `Enter your ${partner}'s National Insurance number`,
   errors: {
     applicant1SearchGovRecordsKnowApplicant2NationalInsurance: {
-      required,
+      required: `Select yes if you know your ${partner}'s National Insurance number`,
     },
     applicant1SearchGovRecordsApplicant2NationalInsurance: {
-      required: 'You have not entered their National Insurance number. Enter it before continuing.',
+      required: `Enter your ${partner}'s National Insurance number`,
       invalidUsedExample: `You have entered the example National Insurance number. Enter the number you know of your ${partner}.`,
-      invalid:
-        'The National Insurance number you have entered is invalid. Enter a valid National Insurance number. For example, JB 34 66 84 D',
+      invalid: 'Enter a National Insurance number in the correct format',
     },
   },
 });
 
 // @TODO translations should be verified
-const cy: typeof en = ({ partner, required }: CommonContent) => ({
+const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Do you know your ${partner}'s National Insurance number?`,
   partnerNationalInsuranceHint: `If you’re able to provide your ${partner}’s National Insurance number it will help with the search.`,
   nationalInsuranceHint: 'For example, JB 34 66 84 D',
   enterNationalInsurance: `Enter your ${partner}'s National Insurance number`,
   errors: {
     applicant1SearchGovRecordsKnowApplicant2NationalInsurance: {
-      required,
+      required: `Select yes if you know your ${partner}'s National Insurance number`,
     },
     applicant1SearchGovRecordsApplicant2NationalInsurance: {
-      required: 'You have not entered their National Insurance number. Enter it before continuing.',
+      required: `Enter your ${partner}'s National Insurance number`,
       invalidUsedExample: `You have entered the example National Insurance number. Enter the number you know of your ${partner}.`,
-      invalid:
-        'The National Insurance number you have entered is invalid. Enter a valid National Insurance number. For example, JB 34 66 84 D',
+      invalid: 'Enter a National Insurance number in the correct format',
     },
   },
 });

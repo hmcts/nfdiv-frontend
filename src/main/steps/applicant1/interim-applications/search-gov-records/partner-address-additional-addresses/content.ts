@@ -4,23 +4,23 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ partner, required }: CommonContent) => ({
+const en = ({ partner }: CommonContent) => ({
   title: `Do you know of any other addresses related to your ${partner}?`,
   partnerAdditionalAddressesHint: `If you’re able to provide your ${partner}’s National Insurance number it will help with the search.`,
   errors: {
     applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: {
-      required,
+      required: 'Select yes if you know any other addresses',
     },
   },
 });
 
 // @TODO translations should be verified
-const cy: typeof en = ({ partner, required }: CommonContent) => ({
+const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Do you know of any other addresses related to your ${partner}?`,
   partnerAdditionalAddressesHint: `If you’re able to provide your ${partner}’s National Insurance number it will help with the search.`,
   errors: {
     applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: {
-      required,
+      required: 'Select yes if you know any other addresses',
     },
   },
 });
