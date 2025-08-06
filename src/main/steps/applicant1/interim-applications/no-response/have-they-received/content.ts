@@ -45,7 +45,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-export let form: FormContent = {
+export const form: FormContent = {
   fields: {
     applicant1NoResponseCheckContactDetails: {
       type: 'radios',
@@ -130,10 +130,9 @@ export const generateContent: TranslationFn = content => {
   const contactDetailsProvided =
     applicant2Address.length > 0 ||
     (applicant2Email !== null && applicant2Email !== undefined && applicant2Email.length > 0);
-  form = contactDetailsProvided ? form : formNoDetails;
   return {
     ...translations,
-    form,
+    form: contactDetailsProvided ? form : formNoDetails,
     applicant2Address,
     applicant2Email,
     contactDetailsProvided,
