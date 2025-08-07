@@ -20,6 +20,10 @@ export const en = {
     formTypes: {
       d11: 'D11',
     },
+    bailiff: 'bailiff service',
+    alternativeService: 'alternative service',
+    deemedCode: 'D11',
+    bailiffCode: 'D89',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -93,8 +97,13 @@ export const en = {
     month: 'Month',
     year: 'Year',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Yes',
   no: 'No',
+  notKnown: 'Not known',
   english: 'English',
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
@@ -182,6 +191,10 @@ const cy: typeof en = {
       d11: 'D11',
     },
     searchGovRecords: 'search government records',
+    bailiff: 'gwasanaeth bailiff',
+    alternativeService: 'gwasanaeth amgen',
+    deemedCode: 'D11',
+    bailiffCode: 'D89',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
@@ -205,7 +218,7 @@ const cy: typeof en = {
   download: 'Llwytho i lawr',
   delete: 'Dileu',
   warning: 'Rhybudd',
-  continueToPay: 'Continue to pay',
+  continueToPay: 'Parhau i dalu',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   errorSaving:
@@ -253,8 +266,13 @@ const cy: typeof en = {
     month: 'Mis',
     year: 'Blwyddyn',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Do',
   no: 'Naddo',
+  notKnown: 'Not known',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',
