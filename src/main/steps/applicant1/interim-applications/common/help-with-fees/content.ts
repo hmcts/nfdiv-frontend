@@ -22,14 +22,14 @@ const en = (serviceType: string, serviceFee: string) => ({
 
 // @TODO translations
 const cy = (serviceType: string, serviceFee: string) => ({
-  title: 'Help with fees',
-  line1: `The cost of this ${serviceType} application is £${serviceFee}. You can <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.getHelpWithCourtFees'
-  )}">check the help with fees guidance on GOV.UK (opens in a new tab)</a> to find out if you are eligible for support.`,
+  title: 'Help i Dalu Ffioedd',
+  line1: `Cost y cais hwn am ${serviceType} yw £${serviceFee}. Gallwch <a class="govuk-link" target="_blank" href="${config.get(
+    'govukUrls.getHelpWithCourtFeesCY'
+  )}">wirio'r cyfarwyddyd ar help i dalu ffioedd ar GOV.UK (yn agor mewn tab newydd)</a> i ganfod a ydych yn gymwys i gael cymorth. `,
   useHelpWithFees: 'Will you be using help with fees to pay for this application?',
   errors: {
     applicant1InterimAppsUseHelpWithFees: {
-      required: 'You must select an option before continuing.',
+      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
     },
   },
 });
@@ -74,6 +74,16 @@ export const generateContent: TranslationFn = content => {
     case InterimApplicationType.DEEMED_SERVICE: {
       serviceType = generateCommonContent(content).generalApplication.deemed;
       serviceFee = getFee(config.get('fees.deemedService'));
+      break;
+    }
+    case InterimApplicationType.BAILIFF_SERVICE: {
+      serviceType = generateCommonContent(content).generalApplication.bailiff;
+      serviceFee = getFee(config.get('fees.courtBailiffService'));
+      break;
+    }
+    case InterimApplicationType.ALTERNATIVE_SERVICE: {
+      serviceType = generateCommonContent(content).generalApplication.alternativeService;
+      serviceFee = getFee(config.get('fees.alternativeService'));
       break;
     }
     default: {

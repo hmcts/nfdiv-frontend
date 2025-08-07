@@ -17,17 +17,8 @@
   </ul>
   <p class="govuk-body">{{ line4 }}</p>
   <p class="govuk-body">{{ line5 | safe }}</p>
-  {{ govukButton({
-    text: startButton.text,
-    href: startButton.url,
-    isStartButton: true
-  }) }}
-  <p class="govuk-body">{{ line6 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ alsoTry.differentWay | safe }}</li>
-    <li>{{ alsoTry.updateDetails | safe }}</li>
-    <li>{{ alsoTry.applyBailiff | safe }}</li>
-    <li>{{ alsoTry.searchRecords | safe }}</li>
-    <li>{{ alsoTry.dispenseService | safe }}</li>
-  </ul>
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
 {% endblock %}
