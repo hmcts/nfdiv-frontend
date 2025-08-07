@@ -14,13 +14,12 @@ const en = (serviceType: string) => ({
   },
 });
 
-// @TODO translations
 const cy = (serviceType: string) => ({
-  title: 'Do you have a help with fees reference number?',
-  line1: `Your reference number must be unique to this ${serviceType} application. You cannot use a reference number you've used for a previous application.`,
+  title: 'A oes gennych chi gyfeirnod Help i Dalu Ffioedd?',
+  line1: `Rhaid i’ch cyfeirnod fod yn unigryw i’r cais hwn am ${serviceType} Ni allwch ddefnyddio cyfeirnod rydych wedi defnyddio ar gyfer cais blaenorol.`,
   errors: {
     applicant1InterimAppsHaveHwfReference: {
-      required: 'You must select an option before continuing.',
+      required: 'Rhaid i chi ddewis opsiwn cyn parhau.',
     },
   },
 });
@@ -35,6 +34,8 @@ export const form: FormContent = {
     applicant1InterimAppsHaveHwfReference: {
       type: 'radios',
       classes: 'govuk-radios govuk-radios--inline',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.yes,
@@ -65,6 +66,10 @@ export const generateContent: TranslationFn = content => {
     }
     case InterimApplicationType.SEARCH_GOV_RECORDS: {
       serviceType = generateCommonContent(content).generalApplication.searchGovRecords;
+      break;
+    }
+    case InterimApplicationType.ALTERNATIVE_SERVICE: {
+      serviceType = generateCommonContent(content).generalApplication.alternativeService;
       break;
     }
     default: {

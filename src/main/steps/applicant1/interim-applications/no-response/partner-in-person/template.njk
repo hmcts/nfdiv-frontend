@@ -1,0 +1,26 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l" id="partnerInPersonTitle">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  <h2 class="govuk-heading-m">{{ processServerService.header }}</h2>
+  <p class="govuk-body">{{ processServerService.details.line1 }}</p>
+  <p class="govuk-body">{{ processServerService.details.line2 }}</p>
+  <p class="govuk-body">{{ processServerService.details.line3 }}</p>
+  <p class="govuk-body">{{ processServerService.details.line4 }}</p>
+  <p class="govuk-body">{{ processServerService.details.line5 }}</p>
+  <h2 class="govuk-heading-m">{{ courtBailiffService.header }}</h2>
+  <p class="govuk-body">{{ courtBailiffService.details.line1 }}</p>
+  <p class="govuk-body">{{ courtBailiffService.details.line2 }}</p>
+  <p class="govuk-body">{{ courtBailiffService.details.line3 | safe }}</p>
+  <p class="govuk-body">{{ courtBailiffService.details.line4 }}</p>
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
+{% endblock %}

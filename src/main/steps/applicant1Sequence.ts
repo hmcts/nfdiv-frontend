@@ -13,10 +13,13 @@ import {
   previousConnectionMadeUptoLastHabituallyResident,
 } from '../app/jurisdiction/connections';
 
+import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
+import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
+import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
-import { searchGovRecordsJourneySequence } from './searchGovRecordsJourneySequence';
+import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
@@ -586,11 +589,12 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   ...noResponseJourneySequence,
+  ...alternativeServiceApplicationSequence,
+  ...bailiffServiceApplicationSequence,
   ...deemedServiceApplicationSequence,
-  ...noResponseJourneySequence,
-  ...deemedServiceApplicationSequence,
+  ...dispenseServiceApplicationSequence,
+  ...searchGovRecordsApplicationSequence,
   ...serviceApplicationPaymentSequence,
-  ...searchGovRecordsJourneySequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>

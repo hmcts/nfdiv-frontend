@@ -4,6 +4,8 @@ import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import {
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
   Applicant2Represented,
   ApplicationType,
   CaseData,
@@ -104,6 +106,17 @@ const fields: ToApiConverters = {
   }),
   relationshipDate: data => ({
     marriageDate: toApiDate(data.relationshipDate),
+  }),
+  applicant1BailiffPartnersDateOfBirth: data => ({
+    applicant1BailiffPartnersDateOfBirth: toApiDate(data.applicant1BailiffPartnersDateOfBirth),
+  }),
+  applicant1BailiffKnowPartnersDateOfBirth: data => ({
+    applicant1BailiffKnowPartnersDateOfBirth: data.applicant1BailiffKnowPartnersDateOfBirth,
+    ...setUnreachableAnswersToNull([
+      data.applicant1BailiffKnowPartnersDateOfBirth === YesOrNo.YES
+        ? 'applicant1BailiffPartnersApproximateAge'
+        : 'applicant1BailiffPartnersDateOfBirth',
+    ]),
   }),
   doesApplicant1WantToApplyForFinalOrder: data => ({
     doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
@@ -413,6 +426,12 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerHasReceivedPapers: data => ({
     applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
   }),
+  applicant1NoResponseNoNewAddressDetails: data => ({
+    applicant1NoResponseNoNewAddressDetails: data.applicant1NoResponseNoNewAddressDetails,
+  }),
+  applicant1NoResponseProcessServerOrBailiff: data => ({
+    applicant1NoResponseProcessServerOrBailiff: data.applicant1NoResponseProcessServerOrBailiff,
+  }),
   applicant1NoResponsePartnerEmailAddress: data => ({
     applicant1NoResponsePartnerEmailAddress: data.applicant1NoResponsePartnerEmailAddress,
   }),
@@ -445,6 +464,11 @@ const fields: ToApiConverters = {
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
   }),
+  applicant1NoResponseRespondentAddressInEnglandWales: data => ({
+    applicant1NoResponseRespondentAddressInEnglandWales: checkboxConverter(
+      data.applicant1NoResponseRespondentAddressInEnglandWales
+    ),
+  }),
   applicant2LegalProceedingUploadedFiles: () => ({}),
   applicant1NoResponsePartnerAddressPostcode: applicant1NoResponsePartnerAddressToApi,
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
@@ -465,6 +489,50 @@ const fields: ToApiConverters = {
   }),
   applicant1SearchGovRecordsPartnerDateOfBirth: data => ({
     applicant1SearchGovRecordsPartnerDateOfBirth: toApiDate(data.applicant1SearchGovRecordsPartnerDateOfBirth),
+  }),
+  applicant1AltServicePartnerEmail: data => ({
+    applicant1AltServicePartnerEmail:
+      data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
+        ? data.applicant1AltServicePartnerEmail
+        : data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? data.applicant1AltServicePartnerEmailWhenDifferent
+          : null,
+  }),
+  applicant1AltServicePartnerEmailWhenDifferent: data => ({
+    applicant1AltServicePartnerEmail:
+      data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
+        ? data.applicant1AltServicePartnerEmail
+        : data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? data.applicant1AltServicePartnerEmailWhenDifferent
+          : null,
+  }),
+  applicant1AltServicePartnerPhone: data => ({
+    applicant1AltServicePartnerPhone: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.TEXT_MESSAGE
+    )
+      ? data.applicant1AltServicePartnerPhone
+      : null,
+  }),
+  applicant1AltServicePartnerWANum: data => ({
+    applicant1AltServicePartnerWANum: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.WHATSAPP
+    )
+      ? data.applicant1AltServicePartnerWANum
+      : null,
+  }),
+  applicant1AltServicePartnerSocialDetails: data => ({
+    applicant1AltServicePartnerSocialDetails: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.SOCIAL_MEDIA
+    )
+      ? data.applicant1AltServicePartnerSocialDetails
+      : null,
+  }),
+  applicant1AltServicePartnerOtherDetails: data => ({
+    applicant1AltServicePartnerOtherDetails: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.OTHER
+    )
+      ? data.applicant1AltServicePartnerOtherDetails
+      : null,
   }),
 };
 

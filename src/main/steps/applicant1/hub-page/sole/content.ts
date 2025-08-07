@@ -8,6 +8,7 @@ import {
   AlternativeServiceType,
   Applicant2Represented,
   DocumentType,
+  InterimApplicationType,
   NoResponsePartnerNewEmailOrAddress,
   NoResponseSendPapersAgainOrTrySomethingElse,
   State,
@@ -23,8 +24,10 @@ import {
   HOW_YOU_CAN_PROCEED,
   OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
+  PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
 } from '../../../urls';
+import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -40,8 +43,6 @@ const en = (
     serviceApplicationType,
     serviceApplicationDate,
     serviceApplicationResponseDate,
-    serviceApplicationDocsAllProvided,
-    serviceApplicationFeeRequired,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -244,7 +245,11 @@ const en = (
   },
   finalOrderComplete: {},
   awaitingServiceConsiderationOrBailiffReferral: {
-    line1: `The court is currently considering your ${serviceApplicationType} application that you submitted on ${serviceApplicationDate}.`,
+    line1: `The court is currently considering your ${
+      userCase.alternativeServiceType === AlternativeServiceType.BAILIFF
+        ? `request for ${serviceApplicationType}`
+        : `${serviceApplicationType} application`
+    } that you submitted on ${serviceApplicationDate}.`,
     line2: `We will email you by ${serviceApplicationResponseDate} once a decision has been made to tell you your next steps.`,
   },
   serviceApplicationRejected: {
@@ -295,22 +300,6 @@ const en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
-  },
-  serviceApplicationSubmitted: {
-    line1: `You have submitted your application for ${serviceApplicationType}.`,
-    line2Hwf:
-      'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
-    happensNextHeading: 'What happens next',
-    happensNextLine1: `${
-      !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
-        ? 'If your help with fees reference number is accepted, the'
-        : 'The'
-    } court will review your application and any evidence you have submitted. If your application is successful, your ${
-      isDivorce ? 'divorce' : 'dissolution'
-    } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`,
-    happensNextLine2: `We will email you ${
-      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
-    }to let you know whether your application has been successful.`,
   },
   awaitingServiceApplicationDocuments: {
     heading1: 'Send your evidence to the court',
@@ -445,6 +434,25 @@ const en = (
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
+  awaitingProcessServerService: {
+    line1: `You have chosen to arrange for an independent process server to serve the papers on your ${partner}.`,
+    line2: `You can <a class="govuk-link" href="${PROCESS_SERVER_DOCS}">download the papers from the documents tab</a>. You will need to print these out and give them to your process server.`,
+    whatYouNeedToDoHeader: 'What you need to do',
+    steps: {
+      one: 'You will need to find and employ a process server. You may wish to consider how many times they will attempt to serve, over what period of time, and at what times of the day.',
+      two: `They will attempt to serve the papers on your ${partner}.`,
+      three:
+        'If they serve successfully, they will complete the certificate of service form (form FP6) and send it to you.',
+      four: 'You will then need to send the certificate of service to the court.',
+      five: `If the papers have been correctly served and your ${partner} still has not responded, your ${
+        isDivorce ? 'divorce' : 'application to end your civil partnership'
+      } can continue without their response.`,
+    },
+    line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
+    line4: `You can <a class="govuk-link" href="${OPTIONS_FOR_PROGRESSING}">view your other options for progressing your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    }</a> if you later decide that you no longer want to arrange service by a process server.`,
+  },
 });
 
 // @TODO translations
@@ -460,8 +468,6 @@ const cy: typeof en = (
     serviceApplicationType,
     serviceApplicationResponseDate,
     serviceApplicationDate,
-    serviceApplicationFeeRequired,
-    serviceApplicationDocsAllProvided,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -512,12 +518,9 @@ const cy: typeof en = (
     linkUrl: OPTIONS_FOR_PROGRESSING,
   },
   aosDueAndDrafted: {
-    line1: `Mae eich ${partner} wedi dechrau ymateb i’ch ${
+    line1: `Mae eich ${partner} wedi cyflwyno eu hymateb i’ch ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-    } ond nid ydynt wedi’i gyflwyno. Dylent fod wedi ymateb erbyn ${getFormattedDate(
-      userCase.dueDate,
-      SupportedLanguages.Cy
-    )}.`,
+    }. Dylai bod nhw wedi ymateb erbyn ${getFormattedDate(userCase.dueDate, SupportedLanguages.Cy)}.`,
     line2: `Efallai yr hoffech ddefnyddio hwn i brofi bod eich ${partner} wedi cael eich cais.`,
     doNext: 'Beth allwch chi ei wneud nesaf',
     line3: `Y ffordd symlaf i symud eich cais yn ei flaen yw i’ch ${partner} gyflwyno eu hymateb. Gallwch gysylltu â nhw a gofyn iddynt gyflwyno eu hymateb, os yw’n ddiogel i chi wneud hynny.`,
@@ -700,6 +703,10 @@ const cy: typeof en = (
       link: HOW_YOU_CAN_PROCEED,
     },
   },
+  awaitingServiceApplicationDocuments: {
+    heading1: 'Anfon eich tystiolaeth i’r llys',
+    line1: 'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
+  },
   bailiffServiceUnsuccessful: {
     line1: `Ceisiodd beili'r llys 'gyflwyno' ${
       isDivorce ? 'papurau’r ysgariad' : "papurau i ddod â'ch partneriaeth sifil i ben"
@@ -724,24 +731,6 @@ const cy: typeof en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
-  },
-  serviceApplicationSubmitted: {
-    line1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
-    line2Hwf:
-      "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
-    happensNextHeading: 'Beth fydd yn digwydd nesaf',
-    happensNextLine1: `Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ${
-      isDivorce ? 'ysgariad' : 'diddymiad'
-    } yn mynd yn ei flaen heb ymateb gan eich ${partner}. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.`,
-    happensNextLine2: `Byddwn yn anfon e-bost atoch ${
-      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
-        ? `erbyn ${serviceApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
-        : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
-    }.`,
-  },
-  awaitingServiceApplicationDocuments: {
-    heading1: 'Anfon eich tystiolaeth i’r llys',
-    line1: 'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
   },
   awaitingBailiffService: {
     line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${
@@ -886,6 +875,25 @@ const cy: typeof en = (
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
+  awaitingProcessServerService: {
+    line1: `You have chosen to arrange for an independent process server to serve the papers on your ${partner}.`,
+    line2: `You can <a class="govuk-link" href="${PROCESS_SERVER_DOCS}">download the papers from the documents tab</a>. You will need to print these out and give them to your process server.`,
+    whatYouNeedToDoHeader: 'What you need to do',
+    steps: {
+      one: 'You will need to find and employ a process server. You may wish to consider how many times they will attempt to serve, over what period of time, and at what times of the day.',
+      two: `They will attempt to serve the papers on your ${partner}.`,
+      three:
+        'If they serve successfully, they will complete the certificate of service form (form FP6) and send it to you.',
+      four: 'You will then need to send the certificate of service to the court.',
+      five: `If the papers have been correctly served and your ${partner} still has not responded, your ${
+        isDivorce ? 'divorce' : 'application to end your civil partnership'
+      } can continue without their response.`,
+    },
+    line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
+    line4: `You can <a class="govuk-link" href="${OPTIONS_FOR_PROGRESSING}">view your other options for progressing your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    }</a> if you later decide that you no longer want to arrange service by a process server.`,
+  },
 });
 
 const languages = {
@@ -919,12 +927,16 @@ export const generateContent: TranslationFn = content => {
         latestRequestForInformation?.requestForInformationResponses?.at(0)?.value.requestForInformationResponseDateTime
       ).add(config.get('dates.requestForInformationResponseCourtReplyOffsetDays'), 'day')
     ) || '';
+  const isAwaitingProcessServerService =
+    userCase.state === State.AwaitingService &&
+    userCase.applicant1InterimApplicationType === InterimApplicationType.PROCESS_SERVER_SERVICE;
   const theLatestUpdateTemplate = getSoleHubTemplate(
     displayState,
     userCase,
     isSuccessfullyServedByBailiff,
     isAlternativeService,
-    isApplicantAbleToRespondToRequestForInformation
+    isApplicantAbleToRespondToRequestForInformation,
+    isAwaitingProcessServerService
   );
   const isSwitchToSoleCoApp = userCase.switchedToSoleCo === YesOrNo.YES;
   const hasApplicant1AppliedForFinalOrderFirst = userCase.applicant1AppliedForFinalOrderFirst === YesOrNo.YES;
@@ -950,6 +962,7 @@ export const generateContent: TranslationFn = content => {
     NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
+    serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
     displayState,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
@@ -970,5 +983,6 @@ export const generateContent: TranslationFn = content => {
     aosOverdueAndDrafted,
     contactDetailsUpdatedUKBased,
     applicant1NoResponseSendPapersAgain,
+    isAwaitingProcessServerService,
   };
 };
