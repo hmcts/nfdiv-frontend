@@ -450,21 +450,21 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
-  applicant1SearchGovRecordsApplicant2NationalInsurance: data => ({
-    applicant1SearchGovRecordsApplicant2NationalInsurance: toUpper(
-      data.applicant1SearchGovRecordsApplicant2NationalInsurance
+  applicant1SearchGovRecordsPartnerNationalInsurance: data => ({
+    applicant1SearchGovRecordsPartnerNationalInsurance: toUpper(
+      data.applicant1SearchGovRecordsPartnerNationalInsurance
     ),
   }),
-  applicant1SearchGovRecordsKnowApplicant2DateOfBirth: data => ({
-    applicant1SearchGovRecordsKnowApplicant2DateOfBirth: data.applicant1SearchGovRecordsKnowApplicant2DateOfBirth,
+  applicant1SearchGovRecordsKnowPartnerDateOfBirth: data => ({
+    applicant1SearchGovRecordsKnowPartnerDateOfBirth: data.applicant1SearchGovRecordsKnowPartnerDateOfBirth,
     ...setUnreachableAnswersToNull([
-      data.applicant1SearchGovRecordsKnowApplicant2DateOfBirth === YesOrNo.YES
-        ? 'applicant1SearchGovRecordsApplicant2ApproximateAge'
-        : 'applicant1SearchGovRecordsApplicant2DateOfBirth',
+      data.applicant1SearchGovRecordsKnowPartnerDateOfBirth === YesOrNo.YES
+        ? 'applicant1SearchGovRecordsPartnerApproximateAge'
+        : 'applicant1SearchGovRecordsPartnerDateOfBirth',
     ]),
   }),
-  applicant1SearchGovRecordsApplicant2DateOfBirth: data => ({
-    applicant1SearchGovRecordsApplicant2DateOfBirth: toApiDate(data.applicant1SearchGovRecordsApplicant2DateOfBirth),
+  applicant1SearchGovRecordsPartnerDateOfBirth: data => ({
+    applicant1SearchGovRecordsPartnerDateOfBirth: toApiDate(data.applicant1SearchGovRecordsPartnerDateOfBirth),
   }),
 };
 

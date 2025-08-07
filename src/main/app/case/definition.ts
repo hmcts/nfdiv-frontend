@@ -1067,19 +1067,19 @@ export interface CaseData {
   applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
   applicant1SearchGovRecordsWhyTheseDepartments: string;
   applicant1SearchGovRecordsOtherDepartmentNames?: string;
-  applicant1SearchGovRecordsApplicant2Name: string;
-  applicant1SearchGovRecordsApplicant2NationalInsurance?: string;
-  applicant1SearchGovRecordsApplicant2ApproximateAge?: string;
-  applicant1SearchGovRecordsKnowApplicant2DateOfBirth: YesOrNo;
-  applicant1SearchGovRecordsApplicant2DateOfBirth: CaseDate | DateAsString;
-  applicant1SearchGovRecordsKnowApplicant2NationalInsurance: YesOrNo;
-  applicant1SearchGovRecordsApplicant2LastKnownAddress: string;
-  applicant1SearchGovRecordsApplicant2LastKnownAddressDates: string;
-  applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: YesOrNo;
-  applicant1SearchGovRecordsApplicant2AdditionalAddress1: string;
-  applicant1SearchGovRecordsApplicant2AdditionalAddressDates1: string;
-  applicant1SearchGovRecordsApplicant2AdditionalAddress2?: string;
-  applicant1SearchGovRecordsApplicant2AdditionalAddressDates2?: string;}
+  applicant1SearchGovRecordsPartnerName: string;
+  applicant1SearchGovRecordsPartnerNationalInsurance?: string;
+  applicant1SearchGovRecordsPartnerApproximateAge?: string;
+  applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo;
+  applicant1SearchGovRecordsPartnerDateOfBirth: CaseDate | DateAsString;
+  applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo;
+  applicant1SearchGovRecordsPartnerLastKnownAddress: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressDates: string;
+  applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: YesOrNo;
+  applicant1SearchGovRecordsPartnerAdditionalAddress1: string;
+  applicant1SearchGovRecordsPartnerAdditionalAddressDates1: string;
+  applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
+  applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;}
 
 export interface CaseDocuments {
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];

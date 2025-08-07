@@ -8,7 +8,7 @@ const en = ({ partner }: CommonContent) => ({
   title: `Do you know of any other addresses related to your ${partner}?`,
   partnerAdditionalAddressesHint: `If you’re able to provide your ${partner}’s National Insurance number it will help with the search.`,
   errors: {
-    applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: {
+    applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: {
       required: 'Select yes if you know any other addresses',
     },
   },
@@ -19,7 +19,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Do you know of any other addresses related to your ${partner}?`,
   partnerAdditionalAddressesHint: `If you’re able to provide your ${partner}’s National Insurance number it will help with the search.`,
   errors: {
-    applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: {
+    applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: {
       required: 'Select yes if you know any other addresses',
     },
   },
@@ -27,7 +27,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: {
+    applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: {
       type: 'radios',
       classes: 'govuk-radios govuk-radios--inline',
       label: l => l.null,

@@ -10,10 +10,10 @@ const en = ({ partner }: CommonContent) => ({
   nationalInsuranceHint: 'For example, JB 34 66 84 D',
   enterNationalInsurance: `Enter your ${partner}'s National Insurance number`,
   errors: {
-    applicant1SearchGovRecordsKnowApplicant2NationalInsurance: {
+    applicant1SearchGovRecordsKnowPartnerNationalInsurance: {
       required: `Select yes if you know your ${partner}'s National Insurance number`,
     },
-    applicant1SearchGovRecordsApplicant2NationalInsurance: {
+    applicant1SearchGovRecordsPartnerNationalInsurance: {
       required: `Enter your ${partner}'s National Insurance number`,
       invalidUsedExample: `You have entered the example National Insurance number. Enter the number you know of your ${partner}.`,
       invalid: 'Enter a National Insurance number in the correct format',
@@ -28,10 +28,10 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   nationalInsuranceHint: 'For example, JB 34 66 84 D',
   enterNationalInsurance: `Enter your ${partner}'s National Insurance number`,
   errors: {
-    applicant1SearchGovRecordsKnowApplicant2NationalInsurance: {
+    applicant1SearchGovRecordsKnowPartnerNationalInsurance: {
       required: `Select yes if you know your ${partner}'s National Insurance number`,
     },
-    applicant1SearchGovRecordsApplicant2NationalInsurance: {
+    applicant1SearchGovRecordsPartnerNationalInsurance: {
       required: `Enter your ${partner}'s National Insurance number`,
       invalidUsedExample: `You have entered the example National Insurance number. Enter the number you know of your ${partner}.`,
       invalid: 'Enter a National Insurance number in the correct format',
@@ -41,7 +41,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1SearchGovRecordsKnowApplicant2NationalInsurance: {
+    applicant1SearchGovRecordsKnowPartnerNationalInsurance: {
       type: 'radios',
       classes: 'govuk-radios govuk-radios--inline',
       label: l => l.null,
@@ -53,7 +53,7 @@ export const form: FormContent = {
           id: 'yes',
           value: YesOrNo.YES,
           subFields: {
-            applicant1SearchGovRecordsApplicant2NationalInsurance: {
+            applicant1SearchGovRecordsPartnerNationalInsurance: {
               type: 'text',
               classes: 'govuk-input',
               attributes: { maxLength: 13 },

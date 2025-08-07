@@ -39,20 +39,20 @@ const en = ({ partner, userCase }: CommonContent, useHwf: YesOrNo, hwfReference:
     whySearchGovRecords: stripTags(userCase.applicant1SearchGovRecordsReasonForApplying),
     whichGovDepartmentsToSearch: stripTags(userCase.applicant1SearchGovRecordsWhichDepartments),
     whySearchTheseDepartments: stripTags(userCase.applicant1SearchGovRecordsWhyTheseDepartments),
-    partnerName: stripTags(userCase.applicant1SearchGovRecordsApplicant2Name),
-    partnerDateOfBirth: stripTags(userCase.applicant1SearchGovRecordsApplicant2DateOfBirth),
-    partnerApproximateAge: stripTags(userCase.applicant1SearchGovRecordsApplicant2ApproximateAge),
-    partnerNationalInsuranceNumber: stripTags(userCase.applicant1SearchGovRecordsApplicant2NationalInsurance),
-    partnerLastKnownAddress: stripTags(userCase.applicant1SearchGovRecordsApplicant2LastKnownAddress),
-    partnerLastKnownAddressDates: stripTags(userCase.applicant1SearchGovRecordsApplicant2LastKnownAddressDates),
-    partnerAnyAdditionalKnownAddresses: stripTags(userCase.applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses),
-    partnerAnyAdditionalKnownAddress1: stripTags(userCase.applicant1SearchGovRecordsApplicant2AdditionalAddress1),
+    partnerName: stripTags(userCase.applicant1SearchGovRecordsPartnerName),
+    partnerDateOfBirth: stripTags(userCase.applicant1SearchGovRecordsPartnerDateOfBirth),
+    partnerApproximateAge: stripTags(userCase.applicant1SearchGovRecordsPartnerApproximateAge),
+    partnerNationalInsuranceNumber: stripTags(userCase.applicant1SearchGovRecordsPartnerNationalInsurance),
+    partnerLastKnownAddress: stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress),
+    partnerLastKnownAddressDates: stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddressDates),
+    partnerAnyAdditionalKnownAddresses: stripTags(userCase.applicant1SearchGovRecordsKnowPartnerAdditionalAddresses),
+    partnerAnyAdditionalKnownAddress1: stripTags(userCase.applicant1SearchGovRecordsPartnerAdditionalAddress1),
     partnerAnyAdditionalKnownAddressDates1: stripTags(
-      userCase.applicant1SearchGovRecordsApplicant2AdditionalAddressDates1
+      userCase.applicant1SearchGovRecordsPartnerAdditionalAddressDates1
     ),
-    partnerAnyAdditionalKnownAddress2: stripTags(userCase.applicant1SearchGovRecordsApplicant2AdditionalAddress2),
+    partnerAnyAdditionalKnownAddress2: stripTags(userCase.applicant1SearchGovRecordsPartnerAdditionalAddress2),
     partnerAnyAdditionalKnownAddressDates2: stripTags(
-      userCase.applicant1SearchGovRecordsApplicant2AdditionalAddressDates2
+      userCase.applicant1SearchGovRecordsPartnerAdditionalAddressDates2
     ),
   },
   stepLinks: {

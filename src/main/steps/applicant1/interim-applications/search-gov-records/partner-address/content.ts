@@ -8,10 +8,10 @@ const en = ({ partner }: CommonContent) => ({
   partnerAddressHint: `If you’re able to provide your ${partner}’s last known address it may help with the search`,
   partnerDateAtAddresses: 'Enter the dates they lived there',
   errors: {
-    applicant1SearchGovRecordsApplicant2LastKnownAddress: {
+    applicant1SearchGovRecordsPartnerLastKnownAddress: {
       required: `You have not entered your ${partner}'s last known address. Enter it before continuing.`,
     },
-    applicant1SearchGovRecordsApplicant2LastKnownAddressDates: {
+    applicant1SearchGovRecordsPartnerLastKnownAddressDates: {
       required: `Enter the dates your ${partner} lived at this address. Enter it before continuing.`,
     },
   },
@@ -23,10 +23,10 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   partnerAddressHint: `If you’re able to provide your ${partner}’s last known address it may help with the search`,
   partnerDateAtAddresses: 'Enter the dates they lived there',
   errors: {
-    applicant1SearchGovRecordsApplicant2LastKnownAddress: {
+    applicant1SearchGovRecordsPartnerLastKnownAddress: {
       required: `You have not entered your ${partner}'s last known address. Enter it before continuing.`,
     },
-    applicant1SearchGovRecordsApplicant2LastKnownAddressDates: {
+    applicant1SearchGovRecordsPartnerLastKnownAddressDates: {
       required: `Enter the dates your ${partner} lived at this address. Enter it before continuing.`,
     },
   },
@@ -34,14 +34,14 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1SearchGovRecordsApplicant2LastKnownAddress: {
+    applicant1SearchGovRecordsPartnerLastKnownAddress: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.null,
       hint: l => l.partnerAddressHint,
       validator: isFieldFilledIn,
     },
-    applicant1SearchGovRecordsApplicant2LastKnownAddressDates: {
+    applicant1SearchGovRecordsPartnerLastKnownAddressDates: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.partnerDateAtAddresses,

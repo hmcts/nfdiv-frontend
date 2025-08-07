@@ -211,8 +211,8 @@ const fields: FromApiConverters = {
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
-  applicant1SearchGovRecordsApplicant2DateOfBirth: data => ({
-    applicant1SearchGovRecordsApplicant2DateOfBirth: fromApiDate(data.applicant1SearchGovRecordsApplicant2DateOfBirth),
+  applicant1SearchGovRecordsPartnerDateOfBirth: data => ({
+    applicant1SearchGovRecordsPartnerDateOfBirth: fromApiDate(data.applicant1SearchGovRecordsPartnerDateOfBirth),
   }),
 };
 

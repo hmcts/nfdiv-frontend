@@ -19,9 +19,9 @@ const en = ({ partner }: CommonContent) => ({
   enterPartnerApproximateAge: `Enter your ${partner}'s approximate age`,
   enterPartnerApproximateAgeHint: 'For example, 65 years old',
   errors: {
-    applicant1SearchGovRecordsKnowApplicant2DateOfBirth: {
+    applicant1SearchGovRecordsKnowPartnerDateOfBirth: {
       required: `Select yes if you know your ${partner}'s date of birth`,
-      applicant1SearchGovRecordsApplicant2DateOfBirth: {
+      applicant1SearchGovRecordsPartnerDateOfBirth: {
         required: 'You have not entered a date. Enter a date to continue.',
         invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
         invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
@@ -42,9 +42,9 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   enterPartnerApproximateAge: `Enter your ${partner}'s approximate age`,
   enterPartnerApproximateAgeHint: 'For example, 65 years old',
   errors: {
-    applicant1SearchGovRecordsKnowApplicant2DateOfBirth: {
+    applicant1SearchGovRecordsKnowPartnerDateOfBirth: {
       required: `Select yes if you know your ${partner}'s date of birth`,
-      applicant1SearchGovRecordsApplicant2DateOfBirth: {
+      applicant1SearchGovRecordsPartnerDateOfBirth: {
         required: 'You have not entered a date. Enter a date to continue.',
         invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
         invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
@@ -59,7 +59,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: (userCase, language) => ({
-    applicant1SearchGovRecordsKnowApplicant2DateOfBirth: {
+    applicant1SearchGovRecordsKnowPartnerDateOfBirth: {
       label: l => l.null,
       type: 'radios',
       values: [
@@ -68,7 +68,7 @@ export const form: FormContent = {
           labelsize: 's',
           value: YesOrNo.YES,
           subFields: {
-            applicant1SearchGovRecordsApplicant2DateOfBirth: {
+            applicant1SearchGovRecordsPartnerDateOfBirth: {
               type: 'date',
               classes: 'govuk-body govuk-date-input',
               label: l => l.enterPartnerDob,
@@ -95,7 +95,7 @@ export const form: FormContent = {
                 },
               ],
               parser: body =>
-                covertToDateObject('applicant1SearchGovRecordsApplicant2DateOfBirth', body as Record<string, unknown>),
+                covertToDateObject('applicant1SearchGovRecordsPartnerDateOfBirth', body as Record<string, unknown>),
               validator: value =>
                 areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
@@ -108,7 +108,7 @@ export const form: FormContent = {
           labelsize: 's',
           value: YesOrNo.NO,
           subFields: {
-            applicant1SearchGovRecordsApplicant2ApproximateAge: {
+            applicant1SearchGovRecordsPartnerApproximateAge: {
               type: 'text',
               classes: 'govuk-input govuk-!-width-one-half',
               attributes: { maxLength: 15 },

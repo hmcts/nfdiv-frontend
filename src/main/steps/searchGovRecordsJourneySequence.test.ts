@@ -105,12 +105,12 @@ describe('SEARCH_GOV_RECORDS', () => {
     expect(step.getNextStep(caseData)).toBe(PARTNER_ADDRESS_ADDITIONAL_ADDRESSES);
   });
   test('Search gov records applicant1 knows applicant2 additional addresses', () => {
-    const caseData = { applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: YesOrNo.YES };
+    const caseData = { applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: YesOrNo.YES };
     const step = searchGovRecordsJourneySequence.find(obj => obj.url === PARTNER_ADDRESS_ADDITIONAL_ADDRESSES) as Step;
     expect(step.getNextStep(caseData)).toBe(PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS);
   });
   test("Search gov records applicant1 doesn't knows applicant2 additional addresses", () => {
-    const caseData = { applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: YesOrNo.NO };
+    const caseData = { applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: YesOrNo.NO };
     const step = searchGovRecordsJourneySequence.find(obj => obj.url === PARTNER_ADDRESS_ADDITIONAL_ADDRESSES) as Step;
     expect(step.getNextStep(caseData)).toBe(CHECK_YOUR_ANSWERS_GOV_RECORDS);
   });

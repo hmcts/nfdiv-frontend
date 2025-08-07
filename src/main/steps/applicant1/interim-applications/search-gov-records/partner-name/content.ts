@@ -11,7 +11,7 @@ const en = ({ partner }: CommonContent) => {
     title: `Enter your ${partner}’s name`,
     partnerNameHint: `Include your ${partner}’s middle names, if they have any`,
     errors: {
-      applicant1SearchGovRecordsApplicant2Name: {
+      applicant1SearchGovRecordsPartnerName: {
         required: `${capitalize(partner)}'s name cannot be blank`,
         invalid,
       },
@@ -26,7 +26,7 @@ const cy: typeof en = ({ partner }: CommonContent) => {
     title: `Enter your ${partner}’s name`,
     partnerNameHint: `Include your ${partner}’s middle names, if they have any`,
     errors: {
-      applicant1SearchGovRecordsApplicant2Name: {
+      applicant1SearchGovRecordsPartnerName: {
         required: `${capitalize(partner)}'s name cannot be blank`,
         invalid,
       },
@@ -36,7 +36,7 @@ const cy: typeof en = ({ partner }: CommonContent) => {
 
 export const form: FormContent = {
   fields: userCase => ({
-    applicant1SearchGovRecordsApplicant2Name: {
+    applicant1SearchGovRecordsPartnerName: {
       type: 'text',
       classes: 'govuk-input',
       value: userCase.applicant2FullNameOnCertificate,

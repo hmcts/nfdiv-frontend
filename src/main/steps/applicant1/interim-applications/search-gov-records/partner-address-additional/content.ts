@@ -9,13 +9,13 @@ const en = ({ partner }: CommonContent) => ({
   address: 'Address',
   dateLivedOnAddress: 'Enter the dates they lived there',
   errors: {
-    applicant1SearchGovRecordsApplicant2AdditionalAddress1: {
+    applicant1SearchGovRecordsPartnerAdditionalAddress1: {
       required: `You have not entered your ${partner}'s additional address. Enter it before continuing.`,
     },
-    applicant1SearchGovRecordsApplicant2AdditionalAddressDates1: {
+    applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
       required: `You have not entered your ${partner}'s dates at the address. Enter it before continuing.`,
     },
-    applicant1SearchGovRecordsApplicant2AdditionalAddress: {
+    applicant1SearchGovRecordsPartnerAdditionalAddress: {
       required: `You have not entered your ${partner}'s dates at the address 2. Enter it before continuing.`,
     },
   },
@@ -27,13 +27,13 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   address: 'Address',
   dateLivedOnAddress: 'Enter the dates they lived there',
   errors: {
-    applicant1SearchGovRecordsApplicant2AdditionalAddress1: {
+    applicant1SearchGovRecordsPartnerAdditionalAddress1: {
       required: `You have not entered your ${partner}'s last known address. Enter it before continuing.`,
     },
-    applicant1SearchGovRecordsApplicant2AdditionalAddressDates1: {
+    applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
       required: `Enter the dates your ${partner} lived at this address`,
     },
-    applicant1SearchGovRecordsApplicant2AdditionalAddress: {
+    applicant1SearchGovRecordsPartnerAdditionalAddress: {
       required: `You have entered address 2. Enter the dates your ${partner} lived at this address`,
     },
   },
@@ -41,27 +41,27 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1SearchGovRecordsApplicant2AdditionalAddress1: {
+    applicant1SearchGovRecordsPartnerAdditionalAddress1: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.address + '1',
       labelSize: 'normal',
       validator: isFieldFilledIn,
     },
-    applicant1SearchGovRecordsApplicant2AdditionalAddressDates1: {
+    applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.dateLivedOnAddress,
       labelSize: 'normal',
       validator: isFieldFilledIn,
     },
-    applicant1SearchGovRecordsApplicant2AdditionalAddress2: {
+    applicant1SearchGovRecordsPartnerAdditionalAddress2: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.address + '2 (optional)',
       labelSize: 'normal',
     },
-    applicant1SearchGovRecordsApplicant2AdditionalAddressDates2: {
+    applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.dateLivedOnAddress + ' (optional)',
@@ -70,7 +70,7 @@ export const form: FormContent = {
         value: string | string[] | CaseDate | Partial<Case> | undefined,
         formData: Partial<Case>
       ): string | undefined => {
-        if (!formData['applicant1SearchGovRecordsApplicant2AdditionalAddress2']?.length) {
+        if (!formData['applicant1SearchGovRecordsPartnerAdditionalAddress2']?.length) {
           return 'required';
         }
       },

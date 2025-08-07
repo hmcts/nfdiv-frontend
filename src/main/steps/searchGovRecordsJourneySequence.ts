@@ -76,7 +76,7 @@ export const searchGovRecordsJourneySequence: Step[] = [
   {
     url: PARTNER_ADDRESS_ADDITIONAL_ADDRESSES,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      return data.applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses === YesOrNo.YES
+      return data.applicant1SearchGovRecordsKnowPartnerAdditionalAddresses === YesOrNo.YES
         ? PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS
         : CHECK_YOUR_ANSWERS_GOV_RECORDS;
     },
