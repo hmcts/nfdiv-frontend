@@ -74,7 +74,7 @@ Feature: Alternative service journey
     Given I click element "#applicant1InterimAppsCannotUploadDocs"
     When I click continue
     Then the page should include element "#whyApplyThisWayTitle"
-    And the page should include "You should also explain why you are not able to upload evidence"
+    And the page should not include "You should also explain why you are not able to upload evidence"
 
     Given I select element "#applicant1AltServiceMethodJustification"
     And I type "More Details"
