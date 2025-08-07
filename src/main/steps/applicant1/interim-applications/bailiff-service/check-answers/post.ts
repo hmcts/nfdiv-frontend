@@ -14,11 +14,11 @@ export default class CheckBailiffServiceAnswersPostController<
     return CITIZEN_SERVICE_APPLICATION;
   }
 
-  protected getApplicationType(): InterimApplicationType {
+  protected interimApplicationType(): InterimApplicationType {
     return InterimApplicationType.BAILIFF_SERVICE;
   }
 
-  protected getApplicationSequence(): Step[] {
+  protected interimApplicationSequence(): Step[] {
     return bailiffServiceSequence;
   }
 }

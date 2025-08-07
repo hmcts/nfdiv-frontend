@@ -12,11 +12,11 @@ export default class CheckAltServiceAnswersPostController<T extends AnyObject> e
     return CITIZEN_SERVICE_APPLICATION;
   }
 
-  protected getApplicationType(): InterimApplicationType {
+  protected interimApplicationType(): InterimApplicationType {
     return InterimApplicationType.ALTERNATIVE_SERVICE;
   }
 
-  protected getApplicationSequence(): Step[] {
+  protected interimApplicationSequence(): Step[] {
     return alternativeServiceSequence;
   }
 }

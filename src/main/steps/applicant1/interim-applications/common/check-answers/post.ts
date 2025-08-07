@@ -11,7 +11,7 @@ import { getFirstErroredStep } from '../../../../index';
 @autobind
 export default class CheckAnswersPostController<T extends AnyObject> extends PostController<AnyObject> {
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const erroredPageUrl = getFirstErroredStep(req, this.getApplicationSequence());
+    const erroredPageUrl = getFirstErroredStep(req, this.interimApplicationSequence());
 
     if (erroredPageUrl && !req.originalUrl.includes(erroredPageUrl)) {
       return res.redirect(erroredPageUrl);
@@ -22,7 +22,7 @@ export default class CheckAnswersPostController<T extends AnyObject> extends Pos
 
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     if (!req.session.isApplicant2) {
-      formData.applicant1InterimApplicationType = this.getApplicationType();
+      formData.applicant1InterimApplicationType = this.interimApplicationType();
     }
     return super.save(req, formData, eventName);
   }
@@ -31,11 +31,11 @@ export default class CheckAnswersPostController<T extends AnyObject> extends Pos
     throw new Error('Method not implemented. This should be overridden in subclasses.');
   }
 
-  protected getApplicationType(): InterimApplicationType {
+  protected interimApplicationType(): InterimApplicationType {
     throw new Error('Method not implemented. This should be overridden in subclasses.');
   }
 
-  protected getApplicationSequence(): Step[] {
+  protected interimApplicationSequence(): Step[] {
     throw new Error('Method not implemented. This should be overridden in subclasses.');
   }
 }

@@ -14,11 +14,11 @@ export default class CheckDeemedServiceAnswersPostController<
     return CITIZEN_SERVICE_APPLICATION;
   }
 
-  protected getApplicationType(): InterimApplicationType {
+  protected interimApplicationType(): InterimApplicationType {
     return InterimApplicationType.DEEMED_SERVICE;
   }
 
-  protected getApplicationSequence(): Step[] {
+  protected interimApplicationSequence(): Step[] {
     return deemedServiceSequence;
   }
 }
