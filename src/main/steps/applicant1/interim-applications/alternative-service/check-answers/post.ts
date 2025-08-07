@@ -1,13 +1,12 @@
 import autobind from 'autobind-decorator';
 
 import { CITIZEN_SERVICE_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
-import { AnyObject } from '../../../../../app/controller/PostController';
 import { Step } from '../../../../../steps/applicant1Sequence';
 import { alternativeServiceApplicationSequence as alternativeServiceSequence } from '../../../../alternativeServiceApplicationSequence';
 import CheckAnswersPostController from '../../common/check-answers/post';
 
 @autobind
-export default class CheckAltServiceAnswersPostController<T extends AnyObject> extends CheckAnswersPostController<T> {
+export default class CheckAltServiceAnswersPostController extends CheckAnswersPostController {
   protected getEventName(): string {
     return CITIZEN_SERVICE_APPLICATION;
   }

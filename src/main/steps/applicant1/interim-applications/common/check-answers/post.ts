@@ -9,8 +9,8 @@ import { Step } from '../../../../../steps/applicant1Sequence';
 import { getFirstErroredStep } from '../../../../index';
 
 @autobind
-export default class CheckAnswersPostController<T extends AnyObject> extends PostController<AnyObject> {
-  public async post(req: AppRequest<T>, res: Response): Promise<void> {
+export default abstract class CheckAnswersPostController extends PostController<AnyObject> {
+  public async post(req: AppRequest, res: Response): Promise<void> {
     const erroredPageUrl = getFirstErroredStep(req, this.interimApplicationSequence());
 
     if (erroredPageUrl && !req.originalUrl.includes(erroredPageUrl)) {
