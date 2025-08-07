@@ -542,8 +542,7 @@ export interface Case {
   applicant1SearchGovRecordsOtherDepartmentNames?: string;
   applicant1SearchGovRecordsApplicant2Name: string;
   applicant1SearchGovRecordsApplicant2NationalInsurance?: string;
-  applicant1SearchGovRecordsApplicant2DateOfBirth?: DateAsString;
-  applicant2DateOfBirth?: CaseDate;
+  applicant1SearchGovRecordsApplicant2DateOfBirth?: CaseDate | DateAsString;
   applicant1SearchGovRecordsKnowApplicant2DateOfBirth: YesOrNo;
   applicant1SearchGovRecordsApplicant2ApproximateAge?: string;
   applicant1SearchGovRecordsKnowApplicant2NationalInsurance: YesOrNo;

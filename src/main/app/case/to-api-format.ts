@@ -1,3 +1,5 @@
+import { toUpper } from 'lodash';
+
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
@@ -448,57 +450,33 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
-  applicant1SearchGovRecordsReasonForApplying: data => ({
-    applicant1SearchGovRecordsReasonForApplying: data.applicant1SearchGovRecordsReasonForApplying,
-  }),
-  applicant1SearchGovRecordsWhichDepartments: data => ({
-    applicant1SearchGovRecordsWhichDepartments: data.applicant1SearchGovRecordsWhichDepartments,
-  }),
-  applicant1SearchGovRecordsWhyTheseDepartments: data => ({
-    applicant1SearchGovRecordsWhyTheseDepartments: data.applicant1SearchGovRecordsWhyTheseDepartments,
-  }),
-  applicant1SearchGovRecordsOtherDepartmentNames: data => ({
-    applicant1SearchGovRecordsOtherDepartmentNames: data.applicant1SearchGovRecordsOtherDepartmentNames,
-  }),
-  applicant1SearchGovRecordsApplicant2Name: data => ({
-    applicant1SearchGovRecordsApplicant2Name: data.applicant1SearchGovRecordsApplicant2Name,
-  }),
   applicant1SearchGovRecordsApplicant2NationalInsurance: data => ({
-    applicant1SearchGovRecordsApplicant2NationalInsurance: data.applicant1SearchGovRecordsApplicant2NationalInsurance,
+    applicant1SearchGovRecordsApplicant2NationalInsurance: toUpper(
+      data.applicant1SearchGovRecordsApplicant2NationalInsurance
+    ),
   }),
   applicant1SearchGovRecordsKnowApplicant2DateOfBirth: data => ({
     applicant1SearchGovRecordsKnowApplicant2DateOfBirth: data.applicant1SearchGovRecordsKnowApplicant2DateOfBirth,
+    ...setUnreachableAnswersToNull([
+      data.applicant1SearchGovRecordsKnowApplicant2DateOfBirth === YesOrNo.YES
+        ? 'applicant1SearchGovRecordsApplicant2ApproximateAge'
+        : 'applicant1SearchGovRecordsApplicant2DateOfBirth',
+    ]),
   }),
   applicant1SearchGovRecordsApplicant2DateOfBirth: data => ({
-    applicant1SearchGovRecordsApplicant2DateOfBirth: toApiDate(data.applicant2DateOfBirth),
-  }),
-  applicant1SearchGovRecordsApplicant2ApproximateAge: data => ({
-    applicant1SearchGovRecordsApplicant2ApproximateAge: data.applicant1SearchGovRecordsApplicant2ApproximateAge,
-  }),
-  applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses: data => ({
-    applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses:
-      data.applicant1SearchGovRecordsKnowApplicant2AdditionalAddresses,
-  }),
-  applicant1SearchGovRecordsApplicant2AdditionalAddress1: data => ({
-    applicant1SearchGovRecordsApplicant2AdditionalAddress1: data.applicant1SearchGovRecordsApplicant2AdditionalAddress1,
-  }),
-  applicant1SearchGovRecordsApplicant2AdditionalAddressDates1: data => ({
-    applicant1SearchGovRecordsApplicant2AdditionalAddressDates1:
-      data.applicant1SearchGovRecordsApplicant2AdditionalAddressDates1,
-  }),
-  applicant1SearchGovRecordsApplicant2AdditionalAddress2: data => ({
-    applicant1SearchGovRecordsApplicant2AdditionalAddress2: data.applicant1SearchGovRecordsApplicant2AdditionalAddress2,
-  }),
-  applicant1SearchGovRecordsApplicant2AdditionalAddressDates2: data => ({
-    applicant1SearchGovRecordsApplicant2AdditionalAddressDates2:
-      data.applicant1SearchGovRecordsApplicant2AdditionalAddressDates2,
+    applicant1SearchGovRecordsApplicant2DateOfBirth: toApiDate(data.applicant1SearchGovRecordsApplicant2DateOfBirth),
   }),
 };
 
-const toApiDate = (date: CaseDate | undefined) => {
-  if (!date?.year || !date?.month || !date?.day) {
-    return '';
+const toApiDate = (date: CaseDate | undefined | string) => {
+  if (typeof date === 'string') {
+    return date || undefined;
   }
+
+  if (!date?.year || !date?.month || !date?.day) {
+    return undefined;
+  }
+
   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
 };
 
