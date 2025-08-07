@@ -745,5 +745,16 @@ describe('to-api-format', () => {
         applicant1SearchGovRecordsPartnerApproximateAge: null,
       });
     });
+    test('convert value to upper case', () => {
+      const apiFormat = toApiFormat({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
+      });
+    });
   });
 });
