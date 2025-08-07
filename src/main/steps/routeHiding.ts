@@ -1,7 +1,7 @@
 import { State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
-import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 
+import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { RoutePermission } from './applicant1Sequence';
 import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
