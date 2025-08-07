@@ -16,7 +16,7 @@ const en = ({ partner }: CommonContent) => ({
     applicant1SearchGovRecordsPartnerNationalInsurance: {
       required: `Enter your ${partner}'s National Insurance number`,
       invalidUsedExample: `You have entered the example National Insurance number. Enter the number you know of your ${partner}.`,
-      invalid: 'Enter a National Insurance number in the correct format',
+      invalidFormat: 'Enter a National Insurance number in the correct format',
     },
   },
 });
@@ -34,7 +34,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
     applicant1SearchGovRecordsPartnerNationalInsurance: {
       required: `Enter your ${partner}'s National Insurance number`,
       invalidUsedExample: `You have entered the example National Insurance number. Enter the number you know of your ${partner}.`,
-      invalid: 'Enter a National Insurance number in the correct format',
+      invalidFormat: 'Enter a National Insurance number in the correct format',
     },
   },
 });

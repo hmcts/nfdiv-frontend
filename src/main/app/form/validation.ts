@@ -109,14 +109,16 @@ export const isInvalidNationalInsuranceNumber: Validator = value => {
     return fieldNotFilledIn;
   }
 
-  if (typeof value === 'string') {
-    if (!value.match(/^[A-Za-z]{2} [0-9]{2} [0-9]{2} [0-9]{2} [A-Za-z]{1}$/i)) {
-      return 'invalid';
-    }
+  const upperValue = (value as string).toUpperCase();
 
-    if (value.toUpperCase() === 'JB 34 66 84 D') {
-      return 'invalidUsedExample';
-    }
+  const niRegex = /^[A-Z]{2} \d{2} \d{2} \d{2} [A-Z]$/;
+
+  if (!niRegex.test(upperValue)) {
+    return 'invalidFormat';
+  }
+
+  if (upperValue === 'JB 34 66 84 D') {
+    return 'invalidUsedExample';
   }
 };
 
