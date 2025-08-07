@@ -91,7 +91,7 @@ const cy: typeof en = ({
   }.`,
   alternativeService: {
     alternativeServiceLine1:
-      'If your application is successful, we will email you detailed information about what to do next.',
+      'Os bydd eich cais yn llwyddiannus, byddwn yn anfon e-bost atoch i ddweud wrthych am beth i’w wneud nesaf.',
   },
   returnToHub: 'Dychwelyd i sgrin yr hyb',
 });

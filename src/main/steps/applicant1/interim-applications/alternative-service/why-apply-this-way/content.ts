@@ -64,42 +64,46 @@ const cy: typeof en = (
   socialMediaSelected: boolean,
   cannotUploadEvidence: boolean
 ) => ({
-  title: `${cannotUploadEvidence ? 'Why are you applying to send the papers' : 'Why do you think sending the papers'}
+  title: `${
+    cannotUploadEvidence ? 'Pam ydych yn gwneud cais i anfon y papurau' : 'Pam ydych yn meddwl y byddai anfon y papurau'
+  }
     ${
       multipleWaysSelected
-        ? 'in this way'
+        ? 'yn y ffordd yma'
         : emailSelected
-          ? 'by email'
+          ? 'drwy e-bost'
           : textMessageSelected
-            ? 'by text message'
+            ? 'drwy neges destun'
             : whatsAppSelected
-              ? 'by WhatsApp'
+              ? 'drwy WhatsApp'
               : socialMediaSelected
-                ? 'by private message on social media'
-                : 'in this way'
-    } ${cannotUploadEvidence ? '?' : 'will be successful?'}`,
-  line1: `Tell us why you think your ${partner} will receive the papers in this way. If a friend or relative will be sending the papers on your behalf, you’ll need to tell us who this is.`,
-  unableToUploadLine1: 'You should also explain why you are not able to upload evidence.',
+                ? 'drwy neges breifat ar y cyfryngau cymdeithasol'
+                : 'yn y ffordd yma'
+    } ${cannotUploadEvidence ? '?' : 'yn llwyddiannus?'}`,
+  line1: `Dywedwch pam ydych yn meddwl y bydd eich ${partner} yn derbyn y papurau fel hyn. Os bydd ffrind neu berthynas yn anfon y papurau ar eich rhan, byddwch angen dweud wrthym pwy sy’n anfon hwn.`,
+  unableToUploadLine1: 'Dylech hefyd esbonio pam nad ydych wedi gallu uwchlwytho tystiolaeth.',
   unableToUploadLine2:
-    'Explain in as much detail as you can so that the judge can consider whether to grant your application.',
+    'Eglurwch gymaint o fanylion ag y gallwch fel y gall y barnwr ystyried pa un ai i ganiatáu eich cais.',
   errors: {
     applicant1AltServiceMethodJustification: {
-      required: `You must explain why you ${
-        cannotUploadEvidence ? 'are applying to send the papers ' : 'think sending the papers'
+      required: `${
+        cannotUploadEvidence
+          ? 'You must explain why you are applying to send the papers '
+          : 'You must explain why you think sending the papers '
       }
     ${
       multipleWaysSelected
-        ? 'in this way'
+        ? 'yn y ffordd yma'
         : emailSelected
-          ? 'by email'
+          ? 'drwy e-bost'
           : textMessageSelected
-            ? 'by text message'
+            ? 'drwy neges destun'
             : whatsAppSelected
-              ? 'by WhatsApp'
+              ? 'drwy WhatsApp'
               : socialMediaSelected
-                ? 'by private message on social media'
-                : 'in this way'
-    } ${cannotUploadEvidence ? '.' : 'will be successful.'}`,
+                ? 'drwy neges breifat ar y cyfryngau cymdeithasol'
+                : 'yn y ffordd yma'
+    } ${cannotUploadEvidence ? '.' : 'yn llwyddiannus.'}`,
     },
   },
 });
