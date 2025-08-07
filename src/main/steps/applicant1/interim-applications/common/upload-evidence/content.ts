@@ -14,9 +14,9 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
   line2:
     "If you're uploading images or screenshots of a recent conversation by text, email or social media, make sure they include:",
   toInclude: {
-    partnersName: `your ${partner}'s name`,
-    dateMessageSent: 'the date the messages were sent',
-    partnersContactInfo: `your ${partner}'s email address, phone number or social media username as appropriate`,
+    bulletOne: `your ${partner}'s name`,
+    bulletTwo: 'the date the messages were sent',
+    bulletThree: `your ${partner}'s email address, phone number or social media username as appropriate`,
   },
   line3: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
@@ -52,9 +52,9 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
   line2:
     'Os ydych yn uwchlwytho delweddau o sgwrs ddiweddar trwy neges destun, e-bost neu’r cyfryngau cymdeithasol, gwnewch yn siŵr eu bod yn cynnwys:',
   toInclude: {
-    partnersName: `enw eich ${partner}`,
-    dateMessageSent: 'y dyddiadau pan anfonwyd y negeseuon',
-    partnersContactInfo: `cyfeiriad e-bost, rhif ffôn neu enw defnyddiwr cyfryngau cymdeithasol eich ${partner}, fel sy’n briodol`,
+    bulletOne: `enw eich ${partner}`,
+    bulletTwo: 'y dyddiadau pan anfonwyd y negeseuon',
+    bulletThree: `cyfeiriad e-bost, rhif ffôn neu enw defnyddiwr cyfryngau cymdeithasol eich ${partner}, fel sy’n briodol`,
   },
   line3: `Os yw eich tystiolaeth mewn iaith nad yw’n Saesneg, bydd arnoch angen darparu  <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'

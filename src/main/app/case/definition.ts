@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2023-09-13 16:10:38.
 
-import { Checkbox } from './case';
+import { Checkbox, CaseDate } from './case';
 
 export interface Address {
   AddressLine1: string;
@@ -1059,6 +1059,38 @@ export interface CaseData {
   applicant1InterimAppsCannotUploadDocs: YesOrNo;
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
+  applicant1BailiffPartnersName: string;
+  applicant1BailiffPartnerInARefuge: YesOrNoOrNotKnown;
+  applicant1BailiffKnowPartnersPhone: YesOrNo;
+  applicant1BailiffPartnersPhone: string;
+  applicant1BailiffKnowPartnersDateOfBirth: YesOrNo;
+  applicant1BailiffPartnersDateOfBirth: CaseDate | DateAsString;
+  applicant1BailiffPartnersApproximateAge: number;
+  applicant1BailiffPartnersHeight: string;
+  applicant1BailiffPartnersHairColour: string;
+  applicant1BailiffPartnersEyeColour: string;
+  applicant1BailiffPartnersEthnicGroup: string;
+  applicant1BailiffPartnersDistinguishingFeatures: string;
+  applicant1BailiffBestTimeToServe: string;
+  applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerVehicleModel: string;
+  applicant1BailiffPartnerVehicleColour: string;
+  applicant1BailiffPartnerVehicleRegistration: string;
+  applicant1BailiffPartnerVehicleOtherDetails: string;
+  applicant1BailiffHasPartnerBeenViolent: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerViolenceDetails: string;
+  applicant1BailiffHasPartnerMadeThreats: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerThreatsDetails: string;
+  applicant1BailiffHavePoliceBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffPoliceInvolvedDetails: string;
+  applicant1BailiffHaveSocialServicesBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffSocialServicesInvolvedDetails: string;
+  applicant1BailiffAreThereDangerousAnimals: YesOrNoOrNotKnown;
+  applicant1BailiffDangerousAnimalsDetails: string;
+  applicant1BailiffDoesPartnerHaveMentalIssues: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerMentalIssuesDetails: string;
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
@@ -1121,12 +1153,6 @@ export interface DeemedServiceJourneyOptions {
 }
 
 export interface AlternativeServiceJourneyOptions {
-  interimAppsIUnderstand: Checkbox;
-  interimAppsUseHelpWithFees: YesOrNo;
-  interimAppsHaveHwfReference: YesOrNo;
-  interimAppsCanUploadEvidence: YesOrNo;
-  interimAppsRefNumber: string;
-  interimAppsEvidenceDocs: ListValue<DivorceDocument>[];
   altServiceReasonForApplying: string;
   altServiceMethod: AlternativeServiceMethod;
   altServicePartnerEmail: string;
@@ -1794,6 +1820,12 @@ export const enum YesOrNo {
   NO = 'No',
 }
 
+export const enum YesOrNoOrNotKnown {
+  YES = 'Yes',
+  NO = 'No',
+  NOT_KNOWN = 'NotKnown',
+}
+
 export const enum AlternativeServiceMediumType {
   TEXT = 'text',
   EMAIL = 'email',
@@ -1928,6 +1960,7 @@ export const enum GeneralApplicationType {
   EXPEDITE = 'expedite',
   OTHER_ALTERNATIVE_SERVICE_METHODS = 'otherAlternativeServiceMethod',
   OTHER = 'other',
+  BAILIFF_SERVICE = 'bailiffService',
 }
 
 export const enum GeneralOrderDivorceParties {

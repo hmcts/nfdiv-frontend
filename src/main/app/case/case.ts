@@ -35,6 +35,7 @@ import {
   RequestForInformation,
   State,
   YesOrNo,
+  YesOrNoOrNotKnown,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -210,6 +211,38 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimAppsCannotUploadDocs: 'applicant1InterimAppsCannotUploadDocs',
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1BailiffPartnersName: 'applicant1BailiffPartnersName',
+  applicant1BailiffPartnerInARefuge: 'applicant1BailiffPartnerInARefuge',
+  applicant1BailiffKnowPartnersPhone: 'applicant1BailiffKnowPartnersPhone',
+  applicant1BailiffPartnersPhone: 'applicant1BailiffPartnersPhone',
+  applicant1BailiffKnowPartnersDateOfBirth: 'applicant1BailiffKnowPartnersDateOfBirth',
+  applicant1BailiffPartnersDateOfBirth: 'applicant1BailiffPartnersDateOfBirth',
+  applicant1BailiffPartnersApproximateAge: 'applicant1BailiffPartnersApproximateAge',
+  applicant1BailiffPartnersHeight: 'applicant1BailiffPartnersHeight',
+  applicant1BailiffPartnersHairColour: 'applicant1BailiffPartnersHairColour',
+  applicant1BailiffPartnersEyeColour: 'applicant1BailiffPartnersEyeColour',
+  applicant1BailiffPartnersEthnicGroup: 'applicant1BailiffPartnersEthnicGroup',
+  applicant1BailiffPartnersDistinguishingFeatures: 'applicant1BailiffPartnersDistinguishingFeatures',
+  applicant1BailiffBestTimeToServe: 'applicant1BailiffBestTimeToServe',
+  applicant1BailiffDoesPartnerHaveVehicle: 'applicant1BailiffDoesPartnerHaveVehicle',
+  applicant1BailiffPartnerVehicleModel: 'applicant1BailiffPartnerVehicleModel',
+  applicant1BailiffPartnerVehicleColour: 'applicant1BailiffPartnerVehicleColour',
+  applicant1BailiffPartnerVehicleRegistration: 'applicant1BailiffPartnerVehicleRegistration',
+  applicant1BailiffPartnerVehicleOtherDetails: 'applicant1BailiffPartnerVehicleOtherDetails',
+  applicant1BailiffHasPartnerBeenViolent: 'applicant1BailiffHasPartnerBeenViolent',
+  applicant1BailiffPartnerViolenceDetails: 'applicant1BailiffPartnerViolenceDetails',
+  applicant1BailiffHasPartnerMadeThreats: 'applicant1BailiffHasPartnerMadeThreats',
+  applicant1BailiffPartnerThreatsDetails: 'applicant1BailiffPartnerThreatsDetails',
+  applicant1BailiffHavePoliceBeenInvolved: 'applicant1BailiffHavePoliceBeenInvolved',
+  applicant1BailiffPoliceInvolvedDetails: 'applicant1BailiffPoliceInvolvedDetails',
+  applicant1BailiffHaveSocialServicesBeenInvolved: 'applicant1BailiffHaveSocialServicesBeenInvolved',
+  applicant1BailiffSocialServicesInvolvedDetails: 'applicant1BailiffSocialServicesInvolvedDetails',
+  applicant1BailiffAreThereDangerousAnimals: 'applicant1BailiffAreThereDangerousAnimals',
+  applicant1BailiffDangerousAnimalsDetails: 'applicant1BailiffDangerousAnimalsDetails',
+  applicant1BailiffDoesPartnerHaveMentalIssues: 'applicant1BailiffDoesPartnerHaveMentalIssues',
+  applicant1BailiffPartnerMentalIssuesDetails: 'applicant1BailiffPartnerMentalIssuesDetails',
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: 'applicant1BailiffDoesPartnerHoldFirearmsLicense',
+  applicant1BailiffPartnerFirearmsLicenseDetails: 'applicant1BailiffPartnerFirearmsLicenseDetails',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
@@ -507,6 +540,38 @@ export interface Case {
   applicant1InterimAppsCannotUploadDocs?: Checkbox;
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
+  applicant1BailiffPartnerInARefuge: YesOrNoOrNotKnown;
+  applicant1BailiffPartnersName?: string;
+  applicant1BailiffKnowPartnersPhone: YesOrNo;
+  applicant1BailiffPartnersPhone?: string;
+  applicant1BailiffKnowPartnersDateOfBirth: YesOrNo;
+  applicant1BailiffPartnersDateOfBirth: CaseDate | DateAsString;
+  applicant1BailiffPartnersApproximateAge: number;
+  applicant1BailiffPartnersHeight: number;
+  applicant1BailiffPartnersHairColour: string;
+  applicant1BailiffPartnersEyeColour: string;
+  applicant1BailiffPartnersEthnicGroup: string;
+  applicant1BailiffPartnersDistinguishingFeatures: string;
+  applicant1BailiffBestTimeToServe: string;
+  applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerVehicleModel: string;
+  applicant1BailiffPartnerVehicleColour: string;
+  applicant1BailiffPartnerVehicleRegistration: string;
+  applicant1BailiffPartnerVehicleOtherDetails: string;
+  applicant1BailiffHasPartnerBeenViolent: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerViolenceDetails: string;
+  applicant1BailiffHasPartnerMadeThreats: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerThreatsDetails: string;
+  applicant1BailiffHavePoliceBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffPoliceInvolvedDetails: string;
+  applicant1BailiffHaveSocialServicesBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffSocialServicesInvolvedDetails: string;
+  applicant1BailiffAreThereDangerousAnimals: YesOrNoOrNotKnown;
+  applicant1BailiffDangerousAnimalsDetails: string;
+  applicant1BailiffDoesPartnerHaveMentalIssues: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerMentalIssuesDetails: string;
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
