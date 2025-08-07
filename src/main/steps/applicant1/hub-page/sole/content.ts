@@ -8,6 +8,7 @@ import {
   AlternativeServiceType,
   Applicant2Represented,
   DocumentType,
+  NoResponsePartnerNewEmailOrAddress,
   NoResponseSendPapersAgainOrTrySomethingElse,
   State,
   YesOrNo,
@@ -64,6 +65,20 @@ const en = (
     }`,
     line6: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
     line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
+  },
+  contactDetailsUpdated: {
+    line1: `You have updated your ${partner}’s contact details.
+    You will receive a letter with your new contact details.`,
+    line2: `The court will now serve your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers again using the new contact details you have provided.`,
+    line3: `Your ${partner} will have ${config.get(
+      'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
+    )} days from receiving the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
   },
   aosDrafted: {
     line1: `Your ${partner} has started drafting a response to your application.`,
@@ -465,6 +480,20 @@ const cy: typeof en = (
     line5: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu mai chi sy’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sy’n hysbysu’ch ${partner} am yr ysgariad.`,
     line6: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a llythyr, ar ôl i’r cais gael ei wirio.`,
     line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddynt gadarnhau eu bod yn eu cynrychioli. Fe anfonir copi o’r cais atynt ac fe ofynnir iddynt ymateb.`,
+  },
+  contactDetailsUpdated: {
+    line1: `You have updated your ${partner}’s contact details.
+    You will receive a letter with your new contact details.`,
+    line2: `The court will now serve your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers again using the new contact details you have provided.`,
+    line3: `Your ${partner} will have ${config.get(
+      'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
+    )} days from receiving the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
   },
   aosDrafted: {
     line1: `Mae ${partner} wedi dechrau drafftio ymateb i’ch cais.`,
@@ -913,6 +942,9 @@ export const generateContent: TranslationFn = content => {
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
+  const contactDetailsUpdatedUKBased =
+    userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+      NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED && userCase.applicant2AddressOverseas !== YesOrNo.YES;
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
     NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
@@ -936,6 +968,7 @@ export const generateContent: TranslationFn = content => {
     isAosSubmitted,
     aosIsDrafted,
     aosOverdueAndDrafted,
+    contactDetailsUpdatedUKBased,
     applicant1NoResponseSendPapersAgain,
   };
 };

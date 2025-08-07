@@ -1,6 +1,8 @@
-{% if aosIsDrafted %}
-    <p class="govuk-body">{{ aosDrafted.line1 }}</p>
-    <p class="govuk-body">{{ aosDrafted.line2 }}</p>
+{% if contactDetailsUpdatedUKBased %}
+    <p class="govuk-body">{{ contactDetailsUpdated.line1 }}</p>
+    <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
+    <p class="govuk-body">{{ contactDetailsUpdated.line2 }}</p>
+    <p class="govuk-body">{{ contactDetailsUpdated.line3 }}</p>
 {% else %}
     {% if applicant1NoResponseSendPapersAgain %}
         <p class="govuk-body">{{ sendPapersAgain.line1 }}</p>
