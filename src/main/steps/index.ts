@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { extname } from 'path';
-import { Logger } from '@hmcts/nodejs-logging';
+
 import { CaseWithId } from '../app/case/case';
 import { ApplicationType, State } from '../app/case/definition';
 import { AppRequest, AppSession } from '../app/controller/AppRequest';
@@ -24,23 +24,20 @@ import {
   READ_THE_RESPONSE,
   RESPONDENT,
 } from './urls';
-// import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 
 const stepFields: Record<string, FormFields | FormFieldsFn> = {};
-const logger = Logger.getLogger('access-code-post-controller');
 const ext = extname(__filename);
 
 const allSequences = [
   applicant1PreSubmissionSequence,
   applicant1PostSubmissionSequence,
-  // deemedServiceApplicationSequence,
   applicant2PreSubmissionSequence,
   applicant2PostSubmissionSequence,
-  respondentSequence
+  respondentSequence,
 ];
 
 allSequences.forEach((sequence: Step[], i: number) => {
-  const dir = __dirname + ([0, 1].includes(i) ? '/applicant1' : '');
+  const dir = __dirname + (i === 0 || i === 1 ? '/applicant1' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content${ext}`;
     if (fs.existsSync(stepContentFile)) {
@@ -53,33 +50,20 @@ allSequences.forEach((sequence: Step[], i: number) => {
   }
 });
 
-export const getNextIncompleteStepUrl = (req: AppRequest): string => {
-  const { queryString } = getPathAndQueryString(req);
-  const sequence = getUserSequence(req);
-  const url = getNextIncompleteStep(req.session.userCase, sequence[getSequenceIndex(sequence, req.session)], sequence);
-
-  return jurisdictionUrls.some(jurisdictionUrl => url.includes(jurisdictionUrl))
-    ? `${CHECK_JURISDICTION}${queryString}`
-    : `${url}${queryString}`;
-};
-
 const getNextIncompleteStep = (data: CaseWithId, step: Step, sequence: Step[], checkedSteps: Step[] = []): string => {
-  logger.info(step.url);
   const stepField = stepFields[step.url];
-  logger.info(stepField);
-  logger.info(stepField);
   // if this step has a form
   if (stepField) {
     // and that form has errors
-    if (!formIsComplete(data, stepField)) {
+    const fields = typeof stepField === 'function' ? stepField(data) : stepField;
+    const stepForm = new Form(fields);
+    if (!stepForm.isComplete(data) || stepForm.getErrors(data).length > 0) {
       // go to that step
       return step.url;
     } else {
       // if there are no errors go to the next page and work out what to do
-      logger.info("NEXT STEP:");
       const nextStepUrl = step.getNextStep(data);
       const nextStep = sequence.find(s => s.url === nextStepUrl);
-      logger.info(nextStep);
 
       return nextStep ? getNextIncompleteStep(data, nextStep, sequence, checkedSteps.concat(step)) : step.url;
     }
@@ -89,83 +73,14 @@ const getNextIncompleteStep = (data: CaseWithId, step: Step, sequence: Step[], c
   return step.getNextStep(data);
 };
 
-const formIsComplete = (data: CaseWithId, stepField: FormFields | FormFieldsFn) => {
-  if (!stepField) {
-    return true;
-  }
+export const getNextIncompleteStepUrl = (req: AppRequest): string => {
+  const { queryString } = getPathAndQueryString(req);
+  const sequence = getUserSequence(req);
+  const url = getNextIncompleteStep(req.session.userCase, sequence[getSequenceIndex(sequence, req.session)], sequence);
 
-  const fields = typeof stepField === 'function' ? stepField(data) : stepField;
-  const stepForm = new Form(fields);
-
-  logger.info("Step form:");
-  logger.info(stepForm);
-
-  logger.info("FORM IS COMPLETE:");
-  logger.info(stepForm.isComplete(data));
-
-  logger.info("FORM ERRORS:");
-  logger.info(stepForm.getErrors(data));
-
-  logger.info("FORM:");
-  logger.info(new Form(fields));
-
-  for (const field of new Form(fields).getFieldNames().values()) {
-    logger.info("FIELD:");
-    logger.info(field);
-  }
-
-  return stepForm.isComplete(data) && !(stepForm.getErrors(data).length > 0);
-}
-
-export const getErroredStepUrlForSequence = (
-  req: AppRequest,
-  sequence: Step[],
-): string | undefined => {
-  const userData = req.session.userCase;
-  let stepIndex = 0;
-
-  while (stepIndex < sequence.length) {
-    const step = sequence[stepIndex];
-    const stepUrl = step.url;
-
-    const stepField = stepFields[stepUrl];
-    const fields = typeof stepField === 'function' ? stepField(userData) : stepField;
-
-    if (fields) {
-      const stepForm = new Form(fields);
-      if ((stepForm.getErrors(userData)?.length > 0)) {
-        logger.info(stepForm.getErrors(userData));
-        return step.url;
-      }
-    }
-
-    stepIndex = sequence.findIndex(s => s.url === step.getNextStep(userData));
-  }
-};
-
-export const findIncompleteStepForSequence = (req: AppRequest, sequence: Step[]): string => {
-  // logger.info(stepFields);
-  let nextStepUrl = getNextIncompleteStep(req.session.userCase, sequence[0], sequence);
-  let nextStep: Step | undefined;
-  let stepField = stepFields[nextStepUrl];
-
-  while (nextStepUrl && (!stepField || formIsComplete(req.session.userCase, stepField))) {
-    nextStep = sequence.find(s => s.url === nextStepUrl);
-
-    nextStepUrl = getNextIncompleteStep(req.session.userCase, nextStep as Step, sequence);
-    stepField = stepFields[nextStepUrl];
-    logger.info(nextStep);
-    logger.info(nextStepUrl);
-    logger.info("STEP FIELD:");
-    logger.info(stepField);
-  }
-
-  logger.info(nextStep);
-  logger.info(nextStepUrl);
-  logger.info(stepField);
-  logger.info(formIsComplete(req.session.userCase, stepField));
-
-  return nextStepUrl;
+  return jurisdictionUrls.some(jurisdictionUrl => url.includes(jurisdictionUrl))
+    ? `${CHECK_JURISDICTION}${queryString}`
+    : `${url}${queryString}`;
 };
 
 const getSequenceIndex = (sequence: Step[], session: AppSession): number => {
@@ -202,6 +117,37 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
   const url = [APPLICANT_2 + HOME_URL, RESPONDENT + HOME_URL].includes(nextStepUrl) ? HOME_URL : nextStepUrl;
 
   return `${url}${queryString}`;
+};
+
+export const getErroredStepUrlForSequence = (
+  req: AppRequest,
+  sequence: Step[],
+): string | undefined => {
+  const userData = req.session.userCase;
+
+  let stepIndex = 0;
+  const visitedSteps = new Set<string>();
+
+  while (stepIndex < sequence.length) {
+    const step = sequence[stepIndex];
+    const stepUrl = step.url;
+    if (visitedSteps.has(stepUrl)) {
+      break;
+    }
+
+    visitedSteps.add(stepUrl);
+    const stepField = stepFields[stepUrl];
+    const fields = typeof stepField === 'function' ? stepField(userData) : stepField;
+
+    if (fields) {
+      const stepForm = new Form(fields);
+      if ((stepForm.getErrors(userData)?.length > 0)) {
+        return step.url;
+      }
+    }
+
+    stepIndex = sequence.findIndex(s => s.url === step.getNextStep(userData));
+  }
 };
 
 export const getUserSequence = (req: AppRequest): Step[] => {
