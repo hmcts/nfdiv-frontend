@@ -1,8 +1,11 @@
 import { State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
+import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 
 import { RoutePermission } from './applicant1Sequence';
+import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
+import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {
   CHECK_ANSWERS_URL,
@@ -53,6 +56,17 @@ export const routeHideConditions: RoutePermission[] = [
       [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
         data.state as State
       ) && data.serviceApplicationSubmittedOnline !== YesOrNo.YES,
+  },
+  {
+    urls: [
+      ...deemedServiceApplicationSequence,
+      ...alternativeServiceApplicationSequence,
+      ...bailiffServiceApplicationSequence,
+    ].map(step => step.url as PageLink),
+    condition: data =>
+      [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
+        data.state as State
+      ),
   },
   {
     urls: [
