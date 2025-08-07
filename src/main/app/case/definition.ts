@@ -2,11 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2023-09-13 16:10:38.
 
-<<<<<<< HEAD
-import { CaseDate, Checkbox } from './case';
-=======
 import { Checkbox, CaseDate } from './case';
->>>>>>> NFDIV-4743
 
 export interface Address {
   AddressLine1: string;
@@ -1105,7 +1101,6 @@ export interface CaseData {
   applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
   applicant1SearchGovRecordsWhyTheseDepartments: string;
   applicant1SearchGovRecordsOtherDepartmentNames?: string;
-<<<<<<< HEAD
   applicant1SearchGovRecordsPartnerName: string;
   applicant1SearchGovRecordsPartnerNationalInsurance?: string;
   applicant1SearchGovRecordsPartnerApproximateAge?: string;
@@ -1118,8 +1113,7 @@ export interface CaseData {
   applicant1SearchGovRecordsPartnerAdditionalAddress1: string;
   applicant1SearchGovRecordsPartnerAdditionalAddressDates1: string;
   applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
-  applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;}
-=======
+  applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
@@ -1134,7 +1128,6 @@ export interface CaseData {
   applicant1AltServiceMethodJustification: string;
   applicant1AltServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
->>>>>>> NFDIV-4743
 
 export interface CaseDocuments {
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
