@@ -129,7 +129,7 @@ export const getFirstErroredStep = (req: AppRequest, sequence: Step[]): string |
     const stepUrl = step?.url;
 
     if (!stepUrl) {
-      break; // No more steps to process
+      break;
     }
 
     if (visitedSteps.has(stepUrl)) {
