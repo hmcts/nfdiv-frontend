@@ -16,6 +16,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
+import { getAddressFields } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import {
   FINALISING_YOUR_APPLICATION,
@@ -899,7 +900,9 @@ export const generateContent: TranslationFn = content => {
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
-  const respondentAddressProvided: boolean = !isEmpty(userCase.applicant2Address1);
+  const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
+    field => field && field.length > 0
+  );
 
   return {
     ...languages[language](
