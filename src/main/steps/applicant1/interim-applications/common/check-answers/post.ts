@@ -5,13 +5,13 @@ import { Case, CaseWithId } from '../../../../../app/case/case';
 import { InterimApplicationType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
-import { getErroredStepUrlForSequence } from '../../../../index';
 import { Step } from '../../../../../steps/applicant1Sequence';
+import { getFirstErroredStep } from '../../../../index';
 
 @autobind
 export default class CheckAnswersPostController<T extends AnyObject> extends PostController<AnyObject> {
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const erroredPageUrl = getErroredStepUrlForSequence(req, this.getApplicationSequence());
+    const erroredPageUrl = getFirstErroredStep(req, this.getApplicationSequence());
 
     if (erroredPageUrl && !req.originalUrl.includes(erroredPageUrl)) {
       return res.redirect(erroredPageUrl);
