@@ -168,6 +168,12 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
     generalOrderLink: '/downloads/general-order',
   },
   pendingHearingOutcome: {},
+  welshTranslationRequestedOrReview: {
+    line1:
+      isApplicant2 && !isJointApplication
+        ? 'The court will update you on the progress of the application.'
+        : 'The court will contact you to tell you your next steps.',
+  },
 });
 
 const cy: typeof en = ({
@@ -332,6 +338,12 @@ const cy: typeof en = ({
     generalOrderLink: '/downloads/general-order',
   },
   pendingHearingOutcome: {},
+  welshTranslationRequestedOrReview: {
+    line1:
+      isApplicant2 && !isJointApplication
+        ? 'The court will update you on the progress of the application.'
+        : 'The court will contact you to tell you your next steps.',
+  },
 });
 
 export const form: FormContent = {
