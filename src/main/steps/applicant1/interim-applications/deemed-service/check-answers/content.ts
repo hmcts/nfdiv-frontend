@@ -48,7 +48,7 @@ const cy: typeof en = (
     useHwf: 'Help i dalu’r ffi gwneud cais',
     hwfReference: 'Cyfeirnod help i dalu ffioedd',
     canUploadEvidence: 'A ydych yn gallu uwchlwytho tystiolaeth?',
-    uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
+    uploadedFiles: 'Ffeiliau wedi’u huwchlwytho',
     evidenceDetails: 'Manylion am eich tystiolaeth',
     noEvidenceStatement: 'Datganiad i Gefnogi Cais',
   },
