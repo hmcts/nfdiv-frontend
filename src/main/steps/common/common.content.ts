@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
+import { ApplicationType, InterimApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
@@ -399,7 +399,12 @@ export const generateCommonContent = ({
   const referenceNumber = formattedCaseId(userCase?.id);
 
   const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
-  const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
+  const serviceApplicationType =
+    commonTranslations.generalApplication[
+      userCase?.applicant1InterimApplicationType === InterimApplicationType.SEARCH_GOV_RECORDS
+        ? 'searchGovRecords'
+        : 'alternativeService'
+    ];
   const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
   const serviceApplicationResponseDate = getFormattedDate(
     dayjs(userCase?.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),

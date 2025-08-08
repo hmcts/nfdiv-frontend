@@ -246,7 +246,8 @@ const en = (
   finalOrderComplete: {},
   awaitingServiceConsiderationOrBailiffReferral: {
     line1: `The court is currently considering your ${
-      userCase.alternativeServiceType === AlternativeServiceType.BAILIFF
+      userCase.alternativeServiceType === AlternativeServiceType.BAILIFF ||
+      userCase.applicant1InterimApplicationType === InterimApplicationType.SEARCH_GOV_RECORDS
         ? `request for ${serviceApplicationType}`
         : `${serviceApplicationType} application`
     } that you submitted on ${serviceApplicationDate}.`,
