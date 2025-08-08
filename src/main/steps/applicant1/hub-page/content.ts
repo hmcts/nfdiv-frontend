@@ -341,8 +341,8 @@ const cy: typeof en = ({
   welshTranslationRequestedOrReview: {
     line1:
       isApplicant2 && !isJointApplication
-        ? 'The court will update you on the progress of the application.'
-        : 'The court will contact you to tell you your next steps.',
+        ? 'Bydd y llys yn eich diweddaru ar gynnydd y cais.'
+        : 'Bydd y llys yn cysylltu â chi i ddweud wrthych beth yw’r camau nesaf.',
   },
 });
 
