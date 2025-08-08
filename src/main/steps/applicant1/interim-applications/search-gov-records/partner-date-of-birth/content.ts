@@ -21,15 +21,14 @@ const en = ({ partner }: CommonContent) => ({
   errors: {
     applicant1SearchGovRecordsKnowPartnerDateOfBirth: {
       required: `Select yes if you know your ${partner}'s date of birth`,
-      applicant1SearchGovRecordsPartnerDateOfBirth: {
-        required: 'You have not entered a date. Enter a date to continue.',
-        invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
-        invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
-        invalidDateInFuture:
-          'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
-        invalidDateTooFarInPast:
-          'You have entered a year which is too far in the past. Enter the year you got married.',
-      },
+    },
+    applicant1SearchGovRecordsPartnerDateOfBirth: {
+      required: 'You have not entered a date. Enter a date to continue.',
+      invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
+      invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
+      invalidDateInFuture:
+        'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
+      invalidDateTooFarInPast: 'You have entered a year which is too far in the past. Enter the year you got married.',
     },
   },
 });
@@ -44,15 +43,14 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   errors: {
     applicant1SearchGovRecordsKnowPartnerDateOfBirth: {
       required: `Select yes if you know your ${partner}'s date of birth`,
-      applicant1SearchGovRecordsPartnerDateOfBirth: {
-        required: 'You have not entered a date. Enter a date to continue.',
-        invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
-        invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
-        invalidDateInFuture:
-          'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
-        invalidDateTooFarInPast:
-          'You have entered a year which is too far in the past. Enter the year you got married.',
-      },
+    },
+    applicant1SearchGovRecordsPartnerDateOfBirth: {
+      required: 'You have not entered a date. Enter a date to continue.',
+      invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
+      invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
+      invalidDateInFuture:
+        'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
+      invalidDateTooFarInPast: 'You have entered a year which is too far in the past. Enter the year you got married.',
     },
   },
 });

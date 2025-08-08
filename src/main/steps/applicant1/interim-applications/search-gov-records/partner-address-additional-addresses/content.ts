@@ -6,7 +6,7 @@ import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Do you know of any other addresses related to your ${partner}?`,
-  partnerAdditionalAddressesHint: `If you’re able to provide your ${partner}’s National Insurance number it will help with the search.`,
+  partnerAdditionalAddressesHint: "If you're able to provide any other addresses it may help with the search",
   errors: {
     applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: {
       required: 'Select yes if you know any other addresses',
@@ -17,7 +17,7 @@ const en = ({ partner }: CommonContent) => ({
 // @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Do you know of any other addresses related to your ${partner}?`,
-  partnerAdditionalAddressesHint: `If you’re able to provide your ${partner}’s National Insurance number it will help with the search.`,
+  partnerAdditionalAddressesHint: "If you're able to provide any other addresses it may help with the search",
   errors: {
     applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: {
       required: 'Select yes if you know any other addresses',
