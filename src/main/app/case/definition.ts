@@ -2,11 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2023-09-13 16:10:38.
 
-<<<<<<< HEAD
 import { CaseDate, Checkbox } from './case';
-=======
-import { Checkbox, CaseDate } from './case';
->>>>>>> NFDIV-4743
 
 export interface Address {
   AddressLine1: string;
@@ -936,6 +932,12 @@ export interface CaseData {
   generalApplicationFeeAccountReferenceNumber: string;
   generalApplicationFeeHelpWithFeesReferenceNumber: string;
   generalApplications: ListValue<GeneralApplication>[];
+  applicant1GeneralApplicationServiceRequest: string;
+  applicant2GeneralApplicationServiceRequest: string;
+  applicant1GeneralApplicationFeeOrderSummary: OrderSummary;
+  applicant2GeneralApplicationFeeOrderSummary: OrderSummary;
+  applicant1GeneralApplicationPayments: ListValue<Payment>[];
+  applicant2GeneralApplicationPayments: ListValue<Payment>[];
   generalReferrals: ListValue<GeneralReferral>[];
   isJudicialSeparation: YesOrNo;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
@@ -1097,6 +1099,7 @@ export interface CaseData {
   applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
   applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType: InterimApplicationType;
+  applicant2InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
@@ -1105,7 +1108,6 @@ export interface CaseData {
   applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
   applicant1SearchGovRecordsWhyTheseDepartments: string;
   applicant1SearchGovRecordsOtherDepartmentNames?: string;
-<<<<<<< HEAD
   applicant1SearchGovRecordsPartnerName: string;
   applicant1SearchGovRecordsPartnerNationalInsurance?: string;
   applicant1SearchGovRecordsPartnerApproximateAge?: string;
@@ -1118,8 +1120,7 @@ export interface CaseData {
   applicant1SearchGovRecordsPartnerAdditionalAddress1: string;
   applicant1SearchGovRecordsPartnerAdditionalAddressDates1: string;
   applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
-  applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;}
-=======
+  applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
@@ -1134,7 +1135,6 @@ export interface CaseData {
   applicant1AltServiceMethodJustification: string;
   applicant1AltServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
->>>>>>> NFDIV-4743
 
 export interface CaseDocuments {
   applicant1DocumentsUploaded: ListValue<DivorceDocument>[];
@@ -1419,6 +1419,9 @@ export interface GeneralApplication {
   generalApplicationFeePbaNumbers: DynamicList;
   generalApplicationFeeAccountReferenceNumber: string;
   generalApplicationFeeHelpWithFeesReferenceNumber: string;
+  generalApplicationFrom: GeneralParties;
+  generalApplicationFeeServiceRequestReference: string;
+  generalApplicationFeePaymentReference: string;
 }
 
 export interface GeneralEmail {
@@ -2277,6 +2280,10 @@ export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFin
 
 export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
 
+export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([
+  State.GeneralApplicationReceived,
+]);
+
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
   JUDICIAL_SEPARATION = 'judicialSeparation',
@@ -2845,6 +2852,8 @@ export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_SERVICE_APPLICATION = 'citizen-service-application';
 export const CITIZEN_SERVICE_PAYMENT_MADE = 'citizen-service-payment-made';
+export const CITIZEN_GENERAL_APPLICATION = 'citizen-general-application';
+export const CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE = 'citizen-general-application-payment-made';
 export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';

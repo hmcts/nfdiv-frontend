@@ -205,7 +205,7 @@ export const PARTNER_ADDRESS_ADDITIONAL_ADDRESSES: PageLink =
 export const PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS: PageLink =
   '/interim-applications/search-gov-records/partner-address-additional';
 export const CHECK_YOUR_ANSWERS_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/check-answers';
-  '/interim-applications/search-gov-records/apply-for-hwf-gov-records';
+('/interim-applications/search-gov-records/apply-for-hwf-gov-records');
 
 // Dispensed Service URLs
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
@@ -287,3 +287,9 @@ export const ALTERNATIVE_SENDING_PAPERS_TO_PARTNER: PageLink =
 export const ALTERNATIVE_WHY_APPLY_THIS_WAY: PageLink = '/interim-applications/alternative-service/why-apply-this-way';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
+
+// General Application Payment URLs
+export const PAY_YOUR_GENERAL_APPLICATION_FEE: PageLink = '/interim-applications/pay-your-general-application-fee';
+export const GENERAL_APPLICATION_PAYMENT_CALLBACK: PageLink =
+  '/interim-applications/general-application-payment-callback';
+export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/interim-applications/general-application-submitted';

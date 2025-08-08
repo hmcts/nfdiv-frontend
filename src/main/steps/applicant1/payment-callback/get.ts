@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 
-import { CaseWithId } from '../../../app/case/case';
 import {
   APPLICATION_PAYMENT_STATES,
   ApplicationType,
@@ -19,8 +18,8 @@ import {
 
 @autobind
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {
-  protected isAwaitingPayment(userCase: CaseWithId): boolean {
-    return APPLICATION_PAYMENT_STATES.has(userCase.state);
+  protected isAwaitingPayment(req: AppRequest): boolean {
+    return APPLICATION_PAYMENT_STATES.has(req.session.userCase.state);
   }
 
   protected noPaymentRequiredUrl(): string {

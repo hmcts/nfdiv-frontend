@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 
 import { Case, CaseWithId } from '../../../../../app/case/case';
-import { CITIZEN_SERVICE_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
+import { CITIZEN_GENERAL_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 
@@ -15,6 +15,6 @@ export default class CheckYourAnswersPostController extends PostController<AnyOb
   }
 
   protected getEventName(): string {
-    return CITIZEN_SERVICE_APPLICATION;
+    return CITIZEN_GENERAL_APPLICATION;
   }
 }

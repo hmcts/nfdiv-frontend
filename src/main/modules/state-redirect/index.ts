@@ -6,6 +6,7 @@ import {
   APPLICATION_PAYMENT_STATES,
   ApplicationType,
   FINAL_ORDER_PAYMENT_STATES,
+  GENERAL_APPLICATION_PAYMENT_STATES,
   SERVICE_PAYMENT_STATES,
   State,
   YesOrNo,
@@ -16,6 +17,7 @@ import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
   APP_REPRESENTED,
+  GENERAL_APPLICATION_PAYMENT_CALLBACK,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
@@ -121,6 +123,15 @@ export class StateRedirectMiddleware {
         const servicePayments = new PaymentModel(req.session.userCase.servicePayments);
         if (SERVICE_PAYMENT_STATES.has(state) && !req.session.isApplicant2 && servicePayments.hasPayment) {
           return res.redirect(SERVICE_PAYMENT_CALLBACK);
+        }
+
+        const generalApplicationPayments = new PaymentModel(
+          isApplicant2
+            ? req.session.userCase.applicant2GeneralApplicationPayments
+            : req.session.userCase.applicant1GeneralApplicationPayments
+        );
+        if (GENERAL_APPLICATION_PAYMENT_STATES.has(state) && generalApplicationPayments.hasPayment) {
+          return res.redirect(GENERAL_APPLICATION_PAYMENT_CALLBACK);
         }
 
         return next();
