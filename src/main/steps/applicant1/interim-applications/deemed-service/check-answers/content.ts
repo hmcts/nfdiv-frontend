@@ -47,7 +47,7 @@ const cy: typeof en = (
   stepQuestions: {
     useHwf: 'Help paying the application fee',
     hwfReference: 'Help with fees reference number',
-    canUploadEvidence: 'Are you able to upload evidence?',
+    canUploadEvidence: 'A ydych yn gallu uwchlwytho tystiolaeth?',
     uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
     evidenceDetails: 'Details about your evidence',
     noEvidenceStatement: 'Supporting statement',

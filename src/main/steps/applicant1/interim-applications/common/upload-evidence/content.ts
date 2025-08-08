@@ -33,15 +33,13 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
     'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
   errors: {
     applicant1InterimAppsEvidenceUploadedFiles: {
-      notUploaded:
-        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
+      notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
     },
     applicant1InterimAppsCannotUploadDocs: {
-      notUploaded:
-        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
+      notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
     },
   },
 });
@@ -71,15 +69,13 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
     'Gallwch anfon eich dogfen i’r llys drwy’r post neu drwy ffurflen ar-lein. Dylech anfon eich tystiolaeth ac unrhyw gyfieithiadau ardystiedig os oes arnoch eu hangen.  Fe gewch fanylion am sut i’w hanfon ar ôl i chi gyflwyno’r cais hwn.',
   errors: {
     applicant1InterimAppsEvidenceUploadedFiles: {
-      notUploaded:
-        "Rhaid i chi uwchlwytho'ch dogfennau, neu ddewis 'Ni allaf uwchlwytho rhai neu'r cyfan o'm dogfennau' cyn parhau.",
+      notUploaded: 'Uwchlwythwch eich dogfennau, neu dewiswch ‘Ni allaf uwchlwytho rhai neu’r cyfan o’m dogfennau’.',
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
     },
     applicant1InterimAppsCannotUploadDocs: {
-      notUploaded:
-        "Rhaid i chi uwchlwytho'ch dogfennau, neu ddewis 'Ni allaf uwchlwytho rhai neu'r cyfan o'm dogfennau' cyn parhau.",
+      notUploaded: 'Uwchlwythwch eich dogfennau, neu dewiswch ‘Ni allaf uwchlwytho rhai neu’r cyfan o’m dogfennau’.',
     },
   },
 });
