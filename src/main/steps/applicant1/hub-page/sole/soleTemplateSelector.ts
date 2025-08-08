@@ -132,7 +132,6 @@ export const getSoleHubTemplate = (
         ? HubTemplate.AwaitingProcessServerService
         : HubTemplate.AosAwaitingOrDrafted;
     case State.WelshTranslationRequested:
-      return HubTemplate.WelshTranslationRequestedOrReview;
     case State.WelshTranslationReview:
       return HubTemplate.WelshTranslationRequestedOrReview;
     default: {
