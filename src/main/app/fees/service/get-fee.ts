@@ -13,6 +13,7 @@ const fees = {
   GeneralAppWithoutNotice: { amount: 0, service: 'other', event: 'general application' },
   GAOnNotice: { amount: 0, service: 'other', event: 'general application' },
   DivAnswerReceived: { amount: 0, service: 'other', event: 'issue' },
+  SearchIndexDivCentral: { amount: 0, service: 'other', event: 'search' },
 };
 
 type FeeKeyword = keyof typeof fees;

@@ -1,0 +1,11 @@
+{% extends "common/form/form.njk"%}
+
+{% block after_form %}
+  <p class="govuk-body">{{ alsoTryHeader }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ alsoTry.options.differentWay | safe }}</li>
+    <li>{{ alsoTry.options.updateDetails | safe }}</li>
+    <li>{{ alsoTry.options.applyProcessServerOrBailiff | safe }}</li>
+    <li>{{ alsoTry.options.searchRecords | safe }}</li>
+  </ul>
+{% endblock %}
