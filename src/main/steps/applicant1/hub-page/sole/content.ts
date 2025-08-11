@@ -955,7 +955,7 @@ export const generateContent: TranslationFn = content => {
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   const contactDetailsUpdatedUKBased =
-    userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+    userCase.applicant1NoResponsePartnerNewEmailOrAddress ===
       NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED && userCase.applicant2AddressOverseas !== YesOrNo.YES;
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
