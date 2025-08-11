@@ -21,6 +21,7 @@ import { dispenseServiceApplicationSequence } from './dispenseServiceApplication
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
+import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
@@ -595,6 +596,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...dispenseServiceApplicationSequence,
   ...searchGovRecordsApplicationSequence,
   ...serviceApplicationPaymentSequence,
+  ...generalApplicationPaymentSequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>

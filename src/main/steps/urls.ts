@@ -187,8 +187,8 @@ export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/pa
 
 // Search Gov Records URLs
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
-export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/search-gov-records/help-with-fees-gov-records';
 export const WHY_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/why-gov-records';
+export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/search-gov-records/help-with-fees';
 export const HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS: PageLink =
   '/interim-applications/search-gov-records/hwf-reference-number-input';
 export const HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS: PageLink =
@@ -212,7 +212,6 @@ export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dis
 
 // Deemed Service URLs
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
-export const HELP_WITH_FEES_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/help-with-fees';
 export const HELP_WITH_FEES_DISPENSE: PageLink = '/interim-applications/dispense-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
 export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/want-upload-evidence';

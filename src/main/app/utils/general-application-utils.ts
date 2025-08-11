@@ -49,5 +49,5 @@ export const generalApplicationFeeOrderSummary = (req: AppRequest<AnyObject>): O
 };
 
 export const generalApplicationPaymentsField = (req: AppRequest<AnyObject>): keyof AnyObject => {
-  return req.session.isApplicant2 ? 'applicant2GeneralApplicationPayments' : 'applicant1GeneralApplicationPayments';
+  return req.session.isApplicant2 ? 'applicant2GenApplicationPayments' : 'applicant1GenApplicationPayments';
 };

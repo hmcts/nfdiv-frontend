@@ -127,8 +127,8 @@ export class StateRedirectMiddleware {
 
         const generalApplicationPayments = new PaymentModel(
           isApplicant2
-            ? req.session.userCase.applicant2GeneralApplicationPayments
-            : req.session.userCase.applicant1GeneralApplicationPayments
+            ? req.session.userCase.applicant2GenApplicationPayments
+            : req.session.userCase.applicant1GenApplicationPayments
         );
         if (GENERAL_APPLICATION_PAYMENT_STATES.has(state) && generalApplicationPayments.hasPayment) {
           return res.redirect(GENERAL_APPLICATION_PAYMENT_CALLBACK);

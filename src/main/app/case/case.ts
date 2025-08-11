@@ -297,8 +297,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2GeneralApplicationServiceRequest: 'applicant2GeneralApplicationServiceRequest',
   applicant1GeneralApplicationFeeOrderSummary: 'applicant1GeneralApplicationFeeOrderSummary',
   applicant2GeneralApplicationFeeOrderSummary: 'applicant2GeneralApplicationFeeOrderSummary',
-  applicant1GeneralApplicationPayments: 'applicant1GeneralApplicationPayments',
-  applicant2GeneralApplicationPayments: 'applicant2GeneralApplicationPayments',
+  applicant1GenApplicationPayments: 'applicant1GenApplicationPayments',
+  applicant2GenApplicationPayments: 'applicant2GenApplicationPayments',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -663,8 +663,8 @@ export interface Case {
   applicant2GeneralApplicationServiceRequest: string;
   applicant1GeneralApplicationFeeOrderSummary: OrderSummary;
   applicant2GeneralApplicationFeeOrderSummary: OrderSummary;
-  applicant1GeneralApplicationPayments: ListValue<Payment>[];
-  applicant2GeneralApplicationPayments: ListValue<Payment>[];
+  applicant1GenApplicationPayments: ListValue<Payment>[];
+  applicant2GenApplicationPayments: ListValue<Payment>[];
 }
 
 export interface CaseWithId extends Case {

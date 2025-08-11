@@ -35,8 +35,8 @@ export default class GeneralApplicationPaymentPostController extends BasePayment
 
   protected paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData {
     return req.session.isApplicant2
-      ? ('applicant2GeneralApplicationPayments' as keyof CaseData)
-      : ('applicant1GeneralApplicationPayments' as keyof CaseData);
+      ? ('applicant2GenApplicationPayments' as keyof CaseData)
+      : ('applicant1GenApplicationPayments' as keyof CaseData);
   }
 
   protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
