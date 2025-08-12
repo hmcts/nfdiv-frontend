@@ -100,10 +100,6 @@ Feature: Dispense with service journey
 
     Given I click element "#yes"
     When I click continue
-    Then the page should include element "#uploadEvidenceDispenseTitle"
-
-    Given I click element "#applicant1InterimAppsCannotUploadDocs"
-    When I click continue
     Then the page should include element "#emailDispenseTitle"
 
     Given I click element "#yes"

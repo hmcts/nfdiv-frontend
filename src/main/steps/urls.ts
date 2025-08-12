@@ -186,7 +186,6 @@ export const PARTNER_NEW_ADDRESS_DISPENSE: PageLink = '/interim-applications/dis
 export const LAST_SEEN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-seen';
 export const EMAIL_DISPENSE: PageLink = '/interim-applications/dispense-service/email';
 export const DA_SEARCH_DISPENSE: PageLink = '/interim-applications/dispense-service/da-search';
-export const DA_UPLOAD: PageLink = '/interim-applications/dispense-service/upload-evidence';
 export const EMAIL_DESCRIPTION_DISPENSE: PageLink = '/interim-applications/dispense-service/email-description';
 export const PHONE_NUMBER_DISPENSE: PageLink = '/interim-applications/dispense-service/phone-number';
 export const PHONE_DESCRIPTION_DISPENSE: PageLink = '/interim-applications/dispense-service/phone-description';

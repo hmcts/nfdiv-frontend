@@ -8,7 +8,6 @@ import {
   APPLY_FOR_HWF_DISPENSE,
   AWARE_PARTNER_ADDRESS_DISPENSE,
   DA_SEARCH_DISPENSE,
-  DA_UPLOAD,
   DISPENSE_SERVICE_APPLICATION,
   EMAIL_DESCRIPTION_DISPENSE,
   EMAIL_DISPENSE,
@@ -86,10 +85,6 @@ export const dispenseServiceApplicationSequence: Step[] = [
   },
   {
     url: DA_SEARCH_DISPENSE,
-    getNextStep: data => (data?.applicant1DispenseHaveSearchedFinalOrder === YesOrNo.YES ? DA_UPLOAD : EMAIL_DISPENSE),
-  },
-  {
-    url: DA_UPLOAD,
     getNextStep: () => EMAIL_DISPENSE,
   },
   {
