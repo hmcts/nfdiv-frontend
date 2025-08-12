@@ -108,7 +108,7 @@ Feature: Dispense with service journey
 
     Given I click element "#yes"
     When I click continue
-    Then the page should include element "#emailUploadTitle"
+    Then the page should include element "#emailDescriptionTitle"
 
     Given I select element "#applicant1DispensePartnerEmailAddresses"
     And I type "test@test.com - no response to email"
@@ -117,7 +117,7 @@ Feature: Dispense with service journey
 
     Given I select element "#yes"
     When I click continue
-    Then the page should include element "#phoneUploadTitle"
+    Then the page should include element "#phoneDescriptionTitle"
 
     Given I select element "#applicant1DispensePartnerPhoneNumbers"
     And I type "01234 567890 - no response to phone"

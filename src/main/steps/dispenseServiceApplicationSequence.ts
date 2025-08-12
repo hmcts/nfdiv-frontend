@@ -10,8 +10,8 @@ import {
   DA_SEARCH_DISPENSE,
   DA_UPLOAD,
   DISPENSE_SERVICE_APPLICATION,
+  EMAIL_DESCRIPTION_DISPENSE,
   EMAIL_DISPENSE,
-  EMAIL_UPLOAD_DISPENSE,
   ENQUIRY_AGENT_DISPENSE,
   HELP_WITH_FEES_DISPENSE,
   HUB_PAGE,
@@ -21,8 +21,8 @@ import {
   LAST_DATE_DISPENSE,
   LAST_SEEN_DISPENSE,
   PARTNER_NEW_ADDRESS_DISPENSE,
+  PHONE_DESCRIPTION_DISPENSE,
   PHONE_NUMBER_DISPENSE,
-  PHONE_UPLOAD_DISPENSE,
 } from './urls';
 
 export const dispenseServiceApplicationSequence: Step[] = [
@@ -80,7 +80,9 @@ export const dispenseServiceApplicationSequence: Step[] = [
   {
     url: EMAIL_DISPENSE,
     getNextStep: data =>
-      data?.applicant1DispenseHavePartnerEmailAddresses === YesOrNo.YES ? EMAIL_UPLOAD_DISPENSE : PHONE_NUMBER_DISPENSE,
+      data?.applicant1DispenseHavePartnerEmailAddresses === YesOrNo.YES
+        ? EMAIL_DESCRIPTION_DISPENSE
+        : PHONE_NUMBER_DISPENSE,
   },
   {
     url: DA_SEARCH_DISPENSE,
@@ -91,16 +93,18 @@ export const dispenseServiceApplicationSequence: Step[] = [
     getNextStep: () => EMAIL_DISPENSE,
   },
   {
-    url: EMAIL_UPLOAD_DISPENSE,
+    url: EMAIL_DESCRIPTION_DISPENSE,
     getNextStep: () => PHONE_NUMBER_DISPENSE,
   },
   {
     url: PHONE_NUMBER_DISPENSE,
     getNextStep: data =>
-      data?.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.YES ? PHONE_UPLOAD_DISPENSE : ENQUIRY_AGENT_DISPENSE,
+      data?.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.YES
+        ? PHONE_DESCRIPTION_DISPENSE
+        : ENQUIRY_AGENT_DISPENSE,
   },
   {
-    url: PHONE_UPLOAD_DISPENSE,
+    url: PHONE_DESCRIPTION_DISPENSE,
     getNextStep: () => ENQUIRY_AGENT_DISPENSE,
   },
   {
