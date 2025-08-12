@@ -10,7 +10,9 @@ import {
   AWARE_PARTNER_ADDRESS_DISPENSE,
   DA_SEARCH_DISPENSE,
   DISPENSE_SERVICE_APPLICATION,
+  EMAIL_DESCRIPTION_DISPENSE,
   EMAIL_DISPENSE,
+  ENQUIRY_AGENT_DISPENSE,
   HELP_WITH_FEES_DISPENSE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
@@ -18,6 +20,8 @@ import {
   LAST_DATE_DISPENSE,
   LAST_SEEN_DISPENSE,
   PARTNER_NEW_ADDRESS_DISPENSE,
+  PHONE_DESCRIPTION_DISPENSE,
+  PHONE_NUMBER_DISPENSE,
 } from './urls';
 
 describe('Dispense With Service Application Sequence test', () => {
@@ -140,6 +144,63 @@ describe('Dispense With Service Application Sequence test', () => {
       };
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === LAST_SEEN_DISPENSE) as Step;
       expect(step.getNextStep(caseData)).toBe(DA_SEARCH_DISPENSE);
+    });
+  });
+
+  describe('DA_SEARCH_DISPENSE', () => {
+    test('EMAIL_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === DA_SEARCH_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(EMAIL_DISPENSE);
+    });
+  });
+
+  describe('EMAIL_DISPENSE', () => {
+    test('EMAIL_DESCRIPTION_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseHavePartnerEmailAddresses: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === EMAIL_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(EMAIL_DESCRIPTION_DISPENSE);
+    });
+
+    test('PHONE_NUMBER_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseHavePartnerEmailAddresses: YesOrNo.NO,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === EMAIL_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(PHONE_NUMBER_DISPENSE);
+    });
+  });
+
+  describe('EMAIL_DESCRIPTION_DISPENSE', () => {
+    test('PHONE_NUMBER_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === EMAIL_DESCRIPTION_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(PHONE_NUMBER_DISPENSE);
+    });
+  });
+
+  describe('PHONE_NUMBER_DISPENSE', () => {
+    test('PHONE_DESCRIPTION_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseHavePartnerPhoneNumbers: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === PHONE_NUMBER_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(PHONE_DESCRIPTION_DISPENSE);
+    });
+
+    test('ENQUIRY_AGENT_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseHavePartnerPhoneNumbers: YesOrNo.NO,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === PHONE_NUMBER_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(ENQUIRY_AGENT_DISPENSE);
+    });
+  });
+
+  describe('PHONE_DESCRIPTION_DISPENSE', () => {
+    test('ENQUIRY_AGENT_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === PHONE_DESCRIPTION_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(ENQUIRY_AGENT_DISPENSE);
     });
   });
 });
