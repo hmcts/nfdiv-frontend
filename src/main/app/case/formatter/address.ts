@@ -3,7 +3,7 @@ import { AddressGlobalUK, CaseData } from '../definition';
 
 export const fromApi = (
   data: Partial<CaseData>,
-  addressPrefix: 'applicant1' | 'applicant2' | 'applicant1DispenseLivedTogether'
+  addressPrefix: 'applicant1' | 'applicant2' | 'applicant1NoResponsePartner' | 'applicant1DispenseLivedTogether'
 ): Partial<Case> => {
   const fullAddress = data[`${addressPrefix}Address`];
 
@@ -20,7 +20,7 @@ export const fromApi = (
 
 const toApiAddress = (
   data: Partial<Case>,
-  addressPrefix: 'applicant1' | 'applicant2' | 'applicant1DispenseLivedTogether'
+  addressPrefix: 'applicant1' | 'applicant2' | 'applicant1NoResponsePartner' | 'applicant1DispenseLivedTogether'
 ): AddressGlobalUK => ({
   AddressLine1: data[`${addressPrefix}Address1`] || '',
   AddressLine2: data[`${addressPrefix}Address2`] || '',
@@ -41,4 +41,8 @@ export const applicant2AddressToApi = (data: Partial<Case>): Partial<CaseData> =
 
 export const applicant1DispenseLivedTogetherAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
   applicant1DispenseLivedTogetherAddress: toApiAddress(data, 'applicant1DispenseLivedTogether'),
+});
+
+export const applicant1NoResponsePartnerAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
+  applicant1NoResponsePartnerAddress: toApiAddress(data, 'applicant1NoResponsePartner'),
 });

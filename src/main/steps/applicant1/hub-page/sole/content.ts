@@ -25,6 +25,7 @@ import {
   PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
 } from '../../../urls';
+import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -40,8 +41,6 @@ const en = (
     serviceApplicationType,
     serviceApplicationDate,
     serviceApplicationResponseDate,
-    serviceApplicationDocsAllProvided,
-    serviceApplicationFeeRequired,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -230,7 +229,11 @@ const en = (
   },
   finalOrderComplete: {},
   awaitingServiceConsiderationOrBailiffReferral: {
-    line1: `The court is currently considering your ${serviceApplicationType} application that you submitted on ${serviceApplicationDate}.`,
+    line1: `The court is currently considering your ${
+      userCase.alternativeServiceType === AlternativeServiceType.BAILIFF
+        ? `request for ${serviceApplicationType}`
+        : `${serviceApplicationType} application`
+    } that you submitted on ${serviceApplicationDate}.`,
     line2: `We will email you by ${serviceApplicationResponseDate} once a decision has been made to tell you your next steps.`,
   },
   serviceApplicationRejected: {
@@ -281,22 +284,6 @@ const en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
-  },
-  serviceApplicationSubmitted: {
-    line1: `You have submitted your application for ${serviceApplicationType}.`,
-    line2Hwf:
-      'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
-    happensNextHeading: 'What happens next',
-    happensNextLine1: `${
-      !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
-        ? 'If your help with fees reference number is accepted, the'
-        : 'The'
-    } court will review your application and any evidence you have submitted. If your application is successful, your ${
-      isDivorce ? 'divorce' : 'dissolution'
-    } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`,
-    happensNextLine2: `We will email you ${
-      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
-    }to let you know whether your application has been successful.`,
   },
   awaitingServiceApplicationDocuments: {
     heading1: 'Send your evidence to the court',
@@ -451,8 +438,6 @@ const cy: typeof en = (
     serviceApplicationType,
     serviceApplicationResponseDate,
     serviceApplicationDate,
-    serviceApplicationFeeRequired,
-    serviceApplicationDocsAllProvided,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -674,6 +659,10 @@ const cy: typeof en = (
       link: HOW_YOU_CAN_PROCEED,
     },
   },
+  awaitingServiceApplicationDocuments: {
+    heading1: 'Anfon eich tystiolaeth i’r llys',
+    line1: 'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
+  },
   bailiffServiceUnsuccessful: {
     line1: `Ceisiodd beili'r llys 'gyflwyno' ${
       isDivorce ? 'papurau’r ysgariad' : "papurau i ddod â'ch partneriaeth sifil i ben"
@@ -698,24 +687,6 @@ const cy: typeof en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
-  },
-  serviceApplicationSubmitted: {
-    line1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
-    line2Hwf:
-      "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
-    happensNextHeading: 'Beth fydd yn digwydd nesaf',
-    happensNextLine1: `Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ${
-      isDivorce ? 'ysgariad' : 'diddymiad'
-    } yn mynd yn ei flaen heb ymateb gan eich ${partner}. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.`,
-    happensNextLine2: `Byddwn yn anfon e-bost atoch ${
-      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
-        ? `erbyn ${serviceApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
-        : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
-    }.`,
-  },
-  awaitingServiceApplicationDocuments: {
-    heading1: 'Anfon eich tystiolaeth i’r llys',
-    line1: 'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
   },
   awaitingBailiffService: {
     line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${
@@ -928,6 +899,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
+    serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
     displayState,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,

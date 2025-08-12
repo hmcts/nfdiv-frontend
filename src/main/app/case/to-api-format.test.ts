@@ -1,5 +1,7 @@
 import { Case, Checkbox, LanguagePreference } from './case';
 import {
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
   Applicant2Represented,
   ApplicationType,
   ChangedNameHow,
@@ -87,6 +89,7 @@ describe('to-api-format', () => {
     app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
     app2RfiDraftResponseDetails: 'test',
     app2RfiDraftResponseUploadedFiles: [],
+    applicant2UnableToUploadEvidence: Checkbox.Checked,
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -202,6 +205,7 @@ describe('to-api-format', () => {
       applicant1LegalProceedingsDetails: null,
       applicant2LegalProceedings: YesOrNo.NO,
       applicant2LegalProceedingsDetails: null,
+      applicant2LegalProceedingsConcluded: null,
       howToRespondApplication: HowToRespondApplication.DISPUTE_DIVORCE,
       coApplicant1StatementOfTruth: YesOrNo.YES,
       coApplicant2StatementOfTruth: YesOrNo.YES,
@@ -211,6 +215,7 @@ describe('to-api-format', () => {
       app1RfiDraftResponseDetails: 'test',
       app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
       app2RfiDraftResponseDetails: 'test',
+      applicant2UnableToUploadEvidence: YesOrNo.YES,
     });
   });
 
@@ -271,7 +276,7 @@ describe('to-api-format', () => {
     expect(apiFormat).toMatchObject({
       applicant1HWFReferenceNumber: '',
       applicant2HWFReferenceNumber: '',
-      marriageDate: '',
+      marriageDate: undefined,
     });
   });
 
@@ -689,6 +694,51 @@ describe('to-api-format', () => {
     ])('correctly handles applicant2InRefuge with value %p', ({ applicant2InRefuge, expected }) => {
       const apiFormat = toApiFormat({ applicant2InRefuge } as Partial<Case>);
       expect(apiFormat).toMatchObject({ applicant2InRefuge: expected });
+    });
+  });
+
+  describe('applicant1BailiffKnowPartnersDateOfBirth transformation', () => {
+    test('sets date of birth to null if the date of birth is not known', () => {
+      const apiFormat = toApiFormat({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.NO,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.NO,
+        applicant1BailiffPartnersDateOfBirth: null,
+      });
+    });
+
+    test('sets approx age to null if the date of birth is known', () => {
+      const apiFormat = toApiFormat({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
+        applicant1BailiffPartnersApproximateAge: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServiceDifferentWays transformation', () => {
+    test('sets other fields to null when not selected in applicant1AltServiceDifferentWays', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServiceMethod: AlternativeServiceMethod.DIFFERENT_WAY,
+        applicant1AltServiceDifferentWays: [
+          AlternativeServiceDifferentWays.TEXT_MESSAGE,
+          AlternativeServiceDifferentWays.SOCIAL_MEDIA,
+        ],
+        applicant1AltServicePartnerPhone: '1234567890',
+        applicant1AltServicePartnerOtherDetails: 'some details',
+        applicant1AltServicePartnerWANum: '1234567890',
+        applicant1AltServicePartnerSocialDetails: 'some social details',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerWANum: null,
+        applicant1AltServicePartnerOtherDetails: null,
+      });
     });
   });
 });

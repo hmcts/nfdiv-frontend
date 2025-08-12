@@ -34,6 +34,8 @@ export const form: FormContent = {
     applicant1InterimAppsHaveHwfReference: {
       type: 'radios',
       classes: 'govuk-radios govuk-radios--inline',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.yes,
@@ -64,6 +66,10 @@ export const generateContent: TranslationFn = content => {
     }
     case InterimApplicationType.DISPENSE_WITH_SERVICE: {
       serviceType = generateCommonContent(content).generalApplication.dispense;
+      break;
+    }
+    case InterimApplicationType.ALTERNATIVE_SERVICE: {
+      serviceType = generateCommonContent(content).generalApplication.alternativeService;
       break;
     }
     default: {

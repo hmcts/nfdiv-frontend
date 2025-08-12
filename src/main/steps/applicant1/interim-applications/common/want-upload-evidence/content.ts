@@ -34,6 +34,8 @@ export const form: FormContent = {
     applicant1InterimAppsCanUploadEvidence: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.yes,
