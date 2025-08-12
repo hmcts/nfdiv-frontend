@@ -1,10 +1,17 @@
+import dayjs from 'dayjs';
+
+import { getFormattedCaseDate } from '../app/case/answers/formatDate';
 import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
   APPLY_FOR_HWF_DISPENSE,
   AWARE_PARTNER_ADDRESS_DISPENSE,
+  DA_SEARCH_DISPENSE,
   DISPENSE_SERVICE_APPLICATION,
+  EMAIL_DESCRIPTION_DISPENSE,
+  EMAIL_DISPENSE,
+  ENQUIRY_AGENT_DISPENSE,
   HELP_WITH_FEES_DISPENSE,
   HUB_PAGE,
   HWF_REFERENCE_NUMBER_DISPENSE,
@@ -13,6 +20,8 @@ import {
   LAST_DATE_DISPENSE,
   LAST_SEEN_DISPENSE,
   PARTNER_NEW_ADDRESS_DISPENSE,
+  PHONE_DESCRIPTION_DISPENSE,
+  PHONE_NUMBER_DISPENSE,
 } from './urls';
 
 export const dispenseServiceApplicationSequence: Step[] = [
@@ -60,6 +69,41 @@ export const dispenseServiceApplicationSequence: Step[] = [
   },
   {
     url: LAST_SEEN_DISPENSE,
+    getNextStep: data =>
+      dayjs(Date.now())
+        .subtract(2, 'year')
+        .isBefore(getFormattedCaseDate(data?.applicant1DispensePartnerLastSeenOrHeardOfDate) as string)
+        ? EMAIL_DISPENSE
+        : DA_SEARCH_DISPENSE,
+  },
+  {
+    url: EMAIL_DISPENSE,
+    getNextStep: data =>
+      data?.applicant1DispenseHavePartnerEmailAddresses === YesOrNo.YES
+        ? EMAIL_DESCRIPTION_DISPENSE
+        : PHONE_NUMBER_DISPENSE,
+  },
+  {
+    url: DA_SEARCH_DISPENSE,
+    getNextStep: () => EMAIL_DISPENSE,
+  },
+  {
+    url: EMAIL_DESCRIPTION_DISPENSE,
+    getNextStep: () => PHONE_NUMBER_DISPENSE,
+  },
+  {
+    url: PHONE_NUMBER_DISPENSE,
+    getNextStep: data =>
+      data?.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.YES
+        ? PHONE_DESCRIPTION_DISPENSE
+        : ENQUIRY_AGENT_DISPENSE,
+  },
+  {
+    url: PHONE_DESCRIPTION_DISPENSE,
+    getNextStep: () => ENQUIRY_AGENT_DISPENSE,
+  },
+  {
+    url: ENQUIRY_AGENT_DISPENSE,
     getNextStep: () => HUB_PAGE,
   },
 ];

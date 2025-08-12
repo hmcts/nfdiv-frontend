@@ -197,6 +197,17 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationDetails: 'requestForInformationDetails',
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
+  servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
+  servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
+  servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
+  serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
+  servicePayments: 'servicePayments',
+  receivedServiceApplicationDate: 'receivedServiceApplicationDate',
+  receivedServiceAddedDate: 'receivedServiceAddedDate',
+  serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
+  alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
+  alternativeServiceType: 'alternativeServiceType',
+  serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
@@ -259,17 +270,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1AltServicePartnerOtherDetails: 'applicant1AltServicePartnerOtherDetails',
   applicant1AltServiceMethodJustification: 'applicant1AltServiceMethodJustification',
   applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
-  servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
-  servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
-  servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
-  serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
-  servicePayments: 'servicePayments',
-  receivedServiceApplicationDate: 'receivedServiceApplicationDate',
-  receivedServiceAddedDate: 'receivedServiceAddedDate',
-  serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
-  alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
-  alternativeServiceType: 'alternativeServiceType',
-  serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
   applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
   applicant1DispenseLivedTogetherDate: 'applicant1DispenseLivedTogetherDate',
@@ -280,6 +280,13 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispensePartnerPastAddressEnquiries2: 'applicant1DispensePartnerPastAddressEnquiries2',
   applicant1DispensePartnerLastSeenDate: 'applicant1DispensePartnerLastSeenDate',
   applicant1DispensePartnerLastSeenDescription: 'applicant1DispensePartnerLastSeenDescription',
+  applicant1DispenseHavePartnerEmailAddresses: 'applicant1DispenseHavePartnerEmailAddresses',
+  applicant1DispenseHaveSearchedFinalOrder: 'applicant1DispenseHaveSearchedFinalOrder',
+  applicant1DispenseWhyNoFinalOrderSearch: 'applicant1DispenseWhyNoFinalOrderSearch',
+  applicant1DispensePartnerEmailAddresses: 'applicant1DispensePartnerEmailAddresses',
+  applicant1DispenseHavePartnerPhoneNumbers: 'applicant1DispenseHavePartnerPhoneNumbers',
+  applicant1DispensePartnerPhoneNumbers: 'applicant1DispensePartnerPhoneNumbers',
+  applicant1DispenseTriedTracingAgent: 'applicant1DispenseTriedTracingAgent',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -533,6 +540,17 @@ export interface Case {
   app2RfiDraftResponseCannotUploadDocs?: Checkbox;
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
+  servicePaymentFeeOrderSummary: OrderSummary;
+  servicePaymentFeeServiceRequestReference: string;
+  servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
+  servicePayments: ListValue<Payment>[];
+  receivedServiceApplicationDate: DateAsString;
+  receivedServiceAddedDate: DateAsString;
+  serviceApplicationSubmittedOnline: YesOrNo;
+  alternativeServiceFeeRequired: YesOrNo;
+  alternativeServiceType: AlternativeServiceType;
+  serviceApplicationAnswers: DivorceDocument;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
@@ -607,17 +625,6 @@ export interface Case {
   applicant1AltServicePartnerOtherDetails?: string;
   applicant1AltServiceMethodJustification?: string;
   applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
-  servicePaymentFeeOrderSummary: OrderSummary;
-  servicePaymentFeeServiceRequestReference: string;
-  servicePaymentFeeHelpWithFeesReferenceNumber: string;
-  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
-  servicePayments: ListValue<Payment>[];
-  receivedServiceApplicationDate: DateAsString;
-  receivedServiceAddedDate: DateAsString;
-  serviceApplicationSubmittedOnline: YesOrNo;
-  alternativeServiceFeeRequired: YesOrNo;
-  alternativeServiceType: AlternativeServiceType;
-  serviceApplicationAnswers: DivorceDocument;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
   applicant1DispenseLiveTogether?: YesOrNo;
@@ -639,6 +646,13 @@ export interface Case {
   applicant1DispensePartnerLastSeenDate?: DateAsString;
   applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
   applicant1DispensePartnerLastSeenDescription?: string;
+  applicant1DispenseHavePartnerEmailAddresses?: YesOrNo;
+  applicant1DispenseHaveSearchedFinalOrder?: YesOrNo;
+  applicant1DispenseWhyNoFinalOrderSearch?: string;
+  applicant1DispensePartnerEmailAddresses?: string;
+  applicant1DispenseHavePartnerPhoneNumbers?: YesOrNo;
+  applicant1DispensePartnerPhoneNumbers?: string;
+  applicant1DispenseTriedTracingAgent?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
