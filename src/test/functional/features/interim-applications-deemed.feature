@@ -62,6 +62,9 @@ Feature: Deemed service journey
 
     Given I pay and submit the service application
     Then the page should include "You have submitted your application"
+#    Given I click element "#applicant1InterimAppsStatementOfTruth"
+#    When I click submit
+#    Finish this journey when payment options are added
 
   Scenario: Deemed service no evidence journey
     When I click start
@@ -80,7 +83,7 @@ Feature: Deemed service journey
     Then the page should include element "#hwfReferenceNumberInputTitle"
 
     Given I select element "#applicant1InterimAppsHwfRefNumber"
-    And I type "HWF-A1B-23D"
+    And I type "HWF-A1B-236"
     When I click continue
     Then the page should include element "#wantUploadEvidenceTitle"
 

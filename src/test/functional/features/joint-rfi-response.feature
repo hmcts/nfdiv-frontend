@@ -13,7 +13,7 @@ Feature: Joint request for information
     Given I select element "#applicant2IConfirmPrayer"
     And I select element "#applicant2StatementOfTruth"
     When I click submit
-    Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
+    Then the page URL should be "/applicant2/response-submitted"
 
   Scenario: Applicant 1 joint rfi journey
     Given a case worker issues a request for information to app1 on a joint case

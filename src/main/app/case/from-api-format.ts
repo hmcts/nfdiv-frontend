@@ -10,7 +10,7 @@ import {
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
-const checkboxConverter = (value: string | undefined) => {
+export const checkboxConverter = (value: string | undefined): Checkbox | undefined => {
   if (!value) {
     return undefined;
   }
@@ -37,6 +37,9 @@ const fields: FromApiConverters = {
   }),
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
+  }),
+  applicant1BailiffPartnersDateOfBirth: data => ({
+    applicant1BailiffPartnersDateOfBirth: fromApiDate(data.applicant1BailiffPartnersDateOfBirth),
   }),
   doesApplicant1WantToApplyForFinalOrder: data => ({
     doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
@@ -182,9 +185,13 @@ const fields: FromApiConverters = {
   }),
   requestsForInformation: 'requestsForInformation',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+    'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1NoResponseNoNewAddressDetails: 'applicant1NoResponseNoNewAddressDetails',
   applicant1NoResponseProcessServerOrBailiff: 'applicant1NoResponseProcessServerOrBailiff',
+  applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
   }),
@@ -210,6 +217,24 @@ const fields: FromApiConverters = {
   }),
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
   applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
+  applicant2LegalProceedingDocs: uploadedFilesFromApiApplicant2,
+  applicant2UnableToUploadEvidence: uploadedFilesFromApiApplicant2,
+  applicant1NoResponsePartnerAddress: data => formatAddress(data, 'applicant1NoResponsePartner'),
+  applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
+    applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1AltServicePartnerEmail: data => ({
+    applicant1AltServicePartnerEmail: data.applicant1AltServicePartnerEmail,
+    applicant1AltServicePartnerEmailWhenDifferent: data.applicant1AltServicePartnerEmail,
+  }),
+  applicant1AltServiceReasonForApplying: 'applicant1AltServiceReasonForApplying',
+  applicant1AltServiceMethod: 'applicant1AltServiceMethod',
+  applicant1AltServicePartnerPhone: 'applicant1AltServicePartnerPhone',
+  applicant1AltServicePartnerWANum: 'applicant1AltServicePartnerWANum',
+  applicant1AltServicePartnerSocialDetails: 'applicant1AltServicePartnerSocialDetails',
+  applicant1AltServicePartnerOtherDetails: 'applicant1AltServicePartnerOtherDetails',
+  applicant1AltServiceMethodJustification: 'applicant1AltServiceMethodJustification',
+  applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
   applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
   applicant1DispenseLivedTogetherDate: data => ({
     applicant1DispenseLastLivedTogetherDate: fromApiDate(data.applicant1DispenseLivedTogetherDate),

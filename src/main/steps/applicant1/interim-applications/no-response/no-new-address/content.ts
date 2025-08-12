@@ -23,7 +23,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
       isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
     } to your ${partner} in a way other than by post. This could be by sending them by email only (without posting them), including to an email address you've already tried. You could also try sending the papers by text, or through a private message on social media.`,
   },
-  noContactDetails: {
+  noContact: {
     header: `No contact details for your ${partner}`,
     details: `If you do not have any other contact details for your ${partner}, you can try another way to progress your application.`,
   },
@@ -45,7 +45,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } i’ch ${partner}.`,
   line2:
-    'If you need to send the documents to an international address, you may need to seek legal advice to check what types of service are valid in that country.',
+    "Os ydych chi angen anfon y dogfennau i gyfeiriad rhyngwladol, efallai yr hoffech geisio cyngor cyfreithiol fel y gallwch ddweud wrth y gweinyddwr proses pa fath o gyflwyno sy'n gyfreithiol yn y wlad honno.",
   inPerson: {
     header: 'Cyflwyno personol',
     details: `Os ydych chi’n hyderus bod y cyfeiriad post yn gywir, gallwch ystyried gwneud cais i feili llys neu weinyddwr proses annibynnol gyflwyno’r papurau’n bersonol. Mae hyn yn golygu y byddai papurau’r ${

@@ -17,6 +17,9 @@ export const en = {
     to: 'to',
     deemed: 'deemed service',
     deemedCode: 'D11',
+    bailiff: 'bailiff service',
+    bailiffCode: 'D89',
+    alternativeService: 'alternative service',
     dispense: 'dispense with service',
     dispenseCode: 'D13b',
   },
@@ -92,8 +95,13 @@ export const en = {
     month: 'Month',
     year: 'Year',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Yes',
   no: 'No',
+  notKnown: 'Not known',
   english: 'English',
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
@@ -178,6 +186,9 @@ const cy: typeof en = {
     to: 'i',
     deemed: 'gyflwyno tybiedig',
     deemedCode: 'D11',
+    bailiff: 'gwasanaeth bailiff',
+    bailiffCode: 'D89',
+    alternativeService: 'gwasanaeth amgen',
     dispense: 'hepgor cyflwyno',
     dispenseCode: 'D13b',
   },
@@ -251,8 +262,13 @@ const cy: typeof en = {
     month: 'Mis',
     year: 'Blwyddyn',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Do',
   no: 'Naddo',
+  notKnown: 'Not known',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',
@@ -342,10 +358,11 @@ export const generateCommonContent = ({
     userCase.state &&
     [
       State.Draft,
-      State.AosDrafted,
-      State.AosOverdue,
       State.AwaitingApplicant1Response,
       State.AwaitingApplicant2Response,
+      State.AosDrafted,
+      State.AosOverdue,
+      State.AwaitingConditionalOrder,
     ].includes(userCase.state);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
   const isRequestForInformationAmendableState =
