@@ -28,7 +28,7 @@ const toApiAddress = (
   PostTown: data[`${addressPrefix}AddressTown`] || '',
   County: data[`${addressPrefix}AddressCounty`] || '',
   PostCode: data[`${addressPrefix}AddressPostcode`] || '',
-  Country: data[`${addressPrefix}AddressCountry`] || ''
+  Country: data[`${addressPrefix}AddressCountry`] || '',
 });
 
 export const applicant1AddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
