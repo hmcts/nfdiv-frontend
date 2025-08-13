@@ -39,17 +39,23 @@ const en = ({
     reference:
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispense-with-service-refused'
-        : 'deemed-service-refused',
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed-service-refused'
+          : 'alternative-service-refused',
     link: `/downloads/${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispense-with-service-refused'
-        : 'deemed-service-refused'
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed-service-refused'
+          : 'alternative-service-refused'
     }`,
     text: `View the court order refusing your application for
     ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispensed'
-        : 'deemed'
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed'
+          : 'alternative'
     } service (PDF)`,
   },
 
@@ -162,17 +168,23 @@ const cy: typeof en = ({
     reference:
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispense-with-service-refused'
-        : 'deemed-service-refused',
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed-service-refused'
+          : 'alternative-service-refused',
     link: `/downloads/${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispense-with-service-refused'
-        : 'deemed-service-refused'
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed-service-refused'
+          : 'alternative-service-refused'
     }`,
     text: `Gweld y gorchymyn llys yn gwrthod eich cais am
     ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'hepgor cyflwyno'
-        : 'gyflwyno tybiedig'
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'gyflwyno tybiedig'
+          : 'gyflwyno amgen'
     } (PDF)`,
   },
 
