@@ -127,8 +127,8 @@ const cy: typeof en = (
   alternativeServicePartnerOtherDetails
 ) => ({
   stepQuestions: {
-    useHwf: 'Help paying the application fee',
-    hwfReference: 'Help with fees reference number',
+    useHwf: 'Helpi  i dalu’r ffi gwneud cais',
+    hwfReference: 'Cyfeirnod help i dalu ffioedd',
     canUploadEvidence: 'A ydych yn gallu uwchlwytho tystiolaeth?',
     uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
     alternativeServiceReason: 'Pam ydych yn gwneud cais am gyflwyno amgen?',
@@ -137,10 +137,10 @@ const cy: typeof en = (
     alternativeServiceDifferentWays: `Dewiswch sut rydych eisiau anfon y papurau’r ${
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     }`,
-    alternativeServicePartnerPhone: 'Mobile phone number',
-    alternativeServicePartnerWANumber: 'WhatsApp number',
-    alternativeServicePartnerSocialMedia: 'Social media details',
-    alternativeServicePartnerOtherDetails: 'Other details',
+    alternativeServicePartnerPhone: 'Rhif ffôn symudol',
+    alternativeServicePartnerWANumber: 'Rhif WhatsApp',
+    alternativeServicePartnerSocialMedia: 'Manylion cyfryngau cymdeithasol',
+    alternativeServicePartnerOtherDetails: 'Manylion eraill',
     alternativeServiceMethodJustification: 'Pam ydych yn gwneud cais i anfon y papurau yn y ffordd yma?',
   },
   stepAnswers: {

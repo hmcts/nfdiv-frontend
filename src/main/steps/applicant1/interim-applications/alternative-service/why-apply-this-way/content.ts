@@ -88,12 +88,12 @@ const cy: typeof en = (
     applicant1AltServiceMethodJustification: {
       required: `${
         cannotUploadEvidence
-          ? 'You must explain why you are applying to send the papers '
-          : 'You must explain why you think sending the papers '
+          ? 'Rhaid i chi egluro pam rydych yn ymgeisio i anfon y papurau '
+          : 'Rhaid i chi egluro pam meddwl anfon y papurau '
       }
     ${
       multipleWaysSelected
-        ? 'yn y ffordd yma'
+        ? 'yn y ffordd hwn'
         : emailSelected
           ? 'drwy e-bost'
           : textMessageSelected
@@ -102,7 +102,7 @@ const cy: typeof en = (
               ? 'drwy WhatsApp'
               : socialMediaSelected
                 ? 'drwy neges breifat ar y cyfryngau cymdeithasol'
-                : 'yn y ffordd yma'
+                : 'yn y ffordd hwn'
     } ${cannotUploadEvidence ? '.' : 'yn llwyddiannus.'}`,
     },
   },
