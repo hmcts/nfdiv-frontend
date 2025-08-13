@@ -7,7 +7,7 @@
 {% block content %}
     <div class="govuk-details__text">
         <p id="metrics"></p>
-        {% if globals.webchat.useGenesys %}
+        {% if globals.webchat.useGenesys == 'true' %}
           {% include "../webchat/genesys-webchat.njk" %}
         {% else %}
           <web-chat
@@ -33,7 +33,7 @@
 {% endblock %}
 
 {% block footer %}
-{% if not globals.webchat.useGenesys %}
+{% if globals.webchat.useGenesys == 'false' %}
   <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/{{ avayaClientUrlFolder }}/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
   <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es5.js" nomodule defer crossorigin="anonymous"></script>
 {% endif %}
