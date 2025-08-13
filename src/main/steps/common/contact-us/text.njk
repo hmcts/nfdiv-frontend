@@ -1,7 +1,11 @@
 <ul class="govuk-list contact-us">
   <li>
     <h4 class="govuk-heading-s">{{ webChat }}</h4>
-    {% include "../../webchat/link-to-webchat.njk" %}
+    {% if globals.webchat.useGenesys %}
+      {% include "../../webchat/genesys-webchat.njk" %}
+    {% else %}
+      {% include "../../webchat/link-to-webchat.njk"%}
+    {% endif %}
   </li>
 
   <li>
@@ -21,5 +25,7 @@
   </li>
 </ul>
 
+{% if not globals.webchat.useGenesys %}
 <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/{{ avayaClientUrlFolder }}/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
 <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es5.js" nomodule defer crossorigin="anonymous"></script>
+{% endif %}
