@@ -10,15 +10,27 @@ const en = ({ partner }: CommonContent) => ({
   provideNewEmailHeader: 'Enter the new email address',
   errors: {
     applicant1NoResponsePartnerEmailAddress: {
-      required: 'You have not entered their email address. You have to enter a new email address before continuing.',
-      invalid: 'You have entered an invalid email address. Check it and enter it again before continuing.',
+      required: 'You have not entered an email address. Enter an email address before continuing.',
+      invalid: 'Enter an email address in the correct format, like name@example.com',
       sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`,
     },
   },
 });
 
 // @TODO translations should be verified once provided
-const cy: typeof en = en;
+const cy: typeof en = ({ partner }: CommonContent) => ({
+  title: `Rhowch gyfeiriad e-bost newydd eich ${partner}`,
+  providePersonalEmail:
+    'Dylech ddarparu cyfeiriad e-bost personol y maent yn ei ddefnyddio’n rheolaidd. Dylech osgoi defnyddio eu cyfeiriad e-bost gwaith os yw’n bosibl oherwydd efallai nad yw hwn yn breifat.',
+  provideNewEmailHeader: 'Rhowch y cyfeiriad e-bost newydd',
+  errors: {
+    applicant1NoResponsePartnerEmailAddress: {
+      required: 'Nid ydych wedi nodi cyfeiriad e-bost Nodwch gyfeiriad e-bost cyn parhau.',
+      invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com.',
+      sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`,
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: userCase => ({

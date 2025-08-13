@@ -38,9 +38,34 @@ const en = ({ userCase }: CommonContent, showAddress: boolean, showEmail: boolea
   acceptAndSend: 'Accept and send',
 });
 
-//TODO: Welsh translation required
-
-const cy: typeof en = en;
+const cy: typeof en = ({ userCase }: CommonContent, showAddress: boolean, showEmail: boolean) => ({
+  title: 'Gwirio eich atebion',
+  stepQuestions: {
+    newPostalAddress: 'Cyfeiriad',
+    newEmailAddress: 'Cyfeiriad e-bost',
+  },
+  stepAnswers: {
+    newPostalAddress:
+      showAddress &&
+      [
+        stripTags(userCase.applicant1NoResponsePartnerAddress1),
+        stripTags(userCase.applicant1NoResponsePartnerAddress2),
+        stripTags(userCase.applicant1NoResponsePartnerAddress3),
+        stripTags(userCase.applicant1NoResponsePartnerAddressTown),
+        stripTags(userCase.applicant1NoResponsePartnerAddressCounty),
+        stripTags(userCase.applicant1NoResponsePartnerAddressPostcode),
+        stripTags(userCase.applicant1NoResponsePartnerAddressCountry),
+      ]
+        .filter(Boolean)
+        .join('<br>'),
+    newEmailAddress: showEmail && stripTags(userCase.applicant1NoResponsePartnerEmailAddress),
+  },
+  stepLinks: {
+    newPostalAddress: showAddress && `${urls.NEW_POSTAL_ADDRESS}`,
+    newEmailAddress: showEmail && `${urls.PROVIDE_NEW_EMAIL_ADDRESS}`,
+  },
+  acceptAndSend: 'Derbyn ac anfon',
+});
 
 export const form: FormContent = {
   submit: {

@@ -24,7 +24,21 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 });
 
 // @TODO translations should be verified once provided
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
+  title: `Diweddaru cyfeiriad e-bost eich ${partner}`,
+  line1: `Gallwch ddiweddaru cyfeiriad e-bost eich ${partner}. Byddwn yn anfon papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } drwy e-bost i’r cyfeiriad e-bost newydd hwn, a drwy’r post i’r cyfeiriad post rydych wedi’i ddarparu’n flaenorol. Ni fydd rhaid i chi dalu mwy am hyn.`,
+  line2: `Fel arall, gallwch wneud cais i gyflwyno papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } drwy e-bost yn unig (heb eu postio). Bydd hyn yn golygu gwneud cais am gyflwyno amgen, a fydd yn costio ${getFee(
+    config.get('fees.alternativeService')
+  )}. Bydd angen i chi hefyd brofi bod y cyfeiriad e-bost rydych eisiau anfon y papurau iddo yn cael ei ddefnyddio’n rheolaidd gan eich ${partner}.`,
+  line3: `Os yw eich ${partner} yn byw dramor, byddwch angen gwirio sut i gyflwyno’r papurau’n gyfreithiol yn y wlad ble maent yn byw. Os caniateir gwasanaeth e-bost yn y wlad honno, gallech wneud cais am wasanaeth amgen drwy e-bost yn unig.   Nid yw’r llys yn gallu postio dogfennau i gyfeiriadau rhyngwladol.`,
+  newEmailHeader: 'What do you want to do?',
+  provideNewEmail: 'Rwyf eisiau darparu cyfeiriad e-bost newydd',
+  applyForAlternativeService: 'Rwyf eisiau gwneud cais am gyflwyno amgen i gyflwyno’r papurau drwy e-bost yn unig',
+});
 
 export const form: FormContent = {
   fields: {
