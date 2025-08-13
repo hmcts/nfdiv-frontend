@@ -41,10 +41,6 @@ export class Helmet {
       'https://webchat-client.ctsc.hmcts.net',
       'https://webchat.pp.ctsc.hmcts.net',
       'https://webchat-client.pp.ctsc.hmcts.net',
-      `${config.get('webchat.genesysBaseUrl')}`,
-      `${config.get('webchat.genesysKervBaseUrl')}`,
-      'https://api.euw2.pure.cloud',
-      'https://api-cdn.euw2.pure.cloud',
     ];
 
     const connectSrc = [
@@ -55,7 +51,6 @@ export class Helmet {
       'wss://webchat.ctsc.hmcts.net',
       'wss://webchat.training.ctsc.hmcts.net',
       'wss://webchat.pp.ctsc.hmcts.net',
-      'wss://webmessaging.euw2.pure.cloud',
     ];
     const imgSrc = [
       self,
@@ -75,7 +70,6 @@ export class Helmet {
       "'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw='",
       "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
       "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
-      `'nonce-${config.get('nonce')}'`,
     ];
     const formAction = [self, 'https://card.payments.service.gov.uk'];
     // Equality URL added to work around redirects after form action - https://github.com/w3c/webappsec-csp/issues/8
@@ -94,7 +88,6 @@ export class Helmet {
         directives: {
           connectSrc,
           defaultSrc: ["'none'"],
-          frameSrc: [`${config.get('webchat.genesysBaseUrl')}`],
           fontSrc: [self, 'data:', 'https://fonts.gstatic.com'],
           formAction,
           imgSrc,

@@ -4,7 +4,6 @@ import * as propertiesVolume from '@hmcts/properties-volume';
 import config from 'config';
 import { Application } from 'express';
 import { get, set } from 'lodash';
-import { v4 as uuidv4 } from 'uuid';
 
 export class PropertiesVolume {
   private client: SecretClient;
@@ -30,9 +29,6 @@ export class PropertiesVolume {
       await this.setSecret('secrets.nfdiv.idam-systemupdate-username', 'services.idam.systemUsername');
       await this.setSecret('secrets.nfdiv.idam-systemupdate-password', 'services.idam.systemPassword');
       await this.setSecret('secrets.nfdiv.pcq-token-key', 'services.equalityAndDiversity.tokenKey');
-      await this.setSecret('secrets.nfdiv.genesys-deployment-id', 'webchat.genesysDeploymentId');
-      await this.setSecret('secrets.nfdiv.genesys-deployment-id-cy', 'webchat.genesysDeploymentIdCy');
-      await this.setSecret('secrets.nfdiv.genesys-api-key', 'webchat.genesysApiKey');
     } else {
       // Load local secrets using Azure SDK
       await this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
@@ -42,11 +38,7 @@ export class PropertiesVolume {
       await this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');
       await this.setLocalSecret('e2e-test-user-password', 'e2e.userTestPassword');
       await this.setLocalSecret('pcq-token-key', 'services.equalityAndDiversity.tokenKey');
-      await this.setLocalSecret('genesys-deployment-id', 'webchat.genesysDeploymentId');
-      await this.setLocalSecret('genesys-deployment-id-cy', 'webchat.genesysDeploymentIdCy');
-      await this.setLocalSecret('genesys-api-key', 'webchat.genesysApiKey');
     }
-    set(config, 'nonce', uuidv4().replace(/-/g, ''));
   };
 
   private async setSecret(fromPath: string, toPath: string): Promise<void> {

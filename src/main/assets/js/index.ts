@@ -7,7 +7,6 @@ import './enter-address';
 import './upload-manager';
 import './cookie';
 import './avaya-webchat';
-import './genesys-webchat';
 import './data-layer';
 import './confirm-read-petition-submit';
 import './pdfjs';

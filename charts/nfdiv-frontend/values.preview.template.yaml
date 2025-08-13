@@ -25,9 +25,6 @@ nodejs:
         - idam-systemupdate-username
         - idam-systemupdate-password
         - pcq-token-key
-        - genesys-deployment-id
-        - genesys-deployment-id-cy
-        - genesys-api-key
 
 idam-pr:
   enabled: true
