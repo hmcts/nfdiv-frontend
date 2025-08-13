@@ -284,9 +284,16 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
 
+  const deemedOrDispensedOrAlternativeService = userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED ||
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+  );
+
   const hasCertificateOfDeemedOrDispensedServiceRefused = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
-      deemedOrDispensedService &&
+      deemedOrDispensedOrAlternativeService &&
       alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO &&
       alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant'
   );
