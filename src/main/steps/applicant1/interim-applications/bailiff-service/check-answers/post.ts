@@ -1,20 +1,21 @@
 import autobind from 'autobind-decorator';
 
-import { Case, CaseWithId } from '../../../../../app/case/case';
 import { CITIZEN_SERVICE_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import { Step } from '../../../../../steps/applicant1Sequence';
+import { bailiffServiceApplicationSequence as bailiffServiceSequence } from '../../../../bailiffServiceApplicationSequence';
+import CheckAnswersPostController from '../../common/check-answers/post';
 
 @autobind
-export default class CheckYourAnswersPostController extends PostController<AnyObject> {
-  protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    if (!req.session.isApplicant2) {
-      formData.applicant1InterimApplicationType = InterimApplicationType.BAILIFF_SERVICE;
-    }
-    return super.save(req, formData, eventName);
-  }
-
+export default class CheckBailiffServiceAnswersPostController extends CheckAnswersPostController {
   protected getEventName(): string {
     return CITIZEN_SERVICE_APPLICATION;
+  }
+
+  protected interimApplicationType(): InterimApplicationType {
+    return InterimApplicationType.BAILIFF_SERVICE;
+  }
+
+  protected interimApplicationSequence(): Step[] {
+    return bailiffServiceSequence;
   }
 }
