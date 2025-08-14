@@ -1,0 +1,38 @@
+<div id="genesysWebchat">
+    <!--  Config — change these in one place-->
+    <genesys-config class="hidden" id="genesysConfig"
+    data-genesysBaseUrl="{{ globals.webchat.genesysBaseUrl }}"
+    data-genesysEnvironment="{{ globals.webchat.genesysEnvironment }}"
+    data-genesysReferrerPage="{{ globals.webchat.genesysReferrerPage }}"
+    data-genesysDeploymentId="{{ genesysDeploymentId }}"
+    data-genesysKervBaseUrl="{{ globals.webchat.genesysKervBaseUrl }}"
+    data-genesysApiKey="{{ globals.webchat.genesysApiKey }}"
+    data-genesysPopupBlocked="{{ genesys.popupBlocked }}"
+    data-genesysChatWithUs="{{ genesys.chatWithUs }}"
+    data-genesysNonce="{{ globals.nonce }}">
+    </genesys-config>
+
+    <div id="chatContent" class="govuk-body">
+      <div class="hidden" id="genesysSpinner">
+        <p class="govuk-body"><span class="genesys-spinner"></span>{{ genesys.checkingAvailability }}</p>
+      </div>
+      <div class="hidden" id="genesysOpenWidget">
+        {% include "../webchat/genesys/genesys-open-widget.njk" %}
+      </div>
+      <div class="hidden" id="genesysBusyNoAgentsWidget">
+        <p class="govuk-body">{{ genesys.noAgentsAvailable }}</p>
+      </div>
+      <div class="hidden" id="genesysBusyEWTWidget">
+        <p class="govuk-body">{{ genesys.busy }}</p>
+      </div>
+      <div class="hidden" id="genesysClosedWidget">
+        <p class="govuk-body">{{ genesys.onlineAdviceClosed }}<span id="genesysWebchatClosedReason"></span>.</p>
+      </div>
+      <div class="hidden" id="genesysErrorWidget">
+        {% include "../webchat/genesys/genesys-error-widget.njk" %}
+      </div>
+      <div class="hidden" id="genesysErrorCheckingAvailabilityWidget">
+        {% include "../webchat/genesys/genesys-error-checking-availability.njk" %}
+      </div>
+    </div>
+</div>

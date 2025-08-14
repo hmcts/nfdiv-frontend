@@ -21,9 +21,9 @@ export default class CheckAnswersPostController extends PostController<AnyObject
     formData: Partial<Case>
   ): Promise<void> {
     if (
-      (req.session.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+      (req.session.userCase.applicant1NoResponsePartnerNewEmailOrAddress ===
         NoResponsePartnerNewEmailOrAddress.EMAIL ||
-        req.session.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+        req.session.userCase.applicant1NoResponsePartnerNewEmailOrAddress ===
           NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS) &&
       isEmpty(req.session.userCase.applicant1NoResponsePartnerEmailAddress)
     ) {

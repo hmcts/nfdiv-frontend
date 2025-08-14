@@ -210,14 +210,24 @@ export const CHECK_YOUR_ANSWERS_GOV_RECORDS: PageLink = '/interim-applications/s
 // Dispensed Service URLs
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
 
-// Deemed Service URLs
+export const LAST_DATE_DISPENSE: PageLink = '/interim-applications/dispense-service/last-date-dispense';
+export const LAST_ADDRESS_DISPENSE: PageLink = '/interim-applications/dispense-service/last-address-dispense';
+export const AWARE_PARTNER_ADDRESS_DISPENSE: PageLink =
+  '/interim-applications/dispense-service/aware-partner-address-dispense';
+export const PARTNER_NEW_ADDRESS_DISPENSE: PageLink =
+  '/interim-applications/dispense-service/partner-new-address-dispense';
+export const LAST_SEEN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-seen-dispense';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
 export const HELP_WITH_FEES_DISPENSE: PageLink = '/interim-applications/dispense-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
+export const HWF_REFERENCE_NUMBER_DISPENSE: PageLink = '/interim-applications/dispense-service/hwf-reference-number';
 export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/want-upload-evidence';
 export const HWF_REFERENCE_NUMBER_INPUT_DEEMED: PageLink =
   '/interim-applications/deemed-service/hwf-reference-number-input';
+export const HWF_REFERENCE_NUMBER_INPUT_DISPENSE: PageLink =
+  '/interim-applications/dispense-service/hwf-reference-number-input';
 export const APPLY_FOR_HWF_DEEMED: PageLink = '/interim-applications/deemed-service/apply-for-hwf';
+export const APPLY_FOR_HWF_DISPENSE: PageLink = '/interim-applications/dispense-service/apply-for-hwf';
 export const UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/upload-evidence';
 export const WHY_NO_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/why-no-evidence';
 export const HOW_DO_YOU_KNOW_DEEMED: PageLink = '/interim-applications/deemed-service/how-do-you-know';

@@ -17,7 +17,7 @@ const en = ({ isDivorce, partner, required }: CommonContent) => ({
   newEmailAddress: 'I have a new email address',
   newEmailAndPostalAddress: 'I have a new email address and postal address',
   errors: {
-    applicant1NoResponsePartnerNewEmailOrPostalAddress: {
+    applicant1NoResponsePartnerNewEmailOrAddress: {
       required,
     },
   },
@@ -28,7 +28,7 @@ const cy: typeof en = en;
 
 export const form: FormContent = {
   fields: {
-    applicant1NoResponsePartnerNewEmailOrPostalAddress: {
+    applicant1NoResponsePartnerNewEmailOrAddress: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.newDetailsHeader,

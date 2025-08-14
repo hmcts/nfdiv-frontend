@@ -15,7 +15,7 @@ const en = ({ partner }: CommonContent) => ({
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
       required: `You have not entered your ${partner}'s dates at the address. Enter it before continuing.`,
     },
-    applicant1SearchGovRecordsPartnerAdditionalAddress: {
+    applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       required: `You have not entered your ${partner}'s dates at the address 2. Enter it before continuing.`,
     },
   },
@@ -33,7 +33,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
       required: `Enter the dates your ${partner} lived at this address`,
     },
-    applicant1SearchGovRecordsPartnerAdditionalAddress: {
+    applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       required: `You have entered address 2. Enter the dates your ${partner} lived at this address`,
     },
   },
@@ -70,7 +70,7 @@ export const form: FormContent = {
         value: string | string[] | CaseDate | Partial<Case> | undefined,
         formData: Partial<Case>
       ): string | undefined => {
-        if (!formData['applicant1SearchGovRecordsPartnerAdditionalAddress2']?.length) {
+        if (formData['applicant1SearchGovRecordsPartnerAdditionalAddress2']?.length) {
           return 'required';
         }
       },

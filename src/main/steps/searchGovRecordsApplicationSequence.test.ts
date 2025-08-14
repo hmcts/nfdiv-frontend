@@ -6,7 +6,6 @@ import {
   CHECK_YOUR_ANSWERS_GOV_RECORDS,
   GENERAL_APPLICATION_SUBMITTED,
   HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS,
-  HUB_PAGE,
   HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS,
   HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS,
   PARTNER_ADDRESS_ADDITIONAL_ADDRESSES,
@@ -119,13 +118,17 @@ describe('SEARCH_GOV_RECORDS', () => {
 
   test('Search gov records applicant1 knows applicant2 additional addresses', () => {
     const caseData = { applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: YesOrNo.YES };
-    const step = searchGovRecordsApplicationSequence.find(obj => obj.url === PARTNER_ADDRESS_ADDITIONAL_ADDRESSES) as Step;
+    const step = searchGovRecordsApplicationSequence.find(
+      obj => obj.url === PARTNER_ADDRESS_ADDITIONAL_ADDRESSES
+    ) as Step;
     expect(step.getNextStep(caseData)).toBe(PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS);
   });
 
   test("Search gov records applicant1 doesn't knows applicant2 additional addresses", () => {
     const caseData = { applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: YesOrNo.NO };
-    const step = searchGovRecordsApplicationSequence.find(obj => obj.url === PARTNER_ADDRESS_ADDITIONAL_ADDRESSES) as Step;
+    const step = searchGovRecordsApplicationSequence.find(
+      obj => obj.url === PARTNER_ADDRESS_ADDITIONAL_ADDRESSES
+    ) as Step;
     expect(step.getNextStep(caseData)).toBe(CHECK_YOUR_ANSWERS_GOV_RECORDS);
   });
 
@@ -135,12 +138,6 @@ describe('SEARCH_GOV_RECORDS', () => {
       obj => obj.url === PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS
     ) as Step;
     expect(step.getNextStep(caseData)).toBe(CHECK_YOUR_ANSWERS_GOV_RECORDS);
-  });
-
-  test('Search gov records applicant1 check your answers', () => {
-    const caseData = {};
-    const step = searchGovRecordsApplicationSequence.find(obj => obj.url === CHECK_YOUR_ANSWERS_GOV_RECORDS) as Step;
-    expect(step.getNextStep(caseData)).toBe(HUB_PAGE);
   });
 
   describe('CHECK_ANSWERS_SEARCH_GOV', () => {

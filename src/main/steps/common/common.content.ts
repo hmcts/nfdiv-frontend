@@ -23,7 +23,11 @@ export const en = {
     bailiff: 'bailiff service',
     alternativeService: 'alternative service',
     deemedCode: 'D11',
+    bailiff: 'bailiff service',
     bailiffCode: 'D89',
+    alternativeService: 'alternative service',
+    dispense: 'dispense with service',
+    dispenseCode: 'D13b',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -176,6 +180,29 @@ export const en = {
   avayaLanguage: 'English',
   avayaClientUrlFolder: '1',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
+  genesys: {
+    chatWithUs: 'Chat with us',
+    webchatEnglandAndWales: 'Web chat (England and Wales)',
+    webchatScotland: 'Web chat (Scotland only)',
+    closedForTheDay: 'I’m sorry but our Webchat service is now closed for the day.',
+    onlineAdviceClosed: 'Our online advice service is currently closed',
+    openHoursScotland: 'We are open Monday to Friday from 8:30 am to 5 pm – excluding public holidays.',
+    phoneAgent: 'Talk to one of our agents now over the phone.',
+    getHelp: 'Get some help by messaging an agent online.',
+    startWebchat: 'Start web chat (opens in a new window)',
+    busy: 'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
+    noAgentsAvailable: 'No agents are available, please try again later.',
+    checkingAvailability: 'Checking availability...',
+    serviceUnavailable: 'Service unavailable',
+    error:
+      'We’re currently unable to check the availability of our team. Please try again later or contact us by phone.',
+    errorChecking: {
+      line1: 'Sorry, we couldn’t check the availability of our team.',
+      line2: 'Please try refreshing the page or contact us at',
+      email: 'help@gov.uk',
+    },
+    popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
+  },
 };
 
 const cy: typeof en = {
@@ -194,7 +221,11 @@ const cy: typeof en = {
     bailiff: 'gwasanaeth bailiff',
     alternativeService: 'gwasanaeth amgen',
     deemedCode: 'D11',
+    bailiff: 'gwasanaeth bailiff',
     bailiffCode: 'D89',
+    alternativeService: 'gwasanaeth amgen',
+    dispense: 'hepgor cyflwyno',
+    dispenseCode: 'D13b',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
@@ -331,6 +362,29 @@ const cy: typeof en = {
   avayaLanguage: 'Welsh',
   avayaClientUrlFolder: 'welsh',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
+  genesys: {
+    chatWithUs: 'Chat with us',
+    webchatEnglandAndWales: 'Web chat (England and Wales)',
+    webchatScotland: 'Web chat (Scotland only)',
+    closedForTheDay: 'I’m sorry but our Webchat service is now closed for the day.',
+    onlineAdviceClosed: 'Our online advice service is currently closed',
+    openHoursScotland: 'We are open Monday to Friday from 8:30 am to 5 pm – excluding public holidays.',
+    phoneAgent: 'Talk to one of our agents now over the phone.',
+    getHelp: 'Get some help by messaging an agent online.',
+    startWebchat: 'Start web chat (opens in a new window)',
+    busy: 'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
+    noAgentsAvailable: 'No agents are available, please try again later.',
+    checkingAvailability: 'Checking availability...',
+    serviceUnavailable: 'Service unavailable',
+    error:
+      'We’re currently unable to check the availability of our team. Please try again later or contact us by phone.',
+    errorChecking: {
+      line1: 'Sorry, we couldn’t check the availability of our team.',
+      line2: 'Please try refreshing the page or contact us at',
+      email: 'help@gov.uk',
+    },
+    popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
+  },
 };
 
 export const generateCommonContent = ({
@@ -408,6 +462,10 @@ export const generateCommonContent = ({
   const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
   const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
+  const genesysDeploymentId: string =
+    language === SupportedLanguages.En
+      ? config.get('webchat.genesysDeploymentId')
+      : config.get('webchat.genesysDeploymentIdCy');
 
   return {
     ...commonTranslations,
@@ -440,6 +498,7 @@ export const generateCommonContent = ({
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
     serviceApplicationSubmittedOnline,
+    genesysDeploymentId,
   };
 };
 
@@ -473,4 +532,5 @@ export type CommonContent = typeof en & {
   serviceApplicationFeeRequired: boolean;
   serviceApplicationDocsAllProvided: boolean;
   serviceApplicationSubmittedOnline: boolean;
+  genesysDeploymentId: string;
 };
