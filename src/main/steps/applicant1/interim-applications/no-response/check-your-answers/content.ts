@@ -76,7 +76,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const applicant1Choice = content.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress;
+  const applicant1Choice = content.userCase.applicant1NoResponsePartnerNewEmailOrAddress;
   const showAddress = [
     NoResponsePartnerNewEmailOrAddress.ADDRESS,
     NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
@@ -86,7 +86,7 @@ export const generateContent: TranslationFn = content => {
     NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
   ].includes(applicant1Choice as NoResponsePartnerNewEmailOrAddress);
   const translation = languages[content.language](content, showAddress, showEmail);
-  const updateWhat = content.userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress;
+  const updateWhat = content.userCase.applicant1NoResponsePartnerNewEmailOrAddress;
   const showStatementOfTruth = false;
 
   return {

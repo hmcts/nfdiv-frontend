@@ -64,6 +64,12 @@ export const generateContent: TranslationFn = content => {
     case InterimApplicationType.SEARCH_GOV_RECORDS: {
       serviceType = commonContent.generalApplication.searchGovRecords;
       serviceCode = commonContent.generalApplication.formTypes.d11;
+      forTo = commonContent.generalApplication.for;
+      break;
+    }
+    case InterimApplicationType.DISPENSE_WITH_SERVICE: {
+      serviceType = commonContent.generalApplication.dispense;
+      serviceCode = commonContent.generalApplication.dispenseCode;
       forTo = commonContent.generalApplication.to;
       break;
     }

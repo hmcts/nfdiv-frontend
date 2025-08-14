@@ -1045,7 +1045,7 @@ export interface CaseData {
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
-  applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrAddress;
+  applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponseSendPapersAgainOrTrySomethingElse: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
@@ -1113,6 +1113,17 @@ export interface CaseData {
   applicant1AltServicePartnerOtherDetails: string;
   applicant1AltServiceMethodJustification: string;
   applicant1AltServiceDifferentWays: AlternativeServiceDifferentWays[];
+  applicant1DispenseLiveTogether: YesOrNo;
+  applicant1DispenseLivedTogetherDate: DateAsString;
+  applicant1DispenseLivedTogetherAddress: AddressGlobalUK;
+  applicant1DispenseLivedTogetherAddressOverseas: YesOrNo;
+  applicant1DispenseAwarePartnerLived: YesOrNo;
+  applicant1DispensePartnerPastAddress1: string;
+  applicant1DispensePartnerPastAddressEnquiries1: string;
+  applicant1DispensePartnerPastAddress2: string;
+  applicant1DispensePartnerPastAddressEnquiries2: string;
+  applicant1DispensePartnerLastSeenDate: DateAsString;
+  applicant1DispensePartnerLastSeenDescription: string;
 }
 
 export interface CaseDocuments {
@@ -1154,6 +1165,21 @@ export interface DeemedServiceJourneyOptions {
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
+}
+
+export interface DispenseWithServiceJourneyOptions {
+  interimAppsUseHelpWithFees: YesOrNo;
+  dispenseLiveTogether: YesOrNo;
+  dispenseLivedTogetherDate: DateAsString;
+  dispenseLivedTogetherAddress: AddressGlobalUK;
+  dispenseLivedTogetherAddressOverseas: YesOrNo;
+  dispenseAwarePartnerLived: YesOrNo;
+  dispensePartnerPastAddress1: string;
+  dispensePartnerPastAddressEnquiries1: string;
+  dispensePartnerPastAddress2: string;
+  dispensePartnerPastAddressEnquiries2: string;
+  dispensePartnerLastSeenDate: DateAsString;
+  dispensePartnerLastSeenDescription: string;
 }
 
 export interface AlternativeServiceJourneyOptions {
@@ -2617,12 +2643,6 @@ export const enum NoResponseOwnSearches {
 export const enum NoResponseSearchOrDispense {
   SEARCH = 'search',
   DISPENSE = 'dispense',
-}
-
-export const enum NoResponsePartnerNewEmailOrPostalAddress {
-  NEW_POSTAL = 'newPostalAddress',
-  NEW_EMAIL = 'newEmailAddress',
-  BOTH_EMAIL_AND_POSTAL = 'newEmailAndPostalAddress',
 }
 
 export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
