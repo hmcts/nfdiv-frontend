@@ -147,6 +147,8 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingDocuments:
     case State.AwaitingHWFDecision:
     case State.AwaitingHWFEvidence:
+    case State.WelshTranslationReview:
+    case State.WelshTranslationRequested:
     case State.AwaitingLegalAdvisorReferral: {
       return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
     }

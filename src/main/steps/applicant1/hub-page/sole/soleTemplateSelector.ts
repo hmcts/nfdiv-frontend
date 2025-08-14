@@ -131,6 +131,9 @@ export const getSoleHubTemplate = (
       return isAwaitingProcessServerService
         ? HubTemplate.AwaitingProcessServerService
         : HubTemplate.AosAwaitingOrDrafted;
+    case State.WelshTranslationRequested:
+    case State.WelshTranslationReview:
+      return HubTemplate.WelshTranslationRequestedOrReview;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||

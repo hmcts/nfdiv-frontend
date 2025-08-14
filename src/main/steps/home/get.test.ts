@@ -233,6 +233,40 @@ describe('HomeGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
   });
 
+  test('redirects to hub page for applicant 2 users in WelshTranslationRequested state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.WelshTranslationRequested,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
+  test('redirects to hub page for applicant 2 users in WelshTranslationReview state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.WelshTranslationReview,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
   test('redirects to first conditional order page for applicant 2 users in ConditionalOrderPending state if applicant2ApplyForConditionalOrderStarted', () => {
     const req = mockRequest({
       session: {
