@@ -14,9 +14,9 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
   line2:
     "If you're uploading images or screenshots of a recent conversation by text, email or social media, make sure they include:",
   toInclude: {
-    partnersName: `your ${partner}'s name`,
-    dateMessageSent: 'the date the messages were sent',
-    partnersContactInfo: `your ${partner}'s email address, phone number or social media username as appropriate`,
+    bulletOne: `your ${partner}'s name`,
+    bulletTwo: 'the date the messages were sent',
+    bulletThree: `your ${partner}'s email address, phone number or social media username as appropriate`,
   },
   line3: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
@@ -47,39 +47,39 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
-  title: 'Upload your evidence',
+  title: 'Uwchlwytho eich tystiolaeth',
   statement: '',
   line2:
-    "If you're uploading images or screenshots of a recent conversation by text, email or social media, make sure they include:",
+    'Os ydych yn uwchlwytho delweddau o sgwrs ddiweddar trwy neges destun, e-bost neu’r cyfryngau cymdeithasol, gwnewch yn siŵr eu bod yn cynnwys:',
   toInclude: {
-    partnersName: `your ${partner}'s name`,
-    dateMessageSent: 'the date the messages were sent',
-    partnersContactInfo: `your ${partner}'s email address, phone number or social media username as appropriate`,
+    bulletOne: `enw eich ${partner}`,
+    bulletTwo: 'y dyddiadau pan anfonwyd y negeseuon',
+    bulletThree: `cyfeiriad e-bost, rhif ffôn neu enw defnyddiwr cyfryngau cymdeithasol eich ${partner}, fel sy’n briodol`,
   },
-  line3: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
+  line3: `Os yw eich tystiolaeth mewn iaith nad yw’n Saesneg, bydd arnoch angen darparu  <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
-  )}">certified translation</a>.`,
-  line4: 'You may need to upload multiple documents.',
-  line5: 'The court cannot accept video or audio recordings as evidence.',
-  uploadAFile: 'Upload a file',
-  chooseFileButtonText: 'Choose file',
-  noFileChosen: 'No file chosen',
-  uploadedFiles: 'Uploaded files',
-  noFilesUploaded: 'No files uploaded',
-  cannotUpload: 'I cannot upload some or all of my documents',
+  )}">cyfieithiad ardystiedig</a>.`,
+  line4: 'Efallai bydd arnoch angen uwchlwytho sawl dogfen.',
+  line5: 'Ni all y llys dderbyn recordiadau fideo neu sain fel tystiolaeth.',
+  uploadAFile: 'Llwytho ffeil',
+  chooseFileButtonText: 'Dewis ffeil',
+  noFileChosen: "Dim ffeil wedi'i dewis",
+  uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
+  noFilesUploaded: 'Nid oes ffeiliau wedi cael eu llwytho',
+  cannotUpload: 'Ni allaf lwytho rhai o fy nogfennau / fy holl ddogfennau.',
   cannotUploadInfo:
-    'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
+    'Gallwch anfon eich dogfen i’r llys drwy’r post neu drwy ffurflen ar-lein. Dylech anfon eich tystiolaeth ac unrhyw gyfieithiadau ardystiedig os oes arnoch eu hangen.  Fe gewch fanylion am sut i’w hanfon ar ôl i chi gyflwyno’r cais hwn.',
   errors: {
     applicant1InterimAppsEvidenceUploadedFiles: {
       notUploaded:
-        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
+        "Rhaid i chi uwchlwytho'ch dogfennau, neu ddewis 'Ni allaf uwchlwytho rhai neu'r cyfan o'm dogfennau' cyn parhau.",
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
     },
     applicant1InterimAppsCannotUploadDocs: {
       notUploaded:
-        "You must upload your documents, or select 'I cannot upload some or all of my documents' before continuing.",
+        "Rhaid i chi uwchlwytho'ch dogfennau, neu ddewis 'Ni allaf uwchlwytho rhai neu'r cyfan o'm dogfennau' cyn parhau.",
     },
   },
 });

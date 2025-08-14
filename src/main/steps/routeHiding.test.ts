@@ -6,6 +6,9 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { routeHideConditions, shouldHideRouteFromUser } from './routeHiding';
 import {
   ACCESSIBILITY_STATEMENT_URL,
+  CHECK_ANSWERS_ALTERNATIVE,
+  CHECK_ANSWERS_BAILIFF,
+  CHECK_ANSWERS_DEEMED,
   FINALISING_YOUR_APPLICATION,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
@@ -165,6 +168,43 @@ describe('routeHiding', () => {
         mockReq.session.userCase.state = State.AwaitingServiceConsideration;
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeTruthy();
+      });
+    });
+
+    describe('Service Application step URL condition', () => {
+      test('Not visible in AwaitingServiceConsideration state', () => {
+        mockReq.url = CHECK_ANSWERS_DEEMED;
+        mockReq.session.userCase.state = State.AwaitingServiceConsideration;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Not visible in AwaitingDocuments state', () => {
+        mockReq.url = CHECK_ANSWERS_BAILIFF;
+        mockReq.session.userCase.state = State.AwaitingDocuments;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Not visible in AwaitingServicePayment state', () => {
+        mockReq.url = CHECK_ANSWERS_ALTERNATIVE;
+        mockReq.session.userCase.state = State.AwaitingServicePayment;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Visible in AosOverdue state', () => {
+        mockReq.url = CHECK_ANSWERS_DEEMED;
+        mockReq.session.userCase.state = State.AosOverdue;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+
+      test('Visible in AosDrafted state', () => {
+        mockReq.url = CHECK_ANSWERS_DEEMED;
+        mockReq.session.userCase.state = State.AosDrafted;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
       });
     });
   });
