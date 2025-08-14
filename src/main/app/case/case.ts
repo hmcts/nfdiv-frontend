@@ -273,6 +273,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   alternativeServiceType: 'alternativeServiceType',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
+  applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
+  applicant1DispenseLivedTogetherDate: 'applicant1DispenseLivedTogetherDate',
+  applicant1DispenseAwarePartnerLived: 'applicant1DispenseAwarePartnerLived',
+  applicant1DispensePartnerPastAddress1: 'applicant1DispensePartnerPastAddress1',
+  applicant1DispensePartnerPastAddressEnquiries1: 'applicant1DispensePartnerPastAddressEnquiries1',
+  applicant1DispensePartnerPastAddress2: 'applicant1DispensePartnerPastAddress2',
+  applicant1DispensePartnerPastAddressEnquiries2: 'applicant1DispensePartnerPastAddressEnquiries2',
+  applicant1DispensePartnerLastSeenDate: 'applicant1DispensePartnerLastSeenDate',
+  applicant1DispensePartnerLastSeenDescription: 'applicant1DispensePartnerLastSeenDescription',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -614,6 +623,25 @@ export interface Case {
   serviceApplicationAnswers: DivorceDocument;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
+  applicant1DispenseLiveTogether?: YesOrNo;
+  applicant1DispenseLivedTogetherDate?: DateAsString;
+  applicant1DispenseLastLivedTogetherDate?: CaseDate;
+  applicant1DispenseLivedTogetherAddress1?: string;
+  applicant1DispenseLivedTogetherAddress2?: string;
+  applicant1DispenseLivedTogetherAddress3?: string;
+  applicant1DispenseLivedTogetherAddressTown?: string;
+  applicant1DispenseLivedTogetherAddressCounty?: string;
+  applicant1DispenseLivedTogetherAddressPostcode?: string;
+  applicant1DispenseLivedTogetherAddressCountry?: string;
+  applicant1DispenseLivedTogetherAddressOverseas?: YesOrNo;
+  applicant1DispenseAwarePartnerLived?: YesOrNo;
+  applicant1DispensePartnerPastAddress1?: string;
+  applicant1DispensePartnerPastAddressEnquiries1?: string;
+  applicant1DispensePartnerPastAddress2?: string;
+  applicant1DispensePartnerPastAddressEnquiries2?: string;
+  applicant1DispensePartnerLastSeenDate?: DateAsString;
+  applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
+  applicant1DispensePartnerLastSeenDescription?: string;
 }
 
 export interface CaseWithId extends Case {
