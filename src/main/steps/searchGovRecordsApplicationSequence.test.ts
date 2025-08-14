@@ -30,7 +30,7 @@ describe('SEARCH_GOV_RECORDS', () => {
 
   test('Search gov records help with fees required', () => {
     const caseData = {
-      applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+      applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
     };
     const step = searchGovRecordsApplicationSequence.find(obj => obj.url === SEARCH_GOV_RECORDS_HWF) as Step;
     expect(step.getNextStep(caseData)).toBe(HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS);
@@ -38,7 +38,7 @@ describe('SEARCH_GOV_RECORDS', () => {
 
   test('Search gov records help with fees not required', () => {
     const caseData = {
-      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+      applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
     };
     const step = searchGovRecordsApplicationSequence.find(obj => obj.url === SEARCH_GOV_RECORDS_HWF) as Step;
     expect(step.getNextStep(caseData)).toBe(WHY_SEARCH_GOV_RECORDS);
@@ -46,7 +46,7 @@ describe('SEARCH_GOV_RECORDS', () => {
 
   test('Search gov records help with fees reference available', () => {
     const caseData = {
-      applicant1InterimAppsHwfRefNumber: YesOrNo.YES,
+      applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
     };
     const step = searchGovRecordsApplicationSequence.find(
       obj => obj.url === HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS
@@ -56,7 +56,7 @@ describe('SEARCH_GOV_RECORDS', () => {
 
   test('Search gov records apply for help with fees', () => {
     const caseData = {
-      applicant1InterimAppsHwfRefNumber: YesOrNo.NO,
+      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
     };
     const step = searchGovRecordsApplicationSequence.find(
       obj => obj.url === HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS

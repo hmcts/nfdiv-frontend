@@ -1435,19 +1435,19 @@ export interface FinalOrder {
 
 export interface GeneralApplication {
   generalApplicationType: GeneralApplicationType;
-  generalApplicationTypeOtherComments: string;
-  generalApplicationFeeType: GeneralApplicationFee;
-  generalApplicationDocument: DivorceDocument;
-  generalApplicationDocumentComments: string;
-  generalApplicationFeeOrderSummary: OrderSummary;
-  generalApplicationFeePaymentMethod: ServicePaymentMethod;
-  generalApplicationFeeAccountNumber: string;
-  generalApplicationFeePbaNumbers: DynamicList;
-  generalApplicationFeeAccountReferenceNumber: string;
-  generalApplicationFeeHelpWithFeesReferenceNumber: string;
-  generalApplicationFrom: GeneralParties;
-  generalApplicationFeeServiceRequestReference: string;
-  generalApplicationFeePaymentReference: string;
+  generalApplicationTypeOtherComments?: string;
+  generalApplicationFeeType?: GeneralApplicationFee;
+  generalApplicationDocument?: DivorceDocument;
+  generalApplicationDocumentComments?: string;
+  generalApplicationFeeOrderSummary?: OrderSummary;
+  generalApplicationFeePaymentMethod?: ServicePaymentMethod;
+  generalApplicationFeeAccountNumber?: string;
+  generalApplicationFeePbaNumbers?: DynamicList;
+  generalApplicationFeeAccountReferenceNumber?: string;
+  generalApplicationFeeHelpWithFeesReferenceNumber?: string;
+  generalApplicationFrom?: GeneralParties;
+  generalApplicationFeeServiceRequestReference?: string;
+  generalApplicationFeePaymentReference?: string;
 }
 
 export interface GeneralEmail {
@@ -2276,6 +2276,7 @@ export const enum State {
   FinalOrderComplete = 'FinalOrderComplete',
   FinalOrderPending = 'FinalOrderPending',
   FinalOrderRequested = 'FinalOrderRequested',
+  AwaitingGeneralApplicationPayment = 'AwaitingGeneralApplicationPayment',
   GeneralApplicationReceived = 'GeneralApplicationReceived',
   GeneralConsiderationComplete = 'GeneralConsiderationComplete',
   InformationRequested = 'InformationRequested',
@@ -2308,6 +2309,7 @@ export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingService
 
 export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([
   State.GeneralApplicationReceived,
+  State.AwaitingGeneralApplicationPayment
 ]);
 
 export const enum SupplementaryCaseType {

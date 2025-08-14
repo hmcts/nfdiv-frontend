@@ -9,7 +9,7 @@ jest.mock('../../../../app/payment/PaymentClient');
 
 const { mockCreate, mockGet } = require('../../../../app/payment/PaymentClient');
 
-describe('ServicePaymentPostController', () => {
+describe('GeneralApplicationPaymentPostController', () => {
   const paymentController = new GeneralApplicationPaymentPostController();
 
   beforeEach(() => {
@@ -20,13 +20,14 @@ describe('ServicePaymentPostController', () => {
   describe('payment', () => {
     it('creates a new payment and redirects to payment URL', async () => {
       const req = mockRequest({
+        isApplicant2: false,
         userCase: {
-          state: State.AwaitingServicePayment,
-          servicePaymentFeeServiceRequestReference: GENERAL_APPLICATION_PAYMENT_CALLBACK,
-          servicePaymentFeeOrderSummary: {
+          state: State.AwaitingGeneralApplicationPayment,
+          applicant1GeneralApplicationServiceRequest: 'service-request',
+          applicant1GeneralApplicationFeeOrderSummary: {
             Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
           },
-          servicePayments: [
+          applicant1GenApplicationPayments: [
             {
               id: 'timed out payment',
               value: {
@@ -40,8 +41,8 @@ describe('ServicePaymentPostController', () => {
       const res = mockResponse();
 
       (req.locals.api.triggerPaymentEvent as jest.Mock).mockReturnValueOnce({
-        servicePayments: [{ new: 'payment' }],
-        servicePaymentFeeOrderSummary: {
+        applicant1GenApplicationPayments: [{ new: 'payment' }],
+        applicant1GeneralApplicationFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
       });
@@ -55,19 +56,19 @@ describe('ServicePaymentPostController', () => {
 
       await paymentController.post(req, res);
       expect(req.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(SERVICE_PAYMENT_CALLBACK);
+      expect(res.redirect).toHaveBeenCalledWith(GENERAL_APPLICATION_PAYMENT_CALLBACK);
     });
 
-    it('transitions the case to awaiting payment if the state is draft', async () => {
+    it('transitions the case to awaiting general application payment if the state is draft', async () => {
       const req = mockRequest();
       const res = mockResponse();
 
       (req.locals.api.triggerEvent as jest.Mock).mockReturnValueOnce({
-        state: State.AwaitingServicePayment,
-        servicePaymentFeeOrderSummary: {
+        state: State.AwaitingGeneralApplicationPayment,
+        applicant1GeneralApplicationFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
-        servicePaymentFeeServiceRequestReference: '/service-payment-callback',
+        applicant1GeneralApplicationServiceRequest: '/payment-callback',
       });
 
       (mockCreate as jest.Mock).mockReturnValueOnce({
@@ -79,15 +80,15 @@ describe('ServicePaymentPostController', () => {
 
       await paymentController.post(req, res);
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SERVICE_APPLICATION);
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_GENERAL_APPLICATION);
     });
 
-    it('redirects to the check your answers page if last payment is in progress', async () => {
+    it('redirects to the callback page if last payment is in progress', async () => {
       const req = mockRequest({
         userCase: {
-          state: State.AwaitingServicePayment,
-          servicePaymentFeeServiceRequestReference: '/service-payment-callback',
-          servicePayments: [
+          state: State.AwaitingGeneralApplicationPayment,
+          applicant1GeneralApplicationServiceRequest: 'service-request',
+          applicant1GenApplicationPayments: [
             {
               id: 'mock external reference payment id',
               value: {
@@ -111,7 +112,7 @@ describe('ServicePaymentPostController', () => {
       expect(mockCreate).not.toHaveBeenCalled();
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
       expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(SERVICE_PAYMENT_CALLBACK);
+      expect(res.redirect).toHaveBeenCalledWith(GENERAL_APPLICATION_PAYMENT_CALLBACK);
     });
   });
 });

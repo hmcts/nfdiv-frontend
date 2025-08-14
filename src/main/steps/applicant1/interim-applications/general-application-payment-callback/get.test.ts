@@ -1,7 +1,12 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { ApplicationType, CITIZEN_SERVICE_PAYMENT_MADE, PaymentStatus, State } from '../../../../app/case/definition';
-import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED } from '../../../urls';
+import {
+  ApplicationType,
+  CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE,
+  PaymentStatus,
+  State,
+} from '../../../../app/case/definition';
+import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../urls';
 
 import PaymentCallbackGetController from './get';
 
@@ -20,13 +25,14 @@ describe('PaymentCallbackGetController', () => {
   describe('callback', () => {
     it('saves and redirects to the submitted page if last payment was successful', async () => {
       const userCase = {
-        state: State.AwaitingServicePayment,
+        state: State.AwaitingGeneralApplicationPayment,
         applicationType: ApplicationType.SOLE_APPLICATION,
-        servicePayments: [
+        applicant1GeneralApplicationServiceRequest: 'service-request',
+        applicant1GenApplicationPayments: [
           {
             id: 'mock payment id',
             value: {
-              amount: 55000,
+              amount: 6000,
               channel: 'mock payment provider',
               feeCode: 'FEE0002',
               reference: 'mock ref',
@@ -53,17 +59,18 @@ describe('PaymentCallbackGetController', () => {
 
       expect(req.locals.api.triggerPaymentEvent).toHaveBeenCalledWith(
         '1234',
-        { servicePayments: expect.any(Array) },
-        CITIZEN_SERVICE_PAYMENT_MADE
+        { applicant1GenApplicationPayments: expect.any(Array) },
+        CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE
       );
 
-      expect(res.redirect).toHaveBeenCalledWith(SERVICE_APPLICATION_SUBMITTED);
+      expect(res.redirect).toHaveBeenCalledWith(GENERAL_APPLICATION_SUBMITTED);
     });
 
-    it('redirects to the hub page if the state is not awaiting payment', async () => {
+    it('redirects to the hub page if the applicant has no outstanding general application service request', async () => {
       const req = mockRequest({
         userCase: {
-          state: State.AwaitingServiceConsideration,
+          state: State.AwaitingGeneralApplicationPayment,
+          applicant1GeneralApplicationServiceRequest: null,
         },
       });
       const res = mockResponse();
@@ -78,7 +85,8 @@ describe('PaymentCallbackGetController', () => {
     it('redirects to the hub page if there have been no payment attempts', async () => {
       const req = mockRequest({
         userCase: {
-          state: State.AwaitingServicePayment,
+          state: State.AwaitingGeneralApplicationPayment,
+          applicant1GeneralApplicationServiceRequest: 'service-request',
         },
       });
       const res = mockResponse();
@@ -92,13 +100,14 @@ describe('PaymentCallbackGetController', () => {
 
     it('saves and redirects to the pay your fee page if last payment was unsuccessful', async () => {
       const userCase = {
-        state: State.AwaitingServicePayment,
+        state: State.AwaitingGeneralApplicationPayment,
         applicationType: ApplicationType.SOLE_APPLICATION,
-        servicePayments: [
+        applicant1GeneralApplicationServiceRequest: 'service-request',
+        applicant1GenApplicationPayments: [
           {
             id: 'mock payment id',
             value: {
-              amount: 55000,
+              amount: 6000,
               channel: 'mock payment provider',
               created: '1999-12-31T20:01:00.123',
               feeCode: 'FEE0002',
@@ -126,18 +135,19 @@ describe('PaymentCallbackGetController', () => {
 
       expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
 
-      expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_SERVICE_FEE);
+      expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_GENERAL_APPLICATION_FEE);
     });
 
     it('throws an error if the payment API is down', async () => {
       const userCase = {
-        state: State.AwaitingServicePayment,
+        state: State.AwaitingGeneralApplicationPayment,
         applicationType: ApplicationType.SOLE_APPLICATION,
-        servicePayments: [
+        applicant1GeneralApplicationServiceRequest: 'service-request',
+        applicant1GenApplicationPayments: [
           {
             id: 'mock payment id',
             value: {
-              amount: 55000,
+              amount: 6000,
               channel: 'mock payment provider',
               created: '1999-12-31T20:01:00.123',
               feeCode: 'FEE0002',

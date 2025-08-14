@@ -8,8 +8,8 @@ import {
   State,
 } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
-import { searchGovRecordsApplicationSequence } from '../../../../searchGovRecordsApplicationSequence';
 import { getFirstErroredStep } from '../../../../index';
+import { searchGovRecordsApplicationSequence } from '../../../../searchGovRecordsApplicationSequence';
 
 import CheckAnswersPostController from './post';
 

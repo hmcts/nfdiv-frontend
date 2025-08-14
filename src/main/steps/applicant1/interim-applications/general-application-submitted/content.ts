@@ -1,7 +1,7 @@
 import { AlternativeServiceType, GeneralApplicationType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import type { CommonContent } from '../../../common/common.content';
 import { getGeneralApplicationsForUser } from '../../../../app/utils/general-application-utils';
+import type { CommonContent } from '../../../common/common.content';
 
 const en = ({
   serviceApplicationResponseDate,

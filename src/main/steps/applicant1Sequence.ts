@@ -18,10 +18,10 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
+import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
-import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,

@@ -1,40 +1,17 @@
-import { GeneralApplication, GeneralParties, OrderSummary } from '../case/definition';
 import { CaseWithId } from '../case/case';
+import { GeneralApplication, GeneralParties, OrderSummary } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 
-export const findUnpaidGeneralApplication = (req: AppRequest<AnyObject>): GeneralApplication | undefined => {
-  return getGeneralApplicationsForUser(req.session.userCase, req.session.isApplicant2)?.find(
-    generalApplication =>
-      isAwaitingPayment(generalApplication, req) && hasMatchingApplicationType(generalApplication, req)
-  );
-};
-
-export const getGeneralApplicationsForUser = (userCase: Partial<CaseWithId>, isApplicant2: boolean): GeneralApplication[] | undefined => {
+export const getGeneralApplicationsForUser = (
+  userCase: Partial<CaseWithId>,
+  isApplicant2: boolean
+): GeneralApplication[] | undefined => {
   const generalApplicationParty = isApplicant2 ? GeneralParties.RESPONDENT : GeneralParties.APPLICANT;
 
   return userCase.generalApplications
     ?.map(generalApplicationValue => generalApplicationValue.value)
     ?.filter(generalApplication => generalApplication.generalApplicationFrom === generalApplicationParty);
-};
-
-const isAwaitingPayment = (generalApplication: GeneralApplication, req: AppRequest<AnyObject>): boolean => {
-  const applicationServiceRequest = generalApplication.generalApplicationFeeServiceRequestReference;
-  const notPaid = !generalApplication.generalApplicationFeePaymentReference;
-
-  return applicationServiceRequest === generalApplicationServiceRequest(req) && notPaid;
-};
-
-const hasMatchingApplicationType = (generalApplication: GeneralApplication, req: AppRequest<AnyObject>): boolean => {
-  const generalApplicationType = generalApplication.generalApplicationType;
-  const interimApplicationType = req.session.isApplicant2
-    ? req.session.userCase.applicant2InterimApplicationType
-    : req.session.userCase.applicant1InterimApplicationType;
-
-  return (
-    generalApplication.generalApplicationType &&
-    (generalApplicationType as string) === (interimApplicationType as string)
-  );
 };
 
 export const generalApplicationServiceRequest = (req: AppRequest<AnyObject>): string => {
