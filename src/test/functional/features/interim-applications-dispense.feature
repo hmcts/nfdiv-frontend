@@ -118,7 +118,34 @@ Feature: Dispense with service journey
     Given I select element "#applicant1DispensePartnerPhoneNumbers"
     And I type "01234 567890 - no response to phone"
     When I click continue
-    Then the page should include element "#enquiryAgentDispenseTitle"
+    Then the page should include element "#tracingAgentDispenseTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#tracingAgentResultsTitle"
+
+    Given I select element "#applicant1DispenseTracingAgentResults"
+    And I type "Tracing agent results"
+    When I click continue
+    Then the page should include element "#tracingOnlineTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#tracingOnlineResultsTitle"
+
+    Given I select element "#applicant1DispenseTracingOnlineResults"
+    And I type "Tracing online results"
+    When I click continue
+    Then the page should include element "#searchingOnlineTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#searchingOnlineResultsTitle"
+
+    Given I select element "#applicant1DispenseSearchingOnlineResults"
+    And I type "Searching online results"
+    When I click continue
+    Then the page should include element "#contactingEmployerTitle"
 
     #Then the page should include element "#STOP"
     # Fix and continue this scenario as the journey progresses
