@@ -11,7 +11,7 @@ import {
   DISPENSE_SERVICE_APPLICATION,
   EMAIL_DESCRIPTION_DISPENSE,
   EMAIL_DISPENSE,
-  ENQUIRY_AGENT_DISPENSE,
+  TRACING_AGENT_DISPENSE,
   HELP_WITH_FEES_DISPENSE,
   HUB_PAGE,
   HWF_REFERENCE_NUMBER_DISPENSE,
@@ -22,6 +22,12 @@ import {
   PARTNER_NEW_ADDRESS_DISPENSE,
   PHONE_DESCRIPTION_DISPENSE,
   PHONE_NUMBER_DISPENSE,
+  TRACING_AGENT_RESULTS_DISPENSE,
+  TRACING_ONLINE_DISPENSE,
+  TRACING_ONLINE_RESULTS_DISPENSE,
+  SEARCHING_ONLINE_DISPENSE,
+  SEARCHING_ONLINE_RESULTS_DISPENSE,
+  EMPLOYMENT_CONTACT_DISPENSE,
 } from './urls';
 
 export const dispenseServiceApplicationSequence: Step[] = [
@@ -96,14 +102,47 @@ export const dispenseServiceApplicationSequence: Step[] = [
     getNextStep: data =>
       data?.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.YES
         ? PHONE_DESCRIPTION_DISPENSE
-        : ENQUIRY_AGENT_DISPENSE,
+        : TRACING_AGENT_DISPENSE,
   },
   {
     url: PHONE_DESCRIPTION_DISPENSE,
-    getNextStep: () => ENQUIRY_AGENT_DISPENSE,
+    getNextStep: () => TRACING_AGENT_DISPENSE,
   },
   {
-    url: ENQUIRY_AGENT_DISPENSE,
-    getNextStep: () => HUB_PAGE,
+    url: TRACING_AGENT_DISPENSE,
+    getNextStep: data =>
+      data?.applicant1DispenseTriedTracingAgent === YesOrNo.YES
+        ? TRACING_AGENT_RESULTS_DISPENSE
+        : TRACING_ONLINE_DISPENSE,
+  },
+  {
+    url: TRACING_AGENT_RESULTS_DISPENSE,
+    getNextStep: () => TRACING_ONLINE_DISPENSE,
+  },
+  {
+    url: TRACING_ONLINE_DISPENSE,
+    getNextStep: data =>
+      data?.applicant1DispenseTriedTracingOnline === YesOrNo.YES
+        ? TRACING_ONLINE_RESULTS_DISPENSE
+        : SEARCHING_ONLINE_DISPENSE,
+  },
+  {
+    url: TRACING_ONLINE_RESULTS_DISPENSE,
+    getNextStep: () => SEARCHING_ONLINE_DISPENSE,
+  },
+  {
+    url: SEARCHING_ONLINE_DISPENSE,
+    getNextStep: data =>
+      data?.applicant1DispenseTriedSearchingOnline === YesOrNo.YES
+        ? SEARCHING_ONLINE_RESULTS_DISPENSE
+        : EMPLOYMENT_CONTACT_DISPENSE,
+  },
+  {
+    url: SEARCHING_ONLINE_RESULTS_DISPENSE,
+    getNextStep: () => EMPLOYMENT_CONTACT_DISPENSE,
+  },
+  {
+    url: EMPLOYMENT_CONTACT_DISPENSE,
+    getNextStep: data => (data?.applicant1DispenseTriedContactingEmployer === YesOrNo.YES ? HUB_PAGE : HUB_PAGE),
   },
 ];
