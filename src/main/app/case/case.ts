@@ -287,6 +287,16 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispenseHavePartnerPhoneNumbers: 'applicant1DispenseHavePartnerPhoneNumbers',
   applicant1DispensePartnerPhoneNumbers: 'applicant1DispensePartnerPhoneNumbers',
   applicant1DispenseTriedTracingAgent: 'applicant1DispenseTriedTracingAgent',
+  applicant1DispenseWhyNoTracingAgent: 'applicant1DispenseWhyNoTracingAgent',
+  applicant1DispenseTracingAgentResults: 'applicant1DispenseTracingAgentResults',
+  applicant1DispenseTriedTracingOnline: 'applicant1DispenseTriedTracingOnline',
+  applicant1DispenseWhyNoTracingOnline: 'applicant1DispenseWhyNoTracingOnline',
+  applicant1DispenseTracingOnlineResults: 'applicant1DispenseTracingOnlineResults',
+  applicant1DispenseTriedSearchingOnline: 'applicant1DispenseTriedSearchingOnline',
+  applicant1DispenseWhyNoSearchingOnline: 'applicant1DispenseWhyNoSearchingOnline',
+  applicant1DispenseSearchingOnlineResults: 'applicant1DispenseSearchingOnlineResults',
+  applicant1DispenseTriedContactingEmployer: 'applicant1DispenseTriedContactingEmployer',
+  applicant1DispenseWhyNoContactingEmployer: 'applicant1DispenseWhyNoContactingEmployer',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -653,6 +663,16 @@ export interface Case {
   applicant1DispenseHavePartnerPhoneNumbers?: YesOrNo;
   applicant1DispensePartnerPhoneNumbers?: string;
   applicant1DispenseTriedTracingAgent?: YesOrNo;
+  applicant1DispenseWhyNoTracingAgent?: string;
+  applicant1DispenseTracingAgentResults?: string;
+  applicant1DispenseTriedTracingOnline?: YesOrNo;
+  applicant1DispenseWhyNoTracingOnline?: string;
+  applicant1DispenseTracingOnlineResults?: string;
+  applicant1DispenseTriedSearchingOnline?: YesOrNo;
+  applicant1DispenseWhyNoSearchingOnline?: string;
+  applicant1DispenseSearchingOnlineResults?: string;
+  applicant1DispenseTriedContactingEmployer?: YesOrNo;
+  applicant1DispenseWhyNoContactingEmployer?: string;
 }
 
 export interface CaseWithId extends Case {

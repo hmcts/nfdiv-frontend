@@ -12,7 +12,7 @@ import {
   DISPENSE_SERVICE_APPLICATION,
   EMAIL_DESCRIPTION_DISPENSE,
   EMAIL_DISPENSE,
-  ENQUIRY_AGENT_DISPENSE,
+  EMPLOYMENT_CONTACT_DISPENSE,
   HELP_WITH_FEES_DISPENSE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
@@ -22,6 +22,12 @@ import {
   PARTNER_NEW_ADDRESS_DISPENSE,
   PHONE_DESCRIPTION_DISPENSE,
   PHONE_NUMBER_DISPENSE,
+  SEARCHING_ONLINE_DISPENSE,
+  SEARCHING_ONLINE_RESULTS_DISPENSE,
+  TRACING_AGENT_DISPENSE,
+  TRACING_AGENT_RESULTS_DISPENSE,
+  TRACING_ONLINE_DISPENSE,
+  TRACING_ONLINE_RESULTS_DISPENSE,
 } from './urls';
 
 describe('Dispense With Service Application Sequence test', () => {
@@ -188,19 +194,96 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(PHONE_DESCRIPTION_DISPENSE);
     });
 
-    test('ENQUIRY_AGENT_DISPENSE', () => {
+    test('TRACING_AGENT_DISPENSE', () => {
       const caseData = {
         applicant1DispenseHavePartnerPhoneNumbers: YesOrNo.NO,
       };
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === PHONE_NUMBER_DISPENSE) as Step;
-      expect(step.getNextStep(caseData)).toBe(ENQUIRY_AGENT_DISPENSE);
+      expect(step.getNextStep(caseData)).toBe(TRACING_AGENT_DISPENSE);
     });
   });
 
   describe('PHONE_DESCRIPTION_DISPENSE', () => {
-    test('ENQUIRY_AGENT_DISPENSE', () => {
+    test('TRACING_AGENT_DISPENSE', () => {
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === PHONE_DESCRIPTION_DISPENSE) as Step;
-      expect(step.getNextStep({})).toBe(ENQUIRY_AGENT_DISPENSE);
+      expect(step.getNextStep({})).toBe(TRACING_AGENT_DISPENSE);
+    });
+  });
+
+  describe('TRACING_AGENT_DISPENSE', () => {
+    test('TRACING_AGENT_RESULTS_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseTriedTracingAgent: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === TRACING_AGENT_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(TRACING_AGENT_RESULTS_DISPENSE);
+    });
+
+    test('TRACING_ONLINE_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseTriedTracingAgent: YesOrNo.NO,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === TRACING_AGENT_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(TRACING_ONLINE_DISPENSE);
+    });
+  });
+
+  describe('TRACING_AGENT_RESULTS_DISPENSE', () => {
+    test('TRACING_ONLINE_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === TRACING_AGENT_RESULTS_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(TRACING_ONLINE_DISPENSE);
+    });
+  });
+
+  describe('TRACING_ONLINE_DISPENSE', () => {
+    test('TRACING_ONLINE_RESULTS_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseTriedTracingOnline: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === TRACING_ONLINE_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(TRACING_ONLINE_RESULTS_DISPENSE);
+    });
+
+    test('SEARCHING_ONLINE_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseTriedTracingOnline: YesOrNo.NO,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === TRACING_ONLINE_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(SEARCHING_ONLINE_DISPENSE);
+    });
+  });
+
+  describe('TRACING_ONLINE_RESULTS_DISPENSE', () => {
+    test('SEARCHING_ONLINE_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === TRACING_ONLINE_RESULTS_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(SEARCHING_ONLINE_DISPENSE);
+    });
+  });
+
+  describe('SEARCHING_ONLINE_DISPENSE', () => {
+    test('SEARCHING_ONLINE_RESULTS_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseTriedSearchingOnline: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === SEARCHING_ONLINE_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(SEARCHING_ONLINE_RESULTS_DISPENSE);
+    });
+
+    test('EMPLOYMENT_CONTACT_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseTriedSearchingOnline: YesOrNo.NO,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === SEARCHING_ONLINE_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(EMPLOYMENT_CONTACT_DISPENSE);
+    });
+  });
+
+  describe('SEARCHING_ONLINE_RESULTS_DISPENSE', () => {
+    test('EMPLOYMENT_CONTACT_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(
+        obj => obj.url === SEARCHING_ONLINE_RESULTS_DISPENSE
+      ) as Step;
+      expect(step.getNextStep({})).toBe(EMPLOYMENT_CONTACT_DISPENSE);
     });
   });
 });
