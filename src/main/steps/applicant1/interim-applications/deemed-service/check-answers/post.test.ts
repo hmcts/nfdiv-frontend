@@ -11,14 +11,14 @@ import { FormContent } from '../../../../../app/form/Form';
 import { deemedServiceApplicationSequence } from '../../../../deemedServiceApplicationSequence';
 import { getFirstErroredStep } from '../../../../index';
 
-import CheckDeemedServiceAnswersPostController from './post';
+import CheckAnswersPostController from './post';
 
 jest.mock('../../../../index', () => ({
   getFirstErroredStep: jest.fn(),
   getNextStepUrl: jest.fn(() => '/next-step-url'),
 }));
 
-describe('CheckDeemedAnswersController', () => {
+describe('CheckAnswersController', () => {
   const mockFormContent = {
     fields: {
       applicationType: {},
@@ -26,7 +26,7 @@ describe('CheckDeemedAnswersController', () => {
       applicant1InterimAppsStatementOfTruth: {},
     },
   } as unknown as FormContent;
-  const controller = new CheckDeemedServiceAnswersPostController(mockFormContent.fields);
+  const controller = new CheckAnswersPostController(mockFormContent.fields);
 
   beforeEach(() => {
     jest.clearAllMocks();
