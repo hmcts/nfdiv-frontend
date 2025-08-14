@@ -1127,6 +1127,16 @@ export interface CaseData {
   applicant1DispenseHavePartnerPhoneNumbers: YesOrNo;
   applicant1DispensePartnerPhoneNumbers: string;
   applicant1DispenseTriedTracingAgent: YesOrNo;
+  applicant1DispenseWhyNoTracingAgent: string;
+  applicant1DispenseTracingAgentResults: string;
+  applicant1DispenseTriedTracingOnline: YesOrNo;
+  applicant1DispenseWhyNoTracingOnline: string;
+  applicant1DispenseTracingOnlineResults: string;
+  applicant1DispenseTriedSearchingOnline: YesOrNo;
+  applicant1DispenseWhyNoSearchingOnline: string;
+  applicant1DispenseSearchingOnlineResults: string;
+  applicant1DispenseTriedContactingEmployer: YesOrNo;
+  applicant1DispenseWhyNoContactingEmployer: string;
 }
 
 export interface CaseDocuments {
@@ -1190,6 +1200,16 @@ export interface DispenseWithServiceJourneyOptions {
   dispenseHavePartnerPhoneNumbers: YesOrNo;
   dispensePartnerPhoneNumbers: string;
   dispenseTriedTracingAgent: YesOrNo;
+  dispenseWhyNoTracingAgent: string;
+  dispenseTracingAgentResults: string;
+  dispenseTriedTracingOnline: YesOrNo;
+  dispenseWhyNoTracingOnline: string;
+  dispenseTracingOnlineResults: string;
+  dispenseTriedSearchingOnline: YesOrNo;
+  dispenseWhyNoSearchingOnline: string;
+  dispenseSearchingOnlineResults: string;
+  dispenseTriedContactingEmployer: YesOrNo;
+  dispenseWhyNoContactingEmployer: string;
 }
 
 export interface AlternativeServiceJourneyOptions {
