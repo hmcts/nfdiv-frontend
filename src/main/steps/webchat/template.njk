@@ -33,7 +33,7 @@
 {% endblock %}
 
 {% block footer %}
-{% if globals.webchat.useGenesys == 'false' %}
+{% if globals.webchat.useGenesys != 'true' %}
   <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/{{ avayaClientUrlFolder }}/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
   <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es5.js" nomodule defer crossorigin="anonymous"></script>
 {% endif %}
