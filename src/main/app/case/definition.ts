@@ -1045,8 +1045,9 @@ export interface CaseData {
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
-  applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
   applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
   applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
@@ -1093,13 +1094,13 @@ export interface CaseData {
   applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
+  applicant1NoResponsePartnerAddress: AddressGlobalUK;
+  applicant1NoResponsePartnerAddressOverseas: YesOrNo;
+  applicant1NoResponsePartnerEmailAddress: string;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
   applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
-  applicant1NoResponsePartnerAddress: AddressGlobalUK;
-  applicant1NoResponsePartnerAddressOverseas: YesOrNo;
-  applicant1NoResponsePartnerEmailAddress: string;
   applicant1AltServiceReasonForApplying: string;
   applicant1AltServiceMethod: AlternativeServiceMethod;
   applicant1AltServicePartnerEmail: string;
@@ -2605,6 +2606,13 @@ export const enum NoResponseCheckContactDetails {
   NOT_KNOWN = 'notKnown',
 }
 
+export const enum NoResponsePartnerNewEmailOrAddress {
+  ADDRESS = 'address',
+  EMAIL = 'emailAddress',
+  EMAIL_AND_ADDRESS = 'emailAndAddress',
+  CONTACT_DETAILS_UPDATED = 'contactDetailsUpdated',
+}
+
 export const enum NoResponseNoNewAddressDetails {
   IN_PERSON_SERVICE = 'inPersonService',
   ALTERNATIVE_SERVICE = 'alternativeService',
@@ -2627,15 +2635,14 @@ export const enum NoResponseSearchOrDispense {
   DISPENSE = 'dispense',
 }
 
-export const enum NoResponsePartnerNewEmailOrPostalAddress {
-  NEW_POSTAL = 'newPostalAddress',
-  NEW_EMAIL = 'newEmailAddress',
-  BOTH_EMAIL_AND_POSTAL = 'newEmailAndPostalAddress',
-}
-
 export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
   PROVIDE_NEW_EMAIL = 'provideNewEmailAddress',
   APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
+}
+
+export const enum NoResponseSendPapersAgainOrTrySomethingElse {
+  SEND_PAPERS_AGAIN = 'sendPapersAgain',
+  TRY_SOMETHING_ELSE = 'trySomethingElse',
 }
 
 export const enum AlternativeServiceMethod {

@@ -154,6 +154,7 @@ export const EXPLAIN_THE_DELAY: PageLink = '/explain-the-delay';
 export const RESPOND_TO_COURT_FEEDBACK: PageLink = '/respond-to-the-courts-feedback';
 export const REVIEW_YOUR_RESPONSE: PageLink = '/review-your-response-to-the-courts-feedback';
 
+// No Response Journey URLs
 export const OPTIONS_FOR_PROGRESSING: PageLink = '/interim-applications/no-response/options-for-progressing';
 export const HAVE_THEY_RECEIVED: PageLink = '/interim-applications/no-response/have-they-received';
 export const HAVE_THEY_RECEIVED_REPRESENTED: PageLink =
@@ -181,8 +182,11 @@ export const APPLY_FOR_ALTERNATIVE_SERVICE: PageLink =
   '/interim-applications/no-response/apply-for-alternative-service';
 export const NEW_CONTACT_DETAIL_CHECK_ANSWERS: PageLink = '/interim-applications/no-response/check-your-answers';
 export const NO_RESPONSE_DETAILS_UPDATED: PageLink = '/interim-applications/no-response/details-updated';
+export const WILL_SERVE_AGAIN: PageLink = '/interim-applications/no-response/will-serve-again';
+export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/partner-in-prison';
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';
+
 export const LAST_DATE_DISPENSE: PageLink = '/interim-applications/dispense-service/last-date-dispense';
 export const LAST_ADDRESS_DISPENSE: PageLink = '/interim-applications/dispense-service/last-address-dispense';
 export const AWARE_PARTNER_ADDRESS_DISPENSE: PageLink =
