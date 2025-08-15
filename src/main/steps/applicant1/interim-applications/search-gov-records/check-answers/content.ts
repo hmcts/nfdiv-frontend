@@ -43,7 +43,17 @@ const en = ({ partner, userCase }: CommonContent, useHwf: YesOrNo, hwfReference:
     partnerDateOfBirth: stripTags(userCase.applicant1SearchGovRecordsPartnerDateOfBirth),
     partnerApproximateAge: stripTags(userCase.applicant1SearchGovRecordsPartnerApproximateAge),
     partnerNationalInsuranceNumber: stripTags(userCase.applicant1SearchGovRecordsPartnerNationalInsurance),
-    partnerLastKnownAddress: stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress),
+    partnerLastKnownAddress: [
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.AddressLine1),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.AddressLine2),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.AddressLine3),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.PostTown),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.County),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.PostCode),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.Country),
+    ]
+      .filter(Boolean)
+      .join('<br>'),
     partnerLastKnownAddressDates: stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddressDates),
     partnerAnyAdditionalKnownAddresses: stripTags(userCase.applicant1SearchGovRecordsKnowPartnerAdditionalAddresses),
     partnerAnyAdditionalKnownAddress1: stripTags(userCase.applicant1SearchGovRecordsPartnerAdditionalAddress1),
