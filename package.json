@@ -152,7 +152,7 @@
     "sass-loader": "16.0.3",
     "sonar-scanner": "3.1.0",
     "style-loader": "4.0.0",
-    "ts-jest": "29.4.0",
+    "ts-jest": "29.4.1",
     "ts-loader": "9.5.2",
     "webdriverio": "9.18.4",
     "webpack": "5.101.0",
