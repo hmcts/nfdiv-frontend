@@ -11,15 +11,18 @@ import { AnyObject } from '../../../../app/controller/PostController';
 import {
   generalApplicationPaymentsField,
   generalApplicationServiceRequest,
+  hasUnpaidGeneralApplication,
 } from '../../../../app/utils/general-application-utils';
 import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../urls';
 
 @autobind
 export default class GeneralApplicationPaymentCallbackGetController extends BasePaymentCallbackGetController {
   protected isAwaitingPayment(req: AppRequest): boolean {
+    const serviceRequest = generalApplicationServiceRequest(req);
+
     return (
       GENERAL_APPLICATION_PAYMENT_STATES.has(req.session.userCase.state) &&
-      generalApplicationServiceRequest(req)?.length > 0
+      hasUnpaidGeneralApplication(req, serviceRequest)
     );
   }
 

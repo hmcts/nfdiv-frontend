@@ -668,12 +668,12 @@ export interface Case {
   applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
   generalApplications?: ListValue<GeneralApplication>[];
-  applicant1GeneralApplicationServiceRequest: string;
-  applicant2GeneralApplicationServiceRequest: string;
-  applicant1GeneralApplicationFeeOrderSummary: OrderSummary;
-  applicant2GeneralApplicationFeeOrderSummary: OrderSummary;
-  applicant1GenApplicationPayments: ListValue<Payment>[];
-  applicant2GenApplicationPayments: ListValue<Payment>[];
+  applicant1GeneralApplicationServiceRequest?: string;
+  applicant2GeneralApplicationServiceRequest?: string;
+  applicant1GeneralApplicationFeeOrderSummary?: OrderSummary;
+  applicant2GeneralApplicationFeeOrderSummary?: OrderSummary;
+  applicant1GenApplicationPayments?: ListValue<Payment>[];
+  applicant2GenApplicationPayments?: ListValue<Payment>[];
   applicant1DispenseLiveTogether?: YesOrNo;
   applicant1DispenseLivedTogetherDate?: DateAsString;
   applicant1DispenseLastLivedTogetherDate?: CaseDate;

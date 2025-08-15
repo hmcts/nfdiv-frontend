@@ -6,6 +6,7 @@ import {
   Fee,
   GENERAL_APPLICATION_PAYMENT_STATES,
   ListValue,
+  OrderSummary,
 } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../../app/controller/BasePaymentPostController';
@@ -13,15 +14,18 @@ import { AnyObject } from '../../../../app/controller/PostController';
 import {
   generalApplicationFeeOrderSummary,
   generalApplicationServiceRequest,
+  hasUnpaidGeneralApplication,
 } from '../../../../app/utils/general-application-utils';
 import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../urls';
 
 @autobind
 export default class GeneralApplicationPaymentPostController extends BasePaymentPostController {
   protected readyForPayment(req: AppRequest<AnyObject>): boolean {
+    const serviceRequest = this.getServiceReferenceForFee(req);
+
     return (
       GENERAL_APPLICATION_PAYMENT_STATES.has(req.session.userCase.state) &&
-      this.getServiceReferenceForFee(req)?.length > 0
+      hasUnpaidGeneralApplication(req, serviceRequest)
     );
   }
 
@@ -30,7 +34,7 @@ export default class GeneralApplicationPaymentPostController extends BasePayment
   }
 
   protected getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[] {
-    return generalApplicationFeeOrderSummary(req).Fees;
+    return (generalApplicationFeeOrderSummary(req) as OrderSummary)?.Fees;
   }
 
   protected paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData {
@@ -40,7 +44,7 @@ export default class GeneralApplicationPaymentPostController extends BasePayment
   }
 
   protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
-    return generalApplicationServiceRequest(req);
+    return generalApplicationServiceRequest(req) as string;
   }
 
   protected getPaymentCallbackPath(): string {

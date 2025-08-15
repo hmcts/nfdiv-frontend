@@ -1788,15 +1788,15 @@ export interface FeeResponse {
 }
 
 export interface Payment {
-  created: DateAsString;
-  updated: DateAsString;
+  created?: DateAsString;
+  updated?: DateAsString;
   feeCode: string;
   amount: number;
   status: PaymentStatus;
   channel: string;
   reference: string;
   transactionId: string;
-  serviceRequestReference: string;
+  serviceRequestReference?: string;
 }
 
 export interface PaymentItem {
