@@ -26,10 +26,10 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   enterMadeThreatsDetailsLabel: 'Rhowch fanylion unrhyw ddigwyddiadau',
   errors: {
     applicant1BailiffHasPartnerMadeThreats: {
-      required: 'Select yes if your partner has ever made verbal or written threats against you.',
+      required: `Dewiswch “Ydy” os yw eich ${partner} erioed wedi gwneud bygythiadau ar lafar neu’n ysgrifenedig yn eich erbyn chi`,
     },
     applicant1BailiffPartnerThreatsDetails: {
-      required: 'Enter details of any incidents of verbal or written threats.',
+      required: 'Rhowch fanylion unrhyw achosion o fygythiadau ar lafar neu’n ysgrifenedig.',
     },
   },
 });

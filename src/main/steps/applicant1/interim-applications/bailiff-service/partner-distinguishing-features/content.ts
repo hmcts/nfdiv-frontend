@@ -8,7 +8,7 @@ const en = ({ partner }: CommonContent) => ({
   hint: 'For example, a tattoo of a word on left arm, or a scar on the right side of forehead. Give as much detail as possible.',
   errors: {
     applicant1BailiffPartnersDistinguishingFeatures: {
-      required: "You must enter any distinguishing features or enter ‘none’",
+      required: `Enter your ${partner}'s distinguishing features, or enter ‘none’`,
     },
   },
 });
@@ -18,7 +18,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   hint: 'Er enghraifft, tatŵ neu air ar y fraich chwith, neu graith ar ochr dde eu talcen. Rhowch gymaint o fanylion ag sy’n bosib.',
   errors: {
     applicant1BailiffPartnersDistinguishingFeatures: {
-      required: "Dylech nodi unrhyw nodweddion unigryw neu nodi ‘dim’",
+      required: `Rhowch nodweddion unigryw eich ${partner}, neu rhowch ‘dim’`,
     },
   },
 });

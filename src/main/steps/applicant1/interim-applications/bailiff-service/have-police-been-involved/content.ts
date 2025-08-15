@@ -24,10 +24,10 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   errors: {
     applicant1BailiffHavePoliceBeenInvolved: {
       required:
-        'Select yes if there has been any police involvement with your partner or other people living at the property.',
+        `Dewiswch “Ydy” os yw’r heddlu erioed wedi ymwneud â’ch ${partner}`,
     },
     applicant1BailiffPoliceInvolvedDetails: {
-      required: 'Enter details of any incidents of police involvement.',
+      required: 'Rhowch fanylion unrhyw achosion yn ymwneud â’r heddlu',
     },
   },
 });

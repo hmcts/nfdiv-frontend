@@ -8,7 +8,7 @@ const en = ({ partner }: CommonContent) => ({
   enterHeightHint: 'For example, 185cm or 6\'1"',
   errors: {
     applicant1BailiffPartnersHeight: {
-      required: `Please enter your ${partner}'s height.`,
+      required: `Enter your ${partner}'s approximate height`,
     },
   },
 });
@@ -18,7 +18,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   enterHeightHint: 'Er enghraifft, 185cm neu 6\'1"',
   errors: {
     applicant1BailiffPartnersHeight: {
-      required: `Mae'n rhaid i chi nodi uchder eich ${partner}.`,
+      required: `Rhowch daldra eich ${partner} yn fras`,
     },
   },
 });

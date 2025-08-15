@@ -22,10 +22,10 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   otherDetailsLabel: 'Rhowch gymaint o wybodaeth ag y gallwch.',
   errors: {
     applicant1BailiffDoesPartnerHaveMentalIssues: {
-      required: `Select yes if you know your ${partner} has mental health issues or uses drugs or alcohol`,
+      required: `Dewiswch “Oes” os ydych yn gwybod bod gan eich ${partner} broblemau iechyd meddwl neu’n defnyddio alcohol neu gyffuriau`,
     },
     applicant1BailiffPartnerMentalIssuesDetails: {
-      required: 'Enter details of any mental health issues or drugs or alcohol use',
+      required: 'Rhowch fanylion unrhyw broblemau iechyd meddwl neu ddefnyddio cyffuriau neu alcohol',
     },
   },
 });

@@ -23,7 +23,7 @@ const en = ({ partner }: CommonContent) => ({
   enterApproximateAgeHint: 'For example, 65 years old',
   errors: {
     applicant1BailiffKnowPartnersDateOfBirth: {
-      required: 'You must select an option.',
+      required: `Select “Yes” if you know your ${partner}'s date of birth.`,
     },
     applicant1BailiffPartnersDateOfBirth: {
       required: `You must enter your ${partner}'s date of birth`,
@@ -49,7 +49,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   enterApproximateAgeHint: 'Er enghraifft, 65 oed',
   errors: {
     applicant1BailiffKnowPartnersDateOfBirth: {
-      required: 'You must select an option.',
+      required: `Dewiswch “Ydw” os ydych yn gwybod dyddiad geni eich ${partner}`,
     },
     applicant1BailiffPartnersDateOfBirth: {
       required: `Mae'n rhaid i chi nodi dyddiad geni eich ${partner}`,

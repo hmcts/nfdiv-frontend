@@ -10,7 +10,7 @@ const en = ({ partner }: CommonContent) => ({
   enterPhoneNumberHint: 'For international numbers include the country code, for example +33 1234 567890',
   errors: {
     applicant1BailiffKnowPartnersPhone: {
-      required: 'Select yes if you know your partner\'s phone number.',
+      required: `Select yes if you know your ${partner}'s phone number.`,
     },
     applicant1BailiffPartnersPhone: {
       required: `Your ${partner}'s phone number cannot be blank.`,
@@ -25,11 +25,11 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   enterPhoneNumberHint: 'Ar gyfer rhifau rhyngwladol, nodwch god y wlad, er enghraifft +33 1234 567890',
   errors: {
     applicant1BailiffKnowPartnersPhone: {
-      required: 'Select yes if you know your partner\'s phone number.',
+      required: `Dewiswch “Ydw” os ydych yn gwybod rhif ffôn eich ${partner}`,
     },
     applicant1BailiffPartnersPhone: {
-      required: `Your ${partner}'s phone number cannot be blank.`,
-      invalid: 'Enter a phone number in the correct format.',
+      required: `Ni all rhif ffôn eich ${partner} gael ei adael yn wag`,
+      invalid: 'Rhowch rif ffôn yn y fformat cywir.',
     },
   },
 });

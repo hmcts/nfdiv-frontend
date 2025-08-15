@@ -17,7 +17,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Oes gan eich ${partner} gerbyd at eu defnydd?`,
   errors: {
     applicant1BailiffDoesPartnerHaveVehicle: {
-      required: `Select yes if your ${partner} has a vehicle.`,
+      required: `Dewiswch “Oes” os oes gan eich ${partner} gerbyd`,
     },
   },
 });

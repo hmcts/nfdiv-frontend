@@ -22,10 +22,10 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   otherDetailsLabel: 'Provide as much information as you can',
   errors: {
     applicant1BailiffDoesPartnerHoldFirearmsLicense: {
-      required: `Select yes if your ${partner} has a firearms license or any firearms convictions.`,
+      required: `Dewiswch “Oes” os oes gan eich ${partner} drwydded drylliau tanio neu unrhyw euogfarnau drylliau tanio`,
     },
     applicant1BailiffPartnerFirearmsLicenseDetails: {
-      required: 'Enter details of the firearms license or any firearms convictions',
+      required: 'Rhowch fanylion y drwydded drylliau tanio neu unrhyw euogfarnau drylliau tanio',
     },
   },
 });
