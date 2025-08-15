@@ -3,11 +3,18 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, GeneralApplication, PaymentStatus, State, YesOrNo, ServicePaymentMethod } from '../../app/case/definition';
+import {
+  ApplicationType,
+  GeneralApplication,
+  PaymentStatus,
+  ServicePaymentMethod,
+  State,
+  YesOrNo,
+} from '../../app/case/definition';
+import { getOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
-import { getOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 
 export const en = {
   phase: 'Beta',
@@ -468,14 +475,20 @@ export const generateCommonContent = ({
 
   const generalApplications = getOnlineGeneralApplicationsForUser(userCase, isApplicant2);
   const lastGeneralApplication = generalApplications?.[generalApplications?.length - 1];
-  const generalApplicationType = commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
+  const generalApplicationType =
+    commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
   const generalApplicationDate = getFormattedDate(lastGeneralApplication?.generalApplicationReceivedDate, language);
   const generalApplicationResponseDate = getFormattedDate(
-    dayjs(lastGeneralApplication?.generalApplicationReceivedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    dayjs(lastGeneralApplication?.generalApplicationReceivedDate).add(
+      config.get('dates.applicationSubmittedOffsetDays'),
+      'day'
+    ),
     language
   );
-  const generalApplicationFeeRequired = lastGeneralApplication?.generalApplicationFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
-  const generalApplicationDocsAllProvided = lastGeneralApplication?.generalApplicationDocsUploadedPreSubmission=== YesOrNo.YES;
+  const generalApplicationFeeRequired =
+    lastGeneralApplication?.generalApplicationFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
+  const generalApplicationDocsAllProvided =
+    lastGeneralApplication?.generalApplicationDocsUploadedPreSubmission === YesOrNo.YES;
   const generalApplicationSubmittedOnline = lastGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
 
   return {

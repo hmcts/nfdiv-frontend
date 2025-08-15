@@ -6,7 +6,7 @@ import {
   GeneralParties,
   ListValue,
   OrderSummary,
-  YesOrNo
+  YesOrNo,
 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 
@@ -123,9 +123,9 @@ describe('GeneralApplicationUtils', () => {
 
   describe('generalApplicationForParty', () => {
     test('Should return applicant 1 general applications if logged in as applicant 1', () => {
-      expect(getOnlineGeneralApplicationsForUser(mockReq.session.userCase, false)).toEqual(
-        [applicant1GeneralApplications[0].value]
-      );
+      expect(getOnlineGeneralApplicationsForUser(mockReq.session.userCase, false)).toEqual([
+        applicant1GeneralApplications[0].value,
+      ]);
     });
 
     test('Should return applicant 2 general applications if logged in as applicant 2', () => {

@@ -11,9 +11,10 @@ export const getOnlineGeneralApplicationsForUser = (
 
   return userCase.generalApplications
     ?.map(generalApplicationValue => generalApplicationValue.value)
-    ?.filter(application =>
-      application?.generalParties === generalApplicationParty &&
-      application?.generalApplicationSubmittedOnline === YesOrNo.YES
+    ?.filter(
+      application =>
+        application?.generalParties === generalApplicationParty &&
+        application?.generalApplicationSubmittedOnline === YesOrNo.YES
     );
 };
 
