@@ -8,7 +8,7 @@ const en = ({ partner }: CommonContent) => ({
   hint: 'For example, a tattoo of a word on left arm, or a scar on the right side of forehead. Give as much detail as possible.',
   errors: {
     applicant1BailiffPartnersDistinguishingFeatures: {
-      required: "Please enter any distinguishing features or 'none'.",
+      required: "You must enter any distinguishing features or enter ‘none’",
     },
   },
 });

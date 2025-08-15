@@ -8,7 +8,7 @@ const en = ({ partner }: CommonContent) => ({
   title: `Is your ${partner} currently resident in a refuge?`,
   errors: {
     applicant1BailiffPartnerInARefuge: {
-      required: 'You must select an option before continuing.',
+      required: 'Select yes if your partner is resident in a refuge.',
     },
   },
 });
@@ -17,7 +17,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Ydych eich ${partner} yn preswylio mewn lloches ar hyn o bryd?`,
   errors: {
     applicant1BailiffPartnerInARefuge: {
-      required: 'You must select an option before continuing.',
+      required: 'Select yes if your partner is resident in a refuge.',
     },
   },
 });

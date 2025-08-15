@@ -18,7 +18,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   timeHint: 'Er enghraifft, dydd Mawrth rhwng 8am a 2pm (rhowch 12pm ar gyfer canol dydd)',
   errors: {
     applicant1BailiffBestTimeToServe: {
-      required: 'Enter a time period for the bailiff to attempt service',
+      required: 'Mae’n rhaid i chi nodi cyfnod amser cyn parhau',
     },
   },
 });
