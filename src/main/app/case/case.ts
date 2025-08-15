@@ -35,6 +35,7 @@ import {
   RequestForInformation,
   State,
   YesOrNo,
+  YesOrNoOrNotKnown,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -210,6 +211,38 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimAppsCannotUploadDocs: 'applicant1InterimAppsCannotUploadDocs',
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1BailiffPartnersName: 'applicant1BailiffPartnersName',
+  applicant1BailiffPartnerInARefuge: 'applicant1BailiffPartnerInARefuge',
+  applicant1BailiffKnowPartnersPhone: 'applicant1BailiffKnowPartnersPhone',
+  applicant1BailiffPartnersPhone: 'applicant1BailiffPartnersPhone',
+  applicant1BailiffKnowPartnersDateOfBirth: 'applicant1BailiffKnowPartnersDateOfBirth',
+  applicant1BailiffPartnersDateOfBirth: 'applicant1BailiffPartnersDateOfBirth',
+  applicant1BailiffPartnersApproximateAge: 'applicant1BailiffPartnersApproximateAge',
+  applicant1BailiffPartnersHeight: 'applicant1BailiffPartnersHeight',
+  applicant1BailiffPartnersHairColour: 'applicant1BailiffPartnersHairColour',
+  applicant1BailiffPartnersEyeColour: 'applicant1BailiffPartnersEyeColour',
+  applicant1BailiffPartnersEthnicGroup: 'applicant1BailiffPartnersEthnicGroup',
+  applicant1BailiffPartnersDistinguishingFeatures: 'applicant1BailiffPartnersDistinguishingFeatures',
+  applicant1BailiffBestTimeToServe: 'applicant1BailiffBestTimeToServe',
+  applicant1BailiffDoesPartnerHaveVehicle: 'applicant1BailiffDoesPartnerHaveVehicle',
+  applicant1BailiffPartnerVehicleModel: 'applicant1BailiffPartnerVehicleModel',
+  applicant1BailiffPartnerVehicleColour: 'applicant1BailiffPartnerVehicleColour',
+  applicant1BailiffPartnerVehicleRegistration: 'applicant1BailiffPartnerVehicleRegistration',
+  applicant1BailiffPartnerVehicleOtherDetails: 'applicant1BailiffPartnerVehicleOtherDetails',
+  applicant1BailiffHasPartnerBeenViolent: 'applicant1BailiffHasPartnerBeenViolent',
+  applicant1BailiffPartnerViolenceDetails: 'applicant1BailiffPartnerViolenceDetails',
+  applicant1BailiffHasPartnerMadeThreats: 'applicant1BailiffHasPartnerMadeThreats',
+  applicant1BailiffPartnerThreatsDetails: 'applicant1BailiffPartnerThreatsDetails',
+  applicant1BailiffHavePoliceBeenInvolved: 'applicant1BailiffHavePoliceBeenInvolved',
+  applicant1BailiffPoliceInvolvedDetails: 'applicant1BailiffPoliceInvolvedDetails',
+  applicant1BailiffHaveSocialServicesBeenInvolved: 'applicant1BailiffHaveSocialServicesBeenInvolved',
+  applicant1BailiffSocialServicesInvolvedDetails: 'applicant1BailiffSocialServicesInvolvedDetails',
+  applicant1BailiffAreThereDangerousAnimals: 'applicant1BailiffAreThereDangerousAnimals',
+  applicant1BailiffDangerousAnimalsDetails: 'applicant1BailiffDangerousAnimalsDetails',
+  applicant1BailiffDoesPartnerHaveMentalIssues: 'applicant1BailiffDoesPartnerHaveMentalIssues',
+  applicant1BailiffPartnerMentalIssuesDetails: 'applicant1BailiffPartnerMentalIssuesDetails',
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: 'applicant1BailiffDoesPartnerHoldFirearmsLicense',
+  applicant1BailiffPartnerFirearmsLicenseDetails: 'applicant1BailiffPartnerFirearmsLicenseDetails',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
@@ -238,6 +271,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   alternativeServiceType: 'alternativeServiceType',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
+  applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
+  applicant1DispenseLivedTogetherDate: 'applicant1DispenseLivedTogetherDate',
+  applicant1DispenseAwarePartnerLived: 'applicant1DispenseAwarePartnerLived',
+  applicant1DispensePartnerPastAddress1: 'applicant1DispensePartnerPastAddress1',
+  applicant1DispensePartnerPastAddressEnquiries1: 'applicant1DispensePartnerPastAddressEnquiries1',
+  applicant1DispensePartnerPastAddress2: 'applicant1DispensePartnerPastAddress2',
+  applicant1DispensePartnerPastAddressEnquiries2: 'applicant1DispensePartnerPastAddressEnquiries2',
+  applicant1DispensePartnerLastSeenDate: 'applicant1DispensePartnerLastSeenDate',
+  applicant1DispensePartnerLastSeenDescription: 'applicant1DispensePartnerLastSeenDescription',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -507,6 +549,38 @@ export interface Case {
   applicant1InterimAppsCannotUploadDocs?: Checkbox;
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
+  applicant1BailiffPartnerInARefuge: YesOrNoOrNotKnown;
+  applicant1BailiffPartnersName?: string;
+  applicant1BailiffKnowPartnersPhone: YesOrNo;
+  applicant1BailiffPartnersPhone?: string;
+  applicant1BailiffKnowPartnersDateOfBirth: YesOrNo;
+  applicant1BailiffPartnersDateOfBirth: CaseDate | DateAsString;
+  applicant1BailiffPartnersApproximateAge: number;
+  applicant1BailiffPartnersHeight: number;
+  applicant1BailiffPartnersHairColour: string;
+  applicant1BailiffPartnersEyeColour: string;
+  applicant1BailiffPartnersEthnicGroup: string;
+  applicant1BailiffPartnersDistinguishingFeatures: string;
+  applicant1BailiffBestTimeToServe: string;
+  applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerVehicleModel: string;
+  applicant1BailiffPartnerVehicleColour: string;
+  applicant1BailiffPartnerVehicleRegistration: string;
+  applicant1BailiffPartnerVehicleOtherDetails: string;
+  applicant1BailiffHasPartnerBeenViolent: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerViolenceDetails: string;
+  applicant1BailiffHasPartnerMadeThreats: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerThreatsDetails: string;
+  applicant1BailiffHavePoliceBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffPoliceInvolvedDetails: string;
+  applicant1BailiffHaveSocialServicesBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffSocialServicesInvolvedDetails: string;
+  applicant1BailiffAreThereDangerousAnimals: YesOrNoOrNotKnown;
+  applicant1BailiffDangerousAnimalsDetails: string;
+  applicant1BailiffDoesPartnerHaveMentalIssues: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerMentalIssuesDetails: string;
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
@@ -546,6 +620,25 @@ export interface Case {
   serviceApplicationAnswers: DivorceDocument;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
+  applicant1DispenseLiveTogether?: YesOrNo;
+  applicant1DispenseLivedTogetherDate?: DateAsString;
+  applicant1DispenseLastLivedTogetherDate?: CaseDate;
+  applicant1DispenseLivedTogetherAddress1?: string;
+  applicant1DispenseLivedTogetherAddress2?: string;
+  applicant1DispenseLivedTogetherAddress3?: string;
+  applicant1DispenseLivedTogetherAddressTown?: string;
+  applicant1DispenseLivedTogetherAddressCounty?: string;
+  applicant1DispenseLivedTogetherAddressPostcode?: string;
+  applicant1DispenseLivedTogetherAddressCountry?: string;
+  applicant1DispenseLivedTogetherAddressOverseas?: YesOrNo;
+  applicant1DispenseAwarePartnerLived?: YesOrNo;
+  applicant1DispensePartnerPastAddress1?: string;
+  applicant1DispensePartnerPastAddressEnquiries1?: string;
+  applicant1DispensePartnerPastAddress2?: string;
+  applicant1DispensePartnerPastAddressEnquiries2?: string;
+  applicant1DispensePartnerLastSeenDate?: DateAsString;
+  applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
+  applicant1DispensePartnerLastSeenDescription?: string;
 }
 
 export interface CaseWithId extends Case {

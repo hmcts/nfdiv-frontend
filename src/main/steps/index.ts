@@ -119,6 +119,38 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
   return `${url}${queryString}`;
 };
 
+export const getFirstErroredStep = (req: AppRequest, sequence: Step[]): string | undefined => {
+  const userData = req.session.userCase;
+
+  const visitedSteps = new Set<string>();
+  let nextStepIndex = 0;
+  while (nextStepIndex < sequence.length) {
+    const step = sequence[nextStepIndex];
+    const stepUrl = step?.url;
+
+    if (!stepUrl) {
+      break;
+    }
+
+    if (visitedSteps.has(stepUrl)) {
+      break;
+    }
+    visitedSteps.add(stepUrl);
+
+    const stepField = stepFields[stepUrl];
+    const fields = typeof stepField === 'function' ? stepField(userData) : stepField;
+
+    if (fields) {
+      const stepForm = new Form(fields);
+      if (stepForm.getErrors(userData)?.length > 0) {
+        return stepUrl;
+      }
+    }
+
+    nextStepIndex = sequence.findIndex(s => s.url === step.getNextStep(userData));
+  }
+};
+
 export const getUserSequence = (req: AppRequest): Step[] => {
   const stateSequence = currentStateFn(req.session.userCase.state);
 
