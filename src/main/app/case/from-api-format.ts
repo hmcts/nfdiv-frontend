@@ -181,8 +181,35 @@ const fields: FromApiConverters = {
     app2RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app2RfiDraftResponseCannotUploadDocs),
   }),
   requestsForInformation: 'requestsForInformation',
+  applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+    'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
+  applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
+  applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
+  applicant1InterimAppsIUnderstand: data => ({
+    applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
+  }),
+  applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
+  applicant1InterimAppsHaveHwfReference: 'applicant1InterimAppsHaveHwfReference',
+  applicant1InterimAppsCanUploadEvidence: 'applicant1InterimAppsCanUploadEvidence',
+  applicant1InterimAppsHwfRefNumber: 'applicant1InterimAppsHwfRefNumber',
+  applicant1InterimAppsEvidenceDocs: uploadedFilesFromApiApplicant1,
+  applicant1InterimAppsCannotUploadDocs: data => ({
+    applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
+  }),
+  applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
+  applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1InterimApplicationType: 'applicant1InterimApplicationType',
+  applicant1InterimAppsStatementOfTruth: data => ({
+    applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  }),
   applicant2LegalProceedingDocs: uploadedFilesFromApiApplicant2,
   applicant2UnableToUploadEvidence: uploadedFilesFromApiApplicant2,
+  applicant1NoResponsePartnerAddress: data => formatAddress(data, 'applicant1NoResponsePartner'),
+  applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
+    applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
+  }),
 };
 
 const fromApiDate = date => {
