@@ -7,16 +7,16 @@ const en = ({ partner }: CommonContent) => ({
   title: `What hair colour does your ${partner} have?`,
   errors: {
     applicant1BailiffPartnersHairColour: {
-      required: `Please enter your ${partner}'s hair colour.`,
+      required: `Enter your ${partner}'s hair colour.`,
     },
   },
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `What hair colour does your ${partner} have?`,
+  title: `Beth yw lliw gwallt eich ${partner}?`,
   errors: {
     applicant1BailiffPartnersHairColour: {
-      required: `Please enter your ${partner}'s hair colour.`,
+      required: `Rhowch liw gwallt eich ${partner}`,
     },
   },
 });

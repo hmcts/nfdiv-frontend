@@ -14,11 +14,11 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `When is best for the bailiff to serve the papers to your ${partner}?`,
-  timeHint: 'For example, Tuesday between 8am and 2pm (enter 12pm for midday)',
+  title: `Pryd yw’r amser gorau i’r beili gyflwyno’r papurau ysgariad i’ch ${partner}?`,
+  timeHint: 'Er enghraifft, dydd Mawrth rhwng 8am a 2pm (rhowch 12pm ar gyfer canol dydd)',
   errors: {
     applicant1BailiffBestTimeToServe: {
-      required: 'Enter a time period for the bailiff to attempt service',
+      required: 'Rhowch amser i’r beili geisio cyflwyno’r dogfennau',
     },
   },
 });
