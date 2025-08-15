@@ -20,8 +20,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
     line1: `You have successfully updated your ${partner}’s ${
       addressOverseas && isAddressOnlyUpdate
         ? 'address'
-        : userCase.applicant1NoResponsePartnerNewEmailOrAddress ===
-            NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS
+        : userCase.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS
           ? 'email and postal address'
           : 'contact details'
     }.`,

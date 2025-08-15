@@ -589,12 +589,11 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   ...noResponseJourneySequence,
-  ...deemedServiceApplicationSequence,
-  ...bailiffServiceApplicationSequence,
   ...alternativeServiceApplicationSequence,
+  ...bailiffServiceApplicationSequence,
+  ...deemedServiceApplicationSequence,
   ...dispenseServiceApplicationSequence,
   ...searchGovRecordsApplicationSequence,
-  ...noResponseJourneySequence,
   ...serviceApplicationPaymentSequence,
 ];
 
