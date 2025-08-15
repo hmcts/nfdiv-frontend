@@ -1,6 +1,6 @@
 import { AlternativeServiceType, GeneralApplicationType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { getOnlineGeneralApplicationsForUser } from '../../../../app/utils/general-application-utils';
+import { findOnlineGeneralApplicationsForUser } from '../../../../app/utils/general-application-utils';
 import type { CommonContent } from '../../../common/common.content';
 
 const en = ({
@@ -111,7 +111,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const defaultTranslations = languages[content.language](content);
-  const generalApplications = getOnlineGeneralApplicationsForUser(content.userCase, content.isApplicant2);
+  const generalApplications = findOnlineGeneralApplicationsForUser(content.userCase, content.isApplicant2);
   const mostRecentApplication = generalApplications?.[generalApplications.length - 1];
   const applicationType = mostRecentApplication?.generalApplicationType as GeneralApplicationType;
 

@@ -9,7 +9,7 @@ export const hasUnpaidGeneralApplication = (request: AppRequest, serviceRequest:
   }
 
   const generalApplications =
-    getOnlineGeneralApplicationsForUser(request.session.userCase, request.session.isApplicant2) ?? [];
+    findOnlineGeneralApplicationsForUser(request.session.userCase, request.session.isApplicant2) ?? [];
 
   return generalApplications.some(
     application =>
@@ -18,7 +18,7 @@ export const hasUnpaidGeneralApplication = (request: AppRequest, serviceRequest:
   );
 };
 
-export const getOnlineGeneralApplicationsForUser = (
+export const findOnlineGeneralApplicationsForUser = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): GeneralApplication[] | undefined => {

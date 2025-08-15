@@ -959,10 +959,10 @@ export interface CaseData {
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
   alternativeServiceFeeRequired: YesOrNo;
+  servicePaymentFeePaymentMethod: ServicePaymentMethod;
   serviceApplicationAnswers: DivorceDocument;
   servicePayments: ListValue<Payment>[];
   serviceApplicationSubmittedOnline: YesOrNo,
-  servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;

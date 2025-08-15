@@ -11,10 +11,10 @@ import {
 import { AppRequest } from '../controller/AppRequest';
 
 import {
+  findOnlineGeneralApplicationsForUser,
   generalApplicationFeeOrderSummary,
   generalApplicationPaymentsField,
   generalApplicationServiceRequest,
-  getOnlineGeneralApplicationsForUser,
   hasUnpaidGeneralApplication,
 } from './general-application-utils';
 
@@ -125,9 +125,9 @@ describe('GeneralApplicationUtils', () => {
     });
   });
 
-  describe('generalApplicationForParty', () => {
+  describe('findOnlineGeneralApplicationsForUser', () => {
     test('Should return applicant 1 general applications if logged in as applicant 1', () => {
-      expect(getOnlineGeneralApplicationsForUser(mockReq.session.userCase, false)).toEqual([
+      expect(findOnlineGeneralApplicationsForUser(mockReq.session.userCase, false)).toEqual([
         applicant1GeneralApplications[0].value,
       ]);
     });
@@ -135,21 +135,21 @@ describe('GeneralApplicationUtils', () => {
     test('Should return applicant 2 general applications if logged in as applicant 2', () => {
       mockReq.session.isApplicant2 = true;
 
-      expect(getOnlineGeneralApplicationsForUser(mockReq.session.userCase, true)).toEqual(
+      expect(findOnlineGeneralApplicationsForUser(mockReq.session.userCase, true)).toEqual(
         applicant2GeneralApplications.map(app => app.value)
       );
     });
 
-    test('Should handle undefined case general applications', () => {
+    test('Should handle undefined general applications', () => {
       mockReq.session.userCase.generalApplications = undefined;
 
-      expect(getOnlineGeneralApplicationsForUser(mockReq.session.userCase, false)).toEqual(undefined);
+      expect(findOnlineGeneralApplicationsForUser(mockReq.session.userCase, false)).toEqual(undefined);
     });
 
-    test('Should handle empty case general applications', () => {
+    test('Should handle empty  general applications', () => {
       mockReq.session.userCase.generalApplications = [];
 
-      expect(getOnlineGeneralApplicationsForUser(mockReq.session.userCase, false)).toEqual([]);
+      expect(findOnlineGeneralApplicationsForUser(mockReq.session.userCase, false)).toEqual([]);
     });
   });
 
@@ -168,13 +168,13 @@ describe('GeneralApplicationUtils', () => {
       expect(hasUnpaidGeneralApplication(mockReq, applicant2GeneralApplicationServiceRequest)).toEqual(false);
     });
 
-    test('Should return false if the case general applications are undefined', () => {
+    test('Should return false if the general applications are undefined', () => {
       mockReq.session.userCase.generalApplications = undefined;
 
       expect(hasUnpaidGeneralApplication(mockReq, applicant2GeneralApplicationServiceRequest)).toEqual(false);
     });
 
-    test('Should return false if the case general applications are blank', () => {
+    test('Should return false if the general applications are blank', () => {
       mockReq.session.userCase.generalApplications = [];
 
       expect(hasUnpaidGeneralApplication(mockReq, applicant2GeneralApplicationServiceRequest)).toEqual(false);

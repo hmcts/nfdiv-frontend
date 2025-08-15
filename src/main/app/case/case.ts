@@ -36,6 +36,7 @@ import {
   Payment,
   RequestForInformation,
   SearchGovRecordsWhichDepartment,
+  ServicePaymentMethod,
   State,
   YesOrNo,
   YesOrNoOrNotKnown,
@@ -250,6 +251,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
+  servicePaymentFeePaymentMethod: 'servicePaymentFeePaymentMethod',
   applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
   applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
@@ -639,6 +641,7 @@ export interface Case {
   applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
+  servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
   serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   servicePayments: ListValue<Payment>[];

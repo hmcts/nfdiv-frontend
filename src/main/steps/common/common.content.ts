@@ -11,7 +11,7 @@ import {
   State,
   YesOrNo,
 } from '../../app/case/definition';
-import { getOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
+import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
@@ -465,7 +465,8 @@ export const generateCommonContent = ({
     dayjs(userCase?.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
     language
   );
-  const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
+  const serviceApplicationFeeRequired =
+    userCase?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
   const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
   const genesysDeploymentId: string =
@@ -473,7 +474,7 @@ export const generateCommonContent = ({
       ? config.get('webchat.genesysDeploymentId')
       : config.get('webchat.genesysDeploymentIdCy');
 
-  const generalApplications = getOnlineGeneralApplicationsForUser(userCase, isApplicant2);
+  const generalApplications = findOnlineGeneralApplicationsForUser(userCase, isApplicant2);
   const lastGeneralApplication = generalApplications?.[generalApplications?.length - 1];
   const generalApplicationType =
     commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
