@@ -5,7 +5,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ partner }: CommonContent) => ({
+const en = ({ partner, required }: CommonContent) => ({
   title: `Which government departments do you need us to search for your ${partner}’s details?`,
   titleHint: `Which government departments do you need us to search for your ${partner}’s details?`,
   dwp: 'Department for Work and Pensions',
@@ -19,12 +19,12 @@ const en = ({ partner }: CommonContent) => ({
   errors: {
     applicant1SearchGovRecordsWhichDepartments: {
       required: "Select which government departments' records you want the court to search",
-      applicant1SearchGovRecordsOtherDepartmentNames: {
-        required: 'Enter details of the government department',
-      },
+    },
+    applicant1SearchGovRecordsOtherDepartmentNames: {
+      required: 'Enter details of the government department',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
-      required: 'Enter details about why the selected department is most suitable',
+      required,
     },
   },
 });
@@ -44,9 +44,9 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   errors: {
     applicant1SearchGovRecordsWhichDepartments: {
       required: "Select which government departments' records you want the court to search",
-      applicant1SearchGovRecordsOtherDepartmentNames: {
-        required: 'Enter details of the government department',
-      },
+    },
+    applicant1SearchGovRecordsOtherDepartmentNames: {
+      required: 'Enter details of the government department',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
       required,
