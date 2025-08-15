@@ -774,7 +774,7 @@ describe('to-api-format', () => {
         applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
         applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
       } as Partial<Case>);
-    })
+    });
   });
 
   describe('applicant1AltServiceDifferentWays transformation', () => {
