@@ -22,6 +22,7 @@ import {
 } from './definition';
 import {
   applicant1AddressToApi,
+  applicant1DispenseLivedTogetherAddressToApi,
   applicant1NoResponsePartnerAddressToApi,
   applicant2AddressToApi,
 } from './formatter/address';
@@ -515,6 +516,16 @@ const fields: ToApiConverters = {
     )
       ? data.applicant1AltServicePartnerOtherDetails
       : null,
+  }),
+  applicant1DispenseLastLivedTogetherDate: data => ({
+    applicant1DispenseLivedTogetherDate: toApiDate(data.applicant1DispenseLastLivedTogetherDate),
+  }),
+  applicant1DispenseLivedTogetherAddressPostcode: applicant1DispenseLivedTogetherAddressToApi,
+  applicant1DispenseLivedTogetherAddressOverseas: ({ applicant1DispenseLivedTogetherAddressOverseas }) => ({
+    applicant1DispenseLivedTogetherAddressOverseas: applicant1DispenseLivedTogetherAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1DispensePartnerLastSeenOrHeardOfDate: data => ({
+    applicant1DispensePartnerLastSeenDate: toApiDate(data.applicant1DispensePartnerLastSeenOrHeardOfDate),
   }),
 };
 

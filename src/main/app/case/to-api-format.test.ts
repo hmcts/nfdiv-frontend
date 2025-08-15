@@ -13,6 +13,7 @@ import {
   Gender,
   HowToRespondApplication,
   MarriageFormation,
+  NoResponseCheckContactDetails,
   YesOrNo,
 } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
@@ -71,6 +72,7 @@ describe('to-api-format', () => {
     applicant2AgreeToReceiveEmails: Checkbox.Checked,
     applicant1UploadedFiles: [],
     applicant2UploadedFiles: [],
+    applicant1InterimAppsEvidenceUploadedFiles: [],
     confirmReadPetition: Checkbox.Checked,
     applicant1LegalProceedingsDetails: 'Test',
     applicant2LegalProceedingsDetails: 'Test',
@@ -90,6 +92,7 @@ describe('to-api-format', () => {
     app2RfiDraftResponseDetails: 'test',
     app2RfiDraftResponseUploadedFiles: [],
     applicant2UnableToUploadEvidence: Checkbox.Checked,
+    applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -216,6 +219,7 @@ describe('to-api-format', () => {
       app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
       app2RfiDraftResponseDetails: 'test',
       applicant2UnableToUploadEvidence: YesOrNo.YES,
+      applicant1InterimAppsStatementOfTruth: YesOrNo.YES,
     });
   });
 
@@ -270,6 +274,7 @@ describe('to-api-format', () => {
     const apiFormat = toApiFormat({
       applicant1HelpWithFeesRefNo: '123-ABC',
       applicant2HelpWithFeesRefNo: '123-123',
+      applicant1InterimAppsHwfRefNumber: '123-ABC',
       relationshipDate: { year: '123' },
     } as Partial<Case>);
 
@@ -277,6 +282,7 @@ describe('to-api-format', () => {
       applicant1HWFReferenceNumber: '',
       applicant2HWFReferenceNumber: '',
       marriageDate: undefined,
+      applicant1InterimAppsHwfRefNumber: '',
     });
   });
 
@@ -445,6 +451,29 @@ describe('to-api-format', () => {
           PostCode: '',
           Country: '',
         },
+      },
+    },
+    {
+      applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
+      applicant1NoResponsePartnerEmailAddress: 'test',
+      applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
+      applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
+      expected: {
+        applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
+        applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
+        applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
+      },
+    },
+    {
+      applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+      expected: {
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1NoResponsePartnerAddressOverseas: null,
+      expected: {
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
       },
     },
     {
