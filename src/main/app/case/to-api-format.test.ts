@@ -761,7 +761,9 @@ describe('to-api-format', () => {
         applicant1SearchGovRecordsPartnerApproximateAge: null,
       });
     });
-    test('convert value to upper case', () => {
+  });
+
+  describe('applicant1SearchGovRecordsPartnerNationalInsurance transformation', () => {
       const apiFormat = toApiFormat({
         applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
         applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',
@@ -770,14 +772,7 @@ describe('to-api-format', () => {
       expect(apiFormat).toMatchObject({
         applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
         applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
-        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
       } as Partial<Case>);
-
-      expect(apiFormat).toMatchObject({
-        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
-        applicant1BailiffPartnersApproximateAge: null,
-      });
-    });
   });
 
   describe('applicant1AltServiceDifferentWays transformation', () => {

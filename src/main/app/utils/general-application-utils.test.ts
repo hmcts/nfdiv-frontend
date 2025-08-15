@@ -6,6 +6,7 @@ import {
   GeneralParties,
   ListValue,
   OrderSummary,
+  YesOrNo
 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 
@@ -13,7 +14,7 @@ import {
   generalApplicationFeeOrderSummary,
   generalApplicationPaymentsField,
   generalApplicationServiceRequest,
-  getGeneralApplicationsForUser,
+  getOnlineGeneralApplicationsForUser,
 } from './general-application-utils';
 
 describe('GeneralApplicationUtils', () => {
@@ -44,7 +45,16 @@ describe('GeneralApplicationUtils', () => {
         id: 'applicant1-genapp-1',
         value: {
           generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
-          generalApplicationFrom: GeneralParties.APPLICANT,
+          generalParties: GeneralParties.APPLICANT,
+          generalApplicationSubmittedOnline: YesOrNo.YES,
+        },
+      },
+      {
+        id: 'applicant1-genapp-2',
+        value: {
+          generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
+          generalParties: GeneralParties.APPLICANT,
+          generalApplicationSubmittedOnline: YesOrNo.NO,
         },
       },
     ];
@@ -53,7 +63,8 @@ describe('GeneralApplicationUtils', () => {
         id: 'applicant2-genapp-1',
         value: {
           generalApplicationType: GeneralApplicationType.EXPEDITE,
-          generalApplicationFrom: GeneralParties.RESPONDENT,
+          generalParties: GeneralParties.RESPONDENT,
+          generalApplicationSubmittedOnline: YesOrNo.YES,
         },
       },
     ];
@@ -112,15 +123,15 @@ describe('GeneralApplicationUtils', () => {
 
   describe('generalApplicationForParty', () => {
     test('Should return applicant 1 general applications if logged in as applicant 1', () => {
-      expect(getGeneralApplicationsForUser(mockReq.session.userCase, false)).toEqual(
-        applicant1GeneralApplications.map(app => app.value)
+      expect(getOnlineGeneralApplicationsForUser(mockReq.session.userCase, false)).toEqual(
+        [applicant1GeneralApplications[0].value]
       );
     });
 
     test('Should return applicant 2 general applications if logged in as applicant 2', () => {
       mockReq.session.isApplicant2 = true;
 
-      expect(getGeneralApplicationsForUser(mockReq.session.userCase, true)).toEqual(
+      expect(getOnlineGeneralApplicationsForUser(mockReq.session.userCase, true)).toEqual(
         applicant2GeneralApplications.map(app => app.value)
       );
     });

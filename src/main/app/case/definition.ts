@@ -1445,9 +1445,12 @@ export interface GeneralApplication {
   generalApplicationFeePbaNumbers?: DynamicList;
   generalApplicationFeeAccountReferenceNumber?: string;
   generalApplicationFeeHelpWithFeesReferenceNumber?: string;
-  generalApplicationFrom?: GeneralParties;
+  generalParties?: GeneralParties;
   generalApplicationFeeServiceRequestReference?: string;
   generalApplicationFeePaymentReference?: string;
+  generalApplicationSubmittedOnline?: string;
+  generalApplicationReceivedDate?: DateAsString;
+  generalApplicationDocsUploadedPreSubmission?: YesOrNo;
 }
 
 export interface GeneralEmail {
@@ -2220,6 +2223,7 @@ export const enum ServicePaymentMethod {
   FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
   FEE_PAY_BY_HWF = 'feePayByHelp',
   FEE_PAY_BY_PHONE = 'feePayByTelephone',
+  FEE_PAY_BY_CARD = 'feePayByCard'
 }
 
 export const enum SolicitorPaymentMethod {

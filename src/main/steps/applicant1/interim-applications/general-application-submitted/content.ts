@@ -1,20 +1,20 @@
 import { AlternativeServiceType, GeneralApplicationType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { getGeneralApplicationsForUser } from '../../../../app/utils/general-application-utils';
+import { getOnlineGeneralApplicationsForUser } from '../../../../app/utils/general-application-utils';
 import type { CommonContent } from '../../../common/common.content';
 
 const en = ({
-  serviceApplicationResponseDate,
-  serviceApplicationFeeRequired,
-  serviceApplicationDocsAllProvided,
-  serviceApplicationType,
+  generalApplicationResponseDate,
+  generalApplicationFeeRequired,
+  generalApplicationDocsAllProvided,
+  generalApplicationType,
   referenceNumber,
   isDivorce,
   partner,
   userCase,
 }: CommonContent) => ({
   title: 'Application submitted',
-  introLine1: `You have submitted your application for ${serviceApplicationType}.`,
+  introLine1: `You have submitted your application for ${generalApplicationType}.`,
   introLine2:
     'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
   sendDocumentsHeading: 'Send your evidence to the court',
@@ -33,7 +33,7 @@ const en = ({
   },
   happensNextHeading: 'What happens next',
   happensNextLine1: `${
-    !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+    !generalApplicationFeeRequired && generalApplicationDocsAllProvided
       ? 'If your help with fees reference number is accepted, the'
       : 'The'
   } court will review your application and any evidence you have submitted.${
@@ -44,7 +44,7 @@ const en = ({
       : ''
   }`,
   happensNextLine2: `We will email you ${
-    serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
+    generalApplicationFeeRequired && generalApplicationDocsAllProvided ? `by ${generalApplicationResponseDate} ` : ''
   }to let you know whether your application has been successful.`,
   returnToHub: 'Return to hub screen',
 
@@ -59,16 +59,16 @@ const en = ({
 
 // @TODO Welsh
 const cy: typeof en = ({
-  serviceApplicationResponseDate,
-  serviceApplicationFeeRequired,
-  serviceApplicationDocsAllProvided,
-  serviceApplicationType,
+  generalApplicationResponseDate,
+  generalApplicationFeeRequired,
+  generalApplicationDocsAllProvided,
+  generalApplicationType,
   referenceNumber,
   isDivorce,
   partner,
 }: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
-  introLine1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
+  introLine1: `Rydych wedi cyflwyno eich cais am ${generalApplicationType}.`,
   introLine2:
     "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
   sendDocumentsHeading: 'Anfon eich tystiolaeth i’r llys',
@@ -90,8 +90,8 @@ const cy: typeof en = ({
     isDivorce ? 'ysgariad' : 'diddymiad'
   } yn mynd yn ei flaen heb ymateb gan eich ${partner}. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.`,
   happensNextLine2: `Byddwn yn anfon e-bost atoch ${
-    serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
-      ? `erbyn ${serviceApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
+    generalApplicationFeeRequired && generalApplicationDocsAllProvided
+      ? `erbyn ${generalApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
       : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
   }.`,
   returnToHub: 'Dychwelyd i sgrin yr hyb',
@@ -111,7 +111,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const defaultTranslations = languages[content.language](content);
-  const generalApplications = getGeneralApplicationsForUser(content.userCase, content.isApplicant2);
+  const generalApplications = getOnlineGeneralApplicationsForUser(content.userCase, content.isApplicant2);
   const mostRecentApplication = generalApplications?.[generalApplications.length - 1];
   const applicationType = mostRecentApplication?.generalApplicationType as GeneralApplicationType;
 

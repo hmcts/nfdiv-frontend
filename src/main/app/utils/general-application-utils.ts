@@ -1,9 +1,9 @@
 import { CaseWithId } from '../case/case';
-import { GeneralApplication, GeneralParties, OrderSummary } from '../case/definition';
+import { GeneralApplication, GeneralParties, OrderSummary, YesOrNo } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 
-export const getGeneralApplicationsForUser = (
+export const getOnlineGeneralApplicationsForUser = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): GeneralApplication[] | undefined => {
@@ -11,7 +11,10 @@ export const getGeneralApplicationsForUser = (
 
   return userCase.generalApplications
     ?.map(generalApplicationValue => generalApplicationValue.value)
-    ?.filter(generalApplication => generalApplication.generalApplicationFrom === generalApplicationParty);
+    ?.filter(application =>
+      application?.generalParties === generalApplicationParty &&
+      application?.generalApplicationSubmittedOnline === YesOrNo.YES
+    );
 };
 
 export const generalApplicationServiceRequest = (req: AppRequest<AnyObject>): string => {

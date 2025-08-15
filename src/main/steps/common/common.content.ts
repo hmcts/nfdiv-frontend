@@ -3,10 +3,11 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
+import { ApplicationType, GeneralApplication, PaymentStatus, State, YesOrNo, ServicePaymentMethod } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
+import { getOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 
 export const en = {
   phase: 'Beta',
@@ -17,6 +18,7 @@ export const en = {
     to: 'to',
     deemed: 'deemed service',
     searchGovRecords: 'search government records',
+    disclosureViaDwp: 'search government records',
     formTypes: {
       d11: 'D11',
     },
@@ -216,6 +218,7 @@ const cy: typeof en = {
       d11: 'D11',
     },
     searchGovRecords: 'search government records',
+    disclosureViaDwp: 'search government records',
     bailiff: 'gwasanaeth bailiff',
     alternativeService: 'gwasanaeth amgen',
     deemedCode: 'D11',
@@ -463,6 +466,18 @@ export const generateCommonContent = ({
       ? config.get('webchat.genesysDeploymentId')
       : config.get('webchat.genesysDeploymentIdCy');
 
+  const generalApplications = getOnlineGeneralApplicationsForUser(userCase, isApplicant2);
+  const lastGeneralApplication = generalApplications?.[generalApplications?.length - 1];
+  const generalApplicationType = commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
+  const generalApplicationDate = getFormattedDate(lastGeneralApplication?.generalApplicationReceivedDate, language);
+  const generalApplicationResponseDate = getFormattedDate(
+    dayjs(lastGeneralApplication?.generalApplicationReceivedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    language
+  );
+  const generalApplicationFeeRequired = lastGeneralApplication?.generalApplicationFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
+  const generalApplicationDocsAllProvided = lastGeneralApplication?.generalApplicationDocsUploadedPreSubmission=== YesOrNo.YES;
+  const generalApplicationSubmittedOnline = lastGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
+
   return {
     ...commonTranslations,
     applicationHasBeenPaidFor,
@@ -488,13 +503,19 @@ export const generateCommonContent = ({
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
     referenceNumber,
+    genesysDeploymentId,
     serviceApplicationType,
     serviceApplicationDate,
     serviceApplicationResponseDate,
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
     serviceApplicationSubmittedOnline,
-    genesysDeploymentId,
+    generalApplicationType,
+    generalApplicationDate,
+    generalApplicationResponseDate,
+    generalApplicationFeeRequired,
+    generalApplicationDocsAllProvided,
+    generalApplicationSubmittedOnline,
   };
 };
 
@@ -528,5 +549,12 @@ export type CommonContent = typeof en & {
   serviceApplicationFeeRequired: boolean;
   serviceApplicationDocsAllProvided: boolean;
   serviceApplicationSubmittedOnline: boolean;
+  generalApplicationType: string;
+  generalApplicationDate: string | false;
+  generalApplicationResponseDate: string | false;
+  generalApplicationFeeRequired: boolean;
+  generalApplicationDocsAllProvided: boolean;
+  generalApplicationSubmittedOnline: boolean;
   genesysDeploymentId: string;
+  lastGeneralApplication?: GeneralApplication | undefined;
 };
