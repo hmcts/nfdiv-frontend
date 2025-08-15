@@ -18,8 +18,8 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Has there been any social services involvement with your ${partner} or other people living at the property?`,
-  enterSocialServicesInvolvedDetailsLabel: 'Provide details of any incidents',
+  title: `A yw’r gwasanaethau cymdeithasol wedi ymwneud â’ch ${partner} neu bobl eraill sy’n byw yn yr eiddo?`,
+  enterSocialServicesInvolvedDetailsLabel: 'Rhowch fanylion unrhyw ddigwyddiadau',
   errors: {
     applicant1BailiffHaveSocialServicesBeenInvolved: {
       required: `Select yes if there has been any social services involvement with your ${partner} or other people living at the property.`,

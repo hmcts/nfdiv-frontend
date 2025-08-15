@@ -26,7 +26,7 @@ const cy = (serviceType: string, serviceFee: string) => ({
   line1: `Cost y cais hwn am ${serviceType} yw ${serviceFee}. Gallwch <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFeesCY'
   )}">wirio'r cyfarwyddyd ar help i dalu ffioedd ar GOV.UK (yn agor mewn tab newydd)</a> i ganfod a ydych yn gymwys i gael cymorth. `,
-  useHelpWithFees: 'Will you be using help with fees to pay for this application?',
+  useHelpWithFees: 'A fyddwch chi’n defnyddio help i dalu ffioedd i dalu am y cais hwn?',
   errors: {
     applicant1InterimAppsUseHelpWithFees: {
       required: 'Rhaid i chi ddewis opsiwn cyn parhau',

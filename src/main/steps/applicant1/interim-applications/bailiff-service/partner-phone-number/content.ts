@@ -20,9 +20,9 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Do you know your ${partner}'s phone number?`,
-  enterPhoneNumber: `Enter your ${partner}'s phone number`,
-  enterPhoneNumberHint: 'For international numbers include the country code, for example +33 1234 567890',
+  title: `Ydych chi'n gwybod rhif ffôn eich ${partner}?`,
+  enterPhoneNumber: `Rhowch rif ffôn eich ${partner}`,
+  enterPhoneNumberHint: 'Ar gyfer rhifau rhyngwladol, nodwch god y wlad, er enghraifft +33 1234 567890',
   errors: {
     applicant1BailiffKnowPartnersPhone: {
       required: 'You must select an option.',

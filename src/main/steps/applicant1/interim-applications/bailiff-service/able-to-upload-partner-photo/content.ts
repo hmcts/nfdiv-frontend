@@ -14,7 +14,7 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Are you able to upload a recent photo of your ${partner}?`,
+  title: `Ydych chi’n gallu uwchlwytho llun diweddar o’ch ${partner}?`,
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
       required: 'You must select an option.',

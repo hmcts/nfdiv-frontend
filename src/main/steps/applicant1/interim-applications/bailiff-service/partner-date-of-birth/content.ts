@@ -26,43 +26,41 @@ const en = ({ partner }: CommonContent) => ({
       required: 'You must select an option.',
     },
     applicant1BailiffPartnersDateOfBirth: {
-      required: 'You have not entered a date of birth. Please enter a date to continue.',
-      invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
-      invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
-      invalidDateInFuture:
-        'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
+      required: `You must enter your ${partner}'s date of birth`,
+      invalidDate: 'You must enter a valid date of birth',
+      invalidYear: 'You must enter a valid date of birth',
+      invalidDateInFuture: `Your ${partner}'s date of birth must be in the past`,
       invalidDateTooFarInPast: 'You have entered a year which is too far in the past. Enter the year of birth.',
     },
     applicant1BailiffPartnersApproximateAge: {
-      required: 'You have not entered an approximate age. Please enter an age to continue.',
+      required: `You must enter your ${partner}'s approximate age`,
       invalid: 'Please enter a valid approximate age.',
     },
   },
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Your ${partner}`,
-  line1: `We will now ask you a few questions about what your ${partner} looks like to help the bailiff identify them.`,
-  knowDateOfBirthLabel: `Do you know your ${partner}'s date of birth?`,
-  enterDateOfBirthLabel: `Enter your ${partner}'s date of birth`,
-  enterDateOfBirthHint: 'For example, 27 3 2007',
-  enterApproximateAgeLabel: `Enter your ${partner}'s approximate age`,
-  enterApproximateAgeHint: 'For example, 65 years old',
+  title: `Eich ${partner}`,
+  line1: `Byddwn yn gofyn ychydig o gwestiynau i chi am sut mae eich ${partner} yn edrych i helpu’r beili i’w adnabod.`,
+  knowDateOfBirthLabel: `Ydych chi’n gwybod dyddiad geni eich ${partner}?`,
+  enterDateOfBirthLabel: `Rhowch ddyddiad geni eich ${partner}`,
+  enterDateOfBirthHint: 'Er enghraifft, 27 3 2007',
+  enterApproximateAgeLabel: `Rhowch oedran eich ${partner} yn fras`,
+  enterApproximateAgeHint: 'Er enghraifft, 65 oed',
   errors: {
     applicant1BailiffKnowPartnersDateOfBirth: {
       required: 'You must select an option.',
     },
     applicant1BailiffPartnersDateOfBirth: {
-      required: 'You have not entered a date of birth. Please enter a date to continue.',
-      invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
-      invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
-      invalidDateInFuture:
-        'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
-      invalidDateTooFarInPast: 'You have entered a year which is too far in the past. Enter the year of birth.',
+      required: `Mae'n rhaid i chi nodi dyddiad geni eich ${partner}`,
+      invalidDate: 'Mae angen ichi nodi ddyddiad geni dilys',
+      invalidYear: 'Mae angen ichi nodi ddyddiad geni dilys',
+      invalidDateInFuture: `Rhaid i ddyddiad geni eich ${partner} fod yn y gorffennol`,
+      invalidDateTooFarInPast: `Mae angen ichi nodi blwyddyn sy'n fwy cyfredol. Nodwch flwyddyn geni.`,
     },
     applicant1BailiffPartnersApproximateAge: {
-      required: 'You have not entered an approximate age. Please enter an age to continue.',
-      invalid: 'Please enter a valid approximate age.',
+      required: `Mae'n rhaid i chi nodi oedran eich ${partner} yn fras`,
+      invalid: `Mae'n rhaid i chi nodi oedran eich ${partner} yn fras`,
     },
   },
 });

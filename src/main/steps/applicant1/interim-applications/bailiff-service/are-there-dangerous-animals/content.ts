@@ -17,8 +17,8 @@ const en = () => ({
 });
 
 const cy: typeof en = () => ({
-  title: 'Are any dogs or other potentially dangerous animals kept at the property?',
-  enterDangerousAnimalsDetailsLabel: 'Provide details about these animals',
+  title: 'A oes unrhyw gŵn neu anifeiliaid peryglus eraill yn cael eu cadw yn yr eiddo?',
+  enterDangerousAnimalsDetailsLabel: 'Rhowch fanylion yr anifeiliaid hyn',
   errors: {
     applicant1BailiffAreThereDangerousAnimals: {
       required: 'Select yes if any dogs or other dangerous animals are kepty at the property.',

@@ -19,8 +19,8 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Has there been any police involvement with your ${partner} or other people living at the property?`,
-  enterPoliceInvolvedDetailsLabel: 'Provide details of any incidents',
+  title: `A yw’r heddlu wedi ymwneud â’ch ${partner} neu bobl eraill sy’n byw yn yr eiddo?`,
+  enterPoliceInvolvedDetailsLabel: 'Rhowch fanylion unrhyw ddigwyddiadau',
   errors: {
     applicant1BailiffHavePoliceBeenInvolved: {
       required:

@@ -20,10 +20,10 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Your ${partner}'s history`,
-  line1: `We will now ask you a few questions about your ${partner}'s history. This is to help the bailiff decide whether it is safe to deliver the papers to them.`,
-  everBeenViolentQuestionLabel: `Has your ${partner} ever been violent or been convicted of a violent offence?`,
-  enterPartnerViolenceDetailsLabel: 'Provide details of any incidents',
+  title: `Hanes eich ${partner}`,
+  line1: `Byddwn ni nawr yn gofyn ambell gwestiwn am hanes eich ${partner}. Mae hyn i helpu’r beili benderfynu pa un a yw’n ddiogel i gyflwyno’r papurau iddyn nhw.`,
+  everBeenViolentQuestionLabel: `A yw eich ${partner} erioed wedi bod yn dreisgar neu wedi cael ei gyhuddo/ei chyhuddo o drosedd treisgar?`,
+  enterPartnerViolenceDetailsLabel: 'Rhowch fanylion unrhyw ddigwyddiadau',
   errors: {
     applicant1BailiffHasPartnerBeenViolent: {
       required: `Select yes if your ${partner} has ever been violent or convicted of a violent offence.`,
