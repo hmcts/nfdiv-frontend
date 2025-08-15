@@ -35,7 +35,7 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
     config.get('fees.alternativeService')
   )}. Bydd angen i chi hefyd brofi bod y cyfeiriad e-bost rydych eisiau anfon y papurau iddo yn cael ei ddefnyddio’n rheolaidd gan eich ${partner}.`,
   line3: `Os yw eich ${partner} yn byw dramor, byddwch angen gwirio sut i gyflwyno’r papurau’n gyfreithiol yn y wlad ble maent yn byw. Os caniateir gwasanaeth e-bost yn y wlad honno, gallech wneud cais am wasanaeth amgen drwy e-bost yn unig.   Nid yw’r llys yn gallu postio dogfennau i gyfeiriadau rhyngwladol.`,
-  newEmailHeader: 'What do you want to do?',
+  newEmailHeader: 'Beth ydych chi eisiau gwneud?',
   provideNewEmail: 'Rwyf eisiau darparu cyfeiriad e-bost newydd',
   applyForAlternativeService: 'Rwyf eisiau gwneud cais am gyflwyno amgen i gyflwyno’r papurau drwy e-bost yn unig',
 });
