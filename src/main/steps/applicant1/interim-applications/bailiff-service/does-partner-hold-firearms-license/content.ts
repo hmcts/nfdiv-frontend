@@ -19,7 +19,7 @@ const en = ({ partner }: CommonContent) => ({
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `A yw eich ${partner} yn meddu ar drwydded drylliau tanio neu a oes ganddo/ganddi unrhyw euogfarnau drylliau tanio?`,
-  otherDetailsLabel: 'Provide as much information as you can',
+  otherDetailsLabel: 'Rhowch gymaint o wybodaeth ag y gallwch',
   errors: {
     applicant1BailiffDoesPartnerHoldFirearmsLicense: {
       required: `Dewiswch “Oes” os oes gan eich ${partner} drwydded drylliau tanio neu unrhyw euogfarnau drylliau tanio`,
