@@ -272,4 +272,3 @@ export const ALTERNATIVE_SENDING_PAPERS_TO_PARTNER: PageLink =
 export const ALTERNATIVE_WHY_APPLY_THIS_WAY: PageLink = '/interim-applications/alternative-service/why-apply-this-way';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
-
