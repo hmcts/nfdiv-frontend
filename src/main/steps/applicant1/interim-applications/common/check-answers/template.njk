@@ -29,6 +29,8 @@
             {% endif %}
           {% elif question === 'newPostalAddress' %}
             {{ stepAnswers[question] | safe}}
+          {% elif question === 'partnerLastKnownAddress' %}
+          {{ stepAnswers[question] | safe}}
           {% else %}
             {{ stepAnswers[question] }}
           {% endif %}

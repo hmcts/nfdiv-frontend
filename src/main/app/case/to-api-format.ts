@@ -1,3 +1,5 @@
+import { toUpper } from 'lodash';
+
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
@@ -24,6 +26,7 @@ import {
   applicant1AddressToApi,
   applicant1DispenseLivedTogetherAddressToApi,
   applicant1NoResponsePartnerAddressToApi,
+  applicant1SearchGovRecordsPartnerAddressToApi,
   applicant2AddressToApi,
 } from './formatter/address';
 
@@ -473,11 +476,22 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
-  applicant1SearchGovRecordsWhichDepartments: data => ({
-    applicant1SearchGovRecordsWhichDepartments: data.applicant1SearchGovRecordsWhichDepartments,
+  applicant1SearchGovRecordsPartnerAddressPostcode: applicant1SearchGovRecordsPartnerAddressToApi,
+  applicant1SearchGovRecordsPartnerNationalInsurance: data => ({
+    applicant1SearchGovRecordsPartnerNationalInsurance: toUpper(
+      data.applicant1SearchGovRecordsPartnerNationalInsurance
+    ),
   }),
-  applicant1SearchGovRecordsWhyTheseDepartments: data => ({
-    applicant1SearchGovRecordsWhyTheseDepartments: data.applicant1SearchGovRecordsWhyTheseDepartments,
+  applicant1SearchGovRecordsKnowPartnerDateOfBirth: data => ({
+    applicant1SearchGovRecordsKnowPartnerDateOfBirth: data.applicant1SearchGovRecordsKnowPartnerDateOfBirth,
+    ...setUnreachableAnswersToNull([
+      data.applicant1SearchGovRecordsKnowPartnerDateOfBirth === YesOrNo.YES
+        ? 'applicant1SearchGovRecordsPartnerApproximateAge'
+        : 'applicant1SearchGovRecordsPartnerDateOfBirth',
+    ]),
+  }),
+  applicant1SearchGovRecordsPartnerDateOfBirth: data => ({
+    applicant1SearchGovRecordsPartnerDateOfBirth: toApiDate(data.applicant1SearchGovRecordsPartnerDateOfBirth),
   }),
   applicant1AltServicePartnerEmail: data => ({
     applicant1AltServicePartnerEmail:

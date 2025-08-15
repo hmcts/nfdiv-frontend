@@ -277,6 +277,20 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1SearchGovRecordsWhichDepartments: 'applicant1SearchGovRecordsWhichDepartments',
   applicant1SearchGovRecordsWhyTheseDepartments: 'applicant1SearchGovRecordsWhyTheseDepartments',
   applicant1SearchGovRecordsOtherDepartmentNames: 'applicant1SearchGovRecordsOtherDepartmentNames',
+  applicant1SearchGovRecordsPartnerName: 'applicant1SearchGovRecordsPartnerName',
+  applicant1SearchGovRecordsReasonForApplying: 'applicant1SearchGovRecordsReasonForApplying',
+  applicant1SearchGovRecordsPartnerNationalInsurance: 'applicant1SearchGovRecordsPartnerNationalInsurance',
+  applicant1SearchGovRecordsKnowPartnerDateOfBirth: 'applicant1SearchGovRecordsKnowPartnerDateOfBirth',
+  applicant1SearchGovRecordsPartnerApproximateAge: 'applicant1SearchGovRecordsPartnerApproximateAge',
+  applicant1SearchGovRecordsPartnerDateOfBirth: 'applicant1SearchGovRecordsPartnerDateOfBirth',
+  applicant1SearchGovRecordsKnowPartnerNationalInsurance: 'applicant1SearchGovRecordsKnowPartnerNationalInsurance',
+  applicant1SearchGovRecordsPartnerLastKnownAddress: 'applicant1SearchGovRecordsPartnerLastKnownAddress',
+  applicant1SearchGovRecordsPartnerLastKnownAddressDates: 'applicant1SearchGovRecordsPartnerLastKnownAddressDates',
+  applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: 'applicant1SearchGovRecordsKnowPartnerAdditionalAddresses',
+  applicant1SearchGovRecordsPartnerAdditionalAddress1: 'applicant1SearchGovRecordsPartnerAdditionalAddress1',
+  applicant1SearchGovRecordsPartnerAdditionalAddressDates1: 'applicant1SearchGovRecordsPartnerAdditionalAddressDates1',
+  applicant1SearchGovRecordsPartnerAdditionalAddress2: 'applicant1SearchGovRecordsPartnerAdditionalAddress2',
+  applicant1SearchGovRecordsPartnerAdditionalAddressDates2: 'applicant1SearchGovRecordsPartnerAdditionalAddressDates2',
   applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
   applicant1DispenseLivedTogetherDate: 'applicant1DispenseLivedTogetherDate',
   applicant1DispenseAwarePartnerLived: 'applicant1DispenseAwarePartnerLived',
@@ -627,9 +641,23 @@ export interface Case {
   serviceApplicationAnswers: DivorceDocument;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
+  applicant1SearchGovRecordsReasonForApplying?: string;
   applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
   applicant1SearchGovRecordsWhyTheseDepartments: string;
   applicant1SearchGovRecordsOtherDepartmentNames?: string;
+  applicant1SearchGovRecordsPartnerName: string;
+  applicant1SearchGovRecordsPartnerNationalInsurance?: string;
+  applicant1SearchGovRecordsPartnerDateOfBirth?: CaseDate | DateAsString;
+  applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo;
+  applicant1SearchGovRecordsPartnerApproximateAge?: string;
+  applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo;
+  applicant1SearchGovRecordsPartnerLastKnownAddress: AddressGlobalUK;
+  applicant1SearchGovRecordsPartnerLastKnownAddressDates: string;
+  applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: YesOrNo;
+  applicant1SearchGovRecordsPartnerAdditionalAddress1: string;
+  applicant1SearchGovRecordsPartnerAdditionalAddressDates1: string;
+  applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
+  applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
   applicant1DispenseLiveTogether?: YesOrNo;
   applicant1DispenseLivedTogetherDate?: DateAsString;
   applicant1DispenseLastLivedTogetherDate?: CaseDate;
@@ -649,6 +677,14 @@ export interface Case {
   applicant1DispensePartnerLastSeenDate?: DateAsString;
   applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
   applicant1DispensePartnerLastSeenDescription?: string;
+  applicant1SearchGovRecordsPartnerAddress1?: string;
+  applicant1SearchGovRecordsPartnerAddress2?: string;
+  applicant1SearchGovRecordsPartnerAddress3?: string;
+  applicant1SearchGovRecordsPartnerAddressTown?: string;
+  applicant1SearchGovRecordsPartnerAddressCounty?: string;
+  applicant1SearchGovRecordsPartnerAddressCountry?: string;
+  applicant1SearchGovRecordsPartnerAddressPostcode?: string;
+  applicant1SearchGovRecordsPartnerAddressOverseas: YesOrNo.NO;
 }
 
 export interface CaseWithId extends Case {
