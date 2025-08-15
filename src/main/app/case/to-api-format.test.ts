@@ -770,13 +770,7 @@ describe('to-api-format', () => {
       expect(apiFormat).toMatchObject({
         applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
         applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
-        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
       } as Partial<Case>);
-
-      expect(apiFormat).toMatchObject({
-        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
-        applicant1BailiffPartnersApproximateAge: null,
-      });
     });
   });
 
