@@ -8,7 +8,7 @@ const en = () => ({
   statement: '',
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
-      required: 'You must select an option before continuing.',
+      required: "Select 'Yes' if you have evidence to upload.",
     },
   },
 });
@@ -19,7 +19,7 @@ const cy = () => ({
   statement: '',
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
-      required: 'Rhaid i chi ddewis opsiwn cyn parhau.',
+      required: "Dewiswch 'Oes' os oes gennych dystiolaeth i’w huwchlwytho.",
     },
   },
 });

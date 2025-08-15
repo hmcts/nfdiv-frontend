@@ -19,7 +19,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   emailAddress: 'Email address',
   errors: {
     applicant1NoResponseCheckContactDetails: {
-      required: `You must confirm whether or not your ${partner}'s contact details are correct.`,
+      required: `You must tell us whether your ${partner}'s details are up to date before continuing.`,
     },
   },
 });
@@ -40,7 +40,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   emailAddress: 'Cyfeiriad e-bost',
   errors: {
     applicant1NoResponseCheckContactDetails: {
-      required: `You must confirm whether or not your ${partner}'s contact details are correct.`,
+      required: `Mae angen i chi ddweud wrthym a yw manylion eich ${partner}'s wedi eu diweddaru cyn parhau.`,
     },
   },
 });
