@@ -22,6 +22,7 @@ import {
 } from './definition';
 import {
   applicant1AddressToApi,
+  applicant1DispenseLivedTogetherAddressToApi,
   applicant1NoResponsePartnerAddressToApi,
   applicant2AddressToApi,
 } from './formatter/address';
@@ -104,6 +105,17 @@ const fields: ToApiConverters = {
   }),
   relationshipDate: data => ({
     marriageDate: toApiDate(data.relationshipDate),
+  }),
+  applicant1BailiffPartnersDateOfBirth: data => ({
+    applicant1BailiffPartnersDateOfBirth: toApiDate(data.applicant1BailiffPartnersDateOfBirth),
+  }),
+  applicant1BailiffKnowPartnersDateOfBirth: data => ({
+    applicant1BailiffKnowPartnersDateOfBirth: data.applicant1BailiffKnowPartnersDateOfBirth,
+    ...setUnreachableAnswersToNull([
+      data.applicant1BailiffKnowPartnersDateOfBirth === YesOrNo.YES
+        ? 'applicant1BailiffPartnersApproximateAge'
+        : 'applicant1BailiffPartnersDateOfBirth',
+    ]),
   }),
   doesApplicant1WantToApplyForFinalOrder: data => ({
     doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
@@ -505,12 +517,27 @@ const fields: ToApiConverters = {
       ? data.applicant1AltServicePartnerOtherDetails
       : null,
   }),
+  applicant1DispenseLastLivedTogetherDate: data => ({
+    applicant1DispenseLivedTogetherDate: toApiDate(data.applicant1DispenseLastLivedTogetherDate),
+  }),
+  applicant1DispenseLivedTogetherAddressPostcode: applicant1DispenseLivedTogetherAddressToApi,
+  applicant1DispenseLivedTogetherAddressOverseas: ({ applicant1DispenseLivedTogetherAddressOverseas }) => ({
+    applicant1DispenseLivedTogetherAddressOverseas: applicant1DispenseLivedTogetherAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1DispensePartnerLastSeenOrHeardOfDate: data => ({
+    applicant1DispensePartnerLastSeenDate: toApiDate(data.applicant1DispensePartnerLastSeenOrHeardOfDate),
+  }),
 };
 
-const toApiDate = (date: CaseDate | undefined) => {
-  if (!date?.year || !date?.month || !date?.day) {
-    return '';
+const toApiDate = (date: CaseDate | undefined | string) => {
+  if (typeof date === 'string') {
+    return date || undefined;
   }
+
+  if (!date?.year || !date?.month || !date?.day) {
+    return undefined;
+  }
+
   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
 };
 
