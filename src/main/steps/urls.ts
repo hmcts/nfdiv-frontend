@@ -187,8 +187,8 @@ export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/pa
 
 // Search Gov Records URLs
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
-export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/search-gov-records/help-with-fees-gov-records';
 export const WHY_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/why-gov-records';
+export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/search-gov-records/help-with-fees';
 export const HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS: PageLink =
   '/interim-applications/search-gov-records/hwf-reference-number-input';
 export const HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS: PageLink =
@@ -217,7 +217,6 @@ export const PARTNER_NEW_ADDRESS_DISPENSE: PageLink =
   '/interim-applications/dispense-service/partner-new-address-dispense';
 export const LAST_SEEN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-seen-dispense';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
-export const HELP_WITH_FEES_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/help-with-fees';
 export const HELP_WITH_FEES_DISPENSE: PageLink = '/interim-applications/dispense-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
 export const HWF_REFERENCE_NUMBER_DISPENSE: PageLink = '/interim-applications/dispense-service/hwf-reference-number';
@@ -296,3 +295,9 @@ export const ALTERNATIVE_SENDING_PAPERS_TO_PARTNER: PageLink =
 export const ALTERNATIVE_WHY_APPLY_THIS_WAY: PageLink = '/interim-applications/alternative-service/why-apply-this-way';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
+
+// General Application Payment URLs
+export const PAY_YOUR_GENERAL_APPLICATION_FEE: PageLink = '/interim-applications/pay-your-general-application-fee';
+export const GENERAL_APPLICATION_PAYMENT_CALLBACK: PageLink =
+  '/interim-applications/general-application-payment-callback';
+export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/interim-applications/general-application-submitted';

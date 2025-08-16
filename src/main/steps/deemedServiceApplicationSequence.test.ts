@@ -1,4 +1,4 @@
-import { YesOrNo } from '../app/case/definition';
+import { ServicePaymentMethod, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
@@ -126,7 +126,7 @@ describe('Deemed Service Application Sequence test', () => {
     test('CHECK_ANSWERS_DEEMED', () => {
       const step = deemedServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DEEMED) as Step;
       const caseData = {
-        alternativeServiceFeeRequired: YesOrNo.YES,
+        servicePaymentFeePaymentMethod: ServicePaymentMethod.FEE_PAY_BY_CARD,
       };
 
       expect(step.getNextStep(caseData)).toBe(PAY_YOUR_SERVICE_FEE);
@@ -134,7 +134,7 @@ describe('Deemed Service Application Sequence test', () => {
     test('CHECK_ANSWERS_DEEMED should redirect to SERVICE_APPLICATION_SUBMITTED if payment is not required', () => {
       const step = deemedServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DEEMED) as Step;
       const caseData = {
-        alternativeServiceFeeRequired: YesOrNo.NO,
+        servicePaymentFeePaymentMethod: ServicePaymentMethod.FEE_PAY_BY_HWF,
       };
 
       expect(step.getNextStep(caseData)).toBe(SERVICE_APPLICATION_SUBMITTED);

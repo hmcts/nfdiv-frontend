@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2023-09-13 16:10:38.
 
-import { Checkbox, CaseDate } from './case';
+import { CaseDate, Checkbox } from './case';
 
 export interface Address {
   AddressLine1: string;
@@ -925,13 +925,19 @@ export interface CaseData {
   generalApplicationFeeType: GeneralApplicationFee;
   generalApplicationDocument: DivorceDocument;
   generalApplicationDocumentComments: string;
-  generalApplicationFeeOrderSummary: OrderSummary;
+  GeneralAppOrderSummary: OrderSummary;
   generalApplicationFeePaymentMethod: ServicePaymentMethod;
   generalApplicationFeeAccountNumber: string;
   generalApplicationFeePbaNumbers: DynamicList;
   generalApplicationFeeAccountReferenceNumber: string;
   generalApplicationFeeHelpWithFeesReferenceNumber: string;
   generalApplications: ListValue<GeneralApplication>[];
+  applicant1GeneralAppServiceRequest: string;
+  applicant2GeneralAppServiceRequest: string;
+  applicant1GeneralAppOrderSummary: OrderSummary;
+  applicant2GeneralAppOrderSummary: OrderSummary;
+  applicant1GeneralAppPayments: ListValue<Payment>[];
+  applicant2GeneralAppPayments: ListValue<Payment>[];
   generalReferrals: ListValue<GeneralReferral>[];
   isJudicialSeparation: YesOrNo;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
@@ -953,10 +959,10 @@ export interface CaseData {
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
   alternativeServiceFeeRequired: YesOrNo;
+  servicePaymentFeePaymentMethod: ServicePaymentMethod;
   serviceApplicationAnswers: DivorceDocument;
   servicePayments: ListValue<Payment>[];
   serviceApplicationSubmittedOnline: YesOrNo,
-  servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
@@ -1093,6 +1099,7 @@ export interface CaseData {
   applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
   applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType: InterimApplicationType;
+  applicant2InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
@@ -1428,16 +1435,22 @@ export interface FinalOrder {
 
 export interface GeneralApplication {
   generalApplicationType: GeneralApplicationType;
-  generalApplicationTypeOtherComments: string;
-  generalApplicationFeeType: GeneralApplicationFee;
-  generalApplicationDocument: DivorceDocument;
-  generalApplicationDocumentComments: string;
-  generalApplicationFeeOrderSummary: OrderSummary;
-  generalApplicationFeePaymentMethod: ServicePaymentMethod;
-  generalApplicationFeeAccountNumber: string;
-  generalApplicationFeePbaNumbers: DynamicList;
-  generalApplicationFeeAccountReferenceNumber: string;
-  generalApplicationFeeHelpWithFeesReferenceNumber: string;
+  generalApplicationTypeOtherComments?: string;
+  generalApplicationFeeType?: GeneralApplicationFee;
+  generalApplicationDocument?: DivorceDocument;
+  generalApplicationDocumentComments?: string;
+  GeneralAppOrderSummary?: OrderSummary;
+  generalApplicationFeePaymentMethod?: ServicePaymentMethod;
+  generalApplicationFeeAccountNumber?: string;
+  generalApplicationFeePbaNumbers?: DynamicList;
+  generalApplicationFeeAccountReferenceNumber?: string;
+  generalApplicationFeeHelpWithFeesReferenceNumber?: string;
+  generalApplicationParty?: GeneralParties;
+  generalApplicationFeeServiceRequestReference?: string;
+  generalApplicationFeePaymentReference?: string;
+  generalApplicationSubmittedOnline?: string;
+  generalApplicationReceivedDate?: DateAsString;
+  generalApplicationDocsUploadedPreSubmission?: YesOrNo;
 }
 
 export interface GeneralEmail {
@@ -1775,15 +1788,15 @@ export interface FeeResponse {
 }
 
 export interface Payment {
-  created: DateAsString;
-  updated: DateAsString;
+  created?: DateAsString;
+  updated?: DateAsString;
   feeCode: string;
   amount: number;
   status: PaymentStatus;
   channel: string;
   reference: string;
   transactionId: string;
-  serviceRequestReference: string;
+  serviceRequestReference?: string;
 }
 
 export interface PaymentItem {
@@ -2210,6 +2223,7 @@ export const enum ServicePaymentMethod {
   FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
   FEE_PAY_BY_HWF = 'feePayByHelp',
   FEE_PAY_BY_PHONE = 'feePayByTelephone',
+  FEE_PAY_BY_CARD = 'feePayByCard'
 }
 
 export const enum SolicitorPaymentMethod {
@@ -2266,6 +2280,7 @@ export const enum State {
   FinalOrderComplete = 'FinalOrderComplete',
   FinalOrderPending = 'FinalOrderPending',
   FinalOrderRequested = 'FinalOrderRequested',
+  AwaitingGeneralApplicationPayment = 'AwaitingGeneralApplicationPayment',
   GeneralApplicationReceived = 'GeneralApplicationReceived',
   GeneralConsiderationComplete = 'GeneralConsiderationComplete',
   InformationRequested = 'InformationRequested',
@@ -2295,6 +2310,11 @@ export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
 export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
 
 export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
+
+export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([
+  State.GeneralApplicationReceived,
+  State.AwaitingGeneralApplicationPayment
+]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
@@ -2858,6 +2878,8 @@ export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_SERVICE_APPLICATION = 'citizen-service-application';
 export const CITIZEN_SERVICE_PAYMENT_MADE = 'citizen-service-payment-made';
+export const CITIZEN_GENERAL_APPLICATION = 'citizen-general-application';
+export const CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE = 'citizen-gen-app-payment-made';
 export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
