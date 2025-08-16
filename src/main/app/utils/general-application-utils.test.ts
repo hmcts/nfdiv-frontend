@@ -12,31 +12,31 @@ import { AppRequest } from '../controller/AppRequest';
 
 import {
   findOnlineGeneralApplicationsForUser,
-  generalApplicationFeeOrderSummary,
+  GeneralAppOrderSummary,
   generalApplicationPaymentsField,
-  generalApplicationServiceRequest,
+  GeneralAppServiceRequest,
   hasUnpaidGeneralApplication,
 } from './general-application-utils';
 
 describe('GeneralApplicationUtils', () => {
   let mockReq: AppRequest;
-  let applicant1GeneralApplicationServiceRequest: string;
-  let applicant2GeneralApplicationServiceRequest: string;
-  let applicant1GeneralApplicationFeeOrderSummary: OrderSummary;
-  let applicant2GeneralApplicationFeeOrderSummary: OrderSummary;
+  let applicant1GeneralAppServiceRequest: string;
+  let applicant2GeneralAppServiceRequest: string;
+  let applicant1GeneralAppOrderSummary: OrderSummary;
+  let applicant2GeneralAppOrderSummary: OrderSummary;
   let applicant1GeneralApplications: ListValue<GeneralApplication>[];
   let applicant2GeneralApplications: ListValue<GeneralApplication>[];
 
   beforeEach(() => {
     mockReq = mockRequest();
-    applicant1GeneralApplicationServiceRequest = 'applicant1-service-request';
-    applicant2GeneralApplicationServiceRequest = 'applicant2-service-request';
-    applicant1GeneralApplicationFeeOrderSummary = {
+    applicant1GeneralAppServiceRequest = 'applicant1-service-request';
+    applicant2GeneralAppServiceRequest = 'applicant2-service-request';
+    applicant1GeneralAppOrderSummary = {
       PaymentTotal: '100',
       PaymentReference: 'REF123',
       Fees: [],
     };
-    applicant2GeneralApplicationFeeOrderSummary = {
+    applicant2GeneralAppOrderSummary = {
       PaymentTotal: '200',
       PaymentReference: 'REF456',
       Fees: [],
@@ -46,16 +46,16 @@ describe('GeneralApplicationUtils', () => {
         id: 'applicant1-genapp-1',
         value: {
           generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
-          generalParties: GeneralParties.APPLICANT,
+          generalApplicationParty: GeneralParties.APPLICANT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
-          generalApplicationFeeServiceRequestReference: applicant1GeneralApplicationServiceRequest,
+          generalApplicationFeeServiceRequestReference: applicant1GeneralAppServiceRequest,
         },
       },
       {
         id: 'applicant1-genapp-2',
         value: {
           generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
-          generalParties: GeneralParties.APPLICANT,
+          generalApplicationParty: GeneralParties.APPLICANT,
           generalApplicationSubmittedOnline: YesOrNo.NO,
         },
       },
@@ -65,9 +65,9 @@ describe('GeneralApplicationUtils', () => {
         id: 'applicant2-genapp-1',
         value: {
           generalApplicationType: GeneralApplicationType.EXPEDITE,
-          generalParties: GeneralParties.RESPONDENT,
+          generalApplicationParty: GeneralParties.RESPONDENT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
-          generalApplicationFeeServiceRequestReference: applicant2GeneralApplicationServiceRequest,
+          generalApplicationFeeServiceRequestReference: applicant2GeneralAppServiceRequest,
           generalApplicationFeePaymentReference: 'REF456',
         },
       },
@@ -75,39 +75,39 @@ describe('GeneralApplicationUtils', () => {
 
     mockReq.session.userCase = {
       id: '1234',
-      applicant1GeneralApplicationServiceRequest,
-      applicant2GeneralApplicationServiceRequest,
-      applicant1GeneralApplicationFeeOrderSummary,
-      applicant2GeneralApplicationFeeOrderSummary,
+      applicant1GeneralAppServiceRequest,
+      applicant2GeneralAppServiceRequest,
+      applicant1GeneralAppOrderSummary,
+      applicant2GeneralAppOrderSummary,
       generalApplications: [...applicant1GeneralApplications, ...applicant2GeneralApplications],
     } as CaseWithId;
   });
 
-  describe('generalApplicationServiceRequest', () => {
+  describe('GeneralAppServiceRequest', () => {
     test('Should return applicant 1 service request if logged in as applicant 1', () => {
       mockReq.session.isApplicant2 = false;
 
-      expect(generalApplicationServiceRequest(mockReq)).toEqual(applicant1GeneralApplicationServiceRequest);
+      expect(GeneralAppServiceRequest(mockReq)).toEqual(applicant1GeneralAppServiceRequest);
     });
 
     test('Should return applicant 2 service request if logged in as applicant 2', () => {
       mockReq.session.isApplicant2 = true;
 
-      expect(generalApplicationServiceRequest(mockReq)).toEqual(applicant2GeneralApplicationServiceRequest);
+      expect(GeneralAppServiceRequest(mockReq)).toEqual(applicant2GeneralAppServiceRequest);
     });
   });
 
-  describe('generalApplicationFeeOrderSummary', () => {
+  describe('GeneralAppOrderSummary', () => {
     test('Should return applicant 1 service request if logged in as applicant 1', () => {
       mockReq.session.isApplicant2 = false;
 
-      expect(generalApplicationFeeOrderSummary(mockReq)).toEqual(applicant1GeneralApplicationFeeOrderSummary);
+      expect(GeneralAppOrderSummary(mockReq)).toEqual(applicant1GeneralAppOrderSummary);
     });
 
     test('Should return applicant 2 service request if logged in as applicant 2', () => {
       mockReq.session.isApplicant2 = true;
 
-      expect(generalApplicationFeeOrderSummary(mockReq)).toEqual(applicant2GeneralApplicationFeeOrderSummary);
+      expect(GeneralAppOrderSummary(mockReq)).toEqual(applicant2GeneralAppOrderSummary);
     });
   });
 
@@ -115,13 +115,13 @@ describe('GeneralApplicationUtils', () => {
     test('Should return applicant 1 payments field if logged in as applicant 1', () => {
       mockReq.session.isApplicant2 = false;
 
-      expect(generalApplicationPaymentsField(mockReq)).toEqual('applicant1GenApplicationPayments');
+      expect(generalApplicationPaymentsField(mockReq)).toEqual('applicant1GeneralAppPayments');
     });
 
     test('Should return applicant 2 payments field if logged in as applicant 2', () => {
       mockReq.session.isApplicant2 = true;
 
-      expect(generalApplicationPaymentsField(mockReq)).toEqual('applicant2GenApplicationPayments');
+      expect(generalApplicationPaymentsField(mockReq)).toEqual('applicant2GeneralAppPayments');
     });
   });
 
@@ -155,7 +155,7 @@ describe('GeneralApplicationUtils', () => {
 
   describe('hasUnpaidGeneralApplication', () => {
     test('Should return true if the party has an unpaid general application', () => {
-      expect(hasUnpaidGeneralApplication(mockReq, applicant1GeneralApplicationServiceRequest)).toEqual(true);
+      expect(hasUnpaidGeneralApplication(mockReq, applicant1GeneralAppServiceRequest)).toEqual(true);
     });
 
     test('Should return false if no general applications match the service request', () => {
@@ -165,19 +165,19 @@ describe('GeneralApplicationUtils', () => {
     test('Should return false if the general applications are all paid', () => {
       mockReq.session.isApplicant2 = true;
 
-      expect(hasUnpaidGeneralApplication(mockReq, applicant2GeneralApplicationServiceRequest)).toEqual(false);
+      expect(hasUnpaidGeneralApplication(mockReq, applicant2GeneralAppServiceRequest)).toEqual(false);
     });
 
     test('Should return false if the general applications are undefined', () => {
       mockReq.session.userCase.generalApplications = undefined;
 
-      expect(hasUnpaidGeneralApplication(mockReq, applicant2GeneralApplicationServiceRequest)).toEqual(false);
+      expect(hasUnpaidGeneralApplication(mockReq, applicant2GeneralAppServiceRequest)).toEqual(false);
     });
 
     test('Should return false if the general applications are blank', () => {
       mockReq.session.userCase.generalApplications = [];
 
-      expect(hasUnpaidGeneralApplication(mockReq, applicant2GeneralApplicationServiceRequest)).toEqual(false);
+      expect(hasUnpaidGeneralApplication(mockReq, applicant2GeneralAppServiceRequest)).toEqual(false);
     });
   });
 });

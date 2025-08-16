@@ -89,7 +89,7 @@ export const searchGovRecordsApplicationSequence: Step[] = [
   {
     url: CHECK_YOUR_ANSWERS_GOV_RECORDS,
     getNextStep: (data: Partial<CaseWithId>): PageLink =>
-      data?.applicant1GeneralApplicationServiceRequest
+      data?.applicant1GeneralAppServiceRequest
         ? PAY_YOUR_GENERAL_APPLICATION_FEE
         : GENERAL_APPLICATION_SUBMITTED,
   },

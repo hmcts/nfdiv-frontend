@@ -35,8 +35,8 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const orderSummary = content.isApplicant2
-    ? content.userCase.applicant2GeneralApplicationFeeOrderSummary
-    : content.userCase.applicant1GeneralApplicationFeeOrderSummary;
+    ? content.userCase.applicant2GeneralAppOrderSummary
+    : content.userCase.applicant1GeneralAppOrderSummary;
 
   const applicationFee = !isEmpty(orderSummary)
     ? '£' + parseInt(<string>orderSummary?.PaymentTotal, 10) / 100

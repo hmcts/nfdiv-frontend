@@ -7,15 +7,15 @@
 
 {% block page_content %}
   <div class="govuk-panel govuk-panel--confirmation">
-    <h1 id="serviceApplicationSubmittedTitle" class="govuk-panel__title">{{ title }}</h1>
+    <h1 id="generalApplicationSubmittedTitle" class="govuk-panel__title">{{ title }}</h1>
   </div>
   <br/>
   <p class="govuk-body">{{ introLine1 }}</p>
-  {% if serviceApplicationDocsAllProvided and not serviceApplicationFeeRequired %}
+  {% if generalApplicationDocsAllProvided and not generalApplicationFeeRequired %}
     <p class="govuk-body">{{ introLine2 }}</p>
   {% endif %}
 
-  {% if not serviceApplicationDocsAllProvided %}
+  {% if not generalApplicationDocsAllProvided %}
     <h2 class="govuk-heading-l">{{ sendDocumentsHeading }}</h2>
     <p class="govuk-body">{{ sendDocumentsLine1 }}</p>
 

@@ -12,8 +12,8 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../../app/controller/PostController';
 import {
-  generalApplicationFeeOrderSummary,
-  generalApplicationServiceRequest,
+  generalAppOrderSummary,
+  generalAppServiceRequest,
   hasUnpaidGeneralApplication,
 } from '../../../../app/utils/general-application-utils';
 import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../urls';
@@ -34,17 +34,17 @@ export default class GeneralApplicationPaymentPostController extends BasePayment
   }
 
   protected getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[] {
-    return (generalApplicationFeeOrderSummary(req) as OrderSummary)?.Fees;
+    return (generalAppOrderSummary(req) as OrderSummary)?.Fees;
   }
 
   protected paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData {
     return req.session.isApplicant2
-      ? ('applicant2GenApplicationPayments' as keyof CaseData)
-      : ('applicant1GenApplicationPayments' as keyof CaseData);
+      ? ('applicant2GeneralAppPayments' as keyof CaseData)
+      : ('applicant1GeneralAppPayments' as keyof CaseData);
   }
 
   protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
-    return generalApplicationServiceRequest(req) as string;
+    return generalAppServiceRequest(req) as string;
   }
 
   protected getPaymentCallbackPath(): string {

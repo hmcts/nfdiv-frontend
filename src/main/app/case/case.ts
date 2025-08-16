@@ -295,12 +295,12 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1SearchGovRecordsPartnerAdditionalAddress2: 'applicant1SearchGovRecordsPartnerAdditionalAddress2',
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2: 'applicant1SearchGovRecordsPartnerAdditionalAddressDates2',
   generalApplications: 'generalApplications',
-  applicant1GeneralApplicationServiceRequest: 'applicant1GeneralApplicationServiceRequest',
-  applicant2GeneralApplicationServiceRequest: 'applicant2GeneralApplicationServiceRequest',
-  applicant1GeneralApplicationFeeOrderSummary: 'applicant1GeneralApplicationFeeOrderSummary',
-  applicant2GeneralApplicationFeeOrderSummary: 'applicant2GeneralApplicationFeeOrderSummary',
-  applicant1GenApplicationPayments: 'applicant1GenApplicationPayments',
-  applicant2GenApplicationPayments: 'applicant2GenApplicationPayments',
+  applicant1GeneralAppServiceRequest: 'applicant1GeneralAppServiceRequest',
+  applicant2GeneralAppServiceRequest: 'applicant2GeneralAppServiceRequest',
+  applicant1GeneralAppOrderSummary: 'applicant1GeneralAppOrderSummary',
+  applicant2GeneralAppOrderSummary: 'applicant2GeneralAppOrderSummary',
+  applicant1GeneralAppPayments: 'applicant1GeneralAppPayments',
+  applicant2GeneralAppPayments: 'applicant2GeneralAppPayments',
   applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
   applicant1DispenseLivedTogetherDate: 'applicant1DispenseLivedTogetherDate',
   applicant1DispenseAwarePartnerLived: 'applicant1DispenseAwarePartnerLived',
@@ -671,12 +671,12 @@ export interface Case {
   applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
   generalApplications?: ListValue<GeneralApplication>[];
-  applicant1GeneralApplicationServiceRequest?: string;
-  applicant2GeneralApplicationServiceRequest?: string;
-  applicant1GeneralApplicationFeeOrderSummary?: OrderSummary;
-  applicant2GeneralApplicationFeeOrderSummary?: OrderSummary;
-  applicant1GenApplicationPayments?: ListValue<Payment>[];
-  applicant2GenApplicationPayments?: ListValue<Payment>[];
+  applicant1GeneralAppServiceRequest?: string;
+  applicant2GeneralAppServiceRequest?: string;
+  applicant1GeneralAppOrderSummary?: OrderSummary;
+  applicant2GeneralAppOrderSummary?: OrderSummary;
+  applicant1GeneralAppPayments?: ListValue<Payment>[];
+  applicant2GeneralAppPayments?: ListValue<Payment>[];
   applicant1DispenseLiveTogether?: YesOrNo;
   applicant1DispenseLivedTogetherDate?: DateAsString;
   applicant1DispenseLastLivedTogetherDate?: CaseDate;

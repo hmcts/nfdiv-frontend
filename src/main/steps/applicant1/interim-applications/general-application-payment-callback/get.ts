@@ -10,7 +10,7 @@ import BasePaymentCallbackGetController from '../../../../app/controller/BasePay
 import { AnyObject } from '../../../../app/controller/PostController';
 import {
   generalApplicationPaymentsField,
-  generalApplicationServiceRequest,
+  generalAppServiceRequest,
   hasUnpaidGeneralApplication,
 } from '../../../../app/utils/general-application-utils';
 import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../urls';
@@ -18,7 +18,7 @@ import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_F
 @autobind
 export default class GeneralApplicationPaymentCallbackGetController extends BasePaymentCallbackGetController {
   protected isAwaitingPayment(req: AppRequest): boolean {
-    const serviceRequest = generalApplicationServiceRequest(req);
+    const serviceRequest = generalAppServiceRequest(req);
 
     return (
       GENERAL_APPLICATION_PAYMENT_STATES.has(req.session.userCase.state) &&

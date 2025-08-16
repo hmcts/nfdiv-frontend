@@ -25,10 +25,10 @@ describe('GeneralApplicationPaymentPostController', () => {
   const paymentController = new GeneralApplicationPaymentPostController();
 
   let mockReq: AppRequest;
-  let applicant1GeneralApplicationServiceRequest: string;
-  let applicant2GeneralApplicationServiceRequest: string;
-  let applicant1GeneralApplicationFeeOrderSummary: OrderSummary;
-  let applicant2GeneralApplicationFeeOrderSummary: OrderSummary;
+  let applicant1GeneralAppServiceRequest: string;
+  let applicant2GeneralAppServiceRequest: string;
+  let applicant1GeneralAppOrderSummary: OrderSummary;
+  let applicant2GeneralAppOrderSummary: OrderSummary;
   let applicant1GeneralApplications: ListValue<GeneralApplication>[];
 
   beforeEach(() => {
@@ -37,14 +37,14 @@ describe('GeneralApplicationPaymentPostController', () => {
 
     mockReq = mockRequest();
 
-    applicant1GeneralApplicationServiceRequest = 'applicant1-service-request';
-    applicant2GeneralApplicationServiceRequest = 'applicant2-service-request';
-    applicant1GeneralApplicationFeeOrderSummary = {
+    applicant1GeneralAppServiceRequest = 'applicant1-service-request';
+    applicant2GeneralAppServiceRequest = 'applicant2-service-request';
+    applicant1GeneralAppOrderSummary = {
       PaymentTotal: '100',
       PaymentReference: 'REF123',
       Fees: [],
     };
-    applicant2GeneralApplicationFeeOrderSummary = {
+    applicant2GeneralAppOrderSummary = {
       PaymentTotal: '200',
       PaymentReference: 'REF456',
       Fees: [],
@@ -54,19 +54,19 @@ describe('GeneralApplicationPaymentPostController', () => {
         id: '1',
         value: {
           generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
-          generalParties: GeneralParties.APPLICANT,
+          generalApplicationParty: GeneralParties.APPLICANT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
-          generalApplicationFeeServiceRequestReference: applicant1GeneralApplicationServiceRequest,
+          generalApplicationFeeServiceRequestReference: applicant1GeneralAppServiceRequest,
         },
       },
     ];
 
     mockReq.session.userCase = {
       id: '1234',
-      applicant1GeneralApplicationServiceRequest,
-      applicant2GeneralApplicationServiceRequest,
-      applicant1GeneralApplicationFeeOrderSummary,
-      applicant2GeneralApplicationFeeOrderSummary,
+      applicant1GeneralAppServiceRequest,
+      applicant2GeneralAppServiceRequest,
+      applicant1GeneralAppOrderSummary,
+      applicant2GeneralAppOrderSummary,
       generalApplications: applicant1GeneralApplications,
     } as CaseWithId;
   });
@@ -75,7 +75,7 @@ describe('GeneralApplicationPaymentPostController', () => {
     it('creates a new payment and redirects to payment URL', async () => {
       mockReq.session.isApplicant2 = false;
       mockReq.session.userCase.state = State.AwaitingGeneralApplicationPayment;
-      mockReq.session.userCase.applicant1GenApplicationPayments = [
+      mockReq.session.userCase.applicant1GeneralAppPayments = [
         {
           id: 'timed out payment',
           value: {
@@ -92,8 +92,8 @@ describe('GeneralApplicationPaymentPostController', () => {
       const res = mockResponse();
 
       (mockReq.locals.api.triggerPaymentEvent as jest.Mock).mockReturnValueOnce({
-        applicant1GenApplicationPayments: [{ new: 'payment' }],
-        applicant1GeneralApplicationFeeOrderSummary: {
+        applicant1GeneralAppPayments: [{ new: 'payment' }],
+        applicant1GeneralAppOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
       });
@@ -113,16 +113,16 @@ describe('GeneralApplicationPaymentPostController', () => {
     it('transitions the case to awaiting general application payment if it is not ready for payment', async () => {
       mockReq.session.isApplicant2 = false;
       mockReq.session.userCase.state = State.AosOverdue;
-      mockReq.session.userCase.applicant1GeneralApplicationServiceRequest = undefined;
+      mockReq.session.userCase.applicant1GeneralAppServiceRequest = undefined;
 
       const res = mockResponse();
 
       (mockReq.locals.api.triggerEvent as jest.Mock).mockReturnValueOnce({
         state: State.AwaitingGeneralApplicationPayment,
-        applicant1GeneralApplicationFeeOrderSummary: {
+        applicant1GeneralAppOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
-        applicant1GeneralApplicationServiceRequest: '/payment-callback',
+        applicant1GeneralAppServiceRequest: '/payment-callback',
       });
 
       (mockCreate as jest.Mock).mockReturnValueOnce({
@@ -140,7 +140,7 @@ describe('GeneralApplicationPaymentPostController', () => {
     it('redirects to the callback page if last payment is in progress', async () => {
       mockReq.session.isApplicant2 = false;
       mockReq.session.userCase.state = State.AwaitingGeneralApplicationPayment;
-      mockReq.session.userCase.applicant1GenApplicationPayments = [
+      mockReq.session.userCase.applicant1GeneralAppPayments = [
         {
           id: 'mock external reference payment id',
           value: {

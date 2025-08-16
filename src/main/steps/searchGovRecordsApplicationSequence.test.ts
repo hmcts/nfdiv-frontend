@@ -144,7 +144,7 @@ describe('SEARCH_GOV_RECORDS', () => {
     test('CHECK_ANSWERS_SEARCH_GOV', () => {
       const step = searchGovRecordsApplicationSequence.find(obj => obj.url === CHECK_YOUR_ANSWERS_GOV_RECORDS) as Step;
       const caseData = {
-        applicant1GeneralApplicationServiceRequest: 'dummy',
+        applicant1GeneralAppServiceRequest: 'dummy',
       };
 
       expect(step.getNextStep(caseData)).toBe(PAY_YOUR_GENERAL_APPLICATION_FEE);
@@ -153,7 +153,7 @@ describe('SEARCH_GOV_RECORDS', () => {
     test('CHECK_ANSWERS_SEARCH_GOV should redirect to GENERAL_APPLICATION_SUBMITTED if payment is not required', () => {
       const step = searchGovRecordsApplicationSequence.find(obj => obj.url === CHECK_YOUR_ANSWERS_GOV_RECORDS) as Step;
       const caseData = {
-        applicant1GeneralApplicationServiceRequest: undefined,
+        applicant1GeneralAppServiceRequest: undefined,
       };
 
       expect(step.getNextStep(caseData)).toBe(GENERAL_APPLICATION_SUBMITTED);

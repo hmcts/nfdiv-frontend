@@ -25,10 +25,10 @@ describe('PaymentCallbackGetController', () => {
   const paymentController = new PaymentCallbackGetController();
 
   let mockReq: AppRequest;
-  let applicant1GeneralApplicationServiceRequest: string;
-  let applicant2GeneralApplicationServiceRequest: string;
-  let applicant1GeneralApplicationFeeOrderSummary: OrderSummary;
-  let applicant2GeneralApplicationFeeOrderSummary: OrderSummary;
+  let applicant1GeneralAppServiceRequest: string;
+  let applicant2GeneralAppServiceRequest: string;
+  let applicant1GeneralAppOrderSummary: OrderSummary;
+  let applicant2GeneralAppOrderSummary: OrderSummary;
   let applicant1GeneralApplications: ListValue<GeneralApplication>[];
 
   beforeEach(() => {
@@ -37,14 +37,14 @@ describe('PaymentCallbackGetController', () => {
 
     mockReq = mockRequest();
 
-    applicant1GeneralApplicationServiceRequest = 'applicant1-service-request';
-    applicant2GeneralApplicationServiceRequest = 'applicant2-service-request';
-    applicant1GeneralApplicationFeeOrderSummary = {
+    applicant1GeneralAppServiceRequest = 'applicant1-service-request';
+    applicant2GeneralAppServiceRequest = 'applicant2-service-request';
+    applicant1GeneralAppOrderSummary = {
       PaymentTotal: '100',
       PaymentReference: 'REF123',
       Fees: [],
     };
-    applicant2GeneralApplicationFeeOrderSummary = {
+    applicant2GeneralAppOrderSummary = {
       PaymentTotal: '200',
       PaymentReference: 'REF456',
       Fees: [],
@@ -54,19 +54,19 @@ describe('PaymentCallbackGetController', () => {
         id: '1',
         value: {
           generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
-          generalParties: GeneralParties.APPLICANT,
+          generalApplicationParty: GeneralParties.APPLICANT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
-          generalApplicationFeeServiceRequestReference: applicant1GeneralApplicationServiceRequest,
+          generalApplicationFeeServiceRequestReference: applicant1GeneralAppServiceRequest,
         },
       },
     ];
 
     mockReq.session.userCase = {
       id: '1234',
-      applicant1GeneralApplicationServiceRequest,
-      applicant2GeneralApplicationServiceRequest,
-      applicant1GeneralApplicationFeeOrderSummary,
-      applicant2GeneralApplicationFeeOrderSummary,
+      applicant1GeneralAppServiceRequest,
+      applicant2GeneralAppServiceRequest,
+      applicant1GeneralAppOrderSummary,
+      applicant2GeneralAppOrderSummary,
       generalApplications: applicant1GeneralApplications,
     } as CaseWithId;
   });
@@ -74,7 +74,7 @@ describe('PaymentCallbackGetController', () => {
   describe('callback', () => {
     it('saves and redirects to the submitted page if last payment was successful', async () => {
       mockReq.session.userCase.state = State.AwaitingGeneralApplicationPayment;
-      mockReq.session.userCase.applicant1GenApplicationPayments = [
+      mockReq.session.userCase.applicant1GeneralAppPayments = [
         {
           id: 'mock payment id',
           value: {
@@ -102,7 +102,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockReq.locals.api.triggerPaymentEvent).toHaveBeenCalledWith(
         '1234',
-        { applicant1GenApplicationPayments: expect.any(Array) },
+        { applicant1GeneralAppPayments: expect.any(Array) },
         CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE
       );
 
@@ -111,7 +111,7 @@ describe('PaymentCallbackGetController', () => {
 
     it('redirects to the hub page if the applicant has no outstanding general applications', async () => {
       mockReq.session.userCase.state = State.AwaitingGeneralApplicationPayment;
-      mockReq.session.userCase.applicant1GeneralApplicationServiceRequest = undefined;
+      mockReq.session.userCase.applicant1GeneralAppServiceRequest = undefined;
 
       const res = mockResponse();
 
@@ -136,7 +136,7 @@ describe('PaymentCallbackGetController', () => {
 
     it('saves and redirects to the pay your fee page if last payment was unsuccessful', async () => {
       mockReq.session.userCase.state = State.AwaitingGeneralApplicationPayment;
-      mockReq.session.userCase.applicant1GenApplicationPayments = [
+      mockReq.session.userCase.applicant1GeneralAppPayments = [
         {
           id: 'mock payment id',
           value: {
@@ -170,7 +170,7 @@ describe('PaymentCallbackGetController', () => {
 
     it('throws an error if the payment API is down', async () => {
       mockReq.session.userCase.state = State.AwaitingGeneralApplicationPayment;
-      mockReq.session.userCase.applicant1GenApplicationPayments = [
+      mockReq.session.userCase.applicant1GeneralAppPayments = [
         {
           id: 'mock payment id',
           value: {
