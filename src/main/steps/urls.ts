@@ -205,7 +205,6 @@ export const PARTNER_ADDRESS_ADDITIONAL_ADDRESSES: PageLink =
 export const PARTNER_ADDRESS_ADDITIONAL_GOV_RECORDS: PageLink =
   '/interim-applications/search-gov-records/partner-address-additional';
 export const CHECK_YOUR_ANSWERS_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/check-answers';
-('/interim-applications/search-gov-records/apply-for-hwf-gov-records');
 
 // Dispensed Service URLs
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';

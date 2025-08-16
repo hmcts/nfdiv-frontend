@@ -19,9 +19,9 @@ const en = ({ partner }: CommonContent) => ({
   errors: {
     applicant1SearchGovRecordsWhichDepartments: {
       required: "Select which government departments' records you want the court to search",
-      applicant1SearchGovRecordsOtherDepartmentNames: {
-        required: 'Enter details of the government department',
-      },
+    },
+    applicant1SearchGovRecordsOtherDepartmentNames: {
+      required: 'Enter details of the government department',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
       required: 'Enter details about why the selected department is most suitable',
@@ -44,9 +44,9 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   errors: {
     applicant1SearchGovRecordsWhichDepartments: {
       required: "Select which government departments' records you want the court to search",
-      applicant1SearchGovRecordsOtherDepartmentNames: {
-        required: 'Enter details of the government department',
-      },
+    },
+    applicant1SearchGovRecordsOtherDepartmentNames: {
+      required: 'Enter details of the government department',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
       required,

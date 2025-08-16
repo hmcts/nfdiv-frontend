@@ -145,10 +145,8 @@ export class StateRedirectMiddleware {
       ...APPLICATION_PAYMENT_STATES,
       ...FINAL_ORDER_PAYMENT_STATES,
       ...SERVICE_PAYMENT_STATES,
-      ...GENERAL_APPLICATION_PAYMENT_STATES
-    ]).has(
-      state
-    );
+      ...GENERAL_APPLICATION_PAYMENT_STATES,
+    ]).has(state);
   }
 
   private hasPartnerNotRespondedInTime(userCase: CaseWithId, isApplicant2: boolean) {

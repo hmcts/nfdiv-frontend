@@ -663,7 +663,7 @@ export interface Case {
   applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo;
   applicant1SearchGovRecordsPartnerApproximateAge?: string;
   applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo;
-  applicant1SearchGovRecordsPartnerLastKnownAddress: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddress: AddressGlobalUK;
   applicant1SearchGovRecordsPartnerLastKnownAddressDates: string;
   applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: YesOrNo;
   applicant1SearchGovRecordsPartnerAdditionalAddress1: string;
@@ -696,6 +696,14 @@ export interface Case {
   applicant1DispensePartnerLastSeenDate?: DateAsString;
   applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
   applicant1DispensePartnerLastSeenDescription?: string;
+  applicant1SearchGovRecordsPartnerAddress1?: string;
+  applicant1SearchGovRecordsPartnerAddress2?: string;
+  applicant1SearchGovRecordsPartnerAddress3?: string;
+  applicant1SearchGovRecordsPartnerAddressTown?: string;
+  applicant1SearchGovRecordsPartnerAddressCounty?: string;
+  applicant1SearchGovRecordsPartnerAddressCountry?: string;
+  applicant1SearchGovRecordsPartnerAddressPostcode?: string;
+  applicant1SearchGovRecordsPartnerAddressOverseas: YesOrNo.NO;
 }
 
 export interface CaseWithId extends Case {

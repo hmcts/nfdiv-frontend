@@ -12,9 +12,9 @@ import { AppRequest } from '../controller/AppRequest';
 
 import {
   findOnlineGeneralApplicationsForUser,
-  GeneralAppOrderSummary,
+  generalAppOrderSummary,
+  generalAppServiceRequest,
   generalApplicationPaymentsField,
-  GeneralAppServiceRequest,
   hasUnpaidGeneralApplication,
 } from './general-application-utils';
 
@@ -87,13 +87,13 @@ describe('GeneralApplicationUtils', () => {
     test('Should return applicant 1 service request if logged in as applicant 1', () => {
       mockReq.session.isApplicant2 = false;
 
-      expect(GeneralAppServiceRequest(mockReq)).toEqual(applicant1GeneralAppServiceRequest);
+      expect(generalAppServiceRequest(mockReq)).toEqual(applicant1GeneralAppServiceRequest);
     });
 
     test('Should return applicant 2 service request if logged in as applicant 2', () => {
       mockReq.session.isApplicant2 = true;
 
-      expect(GeneralAppServiceRequest(mockReq)).toEqual(applicant2GeneralAppServiceRequest);
+      expect(generalAppServiceRequest(mockReq)).toEqual(applicant2GeneralAppServiceRequest);
     });
   });
 
@@ -101,13 +101,13 @@ describe('GeneralApplicationUtils', () => {
     test('Should return applicant 1 service request if logged in as applicant 1', () => {
       mockReq.session.isApplicant2 = false;
 
-      expect(GeneralAppOrderSummary(mockReq)).toEqual(applicant1GeneralAppOrderSummary);
+      expect(generalAppOrderSummary(mockReq)).toEqual(applicant1GeneralAppOrderSummary);
     });
 
     test('Should return applicant 2 service request if logged in as applicant 2', () => {
       mockReq.session.isApplicant2 = true;
 
-      expect(GeneralAppOrderSummary(mockReq)).toEqual(applicant2GeneralAppOrderSummary);
+      expect(generalAppOrderSummary(mockReq)).toEqual(applicant2GeneralAppOrderSummary);
     });
   });
 

@@ -476,7 +476,8 @@ export const generateCommonContent = ({
 
   const generalApplications = findOnlineGeneralApplicationsForUser(userCase, isApplicant2);
   const lastGeneralApplication = generalApplications?.[generalApplications?.length - 1];
-  const generalApplicationType = commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
+  const generalApplicationType =
+    commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
   const generalApplicationDate = getFormattedDate(lastGeneralApplication?.generalApplicationReceivedDate, language);
   const generalApplicationResponseDate = getFormattedDate(
     dayjs(lastGeneralApplication?.generalApplicationReceivedDate).add(

@@ -1114,7 +1114,7 @@ export interface CaseData {
   applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo;
   applicant1SearchGovRecordsPartnerDateOfBirth: CaseDate | DateAsString;
   applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo;
-  applicant1SearchGovRecordsPartnerLastKnownAddress: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddress: AddressGlobalUK;
   applicant1SearchGovRecordsPartnerLastKnownAddressDates: string;
   applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: YesOrNo;
   applicant1SearchGovRecordsPartnerAdditionalAddress1: string;
