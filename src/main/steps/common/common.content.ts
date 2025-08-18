@@ -459,8 +459,7 @@ export const generateCommonContent = ({
   const referenceNumber = formattedCaseId(userCase?.id);
 
   const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
-  const serviceApplicationType =
-    commonTranslations.generalApplication[(userCase?.alternativeServiceType as string)];
+  const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
   const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
   const serviceApplicationResponseDate = getFormattedDate(
     dayjs(userCase?.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
@@ -468,7 +467,7 @@ export const generateCommonContent = ({
   );
   const serviceApplicationFeeRequired =
     userCase?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
-  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
   const genesysDeploymentId: string =
     language === SupportedLanguages.En
@@ -476,7 +475,7 @@ export const generateCommonContent = ({
       : config.get('webchat.genesysDeploymentIdCy');
 
   const generalApplications = findOnlineGeneralApplicationsForUser(userCase, isApplicant2);
-  const lastGeneralApplication = generalApplications?.[generalApplications?.length - 1];
+  const lastGeneralApplication = generalApplications?.[0];
   const generalApplicationType =
     commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
   const generalApplicationDate = getFormattedDate(lastGeneralApplication?.generalApplicationReceivedDate, language);
@@ -490,7 +489,7 @@ export const generateCommonContent = ({
   const generalApplicationFeeRequired =
     lastGeneralApplication?.generalApplicationFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
   const generalApplicationDocsAllProvided =
-    lastGeneralApplication?.generalApplicationDocsUploadedPreSubmission === YesOrNo.YES;
+    lastGeneralApplication?.generalApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
   const generalApplicationSubmittedOnline = lastGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
 
   return {

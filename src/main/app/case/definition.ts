@@ -1112,7 +1112,6 @@ export interface CaseData {
   applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo;
   applicant1SearchGovRecordsPartnerDateOfBirth: CaseDate | DateAsString;
   applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo;
-  applicant1SearchGovRecordsPartnerLastKnownAddress: AddressGlobalUK;
   applicant1SearchGovRecordsPartnerLastKnownAddressDates: string;
   applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: YesOrNo;
   applicant1SearchGovRecordsPartnerAdditionalAddress1: string;
@@ -1136,6 +1135,7 @@ export interface CaseData {
   applicant1DispenseLivedTogetherDate: DateAsString;
   applicant1DispenseLivedTogetherAddress: AddressGlobalUK;
   applicant1DispenseLivedTogetherAddressOverseas: YesOrNo;
+  applicant1SearchGovRecordsPartnerLastKnownAddress: AddressGlobalUK;
   applicant1DispenseAwarePartnerLived: YesOrNo;
   applicant1DispensePartnerPastAddress1: string;
   applicant1DispensePartnerPastAddressEnquiries1: string;
@@ -2876,7 +2876,7 @@ export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_SERVICE_APPLICATION = 'citizen-service-application';
 export const CITIZEN_SERVICE_PAYMENT_MADE = 'citizen-service-payment-made';
 export const CITIZEN_GENERAL_APPLICATION = 'citizen-general-application';
-export const CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE = 'citizen-gen-app-payment-made';
+export const CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE = 'citizen-general-app-payment';
 export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';

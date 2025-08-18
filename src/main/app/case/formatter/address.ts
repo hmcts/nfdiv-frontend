@@ -8,7 +8,7 @@ export const fromApi = (
     | 'applicant2'
     | 'applicant1NoResponsePartner'
     | 'applicant1DispenseLivedTogether'
-    | 'applicant1SearchGovRecordsPartner'
+    | 'applicant1SearchGovRecordsPartnerLastKnown'
 ): Partial<Case> => {
   const fullAddress = data[`${addressPrefix}Address`];
 
@@ -30,7 +30,7 @@ const toApiAddress = (
     | 'applicant2'
     | 'applicant1NoResponsePartner'
     | 'applicant1DispenseLivedTogether'
-    | 'applicant1SearchGovRecordsPartner'
+    | 'applicant1SearchGovRecordsPartnerLastKnown'
 ): AddressGlobalUK => ({
   AddressLine1: data[`${addressPrefix}Address1`] || '',
   AddressLine2: data[`${addressPrefix}Address2`] || '',
@@ -57,6 +57,6 @@ export const applicant1NoResponsePartnerAddressToApi = (data: Partial<Case>): Pa
   applicant1NoResponsePartnerAddress: toApiAddress(data, 'applicant1NoResponsePartner'),
 });
 
-export const applicant1SearchGovRecordsPartnerAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
-  applicant1SearchGovRecordsPartnerLastKnownAddress: toApiAddress(data, 'applicant1SearchGovRecordsPartner'),
+export const applicant1SearchGovRecordsPartnerLastKnownAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
+  applicant1SearchGovRecordsPartnerLastKnownAddress: toApiAddress(data, 'applicant1SearchGovRecordsPartnerLastKnown'),
 });

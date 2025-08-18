@@ -211,7 +211,7 @@ describe('routeHiding', () => {
     });
 
     describe('General Application Submitted URL condition', () => {
-      test('Visible when service application was made online', () => {
+      test('Visible when case is in GeneralApplicationReceived', () => {
         mockReq.url = GENERAL_APPLICATION_SUBMITTED;
         mockReq.session.userCase.state = State.GeneralApplicationReceived;
         mockReq.session.userCase.serviceApplicationSubmittedOnline = YesOrNo.YES;
@@ -219,9 +219,9 @@ describe('routeHiding', () => {
         expect(result).toBeFalsy();
       });
 
-      test('Not visible when service application was made offline', () => {
+      test('Not visible when case is in AosOverdue', () => {
         mockReq.url = GENERAL_APPLICATION_SUBMITTED;
-        mockReq.session.userCase.state = State.GeneralApplicationReceived;
+        mockReq.session.userCase.state = State.AosOverdue;
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeTruthy();
       });

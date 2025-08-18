@@ -74,12 +74,11 @@ export const routeHideConditions: RoutePermission[] = [
   {
     urls: [PAY_YOUR_GENERAL_APPLICATION_FEE, GENERAL_APPLICATION_SUBMITTED],
     condition: data =>
-      [
+      ![
         State.AwaitingGeneralApplicationPayment,
         State.GeneralApplicationReceived,
-        State.AwaitingDocuments,
         State.AwaitingGeneralConsideration,
-      ].includes(data.state as State) && data.serviceApplicationSubmittedOnline !== YesOrNo.YES,
+      ].includes(data.state as State),
   },
   {
     urls: [...searchGovRecordsApplicationSequence].map(step => step.url as PageLink),

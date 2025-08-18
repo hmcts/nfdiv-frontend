@@ -692,14 +692,14 @@ export interface Case {
   applicant1DispensePartnerLastSeenDate?: DateAsString;
   applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
   applicant1DispensePartnerLastSeenDescription?: string;
-  applicant1SearchGovRecordsPartnerAddress1?: string;
-  applicant1SearchGovRecordsPartnerAddress2?: string;
-  applicant1SearchGovRecordsPartnerAddress3?: string;
-  applicant1SearchGovRecordsPartnerAddressTown?: string;
-  applicant1SearchGovRecordsPartnerAddressCounty?: string;
-  applicant1SearchGovRecordsPartnerAddressCountry?: string;
-  applicant1SearchGovRecordsPartnerAddressPostcode?: string;
-  applicant1SearchGovRecordsPartnerAddressOverseas: YesOrNo.NO;
+  applicant1SearchGovRecordsPartnerLastKnownAddress1?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddress2?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddress3?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressTown?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressCounty?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressCountry?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressPostcode?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressOverseas: YesOrNo.NO;
 }
 
 export interface CaseWithId extends Case {

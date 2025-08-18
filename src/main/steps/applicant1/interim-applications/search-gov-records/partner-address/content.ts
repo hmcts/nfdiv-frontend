@@ -35,15 +35,15 @@ const en = ({ partner }: Partial<CommonContent>) => {
     addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
     cannotFindAddress: 'I cannot find the address in the list',
     errors: {
-      applicant1SearchGovRecordsPartnerAddress1: {
+      applicant1SearchGovRecordsPartnerLastKnownAddress1: {
         required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
       },
-      applicant1SearchGovRecordsPartnerAddressTown: {
+      applicant1SearchGovRecordsPartnerLastKnownAddressTown: {
         required: `You have not entered your ${partner}’s town or city. Enter their town or city before continuing.`,
       },
       addressPostcode,
-      applicant1SearchGovRecordsPartnerAddressPostcode: addressPostcode,
-      applicant1SearchGovRecordsPartnerAddressCountry: {
+      applicant1SearchGovRecordsPartnerLastKnownAddressPostcode: addressPostcode,
+      applicant1SearchGovRecordsPartnerLastKnownAddressCountry: {
         required: `You have not entered your ${partner}’s country. Enter their country before continuing.`,
       },
       applicant1SearchGovRecordsPartnerLastKnownAddressDates: {
@@ -84,15 +84,15 @@ const cy: typeof en = ({ partner }: Partial<CommonContent>) => {
     addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
     cannotFindAddress: 'I cannot find the address in the list',
     errors: {
-      applicant1SearchGovRecordsPartnerAddress1: {
+      applicant1SearchGovRecordsPartnerLastKnownAddress1: {
         required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
       },
-      applicant1SearchGovRecordsPartnerAddressTown: {
+      applicant1SearchGovRecordsPartnerLastKnownAddressTown: {
         required: `You have not entered your ${partner}’s town or city. Enter their town or city before continuing.`,
       },
       addressPostcode,
-      applicant1SearchGovRecordsPartnerAddressPostcode: addressPostcode,
-      applicant1SearchGovRecordsPartnerAddressCountry: {
+      applicant1SearchGovRecordsPartnerLastKnownAddressPostcode: addressPostcode,
+      applicant1SearchGovRecordsPartnerLastKnownAddressCountry: {
         required: `You have not entered your ${partner}’s country. Enter their country before continuing.`,
       },
       applicant1SearchGovRecordsPartnerLastKnownAddressDates: {
@@ -104,7 +104,7 @@ const cy: typeof en = ({ partner }: Partial<CommonContent>) => {
 
 export const form: FormContent = {
   fields: {
-    applicant1SearchGovRecordsPartnerAddress1: {
+    applicant1SearchGovRecordsPartnerLastKnownAddress1: {
       id: 'address1',
       type: 'text',
       classes: 'govuk-label',
@@ -112,41 +112,41 @@ export const form: FormContent = {
       labelSize: null,
       validator: isFieldFilledIn,
     },
-    applicant1SearchGovRecordsPartnerAddress2: {
+    applicant1SearchGovRecordsPartnerLastKnownAddress2: {
       id: 'address2',
       type: 'text',
       classes: 'govuk-label',
       label: l => l.line2Optional,
       labelSize: null,
     },
-    applicant1SearchGovRecordsPartnerAddress3: {
+    applicant1SearchGovRecordsPartnerLastKnownAddress3: {
       id: 'address3',
       type: 'text',
       classes: 'govuk-label',
       label: l => l.line3Optional,
       labelSize: null,
     },
-    applicant1SearchGovRecordsPartnerAddressTown: {
+    applicant1SearchGovRecordsPartnerLastKnownAddressTown: {
       id: 'addressTown',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.town,
       labelSize: null,
       validator: (value, formData) => {
-        if (!isCountryUk(formData.applicant1SearchGovRecordsPartnerAddressCountry)) {
+        if (!isCountryUk(formData.applicant1SearchGovRecordsPartnerLastKnownAddressCountry)) {
           return;
         }
         return isFieldFilledIn(value);
       },
     },
-    applicant1SearchGovRecordsPartnerAddressCounty: {
+    applicant1SearchGovRecordsPartnerLastKnownAddressCounty: {
       id: 'addressCounty',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
       label: l => l.county,
       labelSize: null,
     },
-    applicant1SearchGovRecordsPartnerAddressPostcode: {
+    applicant1SearchGovRecordsPartnerLastKnownAddressPostcode: {
       id: 'addressPostcode',
       type: 'text',
       classes: 'govuk-label govuk-input--width-10',
@@ -163,7 +163,7 @@ export const form: FormContent = {
         return isInvalidPostcode(value);
       },
     },
-    applicant1SearchGovRecordsPartnerAddressCountry: {
+    applicant1SearchGovRecordsPartnerLastKnownAddressCountry: {
       id: 'addressCountry',
       type: 'text',
       classes: 'govuk-label govuk-!-width-two-thirds',
@@ -171,7 +171,7 @@ export const form: FormContent = {
       labelSize: null,
       validator: isFieldFilledIn,
     },
-    applicant1SearchGovRecordsPartnerAddressOverseas: {
+    applicant1SearchGovRecordsPartnerLastKnownAddressOverseas: {
       id: 'addressOverseas',
       type: 'hidden',
       classes: 'govuk-visually--hidden',

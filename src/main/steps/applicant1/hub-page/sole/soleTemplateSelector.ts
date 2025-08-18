@@ -27,6 +27,9 @@ export const getSoleHubTemplate = (
     case State.FinalOrderRequested: {
       return HubTemplate.FinalOrderRequested;
     }
+    case State.AwaitingGeneralApplicationPayment: {
+      return HubTemplate.AwaitingGeneralApplicationPayment;
+    }
     case State.AwaitingServicePayment: {
       return HubTemplate.AwaitingServicePayment;
     }
