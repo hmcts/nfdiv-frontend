@@ -1,6 +1,8 @@
 import { capitalize } from 'lodash';
 import striptags from 'striptags';
 
+import { getFormattedCaseDate } from '../../../../../app/case/answers/formatDate';
+import { CaseDate } from '../../../../../app/case/case';
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
@@ -40,7 +42,11 @@ const en = ({ partner, userCase }: CommonContent, useHwf: YesOrNo, hwfReference:
     whichGovDepartmentsToSearch: stripTags(userCase.applicant1SearchGovRecordsWhichDepartments),
     whySearchTheseDepartments: stripTags(userCase.applicant1SearchGovRecordsWhyTheseDepartments),
     partnerName: stripTags(userCase.applicant1SearchGovRecordsPartnerName),
-    partnerDateOfBirth: stripTags(userCase.applicant1SearchGovRecordsPartnerDateOfBirth),
+    partnerDateOfBirth: `${
+      userCase.applicant1SearchGovRecordsPartnerDateOfBirth
+        ? `${getFormattedCaseDate(userCase.applicant1SearchGovRecordsPartnerDateOfBirth as CaseDate)}`
+        : null
+    }`,
     partnerApproximateAge: stripTags(userCase.applicant1SearchGovRecordsPartnerApproximateAge),
     partnerNationalInsuranceNumber: stripTags(userCase.applicant1SearchGovRecordsPartnerNationalInsurance),
     partnerLastKnownAddress: [

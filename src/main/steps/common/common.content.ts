@@ -459,7 +459,8 @@ export const generateCommonContent = ({
   const referenceNumber = formattedCaseId(userCase?.id);
 
   const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
-  const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
+  const serviceApplicationType =
+    commonTranslations.generalApplication[(userCase?.alternativeServiceType as string)];
   const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
   const serviceApplicationResponseDate = getFormattedDate(
     dayjs(userCase?.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
