@@ -187,7 +187,7 @@ export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/pa
 
 // Search Gov Records URLs
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
-export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/search-gov-records/help-with-fees-gov-records';
+export const SEARCH_GOV_RECORDS_HWF: PageLink = '/interim-applications/search-gov-records/help-with-fees';
 export const WHY_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/why-gov-records';
 export const HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS: PageLink =
   '/interim-applications/search-gov-records/hwf-reference-number-input';
