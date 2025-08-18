@@ -100,8 +100,7 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: PROVIDE_NEW_EMAIL_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      return data.applicant1NoResponsePartnerNewEmailOrAddress ===
-        NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS
+      return data.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS
         ? NEW_POSTAL_ADDRESS
         : NEW_CONTACT_DETAIL_CHECK_ANSWERS;
     },
