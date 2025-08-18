@@ -14,6 +14,7 @@ import { AnyObject } from '../../../../app/controller/PostController';
 import {
   findUnpaidGeneralApplication,
   getGeneralApplicationOrderSummary,
+  getGeneralApplicationPaymentsField,
   getGeneralApplicationServiceRequest,
 } from '../../../../app/utils/general-application-utils';
 import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../urls';
@@ -38,9 +39,7 @@ export default class GeneralApplicationPaymentPostController extends BasePayment
   }
 
   protected paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData {
-    return req.session.isApplicant2
-      ? ('applicant2GeneralAppPayments' as keyof CaseData)
-      : ('applicant1GeneralAppPayments' as keyof CaseData);
+    return getGeneralApplicationPaymentsField(req) as keyof CaseData;
   }
 
   protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {

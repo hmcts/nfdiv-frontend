@@ -150,9 +150,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const defaultTranslations = languages[content.language](content);
-  const applicationType = content.userCase?.alternativeServiceType as AlternativeServiceType;
+  const serviceType = content.userCase?.alternativeServiceType as AlternativeServiceType;
 
-  const contentOverrides = defaultTranslations.contentOverrides[applicationType] || {};
+  const contentOverrides = defaultTranslations.contentOverrides[serviceType] || {};
 
   return {
     ...defaultTranslations,

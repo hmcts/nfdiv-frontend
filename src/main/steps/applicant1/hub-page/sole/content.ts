@@ -304,8 +304,6 @@ const en = (
     linkUrl: PAY_YOUR_SERVICE_FEE,
   },
   awaitingGeneralApplicationPayment: {
-    line1OfflineApplication:
-      'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.',
     line1: `Your ${partner} has not responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
@@ -748,8 +746,6 @@ const cy: typeof en = (
     linkUrl: PAY_YOUR_SERVICE_FEE,
   },
   awaitingGeneralApplicationPayment: {
-    line1OfflineApplication:
-      'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.',
     line1: `Your ${partner} has not responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
