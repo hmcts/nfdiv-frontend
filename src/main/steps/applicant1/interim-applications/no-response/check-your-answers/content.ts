@@ -13,7 +13,7 @@ import * as urls from '../../../../urls';
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 
-const en = ({ userCase }: CommonContent, showAddress: boolean, showEmail: boolean) => ({
+const en = ({ userCase }: CommonContent, showAddress: boolean, showEmail: boolean, sendPapersAgain: boolean) => ({
   title: 'Check your answers',
   stepQuestions: {
     newPostalAddress: 'Address',
@@ -32,8 +32,7 @@ const en = ({ userCase }: CommonContent, showAddress: boolean, showEmail: boolea
         ]
           .filter(Boolean)
           .join('<br>')
-      : userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
-          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN &&
+      : sendPapersAgain &&
         !(userCase.applicant2AddressPrivate === YesOrNo.YES) &&
         [
           stripTags(userCase.applicant2Address1),
@@ -48,12 +47,11 @@ const en = ({ userCase }: CommonContent, showAddress: boolean, showEmail: boolea
           .join('<br>'),
     newEmailAddress: showEmail
       ? stripTags(userCase.applicant1NoResponsePartnerEmailAddress)
-      : userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
-          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN && userCase.applicant2Email,
+      : sendPapersAgain && userCase.applicant2Email,
   },
   stepLinks: {
-    newPostalAddress: showAddress && `${urls.NEW_POSTAL_ADDRESS}`,
-    newEmailAddress: showEmail && `${urls.PROVIDE_NEW_EMAIL_ADDRESS}`,
+    newPostalAddress: (showAddress || sendPapersAgain) && `${urls.NEW_POSTAL_ADDRESS}`,
+    newEmailAddress: (showAddress || sendPapersAgain) && `${urls.PROVIDE_NEW_EMAIL_ADDRESS}`,
   },
   acceptAndSend: 'Accept and send',
 });
@@ -77,6 +75,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const applicant1Choice = content.userCase.applicant1NoResponsePartnerNewEmailOrAddress;
+  const sendPapersAgain =
+    content.userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+    NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
   const showAddress = [
     NoResponsePartnerNewEmailOrAddress.ADDRESS,
     NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
@@ -85,7 +86,7 @@ export const generateContent: TranslationFn = content => {
     NoResponsePartnerNewEmailOrAddress.EMAIL,
     NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
   ].includes(applicant1Choice as NoResponsePartnerNewEmailOrAddress);
-  const translation = languages[content.language](content, showAddress, showEmail);
+  const translation = languages[content.language](content, showAddress, showEmail, sendPapersAgain);
   const updateWhat = content.userCase.applicant1NoResponsePartnerNewEmailOrAddress;
   const showStatementOfTruth = false;
 
