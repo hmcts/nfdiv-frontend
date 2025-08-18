@@ -5,7 +5,6 @@ import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicati
 import {
   CHECK_YOUR_ANSWERS_GOV_RECORDS,
   HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS,
-  HUB_PAGE,
   HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS,
   HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS,
   PARTNER_ADDRESS_ADDITIONAL_ADDRESSES,
@@ -14,6 +13,7 @@ import {
   PARTNER_DOB_GOV_RECORDS,
   PARTNER_NAME_GOV_RECORDS,
   PARTNER_NI_GOV_RECORDS,
+  PAY_YOUR_SERVICE_FEE,
   SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_GOV_RECORDS_HWF,
   WHICH_GOV_DEPARTMENTS,
@@ -29,7 +29,7 @@ describe('SEARCH_GOV_RECORDS', () => {
 
   test('Search gov records help with fees required', () => {
     const caseData = {
-      applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+      applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
     };
     const step = searchGovRecordsApplicationSequence.find(obj => obj.url === SEARCH_GOV_RECORDS_HWF) as Step;
     expect(step.getNextStep(caseData)).toBe(HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS);
@@ -44,7 +44,7 @@ describe('SEARCH_GOV_RECORDS', () => {
   });
   test('Search gov records help with fees reference available', () => {
     const caseData = {
-      applicant1InterimAppsHwfRefNumber: YesOrNo.YES,
+      applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
     };
     const step = searchGovRecordsApplicationSequence.find(
       obj => obj.url === HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS
@@ -53,7 +53,7 @@ describe('SEARCH_GOV_RECORDS', () => {
   });
   test('Search gov records apply for help with fees', () => {
     const caseData = {
-      applicant1InterimAppsHwfRefNumber: YesOrNo.NO,
+      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
     };
     const step = searchGovRecordsApplicationSequence.find(
       obj => obj.url === HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS
@@ -128,6 +128,6 @@ describe('SEARCH_GOV_RECORDS', () => {
   test('Search gov records applicant1 check your answers', () => {
     const caseData = {};
     const step = searchGovRecordsApplicationSequence.find(obj => obj.url === CHECK_YOUR_ANSWERS_GOV_RECORDS) as Step;
-    expect(step.getNextStep(caseData)).toBe(HUB_PAGE);
+    expect(step.getNextStep(caseData)).toBe(PAY_YOUR_SERVICE_FEE);
   });
 });

@@ -451,7 +451,7 @@ export const generateCommonContent = ({
   const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
   const serviceApplicationType =
     commonTranslations.generalApplication[
-      userCase.applicant1InterimApplicationType === InterimApplicationType.SEARCH_GOV_RECORDS
+      userCase?.applicant1InterimApplicationType === InterimApplicationType.SEARCH_GOV_RECORDS
         ? 'searchGovRecords'
         : (userCase?.alternativeServiceType as string)
     ];
