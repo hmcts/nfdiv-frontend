@@ -9,20 +9,20 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../../app/controller/BasePaymentCallbackGetController';
 import { AnyObject } from '../../../../app/controller/PostController';
 import {
-  generalAppServiceRequest,
-  generalApplicationPaymentsField,
-  hasUnpaidGeneralApplication,
+  findUnpaidGeneralApplication,
+  getGeneralApplicationPaymentsField,
+  getGeneralApplicationServiceRequest,
 } from '../../../../app/utils/general-application-utils';
 import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../urls';
 
 @autobind
 export default class GeneralApplicationPaymentCallbackGetController extends BasePaymentCallbackGetController {
   protected isAwaitingPayment(req: AppRequest): boolean {
-    const serviceRequest = generalAppServiceRequest(req);
+    const serviceRequest = getGeneralApplicationServiceRequest(req);
 
     return (
       GENERAL_APPLICATION_PAYMENT_STATES.has(req.session.userCase.state) &&
-      hasUnpaidGeneralApplication(req, serviceRequest)
+      findUnpaidGeneralApplication(req.session.userCase, serviceRequest) !== undefined
     );
   }
 
@@ -43,6 +43,6 @@ export default class GeneralApplicationPaymentCallbackGetController extends Base
   }
 
   protected paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData {
-    return generalApplicationPaymentsField(req) as keyof CaseData;
+    return getGeneralApplicationPaymentsField(req) as keyof CaseData;
   }
 }

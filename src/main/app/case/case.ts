@@ -251,7 +251,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
-  servicePaymentFeePaymentMethod: 'servicePaymentFeePaymentMethod',
   applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
   applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
@@ -267,6 +266,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
   servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
   servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
+  servicePaymentFeePaymentMethod: 'servicePaymentFeePaymentMethod',
   servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
   serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
   servicePayments: 'servicePayments',
@@ -297,8 +297,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   generalApplications: 'generalApplications',
   applicant1GeneralAppServiceRequest: 'applicant1GeneralAppServiceRequest',
   applicant2GeneralAppServiceRequest: 'applicant2GeneralAppServiceRequest',
-  applicant1GeneralAppOrderSummary: 'applicant1GeneralAppOrderSummary',
-  applicant2GeneralAppOrderSummary: 'applicant2GeneralAppOrderSummary',
   applicant1GeneralAppPayments: 'applicant1GeneralAppPayments',
   applicant2GeneralAppPayments: 'applicant2GeneralAppPayments',
   applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
@@ -673,8 +671,6 @@ export interface Case {
   generalApplications?: ListValue<GeneralApplication>[];
   applicant1GeneralAppServiceRequest?: string;
   applicant2GeneralAppServiceRequest?: string;
-  applicant1GeneralAppOrderSummary?: OrderSummary;
-  applicant2GeneralAppOrderSummary?: OrderSummary;
   applicant1GeneralAppPayments?: ListValue<Payment>[];
   applicant2GeneralAppPayments?: ListValue<Payment>[];
   applicant1DispenseLiveTogether?: YesOrNo;

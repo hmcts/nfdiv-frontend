@@ -12,9 +12,9 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../../app/controller/PostController';
 import {
-  generalAppOrderSummary,
-  generalAppServiceRequest,
-  hasUnpaidGeneralApplication,
+  findUnpaidGeneralApplication,
+  getGeneralApplicationOrderSummary,
+  getGeneralApplicationServiceRequest,
 } from '../../../../app/utils/general-application-utils';
 import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../urls';
 
@@ -25,7 +25,7 @@ export default class GeneralApplicationPaymentPostController extends BasePayment
 
     return (
       GENERAL_APPLICATION_PAYMENT_STATES.has(req.session.userCase.state) &&
-      hasUnpaidGeneralApplication(req, serviceRequest)
+      findUnpaidGeneralApplication(req.session.userCase, serviceRequest) !== undefined
     );
   }
 
@@ -34,7 +34,7 @@ export default class GeneralApplicationPaymentPostController extends BasePayment
   }
 
   protected getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[] {
-    return (generalAppOrderSummary(req) as OrderSummary)?.Fees;
+    return (getGeneralApplicationOrderSummary(req) as OrderSummary)?.Fees;
   }
 
   protected paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData {
@@ -44,7 +44,7 @@ export default class GeneralApplicationPaymentPostController extends BasePayment
   }
 
   protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
-    return generalAppServiceRequest(req) as string;
+    return getGeneralApplicationServiceRequest(req) as string;
   }
 
   protected getPaymentCallbackPath(): string {

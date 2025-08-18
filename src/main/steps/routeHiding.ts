@@ -6,6 +6,7 @@ import { RoutePermission } from './applicant1Sequence';
 import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
+import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {
   CHECK_ANSWERS_URL,
@@ -13,6 +14,7 @@ import {
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
   FINALISING_YOUR_APPLICATION,
+  GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
   HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
   HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
@@ -23,6 +25,7 @@ import {
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
+  PAY_YOUR_GENERAL_APPLICATION_FEE,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
   REVIEW_THE_APPLICATION,
@@ -67,6 +70,26 @@ export const routeHideConditions: RoutePermission[] = [
       [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
         data.state as State
       ),
+  },
+  {
+    urls: [PAY_YOUR_GENERAL_APPLICATION_FEE, GENERAL_APPLICATION_SUBMITTED],
+    condition: data =>
+      [
+        State.AwaitingGeneralApplicationPayment,
+        State.GeneralApplicationReceived,
+        State.AwaitingDocuments,
+        State.AwaitingGeneralConsideration,
+      ].includes(data.state as State) && data.serviceApplicationSubmittedOnline !== YesOrNo.YES,
+  },
+  {
+    urls: [...searchGovRecordsApplicationSequence].map(step => step.url as PageLink),
+    condition: data =>
+      [
+        State.AwaitingGeneralApplicationPayment,
+        State.GeneralApplicationReceived,
+        State.AwaitingDocuments,
+        State.AwaitingGeneralConsideration,
+      ].includes(data.state as State),
   },
   {
     urls: [

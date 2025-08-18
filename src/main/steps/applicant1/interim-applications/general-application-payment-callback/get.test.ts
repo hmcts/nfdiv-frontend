@@ -28,7 +28,6 @@ describe('PaymentCallbackGetController', () => {
   let applicant1GeneralAppServiceRequest: string;
   let applicant2GeneralAppServiceRequest: string;
   let applicant1GeneralAppOrderSummary: OrderSummary;
-  let applicant2GeneralAppOrderSummary: OrderSummary;
   let applicant1GeneralApplications: ListValue<GeneralApplication>[];
 
   beforeEach(() => {
@@ -44,11 +43,6 @@ describe('PaymentCallbackGetController', () => {
       PaymentReference: 'REF123',
       Fees: [],
     };
-    applicant2GeneralAppOrderSummary = {
-      PaymentTotal: '200',
-      PaymentReference: 'REF456',
-      Fees: [],
-    };
     applicant1GeneralApplications = [
       {
         id: '1',
@@ -57,6 +51,7 @@ describe('PaymentCallbackGetController', () => {
           generalApplicationParty: GeneralParties.APPLICANT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
           generalApplicationFeeServiceRequestReference: applicant1GeneralAppServiceRequest,
+          generalApplicationFeeOrderSummary: applicant1GeneralAppOrderSummary,
         },
       },
     ];
@@ -65,8 +60,6 @@ describe('PaymentCallbackGetController', () => {
       id: '1234',
       applicant1GeneralAppServiceRequest,
       applicant2GeneralAppServiceRequest,
-      applicant1GeneralAppOrderSummary,
-      applicant2GeneralAppOrderSummary,
       generalApplications: applicant1GeneralApplications,
     } as CaseWithId;
   });

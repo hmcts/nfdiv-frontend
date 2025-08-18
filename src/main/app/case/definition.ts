@@ -925,7 +925,7 @@ export interface CaseData {
   generalApplicationFeeType: GeneralApplicationFee;
   generalApplicationDocument: DivorceDocument;
   generalApplicationDocumentComments: string;
-  GeneralAppOrderSummary: OrderSummary;
+  generalApplicationFeeOrderSummary: OrderSummary;
   generalApplicationFeePaymentMethod: ServicePaymentMethod;
   generalApplicationFeeAccountNumber: string;
   generalApplicationFeePbaNumbers: DynamicList;
@@ -934,8 +934,6 @@ export interface CaseData {
   generalApplications: ListValue<GeneralApplication>[];
   applicant1GeneralAppServiceRequest: string;
   applicant2GeneralAppServiceRequest: string;
-  applicant1GeneralAppOrderSummary: OrderSummary;
-  applicant2GeneralAppOrderSummary: OrderSummary;
   applicant1GeneralAppPayments: ListValue<Payment>[];
   applicant2GeneralAppPayments: ListValue<Payment>[];
   generalReferrals: ListValue<GeneralReferral>[];
@@ -959,10 +957,10 @@ export interface CaseData {
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
   alternativeServiceFeeRequired: YesOrNo;
-  servicePaymentFeePaymentMethod: ServicePaymentMethod;
   serviceApplicationAnswers: DivorceDocument;
   servicePayments: ListValue<Payment>[];
   serviceApplicationSubmittedOnline: YesOrNo,
+  servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
@@ -1439,7 +1437,7 @@ export interface GeneralApplication {
   generalApplicationFeeType?: GeneralApplicationFee;
   generalApplicationDocument?: DivorceDocument;
   generalApplicationDocumentComments?: string;
-  GeneralAppOrderSummary?: OrderSummary;
+  generalApplicationFeeOrderSummary?: OrderSummary;
   generalApplicationFeePaymentMethod?: ServicePaymentMethod;
   generalApplicationFeeAccountNumber?: string;
   generalApplicationFeePbaNumbers?: DynamicList;
@@ -2312,7 +2310,6 @@ export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFin
 export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
 
 export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([
-  State.GeneralApplicationReceived,
   State.AwaitingGeneralApplicationPayment
 ]);
 

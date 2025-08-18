@@ -1,25 +1,23 @@
-import { Logger } from '@hmcts/nodejs-logging';
-
 import { CaseWithId } from '../case/case';
 import { GeneralApplication, GeneralParties, OrderSummary, YesOrNo } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 
-const logger = Logger.getLogger('general-application-utils');
-
-export const hasUnpaidGeneralApplication = (request: AppRequest, serviceRequest: string | undefined): boolean => {
+export const findUnpaidGeneralApplication = (
+  userCase: Partial<CaseWithId>,
+  serviceRequest: string | undefined
+): GeneralApplication | undefined => {
   if (!serviceRequest) {
-    return false;
+    return undefined;
   }
 
-  const generalApplications =
-    findOnlineGeneralApplicationsForUser(request.session.userCase, request.session.isApplicant2) ?? [];
-
-  return generalApplications.some(
-    application =>
-      application?.generalApplicationFeeServiceRequestReference === serviceRequest &&
-      !application?.generalApplicationFeePaymentReference
-  );
+  return userCase?.generalApplications
+    ?.map(generalApplicationValue => generalApplicationValue.value)
+    ?.find(
+      application =>
+        application?.generalApplicationFeeServiceRequestReference === serviceRequest &&
+        !application?.generalApplicationFeePaymentReference
+    );
 };
 
 export const findOnlineGeneralApplicationsForUser = (
@@ -37,21 +35,18 @@ export const findOnlineGeneralApplicationsForUser = (
     );
 };
 
-export const generalAppServiceRequest = (req: AppRequest<AnyObject>): string | undefined => {
+export const getGeneralApplicationServiceRequest = (req: AppRequest<AnyObject>): string | undefined => {
   return req.session.isApplicant2
     ? req.session.userCase.applicant2GeneralAppServiceRequest
     : req.session.userCase.applicant1GeneralAppServiceRequest;
 };
 
-export const generalAppOrderSummary = (req: AppRequest<AnyObject>): OrderSummary | undefined => {
-  logger.info(req.session.userCase.applicant1GeneralAppOrderSummary);
-  logger.info(req.session.userCase.applicant2GeneralAppOrderSummary);
+export const getGeneralApplicationOrderSummary = (req: AppRequest<AnyObject>): OrderSummary | undefined => {
+  const serviceRequest = getGeneralApplicationServiceRequest(req);
 
-  return req.session.isApplicant2
-    ? req.session.userCase.applicant2GeneralAppOrderSummary
-    : req.session.userCase.applicant1GeneralAppOrderSummary;
+  return findUnpaidGeneralApplication(req.session.userCase, serviceRequest)?.generalApplicationFeeOrderSummary;
 };
 
-export const generalApplicationPaymentsField = (req: AppRequest<AnyObject>): keyof AnyObject => {
+export const getGeneralApplicationPaymentsField = (req: AppRequest<AnyObject>): keyof AnyObject => {
   return req.session.isApplicant2 ? 'applicant2GeneralAppPayments' : 'applicant1GeneralAppPayments';
 };
