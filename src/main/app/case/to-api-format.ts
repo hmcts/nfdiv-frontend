@@ -18,7 +18,11 @@ import {
   MarriageFormation,
   YesOrNo,
 } from './definition';
-import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
+import {
+  applicant1AddressToApi,
+  applicant1NoResponsePartnerAddressToApi,
+  applicant2AddressToApi,
+} from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
@@ -394,7 +398,56 @@ const fields: ToApiConverters = {
     app2RfiDraftResponseDetails: data.app2RfiDraftResponseDetails,
   }),
   app2RfiDraftResponseUploadedFiles: () => ({}),
+  applicant1NoResponseCheckContactDetails: data => ({
+    applicant1NoResponseCheckContactDetails: data.applicant1NoResponseCheckContactDetails,
+  }),
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: data => ({
+    applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+      data.applicant1NoResponseProvidePartnerNewEmailOrAlternativeService,
+  }),
+  applicant1NoResponsePartnerNewEmailOrPostalAddress: data => ({
+    applicant1NoResponsePartnerNewEmailOrPostalAddress: data.applicant1NoResponsePartnerNewEmailOrPostalAddress,
+  }),
+  applicant1NoResponsePartnerHasReceivedPapers: data => ({
+    applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
+  }),
+  applicant1NoResponsePartnerEmailAddress: data => ({
+    applicant1NoResponsePartnerEmailAddress: data.applicant1NoResponsePartnerEmailAddress,
+  }),
+  applicant1InterimAppsIUnderstand: data => ({
+    applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
+  }),
+  applicant1InterimAppsUseHelpWithFees: data => ({
+    applicant1InterimAppsUseHelpWithFees: data.applicant1InterimAppsUseHelpWithFees,
+    ...(data.applicant1InterimAppsUseHelpWithFees === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1InterimAppsHaveHwfReference', 'applicant1InterimAppsHwfRefNumber'])
+      : {}),
+  }),
+  applicant1InterimAppsHwfRefNumber: data => ({
+    applicant1InterimAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant1InterimAppsHwfRefNumber)
+      ? data.applicant1InterimAppsHwfRefNumber
+      : '',
+    applicant1InterimAppsHaveHwfReference:
+      data.applicant1InterimAppsHwfRefNumber === '' ? data.applicant1InterimAppsHaveHwfReference : YesOrNo.YES,
+  }),
+  applicant1InterimAppsEvidenceUploadedFiles: () => ({}),
+  applicant1InterimAppsCannotUploadDocs: data => ({
+    applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
+  }),
+  applicant1InterimAppsCanUploadEvidence: data => ({
+    applicant1InterimAppsCanUploadEvidence: data.applicant1InterimAppsCanUploadEvidence,
+    ...(data.applicant1InterimAppsCanUploadEvidence === YesOrNo.YES
+      ? setUnreachableAnswersToNull(['applicant1DeemedNoEvidenceStatement'])
+      : setUnreachableAnswersToNull(['applicant1DeemedEvidenceDetails', 'applicant1InterimAppsCannotUploadDocs'])),
+  }),
+  applicant1InterimAppsStatementOfTruth: data => ({
+    applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  }),
   applicant2LegalProceedingUploadedFiles: () => ({}),
+  applicant1NoResponsePartnerAddressPostcode: applicant1NoResponsePartnerAddressToApi,
+  applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
+    applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined) => {
