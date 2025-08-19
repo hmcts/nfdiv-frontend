@@ -3417,48 +3417,48 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redis/bloom@npm:5.6.1":
-  version: 5.6.1
-  resolution: "@redis/bloom@npm:5.6.1"
+"@redis/bloom@npm:5.8.1":
+  version: 5.8.1
+  resolution: "@redis/bloom@npm:5.8.1"
   peerDependencies:
-    "@redis/client": ^5.6.1
-  checksum: 93c09eb2881b6e107ce0ab19df02f79331ececfb3146c808a0aa3786e09b722f5b82987171a83b6c3a5b503d88ccbab053647bae1d9102c57468c75e5e35cf1c
+    "@redis/client": ^5.8.1
+  checksum: 41e8ec74685ab7e5f4c8ef5f490683ec585556e7a88ce16006a9c5f114732f9a6fcd3f0648da6bd41f290cbe8ca0de81b3e806eb9896ccd5c9f8cafc9663883c
   languageName: node
   linkType: hard
 
-"@redis/client@npm:5.6.1":
-  version: 5.6.1
-  resolution: "@redis/client@npm:5.6.1"
+"@redis/client@npm:5.8.1":
+  version: 5.8.1
+  resolution: "@redis/client@npm:5.8.1"
   dependencies:
     cluster-key-slot: 1.1.2
-  checksum: e78c5eea0d80f86f9cc4c6f24b47a7b132f964b13a47b680b2367bf6746afb82fa93a7703f252697265275eb01c97e4d6872bbec432758e1d3e797e3b7d14610
+  checksum: 90cdf863d1ebd89342e0e6e1728b8eda8873c52737ea76366f4952ce12541848b0c169d83758820f7b0ac628669f905701039e3b212a4006ef806d1563d5006e
   languageName: node
   linkType: hard
 
-"@redis/json@npm:5.6.1":
-  version: 5.6.1
-  resolution: "@redis/json@npm:5.6.1"
+"@redis/json@npm:5.8.1":
+  version: 5.8.1
+  resolution: "@redis/json@npm:5.8.1"
   peerDependencies:
-    "@redis/client": ^5.6.1
-  checksum: dd63b16a9672f61d7385ea1ed2eea196eae37a32d86e8af1860bf4d2a3987a68208992223f5ad551ef5f7001022cf4557f1f356014c5c3204b9fc158d9291997
+    "@redis/client": ^5.8.1
+  checksum: de0e804e623f33a021f6bcb8b93f5a66b879f3bee97ae13d7e5911f3a145fb33f109492089a82f4129060df9066174a10d60801a94a914e547cb5176a4b4f35f
   languageName: node
   linkType: hard
 
-"@redis/search@npm:5.6.1":
-  version: 5.6.1
-  resolution: "@redis/search@npm:5.6.1"
+"@redis/search@npm:5.8.1":
+  version: 5.8.1
+  resolution: "@redis/search@npm:5.8.1"
   peerDependencies:
-    "@redis/client": ^5.6.1
-  checksum: b2557bb64a00db6dc911355a67caa85095ae2db61f7edbac11d8149c60828e3c6d7a77e98bc6bbd585b7281f768099287f78e3406b6b725a7fa227e10289db89
+    "@redis/client": ^5.8.1
+  checksum: b19522c89974b4b0b34b6e20c5f8573db7e98f0a26ba5131a2f326f298adfca75a74a1c640a85b9e64fc1a4040bbbbf9e9ef033c015b75eb1f1fc0904a3549d7
   languageName: node
   linkType: hard
 
-"@redis/time-series@npm:5.6.1":
-  version: 5.6.1
-  resolution: "@redis/time-series@npm:5.6.1"
+"@redis/time-series@npm:5.8.1":
+  version: 5.8.1
+  resolution: "@redis/time-series@npm:5.8.1"
   peerDependencies:
-    "@redis/client": ^5.6.1
-  checksum: a1dc3a59f45ff3833d45ed87594b0e1675b842efe8ddbe7bb037b9dbf6f91ba4a4cce331771c0794028bc40fb0c892e3d825b3c00e6f47efadfc7cc774d873b9
+    "@redis/client": ^5.8.1
+  checksum: a44c4dc56963ac6414a4bee6376fd981fd41ef827d745a8c0d510ba6864b8037c640886ec00b86d15f215fe4203c97a2ee551e287cd8ee967fd16dbbac21c1e2
   languageName: node
   linkType: hard
 
@@ -3962,12 +3962,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.17.0":
-  version: 22.17.0
-  resolution: "@types/node@npm:22.17.0"
+"@types/node@npm:22.17.2":
+  version: 22.17.2
+  resolution: "@types/node@npm:22.17.2"
   dependencies:
     undici-types: ~6.21.0
-  checksum: a7e4dd638e319fabdd9b24f4d46313b16a771c13658b7e07040a47d856bab68cd1d67ac1d027eb3757c2c6534fdd61c74981e4e59322f95f8cbebf77f3f1db17
+  checksum: 2a82f96abcf25104efa6e9b8231616e039e5e0854f07e9ce4fdf821d30eaac30a80ec3cafefb36d2af8bd7c9594cfda337887bd85bb5c2031ba0f7e23a3d588d
   languageName: node
   linkType: hard
 
@@ -7320,12 +7320,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config@npm:3.3.12":
-  version: 3.3.12
-  resolution: "config@npm:3.3.12"
+"config@npm:4.1.1":
+  version: 4.1.1
+  resolution: "config@npm:4.1.1"
   dependencies:
     json5: ^2.2.3
-  checksum: db1b7718ffb0a8dc99cac003f31f6af99562362b8b25f2c72104465983d471e683ea25866308886723179248113a584e6ec3f67811e25e3c2b070bee592dd94d
+  checksum: 304e4e551886c78dfc9413cb3e7c44e3ac1a0219a5787c15343f5347623bea6452a5221ff5625dc361418f7add22a29a906da508b5a37dd7ef7924f844dfa641
   languageName: node
   linkType: hard
 
@@ -14362,7 +14362,7 @@ __metadata:
     "@types/lodash": 4.17.20
     "@types/multer": 1.4.13
     "@types/negotiator": 0.6.4
-    "@types/node": 22.17.0
+    "@types/node": 22.17.2
     "@types/nunjucks": 3.2.6
     "@types/require-directory": 2.1.6
     "@types/serve-favicon": 2.5.7
@@ -14384,7 +14384,7 @@ __metadata:
     axios: 1.11.0
     axios-debug-log: 1.0.0
     codeceptjs: 3.6.10
-    config: 3.3.12
+    config: 4.1.1
     connect-redis: 7.1.1
     cookie-parser: 1.4.7
     copy-webpack-plugin: 13.0.1
@@ -14433,7 +14433,7 @@ __metadata:
     pa11y: 8.0.0
     pdfjs-dist: 5.4.54
     prettier: 3.1.1
-    redis: 5.6.1
+    redis: 5.8.1
     require-directory: 2.1.1
     sass-loader: 16.0.3
     serve-favicon: 2.5.1
@@ -14447,7 +14447,7 @@ __metadata:
     ts-loader: 9.5.2
     ts-node: 10.9.2
     tsconfig-paths: 4.2.0
-    typescript: 5.8.3
+    typescript: 5.9.2
     uuid: 11.1.0
     webdriverio: 9.19.1
     webpack: 5.101.2
@@ -16380,16 +16380,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redis@npm:5.6.1":
-  version: 5.6.1
-  resolution: "redis@npm:5.6.1"
+"redis@npm:5.8.1":
+  version: 5.8.1
+  resolution: "redis@npm:5.8.1"
   dependencies:
-    "@redis/bloom": 5.6.1
-    "@redis/client": 5.6.1
-    "@redis/json": 5.6.1
-    "@redis/search": 5.6.1
-    "@redis/time-series": 5.6.1
-  checksum: c85e98d7d36ce803447d7e30fd331964eb5f44b72c9812f7fde78f823402e06d90c5e3c23612dc63beedd1bd647c3f44e08d9fec8fe2c79f0052eb07e5aba0af
+    "@redis/bloom": 5.8.1
+    "@redis/client": 5.8.1
+    "@redis/json": 5.8.1
+    "@redis/search": 5.8.1
+    "@redis/time-series": 5.8.1
+  checksum: 786de42f27f909059ba0440327ade8ef4496f504e7bf0c8744ad07bdb44f57e6ca22f893483233ae4920e6d195704412a0c8508711ea9b3274cabd4fd9a81e85
   languageName: node
   linkType: hard
 
@@ -18746,7 +18746,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.8.3, typescript@npm:^5.1.3":
+"typescript@npm:5.9.2":
+  version: 5.9.2
+  resolution: "typescript@npm:5.9.2"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: f619cf6773cfe31409279711afd68cdf0859780006c50bc2a7a0c3227f85dea89a3b97248846326f3a17dad72ea90ec27cf61a8387772c680b2252fd02d8497b
+  languageName: node
+  linkType: hard
+
+"typescript@npm:^5.1.3":
   version: 5.8.3
   resolution: "typescript@npm:5.8.3"
   bin:
@@ -18756,7 +18766,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@5.8.3#~builtin<compat/typescript>, typescript@patch:typescript@^5.1.3#~builtin<compat/typescript>":
+"typescript@patch:typescript@5.9.2#~builtin<compat/typescript>":
+  version: 5.9.2
+  resolution: "typescript@patch:typescript@npm%3A5.9.2#~builtin<compat/typescript>::version=5.9.2&hash=5786d5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: f2327af06fce458b53e02df26b880528636c333bce22e557ff6723cdd0576a2cec75daed37eeb8d330b94fef22be4f19b06d8922793ada5d322b8197efd9391e
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^5.1.3#~builtin<compat/typescript>":
   version: 5.8.3
   resolution: "typescript@patch:typescript@npm%3A5.8.3#~builtin<compat/typescript>::version=5.8.3&hash=5786d5"
   bin:
