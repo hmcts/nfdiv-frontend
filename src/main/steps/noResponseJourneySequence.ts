@@ -8,7 +8,6 @@ import {
   NoResponseProvidePartnerNewEmailOrAlternativeService,
   NoResponseSearchOrDispense,
   NoResponseSendPapersAgainOrTrySomethingElse,
-  State,
   YesOrNo,
 } from '../app/case/definition';
 
@@ -132,9 +131,8 @@ export const noResponseJourneySequence: Step[] = [
         return DEEMED_SERVICE_APPLICATION;
       }
       return data.applicant2AddressOverseas === YesOrNo.YES ||
-        (data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
-          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN &&
-          data.state !== State.AosOverdue)
+        data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+          NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_ALREADY_SENT
         ? NO_NEW_ADDRESS
         : SERVE_AGAIN;
     },
