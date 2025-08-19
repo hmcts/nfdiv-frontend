@@ -45,6 +45,8 @@ const en = (
     serviceApplicationDate,
     serviceApplicationResponseDate,
     generalApplicationType,
+    generalApplicationDate,
+    generalApplicationResponseDate,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -253,6 +255,17 @@ const en = (
         : `${serviceApplicationType} application`
     } that you submitted on ${serviceApplicationDate}.`,
     line2: `We will email you by ${serviceApplicationResponseDate} once a decision has been made to tell you your next steps.`,
+  },
+  awaitingConsiderationSearchGovRecords: {
+    line1: `The court is currently considering your search government records application that you submitted on ${generalApplicationDate}.`,
+    line2: `We will email you by ${generalApplicationResponseDate} once a decision has been made to tell you your next steps.`,
+    hwfLine1: 'You have submitted your application to search government records.',
+    hwfLine2:
+      'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
+    hwfLine3:
+      'If your help with fees reference number is accepted, the court will review your application. We will email you to let you know whether your application has been successful.',
+    hwfLine4: 'If your application is approved, it normally takes 6-8 weeks to complete a search.',
+    whatHappensNext: 'What happens next',
   },
   serviceApplicationRejected: {
     line1: {
@@ -481,6 +494,8 @@ const cy: typeof en = (
     generalApplicationType,
     serviceApplicationResponseDate,
     serviceApplicationDate,
+    generalApplicationDate,
+    generalApplicationResponseDate,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -618,6 +633,17 @@ const cy: typeof en = (
       SupportedLanguages.Cy
     )}.`,
     line2: `Ni fyddwch yn gweld ymateb eich ${partner} pan fyddwch yn gwneud cais am y gorchymyn amodol.`,
+  },
+  awaitingConsiderationSearchGovRecords: {
+    line1: `The court is currently considering your search government records application that you submitted on ${generalApplicationDate}.`,
+    line2: `We will email you by ${generalApplicationResponseDate} once a decision has been made to tell you your next steps.`,
+    hwfLine1: 'You have submitted your application to search government records.',
+    hwfLine2:
+      'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
+    hwfLine3:
+      'If your help with fees reference number is accepted, the court will review your application. We will email you to let you know whether your application has been successful.',
+    hwfLine4: 'If your application is approved, it normally takes 6-8 weeks to complete a search.',
+    whatHappensNext: 'What happens next',
   },
   conditionalOrderWithDeemedOrDispensedService: `Ni fyddwch yn gweld ymateb gan eich ${partner} yn y cais am orchymyn amodol.
    Mae hyn oherwydd na wnaethant ymateb i'ch cais. Gwnaethoch gais i'r llys am ${
@@ -983,6 +1009,7 @@ export const generateContent: TranslationFn = content => {
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
     NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
+  const isSearchGovRecordsFeeRequired = content.generalApplicationFeeRequired;
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
@@ -1007,5 +1034,6 @@ export const generateContent: TranslationFn = content => {
     contactDetailsUpdatedUKBased,
     applicant1NoResponseSendPapersAgain,
     isAwaitingProcessServerService,
+    isSearchGovRecordsFeeRequired,
   };
 };

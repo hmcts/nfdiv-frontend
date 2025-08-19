@@ -2006,7 +2006,7 @@ export const enum InterimApplicationType {
   DEEMED_SERVICE = 'deemedService',
   ALTERNATIVE_SERVICE = 'alternativeService',
   BAILIFF_SERVICE = 'bailiffService',
-  SEARCH_GOV_RECORDS = 'searchGovRecords',
+  SEARCH_GOV_RECORDS = 'disclosureViaDwp',
   PROCESS_SERVER_SERVICE = 'processServerService',
 }
 
@@ -2025,6 +2025,7 @@ export const enum GeneralApplicationType {
   OTHER_ALTERNATIVE_SERVICE_METHODS = 'otherAlternativeServiceMethod',
   OTHER = 'other',
   BAILIFF_SERVICE = 'bailiffService',
+  SEARCH_GOV_RECORDS = 'disclosureViaDwp',
 }
 
 export const enum GeneralOrderDivorceParties {
