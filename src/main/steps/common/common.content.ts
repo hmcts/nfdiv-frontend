@@ -462,7 +462,10 @@ export const generateCommonContent = ({
   const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
   const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
   const serviceApplicationResponseDate = getFormattedDate(
-    dayjs(userCase?.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    dayjs(userCase?.servicePaymentFeeDateOfPayment || userCase?.receivedServiceAddedDate).add(
+      config.get('dates.applicationSubmittedOffsetDays'),
+      'day'
+    ),
     language
   );
   const serviceApplicationFeeRequired =
@@ -480,10 +483,10 @@ export const generateCommonContent = ({
     commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
   const generalApplicationDate = getFormattedDate(lastGeneralApplication?.generalApplicationReceivedDate, language);
   const generalApplicationResponseDate = getFormattedDate(
-    dayjs(lastGeneralApplication?.generalApplicationReceivedDate).add(
-      config.get('dates.applicationSubmittedOffsetDays'),
-      'day'
-    ),
+    dayjs(
+      lastGeneralApplication?.generalApplicationFeeDateOfPayment ||
+        lastGeneralApplication?.generalApplicationReceivedDate
+    ).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
     language
   );
   const generalApplicationFeeRequired =

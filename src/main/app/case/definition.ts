@@ -244,7 +244,6 @@ export interface AlternativeService {
   serviceApplicationRefusalReason: string;
   serviceApplicationDecisionDate: DateAsString;
   deemedServiceDate: DateAsString;
-  dateOfPayment: DateAsString;
   localCourtName: string;
   localCourtEmail: string;
   certificateOfServiceDocument: DivorceDocument;
@@ -252,6 +251,7 @@ export interface AlternativeService {
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
   servicePaymentFeeOrderSummary: OrderSummary;
+  servicePaymentFeeDateOfPayment: DateAsString;
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;
@@ -927,6 +927,7 @@ export interface CaseData {
   generalApplicationDocumentComments: string;
   generalApplicationFeeOrderSummary: OrderSummary;
   generalApplicationFeePaymentMethod: ServicePaymentMethod;
+  generalApplicationFeeDateOfPayment: DateAsString;
   generalApplicationFeeAccountNumber: string;
   generalApplicationFeePbaNumbers: DynamicList;
   generalApplicationFeeAccountReferenceNumber: string;
@@ -947,7 +948,6 @@ export interface CaseData {
   serviceApplicationRefusalReason: string;
   serviceApplicationDecisionDate: DateAsString;
   deemedServiceDate: DateAsString;
-  dateOfPayment: DateAsString;
   localCourtName: string;
   localCourtEmail: string;
   certificateOfServiceDocument: DivorceDocument;
@@ -962,6 +962,7 @@ export interface CaseData {
   serviceApplicationSubmittedOnline: YesOrNo,
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
+  servicePaymentFeeDateOfPayment: DateAsString;
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
@@ -1439,6 +1440,7 @@ export interface GeneralApplication {
   generalApplicationDocumentComments?: string;
   generalApplicationFeeOrderSummary?: OrderSummary;
   generalApplicationFeePaymentMethod?: ServicePaymentMethod;
+  generalApplicationFeeDateOfPayment?: DateAsString;
   generalApplicationFeeAccountNumber?: string;
   generalApplicationFeePbaNumbers?: DynamicList;
   generalApplicationFeeAccountReferenceNumber?: string;

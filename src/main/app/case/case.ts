@@ -267,6 +267,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
   servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
   servicePaymentFeePaymentMethod: 'servicePaymentFeePaymentMethod',
+  servicePaymentFeeDateOfPayment: 'servicePaymentFeeDateOfPayment',
   servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
   serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
   servicePayments: 'servicePayments',
@@ -639,6 +640,7 @@ export interface Case {
   applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
+  servicePaymentFeeDateOfPayment: DateAsString;
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
   serviceApplicationDocsUploadedPreSubmission: YesOrNo;
