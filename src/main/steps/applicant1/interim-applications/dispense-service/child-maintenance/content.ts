@@ -13,7 +13,7 @@ const en = ({ partner }: CommonContent) => ({
         'Select yes if there is a court order or a Child Maintenance Service calculation in place for child maintenance',
     },
     applicant1DispenseChildMaintenanceResults: {
-      required: `Select yes if you know any email addresses for your ${partner}`,
+      required: 'Enter details about the results of any enquiries made',
     },
   },
 });
@@ -28,7 +28,7 @@ const cy = ({ partner }: CommonContent) => ({
         'Select yes if there is a court order or a Child Maintenance Service calculation in place for child maintenance',
     },
     applicant1DispenseChildMaintenanceResults: {
-      required: `Select yes if you know any email addresses for your ${partner}`,
+      required: 'Enter details about the results of any enquiries made',
     },
   },
 });
