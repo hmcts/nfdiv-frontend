@@ -25,7 +25,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   provideNewEmailHeader: 'Rhowch y cyfeiriad e-bost newydd',
   errors: {
     applicant1NoResponsePartnerEmailAddress: {
-      required: 'Nid ydych wedi nodi cyfeiriad e-bost Nodwch gyfeiriad e-bost cyn parhau.',
+      required: 'Nid ydych wedi nodi cyfeiriad e-bost. Nodwch gyfeiriad e-bost cyn parhau.',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com.',
       sameEmail: `Rydych wedi nodi’ch cyfeiriad e-bost eich hun. Mae angen i chi nodi cyfeiriad e-bost eich ${partner} cyn parhau.`,
     },
