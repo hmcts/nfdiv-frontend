@@ -147,5 +147,43 @@ Feature: Dispense with service journey
     When I click continue
     Then the page should include element "#contactingEmployerTitle"
 
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#employmentDetailsTitle"
+
+    Given I select element "#applicant1DispenseEmployerName"
+    And I type "Example Employer"
+    Then I select element "#applicant1DispenseEmployerAddress"
+    And I type "123 Example Street, Example Town, EX1 2MP"
+    Then I select element "#applicant1DispensePartnerOccupation"
+    And I type "Test Occupation"
+    Then I select element "#applicant1DispenseContactingEmployerResults"
+    And I type "Contacting employer results"
+    When I click continue
+    Then the page should include element "#childrenOfFamilyTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#childrenContactTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#whenContactChildrenTitle"
+
+    Given I select element "#applicant1DispenseHowPartnerContactChildren"
+    And I type "How partner contacts children"
+    When I click continue
+    Then the page should include element "#childMaintenanceTitle"
+
+    Given I select element "#yes"
+    Then I select element "#applicant1DispenseChildMaintenanceResults"
+    And I type "Child maintenance results"
+    When I click continue
+    Then the page should include element "#friendsOrRelativesTitle"
+
+    Given I select element "#applicant1DispenseContactFriendsOrFamilyDetails"
+    And I type "Friends or relatives contact details"
+    When I click continue
+
     #Then the page should include element "#STOP"
     # Fix and continue this scenario as the journey progresses

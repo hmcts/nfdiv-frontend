@@ -8,15 +8,22 @@ import { dispenseServiceApplicationSequence } from './dispenseServiceApplication
 import {
   APPLY_FOR_HWF_DISPENSE,
   AWARE_PARTNER_ADDRESS_DISPENSE,
+  CHILDREN_CONTACT_DISPENSE,
+  CHILDREN_OF_FAMILY_DISPENSE,
+  CHILD_MAINTENANCE_DISPENSE,
   DA_SEARCH_DISPENSE,
   DISPENSE_SERVICE_APPLICATION,
   EMAIL_DESCRIPTION_DISPENSE,
   EMAIL_DISPENSE,
   EMPLOYMENT_CONTACT_DISPENSE,
+  EMPLOYMENT_DETAILS_DISPENSE,
+  FRIENDS_OR_RELATIVES_DISPENSE,
   HELP_WITH_FEES_DISPENSE,
+  HUB_PAGE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
   LAST_ADDRESS_DISPENSE,
+  LAST_CONTACT_CHILDREN_DISPENSE,
   LAST_DATE_DISPENSE,
   LAST_SEEN_DISPENSE,
   PARTNER_NEW_ADDRESS_DISPENSE,
@@ -28,6 +35,7 @@ import {
   TRACING_AGENT_RESULTS_DISPENSE,
   TRACING_ONLINE_DISPENSE,
   TRACING_ONLINE_RESULTS_DISPENSE,
+  WHEN_CONTACT_CHILDREN_DISPENSE,
 } from './urls';
 
 describe('Dispense With Service Application Sequence test', () => {
@@ -284,6 +292,95 @@ describe('Dispense With Service Application Sequence test', () => {
         obj => obj.url === SEARCHING_ONLINE_RESULTS_DISPENSE
       ) as Step;
       expect(step.getNextStep({})).toBe(EMPLOYMENT_CONTACT_DISPENSE);
+    });
+  });
+
+  describe('EMPLOYMENT_CONTACT_DISPENSE', () => {
+    test('EMPLOYMENT_DETAILS_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseTriedContactingEmployer: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === EMPLOYMENT_CONTACT_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(EMPLOYMENT_DETAILS_DISPENSE);
+    });
+
+    test('CHILDREN_OF_FAMILY_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseTriedContactingEmployer: YesOrNo.NO,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === EMPLOYMENT_CONTACT_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(CHILDREN_OF_FAMILY_DISPENSE);
+    });
+  });
+
+  describe('EMPLOYMENT_DETAILS_DISPENSE', () => {
+    test('CHILDREN_OF_FAMILY_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === EMPLOYMENT_DETAILS_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(CHILDREN_OF_FAMILY_DISPENSE);
+    });
+  });
+
+  describe('CHILDREN_OF_FAMILY_DISPENSE', () => {
+    test('CHILDREN_CONTACT_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseChildrenOfFamily: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHILDREN_OF_FAMILY_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(CHILDREN_CONTACT_DISPENSE);
+    });
+
+    test('FRIENDS_OR_RELATIVES_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseChildrenOfFamily: YesOrNo.NO,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHILDREN_OF_FAMILY_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(FRIENDS_OR_RELATIVES_DISPENSE);
+    });
+  });
+
+  describe('CHILDREN_CONTACT_DISPENSE', () => {
+    test('WHEN_CONTACT_CHILDREN_DISPENSE', () => {
+      const caseData = {
+        applicant1DispensePartnerContactWithChildren: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHILDREN_CONTACT_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(WHEN_CONTACT_CHILDREN_DISPENSE);
+    });
+
+    test('LAST_CONTACT_CHILDREN_DISPENSE', () => {
+      const caseData = {
+        applicant1DispensePartnerContactWithChildren: YesOrNo.NO,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHILDREN_CONTACT_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(LAST_CONTACT_CHILDREN_DISPENSE);
+    });
+  });
+
+  describe('WHEN_CONTACT_CHILDREN_DISPENSE', () => {
+    test('CHILD_MAINTENANCE_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === WHEN_CONTACT_CHILDREN_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(CHILD_MAINTENANCE_DISPENSE);
+    });
+  });
+
+  describe('LAST_CONTACT_CHILDREN_DISPENSE', () => {
+    test('CHILD_MAINTENANCE_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === LAST_CONTACT_CHILDREN_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(CHILD_MAINTENANCE_DISPENSE);
+    });
+  });
+
+  describe('CHILD_MAINTENANCE_DISPENSE', () => {
+    test('FRIENDS_OR_RELATIVES_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHILD_MAINTENANCE_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(FRIENDS_OR_RELATIVES_DISPENSE);
+    });
+  });
+
+  describe('FRIENDS_OR_RELATIVES_DISPENSE', () => {
+    test('HUB_PAGE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === FRIENDS_OR_RELATIVES_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(HUB_PAGE);
     });
   });
 });
