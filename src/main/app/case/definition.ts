@@ -1137,6 +1137,17 @@ export interface CaseData {
   applicant1DispenseSearchingOnlineResults: string;
   applicant1DispenseTriedContactingEmployer: YesOrNo;
   applicant1DispenseWhyNoContactingEmployer: string;
+  applicant1DispenseEmployerName: string;
+  applicant1DispenseEmployerAddress: string;
+  applicant1DispensePartnerOccupation: string;
+  applicant1DispenseContactingEmployerResults: string;
+  applicant1DispenseChildrenOfFamily: YesOrNo;
+  applicant1DispensePartnerContactWithChildren: YesOrNo;
+  applicant1DispenseHowPartnerContactChildren: string;
+  applicant1DispensePartnerLastContactChildren: string;
+  applicant1DispenseChildMaintenanceOrder: YesOrNo;
+  applicant1DispenseChildMaintenanceResults: string;
+  applicant1DispenseContactFriendsOrRelativesDetails: string;
 }
 
 export interface CaseDocuments {
@@ -1210,6 +1221,17 @@ export interface DispenseWithServiceJourneyOptions {
   dispenseSearchingOnlineResults: string;
   dispenseTriedContactingEmployer: YesOrNo;
   dispenseWhyNoContactingEmployer: string;
+  dispenseEmployerName: string;
+  dispenseEmployerAddress: string;
+  dispensePartnerOccupation: string;
+  dispenseContactingEmployerResults: string;
+  dispenseChildrenOfFamily: YesOrNo;
+  dispensePartnerContactWithChildren: YesOrNo;
+  dispenseHowPartnerContactChildren: string;
+  dispensePartnerLastContactChildren: string;
+  dispenseChildMaintenanceOrder: YesOrNo;
+  dispenseChildMaintenanceResults: string;
+  dispenseContactFriendsOrRelativesDetails: string;
 }
 
 export interface AlternativeServiceJourneyOptions {
