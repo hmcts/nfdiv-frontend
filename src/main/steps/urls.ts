@@ -287,3 +287,10 @@ export const SEARCHING_ONLINE_DISPENSE: PageLink = '/interim-applications/dispen
 export const SEARCHING_ONLINE_RESULTS_DISPENSE: PageLink =
   '/interim-applications/dispense-service/searching-online-results';
 export const EMPLOYMENT_CONTACT_DISPENSE: PageLink = '/interim-applications/dispense-service/employment-contact';
+export const EMPLOYMENT_DETAILS_DISPENSE: PageLink = '/interim-applications/dispense-service/employment-details';
+export const CHILDREN_OF_FAMILY_DISPENSE: PageLink = '/interim-applications/dispense-service/children-family';
+export const CHILDREN_CONTACT_DISPENSE: PageLink = '/interim-applications/dispense-service/children-contact';
+export const WHEN_CONTACT_CHILDREN_DISPENSE: PageLink = '/interim-applications/dispense-service/when-contact-children';
+export const LAST_CONTACT_CHILDREN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-contact-children';
+export const CHILD_MAINTENANCE_DISPENSE: PageLink = '/interim-applications/dispense-service/child-maintenance';
+export const FRIENDS_OR_RELATIVES_DISPENSE: PageLink = '/interim-applications/dispense-service/friends-or-relatives';
