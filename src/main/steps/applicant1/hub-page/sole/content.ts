@@ -68,8 +68,7 @@ const en = (
     line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   },
   contactDetailsUpdated: {
-    line1: `You have updated your ${partner}’s contact details.
-    You will receive a letter with your new contact details.`,
+    line1: `You have updated your ${partner}’s contact details.`,
     line2: `The court will now serve your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } papers again using the new contact details you have provided.`,
@@ -78,6 +77,22 @@ const en = (
     )} days from receiving the ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+  },
+  contactDetailsUpdatedOverseasAddress: {
+    line1: `You have updated your ${partner}’s address.`,
+    whatHappensNext: 'What happens next',
+    line2: `You will need to arrange delivery of the ${
+      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
+    } to your ${partner} yourself. This is because the courts of England and Wales do not have legal power (jurisdiction) in the country where they live.`,
+    whatNeedToDo: 'What you need to do',
+    line3: `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`,
+    line4: `You will receive a letter from HMCTS, which contains documents that need to be sent to your ${partner}. It’s called the ‘Notice of Proceedings’.`,
+    line5: `Post the ‘Notice of Proceedings’ to your ${partner}. Make sure you use a delivery service which provides proof of delivery.`,
+    line6: `Keep the proof of delivery so you can show that the papers have been ‘served’ (sent) to your ${partner}.`,
+    line7: 'They should then respond to the application',
+    line8: `The amount of time your ${partner} has to respond depends on the country they’re living in. If they do not respond, we will help you explore the other options you have to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
@@ -488,8 +503,7 @@ const cy: typeof en = (
     line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddynt gadarnhau eu bod yn eu cynrychioli. Fe anfonir copi o’r cais atynt ac fe ofynnir iddynt ymateb.`,
   },
   contactDetailsUpdated: {
-    line1: `You have updated your ${partner}’s contact details.
-    You will receive a letter with your new contact details.`,
+    line1: `You have updated your ${partner}’s contact details.`,
     line2: `The court will now serve your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } papers again using the new contact details you have provided.`,
@@ -498,6 +512,22 @@ const cy: typeof en = (
     )} days from receiving the ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+  },
+  contactDetailsUpdatedOverseasAddress: {
+    line1: `You have updated your ${partner}’s address.`,
+    whatHappensNext: 'What happens next',
+    line2: `You will need to arrange delivery of the ${
+      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
+    } to your ${partner} yourself. This is because the courts of England and Wales do not have legal power (jurisdiction) in the country where they live.`,
+    whatNeedToDo: 'What you need to do',
+    line3: `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`,
+    line4: `You will receive a letter from HMCTS, which contains documents that need to be sent to your ${partner}. It’s called the ‘Notice of Proceedings’.`,
+    line5: `Post the ‘Notice of Proceedings’ to your ${partner}. Make sure you use a delivery service which provides proof of delivery.`,
+    line6: `Keep the proof of delivery so you can show that the papers have been ‘served’ (sent) to your ${partner}.`,
+    line7: 'They should then respond to the application',
+    line8: `The amount of time your ${partner} has to respond depends on the country they’re living in. If they do not respond, we will help you explore the other options you have to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
