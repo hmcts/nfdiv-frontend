@@ -58,7 +58,12 @@ const en = ({ userCase }: CommonContent, showAddress: boolean, showEmail: boolea
 
 //TODO: Welsh translation required
 
-const cy: typeof en = ({ userCase }: CommonContent, showAddress: boolean, showEmail: boolean, sendPapersAgain: boolean) => ({
+const cy: typeof en = (
+  { userCase }: CommonContent,
+  showAddress: boolean,
+  showEmail: boolean,
+  sendPapersAgain: boolean
+) => ({
   title: 'Gwiriwch eich atebion',
   stepQuestions: {
     newPostalAddress: 'Cyfeiriad',

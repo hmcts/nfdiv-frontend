@@ -53,14 +53,14 @@ const cy: typeof en = ({ partner, isDivorce, userCase }: CommonContent) => {
   const isAddressOnlyUpdate =
     userCase.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.ADDRESS;
   const divorceOrDissolutionPapers = isDivorce ? "papurau'r ysgariad" : "cais i ddod â'ch partneriaeth sifil i ben";
-  const otherOptionsText = `Os nad yw eich ${partner} yn ymateb, byddwn yn eich helpu i archwilio’r dewisiadau eraill sydd gennych i datblygu eich ${isDivorce ? 'cais ysgariad' : 'cais i ddiweddu eich partneriaeth sifil'}`;
+  const otherOptionsText = `Os nad yw eich ${partner} yn ymateb, byddwn yn eich helpu i archwilio’r dewisiadau eraill sydd gennych i datblygu eich ${
+    isDivorce ? 'cais ysgariad' : 'cais i ddiweddu eich partneriaeth sifil'
+  }`;
 
   return {
     title: `${addressOverseas && isAddressOnlyUpdate ? 'Address' : 'Details'} updated`,
     line1: `Rydych wedi diweddaru ${
-      addressOverseas && isAddressOnlyUpdate
-        ? 'cyfeiriad eich'
-        : 'manylion cyswllt eich'
+      addressOverseas && isAddressOnlyUpdate ? 'cyfeiriad eich' : 'manylion cyswllt eich'
     } ${partner}.`,
     whatHappensNext: 'Beth fydd yn digwydd nesaf',
     line2: `${
@@ -73,7 +73,9 @@ const cy: typeof en = ({ partner, isDivorce, userCase }: CommonContent) => {
         ? `Mae'n bosibl y byddwch yn dymuno ceisio cyngor cyfreithiol ar sut i gyflwyno'r papurau yn y wlad lle mae eich ${partner} yn byw.`
         : `Bydd gan eich ${partner} ${config.get(
             'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
-          )} diwrnod o pan fyddant yn cael papurau’r ${divorceOrDissolutionPapers} i ymateb. Os nad yw eich ${partner} yn ymateb, byddwn yn eich helpu i archwilio’r dewisiadau eraill sydd gennych i ddatblygu eich ${isDivorce ? 'cais ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}.`
+          )} diwrnod o pan fyddant yn cael papurau’r ${divorceOrDissolutionPapers} i ymateb. Os nad yw eich ${partner} yn ymateb, byddwn yn eich helpu i archwilio’r dewisiadau eraill sydd gennych i ddatblygu eich ${
+            isDivorce ? 'cais ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+          }.`
     }.`,
     line4: `${
       addressOverseas
