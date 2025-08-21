@@ -12,6 +12,7 @@ const en = ({
   closingTimes,
   contactWebForm,
   serviceApplicationType,
+  generalApplicationType,
 }: CommonContent) => ({
   applicationDownload: {
     reference: 'Divorce-Application',
@@ -22,6 +23,11 @@ const en = ({
     reference: 'Service-application',
     link: '/downloads/service-application',
     text: `View your ${serviceApplicationType} application (PDF)`,
+  },
+  generalApplicationDownload: {
+    reference: 'General-application',
+    link: '/downloads/general-application',
+    text: `View your ${generalApplicationType} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
@@ -137,6 +143,7 @@ const cy: typeof en = ({
   closingTimes,
   contactWebForm,
   serviceApplicationType,
+  generalApplicationType,
 }: CommonContent) => ({
   applicationDownload: {
     reference: 'Divorce-Application',
@@ -147,6 +154,11 @@ const cy: typeof en = ({
     reference: 'Service-application',
     link: '/downloads/service-application',
     text: `Gweld y cais am ${serviceApplicationType} (PDF)`,
+  },
+  generalApplicationDownload: {
+    reference: 'General-application',
+    link: '/downloads/general-application',
+    text: `View your ${generalApplicationType} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
