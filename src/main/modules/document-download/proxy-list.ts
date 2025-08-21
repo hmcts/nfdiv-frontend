@@ -10,6 +10,14 @@ export const proxyList: {
     path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.APPLICATION),
   },
   {
+    endpoints: ['/downloads/applicant2-notice-of-proceedings'],
+    path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.NOTICE_OF_PROCEEDINGS_APP_2),
+  },
+  {
+    endpoints: ['/downloads/d10'],
+    path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.D10),
+  },
+  {
     endpoints: ['/downloads/respondent-answers'],
     path: (req: AppRequest): string =>
       getPath(
@@ -18,6 +26,10 @@ export const proxyList: {
           .concat(req.session.userCase?.documentsUploaded)
           .find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)?.value
       ),
+  },
+  {
+    endpoints: ['/downloads/service-application'],
+    path: (req: AppRequest): string => getPath(req, req.session.userCase?.serviceApplicationAnswers),
   },
   {
     endpoints: ['/downloads/certificate-of-service'],

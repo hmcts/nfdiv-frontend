@@ -1,16 +1,28 @@
 import config from 'config';
+import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
+import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
-
-import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
 export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
+  generalApplication: {
+    for: 'for',
+    to: 'to',
+    deemed: 'deemed service',
+    deemedCode: 'D11',
+    bailiff: 'bailiff service',
+    bailiffCode: 'D89',
+    alternativeService: 'alternative service',
+    dispense: 'dispense with service',
+    dispenseCode: 'D13b',
+  },
   feedback: {
     part1: 'This is a new service – your ',
     part2: 'feedback',
@@ -33,6 +45,7 @@ export const en = {
   download: 'Download',
   delete: 'Delete',
   warning: 'Warning',
+  continueToPay: 'Continue to pay',
   required: 'You have not answered the question. You need to select an answer before continuing.',
   notAnswered: 'You have not answered the question.',
   errorSaving: 'Sorry, we’re having technical problems saving your application. Please try again in a few minutes.',
@@ -82,8 +95,13 @@ export const en = {
     month: 'Month',
     year: 'Year',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Yes',
   no: 'No',
+  notKnown: 'Not known',
   english: 'English',
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
@@ -186,6 +204,17 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
+  generalApplication: {
+    for: 'am',
+    to: 'i',
+    deemed: 'gyflwyno tybiedig',
+    deemedCode: 'D11',
+    bailiff: 'gwasanaeth bailiff',
+    bailiffCode: 'D89',
+    alternativeService: 'gwasanaeth amgen',
+    dispense: 'hepgor cyflwyno',
+    dispenseCode: 'D13b',
+  },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
     part2: 'bydd eich sylwadau',
@@ -208,6 +237,7 @@ const cy: typeof en = {
   download: 'Llwytho i lawr',
   delete: 'Dileu',
   warning: 'Rhybudd',
+  continueToPay: 'Parhau i dalu',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   errorSaving:
@@ -255,8 +285,13 @@ const cy: typeof en = {
     month: 'Mis',
     year: 'Blwyddyn',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Do',
   no: 'Naddo',
+  notKnown: 'Not known',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',
@@ -359,6 +394,8 @@ export const generateCommonContent = ({
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isApp1Represented = userCase?.applicant1SolicitorRepresented === YesOrNo.YES;
+  const isApp2Represented = userCase?.applicant2SolicitorRepresented === YesOrNo.YES;
+  const isApp2Confidential = userCase?.applicant2AddressPrivate === YesOrNo.YES;
   const applicationHasBeenPaidFor = userCase?.applicationPayments?.some(
     payment => payment.value.status === PaymentStatus.SUCCESS
   );
@@ -400,6 +437,19 @@ export const generateCommonContent = ({
   const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
     isDivorce ? 'Divorce' : 'Civil'
   }&party=${feedbackParty}`;
+  const caseHasBeenIssued = !!userCase?.issueDate;
+  const referenceNumber = formattedCaseId(userCase?.id);
+
+  const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
+  const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
+  const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
+  const serviceApplicationResponseDate = getFormattedDate(
+    dayjs(userCase?.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    language
+  );
+  const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
   const genesysDeploymentId: string =
     language === SupportedLanguages.En
       ? config.get('webchat.genesysDeploymentId')
@@ -417,14 +467,25 @@ export const generateCommonContent = ({
     userCase,
     userEmail,
     isJointApplication,
+    caseHasBeenIssued,
+    hasServiceApplicationInProgress,
     isAmendableStates,
     isClarificationAmendableState,
     isRequestForInformationAmendableState,
     isApp1Represented,
+    isApp2Represented,
+    isApp2Confidential,
     isGeneralConsiderationFoRequested,
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
+    referenceNumber,
+    serviceApplicationType,
+    serviceApplicationDate,
+    serviceApplicationResponseDate,
+    serviceApplicationFeeRequired,
+    serviceApplicationDocsAllProvided,
+    serviceApplicationSubmittedOnline,
     genesysDeploymentId,
   };
 };
@@ -440,14 +501,24 @@ export type CommonContent = typeof en & {
   partner: string;
   userEmail?: string;
   isJointApplication: boolean;
+  caseHasBeenIssued: boolean;
+  hasServiceApplicationInProgress: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
   isRequestForInformationAmendableState: boolean | undefined;
   isApp1Represented: boolean;
+  isApp2Represented: boolean;
+  isApp2Confidential: boolean;
   isGeneralConsiderationFoRequested: boolean;
   isGeneralConsiderationCoPronounced: boolean;
   isPendingHearingOutcomeCoPronounced: boolean;
   isPendingHearingOutcomeFoRequested: boolean;
+  serviceApplicationType: string;
+  serviceApplicationDate: string | false;
+  serviceApplicationResponseDate: string | false;
+  serviceApplicationFeeRequired: boolean;
+  serviceApplicationDocsAllProvided: boolean;
+  serviceApplicationSubmittedOnline: boolean;
   genesysDeploymentId: string;
 };

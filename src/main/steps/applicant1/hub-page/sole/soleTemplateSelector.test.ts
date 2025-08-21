@@ -19,6 +19,7 @@ describe('SoleTemplateSelector test', () => {
     state: State.Draft,
     coIsAdminClarificationSubmitted: YesOrNo.NO,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    applicant2AddressOverseas: YesOrNo.NO,
   };
   const displayState = currentStateFn(userCase.state);
 
@@ -298,6 +299,16 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
+  test('should show /aos-due.njk for state AosDue and isAosOverdue', () => {
+    const userCaseWithAosOverdue = {
+      ...userCase,
+      issueDate: '01.01.2022',
+    };
+    const theState = displayState.at(State.AosDrafted);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AoSDue);
+  });
+
   test('should show /aos-due.njk for states after AosDrafted and before Holding', () => {
     const theState = displayState.at(State.AosOverdue);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
@@ -413,5 +424,11 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingHWFEvidence);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+  });
+  test('should show /awaiting-service.njk for state AwaitingService', () => {
+    userCase.applicant2AddressOverseas = YesOrNo.YES;
+    const theState = displayState.at(State.AwaitingService);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingService);
   });
 });
