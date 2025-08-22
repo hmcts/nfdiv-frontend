@@ -6,6 +6,7 @@ import { RoutePermission } from './applicant1Sequence';
 import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
+import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {
   CHECK_ANSWERS_URL,
@@ -22,11 +23,14 @@ import {
   INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
+  PageLink,
   PAY_YOUR_FINAL_ORDER_FEE,
   PAY_YOUR_SERVICE_FEE,
-  PageLink,
+  PROCESS_SERVER,
+  PROCESS_SERVER_DOCS,
   REVIEW_THE_APPLICATION,
   SERVICE_APPLICATION_SUBMITTED,
+  SUCCESS_SCREEN_PROCESS_SERVER,
 } from './urls';
 
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
@@ -41,6 +45,17 @@ export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
 
   return false;
 };
+
+export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
+  if (routesToRedirectToHub.find(i => i === (req.url as PageLink))) {
+    return true;
+  }
+  return false;
+};
+
+export const routesToRedirectToHub: PageLink[] = [PROCESS_SERVER];
+
+const ignoreList: PageLink[] = [SUCCESS_SCREEN_PROCESS_SERVER, PROCESS_SERVER_DOCS];
 
 export const routeHideConditions: RoutePermission[] = [
   {
@@ -62,11 +77,17 @@ export const routeHideConditions: RoutePermission[] = [
       ...deemedServiceApplicationSequence,
       ...alternativeServiceApplicationSequence,
       ...bailiffServiceApplicationSequence,
-    ].map(step => step.url as PageLink),
+      ...noResponseJourneySequence,
+    ]
+      .filter(step => !ignoreList.includes(step.url as PageLink))
+      .map(step => step.url as PageLink),
     condition: data =>
-      [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
-        data.state as State
-      ),
+      [
+        State.AwaitingServicePayment,
+        State.AwaitingServiceConsideration,
+        State.AwaitingDocuments,
+        State.AwaitingService,
+      ].includes(data.state as State),
   },
   {
     urls: [
