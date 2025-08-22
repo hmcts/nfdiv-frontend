@@ -46,7 +46,7 @@ const en = ({
   happensNextLine2: `We will email you ${
     generalApplicationFeeRequired && generalApplicationDocsAllProvided ? `by ${generalApplicationResponseDate} ` : ''
   }to let you know whether your application has been successful.`,
-  returnToHub: 'Return to hub screen',
+  returnToHub: 'Return to your account',
 
   // Application type specific content overrides:
   contentOverrides: {
