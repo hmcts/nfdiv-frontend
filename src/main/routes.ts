@@ -1,8 +1,9 @@
+import fs from 'fs';
+import { extname } from 'path';
+
 import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
-import fs from 'fs';
 import multer from 'multer';
-import { extname } from 'path';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
 import { AppRequest } from './app/controller/AppRequest';
