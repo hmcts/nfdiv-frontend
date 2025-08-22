@@ -55,7 +55,7 @@ export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
 
 export const routesToRedirectToHub: PageLink[] = [PROCESS_SERVER];
 
-const ignoreList: PageLink[] = [SUCCESS_SCREEN_PROCESS_SERVER, PROCESS_SERVER_DOCS];
+const ignoreList: PageLink[] = [HAVE_THEY_RECEIVED, SUCCESS_SCREEN_PROCESS_SERVER, PROCESS_SERVER_DOCS];
 
 export const routeHideConditions: RoutePermission[] = [
   {
@@ -123,6 +123,13 @@ export const routeHideConditions: RoutePermission[] = [
   },
   {
     urls: [HAVE_THEY_RECEIVED],
-    condition: data => data.applicant2AddressPrivate === YesOrNo.YES,
+    condition: data =>
+      data.applicant2AddressPrivate === YesOrNo.YES ||
+      [
+        State.AwaitingServicePayment,
+        State.AwaitingServiceConsideration,
+        State.AwaitingDocuments,
+        State.AwaitingService,
+      ].includes(data.state as State),
   },
 ];
