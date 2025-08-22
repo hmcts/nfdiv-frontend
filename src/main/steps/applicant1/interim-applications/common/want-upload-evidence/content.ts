@@ -15,11 +15,11 @@ const en = () => ({
 
 // @TODO translations
 const cy = () => ({
-  title: 'Are you able to upload evidence?',
+  title: 'A ydych yn gallu uwchlwytho tystiolaeth?',
   statement: '',
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
-      required: 'You must select an option before continuing.',
+      required: 'Rhaid i chi ddewis opsiwn cyn parhau.',
     },
   },
 });
@@ -34,6 +34,8 @@ export const form: FormContent = {
     applicant1InterimAppsCanUploadEvidence: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.yes,
