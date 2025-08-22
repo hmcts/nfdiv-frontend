@@ -29,9 +29,11 @@ export const getSoleHubTemplate = (
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
 
+  const latestGeneralApplication = findOnlineGeneralApplicationsForUser(userCase, isApplicant2)?.[0];
   const isSearchGovRecords =
-    findOnlineGeneralApplicationsForUser(userCase, isApplicant2)?.[0]?.generalApplicationType ===
-    (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
+    latestGeneralApplication?.generalApplicationType === (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
+  const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
+
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
     case State.FinalOrderRequested: {
@@ -73,7 +75,7 @@ export const getSoleHubTemplate = (
       }
     case State.AwaitingGeneralConsideration:
       if (isSearchGovRecords) {
-        return HubTemplate.AwaitingGeneralApplicationConsideration;
+        return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
       } else if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
       } else if (userCase.aosStatementOfTruth) {
@@ -84,7 +86,7 @@ export const getSoleHubTemplate = (
         return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.GeneralApplicationReceived:
-      return HubTemplate.AwaitingGeneralApplicationConsideration;
+      return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
     case State.AwaitingConditionalOrder:
       return HubTemplate.AwaitingConditionalOrder;
     case State.Holding:
