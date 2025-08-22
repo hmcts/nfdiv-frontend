@@ -20,7 +20,7 @@
                 {{ filename }}<br>
               {% endfor %}
             {% endset %}
-            {{ filenames | safe}}
+            {{ filenames | safe }}
             {% if cannotUploadDocs === 'Yes' %}
               {% if uploadedDocsFilenames.length %}
                 <br>
@@ -28,9 +28,9 @@
               {{ havingTroubleUploading }}
             {% endif %}
           {% elif question === 'newPostalAddress' %}
-            {{ stepAnswers[question] | safe}}
+            {{ stepAnswers[question] | safe }}
           {% elif question === 'partnerLastKnownAddress' %}
-          {{ stepAnswers[question] | safe}}
+            {{ stepAnswers[question] | safe }}
           {% else %}
             {{ stepAnswers[question] }}
           {% endif %}
