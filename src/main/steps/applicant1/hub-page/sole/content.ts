@@ -28,6 +28,7 @@ import {
   PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
 } from '../../../urls';
+import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application-submitted/content';
 import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
@@ -259,13 +260,6 @@ const en = (
   awaitingConsiderationSearchGovRecords: {
     line1: `The court is currently considering your search government records application that you submitted on ${generalApplicationDate}.`,
     line2: `We will email you by ${generalApplicationResponseDate} once a decision has been made to tell you your next steps.`,
-    hwfLine1: 'You have submitted your application to search government records.',
-    hwfLine2:
-      'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
-    hwfLine3:
-      'If your help with fees reference number is accepted, the court will review your application. We will email you to let you know whether your application has been successful.',
-    hwfLine4: 'If your application is approved, it normally takes 6-8 weeks to complete a search.',
-    whatHappensNext: 'What happens next',
   },
   serviceApplicationRejected: {
     line1: {
@@ -637,13 +631,6 @@ const cy: typeof en = (
   awaitingConsiderationSearchGovRecords: {
     line1: `The court is currently considering your search government records application that you submitted on ${generalApplicationDate}.`,
     line2: `We will email you by ${generalApplicationResponseDate} once a decision has been made to tell you your next steps.`,
-    hwfLine1: 'You have submitted your application to search government records.',
-    hwfLine2:
-      'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
-    hwfLine3:
-      'If your help with fees reference number is accepted, the court will review your application. We will email you to let you know whether your application has been successful.',
-    hwfLine4: 'If your application is approved, it normally takes 6-8 weeks to complete a search.',
-    whatHappensNext: 'What happens next',
   },
   conditionalOrderWithDeemedOrDispensedService: `Ni fyddwch yn gweld ymateb gan eich ${partner} yn y cais am orchymyn amodol.
    Mae hyn oherwydd na wnaethant ymateb i'ch cais. Gwnaethoch gais i'r llys am ${
@@ -1013,6 +1000,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
+    generalApplicationSubmitted: generalApplicationSubmittedContent(content),
     displayState,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
