@@ -127,6 +127,25 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
   }
 };
 
+export const isInvalidNationalInsuranceNumber: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+
+  const upperValue = (value as string).toUpperCase();
+
+  const niRegex = /^[A-Z]{2} \d{2} \d{2} \d{2} [A-Z]$/;
+
+  if (!niRegex.test(upperValue)) {
+    return 'invalidFormat';
+  }
+
+  if (upperValue === 'JB 34 66 84 D') {
+    return 'invalidUsedExample';
+  }
+};
+
 export const isInvalidPostcode: Validator = value => {
   const fieldNotFilledIn = isFieldFilledIn(value);
   if (fieldNotFilledIn) {

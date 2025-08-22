@@ -1,4 +1,4 @@
-import { AlternativeServiceMethod, YesOrNo } from '../app/case/definition';
+import { AlternativeServiceMethod, ServicePaymentMethod, YesOrNo } from '../app/case/definition';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { Step } from './applicant1Sequence';
@@ -173,7 +173,7 @@ describe('Alternative Service Application Sequence test', () => {
     test('CHECK_ANSWERS_ALTERNATIVE should redirect to PAY_YOUR_SERVICE_FEE if payment is required', () => {
       const step = alternativeServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_ALTERNATIVE) as Step;
       const caseData = {
-        alternativeServiceFeeRequired: YesOrNo.YES,
+        servicePaymentFeePaymentMethod: ServicePaymentMethod.FEE_PAY_BY_CARD,
       };
 
       expect(step.getNextStep(caseData)).toBe(PAY_YOUR_SERVICE_FEE);
@@ -182,7 +182,7 @@ describe('Alternative Service Application Sequence test', () => {
     test('CHECK_ANSWERS_ALTERNATIVE should redirect to SERVICE_APPLICATION_SUBMITTED if payment is not required', () => {
       const step = alternativeServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_ALTERNATIVE) as Step;
       const caseData = {
-        alternativeServiceFeeRequired: YesOrNo.NO,
+        servicePaymentFeePaymentMethod: ServicePaymentMethod.FEE_PAY_BY_HWF,
       };
 
       expect(step.getNextStep(caseData)).toBe(SERVICE_APPLICATION_SUBMITTED);
