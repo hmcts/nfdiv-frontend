@@ -3,7 +3,15 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, InterimApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
+import {
+  ApplicationType,
+  GeneralApplication,
+  PaymentStatus,
+  ServicePaymentMethod,
+  State,
+  YesOrNo,
+} from '../../app/case/definition';
+import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
@@ -17,6 +25,7 @@ export const en = {
     to: 'to',
     deemed: 'deemed service',
     searchGovRecords: 'search government records',
+    disclosureViaDwp: 'search government records',
     formTypes: {
       d11: 'D11',
     },
@@ -216,6 +225,7 @@ const cy: typeof en = {
       d11: 'D11',
     },
     searchGovRecords: 'search government records',
+    disclosureViaDwp: 'search government records',
     bailiff: 'gwasanaeth bailiff',
     alternativeService: 'gwasanaeth amgen',
     deemedCode: 'D11',
@@ -449,24 +459,41 @@ export const generateCommonContent = ({
   const referenceNumber = formattedCaseId(userCase?.id);
 
   const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
-  const serviceApplicationType =
-    commonTranslations.generalApplication[
-      userCase?.applicant1InterimApplicationType === InterimApplicationType.SEARCH_GOV_RECORDS
-        ? 'searchGovRecords'
-        : (userCase?.alternativeServiceType as string)
-    ];
+  const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
   const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
   const serviceApplicationResponseDate = getFormattedDate(
-    dayjs(userCase?.receivedServiceAddedDate).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    dayjs(userCase?.servicePaymentFeeDateOfPayment || userCase?.receivedServiceAddedDate).add(
+      config.get('dates.applicationSubmittedOffsetDays'),
+      'day'
+    ),
     language
   );
-  const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
-  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationFeeRequired =
+    userCase?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
   const genesysDeploymentId: string =
     language === SupportedLanguages.En
       ? config.get('webchat.genesysDeploymentId')
       : config.get('webchat.genesysDeploymentIdCy');
+
+  const generalApplications = findOnlineGeneralApplicationsForUser(userCase, isApplicant2);
+  const lastGeneralApplication = generalApplications?.[0];
+  const generalApplicationType =
+    commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
+  const generalApplicationDate = getFormattedDate(lastGeneralApplication?.generalApplicationReceivedDate, language);
+  const generalApplicationResponseDate = getFormattedDate(
+    dayjs(
+      lastGeneralApplication?.generalApplicationFeeDateOfPayment ||
+        lastGeneralApplication?.generalApplicationReceivedDate
+    ).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    language
+  );
+  const generalApplicationFeeRequired =
+    lastGeneralApplication?.generalApplicationFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
+  const generalApplicationDocsAllProvided =
+    lastGeneralApplication?.generalApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
+  const generalApplicationSubmittedOnline = lastGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
 
   return {
     ...commonTranslations,
@@ -493,13 +520,19 @@ export const generateCommonContent = ({
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
     referenceNumber,
+    genesysDeploymentId,
     serviceApplicationType,
     serviceApplicationDate,
     serviceApplicationResponseDate,
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
     serviceApplicationSubmittedOnline,
-    genesysDeploymentId,
+    generalApplicationType,
+    generalApplicationDate,
+    generalApplicationResponseDate,
+    generalApplicationFeeRequired,
+    generalApplicationDocsAllProvided,
+    generalApplicationSubmittedOnline,
   };
 };
 
@@ -533,5 +566,12 @@ export type CommonContent = typeof en & {
   serviceApplicationFeeRequired: boolean;
   serviceApplicationDocsAllProvided: boolean;
   serviceApplicationSubmittedOnline: boolean;
+  generalApplicationType: string;
+  generalApplicationDate: string | false;
+  generalApplicationResponseDate: string | false;
+  generalApplicationFeeRequired: boolean;
+  generalApplicationDocsAllProvided: boolean;
+  generalApplicationSubmittedOnline: boolean;
   genesysDeploymentId: string;
+  lastGeneralApplication?: GeneralApplication | undefined;
 };

@@ -217,7 +217,6 @@ export const PARTNER_NEW_ADDRESS_DISPENSE: PageLink =
   '/interim-applications/dispense-service/partner-new-address-dispense';
 export const LAST_SEEN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-seen-dispense';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
-export const HELP_WITH_FEES_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/help-with-fees';
 export const HELP_WITH_FEES_DISPENSE: PageLink = '/interim-applications/dispense-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
 export const HWF_REFERENCE_NUMBER_DISPENSE: PageLink = '/interim-applications/dispense-service/hwf-reference-number';
@@ -271,11 +270,6 @@ export const PARTNER_FIREARMS_LICENSE_BAILIFF: PageLink =
   '/interim-applications/bailiff-service/does-partner-hold-firearms-license';
 export const CHECK_ANSWERS_BAILIFF: PageLink = '/interim-applications/bailiff-service/check-answers';
 
-// Service Payment URLs
-export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
-export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
-export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
-
 //Alternative Service URLs
 export const HWF_REFERENCE_NUMBER_ALTERNATIVE: PageLink =
   '/interim-applications/alternative-service/hwf-reference-number';
@@ -296,3 +290,14 @@ export const ALTERNATIVE_SENDING_PAPERS_TO_PARTNER: PageLink =
 export const ALTERNATIVE_WHY_APPLY_THIS_WAY: PageLink = '/interim-applications/alternative-service/why-apply-this-way';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
+
+// Service Application Payment URLs
+export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
+export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
+export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
+
+// General Application Payment URLs
+export const PAY_YOUR_GENERAL_APPLICATION_FEE: PageLink = '/interim-applications/pay-your-general-application-fee';
+export const GENERAL_APPLICATION_PAYMENT_CALLBACK: PageLink =
+  '/interim-applications/general-application-payment-callback';
+export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/interim-applications/general-application-submitted';

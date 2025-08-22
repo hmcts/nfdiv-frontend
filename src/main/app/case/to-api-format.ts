@@ -26,7 +26,7 @@ import {
   applicant1AddressToApi,
   applicant1DispenseLivedTogetherAddressToApi,
   applicant1NoResponsePartnerAddressToApi,
-  applicant1SearchGovRecordsPartnerAddressToApi,
+  applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant2AddressToApi,
 } from './formatter/address';
 
@@ -476,7 +476,7 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
-  applicant1SearchGovRecordsPartnerAddressPostcode: applicant1SearchGovRecordsPartnerAddressToApi,
+  applicant1SearchGovRecordsPartnerLastKnownAddressPostcode: applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant1SearchGovRecordsPartnerNationalInsurance: data => ({
     applicant1SearchGovRecordsPartnerNationalInsurance: toUpper(
       data.applicant1SearchGovRecordsPartnerNationalInsurance

@@ -110,8 +110,8 @@ Feature: Search gov records journey
 
     Given I click element "#applicant1InterimAppsStatementOfTruth"
     When I click continue
-    Then the page should include element "#serviceApplicationSubmittedTitle"
-    And the page should include "You have submitted your application for search government records."
+    Then the page should include element "#generalApplicationSubmittedTitle"
+    And the page should include "You have submitted your application to search government records."
 
   Scenario: Search gov records pay by card happy path
     Given I set the case state to "AosOverdue"
@@ -177,10 +177,9 @@ Feature: Search gov records journey
 
     Given I click element "#applicant1InterimAppsStatementOfTruth"
     When I click submit
-    Then the page should include element "#payYourServiceFeeTitle"
+    Then the page should include element "#payYourGeneralApplicationFeeTitle"
 
-    Given I pay and submit the service application
-    Then the page should include "You have submitted your request"
+    Given I pay and submit the general application
+    Then the page should include "You have submitted your application"
 
     Given I click element "#returnToHub"
-    Then the page should include "considering your request for search government records"

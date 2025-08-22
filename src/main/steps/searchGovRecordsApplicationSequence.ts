@@ -4,6 +4,7 @@ import { YesOrNo } from '../app/case/definition';
 import { Step } from './applicant1Sequence';
 import {
   CHECK_YOUR_ANSWERS_GOV_RECORDS,
+  GENERAL_APPLICATION_SUBMITTED,
   HELP_PAYING_NEED_TO_APPLY_SEARCH_GOV_RECORDS,
   HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS,
   HWF_REFERENCE_NUMBER_SEARCH_GOV_RECORDS,
@@ -13,11 +14,10 @@ import {
   PARTNER_DOB_GOV_RECORDS,
   PARTNER_NAME_GOV_RECORDS,
   PARTNER_NI_GOV_RECORDS,
-  PAY_YOUR_SERVICE_FEE,
+  PAY_YOUR_GENERAL_APPLICATION_FEE,
   PageLink,
   SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_GOV_RECORDS_HWF,
-  SERVICE_APPLICATION_SUBMITTED,
   WHICH_GOV_DEPARTMENTS,
   WHY_SEARCH_GOV_RECORDS,
 } from './urls';
@@ -88,10 +88,7 @@ export const searchGovRecordsApplicationSequence: Step[] = [
   },
   {
     url: CHECK_YOUR_ANSWERS_GOV_RECORDS,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      return data.applicant1InterimAppsUseHelpWithFees === YesOrNo.YES
-        ? SERVICE_APPLICATION_SUBMITTED
-        : PAY_YOUR_SERVICE_FEE;
-    },
+    getNextStep: (data: Partial<CaseWithId>): PageLink =>
+      data?.applicant1GeneralAppServiceRequest ? PAY_YOUR_GENERAL_APPLICATION_FEE : GENERAL_APPLICATION_SUBMITTED,
   },
 ];

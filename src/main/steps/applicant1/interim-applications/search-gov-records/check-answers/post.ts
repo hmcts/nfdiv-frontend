@@ -1,20 +1,21 @@
 import autobind from 'autobind-decorator';
 
-import { Case, CaseWithId } from '../../../../../app/case/case';
-import { CITIZEN_SERVICE_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import { CITIZEN_GENERAL_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
+import { Step } from '../../../../../steps/applicant1Sequence';
+import { searchGovRecordsApplicationSequence as searchGovRecordsSequence } from '../../../../searchGovRecordsApplicationSequence';
+import CheckAnswersPostController from '../../common/check-answers/post';
 
 @autobind
-export default class CheckYourAnswersPostController extends PostController<AnyObject> {
-  protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    if (!req.session.isApplicant2) {
-      formData.applicant1InterimApplicationType = InterimApplicationType.SEARCH_GOV_RECORDS;
-    }
-    return super.save(req, formData, eventName);
+export default class CheckSearchGovRecordsAnswersPostController extends CheckAnswersPostController {
+  protected getEventName(): string {
+    return CITIZEN_GENERAL_APPLICATION;
   }
 
-  protected getEventName(): string {
-    return CITIZEN_SERVICE_APPLICATION;
+  protected interimApplicationType(): InterimApplicationType {
+    return InterimApplicationType.SEARCH_GOV_RECORDS;
+  }
+
+  protected interimApplicationSequence(): Step[] {
+    return searchGovRecordsSequence;
   }
 }

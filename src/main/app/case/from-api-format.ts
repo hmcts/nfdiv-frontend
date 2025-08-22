@@ -250,6 +250,8 @@ const fields: FromApiConverters = {
   applicant1DispensePartnerLastSeenDate: data => ({
     applicant1DispensePartnerLastSeenOrHeardOfDate: fromApiDate(data.applicant1DispensePartnerLastSeenDate),
   }),
+  applicant1SearchGovRecordsPartnerLastKnownAddress: data =>
+    formatAddress(data, 'applicant1SearchGovRecordsPartnerLastKnown'),
 };
 
 const fromApiDate = date => {

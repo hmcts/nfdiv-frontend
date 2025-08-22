@@ -23,6 +23,7 @@ import {
   FINALISING_YOUR_APPLICATION,
   HOW_YOU_CAN_PROCEED,
   OPTIONS_FOR_PROGRESSING,
+  PAY_YOUR_GENERAL_APPLICATION_FEE,
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
@@ -43,6 +44,7 @@ const en = (
     serviceApplicationType,
     serviceApplicationDate,
     serviceApplicationResponseDate,
+    generalApplicationType,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string
@@ -301,6 +303,16 @@ const en = (
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
   },
+  awaitingGeneralApplicationPayment: {
+    line1: `Your ${partner} has not responded to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    line2: `You have have started a ${generalApplicationType} application.`,
+    doNext: 'What you can do next',
+    line3: 'You need to pay the general application fee before it can be referred to a judge to consider your request.',
+    linkText: 'Complete payment',
+    linkUrl: PAY_YOUR_GENERAL_APPLICATION_FEE,
+  },
   awaitingServiceApplicationDocuments: {
     heading1: 'Send your evidence to the court',
     line1: 'You now need to send us your documents. You can do this in the following ways:',
@@ -466,6 +478,7 @@ const cy: typeof en = (
     referenceNumber,
     isJointApplication,
     serviceApplicationType,
+    generalApplicationType,
     serviceApplicationResponseDate,
     serviceApplicationDate,
   }: CommonContent,
@@ -731,6 +744,16 @@ const cy: typeof en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
+  },
+  awaitingGeneralApplicationPayment: {
+    line1: `Your ${partner} has not responded to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    line2: `You have have started a ${generalApplicationType} application.`,
+    doNext: 'What you can do next',
+    line3: 'You need to pay the general application fee before it can be referred to a judge to consider your request.',
+    linkText: 'Complete payment',
+    linkUrl: PAY_YOUR_GENERAL_APPLICATION_FEE,
   },
   awaitingBailiffService: {
     line1: `Roedd eich cais am wasanaeth beili yn llwyddiannus. Bydd beili'r llys yn ceisio cyflwyno ${

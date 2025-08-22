@@ -19,6 +19,7 @@ import {
   DocumentType,
   FinancialOrderFor,
   Gender,
+  GeneralApplication,
   InterimApplicationType,
   JurisdictionConnections,
   LegalAdvisorDecision,
@@ -35,6 +36,7 @@ import {
   Payment,
   RequestForInformation,
   SearchGovRecordsWhichDepartment,
+  ServicePaymentMethod,
   State,
   YesOrNo,
   YesOrNoOrNotKnown,
@@ -264,6 +266,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
   servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
   servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
+  servicePaymentFeePaymentMethod: 'servicePaymentFeePaymentMethod',
+  servicePaymentFeeDateOfPayment: 'servicePaymentFeeDateOfPayment',
   servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
   serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
   servicePayments: 'servicePayments',
@@ -291,6 +295,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1SearchGovRecordsPartnerAdditionalAddressDates1: 'applicant1SearchGovRecordsPartnerAdditionalAddressDates1',
   applicant1SearchGovRecordsPartnerAdditionalAddress2: 'applicant1SearchGovRecordsPartnerAdditionalAddress2',
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2: 'applicant1SearchGovRecordsPartnerAdditionalAddressDates2',
+  generalApplications: 'generalApplications',
+  applicant1GeneralAppServiceRequest: 'applicant1GeneralAppServiceRequest',
+  applicant2GeneralAppServiceRequest: 'applicant2GeneralAppServiceRequest',
+  applicant1GeneralAppPayments: 'applicant1GeneralAppPayments',
+  applicant2GeneralAppPayments: 'applicant2GeneralAppPayments',
   applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
   applicant1DispenseLivedTogetherDate: 'applicant1DispenseLivedTogetherDate',
   applicant1DispenseAwarePartnerLived: 'applicant1DispenseAwarePartnerLived',
@@ -603,6 +612,7 @@ export interface Case {
   applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
   applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType?: InterimApplicationType;
+  applicant2InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
@@ -630,6 +640,8 @@ export interface Case {
   applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
+  servicePaymentFeeDateOfPayment: DateAsString;
+  servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
   serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   servicePayments: ListValue<Payment>[];
@@ -658,6 +670,11 @@ export interface Case {
   applicant1SearchGovRecordsPartnerAdditionalAddressDates1: string;
   applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
+  generalApplications?: ListValue<GeneralApplication>[];
+  applicant1GeneralAppServiceRequest?: string;
+  applicant2GeneralAppServiceRequest?: string;
+  applicant1GeneralAppPayments?: ListValue<Payment>[];
+  applicant2GeneralAppPayments?: ListValue<Payment>[];
   applicant1DispenseLiveTogether?: YesOrNo;
   applicant1DispenseLivedTogetherDate?: DateAsString;
   applicant1DispenseLastLivedTogetherDate?: CaseDate;
@@ -677,14 +694,14 @@ export interface Case {
   applicant1DispensePartnerLastSeenDate?: DateAsString;
   applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
   applicant1DispensePartnerLastSeenDescription?: string;
-  applicant1SearchGovRecordsPartnerAddress1?: string;
-  applicant1SearchGovRecordsPartnerAddress2?: string;
-  applicant1SearchGovRecordsPartnerAddress3?: string;
-  applicant1SearchGovRecordsPartnerAddressTown?: string;
-  applicant1SearchGovRecordsPartnerAddressCounty?: string;
-  applicant1SearchGovRecordsPartnerAddressCountry?: string;
-  applicant1SearchGovRecordsPartnerAddressPostcode?: string;
-  applicant1SearchGovRecordsPartnerAddressOverseas: YesOrNo.NO;
+  applicant1SearchGovRecordsPartnerLastKnownAddress1?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddress2?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddress3?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressTown?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressCounty?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressCountry?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressPostcode?: string;
+  applicant1SearchGovRecordsPartnerLastKnownAddressOverseas: YesOrNo.NO;
 }
 
 export interface CaseWithId extends Case {

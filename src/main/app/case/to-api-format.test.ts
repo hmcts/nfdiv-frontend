@@ -774,6 +774,20 @@ describe('to-api-format', () => {
     });
   });
 
+  describe('applicant1SearchGovRecordsPartnerNationalInsurance transformation', () => {
+    test('Capitalizes the national insurance number', () => {
+      const apiFormat = toApiFormat({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
+      } as Partial<Case>);
+    });
+  });
+
   describe('applicant1AltServiceDifferentWays transformation', () => {
     test('sets other fields to null when not selected in applicant1AltServiceDifferentWays', () => {
       const apiFormat = toApiFormat({
