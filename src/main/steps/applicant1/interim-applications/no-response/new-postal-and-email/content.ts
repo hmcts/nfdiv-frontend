@@ -4,7 +4,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ isDivorce, partner, required }: CommonContent) => ({
+const en = ({ isDivorce, partner }: CommonContent) => ({
   title: `Update your ${partner}'s contact details`,
   line1: `We will try to send the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
@@ -18,13 +18,29 @@ const en = ({ isDivorce, partner, required }: CommonContent) => ({
   newEmailAndPostalAddress: 'I have a new email address and postal address',
   errors: {
     applicant1NoResponsePartnerNewEmailOrPostalAddress: {
-      required,
+      required: 'You must select an option before continuing',
     },
   },
 });
 
-// @TODO translations should be verified once provided
-const cy: typeof en = en;
+const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
+  title: `Diweddaru manylion cyswllt eich ${partner}`,
+  line1: `Byddwn yn ceisio anfon papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } i’r cyfeiriad post neu’r cyfeiriad e-bost newydd. Ni fydd rhaid i chi dalu am hyn.`,
+  line2: `Ni allwn anfon dogfennau’r llys i gyfeiriadau rhyngwladol. Os yw eich ${partner} yn byw dramor, bydd angen i chi anfon papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } atynt eich hun. Mi wnawn bostio’r dogfennau atoch fel y gallwch chi drefnu hyn.`,
+  newDetailsHeader: `Pa fanylion cyswllt ar gyfer eich ${partner} ydych chi angen diweddaru?`,
+  newPostalAddress: 'Mae gennyf gyfeiriad post newydd',
+  newEmailAddress: 'Mae gennyf gyfeiriad e-bost newydd',
+  newEmailAndPostalAddress: 'Mae gennyf gyfeiriad e-bost a chyfeiriad post newydd',
+  errors: {
+    applicant1NoResponsePartnerNewEmailOrPostalAddress: {
+      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {

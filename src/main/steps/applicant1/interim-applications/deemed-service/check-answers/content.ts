@@ -45,17 +45,17 @@ const cy: typeof en = (
   noEvidenceStatement
 ) => ({
   stepQuestions: {
-    useHwf: 'Help paying the application fee',
-    hwfReference: 'Help with fees reference number',
-    canUploadEvidence: 'Are you able to upload evidence?',
-    uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
-    evidenceDetails: 'Details about your evidence',
-    noEvidenceStatement: 'Supporting statement',
+    useHwf: 'Help i dalu’r ffi gwneud cais',
+    hwfReference: 'Cyfeirnod help i dalu ffioedd',
+    canUploadEvidence: 'A ydych yn gallu uwchlwytho tystiolaeth?',
+    uploadedFiles: 'Ffeiliau wedi’u huwchlwytho',
+    evidenceDetails: 'Manylion am eich tystiolaeth',
+    noEvidenceStatement: 'Datganiad i Gefnogi Cais',
   },
   stepAnswers: {
-    useHwf: `${useHwf}`,
+    useHwf: `${useHwf === YesOrNo.YES ? 'Ydy' : 'Nac ydw'}`,
     hwfReference: `${hwfReference}`,
-    canUploadEvidence: `${canUpload}`,
+    canUploadEvidence: `${canUpload === YesOrNo.YES ? 'Ydy' : 'Nac ydw'}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
     evidenceDetails: `${evidenceDetails}`,
     noEvidenceStatement: `${noEvidenceStatement}`,
