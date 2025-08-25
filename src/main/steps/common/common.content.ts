@@ -291,7 +291,7 @@ const cy: typeof en = {
   },
   yes: 'Do',
   no: 'Naddo',
-  notKnown: 'Not known',
+  notKnown: 'Anhysbys',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',

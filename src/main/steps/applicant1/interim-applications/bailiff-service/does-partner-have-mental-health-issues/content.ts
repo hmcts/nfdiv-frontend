@@ -18,14 +18,14 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Is your ${partner} known to have any mental health issues or known to use any drugs or alcohol in any way that may affect their behaviour?`,
-  otherDetailsLabel: 'Provide as much information as you can',
+  title: `A oes gan eich ${partner} unrhyw broblemau iechyd meddwl hysbys neu a yw’n defnyddio/camddefnyddio cyffuriau neu alcohol mewn unrhyw ffordd a all effeithio ar ei ymddygiad?`,
+  otherDetailsLabel: 'Rhowch gymaint o wybodaeth ag y gallwch.',
   errors: {
     applicant1BailiffDoesPartnerHaveMentalIssues: {
-      required: `Select yes if you know your ${partner} has mental health issues or uses drugs or alcohol`,
+      required: `Dewiswch “Oes” os ydych yn gwybod bod gan eich ${partner} broblemau iechyd meddwl neu’n defnyddio alcohol neu gyffuriau`,
     },
     applicant1BailiffPartnerMentalIssuesDetails: {
-      required: 'Enter details of any mental health issues or drugs or alcohol use',
+      required: 'Rhowch fanylion unrhyw broblemau iechyd meddwl neu ddefnyddio cyffuriau neu alcohol',
     },
   },
 });
