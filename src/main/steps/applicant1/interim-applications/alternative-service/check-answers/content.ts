@@ -80,7 +80,7 @@ const en = (
             case AlternativeServiceDifferentWays.WHATSAPP:
               return 'WhatsApp';
             case AlternativeServiceDifferentWays.SOCIAL_MEDIA:
-              return 'Social media';
+              return 'Private message on social media';
             case AlternativeServiceDifferentWays.OTHER:
               return 'Other';
             default:
@@ -127,21 +127,21 @@ const cy: typeof en = (
   alternativeServicePartnerOtherDetails
 ) => ({
   stepQuestions: {
-    useHwf: 'Help paying the application fee',
-    hwfReference: 'Help with fees reference number',
-    canUploadEvidence: 'Are you able to upload evidence?',
+    useHwf: 'Helpi  i dalu’r ffi gwneud cais',
+    hwfReference: 'Cyfeirnod help i dalu ffioedd',
+    canUploadEvidence: 'A ydych yn gallu uwchlwytho tystiolaeth?',
     uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
-    alternativeServiceReason: 'Why are you applying for alternative service?',
-    alternativeServiceMethod: 'How do you want to send the papers?',
-    alternativeServicePartnerEmail: 'Email Address',
-    alternativeServiceDifferentWays: `Choose how you want to send the ${
-      isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+    alternativeServiceReason: 'Pam ydych yn gwneud cais am gyflwyno amgen?',
+    alternativeServiceMethod: 'Sut hoffech chi ymgeisio i anfon y papurau?',
+    alternativeServicePartnerEmail: 'Cyfeiriad e-bost',
+    alternativeServiceDifferentWays: `Dewiswch sut rydych eisiau anfon y papurau’r ${
+      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     }`,
-    alternativeServicePartnerPhone: 'Mobile phone number',
-    alternativeServicePartnerWANumber: 'WhatsApp number',
-    alternativeServicePartnerSocialMedia: 'Social media details',
-    alternativeServicePartnerOtherDetails: 'Other details',
-    alternativeServiceMethodJustification: 'Why are you applying to send the papers this way?',
+    alternativeServicePartnerPhone: 'Rhif ffôn symudol',
+    alternativeServicePartnerWANumber: 'Rhif WhatsApp',
+    alternativeServicePartnerSocialMedia: 'Manylion cyfryngau cymdeithasol',
+    alternativeServicePartnerOtherDetails: 'Manylion eraill',
+    alternativeServiceMethodJustification: 'Pam ydych yn gwneud cais i anfon y papurau yn y ffordd yma?',
   },
   stepAnswers: {
     useHwf: `${useHwf}`,
@@ -151,9 +151,9 @@ const cy: typeof en = (
     alternativeServiceReason: `${alternativeServiceReason}`,
     alternativeServiceMethod:
       {
-        [AlternativeServiceMethod.EMAIL]: 'By email',
-        [AlternativeServiceMethod.DIFFERENT_WAY]: 'In a different way',
-        [AlternativeServiceMethod.EMAIL_AND_DIFFERENT]: 'By both email and a different way',
+        [AlternativeServiceMethod.EMAIL]: 'Trwy e-bost',
+        [AlternativeServiceMethod.DIFFERENT_WAY]: 'Mewn ffordd wahanol',
+        [AlternativeServiceMethod.EMAIL_AND_DIFFERENT]: 'Drwy e-bost ac mewn ffordd wahanol',
       }[alternativeServiceMethod] || '',
     alternativeServicePartnerEmail: `${alternativeServicePartnerEmail}`,
     alternativeServiceDifferentWays: Array.isArray(alternativeServiceDifferentWays)
@@ -161,13 +161,13 @@ const cy: typeof en = (
           .map((way: AlternativeServiceDifferentWays) => {
             switch (way) {
               case AlternativeServiceDifferentWays.TEXT_MESSAGE:
-                return 'Text message';
+                return 'Neges testun';
               case AlternativeServiceDifferentWays.WHATSAPP:
                 return 'WhatsApp';
               case AlternativeServiceDifferentWays.SOCIAL_MEDIA:
-                return 'Social media';
+                return 'Neges breifat ar y cyfryngau cymdeithasol';
               case AlternativeServiceDifferentWays.OTHER:
-                return 'Other';
+                return 'Arall';
               default:
                 return way;
             }
@@ -176,13 +176,13 @@ const cy: typeof en = (
       : (() => {
           switch (alternativeServiceDifferentWays) {
             case AlternativeServiceDifferentWays.TEXT_MESSAGE:
-              return 'Text message';
+              return 'Neges testun';
             case AlternativeServiceDifferentWays.WHATSAPP:
               return 'WhatsApp';
             case AlternativeServiceDifferentWays.SOCIAL_MEDIA:
-              return 'Social media';
+              return 'Neges breifat ar y cyfryngau cymdeithasol';
             case AlternativeServiceDifferentWays.OTHER:
-              return 'Other';
+              return 'Arall';
             default:
               return alternativeServiceDifferentWays;
           }

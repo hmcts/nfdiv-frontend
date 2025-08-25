@@ -120,7 +120,7 @@ const cy: typeof en = ({
   contentOverrides: {
     alternativeService: {
       happensNextLine3:
-        'If your application is successful, we will email you detailed information about what to do next.',
+        'Os bydd eich cais yn llwyddiannus, byddwn yn anfon e-bost atoch i ddweud wrthych am beth i’w wneud nesaf.',
     },
     bailiff: {
       title: 'Request submitted',
