@@ -2643,7 +2643,7 @@ export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
 export const enum NoResponseSendPapersAgainOrTrySomethingElse {
   SEND_PAPERS_AGAIN = 'sendPapersAgain',
   TRY_SOMETHING_ELSE = 'trySomethingElse',
-  PAPERS_ALREADY_SENT = 'papersAlreadySent',
+  PAPERS_SENT = 'papersSent',
 }
 
 export const enum AlternativeServiceMethod {

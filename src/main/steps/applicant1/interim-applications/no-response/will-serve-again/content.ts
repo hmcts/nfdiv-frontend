@@ -4,14 +4,16 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { CommonContent } from '../../../../common/common.content';
 import { HUB_PAGE } from '../../../../urls';
 
-const en = ({ isDivorce, partner }: CommonContent) => ({
+const en = ({ isDivorce, isApp2Represented, partner }: CommonContent) => ({
   title: 'We will send the documents again',
   detailsProvided: `These are the details you previously provided and is where we have sent the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } papers.`,
   line1: `We will now send the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
-  } papers to your ${partner} again using the postal address and any email addresses you provided before. The papers will be sent to the address by first class post, and will be sent by email now, if applicable.`,
+  } papers to your ${partner}${
+    isApp2Represented ? "'s solicitor" : ''
+  } again using the postal address and any email addresses you provided before. The papers will be sent to the address by first class post, and will be sent by email now, if applicable.`,
   whatHappensNext: 'What happens next',
   line2: `Your ${partner} will have ${config.get(
     'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
@@ -27,14 +29,16 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 });
 
 // @TODO translations should be completed then verified
-const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, isApp2Represented, partner }: CommonContent) => ({
   title: 'Mi wnawn anfon y dogfennau eto',
   detailsProvided: `These are the details you previously provided and is where we have sent the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   }.`,
   line1: `Byddwn nawr yn anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-  } at eich ${partner} eto gan ddefnyddio’r cyfeiriad post ac unrhyw gyfeiriadau e-bost a ddarparwyd gennych yn flaenorol. Bydd y papurau’n cael eu hanfon i’r cyfeiriad drwy’r post dosbarth cyntaf, a drwy e-bost nawr, os yw hynny’n berthnasol.`,
+  } at eich ${partner}${partner}${
+    isApp2Represented ? "'s solicitor" : ''
+  } eto gan ddefnyddio’r cyfeiriad post ac unrhyw gyfeiriadau e-bost a ddarparwyd gennych yn flaenorol. Bydd y papurau’n cael eu hanfon i’r cyfeiriad drwy’r post dosbarth cyntaf, a drwy e-bost nawr, os yw hynny’n berthnasol.`,
   whatHappensNext: 'Beth fydd yn digwydd nesaf',
   line2: `Bydd gan eich ${partner} ${config.get(
     'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'

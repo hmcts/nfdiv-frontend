@@ -989,7 +989,7 @@ export const generateContent: TranslationFn = content => {
       NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED && userCase.applicant2AddressOverseas !== YesOrNo.YES;
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
-    NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
+    NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
