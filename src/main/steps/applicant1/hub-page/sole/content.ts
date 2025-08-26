@@ -445,7 +445,7 @@ const en = (
     whatsNext: 'What happens next',
     line3: `Your ${partner} will have ${config.get(
       'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
-    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your (${
+    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
@@ -901,7 +901,7 @@ const cy: typeof en = (
     whatsNext: 'What happens next',
     line3: `Your ${partner} will have ${config.get(
       'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
-    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your (${
+    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
