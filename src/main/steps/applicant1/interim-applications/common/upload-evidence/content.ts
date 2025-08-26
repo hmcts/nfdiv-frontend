@@ -103,15 +103,6 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.cannotUpload,
       labelHidden: true,
-      validator: (value, formData) => {
-        const hasUploadedFiles =
-          (formData.applicant1InterimAppsEvidenceUploadedFiles as unknown as string[])?.length &&
-          (formData.applicant1InterimAppsEvidenceUploadedFiles as unknown as string) !== '[]';
-        const selectedCannotUploadDocuments = !!formData.applicant1InterimAppsCannotUploadDocs?.length;
-        if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
-          return 'notUploaded';
-        }
-      },
       values: [
         {
           name: 'applicant1InterimAppsCannotUploadDocs',
