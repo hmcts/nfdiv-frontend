@@ -9,6 +9,8 @@ import {
   Applicant2Represented,
   DocumentType,
   InterimApplicationType,
+  NoResponsePartnerNewEmailOrAddress,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   State,
   YesOrNo,
 } from '../../../../app/case/definition';
@@ -64,6 +66,35 @@ const en = (
     }`,
     line6: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
     line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
+  },
+  contactDetailsUpdated: {
+    line1: `You have updated your ${partner}’s contact details.`,
+    line2: `The court will now serve your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers again using the new contact details you have provided.`,
+    line3: `Your ${partner} will have ${config.get(
+      'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
+    )} days from receiving the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+  },
+  contactDetailsUpdatedOverseasAddress: {
+    line1: `You have updated your ${partner}’s address.`,
+    whatHappensNext: 'What happens next',
+    line2: `You will need to arrange delivery of the ${
+      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
+    } to your ${partner} yourself. This is because the courts of England and Wales do not have legal power (jurisdiction) in the country where they live.`,
+    whatNeedToDo: 'What you need to do',
+    line3: `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`,
+    line4: `You will receive a letter from HMCTS, which contains documents that need to be sent to your ${partner}. It’s called the ‘Notice of Proceedings’.`,
+    line5: `Post the ‘Notice of Proceedings’ to your ${partner}. Make sure you use a delivery service which provides proof of delivery.`,
+    line6: `Keep the proof of delivery so you can show that the papers have been ‘served’ (sent) to your ${partner}.`,
+    line7: 'They should then respond to the application',
+    line8: `The amount of time your ${partner} has to respond depends on the country they’re living in. If they do not respond, we will help you explore the other options you have to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
   },
   aosDrafted: {
     line1: `Your ${partner} has started drafting a response to your application.`,
@@ -404,6 +435,20 @@ const en = (
     line2:
       'The court will review the information from the Third party once provided, then the application can progress.',
   },
+  sendPapersAgain: {
+    line1: `You have asked the court to send the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers again to your ${partner}.`,
+    line2: `The court will now send the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers to your ${partner} again using the postal address and any email addresses you provided before. The papers will be sent to the address by first class post, and will be sent by email now, if applicable.`,
+    whatsNext: 'What happens next',
+    line3: `Your ${partner} will have ${config.get(
+      'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
+    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+  },
   awaitingProcessServerService: {
     line1: `You have chosen to arrange for an independent process server to serve the papers on your ${partner}.`,
     line2: `You can <a class="govuk-link" href="${PROCESS_SERVER_DOCS}">download the papers from the documents tab</a>. You will need to print these out and give them to your process server.`,
@@ -456,6 +501,35 @@ const cy: typeof en = (
     line5: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu mai chi sy’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sy’n hysbysu’ch ${partner} am yr ysgariad.`,
     line6: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a llythyr, ar ôl i’r cais gael ei wirio.`,
     line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddynt gadarnhau eu bod yn eu cynrychioli. Fe anfonir copi o’r cais atynt ac fe ofynnir iddynt ymateb.`,
+  },
+  contactDetailsUpdated: {
+    line1: `You have updated your ${partner}’s contact details.`,
+    line2: `The court will now serve your ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers again using the new contact details you have provided.`,
+    line3: `Your ${partner} will have ${config.get(
+      'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
+    )} days from receiving the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+  },
+  contactDetailsUpdatedOverseasAddress: {
+    line1: `You have updated your ${partner}’s address.`,
+    whatHappensNext: 'What happens next',
+    line2: `You will need to arrange delivery of the ${
+      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
+    } to your ${partner} yourself. This is because the courts of England and Wales do not have legal power (jurisdiction) in the country where they live.`,
+    whatNeedToDo: 'What you need to do',
+    line3: `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`,
+    line4: `You will receive a letter from HMCTS, which contains documents that need to be sent to your ${partner}. It’s called the ‘Notice of Proceedings’.`,
+    line5: `Post the ‘Notice of Proceedings’ to your ${partner}. Make sure you use a delivery service which provides proof of delivery.`,
+    line6: `Keep the proof of delivery so you can show that the papers have been ‘served’ (sent) to your ${partner}.`,
+    line7: 'They should then respond to the application',
+    line8: `The amount of time your ${partner} has to respond depends on the country they’re living in. If they do not respond, we will help you explore the other options you have to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
   },
   aosDrafted: {
     line1: `Mae ${partner} wedi dechrau drafftio ymateb i’ch cais.`,
@@ -817,6 +891,20 @@ const cy: typeof en = (
     line2:
       'Bydd y llys yn adolygu’r wybodaeth gan y trydydd parti unwaith y bydd wedi dod i law, ac yna gall y cais barhau.',
   },
+  sendPapersAgain: {
+    line1: `You have asked the court to send the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers again to your ${partner}.`,
+    line2: `The court will now send the ${
+      isDivorce ? 'divorce' : 'application to end your civil partnership'
+    } papers to your ${partner} again using the postal address and any email addresses you provided before. The papers will be sent to the address by first class post, and will be sent by email now, if applicable.`,
+    whatsNext: 'What happens next',
+    line3: `Your ${partner} will have ${config.get(
+      'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
+    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+  },
   awaitingProcessServerService: {
     line1: `You have chosen to arrange for an independent process server to serve the papers on your ${partner}.`,
     line2: `You can <a class="govuk-link" href="${PROCESS_SERVER_DOCS}">download the papers from the documents tab</a>. You will need to print these out and give them to your process server.`,
@@ -896,7 +984,12 @@ export const generateContent: TranslationFn = content => {
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
-
+  const contactDetailsUpdatedUKBased =
+    userCase.applicant1NoResponsePartnerNewEmailOrAddress ===
+      NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED && userCase.applicant2AddressOverseas !== YesOrNo.YES;
+  const applicant1NoResponseSendPapersAgain =
+    userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+    NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
@@ -918,6 +1011,8 @@ export const generateContent: TranslationFn = content => {
     isAosSubmitted,
     aosIsDrafted,
     aosOverdueAndDrafted,
+    contactDetailsUpdatedUKBased,
+    applicant1NoResponseSendPapersAgain,
     isAwaitingProcessServerService,
   };
 };

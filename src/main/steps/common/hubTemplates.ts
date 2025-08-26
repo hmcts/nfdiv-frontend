@@ -34,4 +34,5 @@ export const enum HubTemplate {
   AwaitingDocuments = '/awaiting-documents.njk',
   AwaitingProcessServerService = '/awaiting-process-server-service.njk',
   AwaitingServiceApplicationDocuments = '/awaiting-service-application-documents.njk',
+  AwaitingService = '/awaiting-service.njk',
 }

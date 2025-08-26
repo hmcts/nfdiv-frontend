@@ -595,7 +595,6 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...dispenseServiceApplicationSequence,
   ...searchGovRecordsApplicationSequence,
   ...noResponseJourneySequence,
-  ...deemedServiceApplicationSequence,
   ...serviceApplicationPaymentSequence,
 ];
 

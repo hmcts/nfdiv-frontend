@@ -84,9 +84,11 @@ export const generateContent: TranslationFn = content => {
     useHwf === YesOrNo.YES && haveHwfReference === YesOrNo.YES && isInvalidHelpWithFeesRef(hwfReference) === undefined;
   const translations = languages[content.language](usingHwf, content);
   const showStatementOfTruth = true;
+  const showChangeLink = true;
   return {
     ...translations,
     showStatementOfTruth,
     form,
+    showChangeLink,
   };
 };
