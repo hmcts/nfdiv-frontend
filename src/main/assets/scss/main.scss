@@ -9,6 +9,7 @@
 @import './cookie-banner';
 @import './check-your-answers';
 @import './webchat';
+@import './genesys-webchat';
 @import './review-pages';
 @import './timeout-modal';
 @import './progress-bar';
@@ -47,4 +48,9 @@ section {
   background-color: #F3F2F1;
   text-align: left;
   padding: 20px;
+}
+
+.govuk-panel--blue {
+  background-color: #0072ce;
+  color: white;
 }
