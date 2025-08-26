@@ -187,6 +187,6 @@ export const dispenseServiceApplicationSequence: Step[] = [
   },
   {
     url: FRIENDS_OR_RELATIVES_DISPENSE,
-    getNextStep: () => HUB_PAGE,
+    getNextStep: data => (data?.applicant1DispenseTriedContactingEmployer === YesOrNo.YES ? HUB_PAGE : HUB_PAGE),
   },
 ];
