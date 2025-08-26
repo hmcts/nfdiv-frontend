@@ -25,6 +25,7 @@ import {
   LAST_CONTACT_CHILDREN_DISPENSE,
   LAST_DATE_DISPENSE,
   LAST_SEEN_DISPENSE,
+  OTHER_ENQUIRIES_DISPENSE,
   PARTNER_NEW_ADDRESS_DISPENSE,
   PHONE_DESCRIPTION_DISPENSE,
   PHONE_NUMBER_DISPENSE,
@@ -187,6 +188,10 @@ export const dispenseServiceApplicationSequence: Step[] = [
   },
   {
     url: FRIENDS_OR_RELATIVES_DISPENSE,
-    getNextStep: data => (data?.applicant1DispenseTriedContactingEmployer === YesOrNo.YES ? HUB_PAGE : HUB_PAGE),
+    getNextStep: () => OTHER_ENQUIRIES_DISPENSE,
+  },
+  {
+    url: OTHER_ENQUIRIES_DISPENSE,
+    getNextStep: () => HUB_PAGE,
   },
 ];
