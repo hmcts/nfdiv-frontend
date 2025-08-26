@@ -2608,7 +2608,7 @@ export const enum NoResponseCheckContactDetails {
 
 export const enum NoResponsePartnerNewEmailOrAddress {
   ADDRESS = 'address',
-  EMAIL = 'emailAddress',
+  EMAIL = 'email',
   EMAIL_AND_ADDRESS = 'emailAndAddress',
   CONTACT_DETAILS_UPDATED = 'contactDetailsUpdated',
 }
