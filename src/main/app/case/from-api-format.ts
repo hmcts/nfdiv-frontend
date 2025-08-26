@@ -269,6 +269,7 @@ const fields: FromApiConverters = {
   applicant1DispenseChildMaintenanceOrder: 'applicant1DispenseChildMaintenanceOrder',
   applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
   applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
+  applicant1DispenseOtherEnquiries: 'applicant1DispenseOtherEnquiries',
 };
 
 const fromApiDate = date => {

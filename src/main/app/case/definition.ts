@@ -1148,6 +1148,7 @@ export interface CaseData {
   applicant1DispenseChildMaintenanceOrder: YesOrNo;
   applicant1DispenseChildMaintenanceResults: string;
   applicant1DispenseContactFriendsOrRelativesDetails: string;
+  applicant1DispenseOtherEnquiries: string;
 }
 
 export interface CaseDocuments {
@@ -1232,6 +1233,7 @@ export interface DispenseWithServiceJourneyOptions {
   dispenseChildMaintenanceOrder: YesOrNo;
   dispenseChildMaintenanceResults: string;
   dispenseContactFriendsOrRelativesDetails: string;
+  dispenseOtherEnquiries: string;
 }
 
 export interface AlternativeServiceJourneyOptions {
