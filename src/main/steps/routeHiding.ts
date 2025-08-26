@@ -6,6 +6,7 @@ import { RoutePermission } from './applicant1Sequence';
 import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
+import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {
@@ -25,7 +26,6 @@ import {
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
   PAY_YOUR_SERVICE_FEE,
-  PROCESS_SERVER,
   PROCESS_SERVER_DOCS,
   PageLink,
   REVIEW_THE_APPLICATION,
@@ -38,7 +38,7 @@ export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
     return false;
   }
 
-  const routePermission = routeHideConditions.find(i => i.urls.includes(req.url as PageLink));
+  const routePermission = ROUTE_HIDE_CONDITIONS.find(i => i.urls.includes(req.url as PageLink));
   if (routePermission) {
     return routePermission.condition(req.session.userCase);
   }
@@ -47,17 +47,22 @@ export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
 };
 
 export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
-  if (routesToRedirectToHub.find(i => i === (req.url as PageLink))) {
-    return true;
-  }
-  return false;
+  return ROUTES_TO_REDIRECT_TO_HUB.includes(req.url as PageLink);
 };
 
-export const routesToRedirectToHub: PageLink[] = [PROCESS_SERVER];
+export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
+  ...[
+    ...deemedServiceApplicationSequence,
+    ...alternativeServiceApplicationSequence,
+    ...bailiffServiceApplicationSequence,
+    ...noResponseJourneySequence,
+    ...dispenseServiceApplicationSequence,
+  ].map(step => step.url as PageLink),
+];
 
-const ignoreList: PageLink[] = [HAVE_THEY_RECEIVED, SUCCESS_SCREEN_PROCESS_SERVER, PROCESS_SERVER_DOCS];
+export const ROUTES_TO_IGNORE: PageLink[] = [HAVE_THEY_RECEIVED, SUCCESS_SCREEN_PROCESS_SERVER, PROCESS_SERVER_DOCS];
 
-export const routeHideConditions: RoutePermission[] = [
+export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
   {
     urls: [FINALISING_YOUR_APPLICATION],
     condition: data =>
@@ -78,8 +83,9 @@ export const routeHideConditions: RoutePermission[] = [
       ...alternativeServiceApplicationSequence,
       ...bailiffServiceApplicationSequence,
       ...noResponseJourneySequence,
+      ...dispenseServiceApplicationSequence,
     ]
-      .filter(step => !ignoreList.includes(step.url as PageLink))
+      .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
       .map(step => step.url as PageLink),
     condition: data =>
       [

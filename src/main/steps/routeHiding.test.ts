@@ -3,7 +3,7 @@ import { CaseWithId } from '../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
-import { routeHideConditions, shouldHideRouteFromUser } from './routeHiding';
+import { ROUTE_HIDE_CONDITIONS, shouldHideRouteFromUser } from './routeHiding';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   CHECK_ANSWERS_ALTERNATIVE,
@@ -52,9 +52,9 @@ describe('routeHiding', () => {
     });
   });
 
-  describe('routeHideConditions', () => {
+  describe('ROUTE_HIDE_CONDITIONS', () => {
     test('URLs should only be associated with one condition each', () => {
-      const allUrls: PageLink[] = routeHideConditions.map(i => i.urls).flat();
+      const allUrls: PageLink[] = ROUTE_HIDE_CONDITIONS.map(i => i.urls).flat();
       expect(new Set(allUrls).size).toEqual(allUrls.length);
     });
 
