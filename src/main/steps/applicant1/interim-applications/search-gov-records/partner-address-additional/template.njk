@@ -1,0 +1,14 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l" id="partnerAddressAdditional">{{ title }}</h1>
+  <h2 class="govuk-heading-m">{{ address }}</h2>
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
+{% endblock %}

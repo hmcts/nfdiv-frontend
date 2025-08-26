@@ -3,7 +3,12 @@ import { AddressGlobalUK, CaseData } from '../definition';
 
 export const fromApi = (
   data: Partial<CaseData>,
-  addressPrefix: 'applicant1' | 'applicant2' | 'applicant1NoResponsePartner' | 'applicant1DispenseLivedTogether'
+  addressPrefix:
+    | 'applicant1'
+    | 'applicant2'
+    | 'applicant1NoResponsePartner'
+    | 'applicant1DispenseLivedTogether'
+    | 'applicant1SearchGovRecordsPartnerLastKnown'
 ): Partial<Case> => {
   const fullAddress = data[`${addressPrefix}Address`];
 
@@ -20,7 +25,12 @@ export const fromApi = (
 
 const toApiAddress = (
   data: Partial<Case>,
-  addressPrefix: 'applicant1' | 'applicant2' | 'applicant1NoResponsePartner' | 'applicant1DispenseLivedTogether'
+  addressPrefix:
+    | 'applicant1'
+    | 'applicant2'
+    | 'applicant1NoResponsePartner'
+    | 'applicant1DispenseLivedTogether'
+    | 'applicant1SearchGovRecordsPartnerLastKnown'
 ): AddressGlobalUK => ({
   AddressLine1: data[`${addressPrefix}Address1`] || '',
   AddressLine2: data[`${addressPrefix}Address2`] || '',
@@ -45,4 +55,8 @@ export const applicant1DispenseLivedTogetherAddressToApi = (data: Partial<Case>)
 
 export const applicant1NoResponsePartnerAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
   applicant1NoResponsePartnerAddress: toApiAddress(data, 'applicant1NoResponsePartner'),
+});
+
+export const applicant1SearchGovRecordsPartnerLastKnownAddressToApi = (data: Partial<Case>): Partial<CaseData> => ({
+  applicant1SearchGovRecordsPartnerLastKnownAddress: toApiAddress(data, 'applicant1SearchGovRecordsPartnerLastKnown'),
 });

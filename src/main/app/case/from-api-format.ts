@@ -224,6 +224,9 @@ const fields: FromApiConverters = {
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
+  applicant1SearchGovRecordsPartnerDateOfBirth: data => ({
+    applicant1SearchGovRecordsPartnerDateOfBirth: fromApiDate(data.applicant1SearchGovRecordsPartnerDateOfBirth),
+  }),
   applicant1AltServicePartnerEmail: data => ({
     applicant1AltServicePartnerEmail: data.applicant1AltServicePartnerEmail,
     applicant1AltServicePartnerEmailWhenDifferent: data.applicant1AltServicePartnerEmail,
@@ -247,6 +250,8 @@ const fields: FromApiConverters = {
   applicant1DispensePartnerLastSeenDate: data => ({
     applicant1DispensePartnerLastSeenOrHeardOfDate: fromApiDate(data.applicant1DispensePartnerLastSeenDate),
   }),
+  applicant1SearchGovRecordsPartnerLastKnownAddress: data =>
+    formatAddress(data, 'applicant1SearchGovRecordsPartnerLastKnown'),
 };
 
 const fromApiDate = date => {

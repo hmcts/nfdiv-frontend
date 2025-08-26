@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 
-import { CaseWithId } from '../../../../app/case/case';
 import {
   CITIZEN_SERVICE_APPLICATION,
   CaseData,
@@ -15,8 +14,8 @@ import { SERVICE_PAYMENT_CALLBACK } from '../../../urls';
 
 @autobind
 export default class ServicePaymentPostController extends BasePaymentPostController {
-  protected readyForPayment(userCase: CaseWithId): boolean {
-    return SERVICE_PAYMENT_STATES.has(userCase.state);
+  protected readyForPayment(req: AppRequest<AnyObject>): boolean {
+    return SERVICE_PAYMENT_STATES.has(req.session.userCase.state);
   }
 
   protected awaitingPaymentEvent(): string {

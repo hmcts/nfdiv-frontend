@@ -1,4 +1,4 @@
-import { YesOrNo, YesOrNoOrNotKnown } from '../app/case/definition';
+import { ServicePaymentMethod, YesOrNo, YesOrNoOrNotKnown } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
@@ -159,6 +159,8 @@ export const bailiffServiceApplicationSequence: Step[] = [
   {
     url: CHECK_ANSWERS_BAILIFF,
     getNextStep: data =>
-      data?.alternativeServiceFeeRequired === YesOrNo.YES ? PAY_YOUR_SERVICE_FEE : SERVICE_APPLICATION_SUBMITTED,
+      data?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD
+        ? PAY_YOUR_SERVICE_FEE
+        : SERVICE_APPLICATION_SUBMITTED,
   },
 ];
