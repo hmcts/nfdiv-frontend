@@ -248,6 +248,17 @@ const fields: FromApiConverters = {
   }),
   applicant1DispenseHavePartnerEmailAddresses: 'applicant1DispenseHavePartnerEmailAddresses',
   applicant1DispenseHaveSearchedFinalOrder: 'applicant1DispenseHaveSearchedFinalOrder',
+  applicant1DispenseTriedTracingAgent: 'applicant1DispenseTriedTracingAgent',
+  applicant1DispenseWhyNoTracingAgent: 'applicant1DispenseWhyNoTracingAgent',
+  applicant1DispenseTracingAgentResults: 'applicant1DispenseTracingAgentResults',
+  applicant1DispenseTriedTracingOnline: 'applicant1DispenseTriedTracingOnline',
+  applicant1DispenseWhyNoTracingOnline: 'applicant1DispenseWhyNoTracingOnline',
+  applicant1DispenseTracingOnlineResults: 'applicant1DispenseTracingAgentResults',
+  applicant1DispenseTriedSearchingOnline: 'applicant1DispenseTriedSearchingOnline',
+  applicant1DispenseWhyNoSearchingOnline: 'applicant1DispenseWhyNoSearchingOnline',
+  applicant1DispenseSearchingOnlineResults: 'applicant1DispenseSearchingAgentResults',
+  applicant1DispenseTriedContactingEmployer: 'applicant1DispenseTriedContactingEmployer',
+  applicant1DispenseWhyNoContactingEmployer: 'applicant1DispenseWhyNoContactingEmployer',
 };
 
 const fromApiDate = date => {

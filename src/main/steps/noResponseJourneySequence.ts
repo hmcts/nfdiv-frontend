@@ -13,7 +13,6 @@ import {
 import { Step } from './applicant1Sequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
-  APPLY_FOR_ALTERNATIVE_SERVICE,
   BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
@@ -92,7 +91,7 @@ export const noResponseJourneySequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       return data.applicant1NoResponseProvidePartnerNewEmailOrAlternativeService ===
         NoResponseProvidePartnerNewEmailOrAlternativeService.APPLY_FOR_ALTERNATIVE_SERVICE
-        ? APPLY_FOR_ALTERNATIVE_SERVICE
+        ? ALTERNATIVE_SERVICE_APPLICATION
         : PROVIDE_NEW_EMAIL_ADDRESS;
     },
   },
