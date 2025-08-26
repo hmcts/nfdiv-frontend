@@ -19,15 +19,15 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
-  title: 'Provide a statement',
-  line1: `Tell us how you know your ${partner} has received the ${
-    isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
+  title: 'Darparu datganiad',
+  line1: `Dywedwch wrthym sut rydych yn gwybod bod eich ${partner} wedi derbyn y ${
+    isDivorce ? 'papurau ysgaru' : "papurau i ddod â'ch partneriaeth sifil i ben"
   }.`,
-  line2: 'You should also explain why you have been unable to upload evidence.',
-  line3: `Give as much detail as you can. The judge needs to be satisfied that your ${partner} has received the papers before they can grant your application.`,
+  line2: 'Dylech hefyd esbonio pam nad ydych wedi gallu uwchlwytho tystiolaeth.',
+  line3: `Rhowch gymaint o fanylion â phosib. Mae’r barnwr angen bod yn fodlon bod eich ${partner} wedi cael y papurau cyn y gallant ganiatáu eich cais.`,
   errors: {
     applicant1DeemedNoEvidenceStatement: {
-      required: 'You must provide a statement before continuing.',
+      required: 'Rhaid i chi ddarparu datganiad cyn parhau.',
     },
   },
 });
@@ -37,7 +37,8 @@ export const form: FormContent = {
     applicant1DeemedNoEvidenceStatement: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.responseLabel,
+      label: l => l.title,
+      labelHidden: true,
       validator: value => {
         const hasEnteredDetails = !isEmpty(value);
         if (!hasEnteredDetails) {

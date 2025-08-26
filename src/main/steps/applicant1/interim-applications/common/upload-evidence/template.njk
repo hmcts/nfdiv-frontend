@@ -11,7 +11,7 @@
     },
     errorList: [
       {
-        text: errors.applicant1DeemedEvidenceUploadedFiles.errorUploading,
+        text: errors.applicant1InterimAppsEvidenceUploadedFiles.errorUploading,
         href: "#upload",
         attributes: {
           id: "errorGeneric",
@@ -19,7 +19,7 @@
         }
       },
       {
-        text: errors.applicant1DeemedEvidenceUploadedFiles.fileSizeTooBig,
+        text: errors.applicant1InterimAppsEvidenceUploadedFiles.fileSizeTooBig,
         href: "#upload",
         attributes: {
           id: "errorFileSizeTooBig",
@@ -27,7 +27,7 @@
         }
       },
       {
-        text: errors.applicant1DeemedEvidenceUploadedFiles.fileWrongFormat,
+        text: errors.applicant1InterimAppsEvidenceUploadedFiles.fileWrongFormat,
         href: "#upload",
         attributes: {
           id: "errorFileWrongFormat",
@@ -41,9 +41,9 @@
   <p class="govuk-body">{{ statement }}</p>
   <p class="govuk-body">{{ line2 }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ toInclude.partnersName }}</li>
-    <li>{{ toInclude.dateMessageSent }}</li>
-    <li>{{ toInclude.partnersContactInfo }}</li>
+    <li>{{ toInclude.bulletOne }}</li>
+    <li>{{ toInclude.bulletTwo }}</li>
+    <li>{{ toInclude.bulletThree }}</li>
   </ul>
   <p class="govuk-body">{{ line3 | safe }}</p>
   <p class="govuk-body">{{ line4 }}</p>

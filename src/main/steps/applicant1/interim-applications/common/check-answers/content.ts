@@ -9,7 +9,7 @@ const en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
   title: 'Check your answers',
   noFilesUploaded: 'No files uploaded',
   notProvided: 'Not provided',
-  havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
+  havingTroubleUploading: "I'm having trouble uploading some or all of my documents.",
   stepQuestions: {},
   stepAnswers: {},
   stepLinks: {},
@@ -22,29 +22,30 @@ const en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
   submitText: usingHwf ? submit : continueToPay,
   errors: {
     applicant1InterimAppsStatementOfTruth: {
-      required: 'You must agree to the statement of truth before continuing',
+      required: 'You must agree to the statement of truth before continuing.',
     },
   },
 });
 
 const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
-  title: 'Check your answers',
-  noFilesUploaded: 'No files uploaded',
-  notProvided: 'Not provided',
-  havingTroubleUploading: "I'm having trouble uploading some or all of my documents",
+  title: 'Gwirio eich atebion',
+  noFilesUploaded: 'Nid oes ffeiliau wedi cael eu llwytho',
+  notProvided: 'Dim byd wedi ei ddarparu',
+  havingTroubleUploading: 'Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.',
   stepQuestions: {},
   stepAnswers: {},
   stepLinks: {},
   statementOfTruth: {
-    title: 'Statement of truth',
+    title: 'Datganiad gwirionedd',
     warning:
-      "I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement in a document verified by a statement of truth without an honest belief in it's truth.",
+      'Deallaf y gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   },
-  statementOfTruthLabel: 'I believe that the facts stated in this form and any continuation sheets are true.',
+  statementOfTruthLabel:
+    'Rwy’n credu bod y ffeithiau a nodir yn y ffurflen hon, ac ar unrhyw ddalennau parhau, yn wir.',
   submitText: usingHwf ? submit : continueToPay,
   errors: {
     applicant1InterimAppsStatementOfTruth: {
-      required: 'You must agree to the statement of truth before continuing',
+      required: "Rhaid i chi gytuno â'r datganiad gwirionedd cyn parhau.",
     },
   },
 });
@@ -83,9 +84,11 @@ export const generateContent: TranslationFn = content => {
     useHwf === YesOrNo.YES && haveHwfReference === YesOrNo.YES && isInvalidHelpWithFeesRef(hwfReference) === undefined;
   const translations = languages[content.language](usingHwf, content);
   const showStatementOfTruth = true;
+  const showChangeLink = true;
   return {
     ...translations,
     showStatementOfTruth,
     form,
+    showChangeLink,
   };
 };

@@ -14,9 +14,9 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner, isDivorce }: CommonContent) => ({
-  statement: `Any evidence you can provide will help the court decide whether it is satisfied that your ${partner} has received the ${
-    isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-  }. For example, this could include a photo or screenshot of a recent conversation by text, email or social media.`,
+  statement: `Bydd unrhyw dystiolaeth y gallwch ei darparu yn helpu'r llys i benderfynu p'un a yw'n fodlon bod eich ${partner} wedi cael y ${
+    isDivorce ? 'papurau ysgaru' : "papurau i ddod â'ch partneriaeth sifil i ben"
+  }. Er enghraifft, gall hyn gynnwys llun neu sgrinlun o sgwrs ddiweddar trwy neges destun, e-bost neu'r cyfryngau cymdeithasol.`,
 });
 
 const languages = {

@@ -2,7 +2,10 @@ import { AnyObject } from '../controller/PostController';
 
 import {
   AddressGlobalUK,
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
   AlternativeServiceOutcome,
+  AlternativeServiceType,
   Applicant2Represented,
   ApplicationType,
   CaseData,
@@ -21,13 +24,19 @@ import {
   LegalAdvisorDecision,
   ListValue,
   NoResponseCheckContactDetails,
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponseNoNewAddressDetails,
+  NoResponseOwnSearches,
+  NoResponsePartnerNewEmailOrAddress,
+  NoResponseProcessServerOrBailiff,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
+  NoResponseSearchOrDispense,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   OrderSummary,
   Payment,
   RequestForInformation,
   State,
   YesOrNo,
+  YesOrNoOrNotKnown,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -98,6 +107,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1LegalProceedingsDetails: 'applicant1LegalProceedingsDetails',
   applicant2LegalProceedings: 'applicant2LegalProceedings',
   applicant2LegalProceedingsDetails: 'applicant2LegalProceedingsDetails',
+  applicant2LegalProceedingsConcluded: 'applicant2LegalProceedingsConcluded',
   applicant1ApplyForFinancialOrder: 'applicant1FinancialOrder',
   applicant1WhoIsFinancialOrderFor: 'applicant1FinancialOrdersFor',
   applicant2ApplyForFinancialOrder: 'applicant2FinancialOrder',
@@ -189,9 +199,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
-  applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
+  applicant1NoResponsePartnerNewEmailOrAddress: 'applicant1NoResponsePartnerNewEmailOrAddress',
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
     'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse: 'applicant1NoResponseSendPapersAgainOrTrySomethingElse',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -202,9 +213,75 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimAppsCannotUploadDocs: 'applicant1InterimAppsCannotUploadDocs',
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1BailiffPartnersName: 'applicant1BailiffPartnersName',
+  applicant1BailiffPartnerInARefuge: 'applicant1BailiffPartnerInARefuge',
+  applicant1BailiffKnowPartnersPhone: 'applicant1BailiffKnowPartnersPhone',
+  applicant1BailiffPartnersPhone: 'applicant1BailiffPartnersPhone',
+  applicant1BailiffKnowPartnersDateOfBirth: 'applicant1BailiffKnowPartnersDateOfBirth',
+  applicant1BailiffPartnersDateOfBirth: 'applicant1BailiffPartnersDateOfBirth',
+  applicant1BailiffPartnersApproximateAge: 'applicant1BailiffPartnersApproximateAge',
+  applicant1BailiffPartnersHeight: 'applicant1BailiffPartnersHeight',
+  applicant1BailiffPartnersHairColour: 'applicant1BailiffPartnersHairColour',
+  applicant1BailiffPartnersEyeColour: 'applicant1BailiffPartnersEyeColour',
+  applicant1BailiffPartnersEthnicGroup: 'applicant1BailiffPartnersEthnicGroup',
+  applicant1BailiffPartnersDistinguishingFeatures: 'applicant1BailiffPartnersDistinguishingFeatures',
+  applicant1BailiffBestTimeToServe: 'applicant1BailiffBestTimeToServe',
+  applicant1BailiffDoesPartnerHaveVehicle: 'applicant1BailiffDoesPartnerHaveVehicle',
+  applicant1BailiffPartnerVehicleModel: 'applicant1BailiffPartnerVehicleModel',
+  applicant1BailiffPartnerVehicleColour: 'applicant1BailiffPartnerVehicleColour',
+  applicant1BailiffPartnerVehicleRegistration: 'applicant1BailiffPartnerVehicleRegistration',
+  applicant1BailiffPartnerVehicleOtherDetails: 'applicant1BailiffPartnerVehicleOtherDetails',
+  applicant1BailiffHasPartnerBeenViolent: 'applicant1BailiffHasPartnerBeenViolent',
+  applicant1BailiffPartnerViolenceDetails: 'applicant1BailiffPartnerViolenceDetails',
+  applicant1BailiffHasPartnerMadeThreats: 'applicant1BailiffHasPartnerMadeThreats',
+  applicant1BailiffPartnerThreatsDetails: 'applicant1BailiffPartnerThreatsDetails',
+  applicant1BailiffHavePoliceBeenInvolved: 'applicant1BailiffHavePoliceBeenInvolved',
+  applicant1BailiffPoliceInvolvedDetails: 'applicant1BailiffPoliceInvolvedDetails',
+  applicant1BailiffHaveSocialServicesBeenInvolved: 'applicant1BailiffHaveSocialServicesBeenInvolved',
+  applicant1BailiffSocialServicesInvolvedDetails: 'applicant1BailiffSocialServicesInvolvedDetails',
+  applicant1BailiffAreThereDangerousAnimals: 'applicant1BailiffAreThereDangerousAnimals',
+  applicant1BailiffDangerousAnimalsDetails: 'applicant1BailiffDangerousAnimalsDetails',
+  applicant1BailiffDoesPartnerHaveMentalIssues: 'applicant1BailiffDoesPartnerHaveMentalIssues',
+  applicant1BailiffPartnerMentalIssuesDetails: 'applicant1BailiffPartnerMentalIssuesDetails',
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: 'applicant1BailiffDoesPartnerHoldFirearmsLicense',
+  applicant1BailiffPartnerFirearmsLicenseDetails: 'applicant1BailiffPartnerFirearmsLicenseDetails',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
-  applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
+  applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
+  applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
+  applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
+  applicant1AltServiceReasonForApplying: 'applicant1AltServiceReasonForApplying',
+  applicant1AltServiceMethod: 'applicant1AltServiceMethod',
+  applicant1AltServicePartnerEmail: 'applicant1AltServicePartnerEmail',
+  applicant1AltServicePartnerEmailWhenDifferent: 'applicant1AltServicePartnerEmail',
+  applicant1AltServicePartnerPhone: 'applicant1AltServicePartnerPhone',
+  applicant1AltServicePartnerWANum: 'applicant1AltServicePartnerWANum',
+  applicant1AltServicePartnerSocialDetails: 'applicant1AltServicePartnerSocialDetails',
+  applicant1AltServicePartnerOtherDetails: 'applicant1AltServicePartnerOtherDetails',
+  applicant1AltServiceMethodJustification: 'applicant1AltServiceMethodJustification',
+  applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
+  servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
+  servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
+  servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
+  serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
+  servicePayments: 'servicePayments',
+  receivedServiceApplicationDate: 'receivedServiceApplicationDate',
+  receivedServiceAddedDate: 'receivedServiceAddedDate',
+  serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
+  alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
+  alternativeServiceType: 'alternativeServiceType',
+  serviceApplicationAnswers: 'serviceApplicationAnswers',
+  applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
+  applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
+  applicant1DispenseLivedTogetherDate: 'applicant1DispenseLivedTogetherDate',
+  applicant1DispenseAwarePartnerLived: 'applicant1DispenseAwarePartnerLived',
+  applicant1DispensePartnerPastAddress1: 'applicant1DispensePartnerPastAddress1',
+  applicant1DispensePartnerPastAddressEnquiries1: 'applicant1DispensePartnerPastAddressEnquiries1',
+  applicant1DispensePartnerPastAddress2: 'applicant1DispensePartnerPastAddress2',
+  applicant1DispensePartnerPastAddressEnquiries2: 'applicant1DispensePartnerPastAddressEnquiries2',
+  applicant1DispensePartnerLastSeenDate: 'applicant1DispensePartnerLastSeenDate',
+  applicant1DispensePartnerLastSeenDescription: 'applicant1DispensePartnerLastSeenDescription',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -328,6 +405,8 @@ export interface Case {
   applicant1LegalProceedingsDetails?: string;
   applicant2LegalProceedings?: YesOrNo;
   applicant2LegalProceedingsDetails?: string;
+  applicant2LegalProceedingsConcluded?: YesOrNo;
+  applicant2UnableToUploadEvidence?: Checkbox;
   applicant1ApplyForFinancialOrder?: YesOrNo;
   applicant1WhoIsFinancialOrderFor?: FinancialOrderFor[];
   applicant2ApplyForFinancialOrder?: YesOrNo;
@@ -457,9 +536,12 @@ export interface Case {
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
-  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponsePartnerNewEmailOrAddress?: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse?: NoResponseSendPapersAgainOrTrySomethingElse;
+  applicant1NoResponseNoNewAddressDetails?: NoResponseNoNewAddressDetails;
+  applicant1NoResponseProcessServerOrBailiff?: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
   applicant1InterimAppsHaveHwfReference?: YesOrNo;
@@ -470,8 +552,44 @@ export interface Case {
   applicant1InterimAppsCannotUploadDocs?: Checkbox;
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
+  applicant1BailiffPartnerInARefuge: YesOrNoOrNotKnown;
+  applicant1BailiffPartnersName?: string;
+  applicant1BailiffKnowPartnersPhone: YesOrNo;
+  applicant1BailiffPartnersPhone?: string;
+  applicant1BailiffKnowPartnersDateOfBirth: YesOrNo;
+  applicant1BailiffPartnersDateOfBirth: CaseDate | DateAsString;
+  applicant1BailiffPartnersApproximateAge: number;
+  applicant1BailiffPartnersHeight: number;
+  applicant1BailiffPartnersHairColour: string;
+  applicant1BailiffPartnersEyeColour: string;
+  applicant1BailiffPartnersEthnicGroup: string;
+  applicant1BailiffPartnersDistinguishingFeatures: string;
+  applicant1BailiffBestTimeToServe: string;
+  applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerVehicleModel: string;
+  applicant1BailiffPartnerVehicleColour: string;
+  applicant1BailiffPartnerVehicleRegistration: string;
+  applicant1BailiffPartnerVehicleOtherDetails: string;
+  applicant1BailiffHasPartnerBeenViolent: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerViolenceDetails: string;
+  applicant1BailiffHasPartnerMadeThreats: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerThreatsDetails: string;
+  applicant1BailiffHavePoliceBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffPoliceInvolvedDetails: string;
+  applicant1BailiffHaveSocialServicesBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffSocialServicesInvolvedDetails: string;
+  applicant1BailiffAreThereDangerousAnimals: YesOrNoOrNotKnown;
+  applicant1BailiffDangerousAnimalsDetails: string;
+  applicant1BailiffDoesPartnerHaveMentalIssues: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerMentalIssuesDetails: string;
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
+  applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
+  applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
+  applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
+  applicant1NoResponseSearchOrDispense?: NoResponseSearchOrDispense;
   applicant1NoResponsePartnerAddress1?: string;
   applicant1NoResponsePartnerAddress2?: string;
   applicant1NoResponsePartnerAddress3?: string;
@@ -482,6 +600,48 @@ export interface Case {
   applicant1NoResponsePartnerAddressOverseas?: YesOrNo;
   applicant1NoResponsePartnerEmailAddress?: string;
   applicant2Address?: AddressGlobalUK;
+  applicant1AltServiceReasonForApplying?: string;
+  applicant1AltServiceMethod?: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail?: string;
+  applicant1AltServicePartnerEmailWhenDifferent?: string;
+  applicant1AltServicePartnerPhone?: string;
+  applicant1AltServicePartnerWANum?: string;
+  applicant1AltServicePartnerSocialDetails?: string;
+  applicant1AltServicePartnerOtherDetails?: string;
+  applicant1AltServiceMethodJustification?: string;
+  applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
+  servicePaymentFeeOrderSummary: OrderSummary;
+  servicePaymentFeeServiceRequestReference: string;
+  servicePaymentFeeHelpWithFeesReferenceNumber: string;
+  serviceApplicationDocsUploadedPreSubmission: YesOrNo;
+  servicePayments: ListValue<Payment>[];
+  receivedServiceApplicationDate: DateAsString;
+  receivedServiceAddedDate: DateAsString;
+  serviceApplicationSubmittedOnline: YesOrNo;
+  alternativeServiceFeeRequired: YesOrNo;
+  alternativeServiceType: AlternativeServiceType;
+  serviceApplicationAnswers: DivorceDocument;
+  applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant2LegalProceedingUploadedFiles?: UploadedFile[];
+  applicant1DispenseLiveTogether?: YesOrNo;
+  applicant1DispenseLivedTogetherDate?: DateAsString;
+  applicant1DispenseLastLivedTogetherDate?: CaseDate;
+  applicant1DispenseLivedTogetherAddress1?: string;
+  applicant1DispenseLivedTogetherAddress2?: string;
+  applicant1DispenseLivedTogetherAddress3?: string;
+  applicant1DispenseLivedTogetherAddressTown?: string;
+  applicant1DispenseLivedTogetherAddressCounty?: string;
+  applicant1DispenseLivedTogetherAddressPostcode?: string;
+  applicant1DispenseLivedTogetherAddressCountry?: string;
+  applicant1DispenseLivedTogetherAddressOverseas?: YesOrNo;
+  applicant1DispenseAwarePartnerLived?: YesOrNo;
+  applicant1DispensePartnerPastAddress1?: string;
+  applicant1DispensePartnerPastAddressEnquiries1?: string;
+  applicant1DispensePartnerPastAddress2?: string;
+  applicant1DispensePartnerPastAddressEnquiries2?: string;
+  applicant1DispensePartnerLastSeenDate?: DateAsString;
+  applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
+  applicant1DispensePartnerLastSeenDescription?: string;
 }
 
 export interface CaseWithId extends Case {

@@ -51,7 +51,7 @@ Feature: Sole hub page
     And I select "I confirm that:"
 
     When I click submit
-    Then the page URL should be "/respondent/hub-page"
+    Then the page URL should be "/respondent/response-submitted"
     Given I set the case state to "Holding"
     When I go to "/"
     Then the page should include "You have responded to the divorce application. You do not have to do anything further."
@@ -133,17 +133,17 @@ Feature: Sole hub page
     Given I set the case state to "AwaitingServiceConsideration"
     And I sign out
     When I login with applicant "1"
-    Then the page should include "Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful."
+    Then the page should include "The court is currently considering your deemed service application"
 
     Given I set the case state to "AwaitingBailiffReferral"
     And I sign out
     When I login with applicant "1"
-    Then the page should include "Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful."
+    Then the page should include "The court is currently considering your deemed service application"
 
     Given I set the case state to "BailiffRefused"
     And I sign out
     When I login with applicant "1"
-    Then the page should include "Your application has been received and will be reviewed by a judge. You will receive an email telling you whether your application has been successful."
+    Then the page should include "The court is currently considering your deemed service application"
 
     Given I set the case state to "AwaitingBailiffService"
     And I sign out

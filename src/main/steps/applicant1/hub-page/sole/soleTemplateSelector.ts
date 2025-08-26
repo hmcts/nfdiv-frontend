@@ -10,7 +10,8 @@ export const getSoleHubTemplate = (
   userCase: Partial<CaseWithId>,
   isSuccessfullyServedByBailiff: boolean,
   isAlternativeService: boolean,
-  isApplicantAbleToRespondToRequestForInformation: boolean = false
+  isApplicantAbleToRespondToRequestForInformation: boolean = false,
+  isAwaitingProcessServerService: boolean = false
 ): string | undefined => {
   const isServiceApplicationGranted =
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
@@ -19,6 +20,8 @@ export const getSoleHubTemplate = (
   const isRefusalOrderToApplicant =
     userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
+  const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
+  const contactDetailsUpdatedOverseasAddress = userCase.applicant2AddressOverseas === YesOrNo.YES;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -122,7 +125,15 @@ export const getSoleHubTemplate = (
         ? HubTemplate.AwaitingDocuments
         : HubTemplate.AosAwaitingOrDrafted;
     case State.AwaitingDocuments:
-      return HubTemplate.AwaitingDocuments;
+      return serviceApplicationInProgress
+        ? HubTemplate.AwaitingServiceApplicationDocuments
+        : HubTemplate.AwaitingDocuments;
+    case State.AwaitingService:
+      return isAwaitingProcessServerService
+        ? HubTemplate.AwaitingProcessServerService
+        : contactDetailsUpdatedOverseasAddress
+          ? HubTemplate.AwaitingService
+          : HubTemplate.AosAwaitingOrDrafted;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||

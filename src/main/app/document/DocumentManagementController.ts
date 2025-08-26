@@ -5,17 +5,50 @@ import { LoggerInstance } from 'winston';
 
 import {
   APPLICANT_2,
+  DETAILS_OTHER_PROCEEDINGS,
   PROVIDE_INFORMATION_TO_THE_COURT,
+  RESPONDENT,
   RESPOND_TO_COURT_FEEDBACK,
+  UPLOAD_EVIDENCE_ALTERNATIVE,
   UPLOAD_EVIDENCE_DEEMED,
+  UPLOAD_PARTNER_PHOTO,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
+import {
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_UPDATE,
+  DivorceDocument,
+  InterimApplicationType,
+  ListValue,
+  State,
+} from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
+
+const APPLICANT_ONE_DOC_UPLOAD_STATES = [
+  State.Draft,
+  State.AosDrafted,
+  State.AosOverdue,
+  State.AwaitingApplicant1Response,
+  State.AwaitingClarification,
+  State.InformationRequested,
+  State.AwaitingRequestedInformation,
+  State.RequestedInformationSubmitted,
+];
+
+const APPLICANT_TWO_DOC_UPLOAD_STATES = [
+  State.AwaitingApplicant2Response,
+  State.AwaitingClarification,
+  State.InformationRequested,
+  State.AwaitingRequestedInformation,
+  State.RequestedInformationSubmitted,
+  State.AosDrafted,
+  State.AosOverdue,
+  State.AwaitingConditionalOrder,
+];
 
 @autobind
 export class DocumentManagerController {
@@ -26,35 +59,35 @@ export class DocumentManagerController {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
-    } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
-      return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DEEMED}`);
+    } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state) && !isApplicant2) {
+      return res.redirect(this.interimApplicationRedirectPath(req, isApplicant2));
+    } else if (
+      [State.AosDrafted, State.AosOverdue, State.AwaitingConditionalOrder].includes(req.session.userCase.state) &&
+      isApplicant2
+    ) {
+      return res.redirect(RESPONDENT + DETAILS_OTHER_PROCEEDINGS);
     }
     return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
+  }
+
+  private interimApplicationRedirectPath(req: AppRequest, isApplicant2: boolean): string {
+    const interimApplicationType = req.session.userCase.applicant1InterimApplicationType;
+    if (interimApplicationType === InterimApplicationType.DEEMED_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DEEMED}`;
+    } else if (interimApplicationType === InterimApplicationType.BAILIFF_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_PARTNER_PHOTO}`;
+    } else if (interimApplicationType === InterimApplicationType.ALTERNATIVE_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_ALTERNATIVE}`;
+    }
+    return req.get('Referrer') as string;
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
     this.logger = req.locals.logger;
     if (
-      (!isApplicant2 &&
-        ![
-          State.Draft,
-          State.AosDrafted,
-          State.AosOverdue,
-          State.AwaitingApplicant1Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-        ].includes(req.session.userCase.state)) ||
-      (isApplicant2 &&
-        ![
-          State.AwaitingApplicant2Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-        ].includes(req.session.userCase.state))
+      (!isApplicant2 && !APPLICANT_ONE_DOC_UPLOAD_STATES.includes(req.session.userCase.state)) ||
+      (isApplicant2 && !APPLICANT_TWO_DOC_UPLOAD_STATES.includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot upload new documents as case is not in the correct state');
     }
@@ -94,8 +127,13 @@ export class DocumentManagerController {
       )
     ) {
       documentsKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
-    } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
+    } else if (!isApplicant2 && [State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
       documentsKey = isApplicant2 ? 'applicant2InterimAppsEvidenceDocs' : 'applicant1InterimAppsEvidenceDocs';
+    } else if (
+      isApplicant2 &&
+      [State.AosDrafted, State.AosOverdue, State.AwaitingConditionalOrder].includes(req.session.userCase.state)
+    ) {
+      documentsKey = 'applicant2LegalProceedingDocs';
     }
 
     const updatedDocumentsUploaded = newUploads.concat(req.session.userCase[documentsKey] || []);
@@ -127,32 +165,21 @@ export class DocumentManagerController {
       )
     ) {
       documentsUploadedKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
-    } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
+    } else if (!isApplicant2 && [State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
       documentsUploadedKey = isApplicant2 ? 'applicant2InterimAppsEvidenceDocs' : 'applicant1InterimAppsEvidenceDocs';
+    } else if (
+      isApplicant2 &&
+      [State.AosDrafted, State.AosOverdue, State.AwaitingConditionalOrder].includes(req.session.userCase.state)
+    ) {
+      documentsUploadedKey = 'applicant2LegalProceedingDocs';
     }
+
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
     if (
-      (!isApplicant2 &&
-        ![
-          State.Draft,
-          State.AosDrafted,
-          State.AosOverdue,
-          State.AwaitingApplicant1Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-        ].includes(req.session.userCase.state)) ||
-      (isApplicant2 &&
-        ![
-          State.AwaitingApplicant2Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-        ].includes(req.session.userCase.state))
+      (!isApplicant2 && !APPLICANT_ONE_DOC_UPLOAD_STATES.includes(req.session.userCase.state)) ||
+      (isApplicant2 && !APPLICANT_TWO_DOC_UPLOAD_STATES.includes(req.session.userCase.state))
     ) {
       throw new Error('Cannot delete documents as case is not in the correct state');
     }

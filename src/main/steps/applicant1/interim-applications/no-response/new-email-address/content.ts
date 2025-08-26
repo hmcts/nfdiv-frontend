@@ -13,10 +13,11 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } by email to this new email address, and by post to the postal address you have previously provided. This will be done for no additional cost.`,
   line2: `Alternatively, you can apply to serve the ${
-    isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-  } by email only (without posting them). This will mean completing an application for alternative service, which will cost ${getFee(
+    isDivorce ? 'divorce' : 'application to end your civil partnership'
+  } papers by email only (without posting them). This will mean completing an application for alternative service, which will cost ${getFee(
     config.get('fees.alternativeService')
   )}. You will also need to prove that the email address you want to serve to is actively being used by your ${partner}.`,
+  line3: `If your ${partner} is living abroad, you'll need to check how to legally serve the papers in the country they're living in. If email service is allowed in that country, you could apply for alternative service by email only. The court cannot post documents to international addresses.`,
   newEmailHeader: 'What do you want to do?',
   provideNewEmail: 'I want to provide a new email address',
   applyForAlternativeService: 'I want to apply for alternative service to serve by email only',
@@ -27,7 +28,7 @@ const cy: typeof en = en;
 
 export const form: FormContent = {
   fields: {
-    applicant1NoResponseProvideNewEmailOrApplyForAlternativeService: {
+    applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.newEmailHeader,

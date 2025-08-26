@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { NoResponsePartnerNewEmailOrPostalAddress, YesOrNo } from '../../../../../app/case/definition';
+import { NoResponsePartnerNewEmailOrAddress, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { CommonContent } from '../../../../common/common.content';
 import { HUB_PAGE } from '../../../../urls';
@@ -8,7 +8,7 @@ import { HUB_PAGE } from '../../../../urls';
 const en = ({ partner, isDivorce, userCase }: CommonContent) => {
   const addressOverseas = userCase.applicant2AddressOverseas === YesOrNo.YES;
   const isAddressOnlyUpdate =
-    userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress === NoResponsePartnerNewEmailOrPostalAddress.NEW_POSTAL;
+    userCase.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.ADDRESS;
   const divorceOrDissolutionPapers = isDivorce ? 'divorce papers' : 'papers to end your civil partnership';
   const otherOptionsText = `If ${
     addressOverseas ? 'they do' : `your ${partner} does`
@@ -20,8 +20,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
     line1: `You have successfully updated your ${partner}’s ${
       addressOverseas && isAddressOnlyUpdate
         ? 'address'
-        : userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
-            NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
+        : userCase.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS
           ? 'email and postal address'
           : 'contact details'
     }.`,
@@ -43,7 +42,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
         ? `The amount of time your ${partner} has to respond depends on the country they’re living in. ${otherOptionsText}.`
         : ''
     }`,
-    returnToHubScreen: `<a href=${HUB_PAGE} class="govuk-link">Return to hub screen</a>`,
+    returnToYourAccount: `<a href=${HUB_PAGE} class="govuk-link">Return to your account</a>`,
   };
 };
 
