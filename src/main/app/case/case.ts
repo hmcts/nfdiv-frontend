@@ -297,6 +297,17 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispenseSearchingOnlineResults: 'applicant1DispenseSearchingOnlineResults',
   applicant1DispenseTriedContactingEmployer: 'applicant1DispenseTriedContactingEmployer',
   applicant1DispenseWhyNoContactingEmployer: 'applicant1DispenseWhyNoContactingEmployer',
+  applicant1DispenseEmployerName: 'applicant1DispenseEmployerName',
+  applicant1DispenseEmployerAddress: 'applicant1DispenseEmployerAddress',
+  applicant1DispensePartnerOccupation: 'applicant1DispensePartnerOccupation',
+  applicant1DispenseContactingEmployerResults: 'applicant1DispenseContactingEmployerResults',
+  applicant1DispenseChildrenOfFamily: 'applicant1DispenseChildrenOfFamily',
+  applicant1DispensePartnerContactWithChildren: 'applicant1DispensePartnerContactWithChildren',
+  applicant1DispenseHowPartnerContactChildren: 'applicant1DispenseHowPartnerContactChildren',
+  applicant1DispensePartnerLastContactChildren: 'applicant1DispensePartnerLastContactChildren',
+  applicant1DispenseChildMaintenanceOrder: 'applicant1DispenseChildMaintenanceOrder',
+  applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
+  applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -673,6 +684,17 @@ export interface Case {
   applicant1DispenseSearchingOnlineResults?: string;
   applicant1DispenseTriedContactingEmployer?: YesOrNo;
   applicant1DispenseWhyNoContactingEmployer?: string;
+  applicant1DispenseEmployerName?: string;
+  applicant1DispenseEmployerAddress?: string;
+  applicant1DispensePartnerOccupation?: string;
+  applicant1DispenseContactingEmployerResults?: string;
+  applicant1DispenseChildrenOfFamily?: YesOrNo;
+  applicant1DispensePartnerContactWithChildren?: YesOrNo;
+  applicant1DispenseHowPartnerContactChildren?: string;
+  applicant1DispensePartnerLastContactChildren?: string;
+  applicant1DispenseChildMaintenanceOrder?: YesOrNo;
+  applicant1DispenseChildMaintenanceResults?: string;
+  applicant1DispenseContactFriendsOrRelativesDetails?: string;
 }
 
 export interface CaseWithId extends Case {

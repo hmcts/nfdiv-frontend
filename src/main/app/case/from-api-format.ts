@@ -259,6 +259,16 @@ const fields: FromApiConverters = {
   applicant1DispenseSearchingOnlineResults: 'applicant1DispenseSearchingAgentResults',
   applicant1DispenseTriedContactingEmployer: 'applicant1DispenseTriedContactingEmployer',
   applicant1DispenseWhyNoContactingEmployer: 'applicant1DispenseWhyNoContactingEmployer',
+  applicant1DispenseEmployerName: 'applicant1DispenseEmployerName',
+  applicant1DispenseEmployerAddress: 'applicant1DispenseEmployerAddress',
+  applicant1DispensePartnerOccupation: 'applicant1DispensePartnerOccupation',
+  applicant1DispenseContactingEmployerResults: 'applicant1DispenseContactingEmployerResults',
+  applicant1DispenseChildrenOfFamily: 'applicant1DispenseChildrenOfFamily',
+  applicant1DispenseHowPartnerContactChildren: 'applicant1DispenseHowPartnerContactChildren',
+  applicant1DispensePartnerLastContactChildren: 'applicant1DispensePartnerLastContactChildren',
+  applicant1DispenseChildMaintenanceOrder: 'applicant1DispenseChildMaintenanceOrder',
+  applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
+  applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
 };
 
 const fromApiDate = date => {
