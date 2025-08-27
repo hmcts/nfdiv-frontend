@@ -65,7 +65,7 @@ export const generateContent: TranslationFn = content => {
       break;
     }
     case InterimApplicationType.DISPENSE_WITH_SERVICE: {
-      serviceType = generateCommonContent(content).generalApplication.dispense;
+      serviceType = generateCommonContent(content).generalApplication.dispensed;
       break;
     }
     case InterimApplicationType.ALTERNATIVE_SERVICE: {
