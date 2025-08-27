@@ -16,10 +16,12 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
+import { getAddressFields } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import {
   FINALISING_YOUR_APPLICATION,
   OPTIONS_FOR_PROGRESSING,
+  OWN_SEARCHES,
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
@@ -42,7 +44,8 @@ const en = (
     serviceApplicationResponseDate,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
-  dateOfCourtReplyToRequestForInformationResponse: string
+  dateOfCourtReplyToRequestForInformationResponse: string,
+  respondentAddressProvided: boolean
 ) => ({
   aosAwaiting: {
     line1:
@@ -78,7 +81,7 @@ const en = (
     line4:
       'If you cannot contact them or do not think they will respond, there are a number of ways to progress your application without needing a response from them.',
     linkText: 'View your options for proceeding without a response from the respondent.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   aosDueAndDrafted: {
     line1: `Your ${partner} has not submitted their response to your ${
@@ -91,7 +94,7 @@ const en = (
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } without needing a response.`,
     linkText: 'View your options for proceeding without a response from the respondent.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   holding: {
     line1: `Your ${partner} has responded to your ${
@@ -447,7 +450,8 @@ const cy: typeof en = (
     serviceApplicationDate,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
-  dateOfCourtReplyToRequestForInformationResponse: string
+  dateOfCourtReplyToRequestForInformationResponse: string,
+  respondentAddressProvided: boolean
 ) => ({
   aosAwaiting: {
     line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau
@@ -478,7 +482,7 @@ const cy: typeof en = (
     line4:
       'Fodd bynnag, os na allwch gysylltu â nhw neu os nad ydych chi’n meddwl y byddant yn ymateb, mae yna sawl ffordd i symud eich cais yn ei flaen heb fod angen ymateb ganddynt.',
     linkText: 'Gweld eich opsiynau ar gyfer bwrw ymlaen heb ymateb gan yr atebydd.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   aosDueAndDrafted: {
     line1: `Mae eich ${partner} wedi cyflwyno eu hymateb i’ch ${
@@ -491,7 +495,7 @@ const cy: typeof en = (
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     } heb fod angen ymateb.`,
     linkText: 'Gweld eich opsiynau ar gyfer bwrw ymlaen heb ymateb gan yr atebydd.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   holding: {
     line1: `Mae eich ${partner} wedi ymateb i'ch ${
@@ -912,9 +916,17 @@ export const generateContent: TranslationFn = content => {
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
+  const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
+    field => field && field.length > 0
+  );
 
   return {
-    ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
+    ...languages[language](
+      content,
+      alternativeServiceType,
+      dateOfCourtReplyToRequestForInformationResponse,
+      respondentAddressProvided
+    ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
     displayState,
     isDisputedApplication,
