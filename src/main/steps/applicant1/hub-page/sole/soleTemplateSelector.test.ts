@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceOutcome,
+  AlternativeServiceType,
   DivorceOrDissolution,
   ListValue,
   State,
@@ -46,10 +47,10 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
   });
 
-  test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state BailiffRefused', () => {
+  test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state BailiffRefused', () => {
     const theState = displayState.at(State.BailiffRefused);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
+    expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 
   test('should show /conditional-order-pronounced.njk for state ConditionalOrderPronounced', () => {
@@ -320,10 +321,10 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
-  test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state ServiceAdminRefusal', () => {
+  test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state ServiceAdminRefusal', () => {
     const theState = displayState.at(State.ServiceAdminRefusal);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
+    expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 
   test('should show /service-application-rejected.njk for state ServiceAdminRefusal and reason is "refusal order to applicant"', () => {
@@ -423,5 +424,23 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingHWFEvidence);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+  });
+
+  test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state GeneralConsiderationComplete and alternativeService application is granted', () => {
+    const userCaseWithServiceApplicationGranted = {
+      ...userCase,
+      alternativeServiceOutcomes: [
+        {
+          id: '123',
+          value: {
+            serviceApplicationGranted: YesOrNo.YES,
+            alternativeServiceType: AlternativeServiceType.ALTERNATIVE_SERVICE,
+          },
+        },
+      ] as unknown as ListValue<AlternativeServiceOutcome>[],
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithServiceApplicationGranted, false, true);
+    expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 });

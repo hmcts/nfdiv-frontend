@@ -84,6 +84,10 @@ export const proxyList: {
     path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.BAILIFF_SERVICE_REFUSED),
   },
   {
+    endpoints: ['/downloads/alternative-service-refused'],
+    path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.ALTERNATIVE_SERVICE_REFUSED),
+  },
+  {
     endpoints: ['/downloads/bailiff-unsuccessful-certificate-of-service'],
     path: (req: AppRequest): string =>
       getPath(
