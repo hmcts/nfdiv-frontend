@@ -15,10 +15,10 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => ({
-  title: `Do you think your ${partner} is still in the UK or is receiving UK benefits?`,
+  title: `Ydych chi'n meddwl bod eich ${partner} dal yn y DU neu'n derbyn budd-daliadau'r DU?`,
   errors: {
     applicant1NoResponsePartnerInUkOrReceivingBenefits: {
-      required: 'You must select an option before continuing.',
+      required: 'Rhaid i chi ddewis opsiwn cyn parhau.',
     },
   },
 });
