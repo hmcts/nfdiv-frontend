@@ -50,13 +50,13 @@ const en = ({ partner, userCase }: CommonContent, useHwf: YesOrNo, hwfReference:
     partnerApproximateAge: stripTags(userCase.applicant1SearchGovRecordsPartnerApproximateAge),
     partnerNationalInsuranceNumber: stripTags(userCase.applicant1SearchGovRecordsPartnerNationalInsurance),
     partnerLastKnownAddress: [
-      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.AddressLine1),
-      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.AddressLine2),
-      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.AddressLine3),
-      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.PostTown),
-      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.County),
-      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.PostCode),
-      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress?.Country),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress1),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress2),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress3),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddressTown),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddressCounty),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddressPostcode),
+      stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddressCountry),
     ]
       .filter(Boolean)
       .join('<br>'),
@@ -72,8 +72,8 @@ const en = ({ partner, userCase }: CommonContent, useHwf: YesOrNo, hwfReference:
     ),
   },
   stepLinks: {
-    useHwf: `${urls.HELP_WITH_FEES_DEEMED}`,
-    hwfReference: `${urls.HWF_REFERENCE_NUMBER_INPUT_DEEMED}`,
+    useHwf: `${urls.SEARCH_GOV_RECORDS_HWF}`,
+    hwfReference: `${urls.HWF_REFERENCE_NUMBER_INPUT_GOV_RECORDS}`,
     whySearchGovRecords: `${urls.WHY_SEARCH_GOV_RECORDS}`,
     whichGovDepartmentsToSearch: `${urls.WHICH_GOV_DEPARTMENTS}`,
     whySearchTheseDepartments: `${urls.WHICH_GOV_DEPARTMENTS}`,
