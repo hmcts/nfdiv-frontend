@@ -70,7 +70,7 @@ export const form: FormContent = {
         value: string | string[] | CaseDate | Partial<Case> | undefined,
         formData: Partial<Case>
       ): string | undefined => {
-        if (formData['applicant1SearchGovRecordsPartnerAdditionalAddress2']?.length) {
+        if (formData['applicant1SearchGovRecordsPartnerAdditionalAddress2']?.length && !value) {
           return 'required';
         }
       },
