@@ -30,6 +30,7 @@ export const getSoleHubTemplate = (
     }
     case State.AwaitingServiceConsideration:
     case State.AwaitingBailiffReferral:
+    case State.LAServiceReview:
     case State.BailiffRefused: {
       return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
     }

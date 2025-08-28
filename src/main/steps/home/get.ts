@@ -138,6 +138,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingJointFinalOrder:
     case State.Holding:
     case State.LAReview:
+    case State.LAServiceReview:
     case State.Submitted:
     case State.AwaitingDocuments:
     case State.AwaitingHWFDecision:

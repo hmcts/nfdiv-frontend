@@ -2095,6 +2095,7 @@ export const enum State {
   IssuedToBailiff = 'IssuedToBailiff',
   JSAwaitingLA = 'JSAwaitingLA',
   LAReview = 'LAReview',
+  LAServiceReview = 'LAServiceReview',
   AwaitingPronouncement = 'AwaitingPronouncement',
   NewPaperCase = 'NewPaperCase',
   OfflineDocumentReceived = 'OfflineDocumentReceived',
