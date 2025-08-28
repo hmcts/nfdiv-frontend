@@ -45,11 +45,17 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
       socialMedia: 'chwilio amdanynt ar gyfryngau cymdeithasol',
     },
   },
-  line1: `Gan amlaf, bydd chwiliadau cofnodion y llywodraeth yn cymryd rhwng 6-8 wythnos. Os yw’r chwiliad yn llwyddiannus, dim ond gyda’r llys y bydd manylion cyswllt eich ${partner} yn cael eu rhannu, ac nid gyda chi. Bydd y llys yn anfon papurau’r ${isDivorce ? 'ysgariad' : 'diddymiad'} at eich ${partner}.`,
-  line2: `Os ydych chi eisoes wedi ceisio dod o hyd i fanylion eich ${partner} drwy chwilio cofnodion y llywodraeth ac roeddech yn aflwyddiannus, gallwch wneud cais am hepgor cyflwyno. Mae hyn yn golygu parhau â’ch ${isDivorce ? 'ysgariad' : 'diddymiad'} heb anfon papurau’r ${isDivorce ? 'ysgariad' : 'diddymiad'} at eich ${partner}.`,
+  line1: `Gan amlaf, bydd chwiliadau cofnodion y llywodraeth yn cymryd rhwng 6-8 wythnos. Os yw’r chwiliad yn llwyddiannus, dim ond gyda’r llys y bydd manylion cyswllt eich ${partner} yn cael eu rhannu, ac nid gyda chi. Bydd y llys yn anfon papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } at eich ${partner}.`,
+  line2: `Os ydych chi eisoes wedi ceisio dod o hyd i fanylion eich ${partner} drwy chwilio cofnodion y llywodraeth ac roeddech yn aflwyddiannus, gallwch wneud cais am hepgor cyflwyno. Mae hyn yn golygu parhau â’ch ${
+    isDivorce ? 'ysgariad' : 'diddymiad'
+  } heb anfon papurau’r ${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} at eich ${partner}.`,
   howToProceedHeader: 'Sut ydych chi eisiau parhau?',
   search: 'Rwyf eisiau gwneud cais i chwilio cofnodion y llywodraeth',
-  dispense: `Rwyf eisiau gwneud cais i barhau heb anfon papurau’r ${isDivorce ? 'ysgariad' : 'diddymiad'}`,
+  dispense: `Rwyf eisiau gwneud cais i barhau heb anfon papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  }`,
   errors: {
     applicant1NoResponseSearchOrDispense: {
       required: 'Rhaid i chi ddewis opsiwn cyn parhau',

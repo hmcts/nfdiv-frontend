@@ -177,9 +177,10 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: IS_PARTNER_ABROAD,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => data.applicant1NoResponsePartnerInUkOrReceivingBenefits === YesOrNo.NO
-      ? DISPENSE_SERVICE_APPLICATION
-      : GOV_SEARCH_POSSIBLE,
+    getNextStep: (data: Partial<CaseWithId>): PageLink =>
+      data.applicant1NoResponsePartnerInUkOrReceivingBenefits === YesOrNo.NO
+        ? DISPENSE_SERVICE_APPLICATION
+        : GOV_SEARCH_POSSIBLE,
   },
   {
     url: GOV_SEARCH_POSSIBLE,
