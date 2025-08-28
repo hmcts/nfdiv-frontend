@@ -13,7 +13,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: `Ydych chi'n meddwl bod eich ${partner} dal yn y DU neu'n derbyn budd-daliadau'r DU?`,
   errors: {
