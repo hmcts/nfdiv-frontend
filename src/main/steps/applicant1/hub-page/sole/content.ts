@@ -21,14 +21,17 @@ import type { CommonContent } from '../../../common/common.content';
 import { currentStateFn } from '../../../state-sequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
+  BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
+  DISPENSE_SERVICE_APPLICATION,
   FINALISING_YOUR_APPLICATION,
   HOW_YOU_CAN_PROCEED,
-  HUB_PAGE,
   OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
+  PROCESS_SERVER,
   PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
+  SEARCH_GOV_RECORDS_APPLICATION,
 } from '../../../urls';
 import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
 
@@ -1024,9 +1027,13 @@ export const generateContent: TranslationFn = content => {
       case InterimApplicationType.DEEMED_SERVICE:
         return DEEMED_SERVICE_APPLICATION;
       case InterimApplicationType.BAILIFF_SERVICE:
+        return BAILIFF_SERVICE_APPLICATION;
       case InterimApplicationType.DISPENSE_WITH_SERVICE:
-      default: // Remove when all the options are completed
-        return HUB_PAGE;
+        return DISPENSE_SERVICE_APPLICATION;
+      case InterimApplicationType.PROCESS_SERVER_SERVICE:
+        return PROCESS_SERVER;
+      case InterimApplicationType.SEARCH_GOV_RECORDS:
+        return SEARCH_GOV_RECORDS_APPLICATION;
     }
   })();
   const interimApplicationStartedAosOverdue =
