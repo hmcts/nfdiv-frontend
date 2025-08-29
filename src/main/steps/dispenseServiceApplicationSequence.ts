@@ -6,10 +6,10 @@ import { YesOrNo } from '../app/case/definition';
 import { Step } from './applicant1Sequence';
 import {
   APPLY_FOR_HWF_DISPENSE,
-  AWARE_PARTNER_ADDRESS_DISPENSE,
+  AWARE_PARTNER_ADDRESS_DISPENSE, CHECK_ANSWERS_DISPENSE,
+  CHILD_MAINTENANCE_DISPENSE,
   CHILDREN_CONTACT_DISPENSE,
   CHILDREN_OF_FAMILY_DISPENSE,
-  CHILD_MAINTENANCE_DISPENSE,
   DA_SEARCH_DISPENSE,
   DISPENSE_SERVICE_APPLICATION,
   EMAIL_DESCRIPTION_DISPENSE,
@@ -35,6 +35,7 @@ import {
   TRACING_AGENT_RESULTS_DISPENSE,
   TRACING_ONLINE_DISPENSE,
   TRACING_ONLINE_RESULTS_DISPENSE,
+  UPLOAD_EVIDENCE_DISPENSE,
   WHEN_CONTACT_CHILDREN_DISPENSE,
 } from './urls';
 
@@ -192,6 +193,24 @@ export const dispenseServiceApplicationSequence: Step[] = [
   },
   {
     url: OTHER_ENQUIRIES_DISPENSE,
+    getNextStep: data =>
+      data?.applicant1DispenseHaveSearchedFinalOrder === YesOrNo.YES ||
+      data?.applicant1DispenseHavePartnerEmailAddresses === YesOrNo.YES ||
+      data?.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.YES ||
+      data?.applicant1DispenseTriedTracingAgent === YesOrNo.YES ||
+      data?.applicant1DispenseTriedTracingOnline === YesOrNo.YES ||
+      data?.applicant1DispenseTriedSearchingOnline === YesOrNo.YES ||
+      data?.applicant1DispenseTriedContactingEmployer === YesOrNo.YES ||
+      data?.applicant1DispenseOtherEnquiries?.trim().toLowerCase() !== 'none'
+        ? UPLOAD_EVIDENCE_DISPENSE
+        : CHECK_ANSWERS_DISPENSE,
+  },
+  {
+    url: UPLOAD_EVIDENCE_DISPENSE,
+    getNextStep: () => CHECK_ANSWERS_DISPENSE,
+  },
+  {
+    url: CHECK_ANSWERS_DISPENSE,
     getNextStep: () => HUB_PAGE,
   },
 ];

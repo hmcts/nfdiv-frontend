@@ -295,3 +295,5 @@ export const LAST_CONTACT_CHILDREN_DISPENSE: PageLink = '/interim-applications/d
 export const CHILD_MAINTENANCE_DISPENSE: PageLink = '/interim-applications/dispense-service/child-maintenance';
 export const FRIENDS_OR_RELATIVES_DISPENSE: PageLink = '/interim-applications/dispense-service/friends-or-relatives';
 export const OTHER_ENQUIRIES_DISPENSE: PageLink = '/interim-applications/dispense-service/other-enquiries';
+export const UPLOAD_EVIDENCE_DISPENSE: PageLink = '/interim-applications/dispense-service/upload-evidence';
+export const CHECK_ANSWERS_DISPENSE: PageLink = '/interim-applications/dispense-service/check-answers';
