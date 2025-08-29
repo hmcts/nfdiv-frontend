@@ -77,7 +77,7 @@ export const generateContent: TranslationFn = content => {
       break;
     }
     case InterimApplicationType.DISPENSE_WITH_SERVICE: {
-      serviceType = generateCommonContent(content).generalApplication.dispense;
+      serviceType = generateCommonContent(content).generalApplication.dispensed;
       serviceFee = getFee(config.get('fees.dispensedService'));
       break;
     }

@@ -62,8 +62,8 @@ export const generateContent: TranslationFn = content => {
       break;
     }
     case InterimApplicationType.DISPENSE_WITH_SERVICE: {
-      serviceType = commonContent.generalApplication.dispense;
-      serviceCode = commonContent.generalApplication.dispenseCode;
+      serviceType = commonContent.generalApplication.dispensed;
+      serviceCode = commonContent.generalApplication.dispensedCode;
       forTo = commonContent.generalApplication.to;
       break;
     }
