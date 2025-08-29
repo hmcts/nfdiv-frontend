@@ -1,7 +1,13 @@
 import dayjs from 'dayjs';
 
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
-import { ServiceApplicationRefusalReason, State, YesOrNo } from '../../../../app/case/definition';
+import {
+  GeneralApplicationType,
+  ServiceApplicationRefusalReason,
+  State,
+  YesOrNo,
+} from '../../../../app/case/definition';
+import { findOnlineGeneralApplicationsForUser } from '../../../../app/utils/general-application-utils';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
@@ -11,7 +17,8 @@ export const getSoleHubTemplate = (
   isSuccessfullyServedByBailiff: boolean,
   isAlternativeService: boolean,
   isApplicantAbleToRespondToRequestForInformation: boolean = false,
-  isAwaitingProcessServerService: boolean = false
+  isAwaitingProcessServerService: boolean = false,
+  isApplicant2: boolean = false
 ): string | undefined => {
   const isServiceApplicationGranted =
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
@@ -21,6 +28,11 @@ export const getSoleHubTemplate = (
     userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
+
+  const latestGeneralApplication = findOnlineGeneralApplicationsForUser(userCase, isApplicant2)?.[0];
+  const isSearchGovRecords =
+    latestGeneralApplication?.generalApplicationType === (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
+  const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -62,7 +74,9 @@ export const getSoleHubTemplate = (
         return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.AwaitingGeneralConsideration:
-      if (userCase.dateFinalOrderSubmitted) {
+      if (isSearchGovRecords) {
+        return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
+      } else if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
       } else if (userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;
@@ -71,6 +85,8 @@ export const getSoleHubTemplate = (
       } else {
         return HubTemplate.AosAwaitingOrDrafted;
       }
+    case State.GeneralApplicationReceived:
+      return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
     case State.AwaitingConditionalOrder:
       return HubTemplate.AwaitingConditionalOrder;
     case State.Holding:
