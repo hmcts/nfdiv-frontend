@@ -1236,6 +1236,21 @@ export interface DispenseWithServiceJourneyOptions {
   dispenseOtherEnquiries: string;
 }
 
+export interface DispenseWithServiceJourneyLogicalTests {
+  livedTogether: boolean;
+  wherePartnerLived: boolean;
+  daSearch: boolean;
+  haveEmail: boolean;
+  havePhone: boolean;
+  usedTracingAgent: boolean;
+  tracedOnline: boolean;
+  usedOnlineSearch: boolean;
+  contactedEmployer: boolean;
+  childrenOfTheFamily: boolean;
+  contactWithChildren: boolean;
+  otherEnquiries: boolean;
+}
+
 export interface AlternativeServiceJourneyOptions {
   altServiceReasonForApplying: string;
   altServiceMethod: AlternativeServiceMethod;
