@@ -33,7 +33,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
     }.`,
     line3: `${
       addressOverseas
-        ? `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in`
+        ? `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`
         : `Your ${partner} will have ${config.get(
             'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
           )} days from receiving the ${divorceOrDissolutionPapers} to respond. ${otherOptionsText}`
@@ -49,7 +49,49 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
 
 //TODO: Welsh translation required
 
-const cy: typeof en = en;
+const cy: typeof en = ({ partner, isDivorce, userCase }: CommonContent) => {
+  const addressOverseas = userCase.applicant2AddressOverseas === YesOrNo.YES;
+  const isAddressOnlyUpdate =
+    userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress === NoResponsePartnerNewEmailOrPostalAddress.NEW_POSTAL;
+  const divorceOrDissolutionPapers = isDivorce
+    ? 'papurau’r ysgariad'
+    : 'papurau’r cais i ddod â’ch partneriaeth sifil i ben';
+  const otherOptionsText = `${
+    addressOverseas ? 'Os nad ydynt yn ymateb' : `Os nad yw eich ${partner} yn ymateb`
+  }, byddwn yn eich helpu i archwilio’r dewisiadau eraill sydd gennych i datblygu eich ${
+    isDivorce ? 'cais ysgariad' : 'cais i ddiweddu eich partneriaeth sifil'
+  }`;
+  return {
+    title: `${addressOverseas && isAddressOnlyUpdate ? 'Cyfeiriad wedi’i ddiweddaru' : 'Manylion wedi’u diweddaru'}`,
+    line1: `Rydych wedi diweddaru ${
+      addressOverseas && isAddressOnlyUpdate
+        ? 'cyfeiriad'
+        : userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+            NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
+          ? 'e-bost a chyfeiriad post'
+          : 'manylion cyswllt'
+    } eich ${partner} yn llwyddiannus.`,
+    whatHappensNext: 'Beth fydd yn digwydd nesaf',
+    line2: `${
+      addressOverseas
+        ? `Bydd angen i chi drefnu bod ${divorceOrDissolutionPapers} yn cael eu danfon i’ch ${partner} eich hun`
+        : `Byddwn nawr yn cyflwyno ${divorceOrDissolutionPapers} eto gan ddefnyddio’r manylion cyswllt newydd a ddarparwyd gennych`
+    }.`,
+    line3: `${
+      addressOverseas
+        ? `Mae’n bosibl y byddwch yn dymuno ceisio cyngor cyfreithiol ar sut i gyflwyno’r papurau yn y wlad lle mae eich ${partner} yn byw.`
+        : `Bydd gan eich ${partner} ${config.get(
+            'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
+          )} diwrnod o pan fyddant yn cael ${divorceOrDissolutionPapers} i ymateb. ${otherOptionsText}`
+    }.`,
+    line4: `${
+      addressOverseas
+        ? `Mae faint o amser sydd gan eich ${partner} i ymateb yn dibynnu ar y wlad ble maent yn byw. ${otherOptionsText}.`
+        : ''
+    }`,
+    returnToHubScreen: `<a href=${HUB_PAGE} class="govuk-link">Dychwelyd i sgrin yr hyb</a>`,
+  };
+};
 
 const languages = {
   en,

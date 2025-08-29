@@ -83,6 +83,9 @@ export const getJointHubTemplate = (
     case State.AwaitingHWFDecision:
     case State.AwaitingHWFEvidence:
       return userCase.applicant1CannotUpload === Checkbox.Checked ? HubTemplate.AwaitingDocuments : HubTemplate.Holding;
+    case State.WelshTranslationRequested:
+    case State.WelshTranslationReview:
+      return HubTemplate.WelshTranslationRequestedOrReview;
     default: {
       if (
         displayState.isAfter('Holding') &&

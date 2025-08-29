@@ -9,17 +9,17 @@ const en = ({ partner }: CommonContent) => ({
   line1: `Give as much detail as you can. The judge needs to be satisfied that your ${partner} has received the papers before they can grant your application. If your upload does not show the date you'll need to explain when you got it.`,
   errors: {
     applicant1DeemedEvidenceDetails: {
-      required: 'You must provide a statement before continuing.',
+      required: 'Enter details about the evidence you have uploaded.',
     },
   },
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: 'Tell us about your evidence',
-  line1: `Give as much detail as you can. The judge needs to be satisfied that your ${partner} has received the papers before they can grant your application. If your upload does not show the date you'll need to explain when you got it.`,
+  title: 'Dywedwch wrthym am eich tystiolaeth',
+  line1: `Rhowch gymaint o fanylion â phosib. Mae’r barnwr angen bod yn fodlon bod eich ${partner} wedi cael y papurau cyn y gallant ganiatáu eich cais. Os na fydd y ffeil rydych wedi uwchlwytho yn dangos y dyddiad, bydd rhaid i chi esbonio pryd wnaethoch chi ei gael.`,
   errors: {
     applicant1DeemedEvidenceDetails: {
-      required: 'You must provide a statement before continuing.',
+      required: 'Rhowch fanylion y dystiolaeth rydych wedi’i huwchlwytho.',
     },
   },
 });
