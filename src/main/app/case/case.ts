@@ -330,6 +330,7 @@ export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Cas
 export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
+  conditionalControlHint?: null;
   applicationType?: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
   issueDate?: DateAsString;

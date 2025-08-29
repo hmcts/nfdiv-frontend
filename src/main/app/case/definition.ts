@@ -485,6 +485,7 @@ export interface BulkScanMetaInfo {
 }
 
 export interface CaseData {
+  conditionalControlHint: null;
   applicationType: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
   supplementaryCaseType: SupplementaryCaseType;
