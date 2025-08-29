@@ -9,7 +9,7 @@ const en = (serviceType: string) => ({
   line1: `Your reference number must be unique to this ${serviceType} application. You cannot use a reference number you've used for a previous application.`,
   errors: {
     applicant1InterimAppsHaveHwfReference: {
-      required: 'You must select an option before continuing.',
+      required: "Select 'Yes' if you have a help with fees reference number.",
     },
   },
 });
@@ -19,7 +19,7 @@ const cy = (serviceType: string) => ({
   line1: `Rhaid i’ch cyfeirnod fod yn unigryw i’r cais hwn am ${serviceType} Ni allwch ddefnyddio cyfeirnod rydych wedi defnyddio ar gyfer cais blaenorol.`,
   errors: {
     applicant1InterimAppsHaveHwfReference: {
-      required: 'Rhaid i chi ddewis opsiwn cyn parhau.',
+      required: "Dewiswch 'Oes' os oes gennych chi gyfeirnod help i dalu ffioedd.",
     },
   },
 });
@@ -62,6 +62,10 @@ export const generateContent: TranslationFn = content => {
   switch (content.userCase.applicant1InterimApplicationType) {
     case InterimApplicationType.DEEMED_SERVICE: {
       serviceType = generateCommonContent(content).generalApplication.deemed;
+      break;
+    }
+    case InterimApplicationType.DISPENSE_WITH_SERVICE: {
+      serviceType = generateCommonContent(content).generalApplication.dispense;
       break;
     }
     case InterimApplicationType.ALTERNATIVE_SERVICE: {

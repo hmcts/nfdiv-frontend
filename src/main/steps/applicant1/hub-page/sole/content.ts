@@ -16,11 +16,12 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
+import { getAddressFields } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import {
   FINALISING_YOUR_APPLICATION,
-  HOW_YOU_CAN_PROCEED,
   OPTIONS_FOR_PROGRESSING,
+  OWN_SEARCHES,
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
@@ -43,7 +44,8 @@ const en = (
     serviceApplicationResponseDate,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
-  dateOfCourtReplyToRequestForInformationResponse: string
+  dateOfCourtReplyToRequestForInformationResponse: string,
+  respondentAddressProvided: boolean
 ) => ({
   aosAwaiting: {
     line1:
@@ -79,7 +81,7 @@ const en = (
     line4:
       'If you cannot contact them or do not think they will respond, there are a number of ways to progress your application without needing a response from them.',
     linkText: 'View your options for proceeding without a response from the respondent.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   aosDueAndDrafted: {
     line1: `Your ${partner} has not submitted their response to your ${
@@ -92,7 +94,7 @@ const en = (
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } without needing a response.`,
     linkText: 'View your options for proceeding without a response from the respondent.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   holding: {
     line1: `Your ${partner} has responded to your ${
@@ -236,6 +238,10 @@ const en = (
     } that you submitted on ${serviceApplicationDate}.`,
     line2: `We will email you by ${serviceApplicationResponseDate} once a decision has been made to tell you your next steps.`,
   },
+  serviceAdminRefusalOrBailiffRefusal: {
+    line1: 'The court is currently considering your service application.',
+    line2: 'We will email you once a decision has been made to tell you your next steps.',
+  },
   serviceApplicationRejected: {
     line1: {
       part1: `The court has refused your application ${
@@ -243,7 +249,9 @@ const en = (
           ? 'for bailiff'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'for deemed'
-            : 'to dispense with'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'for alternative'
+              : 'to dispense with'
       } service. You can read the reasons on the court’s `,
       part2: 'Refusal Order (PDF)',
       downloadReference: 'Refusal-Order',
@@ -252,13 +260,15 @@ const en = (
           ? 'bailiff-service-refused'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'deemed-service-refused'
-            : 'dispense-with-service-refused'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'alternative-service-refused'
+              : 'dispense-with-service-refused'
       }`,
     },
     line2: {
       part1: 'Find out about the ',
       part2: `other ways you can progress your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}.`,
-      link: HOW_YOU_CAN_PROCEED,
+      link: OPTIONS_FOR_PROGRESSING,
     },
   },
   bailiffServiceUnsuccessful: {
@@ -440,7 +450,8 @@ const cy: typeof en = (
     serviceApplicationDate,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
-  dateOfCourtReplyToRequestForInformationResponse: string
+  dateOfCourtReplyToRequestForInformationResponse: string,
+  respondentAddressProvided: boolean
 ) => ({
   aosAwaiting: {
     line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau
@@ -471,7 +482,7 @@ const cy: typeof en = (
     line4:
       'Fodd bynnag, os na allwch gysylltu â nhw neu os nad ydych chi’n meddwl y byddant yn ymateb, mae yna sawl ffordd i symud eich cais yn ei flaen heb fod angen ymateb ganddynt.',
     linkText: 'Gweld eich opsiynau ar gyfer bwrw ymlaen heb ymateb gan yr atebydd.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   aosDueAndDrafted: {
     line1: `Mae eich ${partner} wedi cyflwyno eu hymateb i’ch ${
@@ -484,7 +495,7 @@ const cy: typeof en = (
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     } heb fod angen ymateb.`,
     linkText: 'Gweld eich opsiynau ar gyfer bwrw ymlaen heb ymateb gan yr atebydd.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   holding: {
     line1: `Mae eich ${partner} wedi ymateb i'ch ${
@@ -632,6 +643,11 @@ const cy: typeof en = (
     line1: `Mae'r llys wrthi’n ystyried eich hysbysiad o ${serviceApplicationType} a gyflwynwyd gennych ar ${serviceApplicationDate}.`,
     line2: `Byddwn yn anfon e-bost atoch erbyn ${serviceApplicationResponseDate} unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.`,
   },
+  serviceAdminRefusalOrBailiffRefusal: {
+    line1: "Mae'r llys ar hyn o bryd yn ystyried eich cais am gyflwyno.",
+    line2:
+      "Byddwn yn anfon e-bost atoch unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.",
+  },
   serviceApplicationRejected: {
     line1: {
       part1: `Mae'r llys wedi gwrthod eich cais i ${
@@ -639,7 +655,9 @@ const cy: typeof en = (
           ? 'am wasanaeth beili'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'cyflwyno tybiedig'
-            : 'hepgor cyflwyno’r cais'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'ar cyflwyno amgen'
+              : 'hepgor cyflwyno’r cais'
       }. Gallwch ddarllen y rhesymau ar `,
       part2: 'Orchymyn Gwrthod y llys (PDF)',
       downloadReference: 'Refusal-Order',
@@ -648,7 +666,9 @@ const cy: typeof en = (
           ? 'bailiff-service-refused'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'deemed-service-refused'
-            : 'dispense-with-service-refused'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'dispense-with-service-refused'
+              : 'alternative-service-refused'
       }`,
     },
     line2: {
@@ -656,7 +676,7 @@ const cy: typeof en = (
       part2: `ffyrdd eraill y gallwch symud ymlaen â'ch ${
         isDivorce ? 'cais am ysgariad' : "cais ddod â'ch partneriaeth sifil i ben"
       }.`,
-      link: HOW_YOU_CAN_PROCEED,
+      link: OPTIONS_FOR_PROGRESSING,
     },
   },
   awaitingServiceApplicationDocuments: {
@@ -896,9 +916,17 @@ export const generateContent: TranslationFn = content => {
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
+  const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
+    field => field && field.length > 0
+  );
 
   return {
-    ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
+    ...languages[language](
+      content,
+      alternativeServiceType,
+      dateOfCourtReplyToRequestForInformationResponse,
+      respondentAddressProvided
+    ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
     displayState,
     isDisputedApplication,
