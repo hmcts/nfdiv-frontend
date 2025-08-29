@@ -26,6 +26,7 @@ const en = ({ partner, userCase }: CommonContent, useHwf: YesOrNo, hwfReference:
     partnerName: `${capitalize(partner)}'s name`,
     partnerDateOfBirth: `${capitalize(partner)}'s date of birth`,
     partnerApproximateAge: `${capitalize(partner)}'s approximate age`,
+    knowPartnerNationalInsuranceNumber: `Do you know your ${partner}'s National Insurance number`,
     partnerNationalInsuranceNumber: `${capitalize(partner)}'s National Insurance number`,
     partnerLastKnownAddress: `${capitalize(partner)}'s last known address`,
     partnerLastKnownAddressDates: `${capitalize(partner)}'s last known address dates lived there`,
@@ -48,6 +49,7 @@ const en = ({ partner, userCase }: CommonContent, useHwf: YesOrNo, hwfReference:
         : null
     }`,
     partnerApproximateAge: stripTags(userCase.applicant1SearchGovRecordsPartnerApproximateAge),
+    knowPartnerNationalInsuranceNumber: stripTags(userCase.applicant1SearchGovRecordsKnowPartnerNationalInsurance),
     partnerNationalInsuranceNumber: stripTags(userCase.applicant1SearchGovRecordsPartnerNationalInsurance),
     partnerLastKnownAddress: [
       stripTags(userCase.applicant1SearchGovRecordsPartnerLastKnownAddress1),
@@ -80,6 +82,7 @@ const en = ({ partner, userCase }: CommonContent, useHwf: YesOrNo, hwfReference:
     partnerName: `${urls.PARTNER_NAME_GOV_RECORDS}`,
     partnerDateOfBirth: `${urls.PARTNER_DOB_GOV_RECORDS}`,
     partnerApproximateAge: `${urls.PARTNER_DOB_GOV_RECORDS}`,
+    knowPartnerNationalInsuranceNumber: `${urls.PARTNER_NI_GOV_RECORDS}`,
     partnerNationalInsuranceNumber: `${urls.PARTNER_NI_GOV_RECORDS}`,
     partnerLastKnownAddress: `${urls.PARTNER_ADDRESS_GOV_RECORDS}`,
     partnerLastKnownAddressDates: `${urls.PARTNER_ADDRESS_GOV_RECORDS}`,
