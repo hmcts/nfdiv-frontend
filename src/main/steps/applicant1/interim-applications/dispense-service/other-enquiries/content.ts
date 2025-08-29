@@ -7,6 +7,7 @@ const en = ({ partner }: CommonContent) => ({
   title: `What other enquiries have you made, or information do you have concerning the whereabouts of your ${partner}?`,
   otherEnquiriesHeader:
     "For example, this could include enquiries made of any professional organisations they may be a member of. Enter 'none' if you do not have any more information.",
+  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispenseOtherEnquiries: {
       required: "Enter details about the results of your other enquiries, or enter 'none'.",
@@ -18,6 +19,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `What other enquiries have you made, or information do you have concerning the whereabouts of your ${partner}?`,
   otherEnquiriesHeader:
     "For example, this could include enquiries made of any professional organisations they may be a member of. Enter 'none' if you do not have any more information.",
+  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispenseOtherEnquiries: {
       required: "Enter details about the results of your other enquiries, or enter 'none'.",
