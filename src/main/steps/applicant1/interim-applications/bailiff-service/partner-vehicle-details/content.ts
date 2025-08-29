@@ -24,8 +24,8 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   colourHint: 'Er enghraifft, coch',
   registrationLabel: 'Rhif cofrestru',
   registrationHint: 'Er enghraifft, GF08 RGH',
-  otherDetailsLabel: 'Other details',
-  otherDetailsHint: `Please provide any other details about this vehicle or other vehicles your ${partner} has.`,
+  otherDetailsLabel: 'Manylion eraill',
+  otherDetailsHint: `Rhowch unrhyw fanylion eraill sydd gennych am y cerbyd hwn neu gerbydau eraill sydd gan eich ${partner}`,
 });
 
 export const form: FormContent = {
