@@ -437,7 +437,7 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
-  
+
   test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state GeneralConsiderationComplete and alternativeService application is granted', () => {
     const userCaseWithServiceApplicationGranted = {
       ...userCase,
