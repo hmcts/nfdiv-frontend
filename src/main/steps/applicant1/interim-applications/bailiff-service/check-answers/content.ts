@@ -211,7 +211,7 @@ const cy: typeof en = (
     doesPartnerHaveMentalIssues: `A oes gan eich ${partner} unrhyw broblemau iechyd meddwl hysbys neu a yw’n defnyddio/camddefnyddio cyffuriau neu alcohol mewn unrhyw ffordd a all effeithio ar ei ymddygiad?`,
     partnerMentalIssuesDetails: 'Manylion unrhyw faterion iechyd meddwl neu ddefnyddio cyffuriau neu alcohol',
     doesPartnerHoldFirearmsLicense: `A oes gan eich ${partner} drwydded drylliau tanio?`,
-    partnerFirearmsLicenseDetails: `Manylion trwydded drylliau tanio eich ${partner} neu unrhyw euogfarnau’n ymwneud â drylliau tanioe`,
+    partnerFirearmsLicenseDetails: `Manylion trwydded drylliau tanio eich ${partner} neu unrhyw euogfarnau’n ymwneud â drylliau tanio`,
   },
   stepAnswers: {
     useHwf: `${useHwf}`,
