@@ -12,7 +12,7 @@ const en = ({ partner }: CommonContent) => ({
     header: 'If you can find:',
     options: {
       postalAddress: `an up to date postal address, you could <a class="govuk-link" target="_blank" href="${NEW_POSTAL_AND_EMAIL}">update their postal address (opens in new tab)</a> and have the court send them the papers at no additional cost.`,
-      evidence: `evidence that they actively use an email address, phone number or social media account, you could <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}" apply for alternative service (opens in new tab)</a>`,
+      evidence: `evidence that they actively use an email address, phone number or social media account, you could <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}"> apply for alternative service (opens in new tab)</a>.`,
     },
   },
   triedSearchingOnlineHeader: `Have you tried finding your ${partner}'s details online by searching the internet?`,
@@ -35,7 +35,7 @@ const cy = ({ partner }: CommonContent) => ({
     header: 'If you can find:',
     options: {
       postalAddress: `an up to date postal address, you could <a class="govuk-link" target="_blank" href="${NEW_POSTAL_AND_EMAIL}">update their postal address (opens in new tab)</a> and have the court send them the papers at no additional cost.`,
-      evidence: `evidence that they actively use an email address, phone number or social media account, you could <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}" apply for alternative service (opens in new tab)</a>`,
+      evidence: `evidence that they actively use an email address, phone number or social media account, you could <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}"> apply for alternative service (opens in new tab)</a>.`,
     },
   },
   triedSearchingOnlineHeader: `Have you tried finding your ${partner}'s details online by searching the internet?`,
