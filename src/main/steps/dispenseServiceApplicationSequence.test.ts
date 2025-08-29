@@ -1,6 +1,5 @@
-import { describe } from 'node:test';
-
 import dayjs, { Dayjs } from 'dayjs';
+import { describe } from 'node:test';
 
 import { CaseDate } from '../app/case/case';
 import { YesOrNo } from '../app/case/definition';
@@ -22,7 +21,6 @@ import {
   EMPLOYMENT_DETAILS_DISPENSE,
   FRIENDS_OR_RELATIVES_DISPENSE,
   HELP_WITH_FEES_DISPENSE,
-  HUB_PAGE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
   LAST_ADDRESS_DISPENSE,
@@ -31,10 +29,12 @@ import {
   LAST_SEEN_DISPENSE,
   OTHER_ENQUIRIES_DISPENSE,
   PARTNER_NEW_ADDRESS_DISPENSE,
+  PAY_YOUR_SERVICE_FEE,
   PHONE_DESCRIPTION_DISPENSE,
   PHONE_NUMBER_DISPENSE,
   SEARCHING_ONLINE_DISPENSE,
   SEARCHING_ONLINE_RESULTS_DISPENSE,
+  SERVICE_APPLICATION_SUBMITTED,
   TRACING_AGENT_DISPENSE,
   TRACING_AGENT_RESULTS_DISPENSE,
   TRACING_ONLINE_DISPENSE,
@@ -478,9 +478,20 @@ describe('Dispense With Service Application Sequence test', () => {
   });
 
   describe('CHECK_ANSWERS_DISPENSE', () => {
-    test('HUB_PAGE', () => {
+    test('PAY_YOUR_SERVICE_FEE', () => {
+      const caseData = {
+        alternativeServiceFeeRequired: YesOrNo.YES,
+      };
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DISPENSE) as Step;
-      expect(step.getNextStep({})).toBe(HUB_PAGE);
+      expect(step.getNextStep(caseData)).toBe(PAY_YOUR_SERVICE_FEE);
+    });
+
+    test('SERVICE_APPLICATION_SUBMITTED', () => {
+      const caseData = {
+        alternativeServiceFeeRequired: YesOrNo.NO,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(SERVICE_APPLICATION_SUBMITTED);
     });
   });
 });
