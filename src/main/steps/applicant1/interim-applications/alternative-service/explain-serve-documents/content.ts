@@ -16,12 +16,12 @@ const en = () => ({
 
 // @TODO translations
 const cy = () => ({
-  title: 'Why are you applying for alternative service?',
+  title: 'Pam ydych yn gwneud cais am gyflwyno amgen?',
   line1:
-    'Explain why you have not been able to send the papers. Give as much detail as you can. This information may be considered by a judge as part of your application.',
+    'Eglurwch pam nad ydych wedi gallu anfon y papurau. Rhowch gymaint o fanylion â phosib. Efallai y bydd y wybodaeth hon yn cael ei hystyried gan farnwr fel rhan o’ch cais.',
   errors: {
     applicant1AltServiceReasonForApplying: {
-      required: 'You must explain why are applying for alternative service.',
+      required: 'Rhaid i chi egluro pam eich bod yn gwneud cais am gyflwyno amgen.',
     },
   },
 });
