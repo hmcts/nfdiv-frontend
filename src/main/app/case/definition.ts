@@ -485,6 +485,7 @@ export interface BulkScanMetaInfo {
 }
 
 export interface CaseData {
+  conditionalControlHint: null;
   applicationType: ApplicationType;
   divorceOrDissolution: DivorceOrDissolution;
   supplementaryCaseType: SupplementaryCaseType;
@@ -1148,6 +1149,7 @@ export interface CaseData {
   applicant1DispenseChildMaintenanceOrder: YesOrNo;
   applicant1DispenseChildMaintenanceResults: string;
   applicant1DispenseContactFriendsOrRelativesDetails: string;
+  applicant1DispenseOtherEnquiries: string;
 }
 
 export interface CaseDocuments {
@@ -1232,6 +1234,22 @@ export interface DispenseWithServiceJourneyOptions {
   dispenseChildMaintenanceOrder: YesOrNo;
   dispenseChildMaintenanceResults: string;
   dispenseContactFriendsOrRelativesDetails: string;
+  dispenseOtherEnquiries: string;
+}
+
+export interface DispenseWithServiceJourneyLogicalTests {
+  livedTogether: boolean;
+  wherePartnerLived: boolean;
+  daSearch: boolean;
+  haveEmail: boolean;
+  havePhone: boolean;
+  usedTracingAgent: boolean;
+  tracedOnline: boolean;
+  usedOnlineSearch: boolean;
+  contactedEmployer: boolean;
+  childrenOfTheFamily: boolean;
+  contactWithChildren: boolean;
+  otherEnquiries: boolean;
 }
 
 export interface AlternativeServiceJourneyOptions {

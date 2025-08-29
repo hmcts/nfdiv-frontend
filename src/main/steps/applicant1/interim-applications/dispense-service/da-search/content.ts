@@ -29,6 +29,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   haveSearchedFinalOrderHeader: `Have you searched for an existing ${
     isDivorce ? 'decree absolute or ' : ''
   }final order?`,
+  finalOrderSearchHint: 'You will need to upload your no trace certificate at the end of this application.',
   whyNoFinalOrderSearchHeader: 'Explain why you have not requested a search',
   errors: {
     applicant1DispenseHaveSearchedFinalOrder: {
@@ -64,6 +65,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   haveSearchedFinalOrderHeader: `Have you searched for an existing ${
     isDivorce ? 'decree absolute or ' : ''
   }final order?`,
+  finalOrderSearchHint: 'You will need to upload your no trace certificate at the end of this application.',
   whyNoFinalOrderSearchHeader: 'Explain why you have not requested a search',
   errors: {
     applicant1DispenseHaveSearchedFinalOrder: {
@@ -94,6 +96,14 @@ export const form: FormContent = {
           label: l => l.yes,
           id: 'yes',
           value: YesOrNo.YES,
+          subFields: {
+            conditionalControlHint: {
+              type: 'hidden',
+              label: l => l.finalOrderSearchHint,
+              labelHidden: true,
+              hint: l => l.finalOrderSearchHint,
+            },
+          },
         },
         {
           label: l => l.no,

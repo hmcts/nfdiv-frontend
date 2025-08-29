@@ -7,6 +7,7 @@ import { Step } from './applicant1Sequence';
 import {
   APPLY_FOR_HWF_DISPENSE,
   AWARE_PARTNER_ADDRESS_DISPENSE,
+  CHECK_ANSWERS_DISPENSE,
   CHILDREN_CONTACT_DISPENSE,
   CHILDREN_OF_FAMILY_DISPENSE,
   CHILD_MAINTENANCE_DISPENSE,
@@ -18,22 +19,25 @@ import {
   EMPLOYMENT_DETAILS_DISPENSE,
   FRIENDS_OR_RELATIVES_DISPENSE,
   HELP_WITH_FEES_DISPENSE,
-  HUB_PAGE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
   LAST_ADDRESS_DISPENSE,
   LAST_CONTACT_CHILDREN_DISPENSE,
   LAST_DATE_DISPENSE,
   LAST_SEEN_DISPENSE,
+  OTHER_ENQUIRIES_DISPENSE,
   PARTNER_NEW_ADDRESS_DISPENSE,
+  PAY_YOUR_SERVICE_FEE,
   PHONE_DESCRIPTION_DISPENSE,
   PHONE_NUMBER_DISPENSE,
   SEARCHING_ONLINE_DISPENSE,
   SEARCHING_ONLINE_RESULTS_DISPENSE,
+  SERVICE_APPLICATION_SUBMITTED,
   TRACING_AGENT_DISPENSE,
   TRACING_AGENT_RESULTS_DISPENSE,
   TRACING_ONLINE_DISPENSE,
   TRACING_ONLINE_RESULTS_DISPENSE,
+  UPLOAD_EVIDENCE_DISPENSE,
   WHEN_CONTACT_CHILDREN_DISPENSE,
 } from './urls';
 
@@ -187,6 +191,29 @@ export const dispenseServiceApplicationSequence: Step[] = [
   },
   {
     url: FRIENDS_OR_RELATIVES_DISPENSE,
-    getNextStep: data => (data?.applicant1DispenseTriedContactingEmployer === YesOrNo.YES ? HUB_PAGE : HUB_PAGE),
+    getNextStep: () => OTHER_ENQUIRIES_DISPENSE,
+  },
+  {
+    url: OTHER_ENQUIRIES_DISPENSE,
+    getNextStep: data =>
+      data?.applicant1DispenseHaveSearchedFinalOrder === YesOrNo.YES ||
+      data?.applicant1DispenseHavePartnerEmailAddresses === YesOrNo.YES ||
+      data?.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.YES ||
+      data?.applicant1DispenseTriedTracingAgent === YesOrNo.YES ||
+      data?.applicant1DispenseTriedTracingOnline === YesOrNo.YES ||
+      data?.applicant1DispenseTriedSearchingOnline === YesOrNo.YES ||
+      data?.applicant1DispenseTriedContactingEmployer === YesOrNo.YES ||
+      data?.applicant1DispenseOtherEnquiries?.trim().toLowerCase() !== 'none'
+        ? UPLOAD_EVIDENCE_DISPENSE
+        : CHECK_ANSWERS_DISPENSE,
+  },
+  {
+    url: UPLOAD_EVIDENCE_DISPENSE,
+    getNextStep: () => CHECK_ANSWERS_DISPENSE,
+  },
+  {
+    url: CHECK_ANSWERS_DISPENSE,
+    getNextStep: data =>
+      data?.alternativeServiceFeeRequired === YesOrNo.YES ? PAY_YOUR_SERVICE_FEE : SERVICE_APPLICATION_SUBMITTED,
   },
 ];
