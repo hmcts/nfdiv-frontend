@@ -18,14 +18,14 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Does your ${partner} hold a firearms license or have any firearms convictions?`,
-  otherDetailsLabel: 'Provide as much information as you can',
+  title: `A yw eich ${partner} yn meddu ar drwydded drylliau tanio neu a oes ganddo/ganddi unrhyw euogfarnau drylliau tanio?`,
+  otherDetailsLabel: 'Rhowch gymaint o wybodaeth ag y gallwch',
   errors: {
     applicant1BailiffDoesPartnerHoldFirearmsLicense: {
-      required: `Select yes if your ${partner} has a firearms license or any firearms convictions.`,
+      required: `Dewiswch “Oes” os oes gan eich ${partner} drwydded drylliau tanio neu unrhyw euogfarnau drylliau tanio`,
     },
     applicant1BailiffPartnerFirearmsLicenseDetails: {
-      required: 'Enter details of the firearms license or any firearms convictions',
+      required: 'Rhowch fanylion y drwydded drylliau tanio neu unrhyw euogfarnau drylliau tanio',
     },
   },
 });

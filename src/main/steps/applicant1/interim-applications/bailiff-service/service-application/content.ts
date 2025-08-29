@@ -23,8 +23,8 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations should be verified
 const cy = ({ partner }: CommonContent) => ({
-  title: 'Request bailiff service (D89)',
-  line1: `Request to have your papers served on your ${partner} by a county court bailiff.`,
+  title: 'Gwneud cais am wasanaeth cyflwyno gan feili (D89)',
+  line1: `Gwnewch gais i’ch papurau gael eu cyflwyno ar eich ${partner} gan feili llys sirol.`,
   line2:
     'Dim ond i gyfeiriad yng Nghymru a Lloegr sydd wedi’i ddefnyddio’n barod i anfon dogfennau drwy’r post y gall beilïaid llys gyflwyno dogfennau iddo.',
   line3: `Os caiff y papurau eu danfon yn llwyddiannus, bydd y beili yn llenwi tystysgrif cyflwyno ac yn ei hanfon i’r llys. Wedyn bydd eich ysgariad yn parhau p’un a yw eich ${partner} yn ymateb neu beidio.`,

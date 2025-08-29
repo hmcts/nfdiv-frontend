@@ -18,14 +18,14 @@ const en = ({ isApp2Confidential, partner }: CommonContent, applicant2Address, u
 });
 
 const cy: typeof en = ({ isApp2Confidential, partner }: CommonContent, applicant2Address, updateEmailLinkPath) => ({
-  title: 'Which address (in England or Wales) should bailiff service be attempted at?',
+  title: 'Y cyfeiriad (yng Nghymru neu Loegr) lle dylai’r beili geisio cyflwyno’r ddogfen yw',
   line1:
-    'Bailiff service can only be attempted at an address in England and Wales where postal delivery has already been tried.',
-  line2: `If the address below is not correct you should stop this application and <a class="govuk-link" href="${updateEmailLinkPath}">update your ${partner}’s address</a>. If your ${partner} still does not respond, you can then apply for bailiff service.`,
-  homeAddress: 'Address',
+    'Dim ond i gyfeiriad yng Nghymru a Lloegr sydd wedi’i ddefnyddio’n barod i anfon eich dogfennau drwy’r post y gall beilïaid llys gyflwyno dogfennau iddo.',
+  line2: `Os nad yw’r cyfeiriad isod yn gywir dylech roi’r gorau i’r cais hwn a <a class="govuk-link" href="${updateEmailLinkPath}">diweddaru cyfeiriad eich ${partner}</a>. Os bydd eich ${partner} yn dal ddim yn ymateb, gallwch wedyn ymgeisio am wasanaeth beili.`,
+  homeAddress: 'Cyfeiriad',
   partnerAddress: `${
     isApp2Confidential
-      ? `We have a confidential address for your ${partner}. You can apply to attempt bailiff service at this address.`
+      ? `Mae gennym gyfeiriad cyfrinachol i'ch ${partner}. Gallwch wneud cais i geisio gwasanaeth cyflwyno gan feili yn y cyfeiriad hwn.`
       : applicant2Address
   }`,
 });

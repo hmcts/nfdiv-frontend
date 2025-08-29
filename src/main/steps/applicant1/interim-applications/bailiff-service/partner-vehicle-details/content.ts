@@ -16,16 +16,16 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Please give details of your ${partner}'s vehicle`,
-  line1: "If you're not sure, leave the field blank.",
-  manufacturerLabel: 'Manufacturer and model',
-  manufacturerHint: 'For example, Ford Fiesta',
-  colourLabel: 'Colour',
-  colourHint: 'For example, red',
-  registrationLabel: 'Registration number',
-  registrationHint: 'For example, GF08 RGH',
-  otherDetailsLabel: 'Other details',
-  otherDetailsHint: `Please provide any other details about this vehicle or other vehicles your ${partner} has.`,
+  title: `Rhowch fanylion cerbyd eich ${partner}`,
+  line1: 'Os ydych yn ansicr, gadewch y blwch hwn yn wag',
+  manufacturerLabel: 'Gwneuthurwr a model',
+  manufacturerHint: 'Er enghraifft, Ford Fiesta',
+  colourLabel: 'Lliw',
+  colourHint: 'Er enghraifft, coch',
+  registrationLabel: 'Rhif cofrestru',
+  registrationHint: 'Er enghraifft, GF08 RGH',
+  otherDetailsLabel: 'Manylion eraill',
+  otherDetailsHint: `Rhowch unrhyw fanylion eraill sydd gennych am y cerbyd hwn neu gerbydau eraill sydd gan eich ${partner}`,
 });
 
 export const form: FormContent = {
