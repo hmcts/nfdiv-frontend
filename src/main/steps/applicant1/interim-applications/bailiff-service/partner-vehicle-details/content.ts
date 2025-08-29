@@ -17,7 +17,7 @@ const en = ({ partner }: CommonContent) => ({
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Rhowch fanylion cerbyd eich ${partner}`,
-  line1: "Os ydych yn ansicr, gadewch y blwch hwn yn wag",
+  line1: 'Os ydych yn ansicr, gadewch y blwch hwn yn wag',
   manufacturerLabel: 'Gwneuthurwr a model',
   manufacturerHint: 'Er enghraifft, Ford Fiesta',
   colourLabel: 'Lliw',

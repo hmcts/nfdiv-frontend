@@ -56,7 +56,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       invalidDate: 'Mae angen ichi nodi ddyddiad geni dilys',
       invalidYear: 'Mae angen ichi nodi ddyddiad geni dilys',
       invalidDateInFuture: `Rhaid i ddyddiad geni eich ${partner} fod yn y gorffennol`,
-      invalidDateTooFarInPast: `Mae angen ichi nodi blwyddyn sy'n fwy cyfredol. Nodwch flwyddyn geni.`,
+      invalidDateTooFarInPast: "Mae angen ichi nodi blwyddyn sy'n fwy cyfredol. Nodwch flwyddyn geni.",
     },
     applicant1BailiffPartnersApproximateAge: {
       required: `Mae'n rhaid i chi nodi oedran eich ${partner} yn fras`,

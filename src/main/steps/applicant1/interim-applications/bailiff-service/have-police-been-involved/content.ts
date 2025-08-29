@@ -23,8 +23,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   enterPoliceInvolvedDetailsLabel: 'Rhowch fanylion unrhyw ddigwyddiadau',
   errors: {
     applicant1BailiffHavePoliceBeenInvolved: {
-      required:
-        `Dewiswch “Ydy” os yw’r heddlu erioed wedi ymwneud â’ch ${partner}`,
+      required: `Dewiswch “Ydy” os yw’r heddlu erioed wedi ymwneud â’ch ${partner}`,
     },
     applicant1BailiffPoliceInvolvedDetails: {
       required: 'Rhowch fanylion unrhyw achosion yn ymwneud â’r heddlu',
