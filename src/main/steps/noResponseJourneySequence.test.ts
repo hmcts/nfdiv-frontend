@@ -191,7 +191,7 @@ describe('No Response Journey Sequence test', () => {
   describe('IS_PARTNER_ABROAD', () => {
     test('DISPENSE_SERVICE_APPLICATION', () => {
       const caseData = {
-        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.YES,
+        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.NO,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === IS_PARTNER_ABROAD) as Step;
       expect(step.getNextStep(caseData)).toBe(DISPENSE_SERVICE_APPLICATION);
@@ -199,7 +199,7 @@ describe('No Response Journey Sequence test', () => {
 
     test('GOV_SEARCH_POSSIBLE', () => {
       const caseData = {
-        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.NO,
+        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.YES,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === IS_PARTNER_ABROAD) as Step;
       expect(step.getNextStep(caseData)).toBe(GOV_SEARCH_POSSIBLE);
