@@ -18,6 +18,9 @@ const en = ({ partner }: CommonContent) => ({
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       required: `You have not entered your ${partner}'s dates at the address 2. Enter it before continuing.`,
     },
+    applicant1SearchGovRecordsPartnerAdditionalAddress2: {
+      required: `You have not entered your ${partner}'s dates at the address 2 without entering address. Enter it before continuing.`,
+    },
   },
 });
 
@@ -35,6 +38,9 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       required: `You have entered address 2. Enter the dates your ${partner} lived at this address`,
+    },
+    applicant1SearchGovRecordsPartnerAdditionalAddress2: {
+      required: `You have not entered your ${partner}'s dates at the address 2 without entering address. Enter it before continuing.`,
     },
   },
 });
@@ -60,6 +66,14 @@ export const form: FormContent = {
       classes: 'govuk-input--width-40',
       label: l => l.address + '2 (optional)',
       labelSize: 'normal',
+      validator: (
+        value: string | string[] | CaseDate | Partial<Case> | undefined,
+        formData: Partial<Case>
+      ): string | undefined => {
+        if (formData['applicant1SearchGovRecordsPartnerAdditionalAddressDates2']?.length && !value) {
+          return 'required';
+        }
+      },
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       type: 'textarea',
@@ -70,7 +84,7 @@ export const form: FormContent = {
         value: string | string[] | CaseDate | Partial<Case> | undefined,
         formData: Partial<Case>
       ): string | undefined => {
-        if (formData['applicant1SearchGovRecordsPartnerAdditionalAddress2']?.length) {
+        if (formData['applicant1SearchGovRecordsPartnerAdditionalAddress2']?.length && !value) {
           return 'required';
         }
       },

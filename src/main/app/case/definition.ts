@@ -2016,7 +2016,6 @@ export const enum SearchGovRecordsWhichDepartment {
   OTHER = 'other',
 }
 
-
 export const enum GeneralApplicationType {
   DISPENSED_WITH_SERVICE = 'dispensedWithService',
   DEEMED_SERVICE = 'deemedService',
