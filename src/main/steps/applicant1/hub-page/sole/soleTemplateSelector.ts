@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
-import { ServiceApplicationRefusalReason, State, YesOrNo } from '../../../../app/case/definition';
+import { ServiceApplicationRefusalReason, ServiceMethod, State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
@@ -21,7 +21,7 @@ export const getSoleHubTemplate = (
     userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
-  const contactDetailsUpdatedOverseasAddress = userCase.applicant2AddressOverseas === YesOrNo.YES;
+  const isPersonalServiceRequired = userCase.serviceMethod === ServiceMethod.PERSONAL_SERVICE;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -131,7 +131,7 @@ export const getSoleHubTemplate = (
     case State.AwaitingService:
       return isAwaitingProcessServerService
         ? HubTemplate.AwaitingProcessServerService
-        : contactDetailsUpdatedOverseasAddress
+        : isPersonalServiceRequired
           ? HubTemplate.AwaitingService
           : HubTemplate.AosAwaitingOrDrafted;
     default: {

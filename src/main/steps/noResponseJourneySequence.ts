@@ -24,6 +24,7 @@ import {
   HAVE_THEY_RECEIVED_REPRESENTED,
   HUB_PAGE,
   IS_PARTNER_ABROAD,
+  NEW_ADDRESS_IN_ENGLAND_OR_WALES,
   NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   NEW_EMAIL,
   NEW_POSTAL_ADDRESS,
@@ -84,9 +85,14 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: NEW_POSTAL_ADDRESS,
-    getNextStep: (): PageLink => {
-      return NEW_CONTACT_DETAIL_CHECK_ANSWERS;
-    },
+    getNextStep: (data: Partial<CaseWithId>): PageLink =>
+      data.applicant1NoResponsePartnerAddressOverseas !== YesOrNo.YES
+        ? NEW_ADDRESS_IN_ENGLAND_OR_WALES
+        : NEW_CONTACT_DETAIL_CHECK_ANSWERS,
+  },
+  {
+    url: NEW_ADDRESS_IN_ENGLAND_OR_WALES,
+    getNextStep: (): PageLink => NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   },
   {
     url: NEW_EMAIL,

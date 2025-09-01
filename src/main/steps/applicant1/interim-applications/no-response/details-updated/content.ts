@@ -1,12 +1,13 @@
 import config from 'config';
 
-import { NoResponsePartnerNewEmailOrAddress, YesOrNo } from '../../../../../app/case/definition';
+import { NoResponsePartnerNewEmailOrAddress, YesOrNo, ServiceMethod } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { CommonContent } from '../../../../common/common.content';
 import { HUB_PAGE } from '../../../../urls';
 
 const en = ({ partner, isDivorce, userCase }: CommonContent) => {
   const addressOverseas = userCase.applicant2AddressOverseas === YesOrNo.YES;
+  const isPersonalServiceRequired = userCase.serviceMethod === ServiceMethod.PERSONAL_SERVICE;
   const isAddressOnlyUpdate =
     userCase.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.ADDRESS;
   const divorceOrDissolutionPapers = isDivorce ? 'divorce papers' : 'papers to end your civil partnership';
@@ -26,19 +27,19 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
     }.`,
     whatHappensNext: 'What happens next',
     line2: `${
-      addressOverseas
+      isPersonalServiceRequired
         ? `You will need to arrange delivery of the ${divorceOrDissolutionPapers} to your ${partner} yourself`
         : `We will now serve your ${divorceOrDissolutionPapers} again using the new contact details you have provided`
     }.`,
     line3: `${
-      addressOverseas
+      isPersonalServiceRequired
         ? `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in`
         : `Your ${partner} will have ${config.get(
             'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
           )} days from receiving the ${divorceOrDissolutionPapers} to respond. ${otherOptionsText}`
     }.`,
     line4: `${
-      addressOverseas
+      isPersonalServiceRequired
         ? `The amount of time your ${partner} has to respond depends on the country they’re living in. ${otherOptionsText}.`
         : ''
     }`,

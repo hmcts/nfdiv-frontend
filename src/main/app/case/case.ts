@@ -34,6 +34,7 @@ import {
   OrderSummary,
   Payment,
   RequestForInformation,
+  ServiceMethod,
   State,
   YesOrNo,
   YesOrNoOrNotKnown,
@@ -46,6 +47,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1ScreenHasUnionBroken: 'applicant1ScreenHasMarriageBroken',
   applicant2ScreenHasUnionBroken: 'applicant2ScreenHasMarriageBroken',
   hasCertificate: 'screenHasMarriageCert',
+  serviceMethod: 'serviceMethod',
   applicant1HelpPayingNeeded: 'applicant1HWFNeedHelp',
   applicant1AlreadyAppliedForHelpPaying: 'applicant1HWFAppliedForFees',
   applicant1HelpWithFeesRefNo: 'applicant1HWFReferenceNumber',
@@ -316,6 +318,7 @@ export interface Case {
   applicant2ScreenHasUnionBroken?: YesOrNo;
   relationshipDate?: CaseDate;
   hasCertificate?: YesOrNo;
+  serviceMethod?: ServiceMethod;
   applicant1HelpPayingNeeded?: YesOrNo;
   applicant1AlreadyAppliedForHelpPaying?: YesOrNo;
   applicant1HelpWithFeesRefNo?: string;

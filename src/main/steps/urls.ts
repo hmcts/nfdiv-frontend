@@ -176,6 +176,7 @@ export const PROCESS_SERVER_DOCS: PageLink = '/interim-applications/no-response/
 export const SERVE_AGAIN: PageLink = '/interim-applications/no-response/serve-again';
 export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
 export const NEW_POSTAL_ADDRESS: PageLink = '/interim-applications/no-response/new-postal-address';
+export const NEW_ADDRESS_IN_ENGLAND_OR_WALES: PageLink = '/interim-applications/no-response/new-address-in-england-or-wales'; 
 export const NEW_EMAIL: PageLink = '/interim-applications/no-response/new-email-address';
 export const PROVIDE_NEW_EMAIL_ADDRESS: PageLink = '/interim-applications/no-response/provide-new-email-address';
 export const APPLY_FOR_ALTERNATIVE_SERVICE: PageLink =

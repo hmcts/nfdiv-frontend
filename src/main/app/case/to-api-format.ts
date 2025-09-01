@@ -472,6 +472,7 @@ const fields: ToApiConverters = {
   applicant1NoResponsePartnerAddressPostcode: applicant1NoResponsePartnerAddressToApi,
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
+    applicant1NoResponseRespondentAddressInEnglandWales: applicant1NoResponsePartnerAddressOverseas === YesOrNo.YES ? YesOrNo.NO : null,
   }),
   applicant1AltServicePartnerEmail: data => ({
     applicant1AltServicePartnerEmail:
