@@ -31,7 +31,9 @@ const en = ({ isDivorce, isApp2Represented, partner }: CommonContent) => ({
 // @TODO translations should be completed then verified
 const cy: typeof en = ({ isDivorce, isApp2Represented, partner }: CommonContent) => ({
   title: 'Mi wnawn anfon y dogfennau eto',
-  detailsProvided: `Dyma’r manylion a ddarparwyd gennych yn flaenorol ac i ble’r ydym wedi anfon ${isDivorce ? 'papurau’r ysgariad' : 'y papurau i ddod â’ch partneriaeth sifil i ben'}.`,
+  detailsProvided: `Dyma’r manylion a ddarparwyd gennych yn flaenorol ac i ble’r ydym wedi anfon ${
+    isDivorce ? 'papurau’r ysgariad' : 'y papurau i ddod â’ch partneriaeth sifil i ben'
+  }.`,
   line1: `Byddwn nawr yn anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } at eich ${partner}${partner}${

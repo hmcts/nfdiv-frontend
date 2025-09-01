@@ -73,7 +73,7 @@ const cy: typeof en = (
   { userCase, isApp2Represented }: CommonContent,
   showAddress: boolean,
   showEmail: boolean,
-  sendPapersAgain: boolean,
+  sendPapersAgain: boolean
 ) => ({
   title: 'Gwiriwch eich atebion',
   stepQuestions: {

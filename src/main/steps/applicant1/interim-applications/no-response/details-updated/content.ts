@@ -28,7 +28,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
     line2: `${
       addressOverseas
         ? `You will need to arrange delivery of the ${divorceOrDissolutionPapers} to your ${partner} yourself`
-        : `We will now serve your ${divorceOrDissolutionPapers} again using the new contact details you have provided`
+        : `The court will now serve your ${divorceOrDissolutionPapers} again using the new contact details you have provided`
     }.`,
     line3: `${
       addressOverseas
@@ -58,15 +58,19 @@ const cy: typeof en = ({ partner, isDivorce, userCase }: CommonContent) => {
   }`;
 
   return {
-    title: `${addressOverseas && isAddressOnlyUpdate ? 'Address' : 'Details'} updated`,
+    title: `${addressOverseas && isAddressOnlyUpdate ? 'Cyfeiriad' : 'Manylion'} wedi’i ddiweddaru`,
     line1: `Rydych wedi diweddaru ${
       addressOverseas && isAddressOnlyUpdate ? 'cyfeiriad eich' : 'manylion cyswllt eich'
     } ${partner}.`,
     whatHappensNext: 'Beth fydd yn digwydd nesaf',
     line2: `${
       addressOverseas
-        ? `Bydd angen i chi drefnu bod papurau'r ${divorceOrDissolutionPapers} yn cael eu danfon i'ch ${partner} eich hun.`
-        : `We will now serve your ${divorceOrDissolutionPapers} again using the new contact details you have provided`
+        ? `Bydd angen i chi drefnu bod papurau'r ${
+            isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+          } yn cael eu danfon i'ch ${partner} eich hun. `
+        : `Bydd y llys nawr yn cyflwyno papurau eich ${
+            isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+          } eto gan ddefnyddio’r manylion cyswllt newydd a ddarparwyd gennych.`
     }.`,
     line3: `${
       addressOverseas
