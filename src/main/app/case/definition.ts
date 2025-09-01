@@ -2608,7 +2608,7 @@ export const enum NoResponseCheckContactDetails {
 
 export const enum NoResponsePartnerNewEmailOrAddress {
   ADDRESS = 'address',
-  EMAIL = 'emailAddress',
+  EMAIL = 'email',
   EMAIL_AND_ADDRESS = 'emailAndAddress',
   CONTACT_DETAILS_UPDATED = 'contactDetailsUpdated',
 }
@@ -2643,7 +2643,7 @@ export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
 export const enum NoResponseSendPapersAgainOrTrySomethingElse {
   SEND_PAPERS_AGAIN = 'sendPapersAgain',
   TRY_SOMETHING_ELSE = 'trySomethingElse',
-  PAPERS_ALREADY_SENT = 'papersAlreadySent',
+  PAPERS_SENT = 'papersSent',
 }
 
 export const enum AlternativeServiceMethod {

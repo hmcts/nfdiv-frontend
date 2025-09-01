@@ -109,7 +109,7 @@ export const noResponseJourneySequence: Step[] = [
     url: NEW_CONTACT_DETAIL_CHECK_ANSWERS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       return data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
-        NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
+        NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT
         ? WILL_SERVE_AGAIN
         : NO_RESPONSE_DETAILS_UPDATED;
     },
@@ -132,7 +132,7 @@ export const noResponseJourneySequence: Step[] = [
       }
       return data.applicant2AddressOverseas === YesOrNo.YES ||
         data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
-          NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_ALREADY_SENT
+          NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT
         ? NO_NEW_ADDRESS
         : SERVE_AGAIN;
     },
@@ -140,13 +140,13 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: SERVE_AGAIN,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (
-        data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
-        NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
-      ) {
-        return data?.applicant2AddressPrivate === YesOrNo.YES ? WILL_SERVE_AGAIN : NEW_CONTACT_DETAIL_CHECK_ANSWERS;
+      if (data?.applicant2AddressPrivate === YesOrNo.YES) {
+        return WILL_SERVE_AGAIN;
       } else {
-        return NO_NEW_ADDRESS;
+        return data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
+          ? NEW_CONTACT_DETAIL_CHECK_ANSWERS
+          : NO_NEW_ADDRESS;
       }
     },
   },

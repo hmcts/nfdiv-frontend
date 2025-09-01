@@ -445,7 +445,7 @@ const en = (
     whatsNext: 'What happens next',
     line3: `Your ${partner} will have ${config.get(
       'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
-    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your (${
+    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
@@ -989,7 +989,7 @@ export const generateContent: TranslationFn = content => {
       NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED && userCase.applicant2AddressOverseas !== YesOrNo.YES;
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
-    NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
+    NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
   return {
     ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),

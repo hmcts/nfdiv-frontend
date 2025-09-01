@@ -6,6 +6,8 @@ import { RoutePermission } from './applicant1Sequence';
 import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
+import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
+import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {
   CHECK_ANSWERS_URL,
@@ -24,9 +26,11 @@ import {
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
   PAY_YOUR_SERVICE_FEE,
+  PROCESS_SERVER_DOCS,
   PageLink,
   REVIEW_THE_APPLICATION,
   SERVICE_APPLICATION_SUBMITTED,
+  SUCCESS_SCREEN_PROCESS_SERVER,
 } from './urls';
 
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
@@ -34,7 +38,7 @@ export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
     return false;
   }
 
-  const routePermission = routeHideConditions.find(i => i.urls.includes(req.url as PageLink));
+  const routePermission = ROUTE_HIDE_CONDITIONS.find(i => i.urls.includes(req.url as PageLink));
   if (routePermission) {
     return routePermission.condition(req.session.userCase);
   }
@@ -42,7 +46,23 @@ export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
   return false;
 };
 
-export const routeHideConditions: RoutePermission[] = [
+export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
+  return ROUTES_TO_REDIRECT_TO_HUB.includes(req.url as PageLink);
+};
+
+export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
+  ...[
+    ...deemedServiceApplicationSequence,
+    ...alternativeServiceApplicationSequence,
+    ...bailiffServiceApplicationSequence,
+    ...noResponseJourneySequence,
+    ...dispenseServiceApplicationSequence,
+  ].map(step => step.url as PageLink),
+];
+
+export const ROUTES_TO_IGNORE: PageLink[] = [HAVE_THEY_RECEIVED, SUCCESS_SCREEN_PROCESS_SERVER, PROCESS_SERVER_DOCS];
+
+export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
   {
     urls: [FINALISING_YOUR_APPLICATION],
     condition: data =>
@@ -62,11 +82,18 @@ export const routeHideConditions: RoutePermission[] = [
       ...deemedServiceApplicationSequence,
       ...alternativeServiceApplicationSequence,
       ...bailiffServiceApplicationSequence,
-    ].map(step => step.url as PageLink),
+      ...noResponseJourneySequence,
+      ...dispenseServiceApplicationSequence,
+    ]
+      .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
+      .map(step => step.url as PageLink),
     condition: data =>
-      [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
-        data.state as State
-      ),
+      [
+        State.AwaitingServicePayment,
+        State.AwaitingServiceConsideration,
+        State.AwaitingDocuments,
+        State.AwaitingService,
+      ].includes(data.state as State),
   },
   {
     urls: [
@@ -102,6 +129,13 @@ export const routeHideConditions: RoutePermission[] = [
   },
   {
     urls: [HAVE_THEY_RECEIVED],
-    condition: data => data.applicant2AddressPrivate === YesOrNo.YES,
+    condition: data =>
+      data.applicant2AddressPrivate === YesOrNo.YES ||
+      [
+        State.AwaitingServicePayment,
+        State.AwaitingServiceConsideration,
+        State.AwaitingDocuments,
+        State.AwaitingService,
+      ].includes(data.state as State),
   },
 ];
