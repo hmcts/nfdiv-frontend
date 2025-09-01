@@ -13,41 +13,52 @@ import * as urls from '../../../../urls';
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 
-const en = ({ userCase }: CommonContent, showAddress: boolean, showEmail: boolean, sendPapersAgain: boolean) => ({
+const en = (
+  { userCase, isApp2Represented }: CommonContent,
+  showAddress: boolean,
+  showEmail: boolean,
+  sendPapersAgain: boolean
+) => ({
   title: 'Check your answers',
   stepQuestions: {
-    newPostalAddress: 'Address',
-    newEmailAddress: 'Email address',
+    solicitorFirmName: isApp2Represented && 'Solicitor firm name',
+    newPostalAddress: !isApp2Represented && 'Address',
+    newEmailAddress: !isApp2Represented && 'Email address',
   },
   stepAnswers: {
-    newPostalAddress: showAddress
-      ? [
-          stripTags(userCase.applicant1NoResponsePartnerAddress1),
-          stripTags(userCase.applicant1NoResponsePartnerAddress2),
-          stripTags(userCase.applicant1NoResponsePartnerAddress3),
-          stripTags(userCase.applicant1NoResponsePartnerAddressTown),
-          stripTags(userCase.applicant1NoResponsePartnerAddressCounty),
-          stripTags(userCase.applicant1NoResponsePartnerAddressPostcode),
-          stripTags(userCase.applicant1NoResponsePartnerAddressCountry),
-        ]
-          .filter(Boolean)
-          .join('<br>')
-      : sendPapersAgain &&
-        !(userCase.applicant2AddressPrivate === YesOrNo.YES) &&
-        [
-          stripTags(userCase.applicant2Address1),
-          stripTags(userCase.applicant2Address2),
-          stripTags(userCase.applicant2Address3),
-          stripTags(userCase.applicant2AddressTown),
-          stripTags(userCase.applicant2AddressCounty),
-          stripTags(userCase.applicant2AddressPostcode),
-          stripTags(userCase.applicant2AddressCountry),
-        ]
-          .filter(Boolean)
-          .join('<br>'),
-    newEmailAddress: showEmail
-      ? stripTags(userCase.applicant1NoResponsePartnerEmailAddress)
-      : sendPapersAgain && userCase.applicant2Email,
+    solicitorFirmName: isApp2Represented && userCase.applicant2SolicitorFirmName,
+    newPostalAddress: isApp2Represented
+      ? ''
+      : showAddress
+        ? [
+            stripTags(userCase.applicant1NoResponsePartnerAddress1),
+            stripTags(userCase.applicant1NoResponsePartnerAddress2),
+            stripTags(userCase.applicant1NoResponsePartnerAddress3),
+            stripTags(userCase.applicant1NoResponsePartnerAddressTown),
+            stripTags(userCase.applicant1NoResponsePartnerAddressCounty),
+            stripTags(userCase.applicant1NoResponsePartnerAddressPostcode),
+            stripTags(userCase.applicant1NoResponsePartnerAddressCountry),
+          ]
+            .filter(Boolean)
+            .join('<br>')
+        : sendPapersAgain &&
+          !(userCase.applicant2AddressPrivate === YesOrNo.YES) &&
+          [
+            stripTags(userCase.applicant2Address1),
+            stripTags(userCase.applicant2Address2),
+            stripTags(userCase.applicant2Address3),
+            stripTags(userCase.applicant2AddressTown),
+            stripTags(userCase.applicant2AddressCounty),
+            stripTags(userCase.applicant2AddressPostcode),
+            stripTags(userCase.applicant2AddressCountry),
+          ]
+            .filter(Boolean)
+            .join('<br>'),
+    newEmailAddress: isApp2Represented
+      ? ''
+      : showEmail
+        ? stripTags(userCase.applicant1NoResponsePartnerEmailAddress)
+        : sendPapersAgain && userCase.applicant2Email,
   },
   stepLinks: {
     newPostalAddress: (showAddress || sendPapersAgain) && `${urls.NEW_POSTAL_ADDRESS}`,
@@ -59,17 +70,19 @@ const en = ({ userCase }: CommonContent, showAddress: boolean, showEmail: boolea
 //TODO: Welsh translation required
 
 const cy: typeof en = (
-  { userCase }: CommonContent,
+  { userCase, isApp2Represented }: CommonContent,
   showAddress: boolean,
   showEmail: boolean,
-  sendPapersAgain: boolean
+  sendPapersAgain: boolean,
 ) => ({
   title: 'Gwiriwch eich atebion',
   stepQuestions: {
+    solicitorFirmName: isApp2Represented && 'Enw cwmni’r cyfreithiwr',
     newPostalAddress: 'Cyfeiriad',
     newEmailAddress: 'Cyfeiriad e-bost',
   },
   stepAnswers: {
+    solicitorFirmName: isApp2Represented && userCase.applicant2SolicitorFirmName,
     newPostalAddress: showAddress
       ? [
           stripTags(userCase.applicant1NoResponsePartnerAddress1),
@@ -103,7 +116,7 @@ const cy: typeof en = (
     newPostalAddress: (showAddress || sendPapersAgain) && `${urls.NEW_POSTAL_ADDRESS}`,
     newEmailAddress: (showAddress || sendPapersAgain) && `${urls.PROVIDE_NEW_EMAIL_ADDRESS}`,
   },
-  acceptAndSend: 'Accept and send',
+  acceptAndSend: 'Derbyn ac anfon',
 });
 
 export const form: FormContent = {
@@ -135,11 +148,14 @@ export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content, showAddress, showEmail, sendPapersAgain);
   const updateWhat = content.userCase.applicant1NoResponsePartnerNewEmailOrAddress;
   const showStatementOfTruth = false;
-
+  const showChangeLink =
+    content.userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse !==
+    NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
   return {
     ...translation,
     form,
     updateWhat,
     showStatementOfTruth,
+    showChangeLink,
   };
 };
