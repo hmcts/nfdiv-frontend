@@ -41,9 +41,9 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     },
   },
   line2: 'Byddai’n ddefnyddiol os gallwch ddarparu eu rhif Yswiriant Gwladol, ond nid yw hynny’n orfodol.',
-  line3: `Government record searches are typically completed within 6-8 weeks. If the search is successful, your ${partner}'s contact details will only be shared with the court and not with you. The court will send the ${
-    isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-  } to your ${partner}.`,
+  line3: `Gan amlaf, bydd chwiliadau cofnodion y llywodraeth yn cymryd rhwng 6-8 wythnos. Os yw’r chwiliad yn llwyddiannus, dim ond gyda’r llys y bydd manylion cyswllt eich ${partner} yn cael eu rhannu, ac nid gyda chi. Bydd y llys yn anfon papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } at eich ${partner}.`,
   line4: `Mae yna ffi o ${getFee(
     config.get('fees.searchForAddress') // Is this the correct Fee code?
   )} yn daladwy i wneud cais i chwilio cofnodion y llywodraeth, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(

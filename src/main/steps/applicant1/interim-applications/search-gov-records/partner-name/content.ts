@@ -21,13 +21,13 @@ const en = ({ partner }: CommonContent) => {
 
 // @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => {
-  const invalid = 'You have entered an invalid character, like a number. Enter their name using letters only.';
+  const invalid = 'Rydych wedi teipio nod annilys, fel rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.';
   return {
-    title: `Enter your ${partner}’s name`,
-    partnerNameHint: `Include your ${partner}’s middle names, if they have any`,
+    title: `Rhowch enw’ch ${partner}’s`,
+    partnerNameHint: `Dylech gynnwys enwau canol eich ${partner}, os oes ganddynt unrhyw enwau`,
     errors: {
       applicant1SearchGovRecordsPartnerName: {
-        required: `${capitalize(partner)}'s name cannot be blank`,
+        required: `Ni all enw eich ${partner} gael ei adael yn wag`,
         invalid,
       },
     },

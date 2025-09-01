@@ -19,19 +19,19 @@ const en = ({ partner }: CommonContent) => ({
       required: `You have not entered your ${partner}'s dates at the address 2. Enter it before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
-      required: `You have not entered your ${partner}'s dates at the address 2 without entering address. Enter it before continuing.`,
+      required: `You have entered your ${partner}'s dates at the address 2 without entering address. Enter it before continuing.`,
     },
   },
 });
 
 // @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Enter any other addresses related to your ${partner}`,
-  address: 'Address',
-  dateLivedOnAddress: 'Enter the dates they lived there',
+  title: `Rhowch unrhyw gyfeiriadau eraill sy'n gysylltiedig â'ch ${partner}`,
+  address: 'Cyfeiriad',
+  dateLivedOnAddress: "Rhowch y dyddiadau roedden nhw'n byw yno",
   errors: {
     applicant1SearchGovRecordsPartnerAdditionalAddress1: {
-      required: `You have not entered your ${partner}'s last known address. Enter it before continuing.`,
+      required: `You have not entered your ${partner}'s additional address. Enter it before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
       required: `Enter the dates your ${partner} lived at this address`,
@@ -40,7 +40,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       required: `You have entered address 2. Enter the dates your ${partner} lived at this address`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
-      required: `You have not entered your ${partner}'s dates at the address 2 without entering address. Enter it before continuing.`,
+      required: `You have entered your ${partner}'s dates at the address 2 without entering address. Enter it before continuing.`,
     },
   },
 });

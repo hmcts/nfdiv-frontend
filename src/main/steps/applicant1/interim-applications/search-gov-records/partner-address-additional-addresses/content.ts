@@ -16,11 +16,12 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Do you know of any other addresses related to your ${partner}?`,
-  partnerAdditionalAddressesHint: "If you're able to provide any other addresses it may help with the search",
+  title: `Ydych chi'n gwybod am unrhyw gyfeiriadau eraill sy'n gysylltiedig â'ch ${partner}?`,
+  partnerAdditionalAddressesHint:
+    "Os ydych chi'n gallu darparu unrhyw gyfeiriadau eraill, efallai y bydd yn helpu gyda'r chwiliad",
   errors: {
     applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: {
-      required: 'Select yes if you know any other addresses',
+      required: 'Dewiswch “Ydw” os ydych yn gwybod am unrhyw gyfeiriadau eraill',
     },
   },
 });

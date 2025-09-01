@@ -8,18 +8,18 @@ const en = ({ partner }: CommonContent) => ({
   whatIsAlreadyDone: `Tell us about anything you’ve already done to try to find your ${partner}’s contact details, and the results of these actions.`,
   errors: {
     applicant1SearchGovRecordsReasonForApplying: {
-      required: 'You must provide a statement before continuing.',
+      required: 'Enter details about what you have already tried.',
     },
   },
 });
 
 // @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `What have you already done to try to find your ${partner}’s details?`,
-  whatIsAlreadyDone: `Tell us about anything you’ve already done to try to find your ${partner}’s contact details, and the results of these actions.`,
+  title: `Beth ydych chi eisoes wedi'i wneud i geisio dod o hyd i fanylion eich ${partner}?`,
+  whatIsAlreadyDone: `Dywedwch wrthym am unrhyw beth rydych chi eisoes wedi’i wneud i geisio dod o hyd i fanylion cyswllt eich ${partner}, a chanlyniadau'r camau gweithredu hyn.`,
   errors: {
     applicant1SearchGovRecordsReasonForApplying: {
-      required: 'You must provide a statement before continuing.',
+      required: 'Rhowch fanylion am yr hyn rydych chi eisoes wedi rhoi cynnig arni.',
     },
   },
 });
