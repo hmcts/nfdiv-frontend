@@ -258,7 +258,7 @@ describe('No Response Journey Sequence test', () => {
         applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_AND_EMAIL) as Step;
-      expect(step.getNextStep(caseData)).toBe(NEW_EMAIL);
+      expect(step.getNextStep(caseData)).toBe(PROVIDE_NEW_EMAIL_ADDRESS);
     });
     test('BOTH_EMAIL_AND_ADDRESS_UPDATE_EMAIL', () => {
       const caseData = {
