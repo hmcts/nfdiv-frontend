@@ -7,7 +7,6 @@ import {
   State,
   YesOrNo,
 } from '../../../../app/case/definition';
-import { findOnlineGeneralApplicationsForUser } from '../../../../app/utils/general-application-utils';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
@@ -17,8 +16,7 @@ export const getSoleHubTemplate = (
   isSuccessfullyServedByBailiff: boolean,
   isAlternativeService: boolean,
   isApplicantAbleToRespondToRequestForInformation: boolean = false,
-  isAwaitingProcessServerService: boolean = false,
-  isApplicant2: boolean = false
+  isAwaitingProcessServerService: boolean = false
 ): string | undefined => {
   const isServiceApplicationGranted =
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
@@ -29,7 +27,7 @@ export const getSoleHubTemplate = (
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
 
-  const latestGeneralApplication = findOnlineGeneralApplicationsForUser(userCase, isApplicant2)?.[0];
+  const latestGeneralApplication = userCase.generalApplications?.[0].value;
   const isSearchGovRecords =
     latestGeneralApplication?.generalApplicationType === (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
   const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
