@@ -13,10 +13,10 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Enter your ${partner}'s name`,
+  title: `Rhowch enw’ch ${partner}`,
   errors: {
     applicant1BailiffPartnersName: {
-      required: `You must enter your ${partner}'s name.`,
+      required: `Mae’n rhaid ichi nodi enw eich ${partner}.`,
     },
   },
 });
