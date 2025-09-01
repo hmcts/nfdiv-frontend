@@ -1096,7 +1096,7 @@ export interface CaseData {
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
-  applicant1NoResponsePartnerEmailAddress: string;
+  applicant1NoResponsePartnerEmailAddress?: string;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
