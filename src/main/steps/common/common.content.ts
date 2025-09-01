@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
+import { ApplicationType, InterimApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
@@ -22,6 +22,13 @@ export const en = {
     alternativeService: 'alternative service',
     dispense: 'dispense with service',
     dispenseCode: 'D13b',
+  },
+  interimApplicationType: {
+    deemedService: 'deemed service',
+    dispenseService: 'dispensed with service',
+    bailiffService: 'bailiff service',
+    alternativeService: 'alternative service',
+    searchGovRecord: 'search government record',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -214,6 +221,14 @@ const cy: typeof en = {
     alternativeService: 'gwasanaeth amgen',
     dispense: 'hepgor cyflwyno',
     dispenseCode: 'D13b',
+  },
+  interimApplicationType: {
+    //TODO Welsh translation needed
+    deemedService: 'deemed service',
+    dispenseService: 'dispensed with service',
+    bailiffService: 'bailiff service',
+    alternativeService: 'alternative service',
+    searchGovRecord: 'search government record',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
@@ -455,6 +470,12 @@ export const generateCommonContent = ({
       ? config.get('webchat.genesysDeploymentId')
       : config.get('webchat.genesysDeploymentIdCy');
 
+  const interimApplicationType =
+    commonTranslations.interimApplicationType[
+      InterimApplicationType.SEARCH_GOV_RECORDS === userCase?.applicant1InterimApplicationType
+        ? 'searchGovRecords'
+        : (userCase?.applicant1InterimApplicationType as string)
+    ];
   return {
     ...commonTranslations,
     applicationHasBeenPaidFor,
@@ -479,6 +500,7 @@ export const generateCommonContent = ({
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
+    interimApplicationType,
     referenceNumber,
     serviceApplicationType,
     serviceApplicationDate,
