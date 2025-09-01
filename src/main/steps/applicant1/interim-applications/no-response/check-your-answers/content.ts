@@ -67,9 +67,55 @@ const en = (
   acceptAndSend: 'Accept and send',
 });
 
-//TODO: Welsh translation required
-
-const cy: typeof en = en;
+const cy: typeof en = (
+  { userCase, isApp2Represented }: CommonContent,
+  showAddress: boolean,
+  showEmail: boolean,
+  sendPapersAgain: boolean
+) => ({
+  title: 'Gwiriwch eich atebion',
+  stepQuestions: {
+    solicitorFirmName: isApp2Represented && 'Enw cwmni’r cyfreithiwr',
+    newPostalAddress: 'Cyfeiriad',
+    newEmailAddress: 'Cyfeiriad e-bost',
+  },
+  stepAnswers: {
+    solicitorFirmName: isApp2Represented && userCase.applicant2SolicitorFirmName,
+    newPostalAddress: showAddress
+      ? [
+          stripTags(userCase.applicant1NoResponsePartnerAddress1),
+          stripTags(userCase.applicant1NoResponsePartnerAddress2),
+          stripTags(userCase.applicant1NoResponsePartnerAddress3),
+          stripTags(userCase.applicant1NoResponsePartnerAddressTown),
+          stripTags(userCase.applicant1NoResponsePartnerAddressCounty),
+          stripTags(userCase.applicant1NoResponsePartnerAddressPostcode),
+          stripTags(userCase.applicant1NoResponsePartnerAddressCountry),
+        ]
+          .filter(Boolean)
+          .join('<br>')
+      : sendPapersAgain &&
+        !(userCase.applicant2AddressPrivate === YesOrNo.YES) &&
+        [
+          stripTags(userCase.applicant2Address1),
+          stripTags(userCase.applicant2Address2),
+          stripTags(userCase.applicant2Address3),
+          stripTags(userCase.applicant2AddressTown),
+          stripTags(userCase.applicant2AddressCounty),
+          stripTags(userCase.applicant2AddressPostcode),
+          stripTags(userCase.applicant2AddressCountry),
+        ]
+          .filter(Boolean)
+          .join('<br>'),
+    newEmailAddress: showEmail
+      ? stripTags(userCase.applicant1NoResponsePartnerEmailAddress)
+      : sendPapersAgain && userCase.applicant2Email,
+  },
+  stepLinks: {
+    newPostalAddress: (showAddress || sendPapersAgain) && `${urls.NEW_POSTAL_ADDRESS}`,
+    newEmailAddress: (showAddress || sendPapersAgain) && `${urls.PROVIDE_NEW_EMAIL_ADDRESS}`,
+  },
+  acceptAndSend: 'Derbyn ac anfon',
+});
 
 export const form: FormContent = {
   submit: {
