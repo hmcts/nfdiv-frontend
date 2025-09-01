@@ -67,8 +67,6 @@ const en = (
   acceptAndSend: 'Accept and send',
 });
 
-//TODO: Welsh translation required
-
 const cy: typeof en = (
   { userCase, isApp2Represented }: CommonContent,
   showAddress: boolean,

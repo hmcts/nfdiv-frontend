@@ -46,8 +46,6 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
   };
 };
 
-//TODO: Welsh translation required
-
 const cy: typeof en = ({ partner, isDivorce, userCase }: CommonContent) => {
   const addressOverseas = userCase.applicant2AddressOverseas === YesOrNo.YES;
   const isAddressOnlyUpdate =
