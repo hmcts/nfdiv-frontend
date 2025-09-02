@@ -185,13 +185,12 @@ const fields: FromApiConverters = {
   }),
   requestsForInformation: 'requestsForInformation',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
-  applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
+  applicant1NoResponsePartnerNewEmailOrAddress: 'applicant1NoResponsePartnerNewEmailOrAddress',
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
     'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1NoResponseNoNewAddressDetails: 'applicant1NoResponseNoNewAddressDetails',
   applicant1NoResponseProcessServerOrBailiff: 'applicant1NoResponseProcessServerOrBailiff',
-  applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
   }),

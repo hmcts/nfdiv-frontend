@@ -3,10 +3,11 @@ import {
   NoResponseCheckContactDetails,
   NoResponseNoNewAddressDetails,
   NoResponseOwnSearches,
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerNewEmailOrAddress,
   NoResponseProcessServerOrBailiff,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
   NoResponseSearchOrDispense,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   YesOrNo,
 } from '../app/case/definition';
 
@@ -40,6 +41,7 @@ import {
   SEARCH_TIPS,
   SERVE_AGAIN,
   SUCCESS_SCREEN_PROCESS_SERVER,
+  WILL_SERVE_AGAIN,
 } from './urls';
 
 export const noResponseJourneySequence: Step[] = [
@@ -74,12 +76,11 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: NEW_POSTAL_AND_EMAIL,
     getNextStep: (data: Partial<CaseWithId>): PageLink =>
-      [
-        NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL,
-        NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
-      ].includes(data.applicant1NoResponsePartnerNewEmailOrPostalAddress as NoResponsePartnerNewEmailOrPostalAddress)
+      data.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.EMAIL
         ? NEW_EMAIL
-        : NEW_POSTAL_ADDRESS,
+        : data.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS
+          ? PROVIDE_NEW_EMAIL_ADDRESS
+          : NEW_POSTAL_ADDRESS,
   },
   {
     url: NEW_POSTAL_ADDRESS,
@@ -99,16 +100,18 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: PROVIDE_NEW_EMAIL_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      return data.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
-        NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL
+      return data.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS
         ? NEW_POSTAL_ADDRESS
         : NEW_CONTACT_DETAIL_CHECK_ANSWERS;
     },
   },
   {
     url: NEW_CONTACT_DETAIL_CHECK_ANSWERS,
-    getNextStep: (): PageLink => {
-      return NO_RESPONSE_DETAILS_UPDATED;
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      return data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+        NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT
+        ? WILL_SERVE_AGAIN
+        : NO_RESPONSE_DETAILS_UPDATED;
     },
   },
   {
@@ -127,7 +130,30 @@ export const noResponseJourneySequence: Step[] = [
       if (data?.applicant1NoResponsePartnerHasReceivedPapers === YesOrNo.YES) {
         return DEEMED_SERVICE_APPLICATION;
       }
-      return data.applicant2AddressOverseas === YesOrNo.YES ? NO_NEW_ADDRESS : SERVE_AGAIN;
+      return data.applicant2AddressOverseas === YesOrNo.YES ||
+        data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+          NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT
+        ? NO_NEW_ADDRESS
+        : SERVE_AGAIN;
+    },
+  },
+  {
+    url: SERVE_AGAIN,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data?.applicant2AddressPrivate === YesOrNo.YES) {
+        return WILL_SERVE_AGAIN;
+      } else {
+        return data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
+          ? NEW_CONTACT_DETAIL_CHECK_ANSWERS
+          : NO_NEW_ADDRESS;
+      }
+    },
+  },
+  {
+    url: WILL_SERVE_AGAIN,
+    getNextStep: (): PageLink => {
+      return HUB_PAGE;
     },
   },
   {
