@@ -1044,7 +1044,7 @@ export const generateContent: TranslationFn = content => {
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
     NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
-   const interimApplicationStartPagePath = (() => {
+  const interimApplicationStartPagePath = (() => {
     switch (userCase.applicant1InterimApplicationType) {
       case InterimApplicationType.ALTERNATIVE_SERVICE:
         return ALTERNATIVE_SERVICE_APPLICATION;

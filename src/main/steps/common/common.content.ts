@@ -223,12 +223,11 @@ const cy: typeof en = {
     dispenseCode: 'D13b',
   },
   interimApplicationType: {
-    //TODO Welsh translation needed
-    deemedService: 'deemed service',
-    dispenseService: 'dispensed with service',
-    bailiffService: 'bailiff service',
-    alternativeService: 'alternative service',
-    searchGovRecord: 'search government record',
+    deemedService: 'cyflwyno tybiedig',
+    dispenseService: 'hepgor cyflwyno',
+    bailiffService: 'gwasanaeth beili',
+    alternativeService: 'cyflwyno amgen',
+    searchGovRecord: 'chwilio cofnodion y llywodraeth',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
