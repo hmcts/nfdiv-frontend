@@ -253,6 +253,8 @@ export const CHECK_ANSWERS_BAILIFF: PageLink = '/interim-applications/bailiff-se
 export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
 export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
 export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
+export const WITHDRAW_SERVICE_APPLICATION: PageLink = '/interim-applications/withdraw-service-application';
+export const SERVICE_APPLICATION_WITHDRAWN: PageLink = '/interim-applications/service-application-withdrawn';
 
 //Alternative Service URLs
 export const HWF_REFERENCE_NUMBER_ALTERNATIVE: PageLink =
