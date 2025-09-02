@@ -7,7 +7,7 @@ import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner, required }: CommonContent) => ({
   title: `Which government departments do you need us to search for your ${partner}’s details?`,
-  titleHint: `Which government departments do you need us to search for your ${partner}’s details?`,
+  titleHint: `Select all that apply`,
   dwp: 'Department for Work and Pensions',
   dwpHint: 'for benefit, pay or pension records',
   hmrc: 'HM Revenue and Customs',
@@ -19,12 +19,10 @@ const en = ({ partner, required }: CommonContent) => ({
   errors: {
     applicant1SearchGovRecordsWhichDepartments: {
       required: "Select which government departments' records you want the court to search",
-    },
-    applicant1SearchGovRecordsOtherDepartmentNames: {
-      required: 'Enter details of the government department',
+      applicant1SearchGovRecordsOtherDepartmentNames: 'Enter details of the government department',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
-      required,
+      required: 'Enter details about why the selected department is most suitable.'
     },
   },
 });
@@ -32,7 +30,7 @@ const en = ({ partner, required }: CommonContent) => ({
 // @TODO translations should be verified
 const cy: typeof en = ({ partner, required }: CommonContent) => ({
   title: `Which government departments do you need us to search for your ${partner}’s details?`,
-  titleHint: `Which government departments do you need us to search for your ${partner}’s details?`,
+  titleHint: `Select all that apply`,
   dwp: 'Department for Work and Pensions',
   dwpHint: 'for benefit, pay or pension records',
   hmrc: 'HM Revenue and Customs',
@@ -44,12 +42,10 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   errors: {
     applicant1SearchGovRecordsWhichDepartments: {
       required: "Select which government departments' records you want the court to search",
-    },
-    applicant1SearchGovRecordsOtherDepartmentNames: {
-      required: 'Enter details of the government department',
+      applicant1SearchGovRecordsOtherDepartmentNames: 'Enter details of the government department',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
-      required,
+      required: 'Enter details about why the selected department is most suitable.',
     },
   },
 });
@@ -59,6 +55,8 @@ export const form: FormContent = {
     applicant1SearchGovRecordsWhichDepartments: {
       type: 'checkboxes',
       validator: atLeastOneFieldIsChecked,
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           name: 'applicant1SearchGovRecordsWhichDepartments',
@@ -93,7 +91,7 @@ export const form: FormContent = {
               (value as string[])?.includes(SearchGovRecordsWhichDepartment.OTHER) &&
               !formData['applicant1SearchGovRecordsOtherDepartmentNames']?.length
             ) {
-              return 'required';
+              return 'applicant1SearchGovRecordsOtherDepartmentNames';
             }
           },
         },

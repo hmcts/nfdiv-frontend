@@ -50,7 +50,7 @@ export const form: FormContent = {
     applicant1SearchGovRecordsPartnerAdditionalAddress1: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.address + '1',
+      label: l => l.address + ' 1',
       labelSize: 'normal',
       validator: isFieldFilledIn,
     },
@@ -64,7 +64,7 @@ export const form: FormContent = {
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.address + '2 (optional)',
+      label: l => l.address + ' 2 (optional)',
       labelSize: 'normal',
       validator: (
         value: string | string[] | CaseDate | Partial<Case> | undefined,
