@@ -40,7 +40,7 @@ const cy: typeof en = ({ isDivorce, isApp2Represented, partner }: CommonContent)
   trySomethingElse: 'Ceisio gwneud rhywbeth arall',
   errors: {
     applicant1NoResponseSendPapersAgainOrTrySomethingElse: {
-      required: 'Select if you want to send the papers again or try something else',
+      required: 'Dewiswch p’un a ydych eisiau anfon y papurau eto neu roi cynnig ar rywbeth arall',
     },
   },
 });

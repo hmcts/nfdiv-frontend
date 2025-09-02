@@ -32,8 +32,10 @@ export const enum HubTemplate {
   RespondedToInformationRequest = '/responded-to-information-request.njk',
   IntendToSwitchToSoleFinalOrder = '/intend-to-switch-to-sole-final-order.njk',
   ServiceApplicationRejected = '/service-application-rejected.njk',
+  ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted = '/service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk',
   AwaitingDocuments = '/awaiting-documents.njk',
   AwaitingProcessServerService = '/awaiting-process-server-service.njk',
   AwaitingServiceApplicationDocuments = '/awaiting-service-application-documents.njk',
   AwaitingService = '/awaiting-service.njk',
+  WelshTranslationRequestedOrReview = '/welsh-translation-requested-or-review.njk',
 }

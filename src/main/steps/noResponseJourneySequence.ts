@@ -76,11 +76,11 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: NEW_POSTAL_AND_EMAIL,
     getNextStep: (data: Partial<CaseWithId>): PageLink =>
-      [NoResponsePartnerNewEmailOrAddress.EMAIL, NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS].includes(
-        data.applicant1NoResponsePartnerNewEmailOrAddress as NoResponsePartnerNewEmailOrAddress
-      )
+      data.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.EMAIL
         ? NEW_EMAIL
-        : NEW_POSTAL_ADDRESS,
+        : data.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS
+          ? PROVIDE_NEW_EMAIL_ADDRESS
+          : NEW_POSTAL_ADDRESS,
   },
   {
     url: NEW_POSTAL_ADDRESS,
@@ -203,12 +203,10 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: IS_PARTNER_ABROAD,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.applicant1NoResponsePartnerInUkOrReceivingBenefits === YesOrNo.YES) {
-        return DISPENSE_SERVICE_APPLICATION;
-      }
-      return GOV_SEARCH_POSSIBLE;
-    },
+    getNextStep: (data: Partial<CaseWithId>): PageLink =>
+      data.applicant1NoResponsePartnerInUkOrReceivingBenefits === YesOrNo.NO
+        ? DISPENSE_SERVICE_APPLICATION
+        : GOV_SEARCH_POSSIBLE,
   },
   {
     url: GOV_SEARCH_POSSIBLE,

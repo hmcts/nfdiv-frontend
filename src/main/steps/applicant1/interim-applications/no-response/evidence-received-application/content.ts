@@ -22,7 +22,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   proveNo: 'No, I do not have any suitable evidence.',
   errors: {
     applicant1NoResponsePartnerHasReceivedPapers: {
-      required: 'You must select an option before continuing.',
+      required: `Select 'Yes' if you have evidence of your ${partner} receiving the papers.`,
     },
   },
 });
@@ -48,7 +48,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   proveNo: 'Na allaf, nid oes gennyf unrhyw dystiolaeth addas.',
   errors: {
     applicant1NoResponsePartnerHasReceivedPapers: {
-      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
+      required: `Dewiswch “Oes” os oes gennych dystiolaeth o’ch ${partner} yn derbyn y papurau.`,
     },
   },
 });

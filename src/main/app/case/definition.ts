@@ -1096,7 +1096,7 @@ export interface CaseData {
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
-  applicant1NoResponsePartnerEmailAddress: string;
+  applicant1NoResponsePartnerEmailAddress?: string;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
@@ -2473,6 +2473,7 @@ export const enum DocumentType {
   D9H = 'd9H',
   D10 = 'd10',
   D11 = 'd11',
+  ALTERNATIVE_SERVICE_REFUSED = 'alternativeServiceRefused',
   DEEMED_SERVICE = 'deemedService',
   DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
   DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
