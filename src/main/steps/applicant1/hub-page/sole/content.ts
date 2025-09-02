@@ -43,6 +43,8 @@ const en = (
     serviceApplicationType,
     serviceApplicationDate,
     serviceApplicationResponseDate,
+    serviceApplicationFeeRequired,
+    serviceApplicationDocsAllProvided,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
@@ -237,7 +239,9 @@ const en = (
         ? `request for ${serviceApplicationType}`
         : `${serviceApplicationType} application`
     } that you submitted on ${serviceApplicationDate}.`,
-    line2: `We will email you by ${serviceApplicationResponseDate} once a decision has been made to tell you your next steps.`,
+    line2: `We will email you ${
+      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
+    }once a decision has been made to tell you your next steps.`,
   },
   serviceAdminRefusalOrBailiffRefusal: {
     line1: 'The court is currently considering your service application.',
@@ -454,6 +458,8 @@ const cy: typeof en = (
     serviceApplicationType,
     serviceApplicationResponseDate,
     serviceApplicationDate,
+    serviceApplicationFeeRequired,
+    serviceApplicationDocsAllProvided,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
@@ -647,7 +653,11 @@ const cy: typeof en = (
   },
   awaitingServiceConsiderationOrBailiffReferral: {
     line1: `Mae'r llys wrthi’n ystyried eich hysbysiad o ${serviceApplicationType} a gyflwynwyd gennych ar ${serviceApplicationDate}.`,
-    line2: `Byddwn yn anfon e-bost atoch erbyn ${serviceApplicationResponseDate} unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.`,
+    line2: `Byddwn yn anfon e-bost atoch ${
+      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+        ? `erbyn ${serviceApplicationResponseDate} `
+        : ''
+    }unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.`,
   },
   serviceAdminRefusalOrBailiffRefusal: {
     line1: "Mae'r llys ar hyn o bryd yn ystyried eich cais am gyflwyno.",

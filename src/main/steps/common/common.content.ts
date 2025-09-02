@@ -20,8 +20,8 @@ export const en = {
     bailiff: 'bailiff service',
     bailiffCode: 'D89',
     alternativeService: 'alternative service',
-    dispense: 'dispense with service',
-    dispenseCode: 'D13b',
+    dispensed: 'dispense with service',
+    dispensedCode: 'D13b',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -212,8 +212,8 @@ const cy: typeof en = {
     bailiff: 'gwasanaeth bailiff',
     bailiffCode: 'D89',
     alternativeService: 'gwasanaeth amgen',
-    dispense: 'hepgor cyflwyno',
-    dispenseCode: 'D13b',
+    dispensed: 'hepgor cyflwyno',
+    dispensedCode: 'D13b',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
@@ -291,7 +291,7 @@ const cy: typeof en = {
   },
   yes: 'Do',
   no: 'Naddo',
-  notKnown: 'Not known',
+  notKnown: 'Anhysbys',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',
@@ -448,7 +448,7 @@ export const generateCommonContent = ({
     language
   );
   const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
-  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
   const genesysDeploymentId: string =
     language === SupportedLanguages.En
