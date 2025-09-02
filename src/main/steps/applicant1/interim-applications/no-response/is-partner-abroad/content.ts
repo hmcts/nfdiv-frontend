@@ -15,6 +15,8 @@ const en = ({ partner }: CommonContent) => ({
 
 const cy = ({ partner }: CommonContent) => ({
   title: `Ydych chi'n meddwl bod eich ${partner} dal yn y DU neu'n derbyn budd-daliadau'r DU?`,
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1NoResponsePartnerInUkOrReceivingBenefits: {
       required: `Dewiswch “Ydw” os ydych chi’n meddwl bod eich ${partner} yn y DU neu’n cael budd-daliadau.`,
