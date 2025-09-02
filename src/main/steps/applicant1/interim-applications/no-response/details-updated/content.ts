@@ -1,24 +1,22 @@
 import config from 'config';
 
-import { NoResponsePartnerNewEmailOrAddress, YesOrNo } from '../../../../../app/case/definition';
+import { NoResponsePartnerNewEmailOrAddress, ServiceMethod } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { CommonContent } from '../../../../common/common.content';
 import { HUB_PAGE } from '../../../../urls';
 
-const en = ({ partner, isDivorce, userCase }: CommonContent) => {
-  const addressOverseas = userCase.applicant2AddressOverseas === YesOrNo.YES;
-  const isAddressOnlyUpdate =
-    userCase.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.ADDRESS;
+const en = ({ partner, isDivorce, userCase }: CommonContent, isPersonalServiceRequired, isAddressOnlyUpdate) => {
   const divorceOrDissolutionPapers = isDivorce ? 'divorce papers' : 'papers to end your civil partnership';
   const otherOptionsText = `If ${
-    addressOverseas ? 'they do' : `your ${partner} does`
+    isPersonalServiceRequired ? 'they do' : `your ${partner} does`
   } not respond, we will help you explore the other options you have to progress your ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   }`;
+
   return {
-    title: `${addressOverseas && isAddressOnlyUpdate ? 'Address' : 'Details'} updated`,
+    title: `${isPersonalServiceRequired && isAddressOnlyUpdate ? 'Address' : 'Details'} updated`,
     line1: `You have successfully updated your ${partner}’s ${
-      addressOverseas && isAddressOnlyUpdate
+      isPersonalServiceRequired && isAddressOnlyUpdate
         ? 'address'
         : userCase.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS
           ? 'email and postal address'
@@ -26,19 +24,19 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
     }.`,
     whatHappensNext: 'What happens next',
     line2: `${
-      addressOverseas
+      isPersonalServiceRequired
         ? `You will need to arrange delivery of the ${divorceOrDissolutionPapers} to your ${partner} yourself`
         : `The court will now serve your ${divorceOrDissolutionPapers} again using the new contact details you have provided`
     }.`,
     line3: `${
-      addressOverseas
-        ? `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`
+      isPersonalServiceRequired
+        ? `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in`
         : `Your ${partner} will have ${config.get(
             'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
           )} days from receiving the ${divorceOrDissolutionPapers} to respond. ${otherOptionsText}`
     }.`,
     line4: `${
-      addressOverseas
+      isPersonalServiceRequired
         ? `The amount of time your ${partner} has to respond depends on the country they’re living in. ${otherOptionsText}.`
         : ''
     }`,
@@ -46,23 +44,24 @@ const en = ({ partner, isDivorce, userCase }: CommonContent) => {
   };
 };
 
-const cy: typeof en = ({ partner, isDivorce, userCase }: CommonContent) => {
-  const addressOverseas = userCase.applicant2AddressOverseas === YesOrNo.YES;
-  const isAddressOnlyUpdate =
-    userCase.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.ADDRESS;
+const cy: typeof en = (
+  { partner, isDivorce, userCase }: CommonContent,
+  isPersonalServiceRequired,
+  isAddressOnlyUpdate
+) => {
   const divorceOrDissolutionPapers = isDivorce ? "papurau'r ysgariad" : "cais i ddod â'ch partneriaeth sifil i ben";
   const otherOptionsText = `Os nad yw eich ${partner} yn ymateb, byddwn yn eich helpu i archwilio’r dewisiadau eraill sydd gennych i datblygu eich ${
     isDivorce ? 'cais ysgariad' : 'cais i ddiweddu eich partneriaeth sifil'
   }`;
 
   return {
-    title: `${addressOverseas && isAddressOnlyUpdate ? 'Cyfeiriad' : 'Manylion'} wedi’i ddiweddaru`,
+    title: `${isPersonalServiceRequired && isAddressOnlyUpdate ? 'Cyfeiriad' : 'Manylion'} wedi’i ddiweddaru`,
     line1: `Rydych wedi diweddaru ${
-      addressOverseas && isAddressOnlyUpdate ? 'cyfeiriad eich' : 'manylion cyswllt eich'
+      isPersonalServiceRequired && isAddressOnlyUpdate ? 'cyfeiriad eich' : 'manylion cyswllt eich'
     } ${partner}.`,
     whatHappensNext: 'Beth fydd yn digwydd nesaf',
     line2: `${
-      addressOverseas
+      isPersonalServiceRequired
         ? `Bydd angen i chi drefnu bod papurau'r ${
             isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
           } yn cael eu danfon i'ch ${partner} eich hun. `
@@ -71,7 +70,7 @@ const cy: typeof en = ({ partner, isDivorce, userCase }: CommonContent) => {
           } eto gan ddefnyddio’r manylion cyswllt newydd a ddarparwyd gennych.`
     }.`,
     line3: `${
-      addressOverseas
+      isPersonalServiceRequired
         ? `Mae'n bosibl y byddwch yn dymuno ceisio cyngor cyfreithiol ar sut i gyflwyno'r papurau yn y wlad lle mae eich ${partner} yn byw.`
         : `Bydd gan eich ${partner} ${config.get(
             'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
@@ -80,7 +79,7 @@ const cy: typeof en = ({ partner, isDivorce, userCase }: CommonContent) => {
           }.`
     }.`,
     line4: `${
-      addressOverseas
+      isPersonalServiceRequired
         ? `Yna, dylent ymateb i’r cais. Mae faint o amser sydd gan eich ${partner} i ymateb yn dibynnu ar y wlad ble maent yn byw. ${otherOptionsText}.`
         : ''
     }`,
@@ -94,7 +93,12 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translation = languages[content.language](content);
+  const isPersonalServiceRequired = content.userCase.serviceMethod === ServiceMethod.PERSONAL_SERVICE;
+  const isAddressOnlyUpdate =
+    content.userCase.applicant1NoResponsePartnerNewEmailOrAddress === NoResponsePartnerNewEmailOrAddress.ADDRESS;
+
+  const translation = languages[content.language](content, isPersonalServiceRequired, isAddressOnlyUpdate);
+
   return {
     ...translation,
   };

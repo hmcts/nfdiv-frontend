@@ -17,7 +17,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   } papers by email only (without posting them). This will mean completing an application for alternative service, which will cost ${getFee(
     config.get('fees.alternativeService')
   )}. You will also need to prove that the email address you want to serve to is actively being used by your ${partner}.`,
-  line3: `If your ${partner} is living abroad, you'll need to check how to legally serve the papers in the country they're living in. If email service is allowed in that country, you could apply for alternative service by email only. The court cannot post documents to international addresses.`,
+  line3: `If your ${partner} is living outside of England and Wales, you'll need to check how to legally serve the papers in the country they're living in. If email service is allowed in that country, you could apply for alternative service by email only. The court cannot post documents to addresses outside of England and Wales.`,
   newEmailHeader: 'What do you want to do?',
   provideNewEmail: 'I want to provide a new email address',
   applyForAlternativeService: 'I want to apply for alternative service to serve by email only',
