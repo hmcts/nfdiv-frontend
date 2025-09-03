@@ -18,7 +18,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   newEmailAndPostalAddress: 'I have a new email address and postal address',
   errors: {
     applicant1NoResponsePartnerNewEmailOrAddress: {
-      required: 'You must select an option before continuing',
+      required: `Select which of your ${partner}'s contact details you need to update`,
     },
   },
 });
@@ -30,14 +30,14 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   } i’r cyfeiriad post neu’r cyfeiriad e-bost newydd. Ni fydd rhaid i chi dalu am hyn.`,
   line2: `Ni allwn anfon dogfennau llys i gyfeiriadau y tu allan i Gymru a Lloegr. Os yw eich ${partner} yn byw y tu allan i Gymru a Lloegr, bydd angen i chi anfon ${
     isDivorce ? 'papurau’r ysgariad' : 'y papurau i ddod â’ch partneriaeth sifil i ben'
-  } atynt eich hun. Mi wnawn bostio’r dogfennau atoch fel y gallwch chi drefnu hyn`,
+  } atynt eich hun. Mi wnawn bostio’r dogfennau atoch fel y gallwch chi drefnu hyn.`,
   newDetailsHeader: `Pa fanylion cyswllt ar gyfer eich ${partner} ydych chi angen diweddaru?`,
   newPostalAddress: 'Mae gennyf gyfeiriad post newydd',
   newEmailAddress: 'Mae gennyf gyfeiriad e-bost newydd',
   newEmailAndPostalAddress: 'Mae gennyf gyfeiriad e-bost a chyfeiriad post newydd',
   errors: {
     applicant1NoResponsePartnerNewEmailOrAddress: {
-      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
+      required: `Dewiswch pa fanylion cyswllt ar gyfer eich ${partner} ydych chi angen diweddaru`,
     },
   },
 });

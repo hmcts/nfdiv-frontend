@@ -30,7 +30,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent, isPersonalServiceRe
     }.`,
     line3: `${
       isPersonalServiceRequired
-        ? `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`
+        ? `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in`
         : `Your ${partner} will have ${config.get(
             'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
           )} days from receiving the ${divorceOrDissolutionPapers} to respond. ${otherOptionsText}`
@@ -64,11 +64,11 @@ const cy: typeof en = (
       isPersonalServiceRequired
         ? `Bydd angen i chi drefnu bod papurau'r ${
             isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-          } yn cael eu danfon i'ch ${partner} eich hun. `
+          } yn cael eu danfon i'ch ${partner} eich hun.`
         : `Bydd y llys nawr yn cyflwyno papurau eich ${
             isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
           } eto gan ddefnyddio’r manylion cyswllt newydd a ddarparwyd gennych.`
-    }.`,
+    }`,
     line3: `${
       isPersonalServiceRequired
         ? `Mae'n bosibl y byddwch yn dymuno ceisio cyngor cyfreithiol ar sut i gyflwyno'r papurau yn y wlad lle mae eich ${partner} yn byw.`
@@ -77,7 +77,7 @@ const cy: typeof en = (
           )} diwrnod o pan fyddant yn cael papurau’r ${divorceOrDissolutionPapers} i ymateb. Os nad yw eich ${partner} yn ymateb, byddwn yn eich helpu i archwilio’r dewisiadau eraill sydd gennych i ddatblygu eich ${
             isDivorce ? 'cais ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
           }.`
-    }.`,
+    }`,
     line4: `${
       isPersonalServiceRequired
         ? `Yna, dylent ymateb i’r cais. Mae faint o amser sydd gan eich ${partner} i ymateb yn dibynnu ar y wlad ble maent yn byw. ${otherOptionsText}.`
