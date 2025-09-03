@@ -28,7 +28,10 @@ const en = ({ partner }: CommonContent) => ({
       invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
       invalidDateInFuture:
         'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
-      invalidDateTooFarInPast: 'You have entered a year which is too far in the past. Enter the year you got married.',
+      invalidDateTooFarInPast: 'You have entered a year which is too far in the past. Enter the year of birth.',
+    },
+    applicant1SearchGovRecordsPartnerApproximateAge: {
+      required: `${partner}'s approximate age cannot be blank.`,
     },
   },
 });
@@ -50,7 +53,10 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
       invalidDateInFuture:
         'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
-      invalidDateTooFarInPast: 'You have entered a year which is too far in the past. Enter the year you got married.',
+      invalidDateTooFarInPast: 'You have entered a year which is too far in the past. Enter the year of birth.',
+    },
+    applicant1SearchGovRecordsPartnerApproximateAge: {
+      required: `${partner}'s approximate age cannot be blank.`,
     },
   },
 });

@@ -8,7 +8,7 @@ const en = ({ partner }: CommonContent) => ({
   whatIsAlreadyDone: `Tell us about anything you’ve already done to try to find your ${partner}’s contact details, and the results of these actions.`,
   errors: {
     applicant1SearchGovRecordsReasonForApplying: {
-      required: 'You must provide a statement before continuing.',
+      required: 'Enter details about what you have already tried.',
     },
   },
 });
@@ -19,7 +19,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   whatIsAlreadyDone: `Tell us about anything you’ve already done to try to find your ${partner}’s contact details, and the results of these actions.`,
   errors: {
     applicant1SearchGovRecordsReasonForApplying: {
-      required: 'You must provide a statement before continuing.',
+      required: 'Enter details about what you have already tried.',
     },
   },
 });
