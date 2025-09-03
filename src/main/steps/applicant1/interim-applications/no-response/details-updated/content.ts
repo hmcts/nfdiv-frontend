@@ -30,7 +30,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent, isPersonalServiceRe
     }.`,
     line3: `${
       isPersonalServiceRequired
-        ? `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in`
+        ? `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`
         : `Your ${partner} will have ${config.get(
             'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
           )} days from receiving the ${divorceOrDissolutionPapers} to respond. ${otherOptionsText}`
