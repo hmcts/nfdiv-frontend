@@ -239,10 +239,6 @@ Feature: No response journey
 
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
     When I click continue
-    Then the page should include element "#applicant1NoResponsePartnerEmailAddress"
-    When I select element "#applicant1NoResponsePartnerEmailAddress"
-    And I type "test@testing.com"
-    When I click continue
     Then the page should include element "#checkAnswersTitle"
 
     When I click "Accept and send"
