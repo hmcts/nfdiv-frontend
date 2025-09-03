@@ -31,7 +31,11 @@ export const getSoleHubTemplate = (
     userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
+<<<<<<< HEAD
   const isPersonalServiceRequired = userCase.serviceMethod === ServiceMethod.PERSONAL_SERVICE;
+=======
+  const contactDetailsUpdatedOverseasAddress = userCase.applicant2AddressOverseas === YesOrNo.YES;
+>>>>>>> origin/NFDIV-4713
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:

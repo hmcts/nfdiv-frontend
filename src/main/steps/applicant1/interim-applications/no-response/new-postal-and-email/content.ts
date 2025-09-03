@@ -17,7 +17,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   newEmailAddress: 'I have a new email address',
   newEmailAndPostalAddress: 'I have a new email address and postal address',
   errors: {
-    applicant1NoResponsePartnerNewEmailOrPostalAddress: {
+    applicant1NoResponsePartnerNewEmailOrAddress: {
       required: 'You must select an option before continuing',
     },
   },
@@ -36,7 +36,7 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   newEmailAddress: 'Mae gennyf gyfeiriad e-bost newydd',
   newEmailAndPostalAddress: 'Mae gennyf gyfeiriad e-bost a chyfeiriad post newydd',
   errors: {
-    applicant1NoResponsePartnerNewEmailOrPostalAddress: {
+    applicant1NoResponsePartnerNewEmailOrAddress: {
       required: 'Rhaid i chi ddewis opsiwn cyn parhau',
     },
   },
