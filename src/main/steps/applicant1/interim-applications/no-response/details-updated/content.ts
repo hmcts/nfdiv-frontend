@@ -44,11 +44,7 @@ const en = ({ partner, isDivorce, userCase }: CommonContent, isPersonalServiceRe
   };
 };
 
-const cy: typeof en = (
-  { partner, isDivorce, userCase }: CommonContent,
-  isPersonalServiceRequired,
-  isAddressOnlyUpdate
-) => {
+const cy: typeof en = ({ partner, isDivorce }: CommonContent, isPersonalServiceRequired, isAddressOnlyUpdate) => {
   const divorceOrDissolutionPapers = isDivorce ? "papurau'r ysgariad" : "cais i ddod â'ch partneriaeth sifil i ben";
   const otherOptionsText = `Os nad yw eich ${partner} yn ymateb, byddwn yn eich helpu i archwilio’r dewisiadau eraill sydd gennych i datblygu eich ${
     isDivorce ? 'cais ysgariad' : 'cais i ddiweddu eich partneriaeth sifil'

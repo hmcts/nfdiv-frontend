@@ -34,8 +34,8 @@ import {
   OrderSummary,
   Payment,
   RequestForInformation,
-  State,
   ServiceMethod,
+  State,
   YesOrNo,
   YesOrNoOrNotKnown,
 } from './definition';
