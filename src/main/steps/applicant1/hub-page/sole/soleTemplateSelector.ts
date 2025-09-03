@@ -1,7 +1,12 @@
 import dayjs from 'dayjs';
 
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
-import { ServiceApplicationRefusalReason, State, YesOrNo } from '../../../../app/case/definition';
+import {
+  AlternativeServiceType,
+  ServiceApplicationRefusalReason,
+  State,
+  YesOrNo,
+} from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
 
@@ -10,16 +15,22 @@ export const getSoleHubTemplate = (
   userCase: Partial<CaseWithId>,
   isSuccessfullyServedByBailiff: boolean,
   isAlternativeService: boolean,
-  isApplicantAbleToRespondToRequestForInformation: boolean = false
+  isApplicantAbleToRespondToRequestForInformation: boolean = false,
+  isAwaitingProcessServerService: boolean = false
 ): string | undefined => {
   const isServiceApplicationGranted =
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
+  const isAlternativeServiceApplicationGranted =
+    isServiceApplicationGranted &&
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType ===
+      AlternativeServiceType.ALTERNATIVE_SERVICE;
   const isAosOverdue =
     !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   const isRefusalOrderToApplicant =
     userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
+  const contactDetailsUpdatedOverseasAddress = userCase.applicant2AddressOverseas === YesOrNo.YES;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -31,8 +42,9 @@ export const getSoleHubTemplate = (
     }
     case State.AwaitingServiceConsideration:
     case State.AwaitingBailiffReferral:
-    case State.BailiffRefused: {
       return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
+    case State.BailiffRefused: {
+      return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
     }
     case State.ConditionalOrderPronounced: {
       return HubTemplate.ConditionalOrderPronounced;
@@ -52,6 +64,8 @@ export const getSoleHubTemplate = (
         return HubTemplate.AwaitingConditionalOrder;
       } else if (!userCase.dueDate && userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;
+      } else if (isAlternativeServiceApplicationGranted) {
+        return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
       } else if (isAosOverdue) {
         return HubTemplate.AoSDue;
       } else {
@@ -100,7 +114,7 @@ export const getSoleHubTemplate = (
       if (isAlternativeService && !isServiceApplicationGranted && isRefusalOrderToApplicant) {
         return HubTemplate.ServiceApplicationRejected;
       } else {
-        return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
+        return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
       }
     case State.PendingHearingOutcome:
     case State.PendingHearingDate:
@@ -126,6 +140,15 @@ export const getSoleHubTemplate = (
       return serviceApplicationInProgress
         ? HubTemplate.AwaitingServiceApplicationDocuments
         : HubTemplate.AwaitingDocuments;
+    case State.AwaitingService:
+      return isAwaitingProcessServerService
+        ? HubTemplate.AwaitingProcessServerService
+        : contactDetailsUpdatedOverseasAddress
+          ? HubTemplate.AwaitingService
+          : HubTemplate.AosAwaitingOrDrafted;
+    case State.WelshTranslationRequested:
+    case State.WelshTranslationReview:
+      return HubTemplate.WelshTranslationRequestedOrReview;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||

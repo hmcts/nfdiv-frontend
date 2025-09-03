@@ -17,6 +17,11 @@ export const en = {
     to: 'to',
     deemed: 'deemed service',
     deemedCode: 'D11',
+    bailiff: 'bailiff service',
+    bailiffCode: 'D89',
+    alternativeService: 'alternative service',
+    dispensed: 'dispense with service',
+    dispensedCode: 'D13b',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -90,8 +95,13 @@ export const en = {
     month: 'Month',
     year: 'Year',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Yes',
   no: 'No',
+  notKnown: 'Not known',
   english: 'English',
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
@@ -199,6 +209,11 @@ const cy: typeof en = {
     to: 'i',
     deemed: 'gyflwyno tybiedig',
     deemedCode: 'D11',
+    bailiff: 'gwasanaeth bailiff',
+    bailiffCode: 'D89',
+    alternativeService: 'gwasanaeth amgen',
+    dispensed: 'hepgor cyflwyno',
+    dispensedCode: 'D13b',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
@@ -222,7 +237,7 @@ const cy: typeof en = {
   download: 'Llwytho i lawr',
   delete: 'Dileu',
   warning: 'Rhybudd',
-  continueToPay: 'Continue to pay',
+  continueToPay: 'Parhau i dalu',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   errorSaving:
@@ -270,8 +285,13 @@ const cy: typeof en = {
     month: 'Mis',
     year: 'Blwyddyn',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Do',
   no: 'Naddo',
+  notKnown: 'Anhysbys',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',
@@ -428,7 +448,7 @@ export const generateCommonContent = ({
     language
   );
   const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
-  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
   const genesysDeploymentId: string =
     language === SupportedLanguages.En

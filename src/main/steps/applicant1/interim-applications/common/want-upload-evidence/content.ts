@@ -8,18 +8,18 @@ const en = () => ({
   statement: '',
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
-      required: 'You must select an option before continuing.',
+      required: "Select 'Yes' if you have evidence to upload.",
     },
   },
 });
 
 // @TODO translations
 const cy = () => ({
-  title: 'Are you able to upload evidence?',
+  title: 'A ydych yn gallu uwchlwytho tystiolaeth?',
   statement: '',
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
-      required: 'You must select an option before continuing.',
+      required: "Dewiswch 'Oes' os oes gennych dystiolaeth i’w huwchlwytho.",
     },
   },
 });
@@ -34,6 +34,8 @@ export const form: FormContent = {
     applicant1InterimAppsCanUploadEvidence: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.yes,

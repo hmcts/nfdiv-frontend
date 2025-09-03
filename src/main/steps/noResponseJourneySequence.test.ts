@@ -1,7 +1,11 @@
 import {
   NoResponseCheckContactDetails,
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponseOwnSearches,
+  NoResponsePartnerNewEmailOrAddress,
+  NoResponseProcessServerOrBailiff,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
+  NoResponseSearchOrDispense,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   YesOrNo,
 } from '../app/case/definition';
 
@@ -9,11 +13,15 @@ import { Step } from './applicant1Sequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import {
   APPLY_FOR_ALTERNATIVE_SERVICE,
+  BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
+  DISPENSE_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
+  GOV_SEARCH_POSSIBLE,
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
   HUB_PAGE,
+  IS_PARTNER_ABROAD,
   NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   NEW_EMAIL,
   NEW_POSTAL_ADDRESS,
@@ -21,8 +29,16 @@ import {
   NO_NEW_ADDRESS,
   NO_RESPONSE_DETAILS_UPDATED,
   OPTIONS_FOR_PROGRESSING,
+  OWN_SEARCHES,
+  PARTNER_IN_PERSON,
+  PROCESS_SERVER,
+  PROCESS_SERVER_DOCS,
   PROVIDE_NEW_EMAIL_ADDRESS,
+  SEARCH_GOV_RECORDS_APPLICATION,
+  SEARCH_TIPS,
   SERVE_AGAIN,
+  SUCCESS_SCREEN_PROCESS_SERVER,
+  WILL_SERVE_AGAIN,
 } from './urls';
 
 describe('No Response Journey Sequence test', () => {
@@ -115,6 +131,106 @@ describe('No Response Journey Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(NO_NEW_ADDRESS);
     });
   });
+
+  describe('PARTNER_IN_PERSON', () => {
+    test('PROCESS_SERVER', () => {
+      const caseData = {
+        applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === PARTNER_IN_PERSON) as Step;
+      expect(step.getNextStep(caseData)).toBe(PROCESS_SERVER);
+    });
+
+    test('COURT_BAILIFF', () => {
+      const caseData = {
+        applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.COURT_BAILIFF,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === PARTNER_IN_PERSON) as Step;
+      expect(step.getNextStep(caseData)).toBe(BAILIFF_SERVICE_APPLICATION);
+    });
+  });
+
+  describe('PROCESS_SERVER', () => {
+    test('PROCESS_SERVER', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === PROCESS_SERVER) as Step;
+      expect(step.getNextStep({})).toBe(SUCCESS_SCREEN_PROCESS_SERVER);
+    });
+
+    test('SUCCESS_SCREEN_PROCESS_SERVER', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === SUCCESS_SCREEN_PROCESS_SERVER) as Step;
+      expect(step.getNextStep({})).toBe(PROCESS_SERVER_DOCS);
+    });
+  });
+
+  describe('OWN_SEARCHES', () => {
+    test('IS_PARTNER_ABROAD', () => {
+      const caseData = {
+        applicant1NoResponseOwnSearches: NoResponseOwnSearches.YES,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === OWN_SEARCHES) as Step;
+      expect(step.getNextStep(caseData)).toBe(IS_PARTNER_ABROAD);
+    });
+
+    test('IS_PARTNER_ABROAD (NOT_FOUND)', () => {
+      const caseData = {
+        applicant1NoResponseOwnSearches: NoResponseOwnSearches.NOT_FOUND,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === OWN_SEARCHES) as Step;
+      expect(step.getNextStep(caseData)).toBe(IS_PARTNER_ABROAD);
+    });
+
+    test('SEARCH_TIPS', () => {
+      const caseData = {
+        applicant1NoResponseOwnSearches: NoResponseOwnSearches.NO,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === OWN_SEARCHES) as Step;
+      expect(step.getNextStep(caseData)).toBe(SEARCH_TIPS);
+    });
+  });
+
+  describe('IS_PARTNER_ABROAD', () => {
+    test('DISPENSE_SERVICE_APPLICATION', () => {
+      const caseData = {
+        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.NO,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === IS_PARTNER_ABROAD) as Step;
+      expect(step.getNextStep(caseData)).toBe(DISPENSE_SERVICE_APPLICATION);
+    });
+
+    test('GOV_SEARCH_POSSIBLE', () => {
+      const caseData = {
+        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.YES,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === IS_PARTNER_ABROAD) as Step;
+      expect(step.getNextStep(caseData)).toBe(GOV_SEARCH_POSSIBLE);
+    });
+  });
+
+  describe('GOV_SEARCH_POSSIBLE', () => {
+    test('SEARCH_GOV_RECORDS_APPLICATION', () => {
+      const caseData = {
+        applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense.SEARCH,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === GOV_SEARCH_POSSIBLE) as Step;
+      expect(step.getNextStep(caseData)).toBe(SEARCH_GOV_RECORDS_APPLICATION);
+    });
+
+    test('DISPENSE_SERVICE_APPLICATION', () => {
+      const caseData = {
+        applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense.DISPENSE,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === GOV_SEARCH_POSSIBLE) as Step;
+      expect(step.getNextStep(caseData)).toBe(DISPENSE_SERVICE_APPLICATION);
+    });
+  });
+
+  describe('SEARCH_TIPS', () => {
+    test('SEARCH_TIPS', () => {
+      const step = noResponseJourneySequence.find(obj => obj.url === SEARCH_TIPS) as Step;
+      expect(step.getNextStep({})).toBe(HUB_PAGE);
+    });
+  });
+
   describe('UPDATE_RESPONDENT_CONTACT_DETAILS', () => {
     test('UPDATE_POSTAL_AND_EMAIL_ADDRESS', () => {
       const caseData = {
@@ -125,46 +241,42 @@ describe('No Response Journey Sequence test', () => {
     });
     test('NEW_POSTAL_ADDRESS', () => {
       const caseData = {
-        applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress.NEW_POSTAL,
+        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_AND_EMAIL) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_POSTAL_ADDRESS);
     });
     test('NEW_EMAIL_ADDRESS', () => {
       const caseData = {
-        applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress.NEW_EMAIL,
+        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.EMAIL,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_AND_EMAIL) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_EMAIL);
     });
-    test('BOTH_NEW_EMAIL_AND_POSTAL_ADDRESS_UPDATE_POSTAL_ADDRESS', () => {
+    test('BOTH_EMAIL_AND_ADDRESS_UPDATE_ADDRESS', () => {
       const caseData = {
-        applicant1NoResponsePartnerNewEmailOrPostalAddress:
-          NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_AND_EMAIL) as Step;
-      expect(step.getNextStep(caseData)).toBe(NEW_EMAIL);
+      expect(step.getNextStep(caseData)).toBe(PROVIDE_NEW_EMAIL_ADDRESS);
     });
-    test('BOTH_NEW_EMAIL_AND_POSTAL_ADDRESS_UPDATE_EMAIL', () => {
+    test('BOTH_EMAIL_AND_ADDRESS_UPDATE_EMAIL', () => {
       const caseData = {
-        applicant1NoResponsePartnerNewEmailOrPostalAddress:
-          NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_EMAIL) as Step;
       expect(step.getNextStep(caseData)).toBe(PROVIDE_NEW_EMAIL_ADDRESS);
     });
     test('CHECK_YOUR_ANSWERS', () => {
       const caseData = {
-        applicant1NoResponsePartnerNewEmailOrPostalAddress:
-          NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_CONTACT_DETAIL_CHECK_ANSWERS);
     });
     test('DETAILS_UPDATED', () => {
       const caseData = {
-        applicant1NoResponsePartnerNewEmailOrPostalAddress:
-          NoResponsePartnerNewEmailOrPostalAddress.BOTH_EMAIL_AND_POSTAL,
+        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_CONTACT_DETAIL_CHECK_ANSWERS) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESPONSE_DETAILS_UPDATED);
@@ -187,7 +299,7 @@ describe('No Response Journey Sequence test', () => {
     });
     test('NEW_POSTAL_ADDRESS_CHECK_YOUR_ANSWERS', () => {
       const caseData = {
-        applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress.NEW_POSTAL,
+        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_CONTACT_DETAIL_CHECK_ANSWERS);
@@ -196,6 +308,31 @@ describe('No Response Journey Sequence test', () => {
       const caseData = {};
       const step = noResponseJourneySequence.find(obj => obj.url === NO_RESPONSE_DETAILS_UPDATED) as Step;
       expect(step.getNextStep(caseData)).toBe(HUB_PAGE);
+    });
+    test('WILL_SERVE_AGAIN_ADDRESS_PRIVATE', () => {
+      const caseData = {
+        applicant2AddressPrivate: YesOrNo.YES,
+        applicant1NoResponseSendPapersAgainOrTrySomethingElse:
+          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
+      expect(step.getNextStep(caseData)).toBe(WILL_SERVE_AGAIN);
+    });
+    test('WILL_SERVE_AGAIN_ADDRESS_PUBLIC', () => {
+      const caseData = {
+        applicant1NoResponseSendPapersAgainOrTrySomethingElse:
+          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
+      expect(step.getNextStep(caseData)).toBe(NEW_CONTACT_DETAIL_CHECK_ANSWERS);
+    });
+    test('SERVE_AGAIN_TYR_SOMETHING_ELSE', () => {
+      const caseData = {
+        applicant1NoResponseSendPapersAgainOrTrySomethingElse:
+          NoResponseSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
+      expect(step.getNextStep(caseData)).toBe(NO_NEW_ADDRESS);
     });
   });
 });

@@ -9,18 +9,17 @@ const en = (serviceType: string) => ({
   line1: `Your reference number must be unique to this ${serviceType} application. You cannot use a reference number you've used for a previous application.`,
   errors: {
     applicant1InterimAppsHaveHwfReference: {
-      required: 'You must select an option before continuing.',
+      required: "Select 'Yes' if you have a help with fees reference number.",
     },
   },
 });
 
-// @TODO translations
 const cy = (serviceType: string) => ({
-  title: 'Do you have a help with fees reference number?',
-  line1: `Your reference number must be unique to this ${serviceType} application. You cannot use a reference number you've used for a previous application.`,
+  title: 'A oes gennych chi gyfeirnod Help i Dalu Ffioedd?',
+  line1: `Rhaid i’ch cyfeirnod fod yn unigryw i’r cais hwn am ${serviceType} Ni allwch ddefnyddio cyfeirnod rydych wedi defnyddio ar gyfer cais blaenorol.`,
   errors: {
     applicant1InterimAppsHaveHwfReference: {
-      required: 'You must select an option before continuing.',
+      required: "Dewiswch 'Oes' os oes gennych chi gyfeirnod help i dalu ffioedd.",
     },
   },
 });
@@ -35,6 +34,8 @@ export const form: FormContent = {
     applicant1InterimAppsHaveHwfReference: {
       type: 'radios',
       classes: 'govuk-radios govuk-radios--inline',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.yes,
@@ -61,6 +62,14 @@ export const generateContent: TranslationFn = content => {
   switch (content.userCase.applicant1InterimApplicationType) {
     case InterimApplicationType.DEEMED_SERVICE: {
       serviceType = generateCommonContent(content).generalApplication.deemed;
+      break;
+    }
+    case InterimApplicationType.DISPENSE_WITH_SERVICE: {
+      serviceType = generateCommonContent(content).generalApplication.dispensed;
+      break;
+    }
+    case InterimApplicationType.ALTERNATIVE_SERVICE: {
+      serviceType = generateCommonContent(content).generalApplication.alternativeService;
       break;
     }
     default: {

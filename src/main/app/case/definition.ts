@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2023-09-13 16:10:38.
 
-import { Checkbox } from './case';
+import { Checkbox, CaseDate } from './case';
 
 export interface Address {
   AddressLine1: string;
@@ -1045,9 +1045,12 @@ export interface CaseData {
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
-  applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
+  applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand: YesOrNo;
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
   applicant1InterimAppsHaveHwfReference: YesOrNo;
@@ -1057,11 +1060,67 @@ export interface CaseData {
   applicant1InterimAppsCannotUploadDocs: YesOrNo;
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
+  applicant1BailiffPartnersName: string;
+  applicant1BailiffPartnerInARefuge: YesOrNoOrNotKnown;
+  applicant1BailiffKnowPartnersPhone: YesOrNo;
+  applicant1BailiffPartnersPhone: string;
+  applicant1BailiffKnowPartnersDateOfBirth: YesOrNo;
+  applicant1BailiffPartnersDateOfBirth: CaseDate | DateAsString;
+  applicant1BailiffPartnersApproximateAge: number;
+  applicant1BailiffPartnersHeight: string;
+  applicant1BailiffPartnersHairColour: string;
+  applicant1BailiffPartnersEyeColour: string;
+  applicant1BailiffPartnersEthnicGroup: string;
+  applicant1BailiffPartnersDistinguishingFeatures: string;
+  applicant1BailiffBestTimeToServe: string;
+  applicant1BailiffDoesPartnerHaveVehicle: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerVehicleModel: string;
+  applicant1BailiffPartnerVehicleColour: string;
+  applicant1BailiffPartnerVehicleRegistration: string;
+  applicant1BailiffPartnerVehicleOtherDetails: string;
+  applicant1BailiffHasPartnerBeenViolent: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerViolenceDetails: string;
+  applicant1BailiffHasPartnerMadeThreats: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerThreatsDetails: string;
+  applicant1BailiffHavePoliceBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffPoliceInvolvedDetails: string;
+  applicant1BailiffHaveSocialServicesBeenInvolved: YesOrNoOrNotKnown;
+  applicant1BailiffSocialServicesInvolvedDetails: string;
+  applicant1BailiffAreThereDangerousAnimals: YesOrNoOrNotKnown;
+  applicant1BailiffDangerousAnimalsDetails: string;
+  applicant1BailiffDoesPartnerHaveMentalIssues: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerMentalIssuesDetails: string;
+  applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
+  applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
-  applicant1NoResponsePartnerEmailAddress: string;
+  applicant1NoResponsePartnerEmailAddress?: string;
+  applicant1NoResponseOwnSearches: NoResponseOwnSearches;
+  applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
+  applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
+  applicant1AltServiceReasonForApplying: string;
+  applicant1AltServiceMethod: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail: string;
+  applicant1AltServicePartnerPhone: string;
+  applicant1AltServicePartnerWANum: string;
+  applicant1AltServicePartnerSocialDetails: string;
+  applicant1AltServicePartnerOtherDetails: string;
+  applicant1AltServiceMethodJustification: string;
+  applicant1AltServiceDifferentWays: AlternativeServiceDifferentWays[];
+  applicant1DispenseLiveTogether: YesOrNo;
+  applicant1DispenseLivedTogetherDate: DateAsString;
+  applicant1DispenseLivedTogetherAddress: AddressGlobalUK;
+  applicant1DispenseLivedTogetherAddressOverseas: YesOrNo;
+  applicant1DispenseAwarePartnerLived: YesOrNo;
+  applicant1DispensePartnerPastAddress1: string;
+  applicant1DispensePartnerPastAddressEnquiries1: string;
+  applicant1DispensePartnerPastAddress2: string;
+  applicant1DispensePartnerPastAddressEnquiries2: string;
+  applicant1DispensePartnerLastSeenDate: DateAsString;
+  applicant1DispensePartnerLastSeenDescription: string;
 }
 
 export interface CaseDocuments {
@@ -1084,6 +1143,12 @@ export interface CaseDocuments {
 export interface NoResponseJourneyOptions {
   noResponseCheckContactDetails: NoResponseCheckContactDetails;
   noResponsePartnerHasReceivedPapers: YesOrNo;
+  noResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
+  noResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
+  noResponseOwnSearches: NoResponseOwnSearches;
+  noResponseRespondentAddressInEnglandWales: YesOrNo;
+  noResponsePartnerInUkOrReceivingBenefits: YesOrNo;
+  noResponseSearchOrDispense: NoResponseSearchOrDispense;
 }
 
 export interface DeemedServiceJourneyOptions {
@@ -1097,6 +1162,33 @@ export interface DeemedServiceJourneyOptions {
   deemedEvidenceDetails: string;
   deemedNoEvidenceStatement: string;
   interimAppsStatementOfTruth: Checkbox;
+}
+
+export interface DispenseWithServiceJourneyOptions {
+  interimAppsUseHelpWithFees: YesOrNo;
+  dispenseLiveTogether: YesOrNo;
+  dispenseLivedTogetherDate: DateAsString;
+  dispenseLivedTogetherAddress: AddressGlobalUK;
+  dispenseLivedTogetherAddressOverseas: YesOrNo;
+  dispenseAwarePartnerLived: YesOrNo;
+  dispensePartnerPastAddress1: string;
+  dispensePartnerPastAddressEnquiries1: string;
+  dispensePartnerPastAddress2: string;
+  dispensePartnerPastAddressEnquiries2: string;
+  dispensePartnerLastSeenDate: DateAsString;
+  dispensePartnerLastSeenDescription: string;
+}
+
+export interface AlternativeServiceJourneyOptions {
+  altServiceReasonForApplying: string;
+  altServiceMethod: AlternativeServiceMethod;
+  altServicePartnerEmail: string;
+  altServicePartnerPhone: string;
+  altServicePartnerWANum: string;
+  altServicePartnerSocialDetails: string;
+  altServicePartnerOtherDetails: string;
+  altServiceMethodJustification: string;
+  altServiceDifferentWays: AlternativeServiceDifferentWays[];
 }
 
 export interface RequestForInformationResponse {
@@ -1755,6 +1847,12 @@ export const enum YesOrNo {
   NO = 'No',
 }
 
+export const enum YesOrNoOrNotKnown {
+  YES = 'Yes',
+  NO = 'No',
+  NOT_KNOWN = 'NotKnown',
+}
+
 export const enum AlternativeServiceMediumType {
   TEXT = 'text',
   EMAIL = 'email',
@@ -1766,6 +1864,7 @@ export const enum AlternativeServiceType {
   DEEMED = 'deemed',
   DISPENSED = 'dispensed',
   BAILIFF = 'bailiff',
+  ALTERNATIVE_SERVICE = 'alternativeService',
 }
 
 export const enum Applicant2Represented {
@@ -1878,6 +1977,7 @@ export const enum InterimApplicationType {
   ALTERNATIVE_SERVICE = 'alternativeService',
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'searchGovRecords',
+  PROCESS_SERVER_SERVICE = 'processServerService',
 }
 
 export const enum GeneralApplicationType {
@@ -1887,6 +1987,7 @@ export const enum GeneralApplicationType {
   EXPEDITE = 'expedite',
   OTHER_ALTERNATIVE_SERVICE_METHODS = 'otherAlternativeServiceMethod',
   OTHER = 'other',
+  BAILIFF_SERVICE = 'bailiffService',
 }
 
 export const enum GeneralOrderDivorceParties {
@@ -2372,6 +2473,7 @@ export const enum DocumentType {
   D9H = 'd9H',
   D10 = 'd10',
   D11 = 'd11',
+  ALTERNATIVE_SERVICE_REFUSED = 'alternativeServiceRefused',
   DEEMED_SERVICE = 'deemedService',
   DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
   DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
@@ -2505,15 +2607,57 @@ export const enum NoResponseCheckContactDetails {
   NOT_KNOWN = 'notKnown',
 }
 
-export const enum NoResponsePartnerNewEmailOrPostalAddress {
-  NEW_POSTAL = 'newPostalAddress',
-  NEW_EMAIL = 'newEmailAddress',
-  BOTH_EMAIL_AND_POSTAL = 'newEmailAndPostalAddress',
+export const enum NoResponsePartnerNewEmailOrAddress {
+  ADDRESS = 'address',
+  EMAIL = 'email',
+  EMAIL_AND_ADDRESS = 'emailAndAddress',
+  CONTACT_DETAILS_UPDATED = 'contactDetailsUpdated',
+}
+
+export const enum NoResponseNoNewAddressDetails {
+  IN_PERSON_SERVICE = 'inPersonService',
+  ALTERNATIVE_SERVICE = 'alternativeService',
+  NO_CONTACT_DETAILS = 'noContactDetails',
+}
+
+export const enum NoResponseProcessServerOrBailiff {
+  PROCESS_SERVER = 'processServer',
+  COURT_BAILIFF = 'courtBailiff',
+}
+
+export const enum NoResponseOwnSearches {
+  YES = 'yes',
+  NO = 'no',
+  NOT_FOUND = 'notFound',
+}
+
+export const enum NoResponseSearchOrDispense {
+  SEARCH = 'search',
+  DISPENSE = 'dispense',
 }
 
 export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
   PROVIDE_NEW_EMAIL = 'provideNewEmailAddress',
   APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
+}
+
+export const enum NoResponseSendPapersAgainOrTrySomethingElse {
+  SEND_PAPERS_AGAIN = 'sendPapersAgain',
+  TRY_SOMETHING_ELSE = 'trySomethingElse',
+  PAPERS_SENT = 'papersSent',
+}
+
+export const enum AlternativeServiceMethod {
+  EMAIL = 'byEmail',
+  DIFFERENT_WAY = 'inADifferentWay',
+  EMAIL_AND_DIFFERENT = 'emailAndDifferentWay',
+}
+
+export const enum AlternativeServiceDifferentWays {
+  TEXT_MESSAGE = 'textMessage',
+  WHATSAPP = 'whatsapp',
+  SOCIAL_MEDIA = 'socialMedia',
+  OTHER = 'other',
 }
 
 /**
@@ -2698,6 +2842,7 @@ export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';
 export const APPLICANT_2_CONFIRM_RECEIPT = 'applicant2-confirm-receipt';
 export const INTEND_SWITCH_TO_SOLE_FO = 'intend-switch-to-sole-fo';
 export const CITIZEN_UPDATE = 'citizen-update-application';
+export const CITIZEN_GENERATE_PROCESS_SERVER_DOCS = 'citizen-generate-process-server-docs';
 export const CITIZEN_PAYMENT_MADE = 'citizen-payment-made';
 export const FINAL_ORDER_PAYMENT_MADE = 'final-order-payment-made';
 export const CITIZEN_SAVE_AND_CLOSE = 'citizen-save-and-close';
@@ -2738,11 +2883,12 @@ export const SYSTEM_UPDATE_CASE = 'system-update-nfd-case';
 export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
 export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
 export const CITIZEN_WITHDRAWN = 'citizen-withdrawn';
+export const WITHDRAW_SERVICE_APPLICATION = 'service-application-withdrawn';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 export const CASEWORKER_REQUEST_FOR_INFORMATION = 'caseworker-request-for-information';
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const CASEWORKER_REISSUE_APPLICATION = 'caseworker-reissue-application';
-export const UPDATE_CONTACT_DETAILS_AND_REISSUE = 'update-partner-details-and-reissue';
+export const UPDATE_CONTACT_DETAILS_AND_REISSUE = 'update-partner-details-or-reissue';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_LINK_APPLICANT_1 = 'system-link-applicant1';

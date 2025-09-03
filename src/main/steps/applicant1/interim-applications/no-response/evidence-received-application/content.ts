@@ -22,7 +22,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   proveNo: 'No, I do not have any suitable evidence.',
   errors: {
     applicant1NoResponsePartnerHasReceivedPapers: {
-      required: 'You must select an option before continuing.',
+      required: `Select 'Yes' if you have evidence of your ${partner} receiving the papers.`,
     },
   },
 });
@@ -34,21 +34,21 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   }?`,
   line1: `Os oes gennych dystiolaeth bod eich ${partner} wedi cael papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-  }, efallai y gallwch wneud cais am ‘gyflwyno tybiedig’. Mae hyn yn golygu bod y llys yn derbyn bod eich ${partner} wedi cael y papurau, ac felly gall eich ${
-    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-  } barhau heb eu hymateb.`,
+  }, efallai y gallwch wneud cais am ‘gyflwyno tybiedig’. Mae hyn yn golygu bod y llys yn derbyn bod eich ${partner} wedi cael y papurau, fel bod eich ${
+    isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } yn gallu symud yn ei flaen heb eu hymateb.`,
   line2: 'Mae tystiolaeth addas yn cynnwys:',
   suitableEvidence: {
     photo: `llun neu sgrinlun o neges gan eich ${partner} sy’n dangos eu bod wedi cael y papurau.`,
     statement: `datganiad gennych chi neu drydydd parti yn egluro sut rydych yn gwybod bod eich ${partner} wedi cael y papurau.`,
     message: `neges gennym ni i ddweud wrthych bod eich ${partner} wedi dechrau eu hymateb.`,
   },
-  canYouProveHeader: `Allwch chi brofi bod eich ${partner} wedi cael y papurau?`,
-  proveYes: `Gallaf, mi allaf brofi bod fy ${partner} wedi cael y papurau.`,
+  canYouProveHeader: `A oes gennych dystiolaeth bod eich ${partner} wedi cael y papurau?`,
+  proveYes: `Oes, mae gennyf dystiolaeth bod fy ${partner} wedi cael y papurau.`,
   proveNo: 'Na allaf, nid oes gennyf unrhyw dystiolaeth addas.',
   errors: {
     applicant1NoResponsePartnerHasReceivedPapers: {
-      required: `You must confirm whether or not you can prove that your ${partner} has received the papers.`,
+      required: `Dewiswch “Oes” os oes gennych dystiolaeth o’ch ${partner} yn derbyn y papurau.`,
     },
   },
 });

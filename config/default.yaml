@@ -30,6 +30,7 @@ fees:
   d8bFormSubmission: DivAnswerReceived
   updateApplication: DivorceAmendPetition
   finalOrderApplicationFee: GAOnNotice
+  searchGovRecords: SearchIndexDivCentral
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
@@ -121,3 +122,4 @@ govukUrls:
   getHelpWithCourtFees: 'https://www.gov.uk/get-help-with-court-fees'
   getHelpWithCourtFeesCY: 'https://www.gov.uk/help-i-dalu-ffioedd-llysoedd-a-thribiwnlysoedd'
   certifiedTranslation: 'https://www.gov.uk/certifying-a-document#certifying-a-translation'
+  searchForDecreeAbsoluteOrFinalOrder: 'https://www.gov.uk/copy-decree-absolute-final-order/do-not-know-which-court'
