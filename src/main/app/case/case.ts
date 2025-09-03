@@ -26,10 +26,11 @@ import {
   NoResponseCheckContactDetails,
   NoResponseNoNewAddressDetails,
   NoResponseOwnSearches,
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerNewEmailOrAddress,
   NoResponseProcessServerOrBailiff,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
   NoResponseSearchOrDispense,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   OrderSummary,
   Payment,
   RequestForInformation,
@@ -209,9 +210,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   alternativeServiceType: 'alternativeServiceType',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
-  applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
+  applicant1NoResponsePartnerNewEmailOrAddress: 'applicant1NoResponsePartnerNewEmailOrAddress',
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
     'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
+  applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse: 'applicant1NoResponseSendPapersAgainOrTrySomethingElse',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -573,9 +576,10 @@ export interface Case {
   alternativeServiceType: AlternativeServiceType;
   serviceApplicationAnswers: DivorceDocument;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
-  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponsePartnerNewEmailOrAddress?: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse?: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1NoResponseNoNewAddressDetails?: NoResponseNoNewAddressDetails;
   applicant1NoResponseProcessServerOrBailiff?: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand?: Checkbox;

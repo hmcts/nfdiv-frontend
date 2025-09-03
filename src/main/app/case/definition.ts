@@ -1045,8 +1045,9 @@ export interface CaseData {
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
-  applicant1NoResponsePartnerNewEmailOrPostalAddress: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
   applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
   applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
@@ -1093,13 +1094,13 @@ export interface CaseData {
   applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
+  applicant1NoResponsePartnerAddress: AddressGlobalUK;
+  applicant1NoResponsePartnerAddressOverseas: YesOrNo;
+  applicant1NoResponsePartnerEmailAddress?: string;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
   applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense;
-  applicant1NoResponsePartnerAddress: AddressGlobalUK;
-  applicant1NoResponsePartnerAddressOverseas: YesOrNo;
-  applicant1NoResponsePartnerEmailAddress: string;
   applicant1AltServiceReasonForApplying: string;
   applicant1AltServiceMethod: AlternativeServiceMethod;
   applicant1AltServicePartnerEmail: string;
@@ -2662,6 +2663,13 @@ export const enum NoResponseCheckContactDetails {
   NOT_KNOWN = 'notKnown',
 }
 
+export const enum NoResponsePartnerNewEmailOrAddress {
+  ADDRESS = 'address',
+  EMAIL = 'email',
+  EMAIL_AND_ADDRESS = 'emailAndAddress',
+  CONTACT_DETAILS_UPDATED = 'contactDetailsUpdated',
+}
+
 export const enum NoResponseNoNewAddressDetails {
   IN_PERSON_SERVICE = 'inPersonService',
   ALTERNATIVE_SERVICE = 'alternativeService',
@@ -2684,15 +2692,15 @@ export const enum NoResponseSearchOrDispense {
   DISPENSE = 'dispense',
 }
 
-export const enum NoResponsePartnerNewEmailOrPostalAddress {
-  NEW_POSTAL = 'newPostalAddress',
-  NEW_EMAIL = 'newEmailAddress',
-  BOTH_EMAIL_AND_POSTAL = 'newEmailAndPostalAddress',
-}
-
 export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
   PROVIDE_NEW_EMAIL = 'provideNewEmailAddress',
   APPLY_FOR_ALTERNATIVE_SERVICE = 'applyForAlternativeService',
+}
+
+export const enum NoResponseSendPapersAgainOrTrySomethingElse {
+  SEND_PAPERS_AGAIN = 'sendPapersAgain',
+  TRY_SOMETHING_ELSE = 'trySomethingElse',
+  PAPERS_SENT = 'papersSent',
 }
 
 export const enum AlternativeServiceMethod {
@@ -2931,11 +2939,12 @@ export const SYSTEM_UPDATE_CASE = 'system-update-nfd-case';
 export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
 export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
 export const CITIZEN_WITHDRAWN = 'citizen-withdrawn';
+export const WITHDRAW_SERVICE_APPLICATION = 'service-application-withdrawn';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 export const CASEWORKER_REQUEST_FOR_INFORMATION = 'caseworker-request-for-information';
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const CASEWORKER_REISSUE_APPLICATION = 'caseworker-reissue-application';
-export const UPDATE_CONTACT_DETAILS_AND_REISSUE = 'update-partner-details-and-reissue';
+export const UPDATE_CONTACT_DETAILS_AND_REISSUE = 'update-partner-details-or-reissue';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_LINK_APPLICANT_1 = 'system-link-applicant1';

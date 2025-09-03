@@ -30,6 +30,7 @@ export const getSoleHubTemplate = (
     userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
+  const contactDetailsUpdatedOverseasAddress = userCase.applicant2AddressOverseas === YesOrNo.YES;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -142,7 +143,9 @@ export const getSoleHubTemplate = (
     case State.AwaitingService:
       return isAwaitingProcessServerService
         ? HubTemplate.AwaitingProcessServerService
-        : HubTemplate.AosAwaitingOrDrafted;
+        : contactDetailsUpdatedOverseasAddress
+          ? HubTemplate.AwaitingService
+          : HubTemplate.AosAwaitingOrDrafted;
     case State.WelshTranslationRequested:
     case State.WelshTranslationReview:
       return HubTemplate.WelshTranslationRequestedOrReview;
