@@ -216,7 +216,12 @@ Feature: No response journey
     When I click element "#aosDueLink"
     Then the page should include element "#optionsForProgressingTitle"
     When I click start
-    Then the page should include element "#upToDate"
+    Then the page should include element "#applicant1NoResponsePartnerEmailAddress"
+
+    Given I select element "#applicant1NoResponsePartnerEmailAddress"
+    And I type "test@test.com"
+    When I click continue
+    Then the page should include element "#postcode"
 
     Given I click element "#newAddress"
     When I click continue
@@ -233,10 +238,6 @@ Feature: No response journey
 
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
     When I click continue
-    Then the page should include element "#applicant1NoResponsePartnerEmailAddress"
-    When I select element "#applicant1NoResponsePartnerEmailAddress"
-    And I type "test@testing.com"
-    When I click continue
     Then the page should include element "#checkAnswersTitle"
 
     When I click "Accept and send"
@@ -246,3 +247,26 @@ Feature: No response journey
     Given I go to "/interim-applications/no-response/new-postal-and-email"
     When I click continue
     Then the page should show an error for field "applicant1NoResponsePartnerNewEmailOrAddress"
+
+  Scenario: No response /server-again send papers again or try something else
+    Given I set the case state to "AosOverdue"
+    Then the page should include "View your options for proceeding without a response from the respondent"
+    When I click element "#aosDueLink"
+    Then the page should include element "#optionsForProgressingTitle"
+    When I click start
+    Then the page should include element "#upToDate"
+
+    Given I click element "#upToDate"
+    When I click continue
+    Then the page should include element "#evidenceReceivedApplicationTitle"
+
+    Given I click element "#proveNo"
+    When I click continue
+    Then the page should include element "#sendPapersAgainToPartner"
+
+    Given I click element "#sendPapersAgain"
+    When I click continue
+    Then the page should include element "#checkAnswersTitle"
+
+    When I click "Accept and send"
+    Then the page should include element "#sendPapersAgainTitle"
