@@ -216,19 +216,20 @@ Feature: No response journey
     When I click element "#aosDueLink"
     Then the page should include element "#optionsForProgressingTitle"
     When I click start
-    Then the page should include element "#applicant1NoResponsePartnerEmailAddress"
+    Then the page should include element "#haveTheyReceivedTitle"
+
+    Given I select element '#newAddress'
+    When I click continue
+    Then the page should include element "#newPostalAndEmailTitle"
+
+    Given I select element "#bothEmailAndPostalAddress"
+    When I click continue
+    Then the page should include element "#provideNewEmailAddressTitle"
 
     Given I select element "#applicant1NoResponsePartnerEmailAddress"
     And I type "test@test.com"
     When I click continue
-    Then the page should include element "#postcode"
-
-    Given I click element "#newAddress"
-    When I click continue
-    Then the page should include element "#newPostalAddress"
-    And I click element "#bothEmailAndPostalAddress"
-    When I click continue
-    Then the page should include element "#enterPostcode"
+    Then the page should include element "#enterAddressTitle"
 
     Given I select element "#postcode"
     And I type "SW1H 9AJ"
