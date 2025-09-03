@@ -35,6 +35,7 @@ import {
   Payment,
   RequestForInformation,
   State,
+  ServiceMethod,
   YesOrNo,
   YesOrNoOrNotKnown,
 } from './definition';
@@ -272,6 +273,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
   alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
   alternativeServiceType: 'alternativeServiceType',
+  serviceMethod: 'serviceMethod',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
   applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
@@ -610,6 +612,7 @@ export interface Case {
   applicant1AltServicePartnerSocialDetails?: string;
   applicant1AltServicePartnerOtherDetails?: string;
   applicant1AltServiceMethodJustification?: string;
+  serviceMethod: ServiceMethod;
   applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
