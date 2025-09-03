@@ -57,11 +57,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   }`,
   errors: {
     applicant1NoResponseSearchOrDispense: {
-<<<<<<< HEAD
-      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
-=======
       required: 'Dewiswch os ydych eisiau gofyn i’r llys chwilio cofnodion y llywodraeth',
->>>>>>> origin/NFDIV-4713
     },
   },
 });
