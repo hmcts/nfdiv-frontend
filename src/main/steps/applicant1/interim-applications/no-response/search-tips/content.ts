@@ -7,7 +7,7 @@ const en = ({ partner }: CommonContent) => ({
     title: 'You should try to find either:',
     options: {
       postal: `an up-to-date postal address for your ${partner}`,
-      social: `a social media account, phone number or email address that ou can prove your ${partner} actively uses`,
+      social: `a social media account, phone number or email address that you can prove your ${partner} actively uses`,
     },
   },
   manyWays: {

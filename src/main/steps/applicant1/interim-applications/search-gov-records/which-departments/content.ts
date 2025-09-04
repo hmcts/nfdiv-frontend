@@ -5,9 +5,9 @@ import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ partner, required }: CommonContent) => ({
+const en = ({ partner }: CommonContent) => ({
   title: `Which government departments do you need us to search for your ${partner}’s details?`,
-  titleHint: `Select all that apply`,
+  titleHint: 'Select all that apply',
   dwp: 'Department for Work and Pensions',
   dwpHint: 'for benefit, pay or pension records',
   hmrc: 'HM Revenue and Customs',
@@ -22,15 +22,15 @@ const en = ({ partner, required }: CommonContent) => ({
       applicant1SearchGovRecordsOtherDepartmentNames: 'Enter details of the government department',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
-      required: 'Enter details about why the selected department is most suitable.'
+      required: 'Enter details about why the selected department is most suitable.',
     },
   },
 });
 
 // @TODO translations should be verified
-const cy: typeof en = ({ partner, required }: CommonContent) => ({
+const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Which government departments do you need us to search for your ${partner}’s details?`,
-  titleHint: `Select all that apply`,
+  titleHint: 'Select all that apply',
   dwp: 'Department for Work and Pensions',
   dwpHint: 'for benefit, pay or pension records',
   hmrc: 'HM Revenue and Customs',

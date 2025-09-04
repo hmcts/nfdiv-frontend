@@ -217,6 +217,7 @@ export const PARTNER_NEW_ADDRESS_DISPENSE: PageLink =
   '/interim-applications/dispense-service/partner-new-address-dispense';
 export const LAST_SEEN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-seen-dispense';
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
+export const HELP_WITH_FEES_SEARCH_GOV_RECORDS: PageLink = '/interim-applications/search-gov-records/help-with-fees';
 export const HELP_WITH_FEES_DISPENSE: PageLink = '/interim-applications/dispense-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
 export const HWF_REFERENCE_NUMBER_DISPENSE: PageLink = '/interim-applications/dispense-service/hwf-reference-number';
@@ -295,6 +296,9 @@ export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
 export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
 export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
 export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
+
+export const WITHDRAW_SERVICE_APPLICATION: PageLink = '/interim-applications/withdraw-service-application';
+export const SERVICE_APPLICATION_WITHDRAWN: PageLink = '/interim-applications/service-application-withdrawn';
 
 // General Application Payment URLs
 export const PAY_YOUR_GENERAL_APPLICATION_FEE: PageLink = '/interim-applications/pay-your-general-application-fee';

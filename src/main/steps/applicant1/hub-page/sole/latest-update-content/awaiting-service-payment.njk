@@ -11,6 +11,12 @@
             href: awaitingServicePayment.linkUrl,
             preventDoubleClick: true
         }) }}
+        <p class="govuk-body">{{ awaitingServicePayment.withdrawText }}</p>
+        {{ govukButton({
+            text: awaitingServicePayment.withdrawLinkText,
+            href: awaitingServicePayment.withdrawLinkUrl,
+            preventDoubleClick: true
+        }) }}
     {% else %}
         <p class="govuk-body">{{ serviceApplicationSubmitted.introLine1 }}</p>
         <p class="govuk-body">{{ serviceApplicationSubmitted.introLine2 }}</p>
