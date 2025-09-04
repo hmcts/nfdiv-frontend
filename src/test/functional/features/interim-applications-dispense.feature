@@ -35,7 +35,7 @@ Feature: Dispense with service journey
     When I click continue
     Then the page should include element "#isPartnerAbroadTitle"
 
-    Given I click element "#yes"
+    Given I click element "#no"
     When I click continue
     Then the page should include element "#dispenseWithServiceApplicationTitle"
 
