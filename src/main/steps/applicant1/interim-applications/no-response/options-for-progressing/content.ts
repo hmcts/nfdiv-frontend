@@ -41,7 +41,9 @@ const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
 
 // @TODO translations should be verified
 const cy = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: CommonContent) => ({
-  title: `Options for progressing with ${isDivorce ? 'your divorce' : 'ending your civil partnership'}`,
+  title: `Opsiynau ar gyfer symud ymlaen gyda’ch cais am ${
+    isDivorce ? 'ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+  }`,
   line1: `Mae yna nifer o ffyrdd i symud eich ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } ymlaen heb ymateb gan eich ${partner}.`,
