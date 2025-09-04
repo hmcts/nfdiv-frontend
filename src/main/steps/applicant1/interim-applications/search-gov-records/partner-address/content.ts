@@ -7,7 +7,7 @@ import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: Partial<CommonContent>) => {
   const addressPostcode = {
-    required: `Enter a postcode.`,
+    required: 'Enter a postcode.',
     invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
     notSelected: `You have not selected your ${partner}’s address. Select their address from the list before continuing.`,
   };

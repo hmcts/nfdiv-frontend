@@ -103,3 +103,38 @@ Feature: Deemed service journey
     Given I click element "#applicant1InterimAppsStatementOfTruth"
     When I click submit
     Then the page should include element "#serviceApplicationSubmittedTitle"
+
+  Scenario: Deemed service withdrawn application
+    When I click start
+    Then the page should include element "#interruptionTitle"
+
+    Given I click element "#applicant1InterimAppsIUnderstand"
+    When I click continue
+    Then the page should include element "#helpWithFeesTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#wantUploadEvidenceTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#uploadEvidenceTitle"
+
+    Given I click element "#applicant1InterimAppsCannotUploadDocs"
+    When I click continue
+    Then the page should include element "#howDoYouKnowDeemedTitle"
+
+    Given I select element "#applicant1DeemedEvidenceDetails"
+    And I type "Evidence Details"
+    When I click continue
+    Then the page should include element "#checkAnswersTitle"
+
+    Given I click element "#applicant1InterimAppsStatementOfTruth"
+    When I click submit
+    Then the page should include element "#payYourServiceFeeTitle"
+    And the page should include "I want to withdraw this application"
+
+    Given I click element "#withdrawLink"
+    Then the page should include "Withdraw your service application"
+    When I click submit
+    Then the page should include "Service application withdrawn"

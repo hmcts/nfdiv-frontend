@@ -8,16 +8,16 @@ const en = ({ partner }: CommonContent) => ({
   title: `Are you able to upload a recent photo of your ${partner}?`,
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
-      required: 'You must select an option.',
+      required: `Select “Yes” if you are able to upload a recent photo of your ${partner}`,
     },
   },
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Are you able to upload a recent photo of your ${partner}?`,
+  title: `Ydych chi’n gallu uwchlwytho llun diweddar o’ch ${partner}?`,
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
-      required: 'You must select an option.',
+      required: `Dewiswch “Ydw” os ydych yn gallu uwchlwytho llun diweddar o’ch ${partner}`,
     },
   },
 });

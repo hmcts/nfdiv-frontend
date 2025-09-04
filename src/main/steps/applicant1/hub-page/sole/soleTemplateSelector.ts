@@ -2,8 +2,10 @@ import dayjs from 'dayjs';
 
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import {
+  AlternativeServiceType,
   GeneralApplicationType,
   ServiceApplicationRefusalReason,
+  ServiceMethod,
   State,
   YesOrNo,
 } from '../../../../app/case/definition';
@@ -20,12 +22,17 @@ export const getSoleHubTemplate = (
 ): string | undefined => {
   const isServiceApplicationGranted =
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
+  const isAlternativeServiceApplicationGranted =
+    isServiceApplicationGranted &&
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType ===
+      AlternativeServiceType.ALTERNATIVE_SERVICE;
   const isAosOverdue =
     !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
   const isRefusalOrderToApplicant =
     userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
+  const isPersonalServiceRequired = userCase.serviceMethod === ServiceMethod.PERSONAL_SERVICE;
 
   const latestGeneralApplication = userCase.generalApplications?.[0].value;
   const isSearchGovRecords =
@@ -45,8 +52,9 @@ export const getSoleHubTemplate = (
     }
     case State.AwaitingServiceConsideration:
     case State.AwaitingBailiffReferral:
-    case State.BailiffRefused: {
       return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
+    case State.BailiffRefused: {
+      return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
     }
     case State.ConditionalOrderPronounced: {
       return HubTemplate.ConditionalOrderPronounced;
@@ -66,6 +74,8 @@ export const getSoleHubTemplate = (
         return HubTemplate.AwaitingConditionalOrder;
       } else if (!userCase.dueDate && userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;
+      } else if (isAlternativeServiceApplicationGranted) {
+        return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
       } else if (isAosOverdue) {
         return HubTemplate.AoSDue;
       } else {
@@ -118,7 +128,7 @@ export const getSoleHubTemplate = (
       if (isAlternativeService && !isServiceApplicationGranted && isRefusalOrderToApplicant) {
         return HubTemplate.ServiceApplicationRejected;
       } else {
-        return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
+        return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
       }
     case State.PendingHearingOutcome:
     case State.PendingHearingDate:
@@ -147,7 +157,12 @@ export const getSoleHubTemplate = (
     case State.AwaitingService:
       return isAwaitingProcessServerService
         ? HubTemplate.AwaitingProcessServerService
-        : HubTemplate.AosAwaitingOrDrafted;
+        : isPersonalServiceRequired
+          ? HubTemplate.AwaitingService
+          : HubTemplate.AosAwaitingOrDrafted;
+    case State.WelshTranslationRequested:
+    case State.WelshTranslationReview:
+      return HubTemplate.WelshTranslationRequestedOrReview;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||
