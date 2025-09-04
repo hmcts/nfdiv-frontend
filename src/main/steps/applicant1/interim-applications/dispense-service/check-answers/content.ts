@@ -160,24 +160,11 @@ const languages = {
   cy,
 };
 
-const formatAddress = (
-  address1: string | undefined,
-  address2: string | undefined,
-  address3: string | undefined,
-  town: string | undefined,
-  county: string | undefined,
-  postcode: string | undefined,
-  country: string | undefined
-) => {
-  const formattedAddress = [address1, address2, address3, town, county, postcode, country];
-
-  formattedAddress.forEach((addressLine, index) => {
-    if (addressLine) {
-      formattedAddress[index] = striptags(addressLine);
-    }
-  });
-
-  return formattedAddress.filter(Boolean).join('<br>');
+const formatAddress = (...addressLines: (string | undefined)[]) => {
+  return addressLines
+    .map(line => (line ? striptags(line) : undefined))
+    .filter(Boolean)
+    .join('<br>');
 };
 
 export const generateContent: TranslationFn = content => {
