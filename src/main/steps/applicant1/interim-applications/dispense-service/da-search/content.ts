@@ -96,14 +96,7 @@ export const form: FormContent = {
           label: l => l.yes,
           id: 'yes',
           value: YesOrNo.YES,
-          subFields: {
-            conditionalControlHint: {
-              type: 'hidden',
-              label: l => l.finalOrderSearchHint,
-              labelHidden: true,
-              hint: l => l.finalOrderSearchHint,
-            },
-          },
+          conditionalText: l => `<p class="govuk-label">${l.finalOrderSearchHint}</p>`,
         },
         {
           label: l => l.no,
