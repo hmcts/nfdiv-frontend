@@ -154,7 +154,7 @@ export const EXPLAIN_THE_DELAY: PageLink = '/explain-the-delay';
 export const RESPOND_TO_COURT_FEEDBACK: PageLink = '/respond-to-the-courts-feedback';
 export const REVIEW_YOUR_RESPONSE: PageLink = '/review-your-response-to-the-courts-feedback';
 
-// No Response URLs
+// No Response Journey URLs
 export const OPTIONS_FOR_PROGRESSING: PageLink = '/interim-applications/no-response/options-for-progressing';
 export const HAVE_THEY_RECEIVED: PageLink = '/interim-applications/no-response/have-they-received';
 export const HAVE_THEY_RECEIVED_REPRESENTED: PageLink =
