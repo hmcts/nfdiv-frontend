@@ -36,7 +36,9 @@ const en = ({
       ? 'If your help with fees reference number is accepted, the'
       : 'The'
   } court will review your application and any evidence you have submitted.${
-    userCase?.alternativeServiceType !== AlternativeServiceType.ALTERNATIVE_SERVICE
+    ![AlternativeServiceType.ALTERNATIVE_SERVICE, AlternativeServiceType.DISPENSED].includes(
+      userCase?.alternativeServiceType as AlternativeServiceType
+    )
       ? ` If your application is successful, your ${
           isDivorce ? 'divorce' : 'dissolution'
         } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`
@@ -52,6 +54,9 @@ const en = ({
     alternativeService: {
       happensNextLine3:
         'If your application is successful, we will email you detailed information about what to do next.',
+    },
+    dispensed: {
+      introLine1: 'You have applied to dispense with service.',
     },
     bailiff: {
       title: 'Request submitted',
@@ -120,7 +125,10 @@ const cy: typeof en = ({
   contentOverrides: {
     alternativeService: {
       happensNextLine3:
-        'Os bydd eich cais yn llwyddiannus, byddwn yn anfon e-bost atoch i ddweud wrthych am beth i’w wneud nesaf.',
+        'If your application is successful, we will email you detailed information about what to do next.',
+    },
+    dispensed: {
+      introLine1: 'You have applied to dispense with service.',
     },
     bailiff: {
       title: 'Request submitted',

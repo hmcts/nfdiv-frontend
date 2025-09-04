@@ -26,13 +26,15 @@ import {
   NoResponseCheckContactDetails,
   NoResponseNoNewAddressDetails,
   NoResponseOwnSearches,
-  NoResponsePartnerNewEmailOrPostalAddress,
+  NoResponsePartnerNewEmailOrAddress,
   NoResponseProcessServerOrBailiff,
   NoResponseProvidePartnerNewEmailOrAlternativeService,
   NoResponseSearchOrDispense,
+  NoResponseSendPapersAgainOrTrySomethingElse,
   OrderSummary,
   Payment,
   RequestForInformation,
+  ServiceMethod,
   State,
   YesOrNo,
   YesOrNoOrNotKnown,
@@ -198,9 +200,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
-  applicant1NoResponsePartnerNewEmailOrPostalAddress: 'applicant1NoResponsePartnerNewEmailOrPostalAddress',
+  applicant1NoResponsePartnerNewEmailOrAddress: 'applicant1NoResponsePartnerNewEmailOrAddress',
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
     'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
+  applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse: 'applicant1NoResponseSendPapersAgainOrTrySomethingElse',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
@@ -269,6 +273,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
   alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
   alternativeServiceType: 'alternativeServiceType',
+  serviceMethod: 'serviceMethod',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
   applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
@@ -534,9 +539,10 @@ export interface Case {
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
-  applicant1NoResponsePartnerNewEmailOrPostalAddress?: NoResponsePartnerNewEmailOrPostalAddress;
+  applicant1NoResponsePartnerNewEmailOrAddress?: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse?: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1NoResponseNoNewAddressDetails?: NoResponseNoNewAddressDetails;
   applicant1NoResponseProcessServerOrBailiff?: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand?: Checkbox;
@@ -606,6 +612,7 @@ export interface Case {
   applicant1AltServicePartnerSocialDetails?: string;
   applicant1AltServicePartnerOtherDetails?: string;
   applicant1AltServiceMethodJustification?: string;
+  serviceMethod: ServiceMethod;
   applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;

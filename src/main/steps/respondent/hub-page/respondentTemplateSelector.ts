@@ -47,6 +47,9 @@ export const getRespondentHubTemplate = (
     case State.PendingHearingOutcome:
     case State.PendingHearingDate:
       return HubTemplate.PendingHearingOutcome;
+    case State.WelshTranslationRequested:
+    case State.WelshTranslationReview:
+      return HubTemplate.WelshTranslationRequestedOrReview;
     default: {
       if (displayState.isAtOrBefore('AwaitingConditionalOrder') && !hasSubmittedAos) {
         return HubTemplate.AwaitingAoS;

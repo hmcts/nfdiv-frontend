@@ -170,15 +170,16 @@ Feature: No response journey
     When I click continue
     Then the page should include element "#enterPostcode"
 
-    When I select element "#postcode"
+    Given I select element "#postcode"
     And I type "SW1H 9AJ"
     When I click element "#findAddressButton"
     Then the page should include "SW1H 9AJ"
     And I wait for the postcode lookup to return results
 
-    When I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
-    And I click continue
+    Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    When I click continue
     Then the page should include element "#checkAnswersTitle"
+
     When I click accept and send
     Then the page should include element "#detailsUpdatedTitle"
 
@@ -205,6 +206,7 @@ Feature: No response journey
     And I type "test@test.com"
     When I click continue
     Then the page should include element "#checkAnswersTitle"
+
     When I click accept and send
     Then the page should include element "#detailsUpdatedTitle"
 
@@ -214,22 +216,20 @@ Feature: No response journey
     When I click element "#aosDueLink"
     Then the page should include element "#optionsForProgressingTitle"
     When I click start
-    Then the page should include element "#upToDate"
+    Then the page should include element "#haveTheyReceivedTitle"
 
-    Given I click element "#newAddress"
+    Given I select element '#newAddress'
     When I click continue
-    Then the page should include element "#newPostalAddress"
-    And I click element "#bothEmailAndPostalAddress"
-    When I click continue
-    Then the page should include element "#provideNewEmail"
+    Then the page should include element "#newPostalAndEmailTitle"
 
-    When I click element "#provideNewEmail"
-    And I click continue
-    Then the page should include element "#applicant1NoResponsePartnerEmailAddress"
-    When I select element "#applicant1NoResponsePartnerEmailAddress"
-    And I type "test@testing.com"
+    Given I select element "#bothEmailAndPostalAddress"
     When I click continue
-    Then the page should include element "#enterPostcode"
+    Then the page should include element "#provideNewEmailAddressTitle"
+
+    Given I select element "#applicant1NoResponsePartnerEmailAddress"
+    And I type "test@test.com"
+    When I click continue
+    Then the page should include element "#enterAddressTitle"
 
     Given I select element "#postcode"
     And I type "SW1H 9AJ"
@@ -240,10 +240,34 @@ Feature: No response journey
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
     When I click continue
     Then the page should include element "#checkAnswersTitle"
+
     When I click "Accept and send"
     Then the page should include element "#detailsUpdatedTitle"
 
   Scenario: No response update contact details /new-postal-and-email throws error
     Given I go to "/interim-applications/no-response/new-postal-and-email"
     When I click continue
-    Then the page should show an error for field "applicant1NoResponsePartnerNewEmailOrPostalAddress"
+    Then the page should show an error for field "applicant1NoResponsePartnerNewEmailOrAddress"
+
+  Scenario: No response /server-again send papers again or try something else
+    Given I set the case state to "AosOverdue"
+    Then the page should include "View your options for proceeding without a response from the respondent"
+    When I click element "#aosDueLink"
+    Then the page should include element "#optionsForProgressingTitle"
+    When I click start
+    Then the page should include element "#upToDate"
+
+    Given I click element "#upToDate"
+    When I click continue
+    Then the page should include element "#evidenceReceivedApplicationTitle"
+
+    Given I click element "#proveNo"
+    When I click continue
+    Then the page should include element "#sendPapersAgainToPartner"
+
+    Given I click element "#sendPapersAgain"
+    When I click continue
+    Then the page should include element "#checkAnswersTitle"
+
+    When I click "Accept and send"
+    Then the page should include element "#sendPapersAgainTitle"
