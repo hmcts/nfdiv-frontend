@@ -8,7 +8,7 @@ import {
   CHILDREN_CONTACT_DISPENSE,
   CHILDREN_OF_FAMILY_DISPENSE,
   CHILD_MAINTENANCE_DISPENSE,
-  DA_SEARCH_DISPENSE,
+  FINAL_ORDER_SEARCH_DISPENSE,
   DISPENSE_SERVICE_APPLICATION,
   EMAIL_DESCRIPTION_DISPENSE,
   EMAIL_DISPENSE,
@@ -84,7 +84,7 @@ export const dispenseServiceApplicationSequence: Step[] = [
   {
     url: LAST_SEEN_DISPENSE,
     getNextStep: data =>
-      data?.applicant1DispensePartnerLastSeenOver2YearsAgo === YesOrNo.NO ? EMAIL_DISPENSE : DA_SEARCH_DISPENSE,
+      data?.applicant1DispensePartnerLastSeenOver2YearsAgo === YesOrNo.NO ? EMAIL_DISPENSE : FINAL_ORDER_SEARCH_DISPENSE,
   },
   {
     url: EMAIL_DISPENSE,
@@ -94,7 +94,7 @@ export const dispenseServiceApplicationSequence: Step[] = [
         : PHONE_NUMBER_DISPENSE,
   },
   {
-    url: DA_SEARCH_DISPENSE,
+    url: FINAL_ORDER_SEARCH_DISPENSE,
     getNextStep: () => EMAIL_DISPENSE,
   },
   {

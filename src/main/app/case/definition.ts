@@ -1242,7 +1242,7 @@ export interface DispenseWithServiceJourneyOptions {
 export interface DispenseWithServiceJourneyLogicalTests {
   livedTogether: boolean;
   wherePartnerLived: boolean;
-  daSearch: boolean;
+  finalOrderSearch: boolean;
   haveEmail: boolean;
   havePhone: boolean;
   usedTracingAgent: boolean;

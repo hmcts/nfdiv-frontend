@@ -11,7 +11,7 @@ const en = ({ partner }: CommonContent) => ({
   statement: {
     header: 'If you have any evidence to support your application, you can upload it now. This may include:',
     options: {
-      daSearch: 'Your no trace certificate (Mandatory)',
+      finalOrderSearch: 'Your no trace certificate (Mandatory)',
       haveEmail: `proof of any attempts you have made to contact your ${partner} on their email addresses (Optional)`,
       havePhone: `proof of any attempts you have made to contact your ${partner} on their phone numbers (Optional)`,
       usedTracingAgent: 'results of the search by a tracing agent (Optional)',
@@ -28,7 +28,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   statement: {
     header: 'If you have any evidence to support your application, you can upload it now. This may include:',
     options: {
-      daSearch: 'Your no trace certificate (Mandatory)',
+      finalOrderSearch: 'Your no trace certificate (Mandatory)',
       haveEmail: `proof of any attempts you have made to contact your ${partner} on their email addresses (Optional)`,
       havePhone: `proof of any attempts you have made to contact your ${partner} on their phone numbers (Optional)`,
       usedTracingAgent: 'results of the search by a tracing agent (Optional)',
@@ -105,7 +105,7 @@ export const getDispenseLogicalTests = (caseData: Partial<Case>): DispenseWithSe
   const results: DispenseWithServiceJourneyLogicalTests = {
     livedTogether: caseData.applicant1DispenseLiveTogether === YesOrNo.YES,
     wherePartnerLived: caseData.applicant1DispenseAwarePartnerLived === YesOrNo.YES,
-    daSearch: caseData.applicant1DispenseHaveSearchedFinalOrder === YesOrNo.YES,
+    finalOrderSearch: caseData.applicant1DispenseHaveSearchedFinalOrder === YesOrNo.YES,
     haveEmail: caseData.applicant1DispenseHavePartnerEmailAddresses === YesOrNo.YES,
     havePhone: caseData.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.YES,
     usedTracingAgent: caseData.applicant1DispenseTriedTracingAgent === YesOrNo.YES,

@@ -3,7 +3,7 @@
 {% block statement %}
   <p class="govuk-body">{{ statement.header }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    {% if daSearch %}<li>{{ statement.options.daSearch }}</li>{% endif %}
+    {% if finalOrderSearch %}<li>{{ statement.options.finalOrderSearch }}</li>{% endif %}
     {% if haveEmail %}<li>{{ statement.options.haveEmail }}</li>{% endif %}
     {% if havePhone %}<li>{{ statement.options.havePhone }}</li>{% endif %}
     {% if triedTracingAgent %}<li>{{ statement.options.triedTracingAgent }}</li>{% endif %}

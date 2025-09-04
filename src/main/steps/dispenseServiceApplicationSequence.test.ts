@@ -11,7 +11,7 @@ import {
   CHILDREN_CONTACT_DISPENSE,
   CHILDREN_OF_FAMILY_DISPENSE,
   CHILD_MAINTENANCE_DISPENSE,
-  DA_SEARCH_DISPENSE,
+  FINAL_ORDER_SEARCH_DISPENSE,
   DISPENSE_SERVICE_APPLICATION,
   EMAIL_DESCRIPTION_DISPENSE,
   EMAIL_DISPENSE,
@@ -158,13 +158,13 @@ describe('Dispense With Service Application Sequence test', () => {
         applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo.YES,
       };
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === LAST_SEEN_DISPENSE) as Step;
-      expect(step.getNextStep(caseData)).toBe(DA_SEARCH_DISPENSE);
+      expect(step.getNextStep(caseData)).toBe(FINAL_ORDER_SEARCH_DISPENSE);
     });
   });
 
   describe('DA_SEARCH_DISPENSE', () => {
     test('EMAIL_DISPENSE', () => {
-      const step = dispenseServiceApplicationSequence.find(obj => obj.url === DA_SEARCH_DISPENSE) as Step;
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === FINAL_ORDER_SEARCH_DISPENSE) as Step;
       expect(step.getNextStep({})).toBe(EMAIL_DISPENSE);
     });
   });

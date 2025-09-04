@@ -25,8 +25,8 @@ const stepLinks = {
   partnerAddress2: `${urls.PARTNER_NEW_ADDRESS_DISPENSE}`,
   whenPartnerLastSeen: `${urls.LAST_SEEN_DISPENSE}`,
   partnerLastSeenDescription: `${urls.LAST_SEEN_DISPENSE}`,
-  daSearch: `${urls.DA_SEARCH_DISPENSE}`,
-  whyNoDaSearch: `${urls.DA_SEARCH_DISPENSE}`,
+  finalOrderSearch: `${urls.FINAL_ORDER_SEARCH_DISPENSE}`,
+  whyNofinalOrderSearch: `${urls.FINAL_ORDER_SEARCH_DISPENSE}`,
   partnerEmail: `${urls.EMAIL_DISPENSE}`,
   emailDetails: `${urls.EMAIL_DESCRIPTION_DISPENSE}`,
   partnerPhone: `${urls.PHONE_NUMBER_DISPENSE}`,
@@ -69,8 +69,8 @@ const en = (stepAnswers, { partner }: CommonContent) => ({
     partnerAddress2: `${partner}'s address 2`,
     whenPartnerLastSeen: `When was your ${partner} last seen or heard of?`,
     partnerLastSeenDescription: `Describe the last time you saw or heard of your ${partner}`,
-    daSearch: 'Have you searched for an existing decree absolute or final order?',
-    whyNoDaSearch: 'Explain why you have not requested a search',
+    finalOrderSearch: 'Have you searched for an existing decree absolute or final order?',
+    whyNofinalOrderSearch: 'Explain why you have not requested a search',
     partnerEmail: `Do you have any email addresses for your ${partner}?`,
     emailDetails: "Tell us the email addresses and any previous contact you've had.",
     partnerPhone: `Do you have any phone numbers for your ${partner}?`,
@@ -117,8 +117,8 @@ const cy: typeof en = (stepAnswers, { partner }: CommonContent) => ({
     partnerAddress2: `${partner}'s address 2`,
     whenPartnerLastSeen: `When was your ${partner} last seen or heard of?`,
     partnerLastSeenDescription: `Describe the last time you saw or heard of your ${partner}`,
-    daSearch: 'Have you searched for an existing decree absolute or final order?',
-    whyNoDaSearch: 'Explain why you have not requested a search',
+    finalOrderSearch: 'Have you searched for an existing decree absolute or final order?',
+    whyNofinalOrderSearch: 'Explain why you have not requested a search',
     partnerEmail: `Do you have any email addresses for your ${partner}?`,
     emailDetails: "Tell us the email addresses and any previous contact you've had.",
     partnerPhone: `Do you have any phone numbers for your ${partner}?`,
@@ -192,7 +192,7 @@ export const generateContent: TranslationFn = content => {
 
   const dispenseLogic = getDispenseLogicalTests(content.userCase);
   const citizenShownUploadPage =
-    dispenseLogic.daSearch ||
+    dispenseLogic.finalOrderSearch ||
     dispenseLogic.haveEmail ||
     dispenseLogic.havePhone ||
     dispenseLogic.usedTracingAgent ||
@@ -230,8 +230,8 @@ export const generateContent: TranslationFn = content => {
       .join('<br>'),
     whenPartnerLastSeen: getFormattedCaseDate(content.userCase.applicant1DispensePartnerLastSeenOrHeardOfDate),
     partnerLastSeenDescription: content.userCase.applicant1DispensePartnerLastSeenDescription,
-    daSearch: content.userCase.applicant1DispenseHaveSearchedFinalOrder,
-    whyNoDaSearch: content.userCase.applicant1DispenseWhyNoFinalOrderSearch,
+    finalOrderSearch: content.userCase.applicant1DispenseHaveSearchedFinalOrder,
+    whyNofinalOrderSearch: content.userCase.applicant1DispenseWhyNoFinalOrderSearch,
     partnerEmail: content.userCase.applicant1DispenseHavePartnerEmailAddresses,
     emailDetails: content.userCase.applicant1DispensePartnerEmailAddresses,
     partnerPhone: content.userCase.applicant1DispenseHavePartnerPhoneNumbers,
