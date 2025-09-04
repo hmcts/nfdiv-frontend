@@ -35,7 +35,7 @@ Feature: Dispense with service journey
     When I click continue
     Then the page should include element "#isPartnerAbroadTitle"
 
-    Given I click element "#yes"
+    Given I click element "#no"
     When I click continue
     Then the page should include element "#dispenseWithServiceApplicationTitle"
 
@@ -96,6 +96,95 @@ Feature: Dispense with service journey
     Then I select element "#applicant1DispensePartnerLastSeenDescription"
     And I type "Last seen description"
     When I click continue
+    Then the page should include element "#daSearchDispenseTitle"
 
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#emailDispenseTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#emailDescriptionTitle"
+
+    Given I select element "#applicant1DispensePartnerEmailAddresses"
+    And I type "test@test.com - no response to email"
+    When I click continue
+    Then the page should include element "#phoneNumbersDispenseTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#phoneDescriptionTitle"
+
+    Given I select element "#applicant1DispensePartnerPhoneNumbers"
+    And I type "01234 567890 - no response to phone"
+    When I click continue
+    Then the page should include element "#tracingAgentDispenseTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#tracingAgentResultsTitle"
+
+    Given I select element "#applicant1DispenseTracingAgentResults"
+    And I type "Tracing agent results"
+    When I click continue
+    Then the page should include element "#tracingOnlineTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#tracingOnlineResultsTitle"
+
+    Given I select element "#applicant1DispenseTracingOnlineResults"
+    And I type "Tracing online results"
+    When I click continue
+    Then the page should include element "#searchingOnlineTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#searchingOnlineResultsTitle"
+
+    Given I select element "#applicant1DispenseSearchingOnlineResults"
+    And I type "Searching online results"
+    When I click continue
+    Then the page should include element "#contactingEmployerTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#employmentDetailsTitle"
+
+    Given I select element "#applicant1DispenseEmployerName"
+    And I type "Example Employer"
+    Then I select element "#applicant1DispenseEmployerAddress"
+    And I type "123 Example Street, Example Town, EX1 2MP"
+    Then I select element "#applicant1DispensePartnerOccupation"
+    And I type "Test Occupation"
+    Then I select element "#applicant1DispenseContactingEmployerResults"
+    And I type "Contacting employer results"
+    When I click continue
+    Then the page should include element "#childrenOfFamilyTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#childrenContactTitle"
+
+    Given I select element "#yes"
+    When I click continue
+    Then the page should include element "#whenContactChildrenTitle"
+
+    Given I select element "#applicant1DispenseHowPartnerContactChildren"
+    And I type "How partner contacts children"
+    When I click continue
+    Then the page should include element "#childMaintenanceTitle"
+
+    Given I select element "#yes"
+    Then I select element "#applicant1DispenseChildMaintenanceResults"
+    And I type "Child maintenance results"
+    When I click continue
+    Then the page should include element "#friendsOrRelativesTitle"
+
+    Given I select element "#applicant1DispenseContactFriendsOrFamilyDetails"
+    And I type "Friends or relatives contact details"
+    When I click continue
+
+    #Then the page should include element "#STOP"
     # Fix and continue this scenario as the journey progresses
-#    Then the page should include element "#STOP"
+
