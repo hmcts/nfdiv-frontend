@@ -6,6 +6,7 @@ import {
   AlternativeServiceType,
   DivorceOrDissolution,
   ListValue,
+  ServiceMethod,
   State,
   YesOrNo,
 } from '../../../../app/case/definition';
@@ -21,6 +22,7 @@ describe('SoleTemplateSelector test', () => {
     coIsAdminClarificationSubmitted: YesOrNo.NO,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     applicant2AddressOverseas: YesOrNo.NO,
+    serviceMethod: ServiceMethod.COURT_SERVICE,
   };
   const displayState = currentStateFn(userCase.state);
 
@@ -427,7 +429,7 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
   test('should show /awaiting-service.njk for state AwaitingService', () => {
-    userCase.applicant2AddressOverseas = YesOrNo.YES;
+    userCase.serviceMethod = ServiceMethod.PERSONAL_SERVICE;
     const theState = displayState.at(State.AwaitingService);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingService);
