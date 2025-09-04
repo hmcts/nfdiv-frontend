@@ -8,17 +8,17 @@ const en = ({ partner }: CommonContent) => ({
   hint: 'For example, Bangladeshi',
   errors: {
     applicant1BailiffPartnersEthnicGroup: {
-      required: `Please enter your ${partner}'s ethnic group.`,
+      required: `Enter your ${partner}'s ethnic group.`,
     },
   },
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `What is your ${partner}'s ethnic group?`,
-  hint: 'For example, Bangladeshi',
+  title: `Beth yw grŵp ethnig eich ${partner}?`,
+  hint: 'Er enghraifft, Bangladeshaidd',
   errors: {
     applicant1BailiffPartnersEthnicGroup: {
-      required: `Please enter your ${partner}'s ethnic group.`,
+      required: `Rhowch grŵp ethnig eich ${partner}`,
     },
   },
 });

@@ -31,9 +31,9 @@ const en = ({ partner, userCase }: CommonContent, useHwf: YesOrNo, hwfReference:
     partnerLastKnownAddress: `${capitalize(partner)}'s last known address`,
     partnerLastKnownAddressDates: `Dates your ${partner} lived at the last known address`,
     partnerAnyAdditionalKnownAddresses: `Do you know of any other addresses related to your ${partner}?`,
-    partnerAnyAdditionalKnownAddress1: `Other address 1`,
+    partnerAnyAdditionalKnownAddress1: 'Other address 1',
     partnerAnyAdditionalKnownAddressDates1: `Dates your ${partner} lived at other address 1`,
-    partnerAnyAdditionalKnownAddress2: `Other address 2`,
+    partnerAnyAdditionalKnownAddress2: 'Other address 2',
     partnerAnyAdditionalKnownAddressDates2: `Dates your ${partner} lived at other address 2`,
   },
   stepAnswers: {

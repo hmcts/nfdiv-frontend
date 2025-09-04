@@ -18,15 +18,17 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
+import { getAddressFields } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import {
   FINALISING_YOUR_APPLICATION,
-  HOW_YOU_CAN_PROCEED,
   OPTIONS_FOR_PROGRESSING,
+  OWN_SEARCHES,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
+  WITHDRAW_SERVICE_APPLICATION,
 } from '../../../urls';
 import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application-submitted/content';
 import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
@@ -46,11 +48,14 @@ const en = (
     serviceApplicationDate,
     serviceApplicationResponseDate,
     generalApplicationType,
+    serviceApplicationFeeRequired,
+    serviceApplicationDocsAllProvided,
     generalApplicationDate,
     generalApplicationResponseDate,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
-  dateOfCourtReplyToRequestForInformationResponse: string
+  dateOfCourtReplyToRequestForInformationResponse: string,
+  respondentAddressProvided: boolean
 ) => ({
   aosAwaiting: {
     line1:
@@ -73,8 +78,7 @@ const en = (
     line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   },
   contactDetailsUpdated: {
-    line1: `You have updated your ${partner}’s contact details.
-    You will receive a letter with your new contact details.`,
+    line1: `You have updated your ${partner}’s contact details.`,
     line2: `The court will now serve your ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } papers again using the new contact details you have provided.`,
@@ -83,6 +87,22 @@ const en = (
     )} days from receiving the ${
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+  },
+  contactDetailsUpdatedOverseasAddress: {
+    line1: `You have updated your ${partner}’s address.`,
+    whatHappensNext: 'What happens next',
+    line2: `You will need to arrange delivery of the ${
+      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
+    } to your ${partner} yourself. This is because the courts of England and Wales do not have legal power (jurisdiction) in the country where they live.`,
+    whatNeedToDo: 'What you need to do',
+    line3: `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`,
+    line4: `You will receive a letter from HMCTS, which contains documents that need to be sent to your ${partner}. It’s called the ‘Notice of Proceedings’.`,
+    line5: `Post the ‘Notice of Proceedings’ to your ${partner}. Make sure you use a delivery service which provides proof of delivery.`,
+    line6: `Keep the proof of delivery so you can show that the papers have been ‘served’ (sent) to your ${partner}.`,
+    line7: 'They should then respond to the application',
+    line8: `The amount of time your ${partner} has to respond depends on the country they’re living in. If they do not respond, we will help you explore the other options you have to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
@@ -100,7 +120,7 @@ const en = (
     line4:
       'If you cannot contact them or do not think they will respond, there are a number of ways to progress your application without needing a response from them.',
     linkText: 'View your options for proceeding without a response from the respondent.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   aosDueAndDrafted: {
     line1: `Your ${partner} has not submitted their response to your ${
@@ -113,7 +133,7 @@ const en = (
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } without needing a response.`,
     linkText: 'View your options for proceeding without a response from the respondent.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   holding: {
     line1: `Your ${partner} has responded to your ${
@@ -255,7 +275,13 @@ const en = (
         ? `request for ${serviceApplicationType}`
         : `${serviceApplicationType} application`
     } that you submitted on ${serviceApplicationDate}.`,
-    line2: `We will email you by ${serviceApplicationResponseDate} once a decision has been made to tell you your next steps.`,
+    line2: `We will email you ${
+      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided ? `by ${serviceApplicationResponseDate} ` : ''
+    }once a decision has been made to tell you your next steps.`,
+  },
+  serviceAdminRefusalOrBailiffRefusal: {
+    line1: 'The court is currently considering your service application.',
+    line2: 'We will email you once a decision has been made to tell you your next steps.',
   },
   awaitingConsiderationSearchGovRecords: {
     line1: `The court is currently considering your search government records application that you submitted on ${generalApplicationDate}.`,
@@ -268,7 +294,9 @@ const en = (
           ? 'for bailiff'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'for deemed'
-            : 'to dispense with'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'for alternative'
+              : 'to dispense with'
       } service. You can read the reasons on the court’s `,
       part2: 'Refusal Order (PDF)',
       downloadReference: 'Refusal-Order',
@@ -277,13 +305,15 @@ const en = (
           ? 'bailiff-service-refused'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'deemed-service-refused'
-            : 'dispense-with-service-refused'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'alternative-service-refused'
+              : 'dispense-with-service-refused'
       }`,
     },
     line2: {
       part1: 'Find out about the ',
       part2: `other ways you can progress your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}.`,
-      link: HOW_YOU_CAN_PROCEED,
+      link: OPTIONS_FOR_PROGRESSING,
     },
   },
   bailiffServiceUnsuccessful: {
@@ -309,6 +339,11 @@ const en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
+    withdrawText: `If your circumstances have changed or you want to try something else, you can withdraw this ${serviceApplicationType} application after which you can view your options to proceed with your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    withdrawLinkText: 'I want to withdraw this application',
+    withdrawLinkUrl: WITHDRAW_SERVICE_APPLICATION,
   },
   awaitingGeneralApplicationPayment: {
     line1: `Your ${partner} has not responded to your ${
@@ -449,7 +484,7 @@ const en = (
     whatsNext: 'What happens next',
     line3: `Your ${partner} will have ${config.get(
       'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
-    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your (${
+    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
@@ -488,11 +523,14 @@ const cy: typeof en = (
     generalApplicationType,
     serviceApplicationResponseDate,
     serviceApplicationDate,
+    serviceApplicationFeeRequired,
+    serviceApplicationDocsAllProvided,
     generalApplicationDate,
     generalApplicationResponseDate,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
-  dateOfCourtReplyToRequestForInformationResponse: string
+  dateOfCourtReplyToRequestForInformationResponse: string,
+  respondentAddressProvided: boolean
 ) => ({
   aosAwaiting: {
     line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau
@@ -510,17 +548,32 @@ const cy: typeof en = (
     line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddynt gadarnhau eu bod yn eu cynrychioli. Fe anfonir copi o’r cais atynt ac fe ofynnir iddynt ymateb.`,
   },
   contactDetailsUpdated: {
-    line1: `You have updated your ${partner}’s contact details.
-    You will receive a letter with your new contact details.`,
-    line2: `The court will now serve your ${
-      isDivorce ? 'divorce' : 'application to end your civil partnership'
-    } papers again using the new contact details you have provided.`,
-    line3: `Your ${partner} will have ${config.get(
+    line1: `Rydych wedi diweddaru manylion cyswllt eich ${partner}.`,
+    line2: `Bydd y llys nawr yn cyflwyno papurau eich ${
+      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    } eto gan ddefnyddio’r manylion cyswllt newydd a ddarparwyd gennych.`,
+    line3: `Bydd gan eich ${partner} ${config.get(
       'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
-    )} days from receiving the ${
-      isDivorce ? 'divorce' : 'application to end your civil partnership'
-    } papers to respond. If your ${partner} does not respond, we will help you explore the other options you have to progress your ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    )} diwrnod o pan fyddant yn cael papurau’r ${
+      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    } i ymateb. Os nad yw eich ${partner} yn ymateb, byddwn yn eich helpu i archwilio’r dewisiadau eraill sydd gennych i ddatblygu eich ${
+      isDivorce ? 'cais ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    }.`,
+  },
+  contactDetailsUpdatedOverseasAddress: {
+    line1: `Rydych wedi diweddaru cyfeiriad eich ${partner}.`,
+    whatHappensNext: 'Beth fydd yn digwydd nesaf',
+    line2: `Bydd angen i chi drefnu bod papurau’r ${
+      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    } yn cael eu danfon i’ch ${partner} eich hun. Y rheswm dros hyn yw oherwydd nid oes gan lysoedd Cymru a Lloegr bŵer cyfreithiol (awdurdodaeth) yn y wlad ble maent yn byw.`,
+    whatNeedToDo: 'Beth sydd angen i chi ei wneud',
+    line3: `Mae’n bosibl y byddwch yn dymuno ceisio cyngor cyfreithiol ar sut i gyflwyno’r papurau yn y wlad lle mae eich ${partner} yn byw.`,
+    line4: `Fe gewch lythyr gan GLlTEF, a fydd yn cynnwys dogfennau y mae angen i chi eu hanfon at eich ${partner}. Gelwir hyn yn ‘Rhybudd o Achos’.`,
+    line5: `Anfonwch y ‘Rhybudd o Achos’  at eich ${partner}. Gwnewch yn siŵr eich bod yn defnyddio gwasanaeth danfon sy’n darparu tystiolaeth ei fod wedi’i ddanfon.`,
+    line6: `Cadwch y dystiolaeth ei fod wedi’i ddanfon fel eich bod yn gallu dangos bod y papurau wedi cael eu ‘cyflwyno’ (anfon) at eich ${partner}.`,
+    line7: 'Yna, dylent ymateb i’r cais.',
+    line8: `Mae faint o amser sydd gan eich ${partner} i ymateb yn dibynnu ar y wlad ble maent yn byw. Os nad ydynt yn ymateb, byddwn yn eich helpu i archwilio’r dewisiadau eraill i symud ymlaen gyda’ch ${
+      isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     }.`,
   },
   aosDrafted: {
@@ -537,7 +590,7 @@ const cy: typeof en = (
     line4:
       'Fodd bynnag, os na allwch gysylltu â nhw neu os nad ydych chi’n meddwl y byddant yn ymateb, mae yna sawl ffordd i symud eich cais yn ei flaen heb fod angen ymateb ganddynt.',
     linkText: 'Gweld eich opsiynau ar gyfer bwrw ymlaen heb ymateb gan yr atebydd.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   aosDueAndDrafted: {
     line1: `Mae eich ${partner} wedi cyflwyno eu hymateb i’ch ${
@@ -550,7 +603,7 @@ const cy: typeof en = (
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     } heb fod angen ymateb.`,
     linkText: 'Gweld eich opsiynau ar gyfer bwrw ymlaen heb ymateb gan yr atebydd.',
-    linkUrl: OPTIONS_FOR_PROGRESSING,
+    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
   },
   holding: {
     line1: `Mae eich ${partner} wedi ymateb i'ch ${
@@ -700,7 +753,16 @@ const cy: typeof en = (
   },
   awaitingServiceConsiderationOrBailiffReferral: {
     line1: `Mae'r llys wrthi’n ystyried eich hysbysiad o ${serviceApplicationType} a gyflwynwyd gennych ar ${serviceApplicationDate}.`,
-    line2: `Byddwn yn anfon e-bost atoch erbyn ${serviceApplicationResponseDate} unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.`,
+    line2: `Byddwn yn anfon e-bost atoch ${
+      serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+        ? `erbyn ${serviceApplicationResponseDate} `
+        : ''
+    }unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.`,
+  },
+  serviceAdminRefusalOrBailiffRefusal: {
+    line1: "Mae'r llys ar hyn o bryd yn ystyried eich cais am gyflwyno.",
+    line2:
+      "Byddwn yn anfon e-bost atoch unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw’r camau nesaf.",
   },
   serviceApplicationRejected: {
     line1: {
@@ -709,7 +771,9 @@ const cy: typeof en = (
           ? 'am wasanaeth beili'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'cyflwyno tybiedig'
-            : 'hepgor cyflwyno’r cais'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'ar cyflwyno amgen'
+              : 'hepgor cyflwyno’r cais'
       }. Gallwch ddarllen y rhesymau ar `,
       part2: 'Orchymyn Gwrthod y llys (PDF)',
       downloadReference: 'Refusal-Order',
@@ -718,7 +782,9 @@ const cy: typeof en = (
           ? 'bailiff-service-refused'
           : alternativeServiceType === AlternativeServiceType.DEEMED
             ? 'deemed-service-refused'
-            : 'dispense-with-service-refused'
+            : alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+              ? 'dispense-with-service-refused'
+              : 'alternative-service-refused'
       }`,
     },
     line2: {
@@ -726,7 +792,7 @@ const cy: typeof en = (
       part2: `ffyrdd eraill y gallwch symud ymlaen â'ch ${
         isDivorce ? 'cais am ysgariad' : "cais ddod â'ch partneriaeth sifil i ben"
       }.`,
-      link: HOW_YOU_CAN_PROCEED,
+      link: OPTIONS_FOR_PROGRESSING,
     },
   },
   awaitingServiceApplicationDocuments: {
@@ -757,6 +823,11 @@ const cy: typeof en = (
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
     linkUrl: PAY_YOUR_SERVICE_FEE,
+    withdrawText: `Os yw’ch amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch dynnu’r cais hwn yn ôl ac ar ôl hynny gallwch wirio eich opsiynau i fwrw ymlaen â'ch ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+    withdrawLinkText: "Rwyf eisiau tynnu'r cais hwn yn ôl",
+    withdrawLinkUrl: WITHDRAW_SERVICE_APPLICATION,
   },
   awaitingGeneralApplicationPayment: {
     line1: `Your ${partner} has not responded to your ${
@@ -898,18 +969,18 @@ const cy: typeof en = (
       'Bydd y llys yn adolygu’r wybodaeth gan y trydydd parti unwaith y bydd wedi dod i law, ac yna gall y cais barhau.',
   },
   sendPapersAgain: {
-    line1: `You have asked the court to send the ${
-      isDivorce ? 'divorce' : 'application to end your civil partnership'
-    } papers again to your ${partner}.`,
-    line2: `The court will now send the ${
-      isDivorce ? 'divorce' : 'application to end your civil partnership'
-    } papers to your ${partner} again using the postal address and any email addresses you provided before. The papers will be sent to the address by first class post, and will be sent by email now, if applicable.`,
-    whatsNext: 'What happens next',
-    line3: `Your ${partner} will have ${config.get(
+    line1: `Rydych wedi gofyn i’r llys anfon papurau’r ${
+      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    } eto at eich ${partner}.`,
+    line2: `Bydd y llys nawr yn anfon papurau’r ${
+      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    } at eich ${partner} eto gan ddefnyddio’r cyfeiriad post ac unrhyw gyfeiriadau e-bost a ddarparwyd gennych yn flaenorol. Bydd y papurau’n cael eu hanfon i’r cyfeiriad drwy’r post dosbarth cyntaf, a drwy e-bost nawr, os yw hynny’n berthnasol.`,
+    whatsNext: 'Beth fydd yn digwydd nesaf',
+    line3: `Bydd gan eich ${partner} ${config.get(
       'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
-    )} days to respond. We will email you if your ${partner} still does not respond. You will then be able to try another way to progress your (${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    }.`,
+    )} diwrnod i ymateb. Byddwn yn anfon neges e-bost atoch os na fydd eich ${partner} yn ymateb. Yna byddwch yn gallu ceisio gwneud rhywbeth arall i symud eich ${
+      isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+    } yn ei flaen.`,
   },
   awaitingProcessServerService: {
     line1: `You have chosen to arrange for an independent process server to serve the papers on your ${partner}.`,
@@ -990,15 +1061,25 @@ export const generateContent: TranslationFn = content => {
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
+  const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
+    field => field && field.length > 0
+  );
+
   const contactDetailsUpdatedUKBased =
     userCase.applicant1NoResponsePartnerNewEmailOrAddress ===
       NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED && userCase.applicant2AddressOverseas !== YesOrNo.YES;
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
-    NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
+    NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
   const isSearchGovRecordsFeeRequired = content.generalApplicationFeeRequired;
+
   return {
-    ...languages[language](content, alternativeServiceType, dateOfCourtReplyToRequestForInformationResponse),
+    ...languages[language](
+      content,
+      alternativeServiceType,
+      dateOfCourtReplyToRequestForInformationResponse,
+      respondentAddressProvided
+    ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
     generalApplicationSubmitted: generalApplicationSubmittedContent(content),
     displayState,

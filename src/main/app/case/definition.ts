@@ -2516,6 +2516,7 @@ export const enum DocumentType {
   D9H = 'd9H',
   D10 = 'd10',
   D11 = 'd11',
+  ALTERNATIVE_SERVICE_REFUSED = 'alternativeServiceRefused',
   DEEMED_SERVICE = 'deemedService',
   DEEMED_AS_SERVICE_GRANTED = 'deemedAsServiceGranted',
   DEEMED_SERVICE_REFUSED = 'deemedServiceRefused',
@@ -2651,7 +2652,7 @@ export const enum NoResponseCheckContactDetails {
 
 export const enum NoResponsePartnerNewEmailOrAddress {
   ADDRESS = 'address',
-  EMAIL = 'emailAddress',
+  EMAIL = 'email',
   EMAIL_AND_ADDRESS = 'emailAndAddress',
   CONTACT_DETAILS_UPDATED = 'contactDetailsUpdated',
 }
@@ -2686,6 +2687,7 @@ export const enum NoResponseProvidePartnerNewEmailOrAlternativeService {
 export const enum NoResponseSendPapersAgainOrTrySomethingElse {
   SEND_PAPERS_AGAIN = 'sendPapersAgain',
   TRY_SOMETHING_ELSE = 'trySomethingElse',
+  PAPERS_SENT = 'papersSent',
 }
 
 export const enum AlternativeServiceMethod {
@@ -2926,11 +2928,12 @@ export const SYSTEM_UPDATE_CASE = 'system-update-nfd-case';
 export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
 export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
 export const CITIZEN_WITHDRAWN = 'citizen-withdrawn';
+export const WITHDRAW_SERVICE_APPLICATION = 'service-application-withdrawn';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 export const CASEWORKER_REQUEST_FOR_INFORMATION = 'caseworker-request-for-information';
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const CASEWORKER_REISSUE_APPLICATION = 'caseworker-reissue-application';
-export const UPDATE_CONTACT_DETAILS_AND_REISSUE = 'update-partner-details-and-reissue';
+export const UPDATE_CONTACT_DETAILS_AND_REISSUE = 'update-partner-details-or-reissue';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_LINK_APPLICANT_1 = 'system-link-applicant1';
