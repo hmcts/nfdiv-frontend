@@ -34,6 +34,7 @@ import {
   OrderSummary,
   Payment,
   RequestForInformation,
+  ServiceMethod,
   State,
   YesOrNo,
   YesOrNoOrNotKnown,
@@ -208,6 +209,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
   alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
   alternativeServiceType: 'alternativeServiceType',
+  serviceMethod: 'serviceMethod',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerNewEmailOrAddress: 'applicant1NoResponsePartnerNewEmailOrAddress',
@@ -564,6 +566,7 @@ export interface Case {
   app2RfiDraftResponseCannotUploadDocs?: Checkbox;
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
+  serviceMethod: ServiceMethod;
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;

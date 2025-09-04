@@ -187,3 +187,4 @@ Feature: Dispense with service journey
 
     #Then the page should include element "#STOP"
     # Fix and continue this scenario as the journey progresses
+
