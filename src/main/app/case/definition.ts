@@ -2006,7 +2006,7 @@ export const enum InterimApplicationType {
   DEEMED_SERVICE = 'deemedService',
   ALTERNATIVE_SERVICE = 'alternativeService',
   BAILIFF_SERVICE = 'bailiffService',
-  SEARCH_GOV_RECORDS = 'disclosureViaDwp',
+  SEARCH_GOV_RECORDS = 'searchGovRecords',
   PROCESS_SERVER_SERVICE = 'processServerService',
 }
 
