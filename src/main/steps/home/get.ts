@@ -11,6 +11,7 @@ import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable
 import { getNextIncompleteStepUrl } from '../index';
 import { form as respondentFirstQuestionForm } from '../respondent/how-do-you-want-to-respond/content';
 import {
+  ALTERNATIVE_SERVICE_APPLICATION,
   APPLICANT_2,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
@@ -23,6 +24,7 @@ import {
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
+  DISPENSE_SERVICE_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   PAY_AND_SUBMIT,
@@ -31,6 +33,7 @@ import {
   PROCESS_SERVER,
   READ_THE_RESPONSE,
   RESPONDENT,
+  SEARCH_GOV_RECORDS_APPLICATION,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
@@ -117,11 +120,11 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     }
     case State.AosOverdue: {
       const interimApplicationUrlMap: Record<InterimApplicationType, string> = {
-        [InterimApplicationType.DISPENSE_WITH_SERVICE]: HUB_PAGE,
+        [InterimApplicationType.DISPENSE_WITH_SERVICE]: DISPENSE_SERVICE_APPLICATION,
         [InterimApplicationType.DEEMED_SERVICE]: CHECK_ANSWERS_DEEMED,
-        [InterimApplicationType.ALTERNATIVE_SERVICE]: HUB_PAGE,
+        [InterimApplicationType.ALTERNATIVE_SERVICE]: ALTERNATIVE_SERVICE_APPLICATION,
         [InterimApplicationType.BAILIFF_SERVICE]: CHECK_ANSWERS_BAILIFF,
-        [InterimApplicationType.SEARCH_GOV_RECORDS]: HUB_PAGE,
+        [InterimApplicationType.SEARCH_GOV_RECORDS]: SEARCH_GOV_RECORDS_APPLICATION,
         [InterimApplicationType.PROCESS_SERVER_SERVICE]: PROCESS_SERVER,
       };
 
