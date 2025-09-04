@@ -15,7 +15,7 @@ const en = ({ partner }: CommonContent) => ({
       haveEmail: `proof of any attempts you have made to contact your ${partner} on their email addresses (Optional)`,
       havePhone: `proof of any attempts you have made to contact your ${partner} on their phone numbers (Optional)`,
       usedTracingAgent: 'results of the search by a tracing agent (Optional)',
-      tracedOnline: 'results of the search online by people finding servies (Optional)',
+      tracedOnline: 'results of the search online by people finding services (Optional)',
       usedOnlineSearch:
         "results of any online searches you've carried out using search engines or social media platforms (Optional)",
       contactedEmployer: `proof of enquiries with your ${partner}'s last known employer (Optional)`,
@@ -32,7 +32,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       haveEmail: `proof of any attempts you have made to contact your ${partner} on their email addresses (Optional)`,
       havePhone: `proof of any attempts you have made to contact your ${partner} on their phone numbers (Optional)`,
       usedTracingAgent: 'results of the search by a tracing agent (Optional)',
-      tracedOnline: 'results of the search online by people finding servies (Optional)',
+      tracedOnline: 'results of the search online by people finding services (Optional)',
       usedOnlineSearch:
         "results of any online searches you've carried out using search engines or social media platforms (Optional)",
       contactedEmployer: `proof of enquiries with your ${partner}'s last known employer (Optional)`,
@@ -102,22 +102,16 @@ export const form: FormContent = {
 };
 
 export const getDispenseLogicalTests = (caseData: Partial<Case>): DispenseWithServiceJourneyLogicalTests => {
-  const results: DispenseWithServiceJourneyLogicalTests = {
-    livedTogether: caseData.applicant1DispenseLiveTogether === YesOrNo.YES,
-    wherePartnerLived: caseData.applicant1DispenseAwarePartnerLived === YesOrNo.YES,
-    finalOrderSearch: caseData.applicant1DispenseHaveSearchedFinalOrder === YesOrNo.YES,
+  return {
+    searchedForFinalOrder: caseData.applicant1DispenseHaveSearchedFinalOrder === YesOrNo.YES,
     haveEmail: caseData.applicant1DispenseHavePartnerEmailAddresses === YesOrNo.YES,
     havePhone: caseData.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.YES,
     usedTracingAgent: caseData.applicant1DispenseTriedTracingAgent === YesOrNo.YES,
     tracedOnline: caseData.applicant1DispenseTriedTracingOnline === YesOrNo.YES,
     usedOnlineSearch: caseData.applicant1DispenseTriedSearchingOnline === YesOrNo.YES,
     contactedEmployer: caseData.applicant1DispenseTriedContactingEmployer === YesOrNo.YES,
-    childrenOfTheFamily: caseData.applicant1DispenseChildrenOfFamily === YesOrNo.YES,
-    contactWithChildren: caseData.applicant1DispensePartnerContactWithChildren === YesOrNo.YES,
-    otherEnquiries: caseData.applicant1DispenseOtherEnquiries?.trim().toLowerCase() !== 'none',
+    madeOtherEnquiries: caseData.applicant1DispenseOtherEnquiries?.trim().toLowerCase() !== 'none',
   };
-
-  return results;
 };
 
 export const generateContent: TranslationFn = content => {

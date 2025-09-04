@@ -1240,18 +1240,14 @@ export interface DispenseWithServiceJourneyOptions {
 }
 
 export interface DispenseWithServiceJourneyLogicalTests {
-  livedTogether: boolean;
-  wherePartnerLived: boolean;
-  finalOrderSearch: boolean;
+  searchedForFinalOrder: boolean;
   haveEmail: boolean;
   havePhone: boolean;
   usedTracingAgent: boolean;
   tracedOnline: boolean;
   usedOnlineSearch: boolean;
   contactedEmployer: boolean;
-  childrenOfTheFamily: boolean;
-  contactWithChildren: boolean;
-  otherEnquiries: boolean;
+  madeOtherEnquiries: boolean;
 }
 
 export interface AlternativeServiceJourneyOptions {
