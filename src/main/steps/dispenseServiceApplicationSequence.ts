@@ -1,6 +1,3 @@
-import dayjs from 'dayjs';
-
-import { getFormattedCaseDate } from '../app/case/answers/formatDate';
 import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
@@ -87,11 +84,7 @@ export const dispenseServiceApplicationSequence: Step[] = [
   {
     url: LAST_SEEN_DISPENSE,
     getNextStep: data =>
-      dayjs(Date.now())
-        .subtract(2, 'year')
-        .isBefore(getFormattedCaseDate(data?.applicant1DispensePartnerLastSeenOrHeardOfDate) as string)
-        ? EMAIL_DISPENSE
-        : DA_SEARCH_DISPENSE,
+      data?.applicant1DispensePartnerLastSeenOver2YearsAgo === YesOrNo.NO ? EMAIL_DISPENSE : DA_SEARCH_DISPENSE,
   },
   {
     url: EMAIL_DISPENSE,

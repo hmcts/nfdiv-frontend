@@ -282,6 +282,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispensePartnerPastAddress2: 'applicant1DispensePartnerPastAddress2',
   applicant1DispensePartnerPastAddressEnquiries2: 'applicant1DispensePartnerPastAddressEnquiries2',
   applicant1DispensePartnerLastSeenDate: 'applicant1DispensePartnerLastSeenDate',
+  applicant1DispensePartnerLastSeenOver2YearsAgo: 'applicant1DispensePartnerLastSeenOver2YearsAgo',
   applicant1DispensePartnerLastSeenDescription: 'applicant1DispensePartnerLastSeenDescription',
   applicant1DispenseHavePartnerEmailAddresses: 'applicant1DispenseHavePartnerEmailAddresses',
   applicant1DispenseHaveSearchedFinalOrder: 'applicant1DispenseHaveSearchedFinalOrder',
@@ -671,6 +672,7 @@ export interface Case {
   applicant1DispensePartnerPastAddress2?: string;
   applicant1DispensePartnerPastAddressEnquiries2?: string;
   applicant1DispensePartnerLastSeenDate?: DateAsString;
+  applicant1DispensePartnerLastSeenOver2YearsAgo?: YesOrNo;
   applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
   applicant1DispensePartnerLastSeenDescription?: string;
   applicant1DispenseHavePartnerEmailAddresses?: YesOrNo;

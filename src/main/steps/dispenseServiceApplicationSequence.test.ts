@@ -1,8 +1,5 @@
 import { describe } from 'node:test';
 
-import dayjs, { Dayjs } from 'dayjs';
-
-import { CaseDate } from '../app/case/case';
 import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
@@ -149,18 +146,16 @@ describe('Dispense With Service Application Sequence test', () => {
 
   describe('LAST_SEEN_DISPENSE', () => {
     test('EMAIL_DISPENSE - LAST SEEN WITHIN 2 YEARS', () => {
-      const testDate = dayjs(Date.now()).subtract(1, 'year');
       const caseData = {
-        applicant1DispensePartnerLastSeenOrHeardOfDate: getCaseDate(testDate),
+        applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo.NO,
       };
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === LAST_SEEN_DISPENSE) as Step;
       expect(step.getNextStep(caseData)).toBe(EMAIL_DISPENSE);
     });
 
     test('DA_SEARCH_DISPENSE', () => {
-      const testDate = dayjs(Date.now()).subtract(3, 'year');
       const caseData = {
-        applicant1DispensePartnerLastSeenOrHeardOfDate: getCaseDate(testDate),
+        applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo.YES,
       };
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === LAST_SEEN_DISPENSE) as Step;
       expect(step.getNextStep(caseData)).toBe(DA_SEARCH_DISPENSE);
@@ -495,10 +490,4 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(SERVICE_APPLICATION_SUBMITTED);
     });
   });
-});
-
-const getCaseDate = (date: Dayjs): CaseDate => ({
-  year: date.year().toString(),
-  month: date.month().toString(),
-  day: date.date().toString(),
 });
