@@ -1120,6 +1120,7 @@ export interface CaseData {
   applicant1DispensePartnerPastAddress2: string;
   applicant1DispensePartnerPastAddressEnquiries2: string;
   applicant1DispensePartnerLastSeenDate: DateAsString;
+  applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo;
   applicant1DispensePartnerLastSeenDescription: string;
   applicant1DispenseHavePartnerEmailAddresses: YesOrNo;
   applicant1DispenseHaveSearchedFinalOrder: YesOrNo
@@ -1149,6 +1150,7 @@ export interface CaseData {
   applicant1DispenseChildMaintenanceOrder: YesOrNo;
   applicant1DispenseChildMaintenanceResults: string;
   applicant1DispenseContactFriendsOrRelativesDetails: string;
+  applicant1DispenseOtherEnquiries: string;
 }
 
 export interface CaseDocuments {
@@ -1204,6 +1206,7 @@ export interface DispenseWithServiceJourneyOptions {
   dispensePartnerPastAddress2: string;
   dispensePartnerPastAddressEnquiries2: string;
   dispensePartnerLastSeenDate: DateAsString;
+  dispensePartnerLastSeenOver2YearsAgo: YesOrNo;
   dispensePartnerLastSeenDescription: string;
   dispenseHavePartnerEmailAddresses: YesOrNo;
   dispenseHaveSearchedFinalOrder: YesOrNo;
@@ -1233,6 +1236,19 @@ export interface DispenseWithServiceJourneyOptions {
   dispenseChildMaintenanceOrder: YesOrNo;
   dispenseChildMaintenanceResults: string;
   dispenseContactFriendsOrRelativesDetails: string;
+  dispenseOtherEnquiries: string;
+}
+
+export interface DispenseWithServiceJourneyLogicalTests {
+  searchedForFinalOrder: boolean;
+  haveEmail: boolean;
+  havePhone: boolean;
+  usedTracingAgent: boolean;
+  tracedOnline: boolean;
+  usedOnlineSearch: boolean;
+  contactedEmployer: boolean;
+  madeOtherEnquiries: boolean;
+  showUploadEvidence: boolean;
 }
 
 export interface AlternativeServiceJourneyOptions {

@@ -245,17 +245,19 @@ const fields: FromApiConverters = {
   applicant1DispensePartnerLastSeenDate: data => ({
     applicant1DispensePartnerLastSeenOrHeardOfDate: fromApiDate(data.applicant1DispensePartnerLastSeenDate),
   }),
+  applicant1DispensePartnerLastSeenOver2YearsAgo: 'applicant1DispensePartnerLastSeenOver2YearsAgo',
   applicant1DispenseHavePartnerEmailAddresses: 'applicant1DispenseHavePartnerEmailAddresses',
   applicant1DispenseHaveSearchedFinalOrder: 'applicant1DispenseHaveSearchedFinalOrder',
+  applicant1DispenseWhyNoFinalOrderSearch: 'applicant1DispenseWhyNoFinalOrderSearch',
   applicant1DispenseTriedTracingAgent: 'applicant1DispenseTriedTracingAgent',
   applicant1DispenseWhyNoTracingAgent: 'applicant1DispenseWhyNoTracingAgent',
   applicant1DispenseTracingAgentResults: 'applicant1DispenseTracingAgentResults',
   applicant1DispenseTriedTracingOnline: 'applicant1DispenseTriedTracingOnline',
   applicant1DispenseWhyNoTracingOnline: 'applicant1DispenseWhyNoTracingOnline',
-  applicant1DispenseTracingOnlineResults: 'applicant1DispenseTracingAgentResults',
+  applicant1DispenseTracingOnlineResults: 'applicant1DispenseTracingOnlineResults',
   applicant1DispenseTriedSearchingOnline: 'applicant1DispenseTriedSearchingOnline',
   applicant1DispenseWhyNoSearchingOnline: 'applicant1DispenseWhyNoSearchingOnline',
-  applicant1DispenseSearchingOnlineResults: 'applicant1DispenseSearchingAgentResults',
+  applicant1DispenseSearchingOnlineResults: 'applicant1DispenseSearchingOnlineResults',
   applicant1DispenseTriedContactingEmployer: 'applicant1DispenseTriedContactingEmployer',
   applicant1DispenseWhyNoContactingEmployer: 'applicant1DispenseWhyNoContactingEmployer',
   applicant1DispenseEmployerName: 'applicant1DispenseEmployerName',
@@ -268,6 +270,7 @@ const fields: FromApiConverters = {
   applicant1DispenseChildMaintenanceOrder: 'applicant1DispenseChildMaintenanceOrder',
   applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
   applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
+  applicant1DispenseOtherEnquiries: 'applicant1DispenseOtherEnquiries',
 };
 
 const fromApiDate = date => {

@@ -6,6 +6,7 @@ import { CommonContent } from '../../../../common/common.content';
 const en = ({ partner }: CommonContent) => ({
   title: `Finding your ${partner} online`,
   searchingOnlineDescription: 'What were the results of your online searches?',
+  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispenseSearchingOnlineResults: {
       required: 'Enter details about the results of your online searches',
@@ -16,6 +17,7 @@ const en = ({ partner }: CommonContent) => ({
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Finding your ${partner} online`,
   searchingOnlineDescription: 'What were the results of your online searches?',
+  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispenseSearchingOnlineResults: {
       required: 'Enter details about the results of your online searches',

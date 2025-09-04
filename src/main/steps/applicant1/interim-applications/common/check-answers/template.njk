@@ -27,7 +27,7 @@
               {% endif %}
               {{ havingTroubleUploading }}
             {% endif %}
-          {% elif question === 'newPostalAddress' %}
+          {% elif question === 'newPostalAddress' or question === 'whereLivedTogether' or question === 'partnerAddress1' or question === 'partnerAddress2' %}
             {{ stepAnswers[question] | safe}}
           {% else %}
             {{ stepAnswers[question] }}

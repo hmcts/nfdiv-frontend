@@ -4,23 +4,25 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
-  title: 'Email Addresses',
-  partnerEmailAddressesDescription: `Tell us the email addresses and any previous contact you've had. Explain what attempts you have made to contact your ${partner} on these addresses.`,
+  title: `What other enquiries have you made, or information do you have concerning the whereabouts of your ${partner}?`,
+  otherEnquiriesHeader:
+    "For example, this could include enquiries made of any professional organisations they may be a member of. Enter 'none' if you do not have any more information.",
   uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
-    applicant1DispensePartnerEmailAddresses: {
-      required: `Enter your ${partner}'s email addresses and explain any attempts you've made to contact them`,
+    applicant1DispenseOtherEnquiries: {
+      required: "Enter details about the results of your other enquiries, or enter 'none'.",
     },
   },
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: 'Email Addresses',
-  partnerEmailAddressesDescription: `Tell us the email addresses and any previous contact you've had. Explain what attempts you have made to contact your ${partner} on these addresses.`,
+  title: `What other enquiries have you made, or information do you have concerning the whereabouts of your ${partner}?`,
+  otherEnquiriesHeader:
+    "For example, this could include enquiries made of any professional organisations they may be a member of. Enter 'none' if you do not have any more information.",
   uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
-    applicant1DispensePartnerEmailAddresses: {
-      required: `Enter your ${partner}'s email addresses and explain any attempts you've made to contact them`,
+    applicant1DispenseOtherEnquiries: {
+      required: "Enter details about the results of your other enquiries, or enter 'none'.",
     },
   },
 });
@@ -32,10 +34,10 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    applicant1DispensePartnerEmailAddresses: {
+    applicant1DispenseOtherEnquiries: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.partnerEmailAddressesDescription,
+      label: l => l.otherEnquiriesHeader,
       labelHidden: true,
       validator: value => isFieldFilledIn(value),
     },
