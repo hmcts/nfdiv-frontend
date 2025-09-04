@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
-import { isInvalidHelpWithFeesRef } from '../form/validation';
-import { getFormattedCaseDate } from './answers/formatDate';
 
+import { isInvalidHelpWithFeesRef } from '../form/validation';
+
+import { getFormattedCaseDate } from './answers/formatDate';
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import {
   AlternativeServiceDifferentWays,

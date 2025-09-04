@@ -85,7 +85,9 @@ export const dispenseServiceApplicationSequence: Step[] = [
   {
     url: LAST_SEEN_DISPENSE,
     getNextStep: data =>
-      data?.applicant1DispensePartnerLastSeenOver2YearsAgo === YesOrNo.NO ? EMAIL_DISPENSE : FINAL_ORDER_SEARCH_DISPENSE,
+      data?.applicant1DispensePartnerLastSeenOver2YearsAgo === YesOrNo.NO
+        ? EMAIL_DISPENSE
+        : FINAL_ORDER_SEARCH_DISPENSE,
   },
   {
     url: EMAIL_DISPENSE,
