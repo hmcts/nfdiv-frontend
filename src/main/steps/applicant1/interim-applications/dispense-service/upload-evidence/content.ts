@@ -1,10 +1,11 @@
 import { isObject } from 'lodash';
 
-import { Case, Checkbox } from '../../../../../app/case/case';
-import { DispenseWithServiceJourneyLogicalTests, YesOrNo } from '../../../../../app/case/definition';
+import { Checkbox } from '../../../../../app/case/case';
+import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
+import { getDispenseLogicalTests } from '../../../../dispenseServiceApplicationSequence';
 import { generateContent as uploadEvidenceGenerateContent } from '../../common/upload-evidence/content';
 
 const en = ({ partner }: CommonContent) => ({
@@ -99,19 +100,6 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
-};
-
-export const getDispenseLogicalTests = (caseData: Partial<Case>): DispenseWithServiceJourneyLogicalTests => {
-  return {
-    searchedForFinalOrder: caseData.applicant1DispenseHaveSearchedFinalOrder === YesOrNo.YES,
-    haveEmail: caseData.applicant1DispenseHavePartnerEmailAddresses === YesOrNo.YES,
-    havePhone: caseData.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.YES,
-    usedTracingAgent: caseData.applicant1DispenseTriedTracingAgent === YesOrNo.YES,
-    tracedOnline: caseData.applicant1DispenseTriedTracingOnline === YesOrNo.YES,
-    usedOnlineSearch: caseData.applicant1DispenseTriedSearchingOnline === YesOrNo.YES,
-    contactedEmployer: caseData.applicant1DispenseTriedContactingEmployer === YesOrNo.YES,
-    madeOtherEnquiries: caseData.applicant1DispenseOtherEnquiries?.trim().toLowerCase() !== 'none',
-  };
 };
 
 export const generateContent: TranslationFn = content => {

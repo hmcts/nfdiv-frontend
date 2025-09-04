@@ -96,7 +96,7 @@ Feature: Dispense with service journey
     Then I select element "#applicant1DispensePartnerLastSeenDescription"
     And I type "Last seen description"
     When I click continue
-    Then the page should include element "#daSearchDispenseTitle"
+    Then the page should include element "#finalOrderSearchDispenseTitle"
 
     Given I click element "#yes"
     When I click continue

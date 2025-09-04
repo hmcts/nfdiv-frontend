@@ -7,12 +7,12 @@ import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
+import { getDispenseLogicalTests } from '../../../../dispenseServiceApplicationSequence';
 import * as urls from '../../../../urls';
 import {
   form as checkAnswersForm,
   generateContent as checkAnswersGenerateContent,
 } from '../../common/check-answers/content';
-import { getDispenseLogicalTests } from '../upload-evidence/content';
 
 const stepLinks = {
   useHwf: `${urls.HELP_WITH_FEES_DISPENSE}`,
@@ -178,15 +178,11 @@ export const generateContent: TranslationFn = content => {
     content.userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
 
   const dispenseLogic = getDispenseLogicalTests(content.userCase);
-  const citizenShownUploadPage =
-    dispenseLogic.searchedForFinalOrder ||
-    dispenseLogic.haveEmail ||
-    dispenseLogic.havePhone ||
-    dispenseLogic.usedTracingAgent ||
-    dispenseLogic.tracedOnline ||
-    dispenseLogic.usedOnlineSearch ||
-    dispenseLogic.contactedEmployer ||
-    dispenseLogic.madeOtherEnquiries;
+
+  const uploads = {
+    cannotUploadDocs: dispenseLogic.showUploadEvidence ? cannotUploadDocs : undefined,
+    uploadedDocsFilenames: dispenseLogic.showUploadEvidence ? uploadedDocsFilenames : undefined,
+  };
 
   const stepAnswers = {
     useHwf,
@@ -246,8 +242,7 @@ export const generateContent: TranslationFn = content => {
     childMaintenanceDetails: content.userCase.applicant1DispenseChildMaintenanceResults,
     friendsOrRelatives: content.userCase.applicant1DispenseContactFriendsOrRelativesDetails,
     otherEnquiries: content.userCase.applicant1DispenseOtherEnquiries,
-    cannotUploadDocs: citizenShownUploadPage ? cannotUploadDocs : undefined,
-    uploadedDocsFilenames: citizenShownUploadPage ? uploadedDocsFilenames : undefined,
+    ...uploads,
   };
 
   const translations = languages[content.language](stepAnswers, content);
@@ -255,5 +250,6 @@ export const generateContent: TranslationFn = content => {
     ...checkAnswersContent,
     ...translations,
     form,
+    ...uploads,
   };
 };

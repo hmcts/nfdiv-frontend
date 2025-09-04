@@ -1248,6 +1248,7 @@ export interface DispenseWithServiceJourneyLogicalTests {
   usedOnlineSearch: boolean;
   contactedEmployer: boolean;
   madeOtherEnquiries: boolean;
+  showUploadEvidence: boolean;
 }
 
 export interface AlternativeServiceJourneyOptions {
