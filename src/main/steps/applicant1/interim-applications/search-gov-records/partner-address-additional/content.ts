@@ -10,37 +10,37 @@ const en = ({ partner }: CommonContent) => ({
   dateLivedOnAddress: 'Enter the dates they lived there',
   errors: {
     applicant1SearchGovRecordsPartnerAdditionalAddress1: {
-      required: `You have not entered your ${partner}'s additional address. Enter it before continuing.`,
+      required: `Enter details of any other known address of your ${partner} before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
-      required: `You have not entered your ${partner}'s dates at the address. Enter it before continuing.`,
+      required: `Enter the dates your ${partner} lived in the address before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
-      required: `You have not entered your ${partner}'s dates at the address 2. Enter it before continuing.`,
+      required: `Enter details of any other known address of your ${partner} before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
-      required: `You have not entered your ${partner}'s dates at the address 2 without entering address. Enter it before continuing.`,
+      required: `Enter the dates your ${partner} lived in the address before continuing.`,
     },
   },
 });
 
 // @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Enter any other addresses related to your ${partner}`,
-  address: 'Address',
-  dateLivedOnAddress: 'Enter the dates they lived there',
+  title: `Rhowch unrhyw gyfeiriadau eraill sy'n gysylltiedig â'ch ${partner}`,
+  address: 'Cyfeiriad',
+  dateLivedOnAddress: "Rhowch y dyddiadau roedden nhw'n byw yno",
   errors: {
     applicant1SearchGovRecordsPartnerAdditionalAddress1: {
-      required: `You have not entered your ${partner}'s last known address. Enter it before continuing.`,
+      required: `Enter details of any other known address of your ${partner} before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
-      required: `Enter the dates your ${partner} lived at this address`,
+      required: `Enter the dates your ${partner} lived in the address before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
-      required: `You have entered address 2. Enter the dates your ${partner} lived at this address`,
+      required: `Enter details of any other known address of your ${partner} before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
-      required: `You have not entered your ${partner}'s dates at the address 2 without entering address. Enter it before continuing.`,
+      required: `Enter the dates your ${partner} lived in the address before continuing.`,
     },
   },
 });
