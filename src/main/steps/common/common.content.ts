@@ -25,7 +25,7 @@ export const en = {
   },
   interimApplicationType: {
     deemedService: 'deemed service',
-    dispenseService: 'dispensed with service',
+    dispenseWithService: 'dispensed with service',
     bailiffService: 'bailiff service',
     alternativeService: 'alternative service',
     searchGovRecord: 'search government record',
@@ -224,7 +224,7 @@ const cy: typeof en = {
   },
   interimApplicationType: {
     deemedService: 'cyflwyno tybiedig',
-    dispenseService: 'hepgor cyflwyno',
+    dispenseWithService: 'hepgor cyflwyno',
     bailiffService: 'gwasanaeth beili',
     alternativeService: 'cyflwyno amgen',
     searchGovRecord: 'chwilio cofnodion y llywodraeth',
