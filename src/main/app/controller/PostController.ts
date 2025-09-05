@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { PAYMENT_CALLBACK_URL, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 import {
   CITIZEN_APPLICANT2_UPDATE,
@@ -112,7 +112,7 @@ export class PostController<T extends AnyObject> {
 
   private setPaymentCallbackUrlIfPaymentRequired(req: AppRequest<T>, res: Response, formData: Partial<Case>) {
     if (this.getEventName(req) === CITIZEN_SUBMIT) {
-      formData.citizenPaymentCallbackUrl = getPaymentCallbackUrl(req, res);
+      formData.citizenPaymentCallbackUrl = getPaymentCallbackUrl(req, res, PAYMENT_CALLBACK_URL);
     }
   }
 }

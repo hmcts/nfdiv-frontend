@@ -38,6 +38,9 @@ const fields: FromApiConverters = {
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
   }),
+  applicant1BailiffPartnersDateOfBirth: data => ({
+    applicant1BailiffPartnersDateOfBirth: fromApiDate(data.applicant1BailiffPartnersDateOfBirth),
+  }),
   doesApplicant1WantToApplyForFinalOrder: data => ({
     doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
   }),
@@ -181,8 +184,90 @@ const fields: FromApiConverters = {
     app2RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app2RfiDraftResponseCannotUploadDocs),
   }),
   requestsForInformation: 'requestsForInformation',
+  applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
+  applicant1NoResponsePartnerNewEmailOrAddress: 'applicant1NoResponsePartnerNewEmailOrAddress',
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+    'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
+  applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
+  applicant1NoResponseNoNewAddressDetails: 'applicant1NoResponseNoNewAddressDetails',
+  applicant1NoResponseProcessServerOrBailiff: 'applicant1NoResponseProcessServerOrBailiff',
+  applicant1InterimAppsIUnderstand: data => ({
+    applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
+  }),
+  applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
+  applicant1InterimAppsHaveHwfReference: 'applicant1InterimAppsHaveHwfReference',
+  applicant1InterimAppsCanUploadEvidence: 'applicant1InterimAppsCanUploadEvidence',
+  applicant1InterimAppsHwfRefNumber: 'applicant1InterimAppsHwfRefNumber',
+  applicant1InterimAppsEvidenceDocs: uploadedFilesFromApiApplicant1,
+  applicant1InterimAppsCannotUploadDocs: data => ({
+    applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
+  }),
+  applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
+  applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
+  applicant1InterimApplicationType: 'applicant1InterimApplicationType',
+  applicant1InterimAppsStatementOfTruth: data => ({
+    applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  }),
+  applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
+  applicant1NoResponseRespondentAddressInEnglandWales: data => ({
+    applicant1NoResponseRespondentAddressInEnglandWales: checkboxConverter(
+      data.applicant1NoResponseRespondentAddressInEnglandWales
+    ),
+  }),
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
+  applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
   applicant2LegalProceedingDocs: uploadedFilesFromApiApplicant2,
   applicant2UnableToUploadEvidence: uploadedFilesFromApiApplicant2,
+  applicant1NoResponsePartnerAddress: data => formatAddress(data, 'applicant1NoResponsePartner'),
+  applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
+    applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1AltServicePartnerEmail: data => ({
+    applicant1AltServicePartnerEmail: data.applicant1AltServicePartnerEmail,
+    applicant1AltServicePartnerEmailWhenDifferent: data.applicant1AltServicePartnerEmail,
+  }),
+  applicant1AltServiceReasonForApplying: 'applicant1AltServiceReasonForApplying',
+  applicant1AltServiceMethod: 'applicant1AltServiceMethod',
+  applicant1AltServicePartnerPhone: 'applicant1AltServicePartnerPhone',
+  applicant1AltServicePartnerWANum: 'applicant1AltServicePartnerWANum',
+  applicant1AltServicePartnerSocialDetails: 'applicant1AltServicePartnerSocialDetails',
+  applicant1AltServicePartnerOtherDetails: 'applicant1AltServicePartnerOtherDetails',
+  applicant1AltServiceMethodJustification: 'applicant1AltServiceMethodJustification',
+  applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
+  applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
+  applicant1DispenseLivedTogetherDate: data => ({
+    applicant1DispenseLastLivedTogetherDate: fromApiDate(data.applicant1DispenseLivedTogetherDate),
+  }),
+  applicant1DispenseLivedTogetherAddress: data => formatAddress(data, 'applicant1DispenseLivedTogether'),
+  applicant1DispenseLivedTogetherAddressOverseas: ({ applicant1DispenseLivedTogetherAddressOverseas }) => ({
+    applicant1DispenseLivedTogetherAddressOverseas: applicant1DispenseLivedTogetherAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1DispensePartnerLastSeenDate: data => ({
+    applicant1DispensePartnerLastSeenOrHeardOfDate: fromApiDate(data.applicant1DispensePartnerLastSeenDate),
+  }),
+  applicant1DispenseHavePartnerEmailAddresses: 'applicant1DispenseHavePartnerEmailAddresses',
+  applicant1DispenseHaveSearchedFinalOrder: 'applicant1DispenseHaveSearchedFinalOrder',
+  applicant1DispenseTriedTracingAgent: 'applicant1DispenseTriedTracingAgent',
+  applicant1DispenseWhyNoTracingAgent: 'applicant1DispenseWhyNoTracingAgent',
+  applicant1DispenseTracingAgentResults: 'applicant1DispenseTracingAgentResults',
+  applicant1DispenseTriedTracingOnline: 'applicant1DispenseTriedTracingOnline',
+  applicant1DispenseWhyNoTracingOnline: 'applicant1DispenseWhyNoTracingOnline',
+  applicant1DispenseTracingOnlineResults: 'applicant1DispenseTracingAgentResults',
+  applicant1DispenseTriedSearchingOnline: 'applicant1DispenseTriedSearchingOnline',
+  applicant1DispenseWhyNoSearchingOnline: 'applicant1DispenseWhyNoSearchingOnline',
+  applicant1DispenseSearchingOnlineResults: 'applicant1DispenseSearchingAgentResults',
+  applicant1DispenseTriedContactingEmployer: 'applicant1DispenseTriedContactingEmployer',
+  applicant1DispenseWhyNoContactingEmployer: 'applicant1DispenseWhyNoContactingEmployer',
+  applicant1DispenseEmployerName: 'applicant1DispenseEmployerName',
+  applicant1DispenseEmployerAddress: 'applicant1DispenseEmployerAddress',
+  applicant1DispensePartnerOccupation: 'applicant1DispensePartnerOccupation',
+  applicant1DispenseContactingEmployerResults: 'applicant1DispenseContactingEmployerResults',
+  applicant1DispenseChildrenOfFamily: 'applicant1DispenseChildrenOfFamily',
+  applicant1DispenseHowPartnerContactChildren: 'applicant1DispenseHowPartnerContactChildren',
+  applicant1DispensePartnerLastContactChildren: 'applicant1DispensePartnerLastContactChildren',
+  applicant1DispenseChildMaintenanceOrder: 'applicant1DispenseChildMaintenanceOrder',
+  applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
+  applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
 };
 
 const fromApiDate = date => {

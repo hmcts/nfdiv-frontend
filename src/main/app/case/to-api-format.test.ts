@@ -1,5 +1,7 @@
 import { Case, Checkbox, LanguagePreference } from './case';
 import {
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
   Applicant2Represented,
   ApplicationType,
   ChangedNameHow,
@@ -11,6 +13,10 @@ import {
   Gender,
   HowToRespondApplication,
   MarriageFormation,
+  NoResponseCheckContactDetails,
+  NoResponseNoNewAddressDetails,
+  NoResponsePartnerNewEmailOrAddress,
+  NoResponseProcessServerOrBailiff,
   YesOrNo,
 } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
@@ -69,6 +75,7 @@ describe('to-api-format', () => {
     applicant2AgreeToReceiveEmails: Checkbox.Checked,
     applicant1UploadedFiles: [],
     applicant2UploadedFiles: [],
+    applicant1InterimAppsEvidenceUploadedFiles: [],
     confirmReadPetition: Checkbox.Checked,
     applicant1LegalProceedingsDetails: 'Test',
     applicant2LegalProceedingsDetails: 'Test',
@@ -88,6 +95,7 @@ describe('to-api-format', () => {
     app2RfiDraftResponseDetails: 'test',
     app2RfiDraftResponseUploadedFiles: [],
     applicant2UnableToUploadEvidence: Checkbox.Checked,
+    applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -214,6 +222,7 @@ describe('to-api-format', () => {
       app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
       app2RfiDraftResponseDetails: 'test',
       applicant2UnableToUploadEvidence: YesOrNo.YES,
+      applicant1InterimAppsStatementOfTruth: YesOrNo.YES,
     });
   });
 
@@ -268,13 +277,29 @@ describe('to-api-format', () => {
     const apiFormat = toApiFormat({
       applicant1HelpWithFeesRefNo: '123-ABC',
       applicant2HelpWithFeesRefNo: '123-123',
+      applicant1InterimAppsHwfRefNumber: '123-ABC',
       relationshipDate: { year: '123' },
+      applicant1InRefuge: undefined,
+      applicant1AddressOverseas: undefined,
+      applicant2AddressOverseas: undefined,
+      applicant2SolicitorAddressOverseas: undefined,
+      applicant1NoResponsePartnerAddressOverseas: undefined,
+      applicant1BailiffPartnersDateOfBirth: { year: '123' },
+      applicant1DispenseLivedTogetherAddressOverseas: undefined,
     } as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
       applicant1HWFReferenceNumber: '',
       applicant2HWFReferenceNumber: '',
-      marriageDate: '',
+      applicant1InterimAppsHwfRefNumber: '',
+      marriageDate: undefined,
+      applicant1InRefuge: YesOrNo.NO,
+      applicant1AddressOverseas: YesOrNo.NO,
+      applicant2AddressOverseas: YesOrNo.NO,
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
+      applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+      applicant1BailiffPartnersDateOfBirth: undefined,
+      applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
     });
   });
 
@@ -443,6 +468,82 @@ describe('to-api-format', () => {
           PostCode: '',
           Country: '',
         },
+      },
+    },
+    {
+      applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
+      applicant1NoResponsePartnerEmailAddress: 'test',
+      applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
+      applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
+      applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: AlternativeServiceMethod.DIFFERENT_WAY,
+      applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED,
+      applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
+      applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+      applicant1InterimAppsIUnderstand: Checkbox.Checked,
+      applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+      expected: {
+        applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
+        applicant1NoResponsePartnerEmailAddress: 'test',
+        applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
+        applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
+        applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: AlternativeServiceMethod.DIFFERENT_WAY,
+        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED,
+        applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
+        applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+        applicant1InterimAppsIUnderstand: YesOrNo.YES,
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+      applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+      applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
+      expected: {
+        applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+      applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+      applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+      expected: {
+        applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+        applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+        applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+      applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+      applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+      expected: {
+        applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+        applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+        applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1InterimAppsHwfRefNumber: 'test',
+      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+      expected: {
+        applicant1InterimAppsHwfRefNumber: '',
+        applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+      applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.YES,
+      expected: {
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1NoResponsePartnerAddressOverseas: null,
+      applicant1DispenseLivedTogetherAddressOverseas: null,
+      expected: {
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
       },
     },
     {
@@ -692,6 +793,51 @@ describe('to-api-format', () => {
     ])('correctly handles applicant2InRefuge with value %p', ({ applicant2InRefuge, expected }) => {
       const apiFormat = toApiFormat({ applicant2InRefuge } as Partial<Case>);
       expect(apiFormat).toMatchObject({ applicant2InRefuge: expected });
+    });
+  });
+
+  describe('applicant1BailiffKnowPartnersDateOfBirth transformation', () => {
+    test('sets date of birth to null if the date of birth is not known', () => {
+      const apiFormat = toApiFormat({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.NO,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.NO,
+        applicant1BailiffPartnersDateOfBirth: null,
+      });
+    });
+
+    test('sets approx age to null if the date of birth is known', () => {
+      const apiFormat = toApiFormat({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
+        applicant1BailiffPartnersApproximateAge: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServiceDifferentWays transformation', () => {
+    test('sets other fields to null when not selected in applicant1AltServiceDifferentWays', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServiceMethod: AlternativeServiceMethod.DIFFERENT_WAY,
+        applicant1AltServiceDifferentWays: [
+          AlternativeServiceDifferentWays.TEXT_MESSAGE,
+          AlternativeServiceDifferentWays.SOCIAL_MEDIA,
+        ],
+        applicant1AltServicePartnerPhone: '1234567890',
+        applicant1AltServicePartnerOtherDetails: 'some details',
+        applicant1AltServicePartnerWANum: '1234567890',
+        applicant1AltServicePartnerSocialDetails: 'some social details',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerWANum: null,
+        applicant1AltServicePartnerOtherDetails: null,
+      });
     });
   });
 });
