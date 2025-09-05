@@ -6,14 +6,14 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ isDivorce, partner }: CommonContent) => ({
+const en = ({ isApp2Represented, isDivorce, partner }: CommonContent) => ({
   title: `Would you like us to send the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } papers again or try something else?`,
   line1: `If you choose to try sending the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } papers again, we will send them to the same postal and email address as before. You can only try this once.`,
-  line2: `Your ${partner} will have ${config.get(
+  line2: `Your ${partner}${isApp2Represented ? "'s solicitor" : ''}  will have ${config.get(
     'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
   )} days to respond.`,
   sendPapersAgain: `Send the ${isDivorce ? 'divorce' : 'application to end your civil partnership'} papers again`,
@@ -26,21 +26,21 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 });
 
 // @TODO translations should be completed then verified
-const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, isApp2Represented, partner }: CommonContent) => ({
   title: `A hoffech i ni anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } eto neu a hoffech geisio gwneud rhywbeth arall?`,
   line1: `Os byddwch yn dewis ceisio anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } eto, byddwn yn eu hanfon i’r un cyfeiriad post a chyfeiriad e-bost ac o’r blaen. Gallwch ond geisio gwneud hyn unwaith.`,
-  line2: `Bydd gan eich ${partner} ${config.get(
+  line2: `Bydd gan eich ${partner}${partner}${isApp2Represented ? "'s solicitor" : ''} ${config.get(
     'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
   )} diwrnod i ymateb.`,
   sendPapersAgain: `Anfon papurau’r ${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} eto`,
   trySomethingElse: 'Ceisio gwneud rhywbeth arall',
   errors: {
     applicant1NoResponseSendPapersAgainOrTrySomethingElse: {
-      required: 'Select if you want to send the papers again or try something else',
+      required: 'Dewiswch p’un a ydych eisiau anfon y papurau eto neu roi cynnig ar rywbeth arall',
     },
   },
 });

@@ -17,7 +17,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   notFound: "I've not been able to",
   errors: {
     applicant1NoResponseOwnSearches: {
-      required: 'You must select an option before continuing',
+      required: `Select whether you’ve already tried to find your ${partner}’s contact details`,
     },
   },
 });
@@ -38,7 +38,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   notFound: 'Nid wyf wedi gallu gwneud hyn',
   errors: {
     applicant1NoResponseOwnSearches: {
-      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
+      required: `Dewiswch p’un a ydych eisoes wedi ceisio dod o hyd i fanylion cyswllt eich ${partner}`,
     },
   },
 });

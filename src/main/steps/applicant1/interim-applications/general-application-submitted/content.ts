@@ -98,8 +98,8 @@ const cy: typeof en = ({
   // Application type specific content overrides:
   contentOverrides: {
     disclosureViaDwp: {
-      title: 'Application submitted',
-      introLine1: 'You have submitted your application to search government records.',
+      title: "Cais wedi'i gyflwyno",
+      introLine1: 'Rydych wedi cyflwyno eich cais i chwilio cofnodion y llywodraeth.',
     },
   },
 });

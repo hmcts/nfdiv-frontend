@@ -7,7 +7,7 @@ import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: Partial<CommonContent>) => {
   const addressPostcode = {
-    required: `You have not entered your ${partner}’s postcode. Enter their postcode before continuing.`,
+    required: 'Enter a postcode.',
     invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
     notSelected: `You have not selected your ${partner}’s address. Select their address from the list before continuing.`,
   };
@@ -26,7 +26,7 @@ const en = ({ partner }: Partial<CommonContent>) => {
     county: 'County',
     countyOptional: 'County, district, state or province (optional)',
     postcode: 'Postcode',
-    postcodeOptional: 'Postal code, zip code or area code (optional)',
+    postcodeOptional: 'Postal code, zip code or area code',
     country: 'Country',
     findAddress: 'Find address',
     enterUkPostcode: 'Enter UK postcode',
@@ -155,7 +155,9 @@ export const form: FormContent = {
         maxLength: 14,
       },
       validator: (value, formData) => {
-        if (!isCountryUk(formData.applicant1NoResponsePartnerAddressCountry)) {
+        const country = formData.applicant1SearchGovRecordsPartnerLastKnownAddressCountry;
+
+        if (country && !isCountryUk(country)) {
           return;
         }
         return isInvalidPostcode(value);

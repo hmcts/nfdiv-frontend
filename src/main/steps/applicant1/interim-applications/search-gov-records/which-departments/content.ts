@@ -59,6 +59,8 @@ export const form: FormContent = {
     applicant1SearchGovRecordsWhichDepartments: {
       type: 'checkboxes',
       validator: atLeastOneFieldIsChecked,
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           name: 'applicant1SearchGovRecordsWhichDepartments',
@@ -93,7 +95,7 @@ export const form: FormContent = {
               (value as string[])?.includes(SearchGovRecordsWhichDepartment.OTHER) &&
               !formData['applicant1SearchGovRecordsOtherDepartmentNames']?.length
             ) {
-              return 'required';
+              return 'applicant1SearchGovRecordsOtherDepartmentNames';
             }
           },
         },

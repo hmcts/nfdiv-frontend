@@ -14,10 +14,11 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     options: {
       fullName: 'full name',
       dateOfBirth: 'date of birth',
+      lastKnownAddress: 'last known address',
     },
   },
   line2:
-    'It will help with the search if you can also provide their National Insurance number and their last known address, but it is not mandatory.',
+    'It will help with the search if you can also provide their National Insurance number, but it is not mandatory.',
   line3: `Government record searches are typically completed within 6-8 weeks. If the search is successful, your ${partner}'s contact details will only be shared with the court and not with you. The court will send the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } to your ${partner}.`,
@@ -38,6 +39,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     options: {
       fullName: 'full name',
       dateOfBirth: 'date of birth',
+      lastKnownAddress: 'last known address',
     },
   },
   line2: 'Byddai’n ddefnyddiol os gallwch ddarparu eu rhif Yswiriant Gwladol, ond nid yw hynny’n orfodol.',

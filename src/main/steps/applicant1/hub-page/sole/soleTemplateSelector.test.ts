@@ -3,8 +3,10 @@ import dayjs from 'dayjs';
 import { Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceOutcome,
+  AlternativeServiceType,
   DivorceOrDissolution,
   ListValue,
+  ServiceMethod,
   State,
   YesOrNo,
 } from '../../../../app/case/definition';
@@ -19,6 +21,8 @@ describe('SoleTemplateSelector test', () => {
     state: State.Draft,
     coIsAdminClarificationSubmitted: YesOrNo.NO,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    applicant2AddressOverseas: YesOrNo.NO,
+    serviceMethod: ServiceMethod.COURT_SERVICE,
   };
   const displayState = currentStateFn(userCase.state);
 
@@ -46,10 +50,10 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
   });
 
-  test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state BailiffRefused', () => {
+  test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state BailiffRefused', () => {
     const theState = displayState.at(State.BailiffRefused);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
+    expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 
   test('should show /conditional-order-pronounced.njk for state ConditionalOrderPronounced', () => {
@@ -320,10 +324,10 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
-  test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state ServiceAdminRefusal', () => {
+  test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state ServiceAdminRefusal', () => {
     const theState = displayState.at(State.ServiceAdminRefusal);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
+    expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 
   test('should show /service-application-rejected.njk for state ServiceAdminRefusal and reason is "refusal order to applicant"', () => {
@@ -423,5 +427,42 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingHWFEvidence);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+  });
+
+  test('should show /awaiting-service.njk for state AwaitingService', () => {
+    userCase.serviceMethod = ServiceMethod.PERSONAL_SERVICE;
+    const theState = displayState.at(State.AwaitingService);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingService);
+  });
+
+  test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationReview', () => {
+    const theState = displayState.at(State.WelshTranslationReview);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
+  });
+
+  test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationRequested', () => {
+    const theState = displayState.at(State.WelshTranslationRequested);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
+  });
+
+  test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state GeneralConsiderationComplete and alternativeService application is granted', () => {
+    const userCaseWithServiceApplicationGranted = {
+      ...userCase,
+      alternativeServiceOutcomes: [
+        {
+          id: '123',
+          value: {
+            serviceApplicationGranted: YesOrNo.YES,
+            alternativeServiceType: AlternativeServiceType.ALTERNATIVE_SERVICE,
+          },
+        },
+      ] as unknown as ListValue<AlternativeServiceOutcome>[],
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithServiceApplicationGranted, false, true);
+    expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 });

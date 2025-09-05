@@ -4,7 +4,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
 import { CommonContent } from '../../../../common/common.content';
 import {
-  APPLY_FOR_ALTERNATIVE_SERVICE,
+  ALTERNATIVE_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   NEW_POSTAL_AND_EMAIL,
@@ -19,9 +19,10 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   partnerDetails: {
     fullName: 'full name',
     dateOfBirth: 'date of birth',
+    address: 'last known address',
   },
   line3:
-    'It will help with the search if you can also provide their National Insurance number and their last known address, but it is not mandatory.',
+    'It will help with the search if you can also provide their National Insurance number, but it is not mandatory.',
   line4: `Government record searches are typically completed within 6-8 weeks. If the search is successful, your ${partner}'s contact details will only be shared with the court and not with you. The court will send the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } to your ${partner}.`,
@@ -32,7 +33,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   )}">get help paying this fee (opens in a new tab)</a>.`,
   lineToTry: 'You could also try:',
   tryAnotherWay: {
-    alternativeService: `applying to <a class="govuk-link" target="_blank" href="${APPLY_FOR_ALTERNATIVE_SERVICE}>have your divorce papers sent to your ${partner} in a different way</a>`,
+    alternativeService: `applying to <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}>have your divorce papers sent to your ${partner} in a different way</a>`,
     deemedService: `<a class="govuk-link" target="_blank" href="${DEEMED_SERVICE_APPLICATION}>applying for deemed service</a> if you have evidence that your partner has received the divorce papers`,
     newPostalAndEmail: `<a class="govuk-link" target="_blank" href="${NEW_POSTAL_AND_EMAIL}>updating your ${partner}'s contact details</a> so that the court can send the divorce papers to their new address`,
     bailiffService: `applying to have a <a class="govuk-link" target="_blank" href="${PARTNER_IN_PRISON}>bailiff or process server serve the papers</a> to your ${partner} in person`,
@@ -52,6 +53,7 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   partnerDetails: {
     fullName: 'tenw llawn',
     dateOfBirth: 'dyddiad geni',
+    address: 'last known address',
   },
   line3:
     "Bydd yn helpu gyda'r chwiliad os gallwch hefyd ddarparu eu rhif Yswiriant Gwladol a'u cyfeiriad hysbys diwethaf, ond nid yw'n orfodol.",
@@ -65,7 +67,7 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
   lineToTry: 'Gallwch hefyd geisio:',
   tryAnotherWay: {
-    alternativeService: `gwneud cais i <a class="govuk-link" target="_blank" href="${APPLY_FOR_ALTERNATIVE_SERVICE}>bapurau eich ${
+    alternativeService: `gwneud cais i <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}>bapurau eich ${
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     } gael eu hanfon at eich ${partner} mewn ffordd wahanol</a>`,
     deemedService: `<a class="govuk-link" target="_blank" href="${DEEMED_SERVICE_APPLICATION}>gwneud cais am gyflwyno tybiedig</a> os oes gennych dystiolaeth bod eich ${partner} wedi cael papurau’r ${

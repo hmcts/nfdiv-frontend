@@ -14,6 +14,9 @@ import {
   HowToRespondApplication,
   MarriageFormation,
   NoResponseCheckContactDetails,
+  NoResponseNoNewAddressDetails,
+  NoResponsePartnerNewEmailOrAddress,
+  NoResponseProcessServerOrBailiff,
   YesOrNo,
 } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
@@ -276,6 +279,13 @@ describe('to-api-format', () => {
       applicant2HelpWithFeesRefNo: '123-123',
       applicant1InterimAppsHwfRefNumber: '123-ABC',
       relationshipDate: { year: '123' },
+      applicant1InRefuge: undefined,
+      applicant1AddressOverseas: undefined,
+      applicant2AddressOverseas: undefined,
+      applicant2SolicitorAddressOverseas: undefined,
+      applicant1NoResponsePartnerAddressOverseas: undefined,
+      applicant1BailiffPartnersDateOfBirth: { year: '123' },
+      applicant1DispenseLivedTogetherAddressOverseas: undefined,
     } as Partial<Case>);
 
     expect(apiFormat).toMatchObject({
@@ -283,6 +293,13 @@ describe('to-api-format', () => {
       applicant2HWFReferenceNumber: '',
       applicant1InterimAppsHwfRefNumber: '',
       marriageDate: undefined,
+      applicant1InRefuge: YesOrNo.NO,
+      applicant1AddressOverseas: YesOrNo.NO,
+      applicant2AddressOverseas: YesOrNo.NO,
+      applicant2SolicitorAddressOverseas: YesOrNo.NO,
+      applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+      applicant1BailiffPartnersDateOfBirth: undefined,
+      applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
     });
   });
 
@@ -458,22 +475,75 @@ describe('to-api-format', () => {
       applicant1NoResponsePartnerEmailAddress: 'test',
       applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
       applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
-      expected: {
-        applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
-        applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
-        applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
-      },
-    },
-    {
+      applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: AlternativeServiceMethod.DIFFERENT_WAY,
+      applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED,
+      applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
+      applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+      applicant1InterimAppsIUnderstand: Checkbox.Checked,
       applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
       expected: {
+        applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
+        applicant1NoResponsePartnerEmailAddress: 'test',
+        applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
+        applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
+        applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: AlternativeServiceMethod.DIFFERENT_WAY,
+        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED,
+        applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
+        applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+        applicant1InterimAppsIUnderstand: YesOrNo.YES,
         applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
       },
     },
     {
+      applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+      applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+      applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
+      expected: {
+        applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+      applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+      applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+      expected: {
+        applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+        applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+        applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+      applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+      applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+      expected: {
+        applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+        applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+        applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1InterimAppsHwfRefNumber: 'test',
+      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+      expected: {
+        applicant1InterimAppsHwfRefNumber: '',
+        applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+      applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.YES,
+      expected: {
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.YES,
+      },
+    },
+    {
       applicant1NoResponsePartnerAddressOverseas: null,
+      applicant1DispenseLivedTogetherAddressOverseas: null,
       expected: {
         applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
       },
     },
     {
@@ -761,7 +831,10 @@ describe('to-api-format', () => {
         applicant1SearchGovRecordsPartnerApproximateAge: null,
       });
     });
-    test('convert value to upper case', () => {
+  });
+
+  describe('applicant1SearchGovRecordsPartnerNationalInsurance transformation', () => {
+    test('Capitalizes the national insurance number', () => {
       const apiFormat = toApiFormat({
         applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
         applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',
@@ -772,10 +845,8 @@ describe('to-api-format', () => {
         applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
       } as Partial<Case>);
     });
-  });
 
-  describe('applicant1SearchGovRecordsPartnerNationalInsurance transformation', () => {
-    test('Capitalizes the national insurance number', () => {
+    test('convert value to upper case', () => {
       const apiFormat = toApiFormat({
         applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
         applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',

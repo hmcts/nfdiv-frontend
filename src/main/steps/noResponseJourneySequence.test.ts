@@ -12,7 +12,7 @@ import {
 import { Step } from './applicant1Sequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import {
-  APPLY_FOR_ALTERNATIVE_SERVICE,
+  ALTERNATIVE_SERVICE_APPLICATION,
   BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
@@ -191,7 +191,7 @@ describe('No Response Journey Sequence test', () => {
   describe('IS_PARTNER_ABROAD', () => {
     test('DISPENSE_SERVICE_APPLICATION', () => {
       const caseData = {
-        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.YES,
+        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.NO,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === IS_PARTNER_ABROAD) as Step;
       expect(step.getNextStep(caseData)).toBe(DISPENSE_SERVICE_APPLICATION);
@@ -199,7 +199,7 @@ describe('No Response Journey Sequence test', () => {
 
     test('GOV_SEARCH_POSSIBLE', () => {
       const caseData = {
-        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.NO,
+        applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.YES,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === IS_PARTNER_ABROAD) as Step;
       expect(step.getNextStep(caseData)).toBe(GOV_SEARCH_POSSIBLE);
@@ -258,7 +258,7 @@ describe('No Response Journey Sequence test', () => {
         applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_AND_EMAIL) as Step;
-      expect(step.getNextStep(caseData)).toBe(NEW_EMAIL);
+      expect(step.getNextStep(caseData)).toBe(PROVIDE_NEW_EMAIL_ADDRESS);
     });
     test('BOTH_EMAIL_AND_ADDRESS_UPDATE_EMAIL', () => {
       const caseData = {
@@ -295,7 +295,7 @@ describe('No Response Journey Sequence test', () => {
           NoResponseProvidePartnerNewEmailOrAlternativeService.APPLY_FOR_ALTERNATIVE_SERVICE,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_EMAIL) as Step;
-      expect(step.getNextStep(caseData)).toBe(APPLY_FOR_ALTERNATIVE_SERVICE);
+      expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_SERVICE_APPLICATION);
     });
     test('NEW_POSTAL_ADDRESS_CHECK_YOUR_ANSWERS', () => {
       const caseData = {

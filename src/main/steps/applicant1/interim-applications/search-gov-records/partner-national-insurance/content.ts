@@ -43,9 +43,9 @@ export const form: FormContent = {
   fields: {
     applicant1SearchGovRecordsKnowPartnerNationalInsurance: {
       type: 'radios',
-      classes: 'govuk-radios govuk-radios--inline',
-      label: l => l.null,
-      labelHidden: false,
+      classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       hint: l => l.partnerNationalInsuranceHint,
       values: [
         {
@@ -55,7 +55,7 @@ export const form: FormContent = {
           subFields: {
             applicant1SearchGovRecordsPartnerNationalInsurance: {
               type: 'text',
-              classes: 'govuk-input',
+              classes: 'govuk-input govuk-!-width-one-half',
               attributes: { maxLength: 13 },
               label: l => l.enterNationalInsurance,
               labelSize: 'normal',
