@@ -4,7 +4,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
 import { CommonContent } from '../../../../common/common.content';
 import {
-  APPLY_FOR_ALTERNATIVE_SERVICE,
+  ALTERNATIVE_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   NEW_POSTAL_AND_EMAIL,
@@ -32,7 +32,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
   tryAnotherWay: {
-    alternativeService: `applying to <a class="govuk-link" target="_blank" href="${APPLY_FOR_ALTERNATIVE_SERVICE}>have your divorce papers sent to your ${partner} in a different way</a>`,
+    alternativeService: `applying to <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}>have your divorce papers sent to your ${partner} in a different way</a>`,
     deemedService: `<a class="govuk-link" target="_blank" href="${DEEMED_SERVICE_APPLICATION}>applying for deemed service</a> if you have evidence that your partner has received the divorce papers`,
     newPostalAndEmail: `<a class="govuk-link" target="_blank" href="${NEW_POSTAL_AND_EMAIL}>updating your ${partner}'s contact details</a> so that the court can send the divorce papers to their new address`,
     bailiffService: `applying to have a <a class="govuk-link" target="_blank" href="${PARTNER_IN_PRISON}>bailiff or process server serve the papers to your ${partner} in person</a>`,
@@ -65,7 +65,7 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
   tryAnotherWay: {
-    alternativeService: `applying to <a class="govuk-link" target="_blank" href="${APPLY_FOR_ALTERNATIVE_SERVICE}>have your divorce papers sent to your ${partner} in a different way</a>`,
+    alternativeService: `applying to <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}>have your divorce papers sent to your ${partner} in a different way</a>`,
     deemedService: `<a class="govuk-link" target="_blank" href="${DEEMED_SERVICE_APPLICATION}>applying for deemed service</a> if you have evidence that your partner has received the divorce papers`,
     newPostalAndEmail: `<a class="govuk-link" target="_blank" href="${NEW_POSTAL_AND_EMAIL}>updating your ${partner}'s contact details</a> so that the court can send the divorce papers to their new address`,
     bailiffService: `applying to have a <a class="govuk-link" target="_blank" href="${PARTNER_IN_PRISON}>bailiff or process server serve the papers to your ${partner} in person</a>`,
