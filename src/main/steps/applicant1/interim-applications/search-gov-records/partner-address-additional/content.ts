@@ -1,3 +1,4 @@
+import { Case, CaseDate } from '../../../../../app/case/case';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -9,10 +10,16 @@ const en = ({ partner }: CommonContent) => ({
   dateLivedOnAddress: 'Enter the dates they lived there',
   errors: {
     applicant1SearchGovRecordsPartnerAdditionalAddress1: {
-      required: `You have not entered your ${partner}'s additional address. Enter it before continuing.`,
+      required: `Enter details of any other known address of your ${partner} before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
-      required: `You have not entered your ${partner}'s dates at the address. Enter it before continuing.`,
+      required: `Enter the dates your ${partner} lived in the address before continuing.`,
+    },
+    applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
+      required: `Enter details of any other known address of your ${partner} before continuing.`,
+    },
+    applicant1SearchGovRecordsPartnerAdditionalAddress2: {
+      required: `Enter the dates your ${partner} lived in the address before continuing.`,
     },
   },
 });
@@ -24,10 +31,16 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   dateLivedOnAddress: "Rhowch y dyddiadau roedden nhw'n byw yno",
   errors: {
     applicant1SearchGovRecordsPartnerAdditionalAddress1: {
-      required: `You have not entered your ${partner}'s additional address. Enter it before continuing.`,
+      required: `Enter details of any other known address of your ${partner} before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
-      required: `Enter the dates your ${partner} lived at this address`,
+      required: `Enter the dates your ${partner} lived in the address before continuing.`,
+    },
+    applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
+      required: `Enter details of any other known address of your ${partner} before continuing.`,
+    },
+    applicant1SearchGovRecordsPartnerAdditionalAddress2: {
+      required: `Enter the dates your ${partner} lived in the address before continuing.`,
     },
   },
 });
@@ -53,12 +66,28 @@ export const form: FormContent = {
       classes: 'govuk-input--width-40',
       label: l => l.address + '2 (optional)',
       labelSize: 'normal',
+      validator: (
+        value: string | string[] | CaseDate | Partial<Case> | undefined,
+        formData: Partial<Case>
+      ): string | undefined => {
+        if (formData['applicant1SearchGovRecordsPartnerAdditionalAddressDates2']?.length && !value) {
+          return 'required';
+        }
+      },
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.dateLivedOnAddress + ' (optional)',
       labelSize: 'normal',
+      validator: (
+        value: string | string[] | CaseDate | Partial<Case> | undefined,
+        formData: Partial<Case>
+      ): string | undefined => {
+        if (formData['applicant1SearchGovRecordsPartnerAdditionalAddress2']?.length && !value) {
+          return 'required';
+        }
+      },
     },
   },
   submit: {
