@@ -59,7 +59,7 @@ const cy: typeof en = ({
   partner,
 }: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
-  introLine1: `Rydych wedi cyflwyno eich cais am ${generalApplicationType}.`,
+  introLine1: `Rydych wedi cyflwyno eich cais i ${generalApplicationType}.`,
   introLine2:
     "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
   sendDocumentsHeading: 'Anfon eich tystiolaeth i’r llys',
@@ -77,9 +77,13 @@ const cy: typeof en = ({
     step2: 'Postiwch y dogfennau gwreiddiol i:',
   },
   happensNextHeading: 'Beth fydd yn digwydd nesaf',
-  happensNextLine1: `Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ${
-    isDivorce ? 'ysgariad' : 'diddymiad'
-  } yn mynd yn ei flaen heb ymateb gan eich ${partner}. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.`,
+  happensNextLine1: `${
+    !generalApplicationFeeRequired && generalApplicationDocsAllProvided
+      ? 'Os derbynnir eich cyfeirnod help i dalu ffioedd, bydd y llys yn'
+      : 'Bydd y llys yn awr'
+  } adolygu eich cais. Byddwn yn anfon e-bost atoch i roi ${
+    generalApplicationFeeRequired && generalApplicationDocsAllProvided ? `erbyn ${generalApplicationResponseDate} ` : ''
+  }gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus.`,
   happensNextLine2: `Byddwn yn anfon e-bost atoch ${
     generalApplicationFeeRequired && generalApplicationDocsAllProvided
       ? `erbyn ${generalApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
