@@ -15,7 +15,6 @@ import {
   APPLICATION_SUBMITTED,
   APP_REPRESENTED,
   AWAITING_RESPONSE_TO_HWF_DECISION,
-  CHECK_ANSWERS_DEEMED,
   CHECK_ANSWERS_URL,
   CHECK_CONDITIONAL_ORDER_ANSWERS_URL,
   CHECK_JOINT_APPLICATION,
@@ -1305,6 +1304,6 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS_DEEMED);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
   });
 });
