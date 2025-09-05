@@ -1144,6 +1144,34 @@ export interface CaseData {
   applicant1DispensePartnerPastAddressEnquiries2: string;
   applicant1DispensePartnerLastSeenDate: DateAsString;
   applicant1DispensePartnerLastSeenDescription: string;
+  applicant1DispenseHavePartnerEmailAddresses: YesOrNo;
+  applicant1DispenseHaveSearchedFinalOrder: YesOrNo
+  applicant1DispenseWhyNoFinalOrderSearch: string;
+  applicant1DispensePartnerEmailAddresses: string;
+  applicant1DispenseHavePartnerPhoneNumbers: YesOrNo;
+  applicant1DispensePartnerPhoneNumbers: string;
+  applicant1DispenseTriedTracingAgent: YesOrNo;
+  applicant1DispenseWhyNoTracingAgent: string;
+  applicant1DispenseTracingAgentResults: string;
+  applicant1DispenseTriedTracingOnline: YesOrNo;
+  applicant1DispenseWhyNoTracingOnline: string;
+  applicant1DispenseTracingOnlineResults: string;
+  applicant1DispenseTriedSearchingOnline: YesOrNo;
+  applicant1DispenseWhyNoSearchingOnline: string;
+  applicant1DispenseSearchingOnlineResults: string;
+  applicant1DispenseTriedContactingEmployer: YesOrNo;
+  applicant1DispenseWhyNoContactingEmployer: string;
+  applicant1DispenseEmployerName: string;
+  applicant1DispenseEmployerAddress: string;
+  applicant1DispensePartnerOccupation: string;
+  applicant1DispenseContactingEmployerResults: string;
+  applicant1DispenseChildrenOfFamily: YesOrNo;
+  applicant1DispensePartnerContactWithChildren: YesOrNo;
+  applicant1DispenseHowPartnerContactChildren: string;
+  applicant1DispensePartnerLastContactChildren: string;
+  applicant1DispenseChildMaintenanceOrder: YesOrNo;
+  applicant1DispenseChildMaintenanceResults: string;
+  applicant1DispenseContactFriendsOrRelativesDetails: string;
 }
 
 export interface CaseDocuments {
@@ -1200,6 +1228,34 @@ export interface DispenseWithServiceJourneyOptions {
   dispensePartnerPastAddressEnquiries2: string;
   dispensePartnerLastSeenDate: DateAsString;
   dispensePartnerLastSeenDescription: string;
+  dispenseHavePartnerEmailAddresses: YesOrNo;
+  dispenseHaveSearchedFinalOrder: YesOrNo;
+  dispenseWhyNoFinalOrderSearch: string;
+  dispensePartnerEmailAddresses: string;
+  dispenseHavePartnerPhoneNumbers: YesOrNo;
+  dispensePartnerPhoneNumbers: string;
+  dispenseTriedTracingAgent: YesOrNo;
+  dispenseWhyNoTracingAgent: string;
+  dispenseTracingAgentResults: string;
+  dispenseTriedTracingOnline: YesOrNo;
+  dispenseWhyNoTracingOnline: string;
+  dispenseTracingOnlineResults: string;
+  dispenseTriedSearchingOnline: YesOrNo;
+  dispenseWhyNoSearchingOnline: string;
+  dispenseSearchingOnlineResults: string;
+  dispenseTriedContactingEmployer: YesOrNo;
+  dispenseWhyNoContactingEmployer: string;
+  dispenseEmployerName: string;
+  dispenseEmployerAddress: string;
+  dispensePartnerOccupation: string;
+  dispenseContactingEmployerResults: string;
+  dispenseChildrenOfFamily: YesOrNo;
+  dispensePartnerContactWithChildren: YesOrNo;
+  dispenseHowPartnerContactChildren: string;
+  dispensePartnerLastContactChildren: string;
+  dispenseChildMaintenanceOrder: YesOrNo;
+  dispenseChildMaintenanceResults: string;
+  dispenseContactFriendsOrRelativesDetails: string;
 }
 
 export interface AlternativeServiceJourneyOptions {

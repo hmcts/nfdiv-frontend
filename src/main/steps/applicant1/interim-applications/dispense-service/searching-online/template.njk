@@ -1,0 +1,16 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l" id="searchingOnlineTitle">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  <p class="govuk-body">{{ ifYouCanFind.header }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ ifYouCanFind.options.postalAddress | safe }}</li>
+    <li>{{ ifYouCanFind.options.evidence | safe }}</li>
+  </ul>
+{% endblock %}
