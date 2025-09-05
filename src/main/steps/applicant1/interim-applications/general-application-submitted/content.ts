@@ -1,4 +1,4 @@
-import { AlternativeServiceType, GeneralApplicationType } from '../../../../app/case/definition';
+import { GeneralApplicationType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { findOnlineGeneralApplicationsForUser } from '../../../../app/utils/general-application-utils';
 import type { CommonContent } from '../../../common/common.content';
@@ -9,12 +9,9 @@ const en = ({
   generalApplicationDocsAllProvided,
   generalApplicationType,
   referenceNumber,
-  isDivorce,
-  partner,
-  userCase,
 }: CommonContent) => ({
   title: 'Application submitted',
-  introLine1: `You have submitted your application for ${generalApplicationType}.`,
+  introLine1: `You have submitted your application to ${generalApplicationType}.`,
   introLine2:
     'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
   sendDocumentsHeading: 'Send your evidence to the court',
@@ -34,18 +31,12 @@ const en = ({
   happensNextHeading: 'What happens next',
   happensNextLine1: `${
     !generalApplicationFeeRequired && generalApplicationDocsAllProvided
-      ? 'If your help with fees reference number is accepted, the'
-      : 'The'
-  } court will review your application and any evidence you have submitted.${
-    userCase?.alternativeServiceType !== AlternativeServiceType.ALTERNATIVE_SERVICE
-      ? ` If your application is successful, your ${
-          isDivorce ? 'divorce' : 'dissolution'
-        } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`
-      : ''
-  }`,
-  happensNextLine2: `We will email you ${
+      ? 'If your help with fees reference number is accepted, the court will'
+      : 'The court will now'
+  } review your application. We will email you ${
     generalApplicationFeeRequired && generalApplicationDocsAllProvided ? `by ${generalApplicationResponseDate} ` : ''
   }to let you know whether your application has been successful.`,
+  happensNextLine2: 'If your application is approved, it normally takes 6-8 weeks to complete a search.',
   returnToHub: 'Return to your account',
 
   // Application type specific content overrides:
