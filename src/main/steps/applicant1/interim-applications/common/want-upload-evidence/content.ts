@@ -6,6 +6,8 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 const en = () => ({
   title: 'Are you able to upload evidence?',
   statement: '',
+  yes: 'Yes',
+  no: 'No',
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
       required: "Select 'Yes' if you have evidence to upload.",
@@ -17,6 +19,8 @@ const en = () => ({
 const cy = () => ({
   title: 'A ydych yn gallu uwchlwytho tystiolaeth?',
   statement: '',
+  yes: 'Ydy',
+  no: 'Nac ydw',
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
       required: "Dewiswch 'Oes' os oes gennych dystiolaeth i’w huwchlwytho.",
