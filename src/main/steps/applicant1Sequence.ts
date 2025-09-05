@@ -18,6 +18,7 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
+import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
@@ -599,6 +600,8 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   ...noResponseJourneySequence,
+  ...alternativeServiceApplicationSequence,
+  ...bailiffServiceApplicationSequence,
   ...deemedServiceApplicationSequence,
   ...bailiffServiceApplicationSequence,
   ...alternativeServiceApplicationSequence,
@@ -606,6 +609,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...searchGovRecordsApplicationSequence,
   ...noResponseJourneySequence,
   ...serviceApplicationPaymentSequence,
+  ...generalApplicationPaymentSequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>

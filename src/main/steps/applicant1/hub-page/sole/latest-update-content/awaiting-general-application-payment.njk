@@ -1,0 +1,11 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+<p class="govuk-body">{{ awaitingGeneralApplicationPayment.line1 }}</p>
+<p class="govuk-body">{{ awaitingGeneralApplicationPayment.line2 }}</p>
+<h3 class="govuk-heading-s">{{ awaitingGeneralApplicationPayment.doNext }}</h3>
+<p class="govuk-body">{{ awaitingGeneralApplicationPayment.line3 }}</p>
+{{ govukButton({
+    text: awaitingGeneralApplicationPayment.linkText,
+    href: awaitingGeneralApplicationPayment.linkUrl,
+    preventDoubleClick: true
+}) }}

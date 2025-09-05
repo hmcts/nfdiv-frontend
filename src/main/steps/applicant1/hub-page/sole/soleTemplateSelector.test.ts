@@ -428,6 +428,7 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
+
   test('should show /awaiting-service.njk for state AwaitingService', () => {
     userCase.serviceMethod = ServiceMethod.PERSONAL_SERVICE;
     const theState = displayState.at(State.AwaitingService);

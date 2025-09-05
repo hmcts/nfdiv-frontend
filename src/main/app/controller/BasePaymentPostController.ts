@@ -2,7 +2,6 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
-import { CaseWithId } from '../../app/case/case';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import {
   CITIZEN_ADD_PAYMENT,
@@ -26,7 +25,7 @@ export default abstract class BasePaymentPostController {
 
     const citizenPaymentCallbackUrl: string = getPaymentCallbackUrl(req, res, this.getPaymentCallbackPath());
 
-    if (!this.readyForPayment(req.session.userCase)) {
+    if (!this.readyForPayment(req)) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
         {},
@@ -34,7 +33,7 @@ export default abstract class BasePaymentPostController {
       );
     }
 
-    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
+    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField(req)] || []);
     if (payments.isPaymentInProgress()) {
       return this.saveAndRedirect(req, res, this.getPaymentCallbackPath());
     }
@@ -94,7 +93,7 @@ export default abstract class BasePaymentPostController {
       },
     };
 
-    const eventPayload = { [this.paymentsCaseField()]: [...payments.list, newPaymentWithId] };
+    const eventPayload = { [this.paymentsCaseField(req)]: [...payments.list, newPaymentWithId] };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
       eventPayload,
@@ -104,11 +103,11 @@ export default abstract class BasePaymentPostController {
     return payment;
   }
 
-  protected abstract readyForPayment(userCase: CaseWithId): boolean;
+  protected abstract readyForPayment(req: AppRequest<AnyObject>): boolean;
   protected abstract awaitingPaymentEvent(): string;
   protected abstract getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[];
   protected abstract getServiceReferenceForFee(req: AppRequest<AnyObject>): string;
-  protected abstract paymentsCaseField(): keyof CaseData;
+  protected abstract paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData;
   protected abstract getPaymentCallbackPath(): string;
 }
 

@@ -17,7 +17,11 @@ if (form && getById('enterPostcode')) {
   const uk = 'UK';
   const applicant1AddressCountry = formData.get('applicant1AddressCountry');
   const applicant2AddressCountry = formData.get('applicant2AddressCountry');
-  const addressCountry = applicant1AddressCountry || applicant2AddressCountry;
+  const applicant1SearchGovRecordsPartnerLastKnownAddress1 = formData.get(
+    'applicant1SearchGovRecordsPartnerLastKnownAddress1'
+  );
+  const addressCountry =
+    applicant1AddressCountry || applicant2AddressCountry || applicant1SearchGovRecordsPartnerLastKnownAddress1;
   const hasBackendError = qsa('.govuk-error-summary').length > 1;
 
   if (addressCountry || hasBackendError) {
