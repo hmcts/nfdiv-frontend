@@ -51,9 +51,9 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   line1: `Gallwch ofyn i’r llys chwilio cofnodion adran y llywodraeth, fel Cyllid a Thollau EF (CThEF) neu’r Adran Gwaith a Phensiynau (DWP), am fanylion cyswllt eich ${partner}.`,
   line2: `Byddwch angen manylion canlynol eich ${partner}:`,
   partnerDetails: {
-    fullName: 'tenw llawn',
+    fullName: 'end llawn',
     dateOfBirth: 'dyddiad geni',
-    address: 'last known address',
+    address: 'cyfeiriad hysbys diwethaf',
   },
   line3:
     "Bydd yn helpu gyda'r chwiliad os gallwch hefyd ddarparu eu rhif Yswiriant Gwladol a'u cyfeiriad hysbys diwethaf, ond nid yw'n orfodol.",
