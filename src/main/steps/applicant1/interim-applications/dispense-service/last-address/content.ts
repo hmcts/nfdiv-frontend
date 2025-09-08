@@ -55,7 +55,7 @@ const addressPostcodeCY = {
 };
 
 const cy = ({ partner }: CommonContent) => ({
-  title: `Where did you and your ${partner} live together?`,
+  title: `Ble wnaethoch chi a’ch ${partner} fyw gyda’ch gilydd ddiwethaf?`,
   enterPostcode: 'Nodwch god post yn y DU',
   buildingStreet: 'Adeilad a stryd',
   line1: 'Llinell 1 y cyfeiriad',
@@ -69,7 +69,7 @@ const cy = ({ partner }: CommonContent) => ({
   postcodeOptional: 'Cod post, cod zip neu god ardal (dewisol)',
   country: 'Gwlad',
   findAddress: 'Dod o hyd i gyfeiriad',
-  notUK: "I've forgotten the postcode or we lived at an international address",
+  notUK: 'Rwyf wedi anghofio’r cod post neu gwnaethom fyw mewn cyfeiriad rhyngwladol',
   enterUkPostcode: 'Nodwch god post yn y DU',
   selectAddress: 'Dewiswch gyfeiriad',
   addressesFound: (addressesFound: number) =>
@@ -77,16 +77,15 @@ const cy = ({ partner }: CommonContent) => ({
   cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
   errors: {
     applicant1DispenseLivedTogetherAddress1: {
-      required:
-        'You have not entered a building and street address. Enter a building and street address before continuing.',
+      required: 'Nid ydych wedi rhoi cyfeiriad adeilad a stryd.  Rhowch gyfeiriad adeilad a stryd cyn parhau.',
     },
     applicant1DispenseLivedTogetherAddressTown: {
-      required: 'You have not entered a town or city. Enter a town or city before continuing.',
+      required: 'Nid ydych wedi rhoi tref neu ddinas, Rhowch enw tref neu ddinas cyn parhau.',
     },
     addressPostcode: addressPostcodeCY,
     applicant1DispenseLivedTogetherAddressPostcode: addressPostcodeCY,
     applicant1DispenseLivedTogetherAddressCountry: {
-      required: 'You have not entered a country. Enter a country before continuing.',
+      required: 'Nid ydych wedi rhoi gwlad. Rhowch wlad cyn parhau.',
     },
   },
 });

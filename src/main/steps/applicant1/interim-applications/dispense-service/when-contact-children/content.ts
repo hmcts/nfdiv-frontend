@@ -13,10 +13,10 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `When and how does your ${partner} have contact with them?`,
+  title: `Pryd a sut mae eich ${partner} yn cael cysylltiad gyda nhw?`,
   errors: {
     applicant1DispenseHowPartnerContactChildren: {
-      required: `Enter details about any contact your ${partner} has had with the children`,
+      required: `Eglurwch unrhyw gyswllt mae eich ${partner} wedi’i gael gyda’r plant`,
     },
   },
 });

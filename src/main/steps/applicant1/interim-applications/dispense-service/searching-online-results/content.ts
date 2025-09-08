@@ -15,12 +15,12 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Finding your ${partner} online`,
-  searchingOnlineDescription: 'What were the results of your online searches?',
+  title: `Dod o hyd i’ch ${partner} ar-lein`,
+  searchingOnlineDescription: 'Beth oedd canlyniadau eich chwiliadau ar-lein?',
   uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispenseSearchingOnlineResults: {
-      required: 'Enter details about the results of your online searches',
+      required: 'Eglurwch ganlyniadau eich chwiliadau ar-lein',
     },
   },
 });

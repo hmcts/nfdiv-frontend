@@ -8,6 +8,8 @@ const en = ({ partner }: CommonContent) => ({
   title: 'Are there any children of the family?',
   line1: `This includes any children of you and your ${partner}, and any stepchildren or other children considered as part of the family.`,
   line2: 'This does not include foster children.',
+  yes: 'Yes',
+  no: 'No',
   errors: {
     applicant1DispenseChildrenOfFamily: {
       required: 'Select yes if there are any children of the family',
@@ -17,12 +19,14 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => ({
-  title: 'Are there any children of the family?',
-  line1: `This includes any children of you and your ${partner}, and any stepchildren or other children considered as part of the family.`,
-  line2: 'This does not include foster children.',
+  title: 'A oes unrhyw blant o’r teulu?',
+  line1: `Mae hyn yn cynnwys unrhyw blant gennych chi a’ch ${partner}, ac unrhyw lysblant neu blant eraill a ystyriwyd yn rhan o’r teulu.`,
+  line2: 'Nid yw hyn yn cynnwys plant maeth.',
+  yes: 'Oes',
+  no: 'Nac oes',
   errors: {
     applicant1DispenseChildrenOfFamily: {
-      required: 'Select yes if there are any children of the family',
+      required: 'Dewiswch “Oes” os oes unrhyw blant o’r teulu',
     },
   },
 });

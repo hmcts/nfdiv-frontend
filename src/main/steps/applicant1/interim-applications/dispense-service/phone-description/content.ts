@@ -15,12 +15,12 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: 'Telephone Numbers',
-  partnerPhoneNumbersDescription: `Tell us the phone numbers and any previous contact you've had. Explain what attempts you have made to contact your ${partner} on these phone numbers.`,
+  title: 'Rhifau ffôn',
+  partnerPhoneNumbersDescription: `Rhowch y rhifau ffôn ac unrhyw gyswllt blaenorol. Eglurwch pa ymdrechion a wnaed gennych i gysylltu â’ch ${partner} ar y rhifau ffôn hyn.`,
   uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispensePartnerPhoneNumbers: {
-      required: `Enter your ${partner}'s phone numbers and explain any attempts you've made to contact them`,
+      required: `Rhowch rifau ffôn eich ${partner} ac eglurwch unrhyw ymdrechion a wnaed gennych i gysylltu â nhw`,
     },
   },
 });
