@@ -20,7 +20,6 @@ import {
   CHECK_JOINT_APPLICATION,
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
-  DEEMED_SERVICE_APPLICATION,
   HOW_DO_YOU_WANT_TO_RESPOND,
   HUB_PAGE,
   JOINT_APPLICATION_SUBMITTED,
@@ -1289,7 +1288,7 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
   });
-  test('redirects to service application page for applicant 1 if sole application interim application started', () => {
+  test('redirects to hub page after save and sign out for applicant 1 if sole application interim application started', () => {
     const req = mockRequest({
       session: {
         isApplicant2: false,
@@ -1305,6 +1304,6 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(DEEMED_SERVICE_APPLICATION);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
   });
 });
