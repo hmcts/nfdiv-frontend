@@ -55,8 +55,6 @@ const cy: typeof en = ({
   generalApplicationDocsAllProvided,
   generalApplicationType,
   referenceNumber,
-  isDivorce,
-  partner,
 }: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
   introLine1: `Rydych wedi cyflwyno eich cais i ${generalApplicationType}.`,
@@ -84,17 +82,13 @@ const cy: typeof en = ({
   } adolygu eich cais. Byddwn yn anfon e-bost atoch i roi ${
     generalApplicationFeeRequired && generalApplicationDocsAllProvided ? `erbyn ${generalApplicationResponseDate} ` : ''
   }gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus.`,
-  happensNextLine2: `Byddwn yn anfon e-bost atoch ${
-    generalApplicationFeeRequired && generalApplicationDocsAllProvided
-      ? `erbyn ${generalApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
-      : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
-  }.`,
+  happensNextLine2: "Os yw'ch cais yn cael ei gymeradwyo, fel arfer mae'n cymryd 6-8 wythnos i gwblhau chwiliad.",
   returnToHub: 'Dychwelyd i sgrin yr hyb',
   // Application type specific content overrides:
   contentOverrides: {
     disclosureViaDwp: {
-      title: 'Application submitted',
-      introLine1: 'You have submitted your application to search government records.',
+      title: "Cais wedi'i gyflwyno",
+      introLine1: 'Rydych wedi cyflwyno eich cais i chwilio cofnodion y llywodraeth.',
     },
   },
 });
