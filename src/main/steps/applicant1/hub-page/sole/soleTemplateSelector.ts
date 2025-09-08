@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceType,
+  GeneralApplicationType,
   ServiceApplicationRefusalReason,
   ServiceMethod,
   State,
@@ -32,6 +33,11 @@ export const getSoleHubTemplate = (
     ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
   const isPersonalServiceRequired = userCase.serviceMethod === ServiceMethod.PERSONAL_SERVICE;
+
+  const latestGeneralApplication = userCase.generalApplications?.[0].value;
+  const isSearchGovRecords =
+    latestGeneralApplication?.generalApplicationType === (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
+  const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -76,7 +82,9 @@ export const getSoleHubTemplate = (
         return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.AwaitingGeneralConsideration:
-      if (userCase.dateFinalOrderSubmitted) {
+      if (isSearchGovRecords) {
+        return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
+      } else if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
       } else if (userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;
@@ -85,6 +93,8 @@ export const getSoleHubTemplate = (
       } else {
         return HubTemplate.AosAwaitingOrDrafted;
       }
+    case State.GeneralApplicationReceived:
+      return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
     case State.AwaitingConditionalOrder:
       return HubTemplate.AwaitingConditionalOrder;
     case State.Holding:

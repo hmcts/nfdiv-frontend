@@ -1,4 +1,4 @@
-import { AlternativeServiceType, GeneralApplicationType } from '../../../../app/case/definition';
+import { GeneralApplicationType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { findOnlineGeneralApplicationsForUser } from '../../../../app/utils/general-application-utils';
 import type { CommonContent } from '../../../common/common.content';
@@ -9,12 +9,9 @@ const en = ({
   generalApplicationDocsAllProvided,
   generalApplicationType,
   referenceNumber,
-  isDivorce,
-  partner,
-  userCase,
 }: CommonContent) => ({
   title: 'Application submitted',
-  introLine1: `You have submitted your application for ${generalApplicationType}.`,
+  introLine1: `You have submitted your application to ${generalApplicationType}.`,
   introLine2:
     'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
   sendDocumentsHeading: 'Send your evidence to the court',
@@ -34,19 +31,13 @@ const en = ({
   happensNextHeading: 'What happens next',
   happensNextLine1: `${
     !generalApplicationFeeRequired && generalApplicationDocsAllProvided
-      ? 'If your help with fees reference number is accepted, the'
-      : 'The'
-  } court will review your application and any evidence you have submitted.${
-    userCase?.alternativeServiceType !== AlternativeServiceType.ALTERNATIVE_SERVICE
-      ? ` If your application is successful, your ${
-          isDivorce ? 'divorce' : 'dissolution'
-        } will proceed without a response from your ${partner}. We will then tell you when you can apply for your conditional order.`
-      : ''
-  }`,
-  happensNextLine2: `We will email you ${
+      ? 'If your help with fees reference number is accepted, the court will'
+      : 'The court will now'
+  } review your application. We will email you ${
     generalApplicationFeeRequired && generalApplicationDocsAllProvided ? `by ${generalApplicationResponseDate} ` : ''
   }to let you know whether your application has been successful.`,
-  returnToHub: 'Return to hub screen',
+  happensNextLine2: 'If your application is approved, it normally takes 6-8 weeks to complete a search.',
+  returnToHub: 'Return to your account',
 
   // Application type specific content overrides:
   contentOverrides: {
@@ -64,11 +55,9 @@ const cy: typeof en = ({
   generalApplicationDocsAllProvided,
   generalApplicationType,
   referenceNumber,
-  isDivorce,
-  partner,
 }: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
-  introLine1: `Rydych wedi cyflwyno eich cais am ${generalApplicationType}.`,
+  introLine1: `Rydych wedi cyflwyno eich cais i ${generalApplicationType}.`,
   introLine2:
     "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
   sendDocumentsHeading: 'Anfon eich tystiolaeth i’r llys',
@@ -86,20 +75,20 @@ const cy: typeof en = ({
     step2: 'Postiwch y dogfennau gwreiddiol i:',
   },
   happensNextHeading: 'Beth fydd yn digwydd nesaf',
-  happensNextLine1: `Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ${
-    isDivorce ? 'ysgariad' : 'diddymiad'
-  } yn mynd yn ei flaen heb ymateb gan eich ${partner}. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.`,
-  happensNextLine2: `Byddwn yn anfon e-bost atoch ${
-    generalApplicationFeeRequired && generalApplicationDocsAllProvided
-      ? `erbyn ${generalApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
-      : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
-  }.`,
+  happensNextLine1: `${
+    !generalApplicationFeeRequired && generalApplicationDocsAllProvided
+      ? 'Os derbynnir eich cyfeirnod help i dalu ffioedd, bydd y llys'
+      : 'Bydd y llys yn awr'
+  } yn adolygu eich cais. Byddwn yn anfon e-bost atoch i roi gwybod i chi ${
+    generalApplicationFeeRequired && generalApplicationDocsAllProvided ? `erbyn ${generalApplicationResponseDate} ` : ''
+  }p'un a yw eich cais wedi bod yn llwyddiannus.`,
+  happensNextLine2: "Os yw'ch cais yn cael ei gymeradwyo, fel arfer mae'n cymryd 6-8 wythnos i gwblhau chwiliad.",
   returnToHub: 'Dychwelyd i sgrin yr hyb',
   // Application type specific content overrides:
   contentOverrides: {
     disclosureViaDwp: {
-      title: 'Application submitted',
-      introLine1: 'You have submitted your application to search government records.',
+      title: "Cais wedi'i gyflwyno",
+      introLine1: 'Rydych wedi cyflwyno eich cais i chwilio cofnodion y llywodraeth.',
     },
   },
 });

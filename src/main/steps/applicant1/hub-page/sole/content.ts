@@ -30,6 +30,7 @@ import {
   RESPOND_TO_COURT_FEEDBACK,
   WITHDRAW_SERVICE_APPLICATION,
 } from '../../../urls';
+import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application-submitted/content';
 import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
@@ -47,6 +48,8 @@ const en = (
     serviceApplicationDate,
     serviceApplicationResponseDate,
     generalApplicationType,
+    generalApplicationDate,
+    generalApplicationResponseDate,
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
   }: CommonContent,
@@ -279,6 +282,10 @@ const en = (
   serviceAdminRefusalOrBailiffRefusal: {
     line1: 'The court is currently considering your service application.',
     line2: 'We will email you once a decision has been made to tell you your next steps.',
+  },
+  awaitingConsiderationSearchGovRecords: {
+    line1: `The court is currently considering your search government records application that you submitted on ${generalApplicationDate}.`,
+    line2: `We will email you by ${generalApplicationResponseDate} once a decision has been made to tell you your next steps.`,
   },
   serviceApplicationRejected: {
     line1: {
@@ -516,6 +523,8 @@ const cy: typeof en = (
     generalApplicationType,
     serviceApplicationResponseDate,
     serviceApplicationDate,
+    generalApplicationDate,
+    generalApplicationResponseDate,
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
   }: CommonContent,
@@ -671,6 +680,10 @@ const cy: typeof en = (
       SupportedLanguages.Cy
     )}.`,
     line2: `Ni fyddwch yn gweld ymateb eich ${partner} pan fyddwch yn gwneud cais am y gorchymyn amodol.`,
+  },
+  awaitingConsiderationSearchGovRecords: {
+    line1: `The court is currently considering your search government records application that you submitted on ${generalApplicationDate}.`,
+    line2: `We will email you by ${generalApplicationResponseDate} once a decision has been made to tell you your next steps.`,
   },
   conditionalOrderWithDeemedOrDispensedService: `Ni fyddwch yn gweld ymateb gan eich ${partner} yn y cais am orchymyn amodol.
    Mae hyn oherwydd na wnaethant ymateb i'ch cais. Gwnaethoch gais i'r llys am ${
@@ -1058,6 +1071,8 @@ export const generateContent: TranslationFn = content => {
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
     NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
+  const isSearchGovRecordsFeeRequired = content.generalApplicationFeeRequired;
+
   return {
     ...languages[language](
       content,
@@ -1066,6 +1081,7 @@ export const generateContent: TranslationFn = content => {
       respondentAddressProvided
     ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
+    generalApplicationSubmitted: generalApplicationSubmittedContent(content),
     displayState,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,
@@ -1087,5 +1103,6 @@ export const generateContent: TranslationFn = content => {
     contactDetailsUpdatedUKBased,
     applicant1NoResponseSendPapersAgain,
     isAwaitingProcessServerService,
+    isSearchGovRecordsFeeRequired,
   };
 };
