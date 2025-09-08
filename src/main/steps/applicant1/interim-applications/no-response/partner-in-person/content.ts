@@ -23,7 +23,7 @@ const en = ({ partner }: CommonContent) => ({
       line4:
         'Process servers will charge you a fee to serve documents, normally between £50 - £200 depending on which process server you choose.',
       line5:
-        'You will need to find a process server yourself. You will then need to download the papers from your divorce account and give them to your process server. They will then serve the papers on your behalf',
+        'You will need to find a process server yourself. You will then need to download the papers from your account and give them to your process server. They will then serve the papers on your behalf',
     },
   },
   courtBailiffService: {
