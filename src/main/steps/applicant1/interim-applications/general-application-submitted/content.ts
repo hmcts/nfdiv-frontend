@@ -75,9 +75,13 @@ const cy: typeof en = ({
     step2: 'Postiwch y dogfennau gwreiddiol i:',
   },
   happensNextHeading: 'Beth fydd yn digwydd nesaf',
-  happensNextLine1: `Byddwn yn anfon e-bost atoch i roi gwybod i chi ${
+  happensNextLine1: `${
+    !generalApplicationFeeRequired && generalApplicationDocsAllProvided
+      ? 'Os derbynnir eich cyfeirnod help i dalu ffioedd, bydd y llys'
+      : 'Bydd y llys yn awr'
+  } yn adolygu eich cais. Byddwn yn anfon e-bost atoch i roi gwybod i chi ${
     generalApplicationFeeRequired && generalApplicationDocsAllProvided ? `erbyn ${generalApplicationResponseDate} ` : ''
-  }p'un a yw eich cais wedi bod yn llwyddiannus`,
+  }p'un a yw eich cais wedi bod yn llwyddiannus.`,
   happensNextLine2: "Os yw'ch cais yn cael ei gymeradwyo, fel arfer mae'n cymryd 6-8 wythnos i gwblhau chwiliad.",
   returnToHub: 'Dychwelyd i sgrin yr hyb',
   // Application type specific content overrides:
