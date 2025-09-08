@@ -10,7 +10,7 @@ describe('SearchGovRecordsPostController', () => {
     fields: {},
   } as unknown as FormContent;
 
-  it('Set deemed service general application type', async () => {
+  it('Set search government records general application type', async () => {
     const body = {};
 
     const expectedBody = {
