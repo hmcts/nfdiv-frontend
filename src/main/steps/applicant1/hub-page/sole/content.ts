@@ -111,7 +111,9 @@ const en = (
     }.`,
     line2: `You have started a ${interimApplicationType} application.`,
     line3: `You can continue with your ${interimApplicationType} application.`,
-    line4: `If your circumstances have changed or you want to try something else, you can <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">view your options to proceed with your divorce application</a>.`,
+    line4: `If your circumstances have changed or you want to try something else, you can <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">view your options to proceed with your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }</a>.`,
     line5: 'If you begin a new application, your current draft application will be deleted.',
     whatYouCanDoNext: 'What you can do next',
     completeApplication: 'Complete application',
@@ -567,7 +569,9 @@ const cy: typeof en = (
     }.`,
     line2: `Rydych wedi dechrau cais ${interimApplicationType}.`,
     line3: `Gallwch barhau gyda’ch cais ${interimApplicationType}.`,
-    line4: `Os yw eich amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">weld eich opsiynau i fwrw ymlaen â’ch cais am ysgariad</a>.`,
+    line4: `Os yw eich amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">weld eich opsiynau i fwrw ymlaen â'ch cais ${
+      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+    }</a>.`,
     line5: 'Os ydych yn dechrau cais newydd, bydd eich cais drafft presennol yn cael ei ddileu.',
     whatYouCanDoNext: 'Beth allwch chi ei wneud nesaf',
     completeApplication: 'Cwblhau’r cais',
