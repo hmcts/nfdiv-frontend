@@ -9,7 +9,7 @@ const en = () => ({
     'Explain why you have not been able to send the papers. Give as much detail as you can. This information may be considered by a judge as part of your application.',
   errors: {
     applicant1AltServiceReasonForApplying: {
-      required: 'You must explain why are applying for alternative service.',
+      required: 'You must explain why you are applying for alternative service.',
     },
   },
 });

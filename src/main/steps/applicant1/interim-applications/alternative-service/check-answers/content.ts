@@ -144,9 +144,9 @@ const cy: typeof en = (
     alternativeServiceMethodJustification: 'Pam ydych yn gwneud cais i anfon y papurau yn y ffordd yma?',
   },
   stepAnswers: {
-    useHwf: `${useHwf}`,
+    useHwf: `${useHwf === YesOrNo.YES ? 'Byddaf' : 'Na fyddaf'}`,
     hwfReference: `${hwfReference}`,
-    canUploadEvidence: `${canUpload}`,
+    canUploadEvidence: `${canUpload === YesOrNo.YES ? 'Ydy' : 'Nac ydw'}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
     alternativeServiceReason: `${alternativeServiceReason}`,
     alternativeServiceMethod:

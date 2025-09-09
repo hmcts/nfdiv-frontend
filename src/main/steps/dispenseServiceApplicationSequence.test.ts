@@ -153,7 +153,7 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(EMAIL_DISPENSE);
     });
 
-    test('DA_SEARCH_DISPENSE', () => {
+    test('FINAL_ORDER_SEARCH_DISPENSE', () => {
       const caseData = {
         applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo.YES,
       };
@@ -162,7 +162,7 @@ describe('Dispense With Service Application Sequence test', () => {
     });
   });
 
-  describe('DA_SEARCH_DISPENSE', () => {
+  describe('FINAL_ORDER_SEARCH_DISPENSE', () => {
     test('EMAIL_DISPENSE', () => {
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === FINAL_ORDER_SEARCH_DISPENSE) as Step;
       expect(step.getNextStep({})).toBe(EMAIL_DISPENSE);

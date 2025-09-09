@@ -8,7 +8,10 @@
 {% block form_content %}
 
   {% for fieldName, field in form.fields %}
-    {% if fieldName == 'applicant1InterimAppsCannotUploadDocs' %}
+    {% if fieldName == 'applicant1DispensePartnerEmailAddresses' %}
+      {% include "common/form/fields/" + field.type + ".njk" %}
+      <h2 id="uploadSupportingDocuments" class="govuk-heading-s">{{ uploadSupportingDocuments }}</h2>
+    {% elseif fieldName == 'applicant1InterimAppsCannotUploadDocs' %}
       {% include "common/form/fields/" + field.type + ".njk" %}
     {% elseif fieldName == 'applicant1InterimAppsEvidenceUploadedFiles'%}
       <p class="govuk-body">
