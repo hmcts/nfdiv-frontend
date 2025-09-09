@@ -28,13 +28,13 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   }.`,
   errors: {
     applicant1NoResponseSearchOrDispense: {
-      required: 'You must select an option before continuing',
+      required: 'Select if you want to ask the court to search government records',
     },
   },
 });
 
 const cy = ({ isDivorce, partner }: CommonContent) => ({
-  title: `Os ydych chi’n meddwl bod eich ${partner} dal yn y DU, gallwch ofyn i’r llys chwilio am fanylion cyswllt eich ${partner} drwy adran y llywodraeth.`,
+  title: `Gofynnwch i’r llys chwilio drwy gofnodion y llywodraeth am fanylion eich ${partner}`,
   beforeCourtConsideration: {
     title:
       'Cyn gall y llys ystyried hyn, mae’n rhaid i chi ddangos eich bod chi wedi gwneud popeth y gallwch i ddod o hyd i’w manylion cyswllt eich hun, gan gynnwys:',
@@ -57,7 +57,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   }`,
   errors: {
     applicant1NoResponseSearchOrDispense: {
-      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
+      required: 'Dewiswch os ydych eisiau gofyn i’r llys chwilio cofnodion y llywodraeth',
     },
   },
 });

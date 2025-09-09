@@ -34,6 +34,7 @@ import {
   OrderSummary,
   Payment,
   RequestForInformation,
+  ServiceMethod,
   State,
   YesOrNo,
   YesOrNoOrNotKnown,
@@ -198,6 +199,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationDetails: 'requestForInformationDetails',
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
+  serviceMethod: 'serviceMethod',
+  serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerNewEmailOrAddress: 'applicant1NoResponsePartnerNewEmailOrAddress',
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
@@ -272,7 +275,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
   alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
   alternativeServiceType: 'alternativeServiceType',
-  serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
   applicant1DispenseLiveTogether: 'applicant1DispenseLiveTogether',
   applicant1DispenseLivedTogetherDate: 'applicant1DispenseLivedTogetherDate',
@@ -536,6 +538,7 @@ export interface Case {
   app2RfiDraftResponseCannotUploadDocs?: Checkbox;
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
+  serviceMethod: ServiceMethod;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerNewEmailOrAddress?: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
@@ -601,16 +604,6 @@ export interface Case {
   applicant1NoResponsePartnerAddressOverseas?: YesOrNo;
   applicant1NoResponsePartnerEmailAddress?: string;
   applicant2Address?: AddressGlobalUK;
-  applicant1AltServiceReasonForApplying?: string;
-  applicant1AltServiceMethod?: AlternativeServiceMethod;
-  applicant1AltServicePartnerEmail?: string;
-  applicant1AltServicePartnerEmailWhenDifferent?: string;
-  applicant1AltServicePartnerPhone?: string;
-  applicant1AltServicePartnerWANum?: string;
-  applicant1AltServicePartnerSocialDetails?: string;
-  applicant1AltServicePartnerOtherDetails?: string;
-  applicant1AltServiceMethodJustification?: string;
-  applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
@@ -622,8 +615,46 @@ export interface Case {
   alternativeServiceFeeRequired: YesOrNo;
   alternativeServiceType: AlternativeServiceType;
   serviceApplicationAnswers: DivorceDocument;
+  applicant1AltServiceReasonForApplying?: string;
+  applicant1AltServiceMethod?: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail?: string;
+  applicant1AltServicePartnerEmailWhenDifferent?: string;
+  applicant1AltServicePartnerPhone?: string;
+  applicant1AltServicePartnerWANum?: string;
+  applicant1AltServicePartnerSocialDetails?: string;
+  applicant1AltServicePartnerOtherDetails?: string;
+  applicant1AltServiceMethodJustification?: string;
+  applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
+  applicant1DispenseHavePartnerEmailAddresses?: YesOrNo;
+  applicant1DispenseHaveSearchedFinalOrder?: YesOrNo;
+  applicant1DispenseWhyNoFinalOrderSearch?: string;
+  applicant1DispensePartnerEmailAddresses?: string;
+  applicant1DispenseHavePartnerPhoneNumbers?: YesOrNo;
+  applicant1DispensePartnerPhoneNumbers?: string;
+  applicant1DispenseTriedTracingAgent?: YesOrNo;
+  applicant1DispenseWhyNoTracingAgent?: string;
+  applicant1DispenseTracingAgentResults?: string;
+  applicant1DispenseTriedTracingOnline?: YesOrNo;
+  applicant1DispenseWhyNoTracingOnline?: string;
+  applicant1DispenseTracingOnlineResults?: string;
+  applicant1DispenseTriedSearchingOnline?: YesOrNo;
+  applicant1DispenseWhyNoSearchingOnline?: string;
+  applicant1DispenseSearchingOnlineResults?: string;
+  applicant1DispenseTriedContactingEmployer?: YesOrNo;
+  applicant1DispenseWhyNoContactingEmployer?: string;
+  applicant1DispenseEmployerName?: string;
+  applicant1DispenseEmployerAddress?: string;
+  applicant1DispensePartnerOccupation?: string;
+  applicant1DispenseContactingEmployerResults?: string;
+  applicant1DispenseChildrenOfFamily?: YesOrNo;
+  applicant1DispensePartnerContactWithChildren?: YesOrNo;
+  applicant1DispenseHowPartnerContactChildren?: string;
+  applicant1DispensePartnerLastContactChildren?: string;
+  applicant1DispenseChildMaintenanceOrder?: YesOrNo;
+  applicant1DispenseChildMaintenanceResults?: string;
+  applicant1DispenseContactFriendsOrRelativesDetails?: string;
   applicant1DispenseLiveTogether?: YesOrNo;
   applicant1DispenseLivedTogetherDate?: DateAsString;
   applicant1DispenseLastLivedTogetherDate?: CaseDate;

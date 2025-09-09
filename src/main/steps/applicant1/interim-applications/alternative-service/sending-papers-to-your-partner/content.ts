@@ -30,26 +30,26 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Sending the papers to your ${partner}`,
-  line1: `If you can show that your ${partner} has an email address that they actively use, the court may be able to email the papers to that address.`,
+  title: `Anfon y papurau at eich ${partner}`,
+  line1: `Os gallwch ddangos bod gan eich ${partner} gyfeiriad e-bost a ddefnyddir ganddynt yn rheolaidd, efallai y gall y llys e-bostio’r papurau i’r cyfeiriad hwnnw.`,
   line2:
-    'If you do not have an email address, or would prefer to send them in a different way (for example text, WhatsApp or social media), you can do so but you will need to arrange this yourself. In these cases, we will email the papers to you so you can do so.',
-  wantToApplyChoiceHeader: 'How would you like to apply to send the papers?',
-  email: 'By email',
-  different: 'In a different way',
-  emailAndDifferent: 'By both email and a different way',
-  emailAddress: 'Email address',
+    'Os nad oes gennych gyfeiriad e-bost neu os byddai’n well gennych eu hanfon mewn ffordd wahanol (er enghraifft, neges destun, WhatsApp neu’r cyfryngau cymdeithasol), gallwch wneud hynny, ond byddwch angen trefnu hyn eich hun.  Yn yr achosion hyn, byddwn yn e-bostio’r papurau atoch fel y gallwch wneud hynny.',
+  wantToApplyChoiceHeader: 'Sut hoffech chi ymgeisio i anfon y papurau?',
+  email: 'Trwy e-bost',
+  different: 'Mewn ffordd wahanol',
+  emailAndDifferent: 'Drwy e-bost ac mewn ffordd wahanol',
+  emailAddress: 'Cyfeiriad e-bost',
   errors: {
     applicant1AltServiceMethod: {
-      required: 'Select how you want to send the papers.',
+      required: 'Dewiswch sut rydych eisiau anfon y papurau.',
     },
     applicant1AltServicePartnerEmail: {
-      required: 'Email address cannot be blank.',
-      invalid: 'Enter an email address in the correct format, like name@example.com',
+      required: 'Ni all y blwch ar gyfer cyfeiriad e-bost fod yn wag.',
+      invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com',
     },
     applicant1AltServicePartnerEmailWhenDifferent: {
-      required: 'Email address cannot be blank.',
-      invalid: 'Enter an email address in the correct format, like name@example.com',
+      required: 'Ni all y blwch ar gyfer cyfeiriad e-bost fod yn wag.',
+      invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com',
     },
   },
 });

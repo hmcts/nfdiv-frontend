@@ -216,12 +216,18 @@ Feature: No response journey
     When I click element "#aosDueLink"
     Then the page should include element "#optionsForProgressingTitle"
     When I click start
-    Then the page should include element "#upToDate"
+    Then the page should include element "#haveTheyReceivedTitle"
 
-    Given I click element "#newAddress"
+    Given I select element '#newAddress'
     When I click continue
-    Then the page should include element "#newPostalAddress"
-    And I click element "#bothEmailAndPostalAddress"
+    Then the page should include element "#newPostalAndEmailTitle"
+
+    Given I select element "#bothEmailAndPostalAddress"
+    When I click continue
+    Then the page should include element "#provideNewEmailAddressTitle"
+
+    Given I select element "#applicant1NoResponsePartnerEmailAddress"
+    And I type "test@test.com"
     When I click continue
     Then the page should include element "#enterPostcode"
 
@@ -246,3 +252,26 @@ Feature: No response journey
     Given I go to "/interim-applications/no-response/new-postal-and-email"
     When I click continue
     Then the page should show an error for field "applicant1NoResponsePartnerNewEmailOrAddress"
+
+  Scenario: No response /server-again send papers again or try something else
+    Given I set the case state to "AosOverdue"
+    Then the page should include "View your options for proceeding without a response from the respondent"
+    When I click element "#aosDueLink"
+    Then the page should include element "#optionsForProgressingTitle"
+    When I click start
+    Then the page should include element "#upToDate"
+
+    Given I click element "#upToDate"
+    When I click continue
+    Then the page should include element "#evidenceReceivedApplicationTitle"
+
+    Given I click element "#proveNo"
+    When I click continue
+    Then the page should include element "#sendPapersAgainToPartner"
+
+    Given I click element "#sendPapersAgain"
+    When I click continue
+    Then the page should include element "#checkAnswersTitle"
+
+    When I click "Accept and send"
+    Then the page should include element "#sendPapersAgainTitle"

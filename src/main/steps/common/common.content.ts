@@ -20,8 +20,8 @@ export const en = {
     bailiff: 'bailiff service',
     bailiffCode: 'D89',
     alternativeService: 'alternative service',
-    dispense: 'dispense with service',
-    dispenseCode: 'D13b',
+    dispensed: 'dispense with service',
+    dispensedCode: 'D13b',
   },
   interimApplicationType: {
     deemedService: 'deemed service',
@@ -219,8 +219,8 @@ const cy: typeof en = {
     bailiff: 'gwasanaeth bailiff',
     bailiffCode: 'D89',
     alternativeService: 'gwasanaeth amgen',
-    dispense: 'hepgor cyflwyno',
-    dispenseCode: 'D13b',
+    dispensed: 'hepgor cyflwyno',
+    dispensedCode: 'D13b',
   },
   interimApplicationType: {
     deemedService: 'cyflwyno tybiedig',
@@ -462,7 +462,7 @@ export const generateCommonContent = ({
     language
   );
   const serviceApplicationFeeRequired = userCase?.alternativeServiceFeeRequired === YesOrNo.YES;
-  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission === YesOrNo.YES;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
   const genesysDeploymentId: string =
     language === SupportedLanguages.En
