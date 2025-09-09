@@ -140,13 +140,14 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: SERVE_AGAIN,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data?.applicant2AddressPrivate === YesOrNo.YES) {
-        return WILL_SERVE_AGAIN;
+      const sendPapersAgain = data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
+          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
+      const respondentIsPrivate = data?.applicant2AddressPrivate === YesOrNo.YES;
+  
+      if (sendPapersAgain) {
+        return respondentIsPrivate ? WILL_SERVE_AGAIN : NEW_CONTACT_DETAIL_CHECK_ANSWERS;
       } else {
-        return data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
-          NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN
-          ? NEW_CONTACT_DETAIL_CHECK_ANSWERS
-          : NO_NEW_ADDRESS;
+        return NO_NEW_ADDRESS;
       }
     },
   },
