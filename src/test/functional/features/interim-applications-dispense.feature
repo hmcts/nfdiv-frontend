@@ -198,7 +198,3 @@ Feature: Dispense with service journey
     Given I select element "#applicant1InterimAppsStatementOfTruth"
     When I click continue
     Then the page should include element "#serviceApplicationSubmittedTitle"
-
-    #Then the page should include element "#STOP"
-    # Fix and continue this scenario as the journey progresses
-
