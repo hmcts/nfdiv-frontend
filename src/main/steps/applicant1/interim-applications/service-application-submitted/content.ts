@@ -52,6 +52,16 @@ const en = ({
   // Application type specific content overrides:
   contentOverrides: {
     alternativeService: {
+      happensNextLine1: `${
+        !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+          ? 'If your help with fees reference number is accepted, the'
+          : 'The'
+      } court will review your request and any evidence you have submitted.`,
+      happensNextLine2: `We will email you ${
+        serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+          ? `by ${serviceApplicationResponseDate} `
+          : ''
+      }to let you know whether your request has been successful.`,
       happensNextLine3:
         'If your application is successful, we will email you detailed information about what to do next.',
     },
@@ -124,8 +134,18 @@ const cy: typeof en = ({
   // Application type specific content overrides:
   contentOverrides: {
     alternativeService: {
+      happensNextLine1: `${
+        !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+          ? 'Os derbynnir eich cyfeirnod help i dalu ffioedd, bydd'
+          : 'Bydd'
+      } y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno.`,
+      happensNextLine2: `Byddwn yn anfon e-bost atoch ${
+        serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+          ? `erbyn ${serviceApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
+          : 'i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus'
+      }.`,
       happensNextLine3:
-        'If your application is successful, we will email you detailed information about what to do next.',
+        'Os bydd eich cais yn llwyddiannus, byddwn yn anfon e-bost atoch i ddweud wrthych am beth i’w wneud nesaf.',
     },
     dispensed: {
       introLine1: 'You have applied to dispense with service.',

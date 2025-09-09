@@ -79,7 +79,7 @@ const cy: typeof en = (
               : socialMediaSelected
                 ? 'drwy neges breifat ar y cyfryngau cymdeithasol'
                 : 'yn y ffordd yma'
-    } ${cannotUploadEvidence ? '?' : 'yn llwyddiannus?'}`,
+    }${cannotUploadEvidence ? '?' : ' yn llwyddiannus?'}`,
   line1: `Dywedwch pam ydych yn meddwl y bydd eich ${partner} yn derbyn y papurau fel hyn. Os bydd ffrind neu berthynas yn anfon y papurau ar eich rhan, byddwch angen dweud wrthym pwy sy’n anfon hwn.`,
   unableToUploadLine1: 'Dylech hefyd esbonio pam nad ydych wedi gallu uwchlwytho tystiolaeth.',
   unableToUploadLine2:
@@ -89,7 +89,7 @@ const cy: typeof en = (
       required: `${
         cannotUploadEvidence
           ? 'Rhaid i chi egluro pam rydych yn ymgeisio i anfon y papurau '
-          : 'Rhaid i chi egluro pam meddwl anfon y papurau '
+          : 'Rhaid i chi esbonio pam ydych yn meddwl bu anfon y papurau '
       }
     ${
       multipleWaysSelected
