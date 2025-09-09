@@ -685,7 +685,7 @@ export interface Case {
   serviceApplicationAnswers: DivorceDocument;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
-  applicant1SearchGovRecordsReasonForApplying?: string;
+  applicant1SearchGovRecordsReasonForApplying: string;
   applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
   applicant1SearchGovRecordsWhyTheseDepartments: string;
   applicant1SearchGovRecordsOtherDepartmentNames?: string;
