@@ -96,7 +96,7 @@ Feature: Dispense with service journey
     Then I select element "#applicant1DispensePartnerLastSeenDescription"
     And I type "Last seen description"
     When I click continue
-    Then the page should include element "#daSearchDispenseTitle"
+    Then the page should include element "#finalOrderSearchDispenseTitle"
 
     Given I click element "#yes"
     When I click continue
@@ -181,10 +181,20 @@ Feature: Dispense with service journey
     When I click continue
     Then the page should include element "#friendsOrRelativesTitle"
 
-    Given I select element "#applicant1DispenseContactFriendsOrFamilyDetails"
+    Given I select element "#applicant1DispenseContactFriendsOrRelativesDetails"
     And I type "Friends or relatives contact details"
     When I click continue
 
-    #Then the page should include element "#STOP"
-    # Fix and continue this scenario as the journey progresses
+    Then the page should include element "#otherEnquiriesTitle"
+    Given I select element "#applicant1DispenseOtherEnquiries"
+    And I type "Other enquiries details"
+    When I click continue
 
+    Then the page should include element "#uploadEvidenceTitle"
+    Given I select element "#applicant1InterimAppsCannotUploadDocs"
+    When I click continue
+
+    Then the page should include element "#checkAnswersTitle"
+    Given I select element "#applicant1InterimAppsStatementOfTruth"
+    When I click continue
+    Then the page should include element "#serviceApplicationSubmittedTitle"
