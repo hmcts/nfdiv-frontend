@@ -11,6 +11,7 @@ import {
   RESPOND_TO_COURT_FEEDBACK,
   UPLOAD_EVIDENCE_ALTERNATIVE,
   UPLOAD_EVIDENCE_DEEMED,
+  UPLOAD_EVIDENCE_DISPENSE,
   UPLOAD_PARTNER_PHOTO,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
@@ -78,6 +79,8 @@ export class DocumentManagerController {
       return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_PARTNER_PHOTO}`;
     } else if (interimApplicationType === InterimApplicationType.ALTERNATIVE_SERVICE) {
       return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_ALTERNATIVE}`;
+    } else if (interimApplicationType === InterimApplicationType.DISPENSE_WITH_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DISPENSE}`;
     }
     return req.get('Referrer') as string;
   }

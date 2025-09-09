@@ -39,47 +39,48 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
       required: 'You must provide social media details.',
     },
     applicant1AltServicePartnerOtherDetails: {
-      required: 'You must provide details about how to contact your partner.',
+      required: `You must provide details about how to contact your ${partner}.`,
     },
   },
 });
 
 const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
-  title: `Choose how you want to send the ${
-    isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
+  title: `Dewiswch sut rydych eisiau anfon y papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   }`,
-  line1: `You will need to provide evidence that your ${partner} actively uses each method you choose.`,
-  line2: `You can only use social media platforms where you or a friend or relative can upload documents in a private message to your ${partner}.`,
-  line3: `You will be responsible for making sure the papers are sent to your ${partner} in the way you choose, even if someone helps you. You will need to complete a certificate of service form (FP6) and send it to the court once you have sent the papers.`,
-  howToSend: `How do you want to send the ${
-    isDivorce ? 'divorce papers' : 'papers relating to ending your civil partnership'
-  } to your ${partner}?`,
-  selectAllThatApply: 'Select all that apply',
-  textMessage: 'Text message',
-  enterMobileNumberLabel: 'Enter a mobile phone number',
+  line1: `Byddwch angen rhoi tystiolaeth bod eich ${partner} yn defnyddio pob dull a ddewisir gennych yn rheolaid.`,
+  line2: `Gallwch ond defnyddio platfform cyfryngau cymdeithasol ble gallwch chi neu ffrind neu berthynas uwchlwytho dogfennau mewn neges breifat at eich ${partner}.`,
+  line3: `Byddwch chi’n gyfrifol am sicrhau bod y papurau yn cael eu hanfon at eich ${partner} yn y ffordd a ddewisir gennych, hyd yn oed os bydd rhywun yn eich helpu chi.  Byddwch angen llenwi ffurflen tystysgrif cyflwyno (ffurflen FP6) a’i hanfon i’r llys unwaith y byddwch wedi anfon y papurau.`,
+  howToSend: `Sut ydych eisiau anfon papurau’r ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } at eich ${partner}?`,
+  selectAllThatApply: 'Dewiswch bob un sy’n berthnasol',
+  textMessage: 'Neges testun',
+  enterMobileNumberLabel: 'Nodwch rif ffôn symudol',
   whatsApp: 'WhatsApp',
-  whatsAppNumberLabel: 'Enter a mobile phone number',
-  privateSocialMedia: 'Private message on social media',
-  socialMediaLabel: 'Provide details (profile link, username and platform)',
-  otherWay: 'Other',
-  otherWayLabel: `Provide details about how to contact your ${partner}`,
+  whatsAppNumberLabel: 'Nodwch rif ffôn symudol',
+  privateSocialMedia: 'Neges breifat ar y cyfryngau cymdeithasol',
+  socialMediaLabel: 'Rhowch fanylion (dolen proffil, enw defnyddiwr a phlatfform)',
+  otherWay: 'Arall',
+  otherWayLabel: `Rhowch fanylion am y platfform a sut i gysylltu â’ch ${partner}`,
   errors: {
     applicant1AltServiceDifferentWays: {
-      required: 'Select if you want to send the papers by text message, WhatsApp, social media, or other.',
+      required:
+        'Dewiswch os ydych eisiau anfon y papurau drwy neges destun; WhatsApp, cyfryngau cymdeithasol neu arall.',
     },
     applicant1AltServicePartnerPhone: {
-      invalid: 'Enter a phone number in the correct format, like 07234567890.',
-      required: 'Mobile phone number cannot be blank.',
+      invalid: 'Rhowch rif ffôn yn y fformat cywir, er enghraifft 07234567890.',
+      required: 'Ni all rhif ffôn symudol gael ei adael yn wag.',
     },
     applicant1AltServicePartnerWANum: {
-      invalid: 'Enter a phone number in the correct format, like 07234567890.',
-      required: 'Mobile phone number cannot be blank.',
+      invalid: 'Rhowch rif ffôn yn y fformat cywir, er enghraifft 07234567890.',
+      required: 'Ni all rhif ffôn symudol gael ei adael yn wag.',
     },
     applicant1AltServicePartnerSocialDetails: {
-      required: 'You must provide social media details.',
+      required: 'Rhaid i chi roi manylion cyfryngau cymdeithasol.',
     },
     applicant1AltServicePartnerOtherDetails: {
-      required: 'You must provide details about how to contact your partner.',
+      required: `Rhaid i chi roi manylion am sut i gysylltu â’ch ${partner}.`,
     },
   },
 });
