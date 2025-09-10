@@ -484,9 +484,6 @@ const en = (
       } can continue without their response.`,
     },
     line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
-    line4: `You can <a class="govuk-link" href="${OPTIONS_FOR_PROGRESSING}">view your other options for progressing your ${
-      isDivorce ? 'divorce' : 'application to end your civil partnership'
-    }</a> if you later decide that you no longer want to arrange service by a process server.`,
   },
 });
 

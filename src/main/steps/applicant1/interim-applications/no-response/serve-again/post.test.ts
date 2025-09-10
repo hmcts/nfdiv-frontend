@@ -1,7 +1,11 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { CITIZEN_UPDATE, UPDATE_CONTACT_DETAILS_AND_REISSUE, YesOrNo } from '../../../../../app/case/definition';
-import { NoResponseSendPapersAgainOrTrySomethingElse } from '../../../../../app/case/definition';
+import {
+  CITIZEN_UPDATE,
+  NoResponseSendPapersAgainOrTrySomethingElse,
+  UPDATE_CONTACT_DETAILS_AND_REISSUE,
+  YesOrNo,
+} from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 
 import SendPapersAgainOrTrySomethingElsePostController from './post';
@@ -18,8 +22,9 @@ describe('NewPostalAddressPostController', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-  
-    req.session.userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse = NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
+
+    req.session.userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse =
+      NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
     req.session.userCase.applicant2AddressPrivate = YesOrNo.YES;
 
     await sendPapersAgainOrTrySomethingElsePostController.post(req, res);
@@ -34,8 +39,9 @@ describe('NewPostalAddressPostController', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-  
-    req.session.userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse = NoResponseSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE;
+
+    req.session.userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse =
+      NoResponseSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE;
     req.session.userCase.applicant2AddressPrivate = YesOrNo.YES;
 
     await sendPapersAgainOrTrySomethingElsePostController.post(req, res);
@@ -50,8 +56,9 @@ describe('NewPostalAddressPostController', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-  
-    req.session.userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse = NoResponseSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE;
+
+    req.session.userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse =
+      NoResponseSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE;
     req.session.userCase.applicant2AddressPrivate = YesOrNo.NO;
 
     await sendPapersAgainOrTrySomethingElsePostController.post(req, res);
@@ -66,8 +73,9 @@ describe('NewPostalAddressPostController', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-  
-    req.session.userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse = NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
+
+    req.session.userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse =
+      NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN;
     req.session.userCase.applicant2AddressPrivate = YesOrNo.NO;
 
     await sendPapersAgainOrTrySomethingElsePostController.post(req, res);

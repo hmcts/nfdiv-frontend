@@ -8,6 +8,7 @@ import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
+import { isReadyForRepeatService } from '../app/controller/controller-validations';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {
   CHECK_ANSWERS_URL,
@@ -27,9 +28,11 @@ import {
   PAY_YOUR_FINAL_ORDER_FEE,
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER_DOCS,
+  PROCESS_SERVER,
   PageLink,
   REVIEW_THE_APPLICATION,
   SERVICE_APPLICATION_SUBMITTED,
+  NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   SUCCESS_SCREEN_PROCESS_SERVER,
 } from './urls';
 
@@ -125,14 +128,11 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
     condition: data => Boolean(data.dateAosSubmitted),
   },
   {
-    urls: [HAVE_THEY_RECEIVED],
-    condition: data =>
-      data.applicant2AddressPrivate === YesOrNo.YES ||
-      [
-        State.AwaitingServicePayment,
-        State.AwaitingServiceConsideration,
-        State.AwaitingDocuments,
-        State.AwaitingService,
-      ].includes(data.state as State),
+    urls: [HAVE_THEY_RECEIVED, NEW_CONTACT_DETAIL_CHECK_ANSWERS],
+    condition: data => data.applicant2AddressPrivate === YesOrNo.YES,
+  },
+  {
+    urls: [HAVE_THEY_RECEIVED, NEW_CONTACT_DETAIL_CHECK_ANSWERS, PROCESS_SERVER],
+    condition: data => !isReadyForRepeatService(data),
   },
 ];

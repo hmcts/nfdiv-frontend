@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
-import { isApplicant2EmailValid, isFieldFilledIn } from '../../../../../app/form/validation';
+import { hasValueChanged, isApplicant2EmailValid, isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
@@ -13,6 +13,7 @@ const en = ({ partner }: CommonContent) => ({
       required: 'You have not entered an email address. Enter an email address before continuing.',
       invalid: 'Enter an email address in the correct format, like name@example.com',
       sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`,
+      valueUnchanged: `You have entered the same email address as the one you previously provided for your ${partner}. Please enter a new email address to continue.`,
     },
   },
 });
@@ -28,6 +29,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       required: 'Nid ydych wedi nodi cyfeiriad e-bost. Nodwch gyfeiriad e-bost cyn parhau.',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com.',
       sameEmail: `Rydych wedi nodi’ch cyfeiriad e-bost eich hun. Mae angen i chi nodi cyfeiriad e-bost eich ${partner} cyn parhau.`,
+      valueUnchanged: `You have entered the same email address as the one you previously provided for your ${partner}. Please enter a new email address to continue.`,
     },
   },
 });
@@ -40,7 +42,11 @@ export const form: FormContent = {
       label: l => l.provideNewEmailHeader,
       labelSize: null,
       validator: value => {
-        return isFieldFilledIn(value) || isApplicant2EmailValid(value as string, userCase.applicant1Email);
+        return (
+          isFieldFilledIn(value) ||
+          isApplicant2EmailValid(value as string, userCase.applicant1Email) ||
+          hasValueChanged(value as string, userCase?.applicant2Email)
+        );
       },
     },
   }),

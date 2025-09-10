@@ -175,6 +175,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   coRefusalRejectionAdditionalInfo: 'coRefusalRejectionAdditionalInfo',
   dueDate: 'dueDate',
   dateSubmitted: 'dateSubmitted',
+  serviceDocumentsRegeneratedDate: 'serviceDocumentsRegeneratedDate',
   aosIsDrafted: 'aosIsDrafted',
   dateAosSubmitted: 'dateAosSubmitted',
   dateFinalOrderSubmitted: 'dateFinalOrderSubmitted',
@@ -465,6 +466,7 @@ export interface Case {
   respondentUserId?: string;
   applicant1UserId?: string;
   dateSubmitted?: DateAsString;
+  serviceDocumentsRegeneratedDate?: DateAsString;
   applicationPayments: ListValue<Payment>[];
   finalOrderPayments: ListValue<Payment>[];
   applicationFeeOrderSummary: OrderSummary;
@@ -635,6 +637,7 @@ export interface Case {
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
   applicant1NoResponseSearchOrDispense?: NoResponseSearchOrDispense;
+  applicant1NoResponsePartnerAddress?: AddressGlobalUK;
   applicant1NoResponsePartnerAddress1?: string;
   applicant1NoResponsePartnerAddress2?: string;
   applicant1NoResponsePartnerAddress3?: string;

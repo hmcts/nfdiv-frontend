@@ -1,9 +1,10 @@
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+import { hasValueChanged, isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
 import { isCountryUk } from '../../../../applicant1Sequence';
 import { CommonContent } from '../../../../common/common.content';
+import { getAddressFieldNames } from '../../../../common/content.utils';
 import { generateContent as enterTheirAddressContent } from '../../../enter-their-address/content';
 
 const en = ({ partner }: Partial<CommonContent>) => {
@@ -16,6 +17,7 @@ const en = ({ partner }: Partial<CommonContent>) => {
   return {
     errors: {
       applicant1NoResponsePartnerAddress1: {
+        valueUnchanged: `You have entered the same address as the one you previously provided for your ${partner}. Please enter a new address to continue.`,
         required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
       },
       applicant1NoResponsePartnerAddressTown: {
@@ -25,6 +27,7 @@ const en = ({ partner }: Partial<CommonContent>) => {
       applicant1NoResponsePartnerAddressPostcode: addressPostcode,
       applicant1NoResponsePartnerAddressCountry: {
         required: `You have not entered your ${partner}’s country. Enter their country before continuing.`,
+        valueUnchanged: 'You have entered the same address as before. You must change the address to continue.',
       },
     },
   };
@@ -40,6 +43,7 @@ const cy = ({ partner }: CommonContent) => {
   return {
     errors: {
       applicant1NoResponsePartnerAddress1: {
+        valueUnchanged: `You have entered the same address as the one you previously provided for your ${partner}. Please enter a new address to continue.`,
         required: `Nid ydych wedi nodi adeilad a chyfeiriad stryd eich ${partner}. Nodwch ei adeilad a'i gyfeiriad stryd cyn parhau.`,
       },
       applicant1NoResponsePartnerAddressTown: {
@@ -54,15 +58,32 @@ const cy = ({ partner }: CommonContent) => {
   };
 };
 
+const addressHasChangedValidator = (userCase, formData) => {
+  const beforeAddress = getAddressFieldNames('applicant2')
+    .map(field => userCase?.[field])
+    .filter(value => value !== undefined);
+
+  const afterAddress = getAddressFieldNames('applicant1NoResponsePartner')
+    .map(field => formData?.[field])
+    .filter(value => value !== undefined);
+
+  return hasValueChanged(beforeAddress, afterAddress);
+};
+
 export const form: FormContent = {
-  fields: {
+  fields: userCase => ({
     applicant1NoResponsePartnerAddress1: {
       id: 'address1',
       type: 'text',
       classes: 'govuk-label',
       label: l => l.buildingStreet,
       labelSize: null,
-      validator: isFieldFilledIn,
+      validator: (value, formData) => {
+        if (!isCountryUk(formData.applicant1NoResponsePartnerAddressCountry)) {
+          return;
+        }
+        return isFieldFilledIn(value) || addressHasChangedValidator(userCase, formData);
+      },
     },
     applicant1NoResponsePartnerAddress2: {
       id: 'address2',
@@ -133,7 +154,7 @@ export const form: FormContent = {
         { label: l => l.no, value: YesOrNo.NO },
       ],
     },
-  },
+  }),
   submit: {
     text: l => l.continue,
   },
@@ -149,6 +170,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...enterTheirAddressContent(content),
     ...translations,
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.language) },
   };
 };

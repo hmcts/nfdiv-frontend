@@ -1,4 +1,4 @@
-import { NoResponseCheckContactDetails } from '../../../../../app/case/definition';
+import { NoResponseCheckContactDetails, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -125,8 +125,8 @@ export const generateContent: TranslationFn = content => {
     address += checkAddressString(userCase.applicant2AddressPostcode);
     return address;
   };
-  const applicant2Address = app2Address();
-  const applicant2Email = content.userCase.applicant2Email;
+  const applicant2Address = content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : app2Address();
+  const applicant2Email = content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : content.userCase.applicant2Email;
   const contactDetailsProvided =
     applicant2Address.length > 0 ||
     (applicant2Email !== null && applicant2Email !== undefined && applicant2Email.length > 0);
