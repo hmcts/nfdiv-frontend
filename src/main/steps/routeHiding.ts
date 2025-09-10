@@ -1,6 +1,5 @@
 import { State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
-import { isReadyForRepeatService } from '../app/controller/controller-validations';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { RoutePermission } from './applicant1Sequence';
@@ -28,7 +27,6 @@ import {
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
   PAY_YOUR_SERVICE_FEE,
-  PROCESS_SERVER,
   PROCESS_SERVER_DOCS,
   PageLink,
   REVIEW_THE_APPLICATION,
@@ -91,7 +89,13 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
       .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
       .map(step => step.url as PageLink),
     condition: data =>
-      [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
+      [
+        State.AwaitingServicePayment, 
+        State.AwaitingService,
+        State.AwaitingAos,
+        State.AwaitingServiceConsideration,
+        State.AwaitingDocuments
+      ].includes(
         data.state as State
       ),
   },
@@ -130,9 +134,5 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
   {
     urls: [HAVE_THEY_RECEIVED, NEW_CONTACT_DETAIL_CHECK_ANSWERS],
     condition: data => data.applicant2AddressPrivate === YesOrNo.YES,
-  },
-  {
-    urls: [HAVE_THEY_RECEIVED, NEW_CONTACT_DETAIL_CHECK_ANSWERS, PROCESS_SERVER],
-    condition: data => !isReadyForRepeatService(data),
   },
 ];

@@ -1,6 +1,6 @@
 import config from 'config';
 
-import { Checkbox } from '../../../../../app/case/case';
+import { Case, Checkbox, CaseDate } from '../../../../../app/case/case';
 import { NoResponseProcessServerOrBailiff, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
@@ -47,6 +47,7 @@ const en = ({ partner }: CommonContent) => ({
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
       required: 'Select either service by a process server or a court bailiff',
+      confidentialRespondent: `You cannot request to serve by process server because your ${partner}’s details are confidential. Please select another option or go back to try something else.`,
     },
     applicant1NoResponseRespondentAddressInEnglandWales: {
       required: `You must confirm that your ${partner}'s address is in England or Wales before continuing`,
@@ -94,12 +95,22 @@ const cy = ({ partner }: CommonContent) => ({
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
       required: 'Dewiswch naill ai weinyddwr proses neu feili llys',
+      confidentialRespondent: `You cannot request to serve by process server because your ${partner}’s details are confidential. Please select another option or go back to try something else.`,
     },
     applicant1NoResponseRespondentAddressInEnglandWales: {
       required: `Mae’n rhaid i chi gadarnhau bod cyfeiriad eich ${partner} yng Nghymru neu Loegr cyn parhau`,
     },
   },
 });
+
+const validateProcessServer = (userCase: Partial<Case>, value: string | string[] | CaseDate | undefined) => {
+  const wantsToServeByProcessServer = value === NoResponseProcessServerOrBailiff.PROCESS_SERVER;
+  const respondentIsPrivate = userCase?.applicant2AddressPrivate === YesOrNo.YES;
+
+  if (wantsToServeByProcessServer && respondentIsPrivate) {
+    return 'confidentialRespondent';
+  }
+};
 
 export const form: FormContent = {
   fields: userCase => ({
@@ -109,10 +120,11 @@ export const form: FormContent = {
       label: l => l.howToProceedHeader,
       labelHidden: false,
       values: [
-        userCase.applicant2AddressPrivate !== YesOrNo.YES && {
+        {
           label: l => l.processServer,
           id: 'processServer',
           value: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+          validator: value => validateProcessServer(userCase, value),
         },
         {
           label: l => l.bailiffService,
