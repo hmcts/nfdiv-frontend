@@ -1,5 +1,7 @@
-<p class="govuk-body">{{ contactDetailsUpdatedOverseasAddress.line1 }}</p>
-<h4 class="govuk-heading-s">{{ contactDetailsUpdatedOverseasAddress.whatHappensNext }}</h4>
+{% if contactDetailsUpdated %}
+  <p class="govuk-body">{{ contactDetailsUpdatedOverseasAddress.line1 }}</p>
+  <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
+{% endif %}
 <p class="govuk-body">{{ contactDetailsUpdatedOverseasAddress.line2 }}</p>
 <h4 class="govuk-heading-s">{{ contactDetailsUpdatedOverseasAddress.whatNeedToDo }}</h4>
 <p class="govuk-body">{{ contactDetailsUpdatedOverseasAddress.line3 }}</p>

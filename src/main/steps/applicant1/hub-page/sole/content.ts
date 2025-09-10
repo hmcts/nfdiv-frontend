@@ -1064,7 +1064,9 @@ export const generateContent: TranslationFn = content => {
   const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
     field => field && field.length > 0
   );
-
+  const contactDetailsUpdated =
+    userCase.applicant1NoResponsePartnerNewEmailOrPostalAddress ===
+    NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED;
   const contactDetailsUpdatedUKBased =
     userCase.applicant1NoResponsePartnerNewEmailOrAddress ===
       NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED && userCase.applicant2AddressOverseas !== YesOrNo.YES;
@@ -1100,6 +1102,7 @@ export const generateContent: TranslationFn = content => {
     isAosSubmitted,
     aosIsDrafted,
     aosOverdueAndDrafted,
+    contactDetailsUpdated,
     contactDetailsUpdatedUKBased,
     applicant1NoResponseSendPapersAgain,
     isAwaitingProcessServerService,
