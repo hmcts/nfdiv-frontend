@@ -3,7 +3,7 @@ import config from 'config';
 import { NoResponseProvidePartnerNewEmailOrAlternativeService } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
-import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
@@ -76,6 +76,6 @@ export const generateContent: TranslationFn = (content: CommonContent): Record<s
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.language) },
+    form,
   };
 };
