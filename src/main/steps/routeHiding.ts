@@ -23,7 +23,6 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
-  NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
   PAY_YOUR_SERVICE_FEE,
@@ -130,7 +129,7 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
     condition: data => Boolean(data.dateAosSubmitted),
   },
   {
-    urls: [HAVE_THEY_RECEIVED, NEW_CONTACT_DETAIL_CHECK_ANSWERS],
+    urls: [HAVE_THEY_RECEIVED],
     condition: data => data.applicant2AddressPrivate === YesOrNo.YES,
   },
 ];
