@@ -78,9 +78,6 @@ export const form: FormContent = {
       label: l => l.buildingStreet,
       labelSize: null,
       validator: (value, formData) => {
-        if (!isCountryUk(formData.applicant1NoResponsePartnerAddressCountry)) {
-          return;
-        }
         return isFieldFilledIn(value) || addressHasChangedValidator(userCase, formData);
       },
     },

@@ -130,6 +130,13 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
   },
   {
     urls: [HAVE_THEY_RECEIVED],
-    condition: data => data.applicant2AddressPrivate === YesOrNo.YES,
+    condition: data =>
+      data.applicant2AddressPrivate === YesOrNo.YES ||
+      [
+        State.AwaitingServicePayment,
+        State.AwaitingServiceConsideration,
+        State.AwaitingDocuments,
+        State.AwaitingService,
+      ].includes(data.state as State),
   },
 ];

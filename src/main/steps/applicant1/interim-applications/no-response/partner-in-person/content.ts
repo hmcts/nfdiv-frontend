@@ -103,11 +103,14 @@ const cy = ({ partner }: CommonContent) => ({
   },
 });
 
-const validateProcessServer = (userCase: Partial<Case>, value: string | string[] | CaseDate | undefined) => {
+const validateRespondentConfidentiality = (
+  userCase: Partial<Case>,
+  value: string | string[] | CaseDate | undefined
+) => {
   const wantsToServeByProcessServer = value === NoResponseProcessServerOrBailiff.PROCESS_SERVER;
-  const respondentIsPrivate = userCase?.applicant2AddressPrivate === YesOrNo.YES;
+  const respondentIsConfidential = userCase?.applicant2AddressPrivate === YesOrNo.YES;
 
-  if (wantsToServeByProcessServer && respondentIsPrivate) {
+  if (wantsToServeByProcessServer && respondentIsConfidential) {
     return 'confidentialRespondent';
   }
 };
@@ -124,7 +127,7 @@ export const form: FormContent = {
           label: l => l.processServer,
           id: 'processServer',
           value: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
-          validator: value => validateProcessServer(userCase, value),
+          validator: value => validateRespondentConfidentiality(userCase, value),
         },
         {
           label: l => l.bailiffService,
