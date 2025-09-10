@@ -34,7 +34,7 @@ export const getSoleHubTemplate = (
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
   const isPersonalServiceRequired = userCase.serviceMethod === ServiceMethod.PERSONAL_SERVICE;
 
-  const latestGeneralApplication = userCase.generalApplications?.[0].value;
+  const latestGeneralApplication = userCase.generalApplications?.[0]?.value;
   const isSearchGovRecords =
     latestGeneralApplication?.generalApplicationType === (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
   const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
