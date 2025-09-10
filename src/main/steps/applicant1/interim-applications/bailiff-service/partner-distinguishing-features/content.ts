@@ -15,7 +15,7 @@ const en = ({ partner }: CommonContent) => ({
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Oes gan eich ${partner} unrhyw nodweddion unigryw eraill?`,
-  hint: 'Er enghraifft, tatŵ neu air ar y fraich chwith, neu graith ar ochr dde eu talcen. Rhowch gymaint o fanylion ag sy’n bosib.',
+  hint: 'Er enghraifft, tatŵ o air ar y fraich chwith, neu graith ar ochr dde eu talcen. Rhowch gymaint o fanylion ag sy’n bosib',
   errors: {
     applicant1BailiffPartnersDistinguishingFeatures: {
       required: `Rhowch nodweddion unigryw eich ${partner}, neu rhowch ‘dim’`,

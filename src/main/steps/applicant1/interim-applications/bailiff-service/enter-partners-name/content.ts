@@ -7,7 +7,7 @@ const en = ({ partner }: CommonContent) => ({
   title: `Enter your ${partner}'s name`,
   errors: {
     applicant1BailiffPartnersName: {
-      required: `You must enter your ${partner}'s name.`,
+      required: `${partner}’s name cannot be blank.`,
     },
   },
 });
@@ -16,7 +16,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Rhowch enw’ch ${partner}`,
   errors: {
     applicant1BailiffPartnersName: {
-      required: `Mae’n rhaid ichi nodi enw eich ${partner}.`,
+      required: `Ni all enw’r ${partner} gael ei adael yn wag.`,
     },
   },
 });

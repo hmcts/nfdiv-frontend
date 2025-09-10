@@ -21,7 +21,7 @@ const cy: typeof en = ({ isApp2Confidential, partner }: CommonContent, applicant
   title: 'Y cyfeiriad (yng Nghymru neu Loegr) lle dylai’r beili geisio cyflwyno’r ddogfen yw',
   line1:
     'Dim ond i gyfeiriad yng Nghymru a Lloegr sydd wedi’i ddefnyddio’n barod i anfon eich dogfennau drwy’r post y gall beilïaid llys gyflwyno dogfennau iddo.',
-  line2: `Os nad yw’r cyfeiriad isod yn gywir dylech roi’r gorau i’r cais hwn a <a class="govuk-link" href="${updateEmailLinkPath}">diweddaru cyfeiriad eich ${partner}</a>. Os bydd eich ${partner} yn dal ddim yn ymateb, gallwch wedyn ymgeisio am wasanaeth beili.`,
+  line2: `Os nad yw’r cyfeiriad isod yn gywir dylech roi’r gorau i’r cais hwn a <a class="govuk-link" href="${updateEmailLinkPath}">diweddaru cyfeiriad eich ${partner}</a>. Os yw eich ${partner} yn parhau i beidio ag ymateb, yna gallwch ymgeisio am wasanaeth cyflwyno gan feili.`,
   homeAddress: 'Cyfeiriad',
   partnerAddress: `${
     isApp2Confidential

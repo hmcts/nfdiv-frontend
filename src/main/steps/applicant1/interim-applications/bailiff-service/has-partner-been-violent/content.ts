@@ -24,9 +24,11 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   line1: `Byddwn ni nawr yn gofyn ambell gwestiwn am hanes eich ${partner}. Mae hyn i helpu’r beili benderfynu pa un a yw’n ddiogel i gyflwyno’r papurau iddyn nhw.`,
   everBeenViolentQuestionLabel: `A yw eich ${partner} erioed wedi bod yn dreisgar neu wedi cael ei gyhuddo/ei chyhuddo o drosedd treisgar?`,
   enterPartnerViolenceDetailsLabel: 'Rhowch fanylion unrhyw ddigwyddiadau',
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1BailiffHasPartnerBeenViolent: {
-      required: `Dewiswch “Ydy” os yw eich ${partner} erioed wedi bod yn dreisgar neu wedi cael ei gyhuddo/chyhuddo o drosedd treisgar.`,
+      required: `Dewiswch Ydy os yw eich ${partner} erioed wedi bod yn dreisgar neu wedi cael ei gyhuddo/chyhuddo o drosedd treisgar.`,
     },
     applicant1BailiffPartnerViolenceDetails: {
       required: 'Rhowch fanylion unrhyw achosion o drais',

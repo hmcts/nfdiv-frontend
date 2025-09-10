@@ -8,7 +8,7 @@ const en = () => ({
   enterDangerousAnimalsDetailsLabel: 'Provide details about these animals',
   errors: {
     applicant1BailiffAreThereDangerousAnimals: {
-      required: 'Select yes if any dogs or other dangerous animals are kepty at the property.',
+      required: 'Select "Yes" if any dogs or other dangerous animals are kepty at the property.',
     },
     applicant1BailiffDangerousAnimalsDetails: {
       required: 'Enter details about any dangerous animals at the property.',
@@ -19,9 +19,11 @@ const en = () => ({
 const cy: typeof en = () => ({
   title: 'A oes unrhyw gŵn neu anifeiliaid peryglus eraill yn cael eu cadw yn yr eiddo?',
   enterDangerousAnimalsDetailsLabel: 'Rhowch fanylion yr anifeiliaid hyn',
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1BailiffAreThereDangerousAnimals: {
-      required: 'Dewiswch “Oes” os oes yna unrhyw gŵn neu anifeiliaid peryglus eraill yn cael eu cadw yn yr eiddo',
+      required: 'Dewiswch “Ydy” os oes yna unrhyw gŵn neu anifeiliaid peryglus eraill yn cael eu cadw yn yr eiddo',
     },
     applicant1BailiffDangerousAnimalsDetails: {
       required: 'Rhowch fanylion am unrhyw anifeiliaid peryglus yn yr eiddo',
