@@ -126,7 +126,8 @@ export const generateContent: TranslationFn = content => {
     return address;
   };
   const applicant2Address = content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : app2Address();
-  const applicant2Email = content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : content.userCase.applicant2Email;
+  const applicant2Email =
+    content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : content.userCase.applicant2Email;
   const contactDetailsProvided =
     applicant2Address.length > 0 ||
     (applicant2Email !== null && applicant2Email !== undefined && applicant2Email.length > 0);

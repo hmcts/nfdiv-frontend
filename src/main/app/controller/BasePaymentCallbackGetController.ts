@@ -34,6 +34,10 @@ export default abstract class BasePaymentCallbackGetController {
       return res.redirect(lastPaymentAttempt.channel);
     }
 
+    logger.info(payments);
+
+    logger.info(lastPaymentAttempt.transactionId);
+
     payments.setStatus(lastPaymentAttempt.transactionId, payment?.status);
 
     if (payments.wasLastPaymentSuccessful) {

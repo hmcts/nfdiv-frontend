@@ -1,10 +1,10 @@
 import config from 'config';
 
 import { Checkbox } from '../../../../../app/case/case';
-import { NoResponseProcessServerOrBailiff } from '../../../../../app/case/definition';
+import { NoResponseProcessServerOrBailiff, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
-import { FormContent } from '../../../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
@@ -102,14 +102,14 @@ const cy = ({ partner }: CommonContent) => ({
 });
 
 export const form: FormContent = {
-  fields: {
+  fields: userCase => ({
     applicant1NoResponseProcessServerOrBailiff: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.howToProceedHeader,
       labelHidden: false,
       values: [
-        {
+        userCase.applicant2AddressPrivate !== YesOrNo.YES && {
           label: l => l.processServer,
           id: 'processServer',
           value: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
@@ -137,7 +137,7 @@ export const form: FormContent = {
       ],
       validator: value => isFieldFilledIn(value),
     },
-  },
+  }),
   submit: {
     text: l => l.continue,
   },
@@ -152,6 +152,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };

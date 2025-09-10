@@ -1,5 +1,6 @@
 import { State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
+import { isReadyForRepeatService } from '../app/controller/controller-validations';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { RoutePermission } from './applicant1Sequence';
@@ -8,7 +9,6 @@ import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
-import { isReadyForRepeatService } from '../app/controller/controller-validations';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {
   CHECK_ANSWERS_URL,
@@ -24,15 +24,15 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
+  NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
   PAY_YOUR_SERVICE_FEE,
-  PROCESS_SERVER_DOCS,
   PROCESS_SERVER,
+  PROCESS_SERVER_DOCS,
   PageLink,
   REVIEW_THE_APPLICATION,
   SERVICE_APPLICATION_SUBMITTED,
-  NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   SUCCESS_SCREEN_PROCESS_SERVER,
 } from './urls';
 
