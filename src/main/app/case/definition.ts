@@ -437,7 +437,6 @@ export interface Application {
   documentUploadComplete: YesOrNo;
   miniApplicationLink: Document;
   dateSubmitted: DateAsString;
-  serviceDocumentsRegeneratedDate: DateAsString;
   applicant2ConfirmApplicant1Information: YesOrNo;
   applicant2ExplainsApplicant1IncorrectInformation: string;
   issueDate: DateAsString;
@@ -707,7 +706,6 @@ export interface CaseData {
   documentUploadComplete: YesOrNo;
   miniApplicationLink: Document;
   dateSubmitted: DateAsString;
-  serviceDocumentsRegeneratedDate: DateAsString;
   applicant2ConfirmApplicant1Information: YesOrNo;
   applicant2ExplainsApplicant1IncorrectInformation: string;
   issueDate: DateAsString;

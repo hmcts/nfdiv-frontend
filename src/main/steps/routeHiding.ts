@@ -90,14 +90,12 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
       .map(step => step.url as PageLink),
     condition: data =>
       [
-        State.AwaitingServicePayment, 
+        State.AwaitingServicePayment,
         State.AwaitingService,
         State.AwaitingAos,
         State.AwaitingServiceConsideration,
-        State.AwaitingDocuments
-      ].includes(
-        data.state as State
-      ),
+        State.AwaitingDocuments,
+      ].includes(data.state as State),
   },
   {
     urls: [

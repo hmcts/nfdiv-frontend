@@ -18,7 +18,6 @@ dates:
   switchToSoleFinalOrderIntentionNotificationOffsetDays: 14
   requestForInformationResponseCourtReplyOffsetDays: 28
   interimApplicationNoResponseNewContactDetailsOffsetDays: 14
-  interimApplicationRequestServiceOffsetDays: 14
 fees:
   applicationFee: DivorceCivPart
   financialOrder: FinancialOrderOnNotice
