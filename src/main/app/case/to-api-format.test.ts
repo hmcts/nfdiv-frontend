@@ -1160,6 +1160,32 @@ describe('to-api-format', () => {
     });
   });
 
+  describe('applicant1DispenseHavePartnerEmailAddresses transformation', () => {
+    test('sets applicant1DispensePartnerEmailAddresses when applicant1DispenseHavePartnerEmailAddresses is yes', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispensePartnerEmailAddresses: 'test@test.com',
+        applicant1DispenseHavePartnerEmailAddresses: YesOrNo.YES,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispensePartnerEmailAddresses: 'test@test.com',
+      });
+    });
+  });
+
+  describe('applicant1DispenseHavePartnerPhoneNumbers transformation', () => {
+    test('sets applicant1DispensePartnerPhoneNumbers when applicant1DispenseHavePartnerPhoneNumbers is yes', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispensePartnerPhoneNumbers: '01234567890',
+        applicant1DispenseHavePartnerPhoneNumbers: YesOrNo.YES,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispensePartnerPhoneNumbers: '01234567890',
+      });
+    });
+  });
+
   describe('applicant1DispenseWhyNoFinalOrderSearch transformation', () => {
     test('sets applicant1DispenseWhyNoFinalOrderSearch when applicant1DispenseHaveSearchedFinalOrder is yes', () => {
       const apiFormat = toApiFormat({
@@ -1257,6 +1283,17 @@ describe('to-api-format', () => {
   });
 
   describe('applicant1DispenseWhyNoContactingEmployer transformation', () => {
+    test('sets applicant1DispenseWhyNoContactingEmployer when applicant1DispenseTriedContactingEmployer is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedContactingEmployer: YesOrNo.NO,
+        applicant1DispenseWhyNoContactingEmployer: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoContactingEmployer: 'Some reason',
+      });
+    });
+
     test('sets applicant1DispenseWhyNoContactingEmployer to null when applicant1DispenseTriedContactingEmployer is Yes', () => {
       const apiFormat = toApiFormat({
         applicant1DispenseTriedContactingEmployer: YesOrNo.YES,
