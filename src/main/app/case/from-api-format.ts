@@ -189,6 +189,8 @@ const fields: FromApiConverters = {
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
     'applicant1NoResponseProvidePartnerNewEmailOrAlternativeService',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
+  applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
+  applicant1NoResponseSendPapersAgainOrTrySomethingElse: 'applicant1NoResponseSendPapersAgainOrTrySomethingElse',
   applicant1NoResponseNoNewAddressDetails: 'applicant1NoResponseNoNewAddressDetails',
   applicant1NoResponseProcessServerOrBailiff: 'applicant1NoResponseProcessServerOrBailiff',
   applicant1InterimAppsIUnderstand: data => ({
@@ -222,6 +224,9 @@ const fields: FromApiConverters = {
   applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
     applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
   }),
+  applicant1SearchGovRecordsPartnerDateOfBirth: data => ({
+    applicant1SearchGovRecordsPartnerDateOfBirth: fromApiDate(data.applicant1SearchGovRecordsPartnerDateOfBirth),
+  }),
   applicant1AltServicePartnerEmail: data => ({
     applicant1AltServicePartnerEmail: data.applicant1AltServicePartnerEmail,
     applicant1AltServicePartnerEmailWhenDifferent: data.applicant1AltServicePartnerEmail,
@@ -245,6 +250,8 @@ const fields: FromApiConverters = {
   applicant1DispensePartnerLastSeenDate: data => ({
     applicant1DispensePartnerLastSeenOrHeardOfDate: fromApiDate(data.applicant1DispensePartnerLastSeenDate),
   }),
+  applicant1SearchGovRecordsPartnerLastKnownAddress: data =>
+    formatAddress(data, 'applicant1SearchGovRecordsPartnerLastKnown'),
   applicant1DispensePartnerLastSeenOver2YearsAgo: 'applicant1DispensePartnerLastSeenOver2YearsAgo',
   applicant1DispenseHavePartnerEmailAddresses: 'applicant1DispenseHavePartnerEmailAddresses',
   applicant1DispenseHaveSearchedFinalOrder: 'applicant1DispenseHaveSearchedFinalOrder',

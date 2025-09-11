@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2023-09-13 16:10:38.
 
-import { Checkbox, CaseDate } from './case';
+import { CaseDate, Checkbox } from './case';
 
 export interface Address {
   AddressLine1: string;
@@ -244,7 +244,6 @@ export interface AlternativeService {
   serviceApplicationRefusalReason: string;
   serviceApplicationDecisionDate: DateAsString;
   deemedServiceDate: DateAsString;
-  dateOfPayment: DateAsString;
   localCourtName: string;
   localCourtEmail: string;
   certificateOfServiceDocument: DivorceDocument;
@@ -252,6 +251,7 @@ export interface AlternativeService {
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
   servicePaymentFeeOrderSummary: OrderSummary;
+  servicePaymentFeeDateOfPayment: DateAsString;
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeePbaNumbers: DynamicList;
@@ -927,11 +927,16 @@ export interface CaseData {
   generalApplicationDocumentComments: string;
   generalApplicationFeeOrderSummary: OrderSummary;
   generalApplicationFeePaymentMethod: ServicePaymentMethod;
+  generalApplicationFeeDateOfPayment: DateAsString;
   generalApplicationFeeAccountNumber: string;
   generalApplicationFeePbaNumbers: DynamicList;
   generalApplicationFeeAccountReferenceNumber: string;
   generalApplicationFeeHelpWithFeesReferenceNumber: string;
   generalApplications: ListValue<GeneralApplication>[];
+  applicant1GeneralAppServiceRequest: string;
+  applicant2GeneralAppServiceRequest: string;
+  applicant1GeneralAppPayments: ListValue<Payment>[];
+  applicant2GeneralAppPayments: ListValue<Payment>[];
   generalReferrals: ListValue<GeneralReferral>[];
   isJudicialSeparation: YesOrNo;
   alternativeServiceOutcomes: ListValue<AlternativeServiceOutcome>[];
@@ -943,7 +948,6 @@ export interface CaseData {
   serviceApplicationRefusalReason: string;
   serviceApplicationDecisionDate: DateAsString;
   deemedServiceDate: DateAsString;
-  dateOfPayment: DateAsString;
   localCourtName: string;
   localCourtEmail: string;
   certificateOfServiceDocument: DivorceDocument;
@@ -958,6 +962,7 @@ export interface CaseData {
   serviceApplicationSubmittedOnline: YesOrNo,
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
+  servicePaymentFeeDateOfPayment: DateAsString;
   servicePaymentFeePbaNumbers: DynamicList;
   servicePaymentFeeAccountReferenceNumber: string;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
@@ -1093,10 +1098,27 @@ export interface CaseData {
   applicant1BailiffDoesPartnerHoldFirearmsLicense: YesOrNoOrNotKnown;
   applicant1BailiffPartnerFirearmsLicenseDetails: string;
   applicant1InterimApplicationType: InterimApplicationType;
+  applicant2InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
-  applicant1NoResponsePartnerEmailAddress?: string;
+  applicant1NoResponsePartnerEmailAddress: string;
+  applicant1SearchGovRecordsReasonForApplying: string;
+  applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
+  applicant1SearchGovRecordsWhyTheseDepartments: string;
+  applicant1SearchGovRecordsOtherDepartmentNames?: string;
+  applicant1SearchGovRecordsPartnerName: string;
+  applicant1SearchGovRecordsPartnerNationalInsurance?: string;
+  applicant1SearchGovRecordsPartnerApproximateAge?: string;
+  applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo;
+  applicant1SearchGovRecordsPartnerDateOfBirth: CaseDate | DateAsString;
+  applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo;
+  applicant1SearchGovRecordsPartnerLastKnownAddressDates: string;
+  applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: YesOrNo;
+  applicant1SearchGovRecordsPartnerAdditionalAddress1: string;
+  applicant1SearchGovRecordsPartnerAdditionalAddressDates1: string;
+  applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
+  applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
@@ -1114,6 +1136,7 @@ export interface CaseData {
   applicant1DispenseLivedTogetherDate: DateAsString;
   applicant1DispenseLivedTogetherAddress: AddressGlobalUK;
   applicant1DispenseLivedTogetherAddressOverseas: YesOrNo;
+  applicant1SearchGovRecordsPartnerLastKnownAddress: AddressGlobalUK;
   applicant1DispenseAwarePartnerLived: YesOrNo;
   applicant1DispensePartnerPastAddress1: string;
   applicant1DispensePartnerPastAddressEnquiries1: string;
@@ -1483,16 +1506,23 @@ export interface FinalOrder {
 
 export interface GeneralApplication {
   generalApplicationType: GeneralApplicationType;
-  generalApplicationTypeOtherComments: string;
-  generalApplicationFeeType: GeneralApplicationFee;
-  generalApplicationDocument: DivorceDocument;
-  generalApplicationDocumentComments: string;
-  generalApplicationFeeOrderSummary: OrderSummary;
-  generalApplicationFeePaymentMethod: ServicePaymentMethod;
-  generalApplicationFeeAccountNumber: string;
-  generalApplicationFeePbaNumbers: DynamicList;
-  generalApplicationFeeAccountReferenceNumber: string;
-  generalApplicationFeeHelpWithFeesReferenceNumber: string;
+  generalApplicationTypeOtherComments?: string;
+  generalApplicationFeeType?: GeneralApplicationFee;
+  generalApplicationDocument?: DivorceDocument;
+  generalApplicationDocumentComments?: string;
+  generalApplicationFeeOrderSummary?: OrderSummary;
+  generalApplicationFeePaymentMethod?: ServicePaymentMethod;
+  generalApplicationFeeDateOfPayment?: DateAsString;
+  generalApplicationFeeAccountNumber?: string;
+  generalApplicationFeePbaNumbers?: DynamicList;
+  generalApplicationFeeAccountReferenceNumber?: string;
+  generalApplicationFeeHelpWithFeesReferenceNumber?: string;
+  generalApplicationParty?: GeneralParties;
+  generalApplicationFeeServiceRequestReference?: string;
+  generalApplicationFeePaymentReference?: string;
+  generalApplicationSubmittedOnline?: string;
+  generalApplicationReceivedDate?: DateAsString;
+  generalApplicationDocsUploadedPreSubmission?: YesOrNo;
 }
 
 export interface GeneralEmail {
@@ -1830,15 +1860,15 @@ export interface FeeResponse {
 }
 
 export interface Payment {
-  created: DateAsString;
-  updated: DateAsString;
+  created?: DateAsString;
+  updated?: DateAsString;
   feeCode: string;
   amount: number;
   status: PaymentStatus;
   channel: string;
   reference: string;
   transactionId: string;
-  serviceRequestReference: string;
+  serviceRequestReference?: string;
 }
 
 export interface PaymentItem {
@@ -2052,6 +2082,12 @@ export const enum InterimApplicationType {
   PROCESS_SERVER_SERVICE = 'processServerService',
 }
 
+export const enum SearchGovRecordsWhichDepartment {
+  DWP = 'dwp',
+  HMRC = 'hmrc',
+  OTHER = 'other',
+}
+
 export const enum GeneralApplicationType {
   DISPENSED_WITH_SERVICE = 'dispensedWithService',
   DEEMED_SERVICE = 'deemedService',
@@ -2060,6 +2096,7 @@ export const enum GeneralApplicationType {
   OTHER_ALTERNATIVE_SERVICE_METHODS = 'otherAlternativeServiceMethod',
   OTHER = 'other',
   BAILIFF_SERVICE = 'bailiffService',
+  SEARCH_GOV_RECORDS = 'disclosureViaDwp',
 }
 
 export const enum GeneralOrderDivorceParties {
@@ -2258,6 +2295,7 @@ export const enum ServicePaymentMethod {
   FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
   FEE_PAY_BY_HWF = 'feePayByHelp',
   FEE_PAY_BY_PHONE = 'feePayByTelephone',
+  FEE_PAY_BY_CARD = 'feePayByCard'
 }
 
 export const enum SolicitorPaymentMethod {
@@ -2314,6 +2352,7 @@ export const enum State {
   FinalOrderComplete = 'FinalOrderComplete',
   FinalOrderPending = 'FinalOrderPending',
   FinalOrderRequested = 'FinalOrderRequested',
+  AwaitingGeneralApplicationPayment = 'AwaitingGeneralApplicationPayment',
   GeneralApplicationReceived = 'GeneralApplicationReceived',
   GeneralConsiderationComplete = 'GeneralConsiderationComplete',
   InformationRequested = 'InformationRequested',
@@ -2343,6 +2382,10 @@ export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
 export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
 
 export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
+
+export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([
+  State.AwaitingGeneralApplicationPayment
+]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
@@ -2908,6 +2951,8 @@ export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';
 export const CITIZEN_SERVICE_APPLICATION = 'citizen-service-application';
 export const CITIZEN_SERVICE_PAYMENT_MADE = 'citizen-service-payment-made';
+export const CITIZEN_GENERAL_APPLICATION = 'citizen-general-application';
+export const CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE = 'citizen-general-app-payment';
 export const CITIZEN_CREATE_SERVICE_REQUEST = 'citizen-create-service-request';
 export const CITIZEN_UPDATE_CONTACT_DETAILS = 'citizen-update-contact-details';
 export const APPLICANT_1_CONFIRM_RECEIPT = 'applicant1-confirm-receipt';

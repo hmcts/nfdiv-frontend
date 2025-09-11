@@ -9,7 +9,9 @@ import {
   CHECK_ANSWERS_ALTERNATIVE,
   CHECK_ANSWERS_BAILIFF,
   CHECK_ANSWERS_DEEMED,
+  CHECK_YOUR_ANSWERS_GOV_RECORDS,
   FINALISING_YOUR_APPLICATION,
+  GENERAL_APPLICATION_SUBMITTED,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
   RESPONDENT,
@@ -137,23 +139,6 @@ describe('routeHiding', () => {
       expect(result).toBeTruthy();
     });
 
-    describe('Pay Service Fee URL condition', () => {
-      test('Visible when service application was made online', () => {
-        mockReq.url = PAY_YOUR_SERVICE_FEE;
-        mockReq.session.userCase.state = State.AwaitingServicePayment;
-        mockReq.session.userCase.serviceApplicationSubmittedOnline = YesOrNo.YES;
-        const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeFalsy();
-      });
-
-      test('Not visible when service application was made offline', () => {
-        mockReq.url = PAY_YOUR_SERVICE_FEE;
-        mockReq.session.userCase.state = State.AwaitingServicePayment;
-        const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeTruthy();
-      });
-    });
-
     describe('Service Application Submitted URL condition', () => {
       test('Visible when service application was made online', () => {
         mockReq.url = SERVICE_APPLICATION_SUBMITTED;
@@ -202,6 +187,84 @@ describe('routeHiding', () => {
 
       test('Visible in AosDrafted state', () => {
         mockReq.url = CHECK_ANSWERS_DEEMED;
+        mockReq.session.userCase.state = State.AosDrafted;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+    });
+
+    describe('Pay Service Fee URL condition', () => {
+      test('Visible when service application was made online', () => {
+        mockReq.url = PAY_YOUR_SERVICE_FEE;
+        mockReq.session.userCase.state = State.AwaitingServicePayment;
+        mockReq.session.userCase.serviceApplicationSubmittedOnline = YesOrNo.YES;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+
+      test('Not visible when service application was made offline', () => {
+        mockReq.url = PAY_YOUR_SERVICE_FEE;
+        mockReq.session.userCase.state = State.AwaitingServicePayment;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe('General Application Submitted URL condition', () => {
+      test('Visible when case is in GeneralApplicationReceived', () => {
+        mockReq.url = GENERAL_APPLICATION_SUBMITTED;
+        mockReq.session.userCase.state = State.GeneralApplicationReceived;
+        mockReq.session.userCase.serviceApplicationSubmittedOnline = YesOrNo.YES;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+
+      test('Not visible when case is in AosOverdue', () => {
+        mockReq.url = GENERAL_APPLICATION_SUBMITTED;
+        mockReq.session.userCase.state = State.AosOverdue;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe('General Application step URL condition', () => {
+      test('Not visible in AwaitingGeneralConsideration state', () => {
+        mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
+        mockReq.session.userCase.state = State.AwaitingGeneralConsideration;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Not visible in GeneralApplicationReceived state', () => {
+        mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
+        mockReq.session.userCase.state = State.GeneralApplicationReceived;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Not visible in AwaitingDocuments state', () => {
+        mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
+        mockReq.session.userCase.state = State.AwaitingDocuments;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Not visible in AwaitingGeneralApplicationPayment state', () => {
+        mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
+        mockReq.session.userCase.state = State.AwaitingGeneralApplicationPayment;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Visible in AosOverdue state', () => {
+        mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
+        mockReq.session.userCase.state = State.AosOverdue;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+
+      test('Visible in AosDrafted state', () => {
+        mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
         mockReq.session.userCase.state = State.AosDrafted;
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeFalsy();
