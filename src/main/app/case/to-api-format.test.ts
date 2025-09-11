@@ -896,6 +896,18 @@ describe('to-api-format', () => {
     });
   });
 
+  describe('applicant1SearchGovRecordsPartnerDateOfBirth transformation', () => {
+    test('sets date of birth', () => {
+      const apiFormat = toApiFormat({
+        applicant1SearchGovRecordsPartnerDateOfBirth: { year: '1980', month: '01', day: '01' },
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1SearchGovRecordsPartnerDateOfBirth: '1980-01-01',
+      });
+    });
+  });
+
   describe('applicant1BailiffKnowPartnersDateOfBirth transformation', () => {
     test('sets date of birth to null if the date of birth is not known', () => {
       const apiFormat = toApiFormat({
@@ -955,6 +967,102 @@ describe('to-api-format', () => {
     });
   });
 
+  describe('applicant1AltServicePartnerPhone transformation', () => {
+    test('sets applicant1AltServicePartnerPhone to the provided phone number when applicant1AltServiceDifferentWays includes TEXT_MESSAGE', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerPhone: '1234567890',
+        applicant1AltServiceDifferentWays: [AlternativeServiceDifferentWays.TEXT_MESSAGE],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerPhone: '1234567890',
+      });
+    });
+
+    test('sets applicant1AltServicePartnerPhone to null when applicant1AltServiceDifferentWays does not include TEXT_MESSAGE', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerPhone: '1234567890',
+        applicant1AltServiceDifferentWays: [],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerPhone: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServicePartnerWANum transformation', () => {
+    test('sets applicant1AltServicePartnerWANum to the provided phone number when applicant1AltServiceDifferentWays includes WHATSAPP', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerWANum: '1234567890',
+        applicant1AltServiceDifferentWays: [AlternativeServiceDifferentWays.WHATSAPP],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerWANum: '1234567890',
+      });
+    });
+
+    test('sets applicant1AltServicePartnerPhone to null when applicant1AltServiceDifferentWays does not include WHATSAPP', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerWANum: '1234567890',
+        applicant1AltServiceDifferentWays: [],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerWANum: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServicePartnerSocialDetails transformation', () => {
+    test('sets applicant1AltServicePartnerSocialDetails to the provided phone number when applicant1AltServiceDifferentWays includes SOCIAL_MEDIA', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerSocialDetails: 'socialmediahandle',
+        applicant1AltServiceDifferentWays: [AlternativeServiceDifferentWays.SOCIAL_MEDIA],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerSocialDetails: 'socialmediahandle',
+      });
+    });
+
+    test('sets applicant1AltServiceSocialDetails to null when applicant1AltServiceDifferentWays does not include SOCIAL_MEDIA', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerSocialDetails: 'socialmediahandle',
+        applicant1AltServiceDifferentWays: [],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerSocialDetails: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServicePartnerOtherDetails transformation', () => {
+    test('sets applicant1AltServicePartnerOtherDetails to the provided phone number when applicant1AltServiceDifferentWays includes OTHER', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerOtherDetails: 'other details',
+        applicant1AltServiceDifferentWays: [AlternativeServiceDifferentWays.OTHER],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerOtherDetails: 'other details',
+      });
+    });
+
+    test('sets applicant1AltServiceOtherDetails to null when applicant1AltServiceDifferentWays does not include OTHER', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerOtherDetails: 'other details',
+        applicant1AltServiceDifferentWays: [],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerOtherDetails: null,
+      });
+    });
+  });
+
   describe('applicant1SearchGovRecordsPartnerNationalInsurance transformation', () => {
     test('Capitalizes the national insurance number', () => {
       const apiFormat = toApiFormat({
@@ -1002,6 +1110,30 @@ describe('to-api-format', () => {
     });
   });
 
+  describe('applicant1DispenseLastLivedTogetherDate transformation', () => {
+    test('sets applicant1DispenseLivedTogetherDate when last lived together is yes', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseLastLivedTogetherDate: { year: '2018', month: '01', day: '01' },
+        applicant1DispenseLiveTogether: YesOrNo.YES,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseLivedTogetherDate: '2018-01-01',
+      });
+    });
+
+    test('sets applicant1DispenseLivedTogetherDate to null when last lived together is no', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseLastLivedTogetherDate: { year: '2018', month: '01', day: '01' },
+        applicant1DispenseLiveTogether: YesOrNo.NO,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseLivedTogetherDate: null,
+      });
+    });
+  });
+
   describe('applicant1DispensePartnerLastSeenOrHeardOfDate transformation', () => {
     test('sets applicant1DispensePartnerLastSeenOver2YearsAgo to yes when last seen date is over 2 years ago', () => {
       const apiFormat = toApiFormat({
@@ -1029,9 +1161,20 @@ describe('to-api-format', () => {
   });
 
   describe('applicant1DispenseWhyNoFinalOrderSearch transformation', () => {
-    test('sets applicant1DispenseWhyNoFinalOrderSearch to null when applicant1DispenseNoFinalOrderSearch is No', () => {
+    test('sets applicant1DispenseWhyNoFinalOrderSearch when applicant1DispenseHaveSearchedFinalOrder is yes', () => {
       const apiFormat = toApiFormat({
-        applicant1DispenseNoFinalOrderSearch: YesOrNo.NO,
+        applicant1DispenseHaveSearchedFinalOrder: YesOrNo.NO,
+        applicant1DispenseWhyNoFinalOrderSearch: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoFinalOrderSearch: 'Some reason',
+      });
+    });
+
+    test('sets applicant1DispenseWhyNoFinalOrderSearch to null when applicant1DispenseHaveSearchedFinalOrder is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseHaveSearchedFinalOrder: YesOrNo.YES,
         applicant1DispenseWhyNoFinalOrderSearch: 'Some reason',
       } as Partial<Case>);
 
@@ -1042,6 +1185,17 @@ describe('to-api-format', () => {
   });
 
   describe('applicant1DispenseWhyNoTracingAgent transformation', () => {
+    test('sets applicant1DispenseWhyNoTracingAgent when applicant1DispenseTriedTracingAgent is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedTracingAgent: YesOrNo.NO,
+        applicant1DispenseWhyNoTracingAgent: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoTracingAgent: 'Some reason',
+      });
+    });
+
     test('sets applicant1DispenseWhyNoTracingAgent to null when applicant1DispenseTriedTracingAgent is Yes', () => {
       const apiFormat = toApiFormat({
         applicant1DispenseTriedTracingAgent: YesOrNo.YES,
@@ -1055,6 +1209,17 @@ describe('to-api-format', () => {
   });
 
   describe('applicant1DispenseWhyNoTracingOnline transformation', () => {
+    test('sets applicant1DispenseWhyNoTracingOnline when applicant1DispenseTriedTracingOnline is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedTracingOnline: YesOrNo.NO,
+        applicant1DispenseWhyNoTracingOnline: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoTracingOnline: 'Some reason',
+      });
+    });
+
     test('sets applicant1DispenseWhyNoTracingOnline to null when applicant1DispenseTriedTracingOnline is Yes', () => {
       const apiFormat = toApiFormat({
         applicant1DispenseTriedTracingOnline: YesOrNo.YES,
@@ -1068,6 +1233,17 @@ describe('to-api-format', () => {
   });
 
   describe('applicant1DispenseWhyNoSearchingOnline transformation', () => {
+    test('sets applicant1DispenseWhyNoSearchingOnline when applicant1DispenseTriedSearchingOnline is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedSearchingOnline: YesOrNo.NO,
+        applicant1DispenseWhyNoSearchingOnline: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoSearchingOnline: 'Some reason',
+      });
+    });
+
     test('sets applicant1DispenseWhyNoSearchingOnline to null when applicant1DispenseTriedSearchingOnline is Yes', () => {
       const apiFormat = toApiFormat({
         applicant1DispenseTriedSearchingOnline: YesOrNo.YES,
