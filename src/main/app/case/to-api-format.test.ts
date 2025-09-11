@@ -847,6 +847,31 @@ describe('to-api-format', () => {
     });
   });
 
+  describe('applicant1Deemed transformation', () => {
+    test.each([
+      {
+        applicant1DeemedNoEvidenceStatement: 'Some statement',
+        applicant1InterimAppsCanUploadEvidence: YesOrNo.YES,
+        expected: {
+          applicant1DeemedNoEvidenceStatement: null,
+          applicant1InterimAppsCanUploadEvidence: YesOrNo.YES,
+        },
+      },
+      {
+        applicant1DeemedEvidenceDetails: 'Some details',
+        applicant1InterimAppsCannotUploadDocs: Checkbox.Checked,
+        applicant1InterimAppsCanUploadEvidence: YesOrNo.NO,
+        expected: {
+          applicant1DeemedEvidenceDetails: null,
+          applicant1InterimAppsCannotUploadDocs: null,
+          applicant1InterimAppsCanUploadEvidence: YesOrNo.NO,
+        },
+      },
+    ])('transform deemed answers if condition met', ({ expected, ...formData }) => {
+      expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+    });
+  });
+
   describe('applicant1BailiffKnowPartnersDateOfBirth transformation', () => {
     test('sets date of birth to null if the date of birth is not known', () => {
       const apiFormat = toApiFormat({
@@ -867,6 +892,41 @@ describe('to-api-format', () => {
       expect(apiFormat).toMatchObject({
         applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
         applicant1BailiffPartnersApproximateAge: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServicePartnerEmail transformation', () => {
+    test('sets applicant1AltServicePartnerEmail to the provided email when applicant1AltServiceMethod is EMAIL', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServiceMethod: AlternativeServiceMethod.EMAIL,
+        applicant1AltServicePartnerEmail: 'test@test.com',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerEmail: 'test@test.com',
+      });
+    });
+
+    test('sets applicant1AltServicePartnerEmail to the provided email when applicant1AltServiceMethod is EMAIL_AND_DIFFERENT', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServiceMethod: AlternativeServiceMethod.EMAIL_AND_DIFFERENT,
+        applicant1AltServicePartnerEmailWhenDifferent: 'test@test.com',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerEmail: 'test@test.com',
+      });
+    });
+
+    test('sets applicant1AltServicePartnerEmail to null when applicant1AltServiceMethod is not EMAIL or EMAIL_AND_DIFFERENT', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServiceMethod: AlternativeServiceMethod.DIFFERENT_WAY,
+        applicant1AltServicePartnerEmail: 'test@test.com',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerEmail: null,
       });
     });
   });
@@ -892,7 +952,7 @@ describe('to-api-format', () => {
     });
   });
 
-  describe('applicant1DispensePartnerLastSeenorHeardOfDate transformation', () => {
+  describe('applicant1DispensePartnerLastSeenOrHeardOfDate transformation', () => {
     test('sets applicant1DispensePartnerLastSeenOver2YearsAgo to yes when last seen date is over 2 years ago', () => {
       const apiFormat = toApiFormat({
         applicant1DispensePartnerLastSeenOrHeardOfDate: { year: '2020', month: '01', day: '01' },
@@ -996,6 +1056,7 @@ describe('to-api-format', () => {
         applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
         applicant1InterimAppsIUnderstand: Checkbox.Checked,
         applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+        applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
         expected: {
           applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
           applicant1NoResponsePartnerEmailAddress: 'test',
@@ -1007,6 +1068,7 @@ describe('to-api-format', () => {
           applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
           applicant1InterimAppsIUnderstand: YesOrNo.YES,
           applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+          applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo.YES,
         },
       },
       {
@@ -1040,11 +1102,11 @@ describe('to-api-format', () => {
         },
       },
       {
-        applicant1InterimAppsHwfRefNumber: 'test',
         applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+        applicant1InterimAppsHwfRefNumber: 'test',
         expected: {
           applicant1InterimAppsHwfRefNumber: '',
-          applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+          applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
         },
       },
       {
