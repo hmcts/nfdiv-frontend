@@ -847,6 +847,29 @@ describe('to-api-format', () => {
     });
   });
 
+  describe('applicant1SearchGovRecordsKnowPartnerDateOfBirth transformation', () => {
+    test('sets date of birth to null if the date of birth is not known', () => {
+      const apiFormat = toApiFormat({
+        applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo.NO,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo.NO,
+        applicant1SearchGovRecordsPartnerDateOfBirth: null,
+      });
+    });
+    test('sets approx age to null if the date of birth is known', () => {
+      const apiFormat = toApiFormat({
+        applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo.YES,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerApproximateAge: null,
+      });
+    });
+  });
+
   describe('applicant1BailiffKnowPartnersDateOfBirth transformation', () => {
     test('sets date of birth to null if the date of birth is not known', () => {
       const apiFormat = toApiFormat({
@@ -858,7 +881,6 @@ describe('to-api-format', () => {
         applicant1BailiffPartnersDateOfBirth: null,
       });
     });
-
     test('sets approx age to null if the date of birth is known', () => {
       const apiFormat = toApiFormat({
         applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
@@ -868,6 +890,32 @@ describe('to-api-format', () => {
         applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
         applicant1BailiffPartnersApproximateAge: null,
       });
+    });
+  });
+
+  describe('applicant1SearchGovRecordsPartnerNationalInsurance transformation', () => {
+    test('Capitalizes the national insurance number', () => {
+      const apiFormat = toApiFormat({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
+      } as Partial<Case>);
+    });
+
+    test('convert value to upper case', () => {
+      const apiFormat = toApiFormat({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
+      } as Partial<Case>);
     });
   });
 

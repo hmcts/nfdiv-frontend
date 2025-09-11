@@ -20,7 +20,7 @@
                 {{ filename }}<br>
               {% endfor %}
             {% endset %}
-            {{ filenames | safe}}
+            {{ filenames | safe }}
             {% if cannotUploadDocs === 'Yes' %}
               {% if uploadedDocsFilenames.length %}
                 <br>
