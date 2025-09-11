@@ -151,22 +151,22 @@ const cy: typeof en = ({
       introLine1: 'You have applied to dispense with service.',
     },
     bailiff: {
-      title: 'Request submitted',
-      introLine1: 'You have submitted your request for bailiff service.',
-      happensNextLine1: 'The court will consider your request and any evidence you have submitted.',
-      happensNextLine2: `We will email you ${
+      title: 'Cais wedi’i gyflwyno',
+      introLine1: 'Rydych wedi cyflwyno eich cais am wasanaeth cyflwyno gan feili.',
+      happensNextLine1: 'Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno.',
+      happensNextLine2: `Byddwn yn anfon e-bost atoch ${
         serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
-          ? `by ${serviceApplicationResponseDate} `
+          ? `erbyn ${serviceApplicationResponseDate} `
           : ''
-      }to let you know whether your request has been successful.`,
+      }i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus.`,
       happensNextLine3:
-        'If the judge approves your request for bailiff service, it will be passed to the bailiff for review.',
-      sendDocumentsHeading: `Send your ${partner}'s photo to the court`,
-      sendDocumentsLine1: `You can send us your ${partner}'s photo in the following ways:`,
-      uploadGuidance: 'Make sure your picture:',
-      uploadGuidanceBulletOne: `Clearly shows your ${partner}'s face`,
-      uploadGuidanceBulletTwo: 'Does not include any other people, to avoid confusion',
-      uploadGuidanceBulletThree: 'Does not include any children',
+        'Os bydd y barnwr yn cymeradwyo eich cais am wasanaeth cyflwyno gan feili, bydd yn cael ei drosglwyddo i’r beili ar gyfer adolygu.',
+      sendDocumentsHeading: `Anfonwch lun o’ch ${partner} i’r llys`,
+      sendDocumentsLine1: `Gallwch anfon llun o’ch ${partner} atom yn y ffyrdd canlynol:`,
+      uploadGuidance: 'Gwnewch yn siŵr bod eich llun:',
+      uploadGuidanceBulletOne: `yn dangos llun eich ${partner} yn glir.`,
+      uploadGuidanceBulletTwo: 'ddim yn cynnwys unrhyw bobl eraill, i osgoi dryswch',
+      uploadGuidanceBulletThree: 'ddim yn cynnwys unrhyw blant',
     },
   },
 });

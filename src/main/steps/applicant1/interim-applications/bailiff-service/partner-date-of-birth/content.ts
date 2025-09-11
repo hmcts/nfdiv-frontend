@@ -33,7 +33,7 @@ const en = ({ partner }: CommonContent) => ({
       invalidDateTooFarInPast: 'You have entered a year which is too far in the past. Enter the year of birth.',
     },
     applicant1BailiffPartnersApproximateAge: {
-      required: `You must enter your ${partner}'s approximate age`,
+      required: `Your ${partner}'s approximate age cannot be blank`,
       invalid: 'Please enter a valid approximate age.',
     },
   },
@@ -46,7 +46,9 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   enterDateOfBirthLabel: `Rhowch ddyddiad geni eich ${partner}`,
   enterDateOfBirthHint: 'Er enghraifft, 27 3 2007',
   enterApproximateAgeLabel: `Rhowch oedran eich ${partner} yn fras`,
-  enterApproximateAgeHint: 'Er enghraifft, 65 oed',
+  enterApproximateAgeHint: 'Er enghraifft, 65 mlwydd oed',
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1BailiffKnowPartnersDateOfBirth: {
       required: `Dewiswch “Ydw” os ydych yn gwybod dyddiad geni eich ${partner}`,
@@ -59,7 +61,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       invalidDateTooFarInPast: "Mae angen ichi nodi blwyddyn sy'n fwy cyfredol. Nodwch flwyddyn geni.",
     },
     applicant1BailiffPartnersApproximateAge: {
-      required: `Mae'n rhaid i chi nodi oedran eich ${partner} yn fras`,
+      required: `Ni all oed eich ${partner} yn fras gael ei adael yn wag`,
       invalid: `Mae'n rhaid i chi nodi oedran eich ${partner} yn fras`,
     },
   },
