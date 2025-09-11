@@ -205,6 +205,7 @@ export const CHECK_YOUR_ANSWERS_GOV_RECORDS: PageLink = '/interim-applications/s
 // Deemed Service URLs
 export const DEEMED_SERVICE_APPLICATION: PageLink = '/interim-applications/deemed-service/service-application';
 export const DEEMED_INTERRUPTION: PageLink = '/interim-applications/deemed-service/interruption';
+
 export const HELP_WITH_FEES_DEEMED: PageLink = '/interim-applications/deemed-service/help-with-fees';
 export const HWF_REFERENCE_NUMBER_DEEMED: PageLink = '/interim-applications/deemed-service/hwf-reference-number';
 export const WANT_UPLOAD_EVIDENCE_DEEMED: PageLink = '/interim-applications/deemed-service/want-upload-evidence';

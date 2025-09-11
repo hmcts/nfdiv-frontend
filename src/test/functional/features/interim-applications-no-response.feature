@@ -229,7 +229,7 @@ Feature: No response journey
     Given I select element "#applicant1NoResponsePartnerEmailAddress"
     And I type "test@test.com"
     When I click continue
-    Then the page should include element "#enterAddressTitle"
+    Then the page should include element "#enterPostcode"
 
     Given I select element "#postcode"
     And I type "SW1H 9AJ"

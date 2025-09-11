@@ -1,5 +1,6 @@
 export const enum HubTemplate {
   AosAwaitingOrDrafted = '/aos-awaiting-or-drafted.njk',
+  AosAwaitingOrDraftedUpdateContactDetails = '/contact-details-update-save-and-sign-out.njk',
   AoSDue = '/aos-due.njk',
   ApplicantNotYetAppliedForConditionalOrder = '/applicant-not-yet-applied-for-conditional-order.njk',
   AwaitingAmendedApplication = '/awaiting-amended-application.njk',

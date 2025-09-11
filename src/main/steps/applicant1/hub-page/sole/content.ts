@@ -21,13 +21,19 @@ import type { CommonContent } from '../../../common/common.content';
 import { getAddressFields } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import {
+  ALTERNATIVE_SERVICE_APPLICATION,
+  BAILIFF_SERVICE_APPLICATION,
+  DEEMED_SERVICE_APPLICATION,
+  DISPENSE_SERVICE_APPLICATION,
   FINALISING_YOUR_APPLICATION,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
   PAY_YOUR_SERVICE_FEE,
+  PROCESS_SERVER,
   PROCESS_SERVER_DOCS,
   RESPOND_TO_COURT_FEEDBACK,
+  SEARCH_GOV_RECORDS_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
 } from '../../../urls';
 import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application-submitted/content';
@@ -52,6 +58,7 @@ const en = (
     generalApplicationResponseDate,
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
+    interimApplicationType,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
@@ -103,6 +110,19 @@ const en = (
     line7: `The amount of time your ${partner} has to respond depends on the country they’re living in. If they do not respond, we will help you explore the other options you have to progress your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
+  },
+  interimApplicationsSaveAndSignOut: {
+    line1: `Your ${partner} has not responded to your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }.`,
+    line2: `You have started a ${interimApplicationType} application.`,
+    line3: `You can continue with your ${interimApplicationType} application.`,
+    line4: `If your circumstances have changed or you want to try something else, you can <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">view your options to proceed with your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    }</a>.`,
+    line5: 'If you begin a new application, your current draft application will be deleted.',
+    whatYouCanDoNext: 'What you can do next',
+    completeApplication: 'Complete application',
   },
   aosDrafted: {
     line1: `Your ${partner} has started drafting a response to your application.`,
@@ -520,11 +540,12 @@ const cy: typeof en = (
     serviceApplicationType,
     generalApplicationType,
     serviceApplicationResponseDate,
-    serviceApplicationDate,
     generalApplicationDate,
     generalApplicationResponseDate,
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
+    serviceApplicationDate,
+    interimApplicationType,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
@@ -571,6 +592,19 @@ const cy: typeof en = (
     line7: `Mae faint o amser sydd gan eich ${partner} i ymateb yn dibynnu ar y wlad ble maent yn byw. Os nad ydynt yn ymateb, byddwn yn eich helpu i archwilio’r dewisiadau eraill i symud ymlaen gyda’ch ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     }.`,
+  },
+  interimApplicationsSaveAndSignOut: {
+    line1: `Nid yw eich ${partner} wedi ymateb i’ch ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+    }.`,
+    line2: `Rydych wedi dechrau cais ${interimApplicationType}.`,
+    line3: `Gallwch barhau gyda’ch cais ${interimApplicationType}.`,
+    line4: `Os yw eich amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">weld eich opsiynau i fwrw ymlaen â'ch cais ${
+      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
+    }</a>.`,
+    line5: 'Os ydych yn dechrau cais newydd, bydd eich cais drafft presennol yn cael ei ddileu.',
+    whatYouCanDoNext: 'Beth allwch chi ei wneud nesaf',
+    completeApplication: 'Cwblhau’r cais',
   },
   aosDrafted: {
     line1: `Mae ${partner} wedi dechrau drafftio ymateb i’ch cais.`,
@@ -1068,6 +1102,24 @@ export const generateContent: TranslationFn = content => {
     NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
   const isSearchGovRecordsFeeRequired = content.generalApplicationFeeRequired;
 
+  const interimApplicationStartPagePath = (() => {
+    switch (userCase.applicant1InterimApplicationType) {
+      case InterimApplicationType.ALTERNATIVE_SERVICE:
+        return ALTERNATIVE_SERVICE_APPLICATION;
+      case InterimApplicationType.DEEMED_SERVICE:
+        return DEEMED_SERVICE_APPLICATION;
+      case InterimApplicationType.BAILIFF_SERVICE:
+        return BAILIFF_SERVICE_APPLICATION;
+      case InterimApplicationType.DISPENSE_WITH_SERVICE:
+        return DISPENSE_SERVICE_APPLICATION;
+      case InterimApplicationType.PROCESS_SERVER_SERVICE:
+        return PROCESS_SERVER;
+      case InterimApplicationType.SEARCH_GOV_RECORDS:
+        return SEARCH_GOV_RECORDS_APPLICATION;
+    }
+  })();
+  const interimApplicationStartedAosOverdue =
+    userCase.applicant1InterimApplicationType && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
   return {
     ...languages[language](
       content,
@@ -1099,5 +1151,7 @@ export const generateContent: TranslationFn = content => {
     applicant1NoResponseSendPapersAgain,
     isAwaitingProcessServerService,
     isSearchGovRecordsFeeRequired,
+    interimApplicationStartPagePath,
+    interimApplicationStartedAosOverdue,
   };
 };
