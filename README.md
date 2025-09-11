@@ -68,7 +68,7 @@ yarn webpack
 Start server:
 
 ```bash
-yarn start
+yarn start:dev
 ```
 
 The application's home page will be available at [https://localhost:3001](https://localhost:3001)

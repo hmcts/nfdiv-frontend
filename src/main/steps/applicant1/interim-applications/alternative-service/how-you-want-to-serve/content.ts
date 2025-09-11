@@ -50,7 +50,7 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   }`,
   line1: `Byddwch angen rhoi tystiolaeth bod eich ${partner} yn defnyddio pob dull a ddewisir gennych yn rheolaid.`,
   line2: `Gallwch ond defnyddio platfform cyfryngau cymdeithasol ble gallwch chi neu ffrind neu berthynas uwchlwytho dogfennau mewn neges breifat at eich ${partner}.`,
-  line3: `Byddwch chi’n gyfrifol am sicrhau bod y papurau yn cael eu hanfon at eich ${partner} yn y ffordd a ddewisir gennych, hyd yn oed os bydd rhywun yn eich helpu chi.  Byddwch angen llenwi ffurflen tystysgrif cyflwyno (ffurflen FP6) a’i hanfon i’r llys unwaith y byddwch wedi anfon y papura.`,
+  line3: `Byddwch chi’n gyfrifol am sicrhau bod y papurau yn cael eu hanfon at eich ${partner} yn y ffordd a ddewisir gennych, hyd yn oed os bydd rhywun yn eich helpu chi.  Byddwch angen llenwi ffurflen tystysgrif cyflwyno (ffurflen FP6) a’i hanfon i’r llys unwaith y byddwch wedi anfon y papurau.`,
   howToSend: `Sut ydych eisiau anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } at eich ${partner}?`,

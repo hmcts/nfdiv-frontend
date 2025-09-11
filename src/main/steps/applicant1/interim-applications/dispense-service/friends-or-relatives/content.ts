@@ -36,7 +36,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    applicant1DispenseContactFriendsOrFamilyDetails: {
+    applicant1DispenseContactFriendsOrRelativesDetails: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.friendsOrRelativesDetailsHeader,
