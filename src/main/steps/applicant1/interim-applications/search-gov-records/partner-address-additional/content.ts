@@ -10,16 +10,16 @@ const en = ({ partner }: CommonContent) => ({
   dateLivedOnAddress: 'Enter the dates they lived there',
   errors: {
     applicant1SearchGovRecordsPartnerAdditionalAddress1: {
-      required: `Enter details of any other known address of your ${partner} before continuing.`,
+      required: `Enter the details of any other known address of your ${partner} before continuing`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
-      required: `Enter the dates your ${partner} lived in the address before continuing.`,
+      required: `Enter the dates your ${partner} lived at the address before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       required: `Enter details of any other known address of your ${partner} before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
-      required: `Enter the dates your ${partner} lived in the address before continuing.`,
+      required: `Enter the dates your ${partner} lived at the address before continuing.`,
     },
   },
 });
@@ -31,16 +31,16 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   dateLivedOnAddress: "Rhowch y dyddiadau roedden nhw'n byw yno",
   errors: {
     applicant1SearchGovRecordsPartnerAdditionalAddress1: {
-      required: `Enter details of any other known address of your ${partner} before continuing.`,
+      required: `Nodwch fanylion unrhyw gyfeiriad hysbys arall eich ${partner} cyn parhau.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
-      required: `Enter the dates your ${partner} lived in the address before continuing.`,
+      required: `Nodwch y dyddiadau y bu eich ${partner} yn byw yn y cyfeiriad cyn parhau.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
-      required: `Enter details of any other known address of your ${partner} before continuing.`,
+      required: `Nodwch fanylion unrhyw gyfeiriad hysbys arall eich ${partner} cyn parhau.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
-      required: `Enter the dates your ${partner} lived in the address before continuing.`,
+      required: `Nodwch y dyddiadau y bu eich ${partner} yn byw yn y cyfeiriad cyn parhau.`,
     },
   },
 });
