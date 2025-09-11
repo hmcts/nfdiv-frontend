@@ -229,7 +229,7 @@ Feature: No response journey
     Given I select element "#applicant1NoResponsePartnerEmailAddress"
     And I type "test@test.com"
     When I click continue
-    Then the page should include element "#enterAddressTitle"
+    Then the page should include element "#enterPostcode"
 
     Given I select element "#postcode"
     And I type "SW1H 9AJ"
@@ -238,6 +238,10 @@ Feature: No response journey
     And I wait for the postcode lookup to return results
 
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    When I click continue
+    Then the page should include element "#applicant1NoResponsePartnerEmailAddress"
+    When I select element "#applicant1NoResponsePartnerEmailAddress"
+    And I type "test@testing.com"
     When I click continue
     Then the page should include element "#checkAnswersTitle"
 
