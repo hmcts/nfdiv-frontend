@@ -95,7 +95,7 @@ const cy = ({ partner }: CommonContent) => ({
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
       required: 'Dewiswch naill ai weinyddwr proses neu feili llys',
-      confidentialRespondent: `You cannot request to serve by process server because your ${partner}’s details are confidential. Please select another option or go back to try something else.`,
+      confidentialRespondent: `Ni allwch ofyn am wasanaeth gan y gweinyddwr proses oherwydd bod manylion eich ${partner} yn gyfrinachol. Dewiswch opsiwn arall neu ewch yn ôl i roi cynnig ar rywbeth arall.`,
     },
     applicant1NoResponseRespondentAddressInEnglandWales: {
       required: `Mae’n rhaid i chi gadarnhau bod cyfeiriad eich ${partner} yng Nghymru neu Loegr cyn parhau`,
