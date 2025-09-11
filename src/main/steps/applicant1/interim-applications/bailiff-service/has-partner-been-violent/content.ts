@@ -11,7 +11,7 @@ const en = ({ partner }: CommonContent) => ({
   enterPartnerViolenceDetailsLabel: 'Provide details of any incidents',
   errors: {
     applicant1BailiffHasPartnerBeenViolent: {
-      required: `Select yes if your ${partner} has ever been violent or convicted of a violent offence.`,
+      required: `Select "Yes" if your ${partner} has ever been violent or convicted of a violent offence.`,
     },
     applicant1BailiffPartnerViolenceDetails: {
       required: 'Enter details of any incidents of violence.',
@@ -28,7 +28,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   no: 'Nac ydy',
   errors: {
     applicant1BailiffHasPartnerBeenViolent: {
-      required: `Dewiswch Ydy os yw eich ${partner} erioed wedi bod yn dreisgar neu wedi cael ei gyhuddo/chyhuddo o drosedd treisgar.`,
+      required: `Dewiswch "Ydy" os yw eich ${partner} erioed wedi bod yn dreisgar neu wedi cael ei gyhuddo/chyhuddo o drosedd treisgar.`,
     },
     applicant1BailiffPartnerViolenceDetails: {
       required: 'Rhowch fanylion unrhyw achosion o drais',

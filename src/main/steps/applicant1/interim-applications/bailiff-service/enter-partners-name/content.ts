@@ -1,3 +1,5 @@
+import capitalize from 'lodash/capitalize';
+
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -7,7 +9,7 @@ const en = ({ partner }: CommonContent) => ({
   title: `Enter your ${partner}'s name`,
   errors: {
     applicant1BailiffPartnersName: {
-      required: `${partner}’s name cannot be blank.`,
+      required: `${capitalize(partner)}’s name cannot be blank.`,
     },
   },
 });
