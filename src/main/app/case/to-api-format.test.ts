@@ -21,6 +21,8 @@ import {
 } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
 
+const dateNow = new Date(Date.now());
+
 describe('to-api-format', () => {
   const results: OrNull<Partial<Case>> = {
     gender: Gender.MALE,
@@ -471,82 +473,6 @@ describe('to-api-format', () => {
       },
     },
     {
-      applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
-      applicant1NoResponsePartnerEmailAddress: 'test',
-      applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
-      applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
-      applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: AlternativeServiceMethod.DIFFERENT_WAY,
-      applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED,
-      applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
-      applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
-      applicant1InterimAppsIUnderstand: Checkbox.Checked,
-      applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
-      expected: {
-        applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
-        applicant1NoResponsePartnerEmailAddress: 'test',
-        applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
-        applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
-        applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: AlternativeServiceMethod.DIFFERENT_WAY,
-        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED,
-        applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
-        applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
-        applicant1InterimAppsIUnderstand: YesOrNo.YES,
-        applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
-      },
-    },
-    {
-      applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
-      applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
-      applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
-      expected: {
-        applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
-      },
-    },
-    {
-      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
-      applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
-      applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
-      expected: {
-        applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
-        applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
-        applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
-      },
-    },
-    {
-      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
-      applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
-      applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
-      expected: {
-        applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
-        applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
-        applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
-      },
-    },
-    {
-      applicant1InterimAppsHwfRefNumber: 'test',
-      applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
-      expected: {
-        applicant1InterimAppsHwfRefNumber: '',
-        applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
-      },
-    },
-    {
-      applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
-      applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.YES,
-      expected: {
-        applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
-        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.YES,
-      },
-    },
-    {
-      applicant1NoResponsePartnerAddressOverseas: null,
-      applicant1DispenseLivedTogetherAddressOverseas: null,
-      expected: {
-        applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
-        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
-      },
-    },
-    {
       inTheUk: YesOrNo.NO,
       expected: {
         marriageMarriedInUk: YesOrNo.NO,
@@ -571,6 +497,131 @@ describe('to-api-format', () => {
         marriageCertifiedTranslation: null,
         marriageCountryOfMarriage: null,
         marriagePlaceOfMarriage: null,
+      },
+    },
+    {
+      applicant1DispenseLivedTogetherDate: { year: '2020', month: '01', day: '01' },
+      applicant1DispenseLivedTogetherAddress:
+        'testLine1\ntestLine2\ntestLine3\ntestLineTown\ntestLineCounty\ntestLinePostcode\ntestLineCountry',
+      applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.YES,
+      applicant1DispenseLiveTogether: YesOrNo.NO,
+      expected: {
+        applicant1DispenseLivedTogetherDate: null,
+        applicant1DispenseLivedTogetherAddress: null,
+        applicant1DispenseLivedTogetherAddressOverseas: null,
+        applicant1DispenseLiveTogether: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1DispensePartnerPastAddress1: 'Past address 1',
+      applicant1DispensePartnerPastAddressEnquiries1: 'Past address Enquiries 1',
+      applicant1DispensePartnerPastAddress2: 'Past address 2',
+      applicant1DispensePartnerPastAddressEnquiries2: 'Past address Enquiries 2',
+      applicant1DispenseAwarePartnerLived: YesOrNo.NO,
+      expected: {
+        applicant1DispensePartnerPastAddress1: null,
+        applicant1DispensePartnerPastAddressEnquiries1: null,
+        applicant1DispensePartnerPastAddress2: null,
+        applicant1DispensePartnerPastAddressEnquiries2: null,
+        applicant1DispenseAwarePartnerLived: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1DispensePartnerEmailAddresses: 'email addresses',
+      applicant1DispenseHavePartnerEmailAddresses: YesOrNo.NO,
+      expected: {
+        applicant1DispensePartnerEmailAddresses: null,
+        applicant1DispenseHavePartnerEmailAddresses: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1DispensePartnerPhoneNumbers: 'phone numbers',
+      applicant1DispenseHavePartnerPhoneNumbers: YesOrNo.NO,
+      expected: {
+        applicant1DispensePartnerPhoneNumbers: null,
+        applicant1DispenseHavePartnerPhoneNumbers: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1DispenseTracingAgentResults: 'tracing agent results',
+      applicant1DispenseTriedTracingAgent: YesOrNo.NO,
+      expected: {
+        applicant1DispenseTracingAgentResults: null,
+        applicant1DispenseTriedTracingAgent: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1DispenseTracingOnlineResults: 'tracing online results',
+      applicant1DispenseTriedTracingOnline: YesOrNo.NO,
+      expected: {
+        applicant1DispenseTracingOnlineResults: null,
+        applicant1DispenseTriedTracingOnline: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1DispenseSearchingOnlineResults: 'searching online results',
+      applicant1DispenseTriedSearchingOnline: YesOrNo.NO,
+      expected: {
+        applicant1DispenseSearchingOnlineResults: null,
+        applicant1DispenseTriedSearchingOnline: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1DispenseEmployerName: 'Employer name',
+      applicant1DispenseEmployerAddress: 'Employer address',
+      applicant1DispensePartnerOccupation: 'Occupation',
+      applicant1DispenseContactingEmployerResults: 'Contacting employer results',
+      applicant1DispenseTriedContactingEmployer: YesOrNo.NO,
+      expected: {
+        applicant1DispenseEmployerName: null,
+        applicant1DispenseEmployerAddress: null,
+        applicant1DispensePartnerOccupation: null,
+        applicant1DispenseContactingEmployerResults: null,
+        applicant1DispenseTriedContactingEmployer: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1DispensePartnerContactWithChildren: YesOrNo.YES,
+      applicant1DispenseHowPartnerContactChildren: 'How partner contact children',
+      applicant1DispensePartnerLastContactChildren: 'Last contact children',
+      applicant1DispenseChildMaintenanceOrder: YesOrNo.YES,
+      applicant1DispenseChildMaintenanceResults: 'Child maintenance results',
+      applicant1DispenseChildrenOfFamily: YesOrNo.NO,
+      expected: {
+        applicant1DispensePartnerContactWithChildren: null,
+        applicant1DispenseHowPartnerContactChildren: null,
+        applicant1DispensePartnerLastContactChildren: null,
+        applicant1DispenseChildMaintenanceOrder: null,
+        applicant1DispenseChildMaintenanceResults: null,
+        applicant1DispenseChildrenOfFamily: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1DispenseHowPartnerContactChildren: 'How partner contact children',
+      applicant1DispensePartnerLastContactChildren: 'Last contact children',
+      applicant1DispensePartnerContactWithChildren: YesOrNo.NO,
+      expected: {
+        applicant1DispenseHowPartnerContactChildren: null,
+        applicant1DispensePartnerLastContactChildren: 'Last contact children',
+        applicant1DispensePartnerContactWithChildren: YesOrNo.NO,
+      },
+    },
+    {
+      applicant1DispenseHowPartnerContactChildren: 'How partner contact children',
+      applicant1DispensePartnerLastContactChildren: 'Last contact children',
+      applicant1DispensePartnerContactWithChildren: YesOrNo.YES,
+      expected: {
+        applicant1DispenseHowPartnerContactChildren: 'How partner contact children',
+        applicant1DispensePartnerLastContactChildren: null,
+        applicant1DispensePartnerContactWithChildren: YesOrNo.YES,
+      },
+    },
+    {
+      applicant1DispenseChildMaintenanceResults: 'Child maintenance results',
+      applicant1DispenseChildMaintenanceOrder: YesOrNo.NO,
+      expected: {
+        applicant1DispenseChildMaintenanceResults: null,
+        applicant1DispenseChildMaintenanceOrder: YesOrNo.NO,
       },
     },
   ])('set unreachable answers to null if condition met', ({ expected, ...formData }) => {
@@ -838,6 +889,182 @@ describe('to-api-format', () => {
         applicant1AltServicePartnerWANum: null,
         applicant1AltServicePartnerOtherDetails: null,
       });
+    });
+  });
+
+  describe('applicant1DispensePartnerLastSeenorHeardOfDate transformation', () => {
+    test('sets applicant1DispensePartnerLastSeenOver2YearsAgo to yes when last seen date is over 2 years ago', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispensePartnerLastSeenOrHeardOfDate: { year: '2020', month: '01', day: '01'},
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo.YES,
+      });
+    });
+
+    test('sets applicant1DispensePartnerLastSeenOver2YearsAgo to no when last seen date is less than years ago', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispensePartnerLastSeenOrHeardOfDate: {
+          year: dateNow.getFullYear().toString(),
+          month: dateNow.getMonth().toString(),
+          day: dateNow.getDate().toString(),
+        },
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo.NO,
+      });
+    });
+  });
+
+  describe('applicant1DispenseWhyNoFinalOrderSearch transformation', () => {
+    test('sets applicant1DispenseWhyNoFinalOrderSearch to null when applicant1DispenseNoFinalOrderSearch is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseNoFinalOrderSearch: YesOrNo.NO,
+        applicant1DispenseWhyNoFinalOrderSearch: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoFinalOrderSearch: null,
+      });
+    });
+  });
+
+  describe('applicant1DispenseWhyNoTracingAgent transformation', () => {
+    test('sets applicant1DispenseWhyNoTracingAgent to null when applicant1DispenseTriedTracingAgent is Yes', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedTracingAgent: YesOrNo.YES,
+        applicant1DispenseWhyNoTracingAgent: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoTracingAgent: null,
+      });
+    });
+  });
+
+  describe('applicant1DispenseWhyNoTracingOnline transformation', () => {
+    test('sets applicant1DispenseWhyNoTracingOnline to null when applicant1DispenseTriedTracingOnline is Yes', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedTracingOnline: YesOrNo.YES,
+        applicant1DispenseWhyNoTracingOnline: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoTracingOnline: null,
+      });
+    });
+  });
+
+  describe('applicant1DispenseWhyNoSearchingOnline transformation', () => {
+    test('sets applicant1DispenseWhyNoSearchingOnline to null when applicant1DispenseTriedSearchingOnline is Yes', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedSearchingOnline: YesOrNo.YES,
+        applicant1DispenseWhyNoSearchingOnline: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoSearchingOnline: null,
+      });
+    });
+  });
+
+  describe('applicant1DispenseWhyNoContactingEmployer transformation', () => {
+    test('sets applicant1DispenseWhyNoContactingEmployer to null when applicant1DispenseTriedContactingEmployer is Yes', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedContactingEmployer: YesOrNo.YES,
+        applicant1DispenseWhyNoContactingEmployer: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoContactingEmployer: null,
+      });
+    });
+  });
+
+  describe('applicant1Dispense transformation', () => {
+    test.each([
+      {
+        applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
+        applicant1NoResponsePartnerEmailAddress: 'test',
+        applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
+        applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
+        applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: AlternativeServiceMethod.DIFFERENT_WAY,
+        applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED,
+        applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
+        applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+        applicant1InterimAppsIUnderstand: Checkbox.Checked,
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+        expected: {
+          applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
+          applicant1NoResponsePartnerEmailAddress: 'test',
+          applicant1NoResponsePartnerHasReceivedPapers: YesOrNo.NO,
+          applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails.UP_TO_DATE,
+          applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: AlternativeServiceMethod.DIFFERENT_WAY,
+          applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED,
+          applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
+          applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+          applicant1InterimAppsIUnderstand: YesOrNo.YES,
+          applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+        },
+      },
+      {
+        applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+        applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+        applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
+        expected: {
+          applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
+          applicant1InterimAppsHaveHwfReference: null,
+          applicant1InterimAppsHwfRefNumber: null,
+        },
+      },
+      {
+        applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+        applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+        applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+        expected: {
+          applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+          applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+          applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+        },
+      },
+      {
+        applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+        applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+        applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+        expected: {
+          applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
+          applicant1InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+          applicant1InterimAppsUseHelpWithFees: YesOrNo.YES,
+        },
+      },
+      {
+        applicant1InterimAppsHwfRefNumber: 'test',
+        applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+        expected: {
+          applicant1InterimAppsHwfRefNumber: '',
+          applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+        },
+      },
+      {
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.YES,
+        expected: {
+          applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+          applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.YES,
+        },
+      },
+      {
+        applicant1NoResponsePartnerAddressOverseas: null,
+        applicant1DispenseLivedTogetherAddressOverseas: null,
+        expected: {
+          applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+          applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
+        },
+      },
+    ])('transform dispense answers if condition met', ({ expected, ...formData }) => {
+      expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
     });
   });
 });
