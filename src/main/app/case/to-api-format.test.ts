@@ -895,7 +895,7 @@ describe('to-api-format', () => {
   describe('applicant1DispensePartnerLastSeenorHeardOfDate transformation', () => {
     test('sets applicant1DispensePartnerLastSeenOver2YearsAgo to yes when last seen date is over 2 years ago', () => {
       const apiFormat = toApiFormat({
-        applicant1DispensePartnerLastSeenOrHeardOfDate: { year: '2020', month: '01', day: '01'},
+        applicant1DispensePartnerLastSeenOrHeardOfDate: { year: '2020', month: '01', day: '01' },
       } as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
