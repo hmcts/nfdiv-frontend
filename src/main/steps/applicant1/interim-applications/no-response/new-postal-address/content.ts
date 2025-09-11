@@ -18,7 +18,7 @@ const en = ({ partner }: Partial<CommonContent>) => {
     errors: {
       applicant1NoResponsePartnerAddress1: {
         required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
-        valueUnchanged: `You have entered the same address as the one you previously provided for your ${partner}. Please enter a new address to continue.`,
+        valueUnchanged: `You have entered the same postal address as the one you previously provided for your ${partner}. Please enter a new address to continue.`,
       },
       applicant1NoResponsePartnerAddressTown: {
         required: `You have not entered your ${partner}’s town or city. Enter their town or city before continuing.`,
@@ -43,7 +43,7 @@ const cy = ({ partner }: CommonContent) => {
     errors: {
       applicant1NoResponsePartnerAddress1: {
         required: `Nid ydych wedi nodi adeilad a chyfeiriad stryd eich ${partner}. Nodwch ei adeilad a'i gyfeiriad stryd cyn parhau.`,
-        valueUnchanged: `You have entered the same address as the one you previously provided for your ${partner}. Please enter a new address to continue.`,
+        valueUnchanged: `Rydych wedi nodi'r un cyfeiriad post â'r un a ddarparwyd o'r blaen ar gyfer eich ${partner}. Rhowch gyfeiriad newydd i barhau.`,
       },
       applicant1NoResponsePartnerAddressTown: {
         required: `Nid ydych wedi nodi tref neu ddinas eich ${partner}. Nodwch ei dref neu ddinas cyn parhau.`,

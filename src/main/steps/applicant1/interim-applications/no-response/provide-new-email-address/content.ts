@@ -29,7 +29,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       required: 'Nid ydych wedi nodi cyfeiriad e-bost. Nodwch gyfeiriad e-bost cyn parhau.',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com.',
       sameEmail: `Rydych wedi nodi’ch cyfeiriad e-bost eich hun. Mae angen i chi nodi cyfeiriad e-bost eich ${partner} cyn parhau.`,
-      valueUnchanged: `You have entered the same email address as the one you previously provided for your ${partner}. Please enter a new email address to continue.`,
+      valueUnchanged: `Rydych wedi nodi’r un cyfeiriad e-bost â'r un a ddarparwyd o'r blaen ar gyfer eich ${partner}. Rhowch gyfeiriad e-bost newydd i barhau.`,
     },
   },
 });
