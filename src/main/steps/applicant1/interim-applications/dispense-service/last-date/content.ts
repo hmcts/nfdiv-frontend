@@ -16,6 +16,8 @@ const en = ({ partner }: CommonContent) => ({
   title: `Did you and your ${partner} live together?`,
   lastLivedTogether:
     "Give the date of when you last lived together. If you're not sure of the day you can enter the last day of the month.",
+  yes: 'Yes',
+  no: 'No',
   errors: {
     applicant1DispenseLiveTogether: {
       required: `Select yes if you and your ${partner} lived together.`,
@@ -34,15 +36,17 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => ({
-  title: `Did you and your ${partner} live together?`,
+  title: `Oeddech chi a’ch ${partner} yn byw gyda’ch gilydd?`,
   lastLivedTogether:
-    "Give the date of when you last lived together. If you're not sure of the day you can enter the last day of the month.",
+    'Rhowch y dyddiad yr oeddech yn byw gyda’ch gilydd ddiwethaf. Os nad ydych yn sicr o’r diwrnod gallwch roi diwrnod olaf y mis.',
+  yes: 'Oedden',
+  no: 'Nac oedden',
   errors: {
     applicant1DispenseLiveTogether: {
       required: `Select yes if you and your ${partner} lived together.`,
     },
     applicant1DispenseLastLivedTogetherDate: {
-      required: 'Enter the date you last lived together',
+      required: 'Rhowch y dyddiad yr oeddech yn byw gyda’ch gilydd ddiwethaf',
       invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
       invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
       invalidDateInFuture:

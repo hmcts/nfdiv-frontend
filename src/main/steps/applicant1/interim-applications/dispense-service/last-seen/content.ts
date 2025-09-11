@@ -33,13 +33,13 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => ({
-  title: `When was your ${partner} last seen or heard of?`,
+  title: `Pa bryd y gwelwyd neu y clywyd am eich ${partner} ddiwethaf?`,
   lastSeenDate:
-    "If you're not sure of the day you can enter the last day of the month. If you are not sure of the month you can enter '12' for December.",
-  lastSeenDescription: `Describe the last time that you saw or heard of your ${partner}. Include the source of this information and give brief details of all enquiries made to trace them as a result.`,
+    'Os nad ydych yn sicr o’r diwrnod gallwch roi diwrnod olaf y mis. Os nad ydych yn sicr o’r mis, gallwch roi ‘12’ ar gyfer mis Rhagfyr.',
+  lastSeenDescription: `Disgrifiwch y tro diwethaf i chi weld neu glywed am eich ${partner}. Rhowch ffynhonnell y wybodaeth hon a rhowch fanylion byr holl ymholiadau a wnaed i ddod o hyd iddynt fel canlyniad.`,
   errors: {
     applicant1DispensePartnerLastSeenOrHeardOfDate: {
-      required: `Enter the date your ${partner} was last seen or heard of.`,
+      required: `Rhowch y dyddiad y gwelwyd neu y clywyd am eich ${partner} ddiwethaf.`,
       invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
       invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
       invalidDateInFuture:
@@ -47,7 +47,7 @@ const cy = ({ partner }: CommonContent) => ({
       invalidDateTooFarInPast: `You have entered a year which is too far in the past. Enter the date your ${partner} was last seen or heard of.`,
     },
     applicant1DispensePartnerLastSeenDescription: {
-      required: `Enter details of the last time you saw or heard of your ${partner}.`,
+      required: `Rhowch fanylion y tro diwethaf i chi weld neu glywed am eich ${partner}.`,
     },
   },
 });

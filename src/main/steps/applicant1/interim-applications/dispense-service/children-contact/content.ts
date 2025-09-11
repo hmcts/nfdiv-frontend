@@ -6,6 +6,8 @@ import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Does your ${partner} have any contact with them?`,
+  yes: 'Yes',
+  no: 'No',
   errors: {
     applicant1DispensePartnerContactWithChildren: {
       required: `Select yes if you know your ${partner} is in contact with the children of the family`,
@@ -15,10 +17,12 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => ({
-  title: `Does your ${partner} have any contact with them?`,
+  title: `Oes gan eich ${partner} unrhyw gyswllt gyda nhw?`,
+  yes: 'Oes',
+  no: 'Nac oes',
   errors: {
     applicant1DispensePartnerContactWithChildren: {
-      required: `Select yes if you know your ${partner} is in contact with the children of the family`,
+      required: `Dewiswch “Oes” os ydych yn gwybod bod eich ${partner} mewn cysylltiad â phlant y teulu`,
     },
   },
 });
