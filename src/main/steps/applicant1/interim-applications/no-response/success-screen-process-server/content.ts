@@ -21,18 +21,18 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 
 // @TODO translations should be completed then verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
-  title: 'You need to arrange a process server',
-  line1: `You can now <a class="govuk-link" id="downloadPapersLink" href="${PROCESS_SERVER_DOCS}">download the ${
-    isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-  } from your account</a>`,
-  whatHappensNextHeader: 'What happens next',
-  line2: `You now need to find and employ a process server. You'll need to give them your ${
-    isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-  } so they can hand serve them on your ${partner}.`,
+  title: 'Bydd angen i chi drefnu gweinyddwr proses',
+  line1: `Gallwch nawr <a class="govuk-link" id="downloadPapersLink" href="${PROCESS_SERVER_DOCS}">lawrlwytho’r papurau ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } o’ch cyfrif</a>`,
+  whatHappensNextHeader: 'Beth fydd yn digwydd nesaf',
+  line2: `Bydd angen i chi ddod o hyd i weinyddwr proses a’i ddefnyddio. Byddwch angen rhoi eich papurau ${
+    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
+  } fel y gallwch eu cyflwyno ar eich ${partner}.`,
   line3:
-    'When they have delivered the papers, they will complete a certificate of service (FP6) and send it to you. You will need to send this to the court.',
+    'Pan fyddant wedi cyflwyno’r papurau, byddant yn llenwi tystysgrif cyflwyno (FP6) ac yn ei hanfon atoch. Bydd angen i chi anfon y ddogfen hon i’r llys.',
   hubUrl: {
-    text: 'Return to your account',
+    text: 'Dychwelyd i’ch cyfri',
     url: HUB_PAGE,
   },
 });
