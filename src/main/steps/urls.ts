@@ -288,7 +288,7 @@ export const AWARE_PARTNER_ADDRESS_DISPENSE: PageLink = '/interim-applications/d
 export const PARTNER_NEW_ADDRESS_DISPENSE: PageLink = '/interim-applications/dispense-service/partner-new-address';
 export const LAST_SEEN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-seen';
 export const EMAIL_DISPENSE: PageLink = '/interim-applications/dispense-service/email';
-export const DA_SEARCH_DISPENSE: PageLink = '/interim-applications/dispense-service/da-search';
+export const FINAL_ORDER_SEARCH_DISPENSE: PageLink = '/interim-applications/dispense-service/final-order-search';
 export const EMAIL_DESCRIPTION_DISPENSE: PageLink = '/interim-applications/dispense-service/email-description';
 export const PHONE_NUMBER_DISPENSE: PageLink = '/interim-applications/dispense-service/phone-number';
 export const PHONE_DESCRIPTION_DISPENSE: PageLink = '/interim-applications/dispense-service/phone-description';
@@ -308,6 +308,9 @@ export const WHEN_CONTACT_CHILDREN_DISPENSE: PageLink = '/interim-applications/d
 export const LAST_CONTACT_CHILDREN_DISPENSE: PageLink = '/interim-applications/dispense-service/last-contact-children';
 export const CHILD_MAINTENANCE_DISPENSE: PageLink = '/interim-applications/dispense-service/child-maintenance';
 export const FRIENDS_OR_RELATIVES_DISPENSE: PageLink = '/interim-applications/dispense-service/friends-or-relatives';
+export const OTHER_ENQUIRIES_DISPENSE: PageLink = '/interim-applications/dispense-service/other-enquiries';
+export const UPLOAD_EVIDENCE_DISPENSE: PageLink = '/interim-applications/dispense-service/upload-evidence';
+export const CHECK_ANSWERS_DISPENSE: PageLink = '/interim-applications/dispense-service/check-answers';
 
 // Service Application Payment URLs
 export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';

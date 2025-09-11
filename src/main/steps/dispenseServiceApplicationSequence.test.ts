@@ -1,6 +1,5 @@
-import dayjs, { Dayjs } from 'dayjs';
+import { describe } from 'node:test';
 
-import { CaseDate } from '../app/case/case';
 import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
@@ -8,33 +7,37 @@ import { dispenseServiceApplicationSequence } from './dispenseServiceApplication
 import {
   APPLY_FOR_HWF_DISPENSE,
   AWARE_PARTNER_ADDRESS_DISPENSE,
+  CHECK_ANSWERS_DISPENSE,
   CHILDREN_CONTACT_DISPENSE,
   CHILDREN_OF_FAMILY_DISPENSE,
   CHILD_MAINTENANCE_DISPENSE,
-  DA_SEARCH_DISPENSE,
   DISPENSE_SERVICE_APPLICATION,
   EMAIL_DESCRIPTION_DISPENSE,
   EMAIL_DISPENSE,
   EMPLOYMENT_CONTACT_DISPENSE,
   EMPLOYMENT_DETAILS_DISPENSE,
+  FINAL_ORDER_SEARCH_DISPENSE,
   FRIENDS_OR_RELATIVES_DISPENSE,
   HELP_WITH_FEES_DISPENSE,
-  HUB_PAGE,
   HWF_REFERENCE_NUMBER_DISPENSE,
   HWF_REFERENCE_NUMBER_INPUT_DISPENSE,
   LAST_ADDRESS_DISPENSE,
   LAST_CONTACT_CHILDREN_DISPENSE,
   LAST_DATE_DISPENSE,
   LAST_SEEN_DISPENSE,
+  OTHER_ENQUIRIES_DISPENSE,
   PARTNER_NEW_ADDRESS_DISPENSE,
+  PAY_YOUR_SERVICE_FEE,
   PHONE_DESCRIPTION_DISPENSE,
   PHONE_NUMBER_DISPENSE,
   SEARCHING_ONLINE_DISPENSE,
   SEARCHING_ONLINE_RESULTS_DISPENSE,
+  SERVICE_APPLICATION_SUBMITTED,
   TRACING_AGENT_DISPENSE,
   TRACING_AGENT_RESULTS_DISPENSE,
   TRACING_ONLINE_DISPENSE,
   TRACING_ONLINE_RESULTS_DISPENSE,
+  UPLOAD_EVIDENCE_DISPENSE,
   WHEN_CONTACT_CHILDREN_DISPENSE,
 } from './urls';
 
@@ -100,7 +103,7 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(LAST_ADDRESS_DISPENSE);
     });
 
-    test('AWARE_PARTNER_ADDRESS_DISPENSE', () => {
+    test('AWARE_PARTNER_ADDRESS_DISPENSE - SKIP LAST_ADDRESS_DISPENSE', () => {
       const caseData = {
         applicant1DispenseLiveTogether: YesOrNo.NO,
       };
@@ -125,7 +128,7 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(PARTNER_NEW_ADDRESS_DISPENSE);
     });
 
-    test('LAST_SEEN_DISPENSE', () => {
+    test('LAST_SEEN_DISPENSE - SKIP PARTNER_NEW_ADDRESS_DISPENSE', () => {
       const caseData = {
         applicant1DispenseAwarePartnerLived: YesOrNo.NO,
       };
@@ -142,28 +145,26 @@ describe('Dispense With Service Application Sequence test', () => {
   });
 
   describe('LAST_SEEN_DISPENSE', () => {
-    test('EMAIL_DISPENSE', () => {
-      const testDate = dayjs(Date.now()).subtract(1, 'year');
+    test('EMAIL_DISPENSE - LAST SEEN WITHIN 2 YEARS', () => {
       const caseData = {
-        applicant1DispensePartnerLastSeenOrHeardOfDate: getCaseDate(testDate),
+        applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo.NO,
       };
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === LAST_SEEN_DISPENSE) as Step;
       expect(step.getNextStep(caseData)).toBe(EMAIL_DISPENSE);
     });
 
-    test('DA_SEARCH_DISPENSE', () => {
-      const testDate = dayjs(Date.now()).subtract(3, 'year');
+    test('FINAL_ORDER_SEARCH_DISPENSE', () => {
       const caseData = {
-        applicant1DispensePartnerLastSeenOrHeardOfDate: getCaseDate(testDate),
+        applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo.YES,
       };
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === LAST_SEEN_DISPENSE) as Step;
-      expect(step.getNextStep(caseData)).toBe(DA_SEARCH_DISPENSE);
+      expect(step.getNextStep(caseData)).toBe(FINAL_ORDER_SEARCH_DISPENSE);
     });
   });
 
-  describe('DA_SEARCH_DISPENSE', () => {
+  describe('FINAL_ORDER_SEARCH_DISPENSE', () => {
     test('EMAIL_DISPENSE', () => {
-      const step = dispenseServiceApplicationSequence.find(obj => obj.url === DA_SEARCH_DISPENSE) as Step;
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === FINAL_ORDER_SEARCH_DISPENSE) as Step;
       expect(step.getNextStep({})).toBe(EMAIL_DISPENSE);
     });
   });
@@ -177,7 +178,7 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(EMAIL_DESCRIPTION_DISPENSE);
     });
 
-    test('PHONE_NUMBER_DISPENSE', () => {
+    test('PHONE_NUMBER_DISPENSE - SKIP EMAIL_DESCRIPTION_DISPENSE', () => {
       const caseData = {
         applicant1DispenseHavePartnerEmailAddresses: YesOrNo.NO,
       };
@@ -202,7 +203,7 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(PHONE_DESCRIPTION_DISPENSE);
     });
 
-    test('TRACING_AGENT_DISPENSE', () => {
+    test('TRACING_AGENT_DISPENSE - SKIP PHONE_DESCRIPTION_DISPENSE', () => {
       const caseData = {
         applicant1DispenseHavePartnerPhoneNumbers: YesOrNo.NO,
       };
@@ -227,7 +228,7 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(TRACING_AGENT_RESULTS_DISPENSE);
     });
 
-    test('TRACING_ONLINE_DISPENSE', () => {
+    test('TRACING_ONLINE_DISPENSE - SKIP TRACING_AGENT_RESULTS_DISPENSE', () => {
       const caseData = {
         applicant1DispenseTriedTracingAgent: YesOrNo.NO,
       };
@@ -252,7 +253,7 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(TRACING_ONLINE_RESULTS_DISPENSE);
     });
 
-    test('SEARCHING_ONLINE_DISPENSE', () => {
+    test('SEARCHING_ONLINE_DISPENSE - SKIP TRACING_ONLINE_RESULTS_DISPENSE', () => {
       const caseData = {
         applicant1DispenseTriedTracingOnline: YesOrNo.NO,
       };
@@ -277,7 +278,7 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(SEARCHING_ONLINE_RESULTS_DISPENSE);
     });
 
-    test('EMPLOYMENT_CONTACT_DISPENSE', () => {
+    test('EMPLOYMENT_CONTACT_DISPENSE - SKIP SEARCHING_ONLINE_RESULTS_DISPENSE', () => {
       const caseData = {
         applicant1DispenseTriedSearchingOnline: YesOrNo.NO,
       };
@@ -304,7 +305,7 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(EMPLOYMENT_DETAILS_DISPENSE);
     });
 
-    test('CHILDREN_OF_FAMILY_DISPENSE', () => {
+    test('CHILDREN_OF_FAMILY_DISPENSE - SKIP EMPLOYMENT_DETAILS_DISPENSE', () => {
       const caseData = {
         applicant1DispenseTriedContactingEmployer: YesOrNo.NO,
       };
@@ -329,7 +330,7 @@ describe('Dispense With Service Application Sequence test', () => {
       expect(step.getNextStep(caseData)).toBe(CHILDREN_CONTACT_DISPENSE);
     });
 
-    test('FRIENDS_OR_RELATIVES_DISPENSE', () => {
+    test('FRIENDS_OR_RELATIVES_DISPENSE - SKIP CHILDREN_CONTACT_DISPENSE', () => {
       const caseData = {
         applicant1DispenseChildrenOfFamily: YesOrNo.NO,
       };
@@ -357,14 +358,14 @@ describe('Dispense With Service Application Sequence test', () => {
   });
 
   describe('WHEN_CONTACT_CHILDREN_DISPENSE', () => {
-    test('CHILD_MAINTENANCE_DISPENSE', () => {
+    test('CHILD_MAINTENANCE_DISPENSE - WITH CONTACT', () => {
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === WHEN_CONTACT_CHILDREN_DISPENSE) as Step;
       expect(step.getNextStep({})).toBe(CHILD_MAINTENANCE_DISPENSE);
     });
   });
 
   describe('LAST_CONTACT_CHILDREN_DISPENSE', () => {
-    test('CHILD_MAINTENANCE_DISPENSE', () => {
+    test('CHILD_MAINTENANCE_DISPENSE - WITH LAST CONTACT', () => {
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === LAST_CONTACT_CHILDREN_DISPENSE) as Step;
       expect(step.getNextStep({})).toBe(CHILD_MAINTENANCE_DISPENSE);
     });
@@ -378,15 +379,115 @@ describe('Dispense With Service Application Sequence test', () => {
   });
 
   describe('FRIENDS_OR_RELATIVES_DISPENSE', () => {
-    test('HUB_PAGE', () => {
+    test('OTHER_ENQUIRIES', () => {
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === FRIENDS_OR_RELATIVES_DISPENSE) as Step;
-      expect(step.getNextStep({})).toBe(HUB_PAGE);
+      expect(step.getNextStep({})).toBe(OTHER_ENQUIRIES_DISPENSE);
     });
   });
-});
 
-const getCaseDate = (date: Dayjs): CaseDate => ({
-  year: date.year().toString(),
-  month: date.month().toString(),
-  day: date.date().toString(),
+  describe('OTHER_ENQUIRIES_DISPENSE', () => {
+    test('UPLOAD_EVIDENCE_DISPENSE - haveSearchedFinalOrder', () => {
+      const caseData = {
+        applicant1DispenseHaveSearchedFinalOrder: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === OTHER_ENQUIRIES_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_DISPENSE);
+    });
+
+    test('UPLOAD_EVIDENCE_DISPENSE - havePartnerEmailAddresses', () => {
+      const caseData = {
+        applicant1DispenseHavePartnerEmailAddresses: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === OTHER_ENQUIRIES_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_DISPENSE);
+    });
+
+    test('UPLOAD_EVIDENCE_DISPENSE - havePartnerPhoneNumbers', () => {
+      const caseData = {
+        applicant1DispenseHavePartnerPhoneNumbers: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === OTHER_ENQUIRIES_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_DISPENSE);
+    });
+
+    test('UPLOAD_EVIDENCE_DISPENSE - triedTracingAgent', () => {
+      const caseData = {
+        applicant1DispenseTriedTracingAgent: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === OTHER_ENQUIRIES_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_DISPENSE);
+    });
+
+    test('UPLOAD_EVIDENCE_DISPENSE - triedTracingOnline', () => {
+      const caseData = {
+        applicant1DispenseTriedTracingOnline: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === OTHER_ENQUIRIES_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_DISPENSE);
+    });
+
+    test('UPLOAD_EVIDENCE_DISPENSE - triedSearchingOnline', () => {
+      const caseData = {
+        applicant1DispenseTriedSearchingOnline: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === OTHER_ENQUIRIES_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_DISPENSE);
+    });
+
+    test('UPLOAD_EVIDENCE_DISPENSE - triedContactingEmployer', () => {
+      const caseData = {
+        applicant1DispenseTriedContactingEmployer: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === OTHER_ENQUIRIES_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_DISPENSE);
+    });
+
+    test('UPLOAD_EVIDENCE_DISPENSE - otherEnquiries', () => {
+      const caseData = {
+        applicant1DispenseOtherEnquiries: 'enquiries',
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === OTHER_ENQUIRIES_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_DISPENSE);
+    });
+
+    test('CHECK_ANSWERS_DISPENSE - SKIP UPLOAD_EVIDENCE_DISPENSE', () => {
+      const caseData = {
+        applicant1DispenseHaveSearchedFinalOrder: YesOrNo.NO,
+        applicant1DispenseHavePartnerEmailAddresses: YesOrNo.NO,
+        applicant1DispenseHavePartnerPhoneNumbers: YesOrNo.NO,
+        applicant1DispenseTriedTracingAgent: YesOrNo.NO,
+        applicant1DispenseTriedTracingOnline: YesOrNo.NO,
+        applicant1DispenseTriedSearchingOnline: YesOrNo.NO,
+        applicant1DispenseTriedContactingEmployer: YesOrNo.NO,
+        applicant1DispenseOtherEnquiries: 'none',
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === OTHER_ENQUIRIES_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(CHECK_ANSWERS_DISPENSE);
+    });
+  });
+
+  describe('UPLOAD_EVIDENCE_DISPENSE', () => {
+    test('CHECK_ANSWERS_DISPENSE', () => {
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === UPLOAD_EVIDENCE_DISPENSE) as Step;
+      expect(step.getNextStep({})).toBe(CHECK_ANSWERS_DISPENSE);
+    });
+  });
+
+  describe('CHECK_ANSWERS_DISPENSE', () => {
+    test('PAY_YOUR_SERVICE_FEE', () => {
+      const caseData = {
+        alternativeServiceFeeRequired: YesOrNo.YES,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(PAY_YOUR_SERVICE_FEE);
+    });
+
+    test('SERVICE_APPLICATION_SUBMITTED', () => {
+      const caseData = {
+        alternativeServiceFeeRequired: YesOrNo.NO,
+      };
+      const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DISPENSE) as Step;
+      expect(step.getNextStep(caseData)).toBe(SERVICE_APPLICATION_SUBMITTED);
+    });
+  });
 });

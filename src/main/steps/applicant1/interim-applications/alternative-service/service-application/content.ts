@@ -45,7 +45,7 @@ const cy = ({ partner }: CommonContent) => ({
   line4: `Mae yna ffi o ${getFee(
     config.get('fees.alternativeService')
   )} i wneud cais am gyflwyno amgen, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.getHelpWithCourtFees'
+    'govukUrls.getHelpWithCourtFeesCY'
   )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
   buttonText: 'Dechrau nawr',
 });

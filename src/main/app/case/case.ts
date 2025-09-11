@@ -311,6 +311,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispensePartnerPastAddress2: 'applicant1DispensePartnerPastAddress2',
   applicant1DispensePartnerPastAddressEnquiries2: 'applicant1DispensePartnerPastAddressEnquiries2',
   applicant1DispensePartnerLastSeenDate: 'applicant1DispensePartnerLastSeenDate',
+  applicant1DispensePartnerLastSeenOver2YearsAgo: 'applicant1DispensePartnerLastSeenOver2YearsAgo',
   applicant1DispensePartnerLastSeenDescription: 'applicant1DispensePartnerLastSeenDescription',
   applicant1DispenseHavePartnerEmailAddresses: 'applicant1DispenseHavePartnerEmailAddresses',
   applicant1DispenseHaveSearchedFinalOrder: 'applicant1DispenseHaveSearchedFinalOrder',
@@ -340,6 +341,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispenseChildMaintenanceOrder: 'applicant1DispenseChildMaintenanceOrder',
   applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
   applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
+  applicant1DispenseOtherEnquiries: 'applicant1DispenseOtherEnquiries',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -724,6 +726,7 @@ export interface Case {
   applicant1DispensePartnerPastAddress2?: string;
   applicant1DispensePartnerPastAddressEnquiries2?: string;
   applicant1DispensePartnerLastSeenDate?: DateAsString;
+  applicant1DispensePartnerLastSeenOver2YearsAgo?: YesOrNo;
   applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
   applicant1DispensePartnerLastSeenDescription?: string;
   applicant1SearchGovRecordsPartnerLastKnownAddress1?: string;
@@ -762,6 +765,7 @@ export interface Case {
   applicant1DispenseChildMaintenanceOrder?: YesOrNo;
   applicant1DispenseChildMaintenanceResults?: string;
   applicant1DispenseContactFriendsOrRelativesDetails?: string;
+  applicant1DispenseOtherEnquiries?: string;
 }
 
 export interface CaseWithId extends Case {
