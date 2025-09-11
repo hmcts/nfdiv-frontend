@@ -23,18 +23,18 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Do you know your ${partner}'s National Insurance number?`,
-  partnerNationalInsuranceHint: `If you’re able to provide your ${partner}’s National Insurance number it will help with the search.`,
-  nationalInsuranceHint: 'For example, JB 34 66 84 D',
-  enterNationalInsurance: `Enter your ${partner}'s National Insurance number`,
+  title: `Ydych chi’n gwybod rhif yswiriant gwladol eich ${partner}?`,
+  partnerNationalInsuranceHint: `Os ydych chi’n gallu darparu rhif Yswiriant Gwladol eich ${partner}, bydd yn helpu gyda'r chwiliad.`,
+  nationalInsuranceHint: 'Er enghraifft, JB 34 66 84 D',
+  enterNationalInsurance: `Nodwch Rif Yswiriant Gwladol eich ${partner}`,
   errors: {
     applicant1SearchGovRecordsKnowPartnerNationalInsurance: {
-      required: `Select yes if you know your ${partner}'s National Insurance number`,
+      required: `Dewiswch “Ydw” os ydych yn gwybod rhif yswiriant gwladol eich ${partner}`,
     },
     applicant1SearchGovRecordsPartnerNationalInsurance: {
-      required: `Enter your ${partner}'s National Insurance number`,
+      required: `Nodwch rif yswiriant gwladol eich ${partner}`,
       invalidUsedExample: `You have entered the example National Insurance number. Enter the number you know of your ${partner}.`,
-      invalidFormat: 'Enter a National Insurance number in the correct format',
+      invalidFormat: 'Nodwch rif yswiriant gwladol yn y fformat cywir',
     },
   },
 });
