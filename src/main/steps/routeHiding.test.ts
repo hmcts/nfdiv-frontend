@@ -10,6 +10,8 @@ import {
   CHECK_ANSWERS_BAILIFF,
   CHECK_ANSWERS_DEEMED,
   FINALISING_YOUR_APPLICATION,
+  HAVE_THEY_RECEIVED,
+  OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
   RESPONDENT,
@@ -137,6 +139,29 @@ describe('routeHiding', () => {
       expect(result).toBeTruthy();
     });
 
+    describe('No response journey', () => {
+      test('Visible in AosOverdue state', () => {
+        mockReq.url = OPTIONS_FOR_PROGRESSING;
+        mockReq.session.userCase.state = State.AosOverdue;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+
+      test('Not visible in AwaitingAos state', () => {
+        mockReq.url = OPTIONS_FOR_PROGRESSING;
+        mockReq.session.userCase.state = State.AwaitingAos;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Not visible in AwaitingService state', () => {
+        mockReq.url = OPTIONS_FOR_PROGRESSING;
+        mockReq.session.userCase.state = State.AwaitingService;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+    });
+
     describe('Pay Service Fee URL condition', () => {
       test('Visible when service application was made online', () => {
         mockReq.url = PAY_YOUR_SERVICE_FEE;
@@ -203,6 +228,22 @@ describe('routeHiding', () => {
       test('Visible in AosDrafted state', () => {
         mockReq.url = CHECK_ANSWERS_DEEMED;
         mockReq.session.userCase.state = State.AosDrafted;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+    });
+
+    describe('No Response respondent confidentiality URL conditions', () => {
+      test('HAVE_THEY_RECEIVED not visible when confidential', () => {
+        mockReq.url = HAVE_THEY_RECEIVED;
+        mockReq.session.userCase.applicant2AddressPrivate = YesOrNo.YES;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('HAVE_THEY_RECEIVED visible when not confidential', () => {
+        mockReq.url = HAVE_THEY_RECEIVED;
+        mockReq.session.userCase.applicant2AddressPrivate = YesOrNo.NO;
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeFalsy();
       });

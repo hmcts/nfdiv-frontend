@@ -1,10 +1,10 @@
 import config from 'config';
 
-import { Checkbox } from '../../../../../app/case/case';
-import { NoResponseProcessServerOrBailiff } from '../../../../../app/case/definition';
+import { Case, CaseDate, Checkbox } from '../../../../../app/case/case';
+import { NoResponseProcessServerOrBailiff, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
-import { FormContent } from '../../../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
@@ -47,6 +47,7 @@ const en = ({ partner }: CommonContent) => ({
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
       required: 'Select either service by a process server or a court bailiff',
+      confidentialRespondent: `You cannot request to serve by process server because your ${partner}’s details are confidential. Please select another option or go back to try something else.`,
     },
     applicant1NoResponseRespondentAddressInEnglandWales: {
       required: `You must confirm that your ${partner}'s address is in England or Wales before continuing`,
@@ -94,6 +95,7 @@ const cy = ({ partner }: CommonContent) => ({
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
       required: 'Dewiswch naill ai weinyddwr proses neu feili llys',
+      confidentialRespondent: `Ni allwch ofyn am wasanaeth gan y gweinyddwr proses oherwydd bod manylion eich ${partner} yn gyfrinachol. Dewiswch opsiwn arall neu ewch yn ôl i roi cynnig ar rywbeth arall.`,
     },
     applicant1NoResponseRespondentAddressInEnglandWales: {
       required: `Mae’n rhaid i chi gadarnhau bod cyfeiriad eich ${partner} yng Nghymru neu Loegr cyn parhau`,
@@ -101,8 +103,20 @@ const cy = ({ partner }: CommonContent) => ({
   },
 });
 
+const validateRespondentConfidentiality = (
+  userCase: Partial<Case>,
+  value: string | string[] | CaseDate | undefined
+) => {
+  const wantsToServeByProcessServer = value === NoResponseProcessServerOrBailiff.PROCESS_SERVER;
+  const respondentIsConfidential = userCase?.applicant2AddressPrivate === YesOrNo.YES;
+
+  if (wantsToServeByProcessServer && respondentIsConfidential) {
+    return 'confidentialRespondent';
+  }
+};
+
 export const form: FormContent = {
-  fields: {
+  fields: userCase => ({
     applicant1NoResponseProcessServerOrBailiff: {
       type: 'radios',
       classes: 'govuk-radios',
@@ -113,6 +127,7 @@ export const form: FormContent = {
           label: l => l.processServer,
           id: 'processServer',
           value: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+          validator: value => validateRespondentConfidentiality(userCase, value),
         },
         {
           label: l => l.bailiffService,
@@ -137,7 +152,7 @@ export const form: FormContent = {
       ],
       validator: value => isFieldFilledIn(value),
     },
-  },
+  }),
   submit: {
     text: l => l.continue,
   },
@@ -152,6 +167,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };

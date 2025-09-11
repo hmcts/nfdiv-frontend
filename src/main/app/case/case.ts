@@ -624,6 +624,7 @@ export interface Case {
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
   applicant1NoResponseSearchOrDispense?: NoResponseSearchOrDispense;
+  applicant1NoResponsePartnerAddress?: AddressGlobalUK;
   applicant1NoResponsePartnerAddress1?: string;
   applicant1NoResponsePartnerAddress2?: string;
   applicant1NoResponsePartnerAddress3?: string;

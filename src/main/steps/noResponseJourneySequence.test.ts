@@ -304,11 +304,13 @@ describe('No Response Journey Sequence test', () => {
       const step = noResponseJourneySequence.find(obj => obj.url === NEW_POSTAL_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_CONTACT_DETAIL_CHECK_ANSWERS);
     });
+
     test('DETAILS_UPDATED_HUB_PAGE', () => {
       const caseData = {};
       const step = noResponseJourneySequence.find(obj => obj.url === NO_RESPONSE_DETAILS_UPDATED) as Step;
       expect(step.getNextStep(caseData)).toBe(HUB_PAGE);
     });
+
     test('WILL_SERVE_AGAIN_ADDRESS_PRIVATE', () => {
       const caseData = {
         applicant2AddressPrivate: YesOrNo.YES,
@@ -318,6 +320,7 @@ describe('No Response Journey Sequence test', () => {
       const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
       expect(step.getNextStep(caseData)).toBe(WILL_SERVE_AGAIN);
     });
+
     test('WILL_SERVE_AGAIN_ADDRESS_PUBLIC', () => {
       const caseData = {
         applicant1NoResponseSendPapersAgainOrTrySomethingElse:
@@ -326,7 +329,18 @@ describe('No Response Journey Sequence test', () => {
       const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
       expect(step.getNextStep(caseData)).toBe(NEW_CONTACT_DETAIL_CHECK_ANSWERS);
     });
-    test('SERVE_AGAIN_TYR_SOMETHING_ELSE', () => {
+
+    test('SERVE_AGAIN_TRY_SOMETHING_ELSE_PRIVATE', () => {
+      const caseData = {
+        applicant2AddressPrivate: YesOrNo.YES,
+        applicant1NoResponseSendPapersAgainOrTrySomethingElse:
+          NoResponseSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === SERVE_AGAIN) as Step;
+      expect(step.getNextStep(caseData)).toBe(NO_NEW_ADDRESS);
+    });
+
+    test('SERVE_AGAIN_TRY_SOMETHING_ELSE', () => {
       const caseData = {
         applicant1NoResponseSendPapersAgainOrTrySomethingElse:
           NoResponseSendPapersAgainOrTrySomethingElse.TRY_SOMETHING_ELSE,
