@@ -11,7 +11,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   } in some way before your ${isDivorce ? 'divorce' : 'application to end your civil partnership'} can progress.`,
   line2: `You should try to find up to date contact details for your ${partner} if you are able to. If you can find them, the papers can be sent to them.`,
   line3: `If you've already tried to find your ${partner}'s contact details without success, or have not been able to look for them, you can try something else.`,
-  haveYouTriedToFindHeader: `Have you tried to find ${partner}'s contact details?`,
+  haveYouTriedToFindHeader: `Have you already tried to find your ${partner}'s contact details?`,
   yes: 'Yes',
   no: 'No',
   notFound: "I've not been able to",
