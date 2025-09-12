@@ -15,7 +15,7 @@ const en = ({ userCase }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ userCase }: CommonContent) => ({
-  statement: `Uwchlwytho eich tystiolaeth i gefnogi eich cais am gyflwyno tybiedig. Dylai hyn fod yn dystiolaeth bu ichi ddod o hyd iddi ar ôl y dyddiad cafodd eich cais ei gyflwyno:  ${getFormattedDate(
+  statement: `Uwchlwythwch eich tystiolaeth i gefnogi eich cais am gyflwyno tybiedig. Dylai hon fod yn dystiolaeth a ddarganfyddwyd ar ôl y dyddiad y cyflwynwyd eich cais:  ${getFormattedDate(
     userCase.issueDate,
     SupportedLanguages.Cy
   )}`,
