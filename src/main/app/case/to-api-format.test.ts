@@ -847,6 +847,31 @@ describe('to-api-format', () => {
     });
   });
 
+  describe('applicant1Deemed transformation', () => {
+    test.each([
+      {
+        applicant1DeemedNoEvidenceStatement: 'Some statement',
+        applicant1InterimAppsCanUploadEvidence: YesOrNo.YES,
+        expected: {
+          applicant1DeemedNoEvidenceStatement: null,
+          applicant1InterimAppsCanUploadEvidence: YesOrNo.YES,
+        },
+      },
+      {
+        applicant1DeemedEvidenceDetails: 'Some details',
+        applicant1InterimAppsCannotUploadDocs: Checkbox.Checked,
+        applicant1InterimAppsCanUploadEvidence: YesOrNo.NO,
+        expected: {
+          applicant1DeemedEvidenceDetails: null,
+          applicant1InterimAppsCannotUploadDocs: null,
+          applicant1InterimAppsCanUploadEvidence: YesOrNo.NO,
+        },
+      },
+    ])('transform deemed answers if condition met', ({ expected, ...formData }) => {
+      expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+    });
+  });
+
   describe('applicant1SearchGovRecordsKnowPartnerDateOfBirth transformation', () => {
     test('sets date of birth to null if the date of birth is not known', () => {
       const apiFormat = toApiFormat({
@@ -858,6 +883,7 @@ describe('to-api-format', () => {
         applicant1SearchGovRecordsPartnerDateOfBirth: null,
       });
     });
+
     test('sets approx age to null if the date of birth is known', () => {
       const apiFormat = toApiFormat({
         applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo.YES,
@@ -866,6 +892,18 @@ describe('to-api-format', () => {
       expect(apiFormat).toMatchObject({
         applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo.YES,
         applicant1SearchGovRecordsPartnerApproximateAge: null,
+      });
+    });
+  });
+
+  describe('applicant1SearchGovRecordsPartnerDateOfBirth transformation', () => {
+    test('sets date of birth', () => {
+      const apiFormat = toApiFormat({
+        applicant1SearchGovRecordsPartnerDateOfBirth: { year: '1980', month: '01', day: '01' },
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1SearchGovRecordsPartnerDateOfBirth: '1980-01-01',
       });
     });
   });
@@ -881,6 +919,7 @@ describe('to-api-format', () => {
         applicant1BailiffPartnersDateOfBirth: null,
       });
     });
+
     test('sets approx age to null if the date of birth is known', () => {
       const apiFormat = toApiFormat({
         applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
@@ -889,6 +928,137 @@ describe('to-api-format', () => {
       expect(apiFormat).toMatchObject({
         applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
         applicant1BailiffPartnersApproximateAge: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServicePartnerEmail transformation', () => {
+    test('sets applicant1AltServicePartnerEmail to the provided email when applicant1AltServiceMethod is EMAIL', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServiceMethod: AlternativeServiceMethod.EMAIL,
+        applicant1AltServicePartnerEmail: 'test@test.com',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerEmail: 'test@test.com',
+      });
+    });
+
+    test('sets applicant1AltServicePartnerEmail to the provided email when applicant1AltServiceMethod is EMAIL_AND_DIFFERENT', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServiceMethod: AlternativeServiceMethod.EMAIL_AND_DIFFERENT,
+        applicant1AltServicePartnerEmailWhenDifferent: 'test@test.com',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerEmail: 'test@test.com',
+      });
+    });
+
+    test('sets applicant1AltServicePartnerEmail to null when applicant1AltServiceMethod is not EMAIL or EMAIL_AND_DIFFERENT', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServiceMethod: AlternativeServiceMethod.DIFFERENT_WAY,
+        applicant1AltServicePartnerEmail: 'test@test.com',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerEmail: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServicePartnerPhone transformation', () => {
+    test('sets applicant1AltServicePartnerPhone to the provided phone number when applicant1AltServiceDifferentWays includes TEXT_MESSAGE', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerPhone: '1234567890',
+        applicant1AltServiceDifferentWays: [AlternativeServiceDifferentWays.TEXT_MESSAGE],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerPhone: '1234567890',
+      });
+    });
+
+    test('sets applicant1AltServicePartnerPhone to null when applicant1AltServiceDifferentWays does not include TEXT_MESSAGE', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerPhone: '1234567890',
+        applicant1AltServiceDifferentWays: [],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerPhone: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServicePartnerWANum transformation', () => {
+    test('sets applicant1AltServicePartnerWANum to the provided phone number when applicant1AltServiceDifferentWays includes WHATSAPP', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerWANum: '1234567890',
+        applicant1AltServiceDifferentWays: [AlternativeServiceDifferentWays.WHATSAPP],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerWANum: '1234567890',
+      });
+    });
+
+    test('sets applicant1AltServicePartnerPhone to null when applicant1AltServiceDifferentWays does not include WHATSAPP', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerWANum: '1234567890',
+        applicant1AltServiceDifferentWays: [],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerWANum: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServicePartnerSocialDetails transformation', () => {
+    test('sets applicant1AltServicePartnerSocialDetails to the provided phone number when applicant1AltServiceDifferentWays includes SOCIAL_MEDIA', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerSocialDetails: 'socialmediahandle',
+        applicant1AltServiceDifferentWays: [AlternativeServiceDifferentWays.SOCIAL_MEDIA],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerSocialDetails: 'socialmediahandle',
+      });
+    });
+
+    test('sets applicant1AltServiceSocialDetails to null when applicant1AltServiceDifferentWays does not include SOCIAL_MEDIA', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerSocialDetails: 'socialmediahandle',
+        applicant1AltServiceDifferentWays: [],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerSocialDetails: null,
+      });
+    });
+  });
+
+  describe('applicant1AltServicePartnerOtherDetails transformation', () => {
+    test('sets applicant1AltServicePartnerOtherDetails to the provided phone number when applicant1AltServiceDifferentWays includes OTHER', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerOtherDetails: 'other details',
+        applicant1AltServiceDifferentWays: [AlternativeServiceDifferentWays.OTHER],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerOtherDetails: 'other details',
+      });
+    });
+
+    test('sets applicant1AltServiceOtherDetails to null when applicant1AltServiceDifferentWays does not include OTHER', () => {
+      const apiFormat = toApiFormat({
+        applicant1AltServicePartnerOtherDetails: 'other details',
+        applicant1AltServiceDifferentWays: [],
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1AltServicePartnerOtherDetails: null,
       });
     });
   });
@@ -940,7 +1110,31 @@ describe('to-api-format', () => {
     });
   });
 
-  describe('applicant1DispensePartnerLastSeenorHeardOfDate transformation', () => {
+  describe('applicant1DispenseLastLivedTogetherDate transformation', () => {
+    test('sets applicant1DispenseLivedTogetherDate when last lived together is yes', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseLastLivedTogetherDate: { year: '2018', month: '01', day: '01' },
+        applicant1DispenseLiveTogether: YesOrNo.YES,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseLivedTogetherDate: '2018-01-01',
+      });
+    });
+
+    test('sets applicant1DispenseLivedTogetherDate to null when last lived together is no', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseLastLivedTogetherDate: { year: '2018', month: '01', day: '01' },
+        applicant1DispenseLiveTogether: YesOrNo.NO,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseLivedTogetherDate: null,
+      });
+    });
+  });
+
+  describe('applicant1DispensePartnerLastSeenOrHeardOfDate transformation', () => {
     test('sets applicant1DispensePartnerLastSeenOver2YearsAgo to yes when last seen date is over 2 years ago', () => {
       const apiFormat = toApiFormat({
         applicant1DispensePartnerLastSeenOrHeardOfDate: { year: '2020', month: '01', day: '01' },
@@ -966,10 +1160,47 @@ describe('to-api-format', () => {
     });
   });
 
-  describe('applicant1DispenseWhyNoFinalOrderSearch transformation', () => {
-    test('sets applicant1DispenseWhyNoFinalOrderSearch to null when applicant1DispenseNoFinalOrderSearch is No', () => {
+  describe('applicant1DispenseHavePartnerEmailAddresses transformation', () => {
+    test('sets applicant1DispensePartnerEmailAddresses when applicant1DispenseHavePartnerEmailAddresses is yes', () => {
       const apiFormat = toApiFormat({
-        applicant1DispenseNoFinalOrderSearch: YesOrNo.NO,
+        applicant1DispensePartnerEmailAddresses: 'test@test.com',
+        applicant1DispenseHavePartnerEmailAddresses: YesOrNo.YES,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispensePartnerEmailAddresses: 'test@test.com',
+      });
+    });
+  });
+
+  describe('applicant1DispenseHavePartnerPhoneNumbers transformation', () => {
+    test('sets applicant1DispensePartnerPhoneNumbers when applicant1DispenseHavePartnerPhoneNumbers is yes', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispensePartnerPhoneNumbers: '01234567890',
+        applicant1DispenseHavePartnerPhoneNumbers: YesOrNo.YES,
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispensePartnerPhoneNumbers: '01234567890',
+      });
+    });
+  });
+
+  describe('applicant1DispenseWhyNoFinalOrderSearch transformation', () => {
+    test('sets applicant1DispenseWhyNoFinalOrderSearch when applicant1DispenseHaveSearchedFinalOrder is yes', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseHaveSearchedFinalOrder: YesOrNo.NO,
+        applicant1DispenseWhyNoFinalOrderSearch: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoFinalOrderSearch: 'Some reason',
+      });
+    });
+
+    test('sets applicant1DispenseWhyNoFinalOrderSearch to null when applicant1DispenseHaveSearchedFinalOrder is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseHaveSearchedFinalOrder: YesOrNo.YES,
         applicant1DispenseWhyNoFinalOrderSearch: 'Some reason',
       } as Partial<Case>);
 
@@ -980,6 +1211,17 @@ describe('to-api-format', () => {
   });
 
   describe('applicant1DispenseWhyNoTracingAgent transformation', () => {
+    test('sets applicant1DispenseWhyNoTracingAgent when applicant1DispenseTriedTracingAgent is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedTracingAgent: YesOrNo.NO,
+        applicant1DispenseWhyNoTracingAgent: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoTracingAgent: 'Some reason',
+      });
+    });
+
     test('sets applicant1DispenseWhyNoTracingAgent to null when applicant1DispenseTriedTracingAgent is Yes', () => {
       const apiFormat = toApiFormat({
         applicant1DispenseTriedTracingAgent: YesOrNo.YES,
@@ -993,6 +1235,17 @@ describe('to-api-format', () => {
   });
 
   describe('applicant1DispenseWhyNoTracingOnline transformation', () => {
+    test('sets applicant1DispenseWhyNoTracingOnline when applicant1DispenseTriedTracingOnline is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedTracingOnline: YesOrNo.NO,
+        applicant1DispenseWhyNoTracingOnline: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoTracingOnline: 'Some reason',
+      });
+    });
+
     test('sets applicant1DispenseWhyNoTracingOnline to null when applicant1DispenseTriedTracingOnline is Yes', () => {
       const apiFormat = toApiFormat({
         applicant1DispenseTriedTracingOnline: YesOrNo.YES,
@@ -1006,6 +1259,17 @@ describe('to-api-format', () => {
   });
 
   describe('applicant1DispenseWhyNoSearchingOnline transformation', () => {
+    test('sets applicant1DispenseWhyNoSearchingOnline when applicant1DispenseTriedSearchingOnline is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedSearchingOnline: YesOrNo.NO,
+        applicant1DispenseWhyNoSearchingOnline: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoSearchingOnline: 'Some reason',
+      });
+    });
+
     test('sets applicant1DispenseWhyNoSearchingOnline to null when applicant1DispenseTriedSearchingOnline is Yes', () => {
       const apiFormat = toApiFormat({
         applicant1DispenseTriedSearchingOnline: YesOrNo.YES,
@@ -1019,6 +1283,17 @@ describe('to-api-format', () => {
   });
 
   describe('applicant1DispenseWhyNoContactingEmployer transformation', () => {
+    test('sets applicant1DispenseWhyNoContactingEmployer when applicant1DispenseTriedContactingEmployer is No', () => {
+      const apiFormat = toApiFormat({
+        applicant1DispenseTriedContactingEmployer: YesOrNo.NO,
+        applicant1DispenseWhyNoContactingEmployer: 'Some reason',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1DispenseWhyNoContactingEmployer: 'Some reason',
+      });
+    });
+
     test('sets applicant1DispenseWhyNoContactingEmployer to null when applicant1DispenseTriedContactingEmployer is Yes', () => {
       const apiFormat = toApiFormat({
         applicant1DispenseTriedContactingEmployer: YesOrNo.YES,
@@ -1044,6 +1319,7 @@ describe('to-api-format', () => {
         applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
         applicant1InterimAppsIUnderstand: Checkbox.Checked,
         applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+        applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
         expected: {
           applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
           applicant1NoResponsePartnerEmailAddress: 'test',
@@ -1055,6 +1331,7 @@ describe('to-api-format', () => {
           applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
           applicant1InterimAppsIUnderstand: YesOrNo.YES,
           applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
+          applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo.YES,
         },
       },
       {
@@ -1088,11 +1365,11 @@ describe('to-api-format', () => {
         },
       },
       {
-        applicant1InterimAppsHwfRefNumber: 'test',
         applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+        applicant1InterimAppsHwfRefNumber: 'test',
         expected: {
           applicant1InterimAppsHwfRefNumber: '',
-          applicant1InterimAppsHaveHwfReference: YesOrNo.NO,
+          applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
         },
       },
       {
