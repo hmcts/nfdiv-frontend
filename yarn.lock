@@ -7809,7 +7809,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.13, dayjs@npm:^1.8.15":
+"dayjs@npm:1.11.18":
+  version: 1.11.18
+  resolution: "dayjs@npm:1.11.18"
+  checksum: cc90054bad30ab011417a7a474b2ffa70e7a28ca6f834d7e86fe53a408a40a14c174f26155072628670e9eda4c48c4ed0d847d2edf83d47c0bfb78be15bbf2dd
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.8.15":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
   checksum: f388db88a6aa93956c1f6121644e783391c7b738b73dbc54485578736565c8931bdfba4bb94e9b1535c6e509c97d5deb918bbe1ae6b34358d994de735055cca9
@@ -10366,10 +10373,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:5.11.1":
-  version: 5.11.1
-  resolution: "govuk-frontend@npm:5.11.1"
-  checksum: cd334f91bc8bbaa4cd963fd19fe62f0dabb6e7be63c8ff37ea2efb7bf34423a4932b49ff75b36b37200ade93b61fdcf093921a7da1d6df290d7c3965ca6f25ec
+"govuk-frontend@npm:5.11.2":
+  version: 5.11.2
+  resolution: "govuk-frontend@npm:5.11.2"
+  checksum: d6d1485082d7953bad544fa3baba1f90f2c41a3cf2a100811540e86b9e3edd282160a2c5b48a59df2321a02cc4deedb7f52868836e7d32fa709432ef1394943c
   languageName: node
   linkType: hard
 
@@ -14399,7 +14406,7 @@ __metadata:
     copy-webpack-plugin: 13.0.1
     css-loader: 7.1.2
     csurf: 1.11.0
-    dayjs: 1.11.13
+    dayjs: 1.11.18
     email-validator: 2.0.4
     eslint: 8.57.1
     eslint-config-prettier: 10.1.8
@@ -14412,7 +14419,7 @@ __metadata:
     express-session: 1.18.2
     form-data: 4.0.4
     glob: 11.0.3
-    govuk-frontend: 5.11.1
+    govuk-frontend: 5.11.2
     helmet: 8.1.0
     html-webpack-plugin: 5.6.4
     http-status-codes: 2.3.0
