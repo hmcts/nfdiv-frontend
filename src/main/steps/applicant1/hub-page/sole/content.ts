@@ -812,13 +812,6 @@ const cy: typeof en = (
               : 'alternative-service-refused'
       }`,
     },
-    line2: {
-      part1: 'Rhagor o wybodaeth am y ',
-      part2: `ffyrdd eraill y gallwch symud ymlaen â'ch ${
-        isDivorce ? 'cais am ysgariad' : "cais ddod â'ch partneriaeth sifil i ben"
-      }.`,
-      link: OPTIONS_FOR_PROGRESSING,
-    },
   },
   awaitingServiceApplicationDocuments: {
     heading1: 'Anfon eich tystiolaeth i’r llys',
