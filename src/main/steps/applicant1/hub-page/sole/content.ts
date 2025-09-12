@@ -328,11 +328,6 @@ const en = (
               : 'dispense-with-service-refused'
       }`,
     },
-    line2: {
-      part1: 'Find out about the ',
-      part2: `other ways you can progress your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}.`,
-      link: OPTIONS_FOR_PROGRESSING,
-    },
   },
   bailiffServiceUnsuccessful: {
     line1: `The court bailiff tried to ‘serve’ the ${
