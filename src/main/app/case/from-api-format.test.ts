@@ -304,6 +304,52 @@ describe('from-api-format', () => {
       });
     });
 
+    test('converts to UK format for applicant1NoResponsePartner', () => {
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        applicant1NoResponsePartnerAddress: {
+          AddressLine1: 'Line 1',
+          AddressLine2: 'Line 2',
+          PostTown: 'Town',
+          County: 'County',
+          PostCode: 'Postcode',
+        },
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant1NoResponsePartnerAddress1: 'Line 1',
+        applicant1NoResponsePartnerAddress2: 'Line 2',
+        applicant1NoResponsePartnerAddressTown: 'Town',
+        applicant1NoResponsePartnerAddressCounty: 'County',
+        applicant1NoResponsePartnerAddressPostcode: 'Postcode',
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+      });
+    });
+
+    test('converts to UK format for applicant1DispenseLivedTogether', () => {
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        applicant1DispenseLivedTogetherAddress: {
+          AddressLine1: 'Line 1',
+          AddressLine2: 'Line 2',
+          PostTown: 'Town',
+          County: 'County',
+          PostCode: 'Postcode',
+        },
+        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant1DispenseLivedTogetherAddress1: 'Line 1',
+        applicant1DispenseLivedTogetherAddress2: 'Line 2',
+        applicant1DispenseLivedTogetherAddressTown: 'Town',
+        applicant1DispenseLivedTogetherAddressCounty: 'County',
+        applicant1DispenseLivedTogetherAddressPostcode: 'Postcode',
+        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
+      });
+    });
+
     test('converts to an international format', () => {
       const nfdivFormat = fromApiFormat({
         ...results,
