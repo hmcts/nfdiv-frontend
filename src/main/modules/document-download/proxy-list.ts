@@ -36,7 +36,7 @@ export const proxyList: {
     endpoints: ['/downloads/general-application'],
     path: (req: AppRequest): string => {
       const generalApplications = findOnlineGeneralApplicationsForUser(req.session.userCase, req.session.isApplicant2);
-      return getPath(req, generalApplications?.[0].generalApplicationDocument);
+      return getPath(req, generalApplications?.[0]?.generalApplicationDocument);
     },
   },
   {
