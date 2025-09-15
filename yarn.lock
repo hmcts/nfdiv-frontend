@@ -2632,77 +2632,138 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< Updated upstream
 "@napi-rs/canvas-android-arm64@npm:0.1.74":
   version: 0.1.74
   resolution: "@napi-rs/canvas-android-arm64@npm:0.1.74"
+=======
+"@napi-rs/canvas-android-arm64@npm:0.1.80":
+  version: 0.1.80
+  resolution: "@napi-rs/canvas-android-arm64@npm:0.1.80"
+>>>>>>> Stashed changes
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
+<<<<<<< Updated upstream
 "@napi-rs/canvas-darwin-arm64@npm:0.1.74":
   version: 0.1.74
   resolution: "@napi-rs/canvas-darwin-arm64@npm:0.1.74"
+=======
+"@napi-rs/canvas-darwin-arm64@npm:0.1.80":
+  version: 0.1.80
+  resolution: "@napi-rs/canvas-darwin-arm64@npm:0.1.80"
+>>>>>>> Stashed changes
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
+<<<<<<< Updated upstream
 "@napi-rs/canvas-darwin-x64@npm:0.1.74":
   version: 0.1.74
   resolution: "@napi-rs/canvas-darwin-x64@npm:0.1.74"
+=======
+"@napi-rs/canvas-darwin-x64@npm:0.1.80":
+  version: 0.1.80
+  resolution: "@napi-rs/canvas-darwin-x64@npm:0.1.80"
+>>>>>>> Stashed changes
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
+<<<<<<< Updated upstream
 "@napi-rs/canvas-linux-arm-gnueabihf@npm:0.1.74":
   version: 0.1.74
   resolution: "@napi-rs/canvas-linux-arm-gnueabihf@npm:0.1.74"
+=======
+"@napi-rs/canvas-linux-arm-gnueabihf@npm:0.1.80":
+  version: 0.1.80
+  resolution: "@napi-rs/canvas-linux-arm-gnueabihf@npm:0.1.80"
+>>>>>>> Stashed changes
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
+<<<<<<< Updated upstream
 "@napi-rs/canvas-linux-arm64-gnu@npm:0.1.74":
   version: 0.1.74
   resolution: "@napi-rs/canvas-linux-arm64-gnu@npm:0.1.74"
+=======
+"@napi-rs/canvas-linux-arm64-gnu@npm:0.1.80":
+  version: 0.1.80
+  resolution: "@napi-rs/canvas-linux-arm64-gnu@npm:0.1.80"
+>>>>>>> Stashed changes
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
+<<<<<<< Updated upstream
 "@napi-rs/canvas-linux-arm64-musl@npm:0.1.74":
   version: 0.1.74
   resolution: "@napi-rs/canvas-linux-arm64-musl@npm:0.1.74"
+=======
+"@napi-rs/canvas-linux-arm64-musl@npm:0.1.80":
+  version: 0.1.80
+  resolution: "@napi-rs/canvas-linux-arm64-musl@npm:0.1.80"
+>>>>>>> Stashed changes
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
+<<<<<<< Updated upstream
 "@napi-rs/canvas-linux-riscv64-gnu@npm:0.1.74":
   version: 0.1.74
   resolution: "@napi-rs/canvas-linux-riscv64-gnu@npm:0.1.74"
+=======
+"@napi-rs/canvas-linux-riscv64-gnu@npm:0.1.80":
+  version: 0.1.80
+  resolution: "@napi-rs/canvas-linux-riscv64-gnu@npm:0.1.80"
+>>>>>>> Stashed changes
   conditions: os=linux & cpu=riscv64 & libc=glibc
   languageName: node
   linkType: hard
 
+<<<<<<< Updated upstream
 "@napi-rs/canvas-linux-x64-gnu@npm:0.1.74":
   version: 0.1.74
   resolution: "@napi-rs/canvas-linux-x64-gnu@npm:0.1.74"
+=======
+"@napi-rs/canvas-linux-x64-gnu@npm:0.1.80":
+  version: 0.1.80
+  resolution: "@napi-rs/canvas-linux-x64-gnu@npm:0.1.80"
+>>>>>>> Stashed changes
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
+<<<<<<< Updated upstream
 "@napi-rs/canvas-linux-x64-musl@npm:0.1.74":
   version: 0.1.74
   resolution: "@napi-rs/canvas-linux-x64-musl@npm:0.1.74"
+=======
+"@napi-rs/canvas-linux-x64-musl@npm:0.1.80":
+  version: 0.1.80
+  resolution: "@napi-rs/canvas-linux-x64-musl@npm:0.1.80"
+>>>>>>> Stashed changes
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
+<<<<<<< Updated upstream
 "@napi-rs/canvas-win32-x64-msvc@npm:0.1.74":
   version: 0.1.74
   resolution: "@napi-rs/canvas-win32-x64-msvc@npm:0.1.74"
+=======
+"@napi-rs/canvas-win32-x64-msvc@npm:0.1.80":
+  version: 0.1.80
+  resolution: "@napi-rs/canvas-win32-x64-msvc@npm:0.1.80"
+>>>>>>> Stashed changes
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
 "@napi-rs/canvas@npm:^0.1.74":
+<<<<<<< Updated upstream
   version: 0.1.74
   resolution: "@napi-rs/canvas@npm:0.1.74"
   dependencies:
@@ -2716,6 +2777,21 @@ __metadata:
     "@napi-rs/canvas-linux-x64-gnu": 0.1.74
     "@napi-rs/canvas-linux-x64-musl": 0.1.74
     "@napi-rs/canvas-win32-x64-msvc": 0.1.74
+=======
+  version: 0.1.80
+  resolution: "@napi-rs/canvas@npm:0.1.80"
+  dependencies:
+    "@napi-rs/canvas-android-arm64": 0.1.80
+    "@napi-rs/canvas-darwin-arm64": 0.1.80
+    "@napi-rs/canvas-darwin-x64": 0.1.80
+    "@napi-rs/canvas-linux-arm-gnueabihf": 0.1.80
+    "@napi-rs/canvas-linux-arm64-gnu": 0.1.80
+    "@napi-rs/canvas-linux-arm64-musl": 0.1.80
+    "@napi-rs/canvas-linux-riscv64-gnu": 0.1.80
+    "@napi-rs/canvas-linux-x64-gnu": 0.1.80
+    "@napi-rs/canvas-linux-x64-musl": 0.1.80
+    "@napi-rs/canvas-win32-x64-msvc": 0.1.80
+>>>>>>> Stashed changes
   dependenciesMeta:
     "@napi-rs/canvas-android-arm64":
       optional: true
@@ -2737,7 +2813,11 @@ __metadata:
       optional: true
     "@napi-rs/canvas-win32-x64-msvc":
       optional: true
+<<<<<<< Updated upstream
   checksum: 0a3f63eddaf5ab17ff06d08c7fa25618679a96cc02a4eec4b5295698b381b41471fc2f651cf83114c7ddc870d41097cd776b88a4597c4726fe5c54174316b86e
+=======
+  checksum: f10dcea23c32505e574705cd30997b62be68c19e913e23c99ac14792bdc957007d4d36e236cb1c7815336f3048a7f1148dd3c9434679dbfe19763996c45be13d
+>>>>>>> Stashed changes
   languageName: node
   linkType: hard
 
