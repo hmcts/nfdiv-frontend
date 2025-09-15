@@ -1,4 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>hmcts/.github//renovate/automerge-all", "local>hmcts/.github:renovate-config"]
+  "extends": ["github>hmcts/.github//renovate/automerge-all", "local>hmcts/.github:renovate-config"],
+  "packageRules": [
+    {
+      "description": "Held at stable version due to a bug in the latest release that stopped conditional checkboxes working: https://github.com/mozilla/pdf.js/issues/20236",
+      "matchPackageNames": ["pdfjs-dist"],
+      "enabled": false
+    }
+  ]
 }
