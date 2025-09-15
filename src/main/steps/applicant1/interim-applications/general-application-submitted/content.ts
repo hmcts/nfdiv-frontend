@@ -101,7 +101,7 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const defaultTranslations = languages[content.language](content);
   const generalApplications = findOnlineGeneralApplicationsForUser(content.userCase, content.isApplicant2);
-  const mostRecentApplication = generalApplications?.[generalApplications.length - 1];
+  const mostRecentApplication = generalApplications?.[0];
   const applicationType = mostRecentApplication?.generalApplicationType as GeneralApplicationType;
 
   const contentOverrides = defaultTranslations.contentOverrides[applicationType] || {};

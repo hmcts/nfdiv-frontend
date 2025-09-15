@@ -1,5 +1,6 @@
 import { DivorceDocument, DocumentType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 
 export const proxyList: {
   endpoints: string[];
@@ -30,6 +31,13 @@ export const proxyList: {
   {
     endpoints: ['/downloads/service-application'],
     path: (req: AppRequest): string => getPath(req, req.session.userCase?.serviceApplicationAnswers),
+  },
+  {
+    endpoints: ['/downloads/general-application'],
+    path: (req: AppRequest): string => {
+      const generalApplications = findOnlineGeneralApplicationsForUser(req.session.userCase, req.session.isApplicant2);
+      return getPath(req, generalApplications?.[0].generalApplicationDocument);
+    },
   },
   {
     endpoints: ['/downloads/certificate-of-service'],
