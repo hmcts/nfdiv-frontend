@@ -11,6 +11,7 @@ import {
   isFieldLetters,
   isFutureDate,
   isInvalidHelpWithFeesRef,
+  isInvalidNationalInsuranceNumber,
   isInvalidPostcode,
   isLessThanAYearAgoInc,
   isPhoneNoValid,
@@ -326,6 +327,15 @@ describe('Validation', () => {
       const isValid = isValidAccessCode('');
       expect(isValid).toStrictEqual('invalid');
     });
+  });
+
+  test.each([
+    { input: 'XX 12 34 56 X', expected: undefined },
+    { input: 'ab43ag', expected: 'invalidFormat' },
+  ])('validates National Insurance number', ({ input, expected }) => {
+    const isValid = isInvalidNationalInsuranceNumber(input);
+
+    expect(isValid).toStrictEqual(expected);
   });
 
   describe('isValidNumber()', () => {

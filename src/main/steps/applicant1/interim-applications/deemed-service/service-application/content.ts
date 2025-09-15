@@ -44,7 +44,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   line5: `Mae’r cais am gyflwyno tybiedig yn costio ${getFee(
     config.get('fees.deemedService')
   )}. Efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.getHelpWithCourtFees'
+    'govukUrls.getHelpWithCourtFeesCY'
   )}">gael help i dalu’r ffi hon</a>.`,
   buttonText: 'Dechrau gwneud y cais',
 });

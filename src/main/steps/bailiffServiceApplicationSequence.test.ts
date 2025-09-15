@@ -1,4 +1,4 @@
-import { YesOrNo, YesOrNoOrNotKnown } from '../app/case/definition';
+import { ServicePaymentMethod, YesOrNo, YesOrNoOrNotKnown } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
@@ -236,7 +236,7 @@ describe('Bailiff Service Application Sequence test', () => {
       const step = bailiffServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_BAILIFF) as Step;
       expect(
         step.getNextStep({
-          alternativeServiceFeeRequired: YesOrNo.YES,
+          servicePaymentFeePaymentMethod: ServicePaymentMethod.FEE_PAY_BY_CARD,
         })
       ).toBe(PAY_YOUR_SERVICE_FEE);
     });
@@ -245,7 +245,7 @@ describe('Bailiff Service Application Sequence test', () => {
       const step = bailiffServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_BAILIFF) as Step;
       expect(
         step.getNextStep({
-          alternativeServiceFeeRequired: YesOrNo.NO,
+          servicePaymentFeePaymentMethod: ServicePaymentMethod.FEE_PAY_BY_HWF,
         })
       ).toBe(SERVICE_APPLICATION_SUBMITTED);
     });
