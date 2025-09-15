@@ -147,11 +147,11 @@ describe('routeHiding', () => {
         expect(result).toBeFalsy();
       });
 
-      test('Visible in AwaitingAos state', () => {
+      test('Not visible in AwaitingAos state', () => {
         mockReq.url = OPTIONS_FOR_PROGRESSING;
         mockReq.session.userCase.state = State.AwaitingAos;
         const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeFalsy();
+        expect(result).toBeTruthy();
       });
 
       test('Not visible in AwaitingService state', () => {

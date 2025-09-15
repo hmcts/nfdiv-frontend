@@ -91,6 +91,7 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
       [
         State.AwaitingServicePayment,
         State.AwaitingService,
+        State.AwaitingAos,
         State.AwaitingServiceConsideration,
         State.AwaitingDocuments,
       ].includes(data.state as State),
