@@ -1,6 +1,6 @@
 import { describe } from 'node:test';
 
-import { YesOrNo } from '../app/case/definition';
+import { ServicePaymentMethod, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
@@ -476,7 +476,7 @@ describe('Dispense With Service Application Sequence test', () => {
   describe('CHECK_ANSWERS_DISPENSE', () => {
     test('PAY_YOUR_SERVICE_FEE', () => {
       const caseData = {
-        alternativeServiceFeeRequired: YesOrNo.YES,
+        servicePaymentFeePaymentMethod: ServicePaymentMethod.FEE_PAY_BY_CARD,
       };
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DISPENSE) as Step;
       expect(step.getNextStep(caseData)).toBe(PAY_YOUR_SERVICE_FEE);
@@ -484,7 +484,7 @@ describe('Dispense With Service Application Sequence test', () => {
 
     test('SERVICE_APPLICATION_SUBMITTED', () => {
       const caseData = {
-        alternativeServiceFeeRequired: YesOrNo.NO,
+        servicePaymentFeePaymentMethod: ServicePaymentMethod.FEE_PAY_BY_HWF,
       };
       const step = dispenseServiceApplicationSequence.find(obj => obj.url === CHECK_ANSWERS_DISPENSE) as Step;
       expect(step.getNextStep(caseData)).toBe(SERVICE_APPLICATION_SUBMITTED);
