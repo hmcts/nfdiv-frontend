@@ -42,7 +42,7 @@ export const en = {
     dispenseWithService: 'dispensed with service',
     bailiffService: 'bailiff service',
     alternativeService: 'alternative service',
-    searchGovRecord: 'search government record',
+    searchGovRecords: 'search government records',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -246,7 +246,7 @@ const cy: typeof en = {
     dispenseWithService: 'hepgor cyflwyno',
     bailiffService: 'gwasanaeth beili',
     alternativeService: 'cyflwyno amgen',
-    searchGovRecord: 'chwilio cofnodion y llywodraeth',
+    searchGovRecords: 'chwilio cofnodion y llywodraeth',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
