@@ -3417,48 +3417,48 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redis/bloom@npm:5.8.1":
-  version: 5.8.1
-  resolution: "@redis/bloom@npm:5.8.1"
+"@redis/bloom@npm:5.8.2":
+  version: 5.8.2
+  resolution: "@redis/bloom@npm:5.8.2"
   peerDependencies:
-    "@redis/client": ^5.8.1
-  checksum: 41e8ec74685ab7e5f4c8ef5f490683ec585556e7a88ce16006a9c5f114732f9a6fcd3f0648da6bd41f290cbe8ca0de81b3e806eb9896ccd5c9f8cafc9663883c
+    "@redis/client": ^5.8.2
+  checksum: 0d3ee59c2ebf0fc1927c1f66dcd38e34342d9a14cc5cda6e725b3f7f16b707dfd72c972fef64df05a03d46d80d91576e84f396c67543936114cb1ff7339db478
   languageName: node
   linkType: hard
 
-"@redis/client@npm:5.8.1":
-  version: 5.8.1
-  resolution: "@redis/client@npm:5.8.1"
+"@redis/client@npm:5.8.2":
+  version: 5.8.2
+  resolution: "@redis/client@npm:5.8.2"
   dependencies:
     cluster-key-slot: 1.1.2
-  checksum: 90cdf863d1ebd89342e0e6e1728b8eda8873c52737ea76366f4952ce12541848b0c169d83758820f7b0ac628669f905701039e3b212a4006ef806d1563d5006e
+  checksum: c083e22de7d42222d9547959f5561a04efed03ab9e23c3ad7afbcc85193ad02c92a1fb493bf4a7e308b99b6d5a8c529ae6a46d6441fd85ababa40a9bcd09d6f8
   languageName: node
   linkType: hard
 
-"@redis/json@npm:5.8.1":
-  version: 5.8.1
-  resolution: "@redis/json@npm:5.8.1"
+"@redis/json@npm:5.8.2":
+  version: 5.8.2
+  resolution: "@redis/json@npm:5.8.2"
   peerDependencies:
-    "@redis/client": ^5.8.1
-  checksum: de0e804e623f33a021f6bcb8b93f5a66b879f3bee97ae13d7e5911f3a145fb33f109492089a82f4129060df9066174a10d60801a94a914e547cb5176a4b4f35f
+    "@redis/client": ^5.8.2
+  checksum: 2cb6fdfc8940a811fb3897b8a06995d573c89243565d8291289a21e3d47388ab4b81a9f8928b5a60c471e257ad0c496e25dbfd713899ecd37a0fffc1bc097139
   languageName: node
   linkType: hard
 
-"@redis/search@npm:5.8.1":
-  version: 5.8.1
-  resolution: "@redis/search@npm:5.8.1"
+"@redis/search@npm:5.8.2":
+  version: 5.8.2
+  resolution: "@redis/search@npm:5.8.2"
   peerDependencies:
-    "@redis/client": ^5.8.1
-  checksum: b19522c89974b4b0b34b6e20c5f8573db7e98f0a26ba5131a2f326f298adfca75a74a1c640a85b9e64fc1a4040bbbbf9e9ef033c015b75eb1f1fc0904a3549d7
+    "@redis/client": ^5.8.2
+  checksum: 89fe5409aacc7fef26b157c1fd14d73bfed86c6ff48c370b7fdc37dddee83ec975ef0813f075b8d23b2eb6f13ec65d2f6c1ea809becd325a15c9f7b4e97d63ff
   languageName: node
   linkType: hard
 
-"@redis/time-series@npm:5.8.1":
-  version: 5.8.1
-  resolution: "@redis/time-series@npm:5.8.1"
+"@redis/time-series@npm:5.8.2":
+  version: 5.8.2
+  resolution: "@redis/time-series@npm:5.8.2"
   peerDependencies:
-    "@redis/client": ^5.8.1
-  checksum: a44c4dc56963ac6414a4bee6376fd981fd41ef827d745a8c0d510ba6864b8037c640886ec00b86d15f215fe4203c97a2ee551e287cd8ee967fd16dbbac21c1e2
+    "@redis/client": ^5.8.2
+  checksum: 91d0fe3320289da94e4159c4639d68e287b3e0dfe4228ed0e5c77c53f30f43393d6f6ecd0e8d1f155b280b43fe5dbc3e65a946674f9eb4f658e472ca02b7ab44
   languageName: node
   linkType: hard
 
@@ -14449,7 +14449,7 @@ __metadata:
     pa11y: 8.0.0
     pdfjs-dist: 5.4.149
     prettier: 3.1.1
-    redis: 5.8.1
+    redis: 5.8.2
     require-directory: 2.1.1
     sass-loader: 16.0.3
     serve-favicon: 2.5.1
@@ -16396,16 +16396,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redis@npm:5.8.1":
-  version: 5.8.1
-  resolution: "redis@npm:5.8.1"
+"redis@npm:5.8.2":
+  version: 5.8.2
+  resolution: "redis@npm:5.8.2"
   dependencies:
-    "@redis/bloom": 5.8.1
-    "@redis/client": 5.8.1
-    "@redis/json": 5.8.1
-    "@redis/search": 5.8.1
-    "@redis/time-series": 5.8.1
-  checksum: 786de42f27f909059ba0440327ade8ef4496f504e7bf0c8744ad07bdb44f57e6ca22f893483233ae4920e6d195704412a0c8508711ea9b3274cabd4fd9a81e85
+    "@redis/bloom": 5.8.2
+    "@redis/client": 5.8.2
+    "@redis/json": 5.8.2
+    "@redis/search": 5.8.2
+    "@redis/time-series": 5.8.2
+  checksum: 5d02118e863dabbe07ae7d780b51f6e42f7a34e80187eb14f44bdcab6222cee3264f3ade7b11df9abf7ad6505e7d39dd162500783c39a72a7ff80fc0a686b63f
   languageName: node
   linkType: hard
 
