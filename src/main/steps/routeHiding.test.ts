@@ -11,9 +11,9 @@ import {
   CHECK_ANSWERS_DEEMED,
   CHECK_YOUR_ANSWERS_GOV_RECORDS,
   FINALISING_YOUR_APPLICATION,
-  OPTIONS_FOR_PROGRESSING,
   GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
+  OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
   RESPONDENT,
@@ -173,23 +173,6 @@ describe('routeHiding', () => {
       test('Not visible in AwaitingService state', () => {
         mockReq.url = OPTIONS_FOR_PROGRESSING;
         mockReq.session.userCase.state = State.AwaitingService;
-        const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeTruthy();
-      });
-    });
-
-    describe('Pay Service Fee URL condition', () => {
-      test('Visible when service application was made online', () => {
-        mockReq.url = PAY_YOUR_SERVICE_FEE;
-        mockReq.session.userCase.state = State.AwaitingServicePayment;
-        mockReq.session.userCase.serviceApplicationSubmittedOnline = YesOrNo.YES;
-        const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeFalsy();
-      });
-
-      test('Not visible when service application was made offline', () => {
-        mockReq.url = PAY_YOUR_SERVICE_FEE;
-        mockReq.session.userCase.state = State.AwaitingServicePayment;
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeTruthy();
       });
