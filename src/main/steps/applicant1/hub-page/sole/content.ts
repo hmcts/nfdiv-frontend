@@ -1012,9 +1012,6 @@ const cy: typeof en = (
       } barhau heb eu hymateb.`,
     },
     line3: `Os byddant yn methu â chyflwyno’r papurau, efallai y gallwch wneud cais am gyflwyno amgen drwy flwch llythyrau, os yw cyfeiriad eich ${partner} wedi’i gadarnhau. Fel arall, bydd angen i chi gyflwyno’r papurau mewn rhyw ffordd arall.`,
-    line4: `Gallwch <a class="govuk-link" href="${OPTIONS_FOR_PROGRESSING}">weld eich dewisiadau eraill ar gyfer symud ymlaen gyda’ch ${
-      isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-    }</a> os byddwch yn penderfynu’n ddiweddarach nad ydych eisiau trefnu i’r papurau gael eu cyflwyno gan weinyddwr proses.`,
   },
 });
 
