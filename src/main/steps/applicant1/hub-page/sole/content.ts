@@ -1100,8 +1100,13 @@ export const generateContent: TranslationFn = content => {
         return SEARCH_GOV_RECORDS_APPLICATION;
     }
   })();
+
+  const interimApplicationInProgress =
+    !!userCase.applicant1InterimApplicationType &&
+    userCase.applicant1InterimApplicationType !== InterimApplicationType.PROCESS_SERVER_SERVICE;
   const interimApplicationStartedAosOverdue =
-    userCase.applicant1InterimApplicationType && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
+    interimApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
+
   return {
     ...languages[language](
       content,
