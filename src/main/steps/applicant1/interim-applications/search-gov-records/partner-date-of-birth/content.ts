@@ -8,6 +8,7 @@ import {
   isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
+  isValidNumber,
 } from '../../../../../app/form/validation';
 import { SupportedLanguages } from '../../../../../modules/i18n';
 import { CommonContent } from '../../../../common/common.content';
@@ -32,6 +33,7 @@ const en = ({ partner }: CommonContent) => ({
     },
     applicant1SearchGovRecordsPartnerApproximateAge: {
       required: `${partner}'s approximate age cannot be blank.`,
+      invalid: 'Please enter a valid approximate age.',
     },
   },
 });
@@ -57,6 +59,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
     },
     applicant1SearchGovRecordsPartnerApproximateAge: {
       required: `${partner}'s approximate age cannot be blank.`,
+      invalid: `Mae'n rhaid i chi nodi oedran eich ${partner} yn fras`,
     },
   },
 });
@@ -119,7 +122,7 @@ export const form: FormContent = {
               labelSize: 'normal',
               label: l => l.enterPartnerApproximateAge,
               hint: l => l.enterPartnerApproximateAgeHint,
-              validator: isFieldFilledIn,
+              validator: value => isValidNumber(value, 0, 120),
             },
           },
         },
