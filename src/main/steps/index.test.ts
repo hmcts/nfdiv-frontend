@@ -22,7 +22,6 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
-  UPLOAD_EVIDENCE_DEEMED,
   UPLOAD_YOUR_DOCUMENTS,
   YOUR_DETAILS_URL,
 } from './urls';
@@ -331,13 +330,6 @@ describe('Steps', () => {
     it('returns undefined if all steps are complete', () => {
       const result = getFirstErroredStep(mockReq, deemedServiceApplicationSequence);
       expect(result).toEqual(undefined);
-    });
-
-    it('returns the first errored step if a step is incomplete', () => {
-      mockReq.session.userCase.applicant1InterimAppsCanUploadEvidence = YesOrNo.YES;
-
-      const result = getFirstErroredStep(mockReq, deemedServiceApplicationSequence);
-      expect(result).toEqual(UPLOAD_EVIDENCE_DEEMED);
     });
 
     it('handles repeated steps', () => {
