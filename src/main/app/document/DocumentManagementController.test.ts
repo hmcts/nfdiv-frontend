@@ -6,9 +6,13 @@ import {
   PROVIDE_INFORMATION_TO_THE_COURT,
   RESPONDENT,
   RESPOND_TO_COURT_FEEDBACK,
+  UPLOAD_EVIDENCE_ALTERNATIVE,
+  UPLOAD_EVIDENCE_DEEMED,
+  UPLOAD_EVIDENCE_DISPENSE,
+  UPLOAD_PARTNER_PHOTO,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, State } from '../case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, InterimApplicationType, State } from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -235,6 +239,85 @@ describe('DocumentManagerController', () => {
 
         (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
           state,
+          [uploadFields.field2]: ['an-existing-doc', 'uploaded-file.jpg'],
+        });
+
+        await documentManagerController.post(req, res);
+
+        expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
+      }
+    );
+
+    it.each([
+      {
+        isApplicant2: false,
+        state: State.AosDrafted,
+        applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE,
+        uploadFields: {
+          field1: 'applicant1InterimApplicationDocs',
+          field2: 'applicant1InterimApplicationUploadedFiles',
+        },
+        redirectUrl: UPLOAD_EVIDENCE_DEEMED,
+      },
+      {
+        isApplicant2: false,
+        state: State.AosDrafted,
+        applicant1InterimApplicationType: InterimApplicationType.BAILIFF_SERVICE,
+        uploadFields: {
+          field1: 'applicant1InterimApplicationDocs',
+          field2: 'applicant1InterimApplicationUploadedFiles',
+        },
+        redirectUrl: UPLOAD_PARTNER_PHOTO,
+      },
+      {
+        isApplicant2: false,
+        state: State.AosDrafted,
+        applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE,
+        uploadFields: {
+          field1: 'applicant1InterimApplicationDocs',
+          field2: 'applicant1InterimApplicationUploadedFiles',
+        },
+        redirectUrl: UPLOAD_EVIDENCE_ALTERNATIVE,
+      },
+      {
+        isApplicant2: false,
+        state: State.AosDrafted,
+        applicant1InterimApplicationType: InterimApplicationType.DISPENSE_WITH_SERVICE,
+        uploadFields: {
+          field1: 'applicant1InterimApplicationDocs',
+          field2: 'applicant1InterimApplicationUploadedFiles',
+        },
+        redirectUrl: UPLOAD_EVIDENCE_DISPENSE,
+      },
+    ])(
+      "interim application - redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
+      async ({ isApplicant2, state, applicant1InterimApplicationType, uploadFields, redirectUrl }) => {
+        const req = mockRequest({
+          session: {
+            isApplicant2,
+            userCase: {
+              applicant1InterimApplicationType,
+              state,
+              [uploadFields.field1]: ['an-existing-doc'],
+            },
+          },
+        });
+        const res = mockResponse();
+        req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+
+        (mockCreate as jest.Mock).mockReturnValue([
+          {
+            originalDocumentName: 'uploaded-file.jpg',
+            _links: {
+              self: { href: 'https://link-self-processed-doc' },
+              binary: { href: 'https://link-binary-processed-doc' },
+            },
+          },
+        ]);
+
+        (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
+          state,
+          applicant1InterimApplicationType,
           [uploadFields.field2]: ['an-existing-doc', 'uploaded-file.jpg'],
         });
 
