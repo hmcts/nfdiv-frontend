@@ -41,9 +41,9 @@ const cy = ({ partner }: CommonContent) => ({
     applicant1DispensePartnerLastSeenOrHeardOfDate: {
       required: `Rhowch y dyddiad y gwelwyd neu y clywyd am eich ${partner} ddiwethaf.`,
       invalidDate: 'Rydych wedi rhoi dyddiad annilys. Rhowch ddyddiad gan ddefnyddio’r fformat canlynol: 31 3 2002.',
-      invalidYear: 'Rydych wedi rhoi’r flwyddyn gan ddefnyddio fformat annilys. Rhowch y flwyddyn yn llawn, er enghraifft 2002.',
-      invalidDateInFuture:
-        'Rydych wedi rhoi dyddiad yn y dyfodol. Rhowch ddyddiad yn y gorffennol cyn parhau.',
+      invalidYear:
+        'Rydych wedi rhoi’r flwyddyn gan ddefnyddio fformat annilys. Rhowch y flwyddyn yn llawn, er enghraifft 2002.',
+      invalidDateInFuture: 'Rydych wedi rhoi dyddiad yn y dyfodol. Rhowch ddyddiad yn y gorffennol cyn parhau.',
       invalidDateTooFarInPast: `Rydych wedi rhoi blwyddyn sydd yn rhy bell yn ôl yn y gorffennol. Rhowch y dyddiad y gwelwyd neu y clywyd am eich ${partner} ddiwethaf.`,
     },
     applicant1DispensePartnerLastSeenDescription: {

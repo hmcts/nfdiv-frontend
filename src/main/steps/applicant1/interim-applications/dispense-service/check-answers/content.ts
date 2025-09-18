@@ -144,8 +144,7 @@ const cy: typeof en = (stepAnswers, { isDivorce, partner }: CommonContent) => ({
     partnerContact: `A oes gan eich ${partner} unrhyw gyswllt ȃ nhw?`,
     whenPartnerContact: `Pryd a sut mae eich ${partner} yn cael cysylltiad gyda nhw?`,
     partnerLastContactDetails: `Pryd cafodd eich ${partner} gyswllt ȃ nhw ddiwethaf?`,
-    childMaintenance:
-      'A oes yna orchymyn llys neu gyfrifiad Gwasanaeth Cynhaliaeth Plant ar gyfer cynhaliaeth plant?',
+    childMaintenance: 'A oes yna orchymyn llys neu gyfrifiad Gwasanaeth Cynhaliaeth Plant ar gyfer cynhaliaeth plant?',
     childMaintenanceDetails: `Eglurwch ganlyniadau unrhyw ymholiadau a wnaed i’r llys neu i’r Gwasanaeth Cynhaliaeth Plant am leoliad eich ${partner}`,
     friendsOrRelatives: `Ydych chi wedi gallu cysylltu ag unrhyw ffrindiau neu berthnasau eich ${partner}?`,
     otherEnquiries: `Pa ymholiadau eraill a wnaethoch, neu pa wybodaeth sydd gennych, ynghylch ble mae eich ${partner}?`,
