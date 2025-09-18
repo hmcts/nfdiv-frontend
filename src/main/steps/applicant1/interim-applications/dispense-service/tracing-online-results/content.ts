@@ -16,7 +16,7 @@ const en = {
 const cy: typeof en = {
   title: 'Canlyniadau olrhain ar-lein',
   tracingOnlineDescription: 'Beth oedd canlyniadau eich chwiliadau ar-lein?',
-  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
+  uploadHint: 'Byddwch yn gallu uwchlwytho unrhyw dystiolaeth sydd gennych ar ddiwedd y cais hwn.',
   errors: {
     applicant1DispenseTracingOnlineResults: {
       required: 'Eglurwch ganlyniadau eich chwiliadau ar-lein',

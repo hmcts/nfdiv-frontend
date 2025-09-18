@@ -16,7 +16,7 @@ const en = {
 const cy: typeof en = {
   title: 'Chwiliad asiantau olrhain',
   tracingAgentDescription: 'Beth oedd canlyniadau eich chwiliad asiant olrhain?',
-  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
+  uploadHint: 'Byddwch yn gallu uwchlwytho unrhyw dystiolaeth sydd gennych ar ddiwedd y cais hwn.',
   errors: {
     applicant1DispenseTracingAgentResults: {
       required: 'Rhowch fanylion canlyniadau chwiliad yr asiant olrhain',

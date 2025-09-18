@@ -67,7 +67,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   haveSearchedFinalOrderHeader: `Ydych chi wedi chwilio am ${
     isDivorce ? 'ddyfarniad absoliwt neu ' : ''
   }orchymyn terfynol presennol?`,
-  finalOrderSearchHint: 'You will need to upload your no trace certificate at the end of this application.',
+  finalOrderSearchHint: 'Bydd angen i chi uwchlwytho eich tystysgrif ‘dim cofnod’ ar ddiwedd y cais hwn.',
   whyNoFinalOrderSearchHeader: 'Eglurwch pam nad ydych wedi gofyn am chwiliad',
   yes: 'Ydw',
   no: 'Nac ydw',

@@ -30,23 +30,23 @@ const en = ({ partner }: CommonContent) => ({
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Ble wnaeth eich ${partner} fyw ar ôl i chi wahanu?`,
   line1: `Rhowch pob cyfeiriad rydych yn gwybod lle mae eich  ${partner} wedi byw ers i chi wahanu.`,
-  address1: 'Address 1',
-  address2: 'Address 2',
+  address1: 'Cyfeiriad 1',
+  address2: 'Cyfeiriad 2',
   addressEnquiries: 'Canlyniadau unrhyw ymholiadau a wnaed am y cyfeiriad hwn',
   optional: '(dewisol)',
   errors: {
     applicant1DispensePartnerPastAddress1: {
-      required: 'You must provide address details before continuing.',
+      required: 'Rhaid i chi ddarparu manylion eich cyfeiriad cyn parhau.',
     },
     applicant1DispensePartnerPastAddressEnquiries1: {
       required: 'Rhowch fanylion canlyniad eich ymholiadau.',
     },
     applicant1DispensePartnerPastAddress2: {
       required:
-        'You have provided a statement about a second address, so you must provide address details before continuing.',
+        "Rydych wedi darparu datganiad am ail gyfeiriad, felly mae'n rhaid i chi ddarparu manylion cyfeiriad cyn parhau.",
     },
     applicant1DispensePartnerPastAddressEnquiries2: {
-      required: 'You have provided a second address, so you must provide a statement before continuing.',
+      required: "Rydych wedi darparu ail gyfeiriad, felly mae'n rhaid i chi ddarparu datganiad cyn parhau.",
     },
   },
 });

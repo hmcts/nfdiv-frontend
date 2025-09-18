@@ -49,9 +49,9 @@ const en = ({ partner }: Partial<CommonContent>) => ({
 });
 
 const addressPostcodeCY = {
-  required: 'You have not entered a postcode. Enter a postcode before continuing.',
-  invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
-  notSelected: 'You have not selected an address. Select an address from the list before continuing.',
+  required: 'Nid ydych wedi nodi cod post. Rhowch god post cyn parhau.',
+  invalid: 'Nid ydych wedi nodi cod post dilys yn y DU. Nodwch god post dilys yn y DU cyn parhau.',
+  notSelected: "Nid ydych wedi dewis cyfeiriad. Dewiswch gyfeiriad o'r rhestr cyn parhau.",
 };
 
 const cy = ({ partner }: CommonContent) => ({

@@ -17,7 +17,7 @@ const en = ({ partner }: CommonContent) => ({
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Dod o hyd i’ch ${partner} ar-lein`,
   searchingOnlineDescription: 'Beth oedd canlyniadau eich chwiliadau ar-lein?',
-  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
+  uploadHint: 'Byddwch yn gallu uwchlwytho unrhyw dystiolaeth sydd gennych ar ddiwedd y cais hwn.',
   errors: {
     applicant1DispenseSearchingOnlineResults: {
       required: 'Eglurwch ganlyniadau eich chwiliadau ar-lein',

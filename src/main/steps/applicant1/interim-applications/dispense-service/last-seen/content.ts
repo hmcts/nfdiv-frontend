@@ -40,11 +40,11 @@ const cy = ({ partner }: CommonContent) => ({
   errors: {
     applicant1DispensePartnerLastSeenOrHeardOfDate: {
       required: `Rhowch y dyddiad y gwelwyd neu y clywyd am eich ${partner} ddiwethaf.`,
-      invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
-      invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
+      invalidDate: 'Rydych wedi rhoi dyddiad annilys. Rhowch ddyddiad gan ddefnyddio’r fformat canlynol: 31 3 2002.',
+      invalidYear: 'Rydych wedi rhoi’r flwyddyn gan ddefnyddio fformat annilys. Rhowch y flwyddyn yn llawn, er enghraifft 2002.',
       invalidDateInFuture:
-        'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
-      invalidDateTooFarInPast: `You have entered a year which is too far in the past. Enter the date your ${partner} was last seen or heard of.`,
+        'Rydych wedi rhoi dyddiad yn y dyfodol. Rhowch ddyddiad yn y gorffennol cyn parhau.',
+      invalidDateTooFarInPast: `Rydych wedi rhoi blwyddyn sydd yn rhy bell yn ôl yn y gorffennol. Rhowch y dyddiad y gwelwyd neu y clywyd am eich ${partner} ddiwethaf.`,
     },
     applicant1DispensePartnerLastSeenDescription: {
       required: `Rhowch fanylion y tro diwethaf i chi weld neu glywed am eich ${partner}.`,

@@ -17,7 +17,7 @@ const en = ({ partner }: CommonContent) => ({
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: 'Cyfeiriadau e-bost',
   partnerEmailAddressesDescription: `Rhowch y cyfeiriadau e-bost ac unrhyw gyswllt blaenorol. Eglurwch pa ymdrechion rydych wedi eu gwneud i gysylltu gyda’ch ${partner} yn y cyfeiriadau hyn.`,
-  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
+  uploadHint: 'Byddwch yn gallu uwchlwytho unrhyw dystiolaeth sydd gennych ar ddiwedd y cais hwn.',
   errors: {
     applicant1DispensePartnerEmailAddresses: {
       required: `Rhowch gyfeiriad e-bost eich ${partner} ac eglurwch unrhyw ymdrechion a wnaed gennych i gysylltu â nhw`,

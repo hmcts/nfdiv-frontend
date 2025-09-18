@@ -43,16 +43,16 @@ const cy = ({ partner }: CommonContent) => ({
   no: 'Nac oedden',
   errors: {
     applicant1DispenseLiveTogether: {
-      required: `Select yes if you and your ${partner} lived together.`,
+      required: `Dewiswch “Oedden” os oeddech chi a’ch ${partner} yn byw gyda’ch gilydd.`,
     },
     applicant1DispenseLastLivedTogetherDate: {
       required: 'Rhowch y dyddiad yr oeddech yn byw gyda’ch gilydd ddiwethaf',
-      invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
-      invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
+      invalidDate: 'Rydych wedi rhoi dyddiad annilys. Rhowch ddyddiad gan ddefnyddio’r fformat canlynol: 31 3 2002.',
+      invalidYear: 'Rydych wedi rhoi’r flwyddyn gan ddefnyddio fformat annilys. Rhowch y flwyddyn yn llawn, er enghraifft 2002.',
       invalidDateInFuture:
-        'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
+        'Rydych wedi rhoi dyddiad yn y dyfodol. Rhowch ddyddiad yn y gorffennol cyn parhau.',
       invalidDateTooFarInPast:
-        'You have entered a year which is too far in the past. Enter the date you last lived together.',
+        'Rydych wedi rhoi blwyddyn sydd yn rhy bell yn ôl yn y gorffennol. Rhowch y dyddiad yr oeddech yn byw gyda’ch gilydd ddiwethaf.',
     },
   },
 });

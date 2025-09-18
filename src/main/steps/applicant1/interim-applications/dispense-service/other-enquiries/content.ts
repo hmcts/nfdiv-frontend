@@ -19,7 +19,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Pa ymholiadau eraill a wnaethoch, neu pa wybodaeth sydd gennych, ynghylch ble mae eich ${partner}?`,
   otherEnquiriesHeader:
     'Er enghraifft, gallai hyn gynnwys ymholiadau a wnaed am unrhyw sefydliadau proffesiynol maent yn aelod ohonynt. Rhowch ‘dim’ os nad oes gennych fwy o wybodaeth.',
-  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
+  uploadHint: 'Byddwch yn gallu uwchlwytho unrhyw dystiolaeth sydd gennych ar ddiwedd y cais hwn.',
   errors: {
     applicant1DispenseOtherEnquiries: {
       required: 'Eglurwch ganlyniadau eich ymholiadau eraill, neu rhowch ‘dim’.',
