@@ -91,9 +91,13 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
       .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
       .map(step => step.url as PageLink),
     condition: data =>
-      [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
-        data.state as State
-      ),
+      [
+        State.AwaitingServicePayment,
+        State.AwaitingService,
+        State.AwaitingAos,
+        State.AwaitingServiceConsideration,
+        State.AwaitingDocuments,
+      ].includes(data.state as State),
   },
   {
     urls: [PAY_YOUR_GENERAL_APPLICATION_FEE, GENERAL_APPLICATION_SUBMITTED],
