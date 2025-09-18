@@ -20,14 +20,14 @@
                 {{ filename }}<br>
               {% endfor %}
             {% endset %}
-            {{ filenames | safe}}
+            {{ filenames | safe }}
             {% if cannotUploadDocs === 'Yes' %}
               {% if uploadedDocsFilenames.length %}
                 <br>
               {% endif %}
               {{ havingTroubleUploading }}
             {% endif %}
-          {% elif question === 'newPostalAddress' or question === 'whereLivedTogether' or question === 'partnerAddress1' or question === 'partnerAddress2' %}
+          {% elif question === 'newPostalAddress' or question === 'whereLivedTogether' or question === 'partnerAddress1' or question === 'partnerAddress2' or question === 'partnerLastKnownAddress' %}
             {{ stepAnswers[question] | safe}}
           {% else %}
             {{ stepAnswers[question] }}

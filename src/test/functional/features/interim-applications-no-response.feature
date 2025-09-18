@@ -31,33 +31,6 @@ Feature: No response journey
     When I click continue
     Then the page should include element "#deemedServiceApplicationTitle"
 
-#  Finish this scenario when the no-response/update-partners-contact-details page is complete
-#  Scenario: No response (no respondent address) happy path to deemed service
-#    When I sign out
-#    And I login with applicant "1"
-#    Then the page should include "Your application will be checked by court staff."
-#
-#    Given I set the case state to "AosDrafted"
-#    And a superuser updates "aosIsDrafted" with "Yes"
-#    And a superuser updates "applicant2Address1" with ""
-#    And a superuser updates "applicant2Address2" with ""
-#    And a superuser updates "applicant2Address3" with ""
-#    And a superuser updates "applicant2AddressTown" with ""
-#    And a superuser updates "applicant2AddressCounty" with ""
-#    And a superuser updates "applicant2AddressCountry" with ""
-#    And a superuser updates "applicant2AddressPostcode" with ""
-#    When I sign out
-#    And I login with applicant "1"
-#    Then the page should include element "#aosDueAndDraftedLine1"
-#    When I click element "#aosDueAndDraftedLink"
-#    Then the page should include element "#optionsForProgressingTitle"
-#    When I click start
-#    Then the page should include element "#haveTheyReceivedTitle"
-#    And the page should include element "#noDetailsProvided"
-#
-#    Given I click element "#newAddress"
-#    When I click continue
-
   Scenario: No response respondent represented happy path to deemed service
     When I sign out
     And I login with applicant "1"
@@ -70,8 +43,10 @@ Feature: No response journey
     When I sign out
     And I login with applicant "1"
     Then the page should include element "#aosDueAndDraftedLine1"
+
     When I click element "#aosDueAndDraftedLink"
     Then the page should include element "#optionsForProgressingTitle"
+
     When I click start
     Then the page should include element "#haveTheyReceivedRepresentedTitle"
 
@@ -93,8 +68,10 @@ Feature: No response journey
     When I sign out
     And I login with applicant "1"
     Then the page should include element "#aosDueAndDraftedLine1"
+
     When I click element "#aosDueAndDraftedLink"
     Then the page should include element "#optionsForProgressingTitle"
+
     When I click start
     Then the page should include element "#evidenceReceivedApplicationTitle"
 
@@ -113,8 +90,10 @@ Feature: No response journey
     When I sign out
     And I login with applicant "1"
     Then the page should include element "#aosDueAndDraftedLine1"
+
     When I click element "#aosDueAndDraftedLink"
     Then the page should include element "#optionsForProgressingTitle"
+
     When I click start
     Then the page should include element "#evidenceReceivedApplicationTitle"
 
@@ -131,8 +110,10 @@ Feature: No response journey
     When I sign out
     And I login with applicant "1"
     Then the page should include element "#aosDueAndDraftedLine1"
+
     When I click element "#aosDueAndDraftedLink"
     Then the page should include element "#optionsForProgressingTitle"
+
     When I click start
     Then the page should include element "#haveTheyReceivedTitle"
     And the page should include element "#detailsProvided"
@@ -158,15 +139,18 @@ Feature: No response journey
   Scenario: No response /new-postal-and-email new postal address
     Given I set the case state to "AosOverdue"
     Then the page should include "View your options for proceeding without a response from the respondent"
+
     When I click element "#aosDueLink"
     Then the page should include element "#optionsForProgressingTitle"
+
     When I click start
     Then the page should include element "#upToDate"
 
     Given I click element "#newAddress"
     When I click continue
     Then the page should include element "#newPostalAddress"
-    When I click element "#newPostalAddress"
+
+    Given I click element "#newPostalAddress"
     When I click continue
     Then the page should include element "#enterPostcode"
 
@@ -186,15 +170,18 @@ Feature: No response journey
   Scenario: No response /new-postal-and-email new email address
     Given I set the case state to "AosOverdue"
     Then the page should include "View your options for proceeding without a response from the respondent"
+
     When I click element "#aosDueLink"
     Then the page should include element "#optionsForProgressingTitle"
+
     When I click start
     Then the page should include element "#upToDate"
 
     Given I click element "#newAddress"
     When I click continue
     Then the page should include element "#newPostalAddress"
-    When I click element "#newEmailAddress"
+
+    Given I click element "#newEmailAddress"
     When I click continue
     Then the page should include element "#provideNewEmail"
 
@@ -213,8 +200,10 @@ Feature: No response journey
   Scenario: No response /new-postal-and-email new postal and email address
     Given I set the case state to "AosOverdue"
     Then the page should include "View your options for proceeding without a response from the respondent"
+
     When I click element "#aosDueLink"
     Then the page should include element "#optionsForProgressingTitle"
+
     When I click start
     Then the page should include element "#haveTheyReceivedTitle"
 
@@ -229,7 +218,7 @@ Feature: No response journey
     Given I select element "#applicant1NoResponsePartnerEmailAddress"
     And I type "test@test.com"
     When I click continue
-    Then the page should include element "#enterAddressTitle"
+    Then the page should include element "#enterPostcode"
 
     Given I select element "#postcode"
     And I type "SW1H 9AJ"
@@ -241,7 +230,7 @@ Feature: No response journey
     When I click continue
     Then the page should include element "#checkAnswersTitle"
 
-    When I click "Accept and send"
+    When I click accept and send
     Then the page should include element "#detailsUpdatedTitle"
 
   Scenario: No response update contact details /new-postal-and-email throws error
@@ -252,8 +241,10 @@ Feature: No response journey
   Scenario: No response /server-again send papers again or try something else
     Given I set the case state to "AosOverdue"
     Then the page should include "View your options for proceeding without a response from the respondent"
+
     When I click element "#aosDueLink"
     Then the page should include element "#optionsForProgressingTitle"
+
     When I click start
     Then the page should include element "#upToDate"
 
@@ -269,5 +260,5 @@ Feature: No response journey
     When I click continue
     Then the page should include element "#checkAnswersTitle"
 
-    When I click "Accept and send"
+    When I click accept and send
     Then the page should include element "#sendPapersAgainTitle"

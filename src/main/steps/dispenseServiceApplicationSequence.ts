@@ -1,5 +1,5 @@
 import { Case } from '../app/case/case';
-import { DispenseWithServiceJourneyLogicalTests, YesOrNo } from '../app/case/definition';
+import { DispenseWithServiceJourneyLogicalTests, ServicePaymentMethod, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
@@ -201,7 +201,9 @@ export const dispenseServiceApplicationSequence: Step[] = [
   {
     url: CHECK_ANSWERS_DISPENSE,
     getNextStep: data =>
-      data?.alternativeServiceFeeRequired === YesOrNo.YES ? PAY_YOUR_SERVICE_FEE : SERVICE_APPLICATION_SUBMITTED,
+      data?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD
+        ? PAY_YOUR_SERVICE_FEE
+        : SERVICE_APPLICATION_SUBMITTED,
   },
 ];
 

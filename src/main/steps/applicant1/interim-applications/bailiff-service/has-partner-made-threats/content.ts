@@ -11,7 +11,7 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   enterMadeThreatsDetailsLabel: 'Provide details of any incidents',
   errors: {
     applicant1BailiffHasPartnerMadeThreats: {
-      required: 'Select yes if your partner has ever made verbal or written threats against you.',
+      required: 'Select "Yes" if your partner has ever made verbal or written threats against you.',
     },
     applicant1BailiffPartnerThreatsDetails: {
       required: 'Enter details of any incidents of verbal or written threats.',
@@ -24,6 +24,8 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
     isDivorce ? 'cais ysgariad' : 'cais i ddod â’r bartneriaeth sifil i ben'
   }?`,
   enterMadeThreatsDetailsLabel: 'Rhowch fanylion unrhyw ddigwyddiadau',
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1BailiffHasPartnerMadeThreats: {
       required: `Dewiswch “Ydy” os yw eich ${partner} erioed wedi gwneud bygythiadau ar lafar neu’n ysgrifenedig yn eich erbyn chi`,

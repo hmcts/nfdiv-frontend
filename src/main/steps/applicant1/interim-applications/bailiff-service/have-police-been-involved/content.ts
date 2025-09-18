@@ -9,8 +9,7 @@ const en = ({ partner }: CommonContent) => ({
   enterPoliceInvolvedDetailsLabel: 'Provide details of any incidents',
   errors: {
     applicant1BailiffHavePoliceBeenInvolved: {
-      required:
-        'Select yes if there has been any police involvement with your partner or other people living at the property.',
+      required: `Select “Yes” if there has been any police involvement with your ${partner}.`,
     },
     applicant1BailiffPoliceInvolvedDetails: {
       required: 'Enter details of any incidents of police involvement.',
@@ -21,9 +20,11 @@ const en = ({ partner }: CommonContent) => ({
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `A yw’r heddlu wedi ymwneud â’ch ${partner} neu bobl eraill sy’n byw yn yr eiddo?`,
   enterPoliceInvolvedDetailsLabel: 'Rhowch fanylion unrhyw ddigwyddiadau',
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1BailiffHavePoliceBeenInvolved: {
-      required: `Dewiswch “Ydy” os yw’r heddlu erioed wedi ymwneud â’ch ${partner}`,
+      required: `Dewiswch "Ydy" os yw’r heddlu erioed wedi ymwneud â’ch ${partner}`,
     },
     applicant1BailiffPoliceInvolvedDetails: {
       required: 'Rhowch fanylion unrhyw achosion yn ymwneud â’r heddlu',

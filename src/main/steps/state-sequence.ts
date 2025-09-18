@@ -68,6 +68,7 @@ export const orderedStateSequence: State[] = [
   State.AwaitingBailiffService,
   State.BailiffRefused,
   State.IssuedToBailiff,
+  State.AwaitingGeneralApplicationPayment,
   State.GeneralApplicationReceived,
   State.AwaitingGeneralReferralPayment,
   State.AwaitingGeneralConsideration,
