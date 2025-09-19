@@ -113,8 +113,8 @@ const cy: typeof en = (stepAnswers, { isDivorce, partner }: CommonContent) => ({
     dateLastLivedTogether: 'Y dyddiad yr oeddech yn byw gyda’ch gilydd ddiwethaf',
     whereLivedTogether: `Lle oeddech chi a’ch ${partner} yn byw gyda’ch gilydd?`,
     wherePartnerLivedAfterParting: `Ydych chi’n ymwybodol ble wnaeth eich ${partner} fyw ar ôl gwahanu?`,
-    partnerAddress1: `•	Cyfeiriad 1 eich ${partner}`,
-    partnerAddress2: `•	Cyfeiriad 2 eich ${partner}`,
+    partnerAddress1: `Cyfeiriad 1 eich ${partner}`,
+    partnerAddress2: `Cyfeiriad 2 eich ${partner}`,
     whenPartnerLastSeen: `Pa bryd y gwelwyd neu y clywyd am eich ${partner} ddiwethaf?`,
     partnerLastSeenDescription: `Disgrifiwch y tro diwethaf i chi weld neu glywed am eich ${partner}`,
     finalOrderSearch: `Ydych chi wedi chwilio am ${
