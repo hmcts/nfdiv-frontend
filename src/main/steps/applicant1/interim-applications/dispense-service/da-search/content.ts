@@ -15,7 +15,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   line2: `You can apply online to the Central Family Court to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.searchForDecreeAbsoluteOrFinalOrder'
   )}">search for a ${isDivorce ? 'decree absolute or ' : ''}final order (opens in a new tab)</a>.`,
-  line3: `It costs ${getFee(config.get('fees.searchGovRecords'))} for each 10 year period you search.`,
+  line3: `It costs ${getFee(config.get('fees.searchDecreeNisiOrFinalOrder'))} for each 10 year period you search.`,
   line4: "You'll need to search from the last date you heard from them.",
   line5: `If a ${isDivorce ? 'decree absolute or a ' : ''}final order is found, ${
     isDivorce ? 'you are already divorced and' : 'your civil partnership is already ended and you'
@@ -48,7 +48,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   line2: `You can apply online to the Central Family Court to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.searchForDecreeAbsoluteOrFinalOrder'
   )}">search for a ${isDivorce ? 'decree absolute or ' : ''}final order (opens in a new tab)</a>.`,
-  line3: `It costs ${getFee(config.get('fees.searchGovRecords'))} for each 10 year period you search.`,
+  line3: `It costs ${getFee(config.get('fees.searchDecreeNisiOrFinalOrder'))} for each 10 year period you search.`,
   line4: "You'll need to search from the last date you heard from them.",
   line5: `If a ${isDivorce ? 'decree absolute or a ' : ''}final order is found, ${
     isDivorce ? 'you are already divorced and' : 'your civil partnership is already ended and you'
