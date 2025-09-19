@@ -10,8 +10,12 @@ const en = ({ partner }: CommonContent) => ({
   applicant1LifeBasedInEnglandAndWales: 'Is your life mainly based in England or Wales?',
   applicant2LifeBasedInEnglandAndWales: `Is your ${partner}’s life mainly based in England or Wales?`,
   errors: {
-    applicant1LifeBasedInEnglandAndWales: 'Select "Yes" if your life is mainly based in England or Wales',
-    applicant2LifeBasedInEnglandAndWales: `Select "Yes" if your ${partner}’s life is mainly based in England or Wales`,
+    applicant1LifeBasedInEnglandAndWales: {
+      required: 'Select "Yes" if your life is mainly based in England or Wales.',
+    },
+    applicant2LifeBasedInEnglandAndWales: {
+      required: `Select "Yes" if your ${partner}’s life is mainly based in England or Wales.`,
+    },
   },
 });
 
@@ -23,9 +27,12 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   yes: 'Ydy',
   no: 'Nac ydy',
   errors: {
-    applicant1LifeBasedInEnglandAndWales:
-      'Dewiswch “Ydy” os ydych yn treulio’r rhan fwyaf o’ch amser yng Nghymru neu Loegr',
-    applicant2LifeBasedInEnglandAndWales: `Dewiswch “Ydy” os yw eich ${partner} yn treulio rhan fwyaf o’u hamser yng Nghymru neu Loegr`,
+    applicant1LifeBasedInEnglandAndWales: {
+      required: 'Dewiswch “Ydy” os ydych yn treulio’r rhan fwyaf o’ch amser yng Nghymru neu Loegr.',
+    },
+    applicant2LifeBasedInEnglandAndWales: {
+      required: `Dewiswch “Ydy” os yw eich ${partner} yn treulio rhan fwyaf o’u hamser yng Nghymru neu Loegr.`,
+    },
   },
 });
 
