@@ -6,19 +6,16 @@ import { getFee } from '../../../../../app/fees/service/get-fee';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
-import { SEARCH_GOV_RECORDS_APPLICATION } from '../../../../urls';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: `Check for an existing ${isDivorce ? 'decree absolute or ' : ''}final order`,
   line1: `If you have not heard from your ${partner} for more than 2 years you may need to check to see if they have already ${
     isDivorce ? 'divorced you' : 'ended your civil partnership'
   }.`,
-  line2: `You can apply online to the central Family court to <a class="govuk-link" target="_blank" href="${SEARCH_GOV_RECORDS_APPLICATION}">search for a ${
-    isDivorce ? 'decree absolute or ' : ''
-  }final order (opens in a new tab)</a>.`,
-  line3: `It costs ${getFee(
-    config.get('fees.searchForAddress') // Is this the correct Fee code?
-  )} for each 10 year period you search.`,
+  line2: `You can apply online to the Central Family Court to <a class="govuk-link" target="_blank" href="${config.get(
+    'govukUrls.searchForDecreeAbsoluteOrFinalOrder'
+  )}">search for a ${isDivorce ? 'decree absolute or ' : ''}final order (opens in a new tab)</a>.`,
+  line3: `It costs ${getFee(config.get('fees.searchDecreeNisiOrFinalOrder'))} for each 10 year period you search.`,
   line4: "You'll need to search from the last date you heard from them.",
   line5: `If a ${isDivorce ? 'decree absolute or a ' : ''}final order is found, ${
     isDivorce ? 'you are already divorced and' : 'your civil partnership is already ended and you'
@@ -49,12 +46,10 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   line1: `If you have not heard from your ${partner} for more than 2 years you may need to check to see if they have already ${
     isDivorce ? 'divorced you' : 'ended your civil partnership'
   }.`,
-  line2: `You can apply online to the central Family court to <a class="govuk-link" target="_blank" href="${SEARCH_GOV_RECORDS_APPLICATION}">search for a ${
-    isDivorce ? 'decree absolute or ' : ''
-  }final order (opens in a new tab)</a>.`,
-  line3: `It costs ${getFee(
-    config.get('fees.searchForAddress') // Is this the correct Fee code?
-  )} for each 10 year period you search.`,
+  line2: `You can apply online to the Central Family Court to <a class="govuk-link" target="_blank" href="${config.get(
+    'govukUrls.searchForDecreeAbsoluteOrFinalOrder'
+  )}">search for a ${isDivorce ? 'decree absolute or ' : ''}final order (opens in a new tab)</a>.`,
+  line3: `It costs ${getFee(config.get('fees.searchDecreeNisiOrFinalOrder'))} for each 10 year period you search.`,
   line4: "You'll need to search from the last date you heard from them.",
   line5: `If a ${isDivorce ? 'decree absolute or a ' : ''}final order is found, ${
     isDivorce ? 'you are already divorced and' : 'your civil partnership is already ended and you'
