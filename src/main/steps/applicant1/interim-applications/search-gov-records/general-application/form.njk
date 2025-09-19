@@ -5,7 +5,9 @@
   <ul class="govuk-list govuk-list--bullet">
     <li>{{ alsoTry.options.differentWay | safe }}</li>
     <li>{{ alsoTry.options.deemedService | safe }}</li>
-    <li>{{ alsoTry.options.updateDetails | safe }}</li>
+    {% if not isApp2Confidential %}
+      <li>{{ alsoTry.options.updateDetails | safe }}</li>
+    {% endif %}
     <li>{{ alsoTry.options.applyProcessServerOrBailiff | safe }}</li>
     <li>{{ alsoTry.options.dispenseService | safe }}</li>
   </ul>

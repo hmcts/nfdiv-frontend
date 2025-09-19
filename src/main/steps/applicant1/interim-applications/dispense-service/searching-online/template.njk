@@ -10,7 +10,9 @@
   <p class="govuk-body">{{ line1 }}</p>
   <p class="govuk-body">{{ ifYouCanFind.header }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ ifYouCanFind.options.postalAddress | safe }}</li>
+    {% if not isApp2Confidential %}
+      <li>{{ ifYouCanFind.options.postalAddress | safe }}</li>
+    {% endif %}
     <li>{{ ifYouCanFind.options.evidence | safe }}</li>
   </ul>
 {% endblock %}
