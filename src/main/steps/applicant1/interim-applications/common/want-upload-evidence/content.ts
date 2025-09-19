@@ -15,11 +15,10 @@ const en = () => ({
   },
 });
 
-// @TODO translations
 const cy = () => ({
   title: 'A ydych yn gallu uwchlwytho tystiolaeth?',
   statement: '',
-  yes: 'Ydy',
+  yes: 'Ydw',
   no: 'Nac ydw',
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
