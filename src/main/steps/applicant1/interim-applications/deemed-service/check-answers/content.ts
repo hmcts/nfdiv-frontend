@@ -53,9 +53,9 @@ const cy: typeof en = (
     noEvidenceStatement: 'Datganiad i Gefnogi Cais',
   },
   stepAnswers: {
-    useHwf: `${useHwf === YesOrNo.YES ? 'Ydy' : 'Nac ydw'}`,
+    useHwf: `${useHwf === YesOrNo.YES ? 'Ie' : 'Na'}`,
     hwfReference: `${hwfReference}`,
-    canUploadEvidence: `${canUpload === YesOrNo.YES ? 'Ydy' : 'Nac ydw'}`,
+    canUploadEvidence: `${canUpload === YesOrNo.YES ? 'Ydw' : 'Nac ydw'}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
     evidenceDetails: `${evidenceDetails}`,
     noEvidenceStatement: `${noEvidenceStatement}`,
