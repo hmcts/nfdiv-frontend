@@ -2,25 +2,23 @@ import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseData, State } from '../case/definition';
+import { CaseData } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
-
-import { getPaymentCallbackUrl } from './BasePaymentPostController';
 
 const logger = Logger.getLogger('payment');
 
 @autobind
 export default abstract class BasePaymentCallbackGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (!this.awaitingPaymentStates().has(req.session.userCase.state)) {
+    if (!this.isAwaitingPayment(req)) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
 
-    const paymentClient = new PaymentClient(req.session, getPaymentCallbackUrl(req, res));
+    const paymentClient = new PaymentClient(req.session, '');
 
-    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
+    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField(req)] || []);
     if (!payments.hasPayment) {
       return res.redirect(this.noPaymentRequiredUrl(req));
     }
@@ -38,7 +36,7 @@ export default abstract class BasePaymentCallbackGetController {
     payments.setStatus(lastPaymentAttempt.transactionId, payment?.status);
 
     if (payments.wasLastPaymentSuccessful) {
-      const eventPayload = { [this.paymentsCaseField()]: payments.list };
+      const eventPayload = { [this.paymentsCaseField(req)]: payments.list };
 
       req.session.userCase = await req.locals.api.triggerPaymentEvent(
         req.session.userCase.id,
@@ -56,10 +54,10 @@ export default abstract class BasePaymentCallbackGetController {
     });
   }
 
-  protected abstract awaitingPaymentStates(): Set<State>;
+  protected abstract isAwaitingPayment(req: AppRequest): boolean;
   protected abstract noPaymentRequiredUrl(req: AppRequest): string;
   protected abstract paymentMadeEvent(req: AppRequest): string;
   protected abstract paymentSuccessUrl(req: AppRequest): string;
   protected abstract paymentFailureUrl(req: AppRequest): string;
-  protected abstract paymentsCaseField(): keyof CaseData;
+  protected abstract paymentsCaseField(req: AppRequest): keyof CaseData;
 }
