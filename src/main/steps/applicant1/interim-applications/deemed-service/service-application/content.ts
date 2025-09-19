@@ -27,7 +27,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   buttonText: 'Start application',
 });
 
-// @TODO translations should be verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: 'Gwneud cais am gyflwyno tybiedig (D11)',
   line1: `Os oes gennych dystiolaeth bod eich ${partner} neu eu cynrychiolydd cyfreithiol wedi cael papurau’r ${

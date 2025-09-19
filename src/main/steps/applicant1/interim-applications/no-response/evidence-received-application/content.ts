@@ -44,7 +44,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     message: `neges gennym ni i ddweud wrthych bod eich ${partner} wedi dechrau eu hymateb.`,
   },
   canYouProveHeader: `A oes gennych dystiolaeth bod eich ${partner} wedi cael y papurau?`,
-  proveYes: `Oes, mae gennyf dystiolaeth bod fy ${partner} wedi cael y papurau.`,
+  proveYes: 'Oes, mae gennyf dystiolaeth bod fy mhartner wedi cael y papurau.',
   proveNo: 'Na allaf, nid oes gennyf unrhyw dystiolaeth addas.',
   errors: {
     applicant1NoResponsePartnerHasReceivedPapers: {
