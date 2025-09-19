@@ -77,7 +77,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   }final order</a> from the Central Family Court. This is to make sure they have not already ${
     isDivorce ? 'divorced you' : 'ended your civil partnership'
   }. It will cost ${getFee(
-    config.get('fees.dispensedService') // This is not the correct fee! Waiting for confirmation of correct Fee Code to add to config
+    config.get('fees.searchGovRecords')
   )} for every 10 year period you search, and you will need to search from the date you last had contact.`,
   line4: `Os na allwch ddangos eich bod wedi ceisio gwneud popeth y gallwch i anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
