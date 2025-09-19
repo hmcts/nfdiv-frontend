@@ -17,6 +17,8 @@ const en = ({ partner }: CommonContent) => ({
   },
   triedSearchingOnlineHeader: `Have you tried finding your ${partner}'s details online by searching the internet?`,
   whyNoSearchingOnlineHeader: `Explain why you have not tried searching for your ${partner} online`,
+  yes: 'Yes',
+  no: 'No',
   errors: {
     applicant1DispenseTriedSearchingOnline: {
       required: `Select yes if you have tried finding your ${partner}'s details online`,
@@ -29,23 +31,25 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => ({
-  title: `Finding your ${partner} online by searching the internet`,
-  line1: `You could consider using a search engine to look up your ${partner}'s name or trying to find them on social media platforms.`,
+  title: `Dod o hyd i’ch ${partner} ar-lein drwy chwilio ar y rhyngrwyd`,
+  line1: `Gallech ystyried defnyddio peiriant chwilio i edrych am enw eich ${partner} neu geisio dod o hyd iddynt ar blatfformau cyfryngau cymdeithasol.`,
   ifYouCanFind: {
-    header: 'If you can find:',
+    header: 'Os gallwch ddod o hyd i:',
     options: {
-      postalAddress: `an up to date postal address, you could <a class="govuk-link" target="_blank" href="${NEW_POSTAL_AND_EMAIL}">update their postal address (opens in new tab)</a> and have the court send them the papers at no additional cost.`,
-      evidence: `evidence that they actively use an email address, phone number or social media account, you could <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}">apply for alternative service (opens in new tab)</a>.`,
+      postalAddress: `gyfeiriad post diweddaraf, gallech <a class="govuk-link" target="_blank" href="${NEW_POSTAL_AND_EMAIL}">ddiweddaru eu cyfeiriad e-bost (yn agor mewn tab newydd)</a> a chael y llys i anfon y papurau atynt heb unrhyw gost ychwanegol.`,
+      evidence: `tystiolaeth eu bod yn defnyddio cyfeiriad e-bost, rhif ffôn neu gyfrif cyfryngau cymdeithasol, gallech <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}">wneud cais am wasanaeth amgen (yn agor mewn tab newydd)</a>.`,
     },
   },
-  triedSearchingOnlineHeader: `Have you tried finding your ${partner}'s details online by searching the internet?`,
-  whyNoSearchingOnlineHeader: `Explain why you have not tried searching for your ${partner} online`,
+  triedSearchingOnlineHeader: `A ydych wedi ceisio dod o hyd i fanylion eich ${partner} ar-lein drwy chwilio ar y rhyngrwyd?`,
+  whyNoSearchingOnlineHeader: `Eglurwch pam nad ydych wedi ceisio chwilio am eich ${partner} ar-lein`,
+  yes: 'Ydw',
+  no: 'Nac ydw',
   errors: {
     applicant1DispenseTriedSearchingOnline: {
-      required: `Select yes if you have tried finding your ${partner}'s details online`,
+      required: `Dewiswch “Ydw” os ydych wedi ceisio olrhain manylion eich ${partner} ar-lein`,
     },
     applicant1DispenseWhyNoSearchingOnline: {
-      required: `Enter details about why you have not tried searching for your ${partner} online`,
+      required: `Eglurwch pam nad ydych wedi ceisio chwilio am eich ${partner} ar-lein`,
     },
   },
 });

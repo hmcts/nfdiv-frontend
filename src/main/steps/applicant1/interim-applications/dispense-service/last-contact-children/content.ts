@@ -13,10 +13,10 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `To the best of your knowledge, when did your ${partner} last have contact with them?`,
+  title: `Hyd eithaf eich gwybodaeth, pryd wnaeth eich ${partner} gael cysylltiad gyda nhw ddiwethaf?`,
   errors: {
     applicant1DispensePartnerLastContactChildren: {
-      required: `Enter details about when your ${partner} last had contact with the children`,
+      required: `Eglurwch pryd wnaeth eich ${partner} gael cysylltiad gyda’r plant ddiwethaf`,
     },
   },
 });

@@ -14,12 +14,12 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Tracing agents search',
-  tracingAgentDescription: "What were the results of your tracing agent's search?",
-  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
+  title: 'Chwiliad asiantau olrhain',
+  tracingAgentDescription: 'Beth oedd canlyniadau eich chwiliad asiant olrhain?',
+  uploadHint: 'Byddwch yn gallu uwchlwytho unrhyw dystiolaeth sydd gennych ar ddiwedd y cais hwn.',
   errors: {
     applicant1DispenseTracingAgentResults: {
-      required: "Enter details about the results of the tracing agent's search",
+      required: 'Rhowch fanylion canlyniadau chwiliad yr asiant olrhain',
     },
   },
 };
