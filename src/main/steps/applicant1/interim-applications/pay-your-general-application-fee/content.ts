@@ -44,7 +44,7 @@ export const generateContent: TranslationFn = content => {
 
   const applicationFee = !isEmpty(orderSummary)
     ? '£' + parseInt(<string>orderSummary?.PaymentTotal, 10) / 100
-    : getFee(config.get('fees.searchGovRecords'));
+    : getFee(config.get('fees.searchForAddress'));
 
   const translations = languages[content.language](applicationFee);
 

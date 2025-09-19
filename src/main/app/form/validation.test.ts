@@ -3,6 +3,7 @@ import { CaseDate } from '../case/case';
 import {
   areDateFieldsFilledIn,
   atLeastOneFieldIsChecked,
+  hasValueChanged,
   isApplicant2EmailValid,
   isDateInputInvalid,
   isEmailValid,
@@ -52,6 +53,38 @@ describe('Validation', () => {
       const isValid = areDateFieldsFilledIn({ day: '', month: '', year: '' });
 
       expect(isValid).toStrictEqual('required');
+    });
+  });
+
+  describe('hasValueChanged()', () => {
+    test('Should handle null values', async () => {
+      const hasChanged = hasValueChanged(1, null);
+      expect(hasChanged).toStrictEqual(undefined);
+    });
+
+    test('Should check if primitive value has changed', async () => {
+      const hasChanged = hasValueChanged(1, 2);
+      expect(hasChanged).toStrictEqual(undefined);
+    });
+
+    test('Should check if primitive value has not changed', async () => {
+      const hasChanged = hasValueChanged(1, 1);
+      expect(hasChanged).toBeTruthy();
+    });
+
+    test('Should check if arrays have changed', async () => {
+      const hasChanged = hasValueChanged([1, 2, 3], [1, 4, 3]);
+      expect(hasChanged).toStrictEqual(undefined);
+    });
+
+    test('Should check if arrays have not changed', async () => {
+      const hasChanged = hasValueChanged([1, 2, 3], [1, 2, 3]);
+      expect(hasChanged).toBeTruthy();
+    });
+
+    test('Should handle blank arrays', async () => {
+      const hasChanged = hasValueChanged([1, undefined, null], []);
+      expect(hasChanged).toStrictEqual(undefined);
     });
   });
 

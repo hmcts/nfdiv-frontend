@@ -34,7 +34,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   }final order (opens in a new tab)</a> from the Central Family Court. This is to make sure ${
     isDivorce ? 'they have not already divorced you' : 'that your civil partnership is not already dissolved'
   }. It will cost ${getFee(
-    config.get('fees.searchGovRecords')
+    config.get('fees.searchDecreeNisiOrFinalOrder')
   )} for every 10 year period you search, and you will need to search from the date you last had contact.`,
   line4: `If you cannot show that you have tried everything you reasonably can to send the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
@@ -77,7 +77,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   }orchymyn terfynol (agor mewn tab newydd)</a> gan y Llys Teulu Canolog. Mae hyn i sicrhau nad ${
     isDivorce ? 'ydynt wedi eich ysgaru yn barod' : 'yw eich partneriaeth sifil wedi’i diddymu eisoes'
   }. Bydd yn costio ${getFee(
-    config.get('fees.dispensedService') // This is not the correct fee! Waiting for confirmation of correct Fee Code to add to config
+    config.get('fees.searchDecreeNisiOrFinalOrder')
   )} am bob cyfnod o 10 mlynedd rydych yn ei chwilio, a bydd angen i chi chwilio o ddyddiad eich cyswllt olaf gyda nhw.`,
   line4: `Os na allwch ddangos eich bod wedi ceisio gwneud popeth y gallwch i anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
