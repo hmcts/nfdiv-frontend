@@ -22,7 +22,6 @@ const en = (serviceType: string, serviceFee: string) => ({
   },
 });
 
-// @TODO translations
 const cy = (serviceType: string, serviceFee: string) => ({
   title: 'Help i Dalu Ffioedd',
   line1: `Cost y cais hwn am ${serviceType} yw ${serviceFee}. Gallwch <a class="govuk-link" target="_blank" href="${config.get(
@@ -33,7 +32,7 @@ const cy = (serviceType: string, serviceFee: string) => ({
   no: 'Na fyddaf',
   errors: {
     applicant1InterimAppsUseHelpWithFees: {
-      required: "Dewiswch 'Ydw' os ydych yn defnyddio’r gwasanaeth help i dalu ffioedd ar gyfer y cais hwn.",
+      required: "Dewiswch 'Byddaf' os ydych yn defnyddio’r gwasanaeth help i dalu ffioedd ar gyfer y cais hwn.",
     },
   },
 });
