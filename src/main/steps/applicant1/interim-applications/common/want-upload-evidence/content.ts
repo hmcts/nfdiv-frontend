@@ -22,7 +22,7 @@ const cy = () => ({
   no: 'Nac ydw',
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
-      required: "Dewiswch 'Oes' os oes gennych dystiolaeth i’w huwchlwytho.",
+      required: "Dewiswch 'Ydw' os oes gennych dystiolaeth i’w huwchlwytho.",
     },
   },
 });
