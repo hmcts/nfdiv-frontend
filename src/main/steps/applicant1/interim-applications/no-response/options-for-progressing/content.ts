@@ -39,7 +39,6 @@ const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   },
 });
 
-// @TODO translations should be verified
 const cy = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: CommonContent) => ({
   title: `Opsiynau ar gyfer symud ymlaen gyda’ch ${
     isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
