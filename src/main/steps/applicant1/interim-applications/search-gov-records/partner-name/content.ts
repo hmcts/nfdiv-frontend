@@ -23,7 +23,7 @@ const en = ({ partner }: CommonContent) => {
 const cy: typeof en = ({ partner }: CommonContent) => {
   const invalid = 'Rydych wedi teipio nod annilys, fel rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.';
   return {
-    title: `Rhowch enw’ch ${partner}’s`,
+    title: `Rhowch enw’ch ${partner}`,
     partnerNameHint: `Dylech gynnwys enwau canol eich ${partner}, os oes ganddynt unrhyw enwau`,
     errors: {
       applicant1SearchGovRecordsPartnerName: {

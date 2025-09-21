@@ -16,10 +16,10 @@ const en = ({ partner }: CommonContent) => ({
       required: `Enter the dates your ${partner} lived at the address before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
-      required: `Enter details of any other known address of your ${partner} before continuing.`,
+      required: `Enter the dates your ${partner} lived at the address before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
-      required: `Enter the dates your ${partner} lived at the address before continuing.`,
+      required: `Enter details of any other known address of your ${partner} before continuing.`,
     },
   },
 });
@@ -37,10 +37,10 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       required: `Nodwch y dyddiadau y bu eich ${partner} yn byw yn y cyfeiriad cyn parhau.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
-      required: `Nodwch fanylion unrhyw gyfeiriad hysbys arall eich ${partner} cyn parhau.`,
+      required: `Nodwch y dyddiadau y bu eich ${partner} yn byw yn y cyfeiriad cyn parhau.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
-      required: `Nodwch y dyddiadau y bu eich ${partner} yn byw yn y cyfeiriad cyn parhau.`,
+      required: `Nodwch fanylion unrhyw gyfeiriad hysbys arall eich ${partner} cyn parhau.`,
     },
   },
 });
@@ -64,7 +64,7 @@ export const form: FormContent = {
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.address + ' 2 (optional)',
+      label: l => l.address + ` (${l.language === 'cy' ? 'dewisiadol' : 'optional'})`,
       labelSize: 'normal',
       validator: (
         value: string | string[] | CaseDate | Partial<Case> | undefined,
@@ -78,7 +78,7 @@ export const form: FormContent = {
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.dateLivedOnAddress + ' (optional)',
+      label: l => l.dateLivedOnAddress + ` (${l.language === 'cy' ? 'dewisiadol' : 'optional'})`,
       labelSize: 'normal',
       validator: (
         value: string | string[] | CaseDate | Partial<Case> | undefined,

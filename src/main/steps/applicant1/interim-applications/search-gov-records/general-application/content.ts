@@ -33,13 +33,13 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 // @TODO translations should be verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: 'Gwneud cais i chwilio cofnodion y llywodraeth (D11)',
-  line1: `You can ask the court to search a government department's records, such as HM Revenue and Customs (HMRC) or the Department for Work and Pensions (DWP), for your ${partner}'s contact details.`,
+  line1: `Gallwch ofyn i’r llys chwilio cofnodion adran y llywodraeth, fel Cyllid a Thollau EF (CThEF) neu’r Adran Gwaith a Phensiynau (DWP), am fanylion cyswllt eich ${partner}.`,
   partnersContactInfo: {
-    title: `You will need your ${partner}'s:`,
+    title: `Byddwch angen manylion canlynol eich ${partner}:`,
     options: {
-      fullName: 'full name',
-      dateOfBirth: 'date of birth',
-      lastKnownAddress: 'last known address',
+      fullName: 'enw llawn',
+      dateOfBirth: 'dyddiad geni',
+      lastKnownAddress: 'cyfeiriad hysbys diwethaf',
     },
   },
   line2: 'Byddai’n ddefnyddiol os gallwch ddarparu eu rhif Yswiriant Gwladol, ond nid yw hynny’n orfodol.',
@@ -49,7 +49,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   line4: `Mae yna ffi o ${getFee(
     config.get('fees.searchForAddress') // Is this the correct Fee code?
   )} yn daladwy i wneud cais i chwilio cofnodion y llywodraeth, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.getHelpWithCourtFees'
+    'govukUrls.getHelpWithCourtFeesCY'
   )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
   buttonText: 'Dechrau nawr',
 });

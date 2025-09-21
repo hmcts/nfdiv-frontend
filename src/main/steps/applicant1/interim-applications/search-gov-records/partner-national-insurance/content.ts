@@ -33,7 +33,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
     },
     applicant1SearchGovRecordsPartnerNationalInsurance: {
       required: `Nodwch rif yswiriant gwladol eich ${partner}`,
-      invalidUsedExample: `You have entered the example National Insurance number. Enter the number you know of your ${partner}.`,
+      invalidUsedExample: `Rydych wedi rhoi y rhif Yswiriant Gwladol enghreifftiol.  Nodwch rif Yswiriant Gwladol eich ${partner}.`,
       invalidFormat: 'Nodwch rif yswiriant gwladol yn y fformat cywir',
     },
   },
@@ -49,7 +49,7 @@ export const form: FormContent = {
       hint: l => l.partnerNationalInsuranceHint,
       values: [
         {
-          label: l => l.yes,
+          label: l => (l.language === 'cy' ? 'Yndw' : l.yes),
           id: 'yes',
           value: YesOrNo.YES,
           subFields: {
@@ -65,7 +65,7 @@ export const form: FormContent = {
           },
         },
         {
-          label: l => l.no,
+          label: l => (l.language === 'cy' ? 'Nac ydw' : l.no),
           id: 'no',
           value: YesOrNo.NO,
         },

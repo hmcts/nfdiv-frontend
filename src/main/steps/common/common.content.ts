@@ -224,8 +224,8 @@ const cy: typeof en = {
     formTypes: {
       d11: 'D11',
     },
-    searchGovRecords: 'search government records',
-    disclosureViaDwp: 'search government records',
+    searchGovRecords: 'chwilio cofnodion y llywodraeth',
+    disclosureViaDwp: 'chwilio cofnodion y llywodraeth',
     bailiff: 'gwasanaeth bailiff',
     alternativeService: 'gwasanaeth amgen',
     deemedCode: 'D11',
