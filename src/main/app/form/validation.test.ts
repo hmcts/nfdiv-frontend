@@ -10,11 +10,13 @@ import {
   isFieldLetters,
   isFutureDate,
   isInvalidHelpWithFeesRef,
+  isInvalidNationalInsuranceNumber,
   isInvalidPostcode,
   isLessThanAYearAgoInc,
   isPhoneNoValid,
   isValidAccessCode,
   isValidCaseReference,
+  isValidNumber,
 } from './validation';
 
 describe('Validation', () => {
@@ -291,6 +293,45 @@ describe('Validation', () => {
     test('Should reject empty access code', async () => {
       const isValid = isValidAccessCode('');
       expect(isValid).toStrictEqual('invalid');
+    });
+  });
+
+  test.each([
+    { input: 'XX 12 34 56 X', expected: undefined },
+    { input: 'ab43ag', expected: 'invalidFormat' },
+  ])('validates National Insurance number', ({ input, expected }) => {
+    const isValid = isInvalidNationalInsuranceNumber(input);
+
+    expect(isValid).toStrictEqual(expected);
+  });
+
+  describe('isValidNumber()', () => {
+    const MIN_VALUE = 0;
+    const MAX_VALUE = 100;
+
+    test('Should reject letters', async () => {
+      const isValid = isValidNumber('12345a', MIN_VALUE, MAX_VALUE);
+      expect(isValid).toStrictEqual('invalid');
+    });
+
+    test('Should reject decimal places', async () => {
+      const isValid = isValidNumber('123.00', MIN_VALUE, MAX_VALUE);
+      expect(isValid).toStrictEqual('invalid');
+    });
+
+    test('Should reject numbers that are too small', async () => {
+      const isValid = isValidNumber('-10', MIN_VALUE, MAX_VALUE);
+      expect(isValid).toStrictEqual('invalid');
+    });
+
+    test('Should reject numbers that are too big', async () => {
+      const isValid = isValidNumber('1000', MIN_VALUE, MAX_VALUE);
+      expect(isValid).toStrictEqual('invalid');
+    });
+
+    test('Should accept numbers within the specified range', async () => {
+      const isValid = isValidNumber('10', MIN_VALUE, MAX_VALUE);
+      expect(isValid).toStrictEqual(undefined);
     });
   });
 });

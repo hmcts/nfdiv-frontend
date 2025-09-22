@@ -47,6 +47,19 @@ describe('uploadedFilesFromApiApplicant1', () => {
     expect(result.app1RfiDraftResponseUploadedFiles?.[0].id).toBe('1');
     expect(result.app1RfiDraftResponseUploadedFiles?.[1].id).toBe('2');
   });
+
+  it('converts interim application evidence documents', async () => {
+    const result = fromApiApplicant1({
+      applicant1InterimAppsEvidenceDocs: [
+        { id: '1', value: { documentFileName: 'filename' } as DivorceDocument },
+        { id: '2', value: { documentFileName: 'filename' } as DivorceDocument },
+      ],
+    });
+
+    expect(result.applicant1InterimAppsEvidenceUploadedFiles?.length).toBe(2);
+    expect(result.applicant1InterimAppsEvidenceUploadedFiles?.[0].id).toBe('1');
+    expect(result.applicant1InterimAppsEvidenceUploadedFiles?.[1].id).toBe('2');
+  });
 });
 
 describe('uploadedFilesFromApiApplicant2', () => {
@@ -104,5 +117,17 @@ describe('uploadedFilesFromApiApplicant2', () => {
     expect(result.applicant2LegalProceedingUploadedFiles?.length).toBe(2);
     expect(result.applicant2LegalProceedingUploadedFiles?.[0].id).toBe('1');
     expect(result.applicant2LegalProceedingUploadedFiles?.[1].id).toBe('2');
+  });
+});
+
+describe('getFilename', () => {
+  const { getFilename } = require('./uploaded-files');
+
+  it('returns documentFileName if present', () => {
+    expect(getFilename({ documentFileName: 'filename' } as DivorceDocument)).toBe('filename');
+  });
+
+  it('returns document_filename if documentFileName not present', () => {
+    expect(getFilename({ documentLink: { document_filename: 'filename' } } as DivorceDocument)).toBe('filename');
   });
 });
