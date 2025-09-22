@@ -33,7 +33,7 @@ import {
   PageLink,
   REVIEW_THE_APPLICATION,
   SERVICE_APPLICATION_SUBMITTED,
-  SUCCESS_SCREEN_PROCESS_SERVER,
+  SUCCESS_SCREEN_PROCESS_SERVER, NO_RESPONSE_DETAILS_UPDATED, WILL_SERVE_AGAIN,
 } from './urls';
 
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
@@ -63,7 +63,13 @@ export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
   ].map(step => step.url as PageLink),
 ];
 
-export const ROUTES_TO_IGNORE: PageLink[] = [HAVE_THEY_RECEIVED, SUCCESS_SCREEN_PROCESS_SERVER, PROCESS_SERVER_DOCS];
+export const ROUTES_TO_IGNORE: PageLink[] = [
+  NO_RESPONSE_DETAILS_UPDATED,
+  WILL_SERVE_AGAIN,
+  HAVE_THEY_RECEIVED,
+  SUCCESS_SCREEN_PROCESS_SERVER,
+  PROCESS_SERVER_DOCS,
+];
 
 export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
   {
