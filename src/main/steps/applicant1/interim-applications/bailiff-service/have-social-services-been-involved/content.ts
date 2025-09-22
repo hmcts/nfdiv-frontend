@@ -9,7 +9,7 @@ const en = ({ partner }: CommonContent) => ({
   enterSocialServicesInvolvedDetailsLabel: 'Provide details of any incidents',
   errors: {
     applicant1BailiffHaveSocialServicesBeenInvolved: {
-      required: `Select yes if there has been any social services involvement with your ${partner} or other people living at the property.`,
+      required: `Select “Yes” if there has been any social service involvement with your ${partner}.`,
     },
     applicant1BailiffSocialServicesInvolvedDetails: {
       required: 'Enter details of any incidents of social services involvement.',
@@ -20,6 +20,8 @@ const en = ({ partner }: CommonContent) => ({
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `A yw’r gwasanaethau cymdeithasol wedi ymwneud â’ch ${partner} neu bobl eraill sy’n byw yn yr eiddo?`,
   enterSocialServicesInvolvedDetailsLabel: 'Rhowch fanylion unrhyw ddigwyddiadau',
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1BailiffHaveSocialServicesBeenInvolved: {
       required: `Dewiswch “Ydy” os yw’r gwasanaethau cymdeithasol erioed wedi ymwneud â’ch ${partner}`,

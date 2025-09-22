@@ -9,6 +9,7 @@ const en = ({ partner }: Partial<CommonContent>) => ({
   employersAddress: "Employer's address",
   partnerOccupation: `Your ${partner}'s occupation`,
   employerResultsDescription: 'Results of your enquiry with the employer',
+  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispenseEmployerName: {
       required: 'Enter the employer’s name or the company name',
@@ -31,6 +32,7 @@ const cy = ({ partner }: CommonContent) => ({
   employersAddress: "Employer's address",
   partnerOccupation: `Your ${partner}'s occupation`,
   employerResultsDescription: 'Results of your enquiry with the employer',
+  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispenseEmployerName: {
       required: 'Enter the employer’s name or the company name',

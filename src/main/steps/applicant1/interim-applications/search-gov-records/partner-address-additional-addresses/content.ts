@@ -36,7 +36,7 @@ export const form: FormContent = {
       hint: l => l.partnerAdditionalAddressesHint,
       values: [
         {
-          label: l => (l.language === 'cy' ? 'Yndw' : l.yes),
+          label: l => (l.language === 'cy' ? 'Ydw' : l.yes),
           id: 'yes',
           value: YesOrNo.YES,
         },

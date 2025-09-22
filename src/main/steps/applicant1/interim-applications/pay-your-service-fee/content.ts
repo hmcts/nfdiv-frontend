@@ -29,7 +29,7 @@ const cy: typeof en = (applicationFee, { isDivorce }: CommonContent) => ({
   withdrawText: `Os yw’ch amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch dynnu’r cais hwn yn ôl ac ar ôl hynny gallwch wirio eich opsiynau i fwrw ymlaen â'ch ${
     isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
   }.`,
-  withdrawLinkText: 'I want to withdraw this application',
+  withdrawLinkText: 'Rwyf eisiau tynnu’r cais hwn yn ôl',
   withdrawLinkUrl: WITHDRAW_SERVICE_APPLICATION,
 });
 

@@ -6,6 +6,7 @@ import { CaseWithId } from '../../app/case/case';
 import {
   ApplicationType,
   GeneralApplication,
+  InterimApplicationType,
   PaymentStatus,
   ServicePaymentMethod,
   State,
@@ -35,6 +36,13 @@ export const en = {
     bailiffCode: 'D89',
     dispensed: 'dispense with service',
     dispensedCode: 'D13b',
+  },
+  interimApplicationType: {
+    deemedService: 'deemed service',
+    dispenseWithService: 'dispensed with service',
+    bailiffService: 'bailiff service',
+    alternativeService: 'alternative service',
+    searchGovRecords: 'search government records',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -232,6 +240,13 @@ const cy: typeof en = {
     bailiffCode: 'D89',
     dispensed: 'hepgor cyflwyno',
     dispensedCode: 'D13b',
+  },
+  interimApplicationType: {
+    deemedService: 'cyflwyno tybiedig',
+    dispenseWithService: 'hepgor cyflwyno',
+    bailiffService: 'gwasanaeth beili',
+    alternativeService: 'cyflwyno amgen',
+    searchGovRecords: 'chwilio cofnodion y llywodraeth',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
@@ -495,6 +510,12 @@ export const generateCommonContent = ({
     lastGeneralApplication?.generalApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
   const generalApplicationSubmittedOnline = lastGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
 
+  const interimApplicationType =
+    commonTranslations.interimApplicationType[
+      InterimApplicationType.SEARCH_GOV_RECORDS === userCase?.applicant1InterimApplicationType
+        ? 'searchGovRecords'
+        : (userCase?.applicant1InterimApplicationType as string)
+    ];
   return {
     ...commonTranslations,
     applicationHasBeenPaidFor,
@@ -519,6 +540,7 @@ export const generateCommonContent = ({
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
+    interimApplicationType,
     referenceNumber,
     genesysDeploymentId,
     serviceApplicationType,

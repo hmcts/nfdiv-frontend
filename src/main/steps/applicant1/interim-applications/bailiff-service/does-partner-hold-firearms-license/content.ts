@@ -9,7 +9,7 @@ const en = ({ partner }: CommonContent) => ({
   otherDetailsLabel: 'Provide as much information as you can',
   errors: {
     applicant1BailiffDoesPartnerHoldFirearmsLicense: {
-      required: `Select yes if your ${partner} has a firearms license or any firearms convictions.`,
+      required: `Select "Yes" if your ${partner} has a firearms license or any firearms convictions.`,
     },
     applicant1BailiffPartnerFirearmsLicenseDetails: {
       required: 'Enter details of the firearms license or any firearms convictions',
@@ -20,6 +20,8 @@ const en = ({ partner }: CommonContent) => ({
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `A yw eich ${partner} yn meddu ar drwydded drylliau tanio neu a oes ganddo/ganddi unrhyw euogfarnau drylliau tanio?`,
   otherDetailsLabel: 'Rhowch gymaint o wybodaeth ag y gallwch',
+  yes: 'Oes',
+  no: 'Nac Oes',
   errors: {
     applicant1BailiffDoesPartnerHoldFirearmsLicense: {
       required: `Dewiswch “Oes” os oes gan eich ${partner} drwydded drylliau tanio neu unrhyw euogfarnau drylliau tanio`,

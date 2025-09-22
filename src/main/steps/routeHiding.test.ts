@@ -12,6 +12,8 @@ import {
   CHECK_YOUR_ANSWERS_GOV_RECORDS,
   FINALISING_YOUR_APPLICATION,
   GENERAL_APPLICATION_SUBMITTED,
+  HAVE_THEY_RECEIVED,
+  OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
   RESPONDENT,
@@ -51,6 +53,20 @@ describe('routeHiding', () => {
       } as CaseWithId;
       const result = shouldHideRouteFromUser(mockReq);
       expect(result).toBeTruthy();
+    });
+  });
+
+  describe('shouldRedirectRouteToHub()', () => {
+    test('return false if URL is not in the list of routes to redirect to hub', () => {
+      mockReq.url = ACCESSIBILITY_STATEMENT_URL;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeFalsy();
+    });
+
+    test('return true if URL is in the list of routes to redirect to hub', () => {
+      mockReq.url = CHECK_ANSWERS_DEEMED;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeFalsy();
     });
   });
 
@@ -137,6 +153,29 @@ describe('routeHiding', () => {
       mockReq.session.userCase.dateAosSubmitted = '2021-05-10';
       const result = shouldHideRouteFromUser(mockReq);
       expect(result).toBeTruthy();
+    });
+
+    describe('No response journey', () => {
+      test('Visible in AosOverdue state', () => {
+        mockReq.url = OPTIONS_FOR_PROGRESSING;
+        mockReq.session.userCase.state = State.AosOverdue;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+
+      test('Not visible in AwaitingAos state', () => {
+        mockReq.url = OPTIONS_FOR_PROGRESSING;
+        mockReq.session.userCase.state = State.AwaitingAos;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Not visible in AwaitingService state', () => {
+        mockReq.url = OPTIONS_FOR_PROGRESSING;
+        mockReq.session.userCase.state = State.AwaitingService;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
     });
 
     describe('Service Application Submitted URL condition', () => {
@@ -266,6 +305,50 @@ describe('routeHiding', () => {
       test('Visible in AosDrafted state', () => {
         mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
         mockReq.session.userCase.state = State.AosDrafted;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+    });
+
+    describe('HAVE_THEY_RECEIVED URL condition', () => {
+      test('applicant2AddressPrivate is Yes', () => {
+        mockReq.url = HAVE_THEY_RECEIVED;
+        mockReq.session.userCase.applicant2AddressPrivate = YesOrNo.YES;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('state is AwaitingServicePayment', () => {
+        mockReq.url = HAVE_THEY_RECEIVED;
+        mockReq.session.userCase.state = State.AwaitingServicePayment;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('state is AwaitingServiceConsideration', () => {
+        mockReq.url = HAVE_THEY_RECEIVED;
+        mockReq.session.userCase.state = State.AwaitingServiceConsideration;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('state is AwaitingDocuments', () => {
+        mockReq.url = HAVE_THEY_RECEIVED;
+        mockReq.session.userCase.state = State.AwaitingDocuments;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('state is AwaitingService', () => {
+        mockReq.url = HAVE_THEY_RECEIVED;
+        mockReq.session.userCase.state = State.AwaitingService;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('state is AwaitingAos', () => {
+        mockReq.url = HAVE_THEY_RECEIVED;
+        mockReq.session.userCase.state = State.AwaitingAos;
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeFalsy();
       });

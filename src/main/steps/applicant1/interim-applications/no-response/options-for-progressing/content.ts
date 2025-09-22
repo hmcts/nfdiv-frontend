@@ -12,7 +12,7 @@ const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   } without a response from your ${partner}.`,
   line2: `The court has sent the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-  } to your ${partner}'s postal address, as well as their email address if your provided one. If you want to progress your ${
+  } to your ${partner}'s postal address, as well as their email address if you provided one. If you want to progress your ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } in a different way, you will need to apply to the court to do so.`,
   line3: `Depending on the application you make, it could cost either ${getFee(
@@ -55,7 +55,7 @@ const cy = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   )} neu ${getFee(
     config.get('fees.deemedService')
   )}, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.getHelpWithCourtFees'
+    'govukUrls.getHelpWithCourtFeesCY'
   )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
   line4: `Byddwn yn gofyn cwestiynau i chi fel y gallwn ddangos pa opsiynau sydd ar gael ei chi ar gyfer parhau â’ch ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'

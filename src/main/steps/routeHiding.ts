@@ -93,9 +93,29 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
     condition: data =>
       [
         State.AwaitingServicePayment,
+        State.AwaitingService,
+        State.AwaitingAos,
         State.AwaitingServiceConsideration,
         State.AwaitingDocuments,
-        State.AwaitingService,
+      ].includes(data.state as State),
+  },
+  {
+    urls: [PAY_YOUR_GENERAL_APPLICATION_FEE, GENERAL_APPLICATION_SUBMITTED],
+    condition: data =>
+      ![
+        State.AwaitingGeneralApplicationPayment,
+        State.GeneralApplicationReceived,
+        State.AwaitingGeneralConsideration,
+      ].includes(data.state as State),
+  },
+  {
+    urls: [...searchGovRecordsApplicationSequence].map(step => step.url as PageLink),
+    condition: data =>
+      [
+        State.AwaitingGeneralApplicationPayment,
+        State.GeneralApplicationReceived,
+        State.AwaitingDocuments,
+        State.AwaitingGeneralConsideration,
       ].includes(data.state as State),
   },
   {

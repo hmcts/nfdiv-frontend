@@ -1,5 +1,6 @@
 export const enum HubTemplate {
   AosAwaitingOrDrafted = '/aos-awaiting-or-drafted.njk',
+  AosAwaitingOrDraftedUpdateContactDetails = '/contact-details-update-save-and-sign-out.njk',
   AoSDue = '/aos-due.njk',
   ApplicantNotYetAppliedForConditionalOrder = '/applicant-not-yet-applied-for-conditional-order.njk',
   AwaitingAmendedApplication = '/awaiting-amended-application.njk',
@@ -19,6 +20,7 @@ export const enum HubTemplate {
   AwaitingPronouncement = '/awaiting-pronouncement.njk',
   AwaitingRequestedInformation = '/awaiting-requested-information.njk',
   AwaitingServiceConsiderationOrAwaitingBailiffReferral = '/awaiting-service-consideration-or-awaiting-bailiff-referral.njk',
+  AwaitingGeneralApplicationConsideration = '/awaiting-general-application-consideration.njk',
   BailiffServiceUnsuccessful = '/bailiff-service-unsuccessful.njk',
   ClarificationSubmitted = '/clarification-submitted.njk',
   ConditionalOrderPending = '/conditional-order-pending.njk',

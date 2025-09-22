@@ -7,7 +7,7 @@ import {
 } from '../../common/upload-evidence/content';
 
 const en = ({ partner }: CommonContent) => ({
-  statement: `Your evidence should show that your ${partner} actively uses the email address, phone number or social media platform to want to use to send the papers.`,
+  statement: `Your evidence should show that your ${partner} actively uses the email address, phone number or social media platform you want to use to send the papers.`,
   line2: 'It may be helpful if your images show:',
   toInclude: {
     partnersName: `your ${partner}'s name`,

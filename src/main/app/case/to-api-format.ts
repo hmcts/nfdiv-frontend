@@ -1,7 +1,9 @@
+import dayjs from 'dayjs';
 import { toUpper } from 'lodash';
 
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
+import { getFormattedCaseDate } from './answers/formatDate';
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import {
   AlternativeServiceDifferentWays,
@@ -537,15 +539,133 @@ const fields: ToApiConverters = {
       ? data.applicant1AltServicePartnerOtherDetails
       : null,
   }),
+  applicant1DispenseLiveTogether: data => ({
+    applicant1DispenseLiveTogether: data.applicant1DispenseLiveTogether,
+    ...(data.applicant1DispenseLiveTogether === YesOrNo.NO
+      ? setUnreachableAnswersToNull([
+          'applicant1DispenseLivedTogetherDate',
+          'applicant1DispenseLivedTogetherAddress',
+          'applicant1DispenseLivedTogetherAddressOverseas',
+        ])
+      : {}),
+  }),
   applicant1DispenseLastLivedTogetherDate: data => ({
-    applicant1DispenseLivedTogetherDate: toApiDate(data.applicant1DispenseLastLivedTogetherDate),
+    applicant1DispenseLivedTogetherDate:
+      data.applicant1DispenseLiveTogether === YesOrNo.YES
+        ? toApiDate(data.applicant1DispenseLastLivedTogetherDate)
+        : null,
   }),
   applicant1DispenseLivedTogetherAddressPostcode: applicant1DispenseLivedTogetherAddressToApi,
   applicant1DispenseLivedTogetherAddressOverseas: ({ applicant1DispenseLivedTogetherAddressOverseas }) => ({
     applicant1DispenseLivedTogetherAddressOverseas: applicant1DispenseLivedTogetherAddressOverseas ?? YesOrNo.NO,
   }),
+  applicant1DispenseAwarePartnerLived: data => ({
+    applicant1DispenseAwarePartnerLived: data.applicant1DispenseAwarePartnerLived,
+    ...(data.applicant1DispenseAwarePartnerLived === YesOrNo.NO
+      ? setUnreachableAnswersToNull([
+          'applicant1DispensePartnerPastAddress1',
+          'applicant1DispensePartnerPastAddressEnquiries1',
+          'applicant1DispensePartnerPastAddress2',
+          'applicant1DispensePartnerPastAddressEnquiries2',
+        ])
+      : {}),
+  }),
   applicant1DispensePartnerLastSeenOrHeardOfDate: data => ({
     applicant1DispensePartnerLastSeenDate: toApiDate(data.applicant1DispensePartnerLastSeenOrHeardOfDate),
+    applicant1DispensePartnerLastSeenOver2YearsAgo: dayjs(Date.now())
+      .subtract(2, 'year')
+      .isBefore(getFormattedCaseDate(data.applicant1DispensePartnerLastSeenOrHeardOfDate) as string)
+      ? YesOrNo.NO
+      : YesOrNo.YES,
+  }),
+  applicant1DispenseWhyNoFinalOrderSearch: data => ({
+    applicant1DispenseWhyNoFinalOrderSearch:
+      data.applicant1DispenseHaveSearchedFinalOrder === YesOrNo.NO
+        ? data.applicant1DispenseWhyNoFinalOrderSearch
+        : null,
+  }),
+  applicant1DispenseHavePartnerEmailAddresses: data => ({
+    applicant1DispenseHavePartnerEmailAddresses: data.applicant1DispenseHavePartnerEmailAddresses,
+    ...(data.applicant1DispenseHavePartnerEmailAddresses === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1DispensePartnerEmailAddresses'])
+      : {}),
+  }),
+  applicant1DispenseHavePartnerPhoneNumbers: data => ({
+    applicant1DispenseHavePartnerPhoneNumbers: data.applicant1DispenseHavePartnerPhoneNumbers,
+    ...(data.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1DispensePartnerPhoneNumbers'])
+      : {}),
+  }),
+  applicant1DispenseTriedTracingAgent: data => ({
+    applicant1DispenseTriedTracingAgent: data.applicant1DispenseTriedTracingAgent,
+    ...(data.applicant1DispenseTriedTracingAgent === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1DispenseTracingAgentResults'])
+      : {}),
+  }),
+  applicant1DispenseWhyNoTracingAgent: data => ({
+    applicant1DispenseWhyNoTracingAgent:
+      data.applicant1DispenseTriedTracingAgent === YesOrNo.NO ? data.applicant1DispenseWhyNoTracingAgent : null,
+  }),
+  applicant1DispenseTriedTracingOnline: data => ({
+    applicant1DispenseTriedTracingOnline: data.applicant1DispenseTriedTracingOnline,
+    ...(data.applicant1DispenseTriedTracingOnline === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1DispenseTracingOnlineResults'])
+      : {}),
+  }),
+  applicant1DispenseWhyNoTracingOnline: data => ({
+    applicant1DispenseWhyNoTracingOnline:
+      data.applicant1DispenseTriedTracingOnline === YesOrNo.NO ? data.applicant1DispenseWhyNoTracingOnline : null,
+  }),
+  applicant1DispenseTriedSearchingOnline: data => ({
+    applicant1DispenseTriedSearchingOnline: data.applicant1DispenseTriedSearchingOnline,
+    ...(data.applicant1DispenseTriedSearchingOnline === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1DispenseSearchingOnlineResults'])
+      : {}),
+  }),
+  applicant1DispenseWhyNoSearchingOnline: data => ({
+    applicant1DispenseWhyNoSearchingOnline:
+      data.applicant1DispenseTriedSearchingOnline === YesOrNo.NO ? data.applicant1DispenseWhyNoSearchingOnline : null,
+  }),
+  applicant1DispenseTriedContactingEmployer: data => ({
+    applicant1DispenseTriedContactingEmployer: data.applicant1DispenseTriedContactingEmployer,
+    ...(data.applicant1DispenseTriedContactingEmployer === YesOrNo.NO
+      ? setUnreachableAnswersToNull([
+          'applicant1DispenseEmployerName',
+          'applicant1DispenseEmployerAddress',
+          'applicant1DispensePartnerOccupation',
+          'applicant1DispenseContactingEmployerResults',
+        ])
+      : {}),
+  }),
+  applicant1DispenseWhyNoContactingEmployer: data => ({
+    applicant1DispenseWhyNoContactingEmployer:
+      data.applicant1DispenseTriedContactingEmployer === YesOrNo.NO
+        ? data.applicant1DispenseWhyNoContactingEmployer
+        : null,
+  }),
+  applicant1DispenseChildrenOfFamily: data => ({
+    applicant1DispenseChildrenOfFamily: data.applicant1DispenseChildrenOfFamily,
+    ...(data.applicant1DispenseChildrenOfFamily === YesOrNo.NO
+      ? setUnreachableAnswersToNull([
+          'applicant1DispensePartnerContactWithChildren',
+          'applicant1DispenseHowPartnerContactChildren',
+          'applicant1DispensePartnerLastContactChildren',
+          'applicant1DispenseChildMaintenanceOrder',
+          'applicant1DispenseChildMaintenanceResults',
+        ])
+      : {}),
+  }),
+  applicant1DispensePartnerContactWithChildren: data => ({
+    applicant1DispensePartnerContactWithChildren: data.applicant1DispensePartnerContactWithChildren,
+    ...(data.applicant1DispensePartnerContactWithChildren === YesOrNo.YES
+      ? setUnreachableAnswersToNull(['applicant1DispensePartnerLastContactChildren'])
+      : setUnreachableAnswersToNull(['applicant1DispenseHowPartnerContactChildren'])),
+  }),
+  applicant1DispenseChildMaintenanceResults: data => ({
+    applicant1DispenseChildMaintenanceResults:
+      data.applicant1DispenseChildMaintenanceOrder === YesOrNo.YES
+        ? data.applicant1DispenseChildMaintenanceResults
+        : null,
   }),
 };
 

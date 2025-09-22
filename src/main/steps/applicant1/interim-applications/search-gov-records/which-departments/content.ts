@@ -24,7 +24,7 @@ const en = ({ partner }: CommonContent) => ({
       required: 'Enter details of the government department',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
-      required: 'Enter details about why the selected department is most suitable',
+      required: 'Enter details about why the selected department is most suitable.',
     },
   },
 });

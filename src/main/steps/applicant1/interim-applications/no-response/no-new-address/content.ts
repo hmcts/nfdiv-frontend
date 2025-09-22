@@ -33,7 +33,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   somethingElse: 'I do not have any other way to contact them',
   errors: {
     applicant1NoResponseNoNewAddressDetails: {
-      required: 'You must select an option before continuing',
+      required: 'Select how you want to attempt service',
     },
   },
 });
@@ -45,7 +45,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } i’ch ${partner}.`,
   line2:
-    "Os ydych chi angen anfon y dogfennau i gyfeiriad rhyngwladol, efallai yr hoffech geisio cyngor cyfreithiol fel y gallwch ddweud wrth y gweinyddwr proses pa fath o gyflwyno sy'n gyfreithiol yn y wlad honno.",
+    'Os ydych angen anfon y dogfennau i gyfeiriad rhyngwladol, efallai y byddwch angen ceisio cyngor cyfreithiol fel y gallwch wirio pa fath o wasanaeth sy’n ddilys yn y wlad honno.',
   inPerson: {
     header: 'Cyflwyno personol',
     details: `Os ydych chi’n hyderus bod y cyfeiriad post yn gywir, gallwch ystyried gwneud cais i feili llys neu weinyddwr proses annibynnol gyflwyno’r papurau’n bersonol. Mae hyn yn golygu y byddai papurau’r ${
@@ -69,7 +69,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   somethingElse: 'Nid oes gennyf unrhyw ffordd arall o gysylltu â nhw',
   errors: {
     applicant1NoResponseNoNewAddressDetails: {
-      required: 'Rhaid i chi ddewis opsiwn cyn parhau ',
+      required: 'Dewiswch sut yr ydych eisiau cyflwyno’r papurau',
     },
   },
 });

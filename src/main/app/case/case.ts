@@ -202,18 +202,16 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   requestForInformationDetails: 'requestForInformationDetails',
   requestForInformationName: 'requestForInformationName',
   requestForInformationEmailAddress: 'requestForInformationEmailAddress',
-  servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
-  servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
-  servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
-  serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
-  servicePayments: 'servicePayments',
-  receivedServiceApplicationDate: 'receivedServiceApplicationDate',
-  receivedServiceAddedDate: 'receivedServiceAddedDate',
-  serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
-  alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
-  alternativeServiceType: 'alternativeServiceType',
   serviceMethod: 'serviceMethod',
   serviceApplicationAnswers: 'serviceApplicationAnswers',
+  applicant1InterimApplicationType: 'applicant1InterimApplicationType',
+  applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
+  applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
+  applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
+  applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
+  applicant1NoResponseNoNewAddressDetails: 'applicant1NoResponseNoNewAddressDetails',
+  applicant1NoResponseProcessServerOrBailiff: 'applicant1NoResponseProcessServerOrBailiff',
   applicant1NoResponseCheckContactDetails: 'applicant1NoResponseCheckContactDetails',
   applicant1NoResponsePartnerNewEmailOrAddress: 'applicant1NoResponsePartnerNewEmailOrAddress',
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
@@ -262,12 +260,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1BailiffPartnerMentalIssuesDetails: 'applicant1BailiffPartnerMentalIssuesDetails',
   applicant1BailiffDoesPartnerHoldFirearmsLicense: 'applicant1BailiffDoesPartnerHoldFirearmsLicense',
   applicant1BailiffPartnerFirearmsLicenseDetails: 'applicant1BailiffPartnerFirearmsLicenseDetails',
-  applicant1InterimApplicationType: 'applicant1InterimApplicationType',
-  applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
-  applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
-  applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
-  applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
-  applicant1NoResponseSearchOrDispense: 'applicant1NoResponseSearchOrDispense',
   applicant1AltServiceReasonForApplying: 'applicant1AltServiceReasonForApplying',
   applicant1AltServiceMethod: 'applicant1AltServiceMethod',
   applicant1AltServicePartnerEmail: 'applicant1AltServicePartnerEmail',
@@ -280,6 +272,16 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
   servicePaymentFeePaymentMethod: 'servicePaymentFeePaymentMethod',
   servicePaymentFeeDateOfPayment: 'servicePaymentFeeDateOfPayment',
+  servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
+  servicePaymentFeeServiceRequestReference: 'servicePaymentFeeServiceRequestReference',
+  servicePaymentFeeHelpWithFeesReferenceNumber: 'servicePaymentFeeHelpWithFeesReferenceNumber',
+  serviceApplicationDocsUploadedPreSubmission: 'serviceApplicationDocsUploadedPreSubmission',
+  servicePayments: 'servicePayments',
+  receivedServiceApplicationDate: 'receivedServiceApplicationDate',
+  receivedServiceAddedDate: 'receivedServiceAddedDate',
+  serviceApplicationSubmittedOnline: 'serviceApplicationSubmittedOnline',
+  alternativeServiceFeeRequired: 'alternativeServiceFeeRequired',
+  alternativeServiceType: 'alternativeServiceType',
   applicant2LegalProceedingDocs: 'applicant2LegalProceedingDocs',
   applicant1SearchGovRecordsWhichDepartments: 'applicant1SearchGovRecordsWhichDepartments',
   applicant1SearchGovRecordsWhyTheseDepartments: 'applicant1SearchGovRecordsWhyTheseDepartments',
@@ -311,6 +313,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispensePartnerPastAddress2: 'applicant1DispensePartnerPastAddress2',
   applicant1DispensePartnerPastAddressEnquiries2: 'applicant1DispensePartnerPastAddressEnquiries2',
   applicant1DispensePartnerLastSeenDate: 'applicant1DispensePartnerLastSeenDate',
+  applicant1DispensePartnerLastSeenOver2YearsAgo: 'applicant1DispensePartnerLastSeenOver2YearsAgo',
   applicant1DispensePartnerLastSeenDescription: 'applicant1DispensePartnerLastSeenDescription',
   applicant1DispenseHavePartnerEmailAddresses: 'applicant1DispenseHavePartnerEmailAddresses',
   applicant1DispenseHaveSearchedFinalOrder: 'applicant1DispenseHaveSearchedFinalOrder',
@@ -340,6 +343,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispenseChildMaintenanceOrder: 'applicant1DispenseChildMaintenanceOrder',
   applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
   applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
+  applicant1DispenseOtherEnquiries: 'applicant1DispenseOtherEnquiries',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -593,6 +597,7 @@ export interface Case {
   app2RfiDraftResponseCannotUploadDocs?: Checkbox;
   app2RfiDraftResponseDetails?: string;
   citizenPaymentCallbackUrl: string;
+  serviceMethod: ServiceMethod;
   applicant1NoResponseCheckContactDetails?: NoResponseCheckContactDetails;
   applicant1NoResponsePartnerNewEmailOrAddress?: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
@@ -649,6 +654,7 @@ export interface Case {
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
   applicant1NoResponseSearchOrDispense?: NoResponseSearchOrDispense;
+  applicant1NoResponsePartnerAddress?: AddressGlobalUK;
   applicant1NoResponsePartnerAddress1?: string;
   applicant1NoResponsePartnerAddress2?: string;
   applicant1NoResponsePartnerAddress3?: string;
@@ -659,21 +665,8 @@ export interface Case {
   applicant1NoResponsePartnerAddressOverseas?: YesOrNo;
   applicant1NoResponsePartnerEmailAddress?: string;
   applicant2Address?: AddressGlobalUK;
-  applicant1AltServiceReasonForApplying?: string;
-  applicant1AltServiceMethod?: AlternativeServiceMethod;
-  applicant1AltServicePartnerEmail?: string;
-  applicant1AltServicePartnerEmailWhenDifferent?: string;
-  applicant1AltServicePartnerPhone?: string;
-  applicant1AltServicePartnerWANum?: string;
-  applicant1AltServicePartnerSocialDetails?: string;
-  applicant1AltServicePartnerOtherDetails?: string;
-  applicant1AltServiceMethodJustification?: string;
-  serviceMethod: ServiceMethod;
-  applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
   servicePaymentFeeOrderSummary: OrderSummary;
   servicePaymentFeeServiceRequestReference: string;
-  servicePaymentFeeDateOfPayment: DateAsString;
-  servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeHelpWithFeesReferenceNumber: string;
   serviceApplicationDocsUploadedPreSubmission: YesOrNo;
   servicePayments: ListValue<Payment>[];
@@ -683,9 +676,21 @@ export interface Case {
   alternativeServiceFeeRequired: YesOrNo;
   alternativeServiceType: AlternativeServiceType;
   serviceApplicationAnswers: DivorceDocument;
+  applicant1AltServiceReasonForApplying?: string;
+  applicant1AltServiceMethod?: AlternativeServiceMethod;
+  applicant1AltServicePartnerEmail?: string;
+  applicant1AltServicePartnerEmailWhenDifferent?: string;
+  applicant1AltServicePartnerPhone?: string;
+  applicant1AltServicePartnerWANum?: string;
+  applicant1AltServicePartnerSocialDetails?: string;
+  applicant1AltServicePartnerOtherDetails?: string;
+  applicant1AltServiceMethodJustification?: string;
+  applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
+  servicePaymentFeeDateOfPayment: DateAsString;
+  servicePaymentFeePaymentMethod: ServicePaymentMethod;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant2LegalProceedingUploadedFiles?: UploadedFile[];
-  applicant1SearchGovRecordsReasonForApplying?: string;
+  applicant1SearchGovRecordsReasonForApplying: string;
   applicant1SearchGovRecordsWhichDepartments: SearchGovRecordsWhichDepartment[];
   applicant1SearchGovRecordsWhyTheseDepartments: string;
   applicant1SearchGovRecordsOtherDepartmentNames?: string;
@@ -707,23 +712,7 @@ export interface Case {
   applicant2GeneralAppServiceRequest?: string;
   applicant1GeneralAppPayments?: ListValue<Payment>[];
   applicant2GeneralAppPayments?: ListValue<Payment>[];
-  applicant1DispenseLiveTogether?: YesOrNo;
-  applicant1DispenseLivedTogetherDate?: DateAsString;
-  applicant1DispenseLastLivedTogetherDate?: CaseDate;
-  applicant1DispenseLivedTogetherAddress1?: string;
-  applicant1DispenseLivedTogetherAddress2?: string;
-  applicant1DispenseLivedTogetherAddress3?: string;
-  applicant1DispenseLivedTogetherAddressTown?: string;
-  applicant1DispenseLivedTogetherAddressCounty?: string;
-  applicant1DispenseLivedTogetherAddressPostcode?: string;
-  applicant1DispenseLivedTogetherAddressCountry?: string;
-  applicant1DispenseLivedTogetherAddressOverseas?: YesOrNo;
-  applicant1DispenseAwarePartnerLived?: YesOrNo;
-  applicant1DispensePartnerPastAddress1?: string;
-  applicant1DispensePartnerPastAddressEnquiries1?: string;
-  applicant1DispensePartnerPastAddress2?: string;
-  applicant1DispensePartnerPastAddressEnquiries2?: string;
-  applicant1DispensePartnerLastSeenDate?: DateAsString;
+  applicant1DispensePartnerLastSeenOver2YearsAgo?: YesOrNo;
   applicant1DispensePartnerLastSeenOrHeardOfDate?: CaseDate;
   applicant1DispensePartnerLastSeenDescription?: string;
   applicant1SearchGovRecordsPartnerLastKnownAddress1?: string;
@@ -762,6 +751,24 @@ export interface Case {
   applicant1DispenseChildMaintenanceOrder?: YesOrNo;
   applicant1DispenseChildMaintenanceResults?: string;
   applicant1DispenseContactFriendsOrRelativesDetails?: string;
+  applicant1DispenseOtherEnquiries?: string;
+  applicant1DispenseLiveTogether?: YesOrNo;
+  applicant1DispenseLivedTogetherDate?: DateAsString;
+  applicant1DispenseLastLivedTogetherDate?: CaseDate;
+  applicant1DispenseLivedTogetherAddress1?: string;
+  applicant1DispenseLivedTogetherAddress2?: string;
+  applicant1DispenseLivedTogetherAddress3?: string;
+  applicant1DispenseLivedTogetherAddressTown?: string;
+  applicant1DispenseLivedTogetherAddressCounty?: string;
+  applicant1DispenseLivedTogetherAddressPostcode?: string;
+  applicant1DispenseLivedTogetherAddressCountry?: string;
+  applicant1DispenseLivedTogetherAddressOverseas?: YesOrNo;
+  applicant1DispenseAwarePartnerLived?: YesOrNo;
+  applicant1DispensePartnerPastAddress1?: string;
+  applicant1DispensePartnerPastAddressEnquiries1?: string;
+  applicant1DispensePartnerPastAddress2?: string;
+  applicant1DispensePartnerPastAddressEnquiries2?: string;
+  applicant1DispensePartnerLastSeenDate?: DateAsString;
 }
 
 export interface CaseWithId extends Case {

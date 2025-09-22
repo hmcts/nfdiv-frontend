@@ -34,7 +34,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   howItWorks: {
     header: 'Sut mae’n gweithio',
     steps: {
-      one: "Once you confirm that this is what you want to do, you'll be able to download the papers from your account.",
+      one: 'Unwaith y byddwch yn cadarnhau mai dyma beth rydych eisiau ei wneud, byddwch yn gallu lawrlwytho’r papurau o’ch cyfrif.',
       two: 'Bydd angen i chi ddod o hyd i weinyddwr proses a’u cyflogi. Efallai yr hoffech ystyried faint o weithiau y byddant yn ceisio cyflwyno’r dogfennau, dros pa gyfnod o amser ac am ba amser o’r dydd.',
       three: `Byddant yn ceisio cyflwyno’r papurau i’ch ${partner}.`,
       four: 'Os byddant yn eu cyflwyno’n llwyddiannus, byddant yn llenwi tystysgrif cyflwyno (ffurflen FP6) a’i hanfon atoch.',
@@ -45,7 +45,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     },
   },
   line2: `Os byddant yn methu â chyflwyno’r papurau, efallai y gallwch wneud cais am gyflwyno amgen drwy flwch llythyrau, os yw cyfeiriad eich ${partner} wedi’i gadarnhau. Fel arall, bydd angen i chi gyflwyno’r papurau mewn rhyw ffordd arall.`,
-  iWantToArrangeService: 'I want to arrange service by process server',
+  iWantToArrangeService: 'Rwyf eisiau trefnu cyflwyno gan weinyddwr proses',
 });
 
 export const form: FormContent = {

@@ -5,6 +5,7 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 const en = {
   title: 'Tracing agents search',
   tracingAgentDescription: "What were the results of your tracing agent's search?",
+  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispenseTracingAgentResults: {
       required: "Enter details about the results of the tracing agent's search",
@@ -15,6 +16,7 @@ const en = {
 const cy: typeof en = {
   title: 'Tracing agents search',
   tracingAgentDescription: "What were the results of your tracing agent's search?",
+  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispenseTracingAgentResults: {
       required: "Enter details about the results of the tracing agent's search",

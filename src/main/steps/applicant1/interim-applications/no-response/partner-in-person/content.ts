@@ -1,14 +1,14 @@
 import config from 'config';
 
-import { Checkbox } from '../../../../../app/case/case';
-import { NoResponseProcessServerOrBailiff } from '../../../../../app/case/definition';
+import { Case, CaseDate, Checkbox } from '../../../../../app/case/case';
+import { NoResponseProcessServerOrBailiff, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
-import { FormContent } from '../../../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ isDivorce, partner }: CommonContent) => ({
+const en = ({ partner }: CommonContent) => ({
   title: 'In person service by process server or court bailiff',
   line1: `You can have the papers served on your ${partner} in person, either by a process server or a county court bailiff.`,
   processServerService: {
@@ -22,9 +22,8 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
         'If you need to send the documents to an international address, you may need to seek legal advice so you can tell the process server what types of service are legal in that country.',
       line4:
         'Process servers will charge you a fee to serve documents, normally between £50 - £200 depending on which process server you choose.',
-      line5: `You will need to find a process server yourself. We will send you the ${
-        isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-      }, so that you can give them to the process server to serve on your behalf.`,
+      line5:
+        'You will need to find a process server yourself. You will then need to download the papers from your account and give them to your process server. They will then serve the papers on your behalf',
     },
   },
   courtBailiffService: {
@@ -47,7 +46,8 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   respondentAddressInEnglandWales: `I confirm that my ${partner}'s address is in England or Wales`,
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
-      required: 'You must select an option before continuing',
+      required: 'Select either service by a process server or a court bailiff',
+      confidentialRespondent: `You cannot request to serve by process server because your ${partner}’s details are confidential. Please select another option or go back to try something else.`,
     },
     applicant1NoResponseRespondentAddressInEnglandWales: {
       required: `You must confirm that your ${partner}'s address is in England or Wales before continuing`,
@@ -56,9 +56,9 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 });
 
 // @TODO translations should be completed then verified
-const cy = ({ isDivorce, partner }: CommonContent) => ({
+const cy = ({ partner }: CommonContent) => ({
   title: 'Cyflwyno personol gan weinyddwr proses neu feili llys',
-  line1: `You can have the papers served on your ${partner} in person, either by a process server or a county court bailiff.`,
+  line1: `Gallwch gael y papurau wedi’u cyflwyno ar eich ${partner} yn bersonol, naill ai drwy weinyddwr proses neu feili llys sirol.`,
   processServerService: {
     header: 'Cyflwyno gan weinyddwr proses',
     details: {
@@ -70,9 +70,8 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
         'Os ydych chi angen anfon y dogfennau i gyfeiriad rhyngwladol, efallai yr hoffech geisio cyngor cyfreithiol fel y gallwch ddweud wrth y gweinyddwr proses pa fath o gyflwyno sy’n gyfreithiol yn y wlad honno.',
       line4:
         'Bydd gweinyddwyr proses yn codi ffi arnoch i gyflwyno dogfennau, fel arfer rhwng £50 - £200 gan ddibynnu ar ba weinyddwr proses rydych yn dewis.',
-      line5: `Bydd angen i chi ddod o hyd i weinyddwr proses eich hun. Byddwn yn anfon papurau’r ${
-        isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-      } atoch, fel y gallwch chi eu rhoi i’r gweinyddwr proses i’w cyflwyno ar eich rhan.`,
+      line5:
+        'Bydd angen i chi ddod o hyd i weinyddwr proses eich hun. Yna bydd angen i chi lawrlwytho’r papurau o’ch cyfrif a’u rhoi i’ch gweinyddwr proses. Yna byddant yn cyflwyno’r papurau ar eich rhan',
     },
   },
   courtBailiffService: {
@@ -91,20 +90,33 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   },
   howToProceedHeader: 'Sut hoffech chi barhau?',
   processServer: 'Rwyf eisiau trefnu i’r dogfennau gael eu cyflwyno gan weinyddwr proses',
-  bailiffService: 'I want to request bailiff service',
-  respondentAddressInEnglandWales: `I confirm that my ${partner}'s address is in England or Wales`,
+  bailiffService: 'Rwyf eisiau gwneud cais am wasanaeth cyflwyno gan feili',
+  respondentAddressInEnglandWales: `Cadarnhaf bod cyfeiriad fy ${partner} yng Nghymru neu Loegr`,
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
-      required: 'Rhaid i chi ddewis opsiwn cyn parhau',
+      required: 'Dewiswch naill ai weinyddwr proses neu feili llys',
+      confidentialRespondent: `Ni allwch ofyn am wasanaeth gan y gweinyddwr proses oherwydd bod manylion eich ${partner} yn gyfrinachol. Dewiswch opsiwn arall neu ewch yn ôl i roi cynnig ar rywbeth arall.`,
     },
     applicant1NoResponseRespondentAddressInEnglandWales: {
-      required: `You must confirm that your ${partner}'s address is in England or Wales before continuing`,
+      required: `Mae’n rhaid i chi gadarnhau bod cyfeiriad eich ${partner} yng Nghymru neu Loegr cyn parhau`,
     },
   },
 });
 
+const validateRespondentConfidentiality = (
+  userCase: Partial<Case>,
+  value: string | string[] | CaseDate | undefined
+) => {
+  const wantsToServeByProcessServer = value === NoResponseProcessServerOrBailiff.PROCESS_SERVER;
+  const respondentIsConfidential = userCase?.applicant2AddressPrivate === YesOrNo.YES;
+
+  if (wantsToServeByProcessServer && respondentIsConfidential) {
+    return 'confidentialRespondent';
+  }
+};
+
 export const form: FormContent = {
-  fields: {
+  fields: userCase => ({
     applicant1NoResponseProcessServerOrBailiff: {
       type: 'radios',
       classes: 'govuk-radios',
@@ -115,6 +127,7 @@ export const form: FormContent = {
           label: l => l.processServer,
           id: 'processServer',
           value: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
+          validator: value => validateRespondentConfidentiality(userCase, value),
         },
         {
           label: l => l.bailiffService,
@@ -139,7 +152,7 @@ export const form: FormContent = {
       ],
       validator: value => isFieldFilledIn(value),
     },
-  },
+  }),
   submit: {
     text: l => l.continue,
   },
@@ -154,6 +167,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };
