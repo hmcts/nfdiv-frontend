@@ -62,7 +62,8 @@ const en = (
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  respondentAddressProvided: boolean
+  respondentAddressProvided: boolean,
+  noResponseStartPagePath: string
 ) => ({
   aosAwaiting: {
     line1:
@@ -117,7 +118,7 @@ const en = (
     }.`,
     line2: `You have started a ${interimApplicationType} application.`,
     line3: `You can continue with your ${interimApplicationType} application.`,
-    line4: `If your circumstances have changed or you want to try something else, you can <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">view your options to proceed with your ${
+    line4: `If your circumstances have changed or you want to try something else, you can <a href=${noResponseStartPagePath} class="govuk-link">view your options to proceed with your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }</a>.`,
     line5: 'If you begin a new application, your current draft application will be deleted.',
@@ -138,7 +139,7 @@ const en = (
     line4:
       'If you cannot contact them or do not think they will respond, there are a number of ways to progress your application without needing a response from them.',
     linkText: 'View your options for proceeding without a response from the respondent.',
-    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
+    linkUrl: `${noResponseStartPagePath}`,
   },
   aosDueAndDrafted: {
     line1: `Your ${partner} has not submitted their response to your ${
@@ -151,7 +152,7 @@ const en = (
       isDivorce ? 'divorce' : 'application to end your civil partnership'
     } without needing a response.`,
     linkText: 'View your options for proceeding without a response from the respondent.',
-    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
+    linkUrl: `${noResponseStartPagePath}`,
   },
   holding: {
     line1: `Your ${partner} has responded to your ${
@@ -541,7 +542,8 @@ const cy: typeof en = (
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  respondentAddressProvided: boolean
+  respondentAddressProvided: boolean,
+  noResponseStartPagePath: string
 ) => ({
   aosAwaiting: {
     line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau
@@ -591,7 +593,7 @@ const cy: typeof en = (
     }.`,
     line2: `Rydych wedi dechrau cais ${interimApplicationType}.`,
     line3: `Gallwch barhau gyda’ch cais ${interimApplicationType}.`,
-    line4: `Os yw eich amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch <a href=${OPTIONS_FOR_PROGRESSING} class="govuk-link">weld eich opsiynau i fwrw ymlaen â'ch cais ${
+    line4: `Os yw eich amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch <a href=${noResponseStartPagePath} class="govuk-link">weld eich opsiynau i fwrw ymlaen â'ch cais ${
       isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
     }</a>.`,
     line5: 'Os ydych yn dechrau cais newydd, bydd eich cais drafft presennol yn cael ei ddileu.',
@@ -612,7 +614,7 @@ const cy: typeof en = (
     line4:
       'Fodd bynnag, os na allwch gysylltu â nhw neu os nad ydych chi’n meddwl y byddant yn ymateb, mae yna sawl ffordd i symud eich cais yn ei flaen heb fod angen ymateb ganddynt.',
     linkText: 'Gweld eich opsiynau ar gyfer bwrw ymlaen heb ymateb gan yr atebydd.',
-    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
+    linkUrl: `${noResponseStartPagePath}`,
   },
   aosDueAndDrafted: {
     line1: `Mae eich ${partner} wedi cyflwyno eu hymateb i’ch ${
@@ -625,7 +627,7 @@ const cy: typeof en = (
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     } heb fod angen ymateb.`,
     linkText: 'Gweld eich opsiynau ar gyfer bwrw ymlaen heb ymateb gan yr atebydd.',
-    linkUrl: `${respondentAddressProvided ? OPTIONS_FOR_PROGRESSING : OWN_SEARCHES}`,
+    linkUrl: `${noResponseStartPagePath}`,
   },
   holding: {
     line1: `Mae eich ${partner} wedi ymateb i'ch ${
@@ -1073,9 +1075,7 @@ export const generateContent: TranslationFn = content => {
     !userCase.aosStatementOfTruth &&
     userCase.issueDate &&
     dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
-  const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
-    field => field && field.length > 0
-  );
+
   const contactDetailsUpdatedUKBased =
     userCase.applicant1NoResponsePartnerNewEmailOrAddress ===
       NoResponsePartnerNewEmailOrAddress.CONTACT_DETAILS_UPDATED && userCase.applicant2AddressOverseas !== YesOrNo.YES;
@@ -1084,6 +1084,10 @@ export const generateContent: TranslationFn = content => {
     NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
   const isSearchGovRecordsFeeRequired = content.generalApplicationFeeRequired;
 
+  const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
+    field => field && field.length > 0
+  );
+  const noResponseStartPagePath = (!respondentAddressProvided && !content.isApp2Represented) ? OWN_SEARCHES : OPTIONS_FOR_PROGRESSING;
   const interimApplicationStartPagePath = (() => {
     switch (userCase.applicant1InterimApplicationType) {
       case InterimApplicationType.ALTERNATIVE_SERVICE:
@@ -1112,7 +1116,8 @@ export const generateContent: TranslationFn = content => {
       content,
       alternativeServiceType,
       dateOfCourtReplyToRequestForInformationResponse,
-      respondentAddressProvided
+      respondentAddressProvided,
+      noResponseStartPagePath,
     ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
     generalApplicationSubmitted: generalApplicationSubmittedContent(content),
