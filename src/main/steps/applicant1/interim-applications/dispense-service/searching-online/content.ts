@@ -29,7 +29,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: `Dod o hyd i’ch ${partner} ar-lein drwy chwilio ar y rhyngrwyd`,
   line1: `Gallech ystyried defnyddio peiriant chwilio i edrych am enw eich ${partner} neu geisio dod o hyd iddynt ar blatfformau cyfryngau cymdeithasol.`,
@@ -37,7 +36,7 @@ const cy = ({ partner }: CommonContent) => ({
     header: 'Os gallwch ddod o hyd i:',
     options: {
       postalAddress: `gyfeiriad post diweddaraf, gallech <a class="govuk-link" target="_blank" href="${NEW_POSTAL_AND_EMAIL}">ddiweddaru eu cyfeiriad e-bost (yn agor mewn tab newydd)</a> a chael y llys i anfon y papurau atynt heb unrhyw gost ychwanegol.`,
-      evidence: `tystiolaeth eu bod yn defnyddio cyfeiriad e-bost, rhif ffôn neu gyfrif cyfryngau cymdeithasol, gallech <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}">wneud cais am wasanaeth amgen (yn agor mewn tab newydd)</a>.`,
+      evidence: `tystiolaeth eu bod yn defnyddio cyfeiriad e-bost, rhif ffôn neu gyfrif cyfryngau cymdeithasol, gallech <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}">wneud cais am gyflwyno amgen (yn agor mewn tab newydd)</a>.`,
     },
   },
   triedSearchingOnlineHeader: `A ydych wedi ceisio dod o hyd i fanylion eich ${partner} ar-lein drwy chwilio ar y rhyngrwyd?`,

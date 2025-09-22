@@ -80,7 +80,7 @@ const cy = ({ partner }: CommonContent) => ({
       required: 'Nid ydych wedi rhoi cyfeiriad adeilad a stryd.  Rhowch gyfeiriad adeilad a stryd cyn parhau.',
     },
     applicant1DispenseLivedTogetherAddressTown: {
-      required: 'Nid ydych wedi rhoi tref neu ddinas, Rhowch enw tref neu ddinas cyn parhau.',
+      required: 'Nid ydych wedi rhoi tref neu ddinas. Rhowch enw tref neu ddinas cyn parhau.',
     },
     addressPostcode: addressPostcodeCY,
     applicant1DispenseLivedTogetherAddressPostcode: addressPostcodeCY,

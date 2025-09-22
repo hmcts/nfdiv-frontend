@@ -19,17 +19,16 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: `Cyfeiriad e-bost eich ${partner}`,
   line1: `Os oes gennych unrhyw gyfeiriadau e-bost i’ch ${partner}, byddwch angen eu darparu i’r llys. Byddwch angen dangos pam na ellir cysylltu â’ch ${partner} yn y cyfeiriad hwn mwyach.  Er enghraifft, gallai hyn fod yn derbyn e-bost ‘methu anfon’ wrth geisio cysylltu â’r cyfeiriad e-bost hwnnw.`,
-  line2: `Os ydych yn gwybod bod gan eich ${partner} gyfeiriad e-bost maent yn ei ddefnyddio’n rheolaidd, gallech ystyried <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}">gwneud cais am wasanaeth amgen (yn agor mewn tab newydd)</a>.`,
+  line2: `Os ydych yn gwybod bod gan eich ${partner} gyfeiriad e-bost maent yn ei ddefnyddio’n rheolaidd, gallech ystyried <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}">gwneud cais am gyflwyno amgen (yn agor mewn tab newydd)</a>.`,
   havePartnerEmailAddressesHeader: `Oes gennych chi unrhyw gyfeiriadau e-bost i’ch ${partner}?`,
-  yes: 'Ydw',
-  no: 'Nac ydw',
+  yes: 'Oes',
+  no: 'Nac oes',
   errors: {
     applicant1DispenseHavePartnerEmailAddresses: {
-      required: `Dewiswch “Ydw” os ydych yn gwybod unrhyw gyfeiriadau e-bost i’ch ${partner}`,
+      required: `Dewiswch “Oes” os ydych yn gwybod unrhyw gyfeiriadau e-bost i’ch ${partner}`,
     },
   },
 });

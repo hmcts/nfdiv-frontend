@@ -36,14 +36,14 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   optional: '(dewisol)',
   errors: {
     applicant1DispensePartnerPastAddress1: {
-      required: 'Rhaid i chi ddarparu manylion eich cyfeiriad cyn parhau.',
+      required: 'Rhaid i chi ddarparu manylion y cyfeiriad cyn parhau.',
     },
     applicant1DispensePartnerPastAddressEnquiries1: {
       required: 'Rhowch fanylion canlyniad eich ymholiadau.',
     },
     applicant1DispensePartnerPastAddress2: {
       required:
-        "Rydych wedi darparu datganiad am ail gyfeiriad, felly mae'n rhaid i chi ddarparu manylion cyfeiriad cyn parhau.",
+        "Rydych wedi darparu datganiad am ail gyfeiriad, felly mae'n rhaid i chi ddarparu manylion y cyfeiriad cyn parhau.",
     },
     applicant1DispensePartnerPastAddressEnquiries2: {
       required: "Rydych wedi darparu ail gyfeiriad, felly mae'n rhaid i chi ddarparu datganiad cyn parhau.",
