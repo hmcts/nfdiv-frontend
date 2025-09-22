@@ -922,12 +922,12 @@ describe('to-api-format', () => {
 
     test('sets approx age to null if the date of birth is known', () => {
       const apiFormat = toApiFormat({
-        applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo.YES,
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
       } as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
-        applicant1SearchGovRecordsKnowPartnerDateOfBirth: YesOrNo.YES,
-        applicant1SearchGovRecordsPartnerApproximateAge: null,
+        applicant1BailiffKnowPartnersDateOfBirth: YesOrNo.YES,
+        applicant1BailiffPartnersApproximateAge: null,
       });
     });
   });
