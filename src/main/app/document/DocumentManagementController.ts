@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';
+import { isEmpty } from 'lodash';
 
 import {
   APPLICANT_2,
@@ -17,6 +18,7 @@ import {
 } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
 import {
+  ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_UPDATE,
   DivorceDocument,
@@ -51,21 +53,31 @@ const APPLICANT_TWO_DOC_UPLOAD_STATES = [
   State.AwaitingConditionalOrder,
 ];
 
+export const userCanUploadDocuments = (userCase: CaseWithId, isApplicant2: boolean): boolean => {
+  const isSole = userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+  const state = userCase.state;
+
+  if (isApplicant2) {
+    return isSole ? isEmpty(userCase.dateAosSubmitted) : APPLICANT_TWO_DOC_UPLOAD_STATES.includes(state);
+  } else {
+    return APPLICANT_ONE_DOC_UPLOAD_STATES.includes(state);
+  }
+}
+
 @autobind
 export class DocumentManagerController {
   logger: LoggerInstance | undefined;
 
   private redirect(req: AppRequest, res: Response, isApplicant2: boolean) {
+    const isSole = req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+
     if (req.session.userCase.state === State.AwaitingClarification) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
     } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state) && !isApplicant2) {
       return res.redirect(this.interimApplicationRedirectPath(req, isApplicant2));
-    } else if (
-      [State.AosDrafted, State.AosOverdue, State.AwaitingConditionalOrder].includes(req.session.userCase.state) &&
-      isApplicant2
-    ) {
+    } else if (isSole && isApplicant2) {
       return res.redirect(RESPONDENT + DETAILS_OTHER_PROCEEDINGS);
     }
     return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
@@ -87,11 +99,11 @@ export class DocumentManagerController {
 
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
+    const isSole = req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+    const hasSubmittedAos = !isEmpty(req.session.userCase.dateAosSubmitted);
+
     this.logger = req.locals.logger;
-    if (
-      (!isApplicant2 && !APPLICANT_ONE_DOC_UPLOAD_STATES.includes(req.session.userCase.state)) ||
-      (isApplicant2 && !APPLICANT_TWO_DOC_UPLOAD_STATES.includes(req.session.userCase.state))
-    ) {
+    if (!userCanUploadDocuments(req.session.userCase, isApplicant2)) {
       throw new Error('Cannot upload new documents as case is not in the correct state');
     }
 
@@ -132,10 +144,7 @@ export class DocumentManagerController {
       documentsKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
     } else if (!isApplicant2 && [State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
       documentsKey = isApplicant2 ? 'applicant2InterimAppsEvidenceDocs' : 'applicant1InterimAppsEvidenceDocs';
-    } else if (
-      isApplicant2 &&
-      [State.AosDrafted, State.AosOverdue, State.AwaitingConditionalOrder].includes(req.session.userCase.state)
-    ) {
+    } else if (isSole && isApplicant2 && !hasSubmittedAos) {
       documentsKey = 'applicant2LegalProceedingDocs';
     }
 
@@ -158,7 +167,9 @@ export class DocumentManagerController {
   }
 
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+    const isSole = req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
     const isApplicant2 = req.session.isApplicant2;
+
     let documentsUploadedKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
     if (req.session.userCase.state === State.AwaitingClarification) {
       documentsUploadedKey = 'coClarificationUploadDocuments';
@@ -170,20 +181,14 @@ export class DocumentManagerController {
       documentsUploadedKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
     } else if (!isApplicant2 && [State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
       documentsUploadedKey = isApplicant2 ? 'applicant2InterimAppsEvidenceDocs' : 'applicant1InterimAppsEvidenceDocs';
-    } else if (
-      isApplicant2 &&
-      [State.AosDrafted, State.AosOverdue, State.AwaitingConditionalOrder].includes(req.session.userCase.state)
-    ) {
+    } else if (isSole && isApplicant2) {
       documentsUploadedKey = 'applicant2LegalProceedingDocs';
     }
 
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
-    if (
-      (!isApplicant2 && !APPLICANT_ONE_DOC_UPLOAD_STATES.includes(req.session.userCase.state)) ||
-      (isApplicant2 && !APPLICANT_TWO_DOC_UPLOAD_STATES.includes(req.session.userCase.state))
-    ) {
+    if (!userCanUploadDocuments(req.session.userCase, isApplicant2)) {
       throw new Error('Cannot delete documents as case is not in the correct state');
     }
 

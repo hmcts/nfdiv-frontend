@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
+import { userCanUploadDocuments  } from '../../app/document/DocumentManagementController';
 import {
   ApplicationType,
   GeneralApplication,
@@ -432,17 +433,7 @@ export const generateCommonContent = ({
   const applicationHasBeenPaidFor = userCase?.applicationPayments?.some(
     payment => payment.value.status === PaymentStatus.SUCCESS
   );
-  const isAmendableStates =
-    userCase &&
-    userCase.state &&
-    [
-      State.Draft,
-      State.AwaitingApplicant1Response,
-      State.AwaitingApplicant2Response,
-      State.AosDrafted,
-      State.AosOverdue,
-      State.AwaitingConditionalOrder,
-    ].includes(userCase.state);
+  const isAmendableStates = userCanUploadDocuments(userCase as CaseWithId, isApplicant2);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
   const isRequestForInformationAmendableState =
     userCase &&
