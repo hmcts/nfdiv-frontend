@@ -1087,7 +1087,8 @@ export const generateContent: TranslationFn = content => {
   const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
     field => field && field.length > 0
   );
-  const noResponseStartPagePath = (!respondentAddressProvided && !content.isApp2Represented) ? OWN_SEARCHES : OPTIONS_FOR_PROGRESSING;
+  const noResponseStartPagePath =
+    !respondentAddressProvided && !content.isApp2Represented ? OWN_SEARCHES : OPTIONS_FOR_PROGRESSING;
   const interimApplicationStartPagePath = (() => {
     switch (userCase.applicant1InterimApplicationType) {
       case InterimApplicationType.ALTERNATIVE_SERVICE:
@@ -1117,7 +1118,7 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceType,
       dateOfCourtReplyToRequestForInformationResponse,
       respondentAddressProvided,
-      noResponseStartPagePath,
+      noResponseStartPagePath
     ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
     generalApplicationSubmitted: generalApplicationSubmittedContent(content),
