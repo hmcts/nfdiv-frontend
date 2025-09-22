@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
-import { userCanUploadDocuments  } from '../../app/document/DocumentManagementController';
 import {
   ApplicationType,
   GeneralApplication,
@@ -13,6 +12,7 @@ import {
   State,
   YesOrNo,
 } from '../../app/case/definition';
+import { userCanUploadDocuments } from '../../app/document/DocumentManagementController';
 import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';

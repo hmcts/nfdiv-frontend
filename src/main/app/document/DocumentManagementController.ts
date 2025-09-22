@@ -1,8 +1,8 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
+import { isEmpty } from 'lodash';
 import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';
-import { isEmpty } from 'lodash';
 
 import {
   APPLICANT_2,
@@ -62,7 +62,7 @@ export const userCanUploadDocuments = (userCase: CaseWithId, isApplicant2: boole
   } else {
     return APPLICANT_ONE_DOC_UPLOAD_STATES.includes(state);
   }
-}
+};
 
 @autobind
 export class DocumentManagerController {
@@ -169,7 +169,6 @@ export class DocumentManagerController {
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const isSole = req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
     const isApplicant2 = req.session.isApplicant2;
-
     let documentsUploadedKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
     if (req.session.userCase.state === State.AwaitingClarification) {
       documentsUploadedKey = 'coClarificationUploadDocuments';
