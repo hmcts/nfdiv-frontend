@@ -20,12 +20,11 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: `Rhif(au) ffôn eich ${partner}`,
   line1: `Os oes gennych unrhyw rifau ffôn ar gyfer eich ${partner}, rhowch nhw isod. Byddwch angen egluro’r ymdrechion a wnaed gennych chi neu rywun arall i gysylltu â nhw dros y ffôn, a pham nad ydych wedi bod yn llwyddiannus. Er enghraifft, gallai hyn gynnwys bod y rhif heb gael ei adnabod, neu rywun nad ydych yn ei adnabod yn ateb y ffôn.`,
   line2: `Dylech ond ymdrechu i gysylltu â’ch ${partner} os yw’n ddiogel gwneud hynny.`,
-  line3: `Os ydych yn gwybod bod gan eich ${partner} rif ffôn maent yn ei ddefnyddio’n rheolaidd, gallech ystyried <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}">gwneud cais am wasanaeth amgen (yn agor mewn tab newydd)</a>.`,
+  line3: `Os ydych yn gwybod bod gan eich ${partner} rif ffôn maent yn ei ddefnyddio’n rheolaidd, gallech ystyried <a class="govuk-link" target="_blank" href="${ALTERNATIVE_SERVICE_APPLICATION}">gwneud cais am gyflwyno amgen (yn agor mewn tab newydd)</a>.`,
   yes: 'Oes',
   no: 'Nac oes',
   havePartnerPhoneNumbersHeader: `Oes gennych chi unrhyw rifau ffôn i’ch ${partner}?`,

@@ -48,15 +48,14 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   alsoTryHeader: `Before applying to dispense with service, you should have made every reasonable attempt to serve the papers on your ${partner}, including:`,
 });
 
-// @TODO translations should be verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: 'Gwneud cais i hepgor cyflwyno (D13b)',
   line1: `Mae hepgor cyflwyno yn golygu symud eich ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-  } ymlaen heb anfon papurau’r at eich ${partner}.`,
+  } ymlaen heb anfon y papurau at eich ${partner}.`,
   line2: `Yn y rhan fwyaf o achosion, ni allwch ${
-    isDivorce ? 'ysgaru eich' : 'ddod â’ch partneriaeth sifil gyda’ch'
-  } ${partner} i ben heb iddynt wybod. Felly, y dewis olaf gan y llys fyddai caniatáu cais i hepgor cyflwyno.`,
+    isDivorce ? 'ysgaru eich' : 'ddod â’ch partneriaeth sifil i ben gyda’ch'
+  } ${partner} heb iddynt wybod. Felly, y dewis olaf gan y llys fyddai caniatáu cais i hepgor cyflwyno.`,
   whatYouNeedToDoHeader: 'Beth sydd angen i chi ei wneud',
   proveToTheCourt: {
     title: `Byddwch angen profi i’r llys eich bod wedi gwneud pob ymdrech rhesymol i ddod o hyd i’ch ${partner} neu anfon y papurau atynt, heb lwyddiant, gan gynnwys:`,
@@ -85,7 +84,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   line5: `${getFee(
     config.get('fees.dispensedService')
   )} yw’r ffi ar gyfer gwneud cais am hepgor cyflwyno, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.getHelpWithCourtFees'
+    'govukUrls.getHelpWithCourtFeesCY'
   )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
   buttonText: 'Dechrau nawr',
   alsoTryHeader: `Cyn gwneud cais i hepgor cyflwyno, dylech fod wedi gwneud pob ymdrech resymol i gyflwyno’r papurau ar eich ${partner} gan gynnwys:`,

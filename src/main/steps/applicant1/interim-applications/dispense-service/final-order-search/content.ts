@@ -42,7 +42,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: `Gwirio am ${isDivorce ? 'ddyfarniad absoliwt neu ' : ''}orchymyn terfynol presennol`,
   line1: `Os nad ydych wedi clywed gan eich ${partner} am fwy na 2 flynedd efallai y byddwch angen gwirio i weld ${
@@ -54,7 +53,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'ddyfarniad absoliwt neu ' : ''
   }orchymyn terfynol presennol (yn agor mewn tab newydd)</a>.`,
   line3: `Mae’n costio ${getFee(
-    config.get('fees.fees.searchDecreeNisiOrFinalOrder')
+    config.get('fees.searchDecreeNisiOrFinalOrder')
   )} ar gyfer pob cyfnod 10 mlynedd yr ydych yn chwilio.`,
   line4: 'Byddwch angen chwilio o’r dyddiad wnaethoch glywed ganddynt ddiwethaf.',
   line5: `Os canfyddir ${isDivorce ? 'dyfarniad absoliwt neu ' : ''}orchymyn terfynol, ${
