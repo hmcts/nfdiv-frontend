@@ -155,12 +155,12 @@ Feature: No response journey
     Then the page should include element "#enterPostcode"
 
     Given I select element "#postcode"
-    And I type "SW1H 9AJ"
+    And I type "SW1A 1AA"
     When I click element "#findAddressButton"
-    Then the page should include "SW1H 9AJ"
+    Then the page should include "SW1A 1AA"
     And I wait for the postcode lookup to return results
 
-    Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    Given I choose "BUCKINGHAM PALACE, LONDON, SW1A 1AA" from "Select an address"
     When I click continue
     Then the page should include element "#checkAnswersTitle"
 
@@ -221,12 +221,12 @@ Feature: No response journey
     Then the page should include element "#enterPostcode"
 
     Given I select element "#postcode"
-    And I type "SW1H 9AJ"
-    When I click "Find address"
-    Then the page should include "SW1H 9AJ"
+    And I type "SW1A 1AA"
+    When I click element "#findAddressButton"
+    Then the page should include "SW1A 1AA"
     And I wait for the postcode lookup to return results
 
-    Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    Given I choose "BUCKINGHAM PALACE, LONDON, SW1A 1AA" from "Select an address"
     When I click continue
     Then the page should include element "#checkAnswersTitle"
 
