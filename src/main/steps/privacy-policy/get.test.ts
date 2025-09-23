@@ -18,7 +18,7 @@ describe('PrivacyPolicyGetController', () => {
     expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...controller.getPageContent(req, res, language),
       ...defaultViewArgs,
-      isAmendableStates: false,
+      isAmendableStates: undefined,
       userCase: req.session.userCase,
     });
   });
@@ -32,7 +32,7 @@ describe('PrivacyPolicyGetController', () => {
     expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...controller.getPageContent(req, res, language),
       ...defaultViewArgs,
-      isAmendableStates: false,
+      isAmendableStates: undefined,
       userCase: req.session.userCase,
     });
   });

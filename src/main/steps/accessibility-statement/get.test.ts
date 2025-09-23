@@ -18,7 +18,7 @@ describe('AccessibilityStatementGetController', () => {
     expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...controller.getPageContent(req, res, language),
       ...defaultViewArgs,
-      isAmendableStates: false,
+      isAmendableStates: undefined,
       userCase: req.session.userCase,
     });
   });
@@ -33,7 +33,7 @@ describe('AccessibilityStatementGetController', () => {
     expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...controller.getPageContent(req, res, language),
       ...defaultViewArgs,
-      isAmendableStates: false,
+      isAmendableStates: undefined,
       userCase: req.session.userCase,
     });
   });

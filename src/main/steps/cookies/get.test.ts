@@ -18,7 +18,7 @@ describe('CookiesGetController', () => {
     expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...controller.getPageContent(req, res, language),
       ...defaultViewArgs,
-      isAmendableStates: false,
+      isAmendableStates: undefined,
       serviceName: 'Apply for a divorce',
       userCase: req.session.userCase,
     });
@@ -33,7 +33,7 @@ describe('CookiesGetController', () => {
     expect(res.render).toHaveBeenCalledWith(expect.anything(), {
       ...controller.getPageContent(req, res, language),
       ...defaultViewArgs,
-      isAmendableStates: false,
+      isAmendableStates: undefined,
       serviceName: 'Apply to end a civil partnership',
       userCase: req.session.userCase,
     });

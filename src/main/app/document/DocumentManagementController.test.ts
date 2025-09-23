@@ -394,12 +394,14 @@ describe('DocumentManagerController', () => {
       {
         isApplicant2: true,
         state: State.AosDrafted,
+        applicationType: ApplicationType.SOLE_APPLICATION,
       },
-    ])('throws an error if no files were uploaded - %o', async ({ state, isApplicant2 }) => {
+    ])('throws an error if no files were uploaded - %o', async ({ state, isApplicant2, applicationType }) => {
       const req = mockRequest({
         isApplicant2,
         userCase: {
           state,
+          applicationType,
         },
       });
       req.headers.accept = 'application/json';

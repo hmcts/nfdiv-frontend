@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
-import { isEmpty } from 'lodash';
 import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
@@ -30,39 +29,7 @@ import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
-
-const APPLICANT_ONE_DOC_UPLOAD_STATES = [
-  State.Draft,
-  State.AosDrafted,
-  State.AosOverdue,
-  State.AwaitingApplicant1Response,
-  State.AwaitingClarification,
-  State.InformationRequested,
-  State.AwaitingRequestedInformation,
-  State.RequestedInformationSubmitted,
-];
-
-const APPLICANT_TWO_DOC_UPLOAD_STATES = [
-  State.AwaitingApplicant2Response,
-  State.AwaitingClarification,
-  State.InformationRequested,
-  State.AwaitingRequestedInformation,
-  State.RequestedInformationSubmitted,
-  State.AosDrafted,
-  State.AosOverdue,
-  State.AwaitingConditionalOrder,
-];
-
-export const userCanUploadDocuments = (userCase: Partial<CaseWithId>, isApplicant2: boolean): boolean => {
-  const isSole = userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
-  const state = userCase?.state as State;
-
-  if (isApplicant2) {
-    return isSole ? isEmpty(userCase.dateAosSubmitted) : APPLICANT_TWO_DOC_UPLOAD_STATES.includes(state);
-  } else {
-    return APPLICANT_ONE_DOC_UPLOAD_STATES.includes(state);
-  }
-};
+import { userCanUploadDocuments } from './DocumentManagementConstants';
 
 @autobind
 export class DocumentManagerController {

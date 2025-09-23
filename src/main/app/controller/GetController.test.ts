@@ -146,7 +146,7 @@ describe('GetController', () => {
 
     expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
-      isAmendableStates: false,
+      isAmendableStates: undefined,
       userCase: {
         id: '1234',
         divorceOrDissolution: 'divorce',
