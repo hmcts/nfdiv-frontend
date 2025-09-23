@@ -53,9 +53,9 @@ const APPLICANT_TWO_DOC_UPLOAD_STATES = [
   State.AwaitingConditionalOrder,
 ];
 
-export const userCanUploadDocuments = (userCase: CaseWithId, isApplicant2: boolean): boolean => {
+export const userCanUploadDocuments = (userCase: Partial<CaseWithId>, isApplicant2: boolean): boolean => {
   const isSole = userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
-  const state = userCase?.state;
+  const state = userCase?.state as State;
 
   if (isApplicant2) {
     return isSole ? isEmpty(userCase.dateAosSubmitted) : APPLICANT_TWO_DOC_UPLOAD_STATES.includes(state);
@@ -100,7 +100,6 @@ export class DocumentManagerController {
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
     const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
-    const hasSubmittedAos = !isEmpty(req.session.userCase.dateAosSubmitted);
 
     this.logger = req.locals.logger;
     if (!userCanUploadDocuments(req.session.userCase, isApplicant2)) {
@@ -144,7 +143,7 @@ export class DocumentManagerController {
       documentsKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
     } else if (!isApplicant2 && [State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
       documentsKey = isApplicant2 ? 'applicant2InterimAppsEvidenceDocs' : 'applicant1InterimAppsEvidenceDocs';
-    } else if (isSole && isApplicant2 && !hasSubmittedAos) {
+    } else if (isSole && isApplicant2) {
       documentsKey = 'applicant2LegalProceedingDocs';
     }
 

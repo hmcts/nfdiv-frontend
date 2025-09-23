@@ -12,7 +12,6 @@ import {
   State,
   YesOrNo,
 } from '../../app/case/definition';
-import { userCanUploadDocuments } from '../../app/document/DocumentManagementController';
 import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
@@ -433,7 +432,22 @@ export const generateCommonContent = ({
   const applicationHasBeenPaidFor = userCase?.applicationPayments?.some(
     payment => payment.value.status === PaymentStatus.SUCCESS
   );
-  const isAmendableStates = userCanUploadDocuments(userCase as CaseWithId, isApplicant2);
+  const isAmendableStates =
+    userCase &&
+    userCase.state &&
+    [
+      State.Draft,
+      State.AwaitingApplicant1Response,
+      State.AwaitingApplicant2Response,
+      State.AosDrafted,
+      State.AosOverdue,
+      State.AwaitingConditionalOrder,
+      State.AwaitingDocuments,
+      State.AwaitingServicePayment,
+      State.AwaitingServiceConsideration,
+      State.AwaitingGeneralConsideration,
+      State.AwaitingGeneralApplicationPayment
+    ].includes(userCase.state);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
   const isRequestForInformationAmendableState =
     userCase &&
