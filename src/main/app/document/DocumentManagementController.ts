@@ -54,8 +54,8 @@ const APPLICANT_TWO_DOC_UPLOAD_STATES = [
 ];
 
 export const userCanUploadDocuments = (userCase: CaseWithId, isApplicant2: boolean): boolean => {
-  const isSole = userCase.applicationType === ApplicationType.SOLE_APPLICATION;
-  const state = userCase.state;
+  const isSole = userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
+  const state = userCase?.state;
 
   if (isApplicant2) {
     return isSole ? isEmpty(userCase.dateAosSubmitted) : APPLICANT_TWO_DOC_UPLOAD_STATES.includes(state);
@@ -69,7 +69,7 @@ export class DocumentManagerController {
   logger: LoggerInstance | undefined;
 
   private redirect(req: AppRequest, res: Response, isApplicant2: boolean) {
-    const isSole = req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+    const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
 
     if (req.session.userCase.state === State.AwaitingClarification) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
@@ -99,7 +99,7 @@ export class DocumentManagerController {
 
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
-    const isSole = req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+    const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
     const hasSubmittedAos = !isEmpty(req.session.userCase.dateAosSubmitted);
 
     this.logger = req.locals.logger;
@@ -167,7 +167,7 @@ export class DocumentManagerController {
   }
 
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-    const isSole = req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+    const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
     const isApplicant2 = req.session.isApplicant2;
     let documentsUploadedKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
     if (req.session.userCase.state === State.AwaitingClarification) {
