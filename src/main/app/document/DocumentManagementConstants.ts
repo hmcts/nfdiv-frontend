@@ -19,6 +19,7 @@ const APPLICANT_TWO_DOC_UPLOAD_STATES = [
   State.InformationRequested,
   State.AwaitingRequestedInformation,
   State.RequestedInformationSubmitted,
+  State.AwaitingConditionalOrder,
 ];
 
 const RESPONDENT_DOC_UPLOAD_STATES = orderedStateSequence.slice(

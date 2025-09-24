@@ -32,6 +32,7 @@ describe('userCanUploadDocuments', () => {
       State.InformationRequested,
       State.AwaitingRequestedInformation,
       State.RequestedInformationSubmitted,
+      State.AwaitingConditionalOrder,
     ];
 
     test.each(validStates)('should return true for valid state %s', state => {
