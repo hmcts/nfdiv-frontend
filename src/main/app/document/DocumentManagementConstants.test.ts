@@ -1,5 +1,6 @@
-import { userCanUploadDocuments } from './DocumentManagementConstants';
 import { ApplicationType, State } from '../case/definition';
+
+import { userCanUploadDocuments } from './DocumentManagementConstants';
 
 describe('userCanUploadDocuments', () => {
   describe('when user is applicant 1', () => {
@@ -55,7 +56,7 @@ describe('userCanUploadDocuments', () => {
       State.AwaitingGeneralApplicationPayment,
       State.AwaitingGeneralConsideration,
       State.GeneralApplicationReceived,
-      State.AwaitingDocuments
+      State.AwaitingDocuments,
     ];
 
     test.each(validStates)('should return true for valid respondent state %s', state => {
