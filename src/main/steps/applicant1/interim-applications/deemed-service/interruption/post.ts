@@ -1,16 +1,12 @@
 import autobind from 'autobind-decorator';
 
-import { Case, CaseWithId } from '../../../../../app/case/case';
 import { InterimApplicationType } from '../../../../../app/case/definition';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import { AnyObject } from '../../../../../app/controller/PostController';
+import StartInterimApplicationPostController from '../../common/start-interim-application/post';
 
 @autobind
-export default class DeemedInterruptionPostController extends PostController<AnyObject> {
-  protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    if (!req.session.isApplicant2) {
-      formData.applicant1InterimApplicationType = InterimApplicationType.DEEMED_SERVICE;
-    }
-    return super.save(req, formData, eventName);
+export default class BailiffInterruptionPostController extends StartInterimApplicationPostController<AnyObject> {
+  protected interimApplicationType(): InterimApplicationType {
+    return InterimApplicationType.DEEMED_SERVICE;
   }
 }

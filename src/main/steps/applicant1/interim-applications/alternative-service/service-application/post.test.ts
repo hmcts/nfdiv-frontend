@@ -8,32 +8,32 @@ import {
 } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 
-import DispenseServiceApplicationPostController from './post';
+import AlternativeServiceApplicationPostController from './post';
 
-describe('DispenseServiceApplicationPostController', () => {
+describe('AlternativeServiceApplicationPostController', () => {
   const mockFormContent = {
     fields: {
       applicant1InterimAppsIUnderstand: {},
     },
   } as unknown as FormContent;
 
-  it('Sets dispense service general application type', async () => {
+  it('Sets alternative service general application type', async () => {
     const body = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
     };
 
     const expectedBody = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
-      applicant1InterimApplicationType: InterimApplicationType.DISPENSE_WITH_SERVICE,
+      applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE,
     };
 
-    const dispenseServiceApplicationPostController = new DispenseServiceApplicationPostController(
+    const alternativeServiceApplicationPostController = new AlternativeServiceApplicationPostController(
       mockFormContent.fields
     );
 
     const req = mockRequest({ body });
     const res = mockResponse();
-    await dispenseServiceApplicationPostController.post(req, res);
+    await alternativeServiceApplicationPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_START_INTERIM_APPLICATION);
   });
@@ -45,10 +45,10 @@ describe('DispenseServiceApplicationPostController', () => {
 
     const expectedBody = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
-      applicant1InterimApplicationType: InterimApplicationType.DISPENSE_WITH_SERVICE,
+      applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE,
     };
 
-    const dispenseServiceApplicationPostController = new DispenseServiceApplicationPostController(
+    const alternativeServiceApplicationPostController = new AlternativeServiceApplicationPostController(
       mockFormContent.fields
     );
 
@@ -57,7 +57,7 @@ describe('DispenseServiceApplicationPostController', () => {
       userCase: { applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE },
     });
     const res = mockResponse();
-    await dispenseServiceApplicationPostController.post(req, res);
+    await alternativeServiceApplicationPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_START_INTERIM_APPLICATION);
   });
@@ -69,19 +69,19 @@ describe('DispenseServiceApplicationPostController', () => {
 
     const expectedBody = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
-      applicant1InterimApplicationType: InterimApplicationType.DISPENSE_WITH_SERVICE,
+      applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE,
     };
 
-    const dispenseServiceApplicationPostController = new DispenseServiceApplicationPostController(
+    const alternativeServiceApplicationPostController = new AlternativeServiceApplicationPostController(
       mockFormContent.fields
     );
 
     const req = mockRequest({
       body,
-      userCase: { applicant1InterimApplicationType: InterimApplicationType.DISPENSE_WITH_SERVICE },
+      userCase: { applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE },
     });
     const res = mockResponse();
-    await dispenseServiceApplicationPostController.post(req, res);
+    await alternativeServiceApplicationPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_UPDATE);
   });
