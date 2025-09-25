@@ -14,11 +14,12 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Ydych chi'n gwybod am unrhyw gyfeiriadau eraill sy'n gysylltiedig â'ch ${partner}?`,
   partnerAdditionalAddressesHint:
     "Os ydych chi'n gallu darparu unrhyw gyfeiriadau eraill, efallai y bydd yn helpu gyda'r chwiliad",
+  yes: 'Ydw',
+  no: 'Nac ydw',
   errors: {
     applicant1SearchGovRecordsKnowPartnerAdditionalAddresses: {
       required: 'Dewiswch “Ydw” os ydych yn gwybod am unrhyw gyfeiriadau eraill',
@@ -36,12 +37,12 @@ export const form: FormContent = {
       hint: l => l.partnerAdditionalAddressesHint,
       values: [
         {
-          label: l => (l.language === 'cy' ? 'Ydw' : l.yes),
+          label: l => l.yes,
           id: 'yes',
           value: YesOrNo.YES,
         },
         {
-          label: l => (l.language === 'cy' ? 'Nac ydw' : l.no),
+          label: l => l.no,
           id: 'no',
           value: YesOrNo.NO,
         },

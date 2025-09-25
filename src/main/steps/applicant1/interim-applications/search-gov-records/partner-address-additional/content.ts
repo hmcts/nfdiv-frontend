@@ -24,7 +24,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Rhowch unrhyw gyfeiriadau eraill sy'n gysylltiedig â'ch ${partner}`,
   address: 'Cyfeiriad',
@@ -64,7 +63,7 @@ export const form: FormContent = {
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.address + ` (${l.language === 'cy' ? 'dewisiadol' : 'optional'})`,
+      label: l => l.address + ` 2 (${l.language === 'cy' ? 'dewisiadol' : 'optional'})`,
       labelSize: 'normal',
       validator: (
         value: string | string[] | CaseDate | Partial<Case> | undefined,
@@ -78,7 +77,7 @@ export const form: FormContent = {
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.dateLivedOnAddress + ` (${l.language === 'cy' ? 'dewisiadol' : 'optional'})`,
+      label: l => l.dateLivedOnAddress + ` 2 (${l.language === 'cy' ? 'dewisiadol' : 'optional'})`,
       labelSize: 'normal',
       validator: (
         value: string | string[] | CaseDate | Partial<Case> | undefined,

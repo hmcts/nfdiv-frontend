@@ -36,6 +36,7 @@ import {
   SEARCH_GOV_RECORDS_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
 } from '../../../urls';
+import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application-submitted/content';
 import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
@@ -1114,6 +1115,7 @@ export const generateContent: TranslationFn = content => {
       respondentAddressProvided
     ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
+    generalApplicationSubmitted: generalApplicationSubmittedContent(content),
     displayState,
     isDisputedApplication,
     isSuccessfullyServedByBailiff,

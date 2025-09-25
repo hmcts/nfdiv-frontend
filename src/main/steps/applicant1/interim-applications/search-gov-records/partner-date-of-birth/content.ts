@@ -38,13 +38,14 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Ydych chi’n gwybod dyddiad geni eich ${partner}?`,
   enterPartnerDob: `Rhowch ddyddiad geni eich ${partner}`,
   enterPartnerDobHint: 'Er enghraifft, 27 3 2007',
   enterPartnerApproximateAge: `Rhowch oedran eich ${partner} yn fras`,
   enterPartnerApproximateAgeHint: 'Er enghraifft, 65 mlwydd oed',
+  yes: 'Ydw',
+  no: 'Nac ydw',
   errors: {
     applicant1SearchGovRecordsKnowPartnerDateOfBirth: {
       required: `Dewiswch ydw os ydych chi'n gwybod dyddiad geni eich ${partner}`,
@@ -71,7 +72,7 @@ export const form: FormContent = {
       type: 'radios',
       values: [
         {
-          label: l => (l.language === 'cy' ? 'Ydw' : l.yes),
+          label: l => l.yes,
           labelsize: 's',
           value: YesOrNo.YES,
           subFields: {
@@ -111,7 +112,7 @@ export const form: FormContent = {
           },
         },
         {
-          label: l => (l.language === 'cy' ? 'Nac ydw' : l.no),
+          label: l => l.no,
           labelsize: 's',
           value: YesOrNo.NO,
           subFields: {

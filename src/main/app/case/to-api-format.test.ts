@@ -932,32 +932,6 @@ describe('to-api-format', () => {
     });
   });
 
-  describe('applicant1SearchGovRecordsPartnerNationalInsurance transformation', () => {
-    test('Capitalizes the national insurance number', () => {
-      const apiFormat = toApiFormat({
-        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
-        applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',
-      } as Partial<Case>);
-
-      expect(apiFormat).toMatchObject({
-        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
-        applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
-      } as Partial<Case>);
-    });
-
-    test('convert value to upper case', () => {
-      const apiFormat = toApiFormat({
-        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
-        applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',
-      } as Partial<Case>);
-
-      expect(apiFormat).toMatchObject({
-        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
-        applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
-      } as Partial<Case>);
-    });
-  });
-
   describe('applicant1AltServicePartnerEmail transformation', () => {
     test('sets applicant1AltServicePartnerEmail to the provided email when applicant1AltServiceMethod is EMAIL', () => {
       const apiFormat = toApiFormat({
@@ -1086,6 +1060,32 @@ describe('to-api-format', () => {
       expect(apiFormat).toMatchObject({
         applicant1AltServicePartnerOtherDetails: null,
       });
+    });
+  });
+
+  describe('applicant1SearchGovRecordsPartnerNationalInsurance transformation', () => {
+    test('Capitalizes the national insurance number', () => {
+      const apiFormat = toApiFormat({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
+      } as Partial<Case>);
+    });
+
+    test('convert value to upper case', () => {
+      const apiFormat = toApiFormat({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'xx 12 34 56 x',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1SearchGovRecordsKnowPartnerNationalInsurance: YesOrNo.YES,
+        applicant1SearchGovRecordsPartnerNationalInsurance: 'XX 12 34 56 X',
+      } as Partial<Case>);
     });
   });
 

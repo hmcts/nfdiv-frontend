@@ -27,6 +27,8 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   partnerNationalInsuranceHint: `Os ydych chi’n gallu darparu rhif Yswiriant Gwladol eich ${partner}, bydd yn helpu gyda'r chwiliad.`,
   nationalInsuranceHint: 'Er enghraifft, JB 34 66 84 D',
   enterNationalInsurance: `Nodwch Rif Yswiriant Gwladol eich ${partner}`,
+  yes: 'Ydw',
+  no: 'Nac ydw',
   errors: {
     applicant1SearchGovRecordsKnowPartnerNationalInsurance: {
       required: `Dewiswch “Ydw” os ydych yn gwybod rhif yswiriant gwladol eich ${partner}`,
@@ -49,7 +51,7 @@ export const form: FormContent = {
       hint: l => l.partnerNationalInsuranceHint,
       values: [
         {
-          label: l => (l.language === 'cy' ? 'Ydw' : l.yes),
+          label: l => l.yes,
           id: 'yes',
           value: YesOrNo.YES,
           subFields: {
@@ -65,7 +67,7 @@ export const form: FormContent = {
           },
         },
         {
-          label: l => (l.language === 'cy' ? 'Nac ydw' : l.no),
+          label: l => l.no,
           id: 'no',
           value: YesOrNo.NO,
         },
