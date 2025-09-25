@@ -29,23 +29,23 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Which government departments do you need us to search for your ${partner}’s details?`,
-  titleHint: 'Select all that apply',
-  dwp: 'Department for Work and Pensions',
-  dwpHint: 'for benefit, pay or pension records',
-  hmrc: 'HM Revenue and Customs',
-  hmrcHint: 'for tax records',
-  other: 'Other',
-  otherHint: 'for any other government departments',
-  otherFieldText: 'Please specify',
-  whyTheseDepartments: `Why do you think these departments are most suited to getting the contact details of your ${partner}?`,
+  title: `Pa adrannau’r llywodraeth sydd angen i ni chwilio am fanylion eich ${partner}?`,
+  titleHint: "Dewiswch bob un sy'n berthnasol",
+  dwp: 'Yr Adran Waith a Phensiynau',
+  dwpHint: 'ar gyfer cofnodion budd-daliadau, tâl neu bensiwn',
+  hmrc: 'Cyllid a Thollau EF',
+  hmrcHint: 'ar gyfer cofnodion treth',
+  other: 'Arall',
+  otherHint: 'ar gyfer unrhyw adrannau eraill y llywodraeth',
+  otherFieldText: 'Rhowch fanylion os gwelwch yn dda',
+  whyTheseDepartments: `Pam ydych chi'n meddwl mai'r adrannau hyn sydd fwyaf addas i gael manylion cyswllt eich ${partner}?`,
   errors: {
     applicant1SearchGovRecordsWhichDepartments: {
-      required: "Select which government departments' records you want the court to search",
-      applicant1SearchGovRecordsOtherDepartmentNames: 'Enter details of the government department',
+      required: "Dewiswch pa gofnodion adrannau'r llywodraeth rydych chi am i'r llys eu chwilio",
+      applicant1SearchGovRecordsOtherDepartmentNames: 'Rhowch fanylion adran y llywodraeth',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
-      required: 'Enter details about why the selected department is most suitable.',
+      required: 'Rhowch fanylion pam mai’r cyfryw adran yw’r un fwyaf addas',
     },
   },
 });

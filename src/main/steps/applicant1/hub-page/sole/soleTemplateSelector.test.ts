@@ -430,6 +430,7 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
+
   test('should show /awaiting-general-application-consideration.njk for state GeneralApplicationReceived', () => {
     const theState = displayState.at(State.GeneralApplicationReceived);
     const genAppUserCase = {
