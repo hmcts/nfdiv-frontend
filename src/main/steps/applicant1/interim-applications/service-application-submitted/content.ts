@@ -102,6 +102,7 @@ const cy: typeof en = ({
   referenceNumber,
   isDivorce,
   partner,
+  userCase,
 }: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
   introLine1: `Rydych wedi cyflwyno eich cais am ${serviceApplicationType}.`,
@@ -122,9 +123,19 @@ const cy: typeof en = ({
     step2: 'Postiwch y dogfennau gwreiddiol i:',
   },
   happensNextHeading: 'Beth fydd yn digwydd nesaf',
-  happensNextLine1: `Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno. Os bydd eich cais yn llwyddiannus, bydd eich ${
-    isDivorce ? 'ysgariad' : 'diddymiad'
-  } yn mynd yn ei flaen heb ymateb gan eich ${partner}. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.`,
+  happensNextLine1: `${
+    !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+      ? 'Os derbynnir eich cyfeirnod help i dalu ffioedd, bydd'
+      : 'Bydd'
+  } y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno.${
+    ![AlternativeServiceType.ALTERNATIVE_SERVICE, AlternativeServiceType.DISPENSED].includes(
+      userCase?.alternativeServiceType as AlternativeServiceType
+    )
+      ? ` Os bydd eich cais yn llwyddiannus, bydd eich ${
+          isDivorce ? 'ysgariad' : 'diddymiad'
+        } yn mynd yn ei flaen heb ymateb gan eich ${partner}. Yna byddwn yn dweud wrthych pryd gallwch wneud cais am eich gorchymyn amodol.`
+      : ''
+  }`,
   happensNextLine2: `Byddwn yn anfon e-bost atoch ${
     serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
       ? `erbyn ${serviceApplicationResponseDate} i roi gwybod i chi p’un a yw eich cais wedi bod yn llwyddiannus`
@@ -148,7 +159,7 @@ const cy: typeof en = ({
         'Os bydd eich cais yn llwyddiannus, byddwn yn anfon e-bost atoch i ddweud wrthych am beth i’w wneud nesaf.',
     },
     dispensed: {
-      introLine1: 'You have applied to dispense with service.',
+      introLine1: 'Rydych wedi gwneud cais i hepgor cyflwyno.',
     },
     bailiff: {
       title: 'Cais wedi’i gyflwyno',

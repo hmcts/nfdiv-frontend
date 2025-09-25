@@ -72,6 +72,7 @@ const cy = ({ partner }: CommonContent) => ({
   notUK: 'Rwyf wedi anghofio’r cod post neu gwnaethom fyw mewn cyfeiriad rhyngwladol',
   enterUkPostcode: 'Nodwch god post yn y DU',
   selectAddress: 'Dewiswch gyfeiriad',
+  addressOverseas: 'A yw hwn yn gyfeiriad rhyngwladol?',
   addressesFound: (addressesFound: number) =>
     `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
   cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
