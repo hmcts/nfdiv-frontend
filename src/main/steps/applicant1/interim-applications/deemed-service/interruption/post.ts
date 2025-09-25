@@ -5,7 +5,7 @@ import { AnyObject } from '../../../../../app/controller/PostController';
 import StartInterimApplicationPostController from '../../common/start-interim-application/post';
 
 @autobind
-export default class BailiffInterruptionPostController extends StartInterimApplicationPostController<AnyObject> {
+export default class DeemedServiceApplicationPostController extends StartInterimApplicationPostController<AnyObject> {
   protected interimApplicationType(): InterimApplicationType {
     return InterimApplicationType.DEEMED_SERVICE;
   }

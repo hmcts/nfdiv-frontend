@@ -8,16 +8,16 @@ import {
 } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 
-import BailiffApplicationPostController from './post';
+import BailiffServiceApplicationPostController from './post';
 
-describe('BailiffApplicationPostController', () => {
+describe('BailiffServiceApplicationPostController', () => {
   const mockFormContent = {
     fields: {
       applicant1InterimAppsIUnderstand: {},
     },
   } as unknown as FormContent;
 
-  it('Sets dispense service general application type', async () => {
+  it('Sets dispense service interim application type', async () => {
     const body = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
     };
@@ -27,7 +27,7 @@ describe('BailiffApplicationPostController', () => {
       applicant1InterimApplicationType: InterimApplicationType.BAILIFF_SERVICE,
     };
 
-    const bailiffApplicationPostController = new BailiffApplicationPostController(mockFormContent.fields);
+    const bailiffApplicationPostController = new BailiffServiceApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();
@@ -46,7 +46,7 @@ describe('BailiffApplicationPostController', () => {
       applicant1InterimApplicationType: InterimApplicationType.BAILIFF_SERVICE,
     };
 
-    const bailiffApplicationPostController = new BailiffApplicationPostController(mockFormContent.fields);
+    const bailiffApplicationPostController = new BailiffServiceApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({
       body,
@@ -68,7 +68,7 @@ describe('BailiffApplicationPostController', () => {
       applicant1InterimApplicationType: InterimApplicationType.BAILIFF_SERVICE,
     };
 
-    const bailiffApplicationPostController = new BailiffApplicationPostController(mockFormContent.fields);
+    const bailiffApplicationPostController = new BailiffServiceApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({
       body,

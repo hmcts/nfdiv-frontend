@@ -17,7 +17,7 @@ describe('SearchGovRecordsPostController', () => {
     },
   } as unknown as FormContent;
 
-  it('Sets deemed service general application type', async () => {
+  it('Sets deemed service interim application type', async () => {
     const body = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
     };

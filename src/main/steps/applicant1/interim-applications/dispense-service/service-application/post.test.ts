@@ -17,7 +17,7 @@ describe('DispenseServiceApplicationPostController', () => {
     },
   } as unknown as FormContent;
 
-  it('Sets dispense service general application type', async () => {
+  it('Sets dispense service interim application type', async () => {
     const body = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
     };

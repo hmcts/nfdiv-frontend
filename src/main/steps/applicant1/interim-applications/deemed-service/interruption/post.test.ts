@@ -8,16 +8,16 @@ import {
 } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 
-import DeemedInterruptionPostController from './post';
+import DeemedServiceApplicationPostController from './post';
 
-describe('DeemedInterruptionPostController', () => {
+describe('DeemedServiceApplicationPostController', () => {
   const mockFormContent = {
     fields: {
       applicant1InterimAppsIUnderstand: {},
     },
   } as unknown as FormContent;
 
-  it('Sets deemed service general application type', async () => {
+  it('Sets deemed service interim application type', async () => {
     const body = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
     };
@@ -27,7 +27,7 @@ describe('DeemedInterruptionPostController', () => {
       applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE,
     };
 
-    const deemedInterruptionPostController = new DeemedInterruptionPostController(mockFormContent.fields);
+    const deemedInterruptionPostController = new DeemedServiceApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();
@@ -46,7 +46,7 @@ describe('DeemedInterruptionPostController', () => {
       applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE,
     };
 
-    const deemedInterruptionPostController = new DeemedInterruptionPostController(mockFormContent.fields);
+    const deemedInterruptionPostController = new DeemedServiceApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({
       body,
@@ -68,7 +68,7 @@ describe('DeemedInterruptionPostController', () => {
       applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE,
     };
 
-    const deemedInterruptionPostController = new DeemedInterruptionPostController(mockFormContent.fields);
+    const deemedInterruptionPostController = new DeemedServiceApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({
       body,
