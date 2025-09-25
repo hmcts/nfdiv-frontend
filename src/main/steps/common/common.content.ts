@@ -12,6 +12,7 @@ import {
   State,
   YesOrNo,
 } from '../../app/case/definition';
+import { userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
 import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
@@ -432,17 +433,7 @@ export const generateCommonContent = ({
   const applicationHasBeenPaidFor = userCase?.applicationPayments?.some(
     payment => payment.value.status === PaymentStatus.SUCCESS
   );
-  const isAmendableStates =
-    userCase &&
-    userCase.state &&
-    [
-      State.Draft,
-      State.AwaitingApplicant1Response,
-      State.AwaitingApplicant2Response,
-      State.AosDrafted,
-      State.AosOverdue,
-      State.AwaitingConditionalOrder,
-    ].includes(userCase.state);
+  const isAmendableStates = userCase && userCase.state && userCanUploadDocuments(userCase, isApplicant2);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
   const isRequestForInformationAmendableState =
     userCase &&
