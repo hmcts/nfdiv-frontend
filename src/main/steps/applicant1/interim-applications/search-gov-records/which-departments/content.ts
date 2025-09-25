@@ -19,9 +19,7 @@ const en = ({ partner }: CommonContent) => ({
   errors: {
     applicant1SearchGovRecordsWhichDepartments: {
       required: "Select which government departments' records you want the court to search",
-    },
-    applicant1SearchGovRecordsOtherDepartmentNames: {
-      required: 'Enter details of the government department',
+      applicant1SearchGovRecordsOtherDepartmentNames: 'Enter details of the government department',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
       required: 'Enter details about why the selected department is most suitable.',
@@ -44,9 +42,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   errors: {
     applicant1SearchGovRecordsWhichDepartments: {
       required: "Dewiswch pa gofnodion adrannau'r llywodraeth rydych chi am i'r llys eu chwilio",
-    },
-    applicant1SearchGovRecordsOtherDepartmentNames: {
-      required: 'Rhowch fanylion adran y llywodraeth',
+      applicant1SearchGovRecordsOtherDepartmentNames: 'Rhowch fanylion adran y llywodraeth',
     },
     applicant1SearchGovRecordsWhyTheseDepartments: {
       required: 'Rhowch fanylion pam mai’r cyfryw adran yw’r un fwyaf addas',
