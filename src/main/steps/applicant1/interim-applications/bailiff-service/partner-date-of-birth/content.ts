@@ -47,8 +47,8 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   enterDateOfBirthHint: 'Er enghraifft, 27 3 2007',
   enterApproximateAgeLabel: `Rhowch oedran eich ${partner} yn fras`,
   enterApproximateAgeHint: 'Er enghraifft, 65 mlwydd oed',
-  yes: 'Ydy',
-  no: 'Nac ydy',
+  yes: 'Ydw',
+  no: 'Nac ydw',
   errors: {
     applicant1BailiffKnowPartnersDateOfBirth: {
       required: `Dewiswch “Ydw” os ydych yn gwybod dyddiad geni eich ${partner}`,
