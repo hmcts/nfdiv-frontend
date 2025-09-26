@@ -706,7 +706,7 @@ const cy: typeof en = (
     line2: `Ni fyddwch yn gweld ymateb eich ${partner} pan fyddwch yn gwneud cais am y gorchymyn amodol.`,
   },
   awaitingConsiderationSearchGovRecords: {
-    line1: `Mae'r llys wrthi'n ystyried eich cais i chwilio confodion y llywodraeth a gyflwynwyd gennych ar ${generalApplicationDate}.`,
+    line1: `Mae'r llys wrthi'n ystyried eich cais i chwilio cofnodion y llywodraeth a gyflwynwyd gennych ar ${generalApplicationDate}.`,
     line2: `Byddwn yn anfon e-bost atoch erbyn ${generalApplicationResponseDate} unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw'r camau nesaf.`,
   },
   conditionalOrderWithDeemedOrDispensedService: `Ni fyddwch yn gweld ymateb gan eich ${partner} yn y cais am orchymyn amodol.
@@ -829,16 +829,15 @@ const cy: typeof en = (
     },
   },
   awaitingServicePayment: {
-    // TODO: Welsh for AwaitingServicePayment hub
     line1OfflineApplication:
       "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
-    line1: `Your ${partner} has not responded to your ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    line1: `Nid yw eich ${partner} wedi ymateb i'ch ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }.`,
-    line2: `You have have started a ${serviceApplicationType} application.`,
+    line2: `Rydych wedi dechrau cais ${serviceApplicationType}.`,
     doNext: 'Beth allwch chi ei wneud nesaf',
-    line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
-    linkText: 'Complete payment',
+    line3: 'Mae angen i chi dalu’r ffi ar gyfer gwneud cais cyn y gellir ei gyfeirio at farnwr i ystyried eich cais.',
+    linkText: 'Cwblhau taliad',
     linkUrl: PAY_YOUR_SERVICE_FEE,
     withdrawText: `Os yw’ch amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch dynnu’r cais hwn yn ôl ac ar ôl hynny gallwch wirio eich opsiynau i fwrw ymlaen â'ch ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"

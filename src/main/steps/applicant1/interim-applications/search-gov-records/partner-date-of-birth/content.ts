@@ -56,7 +56,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
       invalidYear: 'Rydych wedi rhoi dyddiad annilys. Rhowch ddyddiad gan ddefnyddio’r fformat canlynol: 31 3 2002.',
       invalidDateInFuture:
         'Rydych wedi nodi dyddiad sydd yn y dyfodol. Nodwch ddyddiad sydd yn y gorffennol cyn parhau.',
-      invalidDateTooFarInPast: `Rydych wedi rhoi blwyddyn sydd yn rhy bell yn ôl yn y gorffennol. Rhowch y dyddiad y gwelwyd neu y clywyd am eich ${partner} ddiwethaf`,
+      invalidDateTooFarInPast: `Rydych wedi rhoi blwyddyn sydd yn rhy bell yn ôl yn y gorffennol. Rhowch dyddiad geni eich ${partner}`,
     },
     applicant1SearchGovRecordsPartnerApproximateAge: {
       required: `Ni all oed eich ${partner} yn fras gael ei adael yn wag`,
