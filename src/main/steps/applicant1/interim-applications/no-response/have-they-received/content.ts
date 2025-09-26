@@ -34,7 +34,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   detailsUpToDateHeader: `A yw’r manylion hyn ar gyfer eich ${partner} yn gywir ac yn gyfredol?`,
   doYouKnowYourPartnersDetailsHeader: `Ydych chi’n gwybod manylion eich ${partner}?`,
   upToDate: 'Ydy, mae’r manylion hyn yn gyfredol',
-  newAddressOrEmailAddress: `Mae gennyf gyfeiriad post neu gyfeiriad e-bost newydd ar gyfer fy ${partner}`,
+  newAddressOrEmailAddress: 'Mae gennyf gyfeiriad post neu gyfeiriad e-bost newydd ar gyfer fy mhartner',
   notKnown: 'Ddim yn hysbys',
   homeAddress: 'Cyfeiriad cartref',
   emailAddress: 'Cyfeiriad e-bost',
