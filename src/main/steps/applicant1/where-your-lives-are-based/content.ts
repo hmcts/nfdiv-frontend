@@ -4,18 +4,22 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import type { CommonContent } from '../../common/common.content';
 
-const en = ({ partner, required }: CommonContent) => ({
+const en = ({ partner }: CommonContent) => ({
   title: 'Where your lives are based',
   line1: `The court needs to know whether you and your ${partner}’s lives are based in England or Wales. This may include working, owning property, having children in school, or your main family life taking place in England or Wales.`,
   applicant1LifeBasedInEnglandAndWales: 'Is your life mainly based in England or Wales?',
   applicant2LifeBasedInEnglandAndWales: `Is your ${partner}’s life mainly based in England or Wales?`,
   errors: {
-    applicant1LifeBasedInEnglandAndWales: { required },
-    applicant2LifeBasedInEnglandAndWales: { required },
+    applicant1LifeBasedInEnglandAndWales: {
+      required: 'Select "Yes" if your life is mainly based in England or Wales.',
+    },
+    applicant2LifeBasedInEnglandAndWales: {
+      required: `Select "Yes" if your ${partner}’s life is mainly based in England or Wales.`,
+    },
   },
 });
 
-const cy: typeof en = ({ partner, required }: CommonContent) => ({
+const cy: typeof en = ({ partner }: CommonContent) => ({
   title: 'Lle mae eich bywydau wedi`u lleoli',
   line1: `Mae'r llys angen gwybod p'un a yw eich bywyd chi a bywyd eich ${partner} yng Nghymru neu Loegr. Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, neu bod eich prif fywyd teuluol yng Nghymru neu Loegr.`,
   applicant1LifeBasedInEnglandAndWales: 'A yw eich bywyd gan amlaf yng Nghymru neu Loegr?',
@@ -23,8 +27,12 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   yes: 'Ydy',
   no: 'Nac ydy',
   errors: {
-    applicant1LifeBasedInEnglandAndWales: { required },
-    applicant2LifeBasedInEnglandAndWales: { required },
+    applicant1LifeBasedInEnglandAndWales: {
+      required: 'Dewiswch “Ydy” os ydych yn treulio’r rhan fwyaf o’ch amser yng Nghymru neu Loegr.',
+    },
+    applicant2LifeBasedInEnglandAndWales: {
+      required: `Dewiswch “Ydy” os yw eich ${partner} yn treulio rhan fwyaf o’u hamser yng Nghymru neu Loegr.`,
+    },
   },
 });
 

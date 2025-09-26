@@ -14,7 +14,9 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Ydych eich ${partner} yn preswylio mewn lloches ar hyn o bryd?`,
+  title: `Ydy eich ${partner} yn preswylio mewn lloches ar hyn o bryd?`,
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1BailiffPartnerInARefuge: {
       required: `Dewiswch “Ydy” os yw eich ${partner} yn byw mewn lloches`,

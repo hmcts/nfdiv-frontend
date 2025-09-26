@@ -9,7 +9,7 @@ const en = ({ partner }: CommonContent) => ({
   otherDetailsLabel: 'Provide as much information as you can',
   errors: {
     applicant1BailiffDoesPartnerHaveMentalIssues: {
-      required: `Select yes if you know your ${partner} has mental health issues or uses drugs or alcohol`,
+      required: `Select "Yes" if you know your ${partner} has mental health issues or uses drugs or alcohol`,
     },
     applicant1BailiffPartnerMentalIssuesDetails: {
       required: 'Enter details of any mental health issues or drugs or alcohol use',
@@ -20,6 +20,8 @@ const en = ({ partner }: CommonContent) => ({
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `A oes gan eich ${partner} unrhyw broblemau iechyd meddwl hysbys neu a yw’n defnyddio/camddefnyddio cyffuriau neu alcohol mewn unrhyw ffordd a all effeithio ar ei ymddygiad?`,
   otherDetailsLabel: 'Rhowch gymaint o wybodaeth ag y gallwch.',
+  yes: 'Oes',
+  no: 'Nac Oes',
   errors: {
     applicant1BailiffDoesPartnerHaveMentalIssues: {
       required: `Dewiswch “Oes” os ydych yn gwybod bod gan eich ${partner} broblemau iechyd meddwl neu’n defnyddio alcohol neu gyffuriau`,

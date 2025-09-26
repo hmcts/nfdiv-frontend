@@ -15,6 +15,8 @@ const en = ({ partner }: CommonContent) => ({
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Ydych chi’n gallu uwchlwytho llun diweddar o’ch ${partner}?`,
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1InterimAppsCanUploadEvidence: {
       required: `Dewiswch “Ydw” os ydych yn gallu uwchlwytho llun diweddar o’ch ${partner}`,

@@ -10,7 +10,10 @@ download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
   <p class="govuk-body"><a class="govuk-link" href={{serviceApplicationDownload.link}}
   download={{serviceApplicationDownload.reference}}>{{serviceApplicationDownload.text}}</a></p>
 {% endif %}
-
+{% if generalApplicationDate and generalApplicationSubmittedOnline and not isApplicant2 %}
+    <p class="govuk-body"><a class="govuk-link" href={{generalApplicationDownload.link}}
+        download={{generalApplicationDownload.reference}}>{{generalApplicationDownload.text}}</a></p>
+{% endif %}
 {% if isAosSubmitted %}
   <p class="govuk-body"><a class="govuk-link" href={{respondentAnswersDownload.link}}
    download={{respondentAnswersDownload.reference}}>{{respondentAnswersDownload.text}}</a></p>
