@@ -15,7 +15,7 @@
   <p class="govuk-body" id="aosDueLine1">{{ aosDue.line1 }}</p>
   <p class="govuk-body" id="aosDueLine2">{{ aosDue.line2 }}</p>
   <p class="govuk-body" id="aosDueLine3">{{ aosDue.line3 }}</p>
-  {% if displayState.state() == 'AosOverdue' %}
+  {% if displayState.state() == 'AosOverdue' || displayState.state() == 'AosDrafted' %}
     <p class="govuk-body" id="aosDueLine3">{{ aosDue.line4 }}</p>
     <p class="govuk-body">
       <a class="govuk-link" id="aosDueLink" href={{ aosDue.linkUrl }}>{{ aosDue.linkText }}</a>
