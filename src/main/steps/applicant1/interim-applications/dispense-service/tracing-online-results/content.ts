@@ -14,12 +14,12 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Online tracing results',
-  tracingOnlineDescription: 'What were the results of your online searches?',
-  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
+  title: 'Canlyniadau olrhain ar-lein',
+  tracingOnlineDescription: 'Beth oedd canlyniadau eich chwiliadau ar-lein?',
+  uploadHint: 'Byddwch yn gallu uwchlwytho unrhyw dystiolaeth sydd gennych ar ddiwedd y cais hwn.',
   errors: {
     applicant1DispenseTracingOnlineResults: {
-      required: 'Enter details about the results of your online searches',
+      required: 'Eglurwch ganlyniadau eich chwiliadau ar-lein',
     },
   },
 };

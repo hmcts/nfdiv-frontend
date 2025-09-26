@@ -216,7 +216,9 @@ export const getDispenseLogicalTests = (caseData: Partial<Case>): DispenseWithSe
     tracedOnline: caseData.applicant1DispenseTriedTracingOnline === YesOrNo.YES,
     usedOnlineSearch: caseData.applicant1DispenseTriedSearchingOnline === YesOrNo.YES,
     contactedEmployer: caseData.applicant1DispenseTriedContactingEmployer === YesOrNo.YES,
-    madeOtherEnquiries: caseData.applicant1DispenseOtherEnquiries?.trim().toLowerCase() !== 'none',
+    madeOtherEnquiries:
+      caseData.applicant1DispenseOtherEnquiries?.trim().toLowerCase() !== 'none' &&
+      caseData.applicant1DispenseOtherEnquiries?.trim().toLowerCase() !== 'dim',
     showUploadEvidence: false,
   };
   results.showUploadEvidence =

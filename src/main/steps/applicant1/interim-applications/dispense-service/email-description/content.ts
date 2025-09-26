@@ -15,12 +15,12 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: 'Email Addresses',
-  partnerEmailAddressesDescription: `Tell us the email addresses and any previous contact you've had. Explain what attempts you have made to contact your ${partner} on these addresses.`,
-  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
+  title: 'Cyfeiriadau e-bost',
+  partnerEmailAddressesDescription: `Rhowch y cyfeiriadau e-bost ac unrhyw gyswllt blaenorol. Eglurwch pa ymdrechion rydych wedi eu gwneud i gysylltu gyda’ch ${partner} yn y cyfeiriadau hyn.`,
+  uploadHint: 'Byddwch yn gallu uwchlwytho unrhyw dystiolaeth sydd gennych ar ddiwedd y cais hwn.',
   errors: {
     applicant1DispensePartnerEmailAddresses: {
-      required: `Enter your ${partner}'s email addresses and explain any attempts you've made to contact them`,
+      required: `Rhowch gyfeiriad e-bost eich ${partner} ac eglurwch unrhyw ymdrechion a wnaed gennych i gysylltu â nhw`,
     },
   },
 });
