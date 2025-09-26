@@ -39,8 +39,6 @@ Feature: Deemed service journey
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 
-    And the page should include element "#STOP"
-
     Given I click element "#yes"
     When I click continue
     Then the page should include element "#hwfReferenceNumberTitle"
