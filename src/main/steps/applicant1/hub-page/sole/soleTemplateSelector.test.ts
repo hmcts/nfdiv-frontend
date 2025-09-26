@@ -239,6 +239,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingBailiffService);
   });
 
+  test('should show /awaiting-bailiff-service.njk for state IssuedToBailiff', () => {
+    const theState = displayState.at(State.IssuedToBailiff);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingBailiffService);
+  });
+
   test('should show /awaiting-service-payment.njk for state AwaitingServicePayment', () => {
     const theState = displayState.at(State.AwaitingServicePayment);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);

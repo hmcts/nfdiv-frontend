@@ -110,6 +110,7 @@ export const getSoleHubTemplate = (
     case State.AwaitingAmendedApplication:
       return HubTemplate.AwaitingAmendedApplication;
     case State.AwaitingBailiffService:
+    case State.IssuedToBailiff:
       return HubTemplate.AwaitingBailiffService;
     case State.AwaitingFinalOrder:
     case State.AwaitingFinalOrderPayment:
