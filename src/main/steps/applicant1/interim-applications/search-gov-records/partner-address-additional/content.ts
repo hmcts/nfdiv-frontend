@@ -10,37 +10,36 @@ const en = ({ partner }: CommonContent) => ({
   dateLivedOnAddress: 'Enter the dates they lived there',
   errors: {
     applicant1SearchGovRecordsPartnerAdditionalAddress1: {
-      required: `You have not entered your ${partner}'s additional address. Enter it before continuing.`,
+      required: `Enter the details of any other known address of your ${partner} before continuing`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
-      required: `You have not entered your ${partner}'s dates at the address. Enter it before continuing.`,
+      required: `Enter the dates your ${partner} lived at the address before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
-      required: `You have not entered your ${partner}'s dates at the address 2. Enter it before continuing.`,
+      required: `Enter the dates your ${partner} lived at the address before continuing.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
-      required: `You have not entered your ${partner}'s dates at the address 2 without entering address. Enter it before continuing.`,
+      required: `Enter details of any other known address of your ${partner} before continuing.`,
     },
   },
 });
 
-// @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: `Enter any other addresses related to your ${partner}`,
-  address: 'Address',
-  dateLivedOnAddress: 'Enter the dates they lived there',
+  title: `Rhowch unrhyw gyfeiriadau eraill sy'n gysylltiedig â'ch ${partner}`,
+  address: 'Cyfeiriad',
+  dateLivedOnAddress: "Rhowch y dyddiadau roedden nhw'n byw yno",
   errors: {
     applicant1SearchGovRecordsPartnerAdditionalAddress1: {
-      required: `You have not entered your ${partner}'s last known address. Enter it before continuing.`,
+      required: `Nodwch fanylion unrhyw gyfeiriad hysbys arall eich ${partner} cyn parhau.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates1: {
-      required: `Enter the dates your ${partner} lived at this address`,
+      required: `Nodwch y dyddiadau y bu eich ${partner} yn byw yn y cyfeiriad cyn parhau.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
-      required: `You have entered address 2. Enter the dates your ${partner} lived at this address`,
+      required: `Nodwch y dyddiadau y bu eich ${partner} yn byw yn y cyfeiriad cyn parhau.`,
     },
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
-      required: `You have not entered your ${partner}'s dates at the address 2 without entering address. Enter it before continuing.`,
+      required: `Nodwch fanylion unrhyw gyfeiriad hysbys arall eich ${partner} cyn parhau.`,
     },
   },
 });
@@ -64,7 +63,7 @@ export const form: FormContent = {
     applicant1SearchGovRecordsPartnerAdditionalAddress2: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.address + ' 2 (optional)',
+      label: l => l.address + ` 2 (${l.language === 'cy' ? 'dewisiadol' : 'optional'})`,
       labelSize: 'normal',
       validator: (
         value: string | string[] | CaseDate | Partial<Case> | undefined,
@@ -78,7 +77,7 @@ export const form: FormContent = {
     applicant1SearchGovRecordsPartnerAdditionalAddressDates2: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.dateLivedOnAddress + ' (optional)',
+      label: l => l.dateLivedOnAddress + ` (${l.language === 'cy' ? 'dewisiadol' : 'optional'})`,
       labelSize: 'normal',
       validator: (
         value: string | string[] | CaseDate | Partial<Case> | undefined,

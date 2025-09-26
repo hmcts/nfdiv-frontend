@@ -12,7 +12,13 @@ import {
   UPLOAD_PARTNER_PHOTO,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, InterimApplicationType, State } from '../case/definition';
+import {
+  ApplicationType,
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_UPDATE,
+  InterimApplicationType,
+  State,
+} from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -85,12 +91,14 @@ describe('DocumentManagerController', () => {
           field1: 'applicant2LegalProceedingDocs',
           field2: 'applicant2LegalProceedingUploadedFiles',
         },
+        applicationType: ApplicationType.SOLE_APPLICATION,
       },
-    ])('handles file uploads - %o', async ({ isApplicant2, state, uploadFields }) => {
+    ])('handles file uploads - %o', async ({ applicationType, isApplicant2, state, uploadFields }) => {
       const req = mockRequest({
         isApplicant2,
         userCase: {
           state,
+          applicationType,
           [uploadFields.field1]: ['an-existing-doc'],
         },
       });
@@ -212,15 +220,17 @@ describe('DocumentManagerController', () => {
           field1: 'applicant2LegalProceedingDocs',
           field2: 'applicant2LegalProceedingUploadedFiles',
         },
+        applicationType: ApplicationType.SOLE_APPLICATION,
         redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
     ])(
       "redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
-      async ({ isApplicant2, state, uploadFields, redirectUrl }) => {
+      async ({ applicationType, isApplicant2, state, uploadFields, redirectUrl }) => {
         const req = mockRequest({
           isApplicant2,
           userCase: {
             state,
+            applicationType,
             [uploadFields.field1]: ['an-existing-doc'],
           },
         });
@@ -238,6 +248,7 @@ describe('DocumentManagerController', () => {
         ]);
 
         (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
+          applicationType,
           state,
           [uploadFields.field2]: ['an-existing-doc', 'uploaded-file.jpg'],
         });
@@ -280,6 +291,7 @@ describe('DocumentManagerController', () => {
         redirectUrl: UPLOAD_EVIDENCE_ALTERNATIVE,
       },
       {
+        applicationType: ApplicationType.SOLE_APPLICATION,
         isApplicant2: false,
         state: State.AosDrafted,
         applicant1InterimApplicationType: InterimApplicationType.DISPENSE_WITH_SERVICE,
@@ -382,12 +394,14 @@ describe('DocumentManagerController', () => {
       {
         isApplicant2: true,
         state: State.AosDrafted,
+        applicationType: ApplicationType.SOLE_APPLICATION,
       },
-    ])('throws an error if no files were uploaded - %o', async ({ state, isApplicant2 }) => {
+    ])('throws an error if no files were uploaded - %o', async ({ state, isApplicant2, applicationType }) => {
       const req = mockRequest({
         isApplicant2,
         userCase: {
           state,
+          applicationType,
         },
       });
       req.headers.accept = 'application/json';
@@ -431,14 +445,16 @@ describe('DocumentManagerController', () => {
         isApplicant2: true,
         state: State.AosDrafted,
         redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
+        applicationType: ApplicationType.SOLE_APPLICATION,
       },
     ])(
       'redirects if no files were uploaded & JavaScript is disabled - %o',
-      async ({ state, isApplicant2, redirectUrl }) => {
+      async ({ state, isApplicant2, redirectUrl, applicationType }) => {
         const req = mockRequest({
           isApplicant2,
           userCase: {
             state,
+            applicationType,
           },
         });
         const res = mockResponse();
@@ -483,26 +499,31 @@ describe('DocumentManagerController', () => {
         isApplicant2: true,
         state: State.AosDrafted,
         redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
+        applicationType: ApplicationType.SOLE_APPLICATION,
       },
-    ])('redirects if deleting & JavaScript is disabled - %o', async ({ state, isApplicant2, redirectUrl }) => {
-      const req = mockRequest({
-        isApplicant2,
-        userCase: {
-          state,
-        },
-      });
-      const res = mockResponse();
+    ])(
+      'redirects if deleting & JavaScript is disabled - %o',
+      async ({ applicationType, state, isApplicant2, redirectUrl }) => {
+        const req = mockRequest({
+          isApplicant2,
+          userCase: {
+            state,
+            applicationType,
+          },
+        });
+        const res = mockResponse();
 
-      req.params = { index: '0' };
+        req.params = { index: '0' };
 
-      await documentManagerController.delete(req, res);
+        await documentManagerController.delete(req, res);
 
-      expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
+        expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
 
-      expect(mockCreate).not.toHaveBeenCalled();
-      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-      expect(res.json).not.toHaveBeenCalled();
-    });
+        expect(mockCreate).not.toHaveBeenCalled();
+        expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+        expect(res.json).not.toHaveBeenCalled();
+      }
+    );
   });
 
   describe('Deleting files', () => {
@@ -559,13 +580,15 @@ describe('DocumentManagerController', () => {
           field1: 'applicant2LegalProceedingDocs',
           field2: 'applicant2LegalProceedingUploadedFiles',
         },
+        applicationType: ApplicationType.SOLE_APPLICATION,
         redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
-    ])('deletes an existing file - %o', async ({ isApplicant2, state, uploadFields, redirectUrl }) => {
+    ])('deletes an existing file - %o', async ({ applicationType, isApplicant2, state, uploadFields, redirectUrl }) => {
       const req = mockRequest({
         isApplicant2,
         userCase: {
           state,
+          applicationType,
           [uploadFields.field1]: [
             { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
             { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
@@ -581,7 +604,11 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
-      mockApiTriggerEvent.mockResolvedValue({ state, [uploadFields.field2]: ['an-existing-doc'] });
+      mockApiTriggerEvent.mockResolvedValue({
+        applicationType,
+        state,
+        [uploadFields.field2]: ['an-existing-doc'],
+      });
 
       await documentManagerController.delete(req, res);
 
@@ -664,11 +691,12 @@ describe('DocumentManagerController', () => {
           field1: 'applicant2LegalProceedingDocs',
           field2: 'applicant2LegalProceedingUploadedFiles',
         },
+        applicationType: ApplicationType.SOLE_APPLICATION,
         redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
     ])(
       "redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
-      async ({ state, isApplicant2, uploadFields, redirectUrl }) => {
+      async ({ applicationType, state, isApplicant2, uploadFields, redirectUrl }) => {
         const req = mockRequest({
           isApplicant2,
           userCase: {
@@ -678,6 +706,7 @@ describe('DocumentManagerController', () => {
               { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
               { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
             ],
+            applicationType,
           },
           appLocals: {
             api: { triggerEvent: jest.fn() },
@@ -687,7 +716,11 @@ describe('DocumentManagerController', () => {
         const res = mockResponse();
 
         const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
-        mockApiTriggerEvent.mockResolvedValue({ state, [uploadFields.field2]: ['an-existing-doc'] });
+        mockApiTriggerEvent.mockResolvedValue({
+          applicationType,
+          state,
+          [uploadFields.field2]: ['an-existing-doc'],
+        });
 
         await documentManagerController.delete(req, res);
 
@@ -724,30 +757,35 @@ describe('DocumentManagerController', () => {
       {
         isApplicant2: true,
         state: State.AosDrafted,
+        applicationType: ApplicationType.SOLE_APPLICATION,
         redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
-    ])("redirects if file to deletes doesn't exist - %o", async ({ state, isApplicant2, redirectUrl }) => {
-      const req = mockRequest({
-        isApplicant2,
-        userCase: {
-          state,
-          applicant1DocumentsUploaded: [
-            { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
-            { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
-          ],
-        },
-      });
-      req.params = { id: '2' };
-      req.headers.accept = 'application/json';
-      const res = mockResponse();
+    ])(
+      "redirects if file to deletes doesn't exist - %o",
+      async ({ applicationType, state, isApplicant2, redirectUrl }) => {
+        const req = mockRequest({
+          isApplicant2,
+          userCase: {
+            state,
+            applicationType,
+            applicant1DocumentsUploaded: [
+              { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+              { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+            ],
+          },
+        });
+        req.params = { id: '2' };
+        req.headers.accept = 'application/json';
+        const res = mockResponse();
 
-      await documentManagerController.delete(req, res);
+        await documentManagerController.delete(req, res);
 
-      expect(mockDelete).not.toHaveBeenCalled();
-      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+        expect(mockDelete).not.toHaveBeenCalled();
+        expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
 
-      expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
-    });
+        expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
+      }
+    );
 
     it("deleting throws an error if the case isn't in a the correct state", async () => {
       const req = mockRequest({

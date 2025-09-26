@@ -7,6 +7,8 @@ import { CommonContent } from '../../../../common/common.content';
 const en = ({ partner }: CommonContent) => ({
   title: 'Is there a court order or Child Maintenance Service calculation in place for child maintenance?',
   childMaintenanceResultsHeader: `Explain the results of any enquiries made to the court or to the Child Maintenance Service about your ${partner}'s wherabouts`,
+  yes: 'Yes',
+  no: 'No',
   errors: {
     applicant1DispenseChildMaintenanceOrder: {
       required:
@@ -20,15 +22,16 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => ({
-  title: 'Is there a court order or Child Maintenance Service calculation in place for child maintenance?',
-  childMaintenanceResultsHeader: `Explain the results of any enquiries made to the court or to the Child Maintenance Service about your ${partner}'s wherabouts`,
+  title: 'A oes yna orchymyn llys neu gyfrifiad Gwasanaeth Cynhaliaeth Plant ar gyfer cynhaliaeth plant?',
+  childMaintenanceResultsHeader: `Eglurwch ganlyniadau unrhyw ymholiadau a wnaed i’r llys neu i’r Gwasanaeth Cynhaliaeth Plant am leoliad eich ${partner}`,
+  yes: 'Oes',
+  no: 'Nac oes',
   errors: {
     applicant1DispenseChildMaintenanceOrder: {
-      required:
-        'Select yes if there is a court order or a Child Maintenance Service calculation in place for child maintenance',
+      required: 'Dewiswch “Oes” os oes yna orchymyn llys neu gyfrifiad Gwasanaeth Cynhaliaeth Plant mewn lle',
     },
     applicant1DispenseChildMaintenanceResults: {
-      required: 'Enter details about the results of any enquiries made',
+      required: 'Rhowch fanylion canlyniad unrhyw ymholiadau a wnaed',
     },
   },
 });

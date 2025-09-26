@@ -39,9 +39,10 @@ const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   },
 });
 
-// @TODO translations should be verified
 const cy = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: CommonContent) => ({
-  title: `Options for progressing with ${isDivorce ? 'your divorce' : 'ending your civil partnership'}`,
+  title: `Opsiynau ar gyfer symud ymlaen gyda’ch ${
+    isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+  }`,
   line1: `Mae yna nifer o ffyrdd i symud eich ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } ymlaen heb ymateb gan eich ${partner}.`,
@@ -57,7 +58,7 @@ const cy = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
   )}, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFeesCY'
   )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
-  line4: `Byddwn yn gofyn cwestiynau i chi fel y gallwn ddangos pa opsiynau sydd ar gael ei chi ar gyfer parhau â’ch ${
+  line4: `Byddwn yn gofyn cwestiynau i chi fel y gallwn ddangos pa opsiynau sydd ar gael i chi ar gyfer parhau â’ch ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   }.`,
   line5: `Gallwch <a class="govuk-link" target="_blank" href="${config.get(

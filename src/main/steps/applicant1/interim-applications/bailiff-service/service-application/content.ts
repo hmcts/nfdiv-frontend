@@ -36,7 +36,7 @@ const cy = ({ partner, isDivorce }: CommonContent) => ({
   line5: `Mae yna ffi o ${getFee(
     config.get('fees.courtBailiffService')
   )} i wneud cais am wasanaeth cyflwyno gan feili, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.getHelpWithCourtFees'
+    'govukUrls.getHelpWithCourtFeesCY'
   )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
   buttonText: 'Dechrau nawr',
 });

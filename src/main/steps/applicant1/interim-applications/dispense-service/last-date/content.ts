@@ -16,6 +16,8 @@ const en = ({ partner }: CommonContent) => ({
   title: `Did you and your ${partner} live together?`,
   lastLivedTogether:
     "Give the date of when you last lived together. If you're not sure of the day you can enter the last day of the month.",
+  yes: 'Yes',
+  no: 'No',
   errors: {
     applicant1DispenseLiveTogether: {
       required: `Select yes if you and your ${partner} lived together.`,
@@ -34,21 +36,23 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => ({
-  title: `Did you and your ${partner} live together?`,
+  title: `Oeddech chi a’ch ${partner} yn byw gyda’ch gilydd?`,
   lastLivedTogether:
-    "Give the date of when you last lived together. If you're not sure of the day you can enter the last day of the month.",
+    'Rhowch y dyddiad yr oeddech yn byw gyda’ch gilydd ddiwethaf. Os nad ydych yn sicr o’r diwrnod gallwch roi diwrnod olaf y mis.',
+  yes: 'Oedden',
+  no: 'Nac oedden',
   errors: {
     applicant1DispenseLiveTogether: {
-      required: `Select yes if you and your ${partner} lived together.`,
+      required: `Dewiswch “Oedden” os oeddech chi a’ch ${partner} yn byw gyda’ch gilydd.`,
     },
     applicant1DispenseLastLivedTogetherDate: {
-      required: 'Enter the date you last lived together',
-      invalidDate: 'You have entered an invalid date. Enter the date using the following format: 31 3 2002.',
-      invalidYear: 'You have entered the year in an invalid format. Enter the whole year, for example 2002.',
-      invalidDateInFuture:
-        'You have entered a date that is in the future. Enter a date that is in the past before continuing.',
+      required: 'Rhowch y dyddiad yr oeddech yn byw gyda’ch gilydd ddiwethaf',
+      invalidDate: 'Rydych wedi rhoi dyddiad annilys. Rhowch ddyddiad gan ddefnyddio’r fformat canlynol: 31 3 2002.',
+      invalidYear:
+        'Rydych wedi rhoi’r flwyddyn gan ddefnyddio fformat annilys. Rhowch y flwyddyn yn llawn, er enghraifft 2002.',
+      invalidDateInFuture: 'Rydych wedi rhoi dyddiad yn y dyfodol. Rhowch ddyddiad yn y gorffennol cyn parhau.',
       invalidDateTooFarInPast:
-        'You have entered a year which is too far in the past. Enter the date you last lived together.',
+        'Rydych wedi rhoi blwyddyn sydd yn rhy bell yn ôl yn y gorffennol. Rhowch y dyddiad yr oeddech yn byw gyda’ch gilydd ddiwethaf.',
     },
   },
 });

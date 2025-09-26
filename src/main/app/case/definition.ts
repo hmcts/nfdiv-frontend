@@ -2946,6 +2946,7 @@ export const JURISDICTION = 'DIVORCE';
 export const CITIZEN_APPLICANT2_UPDATE = 'citizen-applicant2-update-application';
 export const CITIZEN_UPDATE_CASE_STATE_AAT = 'citizen-update-case-state-aat';
 export const CITIZEN_CREATE = 'citizen-create-application';
+export const CITIZEN_START_INTERIM_APPLICATION = 'citizen-start-interim-application';
 export const APPLICANT_2_NOT_BROKEN = 'applicant2-not-broken';
 export const CITIZEN_RESEND_INVITE = 'citizen-resend-invite';
 export const CITIZEN_SUBMIT = 'citizen-submit-application';

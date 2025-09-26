@@ -6,6 +6,8 @@ import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Are you aware of where your ${partner} lived after parting?`,
+  yes: 'Yes',
+  no: 'No',
   errors: {
     applicant1DispenseAwarePartnerLived: {
       required: `Select yes if you know where your ${partner} lived after parting.`,
@@ -15,10 +17,12 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => ({
-  title: `Are you aware of where your ${partner} lived after parting?`,
+  title: `Ydych chi’n ymwybodol ble wnaeth eich ${partner} fyw ar ôl gwahanu?`,
+  yes: 'Ydw',
+  no: 'Nac ydw',
   errors: {
     applicant1DispenseAwarePartnerLived: {
-      required: `Select yes if you know where your ${partner} lived after parting.`,
+      required: `Dewiswch “Ydw” os ydych yn gwybod ble oedd eich ${partner} yn byw ar ôl gwahanu.`,
     },
   },
 });

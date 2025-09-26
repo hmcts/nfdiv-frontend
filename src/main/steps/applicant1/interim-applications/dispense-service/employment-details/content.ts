@@ -27,24 +27,24 @@ const en = ({ partner }: Partial<CommonContent>) => ({
 });
 
 const cy = ({ partner }: CommonContent) => ({
-  title: "Enter the employer's details",
-  employersName: 'Name of employer',
+  title: 'Rhowch fanylion y cyflogwr',
+  employersName: 'Enw’r cyflogwr',
   employersAddress: "Employer's address",
-  partnerOccupation: `Your ${partner}'s occupation`,
-  employerResultsDescription: 'Results of your enquiry with the employer',
-  uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
+  partnerOccupation: `Galwedigaeth ${partner}`,
+  employerResultsDescription: 'Canlyniadau eich ymholiad i’r cyflogwr',
+  uploadHint: 'Byddwch yn gallu uwchlwytho unrhyw dystiolaeth sydd gennych ar ddiwedd y cais hwn.',
   errors: {
     applicant1DispenseEmployerName: {
-      required: 'Enter the employer’s name or the company name',
+      required: 'Rhowch enw cyflogwr y cwmni',
     },
     applicant1DispenseEmployerAddress: {
-      required: 'Enter the employer’s address or the company address',
+      required: 'Nodwch gyfeiriad y cyflogwr neu gyfeiriad y cwmni',
     },
     applicant1DispensePartnerOccupation: {
-      required: `Enter your ${partner}'s occupation`,
+      required: `Rhowch alwedigaeth eich ${partner}`,
     },
     applicant1DispenseContactingEmployerResults: {
-      required: 'Enter details about the results of your enquiries with the employer',
+      required: 'Eglurwch ganlyniadau eich ymholiadau gyda’r cyflogwr',
     },
   },
 });
