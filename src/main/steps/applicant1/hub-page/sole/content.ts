@@ -706,8 +706,8 @@ const cy: typeof en = (
     line2: `Ni fyddwch yn gweld ymateb eich ${partner} pan fyddwch yn gwneud cais am y gorchymyn amodol.`,
   },
   awaitingConsiderationSearchGovRecords: {
-    line1: `The court is currently considering your search government records application that you submitted on ${generalApplicationDate}.`,
-    line2: `We will email you by ${generalApplicationResponseDate} once a decision has been made to tell you your next steps.`,
+    line1: `Mae'r llys wrthi'n ystyried eich cais i chwilio confodion y llywodraeth a gyflwynwyd gennych ar ${generalApplicationDate}.`,
+    line2: `Byddwn yn anfon e-bost atoch erbyn ${generalApplicationResponseDate} unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw'r camau nesaf.`,
   },
   conditionalOrderWithDeemedOrDispensedService: `Ni fyddwch yn gweld ymateb gan eich ${partner} yn y cais am orchymyn amodol.
    Mae hyn oherwydd na wnaethant ymateb i'ch cais. Gwnaethoch gais i'r llys am ${
