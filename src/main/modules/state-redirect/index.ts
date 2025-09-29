@@ -35,6 +35,7 @@ import {
   THEIR_EMAIL_ADDRESS,
   VIEW_YOUR_ANSWERS,
   WITHDRAW_APPLICATION,
+  WITHDRAW_SERVICE_APPLICATION,
 } from '../../steps/urls';
 
 /**
@@ -108,6 +109,7 @@ export class StateRedirectMiddleware {
             SAVE_AND_SIGN_OUT,
             VIEW_YOUR_ANSWERS,
             WITHDRAW_APPLICATION,
+            WITHDRAW_SERVICE_APPLICATION,
           ].includes(req.path as PageLink)
         ) {
           return next();
