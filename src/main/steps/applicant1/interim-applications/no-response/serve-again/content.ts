@@ -25,7 +25,6 @@ const en = ({ isApp2Represented, isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be completed then verified
 const cy: typeof en = ({ isDivorce, isApp2Represented, partner }: CommonContent) => ({
   title: `A hoffech i ni anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
@@ -33,7 +32,7 @@ const cy: typeof en = ({ isDivorce, isApp2Represented, partner }: CommonContent)
   line1: `Os byddwch yn dewis ceisio anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } eto, byddwn yn eu hanfon i’r un cyfeiriad post a chyfeiriad e-bost ac o’r blaen. Gallwch ond geisio gwneud hyn unwaith.`,
-  line2: `Bydd gan eich ${partner}${partner}${isApp2Represented ? "'s solicitor" : ''} ${config.get(
+  line2: `Bydd gan ${isApp2Represented ? 'cynrychiolydd cyfreithiol ' : ''}eich ${partner} ${config.get(
     'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
   )} diwrnod i ymateb.`,
   sendPapersAgain: `Anfon papurau’r ${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} eto`,

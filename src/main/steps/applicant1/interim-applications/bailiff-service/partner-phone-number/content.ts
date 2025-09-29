@@ -23,8 +23,8 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Ydych chi'n gwybod rhif ffôn eich ${partner}?`,
   enterPhoneNumber: `Rhowch rif ffôn eich ${partner}`,
   enterPhoneNumberHint: 'Ar gyfer rhifau rhyngwladol, nodwch god y wlad, er enghraifft +33 1234 567890',
-  yes: 'Ydy',
-  no: 'Nac ydy',
+  yes: 'Ydw',
+  no: 'Nac ydw',
   errors: {
     applicant1BailiffKnowPartnersPhone: {
       required: `Dewiswch "Ydw" os ydych yn gwybod rhif ffôn eich ${partner}`,
