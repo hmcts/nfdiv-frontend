@@ -125,4 +125,16 @@ describe('RespondentTemplateSelector test', () => {
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
+
+  test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationReview', () => {
+    const theState = displayState.at(State.WelshTranslationReview);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
+  });
+
+  test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationRequested', () => {
+    const theState = displayState.at(State.WelshTranslationRequested);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
+  });
 });

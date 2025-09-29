@@ -25,6 +25,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
+  NO_RESPONSE_DETAILS_UPDATED,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
@@ -34,6 +35,7 @@ import {
   REVIEW_THE_APPLICATION,
   SERVICE_APPLICATION_SUBMITTED,
   SUCCESS_SCREEN_PROCESS_SERVER,
+  WILL_SERVE_AGAIN,
 } from './urls';
 
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
@@ -63,7 +65,13 @@ export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
   ].map(step => step.url as PageLink),
 ];
 
-export const ROUTES_TO_IGNORE: PageLink[] = [HAVE_THEY_RECEIVED, SUCCESS_SCREEN_PROCESS_SERVER, PROCESS_SERVER_DOCS];
+export const ROUTES_TO_IGNORE: PageLink[] = [
+  NO_RESPONSE_DETAILS_UPDATED,
+  WILL_SERVE_AGAIN,
+  HAVE_THEY_RECEIVED,
+  SUCCESS_SCREEN_PROCESS_SERVER,
+  PROCESS_SERVER_DOCS,
+];
 
 export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
   {
@@ -91,9 +99,13 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
       .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
       .map(step => step.url as PageLink),
     condition: data =>
-      [State.AwaitingServicePayment, State.AwaitingServiceConsideration, State.AwaitingDocuments].includes(
-        data.state as State
-      ),
+      [
+        State.AwaitingServicePayment,
+        State.AwaitingService,
+        State.AwaitingAos,
+        State.AwaitingServiceConsideration,
+        State.AwaitingDocuments,
+      ].includes(data.state as State),
   },
   {
     urls: [PAY_YOUR_GENERAL_APPLICATION_FEE, GENERAL_APPLICATION_SUBMITTED],

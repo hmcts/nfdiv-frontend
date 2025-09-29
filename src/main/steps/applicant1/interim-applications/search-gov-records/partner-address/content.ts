@@ -15,9 +15,9 @@ const en = ({ partner }: Partial<CommonContent>) => {
   return {
     title: `What is your ${partner}'s last known address?`,
     partnerAddressHint: `If you’re able to provide your ${partner}’s last known address it may help with the search`,
-    partnerDateAtAddresses: 'Enter the dates they lived there',
-    enterPostcode: 'Enter a UK postcode',
-    buildingStreet: 'Building and street',
+    partnerDateAtAddresses: `Enter the dates your ${partner} lived at this address`,
+    enterPostcode: 'Enter a postcode',
+    buildingStreet: 'Enter a building or street address',
     line1: 'Address line 1',
     line2Optional: 'Address line 2 (optional)',
     line3Optional: 'Address line 3 (optional)',
@@ -46,7 +46,7 @@ const en = ({ partner }: Partial<CommonContent>) => {
         required: `You have not entered your ${partner}’s country. Enter their country before continuing.`,
       },
       applicant1SearchGovRecordsPartnerLastKnownAddressDates: {
-        required: `Enter the dates your ${partner} lived at this address. Enter it before continuing.`,
+        required: `Enter the dates your ${partner} lived at this address`,
       },
     },
   };
@@ -55,46 +55,46 @@ const en = ({ partner }: Partial<CommonContent>) => {
 // @TODO translations should be verified
 const cy: typeof en = ({ partner }: Partial<CommonContent>) => {
   const addressPostcode = {
-    required: `You have not entered your ${partner}’s postcode. Enter their postcode before continuing.`,
-    invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
-    notSelected: `You have not selected your ${partner}’s address. Select their address from the list before continuing.`,
+    required: `Nid ydych wedi nodi cod post eich ${partner}. Nodwch ei god post cyn parhau.`,
+    invalid: 'Nid ydych wedi nodi cod post DU dilys. Nodwch god post DU dilys cyn parhau.',
+    notSelected: `Nid ydych wedi dewis cyfeiriad eich ${partner}. Dewiswch eu cyfeiriad o'r rhestr cyn parhau.`,
   };
 
   return {
-    title: `What is your ${partner}'s last known address?`,
-    partnerAddressHint: `If you’re able to provide your ${partner}’s last known address it may help with the search`,
-    partnerDateAtAddresses: 'Enter the dates they lived there',
-    enterPostcode: 'Enter a UK postcode',
-    buildingStreet: 'Building and street',
-    line1: 'Address line 1',
-    line2Optional: 'Address line 2 (optional)',
-    line3Optional: 'Address line 3 (optional)',
-    town: 'Town or city',
-    townOptional: 'Town or city (optional)',
-    county: 'County',
-    countyOptional: 'County, district, state or province (optional)',
-    postcode: 'Postcode',
-    postcodeOptional: 'Postal code, zip code or area code',
-    country: 'Country',
-    findAddress: 'Find address',
-    enterUkPostcode: 'Enter UK postcode',
-    selectAddress: 'Select an address',
+    title: `Beth yw cyfeiriad hysbys diwethaf eich ${partner}?`,
+    partnerAddressHint: `Os ydych chi’n gallu darparu cyfeiriad hysbys diwethaf eich ${partner}, efallai y bydd yn helpu gyda'r chwiliad`,
+    partnerDateAtAddresses: `Nodwch y dyddiadau y bu eich ${partner} yn byw yn y cyfeiriad hwn`,
+    enterPostcode: 'Rhowch god post',
+    buildingStreet: 'Rhowch gyfeiriad adeilad neu stryd',
+    line1: 'Llinell cyfeiriad 1',
+    line2Optional: 'Llinell cyfeiriad 2 (dewisol)',
+    line3Optional: 'Llinell cyfeiriad 3 (dewisol)',
+    town: 'Tref neu ddinas',
+    townOptional: 'Tref neu ddinas (dewisol)',
+    county: 'Sir',
+    countyOptional: 'Sir, ardal, gwladwriaeth neu dalaith (dewisol)',
+    postcode: 'Cod post',
+    postcodeOptional: 'Cod post, cod zip neu god ardal (dewisol)',
+    country: 'Gwlad',
+    findAddress: 'Dod o hyd i gyfeiriad',
+    enterUkPostcode: 'Nodwch god post yn y DU',
+    selectAddress: 'Dewiswch gyfeiriad',
     addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
-    cannotFindAddress: 'I cannot find the address in the list',
+    cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
     errors: {
       applicant1SearchGovRecordsPartnerLastKnownAddress1: {
-        required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
+        required: `Nid ydych wedi nodi adeilad a chyfeiriad stryd eich ${partner}. Nodwch ei adeilad a'i gyfeiriad stryd cyn parhau.`,
       },
       applicant1SearchGovRecordsPartnerLastKnownAddressTown: {
-        required: `You have not entered your ${partner}’s town or city. Enter their town or city before continuing.`,
+        required: `Nid ydych wedi nodi tref neu ddinas eich ${partner}. Nodwch ei dref neu ddinas cyn parhau.`,
       },
       addressPostcode,
       applicant1SearchGovRecordsPartnerLastKnownAddressPostcode: addressPostcode,
       applicant1SearchGovRecordsPartnerLastKnownAddressCountry: {
-        required: `You have not entered your ${partner}’s country. Enter their country before continuing.`,
+        required: `Nid ydych wedi nodi gwlad eich ${partner}. Nodwch ei wlad cyn parhau.`,
       },
       applicant1SearchGovRecordsPartnerLastKnownAddressDates: {
-        required: `Enter the dates your ${partner} lived at this address. Enter it before continuing.`,
+        required: `Nodwch y dyddiadau y bu eich ${partner} yn byw yn y cyfeiriad hwn`,
       },
     },
   };
@@ -134,7 +134,6 @@ export const form: FormContent = {
         if (!isCountryUk(formData.applicant1SearchGovRecordsPartnerLastKnownAddressCountry)) {
           return;
         }
-
         return isFieldFilledIn(value);
       },
     },
@@ -161,7 +160,6 @@ export const form: FormContent = {
         if (country && !isCountryUk(country)) {
           return;
         }
-
         return isInvalidPostcode(value);
       },
     },

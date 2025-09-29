@@ -12,7 +12,6 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   }. For example, this could include a photo or screenshot of a recent conversation by text, email or social media.`,
 });
 
-// @TODO translations
 const cy = ({ partner, isDivorce }: CommonContent) => ({
   statement: `Bydd unrhyw dystiolaeth y gallwch ei darparu yn helpu'r llys i benderfynu p'un a yw'n fodlon bod eich ${partner} wedi cael y ${
     isDivorce ? 'papurau ysgaru' : "papurau i ddod â'ch partneriaeth sifil i ben"

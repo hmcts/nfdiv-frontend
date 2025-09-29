@@ -13,6 +13,7 @@ import {
   FINALISING_YOUR_APPLICATION,
   GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
+  OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
   RESPONDENT,
@@ -152,6 +153,29 @@ describe('routeHiding', () => {
       mockReq.session.userCase.dateAosSubmitted = '2021-05-10';
       const result = shouldHideRouteFromUser(mockReq);
       expect(result).toBeTruthy();
+    });
+
+    describe('No response journey', () => {
+      test('Visible in AosOverdue state', () => {
+        mockReq.url = OPTIONS_FOR_PROGRESSING;
+        mockReq.session.userCase.state = State.AosOverdue;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+
+      test('Not visible in AwaitingAos state', () => {
+        mockReq.url = OPTIONS_FOR_PROGRESSING;
+        mockReq.session.userCase.state = State.AwaitingAos;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('Not visible in AwaitingService state', () => {
+        mockReq.url = OPTIONS_FOR_PROGRESSING;
+        mockReq.session.userCase.state = State.AwaitingService;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
     });
 
     describe('Service Application Submitted URL condition', () => {

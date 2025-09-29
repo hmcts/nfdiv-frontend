@@ -27,17 +27,17 @@ const en = ({ partner }: CommonContent) => ({
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
   statement: {
-    header: 'If you have any evidence to support your application, you can upload it now. This may include:',
+    header: 'Os oes gennych unrhyw dystiolaeth i gefnogi eich cais, gallwch ei huwchlwytho yn awr.  Gall hyn gynnwys:',
     options: {
-      finalOrderSearch: 'Your no trace certificate (Mandatory)',
-      haveEmail: `proof of any attempts you have made to contact your ${partner} on their email addresses (Optional)`,
-      havePhone: `proof of any attempts you have made to contact your ${partner} on their phone numbers (Optional)`,
-      usedTracingAgent: 'results of the search by a tracing agent (Optional)',
-      tracedOnline: 'results of the search online by people finding services (Optional)',
+      finalOrderSearch: 'Eich tystysgrif dim cofnod (Gorfodol)',
+      haveEmail: `tystiolaeth o unrhyw ymdrechion rydych chi wedi’u gwneud i gysylltu â’ch ${partner} ar eu cyfeiriadau e-bost (Dewisol)`,
+      havePhone: `tystiolaeth o unrhyw ymdrechion rydych chi wedi’u gwneud i gysylltu â’ch ${partner} ar eu rhifau ffôn (Dewisol)`,
+      usedTracingAgent: "canlyniadau'r chwiliad gan asiant olrhain (Dewisol)",
+      tracedOnline: 'canlyniadau’r chwiliad ar-lein gan wasanaethau dod o hyd i bobl (Dewisol)',
       usedOnlineSearch:
-        "results of any online searches you've carried out using search engines or social media platforms (Optional)",
-      contactedEmployer: `proof of enquiries with your ${partner}'s last known employer (Optional)`,
-      otherEnquiries: 'proof of any other enquiries made (Optional)',
+        'canlyniadau unrhyw chwiliadau ar-lein rydych chi wedi’u cynnal gan ddefnyddio peiriannau chwilio neu blatfformau cyfryngau cymdeithasol (Dewisol)',
+      contactedEmployer: `tystiolaeth o ymholiadau gyda chyflogwr hysbys olaf eich ${partner} (Dewisol)`,
+      otherEnquiries: 'tystiolaeth o unrhyw ymholiadau eraill a wnaed (Dewisol)',
     },
   },
 });

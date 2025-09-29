@@ -1,9 +1,10 @@
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+import { hasValueChanged, isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
 import { isCountryUk } from '../../../../applicant1Sequence';
 import { CommonContent } from '../../../../common/common.content';
+import { getAddressFieldNames } from '../../../../common/content.utils';
 import { generateContent as enterTheirAddressContent } from '../../../enter-their-address/content';
 
 const en = ({ partner }: Partial<CommonContent>) => {
@@ -17,6 +18,7 @@ const en = ({ partner }: Partial<CommonContent>) => {
     errors: {
       applicant1NoResponsePartnerAddress1: {
         required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
+        valueUnchanged: `You have entered the same postal address as the one you previously provided for your ${partner}. Please enter a new address to continue.`,
       },
       applicant1NoResponsePartnerAddressTown: {
         required: `You have not entered your ${partner}’s town or city. Enter their town or city before continuing.`,
@@ -41,6 +43,7 @@ const cy = ({ partner }: CommonContent) => {
     errors: {
       applicant1NoResponsePartnerAddress1: {
         required: `Nid ydych wedi nodi adeilad a chyfeiriad stryd eich ${partner}. Nodwch ei adeilad a'i gyfeiriad stryd cyn parhau.`,
+        valueUnchanged: `Rydych wedi nodi'r un cyfeiriad post â'r un a ddarparwyd o'r blaen ar gyfer eich ${partner}. Rhowch gyfeiriad newydd i barhau.`,
       },
       applicant1NoResponsePartnerAddressTown: {
         required: `Nid ydych wedi nodi tref neu ddinas eich ${partner}. Nodwch ei dref neu ddinas cyn parhau.`,
@@ -54,15 +57,29 @@ const cy = ({ partner }: CommonContent) => {
   };
 };
 
+const addressHasChangedValidator = (userCase, formData) => {
+  const beforeAddress = getAddressFieldNames('applicant2')
+    .map(field => userCase?.[field])
+    .filter(value => value !== undefined);
+
+  const afterAddress = getAddressFieldNames('applicant1NoResponsePartner')
+    .map(field => formData?.[field])
+    .filter(value => value !== undefined);
+
+  return hasValueChanged(beforeAddress, afterAddress);
+};
+
 export const form: FormContent = {
-  fields: {
+  fields: userCase => ({
     applicant1NoResponsePartnerAddress1: {
       id: 'address1',
       type: 'text',
       classes: 'govuk-label',
       label: l => l.buildingStreet,
       labelSize: null,
-      validator: isFieldFilledIn,
+      validator: (value, formData) => {
+        return isFieldFilledIn(value) || addressHasChangedValidator(userCase, formData);
+      },
     },
     applicant1NoResponsePartnerAddress2: {
       id: 'address2',
@@ -133,7 +150,7 @@ export const form: FormContent = {
         { label: l => l.no, value: YesOrNo.NO },
       ],
     },
-  },
+  }),
   submit: {
     text: l => l.continue,
   },
@@ -149,6 +166,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...enterTheirAddressContent(content),
     ...translations,
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.language) },
   };
 };

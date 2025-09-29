@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { validate as isValidEmail } from 'email-validator';
+import isEqual from 'lodash/isEqual';
 
 import { Case, CaseDate } from '../case/case';
 
@@ -14,6 +15,7 @@ export type NumberValidator = (
 ) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 export type EmailValidator = (value: string | undefined, emailToCompare: string | undefined) => void | string;
+export type ValueChangedValidator<T> = (value: T | undefined, previousValue: T | undefined) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
   if (!value || (value as string).trim?.().length === 0) {
@@ -213,5 +215,14 @@ export const isValidCaseReference: Validator = value => {
 export const isValidAccessCode: Validator = value => {
   if ((value as string).replace(/\s/g, '').length !== 8) {
     return 'invalid';
+  }
+};
+
+export const hasValueChanged = <T>(
+  value: T | undefined,
+  previousValue: T | undefined
+): ReturnType<ValueChangedValidator<T>> => {
+  if (isEqual(value, previousValue)) {
+    return 'valueUnchanged';
   }
 };

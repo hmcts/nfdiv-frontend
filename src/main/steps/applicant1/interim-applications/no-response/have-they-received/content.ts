@@ -1,4 +1,4 @@
-import { NoResponseCheckContactDetails } from '../../../../../app/case/definition';
+import { NoResponseCheckContactDetails, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -34,7 +34,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   detailsUpToDateHeader: `A yw’r manylion hyn ar gyfer eich ${partner} yn gywir ac yn gyfredol?`,
   doYouKnowYourPartnersDetailsHeader: `Ydych chi’n gwybod manylion eich ${partner}?`,
   upToDate: 'Ydy, mae’r manylion hyn yn gyfredol',
-  newAddressOrEmailAddress: `Mae gennyf gyfeiriad post neu gyfeiriad e-bost newydd ar gyfer fy ${partner}`,
+  newAddressOrEmailAddress: 'Mae gennyf gyfeiriad post neu gyfeiriad e-bost newydd ar gyfer fy mhartner',
   notKnown: 'Ddim yn hysbys',
   homeAddress: 'Cyfeiriad cartref',
   emailAddress: 'Cyfeiriad e-bost',
@@ -125,8 +125,9 @@ export const generateContent: TranslationFn = content => {
     address += checkAddressString(userCase.applicant2AddressPostcode);
     return address;
   };
-  const applicant2Address = app2Address();
-  const applicant2Email = content.userCase.applicant2Email;
+  const applicant2Address = content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : app2Address();
+  const applicant2Email =
+    content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : content.userCase.applicant2Email;
   const contactDetailsProvided =
     applicant2Address.length > 0 ||
     (applicant2Email !== null && applicant2Email !== undefined && applicant2Email.length > 0);

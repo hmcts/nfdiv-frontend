@@ -103,7 +103,7 @@ const cy: typeof en = (
               : socialMediaSelected
                 ? 'drwy neges breifat ar y cyfryngau cymdeithasol'
                 : 'yn y ffordd hwn'
-    } ${cannotUploadEvidence ? '.' : 'yn llwyddiannus.'}`,
+    }${cannotUploadEvidence ? '.' : ' yn llwyddiannus.'}`,
     },
   },
 });
