@@ -72,6 +72,8 @@ export const getSoleHubTemplate = (
         return HubTemplate.ConditionalOrderPronounced;
       } else if (userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate) {
         return HubTemplate.AwaitingConditionalOrder;
+      } else if (isSearchGovRecords) {
+        return HubTemplate.GeneralConsiderationComplete;
       } else if (!userCase.dueDate && userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;
       } else if (isAlternativeServiceApplicationGranted) {
@@ -81,6 +83,9 @@ export const getSoleHubTemplate = (
       } else {
         return HubTemplate.AosAwaitingOrDrafted;
       }
+    case State.AwaitingGeneralReferralPayment: {
+      return HubTemplate.OfflineAwaitingGeneralReferralPayment;
+    }
     case State.AwaitingGeneralConsideration:
       if (isSearchGovRecords) {
         return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
@@ -94,7 +99,9 @@ export const getSoleHubTemplate = (
         return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.GeneralApplicationReceived:
-      return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
+      return isOnlineGeneralApplication
+        ? HubTemplate.AwaitingGeneralApplicationConsideration
+        : HubTemplate.OfflineGeneralApplicationReceived;
     case State.AwaitingConditionalOrder:
       return HubTemplate.AwaitingConditionalOrder;
     case State.Holding:
