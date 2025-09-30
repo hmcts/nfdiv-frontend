@@ -518,6 +518,18 @@ const en = (
     },
     line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
   },
+  offlineGeneralApplicationReceived: {
+    line1:
+      'The court is reviewing a general application that has been received and will contact you to let you know your next steps.',
+  },
+  offlineAwaitingGeneralReferralPayment: {
+    line1:
+      'Your general application has been received. You need to pay the general application fee before it can be referred to a Judge for consideration. The court will contact you with instructions on how to make the payment.',
+  },
+  generalConsiderationComplete: {
+    line1:
+      'The court is reviewing a general application that has been received and will contact you to let you know your next steps',
+  },
 });
 
 // @TODO translations
@@ -1014,6 +1026,18 @@ const cy: typeof en = (
       } barhau heb eu hymateb.`,
     },
     line3: `Os byddant yn methu â chyflwyno’r papurau, efallai y gallwch wneud cais am gyflwyno amgen drwy flwch llythyrau, os yw cyfeiriad eich ${partner} wedi’i gadarnhau. Fel arall, bydd angen i chi gyflwyno’r papurau mewn rhyw ffordd arall.`,
+  },
+  offlineGeneralApplicationReceived: {
+    line1:
+      'Mae’r llys yn adolygu cais cyffredinol sydd wedi dod i law a bydd yn cysylltu â chi i roi gwybod i chi beth fydd eich camau nesaf.',
+  },
+  offlineAwaitingGeneralReferralPayment: {
+    line1:
+      'Mae eich cais cyffredinol wedi dod i law. Mae angen i chi dalu’r ffi ar gyfer gwneud cais cyffredinol cyn y gellir ei gyfeirio at Farnwr er mwyn ei ystyried. Bydd y llys yn cysylltu â chi gyda chyfarwyddiadau ar sut i wneud y taliad.',
+  },
+  generalConsiderationComplete: {
+    line1:
+      'Mae’r llys yn adolygu cais cyffredinol sydd wedi dod i law a bydd yn cysylltu â chi i roi gwybod i chi beth fydd eich camau nesaf.',
   },
 });
 
