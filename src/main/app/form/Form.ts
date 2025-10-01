@@ -1,6 +1,6 @@
 import { existingOrNew } from '../../steps/existing-application/content';
 import { Case, CaseDate, CaseWithId } from '../case/case';
-import { ValidationErrors, YesOrNo } from '../case/definition';
+import { YesOrNo } from '../case/definition';
 import { AnyObject } from '../controller/PostController';
 
 import { setupCheckboxParser } from './parser';
@@ -93,7 +93,7 @@ export class Form {
 
     const isTextInput = [InputType.TEXT, InputType.TEXT_AREA].includes(fieldType as InputType);
 
-    const fieldValue = (body[id] as string | undefined);
+    const fieldValue = body[id] as string | undefined;
     if (isTextInput && (fieldValue?.length ?? 0) > Form.MAX_TEXT_INPUT_LENGTH) {
       errors.push({ propertyName: id, errorType: CommonValidationErrors.MaxLength });
     }
