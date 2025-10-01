@@ -1905,7 +1905,7 @@ export const enum ChangeOrganisationApprovalStatus {
   REJECTED = '2',
 }
 
-export const enum CcdFieldType {
+export const enum FieldType {
   Unspecified = 'Unspecified',
   Email = 'Email',
   PhoneUK = 'PhoneUK',
@@ -1913,7 +1913,6 @@ export const enum CcdFieldType {
   Document = 'Document',
   Schedule = 'Schedule',
   TextArea = 'TextArea',
-  Text = 'Text',
   FixedList = 'FixedList',
   FixedRadioList = 'FixedRadioList',
   YesOrNo = 'YesOrNo',
@@ -2628,6 +2627,15 @@ export const enum DocumentType {
   CONDITIONAL_ORDER_GRANTED_COVERSHEET_APP_1 = 'coGrantedCoversheet',
   CONDITIONAL_ORDER_GRANTED_COVERSHEET_APP_2 = 'coGrantedCoversheetApp2',
   SWITCH_TO_SOLE_CO_LETTER = 'switchToSoleCoLetter',
+}
+
+export const enum PaymentStatus {
+  IN_PROGRESS = 'inProgress',
+  SUCCESS = 'success',
+  DECLINED = 'declined',
+  TIMED_OUT = 'timedOut',
+  CANCELLED = 'cancelled',
+  ERROR = 'error',
 }
 
 export const enum PbaErrorMessage {
