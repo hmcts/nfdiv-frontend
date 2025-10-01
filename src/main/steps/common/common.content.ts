@@ -22,6 +22,9 @@ export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
+  commonErrors: {
+    maxLength: 'Please limit text input to 10,000 characters.'
+  },
   generalApplication: {
     for: 'for',
     to: 'to',
@@ -226,6 +229,9 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
+  commonErrors: {
+    maxLength: 'Please limit text input to 10,000 characters.'
+  },
   generalApplication: {
     for: 'am',
     to: 'i',

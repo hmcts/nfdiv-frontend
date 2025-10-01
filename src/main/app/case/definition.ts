@@ -1912,7 +1912,8 @@ export const enum FieldType {
   Date = 'Date',
   Document = 'Document',
   Schedule = 'Schedule',
-  TextArea = 'TextArea',
+  TextArea = 'textarea',
+  Text = 'text',
   FixedList = 'FixedList',
   FixedRadioList = 'FixedRadioList',
   YesOrNo = 'YesOrNo',
@@ -1930,6 +1931,10 @@ export const enum FieldType {
   FlagType = 'FlagType',
   FlagDetail = 'FlagDetail',
   ComponentLauncher = 'ComponentLauncher',
+}
+
+export const enum ValidationErrors {
+  MaxLength = 'maxLength',
 }
 
 export const enum FlagType {

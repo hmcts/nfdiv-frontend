@@ -1,6 +1,6 @@
 import { existingOrNew } from '../../steps/existing-application/content';
 import { Case, CaseDate, CaseWithId } from '../case/case';
-import { YesOrNo } from '../case/definition';
+import { FieldType, ValidationErrors, YesOrNo } from '../case/definition';
 import { AnyObject } from '../controller/PostController';
 
 import { setupCheckboxParser } from './parser';
@@ -18,6 +18,8 @@ const WHITELISTED_FIELDS = [
 
 export class Form {
   constructor(private readonly fields: FormFields) {}
+
+  static readonly MAX_TEXT_INPUT_LENGTH = 10_000;
 
   /**
    * Pass the form body to any fields with a parser and return mutated body;
@@ -62,6 +64,8 @@ export class Form {
     const errorType = field.validator && field.validator(body[id], body);
     const errors: FormError[] = errorType ? [{ errorType, propertyName: id }] : [];
 
+    errors.push(...this.validateGlobalInputRules(body, id, field as FormInput));
+
     // if there are checkboxes or options, check them for errors
     if (isFormOptions(field)) {
       const valuesErrors = field.values.flatMap(value => this.getErrorsFromField(body, value.name || id, value));
@@ -74,6 +78,24 @@ export class Form {
       const subFieldErrors = subFields.flatMap(([subId, subField]) => this.getErrorsFromField(body, subId, subField));
 
       errors.push(...subFieldErrors);
+    }
+
+    return errors;
+  }
+
+  private validateGlobalInputRules(body: Partial<Case>, id: string, field: FormField): FormError[] {
+    const errors: FormError[] = [];
+    const fieldType = (field as FormOptions)?.type;
+
+    if (isFormOptions(field) || !fieldType) {
+      return errors;
+    }
+
+    const isTextInput = [FieldType.Text, FieldType.TextArea].includes(fieldType as FieldType);
+
+    const fieldValue = (body[id] as string | undefined);
+    if (isTextInput && (fieldValue?.length ?? 0) > Form.MAX_TEXT_INPUT_LENGTH) {
+      errors.push({ propertyName: id, errorType: ValidationErrors.MaxLength });
     }
 
     return errors;
