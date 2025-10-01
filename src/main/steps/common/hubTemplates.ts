@@ -41,6 +41,4 @@ export const enum HubTemplate {
   AwaitingService = '/awaiting-service.njk',
   WelshTranslationRequestedOrReview = '/welsh-translation-requested-or-review.njk',
   OfflineGeneralApplicationReceived = '/offline-general-application-received.njk',
-  OfflineAwaitingGeneralReferralPayment = '/offline-awaiting-general-referral-payment.njk',
-  GeneralConsiderationComplete = '/general-consideration-complete.njk',
 }

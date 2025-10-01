@@ -73,7 +73,7 @@ export const getSoleHubTemplate = (
       } else if (userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate) {
         return HubTemplate.AwaitingConditionalOrder;
       } else if (isSearchGovRecords) {
-        return HubTemplate.GeneralConsiderationComplete;
+        return HubTemplate.OfflineGeneralApplicationReceived;
       } else if (!userCase.dueDate && userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;
       } else if (isAlternativeServiceApplicationGranted) {
@@ -84,7 +84,7 @@ export const getSoleHubTemplate = (
         return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.AwaitingGeneralReferralPayment: {
-      return HubTemplate.OfflineAwaitingGeneralReferralPayment;
+      return HubTemplate.OfflineGeneralApplicationReceived;
     }
     case State.AwaitingGeneralConsideration:
       if (isSearchGovRecords) {
