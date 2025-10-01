@@ -10,7 +10,7 @@
     {% elif item.errorType === 'maxLength' %}
       {% set errorList = (errorList.push({
         href: '#' + item.propertyName,
-        text: commonErrors[item.errorType]
+        text: commonValidationErrors[item.errorType]
       }), errorList) %}
     {% else %}
       {% set errorList = (errorList.push({
