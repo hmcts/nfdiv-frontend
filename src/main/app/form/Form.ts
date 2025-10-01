@@ -1,6 +1,6 @@
 import { existingOrNew } from '../../steps/existing-application/content';
 import { Case, CaseDate, CaseWithId } from '../case/case';
-import { FieldType, ValidationErrors, YesOrNo } from '../case/definition';
+import { ValidationErrors, YesOrNo } from '../case/definition';
 import { AnyObject } from '../controller/PostController';
 
 import { setupCheckboxParser } from './parser';
@@ -91,11 +91,11 @@ export class Form {
       return errors;
     }
 
-    const isTextInput = [FieldType.Text, FieldType.TextArea].includes(fieldType as FieldType);
+    const isTextInput = [InputType.TEXT, InputType.TEXT_AREA].includes(fieldType as InputType);
 
     const fieldValue = (body[id] as string | undefined);
     if (isTextInput && (fieldValue?.length ?? 0) > Form.MAX_TEXT_INPUT_LENGTH) {
-      errors.push({ propertyName: id, errorType: ValidationErrors.MaxLength });
+      errors.push({ propertyName: id, errorType: CommonValidationErrors.MaxLength });
     }
 
     return errors;
@@ -201,6 +201,20 @@ export interface FormInput {
   warning?: Warning;
   conditionalText?: Label;
   subFields?: Record<string, FormField>;
+}
+
+enum InputType {
+  TEXT = 'text',
+  TEXT_AREA = 'textarea',
+  RADIOS = 'radios',
+  CHECKBOXES = 'checkboxes',
+  DATE = 'date',
+  TELEPHONE = 'tel',
+  HIDDEN = 'hidden',
+}
+
+enum CommonValidationErrors {
+  MaxLength = 'maxLength',
 }
 
 function isFormOptions(field: FormField): field is FormOptions {
