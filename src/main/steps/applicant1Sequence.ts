@@ -13,7 +13,15 @@ import {
   previousConnectionMadeUptoLastHabituallyResident,
 } from '../app/jurisdiction/connections';
 
+import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
+import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
+import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
+import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
+import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
+import { noResponseJourneySequence } from './noResponseJourneySequence';
+import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
+import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
@@ -90,6 +98,7 @@ import {
   REVIEW_YOUR_JOINT_APPLICATION,
   REVIEW_YOUR_RESPONSE,
   SENT_TO_APPLICANT2_FOR_REVIEW,
+  SERVICE_APPLICATION_WITHDRAWN,
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
   UPLOAD_YOUR_DOCUMENTS,
@@ -97,6 +106,7 @@ import {
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   WITHDRAWING_YOUR_APPLICATION,
   WITHDRAW_APPLICATION,
+  WITHDRAW_SERVICE_APPLICATION,
   YOUR_DETAILS_URL,
   YOU_CANNOT_UPDATE_THEIR_EMAIL,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
@@ -460,6 +470,14 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
+    url: WITHDRAW_SERVICE_APPLICATION,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: SERVICE_APPLICATION_WITHDRAWN,
+    getNextStep: () => HOME_URL,
+  },
+  {
     url: PAY_YOUR_FEE,
     getNextStep: () => PAYMENT_CALLBACK_URL,
   },
@@ -581,6 +599,17 @@ export const applicant1PostSubmissionSequence: Step[] = [
     url: VIEW_YOUR_ANSWERS,
     getNextStep: () => HOME_URL,
   },
+  ...noResponseJourneySequence,
+  ...alternativeServiceApplicationSequence,
+  ...bailiffServiceApplicationSequence,
+  ...deemedServiceApplicationSequence,
+  ...bailiffServiceApplicationSequence,
+  ...alternativeServiceApplicationSequence,
+  ...dispenseServiceApplicationSequence,
+  ...searchGovRecordsApplicationSequence,
+  ...noResponseJourneySequence,
+  ...serviceApplicationPaymentSequence,
+  ...generalApplicationPaymentSequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>

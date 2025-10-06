@@ -5,52 +5,71 @@ import { LoggerInstance } from 'winston';
 
 import {
   APPLICANT_2,
+  DETAILS_OTHER_PROCEEDINGS,
   PROVIDE_INFORMATION_TO_THE_COURT,
+  RESPONDENT,
   RESPOND_TO_COURT_FEEDBACK,
+  UPLOAD_EVIDENCE_ALTERNATIVE,
+  UPLOAD_EVIDENCE_DEEMED,
+  UPLOAD_EVIDENCE_DISPENSE,
+  UPLOAD_PARTNER_PHOTO,
   UPLOAD_YOUR_DOCUMENTS,
 } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, DivorceDocument, ListValue, State } from '../case/definition';
+import {
+  ApplicationType,
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_UPDATE,
+  DivorceDocument,
+  InterimApplicationType,
+  ListValue,
+  State,
+} from '../case/definition';
 import { getFilename } from '../case/formatter/uploaded-files';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
+import { userCanUploadDocuments } from './DocumentManagementConstants';
 
 @autobind
 export class DocumentManagerController {
   logger: LoggerInstance | undefined;
 
   private redirect(req: AppRequest, res: Response, isApplicant2: boolean) {
+    const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
+
     if (req.session.userCase.state === State.AwaitingClarification) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
+    } else if ([State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state) && !isApplicant2) {
+      return res.redirect(this.interimApplicationRedirectPath(req, isApplicant2));
+    } else if (isSole && isApplicant2) {
+      return res.redirect(RESPONDENT + DETAILS_OTHER_PROCEEDINGS);
     }
     return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_YOUR_DOCUMENTS}`);
   }
 
+  private interimApplicationRedirectPath(req: AppRequest, isApplicant2: boolean): string {
+    const interimApplicationType = req.session.userCase.applicant1InterimApplicationType;
+    if (interimApplicationType === InterimApplicationType.DEEMED_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DEEMED}`;
+    } else if (interimApplicationType === InterimApplicationType.BAILIFF_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_PARTNER_PHOTO}`;
+    } else if (interimApplicationType === InterimApplicationType.ALTERNATIVE_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_ALTERNATIVE}`;
+    } else if (interimApplicationType === InterimApplicationType.DISPENSE_WITH_SERVICE) {
+      return `${isApplicant2 ? APPLICANT_2 : ''}${UPLOAD_EVIDENCE_DISPENSE}`;
+    }
+    return req.get('Referrer') as string;
+  }
+
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
+    const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
+
     this.logger = req.locals.logger;
-    if (
-      (!isApplicant2 &&
-        ![
-          State.Draft,
-          State.AwaitingApplicant1Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-        ].includes(req.session.userCase.state)) ||
-      (isApplicant2 &&
-        ![
-          State.AwaitingApplicant2Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-        ].includes(req.session.userCase.state))
-    ) {
+    if (!userCanUploadDocuments(req.session.userCase, isApplicant2)) {
       throw new Error('Cannot upload new documents as case is not in the correct state');
     }
 
@@ -89,6 +108,10 @@ export class DocumentManagerController {
       )
     ) {
       documentsKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
+    } else if (!isApplicant2 && [State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
+      documentsKey = isApplicant2 ? 'applicant2InterimAppsEvidenceDocs' : 'applicant1InterimAppsEvidenceDocs';
+    } else if (isSole && isApplicant2) {
+      documentsKey = 'applicant2LegalProceedingDocs';
     }
 
     const updatedDocumentsUploaded = newUploads.concat(req.session.userCase[documentsKey] || []);
@@ -110,6 +133,7 @@ export class DocumentManagerController {
   }
 
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+    const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
     const isApplicant2 = req.session.isApplicant2;
     let documentsUploadedKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
     if (req.session.userCase.state === State.AwaitingClarification) {
@@ -120,29 +144,16 @@ export class DocumentManagerController {
       )
     ) {
       documentsUploadedKey = isApplicant2 ? 'app2RfiDraftResponseDocs' : 'app1RfiDraftResponseDocs';
+    } else if (!isApplicant2 && [State.AosDrafted, State.AosOverdue].includes(req.session.userCase.state)) {
+      documentsUploadedKey = isApplicant2 ? 'applicant2InterimAppsEvidenceDocs' : 'applicant1InterimAppsEvidenceDocs';
+    } else if (isSole && isApplicant2) {
+      documentsUploadedKey = 'applicant2LegalProceedingDocs';
     }
+
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
-    if (
-      (!isApplicant2 &&
-        ![
-          State.Draft,
-          State.AwaitingApplicant1Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-        ].includes(req.session.userCase.state)) ||
-      (isApplicant2 &&
-        ![
-          State.AwaitingApplicant2Response,
-          State.AwaitingClarification,
-          State.InformationRequested,
-          State.AwaitingRequestedInformation,
-          State.RequestedInformationSubmitted,
-        ].includes(req.session.userCase.state))
-    ) {
+    if (!userCanUploadDocuments(req.session.userCase, isApplicant2)) {
       throw new Error('Cannot delete documents as case is not in the correct state');
     }
 

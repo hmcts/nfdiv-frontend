@@ -2,16 +2,14 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
-import { PAYMENT_CALLBACK_URL, RESPONDENT, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import {
-  ApplicationType,
   CITIZEN_ADD_PAYMENT,
   CITIZEN_CREATE_SERVICE_REQUEST,
   CaseData,
   Fee,
   ListValue,
   PaymentStatus,
-  State,
 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
@@ -25,29 +23,31 @@ export default abstract class BasePaymentPostController {
       return res.redirect(SAVE_AND_SIGN_OUT);
     }
 
-    if (!this.awaitingPaymentStates().has(req.session.userCase.state)) {
+    const citizenPaymentCallbackUrl: string = getPaymentCallbackUrl(req, res, this.getPaymentCallbackPath());
+
+    if (!this.readyForPayment(req)) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
-        { citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
+        {},
         this.awaitingPaymentEvent()
       );
     }
 
-    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
+    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField(req)] || []);
     if (payments.isPaymentInProgress()) {
-      return this.saveAndRedirect(req, res, getPaymentCallbackPath(req));
+      return this.saveAndRedirect(req, res, this.getPaymentCallbackPath());
     }
 
     if (!this.getServiceReferenceForFee(req)) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
-        { citizenPaymentCallbackUrl: getPaymentCallbackUrl(req, res) },
+        {},
         CITIZEN_CREATE_SERVICE_REQUEST
       );
     }
 
     const serviceReference = this.getServiceReferenceForFee(req);
-    const payment = await this.attemptPayment(req, payments, serviceReference, getPaymentCallbackUrl(req, res));
+    const payment = await this.attemptPayment(req, payments, serviceReference, citizenPaymentCallbackUrl);
 
     this.saveAndRedirect(req, res, payment.next_url);
   }
@@ -93,7 +93,7 @@ export default abstract class BasePaymentPostController {
       },
     };
 
-    const eventPayload = { [this.paymentsCaseField()]: [...payments.list, newPaymentWithId] };
+    const eventPayload = { [this.paymentsCaseField(req)]: [...payments.list, newPaymentWithId] };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
       eventPayload,
@@ -103,22 +103,16 @@ export default abstract class BasePaymentPostController {
     return payment;
   }
 
-  protected abstract awaitingPaymentStates(): Set<State>;
+  protected abstract readyForPayment(req: AppRequest<AnyObject>): boolean;
   protected abstract awaitingPaymentEvent(): string;
   protected abstract getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[];
   protected abstract getServiceReferenceForFee(req: AppRequest<AnyObject>): string;
-  protected abstract paymentsCaseField(): keyof CaseData;
+  protected abstract paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData;
+  protected abstract getPaymentCallbackPath(): string;
 }
 
-export function getPaymentCallbackUrl(req: AppRequest, res: Response): string {
+export function getPaymentCallbackUrl(req: AppRequest, res: Response, callbackPath: string): string {
   const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
   const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-  return `${protocol}${res.locals.host}${port}${getPaymentCallbackPath(req)}`;
-}
-
-export function getPaymentCallbackPath(req: AppRequest): string {
-  const isRespondent: boolean =
-    req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
-
-  return isRespondent ? RESPONDENT + PAYMENT_CALLBACK_URL : PAYMENT_CALLBACK_URL;
+  return `${protocol}${res.locals.host}${port}${callbackPath}`;
 }

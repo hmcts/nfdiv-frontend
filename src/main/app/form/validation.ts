@@ -1,19 +1,45 @@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { validate as isValidEmail } from 'email-validator';
+import isEqual from 'lodash/isEqual';
 
 import { Case, CaseDate } from '../case/case';
 
 dayjs.extend(customParseFormat);
 
 export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
+export type NumberValidator = (
+  value: string | string[] | CaseDate | Partial<Case> | undefined,
+  minValue: number,
+  maxValue: number
+) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 export type EmailValidator = (value: string | undefined, emailToCompare: string | undefined) => void | string;
+export type ValueChangedValidator<T> = (value: T | undefined, previousValue: T | undefined) => void | string;
 
 export const isFieldFilledIn: Validator = value => {
   if (!value || (value as string).trim?.().length === 0) {
     return 'required';
   }
+};
+
+export const isValidNumber: NumberValidator = (value, minValue, maxValue) => {
+  if (!value || (value as string).trim?.().length === 0) {
+    return 'required';
+  }
+
+  const trimmed = (value as string).trim();
+  const number = Number(trimmed);
+
+  if (isNaN(number) || !/^\d+$/.test(trimmed)) {
+    return 'invalid';
+  }
+
+  if (number < minValue || number > maxValue) {
+    return 'invalid';
+  }
+
+  return undefined;
 };
 
 export const atLeastOneFieldIsChecked: Validator = fields => {
@@ -103,6 +129,25 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
   }
 };
 
+export const isInvalidNationalInsuranceNumber: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+
+  const upperValue = (value as string).toUpperCase();
+
+  const niRegex = /^[A-Z]{2} \d{2} \d{2} \d{2} [A-Z]$/;
+
+  if (!niRegex.test(upperValue)) {
+    return 'invalidFormat';
+  }
+
+  if (upperValue === 'JB 34 66 84 D') {
+    return 'invalidUsedExample';
+  }
+};
+
 export const isInvalidPostcode: Validator = value => {
   const fieldNotFilledIn = isFieldFilledIn(value);
   if (fieldNotFilledIn) {
@@ -120,7 +165,29 @@ export const isPhoneNoValid: Validator = value => {
   }
 };
 
+export const isPhoneNoFilledAndValid: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+  // If the field is filled in, check if it is a valid phone number
+  if (typeof value === 'string') {
+    return !value.match(/^$|^[0-9 +().-]{9,}$/) ? 'invalid' : undefined;
+  }
+};
+
 export const isEmailValid: Validator = value => {
+  if (!isValidEmail(value as string)) {
+    return 'invalid';
+  }
+};
+
+export const isEmailFilledAndValid: Validator = value => {
+  const fieldNotFilledIn = isFieldFilledIn(value);
+  if (fieldNotFilledIn) {
+    return fieldNotFilledIn;
+  }
+
   if (!isValidEmail(value as string)) {
     return 'invalid';
   }
@@ -148,5 +215,14 @@ export const isValidCaseReference: Validator = value => {
 export const isValidAccessCode: Validator = value => {
   if ((value as string).replace(/\s/g, '').length !== 8) {
     return 'invalid';
+  }
+};
+
+export const hasValueChanged = <T>(
+  value: T | undefined,
+  previousValue: T | undefined
+): ReturnType<ValueChangedValidator<T>> => {
+  if (isEqual(value, previousValue)) {
+    return 'valueUnchanged';
   }
 };

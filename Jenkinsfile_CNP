@@ -25,6 +25,9 @@ def secrets = [
                 secret('pcq-token-key', 'PCQ_TOKEN'),
                 secret('playwright-service-url', 'PLAYWRIGHT_SERVICE_URL'),
                 secret('playwright-token', 'PLAYWRIGHT_SERVICE_ACCESS_TOKEN'),
+                secret('genesys-deployment-id', 'GENESYS_DEPLOYMENT_ID'),
+                secret('genesys-deployment-id-cy', 'GENESYS_DEPLOYMENT_ID_CY'),
+                secret('genesys-api-key', 'GENESYS_API_KEY'),
         ]
 ]
 
@@ -58,7 +61,7 @@ withPipeline(type, product, component) {
   }
 
   // uncomment to connect backend PR
-  //onPR {
-  //  env.CASE_TYPE="NFD-4188"
-  //}
+//  onPR {
+//    env.CASE_TYPE="NFD-4397"
+//  }
 }

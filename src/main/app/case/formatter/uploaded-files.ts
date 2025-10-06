@@ -1,5 +1,6 @@
 import { Case, Checkbox } from '../case';
 import { CaseData, DivorceDocument } from '../definition';
+import { checkboxConverter } from '../from-api-format';
 
 export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
   applicant1UploadedFiles:
@@ -22,6 +23,12 @@ export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
       id: `${file.id}`,
       name: `${getFilename(file.value)}`,
     })) || [],
+  applicant1InterimAppsEvidenceDocs: data.applicant1InterimAppsEvidenceDocs,
+  applicant1InterimAppsEvidenceUploadedFiles:
+    data.applicant1InterimAppsEvidenceDocs?.map(file => ({
+      id: `${file.id}`,
+      name: `${getFilename(file.value)}`,
+    })) || [],
 });
 
 export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
@@ -39,6 +46,13 @@ export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
       id: `${file.id}`,
       name: `${getFilename(file.value)}`,
     })) || [],
+  applicant2LegalProceedingDocs: data.applicant2LegalProceedingDocs,
+  applicant2LegalProceedingUploadedFiles:
+    data.applicant2LegalProceedingDocs?.map(file => ({
+      id: `${file.id}`,
+      name: `${getFilename(file.value)}`,
+    })) || [],
+  applicant2UnableToUploadEvidence: checkboxConverter(data.applicant2UnableToUploadEvidence),
 });
 
 export const getFilename = (document: Partial<DivorceDocument> | undefined | null): string | undefined => {

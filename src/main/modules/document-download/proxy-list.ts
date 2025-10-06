@@ -1,5 +1,6 @@
 import { DivorceDocument, DocumentType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 
 export const proxyList: {
   endpoints: string[];
@@ -10,6 +11,14 @@ export const proxyList: {
     path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.APPLICATION),
   },
   {
+    endpoints: ['/downloads/applicant2-notice-of-proceedings'],
+    path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.NOTICE_OF_PROCEEDINGS_APP_2),
+  },
+  {
+    endpoints: ['/downloads/d10'],
+    path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.D10),
+  },
+  {
     endpoints: ['/downloads/respondent-answers'],
     path: (req: AppRequest): string =>
       getPath(
@@ -18,6 +27,17 @@ export const proxyList: {
           .concat(req.session.userCase?.documentsUploaded)
           .find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)?.value
       ),
+  },
+  {
+    endpoints: ['/downloads/service-application'],
+    path: (req: AppRequest): string => getPath(req, req.session.userCase?.serviceApplicationAnswers),
+  },
+  {
+    endpoints: ['/downloads/general-application'],
+    path: (req: AppRequest): string => {
+      const generalApplications = findOnlineGeneralApplicationsForUser(req.session.userCase, req.session.isApplicant2);
+      return getPath(req, generalApplications?.[0]?.generalApplicationDocument);
+    },
   },
   {
     endpoints: ['/downloads/certificate-of-service'],
@@ -70,6 +90,10 @@ export const proxyList: {
   {
     endpoints: ['/downloads/bailiff-service-refused'],
     path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.BAILIFF_SERVICE_REFUSED),
+  },
+  {
+    endpoints: ['/downloads/alternative-service-refused'],
+    path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.ALTERNATIVE_SERVICE_REFUSED),
   },
   {
     endpoints: ['/downloads/bailiff-unsuccessful-certificate-of-service'],

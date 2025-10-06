@@ -55,7 +55,7 @@ Feature: Respondent
     Given I select "I confirm that:"
 
     When I click "Submit"
-    Then the page URL should be "/respondent/hub-page"
+    Then the page URL should be "/respondent/response-submitted"
 
   @nightly
   Scenario: They fill out an unhappy path respondent journey
@@ -112,6 +112,9 @@ Feature: Respondent
     And the page should include "Details of the other legal proceedings"
     Given I select "Provide details about the other legal proceedings."
     And I type "test details"
+    And I select "Yes" for "Have the proceedings been concluded?"
+    And I select "I cannot upload some or all of my documents"
+
 
     When I click "Continue"
     Then the page URL should be "/respondent/how-the-court-will-contact-you"
@@ -131,8 +134,7 @@ Feature: Respondent
     Given I select "I confirm that:"
 
     When I click "Submit"
-    Then the page URL should be "/respondent/hub-page"
-    And the page should include "Test your name Test your last name & Test their name Test their last name"
+    Then the page URL should be "/respondent/response-submitted"
 
   Scenario: They fill out a happy path respondent journey when case is in AwaitingConditionalOrder
     Given I set the case state to "AwaitingConditionalOrder"
@@ -151,4 +153,4 @@ Feature: Respondent
     And I select "I confirm that:"
 
     When I click "Submit"
-    Then the page URL should be "/respondent/hub-page"
+    Then the page URL should be "/respondent/response-submitted"
