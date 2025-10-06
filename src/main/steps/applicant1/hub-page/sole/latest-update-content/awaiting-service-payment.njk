@@ -1,1 +1,30 @@
-<p class="govuk-body">{{ awaitingServicePayment.line1 }}</p>
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% if serviceApplicationSubmittedOnline %}
+    {% if serviceApplicationFeeRequired %}
+        <p class="govuk-body">{{ awaitingServicePayment.line1 }}</p>
+        <p class="govuk-body">{{ awaitingServicePayment.line2 }}</p>
+        <h3 class="govuk-heading-s">{{ awaitingServicePayment.doNext }}</h3>
+        <p class="govuk-body">{{ awaitingServicePayment.line3 }}</p>
+        {{ govukButton({
+            text: awaitingServicePayment.linkText,
+            href: awaitingServicePayment.linkUrl,
+            preventDoubleClick: true
+        }) }}
+        <p class="govuk-body">{{ awaitingServicePayment.withdrawText }}</p>
+        {{ govukButton({
+            text: awaitingServicePayment.withdrawLinkText,
+            href: awaitingServicePayment.withdrawLinkUrl,
+            preventDoubleClick: true
+        }) }}
+    {% else %}
+        <p class="govuk-body">{{ serviceApplicationSubmitted.introLine1 }}</p>
+        <p class="govuk-body">{{ serviceApplicationSubmitted.introLine2 }}</p>
+        <h3 class="govuk-heading-s">{{ serviceApplicationSubmitted.happensNextHeading }}</h3>
+        <p class="govuk-body">{{ serviceApplicationSubmitted.happensNextLine1 }}</p>
+        <p class="govuk-body">{{ serviceApplicationSubmitted.happensNextLine2 }}</p>
+        <p class="govuk-body">{{ serviceApplicationSubmitted.happensNextLine3 }}</p>
+    {% endif %}
+{% else %}
+    <p class="govuk-body">{{ awaitingServicePayment.line1OfflineApplication }}</p>
+{% endif %}

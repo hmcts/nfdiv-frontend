@@ -2,7 +2,13 @@ import { jointApplicant2CompleteCase } from '../../../test/functional/fixtures/j
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../app/case/case';
-import { ApplicationType, DivorceOrDissolution, State, YesOrNo } from '../../app/case/definition';
+import {
+  ApplicationType,
+  DivorceOrDissolution,
+  InterimApplicationType,
+  State,
+  YesOrNo,
+} from '../../app/case/definition';
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
@@ -223,6 +229,40 @@ describe('HomeGetController', () => {
           applicant2ApplyForConditionalOrderStarted: null,
           divorceOrDissolution: DivorceOrDissolution.DIVORCE,
           state: State.ConditionalOrderPending,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
+  test('redirects to hub page for applicant 2 users in WelshTranslationRequested state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.WelshTranslationRequested,
+        },
+        isApplicant2: true,
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
+  test('redirects to hub page for applicant 2 users in WelshTranslationReview state', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.WelshTranslationReview,
         },
         isApplicant2: true,
       },
@@ -1247,5 +1287,23 @@ describe('HomeGetController', () => {
     controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_FEE);
+  });
+  test('redirects to hub page after save and sign out for applicant 1 if sole application interim application started', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: false,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AosOverdue,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
   });
 });
