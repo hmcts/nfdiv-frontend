@@ -17,7 +17,9 @@
         <p class="govuk-body"><span class="genesys-spinner"></span>{{ genesys.checkingAvailability }}</p>
       </div>
       <div class="hidden" id="genesysOpenWidget">
-        {% include "../webchat/genesys/genesys-open-widget.njk" %}
+        <p class="govuk-body">
+          <a href="#" class="govuk-link" id="startChatLink">{{ genesys.startWebchat }}</a>
+        </p>
       </div>
       <div class="hidden" id="genesysBusyNoAgentsWidget">
         <p class="govuk-body">{{ genesys.noAgentsAvailable }}</p>
@@ -29,10 +31,11 @@
         <p class="govuk-body">{{ genesys.onlineAdviceClosed }}<span id="genesysWebchatClosedReason"></span>.</p>
       </div>
       <div class="hidden" id="genesysErrorWidget">
-        {% include "../webchat/genesys/genesys-error-widget.njk" %}
+        <p class="govuk-body">{{ genesys.error }}</p>
       </div>
       <div class="hidden" id="genesysErrorCheckingAvailabilityWidget">
-        {% include "../webchat/genesys/genesys-error-checking-availability.njk" %}
+        <p>{{ genesys.errorChecking.line1 }}</p>
+        <p>{{ genesys.errorChecking.line2 }}</p>
       </div>
     </div>
 </div>
