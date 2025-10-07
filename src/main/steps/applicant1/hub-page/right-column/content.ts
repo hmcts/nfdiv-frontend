@@ -2,6 +2,7 @@ import { AlternativeServiceType, ApplicationType, DocumentType, State, YesOrNo }
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
+import { findDocument } from '../../../../modules/document-download/proxy-list';
 
 const en = ({
   isDivorce,
@@ -288,6 +289,7 @@ export const generateContent: TranslationFn = content => {
   const hasCertificateOfService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
   );
+  const hasDivorceOrDissolutionApplication = !!findDocument(userCase, DocumentType.APPLICATION);
   const isAwaitingAmendedApplicationState = userCase.state === State.AwaitingAmendedApplication;
 
   const deemedOrDispensedService = userCase.alternativeServiceOutcomes?.find(
@@ -340,6 +342,7 @@ export const generateContent: TranslationFn = content => {
     hasConditionalOrderAnswers,
     hasConditionalOrderGranted,
     hasConditionalOrderApplication,
+    hasDivorceOrDissolutionApplication,
     hasFinalOrderApplicationAndFinalOrderRequested,
     hasFinalOrderGranted,
     ...languages[content.language](content),
