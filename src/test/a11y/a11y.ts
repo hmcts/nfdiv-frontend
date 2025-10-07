@@ -42,7 +42,7 @@ function runPally(url: string, browser): Promise<Pa11yResult> {
   return pa11y(fullUrl, {
     browser,
     screenCapture,
-    hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
+    hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown, .govuk-footer__crown',
   });
 }
 
