@@ -1,18 +1,18 @@
-@import 'govuk-frontend';
+@use 'govuk-frontend' as *;
 
-@import './banner';
-@import './header';
-@import './contact-us';
-@import './upload-documents';
-@import './application-submitted';
-@import './hub-page';
-@import './cookie-banner';
-@import './check-your-answers';
-@import './webchat';
-@import './genesys-webchat';
-@import './review-pages';
-@import './timeout-modal';
-@import './progress-bar';
+@use './banner';
+@use './header';
+@use './contact-us';
+@use './upload-documents';
+@use './application-submitted';
+@use './hub-page';
+@use './cookie-banner';
+@use './check-your-answers';
+@use './webchat';
+@use './genesys-webchat';
+@use './review-pages';
+@use './timeout-modal';
+@use './progress-bar';
 
 .hmcts-button-link,
 .uppy-FileInput-btn {
