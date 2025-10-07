@@ -1,4 +1,4 @@
-import { CaseWithId } from 'app/case/case';
+import { CaseWithId } from '../../app/case/case';
 import { DivorceDocument, DocumentType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
@@ -134,9 +134,12 @@ const findDocumentAndGetPath = (req: AppRequest, documentType: DocumentType): st
   return getPath(req, findDocument(req.session.userCase, documentType));
 };
 
-export const findDocument = (userCase: Partial<CaseWithId>, documentType: DocumentType): DivorceDocument | undefined => {
-  return userCase?.documentsGenerated?.find(doc => doc.value.documentType === documentType)?.value
-}
+export const findDocument = (
+  userCase: Partial<CaseWithId>,
+  documentType: DocumentType
+): DivorceDocument | undefined => {
+  return userCase?.documentsGenerated?.find(doc => doc.value.documentType === documentType)?.value;
+};
 
 const getPath = (req: AppRequest, document: DivorceDocument | undefined): string => {
   const path = document?.documentLink.document_binary_url.replace(/.*documents/, '/cases/documents') as string;

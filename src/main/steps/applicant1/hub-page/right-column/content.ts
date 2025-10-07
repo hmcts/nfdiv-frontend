@@ -1,8 +1,8 @@
 import { AlternativeServiceType, ApplicationType, DocumentType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { findDocument } from '../../../../modules/document-download/proxy-list';
 import { CommonContent } from '../../../common/common.content';
 import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
-import { findDocument } from '../../../../modules/document-download/proxy-list';
 
 const en = ({
   isDivorce,
