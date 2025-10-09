@@ -134,7 +134,7 @@ Feature: Form failures
 
     Given I go to "/where-your-lives-are-based"
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then the page should include 'Select "Yes" if your life is mainly based in England or Wales.'
 
     Given I go to "/enter-your-name"
     And I clear the form

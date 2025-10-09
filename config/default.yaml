@@ -18,6 +18,7 @@ dates:
   switchToSoleFinalOrderIntentionNotificationOffsetDays: 14
   requestForInformationResponseCourtReplyOffsetDays: 28
   paymentOverdueOffsetDays: 14
+  interimApplicationNoResponseNewContactDetailsOffsetDays: 14
 fees:
   applicationFee: DivorceCivPart
   financialOrder: FinancialOrderOnNotice
@@ -30,6 +31,7 @@ fees:
   d8bFormSubmission: DivAnswerReceived
   updateApplication: DivorceAmendPetition
   finalOrderApplicationFee: GAOnNotice
+  searchDecreeNisiOrFinalOrder: SearchIndexDivCentral
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
@@ -89,6 +91,14 @@ webchat:
   avayaUrl: 'webchat.pp.ctsc.hmcts.net'
   avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
   avayaService: 'Divorce'
+  genesysReferrerPage: 'Divorce Site'
+  genesysDeploymentId: 'NEED TO INSERT SECRET'
+  genesysDeploymentIdCy: 'NEED TO INSERT SECRET'
+  genesysBaseUrl: 'https://apps.euw2.pure.cloud'
+  genesysEnvironment: 'prod-euw2'
+  genesysKervBaseUrl: 'https://api.hmcts.hs-cx.com/web-availability'
+  genesysApiKey: 'NEED TO INSERT SECRET'
+  useGenesys: false
 dynatrace:
   dynatraceUrl: 'https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/2ab4686fc177447_complete.js'
 serviceAddress:
@@ -105,8 +115,12 @@ govukUrls:
   consentOrder: 'https://www.gov.uk/money-property-when-relationship-ends/apply-for-consent-order'
   financialOrder: 'https://www.gov.uk/money-property-when-relationship-ends/get-court-to-decide'
   moneyAndProperty: 'https://www.gov.uk/money-property-when-relationship-ends'
-  legalAdvisor: 'https://www.gov.uk/find-a-legal-adviser'
+  legalAdvisor: 'https://www.gov.uk/find-legal-advice/find-legal-adviser'
   callCharges: 'https://www.gov.uk/call-charges'
   domesticAbuse: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help'
   feedbackExitSurvey: 'https://smartsurvey.co.uk/s/SurveyExit'
   applyForDivorce: 'https://www.gov.uk/apply-for-divorce'
+  getHelpWithCourtFees: 'https://www.gov.uk/get-help-with-court-fees'
+  getHelpWithCourtFeesCY: 'https://www.gov.uk/help-i-dalu-ffioedd-llysoedd-a-thribiwnlysoedd'
+  certifiedTranslation: 'https://www.gov.uk/certifying-a-document#certifying-a-translation'
+  searchForDecreeAbsoluteOrFinalOrder: 'https://www.gov.uk/copy-decree-absolute-final-order/do-not-know-which-court'

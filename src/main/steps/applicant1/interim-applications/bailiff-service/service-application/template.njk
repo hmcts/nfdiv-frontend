@@ -1,0 +1,19 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l" id="bailiffServiceApplicationTitle">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
+  <p class="govuk-body">{{ line3 }}</p>
+  <p class="govuk-body">{{ line4 }}</p>
+  <p class="govuk-body">{{ line5 | safe }}</p>
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
+{% endblock %}

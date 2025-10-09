@@ -11,11 +11,23 @@ const en = ({
   openingTimes,
   closingTimes,
   contactWebForm,
+  serviceApplicationType,
+  generalApplicationType,
 }: CommonContent) => ({
   applicationDownload: {
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
     text: `View the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} (PDF)`,
+  },
+  serviceApplicationDownload: {
+    reference: 'Service-application',
+    link: '/downloads/service-application',
+    text: `View your ${serviceApplicationType} application (PDF)`,
+  },
+  generalApplicationDownload: {
+    reference: 'General-application',
+    link: '/downloads/general-application',
+    text: `View your ${generalApplicationType} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
@@ -33,17 +45,23 @@ const en = ({
     reference:
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispense-with-service-refused'
-        : 'deemed-service-refused',
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed-service-refused'
+          : 'alternative-service-refused',
     link: `/downloads/${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispense-with-service-refused'
-        : 'deemed-service-refused'
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed-service-refused'
+          : 'alternative-service-refused'
     }`,
     text: `View the court order refusing your application for
     ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispensed'
-        : 'deemed'
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed'
+          : 'alternative'
     } service (PDF)`,
   },
 
@@ -130,11 +148,23 @@ const cy: typeof en = ({
   openingTimes,
   closingTimes,
   contactWebForm,
+  serviceApplicationType,
+  generalApplicationType,
 }: CommonContent) => ({
   applicationDownload: {
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
     text: `Gweld y cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
+  },
+  serviceApplicationDownload: {
+    reference: 'Service-application',
+    link: '/downloads/service-application',
+    text: `Gweld y cais am ${serviceApplicationType} (PDF)`,
+  },
+  generalApplicationDownload: {
+    reference: 'General-application',
+    link: '/downloads/general-application',
+    text: `View your ${generalApplicationType} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
@@ -150,17 +180,23 @@ const cy: typeof en = ({
     reference:
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispense-with-service-refused'
-        : 'deemed-service-refused',
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed-service-refused'
+          : 'alternative-service-refused',
     link: `/downloads/${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'dispense-with-service-refused'
-        : 'deemed-service-refused'
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'deemed-service-refused'
+          : 'alternative-service-refused'
     }`,
     text: `Gweld y gorchymyn llys yn gwrthod eich cais am
     ${
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
         ? 'hepgor cyflwyno'
-        : 'gyflwyno tybiedig'
+        : userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DEEMED
+          ? 'gyflwyno tybiedig'
+          : 'gyflwyno amgen'
     } (PDF)`,
   },
 
@@ -260,9 +296,16 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED
   );
 
+  const deemedOrDispensedOrAlternativeService = userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED ||
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
+  );
+
   const hasCertificateOfDeemedOrDispensedServiceRefused = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
-      deemedOrDispensedService &&
+      deemedOrDispensedOrAlternativeService &&
       alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO &&
       alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant'
   );

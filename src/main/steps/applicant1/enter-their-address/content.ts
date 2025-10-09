@@ -31,6 +31,8 @@ const en = ({ partner }: Partial<CommonContent>) => {
     enterUkPostcode: 'Enter UK postcode',
     selectAddress: 'Select an address',
     addressOverseas: 'Is this an international address?',
+    yes: 'Yes',
+    no: 'No',
     addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
     cannotFindAddress: 'I cannot find the address in the list',
     errors: {
@@ -74,6 +76,9 @@ const cy = ({ partner }: CommonContent) => {
     notUK: 'Mae gennyf gyfeiriad rhyngwladol',
     enterUkPostcode: 'Nodwch god post yn y DU',
     selectAddress: 'Dewiswch gyfeiriad',
+    addressOverseas: 'A yw hwn yn gyfeiriad rhyngwladol?',
+    yes: 'Ydy',
+    no: 'Nac ydy',
     addressesFound: (addressesFound: number) =>
       `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
     cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",

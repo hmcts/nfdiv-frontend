@@ -1,16 +1,50 @@
 import config from 'config';
+import dayjs from 'dayjs';
 
+import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, PaymentStatus, State, YesOrNo } from '../../app/case/definition';
+import {
+  ApplicationType,
+  GeneralApplication,
+  InterimApplicationType,
+  PaymentStatus,
+  ServicePaymentMethod,
+  State,
+  YesOrNo,
+} from '../../app/case/definition';
+import { userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
+import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
+import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
-
-import { getPartner, getSelectedGender, getServiceName } from './content.utils';
 
 export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
+  generalApplication: {
+    for: 'for',
+    to: 'to',
+    deemed: 'deemed service',
+    searchGovRecords: 'search government records',
+    disclosureViaDwp: 'search government records',
+    formTypes: {
+      d11: 'D11',
+    },
+    bailiff: 'bailiff service',
+    alternativeService: 'alternative service',
+    deemedCode: 'D11',
+    bailiffCode: 'D89',
+    dispensed: 'dispense with service',
+    dispensedCode: 'D13b',
+  },
+  interimApplicationType: {
+    deemedService: 'deemed service',
+    dispenseWithService: 'dispensed with service',
+    bailiffService: 'bailiff service',
+    alternativeService: 'alternative service',
+    searchGovRecords: 'search government records',
+  },
   feedback: {
     part1: 'This is a new service – your ',
     part2: 'feedback',
@@ -33,6 +67,7 @@ export const en = {
   download: 'Download',
   delete: 'Delete',
   warning: 'Warning',
+  continueToPay: 'Continue to pay',
   required: 'You have not answered the question. You need to select an answer before continuing.',
   notAnswered: 'You have not answered the question.',
   errorSaving: 'Sorry, we’re having technical problems saving your application. Please try again in a few minutes.',
@@ -82,8 +117,13 @@ export const en = {
     month: 'Month',
     year: 'Year',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Yes',
   no: 'No',
+  notKnown: 'Not known',
   english: 'English',
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
@@ -156,6 +196,29 @@ export const en = {
   avayaLanguage: 'English',
   avayaClientUrlFolder: '1',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
+  genesys: {
+    chatWithUs: 'Chat with us',
+    webchatEnglandAndWales: 'Web chat (England and Wales)',
+    webchatScotland: 'Web chat (Scotland only)',
+    closedForTheDay: 'I’m sorry but our Webchat service is now closed for the day.',
+    onlineAdviceClosed: 'Our online advice service is currently closed',
+    openHoursScotland: 'We are open Monday to Friday from 8:30 am to 5 pm – excluding public holidays.',
+    phoneAgent: 'Talk to one of our agents now over the phone.',
+    getHelp: 'Get some help by messaging an agent online.',
+    startWebchat: 'Start web chat (opens in a new window)',
+    busy: 'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
+    noAgentsAvailable: 'No agents are available, please try again later.',
+    checkingAvailability: 'Checking availability...',
+    serviceUnavailable: 'Service unavailable',
+    error:
+      'We’re currently unable to check the availability of our team. Please try again later or contact us by phone.',
+    errorChecking: {
+      line1: 'Sorry, we couldn’t check the availability of our team.',
+      line2: 'Please try refreshing the page or contact us at',
+      email: 'help@gov.uk',
+    },
+    popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
+  },
 };
 
 const cy: typeof en = {
@@ -163,6 +226,29 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
+  generalApplication: {
+    for: 'am',
+    to: 'i',
+    deemed: 'gyflwyno tybiedig',
+    formTypes: {
+      d11: 'D11',
+    },
+    searchGovRecords: 'chwilio cofnodion y llywodraeth',
+    disclosureViaDwp: 'chwilio cofnodion y llywodraeth',
+    bailiff: 'gwasanaeth bailiff',
+    alternativeService: 'gwasanaeth amgen',
+    deemedCode: 'D11',
+    bailiffCode: 'D89',
+    dispensed: 'hepgor cyflwyno',
+    dispensedCode: 'D13b',
+  },
+  interimApplicationType: {
+    deemedService: 'cyflwyno tybiedig',
+    dispenseWithService: 'hepgor cyflwyno',
+    bailiffService: 'gwasanaeth beili',
+    alternativeService: 'cyflwyno amgen',
+    searchGovRecords: 'chwilio cofnodion y llywodraeth',
+  },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
     part2: 'bydd eich sylwadau',
@@ -185,6 +271,7 @@ const cy: typeof en = {
   download: 'Llwytho i lawr',
   delete: 'Dileu',
   warning: 'Rhybudd',
+  continueToPay: 'Parhau i dalu',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   errorSaving:
@@ -232,8 +319,13 @@ const cy: typeof en = {
     month: 'Mis',
     year: 'Blwyddyn',
   },
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
   yes: 'Do',
   no: 'Naddo',
+  notKnown: 'Anhysbys',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',
@@ -292,6 +384,29 @@ const cy: typeof en = {
   avayaLanguage: 'Welsh',
   avayaClientUrlFolder: 'welsh',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
+  genesys: {
+    chatWithUs: 'Chat with us',
+    webchatEnglandAndWales: 'Web chat (England and Wales)',
+    webchatScotland: 'Web chat (Scotland only)',
+    closedForTheDay: 'I’m sorry but our Webchat service is now closed for the day.',
+    onlineAdviceClosed: 'Our online advice service is currently closed',
+    openHoursScotland: 'We are open Monday to Friday from 8:30 am to 5 pm – excluding public holidays.',
+    phoneAgent: 'Talk to one of our agents now over the phone.',
+    getHelp: 'Get some help by messaging an agent online.',
+    startWebchat: 'Start web chat (opens in a new window)',
+    busy: 'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
+    noAgentsAvailable: 'No agents are available, please try again later.',
+    checkingAvailability: 'Checking availability...',
+    serviceUnavailable: 'Service unavailable',
+    error:
+      'We’re currently unable to check the availability of our team. Please try again later or contact us by phone.',
+    errorChecking: {
+      line1: 'Sorry, we couldn’t check the availability of our team.',
+      line2: 'Please try refreshing the page or contact us at',
+      email: 'help@gov.uk',
+    },
+    popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
+  },
 };
 
 export const generateCommonContent = ({
@@ -313,20 +428,12 @@ export const generateCommonContent = ({
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isApp1Represented = userCase?.applicant1SolicitorRepresented === YesOrNo.YES;
+  const isApp2Represented = userCase?.applicant2SolicitorRepresented === YesOrNo.YES;
+  const isApp2Confidential = userCase?.applicant2AddressPrivate === YesOrNo.YES;
   const applicationHasBeenPaidFor = userCase?.applicationPayments?.some(
     payment => payment.value.status === PaymentStatus.SUCCESS
   );
-  const isAmendableStates =
-    userCase &&
-    userCase.state &&
-    [
-      State.Draft,
-      State.AwaitingApplicant1Response,
-      State.AwaitingApplicant2Response,
-      State.AosDrafted,
-      State.AosOverdue,
-      State.AwaitingConditionalOrder,
-    ].includes(userCase.state);
+  const isAmendableStates = userCase && userCase.state && userCanUploadDocuments(userCase, isApplicant2);
   const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
   const isRequestForInformationAmendableState =
     userCase &&
@@ -354,7 +461,52 @@ export const generateCommonContent = ({
   const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
     isDivorce ? 'Divorce' : 'Civil'
   }&party=${feedbackParty}`;
+  const caseHasBeenIssued = !!userCase?.issueDate;
+  const referenceNumber = formattedCaseId(userCase?.id);
 
+  const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
+  const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
+  const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
+  const serviceApplicationResponseDate = getFormattedDate(
+    dayjs(userCase?.servicePaymentFeeDateOfPayment || userCase?.receivedServiceAddedDate).add(
+      config.get('dates.applicationSubmittedOffsetDays'),
+      'day'
+    ),
+    language
+  );
+  const serviceApplicationFeeRequired =
+    userCase?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
+  const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
+  const genesysDeploymentId: string =
+    language === SupportedLanguages.En
+      ? config.get('webchat.genesysDeploymentId')
+      : config.get('webchat.genesysDeploymentIdCy');
+
+  const generalApplications = findOnlineGeneralApplicationsForUser(userCase, isApplicant2);
+  const lastGeneralApplication = generalApplications?.[0];
+  const generalApplicationType =
+    commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
+  const generalApplicationDate = getFormattedDate(lastGeneralApplication?.generalApplicationReceivedDate, language);
+  const generalApplicationResponseDate = getFormattedDate(
+    dayjs(
+      lastGeneralApplication?.generalApplicationFeeDateOfPayment ||
+        lastGeneralApplication?.generalApplicationReceivedDate
+    ).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    language
+  );
+  const generalApplicationFeeRequired =
+    lastGeneralApplication?.generalApplicationFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
+  const generalApplicationDocsAllProvided =
+    lastGeneralApplication?.generalApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
+  const generalApplicationSubmittedOnline = lastGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
+
+  const interimApplicationType =
+    commonTranslations.interimApplicationType[
+      InterimApplicationType.SEARCH_GOV_RECORDS === userCase?.applicant1InterimApplicationType
+        ? 'searchGovRecords'
+        : (userCase?.applicant1InterimApplicationType as string)
+    ];
   return {
     ...commonTranslations,
     applicationHasBeenPaidFor,
@@ -367,14 +519,33 @@ export const generateCommonContent = ({
     userCase,
     userEmail,
     isJointApplication,
+    caseHasBeenIssued,
+    hasServiceApplicationInProgress,
     isAmendableStates,
     isClarificationAmendableState,
     isRequestForInformationAmendableState,
     isApp1Represented,
+    isApp2Represented,
+    isApp2Confidential,
     isGeneralConsiderationFoRequested,
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
+    interimApplicationType,
+    referenceNumber,
+    genesysDeploymentId,
+    serviceApplicationType,
+    serviceApplicationDate,
+    serviceApplicationResponseDate,
+    serviceApplicationFeeRequired,
+    serviceApplicationDocsAllProvided,
+    serviceApplicationSubmittedOnline,
+    generalApplicationType,
+    generalApplicationDate,
+    generalApplicationResponseDate,
+    generalApplicationFeeRequired,
+    generalApplicationDocsAllProvided,
+    generalApplicationSubmittedOnline,
   };
 };
 
@@ -389,13 +560,31 @@ export type CommonContent = typeof en & {
   partner: string;
   userEmail?: string;
   isJointApplication: boolean;
+  caseHasBeenIssued: boolean;
+  hasServiceApplicationInProgress: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
   isRequestForInformationAmendableState: boolean | undefined;
   isApp1Represented: boolean;
+  isApp2Represented: boolean;
+  isApp2Confidential: boolean;
   isGeneralConsiderationFoRequested: boolean;
   isGeneralConsiderationCoPronounced: boolean;
   isPendingHearingOutcomeCoPronounced: boolean;
   isPendingHearingOutcomeFoRequested: boolean;
+  serviceApplicationType: string;
+  serviceApplicationDate: string | false;
+  serviceApplicationResponseDate: string | false;
+  serviceApplicationFeeRequired: boolean;
+  serviceApplicationDocsAllProvided: boolean;
+  serviceApplicationSubmittedOnline: boolean;
+  generalApplicationType: string;
+  generalApplicationDate: string | false;
+  generalApplicationResponseDate: string | false;
+  generalApplicationFeeRequired: boolean;
+  generalApplicationDocsAllProvided: boolean;
+  generalApplicationSubmittedOnline: boolean;
+  genesysDeploymentId: string;
+  lastGeneralApplication?: GeneralApplication | undefined;
 };

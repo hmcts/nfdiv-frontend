@@ -1,8 +1,9 @@
+import dayjs from 'dayjs';
 import { Response } from 'express';
 import { isEmpty } from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
+import { ApplicationType, InterimApplicationType, State, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Form, FormFields } from '../../app/form/Form';
 import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
@@ -66,6 +67,7 @@ const getApplicant2FirstQuestionForm = (applicationType: ApplicationType) =>
 const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
   // Check if applicant1 is solicitor represented
   const isSolicitorRepresented = userCase.applicant1SolicitorRepresented === YesOrNo.YES;
+  const hasServiceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
 
   switch (userCase.state) {
     case State.AwaitingApplicant1Response: {
@@ -80,7 +82,11 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.Submitted:
     case State.AwaitingDocuments:
     case State.AwaitingHWFDecision: {
-      return isSolicitorRepresented ? APP_REPRESENTED : APPLICATION_SUBMITTED;
+      return isSolicitorRepresented
+        ? APP_REPRESENTED
+        : hasServiceApplicationInProgress
+          ? HUB_PAGE
+          : APPLICATION_SUBMITTED;
     }
     case State.AwaitingResponseToHWFDecision:
     case State.AwaitingPayment: {
@@ -105,6 +111,25 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
       return HUB_PAGE;
     case State.Draft: {
       return isFirstQuestionComplete ? CHECK_ANSWERS_URL : YOUR_DETAILS_URL;
+    }
+    case State.AosOverdue: {
+      const interimApplicationUrlMap: Record<InterimApplicationType, string> = {
+        [InterimApplicationType.DISPENSE_WITH_SERVICE]: HUB_PAGE,
+        [InterimApplicationType.DEEMED_SERVICE]: HUB_PAGE,
+        [InterimApplicationType.ALTERNATIVE_SERVICE]: HUB_PAGE,
+        [InterimApplicationType.BAILIFF_SERVICE]: HUB_PAGE,
+        [InterimApplicationType.SEARCH_GOV_RECORDS]: HUB_PAGE,
+        [InterimApplicationType.PROCESS_SERVER_SERVICE]: HUB_PAGE,
+      };
+
+      const aosOverdueAndDrafted =
+        userCase.aosIsDrafted === YesOrNo.YES &&
+        !userCase.aosStatementOfTruth &&
+        userCase.issueDate &&
+        dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
+      return userCase.applicant1InterimApplicationType || aosOverdueAndDrafted
+        ? interimApplicationUrlMap[userCase.applicant1InterimApplicationType as InterimApplicationType]
+        : HUB_PAGE;
     }
     default: {
       return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
@@ -142,6 +167,8 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingDocuments:
     case State.AwaitingHWFDecision:
     case State.AwaitingHWFEvidence:
+    case State.WelshTranslationReview:
+    case State.WelshTranslationRequested:
     case State.AwaitingLegalAdvisorReferral: {
       return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
     }
@@ -201,6 +228,7 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.GeneralConsiderationComplete:
     case State.AwaitingGeneralReferralPayment:
     case State.AwaitingGeneralConsideration:
+    case State.AwaitingGeneralApplicationPayment:
     case State.GeneralApplicationReceived: {
       if (hasReviewedTheApplication && !isLastQuestionComplete) {
         return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;

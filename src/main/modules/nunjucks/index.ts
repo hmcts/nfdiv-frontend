@@ -79,10 +79,17 @@ export class Nunjucks {
     });
 
     const globals = {
+      nonce: config.get('nonce'),
       webchat: {
         avayaUrl: config.get('webchat.avayaUrl'),
         avayaClientUrl: config.get('webchat.avayaClientUrl'),
         avayaService: config.get('webchat.avayaService'),
+        genesysReferrerPage: config.get('webchat.genesysReferrerPage'),
+        genesysBaseUrl: config.get('webchat.genesysBaseUrl'),
+        genesysEnvironment: config.get('webchat.genesysEnvironment'),
+        genesysKervBaseUrl: config.get('webchat.genesysKervBaseUrl'),
+        genesysApiKey: config.get('webchat.genesysApiKey'),
+        useGenesys: config.get('webchat.useGenesys'),
       },
       dynatrace: {
         dynatraceUrl: config.get('dynatrace.dynatraceUrl'),
@@ -90,6 +97,8 @@ export class Nunjucks {
     };
 
     env.addGlobal('globals', globals);
+
+    env.addGlobal('govukRebrand', true);
 
     env.addFilter('json', function (value, spaces) {
       if (value instanceof nunjucks.runtime.SafeString) {
