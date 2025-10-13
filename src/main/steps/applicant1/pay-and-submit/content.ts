@@ -18,6 +18,9 @@ const en = ({ partner }: CommonContent, applicationFee) => ({
   line5: `You can <a href="${SWITCH_TO_SOLE_APPLICATION}" class="govuk-link">create a new application here.</a>`,
   line6: 'This joint application will not be submitted until you pay the fee.',
   line7: `To see the answers you have provided on your application, click on this link: <a href=${VIEW_YOUR_ANSWERS} class="govuk-link">Check your answers</a>`,
+  line8: `If you do not pay the application fee within ${config.get(
+    'dates.paymentOverdueOffsetDays'
+  )} days, then your application will be rejected, and you will have to start a new application.`,
   continue: 'Pay and submit',
 });
 
@@ -33,6 +36,9 @@ const cy: typeof en = ({ partner }: CommonContent, applicationFee) => ({
   line6: "Ni fydd y cais hwn ar y cyd yn cael ei gyflwyno nes i chi dalu'r ffi.",
   line7: `I weld yr atebion yr ydych wedi darparu ar eich cais, cliciwch ar y ddolen hon: <a href=${VIEW_YOUR_ANSWERS} class="govuk-link">Gwirio eich atebion</a>`,
   continue: 'Talu a chyflwyno',
+  line8: `If you do not pay the application fee within ${config.get(
+    'dates.paymentOverdueOffsetDays'
+  )} days, then your application will be rejected, and you will have to start a new application.`,
 });
 
 export const form: FormContent = {
