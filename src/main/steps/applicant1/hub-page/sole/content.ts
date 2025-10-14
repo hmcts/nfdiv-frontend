@@ -846,13 +846,13 @@ const cy: typeof en = (
     withdrawLinkUrl: WITHDRAW_SERVICE_APPLICATION,
   },
   awaitingGeneralApplicationPayment: {
-    line1: `Your ${partner} has not responded to your ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    line1: `Nid yw eich ${partner} wedi ymateb i'ch ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }.`,
-    line2: `You have have started a ${generalApplicationType} application.`,
-    doNext: 'What you can do next',
-    line3: 'You need to pay the general application fee before it can be referred to a judge to consider your request.',
-    linkText: 'Complete payment',
+    line2: `Rydych wedi dechrau cais ${generalApplicationType}.`,
+    doNext: 'Beth allwch chi ei wneud nesaf',
+    line3: 'Mae angen i chi dalu’r ffi ar gyfer gwneud cais cyn y gellir ei gyfeirio at farnwr i ystyried eich cais.',
+    linkText: 'Cwblhau taliad',
     linkUrl: PAY_YOUR_GENERAL_APPLICATION_FEE,
   },
   awaitingBailiffService: {
