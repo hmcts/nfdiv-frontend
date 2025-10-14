@@ -52,6 +52,8 @@ export const en = {
     ariaLabel:
       'Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress.',
     link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
+    additionalInfo:
+      'No Fault Divorce: Cases scheduled for pronouncement on 8th and 9th October 2025 have been successfully pronounced. However, we are currently experiencing technical issues retrieving the conditional orders. Our team is working to resolve this, and we will provide the documents as soon as possible.',
   },
   languageToggle: {
     text: 'Cymraeg',
@@ -256,6 +258,8 @@ const cy: typeof en = {
     ariaLabel:
       'Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod.',
     link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
+    additionalInfo:
+      "Ysgariad Heb Fai: Mae’r achosion a oedd i’w cyhoeddi ar yr 8fed a’r 9fed o Hydref 2025 wedi’u cyhoeddi’n llwyddiannus. Fodd bynnag, rydym ar hyn o bryd yn cael problemau technegol wrth geisio cynhyrchu’r gorchmynion amodol. Mae ein tîm yn gweithio i ddatrys hyn, a byddwn yn darparu'r dogfennau cyn gynted â phosibl.",
   },
   languageToggle: {
     text: 'English',
