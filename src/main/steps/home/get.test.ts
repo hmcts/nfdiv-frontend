@@ -1198,6 +1198,24 @@ describe('HomeGetController', () => {
 
     expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${APP_REPRESENTED}`);
   });
+  test('redirects to hub page for applicant 2 users when state is LAServiceReview', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.LAServiceReview,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          coApplicant1SubmittedDate: '2022-01-01',
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
 
   test('redirects to hub page for applicant 1 users when coApplicant1SubmittedDate is present and represented', () => {
     const req = mockRequest({
