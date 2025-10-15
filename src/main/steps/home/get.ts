@@ -127,7 +127,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
         !userCase.aosStatementOfTruth &&
         userCase.issueDate &&
         dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
-      return userCase.applicant1InterimApplicationType || aosOverdueAndDrafted
+      return userCase.applicant1InterimApplicationType && aosOverdueAndDrafted
         ? interimApplicationUrlMap[userCase.applicant1InterimApplicationType as InterimApplicationType]
         : HUB_PAGE;
     }

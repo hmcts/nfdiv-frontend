@@ -55,7 +55,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be completed then verified
 const cy = ({ partner }: CommonContent) => ({
   title: 'Cyflwyno personol gan weinyddwr proses neu feili llys',
   line1: `Gallwch gael y papurau wedi’u cyflwyno ar eich ${partner} yn bersonol, naill ai drwy weinyddwr proses neu feili llys sirol.`,
@@ -83,7 +82,7 @@ const cy = ({ partner }: CommonContent) => ({
       line3: `Mae yna ffi o ${getFee(
         config.get('fees.courtBailiffService')
       )} yn daladwy am hyn, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
-        'govukUrls.getHelpWithCourtFees'
+        'govukUrls.getHelpWithCourtFeesCY'
       )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
       line4: 'Oherwydd y galw mawr am y gwasanaeth hwn gan feili llys, gall gymryd llawer o amser.',
     },
@@ -91,7 +90,7 @@ const cy = ({ partner }: CommonContent) => ({
   howToProceedHeader: 'Sut hoffech chi barhau?',
   processServer: 'Rwyf eisiau trefnu i’r dogfennau gael eu cyflwyno gan weinyddwr proses',
   bailiffService: 'Rwyf eisiau gwneud cais am wasanaeth cyflwyno gan feili',
-  respondentAddressInEnglandWales: `Cadarnhaf bod cyfeiriad fy ${partner} yng Nghymru neu Loegr`,
+  respondentAddressInEnglandWales: 'Cadarnhaf bod cyfeiriad fy mhartner yng Nghymru neu Loegr',
   errors: {
     applicant1NoResponseProcessServerOrBailiff: {
       required: 'Dewiswch naill ai weinyddwr proses neu feili llys',
