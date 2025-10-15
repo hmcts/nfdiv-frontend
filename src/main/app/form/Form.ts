@@ -19,6 +19,8 @@ const WHITELISTED_FIELDS = [
 export class Form {
   constructor(private readonly fields: FormFields) {}
 
+  static readonly MAX_TEXT_INPUT_LENGTH = 10_000;
+
   /**
    * Pass the form body to any fields with a parser and return mutated body;
    */
@@ -62,6 +64,8 @@ export class Form {
     const errorType = field.validator && field.validator(body[id], body);
     const errors: FormError[] = errorType ? [{ errorType, propertyName: id }] : [];
 
+    errors.push(...this.validateGlobalInputRules(body, id, field as FormInput));
+
     // if there are checkboxes or options, check them for errors
     if (isFormOptions(field)) {
       const valuesErrors = field.values.flatMap(value => this.getErrorsFromField(body, value.name || id, value));
@@ -74,6 +78,24 @@ export class Form {
       const subFieldErrors = subFields.flatMap(([subId, subField]) => this.getErrorsFromField(body, subId, subField));
 
       errors.push(...subFieldErrors);
+    }
+
+    return errors;
+  }
+
+  private validateGlobalInputRules(body: Partial<Case>, id: string, field: FormField): FormError[] {
+    const errors: FormError[] = [];
+    const fieldType = (field as FormOptions)?.type;
+
+    if (isFormOptions(field) || !fieldType) {
+      return errors;
+    }
+
+    const isTextInput = [InputType.TEXT, InputType.TEXT_AREA].includes(fieldType as InputType);
+
+    const fieldValue = body[id] as string | undefined;
+    if (isTextInput && (fieldValue?.length ?? 0) > Form.MAX_TEXT_INPUT_LENGTH) {
+      errors.push({ propertyName: id, errorType: CommonValidationErrors.MaxLength });
     }
 
     return errors;
@@ -179,6 +201,20 @@ export interface FormInput {
   warning?: Warning;
   conditionalText?: Label;
   subFields?: Record<string, FormField>;
+}
+
+enum InputType {
+  TEXT = 'text',
+  TEXT_AREA = 'textarea',
+  RADIOS = 'radios',
+  CHECKBOXES = 'checkboxes',
+  DATE = 'date',
+  TELEPHONE = 'tel',
+  HIDDEN = 'hidden',
+}
+
+enum CommonValidationErrors {
+  MaxLength = 'maxLength',
 }
 
 function isFormOptions(field: FormField): field is FormOptions {
