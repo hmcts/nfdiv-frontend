@@ -1,0 +1,123 @@
+import { Case, CaseDate } from '../../../../../app/case/case';
+import { SearchGovRecordsWhichDepartment } from '../../../../../app/case/definition';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { FormContent } from '../../../../../app/form/Form';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
+import { CommonContent } from '../../../../common/common.content';
+
+const en = ({ partner }: CommonContent) => ({
+  title: `Which government departments do you need us to search for your ${partner}’s details?`,
+  titleHint: 'Select all that apply',
+  dwp: 'Department for Work and Pensions',
+  dwpHint: 'for benefit, pay or pension records',
+  hmrc: 'HM Revenue and Customs',
+  hmrcHint: 'for tax records',
+  other: 'Other',
+  otherHint: 'for any other government departments',
+  otherFieldText: 'Please specify',
+  whyTheseDepartments: `Why do you think these departments are most suited to getting the contact details of your ${partner}?`,
+  errors: {
+    applicant1SearchGovRecordsWhichDepartments: {
+      required: "Select which government departments' records you want the court to search",
+      applicant1SearchGovRecordsOtherDepartmentNames: 'Enter details of the government department',
+    },
+    applicant1SearchGovRecordsWhyTheseDepartments: {
+      required: 'Enter details about why the selected department is most suitable.',
+    },
+  },
+});
+
+// @TODO translations should be verified
+const cy: typeof en = ({ partner }: CommonContent) => ({
+  title: `Pa adrannau’r llywodraeth sydd angen i ni chwilio am fanylion eich ${partner}?`,
+  titleHint: "Dewiswch bob un sy'n berthnasol",
+  dwp: 'Yr Adran Waith a Phensiynau',
+  dwpHint: 'ar gyfer cofnodion budd-daliadau, tâl neu bensiwn',
+  hmrc: 'Cyllid a Thollau EF',
+  hmrcHint: 'ar gyfer cofnodion treth',
+  other: 'Arall',
+  otherHint: 'ar gyfer unrhyw adrannau eraill y llywodraeth',
+  otherFieldText: 'Rhowch fanylion os gwelwch yn dda',
+  whyTheseDepartments: `Pam ydych chi'n meddwl mai'r adrannau hyn sydd fwyaf addas i gael manylion cyswllt eich ${partner}?`,
+  errors: {
+    applicant1SearchGovRecordsWhichDepartments: {
+      required: "Dewiswch pa gofnodion adrannau'r llywodraeth rydych chi am i'r llys eu chwilio",
+      applicant1SearchGovRecordsOtherDepartmentNames: 'Rhowch fanylion adran y llywodraeth',
+    },
+    applicant1SearchGovRecordsWhyTheseDepartments: {
+      required: 'Rhowch fanylion pam mai’r cyfryw adran yw’r un fwyaf addas',
+    },
+  },
+});
+
+export const form: FormContent = {
+  fields: {
+    applicant1SearchGovRecordsWhichDepartments: {
+      type: 'checkboxes',
+      validator: atLeastOneFieldIsChecked,
+      label: l => l.title,
+      labelHidden: true,
+      values: [
+        {
+          name: 'applicant1SearchGovRecordsWhichDepartments',
+          label: l => l.dwp,
+          hint: l => l.dwpHint,
+          value: SearchGovRecordsWhichDepartment.DWP,
+        },
+        {
+          name: 'applicant1SearchGovRecordsWhichDepartments',
+          label: l => l.hmrc,
+          hint: l => l.hmrcHint,
+          value: SearchGovRecordsWhichDepartment.HMRC,
+        },
+        {
+          name: 'applicant1SearchGovRecordsWhichDepartments',
+          label: l => l.other,
+          hint: l => l.otherHint,
+          value: SearchGovRecordsWhichDepartment.OTHER,
+          subFields: {
+            applicant1SearchGovRecordsOtherDepartmentNames: {
+              type: 'text',
+              classes: 'govuk-input',
+              label: l => l.otherFieldText,
+              labelSize: 'normal',
+            },
+          },
+          validator: (
+            value: string | string[] | CaseDate | Partial<Case> | undefined,
+            formData: Partial<Case>
+          ): string | undefined => {
+            if (
+              (value as string[])?.includes(SearchGovRecordsWhichDepartment.OTHER) &&
+              !formData['applicant1SearchGovRecordsOtherDepartmentNames']?.length
+            ) {
+              return 'applicant1SearchGovRecordsOtherDepartmentNames';
+            }
+          },
+        },
+      ],
+    },
+    applicant1SearchGovRecordsWhyTheseDepartments: {
+      type: 'textarea',
+      classes: 'govuk-input--width-40',
+      label: l => l.whyTheseDepartments,
+      validator: isFieldFilledIn,
+    },
+  },
+  submit: {
+    text: l => l.continue,
+  },
+};
+
+const languages = {
+  en,
+  cy,
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
+  return {
+    form,
+    ...translations,
+  };
+};

@@ -207,6 +207,22 @@ Given('I pay and submit the application', () => {
   I.waitInUrl('/application-submitted', 15);
 });
 
+Given('I pay and submit the service application', () => {
+  I.waitInUrl('/interim-applications/pay-your-service-fee');
+  iClick('Pay and submit application');
+
+  completePayment();
+  I.waitInUrl('/interim-applications/service-application-submitted', 15);
+});
+
+Given('I pay and submit the general application', () => {
+  I.waitInUrl('/interim-applications/pay-your-general-application-fee');
+  iClick('Pay and submit application');
+
+  completePayment();
+  I.waitInUrl('/interim-applications/general-application-submitted', 15);
+});
+
 Given('I pay and submit the final order application', () => {
   I.waitInUrl('/respondent/pay-your-final-order-fee');
   iClick('Pay and submit application');

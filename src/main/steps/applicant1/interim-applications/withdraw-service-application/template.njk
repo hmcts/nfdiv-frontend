@@ -1,0 +1,13 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <div class="govuk-panel govuk-panel--confirmation">
+      <h1 id="withdrawServiceApplicationTitle" class="govuk-panel__title">{{ title }}</h1>
+  </div>
+  <p class="govuk-body">{{ line1 }}</p>
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
+{% endblock %}

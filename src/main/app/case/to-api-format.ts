@@ -1,7 +1,13 @@
+import dayjs from 'dayjs';
+import { toUpper } from 'lodash';
+
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
+import { getFormattedCaseDate } from './answers/formatDate';
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import {
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
   Applicant2Represented,
   ApplicationType,
   CaseData,
@@ -19,7 +25,13 @@ import {
   MarriageFormation,
   YesOrNo,
 } from './definition';
-import { applicant1AddressToApi, applicant2AddressToApi } from './formatter/address';
+import {
+  applicant1AddressToApi,
+  applicant1DispenseLivedTogetherAddressToApi,
+  applicant1NoResponsePartnerAddressToApi,
+  applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
+  applicant2AddressToApi,
+} from './formatter/address';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
@@ -99,6 +111,17 @@ const fields: ToApiConverters = {
   }),
   relationshipDate: data => ({
     marriageDate: toApiDate(data.relationshipDate),
+  }),
+  applicant1BailiffPartnersDateOfBirth: data => ({
+    applicant1BailiffPartnersDateOfBirth: toApiDate(data.applicant1BailiffPartnersDateOfBirth),
+  }),
+  applicant1BailiffKnowPartnersDateOfBirth: data => ({
+    applicant1BailiffKnowPartnersDateOfBirth: data.applicant1BailiffKnowPartnersDateOfBirth,
+    ...setUnreachableAnswersToNull([
+      data.applicant1BailiffKnowPartnersDateOfBirth === YesOrNo.YES
+        ? 'applicant1BailiffPartnersApproximateAge'
+        : 'applicant1BailiffPartnersDateOfBirth',
+    ]),
   }),
   doesApplicant1WantToApplyForFinalOrder: data => ({
     doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
@@ -453,13 +476,267 @@ const fields: ToApiConverters = {
     app2RfiDraftResponseDetails: data.app2RfiDraftResponseDetails,
   }),
   app2RfiDraftResponseUploadedFiles: () => ({}),
+  applicant1NoResponseCheckContactDetails: data => ({
+    applicant1NoResponseCheckContactDetails: data.applicant1NoResponseCheckContactDetails,
+  }),
+  applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: data => ({
+    applicant1NoResponseProvidePartnerNewEmailOrAlternativeService:
+      data.applicant1NoResponseProvidePartnerNewEmailOrAlternativeService,
+  }),
+  applicant1NoResponsePartnerNewEmailOrAddress: data => ({
+    applicant1NoResponsePartnerNewEmailOrAddress: data.applicant1NoResponsePartnerNewEmailOrAddress,
+  }),
+  applicant1NoResponsePartnerHasReceivedPapers: data => ({
+    applicant1NoResponsePartnerHasReceivedPapers: data.applicant1NoResponsePartnerHasReceivedPapers,
+  }),
+  applicant1NoResponseNoNewAddressDetails: data => ({
+    applicant1NoResponseNoNewAddressDetails: data.applicant1NoResponseNoNewAddressDetails,
+  }),
+  applicant1NoResponseProcessServerOrBailiff: data => ({
+    applicant1NoResponseProcessServerOrBailiff: data.applicant1NoResponseProcessServerOrBailiff,
+  }),
+  applicant1NoResponsePartnerEmailAddress: data => ({
+    applicant1NoResponsePartnerEmailAddress: data.applicant1NoResponsePartnerEmailAddress,
+  }),
+  applicant1InterimAppsIUnderstand: data => ({
+    applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
+  }),
+  applicant1InterimAppsUseHelpWithFees: data => ({
+    applicant1InterimAppsUseHelpWithFees: data.applicant1InterimAppsUseHelpWithFees,
+    ...(data.applicant1InterimAppsUseHelpWithFees === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1InterimAppsHaveHwfReference', 'applicant1InterimAppsHwfRefNumber'])
+      : {}),
+  }),
+  applicant1InterimAppsHwfRefNumber: data => ({
+    applicant1InterimAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant1InterimAppsHwfRefNumber)
+      ? data.applicant1InterimAppsHwfRefNumber
+      : '',
+    applicant1InterimAppsHaveHwfReference:
+      data.applicant1InterimAppsHwfRefNumber === '' ? data.applicant1InterimAppsHaveHwfReference : YesOrNo.YES,
+  }),
+  applicant1InterimAppsEvidenceUploadedFiles: () => ({}),
+  applicant1InterimAppsCannotUploadDocs: data => ({
+    applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
+  }),
+  applicant1InterimAppsCanUploadEvidence: data => ({
+    applicant1InterimAppsCanUploadEvidence: data.applicant1InterimAppsCanUploadEvidence,
+    ...(data.applicant1InterimAppsCanUploadEvidence === YesOrNo.YES
+      ? setUnreachableAnswersToNull(['applicant1DeemedNoEvidenceStatement'])
+      : setUnreachableAnswersToNull(['applicant1DeemedEvidenceDetails', 'applicant1InterimAppsCannotUploadDocs'])),
+  }),
+  applicant1InterimAppsStatementOfTruth: data => ({
+    applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  }),
+  applicant1NoResponseRespondentAddressInEnglandWales: data => ({
+    applicant1NoResponseRespondentAddressInEnglandWales: checkboxConverter(
+      data.applicant1NoResponseRespondentAddressInEnglandWales
+    ),
+  }),
   applicant2LegalProceedingUploadedFiles: () => ({}),
+  applicant1NoResponsePartnerAddressPostcode: applicant1NoResponsePartnerAddressToApi,
+  applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
+    applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1SearchGovRecordsPartnerLastKnownAddressPostcode: applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
+  applicant1SearchGovRecordsPartnerNationalInsurance: data => ({
+    applicant1SearchGovRecordsPartnerNationalInsurance: toUpper(
+      data.applicant1SearchGovRecordsPartnerNationalInsurance
+    ),
+  }),
+  applicant1SearchGovRecordsKnowPartnerDateOfBirth: data => ({
+    applicant1SearchGovRecordsKnowPartnerDateOfBirth: data.applicant1SearchGovRecordsKnowPartnerDateOfBirth,
+    ...setUnreachableAnswersToNull([
+      data.applicant1SearchGovRecordsKnowPartnerDateOfBirth === YesOrNo.YES
+        ? 'applicant1SearchGovRecordsPartnerApproximateAge'
+        : 'applicant1SearchGovRecordsPartnerDateOfBirth',
+    ]),
+  }),
+  applicant1SearchGovRecordsPartnerDateOfBirth: data => ({
+    applicant1SearchGovRecordsPartnerDateOfBirth: toApiDate(data.applicant1SearchGovRecordsPartnerDateOfBirth),
+  }),
+  applicant1AltServicePartnerEmail: data => ({
+    applicant1AltServicePartnerEmail:
+      data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
+        ? data.applicant1AltServicePartnerEmail
+        : data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? data.applicant1AltServicePartnerEmailWhenDifferent
+          : null,
+  }),
+  applicant1AltServicePartnerEmailWhenDifferent: data => ({
+    applicant1AltServicePartnerEmail:
+      data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
+        ? data.applicant1AltServicePartnerEmail
+        : data.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? data.applicant1AltServicePartnerEmailWhenDifferent
+          : null,
+  }),
+  applicant1AltServicePartnerPhone: data => ({
+    applicant1AltServicePartnerPhone: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.TEXT_MESSAGE
+    )
+      ? data.applicant1AltServicePartnerPhone
+      : null,
+  }),
+  applicant1AltServicePartnerWANum: data => ({
+    applicant1AltServicePartnerWANum: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.WHATSAPP
+    )
+      ? data.applicant1AltServicePartnerWANum
+      : null,
+  }),
+  applicant1AltServicePartnerSocialDetails: data => ({
+    applicant1AltServicePartnerSocialDetails: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.SOCIAL_MEDIA
+    )
+      ? data.applicant1AltServicePartnerSocialDetails
+      : null,
+  }),
+  applicant1AltServicePartnerOtherDetails: data => ({
+    applicant1AltServicePartnerOtherDetails: data.applicant1AltServiceDifferentWays?.includes(
+      AlternativeServiceDifferentWays.OTHER
+    )
+      ? data.applicant1AltServicePartnerOtherDetails
+      : null,
+  }),
+  applicant1DispenseLiveTogether: data => ({
+    applicant1DispenseLiveTogether: data.applicant1DispenseLiveTogether,
+    ...(data.applicant1DispenseLiveTogether === YesOrNo.NO
+      ? setUnreachableAnswersToNull([
+          'applicant1DispenseLivedTogetherDate',
+          'applicant1DispenseLivedTogetherAddress',
+          'applicant1DispenseLivedTogetherAddressOverseas',
+        ])
+      : {}),
+  }),
+  applicant1DispenseLastLivedTogetherDate: data => ({
+    applicant1DispenseLivedTogetherDate:
+      data.applicant1DispenseLiveTogether === YesOrNo.YES
+        ? toApiDate(data.applicant1DispenseLastLivedTogetherDate)
+        : null,
+  }),
+  applicant1DispenseLivedTogetherAddressPostcode: applicant1DispenseLivedTogetherAddressToApi,
+  applicant1DispenseLivedTogetherAddressOverseas: ({ applicant1DispenseLivedTogetherAddressOverseas }) => ({
+    applicant1DispenseLivedTogetherAddressOverseas: applicant1DispenseLivedTogetherAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1DispenseAwarePartnerLived: data => ({
+    applicant1DispenseAwarePartnerLived: data.applicant1DispenseAwarePartnerLived,
+    ...(data.applicant1DispenseAwarePartnerLived === YesOrNo.NO
+      ? setUnreachableAnswersToNull([
+          'applicant1DispensePartnerPastAddress1',
+          'applicant1DispensePartnerPastAddressEnquiries1',
+          'applicant1DispensePartnerPastAddress2',
+          'applicant1DispensePartnerPastAddressEnquiries2',
+        ])
+      : {}),
+  }),
+  applicant1DispensePartnerLastSeenOrHeardOfDate: data => ({
+    applicant1DispensePartnerLastSeenDate: toApiDate(data.applicant1DispensePartnerLastSeenOrHeardOfDate),
+    applicant1DispensePartnerLastSeenOver2YearsAgo: dayjs(Date.now())
+      .subtract(2, 'year')
+      .isBefore(getFormattedCaseDate(data.applicant1DispensePartnerLastSeenOrHeardOfDate) as string)
+      ? YesOrNo.NO
+      : YesOrNo.YES,
+  }),
+  applicant1DispenseWhyNoFinalOrderSearch: data => ({
+    applicant1DispenseWhyNoFinalOrderSearch:
+      data.applicant1DispenseHaveSearchedFinalOrder === YesOrNo.NO
+        ? data.applicant1DispenseWhyNoFinalOrderSearch
+        : null,
+  }),
+  applicant1DispenseHavePartnerEmailAddresses: data => ({
+    applicant1DispenseHavePartnerEmailAddresses: data.applicant1DispenseHavePartnerEmailAddresses,
+    ...(data.applicant1DispenseHavePartnerEmailAddresses === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1DispensePartnerEmailAddresses'])
+      : {}),
+  }),
+  applicant1DispenseHavePartnerPhoneNumbers: data => ({
+    applicant1DispenseHavePartnerPhoneNumbers: data.applicant1DispenseHavePartnerPhoneNumbers,
+    ...(data.applicant1DispenseHavePartnerPhoneNumbers === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1DispensePartnerPhoneNumbers'])
+      : {}),
+  }),
+  applicant1DispenseTriedTracingAgent: data => ({
+    applicant1DispenseTriedTracingAgent: data.applicant1DispenseTriedTracingAgent,
+    ...(data.applicant1DispenseTriedTracingAgent === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1DispenseTracingAgentResults'])
+      : {}),
+  }),
+  applicant1DispenseWhyNoTracingAgent: data => ({
+    applicant1DispenseWhyNoTracingAgent:
+      data.applicant1DispenseTriedTracingAgent === YesOrNo.NO ? data.applicant1DispenseWhyNoTracingAgent : null,
+  }),
+  applicant1DispenseTriedTracingOnline: data => ({
+    applicant1DispenseTriedTracingOnline: data.applicant1DispenseTriedTracingOnline,
+    ...(data.applicant1DispenseTriedTracingOnline === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1DispenseTracingOnlineResults'])
+      : {}),
+  }),
+  applicant1DispenseWhyNoTracingOnline: data => ({
+    applicant1DispenseWhyNoTracingOnline:
+      data.applicant1DispenseTriedTracingOnline === YesOrNo.NO ? data.applicant1DispenseWhyNoTracingOnline : null,
+  }),
+  applicant1DispenseTriedSearchingOnline: data => ({
+    applicant1DispenseTriedSearchingOnline: data.applicant1DispenseTriedSearchingOnline,
+    ...(data.applicant1DispenseTriedSearchingOnline === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant1DispenseSearchingOnlineResults'])
+      : {}),
+  }),
+  applicant1DispenseWhyNoSearchingOnline: data => ({
+    applicant1DispenseWhyNoSearchingOnline:
+      data.applicant1DispenseTriedSearchingOnline === YesOrNo.NO ? data.applicant1DispenseWhyNoSearchingOnline : null,
+  }),
+  applicant1DispenseTriedContactingEmployer: data => ({
+    applicant1DispenseTriedContactingEmployer: data.applicant1DispenseTriedContactingEmployer,
+    ...(data.applicant1DispenseTriedContactingEmployer === YesOrNo.NO
+      ? setUnreachableAnswersToNull([
+          'applicant1DispenseEmployerName',
+          'applicant1DispenseEmployerAddress',
+          'applicant1DispensePartnerOccupation',
+          'applicant1DispenseContactingEmployerResults',
+        ])
+      : {}),
+  }),
+  applicant1DispenseWhyNoContactingEmployer: data => ({
+    applicant1DispenseWhyNoContactingEmployer:
+      data.applicant1DispenseTriedContactingEmployer === YesOrNo.NO
+        ? data.applicant1DispenseWhyNoContactingEmployer
+        : null,
+  }),
+  applicant1DispenseChildrenOfFamily: data => ({
+    applicant1DispenseChildrenOfFamily: data.applicant1DispenseChildrenOfFamily,
+    ...(data.applicant1DispenseChildrenOfFamily === YesOrNo.NO
+      ? setUnreachableAnswersToNull([
+          'applicant1DispensePartnerContactWithChildren',
+          'applicant1DispenseHowPartnerContactChildren',
+          'applicant1DispensePartnerLastContactChildren',
+          'applicant1DispenseChildMaintenanceOrder',
+          'applicant1DispenseChildMaintenanceResults',
+        ])
+      : {}),
+  }),
+  applicant1DispensePartnerContactWithChildren: data => ({
+    applicant1DispensePartnerContactWithChildren: data.applicant1DispensePartnerContactWithChildren,
+    ...(data.applicant1DispensePartnerContactWithChildren === YesOrNo.YES
+      ? setUnreachableAnswersToNull(['applicant1DispensePartnerLastContactChildren'])
+      : setUnreachableAnswersToNull(['applicant1DispenseHowPartnerContactChildren'])),
+  }),
+  applicant1DispenseChildMaintenanceResults: data => ({
+    applicant1DispenseChildMaintenanceResults:
+      data.applicant1DispenseChildMaintenanceOrder === YesOrNo.YES
+        ? data.applicant1DispenseChildMaintenanceResults
+        : null,
+  }),
 };
 
-const toApiDate = (date: CaseDate | undefined) => {
-  if (!date?.year || !date?.month || !date?.day) {
-    return '';
+const toApiDate = (date: CaseDate | undefined | string) => {
+  if (typeof date === 'string') {
+    return date || undefined;
   }
+
+  if (!date?.year || !date?.month || !date?.day) {
+    return undefined;
+  }
+
   return date.year + '-' + date.month.padStart(2, '0') + '-' + date.day.padStart(2, '0');
 };
 

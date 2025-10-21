@@ -71,16 +71,23 @@ export const getAppSolAddressFields = (
   return getAddressFields(addressPrefix, userCase);
 };
 
+export const getAddressFieldNames = (addressPrefix: string): string[] => {
+  return [
+    `${addressPrefix}Address1`,
+    `${addressPrefix}Address2`,
+    `${addressPrefix}Address3`,
+    `${addressPrefix}AddressTown`,
+    `${addressPrefix}AddressCounty`,
+    `${addressPrefix}AddressPostcode`,
+    `${addressPrefix}AddressCountry`,
+  ];
+};
+
 export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWithId>): string[] => {
-  const addressFields = [
-    userCase[`${addressPrefix}Address1`],
-    userCase[`${addressPrefix}Address2`],
-    userCase[`${addressPrefix}Address3`],
-    userCase[`${addressPrefix}AddressTown`],
-    userCase[`${addressPrefix}AddressCounty`],
-    userCase[`${addressPrefix}AddressPostcode`],
-    userCase[`${addressPrefix}AddressCountry`],
-  ].filter(Boolean);
+  const addressFields = getAddressFieldNames(addressPrefix)
+    .map(fieldName => userCase[fieldName] as string)
+    .filter(Boolean);
+
   if (addressFields.length === 0 && userCase[`${addressPrefix}Address`]) {
     return userCase[`${addressPrefix}Address`].split('\n');
   }
