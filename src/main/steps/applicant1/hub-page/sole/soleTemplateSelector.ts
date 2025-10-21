@@ -83,9 +83,6 @@ export const getSoleHubTemplate = (
       } else {
         return HubTemplate.AosAwaitingOrDrafted;
       }
-    case State.AwaitingGeneralReferralPayment: {
-      return HubTemplate.OfflineGeneralApplicationReceived;
-    }
     case State.AwaitingGeneralConsideration:
       if (isSearchGovRecords) {
         return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
@@ -99,6 +96,7 @@ export const getSoleHubTemplate = (
         return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.GeneralApplicationReceived:
+    case State.AwaitingGeneralReferralPayment:
       return isOnlineGeneralApplication
         ? HubTemplate.AwaitingGeneralApplicationConsideration
         : HubTemplate.OfflineGeneralApplicationReceived;
