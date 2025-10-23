@@ -1,6 +1,7 @@
 import path from 'path';
 
-import express from 'express';
+import express, { Response } from 'express';
+import { set as lodashSet } from 'lodash';
 import nunjucks from 'nunjucks';
 
 import { DivorceOrDissolution } from '../../app/case/definition';
@@ -89,7 +90,6 @@ export class Nunjucks {
         genesysEnvironment: config.get('webchat.genesysEnvironment'),
         genesysKervBaseUrl: config.get('webchat.genesysKervBaseUrl'),
         genesysApiKey: config.get('webchat.genesysApiKey'),
-        useGenesys: config.get('webchat.useGenesys'),
       },
       dynatrace: {
         dynatraceUrl: config.get('dynatrace.dynatraceUrl'),
@@ -97,6 +97,14 @@ export class Nunjucks {
     };
 
     env.addGlobal('globals', globals);
+
+    const launchDarkly = {
+      useGenesys: 'NFD-Use-Genesys-Webchat',
+    };
+
+    this.setLaunchDarklyFlags(app, launchDarkly);
+
+    env.addGlobal('launchDarkly', launchDarkly);
 
     env.addGlobal('govukRebrand', true);
 
@@ -119,5 +127,28 @@ export class Nunjucks {
           : DivorceOrDissolution.DIVORCE;
       next();
     });
+  }
+
+  private setLaunchDarklyFlags(app: express.Express, launchDarkly: Record<string, string>): void {
+    type FlagLocals = {
+      isFlagEnabled?: (flagKey: string, defaultValue?: boolean) => Promise<boolean>;
+    };
+
+    for (const [keyPath, flagKey] of Object.entries(launchDarkly)) {
+      const configKey: string = 'launchDarkly.flags.' + keyPath;
+
+      app.use(async (req, res: Response<unknown, FlagLocals>, next) => {
+        try {
+          const { isFlagEnabled } = res.locals;
+          if (typeof isFlagEnabled === 'function') {
+            const evaluated = (await isFlagEnabled(flagKey, config.get(configKey))).toString();
+            lodashSet(launchDarkly, keyPath, evaluated);
+          }
+        } catch {
+          lodashSet(launchDarkly, keyPath, config.get(configKey));
+        }
+        next();
+      });
+    }
   }
 }
