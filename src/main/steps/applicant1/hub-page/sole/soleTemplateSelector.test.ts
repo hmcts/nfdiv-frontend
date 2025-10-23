@@ -52,6 +52,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
   });
 
+  test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state LAServiceReview', () => {
+    const theState = displayState.at(State.LAServiceReview);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
+  });
+
   test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state BailiffRefused', () => {
     const theState = displayState.at(State.BailiffRefused);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
