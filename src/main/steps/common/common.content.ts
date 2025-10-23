@@ -384,14 +384,14 @@ const cy: typeof en = {
     chatWithUs: 'Sgwrsiwch â ni',
     onlineAdviceClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd',
     startWebchat: 'Dechrau sgwrs dros y we (yn agor mewn ffenestr newydd)',
-    busy: "Mae ein asiantau sgwrsio dros y we i gyd yn brysur ar hyn o bryd yn helpu eraill. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau uchod.",
+    busy: "Mae ein asiantau sgwrsio dros y we i gyd yn brysur ar hyn o bryd yn helpu eraill. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau isod.",
     noAgentsAvailable: 'Nid oes asiant ar gael ar hyn o bryd; rhowch gynnig arall arni yn hwyrach ymlaen.',
     checkingAvailability: 'Wrthi’n gwirio argaeledd...',
     error:
-      "Ar hyn o bryd nid ydym yn gallu gwirio argaeledd ein tîm. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau uchod.",
+      "Ar hyn o bryd nid ydym yn gallu gwirio argaeledd ein tîm. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau isod.",
     errorChecking: {
       line1: "Mae'n ddrwg gennym, ni allem wirio argaeledd ein tîm.",
-      line2: "Ceisiwch adnewyddu’r dudalen neu cysylltwch â ni drwy un o'r dulliau uchod.'",
+      line2: "Ceisiwch adnewyddu’r dudalen neu cysylltwch â ni drwy un o'r dulliau isod.'",
     },
     popupBlocked: 'Naidlen wedi’i rhwystro. Caniatáu naidlen ar gyfer y wefan hon.',
   },
