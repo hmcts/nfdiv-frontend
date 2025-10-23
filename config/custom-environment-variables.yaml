@@ -33,6 +33,13 @@ session:
     host: REDIS_HOST
 appInsights:
   instrumentationKey: APPINSIGHTS_KEY
+launchDarkly:
+  sdkKey: LAUNCH_DARKLY_SDK_KEY
+  offline: LAUNCH_DARKLY_OFFLINE
+  initTimeoutS: LAUNCH_DARKLY_INIT_TIMEOUT_S
+  defaultUserKey: LAUNCH_DARKLY_DEFAULT_USER_KEY
+  flags:
+    useGenesys: USE_GENESYS
 webchat:
   avayaUrl: WEBCHAT_AVAYA_URL
   avayaClientUrl: WEBCHAT_AVAYA_CLIENT_URL
@@ -44,6 +51,5 @@ webchat:
   genesysEnvironment: GENESYS_ENVIRONMENT
   genesysKervBaseUrl: GENESYS_KERV_BASE_URL
   genesysApiKey: GENESYS_API_KEY
-  useGenesys: USE_GENESYS
 dynatrace:
   dynatraceUrl: DYNATRACE_URL

@@ -40,6 +40,7 @@
     - [Healthcheck](#healthcheck)
   - [Migrating backend field changes](#migrating-backend-field-changes)
   - [License](#license)
+  - [Feature flags (LaunchDarkly)](#feature-flags-launchdarkly)
 
 ## Getting Started
 
@@ -262,6 +263,39 @@ You will now be in a position to test your changes either in isolation (`yarn st
 
 One final important point to remember is that the `CCD_URL` in [values.yaml](charts/nfdiv-frontend/values.yaml) and `services.case.url` in [default.yaml](config/default.yaml) will need to be reverted to their original values once migration is complete and before any Pull Requests into `master` are merged.
 
+## Feature flags (LaunchDarkly)
+
+This service integrates LaunchDarkly for feature flags.
+
+Configuration:
+- config/default.yaml
+  - launchDarkly.sdkKey: SDK key (fetched from Key Vault in prod; see below)
+  - launchDarkly.offline: set true to disable remote calls (defaults to false)
+  - launchDarkly.initTimeoutS: timeout for SDK initialization (Seconds)
+  - launchDarkly.defaultUserKey: default context key when user is unknown
+  - launchDarkly.flags:
+    - demo-flag: true/false (example flag)
+- config/custom-environment-variables.yaml
+  - LAUNCH_DARKLY_SDK_KEY, LAUNCH_DARKLY_OFFLINE, LAUNCH_DARKLY_INIT_TIMEOUT_S, LAUNCH_DARKLY_DEFAULT_USER_KEY
+  - Add additional variables for individual launchDarkly.flags as needed
+
+Secrets:
+- In production, PropertiesVolume maps secrets.nfdiv.launch-darkly-sdk-key -> launchDarkly.sdkKey
+- In development, the Azure Key Vault secret named launch-darkly-sdk-key is read locally if available
+
+Usage:
+- In code (controllers/services), use the helper attached to app.locals:
+  await req.app.locals.ld.isEnabled('flag-key', false)
+- In nunjucks/index.ts, add keys and flags to the existing launchDarkly object. For example:
+  launchDarkly = { 'demo-flag': 'nfdiv-demo-flag' }
+  The key is the name used in templates and should match the value added to default.yaml beneath launchDarkly.flags, the value is the LaunchDarkly flag.
+  If the flag fails to resolve from LaunchDarkly, the value will be set based on an environment variable if set, or the value in default.yaml.
+- In Nunjucks templates, access flags via the launchDarkly object. For example:
+  {% if launchDarkly.demo-flag %}
+  Demo flag is enabled
+  {% else %}
+  Demo flag is disabled
+  {% endif %}
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
