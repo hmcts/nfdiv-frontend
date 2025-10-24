@@ -89,10 +89,11 @@ appInsights:
 launchDarkly:
   sdkKey: 'NEED TO INSERT SECRET'
   offline: false
-  initTimeoutS: 30
+  initTimeoutSeconds: 30
   defaultUserKey: 'nfdFrontend'
+  flagCacheTtlSeconds: 60
   flags:
-    useGenesys: false
+    NFD_useGenesysWebchat: false
 webchat:
   avayaUrl: 'webchat.pp.ctsc.hmcts.net'
   avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
