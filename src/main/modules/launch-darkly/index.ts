@@ -12,7 +12,6 @@ export class LaunchDarkly {
 
   private static FlagsCache?: {
     flags: Record<string, boolean>;
-    TTL: number;
     fetchedTime: Date;
   };
 
@@ -67,16 +66,12 @@ export class LaunchDarkly {
   }
 
   async getFlags(context?: LDContext): Promise<Record<string, boolean>> {
-    const ttlSeconds: number = config.get('launchDarkly.flagCacheTtlSeconds');
-
+    const ttl: number = config.get('launchDarkly.flagCacheTtlSeconds');
     const now = new Date();
     const cache = LaunchDarkly.FlagsCache;
-
-    const hasTtl = Number.isFinite(ttlSeconds) && ttlSeconds >= 0;
-    const expired = cache?.fetchedTime ? now.getTime() - cache.fetchedTime.getTime() > ttlSeconds * 1000 : true;
-
-    const needsFetch =
-      !cache || !(cache.fetchedTime instanceof Date) || !Number.isFinite(cache.TTL) || (hasTtl && expired);
+    const hasTtl = Number.isFinite(ttl) && ttl >= 0;
+    const expired = cache?.fetchedTime ? now.getTime() - cache.fetchedTime.getTime() > ttl * 1000 : true;
+    const needsFetch = !cache || !(cache.fetchedTime instanceof Date) || !Number.isFinite(ttl) || (hasTtl && expired);
 
     if (needsFetch) {
       const ld = LaunchDarkly.getInstance();
@@ -96,7 +91,6 @@ export class LaunchDarkly {
 
       LaunchDarkly.FlagsCache = {
         flags,
-        TTL: ttlSeconds,
         fetchedTime: now,
       };
     }
