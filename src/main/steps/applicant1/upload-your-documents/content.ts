@@ -1,15 +1,18 @@
 import { isObject } from 'lodash';
 
-import { Checkbox } from '../../../app/case/case';
-import { ChangedNameHow, DocumentType, YesOrNo } from '../../../app/case/definition';
+import { CaseWithId, Checkbox } from '../../../app/case/case';
+import { ApplicationType, ChangedNameWhy, DocumentType, YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, nameChangedHowPossibleValue } from '../../common/content.utils';
+import { accessibleDetailsSpan } from '../../common/content.utils';
 
-const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
+const en = (
+  { isDivorce, marriage, civilPartnership, partner, isJointApplication }: CommonContent,
+  nameChangedIntentionally: boolean
+) => {
   const union = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Upload your documents',
@@ -17,7 +20,13 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     certificate: `your original ${union} certificate`,
     certificateForeign: `your original foreign ${union} certificate`,
     certificateForeignTranslation: `a certified translation of your foreign ${union} certificate`,
-    proofOfNameChange: 'proof that you changed your name, for example a deed poll or ‘statutory declaration’',
+    proofOfNameChange: nameChangedIntentionally
+      ? `proof that you${
+          isJointApplication ? ' changed your name' : ` or your ${partner} changed your names`
+        }, for example a deed poll or 'statutory declaration'`
+      : `proof to show why your name${
+          isJointApplication ? '' : ` or your ${partner}'s name`
+        } is written differently on your ${union} certificate. For example, a government issued ID, a passport, driving license or birth certificate, deed poll or 'statutory declaration'`,
     warningPhoto:
       'Make sure the photo or scan is in colour and shows all 4 corners of the document. The certificate number (if it has one) and all the text must be readable. Blurred images will be rejected, delaying your application.',
     infoTakePhoto: 'You can take a picture with your phone and upload it',
@@ -48,7 +57,11 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     cannotUploadCertificate: `My original ${union} certificate`,
     cannotUploadForeignCertificate: `My original foreign ${union} certificate`,
     cannotUploadForeignCertificateTranslation: `A certified translation of my foreign ${union} certificate`,
-    cannotUploadNameChangeProof: 'Proof that I changed my name',
+    cannotUploadNameChangeProof: nameChangedIntentionally
+      ? `Proof that I ${isJointApplication ? 'changed my name' : `or my ${partner} changed our names`}`
+      : `Proof to show why my name${
+          isJointApplication ? '' : ` or my ${partner}'s name`
+        } is written differently on my ${union} certificate`,
     errors: {
       applicant1UploadedFiles: {
         notUploaded:
@@ -66,7 +79,7 @@ const en = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
   };
 };
 
-const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
+const cy = ({ isDivorce, marriage, civilPartnership, partner }: CommonContent) => {
   const union = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Uwchlwytho eich dogfennau',
@@ -74,7 +87,9 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     certificate: `eich tystysgrif ${union} wreiddiol`,
     certificateForeign: `eich tystysgrif ${union} dramor wreiddiol`,
     certificateForeignTranslation: `cyfieithiad wedi'i ardystio o'ch tystysgrif ${union} dramor`,
-    proofOfNameChange: "prawf eich bod wedi newid eich enw, er enghraifft gweithred newid enw neu 'datganiad statudol'",
+    proofOfNameChange: `Tystiolaeth yn dangos pam bod eich enw neu enw eich ${partner} wedi'i ysgrifennu'n wahanol ar eich ${
+      isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
+    }. Er enghraifft, cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru neu dystysgrif geni, gweithred newid enw neu 'ddatganiad statudol'.`,
     warningPhoto:
       "Gwnewch yn siŵr bod y llun neu'r sgan yn dangos y ddogfen gyfan. Gwiriwch eich bod yn gallu darllen y testun i gyd cyn ei uwchlwytho. Os na all staff y llys ddarllen y manylion, efallai bydd yn cael ei wrthod.",
     infoTakePhoto: "Gallwch dynnu llun gyda'ch ffôn a'i uwchlwytho",
@@ -106,7 +121,9 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
     cannotUploadCertificate: `Fy nhystysgrif ${union} wreiddiol`,
     cannotUploadForeignCertificate: `Fy nhystysgrif ${union} dramor wreiddiol`,
     cannotUploadForeignCertificateTranslation: `Cyfieithiad wedi'i ardystio o fy nhystysgrif ${union} dramor`,
-    cannotUploadNameChangeProof: 'Prawf fy mod i wedi newid fy enw',
+    cannotUploadNameChangeProof: `Tystiolaeth yn dangos pam bod eich enw neu enw eich ${partner} wedi'i ysgrifennu'n wahanol ar eich ${
+      isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
+    }`,
     errors: {
       applicant1UploadedFiles: {
         notUploaded:
@@ -123,6 +140,27 @@ const cy = ({ isDivorce, marriage, civilPartnership }: CommonContent) => {
       },
     },
   };
+};
+
+const nameIsDifferentOnMarriageCertificate = (userCase: Partial<CaseWithId>, isApplicant2: boolean) => {
+  const app1NameChanged = userCase.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES;
+  const app2NameChanged = userCase.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES;
+
+  return (!isApplicant2 && (app1NameChanged || app2NameChanged)) || (isApplicant2 && app2NameChanged);
+};
+
+const nameWasChangedIntentionally = (userCase: Partial<CaseWithId>, isApplicant2: boolean) => {
+  const isJointApplication = userCase.applicationType === ApplicationType.JOINT_APPLICATION;
+
+  const nameChangedValues: Set<ChangedNameWhy> = new Set(
+    (isApplicant2 ? [] : userCase.applicant1WhyNameDifferent ?? []).concat(
+      isApplicant2 || !isJointApplication ? userCase.applicant2WhyNameDifferent ?? [] : []
+    )
+  );
+
+  const valuesRequiringEvidence = [ChangedNameWhy.CHANGED_PARTS_OF_NAME, ChangedNameWhy.DEED_POLL];
+
+  return valuesRequiringEvidence.some(value => nameChangedValues.has(value));
 };
 
 export const form: FormContent = {
@@ -148,13 +186,7 @@ export const form: FormContent = {
       });
     }
 
-    if (
-      nameChangedHowPossibleValue(userCase, false) &&
-      !(
-        nameChangedHowPossibleValue(userCase, false)?.length === 1 &&
-        nameChangedHowPossibleValue(userCase, false)?.includes(ChangedNameHow.MARRIAGE_CERTIFICATE)
-      )
-    ) {
+    if (nameIsDifferentOnMarriageCertificate(userCase, false)) {
       checkboxes.push({
         id: 'cannotUploadNameChangeProof',
         value: DocumentType.NAME_CHANGE_EVIDENCE,
@@ -241,18 +273,14 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
   const uploadedDocsFilenames = content.userCase.applicant1DocumentsUploaded?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
-  const shouldMentionProofOfNameChange: boolean | undefined =
-    nameChangedHowPossibleValue(content.userCase, false) &&
-    !(
-      nameChangedHowPossibleValue(content.userCase, false)?.length === 1 &&
-      nameChangedHowPossibleValue(content.userCase, false)?.includes(ChangedNameHow.MARRIAGE_CERTIFICATE)
-    );
+  const nameDifferenceEvidenceRequired = nameIsDifferentOnMarriageCertificate(content.userCase, false);
+  const nameChangedIntentionally = nameWasChangedIntentionally(content.userCase, false);
   const applicant1HasChangedName =
     content.userCase.applicant1LastNameChangedWhenMarried === YesOrNo.YES ||
     content.userCase.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES;
+  const translations = languages[content.language](content, nameChangedIntentionally);
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
@@ -269,6 +297,6 @@ export const generateContent: TranslationFn = content => {
     uploadContentScript,
     infoTakePhotoAccessibleSpan,
     applicant1HasChangedName,
-    shouldMentionProofOfNameChange,
+    nameDifferenceEvidenceRequired,
   };
 };
