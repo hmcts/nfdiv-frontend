@@ -89,7 +89,6 @@ export class Nunjucks {
         genesysEnvironment: config.get('webchat.genesysEnvironment'),
         genesysKervBaseUrl: config.get('webchat.genesysKervBaseUrl'),
         genesysApiKey: config.get('webchat.genesysApiKey'),
-        useGenesys: config.get('webchat.useGenesys'),
       },
       dynatrace: {
         dynatraceUrl: config.get('dynatrace.dynatraceUrl'),
@@ -97,6 +96,13 @@ export class Nunjucks {
     };
 
     env.addGlobal('globals', globals);
+
+    app.use(async (req, res, next) => {
+      const { getFlags } = res.locals;
+      env.addGlobal('launchDarkly', await getFlags());
+
+      next();
+    });
 
     env.addGlobal('govukRebrand', true);
 
