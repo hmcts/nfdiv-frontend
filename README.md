@@ -265,37 +265,48 @@ One final important point to remember is that the `CCD_URL` in [values.yaml](cha
 
 ## Feature flags (LaunchDarkly)
 
-This service integrates LaunchDarkly for feature flags.
+This service integrates LaunchDarkly for runtime feature flagging.
 
 Configuration:
 - config/default.yaml
   - launchDarkly.sdkKey: SDK key (fetched from Key Vault in prod; see below)
   - launchDarkly.offline: set true to disable remote calls (defaults to false)
-  - launchDarkly.initTimeoutS: timeout for SDK initialization (Seconds)
+  - launchDarkly.initTimeoutSeconds: timeout for SDK initialization (seconds)
   - launchDarkly.defaultUserKey: default context key when user is unknown
-  - launchDarkly.flags:
-    - demo-flag: true/false (example flag)
+  - launchDarkly.flagCacheTtlSeconds: server-side cache TTL for evaluated flags (seconds)
+  - launchDarkly.flags: local default values used if LaunchDarkly is unavailable or a flag is missing
+    - e.g. NFD_useGenesysWebchat: false
 - config/custom-environment-variables.yaml
-  - LAUNCH_DARKLY_SDK_KEY, LAUNCH_DARKLY_OFFLINE, LAUNCH_DARKLY_INIT_TIMEOUT_S, LAUNCH_DARKLY_DEFAULT_USER_KEY
-  - Add additional variables for individual launchDarkly.flags as needed
+  - LAUNCH_DARKLY_SDK_KEY, LAUNCH_DARKLY_OFFLINE, LAUNCH_DARKLY_INIT_TIMEOUT_SECONDS, LAUNCH_DARKLY_DEFAULT_USER_KEY, LAUNCH_DARKLY_FLAG_CACHE_TTL_SECONDS
+  - You may also map environment variables for individual entries under launchDarkly.flags if required
 
 Secrets:
 - In production, PropertiesVolume maps secrets.nfdiv.launch-darkly-sdk-key -> launchDarkly.sdkKey
 - In development, the Azure Key Vault secret named launch-darkly-sdk-key is read locally if available
 
-Usage:
-- In code (controllers/services), use the helper attached to app.locals:
-  await req.app.locals.ld.isEnabled('flag-key', false)
-- In nunjucks/index.ts, add keys and flags to the existing launchDarkly object. For example:
-  launchDarkly = { 'demo-flag': 'nfdiv-demo-flag' }
-  The key is the name used in templates and should match the value added to default.yaml beneath launchDarkly.flags, the value is the LaunchDarkly flag.
-  If the flag fails to resolve from LaunchDarkly, the value will be set based on an environment variable if set, or the value in default.yaml.
-- In Nunjucks templates, access flags via the launchDarkly object. For example:
-  {% if launchDarkly.demo-flag %}
-  Demo flag is enabled
+How flags are exposed:
+- Only flags whose keys start with "NFD_" (case-insensitive) are fetched from LaunchDarkly and exposed to the app.
+- Evaluated flag values are cached in-memory for launchDarkly.flagCacheTtlSeconds to reduce outbound calls.
+- If a flag cannot be fetched, its value falls back to the corresponding entry in launchDarkly.flags when present; otherwise the provided defaultValue is used by helper methods.
+
+Server-side helpers (available on req.app.locals.ld and res.locals via middleware):
+- await req.app.locals.ld.getFlags(): returns a Record<string, boolean> of all NFD_ flags.
+- await req.app.locals.ld.isFlagEnabled('NFD_someFlag', false): returns a single boolean, defaulting to false if not available.
+- await req.app.locals.ld.getFlag('NFD_someFlag', false): returns an object { NFD_someFlag: boolean }, defaulting the value to false if the requsted flag is not available.
+
+Nunjucks templates:
+- The flags object is injected into templates as a global named launchDarkly for each request; no manual mapping is required.
+- Example usage:
+  {% if launchDarkly.NFD_useGenesysWebchat %}
+  Webchat is enabled
   {% else %}
-  Demo flag is disabled
+  Webchat is disabled
   {% endif %}
+
+Advanced (optional):
+- For admin/diagnostics, you can retrieve the list of LaunchDarkly flag keys (NFD_*) with caching via:
+  const { keys, TTL, fetchedTime } = await Nunjucks.getLaunchDarklyFlagKeysCached();
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
