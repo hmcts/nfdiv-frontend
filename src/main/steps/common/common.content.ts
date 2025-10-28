@@ -18,6 +18,18 @@ import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
 
+export const yesOrNoOrNotKnown_en = {
+  yes: 'Yes',
+  no: 'No',
+  notKnown: 'Not known',
+};
+
+export const yesOrNoOrNotKnown_cy = {
+  yes: 'Do',
+  no: 'Naddo',
+  notKnown: 'Anhysbys',
+};
+
 export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
@@ -121,9 +133,7 @@ export const en = {
     d11: 'D11',
     d89: 'D89',
   },
-  yes: 'Yes',
-  no: 'No',
-  notKnown: 'Not known',
+  ...yesOrNoOrNotKnown_en,
   english: 'English',
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
@@ -315,9 +325,7 @@ const cy: typeof en = {
     d11: 'D11',
     d89: 'D89',
   },
-  yes: 'Do',
-  no: 'Naddo',
-  notKnown: 'Anhysbys',
+  ...yesOrNoOrNotKnown_cy,
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',
@@ -410,6 +418,7 @@ export const generateCommonContent = ({
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
+  const capitalisedPartner = partner.charAt(0).toUpperCase() + partner.slice(1);
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isApp1Represented = userCase?.applicant1SolicitorRepresented === YesOrNo.YES;
   const isApp2Represented = userCase?.applicant2SolicitorRepresented === YesOrNo.YES;
@@ -496,6 +505,7 @@ export const generateCommonContent = ({
     applicationHasBeenPaidFor,
     serviceName,
     partner,
+    capitalisedPartner,
     language,
     isDivorce,
     isApplicant2,
@@ -542,6 +552,7 @@ export type CommonContent = typeof en & {
   feedbackLink: string;
   userCase: Partial<CaseWithId>;
   partner: string;
+  capitalisedPartner: string;
   userEmail?: string;
   isJointApplication: boolean;
   caseHasBeenIssued: boolean;
