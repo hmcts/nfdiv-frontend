@@ -271,23 +271,27 @@ Configuration:
 - config/default.yaml
   - launchDarkly.sdkKey: SDK key (fetched from Key Vault in prod; see below)
   - launchDarkly.offline: set true to disable remote calls (defaults to false)
-  - launchDarkly.initTimeoutSeconds: timeout for SDK initialization (seconds)
+  - launchDarkly.initTimeoutSeconds: timeout for SDK initialization in seconds
   - launchDarkly.defaultUserKey: default context key when user is unknown
-  - launchDarkly.flagCacheTtlSeconds: server-side cache TTL for evaluated flags (seconds)
+  - launchDarkly.flagCacheTtlSeconds: server-side cache TTL for evaluated flags in seconds
   - launchDarkly.flags: local default values used if LaunchDarkly is unavailable or a flag is missing
     - e.g. NFD_useGenesysWebchat: false
 - config/custom-environment-variables.yaml
   - LAUNCH_DARKLY_SDK_KEY, LAUNCH_DARKLY_OFFLINE, LAUNCH_DARKLY_INIT_TIMEOUT_SECONDS, LAUNCH_DARKLY_DEFAULT_USER_KEY, LAUNCH_DARKLY_FLAG_CACHE_TTL_SECONDS
   - You may also map environment variables for individual entries under launchDarkly.flags if required
+    - e.g. NFD_USE_GENESYS_WEBCHAT maps to launchDarkly.flags.NFD_useGenesysWebchat
 
 Secrets:
 - In production, PropertiesVolume maps secrets.nfdiv.launch-darkly-sdk-key -> launchDarkly.sdkKey
 - In development, the Azure Key Vault secret named launch-darkly-sdk-key is read locally if available
 
 How flags are exposed:
-- Only flags whose keys start with "NFD_" (case-insensitive) are fetched from LaunchDarkly and exposed to the app.
+- **Ensure NFD LaunchDarkly flags are prefixed with NFD_**
+  - **NFD shares a LaunchDarkly project with DFR, so this prefix prevents conflicts.**
+  - **Only flags whose keys start with "NFD_" (case-insensitive) are exposed to the app.**
+  - **Avoid using '-' in flag names, as by default this will be processed as a minus operator in Nunjucks templates. Use '_' instead.**
 - Evaluated flag values are cached in-memory for launchDarkly.flagCacheTtlSeconds to reduce outbound calls.
-- If a flag cannot be fetched, its value falls back to the corresponding entry in launchDarkly.flags when present; otherwise the provided defaultValue is used by helper methods.
+- If a flag cannot be fetched, its value falls back to the corresponding entry in launchDarkly.flags when present; otherwise the provided defaultValue is used.
 
 Server-side helpers (available on req.app.locals.ld and res.locals via middleware):
 - await req.app.locals.ld.getFlags(): returns a Record<string, boolean> of all NFD_ flags.
