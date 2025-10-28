@@ -25,12 +25,11 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   iWantToArrangeService: 'I want to arrange service by process server',
 });
 
-// @TODO translations should be completed and verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: 'Trefnu i’r dogfennau gael eu cyflwyno gan weinyddwr proses',
   line1: `Gallwch drefnu i weinyddwr proses annibynnol ddanfon papurau eich ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-  }. â llaw. Ni ddylech eu cyflwyno eich hun.`,
+  } â llaw. Ni ddylech eu cyflwyno eich hun.`,
   howItWorks: {
     header: 'Sut mae’n gweithio',
     steps: {

@@ -177,7 +177,7 @@ const cy: typeof en = (
     useHwf: 'Help i dalu’r ffi gwneud cais',
     hwfReference: 'Cyfeirnod help i dalu ffioedd',
     partnerName: `Enw’ch ${partner}`,
-    partnerInRefuge: `Ydych eich ${partner} yn preswylio mewn lloches ar hyn o bryd?`,
+    partnerInRefuge: `Ydy eich ${partner} yn preswylio mewn lloches ar hyn o bryd?`,
     knowPartnersPhone: `Ydych chi'n gwybod rhif ffôn eich ${partner}?`,
     partnerPhoneNumber: `Rhif ffôn eich ${partner}`,
     knowPartnersDateOfBirth: `Ydych chi’n gwybod dyddiad geni eich ${partner}?`,
