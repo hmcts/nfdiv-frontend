@@ -69,7 +69,7 @@ const stepLinks = {
   uploadedFiles: `${urls.UPLOAD_EVIDENCE_DISPENSE}`,
 };
 
-const en = (stepAnswers, { isDivorce, partner }: CommonContent) => ({
+const en = (stepAnswers, { capitalisedPartner, isDivorce, partner }: CommonContent) => ({
   stepQuestions: {
     useHwf: 'Help paying the application fee',
     hwfReference: 'Help with fees reference number',
@@ -77,8 +77,8 @@ const en = (stepAnswers, { isDivorce, partner }: CommonContent) => ({
     dateLastLivedTogether: 'The date you last lived together',
     whereLivedTogether: `Where did you and your ${partner} live together?`,
     wherePartnerLivedAfterParting: `Are you aware of where your ${partner} lived after parting?`,
-    partnerAddress1: `${partner}'s address 1`,
-    partnerAddress2: `${partner}'s address 2`,
+    partnerAddress1: `${capitalisedPartner}'s address 1`,
+    partnerAddress2: `${capitalisedPartner}'s address 2`,
     whenPartnerLastSeen: `When was your ${partner} last seen or heard of?`,
     partnerLastSeenDescription: `Describe the last time you saw or heard of your ${partner}`,
     finalOrderSearch: `Have you searched for an existing ${isDivorce ? 'decree absolute or ' : ''}final order?`,
