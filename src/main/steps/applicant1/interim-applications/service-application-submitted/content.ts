@@ -164,7 +164,11 @@ const cy: typeof en = ({
     bailiff: {
       title: 'Cais wedi’i gyflwyno',
       introLine1: 'Rydych wedi cyflwyno eich cais am wasanaeth cyflwyno gan feili.',
-      happensNextLine1: 'Bydd y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno.',
+      happensNextLine1: `${
+        !serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
+          ? 'Os derbynnir eich cyfeirnod help i dalu ffioedd, bydd'
+          : 'Bydd'
+      } y llys yn adolygu’ch cais ac unrhyw dystiolaeth rydych wedi’i chyflwyno.`,
       happensNextLine2: `Byddwn yn anfon e-bost atoch ${
         serviceApplicationFeeRequired && serviceApplicationDocsAllProvided
           ? `erbyn ${serviceApplicationResponseDate} `
