@@ -112,6 +112,12 @@ export class LaunchDarkly {
     return { [flagKey]: await this.isFlagEnabled(flagKey, context, defaultValue) };
   }
 
+  close(): void {
+    if (this.client) {
+      this.client.close();
+    }
+  }
+
   private async getAllFlags(context?: LDContext): Promise<Record<string, boolean>> {
     if (!this.client || !this.initialized) {
       return {};
@@ -128,12 +134,6 @@ export class LaunchDarkly {
       return flags;
     } catch {
       return {};
-    }
-  }
-
-  close(): void {
-    if (this.client) {
-      this.client.close();
     }
   }
 
