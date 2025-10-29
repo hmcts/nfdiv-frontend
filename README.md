@@ -291,22 +291,51 @@ How flags are exposed:
   - **Only flags whose keys start with "NFD_" (case-insensitive) are exposed to the app.**
   - **Avoid using '-' in flag names, as by default this will be processed as a minus operator in Nunjucks templates. Use '_' instead.**
 - Evaluated flag values are cached in-memory for launchDarkly.flagCacheTtlSeconds to reduce outbound calls.
-- If a flag cannot be fetched, its value falls back to the corresponding entry in launchDarkly.flags when present; otherwise the provided defaultValue is used.
+- If a flag cannot be fetched, its value falls back to the corresponding entry in launchDarkly.flags when present, otherwise it is false.
 
-Server-side helpers (available on req.app.locals.ld and res.locals via middleware):
+Server-side helpers (available on req.app.locals.launchDarkly and res.locals via middleware):
 - await getFlags(): returns a Record<string, boolean> of all NFD_ flags.
-- await isFlagEnabled('NFD_someFlag', false): returns a single boolean, defaulting to false if not available.
-- await getFlag('NFD_someFlag', false): returns an object { NFD_someFlag: boolean }, defaulting the value to false if the requested flag is not available.
+- await isFlagEnabled('NFD_someFlag'): returns a single boolean, defaulting to false if not available.
+- await getFlag('NFD_someFlag'): returns a Record<string, boolean> object: { NFD_someFlag: boolean }, defaulting the value to false if the requested flag is not available.
 
 Nunjucks templates:
-- The flags object is injected into templates as a global named launchDarkly for each request; no manual mapping is required.
-- Example usage:
-  {% if launchDarkly.NFD_useGenesysWebchat %}
+- By default the flags object is injected into templates as a global named featureFlags for each request within nunjucks/index.ts:
+```
+app.use(async (req, res, next) => {
+  env.addGlobal('featureFlags', await res.locals.getFlags());
+  next();
+});
+```
+- Alternatively, you could inject a single flag if preferred:
+```
+app.use(async (req, res, next) => {
+  env.addGlobal('featureFlags', await res.locals.getFlag('NFD_useGenesysWebchat'));
+  next();
+});
+```
+- Example template usage:
+```
+{% if featureFlags.NFD_useGenesysWebchat %}
   Webchat is enabled
-  {% else %}
+{% else %}
   Webchat is disabled
-  {% endif %}
-
+{% endif %}
+```
+- Optionally, you could inject values directly:
+```
+app.use(async (req, res, next) => {
+  env.addGlobal('useGenesysWebchat', await res.locals.isFlagEnabled('NFD_useGenesysWebchat'));
+  next();
+});
+```
+- Example template usage:
+```
+{% if useGenesysWebchat %}
+  Webchat is enabled
+{% else %}
+  Webchat is disabled
+{% endif %}
+```
 Advanced (optional):
 - For admin/diagnostics, you can retrieve the list of LaunchDarkly flag keys (NFD_*) with caching via:
   const { keys, TTL, fetchedTime } = await Nunjucks.getLaunchDarklyFlagKeysCached();
