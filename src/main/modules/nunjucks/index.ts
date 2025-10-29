@@ -98,9 +98,7 @@ export class Nunjucks {
     env.addGlobal('globals', globals);
 
     app.use(async (req, res, next) => {
-      const { getFlags } = res.locals;
-      env.addGlobal('launchDarkly', await getFlags());
-
+      env.addGlobal('featureFlags', await res.locals.getFlags());
       next();
     });
 
