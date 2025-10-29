@@ -294,9 +294,9 @@ How flags are exposed:
 - If a flag cannot be fetched, its value falls back to the corresponding entry in launchDarkly.flags when present; otherwise the provided defaultValue is used.
 
 Server-side helpers (available on req.app.locals.ld and res.locals via middleware):
-- await req.app.locals.ld.getFlags(): returns a Record<string, boolean> of all NFD_ flags.
-- await req.app.locals.ld.isFlagEnabled('NFD_someFlag', false): returns a single boolean, defaulting to false if not available.
-- await req.app.locals.ld.getFlag('NFD_someFlag', false): returns an object { NFD_someFlag: boolean }, defaulting the value to false if the requsted flag is not available.
+- await getFlags(): returns a Record<string, boolean> of all NFD_ flags.
+- await isFlagEnabled('NFD_someFlag', false): returns a single boolean, defaulting to false if not available.
+- await getFlag('NFD_someFlag', false): returns an object { NFD_someFlag: boolean }, defaulting the value to false if the requested flag is not available.
 
 Nunjucks templates:
 - The flags object is injected into templates as a global named launchDarkly for each request; no manual mapping is required.
