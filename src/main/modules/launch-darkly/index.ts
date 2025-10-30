@@ -3,48 +3,28 @@ import { basicLogger } from '@launchdarkly/node-server-sdk';
 import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
 
+import { LaunchDarklyFlagsCache } from './launchDarklyFlagsCache';
+
 export type LDContext = LDClient.LDContext;
-
-class LaunchDarklyFlagsCache {
-  private flags: Record<string, boolean>;
-  private fetchedDateTime?: Date;
-  private ttlSeconds: number;
-
-  constructor() {
-    this.flags = {};
-    const ttl: number = config.get('launchDarkly.flagCacheTtlSeconds');
-    this.ttlSeconds = Number.isFinite(ttl) || ttl > 0 ? ttl : 0;
-  }
-
-  setFlags(flags: Record<string, boolean>): void {
-    this.flags = flags;
-    this.fetchedDateTime = new Date();
-  }
-
-  getFlags(): Record<string, boolean> {
-    return this.flags;
-  }
-
-  isExpired(): boolean {
-    if (!this.fetchedDateTime) {
-      return true;
-    }
-    return new Date().getTime() - this.fetchedDateTime.getTime() > this.ttlSeconds * 1000;
-  }
-}
 
 export class LaunchDarkly {
   private static instance: LaunchDarkly;
+  private static FlagsCache: LaunchDarklyFlagsCache;
   private client?: LDClient.LDClient;
-  private initialized = false;
-
-  private static FlagsCache: LaunchDarklyFlagsCache = new LaunchDarklyFlagsCache();
+  private initialised = false;
 
   static getInstance(): LaunchDarkly {
     if (!LaunchDarkly.instance) {
       LaunchDarkly.instance = new LaunchDarkly();
     }
     return LaunchDarkly.instance;
+  }
+
+  private static async getCache(context?: LDContext): Promise<Record<string, boolean>> {
+    if (!LaunchDarkly.FlagsCache) {
+      LaunchDarkly.FlagsCache = new LaunchDarklyFlagsCache();
+    }
+    return LaunchDarkly.FlagsCache.get(context);
   }
 
   async enableFor(app: Application): Promise<void> {
@@ -68,23 +48,15 @@ export class LaunchDarkly {
 
     try {
       await this.client.waitForInitialization({ timeout: initTimeoutSeconds });
-      this.initialized = true;
+      this.initialised = true;
     } catch {
-      this.initialized = false;
+      this.initialised = false;
     }
 
     app.locals.launchDarkly = this.buildHelpers(this.client);
 
     app.use((req: Request, res: Response, next: NextFunction) => {
-      res.locals.getFlags = async () => {
-        return this.getFlags(this.getContext(req));
-      };
-      res.locals.isFlagEnabled = async (flagKey: string) => {
-        return this.isFlagEnabled(flagKey, this.getContext(req));
-      };
-      res.locals.getFlag = async (flagKey: string) => {
-        return this.getFlag(flagKey, this.getContext(req));
-      };
+      res.locals.launchDarkly = this.buildHelpers(this.client, this.getContext(req));
       next();
     });
 
@@ -92,15 +64,7 @@ export class LaunchDarkly {
   }
 
   async getFlags(context?: LDContext): Promise<Record<string, boolean>> {
-    if (LaunchDarkly.FlagsCache.isExpired()) {
-      const flags = await LaunchDarkly.getInstance()
-        .getAllFlags(context)
-        .then(allFlags => {
-          return this.applyFlagDefaults(allFlags);
-        });
-      LaunchDarkly.FlagsCache.setFlags(flags);
-    }
-    return LaunchDarkly.FlagsCache.getFlags();
+    return LaunchDarkly.getCache(context);
   }
 
   async isFlagEnabled(flagKey: string, context?: LDContext): Promise<boolean> {
@@ -115,14 +79,8 @@ export class LaunchDarkly {
     });
   }
 
-  close(): void {
-    if (this.client) {
-      this.client.close();
-    }
-  }
-
-  private async getAllFlags(context?: LDContext): Promise<Record<string, boolean>> {
-    if (!this.client || !this.initialized) {
+  async getAllFlags(context?: LDContext): Promise<Record<string, boolean>> {
+    if (!this.client || !this.initialised) {
       return {};
     }
     try {
@@ -139,27 +97,25 @@ export class LaunchDarkly {
     }
   }
 
-  private applyFlagDefaults(flags: Record<string, boolean>): Record<string, boolean> {
-    const flagDefaults: Record<string, boolean> = config.has('launchDarkly.flags')
-      ? config.get('launchDarkly.flags')
-      : {};
-
-    for (const [key, value] of Object.entries(flagDefaults)) {
-      if (!flags[key]) {
-        flags[key] = value.toString().toLowerCase() === 'true';
-      }
+  close(): void {
+    if (this.client) {
+      this.client.close();
     }
-
-    return flags;
   }
 
-  private buildHelpers(client?: LDClient.LDClient) {
-    return {
+  private buildHelpers(client?: LDClient.LDClient, requestContext?: LDContext) {
+    const helpers = {
       getFlags: async (context?: LDContext) => this.getFlags(context),
       isFlagEnabled: async (flagKey: string, context?: LDContext) => this.isFlagEnabled(flagKey, context),
       getFlag: async (flagKey: string, context?: LDContext) => this.getFlag(flagKey, context),
-      initialized: !!client && this.initialized,
+      initialised: !!client && this.initialised,
     };
+    if (requestContext) {
+      helpers.getFlags = async () => this.getFlags(requestContext);
+      helpers.isFlagEnabled = async (flagKey: string) => this.isFlagEnabled(flagKey, requestContext);
+      helpers.getFlag = async (flagKey: string) => this.getFlag(flagKey, requestContext);
+    }
+    return helpers;
   }
 
   private getContext(req?: Request): LDContext {

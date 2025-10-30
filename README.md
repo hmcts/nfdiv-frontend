@@ -293,23 +293,24 @@ How flags are exposed:
 - Evaluated flag values are cached in-memory for launchDarkly.flagCacheTtlSeconds to reduce outbound calls.
 - If a flag cannot be fetched, its value falls back to the corresponding entry in launchDarkly.flags when present, otherwise it is false.
 
-Server-side helpers (available on req.app.locals.launchDarkly and res.locals via middleware):
+Server-side helpers (available on req.app.locals.launchDarkly and res.locals.launchDarkly via middleware):
 - await getFlags(): returns a Record<string, boolean> of all NFD_ flags.
 - await isFlagEnabled('NFD_someFlag'): returns a single boolean, defaulting to false if not available.
 - await getFlag('NFD_someFlag'): returns a Record<string, boolean> object: { NFD_someFlag: boolean }, defaulting the value to false if the requested flag is not available.
+- initialised: boolean indicating whether the LaunchDarkly client has been successfully initialised.
 
 Nunjucks templates:
 - By default the flags object is injected into templates as a global named featureFlags for each request within nunjucks/index.ts:
 ```
 app.use(async (req, res, next) => {
-  env.addGlobal('featureFlags', await res.locals.getFlags());
+  env.addGlobal('featureFlags', await res.locals.launchDarkly.getFlags());
   next();
 });
 ```
 - Alternatively, you could inject a single flag if preferred:
 ```
 app.use(async (req, res, next) => {
-  env.addGlobal('featureFlags', await res.locals.getFlag('NFD_useGenesysWebchat'));
+  env.addGlobal('featureFlags', await res.locals.launchDarkly.getFlag('NFD_useGenesysWebchat'));
   next();
 });
 ```
@@ -324,7 +325,7 @@ app.use(async (req, res, next) => {
 - Optionally, you could inject values directly:
 ```
 app.use(async (req, res, next) => {
-  env.addGlobal('useGenesysWebchat', await res.locals.isFlagEnabled('NFD_useGenesysWebchat'));
+  env.addGlobal('useGenesysWebchat', await res.locals.launchDarkly.isFlagEnabled('NFD_useGenesysWebchat'));
   next();
 });
 ```
