@@ -47,8 +47,6 @@
 {% set bannerHtml %}
   {{ feedback.part1 }}<a class="govuk-link" aria-label="{{ feedback.ariaLabel }}" href="{{ feedback.link }}{{ pageUrl }}" target="_blank">{{ feedback.part2 }}</a>{{ feedback.part3 }}
   <a href="{{ languageToggle.link }}" class="govuk-link language">{{ languageToggle.text }}</a>
-  <br><br>
-  <h3 class="govuk-heading-s">{{ feedback.additionalInfo }}</h3>
 {% endset %}
 
 {% block beforeContent %}
