@@ -226,6 +226,7 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.AwaitingAlternativeService:
     case State.AwaitingDwpResponse:
     case State.AwaitingJudgeClarification:
+    case State.AwaitingServiceApplicationClarification:
     case State.GeneralConsiderationComplete:
     case State.AwaitingGeneralReferralPayment:
     case State.AwaitingGeneralConsideration:
