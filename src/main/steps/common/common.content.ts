@@ -418,7 +418,6 @@ export const generateCommonContent = ({
   const serviceName = getServiceName(commonTranslations, isDivorce);
   const selectedGender = getSelectedGender(userCase as Partial<CaseWithId>, isApplicant2);
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
-  const capitalisedPartner = partner.charAt(0).toUpperCase() + partner.slice(1);
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isApp1Represented = userCase?.applicant1SolicitorRepresented === YesOrNo.YES;
   const isApp2Represented = userCase?.applicant2SolicitorRepresented === YesOrNo.YES;
@@ -505,7 +504,6 @@ export const generateCommonContent = ({
     applicationHasBeenPaidFor,
     serviceName,
     partner,
-    capitalisedPartner,
     language,
     isDivorce,
     isApplicant2,
@@ -552,7 +550,6 @@ export type CommonContent = typeof en & {
   feedbackLink: string;
   userCase: Partial<CaseWithId>;
   partner: string;
-  capitalisedPartner: string;
   userEmail?: string;
   isJointApplication: boolean;
   caseHasBeenIssued: boolean;
