@@ -2,14 +2,14 @@ import * as LDClient from '@launchdarkly/node-server-sdk';
 import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
 
-import { buildLaunchDarklyClient } from './LaunchDarklyClientBuilder';
+import { buildLaunchDarklyClient } from './launchDarklyClientBuilder';
 import { LaunchDarklyFlagsCache } from './launchDarklyFlagsCache';
 
 export type LDContext = LDClient.LDContext;
 
 export class LaunchDarkly {
   private static instance: LaunchDarkly;
-  private static FlagsCache: LaunchDarklyFlagsCache;
+  private flagsCache: LaunchDarklyFlagsCache = new LaunchDarklyFlagsCache();
   private client?: LDClient.LDClient;
 
   static getInstance(): LaunchDarkly {
@@ -17,13 +17,6 @@ export class LaunchDarkly {
       LaunchDarkly.instance = new LaunchDarkly();
     }
     return LaunchDarkly.instance;
-  }
-
-  private static async getCache(context: LDContext, client?: LDClient.LDClient): Promise<Record<string, boolean>> {
-    if (!LaunchDarkly.FlagsCache) {
-      LaunchDarkly.FlagsCache = new LaunchDarklyFlagsCache();
-    }
-    return LaunchDarkly.FlagsCache.get(context, client);
   }
 
   async enableFor(app: Application): Promise<void> {
@@ -40,7 +33,7 @@ export class LaunchDarkly {
   }
 
   async getFlags(context?: LDContext): Promise<Record<string, boolean>> {
-    return LaunchDarkly.getCache(context || this.getContext(), this.client);
+    return this.flagsCache.get(context || this.getContext(), this.client);
   }
 
   async isFlagEnabled(flagKey: string, context?: LDContext): Promise<boolean> {
