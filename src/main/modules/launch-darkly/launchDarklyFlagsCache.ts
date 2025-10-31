@@ -19,20 +19,14 @@ export class LaunchDarklyFlagsCache {
     return Number.isFinite(ttl) && ttl > 0 ? new Date().getTime() - this.fetchedDateTime.getTime() > ttl * 1000 : true;
   }
 
-  private async update(
-    context: LDContext,
-    client?: LDClient.LDClient
-  ): Promise<Record<string, boolean>> {
+  private async update(context: LDContext, client?: LDClient.LDClient): Promise<Record<string, boolean>> {
     const flags = await this.getAllFlags(context, client);
     this.flags = this.applyFlagDefaults(flags);
     this.fetchedDateTime = new Date();
     return this.flags;
   }
 
-  private async getAllFlags(
-    context: LDContext,
-    client?: LDClient.LDClient
-  ): Promise<Record<string, boolean>> {
+  private async getAllFlags(context: LDContext, client?: LDClient.LDClient): Promise<Record<string, boolean>> {
     if (!client || !client.initialized() || client.isOffline()) {
       return {};
     }
