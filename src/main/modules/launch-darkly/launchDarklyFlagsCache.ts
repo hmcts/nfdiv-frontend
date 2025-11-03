@@ -33,7 +33,8 @@ export class LaunchDarklyFlagsCache {
     try {
       const state: LDClient.LDFlagsState = await client.allFlagsState(context);
       const json: LDClient.LDFlagSet = state.toJSON();
-      const flagKeys: string[] = Object.keys(json).filter(k => /^NFD_/i.test(k));
+      const flagPrefixRegexp: RegExp = new RegExp(config.get('launchDarkly.flagPrefixRegexp'));
+      const flagKeys: string[] = Object.keys(json).filter(k => flagPrefixRegexp.test(k));
       const flags: Record<string, boolean> = {};
       flagKeys.forEach(key => {
         flags[key] = String(json[key]).toLowerCase() === 'true';

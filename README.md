@@ -274,10 +274,11 @@ Configuration:
   - launchDarkly.initTimeoutSeconds: timeout for SDK initialization in seconds
   - launchDarkly.defaultUserKey: default context key when user is unknown
   - launchDarkly.flagCacheTtlSeconds: server-side cache TTL for evaluated flags in seconds
+  - launchDarkly.flagPrefixRegexp: regexp string to filter which flags are exposed to the app (defaults to ^NFD_ to only expose NFD_ flags)
   - launchDarkly.flags: local default values used if LaunchDarkly is unavailable or a flag is missing
     - e.g. NFD_useGenesysWebchat: false
 - config/custom-environment-variables.yaml
-  - LAUNCH_DARKLY_SDK_KEY, LAUNCH_DARKLY_OFFLINE, LAUNCH_DARKLY_INIT_TIMEOUT_SECONDS, LAUNCH_DARKLY_DEFAULT_USER_KEY, LAUNCH_DARKLY_FLAG_CACHE_TTL_SECONDS
+  - LAUNCH_DARKLY_SDK_KEY, LAUNCH_DARKLY_OFFLINE, LAUNCH_DARKLY_INIT_TIMEOUT_SECONDS, LAUNCH_DARKLY_DEFAULT_USER_KEY, LAUNCH_DARKLY_FLAG_CACHE_TTL_SECONDS, LAUNCH_DARKLY_FLAG_PREFIX_REGEXP
   - You may also map environment variables for individual entries under launchDarkly.flags if required
     - e.g. NFD_USE_GENESYS_WEBCHAT maps to launchDarkly.flags.NFD_useGenesysWebchat
 
