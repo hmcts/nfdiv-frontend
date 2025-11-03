@@ -1,7 +1,11 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import * as LDClient from '@launchdarkly/node-server-sdk';
 import config from 'config';
+import type { LoggerInstance } from 'winston';
 
 import { LDContext } from './index';
+
+const logger: LoggerInstance = Logger.getLogger('launchDarklyFlagsCache');
 
 export class LaunchDarklyFlagsCache {
   private flags: Record<string, boolean> = {};
@@ -23,6 +27,7 @@ export class LaunchDarklyFlagsCache {
 
   private async getAllFlags(context: LDContext, client?: LDClient.LDClient): Promise<Record<string, boolean>> {
     if (!client || !client.initialized() || client.isOffline()) {
+      logger.warn('LaunchDarkly client not initialised or in offline mode; returning empty flag set.');
       return {};
     }
     try {
@@ -77,6 +82,8 @@ export class LaunchDarklyFlagsCache {
           }
         }
       });
+    } else {
+      logger.warn('LaunchDarkly client not initialised or in offline mode; update listener not started.');
     }
   }
 }
