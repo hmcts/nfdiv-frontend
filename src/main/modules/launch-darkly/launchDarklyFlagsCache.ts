@@ -5,24 +5,19 @@ import { LDContext } from './index';
 
 export class LaunchDarklyFlagsCache {
   private flags: Record<string, boolean> = {};
-  private fetchedDateTime?: Date;
+  private flagDefaults: Record<string, boolean> = {};
+  private initialised: boolean = false;
+  private flagPrefixRegexp: RegExp | undefined;
 
   async get(context: LDContext, client?: LDClient.LDClient): Promise<Record<string, boolean>> {
-    return this.isExpired() ? this.update(context, client) : this.flags;
+    return this.initialised ? this.flags : this.initialise(context, client);
   }
 
-  private isExpired(): boolean {
-    if (!this.fetchedDateTime) {
-      return true;
-    }
-    const ttl: number = config.get('launchDarkly.flagCacheTtlSeconds');
-    return Number.isFinite(ttl) && ttl > 0 ? new Date().getTime() - this.fetchedDateTime.getTime() > ttl * 1000 : true;
-  }
-
-  private async update(context: LDContext, client?: LDClient.LDClient): Promise<Record<string, boolean>> {
+  private async initialise(context: LDContext, client?: LDClient.LDClient): Promise<Record<string, boolean>> {
     const flags = await this.getAllFlags(context, client);
     this.flags = this.applyFlagDefaults(flags);
-    this.fetchedDateTime = new Date();
+    this.initUpdateListener(context, client);
+    this.initialised = true;
     return this.flags;
   }
 
@@ -48,8 +43,8 @@ export class LaunchDarklyFlagsCache {
     const regex: string = config.has('launchDarkly.flagPrefix') ? config.get('launchDarkly.flagPrefix') : '';
     if (regex && regex.length > 0) {
       try {
-        const flagPrefixRegexp = new RegExp('^' + regex);
-        return Object.keys(flagSet).filter(k => flagPrefixRegexp.test(k));
+        this.flagPrefixRegexp = new RegExp('^' + regex);
+        return Object.keys(flagSet).filter(k => this.evalFlagKey(k));
       } catch {
         return Object.keys(flagSet);
       }
@@ -57,17 +52,31 @@ export class LaunchDarklyFlagsCache {
     return Object.keys(flagSet);
   }
 
-  private applyFlagDefaults(flags: Record<string, boolean>): Record<string, boolean> {
-    const flagDefaults: Record<string, boolean> = config.has('launchDarkly.flags')
-      ? config.get('launchDarkly.flags')
-      : {};
+  private evalFlagKey(flagKey: string): boolean {
+    return this.flagPrefixRegexp ? this.flagPrefixRegexp.test(flagKey) : true;
+  }
 
-    for (const [key, value] of Object.entries(flagDefaults)) {
+  private applyFlagDefaults(flags: Record<string, boolean>): Record<string, boolean> {
+    this.flagDefaults = config.has('launchDarkly.flags') ? config.get('launchDarkly.flags') : {};
+    for (const [key, value] of Object.entries(this.flagDefaults)) {
       if (!flags[key]) {
         flags[key] = value.toString().toLowerCase() === 'true';
       }
     }
-
     return flags;
+  }
+
+  private initUpdateListener(context: LDContext, client?: LDClient.LDClient): void {
+    if (client && client.initialized() && !client.isOffline()) {
+      client.on('update', async flag => {
+        if (this.evalFlagKey(flag.key)) {
+          try {
+            this.flags[flag.key] = await client.variation(flag.key, context, this.flagDefaults[flag.key] || false);
+          } catch {
+            // do nothing on error
+          }
+        }
+      });
+    }
   }
 }

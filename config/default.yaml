@@ -91,7 +91,6 @@ launchDarkly:
   offline: false
   initTimeoutSeconds: 30
   defaultUserKey: 'nfdFrontend'
-  flagCacheTtlSeconds: 60
   flagPrefix: "NFD_"
   flags:
     NFD_useGenesysWebchat: false
