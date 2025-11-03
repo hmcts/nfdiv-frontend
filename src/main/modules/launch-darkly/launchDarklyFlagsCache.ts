@@ -49,7 +49,7 @@ export class LaunchDarklyFlagsCache {
     if (regex && regex.length > 0) {
       try {
         this.flagPrefixRegexp = new RegExp('^' + regex);
-        return Object.keys(flagSet).filter(k => this.evalFlagKey(k));
+        return Object.keys(flagSet).filter(flagKey => this.evalFlagKey(flagKey));
       } catch {
         return Object.keys(flagSet);
       }
