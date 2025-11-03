@@ -32,9 +32,8 @@ export class LaunchDarklyFlagsCache {
     }
     try {
       const state: LDClient.LDFlagsState = await client.allFlagsState(context);
-      const json: LDClient.LDFlagSet = state.toJSON();
-      const flagPrefixRegexp: RegExp = new RegExp(config.get('launchDarkly.flagPrefixRegexp'));
-      const flagKeys: string[] = Object.keys(json).filter(k => flagPrefixRegexp.test(k));
+      const json = state.toJSON();
+      const flagKeys: string[] = this.getFlagKeys(json);
       const flags: Record<string, boolean> = {};
       flagKeys.forEach(key => {
         flags[key] = String(json[key]).toLowerCase() === 'true';
@@ -43,6 +42,19 @@ export class LaunchDarklyFlagsCache {
     } catch {
       return {};
     }
+  }
+
+  private getFlagKeys(flagSet: LDClient.LDFlagSet): string[] {
+    const regex: string = config.has('launchDarkly.flagPrefix') ? config.get('launchDarkly.flagPrefix') : '';
+    if (regex && regex.length > 0) {
+      try {
+        const flagPrefixRegexp = new RegExp('^' + regex);
+        return Object.keys(flagSet).filter(k => flagPrefixRegexp.test(k));
+      } catch {
+        return Object.keys(flagSet);
+      }
+    }
+    return Object.keys(flagSet);
   }
 
   private applyFlagDefaults(flags: Record<string, boolean>): Record<string, boolean> {
