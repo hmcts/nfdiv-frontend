@@ -48,6 +48,14 @@ export class LaunchDarkly {
     });
   }
 
+  isInitialised(): boolean | undefined {
+    return this.client?.initialized();
+  }
+
+  inOfflineMode(): boolean | undefined {
+    return this.client?.isOffline();
+  }
+
   close(): void {
     if (this.client) {
       this.client.close();
@@ -59,8 +67,8 @@ export class LaunchDarkly {
       getFlags: async () => this.getFlags(context),
       isFlagEnabled: async (flagKey: string) => this.isFlagEnabled(flagKey, context),
       getFlag: async (flagKey: string) => this.getFlag(flagKey, context),
-      isInitialised: this.client?.initialized() || undefined,
-      inOfflineMode: this.client?.isOffline() || undefined,
+      isInitialised: () => this.isInitialised(),
+      inOfflineMode: () => this.inOfflineMode(),
     };
   }
 

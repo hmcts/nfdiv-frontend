@@ -297,8 +297,8 @@ Server-side helpers (available on req.app.locals.launchDarkly and res.locals.lau
 - await getFlags(): returns a Record<string, boolean> of all NFD_ flags.
 - await isFlagEnabled('NFD_someFlag'): returns a single boolean, defaulting to false if not available.
 - await getFlag('NFD_someFlag'): returns a Record<string, boolean> object: { NFD_someFlag: boolean }, defaulting the value to false if the requested flag is not available.
-- isInitialised: boolean indicating whether the LaunchDarkly client has been successfully initialised.
-- inOfflineMode: boolean indicating whether the LaunchDarkly client is in offline mode.
+- isInitialised(): boolean indicating whether the LaunchDarkly client has been successfully initialised (undefined if no client).
+- inOfflineMode(): boolean indicating whether the LaunchDarkly client is in offline mode (undefined if no client).
 
 Nunjucks templates:
 - By default the flags object is injected into templates as a global named featureFlags for each request within nunjucks/index.ts:
