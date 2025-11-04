@@ -1,16 +1,14 @@
-import * as LDClient from '@launchdarkly/node-server-sdk';
+import { LDClient, LDContext } from '@launchdarkly/node-server-sdk';
 import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
 
 import { buildLaunchDarklyClient } from './launchDarklyClientBuilder';
 import { LaunchDarklyFlagsCache } from './launchDarklyFlagsCache';
 
-export type LDContext = LDClient.LDContext;
-
 export class LaunchDarkly {
   private static instance: LaunchDarkly;
   private flagsCache: LaunchDarklyFlagsCache = new LaunchDarklyFlagsCache();
-  private client?: LDClient.LDClient;
+  private client?: LDClient;
 
   static getInstance(): LaunchDarkly {
     if (!LaunchDarkly.instance) {

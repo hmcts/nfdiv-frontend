@@ -1,14 +1,13 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import * as LDClient from '@launchdarkly/node-server-sdk';
-import { LDOptions, basicLogger } from '@launchdarkly/node-server-sdk';
+import { LDClient, LDOptions, basicLogger, init } from '@launchdarkly/node-server-sdk';
 import config from 'config';
 import type { LoggerInstance } from 'winston';
 
 const logger: LoggerInstance = Logger.getLogger('launchDarklyClientBuilder');
 
-export async function buildLaunchDarklyClient(): Promise<LDClient.LDClient> {
+export async function buildLaunchDarklyClient(): Promise<LDClient> {
   const sdkKey: string = config.get('launchDarkly.sdkKey');
-  const client: LDClient.LDClient = LDClient.init(sdkKey, getClientOptions(sdkKey));
+  const client: LDClient = init(sdkKey, getClientOptions(sdkKey));
   return initClient(client).then(() => {
     return client;
   });
@@ -30,7 +29,7 @@ function getClientOptions(sdkKey: string): LDOptions {
   };
 }
 
-async function initClient(client: LDClient.LDClient): Promise<void> {
+async function initClient(client: LDClient): Promise<void> {
   try {
     await client.waitForInitialization({ timeout: config.get('launchDarkly.initTimeoutSeconds') });
     const initMsg = 'LaunchDarkly client initialised';

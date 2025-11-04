@@ -1,9 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import * as LDClient from '@launchdarkly/node-server-sdk';
+import { LDClient, LDContext, LDFlagSet, LDFlagsState } from '@launchdarkly/node-server-sdk';
 import config from 'config';
 import type { LoggerInstance } from 'winston';
-
-import { LDContext } from './index';
 
 const logger: LoggerInstance = Logger.getLogger('launchDarklyFlagsCache');
 
@@ -13,11 +11,11 @@ export class LaunchDarklyFlagsCache {
   private initialised: boolean = false;
   private flagPrefixRegexp: RegExp | undefined;
 
-  async get(context: LDContext, client?: LDClient.LDClient): Promise<Record<string, boolean>> {
+  async get(context: LDContext, client?: LDClient): Promise<Record<string, boolean>> {
     return this.initialised ? this.flags : this.initialise(context, client);
   }
 
-  private async initialise(context: LDContext, client?: LDClient.LDClient): Promise<Record<string, boolean>> {
+  private async initialise(context: LDContext, client?: LDClient): Promise<Record<string, boolean>> {
     const flags = await this.getAllFlags(context, client);
     this.flags = this.applyFlagDefaults(flags);
     this.initUpdateListener(context, client);
@@ -25,13 +23,13 @@ export class LaunchDarklyFlagsCache {
     return this.flags;
   }
 
-  private async getAllFlags(context: LDContext, client?: LDClient.LDClient): Promise<Record<string, boolean>> {
+  private async getAllFlags(context: LDContext, client?: LDClient): Promise<Record<string, boolean>> {
     if (!client || !client.initialized() || client.isOffline()) {
       logger.warn('LaunchDarkly client not initialised or in offline mode; returning empty flag set.');
       return {};
     }
     try {
-      const state: LDClient.LDFlagsState = await client.allFlagsState(context);
+      const state: LDFlagsState = await client.allFlagsState(context);
       const json = state.toJSON();
       const flagKeys: string[] = this.getFlagKeys(json);
       const flags: Record<string, boolean> = {};
@@ -44,7 +42,7 @@ export class LaunchDarklyFlagsCache {
     }
   }
 
-  private getFlagKeys(flagSet: LDClient.LDFlagSet): string[] {
+  private getFlagKeys(flagSet: LDFlagSet): string[] {
     const regex: string = config.has('launchDarkly.flagPrefix') ? config.get('launchDarkly.flagPrefix') : '';
     if (regex && regex.length > 0) {
       try {
@@ -71,7 +69,7 @@ export class LaunchDarklyFlagsCache {
     return flags;
   }
 
-  private initUpdateListener(context: LDContext, client?: LDClient.LDClient): void {
+  private initUpdateListener(context: LDContext, client?: LDClient): void {
     if (client && client.initialized() && !client.isOffline()) {
       client.on('update', async flag => {
         if (this.evalFlagKey(flag.key)) {
