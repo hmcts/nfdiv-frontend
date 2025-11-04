@@ -20,7 +20,7 @@ export class LaunchDarklyFlagsCache {
     }
   }
 
-  async get(): Promise<Record<string, boolean>> {
+  get(): Record<string, boolean> {
     if (!this.initialised) {
       logger.warn('Get() called before Initialise(). Returning empty flags cache.');
     }

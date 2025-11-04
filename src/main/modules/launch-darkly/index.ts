@@ -25,11 +25,11 @@ export class LaunchDarkly {
     };
 
     const helpers = {
-      getFlags: async () => this.getFlags(),
-      isFlagEnabled: async (flagKey: string) => this.isFlagEnabled(flagKey),
-      getFlag: async (flagKey: string) => this.getFlag(flagKey),
-      isInitialised: () => this.isInitialised(),
-      inOfflineMode: () => this.inOfflineMode(),
+      getFlags: this.getFlags,
+      isFlagEnabled: this.isFlagEnabled,
+      getFlag: this.getFlag,
+      isInitialised: this.isInitialised,
+      inOfflineMode: this.inOfflineMode,
     };
 
     this.client = await buildLaunchDarklyClient();
@@ -46,20 +46,16 @@ export class LaunchDarkly {
     process.on('SIGINT', () => this.close());
   }
 
-  async getFlags(): Promise<Record<string, boolean>> {
+  getFlags(): Record<string, boolean> {
     return this.flagsCache.get();
   }
 
-  async isFlagEnabled(flagKey: string): Promise<boolean> {
-    return this.getFlags().then(flags => {
-      return flags[flagKey] || false;
-    });
+  isFlagEnabled(flagKey: string): boolean {
+    return this.getFlags()[flagKey] || false;
   }
 
-  async getFlag(flagKey: string): Promise<Record<string, boolean>> {
-    return this.isFlagEnabled(flagKey).then(flagValue => {
-      return { [flagKey]: flagValue };
-    });
+  getFlag(flagKey: string): Record<string, boolean> {
+    return { [flagKey]: this.isFlagEnabled(flagKey) };
   }
 
   isInitialised(): boolean | undefined {

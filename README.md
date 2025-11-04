@@ -290,30 +290,25 @@ How flags are exposed:
   - **NFD shares a LaunchDarkly project with DFR, so this prefix prevents conflicts.**
   - **By default, only flags whose keys start with "NFD_" (case-insensitive) are exposed to the app.**
   - **Avoid using '-' in flag names, as by default this will be processed as a minus operator in Nunjucks templates. Use '_' instead.**
+- Flag values are converted to lower case strings and evaluated against 'true' for boolean usage in the app.
 - Evaluated flag values are cached. Realtime updates are provided via event listener.
-- If a flag cannot be fetched, its value falls back to the corresponding entry in launchDarkly.flags when present, otherwise it is false.
+- If a flag cannot be fetched by the event listener, its value falls back to the corresponding entry in launchDarkly.flags when present, otherwise it is false.
 
 Server-side helpers (available on req.app.locals.launchDarkly and res.locals.launchDarkly via middleware, or accessed directly via LaunchDarkly.getInstance()):
-- await getFlags(): returns a Record<string, boolean> of all NFD_ flags.
-- await isFlagEnabled('NFD_someFlag'): returns a single boolean, defaulting to false if not available.
-- await getFlag('NFD_someFlag'): returns a Record<string, boolean> object: { NFD_someFlag: boolean }, defaulting the value to false if the requested flag is not available.
+- getFlags(): returns a Record<string, boolean> of all flags.
+- isFlagEnabled('NFD_someFlag'): returns a single boolean, defaulting to false if the provided flag is not in the cache.
+- getFlag('NFD_someFlag'): returns a Record<string, boolean> object: { NFD_someFlag: boolean }, defaulting the value to false if the requested flag is not in the cache.
 - isInitialised(): boolean indicating whether the LaunchDarkly client has been successfully initialised (undefined if no client).
 - inOfflineMode(): boolean indicating whether the LaunchDarkly client is in offline mode (undefined if no client).
 
 Nunjucks templates:
 - By default the flags object is injected into templates as a global named featureFlags for each request within nunjucks/index.ts:
 ```
-app.use(async (req, res, next) => {
-  env.addGlobal('featureFlags', await res.locals.launchDarkly.getFlags());
-  next();
-});
+env.addGlobal('featureFlags', LaunchDarkly.getInstance().getFlags());
 ```
 - Alternatively, you could inject a single flag if preferred:
 ```
-app.use(async (req, res, next) => {
-  env.addGlobal('featureFlags', await res.locals.launchDarkly.getFlag('NFD_useGenesysWebchat'));
-  next();
-});
+env.addGlobal('featureFlags', LaunchDarkly.getInstance().getFlag('NFD_useGenesysWebchat'));
 ```
 - Example template usage:
 ```
@@ -325,10 +320,7 @@ app.use(async (req, res, next) => {
 ```
 - Optionally, you could inject values directly:
 ```
-app.use(async (req, res, next) => {
-  env.addGlobal('useGenesysWebchat', await res.locals.launchDarkly.isFlagEnabled('NFD_useGenesysWebchat'));
-  next();
-});
+env.addGlobal('useGenesysWebchat', LaunchDarkly.getInstance().isFlagEnabled('NFD_useGenesysWebchat'));
 ```
 - Example template usage:
 ```

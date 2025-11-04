@@ -5,6 +5,7 @@ import nunjucks from 'nunjucks';
 
 import { DivorceOrDissolution } from '../../app/case/definition';
 import { Form, FormInput } from '../../app/form/Form';
+import { LaunchDarkly } from '../launch-darkly';
 
 const config = require('config');
 
@@ -97,10 +98,7 @@ export class Nunjucks {
 
     env.addGlobal('globals', globals);
 
-    app.use(async (req, res, next) => {
-      env.addGlobal('featureFlags', await res.locals.launchDarkly.getFlags());
-      next();
-    });
+    env.addGlobal('featureFlags', LaunchDarkly.getInstance().getFlags());
 
     env.addGlobal('govukRebrand', true);
 
