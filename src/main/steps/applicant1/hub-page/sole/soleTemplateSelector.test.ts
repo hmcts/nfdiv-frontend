@@ -65,7 +65,7 @@ describe('SoleTemplateSelector test', () => {
   });
 
   test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state AwaitingServiceApplicationClarification', () => {
-    const theState = displayState.at(State.AwaitingServiceApplicationClarification);
+    const theState = displayState.at(State.PendingServiceAppResponse);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
