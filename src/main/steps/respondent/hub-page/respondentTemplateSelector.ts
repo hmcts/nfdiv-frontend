@@ -10,9 +10,9 @@ export const getRespondentHubTemplate = (
 ): string | undefined => {
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
-    case State.FinalOrderRequested: {
+    case State.FinalOrderPending:
+    case State.FinalOrderRequested:
       return HubTemplate.FinalOrderRequested;
-    }
     case State.AwaitingFinalOrder: {
       return HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue;
     }
@@ -24,6 +24,8 @@ export const getRespondentHubTemplate = (
     case State.AwaitingLegalAdvisorReferral:
     case State.LAReview:
     case State.AwaitingPronouncement:
+    case State.AwaitingAdminClarification:
+    case State.AwaitingClarification:
     case State.AwaitingAmendedApplication:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.FinalOrderComplete:
