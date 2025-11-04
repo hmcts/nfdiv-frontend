@@ -39,7 +39,8 @@ export class LaunchDarklyFlagsCache {
         filteredFlags[key] = String(allFlags[key]).toLowerCase() === 'true';
       });
       return filteredFlags;
-    } catch {
+    } catch (e) {
+      logger.error(`LaunchDarkly client failed to retrieve flags: ${e}. Returning empty flags cache.`);
       return {};
     }
   }
@@ -51,9 +52,11 @@ export class LaunchDarklyFlagsCache {
         this.flagPrefixRegexp = new RegExp('^' + regex);
         return Object.keys(flagSet).filter(flagKey => this.evalFlagKey(flagKey));
       } catch {
+        logger.error(`Invalid LaunchDarkly flag prefix: ${regex}. Returning all flags.`);
         return Object.keys(flagSet);
       }
     }
+    logger.info('No LaunchDarkly flag prefix configured. Returning all flags.');
     return Object.keys(flagSet);
   }
 
@@ -77,13 +80,13 @@ export class LaunchDarklyFlagsCache {
           try {
             this.flags[flag.key] = await client.variation(flag.key, context, this.flagDefaults[flag.key] || false);
             logger.info(`Flag ${flag.key} updated to ${this.flags[flag.key]}.`);
-          } catch {
-            logger.warn(`Failed to update value for flag ${flag.key}.`);
+          } catch (e) {
+            logger.error(`Failed to update value for flag ${flag.key}: ${e}`);
           }
         }
       });
     } else {
-      logger.warn('LaunchDarkly client not initialised or in offline mode. Update listener not started.');
+      logger.warn('LaunchDarkly client not initialised or in offline mode. Update listener not available.');
     }
   }
 }

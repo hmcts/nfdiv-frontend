@@ -13,8 +13,8 @@ export async function buildLaunchDarklyClient(): Promise<LDClient> {
     const initMsg = 'LaunchDarkly client initialised';
     const offlineMsg = ' in offline mode';
     logger.info(client.isOffline() ? initMsg + offlineMsg : initMsg);
-  } catch {
-    logger.error('LaunchDarkly client initialisation failed.');
+  } catch (e) {
+    logger.error(`LaunchDarkly client initialisation failed: ${e}`);
   }
   return client;
 }
