@@ -1,5 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import { LDClient, LDContext, LDFlagSet, LDFlagsState } from '@launchdarkly/node-server-sdk';
+import { LDClient, LDContext, LDFlagSet } from '@launchdarkly/node-server-sdk';
 import config from 'config';
 import type { LoggerInstance } from 'winston';
 
@@ -11,15 +11,16 @@ export class LaunchDarklyFlagsCache {
   private initialised: boolean = false;
   private flagPrefixRegexp: RegExp | undefined;
 
-  async get(context: LDContext, client?: LDClient): Promise<Record<string, boolean>> {
-    return this.initialised ? this.flags : this.initialise(context, client);
+  async initialise(context: LDContext, client?: LDClient): Promise<void> {
+    if (!this.initialised) {
+      this.flags = await this.getAllFlags(context, client);
+      this.applyFlagDefaults();
+      this.initUpdateListener(context, client);
+      this.initialised = true;
+    }
   }
 
-  private async initialise(context: LDContext, client?: LDClient): Promise<Record<string, boolean>> {
-    const flags = await this.getAllFlags(context, client);
-    this.flags = this.applyFlagDefaults(flags);
-    this.initUpdateListener(context, client);
-    this.initialised = true;
+  async get(): Promise<Record<string, boolean>> {
     return this.flags;
   }
 
@@ -29,20 +30,18 @@ export class LaunchDarklyFlagsCache {
       return {};
     }
     try {
-      const state: LDFlagsState = await client.allFlagsState(context);
-      const json = state.toJSON();
-      const flagKeys: string[] = this.getFlagKeys(json);
-      const flags: Record<string, boolean> = {};
-      flagKeys.forEach(key => {
-        flags[key] = String(json[key]).toLowerCase() === 'true';
+      const allFlags: LDFlagSet = await client.allFlagsState(context).then(allFlagsState => allFlagsState.allValues());
+      const filteredFlags: Record<string, boolean> = {};
+      this.filterFlagKeys(allFlags).forEach(key => {
+        filteredFlags[key] = String(allFlags[key]).toLowerCase() === 'true';
       });
-      return flags;
+      return filteredFlags;
     } catch {
       return {};
     }
   }
 
-  private getFlagKeys(flagSet: LDFlagSet): string[] {
+  private filterFlagKeys(flagSet: LDFlagSet): string[] {
     const regex: string = config.has('launchDarkly.flagPrefix') ? config.get('launchDarkly.flagPrefix') : '';
     if (regex && regex.length > 0) {
       try {
@@ -59,14 +58,13 @@ export class LaunchDarklyFlagsCache {
     return this.flagPrefixRegexp ? this.flagPrefixRegexp.test(flagKey) : true;
   }
 
-  private applyFlagDefaults(flags: Record<string, boolean>): Record<string, boolean> {
+  private applyFlagDefaults(): void {
     this.flagDefaults = config.has('launchDarkly.flags') ? config.get('launchDarkly.flags') : {};
     for (const [key, value] of Object.entries(this.flagDefaults)) {
-      if (!flags[key]) {
-        flags[key] = value.toString().toLowerCase() === 'true';
+      if (!this.flags[key]) {
+        this.flags[key] = value.toString().toLowerCase() === 'true';
       }
     }
-    return flags;
   }
 
   private initUpdateListener(context: LDContext, client?: LDClient): void {
@@ -75,8 +73,9 @@ export class LaunchDarklyFlagsCache {
         if (this.evalFlagKey(flag.key)) {
           try {
             this.flags[flag.key] = await client.variation(flag.key, context, this.flagDefaults[flag.key] || false);
+            logger.info(`Flag ${flag.key} updated to ${this.flags[flag.key]}.`);
           } catch {
-            // do nothing on error
+            logger.info(`Failed to update value for flag ${flag.key}.`);
           }
         }
       });

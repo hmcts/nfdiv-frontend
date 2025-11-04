@@ -18,30 +18,46 @@ export class LaunchDarkly {
   }
 
   async enableFor(app: Application): Promise<void> {
+    const context: LDContext = {
+      key: config.get('launchDarkly.defaultUserKey'),
+      kind: 'user',
+      anonymous: true,
+    };
+
+    const helpers = {
+      getFlags: async () => this.getFlags(),
+      isFlagEnabled: async (flagKey: string) => this.isFlagEnabled(flagKey),
+      getFlag: async (flagKey: string) => this.getFlag(flagKey),
+      isInitialised: () => this.isInitialised(),
+      inOfflineMode: () => this.inOfflineMode(),
+    };
+
     this.client = await buildLaunchDarklyClient();
 
-    app.locals.launchDarkly = this.buildHelpers(this.getContext());
+    await this.flagsCache.initialise(context, this.client);
+
+    app.locals.launchDarkly = helpers;
 
     app.use((req: Request, res: Response, next: NextFunction) => {
-      res.locals.launchDarkly = this.buildHelpers(this.getContext(req));
+      res.locals.launchDarkly = helpers;
       next();
     });
 
     process.on('SIGINT', () => this.close());
   }
 
-  async getFlags(context?: LDContext): Promise<Record<string, boolean>> {
-    return this.flagsCache.get(context || this.getContext(), this.client);
+  async getFlags(): Promise<Record<string, boolean>> {
+    return this.flagsCache.get();
   }
 
-  async isFlagEnabled(flagKey: string, context?: LDContext): Promise<boolean> {
-    return this.getFlags(context).then(flags => {
+  async isFlagEnabled(flagKey: string): Promise<boolean> {
+    return this.getFlags().then(flags => {
       return flags[flagKey] || false;
     });
   }
 
-  async getFlag(flagKey: string, context?: LDContext): Promise<Record<string, boolean>> {
-    return this.isFlagEnabled(flagKey, context).then(flagValue => {
+  async getFlag(flagKey: string): Promise<Record<string, boolean>> {
+    return this.isFlagEnabled(flagKey).then(flagValue => {
       return { [flagKey]: flagValue };
     });
   }
@@ -58,30 +74,5 @@ export class LaunchDarkly {
     if (this.client) {
       this.client.close();
     }
-  }
-
-  private buildHelpers(context: LDContext) {
-    return {
-      getFlags: async () => this.getFlags(context),
-      isFlagEnabled: async (flagKey: string) => this.isFlagEnabled(flagKey, context),
-      getFlag: async (flagKey: string) => this.getFlag(flagKey, context),
-      isInitialised: () => this.isInitialised(),
-      inOfflineMode: () => this.inOfflineMode(),
-    };
-  }
-
-  private getContext(req?: Request): LDContext {
-    const defaultKey: string = config.get('launchDarkly.defaultUserKey');
-    const context: LDContext = { key: defaultKey, kind: 'user', anonymous: true };
-
-    if (req) {
-      type MaybeSessionUser = { user?: { id?: string | number } };
-      type AugmentedRequest = Request & { session?: MaybeSessionUser } & { id?: string | number };
-      const r = req as AugmentedRequest;
-
-      context.key = String(r.session?.user?.id ?? r.id ?? defaultKey);
-    }
-
-    return context;
   }
 }

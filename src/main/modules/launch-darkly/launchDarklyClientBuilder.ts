@@ -8,9 +8,15 @@ const logger: LoggerInstance = Logger.getLogger('launchDarklyClientBuilder');
 export async function buildLaunchDarklyClient(): Promise<LDClient> {
   const sdkKey: string = config.get('launchDarkly.sdkKey');
   const client: LDClient = init(sdkKey, getClientOptions(sdkKey));
-  return initClient(client).then(() => {
-    return client;
-  });
+  try {
+    await client.waitForInitialization({ timeout: config.get('launchDarkly.initTimeoutSeconds') });
+    const initMsg = 'LaunchDarkly client initialised';
+    const offlineMsg = ' in offline mode';
+    logger.info(client.isOffline() ? initMsg + offlineMsg : initMsg);
+  } catch {
+    logger.error('LaunchDarkly client initialisation failed.');
+  }
+  return client;
 }
 
 function getClientOptions(sdkKey: string): LDOptions {
@@ -27,15 +33,4 @@ function getClientOptions(sdkKey: string): LDOptions {
     offline,
     logger: basicLogger({ level: 'warn' }),
   };
-}
-
-async function initClient(client: LDClient): Promise<void> {
-  try {
-    await client.waitForInitialization({ timeout: config.get('launchDarkly.initTimeoutSeconds') });
-    const initMsg = 'LaunchDarkly client initialised';
-    const offlineMsg = ' in offline mode';
-    logger.info(client.isOffline() ? initMsg + offlineMsg : initMsg);
-  } catch {
-    logger.error('LaunchDarkly client initialisation failed.');
-  }
 }
