@@ -1,10 +1,8 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import { LDClient, LDContext, LDFlagSet } from '@launchdarkly/node-server-sdk';
+import { LDClient, LDContext, LDFlagSet, LDOptions, basicLogger, init } from '@launchdarkly/node-server-sdk';
 import config from 'config';
 import { Application, NextFunction, Request, Response } from 'express';
 import type { LoggerInstance } from 'winston';
-
-import { buildLaunchDarklyClient } from './launchDarklyClientBuilder';
 
 const logger: LoggerInstance = Logger.getLogger('launchDarkly');
 
@@ -48,7 +46,7 @@ export class LaunchDarkly {
       inOfflineMode: () => this.inOfflineMode(),
     };
 
-    this.client = await buildLaunchDarklyClient();
+    this.client = await this.buildLaunchDarklyClient();
 
     app.locals.launchDarkly = helpers;
 
@@ -105,6 +103,36 @@ export class LaunchDarkly {
     if (this.client) {
       this.client.close();
     }
+  }
+
+  private async buildLaunchDarklyClient(): Promise<LDClient> {
+    const sdkKey: string = config.get('launchDarkly.sdkKey');
+    const client: LDClient = init(sdkKey, this.getClientOptions(sdkKey));
+    try {
+      await client.waitForInitialization({ timeout: config.get('launchDarkly.initTimeoutSeconds') });
+      const initMsg = 'LaunchDarkly client initialised';
+      const offlineMsg = ' in offline mode';
+      logger.info(client.isOffline() ? initMsg + offlineMsg : initMsg);
+    } catch (e) {
+      logger.error(`LaunchDarkly client initialisation failed: ${e}`);
+    }
+    return client;
+  }
+
+  private getClientOptions(sdkKey: string): LDOptions {
+    const sdkRegex: RegExp = /^sdk-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+    const validSdkKey = sdkRegex.test(sdkKey);
+
+    let offline: boolean = config.get('launchDarkly.offline');
+    if (!validSdkKey) {
+      offline = true;
+      logger.error('LaunchDarkly SDK key invalid. Forcing offline mode.');
+    }
+
+    return {
+      offline,
+      logger: basicLogger({ level: 'warn' }),
+    };
   }
 
   private getContext(): LDContext {
