@@ -78,7 +78,7 @@ export class LaunchDarklyFlagsCache {
             this.flags[flag.key] = await client.variation(flag.key, context, this.flagDefaults[flag.key] || false);
             logger.info(`Flag ${flag.key} updated to ${this.flags[flag.key]}.`);
           } catch {
-            logger.info(`Failed to update value for flag ${flag.key}.`);
+            logger.warn(`Failed to update value for flag ${flag.key}.`);
           }
         }
       });
