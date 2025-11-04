@@ -21,12 +21,15 @@ export class LaunchDarklyFlagsCache {
   }
 
   async get(): Promise<Record<string, boolean>> {
+    if (!this.initialised) {
+      logger.warn('Get() called before Initialise(). Returning empty flags cache.');
+    }
     return this.flags;
   }
 
   private async getAllFlags(context: LDContext, client?: LDClient): Promise<Record<string, boolean>> {
     if (!client || !client.initialized() || client.isOffline()) {
-      logger.warn('LaunchDarkly client not initialised or in offline mode; returning empty flag set.');
+      logger.warn('LaunchDarkly client not initialised or in offline mode. Returning empty flags cache.');
       return {};
     }
     try {
@@ -80,7 +83,7 @@ export class LaunchDarklyFlagsCache {
         }
       });
     } else {
-      logger.warn('LaunchDarkly client not initialised or in offline mode; update listener not started.');
+      logger.warn('LaunchDarkly client not initialised or in offline mode. Update listener not started.');
     }
   }
 }
