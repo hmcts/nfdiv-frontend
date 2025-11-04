@@ -62,7 +62,7 @@ export class LaunchDarkly {
 
   async isFlagEnabled(flagKey: string): Promise<boolean> {
     if (!this.client || !this.isInitialised() || this.inOfflineMode()) {
-      return false;
+      return this.flagDefaults[flagKey] || false;
     }
     return this.client.variation(flagKey, this.getContext(), this.flagDefaults[flagKey] || false);
   }
