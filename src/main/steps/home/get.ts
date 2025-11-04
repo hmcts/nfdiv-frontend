@@ -127,7 +127,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
         !userCase.aosStatementOfTruth &&
         userCase.issueDate &&
         dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
-      return userCase.applicant1InterimApplicationType || aosOverdueAndDrafted
+      return userCase.applicant1InterimApplicationType && aosOverdueAndDrafted
         ? interimApplicationUrlMap[userCase.applicant1InterimApplicationType as InterimApplicationType]
         : HUB_PAGE;
     }
@@ -163,6 +163,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingJointFinalOrder:
     case State.Holding:
     case State.LAReview:
+    case State.LAServiceReview:
     case State.Submitted:
     case State.AwaitingDocuments:
     case State.AwaitingHWFDecision:
