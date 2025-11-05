@@ -19,11 +19,11 @@ const en = () => ({
 const cy: typeof en = () => ({
   title: 'A oes unrhyw gŵn neu anifeiliaid peryglus eraill yn cael eu cadw yn yr eiddo?',
   enterDangerousAnimalsDetailsLabel: 'Rhowch fanylion yr anifeiliaid hyn',
-  yes: 'Ydy',
-  no: 'Nac ydy',
+  yes: 'Oes',
+  no: 'Nac oes',
   errors: {
     applicant1BailiffAreThereDangerousAnimals: {
-      required: 'Dewiswch “Ydy” os oes yna unrhyw gŵn neu anifeiliaid peryglus eraill yn cael eu cadw yn yr eiddo',
+      required: 'Dewiswch “Oes” os oes yna unrhyw gŵn neu anifeiliaid peryglus eraill yn cael eu cadw yn yr eiddo',
     },
     applicant1BailiffDangerousAnimalsDetails: {
       required: 'Rhowch fanylion am unrhyw anifeiliaid peryglus yn yr eiddo',
