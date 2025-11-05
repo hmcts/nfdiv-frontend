@@ -34,7 +34,7 @@ const app = express();
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 
-function setCachingPolicy (res, file) {
+function setCachingPolicy(res, file) {
   if (path.extname(file).match(/\.(woff2?|ttf|otf|eot|svg|png)$/i)) {
     res.setHeader('Cache-Control', 'max-age=604800'); // Cache for 1 week
   } else {
@@ -42,9 +42,11 @@ function setCachingPolicy (res, file) {
   }
 }
 
-app.use(express.static(path.join(__dirname, 'public'), {
-  setHeaders: setCachingPolicy,
-}));
+app.use(
+  express.static(path.join(__dirname, 'public'), {
+    setHeaders: setCachingPolicy,
+  })
+);
 
 (async () => {
   try {
