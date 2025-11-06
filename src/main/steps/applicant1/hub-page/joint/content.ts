@@ -410,7 +410,7 @@ const cy: typeof en = (
     line2:
       userCase.state === State.FinalOrderRequested
         ? "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu."
-        : 'The court will contact you to confirm whether the final order has been granted.',
+        : 'Bydd y llys yn cysylltu gyda chi i gadarnhau p’un a yw’r gorchymyn terfynol wedi’i ganiatáu.',
   },
   awaitingJointFinalOrderOrFinalOrderOverdue: {
     line1: `Nid yw eich ${partner} wedi gwneud cais am orchymyn terfynol o hyd. Mae'n rhaid iddo/iddi hefyd wneud cais fel y gellir cadarnhau eich ${
