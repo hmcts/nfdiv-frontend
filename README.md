@@ -267,72 +267,16 @@ One final important point to remember is that the `CCD_URL` in [values.yaml](cha
 
 This service integrates LaunchDarkly for runtime feature flagging.
 
-Configuration:
-- config/default.yaml
-  - launchDarkly.sdkKey: SDK key (fetched from Key Vault in prod; see below)
-  - launchDarkly.offline: set true to disable remote calls (defaults to false)
-  - launchDarkly.initTimeoutSeconds: timeout for SDK initialization in seconds
-  - launchDarkly.defaultUserKey: default context key when user is unknown
-  - launchDarkly.flagPrefix: Optional: Case sensitive prefix to filter which flags are exposed to the app
-  - launchDarkly.flags: Optional: local default values used if LaunchDarkly is unavailable or a flag is missing
-    - e.g. NFD_useGenesysWebchat: false
-- config/custom-environment-variables.yaml
-  - LAUNCH_DARKLY_SDK_KEY, LAUNCH_DARKLY_OFFLINE, LAUNCH_DARKLY_INIT_TIMEOUT_SECONDS, LAUNCH_DARKLY_DEFAULT_USER_KEY, LAUNCH_DARKLY_FLAG_PREFIX
-  - You may also map environment variables for individual entries under launchDarkly.flags if required
-    - e.g. NFD_USE_GENESYS_WEBCHAT maps to launchDarkly.flags.NFD_useGenesysWebchat
-
-Secrets:
-- In production, PropertiesVolume maps secrets.nfdiv.launch-darkly-sdk-key -> launchDarkly.sdkKey
-- In development, the Azure Key Vault secret named launch-darkly-sdk-key is read locally if available
-
-How flags are exposed:
-- **Ensure NFD LaunchDarkly flags are prefixed appropriately, per the flagPrefix settings**
-  - **NFD shares a LaunchDarkly project with DFR, so this prefix prevents conflicts.**
-  - **By default, only flags whose keys start with "NFD_" (case-sensitive) are exposed to the app.**
+Adding new feature flags:
+- **Ensure NFD LaunchDarkly flags are prefixed with "NFD_", as per the flagPrefix configuration in config/default.yaml**
   - **Avoid using '-' in flag names, as by default this will be processed as a minus operator in Nunjucks templates. Use '_' instead.**
 - Flag values are converted to lower case strings and evaluated against 'true' for boolean usage in the app.
-- If a flag cannot be fetched, its value falls back to the corresponding entry in launchDarkly.flags when present, otherwise it is false.
+- if a flag cannot be fetched, its value will return as false unless a default value is set under launchDarkly.flags in config/default.yaml.
+  - It is only necessary to set a default value for a flag if that default value should be true.
 
-Server-side helpers (available on req.app.locals.launchDarkly and res.locals.launchDarkly via middleware, or accessed directly via LaunchDarkly.getInstance()):
-- await getFlags(): returns a Record<string, boolean> of all flags.
-- await isFlagEnabled('NFD_someFlag'): returns a single boolean, defaulting to false if the provided flag is not returned.
-- await getFlag('NFD_someFlag'): returns a Record<string, boolean> object: { NFD_someFlag: boolean }, defaulting the value to false if the requested flag is not returned.
-- isInitialised(): boolean indicating whether the LaunchDarkly client has been successfully initialised (undefined if no client).
-- inOfflineMode(): boolean indicating whether the LaunchDarkly client is in offline mode (undefined if no client).
-
-Nunjucks templates:
-- By default the flags object is injected into templates as a global named featureFlags for each request within nunjucks/index.ts:
-```
-app.use(async (req, res, next) => {
-  env.addGlobal('featureFlags', await res.locals.launchDarkly.getFlags());
-  next();
-});
-```
-- Alternatively, you could inject a single flag if preferred:
-```
-app.use(async (req, res, next) => {
-  env.addGlobal('featureFlags', await res.locals.launchDarkly.getFlag('NFD_useGenesysWebchat'));
-  next();
-});
-```
-- Example template usage:
+Example template usage:
 ```
 {% if featureFlags.NFD_useGenesysWebchat %}
-  Webchat is enabled
-{% else %}
-  Webchat is disabled
-{% endif %}
-```
-- Optionally, you could inject values directly:
-```
-app.use(async (req, res, next) => {
-  env.addGlobal('useGenesysWebchat', await res.locals.launchDarkly.isFlagEnabled('NFD_useGenesysWebchat'));
-  next();
-});
-```
-- Example template usage:
-```
-{% if useGenesysWebchat %}
   Webchat is enabled
 {% else %}
   Webchat is disabled
