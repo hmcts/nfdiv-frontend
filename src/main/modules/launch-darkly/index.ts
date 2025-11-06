@@ -60,7 +60,12 @@ export class LaunchDarkly {
     if (!this.client || !this.isInitialised() || this.inOfflineMode()) {
       return this.flagDefaults[flagKey] || false;
     }
-    return this.client.variation(flagKey, this.getContext(), this.flagDefaults[flagKey] || false);
+    try {
+      return this.client.variation(flagKey, this.getContext(), this.flagDefaults[flagKey] || false);
+    } catch (e) {
+      logger.error(`LaunchDarkly client failed to evaluate flag ${flagKey}: ${e}. Returning default value.`);
+      return this.flagDefaults[flagKey] || false;
+    }
   }
 
   async getFlag(flagKey: string): Promise<Record<string, boolean>> {
