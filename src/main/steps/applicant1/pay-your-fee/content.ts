@@ -28,9 +28,9 @@ const cy: typeof en = ({ isDivorce }, applicationFee) => ({
   line2:
     'Mae arnoch angen cerdyn debyd neu gerdyn credyd dilys. Os na allwch dalu nawr, cadwch eich cais a dychwelyd iddo pan fyddwch yn barod i dalu.',
   line3: `I weld yr atebion yr ydych wedi darparu ar eich cais, cliciwch ar y ddolen hon: <a href=${VIEW_YOUR_ANSWERS} class="govuk-link">Gwirio eich atebion</a>`,
-  line4: `If you do not pay the application fee within ${config.get(
-    'dates.applicationSubmittedOffsetDays'
-  )} days, then your application will be rejected, and you will have to start a new application.`,
+  line4: `Os na fyddwch yn talu’r ffi ar gyfer gwneud cais o fewn ${config.get(
+    'dates.paymentOverdueOffsetDays'
+  )} diwrnod, yna bydd eich cais yn cael ei wrthod, a bydd yn rhaid i chi ddechrau cais newydd.`,
   continue: "Talu a chyflwyno'r cais",
 });
 
