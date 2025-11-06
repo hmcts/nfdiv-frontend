@@ -115,7 +115,7 @@ export class LaunchDarkly {
       await client.waitForInitialization({ timeout: config.get('launchDarkly.initTimeoutSeconds') });
       logger.info(`LaunchDarkly client initialised${client.isOffline() ? ' in offline mode' : ''}`);
     } catch (e) {
-      logger.error(`LaunchDarkly client initialisation failed: ${e}`);
+      logger.error(`LaunchDarkly client initialisation failed at startup: ${e}`);
     }
     return client;
   }
