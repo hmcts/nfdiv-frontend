@@ -409,7 +409,9 @@ const cy: typeof en = (
     }.`,
     line2:
       userCase.state === State.FinalOrderRequested
-        ? "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu."
+        ? userCase.isFinalOrderOverdue === YesOrNo.YES
+          ? 'Fe gewch neges e-bost yn cadarnhau p’un a yw wedi’i gymeradwyo unwaith y bydd Barnwr wedi gwneud penderfyniad.'
+          : "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu."
         : 'Bydd y llys yn cysylltu gyda chi i gadarnhau p’un a yw’r gorchymyn terfynol wedi’i ganiatáu.',
   },
   awaitingJointFinalOrderOrFinalOrderOverdue: {
