@@ -272,7 +272,6 @@ Adding new feature flags:
   - **Avoid using '-' in flag names, as by default this will be processed as a minus operator in Nunjucks templates. Use '_' instead.**
 - Flag values are converted to lower case strings and evaluated against 'true' for boolean usage in the app.
 - if a flag cannot be fetched, its value will return as false unless a default value is set under launchDarkly.flags in config/default.yaml.
-  - It is only necessary to set a default value for a flag if that default value should be true.
 
 Example template usage:
 ```
