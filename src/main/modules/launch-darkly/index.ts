@@ -24,9 +24,7 @@ export class LaunchDarkly {
       ? config.get('launchDarkly.flags')
       : {};
     for (const [key, value] of Object.entries(flagDefaults)) {
-      if (!this.flagDefaults[key]) {
-        this.flagDefaults[key] = value.toString().toLowerCase() === 'true';
-      }
+      this.flagDefaults[key] = value.toString().toLowerCase() === 'true';
     }
 
     const regex: string = config.has('launchDarkly.flagPrefix') ? config.get('launchDarkly.flagPrefix') : '';
@@ -73,8 +71,8 @@ export class LaunchDarkly {
 
   async getFlags(): Promise<Record<string, boolean>> {
     if (!this.client || !this.isInitialised() || this.inOfflineMode()) {
-      logger.warn('LaunchDarkly client not initialised or in offline mode. Returning empty flags.');
-      return {};
+      logger.warn('LaunchDarkly client not initialised or in offline mode. Returning default flags.');
+      return this.applyFlagDefaults({});
     }
     try {
       const allFlags: LDFlagSet = await this.client
@@ -86,7 +84,7 @@ export class LaunchDarkly {
       });
       return this.applyFlagDefaults(filteredFlags);
     } catch (e) {
-      logger.error(`LaunchDarkly client failed to retrieve flags: ${e}. Returning empty flags.`);
+      logger.error(`LaunchDarkly client failed to retrieve flags: ${e}. Returning default flags.`);
       return this.applyFlagDefaults({});
     }
   }
@@ -110,9 +108,7 @@ export class LaunchDarkly {
     const client: LDClient = init(sdkKey, this.getClientOptions(sdkKey));
     try {
       await client.waitForInitialization({ timeout: config.get('launchDarkly.initTimeoutSeconds') });
-      const initMsg = 'LaunchDarkly client initialised';
-      const offlineMsg = ' in offline mode';
-      logger.info(client.isOffline() ? initMsg + offlineMsg : initMsg);
+      logger.info(`LaunchDarkly client initialised${client.isOffline() ? ' in offline mode' : ''}`);
     } catch (e) {
       logger.error(`LaunchDarkly client initialisation failed: ${e}`);
     }
