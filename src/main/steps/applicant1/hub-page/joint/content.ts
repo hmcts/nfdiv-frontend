@@ -159,9 +159,11 @@ const en = (
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
     }.`,
     line2:
-      userCase.isFinalOrderOverdue === YesOrNo.YES
-        ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
-        : 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
+      userCase.state === State.FinalOrderRequested
+        ? userCase.isFinalOrderOverdue === YesOrNo.YES
+          ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
+          : 'You should receive an email within 2 working days, confirming whether the final order has been granted.'
+        : 'The court will contact you to confirm whether the final order has been granted.',
   },
   finalOrderComplete: {},
   intendToSwitchToSoleFinalOrder: {
@@ -405,7 +407,12 @@ const cy: typeof en = (
     }. Bydd eich cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
       isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'partneriaeth eich sifil yn dod i ben yn gyfreithiol'
     }.`,
-    line2: "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu.",
+    line2:
+      userCase.state === State.FinalOrderRequested
+        ? userCase.isFinalOrderOverdue === YesOrNo.YES
+          ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
+          : "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu."
+        : 'The court will contact you to confirm whether the final order has been granted.',
   },
   awaitingJointFinalOrderOrFinalOrderOverdue: {
     line1: `Nid yw eich ${partner} wedi gwneud cais am orchymyn terfynol o hyd. Mae'n rhaid iddo/iddi hefyd wneud cais fel y gellir cadarnhau eich ${
