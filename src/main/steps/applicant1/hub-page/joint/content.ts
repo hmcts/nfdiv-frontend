@@ -409,9 +409,7 @@ const cy: typeof en = (
     }.`,
     line2:
       userCase.state === State.FinalOrderRequested
-        ? userCase.isFinalOrderOverdue === YesOrNo.YES
-          ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
-          : "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu."
+        ? "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu."
         : 'The court will contact you to confirm whether the final order has been granted.',
   },
   awaitingJointFinalOrderOrFinalOrderOverdue: {
