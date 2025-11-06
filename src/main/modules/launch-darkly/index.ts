@@ -158,7 +158,7 @@ export class LaunchDarkly {
 
   private applyFlagDefaults(flags: Record<string, boolean>): Record<string, boolean> {
     for (const [key, value] of Object.entries(this.flagDefaults)) {
-      if (!flags[key]) {
+      if (!(key in flags)) {
         flags[key] = value;
       }
     }
