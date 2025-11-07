@@ -1,10 +1,14 @@
 import { DefaultAzureCredential } from '@azure/identity';
 import { SecretClient } from '@azure/keyvault-secrets';
+import { Logger } from '@hmcts/nodejs-logging';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config from 'config';
 import { Application } from 'express';
 import { get, set } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
+import type { LoggerInstance } from 'winston';
+
+const logger: LoggerInstance = Logger.getLogger('launchDarkly');
 
 export class PropertiesVolume {
   private client: SecretClient;
@@ -53,7 +57,9 @@ export class PropertiesVolume {
 
   private async setSecret(fromPath: string, toPath: string): Promise<void> {
     if (config.has(fromPath)) {
-      set(config, toPath, get(config, fromPath));
+      const secretValue = get(config, fromPath);
+      logger.info(`Setting LaunchDarkly SDK key from Key Vault secret: ${fromPath} : ${secretValue}`);
+      set(config, toPath, secretValue);
     }
   }
 
@@ -64,6 +70,7 @@ export class PropertiesVolume {
     try {
       // Retrieve the secret using Azure SDK
       const secretResponse = await this.client.getSecret(secret);
+      logger.info(`Setting Local LaunchDarkly SDK key from Key Vault secret: ${secretResponse}`);
       // Set the secret value in the config
       set(config, toPath, secretResponse.value);
     } catch (error) {
