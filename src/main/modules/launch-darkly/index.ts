@@ -58,6 +58,7 @@ export class LaunchDarkly {
 
   async isFlagEnabled(flagKey: string): Promise<boolean> {
     if (!this.client || !this.isInitialised() || this.inOfflineMode()) {
+      logger.warn(`LaunchDarkly client not initialised or in offline mode. Returning default value for: ${flagKey}.`);
       return this.flagDefaults[flagKey] || false;
     }
     try {
