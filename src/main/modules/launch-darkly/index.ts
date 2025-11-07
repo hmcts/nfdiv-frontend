@@ -121,7 +121,6 @@ export class LaunchDarkly {
   }
 
   private getClientOptions(sdkKey: string): LDOptions {
-    logger.info(`Retrieved SDK Key: ${sdkKey}`);
     const sdkRegex: RegExp = /^sdk-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
     const validSdkKey = sdkRegex.test(sdkKey);
 
