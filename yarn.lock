@@ -3978,12 +3978,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.18.5":
-  version: 22.18.5
-  resolution: "@types/node@npm:22.18.5"
+"@types/node@npm:22.19.0":
+  version: 22.19.0
+  resolution: "@types/node@npm:22.19.0"
   dependencies:
     undici-types: ~6.21.0
-  checksum: 1b6168f13ac7753eb4e1881858172a24e98d630e2ad0be520bf7a73e50bec41277ae7caf168a62432825f94e4548c5700a218e0b566ca1138431005f2359ac38
+  checksum: ed841e6de297eb9e73661b595d21c5d8ab55af9fb5b35649ae4aee2ae9b6c5db5408aa903cafeef224c205799cd0aa48d2133b6d0e7b0eacdef323d8c5f225f7
   languageName: node
   linkType: hard
 
@@ -14449,7 +14449,7 @@ __metadata:
     "@types/lodash": 4.17.20
     "@types/multer": 1.4.13
     "@types/negotiator": 0.6.4
-    "@types/node": 22.18.5
+    "@types/node": 22.19.0
     "@types/nunjucks": 3.2.6
     "@types/require-directory": 2.1.6
     "@types/serve-favicon": 2.5.7
