@@ -84,7 +84,6 @@ export class Nunjucks {
         avayaUrl: config.get('webchat.avayaUrl'),
         avayaClientUrl: config.get('webchat.avayaClientUrl'),
         avayaService: config.get('webchat.avayaService'),
-        genesysReferrerPage: config.get('webchat.genesysReferrerPage'),
         genesysBaseUrl: config.get('webchat.genesysBaseUrl'),
         genesysEnvironment: config.get('webchat.genesysEnvironment'),
         genesysKervBaseUrl: config.get('webchat.genesysKervBaseUrl'),
