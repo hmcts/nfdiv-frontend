@@ -84,12 +84,10 @@ export class Nunjucks {
         avayaUrl: config.get('webchat.avayaUrl'),
         avayaClientUrl: config.get('webchat.avayaClientUrl'),
         avayaService: config.get('webchat.avayaService'),
-        genesysReferrerPage: config.get('webchat.genesysReferrerPage'),
         genesysBaseUrl: config.get('webchat.genesysBaseUrl'),
         genesysEnvironment: config.get('webchat.genesysEnvironment'),
         genesysKervBaseUrl: config.get('webchat.genesysKervBaseUrl'),
         genesysApiKey: config.get('webchat.genesysApiKey'),
-        useGenesys: config.get('webchat.useGenesys'),
       },
       dynatrace: {
         dynatraceUrl: config.get('dynatrace.dynatraceUrl'),
@@ -97,6 +95,11 @@ export class Nunjucks {
     };
 
     env.addGlobal('globals', globals);
+
+    app.use(async (req, res, next) => {
+      env.addGlobal('featureFlags', await res.locals.launchDarkly.getFlags());
+      next();
+    });
 
     env.addGlobal('govukRebrand', true);
 
