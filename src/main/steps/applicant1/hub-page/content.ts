@@ -31,7 +31,7 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   awaitingHwfPartPayment: {
     line1: 'A decision has been made on your Help with Fees application.',
     line2:
-      'The court will contact you with details about the decision on your Help With Fees application and what you need to do next.',
+      'The court will contact you with details about the decision on your Help with Fees application and what you need to do next.',
   },
   awaitingPronouncement: {
     line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
