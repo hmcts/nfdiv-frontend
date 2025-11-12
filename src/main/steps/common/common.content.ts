@@ -52,8 +52,6 @@ export const en = {
     ariaLabel:
       'Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress.',
     link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
-    additionalInfo:
-      'No Fault Divorce: Cases scheduled for pronouncement on 8th and 9th October 2025 have been successfully pronounced. However, we are currently experiencing technical issues retrieving the conditional orders. Our team is working to resolve this, and we will provide the documents as soon as possible.',
   },
   languageToggle: {
     text: 'Cymraeg',
@@ -200,24 +198,16 @@ export const en = {
   avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
   genesys: {
     chatWithUs: 'Chat with us',
-    webchatEnglandAndWales: 'Web chat (England and Wales)',
-    webchatScotland: 'Web chat (Scotland only)',
-    closedForTheDay: 'I’m sorry but our Webchat service is now closed for the day.',
     onlineAdviceClosed: 'Our online advice service is currently closed',
-    openHoursScotland: 'We are open Monday to Friday from 8:30 am to 5 pm – excluding public holidays.',
-    phoneAgent: 'Talk to one of our agents now over the phone.',
-    getHelp: 'Get some help by messaging an agent online.',
     startWebchat: 'Start web chat (opens in a new window)',
     busy: 'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
     noAgentsAvailable: 'No agents are available, please try again later.',
     checkingAvailability: 'Checking availability...',
-    serviceUnavailable: 'Service unavailable',
     error:
-      'We’re currently unable to check the availability of our team. Please try again later or contact us by phone.',
+      'We’re currently unable to check the availability of our team. Please try again later or contact us using one of the ways below.',
     errorChecking: {
       line1: 'Sorry, we couldn’t check the availability of our team.',
-      line2: 'Please try refreshing the page or contact us at',
-      email: 'help@gov.uk',
+      line2: 'Please try refreshing the page or contact us using one of the ways below.',
     },
     popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
   },
@@ -258,8 +248,6 @@ const cy: typeof en = {
     ariaLabel:
       'Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod.',
     link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
-    additionalInfo:
-      "Ysgariad Heb Fai: Mae’r achosion a oedd i’w cyhoeddi ar yr 8fed a’r 9fed o Hydref 2025 wedi’u cyhoeddi’n llwyddiannus. Fodd bynnag, rydym ar hyn o bryd yn cael problemau technegol wrth geisio cynhyrchu’r gorchmynion amodol. Mae ein tîm yn gweithio i ddatrys hyn, a byddwn yn darparu'r dogfennau cyn gynted â phosibl.",
   },
   languageToggle: {
     text: 'English',
@@ -389,27 +377,19 @@ const cy: typeof en = {
   avayaClientUrlFolder: 'welsh',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
   genesys: {
-    chatWithUs: 'Chat with us',
-    webchatEnglandAndWales: 'Web chat (England and Wales)',
-    webchatScotland: 'Web chat (Scotland only)',
-    closedForTheDay: 'I’m sorry but our Webchat service is now closed for the day.',
-    onlineAdviceClosed: 'Our online advice service is currently closed',
-    openHoursScotland: 'We are open Monday to Friday from 8:30 am to 5 pm – excluding public holidays.',
-    phoneAgent: 'Talk to one of our agents now over the phone.',
-    getHelp: 'Get some help by messaging an agent online.',
-    startWebchat: 'Start web chat (opens in a new window)',
-    busy: 'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
-    noAgentsAvailable: 'No agents are available, please try again later.',
-    checkingAvailability: 'Checking availability...',
-    serviceUnavailable: 'Service unavailable',
+    chatWithUs: 'Sgwrsiwch â ni',
+    onlineAdviceClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd',
+    startWebchat: 'Dechrau sgwrs dros y we (yn agor mewn ffenestr newydd)',
+    busy: "Mae ein asiantau sgwrsio dros y we i gyd yn brysur ar hyn o bryd yn helpu eraill. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau isod.",
+    noAgentsAvailable: 'Nid oes asiant ar gael ar hyn o bryd; rhowch gynnig arall arni yn hwyrach ymlaen.',
+    checkingAvailability: 'Wrthi’n gwirio argaeledd...',
     error:
-      'We’re currently unable to check the availability of our team. Please try again later or contact us by phone.',
+      "Ar hyn o bryd nid ydym yn gallu gwirio argaeledd ein tîm. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau isod.",
     errorChecking: {
-      line1: 'Sorry, we couldn’t check the availability of our team.',
-      line2: 'Please try refreshing the page or contact us at',
-      email: 'help@gov.uk',
+      line1: "Mae'n ddrwg gennym, ni allem wirio argaeledd ein tîm.",
+      line2: "Ceisiwch adnewyddu’r dudalen neu cysylltwch â ni drwy un o'r dulliau isod.'",
     },
-    popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
+    popupBlocked: 'Naidlen wedi’i rhwystro. Caniatáu naidlen ar gyfer y wefan hon.',
   },
 };
 
@@ -482,6 +462,10 @@ export const generateCommonContent = ({
     userCase?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
   const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
+  const genesysReferrerPage: string =
+    language === SupportedLanguages.En
+      ? config.get('webchat.genesysReferrerPage')
+      : config.get('webchat.genesysReferrerPageCy');
   const genesysDeploymentId: string =
     language === SupportedLanguages.En
       ? config.get('webchat.genesysDeploymentId')
@@ -537,6 +521,7 @@ export const generateCommonContent = ({
     isPendingHearingOutcomeFoRequested,
     interimApplicationType,
     referenceNumber,
+    genesysReferrerPage,
     genesysDeploymentId,
     serviceApplicationType,
     serviceApplicationDate,
@@ -589,6 +574,7 @@ export type CommonContent = typeof en & {
   generalApplicationFeeRequired: boolean;
   generalApplicationDocsAllProvided: boolean;
   generalApplicationSubmittedOnline: boolean;
+  genesysReferrerPage: string;
   genesysDeploymentId: string;
   lastGeneralApplication?: GeneralApplication | undefined;
 };
