@@ -2678,6 +2678,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@launchdarkly/js-sdk-common@npm:2.19.0":
+  version: 2.19.0
+  resolution: "@launchdarkly/js-sdk-common@npm:2.19.0"
+  checksum: 6aa35079386a01bdd6b3cd767f67952608bfd0ad59426aba1f00bdc35134b442fcf12ace492ca7dc94098f976855d61fb043ed77155b26ec70f8975f21e25797
+  languageName: node
+  linkType: hard
+
+"@launchdarkly/js-server-sdk-common@npm:2.16.2":
+  version: 2.16.2
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.16.2"
+  dependencies:
+    "@launchdarkly/js-sdk-common": 2.19.0
+    semver: 7.5.4
+  checksum: e929b0d1590790335d0f1898c29af6d58a51fb3359bcea93ef796a0fe7de2ce80f3b28273467253280d1dc704b9ba9ad49c9bf6e5907f5e70708f1cf6e8b87a5
+  languageName: node
+  linkType: hard
+
+"@launchdarkly/node-server-sdk@npm:>=9.0.0":
+  version: 9.10.2
+  resolution: "@launchdarkly/node-server-sdk@npm:9.10.2"
+  dependencies:
+    "@launchdarkly/js-server-sdk-common": 2.16.2
+    https-proxy-agent: ^7.0.6
+    launchdarkly-eventsource: 2.2.0
+  checksum: 78c0b746b7e1e34146b0c608839b033d2ce9fc951933a27b705b9bd6376eefa2eccd3d6763b7d1caadd838592a756f10017963e1fdf799e6f49dc815d2638471
+  languageName: node
+  linkType: hard
+
 "@microsoft/applicationinsights-web-snippet@npm:1.0.1":
   version: 1.0.1
   resolution: "@microsoft/applicationinsights-web-snippet@npm:1.0.1"
@@ -12839,6 +12867,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"launchdarkly-eventsource@npm:2.2.0":
+  version: 2.2.0
+  resolution: "launchdarkly-eventsource@npm:2.2.0"
+  checksum: ac7cd33ae84d099053ead9b445020b40c7ef14f5e87bfbb900214f2f51a56ec201a0ed1fee881c0dca914e74d74cede2a702e7713a4fbe77c623dda6fd6f711e
+  languageName: node
+  linkType: hard
+
 "lazystream@npm:^1.0.0":
   version: 1.0.1
   resolution: "lazystream@npm:1.0.1"
@@ -14518,6 +14553,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": 1.8.6
     "@hmcts/nodejs-logging": 4.0.4
     "@hmcts/properties-volume": 1.2.0
+    "@launchdarkly/node-server-sdk": ">=9.0.0"
     "@playwright/test": 1.55.0
     "@types/config": 3.3.5
     "@types/cookie-parser": 1.4.10
@@ -17185,6 +17221,17 @@ __metadata:
   bin:
     semver: bin/semver
   checksum: fb4ab5e0dd1c22ce0c937ea390b4a822147a9c53dbd2a9a0132f12fe382902beef4fbf12cf51bb955248d8d15874ce8cd89532569756384f994309825f10b686
+  languageName: node
+  linkType: hard
+
+"semver@npm:7.5.4":
+  version: 7.5.4
+  resolution: "semver@npm:7.5.4"
+  dependencies:
+    lru-cache: ^6.0.0
+  bin:
+    semver: bin/semver.js
+  checksum: 12d8ad952fa353b0995bf180cdac205a4068b759a140e5d3c608317098b3575ac2f1e09182206bf2eb26120e1c0ed8fb92c48c592f6099680de56bb071423ca3
   languageName: node
   linkType: hard
 
