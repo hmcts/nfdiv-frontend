@@ -146,6 +146,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
   switch (req.session.userCase.state) {
     case State.InformationRequested:
     case State.AwaitingRequestedInformation:
+    case State.AwaitingHWFPartPayment:
     case State.RequestedInformationSubmitted:
     case State.AwaitingGeneralConsideration:
     case State.GeneralConsiderationComplete:
