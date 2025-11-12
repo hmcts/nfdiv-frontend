@@ -4055,12 +4055,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.19.0":
-  version: 22.19.0
-  resolution: "@types/node@npm:22.19.0"
+"@types/node@npm:22.19.1":
+  version: 22.19.1
+  resolution: "@types/node@npm:22.19.1"
   dependencies:
     undici-types: ~6.21.0
-  checksum: ed841e6de297eb9e73661b595d21c5d8ab55af9fb5b35649ae4aee2ae9b6c5db5408aa903cafeef224c205799cd0aa48d2133b6d0e7b0eacdef323d8c5f225f7
+  checksum: 62b72e26a51659e654cfd6791f296a95ebc4b1deb1fa97f7a5cea4032434d1b4f14021f6e52eb9ea0cc1d1a7ab90567797a25c3865e3ea3d2caf6b3ea0ac4c4d
   languageName: node
   linkType: hard
 
@@ -9089,9 +9089,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:29.0.1":
-  version: 29.0.1
-  resolution: "eslint-plugin-jest@npm:29.0.1"
+"eslint-plugin-jest@npm:29.1.0":
+  version: 29.1.0
+  resolution: "eslint-plugin-jest@npm:29.1.0"
   dependencies:
     "@typescript-eslint/utils": ^8.0.0
   peerDependencies:
@@ -9103,7 +9103,7 @@ __metadata:
       optional: true
     jest:
       optional: true
-  checksum: 329604c479280ed6345cd9f18c971a885ae74d4bd06edb4ae11bd60603f1897070dda8625444012c84d8c1fb8cee4d5d6817ed8beefd3106e917756518ed69ef
+  checksum: e66e7e52a35c50307de366166e1e2979cb12356e6033e426008b1bd9b37a466c0856552a6b6c188b3cc6a20790fcd8ea16071f0147fbaed0f68ee3737290c7e0
   languageName: node
   linkType: hard
 
@@ -14566,7 +14566,7 @@ __metadata:
     "@types/lodash": 4.17.20
     "@types/multer": 2.0.0
     "@types/negotiator": 0.6.4
-    "@types/node": 22.19.0
+    "@types/node": 22.19.1
     "@types/nunjucks": 3.2.6
     "@types/require-directory": 2.1.6
     "@types/serve-favicon": 2.5.7
@@ -14599,7 +14599,7 @@ __metadata:
     eslint: 8.57.1
     eslint-config-prettier: 10.1.8
     eslint-plugin-import: 2.29.1
-    eslint-plugin-jest: 29.0.1
+    eslint-plugin-jest: 29.1.0
     eslint-plugin-prettier: 5.5.4
     express: ^4.21.2
     express-http-proxy: 2.1.2
