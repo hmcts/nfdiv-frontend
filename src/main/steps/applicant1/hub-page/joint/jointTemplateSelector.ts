@@ -16,6 +16,7 @@ export const getJointHubTemplate = (
   switch (displayState.state()) {
     case State.FinalOrderRequested:
     case State.AwaitingGeneralConsideration:
+    case State.FinalOrderPending:
     case State.GeneralConsiderationComplete: {
       return HubTemplate.FinalOrderRequested;
     }
