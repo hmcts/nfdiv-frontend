@@ -518,6 +518,10 @@ const en = (
     },
     line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
   },
+  awaitingGenAppHwfPartPaymentOrEvidence: {
+    line1:
+      'The court is reviewing your application and help with fees reference number. You will receive an email notification confirming what you need to do next.',
+  },
 });
 
 // @TODO translations
@@ -1013,6 +1017,10 @@ const cy: typeof en = (
       } barhau heb eu hymateb.`,
     },
     line3: `Os byddant yn methu â chyflwyno’r papurau, efallai y gallwch wneud cais am gyflwyno amgen drwy flwch llythyrau, os yw cyfeiriad eich ${partner} wedi’i gadarnhau. Fel arall, bydd angen i chi gyflwyno’r papurau mewn rhyw ffordd arall.`,
+  },
+  awaitingGenAppHwfPartPaymentOrEvidence: {
+    line1:
+      'The court is reviewing your application and help with fees reference number. You will receive an email notification confirming what you need to do next.',
   },
 });
 

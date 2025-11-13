@@ -502,6 +502,18 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
 
+  test('should show /awaiting-gen-app-hwf-part-payment-or-evidence.njk for state AwaitingGenAppHWFEvidence', () => {
+    const theState = displayState.at(State.AwaitingGenAppHWFEvidence);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence);
+  });
+
+  test('should show /awaiting-gen-app-hwf-part-payment-or-evidence.njk for state AwaitingGenAppHWFPartPayment', () => {
+    const theState = displayState.at(State.AwaitingGenAppHWFPartPayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence);
+  });
+
   test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state GeneralConsiderationComplete and alternativeService application is granted', () => {
     const userCaseWithServiceApplicationGranted = {
       ...userCase,

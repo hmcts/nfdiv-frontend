@@ -165,6 +165,9 @@ export const getSoleHubTemplate = (
     case State.WelshTranslationRequested:
     case State.WelshTranslationReview:
       return HubTemplate.WelshTranslationRequestedOrReview;
+    case State.AwaitingGenAppHWFPartPayment:
+    case State.AwaitingGenAppHWFEvidence:
+      return HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||
