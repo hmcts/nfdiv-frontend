@@ -617,7 +617,7 @@ const cy: typeof en = (
     linkUrl: `${noResponseStartPagePath}`,
   },
   aosDueAndDrafted: {
-    line1: `Mae eich ${partner} wedi cyflwyno eu hymateb i’ch ${
+    line1: `Nid yw eich ${partner} wedi cyflwyno eu hymateb i’ch ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     }. Dylai bod nhw wedi ymateb erbyn ${getFormattedDate(userCase.dueDate, SupportedLanguages.Cy)}.`,
     line2: `Efallai yr hoffech ddefnyddio hwn i brofi bod eich ${partner} wedi cael eich cais.`,
