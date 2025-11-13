@@ -147,6 +147,8 @@ export const getSoleHubTemplate = (
       return isApplicantAbleToRespondToRequestForInformation
         ? HubTemplate.RespondedToInformationRequest
         : HubTemplate.InformationRequestedFromOther;
+    case State.AwaitingHWFPartPayment:
+      return HubTemplate.AwaitingHWFPartPayment;
     case State.AwaitingHWFDecision:
     case State.AwaitingHWFEvidence:
       return userCase.applicant1CannotUpload === Checkbox.Checked
