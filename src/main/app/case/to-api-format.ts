@@ -12,6 +12,7 @@ import {
   ApplicationType,
   CaseData,
   ChangedNameHow,
+  ChangedNameWhy,
   ContactDetailsType,
   DissolveDivorce,
   DivorceOrDissolution,
@@ -193,20 +194,28 @@ const fields: ToApiConverters = {
       : '',
   }),
   applicant1CannotUploadDocuments: data => ({
-    applicant1CannotUploadSupportingDocument: data.applicant1CannotUploadDocuments
-      ? !Array.isArray(data.applicant1CannotUploadDocuments)
-        ? [data.applicant1CannotUploadDocuments]
-        : data.applicant1CannotUploadDocuments
-      : [],
-    applicant1CannotUpload: data.applicant1CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
+    applicant1CannotUploadSupportingDocument:
+      data.applicant1CannotUpload?.includes(Checkbox.Checked) && data.applicant1CannotUploadDocuments
+        ? !Array.isArray(data.applicant1CannotUploadDocuments)
+          ? [data.applicant1CannotUploadDocuments]
+          : data.applicant1CannotUploadDocuments
+        : [],
+    applicant1CannotUpload:
+      data.applicant1CannotUpload?.includes(Checkbox.Checked) && data.applicant1CannotUploadDocuments?.length
+        ? YesOrNo.YES
+        : YesOrNo.NO,
   }),
   applicant2CannotUploadDocuments: data => ({
-    applicant2CannotUploadSupportingDocument: data.applicant2CannotUploadDocuments
-      ? !Array.isArray(data.applicant2CannotUploadDocuments)
-        ? [data.applicant2CannotUploadDocuments]
-        : data.applicant2CannotUploadDocuments
-      : [],
-    applicant2CannotUpload: data.applicant2CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
+    applicant2CannotUploadSupportingDocument:
+      data.applicant2CannotUpload?.includes(Checkbox.Checked) && data.applicant2CannotUploadDocuments
+        ? !Array.isArray(data.applicant2CannotUploadDocuments)
+          ? [data.applicant2CannotUploadDocuments]
+          : data.applicant2CannotUploadDocuments
+        : [],
+    applicant2CannotUpload:
+      data.applicant2CannotUpload?.includes(Checkbox.Checked) && data.applicant2CannotUploadDocuments?.length
+        ? YesOrNo.YES
+        : YesOrNo.NO,
   }),
   applicant1IConfirmPrayer: prayerConverter('applicant1'),
   applicant2IConfirmPrayer: prayerConverter('applicant2'),
@@ -249,7 +258,8 @@ const fields: ToApiConverters = {
   }),
   applicant1NameDifferentToMarriageCertificateMethod: data => ({
     applicant1NameDifferentToMarriageCertificateMethod:
-      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES
+      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES ||
+      data.applicant1WhyNameDifferent?.includes(ChangedNameWhy.CHANGED_PARTS_OF_NAME)
         ? data.applicant1NameDifferentToMarriageCertificateMethod
         : [],
   }),
@@ -261,9 +271,66 @@ const fields: ToApiConverters = {
   }),
   applicant2NameDifferentToMarriageCertificateMethod: data => ({
     applicant2NameDifferentToMarriageCertificateMethod:
-      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES ||
+      data.applicant2WhyNameDifferent?.includes(ChangedNameWhy.CHANGED_PARTS_OF_NAME)
         ? data.applicant2NameDifferentToMarriageCertificateMethod
         : [],
+  }),
+  applicant1NameDifferentToMarriageCertificate: data => ({
+    applicant1NameDifferentToMarriageCertificate: data.applicant1NameDifferentToMarriageCertificate,
+    ...(data.applicant1NameDifferentToMarriageCertificate === YesOrNo.NO
+      ? setUnreachableAnswersToNull([
+          'applicant1WhyNameDifferent',
+          'applicant1WhyNameDifferentOtherDetails',
+          'applicant1NameDifferentToMarriageCertificateMethod',
+          'applicant1NameDifferentToMarriageCertificateOtherDetails',
+        ])
+      : {}),
+  }),
+  applicant2NameDifferentToMarriageCertificate: data => ({
+    applicant2NameDifferentToMarriageCertificate: data.applicant2NameDifferentToMarriageCertificate,
+    ...(data.applicant2NameDifferentToMarriageCertificate === YesOrNo.NO
+      ? setUnreachableAnswersToNull([
+          'applicant2WhyNameDifferent',
+          'applicant2WhyNameDifferentOtherDetails',
+          'applicant2NameDifferentToMarriageCertificateMethod',
+          'applicant2NameDifferentToMarriageCertificateOtherDetails',
+        ])
+      : {}),
+  }),
+  applicant1WhyNameDifferent: data => ({
+    applicant1WhyNameDifferent: data.applicant1WhyNameDifferent,
+    ...(!data.applicant1WhyNameDifferent?.includes(ChangedNameWhy.OTHER)
+      ? setUnreachableAnswersToNull(['applicant1WhyNameDifferentOtherDetails'])
+      : {}),
+    ...(!data.applicant1WhyNameDifferent?.includes(ChangedNameWhy.CHANGED_PARTS_OF_NAME)
+      ? setUnreachableAnswersToNull([
+          'applicant1NameDifferentToMarriageCertificateMethod',
+          'applicant1NameDifferentToMarriageCertificateOtherDetails',
+        ])
+      : {}),
+  }),
+  applicant1WhyNameDifferentOtherDetails: data => ({
+    applicant1WhyNameDifferentOtherDetails: data.applicant1WhyNameDifferent?.includes(ChangedNameWhy.OTHER)
+      ? data.applicant1WhyNameDifferentOtherDetails
+      : '',
+  }),
+  applicant2WhyNameDifferentOtherDetails: data => ({
+    applicant2WhyNameDifferentOtherDetails: data.applicant2WhyNameDifferent?.includes(ChangedNameWhy.OTHER)
+      ? data.applicant2WhyNameDifferentOtherDetails
+      : '',
+  }),
+  applicant2WhyNameDifferent: data => ({
+    applicant2WhyNameDifferent: data.applicant2WhyNameDifferent,
+    ...(!data.applicant2WhyNameDifferent?.includes(ChangedNameWhy.OTHER)
+      ? setUnreachableAnswersToNull(['applicant2WhyNameDifferentOtherDetails'])
+      : {}),
+    ...(!data.applicant2WhyNameDifferent?.includes(ChangedNameWhy.CHANGED_PARTS_OF_NAME)
+      ? setUnreachableAnswersToNull([
+          'applicant2NameDifferentToMarriageCertificateMethod',
+          'applicant2NameDifferentToMarriageCertificateOtherDetails',
+        ])
+      : {}),
   }),
   applicant2NameDifferentToMarriageCertificateOtherDetails: data => ({
     applicant2NameDifferentToMarriageCertificateOtherDetails:

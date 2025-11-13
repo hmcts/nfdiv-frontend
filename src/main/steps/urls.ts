@@ -62,13 +62,16 @@ export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-t
 
 export const ENTER_YOUR_NAME: PageLink = '/enter-your-name';
 export const ENTER_YOUR_NAMES: PageLink = '/enter-your-names';
+export const CHECK_YOUR_NAME: PageLink = '/check-your-name';
+export const CHECK_THEIR_NAME: PageLink = '/check-their-name';
 export const CONFIRM_YOUR_NAME: PageLink = '/confirm-your-name';
 export const THEIR_NAME: PageLink = '/enter-their-name';
 export const CONFIRM_THEIR_NAME: PageLink = '/confirm-their-name';
 
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
-export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';
+export const YOUR_CERTIFICATE_NAME: PageLink = '/your-name-on-certificate';
+export const THEIR_CERTIFICATE_NAME: PageLink = '/their-name-on-certificate';
 export const ADDRESS_PRIVATE: PageLink = '/address-private';
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
@@ -77,6 +80,7 @@ export const ENTER_SOLICITOR_DETAILS: PageLink = '/enter-solicitor-details';
 
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
 export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
+export const CHANGES_TO_THEIR_NAME_URL: PageLink = '/changes-to-their-name';
 export const THEIR_EMAIL_ADDRESS: PageLink = '/their-email-address';
 export const YOU_NEED_THEIR_EMAIL_ADDRESS: PageLink = '/you-need-their-email-address';
 export const EMAIL_RESENT: PageLink = '/email-resent';

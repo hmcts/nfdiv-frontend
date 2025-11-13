@@ -30,9 +30,9 @@ import {
   APPLY_FINANCIAL_ORDER_DETAILS,
   APP_REPRESENTED,
   CERTIFICATE_IN_ENGLISH,
-  CERTIFICATE_NAME,
   CERTIFICATE_URL,
   CERTIFIED_TRANSLATION,
+  CHANGES_TO_THEIR_NAME_URL,
   CHANGES_TO_YOUR_NAME_URL,
   CHANGING_TO_SOLE_APPLICATION,
   CHECK_ANSWERS_URL,
@@ -40,9 +40,9 @@ import {
   CHECK_CONTACT_DETAILS,
   CHECK_JURISDICTION,
   CHECK_PHONE_NUMBER,
+  CHECK_THEIR_NAME,
+  CHECK_YOUR_NAME,
   CONFIRM_JOINT_APPLICATION,
-  CONFIRM_THEIR_NAME,
-  CONFIRM_YOUR_NAME,
   CONTINUE_WITH_YOUR_APPLICATION,
   COUNTRY_AND_PLACE,
   DETAILS_OTHER_PROCEEDINGS,
@@ -54,7 +54,6 @@ import {
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
   ENTER_YOUR_NAME,
-  ENTER_YOUR_NAMES,
   EQUALITY,
   EXPLAIN_THE_DELAY,
   FINALISING_YOUR_APPLICATION,
@@ -99,6 +98,7 @@ import {
   REVIEW_YOUR_RESPONSE,
   SENT_TO_APPLICANT2_FOR_REVIEW,
   SERVICE_APPLICATION_WITHDRAWN,
+  THEIR_CERTIFICATE_NAME,
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
   UPLOAD_YOUR_DOCUMENTS,
@@ -107,6 +107,7 @@ import {
   WITHDRAWING_YOUR_APPLICATION,
   WITHDRAW_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
+  YOUR_CERTIFICATE_NAME,
   YOUR_DETAILS_URL,
   YOU_CANNOT_UPDATE_THEIR_EMAIL,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
@@ -273,40 +274,47 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: JURISDICTION_INTERSTITIAL_URL,
-    getNextStep: data =>
-      data.applicationType === ApplicationType.JOINT_APPLICATION ? ENTER_YOUR_NAMES : ENTER_YOUR_NAME,
-  },
-  {
-    url: ENTER_YOUR_NAMES,
-    getNextStep: () => CONFIRM_YOUR_NAME,
+    getNextStep: () => ENTER_YOUR_NAME,
   },
   {
     url: ENTER_YOUR_NAME,
-    getNextStep: () => CONFIRM_YOUR_NAME,
+    getNextStep: () => CHECK_YOUR_NAME,
   },
   {
-    url: CONFIRM_YOUR_NAME,
+    url: CHECK_YOUR_NAME,
+    getNextStep: () => YOUR_CERTIFICATE_NAME,
+  },
+  {
+    url: YOUR_CERTIFICATE_NAME,
     getNextStep: data =>
-      data.applicant1ConfirmFullName === YesOrNo.NO
-        ? ENTER_YOUR_NAMES
-        : data.applicationType === ApplicationType.JOINT_APPLICATION
-          ? CERTIFICATE_NAME
-          : THEIR_NAME,
-  },
-  {
-    url: THEIR_NAME,
-    getNextStep: () => CONFIRM_THEIR_NAME,
-  },
-  {
-    url: CONFIRM_THEIR_NAME,
-    getNextStep: data => (data.applicant2ConfirmFullName === YesOrNo.NO ? THEIR_NAME : CERTIFICATE_NAME),
-  },
-  {
-    url: CERTIFICATE_NAME,
-    getNextStep: () => CHANGES_TO_YOUR_NAME_URL,
+      data.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES
+        ? CHANGES_TO_YOUR_NAME_URL
+        : data.applicationType === ApplicationType.SOLE_APPLICATION
+          ? THEIR_NAME
+          : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
+    getNextStep: data =>
+      data.applicationType === ApplicationType.SOLE_APPLICATION ? THEIR_NAME : HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
+    url: THEIR_NAME,
+    getNextStep: () => CHECK_THEIR_NAME,
+  },
+  {
+    url: CHECK_THEIR_NAME,
+    getNextStep: () => THEIR_CERTIFICATE_NAME,
+  },
+  {
+    url: THEIR_CERTIFICATE_NAME,
+    getNextStep: data =>
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
+        ? CHANGES_TO_THEIR_NAME_URL
+        : HOW_THE_COURTS_WILL_CONTACT_YOU,
+  },
+  {
+    url: CHANGES_TO_THEIR_NAME_URL,
     getNextStep: () => HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
