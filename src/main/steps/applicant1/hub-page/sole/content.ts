@@ -1020,7 +1020,7 @@ const cy: typeof en = (
   },
   awaitingGenAppHwfPartPaymentOrEvidence: {
     line1:
-      'The court is reviewing your application and help with fees reference number. You will receive an email notification confirming what you need to do next.',
+      'Mae’r llys yn adolygu eich cais a’ch cyfeirnod help i dalu ffioedd.  Byddwch yn derbyn e-bost yn cadarnhau beth rydych angen ei wneud nesaf.',
   },
 });
 
