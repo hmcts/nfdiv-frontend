@@ -79,7 +79,10 @@ const en = (
   };
 };
 
-const cy = ({ isDivorce, marriage, civilPartnership, partner }: CommonContent) => {
+const cy = (
+  { isDivorce, marriage, civilPartnership, partner, isJointApplication }: CommonContent,
+  nameChangedIntentionally: boolean
+) => {
   const union = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Uwchlwytho eich dogfennau',
@@ -87,9 +90,15 @@ const cy = ({ isDivorce, marriage, civilPartnership, partner }: CommonContent) =
     certificate: `eich tystysgrif ${union} wreiddiol`,
     certificateForeign: `eich tystysgrif ${union} dramor wreiddiol`,
     certificateForeignTranslation: `cyfieithiad wedi'i ardystio o'ch tystysgrif ${union} dramor`,
-    proofOfNameChange: `Tystiolaeth yn dangos pam bod eich enw neu enw eich ${partner} wedi'i ysgrifennu'n wahanol ar eich ${
-      isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
-    }. Er enghraifft, cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru neu dystysgrif geni, gweithred newid enw neu 'ddatganiad statudol'.`,
+    proofOfNameChange: nameChangedIntentionally
+      ? `tystiolaeth fy mod i ${
+          isJointApplication ? 'wedi newid fy enw' : 'neu fy mhartner wedi newid ein henwau'
+        }, er enghraifft gweithred newid enw neu ddatganiad statudol.`
+      : `Tystiolaeth yn dangos pam bod eich enw ${
+          isJointApplication ? '' : 'neu enw eich ${partner}'
+        } wedi'i ysgrifennu'n wahanol ar eich ${
+          isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
+        }. Er enghraifft, cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru neu dystysgrif geni, gweithred newid enw neu 'ddatganiad statudol'.`,
     warningPhoto:
       "Gwnewch yn siŵr bod y llun neu'r sgan yn dangos y ddogfen gyfan. Gwiriwch eich bod yn gallu darllen y testun i gyd cyn ei uwchlwytho. Os na all staff y llys ddarllen y manylion, efallai bydd yn cael ei wrthod.",
     infoTakePhoto: "Gallwch dynnu llun gyda'ch ffôn a'i uwchlwytho",
@@ -121,9 +130,11 @@ const cy = ({ isDivorce, marriage, civilPartnership, partner }: CommonContent) =
     cannotUploadCertificate: `Fy nhystysgrif ${union} wreiddiol`,
     cannotUploadForeignCertificate: `Fy nhystysgrif ${union} dramor wreiddiol`,
     cannotUploadForeignCertificateTranslation: `Cyfieithiad wedi'i ardystio o fy nhystysgrif ${union} dramor`,
-    cannotUploadNameChangeProof: `Tystiolaeth yn dangos pam bod eich enw neu enw eich ${partner} wedi'i ysgrifennu'n wahanol ar eich ${
-      isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
-    }`,
+    cannotUploadNameChangeProof: nameChangedIntentionally
+      ? 'Tystiolaeth fy mod i neu fy mhartner wedi newid ein henwau.'
+      : `Tystiolaeth yn dangos pam bod eich enw neu enw eich ${partner} wedi'i ysgrifennu'n wahanol ar eich ${
+          isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
+        }`,
     errors: {
       applicant1UploadedFiles: {
         notUploaded:

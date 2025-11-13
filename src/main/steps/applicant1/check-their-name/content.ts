@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required }) => {
+const en = ({ userCase, isDivorce, marriage, civilPartnership, partner }) => {
   return {
     title: `Check the ${isDivorce ? marriage : civilPartnership} certificate for differences in your ${partner}'s name`,
     line1: `We need to know if your ${partner}'s name is written differently on your ${
@@ -31,47 +31,45 @@ const en = ({ userCase, isDivorce, marriage, civilPartnership, partner, required
     no: 'No',
     errors: {
       applicant2NameDifferentToMarriageCertificate: {
-        required,
+        required: `You need to answer if any part of your ${partner}'s full name is written differently on your ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        } certificate.`,
       },
     },
   };
 };
 
-const cy: typeof en = ({ userCase, isDivorce, partner, required }) => {
+const cy: typeof en = ({ userCase, isDivorce, partner }) => {
   return {
     title: `Gwiriwch y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif partneriaeth sifil'
+      isDivorce ? 'briodas' : 'partneriaeth sifil'
     } am wahaniaethau yn enw eich ${partner}`,
     line1: `Mae arnom angen gwybod os yw enw eich ${partner} wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif bartneriaeth sifil'
+      isDivorce ? 'briodas' : 'bartneriaeth sifil'
     }.`,
     line2: 'Fe allai hyn fod oherwydd:',
-    point1: `Bu i'ch ${partner} newid eu henwau ar ôl i chi ${
-      isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
-    }`,
-    point2: `Ni gafodd rhan o'u henw ei chynnwys ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif partneriaeth sifil'
-    }.`,
-    point3: `Mae eu henw wedi'i sillafu'n wahanol ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif partneriaeth sifil'
-    }.`,
+    point1: `Newidiodd eich ${partner} eu henwau ar ôl iddynt briodi.`,
+    point2: `Ni gafodd rhan o'u henw ei chynnwys ar y dystysgrif ${isDivorce ? 'briodas' : 'partneriaeth sifil'}.`,
+    point3: `Mae eu henw wedi'i sillafu'n wahanol ar y dystysgrif ${isDivorce ? 'briodas' : 'partneriaeth sifil'}.`,
     point4: 'Maent hefyd yn cael eu hadnabod gan enw gwahanol.',
     warningPart1: `Os nad yw enw eich ${partner} ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif partneriaeth sifil'
+      isDivorce ? 'briodas' : 'partneriaeth sifil'
     } yn cyd-fynd â'r enw rydych wedi'i ddarparu, bydd rhaid i chi uwchlwytho tystiolaeth fel cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru neu dystysgrif geni, gweithred newid enw.`,
     warningPart2: `Os na fyddwch yn darparu tystiolaeth i esbonio'r gwahaniaeth yn enw cyfreithiol eich ${partner} a sut mae wedi'i ysgrifennu ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif partneriaeth sifil'
+      isDivorce ? 'briodas' : 'partneriaeth sifil'
     }, bydd eich gorchymyn amodol yn cael ei oedi hyd nes darperir esboniad neu dystiolaeth.`,
-    doesNameMatchTheCertificate: `A yw ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
-      userCase.applicant1LastNames
-    } yn union sut mae enw eich gŵr wedi'i ysgrifennu ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif bartneriaeth sifil'
+    doesNameMatchTheCertificate: `A oes unrhyw rhan o enw eich ${partner} (${userCase.applicant2FirstNames} ${
+      userCase.applicant2MiddleNames
+    } ${userCase.applicant2LastNames}) sydd wedi’i ysgrifennu’n wahanol i’ch tystysgrif ${
+      isDivorce ? 'briodas' : 'partneriaeth sifil'
     }?`,
-    yes: 'Ydy',
-    no: 'Nac ydy',
+    yes: 'Oes',
+    no: 'Nac oes',
     errors: {
       applicant2NameDifferentToMarriageCertificate: {
-        required,
+        required: `Mae angen i chi ateb os yw unrhyw ran o enw llawn eich ${partner} wedi’i ysgrifennu’n wahanol ar eich tystysgrif ${
+          isDivorce ? 'priodas' : 'partneriaeth sifil'
+        }.`,
       },
     },
   };

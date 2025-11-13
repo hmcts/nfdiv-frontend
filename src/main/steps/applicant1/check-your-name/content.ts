@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ isDivorce, marriage, civilPartnership, partner, required }, fullName) => {
+const en = ({ isDivorce, marriage, civilPartnership, partner }, fullName) => {
   return {
     title: `Check the ${isDivorce ? marriage : civilPartnership} certificate for differences in your name`,
     line1: `We need to know if your name is written differently on the ${
@@ -26,40 +26,40 @@ const en = ({ isDivorce, marriage, civilPartnership, partner, required }, fullNa
     no: 'No',
     errors: {
       applicant1NameDifferentToMarriageCertificate: {
-        required,
+        required: `You need to answer if any part of your full name is written differently on your ${
+          isDivorce ? 'marriage' : 'civil partnership'
+        } certificate.`,
       },
     },
   };
 };
 
-const cy: typeof en = ({ isDivorce, marriage, civilPartnership, partner, required }, fullName) => {
+const cy: typeof en = ({ isDivorce, marriage, civilPartnership, partner }, fullName) => {
   return {
     title: `Gwiriwch y dystysgrif ${isDivorce ? marriage : civilPartnership} am wahaniaethau yn eich enw`,
     line1: `Mae arnom angen gwybod os yw eich enw yn wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif bartneriaeth sifil'
+      isDivorce ? 'briodas' : 'bartneriaeth sifil'
     }.`,
     line2: 'Fe allai hyn fod oherwydd:',
     point1: `Bod chi neu eich ${partner} wedi newid eich enwau ar ôl i ${
       isDivorce ? 'chi briodi' : 'ffurfio eich partneriaeth sifil'
     }. Er enghraifft, os ydych wedi cymryd cyfenw neu enw cyntaf eich ${partner} neu os oes gennych gyfenw dwbl (Sarah Smith-David)`,
-    point2: `Ni gafodd rhan o'ch enw ei chynnwys ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif partneriaeth sifil'
-    }.`,
-    point3: `Mae arnom angen gwybod os yw eich enw wedi'i sillafu'n wahanol ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif partneriaeth sifil'
-    }.`,
+    point2: `Ni gafodd rhan o'ch enw ei chynnwys ar y dystysgrif ${isDivorce ? 'briodas' : 'partneriaeth sifil'}.`,
+    point3: `Mae eich enw wedi'i sillafu'n wahanol ar y dystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}.`,
     point4: 'Rydych hefyd yn cael eich adnabod gan enw gwahanol.',
     warning: `Os nad yw'r enw ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'tystysgrif partneriaeth sifil'
+      isDivorce ? 'briodas' : 'partneriaeth sifil'
     } yn cyd-fynd â'r enw rydych wedi'i ddarparu, bydd rhaid i chi uwchlwytho tystiolaeth fel cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru neu dystysgrif geni, gweithred newid enw.`,
-    doesNameMatchTheCertificate: `A yw ${fullName} yn union y ffordd mae eich enw wedi'i ysgrifennu ar eich tystysgrif ${
-      isDivorce ? 'priodas' : 'tystysgrif partneriaeth sifil'
+    doesNameMatchTheCertificate: `A oes unrhyw rhan o’ch enw (${fullName}) sydd wedi’i ysgrifennu’n wahanol i’ch tystysgrif ${
+      isDivorce ? 'briodas' : 'partneriaeth sifil'
     }?`,
-    yes: 'Ydy',
-    no: 'Nac ydy',
+    yes: 'Oes',
+    no: 'Nac oes',
     errors: {
       applicant1NameDifferentToMarriageCertificate: {
-        required,
+        required: `Mae angen i chi ateb os yw unrhyw ran o’ch enw llawn wedi’i ysgrifennu’n wahanol ar eich tystysgrif ${
+          isDivorce ? 'priodas' : 'partneriaeth sifil'
+        }.`,
       },
     },
   };

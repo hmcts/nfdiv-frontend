@@ -8,7 +8,7 @@ const en = ({ isDivorce, partner }: CommonContent, relationship: string) => {
     title: `How is your ${partner}'s name written on your ${relationship} certificate`,
     line1: `These are the names you and your ${partner} used before you ${
       isDivorce ? 'were married' : 'formed your civil partnership'
-    }. They can sometimes be different from your current names. For example, if you or your ${partner} had a maiden name or changed your name by deed poll.`,
+    }. They can sometimes be different from your current names. This could be because you or your ${partner} previously had a different surname (for example, a maiden name or a name changed by deed poll).`,
     warningText: `Copy the ${relationship} certificate exactly. For example, if it says ‘Sarah Brown (formerly known as Sarah Smith)’, then enter that.`,
     applicant2FullNameOnCertificate: `Copy your ${partner}'s full name from the ${relationship} certificate`,
     hint: 'Include all the text related to the name',
@@ -25,11 +25,11 @@ const cy = ({ isDivorce, partner }: CommonContent, relationship: string) => {
   return {
     title: `Eich enwau fel y maent yn ymddangos ar eich tystysgrif ${relationship}`,
     line1: `Dyma'r enwau yr oeddech chi a'ch ${partner} yn eu defnyddio cyn i chi ${
-      isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
-    }. Weithiau gallant fod yn wahanol i'ch enwau cyfredol. Er enghraifft, os oedd gennych chi neu eich ${partner} enw cyn priodi.`,
+      isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'
+    }. Weithiau gallant fod yn wahanol i'ch enwau cyfredol. Gallai hyn fod oherwydd eich bod chi neu eich ${partner} wedi cael cyfenw gwahanol yn y gorffennol (er enghraifft, enw cyn priodi neu wedi newid enw trwy weithred newid enw).`,
     warningText: `Copïwch union eriad y dystysgrif ${relationship}. Er enghraifft, os yw'n dweud ‘Sarah Brown (a elwid yn flaenorol yn Sarah Smith)’, yna rhowch hynny.`,
     applicant2FullNameOnCertificate: `Copïwch enw llawn eich ${partner} fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
-    hint: 'Dylech gynnwys testun eich enw yn llawn',
+    hint: 'Dylech gynnwys testun ei enw yn llawn',
     errors: {
       applicant2FullNameOnCertificate: {
         required:

@@ -194,20 +194,30 @@ const fields: ToApiConverters = {
       : '',
   }),
   applicant1CannotUploadDocuments: data => ({
-    applicant1CannotUploadSupportingDocument: data.applicant1CannotUploadDocuments
-      ? !Array.isArray(data.applicant1CannotUploadDocuments)
-        ? [data.applicant1CannotUploadDocuments]
-        : data.applicant1CannotUploadDocuments
-      : [],
-    applicant1CannotUpload: data.applicant1CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
+    applicant1CannotUploadSupportingDocument:
+      data.applicant1CannotUpload?.includes(Checkbox.Checked) && data.applicant1CannotUploadDocuments
+        ? !Array.isArray(data.applicant1CannotUploadDocuments)
+          ? [data.applicant1CannotUploadDocuments]
+          : data.applicant1CannotUploadDocuments
+        : [],
+    applicant1CannotUpload:
+      data.applicant1CannotUpload?.includes(Checkbox.Checked) &&
+      data.applicant1CannotUpload?.includes(Checkbox.Checked) &&
+      data.applicant1CannotUploadDocuments?.length
+        ? YesOrNo.YES
+        : YesOrNo.NO,
   }),
   applicant2CannotUploadDocuments: data => ({
-    applicant2CannotUploadSupportingDocument: data.applicant2CannotUploadDocuments
-      ? !Array.isArray(data.applicant2CannotUploadDocuments)
-        ? [data.applicant2CannotUploadDocuments]
-        : data.applicant2CannotUploadDocuments
-      : [],
-    applicant2CannotUpload: data.applicant2CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
+    applicant2CannotUploadSupportingDocument:
+      data.applicant2CannotUpload?.includes(Checkbox.Checked) && data.applicant2CannotUploadDocuments
+        ? !Array.isArray(data.applicant2CannotUploadDocuments)
+          ? [data.applicant2CannotUploadDocuments]
+          : data.applicant2CannotUploadDocuments
+        : [],
+    applicant2CannotUpload:
+      data.applicant2CannotUpload?.includes(Checkbox.Checked) && data.applicant2CannotUploadDocuments?.length
+        ? YesOrNo.YES
+        : YesOrNo.NO,
   }),
   applicant1IConfirmPrayer: prayerConverter('applicant1'),
   applicant2IConfirmPrayer: prayerConverter('applicant2'),
