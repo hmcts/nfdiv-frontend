@@ -75,6 +75,7 @@ export const orderedStateSequence: State[] = [
   State.AwaitingGeneralConsideration,
   State.GeneralConsiderationComplete,
   State.AwaitingJudgeClarification,
+  State.PendingServiceAppResponse,
   State.AwaitingDwpResponse,
   State.AwaitingAlternativeService,
   State.Holding,

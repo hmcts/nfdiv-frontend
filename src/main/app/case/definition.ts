@@ -2336,6 +2336,7 @@ export const enum State {
   ConditionalOrderPending = 'ConditionalOrderPending',
   AwaitingJointFinalOrder = 'AwaitingJointFinalOrder',
   AwaitingJudgeClarification = 'AwaitingJudgeClarification',
+  PendingServiceAppResponse = 'PendingServiceAppResponse',
   AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
   AwaitingService = 'AwaitingService',
   AwaitingServiceConsideration = 'AwaitingServiceConsideration',
