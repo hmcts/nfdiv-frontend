@@ -14,7 +14,7 @@ const en = ({ isDivorce, partner }: CommonContent, relationship: string) => {
     hint: 'Include all the text related to the name',
     errors: {
       applicant2FullNameOnCertificate: {
-        required: 'You have not entered anything. Enter their full name as it appears on your marriage certificate.',
+        required: `You have not entered anything. Enter their full name as it appears on your ${relationship} certificate.`,
         invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
       },
     },
@@ -32,8 +32,9 @@ const cy = ({ isDivorce, partner }: CommonContent, relationship: string) => {
     hint: 'Dylech gynnwys testun ei enw yn llawn',
     errors: {
       applicant2FullNameOnCertificate: {
-        required:
-          'Nid ydych wedi nodi unrhyw beth. Rhowch eu henw yn llawn fel y mae’n ymddangos ar eich tystysgrif priodas',
+        required: `Nid ydych wedi nodi unrhyw beth. Rhowch eu henw yn llawn fel y mae’n ymddangos ar eich tystysgrif ${
+          isDivorce ? 'priodas' : 'partneriaeth sifil'
+        }.`,
         invalid:
           'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig. ',
       },

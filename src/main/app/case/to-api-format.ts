@@ -201,9 +201,7 @@ const fields: ToApiConverters = {
           : data.applicant1CannotUploadDocuments
         : [],
     applicant1CannotUpload:
-      data.applicant1CannotUpload?.includes(Checkbox.Checked) &&
-      data.applicant1CannotUpload?.includes(Checkbox.Checked) &&
-      data.applicant1CannotUploadDocuments?.length
+      data.applicant1CannotUpload?.includes(Checkbox.Checked) && data.applicant1CannotUploadDocuments?.length
         ? YesOrNo.YES
         : YesOrNo.NO,
   }),

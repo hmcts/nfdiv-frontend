@@ -39,24 +39,30 @@ const en = ({ isDivorce, userCase, isApplicant2 }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: `${userCase.applicant2NameDifferentToMarriageCertificate}`,
+      line4: `${stripTags(userCase?.applicant2NameDifferentToMarriageCertificate)}`,
       line5: `${userCase.applicant2FullNameOnCertificate}`,
-      line6: `${stripTags(
-        userCase.applicant2WhyNameDifferent
-          ?.join(' / ')
-          ?.replace(ChangedNameWhy.DEED_POLL, 'I changed my name by deed poll')
-          ?.replace(ChangedNameWhy.CHANGED_PARTS_OF_NAME, 'I changed my last name or parts of my name')
-          ?.replace(
-            ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
-            'Part of my legal name was not included on the certificate'
-          )
-          ?.replace(ChangedNameWhy.PART_OF_NAME_ABBREVIATED, 'Part of my legal name is abbreviated on the certificate')
-          ?.replace(
-            ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
-            'My legal name is spelled differently on the certificate'
-          )
-          ?.replace(ChangedNameWhy.OTHER, 'Another reason')
-      )}`,
+      line6: `${stripTags(userCase.applicant2WhyNameDifferent)
+        ?.join(' / ')
+        ?.replace(ChangedNameWhy.DEED_POLL, 'I changed my name by deed poll')
+        ?.replace(
+          ChangedNameWhy.CHANGED_PARTS_OF_NAME,
+          `I changed my last name or parts of my name when I ${
+            isDivorce ? 'got married' : 'formed my civil partnership'
+          }`
+        )
+        ?.replace(
+          ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
+          `Part of my legal name was not included on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate`
+        )
+        ?.replace(
+          ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
+          `Part of my legal name is abbreviated on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate`
+        )
+        ?.replace(
+          ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
+          `My legal name is spelled differently on the ${isDivorce ? 'marriage' : 'civil partnership'} certificate`
+        )
+        ?.replace(ChangedNameWhy.OTHER, 'Another reason')}`,
       line7: `${stripTags(userCase.applicant2WhyNameDifferentOtherDetails)}`,
       line8: `${
         userCase.applicant2NameDifferentToMarriageCertificateMethod?.length
@@ -175,37 +181,46 @@ const cy: typeof en = ({ isDivorce, userCase, isApplicant2 }) => ({
       line1: `${userCase.applicant2FirstNames}`,
       line2: `${userCase.applicant2MiddleNames}`,
       line3: `${userCase.applicant2LastNames}`,
-      line4: `${userCase.applicant2NameDifferentToMarriageCertificate}`,
-      line5: `${userCase.applicant2FullNameOnCertificate}`,
-      line6: `${stripTags(
-        userCase.applicant2WhyNameDifferent
-          ?.join(' / ')
-          ?.replace(ChangedNameWhy.DEED_POLL, 'They changed their name by deed poll')
-          ?.replace(ChangedNameWhy.CHANGED_PARTS_OF_NAME, 'They changed their last name or parts of their name')
-          ?.replace(
-            ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
-            'Part of their legal name was not included on the certificate'
-          )
-          ?.replace(
-            ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
-            'Part of their legal name is abbreviated on the certificate'
-          )
-          ?.replace(
-            ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
-            'Their legal name is spelled differently on the certificate'
-          )
-          ?.replace(ChangedNameWhy.OTHER, 'Another reason')
+      line4: `${stripTags(
+        userCase?.applicant2NameDifferentToMarriageCertificate?.replace('Yes', 'Oes')?.replace('No', 'Nac oes')
       )}`,
+      line5: `${userCase.applicant2FullNameOnCertificate}`,
+      line6: `${stripTags(userCase.applicant2WhyNameDifferent)
+        ?.join(' / ')
+        ?.replace(ChangedNameWhy.DEED_POLL, 'Newidiais fy enw trwy weithred newid enw')
+        ?.replace(
+          ChangedNameWhy.CHANGED_PARTS_OF_NAME,
+          `Newidiais fy nghyfenw neu rannau o fy enw pan wnes i ${isDivorce ? 'briodi' : 'ffurfio partneriaeth sifil'}`
+        )
+        ?.replace(
+          ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
+          `Ni gafodd rhan o fy enw cyfreithiol ei chynnwys ar y dystysgrif ${
+            isDivorce ? 'briodas' : 'partneriaeth sifil'
+          }`
+        )
+        ?.replace(
+          ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
+          `Mae rhan o fy enw cyfreithiol wedi'i dalfyrru ar y dystysgrif ${
+            isDivorce ? 'briodas' : 'partneriaeth sifil'
+          }`
+        )
+        ?.replace(
+          ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
+          `Mae fy enw cyfreithiol wedi'i sillafu'n wahanol ar y dystysgrif ${
+            isDivorce ? 'briodas' : 'partneriaeth sifil'
+          }`
+        )
+        ?.replace(ChangedNameWhy.OTHER, 'Rheswm arall')}`,
       line7: `${stripTags(userCase.applicant2WhyNameDifferentOtherDetails)}`,
       line8: `${
         userCase.applicant2NameDifferentToMarriageCertificateMethod?.length
           ? userCase.applicant2NameDifferentToMarriageCertificateMethod
               .join(' / ')
-              .replace(ChangedNameHow.OTHER, 'Another way')
-              .replace(ChangedNameHow.DEED_POLL, 'Deed poll')
+              .replace(ChangedNameHow.OTHER, 'Ffordd arall')
+              .replace(ChangedNameHow.DEED_POLL, 'Gweithred newid enw')
               .replace(
                 ChangedNameHow.MARRIAGE_CERTIFICATE,
-                `${isDivorce ? 'Marriage' : 'Civil partnership'} certificate`
+                `Tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}`
               )
           : ''
       }`,

@@ -13,12 +13,13 @@ const labels = content => ({
     applicant2WhyNameDifferent: {
       ...content.errors.applicant1WhyNameDifferent,
       applicant2WhyNameDifferentOtherDetails:
-        'You have not answered the question. You need to say how you changed your name so the court knows which document to check.',
+        content.errors.applicant1WhyNameDifferent.applicant1WhyNameDifferentOtherDetails,
     },
     applicant2NameDifferentToMarriageCertificateMethod: {
       ...content.errors.applicant1WhyNameDifferent,
       applicant2NameDifferentToMarriageCertificateOtherDetails:
-        'You have not answered the question. You need to say how you changed your name so the court knows which document to check.',
+        content.errors.applicant1NameDifferentToMarriageCertificateMethod
+          .applicant1NameDifferentToMarriageCertificateOtherDetails,
     },
   },
 });
