@@ -19,6 +19,7 @@ import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
+import { noRespondentAddressJourneySequence } from './noRespondentAddressJourneySequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
@@ -599,6 +600,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
     url: VIEW_YOUR_ANSWERS,
     getNextStep: () => HOME_URL,
   },
+  ...noRespondentAddressJourneySequence,
   ...noResponseJourneySequence,
   ...alternativeServiceApplicationSequence,
   ...bailiffServiceApplicationSequence,
