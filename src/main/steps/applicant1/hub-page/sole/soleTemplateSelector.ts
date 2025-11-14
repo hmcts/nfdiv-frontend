@@ -169,6 +169,9 @@ export const getSoleHubTemplate = (
       return HubTemplate.AwaitingDwpResponse;
     case State.AwaitingAlternativeService:
       return HubTemplate.AwaitingAlternativeService;
+    case State.AwaitingGenAppHWFPartPayment:
+    case State.AwaitingGenAppHWFEvidence:
+      return HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||
