@@ -30,7 +30,7 @@ import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
 import { userCanUploadDocuments } from './DocumentManagementConstants';
-import FileUploadJourneyConfigMap, { FileUploadJourney, FileUploadJourneyConfig } from './FileUploadJourneyConfig';
+import FileUploadJourneyConfigurationMap, { FileUploadJourneyConfiguration } from './FileUploadJourneyConfiguration';
 
 @autobind
 export class DocumentManagerController {
@@ -39,8 +39,8 @@ export class DocumentManagerController {
   private redirect(req: AppRequest, res: Response, isApplicant2: boolean) {
     const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
 
-    if (this.getFileUploadJourneyConfig(req)) {
-      return res.redirect(this.getFileUploadJourneyConfig(req).getRedirectPath(req));
+    if (this.getFileUploadJourneyConfiguration(req)) {
+      return res.redirect(this.getFileUploadJourneyConfiguration(req).getRedirectPath(req));
     }
 
     if (req.session.userCase.state === State.AwaitingClarification) {
@@ -72,10 +72,10 @@ export class DocumentManagerController {
   public async post(req: AppRequest, res: Response): Promise<void> {
     const isApplicant2 = req.session.isApplicant2;
     const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
-    const FileUploadJourneyConfiguration = this.getFileUploadJourneyConfig(req);
+    const fileUploadJourneyConfiguration = this.getFileUploadJourneyConfiguration(req);
 
     this.logger = req.locals.logger;
-    if (!this.validDocumentUpload(FileUploadJourneyConfiguration, req)) {
+    if (!this.validDocumentUpload(fileUploadJourneyConfiguration, req)) {
       throw new Error('Cannot upload new documents as case is not in the correct state');
     }
 
@@ -106,8 +106,8 @@ export class DocumentManagerController {
     }));
 
     let documentsKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
-    if (this.getFileUploadJourneyConfig(req)) {
-      documentsKey = this.getFileUploadJourneyConfig(req).uploadPath;
+    if (this.getFileUploadJourneyConfiguration(req)) {
+      documentsKey = this.getFileUploadJourneyConfiguration(req).getUploadPath;
     } else if (req.session.userCase.state === State.AwaitingClarification) {
       documentsKey = 'coClarificationUploadDocuments';
     } else if (
@@ -143,11 +143,11 @@ export class DocumentManagerController {
   public async delete(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
     const isApplicant2 = req.session.isApplicant2;
-    const FileUploadJourneyConfiguration = this.getFileUploadJourneyConfig(req);
+    const fileUploadJourneyConfiguration = this.getFileUploadJourneyConfiguration(req);
 
     let documentsUploadedKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
-    if (FileUploadJourneyConfiguration) {
-      documentsUploadedKey = FileUploadJourneyConfiguration.uploadPath;
+    if (fileUploadJourneyConfiguration) {
+      documentsUploadedKey = fileUploadJourneyConfiguration.getUploadPath;
     } else if (req.session.userCase.state === State.AwaitingClarification) {
       documentsUploadedKey = 'coClarificationUploadDocuments';
     } else if (
@@ -165,7 +165,7 @@ export class DocumentManagerController {
     const documentsUploaded =
       (req.session.userCase[documentsUploadedKey] as ListValue<Partial<DivorceDocument> | null>[]) ?? [];
 
-    if (!this.validDocumentUpload(FileUploadJourneyConfiguration, req)) {
+    if (!this.validDocumentUpload(fileUploadJourneyConfiguration, req)) {
       throw new Error('Cannot delete documents as case is not in the correct state');
     }
 
@@ -217,15 +217,13 @@ export class DocumentManagerController {
     );
   }
 
-  private getFileUploadJourneyConfig(req: AppRequest): FileUploadJourneyConfig {
-    const fileUploadJourney = req.session.fileUploadJourney;
-
-    return FileUploadJourneyConfigMap[fileUploadJourney as FileUploadJourney];
+  private getFileUploadJourneyConfiguration(req: AppRequest): FileUploadJourneyConfiguration {
+    return FileUploadJourneyConfigurationMap[req.session?.fileUploadJourney];
   }
 
-  private validDocumentUpload(FileUploadJourneyConfiguration: FileUploadJourneyConfig, req: AppRequest): boolean {
-    if (FileUploadJourneyConfiguration?.validateUpload) {
-      return FileUploadJourneyConfiguration.validateUpload(req);
+  private validDocumentUpload(fileUploadJourneyConfiguration: FileUploadJourneyConfiguration, req: AppRequest): boolean {
+    if (fileUploadJourneyConfiguration?.validateUpload) {
+      return fileUploadJourneyConfiguration.validateUpload(req);
     } else {
       return userCanUploadDocuments(req.session.userCase, req.session.isApplicant2);
     }

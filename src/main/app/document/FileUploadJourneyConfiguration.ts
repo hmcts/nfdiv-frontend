@@ -10,15 +10,15 @@ export enum FileUploadPath {
   APPLICANT_1_INTERIM_APPS_EVIDENCE = 'applicant1InterimAppsEvidenceDocs',
 }
 
-export interface FileUploadJourneyConfig {
-  uploadPath: FileUploadPath;
+export interface FileUploadJourneyConfiguration {
+  getUploadPath: FileUploadPath;
   getRedirectPath: (req: AppRequest) => string;
   validateUpload?: (req: AppRequest) => boolean;
 }
 
-const FileUploadJourneyConfigMap: Record<FileUploadJourney, FileUploadJourneyConfig> = {
+const FileUploadJourneyConfigurationMap: Record<FileUploadJourney, FileUploadJourneyConfiguration> = {
   [FileUploadJourney.ALTERNATIVE_SERVICE]: {
-    uploadPath: FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
+    getUploadPath: FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
     getRedirectPath: () => UPLOAD_EVIDENCE_ALTERNATIVE,
     validateUpload: req => validateServiceApplicationDocumentUpload(req),
   },
@@ -33,4 +33,4 @@ const validateServiceApplicationDocumentUpload = (req: AppRequest): boolean => {
   );
 };
 
-export default FileUploadJourneyConfigMap;
+export default FileUploadJourneyConfigurationMap;

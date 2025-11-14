@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { GetController } from '../../../../../app/controller/GetController';
-import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfig';
+import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfiguration';
 
 import { generateContent } from './content';
 

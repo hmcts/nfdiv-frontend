@@ -1,4 +1,3 @@
-import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
@@ -8,8 +7,6 @@ import { CommonContent, generateCommonContent } from '../../steps/common/common.
 import { DivorceOrDissolution } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
-
-const logger = Logger.getLogger('session-log');
 
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
@@ -34,9 +31,6 @@ export class GetController {
     if (req.session?.errors) {
       req.session.errors = undefined;
     }
-
-    logger.info('User upload journey:');
-    logger.info(req.session.fileUploadJourney);
 
     res.render(this.view, {
       ...this.getPageContent(req, res, language),
