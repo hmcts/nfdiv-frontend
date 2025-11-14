@@ -70,6 +70,8 @@ export class PostController<T extends AnyObject> {
   protected saveSessionAndRedirect(req: AppRequest, res: Response): void {
     const nextUrl = this.getNextUrl(req);
 
+    delete req.session.fileUploadJourney;
+
     req.session.save(err => {
       if (err) {
         throw err;
