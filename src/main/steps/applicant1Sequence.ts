@@ -23,7 +23,9 @@ import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
 import {
+  ADDRESS_FINDING,
   ADDRESS_PRIVATE,
+  ADDRESS_WHAT_YOU_NEED,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   APPLY_FINANCIAL_ORDER,
@@ -333,13 +335,20 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: DO_THEY_HAVE_A_SOLICITOR,
     getNextStep: data =>
-      data.applicant1IsApplicant2Represented === Applicant2Represented.YES
-        ? ENTER_SOLICITOR_DETAILS
-        : THEIR_EMAIL_ADDRESS,
+      data.applicant1IsApplicant2Represented === Applicant2Represented.YES ? DO_YOU_HAVE_ADDRESS : THEIR_EMAIL_ADDRESS,
   },
   {
     url: ENTER_SOLICITOR_DETAILS,
-    getNextStep: () => THEIR_EMAIL_ADDRESS,
+    getNextStep: () => DO_YOU_HAVE_ADDRESS,
+  },
+  {
+    url: ADDRESS_FINDING,
+    getNextStep: data =>
+      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : ADDRESS_WHAT_YOU_NEED,
+  },
+  {
+    url: ADDRESS_WHAT_YOU_NEED,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: THEIR_EMAIL_ADDRESS,
@@ -362,7 +371,9 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: DO_YOU_HAVE_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (
+      if (data.applicant1IsApplicant2Represented === Applicant2Represented.YES) {
+        return data.applicant1KnowsApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : ADDRESS_FINDING;
+      } else if (
         data.applicant1KnowsApplicant2Address === YesOrNo.NO &&
         !(
           data.applicant2SolicitorEmail ||

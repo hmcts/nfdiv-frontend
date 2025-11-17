@@ -1174,6 +1174,7 @@ export interface CaseData {
   applicant1DispenseChildMaintenanceResults: string;
   applicant1DispenseContactFriendsOrRelativesDetails: string;
   applicant1DispenseOtherEnquiries: string;
+  applicant1FoundApplicant2Address: YesOrNo;
 }
 
 export interface CaseDocuments {
