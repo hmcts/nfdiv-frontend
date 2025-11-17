@@ -339,12 +339,12 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: ADDRESS_FINDING,
-    getNextStep: () => THEIR_EMAIL_ADDRESS,
+    getNextStep: data =>
+      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : ADDRESS_FINDING,
   },
   {
     url: ADDRESS_WHAT_YOU_NEED,
-    getNextStep: data =>
-      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : ADDRESS_FINDING,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: ENTER_SOLICITOR_DETAILS,
