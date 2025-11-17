@@ -4,23 +4,39 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ partner, isDivorce, required, hasAContactForPartner }) => ({
-  title: `Do you have your ${partner}'s postal address?`,
-  line1: hasAContactForPartner
-    ? `The court needs your ${partner}'s address, to notify them by letter about the ${
-        isDivorce ? 'divorce' : 'ending your civil partnership'
-      }.`
-    : `It’s important you provide your ${partner}'s address. You did not provide their email address and the court needs a way to ‘serve’ (deliver) the ${
-        isDivorce ? 'divorce' : 'ending your civil partnership'
-      } papers to them.`,
-  line2: hasAContactForPartner
-    ? 'It should be an address where they can receive the letter. It can be UK or international. If you use their work address, you need to ask their permission. If you do not know their current address then you can use their last-known address.'
-    : `It should be an address where they can receive the ${
-        isDivorce ? 'divorce papers' : 'papers to end the civil partnership'
-      }. It can be UK or international. If you use their work address, you need to ask their permission.`,
-  line3: !hasAContactForPartner
-    ? 'If they do not respond at the address you provide, then you will need to make a separate application to serve (deliver) the papers to them another way.'
-    : '',
+const en = ({ partner, isDivorce, required, hasAContactForPartner, isApplicant2Represented }) => ({
+  title: `${
+    isApplicant2Represented ? `Your ${partner}’s postal address` : `Do you have your ${partner}'s postal address?`
+  }`,
+  line1: `${
+    isApplicant2Represented
+      ? `We need your ${partner}’s address so that we can notify them about the ${
+          isDivorce ? 'divorce' : 'application to end civil partnership'
+        } by post.`
+      : hasAContactForPartner
+        ? `The court needs your ${partner}'s address, to notify them by letter about the ${
+            isDivorce ? 'divorce' : 'ending your civil partnership'
+          }.`
+        : `It’s important you provide your ${partner}'s address. You did not provide their email address and the court needs a way to ‘serve’ (deliver) the ${
+            isDivorce ? 'divorce' : 'ending your civil partnership'
+          } papers to them.`
+  }`,
+  line2: `${
+    isApplicant2Represented
+      ? 'It can be a UK or international address.'
+      : hasAContactForPartner
+        ? 'It should be an address where they can receive the letter. It can be UK or international. If you use their work address, you need to ask their permission. If you do not know their current address then you can use their last-known address.'
+        : `It should be an address where they can receive the ${
+            isDivorce ? 'divorce papers' : 'papers to end the civil partnership'
+          }. It can be UK or international. If you use their work address, you need to ask their permission.`
+  }`,
+  line3: `${
+    isApplicant2Represented
+      ? `If you have your ${partner}’s permission, you can use their work address if you do not know their home address.`
+      : !hasAContactForPartner
+        ? 'If they do not respond at the address you provide, then you will need to make a separate application to serve (deliver) the papers to them another way.'
+        : ''
+  }`,
   haveTheirAddress: 'Yes, I have their address',
   doNotHaveTheirAddress: 'No, I do not have their address',
   errors: {
@@ -30,6 +46,7 @@ const en = ({ partner, isDivorce, required, hasAContactForPartner }) => ({
   },
 });
 
+//TODO Welsh translation required for NFDIV-4922
 const cy: typeof en = ({ partner, isDivorce, required, hasAContactForPartner }) => ({
   title: `A oes gennych gyfeiriad post eich ${partner}?`,
   line1: `${
@@ -88,7 +105,8 @@ export const generateContent: TranslationFn = content => {
     userCase.applicant2SolicitorEmail ||
     (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorFirmName) ||
     (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorAddress1);
-  const translations = languages[language]({ ...content, hasAContactForPartner });
+  const isApplicant2Represented = userCase.applicant2SolicitorRepresented === YesOrNo.YES;
+  const translations = languages[language]({ ...content, hasAContactForPartner, isApplicant2Represented });
   return {
     ...translations,
     form,

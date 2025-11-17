@@ -344,6 +344,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
   applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
   applicant1DispenseOtherEnquiries: 'applicant1DispenseOtherEnquiries',
+  applicant1FoundApplicant2Address: 'applicant1FoundApplicant2Address',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -769,6 +770,7 @@ export interface Case {
   applicant1DispensePartnerPastAddress2?: string;
   applicant1DispensePartnerPastAddressEnquiries2?: string;
   applicant1DispensePartnerLastSeenDate?: DateAsString;
+  applicant1FoundApplicant2Address: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
