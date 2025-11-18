@@ -224,7 +224,10 @@ export class DocumentManagerController {
       : undefined;
   }
 
-  private validDocumentUpload(fileUploadJourneyConfiguration: FileUploadJourneyConfiguration | undefined, req: AppRequest): boolean {
+  private validDocumentUpload(
+    fileUploadJourneyConfiguration: FileUploadJourneyConfiguration | undefined,
+    req: AppRequest
+  ): boolean {
     if (fileUploadJourneyConfiguration?.validateUpload) {
       return fileUploadJourneyConfiguration.validateUpload(req);
     } else {

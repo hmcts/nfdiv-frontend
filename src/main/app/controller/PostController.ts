@@ -70,8 +70,6 @@ export class PostController<T extends AnyObject> {
   protected saveSessionAndRedirect(req: AppRequest, res: Response): void {
     const nextUrl = this.getNextUrl(req);
 
-    delete req.session.fileUploadJourney;
-
     req.session.save(err => {
       if (err) {
         throw err;
@@ -92,8 +90,9 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length === 0) {
       try {
         this.setPaymentCallbackUrlIfPaymentRequired(req, res, formData);
-
         req.session.userCase = await this.save(req, formData, this.getEventName(req));
+
+        this.resetSessionFields(req);
       } catch (err) {
         req.locals.logger.error('Error saving', err);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
@@ -119,6 +118,10 @@ export class PostController<T extends AnyObject> {
     if (this.getEventName(req) === CITIZEN_SUBMIT) {
       formData.citizenPaymentCallbackUrl = getPaymentCallbackUrl(req, res, PAYMENT_CALLBACK_URL);
     }
+  }
+
+  private resetSessionFields(req: AppRequest<T>): void {
+    delete req.session.fileUploadJourney;
   }
 }
 

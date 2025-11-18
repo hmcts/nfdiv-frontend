@@ -22,6 +22,7 @@ import { isPhoneNoValid } from '../form/validation';
 import { PostController } from './PostController';
 
 import Mock = jest.Mock;
+import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
 
 set(config, 'services.idam.systemPassword', 'DUMMY_VALUE_REPLACE');
 
@@ -149,7 +150,7 @@ describe('PostController', () => {
     const controller = new PostController(mockFormContent.fields);
 
     const mockSave = jest.fn(done => done('An error while saving session'));
-    const req = mockRequest({ body, session: { save: mockSave } });
+    const req = mockRequest({ body, session: { save: mockSave, fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE } });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ gender: Gender.FEMALE });
     const res = mockResponse();
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
@@ -189,7 +190,7 @@ describe('PostController', () => {
       id: '1234',
     };
 
-    const req = mockRequest({ body });
+    const req = mockRequest({ body, session: { fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE } });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await controller.post(req, res);
@@ -204,6 +205,7 @@ describe('PostController', () => {
     expect(getNextStepUrlMock).toHaveBeenCalledWith(req, expectedUserCase);
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
     expect(req.session.errors).toStrictEqual([]);
+    expect(req.session.fileUploadJourney).toEqual(undefined);
   });
 
   test('Should save the users data and end response for session timeout', async () => {

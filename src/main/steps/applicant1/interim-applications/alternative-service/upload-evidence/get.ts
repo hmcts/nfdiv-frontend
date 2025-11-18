@@ -16,8 +16,11 @@ export default class AlternativeServiceUploadEvidenceGetController extends GetCo
   public async get(req: AppRequest, res: Response): Promise<void> {
     req.session.fileUploadJourney = FileUploadJourney.ALTERNATIVE_SERVICE;
 
-    req.session.save();
-
-    await super.get(req, res);
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
+      super.get(req, res);
+    });
   }
 }
