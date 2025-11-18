@@ -42,9 +42,7 @@ export class DocumentManagerController {
 
     if (fileUploadJourneyConfiguration) {
       return res.redirect(fileUploadJourneyConfiguration.getRedirectPath(req));
-    }
-
-    if (req.session.userCase.state === State.AwaitingClarification) {
+    } else if (req.session.userCase.state === State.AwaitingClarification) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);

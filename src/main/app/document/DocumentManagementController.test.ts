@@ -19,6 +19,7 @@ import {
   InterimApplicationType,
   State,
 } from '../case/definition';
+import { FileUploadJourney } from './FileUploadJourneyConfiguration';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -93,6 +94,16 @@ describe('DocumentManagerController', () => {
         },
         applicationType: ApplicationType.SOLE_APPLICATION,
       },
+      {
+        isApplicant2: false,
+        state: State.AosOverdue,
+        uploadFields: {
+          field1: 'applicant1InterimAppsEvidenceDocs',
+          field2: 'applicant1InterimAppsEvidenceUploadedFiles',
+        },
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE,
+      }
     ])('handles file uploads - %o', async ({ applicationType, isApplicant2, state, uploadFields }) => {
       const req = mockRequest({
         isApplicant2,
@@ -501,15 +512,23 @@ describe('DocumentManagerController', () => {
         redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
         applicationType: ApplicationType.SOLE_APPLICATION,
       },
+      {
+        isApplicant2: false,
+        state: State.AosOverdue,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE,
+        redirectUrl: UPLOAD_EVIDENCE_ALTERNATIVE,
+      },
     ])(
       'redirects if deleting & JavaScript is disabled - %o',
-      async ({ applicationType, state, isApplicant2, redirectUrl }) => {
+      async ({ applicationType, state, isApplicant2, redirectUrl, fileUploadJourney }) => {
         const req = mockRequest({
           isApplicant2,
           userCase: {
             state,
             applicationType,
           },
+          session: { fileUploadJourney },
         });
         const res = mockResponse();
 
@@ -583,18 +602,31 @@ describe('DocumentManagerController', () => {
         applicationType: ApplicationType.SOLE_APPLICATION,
         redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
-    ])('deletes an existing file - %o', async ({ applicationType, isApplicant2, state, uploadFields, redirectUrl }) => {
+      {
+        isApplicant2: false,
+        state: State.AosOverdue,
+        uploadFields: {
+          field1: 'applicant1InterimAppsEvidenceDocs',
+          field2: 'applicant1InterimAppsEvidenceUploadedFiles',
+        },
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE,
+        redirectUrl: UPLOAD_EVIDENCE_ALTERNATIVE,
+      },
+    ])('deletes an existing file - %o', async ({ applicationType, isApplicant2, state, uploadFields, redirectUrl, fileUploadJourney }) => {
       const req = mockRequest({
         isApplicant2,
         userCase: {
           state,
           applicationType,
+          applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE,
           [uploadFields.field1]: [
             { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
             { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
             { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
           ],
         },
+        session: { fileUploadJourney },
         appLocals: {
           api: { triggerEvent: jest.fn() },
         },
@@ -694,9 +726,20 @@ describe('DocumentManagerController', () => {
         applicationType: ApplicationType.SOLE_APPLICATION,
         redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
+      {
+        isApplicant2: false,
+        state: State.AosOverdue,
+        uploadFields: {
+          field1: 'applicant1InterimAppsEvidenceDocs',
+          field2: 'applicant1InterimAppsEvidenceUploadedFiles',
+        },
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE,
+        redirectUrl: UPLOAD_EVIDENCE_ALTERNATIVE,
+      },
     ])(
       "redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
-      async ({ applicationType, state, isApplicant2, uploadFields, redirectUrl }) => {
+      async ({ applicationType, state, isApplicant2, uploadFields, redirectUrl, fileUploadJourney }) => {
         const req = mockRequest({
           isApplicant2,
           userCase: {
@@ -708,6 +751,7 @@ describe('DocumentManagerController', () => {
             ],
             applicationType,
           },
+          session: { fileUploadJourney },
           appLocals: {
             api: { triggerEvent: jest.fn() },
           },
@@ -760,9 +804,16 @@ describe('DocumentManagerController', () => {
         applicationType: ApplicationType.SOLE_APPLICATION,
         redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
       },
+      {
+        isApplicant2: false,
+        state: State.AosOverdue,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE,
+        redirectUrl: UPLOAD_EVIDENCE_ALTERNATIVE,
+      },
     ])(
       "redirects if file to deletes doesn't exist - %o",
-      async ({ applicationType, state, isApplicant2, redirectUrl }) => {
+      async ({ applicationType, state, isApplicant2, redirectUrl, fileUploadJourney }) => {
         const req = mockRequest({
           isApplicant2,
           userCase: {
@@ -773,6 +824,7 @@ describe('DocumentManagerController', () => {
               { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
             ],
           },
+          session: { fileUploadJourney },
         });
         req.params = { id: '2' };
         req.headers.accept = 'application/json';
