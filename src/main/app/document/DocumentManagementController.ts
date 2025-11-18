@@ -38,9 +38,10 @@ export class DocumentManagerController {
 
   private redirect(req: AppRequest, res: Response, isApplicant2: boolean) {
     const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
+    const fileUploadJourneyConfiguration = this.getFileUploadJourneyConfiguration(req);
 
-    if (this.getFileUploadJourneyConfiguration(req)) {
-      return res.redirect(this.getFileUploadJourneyConfiguration(req).getRedirectPath(req));
+    if (fileUploadJourneyConfiguration) {
+      return res.redirect(fileUploadJourneyConfiguration.getRedirectPath(req));
     }
 
     if (req.session.userCase.state === State.AwaitingClarification) {
@@ -106,8 +107,8 @@ export class DocumentManagerController {
     }));
 
     let documentsKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
-    if (this.getFileUploadJourneyConfiguration(req)) {
-      documentsKey = this.getFileUploadJourneyConfiguration(req).getUploadPath;
+    if (fileUploadJourneyConfiguration) {
+      documentsKey = fileUploadJourneyConfiguration.uploadPath;
     } else if (req.session.userCase.state === State.AwaitingClarification) {
       documentsKey = 'coClarificationUploadDocuments';
     } else if (
@@ -147,7 +148,7 @@ export class DocumentManagerController {
 
     let documentsUploadedKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
     if (fileUploadJourneyConfiguration) {
-      documentsUploadedKey = fileUploadJourneyConfiguration.getUploadPath;
+      documentsUploadedKey = fileUploadJourneyConfiguration.uploadPath;
     } else if (req.session.userCase.state === State.AwaitingClarification) {
       documentsUploadedKey = 'coClarificationUploadDocuments';
     } else if (
@@ -217,11 +218,13 @@ export class DocumentManagerController {
     );
   }
 
-  private getFileUploadJourneyConfiguration(req: AppRequest): FileUploadJourneyConfiguration {
-    return FileUploadJourneyConfigurationMap[req.session?.fileUploadJourney];
+  private getFileUploadJourneyConfiguration(req: AppRequest): FileUploadJourneyConfiguration | undefined {
+    return req.session?.fileUploadJourney
+      ? FileUploadJourneyConfigurationMap[req.session?.fileUploadJourney]
+      : undefined;
   }
 
-  private validDocumentUpload(fileUploadJourneyConfiguration: FileUploadJourneyConfiguration, req: AppRequest): boolean {
+  private validDocumentUpload(fileUploadJourneyConfiguration: FileUploadJourneyConfiguration | undefined, req: AppRequest): boolean {
     if (fileUploadJourneyConfiguration?.validateUpload) {
       return fileUploadJourneyConfiguration.validateUpload(req);
     } else {

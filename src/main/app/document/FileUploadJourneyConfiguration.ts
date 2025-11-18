@@ -11,14 +11,14 @@ export enum FileUploadPath {
 }
 
 export interface FileUploadJourneyConfiguration {
-  getUploadPath: FileUploadPath;
+  uploadPath: FileUploadPath;
   getRedirectPath: (req: AppRequest) => string;
   validateUpload?: (req: AppRequest) => boolean;
 }
 
 const FileUploadJourneyConfigurationMap: Record<FileUploadJourney, FileUploadJourneyConfiguration> = {
   [FileUploadJourney.ALTERNATIVE_SERVICE]: {
-    getUploadPath: FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
+    uploadPath: FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
     getRedirectPath: () => UPLOAD_EVIDENCE_ALTERNATIVE,
     validateUpload: req => validateServiceApplicationDocumentUpload(req),
   },
