@@ -17,12 +17,12 @@ import {
   Gender,
   State,
 } from '../case/definition';
+import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
 import { isPhoneNoValid } from '../form/validation';
 
 import { PostController } from './PostController';
 
 import Mock = jest.Mock;
-import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
 
 set(config, 'services.idam.systemPassword', 'DUMMY_VALUE_REPLACE');
 
@@ -150,7 +150,10 @@ describe('PostController', () => {
     const controller = new PostController(mockFormContent.fields);
 
     const mockSave = jest.fn(done => done('An error while saving session'));
-    const req = mockRequest({ body, session: { save: mockSave, fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE } });
+    const req = mockRequest({
+      body,
+      session: { save: mockSave, fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE },
+    });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ gender: Gender.FEMALE });
     const res = mockResponse();
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');

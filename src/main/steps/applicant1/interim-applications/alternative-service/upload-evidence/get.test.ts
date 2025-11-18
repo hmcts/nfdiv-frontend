@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfiguration';
 import { ApplicationType, State } from '../../../../../app/case/definition';
+import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfiguration';
 
 import AlternativeServiceUploadEvidenceGetController from './get';
 
@@ -19,8 +19,7 @@ describe('AlternativeServiceUploadEvidenceGetController', () => {
 
       await controller.get(req, res);
 
-      expect(req.session.fileUploadJourney)
-        .toBe(FileUploadJourney.ALTERNATIVE_SERVICE);
+      expect(req.session.fileUploadJourney).toBe(FileUploadJourney.ALTERNATIVE_SERVICE);
     });
   });
 });

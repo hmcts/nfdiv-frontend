@@ -90,6 +90,7 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length === 0) {
       try {
         this.setPaymentCallbackUrlIfPaymentRequired(req, res, formData);
+
         req.session.userCase = await this.save(req, formData, this.getEventName(req));
 
         this.resetSessionFields(req);
