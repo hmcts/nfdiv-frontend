@@ -1,7 +1,8 @@
-import { AlternativeServiceType, ApplicationType } from '../case/definition';
-import { CaseWithId } from '../case/case';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { CaseWithId } from '../case/case';
+import { AlternativeServiceType, ApplicationType } from '../case/definition';
 import type { AppRequest } from '../controller/AppRequest';
+
 import { validateServiceApplicationDocumentUpload } from './FileUploadJourneyConfiguration';
 
 describe('validateServiceApplicationDocumentUpload', () => {
@@ -12,7 +13,7 @@ describe('validateServiceApplicationDocumentUpload', () => {
 
     mockReq.session.userCase = {
       id: '1234',
-      applicationType: ApplicationType.SOLE_APPLICATION
+      applicationType: ApplicationType.SOLE_APPLICATION,
     } as CaseWithId;
     mockReq.session.isApplicant2 = false;
   });
@@ -36,7 +37,7 @@ describe('validateServiceApplicationDocumentUpload', () => {
     expect(validateServiceApplicationDocumentUpload(mockReq)).toBe(false);
   });
 
-  it('should return false if a service application has been submitted', () => {
+  it('should return false if an aos has been submitted', () => {
     mockReq.session.userCase.dateAosSubmitted = '2025-01-01';
     expect(validateServiceApplicationDocumentUpload(mockReq)).toBe(false);
   });

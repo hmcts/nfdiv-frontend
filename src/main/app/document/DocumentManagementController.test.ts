@@ -19,9 +19,9 @@ import {
   InterimApplicationType,
   State,
 } from '../case/definition';
-import { FileUploadJourney } from './FileUploadJourneyConfiguration';
 
 import { DocumentManagerController } from './DocumentManagementController';
+import { FileUploadJourney } from './FileUploadJourneyConfiguration';
 
 const { mockCreate, mockDelete } = require('./CaseDocumentManagementClient');
 
@@ -103,7 +103,7 @@ describe('DocumentManagerController', () => {
         },
         applicationType: ApplicationType.SOLE_APPLICATION,
         fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE,
-      }
+      },
     ])('handles file uploads - %o', async ({ applicationType, isApplicant2, state, uploadFields }) => {
       const req = mockRequest({
         isApplicant2,
@@ -613,62 +613,65 @@ describe('DocumentManagerController', () => {
         fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE,
         redirectUrl: UPLOAD_EVIDENCE_ALTERNATIVE,
       },
-    ])('deletes an existing file - %o', async ({ applicationType, isApplicant2, state, uploadFields, redirectUrl, fileUploadJourney }) => {
-      const req = mockRequest({
-        isApplicant2,
-        userCase: {
-          state,
+    ])(
+      'deletes an existing file - %o',
+      async ({ applicationType, isApplicant2, state, uploadFields, redirectUrl, fileUploadJourney }) => {
+        const req = mockRequest({
+          isApplicant2,
+          userCase: {
+            state,
+            applicationType,
+            applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE,
+            [uploadFields.field1]: [
+              { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+              { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
+              { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+            ],
+          },
+          session: { fileUploadJourney },
+          appLocals: {
+            api: { triggerEvent: jest.fn() },
+          },
+        });
+        req.params = { index: '1' };
+        req.headers.accept = 'application/json';
+        const res = mockResponse();
+
+        const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
+        mockApiTriggerEvent.mockResolvedValue({
           applicationType,
-          applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE,
-          [uploadFields.field1]: [
-            { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
-            { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
-            { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
-          ],
-        },
-        session: { fileUploadJourney },
-        appLocals: {
-          api: { triggerEvent: jest.fn() },
-        },
-      });
-      req.params = { index: '1' };
-      req.headers.accept = 'application/json';
-      const res = mockResponse();
+          state,
+          [uploadFields.field2]: ['an-existing-doc'],
+        });
 
-      const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
-      mockApiTriggerEvent.mockResolvedValue({
-        applicationType,
-        state,
-        [uploadFields.field2]: ['an-existing-doc'],
-      });
+        await documentManagerController.delete(req, res);
 
-      await documentManagerController.delete(req, res);
+        expect(mockApiTriggerEvent).toHaveBeenCalledWith(
+          '1234',
+          {
+            [uploadFields.field1]: [
+              {
+                id: '1',
+                value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } },
+              },
+              {
+                id: '2',
+                value: null,
+              },
+              {
+                id: '3',
+                value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } },
+              },
+            ],
+          },
+          isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
+        );
 
-      expect(mockApiTriggerEvent).toHaveBeenCalledWith(
-        '1234',
-        {
-          [uploadFields.field1]: [
-            {
-              id: '1',
-              value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } },
-            },
-            {
-              id: '2',
-              value: null,
-            },
-            {
-              id: '3',
-              value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } },
-            },
-          ],
-        },
-        isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
-      );
+        expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
 
-      expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
-
-      expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
-    });
+        expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
+      }
+    );
 
     it.each([
       {
