@@ -94,6 +94,18 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });
 
+  test('should show /awaiting-dwp-response.njk for state AwaitingDwpResponse', () => {
+    const theState = displayState.at(State.AwaitingDwpResponse);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-dwp-response.njk');
+  });
+
+  test('should show /awaiting-alternative-service.njk for state AwaitingDwpResponse', () => {
+    const theState = displayState.at(State.AwaitingAlternativeService);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-alternative-service.njk');
+  });
+
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state ConditionalOrderReview', () => {
     const theState = displayState.at(State.ConditionalOrderReview);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
