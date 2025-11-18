@@ -129,7 +129,7 @@ const cannotUploadDocumentList = (
     [DocumentType.MARRIAGE_CERTIFICATE]:
       inTheUk === YesOrNo.NO ? `Fy nhystysgrif ${union} dramor wreiddiol` : `Fy nhystysgrif ${union} wreiddiol`,
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `Cyfieithiad wedi'i ardystio o fy nhystysgrif ${union} dramor`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]: 'Prawf fy mod i wedi newid fy enw',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: 'Tystiolaeth fy mod i wedi newid fy enw',
   };
 
   const documentText = isEnglish ? enDocumentText : cyDocumentText;
@@ -803,10 +803,10 @@ const cy: typeof en = ({
     aboutPartners: {
       line1: `A oes unrhyw rhan o’ch enw (${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
         userCase.applicant1LastNames
-      }) sydd wedi’i ysgrifennu’n wahanol i’ch tystysgrif ${isDivorce ? 'briodas' : 'partneriaeth sifil'}?`,
+      }) sydd wedi’i ysgrifennu’n wahanol i’ch tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}?`,
       line2: `Eich enwau fel y maent yn ymddangos ar eich tystysgrif ${isDivorce ? marriage : civilPartnership}?`,
       line3: `Pam bod eich enw cyfreithiol yn wahanol i sut mae wedi’i ysgrifennu ar y dystysgrif ${
-        isDivorce ? 'briodas' : 'partneriaeth sifil'
+        isDivorce ? 'briodas' : 'bartneriaeth sifil'
       }?`,
       line4: 'Gywbodaeth arall am pam newidioch eich enw',
       line5: 'Sut wnaethoch chi newid eich enw?',
@@ -814,13 +814,13 @@ const cy: typeof en = ({
       line7: `A oes unrhyw rhan o enw eich ${partner} (${userCase.applicant2FirstNames} ${
         userCase.applicant2MiddleNames
       } ${userCase.applicant2LastNames}) sydd wedi’i ysgrifennu’n wahanol i’ch tystysgrif ${
-        isDivorce ? 'briodas' : 'partneriaeth sifil'
+        isDivorce ? 'priodas' : 'partneriaeth sifil'
       }?`,
-      line8: `Sut mae enw eich ${partner} wedi ei ysgrifennu ar y tystysgrif ${
-        isDivorce ? 'briodas' : 'partneriaeth sifil'
+      line8: `Sut mae enw eich ${partner} wedi ei ysgrifennu ar y dystysgrif ${
+        isDivorce ? 'briodas' : 'bartneriaeth sifil'
       }?`,
-      line9: `Pam bod enw cyfreithiol eich ${partner} yn wahanol i sut mae wedi’i ysgrifennu ar y tystysgrif ${
-        isDivorce ? 'briodas' : 'partneriaeth sifil'
+      line9: `Pam bod enw cyfreithiol eich ${partner} yn wahanol i sut mae wedi’i ysgrifennu ar y dystysgrif ${
+        isDivorce ? 'briodas' : 'bartneriaeth sifil'
       }?`,
       line10: `Gwybodaeth arall am pam newidiodd eich ${partner} ei enw`,
       line11: 'Sut wnaethom nhw newid ei enw?',
@@ -980,19 +980,19 @@ const cy: typeof en = ({
         ?.replace(
           ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
           `Ni gafodd rhan o fy enw cyfreithiol ei chynnwys ar y dystysgrif ${
-            isDivorce ? 'briodas' : 'partneriaeth sifil'
+            isDivorce ? 'briodas' : 'bartneriaeth sifil'
           }`
         )
         ?.replace(
           ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
           `Mae rhan o fy enw cyfreithiol wedi'i dalfyrru ar y dystysgrif ${
-            isDivorce ? 'briodas' : 'partneriaeth sifil'
+            isDivorce ? 'briodas' : 'bartneriaeth sifil'
           }`
         )
         ?.replace(
           ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
           `Mae fy enw cyfreithiol wedi'i sillafu'n wahanol ar y dystysgrif ${
-            isDivorce ? 'briodas' : 'partneriaeth sifil'
+            isDivorce ? 'briodas' : 'bartneriaeth sifil'
           }`
         )
         ?.replace(ChangedNameWhy.OTHER, 'Rheswm arall')}`,
@@ -1021,22 +1021,22 @@ const cy: typeof en = ({
         `${stripTags(
           userCase.applicant2WhyNameDifferent
             ?.join(' / ')
-            ?.replace(ChangedNameWhy.DEED_POLL, `Newidiodd fy ${partner} eu henw trwy weithred newid enw`)
+            ?.replace(ChangedNameWhy.DEED_POLL, 'Newidiodd fy mhartner eu henw trwy weithred newid enw')
             ?.replace(
               ChangedNameWhy.CHANGED_PARTS_OF_NAME,
-              `Newidiodd fy ${partner} ei gyfenw neu rannau o'i enw pan wnaethom ni ${
-                isDivorce ? 'briodi' : "ffurfio'r bartneriaeth sifil"
+              `Newidiodd fy mhartner ei gyfenw neu rannau o'i enw pan wnaethom ni ${
+                isDivorce ? 'priodi' : "ffurfio'r bartneriaeth sifil"
               }`
             )
             ?.replace(
               ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED,
-              `Ni gafodd rhan o enw cyfreithiol fy ${partner} ei chynnwys ar y dystysgrif ${
+              `Ni gafodd rhan o enw cyfreithiol fy mhartner ei chynnwys ar y dystysgrif ${
                 isDivorce ? 'briodas' : 'bartneriaeth sifil'
               }`
             )
             ?.replace(
               ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
-              `Mae rhan o enw cyfreithiol fy ${partner} wedi’i dalfyrru ar y dystysgrif ${
+              `Mae rhan o enw cyfreithiol fy mhartner wedi’i dalfyrru ar y dystysgrif ${
                 isDivorce ? 'briodas' : 'bartneriaeth sifil'
               }`
             )
@@ -1096,7 +1096,7 @@ const cy: typeof en = ({
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : userCase.applicant1InRefuge === YesOrNo.YES
-            ? 'Yndw'
+            ? 'Ydw'
             : 'Nac ydw'
       }`,
       line10: `${
@@ -1254,7 +1254,7 @@ const cy: typeof en = ({
         },
         applicant1StatementOfTruth: {
           required:
-            'Nid ydych wedi cadarnhau eich bod yn credu bod y ffeithiau yn y cais yn wir. Mae angen ichi gadarnhau cyn parhau.',
+            'Nid ydych wedi cadarnhau eich bod yn credu bod y ffeithiau yn y cais yn wir. Mae angen i chi gadarnhau cyn parhau.',
         },
       },
 });

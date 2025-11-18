@@ -54,7 +54,7 @@ const cy: typeof en = ({ userCase, isDivorce, partner }) => {
     point4: 'Maent hefyd yn cael eu hadnabod gan enw gwahanol.',
     warningPart1: `Os nad yw enw eich ${partner} ar y dystysgrif ${
       isDivorce ? 'briodas' : 'partneriaeth sifil'
-    } yn cyd-fynd â'r enw rydych wedi'i ddarparu, bydd rhaid i chi uwchlwytho tystiolaeth fel cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru neu dystysgrif geni, gweithred newid enw.`,
+    } yn cyd-fynd â'r enw rydych wedi'i ddarparu, bydd rhaid i chi uwchlwytho tystiolaeth fel cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru, dystysgrif geni, neu gweithred newid enw.`,
     warningPart2: `Os na fyddwch yn darparu tystiolaeth i esbonio'r gwahaniaeth yn enw cyfreithiol eich ${partner} a sut mae wedi'i ysgrifennu ar y dystysgrif ${
       isDivorce ? 'briodas' : 'partneriaeth sifil'
     }, bydd eich gorchymyn amodol yn cael ei oedi hyd nes darperir esboniad neu dystiolaeth.`,

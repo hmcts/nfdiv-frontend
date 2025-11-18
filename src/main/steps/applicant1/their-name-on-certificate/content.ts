@@ -23,7 +23,7 @@ const en = ({ isDivorce, partner }: CommonContent, relationship: string) => {
 
 const cy = ({ isDivorce, partner }: CommonContent, relationship: string) => {
   return {
-    title: `Eich enwau fel y maent yn ymddangos ar eich tystysgrif ${relationship}`,
+    title: `Enw eich ${partner} fel y maent yn ymddangos ar eich tystysgrif ${relationship}`,
     line1: `Dyma'r enwau yr oeddech chi a'ch ${partner} yn eu defnyddio cyn i chi ${
       isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'
     }. Weithiau gallant fod yn wahanol i'ch enwau cyfredol. Gallai hyn fod oherwydd eich bod chi neu eich ${partner} wedi cael cyfenw gwahanol yn y gorffennol (er enghraifft, enw cyn priodi neu wedi newid enw trwy weithred newid enw).`,

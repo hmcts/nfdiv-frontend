@@ -34,24 +34,24 @@ const en = ({ isDivorce, marriage, civilPartnership, partner }, fullName) => {
   };
 };
 
-const cy: typeof en = ({ isDivorce, marriage, civilPartnership, partner }, fullName) => {
+const cy: typeof en = ({ isDivorce, partner }, fullName) => {
   return {
-    title: `Gwiriwch y dystysgrif ${isDivorce ? marriage : civilPartnership} am wahaniaethau yn eich enw`,
+    title: `Gwiriwch y dystysgrif ${isDivorce ? 'briodas' : 'bartneriaeth sifil'} am wahaniaethau yn eich enw`,
     line1: `Mae arnom angen gwybod os yw eich enw yn wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
       isDivorce ? 'briodas' : 'bartneriaeth sifil'
     }.`,
     line2: 'Fe allai hyn fod oherwydd:',
-    point1: `Bod chi neu eich ${partner} wedi newid eich enwau ar ôl i ${
-      isDivorce ? 'chi briodi' : 'ffurfio eich partneriaeth sifil'
+    point1: `Bod chi neu eich ${partner} wedi newid eich enwau ar ôl i chi ${
+      isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
     }. Er enghraifft, os ydych wedi cymryd cyfenw neu enw cyntaf eich ${partner} neu os oes gennych gyfenw dwbl (Sarah Smith-David)`,
-    point2: `Ni gafodd rhan o'ch enw ei chynnwys ar y dystysgrif ${isDivorce ? 'briodas' : 'partneriaeth sifil'}.`,
-    point3: `Mae eich enw wedi'i sillafu'n wahanol ar y dystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}.`,
+    point2: `Ni gafodd rhan o'ch enw ei chynnwys ar y dystysgrif ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}.`,
+    point3: `Mae eich enw wedi'i sillafu'n wahanol ar y dystysgrif ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}.`,
     point4: 'Rydych hefyd yn cael eich adnabod gan enw gwahanol.',
     warning: `Os nad yw'r enw ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'partneriaeth sifil'
-    } yn cyd-fynd â'r enw rydych wedi'i ddarparu, bydd rhaid i chi uwchlwytho tystiolaeth fel cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru neu dystysgrif geni, gweithred newid enw.`,
+      isDivorce ? 'briodas' : 'bartneriaeth sifil'
+    } yn cyd-fynd â'r enw rydych wedi'i ddarparu, bydd rhaid i chi uwchlwytho tystiolaeth fel cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru, dystysgrif geni, neu gweithred newid enw.`,
     doesNameMatchTheCertificate: `A oes unrhyw rhan o’ch enw (${fullName}) sydd wedi’i ysgrifennu’n wahanol i’ch tystysgrif ${
-      isDivorce ? 'briodas' : 'partneriaeth sifil'
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
     }?`,
     yes: 'Oes',
     no: 'Nac oes',

@@ -33,7 +33,7 @@ const cy: typeof en = ({ partner }: CommonContent) => {
   return {
     title: `Nodwch enw eich ${partner}`,
     line1: `Mae’r llys angen gwybod beth yw enw llawn eich ${partner}.`,
-    enterFullNameHint: `Peidiwch â nodi enw wedi'i dalfyrru na llysenw oni bai mai hwnnw yw eich enw cyfreithiol eich ${partner}. Er enghraifft, os mai David yw enw cyfreithiol eich ${partner} yna peidiwch â nodi Dave yn lle David.`,
+    enterFullNameHint: `Peidiwch â nodi enw wedi'i dalfyrru na llysenw oni bai mai hwnnw yw eich enw cyfreithiol eich ${partner}. Er enghraifft, os mai David yw enw cyfreithiol eich ${partner}, yna peidiwch â nodi Dave yn lle David.`,
     firstNames: `Enw(au) cyntaf eich ${partner}`,
     middleNames: `Enw(au) canol eich ${partner} (os oes ganddynt un)`,
     lastNames: `Enw(au) olaf eich ${partner}`,

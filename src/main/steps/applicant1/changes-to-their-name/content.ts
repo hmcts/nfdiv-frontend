@@ -57,10 +57,10 @@ const en = ({ isDivorce, partner }) => ({
 });
 
 const cy = ({ isDivorce, partner }) => ({
-  title: `Pam fod enw cyfreithiol eich gŵr yn wahanol i’r ffordd y mae wedi’i ysgrifennu ar y dystysgrif ${
+  title: `Pam fod enw cyfreithiol eich ${partner} yn wahanol i’r ffordd y mae wedi’i ysgrifennu ar y dystysgrif ${
     isDivorce ? 'briodas' : 'bartneriaeth sifil'
   }?`,
-  line1: `Rhaid i chi esbonio’r rheswm dros y gwahaniaeth, er enghraifft, bu i’ch gŵr newid ei enw pan wnaethoch chi ${
+  line1: `Rhaid i chi esbonio’r rheswm dros y gwahaniaeth, er enghraifft, bu i’ch ${partner} newid ei enw pan wnaethoch chi ${
     isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
   }, neu na gafodd rhan o’i enw cyfreithiol ei chynnwys ar y dystysgrif ${
     isDivorce ? 'briodas' : 'bartneriaeth sifil'
@@ -90,7 +90,7 @@ const cy = ({ isDivorce, partner }) => ({
   anotherWayMoreDetails: `Darparwch fanylion sy’n dangos sut a pryd wnaeth eich ${partner} newid ei enw. Gofynnir i chi uwchlwytho llun neu sgan o’r dogfennau sy’n profi eu bod wedi newid eu henw yn ddiweddarach yn y cais hwn, neu gallwch eu postio nhw atom. Os nad oes gennych unrhyw ddogfennau, esboniwch pam yma.`,
   warning: 'Os na allwch esbonio’r gwahaniaeth trwy ddarparu tystiolaeth, gall gymryd yn hirach i brosesu eich cais.',
   warningMustUploadEvidence:
-    'Bydd rhaid i chi uwchlwytho tystiolaeth fel cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru neu dystysgrif geni, gweithred newid enw.',
+    'Bydd rhaid i chi uwchlwytho tystiolaeth fel cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru dystysgrif geni, neu gweithred newid enw.',
   errors: {
     applicant2WhyNameDifferent: {
       required: `Mae angen i chi ddewis rheswm dros pam bod enw cyfreithiol eich ${partner} yn wahanol i’ch tystysgrif ${

@@ -26,7 +26,7 @@ const en = (
         }, for example a deed poll or 'statutory declaration'`
       : `proof to show why your name${
           isJointApplication ? '' : ` or your ${partner}'s name`
-        } is written differently on your ${union} certificate. For example, a government issued ID, a passport, driving license or birth certificate, deed poll or 'statutory declaration'`,
+        } is written differently on your ${union} certificate. For example, a government issued ID, a passport, driving license, birth certificate, deed poll or 'statutory declaration'`,
     warningPhoto:
       'Make sure the photo or scan is in colour and shows all 4 corners of the document. The certificate number (if it has one) and all the text must be readable. Blurred images will be rejected, delaying your application.',
     infoTakePhoto: 'You can take a picture with your phone and upload it',
@@ -95,10 +95,10 @@ const cy = (
           isJointApplication ? 'wedi newid fy enw' : 'neu fy mhartner wedi newid ein henwau'
         }, er enghraifft gweithred newid enw neu ddatganiad statudol.`
       : `Tystiolaeth yn dangos pam bod eich enw ${
-          isJointApplication ? '' : 'neu enw eich ${partner}'
+          isJointApplication ? '' : `neu enw eich ${partner}`
         } wedi'i ysgrifennu'n wahanol ar eich ${
           isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
-        }. Er enghraifft, cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru neu dystysgrif geni, gweithred newid enw neu 'ddatganiad statudol'.`,
+        }. Er enghraifft, cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru, tystysgrif geni, gweithred newid enw neu 'ddatganiad statudol'.`,
     warningPhoto:
       "Gwnewch yn siŵr bod y llun neu'r sgan yn dangos y ddogfen gyfan. Gwiriwch eich bod yn gallu darllen y testun i gyd cyn ei uwchlwytho. Os na all staff y llys ddarllen y manylion, efallai bydd yn cael ei wrthod.",
     infoTakePhoto: "Gallwch dynnu llun gyda'ch ffôn a'i uwchlwytho",
@@ -123,7 +123,7 @@ const cy = (
     cannotUploadDocuments: 'Ni allaf uwchlwytho rhai neu bob un o fy nogfennau',
     cannotUploadWhich: 'Pa ddogfen na allwch ei huwchlwytho?',
     checkAllThatApply: "Dewiswch bob un sy'n berthnasol",
-    cannotUploadYouCanPost: `<p class="govuk-body govuk-!-margin-top-5">Gallwch bostio neu e-bostio eich dogfennau i'r llys. Os byddwch yn eu postio, rhaid ichi anfon y dogfennau gwreiddiol neu gopïau wedi'u hardystio. Byddwch yn cael manylion am sut i'w hanfon ar ôl ichi gyflwyno'r cais hwn.</p>
+    cannotUploadYouCanPost: `<p class="govuk-body govuk-!-margin-top-5">Gallwch bostio neu e-bostio eich dogfennau i'r llys. Os byddwch yn eu postio, rhaid i chi anfon y dogfennau gwreiddiol neu gopïau wedi'u hardystio. Byddwch yn cael manylion am sut i'w hanfon ar ôl i chi gyflwyno'r cais hwn.</p>
       <p class="govuk-body">Ewch ymlaen gyda'ch cais.</p>`,
     cannotUploadCertificateSingular: `Ni allaf uwchlwytho fy nhystysgrif ${union} wreiddiol`,
     cannotUploadForeignCertificateSingular: `Ni allaf uwchlwytho fy nhystysgrif ${union} dramor wreiddiol`,
@@ -131,9 +131,9 @@ const cy = (
     cannotUploadForeignCertificate: `Fy nhystysgrif ${union} dramor wreiddiol`,
     cannotUploadForeignCertificateTranslation: `Cyfieithiad wedi'i ardystio o fy nhystysgrif ${union} dramor`,
     cannotUploadNameChangeProof: nameChangedIntentionally
-      ? 'Tystiolaeth fy mod i neu fy mhartner wedi newid ein henwau.'
-      : `Tystiolaeth yn dangos pam bod eich enw neu enw eich ${partner} wedi'i ysgrifennu'n wahanol ar eich ${
-          isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
+      ? 'Tystiolaeth fy mod i neu fy mhartner wedi newid ein henwau'
+      : `Tystiolaeth yn dangos pam bod fy enw neu enw fy mhartner wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
+          isDivorce ? 'briodas' : 'bartneriaeth sifil'
         }`,
     errors: {
       applicant1UploadedFiles: {
