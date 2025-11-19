@@ -115,6 +115,8 @@ const cannotUploadDocumentList = (
   isEnglish: boolean,
   marriage: string,
   civilPartnership: string,
+  partner: string,
+  isJointApplication: boolean,
   { inTheUk, applicant1CannotUploadDocuments }: { inTheUk: YesOrNo; applicant1CannotUploadDocuments: [] }
 ): string => {
   const union = isDivorce ? marriage : civilPartnership;
@@ -122,14 +124,18 @@ const cannotUploadDocumentList = (
     [DocumentType.MARRIAGE_CERTIFICATE]:
       inTheUk === YesOrNo.NO ? `My original foreign ${union} certificate` : `My original ${union} certificate`,
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of my foreign ${union} certificate`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]: 'Proof that I changed my name',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Proof showing why my name${
+      isJointApplication ? '' : ` or my ${partner}'s name`
+    } is written differently on my ${union} certificate`,
   };
 
   const cyDocumentText = {
     [DocumentType.MARRIAGE_CERTIFICATE]:
       inTheUk === YesOrNo.NO ? `Fy nhystysgrif ${union} dramor wreiddiol` : `Fy nhystysgrif ${union} wreiddiol`,
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `Cyfieithiad wedi'i ardystio o fy nhystysgrif ${union} dramor`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]: 'Tystiolaeth fy mod i wedi newid fy enw',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Tystiolaeth yn dangos pam bod fy enw neu enw fy mhartner wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
+      isDivorce ? 'briodas' : 'bartneriaeth sifil'
+    }`,
   };
 
   const documentText = isEnglish ? enDocumentText : cyDocumentText;
@@ -592,7 +598,7 @@ const en = ({
       }`,
       line2: `${
         userCase.applicant1CannotUploadDocuments && userCase.applicant1CannotUploadDocuments.length
-          ? cannotUploadDocumentList(isDivorce, true, marriage, civilPartnership, userCase)
+          ? cannotUploadDocumentList(isDivorce, true, marriage, civilPartnership, partner, isJointApplication, userCase)
           : ''
       }`,
     },
@@ -1215,7 +1221,15 @@ const cy: typeof en = ({
       line2: `${
         userCase.applicant1CannotUploadDocuments
           ? userCase.applicant1CannotUploadDocuments.length
-            ? cannotUploadDocumentList(isDivorce, false, marriage, civilPartnership, userCase)
+            ? cannotUploadDocumentList(
+                isDivorce,
+                false,
+                marriage,
+                civilPartnership,
+                partner,
+                isJointApplication,
+                userCase
+              )
             : ''
           : ''
       }`,
