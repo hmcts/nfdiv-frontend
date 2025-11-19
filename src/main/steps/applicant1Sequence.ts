@@ -334,8 +334,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: DO_THEY_HAVE_A_SOLICITOR,
-    getNextStep: data =>
-      data.applicant1IsApplicant2Represented === Applicant2Represented.YES ? DO_YOU_HAVE_ADDRESS : THEIR_EMAIL_ADDRESS,
+    getNextStep: () => DO_YOU_HAVE_ADDRESS,
   },
   {
     url: ENTER_SOLICITOR_DETAILS,
