@@ -24,6 +24,7 @@ import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicati
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
 import {
   ADDRESS_FINDING,
+  ADDRESS_INTERNATIONAL,
   ADDRESS_PRIVATE,
   ADDRESS_WHAT_YOU_NEED,
   APPLICATION_ENDED,
@@ -359,7 +360,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
             ? EMAIL_RESENT
             : IN_THE_UK;
       } else {
-        return DO_YOU_HAVE_ADDRESS;
+        return OTHER_COURT_CASES;
       }
     },
   },
@@ -394,7 +395,11 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: ENTER_THEIR_ADDRESS,
-    getNextStep: data => (isCountryUk(data.applicant2AddressCountry) ? OTHER_COURT_CASES : YOU_NEED_TO_SERVE),
+    getNextStep: data => (data.applicant2AddressOverseas === YesOrNo.YES ? ADDRESS_INTERNATIONAL : THEIR_EMAIL_ADDRESS),
+  },
+  {
+    url: ADDRESS_INTERNATIONAL,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,
