@@ -1,5 +1,4 @@
 import autobind from 'autobind-decorator';
-import { Response } from 'express';
 
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { GetController } from '../../../../../app/controller/GetController';
@@ -13,14 +12,7 @@ export default class AlternativeServiceUploadEvidenceGetController extends GetCo
     super(__dirname + '/template.njk', generateContent);
   }
 
-  public async get(req: AppRequest, res: Response): Promise<void> {
+  protected async setSessionOverrides(req: AppRequest): Promise<void> {
     req.session.fileUploadJourney = FileUploadJourney.ALTERNATIVE_SERVICE;
-
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      super.get(req, res);
-    });
   }
 }

@@ -4,6 +4,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { SupportedLanguages } from '../../modules/i18n';
 import { generateCommonContent } from '../../steps/common/common.content';
 import { DivorceOrDissolution, Gender, State } from '../case/definition';
+import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
 
 import { GetController } from './GetController';
 
@@ -36,6 +37,16 @@ describe('GetController', () => {
       userEmail,
       isRequestForInformationAmendableState: false,
     });
+  });
+
+  test('Should set session default values', async () => {
+    const controller = new GetController('page', generateContent);
+
+    const req = mockRequest({ userCase: { state: State.Draft }, session: { userJourney: FileUploadJourney.ALTERNATIVE_SERVICE } });
+    const res = mockResponse();
+    await controller.get(req, res);
+
+    expect(req.session.fileUploadJourney).toBeUndefined();
   });
 
   test('Detects when application is not in a draft state', async () => {

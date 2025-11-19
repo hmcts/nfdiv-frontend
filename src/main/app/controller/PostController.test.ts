@@ -17,7 +17,6 @@ import {
   Gender,
   State,
 } from '../case/definition';
-import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
 import { isPhoneNoValid } from '../form/validation';
 
 import { PostController } from './PostController';
@@ -190,7 +189,7 @@ describe('PostController', () => {
       id: '1234',
     };
 
-    const req = mockRequest({ body, session: { fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE } });
+    const req = mockRequest({ body });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await controller.post(req, res);
@@ -205,7 +204,6 @@ describe('PostController', () => {
     expect(getNextStepUrlMock).toHaveBeenCalledWith(req, expectedUserCase);
     expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
     expect(req.session.errors).toStrictEqual([]);
-    expect(req.session.fileUploadJourney).toEqual(undefined);
   });
 
   test('Should save the users data and end response for session timeout', async () => {
