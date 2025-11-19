@@ -402,7 +402,7 @@ const cy: typeof en = (
     }.`,
   },
   finalOrderRequested: {
-    line1: `Rydych chi a'c ${partner} wedi datgan eich bod eisiau ${
+    line1: `Rydych chi a'ch ${partner} wedi datgan eich bod eisiau ${
       isDivorce ? 'cadarnhau eich ysgariad' : "dod â'ch partneriaeth sifil i ben"
     }. Bydd eich cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
       isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'partneriaeth eich sifil yn dod i ben yn gyfreithiol'
