@@ -70,5 +70,5 @@ export class GetController {
     req.session.fileUploadJourney = undefined;
   }
 
-  protected setSessionOverrides(req: AppRequest): void {}
+  protected setSessionOverrides(_req: AppRequest): void {}
 }

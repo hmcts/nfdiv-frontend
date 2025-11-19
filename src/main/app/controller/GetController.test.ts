@@ -42,7 +42,10 @@ describe('GetController', () => {
   test('Should set session default values', async () => {
     const controller = new GetController('page', generateContent);
 
-    const req = mockRequest({ userCase: { state: State.Draft }, session: { userJourney: FileUploadJourney.ALTERNATIVE_SERVICE } });
+    const req = mockRequest({
+      userCase: { state: State.Draft },
+      session: { userJourney: FileUploadJourney.ALTERNATIVE_SERVICE },
+    });
     const res = mockResponse();
     await controller.get(req, res);
 
