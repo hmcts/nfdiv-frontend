@@ -2329,6 +2329,8 @@ export const enum State {
   AwaitingFinalOrder = 'AwaitingFinalOrder',
   AwaitingGeneralConsideration = 'AwaitingGeneralConsideration',
   AwaitingGeneralReferralPayment = 'AwaitingGeneralReferralPayment',
+  AwaitingGenAppHWFEvidence = 'AwaitingGenAppHWFEvidence',
+  AwaitingGenAppHWFPartPayment = 'AwaitingGenAppHWFPartPayment',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   AwaitingHWFEvidence = 'AwaitingHWFEvidence',
   AwaitingHWFPartPayment = 'AwaitingHWFPartPayment',
