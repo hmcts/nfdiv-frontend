@@ -17,6 +17,7 @@ import { FeesRegister } from './modules/fees-register';
 import { HealthCheck } from './modules/health';
 import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
+import { LaunchDarkly } from './modules/launch-darkly';
 import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
 import { PropertiesVolume } from './modules/properties-volume';
@@ -45,6 +46,8 @@ app.use((req, res, next) => {
 
     const propertiesVolume = new PropertiesVolume();
     await propertiesVolume.enableFor(app);
+
+    await LaunchDarkly.getInstance().enableFor(app);
 
     new ErrorHandler().enableFor(app, logger);
     new LoadTimeouts().enableFor(app);

@@ -462,6 +462,10 @@ export const generateCommonContent = ({
     userCase?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
   const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
+  const genesysReferrerPage: string =
+    language === SupportedLanguages.En
+      ? config.get('webchat.genesysReferrerPage')
+      : config.get('webchat.genesysReferrerPageCy');
   const genesysDeploymentId: string =
     language === SupportedLanguages.En
       ? config.get('webchat.genesysDeploymentId')
@@ -517,6 +521,7 @@ export const generateCommonContent = ({
     isPendingHearingOutcomeFoRequested,
     interimApplicationType,
     referenceNumber,
+    genesysReferrerPage,
     genesysDeploymentId,
     serviceApplicationType,
     serviceApplicationDate,
@@ -569,6 +574,7 @@ export type CommonContent = typeof en & {
   generalApplicationFeeRequired: boolean;
   generalApplicationDocsAllProvided: boolean;
   generalApplicationSubmittedOnline: boolean;
+  genesysReferrerPage: string;
   genesysDeploymentId: string;
   lastGeneralApplication?: GeneralApplication | undefined;
 };
