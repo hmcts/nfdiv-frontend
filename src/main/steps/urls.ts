@@ -75,7 +75,7 @@ export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
 export const DO_THEY_HAVE_A_SOLICITOR: PageLink = '/do-they-have-a-solicitor';
 export const ENTER_SOLICITOR_DETAILS: PageLink = '/enter-solicitor-details';
 export const ADDRESS_FINDING: PageLink = '/address-finding';
-export const ADDRESS_WHAT_YOU_NEED: PageLink = '/address-what-you-need';
+export const HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS: PageLink = '/how-to-progress-without-an-address';
 
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
 export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';

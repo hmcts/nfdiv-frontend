@@ -27,7 +27,7 @@ const cy: typeof en = ({ partner, required }) => ({
   line1:
     'It’s usually faster and less expensive if you can provide us with a postal address. If you wish to proceed without an address, you will need to complete and pay for an additional application once you have submitted this one.',
   line2: `If you cannot find your ${partner}’s address, you may also provide your partner’s:}`,
-  solicitorAdderss: 'solicitor’s address, if they have one',
+  solicitorAddress: 'solicitor’s address, if they have one',
   workAddress: `work address, if you have your ${partner}’s permission`,
   line3:
     'You could also try looking for them on social media, or contacting their friends or relatives if you feel safe doing so.',

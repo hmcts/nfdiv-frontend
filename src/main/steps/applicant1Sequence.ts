@@ -25,7 +25,6 @@ import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSe
 import {
   ADDRESS_FINDING,
   ADDRESS_PRIVATE,
-  ADDRESS_WHAT_YOU_NEED,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   APPLY_FINANCIAL_ORDER,
@@ -71,6 +70,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
   HOW_TO_FINALISE_APPLICATION,
+  HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
   HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
   IN_THE_UK,
@@ -346,10 +346,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: ADDRESS_FINDING,
     getNextStep: data =>
-      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : ADDRESS_WHAT_YOU_NEED,
+      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
   },
   {
-    url: ADDRESS_WHAT_YOU_NEED,
+    url: HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
