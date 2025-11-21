@@ -1,3 +1,6 @@
+@use 'govuk-frontend' as *;
+@use "sass:map";
+
 .govuk-template--rebranded nav {
   float: right;
   margin: 0;
