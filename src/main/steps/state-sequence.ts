@@ -48,6 +48,7 @@ export const orderedStateSequence: State[] = [
   State.Applicant2Approved,
   State.AwaitingHWFDecision,
   State.AwaitingHWFEvidence,
+  State.AwaitingHWFPartPayment,
   State.WelshTranslationReview,
   State.WelshTranslationRequested,
   State.AwaitingPayment,
