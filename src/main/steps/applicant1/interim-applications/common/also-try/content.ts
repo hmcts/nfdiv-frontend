@@ -5,18 +5,19 @@ import {
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   NEW_POSTAL_AND_EMAIL,
+  NO_RESP_ADDRESS_ENTER_ADDRESS,
   PARTNER_IN_PERSON,
   SEARCH_GOV_RECORDS_APPLICATION,
 } from '../../../../urls';
 
-const en = ({ isDivorce, partner }: CommonContent) => ({
+const en = ({ isDivorce, partner }: CommonContent, updateDetailsLinkPath) => ({
   alsoTry: {
     header: 'You could also try:',
     options: {
       applyBailiff: `applying to have a <a class="govuk-link" href="${PARTNER_IN_PERSON}"">bailiff serve the papers</a> to your ${partner} in person.`,
       applyProcessServer: `applying to have a <a class="govuk-link" href="${PARTNER_IN_PERSON}"">process server serve the papers</a> to your ${partner} in person.`,
       applyProcessServerOrBailiff: `applying to have a <a class="govuk-link" href="${PARTNER_IN_PERSON}"">bailiff or process server serve the papers</a> to your ${partner} in person.`,
-      updateDetails: `<a class="govuk-link" href="${NEW_POSTAL_AND_EMAIL}">updating your ${partner}'s contact details</a> so that the court can send the ${
+      updateDetails: `<a class="govuk-link" href="${updateDetailsLinkPath}">updating your ${partner}'s contact details</a> so that the court can send the ${
         isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
       } to their new address.`,
       differentWay: `applying to <a class="govuk-link" href="${ALTERNATIVE_SERVICE_APPLICATION}">have your ${
@@ -32,14 +33,14 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
 });
 
 // @TODO translations should be completed and verified
-const cy = ({ isDivorce, partner }: CommonContent) => ({
+const cy = ({ isDivorce, partner }: CommonContent, updateDetailsLinkPath) => ({
   alsoTry: {
     header: 'Gallwch hefyd geisio:',
     options: {
       applyBailiff: `gwneud cais i <a class="govuk-link" href="${PARTNER_IN_PERSON}"">feili gyflwyno’r papurau</a> i’ch ${partner} yn bersonol.`,
       applyProcessServer: `gwneud cais i <a class="govuk-link" href="${PARTNER_IN_PERSON}"">weinyddwr proses gyflwyno’r papurau</a> i’ch ${partner} yn bersonol.`,
       applyProcessServerOrBailiff: `gwneud cais i <a class="govuk-link" href="${PARTNER_IN_PERSON}"">feili neu weinyddwr proses gyflwyno’r papurau</a> i’ch ${partner} yn bersonol.`,
-      updateDetails: `<a class="govuk-link" href="${NEW_POSTAL_AND_EMAIL}">diweddaru manylion cyswllt eich ${partner}</a> fel y gall y llys anfon papurau’r ${
+      updateDetails: `<a class="govuk-link" href="${updateDetailsLinkPath}">diweddaru manylion cyswllt eich ${partner}</a> fel y gall y llys anfon papurau’r ${
         isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
       } i’w cyfeiriad newydd.`,
       differentWay: `gwneud cais i <a class="govuk-link" href="${ALTERNATIVE_SERVICE_APPLICATION}">bapurau eich ${
@@ -60,7 +61,11 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const updateDetailsLinkPath = content.caseHasBeenIssued
+    ? NEW_POSTAL_AND_EMAIL
+    : NO_RESP_ADDRESS_ENTER_ADDRESS;
+
+  const translations = languages[content.language](content, updateDetailsLinkPath);
   return {
     ...translations,
   };
