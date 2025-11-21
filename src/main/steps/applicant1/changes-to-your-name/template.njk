@@ -1,0 +1,16 @@
+{% extends "common/page.njk" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% block error_summary %}
+        {% include "common/error/summary.njk" %}
+      {% endblock %}
+
+      <h1 class="govuk-heading-l">{{ title }}</h1>
+      <p class="govuk-body">{{ line1 }}</p>
+
+      {% include "./form.njk" %}
+    </div>
+  </div>
+{% endblock %}
