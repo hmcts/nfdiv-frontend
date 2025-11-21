@@ -39,12 +39,17 @@ export class DocumentManagerController {
   private redirect(req: AppRequest, res: Response, isApplicant2: boolean) {
     const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
     const fileUploadJourneyConfiguration = this.getFileUploadJourneyConfiguration(req);
+<<<<<<< HEAD
 
     if (fileUploadJourneyConfiguration) {
       return res.redirect(fileUploadJourneyConfiguration.getRedirectPath(req));
     }
+=======
+>>>>>>> nfdiv-5072-rework-frontend-document-management
 
-    if (req.session.userCase.state === State.AwaitingClarification) {
+    if (fileUploadJourneyConfiguration) {
+      return res.redirect(fileUploadJourneyConfiguration.getRedirectPath(req));
+    } else if (req.session.userCase.state === State.AwaitingClarification) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${PROVIDE_INFORMATION_TO_THE_COURT}`);
     } else if ([State.InformationRequested, State.RequestedInformationSubmitted].includes(req.session.userCase.state)) {
       return res.redirect(`${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`);
@@ -224,7 +229,10 @@ export class DocumentManagerController {
       : undefined;
   }
 
-  private validDocumentUpload(fileUploadJourneyConfiguration: FileUploadJourneyConfiguration | undefined, req: AppRequest): boolean {
+  private validDocumentUpload(
+    fileUploadJourneyConfiguration: FileUploadJourneyConfiguration | undefined,
+    req: AppRequest
+  ): boolean {
     if (fileUploadJourneyConfiguration?.validateUpload) {
       return fileUploadJourneyConfiguration.validateUpload(req);
     } else {

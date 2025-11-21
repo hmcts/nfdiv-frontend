@@ -24,7 +24,7 @@ const FileUploadJourneyConfigurationMap: Record<FileUploadJourney, FileUploadJou
   },
 };
 
-const validateServiceApplicationDocumentUpload = (req: AppRequest): boolean => {
+export const validateServiceApplicationDocumentUpload = (req: AppRequest): boolean => {
   return (
     req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
     !req.session.isApplicant2 &&
