@@ -39,13 +39,6 @@ export class DocumentManagerController {
   private redirect(req: AppRequest, res: Response, isApplicant2: boolean) {
     const isSole = req.session.userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
     const fileUploadJourneyConfiguration = this.getFileUploadJourneyConfiguration(req);
-<<<<<<< HEAD
-
-    if (fileUploadJourneyConfiguration) {
-      return res.redirect(fileUploadJourneyConfiguration.getRedirectPath(req));
-    }
-=======
->>>>>>> nfdiv-5072-rework-frontend-document-management
 
     if (fileUploadJourneyConfiguration) {
       return res.redirect(fileUploadJourneyConfiguration.getRedirectPath(req));
