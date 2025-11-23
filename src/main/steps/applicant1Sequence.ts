@@ -26,7 +26,6 @@ import {
   ADDRESS_FINDING,
   ADDRESS_INTERNATIONAL,
   ADDRESS_PRIVATE,
-  ADDRESS_WHAT_YOU_NEED,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
   APPLY_FINANCIAL_ORDER,
@@ -72,6 +71,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
   HOW_TO_FINALISE_APPLICATION,
+  HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
   HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
   IN_THE_UK,
@@ -347,10 +347,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: ADDRESS_FINDING,
     getNextStep: data =>
-      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : ADDRESS_WHAT_YOU_NEED,
+      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
   },
   {
-    url: ADDRESS_WHAT_YOU_NEED,
+    url: HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
@@ -374,19 +374,8 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: DO_YOU_HAVE_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.applicant1IsApplicant2Represented === Applicant2Represented.YES) {
-        return data.applicant1KnowsApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : ADDRESS_FINDING;
-      } else if (
-        data.applicant1KnowsApplicant2Address === YesOrNo.NO &&
-        !(
-          data.applicant2SolicitorEmail ||
-          (data.applicant2SolicitorAddressPostcode && data.applicant2SolicitorFirmName) ||
-          (data.applicant2SolicitorAddressPostcode && data.applicant2SolicitorAddress1)
-        )
-      ) {
-        return NEED_TO_GET_ADDRESS;
-      } else if (data.applicant1KnowsApplicant2Address === YesOrNo.NO) {
-        return OTHER_COURT_CASES;
+      if (data.applicant1KnowsApplicant2Address === YesOrNo.NO) {
+        return ADDRESS_FINDING;
       } else {
         return ENTER_THEIR_ADDRESS;
       }

@@ -1,6 +1,7 @@
 import config from 'config';
 
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 
 const en = ({ isDivorce, partner }) => ({
@@ -11,7 +12,9 @@ const en = ({ isDivorce, partner }) => ({
   line2: `You’ll be able to do this once you’ve submitted your ${
     isDivorce ? 'divorce application' : 'application to end civil partnership'
   }.`,
-  line3: `This will cost £58, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+  line3: `This will cost ${getFee(
+    config.get('fees.alternativeService')
+  )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
   line4:
@@ -28,7 +31,9 @@ const cy: typeof en = ({ isDivorce, partner }) => ({
   line2: `You’ll be able to do this once you’ve submitted your ${
     isDivorce ? 'divorce application' : 'application to end civil partnership'
   }.`,
-  line3: `This will cost £58, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+  line3: `This will cost ${getFee(
+    config.get('fees.alternativeService')
+  )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
   line4:
