@@ -463,7 +463,6 @@ export interface Case {
   applicant2EmailAddress?: string;
   applicant1DoesNotKnowApplicant2EmailAddress?: Checkbox;
   applicant1KnowsApplicant2Address?: YesOrNo;
-  iWantToHavePapersServedAnotherWay?: Checkbox;
   applicant1LegalProceedings?: YesOrNo;
   applicant1LegalProceedingsDetails?: string;
   applicant2LegalProceedings?: YesOrNo;

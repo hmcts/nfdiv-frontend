@@ -30,13 +30,7 @@ const en = (
   title: `${
     furtherActionRequired
       ? 'Further action needed'
-      : `Application ${
-          userCase.applicant1CannotUpload ||
-          userCase.applicant2CannotUpload ||
-          userCase.iWantToHavePapersServedAnotherWay
-            ? 'saved'
-            : 'submitted'
-        }`
+      : `Application ${userCase.applicant1CannotUpload || userCase.applicant2CannotUpload ? 'saved' : 'submitted'}`
   }`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
@@ -179,9 +173,7 @@ const cy: typeof en = ({
   feedbackLink,
 }: CommonContent) => ({
   title: `${
-    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
-      ? 'Cais wedi’i gadw'
-      : 'Cyflwynwyd y cais'
+    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload ? 'Cais wedi’i gadw' : 'Cyflwynwyd y cais'
   }`,
   yourReferenceNumber: 'Eich cyfeirnod yw',
   subHeading1: 'Beth sydd angen i chi ei wneud nawr',
@@ -319,11 +311,7 @@ export const generateContent: TranslationFn = content => {
     userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
   const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
   const applicationServedAnotherWay =
-    !isJointApplication &&
-    userCase.applicant2Email &&
-    !isRespondentOverseas &&
-    !userCase.iWantToHavePapersServedAnotherWay &&
-    !hasASolicitorContactForPartner;
+    !isJointApplication && userCase.applicant2Email && !isRespondentOverseas && !hasASolicitorContactForPartner;
   const cannotUploadDocuments = new Set([
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),

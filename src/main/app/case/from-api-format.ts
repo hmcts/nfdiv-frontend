@@ -87,9 +87,6 @@ const fields: FromApiConverters = {
   applicant1InRefuge: ({ applicant1InRefuge }) => ({
     applicant1InRefuge: applicant1InRefuge ?? YesOrNo.NO,
   }),
-  applicant1WantsToHavePapersServedAnotherWay: data => ({
-    iWantToHavePapersServedAnotherWay: checkboxConverter(data.applicant1WantsToHavePapersServedAnotherWay),
-  }),
   applicant2ContactDetailsType: ({ applicant2ContactDetailsType }) => ({
     applicant2AddressPrivate: applicant2ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),

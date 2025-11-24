@@ -404,7 +404,6 @@ export interface Application {
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
-  applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
   serviceMethod: ServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
   solStatementOfReconciliationDiscussed: YesOrNo;
@@ -673,7 +672,6 @@ export interface CaseData {
   divorceWho: WhoDivorcing;
   solUrgentCase: YesOrNo;
   solUrgentCaseSupportingInformation: string;
-  applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
   serviceMethod: ServiceMethod;
   solStatementOfReconciliationCertify: YesOrNo;
   solStatementOfReconciliationDiscussed: YesOrNo;
@@ -1750,7 +1748,6 @@ export interface SwitchedToSole {
   applicant1KnowsApplicant2EmailAddress: YesOrNo;
   applicant1KnowsApplicant2Address: YesOrNo;
   app2ContactMethodIsDigital: YesOrNo;
-  applicant1WantsToHavePapersServedAnotherWay: YesOrNo;
   applicant2ConfirmApplicant1Information: YesOrNo;
   applicant2ExplainsApplicant1IncorrectInformation: string;
   applicant1IsApplicant2Represented: Applicant2Represented;

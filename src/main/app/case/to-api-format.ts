@@ -179,9 +179,6 @@ const fields: ToApiConverters = {
     applicant1KnowsApplicant2EmailAddress:
       data.applicant1DoesNotKnowApplicant2EmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
   }),
-  iWantToHavePapersServedAnotherWay: data => ({
-    applicant1WantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
-  }),
   applicant1NameChangedHowOtherDetails: data => ({
     applicant1NameChangedHowOtherDetails: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
       ? data.applicant1NameChangedHowOtherDetails
@@ -315,7 +312,7 @@ const fields: ToApiConverters = {
             'applicant2AddressTown',
           ])
         )
-      : setUnreachableAnswersToNull(['applicant1WantsToHavePapersServedAnotherWay'])),
+      : {}),
   }),
   applicant2AddressOverseas: ({ applicant2AddressOverseas }) => ({
     applicant2AddressOverseas: applicant2AddressOverseas ?? YesOrNo.NO,

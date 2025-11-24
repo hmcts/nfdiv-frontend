@@ -120,11 +120,7 @@ export const generateContent: TranslationFn = content => {
     userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
   const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
   const applicationServedAnotherWay =
-    !isJointApplication &&
-    userCase.applicant2Email &&
-    !isRespondentOverseas &&
-    !userCase.iWantToHavePapersServedAnotherWay &&
-    !hasASolicitorContactForPartner;
+    !isJointApplication && userCase.applicant2Email && !isRespondentOverseas && !hasASolicitorContactForPartner;
   const cannotUploadDocuments = new Set([
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),

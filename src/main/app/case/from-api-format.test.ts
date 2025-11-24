@@ -24,7 +24,6 @@ describe('from-api-format', () => {
     applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
     applicant1InRefuge: YesOrNo.NO,
     applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
-    applicant1WantsToHavePapersServedAnotherWay: undefined,
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2ContactDetailsType: ContactDetailsType.PUBLIC,
