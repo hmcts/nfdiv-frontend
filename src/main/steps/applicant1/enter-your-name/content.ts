@@ -36,7 +36,7 @@ const cy: typeof en = () => {
     line1: 'Mae’r llys angen gwybod eich enw llawn.',
     enterFullNameHint:
       'Peidiwch â nodi enw wedi’i dalfyrru na llysenw oni bai mai hwnnw yw eich enw cyfreithiol. Er enghraifft, os mai David yw eich enw cyfreithiol, yna peidiwch â nodi Dave yn lle David.',
-    middleNameHint: 'Rhaid ichi nodi eich enw canol os oes gennych un.',
+    middleNameHint: 'Rhaid i chi nodi eich enw canol os oes gennych un.',
     firstNames: 'Eich enw(au) cyntaf',
     middleNames: 'Eich enw(au) canol (os oes gennych un)',
     lastNames: 'Eich cyfenw(au)',

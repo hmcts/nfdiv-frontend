@@ -32,9 +32,15 @@ const cy = ({ isDivorce, partner }: CommonContent, relationship: string) => {
     line1: `Dyma'r enwau yr oeddech chi a'ch ${partner} yn eu defnyddio cyn i chi ${
       isDivorce ? 'priodi' : 'ffurfio eich partneriaeth sifil'
     }. Weithiau gallant fod yn wahanol i'ch enwau cyfredol. Gallai hyn fod oherwydd eich bod chi neu eich ${partner} wedi cael cyfenw gwahanol yn y gorffennol (er enghraifft, enw cyn priodi neu wedi newid enw trwy weithred newid enw).`,
-    warningText: `Copïwch union eriad y dystysgrif ${relationship}. Er enghraifft, os yw'n dweud ‘Sarah Brown (a elwid yn flaenorol yn Sarah Smith)’, yna rhowch hynny.`,
-    applicant1FullNameOnCertificate: `Copïwch eich enw yn llawn fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
-    applicant2FullNameOnCertificate: `Copïwch enw llawn eich ${partner} fel y mae'n ymddangos ar y dystysgrif ${relationship}`,
+    warningText: `Copïwch union eriad y dystysgrif ${
+      isDivorce ? 'briodas' : 'bartneriaeth sifil'
+    }. Er enghraifft, os yw'n dweud ‘Sarah Brown (a elwid yn flaenorol yn Sarah Smith)’, yna rhowch hynny.`,
+    applicant1FullNameOnCertificate: `Copïwch eich enw yn llawn fel y mae'n ymddangos ar y dystysgrif ${
+      isDivorce ? 'briodas' : 'bartneriaeth sifil'
+    }`,
+    applicant2FullNameOnCertificate: `Copïwch enw llawn eich ${partner} fel y mae'n ymddangos ar y dystysgrif ${
+      isDivorce ? 'briodas' : 'bartneriaeth sifil'
+    }`,
     hint: 'Dylech gynnwys testun eich enw yn llawn',
     errors: {
       applicant1FullNameOnCertificate: {

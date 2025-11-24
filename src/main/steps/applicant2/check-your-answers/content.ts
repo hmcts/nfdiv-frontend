@@ -201,13 +201,13 @@ const cy: typeof en = ({ isDivorce, userCase, isApplicant2 }) => ({
         ?.replace(
           ChangedNameWhy.PART_OF_NAME_ABBREVIATED,
           `Mae rhan o fy enw cyfreithiol wedi'i dalfyrru ar y dystysgrif ${
-            isDivorce ? 'briodas' : 'partneriaeth sifil'
+            isDivorce ? 'briodas' : 'bartneriaeth sifil'
           }`
         )
         ?.replace(
           ChangedNameWhy.LEGAL_NAME_SPELLED_DIFFERENTLY,
           `Mae fy enw cyfreithiol wedi'i sillafu'n wahanol ar y dystysgrif ${
-            isDivorce ? 'briodas' : 'partneriaeth sifil'
+            isDivorce ? 'briodas' : 'bartneriaeth sifil'
           }`
         )
         ?.replace(ChangedNameWhy.OTHER, 'Rheswm arall')}`,

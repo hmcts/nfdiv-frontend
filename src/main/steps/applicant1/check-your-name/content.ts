@@ -12,7 +12,7 @@ const en = ({ isDivorce, marriage, civilPartnership, partner }, fullName) => {
     line2: 'This could be because:',
     point1: `You or your ${partner} changed your names after you ${
       isDivorce ? 'got married' : 'formed your civil partnership'
-    }. For example, if you have taken your ${partner}'s last name or first name or you have a double-barrelled name (Sarah Smith-David)`,
+    }. For example, if you have taken your ${partner}'s last name or first name or you have a double-barrelled name (Sarah Smith-David).`,
     point2: `Part of your name was not included on the ${isDivorce ? marriage : civilPartnership} certificate.`,
     point3: `Your name is spelt differently on the ${isDivorce ? marriage : civilPartnership} certificate.`,
     point4: 'You are also known by a different name.',
@@ -37,13 +37,13 @@ const en = ({ isDivorce, marriage, civilPartnership, partner }, fullName) => {
 const cy: typeof en = ({ isDivorce, partner }, fullName) => {
   return {
     title: `Gwiriwch y dystysgrif ${isDivorce ? 'briodas' : 'bartneriaeth sifil'} am wahaniaethau yn eich enw`,
-    line1: `Mae arnom angen gwybod os yw eich enw yn wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
+    line1: `Mae arnom angen gwybod os yw eich enw wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
       isDivorce ? 'briodas' : 'bartneriaeth sifil'
     }.`,
     line2: 'Fe allai hyn fod oherwydd:',
     point1: `Bod chi neu eich ${partner} wedi newid eich enwau ar ôl i chi ${
       isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
-    }. Er enghraifft, os ydych wedi cymryd cyfenw neu enw cyntaf eich ${partner} neu os oes gennych gyfenw dwbl (Sarah Smith-David)`,
+    }. Er enghraifft, os ydych wedi cymryd cyfenw neu enw cyntaf eich ${partner} neu os oes gennych gyfenw dwbl (Sarah Smith-David).`,
     point2: `Ni gafodd rhan o'ch enw ei chynnwys ar y dystysgrif ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}.`,
     point3: `Mae eich enw wedi'i sillafu'n wahanol ar y dystysgrif ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}.`,
     point4: 'Rydych hefyd yn cael eich adnabod gan enw gwahanol.',
