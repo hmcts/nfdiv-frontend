@@ -9,27 +9,42 @@ import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
-import { HUB_PAGE } from '../../urls';
+import { HUB_PAGE, OPTIONS_FOR_PROGRESSING } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
-const en = ({
-  applicationHasBeenPaidFor,
-  isDivorce,
-  userCase,
-  partner,
-  referenceNumber,
-  isJointApplication,
-  webChat,
-  openingTimes,
-  telephoneNumber,
-  feedbackLink,
-}: CommonContent) => ({
-  title: `Application ${userCase.applicant1CannotUpload || userCase.applicant2CannotUpload ? 'saved' : 'submitted'}`,
+const en = (
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    userCase,
+    partner,
+    referenceNumber,
+    isJointApplication,
+    webChat,
+    openingTimes,
+    telephoneNumber,
+    feedbackLink,
+  }: CommonContent,
+  furtherActionRequired: boolean
+) => ({
+  title: `${
+    furtherActionRequired
+      ? 'Further action needed'
+      : `Application ${userCase.applicant1CannotUpload || userCase.applicant2CannotUpload ? 'saved' : 'submitted'}`
+  }`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
-  line1: 'Your application will not be processed until you have done the following:',
+  line1: `${
+    furtherActionRequired
+      ? 'You have submitted your application, but you have not yet provided an address.'
+      : 'Your application will not be processed until you have done the following:'
+  }`,
   subHeading2: 'Send your documents to the court',
-  line2: 'You need to send the following documents to the court because you did not upload them earlier:',
+  line2: `${
+    furtherActionRequired
+      ? `We will not be able to process your application until you either <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>provide an address or apply to the court to progress your application another way</a>.}`
+      : 'You need to send the following documents to the court because you did not upload them earlier:'
+  }`,
   documents: {
     [DocumentType.MARRIAGE_CERTIFICATE]:
       userCase.inTheUk === YesOrNo.NO
@@ -138,6 +153,10 @@ const en = ({
     link: feedbackLink,
   },
   useOurOnlineForm: 'Use our online form',
+  hubUrl: {
+    text: 'Return to your account',
+    url: HUB_PAGE,
+  },
 });
 
 // @TODO Welsh
@@ -270,6 +289,10 @@ const cy: typeof en = ({
     part1: 'Rhoi adborth.',
     link: feedbackLink,
   },
+  hubUrl: {
+    text: 'Dychwelyd i’ch cyfri',
+    url: HUB_PAGE,
+  },
 });
 
 const languages = {
@@ -293,9 +316,13 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
+  const furtherActionRequired =
+    userCase.applicant1KnowsApplicant2Address === YesOrNo.NO ||
+    userCase.applicant1FoundApplicant2Address === YesOrNo.NO;
+
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
   return {
-    ...languages[language]({ ...content, referenceNumber }),
+    ...languages[language]({ ...content, referenceNumber }, furtherActionRequired),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,
@@ -304,5 +331,6 @@ export const generateContent: TranslationFn = content => {
     referenceNumber,
     cannotUploadDocuments,
     ...progressBarContent,
+    furtherActionRequired,
   };
 };
