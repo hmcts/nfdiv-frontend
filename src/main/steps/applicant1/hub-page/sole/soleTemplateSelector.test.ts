@@ -439,6 +439,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 
+  test('should show /awaiting-hwf-part-payment.njk for state AwaitingHWFPartPayment', () => {
+    const theState = displayState.at(State.AwaitingHWFPartPayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingHWFPartPayment);
+  });
+
   test('should show /awaiting-documents.njk for state AwaitingHWFDecision and reason is "cannot upload documents"', () => {
     const userCaseWithApplicant1CannotUploadDocuments = {
       ...userCase,
