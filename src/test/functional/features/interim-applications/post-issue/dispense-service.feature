@@ -1,4 +1,4 @@
-Feature: Dispense with service journey
+Feature: Dispense with service journey post-issue
 
   Background:
     Given I create a new user and login
