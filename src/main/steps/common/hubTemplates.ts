@@ -43,4 +43,5 @@ export const enum HubTemplate {
   WelshTranslationRequestedOrReview = '/welsh-translation-requested-or-review.njk',
   AwaitingDwpResponse = '/awaiting-dwp-response.njk',
   AwaitingAlternativeService = '/awaiting-alternative-service.njk',
+  AwaitingGenAppHWFPartPaymentOrEvidence = '/awaiting-gen-app-hwf-part-payment-or-evidence.njk',
 }

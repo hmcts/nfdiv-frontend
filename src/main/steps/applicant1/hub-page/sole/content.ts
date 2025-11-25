@@ -527,6 +527,10 @@ const en = (
     line1: 'The court has approved your application for alternative service.',
     line2: 'We are now awaiting completion of service through the method of service that was approved by the court.',
   },
+  awaitingGenAppHwfPartPaymentOrEvidence: {
+    line1:
+      'The court is reviewing your application and help with fees reference number. You will receive an email notification confirming what you need to do next.',
+  },
 });
 
 // @TODO translations
@@ -1031,6 +1035,10 @@ const cy: typeof en = (
   awaitingAlternativeService: {
     line1: 'Mae’r llys wedi cymeradwyo eich cais am gyflwyno amgen.',
     line2: 'Rydym nawr yn aros i gwblhau cyflwyno drwy’r dull cyflwyno a gymeradwywyd gan y llys.',
+  },
+  awaitingGenAppHwfPartPaymentOrEvidence: {
+    line1:
+      'Mae’r llys yn adolygu eich cais a’ch cyfeirnod help i dalu ffioedd.  Byddwch yn derbyn e-bost yn cadarnhau beth rydych angen ei wneud nesaf.',
   },
 });
 

@@ -54,9 +54,9 @@ export const getSoleHubTemplate = (
     case State.LAServiceReview:
     case State.AwaitingBailiffReferral:
       return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
-    case State.BailiffRefused: {
+    case State.PendingServiceAppResponse:
+    case State.BailiffRefused:
       return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
-    }
     case State.ConditionalOrderPronounced: {
       return HubTemplate.ConditionalOrderPronounced;
     }
@@ -171,6 +171,9 @@ export const getSoleHubTemplate = (
       return HubTemplate.AwaitingDwpResponse;
     case State.AwaitingAlternativeService:
       return HubTemplate.AwaitingAlternativeService;
+    case State.AwaitingGenAppHWFPartPayment:
+    case State.AwaitingGenAppHWFEvidence:
+      return HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||
