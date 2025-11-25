@@ -113,7 +113,7 @@ Feature: Search gov records journey post-issue
     Then the page should include element "#generalApplicationSubmittedTitle"
     And the page should include "You have submitted your application to search government records."
 
-  Scenario: Search gov records pay by card happy path
+  Scenario: Search gov records pay by card happy path post-issue
     Given I set the case state to "AosOverdue"
     When I sign out
     And I login with applicant "1"
