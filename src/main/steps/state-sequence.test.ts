@@ -42,12 +42,12 @@ describe('StateSequence', () => {
   });
 
   test('preSubmittedStatePrioritySequence should be appropriate', async () => {
-    expect(preSubmittedStatePrioritySequence).toHaveLength(14);
+    expect(preSubmittedStatePrioritySequence).toHaveLength(15);
     expect(preSubmittedStatePrioritySequence).not.toContain(State.Submitted);
   });
 
   test('orderedStateSequence should be appropriate', async () => {
-    expect(orderedStateSequence).toHaveLength(66);
+    expect(orderedStateSequence).toHaveLength(67);
   });
 
   describe('getHighestPriorityPreSubmissionCases', () => {
