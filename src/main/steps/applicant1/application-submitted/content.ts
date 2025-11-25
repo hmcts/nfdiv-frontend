@@ -24,11 +24,7 @@ const en = ({
   telephoneNumber,
   feedbackLink,
 }: CommonContent) => ({
-  title: `Application ${
-    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
-      ? 'saved'
-      : 'submitted'
-  }`,
+  title: `Application ${userCase.applicant1CannotUpload || userCase.applicant2CannotUpload ? 'saved' : 'submitted'}`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
   line1: 'Your application will not be processed until you have done the following:',
