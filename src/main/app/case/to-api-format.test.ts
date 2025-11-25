@@ -56,6 +56,7 @@ describe('to-api-format', () => {
     applicant1InRefuge: YesOrNo.YES,
     applicant1KnowsApplicant2Address: YesOrNo.NO,
     applicant2AddressPrivate: YesOrNo.YES,
+    iWantToHavePapersServedAnotherWay: null,
     applicant1EnglishOrWelsh: LanguagePreference.English,
     applicant2EnglishOrWelsh: LanguagePreference.English,
     applicant1NameChangedHow: [ChangedNameHow.OTHER],
@@ -168,6 +169,7 @@ describe('to-api-format', () => {
       applicant1InRefuge: YesOrNo.YES,
       applicant1KnowsApplicant2Address: YesOrNo.NO,
       applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
+      applicant1WantsToHavePapersServedAnotherWay: null,
       applicant1LanguagePreferenceWelsh: 'No',
       applicant2LanguagePreferenceWelsh: 'No',
       applicant2ContactDetailsType: ContactDetailsType.PRIVATE,
@@ -439,6 +441,7 @@ describe('to-api-format', () => {
       applicant1KnowsApplicant2Address: YesOrNo.YES,
       expected: {
         applicant1KnowsApplicant2Address: YesOrNo.YES,
+        applicant1WantsToHavePapersServedAnotherWay: null,
       },
     },
     {
