@@ -164,27 +164,3 @@ export const getNameChangeOtherDetailsValidator = (
   }) as ValidationCheck;
 };
 
-export const nameChangedHowPossibleValue = (
-  userCase: Partial<CaseWithId>,
-  isApplicant2: boolean
-): ChangedNameHow[] | undefined => {
-  if (isApplicant2) {
-    const applicant2ChangeMethods = [
-      ...new Set(
-        (userCase.applicant2LastNameChangedWhenMarriedMethod || []).concat(
-          userCase.applicant2NameDifferentToMarriageCertificateMethod || []
-        )
-      ),
-    ];
-    return applicant2ChangeMethods.length === 0 ? userCase.applicant2NameChangedHow : applicant2ChangeMethods;
-  } else {
-    const applicant1ChangeMethods = [
-      ...new Set(
-        (userCase.applicant1LastNameChangedWhenMarriedMethod || []).concat(
-          userCase.applicant1NameDifferentToMarriageCertificateMethod || []
-        )
-      ),
-    ];
-    return applicant1ChangeMethods.length === 0 ? userCase.applicant1NameChangedHow : applicant1ChangeMethods;
-  }
-};
