@@ -8,7 +8,7 @@ import { generateContent as applicant1GenerateContent } from '../../applicant1/c
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 
-const en = ({ isDivorce, userCase, isApplicant2 }) => ({
+const en = ({ isDivorce, userCase, isApplicant2, marriage, civilPartnership }) => ({
   stepAnswers: {
     aboutPartnership: {
       line3: `${
@@ -147,7 +147,9 @@ const en = ({ isDivorce, userCase, isApplicant2 }) => ({
       }`,
       line2: `${
         userCase.applicant2CannotUploadDocuments && userCase.applicant2CannotUploadDocuments.length
-          ? 'Proof that I changed my name'
+          ? `Proof showing why my name is written differently on my ${
+              isDivorce ? marriage : civilPartnership
+            } certificate`
           : ''
       }`,
     },
@@ -293,10 +295,8 @@ const cy: typeof en = ({ isDivorce, userCase, isApplicant2 }) => ({
           ? userCase.applicant2DocumentsUploaded.reduce((acc, curr) => `${acc}${getFilename(curr.value)}\n`, '')
           : ''
       }`,
-      line2: `${
-        userCase.applicant2CannotUploadDocuments && userCase.applicant2CannotUploadDocuments.length
-          ? 'Prawf fy mod i wedi newid fy enw'
-          : ''
+      line2: `Tystiolaeth yn dangos pam bod fy enw neu enw fy mhartner wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
+        isDivorce ? 'briodas' : 'bartneriaeth sifil'
       }`,
     },
   },

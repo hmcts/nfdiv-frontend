@@ -836,11 +836,9 @@ const cy: typeof en = ({
       line1: 'Eich enw(au) cyntaf',
       line2: 'Eich enw(au) canol (os oes gennych un)',
       line3: 'Eich cyfenw(au)',
-      line4: `A yw ${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${
-        userCase.applicant1LastNames
-      } yn union y ffordd mae eich enw wedi'i ysgrifennu ar eich tystysgrif ${
-        isDivorce ? 'priodas' : 'partneriaeth sifil'
-      }?`,
+      line4: `A oes unrhyw rhan o’ch enw (${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${
+        userCase.applicant2LastNames
+      }) sydd wedi’i ysgrifennu’n wahanol i’ch tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'}?`,
       line5: `Eich enwau fel y maent yn ymddangos ar eich tystysgrif ${isDivorce ? marriage : civilPartnership}?`,
       line6: `Pam bod eich enw cyfreithiol yn wahanol i sut mae wedi’i ysgrifennu ar y ${
         isDivorce ? 'dystysgrif briodas' : 'dystysgrif partneriaeth sifil'
