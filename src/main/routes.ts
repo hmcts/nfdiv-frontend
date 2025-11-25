@@ -15,6 +15,7 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content';
 import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your-access-code/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
+import { ApplicationWithdrawnPreIssueGetController } from './steps/applicant1/withdraw-pre-issue/application-withdrawn/get';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
 import { ApplicationWithdrawnGetController } from './steps/application-withdrawn/get';
@@ -61,6 +62,7 @@ import {
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
   WEBCHAT_URL,
+  WITHDRAW_CONFIRMATION,
 } from './steps/urls';
 import { WebChatGetController } from './steps/webchat/get';
 
@@ -91,6 +93,7 @@ export class Routes {
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
     app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
     app.get(APPLICATION_WITHDRAWN, errorHandler(new ApplicationWithdrawnGetController().get));
+    app.get(WITHDRAW_CONFIRMATION, errorHandler(new ApplicationWithdrawnPreIssueGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 

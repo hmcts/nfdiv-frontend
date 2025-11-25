@@ -1174,6 +1174,8 @@ export interface CaseData {
   applicant1DispenseChildMaintenanceResults: string;
   applicant1DispenseContactFriendsOrRelativesDetails: string;
   applicant1DispenseOtherEnquiries: string;
+  confirmWithdrawApplication: YesOrNo;
+  withdrawApplicationReason: string;
 }
 
 export interface CaseDocuments {
