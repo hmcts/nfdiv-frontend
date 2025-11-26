@@ -12,7 +12,7 @@ const en = ({ partner }: CommonContent) => ({
   bullet3: 'by private message on social media',
   line2:
     'The court can send the papers by email. If you wish to send the documents by text message, WhatsApp or using social media, you will need to arrange this yourself.',
-  line3: `If you know your ${partner} is living outside of England or Wales, you may wish to seek legal advice about how to legally serve the documents on your partner in the country they're living in.`,
+  line3: `If you know your ${partner} is living outside of England or Wales, you may wish to seek legal advice about how to legally serve the documents on your ${partner} in the country they're living in.`,
   inputLabel: 'Would you like to apply for alternative service?',
   no: 'No, I want to try something else',
   errors: {
