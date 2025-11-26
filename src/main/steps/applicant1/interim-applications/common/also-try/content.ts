@@ -61,9 +61,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const updateDetailsLinkPath = content.caseHasBeenIssued
-    ? NEW_POSTAL_AND_EMAIL
-    : NO_RESP_ADDRESS_ENTER_ADDRESS;
+  const updateDetailsLinkPath = content.caseHasBeenIssued ? NEW_POSTAL_AND_EMAIL : NO_RESP_ADDRESS_ENTER_ADDRESS;
 
   const translations = languages[content.language](content, updateDetailsLinkPath);
   return {

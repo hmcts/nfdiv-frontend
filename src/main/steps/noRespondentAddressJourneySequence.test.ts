@@ -4,10 +4,10 @@ import { Step } from './applicant1Sequence';
 import { noRespondentAddressJourneySequence } from './noRespondentAddressJourneySequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
-  NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS,
-  NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS,
   NO_RESP_ADDRESS_ENTER_ADDRESS,
   NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT,
+  NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS,
+  NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS,
   NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS,
   NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS,
 } from './urls';
@@ -19,7 +19,9 @@ describe('No Response Journey Sequence test', () => {
         applicant2SolicitorRepresented: YesOrNo.NO,
         applicant2AddressPrivate: YesOrNo.NO,
       };
-      const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS) as Step;
+      const step = noRespondentAddressJourneySequence.find(
+        obj => obj.url === NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS
+      ) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS);
     });
   });
@@ -29,7 +31,9 @@ describe('No Response Journey Sequence test', () => {
       const caseData = {
         applicant1NoRespAddressHasFoundAddress: YesOrNo.YES,
       };
-      const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS) as Step;
+      const step = noRespondentAddressJourneySequence.find(
+        obj => obj.url === NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS
+      ) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_ENTER_ADDRESS);
     });
 
@@ -37,7 +41,9 @@ describe('No Response Journey Sequence test', () => {
       const caseData = {
         applicant1NoRespAddressHasFoundAddress: YesOrNo.NO,
       };
-      const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS) as Step;
+      const step = noRespondentAddressJourneySequence.find(
+        obj => obj.url === NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS
+      ) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT);
     });
   });
@@ -47,7 +53,9 @@ describe('No Response Journey Sequence test', () => {
       const caseData = {
         applicant1NoRespAddressHasWayToContact: YesOrNo.YES,
       };
-      const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT) as Step;
+      const step = noRespondentAddressJourneySequence.find(
+        obj => obj.url === NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT
+      ) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS);
     });
 
@@ -55,7 +63,9 @@ describe('No Response Journey Sequence test', () => {
       const caseData = {
         applicant1NoRespAddressHasWayToContact: YesOrNo.NO,
       };
-      const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT) as Step;
+      const step = noRespondentAddressJourneySequence.find(
+        obj => obj.url === NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT
+      ) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS);
     });
   });
@@ -65,7 +75,9 @@ describe('No Response Journey Sequence test', () => {
       const caseData = {
         applicant1NoRespAddressWillApplyAltService: YesOrNo.YES,
       };
-      const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS) as Step;
+      const step = noRespondentAddressJourneySequence.find(
+        obj => obj.url === NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS
+      ) as Step;
       expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_SERVICE_APPLICATION);
     });
 
@@ -73,7 +85,9 @@ describe('No Response Journey Sequence test', () => {
       const caseData = {
         applicant1NoRespAddressWillApplyAltService: YesOrNo.NO,
       };
-      const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS) as Step;
+      const step = noRespondentAddressJourneySequence.find(
+        obj => obj.url === NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS
+      ) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS);
     });
   });
