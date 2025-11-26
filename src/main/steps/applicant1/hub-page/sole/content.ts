@@ -15,6 +15,7 @@ import {
   YesOrNo,
 } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { getFee } from '../../../../app/fees/service/get-fee';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
@@ -25,6 +26,7 @@ import {
   BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
+  ENTER_THEIR_ADDRESS,
   FINALISING_YOUR_APPLICATION,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
@@ -526,6 +528,21 @@ const en = (
   awaitingAlternativeService: {
     line1: 'The court has approved your application for alternative service.',
     line2: 'We are now awaiting completion of service through the method of service that was approved by the court.',
+  },
+  furtherActionNeeded: {
+    line1: `You have submitted your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${ENTER_THEIR_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
+    } to this address at no additional cost.`,
+    line3: `If you cannot find an address for your partner, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
+      isDivorce ? 'your divorce' : 'ending your civil partnership'
+    } another way</a>. This application will cost ${getFee(
+      config.get('fees.alternativeService')
+    )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.getHelpWithCourtFees'
+    )}">get help paying this fee (opens in a new tab)</a>.`,
   },
 });
 
@@ -1032,6 +1049,21 @@ const cy: typeof en = (
     line1: 'Mae’r llys wedi cymeradwyo eich cais am gyflwyno amgen.',
     line2: 'Rydym nawr yn aros i gwblhau cyflwyno drwy’r dull cyflwyno a gymeradwywyd gan y llys.',
   },
+  furtherActionNeeded: {
+    line1: `You have submitted your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${ENTER_THEIR_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
+    } to this address at no additional cost.`,
+    line3: `If you cannot find an address for your partner, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
+      isDivorce ? 'your divorce' : 'ending your civil partnership'
+    } another way</a>. This application will cost ${getFee(
+      config.get('fees.alternativeService')
+    )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.getHelpWithCourtFees'
+    )}">get help paying this fee (opens in a new tab)</a>.`,
+  },
 });
 
 const languages = {
@@ -1129,6 +1161,7 @@ export const generateContent: TranslationFn = content => {
   const interimApplicationStartedAosOverdue =
     interimApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
 
+  const applicant1KnowsApplicant2Address = userCase.applicant1KnowsApplicant2Address === YesOrNo.YES;
   return {
     ...languages[language](
       content,
@@ -1163,5 +1196,6 @@ export const generateContent: TranslationFn = content => {
     isSearchGovRecordsFeeRequired,
     interimApplicationStartPagePath,
     interimApplicationStartedAosOverdue,
+    applicant1KnowsApplicant2Address,
   };
 };

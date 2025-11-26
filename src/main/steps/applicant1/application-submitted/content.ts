@@ -42,7 +42,7 @@ const en = (
   subHeading2: 'Send your documents to the court',
   line2: `${
     furtherActionRequired
-      ? `We will not be able to process your application until you either <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>provide an address or apply to the court to progress your application another way</a>.}`
+      ? `We will not be able to process your application until you either <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>provide an address or apply to the court to progress your application another way</a>.`
       : 'You need to send the following documents to the court because you did not upload them earlier:'
   }`,
   documents: {
