@@ -161,12 +161,5 @@
     "webpack-dev-middleware": "7.4.5",
     "webpack-node-externals": "3.0.0"
   },
-  "resolutions": {
-    "http-cache-semantics": "4.2.0",
-    "axios": "1.13.2",
-    "nanoid": "5.1.6",
-    "formidable": "3.5.4",
-    "js-yaml": "4.1.1"
-  },
   "packageManager": "yarn@3.8.7"
 }
