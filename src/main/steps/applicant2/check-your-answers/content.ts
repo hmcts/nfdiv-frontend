@@ -295,7 +295,7 @@ const cy: typeof en = ({ isDivorce, userCase, isApplicant2 }) => ({
           ? userCase.applicant2DocumentsUploaded.reduce((acc, curr) => `${acc}${getFilename(curr.value)}\n`, '')
           : ''
       }`,
-      line2: `Tystiolaeth yn dangos pam bod fy enw neu enw fy mhartner wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
+      line2: `Tystiolaeth yn dangos pam bod fy enw wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
         isDivorce ? 'briodas' : 'bartneriaeth sifil'
       }`,
     },

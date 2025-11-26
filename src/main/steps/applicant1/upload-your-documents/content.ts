@@ -114,9 +114,9 @@ const cy = ({ isDivorce, marriage, civilPartnership, partner, isJointApplication
     cannotUploadCertificate: `Fy nhystysgrif ${union} wreiddiol`,
     cannotUploadForeignCertificate: `Fy nhystysgrif ${union} dramor wreiddiol`,
     cannotUploadForeignCertificateTranslation: `Cyfieithiad wedi'i ardystio o fy nhystysgrif ${union} dramor`,
-    cannotUploadNameChangeProof: `Tystiolaeth yn dangos pam bod fy enw neu enw fy mhartner wedi'i ysgrifennu'n wahanol ar y dystysgrif ${
-      isDivorce ? 'briodas' : 'bartneriaeth sifil'
-    }`,
+    cannotUploadNameChangeProof: `Tystiolaeth yn dangos pam bod fy enw${
+      isJointApplication ? '' : ' neu enw fy mhartner'
+    } wedi'i ysgrifennu'n wahanol ar y dystysgrif ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}`,
     errors: {
       applicant1UploadedFiles: {
         notUploaded:
