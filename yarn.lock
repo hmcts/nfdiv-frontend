@@ -13920,29 +13920,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mochawesome-report-generator@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "mochawesome-report-generator@npm:6.2.0"
-  dependencies:
-    chalk: ^4.1.2
-    dateformat: ^4.5.1
-    escape-html: ^1.0.3
-    fs-extra: ^10.0.0
-    fsu: ^1.1.1
-    lodash.isfunction: ^3.0.9
-    opener: ^1.5.2
-    prop-types: ^15.7.2
-    tcomb: ^3.2.17
-    tcomb-validation: ^3.3.0
-    validator: ^13.6.0
-    yargs: ^17.2.1
-  bin:
-    marge: bin/cli.js
-  checksum: bbfafc781a5b5aa39a012e0bed7d50ac929f72a46dee640223e4398b5f2121bd552a58f1dd481c0133678650a2e4730a9f97b8a5f26f2956b66b5c0057eb9391
-  languageName: node
-  linkType: hard
-
-"mochawesome-report-generator@npm:^6.3.0":
+"mochawesome-report-generator@npm:^6.2.0, mochawesome-report-generator@npm:^6.3.0":
   version: 6.3.2
   resolution: "mochawesome-report-generator@npm:6.3.2"
   dependencies:
@@ -18842,13 +18820,6 @@ __metadata:
     spdx-correct: ^3.0.0
     spdx-expression-parse: ^3.0.0
   checksum: 35703ac889d419cf2aceef63daeadbe4e77227c39ab6287eeb6c1b36a746b364f50ba22e88591f5d017bc54685d8137bc2d328d0a896e4d3fd22093c0f32a9ad
-  languageName: node
-  linkType: hard
-
-"validator@npm:^13.6.0":
-  version: 13.12.0
-  resolution: "validator@npm:13.12.0"
-  checksum: fb8f070724770b1449ea1a968605823fdb112dbd10507b2802f8841cda3e7b5c376c40f18c84e6a7b59de320a06177e471554101a85f1fa8a70bac1a84e48adf
   languageName: node
   linkType: hard
 
