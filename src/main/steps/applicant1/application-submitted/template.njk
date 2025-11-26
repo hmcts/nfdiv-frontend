@@ -65,7 +65,7 @@
     {% if not isJointApplication %}
       {% if hasASolicitorContactForPartner %}
         <p class="govuk-body">{{ line7 }}</p>
-        {% elif not isRespondentRepresented and not isRespondentOverseas%}
+      {% elif not isRespondentRepresented and not isRespondentOverseas%}
         <p class="govuk-body">{{ line6 }}</p>
       {% endif %}
       {% if applicationServedAnotherWay %}
@@ -88,7 +88,7 @@
   <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
   <p class="govuk-body">{{ line16.part1 }}<a class="govuk-link" href={{ line16.link }}>{{ line16.linkText }}</a></p>
   <h3 class="govuk-heading-m">{{ webChat }}</h3>
-  {% include "webchat/link-to-webchat.njk" %}
+    {% include "webchat/link-to-webchat.njk" %}
   <h3 class="govuk-heading-m">{{ sendUsAMessage }}</h3>
   <p class="govuk-body"><a class="govuk-link" href="{{ contactWebForm }}">{{ useOurOnlineForm }}</a></p>
   <h3 class="govuk-heading-m">{{ telephone }}</h3>

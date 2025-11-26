@@ -304,6 +304,7 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
+
   return {
     ...languages[language]({ ...content, referenceNumber }),
     displayState,
