@@ -13,7 +13,7 @@ const en = ({ isDivorce, userCase, partner, referenceNumber }: CommonContent) =>
   } submitted: ${getFormattedDate(userCase.dateSubmitted)}`,
   line3: `We have not sent your ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  } to your ${partner} yet. This means you can withdraw this application and receive a refund`,
+  } to your ${partner} yet. This means you can withdraw this application and receive a refund if the court confirms that you are due a refund.`,
   warningText: `If you withdraw this application, you will lose access to your account. You will need to start a new application if you later decide that you want to get a ${
     isDivorce ? 'divorce' : 'dissolution'
   }.`,
@@ -30,7 +30,7 @@ const cy: typeof en = ({ isDivorce, userCase, partner, referenceNumber }: Common
   } submitted: ${getFormattedDate(userCase.dateSubmitted)}`,
   line3: `We have not sent your ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  } to your ${partner} yet. This means you can withdraw this application and receive a refund`,
+  } to your ${partner} yet. This means you can withdraw this application and receive a refund if the court confirms that you are due a refund.`,
   warningText: `If you withdraw this application, you will lose access to your account. You will need to start a new application if you later decide that you want to get a ${
     isDivorce ? 'divorce' : 'dissolution'
   }.`,
