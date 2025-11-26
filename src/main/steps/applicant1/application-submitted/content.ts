@@ -325,6 +325,7 @@ export const generateContent: TranslationFn = content => {
     userCase.applicant1FoundApplicant2Address === YesOrNo.NO;
 
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
+
   return {
     ...languages[language]({ ...content, referenceNumber }, furtherActionRequired),
     displayState,

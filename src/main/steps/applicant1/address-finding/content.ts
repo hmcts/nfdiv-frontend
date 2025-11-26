@@ -42,7 +42,7 @@ const cy: typeof en = ({ partner, required }) => ({
 
 export const form: FormContent = {
   fields: {
-    applicant1KnowsApplicant2Address: {
+    applicant1FoundApplicant2Address: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.foundTheirAddress,
