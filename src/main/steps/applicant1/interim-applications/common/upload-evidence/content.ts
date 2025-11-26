@@ -129,16 +129,15 @@ export const generateContent: TranslationFn = content => {
   const uploadedDocsFilenames = content.userCase.applicant1InterimAppsEvidenceDocs?.map(item =>
     getFilename(item.value)
   );
-  const amendable = content.isAmendableStates;
+
   const uploadContentScript = `{
-    "isAmendableStates": ${content.isAmendableStates},
+    "isAmendableStates": "true",
     "delete": "${content.delete}"
   }`;
   return {
     ...applicant1UploadDocumentContent,
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
-    amendable,
     uploadedDocsFilenames,
     uploadContentScript,
   };
