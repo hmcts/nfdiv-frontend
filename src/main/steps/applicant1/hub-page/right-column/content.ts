@@ -2,7 +2,7 @@ import { AlternativeServiceType, ApplicationType, DocumentType, State, YesOrNo }
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { findDocument } from '../../../../modules/document-download/proxy-list';
 import { CommonContent } from '../../../common/common.content';
-import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT } from '../../../urls';
+import { APPLICANT_2, CHECK_CONTACT_DETAILS, RESPONDENT, WITHDRAW_THIS_APPLICATION } from '../../../urls';
 
 const en = ({
   isDivorce,
@@ -119,6 +119,7 @@ const en = ({
     link: '/downloads/final-order-granted',
     text: 'Download a copy of your final order (PDF)',
   },
+  withdrawLink: `<a class="govuk-link" href="${WITHDRAW_THIS_APPLICATION}">Withdraw this application</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -254,6 +255,7 @@ const cy: typeof en = ({
     link: '/downloads/final-order-granted',
     text: "Lawrlwythwch gopi o'r 'gorchymyn terfynol' (PDF)",
   },
+  withdrawLink: `<a class="govuk-link" href="${WITHDRAW_THIS_APPLICATION}">Withdraw this application</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
