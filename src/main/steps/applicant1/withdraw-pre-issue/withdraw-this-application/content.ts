@@ -20,6 +20,13 @@ const en = ({ isDivorce, userCase, partner, referenceNumber }: CommonContent) =>
   confirmWithdrawQuestion: 'Are you sure you want to withdraw this application?',
   confirmReason: 'Reason for withdrawing the application',
   noLabel: 'No (return to your account)',
+  errors: {
+    confirmWithdrawApplication: {
+      required: `Select yes if you want to withdraw your ${
+        isDivorce ? 'divorce application' : 'application to end your civil partnership'
+      }`,
+    },
+  },
 });
 
 const cy: typeof en = ({ isDivorce, userCase, partner, referenceNumber }: CommonContent) => ({
@@ -37,6 +44,13 @@ const cy: typeof en = ({ isDivorce, userCase, partner, referenceNumber }: Common
   confirmWithdrawQuestion: 'Are you sure you want to withdraw this application?',
   confirmReason: 'Reason for withdrawing the application',
   noLabel: 'No (return to your account)',
+  errors: {
+    confirmWithdrawApplication: {
+      required: `Select yes if you want to withdraw your ${
+        isDivorce ? 'divorce application' : 'application to end your civil partnership'
+      }`,
+    },
+  },
 });
 
 export const form: FormContent = {
