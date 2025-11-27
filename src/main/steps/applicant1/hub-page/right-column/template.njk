@@ -73,7 +73,7 @@
 
 <p class="govuk-body">{{ reviewContactDetails | safe }}</p>
 
-{% if not caseHasBeenIssued %}
+{% if showWithdrawLink %}
   <p class="govuk-body">{{ withdrawLink | safe }}</p>
 {% endif %}
 

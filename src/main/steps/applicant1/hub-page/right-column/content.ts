@@ -333,6 +333,7 @@ export const generateContent: TranslationFn = content => {
   const hasFinalOrderApplicationAndFinalOrderRequested = userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
   );
+  const showWithdrawLink = !content.caseHasBeenIssued && !content.isApplicant2 && !content.isJointApplication;
 
   return {
     isAosSubmitted,
@@ -347,6 +348,7 @@ export const generateContent: TranslationFn = content => {
     hasDivorceOrDissolutionApplication,
     hasFinalOrderApplicationAndFinalOrderRequested,
     hasFinalOrderGranted,
+    showWithdrawLink,
     ...languages[content.language](content),
   };
 };
