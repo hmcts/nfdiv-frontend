@@ -555,4 +555,56 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithServiceApplicationGranted, false, true);
     expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
+
+  test('should show /offline-general-application-received.njk for state GeneralConsiderationComplete and isSearchGovRecords and isOnlineGeneralApplication is No', () => {
+    const userCaseWithOfflineGeneralApplication = {
+      ...userCase,
+      generalApplications: [
+        {
+          id: '123',
+          value: {
+            generalAppDateReceivedDate: '2024-06-27',
+            generalApplicationSubmittedOnline: YesOrNo.NO,
+            generalApplicationParty: GeneralParties.APPLICANT,
+            generalApplicationType: GeneralApplicationType.SEARCH_GOV_RECORDS,
+          },
+        },
+      ],
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false, false);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+  });
+
+  test('should show /offline-general-application-received.njk for state AwaitingGeneralReferralPayment', () => {
+    const theState = displayState.at(State.AwaitingGeneralReferralPayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+  });
+
+  test('should show /awaiting-general-application-payment.njk for state AwaitingGeneralApplicationPayment', () => {
+    const theState = displayState.at(State.AwaitingGeneralApplicationPayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingGeneralApplicationPayment);
+  });
+
+  test('should show /awaiting-general-applicant-received.njk for state GeneralApplicationReceived and isOnlineGeneralApplication is No', () => {
+    const userCaseWithOfflineGeneralApplication = {
+      ...userCase,
+      generalApplications: [
+        {
+          id: '123',
+          value: {
+            generalAppDateReceivedDate: '2024-06-27',
+            generalApplicationSubmittedOnline: YesOrNo.NO,
+            generalApplicationParty: GeneralParties.APPLICANT,
+            generalApplicationType: GeneralApplicationType.SEARCH_GOV_RECORDS,
+          },
+        },
+      ],
+    };
+    const theState = displayState.at(State.GeneralApplicationReceived);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false, false);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+  });
 });

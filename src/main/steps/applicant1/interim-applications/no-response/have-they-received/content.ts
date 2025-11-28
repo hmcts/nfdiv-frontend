@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../../app/case/case';
 import { NoResponseCheckContactDetails, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
@@ -109,23 +110,25 @@ const languages = {
   cy,
 };
 
-export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+export const formatApplicant2Address = (userCase: Partial<CaseWithId>): string => {
   const checkAddressString = address => {
     return address !== null && address !== undefined && address.length > 0 ? address + ', ' : '';
   };
-  const app2Address = () => {
-    const userCase = content.userCase;
-    let address = checkAddressString(userCase.applicant2Address1);
-    address += checkAddressString(userCase.applicant2Address2);
-    address += checkAddressString(userCase.applicant2Address3);
-    address += checkAddressString(userCase.applicant2AddressTown);
-    address += checkAddressString(userCase.applicant2AddressCounty);
-    address += checkAddressString(userCase.applicant2AddressCountry);
-    address += checkAddressString(userCase.applicant2AddressPostcode);
-    return address;
-  };
-  const applicant2Address = content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : app2Address();
+
+  let address = checkAddressString(userCase.applicant2Address1);
+  address += checkAddressString(userCase.applicant2Address2);
+  address += checkAddressString(userCase.applicant2Address3);
+  address += checkAddressString(userCase.applicant2AddressTown);
+  address += checkAddressString(userCase.applicant2AddressCounty);
+  address += checkAddressString(userCase.applicant2AddressCountry);
+  address += checkAddressString(userCase.applicant2AddressPostcode);
+  return address;
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language](content);
+  const applicant2Address =
+    content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : formatApplicant2Address(content.userCase);
   const applicant2Email =
     content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : content.userCase.applicant2Email;
   const contactDetailsProvided =
