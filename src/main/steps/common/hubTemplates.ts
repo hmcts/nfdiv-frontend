@@ -36,10 +36,12 @@ export const enum HubTemplate {
   ServiceApplicationRejected = '/service-application-rejected.njk',
   ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted = '/service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk',
   AwaitingDocuments = '/awaiting-documents.njk',
+  AwaitingHWFPartPayment = '/awaiting-hwf-part-payment.njk',
   AwaitingProcessServerService = '/awaiting-process-server-service.njk',
   AwaitingServiceApplicationDocuments = '/awaiting-service-application-documents.njk',
   AwaitingService = '/awaiting-service.njk',
   WelshTranslationRequestedOrReview = '/welsh-translation-requested-or-review.njk',
   AwaitingDwpResponse = '/awaiting-dwp-response.njk',
   AwaitingAlternativeService = '/awaiting-alternative-service.njk',
+  AwaitingGenAppHWFPartPaymentOrEvidence = '/awaiting-gen-app-hwf-part-payment-or-evidence.njk',
 }

@@ -64,6 +64,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 
+  test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state AwaitingServiceApplicationClarification', () => {
+    const theState = displayState.at(State.PendingServiceAppResponse);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
+  });
+
   test('should show /conditional-order-pronounced.njk for state ConditionalOrderPronounced', () => {
     const theState = displayState.at(State.ConditionalOrderPronounced);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
@@ -433,6 +439,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 
+  test('should show /awaiting-hwf-part-payment.njk for state AwaitingHWFPartPayment', () => {
+    const theState = displayState.at(State.AwaitingHWFPartPayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingHWFPartPayment);
+  });
+
   test('should show /awaiting-documents.njk for state AwaitingHWFDecision and reason is "cannot upload documents"', () => {
     const userCaseWithApplicant1CannotUploadDocuments = {
       ...userCase,
@@ -512,6 +524,18 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.WelshTranslationRequested);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
+  });
+
+  test('should show /awaiting-gen-app-hwf-part-payment-or-evidence.njk for state AwaitingGenAppHWFEvidence', () => {
+    const theState = displayState.at(State.AwaitingGenAppHWFEvidence);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence);
+  });
+
+  test('should show /awaiting-gen-app-hwf-part-payment-or-evidence.njk for state AwaitingGenAppHWFPartPayment', () => {
+    const theState = displayState.at(State.AwaitingGenAppHWFPartPayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence);
   });
 
   test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state GeneralConsiderationComplete and alternativeService application is granted', () => {
