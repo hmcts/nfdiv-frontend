@@ -5,7 +5,11 @@
   <h1 class="govuk-heading-xl" id="withdrawThisApplicationTitle">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
   <p class="govuk-body">{{ line2 }}</p>
-  <p class="govuk-body">{{ line3 }}</p>
+  {% if isJointApplication %}
+    <p class="govuk-body">{{ line3joint }}</p>
+  {% else %}
+    <p class="govuk-body">{{ line3sole }}</p>
+  {% endif %}
 
   <div class="govuk-warning-text">
       <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
