@@ -40,6 +40,7 @@
     - [Healthcheck](#healthcheck)
   - [Migrating backend field changes](#migrating-backend-field-changes)
   - [License](#license)
+  - [Feature flags (LaunchDarkly)](#feature-flags-launchdarkly)
 
 ## Getting Started
 
@@ -261,6 +262,25 @@ Once you have pasted the code into [definition.ts](src/main/app/case/definition.
 You will now be in a position to test your changes either in isolation (`yarn start:dev`) or with Docker (`yarn start:docker`).
 
 One final important point to remember is that the `CCD_URL` in [values.yaml](charts/nfdiv-frontend/values.yaml) and `services.case.url` in [default.yaml](config/default.yaml) will need to be reverted to their original values once migration is complete and before any Pull Requests into `master` are merged.
+
+## Feature flags (LaunchDarkly)
+
+This service integrates LaunchDarkly for runtime feature flagging.
+
+Adding new feature flags:
+- **Ensure NFD LaunchDarkly flags are prefixed with "NFD_", as per the flagPrefix configuration in config/default.yaml**
+  - **Avoid using '-' in flag names, as by default this will be processed as a minus operator in Nunjucks templates. Use '_' instead.**
+- Flag values are converted to lower case strings and evaluated against 'true' for boolean usage in the app.
+- if a flag cannot be fetched, its value will return as false unless a default value is set under launchDarkly.flags in config/default.yaml.
+
+Example template usage:
+```
+{% if featureFlags.NFD_useGenesysWebchat %}
+  Webchat is enabled
+{% else %}
+  Webchat is disabled
+{% endif %}
+```
 
 ## License
 

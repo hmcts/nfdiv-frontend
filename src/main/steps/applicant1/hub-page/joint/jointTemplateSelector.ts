@@ -79,6 +79,8 @@ export const getJointHubTemplate = (
         ? HubTemplate.RespondedToInformationRequest
         : HubTemplate.InformationRequestedFromPartnerOrOther;
     }
+    case State.AwaitingHWFPartPayment:
+      return HubTemplate.AwaitingHWFPartPayment;
     case State.AwaitingDocuments:
       return HubTemplate.AwaitingDocuments;
     case State.AwaitingHWFDecision:

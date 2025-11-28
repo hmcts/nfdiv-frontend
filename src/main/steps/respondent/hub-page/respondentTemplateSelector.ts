@@ -42,6 +42,7 @@ export const getRespondentHubTemplate = (
         return HubTemplate.AwaitingAoS;
       }
     case State.Holding:
+    case State.PendingServiceAppResponse:
       if (!hasSubmittedAos) {
         return HubTemplate.AwaitingAoS;
       }
