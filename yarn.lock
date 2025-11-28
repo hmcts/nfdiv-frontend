@@ -3897,15 +3897,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/debug@npm:^4.0.0":
-  version: 4.1.12
-  resolution: "@types/debug@npm:4.1.12"
-  dependencies:
-    "@types/ms": "*"
-  checksum: 47876a852de8240bfdaf7481357af2b88cb660d30c72e73789abf00c499d6bc7cd5e52f41c915d1b9cd8ec9fef5b05688d7b7aef17f7f272c2d04679508d1053
-  languageName: node
-  linkType: hard
-
 "@types/es6-promisify@npm:6.0.4":
   version: 6.0.4
   resolution: "@types/es6-promisify@npm:6.0.4"
@@ -4111,13 +4102,6 @@ __metadata:
   version: 5.1.2
   resolution: "@types/minimatch@npm:5.1.2"
   checksum: 0391a282860c7cb6fe262c12b99564732401bdaa5e395bee9ca323c312c1a0f45efbf34dce974682036e857db59a5c9b1da522f3d6055aeead7097264c8705a8
-  languageName: node
-  linkType: hard
-
-"@types/ms@npm:*":
-  version: 0.7.34
-  resolution: "@types/ms@npm:0.7.34"
-  checksum: f38d36e7b6edecd9badc9cf50474159e9da5fa6965a75186cceaf883278611b9df6669dc3a3cc122b7938d317b68a9e3d573d316fcb35d1be47ec9e468c6bd8a
   languageName: node
   linkType: hard
 
@@ -5818,18 +5802,6 @@ __metadata:
   version: 4.8.4
   resolution: "axe-core@npm:4.8.4"
   checksum: 644da2fec17bcf6f834edaab1baa5a75a9a3ee370c323215c73da6d7e45fac11d01470d92d0a3d5f26695e15c1d9b781733dfbe1fe09d505076c58f09ed74e02
-  languageName: node
-  linkType: hard
-
-"axios-debug-log@npm:1.0.0":
-  version: 1.0.0
-  resolution: "axios-debug-log@npm:1.0.0"
-  dependencies:
-    "@types/debug": ^4.0.0
-    debug: ^4.0.0
-  peerDependencies:
-    axios: ">=1.0.0"
-  checksum: db41f20439027a75ead8e32a14d8b3350635674c11fd72335dbcfcaf1a828246c7c28109cb6964b969c0991431218dfbda5d570ea275d1c57e979f89cd25fcfd
   languageName: node
   linkType: hard
 
@@ -7918,7 +7890,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4, debug@npm:^4.0.0, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.5, debug@npm:^4.3.6, debug@npm:^4.4.1":
+"debug@npm:4, debug@npm:^4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.5, debug@npm:^4.3.6, debug@npm:^4.4.1":
   version: 4.4.1
   resolution: "debug@npm:4.4.1"
   dependencies:
@@ -14259,7 +14231,6 @@ __metadata:
     applicationinsights: 2.9.8
     autobind-decorator: 2.4.0
     axios: 1.13.2
-    axios-debug-log: 1.0.0
     codeceptjs: 3.6.10
     config: 4.1.1
     connect-redis: 7.1.1
