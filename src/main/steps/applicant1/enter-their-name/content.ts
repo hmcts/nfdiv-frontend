@@ -8,6 +8,7 @@ const en = ({ partner }: CommonContent) => {
   return {
     title: `Enter your ${partner}’s name`,
     line1: `The court needs to know your ${partner}’s full name.`,
+    enterFullNameHint: `Do not enter an abbreviated name or a nickname unless it is your ${partner}'s legal name. For example, if David is your ${partner}'s legal name, do not enter Dave instead of David.`,
     firstNames: `Your ${partner}’s first name(s)`,
     middleNames: `Your ${partner}’s middle name(s) (if they have one)`,
     lastNames: `Your ${partner}’s last name(s)`,
@@ -32,6 +33,7 @@ const cy: typeof en = ({ partner }: CommonContent) => {
   return {
     title: `Nodwch enw eich ${partner}`,
     line1: `Mae’r llys angen gwybod beth yw enw llawn eich ${partner}.`,
+    enterFullNameHint: `Peidiwch â nodi enw wedi'i dalfyrru na llysenw oni bai mai hwnnw yw eich enw cyfreithiol eich ${partner}. Er enghraifft, os mai David yw enw cyfreithiol eich ${partner}, yna peidiwch â nodi Dave yn lle David.`,
     firstNames: `Enw(au) cyntaf eich ${partner}`,
     middleNames: `Enw(au) canol eich ${partner} (os oes ganddynt un)`,
     lastNames: `Enw(au) olaf eich ${partner}`,
