@@ -119,7 +119,9 @@ const en = ({
     link: '/downloads/final-order-granted',
     text: 'Download a copy of your final order (PDF)',
   },
-  withdrawLink: `<a class="govuk-link" href="${WITHDRAW_THIS_APPLICATION}">Withdraw this application</a>`,
+  withdrawLink: `<a class="govuk-link" href="${
+    (isApplicant2 ? APPLICANT_2 : '') + WITHDRAW_THIS_APPLICATION
+  }">Withdraw this application</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -255,7 +257,9 @@ const cy: typeof en = ({
     link: '/downloads/final-order-granted',
     text: "Lawrlwythwch gopi o'r 'gorchymyn terfynol' (PDF)",
   },
-  withdrawLink: `<a class="govuk-link" href="${WITHDRAW_THIS_APPLICATION}">Withdraw this application</a>`,
+  withdrawLink: `<a class="govuk-link" href="${
+    (isApplicant2 ? APPLICANT_2 : '') + WITHDRAW_THIS_APPLICATION
+  }">Withdraw this application</a>`,
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -333,7 +337,8 @@ export const generateContent: TranslationFn = content => {
   const hasFinalOrderApplicationAndFinalOrderRequested = userCase.documentsGenerated?.find(
     doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
   );
-  const showWithdrawLink = !content.caseHasBeenIssued && !content.isApplicant2 && !content.isJointApplication;
+  const showWithdrawLink =
+    !content.caseHasBeenIssued && (!content.isApplicant2 || (content.isApplicant2 && content.isJointApplication));
 
   return {
     isAosSubmitted,
