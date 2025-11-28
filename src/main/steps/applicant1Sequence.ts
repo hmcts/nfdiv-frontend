@@ -112,6 +112,7 @@ import {
   YOU_NEED_THEIR_EMAIL_ADDRESS,
   YOU_NEED_TO_SERVE,
 } from './urls';
+import { withdrawApplicationSequence } from './withdrawApplicationSequence';
 
 export interface Step {
   url: string;
@@ -610,6 +611,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...noResponseJourneySequence,
   ...serviceApplicationPaymentSequence,
   ...generalApplicationPaymentSequence,
+  ...withdrawApplicationSequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
