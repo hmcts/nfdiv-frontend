@@ -4,6 +4,12 @@ Feature: Pre-Issue application withdraw journey
     Given I create a new user and login
     Then I reject cookies
     And I've already completed the form using the fixture "completeCase"
+    And I go to '/check-your-answers'
+    And I click "I confirm"
+    And I click "I believe that the facts stated in this application are true"
+    When I click "Continue to payment"
+    And I pay and submit the application
+    Then the page should include "Application saved"
     Then I set the case state to "Submitted"
 
   Scenario: Pre-Issue application withdraw happy path
