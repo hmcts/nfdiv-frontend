@@ -53,6 +53,7 @@ import {
   YOU_CANNOT_APPLY,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from './urls';
+import { withdrawApplicationSequence } from './withdrawApplicationSequence';
 
 export const preSubmissionSequence: Step[] = [
   {
@@ -262,6 +263,7 @@ const postSubmissionSequence: Step[] = [
     url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
   },
+  ...withdrawApplicationSequence,
 ];
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>

@@ -94,6 +94,10 @@ export class Routes {
     app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
     app.get(APPLICATION_WITHDRAWN, errorHandler(new ApplicationWithdrawnGetController().get));
     app.get(WITHDRAW_CONFIRMATION, errorHandler(new ApplicationWithdrawnPreIssueGetController().get));
+    app.get(
+      `${APPLICANT_2}${WITHDRAW_CONFIRMATION}`,
+      errorHandler(new ApplicationWithdrawnPreIssueGetController().get)
+    );
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
