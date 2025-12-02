@@ -94,6 +94,7 @@ launchDarkly:
   flagPrefix: "NFD_"
   flags:
     NFD_useGenesysWebchat: false
+    NFD_GenAppsReleased: false
 webchat:
   avayaUrl: 'webchat.pp.ctsc.hmcts.net'
   avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
