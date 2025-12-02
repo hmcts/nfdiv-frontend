@@ -1,0 +1,76 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  {% if hasDivorceOrDissolutionApplication %}
+    <p class="govuk-body"><a class="govuk-link" href={{applicationDownload.link}}
+    download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
+  {% endif %}
+  
+  {% if hasServiceApplicationInProgress and serviceApplicationSubmittedOnline and not isApplicant2 %}
+    <p class="govuk-body"><a class="govuk-link" href={{serviceApplicationDownload.link}}
+    download={{serviceApplicationDownload.reference}}>{{serviceApplicationDownload.text}}</a></p>
+  {% endif %}
+  {% if generalApplicationDate and generalApplicationSubmittedOnline and not isApplicant2 %}
+      <p class="govuk-body"><a class="govuk-link" href={{generalApplicationDownload.link}}
+          download={{generalApplicationDownload.reference}}>{{generalApplicationDownload.text}}</a></p>
+  {% endif %}
+  {% if isAosSubmitted %}
+    <p class="govuk-body"><a class="govuk-link" href={{respondentAnswersDownload.link}}
+     download={{respondentAnswersDownload.reference}}>{{respondentAnswersDownload.text}}</a></p>
+  {% endif %}
+  
+  {% if hasCertificateOfService %}
+    <p class="govuk-body"><a class="govuk-link" href={{certificateOfServiceDownload.link}}
+     download={{certificateOfServiceDownload.reference}}>{{certificateOfServiceDownload.text}}</a></p>
+  {% endif %}
+  
+  {% if hasCertificateOfDeemedOrDispensedServiceGranted %}
+    <p class="govuk-body"><a class="govuk-link" href={{deemedOrDispensedDownload.link}}
+     download={{deemedOrDispensedDownload.reference}}>{{deemedOrDispensedDownload.text}}</a></p>
+  {% endif %}
+  
+   {% if hasCertificateOfDeemedOrDispensedServiceRefused %}
+   <p class="govuk-body"><a class="govuk-link" href={{deemedOrDispensedRefusedDownload.link}}
+      download={{deemedOrDispensedRefusedDownload.reference}}>{{deemedOrDispensedRefusedDownload.text}}</a></p>
+  {% endif %}
+  
+  {% if hasCertificateOfEntitlement %}
+    <p class="govuk-body"><a class="govuk-link" href={{certificateOfEntitlementDownload.link}}
+     download={{certificateOfEntitlementDownload.reference}}>{{certificateOfEntitlementDownload.text}}</a></p>
+  {% endif %}
+  
+  {% if hasConditionalOrderGranted %}
+    <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderGrantedDocumentDownload.link}}
+      download={{conditionalOrderGrantedDocumentDownload.reference}}>{{conditionalOrderGrantedDocumentDownload.text}}</a></p>
+  {% endif %}
+  
+  {% if hasConditionalOrderAnswers and shouldHaveAccessToCoApplication %}
+    <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderAnswersPdf.link}}
+     download={{conditionalOrderAnswersPdf.reference}}>{{conditionalOrderAnswersPdf.text}}</a></p>
+  {% endif %}
+  
+  {% if hasConditionalOrderApplication and shouldHaveAccessToCoApplication %}
+    <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderApplicationDownload.link}}
+     download={{conditionalOrderApplicationDownload.reference}}>{{conditionalOrderApplicationDownload.text}}</a></p>
+  {% endif %}
+  
+  {% if hasFinalOrderGranted %}
+    <p class="govuk-body"><a class="govuk-link" href={{finalOrderGrantedDocumentDownload.link}}
+      download={{finalOrderGrantedDocumentDownload.reference}}>{{finalOrderGrantedDocumentDownload.text}}</a></p>
+  {% endif %}
+  
+  {% if isAwaitingAmendedApplicationState and shouldHaveAccessToCoApplication %}
+    <p class="govuk-body"><a class="govuk-link" href={{conditionalOrderRefusalPdf.link}}
+      download={{conditionalOrderRefusalPdf.reference}}>{{conditionalOrderRefusalPdf.text}}</a></p>
+  {% endif %}
+  
+  {% if hasFinalOrderApplicationAndFinalOrderRequested %}
+    <p class="govuk-body"><a class="govuk-link" href={{finalOrderApplicationDownload.link}}
+     download={{finalOrderApplicationDownload.reference}}>{{finalOrderApplicationDownload.text}}</a></p>
+  {% endif %}
+ {% endblock %}
