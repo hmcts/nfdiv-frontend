@@ -1,0 +1,10 @@
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+<p class="govuk-body">{{ reviewContactDetails | safe }}</p>
+<p class="govuk-body">{{ hubPageDownloads | safe }}</p>
+{% if featureFlags.NFD_GenAppsReleased %}
+  {% if isPreIssue %}
+    <p class="govuk-body">{{ preIssueMakeAnApplication | safe }}</p>
+  {% endif %}
+{% endif %}
+<p class="govuk-body">{{ withdrawApplication | safe }}</p>

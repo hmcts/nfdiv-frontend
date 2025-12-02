@@ -13,6 +13,7 @@ import { StateSequence } from '../../state-sequence';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
 import { generateContent as jointGenerateContent } from './joint/content';
+import { generateContent as postContentLinksContent } from './post-content-links/content';
 import { getProgressBarContent } from './progressBarLabels';
 import { generateContent as columnGenerateContent } from './right-column/content';
 import { generateContent as soleGenerateContent } from './sole/content';
@@ -390,5 +391,6 @@ export const generateContent: TranslationFn = content => {
     shouldHaveAccessToCoApplication,
     ...latestLegalAdvisorDecisionContent(userCase, true),
     ...progressBarContent,
+    ...postContentLinksContent(content),
   };
 };
