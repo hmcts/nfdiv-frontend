@@ -875,6 +875,28 @@ describe('to-api-format', () => {
         applicant1NameDifferentToMarriageCertificateOtherDetails: null,
       });
     });
+
+    test('keeps other details when OTHER is included', () => {
+      const apiFormat = toApiFormat({
+        applicant1WhyNameDifferent: [ChangedNameWhy.OTHER],
+        applicant1WhyNameDifferentOtherDetails: 'Some explanation',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1WhyNameDifferentOtherDetails: 'Some explanation',
+      });
+    });
+
+    test('blanks out other details when OTHER is not included', () => {
+      const apiFormat = toApiFormat({
+        applicant1WhyNameDifferent: [ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED],
+        applicant1WhyNameDifferentOtherDetails: 'Should be removed',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant1WhyNameDifferentOtherDetails: '',
+      });
+    });
   });
 
   describe('applicant 2 name confirmation', () => {
@@ -904,7 +926,30 @@ describe('to-api-format', () => {
         applicant2NameDifferentToMarriageCertificateOtherDetails: null,
       });
     });
+
+    test('keeps other details when OTHER is included', () => {
+      const apiFormat = toApiFormat({
+        applicant2WhyNameDifferent: [ChangedNameWhy.OTHER],
+        applicant2WhyNameDifferentOtherDetails: 'Some explanation',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant2WhyNameDifferentOtherDetails: 'Some explanation',
+      });
+    });
+
+    test('blanks out other details when OTHER is not included', () => {
+      const apiFormat = toApiFormat({
+        applicant2WhyNameDifferent: [ChangedNameWhy.PART_OF_NAME_NOT_INCLUDED],
+        applicant2WhyNameDifferentOtherDetails: 'Should be removed',
+      } as Partial<Case>);
+
+      expect(apiFormat).toMatchObject({
+        applicant2WhyNameDifferentOtherDetails: '',
+      });
+    });
   });
+
   describe('applicant1Deemed transformation', () => {
     test.each([
       {
