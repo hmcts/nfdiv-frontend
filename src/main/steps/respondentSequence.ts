@@ -27,7 +27,7 @@ import {
   PAY_YOUR_FINAL_ORDER_FEE,
   RESPONDENT,
   RESPONSE_SUBMITTED,
-  REVIEW_THE_APPLICATION,
+  REVIEW_THE_APPLICATION, HUB_PAGE_DOWNLOADS,
 } from './urls';
 
 const sequence: Step[] = [
@@ -81,6 +81,10 @@ const sequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: HUB_PAGE_DOWNLOADS,
+    getNextStep: () => HUB_PAGE,
   },
   {
     url: CHECK_CONTACT_DETAILS,

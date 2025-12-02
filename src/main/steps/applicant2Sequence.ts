@@ -51,7 +51,7 @@ import {
   YOUR_COMMENTS_SENT,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_CANNOT_APPLY,
-  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+  YOU_NEED_TO_REVIEW_YOUR_APPLICATION, HUB_PAGE_DOWNLOADS,
 } from './urls';
 
 export const preSubmissionSequence: Step[] = [
@@ -196,6 +196,10 @@ const postSubmissionSequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: HUB_PAGE_DOWNLOADS,
+    getNextStep: () => HUB_PAGE,
   },
   {
     url: APP_REPRESENTED,

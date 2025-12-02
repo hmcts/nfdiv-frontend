@@ -22,6 +22,7 @@ import { generalApplicationPaymentSequence } from './generalApplicationPaymentSe
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
+import { preIssueInterimAppJourneySequence } from './preIssueInterimAppJourneySequence';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
@@ -71,6 +72,7 @@ import {
   HOW_TO_FINALISE_APPLICATION,
   HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
+  HUB_PAGE_DOWNLOADS,
   IN_THE_UK,
   JOINT_APPLICATION_SUBMITTED,
   JURISDICTION_DOMICILE,
@@ -511,6 +513,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
+    url: HUB_PAGE_DOWNLOADS,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOME_URL,
   },
@@ -599,6 +605,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
     url: VIEW_YOUR_ANSWERS,
     getNextStep: () => HOME_URL,
   },
+  ...preIssueInterimAppJourneySequence,
   ...noResponseJourneySequence,
   ...alternativeServiceApplicationSequence,
   ...bailiffServiceApplicationSequence,
@@ -607,7 +614,6 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...alternativeServiceApplicationSequence,
   ...dispenseServiceApplicationSequence,
   ...searchGovRecordsApplicationSequence,
-  ...noResponseJourneySequence,
   ...serviceApplicationPaymentSequence,
   ...generalApplicationPaymentSequence,
 ];
