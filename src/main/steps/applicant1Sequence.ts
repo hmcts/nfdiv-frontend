@@ -20,9 +20,9 @@ import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequ
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
+import { preIssueInterimAppJourneySequence } from './preIssueInterimAppJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
-import { preIssueInterimAppJourneySequence } from './preIssueInterimAppJourneySequence';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
