@@ -314,18 +314,18 @@ export const UPLOAD_EVIDENCE_DISPENSE: PageLink = '/interim-applications/dispens
 export const CHECK_ANSWERS_DISPENSE: PageLink = '/interim-applications/dispense-service/check-answers';
 
 // Service Application Payment URLs
-export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
-export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
-export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
+export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/service-application/pay-your-fee';
+export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-application/payment-callback';
+export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application/submitted';
 
-export const WITHDRAW_SERVICE_APPLICATION: PageLink = '/interim-applications/withdraw-service-application';
-export const SERVICE_APPLICATION_WITHDRAWN: PageLink = '/interim-applications/service-application-withdrawn';
+export const WITHDRAW_SERVICE_APPLICATION: PageLink = '/interim-applications/service-application/withdraw';
+export const SERVICE_APPLICATION_WITHDRAWN: PageLink = '/interim-applications/service-application/withdrawn';
 
 // General Application Payment URLs
-export const PAY_YOUR_GENERAL_APPLICATION_FEE: PageLink = '/interim-applications/pay-your-general-application-fee';
+export const PAY_YOUR_GENERAL_APPLICATION_FEE: PageLink = '/interim-applications/general-application/pay-your-fee';
 export const GENERAL_APPLICATION_PAYMENT_CALLBACK: PageLink =
-  '/interim-applications/general-application-payment-callback';
-export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/interim-applications/general-application-submitted';
+  '/interim-applications/general-application/payment-callback';
+export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/interim-applications/general-application/submitted';
 
 // New Hub Download Page
 export const HUB_PAGE_DOWNLOADS: PageLink = '/downloads';

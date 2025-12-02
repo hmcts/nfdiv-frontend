@@ -1,10 +1,10 @@
 import config from 'config';
 import { isEmpty } from 'lodash';
 
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { getFee } from '../../../../app/fees/service/get-fee';
-import { FormContent } from '../../../../app/form/Form';
-import { findUnpaidGeneralApplication } from '../../../../app/utils/general-application-utils';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { getFee } from '../../../../../app/fees/service/get-fee';
+import { FormContent } from '../../../../../app/form/Form';
+import { findUnpaidGeneralApplication } from '../../../../../app/utils/general-application-utils';
 
 const en = applicationFee => ({
   title: 'Pay the fee for this application',
