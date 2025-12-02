@@ -5,6 +5,7 @@ import { getFee } from '../../../../../app/fees/service/get-fee';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 import { generateContent as alsoTryGenerateContent } from '../../common/also-try/content';
+import { formatApplicant2Address } from '../../no-response/have-they-received/content';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: 'Apply to ask the court to search government records (D11)',
@@ -70,9 +71,11 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const alsoTry = alsoTryGenerateContent(content);
+  const noRespondentAddress = formatApplicant2Address(content.userCase).length === 0;
   return {
     ...translations,
     ...alsoTry,
+    noRespondentAddress,
     form,
   };
 };
