@@ -7,6 +7,7 @@ import { Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceType,
   Applicant2Represented,
+  ApplicationType,
   DocumentType,
   InterimApplicationType,
   NoResponsePartnerNewEmailOrAddress,
@@ -22,19 +23,25 @@ import { getAddressFields } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
+  APPLICANT_2,
   BAILIFF_SERVICE_APPLICATION,
+  CHECK_CONTACT_DETAILS,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   FINALISING_YOUR_APPLICATION,
+  PRE_ISSUE_MAKE_AN_APPLICATION,
+  HUB_PAGE_DOWNLOADS,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER,
   PROCESS_SERVER_DOCS,
+  RESPONDENT,
   RESPOND_TO_COURT_FEEDBACK,
   SEARCH_GOV_RECORDS_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
+  WITHDRAW_THIS_APPLICATION, WITHDRAW_APPLICATION,
 } from '../../../urls';
 import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application-submitted/content';
 import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
@@ -59,10 +66,11 @@ const en = (
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
     interimApplicationType,
+    isApplicant2,
   }: CommonContent,
+  isPreIssue: boolean,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  respondentAddressProvided: boolean,
   noResponseStartPagePath: string
 ) => ({
   aosAwaiting: {
@@ -535,6 +543,15 @@ const en = (
     line1:
       'The court is reviewing your application and help with fees reference number. You will receive an email notification confirming what you need to do next.',
   },
+  reviewContactDetails: `<a class="govuk-link" href="${
+    (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
+    CHECK_CONTACT_DETAILS
+  }">Review your contact details</a>`,
+  hubPageDownloads: `<a class="govuk-link" href="${HUB_PAGE_DOWNLOADS}">View all documents</a>`,
+  preIssueMakeAnApplication: `<a class="govuk-link" href="${PRE_ISSUE_MAKE_AN_APPLICATION}">Make an application to the court</a>`,
+  withdrawApplication: `<a class="govuk-link" href="${
+    isPreIssue ? WITHDRAW_THIS_APPLICATION : WITHDRAW_APPLICATION
+  }">Withdraw this ${isDivorce ? 'divorce' : 'dissolution'} application</a>`,
 });
 
 // @TODO translations
@@ -548,18 +565,19 @@ const cy: typeof en = (
     referenceNumber,
     isJointApplication,
     serviceApplicationType,
-    generalApplicationType,
+    serviceApplicationDate,
     serviceApplicationResponseDate,
+    generalApplicationType,
     generalApplicationDate,
     generalApplicationResponseDate,
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
-    serviceApplicationDate,
     interimApplicationType,
+    isApplicant2,
   }: CommonContent,
+  isPreIssue: boolean,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  respondentAddressProvided: boolean,
   noResponseStartPagePath: string
 ) => ({
   aosAwaiting: {
@@ -1048,6 +1066,15 @@ const cy: typeof en = (
     line1:
       'Mae’r llys yn adolygu eich cais a’ch cyfeirnod help i dalu ffioedd.  Byddwch yn derbyn e-bost yn cadarnhau beth rydych angen ei wneud nesaf.',
   },
+  reviewContactDetails: `<a class="govuk-link" href="${
+    (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
+    CHECK_CONTACT_DETAILS
+  }">Adolygu eich manylion cyswllt</a>`,
+  hubPageDownloads: `<a class="govuk-link" href="${HUB_PAGE_DOWNLOADS}">View all documents</a>`,
+  preIssueMakeAnApplication: `<a class="govuk-link" href="${PRE_ISSUE_MAKE_AN_APPLICATION}">Make an application to the court</a>`,
+  withdrawApplication: `<a class="govuk-link" href="${isPreIssue ? WITHDRAW_THIS_APPLICATION : WITHDRAW_APPLICATION}">${
+    isPreIssue ? 'Withdraw this' : 'Apply to withdraw this '
+  }${isDivorce ? 'divorce' : 'dissolution'} application</a>`,
 });
 
 const languages = {
@@ -1144,13 +1171,14 @@ export const generateContent: TranslationFn = content => {
     userCase.applicant1InterimApplicationType !== InterimApplicationType.PROCESS_SERVER_SERVICE;
   const interimApplicationStartedAosOverdue =
     interimApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
+  const isPreIssue = content.userCase.issueDate === undefined || content.userCase.issueDate === null;
 
   return {
     ...languages[language](
       content,
+      isPreIssue,
       alternativeServiceType,
       dateOfCourtReplyToRequestForInformationResponse,
-      respondentAddressProvided,
       noResponseStartPagePath
     ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
@@ -1179,5 +1207,6 @@ export const generateContent: TranslationFn = content => {
     isSearchGovRecordsFeeRequired,
     interimApplicationStartPagePath,
     interimApplicationStartedAosOverdue,
+    isPreIssue,
   };
 };

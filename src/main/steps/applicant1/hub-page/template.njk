@@ -28,14 +28,15 @@
             {% include "./sole/hub.njk" %}
           {% endblock %}
         {% endif %}
-        {% if displayState.isAfter('AwaitingDocuments') or displayState.isAtOrAfter('AwaitingHWFDecision') %}
-        <h3 class="govuk-heading-s">{{ subHeading2 }}</h3>
-        <p class="govuk-body">
-          <a class="govuk-link" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">{{ line1 }}
-          </a>
-        </p>
-        {% endif %}
       </div>
+      <p class="govuk-body">{{ reviewContactDetails | safe }}</p>
+      <p class="govuk-body">{{ hubPageDownloads | safe }}</p>
+      {% if featureFlags.NFD_GenAppsReleased %}
+        {% if isPreIssue %}
+          <p class="govuk-body">{{ preIssueMakeAnApplication | safe }}</p>
+        {% endif %}
+      {% endif %}
+      <p class="govuk-body">{{ withdrawApplication | safe }}</p>
     </div>
 
     <div class="govuk-grid-column-one-third hub-right-column">
