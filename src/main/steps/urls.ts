@@ -326,3 +326,14 @@ export const PAY_YOUR_GENERAL_APPLICATION_FEE: PageLink = '/interim-applications
 export const GENERAL_APPLICATION_PAYMENT_CALLBACK: PageLink =
   '/interim-applications/general-application-payment-callback';
 export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/interim-applications/general-application-submitted';
+
+// New Hub Download Page
+export const HUB_PAGE_DOWNLOADS: PageLink = '/downloads';
+
+// Post Submission GenApp Start Application
+export const PRE_ISSUE_MAKE_AN_APPLICATION: PageLink = '/interim-applications/pre-issue/make-an-application';
+
+//Withdraw Application URLs
+export const WITHDRAW_THIS_APPLICATION: PageLink = '/withdraw-pre-issue/withdraw-this-application';
+export const CHECK_ANSWERS_WITHDRAW: PageLink = '/withdraw-pre-issue/check-your-answers';
+export const WITHDRAW_CONFIRMATION: PageLink = '/withdraw-pre-issue/application-withdrawn';
