@@ -123,8 +123,7 @@
     "@wdio/cli": "9.20.1",
     "@wdio/sauce-service": "9.20.1",
     "allure-commandline": "2.34.1",
-    "axios-debug-log": "1.0.0",
-    "codeceptjs": "3.6.10",
+    "codeceptjs": "3.7.5",
     "copy-webpack-plugin": "13.0.1",
     "css-loader": "7.1.2",
     "eslint": "8.57.1",
@@ -162,11 +161,7 @@
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
-    "http-cache-semantics": "4.2.0",
-    "axios": "1.13.2",
-    "nanoid": "5.1.6",
-    "formidable": "3.5.4",
-    "js-yaml": "4.1.1"
+    "axios": "1.13.2"
   },
   "packageManager": "yarn@3.8.7"
 }
