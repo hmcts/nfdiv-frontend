@@ -25,6 +25,12 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
 
+  test('should show /final-order-requested.njk for state FinalOrderPending', () => {
+    const theState = displayState.at(State.FinalOrderPending);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.FinalOrderRequested);
+  });
+
   test('should show /awaiting-final-order-or-final-order-overdue.njk for state AwaitingFinalOrder', () => {
     const theState = displayState.at(State.AwaitingFinalOrder);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
@@ -52,6 +58,18 @@ describe('RespondentTemplateSelector test', () => {
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingAmendedApplication', () => {
     const theState = displayState.at(State.AwaitingAmendedApplication);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
+  });
+
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingAdminClarification', () => {
+    const theState = displayState.at(State.AwaitingAdminClarification);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
+  });
+
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingClarification', () => {
+    const theState = displayState.at(State.AwaitingClarification);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
   });
