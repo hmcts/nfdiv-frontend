@@ -1,0 +1,28 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l" id="preIssueMakeAnApplicationTitle">{{ title }}</h1>
+  <p class="govuk-body">{{ subheading }}</p>
+  <h1 class="govuk-heading-m">{{ withdraw.header }}</p>
+  <p class="govuk-body">{% if isPreIssue %}{{ withdraw.preIssue | safe }}{% else %}{{ withdraw.postIssue }}{% endif %}</p>
+  <h1 class="govuk-heading-m">{{ stay.header }}</p>
+  <p class="govuk-body">{{ stay.infoHeader }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ stay.options.otherProceedings }}</li>
+    <li>{{ stay.options.reconcile }}</li>
+    <li>{{ stay.options.otherReason }}</li>
+  </ul>
+  <p class="govuk-body">{{ stay.content }}</p>
+  <h1 class="govuk-heading-m">{{ extend.header }}</p>
+  <p class="govuk-body">{{ extend.content }}</p>
+  <h1 class="govuk-heading-m">{{ expedite.header }}</p>
+  <p class="govuk-body">{{ expedite.content }}</p>
+  <h1 class="govuk-heading-m">{{ amend.header }}</p>
+  <p class="govuk-body">{% if isPreIssue %}{{ amend.preIssue }}{% else %}{{ amend.postIssue }}{% endif %}</p>
+  <h1 class="govuk-heading-m">{{ other.header }}</p>
+{% endblock %}
