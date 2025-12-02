@@ -163,4 +163,3 @@ export const getNameChangeOtherDetailsValidator = (
     }
   }) as ValidationCheck;
 };
-
