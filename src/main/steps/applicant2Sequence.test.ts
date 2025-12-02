@@ -11,7 +11,7 @@ import {
 
 describe('Applicant 2 Sequence test', () => {
   describe('APPLY_FINANCIAL_ORDER', () => {
-      test('applicant2ApplyForFinancialOrder - name has changed', () => {
+    test('applicant2ApplyForFinancialOrder - name has changed', () => {
       const caseData = {
         applicant2ApplyForFinancialOrder: YesOrNo.YES,
         applicant2NameDifferentToMarriageCertificate: YesOrNo.YES,
@@ -20,7 +20,6 @@ describe('Applicant 2 Sequence test', () => {
       const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
       expect(step.getNextStep(caseData)).toBe(APPLY_FINANCIAL_ORDER_DETAILS);
     });
-
 
     test('applicant2ApplyForFinancialOrder - name has not changed', () => {
       const caseData = {
