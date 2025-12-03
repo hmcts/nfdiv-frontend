@@ -12,7 +12,7 @@ export default class AlternativeServiceUploadEvidenceGetController extends GetCo
     super(__dirname + '/template.njk', generateContent);
   }
 
-  protected async setSessionOverrides(req: AppRequest): Promise<void> {
+  protected setSessionOverrides(req: AppRequest): void {
     req.session.fileUploadJourney = FileUploadJourney.ALTERNATIVE_SERVICE;
   }
 }
