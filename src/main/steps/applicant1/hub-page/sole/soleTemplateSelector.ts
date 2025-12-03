@@ -31,7 +31,7 @@ export const getSoleHubTemplate = (
       AlternativeServiceType.ALTERNATIVE_SERVICE;
   const isRefusalOrderToApplicant =
     userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
-    ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT && caseHasBeenIssued;
+      ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT && caseHasBeenIssued;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
   const isPersonalServiceRequired = userCase.serviceMethod === ServiceMethod.PERSONAL_SERVICE;
 
