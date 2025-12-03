@@ -1,10 +1,10 @@
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
 
-<p class="govuk-body">{{ reviewContactDetails | safe }}</p>
-<p class="govuk-body">{{ hubPageDownloads | safe }}</p>
+<p class="govuk-body"><a class="govuk-link" id="checkContactDetailsHubLink" href="{{ reviewContactDetails.url }}">{{ reviewContactDetails.text }}</a></p>
+<p class="govuk-body"><a class="govuk-link" id="downloadsHubLink" href="{{ hubPageDownloads.url }}">{{ hubPageDownloads.text }}</a></p>
 {% if featureFlags.NFD_GenAppsReleased %}
   {% if not caseHasBeenIssued %}
-    <p class="govuk-body">{{ preIssueMakeAnApplication | safe }}</p>
+    <p class="govuk-body"><a class="govuk-link" id="preIssueMakeAnApplicationHubLink" href="{{ preIssueMakeAnApplication.url }}">{{ preIssueMakeAnApplication.text }}</a></p>
   {% endif %}
 {% endif %}
-<p class="govuk-body">{{ withdrawApplication | safe }}</p>
+<p class="govuk-body"><a class="govuk-link" id="withdrawApplicationHubLink" href="{{ withdrawApplication.url }}">{{ withdrawApplication.text }}</a></p>
