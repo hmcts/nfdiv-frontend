@@ -373,11 +373,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: DO_YOU_HAVE_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.applicant1KnowsApplicant2Address === YesOrNo.NO) {
-        return ADDRESS_FINDING;
-      } else {
-        return ENTER_THEIR_ADDRESS;
-      }
+      return data.applicant1KnowsApplicant2Address === YesOrNo.NO ? ADDRESS_FINDING : ENTER_THEIR_ADDRESS;
     },
   },
   {
