@@ -1217,6 +1217,44 @@ describe('HomeGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
   });
 
+  test('redirects to hub page for applicant 2 users when state is ConditionalOrderReview', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.ConditionalOrderReview,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          coApplicant1SubmittedDate: '2022-01-01',
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
+  test('redirects to hub page for applicant 2 users when state is AwaitingAdminClarification', () => {
+    const req = mockRequest({
+      session: {
+        isApplicant2: true,
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.AwaitingAdminClarification,
+          applicant2SolicitorRepresented: YesOrNo.NO,
+          coApplicant1SubmittedDate: '2022-01-01',
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(`${APPLICANT_2}${HUB_PAGE}`);
+  });
+
   test('redirects to hub page for applicant 1 users when coApplicant1SubmittedDate is present and represented', () => {
     const req = mockRequest({
       session: {
