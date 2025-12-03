@@ -4,30 +4,34 @@ import dayjs from 'dayjs';
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
-import { HUB_PAGE } from '../../urls';
+import { ENTER_THEIR_ADDRESS, HUB_PAGE, OPTIONS_FOR_PROGRESSING } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
-const en = ({
-  applicationHasBeenPaidFor,
-  isDivorce,
-  userCase,
-  partner,
-  referenceNumber,
-  isJointApplication,
-  webChat,
-  openingTimes,
-  telephoneNumber,
-  feedbackLink,
-}: CommonContent) => ({
-  title: `Application ${
-    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
-      ? 'saved'
-      : 'submitted'
+const en = (
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    userCase,
+    partner,
+    referenceNumber,
+    isJointApplication,
+    webChat,
+    openingTimes,
+    telephoneNumber,
+    feedbackLink,
+  }: CommonContent,
+  furtherActionRequired: boolean
+) => ({
+  title: `${
+    furtherActionRequired
+      ? 'Further action needed'
+      : `Application ${userCase.applicant1CannotUpload || userCase.applicant2CannotUpload ? 'saved' : 'submitted'}`
   }`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
@@ -142,6 +146,26 @@ const en = ({
     link: feedbackLink,
   },
   useOurOnlineForm: 'Use our online form',
+  hubUrl: {
+    text: 'Return to your account',
+    url: HUB_PAGE,
+  },
+  furtherActionNeeded: {
+    whatYouNeedToDoHeader: 'What you need to do',
+    line1: `You have submitted your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${ENTER_THEIR_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
+    } to this address at no additional cost.`,
+    line3: `If you cannot find an address for your partner, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
+      isDivorce ? 'your divorce' : 'ending your civil partnership'
+    } another way</a>. This application will cost ${getFee(
+      config.get('fees.alternativeService')
+    )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.getHelpWithCourtFees'
+    )}">get help paying this fee (opens in a new tab)</a>.`,
+  },
 });
 
 // @TODO Welsh
@@ -158,9 +182,7 @@ const cy: typeof en = ({
   feedbackLink,
 }: CommonContent) => ({
   title: `${
-    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
-      ? 'Cais wedi’i gadw'
-      : 'Cyflwynwyd y cais'
+    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload ? 'Cais wedi’i gadw' : 'Cyflwynwyd y cais'
   }`,
   yourReferenceNumber: 'Eich cyfeirnod yw',
   subHeading1: 'Beth sydd angen i chi ei wneud nawr',
@@ -276,6 +298,26 @@ const cy: typeof en = ({
     part1: 'Rhoi adborth.',
     link: feedbackLink,
   },
+  furtherActionNeeded: {
+    whatYouNeedToDoHeader: 'What you need to do',
+    line1: `You have submitted your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${ENTER_THEIR_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
+    } to this address at no additional cost.`,
+    line3: `If you cannot find an address for your partner, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
+      isDivorce ? 'your divorce' : 'ending your civil partnership'
+    } another way</a>. This application will cost ${getFee(
+      config.get('fees.alternativeService')
+    )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.getHelpWithCourtFees'
+    )}">get help paying this fee (opens in a new tab)</a>.`,
+  },
+  hubUrl: {
+    text: 'Dychwelyd i’ch cyfri',
+    url: HUB_PAGE,
+  },
 });
 
 const languages = {
@@ -303,10 +345,12 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
+  const furtherActionRequired = userCase.applicant1KnowsApplicant2Address === YesOrNo.NO;
+
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
 
   return {
-    ...languages[language]({ ...content, referenceNumber }),
+    ...languages[language]({ ...content, referenceNumber }, furtherActionRequired),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,
@@ -315,5 +359,6 @@ export const generateContent: TranslationFn = content => {
     referenceNumber,
     cannotUploadDocuments,
     ...progressBarContent,
+    furtherActionRequired,
   };
 };
