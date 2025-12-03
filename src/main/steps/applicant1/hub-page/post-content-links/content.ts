@@ -11,7 +11,7 @@ import {
   WITHDRAW_THIS_APPLICATION,
 } from '../../../urls';
 
-const en = ({ isApplicant2, isDivorce, userCase }: CommonContent, isPreIssue: boolean) => ({
+const en = ({ caseHasBeenIssued, isApplicant2, isDivorce, userCase }: CommonContent) => ({
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
@@ -19,21 +19,21 @@ const en = ({ isApplicant2, isDivorce, userCase }: CommonContent, isPreIssue: bo
   hubPageDownloads: `<a class="govuk-link" href="${HUB_PAGE_DOWNLOADS}">View all documents</a>`,
   preIssueMakeAnApplication: `<a class="govuk-link" href="${PRE_ISSUE_MAKE_AN_APPLICATION}">Make an application to the court</a>`,
   withdrawApplication: `<a class="govuk-link" href="${
-    isPreIssue ? WITHDRAW_THIS_APPLICATION : WITHDRAW_APPLICATION
+    caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION : WITHDRAW_APPLICATION
   }">Withdraw this ${isDivorce ? 'divorce' : 'dissolution'} application</a>`,
 });
 
 // @TODO translations
-const cy: typeof en = ({ isApplicant2, isDivorce, userCase }: CommonContent, isPreIssue: boolean) => ({
+const cy: typeof en = ({ caseHasBeenIssued, isApplicant2, isDivorce, userCase }: CommonContent) => ({
   reviewContactDetails: `<a class="govuk-link" href="${
     (isApplicant2 ? (userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2) : '') +
     CHECK_CONTACT_DETAILS
-  }">Adolygu eich manylion cyswllt</a>`,
+  }">Review your contact details</a>`,
   hubPageDownloads: `<a class="govuk-link" href="${HUB_PAGE_DOWNLOADS}">View all documents</a>`,
   preIssueMakeAnApplication: `<a class="govuk-link" href="${PRE_ISSUE_MAKE_AN_APPLICATION}">Make an application to the court</a>`,
-  withdrawApplication: `<a class="govuk-link" href="${isPreIssue ? WITHDRAW_THIS_APPLICATION : WITHDRAW_APPLICATION}">${
-    isPreIssue ? 'Withdraw this' : 'Apply to withdraw this '
-  }${isDivorce ? 'divorce' : 'dissolution'} application</a>`,
+  withdrawApplication: `<a class="govuk-link" href="${
+    caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION : WITHDRAW_APPLICATION
+  }">Withdraw this ${isDivorce ? 'divorce' : 'dissolution'} application</a>`,
 });
 
 const languages = {
@@ -42,9 +42,8 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const isPreIssue = content.userCase.issueDate === undefined || content.userCase.issueDate === null;
   return {
-    ...languages[content.language](content, isPreIssue),
-    isPreIssue,
+    ...languages[content.language](content),
+    caseHasBeenIssued: content.caseHasBeenIssued,
   };
 };

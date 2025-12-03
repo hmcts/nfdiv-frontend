@@ -9,7 +9,7 @@
   <h1 class="govuk-heading-l" id="preIssueMakeAnApplicationTitle">{{ title }}</h1>
   <p class="govuk-body">{{ subheading }}</p>
   <h1 class="govuk-heading-m">{{ withdraw.header }}</p>
-  <p class="govuk-body">{% if isPreIssue %}{{ withdraw.preIssue | safe }}{% else %}{{ withdraw.postIssue }}{% endif %}</p>
+  <p class="govuk-body">{% if caseHasBeenIssued %}{{ withdraw.postIssue }}{% else %}{{ withdraw.preIssue | safe }}{% endif %}</p>
   <h1 class="govuk-heading-m">{{ stay.header }}</p>
   <p class="govuk-body">{{ stay.infoHeader }}</p>
   <ul class="govuk-list govuk-list--bullet">
@@ -23,6 +23,6 @@
   <h1 class="govuk-heading-m">{{ expedite.header }}</p>
   <p class="govuk-body">{{ expedite.content }}</p>
   <h1 class="govuk-heading-m">{{ amend.header }}</p>
-  <p class="govuk-body">{% if isPreIssue %}{{ amend.preIssue }}{% else %}{{ amend.postIssue }}{% endif %}</p>
+  <p class="govuk-body">{% if caseHasBeenIssued %}{{ amend.postIssue }}{% else %}{{ amend.preIssue }}{% endif %}</p>
   <h1 class="govuk-heading-m">{{ other.header }}</p>
 {% endblock %}

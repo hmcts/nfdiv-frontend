@@ -101,10 +101,9 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const isPreIssue = content.userCase.issueDate === undefined || content.userCase.issueDate === null;
   return {
     ...translations,
     form,
-    isPreIssue,
+    caseHasBeenIssued: content.caseHasBeenIssued,
   };
 };
