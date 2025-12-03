@@ -27,7 +27,7 @@ Feature: Sole hub page
     When I sign out
     And I login with applicant "1"
     Then the page should include element "#aosDueLine1"
-    When I click "Review your contact details"
+    When I click element "#checkContactDetailsHubLink"
     Then the page URL should be "/check-contact-details"
 
     When I sign out
