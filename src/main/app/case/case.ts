@@ -206,6 +206,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  applicant1NoRespAddressHasFoundAddress: 'applicant1NoRespAddressHasFoundAddress',
+  applicant1NoRespAddressHasWayToContact: 'applicant1NoRespAddressHasWayToContact',
+  applicant1NoRespAddressWillApplyAltService: 'applicant1NoRespAddressWillApplyAltService',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
   applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
@@ -650,6 +653,9 @@ export interface Case {
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant2InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
+  applicant1NoRespAddressHasFoundAddress: YesOrNo;
+  applicant1NoRespAddressHasWayToContact: YesOrNo;
+  applicant1NoRespAddressWillApplyAltService: YesOrNo;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
