@@ -3,11 +3,13 @@
 {% block after_form %}
   <p class="govuk-body">{{ alsoTry.header }}</p>
   <ul class="govuk-list govuk-list--bullet">
+    {% if caseHasBeenIssued and not noRespondentAddress %}
+      <li>{{ alsoTry.options.deemedService | safe }}</li>
+    {% endif %}
     {% if not isApp2Confidential and not isApp2Represented %}
       <li>{{ alsoTry.options.updateDetails | safe }}</li>
     {% endif %}
-    {% if caseHasBeenIssued %}
-      <li>{{ alsoTry.options.deemedService | safe }}</li>
+    {% if caseHasBeenIssued and not noRespondentAddress %}
       <li>{{ alsoTry.options.applyProcessServerOrBailiff | safe }}</li>
     {% endif %}
     <li>{{ alsoTry.options.searchRecords | safe }}</li>

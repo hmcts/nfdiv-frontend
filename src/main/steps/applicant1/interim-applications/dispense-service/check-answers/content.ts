@@ -1,3 +1,4 @@
+import { capitalize } from 'lodash';
 import striptags from 'striptags';
 
 import { getFormattedCaseDate } from '../../../../../app/case/answers/formatDate';
@@ -77,8 +78,8 @@ const en = (stepAnswers, { isDivorce, partner }: CommonContent) => ({
     dateLastLivedTogether: 'The date you last lived together',
     whereLivedTogether: `Where did you and your ${partner} live together?`,
     wherePartnerLivedAfterParting: `Are you aware of where your ${partner} lived after parting?`,
-    partnerAddress1: `${partner}'s address 1`,
-    partnerAddress2: `${partner}'s address 2`,
+    partnerAddress1: `${capitalize(partner)}'s address 1`,
+    partnerAddress2: `${capitalize(partner)}'s address 2`,
     whenPartnerLastSeen: `When was your ${partner} last seen or heard of?`,
     partnerLastSeenDescription: `Describe the last time you saw or heard of your ${partner}`,
     finalOrderSearch: `Have you searched for an existing ${isDivorce ? 'decree absolute or ' : ''}final order?`,
