@@ -1,16 +1,18 @@
+import { State } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { currentStateFn } from '../../../state-sequence';
 
 const en = () => ({
   iWantTo: 'I want to...',
   gettingHelp: 'Getting help',
-  moneyAndProperty: 'Find out about dividing money and property',
+  moneyAndPropertyLinkText: 'Find out about dividing money and property',
 });
 
 // @TODO translations
 const cy: typeof en = () => ({
   iWantTo: 'Rwyf eisiau...',
   gettingHelp: 'Cael help',
-  moneyAndProperty: 'Rhagor o wybodaeth am rannu arian ac eiddo',
+  moneyAndPropertyLinkText: 'Rhagor o wybodaeth am rannu arian ac eiddo',
 });
 
 const languages = {
@@ -19,5 +21,11 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  return languages[content.language]();
+  const currentState = currentStateFn(content.userCase?.state);
+  const showMoneyAndPropertySidebarLink =
+    currentState.isAfter(State.AwaitingDocuments) || currentState.isAtOrAfter(State.AwaitingHWFDecision);
+  return {
+    ...languages[content.language](),
+    showMoneyAndPropertySidebarLink,
+  };
 };

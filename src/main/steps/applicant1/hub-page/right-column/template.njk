@@ -2,9 +2,9 @@
 
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--additional">
 <h2 class="govuk-heading-s">{{ iWantTo }}</h2>
-{% if displayState.isAfter('AwaitingDocuments') or displayState.isAtOrAfter('AwaitingHWFDecision') %}
+{% if showMoneyAndPropertySidebarLink %}
   <p class="govuk-body">
-    <a class="govuk-link" id="moneyAndPropertySidebarLink" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">{{ moneyAndProperty }}
+    <a class="govuk-link" id="moneyAndPropertySidebarLink" href="https://www.gov.uk/money-property-when-relationship-ends" target="_blank">{{ moneyAndPropertyLinkText }}
     </a>
   </p>
 {% endif %}
