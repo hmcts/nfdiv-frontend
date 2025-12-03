@@ -530,6 +530,7 @@ const en = (
     line2: 'We are now awaiting completion of service through the method of service that was approved by the court.',
   },
   furtherActionNeeded: {
+    whatYouNeedToDoHeader: 'What you need to do',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
@@ -1050,6 +1051,7 @@ const cy: typeof en = (
     line2: 'Rydym nawr yn aros i gwblhau cyflwyno drwy’r dull cyflwyno a gymeradwywyd gan y llys.',
   },
   furtherActionNeeded: {
+    whatYouNeedToDoHeader: 'What you need to do',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,

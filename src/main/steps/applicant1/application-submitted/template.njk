@@ -16,11 +16,12 @@
     </div>
   </div>
   <br/>
-  {% if furtherActionRequired %}
-    <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
-    <p class="govuk-body">{{ line1 }}</p>
-    <p class="govuk-body">{{ line2 | safe }}</p>
-  {% else %}
+    {% if furtherActionRequired %}
+    <h3 class="govuk-heading-m">{{ furtherActionNeeded.whatYouNeedToDoHeader }}</h3>
+    <p class="govuk-body">{{ furtherActionNeeded.line1 }}</p>
+    <p class="govuk-body">{{ furtherActionNeeded.line2 | safe }}</p>
+    <p class="govuk-body">{{ furtherActionNeeded.line3 | safe }}</p>
+    {% endif %}
     {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
       <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
       <p class="govuk-body">{{ line1 }}</p>
@@ -109,7 +110,6 @@
         <p class="govuk-body"><a class="govuk-link" href={{ feedbackLine2.link }}>{{ feedbackLine2.part1 }}</a></p>
       </div>
     </div>
-  {% endif %}
   <p class="govuk-body">
     <a class="govuk-link" id="hubPageLink" href="{{ hubUrl.url }}">{{hubUrl.text}}</a>
   </p>

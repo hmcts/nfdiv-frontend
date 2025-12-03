@@ -4,12 +4,13 @@ import dayjs from 'dayjs';
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
-import { HUB_PAGE, OPTIONS_FOR_PROGRESSING } from '../../urls';
+import { ENTER_THEIR_ADDRESS, HUB_PAGE, OPTIONS_FOR_PROGRESSING } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = (
@@ -34,17 +35,9 @@ const en = (
   }`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
-  line1: `${
-    furtherActionRequired
-      ? 'You have submitted your application, but you have not yet provided an address.'
-      : 'Your application will not be processed until you have done the following:'
-  }`,
+  line1: 'Your application will not be processed until you have done the following:',
   subHeading2: 'Send your documents to the court',
-  line2: `${
-    furtherActionRequired
-      ? `We will not be able to process your application until you either <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>provide an address or apply to the court to progress your application another way</a>.`
-      : 'You need to send the following documents to the court because you did not upload them earlier:'
-  }`,
+  line2: 'You need to send the following documents to the court because you did not upload them earlier:',
   documents: {
     [DocumentType.MARRIAGE_CERTIFICATE]:
       userCase.inTheUk === YesOrNo.NO
@@ -156,6 +149,22 @@ const en = (
   hubUrl: {
     text: 'Return to your account',
     url: HUB_PAGE,
+  },
+  furtherActionNeeded: {
+    whatYouNeedToDoHeader: 'What you need to do',
+    line1: `You have submitted your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${ENTER_THEIR_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
+    } to this address at no additional cost.`,
+    line3: `If you cannot find an address for your partner, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
+      isDivorce ? 'your divorce' : 'ending your civil partnership'
+    } another way</a>. This application will cost ${getFee(
+      config.get('fees.alternativeService')
+    )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.getHelpWithCourtFees'
+    )}">get help paying this fee (opens in a new tab)</a>.`,
   },
 });
 
@@ -289,6 +298,22 @@ const cy: typeof en = ({
     part1: 'Rhoi adborth.',
     link: feedbackLink,
   },
+  furtherActionNeeded: {
+    whatYouNeedToDoHeader: 'What you need to do',
+    line1: `You have submitted your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${ENTER_THEIR_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
+    } to this address at no additional cost.`,
+    line3: `If you cannot find an address for your partner, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
+      isDivorce ? 'your divorce' : 'ending your civil partnership'
+    } another way</a>. This application will cost ${getFee(
+      config.get('fees.alternativeService')
+    )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.getHelpWithCourtFees'
+    )}">get help paying this fee (opens in a new tab)</a>.`,
+  },
   hubUrl: {
     text: 'Dychwelyd i’ch cyfri',
     url: HUB_PAGE,
@@ -320,9 +345,7 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
-  const furtherActionRequired =
-    userCase.applicant1KnowsApplicant2Address === YesOrNo.NO ||
-    userCase.applicant1FoundApplicant2Address === YesOrNo.NO;
+  const furtherActionRequired = userCase.applicant1KnowsApplicant2Address === YesOrNo.NO;
 
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
 
