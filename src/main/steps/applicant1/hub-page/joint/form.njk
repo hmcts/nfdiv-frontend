@@ -15,7 +15,7 @@
       value: "Yes",
       preventDoubleClick: true
     }) }}
-  {% elif displayState.isAfter('Holding') and displayState.isBefore('AwaitingLegalAdvisorReferral') and not hasApplicantAppliedForConditionalOrder %}
+  {% elif displayState.isAfter('Holding') and displayState.isBefore('AwaitingLegalAdvisorReferral') and not hasApplicantAppliedForConditionalOrder and not partnerIsOffline %}
     {{ govukButton({
       text: button.applyForConditionalOrder,
       classes: 'disable-upon-submit',
