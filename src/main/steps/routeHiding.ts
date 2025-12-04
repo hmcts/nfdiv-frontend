@@ -7,8 +7,8 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
-import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
+import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {

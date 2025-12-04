@@ -18,9 +18,9 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
+import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
-import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
 import {
