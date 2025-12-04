@@ -1,3 +1,5 @@
+@use 'govuk-frontend' as *;
+
 .govuk-panel--confirmation {
   background-color: govuk-colour('turquoise');
   div {
