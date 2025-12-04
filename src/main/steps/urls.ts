@@ -333,7 +333,7 @@ export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/interim-applications/ge
 export const HUB_PAGE_DOWNLOADS: PageLink = '/downloads';
 
 // Post Submission GenApp Start Application
-export const PRE_ISSUE_MAKE_AN_APPLICATION: PageLink = '/interim-applications/general-application/make-an-application';
+export const MAKE_AN_APPLICATION: PageLink = '/interim-applications/general-application/make-an-application';
 
 //Withdraw Application URLs
 export const WITHDRAW_THIS_APPLICATION: PageLink = '/withdraw-pre-issue/withdraw-this-application';

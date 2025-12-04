@@ -5,7 +5,7 @@ import {
   APPLICANT_2,
   CHECK_CONTACT_DETAILS,
   HUB_PAGE_DOWNLOADS,
-  PRE_ISSUE_MAKE_AN_APPLICATION,
+  MAKE_AN_APPLICATION,
   RESPONDENT,
   WITHDRAW_APPLICATION,
   WITHDRAW_THIS_APPLICATION,
@@ -20,8 +20,8 @@ const en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRespondent: s
     url: HUB_PAGE_DOWNLOADS,
     text: 'View all documents',
   },
-  preIssueMakeAnApplication: {
-    url: PRE_ISSUE_MAKE_AN_APPLICATION,
+  genAppMakeAnApplication: {
+    url: MAKE_AN_APPLICATION,
     text: 'Make an application to the court',
   },
   withdrawApplication: {
@@ -40,8 +40,8 @@ const cy: typeof en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRe
     url: HUB_PAGE_DOWNLOADS,
     text: 'View all documents',
   },
-  preIssueMakeAnApplication: {
-    url: PRE_ISSUE_MAKE_AN_APPLICATION,
+  genAppMakeAnApplication: {
+    url: MAKE_AN_APPLICATION,
     text: 'Make an application to the court',
   },
   withdrawApplication: {

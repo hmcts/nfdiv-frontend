@@ -8,7 +8,7 @@ import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
-import { preIssueInterimAppJourneySequence } from './preIssueInterimAppJourneySequence';
+import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {
@@ -58,7 +58,7 @@ export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
 
 export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
   ...[
-    ...preIssueInterimAppJourneySequence,
+    ...generalApplicationD11JourneySequence,
     ...deemedServiceApplicationSequence,
     ...alternativeServiceApplicationSequence,
     ...bailiffServiceApplicationSequence,
@@ -110,7 +110,7 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
       ].includes(data.state as State),
   },
   {
-    urls: [...preIssueInterimAppJourneySequence]
+    urls: [...generalApplicationD11JourneySequence]
       .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
       .map(step => step.url as PageLink),
     condition: data => data.issueDate !== undefined && data.issueDate !== null,

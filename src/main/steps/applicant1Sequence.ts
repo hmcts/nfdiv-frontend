@@ -20,7 +20,7 @@ import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequ
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
-import { preIssueInterimAppJourneySequence } from './preIssueInterimAppJourneySequence';
+import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
 import {
@@ -608,7 +608,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
     url: VIEW_YOUR_ANSWERS,
     getNextStep: () => HOME_URL,
   },
-  ...preIssueInterimAppJourneySequence,
+  ...generalApplicationD11JourneySequence,
   ...noResponseJourneySequence,
   ...alternativeServiceApplicationSequence,
   ...bailiffServiceApplicationSequence,
