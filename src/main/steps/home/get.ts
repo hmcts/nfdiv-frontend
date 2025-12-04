@@ -127,7 +127,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
         !userCase.aosStatementOfTruth &&
         userCase.issueDate &&
         dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
-      return userCase.applicant1InterimApplicationType || aosOverdueAndDrafted
+      return userCase.applicant1InterimApplicationType && aosOverdueAndDrafted
         ? interimApplicationUrlMap[userCase.applicant1InterimApplicationType as InterimApplicationType]
         : HUB_PAGE;
     }
@@ -146,15 +146,19 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
   switch (req.session.userCase.state) {
     case State.InformationRequested:
     case State.AwaitingRequestedInformation:
+    case State.AwaitingHWFPartPayment:
     case State.RequestedInformationSubmitted:
     case State.AwaitingGeneralConsideration:
     case State.GeneralConsiderationComplete:
     case State.PendingHearingOutcome:
     case State.FinalOrderRequested:
+    case State.FinalOrderPending:
     case State.AwaitingConditionalOrder:
     case State.AwaitingPronouncement:
     case State.ConditionalOrderPronounced:
+    case State.ConditionalOrderReview:
     case State.AwaitingClarification:
+    case State.AwaitingAdminClarification:
     case State.AwaitingAmendedApplication:
     case State.FinalOrderComplete:
     case State.ClarificationSubmitted:
@@ -163,6 +167,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingJointFinalOrder:
     case State.Holding:
     case State.LAReview:
+    case State.LAServiceReview:
     case State.Submitted:
     case State.AwaitingDocuments:
     case State.AwaitingHWFDecision:
@@ -225,8 +230,11 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.AwaitingAlternativeService:
     case State.AwaitingDwpResponse:
     case State.AwaitingJudgeClarification:
+    case State.PendingServiceAppResponse:
     case State.GeneralConsiderationComplete:
     case State.AwaitingGeneralReferralPayment:
+    case State.AwaitingGenAppHWFEvidence:
+    case State.AwaitingGenAppHWFPartPayment:
     case State.AwaitingGeneralConsideration:
     case State.AwaitingGeneralApplicationPayment:
     case State.GeneralApplicationReceived: {
