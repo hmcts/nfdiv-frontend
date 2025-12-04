@@ -1,4 +1,4 @@
-import { ChangedNameHow, YesOrNo } from '../app/case/definition';
+import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import { preSubmissionSequence } from './applicant2Sequence';
@@ -11,69 +11,60 @@ import {
 
 describe('Applicant 2 Sequence test', () => {
   describe('APPLY_FINANCIAL_ORDER', () => {
-    test('applicant2ApplyForFinancialOrder - YES', () => {
+    test('applicant2ApplyForFinancialOrder - name has changed', () => {
       const caseData = {
         applicant2ApplyForFinancialOrder: YesOrNo.YES,
-        applicant2NameChangedHow: [ChangedNameHow.OTHER],
+        applicant2NameDifferentToMarriageCertificate: YesOrNo.YES,
       };
 
       const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
       expect(step.getNextStep(caseData)).toBe(APPLY_FINANCIAL_ORDER_DETAILS);
     });
 
-    test('applicant2ApplyForFinancialOrder - NO & deed poll', () => {
+    test('applicant2ApplyForFinancialOrder - name has not changed', () => {
       const caseData = {
-        applicant2ApplyForFinancialOrder: YesOrNo.NO,
-        applicant2NameChangedHow: [ChangedNameHow.DEED_POLL],
+        applicant2ApplyForFinancialOrder: YesOrNo.YES,
+        applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
       };
 
       const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
-      expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
+      expect(step.getNextStep(caseData)).toBe(APPLY_FINANCIAL_ORDER_DETAILS);
     });
 
-    test('applicant2ApplyForFinancialOrder - NO & other', () => {
+    test('applicant2ApplyForFinancialOrder - NO & name has not changed', () => {
       const caseData = {
         applicant2ApplyForFinancialOrder: YesOrNo.NO,
-        applicant2NameChangedHow: [ChangedNameHow.OTHER],
-      };
-
-      const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
-      expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
-    });
-
-    test('applicant2ApplyForFinancialOrder - NO & marriage certificate', () => {
-      const caseData = {
-        applicant2ApplyForFinancialOrder: YesOrNo.NO,
-        applicant2NameChangedHow: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+        applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
       };
 
       const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
       expect(step.getNextStep(caseData)).toBe(CHECK_JOINT_APPLICATION);
     });
+
+    test('applicant2ApplyForFinancialOrder - NO & name has changed', () => {
+      const caseData = {
+        applicant2ApplyForFinancialOrder: YesOrNo.NO,
+        applicant2NameDifferentToMarriageCertificate: YesOrNo.YES,
+      };
+
+      const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
+    });
   });
 
   describe('APPLY_FINANCIAL_ORDER_DETAILS', () => {
-    test('applicant2NameChangedHow - deed poll', () => {
+    test('applicant2 name has changed', () => {
       const caseData = {
-        applicant2NameChangedHow: [ChangedNameHow.DEED_POLL],
+        applicant2NameDifferentToMarriageCertificate: YesOrNo.YES,
       };
 
       const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
       expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
     });
 
-    test('applicant2NameChangedHow - other', () => {
+    test('applicant2 name has not changed', () => {
       const caseData = {
-        applicant2NameChangedHow: [ChangedNameHow.OTHER],
-      };
-
-      const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
-      expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
-    });
-
-    test('applicant2NameChangedHow - marriage certificate', () => {
-      const caseData = {
-        applicant2NameChangedHow: [ChangedNameHow.MARRIAGE_CERTIFICATE],
+        applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
       };
 
       const step = preSubmissionSequence.find(obj => obj.url === APPLY_FINANCIAL_ORDER) as Step;
