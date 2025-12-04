@@ -5,7 +5,7 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = ({ partner, isDivorce, required, hasAContactForPartner }) => ({
-  title: `${`Do you have your ${partner}'s postal address?`}`,
+  title: `Do you have your ${partner}'s postal address?`,
   line1: `${
     hasAContactForPartner
       ? `The court needs your ${partner}'s address, to notify them by letter about the ${
