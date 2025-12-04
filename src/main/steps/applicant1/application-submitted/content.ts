@@ -176,7 +176,7 @@ const cy: typeof en = ({
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } dramor`,
     [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Prawf eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
+      'Tystiolaeth eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
   },
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
   documentsByOnlineFormSteps: {
