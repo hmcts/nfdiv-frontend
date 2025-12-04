@@ -18,6 +18,18 @@ import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
 
+export const yesOrNoOrNotKnown_en = {
+  yes: 'Yes',
+  no: 'No',
+  notKnown: 'Not known',
+};
+
+export const yesOrNoOrNotKnown_cy = {
+  yes: 'Do',
+  no: 'Naddo',
+  notKnown: 'Anhysbys',
+};
+
 export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
@@ -121,9 +133,7 @@ export const en = {
     d11: 'D11',
     d89: 'D89',
   },
-  yes: 'Yes',
-  no: 'No',
-  notKnown: 'Not known',
+  ...yesOrNoOrNotKnown_en,
   english: 'English',
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
@@ -315,9 +325,7 @@ const cy: typeof en = {
     d11: 'D11',
     d89: 'D89',
   },
-  yes: 'Do',
-  no: 'Naddo',
-  notKnown: 'Anhysbys',
+  ...yesOrNoOrNotKnown_cy,
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',
