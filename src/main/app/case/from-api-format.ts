@@ -164,6 +164,7 @@ const fields: FromApiConverters = {
   }),
   previousState: 'previousState',
   applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
+  applicant1Offline: 'applicant1Offline',
   applicant2Offline: 'applicant2Offline',
   switchedToSoleCo: 'switchedToSoleCo',
   applicant1AppliedForFinalOrderFirst: 'applicant1AppliedForFinalOrderFirst',

@@ -577,6 +577,7 @@ export interface Case {
   previousState: State;
   applicant1UsedWelshTranslationOnSubmission?: YesOrNo;
   applicant2UsedWelshTranslationOnSubmission?: YesOrNo;
+  applicant1Offline: YesOrNo;
   applicant2Offline: YesOrNo;
   applicant1AppliedForFinalOrderFirst: YesOrNo;
   applicant2AppliedForFinalOrderFirst: YesOrNo;
