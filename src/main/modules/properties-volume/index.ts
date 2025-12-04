@@ -33,6 +33,7 @@ export class PropertiesVolume {
       await this.setSecret('secrets.nfdiv.genesys-deployment-id', 'webchat.genesysDeploymentId');
       await this.setSecret('secrets.nfdiv.genesys-deployment-id-cy', 'webchat.genesysDeploymentIdCy');
       await this.setSecret('secrets.nfdiv.genesys-api-key', 'webchat.genesysApiKey');
+      await this.setSecret('secrets.nfdiv.launch-darkly-sdk-key', 'launchDarkly.sdkKey');
     } else {
       // Load local secrets using Azure SDK
       await this.setLocalSecret('idam-secret', 'services.idam.clientSecret');
@@ -45,6 +46,7 @@ export class PropertiesVolume {
       await this.setLocalSecret('genesys-deployment-id', 'webchat.genesysDeploymentId');
       await this.setLocalSecret('genesys-deployment-id-cy', 'webchat.genesysDeploymentIdCy');
       await this.setLocalSecret('genesys-api-key', 'webchat.genesysApiKey');
+      await this.setLocalSecret('launch-darkly-sdk-key', 'launchDarkly.sdkKey');
     }
     set(config, 'nonce', uuidv4().replace(/-/g, ''));
   };

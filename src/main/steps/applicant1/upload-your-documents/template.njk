@@ -42,7 +42,7 @@
   <ul class="govuk-list govuk-list--bullet">
     <li>{{ certificate if userCase.inTheUk === 'Yes' else certificateForeign }}</li>
     {% if userCase.certifiedTranslation === 'Yes' %}<li>{{ certificateForeignTranslation }}</li>{% endif %}
-    {% if shouldMentionProofOfNameChange %}
+    {% if nameDifferenceEvidenceRequired %}
       <li>{{ proofOfNameChange }}</li>
     {% endif %}
   </ul>

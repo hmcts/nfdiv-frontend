@@ -52,28 +52,27 @@ export class Nunjucks {
           html: this.env.globals.getContent.call(this, i.hint),
         },
         conditional: (() => {
+          let output = '';
+
           if (i.warning) {
-            return {
-              html: env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
-                message: this.env.globals.getContent.call(this, i.warning),
-                warning: this.ctx.warning,
-              }),
-            };
-          } else if (i.subFields) {
-            return {
-              html:
-                env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
-                  ...this.ctx,
-                  form: { fields: i.subFields },
-                }) + (i.conditionalText ? this.env.globals.getContent.call(this, i.conditionalText) : ''),
-            };
-          } else if (i.conditionalText) {
-            return {
-              html: this.env.globals.getContent.call(this, i.conditionalText),
-            };
-          } else {
-            return undefined;
+            output += env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
+              message: this.env.globals.getContent.call(this, i.warning),
+              warning: this.ctx.warning,
+            });
           }
+
+          if (i.subFields) {
+            output += env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
+              ...this.ctx,
+              form: { fields: i.subFields },
+            });
+          }
+
+          if (i.conditionalText) {
+            output += this.env.globals.getContent.call(this, i.conditionalText);
+          }
+
+          return output.length > 0 ? { html: output } : undefined;
         })(),
       }));
     });
@@ -84,12 +83,10 @@ export class Nunjucks {
         avayaUrl: config.get('webchat.avayaUrl'),
         avayaClientUrl: config.get('webchat.avayaClientUrl'),
         avayaService: config.get('webchat.avayaService'),
-        genesysReferrerPage: config.get('webchat.genesysReferrerPage'),
         genesysBaseUrl: config.get('webchat.genesysBaseUrl'),
         genesysEnvironment: config.get('webchat.genesysEnvironment'),
         genesysKervBaseUrl: config.get('webchat.genesysKervBaseUrl'),
         genesysApiKey: config.get('webchat.genesysApiKey'),
-        useGenesys: config.get('webchat.useGenesys'),
       },
       dynatrace: {
         dynatraceUrl: config.get('dynatrace.dynatraceUrl'),
@@ -97,6 +94,11 @@ export class Nunjucks {
     };
 
     env.addGlobal('globals', globals);
+
+    app.use(async (req, res, next) => {
+      env.addGlobal('featureFlags', await res.locals.launchDarkly.getFlags());
+      next();
+    });
 
     env.addGlobal('govukRebrand', true);
 
