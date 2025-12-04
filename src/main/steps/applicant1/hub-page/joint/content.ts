@@ -45,6 +45,7 @@ const en = (
     isApplicant2,
     referenceNumber,
     telephoneNumber,
+    contactWebForm,
   }: CommonContent,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
@@ -80,9 +81,43 @@ const en = (
       You will receive an email to remind you.`,
   },
   confirmReceipt: 'Confirm receipt',
-  applicantNotYetAppliedForConditionalOrder: `You can now apply for a ‘conditional order’.
-  A conditional order is a document that says the court does not see any reason why you cannot
-  ${isDivorce ? 'get a divorce' : 'end your civil partnership'}.`,
+  applicantNotYetAppliedForConditionalOrder: {
+    content: `You can now apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get a divorce' : 'end your civil partnership'
+    }.`,
+    notOnline: {
+      youWontBeAbleToApplyOnline: `You won’t be able to apply online for your conditional order because your ${partner} is not using the online divorce service. You can apply using the <b>paper form</b> and send it to the court by post or via our online form. You will also begin to receive letter correspondence from the court.`,
+      downloadPaperForm: {
+        content: 'You can download the paper form here: ',
+        link: {
+          text: 'D84 form',
+          url: config.get('govukUrls.d84Form'),
+        },
+      },
+      sendingDocumentsOnline: {
+        header: 'Sending documents using our online form',
+        content: 'You can send photographs or scans of your documents to us by ',
+        link: {
+          text: 'uploading them using our online form.',
+          url: contactWebForm,
+        },
+        followInstructions:
+          'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
+      },
+      sendingDocumentsPost: {
+        header: 'Sending documents by post',
+        list: {
+          step1: {
+            content: 'Write your reference number on each document: ',
+            refNumber: referenceNumber,
+          },
+          step2: 'Post the original documents to:',
+        },
+      },
+      courtSentLetter: `The court has also sent a letter and the form to your ${partner} informing them that they can now apply for a conditional order.`,
+      sinceJointApplication: `Since this is a joint application, you must complete one form, and both you and your ${partner} must sign it before submitting it to the court.`,
+    },
+  },
   conditionalOrderPending: {
     beforeDueDate: {
       line1: `You have applied for a conditional order. Your ${partner} also needs to apply
@@ -300,6 +335,7 @@ const cy: typeof en = (
     isApplicant2,
     referenceNumber,
     telephoneNumber,
+    contactWebForm,
   }: CommonContent,
   dateOfCourtReplyToRequestForInformationResponse: string
 ) => ({
@@ -336,10 +372,43 @@ const cy: typeof en = (
     }. Byddwch yn cael e-bost i'ch atgoffa.`,
   },
   confirmReceipt: 'Cadarnhau eich bod wedi cael eich cais',
-  applicantNotYetAppliedForConditionalOrder: `Gallwch nawr wneud cais am 'orchymyn amodol'.
-   Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
-     isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
-   }`,
+  applicantNotYetAppliedForConditionalOrder: {
+    content: `Gallwch nawr wneud cais am 'orchymyn amodol'. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
+      isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+    }`,
+    notOnline: {
+      youWontBeAbleToApplyOnline: `You won’t be able to apply online for your conditional order because your ${partner} is not using the online divorce service. You can apply using the <b>paper form</b> and send it to the court by post or via our online form. You will also begin to receive letter correspondence from the court.`,
+      downloadPaperForm: {
+        content: 'You can download the paper form here: ',
+        link: {
+          text: 'D84 form',
+          url: config.get('govukUrls.d84Form'),
+        },
+      },
+      sendingDocumentsOnline: {
+        header: 'Sending documents using our online form',
+        content: 'You can send photographs or scans of your documents to us by ',
+        link: {
+          text: 'uploading them using our online form.',
+          url: contactWebForm,
+        },
+        followInstructions:
+          'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
+      },
+      sendingDocumentsPost: {
+        header: 'Sending documents by post',
+        list: {
+          step1: {
+            content: 'Write your reference number on each document: ',
+            refNumber: referenceNumber,
+          },
+          step2: 'Post the original documents to:',
+        },
+      },
+      courtSentLetter: `The court has also sent a letter and the form to your ${partner} informing them that they can now apply for a conditional order.`,
+      sinceJointApplication: `Since this is a joint application, you must complete one form, and both you and your ${partner} must sign it before submitting it to the court.`,
+    },
+  },
   conditionalOrderPending: {
     beforeDueDate: {
       line1: `Rydych wedi gwneud cais am orchymyn amodol. Mae angen i'ch ${partner} awneud cais hefyd oherwydd bod hwn yn gais ar y cyd ${
@@ -575,6 +644,9 @@ export const generateContent: TranslationFn = content => {
   const hasApplicantConfirmedReceipt = isApplicant2
     ? userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : userCase.applicant1ConfirmReceipt === YesOrNo.YES;
+  const partnerIsOffline = isApplicant2
+    ? userCase.applicant1Offline === YesOrNo.YES
+    : userCase.applicant2Offline === YesOrNo.YES;
   const hasApplicantAppliedForConditionalOrder = isApplicant2
     ? userCase.coApplicant2StatementOfTruth === Checkbox.Checked
     : userCase.coApplicant1StatementOfTruth === Checkbox.Checked;
@@ -657,5 +729,6 @@ export const generateContent: TranslationFn = content => {
     isRequestForInformationForYourPartner,
     dateOfCourtReplyToRequestForInformationResponse,
     cannotUploadDocuments,
+    partnerIsOffline,
   };
 };
