@@ -124,7 +124,7 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick("Yes, that's their full name");
   iClick('Continue');
 
-  I.waitInUrl('/your-names-on-certificate');
+  I.waitInUrl('/your-name-on-certificate');
   iClearTheForm();
   iClick('Copy your full name');
   I.type('First name Last name');
