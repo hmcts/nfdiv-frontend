@@ -101,9 +101,6 @@ export const getSoleHubTemplate = (
       return isOnlineGeneralApplication
         ? HubTemplate.AwaitingGeneralApplicationConsideration
         : HubTemplate.OfflineGeneralApplicationReceived;
-      return isOnlineGeneralApplication
-        ? HubTemplate.AwaitingGeneralApplicationConsideration
-        : HubTemplate.OfflineGeneralApplicationReceived;
     case State.AwaitingConditionalOrder:
       return HubTemplate.AwaitingConditionalOrder;
     case State.Holding:
