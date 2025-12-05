@@ -1,8 +1,8 @@
-import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { WITHDRAW_SERVICE_APPLICATION } from '../../../../app/case/definition';
-import { FormContent } from '../../../../app/form/Form';
-import { SERVICE_APPLICATION_WITHDRAWN } from '../../../urls';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+import { WITHDRAW_SERVICE_APPLICATION } from '../../../../../app/case/definition';
+import { FormContent } from '../../../../../app/form/Form';
+import { SERVICE_APPLICATION_WITHDRAWN } from '../../../../urls';
 
 import WithdrawServiceApplicationPostController from './post';
 
