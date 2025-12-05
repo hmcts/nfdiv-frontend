@@ -1,9 +1,13 @@
 {% if hasApplicantConfirmedReceipt %}
+  <div id="applicantConfirmedReceiptContent">
   {% for property, line in applicantConfirmedReceiptLatestUpdate %}
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
+  </div>
 {% else %}
+  <div id="applicantSubmittedContent">
   {% for property, line in applicationSubmittedLatestUpdate %}
     <p class="govuk-body">{{ line }}</p>
   {% endfor %}
+  </div>
 {% endif %}
