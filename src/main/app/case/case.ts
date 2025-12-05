@@ -349,6 +349,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
   applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
   applicant1DispenseOtherEnquiries: 'applicant1DispenseOtherEnquiries',
+  applicant1Offline: 'applicant1Offline',
+  applicant2Offline: 'applicant2Offline',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
