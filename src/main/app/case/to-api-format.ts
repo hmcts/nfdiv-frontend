@@ -726,6 +726,12 @@ const fields: ToApiConverters = {
         ? data.applicant1DispenseChildMaintenanceResults
         : null,
   }),
+  applicant1Offline: data => ({
+    applicant1Offline: data.applicant1Offline,
+  }),
+  applicant2Offline: data => ({
+    applicant2Offline: data.applicant2Offline,
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined | string) => {
