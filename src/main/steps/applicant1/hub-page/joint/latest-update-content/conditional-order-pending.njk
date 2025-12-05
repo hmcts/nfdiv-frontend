@@ -11,5 +11,5 @@
     <p class="govuk-body">{{ conditionalOrderPending.beforeDueDate.line2 }}</p>
   {% endif %}
 {% else %}
-<p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
+  {% include "./applicant-not-yet-applied-for-conditional-order.njk" %}
 {% endif %}
