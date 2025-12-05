@@ -73,6 +73,7 @@ export const orderedStateSequence: State[] = [
   State.AwaitingGeneralApplicationPayment,
   State.AwaitingGenAppHWFEvidence,
   State.AwaitingGenAppHWFPartPayment,
+  State.AwaitingGeneralReferralPayment,
   State.GeneralApplicationReceived,
   State.AwaitingGeneralReferralPayment,
   State.AwaitingGeneralConsideration,
