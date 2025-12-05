@@ -172,7 +172,7 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
-    Given I go to "/your-names-on-certificate"
+    Given I go to "/your-name-on-certificate"
     When I click "Continue"
     Then the page should include "You have not entered anything. Enter your full name as it appears on your marriage certificate."
     And the page should include "You have not entered anything. Enter their full name as it appears on your marriage certificate."
@@ -392,7 +392,7 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You need to enter your Help With Fees reference number before continuing. You received this when you applied."
 
-    Given I go to "/applicant2/enter-your-names"
+    Given I go to "/applicant2/enter-your-name"
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not entered your first name. Enter it before continuing."
