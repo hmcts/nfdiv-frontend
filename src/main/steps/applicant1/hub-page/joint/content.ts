@@ -373,40 +373,40 @@ const cy: typeof en = (
   },
   confirmReceipt: 'Cadarnhau eich bod wedi cael eich cais',
   applicantNotYetAppliedForConditionalOrder: {
-    content: `Gallwch nawr wneud cais am 'orchymyn amodol'. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
-      isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
+    content: `Gallwch nawr wneud cais am 'orchymyn amodol'. Mae gorchymyn amodol yn ddogfen sy’n dweud nad yw’r llys yn gweld unrhyw reswm pam na allwch ${
+      isDivorce ? 'gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben yn gyfreithiol'
     }`,
     notOnline: {
-      youWontBeAbleToApplyOnline: `You won’t be able to apply online for your conditional order because your ${partner} is not using the online divorce service. You can apply using the <b>paper form</b> and send it to the court by post or via our online form. You will also begin to receive letter correspondence from the court.`,
+      youWontBeAbleToApplyOnline: `Ni fyddwch yn gallu gwneud cais ar-lein am eich gorchymyn amodol oherwydd nad yw eich ${partner} yn defnyddio’r gwasanaeth ysgariad ar-lein. Gallwch wneud cais gan ddefnyddio'r ffurflen bapur a'i hanfon i'r llys drwy'r post neu drwy ein ffurflen ar-lein.`,
       downloadPaperForm: {
-        content: 'You can download the paper form here: ',
+        content: 'Gallwch lawrlwytho’r ffurflen bapur yn: ',
         link: {
           text: 'D84 form',
           url: config.get('govukUrls.d84Form'),
         },
       },
       sendingDocumentsOnline: {
-        header: 'Sending documents using our online form',
-        content: 'You can send photographs or scans of your documents to us by ',
+        header: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
+        content: 'Gallwch anfon lluniau neu sganiau o’ch dogfennau atom trwy ',
         link: {
-          text: 'uploading them using our online form.',
+          text: 'eu llwytho gan ddefnyddio ein ffurflen ar-lein.',
           url: contactWebForm,
         },
         followInstructions:
-          'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
+          "Gwnewch yn siŵr eich bod yn dilyn y cyfarwyddiadau ar sut i uwchlwytho eich dogfennau'n ofalus neu gellid eu gwrthod, gan arwain at oedi pellach.",
       },
       sendingDocumentsPost: {
-        header: 'Sending documents by post',
+        header: 'Anfon dogfennau drwy’r post',
         list: {
           step1: {
-            content: 'Write your reference number on each document: ',
+            content: 'Ysgrifennwch eich cyfeirnod ar bob dogfen: ',
             refNumber: referenceNumber,
           },
-          step2: 'Post the original documents to:',
+          step2: 'Postiwch y dogfennau gwreiddiol i:',
         },
       },
-      courtSentLetter: `The court has also sent a letter and the form to your ${partner} informing them that they can now apply for a conditional order.`,
-      sinceJointApplication: `Since this is a joint application, you must complete one form, and both you and your ${partner} must sign it before submitting it to the court.`,
+      courtSentLetter: `Mae’r llys hefyd wedi anfon llythyr a’r ffurflen at eich ${partner} yn eu hysbysu y gallant bellach wneud cais am orchymyn amodol.`,
+      sinceJointApplication: `Gan mai cais ar y cyd yw hwn, rhaid i chi lenwi un ffurflen, a rhaid i chi a'ch ${partner} ei llofnodi cyn ei chyflwyno i'r llys.`,
     },
   },
   conditionalOrderPending: {
