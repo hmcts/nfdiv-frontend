@@ -86,7 +86,9 @@ const en = (
       isDivorce ? 'get a divorce' : 'end your civil partnership'
     }.`,
     notOnline: {
-      youWontBeAbleToApplyOnline: `You won’t be able to apply online for your conditional order because your ${partner} is not using the online divorce service. You can apply using the <b>paper form</b> and send it to the court by post or via our online form. You will also begin to receive letter correspondence from the court.`,
+      youWontBeAbleToApplyOnline: `You won’t be able to apply online for your conditional order because your ${partner} is not using the online ${
+        isDivorce ? 'divorce' : 'dissolution'
+      } service. You can apply using the <b>paper form</b> and send it to the court by post or via our online form. You will also begin to receive letter correspondence from the court.`,
       downloadPaperForm: {
         content: 'You can download the paper form here: ',
         link: {
@@ -377,11 +379,13 @@ const cy: typeof en = (
       isDivorce ? 'gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben yn gyfreithiol'
     }`,
     notOnline: {
-      youWontBeAbleToApplyOnline: `Ni fyddwch yn gallu gwneud cais ar-lein am eich gorchymyn amodol oherwydd nad yw eich ${partner} yn defnyddio’r gwasanaeth ysgariad ar-lein. Gallwch wneud cais gan ddefnyddio'r ffurflen bapur a'i hanfon i'r llys drwy'r post neu drwy ein ffurflen ar-lein.`,
+      youWontBeAbleToApplyOnline: `Ni fyddwch yn gallu gwneud cais ar-lein am eich gorchymyn amodol oherwydd nad yw eich ${partner} yn defnyddio’r gwasanaeth ${
+        isDivorce ? 'ysgariad' : 'diddymiad'
+      } ar-lein. Gallwch wneud cais gan ddefnyddio'r ffurflen bapur a'i hanfon i'r llys drwy'r post neu drwy ein ffurflen ar-lein.`,
       downloadPaperForm: {
-        content: 'Gallwch lawrlwytho’r ffurflen bapur yn: ',
+        content: 'Gallwch lawrlwytho’r ffurflen bapur yma: ',
         link: {
-          text: 'D84 form',
+          text: 'Ffurflen D84',
           url: config.get('govukUrls.d84Form'),
         },
       },
