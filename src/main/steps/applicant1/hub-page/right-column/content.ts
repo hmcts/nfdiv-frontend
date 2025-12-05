@@ -305,11 +305,19 @@ export const generateContent: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
   );
 
+  const hasRefusalOrder = [
+    DocumentType.ALTERNATIVE_SERVICE_REFUSED,
+    DocumentType.DEEMED_SERVICE_REFUSED,
+    DocumentType.DISPENSE_WITH_SERVICE_REFUSED,
+    DocumentType.BAILIFF_SERVICE_REFUSED,
+  ].some(document => !!findDocument(userCase, document));
+
   const hasCertificateOfDeemedOrDispensedServiceRefused = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       deemedOrDispensedOrAlternativeService &&
       alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO &&
-      alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant'
+      alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant' &&
+      hasRefusalOrder
   );
 
   const hasCertificateOfDeemedOrDispensedServiceGranted = userCase.alternativeServiceOutcomes?.find(

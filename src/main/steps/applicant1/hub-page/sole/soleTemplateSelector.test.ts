@@ -365,6 +365,7 @@ describe('SoleTemplateSelector test', () => {
   test('should show /service-application-rejected.njk for state ServiceAdminRefusal and reason is "refusal order to applicant"', () => {
     const userCaseWithServiceApplicationRefusedWithRefusalToApplicant = {
       ...userCase,
+      issueDate: '2022-01-01',
       alternativeServiceOutcomes: [
         {
           id: '123',
@@ -546,6 +547,25 @@ describe('SoleTemplateSelector test', () => {
           id: '123',
           value: {
             serviceApplicationGranted: YesOrNo.YES,
+            alternativeServiceType: AlternativeServiceType.ALTERNATIVE_SERVICE,
+          },
+        },
+      ] as unknown as ListValue<AlternativeServiceOutcome>[],
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithServiceApplicationGranted, false, true);
+    expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
+  });
+
+  test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state GeneralConsiderationComplete and alternativeService application is rejected pre-issue', () => {
+    const userCaseWithServiceApplicationGranted = {
+      ...userCase,
+      issueDate: undefined,
+      alternativeServiceOutcomes: [
+        {
+          id: '123',
+          value: {
+            serviceApplicationGranted: YesOrNo.NO,
             alternativeServiceType: AlternativeServiceType.ALTERNATIVE_SERVICE,
           },
         },
