@@ -52,8 +52,20 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
   });
 
+  test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state LAServiceReview', () => {
+    const theState = displayState.at(State.LAServiceReview);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
+  });
+
   test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state BailiffRefused', () => {
     const theState = displayState.at(State.BailiffRefused);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
+  });
+
+  test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state AwaitingServiceApplicationClarification', () => {
+    const theState = displayState.at(State.PendingServiceAppResponse);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
@@ -86,6 +98,18 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingAdminClarification);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
+  });
+
+  test('should show /awaiting-dwp-response.njk for state AwaitingDwpResponse', () => {
+    const theState = displayState.at(State.AwaitingDwpResponse);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-dwp-response.njk');
+  });
+
+  test('should show /awaiting-alternative-service.njk for state AwaitingDwpResponse', () => {
+    const theState = displayState.at(State.AwaitingAlternativeService);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe('/awaiting-alternative-service.njk');
   });
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state ConditionalOrderReview', () => {
@@ -415,6 +439,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 
+  test('should show /awaiting-hwf-part-payment.njk for state AwaitingHWFPartPayment', () => {
+    const theState = displayState.at(State.AwaitingHWFPartPayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingHWFPartPayment);
+  });
+
   test('should show /awaiting-documents.njk for state AwaitingHWFDecision and reason is "cannot upload documents"', () => {
     const userCaseWithApplicant1CannotUploadDocuments = {
       ...userCase,
@@ -496,6 +526,18 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
 
+  test('should show /awaiting-gen-app-hwf-part-payment-or-evidence.njk for state AwaitingGenAppHWFEvidence', () => {
+    const theState = displayState.at(State.AwaitingGenAppHWFEvidence);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence);
+  });
+
+  test('should show /awaiting-gen-app-hwf-part-payment-or-evidence.njk for state AwaitingGenAppHWFPartPayment', () => {
+    const theState = displayState.at(State.AwaitingGenAppHWFPartPayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence);
+  });
+
   test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state GeneralConsiderationComplete and alternativeService application is granted', () => {
     const userCaseWithServiceApplicationGranted = {
       ...userCase,
@@ -512,5 +554,57 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.GeneralConsiderationComplete);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithServiceApplicationGranted, false, true);
     expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
+  });
+
+  test('should show /offline-general-application-received.njk for state GeneralConsiderationComplete and isSearchGovRecords and isOnlineGeneralApplication is No', () => {
+    const userCaseWithOfflineGeneralApplication = {
+      ...userCase,
+      generalApplications: [
+        {
+          id: '123',
+          value: {
+            generalAppDateReceivedDate: '2024-06-27',
+            generalApplicationSubmittedOnline: YesOrNo.NO,
+            generalApplicationParty: GeneralParties.APPLICANT,
+            generalApplicationType: GeneralApplicationType.SEARCH_GOV_RECORDS,
+          },
+        },
+      ],
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false, false);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+  });
+
+  test('should show /offline-general-application-received.njk for state AwaitingGeneralReferralPayment', () => {
+    const theState = displayState.at(State.AwaitingGeneralReferralPayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+  });
+
+  test('should show /awaiting-general-application-payment.njk for state AwaitingGeneralApplicationPayment', () => {
+    const theState = displayState.at(State.AwaitingGeneralApplicationPayment);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingGeneralApplicationPayment);
+  });
+
+  test('should show /awaiting-general-applicant-received.njk for state GeneralApplicationReceived and isOnlineGeneralApplication is No', () => {
+    const userCaseWithOfflineGeneralApplication = {
+      ...userCase,
+      generalApplications: [
+        {
+          id: '123',
+          value: {
+            generalAppDateReceivedDate: '2024-06-27',
+            generalApplicationSubmittedOnline: YesOrNo.NO,
+            generalApplicationParty: GeneralParties.APPLICANT,
+            generalApplicationType: GeneralApplicationType.SEARCH_GOV_RECORDS,
+          },
+        },
+      ],
+    };
+    const theState = displayState.at(State.GeneralApplicationReceived);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false, false);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
   });
 });

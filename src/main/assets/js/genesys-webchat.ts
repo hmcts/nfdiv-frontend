@@ -40,7 +40,7 @@ function getGenesysConfig(configElemId: string, requiredAttributes: string[]): b
 
 /* ---------------------------------------------------------------
        Open‑chat popup
-    --------------------------------------------------------------- */
+   --------------------------------------------------------------- */
 function attachStartChatHandler() {
   const link = document.getElementById('startChatLink');
   if (!link) {
@@ -77,11 +77,33 @@ function attachStartChatHandler() {
          '${genesysConfig['genesysBaseUrl']}/genesys-bootstrap/genesys.min.js',
          { environment: '${genesysConfig['genesysEnvironment']}', deploymentId: '${genesysConfig['genesysDeploymentId']}'});
 
-      Genesys("command", "Database.set", {
-        messaging: { customAttributes: { webReferrerPage: '${genesysConfig['genesysReferrerPage']}'}}
-            },
-        function(data){ /* fulfilled, returns data */}, function(){ /* rejected */ }
-      );
+      Genesys("subscribe", "Messenger.ready", function () {
+        Genesys("command", "Database.set", {
+          messaging: {
+            customAttributes: {
+              webReferrerPage: '${genesysConfig['genesysReferrerPage']}'
+            }
+          }
+        }, () => {
+          console.log("database set");
+        }, (error) => {
+          console.log("Couldn't set database.", error);
+        });
+      });
+
+      Genesys("subscribe", "MessagingService.conversationCleared", function () {
+        Genesys("command", "Database.set", {
+          messaging: {
+            customAttributes: {
+              webReferrerPage: '${genesysConfig['genesysReferrerPage']}'
+            }
+          }
+        }, () => {
+          console.log("database set");
+        },(error) => {
+          console.log("Couldn't set database.", error);
+        });
+      });
 
       window.addEventListener('load', function () {
         Genesys('subscribe', 'Messenger.ready', function () {

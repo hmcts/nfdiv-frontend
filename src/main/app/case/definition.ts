@@ -293,6 +293,7 @@ export interface Applicant {
   LastNameChangedWhenMarriedOtherDetails: string;
   NameDifferentToMarriageCertificate: YesOrNo;
   NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
+  ChangedNameWhy: ChangedNameWhy[];
   NameDifferentToMarriageCertificateOtherDetails: string;
   NameChangedHow: ChangedNameHow[];
   NameChangedHowOtherDetails: string;
@@ -525,6 +526,10 @@ export interface CaseData {
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
   applicant1NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
   applicant1NameDifferentToMarriageCertificateOtherDetails: string;
+  applicant1WhyNameDifferent: ChangedNameWhy[];
+  applicant1WhyNameDifferentOtherDetails: string,
+  applicant2WhyNameDifferent: ChangedNameWhy[];
+  applicant2WhyNameDifferentOtherDetails: string,
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;
@@ -1980,6 +1985,15 @@ export const enum ApplicationType {
   JOINT_APPLICATION = 'jointApplication',
 }
 
+export const enum ChangedNameWhy {
+  DEED_POLL = 'deedPoll',
+  CHANGED_PARTS_OF_NAME = 'changedPartsOfName',
+  PART_OF_NAME_NOT_INCLUDED = 'partOfNameNotIncluded',
+  PART_OF_NAME_ABBREVIATED = 'partOfNameAbbreviated',
+  LEGAL_NAME_SPELLED_DIFFERENTLY = 'legalNameSpelledDifferently',
+  OTHER = 'other',
+}
+
 export const enum ChangedNameHow {
   MARRIAGE_CERTIFICATE = 'marriageCertificate',
   DEED_POLL = 'deedPoll',
@@ -2329,6 +2343,8 @@ export const enum State {
   AwaitingFinalOrder = 'AwaitingFinalOrder',
   AwaitingGeneralConsideration = 'AwaitingGeneralConsideration',
   AwaitingGeneralReferralPayment = 'AwaitingGeneralReferralPayment',
+  AwaitingGenAppHWFEvidence = 'AwaitingGenAppHWFEvidence',
+  AwaitingGenAppHWFPartPayment = 'AwaitingGenAppHWFPartPayment',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   AwaitingHWFEvidence = 'AwaitingHWFEvidence',
   AwaitingHWFPartPayment = 'AwaitingHWFPartPayment',
@@ -2336,6 +2352,7 @@ export const enum State {
   ConditionalOrderPending = 'ConditionalOrderPending',
   AwaitingJointFinalOrder = 'AwaitingJointFinalOrder',
   AwaitingJudgeClarification = 'AwaitingJudgeClarification',
+  PendingServiceAppResponse = 'PendingServiceAppResponse',
   AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
   AwaitingService = 'AwaitingService',
   AwaitingServiceConsideration = 'AwaitingServiceConsideration',
@@ -2359,6 +2376,7 @@ export const enum State {
   IssuedToBailiff = 'IssuedToBailiff',
   JSAwaitingLA = 'JSAwaitingLA',
   LAReview = 'LAReview',
+  LAServiceReview = 'LAServiceReview',
   AwaitingPronouncement = 'AwaitingPronouncement',
   NewPaperCase = 'NewPaperCase',
   OfflineDocumentReceived = 'OfflineDocumentReceived',

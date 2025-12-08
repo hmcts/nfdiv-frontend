@@ -48,6 +48,8 @@ export const completeCase: Partial<BrowserCase> = {
   applicant2LastNames: 'Test their last name',
   applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
   applicant2MiddleNames: '',
+  applicant2NameDifferentToMarriageCertificate: YesOrNo.NO,
+  applicant2NameDifferentToMarriageCertificateMethod: [],
   applicationType: ApplicationType.SOLE_APPLICATION,
   applicant1ApplyForFinancialOrder: YesOrNo.NO,
   applicant1WhoIsFinancialOrderFor: [],

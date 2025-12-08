@@ -17,6 +17,7 @@ import { FeesRegister } from './modules/fees-register';
 import { HealthCheck } from './modules/health';
 import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
+import { LaunchDarkly } from './modules/launch-darkly';
 import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
 import { PropertiesVolume } from './modules/properties-volume';
@@ -33,11 +34,20 @@ const app = express();
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
-  next();
-});
+
+function setCachingPolicy(res, file) {
+  if (path.extname(file).match(/\.(woff2?|ttf|otf|eot|svg|png)$/i)) {
+    res.setHeader('Cache-Control', 'max-age=604800'); // Cache for 1 week
+  } else {
+    res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+  }
+}
+
+app.use(
+  express.static(path.join(__dirname, 'public'), {
+    setHeaders: setCachingPolicy,
+  })
+);
 
 (async () => {
   try {
@@ -45,6 +55,8 @@ app.use((req, res, next) => {
 
     const propertiesVolume = new PropertiesVolume();
     await propertiesVolume.enableFor(app);
+
+    await LaunchDarkly.getInstance().enableFor(app);
 
     new ErrorHandler().enableFor(app, logger);
     new LoadTimeouts().enableFor(app);

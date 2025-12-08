@@ -518,6 +518,23 @@ const en = (
     },
     line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
   },
+  offlineGeneralApplicationReceived: {
+    line1:
+      'The court is reviewing a general application that has been received and will contact you to let you know your next steps.',
+  },
+  awaitingDwpResponse: {
+    line1: `The court has approved your application to search government records for the details of your ${partner}.`,
+    line2:
+      'It normally takes 6 – 8 weeks to complete a search. We will email you when the search is complete to let you know the next steps.',
+  },
+  awaitingAlternativeService: {
+    line1: 'The court has approved your application for alternative service.',
+    line2: 'We are now awaiting completion of service through the method of service that was approved by the court.',
+  },
+  awaitingGenAppHwfPartPaymentOrEvidence: {
+    line1:
+      'The court is reviewing your application and help with fees reference number. You will receive an email notification confirming what you need to do next.',
+  },
 });
 
 // @TODO translations
@@ -617,7 +634,7 @@ const cy: typeof en = (
     linkUrl: `${noResponseStartPagePath}`,
   },
   aosDueAndDrafted: {
-    line1: `Mae eich ${partner} wedi cyflwyno eu hymateb i’ch ${
+    line1: `Nid yw eich ${partner} wedi cyflwyno eu hymateb i’ch ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     }. Dylai bod nhw wedi ymateb erbyn ${getFormattedDate(userCase.dueDate, SupportedLanguages.Cy)}.`,
     line2: `Efallai yr hoffech ddefnyddio hwn i brofi bod eich ${partner} wedi cael eich cais.`,
@@ -706,7 +723,7 @@ const cy: typeof en = (
     line2: `Ni fyddwch yn gweld ymateb eich ${partner} pan fyddwch yn gwneud cais am y gorchymyn amodol.`,
   },
   awaitingConsiderationSearchGovRecords: {
-    line1: `Mae'r llys wrthi'n ystyried eich cais i chwilio confodion y llywodraeth a gyflwynwyd gennych ar ${generalApplicationDate}.`,
+    line1: `Mae'r llys wrthi'n ystyried eich cais i chwilio cofnodion y llywodraeth a gyflwynwyd gennych ar ${generalApplicationDate}.`,
     line2: `Byddwn yn anfon e-bost atoch erbyn ${generalApplicationResponseDate} unwaith y bydd penderfyniad wedi'i wneud i ddweud wrthych beth yw'r camau nesaf.`,
   },
   conditionalOrderWithDeemedOrDispensedService: `Ni fyddwch yn gweld ymateb gan eich ${partner} yn y cais am orchymyn amodol.
@@ -829,16 +846,15 @@ const cy: typeof en = (
     },
   },
   awaitingServicePayment: {
-    // TODO: Welsh for AwaitingServicePayment hub
     line1OfflineApplication:
       "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
-    line1: `Your ${partner} has not responded to your ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    line1: `Nid yw eich ${partner} wedi ymateb i'ch ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }.`,
-    line2: `You have have started a ${serviceApplicationType} application.`,
+    line2: `Rydych wedi dechrau cais ${serviceApplicationType}.`,
     doNext: 'Beth allwch chi ei wneud nesaf',
-    line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
-    linkText: 'Complete payment',
+    line3: 'Mae angen i chi dalu’r ffi ar gyfer gwneud cais cyn y gellir ei gyfeirio at farnwr i ystyried eich cais.',
+    linkText: 'Cwblhau taliad',
     linkUrl: PAY_YOUR_SERVICE_FEE,
     withdrawText: `Os yw’ch amgylchiadau wedi newid neu os ydych am roi cynnig ar rywbeth arall, gallwch dynnu’r cais hwn yn ôl ac ar ôl hynny gallwch wirio eich opsiynau i fwrw ymlaen â'ch ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
@@ -847,13 +863,13 @@ const cy: typeof en = (
     withdrawLinkUrl: WITHDRAW_SERVICE_APPLICATION,
   },
   awaitingGeneralApplicationPayment: {
-    line1: `Your ${partner} has not responded to your ${
-      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    line1: `Nid yw eich ${partner} wedi ymateb i'ch ${
+      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }.`,
-    line2: `You have have started a ${generalApplicationType} application.`,
-    doNext: 'What you can do next',
-    line3: 'You need to pay the general application fee before it can be referred to a judge to consider your request.',
-    linkText: 'Complete payment',
+    line2: `Rydych wedi dechrau cais ${generalApplicationType}.`,
+    doNext: 'Beth allwch chi ei wneud nesaf',
+    line3: 'Mae angen i chi dalu’r ffi ar gyfer gwneud cais cyn y gellir ei gyfeirio at farnwr i ystyried eich cais.',
+    linkText: 'Cwblhau taliad',
     linkUrl: PAY_YOUR_GENERAL_APPLICATION_FEE,
   },
   awaitingBailiffService: {
@@ -901,7 +917,7 @@ const cy: typeof en = (
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } dramor`,
     [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Prawf eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
+      'Tystiolaeth eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
   },
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
   documentsByOnlineFormSteps: {
@@ -1014,6 +1030,23 @@ const cy: typeof en = (
       } barhau heb eu hymateb.`,
     },
     line3: `Os byddant yn methu â chyflwyno’r papurau, efallai y gallwch wneud cais am gyflwyno amgen drwy flwch llythyrau, os yw cyfeiriad eich ${partner} wedi’i gadarnhau. Fel arall, bydd angen i chi gyflwyno’r papurau mewn rhyw ffordd arall.`,
+  },
+  offlineGeneralApplicationReceived: {
+    line1:
+      'Mae’r llys yn adolygu cais cyffredinol sydd wedi dod i law a bydd yn cysylltu â chi i roi gwybod i chi beth fydd eich camau nesaf.',
+  },
+  awaitingDwpResponse: {
+    line1: `Mae’r llys wedi cymeradwyo eich cais i chwilio cofnodion y llywodraeth am fanylion eich ${partner}.`,
+    line2:
+      'Gan amlaf, mae’n cymryd 6 - 8 wythnos i wneud chwiliad. Byddwn yn anfon e-bost atoch ar ôl cwblhau’r chwiliad i’ch hysbysu am y camau nesaf.',
+  },
+  awaitingAlternativeService: {
+    line1: 'Mae’r llys wedi cymeradwyo eich cais am gyflwyno amgen.',
+    line2: 'Rydym nawr yn aros i gwblhau cyflwyno drwy’r dull cyflwyno a gymeradwywyd gan y llys.',
+  },
+  awaitingGenAppHwfPartPaymentOrEvidence: {
+    line1:
+      'Mae’r llys yn adolygu eich cais a’ch cyfeirnod help i dalu ffioedd.  Byddwch yn derbyn e-bost yn cadarnhau beth rydych angen ei wneud nesaf.',
   },
 });
 
