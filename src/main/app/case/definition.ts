@@ -1119,6 +1119,9 @@ export interface CaseData {
   applicant1SearchGovRecordsPartnerAdditionalAddressDates1: string;
   applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
+  applicant1NoRespAddressHasFoundAddress: YesOrNo;
+  applicant1NoRespAddressHasWayToContact: YesOrNo;
+  applicant1NoRespAddressWillApplyAltService: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
@@ -2330,6 +2333,8 @@ export const enum State {
   AwaitingFinalOrder = 'AwaitingFinalOrder',
   AwaitingGeneralConsideration = 'AwaitingGeneralConsideration',
   AwaitingGeneralReferralPayment = 'AwaitingGeneralReferralPayment',
+  AwaitingGenAppHWFEvidence = 'AwaitingGenAppHWFEvidence',
+  AwaitingGenAppHWFPartPayment = 'AwaitingGenAppHWFPartPayment',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
   AwaitingHWFEvidence = 'AwaitingHWFEvidence',
   AwaitingHWFPartPayment = 'AwaitingHWFPartPayment',
@@ -2337,6 +2342,7 @@ export const enum State {
   ConditionalOrderPending = 'ConditionalOrderPending',
   AwaitingJointFinalOrder = 'AwaitingJointFinalOrder',
   AwaitingJudgeClarification = 'AwaitingJudgeClarification',
+  PendingServiceAppResponse = 'PendingServiceAppResponse',
   AwaitingLegalAdvisorReferral = 'AwaitingLegalAdvisorReferral',
   AwaitingService = 'AwaitingService',
   AwaitingServiceConsideration = 'AwaitingServiceConsideration',
