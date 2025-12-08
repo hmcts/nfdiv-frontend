@@ -157,6 +157,19 @@ export const EXPLAIN_THE_DELAY: PageLink = '/explain-the-delay';
 export const RESPOND_TO_COURT_FEEDBACK: PageLink = '/respond-to-the-courts-feedback';
 export const REVIEW_YOUR_RESPONSE: PageLink = '/review-your-response-to-the-courts-feedback';
 
+// No Respondent Address Journey URLs
+export const NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/progress-without-address';
+export const NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/have-found-address';
+export const NO_RESP_ADDRESS_ENTER_ADDRESS: PageLink = '/interim-applications/no-respondent-address/enter-address';
+export const NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS: PageLink =
+  '/interim-applications/no-respondent-address/searching-for-contact-details';
+export const NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT: PageLink =
+  '/interim-applications/no-respondent-address/have-different-way-to-contact';
+export const NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS: PageLink =
+  '/interim-applications/no-respondent-address/will-apply-to-send-papers';
+
 // No Response Journey URLs
 export const OPTIONS_FOR_PROGRESSING: PageLink = '/interim-applications/no-response/options-for-progressing';
 export const HAVE_THEY_RECEIVED: PageLink = '/interim-applications/no-response/have-they-received';

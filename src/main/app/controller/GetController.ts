@@ -32,6 +32,9 @@ export class GetController {
       req.session.errors = undefined;
     }
 
+    this.setSessionDefaults(req);
+    this.setSessionOverrides(req);
+
     res.render(this.view, {
       ...this.getPageContent(req, res, language),
       sessionErrors,
@@ -62,4 +65,10 @@ export class GetController {
       userEmail: req.session?.user?.email,
     });
   }
+
+  private setSessionDefaults(req: AppRequest) {
+    req.session.fileUploadJourney = undefined;
+  }
+
+  protected setSessionOverrides(_req: AppRequest): void {}
 }
