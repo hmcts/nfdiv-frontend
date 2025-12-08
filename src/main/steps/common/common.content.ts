@@ -35,7 +35,7 @@ export const en = {
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
   commonValidationErrors: {
-    maxLength: 'Please limit text input to 10,000 characters.'
+    maxLength: 'You’ve exceeded the character limit. Please reduce your text to 10,000 characters.',
   },
   generalApplication: {
     for: 'for',
@@ -227,12 +227,12 @@ export const en = {
 };
 
 const cy: typeof en = {
-  ...en, // @TODO delete me to get a list of missing translations
+  ...en,
   phase: 'Beta',
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
   commonValidationErrors: {
-    maxLength: 'Please limit text input to 10,000 characters.'
+    maxLength: 'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir. Cewch ddefnyddio hyd at 10,000 o nodau.',
   },
   generalApplication: {
     for: 'am',
