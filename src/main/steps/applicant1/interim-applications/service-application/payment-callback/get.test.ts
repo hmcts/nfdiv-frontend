@@ -1,13 +1,18 @@
-import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { ApplicationType, CITIZEN_SERVICE_PAYMENT_MADE, PaymentStatus, State } from '../../../../app/case/definition';
-import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED } from '../../../urls';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+import {
+  ApplicationType,
+  CITIZEN_SERVICE_PAYMENT_MADE,
+  PaymentStatus,
+  State,
+} from '../../../../../app/case/definition';
+import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED } from '../../../../urls';
 
 import PaymentCallbackGetController from './get';
 
-jest.mock('../../../../app/payment/PaymentClient');
+jest.mock('../../../../../app/payment/PaymentClient');
 
-const { mockCreate, mockGet } = require('../../../../app/payment/PaymentClient');
+const { mockCreate, mockGet } = require('../../../../../app/payment/PaymentClient');
 
 describe('PaymentCallbackGetController', () => {
   const paymentController = new PaymentCallbackGetController();

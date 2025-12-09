@@ -1,5 +1,13 @@
 import { State } from '../../main/app/case/definition';
-import { ADDRESS_PRIVATE, HOME_URL, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
+import {
+  ADDRESS_PRIVATE,
+  GENERAL_APPLICATION_SUBMITTED,
+  HOME_URL,
+  PAY_YOUR_GENERAL_APPLICATION_FEE,
+  PAY_YOUR_SERVICE_FEE,
+  SERVICE_APPLICATION_SUBMITTED,
+  THEIR_EMAIL_ADDRESS,
+} from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
 import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common';
@@ -208,19 +216,19 @@ Given('I pay and submit the application', () => {
 });
 
 Given('I pay and submit the service application', () => {
-  I.waitInUrl('/interim-applications/pay-your-service-fee');
+  I.waitInUrl(PAY_YOUR_SERVICE_FEE);
   iClick('Pay and submit application');
 
   completePayment();
-  I.waitInUrl('/interim-applications/service-application-submitted', 15);
+  I.waitInUrl(SERVICE_APPLICATION_SUBMITTED, 15);
 });
 
 Given('I pay and submit the general application', () => {
-  I.waitInUrl('/interim-applications/pay-your-general-application-fee');
+  I.waitInUrl(PAY_YOUR_GENERAL_APPLICATION_FEE);
   iClick('Pay and submit application');
 
   completePayment();
-  I.waitInUrl('/interim-applications/general-application-submitted', 15);
+  I.waitInUrl(GENERAL_APPLICATION_SUBMITTED, 15);
 });
 
 Given('I pay and submit the final order application', () => {

@@ -1,6 +1,6 @@
-import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { CaseWithId } from '../../../../app/case/case';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+import { CaseWithId } from '../../../../../app/case/case';
 import {
   CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE,
   GeneralApplication,
@@ -11,15 +11,15 @@ import {
   PaymentStatus,
   State,
   YesOrNo,
-} from '../../../../app/case/definition';
-import { AppRequest } from '../../../../app/controller/AppRequest';
-import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../urls';
+} from '../../../../../app/case/definition';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
+import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
 
 import PaymentCallbackGetController from './get';
 
-jest.mock('../../../../app/payment/PaymentClient');
+jest.mock('../../../../../app/payment/PaymentClient');
 
-const { mockCreate, mockGet } = require('../../../../app/payment/PaymentClient');
+const { mockCreate, mockGet } = require('../../../../../app/payment/PaymentClient');
 
 describe('PaymentCallbackGetController', () => {
   const paymentController = new PaymentCallbackGetController();

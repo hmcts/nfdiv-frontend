@@ -1,7 +1,7 @@
-import { GeneralApplicationType } from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { findOnlineGeneralApplicationsForUser } from '../../../../app/utils/general-application-utils';
-import type { CommonContent } from '../../../common/common.content';
+import { GeneralApplicationType } from '../../../../../app/case/definition';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { findOnlineGeneralApplicationsForUser } from '../../../../../app/utils/general-application-utils';
+import type { CommonContent } from '../../../../common/common.content';
 
 const en = ({
   generalApplicationResponseDate,
