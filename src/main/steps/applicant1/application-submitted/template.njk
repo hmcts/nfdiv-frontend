@@ -57,17 +57,9 @@
           html: sendingDocumentsByPost
         }) }}
       {% endif %}
-      {% if userCase.iWantToHavePapersServedAnotherWay %}
-        <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
-        <p class="govuk-body">{{ line3.p1 }}</p>
-        <p class="govuk-body">{{ line3.p2 }}</p>
-        <p class="govuk-body"><a class="govuk-link" href={{ line4.link }}>{{ line4.part1 }}</a></p>
-      {% endif %}
     {% else %}
       <h2 class="govuk-heading-l">{{ subHeading4 }}</h2>
-      {% if not userCase.iWantToHavePapersServedAnotherWay %}
-        <p class="govuk-body">{{ line5 }}</p>
-      {% endif %}
+      <p class="govuk-body">{{ line5 }}</p>
       {% if not isJointApplication %}
         {% if hasASolicitorContactForPartner %}
           <p class="govuk-body">{{ line7 }}</p>

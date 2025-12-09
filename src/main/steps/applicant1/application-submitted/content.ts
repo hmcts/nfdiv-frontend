@@ -10,7 +10,7 @@ import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
-import { ENTER_THEIR_ADDRESS, HUB_PAGE, OPTIONS_FOR_PROGRESSING } from '../../urls';
+import { HUB_PAGE, NEW_POSTAL_AND_EMAIL, OPTIONS_FOR_PROGRESSING } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = (
@@ -63,13 +63,6 @@ const en = (
   },
   documentsByPostMoreDetails:
     'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
-  subHeading3: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
-  line3: {
-    p1: `You need to apply to serve the ${
-      isDivorce ? 'divorce' : 'ending your civil partnership'
-    } papers to your ${partner} another way. This is because you did not provide their email and postal address. You could apply to serve them by email only, text message or social media.`,
-    p2: 'You will need to fill out a separate paper D11 form and send it to the court. The form can be used to make different applications so only fill out the relevant sections.',
-  },
   line4: {
     part1: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
     link: config.get('govukUrls.d11Form'),
@@ -155,10 +148,10 @@ const en = (
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
-    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${ENTER_THEIR_ADDRESS}>update their details</a>. We will send the ${
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NEW_POSTAL_AND_EMAIL}>update their details</a>. We will send the ${
       isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
     } to this address at no additional cost.`,
-    line3: `If you cannot find an address for your partner, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
     } another way</a>. This application will cost ${getFee(
       config.get('fees.alternativeService')
@@ -303,10 +296,10 @@ const cy: typeof en = ({
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
-    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${ENTER_THEIR_ADDRESS}>update their details</a>. We will send the ${
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NEW_POSTAL_AND_EMAIL}>update their details</a>. We will send the ${
       isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
     } to this address at no additional cost.`,
-    line3: `If you cannot find an address for your partner, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
     } another way</a>. This application will cost ${getFee(
       config.get('fees.alternativeService')
@@ -334,13 +327,10 @@ export const generateContent: TranslationFn = content => {
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const hasASolicitorContactForPartner =
     userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
-  const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
+  const isRespondentOverseas =
+    userCase.applicant1KnowsApplicant2Address && !isCountryUk(userCase.applicant2AddressCountry);
   const applicationServedAnotherWay =
-    !isJointApplication &&
-    userCase.applicant2Email &&
-    !isRespondentOverseas &&
-    !userCase.iWantToHavePapersServedAnotherWay &&
-    !hasASolicitorContactForPartner;
+    !isJointApplication && userCase.applicant2Email && !isRespondentOverseas && !hasASolicitorContactForPartner;
   const cannotUploadDocuments = new Set([
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
