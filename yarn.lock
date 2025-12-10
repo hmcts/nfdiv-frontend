@@ -2794,31 +2794,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-sdk-common@npm:2.19.0":
-  version: 2.19.0
-  resolution: "@launchdarkly/js-sdk-common@npm:2.19.0"
-  checksum: 6aa35079386a01bdd6b3cd767f67952608bfd0ad59426aba1f00bdc35134b442fcf12ace492ca7dc94098f976855d61fb043ed77155b26ec70f8975f21e25797
+"@launchdarkly/js-sdk-common@npm:2.20.0":
+  version: 2.20.0
+  resolution: "@launchdarkly/js-sdk-common@npm:2.20.0"
+  checksum: a1c3257a8e43a7ac28cbeb8f04bfa8158f3f39cef479ee01af31250a9aafd0feadde5b02ee294571d5ac5aa0abfe4ba55fe0c78a4ce23312cd328c42b90a3cf0
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.16.2":
-  version: 2.16.2
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.16.2"
+"@launchdarkly/js-server-sdk-common@npm:2.17.0":
+  version: 2.17.0
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.17.0"
   dependencies:
-    "@launchdarkly/js-sdk-common": 2.19.0
+    "@launchdarkly/js-sdk-common": 2.20.0
     semver: 7.5.4
-  checksum: e929b0d1590790335d0f1898c29af6d58a51fb3359bcea93ef796a0fe7de2ce80f3b28273467253280d1dc704b9ba9ad49c9bf6e5907f5e70708f1cf6e8b87a5
+  checksum: 5f48f272bc93ba02e3891797cdf576cbab741656269aa1dc54accbf214cb214b2bc74a9100965f0df377092539134649a2c3522f5b1b473c762dbd2ebf105a61
   languageName: node
   linkType: hard
 
 "@launchdarkly/node-server-sdk@npm:>=9.0.0":
-  version: 9.10.3
-  resolution: "@launchdarkly/node-server-sdk@npm:9.10.3"
+  version: 9.10.4
+  resolution: "@launchdarkly/node-server-sdk@npm:9.10.4"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": 2.16.2
+    "@launchdarkly/js-server-sdk-common": 2.17.0
     https-proxy-agent: ^7.0.6
     launchdarkly-eventsource: 2.2.0
-  checksum: 6044b20200349daca6788d1235c5de27a815d9720dbbfdbd2f03000f329ba6654ac86df9c1d7cdf143827c59a058388ea398be63a6cb7849a58ad473954b1942
+  checksum: 4b0f324ca08be226fe1722f7d7babeffcba3ca42f20f4012a9c9d7c53758cf706acf1e0927cb172e0d90715f4ce18b293e08314c6c1287dee2871aff1ffc5235
   languageName: node
   linkType: hard
 
