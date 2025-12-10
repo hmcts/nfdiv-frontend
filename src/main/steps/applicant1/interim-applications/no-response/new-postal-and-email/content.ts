@@ -12,7 +12,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   line2: `We cannot send court documents to addresses outside of England and Wales. If your ${partner} is living outside of England and Wales, you will need to send them the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } yourself. We will post the documents to you so that you can arrange this.`,
-  newDetailsHeader: 'Which of your partner’s contact details do you need to update?',
+  newDetailsHeader: `Which of your ${partner}’s contact details do you need to update?`,
   newPostalAddress: 'I have a new postal address',
   newEmailAddress: 'I have a new email address',
   newEmailAndPostalAddress: 'I have a new email address and postal address',

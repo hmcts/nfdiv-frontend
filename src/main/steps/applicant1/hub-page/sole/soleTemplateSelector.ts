@@ -38,6 +38,7 @@ export const getSoleHubTemplate = (
   const isSearchGovRecords =
     latestGeneralApplication?.generalApplicationType === (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
   const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
+  const applicant1KnowsApplicant2Address = userCase.applicant1KnowsApplicant2Address === YesOrNo.YES;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -158,7 +159,7 @@ export const getSoleHubTemplate = (
       return HubTemplate.AwaitingHWFPartPayment;
     case State.AwaitingHWFDecision:
     case State.AwaitingHWFEvidence:
-      return userCase.applicant1CannotUpload === Checkbox.Checked
+      return userCase.applicant1CannotUpload === Checkbox.Checked || !applicant1KnowsApplicant2Address
         ? HubTemplate.AwaitingDocuments
         : HubTemplate.AosAwaitingOrDrafted;
     case State.AwaitingDocuments:
