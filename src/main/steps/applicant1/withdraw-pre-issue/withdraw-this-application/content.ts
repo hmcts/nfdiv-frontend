@@ -14,12 +14,12 @@ const en = ({ isDivorce, userCase, partner, referenceNumber }: CommonContent) =>
   line3sole: `We have not sent your ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } to your ${partner} yet. This means you can withdraw this application and receive a refund if the court confirms that you are due a refund.`,
-  line3joint: `Either you or your ${partner} can withdraw this application. We will refund the application fee if the court confirms that you are due a refund`,
+  line3joint: `Either you or your ${partner} can withdraw this application. We will refund any fees you have paid if the court confirms that you are due a refund`,
   warningText: `If you withdraw this application, you will lose access to your account. You will need to start a new application if you later decide that you want to get a ${
     isDivorce ? 'divorce' : 'dissolution'
   }.`,
   confirmWithdrawQuestion: 'Are you sure you want to withdraw this application?',
-  confirmReason: 'Reason for withdrawing the application',
+  confirmReason: 'If you want to, you can provide your reasons for withdrawing (optional)',
   noLabel: 'No (return to your account)',
   errors: {
     confirmWithdrawApplication: {
@@ -39,12 +39,12 @@ const cy: typeof en = ({ isDivorce, userCase, partner, referenceNumber }: Common
   line3sole: `We have not sent your ${
     isDivorce ? 'divorce application' : 'application to end your civil partnership'
   } to your ${partner} yet. This means you can withdraw this application and receive a refund if the court confirms that you are due a refund.`,
-  line3joint: `Either you or your ${partner} can withdraw this application. We will refund the application fee if the court confirms that you are due a refund`,
+  line3joint: `Either you or your ${partner} can withdraw this application. We will refund any fees you have paid if the court confirms that you are due a refund`,
   warningText: `If you withdraw this application, you will lose access to your account. You will need to start a new application if you later decide that you want to get a ${
     isDivorce ? 'divorce' : 'dissolution'
   }.`,
   confirmWithdrawQuestion: 'Are you sure you want to withdraw this application?',
-  confirmReason: 'Reason for withdrawing the application',
+  confirmReason: 'If you want to, you can provide your reasons for withdrawing (optional)',
   noLabel: 'No (return to your account)',
   errors: {
     confirmWithdrawApplication: {
