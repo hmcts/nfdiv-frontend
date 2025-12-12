@@ -112,7 +112,6 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
     condition: data =>
       ![
         State.AwaitingGeneralApplicationPayment,
-        State.AwaitingGeneralReferralPayment,
         State.GeneralApplicationReceived,
         State.AwaitingGeneralConsideration,
       ].includes(data.state as State),
