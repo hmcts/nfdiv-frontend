@@ -106,7 +106,7 @@ Given("I've completed all happy path questions correctly", async () => {
   I.type('Test your last name');
   iClick('Continue');
 
-  I.waitInUrl('/confirm-your-name');
+  I.waitInUrl('/check-your-name');
   iClearTheForm();
   iClick("Yes, that's my full name");
   iClick('Continue');
