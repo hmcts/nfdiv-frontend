@@ -4,9 +4,13 @@ import { Step } from './applicant1Sequence';
 import { noRespondentAddressJourneySequence } from './noRespondentAddressJourneySequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
+  NO_RESP_ADDRESS_CHECK_ANSWERS_ADDRESS,
+  NO_RESP_ADDRESS_DETAILS_UPDATED,
   NO_RESP_ADDRESS_ENTER_ADDRESS,
+  NO_RESP_ADDRESS_ENTER_EMAIL,
   NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT,
   NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS,
+  NO_RESP_ADDRESS_INTERNATIONAL_ADDRESS,
   NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS,
   NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS,
   NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS,
@@ -45,6 +49,49 @@ describe('No Response Journey Sequence test', () => {
         obj => obj.url === NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS
       ) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT);
+    });
+  });
+
+  describe('NO_RESP_ADDRESS_ENTER_ADDRESS', () => {
+    test('NO_RESP_ADDRESS_ENTER_ADDRESS when not international address', () => {
+      const caseData = {
+        applicant2AddressOverseas: YesOrNo.NO,
+      };
+      const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_ENTER_ADDRESS) as Step;
+      expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_ENTER_EMAIL);
+    });
+
+    test('NO_RESP_ADDRESS_ENTER_ADDRESS when international address', () => {
+      const caseData = {
+        applicant2AddressOverseas: YesOrNo.YES,
+      };
+      const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_ENTER_ADDRESS) as Step;
+      expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_INTERNATIONAL_ADDRESS);
+    });
+  });
+
+  describe('NO_RESP_ADDRESS_INTERNATIONAL_ADDRESS', () => {
+    test('NO_RESP_ADDRESS_INTERNATIONAL_ADDRESS page', () => {
+      const step = noRespondentAddressJourneySequence.find(
+        obj => obj.url === NO_RESP_ADDRESS_INTERNATIONAL_ADDRESS
+      ) as Step;
+      expect(step.getNextStep({})).toBe(NO_RESP_ADDRESS_ENTER_EMAIL);
+    });
+  });
+
+  describe('NO_RESP_ADDRESS_ENTER_EMAIL', () => {
+    test('NO_RESP_ADDRESS_ENTER_EMAIL page', () => {
+      const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_ENTER_EMAIL) as Step;
+      expect(step.getNextStep({})).toBe(NO_RESP_ADDRESS_CHECK_ANSWERS_ADDRESS);
+    });
+  });
+
+  describe('NO_RESP_ADDRESS_CHECK_ANSWERS_ADDRESS', () => {
+    test('NO_RESP_ADDRESS_CHECK_ANSWERS_ADDRESS page', () => {
+      const step = noRespondentAddressJourneySequence.find(
+        obj => obj.url === NO_RESP_ADDRESS_CHECK_ANSWERS_ADDRESS
+      ) as Step;
+      expect(step.getNextStep({})).toBe(NO_RESP_ADDRESS_DETAILS_UPDATED);
     });
   });
 
