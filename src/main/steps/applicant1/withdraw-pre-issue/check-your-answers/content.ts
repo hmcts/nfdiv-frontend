@@ -41,6 +41,7 @@ export const form: FormContent = {
   fields: {},
   submit: {
     text: l => l.submitText,
+    classes: 'govuk-button govuk-button--warning',
   },
 };
 
