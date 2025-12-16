@@ -4,6 +4,7 @@ import { YesOrNo } from '../app/case/definition';
 import { Step } from './applicant1Sequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
+  IS_PARTNER_ABROAD,
   NO_RESP_ADDRESS_ENTER_ADDRESS,
   NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT,
   NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS,
@@ -45,6 +46,6 @@ export const noRespondentAddressJourneySequence: Step[] = [
   },
   {
     url: NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS,
-    getNextStep: (): PageLink => NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS,
+    getNextStep: (): PageLink => IS_PARTNER_ABROAD,
   },
 ];
