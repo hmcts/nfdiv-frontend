@@ -26,7 +26,7 @@ const en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRespondent: s
   },
   withdrawApplication: {
     url: `${caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION : WITHDRAW_APPLICATION}`,
-    text: `Withdraw this ${isDivorce ? 'divorce' : 'dissolution'} application`,
+    text: `Withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   },
 });
 
@@ -34,11 +34,11 @@ const en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRespondent: s
 const cy: typeof en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRespondent) => ({
   reviewContactDetails: {
     url: app2OrRespondent + CHECK_CONTACT_DETAILS,
-    text: 'Review your contact details',
+    text: 'Adolygu eich manylion cyswllt',
   },
   hubPageDownloads: {
     url: HUB_PAGE_DOWNLOADS,
-    text: 'View all documents',
+    text: 'Gweld eich dogfennau',
   },
   genAppMakeAnApplication: {
     url: MAKE_AN_APPLICATION,
@@ -46,7 +46,7 @@ const cy: typeof en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRe
   },
   withdrawApplication: {
     url: `${caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION : WITHDRAW_APPLICATION}`,
-    text: `Withdraw this ${isDivorce ? 'divorce' : 'dissolution'} application`,
+    text: `Withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   },
 });
 
