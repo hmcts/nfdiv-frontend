@@ -1181,6 +1181,8 @@ export interface CaseData {
   applicant1DispenseOtherEnquiries: string;
   confirmWithdrawApplication: YesOrNo;
   withdrawApplicationReason: string;
+  applicant2ConfirmWithdrawApplication: YesOrNo;
+  applicant2WithdrawApplicationReason: string;
 }
 
 export interface CaseDocuments {

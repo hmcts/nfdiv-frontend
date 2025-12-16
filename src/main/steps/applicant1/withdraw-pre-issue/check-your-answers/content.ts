@@ -15,8 +15,8 @@ const en = ({ isApplicant2 }: CommonContent, confirmWithdrawApplication, withdra
     withdrawApplicationReason: `${withdrawApplicationReason || ''}`,
   },
   stepLinks: {
-    confirmWithdraw: `${isApplicant2 ? APPLICANT_2 : '' + WITHDRAW_THIS_APPLICATION}`,
-    withdrawApplicationReason: `${isApplicant2 ? APPLICANT_2 : '' + WITHDRAW_THIS_APPLICATION}`,
+    confirmWithdraw: `${isApplicant2 ? APPLICANT_2 : ''}${WITHDRAW_THIS_APPLICATION}`,
+    withdrawApplicationReason: `${isApplicant2 ? APPLICANT_2 : ''}${WITHDRAW_THIS_APPLICATION}`,
   },
   submitText: 'Withdraw application',
 });
@@ -32,8 +32,8 @@ const cy: typeof en = ({ isApplicant2 }: CommonContent, confirmWithdrawApplicati
     withdrawApplicationReason: `${withdrawApplicationReason || ''}`,
   },
   stepLinks: {
-    confirmWithdraw: `${isApplicant2 ? APPLICANT_2 : '' + WITHDRAW_THIS_APPLICATION}`,
-    withdrawApplicationReason: `${isApplicant2 ? APPLICANT_2 : '' + WITHDRAW_THIS_APPLICATION}`,
+    confirmWithdraw: `${isApplicant2 ? APPLICANT_2 : ''}${WITHDRAW_THIS_APPLICATION}`,
+    withdrawApplicationReason: `${isApplicant2 ? APPLICANT_2 : ''}${WITHDRAW_THIS_APPLICATION}`,
   },
   submitText: 'Withdraw application',
 });
