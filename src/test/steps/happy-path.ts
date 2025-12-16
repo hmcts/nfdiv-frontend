@@ -113,7 +113,8 @@ Given("I've completed all happy path questions correctly", async () => {
 
   I.waitInUrl('/your-name-on-certificate');
   iClearTheForm();
-  I.type('Test their name');
+  iClick('full name');
+  I.type('Test your name');
   iClick('Continue');
 
   I.waitInUrl('/enter-their-name');
@@ -124,22 +125,15 @@ Given("I've completed all happy path questions correctly", async () => {
   I.type('Test their last name');
   iClick('Continue');
 
-  I.waitInUrl('/confirm-their-name');
+  I.waitInUrl('/check-their-name');
   iClearTheForm();
-  iClick("Yes, that's their full name");
+  iClick('No');
   iClick('Continue');
 
-  I.waitInUrl('/your-name-on-certificate');
+  I.waitInUrl('/their-name-on-certificate');
   iClearTheForm();
-  iClick('Copy your full name');
-  I.type('First name Last name');
   iClick("Copy your husband's full name");
   I.type('Husbands name');
-  iClick('Continue');
-
-  I.waitInUrl('/changes-to-your-name');
-  checkOptionFor('No', 'Did you change your last name when you got married?');
-  checkOptionFor('No', 'Have you changed any part of your name since getting married?');
   iClick('Continue');
 
   I.waitInUrl('/how-the-court-will-contact-you');
