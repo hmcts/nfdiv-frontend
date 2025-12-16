@@ -1,10 +1,9 @@
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { CommonContent } from '../../../common/common.content';
-import { APPLICANT_2, WITHDRAW_THIS_APPLICATION } from '../../../urls';
+import { WITHDRAW_THIS_APPLICATION } from '../../../urls';
 
-const en = ({ isApplicant2 }: CommonContent, confirmWithdrawApplication, withdrawApplicationReason) => ({
+const en = (confirmWithdrawApplication, withdrawApplicationReason) => ({
   title: 'Check your answers',
   stepQuestions: {
     confirmWithdraw: 'Are you sure you want to withdraw this application?',
@@ -15,13 +14,13 @@ const en = ({ isApplicant2 }: CommonContent, confirmWithdrawApplication, withdra
     withdrawApplicationReason: `${withdrawApplicationReason || ''}`,
   },
   stepLinks: {
-    confirmWithdraw: `${isApplicant2 ? APPLICANT_2 : ''}${WITHDRAW_THIS_APPLICATION}`,
-    withdrawApplicationReason: `${isApplicant2 ? APPLICANT_2 : ''}${WITHDRAW_THIS_APPLICATION}`,
+    confirmWithdraw: `${WITHDRAW_THIS_APPLICATION}`,
+    withdrawApplicationReason: `${WITHDRAW_THIS_APPLICATION}`,
   },
   submitText: 'Withdraw application',
 });
 
-const cy: typeof en = ({ isApplicant2 }: CommonContent, confirmWithdrawApplication, withdrawApplicationReason) => ({
+const cy: typeof en = (confirmWithdrawApplication, withdrawApplicationReason) => ({
   title: 'Check your answers',
   stepQuestions: {
     confirmWithdraw: 'Are you sure you want to withdraw this application?',
@@ -32,8 +31,8 @@ const cy: typeof en = ({ isApplicant2 }: CommonContent, confirmWithdrawApplicati
     withdrawApplicationReason: `${withdrawApplicationReason || ''}`,
   },
   stepLinks: {
-    confirmWithdraw: `${isApplicant2 ? APPLICANT_2 : ''}${WITHDRAW_THIS_APPLICATION}`,
-    withdrawApplicationReason: `${isApplicant2 ? APPLICANT_2 : ''}${WITHDRAW_THIS_APPLICATION}`,
+    confirmWithdraw: `${WITHDRAW_THIS_APPLICATION}`,
+    withdrawApplicationReason: `${WITHDRAW_THIS_APPLICATION}`,
   },
   submitText: 'Withdraw application',
 });
@@ -53,7 +52,7 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const confirmWithdrawApplication = content.userCase.confirmWithdrawApplication;
   const withdrawApplicationReason = content.userCase.withdrawApplicationReason;
-  const translations = languages[content.language](content, confirmWithdrawApplication, withdrawApplicationReason);
+  const translations = languages[content.language](confirmWithdrawApplication, withdrawApplicationReason);
   const showChangeLink = true;
   return {
     ...translations,
