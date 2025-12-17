@@ -221,17 +221,8 @@ const languages = {
   cy,
 };
 
-export const generateContent: TranslationFn = content => {
+const getDownloadLogic: TranslationFn = content => {
   const { userCase } = content;
-  const isAosSubmitted =
-    userCase.dateAosSubmitted &&
-    (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
-      userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS));
-  const hasCertificateOfService = userCase.alternativeServiceOutcomes?.find(
-    alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
-  );
-  const hasDivorceOrDissolutionApplication = !!findDocument(userCase, DocumentType.APPLICATION);
-  const isAwaitingAmendedApplicationState = userCase.state === State.AwaitingAmendedApplication;
 
   const deemedOrDispensedService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
@@ -253,47 +244,64 @@ export const generateContent: TranslationFn = content => {
     DocumentType.BAILIFF_SERVICE_REFUSED,
   ].some(document => !!findDocument(userCase, document));
 
-  const hasCertificateOfDeemedOrDispensedServiceRefused = userCase.alternativeServiceOutcomes?.find(
-    alternativeServiceOutcome =>
-      deemedOrDispensedOrAlternativeService &&
-      alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO &&
-      alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant' &&
-      hasRefusalOrder
-  );
+  const shouldHaveAccessToCoApplication = content.isJointApplication || !content.isApplicant2;
 
-  const hasCertificateOfDeemedOrDispensedServiceGranted = userCase.alternativeServiceOutcomes?.find(
-    alternativeServiceOutcome =>
-      deemedOrDispensedService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.YES
-  );
-
-  const hasCertificateOfEntitlement = content.userCase.coCertificateOfEntitlementDocument;
-  const hasConditionalOrderGranted = content.userCase.coConditionalOrderGrantedDocument;
-  const hasFinalOrderGranted = content.userCase.documentsGenerated?.find(
-    doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
-  );
-  const hasConditionalOrderAnswers = content.userCase.documentsGenerated?.find(
-    doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
-  );
-  const hasConditionalOrderApplication = content.userCase.documentsGenerated?.find(
-    doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
-  );
-  const hasFinalOrderApplicationAndFinalOrderRequested = userCase.documentsGenerated?.find(
-    doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
-  );
+  const isAwaitingAmendedApplicationState = userCase.state === State.AwaitingAmendedApplication;
 
   return {
-    isAosSubmitted,
-    hasCertificateOfService,
-    hasCertificateOfDeemedOrDispensedServiceGranted,
-    hasCertificateOfDeemedOrDispensedServiceRefused,
-    hasCertificateOfEntitlement,
-    isAwaitingAmendedApplicationState,
-    hasConditionalOrderAnswers,
-    hasConditionalOrderGranted,
-    hasConditionalOrderApplication,
-    hasDivorceOrDissolutionApplication,
-    hasFinalOrderApplicationAndFinalOrderRequested,
-    hasFinalOrderGranted,
+    hasDivorceOrDissolutionApplication: !!findDocument(userCase, DocumentType.APPLICATION),
+    app1OnlineServiceAppInProgress:
+      content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline && content.isApplicant2,
+    app1OnlineGeneralApp:
+      content.generalApplicationDate && content.generalApplicationSubmittedOnline && content.isApplicant2,
+    isAosSubmitted:
+      userCase.dateAosSubmitted &&
+      (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
+        userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)),
+    hasCertificateOfService: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
+    ),
+    hasCertificateOfDeemedOrDispensedServiceGranted: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        deemedOrDispensedService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.YES
+    ),
+    hasCertificateOfDeemedOrDispensedServiceRefused: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        deemedOrDispensedOrAlternativeService &&
+        alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO &&
+        alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant' &&
+        hasRefusalOrder
+    ),
+    hasCertificateOfEntitlement: content.userCase.coCertificateOfEntitlementDocument,
+    hasConditionalOrderGranted: content.userCase.coConditionalOrderGrantedDocument,
+    hasConditionalOrderAnswersAndAccess:
+      shouldHaveAccessToCoApplication &&
+      content.userCase.documentsGenerated?.find(
+        doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
+      ),
+    hasConditionalOrderApplicationAndAccess:
+      shouldHaveAccessToCoApplication &&
+      content.userCase.documentsGenerated?.find(
+        doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
+      ),
+    hasFinalOrderGranted: content.userCase.documentsGenerated?.find(
+      doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
+    ),
+    isAwaitingAmendedApplicationStateAndAccess: isAwaitingAmendedApplicationState && shouldHaveAccessToCoApplication,
+    hasFinalOrderApplicationAndFinalOrderRequested: userCase.documentsGenerated?.find(
+      doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
+    ),
+  };
+};
+
+export const generateContent: TranslationFn = content => {
+  return {
+    ...getDownloadLogic(content),
     ...languages[content.language](content),
   };
+};
+
+export const downloadsAvailable = (content: CommonContent): boolean => {
+  const downloadLogic = getDownloadLogic(content);
+  return Object.values(downloadLogic).some(value => value === true);
 };
