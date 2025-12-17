@@ -10,6 +10,7 @@ import {
   WITHDRAW_APPLICATION,
   WITHDRAW_THIS_APPLICATION,
 } from '../../../urls';
+import { downloadsAvailable } from '../../downloads/content';
 
 const en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRespondent: string) => ({
   reviewContactDetails: {
@@ -66,5 +67,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...languages[content.language](content, getApp2OrRespondent(content)),
     caseHasBeenIssued: content.caseHasBeenIssued,
+    showDownloadLink: downloadsAvailable(content),
   };
 };
