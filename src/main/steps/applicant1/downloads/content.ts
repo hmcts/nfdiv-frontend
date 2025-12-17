@@ -251,9 +251,9 @@ const getDownloadLogic: TranslationFn = content => {
   return {
     hasDivorceOrDissolutionApplication: !!findDocument(userCase, DocumentType.APPLICATION),
     app1OnlineServiceAppInProgress:
-      content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline && content.isApplicant2,
+      content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline && !content.isApplicant2,
     app1OnlineGeneralApp:
-      content.generalApplicationDate && content.generalApplicationSubmittedOnline && content.isApplicant2,
+      content.generalApplicationDate && content.generalApplicationSubmittedOnline && !content.isApplicant2,
     isAosSubmitted:
       userCase.dateAosSubmitted &&
       (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
