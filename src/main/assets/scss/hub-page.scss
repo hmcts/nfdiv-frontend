@@ -1,5 +1,4 @@
 @use 'govuk-frontend' as *;
-@use "sass:map";
 
 .govuk-panel--outstanding {
   background-color: #f2f8f5;
@@ -19,11 +18,5 @@
   padding-bottom: 10px;
   .hmcts-progress-bar__list-item {
     max-width: 15%;
-  }
-}
-
-@media (min-width: map-get($govuk-breakpoints, desktop)) {
-  .hub-right-column {
-    padding-top: 95px;
   }
 }
