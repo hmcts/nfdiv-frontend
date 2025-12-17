@@ -381,7 +381,7 @@ const cy: typeof en = (
     notOnline: {
       youWontBeAbleToApplyOnline: `Ni fyddwch yn gallu gwneud cais ar-lein am eich gorchymyn amodol oherwydd nad yw eich ${partner} yn defnyddio’r gwasanaeth ${
         isDivorce ? 'ysgariad' : 'diddymiad'
-      } ar-lein. Gallwch wneud cais gan ddefnyddio'r ffurflen bapur a'i hanfon i'r llys drwy'r post neu drwy ein ffurflen ar-lein.`,
+      } ar-lein. Gallwch wneud cais gan ddefnyddio'r ffurflen bapur a'i hanfon i'r llys drwy'r post neu drwy ein ffurflen ar-lein. Byddwch hefyd yn dechrau derbyn gohebiaeth drwy lythyr gan y llys.`,
       downloadPaperForm: {
         content: 'Gallwch lawrlwytho’r ffurflen bapur yma: ',
         link: {
