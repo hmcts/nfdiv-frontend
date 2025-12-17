@@ -301,7 +301,7 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
-export const downloadsAvailable = (content: CommonContent): boolean => {
+export const areDownloadsAvailable = (content: CommonContent): boolean => {
   const downloadLogic = getDownloadLogic(content);
   return Object.values(downloadLogic).some(value => value === true);
 };
