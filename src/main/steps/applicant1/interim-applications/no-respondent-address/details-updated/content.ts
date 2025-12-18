@@ -5,6 +5,7 @@ import { getFormattedDate } from '../../../../../app/case/answers/formatDate';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { CommonContent } from '../../../../common/common.content';
 import { HUB_PAGE } from '../../../../urls';
+import { YesOrNo } from '../../../../../app/case/definition';
 
 const en = ({ partner, telephoneNumber, userCase }: CommonContent) => ({
   title: 'Details updated',
@@ -39,8 +40,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content);
-
+  const overseasAddress = content.userCase.applicant2AddressOverseas === YesOrNo.YES;
   return {
     ...translation,
+    overseasAddress,
   };
 };
