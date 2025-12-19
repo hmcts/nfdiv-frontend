@@ -63,7 +63,7 @@
     "@types/lodash": "4.17.21",
     "@types/multer": "2.0.0",
     "@types/negotiator": "0.6.4",
-    "@types/node": "22.19.3",
+    "@types/node": "24.10.4",
     "@types/nunjucks": "3.2.6",
     "@types/require-directory": "2.1.7",
     "@types/serve-favicon": "2.5.7",
