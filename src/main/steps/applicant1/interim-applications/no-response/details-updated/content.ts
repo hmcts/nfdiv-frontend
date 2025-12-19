@@ -40,6 +40,9 @@ const en = ({ partner, isDivorce, userCase }: CommonContent, isPersonalServiceRe
         ? `The amount of time your ${partner} has to respond depends on the country they’re living in. ${otherOptionsText}.`
         : ''
     }`,
+    serviceOfDocuments: `<a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.serviceOfDocuments'
+    )}">Further information concerning service out of the United Kingdom can be obtained from the Foreign Process Section (opens in a new tab)</a>.`,
     returnToYourAccount: `<a href=${HUB_PAGE} class="govuk-link">Return to your account</a>`,
   };
 };
@@ -79,6 +82,9 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent, isPersonalServiceR
         ? `Yna, dylent ymateb i’r cais. Mae faint o amser sydd gan eich ${partner} i ymateb yn dibynnu ar y wlad ble maent yn byw. ${otherOptionsText}.`
         : ''
     }`,
+    serviceOfDocuments: `<a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.serviceOfDocuments'
+    )}">Mae rhagor o wybodaeth ynghylch cyflwyno dogfennau y tu allan i'r Deyrnas Unedig ar gael gan yr Adran Prosesau Tramor (yn agor mewn tab newydd)</a>.`,
     returnToYourAccount: `<a href=${HUB_PAGE} class="govuk-link">Dychwelyd i'ch cyfrif</a>`,
   };
 };
