@@ -5,6 +5,7 @@
   <h1 class="govuk-heading-l" id="enterAddressTitle">{{ title }}</h1>
   {% include "./postcodeEnter.njk" %}
   {% include "./postcodeSelect.njk" %}
+  <p class="govuk-body hidden" id="international-address-info">{{ serviceOfDocuments | safe }}</p>
 {% endblock %}
 
 {% block form %}

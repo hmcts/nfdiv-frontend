@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
@@ -15,6 +17,9 @@ const en = ({ partner }: Partial<CommonContent>) => {
   };
 
   return {
+    serviceOfDocuments: `<a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.serviceOfDocuments'
+    )}">Further information concerning service out of the United Kingdom can be obtained from the Foreign Process Section (opens in a new tab)</a>.`,
     errors: {
       applicant1NoResponsePartnerAddress1: {
         required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
@@ -40,6 +45,9 @@ const cy = ({ partner }: CommonContent) => {
   };
 
   return {
+    serviceOfDocuments: `<a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.serviceOfDocuments'
+    )}">Mae rhagor o wybodaeth ynghylch cyflwyno dogfennau y tu allan i'r Deyrnas Unedig ar gael gan yr Adran Prosesau Tramor (yn agor mewn tab newydd)</a>.`,
     errors: {
       applicant1NoResponsePartnerAddress1: {
         required: `Nid ydych wedi nodi adeilad a chyfeiriad stryd eich ${partner}. Nodwch ei adeilad a'i gyfeiriad stryd cyn parhau.`,
