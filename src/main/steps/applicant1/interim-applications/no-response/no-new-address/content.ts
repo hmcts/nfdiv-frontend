@@ -1,3 +1,5 @@
+import config from 'config';
+
 import { NoResponseNoNewAddressDetails } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
@@ -11,6 +13,9 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   } to your ${partner}.`,
   line2:
     'If you need to send the documents to an international address, you may need to seek legal advice to check what types of service are valid in that country.',
+  serviceOfDocuments: `<a class="govuk-link" target="_blank" href="${config.get(
+    'govukUrls.serviceOfDocuments'
+  )}">Further information concerning service out of the United Kingdom can be obtained from the Foreign Process Section (opens in a new tab)</a>.`,
   inPerson: {
     header: 'In person service',
     details: `If you are confident the postal address is correct, you could consider in person service by a court bailiff or an independent process server. This means having the ${
@@ -46,6 +51,9 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   } i’ch ${partner}.`,
   line2:
     'Os ydych angen anfon y dogfennau i gyfeiriad rhyngwladol, efallai y byddwch angen ceisio cyngor cyfreithiol fel y gallwch wirio pa fath o wasanaeth sy’n ddilys yn y wlad honno.',
+  serviceOfDocument: `<a class="govuk-link" target="_blank" href="${config.get(
+    'govukUrls.serviceOfDocuments'
+  )}">Mae rhagor o wybodaeth ynghylch cyflwyno dogfennau y tu allan i'r Deyrnas Unedig ar gael gan yr Adran Prosesau Tramor (yn agor mewn tab newydd)</a>.`,
   inPerson: {
     header: 'Cyflwyno personol',
     details: `Os ydych chi’n hyderus bod y cyfeiriad post yn gywir, gallwch ystyried gwneud cais i feili llys neu weinyddwr proses annibynnol gyflwyno’r papurau’n bersonol. Mae hyn yn golygu y byddai papurau’r ${
