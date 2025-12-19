@@ -19,7 +19,7 @@ export const yesAddressOverseas = (): void => toggleAddressOverseas('yes');
 export const noAddressOverseas = (): void => toggleAddressOverseas('no');
 
 const hideSelectAddress = () => (getById('selectAddress') as HTMLElement).classList.add(hidden);
-const internationalAddressInfo = document.getElementById('international-address-info');
+const internationalAddressInfo = getById('international-address-info') as HTMLElement;
 
 const updateLabels = (type: 'uk' | 'international') => {
   const labels = JSON.parse(getById('addressFieldLabels')?.textContent || '{}');
@@ -79,7 +79,6 @@ if (cannotEnterUkPostcode) {
     yesAddressOverseas();
     showUkAddressFields();
     showInternationalAddressFields();
-    //  internationalAddressInfo?.classList.remove('hidden');
   };
 }
 
