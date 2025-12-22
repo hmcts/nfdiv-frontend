@@ -1,3 +1,5 @@
+@use 'govuk-frontend' as *;
+
 .global-cookie-message {
   background-color: govuk-colour('light-grey');
   padding: 10px 30px;
