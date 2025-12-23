@@ -17,7 +17,7 @@ const en = ({ partner }: CommonContent) => ({
   no: 'No, I want to try something else',
   errors: {
     applicant1NoRespAddressWillApplyAltService: {
-      required: `You must tell us whether your ${partner}'s details are up to date before continuing.`,
+      required: 'Select yes if you want to apply for alternative service.',
     },
   },
 });
@@ -36,7 +36,7 @@ const cy = ({ partner }: CommonContent) => ({
   no: 'No, I want to try something else',
   errors: {
     applicant1NoRespAddressWillApplyAltService: {
-      required: `You must tell us whether your ${partner}'s details are up to date before continuing.`,
+      required: 'Select yes if you want to apply for alternative service.',
     },
   },
 });
