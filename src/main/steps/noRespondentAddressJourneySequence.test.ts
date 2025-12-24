@@ -4,6 +4,7 @@ import { Step } from './applicant1Sequence';
 import { noRespondentAddressJourneySequence } from './noRespondentAddressJourneySequence';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
+  IS_PARTNER_ABROAD,
   NO_RESP_ADDRESS_ENTER_ADDRESS,
   NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT,
   NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS,
@@ -89,6 +90,15 @@ describe('No Response Journey Sequence test', () => {
         obj => obj.url === NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS
       ) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS);
+    });
+  });
+
+  describe('NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS', () => {
+    test('IS_PARTNER_ABROAD if continue with no address', () => {
+      const step = noRespondentAddressJourneySequence.find(
+        obj => obj.url === NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS
+      ) as Step;
+      expect(step.getNextStep({})).toBe(IS_PARTNER_ABROAD);
     });
   });
 });
