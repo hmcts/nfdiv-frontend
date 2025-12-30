@@ -353,15 +353,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: () => DO_YOU_HAVE_ADDRESS,
   },
   {
-    url: ADDRESS_FINDING,
-    getNextStep: data =>
-      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
-  },
-  {
-    url: HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
-    getNextStep: () => OTHER_COURT_CASES,
-  },
-  {
     url: THEIR_EMAIL_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
@@ -392,6 +383,15 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: ENTER_THEIR_ADDRESS,
     getNextStep: data => (isCountryUk(data.applicant2AddressCountry) ? OTHER_COURT_CASES : YOU_NEED_TO_SERVE),
+  },
+  {
+    url: ADDRESS_FINDING,
+    getNextStep: data =>
+      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
+  },
+  {
+    url: HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,
