@@ -4,6 +4,7 @@ import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
   ApplicationType,
   ChangedNameHow,
+  ChangedNameWhy,
   ClarificationReason,
   Gender,
   LegalAdvisorDecision,
@@ -151,35 +152,14 @@ export const getNameChangeOtherDetailsValidator = (
     | 'applicant1NameDifferentToMarriageCertificateOtherDetails'
     | 'applicant2LastNameChangedWhenMarriedOtherDetails'
     | 'applicant2NameDifferentToMarriageCertificateOtherDetails'
+    | 'applicant1WhyNameDifferentOtherDetails'
+    | 'applicant2WhyNameDifferentOtherDetails'
 ): ValidationCheck => {
   return ((value, formData) => {
-    if ((value as string[])?.includes(ChangedNameHow.OTHER) && !formData[fieldName]?.length) {
+    const otherValues = [ChangedNameHow.OTHER, ChangedNameWhy.OTHER];
+
+    if (otherValues.find(otherValue => (value as string[])?.includes(otherValue)) && !formData[fieldName]?.length) {
       return fieldName;
     }
   }) as ValidationCheck;
-};
-
-export const nameChangedHowPossibleValue = (
-  userCase: Partial<CaseWithId>,
-  isApplicant2: boolean
-): ChangedNameHow[] | undefined => {
-  if (isApplicant2) {
-    const applicant2ChangeMethods = [
-      ...new Set(
-        (userCase.applicant2LastNameChangedWhenMarriedMethod || []).concat(
-          userCase.applicant2NameDifferentToMarriageCertificateMethod || []
-        )
-      ),
-    ];
-    return applicant2ChangeMethods.length === 0 ? userCase.applicant2NameChangedHow : applicant2ChangeMethods;
-  } else {
-    const applicant1ChangeMethods = [
-      ...new Set(
-        (userCase.applicant1LastNameChangedWhenMarriedMethod || []).concat(
-          userCase.applicant1NameDifferentToMarriageCertificateMethod || []
-        )
-      ),
-    ];
-    return applicant1ChangeMethods.length === 0 ? userCase.applicant1NameChangedHow : applicant1ChangeMethods;
-  }
 };
