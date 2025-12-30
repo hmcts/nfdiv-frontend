@@ -57,8 +57,13 @@ Feature: Applicant 1 sole application
     And I type "Smith"
 
     When I click "Continue"
-    Then the page should include "Is Sarah Smith your full name, including any middle names?"
-    Given I select "Yes, that's my full name"
+    Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
+    Given I select "No"
+
+    When I click "Continue"
+    Then the page should include "How is your name written on your marriage certificate"
+    Given I select "Copy your full name from the marriage certificate"
+    And I type "Sarah Smith"
 
     When I click "Continue"
     Then the page should include "Enter your husband’s name"
@@ -69,20 +74,13 @@ Feature: Applicant 1 sole application
     And I type "Bob"
 
     When I click "Continue"
-    Then the page should include "Is Billy Bob your husband's full name, including any middle names?"
-    Given I select "Yes, that's their full name"
+    Then the page should include "Is any part of your husband's full name (Billy Bob) written differently on your marriage certificate?"
+    Given I select "No"
 
     When I click "Continue"
-    Then the page should include "Your names on your marriage certificate"
-    Given I select "Copy your full name from the marriage certificate"
-    And I type "Sarah Smith"
-    And I select "Copy your husband's full name from the marriage certificate"
+    Then the page should include "How is your husband's name written on your marriage certificate"
+    Given I select "Copy your husband's full name from the marriage certificate"
     And I type "Billy Bob"
-
-    When I click "Continue"
-    Then the page should include "Changes to your name"
-    Given I select "No" for "Did you change your last name when you got married?"
-    And I select "No" for "Have you changed any part of your name since getting married?"
 
     When I click "Continue"
     Then the page should include "How the court will contact you"
@@ -283,14 +281,17 @@ Feature: Applicant 1 sole application
     Given I clear the form
     And I select "Your first name"
     And I type "Sarah"
-    And I select "Your middle name(s) (if you have one)"
-    And I type "Middle"
     And I select "Your last name"
     And I type "Smith"
 
     When I click "Continue"
-    Then the page should include "Is Sarah Middle Smith your full name, including any middle names?"
-    Given I select "Yes, that's my full name"
+    Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
+    Given I select "No"
+
+    When I click "Continue"
+    Then the page should include "How is your name written on your marriage certificate"
+    Given I select "Copy your full name from the marriage certificate"
+    And I type "Sarah Smith"
 
     When I click "Continue"
     Then the page should include "Enter your husband’s name"
@@ -301,25 +302,13 @@ Feature: Applicant 1 sole application
     And I type "Bob"
 
     When I click "Continue"
-    Then the page should include "Is Billy Bob your husband's full name, including any middle names?"
-    Given I select "Yes, that's their full name"
+    Then the page should include "Is any part of your husband's full name (Billy Bob) written differently on your marriage certificate?"
+    Given I select "No"
 
     When I click "Continue"
-    Then the page should include "Your names on your marriage certificate"
-    Given I select "Copy your full name from the marriage certificate"
-    And I type "Sarah Smith"
-    And I select "Copy your husband's full name from the marriage certificate"
+    Then the page should include "How is your husband's name written on your marriage certificate"
+    Given I select "Copy your husband's full name from the marriage certificate"
     And I type "Billy Bob"
-
-    When I click "Continue"
-    Then the page should include "Changes to your name"
-    Given I select "Yes" for "Did you change your last name when you got married?"
-    Given I select "Another way"
-    And I select "Provide details of when and how you changed your name. You will be asked to upload a photo or scan of the documents that prove you changed your name later in this application, or you can post them in. If you do not have any documents, explain why here."
-    And I type "Test Another Way"
-    And I select "Yes" for "Have you changed any part of your name since getting married?"
-    And I select "By sending off my marriage certificate" for "Have you changed any part of your name since getting married?"
-    And I select "By deed poll or ‘statutory declaration’" for "Have you changed any part of your name since getting married?"
 
     When I click "Continue"
     Then the page should include "How the court will contact you"
@@ -438,8 +427,7 @@ Feature: Applicant 1 sole application
     When I click "Continue"
     Then the page should include "Upload your documents"
     Given I delete any previously uploaded files
-    And I select "I cannot upload some or all of my documents"
-    And I select "Proof that I changed my name"
+    And I select "I cannot upload my original foreign marriage certificate"
 
     When I click "Continue"
     And I go to "/"
