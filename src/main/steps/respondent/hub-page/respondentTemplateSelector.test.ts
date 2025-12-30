@@ -10,12 +10,11 @@ describe('RespondentTemplateSelector test', () => {
     id: string;
     state: State;
     divorceOrDissolution: DivorceOrDissolution;
-    coApplicant1SubmittedDate: string | undefined;
+    coApplicant1SubmittedDate?: string;
   } = {
     id: '123',
     state: State.Draft,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
-    coApplicant1SubmittedDate: undefined,
   };
   const displayState = currentStateFn(userCase.state);
 
