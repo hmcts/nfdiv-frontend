@@ -6,10 +6,16 @@ import { currentStateFn } from '../../state-sequence';
 import { getRespondentHubTemplate } from './respondentTemplateSelector';
 
 describe('RespondentTemplateSelector test', () => {
-  const userCase = {
+  const userCase: {
+    id: string;
+    state: State;
+    divorceOrDissolution: DivorceOrDissolution;
+    coApplicant1SubmittedDate: string | undefined;
+  } = {
     id: '123',
     state: State.Draft,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+    coApplicant1SubmittedDate: undefined,
   };
   const displayState = currentStateFn(userCase.state);
 
@@ -122,6 +128,28 @@ describe('RespondentTemplateSelector test', () => {
 
   test('should show /awaiting-aos.njk for state Holding but aos has been submitted', () => {
     const theState = displayState.at(State.Holding);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, true);
+    expect(respondentTemplate).toBe(HubTemplate.Holding);
+  });
+
+  test('should show /awaiting-aos.njk for state AwaitingJudgeClarification and aos has not been submitted', () => {
+    const theState = displayState.at(State.AwaitingJudgeClarification);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.AwaitingAoS);
+  });
+
+  test('should show /holding.njk for state AwaitingJudgeClarification and conditional order has been submitted', () => {
+    const theState = displayState.at(State.AwaitingJudgeClarification);
+    const respondentTemplate = getRespondentHubTemplate(
+      theState,
+      { ...userCase, coApplicant1SubmittedDate: '2023-01-01' },
+      false
+    );
+    expect(respondentTemplate).toBe(HubTemplate.Holding);
+  });
+
+  test('should show /holding.njk for state AwaitingJudgeClarification and aos has been submitted', () => {
+    const theState = displayState.at(State.AwaitingJudgeClarification);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, true);
     expect(respondentTemplate).toBe(HubTemplate.Holding);
   });
