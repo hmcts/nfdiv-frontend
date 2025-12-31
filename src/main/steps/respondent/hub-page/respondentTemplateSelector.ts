@@ -9,6 +9,7 @@ export const getRespondentHubTemplate = (
   hasSubmittedAos: boolean
 ): string | undefined => {
   const conditionalOrderHasBeenSubmitted = !!userCase.coApplicant1SubmittedDate;
+  const canSubmitAos = !hasSubmittedAos && !conditionalOrderHasBeenSubmitted;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -46,7 +47,7 @@ export const getRespondentHubTemplate = (
     case State.Holding:
     case State.AwaitingJudgeClarification:
     case State.PendingServiceAppResponse:
-      if (!hasSubmittedAos && !conditionalOrderHasBeenSubmitted) {
+      if (canSubmitAos) {
         return HubTemplate.AwaitingAoS;
       }
       return HubTemplate.Holding;
@@ -57,11 +58,7 @@ export const getRespondentHubTemplate = (
     case State.WelshTranslationReview:
       return HubTemplate.WelshTranslationRequestedOrReview;
     default: {
-      if (
-        displayState.isAtOrBefore('AwaitingConditionalOrder') &&
-        !hasSubmittedAos &&
-        !conditionalOrderHasBeenSubmitted
-      ) {
+      if (displayState.isAtOrBefore('AwaitingConditionalOrder') && canSubmitAos) {
         return HubTemplate.AwaitingAoS;
       }
     }
