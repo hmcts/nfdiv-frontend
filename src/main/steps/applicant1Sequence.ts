@@ -355,24 +355,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
-    url: THEIR_EMAIL_ADDRESS,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
-        return data.applicant1DoesNotKnowApplicant2EmailAddress
-          ? YOU_NEED_THEIR_EMAIL_ADDRESS
-          : isApplicant2EmailUpdatePossible(data)
-            ? EMAIL_RESENT
-            : IN_THE_UK;
-      } else {
-        return OTHER_COURT_CASES;
-      }
-    },
-  },
-  {
-    url: YOU_NEED_THEIR_EMAIL_ADDRESS,
-    getNextStep: () => THEIR_EMAIL_ADDRESS,
-  },
-  {
     url: DO_YOU_HAVE_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       return data.applicant1KnowsApplicant2Address === YesOrNo.NO ? ADDRESS_FINDING : ENTER_THEIR_ADDRESS;
@@ -393,6 +375,24 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: HOW_TO_APPLY_TO_SERVE,
     getNextStep: () => OTHER_COURT_CASES,
+  },
+  {
+    url: THEIR_EMAIL_ADDRESS,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
+        return data.applicant1DoesNotKnowApplicant2EmailAddress
+          ? YOU_NEED_THEIR_EMAIL_ADDRESS
+          : isApplicant2EmailUpdatePossible(data)
+            ? EMAIL_RESENT
+            : IN_THE_UK;
+      } else {
+        return OTHER_COURT_CASES;
+      }
+    },
+  },
+  {
+    url: YOU_NEED_THEIR_EMAIL_ADDRESS,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
   },
   {
     url: OTHER_COURT_CASES,
