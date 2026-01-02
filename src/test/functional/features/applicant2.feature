@@ -17,7 +17,7 @@ Feature: Applicant 2
     Given I select "I confirm my marriage has broken down irretrievably"
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/enter-your-names"
+    Then the page URL should be "/applicant2/enter-your-name"
     And the page should include "Enter your name"
     Given I clear the form
     And I select "Your first name(s)"
@@ -26,14 +26,13 @@ Feature: Applicant 2
     And I type "Bob"
 
     When I click "Continue"
-    Then the page should include "Is Billy Bob your full name, including any middle names?"
-    Given I select "Yes, that's my full name"
+    Then the page should include "Is any part of your full name (Billy Bob) written differently on your marriage certificate?"
+    Given I select "No"
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/changes-to-your-name"
-    And the page should include "Changes to your name"
-    Given I select "No" for "Did you change your last name when you got married?"
-    And I select "No" for "Have you changed any part of your name since getting married?"
+    Then the page should include "How is your name written on your marriage certificate"
+    Given I select "Copy your full name from the marriage certificate"
+    And I type "Billy Bob"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/how-the-court-will-contact-you"
@@ -159,7 +158,7 @@ Feature: Applicant 2
     Given I select "I do not need help with fees"
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/enter-your-names"
+    Then the page URL should be "/applicant2/enter-your-name"
     Given I go to "/applicant2/help-with-your-fee"
     And I select "I need help with fees"
 
@@ -182,7 +181,7 @@ Feature: Applicant 2
     And I type "HWF-ABC-123"
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/enter-your-names"
+    Then the page URL should be "/applicant2/enter-your-name"
     And the page should include "Enter your name"
     When I clear the form
     Given I select "Your first name(s)"
@@ -191,21 +190,13 @@ Feature: Applicant 2
     And I type "Smith"
 
     When I click "Continue"
-    Then the page should include "Is Sarah Smith your full name, including any middle names?"
-    Given I select "Yes, that's my full name"
+    Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
+    Given I select "No"
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/changes-to-your-name"
-    And the page should include "Changes to your name"
-    Given I select "Yes" for "Did you change your last name when you got married?"
-    And the page should include "How did you change your name?"
-    Given I select "Another way" for "Did you change your last name when you got married?"
-    And I select "Provide details of when and how you changed your name. You will be asked to upload a photo or scan of the documents that prove you changed your name later in this application, or you can post them in. If you do not have any documents, explain why here."
-    And I type "Test Another Way"
-    And I select "Yes" for "Have you changed any part of your name since getting married?"
-    And the page should include "How did you change your name?"
-    And I select "By sending off my marriage certificate" for "Have you changed any part of your name since getting married?"
-    And I select "By deed poll or ‘statutory declaration’" for "Have you changed any part of your name since getting married?"
+    Then the page should include "How is your name written on your marriage certificate"
+    Given I select "Copy your full name from the marriage certificate"
+    And I type "Sarah Smith"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/how-the-court-will-contact-you"
@@ -269,13 +260,6 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/how-to-apply-financial-order"
     And the page should include "How to apply for a financial order"
-
-    When I click "Continue"
-    Then the page URL should be "/applicant2/upload-your-documents"
-    And the page should include "Upload your documents"
-    Given I delete any previously uploaded files
-    And I select "I cannot upload some or all of my documents"
-    And I select "Proof that I changed my name"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"
