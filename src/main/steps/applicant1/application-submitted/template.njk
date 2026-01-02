@@ -16,15 +16,14 @@
     </div>
   </div>
   <br/>
-    {% if addressRequired %}
-      <h3 class="govuk-heading-m">{{ addressRequired.whatYouNeedToDoHeader }}</h3>
-      <p class="govuk-body">{{ addressRequired.line1 }}</p>
-      <p class="govuk-body">{{ addressRequired.line2 | safe }}</p>
-      <p class="govuk-body">{{ addressRequired.line3 | safe }}</p>
-    {% endif %}
-    {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
+    {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay or addressRequired %}
       <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
       <p class="govuk-body">{{ line1 }}</p>
+      {% if addressRequired %}
+        <p class="govuk-body">{{ addressRequired.line1 }}</p>
+        <p class="govuk-body">{{ addressRequired.line2 | safe }}</p>
+        <p class="govuk-body">{{ addressRequired.line3 | safe }}</p>
+      {% endif %}
       {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload %}
         <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
         <p class="govuk-body">{{ line2 }}</p>

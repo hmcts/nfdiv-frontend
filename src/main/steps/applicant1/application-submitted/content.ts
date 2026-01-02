@@ -67,6 +67,13 @@ const en = (
     part1: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
     link: config.get('govukUrls.d11Form'),
   },
+  subHeading3: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
+  line3: {
+    p1: `You need to apply to serve the ${
+      isDivorce ? 'divorce' : 'ending your civil partnership'
+    } papers to your ${partner} another way. This is because you did not provide their email and postal address. You could apply to serve them by email only, text message or social media.`,
+    p2: 'You will need to fill out a separate paper D11 form and send it to the court. The form can be used to make different applications so only fill out the relevant sections.',
+  },
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
     userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
@@ -144,7 +151,6 @@ const en = (
     url: HUB_PAGE,
   },
   addressRequired: {
-    whatYouNeedToDoHeader: 'What you need to do',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
@@ -175,7 +181,9 @@ const cy: typeof en = ({
   feedbackLink,
 }: CommonContent) => ({
   title: `${
-    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload ? 'Cais wedi’i gadw' : 'Cyflwynwyd y cais'
+    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
+      ? 'Cais wedi’i gadw'
+      : 'Cyflwynwyd y cais'
   }`,
   yourReferenceNumber: 'Eich cyfeirnod yw',
   subHeading1: 'Beth sydd angen i chi ei wneud nawr',
@@ -330,12 +338,18 @@ export const generateContent: TranslationFn = content => {
   const isRespondentOverseas =
     userCase.applicant1KnowsApplicant2Address && !isCountryUk(userCase.applicant2AddressCountry);
   const applicationServedAnotherWay =
-    !isJointApplication && userCase.applicant2Email && !isRespondentOverseas && !hasASolicitorContactForPartner;
+    !isJointApplication &&
+    userCase.applicant2Email &&
+    !isRespondentOverseas &&
+    !userCase.iWantToHavePapersServedAnotherWay &&
+    !hasASolicitorContactForPartner;
   const cannotUploadDocuments = new Set([
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
-  const addressRequired = userCase.applicant1KnowsApplicant2Address === YesOrNo.NO;
+  const addressRequired =
+    userCase.applicant1KnowsApplicant2Address !== YesOrNo.YES ||
+    userCase.applicant1FoundApplicant2Address !== YesOrNo.YES;
 
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
 
