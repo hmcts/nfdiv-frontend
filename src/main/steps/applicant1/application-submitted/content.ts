@@ -26,10 +26,10 @@ const en = (
     telephoneNumber,
     feedbackLink,
   }: CommonContent,
-  furtherActionRequired: boolean
+  addressRequired: boolean
 ) => ({
   title: `${
-    furtherActionRequired || userCase.applicant1CannotUpload || userCase.applicant2CannotUpload
+    addressRequired || userCase.applicant1CannotUpload || userCase.applicant2CannotUpload
       ? 'Further action needed'
       : 'submitted'
   }`,
@@ -143,7 +143,7 @@ const en = (
     text: 'Return to your account',
     url: HUB_PAGE,
   },
-  furtherActionNeeded: {
+  addressRequired: {
     whatYouNeedToDoHeader: 'What you need to do',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -291,7 +291,7 @@ const cy: typeof en = ({
     part1: 'Rhoi adborth.',
     link: feedbackLink,
   },
-  furtherActionNeeded: {
+  addressRequired: {
     whatYouNeedToDoHeader: 'What you need to do',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -335,12 +335,12 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
-  const furtherActionRequired = userCase.applicant1KnowsApplicant2Address === YesOrNo.NO;
+  const addressRequired = userCase.applicant1KnowsApplicant2Address === YesOrNo.NO;
 
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
 
   return {
-    ...languages[language]({ ...content, referenceNumber }, furtherActionRequired),
+    ...languages[language]({ ...content, referenceNumber }, addressRequired),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,
@@ -349,6 +349,6 @@ export const generateContent: TranslationFn = content => {
     referenceNumber,
     cannotUploadDocuments,
     ...progressBarContent,
-    furtherActionRequired,
+    addressRequired,
   };
 };
