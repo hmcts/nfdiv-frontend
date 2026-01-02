@@ -381,10 +381,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: () => THEIR_EMAIL_ADDRESS,
   },
   {
-    url: HOW_TO_APPLY_TO_SERVE,
-    getNextStep: () => OTHER_COURT_CASES,
-  },
-  {
     url: THEIR_EMAIL_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
