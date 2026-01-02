@@ -403,20 +403,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: () => THEIR_EMAIL_ADDRESS,
   },
   {
-    url: DO_YOU_HAVE_ADDRESS,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      return data.applicant1KnowsApplicant2Address === YesOrNo.NO ? ADDRESS_FINDING : ENTER_THEIR_ADDRESS;
-    },
-  },
-  {
-    url: NEED_TO_GET_ADDRESS,
-    getNextStep: () => HOW_TO_APPLY_TO_SERVE,
-  },
-  {
-    url: ENTER_THEIR_ADDRESS,
-    getNextStep: data => (isCountryUk(data.applicant2AddressCountry) ? OTHER_COURT_CASES : YOU_NEED_TO_SERVE),
-  },
-  {
     url: HOW_TO_APPLY_TO_SERVE,
     getNextStep: () => OTHER_COURT_CASES,
   },
