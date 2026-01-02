@@ -29,9 +29,9 @@ const en = (
   furtherActionRequired: boolean
 ) => ({
   title: `${
-    furtherActionRequired
+    furtherActionRequired || userCase.applicant1CannotUpload || userCase.applicant2CannotUpload
       ? 'Further action needed'
-      : `Application ${userCase.applicant1CannotUpload || userCase.applicant2CannotUpload ? 'saved' : 'submitted'}`
+      : 'submitted'
   }`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
