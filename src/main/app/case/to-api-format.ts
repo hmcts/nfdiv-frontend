@@ -185,6 +185,7 @@ const fields: ToApiConverters = {
   }),
   applicant1FoundApplicant2Address: data => ({
     applicant1KnowsApplicant2Address: data.applicant1FoundApplicant2Address,
+    applicant1FoundApplicant2Address: data.applicant1FoundApplicant2Address,
   }),
   applicant1NameChangedHowOtherDetails: data => ({
     applicant1NameChangedHowOtherDetails: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
