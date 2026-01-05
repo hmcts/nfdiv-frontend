@@ -1,0 +1,25 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l" id="searchingForContactDetailsTitle">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ bullet1 }}</li>
+    <li>{{ bullet2 }}</li>
+    <li>{{ bullet3 }}</li>
+    <li>{{ bullet4 }}</li>
+    <li>{{ bullet5 }}</li>
+  </ul>
+  <p class="govuk-body">{{ line3 }}</p>
+  <p class="govuk-body">{{ line4 }}</p>
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
+{% endblock %}

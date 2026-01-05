@@ -1,8 +1,14 @@
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
-  {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
-    <p class="govuk-body">{{ sendDocumentLine1 }}</p>
+  {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay or not applicant1KnowsApplicant2Address %}
+
+    {% if not applicant1KnowsApplicant2Address %}
+      <p class="govuk-body">{{ furtherActionNeeded.line1 }}</p>
+      <p class="govuk-body">{{ furtherActionNeeded.line2 | safe }}</p>
+      <p class="govuk-body">{{ furtherActionNeeded.line3 | safe }}</p>
+    {% endif %}
     {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload %}
-      <h3 class="govuk-heading-s">{{ sendDocumentHeading }}</h3>
+      <p class="govuk-body">{{ sendDocumentLine1 }}</p>
+      <h3 class="govuk-heading-m">{{ sendDocumentHeading }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">
         {% for document in cannotUploadDocuments %}

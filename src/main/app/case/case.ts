@@ -211,6 +211,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  applicant1NoRespAddressHasFoundAddress: 'applicant1NoRespAddressHasFoundAddress',
+  applicant1NoRespAddressHasWayToContact: 'applicant1NoRespAddressHasWayToContact',
+  applicant1NoRespAddressWillApplyAltService: 'applicant1NoRespAddressWillApplyAltService',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
   applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
@@ -349,6 +352,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
   applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
   applicant1DispenseOtherEnquiries: 'applicant1DispenseOtherEnquiries',
+  applicant1FoundApplicant2Address: 'applicant1FoundApplicant2Address',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -659,6 +663,9 @@ export interface Case {
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant2InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
+  applicant1NoRespAddressHasFoundAddress: YesOrNo;
+  applicant1NoRespAddressHasWayToContact: YesOrNo;
+  applicant1NoRespAddressWillApplyAltService: YesOrNo;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
@@ -778,6 +785,7 @@ export interface Case {
   applicant1DispensePartnerPastAddress2?: string;
   applicant1DispensePartnerPastAddressEnquiries2?: string;
   applicant1DispensePartnerLastSeenDate?: DateAsString;
+  applicant1FoundApplicant2Address: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
