@@ -22,8 +22,6 @@ import {
 } from './definition';
 import { OrNull, toApiFormat } from './to-api-format';
 
-const dateNow = new Date(Date.now());
-
 describe('to-api-format', () => {
   const results: OrNull<Partial<Case>> = {
     gender: Gender.MALE,
@@ -1250,11 +1248,7 @@ describe('to-api-format', () => {
 
     test('sets applicant1DispensePartnerLastSeenOver2YearsAgo to no when last seen date is less than years ago', () => {
       const apiFormat = toApiFormat({
-        applicant1DispensePartnerLastSeenOrHeardOfDate: {
-          year: dateNow.getFullYear().toString(),
-          month: dateNow.getMonth().toString(),
-          day: dateNow.getDate().toString(),
-        },
+        applicant1DispensePartnerLastSeenOrHeardOfDate: { year: '2025', month: '01', day: '01' },
       } as Partial<Case>);
 
       expect(apiFormat).toMatchObject({
