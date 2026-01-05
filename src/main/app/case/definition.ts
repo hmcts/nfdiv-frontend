@@ -293,6 +293,7 @@ export interface Applicant {
   LastNameChangedWhenMarriedOtherDetails: string;
   NameDifferentToMarriageCertificate: YesOrNo;
   NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
+  ChangedNameWhy: ChangedNameWhy[];
   NameDifferentToMarriageCertificateOtherDetails: string;
   NameChangedHow: ChangedNameHow[];
   NameChangedHowOtherDetails: string;
@@ -525,6 +526,10 @@ export interface CaseData {
   applicant1NameDifferentToMarriageCertificate: YesOrNo;
   applicant1NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
   applicant1NameDifferentToMarriageCertificateOtherDetails: string;
+  applicant1WhyNameDifferent: ChangedNameWhy[];
+  applicant1WhyNameDifferentOtherDetails: string,
+  applicant2WhyNameDifferent: ChangedNameWhy[];
+  applicant2WhyNameDifferentOtherDetails: string,
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;
@@ -1982,6 +1987,15 @@ export const enum Applicant2Represented {
 export const enum ApplicationType {
   SOLE_APPLICATION = 'soleApplication',
   JOINT_APPLICATION = 'jointApplication',
+}
+
+export const enum ChangedNameWhy {
+  DEED_POLL = 'deedPoll',
+  CHANGED_PARTS_OF_NAME = 'changedPartsOfName',
+  PART_OF_NAME_NOT_INCLUDED = 'partOfNameNotIncluded',
+  PART_OF_NAME_ABBREVIATED = 'partOfNameAbbreviated',
+  LEGAL_NAME_SPELLED_DIFFERENTLY = 'legalNameSpelledDifferently',
+  OTHER = 'other',
 }
 
 export const enum ChangedNameHow {
