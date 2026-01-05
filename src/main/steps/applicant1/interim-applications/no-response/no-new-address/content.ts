@@ -51,7 +51,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   } i’ch ${partner}.`,
   line2:
     'Os ydych angen anfon y dogfennau i gyfeiriad rhyngwladol, efallai y byddwch angen ceisio cyngor cyfreithiol fel y gallwch wirio pa fath o wasanaeth sy’n ddilys yn y wlad honno.',
-  serviceOfDocument: `<a class="govuk-link" target="_blank" href="${config.get(
+  serviceOfDocuments: `<a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.serviceOfDocuments'
   )}">Mae rhagor o wybodaeth ynghylch cyflwyno dogfennau y tu allan i'r Deyrnas Unedig ar gael gan yr Adran Prosesau Tramor (yn agor mewn tab newydd)</a>.`,
   inPerson: {
