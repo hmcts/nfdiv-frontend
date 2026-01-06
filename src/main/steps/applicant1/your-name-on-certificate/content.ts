@@ -6,7 +6,7 @@ import type { CommonContent } from '../../common/common.content';
 const en = ({ isDivorce, partner }: CommonContent, relationship: string) => {
   return {
     title: `How is your name written on your ${relationship} certificate`,
-    line1: `These are the names you and your wife used before you ${
+    line1: `These are the names you and your ${partner} used before you ${
       isDivorce ? 'were married' : 'formed your civil partnership'
     }. They can sometimes be different from your current names. This could be because you or your ${partner} previously had a different surname (for example, a maiden name or a name changed by deed poll).`,
     warningText: `Copy the ${relationship} certificate exactly. For example, if it says ‘Sarah Brown (formerly known as Sarah Smith)’, then enter that.`,

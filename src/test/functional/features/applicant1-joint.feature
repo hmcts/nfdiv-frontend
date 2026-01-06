@@ -316,8 +316,7 @@ Feature: Applicant 1 joint application
     Then the page should include "Upload your documents"
     Given I delete any previously uploaded files
     Then the page should include "No files uploaded"
-    Given I select "I cannot upload some or all of my documents"
-    And I select "Proof that I changed my name"
+    Given I select "I cannot upload my original foreign marriage certificate"
 
     When I click "Continue"
     And I go to "/"
