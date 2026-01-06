@@ -1252,7 +1252,7 @@ describe('to-api-format', () => {
       const apiFormat = toApiFormat({
         applicant1DispensePartnerLastSeenOrHeardOfDate: {
           year: dateNow.getFullYear().toString(),
-          month: (dateNow.getMonth() + 1).toString(),
+          month: (dateNow.getMonth()).toString(),
           day: dateNow.getDate().toString(),
         },
       } as Partial<Case>);
