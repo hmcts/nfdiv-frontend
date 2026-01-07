@@ -14630,7 +14630,7 @@ __metadata:
     otplib: 12.0.1
     pa11y: 8.0.0
     pdfjs-dist: 5.4.54
-    prettier: 3.1.1
+    prettier: 3.7.4
     redis: 5.10.0
     require-directory: 2.1.1
     sass: ^1.93.2
@@ -15863,12 +15863,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.1.1":
-  version: 3.1.1
-  resolution: "prettier@npm:3.1.1"
+"prettier@npm:3.7.4":
+  version: 3.7.4
+  resolution: "prettier@npm:3.7.4"
   bin:
     prettier: bin/prettier.cjs
-  checksum: e386855e3a1af86a748e16953f168be555ce66d6233f4ba54eb6449b88eb0c6b2ca79441b11eae6d28a7f9a5c96440ce50864b9d5f6356d331d39d6bb66c648e
+  checksum: 955e37e87b1151ca3b3282463f5295f4c415821884791df152ff66e6eb1c5257115153cccba61b13962546100dd00ae45670ff27077dcab04c977d84036eaf80
   languageName: node
   linkType: hard
 
