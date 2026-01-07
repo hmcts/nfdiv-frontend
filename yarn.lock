@@ -4915,43 +4915,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/companion-client@npm:^4.4.1":
-  version: 4.4.1
-  resolution: "@uppy/companion-client@npm:4.4.1"
+"@uppy/companion-client@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@uppy/companion-client@npm:5.1.1"
   dependencies:
-    "@uppy/utils": ^6.1.1
+    "@uppy/utils": ^7.1.1
     namespace-emitter: ^2.0.1
     p-retry: ^6.1.0
   peerDependencies:
-    "@uppy/core": ^4.4.1
-  checksum: 607a821686bfae4834bd8a5aace5185c675ff3e01ac5f0d28b7274fd8f39cf7ffa24188eee07f1ec93d0283f920bf8cb94b5c422fde3588d43344110830adf8b
+    "@uppy/core": ^5.1.1
+  checksum: c7cf743522be8c37c8628e3ec498cb21cefa95f4cff9da5e7b470992731f36eccb8183ed6439fafd4340e34c625a03c2010205beb842e70dfc8fcbeb72f0bee3
   languageName: node
   linkType: hard
 
-"@uppy/core@npm:4.4.3":
-  version: 4.4.3
-  resolution: "@uppy/core@npm:4.4.3"
+"@uppy/core@npm:5.2.0":
+  version: 5.2.0
+  resolution: "@uppy/core@npm:5.2.0"
   dependencies:
     "@transloadit/prettier-bytes": ^0.3.4
-    "@uppy/store-default": ^4.2.0
-    "@uppy/utils": ^6.1.2
+    "@uppy/store-default": ^5.0.0
+    "@uppy/utils": ^7.1.4
     lodash: ^4.17.21
     mime-match: ^1.0.2
     namespace-emitter: ^2.0.1
     nanoid: ^5.0.9
     preact: ^10.5.13
-  checksum: 2ac9834b824c9772e8ab3be456e30a8de815adadd157faf401522b76edbbe1f4a636618c20ec5275bdaae68e41086b82294a9de5398c1b39a5bd0d23eee2d54c
+  checksum: d7b63c8538ae12b9244de15899d0e1385620b91cbcc609956345fe7ba9e406f1c5fae8ca51bd8e7e52be9c1252b0b8374a84d627f5cb14abb54e86badd58b8e6
   languageName: node
   linkType: hard
 
-"@uppy/drop-target@npm:3.1.1":
-  version: 3.1.1
-  resolution: "@uppy/drop-target@npm:3.1.1"
+"@uppy/drop-target@npm:4.1.0":
+  version: 4.1.0
+  resolution: "@uppy/drop-target@npm:4.1.0"
   dependencies:
-    "@uppy/utils": ^6.1.1
+    "@uppy/utils": ^7.1.4
   peerDependencies:
-    "@uppy/core": ^4.4.1
-  checksum: c3400abe74381eb8f71e8b844269b514fc2d6a999c3f35a3ae1f8cd8b1da9eeaf6a1aab0be78286205fba0f9af172ffae3d6474b0ce9fb78c5e58c6c98f5fd25
+    "@uppy/core": ^5.2.0
+  checksum: 4bd108e1358f58da755ba17fa98c883bdb47e2f1223c6a77b18651fa63517346ac233dbce68ce757d703e616e5fd4300dee916ea0e02470e8fdf76f7d7a4da7c
   languageName: node
   linkType: hard
 
@@ -4979,14 +4979,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/store-default@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "@uppy/store-default@npm:4.2.0"
-  checksum: 6d26d2da70046b2ec4f8e84ae73b71d0fb67db6b9355e41841c6cea5a50c6795c4b99dc19d38000f5f15eb1c8a0f74dc00bdfb48a9638ce2c825f7c8c69f5a66
+"@uppy/store-default@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@uppy/store-default@npm:5.0.0"
+  checksum: 80c46582e04ffbc8fdab1aec98c70ab594e68d6be493ac0e809a9a8b5f2e8940f5fba00f7a81942b1b88936aa1beecdcf042e2875ed293a57a780fb81e962b9b
   languageName: node
   linkType: hard
 
-"@uppy/utils@npm:^6.1.1, @uppy/utils@npm:^6.1.2":
+"@uppy/utils@npm:^6.1.1":
   version: 6.1.2
   resolution: "@uppy/utils@npm:6.1.2"
   dependencies:
@@ -4996,15 +4996,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/xhr-upload@npm:4.3.3":
-  version: 4.3.3
-  resolution: "@uppy/xhr-upload@npm:4.3.3"
+"@uppy/utils@npm:^7.1.1, @uppy/utils@npm:^7.1.4, @uppy/utils@npm:^7.1.5":
+  version: 7.1.5
+  resolution: "@uppy/utils@npm:7.1.5"
   dependencies:
-    "@uppy/companion-client": ^4.4.1
-    "@uppy/utils": ^6.1.2
+    lodash: ^4.17.21
+    preact: ^10.5.13
+  checksum: 29906f38a975e87514d18d91cc6e84ec851e05fd8bddf42fd490117d145f98f2ed7b9151ec339c89f4e23e8b0e9eef3698f224b08492a54725d80edb3e02007d
+  languageName: node
+  linkType: hard
+
+"@uppy/xhr-upload@npm:5.1.1":
+  version: 5.1.1
+  resolution: "@uppy/xhr-upload@npm:5.1.1"
+  dependencies:
+    "@uppy/companion-client": ^5.1.1
+    "@uppy/utils": ^7.1.5
   peerDependencies:
-    "@uppy/core": ^4.4.2
-  checksum: 340162ad53702ee1811e1b669ba969f54967713cc238130a4ff8e5dce7b0cc5a542274d786f28297826f8f84444b253b7f1e1eab4eb54917fb6446b5e36b20e0
+    "@uppy/core": ^5.2.0
+  checksum: fd1656cc507ecf5091436a921a22db013ef742744054d1978a27b959ab253421fa0987466a4b03fda469c4f9992119dbe0e2df3070ef8e81bf52198c764411d1
   languageName: node
   linkType: hard
 
@@ -14570,11 +14580,11 @@ __metadata:
     "@types/uuid": 10.0.0
     "@typescript-eslint/eslint-plugin": 7.18.0
     "@typescript-eslint/parser": 7.18.0
-    "@uppy/core": 4.4.3
-    "@uppy/drop-target": 3.1.1
+    "@uppy/core": 5.2.0
+    "@uppy/drop-target": 4.1.0
     "@uppy/file-input": 4.1.1
     "@uppy/progress-bar": 4.2.1
-    "@uppy/xhr-upload": 4.3.3
+    "@uppy/xhr-upload": 5.1.1
     "@wdio/cli": 9.21.1
     "@wdio/sauce-service": 9.21.0
     allure-commandline: 2.36.0
