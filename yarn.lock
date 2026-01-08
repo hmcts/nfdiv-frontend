@@ -4955,27 +4955,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/file-input@npm:4.1.1":
-  version: 4.1.1
-  resolution: "@uppy/file-input@npm:4.1.1"
+"@uppy/file-input@npm:4.2.2":
+  version: 4.2.2
+  resolution: "@uppy/file-input@npm:4.2.2"
   dependencies:
-    "@uppy/utils": ^6.1.1
+    "@uppy/utils": ^6.2.2
     preact: ^10.5.13
   peerDependencies:
-    "@uppy/core": ^4.4.1
-  checksum: b135231a7a709314e30f46e5424a9673f3ec66d70aa9de79645a74921cfebb25dbd32e259c909a8aedfbd94c9fc43ac6a041c73508641cde2e797eec03d41fe3
+    "@uppy/core": ^4.5.2
+  checksum: 62d7bad4a89d6468c68806763b276065474e412cd92848fc2be4db8806886974e6f75fbbc373309c094189c4262ede5a7ac1e0777869289c079d4d09b1c2bf89
   languageName: node
   linkType: hard
 
-"@uppy/progress-bar@npm:4.2.1":
-  version: 4.2.1
-  resolution: "@uppy/progress-bar@npm:4.2.1"
+"@uppy/progress-bar@npm:4.3.2":
+  version: 4.3.2
+  resolution: "@uppy/progress-bar@npm:4.3.2"
   dependencies:
-    "@uppy/utils": ^6.1.1
+    "@uppy/utils": ^6.2.2
     preact: ^10.5.13
   peerDependencies:
-    "@uppy/core": ^4.4.1
-  checksum: d4c16247f05d0da3c2110ee5939d1a738e3ae2cd9e3603d246fe4fb0bdb2f8ee958863d42cd210aa662adcfcc2fbf3843918ca0456e9e17a89321d0431d5ebed
+    "@uppy/core": ^4.5.2
+  checksum: 596763656078a8ac8b90c850ec4fab0d009dae53598ba7bdb43f0182eefc5a76232bdf1a3255413166a723cdf4d4fc0b76a1cb455749b8a15513bab8d5768079
   languageName: node
   linkType: hard
 
@@ -4986,13 +4986,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/utils@npm:^6.1.1":
-  version: 6.1.2
-  resolution: "@uppy/utils@npm:6.1.2"
+"@uppy/utils@npm:^6.2.2":
+  version: 6.2.2
+  resolution: "@uppy/utils@npm:6.2.2"
   dependencies:
     lodash: ^4.17.21
     preact: ^10.5.13
-  checksum: 51bd81c1fd6e74bc0f23ce108bd59e29de1d563f9c68eb16fd682b0dd46334e6be122d872c688ee1b27b900ec4141b9812898822fcd4d146e994852b658f303e
+  checksum: 5e7ede2178778b69921d9fd3e1b66bc3709652135f64877d1a60ec9ba4c2f37e437b5d8a4bc7aeea86a6b3874237fc93b314b010f69b31048b29fde432edd7bc
   languageName: node
   linkType: hard
 
@@ -14582,8 +14582,8 @@ __metadata:
     "@typescript-eslint/parser": 7.18.0
     "@uppy/core": 5.2.0
     "@uppy/drop-target": 4.1.0
-    "@uppy/file-input": 4.1.1
-    "@uppy/progress-bar": 4.2.1
+    "@uppy/file-input": 4.2.2
+    "@uppy/progress-bar": 4.3.2
     "@uppy/xhr-upload": 5.1.1
     "@wdio/cli": 9.23.0
     "@wdio/sauce-service": 9.23.0
