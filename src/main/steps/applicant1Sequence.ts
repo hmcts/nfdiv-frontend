@@ -387,7 +387,9 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: ADDRESS_FINDING,
     getNextStep: data =>
-      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
+      data.applicant1KnowsApplicant2Address === YesOrNo.YES || data.applicant1FoundApplicant2Address === YesOrNo.YES
+        ? ENTER_THEIR_ADDRESS
+        : HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
   },
   {
     url: HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
