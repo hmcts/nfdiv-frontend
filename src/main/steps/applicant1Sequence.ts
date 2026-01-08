@@ -24,6 +24,7 @@ import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
 import {
+  ADDRESS_FINDING,
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
@@ -69,6 +70,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
   HOW_TO_FINALISE_APPLICATION,
+  HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
   HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
   IN_THE_UK,
@@ -344,11 +346,11 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: data =>
       data.applicant1IsApplicant2Represented === Applicant2Represented.YES
         ? ENTER_SOLICITOR_DETAILS
-        : THEIR_EMAIL_ADDRESS,
+        : DO_YOU_HAVE_ADDRESS,
   },
   {
     url: ENTER_SOLICITOR_DETAILS,
-    getNextStep: () => THEIR_EMAIL_ADDRESS,
+    getNextStep: () => DO_YOU_HAVE_ADDRESS,
   },
   {
     url: THEIR_EMAIL_ADDRESS,
@@ -371,20 +373,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: DO_YOU_HAVE_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (
-        data.applicant1KnowsApplicant2Address === YesOrNo.NO &&
-        !(
-          data.applicant2SolicitorEmail ||
-          (data.applicant2SolicitorAddressPostcode && data.applicant2SolicitorFirmName) ||
-          (data.applicant2SolicitorAddressPostcode && data.applicant2SolicitorAddress1)
-        )
-      ) {
-        return NEED_TO_GET_ADDRESS;
-      } else if (data.applicant1KnowsApplicant2Address === YesOrNo.NO) {
-        return OTHER_COURT_CASES;
-      } else {
-        return ENTER_THEIR_ADDRESS;
-      }
+      return data.applicant1KnowsApplicant2Address === YesOrNo.NO ? ADDRESS_FINDING : ENTER_THEIR_ADDRESS;
     },
   },
   {
@@ -394,6 +383,17 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: ENTER_THEIR_ADDRESS,
     getNextStep: data => (isCountryUk(data.applicant2AddressCountry) ? OTHER_COURT_CASES : YOU_NEED_TO_SERVE),
+  },
+  {
+    url: ADDRESS_FINDING,
+    getNextStep: data =>
+      data.applicant1KnowsApplicant2Address === YesOrNo.YES || data.applicant1FoundApplicant2Address === YesOrNo.YES
+        ? ENTER_THEIR_ADDRESS
+        : HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
+  },
+  {
+    url: HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
+    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,
