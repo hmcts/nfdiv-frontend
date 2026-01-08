@@ -39,8 +39,10 @@ export const generateContent: TranslationFn = content => {
     ? content.userCase.applicant2GeneralAppServiceRequest
     : content.userCase.applicant1GeneralAppServiceRequest;
 
-  const orderSummary = findUnpaidGeneralApplication(content.userCase, paymentServiceRequest)
-    ?.generalApplicationFeeOrderSummary;
+  const orderSummary = findUnpaidGeneralApplication(
+    content.userCase,
+    paymentServiceRequest
+  )?.generalApplicationFeeOrderSummary;
 
   const applicationFee = !isEmpty(orderSummary)
     ? '£' + parseInt(<string>orderSummary?.PaymentTotal, 10) / 100
