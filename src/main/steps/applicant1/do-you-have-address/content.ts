@@ -10,7 +10,7 @@ const en = ({ partner, isDivorce }) => ({
   } by post.`,
   line2: 'It can be a UK or international address.',
   line3: `If you have your ${partner}’s permission, you can use their work address if you do not know their home address.`,
-  doYouKnowYourPartnerAddressHeader: `Do you know your ${partner}'s address?`,
+  doYouKnowYourPartnerAddressHeader: `Do you know your ${partner}'s postal address?`,
   haveTheirAddress: 'Yes, I have their address',
   doNotHaveTheirAddress: 'No, I do not have their address',
   errors: {
@@ -28,7 +28,7 @@ const cy: typeof en = ({ partner, isDivorce }) => ({
   } by post.`,
   line2: 'It can be a UK or international address.',
   line3: `If you have your ${partner}’s permission, you can use their work address if you do not know their home address.`,
-  doYouKnowYourPartnerAddressHeader: `Do you know your ${partner}'s address?`,
+  doYouKnowYourPartnerAddressHeader: `Do you know your ${partner}'s postal address?`,
   haveTheirAddress: 'Yes, I have their address',
   doNotHaveTheirAddress: 'No, I do not have their address',
   errors: {
