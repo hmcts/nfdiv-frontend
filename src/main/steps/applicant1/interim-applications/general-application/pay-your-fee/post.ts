@@ -7,17 +7,17 @@ import {
   GENERAL_APPLICATION_PAYMENT_STATES,
   ListValue,
   OrderSummary,
-} from '../../../../app/case/definition';
-import { AppRequest } from '../../../../app/controller/AppRequest';
-import BasePaymentPostController from '../../../../app/controller/BasePaymentPostController';
-import { AnyObject } from '../../../../app/controller/PostController';
+} from '../../../../../app/case/definition';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
+import BasePaymentPostController from '../../../../../app/controller/BasePaymentPostController';
+import { AnyObject } from '../../../../../app/controller/PostController';
 import {
   findUnpaidGeneralApplication,
   getGeneralApplicationOrderSummary,
   getGeneralApplicationPaymentsField,
   getGeneralApplicationServiceRequest,
-} from '../../../../app/utils/general-application-utils';
-import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../urls';
+} from '../../../../../app/utils/general-application-utils';
+import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../../urls';
 
 @autobind
 export default class GeneralApplicationPaymentPostController extends BasePaymentPostController {
