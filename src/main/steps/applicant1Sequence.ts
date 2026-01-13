@@ -18,6 +18,7 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
+import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import { noRespondentAddressJourneySequence } from './noRespondentAddressJourneySequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
@@ -72,8 +73,8 @@ import {
   HOW_TO_APPLY_TO_SERVE,
   HOW_TO_FINALISE_APPLICATION,
   HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
-  HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
+  HUB_PAGE_DOWNLOADS,
   IN_THE_UK,
   JOINT_APPLICATION_SUBMITTED,
   JURISDICTION_DOMICILE,
@@ -362,7 +363,9 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: ADDRESS_FINDING,
     getNextStep: data =>
-      data.applicant1FoundApplicant2Address === YesOrNo.YES ? ENTER_THEIR_ADDRESS : HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
+      data.applicant1KnowsApplicant2Address === YesOrNo.YES || data.applicant1FoundApplicant2Address === YesOrNo.YES
+        ? ENTER_THEIR_ADDRESS
+        : HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
   },
   {
     url: HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
@@ -523,11 +526,11 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
-    url: REVIEW_THE_APPLICATION,
-    getNextStep: () => HOME_URL,
+    url: HUB_PAGE_DOWNLOADS,
+    getNextStep: () => HUB_PAGE,
   },
   {
-    url: HOW_YOU_CAN_PROCEED,
+    url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOME_URL,
   },
   {
@@ -611,6 +614,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
     url: VIEW_YOUR_ANSWERS,
     getNextStep: () => HOME_URL,
   },
+  ...generalApplicationD11JourneySequence,
   ...noRespondentAddressJourneySequence,
   ...noResponseJourneySequence,
   ...alternativeServiceApplicationSequence,
@@ -620,7 +624,6 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...alternativeServiceApplicationSequence,
   ...dispenseServiceApplicationSequence,
   ...searchGovRecordsApplicationSequence,
-  ...noResponseJourneySequence,
   ...serviceApplicationPaymentSequence,
   ...generalApplicationPaymentSequence,
 ];
