@@ -14,7 +14,6 @@ import {
   doesApplicantIntendToSwitchToSoleFo,
   getSwitchToSoleFoStatus,
 } from '../../common/switch-to-sole-content.utils';
-import { generateContent as columnGenerateContent } from '../hub-page/right-column/content';
 
 const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `Do you want to ${isDivorce ? 'finalise your divorce' : 'end your civil partnership'}?`,
@@ -334,7 +333,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    ...columnGenerateContent(content),
     isJointAppAndStateAwaitingFo,
     isJointAppAndStateAwaitingJointFo,
     isStateAwaitingJointFo,

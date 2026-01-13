@@ -1,3 +1,5 @@
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
 <ul class="govuk-list contact-us">
   <li>
     <h4 class="govuk-heading-s">{{ webChat }}</h4>
@@ -25,6 +27,11 @@
     <h4 class="govuk-heading-s">{{ openingTimesHeading }}</h4>
     <p class="govuk-body">{{ openingTimes }}</p>
     <p class="govuk-body">{{ closingTimes }}</p>
+  </li>
+
+  <li>
+    <h4 class="govuk-heading-s">{{ post }}</h4>
+    {{ serviceAddressMacro(serviceAddress, false, true) }}
   </li>
 </ul>
 

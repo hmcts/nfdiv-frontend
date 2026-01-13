@@ -3,7 +3,6 @@ import { toUpper } from 'lodash';
 
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 
-import { getFormattedCaseDate } from './answers/formatDate';
 import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import {
   AlternativeServiceDifferentWays,
@@ -633,7 +632,7 @@ const fields: ToApiConverters = {
     applicant1DispensePartnerLastSeenDate: toApiDate(data.applicant1DispensePartnerLastSeenOrHeardOfDate),
     applicant1DispensePartnerLastSeenOver2YearsAgo: dayjs(Date.now())
       .subtract(2, 'year')
-      .isBefore(getFormattedCaseDate(data.applicant1DispensePartnerLastSeenOrHeardOfDate) as string)
+      .isBefore(toApiDate(data.applicant1DispensePartnerLastSeenOrHeardOfDate))
       ? YesOrNo.NO
       : YesOrNo.YES,
   }),

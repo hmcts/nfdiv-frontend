@@ -34,6 +34,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_FINALISE_APPLICATION,
   HUB_PAGE,
+  HUB_PAGE_DOWNLOADS,
   JOINT_APPLICATION_SUBMITTED,
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
@@ -199,6 +200,10 @@ const postSubmissionSequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: HUB_PAGE_DOWNLOADS,
+    getNextStep: () => HUB_PAGE,
   },
   {
     url: APP_REPRESENTED,
