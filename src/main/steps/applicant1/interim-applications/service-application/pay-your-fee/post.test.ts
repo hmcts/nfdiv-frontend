@@ -1,13 +1,13 @@
-import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { CITIZEN_SERVICE_APPLICATION, PaymentStatus, State } from '../../../../app/case/definition';
-import { SERVICE_PAYMENT_CALLBACK } from '../../../urls';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+import { CITIZEN_SERVICE_APPLICATION, PaymentStatus, State } from '../../../../../app/case/definition';
+import { SERVICE_PAYMENT_CALLBACK } from '../../../../urls';
 
 import ServicePaymentPostController from './post';
 
-jest.mock('../../../../app/payment/PaymentClient');
+jest.mock('../../../../../app/payment/PaymentClient');
 
-const { mockCreate, mockGet } = require('../../../../app/payment/PaymentClient');
+const { mockCreate, mockGet } = require('../../../../../app/payment/PaymentClient');
 
 describe('ServicePaymentPostController', () => {
   const paymentController = new ServicePaymentPostController();

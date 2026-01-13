@@ -1,6 +1,6 @@
-import { AlternativeServiceType } from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import type { CommonContent } from '../../../common/common.content';
+import { AlternativeServiceType } from '../../../../../app/case/definition';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import type { CommonContent } from '../../../../common/common.content';
 
 const en = ({
   serviceApplicationResponseDate,

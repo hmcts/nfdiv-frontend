@@ -6,11 +6,11 @@ import {
   Fee,
   ListValue,
   SERVICE_PAYMENT_STATES,
-} from '../../../../app/case/definition';
-import { AppRequest } from '../../../../app/controller/AppRequest';
-import BasePaymentPostController from '../../../../app/controller/BasePaymentPostController';
-import { AnyObject } from '../../../../app/controller/PostController';
-import { SERVICE_PAYMENT_CALLBACK } from '../../../urls';
+} from '../../../../../app/case/definition';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
+import BasePaymentPostController from '../../../../../app/controller/BasePaymentPostController';
+import { AnyObject } from '../../../../../app/controller/PostController';
+import { SERVICE_PAYMENT_CALLBACK } from '../../../../urls';
 
 @autobind
 export default class ServicePaymentPostController extends BasePaymentPostController {

@@ -147,6 +147,7 @@ export const en = {
   openingTimesHeading: 'Opening times (webchat and telephone)',
   openingTimes: 'Monday to Friday, 10am to 6pm',
   closingTimes: 'Closed on bank holidays',
+  post: 'Post',
   cookiesBanner: {
     cookiesHeading: 'Cookies on',
     cookiesLine1: 'We use some essential cookies to make this service work.',
@@ -342,6 +343,7 @@ const cy: typeof en = {
   openingTimesHeading: 'Oriau agor',
   openingTimes: 'Dydd Llun i ddydd Iau 9am-5pm, dydd Gwener 9am-4.30pm',
   closingTimes: 'Ar gau ar ddydd Sadwrn, Sul a Gwyliau Banc',
+  post: "Drwy'r post",
   helpChatWithAnAgent: 'Siarad â chynghorydd ar-lein (agor mewn ffenestr newydd)',
   helpAllAgentsBusy:
     'Mae ein cynghorwyr i gyd yn brysur ar hyn o bryd.  Rhowch gynnig arall arni ymhen ychydig o funudau.',
