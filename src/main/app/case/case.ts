@@ -352,6 +352,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1DispenseChildMaintenanceResults: 'applicant1DispenseChildMaintenanceResults',
   applicant1DispenseContactFriendsOrRelativesDetails: 'applicant1DispenseContactFriendsOrRelativesDetails',
   applicant1DispenseOtherEnquiries: 'applicant1DispenseOtherEnquiries',
+  applicant1Offline: 'applicant1Offline',
+  applicant2Offline: 'applicant2Offline',
   applicant1FoundApplicant2Address: 'applicant1FoundApplicant2Address',
 };
 
@@ -581,6 +583,7 @@ export interface Case {
   previousState: State;
   applicant1UsedWelshTranslationOnSubmission?: YesOrNo;
   applicant2UsedWelshTranslationOnSubmission?: YesOrNo;
+  applicant1Offline: YesOrNo;
   applicant2Offline: YesOrNo;
   applicant1AppliedForFinalOrderFirst: YesOrNo;
   applicant2AppliedForFinalOrderFirst: YesOrNo;

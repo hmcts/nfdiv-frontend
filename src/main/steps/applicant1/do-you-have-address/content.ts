@@ -3,37 +3,37 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ partner, isDivorce, required }) => ({
+const en = ({ partner, isDivorce }) => ({
   title: `Your ${partner}'s postal address?`,
   line1: `We need your ${partner}’s address so that we can notify them about ${
     isDivorce ? 'the divorce' : 'ending your civil partnership'
   } by post.`,
   line2: 'It can be a UK or international address.',
   line3: `If you have your ${partner}’s permission, you can use their work address if you do not know their home address.`,
-  doYouKnowYourPartnerAddressHeader: `Do you know your ${partner}'s address?`,
+  doYouKnowYourPartnerAddressHeader: `Do you know your ${partner}'s postal address?`,
   haveTheirAddress: 'Yes, I have their address',
   doNotHaveTheirAddress: 'No, I do not have their address',
   errors: {
     applicant1KnowsApplicant2Address: {
-      required,
+      required: `Select yes if you know your ${partner}'s postal address`,
     },
   },
 });
 
 //TODO Welsh translation required for NFDIV-4922
-const cy: typeof en = ({ partner, isDivorce, required }) => ({
+const cy: typeof en = ({ partner, isDivorce }) => ({
   title: `Your ${partner}'s postal address`,
   line1: `We need your ${partner}’s address so that we can notify them about ${
     isDivorce ? 'the divorce' : 'ending your civil partnership'
   } by post.`,
   line2: 'It can be a UK or international address.',
   line3: `If you have your ${partner}’s permission, you can use their work address if you do not know their home address.`,
-  doYouKnowYourPartnerAddressHeader: `Do you know your ${partner}'s address?`,
+  doYouKnowYourPartnerAddressHeader: `Do you know your ${partner}'s postal address?`,
   haveTheirAddress: 'Yes, I have their address',
   doNotHaveTheirAddress: 'No, I do not have their address',
   errors: {
     applicant1KnowsApplicant2Address: {
-      required,
+      required: `Select yes if you know your ${partner}'s postal address`,
     },
   },
 });
@@ -44,7 +44,6 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.doYouKnowYourPartnerAddressHeader,
-      labelHidden: true,
       values: [
         { label: l => l.haveTheirAddress, value: YesOrNo.YES },
         { label: l => l.doNotHaveTheirAddress, value: YesOrNo.NO },
