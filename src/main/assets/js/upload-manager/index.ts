@@ -39,15 +39,17 @@ const initUploadManager = (): void => {
   const fileUploadEvents = new FileUploadEvents(uppy);
   updateFileList(uploadedFiles);
 
+  const uppyLocale = {
+    strings: {
+      chooseFiles: chooseFilePhoto,
+    },
+    pluralize, // Uses the adjusted `pluralize` function
+  };
+
   uppy
     .use(FileInput, {
       target: '#upload',
-      locale: {
-        strings: {
-          chooseFiles: chooseFilePhoto,
-        },
-        pluralize, // Uses the adjusted `pluralize` function
-      },
+      locale: uppyLocale,
     })
     .use(DropTarget, { target: document.body })
     .use(ProgressBar, {

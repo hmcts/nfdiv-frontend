@@ -122,6 +122,10 @@ Then('the page should include element {string}', (elemId: string) => {
   I.waitForElement(elemId);
 });
 
+Then('the page should not include element {string}', (elemId: string) => {
+  I.dontSeeElementInDOM(elemId);
+});
+
 Then('the page should include visible element {string}', (elemId: string) => {
   I.waitForVisible(elemId + ':not(.hidden)');
 });
