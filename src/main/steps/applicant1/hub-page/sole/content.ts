@@ -27,7 +27,7 @@ import {
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   FINALISING_YOUR_APPLICATION,
-  NEW_POSTAL_AND_EMAIL,
+  NO_RESP_ADDRESS_ENTER_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
@@ -541,7 +541,7 @@ const en = (
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
-    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NEW_POSTAL_AND_EMAIL}>update their details</a>. We will send the ${
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
       isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
     } to this address at no additional cost.`,
     line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
@@ -1069,7 +1069,7 @@ const cy: typeof en = (
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
-    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NEW_POSTAL_AND_EMAIL}>update their details</a>. We will send the ${
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
       isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
     } to this address at no additional cost.`,
     line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${

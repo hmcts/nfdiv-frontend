@@ -15,10 +15,10 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
   errors: {
     applicant2EmailAddress: {
-      required: 'Enter email address',
+      required: "Enter an email address, or select 'I do not know their email address'",
       incorrect:
         'You have entered an email address and indicated that you do not know their email address. You can only do one before continuing.',
-      invalid: 'Enter a valid email address',
+      invalid: 'Enter an email address in the correct format, like name@example.com',
       sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`,
     },
   },
@@ -35,10 +35,10 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
   errors: {
     applicant2EmailAddress: {
-      required: 'Enter email address',
+      required: "Enter an email address, or select 'I do not know their email address'",
       incorrect:
         'You have entered an email address and indicated that you do not know their email address. You can only do one before continuing.',
-      invalid: 'Enter a valid email address',
+      invalid: 'Enter an email address in the correct format, like name@example.com',
       sameEmail: `You have entered your own email address. You need to enter your ${partner}'s email address before continuing.`,
     },
   },

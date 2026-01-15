@@ -1,15 +1,207 @@
+import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import {
-  form as theirAddressForm,
-  generateContent as theirAddressGenerateContent,
-} from '../../../enter-their-address/content';
+import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
+import { isCountryUk } from '../../../../applicant1Sequence';
+import type { CommonContent } from '../../../../common/common.content';
 
-export const form: FormContent = theirAddressForm;
+const en = ({ partner, isDivorce }: Partial<CommonContent>) => {
+  const addressPostcode = {
+    required: `You have not entered your ${partner}’s postcode. Enter their postcode before continuing.`,
+    invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
+    notSelected: `You have not selected your ${partner}’s address. Select their address from the list before continuing.`,
+  };
+
+  return {
+    title: `Enter your ${partner}’s postal address`,
+    enterPostcode: 'Enter a UK postcode',
+    buildingStreet: 'Building and street',
+    line1: 'Address line 1',
+    line2Optional: 'Address line 2 (optional)',
+    line3Optional: 'Address line 3 (optional)',
+    town: 'Town or city',
+    townOptional: 'Town or city (optional)',
+    county: 'County',
+    countyOptional: 'County, district, state or province (optional)',
+    postcode: 'Postcode',
+    postcodeOptional: 'Postal code, zip code or area code (optional)',
+    country: 'Country',
+    findAddress: 'Find address',
+    notUK: 'I have an international address',
+    enterUkPostcode: 'Enter UK postcode',
+    selectAddress: 'Select an address',
+    addressOverseas: 'Is this an international address?',
+    yes: 'Yes',
+    no: 'No',
+    addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
+    cannotFindAddress: 'I cannot find the address in the list',
+    serviceOfDocumentsLine1: `For international addresses you will need to send them the ${
+      isDivorce ? 'divorce papers' : 'papers to dissolve the civil partnership'
+    } yourself. You will need to check how to legally serve papers in the country your ${partner} is living in.`,
+    serviceOfDocumentsLine2:
+      'We will post the documents to you so that you can arrange this. You can also download them from your hub.',
+    errors: {
+      applicant2Address1: {
+        required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
+      },
+      applicant2AddressTown: {
+        required: `You have not entered your ${partner}’s town or city. Enter their town or city before continuing.`,
+      },
+      addressPostcode,
+      applicant2AddressPostcode: addressPostcode,
+      applicant2AddressCountry: {
+        required: `You have not entered your ${partner}’s country. Enter their country before continuing.`,
+      },
+    },
+  };
+};
+
+const cy = ({ partner, isDivorce }: CommonContent) => {
+  const addressPostcode = {
+    required: `Nid ydych wedi nodi cod post eich ${partner}. Nodwch ei god post cyn parhau.`,
+    invalid: 'Nid ydych wedi nodi cod post DU dilys. Nodwch god post DU dilys cyn parhau.',
+    notSelected: `Nid ydych wedi dewis cyfeiriad eich ${partner}. Dewiswch eu cyfeiriad o'r rhestr cyn parhau.`,
+  };
+
+  return {
+    title: `Nodwch gyfeiriad post eich ${partner}`,
+    enterPostcode: 'Nodwch god post yn y DU',
+    buildingStreet: 'Adeilad a stryd',
+    line1: 'Llinell 1 y cyfeiriad',
+    line2Optional: 'Llinell 2 y cyfeiriad (dewisol)',
+    line3Optional: 'Llinell 3 y cyfeiriad (dewisol)',
+    town: 'Tref neu ddinas',
+    townOptional: 'Tref neu ddinas (dewisol)',
+    county: 'Sir',
+    countyOptional: 'Sir, ardal, gwladwriaeth neu dalaith (dewisol)',
+    postcode: 'Cod post',
+    postcodeOptional: 'Cod post, cod zip neu god ardal (dewisol)',
+    country: 'Gwlad',
+    findAddress: 'Dod o hyd i gyfeiriad',
+    notUK: 'Mae gennyf gyfeiriad rhyngwladol',
+    enterUkPostcode: 'Nodwch god post yn y DU',
+    selectAddress: 'Dewiswch gyfeiriad',
+    addressOverseas: 'A yw hwn yn gyfeiriad rhyngwladol?',
+    yes: 'Ydy',
+    no: 'Nac ydy',
+    addressesFound: (addressesFound: number) =>
+      `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
+    cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
+    serviceOfDocumentsLine1: `For international addresses you will need to send them the ${
+      isDivorce ? 'divorce papers' : 'papers to dissolve the civil partnership'
+    } yourself. You will need to check how to legally serve papers in the country your ${partner} is living in.`,
+    serviceOfDocumentsLine2:
+      'We will post the documents to you so that you can arrange this. You can also download them from your hub.',
+    errors: {
+      applicant2Address1: {
+        required: `Nid ydych wedi nodi adeilad a chyfeiriad stryd eich ${partner}. Nodwch ei adeilad a'i gyfeiriad stryd cyn parhau.`,
+      },
+      applicant2AddressTown: {
+        required: `Nid ydych wedi nodi tref neu ddinas eich ${partner}. Nodwch ei dref neu ddinas cyn parhau.`,
+      },
+      addressPostcode,
+      applicant2AddressPostcode: addressPostcode,
+      applicant2AddressCountry: {
+        required: `Nid ydych wedi nodi gwlad eich ${partner}. Nodwch ei wlad cyn parhau.`,
+      },
+    },
+  };
+};
+
+export const form: FormContent = {
+  fields: {
+    applicant2Address1: {
+      id: 'address1',
+      type: 'text',
+      classes: 'govuk-label',
+      label: l => l.buildingStreet,
+      labelSize: null,
+      validator: isFieldFilledIn,
+    },
+    applicant2Address2: {
+      id: 'address2',
+      type: 'text',
+      classes: 'govuk-label',
+      label: l => l.line2Optional,
+      labelSize: null,
+    },
+    applicant2Address3: {
+      id: 'address3',
+      type: 'text',
+      classes: 'govuk-label',
+      label: l => l.line3Optional,
+      labelSize: null,
+    },
+    applicant2AddressTown: {
+      id: 'addressTown',
+      type: 'text',
+      classes: 'govuk-label govuk-!-width-two-thirds',
+      label: l => l.town,
+      labelSize: null,
+      validator: (value, formData) => {
+        if (!isCountryUk(formData.applicant2AddressCountry)) {
+          return;
+        }
+        return isFieldFilledIn(value);
+      },
+    },
+    applicant2AddressCounty: {
+      id: 'addressCounty',
+      type: 'text',
+      classes: 'govuk-label govuk-!-width-two-thirds',
+      label: l => l.county,
+      labelSize: null,
+    },
+    applicant2AddressPostcode: {
+      id: 'addressPostcode',
+      type: 'text',
+      classes: 'govuk-label govuk-input--width-10',
+      autocomplete: 'postal-code',
+      label: l => l.postcode,
+      labelSize: null,
+      attributes: {
+        maxLength: 14,
+      },
+      validator: (value, formData) => {
+        if (!isCountryUk(formData.applicant2AddressCountry)) {
+          return;
+        }
+        return isInvalidPostcode(value);
+      },
+    },
+    applicant2AddressCountry: {
+      id: 'addressCountry',
+      type: 'text',
+      classes: 'govuk-label govuk-!-width-two-thirds',
+      label: l => l.country,
+      labelSize: null,
+      validator: isFieldFilledIn,
+    },
+    applicant2AddressOverseas: {
+      id: 'addressOverseas',
+      type: 'radios',
+      classes: 'govuk-radios--inline',
+      label: l => l.addressOverseas,
+      values: [
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
+      ],
+    },
+  },
+  submit: {
+    text: l => l.continue,
+  },
+};
+
+const languages = {
+  en,
+  cy,
+};
 
 export const generateContent: TranslationFn = content => {
-  const theirAddressContent = theirAddressGenerateContent(content);
+  const translations = languages[content.language](content);
   return {
-    ...theirAddressContent,
+    ...translations,
+    form,
   };
 };
