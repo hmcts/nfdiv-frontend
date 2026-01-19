@@ -127,6 +127,9 @@ const en = (
     whatYouCanDoNext: 'What you can do next',
     completeApplication: 'Complete application',
   },
+  preIssueServiceAppSaveAndSignOut: {
+    latestUpdate: 'Latest update',
+  },
   aosDrafted: {
     line1: `Your ${partner} has started drafting a response to your application.`,
     line2:
@@ -633,6 +636,9 @@ const cy: typeof en = (
     line5: 'Os ydych yn dechrau cais newydd, bydd eich cais drafft presennol yn cael ei ddileu.',
     whatYouCanDoNext: 'Beth allwch chi ei wneud nesaf',
     completeApplication: 'Cwblhau’r cais',
+  },
+  preIssueServiceAppSaveAndSignOut: {
+    latestUpdate: 'Latest update',
   },
   aosDrafted: {
     line1: `Mae ${partner} wedi dechrau drafftio ymateb i’ch cais.`,
@@ -1178,6 +1184,8 @@ export const generateContent: TranslationFn = content => {
   const interimApplicationStartedAosOverdue =
     interimApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
 
+  const preIssueServiceApplicationStarted = !!userCase.applicant1InterimApplicationType && !content.caseHasBeenIssued;
+
   const applicant1KnowsApplicant2Address = userCase.applicant1KnowsApplicant2Address === YesOrNo.YES;
   return {
     ...languages[language](
@@ -1213,5 +1221,6 @@ export const generateContent: TranslationFn = content => {
     interimApplicationStartPagePath,
     interimApplicationStartedAosOverdue,
     applicant1KnowsApplicant2Address,
+    preIssueServiceApplicationStarted,
   };
 };
