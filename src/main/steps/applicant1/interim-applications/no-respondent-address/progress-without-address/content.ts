@@ -21,7 +21,7 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   line4: "We'll ask you some questions to help you decide which application you should make.",
   line5: `You can <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.legalAdvisor'
-  )}">speak to a legal adviser</a> or a solicitor at any point in the application process if you feel you need legal advice.`,
+  )}">speak to a legal adviser (opens in new tab)</a> or a solicitor at any point in the application process if you feel you need legal advice.`,
 });
 
 const cy = ({ partner, isDivorce }: CommonContent) => ({
@@ -40,7 +40,7 @@ const cy = ({ partner, isDivorce }: CommonContent) => ({
   line4: "We'll ask you some questions to help you decide which application you should make.",
   line5: `You can <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.legalAdvisor'
-  )}">speak to a legal adviser</a> or a solicitor at any point in the application process if you feel you need legal advice.`,
+  )}">speak to a legal adviser (opens in new tab)</a> or a solicitor at any point in the application process if you feel you need legal advice.`,
 });
 
 export const form: FormContent = {

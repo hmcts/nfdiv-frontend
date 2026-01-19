@@ -8,7 +8,7 @@ const en = ({ partner }: CommonContent) => ({
   title: `Have you been able to find your ${partner}'s address?`,
   line1: `This can be their home address, or the address of their solicitor if they have one. You can also provide a work address if you have your ${partner}'s permission to do so.`,
   errors: {
-    applicant1NoRespAddressFoundAddress: {
+    applicant1NoRespAddressHasFoundAddress: {
       required: `Select yes if you have found your ${partner}'s address.`,
     },
   },
@@ -18,7 +18,7 @@ const cy = ({ partner }: CommonContent) => ({
   title: `Have you been able to find your ${partner}'s address?`,
   line1: `This can be their home address, or the address of their solicitor if they have one. You can also provide a work address if you have your ${partner}'s permission to do so.`,
   errors: {
-    applicant1NoRespAddressFoundAddress: {
+    applicant1NoRespAddressHasFoundAddress: {
       required: `Select yes if you have found your ${partner}'s address.`,
     },
   },

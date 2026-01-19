@@ -36,8 +36,8 @@ import {
   SEARCH_GOV_RECORDS_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
 } from '../../../urls';
-import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application-submitted/content';
-import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
+import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application/submitted/content';
+import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application/submitted/content';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -62,7 +62,6 @@ const en = (
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  respondentAddressProvided: boolean,
   noResponseStartPagePath: string
 ) => ({
   aosAwaiting: {
@@ -548,18 +547,17 @@ const cy: typeof en = (
     referenceNumber,
     isJointApplication,
     serviceApplicationType,
-    generalApplicationType,
+    serviceApplicationDate,
     serviceApplicationResponseDate,
+    generalApplicationType,
     generalApplicationDate,
     generalApplicationResponseDate,
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
-    serviceApplicationDate,
     interimApplicationType,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  respondentAddressProvided: boolean,
   noResponseStartPagePath: string
 ) => ({
   aosAwaiting: {
@@ -917,7 +915,7 @@ const cy: typeof en = (
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } dramor`,
     [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Prawf eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
+      'Tystiolaeth eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
   },
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
   documentsByOnlineFormSteps: {
@@ -1150,7 +1148,6 @@ export const generateContent: TranslationFn = content => {
       content,
       alternativeServiceType,
       dateOfCourtReplyToRequestForInformationResponse,
-      respondentAddressProvided,
       noResponseStartPagePath
     ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),

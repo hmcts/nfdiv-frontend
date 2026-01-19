@@ -1,9 +1,8 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, ChangedNameHow, State, YesOrNo } from '../app/case/definition';
+import { ApplicationType, State, YesOrNo } from '../app/case/definition';
 import { needsToExplainDelay } from '../app/controller/controller.utils';
 
 import { Step } from './applicant1Sequence';
-import { nameChangedHowPossibleValue } from './common/content.utils';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -18,13 +17,13 @@ import {
   CHECK_CONTACT_DETAILS,
   CHECK_JOINT_APPLICATION,
   CHECK_PHONE_NUMBER,
+  CHECK_YOUR_NAME,
   CONFIRM_JOINT_APPLICATION,
-  CONFIRM_YOUR_NAME,
   CONTINUE_WITH_YOUR_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
   ENTER_YOUR_ADDRESS,
-  ENTER_YOUR_NAMES,
+  ENTER_YOUR_NAME,
   EXPLAIN_THE_DELAY,
   FINALISING_YOUR_APPLICATION,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -35,6 +34,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_FINALISE_APPLICATION,
   HUB_PAGE,
+  HUB_PAGE_DOWNLOADS,
   JOINT_APPLICATION_SUBMITTED,
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
@@ -48,6 +48,7 @@ import {
   REVIEW_YOUR_RESPONSE,
   UPLOAD_YOUR_DOCUMENTS,
   WITHDRAWING_YOUR_APPLICATION,
+  YOUR_CERTIFICATE_NAME,
   YOUR_COMMENTS_SENT,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_CANNOT_APPLY,
@@ -66,7 +67,7 @@ export const preSubmissionSequence: Step[] = [
         ? YOU_CANNOT_APPLY
         : data.applicant1HelpPayingNeeded === YesOrNo.YES
           ? HELP_WITH_YOUR_FEE_URL
-          : ENTER_YOUR_NAMES,
+          : ENTER_YOUR_NAME,
   },
   {
     url: YOU_CANNOT_APPLY,
@@ -79,24 +80,31 @@ export const preSubmissionSequence: Step[] = [
   {
     url: HELP_WITH_YOUR_FEE_URL,
     getNextStep: data =>
-      data.applicant2HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : ENTER_YOUR_NAMES,
+      data.applicant2HelpPayingNeeded === YesOrNo.YES ? HELP_PAYING_HAVE_YOU_APPLIED : ENTER_YOUR_NAME,
   },
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
     getNextStep: data =>
-      data.applicant2AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : ENTER_YOUR_NAMES,
+      data.applicant2AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : ENTER_YOUR_NAME,
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,
     getNextStep: () => HELP_PAYING_HAVE_YOU_APPLIED,
   },
   {
-    url: ENTER_YOUR_NAMES,
-    getNextStep: () => CONFIRM_YOUR_NAME,
+    url: ENTER_YOUR_NAME,
+    getNextStep: () => CHECK_YOUR_NAME,
   },
   {
-    url: CONFIRM_YOUR_NAME,
-    getNextStep: data => (data.applicant2ConfirmFullName === YesOrNo.NO ? ENTER_YOUR_NAMES : CHANGES_TO_YOUR_NAME_URL),
+    url: CHECK_YOUR_NAME,
+    getNextStep: () => YOUR_CERTIFICATE_NAME,
+  },
+  {
+    url: YOUR_CERTIFICATE_NAME,
+    getNextStep: data =>
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
+        ? CHANGES_TO_YOUR_NAME_URL
+        : HOW_THE_COURTS_WILL_CONTACT_YOU,
   },
   {
     url: CHANGES_TO_YOUR_NAME_URL,
@@ -135,18 +143,14 @@ export const preSubmissionSequence: Step[] = [
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
         ? APPLY_FINANCIAL_ORDER_DETAILS
-        : [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(
-              value => nameChangedHowPossibleValue(data, true)?.includes(value)
-            )
+        : data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
           ? UPLOAD_YOUR_DOCUMENTS
           : CHECK_JOINT_APPLICATION,
   },
   {
     url: APPLY_FINANCIAL_ORDER_DETAILS,
     getNextStep: data =>
-      [ChangedNameHow.DEED_POLL, ChangedNameHow.OTHER].some(
-        value => nameChangedHowPossibleValue(data, true)?.includes(value)
-      )
+      data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
         ? UPLOAD_YOUR_DOCUMENTS
         : CHECK_JOINT_APPLICATION,
   },
@@ -196,6 +200,10 @@ const postSubmissionSequence: Step[] = [
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: HUB_PAGE_DOWNLOADS,
+    getNextStep: () => HUB_PAGE,
   },
   {
     url: APP_REPRESENTED,
