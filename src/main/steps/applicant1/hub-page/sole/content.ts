@@ -1186,8 +1186,6 @@ export const generateContent: TranslationFn = content => {
 
   const preIssueServiceApplicationStarted = !!userCase.applicant1InterimApplicationType && !content.caseHasBeenIssued;
 
-  const caseIssued = content.caseHasBeenIssued;
-
   const applicant1KnowsApplicant2Address = userCase.applicant1KnowsApplicant2Address === YesOrNo.YES;
   return {
     ...languages[language](
@@ -1224,6 +1222,5 @@ export const generateContent: TranslationFn = content => {
     interimApplicationStartedAosOverdue,
     applicant1KnowsApplicant2Address,
     preIssueServiceApplicationStarted,
-    caseIssued,
   };
 };
