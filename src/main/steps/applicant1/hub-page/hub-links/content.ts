@@ -18,7 +18,7 @@ const en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRespondent: s
     text: 'Review your contact details',
   },
   hubPageDownloads: {
-    url: HUB_PAGE_DOWNLOADS,
+    url: app2OrRespondent + HUB_PAGE_DOWNLOADS,
     text: 'View all documents',
   },
   genAppMakeAnApplication: {
