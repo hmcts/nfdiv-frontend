@@ -20,12 +20,10 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   } to your ${partner}.`,
   line2: `If you’ve already asked the court to search government records and they were unsuccessful, you could apply to dispense with service. This means proceeding with your ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
-  } without sending the ${isDivorce ? 'divorce papers' : 'papers to end your civil partnership'} to your ${partner}.`,
+  } without sending the papers to your ${partner}.`,
   howToProceedHeader: 'How do you want to proceed?',
   search: 'I want to ask the court to search government records',
-  dispense: `I want to apply to proceed without sending the ${
-    isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-  }.`,
+  dispense: 'I want to apply to proceed without sending the papers.',
   errors: {
     applicant1NoResponseSearchOrDispense: {
       required: 'Select if you want to ask the court to search government records',
@@ -47,14 +45,12 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   line1: `Gan amlaf, bydd chwiliadau cofnodion y llywodraeth yn cymryd rhwng 6-8 wythnos. Os yw’r chwiliad yn llwyddiannus, dim ond gyda’r llys y bydd manylion cyswllt eich ${partner} yn cael eu rhannu, ac nid gyda chi. Bydd y llys yn anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } at eich ${partner}.`,
-  line2: `Os ydych chi eisoes wedi ceisio dod o hyd i fanylion eich ${partner} drwy chwilio cofnodion y llywodraeth ac roeddech yn aflwyddiannus, gallwch wneud cais am hepgor cyflwyno. Mae hyn yn golygu parhau â’ch ${
-    isDivorce ? 'ysgariad' : 'diddymiad'
-  } heb anfon papurau’r ${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} at eich ${partner}.`,
+  line2: `Os ydych eisoes wedi gofyn i’r llys chwilio drwy gofnodion y llywodraeth a’u bod yn aflwyddiannus, gallech wneud cais i hepgor y gwasanaeth. Mae hyn yn golygu mynd ymlaen gyda’ch ${
+    isDivorce ? 'ysgariad' : "cais i ddod a'ch partneriaeth sifil i ben"
+  } heb anfon y papurau at eich ${partner}.`,
   howToProceedHeader: 'Sut ydych chi eisiau parhau?',
   search: 'Rwyf eisiau gwneud cais i chwilio cofnodion y llywodraeth',
-  dispense: `Rwyf eisiau gwneud cais i barhau heb anfon papurau’r ${
-    isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-  }`,
+  dispense: 'Rwyf eisiau gwneud cais i fynd ymlaen heb anfon y papurau.',
   errors: {
     applicant1NoResponseSearchOrDispense: {
       required: 'Dewiswch os ydych eisiau gofyn i’r llys chwilio cofnodion y llywodraeth',
