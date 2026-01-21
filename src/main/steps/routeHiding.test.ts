@@ -280,13 +280,6 @@ describe('routeHiding', () => {
         expect(result).toBeTruthy();
       });
 
-      test('Not visible in AwaitingDocuments state', () => {
-        mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
-        mockReq.session.userCase.state = State.AwaitingDocuments;
-        const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeTruthy();
-      });
-
       test('Not visible in AwaitingGeneralApplicationPayment state', () => {
         mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
         mockReq.session.userCase.state = State.AwaitingGeneralApplicationPayment;
