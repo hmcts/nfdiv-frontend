@@ -172,7 +172,7 @@ config.helpers = {
     waitForAction: 350,
     timeout: config.WaitForTimeout,
     retries: 3,
-    waitForNavigation: 'domcontentloaded',
+    waitForNavigation: 'load',
     ignoreHTTPSErrors: true,
     bypassCSP: true,
     chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && {
