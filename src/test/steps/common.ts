@@ -274,9 +274,6 @@ When('I enter my valid case reference and valid access code', async () => {
 });
 
 When('I as applicant1 enter my valid case reference and valid access code', async () => {
-  I.amOnPage(HOME_URL);
-  await iClearTheForm();
-
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
