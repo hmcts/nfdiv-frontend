@@ -162,7 +162,8 @@
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
-    "axios": "1.13.2"
+    "axios": "1.13.2",
+    "lodash": "4.17.23"
   },
   "packageManager": "yarn@3.8.7"
 }
