@@ -18,17 +18,17 @@ import {
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
-  GOV_SEARCH_POSSIBLE,
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
   HUB_PAGE,
-  IS_PARTNER_ABROAD,
   NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   NEW_EMAIL,
   NEW_POSTAL_ADDRESS,
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
   NO_RESPONSE_DETAILS_UPDATED,
+  NO_RESPONSE_GOV_SEARCH_POSSIBLE,
+  NO_RESPONSE_IS_PARTNER_ABROAD,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PARTNER_IN_PERSON,
@@ -199,18 +199,18 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: OWN_SEARCHES,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      return data.applicant1NoResponseOwnSearches === NoResponseOwnSearches.NO ? SEARCH_TIPS : IS_PARTNER_ABROAD;
+      return data.applicant1NoResponseOwnSearches === NoResponseOwnSearches.NO ? SEARCH_TIPS : NO_RESPONSE_IS_PARTNER_ABROAD;
     },
   },
   {
-    url: IS_PARTNER_ABROAD,
+    url: NO_RESPONSE_IS_PARTNER_ABROAD,
     getNextStep: (data: Partial<CaseWithId>): PageLink =>
       data.applicant1NoResponsePartnerInUkOrReceivingBenefits === YesOrNo.NO
         ? DISPENSE_SERVICE_APPLICATION
-        : GOV_SEARCH_POSSIBLE,
+        : NO_RESPONSE_GOV_SEARCH_POSSIBLE,
   },
   {
-    url: GOV_SEARCH_POSSIBLE,
+    url: NO_RESPONSE_GOV_SEARCH_POSSIBLE,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (data.applicant1NoResponseSearchOrDispense === NoResponseSearchOrDispense.SEARCH) {
         return SEARCH_GOV_RECORDS_APPLICATION;
