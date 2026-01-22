@@ -32,8 +32,10 @@ export class GetController {
       req.session.errors = undefined;
     }
 
-    this.setSessionDefaults(req);
-    this.setSessionOverrides(req);
+    if (req.session) {
+      this.setSessionDefaults(req);
+      this.setSessionOverrides(req);
+    }
 
     res.render(this.view, {
       ...this.getPageContent(req, res, language),
