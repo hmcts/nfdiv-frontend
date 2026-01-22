@@ -1,3 +1,4 @@
+import { nodeLogger } from '@hmcts/nodejs-logging';
 import { AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { Logger, transports } from 'winston';
@@ -243,13 +244,14 @@ When('I upload the file {string}', (pathToFile: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  I.amOnPage(HOME_URL);
-  await iClearTheForm();
-
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
+  nodeLogger.info(`TEST USER: ${testUser.email}`);
+  nodeLogger.info(`TEST USER: ${testUser.accessToken}`);
   const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+  nodeLogger.info(`USER CASE: ${userCase}`);
 
   if (userCase) {
     const fetchedCase = await caseApi.getCaseById(userCase.id);
@@ -277,9 +279,6 @@ When('I enter my valid case reference and valid access code', async () => {
 });
 
 When('I as applicant1 enter my valid case reference and valid access code', async () => {
-  I.amOnPage(HOME_URL);
-  await iClearTheForm();
-
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
