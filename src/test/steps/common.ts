@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { Logger, transports } from 'winston';
+import { nodeLogger } from '@hmcts/nodejs-logging';
 
 import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc';
 import { Case } from '../../main/app/case/case';
@@ -246,7 +247,11 @@ When('I enter my valid case reference and valid access code', async () => {
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
+  nodeLogger.info(`TEST USER: ${testUser.email}`);
+  nodeLogger.info(`TEST USER: ${testUser.accessToken}`);
   const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+  nodeLogger.info(`USER CASE: ${userCase}`);
 
   if (userCase) {
     const fetchedCase = await caseApi.getCaseById(userCase.id);
