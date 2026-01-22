@@ -1,7 +1,7 @@
+import { nodeLogger } from '@hmcts/nodejs-logging';
 import { AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { Logger, transports } from 'winston';
-import { nodeLogger } from '@hmcts/nodejs-logging';
 
 import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc';
 import { Case } from '../../main/app/case/case';

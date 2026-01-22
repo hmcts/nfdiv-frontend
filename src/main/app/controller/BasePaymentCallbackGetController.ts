@@ -46,10 +46,7 @@ export default abstract class BasePaymentCallbackGetController {
     }
 
     req.session.save(() => {
-      const redirectUrl = payments.wasLastPaymentSuccessful ?
-        this.paymentSuccessUrl(req) :
-        this.paymentFailureUrl(req);
-
+      const redirectUrl = payments.wasLastPaymentSuccessful ? this.paymentSuccessUrl(req) : this.paymentFailureUrl(req);
 
       res.redirect(redirectUrl);
     });
