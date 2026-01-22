@@ -199,7 +199,9 @@ export const noResponseJourneySequence: Step[] = [
   {
     url: OWN_SEARCHES,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      return data.applicant1NoResponseOwnSearches === NoResponseOwnSearches.NO ? SEARCH_TIPS : NO_RESPONSE_IS_PARTNER_ABROAD;
+      return data.applicant1NoResponseOwnSearches === NoResponseOwnSearches.NO
+        ? SEARCH_TIPS
+        : NO_RESPONSE_IS_PARTNER_ABROAD;
     },
   },
   {
