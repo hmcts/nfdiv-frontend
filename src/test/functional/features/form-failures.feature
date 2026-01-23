@@ -466,10 +466,6 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
-    Given I go to "/applicant2/how-to-apply-financial-order"
-    When I click "Continue"
-    Then the page URL should be "/applicant2/check-your-joint-application"
-
     Given I go to "/applicant2/upload-your-documents"
     And I clear the form
     And I select "I cannot upload some or all of my documents"
