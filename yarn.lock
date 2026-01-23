@@ -7720,7 +7720,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie-signature@npm:1.0.7, cookie-signature@npm:~1.0.6":
+"cookie-signature@npm:~1.0.6, cookie-signature@npm:~1.0.7":
   version: 1.0.7
   resolution: "cookie-signature@npm:1.0.7"
   checksum: 1a62808cd30d15fb43b70e19829b64d04b0802d8ef00275b57d152de4ae6a3208ca05c197b6668d104c4d9de389e53ccc2d3bc6bcaaffd9602461417d8c40710
@@ -7734,7 +7734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:0.7.2, cookie@npm:~0.7.1":
+"cookie@npm:0.7.2, cookie@npm:~0.7.1, cookie@npm:~0.7.2":
   version: 0.7.2
   resolution: "cookie@npm:0.7.2"
   checksum: 9bf8555e33530affd571ea37b615ccad9b9a34febbf2c950c86787088eb00a8973690833b0f8ebd6b69b753c62669ea60cec89178c1fb007bf0749abed74f93e
@@ -8104,7 +8104,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.6.9":
+"debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.6.9, debug@npm:~2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
   dependencies:
@@ -9640,19 +9640,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-session@npm:1.18.2":
-  version: 1.18.2
-  resolution: "express-session@npm:1.18.2"
+"express-session@npm:1.19.0":
+  version: 1.19.0
+  resolution: "express-session@npm:1.19.0"
   dependencies:
-    cookie: 0.7.2
-    cookie-signature: 1.0.7
-    debug: 2.6.9
+    cookie: ~0.7.2
+    cookie-signature: ~1.0.7
+    debug: ~2.6.9
     depd: ~2.0.0
     on-headers: ~1.1.0
     parseurl: ~1.3.3
-    safe-buffer: 5.2.1
+    safe-buffer: ~5.2.1
     uid-safe: ~2.1.5
-  checksum: 3d72db9e2eef4b399eaccb48522f604f0218aade82c2cd59e3c6cb6a6957a4e2f7d8b0039aab260c714908d596f81c4f2422ec11d856f2d2c639cdeca7d114f9
+  checksum: 6c4fdb73063c205f0b4d1abc3c376903b39d3fade97f65a8d5b3a32209c8e095a7c99fb95b28f839414570ac6cf29ff51c3bb4170710f20e29e1186d1983852b
   languageName: node
   linkType: hard
 
@@ -14592,7 +14592,7 @@ __metadata:
     express: ^4.22.1
     express-http-proxy: 2.1.2
     express-nunjucks: ^3.1.2
-    express-session: 1.18.2
+    express-session: 1.19.0
     form-data: 4.0.5
     glob: 13.0.0
     govuk-frontend: 5.14.0
