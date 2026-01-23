@@ -30,6 +30,7 @@ const en = ({ partner }: Partial<CommonContent>) => {
     notUK: 'I have an international address',
     enterUkPostcode: 'Enter UK postcode',
     selectAddress: 'Select an address',
+    useThisAddress: 'Use this address',
     addressOverseas: 'Is this an international address?',
     yes: 'Yes',
     no: 'No',
@@ -76,6 +77,7 @@ const cy = ({ partner }: CommonContent) => {
     notUK: 'Mae gennyf gyfeiriad rhyngwladol',
     enterUkPostcode: 'Nodwch god post yn y DU',
     selectAddress: 'Dewiswch gyfeiriad',
+    useThisAddress: 'Use this address', // TODO Welsh translation required
     addressOverseas: 'A yw hwn yn gyfeiriad rhyngwladol?',
     yes: 'Ydy',
     no: 'Nac ydy',
@@ -179,7 +181,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.useThisAddress,
   },
 };
 
