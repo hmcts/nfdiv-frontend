@@ -1,18 +1,18 @@
-@import './_ie8';
-@import 'govuk-frontend';
-@import '~@hmcts/frontend/all';
+@use 'govuk-frontend' as *;
 
-@import './banner';
-@import './header';
-@import './contact-us';
-@import './upload-documents';
-@import './application-submitted';
-@import './hub-page';
-@import './cookie-banner';
-@import './check-your-answers';
-@import './webchat';
-@import './review-pages';
-@import './timeout-modal';
+@use './banner';
+@use './header';
+@use './contact-us';
+@use './upload-documents';
+@use './application-submitted';
+@use './hub-page';
+@use './cookie-banner';
+@use './check-your-answers';
+@use './webchat';
+@use './genesys-webchat';
+@use './review-pages';
+@use './timeout-modal';
+@use './progress-bar';
 
 .hmcts-button-link,
 .uppy-FileInput-btn {
@@ -41,6 +41,16 @@ section {
   direction: ltr;
 }
 
-.red-text {
-  color: govuk-colour('red');
+.govuk-panel--confirmation {
+  background-color: #00703C; }
+
+.govuk-panel--outstanding {
+  background-color: #F3F2F1;
+  text-align: left;
+  padding: 20px;
+}
+
+.govuk-panel--blue {
+  background-color: #0072ce;
+  color: white;
 }

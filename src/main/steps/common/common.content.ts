@@ -1,14 +1,65 @@
-import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
-import { SupportedLanguages } from '../../modules/i18n';
-import { SAVE_AND_SIGN_OUT } from '../urls';
+import config from 'config';
+import dayjs from 'dayjs';
 
-import { getPartner, getSelectedGender, getServiceName } from './content.utils';
+import { getFormattedDate } from '../../app/case/answers/formatDate';
+import { CaseWithId } from '../../app/case/case';
+import {
+  ApplicationType,
+  GeneralApplication,
+  InterimApplicationType,
+  PaymentStatus,
+  ServicePaymentMethod,
+  State,
+  YesOrNo,
+} from '../../app/case/definition';
+import { userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
+import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
+import { SupportedLanguages } from '../../modules/i18n';
+import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
+import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
+
+export const yesOrNoOrNotKnown_en = {
+  yes: 'Yes',
+  no: 'No',
+  notKnown: 'Not known',
+};
+
+export const yesOrNoOrNotKnown_cy = {
+  yes: 'Do',
+  no: 'Naddo',
+  notKnown: 'Anhysbys',
+};
 
 export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
+  commonValidationErrors: {
+    maxLength: 'You’ve exceeded the character limit. Please reduce your text to 10,000 characters.',
+  },
+  generalApplication: {
+    for: 'for',
+    to: 'to',
+    deemed: 'deemed service',
+    searchGovRecords: 'search government records',
+    disclosureViaDwp: 'search government records',
+    formTypes: {
+      d11: 'D11',
+    },
+    bailiff: 'bailiff service',
+    alternativeService: 'alternative service',
+    deemedCode: 'D11',
+    bailiffCode: 'D89',
+    dispensed: 'dispense with service',
+    dispensedCode: 'D13b',
+  },
+  interimApplicationType: {
+    deemedService: 'deemed service',
+    dispenseWithService: 'dispensed with service',
+    bailiffService: 'bailiff service',
+    alternativeService: 'alternative service',
+    searchGovRecords: 'search government records',
+  },
   feedback: {
     part1: 'This is a new service – your ',
     part2: 'feedback',
@@ -31,6 +82,7 @@ export const en = {
   download: 'Download',
   delete: 'Delete',
   warning: 'Warning',
+  continueToPay: 'Continue to pay',
   required: 'You have not answered the question. You need to select an answer before continuing.',
   notAnswered: 'You have not answered the question.',
   errorSaving: 'Sorry, we’re having technical problems saving your application. Please try again in a few minutes.',
@@ -39,6 +91,8 @@ export const en = {
   ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
   errorSummaryHeading: 'There was a problem',
   saveAndSignOut: 'Save and sign out',
+  wantToWithdrawApplication: 'I want to withdraw this application',
+  withdrawApplicationPath: WITHDRAW_APPLICATION,
   exitService: 'Exit this service',
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -78,8 +132,11 @@ export const en = {
     month: 'Month',
     year: 'Year',
   },
-  yes: 'Yes',
-  no: 'No',
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
+  ...yesOrNoOrNotKnown_en,
   english: 'English',
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
@@ -89,7 +146,8 @@ export const en = {
   telephoneNumber: '0300 303 0642',
   openingTimesHeading: 'Opening times (webchat and telephone)',
   openingTimes: 'Monday to Friday, 10am to 6pm',
-  closingTimes: 'Closed on Saturdays, Sundays and bank holidays',
+  closingTimes: 'Closed on bank holidays',
+  post: 'Post',
   cookiesBanner: {
     cookiesHeading: 'Cookies on',
     cookiesLine1: 'We use some essential cookies to make this service work.',
@@ -152,13 +210,54 @@ export const en = {
   avayaLanguage: 'English',
   avayaClientUrlFolder: '1',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
+  genesys: {
+    chatWithUs: 'Chat with us',
+    onlineAdviceClosed: 'Our online advice service is currently closed',
+    startWebchat: 'Start web chat (opens in a new window)',
+    busy: 'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
+    noAgentsAvailable: 'No agents are available, please try again later.',
+    checkingAvailability: 'Checking availability...',
+    error:
+      'We’re currently unable to check the availability of our team. Please try again later or contact us using one of the ways below.',
+    errorChecking: {
+      line1: 'Sorry, we couldn’t check the availability of our team.',
+      line2: 'Please try refreshing the page or contact us using one of the ways below.',
+    },
+    popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
+  },
 };
 
 const cy: typeof en = {
-  ...en, // @TODO delete me to get a list of missing translations
+  ...en,
   phase: 'Beta',
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
+  commonValidationErrors: {
+    maxLength: 'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir. Cewch ddefnyddio hyd at 10,000 o nodau.',
+  },
+  generalApplication: {
+    for: 'am',
+    to: 'i',
+    deemed: 'gyflwyno tybiedig',
+    formTypes: {
+      d11: 'D11',
+    },
+    searchGovRecords: 'chwilio cofnodion y llywodraeth',
+    disclosureViaDwp: 'chwilio cofnodion y llywodraeth',
+    bailiff: 'gwasanaeth bailiff',
+    alternativeService: 'gwasanaeth amgen',
+    deemedCode: 'D11',
+    bailiffCode: 'D89',
+    dispensed: 'hepgor cyflwyno',
+    dispensedCode: 'D13b',
+  },
+  interimApplicationType: {
+    deemedService: 'cyflwyno tybiedig',
+    dispenseWithService: 'hepgor cyflwyno',
+    bailiffService: 'gwasanaeth beili',
+    alternativeService: 'cyflwyno amgen',
+    searchGovRecords: 'chwilio cofnodion y llywodraeth',
+  },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
     part2: 'bydd eich sylwadau',
@@ -181,6 +280,7 @@ const cy: typeof en = {
   download: 'Llwytho i lawr',
   delete: 'Dileu',
   warning: 'Rhybudd',
+  continueToPay: 'Parhau i dalu',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   errorSaving:
@@ -188,6 +288,8 @@ const cy: typeof en = {
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   errorSummaryHeading: 'Roedd yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
+  wantToWithdrawApplication: "Rwyf eisiau tynnu'r cais hwn yn ôl",
+  withdrawApplicationPath: WITHDRAW_APPLICATION,
   exitService: 'Gadael y gwasanaeth hwn',
   signOut: 'Allgofnodi',
   signIn: 'Mewngofnodi',
@@ -226,8 +328,11 @@ const cy: typeof en = {
     month: 'Mis',
     year: 'Blwyddyn',
   },
-  yes: 'Do',
-  no: 'Naddo',
+  forms: {
+    d11: 'D11',
+    d89: 'D89',
+  },
+  ...yesOrNoOrNotKnown_cy,
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',
@@ -238,6 +343,7 @@ const cy: typeof en = {
   openingTimesHeading: 'Oriau agor',
   openingTimes: 'Dydd Llun i ddydd Iau 9am-5pm, dydd Gwener 9am-4.30pm',
   closingTimes: 'Ar gau ar ddydd Sadwrn, Sul a Gwyliau Banc',
+  post: "Drwy'r post",
   helpChatWithAnAgent: 'Siarad â chynghorydd ar-lein (agor mewn ffenestr newydd)',
   helpAllAgentsBusy:
     'Mae ein cynghorwyr i gyd yn brysur ar hyn o bryd.  Rhowch gynnig arall arni ymhen ychydig o funudau.',
@@ -273,12 +379,34 @@ const cy: typeof en = {
       part3: ' unrhyw adeg.',
     },
   },
+  serviceAddress: {
+    line1: 'Canolfan Gwasanaethau Llysoedd a Thribiwnlysoedd',
+    line2: 'Gwasanaeth Ysgariadau a Diddymiadau GLlTEF',
+    poBox: 'Blwch Post 13226',
+    town: 'Harlow',
+    postcode: 'CM20 9UG',
+  },
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'contactdivorce@justice.gov.uk',
-  contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
+  contactWebForm: 'https://contact-us-about-a-divorce-application-cy.form.service.justice.gov.uk/',
   avayaLanguage: 'Welsh',
   avayaClientUrlFolder: 'welsh',
   avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
+  genesys: {
+    chatWithUs: 'Sgwrsiwch â ni',
+    onlineAdviceClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd',
+    startWebchat: 'Dechrau sgwrs dros y we (yn agor mewn ffenestr newydd)',
+    busy: "Mae ein asiantau sgwrsio dros y we i gyd yn brysur ar hyn o bryd yn helpu eraill. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau isod.",
+    noAgentsAvailable: 'Nid oes asiant ar gael ar hyn o bryd; rhowch gynnig arall arni yn hwyrach ymlaen.',
+    checkingAvailability: 'Wrthi’n gwirio argaeledd...',
+    error:
+      "Ar hyn o bryd nid ydym yn gallu gwirio argaeledd ein tîm. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau isod.",
+    errorChecking: {
+      line1: "Mae'n ddrwg gennym, ni allem wirio argaeledd ein tîm.",
+      line2: "Ceisiwch adnewyddu’r dudalen neu cysylltwch â ni drwy un o'r dulliau isod.'",
+    },
+    popupBlocked: 'Naidlen wedi’i rhwystro. Caniatáu naidlen ar gyfer y wefan hon.',
+  },
 };
 
 export const generateCommonContent = ({
@@ -300,11 +428,17 @@ export const generateCommonContent = ({
   const partner = getPartner(commonTranslations, selectedGender, isDivorce);
   const isJointApplication = userCase?.applicationType === ApplicationType.JOINT_APPLICATION;
   const isApp1Represented = userCase?.applicant1SolicitorRepresented === YesOrNo.YES;
-  const isAmendableStates =
+  const isApp2Represented = userCase?.applicant2SolicitorRepresented === YesOrNo.YES;
+  const isApp2Confidential = userCase?.applicant2AddressPrivate === YesOrNo.YES;
+  const applicationHasBeenPaidFor = userCase?.applicationPayments?.some(
+    payment => payment.value.status === PaymentStatus.SUCCESS
+  );
+  const isAmendableStates = userCase && userCase.state && userCanUploadDocuments(userCase, isApplicant2);
+  const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
+  const isRequestForInformationAmendableState =
     userCase &&
     userCase.state &&
-    [State.Draft, State.AwaitingApplicant1Response, State.AwaitingApplicant2Response].includes(userCase.state);
-  const isClarificationAmendableState = userCase && userCase.state === State.AwaitingClarification;
+    [State.InformationRequested, State.RequestedInformationSubmitted].includes(userCase.state);
   const isGeneralConsiderationFoRequested =
     userCase &&
     (userCase?.state === State.GeneralConsiderationComplete ||
@@ -323,42 +457,140 @@ export const generateCommonContent = ({
     userCase?.dateFinalOrderSubmitted === undefined;
   const isPendingHearingOutcomeFoRequested =
     userCase && userCase?.state === State.PendingHearingOutcome && userCase?.dateFinalOrderSubmitted !== undefined;
+  const feedbackParty = isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : isApplicant2 ? 'resp' : 'app';
+  const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
+    isDivorce ? 'Divorce' : 'Civil'
+  }&party=${feedbackParty}`;
+  const caseHasBeenIssued = !!userCase?.issueDate;
+  const referenceNumber = formattedCaseId(userCase?.id);
 
+  const hasServiceApplicationInProgress = !!userCase?.receivedServiceApplicationDate;
+  const serviceApplicationType = commonTranslations.generalApplication[userCase?.alternativeServiceType as string];
+  const serviceApplicationDate = getFormattedDate(userCase?.receivedServiceAddedDate, language);
+  const serviceApplicationResponseDate = getFormattedDate(
+    dayjs(userCase?.servicePaymentFeeDateOfPayment || userCase?.receivedServiceAddedDate).add(
+      config.get('dates.applicationSubmittedOffsetDays'),
+      'day'
+    ),
+    language
+  );
+  const serviceApplicationFeeRequired =
+    userCase?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
+  const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
+  const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
+  const genesysReferrerPage: string =
+    language === SupportedLanguages.En
+      ? config.get('webchat.genesysReferrerPage')
+      : config.get('webchat.genesysReferrerPageCy');
+  const genesysDeploymentId: string =
+    language === SupportedLanguages.En
+      ? config.get('webchat.genesysDeploymentId')
+      : config.get('webchat.genesysDeploymentIdCy');
+
+  const generalApplications = findOnlineGeneralApplicationsForUser(userCase, isApplicant2);
+  const lastGeneralApplication = generalApplications?.[0];
+  const generalApplicationType =
+    commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
+  const generalApplicationDate = getFormattedDate(lastGeneralApplication?.generalApplicationReceivedDate, language);
+  const generalApplicationResponseDate = getFormattedDate(
+    dayjs(
+      lastGeneralApplication?.generalApplicationFeeDateOfPayment ||
+        lastGeneralApplication?.generalApplicationReceivedDate
+    ).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+    language
+  );
+  const generalApplicationFeeRequired =
+    lastGeneralApplication?.generalApplicationFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
+  const generalApplicationDocsAllProvided =
+    lastGeneralApplication?.generalApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
+  const generalApplicationSubmittedOnline = lastGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
+
+  const interimApplicationType =
+    commonTranslations.interimApplicationType[
+      InterimApplicationType.SEARCH_GOV_RECORDS === userCase?.applicant1InterimApplicationType
+        ? 'searchGovRecords'
+        : (userCase?.applicant1InterimApplicationType as string)
+    ];
   return {
     ...commonTranslations,
+    applicationHasBeenPaidFor,
     serviceName,
     partner,
     language,
     isDivorce,
     isApplicant2,
+    feedbackLink,
     userCase,
     userEmail,
     isJointApplication,
+    caseHasBeenIssued,
+    hasServiceApplicationInProgress,
     isAmendableStates,
     isClarificationAmendableState,
+    isRequestForInformationAmendableState,
     isApp1Represented,
+    isApp2Represented,
+    isApp2Confidential,
     isGeneralConsiderationFoRequested,
     isGeneralConsiderationCoPronounced,
     isPendingHearingOutcomeCoPronounced,
     isPendingHearingOutcomeFoRequested,
+    interimApplicationType,
+    referenceNumber,
+    genesysReferrerPage,
+    genesysDeploymentId,
+    serviceApplicationType,
+    serviceApplicationDate,
+    serviceApplicationResponseDate,
+    serviceApplicationFeeRequired,
+    serviceApplicationDocsAllProvided,
+    serviceApplicationSubmittedOnline,
+    generalApplicationType,
+    generalApplicationDate,
+    generalApplicationResponseDate,
+    generalApplicationFeeRequired,
+    generalApplicationDocsAllProvided,
+    generalApplicationSubmittedOnline,
   };
 };
 
 export type CommonContent = typeof en & {
+  applicationHasBeenPaidFor: boolean | undefined;
   language: SupportedLanguages;
   serviceName: string;
   isDivorce: boolean;
   isApplicant2: boolean;
+  feedbackLink: string;
   userCase: Partial<CaseWithId>;
   partner: string;
   userEmail?: string;
   isJointApplication: boolean;
+  caseHasBeenIssued: boolean;
+  hasServiceApplicationInProgress: boolean;
   referenceNumber?: string;
   isAmendableStates: boolean | undefined;
   isClarificationAmendableState: boolean;
+  isRequestForInformationAmendableState: boolean | undefined;
   isApp1Represented: boolean;
+  isApp2Represented: boolean;
+  isApp2Confidential: boolean;
   isGeneralConsiderationFoRequested: boolean;
   isGeneralConsiderationCoPronounced: boolean;
   isPendingHearingOutcomeCoPronounced: boolean;
   isPendingHearingOutcomeFoRequested: boolean;
+  serviceApplicationType: string;
+  serviceApplicationDate: string | false;
+  serviceApplicationResponseDate: string | false;
+  serviceApplicationFeeRequired: boolean;
+  serviceApplicationDocsAllProvided: boolean;
+  serviceApplicationSubmittedOnline: boolean;
+  generalApplicationType: string;
+  generalApplicationDate: string | false;
+  generalApplicationResponseDate: string | false;
+  generalApplicationFeeRequired: boolean;
+  generalApplicationDocsAllProvided: boolean;
+  generalApplicationSubmittedOnline: boolean;
+  genesysReferrerPage: string;
+  genesysDeploymentId: string;
+  lastGeneralApplication?: GeneralApplication | undefined;
 };

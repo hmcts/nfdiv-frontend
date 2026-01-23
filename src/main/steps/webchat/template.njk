@@ -7,28 +7,34 @@
 {% block content %}
     <div class="govuk-details__text">
         <p id="metrics"></p>
-        <web-chat
-                id="avayaWebchat"
-                chat-title="{{ webChatTitle }}"
-                chat-icon-url="img/icon.png"
-                url="{{ globals.webchat.avayaUrl }}"
-                secure-connections="true"
-                api-version="1.0"
-                metrics-polling-interval="20"
-                locale-url="{{ avayaLocaleUrl }}"
-                route-point-identifier="Default"
-                work-flow-type=""
-                lease-time="24"
-                priority="5"
-                language="{{ avayaLanguage }}"
-                service="{{ globals.webchat.avayaService }}"
-                page-name="{{ webChatPageName }}"
-                User="Chat">
-        </web-chat>
+        {% if featureFlags.NFD_useGenesysWebchat %}
+          {% include "../webchat/genesys-webchat.njk" %}
+        {% else %}
+          <web-chat
+            id="avayaWebchat"
+            chat-title="{{ webChatTitle }}"
+            chat-icon-url="img/icon.png"
+            url="{{ globals.webchat.avayaUrl }}"
+            secure-connections="true"
+            api-version="1.0"
+            metrics-polling-interval="20"
+            locale-url="{{ avayaLocaleUrl }}"
+            route-point-identifier="Default"
+            work-flow-type=""
+            lease-time="24"
+            priority="5"
+            language="{{ avayaLanguage }}"
+            service="{{ globals.webchat.avayaService }}"
+            page-name="{{ webChatPageName }}"
+            User="Chat">
+          </web-chat>
+        {% endif %}
     </div>
 {% endblock %}
 
 {% block footer %}
-<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/{{ avayaClientUrlFolder }}/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
-<script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es5.js" nomodule defer crossorigin="anonymous"></script>
+{% if not featureFlags.NFD_useGenesysWebchat %}
+  <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/{{ avayaClientUrlFolder }}/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
+  <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es5.js" nomodule defer crossorigin="anonymous"></script>
+{% endif %}
 {% endblock %}

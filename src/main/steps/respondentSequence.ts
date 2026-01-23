@@ -20,12 +20,14 @@ import {
   HOW_DO_YOU_WANT_TO_RESPOND,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HUB_PAGE,
+  HUB_PAGE_DOWNLOADS,
   INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
   PAY_YOUR_FINAL_ORDER_FEE,
   RESPONDENT,
+  RESPONSE_SUBMITTED,
   REVIEW_THE_APPLICATION,
 } from './urls';
 
@@ -71,11 +73,19 @@ const sequence: Step[] = [
   },
   {
     url: CHECK_ANSWERS_URL,
+    getNextStep: () => RESPONSE_SUBMITTED,
+  },
+  {
+    url: RESPONSE_SUBMITTED,
     getNextStep: () => HUB_PAGE,
   },
   {
     url: HUB_PAGE,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: HUB_PAGE_DOWNLOADS,
+    getNextStep: () => HUB_PAGE,
   },
   {
     url: CHECK_CONTACT_DETAILS,

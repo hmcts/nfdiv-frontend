@@ -7,6 +7,7 @@ import { Case } from '../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
   CASEWORKER_ISSUE_APPLICATION,
+  CASEWORKER_REQUEST_FOR_INFORMATION,
   CITIZEN_UPDATE_CASE_STATE_AAT,
   ConditionalOrderCourt,
   DivorceOrDissolution,
@@ -17,7 +18,7 @@ import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
 import { SupportedLanguages } from '../../main/modules/i18n';
-import { APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
+import { APPLICANT_1, APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
 const { I, login } = inject();
@@ -70,6 +71,22 @@ export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?
   I.click(locator || text);
 };
 
+export const iClickElement = (elemId: string, wait?: number): void => {
+  I.waitForElement(elemId, wait);
+  I.click(elemId);
+};
+
+export const iClickSubmit = (): void => {
+  iClickElement('#main-form-submit');
+};
+
+export const iRejectCookies = (): void => {
+  iClickElement('button.cookie-banner-reject-button');
+  iClickElement('button.cookie-banner-hide-button');
+};
+
+When('I reject cookies', iRejectCookies);
+
 export const iWait = (time: number): void => {
   I.wait(time);
 };
@@ -101,8 +118,50 @@ Then('the page should include {string}', (text: string) => {
   I.waitForText(text);
 });
 
+Then('the page should include element {string}', (elemId: string) => {
+  I.waitForElement(elemId);
+});
+
+Then('the page should not include element {string}', (elemId: string) => {
+  I.dontSeeElementInDOM(elemId);
+});
+
+Then('the page should include visible element {string}', (elemId: string) => {
+  I.waitForVisible(elemId + ':not(.hidden)');
+});
+
+When('I select element {string}', iClickElement);
+When('I click element {string}', iClickElement);
+
+When('I click start', () => {
+  iClickElement('.govuk-button--start');
+});
+
+When('I sign out', () => {
+  iClickElement('#navigation > li > a[href="/logout"]');
+});
+
+When('I click submit', iClickSubmit);
+When('I click continue', iClickSubmit);
+When('I click send for review', iClickSubmit);
+When('I click submit application', iClickSubmit);
+When('I click continue to payment', iClickSubmit);
+When('I click accept and send', iClickSubmit);
+
+Then('the page should show an error for field {string}', (fieldName: string) => {
+  I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
+});
+
+Then('the page should show an error for field {string}', (fieldName: string) => {
+  I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
+});
+
 Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
+});
+
+Then('I wait until the page contains file element {string}', (elemId: string) => {
+  I.waitForElement(elemId, 30);
 });
 
 Then('the page should not include {string}', (text: string) => {
@@ -215,6 +274,86 @@ When('I enter my valid case reference and valid access code', async () => {
     console.error('Could not get case data as ' + user.username);
     process.exit(-1);
   }
+});
+
+When('I as applicant1 enter my valid case reference and valid access code', async () => {
+  I.amOnPage(HOME_URL);
+  await iClearTheForm();
+
+  const user = testConfig.GetCurrentUser();
+  const testUser = await iGetTheTestUser(user);
+  const caseApi = iGetTheCaseApi(testUser);
+  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+
+  if (userCase) {
+    const fetchedCase = await caseApi.getCaseById(userCase.id);
+
+    const caseReference = userCase.id;
+    const accessCode = fetchedCase.accessCodeApplicant1;
+
+    if (!caseReference || !accessCode) {
+      throw new Error(`No case reference or access code was returned for Applicant1 ${testUser}`);
+    }
+
+    iClick('Sign out');
+    await login('citizenSingleton');
+    I.amOnPage(APPLICANT_1 + ENTER_YOUR_ACCESS_CODE);
+
+    iClick('Your reference number');
+    I.type(caseReference);
+    iClick('Your access code');
+    I.type(accessCode);
+    iClick('Continue');
+  } else {
+    console.error('Could not get case data as ' + user.username);
+    process.exit(-1);
+  }
+});
+
+When('a case worker issues a request for information', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationSoleParties: 'applicant',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to a third party', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationSoleParties: 'other',
+    requestForInformationDetails: 'test',
+    requestForInformationName: 'third party',
+    requestForInformationEmailAddress: 'thirdparty@hmcts.net',
+  });
+});
+
+When('a case worker issues a request for information to app1 on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'applicant1',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to app2 on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'applicant2',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to both parties on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'both',
+    requestForInformationDetails: 'test',
+  });
+});
+
+When('a case worker issues a request for information to a third party on a joint case', async () => {
+  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
+    requestForInformationJointParties: 'other',
+    requestForInformationDetails: 'test',
+    requestForInformationName: 'third party',
+    requestForInformationEmailAddress: 'thirdparty@hmcts.net',
+  });
 });
 
 When('a case worker issues the application', async () => {

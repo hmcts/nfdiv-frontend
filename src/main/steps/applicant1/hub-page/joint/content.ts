@@ -3,14 +3,19 @@ import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
-import { State, YesOrNo } from '../../../../app/case/definition';
+import { DocumentType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import type { CommonContent } from '../../../common/common.content';
 import { canIntendToSwitchToSoleFo, hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
 import { getSwitchToSoleFoStatus } from '../../../common/switch-to-sole-content.utils';
 import { currentStateFn } from '../../../state-sequence';
-import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HOW_TO_FINALISE_APPLICATION } from '../../../urls';
+import {
+  APPLICANT_2,
+  FINALISING_YOUR_APPLICATION,
+  HOW_TO_FINALISE_APPLICATION,
+  RESPOND_TO_COURT_FEEDBACK,
+} from '../../../urls';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -31,16 +36,33 @@ const hubPageSubheading = (
   }
 };
 
-const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+const en = (
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    userCase,
+    partner,
+    isApplicant2,
+    referenceNumber,
+    telephoneNumber,
+    contactWebForm,
+  }: CommonContent,
+  dateOfCourtReplyToRequestForInformationResponse: string
+) => ({
   subHeading1: hubPageSubheading(userCase),
   applicationSubmittedLatestUpdate: {
-    line1: `Your application ${isDivorce ? 'for divorce' : 'to end your civil partnership'} has been submitted
-  and checked by court staff. It has been sent to you and your ${partner} by ${
-    userCase.applicant1AgreeToReceiveEmails ? 'email' : 'post'
-  }.`,
-    line2: `You should confirm that you have received your application ${
-      isDivorce ? 'for divorce' : 'to end your civil partnership'
-    }.`,
+    line1:
+      userCase.state === State.AwaitingHWFEvidence
+        ? 'Your joint application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
+        : `Your joint application ${
+            userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+            userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+            !applicationHasBeenPaidFor
+              ? 'and help with fees reference number '
+              : ''
+          } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+            dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
+          )} confirming whether it has been accepted. Check your junk or spam email folder.`,
   },
   applicantConfirmedReceiptLatestUpdate: {
     line1: `You have confirmed receipt of the ${
@@ -59,9 +81,45 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       You will receive an email to remind you.`,
   },
   confirmReceipt: 'Confirm receipt',
-  applicantNotYetAppliedForConditionalOrder: `You can now apply for a ‘conditional order’.
-  A conditional order is a document that says the court does not see any reason why you cannot
-  ${isDivorce ? 'get a divorce' : 'end your civil partnership'}.`,
+  applicantNotYetAppliedForConditionalOrder: {
+    content: `You can now apply for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
+      isDivorce ? 'get a divorce' : 'end your civil partnership'
+    }.`,
+    notOnline: {
+      youWontBeAbleToApplyOnline: `You won’t be able to apply online for your conditional order because your ${partner} is not using the online ${
+        isDivorce ? 'divorce' : 'dissolution'
+      } service. You can apply using the <b>paper form</b> and send it to the court by post or via our online form. You will also begin to receive letter correspondence from the court.`,
+      downloadPaperForm: {
+        content: 'You can download the paper form here: ',
+        link: {
+          text: 'D84 form',
+          url: config.get('govukUrls.d84Form'),
+        },
+      },
+      sendingDocumentsOnline: {
+        header: 'Sending documents using our online form',
+        content: 'You can send photographs or scans of your documents to us by ',
+        link: {
+          text: 'uploading them using our online form.',
+          url: contactWebForm,
+        },
+        followInstructions:
+          'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
+      },
+      sendingDocumentsPost: {
+        header: 'Sending documents by post',
+        list: {
+          step1: {
+            content: 'Write your reference number on each document: ',
+            refNumber: referenceNumber,
+          },
+          step2: 'Post the original documents to:',
+        },
+      },
+      courtSentLetter: `The court has also sent a letter and the form to your ${partner} informing them that they can now apply for a conditional order.`,
+      sinceJointApplication: `Since this is a joint application, you must complete one form, and both you and your ${partner} must sign it before submitting it to the court.`,
+    },
+  },
   conditionalOrderPending: {
     beforeDueDate: {
       line1: `You have applied for a conditional order. Your ${partner} also needs to apply
@@ -138,10 +196,13 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
       isDivorce ? 'divorce will be finalised' : 'civil partnership will be legally ended'
     }.`,
     line2:
-      userCase.isFinalOrderOverdue === YesOrNo.YES
-        ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
-        : 'You should receive an email within 2 working days, confirming whether the final order has been granted.',
+      userCase.state === State.FinalOrderRequested
+        ? userCase.isFinalOrderOverdue === YesOrNo.YES
+          ? 'You will receive an email confirming whether it has been granted once a Judge has made a decision.'
+          : 'You should receive an email within 2 working days, confirming whether the final order has been granted.'
+        : 'The court will contact you to confirm whether the final order has been granted.',
   },
+  finalOrderComplete: {},
   intendToSwitchToSoleFinalOrder: {
     line1: `The court has notified your ${partner} by email that you are intending to apply for a final order as a sole applicant.`,
     line2: `You will be able to apply for a final order from ${getFormattedDate(
@@ -161,19 +222,140 @@ const en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
     line1:
       "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
   },
+  sendDocumentLine1: 'Your application will not be processed until you have done the following:',
+  sendDocumentHeading: 'Send your documents to the court',
+  line2: 'You need to send the following documents to the court because you did not upload them earlier:',
+  documents: {
+    [DocumentType.MARRIAGE_CERTIFICATE]:
+      userCase.inTheUk === YesOrNo.NO
+        ? `Your original foreign ${isDivorce ? 'marriage' : 'civil partnership'} certificate`
+        : `Your original ${isDivorce ? 'marriage' : 'civil partnership'} certificate or a certified copy`,
+    [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of your foreign ${
+      isDivorce ? 'marriage' : 'civil partnership'
+    } certificate`,
+    [DocumentType.NAME_CHANGE_EVIDENCE]:
+      'Proof that you changed your name. For example, deed poll or statutory declaration.',
+  },
+  documentsByOnlineForm: 'Sending documents using our online form',
+  documentsByOnlineFormSteps: {
+    line1: 'You can send photographs or scans of your documents to us by',
+    line2: 'uploading them using our online form.',
+    line3:
+      'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
+  },
+  documentsByPost: 'Sending your documents by post',
+  documentsByPostSteps: {
+    step1: `Write your reference number on each document: ${referenceNumber}`,
+    step2: 'Post the original documents to:',
+  },
+  documentsByPostMoreDetails:
+    'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
+
+  subHeading3: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
+  line3: {
+    p1: `You need to apply to serve the ${
+      isDivorce ? 'divorce' : 'ending your civil partnership'
+    } papers to your ${partner} another way. This is because you did not provide their email and postal address. You could apply to serve them by email only, text message or social media.`,
+    p2: 'You will need to fill out a separate paper D11 form and send it to the court. The form can be used to make different applications so only fill out the relevant sections.',
+  },
+  line4: {
+    part1: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
+    link: config.get('govukUrls.d11Form'),
+  },
+  subHeading4: 'What happens next',
+  line5:
+    userCase.state === State.AwaitingHWFEvidence
+      ? 'Your joint application will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.'
+      : `Your joint application${
+          userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+          userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+          !applicationHasBeenPaidFor
+            ? ' and help with fees reference number'
+            : ''
+        } will be checked by court staff. You will receive an email notification by ${getFormattedDate(
+          dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day')
+        )} confirming whether it has been accepted. Check your junk or spam email folder.`,
+  line6: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
+  line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
+  line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
+  line9: `If you want the court to serve (send) the application by post instead of by email, then phone ${telephoneNumber}.`,
+  line10: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+    isDivorce ? 'the divorce' : 'ending the civil partnership'
+  }.`,
+  line11: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
+  informationRequested: {
+    line1: `The court has reviewed your application for ${
+      isDivorce ? 'divorce' : 'dissolution'
+    }. You need to provide some additional information before your application can progress.`,
+    line2: 'We have sent you an email with the information the court needs.',
+    line3:
+      'You can also see the information that the court needs on the next page after you select "Provide information".',
+    line4: 'What you need to do next',
+    line5: 'Read the court’s reasons for stopping the application and provide the requested information.',
+    line6: 'If documents have been requested, you will be able to upload them to the court when you respond.',
+    buttonText: 'Provide information',
+    buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`,
+    line7: 'We will let you know once we have reviewed the information you provided.',
+  },
+  respondedToRequestForInformation: {
+    line1: 'You or your partner have responded to the court.',
+    line2: `Your application will be checked by court staff. You will receive an email notification by ${dateOfCourtReplyToRequestForInformationResponse} confirming whether it has been accepted. Check your junk or spam email folder.`,
+  },
+  awaitingRequestedInformation: {
+    line1:
+      'You or your partner have told us that you cannot upload some or all of your documents. We cannot progress your application until we have received them.',
+    line2: 'What you need to do next',
+    line3: 'We have sent you an email with details on how to send your documents.',
+    line4: 'You or your partner can ',
+    formLinkText: 'upload your documents using our online form',
+    line4a: ', or send them by post along with a cover sheet with your case reference number.',
+    line5: 'We will then review your response',
+  },
+  informationRequestedFromPartnerOrOther: {
+    partner: {
+      line1: `The court has reviewed your application for ${
+        isDivorce ? 'divorce' : 'dissolution'
+      }. We have sent an email to your ${partner} with the information that the court needs.`,
+      line2: `The court will review the information from your ${partner} once provided, then the application can progress.`,
+    },
+    other: {
+      line1: `The court has reviewed your application for ${
+        isDivorce ? 'divorce' : 'dissolution'
+      }. We have sent an email to a Third party with the information that the court needs.`,
+      line2:
+        'The court will review the information from the Third party once provided, then the application can progress.',
+    },
+  },
 });
 
-const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonContent) => ({
+const cy: typeof en = (
+  {
+    applicationHasBeenPaidFor,
+    isDivorce,
+    userCase,
+    partner,
+    isApplicant2,
+    referenceNumber,
+    telephoneNumber,
+    contactWebForm,
+  }: CommonContent,
+  dateOfCourtReplyToRequestForInformationResponse: string
+) => ({
   subHeading1: hubPageSubheading(userCase, SupportedLanguages.Cy),
   applicationSubmittedLatestUpdate: {
-    line1: `Mae eich cais ${
-      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
-    } wedi'i gyflwyno a'i wirio gan staff y llys. Fe'i anfonwyd atoch chi a'ch ${partner} ${
-      userCase.applicant1AgreeToReceiveEmails ? 'drwy e-bost' : 'drwy’r post'
-    }.`,
-    line2: `Dylech gadarnhau eich bod wedi cael eich cais ${
-      isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
-    }.`,
+    line1:
+      userCase.state === State.AwaitingHWFEvidence
+        ? "Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'."
+        : `Bydd staff y llys yn gwirio eich cais ar y cyd' ${
+            userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+            userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+            !applicationHasBeenPaidFor
+              ? 'a’ch cyfeirnod Help i Dalu Ffioedd '
+              : ''
+          }. Fe gewch neges e-bost erbyn  ${getFormattedDate(
+            dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+            SupportedLanguages.Cy
+          )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
   },
   applicantConfirmedReceiptLatestUpdate: {
     line1: `Rydych wedi cadarnhau eich bod wedi cael y ${
@@ -192,10 +374,45 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     }. Byddwch yn cael e-bost i'ch atgoffa.`,
   },
   confirmReceipt: 'Cadarnhau eich bod wedi cael eich cais',
-  applicantNotYetAppliedForConditionalOrder: `Gallwch nawr wneud cais am 'orchymyn amodol'.
-   Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
-     isDivorce ? 'gael ysgariad' : "ddod â'ch partneriaeth sifil i ben"
-   }`,
+  applicantNotYetAppliedForConditionalOrder: {
+    content: `Gallwch nawr wneud cais am 'orchymyn amodol'. Mae gorchymyn amodol yn ddogfen sy’n dweud nad yw’r llys yn gweld unrhyw reswm pam na allwch ${
+      isDivorce ? 'gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben yn gyfreithiol'
+    }`,
+    notOnline: {
+      youWontBeAbleToApplyOnline: `Ni fyddwch yn gallu gwneud cais ar-lein am eich gorchymyn amodol oherwydd nad yw eich ${partner} yn defnyddio’r gwasanaeth ${
+        isDivorce ? 'ysgariad' : 'diddymiad'
+      } ar-lein. Gallwch wneud cais gan ddefnyddio'r ffurflen bapur a'i hanfon i'r llys drwy'r post neu drwy ein ffurflen ar-lein. Byddwch hefyd yn dechrau derbyn gohebiaeth drwy lythyr gan y llys.`,
+      downloadPaperForm: {
+        content: 'Gallwch lawrlwytho’r ffurflen bapur yma: ',
+        link: {
+          text: 'Ffurflen D84',
+          url: config.get('govukUrls.d84Form'),
+        },
+      },
+      sendingDocumentsOnline: {
+        header: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
+        content: 'Gallwch anfon lluniau neu sganiau o’ch dogfennau atom trwy ',
+        link: {
+          text: 'eu llwytho gan ddefnyddio ein ffurflen ar-lein.',
+          url: contactWebForm,
+        },
+        followInstructions:
+          "Gwnewch yn siŵr eich bod yn dilyn y cyfarwyddiadau ar sut i uwchlwytho eich dogfennau'n ofalus neu gellid eu gwrthod, gan arwain at oedi pellach.",
+      },
+      sendingDocumentsPost: {
+        header: 'Anfon dogfennau drwy’r post',
+        list: {
+          step1: {
+            content: 'Ysgrifennwch eich cyfeirnod ar bob dogfen: ',
+            refNumber: referenceNumber,
+          },
+          step2: 'Postiwch y dogfennau gwreiddiol i:',
+        },
+      },
+      courtSentLetter: `Mae’r llys hefyd wedi anfon llythyr a’r ffurflen at eich ${partner} yn eu hysbysu y gallant bellach wneud cais am orchymyn amodol.`,
+      sinceJointApplication: `Gan mai cais ar y cyd yw hwn, rhaid i chi lenwi un ffurflen, a rhaid i chi a'ch ${partner} ei llofnodi cyn ei chyflwyno i'r llys.`,
+    },
+  },
   conditionalOrderPending: {
     beforeDueDate: {
       line1: `Rydych wedi gwneud cais am orchymyn amodol. Mae angen i'ch ${partner} awneud cais hefyd oherwydd bod hwn yn gais ar y cyd ${
@@ -258,12 +475,17 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     }.`,
   },
   finalOrderRequested: {
-    line1: `Rydych chi a'c ${partner} wedi datgan eich bod eisiau ${
+    line1: `Rydych chi a'ch ${partner} wedi datgan eich bod eisiau ${
       isDivorce ? 'cadarnhau eich ysgariad' : "dod â'ch partneriaeth sifil i ben"
     }. Bydd eich cais yn cael ei wirio gan staff y llys. Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
       isDivorce ? 'ysgariad yn cael ei gadarnhau' : 'partneriaeth eich sifil yn dod i ben yn gyfreithiol'
     }.`,
-    line2: "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu.",
+    line2:
+      userCase.state === State.FinalOrderRequested
+        ? userCase.isFinalOrderOverdue === YesOrNo.YES
+          ? 'Fe gewch neges e-bost yn cadarnhau p’un a yw wedi’i gymeradwyo unwaith y bydd Barnwr wedi gwneud penderfyniad.'
+          : "Dylech gael e-bost o fewn 2 ddiwrnod gwaith, yn datgan a yw'r gorchymyn terfynol wedi'i ganiatáu."
+        : 'Bydd y llys yn cysylltu gyda chi i gadarnhau p’un a yw’r gorchymyn terfynol wedi’i ganiatáu.',
   },
   awaitingJointFinalOrderOrFinalOrderOverdue: {
     line1: `Nid yw eich ${partner} wedi gwneud cais am orchymyn terfynol o hyd. Mae'n rhaid iddo/iddi hefyd wneud cais fel y gellir cadarnhau eich ${
@@ -301,13 +523,117 @@ const cy: typeof en = ({ isDivorce, userCase, partner, isApplicant2 }: CommonCon
     )}. Byddwch yn cael e-bost i'ch atgoffa.`,
   },
   intendingAndAbleToSwitchToSoleFinalOrder: {
-    line1: `You can now apply for a ‘final order’ as a sole applicant. If it’s granted then your ${
-      isDivorce ? 'marriage' : 'civil partnership'
-    } will be legally ended.`,
+    line1: `Gallwch nawr wneud cais am orchymyn terfynol fel unig geisydd. Os caiff ei ganiatáu, yna bydd eich ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } yn dod i ben yn gyfreithiol.`,
   },
   pendingHearingOutcome: {
     line1:
       'Mae eich cais wedi cyrraedd y llys a bydd yn cael ei gyfeirio at farnwr i ystyried eich cais. Dylech glywed gan\n y llys am benderfyniad y barnwr.',
+  },
+  sendDocumentLine1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
+  sendDocumentHeading: 'Anfon eich dogfennau i’r llys',
+  line2: 'Mae angen i chi anfon y dogfennau canlynol i’r llys gan na wnaethoch eu llwytho yn gynharach:',
+  documents: {
+    [DocumentType.MARRIAGE_CERTIFICATE]:
+      userCase.inTheUk === YesOrNo.NO
+        ? `Eich tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'} dramor wreiddiol`
+        : `Eich tystysgrif ${isDivorce ? 'priodas' : 'partneriaeth sifil'} wreiddiol neu gopi ardystiedig ohoni`,
+    [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `Cyfieithiad ardystiedig o’ch tystysgrif ${
+      isDivorce ? 'priodas' : 'partneriaeth sifil'
+    } dramor`,
+    [DocumentType.NAME_CHANGE_EVIDENCE]:
+      'Tystiolaeth eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
+  },
+  documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
+  documentsByOnlineFormSteps: {
+    line1: 'Gallwch anfon lluniau neu sganiau o’ch dogfennau atom trwy ',
+    line2: 'llwytho gan ddefnyddio ein ffurflen ar-lein.',
+    line3:
+      "Gwnewch yn siŵr eich bod yn dilyn y cyfarwyddiadau ar sut i lwytho eich dogfennau'n ofalus neu gellid eu gwrthod, gan arwain at oedi pellach.",
+  },
+  documentsByPost: 'Anfon eich dogfennau drwy’r post',
+  documentsByPostSteps: {
+    step1: `Ysgrifennwch eich cyfeirnod ar bob dogfen: ${referenceNumber}`,
+    step2: 'Postiwch y dogfennau gwreiddiol i:',
+  },
+  documentsByPostMoreDetails:
+    'Gwnewch yn siŵr eich bod hefyd yn cynnwys cyfeiriad dychwelyd yn eich ymateb. Bydd unrhyw ddogfennau y byddwch yn eu hanfon, fel tystysgrifau priodas, tystysgrifau geni, pasbortau neu weithred newid enw yn cael eu dychwelyd atoch. Ni fydd y dogfennau eraill yn cael eu dychwelyd.',
+  subHeading3: `Gwneud cais i gyflwyno papurau’r ${isDivorce ? 'ysgariad' : 'bartneriaeth sifil'} mewn ffordd arall`,
+  line3: {
+    p1: `Mae angen i chi wneud cais i gyflwyno papurau’r ${
+      isDivorce ? 'ysgariad' : 'bartneriaeth sifil'
+    } ar eich ${partner} mewn ffordd arall. Y rheswm dros hyn yw oherwydd ni wnaethoch ddarparu eu cyfeiriad e-bost neu gyfeiriad post. Gallwch wneud cais i’w cyflwyno arnynt drwy e-bost yn unig, drwy neges testun neu gyfryngau cymdeithasol.`,
+    p2: 'Bydd angen i chi lenwi ffurflen bapur D11 a’i hanfon i’r llys. Gallwch ddefnyddio’r ffurflen i wneud ceisiadau gwahanol, felly dim ond yr adrannau perthnasol sydd angen i chi eu llenwi.',
+  },
+  line4: {
+    part1: `Gwneud cais i gyflwyno papurau’r ${isDivorce ? 'ysgariad' : 'bartneriaeth sifil'} mewn ffordd arall`,
+    link: config.get('govukUrls.d11Form'),
+  },
+  subHeading4: 'Beth fydd yn digwydd nesaf',
+  line5:
+    userCase.state === State.AwaitingHWFEvidence
+      ? "Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau a yw wedi'i dderbyn. Gwiriwch eich ffolder 'junk' neu 'spam'."
+      : `Bydd staff y llys yn gwirio eich cais ar y cyd' ${
+          userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+          userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES &&
+          !applicationHasBeenPaidFor
+            ? ' a’ch cyfeirnod Help i Dalu Ffioedd'
+            : ''
+        }. Fe gewch neges e-bost erbyn ${getFormattedDate(
+          dayjs(userCase.dateSubmitted).add(config.get('dates.applicationSubmittedOffsetDays'), 'day'),
+          SupportedLanguages.Cy
+        )} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+  line6: `Yna fe anfonir copi o’r cais at eich ${partner}. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
+  line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
+  line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${telephoneNumber}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
+  line9: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
+  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
+    isDivorce ? 'yr ysgariad' : 'ddiweddu’r bartneriaeth sifil'
+  }.`,
+  line11: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a drwy’r post, ar ôl i’r cais gael ei wirio.`,
+  informationRequested: {
+    line1: `Mae’r llys wedi adolygu eich cais am ${
+      isDivorce ? 'ysgariad' : 'diddymiad'
+    }. Mae angen ichi ddarparu rhagor o wybodaeth cyn y gall y cais fynd yn ei flaen.`,
+    line2: 'Rydym wedi anfon neges e-bost atoch gyda gwybodaeth y mae’r llys ei hangen.',
+    line3:
+      'Gallwch hefyd weld yr wybodaeth mae’r llys ei hangen ar y dudalen nesaf ar ôl i chi ddewis “Darparu Gwybodaeth”.',
+    line4: 'Beth sydd angen i chi wneud nesaf',
+    line5: 'Darllenwch resymau’r llys dros atal y cais a darparwch yr wybodaeth y gofynnwyd amdani.',
+    line6: 'Os gofynnwyd am ddogfennau, byddwch yn gallu eu llwytho i’r llys pan fyddwch yn ymateb.',
+    buttonText: 'Darparu gwybodaeth',
+    buttonLink: `${isApplicant2 ? APPLICANT_2 : ''}${RESPOND_TO_COURT_FEEDBACK}`,
+    line7: 'Byddwn yn rhoi gwybod i chi unwaith y byddwn wedi adolygu’r wybodaeth a ddarparwyd gennych.',
+  },
+  respondedToRequestForInformation: {
+    line1: "Rydych chi neu'ch partner wedi ymateb i'r llys.",
+    line2: `Bydd eich cais yn cael ei wirio gan staff y llys. Fe gewch neges e-bost erbyn ${dateOfCourtReplyToRequestForInformationResponse} yn cadarnhau p’un a yw wedi’i dderbyn. Gwiriwch eich ffolder ‘junk’ neu ‘spam’.`,
+  },
+  awaitingRequestedInformation: {
+    line1:
+      'Rydych chi neu eich partner wedi dweud wrthym nad ydych yn gallu uwchlwytho rhai neu’r cyfan o’ch dogfennau.  Ni allwn symud eich cais yn ei flaen hyd nes y byddwn wedi’u derbyn.',
+    line2: 'Beth sydd angen i chi wneud nesaf',
+    line3: 'Rydym wedi anfon e-bost atoch gyda manylion ar sut i anfon eich dogfennau.',
+    line4: 'Gallwch chi neu eich partner ',
+    formLinkText: 'uwchlwytho eich dogfennau gan ddefnyddio ein ffurflen ar-lein',
+    line4a: ', neu eu hanfon drwy’r post ynghyd â dalen flaen gyda chyfeirnod eich achos.',
+    line5: 'Byddwn wedyn yn adolygu eich ymateb',
+  },
+  informationRequestedFromPartnerOrOther: {
+    partner: {
+      line1: `Mae'r llys wedi adolygu eich cais am ${
+        isDivorce ? 'ysgariad' : 'diddymiad'
+      }. Rydym wedi anfon e-bost at eich ${partner} gyda'r wybodaeth sydd ei hangen ar y llys.`,
+      line2: `Bydd y llys yn adolygu'r wybodaeth gan eich ${partner} ar ôl ei darparu, yna gall y cais symud ymlaen.`,
+    },
+    other: {
+      line1: `Mae’r llys wedi adolygu eich cais am ${
+        isDivorce ? 'ysgariad' : 'ddiddymiad'
+      }. Rydym wedi anfon neges e-bost at drydydd parti gyda’r wybodaeth y mae’r llys ei hangen.`,
+      line2:
+        'Bydd y llys yn adolygu’r wybodaeth gan y trydydd parti unwaith y bydd wedi dod i law, ac yna gall y cais barhau.',
+    },
   },
 });
 
@@ -322,12 +648,33 @@ export const generateContent: TranslationFn = content => {
   const hasApplicantConfirmedReceipt = isApplicant2
     ? userCase.applicant2ConfirmReceipt === YesOrNo.YES
     : userCase.applicant1ConfirmReceipt === YesOrNo.YES;
+  const partnerIsOffline = isApplicant2
+    ? userCase.applicant1Offline === YesOrNo.YES
+    : userCase.applicant2Offline === YesOrNo.YES;
   const hasApplicantAppliedForConditionalOrder = isApplicant2
     ? userCase.coApplicant2StatementOfTruth === Checkbox.Checked
     : userCase.coApplicant1StatementOfTruth === Checkbox.Checked;
   const partnerSubmissionOverdue = dayjs(userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate)
     .add(config.get('dates.changingToSolePartnerResponseDays'), 'day')
     .isBefore(dayjs());
+
+  const latestRequestForInformation = userCase.requestsForInformation?.at(0)?.value;
+  const requestForInformationParties = latestRequestForInformation?.requestForInformationJointParties || '';
+
+  const isApplicantAbleToRespondToRequestForInformation = ['both', isApplicant2 ? 'applicant2' : 'applicant1'].includes(
+    requestForInformationParties
+  );
+
+  const isRequestForInformationForYourPartner =
+    requestForInformationParties === (isApplicant2 ? 'applicant1' : 'applicant2');
+
+  const dateOfCourtReplyToRequestForInformationResponse =
+    getFormattedDate(
+      dayjs(
+        latestRequestForInformation?.requestForInformationResponses?.at(0)?.value.requestForInformationResponseDateTime
+      ).add(config.get('dates.requestForInformationResponseCourtReplyOffsetDays'), 'day'),
+      content.language
+    ) || '';
 
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
@@ -358,10 +705,16 @@ export const generateContent: TranslationFn = content => {
       switchToSoleFinalOrderStatus.isWithinSwitchToSoleFoIntentionNotificationPeriod,
     hasSwitchToSoleFoIntentionNotificationPeriodExpired:
       switchToSoleFinalOrderStatus.hasSwitchToSoleFoIntentionNotificationPeriodExpired,
+    isApplicantAbleToRespondToRequestForInformation,
   });
 
+  const cannotUploadDocuments = new Set([
+    ...(userCase.applicant1CannotUploadDocuments || []),
+    ...(userCase.applicant2CannotUploadDocuments || []),
+  ]);
+
   return {
-    ...languages[content.language](content),
+    ...languages[content.language](content, dateOfCourtReplyToRequestForInformationResponse),
     displayState,
     hasApplicantConfirmedReceipt,
     hasApplicantAppliedForConditionalOrder,
@@ -376,5 +729,10 @@ export const generateContent: TranslationFn = content => {
     isFinalOrderCompleteState,
     finalOrderEligibleAndSecondInTimeFinalOrderNotSubmittedWithin14Days,
     isIntendingAndAbleToSwitchToSoleFinalOrder: switchToSoleFinalOrderStatus.isIntendingAndAbleToSwitchToSoleFo,
+    isApplicantAbleToRespondToRequestForInformation,
+    isRequestForInformationForYourPartner,
+    dateOfCourtReplyToRequestForInformationResponse,
+    cannotUploadDocuments,
+    partnerIsOffline,
   };
 };

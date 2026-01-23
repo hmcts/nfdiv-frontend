@@ -12,9 +12,12 @@ import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content';
+import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your-access-code/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
+import { ApplicationWithdrawnGetController } from './steps/application-withdrawn/get';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
@@ -24,7 +27,8 @@ import { ExistingApplicationPostController } from './steps/existing-application/
 import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import { shouldHideRouteFromUser } from './steps/routeHiding';
+import { RequestForInformationSaveSignOutGetController } from './steps/request-for-information-save-sign-out/get';
+import { shouldHideRouteFromUser, shouldRedirectRouteToHub } from './steps/routeHiding';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
 import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get';
@@ -34,7 +38,9 @@ import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   ACTIVE,
+  APPLICANT_1,
   APPLICANT_2,
+  APPLICATION_WITHDRAWN,
   CONTACT_US,
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
@@ -43,9 +49,11 @@ import {
   EXISTING_APPLICATION,
   EXIT_SERVICE,
   HOME_URL,
+  HUB_PAGE,
   NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
+  REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   RESPONDENT,
   SAVE_AND_SIGN_OUT,
   SIGN_OUT_URL,
@@ -71,6 +79,10 @@ export class Routes {
       errorHandler(new ExistingApplicationPostController(existingApplicationContent.form.fields).post)
     );
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
+    app.get(
+      REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
+      errorHandler(new RequestForInformationSaveSignOutGetController().get)
+    );
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(PRIVACY_POLICY_URL, errorHandler(new PrivacyPolicyGetController().get));
@@ -78,6 +90,7 @@ export class Routes {
     app.get(COOKIES_URL, errorHandler(new CookiesGetController().get));
     app.get(ACCESSIBILITY_STATEMENT_URL, errorHandler(new AccessibilityStatementGetController().get));
     app.get(WEBCHAT_URL, errorHandler(new WebChatGetController().get));
+    app.get(APPLICATION_WITHDRAWN, errorHandler(new ApplicationWithdrawnGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
@@ -111,6 +124,16 @@ export class Routes {
     app.post(
       [APPLICANT_2, RESPONDENT, `${APPLICANT_2}${ENTER_YOUR_ACCESS_CODE}`],
       errorHandler(new AccessCodePostController(applicant2AccessCodeContent.form.fields).post)
+    );
+
+    // New routes for APPLICANT_1
+    app.get(
+      [APPLICANT_1, `${APPLICANT_1}${ENTER_YOUR_ACCESS_CODE}`],
+      errorHandler(new Applicant1AccessCodeGetController().get)
+    );
+    app.post(
+      [APPLICANT_1, `${APPLICANT_1}${ENTER_YOUR_ACCESS_CODE}`],
+      errorHandler(new AccessCodePostController(applicant1AccessCodeContent.form.fields).post)
     );
 
     app.get(NO_RESPONSE_YET, errorHandler(new NoResponseYetApplicationGetController().get));
@@ -160,7 +183,7 @@ export class Routes {
       !getUserSequence(req).some(r => req.path.includes(r.url)) ||
       shouldHideRouteFromUser(req)
     ) {
-      return res.redirect('/error');
+      return shouldRedirectRouteToHub(req) ? res.redirect(HUB_PAGE) : res.redirect('/error');
     }
     next();
   }

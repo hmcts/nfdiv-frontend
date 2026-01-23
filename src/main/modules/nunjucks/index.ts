@@ -12,8 +12,7 @@ export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend', 'dist');
-    const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
-    const env = nunjucks.configure([path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, hmctsFrontendPath], {
+    const env = nunjucks.configure([path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath], {
       autoescape: true,
       watch: app.locals.developmentMode,
       express: app,
@@ -53,37 +52,41 @@ export class Nunjucks {
           html: this.env.globals.getContent.call(this, i.hint),
         },
         conditional: (() => {
+          let output = '';
+
           if (i.warning) {
-            return {
-              html: env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
-                message: this.env.globals.getContent.call(this, i.warning),
-                warning: this.ctx.warning,
-              }),
-            };
-          } else if (i.subFields) {
-            return {
-              html:
-                env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
-                  ...this.ctx,
-                  form: { fields: i.subFields },
-                }) + (i.conditionalText ? this.env.globals.getContent.call(this, i.conditionalText) : ''),
-            };
-          } else if (i.conditionalText) {
-            return {
-              html: this.env.globals.getContent.call(this, i.conditionalText),
-            };
-          } else {
-            return undefined;
+            output += env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
+              message: this.env.globals.getContent.call(this, i.warning),
+              warning: this.ctx.warning,
+            });
           }
+
+          if (i.subFields) {
+            output += env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
+              ...this.ctx,
+              form: { fields: i.subFields },
+            });
+          }
+
+          if (i.conditionalText) {
+            output += this.env.globals.getContent.call(this, i.conditionalText);
+          }
+
+          return output.length > 0 ? { html: output } : undefined;
         })(),
       }));
     });
 
     const globals = {
+      nonce: config.get('nonce'),
       webchat: {
         avayaUrl: config.get('webchat.avayaUrl'),
         avayaClientUrl: config.get('webchat.avayaClientUrl'),
         avayaService: config.get('webchat.avayaService'),
+        genesysBaseUrl: config.get('webchat.genesysBaseUrl'),
+        genesysEnvironment: config.get('webchat.genesysEnvironment'),
+        genesysKervBaseUrl: config.get('webchat.genesysKervBaseUrl'),
+        genesysApiKey: config.get('webchat.genesysApiKey'),
       },
       dynatrace: {
         dynatraceUrl: config.get('dynatrace.dynatraceUrl'),
@@ -91,6 +94,13 @@ export class Nunjucks {
     };
 
     env.addGlobal('globals', globals);
+
+    app.use(async (req, res, next) => {
+      env.addGlobal('featureFlags', await res.locals.launchDarkly.getFlags());
+      next();
+    });
+
+    env.addGlobal('govukRebrand', true);
 
     env.addFilter('json', function (value, spaces) {
       if (value instanceof nunjucks.runtime.SafeString) {
@@ -104,7 +114,9 @@ export class Nunjucks {
       res.locals.host = req.headers['x-forwarded-host'] || req.hostname;
       res.locals.pagePath = req.path;
       res.locals.serviceType =
-        res.locals.host.includes('civil') || 'forceCivilMode' in req.query
+        res.locals.host.includes('civil') ||
+        'forceCivilMode' in req.query ||
+        (process.env.NODE_ENV !== 'production' && config.get('forceCivilMode').toString().toLowerCase() === 'true')
           ? DivorceOrDissolution.DISSOLUTION
           : DivorceOrDissolution.DIVORCE;
       next();

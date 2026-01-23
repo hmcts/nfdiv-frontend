@@ -9,10 +9,15 @@ import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
 
-const en = (
-  { userCase, partner, isJointApplication, webChat, openingTimes, telephoneNumber }: CommonContent,
-  feedbackLink: string
-) => ({
+const en = ({
+  userCase,
+  partner,
+  isJointApplication,
+  webChat,
+  openingTimes,
+  telephoneNumber,
+  feedbackLink,
+}: CommonContent) => ({
   title: 'Application represented',
   appRepresentedText: `${
     userCase.applicant2SolicitorRepresented
@@ -52,10 +57,15 @@ const en = (
   },
 });
 
-const cy: typeof en = (
-  { userCase, partner, isJointApplication, webChat, telephoneNumber, openingTimes }: CommonContent,
-  feedbackLink: string
-) => ({
+const cy: typeof en = ({
+  userCase,
+  partner,
+  isJointApplication,
+  webChat,
+  telephoneNumber,
+  openingTimes,
+  feedbackLink,
+}: CommonContent) => ({
   title: 'Cyflwynwyd y cais',
   appRepresentedText: `${
     userCase.applicant1SolicitorRepresented
@@ -87,7 +97,7 @@ const cy: typeof en = (
     link: config.get('govukUrls.domesticAbuse'),
   },
   feedback: "Helpwch ni i wella'r gwasanaeth hwn",
-  feedbackLine1: 'Complete this short, 5-minute survey to help improve our services for you and others.',
+  feedbackLine1: 'Cwblhewch yr arolwg 5 munud hwn i helpu i wella ein gwasanaethau i chi ac eraill.',
   feedbackLine2: {
     part1: 'Mae hwn yn wasanaeth newydd.',
     link: feedbackLink,
@@ -100,7 +110,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, language, isJointApplication, isDivorce, isApplicant2 } = content;
+  const { userCase, language, isJointApplication, isDivorce } = content;
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
@@ -120,11 +130,9 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
-  const feedbackLink = `${config.get('govukUrls.feedbackExitSurvey')}/?service=${
-    isDivorce ? 'Divorce' : 'Civil'
-  }&party=${isJointApplication ? (isApplicant2 ? 'jointapp2' : 'jointapp1') : 'app'}`;
+
   return {
-    ...languages[language]({ ...content, referenceNumber }, feedbackLink),
+    ...languages[language]({ ...content, referenceNumber }),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,

@@ -1,0 +1,16 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+    <h1 class="govuk-heading-l" id="provideNewEmailAddressTitle">{{ title }}</h1>
+    <div class="govuk-inset-text">
+        <p class="govuk-body"> {{ providePersonalEmail }}</p>
+    </div>
+{% endblock %}
+
+{% block form %}
+    {% include "./form.njk" %}
+{% endblock %}

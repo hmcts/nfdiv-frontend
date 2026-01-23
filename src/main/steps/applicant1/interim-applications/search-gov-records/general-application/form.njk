@@ -1,0 +1,18 @@
+{% extends "common/form/form.njk"%}
+
+{% block after_form %}
+  <p class="govuk-body">{{ alsoTry.header }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ alsoTry.options.differentWay | safe }}</li>
+    {% if not noRespondentAddress %}
+      <li>{{ alsoTry.options.deemedService | safe }}</li>
+    {% endif %}
+    {% if not isApp2Confidential and not isApp2Represented %}
+      <li>{{ alsoTry.options.updateDetails | safe }}</li>
+    {% endif %}
+    {% if not noRespondentAddress %}
+      <li>{{ alsoTry.options.applyProcessServerOrBailiff | safe }}</li>
+    {% endif %}
+    <li>{{ alsoTry.options.dispenseService | safe }}</li>
+</ul>
+{% endblock %}

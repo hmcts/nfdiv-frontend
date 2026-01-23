@@ -25,6 +25,12 @@
       <button class="hmcts-button-link" type="submit" name="saveAndSignOut" value="true" data-prevent-double-click="true" data-module="govuk-button" />
         {{ saveAndSignOut }}
       </button>
+
+      {% block withdrawLink %}
+        {% if not isApplicant2 %}
+          {% include "common/withdraw/withdraw-link.njk" %}
+        {% endif %}
+      {% endblock %}
     </p>
   </div>
 </form>

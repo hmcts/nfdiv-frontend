@@ -1,4 +1,4 @@
-import { CaseWithId } from '../../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import { State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { StateSequence } from '../../../state-sequence';
@@ -10,18 +10,21 @@ export const getJointHubTemplate = (
     hasApplicantAppliedForConditionalOrder = false,
     isWithinSwitchToSoleFoIntentionNotificationPeriod = false,
     hasSwitchToSoleFoIntentionNotificationPeriodExpired = false,
+    isApplicantAbleToRespondToRequestForInformation = false,
   } = {}
 ): string | undefined => {
   switch (displayState.state()) {
     case State.FinalOrderRequested:
     case State.AwaitingGeneralConsideration:
+    case State.FinalOrderPending:
     case State.GeneralConsiderationComplete: {
       return HubTemplate.FinalOrderRequested;
     }
     case State.AwaitingPronouncement: {
       return HubTemplate.AwaitingPronouncement;
     }
-    case State.Holding: {
+    case State.Holding:
+    case State.Submitted: {
       return HubTemplate.Holding;
     }
     case State.ConditionalOrderPronounced: {
@@ -61,6 +64,31 @@ export const getJointHubTemplate = (
     case State.PendingHearingDate: {
       return HubTemplate.PendingHearingOutcome;
     }
+    case State.InformationRequested: {
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.InformationRequested
+        : HubTemplate.InformationRequestedFromPartnerOrOther;
+    }
+    case State.AwaitingRequestedInformation: {
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.AwaitingRequestedInformation
+        : HubTemplate.InformationRequestedFromPartnerOrOther;
+    }
+    case State.RequestedInformationSubmitted: {
+      return isApplicantAbleToRespondToRequestForInformation
+        ? HubTemplate.RespondedToInformationRequest
+        : HubTemplate.InformationRequestedFromPartnerOrOther;
+    }
+    case State.AwaitingHWFPartPayment:
+      return HubTemplate.AwaitingHWFPartPayment;
+    case State.AwaitingDocuments:
+      return HubTemplate.AwaitingDocuments;
+    case State.AwaitingHWFDecision:
+    case State.AwaitingHWFEvidence:
+      return userCase.applicant1CannotUpload === Checkbox.Checked ? HubTemplate.AwaitingDocuments : HubTemplate.Holding;
+    case State.WelshTranslationRequested:
+    case State.WelshTranslationReview:
+      return HubTemplate.WelshTranslationRequestedOrReview;
     default: {
       if (
         displayState.isAfter('Holding') &&

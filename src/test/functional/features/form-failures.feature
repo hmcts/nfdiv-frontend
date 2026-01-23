@@ -134,7 +134,7 @@ Feature: Form failures
 
     Given I go to "/where-your-lives-are-based"
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then the page should include 'Select "Yes" if your life is mainly based in England or Wales.'
 
     Given I go to "/enter-your-name"
     And I clear the form
@@ -149,10 +149,10 @@ Feature: Form failures
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
 
-    Given I go to "/confirm-your-name"
+    Given I go to "/check-your-name"
     And I clear the form
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then the page should include "You need to answer if any part of your full name is written differently on your marriage certificate."
 
     Given I go to "/enter-their-name"
     And I clear the form
@@ -167,29 +167,22 @@ Feature: Form failures
     And I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter their name using letters only."
 
-    Given I go to "/confirm-their-name"
+    Given I go to "/check-their-name"
     And I clear the form
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then the page should include "You need to answer if any part of your husband's full name is written differently on your marriage certificate."
 
-    Given I go to "/your-names-on-certificate"
+    Given I go to "/your-name-on-certificate"
     When I click "Continue"
     Then the page should include "You have not entered anything. Enter your full name as it appears on your marriage certificate."
-    And the page should include "You have not entered anything. Enter their full name as it appears on your marriage certificate."
     Given I select "Copy your full name from the marriage certificate"
-    And I type "Firstname Lastname1"
-    And I select "Copy your husband's full name from the marriage certificate"
-    And I type "Husbands name1"
-    And I click "Continue"
-    Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
 
     Given I go to "/changes-to-your-name"
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "Yes"
-    Given I select "Another way"
+    Then the page should include "You need to select a reason for why your legal name is different from your marriage certificate."
+    Given I select "Other"
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to say how you changed your name so the court knows which document to check."
+    Then the page should include "You need to provide details of why your name is written differently on the marriage certificate."
 
     Given I go to "/how-the-court-will-contact-you"
     And I click "Continue"
@@ -295,7 +288,7 @@ Feature: Form failures
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     And I pay and submit the application
-    Then the page should include "Application submitted"
+    Then the page should include "Application saved"
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
@@ -346,6 +339,10 @@ Feature: Form failures
     Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
     And I go to "/respondent/legal-jurisdiction-of-the-courts"
     When I click "Continue"
+    Then the page should include "Do you intend to ask the court to delay"
+
+    Given I select "No"
+    And I click "Continue"
     Then the page should include "Other court cases relating to this marriage"
 
     Given I go to "/respondent/how-the-court-will-contact-you"
@@ -357,7 +354,7 @@ Feature: Form failures
     Then the page should include "You have not confirmed that you are the respondent and that you believe the facts in the application are true. You need to confirm before continuing."
 
     Given I go to "/respondent/finalising-your-application"
-    When I click "Submit"
+    When I click "Continue"
     Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
     Then the page should include "You need to explain why you are applying for the final order before continuing."
 
@@ -389,7 +386,7 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You need to enter your Help With Fees reference number before continuing. You received this when you applied."
 
-    Given I go to "/applicant2/enter-your-names"
+    Given I go to "/applicant2/enter-your-name"
     And I clear the form
     When I click "Continue"
     Then the page should include "You have not entered your first name. Enter it before continuing."
@@ -401,19 +398,13 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
 
-    Given I go to "/applicant2/confirm-your-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
     Given I go to "/applicant2/changes-to-your-name"
     And I clear the form
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "Yes"
-    Given I select "Another way"
+    Then the page should include "You need to select a reason for why your legal name is different from your marriage certificate."
+    Given I select "Other"
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to say how you changed your name so the court knows which document to check."
+    Then the page should include "You need to provide details of why your name is written differently on the marriage certificate."
 
     Given I go to "/applicant2/how-the-court-will-contact-you"
     And I clear the form

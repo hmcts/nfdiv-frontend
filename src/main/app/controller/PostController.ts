@@ -2,12 +2,19 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { PAYMENT_CALLBACK_URL, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE } from '../case/definition';
+import {
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_SAVE_AND_CLOSE,
+  CITIZEN_SUBMIT,
+  CITIZEN_UPDATE,
+  State,
+} from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
+import { getPaymentCallbackUrl } from './BasePaymentPostController';
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -44,7 +51,14 @@ export class PostController<T extends AnyObject> {
     } catch {
       // ignore
     }
-    res.redirect(SAVE_AND_SIGN_OUT);
+    if (
+      req.session.userCase.state === State.InformationRequested ||
+      req.session.userCase.applicant1InterimApplicationType
+    ) {
+      res.redirect(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
+    } else {
+      res.redirect(SAVE_AND_SIGN_OUT);
+    }
   }
 
   protected getNextUrl(req: AppRequest): string {
@@ -75,6 +89,8 @@ export class PostController<T extends AnyObject> {
 
     if (req.session.errors.length === 0) {
       try {
+        this.setPaymentCallbackUrlIfPaymentRequired(req, res, formData);
+
         req.session.userCase = await this.save(req, formData, this.getEventName(req));
       } catch (err) {
         req.locals.logger.error('Error saving', err);
@@ -94,6 +110,12 @@ export class PostController<T extends AnyObject> {
       return CITIZEN_APPLICANT2_UPDATE;
     } else {
       return CITIZEN_UPDATE;
+    }
+  }
+
+  private setPaymentCallbackUrlIfPaymentRequired(req: AppRequest<T>, res: Response, formData: Partial<Case>) {
+    if (this.getEventName(req) === CITIZEN_SUBMIT) {
+      formData.citizenPaymentCallbackUrl = getPaymentCallbackUrl(req, res, PAYMENT_CALLBACK_URL);
     }
   }
 }

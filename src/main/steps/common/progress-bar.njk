@@ -1,0 +1,72 @@
+{% from "./hmcts-progress-bar/macro.njk" import hmctsProgressBar %}
+
+{% macro textWithVisuallyHiddenSpan(text, isComplete) %}
+  {{text}} <span class="govuk-visually-hidden">{{'' if isComplete else 'not '}}completed</span>
+{% endmacro %}
+
+{% if isJointApplication %}
+  {% set items = [{
+    label: {
+      html: textWithVisuallyHiddenSpan(submitted, displayState.isAtOrAfter('Submitted'))
+    },
+    complete: displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'),
+    active: displayState.at('AwaitingDocuments') and not (displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'))
+  }, {
+    label: {
+    html: textWithVisuallyHiddenSpan(courtChecks, displayState.isAfter('Submitted'))
+  },
+    complete: displayState.isAtOrAfter('Holding'),
+    active: displayState.isBefore('Holding')
+    }, {
+    label: {
+      html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
+    },
+    complete: displayState.isAtOrAfter('ConditionalOrderPronounced') or isGeneralConsiderationCoPronounced or isGeneralConsiderationFoRequested,
+    active: (displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced')) or isGeneralConsiderationCoPronounced
+  }, {
+    label: {
+      html: textWithVisuallyHiddenSpan(finalOrder, displayState.state() == 'FinalOrderComplete')
+    },
+    complete: displayState.state() == 'FinalOrderComplete',
+    active: (displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete')) or isGeneralConsiderationFoRequested
+  }] %}
+{% else %}
+  {% set items = [{
+    label: {
+      html: textWithVisuallyHiddenSpan(submitted, displayState.isAtOrAfter('Submitted'))
+    },
+    complete: displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'),
+    active: displayState.at('AwaitingDocuments') and not (displayState.isAtOrAfter('Submitted') or displayState.at('AwaitingHWFDecision'))
+  },  {
+    label: {
+      html: textWithVisuallyHiddenSpan(courtChecks, displayState.isBefore('Submitted'))
+    },
+    complete: caseHasBeenIssued or displayState.isAtOrAfter('AwaitingAos'),
+    active: displayState.isBefore('AwaitingAos')
+  }, {
+    label: {
+      html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))
+    },
+    complete: displayState.isAfter('IssuedToBailiff') or isPendingHearingOutcomeCoPronounced or isPendingHearingOutcomeFoRequested,
+    active: caseHasBeenIssued or (displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding') and (not isGeneralConsiderationCoPronounced and not isGeneralConsiderationFoRequested and not isPendingHearingOutcomeCoPronounced and not isPendingHearingOutcomeFoRequested))
+  }, {
+    label: {
+      html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
+    },
+    complete: displayState.isAtOrAfter('ConditionalOrderPronounced') or isGeneralConsiderationCoPronounced or isGeneralConsiderationFoRequested or isPendingHearingOutcomeCoPronounced or isPendingHearingOutcomeFoRequested,
+    active: (displayState.isAtOrAfter('AwaitingConditionalOrder') and displayState.isBefore('ConditionalOrderPronounced')) or isGeneralConsiderationCoPronounced or isPendingHearingOutcomeCoPronounced
+  }, {
+    label: {
+      html: textWithVisuallyHiddenSpan(finalOrder, displayState.isAtOrAfter('FinalOrderPending'))
+    },
+    complete: displayState.state() == 'FinalOrderComplete',
+    active: (displayState.isAtOrAfter('AwaitingFinalOrder') and displayState.isBefore('FinalOrderComplete')) or isGeneralConsiderationFoRequested or isPendingHearingOutcomeFoRequested
+  }] %}
+{% endif %}
+
+<div class='hub-progress-bar-container' aria-label='{{ progressBarAriaLabel }}'>
+  {{ hmctsProgressBar({
+    classes: 'hub-progress-bar',
+    items: items
+  }) }}
+</div>

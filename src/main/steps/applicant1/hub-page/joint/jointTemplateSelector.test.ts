@@ -1,6 +1,8 @@
+import { Checkbox } from '../../../../app/case/case';
 import { DivorceOrDissolution, State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { currentStateFn } from '../../../state-sequence';
+import { getSoleHubTemplate } from '../sole/soleTemplateSelector';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -21,6 +23,12 @@ describe('JointTemplateSelector test', () => {
 
   test('should show /holding.njk for state Holding', () => {
     const theState = displayState.at(State.Holding);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.Holding);
+  });
+
+  test('should show /holding.njk for state Submitted', () => {
+    const theState = displayState.at(State.Submitted);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.Holding);
   });
@@ -155,5 +163,93 @@ describe('JointTemplateSelector test', () => {
     const theState = displayState.at(State.PendingHearingDate);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
+
+  test('should show /information-requested.njk for state InformationRequested if request party matches applicant', () => {
+    const theState = displayState.at(State.InformationRequested);
+    const jointTemplate = getJointHubTemplate(theState, userCase, {
+      isApplicantAbleToRespondToRequestForInformation: true,
+    });
+    expect(jointTemplate).toBe(HubTemplate.InformationRequested);
+  });
+
+  test('should show /awaiting-requested-information.njk for state AwaitingRequestedInformation if request party matches applicant', () => {
+    const theState = displayState.at(State.AwaitingRequestedInformation);
+    const jointTemplate = getJointHubTemplate(theState, userCase, {
+      isApplicantAbleToRespondToRequestForInformation: true,
+    });
+    expect(jointTemplate).toBe(HubTemplate.AwaitingRequestedInformation);
+  });
+
+  test('should show /requested-information-submitted.njk for state RequestedInformationSubmitted if request party matches applicant', () => {
+    const theState = displayState.at(State.RequestedInformationSubmitted);
+    const jointTemplate = getJointHubTemplate(theState, userCase, {
+      isApplicantAbleToRespondToRequestForInformation: true,
+    });
+    expect(jointTemplate).toBe(HubTemplate.RespondedToInformationRequest);
+  });
+
+  test('should show /information-requested-from-partner-or-other.njk for state InformationRequested if request party does not match applicant', () => {
+    const theState = displayState.at(State.InformationRequested);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
+  });
+
+  test('should show /information-requested-from-partner-or-other.njk for state AwaitingRequestedInformation if request party does not match applicant', () => {
+    const theState = displayState.at(State.AwaitingRequestedInformation);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
+  });
+
+  test('should show /information-requested-from-partner-or-other.njk for state RequestedInformationSubmitted if request party does not match applicant', () => {
+    const theState = displayState.at(State.RequestedInformationSubmitted);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.InformationRequestedFromPartnerOrOther);
+  });
+
+  test('should show /awaiting-documents.njk for state AwaitingDocuments', () => {
+    const theState = displayState.at(State.AwaitingDocuments);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingDocuments);
+  });
+
+  test('should show /awaiting-hwf-part-payment.njk for state AwaitingHWFPartPayment', () => {
+    const theState = displayState.at(State.AwaitingHWFPartPayment);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingHWFPartPayment);
+  });
+
+  test('should show /awaiting-documents.njk for state AwaitingHWFDecision and reason is "cannot upload documents"', () => {
+    const userCaseWithApplicant1CannotUploadDocuments = {
+      ...userCase,
+      applicant1CannotUpload: Checkbox.Checked,
+    };
+    const theState = displayState.at(State.AwaitingHWFDecision);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments, false, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
+  });
+
+  test('should show /holding.njk for state AwaitingHWFDecision', () => {
+    const theState = displayState.at(State.AwaitingHWFDecision);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.Holding);
+  });
+
+  test('should show /holding.njk for state AwaitingHWFEvidence', () => {
+    const theState = displayState.at(State.AwaitingHWFEvidence);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.Holding);
+  });
+
+  test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationReview', () => {
+    const theState = displayState.at(State.WelshTranslationReview);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
+  });
+
+  test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationRequested', () => {
+    const theState = displayState.at(State.WelshTranslationRequested);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
 });

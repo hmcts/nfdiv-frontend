@@ -6,7 +6,12 @@ import { currentStateFn } from '../../state-sequence';
 import { getRespondentHubTemplate } from './respondentTemplateSelector';
 
 describe('RespondentTemplateSelector test', () => {
-  const userCase = {
+  const userCase: {
+    id: string;
+    state: State;
+    divorceOrDissolution: DivorceOrDissolution;
+    coApplicant1SubmittedDate?: string;
+  } = {
     id: '123',
     state: State.Draft,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -21,6 +26,12 @@ describe('RespondentTemplateSelector test', () => {
 
   test('should show /final-order-requested.njk for state RespondentFinalOrderRequested', () => {
     const theState = displayState.at(State.RespondentFinalOrderRequested);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.FinalOrderRequested);
+  });
+
+  test('should show /final-order-requested.njk for state FinalOrderPending', () => {
+    const theState = displayState.at(State.FinalOrderPending);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
@@ -52,6 +63,18 @@ describe('RespondentTemplateSelector test', () => {
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingAmendedApplication', () => {
     const theState = displayState.at(State.AwaitingAmendedApplication);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
+  });
+
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingAdminClarification', () => {
+    const theState = displayState.at(State.AwaitingAdminClarification);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
+  });
+
+  test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingClarification', () => {
+    const theState = displayState.at(State.AwaitingClarification);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
   });
@@ -108,6 +131,28 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe(HubTemplate.Holding);
   });
 
+  test('should show /awaiting-aos.njk for state AwaitingJudgeClarification and aos has not been submitted', () => {
+    const theState = displayState.at(State.AwaitingJudgeClarification);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.AwaitingAoS);
+  });
+
+  test('should show /holding.njk for state AwaitingJudgeClarification and conditional order has been submitted', () => {
+    const theState = displayState.at(State.AwaitingJudgeClarification);
+    const respondentTemplate = getRespondentHubTemplate(
+      theState,
+      { ...userCase, coApplicant1SubmittedDate: '2023-01-01' },
+      false
+    );
+    expect(respondentTemplate).toBe(HubTemplate.Holding);
+  });
+
+  test('should show /holding.njk for state AwaitingJudgeClarification and aos has been submitted', () => {
+    const theState = displayState.at(State.AwaitingJudgeClarification);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, true);
+    expect(respondentTemplate).toBe(HubTemplate.Holding);
+  });
+
   test('should show /awaiting-aos.njk for states at or before AwaitingConditionalOrder and not hasSubmittedAos', () => {
     const theState = displayState.at(State.AwaitingConditionalOrder);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
@@ -124,5 +169,17 @@ describe('RespondentTemplateSelector test', () => {
     const theState = displayState.at(State.PendingHearingDate);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe(HubTemplate.PendingHearingOutcome);
+  });
+
+  test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationReview', () => {
+    const theState = displayState.at(State.WelshTranslationReview);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
+  });
+
+  test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationRequested', () => {
+    const theState = displayState.at(State.WelshTranslationRequested);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
 });

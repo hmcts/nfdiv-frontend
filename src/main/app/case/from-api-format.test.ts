@@ -22,6 +22,7 @@ describe('from-api-format', () => {
     applicant1HWFReferenceNumber: 'HWF-ABC-123',
     applicant1AgreedToReceiveEmails: YesOrNo.YES,
     applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
+    applicant1InRefuge: YesOrNo.NO,
     applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
     applicant1WantsToHavePapersServedAnotherWay: undefined,
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
@@ -44,6 +45,12 @@ describe('from-api-format', () => {
     coClarificationResponses: [{ id: '1', value: 'test' }],
     coCannotUploadClarificationDocuments: YesOrNo.YES,
     coIsAdminClarificationSubmitted: YesOrNo.YES,
+    app1RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
+    app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
+    applicant1InterimAppsIUnderstand: YesOrNo.YES,
+    applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
+    applicant1InterimAppsStatementOfTruth: YesOrNo.YES,
+    applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo.YES,
   };
 
   const resultsWithSecondaryValues: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
@@ -68,6 +75,7 @@ describe('from-api-format', () => {
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
+      applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
@@ -90,6 +98,12 @@ describe('from-api-format', () => {
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       coIsAdminClarificationSubmitted: YesOrNo.YES,
+      app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      applicant1InterimAppsIUnderstand: Checkbox.Checked,
+      applicant1InterimAppsCannotUploadDocs: Checkbox.Unchecked,
+      applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
+      applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
     });
   });
 
@@ -112,6 +126,14 @@ describe('from-api-format', () => {
     const nfdivFormat = fromApiFormat({
       ...results,
       marriageDate: '2000-09-02',
+      applicant1BailiffPartnersDateOfBirth: '1980-01-01',
+      applicant1AddressOverseas: null,
+      applicant1NoResponsePartnerAddressOverseas: null,
+      applicant1SearchGovRecordsPartnerDateOfBirth: '1980-01-01',
+      applicant1AltServicePartnerEmail: 'test@test.com',
+      applicant1DispenseLivedTogetherDate: '2000-01-01',
+      applicant1DispenseLivedTogetherAddressOverseas: null,
+      applicant1DispensePartnerLastSeenDate: '2000-01-01',
     } as unknown as CaseData);
 
     expect(nfdivFormat).toStrictEqual({
@@ -134,6 +156,7 @@ describe('from-api-format', () => {
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
+      applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
@@ -149,6 +172,37 @@ describe('from-api-format', () => {
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       coIsAdminClarificationSubmitted: YesOrNo.YES,
+      app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      applicant1BailiffPartnersDateOfBirth: {
+        day: '1',
+        month: '1',
+        year: '1980',
+      },
+      applicant1AddressOverseas: YesOrNo.NO,
+      applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+      applicant1SearchGovRecordsPartnerDateOfBirth: {
+        day: '1',
+        month: '1',
+        year: '1980',
+      },
+      applicant1AltServicePartnerEmail: 'test@test.com',
+      applicant1AltServicePartnerEmailWhenDifferent: 'test@test.com',
+      applicant1DispenseLastLivedTogetherDate: {
+        day: '1',
+        month: '1',
+        year: '2000',
+      },
+      applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
+      applicant1DispensePartnerLastSeenOrHeardOfDate: {
+        day: '1',
+        month: '1',
+        year: '2000',
+      },
+      applicant1InterimAppsCannotUploadDocs: Checkbox.Unchecked,
+      applicant1InterimAppsIUnderstand: Checkbox.Checked,
+      applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
+      applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
     });
   });
 
@@ -174,6 +228,7 @@ describe('from-api-format', () => {
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
+      applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
@@ -189,6 +244,12 @@ describe('from-api-format', () => {
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       coIsAdminClarificationSubmitted: YesOrNo.YES,
+      app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      applicant1InterimAppsCannotUploadDocs: Checkbox.Unchecked,
+      applicant1InterimAppsIUnderstand: Checkbox.Checked,
+      applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
+      applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
     });
   });
 
@@ -214,6 +275,7 @@ describe('from-api-format', () => {
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       applicant1AgreeToReceiveEmails: Checkbox.Checked,
       applicant1AddressPrivate: YesOrNo.YES,
+      applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
@@ -229,6 +291,12 @@ describe('from-api-format', () => {
       coCannotUploadClarificationDocuments: Checkbox.Checked,
       coClarificationResponses: 'test',
       coIsAdminClarificationSubmitted: YesOrNo.YES,
+      app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
+      applicant1InterimAppsCannotUploadDocs: Checkbox.Unchecked,
+      applicant1InterimAppsIUnderstand: Checkbox.Checked,
+      applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
+      applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
     });
   });
 
@@ -286,6 +354,73 @@ describe('from-api-format', () => {
         applicant2AddressCounty: 'County',
         applicant2AddressPostcode: 'Postcode',
         applicant2AddressOverseas: YesOrNo.NO,
+      });
+    });
+
+    test('converts to UK format for applicant1NoResponsePartner', () => {
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        applicant1NoResponsePartnerAddress: {
+          AddressLine1: 'Line 1',
+          AddressLine2: 'Line 2',
+          PostTown: 'Town',
+          County: 'County',
+          PostCode: 'Postcode',
+        },
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant1NoResponsePartnerAddress1: 'Line 1',
+        applicant1NoResponsePartnerAddress2: 'Line 2',
+        applicant1NoResponsePartnerAddressTown: 'Town',
+        applicant1NoResponsePartnerAddressCounty: 'County',
+        applicant1NoResponsePartnerAddressPostcode: 'Postcode',
+        applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+      });
+    });
+
+    test('converts to UK format for applicant1DispenseLivedTogether', () => {
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        applicant1DispenseLivedTogetherAddress: {
+          AddressLine1: 'Line 1',
+          AddressLine2: 'Line 2',
+          PostTown: 'Town',
+          County: 'County',
+          PostCode: 'Postcode',
+        },
+        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant1DispenseLivedTogetherAddress1: 'Line 1',
+        applicant1DispenseLivedTogetherAddress2: 'Line 2',
+        applicant1DispenseLivedTogetherAddressTown: 'Town',
+        applicant1DispenseLivedTogetherAddressCounty: 'County',
+        applicant1DispenseLivedTogetherAddressPostcode: 'Postcode',
+        applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
+      });
+    });
+
+    test('converts to UK format for applicant1SearchGovRecordsPartnerLastKnownAddress', () => {
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        applicant1SearchGovRecordsPartnerLastKnownAddress: {
+          AddressLine1: 'Line 1',
+          AddressLine2: 'Line 2',
+          PostTown: 'Town',
+          County: 'County',
+          PostCode: 'Postcode',
+        },
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant1SearchGovRecordsPartnerLastKnownAddress1: 'Line 1',
+        applicant1SearchGovRecordsPartnerLastKnownAddress2: 'Line 2',
+        applicant1SearchGovRecordsPartnerLastKnownAddressTown: 'Town',
+        applicant1SearchGovRecordsPartnerLastKnownAddressCounty: 'County',
+        applicant1SearchGovRecordsPartnerLastKnownAddressPostcode: 'Postcode',
       });
     });
 
@@ -372,5 +507,105 @@ describe('from-api-format', () => {
     },
   ])('sets correct solicitors address fields by splitting the answer', ({ expected, ...formData }) => {
     expect(fromApiFormat(formData as unknown as CaseData)).toMatchObject(expected);
+  });
+  describe('fromApiFormat - applicant2InRefuge transformation', () => {
+    test('defaults applicant2InRefuge to NO if undefined', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant2InRefuge: undefined, // Simulate missing value
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant2InRefuge: YesOrNo.NO,
+      });
+    });
+
+    test('retains applicant2InRefuge value if set to YES', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant2InRefuge: YesOrNo.YES, // Explicit value set
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant2InRefuge: YesOrNo.YES,
+      });
+    });
+
+    test('retains applicant2InRefuge value if set to NO', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant2InRefuge: YesOrNo.NO, // Explicit value set
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant2InRefuge: YesOrNo.NO,
+      });
+    });
+
+    test.each([
+      { applicant2InRefuge: undefined, expected: YesOrNo.NO },
+      { applicant2InRefuge: YesOrNo.YES, expected: YesOrNo.YES },
+      { applicant2InRefuge: YesOrNo.NO, expected: YesOrNo.NO },
+    ])('correctly handles applicant2InRefuge with value %p', ({ applicant2InRefuge, expected }) => {
+      const nfdivFormat = fromApiFormat({ applicant2InRefuge } as unknown as CaseData);
+      expect(nfdivFormat).toMatchObject({ applicant2InRefuge: expected });
+    });
+
+    test('handles null applicant2InRefuge gracefully', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant2InRefuge: null, // Explicit null value
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant2InRefuge: YesOrNo.NO, // Defaults to NO
+      });
+    });
+  });
+  describe('fromApiFormat - applicant1InRefuge transformation', () => {
+    test('defaults applicant1InRefuge to NO if undefined', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant1InRefuge: undefined, // Simulate missing value
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant1InRefuge: YesOrNo.NO,
+      });
+    });
+
+    test('retains applicant1InRefuge value if set to YES', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant1InRefuge: YesOrNo.YES, // Explicit value set
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant1InRefuge: YesOrNo.YES,
+      });
+    });
+
+    test('retains applicant1InRefuge value if set to NO', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant1InRefuge: YesOrNo.NO, // Explicit value set
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant1InRefuge: YesOrNo.NO,
+      });
+    });
+
+    test.each([
+      { applicant1InRefuge: undefined, expected: YesOrNo.NO },
+      { applicant1InRefuge: YesOrNo.YES, expected: YesOrNo.YES },
+      { applicant1InRefuge: YesOrNo.NO, expected: YesOrNo.NO },
+    ])('correctly handles applicant1InRefuge with value %p', ({ applicant1InRefuge, expected }) => {
+      const nfdivFormat = fromApiFormat({ applicant1InRefuge } as unknown as CaseData);
+      expect(nfdivFormat).toMatchObject({ applicant1InRefuge: expected });
+    });
+
+    test('handles null applicant1InRefuge gracefully', () => {
+      const nfdivFormat = fromApiFormat({
+        applicant1InRefuge: null, // Explicit null value
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant1InRefuge: YesOrNo.NO, // Defaults to NO
+      });
+    });
   });
 });

@@ -17,6 +17,7 @@ import { FeesRegister } from './modules/fees-register';
 import { HealthCheck } from './modules/health';
 import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
+import { LaunchDarkly } from './modules/launch-darkly';
 import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
 import { PropertiesVolume } from './modules/properties-volume';
@@ -33,46 +34,66 @@ const app = express();
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
-  next();
-});
 
-new AxiosLogger().enableFor(app);
-new PropertiesVolume().enableFor(app);
-new ErrorHandler().enableFor(app, logger);
-new LoadTimeouts().enableFor(app);
-new Nunjucks().enableFor(app);
-new WebpackDev().enableFor(app);
-new Helmet().enableFor(app);
-new AppInsights().enable();
-new SessionStorage().enableFor(app, logger);
-new TooBusy().enableFor(app);
-new HealthCheck().enableFor(app);
+function setCachingPolicy(res, file) {
+  if (path.extname(file).match(/\.(woff2?|ttf|otf|eot|svg|png)$/i)) {
+    res.setHeader('Cache-Control', 'max-age=604800'); // Cache for 1 week
+  } else {
+    res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+  }
+}
 
-// Declare use of body-parser AFTER the use of proxy https://github.com/villadora/express-http-proxy
-new DocumentDownloadMiddleware().enableFor(app);
-app.use(bodyParser.json() as RequestHandler);
-app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
+app.use(
+  express.static(path.join(__dirname, 'public'), {
+    setHeaders: setCachingPolicy,
+  })
+);
 
-new CSRFToken().enableFor(app);
-new LanguageToggle().enableFor(app);
-new AuthProvider().enable();
-new FeesRegister().enable();
+(async () => {
+  try {
+    new AxiosLogger().enableFor(app);
 
-new OidcMiddleware().enableFor(app);
-new StateRedirectMiddleware().enableFor(app);
-new Routes().enableFor(app);
-new ErrorHandler().handleNextErrorsFor(app);
+    const propertiesVolume = new PropertiesVolume();
+    await propertiesVolume.enableFor(app);
 
-const port = config.get('port');
-const server = app.listen(port, () => {
-  logger.info(`Application started: http://localhost:${port}`);
-});
+    await LaunchDarkly.getInstance().enableFor(app);
 
-process.on('SIGINT', function () {
-  server.close();
-  toobusy.shutdown();
-  process.exit();
-});
+    new ErrorHandler().enableFor(app, logger);
+    new LoadTimeouts().enableFor(app);
+    new Nunjucks().enableFor(app);
+    new WebpackDev().enableFor(app);
+    new Helmet().enableFor(app);
+    new AppInsights().enable();
+    new SessionStorage().enableFor(app, logger);
+    new TooBusy().enableFor(app);
+    new HealthCheck().enableFor(app);
+
+    new DocumentDownloadMiddleware().enableFor(app);
+    app.use(bodyParser.json() as RequestHandler);
+    app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
+
+    new CSRFToken().enableFor(app);
+    new LanguageToggle().enableFor(app);
+    new AuthProvider().enable();
+    new FeesRegister().enable();
+
+    new OidcMiddleware().enableFor(app);
+    new StateRedirectMiddleware().enableFor(app);
+    new Routes().enableFor(app);
+    new ErrorHandler().handleNextErrorsFor(app);
+
+    const port = config.get('port');
+    const server = app.listen(port, () => {
+      logger.info(`Application started: http://localhost:${port}`);
+    });
+
+    process.on('SIGINT', function () {
+      server.close();
+      toobusy.shutdown();
+      process.exit();
+    });
+  } catch (error) {
+    logger.error('Failed to initialize secrets:', error);
+    process.exit(1);
+  }
+})();

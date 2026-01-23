@@ -7,12 +7,14 @@ import { AppRequest } from '../app/controller/AppRequest';
 
 import { applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
+import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { respondentSequence } from './respondentSequence';
 import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
+  DEEMED_INTERRUPTION,
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
@@ -20,11 +22,13 @@ import {
   RELATIONSHIP_NOT_BROKEN_URL,
   RESPONDENT,
   REVIEW_THE_APPLICATION,
+  UPLOAD_EVIDENCE_DEEMED,
   UPLOAD_YOUR_DOCUMENTS,
   YOUR_DETAILS_URL,
 } from './urls';
 
 import {
+  getFirstErroredStep,
   getNextIncompleteStepUrl,
   getNextStepUrl,
   getUserSequence,
@@ -146,6 +150,7 @@ describe('Steps', () => {
         applicant2Explanation: YesOrNo.NO,
         applicant2IConfirmPrayer: Checkbox.Checked,
         applicant2StatementOfTruth: Checkbox.Checked,
+        applicant2InRefuge: YesOrNo.NO,
       };
 
       const actual = getNextIncompleteStepUrl(mockReq);
@@ -300,5 +305,61 @@ describe('Steps', () => {
         expect(result).toEqual(applicant1PostSubmissionSequence);
       }
     );
+  });
+
+  describe('getFirstErroredStep', () => {
+    let mockReq: AppRequest;
+    beforeEach(() => {
+      mockReq = mockRequest();
+
+      const completeDeemedServiceApplication = {
+        applicant1InterimAppsIUnderstand: Checkbox.Checked,
+        applicant1InterimAppsUseHelpWithFees: YesOrNo.NO,
+        applicant1InterimAppsCanUploadEvidence: YesOrNo.NO,
+        applicant1DeemedNoEvidenceStatement: 'No evidence statement',
+        applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
+      };
+
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.Holding,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        ...completeDeemedServiceApplication,
+      } as CaseWithId;
+    });
+
+    it('returns undefined if all steps are complete', () => {
+      const result = getFirstErroredStep(mockReq, deemedServiceApplicationSequence);
+      expect(result).toEqual(undefined);
+    });
+
+    it('returns the first errored step if a step is incomplete', () => {
+      mockReq.session.userCase.applicant1InterimAppsCanUploadEvidence = YesOrNo.YES;
+
+      const result = getFirstErroredStep(mockReq, deemedServiceApplicationSequence);
+      expect(result).toEqual(UPLOAD_EVIDENCE_DEEMED);
+    });
+
+    it('handles repeated steps', () => {
+      const dummySequence = [
+        {
+          url: DEEMED_INTERRUPTION,
+          getNextStep: () => DEEMED_INTERRUPTION,
+        },
+        {
+          url: DEEMED_INTERRUPTION,
+          getNextStep: () => DEEMED_INTERRUPTION,
+        },
+      ];
+
+      const result = getFirstErroredStep(mockReq, dummySequence);
+      expect(result).toEqual(undefined);
+    });
+
+    it('handles empty sequences', () => {
+      const dummySequence = [];
+      const result = getFirstErroredStep(mockReq, dummySequence);
+      expect(result).toEqual(undefined);
+    });
   });
 });

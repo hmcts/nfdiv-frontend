@@ -1,7 +1,24 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE, State } from '../case/definition';
+import {
+  APPLICANT_2,
+  DETAILS_OTHER_PROCEEDINGS,
+  PROVIDE_INFORMATION_TO_THE_COURT,
+  RESPONDENT,
+  RESPOND_TO_COURT_FEEDBACK,
+  UPLOAD_EVIDENCE_ALTERNATIVE,
+  UPLOAD_EVIDENCE_DEEMED,
+  UPLOAD_EVIDENCE_DISPENSE,
+  UPLOAD_PARTNER_PHOTO,
+  UPLOAD_YOUR_DOCUMENTS,
+} from '../../steps/urls';
+import {
+  ApplicationType,
+  CITIZEN_APPLICANT2_UPDATE,
+  CITIZEN_UPDATE,
+  InterimApplicationType,
+  State,
+} from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
 
@@ -51,11 +68,37 @@ describe('DocumentManagerController', () => {
           field2: 'coClarificationUploadedFiles',
         },
       },
-    ])('handles file uploads - %o', async ({ isApplicant2, state, uploadFields }) => {
+      {
+        isApplicant2: false,
+        state: State.InformationRequested,
+        uploadFields: {
+          field1: 'app1RfiDraftResponseDocs',
+          field2: 'app1RfiDraftResponseUploadedFiles',
+        },
+      },
+      {
+        isApplicant2: true,
+        state: State.InformationRequested,
+        uploadFields: {
+          field1: 'app2RfiDraftResponseDocs',
+          field2: 'app2RfiDraftResponseUploadedFiles',
+        },
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        uploadFields: {
+          field1: 'applicant2LegalProceedingDocs',
+          field2: 'applicant2LegalProceedingUploadedFiles',
+        },
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      },
+    ])('handles file uploads - %o', async ({ applicationType, isApplicant2, state, uploadFields }) => {
       const req = mockRequest({
         isApplicant2,
         userCase: {
           state,
+          applicationType,
           [uploadFields.field1]: ['an-existing-doc'],
         },
       });
@@ -152,13 +195,42 @@ describe('DocumentManagerController', () => {
         },
         redirectUrl: `${APPLICANT_2}${PROVIDE_INFORMATION_TO_THE_COURT}`,
       },
+      {
+        isApplicant2: false,
+        state: State.InformationRequested,
+        uploadFields: {
+          field1: 'app1RfiDraftResponseDocs',
+          field2: 'app1RfiDraftResponseUploadedFiles',
+        },
+        redirectUrl: RESPOND_TO_COURT_FEEDBACK,
+      },
+      {
+        isApplicant2: true,
+        state: State.InformationRequested,
+        uploadFields: {
+          field1: 'app2RfiDraftResponseDocs',
+          field2: 'app2RfiDraftResponseUploadedFiles',
+        },
+        redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        uploadFields: {
+          field1: 'applicant2LegalProceedingDocs',
+          field2: 'applicant2LegalProceedingUploadedFiles',
+        },
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
+      },
     ])(
       "redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
-      async ({ isApplicant2, state, uploadFields, redirectUrl }) => {
+      async ({ applicationType, isApplicant2, state, uploadFields, redirectUrl }) => {
         const req = mockRequest({
           isApplicant2,
           userCase: {
             state,
+            applicationType,
             [uploadFields.field1]: ['an-existing-doc'],
           },
         });
@@ -176,7 +248,88 @@ describe('DocumentManagerController', () => {
         ]);
 
         (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
+          applicationType,
           state,
+          [uploadFields.field2]: ['an-existing-doc', 'uploaded-file.jpg'],
+        });
+
+        await documentManagerController.post(req, res);
+
+        expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
+      }
+    );
+
+    it.each([
+      {
+        isApplicant2: false,
+        state: State.AosDrafted,
+        applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE,
+        uploadFields: {
+          field1: 'applicant1InterimApplicationDocs',
+          field2: 'applicant1InterimApplicationUploadedFiles',
+        },
+        redirectUrl: UPLOAD_EVIDENCE_DEEMED,
+      },
+      {
+        isApplicant2: false,
+        state: State.AosDrafted,
+        applicant1InterimApplicationType: InterimApplicationType.BAILIFF_SERVICE,
+        uploadFields: {
+          field1: 'applicant1InterimApplicationDocs',
+          field2: 'applicant1InterimApplicationUploadedFiles',
+        },
+        redirectUrl: UPLOAD_PARTNER_PHOTO,
+      },
+      {
+        isApplicant2: false,
+        state: State.AosDrafted,
+        applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE,
+        uploadFields: {
+          field1: 'applicant1InterimApplicationDocs',
+          field2: 'applicant1InterimApplicationUploadedFiles',
+        },
+        redirectUrl: UPLOAD_EVIDENCE_ALTERNATIVE,
+      },
+      {
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        isApplicant2: false,
+        state: State.AosDrafted,
+        applicant1InterimApplicationType: InterimApplicationType.DISPENSE_WITH_SERVICE,
+        uploadFields: {
+          field1: 'applicant1InterimApplicationDocs',
+          field2: 'applicant1InterimApplicationUploadedFiles',
+        },
+        redirectUrl: UPLOAD_EVIDENCE_DISPENSE,
+      },
+    ])(
+      "interim application - redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
+      async ({ isApplicant2, state, applicant1InterimApplicationType, uploadFields, redirectUrl }) => {
+        const req = mockRequest({
+          session: {
+            isApplicant2,
+            userCase: {
+              applicant1InterimApplicationType,
+              state,
+              [uploadFields.field1]: ['an-existing-doc'],
+            },
+          },
+        });
+        const res = mockResponse();
+        req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+
+        (mockCreate as jest.Mock).mockReturnValue([
+          {
+            originalDocumentName: 'uploaded-file.jpg',
+            _links: {
+              self: { href: 'https://link-self-processed-doc' },
+              binary: { href: 'https://link-binary-processed-doc' },
+            },
+          },
+        ]);
+
+        (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
+          state,
+          applicant1InterimApplicationType,
           [uploadFields.field2]: ['an-existing-doc', 'uploaded-file.jpg'],
         });
 
@@ -230,11 +383,25 @@ describe('DocumentManagerController', () => {
         isApplicant2: false,
         state: State.AwaitingClarification,
       },
-    ])('throws an error if no files were uploaded - %o', async ({ state, isApplicant2 }) => {
+      {
+        isApplicant2: false,
+        state: State.InformationRequested,
+      },
+      {
+        isApplicant2: true,
+        state: State.InformationRequested,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      },
+    ])('throws an error if no files were uploaded - %o', async ({ state, isApplicant2, applicationType }) => {
       const req = mockRequest({
         isApplicant2,
         userCase: {
           state,
+          applicationType,
         },
       });
       req.headers.accept = 'application/json';
@@ -264,13 +431,30 @@ describe('DocumentManagerController', () => {
         state: State.AwaitingClarification,
         redirectUrl: PROVIDE_INFORMATION_TO_THE_COURT,
       },
+      {
+        isApplicant2: false,
+        state: State.InformationRequested,
+        redirectUrl: RESPOND_TO_COURT_FEEDBACK,
+      },
+      {
+        isApplicant2: true,
+        state: State.InformationRequested,
+        redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      },
     ])(
       'redirects if no files were uploaded & JavaScript is disabled - %o',
-      async ({ state, isApplicant2, redirectUrl }) => {
+      async ({ state, isApplicant2, redirectUrl, applicationType }) => {
         const req = mockRequest({
           isApplicant2,
           userCase: {
             state,
+            applicationType,
           },
         });
         const res = mockResponse();
@@ -301,25 +485,45 @@ describe('DocumentManagerController', () => {
         state: State.AwaitingClarification,
         redirectUrl: PROVIDE_INFORMATION_TO_THE_COURT,
       },
-    ])('redirects if deleting & JavaScript is disabled - %o', async ({ state, isApplicant2, redirectUrl }) => {
-      const req = mockRequest({
-        isApplicant2,
-        userCase: {
-          state,
-        },
-      });
-      const res = mockResponse();
+      {
+        isApplicant2: false,
+        state: State.InformationRequested,
+        redirectUrl: RESPOND_TO_COURT_FEEDBACK,
+      },
+      {
+        isApplicant2: true,
+        state: State.InformationRequested,
+        redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      },
+    ])(
+      'redirects if deleting & JavaScript is disabled - %o',
+      async ({ applicationType, state, isApplicant2, redirectUrl }) => {
+        const req = mockRequest({
+          isApplicant2,
+          userCase: {
+            state,
+            applicationType,
+          },
+        });
+        const res = mockResponse();
 
-      req.params = { index: '0' };
+        req.params = { index: '0' };
 
-      await documentManagerController.delete(req, res);
+        await documentManagerController.delete(req, res);
 
-      expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
+        expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
 
-      expect(mockCreate).not.toHaveBeenCalled();
-      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-      expect(res.json).not.toHaveBeenCalled();
-    });
+        expect(mockCreate).not.toHaveBeenCalled();
+        expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+        expect(res.json).not.toHaveBeenCalled();
+      }
+    );
   });
 
   describe('Deleting files', () => {
@@ -351,11 +555,40 @@ describe('DocumentManagerController', () => {
         },
         redirectUrl: PROVIDE_INFORMATION_TO_THE_COURT,
       },
-    ])('deletes an existing file - %o', async ({ isApplicant2, state, uploadFields, redirectUrl }) => {
+      {
+        isApplicant2: false,
+        state: State.InformationRequested,
+        uploadFields: {
+          field1: 'app1RfiDraftResponseDocs',
+          field2: 'app1RfiDraftResponseUploadedFiles',
+        },
+        redirectUrl: RESPOND_TO_COURT_FEEDBACK,
+      },
+      {
+        isApplicant2: true,
+        state: State.InformationRequested,
+        uploadFields: {
+          field1: 'app2RfiDraftResponseDocs',
+          field2: 'app2RfiDraftResponseUploadedFiles',
+        },
+        redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        uploadFields: {
+          field1: 'applicant2LegalProceedingDocs',
+          field2: 'applicant2LegalProceedingUploadedFiles',
+        },
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
+      },
+    ])('deletes an existing file - %o', async ({ applicationType, isApplicant2, state, uploadFields, redirectUrl }) => {
       const req = mockRequest({
         isApplicant2,
         userCase: {
           state,
+          applicationType,
           [uploadFields.field1]: [
             { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
             { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
@@ -371,7 +604,11 @@ describe('DocumentManagerController', () => {
       const res = mockResponse();
 
       const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
-      mockApiTriggerEvent.mockResolvedValue({ state, [uploadFields.field2]: ['an-existing-doc'] });
+      mockApiTriggerEvent.mockResolvedValue({
+        applicationType,
+        state,
+        [uploadFields.field2]: ['an-existing-doc'],
+      });
 
       await documentManagerController.delete(req, res);
 
@@ -429,9 +666,37 @@ describe('DocumentManagerController', () => {
         },
         redirectUrl: PROVIDE_INFORMATION_TO_THE_COURT,
       },
+      {
+        isApplicant2: false,
+        state: State.InformationRequested,
+        uploadFields: {
+          field1: 'app1RfiDraftResponseDocs',
+          field2: 'app1RfiDraftResponseUploadedFiles',
+        },
+        redirectUrl: RESPOND_TO_COURT_FEEDBACK,
+      },
+      {
+        isApplicant2: true,
+        state: State.InformationRequested,
+        uploadFields: {
+          field1: 'app2RfiDraftResponseDocs',
+          field2: 'app2RfiDraftResponseUploadedFiles',
+        },
+        redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        uploadFields: {
+          field1: 'applicant2LegalProceedingDocs',
+          field2: 'applicant2LegalProceedingUploadedFiles',
+        },
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
+      },
     ])(
       "redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
-      async ({ state, isApplicant2, uploadFields, redirectUrl }) => {
+      async ({ applicationType, state, isApplicant2, uploadFields, redirectUrl }) => {
         const req = mockRequest({
           isApplicant2,
           userCase: {
@@ -441,6 +706,7 @@ describe('DocumentManagerController', () => {
               { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
               { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
             ],
+            applicationType,
           },
           appLocals: {
             api: { triggerEvent: jest.fn() },
@@ -450,7 +716,11 @@ describe('DocumentManagerController', () => {
         const res = mockResponse();
 
         const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
-        mockApiTriggerEvent.mockResolvedValue({ state, [uploadFields.field2]: ['an-existing-doc'] });
+        mockApiTriggerEvent.mockResolvedValue({
+          applicationType,
+          state,
+          [uploadFields.field2]: ['an-existing-doc'],
+        });
 
         await documentManagerController.delete(req, res);
 
@@ -474,28 +744,48 @@ describe('DocumentManagerController', () => {
         state: State.AwaitingClarification,
         redirectUrl: PROVIDE_INFORMATION_TO_THE_COURT,
       },
-    ])("redirects if file to deletes doesn't exist - %o", async ({ state, isApplicant2, redirectUrl }) => {
-      const req = mockRequest({
-        isApplicant2,
-        userCase: {
-          state,
-          applicant1DocumentsUploaded: [
-            { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
-            { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
-          ],
-        },
-      });
-      req.params = { id: '2' };
-      req.headers.accept = 'application/json';
-      const res = mockResponse();
+      {
+        isApplicant2: false,
+        state: State.InformationRequested,
+        redirectUrl: RESPOND_TO_COURT_FEEDBACK,
+      },
+      {
+        isApplicant2: true,
+        state: State.InformationRequested,
+        redirectUrl: `${APPLICANT_2}${RESPOND_TO_COURT_FEEDBACK}`,
+      },
+      {
+        isApplicant2: true,
+        state: State.AosDrafted,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+        redirectUrl: `${RESPONDENT}${DETAILS_OTHER_PROCEEDINGS}`,
+      },
+    ])(
+      "redirects if file to deletes doesn't exist - %o",
+      async ({ applicationType, state, isApplicant2, redirectUrl }) => {
+        const req = mockRequest({
+          isApplicant2,
+          userCase: {
+            state,
+            applicationType,
+            applicant1DocumentsUploaded: [
+              { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+              { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+            ],
+          },
+        });
+        req.params = { id: '2' };
+        req.headers.accept = 'application/json';
+        const res = mockResponse();
 
-      await documentManagerController.delete(req, res);
+        await documentManagerController.delete(req, res);
 
-      expect(mockDelete).not.toHaveBeenCalled();
-      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+        expect(mockDelete).not.toHaveBeenCalled();
+        expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
 
-      expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
-    });
+        expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
+      }
+    );
 
     it("deleting throws an error if the case isn't in a the correct state", async () => {
       const req = mockRequest({

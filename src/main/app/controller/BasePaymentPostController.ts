@@ -1,24 +1,20 @@
-import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
-import { PAYMENT_CALLBACK_URL, RESPONDENT, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import {
-  ApplicationType,
   CITIZEN_ADD_PAYMENT,
+  CITIZEN_CREATE_SERVICE_REQUEST,
   CaseData,
   Fee,
   ListValue,
   PaymentStatus,
-  State,
 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 import { Payment, PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
-
-const logger = Logger.getLogger('payment');
 
 @autobind
 export default abstract class BasePaymentPostController {
@@ -27,7 +23,9 @@ export default abstract class BasePaymentPostController {
       return res.redirect(SAVE_AND_SIGN_OUT);
     }
 
-    if (req.session.userCase.state !== this.awaitingPaymentState()) {
+    const citizenPaymentCallbackUrl: string = getPaymentCallbackUrl(req, res, this.getPaymentCallbackPath());
+
+    if (!this.readyForPayment(req)) {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
         {},
@@ -35,14 +33,21 @@ export default abstract class BasePaymentPostController {
       );
     }
 
-    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField()] || []);
-
+    const payments = new PaymentModel(req.session.userCase[this.paymentsCaseField(req)] || []);
     if (payments.isPaymentInProgress()) {
-      return this.saveAndRedirect(req, res, getPaymentCallbackUrl(req));
+      return this.saveAndRedirect(req, res, this.getPaymentCallbackPath());
     }
 
-    const paymentClient = this.getPaymentClient(req, res);
-    const payment = await this.createServiceRefAndTakePayment(req, paymentClient, payments);
+    if (!this.getServiceReferenceForFee(req)) {
+      req.session.userCase = await req.locals.api.triggerEvent(
+        req.session.userCase.id,
+        {},
+        CITIZEN_CREATE_SERVICE_REQUEST
+      );
+    }
+
+    const serviceReference = this.getServiceReferenceForFee(req);
+    const payment = await this.attemptPayment(req, payments, serviceReference, citizenPaymentCallbackUrl);
 
     this.saveAndRedirect(req, res, payment.next_url);
   }
@@ -57,48 +62,38 @@ export default abstract class BasePaymentPostController {
     });
   }
 
-  private getPaymentClient(req: AppRequest, res: Response) {
-    const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
-    const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-    const returnUrl = `${protocol}${res.locals.host}${port}${getPaymentCallbackUrl(req)}`;
-
-    return new PaymentClient(req.session, returnUrl);
+  private getPaymentClient(req: AppRequest, callbackUrl: string) {
+    return new PaymentClient(req.session, callbackUrl);
   }
 
-  private async createServiceRefAndTakePayment(
+  private async attemptPayment(
     req: AppRequest<AnyObject>,
-    client: PaymentClient,
-    payments: PaymentModel
+    payments: PaymentModel,
+    serviceReference: string,
+    callbackUrl: string
   ): Promise<Payment> {
-    const fee = this.getFeesFromOrderSummary(req)[0].value;
-
-    let serviceRefNumberForFee = payments.getServiceRefNumberForFee(fee.FeeCode);
-    if (!serviceRefNumberForFee) {
-      logger.info('Cannot find service reference number for fee code. creating one');
-      const serviceReqResponse = await client.createServiceRequest(
-        this.getResponsiblePartyName(req),
-        this.getFeesFromOrderSummary(req)
-      );
-      serviceRefNumberForFee = serviceReqResponse.service_request_reference;
-    }
-
-    //Take payment for service request reference
-    const payment = await client.create(serviceRefNumberForFee, this.getFeesFromOrderSummary(req));
+    const fees = this.getFeesFromOrderSummary(req);
+    const fee = fees[0].value;
+    const client = this.getPaymentClient(req, callbackUrl);
+    const payment = await client.create(serviceReference, fees);
     const now = new Date().toISOString();
 
-    payments.add({
-      created: now,
-      updated: now,
-      feeCode: fee.FeeCode,
-      amount: parseInt(fee.FeeAmount, 10),
-      status: PaymentStatus.IN_PROGRESS,
-      channel: payment.next_url,
-      reference: payment.payment_reference,
-      transactionId: payment.external_reference,
-      serviceRequestReference: serviceRefNumberForFee,
-    });
+    const newPaymentWithId = {
+      id: payment.external_reference,
+      value: {
+        created: now,
+        updated: now,
+        feeCode: fee.FeeCode,
+        amount: parseInt(fee.FeeAmount, 10),
+        status: PaymentStatus.IN_PROGRESS,
+        channel: payment.next_url,
+        reference: payment.payment_reference,
+        transactionId: payment.external_reference,
+        serviceRequestReference: serviceReference,
+      },
+    };
 
-    const eventPayload = { [this.paymentsCaseField()]: payments.list };
+    const eventPayload = { [this.paymentsCaseField(req)]: [...payments.list, newPaymentWithId] };
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
       eventPayload,
@@ -108,16 +103,16 @@ export default abstract class BasePaymentPostController {
     return payment;
   }
 
-  protected abstract awaitingPaymentState(): State;
+  protected abstract readyForPayment(req: AppRequest<AnyObject>): boolean;
   protected abstract awaitingPaymentEvent(): string;
   protected abstract getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[];
-  protected abstract paymentsCaseField(): keyof CaseData;
-  protected abstract getResponsiblePartyName(req: AppRequest<AnyObject>): string | undefined;
+  protected abstract getServiceReferenceForFee(req: AppRequest<AnyObject>): string;
+  protected abstract paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData;
+  protected abstract getPaymentCallbackPath(): string;
 }
 
-export function getPaymentCallbackUrl(req: AppRequest): string {
-  const isRespondent: boolean =
-    req.session.isApplicant2 && req.session.userCase.applicationType === ApplicationType.SOLE_APPLICATION;
-
-  return isRespondent ? RESPONDENT + PAYMENT_CALLBACK_URL : PAYMENT_CALLBACK_URL;
+export function getPaymentCallbackUrl(req: AppRequest, res: Response, callbackPath: string): string {
+  const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
+  const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
+  return `${protocol}${res.locals.host}${port}${callbackPath}`;
 }

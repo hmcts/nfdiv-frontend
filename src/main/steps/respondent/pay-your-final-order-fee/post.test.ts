@@ -1,13 +1,13 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { PaymentStatus, RESPONDENT_APPLY_FOR_FINAL_ORDER, State } from '../../../app/case/definition';
-import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../urls';
+import { PAYMENT_CALLBACK_URL, RESPONDENT, SAVE_AND_SIGN_OUT } from '../../urls';
 
 import PaymentPostController from './post';
 
 jest.mock('../../../app/payment/PaymentClient');
 
-const { mockCreateServiceRequest, mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
+const { mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
 
 describe('PaymentPostController', () => {
   const paymentController = new PaymentPostController();
@@ -15,7 +15,6 @@ describe('PaymentPostController', () => {
   beforeEach(() => {
     mockCreate.mockClear();
     mockGet.mockClear();
-    mockCreateServiceRequest.mockClear();
   });
 
   describe('payment', () => {
@@ -23,7 +22,8 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingFinalOrderPayment,
-          applicationFeeOrderSummary: {
+          applicant2FinalOrderFeeServiceRequestReference: '/payment-callback',
+          applicant2FinalOrderFeeOrderSummary: {
             Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
           },
           finalOrderPayments: [
@@ -41,7 +41,7 @@ describe('PaymentPostController', () => {
 
       (req.locals.api.triggerPaymentEvent as jest.Mock).mockReturnValueOnce({
         finalOrderPayments: [{ new: 'payment' }],
-        applicationFeeOrderSummary: {
+        applicant2FinalOrderFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
       });
@@ -55,7 +55,7 @@ describe('PaymentPostController', () => {
 
       await paymentController.post(req, res);
       expect(req.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/payment-callback');
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + PAYMENT_CALLBACK_URL);
     });
 
     it('transitions the case to awaiting payment if the state is awaiting final order', async () => {
@@ -64,6 +64,7 @@ describe('PaymentPostController', () => {
 
       (req.locals.api.triggerEvent as jest.Mock).mockReturnValueOnce({
         state: State.AwaitingFinalOrder,
+        applicant2FinalOrderFeeServiceRequestReference: '/payment-callback',
         applicant2FinalOrderFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
@@ -76,10 +77,6 @@ describe('PaymentPostController', () => {
         _links: { next_url: { href: 'http://example.com/pay' } },
       });
 
-      (mockCreateServiceRequest as jest.Mock).mockReturnValueOnce({
-        service_request_reference: 'test1234',
-      });
-
       await paymentController.post(req, res);
 
       expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, RESPONDENT_APPLY_FOR_FINAL_ORDER);
@@ -89,6 +86,7 @@ describe('PaymentPostController', () => {
       const req = mockRequest({
         userCase: {
           state: State.AwaitingFinalOrderPayment,
+          applicant2FinalOrderFeeServiceRequestReference: '/payment-callback',
           finalOrderPayments: [
             {
               id: 'mock external reference payment id',
@@ -113,7 +111,7 @@ describe('PaymentPostController', () => {
       expect(mockCreate).not.toHaveBeenCalled();
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
       expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(PAYMENT_CALLBACK_URL);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + PAYMENT_CALLBACK_URL);
     });
 
     it('saves and signs out', async () => {

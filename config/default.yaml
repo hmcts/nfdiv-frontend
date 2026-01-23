@@ -1,11 +1,12 @@
 port: 3001
 timeout: 30000
 uploadTimeout: 60000
+forceCivilMode: false
 dates:
   issueDateOffsetDays: 141
   disputeDueDateOffsetDays: 37
   awaitingLegalAdvisorReferralOffsetDays: 56
-  clarificationSubmittedOffsetDays: 28
+  clarificationSubmittedOffsetDays: 56
   finalOrderSubmittedOffsetDays: 14
   changingToSolePartnerConfirmationWeeks: 2
   settlingFinancesConfirmationDays: 14
@@ -15,6 +16,8 @@ dates:
   applicationSubmittedOffsetDays: 28
   arrangeProcessServiceDays: 28
   switchToSoleFinalOrderIntentionNotificationOffsetDays: 14
+  requestForInformationResponseCourtReplyOffsetDays: 28
+  interimApplicationNoResponseNewContactDetailsOffsetDays: 14
 fees:
   applicationFee: DivorceCivPart
   financialOrder: FinancialOrderOnNotice
@@ -24,9 +27,10 @@ fees:
   deemedService: GeneralAppWithoutNotice
   dispensedService: GeneralAppWithoutNotice
   searchForAddress: GeneralAppWithoutNotice
-  d8bFormSubmission: AppnPrivateOther
+  d8bFormSubmission: DivAnswerReceived
   updateApplication: DivorceAmendPetition
   finalOrderApplicationFee: GAOnNotice
+  searchDecreeNisiOrFinalOrder: SearchIndexDivCentral
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
@@ -38,11 +42,12 @@ services:
     clientID: 'divorce'
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
-    systemPassword: 'dummy_password'
+    systemPassword:
     caching: false
   case:
+    #url: 'http://localhost:4452' #uncomment for local
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
-    # url: 'https://ccd-data-store-api-nfdiv-case-api-pr-2745.preview.platform.hmcts.net'
+    #url: 'https://nfdiv-case-api-pr-4188.preview.platform.hmcts.net' #uncomment to run against pr
     checkDivCases: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
@@ -64,6 +69,10 @@ services:
     tokenKey: 'SERVICE_TOKEN_KEY'
   decreeNisi:
     url: 'https://decree-nisi-aks.aat.platform.hmcts.net'
+  nfdiv_divorce:
+    url: https://nfdiv-apply-for-divorce.aat.platform.hmcts.net
+  nfdiv_dissolution:
+    url: https://nfdiv-end-civil-partnership.aat.platform.hmcts.net
 health:
   timeout: 5000
   deadline: 15000
@@ -77,10 +86,26 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey:
+launchDarkly:
+  sdkKey: 'NEED TO INSERT SECRET'
+  offline: false
+  initTimeoutSeconds: 30
+  defaultUserKey: 'nfdFrontend'
+  flagPrefix: "NFD_"
+  flags:
+    NFD_useGenesysWebchat: false
 webchat:
   avayaUrl: 'webchat.pp.ctsc.hmcts.net'
   avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
   avayaService: 'Divorce'
+  genesysReferrerPage: 'Divorce Site'
+  genesysReferrerPageCy: 'Divorce WLU Site'
+  genesysDeploymentId: 'NEED TO INSERT SECRET'
+  genesysDeploymentIdCy: 'NEED TO INSERT SECRET'
+  genesysBaseUrl: 'https://apps.euw2.pure.cloud'
+  genesysEnvironment: 'prod-euw2'
+  genesysKervBaseUrl: 'https://api.hmcts.hs-cx.com/web-availability'
+  genesysApiKey: 'NEED TO INSERT SECRET'
 dynatrace:
   dynatraceUrl: 'https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/2ab4686fc177447_complete.js'
 serviceAddress:
@@ -92,13 +117,19 @@ serviceAddress:
 govukUrls:
   d11Form: 'https://www.gov.uk/government/publications/form-d11-application-notice'
   d36Form: 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/952032/d36-eng.pdf'
+  d84Form: 'https://www.gov.uk/government/publications/form-d84-apply-for-a-conditional-order-or-judicial-separation-order'
   n215Form: 'https://www.gov.uk/government/publications/form-n215-certificate-of-service'
   mediation: 'https://www.gov.uk/money-property-when-relationship-ends/mediation'
   consentOrder: 'https://www.gov.uk/money-property-when-relationship-ends/apply-for-consent-order'
   financialOrder: 'https://www.gov.uk/money-property-when-relationship-ends/get-court-to-decide'
   moneyAndProperty: 'https://www.gov.uk/money-property-when-relationship-ends'
-  legalAdvisor: 'https://www.gov.uk/find-a-legal-adviser'
+  legalAdvisor: 'https://www.gov.uk/find-legal-advice/find-legal-adviser'
   callCharges: 'https://www.gov.uk/call-charges'
   domesticAbuse: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help'
   feedbackExitSurvey: 'https://smartsurvey.co.uk/s/SurveyExit'
   applyForDivorce: 'https://www.gov.uk/apply-for-divorce'
+  getHelpWithCourtFees: 'https://www.gov.uk/get-help-with-court-fees'
+  getHelpWithCourtFeesCY: 'https://www.gov.uk/help-i-dalu-ffioedd-llysoedd-a-thribiwnlysoedd'
+  certifiedTranslation: 'https://www.gov.uk/certifying-a-document#certifying-a-translation'
+  searchForDecreeAbsoluteOrFinalOrder: 'https://www.gov.uk/copy-decree-absolute-final-order/do-not-know-which-court'
+  serviceOfDocuments: 'https://www.gov.uk/guidance/service-of-documents-and-taking-of-evidence'

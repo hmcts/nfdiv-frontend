@@ -40,6 +40,7 @@
     - [Healthcheck](#healthcheck)
   - [Migrating backend field changes](#migrating-backend-field-changes)
   - [License](#license)
+  - [Feature flags (LaunchDarkly)](#feature-flags-launchdarkly)
 
 ## Getting Started
 
@@ -68,7 +69,7 @@ yarn webpack
 Start server:
 
 ```bash
-yarn start
+yarn start:dev
 ```
 
 The application's home page will be available at [https://localhost:3001](https://localhost:3001)
@@ -95,13 +96,15 @@ docker-compose build
 Run the application by executing the following command:
 
 ```bash
-docker-compose up
+yarn start:docker
 ```
+or start:docker:civil `to force FORCE_CIVIL_MODE true`
 
 This will start the frontend container exposing the application's port `3001`.
 
 In order to test if the application is up, you can visit [https://localhost:3001](https://localhost:3001) in your browser.
 
+#### Note: Document download functionality doesn't work  in local environment with docker. To test document download, use yarn start:dev which will run it againsts CCD in AAT.
 ## Developing
 
 Starting the server in development mode:
@@ -227,8 +230,10 @@ There is a configuration section related with those headers, where you can speci
 Here's an example setup:
 
 ```json
-"security": {
-  "referrerPolicy": "origin",
+{
+  "security": {
+    "referrerPolicy": "origin"
+  }
 }
 ```
 
@@ -238,6 +243,12 @@ Make sure you have those values set correctly for your application.
 
 The application exposes a health endpoint [https://localhost:3001/health](https://localhost:3001/health), created with the use of [Nodejs Healthcheck](https://github.com/hmcts/nodejs-healthcheck) library. This endpoint is defined in [health.ts](src/main/routes/health.ts) file. Make sure you adjust it correctly in your application. In particular, remember to replace the sample check with checks specific to your frontend app, e.g. the ones verifying the state of each service it depends on.
 
+### Fortify check new code
+To scan latest code on local
+fortify-client.properties will read variables set in env FORTIFY_CLIENT_PASSWORD and FORTIFY_CLIENT_USERNAME
+these need to be your valid token and login, exporting them in your ~/.zshrc file is handy
+
+and then run gradle fortifyScan
 ## Migrating backend field changes
 
 Once you have created a NFDIV-Case-API Pull Request with the case definition changes, update `CCD_URL` in [values.yaml](charts/nfdiv-frontend/values.yaml) and `services.case.url` in [default.yaml](config/default.yaml) so that the CCD Data Store is pointing at the Preview version deployed as part of your No Fault Divorce Case API pull request.
@@ -251,6 +262,25 @@ Once you have pasted the code into [definition.ts](src/main/app/case/definition.
 You will now be in a position to test your changes either in isolation (`yarn start:dev`) or with Docker (`yarn start:docker`).
 
 One final important point to remember is that the `CCD_URL` in [values.yaml](charts/nfdiv-frontend/values.yaml) and `services.case.url` in [default.yaml](config/default.yaml) will need to be reverted to their original values once migration is complete and before any Pull Requests into `master` are merged.
+
+## Feature flags (LaunchDarkly)
+
+This service integrates LaunchDarkly for runtime feature flagging.
+
+Adding new feature flags:
+- **Ensure NFD LaunchDarkly flags are prefixed with "NFD_", as per the flagPrefix configuration in config/default.yaml**
+  - **Avoid using '-' in flag names, as by default this will be processed as a minus operator in Nunjucks templates. Use '_' instead.**
+- Flag values are converted to lower case strings and evaluated against 'true' for boolean usage in the app.
+- if a flag cannot be fetched, its value will return as false unless a default value is set under launchDarkly.flags in config/default.yaml.
+
+Example template usage:
+```
+{% if featureFlags.NFD_useGenesysWebchat %}
+  Webchat is enabled
+{% else %}
+  Webchat is disabled
+{% endif %}
+```
 
 ## License
 

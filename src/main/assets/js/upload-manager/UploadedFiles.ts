@@ -9,7 +9,11 @@ export class UploadedFiles {
     this.storeEl =
       (getById('applicant1UploadedFiles') as HTMLInputElement) ||
       (getById('applicant2UploadedFiles') as HTMLInputElement) ||
-      (getById('coClarificationUploadedFiles') as HTMLInputElement);
+      (getById('coClarificationUploadedFiles') as HTMLInputElement) ||
+      (getById('app1RfiDraftResponseUploadedFiles') as HTMLInputElement) ||
+      (getById('app2RfiDraftResponseUploadedFiles') as HTMLInputElement) ||
+      (getById('applicant1InterimAppsEvidenceUploadedFiles') as HTMLInputElement) ||
+      (getById('applicant2LegalProceedingUploadedFiles') as HTMLInputElement);
     this.documents = JSON.parse(this.storeEl?.value || '[]');
   }
 

@@ -2,24 +2,40 @@ import dayjs from 'dayjs';
 import { Application, NextFunction, Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../../app/case/definition';
+import {
+  APPLICATION_PAYMENT_STATES,
+  ApplicationType,
+  FINAL_ORDER_PAYMENT_STATES,
+  GENERAL_APPLICATION_PAYMENT_STATES,
+  SERVICE_PAYMENT_STATES,
+  State,
+  YesOrNo,
+} from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
 import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
-  APPLICATION_SUBMITTED,
   APP_REPRESENTED,
-  JOINT_APPLICATION_SUBMITTED,
+  GENERAL_APPLICATION_PAYMENT_CALLBACK,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
   PAY_YOUR_FINAL_ORDER_FEE,
+  PAY_YOUR_GENERAL_APPLICATION_FEE,
+  PAY_YOUR_SERVICE_FEE,
   PageLink,
+  REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   RESPONDENT,
   SAVE_AND_SIGN_OUT,
+  SENT_TO_APPLICANT2_FOR_REVIEW,
+  SERVICE_PAYMENT_CALLBACK,
   SWITCH_TO_SOLE_APPLICATION,
+  THEIR_EMAIL_ADDRESS,
+  VIEW_YOUR_ANSWERS,
+  WITHDRAW_APPLICATION,
+  WITHDRAW_SERVICE_APPLICATION,
 } from '../../steps/urls';
 
 /**
@@ -35,11 +51,15 @@ export class StateRedirectMiddleware {
           return next('route');
         }
 
+        const isApplicant2 = req.session.isApplicant2;
+        const isSole = ApplicationType.SOLE_APPLICATION === req.session.existingApplicationType;
+        const state = req.session.userCase?.state;
+
         // Check if user is represented by a solicitor redirect to represented page if they are
-        if (this.isRepresentedBySolicitor(req.session.userCase, req.session.isApplicant2)) {
+        if (this.isRepresentedBySolicitor(req.session.userCase, isApplicant2)) {
           if (!req.path.includes(APP_REPRESENTED)) {
-            if (req.session.isApplicant2) {
-              if (ApplicationType.SOLE_APPLICATION === req.session.existingApplicationType) {
+            if (isApplicant2) {
+              if (isSole) {
                 return res.redirect(RESPONDENT + APP_REPRESENTED);
               } else {
                 return res.redirect(APPLICANT_2 + APP_REPRESENTED);
@@ -52,46 +72,71 @@ export class StateRedirectMiddleware {
         }
 
         if (
-          this.hasPartnerNotResponded(req.session.userCase, req.session.isApplicant2) &&
-          ![NO_RESPONSE_YET, SWITCH_TO_SOLE_APPLICATION].includes(req.path as PageLink)
+          this.hasPartnerNotRespondedInTime(req.session.userCase, isApplicant2) &&
+          ![NO_RESPONSE_YET, WITHDRAW_APPLICATION, SWITCH_TO_SOLE_APPLICATION].includes(req.path as PageLink)
         ) {
           return res.redirect(NO_RESPONSE_YET);
         }
 
-        const caseState = req.session.userCase?.state;
-        if ([State.Submitted, State.AwaitingDocuments, State.AwaitingHWFDecision].includes(caseState)) {
-          const redirectPath = this.getApplicationSubmittedRedirectPath(req);
-          if (redirectPath) {
-            return res.redirect(redirectPath);
-          }
+        const awaitingReviewByApplicant2 = !isSole && !isApplicant2 && state === State.AwaitingApplicant2Response;
+        if (
+          awaitingReviewByApplicant2 &&
+          ![
+            SENT_TO_APPLICANT2_FOR_REVIEW,
+            WITHDRAW_APPLICATION,
+            THEIR_EMAIL_ADDRESS,
+            NO_RESPONSE_YET,
+            SWITCH_TO_SOLE_APPLICATION,
+            SAVE_AND_SIGN_OUT,
+          ].includes(req.path as PageLink)
+        ) {
+          return res.redirect(SENT_TO_APPLICANT2_FOR_REVIEW);
         }
 
         if (
-          !this.caseAwaitingPayment(req) ||
+          !this.caseAwaitingPayment(state) ||
           [
             PAY_YOUR_FEE,
             PAY_AND_SUBMIT,
             PAYMENT_CALLBACK_URL,
             RESPONDENT + PAYMENT_CALLBACK_URL,
             RESPONDENT + PAY_YOUR_FINAL_ORDER_FEE,
+            PAY_YOUR_SERVICE_FEE,
+            SERVICE_PAYMENT_CALLBACK,
+            PAY_YOUR_GENERAL_APPLICATION_FEE,
+            GENERAL_APPLICATION_PAYMENT_CALLBACK,
+            REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
             SAVE_AND_SIGN_OUT,
+            VIEW_YOUR_ANSWERS,
+            WITHDRAW_APPLICATION,
+            WITHDRAW_SERVICE_APPLICATION,
           ].includes(req.path as PageLink)
         ) {
           return next();
         }
 
         const finalOrderPayments = new PaymentModel(req.session.userCase.finalOrderPayments);
-        if (
-          caseState === State.AwaitingFinalOrderPayment &&
-          req.session.isApplicant2 &&
-          finalOrderPayments.hasPayment
-        ) {
+        if (FINAL_ORDER_PAYMENT_STATES.has(state) && req.session.isApplicant2 && finalOrderPayments.hasPayment) {
           return res.redirect(RESPONDENT + PAYMENT_CALLBACK_URL);
         }
 
         const applicationPayments = new PaymentModel(req.session.userCase.applicationPayments);
-        if (caseState === State.AwaitingPayment && !req.session.isApplicant2 && applicationPayments.hasPayment) {
+        if (APPLICATION_PAYMENT_STATES.has(state) && !req.session.isApplicant2 && applicationPayments.hasPayment) {
           return res.redirect(PAYMENT_CALLBACK_URL);
+        }
+
+        const servicePayments = new PaymentModel(req.session.userCase.servicePayments);
+        if (SERVICE_PAYMENT_STATES.has(state) && !req.session.isApplicant2 && servicePayments.hasPayment) {
+          return res.redirect(SERVICE_PAYMENT_CALLBACK);
+        }
+
+        const generalApplicationPayments = new PaymentModel(
+          isApplicant2
+            ? req.session.userCase.applicant2GeneralAppPayments
+            : req.session.userCase.applicant1GeneralAppPayments
+        );
+        if (GENERAL_APPLICATION_PAYMENT_STATES.has(state) && generalApplicationPayments.hasPayment) {
+          return res.redirect(GENERAL_APPLICATION_PAYMENT_CALLBACK);
         }
 
         return next();
@@ -99,28 +144,16 @@ export class StateRedirectMiddleware {
     );
   }
 
-  private caseAwaitingPayment(req: AppRequest): boolean {
-    return [State.AwaitingPayment, State.AwaitingFinalOrderPayment].includes(req.session.userCase?.state);
+  private caseAwaitingPayment(state: State): boolean {
+    return new Set([
+      ...APPLICATION_PAYMENT_STATES,
+      ...FINAL_ORDER_PAYMENT_STATES,
+      ...SERVICE_PAYMENT_STATES,
+      ...GENERAL_APPLICATION_PAYMENT_STATES,
+    ]).has(state);
   }
 
-  private getApplicationSubmittedRedirectPath(req: AppRequest): string | null {
-    const userCase = req.session.userCase;
-
-    if (userCase?.applicationType === ApplicationType.SOLE_APPLICATION && req.path !== APPLICATION_SUBMITTED) {
-      return APPLICATION_SUBMITTED;
-    }
-
-    if (
-      userCase?.applicationType === ApplicationType.JOINT_APPLICATION &&
-      ![JOINT_APPLICATION_SUBMITTED, APPLICANT_2 + JOINT_APPLICATION_SUBMITTED].includes(req.path)
-    ) {
-      return req.session.isApplicant2 ? APPLICANT_2 + JOINT_APPLICATION_SUBMITTED : JOINT_APPLICATION_SUBMITTED;
-    }
-
-    return null;
-  }
-
-  private hasPartnerNotResponded(userCase: CaseWithId, isApplicant2: boolean) {
+  private hasPartnerNotRespondedInTime(userCase: CaseWithId, isApplicant2: boolean) {
     return (
       ((isApplicant2 && [State.AwaitingApplicant1Response, State.Applicant2Approved].includes(userCase?.state)) ||
         (!isApplicant2 && userCase?.state === State.AwaitingApplicant2Response)) &&

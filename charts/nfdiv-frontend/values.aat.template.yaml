@@ -10,6 +10,8 @@ nodejs:
     OAUTH_CLIENT_REDIRECT: https://${SERVICE_FQDN}/oauth2/callback
     IDAM_TOKEN_CACHE: true
     REDIS_HOST: 'nfdiv-frontend-{{ .Values.global.environment }}.redis.cache.windows.net'
+    NFDIV_DIVORCE_URL: 'https://nfdiv-apply-for-divorce.aat.platform.hmcts.net'
+    NFDIV_DISSOLUTION_URL: 'https://nfdiv-end-civil-partnership.aat.platform.hmcts.net'
 
 idam-pr:
   enabled: false

@@ -1,7 +1,7 @@
 import axios, { AxiosRequestHeaders, AxiosResponse, AxiosStatic } from 'axios';
+import jwt from 'jsonwebtoken';
 
 import { APPLICANT_2_SIGN_IN_URL, CALLBACK_URL, SIGN_IN_URL } from '../../../steps/urls';
-import { UserDetails } from '../../controller/AppRequest';
 
 import { OidcResponse, getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
 
@@ -13,8 +13,25 @@ jest.mock('config');
 const mockedConfig = config as jest.Mocked<typeof config>;
 const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyIsInJvbGVzIjpbImNpdGl6ZW4iXX0.rxjx6XsSNNYavVppwKAqWiNWT_GxN4vjVzdLRe6q14I';
+const mockSecret = 'mock-secret';
+const mockPayload = {
+  uid: '123',
+  id: '123',
+  sub: 'test@test.com',
+  email: 'test@test.com',
+  given_name: 'John',
+  family_name: 'Dorian',
+  roles: ['citizen'],
+};
+const mockSystemPayload = {
+  uid: '456',
+  sub: 'user-email',
+  name: 'System',
+  roles: ['caseworker-divorce-systemupdate', 'caseworker-caa', 'caseworker', 'caseworker-divorce'],
+};
+// Generate a mock JWT for testing
+const mockToken = jwt.sign(mockPayload, mockSecret, { expiresIn: '1h' });
+const mockSystemToken = jwt.sign(mockSystemPayload, mockSecret, { expiresIn: '1h' });
 
 describe('getRedirectUrl', () => {
   test('should create a valid URL to redirect to the login screen', () => {
@@ -36,16 +53,16 @@ describe('getRedirectUrl', () => {
 
 describe('getUserDetails', () => {
   test('should exchange a code for a token and decode a JWT to get the user details', async () => {
-    mockedAxios.post.mockResolvedValue({
+    mockedAxios.post.mockResolvedValueOnce({
       data: {
-        access_token: token,
-        id_token: token,
+        id_token: mockToken,
+        access_token: 'token',
       },
-    });
+    } as AxiosResponse);
 
     const result = await getUserDetails('http://localhost', '123', CALLBACK_URL);
     expect(result).toStrictEqual({
-      accessToken: token,
+      accessToken: 'token',
       email: 'test@test.com',
       givenName: 'John',
       familyName: 'Dorian',
@@ -62,26 +79,30 @@ describe('getUserDetails', () => {
 });
 
 describe('getSystemUser', () => {
-  const getSystemUserTestToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyIsInJvbGVzIjpbImNhc2V3b3JrZXItZGl2b3JjZS1zeXN0ZW11cGRhdGUiLCJjYXNld29ya2VyLWNhYSIsImNhc2V3b3JrZXIiLCJjYXNld29ya2VyLWRpdm9yY2UiXX0.NDab3XAV8NWQTuuxBQ9mpwTIdw4KMWWiJ37Dp3EHG7s';
-
   const accessTokenResponse: AxiosResponse<OidcResponse> = {
     status: 200,
     data: {
-      id_token: getSystemUserTestToken,
-      access_token: getSystemUserTestToken,
+      id_token: mockSystemToken,
+      access_token: 'systemUserTestToken',
     },
     statusText: 'wsssw',
     headers: { test: 'now' },
     config: { headers: [] as unknown as AxiosRequestHeaders },
   };
 
-  const expectedGetSystemUserResponse: UserDetails = {
-    accessToken: getSystemUserTestToken,
-    email: 'test@test.com',
-    givenName: 'John',
-    familyName: 'Dorian',
-    id: '123',
+  const expectedGetSystemUserResponse: {
+    givenName: undefined;
+    familyName: undefined;
+    roles: string[];
+    id: string;
+    accessToken: string;
+    email: string;
+  } = {
+    email: 'user-email',
+    accessToken: 'systemUserTestToken',
+    id: '456',
+    givenName: undefined,
+    familyName: undefined,
     roles: ['caseworker-divorce-systemupdate', 'caseworker-caa', 'caseworker', 'caseworker-divorce'],
   };
 
