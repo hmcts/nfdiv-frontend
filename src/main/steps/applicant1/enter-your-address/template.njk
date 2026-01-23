@@ -5,14 +5,6 @@
   <h1 class="govuk-heading-l" id="enterAddressTitle">{{ title }}</h1>
   {% include "./postcodeEnter.njk" %}
   {% include "./postcodeSelect.njk" %}
-  <div class="hidden" id="international-address-documents-guidance">
-  {% if serviceOfDocumentsGuidance %}
-    <div class="govuk-inset-text">
-      <p class="govuk-body">{{ serviceOfDocumentsGuidance.line1 }}</p>
-      <p class="govuk-body">{{ serviceOfDocumentsGuidance.line2 }}</p>
-    </div>
-  {% endif %}
-  </div>
 {% endblock %}
 
 {% block form %}

@@ -5,7 +5,7 @@ import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation
 import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 
-const en = ({ isDivorce, partner }: Partial<CommonContent>) => {
+const en = ({ partner }: Partial<CommonContent>) => {
   const addressPostcode = {
     required: `You have not entered your ${partner}’s postcode. Enter their postcode before continuing.`,
     invalid: 'You have not entered a valid UK postcode. Enter a valid UK postcode before continuing.',
@@ -35,13 +35,6 @@ const en = ({ isDivorce, partner }: Partial<CommonContent>) => {
     no: 'No',
     addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
     cannotFindAddress: 'I cannot find the address in the list',
-    serviceOfDocumentsGuidance: {
-      line1: `For international addresses you will need to send them the ${
-        isDivorce ? 'divorce papers' : 'papers to dissolve the civil partnership'
-      } yourself. You will need to check how to legally serve papers in the country your ${partner} is living in.`,
-      line2:
-        'We will post the documents to you so that you can arrange this. You can also download them from your hub.',
-    },
     errors: {
       applicant2Address1: {
         required: `You have not entered your ${partner}’s building and street address. Enter their building and street address before continuing.`,
@@ -58,8 +51,7 @@ const en = ({ isDivorce, partner }: Partial<CommonContent>) => {
   };
 };
 
-//TODO: Welsh translation required
-const cy = ({ isDivorce, partner }: CommonContent) => {
+const cy = ({ partner }: CommonContent) => {
   const addressPostcode = {
     required: `Nid ydych wedi nodi cod post eich ${partner}. Nodwch ei god post cyn parhau.`,
     invalid: 'Nid ydych wedi nodi cod post DU dilys. Nodwch god post DU dilys cyn parhau.',
@@ -90,13 +82,6 @@ const cy = ({ isDivorce, partner }: CommonContent) => {
     addressesFound: (addressesFound: number) =>
       `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
     cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
-    serviceOfDocumentsGuidance: {
-      line1: `For international addresses you will need to send them the ${
-        isDivorce ? 'divorce papers' : 'papers to dissolve the civil partnership'
-      } yourself. You will need to check how to legally serve papers in the country your ${partner} is living in.`,
-      line2:
-        'We will post the documents to you so that you can arrange this. You can also download them from your hub.',
-    },
     errors: {
       applicant2Address1: {
         required: `Nid ydych wedi nodi adeilad a chyfeiriad stryd eich ${partner}. Nodwch ei adeilad a'i gyfeiriad stryd cyn parhau.`,
