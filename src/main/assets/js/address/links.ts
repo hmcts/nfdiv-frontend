@@ -45,10 +45,6 @@ const toggleInternationalAddressFields = (toggle: string) => {
   (qs('.govuk-form-group.addressOverseas') as HTMLElement).classList[toggle](hidden);
   (getById('enterUkPostcode') as HTMLElement).classList[toggle](hidden);
   (getById('main-form-submit') as HTMLElement).classList[toggle](hidden);
-  if (getById('international-service-guidance1') && getById('international-service-guidance2')) {
-    (getById('international-service-guidance1') as HTMLElement).classList[toggle](hidden);
-    (getById('international-service-guidance2') as HTMLElement).classList[toggle](hidden);
-  }
 };
 export const showInternationalAddressFields = (): void => toggleInternationalAddressFields('remove');
 export const hideInternationalAddressFields = (): void => toggleInternationalAddressFields('add');

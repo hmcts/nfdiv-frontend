@@ -1,14 +1,1 @@
-{% extends "common/page.njk" %}
-
-{% block page_content %}
-  {% include "./../enter-your-address/postcodeError.njk" %}
-  <h1 class="govuk-heading-l" id="enterAddressTitle">{{ title }}</h1>
-  <p class="govuk-body govuk-inset-text hidden" id="international-service-guidance1">{{ serviceOfDocumentsLine1 }}</p>
-  <p class="govuk-body govuk-inset-text hidden" id="international-service-guidance2">{{ serviceOfDocumentsLine2 }}</p>
-  {% include "./postcodeEnter.njk" %}
-  {% include "./../enter-your-address/postcodeSelect.njk" %}
-{% endblock %}
-
-{% block form %}
-  {% include "./../enter-your-address/form.njk" %}
-{% endblock %}
+{% include "../enter-your-address/template.njk" %}
