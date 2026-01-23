@@ -44,9 +44,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translation = languages[content.language](content);
-  const overseasAddress = content.userCase.applicant2AddressOverseas === YesOrNo.YES;
+  const overseasAddressForRespondent = content.userCase.applicant2AddressOverseas === YesOrNo.YES;
   return {
     ...translation,
-    overseasAddress,
+    overseasAddressForRespondent,
   };
 };
