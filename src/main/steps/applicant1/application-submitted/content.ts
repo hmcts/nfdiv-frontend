@@ -10,7 +10,11 @@ import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
-import { HUB_PAGE, NO_RESP_ADDRESS_ENTER_ADDRESS, OPTIONS_FOR_PROGRESSING } from '../../urls';
+import {
+  HUB_PAGE,
+  NO_RESP_ADDRESS_ENTER_ADDRESS,
+  NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS,
+} from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = (
@@ -150,14 +154,14 @@ const en = (
     text: 'Return to your account',
     url: HUB_PAGE,
   },
-  addressRequired: {
+  addressRequiredContent: {
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
     line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
       isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
     } to this address at no additional cost.`,
-    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
     } another way</a>. This application will cost ${getFee(
       config.get('fees.alternativeService')
@@ -299,7 +303,7 @@ const cy: typeof en = ({
     part1: 'Rhoi adborth.',
     link: feedbackLink,
   },
-  addressRequired: {
+  addressRequiredContent: {
     whatYouNeedToDoHeader: 'What you need to do',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -307,7 +311,7 @@ const cy: typeof en = ({
     line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
       isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
     } to this address at no additional cost.`,
-    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${OPTIONS_FOR_PROGRESSING}>you can apply to progress ${
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
     } another way</a>. This application will cost ${getFee(
       config.get('fees.alternativeService')
