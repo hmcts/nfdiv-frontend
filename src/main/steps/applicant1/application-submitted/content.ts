@@ -10,11 +10,7 @@ import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
-import {
-  HUB_PAGE,
-  NO_RESP_ADDRESS_ENTER_ADDRESS,
-  NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS,
-} from '../../urls';
+import { HUB_PAGE, NO_RESP_ADDRESS_ENTER_ADDRESS, NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = (
