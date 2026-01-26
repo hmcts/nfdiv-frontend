@@ -3029,6 +3029,7 @@ export const CASEWORKER_REQUEST_FOR_INFORMATION = 'caseworker-request-for-inform
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
 export const CASEWORKER_REISSUE_APPLICATION = 'caseworker-reissue-application';
 export const UPDATE_CONTACT_DETAILS_AND_REISSUE = 'update-partner-details-or-reissue';
+export const CITIZEN_ADD_PARTNER_DETAILS = 'citizen-add-partner-details';
 export const SYSTEM_REMIND_APPLICANT2 = 'system-remind-applicant2';
 export const SYSTEM_LINK_APPLICANT_2 = 'system-link-applicant2';
 export const SYSTEM_LINK_APPLICANT_1 = 'system-link-applicant1';
