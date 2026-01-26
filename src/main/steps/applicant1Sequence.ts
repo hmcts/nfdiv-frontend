@@ -26,6 +26,7 @@ import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicati
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
 import {
   ADDRESS_FINDING,
+  ADDRESS_INTERNATIONAL,
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
@@ -354,36 +355,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: () => DO_YOU_HAVE_ADDRESS,
   },
   {
-    url: THEIR_EMAIL_ADDRESS,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
-        return data.applicant1DoesNotKnowApplicant2EmailAddress
-          ? YOU_NEED_THEIR_EMAIL_ADDRESS
-          : isApplicant2EmailUpdatePossible(data)
-            ? EMAIL_RESENT
-            : IN_THE_UK;
-      } else {
-        return DO_YOU_HAVE_ADDRESS;
-      }
-    },
-  },
-  {
-    url: YOU_NEED_THEIR_EMAIL_ADDRESS,
-    getNextStep: () => THEIR_EMAIL_ADDRESS,
-  },
-  {
     url: DO_YOU_HAVE_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       return data.applicant1KnowsApplicant2Address === YesOrNo.NO ? ADDRESS_FINDING : ENTER_THEIR_ADDRESS;
     },
-  },
-  {
-    url: NEED_TO_GET_ADDRESS,
-    getNextStep: () => HOW_TO_APPLY_TO_SERVE,
-  },
-  {
-    url: ENTER_THEIR_ADDRESS,
-    getNextStep: data => (isCountryUk(data.applicant2AddressCountry) ? OTHER_COURT_CASES : YOU_NEED_TO_SERVE),
   },
   {
     url: ADDRESS_FINDING,
@@ -395,6 +370,36 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
     getNextStep: () => OTHER_COURT_CASES,
+  },
+  {
+    url: NEED_TO_GET_ADDRESS,
+    getNextStep: () => HOW_TO_APPLY_TO_SERVE,
+  },
+  {
+    url: ENTER_THEIR_ADDRESS,
+    getNextStep: data => (data.applicant2AddressOverseas === YesOrNo.YES ? ADDRESS_INTERNATIONAL : THEIR_EMAIL_ADDRESS),
+  },
+  {
+    url: ADDRESS_INTERNATIONAL,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
+  },
+  {
+    url: THEIR_EMAIL_ADDRESS,
+    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+      if (data.applicationType === ApplicationType.JOINT_APPLICATION) {
+        return data.applicant1DoesNotKnowApplicant2EmailAddress
+          ? YOU_NEED_THEIR_EMAIL_ADDRESS
+          : isApplicant2EmailUpdatePossible(data)
+            ? EMAIL_RESENT
+            : IN_THE_UK;
+      } else {
+        return OTHER_COURT_CASES;
+      }
+    },
+  },
+  {
+    url: YOU_NEED_THEIR_EMAIL_ADDRESS,
+    getNextStep: () => THEIR_EMAIL_ADDRESS,
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,
