@@ -1,5 +1,7 @@
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
-  {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay or not applicant1KnowsApplicant2Address %}
+  {% if preIssueServiceApplicationStarted %}
+      {% include "./complete-preIssue-service-application.njk" %}
+  {% elif userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay or not applicant1KnowsApplicant2Address %}
 
     {% if not applicant1KnowsApplicant2Address %}
       <p class="govuk-body">{{ furtherActionNeeded.line1 }}</p>
