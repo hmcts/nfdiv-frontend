@@ -1,0 +1,22 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "common/page.njk" %}
+{% block page_content %}
+<div class="govuk-panel govuk-panel--confirmation">
+  <h1 id="detailsUpdatedTitle" class="govuk-panel__title">{{ title }}</h1>
+</div>
+  <p class="govuk-body">{{ line1 }}</p>
+  <br/>
+  <h2 class="govuk-heading-m">{{ whatHappensNext }}</h2>
+  <br/>
+  <p class="govuk-body">{{ line2 }}</p>
+  {% if overseasAddressForRespondent %}
+    <p class="govuk-body">{{ line5 }}</p>
+    <p class="govuk-body">{{ line6 | safe }}</p>
+  {% else %}
+    <p class="govuk-body">{{ line3 }}</p>
+    <p class="govuk-body">{{ line4 }}</p>
+  {% endif %}
+  <p class="govuk-body">{{ returnToYourAccount | safe }}</p>
+{% endblock %}
