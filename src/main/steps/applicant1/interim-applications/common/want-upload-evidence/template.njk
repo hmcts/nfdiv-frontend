@@ -7,5 +7,5 @@
 
 {% block page_content %}
   <h1 class="govuk-heading-l" id="wantUploadEvidenceTitle">{{ title }}</h1>
-  <p class="govuk-body govuk-inset-text">{{ statement }}</p>
+  <p class="govuk-body govuk-inset-text">{{ statement | safe }}</p>
 {% endblock %}
