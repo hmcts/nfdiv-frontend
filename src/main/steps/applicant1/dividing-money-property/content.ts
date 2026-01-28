@@ -34,6 +34,11 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
   yes: 'Yes. I want to apply for a financial order',
   no: 'No. I do not want to apply for a financial order',
+  errors: {
+    applicant1ApplyForFinancialOrder: {
+      required: 'You need to answer whether you want to apply for a financial order.',
+    },
+  },
 });
 
 const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
@@ -67,6 +72,11 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
   yes: 'Yes. I want to apply for a financial order',
   no: 'No. I do not want to apply for a financial order',
+  errors: {
+    applicant1ApplyForFinancialOrder: {
+      required: 'You need to answer whether you want to apply for a financial order.',
+    },
+  },
 });
 
 export const form: FormContent = {

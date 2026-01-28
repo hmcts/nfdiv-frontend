@@ -139,10 +139,7 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "Dividing your money and property"
-
-    When I click "Continue"
-    Then the page should include "Applying for a financial order"
-    Given I select "No, I do not want to apply for a financial order"
+    Given I select "No. I do not want to apply for a financial order"
 
     When I click "Continue"
     Then the page should include "Upload your documents"
@@ -413,16 +410,14 @@ Feature: Applicant 1 sole application
     And I type "Test other legal proceedings details"
 
     When I click "Continue"
-    Then the page should include "Dividing your money and property"
-
-    When I select "Continue"
-    Then the page should include "Applying for a financial order"
-    Given I select "Yes, I want to apply for a financial order"
-    And I select "Myself"
-    And I select "The children"
+    Then the page URL should be "/dividing-money-property"
+    And the page should include "Dividing your money and property"
+    Given I select "Yes. I want to apply for a financial order"
 
     When I click "Continue"
-    Then the page should include "How to apply for a financial order"
+    Then the page URL should be "/who-is-the-financial-order-for"
+    And the page should include "Who is the financial order for?"
+    And I select "I need a financial order for myself and my child(ren)"
 
     When I click "Continue"
     Then the page should include "Upload your documents"

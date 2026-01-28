@@ -7,6 +7,16 @@ import {
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/dividing-money-property/content';
 
+const labels = applicant1Content => {
+  return {
+    errors: {
+      applicant2ApplyForFinancialOrder: {
+        ...applicant1Content.errors.applicant1ApplyForFinancialOrder,
+      },
+    },
+  };
+};
+
 export const form: FormContent = {
   ...applicant1Form,
   fields: {
@@ -33,6 +43,7 @@ export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
   return {
     ...applicant1Content,
+    ...labels(applicant1Content),
     form,
   };
 };

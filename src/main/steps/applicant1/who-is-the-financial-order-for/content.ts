@@ -4,7 +4,7 @@ import { FormContent, FormFieldsFn, FormInput } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 
-const en = ({ partner, required }: CommonContent) => ({
+const en = ({ partner }: CommonContent) => ({
   title: 'Who is the financial order for?',
   line1: `The financial order will describe how to split you and your ${partner}'s money and property.
   Sometimes it can also describe whether any money or property will be transferred to one of you, for the benefit of any children you may have.
@@ -18,12 +18,12 @@ const en = ({ partner, required }: CommonContent) => ({
   applicantAndChildren: 'I need a financial order for myself and my child(ren)',
   errors: {
     applicant1WhoIsFinancialOrderFor: {
-      required,
+      required: 'You need to answer who the financial order is for.',
     },
   },
 });
 
-const cy: typeof en = ({ partner, required }: CommonContent) => ({
+const cy: typeof en = ({ partner }: CommonContent) => ({
   title: 'Who is the financial order for?',
   line1: `The financial order will describe how to split you and your ${partner}'s money and property.
   Sometimes it can also describe whether any money or property will be transferred to one of you, for the benefit of any children you may have.
@@ -37,7 +37,7 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   applicantAndChildren: 'I need a financial order for myself and my child(ren)',
   errors: {
     applicant1WhoIsFinancialOrderFor: {
-      required,
+      required: 'You need to answer who the financial order is for.',
     },
   },
 });

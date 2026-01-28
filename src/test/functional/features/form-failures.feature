@@ -235,7 +235,7 @@ Feature: Form failures
 
     Given I go to "/dividing-money-property"
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then the page should include "You need to answer whether you want to apply for a financial order."
 
     Given I go to "/who-is-the-financial-order-for"
     When I click "Continue"
@@ -455,7 +455,7 @@ Feature: Form failures
     Given I go to "/applicant2/dividing-money-property"
     And I clear the form
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then the page should include "You need to answer whether you want to apply for a financial order."
 
     Given I go to "/applicant2/upload-your-documents"
     And I clear the form
