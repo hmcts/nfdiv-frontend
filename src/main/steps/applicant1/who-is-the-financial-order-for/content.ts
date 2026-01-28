@@ -42,22 +42,27 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   },
 });
 
+enum FinancialOrderForRadioOption {
+  APPLICANT = 'applicant',
+  APPLICANT_AND_CHILDREN = 'applicantAndChildren',
+}
+
 export class RadioButtons {
-  private static INPUT_VALUES: Map<string, FinancialOrderFor[]> = new Map([
-    ['applicant', [FinancialOrderFor.APPLICANT]],
-    ['applicantAndChildren', [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN]],
+  private static RADIO_TO_CHECKBOX_MAPPING: Map<FinancialOrderForRadioOption, FinancialOrderFor[]> = new Map([
+    [FinancialOrderForRadioOption.APPLICANT, [FinancialOrderFor.APPLICANT]],
+    [FinancialOrderForRadioOption.APPLICANT_AND_CHILDREN, [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN]],
   ]);
 
   static getLabelledInputs = (previousValue?: FinancialOrderFor[]): FormInput[] =>
-    Array.from(this.INPUT_VALUES, ([value, parsedValue]) => ({
+    Array.from(this.RADIO_TO_CHECKBOX_MAPPING, ([value, parsedValue]) => ({
       label: l => l[value],
       value,
       selected: parsedValue.length === previousValue?.length,
     }));
 
   static getParsedValue(formBody: Record<string, string>, property: string): [[string, FinancialOrderFor[] | string]] {
-    const selectedValue = formBody[property];
-    const parsedValue = this.INPUT_VALUES.get(selectedValue) ?? selectedValue;
+    const selectedValue = formBody[property] as FinancialOrderForRadioOption;
+    const parsedValue = this.RADIO_TO_CHECKBOX_MAPPING.get(selectedValue) ?? selectedValue;
 
     return [[property, parsedValue]];
   }
