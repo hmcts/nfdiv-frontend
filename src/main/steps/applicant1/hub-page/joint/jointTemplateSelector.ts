@@ -16,6 +16,7 @@ export const getJointHubTemplate = (
   switch (displayState.state()) {
     case State.FinalOrderRequested:
     case State.AwaitingGeneralConsideration:
+    case State.FinalOrderPending:
     case State.GeneralConsiderationComplete: {
       return HubTemplate.FinalOrderRequested;
     }
@@ -78,11 +79,16 @@ export const getJointHubTemplate = (
         ? HubTemplate.RespondedToInformationRequest
         : HubTemplate.InformationRequestedFromPartnerOrOther;
     }
+    case State.AwaitingHWFPartPayment:
+      return HubTemplate.AwaitingHWFPartPayment;
     case State.AwaitingDocuments:
       return HubTemplate.AwaitingDocuments;
     case State.AwaitingHWFDecision:
     case State.AwaitingHWFEvidence:
       return userCase.applicant1CannotUpload === Checkbox.Checked ? HubTemplate.AwaitingDocuments : HubTemplate.Holding;
+    case State.WelshTranslationRequested:
+    case State.WelshTranslationReview:
+      return HubTemplate.WelshTranslationRequestedOrReview;
     default: {
       if (
         displayState.isAfter('Holding') &&

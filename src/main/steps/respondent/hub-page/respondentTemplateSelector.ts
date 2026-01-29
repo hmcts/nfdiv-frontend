@@ -8,11 +8,14 @@ export const getRespondentHubTemplate = (
   userCase: Partial<CaseWithId>,
   hasSubmittedAos: boolean
 ): string | undefined => {
+  const conditionalOrderHasBeenSubmitted = !!userCase.coApplicant1SubmittedDate;
+  const canSubmitAos = !hasSubmittedAos && !conditionalOrderHasBeenSubmitted;
+
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
-    case State.FinalOrderRequested: {
+    case State.FinalOrderPending:
+    case State.FinalOrderRequested:
       return HubTemplate.FinalOrderRequested;
-    }
     case State.AwaitingFinalOrder: {
       return HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue;
     }
@@ -24,6 +27,8 @@ export const getRespondentHubTemplate = (
     case State.AwaitingLegalAdvisorReferral:
     case State.LAReview:
     case State.AwaitingPronouncement:
+    case State.AwaitingAdminClarification:
+    case State.AwaitingClarification:
     case State.AwaitingAmendedApplication:
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.FinalOrderComplete:
@@ -40,15 +45,20 @@ export const getRespondentHubTemplate = (
         return HubTemplate.AwaitingAoS;
       }
     case State.Holding:
-      if (!hasSubmittedAos) {
+    case State.AwaitingJudgeClarification:
+    case State.PendingServiceAppResponse:
+      if (canSubmitAos) {
         return HubTemplate.AwaitingAoS;
       }
       return HubTemplate.Holding;
     case State.PendingHearingOutcome:
     case State.PendingHearingDate:
       return HubTemplate.PendingHearingOutcome;
+    case State.WelshTranslationRequested:
+    case State.WelshTranslationReview:
+      return HubTemplate.WelshTranslationRequestedOrReview;
     default: {
-      if (displayState.isAtOrBefore('AwaitingConditionalOrder') && !hasSubmittedAos) {
+      if (displayState.isAtOrBefore('AwaitingConditionalOrder') && canSubmitAos) {
         return HubTemplate.AwaitingAoS;
       }
     }

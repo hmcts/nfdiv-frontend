@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { PaymentStatus, RESPONDENT_APPLY_FOR_FINAL_ORDER, State } from '../../../app/case/definition';
-import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../urls';
+import { PAYMENT_CALLBACK_URL, RESPONDENT, SAVE_AND_SIGN_OUT } from '../../urls';
 
 import PaymentPostController from './post';
 
@@ -55,7 +55,7 @@ describe('PaymentPostController', () => {
 
       await paymentController.post(req, res);
       expect(req.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/payment-callback');
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + PAYMENT_CALLBACK_URL);
     });
 
     it('transitions the case to awaiting payment if the state is awaiting final order', async () => {
@@ -79,11 +79,7 @@ describe('PaymentPostController', () => {
 
       await paymentController.post(req, res);
 
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-        '1234',
-        { citizenPaymentCallbackUrl: 'https://undefined/payment-callback' },
-        RESPONDENT_APPLY_FOR_FINAL_ORDER
-      );
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, RESPONDENT_APPLY_FOR_FINAL_ORDER);
     });
 
     it('redirects to hub page if last payment is in progress', async () => {
@@ -115,7 +111,7 @@ describe('PaymentPostController', () => {
       expect(mockCreate).not.toHaveBeenCalled();
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
       expect(req.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(PAYMENT_CALLBACK_URL);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + PAYMENT_CALLBACK_URL);
     });
 
     it('saves and signs out', async () => {

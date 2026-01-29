@@ -38,6 +38,9 @@ const fields: FromApiConverters = {
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
   }),
+  applicant1BailiffPartnersDateOfBirth: data => ({
+    applicant1BailiffPartnersDateOfBirth: fromApiDate(data.applicant1BailiffPartnersDateOfBirth),
+  }),
   doesApplicant1WantToApplyForFinalOrder: data => ({
     doesApplicant1WantToApplyForFinalOrder: checkboxConverter(data.doesApplicant1WantToApplyForFinalOrder),
   }),
@@ -161,7 +164,6 @@ const fields: FromApiConverters = {
   }),
   previousState: 'previousState',
   applicant1SolicitorRepresented: 'applicant1SolicitorRepresented',
-  applicant2Offline: 'applicant2Offline',
   switchedToSoleCo: 'switchedToSoleCo',
   applicant1AppliedForFinalOrderFirst: 'applicant1AppliedForFinalOrderFirst',
   applicant2AppliedForFinalOrderFirst: 'applicant2AppliedForFinalOrderFirst',
@@ -181,8 +183,47 @@ const fields: FromApiConverters = {
     app2RfiDraftResponseCannotUploadDocs: checkboxConverter(data.app2RfiDraftResponseCannotUploadDocs),
   }),
   requestsForInformation: 'requestsForInformation',
+  applicant1InterimAppsIUnderstand: data => ({
+    applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
+  }),
+  applicant1InterimAppsEvidenceDocs: uploadedFilesFromApiApplicant1,
+  applicant1InterimAppsCannotUploadDocs: data => ({
+    applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
+  }),
+  applicant1InterimAppsStatementOfTruth: data => ({
+    applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  }),
+  applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
+  applicant1NoResponseRespondentAddressInEnglandWales: data => ({
+    applicant1NoResponseRespondentAddressInEnglandWales: checkboxConverter(
+      data.applicant1NoResponseRespondentAddressInEnglandWales
+    ),
+  }),
   applicant2LegalProceedingDocs: uploadedFilesFromApiApplicant2,
   applicant2UnableToUploadEvidence: uploadedFilesFromApiApplicant2,
+  applicant1NoResponsePartnerAddress: data => formatAddress(data, 'applicant1NoResponsePartner'),
+  applicant1NoResponsePartnerAddressOverseas: ({ applicant1NoResponsePartnerAddressOverseas }) => ({
+    applicant1NoResponsePartnerAddressOverseas: applicant1NoResponsePartnerAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1SearchGovRecordsPartnerDateOfBirth: data => ({
+    applicant1SearchGovRecordsPartnerDateOfBirth: fromApiDate(data.applicant1SearchGovRecordsPartnerDateOfBirth),
+  }),
+  applicant1AltServicePartnerEmail: data => ({
+    applicant1AltServicePartnerEmail: data.applicant1AltServicePartnerEmail,
+    applicant1AltServicePartnerEmailWhenDifferent: data.applicant1AltServicePartnerEmail,
+  }),
+  applicant1DispenseLivedTogetherDate: data => ({
+    applicant1DispenseLastLivedTogetherDate: fromApiDate(data.applicant1DispenseLivedTogetherDate),
+  }),
+  applicant1DispenseLivedTogetherAddress: data => formatAddress(data, 'applicant1DispenseLivedTogether'),
+  applicant1DispenseLivedTogetherAddressOverseas: ({ applicant1DispenseLivedTogetherAddressOverseas }) => ({
+    applicant1DispenseLivedTogetherAddressOverseas: applicant1DispenseLivedTogetherAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1DispensePartnerLastSeenDate: data => ({
+    applicant1DispensePartnerLastSeenOrHeardOfDate: fromApiDate(data.applicant1DispensePartnerLastSeenDate),
+  }),
+  applicant1SearchGovRecordsPartnerLastKnownAddress: data =>
+    formatAddress(data, 'applicant1SearchGovRecordsPartnerLastKnown'),
 };
 
 const fromApiDate = date => {

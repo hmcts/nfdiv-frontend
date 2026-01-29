@@ -1,5 +1,13 @@
 import { State } from '../../main/app/case/definition';
-import { ADDRESS_PRIVATE, HOME_URL, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
+import {
+  ADDRESS_PRIVATE,
+  GENERAL_APPLICATION_SUBMITTED,
+  HOME_URL,
+  PAY_YOUR_GENERAL_APPLICATION_FEE,
+  PAY_YOUR_SERVICE_FEE,
+  SERVICE_APPLICATION_SUBMITTED,
+  THEIR_EMAIL_ADDRESS,
+} from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
 
 import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common';
@@ -106,9 +114,15 @@ Given("I've completed all happy path questions correctly", async () => {
   I.type('Test your last name');
   iClick('Continue');
 
-  I.waitInUrl('/confirm-your-name');
+  I.waitInUrl('/check-your-name');
   iClearTheForm();
-  iClick("Yes, that's my full name");
+  iClick('No');
+  iClick('Continue');
+
+  I.waitInUrl('/your-name-on-certificate');
+  iClearTheForm();
+  iClick('full name');
+  I.type('Test your name');
   iClick('Continue');
 
   I.waitInUrl('/enter-their-name');
@@ -119,22 +133,15 @@ Given("I've completed all happy path questions correctly", async () => {
   I.type('Test their last name');
   iClick('Continue');
 
-  I.waitInUrl('/confirm-their-name');
+  I.waitInUrl('/check-their-name');
   iClearTheForm();
-  iClick("Yes, that's their full name");
+  iClick('No');
   iClick('Continue');
 
-  I.waitInUrl('/your-names-on-certificate');
+  I.waitInUrl('/their-name-on-certificate');
   iClearTheForm();
-  iClick('Copy your full name');
-  I.type('First name Last name');
   iClick("Copy your husband's full name");
   I.type('Husbands name');
-  iClick('Continue');
-
-  I.waitInUrl('/changes-to-your-name');
-  checkOptionFor('No', 'Did you change your last name when you got married?');
-  checkOptionFor('No', 'Have you changed any part of your name since getting married?');
   iClick('Continue');
 
   I.waitInUrl('/how-the-court-will-contact-you');
@@ -205,6 +212,22 @@ Given('I pay and submit the application', () => {
 
   completePayment();
   I.waitInUrl('/application-submitted', 15);
+});
+
+Given('I pay and submit the service application', () => {
+  I.waitInUrl(PAY_YOUR_SERVICE_FEE);
+  iClick('Pay and submit application');
+
+  completePayment();
+  I.waitInUrl(SERVICE_APPLICATION_SUBMITTED, 15);
+});
+
+Given('I pay and submit the general application', () => {
+  I.waitInUrl(PAY_YOUR_GENERAL_APPLICATION_FEE);
+  iClick('Pay and submit application');
+
+  completePayment();
+  I.waitInUrl(GENERAL_APPLICATION_SUBMITTED, 15);
 });
 
 Given('I pay and submit the final order application', () => {

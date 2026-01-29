@@ -1,19 +1,33 @@
-{% if aosIsDrafted %}
-  <p class="govuk-body">{{ aosDrafted.line1 }}</p>
-  <p class="govuk-body">{{ aosDrafted.line2 }}</p>
+{% if interimApplicationStartedAosOverdue %}
+    {% include "./complete-interim-application.njk" %}
+{% elif contactDetailsUpdatedUKBased %}
+    <p class="govuk-body">{{ contactDetailsUpdated.line1 }}</p>
+    <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
+    <p class="govuk-body">{{ contactDetailsUpdated.line2 }}</p>
+    <p class="govuk-body">{{ contactDetailsUpdated.line3 }}</p>
+{% elif aosIsDrafted %}
+    <p class="govuk-body">{{ aosDrafted.line1 }}</p>
+    <p class="govuk-body">{{ aosDrafted.line2 }}</p>
 {% else %}
-  <p class="govuk-body">{{ aosAwaiting.line1 }}</p>
-  {% if isRespondentOverseas %}
-    {% if isRespondentRepresented %}
-      <p class="govuk-body">{{ aosAwaiting.line7 }}</p>
+    {% if applicant1NoResponseSendPapersAgain %}
+        <p class="govuk-body">{{ sendPapersAgain.line1 }}</p>
+        <p class="govuk-body">{{ sendPapersAgain.line2 }}</p>
+        <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
+        <p class="govuk-body">{{ sendPapersAgain.line3 }}</p>
+    {% else %}
+        <p class="govuk-body">{{ aosAwaiting.line1 }}</p>
+        {% if isRespondentOverseas %}
+            {% if isRespondentRepresented %}
+                <p class="govuk-body">{{ aosAwaiting.line7 }}</p>
+            {% endif %}
+            <p class="govuk-body">{{ aosAwaiting.line5 }}</p>
+            <p class="govuk-body">{{ aosAwaiting.line6 }}</p>
+            {% elif isRespondentRepresented %}
+            <p class="govuk-body">{{ aosAwaiting.line7 }}</p>
+        {% else %}
+            <p class="govuk-body">{{ aosAwaiting.line2 }}</p>
+            <p class="govuk-body">{{ aosAwaiting.line3 }}</p>
+            <p class="govuk-body">{{ aosAwaiting.line4 }}</p>
+        {% endif %}
     {% endif %}
-    <p class="govuk-body">{{ aosAwaiting.line5 }}</p>
-    <p class="govuk-body">{{ aosAwaiting.line6 }}</p>
-  {% elif isRespondentRepresented %}
-    <p class="govuk-body">{{ aosAwaiting.line7 }}</p>
-  {% else %}
-    <p class="govuk-body">{{ aosAwaiting.line2 }}</p>
-    <p class="govuk-body">{{ aosAwaiting.line3 }}</p>
-    <p class="govuk-body">{{ aosAwaiting.line4 }}</p>
-  {% endif %}
 {% endif %}

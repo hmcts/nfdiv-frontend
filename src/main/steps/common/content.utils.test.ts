@@ -2,6 +2,7 @@ import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
   ApplicationType,
   ChangedNameHow,
+  ChangedNameWhy,
   ClarificationReason,
   Gender,
   LegalAdvisorDecision,
@@ -26,7 +27,6 @@ import {
   hasApplicantAppliedForFoFirst,
   isApplicant2EmailUpdatePossible,
   latestLegalAdvisorDecisionContent,
-  nameChangedHowPossibleValue,
 } from './content.utils';
 
 describe('content.utils', () => {
@@ -412,64 +412,17 @@ describe('content.utils', () => {
       const theValidator = validator([ChangedNameHow.OTHER], {});
       expect(theValidator).toEqual('applicant1LastNameChangedWhenMarriedOtherDetails');
     });
-  });
 
-  describe('nameChangedHowPossibleValue', () => {
-    let userCase: Partial<CaseWithId>;
-
-    beforeEach(() => {
-      userCase = {
-        applicant1LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
-        applicant1NameDifferentToMarriageCertificateMethod: [ChangedNameHow.DEED_POLL],
-        applicant1NameChangedHow: [ChangedNameHow.OTHER],
-        applicant2LastNameChangedWhenMarriedMethod: [ChangedNameHow.MARRIAGE_CERTIFICATE],
-        applicant2NameDifferentToMarriageCertificateMethod: [ChangedNameHow.DEED_POLL],
-        applicant2NameChangedHow: [ChangedNameHow.OTHER],
-      };
+    test('Assert that the validator returns field name when why changed name form data is invalid', () => {
+      const validator = getNameChangeOtherDetailsValidator('applicant1WhyNameDifferentOtherDetails');
+      const theValidator = validator(ChangedNameWhy.OTHER, {});
+      expect(theValidator).toEqual('applicant1WhyNameDifferentOtherDetails');
     });
 
-    test('Assert that nameChangedHowPossibleValue returns the "method" fields if present (app1)', () => {
-      const actual = nameChangedHowPossibleValue(userCase, false);
-      expect(actual).toMatchObject(
-        expect.arrayContaining([ChangedNameHow.MARRIAGE_CERTIFICATE, ChangedNameHow.DEED_POLL])
-      );
-    });
-
-    test('Assert that nameChangedHowPossibleValue returns the deprecated fields if "method" fields not present (app1)', () => {
-      userCase.applicant1LastNameChangedWhenMarriedMethod = [];
-      userCase.applicant1NameDifferentToMarriageCertificateMethod = [];
-      const actual = nameChangedHowPossibleValue(userCase, false);
-      expect(actual).toMatchObject(expect.arrayContaining([ChangedNameHow.OTHER]));
-    });
-
-    test('Assert that nameChangedHowPossibleValue returns empty array if no name change how (app1)', () => {
-      userCase.applicant1LastNameChangedWhenMarriedMethod = [];
-      userCase.applicant1NameDifferentToMarriageCertificateMethod = [];
-      userCase.applicant1NameChangedHow = [];
-      const actual = nameChangedHowPossibleValue(userCase, false);
-      expect(actual).toMatchObject(expect.arrayContaining([]));
-    });
-
-    test('Assert that nameChangedHowPossibleValue returns the "method" fields if present (app2)', () => {
-      const actual = nameChangedHowPossibleValue(userCase, true);
-      expect(actual).toMatchObject(
-        expect.arrayContaining([ChangedNameHow.MARRIAGE_CERTIFICATE, ChangedNameHow.DEED_POLL])
-      );
-    });
-
-    test('Assert that nameChangedHowPossibleValue returns the deprecated fields if "method" fields not present (app2)', () => {
-      userCase.applicant2LastNameChangedWhenMarriedMethod = [];
-      userCase.applicant2NameDifferentToMarriageCertificateMethod = [];
-      const actual = nameChangedHowPossibleValue(userCase, true);
-      expect(actual).toMatchObject(expect.arrayContaining([ChangedNameHow.OTHER]));
-    });
-
-    test('Assert that nameChangedHowPossibleValue returns empty array if no name change how (app2)', () => {
-      userCase.applicant2LastNameChangedWhenMarriedMethod = [];
-      userCase.applicant2NameDifferentToMarriageCertificateMethod = [];
-      userCase.applicant2NameChangedHow = [];
-      const actual = nameChangedHowPossibleValue(userCase, true);
-      expect(actual).toMatchObject(expect.arrayContaining([]));
+    test('Assert that the validator does not return field name when the changed name form data is valid', () => {
+      const validator = getNameChangeOtherDetailsValidator('applicant1WhyNameDifferentOtherDetails');
+      const theValidator = validator(ChangedNameWhy.DEED_POLL, {});
+      expect(theValidator).toEqual(undefined);
     });
   });
 });

@@ -28,7 +28,7 @@ import { HomeGetController } from './steps/home/get';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { RequestForInformationSaveSignOutGetController } from './steps/request-for-information-save-sign-out/get';
-import { shouldHideRouteFromUser } from './steps/routeHiding';
+import { shouldHideRouteFromUser, shouldRedirectRouteToHub } from './steps/routeHiding';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
 import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get';
@@ -49,6 +49,7 @@ import {
   EXISTING_APPLICATION,
   EXIT_SERVICE,
   HOME_URL,
+  HUB_PAGE,
   NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
@@ -182,7 +183,7 @@ export class Routes {
       !getUserSequence(req).some(r => req.path.includes(r.url)) ||
       shouldHideRouteFromUser(req)
     ) {
-      return res.redirect('/error');
+      return shouldRedirectRouteToHub(req) ? res.redirect(HUB_PAGE) : res.redirect('/error');
     }
     next();
   }

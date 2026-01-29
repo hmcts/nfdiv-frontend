@@ -213,6 +213,12 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 
+  test('should show /awaiting-hwf-part-payment.njk for state AwaitingHWFPartPayment', () => {
+    const theState = displayState.at(State.AwaitingHWFPartPayment);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingHWFPartPayment);
+  });
+
   test('should show /awaiting-documents.njk for state AwaitingHWFDecision and reason is "cannot upload documents"', () => {
     const userCaseWithApplicant1CannotUploadDocuments = {
       ...userCase,
@@ -233,5 +239,17 @@ describe('JointTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingHWFEvidence);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.Holding);
+  });
+
+  test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationReview', () => {
+    const theState = displayState.at(State.WelshTranslationReview);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
+  });
+
+  test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationRequested', () => {
+    const theState = displayState.at(State.WelshTranslationRequested);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
 });
