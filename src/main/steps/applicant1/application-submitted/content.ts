@@ -2,6 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
+import { Checkbox } from '../../../app/case/case';
 import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
@@ -63,16 +64,16 @@ const en = (
   },
   documentsByPostMoreDetails:
     'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
-  line4: {
-    part1: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
-    link: config.get('govukUrls.d11Form'),
-  },
   subHeading3: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
   line3: {
     p1: `You need to apply to serve the ${
       isDivorce ? 'divorce' : 'ending your civil partnership'
     } papers to your ${partner} another way. This is because you did not provide their email and postal address. You could apply to serve them by email only, text message or social media.`,
     p2: 'You will need to fill out a separate paper D11 form and send it to the court. The form can be used to make different applications so only fill out the relevant sections.',
+  },
+  line4: {
+    part1: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
+    link: config.get('govukUrls.d11Form'),
   },
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
@@ -348,8 +349,10 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const addressRequired =
-    userCase.applicant1KnowsApplicant2Address !== YesOrNo.YES ||
-    userCase.applicant1FoundApplicant2Address !== YesOrNo.YES;
+    !isJointApplication &&
+    (userCase.applicant1KnowsApplicant2Address !== YesOrNo.YES ||
+      userCase.applicant1FoundApplicant2Address !== YesOrNo.YES ||
+      userCase.iWantToHavePapersServedAnotherWay === Checkbox.Checked);
 
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
 
