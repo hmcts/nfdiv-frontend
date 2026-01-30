@@ -14,6 +14,7 @@ Feature: Joint request for information
     And I select element "#applicant2StatementOfTruth"
     When I click submit
     Then the page URL should be "/applicant2/response-submitted"
+    Then I set the case state to "Submitted"
 
   Scenario: Applicant 1 joint rfi journey
     Given a case worker issues a request for information to app1 on a joint case

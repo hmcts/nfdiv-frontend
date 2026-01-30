@@ -191,16 +191,12 @@ Feature: Applicant 2
 
     When I click "Continue"
     Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
-    Given I select "Yes"
+    Given I select "No"
 
     When I click "Continue"
     Then the page should include "How is your name written on your marriage certificate"
     Given I select "Copy your full name from the marriage certificate"
     And I type "Sarah Smith"
-
-    When I click "Continue"
-    Then the page should include "Why is your legal name different"
-    Given I select "I changed my name by deed poll"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/how-the-court-will-contact-you"
@@ -264,13 +260,6 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/how-to-apply-financial-order"
     And the page should include "How to apply for a financial order"
-
-    When I click "Continue"
-    Then the page URL should be "/applicant2/upload-your-documents"
-    And the page should include "Upload your documents"
-    Given I delete any previously uploaded files
-    And I select "I cannot upload some or all of my documents"
-    And I select "Proof that I changed my name"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"

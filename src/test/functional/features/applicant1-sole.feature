@@ -294,10 +294,6 @@ Feature: Applicant 1 sole application
     And I type "Sarah Smith"
 
     When I click "Continue"
-    Then the page should include "Why is your legal name different"
-    Given I select "I changed my name by deed poll"
-
-    When I click "Continue"
     Then the page should include "Enter your husband’s name"
     Given I clear the form
     When I select "Your husband’s first name"
@@ -306,7 +302,7 @@ Feature: Applicant 1 sole application
     And I type "Bob"
 
     When I click "Continue"
-    Then the page should include "Is any part of your husband's full name written differently on your marriage certificate?"
+    Then the page should include "Is any part of your husband's full name (Billy Bob) written differently on your marriage certificate?"
     Given I select "No"
 
     When I click "Continue"
@@ -431,8 +427,7 @@ Feature: Applicant 1 sole application
     When I click "Continue"
     Then the page should include "Upload your documents"
     Given I delete any previously uploaded files
-    And I select "I cannot upload some or all of my documents"
-    And I select "Proof that I changed my name"
+    And I select "I cannot upload my original foreign marriage certificate"
 
     When I click "Continue"
     And I go to "/"
