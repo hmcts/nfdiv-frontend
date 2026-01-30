@@ -458,13 +458,15 @@ describe('SoleTemplateSelector test', () => {
 
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFDecision', () => {
     const theState = displayState.at(State.AwaitingHWFDecision);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const userCaseWithApplicant1KnowsApplicant2Address = { ...userCase, applicant1KnowsApplicant2Address: YesOrNo.YES };
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1KnowsApplicant2Address, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFEvidence', () => {
     const theState = displayState.at(State.AwaitingHWFEvidence);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const userCaseWithApplicant1KnowsApplicant2Address = { ...userCase, applicant1KnowsApplicant2Address: YesOrNo.YES };
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1KnowsApplicant2Address, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
