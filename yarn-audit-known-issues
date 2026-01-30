@@ -1,1 +1,1 @@
-{"actions":[],"advisories":{},"muted":[],"metadata":{"vulnerabilities":{"info":0,"low":0,"moderate":0,"high":0,"critical":0},"dependencies":64,"devDependencies":1,"optionalDependencies":0,"totalDependencies":65}}
+{"value":"csurf","children":{"ID":"csurf (deprecation)","Issue":"This package is archived and no longer maintained. For support, visit https://github.com/expressjs/express/discussions","Severity":"moderate","Vulnerable Versions":"1.11.0","Tree Versions":["1.11.0"],"Dependents":["nfdiv-frontend@workspace:."]}}
