@@ -4,20 +4,18 @@ Feature: Search gov records journey post-issue
     Given I create a new user and login
     Then I reject cookies
     And I've already completed the form using the fixture "issuedCase"
-#    Given a superuser updates "issueDate" with "2023-10-31"
-#    Then I set the case state to "AwaitingAos"
-    Then I set the case state to "Submitted"
+    Given a superuser updates "issueDate" with "2023-10-31"
+    Then I set the case state to "AwaitingAos"
 
   Scenario: Search gov records happy path post-issue
     When I sign out
     And I login with applicant "1"
     Then the page should include "Your application will be checked by court staff."
 
-#    Given I set the case state to "AosOverdue"
-    Given I set the case state to "AwaitingApplicant"
+    Given I set the case state to "AosOverdue"
     When I sign out
     And I login with applicant "1"
-#    Then the page should include element "#aosDueLink"
+    Then the page should include element "#aosDueLink"
 
     Given I go to "/interim-applications/no-response/gov-search-possible"
     And I click element "#search"
