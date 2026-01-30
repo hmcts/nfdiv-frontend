@@ -163,7 +163,7 @@
   },
   "resolutions": {
     "axios": "1.13.4",
-    "lodash": "4.17.23"
+    "tar": "^7.5.7"
   },
   "packageManager": "yarn@3.8.7"
 }
