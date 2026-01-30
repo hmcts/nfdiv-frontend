@@ -164,7 +164,8 @@
   },
   "resolutions": {
     "axios": "1.13.4",
-    "tar": "^7.5.7"
+    "tar": "^7.5.7",
+    "jws": "3.2.3"
   },
   "packageManager": "yarn@4.4.1"
 }
