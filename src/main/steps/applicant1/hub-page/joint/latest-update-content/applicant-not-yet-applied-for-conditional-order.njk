@@ -1,1 +1,20 @@
-<p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder }}</p>
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+<p class="govuk-body" id='applicantNotYetAppliedForConditionalOrderContent'>{{ applicantNotYetAppliedForConditionalOrder.content }}</p>
+{% if partnerIsOffline %}
+  <div id="partnerIsOfflineContent">
+    <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.youWontBeAbleToApplyOnline | safe }}</p>
+    <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.downloadPaperForm.content }}<a class="govuk-link" href={{ applicantNotYetAppliedForConditionalOrder.notOnline.downloadPaperForm.link.url }}>{{ applicantNotYetAppliedForConditionalOrder.notOnline.downloadPaperForm.link.text }}</a></p>
+    <h3 class="govuk-heading-s">{{ applicantNotYetAppliedForConditionalOrder.notOnline.sendingDocumentsOnline.header }}</h3>
+    <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.sendingDocumentsOnline.content }}<a class="govuk-link" href={{ applicantNotYetAppliedForConditionalOrder.notOnline.sendingDocumentsOnline.link.url }}>{{ applicantNotYetAppliedForConditionalOrder.notOnline.sendingDocumentsOnline.link.text }}</a></p>
+    <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.sendingDocumentsOnline.followInstructions }}</p>
+    <h3 class="govuk-heading-s">{{ applicantNotYetAppliedForConditionalOrder.notOnline.sendingDocumentsPost.header }}</h3>
+    <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.sendingDocumentsPost.content }}</p>
+    <ul class="govuk-list govuk-list--number">
+      <li><p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.sendingDocumentsPost.list.step1.content }}</p><p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.sendingDocumentsPost.list.step1.refNumber }}</p></li>
+      <li><p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.sendingDocumentsPost.list.step2 }}</p>{{ serviceAddressMacro(serviceAddress, false, true) }}</li>
+    </ul>
+    <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.courtSentLetter }}</p>
+    <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.sinceJointApplication }}</p>
+  </div>
+{% endif %}

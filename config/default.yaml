@@ -117,6 +117,7 @@ serviceAddress:
 govukUrls:
   d11Form: 'https://www.gov.uk/government/publications/form-d11-application-notice'
   d36Form: 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/952032/d36-eng.pdf'
+  d84Form: 'https://www.gov.uk/government/publications/form-d84-apply-for-a-conditional-order-or-judicial-separation-order'
   n215Form: 'https://www.gov.uk/government/publications/form-n215-certificate-of-service'
   mediation: 'https://www.gov.uk/money-property-when-relationship-ends/mediation'
   consentOrder: 'https://www.gov.uk/money-property-when-relationship-ends/apply-for-consent-order'
@@ -131,3 +132,4 @@ govukUrls:
   getHelpWithCourtFeesCY: 'https://www.gov.uk/help-i-dalu-ffioedd-llysoedd-a-thribiwnlysoedd'
   certifiedTranslation: 'https://www.gov.uk/certifying-a-document#certifying-a-translation'
   searchForDecreeAbsoluteOrFinalOrder: 'https://www.gov.uk/copy-decree-absolute-final-order/do-not-know-which-court'
+  serviceOfDocuments: 'https://www.gov.uk/guidance/service-of-documents-and-taking-of-evidence'
