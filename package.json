@@ -163,10 +163,12 @@
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
-    "axios": "1.13.4",
+    "axios": "^1.13.4",
     "tar": "^7.5.7",
-    "jws": "3.2.3",
-    "cookie": "0.7.2"
+    "jws": "^3.2.3",
+    "cookie": "^0.7.2",
+    "diff": "^8.0.3",
+    "glob": "^11.1.0"
   },
   "packageManager": "yarn@4.4.1"
 }
