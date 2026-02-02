@@ -17,17 +17,17 @@ import {
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   EVIDENCE_RECEIVED_APPLICATION,
-  GOV_SEARCH_POSSIBLE,
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
   HUB_PAGE,
-  IS_PARTNER_ABROAD,
   NEW_CONTACT_DETAIL_CHECK_ANSWERS,
   NEW_EMAIL,
   NEW_POSTAL_ADDRESS,
   NEW_POSTAL_AND_EMAIL,
   NO_NEW_ADDRESS,
   NO_RESPONSE_DETAILS_UPDATED,
+  NO_RESPONSE_GOV_SEARCH_POSSIBLE,
+  NO_RESPONSE_IS_PARTNER_ABROAD,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PARTNER_IN_PERSON,
@@ -168,7 +168,7 @@ describe('No Response Journey Sequence test', () => {
         applicant1NoResponseOwnSearches: NoResponseOwnSearches.YES,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === OWN_SEARCHES) as Step;
-      expect(step.getNextStep(caseData)).toBe(IS_PARTNER_ABROAD);
+      expect(step.getNextStep(caseData)).toBe(NO_RESPONSE_IS_PARTNER_ABROAD);
     });
 
     test('IS_PARTNER_ABROAD (NOT_FOUND)', () => {
@@ -176,7 +176,7 @@ describe('No Response Journey Sequence test', () => {
         applicant1NoResponseOwnSearches: NoResponseOwnSearches.NOT_FOUND,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === OWN_SEARCHES) as Step;
-      expect(step.getNextStep(caseData)).toBe(IS_PARTNER_ABROAD);
+      expect(step.getNextStep(caseData)).toBe(NO_RESPONSE_IS_PARTNER_ABROAD);
     });
 
     test('SEARCH_TIPS', () => {
@@ -188,30 +188,30 @@ describe('No Response Journey Sequence test', () => {
     });
   });
 
-  describe('IS_PARTNER_ABROAD', () => {
+  describe('NO_RESPONSE_IS_PARTNER_ABROAD', () => {
     test('DISPENSE_SERVICE_APPLICATION', () => {
       const caseData = {
         applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.NO,
       };
-      const step = noResponseJourneySequence.find(obj => obj.url === IS_PARTNER_ABROAD) as Step;
+      const step = noResponseJourneySequence.find(obj => obj.url === NO_RESPONSE_IS_PARTNER_ABROAD) as Step;
       expect(step.getNextStep(caseData)).toBe(DISPENSE_SERVICE_APPLICATION);
     });
 
-    test('GOV_SEARCH_POSSIBLE', () => {
+    test('NO_RESPONSE_GOV_SEARCH_POSSIBLE', () => {
       const caseData = {
         applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo.YES,
       };
-      const step = noResponseJourneySequence.find(obj => obj.url === IS_PARTNER_ABROAD) as Step;
-      expect(step.getNextStep(caseData)).toBe(GOV_SEARCH_POSSIBLE);
+      const step = noResponseJourneySequence.find(obj => obj.url === NO_RESPONSE_IS_PARTNER_ABROAD) as Step;
+      expect(step.getNextStep(caseData)).toBe(NO_RESPONSE_GOV_SEARCH_POSSIBLE);
     });
   });
 
-  describe('GOV_SEARCH_POSSIBLE', () => {
+  describe('NO_RESPONSE_GOV_SEARCH_POSSIBLE', () => {
     test('SEARCH_GOV_RECORDS_APPLICATION', () => {
       const caseData = {
         applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense.SEARCH,
       };
-      const step = noResponseJourneySequence.find(obj => obj.url === GOV_SEARCH_POSSIBLE) as Step;
+      const step = noResponseJourneySequence.find(obj => obj.url === NO_RESPONSE_GOV_SEARCH_POSSIBLE) as Step;
       expect(step.getNextStep(caseData)).toBe(SEARCH_GOV_RECORDS_APPLICATION);
     });
 
@@ -219,7 +219,7 @@ describe('No Response Journey Sequence test', () => {
       const caseData = {
         applicant1NoResponseSearchOrDispense: NoResponseSearchOrDispense.DISPENSE,
       };
-      const step = noResponseJourneySequence.find(obj => obj.url === GOV_SEARCH_POSSIBLE) as Step;
+      const step = noResponseJourneySequence.find(obj => obj.url === NO_RESPONSE_GOV_SEARCH_POSSIBLE) as Step;
       expect(step.getNextStep(caseData)).toBe(DISPENSE_SERVICE_APPLICATION);
     });
   });
