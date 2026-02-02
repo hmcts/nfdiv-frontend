@@ -36,8 +36,8 @@ import {
   SEARCH_GOV_RECORDS_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
 } from '../../../urls';
-import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application-submitted/content';
-import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application-submitted/content';
+import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application/submitted/content';
+import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application/submitted/content';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -62,7 +62,6 @@ const en = (
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  respondentAddressProvided: boolean,
   noResponseStartPagePath: string
 ) => ({
   aosAwaiting: {
@@ -518,6 +517,23 @@ const en = (
     },
     line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
   },
+  offlineGeneralApplicationReceived: {
+    line1:
+      'The court is reviewing a general application that has been received and will contact you to let you know your next steps.',
+  },
+  awaitingDwpResponse: {
+    line1: `The court has approved your application to search government records for the details of your ${partner}.`,
+    line2:
+      'It normally takes 6 – 8 weeks to complete a search. We will email you when the search is complete to let you know the next steps.',
+  },
+  awaitingAlternativeService: {
+    line1: 'The court has approved your application for alternative service.',
+    line2: 'We are now awaiting completion of service through the method of service that was approved by the court.',
+  },
+  awaitingGenAppHwfPartPaymentOrEvidence: {
+    line1:
+      'The court is reviewing your application and help with fees reference number. You will receive an email notification confirming what you need to do next.',
+  },
 });
 
 // @TODO translations
@@ -531,18 +547,17 @@ const cy: typeof en = (
     referenceNumber,
     isJointApplication,
     serviceApplicationType,
-    generalApplicationType,
+    serviceApplicationDate,
     serviceApplicationResponseDate,
+    generalApplicationType,
     generalApplicationDate,
     generalApplicationResponseDate,
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
-    serviceApplicationDate,
     interimApplicationType,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  respondentAddressProvided: boolean,
   noResponseStartPagePath: string
 ) => ({
   aosAwaiting: {
@@ -617,7 +632,7 @@ const cy: typeof en = (
     linkUrl: `${noResponseStartPagePath}`,
   },
   aosDueAndDrafted: {
-    line1: `Mae eich ${partner} wedi cyflwyno eu hymateb i’ch ${
+    line1: `Nid yw eich ${partner} wedi cyflwyno eu hymateb i’ch ${
       isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     }. Dylai bod nhw wedi ymateb erbyn ${getFormattedDate(userCase.dueDate, SupportedLanguages.Cy)}.`,
     line2: `Efallai yr hoffech ddefnyddio hwn i brofi bod eich ${partner} wedi cael eich cais.`,
@@ -900,7 +915,7 @@ const cy: typeof en = (
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } dramor`,
     [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Prawf eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
+      'Tystiolaeth eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
   },
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
   documentsByOnlineFormSteps: {
@@ -1014,6 +1029,23 @@ const cy: typeof en = (
     },
     line3: `Os byddant yn methu â chyflwyno’r papurau, efallai y gallwch wneud cais am gyflwyno amgen drwy flwch llythyrau, os yw cyfeiriad eich ${partner} wedi’i gadarnhau. Fel arall, bydd angen i chi gyflwyno’r papurau mewn rhyw ffordd arall.`,
   },
+  offlineGeneralApplicationReceived: {
+    line1:
+      'Mae’r llys yn adolygu cais cyffredinol sydd wedi dod i law a bydd yn cysylltu â chi i roi gwybod i chi beth fydd eich camau nesaf.',
+  },
+  awaitingDwpResponse: {
+    line1: `Mae’r llys wedi cymeradwyo eich cais i chwilio cofnodion y llywodraeth am fanylion eich ${partner}.`,
+    line2:
+      'Gan amlaf, mae’n cymryd 6 - 8 wythnos i wneud chwiliad. Byddwn yn anfon e-bost atoch ar ôl cwblhau’r chwiliad i’ch hysbysu am y camau nesaf.',
+  },
+  awaitingAlternativeService: {
+    line1: 'Mae’r llys wedi cymeradwyo eich cais am gyflwyno amgen.',
+    line2: 'Rydym nawr yn aros i gwblhau cyflwyno drwy’r dull cyflwyno a gymeradwywyd gan y llys.',
+  },
+  awaitingGenAppHwfPartPaymentOrEvidence: {
+    line1:
+      'Mae’r llys yn adolygu eich cais a’ch cyfeirnod help i dalu ffioedd.  Byddwch yn derbyn e-bost yn cadarnhau beth rydych angen ei wneud nesaf.',
+  },
 });
 
 const languages = {
@@ -1116,7 +1148,6 @@ export const generateContent: TranslationFn = content => {
       content,
       alternativeServiceType,
       dateOfCourtReplyToRequestForInformationResponse,
-      respondentAddressProvided,
       noResponseStartPagePath
     ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),

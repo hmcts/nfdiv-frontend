@@ -1,7 +1,12 @@
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
 <ul class="govuk-list contact-us">
   <li>
     <h4 class="govuk-heading-s">{{ webChat }}</h4>
-    {% if globals.webchat.useGenesys == 'true' %}
+    {% if featureFlags.NFD_hiddenContent %}
+      <div class="govuk-visually-hidden" id="hiddenContent"></div>
+    {% endif %}
+    {% if featureFlags.NFD_useGenesysWebchat %}
       {% include "../../webchat/genesys-webchat.njk" %}
     {% else %}
       {% include "../../webchat/link-to-webchat.njk"%}
@@ -23,9 +28,14 @@
     <p class="govuk-body">{{ openingTimes }}</p>
     <p class="govuk-body">{{ closingTimes }}</p>
   </li>
+
+  <li>
+    <h4 class="govuk-heading-s">{{ post }}</h4>
+    {{ serviceAddressMacro(serviceAddress, false, true) }}
+  </li>
 </ul>
 
-{% if globals.webchat.useGenesys != 'true' %}
+{% if not featureFlags.NFD_useGenesysWebchat %}
 <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/{{ avayaClientUrlFolder }}/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
 <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es5.js" nomodule defer crossorigin="anonymous"></script>
 {% endif %}

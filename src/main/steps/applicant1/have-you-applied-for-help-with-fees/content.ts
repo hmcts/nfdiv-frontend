@@ -10,14 +10,6 @@ const en = ({ isDivorce, required, isJointApplication, partner }) => ({
       isDivorce ? 'for your divorce' : 'to end your civil partnership'
     }.`,
   }),
-  sendEvidenceGuidanceLine1: `If you have already applied online for help with your fees and you receive any benefit that qualifies you for help with fees, you must send your evidence to the court after you submit your ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  }.`,
-  sendEvidenceGuidanceLine2: `You will get your case reference number after you submit your ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  }.`,
-  sendEvidenceGuidanceLine3:
-    'Email your benefits evidence, including your case reference number, to <a href="mailto:contactdivorce@justice.gov.uk">contactdivorce@justice.gov.uk</a>.',
   enterRefNo: 'Enter your Help With Fees reference number:',
   refReceivedWhenApplied: `You received this when you applied for help with your fees.${
     isJointApplication ? ` Enter your number, not one provided to your ${partner}.` : ''
@@ -44,14 +36,6 @@ const cy: typeof en = ({ isDivorce, required, isJointApplication, partner }) => 
       isDivorce ? 'ar gyfer eich ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'
     }.`,
   }),
-  sendEvidenceGuidanceLine1: `Os ydych eisoes wedi gwneud cais ar-lein am help i dalu eich ffioedd ac rydych yn derbyn unrhyw fudd-dal sy’n eich cymhwyso i gael help i dalu ffioedd, rhaid i chi anfon eich tystiolaeth i’r llys ar ôl i chi gyflwyno eich ${
-    isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
-  }.`,
-  sendEvidenceGuidanceLine2: `Byddwch yn cael cyfeirnod eich achos ar ôl i chi gyflwyno eich ${
-    isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
-  }.`,
-  sendEvidenceGuidanceLine3:
-    'E-bostiwch eich tystiolaeth o’ch budd-daliadau, gan gynnwys cyfeirnod eich achos, i <a href="mailto:contactdivorce@justice.gov.uk">contactdivorce@justice.gov.uk</a>.',
   enterRefNo: 'Nodwch eich cyfeirnod Help i Dalu Ffioedd:',
   refReceivedWhenApplied: 'Fe gawsoch hwn pan wnaethoch gais am help i dalu ffioedd.',
   refExample: 'Er enghraifft, HWF-A1B-23C',

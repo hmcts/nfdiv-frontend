@@ -8,6 +8,7 @@
 
   {% if displayState.state() == 'Holding' and not hasApplicantConfirmedReceipt %}
     {{ govukButton({
+      id: "confirmReceiptButton",
       text: confirmReceipt,
       classes: 'disable-upon-submit',
       type: "submit",
@@ -15,8 +16,9 @@
       value: "Yes",
       preventDoubleClick: true
     }) }}
-  {% elif displayState.isAfter('Holding') and displayState.isBefore('AwaitingLegalAdvisorReferral') and not hasApplicantAppliedForConditionalOrder %}
+  {% elif displayState.isAfter('Holding') and displayState.isBefore('AwaitingLegalAdvisorReferral') and not hasApplicantAppliedForConditionalOrder and not partnerIsOffline %}
     {{ govukButton({
+      id: "applyForConditionalOrderButton",
       text: button.applyForConditionalOrder,
       classes: 'disable-upon-submit',
       type: "submit",
@@ -26,6 +28,7 @@
   {% elif isFinalOrderAwaitingOrOverdueAndApplicantHasNotAppliedFirst
     or isIntendingAndAbleToSwitchToSoleFinalOrder %}
       {{ govukButton({
+        id: "applyForFinalOrderButton",
         text: awaitingFinalOrder.buttonText,
         classes: form.submit.classes,
         href: awaitingFinalOrder.buttonLink,

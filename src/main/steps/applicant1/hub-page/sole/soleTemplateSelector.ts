@@ -22,15 +22,16 @@ export const getSoleHubTemplate = (
 ): string | undefined => {
   const isServiceApplicationGranted =
     userCase.alternativeServiceOutcomes?.[0].value.serviceApplicationGranted === YesOrNo.YES;
-  const isAlternativeServiceApplicationGranted =
-    isServiceApplicationGranted &&
-    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType ===
-      AlternativeServiceType.ALTERNATIVE_SERVICE;
   const isAosOverdue =
     !userCase.aosStatementOfTruth && userCase.issueDate && dayjs(userCase.issueDate).add(16, 'days').isBefore(dayjs());
+  const caseHasBeenIssued = !!userCase.issueDate;
+  const isAlternativeServiceGrantedOrRefusedPreIssue =
+    (isServiceApplicationGranted || !caseHasBeenIssued) &&
+    userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType ===
+      AlternativeServiceType.ALTERNATIVE_SERVICE;
   const isRefusalOrderToApplicant =
     userCase.alternativeServiceOutcomes?.[0].value.refusalReason ===
-    ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT;
+      ServiceApplicationRefusalReason.REFUSAL_ORDER_TO_APPLICANT && caseHasBeenIssued;
   const serviceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
   const isPersonalServiceRequired = userCase.serviceMethod === ServiceMethod.PERSONAL_SERVICE;
 
@@ -54,9 +55,9 @@ export const getSoleHubTemplate = (
     case State.LAServiceReview:
     case State.AwaitingBailiffReferral:
       return HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral;
-    case State.BailiffRefused: {
+    case State.PendingServiceAppResponse:
+    case State.BailiffRefused:
       return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
-    }
     case State.ConditionalOrderPronounced: {
       return HubTemplate.ConditionalOrderPronounced;
     }
@@ -73,9 +74,11 @@ export const getSoleHubTemplate = (
         return HubTemplate.ConditionalOrderPronounced;
       } else if (userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate) {
         return HubTemplate.AwaitingConditionalOrder;
+      } else if (isSearchGovRecords) {
+        return HubTemplate.OfflineGeneralApplicationReceived;
       } else if (!userCase.dueDate && userCase.aosStatementOfTruth) {
         return HubTemplate.AwaitingGeneralConsideration;
-      } else if (isAlternativeServiceApplicationGranted) {
+      } else if (isAlternativeServiceGrantedOrRefusedPreIssue) {
         return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
       } else if (isAosOverdue) {
         return HubTemplate.AoSDue;
@@ -95,7 +98,10 @@ export const getSoleHubTemplate = (
         return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.GeneralApplicationReceived:
-      return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
+    case State.AwaitingGeneralReferralPayment:
+      return isOnlineGeneralApplication
+        ? HubTemplate.AwaitingGeneralApplicationConsideration
+        : HubTemplate.OfflineGeneralApplicationReceived;
     case State.AwaitingConditionalOrder:
       return HubTemplate.AwaitingConditionalOrder;
     case State.Holding:
@@ -147,6 +153,8 @@ export const getSoleHubTemplate = (
       return isApplicantAbleToRespondToRequestForInformation
         ? HubTemplate.RespondedToInformationRequest
         : HubTemplate.InformationRequestedFromOther;
+    case State.AwaitingHWFPartPayment:
+      return HubTemplate.AwaitingHWFPartPayment;
     case State.AwaitingHWFDecision:
     case State.AwaitingHWFEvidence:
       return userCase.applicant1CannotUpload === Checkbox.Checked
@@ -165,6 +173,13 @@ export const getSoleHubTemplate = (
     case State.WelshTranslationRequested:
     case State.WelshTranslationReview:
       return HubTemplate.WelshTranslationRequestedOrReview;
+    case State.AwaitingDwpResponse:
+      return HubTemplate.AwaitingDwpResponse;
+    case State.AwaitingAlternativeService:
+      return HubTemplate.AwaitingAlternativeService;
+    case State.AwaitingGenAppHWFPartPayment:
+    case State.AwaitingGenAppHWFEvidence:
+      return HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||

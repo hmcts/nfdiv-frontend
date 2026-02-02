@@ -62,13 +62,16 @@ export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-t
 
 export const ENTER_YOUR_NAME: PageLink = '/enter-your-name';
 export const ENTER_YOUR_NAMES: PageLink = '/enter-your-names';
+export const CHECK_YOUR_NAME: PageLink = '/check-your-name';
+export const CHECK_THEIR_NAME: PageLink = '/check-their-name';
 export const CONFIRM_YOUR_NAME: PageLink = '/confirm-your-name';
 export const THEIR_NAME: PageLink = '/enter-their-name';
 export const CONFIRM_THEIR_NAME: PageLink = '/confirm-their-name';
 
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
-export const CERTIFICATE_NAME: PageLink = '/your-names-on-certificate';
+export const YOUR_CERTIFICATE_NAME: PageLink = '/your-name-on-certificate';
+export const THEIR_CERTIFICATE_NAME: PageLink = '/their-name-on-certificate';
 export const ADDRESS_PRIVATE: PageLink = '/address-private';
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
@@ -77,6 +80,7 @@ export const ENTER_SOLICITOR_DETAILS: PageLink = '/enter-solicitor-details';
 
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
 export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
+export const CHANGES_TO_THEIR_NAME_URL: PageLink = '/changes-to-their-name';
 export const THEIR_EMAIL_ADDRESS: PageLink = '/their-email-address';
 export const YOU_NEED_THEIR_EMAIL_ADDRESS: PageLink = '/you-need-their-email-address';
 export const EMAIL_RESENT: PageLink = '/email-resent';
@@ -138,8 +142,6 @@ export const HOW_DO_YOU_WANT_TO_RESPOND: PageLink = '/how-do-you-want-to-respond
 export const DISPUTING_THE_APPLICATION: PageLink = '/disputing-the-application';
 export const LEGAL_JURISDICTION_OF_THE_COURTS: PageLink = '/legal-jurisdiction-of-the-courts';
 export const INTEND_TO_DELAY: PageLink = '/intend-to-delay';
-
-export const HOW_YOU_CAN_PROCEED: PageLink = '/how-you-can-proceed';
 
 export const CONTINUE_WITH_YOUR_APPLICATION: PageLink = '/continue-with-your-application';
 export const REVIEW_YOUR_APPLICATION: PageLink = '/review-your-application';
@@ -314,15 +316,26 @@ export const UPLOAD_EVIDENCE_DISPENSE: PageLink = '/interim-applications/dispens
 export const CHECK_ANSWERS_DISPENSE: PageLink = '/interim-applications/dispense-service/check-answers';
 
 // Service Application Payment URLs
-export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/pay-your-service-fee';
-export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-payment-callback';
-export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application-submitted';
+export const PAY_YOUR_SERVICE_FEE: PageLink = '/interim-applications/service-application/pay-your-fee';
+export const SERVICE_PAYMENT_CALLBACK: PageLink = '/interim-applications/service-application/payment-callback';
+export const SERVICE_APPLICATION_SUBMITTED: PageLink = '/interim-applications/service-application/submitted';
 
-export const WITHDRAW_SERVICE_APPLICATION: PageLink = '/interim-applications/withdraw-service-application';
-export const SERVICE_APPLICATION_WITHDRAWN: PageLink = '/interim-applications/service-application-withdrawn';
+export const WITHDRAW_SERVICE_APPLICATION: PageLink = '/interim-applications/service-application/withdraw';
+export const SERVICE_APPLICATION_WITHDRAWN: PageLink = '/interim-applications/service-application/withdrawn';
 
 // General Application Payment URLs
-export const PAY_YOUR_GENERAL_APPLICATION_FEE: PageLink = '/interim-applications/pay-your-general-application-fee';
+export const PAY_YOUR_GENERAL_APPLICATION_FEE: PageLink = '/interim-applications/general-application/pay-your-fee';
 export const GENERAL_APPLICATION_PAYMENT_CALLBACK: PageLink =
-  '/interim-applications/general-application-payment-callback';
-export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/interim-applications/general-application-submitted';
+  '/interim-applications/general-application/payment-callback';
+export const GENERAL_APPLICATION_SUBMITTED: PageLink = '/interim-applications/general-application/submitted';
+
+// New Hub Download Page
+export const HUB_PAGE_DOWNLOADS: PageLink = '/downloads';
+
+// Post Submission GenApp Start Application
+export const MAKE_AN_APPLICATION: PageLink = '/interim-applications/general-application/make-an-application';
+
+//Withdraw Application URLs
+export const WITHDRAW_THIS_APPLICATION: PageLink = '/withdraw-pre-issue/withdraw-this-application';
+export const CHECK_ANSWERS_WITHDRAW: PageLink = '/withdraw-pre-issue/check-your-answers';
+export const WITHDRAW_CONFIRMATION: PageLink = '/withdraw-pre-issue/application-withdrawn';

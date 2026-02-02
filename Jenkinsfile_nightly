@@ -42,6 +42,7 @@ def secrets = [
                 secret('genesys-deployment-id', 'GENESYS_DEPLOYMENT_ID'),
                 secret('genesys-deployment-id-cy', 'GENESYS_DEPLOYMENT_ID_CY'),
                 secret('genesys-api-key', 'GENESYS_API_KEY'),
+                secret('launch-darkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
         ]
 ]
 

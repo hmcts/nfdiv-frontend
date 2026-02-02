@@ -18,10 +18,25 @@ import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
 
+export const yesOrNoOrNotKnown_en = {
+  yes: 'Yes',
+  no: 'No',
+  notKnown: 'Not known',
+};
+
+export const yesOrNoOrNotKnown_cy = {
+  yes: 'Do',
+  no: 'Naddo',
+  notKnown: 'Anhysbys',
+};
+
 export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
   applyForDissolution: 'apply to end a civil partnership',
+  commonValidationErrors: {
+    maxLength: 'You’ve exceeded the character limit. Please reduce your text to 10,000 characters.',
+  },
   generalApplication: {
     for: 'for',
     to: 'to',
@@ -121,9 +136,7 @@ export const en = {
     d11: 'D11',
     d89: 'D89',
   },
-  yes: 'Yes',
-  no: 'No',
-  notKnown: 'Not known',
+  ...yesOrNoOrNotKnown_en,
   english: 'English',
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
@@ -134,6 +147,7 @@ export const en = {
   openingTimesHeading: 'Opening times (webchat and telephone)',
   openingTimes: 'Monday to Friday, 10am to 6pm',
   closingTimes: 'Closed on bank holidays',
+  post: 'Post',
   cookiesBanner: {
     cookiesHeading: 'Cookies on',
     cookiesLine1: 'We use some essential cookies to make this service work.',
@@ -214,10 +228,13 @@ export const en = {
 };
 
 const cy: typeof en = {
-  ...en, // @TODO delete me to get a list of missing translations
+  ...en,
   phase: 'Beta',
   applyForDivorce: 'Gwneud cais am ysgariad',
   applyForDissolution: 'gwneud cais i ddod â phartneriaeth sifil i ben',
+  commonValidationErrors: {
+    maxLength: 'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir. Cewch ddefnyddio hyd at 10,000 o nodau.',
+  },
   generalApplication: {
     for: 'am',
     to: 'i',
@@ -315,9 +332,7 @@ const cy: typeof en = {
     d11: 'D11',
     d89: 'D89',
   },
-  yes: 'Do',
-  no: 'Naddo',
-  notKnown: 'Anhysbys',
+  ...yesOrNoOrNotKnown_cy,
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',
@@ -328,6 +343,7 @@ const cy: typeof en = {
   openingTimesHeading: 'Oriau agor',
   openingTimes: 'Dydd Llun i ddydd Iau 9am-5pm, dydd Gwener 9am-4.30pm',
   closingTimes: 'Ar gau ar ddydd Sadwrn, Sul a Gwyliau Banc',
+  post: "Drwy'r post",
   helpChatWithAnAgent: 'Siarad â chynghorydd ar-lein (agor mewn ffenestr newydd)',
   helpAllAgentsBusy:
     'Mae ein cynghorwyr i gyd yn brysur ar hyn o bryd.  Rhowch gynnig arall arni ymhen ychydig o funudau.',
@@ -462,6 +478,10 @@ export const generateCommonContent = ({
     userCase?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD;
   const serviceApplicationDocsAllProvided = userCase?.serviceApplicationDocsUploadedPreSubmission !== YesOrNo.NO;
   const serviceApplicationSubmittedOnline = userCase?.serviceApplicationSubmittedOnline === YesOrNo.YES;
+  const genesysReferrerPage: string =
+    language === SupportedLanguages.En
+      ? config.get('webchat.genesysReferrerPage')
+      : config.get('webchat.genesysReferrerPageCy');
   const genesysDeploymentId: string =
     language === SupportedLanguages.En
       ? config.get('webchat.genesysDeploymentId')
@@ -517,6 +537,7 @@ export const generateCommonContent = ({
     isPendingHearingOutcomeFoRequested,
     interimApplicationType,
     referenceNumber,
+    genesysReferrerPage,
     genesysDeploymentId,
     serviceApplicationType,
     serviceApplicationDate,
@@ -569,6 +590,7 @@ export type CommonContent = typeof en & {
   generalApplicationFeeRequired: boolean;
   generalApplicationDocsAllProvided: boolean;
   generalApplicationSubmittedOnline: boolean;
+  genesysReferrerPage: string;
   genesysDeploymentId: string;
   lastGeneralApplication?: GeneralApplication | undefined;
 };

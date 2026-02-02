@@ -12,6 +12,7 @@ import { formattedCaseId, getName, latestLegalAdvisorDecisionContent } from '../
 import { StateSequence } from '../../state-sequence';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
+import { generateContent as hubLinksContent } from './hub-links/content';
 import { generateContent as jointGenerateContent } from './joint/content';
 import { getProgressBarContent } from './progressBarLabels';
 import { generateContent as columnGenerateContent } from './right-column/content';
@@ -27,6 +28,11 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
   button: {
     applyForConditionalOrder: 'Apply for conditional order',
     applyForFinalOrder: 'Apply for final order',
+  },
+  awaitingHwfPartPayment: {
+    line1: 'A decision has been made on your Help with Fees application.',
+    line2:
+      'The court will contact you with details about the decision on your Help with Fees application and what you need to do next.',
   },
   awaitingPronouncement: {
     line1: `Your application for a 'conditional order' has been accepted. The court agrees that you are entitled to ${
@@ -194,6 +200,11 @@ const cy: typeof en = ({
   button: {
     applyForConditionalOrder: 'Gwneud cais am orchymyn amodol',
     applyForFinalOrder: 'Gwneud cais am orchymyn terfynol',
+  },
+  awaitingHwfPartPayment: {
+    line1: "Mae penderfyniad wedi'i wneud ynghylch eich cais am Help i Dalu Ffioedd.",
+    line2:
+      "Bydd y llys yn cysylltu â chi gyda manylion am y penderfyniad ynghylch eich cais am Help i DaluFfioedd a'r hyn sydd angen i chi ei wneud nesaf.",
   },
   awaitingPronouncement: {
     line1: `Mae cais am 'orchymyn amodol' wedi dod i law. Mae'r llys yn cytuno bod gennych hawl i ${
@@ -380,5 +391,6 @@ export const generateContent: TranslationFn = content => {
     shouldHaveAccessToCoApplication,
     ...latestLegalAdvisorDecisionContent(userCase, true),
     ...progressBarContent,
+    ...hubLinksContent(content),
   };
 };
