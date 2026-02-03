@@ -21,7 +21,7 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   line5: `If you and your ${partner} disagree, you can also ask the court to decide for you. This is known as making a financial remedies application. The court will expect that you have tried to agree your finances between yourselves before coming to court. You will need to have attended an initial meeting called a Mediation Information and Assessment Meeting, or MIAM, to consider ways to reach agreement without coming to court, unless you had good reason not to.`,
   line6:
     'The court needs confirmation now whether you want to apply for a financial order. Even if you want to apply for a consent order.',
-  line7: `You will receive an email with more information after you have submitted this application for divorce. Your ${partner} will also be sent an email notifying them that you want to apply for a financial order.`,
+  line7: `You will receive an email with more information after you have submitted this application ${isDivorce ? 'for divorce' : 'to end your civil partnership'}. Your ${partner} will also be sent an email notifying them that you want to apply for a financial order.`,
   noSelectedWarning: `It's important to have a financial order in place by the time your ${
     isDivorce ? 'divorce is finalised' : 'civil partnership is legally ended'
   }.
@@ -59,7 +59,7 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   line5: `If you and your ${partner} disagree, you can also ask the court to decide for you. This is known as making a financial remedies application. The court will expect that you have tried to agree your finances between yourselves before coming to court. You will need to have attended an initial meeting called a Mediation Information and Assessment Meeting, or MIAM, to consider ways to reach agreement without coming to court, unless you had good reason not to.`,
   line6:
     'The court needs confirmation now whether you want to apply for a financial order. Even if you want to apply for a consent order.',
-  line7: `You will receive an email with more information after you have submitted this application for divorce. Your ${partner} will also be sent an email notifying them that you want to apply for a financial order.`,
+  line7: `You will receive an email with more information after you have submitted this application ${isDivorce ? 'for divorce' : 'to end your civil partnership'}. Your ${partner} will also be sent an email notifying them that you want to apply for a financial order.`,
   noSelectedWarning: `It's important to have a financial order in place by the time your ${
     isDivorce ? 'divorce is finalised' : 'civil partnership is legally ended'
   }.
