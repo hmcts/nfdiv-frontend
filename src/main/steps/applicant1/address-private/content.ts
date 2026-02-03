@@ -13,6 +13,7 @@ const en = ({ partner, required }: CommonContent) => ({
   detailsNotPrivate: 'I do not need my contact details kept private',
   errors: {
     applicant1AddressPrivate: { required },
+    applicant1InRefuge: { required },
   },
   inRefugeLabel: 'Are you currently in a refuge?', // Label for the 'inRefuge' question
 });
@@ -27,6 +28,7 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   detailsNotPrivate: 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat',
   errors: {
     applicant1AddressPrivate: { required },
+    applicant1InRefuge: { required },
   },
   inRefugeLabel: 'Ydych chi’n preswylio mewn lloches ar hyn o bryd?',
 });
