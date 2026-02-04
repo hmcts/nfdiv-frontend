@@ -109,8 +109,7 @@ export const config = {
 
     switch (userType) {
       case 'citizen':
-        username = 'citizen@example.com';
-        await autoLogin.login(I, username, TestPass);
+        autoLogin.login(I);
         break;
       case 'citizenSingleton':
         username = generateTestUsername();
