@@ -50,6 +50,8 @@ const cy: typeof en = ({ partner, isDivorce, required, hasAContactForPartner }) 
   }`,
   haveTheirAddress: 'Oes, mae gennyf ei gyfeiriad/chyfeiriad',
   doNotHaveTheirAddress: 'Na, nid yw ei gyfeiriad/chyfeiriad gennyf',
+  yes: 'Oes',
+  no: 'Nac oes',
   errors: {
     applicant1KnowsApplicant2Address: {
       required,
