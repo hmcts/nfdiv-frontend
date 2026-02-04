@@ -1,9 +1,11 @@
 import config from 'config';
 import dayjs from 'dayjs';
+import { capitalize } from 'lodash';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
 import {
+  Applicant2Represented,
   ApplicationType,
   GeneralApplication,
   InterimApplicationType,
@@ -11,7 +13,9 @@ import {
   ServicePaymentMethod,
   State,
   YesOrNo,
+  YesOrNoOrNotKnown,
 } from '../../app/case/definition';
+import { PageContent } from '../../app/controller/GetController';
 import { userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
 import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
@@ -22,12 +26,14 @@ export const yesOrNoOrNotKnown_en = {
   yes: 'Yes',
   no: 'No',
   notKnown: 'Not known',
+  notSure: "I'm not sure",
 };
 
 export const yesOrNoOrNotKnown_cy = {
   yes: 'Do',
   no: 'Naddo',
   notKnown: 'Anhysbys',
+  notSure: 'Dw i ddim yn siŵr',
 };
 
 export const en = {
@@ -407,6 +413,46 @@ const cy: typeof en = {
     },
     popupBlocked: 'Naidlen wedi’i rhwystro. Caniatáu naidlen ar gyfer y wefan hon.',
   },
+};
+
+export const formatYesOrNo = (
+  pageContent: CommonContent | PageContent,
+  language: SupportedLanguages,
+  field: YesOrNo | YesOrNoOrNotKnown | Applicant2Represented | undefined,
+  capitalise: boolean = true
+): string | undefined => {
+  const commonContent = language === SupportedLanguages.Cy ? yesOrNoOrNotKnown_cy : yesOrNoOrNotKnown_en;
+  if (field === undefined) {
+    return undefined;
+  }
+  if (!pageContent.yes) {
+    pageContent.yes = commonContent.yes;
+  }
+  if (!pageContent.no) {
+    pageContent.no = commonContent.no;
+  }
+  if (!pageContent.notKnown) {
+    pageContent.notKnown = commonContent.notKnown;
+  }
+  if (!pageContent.notSure) {
+    pageContent.notSure = commonContent.notSure;
+  }
+  switch (field) {
+    case Applicant2Represented.YES:
+    case YesOrNo.YES:
+    case YesOrNoOrNotKnown.YES:
+      return capitalise ? capitalize(pageContent.yes as string) : (pageContent.yes as string);
+    case Applicant2Represented.NO:
+    case YesOrNo.NO:
+    case YesOrNoOrNotKnown.NO:
+      return capitalise ? capitalize(pageContent.no as string) : (pageContent.no as string);
+    case Applicant2Represented.NOT_SURE:
+      return capitalise ? capitalize(pageContent.notSure as string) : (pageContent.notSure as string);
+    case YesOrNoOrNotKnown.NOT_KNOWN:
+      return capitalise ? capitalize(pageContent.notKnown as string) : (pageContent.notKnown as string);
+    default:
+      return field;
+  }
 };
 
 export const generateCommonContent = ({
