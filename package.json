@@ -155,7 +155,6 @@
     "style-loader": "4.0.0",
     "ts-jest": "29.4.6",
     "ts-loader": "9.5.4",
-    "typescript-eslint": "^8.54.0",
     "webdriverio": "9.23.2",
     "webpack": "5.104.1",
     "webpack-cli": "6.0.1",
