@@ -57,7 +57,6 @@ export const config: CodeceptJS.Config = {
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
   plugins: {
-    autoLogin: testConfig.AutoLogin,
     allure: {
       enabled: true,
       require: '@codeceptjs/allure-legacy',
