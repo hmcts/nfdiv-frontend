@@ -45,7 +45,8 @@
     "test:crossbrowser:sauce": "SAUCE='true' yarn test:crossbrowser:codeceptjs run --grep '^(?!.*@flaky)'",
     "test:crossbrowser:codeceptjs": "codeceptjs run --config ./src/test/cross-browser/codecept.conf.js",
     "cichecks": "yarn && run-p build lint test",
-    "fortifyScan": "./src/test/java/gradlew -p ./src/test/java fortifyScan"
+    "fortifyScan": "./src/test/java/gradlew -p ./src/test/java fortifyScan",
+    "test:azure:single": "yarn test:crossbrowser:codeceptjs --reporter mochawesome"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "1.1.0",
@@ -115,11 +116,14 @@
     "uuid": "11.1.0"
   },
   "devDependencies": {
+    "@azure/identity": "^4.13.0",
+    "@azure/playwright": "^1.1.1",
     "@codeceptjs/allure-legacy": "1.0.2",
+    "@hmcts/playwright-common": "^1.1.2",
     "@playwright/test": "1.58.1",
     "@types/jest": "30.0.0",
-    "@typescript-eslint/eslint-plugin": "7.18.0",
-    "@typescript-eslint/parser": "7.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
     "@wdio/cli": "9.23.3",
     "@wdio/sauce-service": "9.23.3",
     "allure-commandline": "2.36.0",
@@ -127,6 +131,7 @@
     "codeceptjs": "3.6.10",
     "copy-webpack-plugin": "13.0.1",
     "css-loader": "7.1.3",
+    "dotenv": "^17.2.3",
     "eslint": "8.57.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "2.29.1",
@@ -134,7 +139,7 @@
     "eslint-plugin-prettier": "5.5.5",
     "html-webpack-plugin": "5.6.6",
     "husky": "9.1.7",
-    "jest": "30.2.0",
+    "jest": "29.7.0",
     "jest-html-reporters": "^3.1.7",
     "jest-junit": "^16.0.0",
     "lint-staged": "16.2.7",
