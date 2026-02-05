@@ -5,8 +5,6 @@ import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
 import { IdamUserManager } from './steps/IdamUserManager';
 
-const LOGIN_TIMEOUT = 60;
-
 // better handling of unhandled exceptions
 process.on('unhandledRejection', reason => {
   throw reason;
@@ -15,6 +13,7 @@ process.on('unhandledRejection', reason => {
 let TestUser: string;
 let TestPass: string;
 let idamUserManager: IdamUserManager;
+const LOGIN_TIMEOUT = 60;
 
 const setupTestSecrets = async () => {
   const propertiesVolume = new PropertiesVolume();
@@ -81,6 +80,12 @@ export const autoLoginForApplicant2 = {
   },
 };
 
+export enum TestUserType {
+  CITIZEN = 'citizen',
+  CITIZEN_SINGLETON = 'citizenSingleton',
+  CITIZEN_APPLICANT_2 = 'citizenApplicant2',
+}
+
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
@@ -104,19 +109,19 @@ export const config = {
       password: TestPass,
     };
   },
-  login: async (I: CodeceptJS.I, userType: 'citizen' | 'citizenSingleton' | 'citizenApplicant2') => {
+  login: async (I: CodeceptJS.I, userType: TestUserType) => {
     let username: string;
 
     switch (userType) {
-      case 'citizen':
+      case TestUserType.CITIZEN:
         autoLogin.login(I);
         break;
-      case 'citizenSingleton':
+      case TestUserType.CITIZEN_SINGLETON:
         username = generateTestUsername();
         await idamUserManager.createUser(username, TestPass);
         await autoLogin.login(I, username, TestPass);
         break;
-      case 'citizenApplicant2':
+      case TestUserType.CITIZEN_APPLICANT_2:
         username = generateTestUsername();
         await idamUserManager.createUser(username, TestPass);
         await autoLoginForApplicant2.login(I, username, TestPass);

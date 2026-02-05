@@ -19,7 +19,7 @@ import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
 import { SupportedLanguages } from '../../main/modules/i18n';
 import { APPLICANT_1, APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
-import { autoLogin, config as testConfig } from '../config';
+import { TestUserType, autoLogin, config as testConfig } from '../config';
 
 const { I } = inject();
 
@@ -46,15 +46,15 @@ Then('the page URL should be {string}', (url: string) => {
 });
 
 Given('I login', async () => {
-  await testConfig.login(I, 'citizen');
+  await testConfig.login(I, TestUserType.CITIZEN);
 });
 
 Given('I create a new user and login', async () => {
-  await testConfig.login(I, 'citizenSingleton');
+  await testConfig.login(I, TestUserType.CITIZEN_SINGLETON);
 });
 
 Given('I create a new user and login as applicant 2', async () => {
-  await testConfig.login(I, 'citizenApplicant2');
+  await testConfig.login(I, TestUserType.CITIZEN_APPLICANT_2);
 });
 
 Given('I login with applicant {string}', async (applicant: string) => {
@@ -262,7 +262,7 @@ When('I enter my valid case reference and valid access code', async () => {
     }
 
     iClick('Sign out');
-    await testConfig.login(I, 'citizenApplicant2');
+    await testConfig.login(I, TestUserType.CITIZEN_APPLICANT_2);
     I.amOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
 
     iClick('Your reference number');
@@ -296,7 +296,7 @@ When('I as applicant1 enter my valid case reference and valid access code', asyn
     }
 
     iClick('Sign out');
-    await testConfig.login(I, 'citizenSingleton');
+    await testConfig.login(I, TestUserType.CITIZEN_SINGLETON);
     I.amOnPage(APPLICANT_1 + ENTER_YOUR_ACCESS_CODE);
 
     iClick('Your reference number');
