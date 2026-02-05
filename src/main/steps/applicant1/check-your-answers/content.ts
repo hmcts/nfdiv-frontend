@@ -20,7 +20,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import { SupportedLanguages } from '../../../modules/i18n';
-import { formatYesOrNo, generateCommonContent } from '../../common/common.content';
+import { formatYesOrNo } from '../../common/common.content';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 import { generateContent as addressPrivateContent } from '../address-private/content';
