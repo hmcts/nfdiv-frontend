@@ -1,14 +1,78 @@
+import striptags from 'striptags';
+
 import { Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { formatYesOrNo } from '../../common/common.content';
 import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
+import { generateContent as detailsOtherProceedingsContent } from '../details-other-proceedings/content';
+import { generateContent as englishOrWelshContent } from '../english-or-welsh/content';
+import { generateContent as howDoYouWantToRespondContent } from '../how-do-you-want-to-respond/content';
+import { generateContent as howTheCourtWillContactYouContent } from '../how-the-court-will-contact-you/content';
+import { generateContent as intendToDelayContent } from '../intend-to-delay/content';
+import { generateContent as legalJurisdictionOfTheCourtsContent } from '../legal-jurisdiction-of-the-courts/content';
+import { generateContent as otherCourtCasesContent } from '../other-court-cases/content';
+import { generateContent as reviewTheApplicationContent } from '../review-the-application/content';
 
-const en = ({ isDivorce, userCase }) => ({
+const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
+
+const getFormattedAnswers = content => ({
+  confirmReadPetition: () => {
+    if (content.userCase.confirmReadPetition) {
+      return stripTags(reviewTheApplicationContent(content).confirmReadPetition as string);
+    }
+    return '';
+  },
+  disputeApplication: formatYesOrNo(
+    howDoYouWantToRespondContent(content),
+    content.language,
+    content.userCase.disputeApplication,
+    true
+  ),
+  jurisdictionAgree: formatYesOrNo(
+    legalJurisdictionOfTheCourtsContent(content),
+    content.language,
+    content.userCase.jurisdictionAgree,
+    true
+  ),
+  intendToDelay: formatYesOrNo(intendToDelayContent(content), content.language, content.userCase.intendToDelay, true),
+  applicant2AgreeToReceiveEmails: formatYesOrNo(
+    howTheCourtWillContactYouContent(content),
+    content.language,
+    content.userCase.applicant2AgreeToReceiveEmails,
+    true
+  ),
+  applicant2EnglishOrWelsh: formatYesOrNo(
+    englishOrWelshContent(content),
+    content.language,
+    content.userCase.applicant2LanguagePreferenceWelsh,
+    true
+  ),
+  applicant2LegalProceedings: formatYesOrNo(
+    otherCourtCasesContent(content),
+    content.language,
+    content.userCase.applicant2LegalProceedings
+  ),
+  applicant2LegalProceedingsConcluded: formatYesOrNo(
+    detailsOtherProceedingsContent(content),
+    content.language,
+    content.userCase.applicant2LegalProceedingsConcluded
+  ),
+  applicant2UnableToUploadEvidence: formatYesOrNo(
+    detailsOtherProceedingsContent(content),
+    content.language,
+    content.userCase.applicant2UnableToUploadEvidence,
+    false,
+    { yes: 'unableToUploadEvidence' }
+  ),
+});
+
+const en = ({ isDivorce, userCase }, formattedAnswers) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
   sectionTitles: {
@@ -52,27 +116,11 @@ const en = ({ isDivorce, userCase }) => ({
   },
   stepAnswers: {
     readApplication: {
-      line1: `${
-        userCase.confirmReadPetition
-          ? `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`
-          : ''
-      }`,
+      line1: formattedAnswers.confirmReadPetition,
     },
     aboutApplication: {
-      line1: `${
-        userCase.disputeApplication
-          ? userCase.disputeApplication === YesOrNo.YES
-            ? `I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
-            : `Continue without disputing the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`
-          : ''
-      }`,
-      line2: `${
-        userCase.jurisdictionAgree
-          ? userCase.jurisdictionAgree === YesOrNo.YES
-            ? 'Yes, I agree the courts have jurisdiction'
-            : 'No, I do not agree the courts have jurisdiction'
-          : ''
-      }`,
+      line1: formattedAnswers.disputeApplication,
+      line2: formattedAnswers.jurisdictionAgree,
       line3: `${
         userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction &&
         userCase.jurisdictionAgree &&
@@ -87,31 +135,21 @@ const en = ({ isDivorce, userCase }) => ({
           ? userCase.inWhichCountryIsYourLifeMainlyBased
           : ''
       }`,
-      line5: `${userCase.intendToDelay ? (userCase.intendToDelay === YesOrNo.YES ? 'Yes' : 'No') : ''}`,
+      line5: formattedAnswers.intendToDelay,
     },
     contactYou: {
-      line1: `${
-        userCase.applicant2AgreeToReceiveEmails && userCase.applicant2AgreeToReceiveEmails === Checkbox.Checked
-          ? `I agree that the ${
-              isDivorce ? 'divorce service' : 'ending a civil partnership service'
-            } can send me notifications and serve (deliver) court documents to me by email.`
-          : ''
-      }`,
+      line1: formattedAnswers.applicant2AgreeToReceiveEmails,
       line2: `${userCase.applicant2PhoneNumber}`,
-      line3: `${
-        userCase.applicant2EnglishOrWelsh
-          ? userCase.applicant2EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant2EnglishOrWelsh.slice(1)
-          : ''
-      }`,
+      line3: formattedAnswers.applicant2EnglishOrWelsh,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings}`,
+      line1: formattedAnswers.applicant2LegalProceedings,
       line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
       line3: `${
-        userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsConcluded : ''
+        userCase.applicant2LegalProceedings === YesOrNo.YES ? formattedAnswers.applicant2LegalProceedingsConcluded : ''
       }`,
       line4: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
-      line5: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2UnableToUploadEvidence : ''}`,
+      line5: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? formattedAnswers.applicant2UnableToUploadEvidence : ''}`,
     },
   },
   stepLinks: {
@@ -160,8 +198,8 @@ const en = ({ isDivorce, userCase }) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, userCase }) => ({
-  ...en({ isDivorce, userCase }),
+const cy: typeof en = ({ isDivorce, userCase }, formattedAnswers) => ({
+  ...en({ isDivorce, userCase }, formattedAnswers),
   titleSoFar: 'Gwiriwch eich atebion hyd yma',
   titleSubmit: 'Gwiriwch eich atebion',
   sectionTitles: {
@@ -205,27 +243,11 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
   },
   stepAnswers: {
     readApplication: {
-      line1: `${
-        userCase.confirmReadPetition
-          ? `Rwyf wedi darllen y cais ${isDivorce ? 'am ysgariad' : 'i ddod â’n partneriaeth sifil i ben'}`
-          : ''
-      }`,
+      line1: formattedAnswers.confirmReadPetition,
     },
     aboutApplication: {
-      line1: `${
-        userCase.disputeApplication
-          ? userCase.disputeApplication === YesOrNo.YES
-            ? `Rwyf eisiau herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`
-            : `Parhau heb herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`
-          : ''
-      }`,
-      line2: `${
-        userCase.jurisdictionAgree
-          ? userCase.jurisdictionAgree === YesOrNo.YES
-            ? 'Ydw, rwy’n cytuno bod gan y llysoedd awdurdodaeth'
-            : 'Nac ydw, nid wyf yn cytuno bod gan y llysoedd awdurdodaeth'
-          : ''
-      }`,
+      line1: formattedAnswers.disputeApplication,
+      line2: formattedAnswers.jurisdictionAgree,
       line3: `${
         userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction &&
         userCase.jurisdictionAgree &&
@@ -240,16 +262,10 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
           ? userCase.inWhichCountryIsYourLifeMainlyBased
           : ''
       }`,
-      line5: `${userCase.intendToDelay ? (userCase.intendToDelay === YesOrNo.YES ? 'Ydw' : 'Nac ydw') : ''}`,
+      line5: formattedAnswers.intendToDelay,
     },
     contactYou: {
-      line1: `${
-        userCase.applicant2AgreeToReceiveEmails && userCase.applicant2AgreeToReceiveEmails === Checkbox.Checked
-          ? `Rwy'n cytuno y gall y ${
-              isDivorce ? 'gwasanaeth ysgaru' : 'gwasanaeth diweddu partneriaeth sifil'
-            } anfon hysbysiadau ataf a chyflwyno (danfon) dogfennau llys ataf drwy e-bost.`
-          : ''
-      }`,
+      line1: formattedAnswers.applicant2AgreeToReceiveEmails,
       line2: `${userCase.applicant2PhoneNumber}`,
       line3: `${
         userCase.applicant2EnglishOrWelsh
@@ -258,14 +274,10 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       }`,
     },
     otherCourtCases: {
-      line1: `${userCase.applicant2LegalProceedings?.replace('Yes', 'Do').replace('No', 'Naddo')}`,
+      line1: formattedAnswers.applicant2LegalProceedings,
       line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
       line3: `${
-        userCase.applicant2LegalProceedings === YesOrNo.YES
-          ? userCase.applicant2LegalProceedingsConcluded === YesOrNo.YES
-            ? 'Ydw'
-            : 'Nac ydw'
-          : ''
+        userCase.applicant2LegalProceedings === YesOrNo.YES ? formattedAnswers.applicant2LegalProceedingsConcluded : ''
       }`,
       line4: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
       line5: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2UnableToUploadEvidence : ''}`,
@@ -322,7 +334,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const translations = languages[content.language](content, getFormattedAnswers(content));
   const applicant2Url = urls.RESPONDENT;
   const uploadedDocsFilenames = content.userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value));
   return {
