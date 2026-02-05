@@ -162,7 +162,6 @@
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
-    "axios": "^1.13.4",
     "tar": "^7.5.7",
     "jws": "^3.2.3",
     "cookie": "^0.7.2",
