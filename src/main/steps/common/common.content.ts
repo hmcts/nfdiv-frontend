@@ -1,6 +1,7 @@
 import config from 'config';
 import dayjs from 'dayjs';
 import { capitalize } from 'lodash';
+import striptags from 'striptags';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
@@ -419,37 +420,35 @@ export const formatYesOrNo = (
   pageContent: CommonContent | PageContent,
   language: SupportedLanguages,
   field: YesOrNo | YesOrNoOrNotKnown | Applicant2Represented | undefined,
-  capitalise: boolean = true
+  obscureUndefinedField: boolean = false,
+  alternateKeys: { yes?: string; no?: string; notSure?: string; notKnown?: string } = {}
 ): string | undefined => {
   const commonContent = language === SupportedLanguages.Cy ? yesOrNoOrNotKnown_cy : yesOrNoOrNotKnown_en;
   if (field === undefined) {
-    return undefined;
+    return obscureUndefinedField ? '' : undefined;
   }
-  if (!pageContent.yes) {
-    pageContent.yes = commonContent.yes;
-  }
-  if (!pageContent.no) {
-    pageContent.no = commonContent.no;
-  }
-  if (!pageContent.notKnown) {
-    pageContent.notKnown = commonContent.notKnown;
-  }
-  if (!pageContent.notSure) {
-    pageContent.notSure = commonContent.notSure;
-  }
+
+  const getValue = (key: string) => {
+    const value =
+      alternateKeys[key] && pageContent[alternateKeys[key]]
+        ? pageContent[alternateKeys[key]]
+        : pageContent[key] || commonContent[key];
+    return capitalize(striptags(value as string));
+  };
+
   switch (field) {
     case Applicant2Represented.YES:
     case YesOrNo.YES:
     case YesOrNoOrNotKnown.YES:
-      return capitalise ? capitalize(pageContent.yes as string) : (pageContent.yes as string);
+      return getValue('yes');
     case Applicant2Represented.NO:
     case YesOrNo.NO:
     case YesOrNoOrNotKnown.NO:
-      return capitalise ? capitalize(pageContent.no as string) : (pageContent.no as string);
+      return getValue('no');
     case Applicant2Represented.NOT_SURE:
-      return capitalise ? capitalize(pageContent.notSure as string) : (pageContent.notSure as string);
+      return getValue('notSure');
     case YesOrNoOrNotKnown.NOT_KNOWN:
-      return capitalise ? capitalize(pageContent.notKnown as string) : (pageContent.notKnown as string);
+      return getValue('notKnown');
     default:
       return field;
   }
