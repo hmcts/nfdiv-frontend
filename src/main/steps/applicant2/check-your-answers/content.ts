@@ -12,6 +12,7 @@ import { generateContent as englishOrWelshContent } from '../english-or-welsh/co
 import { generateContent as helpWithYourFeeContent } from '../help-with-your-fee/content';
 import { generateContent as howTheCourtWillContactYouContent } from '../how-the-court-will-contact-you/content';
 import { generateContent as irretrievableBreakdownContent } from '../irretrievable-breakdown/content';
+import { generateContent as otherCourtCasesContent } from '../other-court-cases/content';
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 
@@ -52,6 +53,11 @@ const getFormattedAnswers = content => ({
     addressPrivateContent(content),
     content.language,
     content.userCase.applicant2InRefuge
+  ),
+  applicant2LegalProceedings: formatYesOrNo(
+    otherCourtCasesContent(content),
+    content.language,
+    content.userCase.applicant2LegalProceedings
   ),
   applicant2ApplyForFinancialOrder: formatYesOrNo(
     doYouWantToApplyFoContent(content),
@@ -142,7 +148,7 @@ const en = ({ isDivorce, userCase, isApplicant2, marriage, civilPartnership }, f
         .join('<br>')}`,
     },
     otherCourtCases: {
-      line1: userCase.applicant2LegalProceedings,
+      line1: formattedAnswers.applicant2LegalProceedings,
       line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
@@ -258,7 +264,7 @@ const cy: typeof en = ({ isDivorce, userCase, isApplicant2 }, formattedAnswers) 
         .join('<br>')}`,
     },
     otherCourtCases: {
-      line1: userCase.applicant2LegalProceedings.replace('Yes', 'Do').replace('No', 'Naddo'),
+      line1: formattedAnswers.applicant2LegalProceedings,
       line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
