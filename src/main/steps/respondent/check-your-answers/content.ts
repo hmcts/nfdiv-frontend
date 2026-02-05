@@ -21,13 +21,15 @@ import { generateContent as reviewTheApplicationContent } from '../review-the-ap
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 
+const formatConfirmReadPetition = content => {
+  if (content.userCase.confirmReadPetition) {
+    return stripTags(reviewTheApplicationContent(content).confirmReadPetition as string);
+  }
+  return '';
+};
+
 const getFormattedAnswers = content => ({
-  confirmReadPetition: () => {
-    if (content.userCase.confirmReadPetition) {
-      return stripTags(reviewTheApplicationContent(content).confirmReadPetition as string);
-    }
-    return '';
-  },
+  confirmReadPetition: formatConfirmReadPetition(content),
   disputeApplication: formatYesOrNo(
     howDoYouWantToRespondContent(content),
     content.language,

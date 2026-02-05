@@ -170,6 +170,15 @@ const cannotUploadDocumentList = (
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 
+const formatApplicationType = content => {
+  if (content.userCase.applicationType) {
+    return content.userCase.applicationType === ApplicationType.JOINT_APPLICATION
+      ? stripTags(howDoYouWantToApplyContent(content).jointApplication as string)
+      : stripTags(howDoYouWantToApplyContent(content).soleApplication as string);
+  }
+  return '';
+};
+
 const getFormattedAnswers = content => ({
   applicant1ConfirmFullName: formatYesOrNo(
     confirmYourNameContent(content),
@@ -315,14 +324,7 @@ const getFormattedAnswers = content => ({
     true,
     { yes: 'applicantAgreeToReceiveEmails' }
   ),
-  applicationType: () => {
-    if (content.userCase.applicationType) {
-      return content.userCase.applicationType === ApplicationType.JOINT_APPLICATION
-        ? stripTags(howDoYouWantToApplyContent(content).jointApplication as string)
-        : stripTags(howDoYouWantToApplyContent(content).soleApplication as string);
-    }
-    return '';
-  },
+  applicationType: formatApplicationType(content),
 });
 
 const en = (
