@@ -3,7 +3,6 @@ import axios from 'axios';
 import config from 'config';
 import OTPAuth from 'otpauth';
 
-
 const logger = Logger.getLogger('service-auth-token');
 let token;
 
@@ -26,11 +25,11 @@ const createOneTimePassword = (secret: string): string => {
   const totp = new OTPAuth.TOTP({
     secret,
     digits: 6,
-    period: 30
+    period: 30,
   });
 
   return totp.generate();
-}
+};
 
 export const initAuthToken = (): void => {
   getTokenFromApi();
