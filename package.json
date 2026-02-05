@@ -161,11 +161,5 @@
     "webpack-dev-middleware": "7.4.5",
     "webpack-node-externals": "3.0.0"
   },
-  "resolutions": {
-    "tar": "^7.5.7",
-    "jws": "^3.2.3",
-    "cookie": "^0.7.2",
-    "diff": "^8.0.3"
-  },
   "packageManager": "yarn@4.4.1"
 }
