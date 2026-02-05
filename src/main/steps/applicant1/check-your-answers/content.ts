@@ -316,11 +316,10 @@ const getFormattedAnswers = content => ({
     { yes: 'applicantAgreeToReceiveEmails' }
   ),
   applicationType: () => {
-    const pageContent = howDoYouWantToApplyContent(content);
     if (content.userCase.applicationType) {
       return content.userCase.applicationType === ApplicationType.JOINT_APPLICATION
-        ? stripTags(pageContent.jointApplication)
-        : stripTags(pageContent.soleApplication);
+        ? stripTags(howDoYouWantToApplyContent(content).jointApplication as string)
+        : stripTags(howDoYouWantToApplyContent(content).soleApplication as string);
     }
     return '';
   },
