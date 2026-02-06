@@ -313,7 +313,7 @@ const getFormattedAnswers = content => ({
   applicant1AddressPrivate: formatYesOrNo(
     addressPrivateContent(content),
     content.language,
-    content.usercase.applicant1AddressPrivate,
+    content.userCase.applicant1AddressPrivate,
     false,
     { yes: 'detailsPrivate', no: 'detailsNotPrivate' }
   ),
