@@ -24,17 +24,17 @@ const en = ({ partner }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
-  title: 'Who is the financial order for?',
-  line1: `The financial order will describe how to split you and your ${partner}'s money and property.
-  Sometimes it can also describe whether any money or property will be transferred to one of you, for the benefit of any children you may have.
-  For example, a property could be transferred to the parent who is looking after the child, until the child becomes an adult.`,
-  line2: `The court needs to know now if you want the financial order to just describe your money and property,
-  or to also include money and property transferred to one of you, for the benefit of any children under the age of 18.`,
-  inset: `If you say now that you want the financial order to be for your children then the financial order does not have to include them.
-  It just gives you the option to include them on the financial order, should you need to.`,
+  title: 'Ar gyfer pwy y mae’r gorchymyn ariannol?',
+  line1: `Bydd y gorchymyn ariannol yn disgrifio sut i rannu eich arian a’ch eiddo chi a’ch ${partner}.
+  Weithiau gall hefyd ddisgrifio pa un a fydd unrhyw arian neu eiddo yn cael ei drosglwyddo i un ohonoch, er budd unrhyw blant sydd gennych.
+  Er enghraifft, gallai eiddo fod wedi’i drosglwyddo i’r rhiant sy’n gofalu am y plentyn, nes bydd y plentyn yn oedolyn.`,
+  line2: `Mae’r llys angen gwybod nawr os ydych eisiau i’r gorchymyn ariannol ddisgrifio eich arian neu eiddo yn unig,
+  neu hefyd i gynnwys arian ac eiddo wedi’i drosglwyddo i un ohonoch er budd unrhyw blant o dan 18 oed.`,
+  inset: `Os ydych yn dweud nawr eich bod eisiau i’r gorchymyn ariannol fod i’ch plant, yna nid yw’r gorchymyn ariannol angen eu cynnwys nhw.
+  Mae’n rhoi’r dewis i chi eu cynnwys yn y gorchymyn ariannol, os byddwch angen.`,
   whoIsTheFinancialOrderFor: 'Who is the financial order for?',
-  applicant: 'I need a financial order for myself ',
-  applicantAndChildren: 'I need a financial order for myself and my child(ren)',
+  applicant: 'Rwyf angen gorchymyn ariannol i fi fy hun',
+  applicantAndChildren: 'Rwyf angen gorchymyn ariannol i fi a fy mhlentyn/mhlant',
   errors: {
     applicant1WhoIsFinancialOrderFor: {
       required: 'You need to answer who the financial order is for.',
