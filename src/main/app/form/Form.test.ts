@@ -70,14 +70,17 @@ describe('Form', () => {
       {
         propertyName: 'field',
         errorType: 'required',
+        focusId: 'field',
       },
       {
         propertyName: 'dateField',
         errorType: 'required',
+        focusId: 'dateField',
       },
       {
         propertyName: 'checkboxes',
         errorType: 'required',
+        focusId: 'checkboxes',
       },
     ]);
   });
@@ -126,6 +129,7 @@ describe('Form', () => {
         {
           propertyName: 'field',
           errorType: 'required',
+          focusId: 'field',
         },
       ]);
     });
@@ -143,10 +147,12 @@ describe('Form', () => {
         {
           errorType: 'required',
           propertyName: 'testSubField',
+          focusId: 'testSubField',
         },
         {
           errorType: 'required',
           propertyName: 'checkboxes',
+          focusId: 'checkboxes',
         },
       ]);
     });
