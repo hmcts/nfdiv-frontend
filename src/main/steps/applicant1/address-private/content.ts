@@ -25,6 +25,8 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
     "Os credwch eich bod efallai'n profi cam-drin domestig neu os nad ydych yn teimlo'n ddiogel, yna",
   supportAvailable: 'mae cymorth ar gael',
   detailsNotPrivate: 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat',
+  yes: 'Ydw',
+  no: 'Nac ydw',
   errors: {
     applicant1AddressPrivate: { required },
   },
