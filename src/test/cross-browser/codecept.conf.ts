@@ -1,4 +1,4 @@
-import { setHeadlessWhen } from '@codeceptjs/configure';
+import { setCommonPlugins, setHeadlessWhen } from '@codeceptjs/configure';
 
 import { config as testConfig } from '../config';
 
@@ -37,6 +37,35 @@ if (process.env.SAUCE === 'true') {
       acceptSslCerts: true,
     },
   };
+} else if (process.env.PLAYWRIGHT_SERVICE_URL && process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN) {
+  console.log('🚀 Using Azure Playwright Service with Bearer token');
+
+  helpers = {
+    Playwright: {
+      // This is where your app is hosted (your local or deployed app)
+      url: testConfig.TEST_URL || 'http://localhost:3001',
+      show: false, // Must be false for cloud execution
+      chromium: {
+        wsEndpoint: process.env.PLAYWRIGHT_SERVICE_URL,
+      },
+      browser: 'chromium',
+      waitForTimeout: testConfig.WaitForTimeout || 30000,
+      waitForAction: 350,
+      timeout: testConfig.WaitForTimeout || 30000,
+      retries: 3,
+      waitForNavigation: 'load',
+      ignoreHTTPSErrors: true,
+      bypassCSP: true,
+      // Also configure for cross-browser testing
+      firefox: {
+        wsEndpoint: process.env.PLAYWRIGHT_SERVICE_URL,
+      },
+
+      webkit: {
+        wsEndpoint: process.env.PLAYWRIGHT_SERVICE_URL,
+      },
+    },
+  };
 } else {
   helpers = testConfig.helpers;
 }
@@ -48,9 +77,6 @@ export const config: CodeceptJS.Config = {
   helpers,
   multiple: {
     crossBrowser: {
-      // chromium = Google Chrome, Microsoft Edge, Android, Opera, Brave, Vivaldi etc.
-      // webkit = Safari, iOS, Smart TVs, Games consoles etc.
-      // firefox = Firefox :P
       browsers: [{ browser: 'chromium' }, { browser: 'webkit' }, { browser: 'firefox' }],
     },
   },
@@ -86,3 +112,5 @@ export const config: CodeceptJS.Config = {
     },
   },
 };
+
+setCommonPlugins();
