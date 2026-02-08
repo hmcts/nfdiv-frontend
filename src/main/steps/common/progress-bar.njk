@@ -41,14 +41,14 @@
     label: {
       html: textWithVisuallyHiddenSpan(courtChecks, displayState.isBefore('Submitted'))
     },
-    complete: caseHasBeenIssued or displayState.isAtOrAfter('AwaitingAos'),
-    active: displayState.isBefore('AwaitingAos')
+    complete: caseHasBeenIssued,
+    active: not caseHasBeenIssued
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))
     },
-    complete: displayState.isAfter('IssuedToBailiff') or isPendingHearingOutcomeCoPronounced or isPendingHearingOutcomeFoRequested,
-    active: caseHasBeenIssued or (displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding') and (not isGeneralConsiderationCoPronounced and not isGeneralConsiderationFoRequested and not isPendingHearingOutcomeCoPronounced and not isPendingHearingOutcomeFoRequested))
+    complete: caseHasBeenIssued and (displayState.isAfter('IssuedToBailiff') or isPendingHearingOutcomeCoPronounced or isPendingHearingOutcomeFoRequested),
+    active: caseHasBeenIssued and (displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding') and (not isGeneralConsiderationCoPronounced and not isGeneralConsiderationFoRequested and not isPendingHearingOutcomeCoPronounced and not isPendingHearingOutcomeFoRequested))
   }, {
     label: {
       html: textWithVisuallyHiddenSpan(conditionalOrder, displayState.isAtOrAfter('AwaitingLegalAdvisorReferral'))
