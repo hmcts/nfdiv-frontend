@@ -1,0 +1,25 @@
+{% extends "common/page.njk" %}
+
+{% block header %}
+  {{ govukHeader({
+    containerClasses: "govuk-width-container",
+    serviceUrl: (globals.basePath if globals.basePath) + "/"
+  }) }}
+{% endblock %}
+
+{% block backLink %}{% endblock %}
+
+{% block contact_us %}{% endblock %}
+
+{% block page_content %}
+  <div class="govuk-panel govuk-panel--confirmation">
+      <h1 id="applicationWithdrawnTitle" class="govuk-panel__title">{{ title }}</h1>
+  </div>
+  <br/>
+  <p class="govuk-body">{{ line1 }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
+  <br/>
+    <h2 class="govuk-heading-m">{{ whatHappensNext }}</h2>
+  <br/>
+  <p class="govuk-body">{{ whatHappensNextLine1 }}</p>
+{% endblock %}

@@ -3,6 +3,7 @@ import { ApplicationType, State, YesOrNo } from '../app/case/definition';
 import { needsToExplainDelay } from '../app/controller/controller.utils';
 
 import { Step } from './applicant1Sequence';
+import { applicant2WithdrawApplicationSequence } from './applicant2WithdrawApplicationSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -270,6 +271,7 @@ const postSubmissionSequence: Step[] = [
     url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
   },
+  ...applicant2WithdrawApplicationSequence,
 ];
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>

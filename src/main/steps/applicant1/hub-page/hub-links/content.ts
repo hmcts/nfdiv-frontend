@@ -7,12 +7,11 @@ import {
   HUB_PAGE_DOWNLOADS,
   MAKE_AN_APPLICATION,
   RESPONDENT,
-  WITHDRAW_APPLICATION,
   WITHDRAW_THIS_APPLICATION,
 } from '../../../urls';
 import { areDownloadsAvailable } from '../../downloads/content';
 
-const en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRespondent: string) => ({
+const en = ({ isDivorce, isApplicant2 }: CommonContent, app2OrRespondent: string) => ({
   reviewContactDetails: {
     url: app2OrRespondent + CHECK_CONTACT_DETAILS,
     text: 'Review your contact details',
@@ -26,13 +25,13 @@ const en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRespondent: s
     text: 'Make an application to the court',
   },
   withdrawApplication: {
-    url: `${caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION : WITHDRAW_APPLICATION}`,
+    url: `${(isApplicant2 ? APPLICANT_2 : '') + WITHDRAW_THIS_APPLICATION}`,
     text: `Withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   },
 });
 
 // @TODO translations
-const cy: typeof en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRespondent) => ({
+const cy: typeof en = ({ isDivorce, isApplicant2 }: CommonContent, app2OrRespondent) => ({
   reviewContactDetails: {
     url: app2OrRespondent + CHECK_CONTACT_DETAILS,
     text: 'Adolygu eich manylion cyswllt',
@@ -46,7 +45,7 @@ const cy: typeof en = ({ caseHasBeenIssued, isDivorce }: CommonContent, app2OrRe
     text: 'Make an application to the court',
   },
   withdrawApplication: {
-    url: `${caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION : WITHDRAW_APPLICATION}`,
+    url: `${(isApplicant2 ? APPLICANT_2 : '') + WITHDRAW_THIS_APPLICATION}`,
     text: `Withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   },
 });
@@ -64,9 +63,12 @@ const getApp2OrRespondent = (content: CommonContent): string => {
 };
 
 export const generateContent: TranslationFn = content => {
+  const showWithdrawLink =
+    !content.caseHasBeenIssued && (!content.isApplicant2 || (content.isApplicant2 && content.isJointApplication));
   return {
     ...languages[content.language](content, getApp2OrRespondent(content)),
     caseHasBeenIssued: content.caseHasBeenIssued,
     showDownloadLink: areDownloadsAvailable(content),
+    showWithdrawLink,
   };
 };

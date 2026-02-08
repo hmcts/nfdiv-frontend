@@ -17,6 +17,7 @@ import {
   TIMED_OUT_URL,
   WEBCHAT_URL,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
+  WITHDRAW_CONFIRMATION,
 } from './urls';
 
 export const signInNotRequired = (reqPath: string): boolean =>
@@ -29,6 +30,7 @@ export const signInNotRequired = (reqPath: string): boolean =>
     TERMS_AND_CONDITIONS_URL,
     WEBCHAT_URL,
     TIMED_OUT_URL,
+    WITHDRAW_CONFIRMATION,
   ].includes(reqPath as PageLink);
 
 export const isLinkingUrl = (reqPath: string): boolean =>
