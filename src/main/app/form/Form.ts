@@ -62,7 +62,7 @@ export class Form {
 
   private getErrorsFromField(body: Partial<Case>, id: string, field: FormField): FormError[] {
     const errorType = field.validator && field.validator(body[id], body);
-    const focusId = (isFormOptions(field) && field.id) || id;
+    const focusId = (isFormOptions(field) && field.values[0]?.id) || (isFormOptions(field) && field.id) || id;
     const errors: FormError[] = errorType ? [{ errorType, propertyName: id, focusId }] : [];
 
     errors.push(...this.validateGlobalInputRules(body, id, field as FormInput));
