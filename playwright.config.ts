@@ -6,7 +6,7 @@ import { defineConfig } from '@playwright/test';
  */
 export default defineConfig({
   ...CommonConfig.recommended,
-  testDir: './e2e',
+  testDir: './src/test',
 
   projects: [
     {

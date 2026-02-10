@@ -163,7 +163,7 @@ export const config = {
 };
 
 process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || new Date().toISOString();
-
+console.log(`Running Playwright tests with run ID ${process.env.PLAYWRIGHT_SERVICE_RUN_ID}`);
 config.helpers = {
   Playwright: {
     url: config.TEST_URL,

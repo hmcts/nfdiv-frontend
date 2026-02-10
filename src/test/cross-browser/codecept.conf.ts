@@ -6,7 +6,9 @@ setHeadlessWhen(testConfig.TestHeadlessBrowser);
 
 let helpers = {};
 let plugins = {};
+console.log('Running cross browser tests');
 if (process.env.SAUCE === 'true') {
+  console.log('Using Sauce service');
   helpers = {
     WebDriver: {
       url: testConfig.TEST_URL,
@@ -38,7 +40,7 @@ if (process.env.SAUCE === 'true') {
     },
   };
 } else if (process.env.PLAYWRIGHT_SERVICE_URL && process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN) {
-  console.log('🚀 Using Azure Playwright Service with Bearer token');
+  console.log('Using Azure Playwright Service with Bearer token');
 
   helpers = {
     Playwright: {
