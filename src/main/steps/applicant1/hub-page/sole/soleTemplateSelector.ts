@@ -161,7 +161,7 @@ export const getSoleHubTemplate = (
       return HubTemplate.AwaitingHWFPartPayment;
     case State.AwaitingHWFDecision:
     case State.AwaitingHWFEvidence:
-      return userCase.applicant1CannotUpload === Checkbox.Checked || !addressRequired
+      return userCase.applicant1CannotUpload === Checkbox.Checked || addressRequired
         ? HubTemplate.AwaitingDocuments
         : HubTemplate.AosAwaitingOrDrafted;
     case State.AwaitingDocuments:
