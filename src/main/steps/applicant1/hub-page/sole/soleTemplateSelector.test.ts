@@ -459,7 +459,7 @@ describe('SoleTemplateSelector test', () => {
 
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFDecision', () => {
     const theState = displayState.at(State.AwaitingHWFDecision);
-    const applicant2Address = {
+    const testCase = {
       ...userCase,
       applicationType: ApplicationType.SOLE_APPLICATION,
       applicant2Address: {
