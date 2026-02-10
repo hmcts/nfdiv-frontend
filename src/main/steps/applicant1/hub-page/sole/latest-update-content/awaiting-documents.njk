@@ -1,7 +1,7 @@
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
-  {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay or not applicant1KnowsApplicant2Address %}
+  {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay or addressRequired %}
 
-    {% if not applicant1KnowsApplicant2Address %}
+    {% if addressRequired %}
       <p class="govuk-body">{{ furtherActionNeeded.line1 }}</p>
       <p class="govuk-body">{{ furtherActionNeeded.line2 | safe }}</p>
       <p class="govuk-body">{{ furtherActionNeeded.line3 | safe }}</p>

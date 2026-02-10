@@ -1,8 +1,10 @@
 import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceType,
+  ApplicationType,
   GeneralApplicationType,
   ServiceApplicationRefusalReason,
   ServiceMethod,
@@ -40,9 +42,7 @@ export const getSoleHubTemplate = (
     latestGeneralApplication?.generalApplicationType === (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
   const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
   const addressRequired =
-    userCase.applicant1KnowsApplicant2Address !== YesOrNo.YES ||
-    userCase.applicant1FoundApplicant2Address !== YesOrNo.YES ||
-    userCase.iWantToHavePapersServedAnotherWay === Checkbox.Checked;
+    userCase.applicationType === ApplicationType.SOLE_APPLICATION && isEmpty(userCase.applicant2Address);
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:

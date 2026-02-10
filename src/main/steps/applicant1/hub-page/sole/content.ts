@@ -7,6 +7,7 @@ import { Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceType,
   Applicant2Represented,
+  ApplicationType,
   DocumentType,
   InterimApplicationType,
   NoResponsePartnerNewEmailOrAddress,
@@ -1178,7 +1179,8 @@ export const generateContent: TranslationFn = content => {
   const interimApplicationStartedAosOverdue =
     interimApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
 
-  const applicant1KnowsApplicant2Address = userCase.applicant1KnowsApplicant2Address === YesOrNo.YES;
+  const addressRequired =
+    userCase.applicationType === ApplicationType.SOLE_APPLICATION && isEmpty(userCase.applicant2Address);
   return {
     ...languages[language](
       content,
@@ -1212,6 +1214,6 @@ export const generateContent: TranslationFn = content => {
     isSearchGovRecordsFeeRequired,
     interimApplicationStartPagePath,
     interimApplicationStartedAosOverdue,
-    applicant1KnowsApplicant2Address,
+    addressRequired,
   };
 };
