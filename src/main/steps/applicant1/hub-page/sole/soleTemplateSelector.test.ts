@@ -478,7 +478,7 @@ describe('SoleTemplateSelector test', () => {
 
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFEvidence', () => {
     const theState = displayState.at(State.AwaitingHWFEvidence);
-    const applicant2Address = {
+    const testCase = {
       ...userCase,
       applicant2Address: {
         AddressLine1: 'Line1',
@@ -490,7 +490,7 @@ describe('SoleTemplateSelector test', () => {
         Country: 'United Kingdom',
       },
     };
-    const soleTemplate = getSoleHubTemplate(theState, applicant2Address, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, testCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
