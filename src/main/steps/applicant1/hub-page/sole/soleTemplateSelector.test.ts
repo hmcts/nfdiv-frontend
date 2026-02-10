@@ -472,7 +472,7 @@ describe('SoleTemplateSelector test', () => {
         Country: 'United Kingdom',
       },
     };
-    const soleTemplate = getSoleHubTemplate(theState, applicant2Address, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, testCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
