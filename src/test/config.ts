@@ -4,7 +4,6 @@ import sysConfig from 'config';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
 import { IdamUserManager } from './steps/IdamUserManager';
-import 'dotenv/config';
 
 // better handling of unhandled exceptions
 process.on('unhandledRejection', reason => {
@@ -120,7 +119,7 @@ export const config = {
     ],
   },
   bootstrap: async (): Promise<void> => {
-    await initializeTestEnvironment(); 
+    await initializeTestEnvironment();
     await idamUserManager.createUser(TestUser, TestPass);
   },
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
@@ -163,7 +162,7 @@ export const config = {
 };
 
 process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || new Date().toISOString();
-console.log(`Running Playwright tests with run ID ${process.env.PLAYWRIGHT_SERVICE_RUN_ID}`);
+
 config.helpers = {
   Playwright: {
     url: config.TEST_URL,
@@ -182,10 +181,12 @@ config.helpers = {
         'x-mpt-access-key': process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN,
       },
       exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
-      browserWSEndpoint:`${process.env.PLAYWRIGHT_SERVICE_URL}?cap=${JSON.stringify({
+      browserWSEndpoint: {
+        wsEndpoint: `${process.env.PLAYWRIGHT_SERVICE_URL}?cap=${JSON.stringify({
           os: 'linux',
           runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
         })}`,
+      },
     },
   },
 };

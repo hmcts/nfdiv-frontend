@@ -1,28 +1,43 @@
-import { DefaultAzureCredential } from '@azure/identity';
-import { ServiceOS, createAzurePlaywrightConfig } from '@azure/playwright';
 import { defineConfig } from '@playwright/test';
+import * as dotenv from 'dotenv';
 
-import 'dotenv/config';
-import config from './playwright.config';
+// Load environment variables
+dotenv.config();
 
-/* Learn more about service configuration at https://aka.ms/pww/docs/config */
-export default defineConfig(
-  config,
-  createAzurePlaywrightConfig(config, {
-    exposeNetwork: '<loopback>',
-    connectTimeout: 3 * 60 * 1000, // 3 minutes
-    os: ServiceOS.LINUX,
-    credential: new DefaultAzureCredential(),
-  }),
-  {
-    /*
-    Enable Playwright Workspaces Reporter:
-    Uncomment the reporter section below to upload test results and reports to Playwright Workspaces.
+export default defineConfig({
+  // Use all configured projects
+  testDir: './src/test',
 
-    Note: The HTML reporter must be included before Playwright Workspaces Reporter.
-    This configuration will replace any existing reporter settings from your base config.
-    If you're already using other reporters, add them to this array.
-    */
-    reporter: [['html', { open: 'never' }], ['@azure/playwright/reporter']],
-  }
-);
+  // Configure for cloud execution
+  workers: process.env.CI ? 10 : undefined,
+
+  use: {
+    // Connect to Playwright Workspaces only if URL is available
+    ...(process.env.PLAYWRIGHT_SERVICE_URL && {
+      connectOptions: {
+        wsEndpoint: process.env.PLAYWRIGHT_SERVICE_URL,
+      },
+    }),
+
+    // Base URL
+    baseURL: process.env.TEST_URL || 'http://localhost:3001',
+
+    // Other configuration options
+    ignoreHTTPSErrors: true,
+    video: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+  },
+
+  // Environment-specific settings
+  projects: [
+    {
+      name: 'chromium',
+      use: {
+        ...require('@playwright/test').devices['Desktop Chrome'],
+      },
+    },
+  ],
+
+  // Reporter configuration for MPW
+  reporter: [['html'], ['json', { outputFile: 'test-results/results.json' }]],
+});
