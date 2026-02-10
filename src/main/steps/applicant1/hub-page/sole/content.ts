@@ -7,6 +7,7 @@ import { Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceType,
   Applicant2Represented,
+  ApplicationType,
   DocumentType,
   InterimApplicationType,
   NoResponsePartnerNewEmailOrAddress,
@@ -15,6 +16,7 @@ import {
   YesOrNo,
 } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { getFee } from '../../../../app/fees/service/get-fee';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
@@ -26,6 +28,8 @@ import {
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   FINALISING_YOUR_APPLICATION,
+  NO_RESP_ADDRESS_ENTER_ADDRESS,
+  NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
@@ -533,6 +537,22 @@ const en = (
   awaitingGenAppHwfPartPaymentOrEvidence: {
     line1:
       'The court is reviewing your application and help with fees reference number. You will receive an email notification confirming what you need to do next.',
+  },
+  furtherActionNeeded: {
+    whatYouNeedToDoHeader: 'What you need to do',
+    line1: `You have submitted your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
+    } to this address at no additional cost.`,
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
+      isDivorce ? 'your divorce' : 'ending your civil partnership'
+    } another way</a>. This application will cost ${getFee(
+      config.get('fees.alternativeService')
+    )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.getHelpWithCourtFees'
+    )}">get help paying this fee (opens in a new tab)</a>.`,
   },
 });
 
@@ -1046,6 +1066,22 @@ const cy: typeof en = (
     line1:
       'Mae’r llys yn adolygu eich cais a’ch cyfeirnod help i dalu ffioedd.  Byddwch yn derbyn e-bost yn cadarnhau beth rydych angen ei wneud nesaf.',
   },
+  furtherActionNeeded: {
+    whatYouNeedToDoHeader: 'What you need to do',
+    line1: `You have submitted your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
+    } to this address at no additional cost.`,
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
+      isDivorce ? 'your divorce' : 'ending your civil partnership'
+    } another way</a>. This application will cost ${getFee(
+      config.get('fees.alternativeService')
+    )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.getHelpWithCourtFees'
+    )}">get help paying this fee (opens in a new tab)</a>.`,
+  },
 });
 
 const languages = {
@@ -1143,6 +1179,8 @@ export const generateContent: TranslationFn = content => {
   const interimApplicationStartedAosOverdue =
     interimApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
 
+  const addressRequired =
+    userCase.applicationType === ApplicationType.SOLE_APPLICATION && isEmpty(userCase.applicant2Address);
   return {
     ...languages[language](
       content,
@@ -1176,5 +1214,6 @@ export const generateContent: TranslationFn = content => {
     isSearchGovRecordsFeeRequired,
     interimApplicationStartPagePath,
     interimApplicationStartedAosOverdue,
+    addressRequired,
   };
 };
