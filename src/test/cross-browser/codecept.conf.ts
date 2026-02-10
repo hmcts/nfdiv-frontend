@@ -69,6 +69,8 @@ if (process.env.SAUCE === 'true') {
     },
   };
 } else {
+  console.log('Using no Azure Playwright Service or sauce');
+  console.log('Playwright service url: ' + process.env.PLAYWRIGHT_SERVICE_URL);
   helpers = testConfig.helpers;
 }
 
