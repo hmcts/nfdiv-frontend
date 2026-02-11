@@ -35,19 +35,13 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
       filenameEl.textContent = file.name;
       fileEl.appendChild(filenameEl);
 
-      if (
-        content.isAmendableStates ||
-        content.isRequestForInformationAmendableState ||
-        content.isClarificationAmendableState
-      ) {
-        const deleteEl = document.createElement('a');
-        deleteEl.classList.add('govuk-link', 'govuk-link--no-visited-state');
-        deleteEl.id = `Delete${i}`;
-        deleteEl.href = `${DOCUMENT_MANAGER}/delete/${i - 1}`;
-        deleteEl.textContent = content.delete;
-        deleteEl.setAttribute('aria-labelledby', `Delete${i} Document${i}`);
-        fileEl.appendChild(deleteEl);
-      }
+      const deleteEl = document.createElement('a');
+      deleteEl.classList.add('govuk-link', 'govuk-link--no-visited-state');
+      deleteEl.id = `Delete${i}`;
+      deleteEl.href = `${DOCUMENT_MANAGER}/delete/${i - 1}`;
+      deleteEl.textContent = content.delete;
+      deleteEl.setAttribute('aria-labelledby', `Delete${i} Document${i}`);
+      fileEl.appendChild(deleteEl);
 
       filesUploadedEl.appendChild(fileEl);
       i++;
