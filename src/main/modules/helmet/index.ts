@@ -41,13 +41,7 @@ export class Helmet {
       'https://api-cdn.euw2.pure.cloud',
     ];
 
-    const connectSrc = [
-      self,
-      googleAnalyticsDomain,
-      doubleclick,
-      ...webchatURLs,
-      'wss://webmessaging.euw2.pure.cloud',
-    ];
+    const connectSrc = [self, googleAnalyticsDomain, doubleclick, ...webchatURLs, 'wss://webmessaging.euw2.pure.cloud'];
     const imgSrc = [
       self,
       azureBlob,
