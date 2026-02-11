@@ -80,9 +80,6 @@ export class Nunjucks {
     const globals = {
       nonce: config.get('nonce'),
       webchat: {
-        avayaUrl: config.get('webchat.avayaUrl'),
-        avayaClientUrl: config.get('webchat.avayaClientUrl'),
-        avayaService: config.get('webchat.avayaService'),
         genesysBaseUrl: config.get('webchat.genesysBaseUrl'),
         genesysEnvironment: config.get('webchat.genesysEnvironment'),
         genesysKervBaseUrl: config.get('webchat.genesysKervBaseUrl'),

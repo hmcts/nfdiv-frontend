@@ -35,12 +35,6 @@ export class Helmet {
 
   private setContentSecurityPolicy(app: express.Express): void {
     const webchatURLs = [
-      'https://webchat.training.ctsc.hmcts.net',
-      'https://webchat.ctsc.hmcts.net',
-      'https://webchat-client.training.ctsc.hmcts.net',
-      'https://webchat-client.ctsc.hmcts.net',
-      'https://webchat.pp.ctsc.hmcts.net',
-      'https://webchat-client.pp.ctsc.hmcts.net',
       `${config.get('webchat.genesysBaseUrl')}`,
       `${config.get('webchat.genesysKervBaseUrl')}`,
       'https://api.euw2.pure.cloud',
@@ -52,9 +46,6 @@ export class Helmet {
       googleAnalyticsDomain,
       doubleclick,
       ...webchatURLs,
-      'wss://webchat.ctsc.hmcts.net',
-      'wss://webchat.training.ctsc.hmcts.net',
-      'wss://webchat.pp.ctsc.hmcts.net',
       'wss://webmessaging.euw2.pure.cloud',
     ];
     const imgSrc = [
