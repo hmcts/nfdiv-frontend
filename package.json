@@ -25,7 +25,7 @@
     "test:cucumber:docker": "yarn test:parallel:docker '^(?!.*@flaky)' ; yarn merge-reports",
     "test:e2e": "yarn test:parallel '^(?!.*(@nightly|@flaky))' ; yarn merge-reports",
     "test:e2e:docker": "yarn test:parallel:docker '^(?!.*(@nightly|@flaky))' ; yarn merge-reports",
-    "test:parallel": "codeceptjs run-workers 20 --config ./src/test/functional/codecept.conf.js --reporter mocha-multi --grep",
+    "test:parallel": "codeceptjs run-workers 20 --config ./src/test/functional/codecept.conf.js --reporter mocha-multi --verbose",
     "test:parallel:docker": "NODE_ENV=docker codeceptjs run-workers 10 --config ./src/test/functional/codecept.conf.js --reporter mocha-multi --grep",
     "test:nightly": "yarn test:parallel @nightly ; yarn merge-reports",
     "test:nightly:docker": "yarn test:parallel:docker @nightly ; yarn merge-reports",
@@ -115,6 +115,7 @@
     "uuid": "11.1.0"
   },
   "devDependencies": {
+    "@azure/playwright": "^1.1.1",
     "@codeceptjs/allure-legacy": "1.0.2",
     "@playwright/test": "1.58.2",
     "@types/jest": "30.0.0",
