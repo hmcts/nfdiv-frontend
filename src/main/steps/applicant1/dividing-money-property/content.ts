@@ -42,7 +42,7 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
 });
 
 const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
-  title: 'Dividing your money and property',
+  title: 'Rhannu eich arian a’ch eiddo',
   line1: `Mae’n bwysig eich bod yn trefnu sut i rannu eich arian a’ch eiddo cyn diwedd y ${
     isDivorce ? 'broses ysgaru' : 'broses i ddod â’ch partneriaeth sifil i ben'
   }. Fel arall, efallai y byddwch chi neu eich ${partner} yn gallu gwneud hawliadau ariannol yn erbyn y naill a’r llall ar ôl i’r ${
@@ -54,7 +54,7 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   line3: `Os byddwch chi a’ch ${partner} yn cytuno ar sut y byddwch yn rhannu eich asedau ariannol, gallwch wneud y cytundeb hwn yn gyfreithiol rwymol drwy ofyn i’r llys wneud ‘gorchymyn ariannol trwy gydsyniad’. Gelwir hyn hefyd yn ‘orchymyn cydsynio’. Fel arfer, mae’n symlach ac yn costio llai os ydych yn gallu cytuno ar sut i rannu eich arian a’ch eiddo.`,
   ifYouNeedHelpAgreeingHeading: 'Os oes angen help arnoch i ddod i gytundeb',
   line4:
-    'Mae yna ffyrdd i’ch helpu i gytuno ar sut y byddwch yn rhannu eich asedau ariannol y tu allan i’r llys.  Gelwir hyn weithiau yn ‘datrys anghydfod y tu allan i’r llys’ (NCDR). <a target="_blank" href="https://www.advicenow.org.uk/get-help/family-and-children/divorce-and-separation/what-do-applying-financial-order-when-you-get">Further information about the types of NCDR options available to you can be obtained from Advicenow (opens in a new tab).</a>',
+    'Mae yna ffyrdd i’ch helpu i gytuno ar sut y byddwch yn rhannu eich asedau ariannol y tu allan i’r llys.  Gelwir hyn weithiau yn ‘datrys anghydfod y tu allan i’r llys’ (NCDR). <a target="_blank" href="https://www.advicenow.org.uk/get-help/family-and-children/divorce-and-separation/what-do-applying-financial-order-when-you-get">Gellir cael gwybodaeth bellach am y mathau o ddewisiadau NCDR sydd ar gael i chi gan Advicenow (yn agor mewn tab newydd).</a>',
   line5: `Os ydych chi a’ch ${partner} yn anghytuno, gallwch hefyd ofyn i’r llys benderfynu ichi. Mae hyn yn cael ei alw yn gwneud cais am rwymedi ariannol. Bydd y llys yn disgwyl i chi fod wedi ceisio cytuno ar eich cyllid rhwng eich gilydd cyn dod i’r llys.   Byddwch angen bod wedi mynychu cyfarfod cychwynnol a elwir yn Gyfarfod Asesu a Gwybodaeth am Gyfryngu neu MIAM, i ystyried ffyrdd i ddod i gytundeb heb ddod i’r llys, oni bai bod gennych reswm da dros beidio gwneud hynny.`,
   line6:
     'Mae angen i’r llys wybod nawr a ydych am wneud cais am orchymyn ariannol. Hyd yn oed  os ydych eisiau gwneud cais am orchymyn cydsynio.',
@@ -68,12 +68,12 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   Hyd yn oed os ydych wedi cadw eich cyllid ar wahân yn ystod y ${
     isDivorce ? 'briodas' : 'partneriaeth sifil'
   }. Os byddwch yn dewis ‘oes’, yna nid ydych angen mynd ymlaen gyda’r cais na thalu unrhyw ffioedd ychwanegol. Mae’n rhoi’r dewis i chi wneud cais yn ddiweddarach yn y broses, os dymunwch.`,
-  doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
+  doYouWantToApplyForFinancialOrder: 'Ydych chi eisiau gwneud cais am orchymyn ariannol?',
   yes: 'Oes. Rwyf eisiau gwneud cais am orchymyn ariannol.',
   no: 'Nac oes. Nid wyf eisiau gwneud cais am orchymyn ariannol.',
   errors: {
     applicant1ApplyForFinancialOrder: {
-      required: 'You need to answer whether you want to apply for a financial order.',
+      required: 'Rydych angen ateb pa un a ydych yn dymuno gwneud cais am orchymyn ariannol.',
     },
   },
 });

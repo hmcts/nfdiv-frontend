@@ -32,12 +32,12 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   neu hefyd i gynnwys arian ac eiddo wedi’i drosglwyddo i un ohonoch er budd unrhyw blant o dan 18 oed.`,
   inset: `Os ydych yn dweud nawr eich bod eisiau i’r gorchymyn ariannol fod i’ch plant, yna nid yw’r gorchymyn ariannol angen eu cynnwys nhw.
   Mae’n rhoi’r dewis i chi eu cynnwys yn y gorchymyn ariannol, os byddwch angen.`,
-  whoIsTheFinancialOrderFor: 'Who is the financial order for?',
+  whoIsTheFinancialOrderFor: 'Ar gyfer pwy mae’r gorchymyn ariannol?',
   applicant: 'Rwyf angen gorchymyn ariannol i fi fy hun',
   applicantAndChildren: 'Rwyf angen gorchymyn ariannol i fi a fy mhlentyn/mhlant',
   errors: {
     applicant1WhoIsFinancialOrderFor: {
-      required: 'You need to answer who the financial order is for.',
+      required: 'Rydych angen ateb ar gyfer pwy mae’r gorchymyn ariannol.',
     },
   },
 });
