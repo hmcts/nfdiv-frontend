@@ -10521,14 +10521,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:13.0.1, glob@npm:^13.0.1":
-  version: 13.0.1
-  resolution: "glob@npm:13.0.1"
+"glob@npm:13.0.2":
+  version: 13.0.2
+  resolution: "glob@npm:13.0.2"
   dependencies:
     minimatch: ^10.1.2
     minipass: ^7.1.2
     path-scurry: ^2.0.0
-  checksum: 6952c5d1326b3e6f6d5e4198099337f96a9908c8f9488359fac4299bf1dc90e752aec2f55e5fda7f54071d58ce802147c64ac07ffb5bf8825254309fa9c13f34
+  checksum: 2e66a89f66af9813e7e0385f7b66228a6ec849f531467c3e92a634d8fbddf3595279301277938edaf5aa25b9e12999556d5934a6b9c83920a851007b9d837de1
   languageName: node
   linkType: hard
 
@@ -10574,6 +10574,17 @@ __metadata:
   bin:
     glob: dist/esm/bin.mjs
   checksum: cda96c074878abca9657bd984d2396945cf0d64283f6feeb40d738fe2da642be0010ad5210a1646244a5fc3511b0cab5a374569b3de5a12b8a63d392f18c6043
+  languageName: node
+  linkType: hard
+
+"glob@npm:^13.0.1":
+  version: 13.0.1
+  resolution: "glob@npm:13.0.1"
+  dependencies:
+    minimatch: ^10.1.2
+    minipass: ^7.1.2
+    path-scurry: ^2.0.0
+  checksum: 6952c5d1326b3e6f6d5e4198099337f96a9908c8f9488359fac4299bf1dc90e752aec2f55e5fda7f54071d58ce802147c64ac07ffb5bf8825254309fa9c13f34
   languageName: node
   linkType: hard
 
@@ -14578,7 +14589,7 @@ __metadata:
     express-nunjucks: ^3.1.2
     express-session: 1.19.0
     form-data: 4.0.5
-    glob: 13.0.1
+    glob: 13.0.2
     govuk-frontend: 5.14.0
     helmet: 8.1.0
     html-webpack-plugin: 5.6.6
