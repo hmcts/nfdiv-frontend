@@ -156,6 +156,23 @@ export const EXPLAIN_THE_DELAY: PageLink = '/explain-the-delay';
 export const RESPOND_TO_COURT_FEEDBACK: PageLink = '/respond-to-the-courts-feedback';
 export const REVIEW_YOUR_RESPONSE: PageLink = '/review-your-response-to-the-courts-feedback';
 
+// No Respondent Address Journey URLs
+export const NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/progress-without-address';
+export const NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/have-found-address';
+export const NO_RESP_ADDRESS_ENTER_ADDRESS: PageLink = '/interim-applications/no-respondent-address/enter-address';
+export const NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS: PageLink =
+  '/interim-applications/no-respondent-address/searching-for-contact-details';
+export const NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT: PageLink =
+  '/interim-applications/no-respondent-address/have-different-way-to-contact';
+export const NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS: PageLink =
+  '/interim-applications/no-respondent-address/will-apply-to-send-papers';
+export const NO_RESP_ADDRESS_IS_PARTNER_ABROAD: PageLink =
+  '/interim-applications/no-respondent-address/is-partner-abroad';
+export const NO_RESP_ADDRESS_GOV_SEARCH_POSSIBLE: PageLink =
+  '/interim-applications/no-respondent-address/gov-search-possible';
+
 // No Response Journey URLs
 export const OPTIONS_FOR_PROGRESSING: PageLink = '/interim-applications/no-response/options-for-progressing';
 export const HAVE_THEY_RECEIVED: PageLink = '/interim-applications/no-response/have-they-received';
@@ -167,9 +184,9 @@ export const NEW_POSTAL_AND_EMAIL: PageLink = '/interim-applications/no-response
 export const NO_NEW_ADDRESS: PageLink = '/interim-applications/no-response/no-new-address';
 export const PARTNER_IN_PERSON: PageLink = '/interim-applications/no-response/partner-in-person';
 export const OWN_SEARCHES: PageLink = '/interim-applications/no-response/own-searches';
-export const IS_PARTNER_ABROAD: PageLink = '/interim-applications/no-response/is-partner-abroad';
+export const NO_RESPONSE_IS_PARTNER_ABROAD: PageLink = '/interim-applications/no-response/is-partner-abroad';
 export const SEARCH_TIPS: PageLink = '/interim-applications/no-response/search-tips';
-export const GOV_SEARCH_POSSIBLE: PageLink = '/interim-applications/no-response/gov-search-possible';
+export const NO_RESPONSE_GOV_SEARCH_POSSIBLE: PageLink = '/interim-applications/no-response/gov-search-possible';
 export const PROCESS_SERVER: PageLink = '/interim-applications/no-response/process-server';
 export const SUCCESS_SCREEN_PROCESS_SERVER: PageLink =
   '/interim-applications/no-response/success-screen-process-server';

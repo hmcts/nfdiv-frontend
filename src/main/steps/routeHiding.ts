@@ -106,8 +106,7 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
         State.AwaitingService,
         State.AwaitingAos,
         State.AwaitingServiceConsideration,
-        State.AwaitingDocuments,
-      ].includes(data.state as State),
+      ].includes(data.state as State) || data.alternativeServiceType !== undefined,
   },
   {
     urls: [...generalApplicationD11JourneySequence]
