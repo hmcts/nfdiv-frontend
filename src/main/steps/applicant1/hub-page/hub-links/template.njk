@@ -4,3 +4,6 @@
 {% if showDownloadLink %}
   <p class="govuk-body"><a class="govuk-link" id="downloadsHubLink" href="{{ hubPageDownloads.url }}">{{ hubPageDownloads.text }}</a></p>
 {% endif %}
+{% if showWithdrawLink %}
+  <p class="govuk-body"><a class="govuk-link" id="postSubmissionWithdrawLink" href="{{ withdrawApplication.url }}">{{ withdrawApplication.text }}</a></p>
+{% endif %}
