@@ -13,8 +13,6 @@
     {% if not noRespondentAddress and caseHasBeenIssued %}
       <li>{{ alsoTry.options.applyProcessServerOrBailiff | safe }}</li>
     {% endif %}
-    {% if caseHasBeenIssued %}
-      <li>{{ alsoTry.options.dispenseService | safe }}</li>
-    {% endif %}
+    <li>{{ alsoTry.options.dispenseService | safe }}</li>
 </ul>
 {% endblock %}
