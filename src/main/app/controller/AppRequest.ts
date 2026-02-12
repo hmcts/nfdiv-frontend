@@ -6,6 +6,7 @@ import { SupportedLanguages } from '../../modules/i18n';
 import { Case, CaseWithId } from '../case/case';
 import { CaseApi } from '../case/case-api';
 import { ApplicationType } from '../case/definition';
+import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
@@ -30,6 +31,7 @@ export interface AppSession extends Session {
   inviteCaseApplicationType?: ApplicationType;
   inviteCaseIsApplicant1?: boolean;
   existingApplicationType?: ApplicationType;
+  fileUploadJourney?: FileUploadJourney;
   lang: SupportedLanguages | undefined;
   errors: FormError[] | undefined;
 }
