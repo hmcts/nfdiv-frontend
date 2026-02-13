@@ -1,5 +1,5 @@
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import {
   RadioButtons,
@@ -42,6 +42,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...applicant1Content,
     ...labels(applicant1Content),
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };
