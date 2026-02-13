@@ -4,6 +4,7 @@ import sysConfig from 'config';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
 import { IdamUserManager } from './steps/IdamUserManager';
+import { createAzurePlaywrightConfig, ServiceAuth } from "@azure/playwright";
 
 // better handling of unhandled exceptions
 process.on('unhandledRejection', reason => {
@@ -175,18 +176,10 @@ config.helpers = {
     waitForNavigation: 'load',
     ignoreHTTPSErrors: true,
     bypassCSP: true,
-    chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && {
-      timeout: config.WaitForTimeout,
-      headers: {
-        'x-mpt-access-key': process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN,
-      },
+    chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && createAzurePlaywrightConfig({}, {
+      connectTimeout: config.WaitForTimeout,
+      serviceAuthType: ServiceAuth.ACCESS_TOKEN,
       exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
-      browserWSEndpoint: {
-        wsEndpoint: `${process.env.PLAYWRIGHT_SERVICE_URL}?cap=${JSON.stringify({
-          os: 'linux',
-          runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
-        })}`,
-      },
-    },
+    }),
   },
 };
