@@ -8,9 +8,9 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   title: 'Dividing your money and property',
   line1: `It’s important that you sort out how to divide your money and property before the end of the ${
     isDivorce ? 'divorce process' : 'process to end your civil partnership'
-  }. Otherwise, you or your ${partner} may be able to make financial claims against each other, after the ${
+  }. Otherwise, you or your ${partner} may be able to make financial claims against each other after the ${
     isDivorce ? 'marriage' : 'civil partnership'
-  } is ended. Even if you have kept your finances separate during the ${isDivorce ? 'marriage' : 'civil partnership'}.`,
+  } is ended, even if you have kept your finances separate during the ${isDivorce ? 'marriage' : 'civil partnership'}.`,
   line2: `The court can make what’s known as a 'financial order'. A financial order is a legal document that describes how you are going to split your money, property, pensions and other assets. You need a financial order whether
   you can reach agreement with your ${partner} or whether you want the court to decide for you.`,
   ifYouAgreeHeading: 'If you agree',
@@ -27,8 +27,8 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   }.
   Otherwise you or your ${partner} could make claims on each other's finances, after the ${
     isDivorce ? 'marriage' : 'civil partnership'
-  } has ended.
-  Even if you have kept your finances separate during the ${
+  } has ended,
+  even if you have kept your finances separate during the ${
     isDivorce ? 'marriage' : 'civil partnership'
   }. If you select yes, then you do not have to go ahead with the application or pay any additional fees. It just gives you the option to apply later in the process, should you want&nbsp;to.`,
   doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
@@ -47,9 +47,8 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
     isDivorce ? 'broses ysgaru' : 'broses i ddod â’ch partneriaeth sifil i ben'
   }. Fel arall, efallai y byddwch chi neu eich ${partner} yn gallu gwneud hawliadau ariannol yn erbyn y naill a’r llall ar ôl i’r ${
     isDivorce ? 'briodas' : 'bartneriaeth sifil'
-  } ddod i ben. Hyd yn oed os ydych wedi cadw eich cyllid ar wahân yn ystod y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}.
-  Gall y llys wneud yr hyn a elwir yn ‘orchymyn ariannol’.`,
-  line2: `Mae gorchymyn ariannol yn ddogfen gyfreithiol sy’n disgrifio sut rydych yn mynd i rannu eich arian, eiddo, pensiynau ac asedau eraill.  Rydych angen gorchymyn ariannol pa un a ydych yn dod i gytundeb gyda’ch ${partner} neu a ydych eisiau i’r llys benderfynu ar eich rhan.`,
+  } ddod i ben, hyd yn oed os ydych wedi cadw eich cyllid ar wahân yn ystod y ${isDivorce ? 'briodas' : 'bartneriaeth sifil'}.`,
+  line2: `Gall y llys wneud yr hyn a elwir yn ‘orchymyn ariannol’. Mae gorchymyn ariannol yn ddogfen gyfreithiol sy’n disgrifio sut rydych yn mynd i rannu eich arian, eiddo, pensiynau ac asedau eraill.  Rydych angen gorchymyn ariannol pa un a ydych yn dod i gytundeb gyda’ch ${partner} neu a ydych eisiau i’r llys benderfynu ar eich rhan.`,
   ifYouAgreeHeading: 'Os ydych yn cytuno',
   line3: `Os byddwch chi a’ch ${partner} yn cytuno ar sut y byddwch yn rhannu eich asedau ariannol, gallwch wneud y cytundeb hwn yn gyfreithiol rwymol drwy ofyn i’r llys wneud ‘gorchymyn ariannol trwy gydsyniad’. Gelwir hyn hefyd yn ‘orchymyn cydsynio’. Fel arfer, mae’n symlach ac yn costio llai os ydych yn gallu cytuno ar sut i rannu eich arian a’ch eiddo.`,
   ifYouNeedHelpAgreeingHeading: 'Os oes angen help arnoch i ddod i gytundeb',
@@ -64,16 +63,16 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   }.
   Fel arall, gallwch chi neu eich ${partner} wneud hawliadau ariannol yn erbyn y naill a’r llall ar ôl i’r ${
     isDivorce ? 'briodas' : 'partneriaeth sifil'
-  } ddod i ben.
-  Hyd yn oed os ydych wedi cadw eich cyllid ar wahân yn ystod y ${
+  } ddod i ben, 
+  hyd yn oed os ydych wedi cadw eich cyllid ar wahân yn ystod y ${
     isDivorce ? 'briodas' : 'partneriaeth sifil'
-  }. Os byddwch yn dewis ‘oes’, yna nid ydych angen mynd ymlaen gyda’r cais na thalu unrhyw ffioedd ychwanegol. Mae’n rhoi’r dewis i chi wneud cais yn ddiweddarach yn y broses, os dymunwch.`,
+  }. Os byddwch yn dewis 'ydw', yna nid ydych angen mynd ymlaen gyda’r cais na thalu unrhyw ffioedd ychwanegol. Mae’n rhoi’r dewis i chi wneud cais yn ddiweddarach yn y broses, os dymunwch.`,
   doYouWantToApplyForFinancialOrder: 'Ydych chi eisiau gwneud cais am orchymyn ariannol?',
-  yes: 'Oes. Rwyf eisiau gwneud cais am orchymyn ariannol.',
-  no: 'Nac oes. Nid wyf eisiau gwneud cais am orchymyn ariannol.',
+  yes: 'Ydw. Rwyf eisiau gwneud cais am orchymyn ariannol.',
+  no: 'Nac ydw. Nid wyf eisiau gwneud cais am orchymyn ariannol.',
   errors: {
     applicant1ApplyForFinancialOrder: {
-      required: 'Rydych angen ateb pa un a ydych yn dymuno gwneud cais am orchymyn ariannol.',
+      required: 'Rydych angen ateb os ydych yn dymuno gwneud cais am orchymyn ariannol.',
     },
   },
 });
@@ -84,7 +83,7 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.doYouWantToApplyForFinancialOrder,
-      labelHidden: true,
+      labelHidden: false,
       hint: l => l.hint,
       values: [
         { label: l => l.yes, value: YesOrNo.YES },

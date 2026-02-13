@@ -26,7 +26,7 @@ const en = ({ partner }: CommonContent) => ({
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: 'Ar gyfer pwy y mae’r gorchymyn ariannol?',
   line1: `Bydd y gorchymyn ariannol yn disgrifio sut i rannu eich arian a’ch eiddo chi a’ch ${partner}.
-  Weithiau gall hefyd ddisgrifio pa un a fydd unrhyw arian neu eiddo yn cael ei drosglwyddo i un ohonoch, er budd unrhyw blant sydd gennych.
+  Weithiau gall hefyd ddisgrifio a fydd unrhyw arian neu eiddo yn cael ei drosglwyddo i un ohonoch, er budd unrhyw blant sydd gennych.
   Er enghraifft, gallai eiddo fod wedi’i drosglwyddo i’r rhiant sy’n gofalu am y plentyn, nes bydd y plentyn yn oedolyn.`,
   line2: `Mae’r llys angen gwybod nawr os ydych eisiau i’r gorchymyn ariannol ddisgrifio eich arian neu eiddo yn unig,
   neu hefyd i gynnwys arian ac eiddo wedi’i drosglwyddo i un ohonoch er budd unrhyw blant o dan 18 oed.`,
