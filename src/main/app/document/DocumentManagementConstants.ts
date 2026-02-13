@@ -6,7 +6,6 @@ const APPLICANT_ONE_DOC_UPLOAD_STATES = [
   State.Draft,
   State.AosDrafted,
   State.AosOverdue,
-  State.AwaitingDocuments,
   State.AwaitingApplicant1Response,
   State.AwaitingClarification,
   State.InformationRequested,
