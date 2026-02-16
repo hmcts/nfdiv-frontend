@@ -3,6 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ partner, isDivorce, required, hasAContactForPartner }) => ({
   title: `Do you have your ${partner}'s postal address?`,
@@ -21,8 +22,6 @@ const en = ({ partner, isDivorce, required, hasAContactForPartner }) => ({
   line3: !hasAContactForPartner
     ? 'If they do not respond at the address you provide, then you will need to make a separate application to serve (deliver) the papers to them another way.'
     : '',
-  haveTheirAddress: 'Yes, I have their address',
-  doNotHaveTheirAddress: 'No, I do not have their address',
   errors: {
     applicant1KnowsApplicant2Address: {
       required,
@@ -48,10 +47,6 @@ const cy: typeof en = ({ partner, isDivorce, required, hasAContactForPartner }) 
       ? "Os nad yw'n ymateb yn y cyfeiriad a roddwch, yna bydd angen i chi wneud cais ar wahân i gyflwyno (danfon) y papurau ato/ati mewn ffordd arall."
       : ''
   }`,
-  haveTheirAddress: 'Oes, mae gennyf ei gyfeiriad/chyfeiriad',
-  doNotHaveTheirAddress: 'Na, nid yw ei gyfeiriad/chyfeiriad gennyf',
-  yes: 'Oes',
-  no: 'Nac oes',
   errors: {
     applicant1KnowsApplicant2Address: {
       required,
@@ -67,8 +62,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.haveTheirAddress, value: YesOrNo.YES },
-        { label: l => l.doNotHaveTheirAddress, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -83,6 +78,17 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers: InputLabelsByLanguage<YesOrNo> = {
+  en: {
+    [YesOrNo.YES]: 'Yes, I have their address',
+    [YesOrNo.NO]: 'No, I do not have their address',
+  },
+  cy: {
+    [YesOrNo.YES]: 'Oes, mae gennyf ei gyfeiriad/chyfeiriad',
+    [YesOrNo.NO]: 'Na, nid yw ei gyfeiriad/chyfeiriad gennyf',
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const { userCase, language } = content;
   const hasAContactForPartner =
@@ -91,8 +97,10 @@ export const generateContent: TranslationFn = content => {
     (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorFirmName) ||
     (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorAddress1);
   const translations = languages[language]({ ...content, hasAContactForPartner });
+  const radioAnswers = radioButtonAnswers[language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };
