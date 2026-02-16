@@ -37,6 +37,16 @@ export const yesOrNoOrNotKnown_cy = {
   notSure: 'Dw i ddim yn siŵr',
 };
 
+export const englishOrWelsh_en = {
+  english: 'English',
+  welsh: 'Welsh',
+};
+
+export const englishOrWelsh_cy = {
+  english: 'Saesneg',
+  welsh: 'Cymraeg',
+};
+
 export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
@@ -144,8 +154,7 @@ export const en = {
     d89: 'D89',
   },
   ...yesOrNoOrNotKnown_en,
-  english: 'English',
-  welsh: 'Welsh',
+  ...englishOrWelsh_en,
   contactUsForHelp: 'Contact us for help',
   webChat: 'Web chat',
   sendUsAMessage: 'Send us a message',
@@ -340,8 +349,7 @@ const cy: typeof en = {
     d89: 'D89',
   },
   ...yesOrNoOrNotKnown_cy,
-  english: 'Saesneg',
-  welsh: 'Cymraeg',
+  ...englishOrWelsh_cy,
   contactUsForHelp: 'Cysylltu â ni am gymorth',
   webChat: 'Sgwrsio dros y we',
   sendUsAMessage: 'Anfonwch neges atom',
