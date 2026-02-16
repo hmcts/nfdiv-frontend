@@ -37,10 +37,10 @@
     "test:cucumber:reports": "npx allure-commandline serve functional-output/functional/reports",
     "sonar-scan": "sonar-scanner",
     "test:smoke": "jest -c jest.smoke.config.js",
-    "test:functional": "yarn test:e2e",
+    "test:functional": "npx playwright install chromium firefox webkit && yarn test:e2e",
     "test:fullfunctional": "run-p test:cucumber test:pa11y",
     "test:crossbrowser": "yarn test:crossbrowser:playwright",
-    "test:crossbrowser:playwright": "npx playwright install chromium firefox webkit && yarn test:crossbrowser:codeceptjs --reporter mochawesome --grep '^(?!.*@flaky)'",
+    "test:crossbrowser:playwright": "npx playwright install chromium firefox webkit && yarn test:crossbrowser:codeceptjs --reporter mochawesome --grep '^(?!.*@flaky)' --verbose --debug",
     "test:crossbrowser:playwright:docker": "docker pull mcr.microsoft.com/playwright:focal && docker run --rm --volume $PWD:/home/app --workdir='/home/app' --env TEST_PASSWORD --env TEST_URL mcr.microsoft.com/playwright:focal bash -x src/test/docker-yarn.sh test:crossbrowser:playwright $UID",
     "test:crossbrowser:sauce": "SAUCE='true' yarn test:crossbrowser:codeceptjs run --grep '^(?!.*@flaky)'",
     "test:crossbrowser:codeceptjs": "codeceptjs run --config ./src/test/cross-browser/codecept.conf.js",
@@ -115,6 +115,7 @@
     "uuid": "11.1.0"
   },
   "devDependencies": {
+    "@azure/identity": "^4.13.0",
     "@codeceptjs/allure-legacy": "1.0.2",
     "@playwright/test": "1.58.2",
     "@types/jest": "30.0.0",
@@ -127,6 +128,7 @@
     "codeceptjs": "3.6.10",
     "copy-webpack-plugin": "13.0.1",
     "css-loader": "7.1.3",
+    "dotenv": "^17.2.3",
     "eslint": "8.57.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "2.29.1",

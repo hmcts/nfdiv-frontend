@@ -119,7 +119,7 @@ export const config = {
     ],
   },
   bootstrap: async (): Promise<void> => {
-    await initializeTestEnvironment(); 
+    await initializeTestEnvironment();
     await idamUserManager.createUser(TestUser, TestPass);
   },
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
@@ -161,8 +161,6 @@ export const config = {
   },
 };
 
-process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || new Date().toISOString();
-
 config.helpers = {
   Playwright: {
     url: config.TEST_URL,
@@ -175,18 +173,5 @@ config.helpers = {
     waitForNavigation: 'load',
     ignoreHTTPSErrors: true,
     bypassCSP: true,
-    chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && {
-      timeout: config.WaitForTimeout,
-      headers: {
-        'x-mpt-access-key': process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN,
-      },
-      exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
-      browserWSEndpoint: {
-        wsEndpoint: `${process.env.PLAYWRIGHT_SERVICE_URL}?cap=${JSON.stringify({
-          os: 'linux',
-          runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
-        })}`,
-      },
-    },
   },
 };
