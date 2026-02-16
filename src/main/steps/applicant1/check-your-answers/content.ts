@@ -23,19 +23,22 @@ import { SupportedLanguages } from '../../../modules/i18n';
 import { formatYesOrNo } from '../../common/common.content';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
-import { generateContent as addressPrivateContent } from '../address-private/content';
-import { generateContent as residualJurisdictionContent } from '../are-you-eligible-for-residual-jurisdiction/content';
-import { generateContent as certificateInEnglishContent } from '../certificate-in-english/content';
-import { generateContent as certifiedTranslationContent } from '../certified-translation/content';
-import { generateContent as checkTheirNameContent } from '../check-their-name/content';
-import { generateContent as checkYourNameContent } from '../check-your-name/content';
-import { generateContent as confirmYourNameContent } from '../confirm-your-name/content';
-import { generateContent as doTheyHaveASolicitorContent } from '../do-they-have-a-solicitor/content';
-import { generateContent as doYouHaveAddressContent } from '../do-you-have-address/content';
-import { generateContent as doYouHaveYourCertificateContent } from '../do-you-have-your-certificate/content';
-import { generateContent as doYouWantToApplyFoContent } from '../do-you-want-to-apply-financial-order/content';
-import { generateContent as englishOrWelshContent } from '../english-or-welsh/content';
-import { generateContent as enterSolicitorDetailsContent } from '../enter-solicitor-details/content';
+import {
+  radioButtonAnswersPrivate as addressPrivateAnswersPrivate,
+  radioButtonAnswersRefuge as addressPrivateAnswersRefuge,
+} from '../address-private/content';
+import { radioButtonAnswers as residualJurisdictionAnswers } from '../are-you-eligible-for-residual-jurisdiction/content';
+import { radioButtonAnswers as certificateInEnglishAnswers } from '../certificate-in-english/content';
+import { radioButtonAnswers as certifiedTranslationAnswers } from '../certified-translation/content';
+import { radioButtonAnswers as checkTheirNameAnswers } from '../check-their-name/content';
+import { radioButtonAnswers as checkYourNameAnswers } from '../check-your-name/content';
+import { radioButtonAnswers as confirmYourNameAnswers } from '../confirm-your-name/content';
+import { radioButtonAnswers as doTheyHaveASolicitorAnswers } from '../do-they-have-a-solicitor/content';
+import { radioButtonAnswers as doYouHaveAddressAnswers } from '../do-you-have-address/content';
+import { radioButtonAnswers as doYouHaveYourCertificateAnswers } from '../do-you-have-your-certificate/content';
+import { radioButtonAnswers as doYouWantToApplyFoAnswers } from '../do-you-want-to-apply-financial-order/content';
+import { radioButtonAnswers as englishOrWelshAnswers } from '../english-or-welsh/content';
+import { radioButtonAnswers as enterSolicitorDetailsAnswers } from '../enter-solicitor-details/content';
 import { generateContent as enterYourAddressContent } from '../enter-your-address/content';
 import { generateContent as habituallyResidentContent } from '../habitually-resident-england-wales/content';
 import { generateContent as helpWithYourFeeContent } from '../help-with-your-fee/content';
@@ -180,17 +183,17 @@ const formatApplicationType = content => {
 };
 
 const getFormattedAnswers = content => ({
-  applicant1ConfirmFullName: formatYesOrNo(
-    confirmYourNameContent(content),
-    content.language,
-    content.userCase.applicant1ConfirmFullName
-  ),
-  applicant1EnglishOrWelsh: formatYesOrNo(
-    englishOrWelshContent(content),
-    content.language,
-    content.userCase.applicant1LanguagePreferenceWelsh,
-    true
-  ),
+  // applicant1ConfirmFullName: formatYesOrNo(
+  //   confirmYourNameContent(content),
+  //   content.language,
+  //   content.userCase.applicant1ConfirmFullName
+  // ),
+  // applicant1EnglishOrWelsh: formatYesOrNo(
+  //   englishOrWelshContent(content),
+  //   content.language,
+  //   content.userCase.applicant1LanguagePreferenceWelsh,
+  //   true
+  // ),
   applicant1AddressOverseas: formatYesOrNo(
     enterYourAddressContent(content),
     content.language,
@@ -201,21 +204,21 @@ const getFormattedAnswers = content => ({
     content.language,
     content.userCase.applicant2AddressOverseas
   ),
-  applicant2SolicitorAddressOverseas: formatYesOrNo(
-    enterSolicitorDetailsContent(content),
-    content.language,
-    content.userCase.applicant2SolicitorAddressOverseas
-  ),
-  certificateInEnglish: formatYesOrNo(
-    certificateInEnglishContent(content),
-    content.language,
-    content.userCase.certificateInEnglish
-  ),
-  certifiedTranslation: formatYesOrNo(
-    certifiedTranslationContent(content),
-    content.language,
-    content.userCase.certifiedTranslation
-  ),
+  // applicant2SolicitorAddressOverseas: formatYesOrNo(
+  //   enterSolicitorDetailsContent(content),
+  //   content.language,
+  //   content.userCase.applicant2SolicitorAddressOverseas
+  // ),
+  // certificateInEnglish: formatYesOrNo(
+  //   certificateInEnglishContent(content),
+  //   content.language,
+  //   content.userCase.certificateInEnglish
+  // ),
+  // certifiedTranslation: formatYesOrNo(
+  //   certifiedTranslationContent(content),
+  //   content.language,
+  //   content.userCase.certifiedTranslation
+  // ),
   applicant1LifeBasedInEnglandAndWales: formatYesOrNo(
     whereYourLivesAreBasedContent(content),
     content.language,
@@ -257,66 +260,66 @@ const getFormattedAnswers = content => ({
     content.language,
     content.userCase.bothLastHabituallyResident
   ),
-  jurisdictionResidualEligible: formatYesOrNo(
-    residualJurisdictionContent(content),
-    content.language,
-    content.userCase.jurisdictionResidualEligible
-  ),
-  applicant1NameDifferentToMarriageCertificate: formatYesOrNo(
-    checkYourNameContent(content),
-    content.language,
-    content.userCase.applicant1NameDifferentToMarriageCertificate
-  ),
-  applicant2NameDifferentToMarriageCertificate: formatYesOrNo(
-    checkTheirNameContent(content),
-    content.language,
-    content.userCase.applicant2NameDifferentToMarriageCertificate
-  ),
-  applicant1KnowsApplicant2Address: formatYesOrNo(
-    doYouHaveAddressContent(content),
-    content.language,
-    content.userCase.applicant1KnowsApplicant2Address
-  ),
-  applicant1IsApplicant2Represented: formatYesOrNo(
-    doTheyHaveASolicitorContent(content),
-    content.language,
-    content.userCase.applicant1IsApplicant2Represented
-  ),
+  // jurisdictionResidualEligible: formatYesOrNo(
+  //   residualJurisdictionContent(content),
+  //   content.language,
+  //   content.userCase.jurisdictionResidualEligible
+  // ),
+  // applicant1NameDifferentToMarriageCertificate: formatYesOrNo(
+  //   checkYourNameContent(content),
+  //   content.language,
+  //   content.userCase.applicant1NameDifferentToMarriageCertificate
+  // ),
+  // applicant2NameDifferentToMarriageCertificate: formatYesOrNo(
+  //   checkTheirNameContent(content),
+  //   content.language,
+  //   content.userCase.applicant2NameDifferentToMarriageCertificate
+  // ),
+  // applicant1KnowsApplicant2Address: formatYesOrNo(
+  //   doYouHaveAddressContent(content),
+  //   content.language,
+  //   content.userCase.applicant1KnowsApplicant2Address
+  // ),
+  // applicant1IsApplicant2Represented: formatYesOrNo(
+  //   doTheyHaveASolicitorContent(content),
+  //   content.language,
+  //   content.userCase.applicant1IsApplicant2Represented
+  // ),
   applicant1ScreenHasUnionBroken: formatYesOrNo(
     irretrievableBreakdownContent(content),
     content.language,
     content.userCase.applicant1ScreenHasUnionBroken,
     true
   ),
-  hasCertificate: formatYesOrNo(
-    doYouHaveYourCertificateContent(content),
-    content.language,
-    content.userCase.hasCertificate,
-    true
-  ),
+  // hasCertificate: formatYesOrNo(
+  //   doYouHaveYourCertificateContent(content),
+  //   content.language,
+  //   content.userCase.hasCertificate,
+  //   true
+  // ),
   applicant1HelpPayingNeeded: formatYesOrNo(
     helpWithYourFeeContent(content),
     content.language,
     content.userCase.applicant1HelpPayingNeeded
   ),
-  applicant1InRefuge: formatYesOrNo(
-    addressPrivateContent(content),
-    content.language,
-    content.userCase.applicant1InRefuge
-  ),
-  applicant1ApplyForFinancialOrder: formatYesOrNo(
-    doYouWantToApplyFoContent(content),
-    content.language,
-    content.userCase.applicant1ApplyForFinancialOrder,
-    true
-  ),
-  applicant1AddressPrivate: formatYesOrNo(
-    addressPrivateContent(content),
-    content.language,
-    content.userCase.applicant1AddressPrivate,
-    false,
-    { yes: 'detailsPrivate', no: 'detailsNotPrivate' }
-  ),
+  // applicant1InRefuge: formatYesOrNo(
+  //   addressPrivateContent(content),
+  //   content.language,
+  //   content.userCase.applicant1InRefuge
+  // ),
+  // applicant1ApplyForFinancialOrder: formatYesOrNo(
+  //   doYouWantToApplyFoContent(content),
+  //   content.language,
+  //   content.userCase.applicant1ApplyForFinancialOrder,
+  //   true
+  // ),
+  // applicant1AddressPrivate: formatYesOrNo(
+  //   addressPrivateContent(content),
+  //   content.language,
+  //   content.userCase.applicant1AddressPrivate,
+  //   false,
+  //   { yes: 'detailsPrivate', no: 'detailsNotPrivate' }
+  // ),
   applicant1AgreeToReceiveEmails: formatYesOrNo(
     howTheCourtWillContactYouContent(content),
     content.language,
@@ -481,7 +484,7 @@ const en = (
       }`,
       line3: formattedAnswers.applicant1ScreenHasUnionBroken,
       line4: `${userCase.relationshipDate ? `${getFormattedCaseDate(userCase.relationshipDate)}` : ''}`,
-      line5: formattedAnswers.hasCertificate,
+      line5: `${doYouHaveYourCertificateAnswers(isDivorce).en[userCase.hasCertificate]}`,
       line6: formattedAnswers.applicationType,
     },
     helpWithFees: {
@@ -506,8 +509,8 @@ const en = (
     },
     connectionsToEnglandWales: {
       line1: formattedAnswers.inTheUk,
-      line2: formattedAnswers.certificateInEnglish,
-      line3: formattedAnswers.certifiedTranslation,
+      line2: certificateInEnglishAnswers.en[userCase.certificateInEnglish],
+      line3: certifiedTranslationAnswers.en[userCase.certifiedTranslation],
       line4: stripTags(userCase.ceremonyCountry),
       line5: stripTags(userCase.ceremonyPlace),
       line6: formattedAnswers.applicant1LifeBasedInEnglandAndWales,
@@ -517,7 +520,7 @@ const en = (
       line10: formattedAnswers.applicant1DomicileInEnglandWales,
       line11: formattedAnswers.applicant2DomicileInEnglandWales,
       line12: formattedAnswers.bothLastHabituallyResident,
-      line13: formattedAnswers.jurisdictionResidualEligible,
+      line13: residualJurisdictionAnswers.en[userCase.jurisdictionResidualEligible],
       line14:
         userCase.connections && userCase.connections?.length
           ? `Your answers indicate that you can apply in England and Wales because: ${
@@ -527,7 +530,7 @@ const en = (
           : '',
     },
     aboutPartners: {
-      line1: formattedAnswers.applicant1NameDifferentToMarriageCertificate,
+      line1: checkYourNameAnswers.en[userCase.applicant1NameDifferentToMarriageCertificate],
       line2: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
       line3: `${stripTags(userCase.applicant1WhyNameDifferent)
         ?.join(' / ')
@@ -565,7 +568,7 @@ const en = (
           : ''
       }`,
       line6: `${stripTags(userCase.applicant1NameDifferentToMarriageCertificateOtherDetails)}`,
-      line7: !isJointApplication && formattedAnswers.applicant2NameDifferentToMarriageCertificate,
+      line7: !isJointApplication && checkTheirNameAnswers.en[userCase.applicant2NameDifferentToMarriageCertificate],
       line8: !isJointApplication && `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
       line9:
         !isJointApplication &&
@@ -620,22 +623,22 @@ const en = (
       line1: `${stripTags(userCase.applicant1FirstNames)}`,
       line2: `${stripTags(userCase.applicant1MiddleNames)}`,
       line3: `${stripTags(userCase.applicant1LastNames)}`,
-      line4: formattedAnswers.applicant1ConfirmFullName,
+      line4: confirmYourNameAnswers.en[userCase.applicant1ConfirmFullName],
       line5: formattedAnswers.applicant1AgreeToReceiveEmails,
       line6: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : stripTags(userCase.applicant1PhoneNumber)
       }`,
-      line7: formattedAnswers.applicant1EnglishOrWelsh,
+      line7: `${englishOrWelshAnswers.en[userCase.applicant1EnglishOrWelsh]}`,
       line8:
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
-          : formattedAnswers.applicant1AddressPrivate,
+          : addressPrivateAnswersPrivate.en[userCase.applicant1AddressPrivate],
       line9: `${
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
-          : formattedAnswers.applicant1InRefuge
+          : addressPrivateAnswersRefuge.en[userCase.applicant1InRefuge]
       }`,
       line10: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
@@ -663,7 +666,7 @@ const en = (
       line1: `${isJointApplication ? '' : stripTags(userCase.applicant2FirstNames)}`,
       line2: `${isJointApplication ? '' : stripTags(userCase.applicant2MiddleNames)}`,
       line3: `${isJointApplication ? '' : stripTags(userCase.applicant2LastNames)}`,
-      line4: `${isJointApplication ? '' : formattedAnswers.applicant1IsApplicant2Represented}`,
+      line4: `${isJointApplication ? '' : doTheyHaveASolicitorAnswers.en[userCase.applicant1IsApplicant2Represented]}`,
       line5: `${[
         stripTags(userCase.applicant2SolicitorName),
         stripTags(userCase.applicant2SolicitorEmail),
@@ -681,10 +684,10 @@ const en = (
       line6: `${
         userCase.applicant2SolicitorAddressOverseas === YesOrNo.NO
           ? ''
-          : [formattedAnswers.applicant2SolicitorAddressOverseas]
+          : [enterSolicitorDetailsAnswers.en[userCase.applicant2SolicitorAddressOverseas]]
       }`,
       line7: `${stripTags(userCase.applicant2EmailAddress)}`,
-      line8: `${isJointApplication ? '' : formattedAnswers.applicant1KnowsApplicant2Address}`,
+      line8: `${isJointApplication ? '' : doYouHaveAddressAnswers.en[userCase.applicant1KnowsApplicant2Address]}`,
       line9: `${
         isJointApplication
           ? ''
@@ -718,7 +721,7 @@ const en = (
           : '',
     },
     dividingAssets: {
-      line1: formattedAnswers.applicant1ApplyForFinancialOrder,
+      line1: `${doYouWantToApplyFoAnswers.en[userCase.applicant1ApplyForFinancialOrder]}`,
       line2: `${
         userCase.applicant1WhoIsFinancialOrderFor
           ? userCase.applicant1WhoIsFinancialOrderFor
@@ -1046,7 +1049,7 @@ const cy: typeof en = (
       line4: userCase.relationshipDate
         ? `${getFormattedCaseDate(userCase.relationshipDate, SupportedLanguages.Cy)}`
         : '',
-      line5: formattedAnswers.hasCertificate,
+      line5: `${doYouHaveYourCertificateAnswers(isDivorce).cy[userCase.hasCertificate]}`,
       line6: formattedAnswers.applicationType,
     },
     helpWithFees: {
@@ -1072,8 +1075,8 @@ const cy: typeof en = (
     },
     connectionsToEnglandWales: {
       line1: formattedAnswers.inTheUk,
-      line2: formattedAnswers.certificateInEnglish,
-      line3: formattedAnswers.certifiedTranslation,
+      line2: certificateInEnglishAnswers.cy[userCase.certificateInEnglish],
+      line3: certifiedTranslationAnswers.cy[userCase.certifiedTranslation],
       line4: stripTags(userCase.ceremonyCountry),
       line5: stripTags(userCase.ceremonyPlace),
       line6: formattedAnswers.applicant1LifeBasedInEnglandAndWales,
@@ -1083,7 +1086,7 @@ const cy: typeof en = (
       line10: formattedAnswers.applicant1DomicileInEnglandWales,
       line11: formattedAnswers.applicant2DomicileInEnglandWales,
       line12: formattedAnswers.bothLastHabituallyResident,
-      line13: formattedAnswers.jurisdictionResidualEligible,
+      line13: residualJurisdictionAnswers.cy[userCase.jurisdictionResidualEligible],
       line14:
         userCase.connections && userCase.connections?.length
           ? `Mae eich atebion yn dangos y gallwch wneud cais yng Nghymru a Lloegr oherwydd: ${
@@ -1093,7 +1096,7 @@ const cy: typeof en = (
           : '',
     },
     aboutPartners: {
-      line1: formattedAnswers.applicant1NameDifferentToMarriageCertificate,
+      line1: checkYourNameAnswers.cy[userCase.applicant1NameDifferentToMarriageCertificate],
       line2: `${stripTags(userCase.applicant1FullNameOnCertificate)}`,
       line3: `${stripTags(userCase.applicant1WhyNameDifferent)
         ?.join(' / ')
@@ -1135,7 +1138,7 @@ const cy: typeof en = (
           : ''
       }`,
       line6: `${stripTags(userCase.applicant1NameDifferentToMarriageCertificateOtherDetails)}`,
-      line7: !isJointApplication && formattedAnswers.applicant2NameDifferentToMarriageCertificate,
+      line7: !isJointApplication && checkTheirNameAnswers.cy[userCase.applicant2NameDifferentToMarriageCertificate],
       line8: !isJointApplication && `${stripTags(userCase.applicant2FullNameOnCertificate)}`,
       line9:
         !isJointApplication &&
@@ -1188,22 +1191,22 @@ const cy: typeof en = (
       line1: `${stripTags(userCase.applicant1FirstNames)}`,
       line2: `${stripTags(userCase.applicant1MiddleNames)}`,
       line3: `${stripTags(userCase.applicant1LastNames)}`,
-      line4: formattedAnswers.applicant1ConfirmFullName,
+      line4: confirmYourNameAnswers.cy[userCase.applicant1ConfirmFullName],
       line5: formattedAnswers.applicant1AgreeToReceiveEmails,
       line6: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : stripTags(userCase.applicant1PhoneNumber)
       }`,
-      line7: formattedAnswers.applicant1EnglishOrWelsh,
+      line7: `${englishOrWelshAnswers.cy[userCase.applicant1EnglishOrWelsh]}`,
       line8:
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
-          : formattedAnswers.applicant1AddressPrivate,
+          : addressPrivateAnswersPrivate.cy[userCase.applicant1AddressPrivate],
       line9: `${
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
-          : formattedAnswers.applicant1InRefuge
+          : addressPrivateAnswersRefuge.cy[userCase.applicant1InRefuge]
       }`,
       line10: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
@@ -1231,7 +1234,7 @@ const cy: typeof en = (
       line1: `${isJointApplication ? '' : stripTags(userCase.applicant2FirstNames)}`,
       line2: `${isJointApplication ? '' : stripTags(userCase.applicant2MiddleNames)}`,
       line3: `${isJointApplication ? '' : stripTags(userCase.applicant2LastNames)}`,
-      line4: `${isJointApplication ? '' : formattedAnswers.applicant1IsApplicant2Represented}`,
+      line4: `${isJointApplication ? '' : doTheyHaveASolicitorAnswers.cy[userCase.applicant1IsApplicant2Represented]}`,
       line5: `${[
         stripTags(userCase.applicant2SolicitorName),
         stripTags(userCase.applicant2SolicitorEmail),
@@ -1249,10 +1252,10 @@ const cy: typeof en = (
       line6: `${
         userCase.applicant2SolicitorAddressOverseas === YesOrNo.NO
           ? ''
-          : [formattedAnswers.applicant2SolicitorAddressOverseas]
+          : [enterSolicitorDetailsAnswers.cy[userCase.applicant2SolicitorAddressOverseas]]
       }`,
       line7: `${stripTags(userCase.applicant2EmailAddress)}`,
-      line8: `${isJointApplication ? '' : formattedAnswers.applicant1KnowsApplicant2Address}`,
+      line8: `${isJointApplication ? '' : doYouHaveAddressAnswers.cy[userCase.applicant1KnowsApplicant2Address]}`,
       line9: `${
         isJointApplication
           ? ''
@@ -1285,7 +1288,7 @@ const cy: typeof en = (
           : '',
     },
     dividingAssets: {
-      line1: formattedAnswers.applicant1ApplyForFinancialOrder,
+      line1: `${doYouWantToApplyFoAnswers.cy[userCase.applicant1ApplyForFinancialOrder]}`,
       line2: `${
         userCase.applicant1WhoIsFinancialOrderFor
           ? userCase.applicant1WhoIsFinancialOrderFor
