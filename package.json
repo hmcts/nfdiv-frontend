@@ -37,7 +37,7 @@
     "test:cucumber:reports": "npx allure-commandline serve functional-output/functional/reports",
     "sonar-scan": "sonar-scanner",
     "test:smoke": "jest -c jest.smoke.config.js",
-    "test:functional": "yarn test:e2e",
+    "test:functional": "npx playwright install chromium firefox webkit && yarn test:e2e",
     "test:fullfunctional": "run-p test:cucumber test:pa11y",
     "test:crossbrowser": "yarn test:crossbrowser:playwright",
     "test:crossbrowser:playwright": "npx playwright install chromium firefox webkit && yarn test:crossbrowser:codeceptjs --reporter mochawesome --grep '^(?!.*@flaky)' --verbose --debug",
@@ -116,9 +116,7 @@
   },
   "devDependencies": {
     "@azure/identity": "^4.13.0",
-    "@azure/playwright": "^1.1.1",
     "@codeceptjs/allure-legacy": "1.0.2",
-    "@hmcts/playwright-common": "^1.1.2",
     "@playwright/test": "1.58.2",
     "@types/jest": "30.0.0",
     "@typescript-eslint/eslint-plugin": "7.18.0",
