@@ -3,14 +3,13 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { InputLabelsByLanguage, ydwOrNacYdwRadioAnswers } from '../../common/input-labels.content';
 
 const en = ({ partner, required }: CommonContent) => ({
   title: `Do you need your contact details kept private from your ${partner}?`,
   line1: `The court can keep your address, email address and phone number private from your ${partner}.`,
-  detailsPrivate: 'Keep my contact details private',
   detailsPrivateMoreDetails: 'If you think you might be experiencing domestic abuse or you feel unsafe, then',
   supportAvailable: 'support is available',
-  detailsNotPrivate: 'I do not need my contact details kept private',
   errors: {
     applicant1AddressPrivate: { required },
   },
@@ -20,13 +19,9 @@ const en = ({ partner, required }: CommonContent) => ({
 const cy: typeof en = ({ partner, required }: CommonContent) => ({
   title: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
   line1: `Gall y llys gadw eich cyfeiriad, eich cyfeiriad e-bost a'ch rhif ffôn yn breifat oddi wrth eich ${partner}.`,
-  detailsPrivate: 'Cadwch fy manylion cyswllt yn breifat',
   detailsPrivateMoreDetails:
     "Os credwch eich bod efallai'n profi cam-drin domestig neu os nad ydych yn teimlo'n ddiogel, yna",
   supportAvailable: 'mae cymorth ar gael',
-  detailsNotPrivate: 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat',
-  yes: 'Ydw',
-  no: 'Nac ydw',
   errors: {
     applicant1AddressPrivate: { required },
   },
@@ -53,8 +48,8 @@ export const form: FormContent = {
               classes: 'govuk-radios--inline',
               label: l => l.inRefugeLabel,
               values: [
-                { label: l => (l.language === 'cy' ? 'Yndw' : l.yes), value: YesOrNo.YES },
-                { label: l => (l.language === 'cy' ? 'Nac ydw' : l.no), value: YesOrNo.NO },
+                { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+                { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
               ],
               validator: value => isFieldFilledIn(value), // Only validate if this field is shown
             },
@@ -78,10 +73,28 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswersRefuge = ydwOrNacYdwRadioAnswers;
+
+export const radioButtonAnswersPrivate: InputLabelsByLanguage<YesOrNo> = {
+  en: {
+    [YesOrNo.YES]: 'Keep my contact details private',
+    [YesOrNo.NO]: 'I do not need my contact details kept private',
+  },
+  cy: {
+    [YesOrNo.YES]: 'Cadwch fy manylion cyswllt yn breifat',
+    [YesOrNo.NO]: 'Nid oes arnaf angen cadw fy manylion cyswllt yn breifat',
+  },
+};
+
 export const generateContent: TranslationFn = (content: CommonContent) => {
   const translations = languages[content.language](content);
+  const radioAnswersRefuge = radioButtonAnswersRefuge[content.language];
+  const radioAnswersPrivate = radioButtonAnswersPrivate[content.language];
   return {
     ...translations,
+    ...radioAnswersRefuge,
+    detailsPrivate: radioAnswersPrivate[YesOrNo.YES],
+    detailsNotPrivate: radioAnswersPrivate[YesOrNo.NO],
     form,
   };
 };
