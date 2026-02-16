@@ -4,10 +4,7 @@ import sysConfig from 'config';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
 import { IdamUserManager } from './steps/IdamUserManager';
-import * as dotenv from 'dotenv';
 
-// Load environment variables
-dotenv.config();
 // better handling of unhandled exceptions
 process.on('unhandledRejection', reason => {
   throw reason;
@@ -164,17 +161,6 @@ export const config = {
   },
 };
 
-process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || new Date().toISOString();
-
-console.log('=== MPW Configuration Debug ===');
-console.log('PLAYWRIGHT_SERVICE_URL:', process.env.PLAYWRIGHT_SERVICE_URL);
-console.log('PLAYWRIGHT_SERVICE_ACCESS_TOKEN present:', Boolean(process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN));
-console.log('Will use MPW:', Boolean(process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && process.env.PLAYWRIGHT_SERVICE_URL));
-console.log('=== MPW Reporting Setup ===');
-console.log('Service URL:', process.env.PLAYWRIGHT_SERVICE_URL);
-console.log('Run ID:', process.env.PLAYWRIGHT_SERVICE_RUN_ID);
-console.log('MPW reporting should be automatic via environment variables');
-
 config.helpers = {
   Playwright: {
     url: config.TEST_URL,
@@ -187,12 +173,5 @@ config.helpers = {
     waitForNavigation: 'load',
     ignoreHTTPSErrors: true,
     bypassCSP: true,
-    ...(process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && {
-      chromium: {
-        wsEndpoint: process.env.PLAYWRIGHT_SERVICE_URL,
-        timeout: config.WaitForTimeout,
-      },
-      exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
-    }),
   },
 };
