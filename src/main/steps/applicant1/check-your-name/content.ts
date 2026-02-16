@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { oesOrNacOesRadioAnswers } from '../../common/input-labels.content';
 
 const en = ({ isDivorce, marriage, civilPartnership, partner }, fullName) => {
   return {
@@ -22,8 +23,6 @@ const en = ({ isDivorce, marriage, civilPartnership, partner }, fullName) => {
     doesNameMatchTheCertificate: `Is any part of your full name (${fullName}) written differently on your ${
       isDivorce ? marriage : civilPartnership
     } certificate?`,
-    yes: 'Yes',
-    no: 'No',
     errors: {
       applicant1NameDifferentToMarriageCertificate: {
         required: `You need to answer if any part of your full name is written differently on your ${
@@ -53,8 +52,6 @@ const cy: typeof en = ({ isDivorce, partner }, fullName) => {
     doesNameMatchTheCertificate: `A oes unrhyw rhan o’ch enw (${fullName}) sydd wedi’i ysgrifennu’n wahanol i’ch tystysgrif ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     }?`,
-    yes: 'Oes',
-    no: 'Nac oes',
     errors: {
       applicant1NameDifferentToMarriageCertificate: {
         required: `Mae angen i chi ateb os yw unrhyw ran o’ch enw llawn wedi’i ysgrifennu’n wahanol ar eich tystysgrif ${
@@ -72,8 +69,8 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.doesNameMatchTheCertificate,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -88,14 +85,18 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = oesOrNacOesRadioAnswers;
+
 export const generateContent: TranslationFn = content => {
   const userCase = content.userCase;
   const fullName = content.isApplicant2
     ? `${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames}`
     : `${userCase.applicant1FirstNames} ${userCase.applicant1MiddleNames} ${userCase.applicant1LastNames}`;
   const translations = languages[content.language](content, fullName);
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };
