@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,
@@ -60,9 +61,9 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.soleApplication, value: ApplicationType.SOLE_APPLICATION },
+        { label: l => l[ApplicationType.SOLE_APPLICATION], value: ApplicationType.SOLE_APPLICATION },
         {
-          label: l => l.jointApplication,
+          label: l => l[ApplicationType.JOINT_APPLICATION],
           value: ApplicationType.JOINT_APPLICATION,
           conditionalText: l => `<p class="govuk-label">${l.discussWithPartner}</p>`,
         },
@@ -80,11 +81,24 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = (isDivorce: boolean, partner: string): InputLabelsByLanguage<ApplicationType> => ({
+  en: {
+    [ApplicationType.SOLE_APPLICATION]: 'I want to apply on my own, as a sole applicant',
+    [ApplicationType.JOINT_APPLICATION]: `I want to apply jointly, with my ${partner}`,
+  },
+  cy: {
+    [ApplicationType.SOLE_APPLICATION]: 'Rwyf eisiau gwneud cais ar fy mhen fy hun, fel unig geisydd',
+    [ApplicationType.JOINT_APPLICATION]: `Rwyf eisiau gwneud cais ar y cyd, gyda fy ${isDivorce ? 'n' : ''}${partner}`,
+  },
+});
+
 export const generateContent: TranslationFn = content => {
   const hasAppliedForHWF = content.userCase.applicant1HelpWithFeesRefNo;
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers(content.isDivorce, content.partner)[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
     hasAppliedForHWF,
   };
