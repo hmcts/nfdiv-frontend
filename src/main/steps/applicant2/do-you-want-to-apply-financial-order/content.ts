@@ -30,7 +30,7 @@ export const form: FormContent = {
       hint: l => l.hint,
       values: [
         {
-          label: l => l.yes,
+          label: l => l[YesOrNo.YES],
           value: YesOrNo.YES,
           subFields: {
             applicant2WhoIsFinancialOrderFor: {
@@ -53,7 +53,7 @@ export const form: FormContent = {
             },
           },
         },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: isFieldFilledIn,
     },
