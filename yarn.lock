@@ -7944,9 +7944,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-loader@npm:7.1.3":
-  version: 7.1.3
-  resolution: "css-loader@npm:7.1.3"
+"css-loader@npm:7.1.4":
+  version: 7.1.4
+  resolution: "css-loader@npm:7.1.4"
   dependencies:
     icss-utils: ^5.1.0
     postcss: ^8.4.40
@@ -7957,14 +7957,14 @@ __metadata:
     postcss-value-parser: ^4.2.0
     semver: ^7.6.3
   peerDependencies:
-    "@rspack/core": 0.x || 1.x
+    "@rspack/core": 0.x || ^1.0.0 || ^2.0.0-0
     webpack: ^5.27.0
   peerDependenciesMeta:
     "@rspack/core":
       optional: true
     webpack:
       optional: true
-  checksum: 9f99c689ced3ca5a7909ac3d0fb1f84e7deb5ecceabbefbf6eaba974dd3a8e88b465fe3e9b1beb330246a98f96be61f63279d1fd373bd59d4f40b317a996b5eb
+  checksum: 92a486a6fb224540d6fd57a7dc6877cd5fc5296414dece1da0857224492147aa71887aea0d9ff04c5a76cbd12bd4d65ed5b02f58510dc3fc7e7a426c04259162
   languageName: node
   linkType: hard
 
@@ -9313,9 +9313,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:29.13.0":
-  version: 29.13.0
-  resolution: "eslint-plugin-jest@npm:29.13.0"
+"eslint-plugin-jest@npm:29.15.0":
+  version: 29.15.0
+  resolution: "eslint-plugin-jest@npm:29.15.0"
   dependencies:
     "@typescript-eslint/utils": ^8.0.0
   peerDependencies:
@@ -9330,7 +9330,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 0a96da8806d1063bfff1b1d9075a49e8151427ef93726806ca9ce18c7abae4e319e88264da7b4d94c22b9084fe5a156e99e51de36a5e389a0c34d3df8fd8417a
+  checksum: 6bb992c4270fc87816b3893ba9399c880a05747385e9bf266acba3d27ee6b9c6e30f42c95820c61b96c13a41416fa8b43acf7da5c56b20204f9e3dea1e185a1a
   languageName: node
   linkType: hard
 
@@ -10546,14 +10546,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:13.0.3":
-  version: 13.0.3
-  resolution: "glob@npm:13.0.3"
+"glob@npm:13.0.4":
+  version: 13.0.4
+  resolution: "glob@npm:13.0.4"
   dependencies:
-    minimatch: ^10.2.0
+    minimatch: ^10.2.1
     minipass: ^7.1.2
     path-scurry: ^2.0.0
-  checksum: 5301de8b024ea991851c01d6f03e127de59649265ff6c5bd808bb8615fa8befcbec19e48b44f0d22253754fc7a7e5b2e933b8397da1c1a0d90421770ea866957
+  checksum: e55377e9263b42ff761551a440ba525520b29568bbd0a91cb8f010dbae1e5a1ff74a913785ecfa36bb86d278cdd7d7e890b69748bb7b00f8d018a93327294820
   languageName: node
   linkType: hard
 
@@ -14027,12 +14027,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "minimatch@npm:10.2.0"
+"minimatch@npm:^10.2.1":
+  version: 10.2.1
+  resolution: "minimatch@npm:10.2.1"
   dependencies:
     brace-expansion: ^5.0.2
-  checksum: 7b54732b32255a6a5458e67c928eb8247d08b19623bbc5a4123ded2545e38ecf6a3296c4f47bb7f85ac0834061c058499fe4507403793effd3f9dfc5839b1c20
+  checksum: 0b65a87895816dac4408ad077b025223bc14f38f367330f9846fa602964a896739d6e346997acbb867e2a7d5b444a75db9557bdd7f9500871b6817c3d53db9b1
   languageName: node
   linkType: hard
 
@@ -14618,21 +14618,21 @@ __metadata:
     connect-redis: 7.1.1
     cookie-parser: 1.4.7
     copy-webpack-plugin: 13.0.1
-    css-loader: 7.1.3
+    css-loader: 7.1.4
     csurf: 1.11.0
     dayjs: 1.11.19
     email-validator: 2.0.4
     eslint: 8.57.1
     eslint-config-prettier: 10.1.8
     eslint-plugin-import: 2.29.1
-    eslint-plugin-jest: 29.13.0
+    eslint-plugin-jest: 29.15.0
     eslint-plugin-prettier: 5.5.5
     express: ^4.22.1
     express-http-proxy: 2.1.2
     express-nunjucks: ^3.1.2
     express-session: 1.19.0
     form-data: 4.0.5
-    glob: 13.0.3
+    glob: 13.0.4
     govuk-frontend: 5.14.0
     helmet: 8.1.0
     html-webpack-plugin: 5.6.6
@@ -18179,15 +18179,15 @@ __metadata:
   linkType: hard
 
 "tar@npm:^7.5.7":
-  version: 7.5.7
-  resolution: "tar@npm:7.5.7"
+  version: 7.5.9
+  resolution: "tar@npm:7.5.9"
   dependencies:
     "@isaacs/fs-minipass": ^4.0.0
     chownr: ^3.0.0
     minipass: ^7.1.2
     minizlib: ^3.1.0
     yallist: ^5.0.0
-  checksum: 82fa04804b6cae4c0b46b84e97a08c39e1c17bb959350baa32d139bcf5e1fc7ebc3ceb72465dd3e2e311992386ecc13599a257d5672158490ceb9464146d5573
+  checksum: 26fbbdf536895814167d03e4883f80febb6520729169c54d0f29ee8a163557283862752493f0e5b60800a6f3608aac3250c41fac8e20a4f056ba4fa63f3dbad7
   languageName: node
   linkType: hard
 
