@@ -152,15 +152,16 @@ const en = (
     url: HUB_PAGE,
   },
   addressRequiredContent: {
+    provideAddressHeading: 'Provide a postal address',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
-    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
-      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
-    } to this address at no additional cost.`,
+    } but have not provided your ${partner}'s postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details (opens in a new tab)</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnership'
+    } to this address at no additional cost if the address is in England and Wales.`,
     line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
-    } another way</a>. This application will cost ${getFee(
+    } another way (opens in a new tab)</a>. This application will cost ${getFee(
       config.get('fees.alternativeService')
     )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
       'govukUrls.getHelpWithCourtFees'
@@ -301,16 +302,16 @@ const cy: typeof en = ({
     link: feedbackLink,
   },
   addressRequiredContent: {
-    whatYouNeedToDoHeader: 'What you need to do',
+    provideAddressHeading: 'Provide a postal address',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
-    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
-      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
-    } to this address at no additional cost.`,
+    } but have not provided your ${partner}'s postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details (opens in a new tab)</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnership'
+    } to this address at no additional cost if the address is in England and Wales.`,
     line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
-    } another way</a>. This application will cost ${getFee(
+    } another way (opens in a new tab)</a>. This application will cost ${getFee(
       config.get('fees.alternativeService')
     )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
       'govukUrls.getHelpWithCourtFees'

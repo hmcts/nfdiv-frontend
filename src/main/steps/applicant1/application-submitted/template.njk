@@ -20,6 +20,7 @@
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
     {% if addressRequired %}
+      <h3 class="govuk-heading-m">{{ addressRequiredContent.provideAddressHeading }}</h3>
       <p class="govuk-body">{{ addressRequiredContent.line1 }}</p>
       <p class="govuk-body">{{ addressRequiredContent.line2 | safe }}</p>
       <p class="govuk-body">{{ addressRequiredContent.line3 | safe }}</p>
