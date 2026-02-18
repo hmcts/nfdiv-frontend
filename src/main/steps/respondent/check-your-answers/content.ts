@@ -6,75 +6,24 @@ import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { formatYesOrNo } from '../../common/common.content';
+import {
+  checkBoxAnswers as detailsOtherProceedingsCheckBoxAnswers,
+  radioButtonAnswers as detailsOtherProceedingsRadioAnswers,
+} from '../../applicant1/details-other-proceedings/content';
+import { radioButtonAnswers as englishOrWelshAnswers } from '../../applicant1/english-or-welsh/content';
+import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../../applicant1/how-the-court-will-contact-you/content';
+import { radioButtonAnswers as otherCourtCasesAnswers } from '../../applicant1/other-court-cases/content';
+import { checkBoxAnswers as reviewTheApplicationAnswers } from '../../applicant1/review-the-application/content';
 import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
-import { generateContent as detailsOtherProceedingsContent } from '../details-other-proceedings/content';
-import { generateContent as englishOrWelshContent } from '../english-or-welsh/content';
-import { generateContent as howDoYouWantToRespondContent } from '../how-do-you-want-to-respond/content';
-import { generateContent as howTheCourtWillContactYouContent } from '../how-the-court-will-contact-you/content';
-import { generateContent as intendToDelayContent } from '../intend-to-delay/content';
-import { generateContent as legalJurisdictionOfTheCourtsContent } from '../legal-jurisdiction-of-the-courts/content';
-import { generateContent as otherCourtCasesContent } from '../other-court-cases/content';
-import { generateContent as reviewTheApplicationContent } from '../review-the-application/content';
+import { radioButtonAnswers as howDoYouWantToRespondAnswers } from '../how-do-you-want-to-respond/content';
+import { radioButtonAnswers as intendToDelayAnswers } from '../intend-to-delay/content';
+import { radioButtonAnswers as legalJurisdictionOfTheCourtsAnswers } from '../legal-jurisdiction-of-the-courts/content';
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 
-const formatConfirmReadPetition = content => {
-  if (content.userCase.confirmReadPetition) {
-    return stripTags(reviewTheApplicationContent(content).confirmReadPetition as string);
-  }
-  return '';
-};
-
-const getFormattedAnswers = content => ({
-  confirmReadPetition: formatConfirmReadPetition(content),
-  disputeApplication: formatYesOrNo(
-    howDoYouWantToRespondContent(content),
-    content.language,
-    content.userCase.disputeApplication,
-    true
-  ),
-  jurisdictionAgree: formatYesOrNo(
-    legalJurisdictionOfTheCourtsContent(content),
-    content.language,
-    content.userCase.jurisdictionAgree,
-    true
-  ),
-  intendToDelay: formatYesOrNo(intendToDelayContent(content), content.language, content.userCase.intendToDelay, true),
-  applicant2AgreeToReceiveEmails: formatYesOrNo(
-    howTheCourtWillContactYouContent(content),
-    content.language,
-    content.userCase.applicant2AgreeToReceiveEmails,
-    true
-  ),
-  applicant2EnglishOrWelsh: formatYesOrNo(
-    englishOrWelshContent(content),
-    content.language,
-    content.userCase.applicant2LanguagePreferenceWelsh,
-    true
-  ),
-  applicant2LegalProceedings: formatYesOrNo(
-    otherCourtCasesContent(content),
-    content.language,
-    content.userCase.applicant2LegalProceedings
-  ),
-  applicant2LegalProceedingsConcluded: formatYesOrNo(
-    detailsOtherProceedingsContent(content),
-    content.language,
-    content.userCase.applicant2LegalProceedingsConcluded
-  ),
-  applicant2UnableToUploadEvidence: formatYesOrNo(
-    detailsOtherProceedingsContent(content),
-    content.language,
-    content.userCase.applicant2UnableToUploadEvidence,
-    false,
-    { yes: 'unableToUploadEvidence' }
-  ),
-});
-
-const en = ({ isDivorce, userCase }, formattedAnswers) => ({
+const en = ({ isDivorce, userCase }) => ({
   titleSoFar: 'Check your answers so far',
   titleSubmit: 'Check your answers',
   sectionTitles: {
@@ -112,17 +61,16 @@ const en = ({ isDivorce, userCase }, formattedAnswers) => ({
       }?`,
       line2: 'Provide details about the other legal proceedings.',
       line3: 'Have the proceedings been concluded?',
-      line4: 'Uploaded files',
-      line5: 'I cannot upload some or all of my documents',
+      uploadedFiles: 'Uploaded files',
     },
   },
   stepAnswers: {
     readApplication: {
-      line1: formattedAnswers.confirmReadPetition,
+      line1: `${stripTags(reviewTheApplicationAnswers(isDivorce).en[userCase.confirmReadPetition])}`,
     },
     aboutApplication: {
-      line1: formattedAnswers.disputeApplication,
-      line2: formattedAnswers.jurisdictionAgree,
+      line1: `${stripTags(howDoYouWantToRespondAnswers(isDivorce).en[userCase.disputeApplication])}`,
+      line2: `${stripTags(legalJurisdictionOfTheCourtsAnswers.en[userCase.jurisdictionAgree])}`,
       line3: `${
         userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction &&
         userCase.jurisdictionAgree &&
@@ -137,21 +85,22 @@ const en = ({ isDivorce, userCase }, formattedAnswers) => ({
           ? userCase.inWhichCountryIsYourLifeMainlyBased
           : ''
       }`,
-      line5: formattedAnswers.intendToDelay,
+      line5: `${stripTags(intendToDelayAnswers.en[userCase.intendToDelay])}`,
     },
     contactYou: {
-      line1: formattedAnswers.applicant2AgreeToReceiveEmails,
+      line1: `${stripTags(howTheCourtWillContactYouAnswers(isDivorce).en[userCase.applicant2AgreeToReceiveEmails])}`,
       line2: `${userCase.applicant2PhoneNumber}`,
-      line3: formattedAnswers.applicant2EnglishOrWelsh,
+      line3: `${stripTags(englishOrWelshAnswers.en[userCase.applicant2EnglishOrWelsh])}`,
     },
     otherCourtCases: {
-      line1: formattedAnswers.applicant2LegalProceedings,
+      line1: stripTags(otherCourtCasesAnswers.en[userCase.applicant2LegalProceedings]),
       line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
       line3: `${
-        userCase.applicant2LegalProceedings === YesOrNo.YES ? formattedAnswers.applicant2LegalProceedingsConcluded : ''
+        userCase.applicant2LegalProceedings === YesOrNo.YES
+          ? stripTags(detailsOtherProceedingsRadioAnswers.en[userCase.applicant2LegalProceedingsConcluded])
+          : ''
       }`,
-      line4: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
-      line5: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? formattedAnswers.applicant2UnableToUploadEvidence : ''}`,
+      uploadedFiles: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
     },
   },
   stepLinks: {
@@ -174,8 +123,7 @@ const en = ({ isDivorce, userCase }, formattedAnswers) => ({
       line1: urls.OTHER_COURT_CASES,
       line2: urls.DETAILS_OTHER_PROCEEDINGS,
       line3: urls.DETAILS_OTHER_PROCEEDINGS,
-      line4: urls.DETAILS_OTHER_PROCEEDINGS,
-      line5: urls.DETAILS_OTHER_PROCEEDINGS,
+      uploadedFiles: urls.DETAILS_OTHER_PROCEEDINGS,
     },
   },
   continueApplication: 'Continue application',
@@ -200,8 +148,8 @@ const en = ({ isDivorce, userCase }, formattedAnswers) => ({
   },
 });
 
-const cy: typeof en = ({ isDivorce, userCase }, formattedAnswers) => ({
-  ...en({ isDivorce, userCase }, formattedAnswers),
+const cy: typeof en = ({ isDivorce, userCase }) => ({
+  ...en({ isDivorce, userCase }),
   titleSoFar: 'Gwiriwch eich atebion hyd yma',
   titleSubmit: 'Gwiriwch eich atebion',
   sectionTitles: {
@@ -239,17 +187,16 @@ const cy: typeof en = ({ isDivorce, userCase }, formattedAnswers) => ({
       }, eich eiddo, neu'ch plant?`,
       line2: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
       line3: "A yw'r achos wedi'i gwblhau?",
-      line4: 'Ffeiliau sydd wedi cael eu llwytho',
-      line5: 'Ni allaf lwytho rhai o fy nogfennau / fy holl ddogfennau.',
+      uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
     },
   },
   stepAnswers: {
     readApplication: {
-      line1: formattedAnswers.confirmReadPetition,
+      line1: `${stripTags(reviewTheApplicationAnswers(isDivorce).cy[userCase.confirmReadPetition])}`,
     },
     aboutApplication: {
-      line1: formattedAnswers.disputeApplication,
-      line2: formattedAnswers.jurisdictionAgree,
+      line1: `${stripTags(howDoYouWantToRespondAnswers(isDivorce).cy[userCase.disputeApplication])}`,
+      line2: `${stripTags(legalJurisdictionOfTheCourtsAnswers.cy[userCase.jurisdictionAgree])}`,
       line3: `${
         userCase.reasonCourtsOfEnglandAndWalesHaveNoJurisdiction &&
         userCase.jurisdictionAgree &&
@@ -264,25 +211,22 @@ const cy: typeof en = ({ isDivorce, userCase }, formattedAnswers) => ({
           ? userCase.inWhichCountryIsYourLifeMainlyBased
           : ''
       }`,
-      line5: formattedAnswers.intendToDelay,
+      line5: `${stripTags(intendToDelayAnswers.cy[userCase.intendToDelay])}`,
     },
     contactYou: {
-      line1: formattedAnswers.applicant2AgreeToReceiveEmails,
+      line1: `${stripTags(howTheCourtWillContactYouAnswers(isDivorce).cy[userCase.applicant2AgreeToReceiveEmails])}`,
       line2: `${userCase.applicant2PhoneNumber}`,
-      line3: `${
-        userCase.applicant2EnglishOrWelsh
-          ? userCase.applicant2EnglishOrWelsh.charAt(0).toUpperCase() + userCase.applicant2EnglishOrWelsh.slice(1)
-          : ''
-      }`,
+      line3: `${stripTags(englishOrWelshAnswers.cy[userCase.applicant2EnglishOrWelsh])}`,
     },
     otherCourtCases: {
-      line1: formattedAnswers.applicant2LegalProceedings,
+      line1: stripTags(otherCourtCasesAnswers.cy[userCase.applicant2LegalProceedings]),
       line2: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : ''}`,
       line3: `${
-        userCase.applicant2LegalProceedings === YesOrNo.YES ? formattedAnswers.applicant2LegalProceedingsConcluded : ''
+        userCase.applicant2LegalProceedings === YesOrNo.YES
+          ? stripTags(detailsOtherProceedingsRadioAnswers.cy[userCase.applicant2LegalProceedingsConcluded])
+          : ''
       }`,
-      line4: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
-      line5: `${userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2UnableToUploadEvidence : ''}`,
+      uploadedFiles: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
     },
   },
   continueApplication: 'Parhau gyda’r cais',
@@ -336,14 +280,23 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content, getFormattedAnswers(content));
+  const translations = languages[content.language](content);
   const applicant2Url = urls.RESPONDENT;
   const uploadedDocsFilenames = content.userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value));
+  const cannotUploadDocs =
+    content.userCase.applicant2UnableToUploadEvidence === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+  const havingTroubleUploading = stripTags(
+    detailsOtherProceedingsCheckBoxAnswers[content.language][
+      content.userCase.applicant2UnableToUploadEvidence || Checkbox.Unchecked
+    ]
+  );
   return {
     ...translations,
     isApplicationReadyToSubmit,
     form,
     applicant2Url,
     uploadedDocsFilenames,
+    cannotUploadDocs,
+    havingTroubleUploading,
   };
 };
