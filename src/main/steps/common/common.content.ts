@@ -1,12 +1,9 @@
 import config from 'config';
 import dayjs from 'dayjs';
-import { capitalize } from 'lodash';
-import striptags from 'striptags';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';
 import {
-  Applicant2Represented,
   ApplicationType,
   GeneralApplication,
   InterimApplicationType,
@@ -14,9 +11,7 @@ import {
   ServicePaymentMethod,
   State,
   YesOrNo,
-  YesOrNoOrNotKnown,
 } from '../../app/case/definition';
-import { PageContent } from '../../app/controller/GetController';
 import { userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
 import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
@@ -27,14 +22,12 @@ export const yesOrNoOrNotKnown_en = {
   yes: 'Yes',
   no: 'No',
   notKnown: 'Not known',
-  notSure: "I'm not sure",
 };
 
 export const yesOrNoOrNotKnown_cy = {
   yes: 'Do',
   no: 'Naddo',
   notKnown: 'Anhysbys',
-  notSure: 'Dw i ddim yn siŵr',
 };
 
 export const englishOrWelsh_en = {
@@ -422,44 +415,6 @@ const cy: typeof en = {
     },
     popupBlocked: 'Naidlen wedi’i rhwystro. Caniatáu naidlen ar gyfer y wefan hon.',
   },
-};
-
-export const formatYesOrNo = (
-  pageContent: CommonContent | PageContent,
-  language: SupportedLanguages,
-  field: YesOrNo | YesOrNoOrNotKnown | Applicant2Represented | undefined,
-  obscureUndefinedField: boolean = false,
-  alternateKeys: { yes?: string; no?: string; notSure?: string; notKnown?: string } = {}
-): string | undefined => {
-  const commonContent = language === SupportedLanguages.Cy ? yesOrNoOrNotKnown_cy : yesOrNoOrNotKnown_en;
-  if (field === undefined) {
-    return obscureUndefinedField ? '' : undefined;
-  }
-
-  const getValue = (key: string) => {
-    const value =
-      alternateKeys[key] && pageContent[alternateKeys[key]]
-        ? pageContent[alternateKeys[key]]
-        : pageContent[key] || commonContent[key];
-    return capitalize(striptags(value as string));
-  };
-
-  switch (field) {
-    case Applicant2Represented.YES:
-    case YesOrNo.YES:
-    case YesOrNoOrNotKnown.YES:
-      return getValue('yes');
-    case Applicant2Represented.NO:
-    case YesOrNo.NO:
-    case YesOrNoOrNotKnown.NO:
-      return getValue('no');
-    case Applicant2Represented.NOT_SURE:
-      return getValue('notSure');
-    case YesOrNoOrNotKnown.NOT_KNOWN:
-      return getValue('notKnown');
-    default:
-      return field;
-  }
 };
 
 export const generateCommonContent = ({
