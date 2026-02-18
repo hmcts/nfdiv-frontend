@@ -1,3 +1,4 @@
+import { State } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 
 const en = () => ({
@@ -25,7 +26,9 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const isDraftApplication = content.userCase.state === State.Draft;
   return {
     ...languages[content.language](),
+    isDraftApplication,
   };
 };
