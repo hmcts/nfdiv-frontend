@@ -21,6 +21,7 @@ import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your
 import { ApplicationWithdrawnGetController } from './steps/application-withdrawn/get';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
+import { DraftApplicationSaveSignOutGetController } from './steps/draft-application-save-sign-out/get';
 import { ErrorController } from './steps/error/error.controller';
 import * as existingApplicationContent from './steps/existing-application/content';
 import { ExistingApplicationGetController } from './steps/existing-application/get';
@@ -46,6 +47,7 @@ import {
   COOKIES_URL,
   CSRF_TOKEN_ERROR_URL,
   DOCUMENT_MANAGER,
+  DRAFT_SAVE_AND_SIGN_OUT,
   ENTER_YOUR_ACCESS_CODE,
   EXISTING_APPLICATION,
   EXIT_SERVICE,
@@ -81,6 +83,7 @@ export class Routes {
       errorHandler(new ExistingApplicationPostController(existingApplicationContent.form.fields).post)
     );
     app.get(HOME_URL, errorHandler(new HomeGetController().get));
+    app.get(DRAFT_SAVE_AND_SIGN_OUT, errorHandler(new DraftApplicationSaveSignOutGetController().get));
     app.get(
       REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
       errorHandler(new RequestForInformationSaveSignOutGetController().get)
