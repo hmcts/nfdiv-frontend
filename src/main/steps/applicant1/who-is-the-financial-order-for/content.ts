@@ -77,7 +77,7 @@ export const form: FormContent = {
         type: 'radios',
         classes: 'govuk-radios',
         label: l => l.whoIsTheFinancialOrderFor,
-        labelHidden: true,
+        labelHidden: false,
         values: RadioButtons.getLabelledInputs(inputValueSelectedPreviously),
         parser: body => RadioButtons.getParsedValue(body as Record<string, string>, 'applicant1WhoIsFinancialOrderFor'),
         validator: isFieldFilledIn,

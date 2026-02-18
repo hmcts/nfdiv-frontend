@@ -27,7 +27,7 @@ export const form: FormContent = {
         type: 'radios',
         classes: 'govuk-radios',
         label: l => l.whoIsTheFinancialOrderFor,
-        labelHidden: true,
+        labelHidden: false,
         values: RadioButtons.getLabelledInputs(inputValueSelectedPreviously),
         parser: value =>
           RadioButtons.getParsedValue(value as Record<string, string>, 'applicant2WhoIsFinancialOrderFor'),

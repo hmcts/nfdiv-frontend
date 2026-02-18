@@ -20,7 +20,7 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
     'There are ways to help you agree on how you will divide your financial assets outside of court. These are sometimes known as ‘non-court dispute resolution’ (NCDR). <a target="_blank" href="https://www.advicenow.org.uk/get-help/family-and-children/divorce-and-separation/what-do-applying-financial-order-when-you-get">Further information about the types of NCDR options available to you can be obtained from Advicenow (opens in a new tab).</a>',
   line5: `If you and your ${partner} disagree, you can also ask the court to decide for you. This is known as making a financial remedies application. The court will expect that you have tried to agree your finances between yourselves before coming to court. You will need to have attended an initial meeting called a Mediation Information and Assessment Meeting, or MIAM, to consider ways to reach agreement without coming to court, unless you had good reason not to.`,
   line6:
-    'The court needs confirmation now whether you want to apply for a financial order. Even if you want to apply for a consent order.',
+    'The court needs confirmation now whether you want to apply for a financial order, even if you want to apply for a consent order.',
   line7: `You will receive an email with more information after you have submitted this application ${isDivorce ? 'for divorce' : 'to end your civil partnership'}. Your ${partner} will also be sent an email notifying them that you want to apply for a financial order.`,
   noSelectedWarning: `It's important to have a financial order in place by the time your ${
     isDivorce ? 'divorce is finalised' : 'civil partnership is legally ended'
@@ -56,7 +56,7 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
     'Mae yna ffyrdd i’ch helpu i gytuno ar sut y byddwch yn rhannu eich asedau ariannol y tu allan i’r llys.  Gelwir hyn weithiau yn ‘datrys anghydfod y tu allan i’r llys’ (NCDR). <a target="_blank" href="https://www.advicenow.org.uk/get-help/family-and-children/divorce-and-separation/what-do-applying-financial-order-when-you-get">Gellir cael gwybodaeth bellach am y mathau o ddewisiadau NCDR sydd ar gael i chi gan Advicenow (yn agor mewn tab newydd).</a>',
   line5: `Os ydych chi a’ch ${partner} yn anghytuno, gallwch hefyd ofyn i’r llys benderfynu ichi. Mae hyn yn cael ei alw yn gwneud cais am rwymedi ariannol. Bydd y llys yn disgwyl i chi fod wedi ceisio cytuno ar eich cyllid rhwng eich gilydd cyn dod i’r llys.   Byddwch angen bod wedi mynychu cyfarfod cychwynnol a elwir yn Gyfarfod Asesu a Gwybodaeth am Gyfryngu neu MIAM, i ystyried ffyrdd i ddod i gytundeb heb ddod i’r llys, oni bai bod gennych reswm da dros beidio gwneud hynny.`,
   line6:
-    'Mae angen i’r llys wybod nawr a ydych am wneud cais am orchymyn ariannol. Hyd yn oed  os ydych eisiau gwneud cais am orchymyn cydsynio.',
+    'Mae angen i’r llys wybod nawr a ydych am wneud cais am orchymyn ariannol, hyd yn oed os ydych eisiau gwneud cais am orchymyn cydsynio.',
   line7: `Byddwch yn derbyn e-bost gyda mwy o wybodaeth ar ôl ichi gyflwyno’r cais hwn ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'}. Bydd eich ${partner} hefyd yn derbyn e-bost yn eu hysbysu eich bod eisiau gwneud cais am orchymyn ariannol.`,
   noSelectedWarning: `Mae’n bwysig cael gorchymyn ariannol mewn lle erbyn i’ch ${
     isDivorce ? 'ysgariad gael ei gwblhau' : 'partneriaeth sifil ddod i ben yn gyfreithiol'
