@@ -6,7 +6,13 @@ import { YesOrNo, YesOrNoOrNotKnown } from '../../../../../app/case/definition';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent, formatYesOrNo, generateCommonContent } from '../../../../common/common.content';
+import { SupportedLanguages } from '../../../../../modules/i18n';
+import {
+  CommonContent,
+  generateCommonContent,
+  yesOrNoOrNotKnown_cy,
+  yesOrNoOrNotKnown_en,
+} from '../../../../common/common.content';
 import * as urls from '../../../../urls';
 import {
   form as checkAnswersForm,
@@ -120,6 +126,34 @@ export const form: FormContent = checkAnswersForm;
 const languages = {
   en,
   cy,
+};
+
+const formatYesOrNo = (pageContent, language: SupportedLanguages, field: YesOrNo | YesOrNoOrNotKnown | undefined) => {
+  const commonContent = language === SupportedLanguages.Cy ? yesOrNoOrNotKnown_cy : yesOrNoOrNotKnown_en;
+  if (field === undefined) {
+    return undefined;
+  }
+  if (!pageContent.yes) {
+    pageContent.yes = commonContent.yes;
+  }
+  if (!pageContent.no) {
+    pageContent.no = commonContent.no;
+  }
+  if (!pageContent.notKnown) {
+    pageContent.notKnown = commonContent.notKnown;
+  }
+  switch (field) {
+    case YesOrNo.YES:
+    case YesOrNoOrNotKnown.YES:
+      return pageContent.yes;
+    case YesOrNo.NO:
+    case YesOrNoOrNotKnown.NO:
+      return pageContent.no;
+    case YesOrNoOrNotKnown.NOT_KNOWN:
+      return pageContent.notKnown;
+    default:
+      return field;
+  }
 };
 
 const getStepAnswers = (
