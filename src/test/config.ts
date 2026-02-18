@@ -186,6 +186,7 @@ config.helpers = {
       os: ServiceOS.LINUX,
       serviceAuthType: ServiceAuth.ACCESS_TOKEN,
       exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
+      runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
     }),
   },
 };
