@@ -50,12 +50,19 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-  //enableFortifyScan()
-  //afterSuccess('fortify-scan') { steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*' }
   enableCrossBrowserTest()
   enableFullFunctionalTest()
   loadVaultSecrets(secrets)
   enableFortifyScan()
+
+  afterAlways('build') {
+    try {
+      sh './src/test/setup-web-browsers.sh'
+    } catch (Error) {
+      error(message: "${STAGE_NAME} is unstable: " + Error.toString())
+    }
+  }
+
   before('crossBrowserTest') {
     yarnBuilder.smokeTest()
   }
