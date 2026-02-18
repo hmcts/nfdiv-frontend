@@ -49,10 +49,18 @@ withPipeline(type, product, component) {
 
   afterAlways('build') {
     yarnBuilder.yarn('build')
+
+    try {
+      yarnBuilder.yarn('test:setup:install-browsers')
+    } catch (Error) {
+      error(message: "${STAGE_NAME} is unstable: " + Error.toString())
+    }  
   }
+
   if(checkForFortifyLabel(env.BRANCH_NAME)) {
     enableFortifyScan()
   }
+
   afterAlways('functionalTest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/Functional test report.html'
   }
