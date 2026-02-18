@@ -1,7 +1,9 @@
+import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { InputLabelsByLanguage, ydwOrNacYdwRadioAnswers } from '../../common/input-labels.content';
 
 const en = ({ isDivorce }: CommonContent) => ({
   title: 'Details of the other legal proceedings',
@@ -19,9 +21,6 @@ const en = ({ isDivorce }: CommonContent) => ({
   point8: 'the details of any orders that have been made',
   legalProceedingsDetails: 'Provide details about the other legal proceedings.',
   legalProceedingsConcluded: 'Have the proceedings been concluded?',
-  no: 'No',
-  yes: 'Yes',
-  unableToUploadEvidence: 'I cannot upload some or all of my documents',
   uploadAFile: 'Upload a file',
   chooseFileButtonText: 'Choose file',
   noFileChosen: 'No file chosen',
@@ -70,9 +69,6 @@ const cy: typeof en = ({ isDivorce }: CommonContent) => ({
   point8: 'manylion unrhyw orchmynion sydd wedi’u gwneud',
   legalProceedingsDetails: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
   legalProceedingsConcluded: "A yw'r achos wedi'i gwblhau?",
-  yes: 'Ydw',
-  no: 'Nac ydw',
-  unableToUploadEvidence: 'Ni allaf lwytho rhai o fy nogfennau / fy holl ddogfennau.',
   uploadAFile: 'Llwytho ffeil',
   chooseFileButtonText: 'Dewis ffeil',
   noFileChosen: "Dim ffeil wedi'i dewis",
@@ -127,10 +123,26 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = ydwOrNacYdwRadioAnswers;
+export const checkBoxAnswers: InputLabelsByLanguage<Checkbox> = {
+  en: {
+    [Checkbox.Checked]: 'I cannot upload some or all of my documents',
+    [Checkbox.Unchecked]: '',
+  },
+  cy: {
+    [Checkbox.Checked]: 'Ni allaf lwytho rhai o fy nogfennau / fy holl ddogfennau.',
+    [Checkbox.Unchecked]: '',
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
+  const unableToUploadEvidence = checkBoxAnswers[content.language][Checkbox.Checked];
   return {
     ...translations,
+    ...radioAnswers,
+    unableToUploadEvidence,
     form,
   };
 };
