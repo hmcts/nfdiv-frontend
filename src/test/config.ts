@@ -4,7 +4,7 @@ import sysConfig from 'config';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
 import { IdamUserManager } from './steps/IdamUserManager';
-import { createAzurePlaywrightConfig, ServiceAuth } from "@azure/playwright";
+import { createAzurePlaywrightConfig, ServiceAuth, ServiceOS } from "@azure/playwright";
 
 // better handling of unhandled exceptions
 process.on('unhandledRejection', reason => {
@@ -164,20 +164,26 @@ export const config = {
 
 process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || new Date().toISOString();
 
+const playwrightConfig = {
+  url: config.TEST_URL,
+  show: !config.TestHeadlessBrowser,
+  browser: 'chromium',
+  waitForTimeout: config.WaitForTimeout,
+  waitForAction: 350,
+  timeout: config.WaitForTimeout,
+  retries: 3,
+  waitForNavigation: 'load',
+  ignoreHTTPSErrors: true,
+  bypassCSP: true,
+}
+
 config.helpers = {
   Playwright: {
-    url: config.TEST_URL,
-    show: !config.TestHeadlessBrowser,
-    browser: 'chromium',
-    waitForTimeout: config.WaitForTimeout,
-    waitForAction: 350,
-    timeout: config.WaitForTimeout,
-    retries: 3,
-    waitForNavigation: 'load',
-    ignoreHTTPSErrors: true,
-    bypassCSP: true,
-    chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && createAzurePlaywrightConfig({}, {
+    ...playwrightConfig,
+    chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && createAzurePlaywrightConfig(
+      playwrightConfig, {
       connectTimeout: config.WaitForTimeout,
+      os: ServiceOS.LINUX,
       serviceAuthType: ServiceAuth.ACCESS_TOKEN,
       exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
     }),
