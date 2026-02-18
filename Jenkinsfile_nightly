@@ -55,12 +55,20 @@ withNightlyPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   enableFortifyScan()
 
-  afterAlways('build') {
+  afterAlways('checkout') {
     try {
       sh './src/test/setup-web-browsers.sh'
     } catch (Error) {
       error(message: "${STAGE_NAME} is unstable: " + Error.toString())
     }
+  }
+
+  before('smoketest:aat') {
+    sh './src/test/setup-web-browsers.sh'
+  }
+
+  before('smoketest:preview') {
+    sh './src/test/setup-web-browsers.sh'
   }
 
   before('crossBrowserTest') {
