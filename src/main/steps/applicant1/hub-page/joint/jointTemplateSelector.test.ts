@@ -106,7 +106,7 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
 
-  test('should show /offline-general-application-received.njk for state AwaitingGeneralConsideration', () => {
+  test('should show /general-application-received.njk for state AwaitingGeneralConsideration', () => {
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.GeneralApplicationReceived);

@@ -200,7 +200,7 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosStatementOfTruth, false, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
-  test('should show /offline-general-application-received.njk for state AwaitingGeneralConsideration and isAosOverdue', () => {
+  test('should show /general-application-received.njk for state AwaitingGeneralConsideration and isAosOverdue', () => {
     const userCaseWithAosOverdue = {
       ...userCase,
       issueDate: '01.01.2022',
@@ -210,7 +210,7 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
-  test('should show /offline-general-application-received.njk for state AwaitingGeneralConsideration and not isAosOverdue', () => {
+  test('should show /general-application-received.njk for state AwaitingGeneralConsideration and not isAosOverdue', () => {
     const userCaseWithNotAosOverdue = {
       ...userCase,
       issueDate: dayjs().format('D MMMM YYYY'),
@@ -576,7 +576,7 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 
-  test('should show /offline-general-application-received.njk for state GeneralConsiderationComplete and isSearchGovRecords and isOnlineGeneralApplication is No', () => {
+  test('should show /general-application-received.njk for state GeneralConsiderationComplete and isSearchGovRecords and isOnlineGeneralApplication is No', () => {
     const userCaseWithOfflineGeneralApplication = {
       ...userCase,
       generalApplications: [
@@ -596,7 +596,7 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
-  test('should show /offline-general-application-received.njk for state AwaitingGeneralReferralPayment', () => {
+  test('should show /general-application-received.njk for state AwaitingGeneralReferralPayment', () => {
     const theState = displayState.at(State.AwaitingGeneralReferralPayment);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
