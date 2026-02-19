@@ -176,7 +176,6 @@ const playwrightConfig = {
   waitForNavigation: 'load',
   ignoreHTTPSErrors: true,
   bypassCSP: true,
-  useCloudHostedBrowsers: false,
 }
 
 config.helpers = {
