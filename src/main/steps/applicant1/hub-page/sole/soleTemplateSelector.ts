@@ -77,7 +77,7 @@ export const getSoleHubTemplate = (
       } else if (isSearchGovRecords) {
         return HubTemplate.OfflineGeneralApplicationReceived;
       } else if (!userCase.dueDate && userCase.aosStatementOfTruth) {
-        return HubTemplate.AwaitingGeneralConsideration;
+        return HubTemplate.OfflineGeneralApplicationReceived;
       } else if (isAlternativeServiceGrantedOrRefusedPreIssue) {
         return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
       } else if (isAosOverdue) {
@@ -86,16 +86,12 @@ export const getSoleHubTemplate = (
         return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.AwaitingGeneralConsideration:
-      if (isSearchGovRecords) {
-        return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
-      } else if (userCase.dateFinalOrderSubmitted) {
+      if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
-      } else if (userCase.aosStatementOfTruth) {
-        return HubTemplate.AwaitingGeneralConsideration;
-      } else if (isAosOverdue) {
-        return HubTemplate.AoSDue;
+      } else if (isSearchGovRecords && isOnlineGeneralApplication) {
+        return HubTemplate.AwaitingGeneralApplicationConsideration;
       } else {
-        return HubTemplate.AosAwaitingOrDrafted;
+        return HubTemplate.OfflineGeneralApplicationReceived;
       }
     case State.GeneralApplicationReceived:
     case State.AwaitingGeneralReferralPayment:

@@ -161,7 +161,7 @@ describe('SoleTemplateSelector test', () => {
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AwaitingGeneralConsideration);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
   });
   test('should show /aos-due.njk for state GeneralConsiderationComplete and isAosOverdue', () => {
     const userCaseWithAosOverdue = {
@@ -198,26 +198,26 @@ describe('SoleTemplateSelector test', () => {
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosStatementOfTruth, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AwaitingGeneralConsideration);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
   });
-  test('should show /aos-due.njk for state AwaitingGeneralConsideration and isAosOverdue', () => {
+  test('should show /offline-general-application-received.njk for state AwaitingGeneralConsideration and isAosOverdue', () => {
     const userCaseWithAosOverdue = {
       ...userCase,
       issueDate: '01.01.2022',
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AoSDue);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
   });
 
-  test('should show /aos-awaiting-or-drafted.njk for state AwaitingGeneralConsideration and not isAosOverdue', () => {
+  test('should show /offline-general-application-received.njk for state AwaitingGeneralConsideration and not isAosOverdue', () => {
     const userCaseWithNotAosOverdue = {
       ...userCase,
       issueDate: dayjs().format('D MMMM YYYY'),
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
   });
 
   test('should show /awaiting-conditional-order.njk for state AwaitingConditionalOrder', () => {

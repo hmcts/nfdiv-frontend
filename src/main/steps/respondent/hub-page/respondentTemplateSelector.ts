@@ -40,7 +40,7 @@ export const getRespondentHubTemplate = (
       } else if (userCase.coGrantedDate && State.GeneralConsiderationComplete) {
         return HubTemplate.ConditionalOrderPronounced;
       } else if (userCase.aosStatementOfTruth && State.AwaitingGeneralConsideration) {
-        return HubTemplate.AwaitingGeneralConsideration;
+        return HubTemplate.OfflineGeneralApplicationReceived;
       } else {
         return HubTemplate.AwaitingAoS;
       }

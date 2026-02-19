@@ -110,7 +110,7 @@ describe('RespondentTemplateSelector test', () => {
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const respondentTemplate = getRespondentHubTemplate(theState, userCaseWithAosStatementOfTruth, false);
-    expect(respondentTemplate).toBe(HubTemplate.AwaitingGeneralConsideration);
+    expect(respondentTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
   });
 
   test('should show /awaiting-aos.njk for state AwaitingGeneralConsideration if not aosStatementOfTruth', () => {
