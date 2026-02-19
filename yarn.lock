@@ -10551,14 +10551,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:13.0.4":
-  version: 13.0.4
-  resolution: "glob@npm:13.0.4"
+"glob@npm:13.0.5":
+  version: 13.0.5
+  resolution: "glob@npm:13.0.5"
   dependencies:
     minimatch: ^10.2.1
     minipass: ^7.1.2
     path-scurry: ^2.0.0
-  checksum: e55377e9263b42ff761551a440ba525520b29568bbd0a91cb8f010dbae1e5a1ff74a913785ecfa36bb86d278cdd7d7e890b69748bb7b00f8d018a93327294820
+  checksum: 9bb731eec1aeda05aac54798468771146ed9bc0ab8fe6114e94ebc74d458946b8c4ccd6eb673ac0b161deba9f2617eb12bca7648e974acbcd5a023bcab5e4565
   languageName: node
   linkType: hard
 
@@ -14637,7 +14637,7 @@ __metadata:
     express-nunjucks: ^3.1.2
     express-session: 1.19.0
     form-data: 4.0.5
-    glob: 13.0.4
+    glob: 13.0.5
     govuk-frontend: 5.14.0
     helmet: 8.1.0
     html-webpack-plugin: 5.6.6
