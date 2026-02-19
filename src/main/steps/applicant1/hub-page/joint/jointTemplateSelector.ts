@@ -15,7 +15,7 @@ export const getJointHubTemplate = (
 ): string | undefined => {
   switch (displayState.state()) {
     case State.AwaitingGeneralConsideration: {
-      return HubTemplate.OfflineGeneralApplicationReceived;
+      return HubTemplate.GeneralApplicationReceived;
     }
     case State.FinalOrderRequested:
     case State.FinalOrderPending:

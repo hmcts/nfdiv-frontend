@@ -505,7 +505,7 @@ const en = (
     },
     line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
   },
-  offlineGeneralApplicationReceived: {
+  generalApplicationReceived: {
     line1:
       'The court is reviewing a general application that has been received and will contact you to let you know your next steps.',
   },
@@ -1004,7 +1004,7 @@ const cy: typeof en = (
     },
     line3: `Os byddant yn methu â chyflwyno’r papurau, efallai y gallwch wneud cais am gyflwyno amgen drwy flwch llythyrau, os yw cyfeiriad eich ${partner} wedi’i gadarnhau. Fel arall, bydd angen i chi gyflwyno’r papurau mewn rhyw ffordd arall.`,
   },
-  offlineGeneralApplicationReceived: {
+  generalApplicationReceived: {
     line1:
       'Mae’r llys yn adolygu cais cyffredinol sydd wedi dod i law a bydd yn cysylltu â chi i roi gwybod i chi beth fydd eich camau nesaf.',
   },

@@ -161,7 +161,7 @@ describe('SoleTemplateSelector test', () => {
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false, false);
-    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+    expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
   test('should show /aos-due.njk for state GeneralConsiderationComplete and isAosOverdue', () => {
     const userCaseWithAosOverdue = {
@@ -198,7 +198,7 @@ describe('SoleTemplateSelector test', () => {
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosStatementOfTruth, false, false);
-    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+    expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
   test('should show /offline-general-application-received.njk for state AwaitingGeneralConsideration and isAosOverdue', () => {
     const userCaseWithAosOverdue = {
@@ -207,7 +207,7 @@ describe('SoleTemplateSelector test', () => {
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false, false);
-    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+    expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
   test('should show /offline-general-application-received.njk for state AwaitingGeneralConsideration and not isAosOverdue', () => {
@@ -217,7 +217,7 @@ describe('SoleTemplateSelector test', () => {
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false, false);
-    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+    expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
   test('should show /awaiting-conditional-order.njk for state AwaitingConditionalOrder', () => {
@@ -593,13 +593,13 @@ describe('SoleTemplateSelector test', () => {
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false, false);
-    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+    expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
   test('should show /offline-general-application-received.njk for state AwaitingGeneralReferralPayment', () => {
     const theState = displayState.at(State.AwaitingGeneralReferralPayment);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+    expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
   test('should show /awaiting-general-application-payment.njk for state AwaitingGeneralApplicationPayment', () => {
@@ -625,6 +625,6 @@ describe('SoleTemplateSelector test', () => {
     };
     const theState = displayState.at(State.GeneralApplicationReceived);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false, false);
-    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
+    expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 });
