@@ -350,7 +350,8 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const addressRequired =
-    userCase.applicationType === ApplicationType.SOLE_APPLICATION && isEmpty(userCase.applicant2Address);
+    userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
+    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(isEmpty);
 
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
 
