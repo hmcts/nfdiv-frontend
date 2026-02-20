@@ -12,11 +12,11 @@ const en = applicant1UploadDocumentContent => ({
   statement: 'You can provide a statement and upload any documents you have in support of your application.',
   statementLabel: 'Provide statement (optional)',
   uploadFilesLabel: 'Upload evidence (optional)',
-  line3: `If your evidence is in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
+  line1: `If your evidence is in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
   )}">certified translation</a>.`,
-  line4: 'You may upload multiple documents.',
-  line5: 'You cannot upload video or audio recordings.',
+  line2: 'You may upload multiple documents.',
+  line3: 'You cannot upload video or audio recordings.',
   uploadAFile: 'Upload a file',
   chooseFileButtonText: 'Choose file',
   noFileChosen: 'No file chosen',
@@ -43,11 +43,11 @@ const cy: typeof en = applicant1UploadDocumentContent => ({
   statement: 'You can provide a statement and upload any documents you have in support of your application.',
   statementLabel: 'Provide statement (optional)',
   uploadFilesLabel: 'Upload evidence (optional)',
-  line3: `If your evidence is in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
+  line1: `If your evidence is in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
   )}">certified translation</a>.`,
-  line4: 'You may upload multiple documents.',
-  line5: 'You cannot upload video or audio recordings.',
+  line2: 'You may upload multiple documents.',
+  line3: 'You cannot upload video or audio recordings.',
   uploadAFile: 'Upload a file',
   chooseFileButtonText: 'Choose file',
   noFileChosen: 'No file chosen',
@@ -85,7 +85,7 @@ export const form: FormContent = {
     },
     applicant1InterimAppsEvidenceUploadedFiles: {
       type: 'hidden',
-      label: l => l.uploadFiles,
+      label: l => l.uploadFilesLabel,
       labelHidden: true,
       value:
         (isObject(userCase.applicant1InterimAppsEvidenceUploadedFiles)
