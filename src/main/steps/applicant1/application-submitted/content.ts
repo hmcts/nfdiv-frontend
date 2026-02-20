@@ -32,7 +32,7 @@ const en = (
   title: `${
     addressRequired || userCase.applicant1CannotUpload || userCase.applicant2CannotUpload
       ? 'Further action needed'
-      : 'submitted'
+      : 'Application submitted'
   }`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
