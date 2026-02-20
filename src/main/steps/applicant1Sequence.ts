@@ -18,8 +18,8 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
+import { generalApplicationD11Sequence } from './generalApplicationD11Sequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
-import { generalApplicationSequence } from './generalApplicationSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
@@ -620,7 +620,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...serviceApplicationPaymentSequence,
   ...generalApplicationPaymentSequence,
   ...withdrawApplicationSequence,
-  ...generalApplicationSequence,
+  ...generalApplicationD11Sequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>

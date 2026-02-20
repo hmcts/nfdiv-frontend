@@ -3,7 +3,10 @@ import { CaseWithId } from '../case/case';
 import { AlternativeServiceType, ApplicationType } from '../case/definition';
 import type { AppRequest } from '../controller/AppRequest';
 
-import { validateServiceApplicationDocumentUpload } from './FileUploadJourneyConfiguration';
+import {
+  validateGeneralApplicationDocumentUpload,
+  validateServiceApplicationDocumentUpload,
+} from './FileUploadJourneyConfiguration';
 
 describe('validateServiceApplicationDocumentUpload', () => {
   let mockReq: AppRequest;
@@ -40,5 +43,23 @@ describe('validateServiceApplicationDocumentUpload', () => {
   it('should return false if an aos has been submitted', () => {
     mockReq.session.userCase.dateAosSubmitted = '2025-01-01';
     expect(validateServiceApplicationDocumentUpload(mockReq)).toBe(false);
+  });
+});
+
+describe('validateGeneralApplicationDocumentUpload', () => {
+  let mockReq: AppRequest;
+
+  beforeEach(() => {
+    mockReq = mockRequest();
+
+    mockReq.session.userCase = {
+      id: '1234',
+      applicationType: ApplicationType.SOLE_APPLICATION,
+    } as CaseWithId;
+    mockReq.session.isApplicant2 = false;
+  });
+
+  it('should return true for general application uploads', () => {
+    expect(validateGeneralApplicationDocumentUpload(mockReq)).toBe(true);
   });
 });

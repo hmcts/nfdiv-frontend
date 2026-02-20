@@ -728,10 +728,6 @@ const fields: ToApiConverters = {
   applicant1GenAppCannotUploadAgreedEvidence: data => ({
     applicant1GenAppCannotUploadAgreedEvidence: checkboxConverter(data.applicant1GenAppCannotUploadAgreedEvidence),
   }),
-  applicant1GenAppCannotUploadEvidence: data => ({
-    applicant1GenAppCannotUploadEvidence: checkboxConverter(data.applicant1GenAppCannotUploadEvidence),
-  }),
-  applicant1GenAppEvidenceUploadedFiles: () => ({}),
   applicant1GenAppPartnerAgreesUploadedFiles: () => ({}),
 };
 

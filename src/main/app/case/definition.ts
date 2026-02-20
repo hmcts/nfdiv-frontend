@@ -1184,13 +1184,11 @@ export interface CaseData {
   applicant2ConfirmWithdrawApplication: YesOrNo;
   applicant2WithdrawApplicationReason: string;
   applicant1GenAppCannotUploadAgreedEvidence: YesOrNo;
-  applicant1GenAppCannotUploadEvidence: YesOrNo;
-  applicant1GenAppEvidenceDocs: ListValue<DivorceDocument>[];
   applicant1GenAppHearingNotRequired: GeneralApplicationHearingNotRequired;
   applicant1GenAppPartnerAgreesDocs: ListValue<DivorceDocument>[];
   applicant1GenAppPartnerDetailsCorrect: YesOrNo;
   applicant1GenAppReason: string;
-  applicant1GenAppStatement: string;
+  applicant1GenAppStatementOfEvidence: string;
   applicant1GenAppType: GeneralApplicationType;
   applicant1GenAppTypeOtherDetails: string;
 }

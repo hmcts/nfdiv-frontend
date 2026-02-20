@@ -2,6 +2,7 @@ import { GeneralApplicationHearingNotRequired, ServicePaymentMethod, YesOrNo } f
 
 import { Step } from './applicant1Sequence';
 import {
+  GENERAL_APPLICATION_SUBMITTED,
   GEN_APP_APPLY_FOR_HWF,
   GEN_APP_CHECK_ANSWERS,
   GEN_APP_COST_OF_APPLICATION,
@@ -19,10 +20,9 @@ import {
   GEN_APP_WHY_THIS_APPLICATION,
   MAKE_AN_APPLICATION,
   PAY_YOUR_SERVICE_FEE,
-  SERVICE_APPLICATION_SUBMITTED,
 } from './urls';
 
-export const generalApplicationSequence: Step[] = [
+export const generalApplicationD11Sequence: Step[] = [
   {
     url: MAKE_AN_APPLICATION,
     getNextStep: () => GEN_APP_INTERRUPTION,
@@ -74,6 +74,10 @@ export const generalApplicationSequence: Step[] = [
       data.applicant1InterimAppsCanUploadEvidence === YesOrNo.YES ? GEN_APP_UPLOAD_EVIDENCE : GEN_APP_HELP_WITH_FEES,
   },
   {
+    url: GEN_APP_UPLOAD_EVIDENCE,
+    getNextStep: () => GEN_APP_HELP_WITH_FEES,
+  },
+  {
     url: GEN_APP_HELP_WITH_FEES,
     getNextStep: data =>
       data?.applicant1InterimAppsUseHelpWithFees === YesOrNo.YES ? GEN_APP_HWF_REFERENCE_NUMBER : GEN_APP_CHECK_ANSWERS,
@@ -94,6 +98,6 @@ export const generalApplicationSequence: Step[] = [
     getNextStep: data =>
       data?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD
         ? PAY_YOUR_SERVICE_FEE
-        : SERVICE_APPLICATION_SUBMITTED,
+        : GENERAL_APPLICATION_SUBMITTED,
   },
 ];
