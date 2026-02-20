@@ -13,6 +13,6 @@ export default class GenAppUploadPartnerAgreesEvidenceGetController extends GetC
   }
 
   protected setSessionOverrides(req: AppRequest): void {
-    req.session.fileUploadJourney = FileUploadJourney.GEN_APP_PARTNER_AGREES;
+    req.session.fileUploadJourney = FileUploadJourney.GEN_APP_D11_PARTNER_AGREES;
   }
 }
