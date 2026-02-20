@@ -1,6 +1,6 @@
 import { Checkbox } from '../../../../../app/case/case';
 import {
-  GeneralApplicationHearingNotRequired,
+  GeneralApplicationHearingNotRequired, GeneralApplicationType,
   YesOrNo,
 } from '../../../../../app/case/definition';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
@@ -14,7 +14,7 @@ import {
 } from '../../common/check-answers/content';
 
 const en = (
-  { partner }: CommonContent,
+  { partner, isDivorce }: CommonContent,
   useHwf,
   hwfReference,
   canUpload,
@@ -25,13 +25,15 @@ const en = (
   hearingNotRequiredEvidenceFileNames,
   reasonForApplication,
   partnerDetailsCorrect,
-  d11Type
+  d11Type,
+  d11TypeOtherDetails
 ) => ({
   stepQuestions: {
     doesNotRequireHearing: 'Application can be dealt with without a hearing',
     hearingNotRequiredEvidenceFiles: 'Evidence files uploaded to support that a hearing is not required',
     partnerInformationCorrect: `Details of your ${partner} are correct`,
     genAppD11Type: 'Type of application',
+    GenAppD11TypeOtherDetails: 'Other application type details',
     reasonForApplication: 'Reason for making the application',
     useHwf: 'Help paying the application fee',
     hwfReference: 'Help with fees reference number',
@@ -50,11 +52,21 @@ const en = (
       }[hearingNotRequired] || '',
     hearingNotRequiredEvidenceFiles: `${hearingNotRequiredEvidenceFileNames?.join(', ')}`,
     partnerInformationCorrect: `${partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
-    genAppD11Type: `${d11Type}`,
+    genAppD11Type:
+      {
+        [GeneralApplicationType.WITHDRAW_POST_ISSUE]: `Withdraw ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+        [GeneralApplicationType.DELAY]: 'Delay or pause (or ‘put a stay on’) an application',
+        [GeneralApplicationType.EXTEND]: 'More time to serve an application (or ‘extend service’)',
+        [GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT]: `Continue without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
+        [GeneralApplicationType.EXPEDITE]: `${isDivorce ? 'Complete a divorce' : 'End a civil partnership'} more quickly (or ‘expedite’ an application)`,
+        [GeneralApplicationType.AMEND_APPLICATION]: 'Amend an existing application',
+        [GeneralApplicationType.OTHER]: 'Something else',
+      }[d11Type] || '',
+    GenAppD11TypeOtherDetails: `${d11Type === GeneralApplicationType.OTHER ? d11TypeOtherDetails : ''}`,
     reasonForApplication: `${reasonForApplication}`,
-    useHwf: `${useHwf}`,
+    useHwf: `${useHwf === YesOrNo.YES ? 'Yes' : 'No'}`,
     hwfReference: `${hwfReference}`,
-    canUploadEvidence: `${canUpload}`,
+    canUploadEvidence: `${canUpload === YesOrNo.YES ? 'Yes' : 'No'}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
     evidenceStatement: `${evidenceStatement}`,
   },
@@ -63,6 +75,7 @@ const en = (
     hearingNotRequiredEvidenceFiles: `${urls.GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES}`,
     partnerInformationCorrect: `${urls.GEN_APP_PARTNER_INFORMATION_CORRECT}`,
     genAppD11Type: `${urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
+    GenAppD11TypeOtherDetails: `${urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
     reasonForApplication: `${urls.GEN_APP_WHY_THIS_APPLICATION}`,
     useHwf: `${urls.GEN_APP_HELP_WITH_FEES}`,
     hwfReference: `${urls.GEN_APP_HWF_REFERENCE_NUMBER_INPUT}`,
@@ -73,7 +86,7 @@ const en = (
 });
 
 const cy: typeof en = (
-  { partner }: CommonContent,
+  { partner, isDivorce }: CommonContent,
   useHwf,
   hwfReference,
   canUpload,
@@ -84,13 +97,15 @@ const cy: typeof en = (
   hearingNotRequiredEvidenceFileNames,
   reasonForApplication,
   partnerDetailsCorrect,
-  d11Type
+  d11Type,
+  d11TypeOtherDetails
 ) => ({
   stepQuestions: {
     doesNotRequireHearing: 'Application can be dealt with without a hearing',
     hearingNotRequiredEvidenceFiles: 'Evidence files uploaded to support that a hearing is not required',
     partnerInformationCorrect: `Details of your ${partner} are correct`,
     genAppD11Type: 'Type of application',
+    GenAppD11TypeOtherDetails: 'Other application type details',
     reasonForApplication: 'Reason for making the application',
     useHwf: 'Help paying the application fee',
     hwfReference: 'Help with fees reference number',
@@ -109,11 +124,21 @@ const cy: typeof en = (
       }[hearingNotRequired] || '',
     hearingNotRequiredEvidenceFiles: `${hearingNotRequiredEvidenceFileNames?.join(', ')}`,
     partnerInformationCorrect: `${partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
-    genAppD11Type: `${d11Type}`,
+    genAppD11Type:
+      {
+        [GeneralApplicationType.WITHDRAW_POST_ISSUE]: `Withdraw ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+        [GeneralApplicationType.DELAY]: 'Delay or pause (or ‘put a stay on’) an application',
+        [GeneralApplicationType.EXTEND]: 'More time to serve an application (or ‘extend service’)',
+        [GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT]: `Continue without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
+        [GeneralApplicationType.EXPEDITE]: `${isDivorce ? 'Complete a divorce' : 'End a civil partnership'} more quickly (or ‘expedite’ an application)`,
+        [GeneralApplicationType.AMEND_APPLICATION]: 'Amend an existing application',
+        [GeneralApplicationType.OTHER]: 'Something else',
+      }[d11Type] || '',
+    GenAppD11TypeOtherDetails: `${d11Type === GeneralApplicationType.OTHER ? d11TypeOtherDetails : ''}`,
     reasonForApplication: `${reasonForApplication}`,
-    useHwf: `${useHwf}`,
+    useHwf: `${useHwf === YesOrNo.YES ? 'Yes' : 'No'}`,
     hwfReference: `${hwfReference}`,
-    canUploadEvidence: `${canUpload}`,
+    canUploadEvidence: `${canUpload === YesOrNo.YES ? 'Yes' : 'No'}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
     evidenceStatement: `${evidenceStatement}`,
   },
@@ -122,6 +147,7 @@ const cy: typeof en = (
     hearingNotRequiredEvidenceFiles: `${urls.GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES}`,
     partnerInformationCorrect: `${urls.GEN_APP_PARTNER_INFORMATION_CORRECT}`,
     genAppD11Type: `${urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
+    GenAppD11TypeOtherDetails: `${urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
     reasonForApplication: `${urls.GEN_APP_WHY_THIS_APPLICATION}`,
     useHwf: `${urls.GEN_APP_HELP_WITH_FEES}`,
     hwfReference: `${urls.GEN_APP_HWF_REFERENCE_NUMBER_INPUT}`,
@@ -159,6 +185,7 @@ export const generateContent: TranslationFn = content => {
   const reasonForApplication = content.userCase.applicant1GenAppReason;
   const partnerDetailsCorrect = content.userCase.applicant1GenAppPartnerDetailsCorrect;
   const d11Type = content.userCase.applicant1GenAppType;
+  const d11TypeOtherDetails = content.userCase.applicant1GenAppTypeOtherDetails;
   const translations = languages[content.language](
     content,
     useHwf,
@@ -171,7 +198,8 @@ export const generateContent: TranslationFn = content => {
     hearingNotRequiredEvidenceFileNames,
     reasonForApplication,
     partnerDetailsCorrect,
-    d11Type
+    d11Type,
+    d11TypeOtherDetails
   );
   return {
     ...checkAnswersContent,
