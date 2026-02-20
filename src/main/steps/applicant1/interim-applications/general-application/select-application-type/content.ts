@@ -17,10 +17,10 @@ const en = ({ isDivorce }: CommonContent) => ({
   specify: 'Please specify',
   errors: {
     applicant1GenAppType: {
-      required: 'Select an option.',
+      required: 'Select which application you want to make',
     },
     applicant1GenAppTypeOtherDetails: {
-      required: 'Enter details of the application type you are making',
+      required: 'You must explain which application you are making',
     },
   },
 });
@@ -39,10 +39,10 @@ const cy = ({ isDivorce }: CommonContent) => ({
   specify: 'Please specify',
   errors: {
     applicant1GenAppType: {
-      required: 'Select an option.',
+      required: 'Select which application you want to make',
     },
     applicant1GenAppTypeOtherDetails: {
-      required: 'Enter details of the application type you are making',
+      required: 'You must explain which application you are making',
     },
   },
 });
