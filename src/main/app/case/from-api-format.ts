@@ -224,6 +224,14 @@ const fields: FromApiConverters = {
   }),
   applicant1SearchGovRecordsPartnerLastKnownAddress: data =>
     formatAddress(data, 'applicant1SearchGovRecordsPartnerLastKnown'),
+  applicant1GenAppCannotUploadAgreedEvidence: data => ({
+    applicant1GenAppCannotUploadAgreedEvidence: checkboxConverter(data.applicant1GenAppCannotUploadAgreedEvidence),
+  }),
+  applicant1GenAppCannotUploadEvidence: data => ({
+    applicant1GenAppCannotUploadEvidence: checkboxConverter(data.applicant1GenAppCannotUploadEvidence),
+  }),
+  applicant1GenAppEvidenceDocs: uploadedFilesFromApiApplicant1,
+  applicant1GenAppPartnerAgreesDocs: uploadedFilesFromApiApplicant1,
 };
 
 const fromApiDate = date => {

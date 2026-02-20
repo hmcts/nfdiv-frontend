@@ -7,7 +7,7 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
-import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
+import { generalApplicationSequence } from './generalApplicationSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
@@ -58,7 +58,7 @@ export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
 
 export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
   ...[
-    ...generalApplicationD11JourneySequence,
+    ...generalApplicationSequence,
     ...deemedServiceApplicationSequence,
     ...alternativeServiceApplicationSequence,
     ...bailiffServiceApplicationSequence,
@@ -110,10 +110,15 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
       ].includes(data.state as State),
   },
   {
-    urls: [...generalApplicationD11JourneySequence]
+    urls: [...generalApplicationSequence]
       .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
       .map(step => step.url as PageLink),
-    condition: data => data.issueDate !== undefined && data.issueDate !== null,
+    condition: data =>
+      [
+        State.AwaitingServicePayment,
+        State.AwaitingServiceConsideration,
+        State.AwaitingGeneralApplicationPayment,
+      ].includes(data.state as State),
   },
   {
     urls: [PAY_YOUR_GENERAL_APPLICATION_FEE, GENERAL_APPLICATION_SUBMITTED],
