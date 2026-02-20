@@ -21,6 +21,8 @@ import {
   FinancialOrderFor,
   Gender,
   GeneralApplication,
+  GeneralApplicationHearingNotRequired,
+  GeneralApplicationType,
   InterimApplicationType,
   JurisdictionConnections,
   LegalAdvisorDecision,
@@ -355,6 +357,14 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   withdrawApplicationReason: 'withdrawApplicationReason',
   applicant2ConfirmWithdrawApplication: 'applicant2ConfirmWithdrawApplication',
   applicant2WithdrawApplicationReason: 'applicant2WithdrawApplicationReason',
+  applicant1GenAppCannotUploadAgreedEvidence: 'applicant1GenAppCannotUploadAgreedEvidence',
+  applicant1GenAppHearingNotRequired: 'applicant1GenAppHearingNotRequired',
+  applicant1GenAppPartnerAgreesDocs: 'applicant1GenAppPartnerAgreesDocs',
+  applicant1GenAppPartnerDetailsCorrect: 'applicant1GenAppPartnerDetailsCorrect',
+  applicant1GenAppReason: 'applicant1GenAppReason',
+  applicant1GenAppStatementOfEvidence: 'applicant1GenAppStatementOfEvidence',
+  applicant1GenAppType: 'applicant1GenAppType',
+  applicant1GenAppTypeOtherDetails: 'applicant1GenAppTypeOtherDetails',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -789,6 +799,15 @@ export interface Case {
   withdrawApplicationReason?: string;
   applicant2ConfirmWithdrawApplication?: YesOrNo;
   applicant2WithdrawApplicationReason?: string;
+  applicant1GenAppCannotUploadAgreedEvidence?: Checkbox;
+  applicant1GenAppHearingNotRequired?: GeneralApplicationHearingNotRequired;
+  applicant1GenAppPartnerAgreesDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant1GenAppPartnerAgreesUploadedFiles?: UploadedFile[];
+  applicant1GenAppPartnerDetailsCorrect?: YesOrNo;
+  applicant1GenAppReason?: string;
+  applicant1GenAppStatementOfEvidence?: string;
+  applicant1GenAppType?: GeneralApplicationType;
+  applicant1GenAppTypeOtherDetails?: string;
 }
 
 export interface CaseWithId extends Case {

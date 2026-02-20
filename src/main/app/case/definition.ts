@@ -527,9 +527,9 @@ export interface CaseData {
   applicant1NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
   applicant1NameDifferentToMarriageCertificateOtherDetails: string;
   applicant1WhyNameDifferent: ChangedNameWhy[];
-  applicant1WhyNameDifferentOtherDetails: string,
+  applicant1WhyNameDifferentOtherDetails: string;
   applicant2WhyNameDifferent: ChangedNameWhy[];
-  applicant2WhyNameDifferentOtherDetails: string,
+  applicant2WhyNameDifferentOtherDetails: string;
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;
@@ -964,7 +964,7 @@ export interface CaseData {
   alternativeServiceFeeRequired: YesOrNo;
   serviceApplicationAnswers: DivorceDocument;
   servicePayments: ListValue<Payment>[];
-  serviceApplicationSubmittedOnline: YesOrNo,
+  serviceApplicationSubmittedOnline: YesOrNo;
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeeDateOfPayment: DateAsString;
@@ -1151,7 +1151,7 @@ export interface CaseData {
   applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo;
   applicant1DispensePartnerLastSeenDescription: string;
   applicant1DispenseHavePartnerEmailAddresses: YesOrNo;
-  applicant1DispenseHaveSearchedFinalOrder: YesOrNo
+  applicant1DispenseHaveSearchedFinalOrder: YesOrNo;
   applicant1DispenseWhyNoFinalOrderSearch: string;
   applicant1DispensePartnerEmailAddresses: string;
   applicant1DispenseHavePartnerPhoneNumbers: YesOrNo;
@@ -1183,6 +1183,14 @@ export interface CaseData {
   withdrawApplicationReason: string;
   applicant2ConfirmWithdrawApplication: YesOrNo;
   applicant2WithdrawApplicationReason: string;
+  applicant1GenAppCannotUploadAgreedEvidence: YesOrNo;
+  applicant1GenAppHearingNotRequired: GeneralApplicationHearingNotRequired;
+  applicant1GenAppPartnerAgreesDocs: ListValue<DivorceDocument>[];
+  applicant1GenAppPartnerDetailsCorrect: YesOrNo;
+  applicant1GenAppReason: string;
+  applicant1GenAppStatementOfEvidence: string;
+  applicant1GenAppType: GeneralApplicationType;
+  applicant1GenAppTypeOtherDetails: string;
 }
 
 export interface CaseDocuments {
@@ -2098,6 +2106,7 @@ export const enum InterimApplicationType {
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'searchGovRecords',
   PROCESS_SERVER_SERVICE = 'processServerService',
+  DIGITISED_GENERAL_APPLICATION_D11 = 'digitisedGeneralApplicationD11',
 }
 
 export const enum SearchGovRecordsWhichDepartment {
@@ -2115,6 +2124,10 @@ export const enum GeneralApplicationType {
   OTHER = 'other',
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'disclosureViaDwp',
+  WITHDRAW_POST_ISSUE = 'withdrawPostIssue',
+  DELAY = 'delay',
+  EXTEND = 'extend',
+  AMEND_APPLICATION = 'amendApplication',
 }
 
 export const enum GeneralOrderDivorceParties {
@@ -2168,6 +2181,13 @@ export const enum JudgeCostsClaimGranted {
   YES = 'Yes',
   NO = 'No',
   ADJOURN = 'Adjourn',
+}
+
+export const enum GeneralApplicationHearingNotRequired {
+  YES_PARTNER_AGREES_WITH_APPLICATION = 'yesPartnerAgreesWithApplication',
+  YES_PARTNER_AGREES_WITH_NO_HEARING = 'yesPartnerAgreesWithNoHearing',
+  YES_DOES_NOT_NEED_CONSENT = 'yesDoesNotNeedConsent',
+  NO = 'no',
 }
 
 /**
