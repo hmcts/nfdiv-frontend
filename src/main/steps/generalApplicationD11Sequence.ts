@@ -47,7 +47,10 @@ export const generalApplicationD11Sequence: Step[] = [
   },
   {
     url: GEN_APP_COST_OF_APPLICATION,
-    getNextStep: () => GEN_APP_PARTNER_INFORMATION_CORRECT,
+    getNextStep: data =>
+      data.applicant2AddressPrivate === YesOrNo.YES
+        ? GEN_APP_SELECT_APPLICATION_TYPE
+        : GEN_APP_PARTNER_INFORMATION_CORRECT,
   },
   {
     url: GEN_APP_PARTNER_INFORMATION_CORRECT,

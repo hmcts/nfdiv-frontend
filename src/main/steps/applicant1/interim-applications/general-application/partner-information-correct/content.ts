@@ -15,7 +15,7 @@ const en = ({ partner }: CommonContent) => ({
   questionLabel: `Are these details for your ${partner} correct and up to date?`,
   errors: {
     applicant1GenAppPartnerDetailsCorrect: {
-      required: 'Select an option.',
+      required: 'Select yes if these address details are up to date.',
     },
   },
 });
@@ -31,7 +31,7 @@ const cy = ({ partner }: CommonContent) => ({
   questionLabel: `Are these details for your ${partner} correct and up to date?`,
   errors: {
     applicant1GenAppPartnerDetailsCorrect: {
-      required: 'Select an option.',
+      required: 'Select yes if these address details are up to date.',
     },
   },
 });

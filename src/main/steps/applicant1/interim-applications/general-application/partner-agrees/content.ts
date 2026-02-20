@@ -15,7 +15,7 @@ const en = ({ partner }: CommonContent) => ({
   applicationDoesNotNeedConsent: 'Yes, because my application does not need consent',
   errors: {
     applicant1GenAppHearingNotRequired: {
-      required: 'Select an option.',
+      required: 'You must tell us whether your partner consents or not, or if consent is not needed.',
     },
   },
 });
@@ -32,7 +32,7 @@ const cy = ({ partner }: CommonContent) => ({
   applicationDoesNotNeedConsent: 'Yes, because my application does not need consent',
   errors: {
     applicant1GenAppHearingNotRequired: {
-      required: 'Select an option.',
+      required: 'You must tell us whether your partner consents or not, or if consent is not needed.',
     },
   },
 });

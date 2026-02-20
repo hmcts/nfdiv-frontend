@@ -88,9 +88,20 @@ describe('General Application D11 Sequence test', () => {
   });
 
   describe('GEN_APP_COST_OF_APPLICATION', () => {
-    test('GEN_APP_COST_OF_APPLICATION', () => {
+    test('Partner address is private', () => {
+      const caseData = {
+        applicant2AddressPrivate: YesOrNo.YES,
+      };
       const step = generalApplicationD11Sequence.find(obj => obj.url === GEN_APP_COST_OF_APPLICATION) as Step;
-      expect(step.getNextStep({})).toBe(GEN_APP_PARTNER_INFORMATION_CORRECT);
+      expect(step.getNextStep(caseData)).toBe(GEN_APP_SELECT_APPLICATION_TYPE);
+    });
+
+    test('Partner address is not private', () => {
+      const caseData = {
+        applicant2AddressPrivate: YesOrNo.NO,
+      };
+      const step = generalApplicationD11Sequence.find(obj => obj.url === GEN_APP_COST_OF_APPLICATION) as Step;
+      expect(step.getNextStep(caseData)).toBe(GEN_APP_PARTNER_INFORMATION_CORRECT);
     });
   });
 
