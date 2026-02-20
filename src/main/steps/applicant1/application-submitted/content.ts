@@ -1,9 +1,9 @@
 import config from 'config';
 import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../app/case/case';
-import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
+import { Applicant2Represented, ApplicationType, DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { SupportedLanguages } from '../../../modules/i18n';
@@ -350,10 +350,7 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const addressRequired =
-    !isJointApplication &&
-    (userCase.applicant1KnowsApplicant2Address !== YesOrNo.YES ||
-      userCase.applicant1FoundApplicant2Address !== YesOrNo.YES ||
-      userCase.iWantToHavePapersServedAnotherWay === Checkbox.Checked);
+    userCase.applicationType === ApplicationType.SOLE_APPLICATION && isEmpty(userCase.applicant2Address);
 
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
 
