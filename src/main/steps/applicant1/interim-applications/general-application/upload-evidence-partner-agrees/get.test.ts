@@ -19,7 +19,7 @@ describe('GenAppUploadPartnerAgreesEvidenceGetController', () => {
 
       await controller.get(req, res);
 
-      expect(req.session.fileUploadJourney).toBe(FileUploadJourney.GEN_APP_PARTNER_AGREES);
+      expect(req.session.fileUploadJourney).toBe(FileUploadJourney.GEN_APP_D11_PARTNER_AGREES);
     });
   });
 });

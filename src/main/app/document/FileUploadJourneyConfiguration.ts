@@ -8,13 +8,13 @@ import type { AppRequest } from '../controller/AppRequest';
 
 export enum FileUploadJourney {
   ALTERNATIVE_SERVICE = 'alternativeService',
-  GEN_APP_PARTNER_AGREES = 'genAppPartnerAgrees',
-  GEN_APP_DOCS_UPLOAD = 'genAppDocsUpload',
+  GEN_APP_D11_PARTNER_AGREES = 'genAppPartnerAgrees',
+  GEN_APP_D11_DOCS_UPLOAD = 'genAppD11DocsUpload',
 }
 
 export enum FileUploadPath {
   APPLICANT_1_INTERIM_APPS_EVIDENCE = 'applicant1InterimAppsEvidenceDocs',
-  APPLICANT_1_GEN_APP_PARTNER_AGREES_EVIDENCE = 'applicant1GenAppPartnerAgreesDocs',
+  APPLICANT_1_GEN_APP_D11_PARTNER_AGREES_EVIDENCE = 'applicant1GenAppPartnerAgreesDocs',
 }
 
 export interface FileUploadJourneyConfiguration {
@@ -29,12 +29,12 @@ const FileUploadJourneyConfigurationMap: Record<FileUploadJourney, FileUploadJou
     getRedirectPath: () => UPLOAD_EVIDENCE_ALTERNATIVE,
     validateUpload: req => validateServiceApplicationDocumentUpload(req),
   },
-  [FileUploadJourney.GEN_APP_PARTNER_AGREES]: {
-    uploadPath: FileUploadPath.APPLICANT_1_GEN_APP_PARTNER_AGREES_EVIDENCE,
+  [FileUploadJourney.GEN_APP_D11_PARTNER_AGREES]: {
+    uploadPath: FileUploadPath.APPLICANT_1_GEN_APP_D11_PARTNER_AGREES_EVIDENCE,
     getRedirectPath: () => GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES,
     validateUpload: req => validateGeneralApplicationDocumentUpload(req),
   },
-  [FileUploadJourney.GEN_APP_DOCS_UPLOAD]: {
+  [FileUploadJourney.GEN_APP_D11_DOCS_UPLOAD]: {
     uploadPath: FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
     getRedirectPath: () => GEN_APP_UPLOAD_EVIDENCE,
     validateUpload: req => validateGeneralApplicationDocumentUpload(req),
