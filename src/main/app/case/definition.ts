@@ -2106,7 +2106,7 @@ export const enum InterimApplicationType {
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'searchGovRecords',
   PROCESS_SERVER_SERVICE = 'processServerService',
-  DIGITISED_GENERAL_APPLICATION = 'digitisedGeneralApplication',
+  DIGITISED_GENERAL_APPLICATION_D11 = 'digitisedGeneralApplicationD11',
 }
 
 export const enum SearchGovRecordsWhichDepartment {

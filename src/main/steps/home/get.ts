@@ -120,7 +120,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
         [InterimApplicationType.BAILIFF_SERVICE]: HUB_PAGE,
         [InterimApplicationType.SEARCH_GOV_RECORDS]: HUB_PAGE,
         [InterimApplicationType.PROCESS_SERVER_SERVICE]: HUB_PAGE,
-        [InterimApplicationType.DIGITISED_GENERAL_APPLICATION]: HUB_PAGE,
+        [InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11]: HUB_PAGE,
       };
 
       const aosOverdueAndDrafted =
