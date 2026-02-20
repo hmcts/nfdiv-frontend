@@ -1,5 +1,5 @@
 import config from 'config';
-import { isEmpty, isObject } from 'lodash';
+import { isObject } from 'lodash';
 
 import { Checkbox } from '../../../../../app/case/case';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
@@ -27,13 +27,19 @@ const en = applicant1UploadDocumentContent => ({
     'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
   errors: {
     applicant1InterimAppsEvidenceUploadedFiles: {
-      notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
+      notUploaded:
+        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
     },
     applicant1InterimAppsCannotUploadDocs: {
-      notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
+      notUploaded:
+        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
+    },
+    applicant1GenAppStatementOfEvidence: {
+      notUploaded:
+        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
     },
   },
 });
@@ -58,13 +64,19 @@ const cy: typeof en = applicant1UploadDocumentContent => ({
     'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
   errors: {
     applicant1InterimAppsEvidenceUploadedFiles: {
-      notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
+      notUploaded:
+        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
       errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
       fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
       fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
     },
     applicant1InterimAppsCannotUploadDocs: {
-      notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
+      notUploaded:
+        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
+    },
+    applicant1GenAppStatementOfEvidence: {
+      notUploaded:
+        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
     },
   },
 });
@@ -76,12 +88,6 @@ export const form: FormContent = {
       classes: 'govuk-input--width-40',
       label: l => l.statementLabel,
       labelHidden: true,
-      validator: value => {
-        const hasEnteredDetails = !isEmpty(value);
-        if (!hasEnteredDetails) {
-          return 'required';
-        }
-      },
     },
     applicant1InterimAppsEvidenceUploadedFiles: {
       type: 'hidden',
@@ -95,7 +101,8 @@ export const form: FormContent = {
       validator: (value, formData) => {
         const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
         const selectedCannotUploadDocuments = !!formData.applicant1InterimAppsCannotUploadDocs?.length;
-        if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
+        const hasStatement = !!formData.applicant1GenAppStatementOfEvidence?.length;
+        if (!hasUploadedFiles && !selectedCannotUploadDocuments && !hasStatement) {
           return 'notUploaded';
         }
       },
