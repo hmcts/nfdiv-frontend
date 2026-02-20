@@ -7,6 +7,6 @@ import StartInterimApplicationPostController from '../../common/start-interim-ap
 @autobind
 export default class DigitisedGeneralApplicationPostController extends StartInterimApplicationPostController<AnyObject> {
   protected interimApplicationType(): InterimApplicationType {
-    return InterimApplicationType.DIGITISED_GENERAL_APPLICATION;
+    return InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
   }
 }

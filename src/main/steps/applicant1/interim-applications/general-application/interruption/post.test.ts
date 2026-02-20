@@ -24,7 +24,7 @@ describe('DigitisedGeneralApplicationPostController', () => {
 
     const expectedBody = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
-      applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION,
+      applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
     };
 
     const digitisedGeneralApplicationPostController = new DigitisedGeneralApplicationPostController(
@@ -45,7 +45,7 @@ describe('DigitisedGeneralApplicationPostController', () => {
 
     const expectedBody = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
-      applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION,
+      applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
     };
 
     const digitisedGeneralApplicationPostController = new DigitisedGeneralApplicationPostController(
@@ -69,7 +69,7 @@ describe('DigitisedGeneralApplicationPostController', () => {
 
     const expectedBody = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
-      applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION,
+      applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
     };
 
     const digitisedGeneralApplicationPostController = new DigitisedGeneralApplicationPostController(
@@ -78,7 +78,7 @@ describe('DigitisedGeneralApplicationPostController', () => {
 
     const req = mockRequest({
       body,
-      userCase: { applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION },
+      userCase: { applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11 },
     });
     const res = mockResponse();
     await digitisedGeneralApplicationPostController.post(req, res);
