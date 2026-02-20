@@ -194,18 +194,6 @@ const en = (
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
   },
-  d8Submitted: {
-    line1: `Your ${partner} has responded to your application and said they want to defend the ${
-      isDivorce ? 'divorce' : 'ending of your civil partnership'
-    }. This means they want to try and prevent ${
-      isDivorce ? 'the divorce' : 'the ending of your civil partnership'
-    }. You can <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">read their response here</a>.`,
-    line2: `They have submitted their ‘answer’. This is the form which explains their case for defending the ${
-      isDivorce ? 'divorce' : 'ending of your civil partnership'
-    }.`,
-    line3: `A judge will decide whether you and your ${partner} need to attend a hearing. You may be contacted for more information to help them make a decision.`,
-    line4: 'You’ll receive a letter in the post telling you if you need to attend the hearing, and where it will be.',
-  },
   servedByBailiff: {
     line1: `The bailiff has successfully served (delivered) your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
@@ -517,7 +505,7 @@ const en = (
     },
     line3: `If they fail to serve, you may be able to apply for alternative service by letterbox if your ${partner}’s address is confirmed. Otherwise, you will need to try another way to serve the papers.`,
   },
-  offlineGeneralApplicationReceived: {
+  generalApplicationReceived: {
     line1:
       'The court is reviewing a general application that has been received and will contact you to let you know your next steps.',
   },
@@ -686,19 +674,6 @@ const cy: typeof en = (
     line3: `Os byddant yn cyflwyno'r 'ateb' yna bydd barnwr yn penderfynu sut i fwrw ymlaen. Os na fyddant yn cyflwyno'r ffurflen mewn pryd, yna byddwch yn gallu bwrw ymlaen â'r ${
       isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
     }.`,
-  },
-  d8Submitted: {
-    line1: `Mae eich ${partner} wedi ymateb i'ch cais ac wedi dweud eu bod eisiau amddiffyn y ${
-      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
-    }. Mae hyn yn golygu eu bod eisiau ceisio atal y ${
-      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
-    }. Gallwch <a class="govuk-link" href="/downloads/respondent-answers" download="Respondent-answers">ddarllen eu hymateb yma</a>.`,
-    line2: `Maent wedi cyflwyno eu 'hateb'. Dyma'r ffurflen sy'n esbonio eu rhesymau dros amddiffyn y ${
-      isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
-    }.`,
-    line3: `Bydd barnwr yn penderfynu a oes angen i chi a'ch ${partner} fynychu gwrandawiad. Efallai y cysylltir â chi i gael rhagor o wybodaeth i'w helpu i wneud penderfyniad.`,
-    line4:
-      "Byddwch yn derbyn llythyr yn y post yn dweud wrthych a oes angen i chi ddod i'r gwrandawiad, a ble y bydd hynny yn digwydd.",
   },
   servedByBailiff: {
     line1: `Mae’r beili wedi cyflwyno (danfon) eich ${
@@ -1029,7 +1004,7 @@ const cy: typeof en = (
     },
     line3: `Os byddant yn methu â chyflwyno’r papurau, efallai y gallwch wneud cais am gyflwyno amgen drwy flwch llythyrau, os yw cyfeiriad eich ${partner} wedi’i gadarnhau. Fel arall, bydd angen i chi gyflwyno’r papurau mewn rhyw ffordd arall.`,
   },
-  offlineGeneralApplicationReceived: {
+  generalApplicationReceived: {
     line1:
       'Mae’r llys yn adolygu cais cyffredinol sydd wedi dod i law a bydd yn cysylltu â chi i roi gwybod i chi beth fydd eich camau nesaf.',
   },
