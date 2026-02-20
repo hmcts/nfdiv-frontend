@@ -1,0 +1,33 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/form/form.njk"%}
+
+{% block form_content %}
+
+  {% for fieldName, field in form.fields %}
+    {% if fieldName == 'applicant1InterimAppsCannotUploadDocs' %}
+      {% include "common/form/fields/" + field.type + ".njk" %}
+    {% elseif fieldName == 'applicant1InterimAppsEvidenceUploadedFiles'%}
+      <p class="govuk-body">
+        <p class="govuk-body">{{ line3 }}</p>
+        <p class="govuk-body">{{ line4 }}</p>
+        <p class="govuk-body">{{ line5 }}</p>
+        <strong>{{ acceptedFileFormats }}</strong> {{ fileFormats }}<br>
+        <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
+      </p>
+
+      {% if not hideUploadAFile %}
+        <h2 id="uploadAFile" class="govuk-heading-s">{{ uploadAFile }}</h2>
+      {% endif %}
+      {% include "common/form/fields/" + field.type + ".njk" %}
+
+      {% include "./document-upload.njk" %}
+    {% else %}
+      {% include "common/form/fields/" + field.type + ".njk" %}
+    {% endif %}
+  {% endfor %}
+
+{% endblock %}
