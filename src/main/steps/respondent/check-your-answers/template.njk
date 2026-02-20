@@ -1,1 +1,95 @@
-{% extends "../../applicant1/check-your-answers/template.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "common/page.njk" %}
+
+{% set nextIncompleteStep = getNextIncompleteStepUrl() %}
+{% set isApplicationReadyToSubmit = isApplicationReadyToSubmit(nextIncompleteStep) %}
+{% set title = titleSubmit if isApplicationReadyToSubmit else titleSoFar %}
+
+{% block backLink %}{% endblock %}
+
+{% block content %}
+  {% block error_summary %}
+    {% include "common/error/summary.njk" %}
+  {% endblock %}
+
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  <p class='govuk-body'>{{ line1 }}</p>
+
+  {% for section, title in sectionTitles %}
+    {% set answerRows = [] %}
+    {% for line, text in stepAnswers[section] %}
+      {% if text and text != 'undefined' and text != 'null' %}
+
+          {% set answerText %}
+            {% if section == 'otherCourtCases' and line == 'uploadedFiles'%}
+              {% set filenames %}
+                {% for filename in uploadedDocsFilenames %}
+                  {{ filename }}
+                {% endfor %}
+              {% endset %}
+              {{ filenames }}
+              {% if cannotUploadDocs === 'Yes' %}
+                {% if uploadedDocsFilenames.length %}
+                  <br><br>
+                {% endif %}
+                {{ havingTroubleUploading }}
+              {% endif %}
+            {% else %}
+              {{ text }}
+            {% endif %}
+          {% endset %}
+
+          {% set answerRows = (answerRows.push({
+            key: {
+              html: stepQuestions[section][line],
+              classes: 'govuk-!-width-two-thirds'
+            },
+            value: {
+              text: answerText | safe
+            },
+            actions: {
+              items: [
+                {
+                  href: applicant2Url + stepLinks[section][line],
+                  text: change,
+                  visuallyHiddenText: stepQuestions[section][line]
+                }
+              ]
+            }
+          }), answerRows) %}
+
+      {% endif %}
+    {% endfor %}
+
+    {% if answerRows.length %}
+      <h2 class="govuk-heading-m">{{sectionTitles[section]}}</h2>
+      {{ govukSummaryList({
+        classes: 'govuk-!-margin-bottom-9',
+        rows: answerRows
+      }) }}
+    {% endif %}
+  {% endfor %}
+
+  {% if isApplicationReadyToSubmit and not isJointApplication %}
+    {% block form %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {% include "../../applicant1/check-your-answers/form.njk" %}
+        </div>
+      </div>
+    {% endblock %}
+  {% elif not isApplicant2 and isApplicationReadyToSubmit and isJointApplication %}
+    {% include "./joint-form.njk" %}
+  {% else %}
+    {{ govukButton({
+      text: continueApplication,
+      href: nextIncompleteStep,
+      preventDoubleClick: true
+    }) }}
+  {% endif %}
+
+  {% include "common/contact-us/details.njk" %}
+{% endblock %}
+

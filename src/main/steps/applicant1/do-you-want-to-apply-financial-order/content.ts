@@ -6,6 +6,7 @@ import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ partner, required }: CommonContent) => ({
   title: 'Applying for a financial order',
@@ -28,8 +29,6 @@ const en = ({ partner, required }: CommonContent) => ({
     'you’ll only be able to apply until you remarry or form a new civil partnership (this does not apply to pension sharing or pension compensation orders, which can be applied at any time)',
   hint: ' If you want to apply for either a ‘financial order by consent’ or a ‘contested financial order’ then select yes',
   doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
-  yes: 'Yes, I want to apply for a financial order',
-  no: 'No, I do not want to apply for a financial order',
   subField: 'Who is the financial order for?',
   subFieldHint: 'Select all that apply',
   me: 'Myself',
@@ -65,8 +64,6 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
     'dim ond nes i chi ailbriodi neu ffurfio partneriaeth sifil newydd y byddwch yn gallu gwneud cais (nid yw hyn yn berthnasol i orchmynion rhannu pensiwn neu iawndal pensiwn, y gellir eu cymhwyso ar unrhyw adeg)',
   hint: 'Os ydych am wneud cais am naill ai ‘orchymyn ariannol drwy gydsyniad’ neu ‘orchymyn ariannol a wrthwynebir’ yna dewiswch ‘ydw’.',
   doYouWantToApplyForFinancialOrder: 'Ydych chi eisiau gwneud cais am orchymyn ariannol?',
-  yes: 'Ydw, rwyf am wneud cais am orchymyn ariannol',
-  no: 'Na, nid wyf am wneud cais am orchymyn ariannol',
   subField: 'Ar gyfer pwy mae’r gorchymyn ariannol?',
   subFieldHint: 'Dewiswch bob un sy’n berthnasol',
   me: 'Fi fy hun',
@@ -90,7 +87,7 @@ export const form: FormContent = {
       hint: l => l.hint,
       values: [
         {
-          label: l => l.yes,
+          label: l => l[YesOrNo.YES],
           value: YesOrNo.YES,
           subFields: {
             applicant1WhoIsFinancialOrderFor: {
@@ -113,7 +110,7 @@ export const form: FormContent = {
             },
           },
         },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: isFieldFilledIn,
     },
@@ -128,10 +125,23 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers: InputLabelsByLanguage<YesOrNo> = {
+  en: {
+    [YesOrNo.YES]: 'Yes, I want to apply for a financial order',
+    [YesOrNo.NO]: 'No, I do not want to apply for a financial order',
+  },
+  cy: {
+    [YesOrNo.YES]: 'Ydw, rwyf am wneud cais am orchymyn ariannol',
+    [YesOrNo.NO]: 'Na, nid wyf am wneud cais am orchymyn ariannol',
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };
