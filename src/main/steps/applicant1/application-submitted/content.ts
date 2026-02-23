@@ -1,9 +1,8 @@
 import config from 'config';
 import dayjs from 'dayjs';
-import { isEmpty } from 'lodash';
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { Applicant2Represented, ApplicationType, DocumentType, State, YesOrNo } from '../../../app/case/definition';
+import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { SupportedLanguages } from '../../../modules/i18n';
@@ -14,23 +13,22 @@ import { currentStateFn } from '../../state-sequence';
 import { HUB_PAGE, NO_RESP_ADDRESS_ENTER_ADDRESS, NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
-const en = (
-  {
-    applicationHasBeenPaidFor,
-    isDivorce,
-    userCase,
-    partner,
-    referenceNumber,
-    isJointApplication,
-    webChat,
-    openingTimes,
-    telephoneNumber,
-    feedbackLink,
-  }: CommonContent,
-  addressRequired: boolean
-) => ({
+const en = ({
+  applicationHasBeenPaidFor,
+  isDivorce,
+  userCase,
+  partner,
+  referenceNumber,
+  isJointApplication,
+  webChat,
+  openingTimes,
+  telephoneNumber,
+  feedbackLink,
+  userCannotUploadDocuments,
+  addressRequired,
+}: CommonContent) => ({
   title: `${
-    addressRequired || userCase.applicant1CannotUpload || userCase.applicant2CannotUpload
+    addressRequired || userCannotUploadDocuments || userCase.iWantToHavePapersServedAnotherWay
       ? 'Further action needed'
       : 'Application submitted'
   }`,
@@ -181,9 +179,11 @@ const cy: typeof en = ({
   telephoneNumber,
   openingTimes,
   feedbackLink,
+  userCannotUploadDocuments,
+  addressRequired,
 }: CommonContent) => ({
   title: `${
-    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
+    addressRequired || userCannotUploadDocuments || userCase.iWantToHavePapersServedAnotherWay
       ? 'Cais wedi’i gadw'
       : 'Cyflwynwyd y cais'
   }`,
@@ -349,14 +349,11 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
-  const addressRequired =
-    userCase.applicationType === ApplicationType.SOLE_APPLICATION &&
-    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(isEmpty);
 
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
 
   return {
-    ...languages[language]({ ...content, referenceNumber }, addressRequired),
+    ...languages[language]({ ...content, referenceNumber }),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,
@@ -365,6 +362,5 @@ export const generateContent: TranslationFn = content => {
     referenceNumber,
     cannotUploadDocuments,
     ...progressBarContent,
-    addressRequired,
   };
 };
