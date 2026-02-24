@@ -517,7 +517,8 @@ export const generateCommonContent = ({
     userCase?.applicant1CannotUpload === Checkbox.Checked || userCase?.applicant2CannotUpload === Checkbox.Checked;
 
   const addressRequired =
-    userCase?.applicationType === ApplicationType.SOLE_APPLICATION && isEmpty(userCase?.applicant2Address);
+    userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
+    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(isEmpty);
 
   return {
     ...commonTranslations,
