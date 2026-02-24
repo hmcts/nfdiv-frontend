@@ -7717,12 +7717,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config@npm:4.3.0":
-  version: 4.3.0
-  resolution: "config@npm:4.3.0"
+"config@npm:4.4.0":
+  version: 4.4.0
+  resolution: "config@npm:4.4.0"
   dependencies:
     json5: ^2.2.3
-  checksum: 1acb0488ce44908b8e56a0789bd90dfc5be0f867797d541f2db03430c31b584ec6d21401df4376022fa5f886340e6f8533de7f996020d9e0fb10eacbe06ed52f
+  checksum: 74b40836952ba6dec2bf45e5b4a23502bb0e112d9a8213a109804061b1d7dc47497644fb01917795326b51608b4a9c4c41735e61c84ef2ca4554ac083f4b0871
   languageName: node
   linkType: hard
 
@@ -14711,7 +14711,7 @@ __metadata:
     axios: 1.13.5
     axios-debug-log: 1.0.0
     codeceptjs: 3.6.10
-    config: 4.3.0
+    config: 4.4.0
     connect-redis: 7.1.1
     cookie-parser: 1.4.7
     copy-webpack-plugin: 13.0.1
