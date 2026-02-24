@@ -7,7 +7,7 @@ import { FileUploadJourney } from '../../../../../app/document/FileUploadJourney
 import { generateContent } from './content';
 
 @autobind
-export default class GenAppUploadPartnerAgreesEvidenceGetController extends GetController {
+export default class GenAppUploadEvidenceGetController extends GetController {
   constructor() {
     super(__dirname + '/template.njk', generateContent);
   }

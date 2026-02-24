@@ -9,7 +9,7 @@ import { generalApplicationD11Sequence } from '../../../../generalApplicationD11
 import CheckAnswersPostController from '../../common/check-answers/post';
 
 @autobind
-export default class CheckAltServiceAnswersPostController extends CheckAnswersPostController {
+export default class CheckGeneralApplicationD11AnswersPostController extends CheckAnswersPostController {
   protected getEventName(): string {
     return CITIZEN_GENERAL_APPLICATION;
   }
