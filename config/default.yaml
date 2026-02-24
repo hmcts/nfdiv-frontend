@@ -92,12 +92,7 @@ launchDarkly:
   initTimeoutSeconds: 30
   defaultUserKey: 'nfdFrontend'
   flagPrefix: "NFD_"
-  flags:
-    NFD_useGenesysWebchat: false
 webchat:
-  avayaUrl: 'webchat.pp.ctsc.hmcts.net'
-  avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
-  avayaService: 'Divorce'
   genesysReferrerPage: 'Divorce Site'
   genesysReferrerPageCy: 'Divorce WLU Site'
   genesysDeploymentId: 'NEED TO INSERT SECRET'

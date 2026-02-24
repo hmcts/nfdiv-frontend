@@ -12,6 +12,7 @@ const en = ({ partner, required }: CommonContent) => ({
   supportAvailable: 'support is available',
   errors: {
     applicant1AddressPrivate: { required },
+    applicant1InRefuge: { required },
   },
   inRefugeLabel: 'Are you currently in a refuge?', // Label for the 'inRefuge' question
 });
@@ -24,6 +25,7 @@ const cy: typeof en = ({ partner, required }: CommonContent) => ({
   supportAvailable: 'mae cymorth ar gael',
   errors: {
     applicant1AddressPrivate: { required },
+    applicant1InRefuge: { required },
   },
   inRefugeLabel: 'Ydych chi’n preswylio mewn lloches ar hyn o bryd?',
 });
