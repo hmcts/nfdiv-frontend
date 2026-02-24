@@ -37,8 +37,8 @@ def secrets = [
                 secret('frontend-secret', 'SERVICE_AUTH_SECRET'),
                 secret('idam-secret', 'IDAM_SECRET'),
                 secret('pcq-token-key', 'PCQ_TOKEN'),
-                secret('playwright-service-url', 'PLAYWRIGHT_SERVICE_URL'),
-                secret('playwright-token', 'PLAYWRIGHT_SERVICE_ACCESS_TOKEN'),
+                secret('playwright-workspace-service-url', 'PLAYWRIGHT_SERVICE_URL'),
+                secret('playwright-workspace-token', 'PLAYWRIGHT_SERVICE_ACCESS_TOKEN'),
                 secret('genesys-deployment-id', 'GENESYS_DEPLOYMENT_ID'),
                 secret('genesys-deployment-id-cy', 'GENESYS_DEPLOYMENT_ID_CY'),
                 secret('genesys-api-key', 'GENESYS_API_KEY'),
@@ -50,13 +50,13 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-  //enableFortifyScan()
-  //afterSuccess('fortify-scan') { steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*' }
   enableCrossBrowserTest()
   enableFullFunctionalTest()
   loadVaultSecrets(secrets)
   enableFortifyScan()
+
   before('crossBrowserTest') {
+    sh './src/test/setup-web-browsers.sh'
     yarnBuilder.smokeTest()
   }
 
