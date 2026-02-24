@@ -361,3 +361,5 @@ export const GEN_APP_CHECK_ANSWERS: PageLink = '/interim-applications/general-ap
 export const WITHDRAW_THIS_APPLICATION: PageLink = '/withdraw-pre-issue/withdraw-this-application';
 export const CHECK_ANSWERS_WITHDRAW: PageLink = '/withdraw-pre-issue/check-your-answers';
 export const WITHDRAW_CONFIRMATION: PageLink = '/withdraw-pre-issue/application-withdrawn';
+export const WITHDRAW_THIS_APPLICATION_POST_ISSUE: PageLink =
+  '/interim-applications/withdraw-post-issue/withdraw-application/';
