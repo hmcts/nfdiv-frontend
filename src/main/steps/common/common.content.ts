@@ -1,8 +1,9 @@
 import config from 'config';
 import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
-import { CaseWithId } from '../../app/case/case';
+import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
   ApplicationType,
   GeneralApplication,
@@ -511,6 +512,14 @@ export const generateCommonContent = ({
         ? 'searchGovRecords'
         : (userCase?.applicant1InterimApplicationType as string)
     ];
+
+  const userCannotUploadDocuments =
+    userCase?.applicant1CannotUpload === Checkbox.Checked || userCase?.applicant2CannotUpload === Checkbox.Checked;
+
+  const addressRequired =
+    userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
+    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(isEmpty);
+
   return {
     ...commonTranslations,
     applicationHasBeenPaidFor,
@@ -551,6 +560,8 @@ export const generateCommonContent = ({
     generalApplicationFeeRequired,
     generalApplicationDocsAllProvided,
     generalApplicationSubmittedOnline,
+    userCannotUploadDocuments,
+    addressRequired,
   };
 };
 
@@ -593,4 +604,6 @@ export type CommonContent = typeof en & {
   genesysReferrerPage: string;
   genesysDeploymentId: string;
   lastGeneralApplication?: GeneralApplication | undefined;
+  userCannotUploadDocuments: boolean;
+  addressRequired: boolean;
 };

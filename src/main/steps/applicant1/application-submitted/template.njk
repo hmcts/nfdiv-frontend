@@ -6,7 +6,7 @@
 {% block backLink %}{% endblock %}
 
 {% block page_content %}
-  <div class="govuk-panel govuk-panel--confirmation">
+  <div class="govuk-panel govuk-panel--confirmation {% if userCannotUploadDocuments or addressRequired %} govuk-panel--blue{% endif %}">
     <h1 id="applicationSubmittedTitle" class="govuk-panel__title">{{ title }}</h1>
     <div class="govuk-body">
       {{ yourReferenceNumber }}
@@ -16,10 +16,16 @@
     </div>
   </div>
   <br/>
-  {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
+  {% if userCannotUploadDocuments or addressRequired %}
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
-    {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload %}
+    {% if addressRequired %}
+      <h3 class="govuk-heading-m">{{ addressRequiredContent.provideAddressHeading }}</h3>
+      <p class="govuk-body">{{ addressRequiredContent.line1 }}</p>
+      <p class="govuk-body">{{ addressRequiredContent.line2 | safe }}</p>
+      <p class="govuk-body">{{ addressRequiredContent.line3 | safe }}</p>
+    {% endif %}
+    {% if userCannotUploadDocuments %}
       <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">
@@ -51,12 +57,6 @@
         html: sendingDocumentsByPost
       }) }}
     {% endif %}
-    {% if userCase.iWantToHavePapersServedAnotherWay %}
-      <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
-      <p class="govuk-body">{{ line3.p1 }}</p>
-      <p class="govuk-body">{{ line3.p2 }}</p>
-      <p class="govuk-body"><a class="govuk-link" href={{ line4.link }}>{{ line4.part1 }}</a></p>
-    {% endif %}
   {% else %}
     <h2 class="govuk-heading-l">{{ subHeading4 }}</h2>
     {% if not userCase.iWantToHavePapersServedAnotherWay %}
@@ -65,7 +65,7 @@
     {% if not isJointApplication %}
       {% if hasASolicitorContactForPartner %}
         <p class="govuk-body">{{ line7 }}</p>
-      {% elif not isRespondentRepresented and not isRespondentOverseas%}
+        {% elif not isRespondentRepresented and not isRespondentOverseas%}
         <p class="govuk-body">{{ line6 }}</p>
       {% endif %}
       {% if applicationServedAnotherWay %}

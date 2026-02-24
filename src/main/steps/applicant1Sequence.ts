@@ -70,7 +70,6 @@ import {
   HOME_URL,
   HOW_DO_YOU_WANT_TO_APPLY,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
-  HOW_TO_APPLY_TO_SERVE,
   HOW_TO_FINALISE_APPLICATION,
   HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS,
   HUB_PAGE,
@@ -83,7 +82,6 @@ import {
   JURISDICTION_MAY_NOT_BE_ABLE_TO,
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   MONEY_PROPERTY,
-  NEED_TO_GET_ADDRESS,
   NO_CERTIFICATE_URL,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
@@ -372,10 +370,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
     getNextStep: () => OTHER_COURT_CASES,
   },
   {
-    url: NEED_TO_GET_ADDRESS,
-    getNextStep: () => HOW_TO_APPLY_TO_SERVE,
-  },
-  {
     url: ENTER_THEIR_ADDRESS,
     getNextStep: data => (data.applicant2AddressOverseas === YesOrNo.YES ? ADDRESS_INTERNATIONAL : THEIR_EMAIL_ADDRESS),
   },
@@ -400,10 +394,6 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: YOU_NEED_THEIR_EMAIL_ADDRESS,
     getNextStep: () => THEIR_EMAIL_ADDRESS,
-  },
-  {
-    url: HOW_TO_APPLY_TO_SERVE,
-    getNextStep: () => OTHER_COURT_CASES,
   },
   {
     url: OTHER_COURT_CASES,
