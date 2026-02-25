@@ -14752,7 +14752,7 @@ __metadata:
     multer: 2.0.2
     negotiator: 1.0.0
     node-cache: 5.1.2
-    nodemon: 3.1.13
+    nodemon: 3.1.14
     npm-run-all2: 8.0.4
     nunjucks: 3.2.4
     otplib: 12.0.1
@@ -14943,9 +14943,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemon@npm:3.1.13":
-  version: 3.1.13
-  resolution: "nodemon@npm:3.1.13"
+"nodemon@npm:3.1.14":
+  version: 3.1.14
+  resolution: "nodemon@npm:3.1.14"
   dependencies:
     chokidar: ^3.5.2
     debug: ^4
@@ -14959,7 +14959,7 @@ __metadata:
     undefsafe: ^2.0.5
   bin:
     nodemon: bin/nodemon.js
-  checksum: 5e7a5d6a39230b7c3680bd4e534c5724a4318a1b10a12c3ceec39df9f9228fd32f8c6e3eb2022d21aee5f161a9fe3625fd8a7197989f6cb95289096bc6f2a44c
+  checksum: c9f5a4662784f7843b6a90d6a05ecc96cb491d0b789a524da23db849f5818bb7e2e681492c4f349650cc291afb3107700dcf037d6ad59811c224125b3c627f94
   languageName: node
   linkType: hard
 
