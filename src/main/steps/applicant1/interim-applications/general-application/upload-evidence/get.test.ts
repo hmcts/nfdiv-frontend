@@ -19,7 +19,7 @@ describe('GenAppUploadEvidenceGetController', () => {
 
       await controller.get(req, res);
 
-      expect(req.session.fileUploadJourney).toBe(FileUploadJourney.GEN_APP_D11_DOCS_UPLOAD);
+      expect(req.session.fileUploadJourney).toBe(FileUploadJourney.GEN_APP_D11_SUPPORTING_EVIDENCE);
     });
   });
 });

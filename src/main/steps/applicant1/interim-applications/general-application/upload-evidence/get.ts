@@ -13,6 +13,6 @@ export default class GenAppUploadEvidenceGetController extends GetController {
   }
 
   protected setSessionOverrides(req: AppRequest): void {
-    req.session.fileUploadJourney = FileUploadJourney.GEN_APP_D11_DOCS_UPLOAD;
+    req.session.fileUploadJourney = FileUploadJourney.GEN_APP_D11_SUPPORTING_EVIDENCE;
   }
 }

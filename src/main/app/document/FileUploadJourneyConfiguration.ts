@@ -9,7 +9,7 @@ import type { AppRequest } from '../controller/AppRequest';
 export enum FileUploadJourney {
   ALTERNATIVE_SERVICE = 'alternativeService',
   GEN_APP_D11_PARTNER_AGREES = 'genAppPartnerAgrees',
-  GEN_APP_D11_DOCS_UPLOAD = 'genAppD11DocsUpload',
+  GEN_APP_D11_SUPPORTING_EVIDENCE = 'genAppD11DocsUpload',
 }
 
 export enum FileUploadPath {
@@ -34,7 +34,7 @@ const FileUploadJourneyConfigurationMap: Record<FileUploadJourney, FileUploadJou
     getRedirectPath: () => GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES,
     validateUpload: req => validateGeneralApplicationDocumentUpload(req),
   },
-  [FileUploadJourney.GEN_APP_D11_DOCS_UPLOAD]: {
+  [FileUploadJourney.GEN_APP_D11_SUPPORTING_EVIDENCE]: {
     uploadPath: FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
     getRedirectPath: () => GEN_APP_UPLOAD_EVIDENCE,
     validateUpload: req => validateGeneralApplicationDocumentUpload(req),
