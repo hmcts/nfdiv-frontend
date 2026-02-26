@@ -3,6 +3,7 @@ import { ApplicationType, State, YesOrNo } from '../app/case/definition';
 import { needsToExplainDelay } from '../app/controller/controller.utils';
 
 import { Step } from './applicant1Sequence';
+import { applicant2WithdrawApplicationSequence } from './applicant2WithdrawApplicationSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -34,6 +35,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_FINALISE_APPLICATION,
   HUB_PAGE,
+  HUB_PAGE_DOWNLOADS,
   JOINT_APPLICATION_SUBMITTED,
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
@@ -201,6 +203,10 @@ const postSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
+    url: HUB_PAGE_DOWNLOADS,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
     url: APP_REPRESENTED,
     getNextStep: () => HOME_URL,
   },
@@ -265,6 +271,7 @@ const postSubmissionSequence: Step[] = [
     url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
   },
+  ...applicant2WithdrawApplicationSequence,
 ];
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>

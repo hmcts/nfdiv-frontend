@@ -1,0 +1,9 @@
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+<p class="govuk-body"><a class="govuk-link" id="checkContactDetailsHubLink" href="{{ reviewContactDetails.url }}">{{ reviewContactDetails.text }}</a></p>
+{% if showDownloadLink %}
+  <p class="govuk-body"><a class="govuk-link" id="downloadsHubLink" href="{{ hubPageDownloads.url }}">{{ hubPageDownloads.text }}</a></p>
+{% endif %}
+{% if showWithdrawLink %}
+  <p class="govuk-body"><a class="govuk-link" id="postSubmissionWithdrawLink" href="{{ withdrawApplication.url }}">{{ withdrawApplication.text }}</a></p>
+{% endif %}

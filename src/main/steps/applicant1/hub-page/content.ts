@@ -12,6 +12,7 @@ import { formattedCaseId, getName, latestLegalAdvisorDecisionContent } from '../
 import { StateSequence } from '../../state-sequence';
 import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
 
+import { generateContent as hubLinksContent } from './hub-links/content';
 import { generateContent as jointGenerateContent } from './joint/content';
 import { getProgressBarContent } from './progressBarLabels';
 import { generateContent as columnGenerateContent } from './right-column/content';
@@ -390,5 +391,6 @@ export const generateContent: TranslationFn = content => {
     shouldHaveAccessToCoApplication,
     ...latestLegalAdvisorDecisionContent(userCase, true),
     ...progressBarContent,
+    ...hubLinksContent(content),
   };
 };

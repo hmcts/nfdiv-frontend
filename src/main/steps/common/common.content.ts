@@ -147,6 +147,7 @@ export const en = {
   openingTimesHeading: 'Opening times (webchat and telephone)',
   openingTimes: 'Monday to Friday, 10am to 6pm',
   closingTimes: 'Closed on bank holidays',
+  post: 'Post',
   cookiesBanner: {
     cookiesHeading: 'Cookies on',
     cookiesLine1: 'We use some essential cookies to make this service work.',
@@ -206,9 +207,6 @@ export const en = {
   contactEmail: 'contactdivorce@justice.gov.uk',
   contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
   saveAndSignOutLink: SAVE_AND_SIGN_OUT,
-  avayaLanguage: 'English',
-  avayaClientUrlFolder: '1',
-  avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
   genesys: {
     chatWithUs: 'Chat with us',
     onlineAdviceClosed: 'Our online advice service is currently closed',
@@ -342,6 +340,7 @@ const cy: typeof en = {
   openingTimesHeading: 'Oriau agor',
   openingTimes: 'Dydd Llun i ddydd Iau 9am-5pm, dydd Gwener 9am-4.30pm',
   closingTimes: 'Ar gau ar ddydd Sadwrn, Sul a Gwyliau Banc',
+  post: "Drwy'r post",
   helpChatWithAnAgent: 'Siarad â chynghorydd ar-lein (agor mewn ffenestr newydd)',
   helpAllAgentsBusy:
     'Mae ein cynghorwyr i gyd yn brysur ar hyn o bryd.  Rhowch gynnig arall arni ymhen ychydig o funudau.',
@@ -387,9 +386,6 @@ const cy: typeof en = {
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'contactdivorce@justice.gov.uk',
   contactWebForm: 'https://contact-us-about-a-divorce-application-cy.form.service.justice.gov.uk/',
-  avayaLanguage: 'Welsh',
-  avayaClientUrlFolder: 'welsh',
-  avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
   genesys: {
     chatWithUs: 'Sgwrsiwch â ni',
     onlineAdviceClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd',

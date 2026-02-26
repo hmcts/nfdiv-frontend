@@ -18,6 +18,7 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
+import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
@@ -68,8 +69,8 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   HOW_TO_APPLY_TO_SERVE,
   HOW_TO_FINALISE_APPLICATION,
-  HOW_YOU_CAN_PROCEED,
   HUB_PAGE,
+  HUB_PAGE_DOWNLOADS,
   IN_THE_UK,
   JOINT_APPLICATION_SUBMITTED,
   JURISDICTION_DOMICILE,
@@ -113,6 +114,7 @@ import {
   YOU_NEED_THEIR_EMAIL_ADDRESS,
   YOU_NEED_TO_SERVE,
 } from './urls';
+import { withdrawApplicationSequence } from './withdrawApplicationSequence';
 
 export interface Step {
   url: string;
@@ -519,11 +521,11 @@ export const applicant1PostSubmissionSequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
-    url: REVIEW_THE_APPLICATION,
-    getNextStep: () => HOME_URL,
+    url: HUB_PAGE_DOWNLOADS,
+    getNextStep: () => HUB_PAGE,
   },
   {
-    url: HOW_YOU_CAN_PROCEED,
+    url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOME_URL,
   },
   {
@@ -607,6 +609,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
     url: VIEW_YOUR_ANSWERS,
     getNextStep: () => HOME_URL,
   },
+  ...generalApplicationD11JourneySequence,
   ...noResponseJourneySequence,
   ...alternativeServiceApplicationSequence,
   ...bailiffServiceApplicationSequence,
@@ -615,9 +618,9 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...alternativeServiceApplicationSequence,
   ...dispenseServiceApplicationSequence,
   ...searchGovRecordsApplicationSequence,
-  ...noResponseJourneySequence,
   ...serviceApplicationPaymentSequence,
   ...generalApplicationPaymentSequence,
+  ...withdrawApplicationSequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
