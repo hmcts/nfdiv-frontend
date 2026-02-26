@@ -8,8 +8,7 @@
       <p class="govuk-body">{{ furtherActionNeeded.line2 | safe }}</p>
       <p class="govuk-body">{{ furtherActionNeeded.line3 | safe }}</p>
     {% endif %}
-    {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload %}
-      <p class="govuk-body">{{ sendDocumentLine1 }}</p>
+    {% if userCannotUploadDocuments %}
       <h3 class="govuk-heading-m">{{ sendDocumentHeading }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">

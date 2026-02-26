@@ -13,25 +13,24 @@ import { currentStateFn } from '../../state-sequence';
 import { HUB_PAGE, NO_RESP_ADDRESS_ENTER_ADDRESS, NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
-const en = (
-  {
-    applicationHasBeenPaidFor,
-    isDivorce,
-    userCase,
-    partner,
-    referenceNumber,
-    isJointApplication,
-    webChat,
-    openingTimes,
-    telephoneNumber,
-    feedbackLink,
-  }: CommonContent,
-  addressRequired: boolean
-) => ({
+const en = ({
+  applicationHasBeenPaidFor,
+  isDivorce,
+  userCase,
+  partner,
+  referenceNumber,
+  isJointApplication,
+  webChat,
+  openingTimes,
+  telephoneNumber,
+  feedbackLink,
+  userCannotUploadDocuments,
+  addressRequired,
+}: CommonContent) => ({
   title: `${
-    addressRequired || userCase.applicant1CannotUpload || userCase.applicant2CannotUpload
+    addressRequired || userCannotUploadDocuments || userCase.iWantToHavePapersServedAnotherWay
       ? 'Further action needed'
-      : 'submitted'
+      : 'Application submitted'
   }`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
@@ -63,16 +62,16 @@ const en = (
   },
   documentsByPostMoreDetails:
     'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
-  line4: {
-    part1: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
-    link: config.get('govukUrls.d11Form'),
-  },
   subHeading3: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
   line3: {
     p1: `You need to apply to serve the ${
       isDivorce ? 'divorce' : 'ending your civil partnership'
     } papers to your ${partner} another way. This is because you did not provide their email and postal address. You could apply to serve them by email only, text message or social media.`,
     p2: 'You will need to fill out a separate paper D11 form and send it to the court. The form can be used to make different applications so only fill out the relevant sections.',
+  },
+  line4: {
+    part1: `Apply to serve the ${isDivorce ? 'divorce' : 'civil partnership'} papers another way`,
+    link: config.get('govukUrls.d11Form'),
   },
   subHeading4: 'What happens next',
   line5: `Your${isJointApplication ? ' joint' : ''} application${
@@ -151,13 +150,14 @@ const en = (
     url: HUB_PAGE,
   },
   addressRequiredContent: {
+    provideAddressHeading: 'Provide a postal address',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
-    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
-      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
-    } to this address at no additional cost.`,
-    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
+    } but have not provided your ${partner}'s postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnership'
+    } to this address at no additional cost if the address is in England and Wales.`,
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
     } another way</a>. This application will cost ${getFee(
       config.get('fees.alternativeService')
@@ -179,9 +179,11 @@ const cy: typeof en = ({
   telephoneNumber,
   openingTimes,
   feedbackLink,
+  userCannotUploadDocuments,
+  addressRequired,
 }: CommonContent) => ({
   title: `${
-    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
+    addressRequired || userCannotUploadDocuments || userCase.iWantToHavePapersServedAnotherWay
       ? 'Cais wedi’i gadw'
       : 'Cyflwynwyd y cais'
   }`,
@@ -300,14 +302,14 @@ const cy: typeof en = ({
     link: feedbackLink,
   },
   addressRequiredContent: {
-    whatYouNeedToDoHeader: 'What you need to do',
+    provideAddressHeading: 'Provide a postal address',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
-    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
-      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
-    } to this address at no additional cost.`,
-    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
+    } but have not provided your ${partner}'s postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnership'
+    } to this address at no additional cost if the address is in England and Wales.`,
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
     } another way</a>. This application will cost ${getFee(
       config.get('fees.alternativeService')
@@ -347,14 +349,11 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
-  const addressRequired =
-    userCase.applicant1KnowsApplicant2Address !== YesOrNo.YES ||
-    userCase.applicant1FoundApplicant2Address !== YesOrNo.YES;
 
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
 
   return {
-    ...languages[language]({ ...content, referenceNumber }, addressRequired),
+    ...languages[language]({ ...content, referenceNumber }),
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,
@@ -363,6 +362,5 @@ export const generateContent: TranslationFn = content => {
     referenceNumber,
     cannotUploadDocuments,
     ...progressBarContent,
-    addressRequired,
   };
 };

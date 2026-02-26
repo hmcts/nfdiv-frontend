@@ -6,7 +6,7 @@
 {% block backLink %}{% endblock %}
 
 {% block page_content %}
-  <div class="govuk-panel govuk-panel--confirmation">
+  <div class="govuk-panel govuk-panel--confirmation {% if userCannotUploadDocuments or addressRequired %} govuk-panel--blue{% endif %}">
     <h1 id="applicationSubmittedTitle" class="govuk-panel__title">{{ title }}</h1>
     <div class="govuk-body">
       {{ yourReferenceNumber }}
@@ -16,15 +16,16 @@
     </div>
   </div>
   <br/>
-  {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay or addressRequired %}
+  {% if userCannotUploadDocuments or addressRequired %}
     <h2 class="govuk-heading-l">{{ subHeading1 }}</h2>
     <p class="govuk-body">{{ line1 }}</p>
     {% if addressRequired %}
+      <h3 class="govuk-heading-m">{{ addressRequiredContent.provideAddressHeading }}</h3>
       <p class="govuk-body">{{ addressRequiredContent.line1 }}</p>
       <p class="govuk-body">{{ addressRequiredContent.line2 | safe }}</p>
       <p class="govuk-body">{{ addressRequiredContent.line3 | safe }}</p>
     {% endif %}
-    {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload %}
+    {% if userCannotUploadDocuments %}
       <h3 class="govuk-heading-m">{{ subHeading2 }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">
@@ -56,12 +57,6 @@
         html: sendingDocumentsByPost
       }) }}
     {% endif %}
-    {% if userCase.iWantToHavePapersServedAnotherWay %}
-      <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
-      <p class="govuk-body">{{ line3.p1 }}</p>
-      <p class="govuk-body">{{ line3.p2 }}</p>
-      <p class="govuk-body"><a class="govuk-link" href={{ line4.link }}>{{ line4.part1 }}</a></p>
-    {% endif %}
   {% else %}
     <h2 class="govuk-heading-l">{{ subHeading4 }}</h2>
     {% if not userCase.iWantToHavePapersServedAnotherWay %}
@@ -92,8 +87,6 @@
   <p class="govuk-body">{{ line17.part1|safe}}</p>
   <h3 class="govuk-heading-m">{{ subHeading6 }}</h3>
   <p class="govuk-body">{{ line16.part1 }}<a class="govuk-link" href={{ line16.link }}>{{ line16.linkText }}</a></p>
-  <h3 class="govuk-heading-m">{{ webChat }}</h3>
-  {% include "webchat/link-to-webchat.njk" %}
   <h3 class="govuk-heading-m">{{ sendUsAMessage }}</h3>
   <p class="govuk-body"><a class="govuk-link" href="{{ contactWebForm }}">{{ useOurOnlineForm }}</a></p>
   <h3 class="govuk-heading-m">{{ telephone }}</h3>

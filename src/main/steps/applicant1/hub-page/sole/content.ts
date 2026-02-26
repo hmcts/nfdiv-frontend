@@ -27,7 +27,7 @@ import {
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   FINALISING_YOUR_APPLICATION,
-  NEW_POSTAL_AND_EMAIL,
+  NO_RESP_ADDRESS_ENTER_ADDRESS,
   NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
@@ -393,7 +393,7 @@ const en = (
     line1:
       "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
   },
-  sendDocumentLine1: 'Your application will not be processed until you have done the following:',
+  sendDocumentsOrProvideAddress: 'Your application will not be processed until you have done the following:',
   sendDocumentHeading: 'Send your documents to the court',
   line2: 'You need to send the following documents to the court because you did not upload them earlier:',
   documents: {
@@ -542,13 +542,14 @@ const en = (
   },
   furtherActionNeeded: {
     whatYouNeedToDoHeader: 'What you need to do',
+    provideAddressHeading: 'Provide a postal address',
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
-    } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
-    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NEW_POSTAL_AND_EMAIL}>update their details</a>. We will send the ${
-      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
-    } to this address at no additional cost.`,
-    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
+    } but have not provided your partner's postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnership'
+    } to this address at no additional cost if the address is in England and Wales.`,
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
     } another way</a>. This application will cost ${getFee(
       config.get('fees.alternativeService')
@@ -928,7 +929,7 @@ const cy: typeof en = (
     line1:
       'Mae eich cais wedi cyrraedd y llys a bydd yn cael ei gyfeirio at farnwr i ystyried eich cais. Dylech glywed gan\n y llys am benderfyniad y barnwr.',
   },
-  sendDocumentLine1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
+  sendDocumentsOrProvideAddress: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
   sendDocumentHeading: 'Anfon eich dogfennau i’r llys',
   line2: 'Mae angen i chi anfon y dogfennau canlynol i’r llys gan na wnaethoch eu llwytho yn gynharach:',
   documents: {
@@ -1073,15 +1074,16 @@ const cy: typeof en = (
   },
   furtherActionNeeded: {
     whatYouNeedToDoHeader: 'What you need to do',
+    provideAddressHeading: 'Provide a postal address', // Need Welsh translation NFDIV-5164
     line1: `You have submitted your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } but have not provided a postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
-    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" target="_blank" href=${NEW_POSTAL_AND_EMAIL}>update their details</a>. We will send the ${
-      isDivorce ? 'divorce papers' : 'papers to end civil partnershop'
-    } to this address at no additional cost.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details (opens in a new tab)</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnership'
+    } to this address at no additional cost if the address is in England and Wales.`,
     line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" target="_blank" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
-    } another way</a>. This application will cost ${getFee(
+    } another way (opens in a new tab)</a>. This application will cost ${getFee(
       config.get('fees.alternativeService')
     )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
       'govukUrls.getHelpWithCourtFees'
@@ -1186,7 +1188,6 @@ export const generateContent: TranslationFn = content => {
 
   const preIssueServiceApplicationStarted = !!userCase.applicant1InterimApplicationType && !content.caseHasBeenIssued;
 
-  const applicant1KnowsApplicant2Address = userCase.applicant1KnowsApplicant2Address === YesOrNo.YES;
   return {
     ...languages[language](
       content,
@@ -1220,7 +1221,6 @@ export const generateContent: TranslationFn = content => {
     isSearchGovRecordsFeeRequired,
     interimApplicationStartPagePath,
     interimApplicationStartedAosOverdue,
-    applicant1KnowsApplicant2Address,
     preIssueServiceApplicationStarted,
   };
 };

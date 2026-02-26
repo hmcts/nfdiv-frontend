@@ -365,6 +365,7 @@ const fields: ToApiConverters = {
   }),
   applicant1KnowsApplicant2Address: data => ({
     applicant1KnowsApplicant2Address: data.applicant1KnowsApplicant2Address,
+    applicant1FoundApplicant2Address: data.applicant1KnowsApplicant2Address,
     ...(data.applicant1KnowsApplicant2Address === YesOrNo.NO
       ? applicant2AddressToApi(
           setUnreachableAnswersToNull([

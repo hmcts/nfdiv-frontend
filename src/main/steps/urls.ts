@@ -163,6 +163,12 @@ export const NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS: PageLink =
 export const NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS: PageLink =
   '/interim-applications/no-respondent-address/have-found-address';
 export const NO_RESP_ADDRESS_ENTER_ADDRESS: PageLink = '/interim-applications/no-respondent-address/enter-address';
+export const NO_RESP_ADDRESS_ENTER_EMAIL: PageLink = '/interim-applications/no-respondent-address/enter-email';
+export const NO_RESP_ADDRESS_INTERNATIONAL_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/divorcing-outside';
+export const NO_RESP_ADDRESS_CHECK_ANSWERS_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/contact-details-check-answers';
+export const NO_RESP_ADDRESS_DETAILS_UPDATED: PageLink = '/interim-applications/no-respondent-address/details-updated';
 export const NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS: PageLink =
   '/interim-applications/no-respondent-address/searching-for-contact-details';
 export const NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT: PageLink =

@@ -4,6 +4,7 @@ import { Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceOutcome,
   AlternativeServiceType,
+  ApplicationType,
   DivorceOrDissolution,
   GeneralApplicationType,
   GeneralParties,
@@ -458,15 +459,38 @@ describe('SoleTemplateSelector test', () => {
 
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFDecision', () => {
     const theState = displayState.at(State.AwaitingHWFDecision);
-    const userCaseWithApplicant1KnowsApplicant2Address = { ...userCase, applicant1KnowsApplicant2Address: YesOrNo.YES };
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1KnowsApplicant2Address, false, false);
+    const testCase = {
+      ...userCase,
+      applicationType: ApplicationType.SOLE_APPLICATION,
+      applicant2Address: {
+        AddressLine1: 'Line1',
+        AddressLine2: 'Line2',
+        AddressLine3: 'Line3',
+        PostTown: 'PostTown',
+        PostCode: 'SW1A 1AA',
+        County: 'County',
+        Country: 'United Kingdom',
+      },
+    };
+    const soleTemplate = getSoleHubTemplate(theState, testCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFEvidence', () => {
     const theState = displayState.at(State.AwaitingHWFEvidence);
-    const userCaseWithApplicant1KnowsApplicant2Address = { ...userCase, applicant1KnowsApplicant2Address: YesOrNo.YES };
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1KnowsApplicant2Address, false, false);
+    const testCase = {
+      ...userCase,
+      applicant2Address: {
+        AddressLine1: 'Line1',
+        AddressLine2: 'Line2',
+        AddressLine3: 'Line3',
+        PostTown: 'PostTown',
+        PostCode: 'SW1A 1AA',
+        County: 'County',
+        Country: 'United Kingdom',
+      },
+    };
+    const soleTemplate = getSoleHubTemplate(theState, testCase, false, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
