@@ -25,7 +25,7 @@ import {
   BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
-  FINALISING_YOUR_APPLICATION,
+  FINALISING_YOUR_APPLICATION, MAKE_AN_APPLICATION,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
@@ -36,8 +36,12 @@ import {
   SEARCH_GOV_RECORDS_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
 } from '../../../urls';
-import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application/submitted/content';
-import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application/submitted/content';
+import {
+  generateContent as generalApplicationSubmittedContent,
+} from '../../interim-applications/general-application/submitted/content';
+import {
+  generateContent as serviceApplicationSubmittedContent,
+} from '../../interim-applications/service-application/submitted/content';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -1134,6 +1138,8 @@ export const generateContent: TranslationFn = content => {
         return PROCESS_SERVER;
       case InterimApplicationType.SEARCH_GOV_RECORDS:
         return SEARCH_GOV_RECORDS_APPLICATION;
+      case InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11:
+        return MAKE_AN_APPLICATION;
     }
   })();
 

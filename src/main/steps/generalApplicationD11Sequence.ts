@@ -93,6 +93,10 @@ export const generalApplicationD11Sequence: Step[] = [
         : GEN_APP_APPLY_FOR_HWF,
   },
   {
+    url: GEN_APP_APPLY_FOR_HWF,
+    getNextStep: () => GEN_APP_HWF_REFERENCE_NUMBER_INPUT,
+  },
+  {
     url: GEN_APP_HWF_REFERENCE_NUMBER_INPUT,
     getNextStep: () => GEN_APP_CHECK_ANSWERS,
   },
