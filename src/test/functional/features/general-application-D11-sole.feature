@@ -12,7 +12,7 @@ Feature: General Application D11 journey
     Then the page should include "Application saved"
     Then I set the case state to "Submitted"
 
-  Scenario: Pre-Issue application applicant D11 Journey
+  Scenario: Pre-Issue application applicant D11 Journey help with fees
     When I sign out
     And I login with applicant "1"
     And I go to "/interim-applications/general-application/make-an-application"
@@ -67,3 +67,55 @@ Feature: General Application D11 journey
     When I click continue
     Then the page should include element "#checkAnswersTitle"
 
+    Given I click element "#applicant1InterimAppsStatementOfTruth"
+    When I click continue
+    Then the page should include element "#generalApplicationSubmittedTitle"
+    And the page should include "You have submitted your application"
+
+  Scenario: Pre-Issue application applicant D11 Journey card payment
+    When I sign out
+    And I login with applicant "1"
+    And I go to "/interim-applications/general-application/make-an-application"
+    Then the page should include element "#preIssueMakeAnApplicationTitle"
+
+    When I click start
+    Then the page should include element "#interruptionTitle"
+
+    Given I click element "#applicant1InterimAppsIUnderstand"
+    When I click continue
+    Then the page should include element "#partnerAgreesNoHearingTitle"
+
+    Given I click element "#yesDoesNotNeedConsent"
+    When I click continue
+    Then the page should include element "#applicationCostTitle"
+
+    When I click continue
+    Then the page should include element "#partnerInformationCorrectTitle"
+
+    Given I click element "#yesDetailsCorrect"
+    When I click continue
+    Then the page should include element "#generalApplicationTypeTitle"
+
+    Given I click element "#applicant1GenAppType-5"
+    When I click continue
+    Then the page should include element "#whyThisApplicationTitle"
+
+    Given I select element "#applicant1GenAppReason"
+    And I type "Reason for making this application"
+    When I click continue
+    Then the page should include element "#wantUploadEvidenceTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#helpWithFeesTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#checkAnswersTitle"
+
+    Given I click element "#applicant1InterimAppsStatementOfTruth"
+    When I click submit
+    Then the page should include element "#payYourGeneralApplicationFeeTitle"
+
+    Given I pay and submit the general application
+    Then the page should include "You have submitted your application"
