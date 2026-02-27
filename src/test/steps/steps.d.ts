@@ -5,7 +5,7 @@ declare namespace CodeceptJS {
     I: I;
     current: any;
     retries: (times: number) => void;
-    login: (user: string) => void;
+    login: (roleName: string) => Promise<void>;
   }
   interface Methods extends Playwright {}
   interface I extends WithTranslation<Methods> {}

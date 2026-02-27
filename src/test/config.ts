@@ -82,6 +82,12 @@ export const autoLoginForApplicant2 = {
   },
 };
 
+export enum TestUserType {
+  CITIZEN = 'citizen',
+  CITIZEN_SINGLETON = 'citizenSingleton',
+  CITIZEN_APPLICANT_2 = 'citizenApplicant2',
+}
+
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
@@ -105,6 +111,25 @@ export const config = {
       password: TestPass,
     };
   },
+  login: async (I: CodeceptJS.I, userType: TestUserType) => {
+    let username: string;
+
+    switch (userType) {
+      case TestUserType.CITIZEN:
+        autoLogin.login(I);
+        break;
+      case TestUserType.CITIZEN_SINGLETON:
+        username = generateTestUsername();
+        await idamUserManager.createUser(username, TestPass);
+        await autoLogin.login(I, username, TestPass);
+        break;
+      case TestUserType.CITIZEN_APPLICANT_2:
+        username = generateTestUsername();
+        await idamUserManager.createUser(username, TestPass);
+        await autoLoginForApplicant2.login(I, username, TestPass);
+        break;
+    }
+  },
   clearNewUsers: async (): Promise<void> => {
     await idamUserManager.clearAndKeepOnlyOriginalUser();
   },
@@ -126,41 +151,6 @@ export const config = {
   },
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   helpers: {},
-  AutoLogin: {
-    enabled: true,
-    saveToFile: false,
-    users: {
-      citizen: autoLogin,
-      citizenSingleton: {
-        login: async (I: CodeceptJS.I): Promise<void> => {
-          const username = generateTestUsername();
-          await idamUserManager.createUser(username, TestPass);
-          autoLogin.login(I, username, TestPass);
-        },
-        check: autoLogin.check,
-        fetch: (): void => {
-          // don't fetch existing login
-        },
-        restore: (): void => {
-          // don't restore existing login
-        },
-      },
-      citizenApplicant2: {
-        login: async (I: CodeceptJS.I): Promise<void> => {
-          const username = generateTestUsername();
-          await idamUserManager.createUser(username, TestPass);
-          autoLoginForApplicant2.login(I, username, TestPass);
-        },
-        check: autoLoginForApplicant2.check,
-        fetch: (): void => {
-          // don't fetch existing login
-        },
-        restore: (): void => {
-          // don't restore existing login
-        },
-      },
-    },
-  },
 };
 
 process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || generateUuid();

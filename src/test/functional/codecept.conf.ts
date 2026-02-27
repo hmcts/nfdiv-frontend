@@ -12,8 +12,6 @@ export const config: CodeceptJS.Config = {
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
   plugins: {
-    autoLogin: testConfig.AutoLogin,
-
     pauseOnFail: {
       enabled: !testConfig.TestHeadlessBrowser,
     },

@@ -101,7 +101,7 @@
     "negotiator": "1.0.0",
     "node-cache": "5.1.2",
     "nunjucks": "3.2.4",
-    "otplib": "12.0.1",
+    "otpauth": "^9.5.0",
     "pdfjs-dist": "5.4.54",
     "redis": "5.11.0",
     "require-directory": "2.1.1",
@@ -126,7 +126,7 @@
     "@wdio/sauce-service": "9.24.0",
     "allure-commandline": "2.37.0",
     "axios-debug-log": "1.0.0",
-    "codeceptjs": "3.6.10",
+    "codeceptjs": "3.7.6",
     "copy-webpack-plugin": "13.0.1",
     "css-loader": "7.1.4",
     "eslint": "8.57.1",
@@ -164,8 +164,12 @@
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
-    "axios": "1.13.5",
-    "tar": "^7.5.7"
+    "cookie": "^0.7.2",
+    "tar": "^7.5.7",
+    "jws": "^3.2.3",
+    "diff": "^8.0.3",
+    "minimatch": "10.2.3",
+    "bn.js": "4.12.3"
   },
-  "packageManager": "yarn@3.8.7"
+  "packageManager": "yarn@4.4.1"
 }
