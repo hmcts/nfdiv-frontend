@@ -16,7 +16,8 @@ export const findUnpaidGeneralApplication = (
     ?.find(
       application =>
         application?.generalApplicationFeeServiceRequestReference === serviceRequest &&
-        !application?.generalApplicationFeePaymentReference
+        !application?.generalApplicationFeePaymentReference &&
+        application?.generalApplicationFeeHasCompletedOnlinePayment === YesOrNo.NO
     );
 };
 

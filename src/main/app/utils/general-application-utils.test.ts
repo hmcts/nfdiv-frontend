@@ -30,6 +30,7 @@ describe('GeneralApplicationUtils', () => {
           generalApplicationParty: GeneralParties.APPLICANT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
           generalApplicationFeeServiceRequestReference: applicant1GeneralAppServiceRequest,
+          generalApplicationFeeHasCompletedOnlinePayment: YesOrNo.NO,
           generalApplicationFeeOrderSummary: {
             PaymentTotal: '100',
             PaymentReference: 'REF123',
@@ -54,6 +55,7 @@ describe('GeneralApplicationUtils', () => {
           generalApplicationParty: GeneralParties.RESPONDENT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
           generalApplicationFeeServiceRequestReference: applicant2GeneralAppServiceRequest,
+          generalApplicationFeeHasCompletedOnlinePayment: YesOrNo.NO,
           generalApplicationFeeOrderSummary: {
             PaymentTotal: '200',
             PaymentReference: 'REF456',
@@ -168,6 +170,7 @@ describe('GeneralApplicationUtils', () => {
             generalApplicationParty: GeneralParties.APPLICANT,
             generalApplicationFeePaymentReference: 'paid',
             generalApplicationSubmittedOnline: YesOrNo.NO,
+            generalApplicationFeeHasCompletedOnlinePayment: YesOrNo.YES,
           },
         },
       ];

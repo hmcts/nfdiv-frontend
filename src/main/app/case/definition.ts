@@ -1540,6 +1540,7 @@ export interface GeneralApplication {
   generalApplicationSubmittedOnline?: string;
   generalApplicationReceivedDate?: DateAsString;
   generalApplicationDocsUploadedPreSubmission?: YesOrNo;
+  generalApplicationFeeHasCompletedOnlinePayment?: YesOrNo;
 }
 
 export interface GeneralEmail {
