@@ -17,6 +17,7 @@ import { generateContent as jointGenerateContent } from './joint/content';
 import { getProgressBarContent } from './progressBarLabels';
 import { generateContent as columnGenerateContent } from './right-column/content';
 import { generateContent as soleGenerateContent } from './sole/content';
+import { generateContent as generalApplicationSaveSignOutContent } from './save-and-sign-out/general-application/content';
 
 const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,
@@ -377,12 +378,13 @@ export const generateContent: TranslationFn = content => {
   const shouldHaveAccessToCoApplication = content.isJointApplication || !content.isApplicant2;
   const applicationTranslations = content.isJointApplication
     ? jointGenerateContent(content)
-    : soleGenerateContent(content);
+  : soleGenerateContent(content);
   const progressBarContent = getProgressBarContent(
     isDivorce,
     applicationTranslations.displayState as StateSequence,
     language === SupportedLanguages.En
   );
+
   return {
     ...languages[language]({ ...content, referenceNumber }),
     ...columnGenerateContent(content),
@@ -392,5 +394,6 @@ export const generateContent: TranslationFn = content => {
     ...latestLegalAdvisorDecisionContent(userCase, true),
     ...progressBarContent,
     ...hubLinksContent(content),
-  };
+    ...generalApplicationSaveSignOutContent(content),
+  }
 };

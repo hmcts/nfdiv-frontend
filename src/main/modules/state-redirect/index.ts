@@ -37,6 +37,7 @@ import {
   WITHDRAW_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
 } from '../../steps/urls';
+import { hasGeneralApplicationPaymentInProgress } from '../../app/utils/general-application-utils';
 
 /**
  * Adds the state redirect middleware to redirect when application is in certain states
@@ -94,7 +95,7 @@ export class StateRedirectMiddleware {
         }
 
         if (
-          !this.caseAwaitingPayment(state) ||
+          !this.caseAwaitingPayment(state, isApplicant2, req.session.userCase) ||
           [
             PAY_YOUR_FEE,
             PAY_AND_SUBMIT,
@@ -135,7 +136,7 @@ export class StateRedirectMiddleware {
             ? req.session.userCase.applicant2GeneralAppPayments
             : req.session.userCase.applicant1GeneralAppPayments
         );
-        if (GENERAL_APPLICATION_PAYMENT_STATES.has(state) && generalApplicationPayments.hasPayment) {
+        if (hasGeneralApplicationPaymentInProgress(isApplicant2, req.session.userCase) && generalApplicationPayments.hasPayment) {
           return res.redirect(GENERAL_APPLICATION_PAYMENT_CALLBACK);
         }
 
@@ -144,13 +145,13 @@ export class StateRedirectMiddleware {
     );
   }
 
-  private caseAwaitingPayment(state: State): boolean {
+  private caseAwaitingPayment(state: State, isApplicant2: boolean, userCase: CaseWithId): boolean {
     return new Set([
       ...APPLICATION_PAYMENT_STATES,
       ...FINAL_ORDER_PAYMENT_STATES,
       ...SERVICE_PAYMENT_STATES,
       ...GENERAL_APPLICATION_PAYMENT_STATES,
-    ]).has(state);
+    ]).has(state) || hasGeneralApplicationPaymentInProgress(isApplicant2, userCase);
   }
 
   private hasPartnerNotRespondedInTime(userCase: CaseWithId, isApplicant2: boolean) {
