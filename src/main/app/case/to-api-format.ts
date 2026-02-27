@@ -725,6 +725,10 @@ const fields: ToApiConverters = {
         ? data.applicant1DispenseChildMaintenanceResults
         : null,
   }),
+  applicant1GenAppCannotUploadAgreedEvidence: data => ({
+    applicant1GenAppCannotUploadAgreedEvidence: checkboxConverter(data.applicant1GenAppCannotUploadAgreedEvidence),
+  }),
+  applicant1GenAppPartnerAgreesUploadedFiles: () => ({}),
 };
 
 const toApiDate = (date: CaseDate | undefined | string) => {

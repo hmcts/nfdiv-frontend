@@ -334,6 +334,28 @@ export const HUB_PAGE_DOWNLOADS: PageLink = '/downloads';
 
 // Post Submission GenApp Start Application
 export const MAKE_AN_APPLICATION: PageLink = '/interim-applications/general-application/make-an-application';
+export const GEN_APP_INTERRUPTION: PageLink = '/interim-applications/general-application/interruption';
+export const GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED: PageLink =
+  '/interim-applications/general-application/partner-agrees';
+export const GEN_APP_COST_OF_APPLICATION: PageLink = '/interim-applications/general-application/application-cost';
+export const GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES: PageLink =
+  '/interim-applications/general-application/upload-evidence-partner-agrees';
+export const GEN_APP_PARTNER_INFORMATION_CORRECT: PageLink =
+  '/interim-applications/general-application/partner-information-correct';
+export const GEN_APP_UPDATE_PARTNER_INFORMATION: PageLink =
+  '/interim-applications/general-application/update-partner-information';
+export const GEN_APP_SELECT_APPLICATION_TYPE: PageLink =
+  '/interim-applications/general-application/select-application-type';
+export const GEN_APP_WHY_THIS_APPLICATION: PageLink = '/interim-applications/general-application/why-this-application';
+export const GEN_APP_WANT_TO_UPLOAD_EVIDENCE: PageLink =
+  '/interim-applications/general-application/want-to-upload-evidence';
+export const GEN_APP_UPLOAD_EVIDENCE: PageLink = '/interim-applications/general-application/upload-evidence';
+export const GEN_APP_HELP_WITH_FEES: PageLink = '/interim-applications/general-application/help-with-fees';
+export const GEN_APP_HWF_REFERENCE_NUMBER: PageLink = '/interim-applications/general-application/hwf-reference-number';
+export const GEN_APP_HWF_REFERENCE_NUMBER_INPUT: PageLink =
+  '/interim-applications/general-application/hwf-reference-number-input';
+export const GEN_APP_APPLY_FOR_HWF: PageLink = '/interim-applications/general-application/apply-for-hwf';
+export const GEN_APP_CHECK_ANSWERS: PageLink = '/interim-applications/general-application/check-answers';
 
 //Withdraw Application URLs
 export const WITHDRAW_THIS_APPLICATION: PageLink = '/withdraw-pre-issue/withdraw-this-application';
