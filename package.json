@@ -64,7 +64,7 @@
     "@types/lodash": "4.17.24",
     "@types/multer": "2.0.0",
     "@types/negotiator": "0.6.4",
-    "@types/node": "22.19.11",
+    "@types/node": "22.19.13",
     "@types/nunjucks": "3.2.6",
     "@types/require-directory": "2.1.7",
     "@types/serve-favicon": "2.5.7",
