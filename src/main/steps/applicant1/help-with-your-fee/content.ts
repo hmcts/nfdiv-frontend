@@ -5,6 +5,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ isDivorce, required }) => ({
   title: `Do you need help paying the fee for ${isDivorce ? 'your divorce' : 'ending your civil partnership'}?`,
@@ -12,8 +13,6 @@ const en = ({ isDivorce, required }) => ({
     config.get('fees.applicationFee')
   )}. You may be able to get help paying the fee if you (one or more of the following):`,
   helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
-  yes: 'I need help paying the fee',
-  no: 'I do not need help paying the fee',
   errors: {
     applicant1HelpPayingNeeded: {
       required,
@@ -33,8 +32,6 @@ const cy: typeof en = ({ isDivorce, required }) => ({
     'os oes gennych ychydig o gynilion neu ddim cynilion o gwbl,',
     'os ydych ar incwm isel',
   ],
-  yes: "Mae angen help arnaf i dalu'r ffi",
-  no: "Nid oes angen help arnaf i dalu'r ffi",
   errors: {
     applicant1HelpPayingNeeded: {
       required,
@@ -50,8 +47,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -66,10 +63,23 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers: InputLabelsByLanguage<YesOrNo> = {
+  en: {
+    [YesOrNo.YES]: 'I need help paying the fee',
+    [YesOrNo.NO]: 'I do not need help paying the fee',
+  },
+  cy: {
+    [YesOrNo.YES]: "Mae angen help arnaf i dalu'r ffi",
+    [YesOrNo.NO]: "Nid oes angen help arnaf i dalu'r ffi",
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };

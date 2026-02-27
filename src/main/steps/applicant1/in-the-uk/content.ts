@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { defaultYesOrNoRadioAnswers } from '../../common/input-labels.content';
 
 const en = ({ isDivorce, required }) => ({
   title: `Did you ${isDivorce ? 'get married' : 'form your civil partnership'} in the UK?`,
@@ -31,8 +32,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -47,10 +48,14 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = defaultYesOrNoRadioAnswers;
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };

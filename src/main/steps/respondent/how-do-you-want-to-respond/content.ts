@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ isDivorce }: CommonContent) => ({
   title: 'How do you want to respond to the application?',
@@ -14,8 +15,6 @@ const en = ({ isDivorce }: CommonContent) => ({
     isDivorce ? 'got married' : 'formed your civil partnership'
   }`,
   point3: `this ${isDivorce ? 'marriage' : 'civil partnership'} has already been legally ended`,
-  no: `Continue without disputing the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`,
-  yes: `I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`,
   errors: {
     disputeApplication: {
       required: 'You need to select how you want to respond before continuing.',
@@ -33,8 +32,6 @@ const cy: typeof en = ({ isDivorce }: CommonContent) => ({
     isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'
   }`,
   point3: `mae'r ${isDivorce ? 'briodas' : 'partneriaeth sifil'} hon eisoes wedi dod i ben yn gyfreithiol`,
-  no: `Parhau heb herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`,
-  yes: `Rwyf eisiau herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`,
   errors: {
     disputeApplication: {
       required: 'Mae angen i chi ddewis sut rydych chi eisiau ymateb cyn parhau.',
@@ -50,8 +47,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.no, value: YesOrNo.NO },
-        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -66,10 +63,23 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = (isDivorce: boolean): InputLabelsByLanguage<YesOrNo> => ({
+  en: {
+    [YesOrNo.NO]: `Continue without disputing the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`,
+    [YesOrNo.YES]: `I want to dispute the ${isDivorce ? 'divorce' : 'application to end your civil partnership'}`,
+  },
+  cy: {
+    [YesOrNo.NO]: `Parhau heb herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`,
+    [YesOrNo.YES]: `Rwyf eisiau herio’r ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’m partneriaeth sifil i ben'}`,
+  },
+});
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers(content.isDivorce)[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };

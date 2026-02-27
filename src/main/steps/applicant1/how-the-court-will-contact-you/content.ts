@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isPhoneNoValid } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: 'How the court will contact you',
@@ -14,9 +15,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'divorce service' : 'service to end your civil partnership'
   }. You can choose to keep your email address private from your ${partner} later in this application.`,
   byEmailLine2: 'Emails will be sent to:',
-  applicantAgreeToReceiveEmails: `I agree that the ${
-    isDivorce ? 'divorce service' : 'ending a civil partnership service'
-  } can send me notifications and serve (deliver) court documents to me by email.`,
   byPhone: 'By phone',
   byPhoneLine1: `Enter your phone number so court staff can contact you quickly, if they need to. You can choose to keep your phone number private from your ${partner} later in this application.`,
   applicantPhoneNumber: 'Enter your phone number (optional)',
@@ -40,9 +38,6 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
     isDivorce ? 'gwasanaeth ysgaru ar-lein' : 'gwasanaeth ar-lein i ddiweddu eich partneriaeth sifil'
   }. Gallwch ddewis cadw eich cyfeiriad e-bost yn breifat oddi wrth eich ${partner} yn nes ymlaen yn ystod y cais hwn.`,
   byEmailLine2: 'Anfonir negeseuon e-bost i:',
-  applicantAgreeToReceiveEmails: `Rwy'n cytuno y gall y ${
-    isDivorce ? 'gwasanaeth ysgaru' : 'gwasanaeth diweddu partneriaeth sifil'
-  } anfon hysbysiadau ataf a chyflwyno (danfon) dogfennau llys ataf drwy e-bost.`,
   byPhone: 'Dros y ffôn',
   byPhoneLine1: `Nodwch eich rhif ffôn fel y gall staff y llys gysylltu â chi yn gyflym, os oes angen.
    Gallwch ddewis cadw eich rhif ffôn yn breifat oddi wrth eich ${partner} yn nes ymlaen yn ystod y cais hwn.`,
@@ -98,10 +93,23 @@ const languages = {
   cy,
 };
 
+export const checkBoxAnswers = (isDivorce: boolean): InputLabelsByLanguage<Checkbox> => ({
+  en: {
+    [Checkbox.Checked]: `I agree that the ${isDivorce ? 'divorce service' : 'ending a civil partnership service'} can send me notifications and serve (deliver) court documents to me by email.`,
+    [Checkbox.Unchecked]: '',
+  },
+  cy: {
+    [Checkbox.Checked]: `Rwy'n cytuno y gall y ${isDivorce ? 'gwasanaeth ysgaru' : 'gwasanaeth diweddu partneriaeth sifil'} anfon hysbysiadau ataf a chyflwyno (danfon) dogfennau llys ataf drwy e-bost.`,
+    [Checkbox.Unchecked]: '',
+  },
+});
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const applicantAgreeToReceiveEmails = checkBoxAnswers(content.isDivorce)[content.language][Checkbox.Checked];
   return {
     ...translations,
+    applicantAgreeToReceiveEmails,
     form,
   };
 };

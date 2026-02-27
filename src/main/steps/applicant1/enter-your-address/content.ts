@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
+import { ydyOrNacYdyRadioAnswers } from '../../common/input-labels.content';
 
 const en = () => {
   const addressPostcode = {
@@ -29,8 +30,6 @@ const en = () => {
     enterUkPostcode: 'Enter UK postcode',
     selectAddress: 'Select an address',
     addressOverseas: 'Is this an international address?',
-    yes: 'Yes',
-    no: 'No',
     addressesFound: (addressesFound: number) => `${addressesFound} address${addressesFound !== 1 ? 'es' : ''} found`,
     cannotFindAddress: 'I cannot find the address in the list',
     errors: {
@@ -76,8 +75,6 @@ const cy = () => {
     enterUkPostcode: 'Nodwch god post yn y DU',
     selectAddress: 'Dewiswch gyfeiriad',
     addressOverseas: 'A yw hwn yn gyfeiriad rhyngwladol?',
-    yes: 'Ydy',
-    no: 'Nac ydy',
     addressesFound: (addressesFound: number) =>
       `Wedi canfod ${addressesFound} ${addressesFound !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
     cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
@@ -174,8 +171,8 @@ export const form: FormContent = {
       classes: 'govuk-radios--inline',
       label: l => l.addressOverseas,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
     },
   },
@@ -189,10 +186,14 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = ydyOrNacYdyRadioAnswers;
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };

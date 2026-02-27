@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ isDivorce, required }) => ({
   title: isDivorce
@@ -16,8 +17,6 @@ const en = ({ isDivorce, required }) => ({
   } in England or Wales.`,
   line3:
     'If the original certificate is not in English, you’ll need to provide a <a href="https://www.gov.uk/certifying-a-document#certifying-a-translation" class="govuk-link">certified translation</a>.',
-  yes: `Yes, I have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`,
-  no: `No, I do not have ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`,
   errors: {
     hasCertificate: { required },
   },
@@ -34,8 +33,6 @@ const cy: typeof en = ({ isDivorce, required }) => ({
   } yng Nghymru neu Loegr.`,
   line3:
     'Os nad yw\'r dystysgrif wreiddiol yn Saesneg, bydd angen i chi ddarparu <a href="https://www.gov.uk/certifying-a-document#certifying-a-translation" class="govuk-link">cyfieithiad ardystiedig</a>.',
-  yes: `Oes, mae gen i fy ${isDivorce ? 'nystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`,
-  no: `Na, nid oes gennyf ${isDivorce ? 'dystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`,
   errors: {
     hasCertificate: { required },
   },
@@ -49,8 +46,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -65,10 +62,23 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = (isDivorce: boolean): InputLabelsByLanguage<YesOrNo> => ({
+  en: {
+    [YesOrNo.YES]: `Yes, I have my ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`,
+    [YesOrNo.NO]: `No, I do not have ${isDivorce ? 'marriage' : 'civil partnership'} certificate with me`,
+  },
+  cy: {
+    [YesOrNo.YES]: `Oes, mae gen i fy ${isDivorce ? 'nystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`,
+    [YesOrNo.NO]: `Na, nid oes gennyf ${isDivorce ? 'dystysgrif priodas' : 'tystysgrif partneriaeth sifil'}`,
+  },
+});
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers(content.isDivorce)[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };

@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { ydyOrNacYdyRadioAnswers } from '../../common/input-labels.content';
 
 const en = ({ partner, required }: CommonContent) => ({
   title: 'Your domicile',
@@ -42,8 +43,6 @@ const cy = ({ partner }: CommonContent) => ({
     'Os byddwch yn gadael eich domisil gwreiddiol ac yn ymgartrefu mewn gwlad arall fel oedolyn, yna gallai’r wlad newydd ddod yn <strong>‘ddomisil dewisol’</strong> ichi.',
   more4: 'Os nad ydych chi’n siŵr am eich domisil, dylech gael cyngor cyfreithiol.',
   applicant1DomicileInEnglandWales: 'A yw eich domisil yng Nghymru neu Loegr?',
-  yes: 'Ydy',
-  no: 'Nac ydy',
   applicant2DomicileInEnglandWales: `A yw domisil eich ${partner} yng Nghymru neu Loegr?`,
   errors: {
     applicant1DomicileInEnglandWales: {
@@ -62,8 +61,8 @@ export const form: FormContent = {
       classes: 'govuk-radios--inline',
       label: l => l.applicant1DomicileInEnglandWales,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -72,8 +71,8 @@ export const form: FormContent = {
       classes: 'govuk-radios--inline',
       label: l => l.applicant2DomicileInEnglandWales,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -88,10 +87,14 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = ydyOrNacYdyRadioAnswers;
+
 export const generateContent: TranslationFn = (content: CommonContent) => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };
