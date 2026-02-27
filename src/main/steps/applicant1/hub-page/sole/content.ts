@@ -59,6 +59,7 @@ const en = (
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
     interimApplicationType,
+    isApp2Represented,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
@@ -502,16 +503,16 @@ const en = (
     }.`,
   },
   awaitingProcessServerService: {
-    line1: `You have chosen to arrange for an independent process server to serve the papers on your ${partner}.`,
+    line1: `You have chosen to arrange for an independent process server to serve the papers on your ${isApp2Represented ? partner + "'s solicitor" : partner}.`,
     line2: `You can <a class="govuk-link" href="${PROCESS_SERVER_DOCS}">download the papers from the documents tab</a>. You will need to print these out and give them to your process server.`,
     whatYouNeedToDoHeader: 'What you need to do',
     steps: {
       one: 'You will need to find and employ a process server. You may wish to consider how many times they will attempt to serve, over what period of time, and at what times of the day.',
-      two: `They will attempt to serve the papers on your ${partner}.`,
+      two: `They will attempt to serve the papers on your ${isApp2Represented ? partner + "'s solicitor" : partner}.`,
       three:
         'If they serve successfully, they will complete the certificate of service form (form FP6) and send it to you.',
       four: 'You will then need to send the certificate of service to the court.',
-      five: `If the papers have been correctly served and your ${partner} still has not responded, your ${
+      five: `If the papers have been correctly served and your ${isApp2Represented ? partner + "'s solicitor" : partner} still has not responded, your ${
         isDivorce ? 'divorce' : 'application to end your civil partnership'
       } can continue without their response.`,
     },
@@ -555,6 +556,7 @@ const cy: typeof en = (
     serviceApplicationFeeRequired,
     serviceApplicationDocsAllProvided,
     interimApplicationType,
+    isApp2Represented,
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
@@ -1014,16 +1016,16 @@ const cy: typeof en = (
     } yn ei flaen.`,
   },
   awaitingProcessServerService: {
-    line1: `Rydych wedi dewis trefnu i weinyddwr proses annibynnol gyflwyno’r papurau ar eich ${partner}.`,
+    line1: `Rydych wedi dewis trefnu i weinyddwr proses annibynnol gyflwyno’r papurau ${isApp2Represented ? 'i gyfreithiwr eich ' : 'i’ch '}${partner}.`,
     line2: `Gallwch <a class="govuk-link" href="${PROCESS_SERVER_DOCS}">lawrlwytho’r papurau o’r tab dogfennau</a>. Bydd angen i chi argraffu’r rhain a’u rhoi i’ch gweinyddwr pros.`,
     whatYouNeedToDoHeader: 'Beth sydd angen i chi ei wneud',
     steps: {
       one: 'Bydd angen i chi ddod o hyd i weinyddwr proses a’u penodi. Efallai yr hoffech ystyried faint o weithiau y byddant yn ceisio cyflwyno’r papurau, dros pa gyfnod o amser ac am ba amser o’r dydd.',
-      two: `Byddant yn ceisio cyflwyno’r papurau ar eich ${partner}.`,
+      two: `Byddant yn ceisio cyflwyno’r papurau ar ${isApp2Represented ? 'gyfreithiwr eich ' : 'eich '}${partner}.`,
       three:
         'Os byddant yn cyflwyno’r papurau’n llwyddiannus, byddant yn llenwi tystysgrif cyflwyno (ffurflen FP6) a’i hanfon atoch.',
       four: 'Bydd angen i chi wedyn anfon y dystysgrif cyflwyno i’r llys.',
-      five: `Os bydd y papurau wedi’u cyflwyno’n gywir a bod eich ${partner} dal heb ymateb, gall eich ${
+      five: `Os yw’r papurau wedi eu cyflwyno’n gywir a bod ${isApp2Represented ? 'cyfreithiwr eich ' : 'eich '}${partner} dal heb ymateb 14 diwrnod ar ôl iddynt gael eu cyflwyno â’r papurau, gall eich ${
         isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
       } barhau heb eu hymateb.`,
     },
