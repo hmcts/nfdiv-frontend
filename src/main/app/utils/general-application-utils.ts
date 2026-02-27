@@ -21,7 +21,7 @@ export const findUnpaidGeneralApplication = (
     );
 };
 
-export const hasGeneralApplicationPaymentInProgress = (isApplicant2: boolean, userCase: Partial<CaseWithId>) =>
+export const hasGeneralApplicationPaymentInProgress = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
   !!findUnpaidGeneralApplication(userCase, getGeneralApplicationServiceRequest(isApplicant2, userCase) as string);
 
 export const findOnlineGeneralApplicationsForUser = (

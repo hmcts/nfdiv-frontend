@@ -1,4 +1,4 @@
-import { CommonContent } from 'steps/common/common.content';
+import { CommonContent } from '../../../../common/common.content';
 
 import { InterimApplicationType, State } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';

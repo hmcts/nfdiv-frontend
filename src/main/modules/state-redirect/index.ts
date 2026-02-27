@@ -149,11 +149,8 @@ export class StateRedirectMiddleware {
 
   private caseAwaitingPayment(state: State, isApplicant2: boolean, userCase: CaseWithId): boolean {
     return (
-      new Set([
-        ...APPLICATION_PAYMENT_STATES,
-        ...FINAL_ORDER_PAYMENT_STATES,
-        ...SERVICE_PAYMENT_STATES,
-      ]).has(state) || hasGeneralApplicationPaymentInProgress(isApplicant2, userCase)
+      new Set([...APPLICATION_PAYMENT_STATES, ...FINAL_ORDER_PAYMENT_STATES, ...SERVICE_PAYMENT_STATES]).has(state) ||
+      hasGeneralApplicationPaymentInProgress(isApplicant2, userCase)
     );
   }
 
