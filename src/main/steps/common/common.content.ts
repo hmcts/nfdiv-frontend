@@ -208,9 +208,6 @@ export const en = {
   contactEmail: 'contactdivorce@justice.gov.uk',
   contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
   saveAndSignOutLink: SAVE_AND_SIGN_OUT,
-  avayaLanguage: 'English',
-  avayaClientUrlFolder: '1',
-  avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
   genesys: {
     chatWithUs: 'Chat with us',
     onlineAdviceClosed: 'Our online advice service is currently closed',
@@ -391,9 +388,6 @@ const cy: typeof en = {
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'contactdivorce@justice.gov.uk',
   contactWebForm: 'https://contact-us-about-a-divorce-application-cy.form.service.justice.gov.uk/',
-  avayaLanguage: 'Welsh',
-  avayaClientUrlFolder: 'welsh',
-  avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
   genesys: {
     chatWithUs: 'Sgwrsiwch â ni',
     onlineAdviceClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd',

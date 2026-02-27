@@ -236,7 +236,7 @@ Feature: No response journey
   Scenario: No response update contact details /new-postal-and-email throws error
     Given I go to "/interim-applications/no-response/new-postal-and-email"
     When I click continue
-    Then the page should show an error for field "applicant1NoResponsePartnerNewEmailOrAddress"
+    Then the page should show an error for field "newPostalAddress"
 
   Scenario: No response /server-again send papers again or try something else
     Given I set the case state to "AosOverdue"

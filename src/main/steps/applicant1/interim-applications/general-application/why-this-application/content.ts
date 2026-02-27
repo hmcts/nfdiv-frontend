@@ -1,7 +1,6 @@
-import { isEmpty } from 'lodash';
-
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../../app/form/validation';
 
 const en = () => ({
   title: 'Why are you making this application?',
@@ -36,12 +35,7 @@ export const form: FormContent = {
       classes: 'govuk-input--width-40',
       label: l => l.title,
       labelHidden: true,
-      validator: value => {
-        const hasEnteredDetails = !isEmpty(value);
-        if (!hasEnteredDetails) {
-          return 'required';
-        }
-      },
+      validator: value => isFieldFilledIn(value),
     },
   },
   submit: {
