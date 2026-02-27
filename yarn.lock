@@ -2947,31 +2947,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-sdk-common@npm:2.20.0":
-  version: 2.20.0
-  resolution: "@launchdarkly/js-sdk-common@npm:2.20.0"
-  checksum: a1c3257a8e43a7ac28cbeb8f04bfa8158f3f39cef479ee01af31250a9aafd0feadde5b02ee294571d5ac5aa0abfe4ba55fe0c78a4ce23312cd328c42b90a3cf0
+"@launchdarkly/js-sdk-common@npm:2.22.0":
+  version: 2.22.0
+  resolution: "@launchdarkly/js-sdk-common@npm:2.22.0"
+  checksum: 2e8cae5e60b32875655a3a58df0e7afc2cc85224a98ac5e1a64103a06274a200a6cf8c2d0273925dddda9c324cf0c73773ebce0229c70b5ab0950972d7555b1f
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.17.2":
-  version: 2.17.2
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.17.2"
+"@launchdarkly/js-server-sdk-common@npm:2.18.1":
+  version: 2.18.1
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.18.1"
   dependencies:
-    "@launchdarkly/js-sdk-common": 2.20.0
+    "@launchdarkly/js-sdk-common": 2.22.0
     semver: 7.5.4
-  checksum: 783983ca0832094225bcaf189ffe7c3d839515f64603d6ed684160753c581bcaa21676426394fc71cea1009bb3d52eaf5572e6e2e9aff7901f54ada89b454b70
+  checksum: dab6d8314a543d5b29d7514c663a02588072633c0d440940de13b7478c0c158dc3555d72098f3bea3d403a21048b06df04655a48ca7fb91c1be7202a4dc888f1
   languageName: node
   linkType: hard
 
 "@launchdarkly/node-server-sdk@npm:>=9.0.0":
-  version: 9.10.6
-  resolution: "@launchdarkly/node-server-sdk@npm:9.10.6"
+  version: 9.10.8
+  resolution: "@launchdarkly/node-server-sdk@npm:9.10.8"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": 2.17.2
+    "@launchdarkly/js-server-sdk-common": 2.18.1
     https-proxy-agent: ^7.0.6
     launchdarkly-eventsource: 2.2.0
-  checksum: 87a2e1a9cc74ae57043fe0e6857a9357926a6819fc9da487a8e5cb15358a047c4fea291615dde754c890064ba1a2612915167b9d8250d16445845e9e2d0feb30
+  checksum: 2c0c580951261547685badfdf70e9296922cca33738cad244cb89f134717c9905899e9eeee8acef95fef3080be7668cb8d3094eb8bf9fccde3e5f8bc005759bf
   languageName: node
   linkType: hard
 
@@ -4352,10 +4352,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:4.17.23":
-  version: 4.17.23
-  resolution: "@types/lodash@npm:4.17.23"
-  checksum: 38638641526759688656b9930c0a2714536bdc2b84d5a2d4dc4b7825ba39a74ceedcc9971a9c7511189dad987426135b647616e4f49f2d67893617bdb7c85f84
+"@types/lodash@npm:4.17.24":
+  version: 4.17.24
+  resolution: "@types/lodash@npm:4.17.24"
+  checksum: 2b254973145ecdf9b052d83f00ebaa111245f319d45b217c78f81cea8892fda81180fc749bd50a99c08f4e5efceb834c774d3f74153a50a9c4a28648343dc9f3
   languageName: node
   linkType: hard
 
@@ -4405,12 +4405,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.19.11":
-  version: 22.19.11
-  resolution: "@types/node@npm:22.19.11"
+"@types/node@npm:22.19.13":
+  version: 22.19.13
+  resolution: "@types/node@npm:22.19.13"
   dependencies:
     undici-types: ~6.21.0
-  checksum: b64703389fa4648a8ac7bce44902dbef9a4c46b91cce1e951d01d6df23dbb0579c3d765f0d00e9053425e21ed9a30890668506ec0bae98c5c29cc978d45ced1f
+  checksum: 086a593d20ad601550a39772fab566df7bed56350994ec7868994d92592878cc714b7e8f5dab9b1e02c9432bd89a768fc3f9ae54f79f2ba4026e0b3202cee06a
   languageName: node
   linkType: hard
 
@@ -5629,12 +5629,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"allure-commandline@npm:2.36.0":
-  version: 2.36.0
-  resolution: "allure-commandline@npm:2.36.0"
+"allure-commandline@npm:2.37.0":
+  version: 2.37.0
+  resolution: "allure-commandline@npm:2.37.0"
   bin:
     allure: bin/allure
-  checksum: 29ee88e6ef5c849cdbb4b7296d7c640512ebf8a74aa450de765c89adf71cbdf8b94c611d4e291b51b90e782011d92bf505550abbd13227a4664ef20a94007020
+  checksum: fe3df623614ac599b63095495094edc93a2d042535eef273fd39e37ff24460491feb9422f4340d4c55e71fd8dcf1ce53a8a5253cfc643e687858f32ad67fca6c
   languageName: node
   linkType: hard
 
@@ -7717,12 +7717,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config@npm:4.3.0":
-  version: 4.3.0
-  resolution: "config@npm:4.3.0"
+"config@npm:4.4.0":
+  version: 4.4.0
+  resolution: "config@npm:4.4.0"
   dependencies:
     json5: ^2.2.3
-  checksum: 1acb0488ce44908b8e56a0789bd90dfc5be0f867797d541f2db03430c31b584ec6d21401df4376022fa5f886340e6f8533de7f996020d9e0fb10eacbe06ed52f
+  checksum: 74b40836952ba6dec2bf45e5b4a23502bb0e112d9a8213a109804061b1d7dc47497644fb01917795326b51608b4a9c4c41735e61c84ef2ca4554ac083f4b0871
   languageName: node
   linkType: hard
 
@@ -14686,10 +14686,10 @@ __metadata:
     "@types/express-session": 1.18.2
     "@types/glob": 8.1.0
     "@types/jest": 30.0.0
-    "@types/lodash": 4.17.23
+    "@types/lodash": 4.17.24
     "@types/multer": 2.0.0
     "@types/negotiator": 0.6.4
-    "@types/node": 22.19.11
+    "@types/node": 22.19.13
     "@types/nunjucks": 3.2.6
     "@types/require-directory": 2.1.7
     "@types/serve-favicon": 2.5.7
@@ -14705,13 +14705,13 @@ __metadata:
     "@uppy/xhr-upload": 4.4.2
     "@wdio/cli": 9.24.0
     "@wdio/sauce-service": 9.24.0
-    allure-commandline: 2.36.0
+    allure-commandline: 2.37.0
     applicationinsights: 2.9.8
     autobind-decorator: 2.4.0
     axios: 1.13.5
     axios-debug-log: 1.0.0
     codeceptjs: 3.6.10
-    config: 4.3.0
+    config: 4.4.0
     connect-redis: 7.1.1
     cookie-parser: 1.4.7
     copy-webpack-plugin: 13.0.1
@@ -14752,7 +14752,7 @@ __metadata:
     multer: 2.0.2
     negotiator: 1.0.0
     node-cache: 5.1.2
-    nodemon: 3.1.13
+    nodemon: 3.1.14
     npm-run-all2: 8.0.4
     nunjucks: 3.2.4
     otplib: 12.0.1
@@ -14943,9 +14943,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemon@npm:3.1.13":
-  version: 3.1.13
-  resolution: "nodemon@npm:3.1.13"
+"nodemon@npm:3.1.14":
+  version: 3.1.14
+  resolution: "nodemon@npm:3.1.14"
   dependencies:
     chokidar: ^3.5.2
     debug: ^4
@@ -14959,7 +14959,7 @@ __metadata:
     undefsafe: ^2.0.5
   bin:
     nodemon: bin/nodemon.js
-  checksum: 5e7a5d6a39230b7c3680bd4e534c5724a4318a1b10a12c3ceec39df9f9228fd32f8c6e3eb2022d21aee5f161a9fe3625fd8a7197989f6cb95289096bc6f2a44c
+  checksum: c9f5a4662784f7843b6a90d6a05ecc96cb491d0b789a524da23db849f5818bb7e2e681492c4f349650cc291afb3107700dcf037d6ad59811c224125b3c627f94
   languageName: node
   linkType: hard
 
