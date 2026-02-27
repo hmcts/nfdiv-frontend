@@ -7,7 +7,6 @@ import { ROUTE_HIDE_CONDITIONS, shouldHideRouteFromUser } from './routeHiding';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   CHECK_ANSWERS_ALTERNATIVE,
-  CHECK_ANSWERS_BAILIFF,
   CHECK_ANSWERS_DEEMED,
   CHECK_YOUR_ANSWERS_GOV_RECORDS,
   FINALISING_YOUR_APPLICATION,
@@ -203,11 +202,11 @@ describe('routeHiding', () => {
         expect(result).toBeTruthy();
       });
 
-      test('Not visible in AwaitingDocuments state', () => {
-        mockReq.url = CHECK_ANSWERS_BAILIFF;
+      test('Visible in AwaitingDocuments state', () => {
+        mockReq.url = CHECK_ANSWERS_ALTERNATIVE;
         mockReq.session.userCase.state = State.AwaitingDocuments;
         const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeTruthy();
+        expect(result).toBeFalsy();
       });
 
       test('Not visible in AwaitingServicePayment state', () => {
@@ -277,13 +276,6 @@ describe('routeHiding', () => {
       test('Not visible in GeneralApplicationReceived state', () => {
         mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
         mockReq.session.userCase.state = State.GeneralApplicationReceived;
-        const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeTruthy();
-      });
-
-      test('Not visible in AwaitingDocuments state', () => {
-        mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
-        mockReq.session.userCase.state = State.AwaitingDocuments;
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeTruthy();
       });
