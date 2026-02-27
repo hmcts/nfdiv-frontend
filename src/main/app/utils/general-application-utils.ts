@@ -39,10 +39,11 @@ export const findOnlineGeneralApplicationsForUser = (
     );
 };
 
-export const getGeneralApplicationServiceRequest = (isApplicant2: boolean, userCase: Partial<CaseWithId>): string | undefined => {
-  return isApplicant2
-    ? userCase?.applicant2GeneralAppServiceRequest
-    : userCase?.applicant1GeneralAppServiceRequest;
+export const getGeneralApplicationServiceRequest = (
+  isApplicant2: boolean,
+  userCase: Partial<CaseWithId>
+): string | undefined => {
+  return isApplicant2 ? userCase?.applicant2GeneralAppServiceRequest : userCase?.applicant1GeneralAppServiceRequest;
 };
 
 export const getGeneralApplicationOrderSummary = (req: AppRequest<AnyObject>): OrderSummary | undefined => {

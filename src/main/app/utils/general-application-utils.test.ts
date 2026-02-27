@@ -77,15 +77,17 @@ describe('GeneralApplicationUtils', () => {
     test('Should return applicant 1 service request if logged in as applicant 1', () => {
       mockReq.session.isApplicant2 = false;
 
-      expect(getGeneralApplicationServiceRequest(mockReq.session.isApplicant2, mockReq.session.userCase))
-        .toEqual(applicant1GeneralAppServiceRequest);
+      expect(getGeneralApplicationServiceRequest(mockReq.session.isApplicant2, mockReq.session.userCase)).toEqual(
+        applicant1GeneralAppServiceRequest
+      );
     });
 
     test('Should return applicant 2 service request if logged in as applicant 2', () => {
       mockReq.session.isApplicant2 = true;
 
-      expect(getGeneralApplicationServiceRequest(mockReq.session.isApplicant2, mockReq.session.userCase))
-        .toEqual(applicant2GeneralAppServiceRequest);
+      expect(getGeneralApplicationServiceRequest(mockReq.session.isApplicant2, mockReq.session.userCase)).toEqual(
+        applicant2GeneralAppServiceRequest
+      );
     });
   });
 

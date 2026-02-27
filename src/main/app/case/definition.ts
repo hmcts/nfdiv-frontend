@@ -2426,10 +2426,6 @@ export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFin
 
 export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
 
-export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingGeneralApplicationPayment
-]);
-
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
   JUDICIAL_SEPARATION = 'judicialSeparation',

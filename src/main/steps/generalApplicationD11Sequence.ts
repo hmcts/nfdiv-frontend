@@ -33,7 +33,7 @@ export const generalApplicationD11Sequence: Step[] = [
   },
   {
     url: GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED,
-    getNextStep: (data) =>
+    getNextStep: data =>
       data.applicant1GenAppHearingNotRequired ===
         GeneralApplicationHearingNotRequired.YES_PARTNER_AGREES_WITH_APPLICATION ||
       data.applicant1GenAppHearingNotRequired ===
@@ -103,8 +103,6 @@ export const generalApplicationD11Sequence: Step[] = [
   {
     url: GEN_APP_CHECK_ANSWERS,
     getNextStep: data =>
-      data?.applicant1GeneralAppServiceRequest
-        ? PAY_YOUR_GENERAL_APPLICATION_FEE
-        : GENERAL_APPLICATION_SUBMITTED,
+      data?.applicant1GeneralAppServiceRequest ? PAY_YOUR_GENERAL_APPLICATION_FEE : GENERAL_APPLICATION_SUBMITTED,
   },
 ];
