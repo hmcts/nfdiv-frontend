@@ -75,9 +75,9 @@ export const getSoleHubTemplate = (
       } else if (userCase.coApplicant1SubmittedDate || userCase.coApplicant2SubmittedDate) {
         return HubTemplate.AwaitingConditionalOrder;
       } else if (isSearchGovRecords) {
-        return HubTemplate.OfflineGeneralApplicationReceived;
+        return HubTemplate.GeneralApplicationReceived;
       } else if (!userCase.dueDate && userCase.aosStatementOfTruth) {
-        return HubTemplate.AwaitingGeneralConsideration;
+        return HubTemplate.GeneralApplicationReceived;
       } else if (isAlternativeServiceGrantedOrRefusedPreIssue) {
         return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
       } else if (isAosOverdue) {
@@ -86,22 +86,18 @@ export const getSoleHubTemplate = (
         return HubTemplate.AosAwaitingOrDrafted;
       }
     case State.AwaitingGeneralConsideration:
-      if (isSearchGovRecords) {
-        return isOnlineGeneralApplication ? HubTemplate.AwaitingGeneralApplicationConsideration : HubTemplate.AoSDue;
-      } else if (userCase.dateFinalOrderSubmitted) {
+      if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
-      } else if (userCase.aosStatementOfTruth) {
-        return HubTemplate.AwaitingGeneralConsideration;
-      } else if (isAosOverdue) {
-        return HubTemplate.AoSDue;
+      } else if (isSearchGovRecords && isOnlineGeneralApplication) {
+        return HubTemplate.AwaitingGeneralApplicationConsideration;
       } else {
-        return HubTemplate.AosAwaitingOrDrafted;
+        return HubTemplate.GeneralApplicationReceived;
       }
     case State.GeneralApplicationReceived:
     case State.AwaitingGeneralReferralPayment:
       return isOnlineGeneralApplication
         ? HubTemplate.AwaitingGeneralApplicationConsideration
-        : HubTemplate.OfflineGeneralApplicationReceived;
+        : HubTemplate.GeneralApplicationReceived;
     case State.AwaitingConditionalOrder:
       return HubTemplate.AwaitingConditionalOrder;
     case State.Holding:
