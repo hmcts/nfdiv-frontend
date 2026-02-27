@@ -1,58 +1,39 @@
-import { Checkbox } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 
-const en = ({ partner, isDivorce, required, hasAContactForPartner }) => ({
-  title: `Do you have your ${partner}'s postal address?`,
-  line1: hasAContactForPartner
-    ? `The court needs your ${partner}'s address, to notify them by letter about the ${
-        isDivorce ? 'divorce' : 'ending your civil partnership'
-      }.`
-    : `It’s important you provide your ${partner}'s address. You did not provide their email address and the court needs a way to ‘serve’ (deliver) the ${
-        isDivorce ? 'divorce' : 'ending your civil partnership'
-      } papers to them.`,
-  line2: hasAContactForPartner
-    ? 'It should be an address where they can receive the letter. It can be UK or international. If you use their work address, you need to ask their permission. If you do not know their current address then you can use their last-known address.'
-    : `It should be an address where they can receive the ${
-        isDivorce ? 'divorce papers' : 'papers to end the civil partnership'
-      }. It can be UK or international. If you use their work address, you need to ask their permission.`,
-  line3: !hasAContactForPartner
-    ? 'If they do not respond at the address you provide, then you will need to make a separate application to serve (deliver) the papers to them another way.'
-    : '',
+const en = ({ partner, isDivorce }) => ({
+  title: `Your ${partner}'s postal address`,
+  line1: `We need your ${partner}’s address so that we can notify them about ${
+    isDivorce ? 'the divorce' : 'ending your civil partnership'
+  } by post.`,
+  line2: 'It can be a UK or international address.',
+  line3: `If you have your ${partner}’s permission, you can use their work address if you do not know their home address.`,
+  doYouKnowYourPartnerAddressHeader: `Do you know your ${partner}'s postal address?`,
   haveTheirAddress: 'Yes, I have their address',
   doNotHaveTheirAddress: 'No, I do not have their address',
   errors: {
     applicant1KnowsApplicant2Address: {
-      required,
+      required: `Select yes if you know your ${partner}'s postal address`,
     },
   },
 });
 
-const cy: typeof en = ({ partner, isDivorce, required, hasAContactForPartner }) => ({
-  title: `A oes gennych gyfeiriad post eich ${partner}?`,
-  line1: `${
-    hasAContactForPartner
-      ? `Mae angen cyfeiriad eich ${partner} ar y llys, i'w hysbysu am yr ${
-          isDivorce ? 'ysgariad' : 'y cais i ddod â phartneriaeth sifil i ben'
-        }.`
-      : `Mae'n bwysig eich bod yn darparu cyfeiriad eich ${partner}. Ni wnaethoch ddarparu ei gyfeiriad/chyfeiriad e-bost ac mae'r llys angen ffordd i 'gyflwyno' (danfon) y papurau ${
-          isDivorce ? 'ysgariad' : "dod â'ch partneriaeth sifil i ben"
-        } iddo/iddi.`
-  }`,
-  line2:
-    "Gall fod yn gyfeiriad cartref iddo/iddi neu'n gyfeiriad ei gyfreithiwr/chyfreithiwr. Gall fod yn y DU neu'n rhyngwladol. Os ydych yn defnyddio ei gyfeiriad/chyfeiriad gwaith, mae angen i chi ofyn am ganiatâd.",
-  line3: `Os nad ydych yn gwybod beth yw ei gyfeiriad/chyfeiriad presennol yna gallwch ddefnyddio ei gyfeiriad/chyfeiriad hysbys diwethaf. ${
-    !hasAContactForPartner
-      ? "Os nad yw'n ymateb yn y cyfeiriad a roddwch, yna bydd angen i chi wneud cais ar wahân i gyflwyno (danfon) y papurau ato/ati mewn ffordd arall."
-      : ''
-  }`,
-  haveTheirAddress: 'Oes, mae gennyf ei gyfeiriad/chyfeiriad',
-  doNotHaveTheirAddress: 'Na, nid yw ei gyfeiriad/chyfeiriad gennyf',
+//TODO Welsh translation required for NFDIV-4922
+const cy: typeof en = ({ partner, isDivorce }) => ({
+  title: `Your ${partner}'s postal address`,
+  line1: `We need your ${partner}’s address so that we can notify them about ${
+    isDivorce ? 'the divorce' : 'ending your civil partnership'
+  } by post.`,
+  line2: 'It can be a UK or international address.',
+  line3: `If you have your ${partner}’s permission, you can use their work address if you do not know their home address.`,
+  doYouKnowYourPartnerAddressHeader: `Do you know your ${partner}'s postal address?`,
+  haveTheirAddress: 'Yes, I have their address',
+  doNotHaveTheirAddress: 'No, I do not have their address',
   errors: {
     applicant1KnowsApplicant2Address: {
-      required,
+      required: `Select yes if you know your ${partner}'s postal address`,
     },
   },
 });
@@ -62,8 +43,7 @@ export const form: FormContent = {
     applicant1KnowsApplicant2Address: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.title,
-      labelHidden: true,
+      label: l => l.doYouKnowYourPartnerAddressHeader,
       values: [
         { label: l => l.haveTheirAddress, value: YesOrNo.YES },
         { label: l => l.doNotHaveTheirAddress, value: YesOrNo.NO },
@@ -82,13 +62,8 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, language } = content;
-  const hasAContactForPartner =
-    userCase.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked ||
-    userCase.applicant2SolicitorEmail ||
-    (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorFirmName) ||
-    (userCase.applicant2SolicitorAddressPostcode && userCase.applicant2SolicitorAddress1);
-  const translations = languages[language]({ ...content, hasAContactForPartner });
+  const { language } = content;
+  const translations = languages[language]({ ...content });
   return {
     ...translations,
     form,
