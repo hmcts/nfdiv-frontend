@@ -1,4 +1,4 @@
-import { GeneralApplicationHearingNotRequired, ServicePaymentMethod, YesOrNo } from '../app/case/definition';
+import { GeneralApplicationHearingNotRequired, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
@@ -19,7 +19,7 @@ import {
   GEN_APP_WANT_TO_UPLOAD_EVIDENCE,
   GEN_APP_WHY_THIS_APPLICATION,
   MAKE_AN_APPLICATION,
-  PAY_YOUR_SERVICE_FEE,
+  PAY_YOUR_GENERAL_APPLICATION_FEE,
 } from './urls';
 
 export const generalApplicationD11Sequence: Step[] = [
@@ -103,8 +103,6 @@ export const generalApplicationD11Sequence: Step[] = [
   {
     url: GEN_APP_CHECK_ANSWERS,
     getNextStep: data =>
-      data?.servicePaymentFeePaymentMethod === ServicePaymentMethod.FEE_PAY_BY_CARD
-        ? PAY_YOUR_SERVICE_FEE
-        : GENERAL_APPLICATION_SUBMITTED,
+      data?.applicant1GeneralAppServiceRequest ? PAY_YOUR_GENERAL_APPLICATION_FEE : GENERAL_APPLICATION_SUBMITTED,
   },
 ];

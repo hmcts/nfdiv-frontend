@@ -1540,6 +1540,7 @@ export interface GeneralApplication {
   generalApplicationSubmittedOnline?: string;
   generalApplicationReceivedDate?: DateAsString;
   generalApplicationDocsUploadedPreSubmission?: YesOrNo;
+  generalApplicationFeeHasCompletedOnlinePayment?: YesOrNo;
 }
 
 export interface GeneralEmail {
@@ -2424,10 +2425,6 @@ export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
 export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
 
 export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
-
-export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingGeneralApplicationPayment
-]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',

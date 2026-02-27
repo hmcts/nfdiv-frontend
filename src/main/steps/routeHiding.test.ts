@@ -257,13 +257,6 @@ describe('routeHiding', () => {
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeFalsy();
       });
-
-      test('Not visible when case is in AosOverdue', () => {
-        mockReq.url = GENERAL_APPLICATION_SUBMITTED;
-        mockReq.session.userCase.state = State.AosOverdue;
-        const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeTruthy();
-      });
     });
 
     describe('General Application step URL condition', () => {

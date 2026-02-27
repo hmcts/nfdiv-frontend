@@ -25,7 +25,8 @@ import {
   BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
-  FINALISING_YOUR_APPLICATION, MAKE_AN_APPLICATION,
+  FINALISING_YOUR_APPLICATION,
+  MAKE_AN_APPLICATION,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
@@ -36,12 +37,8 @@ import {
   SEARCH_GOV_RECORDS_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
 } from '../../../urls';
-import {
-  generateContent as generalApplicationSubmittedContent,
-} from '../../interim-applications/general-application/submitted/content';
-import {
-  generateContent as serviceApplicationSubmittedContent,
-} from '../../interim-applications/service-application/submitted/content';
+import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application/submitted/content';
+import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application/submitted/content';
 
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
@@ -1117,7 +1114,6 @@ export const generateContent: TranslationFn = content => {
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
     NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
-  const isSearchGovRecordsFeeRequired = content.generalApplicationFeeRequired;
 
   const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
     field => field && field.length > 0
@@ -1179,7 +1175,6 @@ export const generateContent: TranslationFn = content => {
     contactDetailsUpdatedUKBased,
     applicant1NoResponseSendPapersAgain,
     isAwaitingProcessServerService,
-    isSearchGovRecordsFeeRequired,
     interimApplicationStartPagePath,
     interimApplicationStartedAosOverdue,
   };

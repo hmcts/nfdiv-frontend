@@ -1,6 +1,7 @@
 import { Checkbox } from '../../../../../app/case/case';
 import {
-  GeneralApplicationHearingNotRequired, GeneralApplicationType,
+  GeneralApplicationHearingNotRequired,
+  GeneralApplicationType,
   YesOrNo,
 } from '../../../../../app/case/definition';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';

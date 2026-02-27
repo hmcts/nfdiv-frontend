@@ -32,12 +32,12 @@ const FileUploadJourneyConfigurationMap: Record<FileUploadJourney, FileUploadJou
   [FileUploadJourney.GEN_APP_D11_PARTNER_AGREES]: {
     uploadPath: FileUploadPath.APPLICANT_1_GEN_APP_D11_PARTNER_AGREES_EVIDENCE,
     getRedirectPath: () => GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES,
-    validateUpload: req => validateGeneralApplicationDocumentUpload(req),
+    validateUpload: () => true,
   },
   [FileUploadJourney.GEN_APP_D11_SUPPORTING_EVIDENCE]: {
     uploadPath: FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
     getRedirectPath: () => GEN_APP_UPLOAD_EVIDENCE,
-    validateUpload: req => validateGeneralApplicationDocumentUpload(req),
+    validateUpload: () => true,
   },
 };
 
@@ -48,10 +48,6 @@ export const validateServiceApplicationDocumentUpload = (req: AppRequest): boole
     !req.session.userCase.dateAosSubmitted &&
     req.session.userCase.alternativeServiceType === undefined
   );
-};
-
-export const validateGeneralApplicationDocumentUpload = (req: AppRequest): boolean => {
-  return true;
 };
 
 export default FileUploadJourneyConfigurationMap;

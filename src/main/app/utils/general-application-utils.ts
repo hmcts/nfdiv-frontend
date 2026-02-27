@@ -16,9 +16,13 @@ export const findUnpaidGeneralApplication = (
     ?.find(
       application =>
         application?.generalApplicationFeeServiceRequestReference === serviceRequest &&
-        !application?.generalApplicationFeePaymentReference
+        !application?.generalApplicationFeePaymentReference &&
+        application?.generalApplicationFeeHasCompletedOnlinePayment === YesOrNo.NO
     );
 };
+
+export const hasGeneralApplicationPaymentInProgress = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
+  !!findUnpaidGeneralApplication(userCase, getGeneralApplicationServiceRequest(isApplicant2, userCase) as string);
 
 export const findOnlineGeneralApplicationsForUser = (
   userCase: Partial<CaseWithId>,
@@ -35,14 +39,15 @@ export const findOnlineGeneralApplicationsForUser = (
     );
 };
 
-export const getGeneralApplicationServiceRequest = (req: AppRequest<AnyObject>): string | undefined => {
-  return req.session.isApplicant2
-    ? req.session.userCase.applicant2GeneralAppServiceRequest
-    : req.session.userCase.applicant1GeneralAppServiceRequest;
+export const getGeneralApplicationServiceRequest = (
+  isApplicant2: boolean,
+  userCase: Partial<CaseWithId>
+): string | undefined => {
+  return isApplicant2 ? userCase?.applicant2GeneralAppServiceRequest : userCase?.applicant1GeneralAppServiceRequest;
 };
 
 export const getGeneralApplicationOrderSummary = (req: AppRequest<AnyObject>): OrderSummary | undefined => {
-  const serviceRequest = getGeneralApplicationServiceRequest(req);
+  const serviceRequest = getGeneralApplicationServiceRequest(req.session.isApplicant2, req.session.userCase) as string;
 
   return findUnpaidGeneralApplication(req.session.userCase, serviceRequest)?.generalApplicationFeeOrderSummary;
 };
