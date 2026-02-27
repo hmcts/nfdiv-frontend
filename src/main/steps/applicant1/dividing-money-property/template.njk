@@ -5,13 +5,12 @@
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
-  <h2 class="govuk-heading-m">{{ agreeOnDividingAssets }}</h2>
-  <p class="govuk-body">{{ agreeOnDividingAssetsDetails }}</p>
-  <h2 class="govuk-heading-m">{{ disagreeOnDividingAssets }}</h2>
-  <p class="govuk-body">{{ disagreeOnDividingAssetsDetails }}</p>
-  {{ govukDetails({
-    summaryText: readMore,
-    html: readMoreContent
-  }) }}
-  <p class="govuk-body">{{ costs }}</p>
+  <p class="govuk-body">{{ line2 }}</p>
+  <h2 class="govuk-heading-m">{{ ifYouAgreeHeading }}</h2>
+  <p class="govuk-body">{{ line3 }}</p>
+  <h2 class="govuk-heading-m">{{ ifYouNeedHelpAgreeingHeading }}</h2>
+  <p class="govuk-body">{{ line4 | safe }}</p>
+  <p class="govuk-body">{{ line5 }}</p>
+  <p class="govuk-body">{{ line6 }}</p>
+  <p class="govuk-body">{{ line7 }}</p>
 {% endblock %}
