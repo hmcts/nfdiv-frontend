@@ -24,6 +24,11 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   newEmailHeader: 'What do you want to do?',
   provideNewEmail: 'I want to provide a new email address',
   applyForAlternativeService: 'I want to apply for alternative service to serve by email only',
+  errors: {
+    applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: {
+      required: 'Select if you want to provide a new email address or apply for alternative service',
+    },
+  },
 });
 
 // @TODO translations should be verified once provided
@@ -44,6 +49,11 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   newEmailHeader: 'Beth ydych chi eisiau gwneud?',
   provideNewEmail: 'Rwyf eisiau darparu cyfeiriad e-bost newydd',
   applyForAlternativeService: 'Rwyf eisiau gwneud cais am gyflwyno amgen i gyflwyno’r papurau drwy e-bost yn unig',
+  errors: {
+    applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: {
+      required: 'Dewiswch p’un a ydych eisiau darparu cyfeiriad e-bost newydd neu wneud cais am wasanaeth amgen',
+    },
+  },
 });
 
 export const form: FormContent = {

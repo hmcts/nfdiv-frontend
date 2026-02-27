@@ -22,7 +22,7 @@ const en = ({ isDivorce }: CommonContent) => ({
 
 // @TODO translations should be completed then verified
 const cy = ({ isDivorce }: CommonContent) => ({
-  title: 'Documents to give to your process server',
+  title: 'Dogfennau i’w rhoi i’ch gweinyddwr proses',
   applicationDownload: {
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,

@@ -3,7 +3,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 import { generateContent as alsoTryGenerateContent } from '../../common/also-try/content';
 
-const en = ({ isDivorce, partner }: CommonContent) => ({
+const en = ({ isDivorce, partner, isApp2Represented }: CommonContent) => ({
   title: 'Arrange service by a process server',
   line1: `You can arrange for an independent process server to hand deliver your ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
@@ -13,10 +13,10 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     steps: {
       one: "Once you confirm that this is what you want to do, you'll be able to download the papers from your account.",
       two: 'You will need to find and employ a process server. You may wish to consider how many times they will attempt to serve, over what period of time, and at what times of the day.',
-      three: `They will attempt to serve the papers on your ${partner}.`,
+      three: `They will attempt to serve the papers on your ${isApp2Represented ? partner + "'s solicitor" : partner}.`,
       four: 'If they serve successfully, they will complete the certificate of service (form FP6) and send it to you.',
       five: 'You will then need to send the certificate of service to the court.',
-      six: `If the papers have been correctly served and your ${partner} still hasn't responded, your ${
+      six: `If the papers have been correctly served and your ${isApp2Represented ? partner + "'s solicitor" : partner} still hasn't responded, your ${
         isDivorce ? 'divorce' : 'application to end your civil partnership'
       } can continue without their response.`,
     },
@@ -25,7 +25,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   iWantToArrangeService: 'I want to arrange service by process server',
 });
 
-const cy = ({ isDivorce, partner }: CommonContent) => ({
+const cy = ({ isDivorce, partner, isApp2Represented }: CommonContent) => ({
   title: 'Trefnu i’r dogfennau gael eu cyflwyno gan weinyddwr proses',
   line1: `Gallwch drefnu i weinyddwr proses annibynnol ddanfon papurau eich ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
@@ -35,10 +35,10 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     steps: {
       one: 'Unwaith y byddwch yn cadarnhau mai dyma beth rydych eisiau ei wneud, byddwch yn gallu lawrlwytho’r papurau o’ch cyfrif.',
       two: 'Bydd angen i chi ddod o hyd i weinyddwr proses a’u cyflogi. Efallai yr hoffech ystyried faint o weithiau y byddant yn ceisio cyflwyno’r dogfennau, dros pa gyfnod o amser ac am ba amser o’r dydd.',
-      three: `Byddant yn ceisio cyflwyno’r papurau i’ch ${partner}.`,
+      three: `Byddant yn ceisio cyflwyno’r papurau ar ${isApp2Represented ? 'gyfreithiwr eich ' : 'eich '}${partner}.`,
       four: 'Os byddant yn eu cyflwyno’n llwyddiannus, byddant yn llenwi tystysgrif cyflwyno (ffurflen FP6) a’i hanfon atoch.',
       five: 'Bydd angen i chi wedyn anfon y dystysgrif cyflwyno i’r llys.',
-      six: `Os bydd y papurau wedi’u cyflwyno’n gywir a bod eich ${partner} dal heb ymateb 14 diwrnod ar ôl iddynt gael eu cyflwyno â’r papurau, gall eich ${
+      six: `Os yw’r papurau wedi eu cyflwyno’n gywir a bod ${isApp2Represented ? 'cyfreithiwr eich ' : 'eich '}${partner} dal heb ymateb 14 diwrnod ar ôl iddynt gael eu cyflwyno â’r papurau, gall eich ${
         isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
       } barhau heb eu hymateb.`,
     },
