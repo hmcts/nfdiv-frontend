@@ -1,11 +1,10 @@
-import { CommonContent } from '../../../../common/common.content';
-
 import { InterimApplicationType, State } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import {
   findUnpaidGeneralApplication,
   getGeneralApplicationServiceRequest,
 } from '../../../../../app/utils/general-application-utils';
+import { CommonContent } from '../../../../common/common.content';
 import { MAKE_AN_APPLICATION, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
 
 const en = ({ isDivorce }: CommonContent, hasPaymentInProgress) => ({
