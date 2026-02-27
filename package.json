@@ -91,7 +91,7 @@
     "express-session": "1.19.0",
     "form-data": "4.0.5",
     "glob": "13.0.6",
-    "govuk-frontend": "5.14.0",
+    "govuk-frontend": "6.0.0",
     "helmet": "8.1.0",
     "http-status-codes": "2.3.0",
     "js-yaml": "4.1.1",
