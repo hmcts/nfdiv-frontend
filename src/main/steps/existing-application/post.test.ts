@@ -325,7 +325,9 @@ describe('ExistingApplicationPostController', () => {
   });
 
   test('Should redirect back to the current page with the form data on errors', async () => {
-    const errors = [{ propertyName: 'existingOrNewApplication', errorType: 'required' }];
+    const errors = [
+      { propertyName: 'existingOrNewApplication', errorType: 'required', focusId: 'existingOrNewApplication' },
+    ];
     const body = {};
 
     const req = mockRequest({ body });
