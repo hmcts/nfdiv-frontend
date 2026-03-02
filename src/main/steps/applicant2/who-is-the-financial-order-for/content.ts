@@ -1,5 +1,5 @@
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import {
   RadioButtons,
@@ -27,7 +27,7 @@ export const form: FormContent = {
         type: 'radios',
         classes: 'govuk-radios',
         label: l => l.whoIsTheFinancialOrderFor,
-        labelHidden: true,
+        labelHidden: false,
         values: RadioButtons.getLabelledInputs(inputValueSelectedPreviously),
         parser: value =>
           RadioButtons.getParsedValue(value as Record<string, string>, 'applicant2WhoIsFinancialOrderFor'),
@@ -42,6 +42,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...applicant1Content,
     ...labels(applicant1Content),
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };
