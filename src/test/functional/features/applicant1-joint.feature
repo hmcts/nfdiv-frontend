@@ -36,7 +36,7 @@ Feature: Applicant 1 joint application
     When I click "Continue"
     Then the page should include "Enter your husband's email address"
     Given I clear the form
-    And I select "Your husband's email address"
+    And I select "Enter your husband's email address (optional)"
     And I type "simulate-delivered@notifications.service.gov.uk"
 
     When I click "Continue"
