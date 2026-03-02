@@ -32,10 +32,10 @@ import { radioButtonAnswers as certifiedTranslationAnswers } from '../certified-
 import { radioButtonAnswers as checkTheirNameAnswers } from '../check-their-name/content';
 import { radioButtonAnswers as checkYourNameAnswers } from '../check-your-name/content';
 import { radioButtonAnswers as confirmYourNameAnswers } from '../confirm-your-name/content';
+import { radioButtonAnswers as dividingMoneyPropertyAnswers } from '../dividing-money-property/content';
 import { radioButtonAnswers as doTheyHaveASolicitorAnswers } from '../do-they-have-a-solicitor/content';
 import { radioButtonAnswers as doYouHaveAddressAnswers } from '../do-you-have-address/content';
 import { radioButtonAnswers as doYouHaveYourCertificateAnswers } from '../do-you-have-your-certificate/content';
-import { radioButtonAnswers as doYouWantToApplyFoAnswers } from '../do-you-want-to-apply-financial-order/content';
 import { radioButtonAnswers as englishOrWelshAnswers } from '../english-or-welsh/content';
 import { radioButtonAnswers as enterSolicitorDetailsAnswers } from '../enter-solicitor-details/content';
 import { radioButtonAnswers as enterYourAddressAnswers } from '../enter-your-address/content';
@@ -562,7 +562,7 @@ const en = ({
           : '',
     },
     dividingAssets: {
-      line1: `${stripTags(doYouWantToApplyFoAnswers.en[userCase.applicant1ApplyForFinancialOrder])}`,
+      line1: `${stripTags(dividingMoneyPropertyAnswers.en[userCase.applicant1ApplyForFinancialOrder])}`,
       line2: `${
         userCase.applicant1WhoIsFinancialOrderFor
           ? userCase.applicant1WhoIsFinancialOrderFor
@@ -1125,7 +1125,7 @@ const cy: typeof en = ({
           : '',
     },
     dividingAssets: {
-      line1: `${stripTags(doYouWantToApplyFoAnswers.cy[userCase.applicant1ApplyForFinancialOrder])}`,
+      line1: `${stripTags(dividingMoneyPropertyAnswers.cy[userCase.applicant1ApplyForFinancialOrder])}`,
       line2: `${
         userCase.applicant1WhoIsFinancialOrderFor
           ? userCase.applicant1WhoIsFinancialOrderFor

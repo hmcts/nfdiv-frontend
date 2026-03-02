@@ -9,7 +9,7 @@ import {
   radioButtonAnswersRefuge as addressPrivateAnswersRefuge,
 } from '../../applicant1/address-private/content';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
-import { radioButtonAnswers as doYouWantToApplyFoAnswers } from '../../applicant1/do-you-want-to-apply-financial-order/content';
+import { radioButtonAnswers as dividingMoneyPropertyAnswers } from '../../applicant1/dividing-money-property/content';
 import { radioButtonAnswers as englishOrWelshAnswers } from '../../applicant1/english-or-welsh/content';
 import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../../applicant1/how-the-court-will-contact-you/content';
 import { radioButtonAnswers as irretrievableBreakdownAnswers } from '../../applicant1/irretrievable-breakdown/content';
@@ -103,7 +103,7 @@ const en = ({ isDivorce, userCase, isApplicant2, marriage, civilPartnership }) =
       line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
-      line1: `${stripTags(doYouWantToApplyFoAnswers.en[userCase.applicant2ApplyForFinancialOrder])}`,
+      line1: `${stripTags(dividingMoneyPropertyAnswers.en[userCase.applicant2ApplyForFinancialOrder])}`,
       line2: `${
         userCase.applicant2WhoIsFinancialOrderFor
           ? userCase.applicant2WhoIsFinancialOrderFor
@@ -219,7 +219,7 @@ const cy: typeof en = ({ isDivorce, userCase, isApplicant2 }) => ({
       line2: userCase.applicant2LegalProceedings === YesOrNo.YES ? userCase.applicant2LegalProceedingsDetails : '',
     },
     dividingAssets: {
-      line1: `${stripTags(doYouWantToApplyFoAnswers.cy[userCase.applicant2ApplyForFinancialOrder])}`,
+      line1: `${stripTags(dividingMoneyPropertyAnswers.cy[userCase.applicant2ApplyForFinancialOrder])}`,
       line2: `${
         userCase.applicant2WhoIsFinancialOrderFor
           ? userCase.applicant2WhoIsFinancialOrderFor
