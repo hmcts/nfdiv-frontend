@@ -42,7 +42,8 @@ export const getSoleHubTemplate = (
     latestGeneralApplication?.generalApplicationType === (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
   const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
   const addressRequired =
-    userCase.applicationType === ApplicationType.SOLE_APPLICATION && isEmpty(userCase.applicant2Address);
+    userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
+    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(isEmpty);
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
