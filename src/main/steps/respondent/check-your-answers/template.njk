@@ -20,7 +20,7 @@
   {% for section, title in sectionTitles %}
     {% set answerRows = [] %}
     {% for line, text in stepAnswers[section] %}
-      {% if text and text != 'undefined' and text != 'null' %}
+      {% if (text and text != 'undefined' and text != 'null') or (section == 'otherCourtCases' and line == 'uploadedFiles' and cannotUploadDocs == 'Yes') %}
 
           {% set answerText %}
             {% if section == 'otherCourtCases' and line == 'uploadedFiles'%}
