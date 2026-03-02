@@ -62,7 +62,8 @@ export class Form {
 
   private getErrorsFromField(body: Partial<Case>, id: string, field: FormField): FormError[] {
     const errorType = field.validator && field.validator(body[id], body);
-    const errors: FormError[] = errorType ? [{ errorType, propertyName: id }] : [];
+    const focusId = isFormOptions(field) ? (field.values[0]?.id ?? field.id ?? id) : id;
+    const errors: FormError[] = errorType ? [{ errorType, propertyName: id, focusId }] : [];
 
     errors.push(...this.validateGlobalInputRules(body, id, field as FormInput));
 
@@ -228,6 +229,7 @@ export interface CsrfField {
 export type FormError = {
   propertyName: string;
   errorType: string;
+  focusId?: string;
 };
 
 interface CaseWithFormData extends CaseWithId {
