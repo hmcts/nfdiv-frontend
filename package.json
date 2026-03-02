@@ -97,7 +97,7 @@
     "js-yaml": "4.1.1",
     "jwt-decode": "4.0.0",
     "lodash": "4.17.23",
-    "multer": "2.0.2",
+    "multer": "2.1.0",
     "negotiator": "1.0.0",
     "node-cache": "5.1.2",
     "nunjucks": "3.2.4",
