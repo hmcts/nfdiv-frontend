@@ -52,7 +52,7 @@ describe('PostController', () => {
   } as unknown as FormContent;
 
   test('Should redirect back to the current page with the form data on errors', async () => {
-    const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid', focusId: 'applicant1PhoneNumber' }];
     const body = { applicant1PhoneNumber: 'invalid phone number' };
     const mockPhoneNumberFormContent = {
       fields: {
@@ -252,7 +252,7 @@ describe('PostController', () => {
   });
 
   it('saves and signs out with empty form data if there are errors', async () => {
-    const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid', focusId: 'applicant1PhoneNumber' }];
     const body = { applicant1PhoneNumber: 'invalid phone number', saveAndSignOut: true };
     const mockPhoneNumberFormContent = {
       fields: {
@@ -300,7 +300,7 @@ describe('PostController', () => {
 
   it('saves and signs out with empty form data if there are errors when InformationRequested', async () => {
     const userCase = { state: State.InformationRequested };
-    const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid', focusId: 'applicant1PhoneNumber' }];
     const body = { applicant1PhoneNumber: 'invalid phone number', saveAndSignOut: true };
     const mockPhoneNumberFormContent = {
       fields: {
