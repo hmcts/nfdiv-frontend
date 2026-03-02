@@ -67,11 +67,7 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/dividing-money-property"
     And the page should include "Dividing your money and property"
-
-    When I select "Continue"
-    Then the page URL should be "/applicant2/do-you-want-to-apply-financial-order"
-    And the page should include "Applying for a financial order"
-    Given I select "No, I do not want to apply for a financial order"
+    Given I select "No. I do not want to apply for a financial order"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"
@@ -249,17 +245,12 @@ Feature: Applicant 2
     When I click "Continue"
     Then the page URL should be "/applicant2/dividing-money-property"
     And the page should include "Dividing your money and property"
+    Given I select "Yes. I want to apply for a financial order"
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/do-you-want-to-apply-financial-order"
-    And the page should include "Applying for a financial order"
-    Given I select "Yes, I want to apply for a financial order"
-    And I select "Myself"
-    And I select "The children"
-
-    When I click "Continue"
-    Then the page URL should be "/applicant2/how-to-apply-financial-order"
-    And the page should include "How to apply for a financial order"
+    Then the page URL should be "/applicant2/who-is-the-financial-order-for"
+    And the page should include "Who is the financial order for?"
+    And I select "I need a financial order for myself"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/check-your-joint-application"
