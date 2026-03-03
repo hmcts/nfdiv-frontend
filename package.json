@@ -127,7 +127,7 @@
     "allure-commandline": "2.37.0",
     "axios-debug-log": "1.0.0",
     "codeceptjs": "3.6.10",
-    "copy-webpack-plugin": "13.0.1",
+    "copy-webpack-plugin": "14.0.0",
     "css-loader": "7.1.4",
     "eslint": "8.57.1",
     "eslint-config-prettier": "10.1.8",
