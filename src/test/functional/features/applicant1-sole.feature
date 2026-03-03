@@ -108,12 +108,7 @@ Feature: Applicant 1 sole application
     Given I select "No"
 
     When I click "Continue"
-    Then the page should include "Enter your husband's email address"
-    Then I select "Enter your husband's email address (optional)"
-    And I type "simulate-delivered@notifications.service.gov.uk"
-
-    When I click "Continue"
-    Then the page should include "Do you have your husband's postal address?"
+    Then the page should include "Do you know your husband's postal address?"
     Given I select "Yes, I have their address"
 
     When I click "Continue"
@@ -126,15 +121,13 @@ Feature: Applicant 1 sole application
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
 
     When I click "Continue"
-    Then the page URL should be "/other-court-cases"
-    Given I go to "/enter-their-address"
-    Then the form input "Building and street" should be "102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE"
-    And the form input "Town or city" should be "LONDON"
-    And the form input "County" should be "CITY OF WESTMINSTER"
-    And the form input "Postcode" should be "SW1H 9AJ"
+    Then the page should include "Enter your husband's email address (optional)"
+    Then I select "Enter your husband's email address (optional)"
+    And I type "simulate-delivered@notifications.service.gov.uk"
 
     When I click "Continue"
-    Then the page should include "Other court cases relating to this marriage"
+    Then the page URL should be "/other-court-cases"
+    And the page should include "Other court cases relating to this marriage"
     Given I select "No"
 
     When I click "Continue"
