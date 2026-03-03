@@ -3,12 +3,14 @@
 {{ govukRadios({
     classes: field.classes,
     idPrefix: field.id if field.id else fieldName,
+    id: field.id,
     name: fieldName,
     fieldset: {
       legend: {
         text: getContent(field.label),
         classes: "govuk-visually-hidden" if field.labelHidden else "govuk-fieldset__legend--m"
-      }
+      },
+      id: field.id
     },
     hint: {
       html: getContent(field.hint)
