@@ -21,8 +21,10 @@
         <p class="govuk-body">{{ line1 | safe }}</p>
         <p class="govuk-body">{{ line2 }}</p>
         <p class="govuk-body">{{ line3 }}</p>
-        <strong>{{ acceptedFileFormats }}</strong> {{ fileFormats }}<br>
-        <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
+        <p class="govuk-body">
+          <strong>{{ acceptedFileFormats }}</strong> {{ fileFormats }}<br>
+          <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
+        </p>
       </p>
 
       {% include "common/form/fields/" + field.type + ".njk" %}
