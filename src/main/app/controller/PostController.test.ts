@@ -276,7 +276,7 @@ describe('PostController', () => {
 
   it('saves and signs out with empty form data if there are errors when Draft', async () => {
     const userCase = { state: State.Draft };
-    const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
+    const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid', focusId: 'applicant1PhoneNumber' }];
     const body = { applicant1PhoneNumber: 'invalid phone number', saveAndSignOut: true };
     const mockPhoneNumberFormContent = {
       fields: {
