@@ -7571,10 +7571,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^14.0.2":
-  version: 14.0.2
-  resolution: "commander@npm:14.0.2"
-  checksum: 0a9e549565d368dde2965821833324069b92b099b415c2106996e47db1f0b8c10c77367e9876873c00a52ca627af4c7472eba9b51dc0d6a3ef152ea063d3e9e9
+"commander@npm:^14.0.3":
+  version: 14.0.3
+  resolution: "commander@npm:14.0.3"
+  checksum: b8440159124aefbb02784a8996cd0481d8ce503d8d3cd413f4289d06db7e912c36b511277c2faba62f59152dd9ff79239d75e3b9400d9402851878994201d429
   languageName: node
   linkType: hard
 
@@ -7836,18 +7836,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copy-webpack-plugin@npm:13.0.1":
-  version: 13.0.1
-  resolution: "copy-webpack-plugin@npm:13.0.1"
+"copy-webpack-plugin@npm:14.0.0":
+  version: 14.0.0
+  resolution: "copy-webpack-plugin@npm:14.0.0"
   dependencies:
     glob-parent: ^6.0.1
     normalize-path: ^3.0.0
     schema-utils: ^4.2.0
-    serialize-javascript: ^6.0.2
+    serialize-javascript: ^7.0.3
     tinyglobby: ^0.2.12
   peerDependencies:
     webpack: ^5.1.0
-  checksum: 35673183e1e684ffa6ce85d463c14535296954d9ab7d46d487783a6a03c3e16b2c20070541b32e720eaddbfeaccf0abb193314f3a59dcc16778e414163f86205
+  checksum: 8cf634d329529e636094655295d27fc8acd75c98969777d36173b85d03f6edba42fc96af042fd7c17ac34611d4d615048205f8d4c530fde50efbde7e73ec07ae
   languageName: node
   linkType: hard
 
@@ -13164,20 +13164,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:16.2.7":
-  version: 16.2.7
-  resolution: "lint-staged@npm:16.2.7"
+"lint-staged@npm:16.3.1":
+  version: 16.3.1
+  resolution: "lint-staged@npm:16.3.1"
   dependencies:
-    commander: ^14.0.2
+    commander: ^14.0.3
     listr2: ^9.0.5
     micromatch: ^4.0.8
-    nano-spawn: ^2.0.0
-    pidtree: ^0.6.0
     string-argv: ^0.3.2
-    yaml: ^2.8.1
+    tinyexec: ^1.0.2
+    yaml: ^2.8.2
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: fbf234787ed1f6fe9e754c03ef64571ef09d68e4ebce21141a85972e5b7c00fee9d00a4c892db3c00ddc22e8b0c337d757734a4df4848661469b7591f14cbc24
+  checksum: 7dea0eeef5ac007114841773e1ea89b95d5c3ed27ffd3fb05ee37ec8b591b6907e88a33248b038d309f7ea96241d8568fe42e356a1cdcc75ce2a2a72c419114b
   languageName: node
   linkType: hard
 
@@ -14544,13 +14543,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nano-spawn@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "nano-spawn@npm:2.0.0"
-  checksum: 48223f6f5b2ab3f7562d0e6e85abb9b9c4ee52f5c096bd50012c0776664ddc63cd2602c9e4dc3d6cd47ae5189e9c71b51afb2d44b2746d8ca80cb52fc8013904
-  languageName: node
-  linkType: hard
-
 "nanoid@npm:^3.3.11":
   version: 3.3.11
   resolution: "nanoid@npm:3.3.11"
@@ -14677,7 +14669,7 @@ __metadata:
     config: 4.4.1
     connect-redis: 7.1.1
     cookie-parser: 1.4.7
-    copy-webpack-plugin: 13.0.1
+    copy-webpack-plugin: 14.0.0
     css-loader: 7.1.4
     csurf: 1.11.0
     dayjs: 1.11.19
@@ -14703,7 +14695,7 @@ __metadata:
     jest-junit: ^16.0.0
     js-yaml: 4.1.1
     jwt-decode: 4.0.0
-    lint-staged: 16.2.7
+    lint-staged: 16.3.1
     lodash: 4.17.23
     mini-css-extract-plugin: 2.10.0
     mocha: ^11.0.0
@@ -17342,6 +17334,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"serialize-javascript@npm:^7.0.3":
+  version: 7.0.4
+  resolution: "serialize-javascript@npm:7.0.4"
+  checksum: 00a141b57ad3c5efed5499b093c7a7d37237c1980ee2d9475e36c792e2951915550d93be37d10d6e6e20a5bad41177448a3f8135bf30bcb01ff592c13e1f6338
+  languageName: node
+  linkType: hard
+
 "serve-favicon@npm:2.5.1":
   version: 2.5.1
   resolution: "serve-favicon@npm:2.5.1"
@@ -18426,6 +18425,13 @@ __metadata:
   version: 2.3.8
   resolution: "through@npm:2.3.8"
   checksum: a38c3e059853c494af95d50c072b83f8b676a9ba2818dcc5b108ef252230735c54e0185437618596c790bbba8fcdaef5b290405981ffa09dce67b1f1bf190cbd
+  languageName: node
+  linkType: hard
+
+"tinyexec@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "tinyexec@npm:1.0.2"
+  checksum: af22de2191cc70bb782eef29bbba7cf6ac16664e550b547b0db68804f988eeb2c70e12fbb7d2d688ee994b28ba831d746e9eded98c3d10042fd3a9b8de208514
   languageName: node
   linkType: hard
 
@@ -19965,21 +19971,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.2.1":
+"yaml@npm:^2.2.1, yaml@npm:^2.8.2":
   version: 2.8.2
   resolution: "yaml@npm:2.8.2"
   bin:
     yaml: bin.mjs
   checksum: 5ffd9f23bc7a450129cbd49dcf91418988f154ede10c83fd28ab293661ac2783c05da19a28d76a22cbd77828eae25d4bd7453f9a9fe2d287d085d72db46fd105
-  languageName: node
-  linkType: hard
-
-"yaml@npm:^2.8.1":
-  version: 2.8.1
-  resolution: "yaml@npm:2.8.1"
-  bin:
-    yaml: bin.mjs
-  checksum: 35b46150d48bc1da2fd5b1521a48a4fa36d68deaabe496f3c3fa9646d5796b6b974f3930a02c4b5aee6c85c860d7d7f79009416724465e835f40b87898c36de4
   languageName: node
   linkType: hard
 
