@@ -3,13 +3,13 @@ import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { ApplicationType, State } from '../../../../../app/case/definition';
 import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfiguration';
 
-import GenAppUploadPartnerAgreesEvidenceGetController from './get';
+import AlternativeServiceUploadEvidenceGetController from './get';
 
-describe('GenAppUploadPartnerAgreesEvidenceGetController', () => {
-  const controller = new GenAppUploadPartnerAgreesEvidenceGetController();
+describe('AlternativeServiceUploadEvidenceGetController', () => {
+  const controller = new AlternativeServiceUploadEvidenceGetController();
 
   describe('Upload journey', () => {
-    it('saves the gen application partner agrres evidence upload journey to the user session', async () => {
+    it('saves the alternative service upload journey to the user session', async () => {
       const userCase = {
         state: State.AwaitingAos,
         applicationType: ApplicationType.SOLE_APPLICATION,
@@ -19,7 +19,7 @@ describe('GenAppUploadPartnerAgreesEvidenceGetController', () => {
 
       await controller.get(req, res);
 
-      expect(req.session.fileUploadJourney).toBe(FileUploadJourney.GEN_APP_PARTNER_AGREES);
+      expect(req.session.fileUploadJourney).toBe(FileUploadJourney.ALTERNATIVE_SERVICE);
     });
   });
 });

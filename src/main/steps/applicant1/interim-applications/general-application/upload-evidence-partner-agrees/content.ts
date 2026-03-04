@@ -28,6 +28,7 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
   )}">certified translation</a>.`,
   line4: 'You may need to upload multiple documents.',
   line5: 'You cannot upload video or audio recordings.',
+  line6: 'The file must be in jpg, bmp, tiff, png or pdf format.',
   uploadAFile: 'Upload a file',
   chooseFileButtonText: 'Choose file',
   noFileChosen: 'No file chosen',
@@ -67,6 +68,7 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
   )}">certified translation</a>.`,
   line4: 'You may need to upload multiple documents.',
   line5: 'You cannot upload video or audio recordings.',
+  line6: 'The file must be in jpg, bmp, tiff, png or pdf format.',
   uploadAFile: 'Upload a file',
   chooseFileButtonText: 'Choose file',
   noFileChosen: 'No file chosen',
@@ -150,9 +152,8 @@ export const generateContent: TranslationFn = content => {
     "delete": "${content.delete}"
   }`;
   return {
-    ...applicant1UploadDocumentContent,
-    ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    ...translations,
     uploadedDocsFilenames,
     amendable,
     uploadContentScript,

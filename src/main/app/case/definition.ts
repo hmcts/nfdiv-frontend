@@ -1184,11 +1184,13 @@ export interface CaseData {
   applicant2ConfirmWithdrawApplication: YesOrNo;
   applicant2WithdrawApplicationReason: string;
   applicant1GenAppCannotUploadAgreedEvidence: YesOrNo;
+  applicant1GenAppCannotUploadEvidence: YesOrNo;
+  applicant1GenAppEvidenceDocs: ListValue<DivorceDocument>[];
   applicant1GenAppHearingNotRequired: GeneralApplicationHearingNotRequired;
   applicant1GenAppPartnerAgreesDocs: ListValue<DivorceDocument>[];
   applicant1GenAppPartnerDetailsCorrect: YesOrNo;
   applicant1GenAppReason: string;
-  applicant1GenAppStatementOfEvidence: string;
+  applicant1GenAppStatement: string;
   applicant1GenAppType: GeneralApplicationType;
   applicant1GenAppTypeOtherDetails: string;
 }
@@ -2106,7 +2108,7 @@ export const enum InterimApplicationType {
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'searchGovRecords',
   PROCESS_SERVER_SERVICE = 'processServerService',
-  DIGITISED_GENERAL_APPLICATION_D11 = 'digitisedGeneralApplicationD11',
+  DIGITISED_GENERAL_APPLICATION = 'digitisedGeneralApplication',
 }
 
 export const enum SearchGovRecordsWhichDepartment {

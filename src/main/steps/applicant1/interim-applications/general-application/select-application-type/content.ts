@@ -10,17 +10,17 @@ const en = ({ isDivorce }: CommonContent) => ({
   withdraw: `Withdraw your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   delay: 'Delay or pause (or ‘put a stay on’) an application',
   extend: 'More time to serve an application (or ‘extend service’)',
-  continueWithoutMarriageCertificate: `Continue without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
-  expedite: `${isDivorce ? 'Complete a divorce' : 'End a civil partnership'} more quickly (or ‘expedite’ an application)`,
+  continueWithoutMarriageCertificate: 'Continue without a marriage certificate',
+  expedite: 'Complete a divorce or to end a civil partnership more quickly (or ‘expedite’ an application)',
   amend: 'Amend an existing application',
   somethingElse: 'Something else',
   specify: 'Please specify',
   errors: {
     applicant1GenAppType: {
-      required: 'Select which application you want to make',
+      required: 'Select an option.',
     },
     applicant1GenAppTypeOtherDetails: {
-      required: 'You must explain which application you are making',
+      required: 'Enter details of the application type you are making',
     },
   },
 });
@@ -32,17 +32,17 @@ const cy = ({ isDivorce }: CommonContent) => ({
   withdraw: `Withdraw your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   delay: 'Delay or pause (or ‘put a stay on’) an application',
   extend: 'More time to serve an application (or ‘extend service’)',
-  continueWithoutMarriageCertificate: `Continue without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
-  expedite: `${isDivorce ? 'Complete a divorce' : 'End a civil partnership'} more quickly (or ‘expedite’ an application)`,
+  continueWithoutMarriageCertificate: 'Continue without a marriage certificate',
+  expedite: 'Complete a divorce or to end a civil partnership more quickly (or ‘expedite’ an application)',
   amend: 'Amend an existing application',
   somethingElse: 'Something else',
   specify: 'Please specify',
   errors: {
     applicant1GenAppType: {
-      required: 'Select which application you want to make',
+      required: 'Select an option.',
     },
     applicant1GenAppTypeOtherDetails: {
-      required: 'You must explain which application you are making',
+      required: 'Enter details of the application type you are making',
     },
   },
 });

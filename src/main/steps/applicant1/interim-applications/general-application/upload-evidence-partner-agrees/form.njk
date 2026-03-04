@@ -9,10 +9,7 @@
 
   {% for fieldName, field in form.fields %}
     {% if fieldName == 'applicant1GenAppPartnerAgreesUploadedFiles'%}
-      <p class="govuk-body">
-        <strong>{{ acceptedFileFormats }}</strong> {{ fileFormats }}<br>
-        <strong>{{ maximumFileSize }}</strong> {{ fileSize }}
-      </p>
+      <br>
 
       <h2 id="uploadAFile" class="govuk-heading-s">{{ uploadAFile }}</h2>
       {% include "common/form/fields/" + field.type + ".njk" %}

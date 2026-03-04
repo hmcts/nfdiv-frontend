@@ -8,32 +8,30 @@ import {
 } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 
-import DigitisedGeneralApplicationPostController from './post';
+import DeemedServiceApplicationPostController from './post';
 
-describe('DigitisedGeneralApplicationPostController', () => {
+describe('DeemedServiceApplicationPostController', () => {
   const mockFormContent = {
     fields: {
       applicant1InterimAppsIUnderstand: {},
     },
   } as unknown as FormContent;
 
-  it('Sets digitised general application type', async () => {
+  it('Sets deemed service interim application type', async () => {
     const body = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
     };
 
     const expectedBody = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
-      applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
+      applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE,
     };
 
-    const digitisedGeneralApplicationPostController = new DigitisedGeneralApplicationPostController(
-      mockFormContent.fields
-    );
+    const deemedInterruptionPostController = new DeemedServiceApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
     const res = mockResponse();
-    await digitisedGeneralApplicationPostController.post(req, res);
+    await deemedInterruptionPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_START_INTERIM_APPLICATION);
   });
@@ -45,19 +43,17 @@ describe('DigitisedGeneralApplicationPostController', () => {
 
     const expectedBody = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
-      applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
+      applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE,
     };
 
-    const digitisedGeneralApplicationPostController = new DigitisedGeneralApplicationPostController(
-      mockFormContent.fields
-    );
+    const deemedInterruptionPostController = new DeemedServiceApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({
       body,
       userCase: { applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE },
     });
     const res = mockResponse();
-    await digitisedGeneralApplicationPostController.post(req, res);
+    await deemedInterruptionPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_START_INTERIM_APPLICATION);
   });
@@ -69,19 +65,17 @@ describe('DigitisedGeneralApplicationPostController', () => {
 
     const expectedBody = {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
-      applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
+      applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE,
     };
 
-    const digitisedGeneralApplicationPostController = new DigitisedGeneralApplicationPostController(
-      mockFormContent.fields
-    );
+    const deemedInterruptionPostController = new DeemedServiceApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({
       body,
-      userCase: { applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11 },
+      userCase: { applicant1InterimApplicationType: InterimApplicationType.DEEMED_SERVICE },
     });
     const res = mockResponse();
-    await digitisedGeneralApplicationPostController.post(req, res);
+    await deemedInterruptionPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_UPDATE);
   });
