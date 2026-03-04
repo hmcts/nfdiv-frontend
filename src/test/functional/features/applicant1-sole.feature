@@ -108,12 +108,7 @@ Feature: Applicant 1 sole application
     Given I select "No"
 
     When I click "Continue"
-    Then the page should include "Enter your husband's email address"
-    Then I select "Your husband's email address"
-    And I type "simulate-delivered@notifications.service.gov.uk"
-
-    When I click "Continue"
-    Then the page should include "Do you have your husband's postal address?"
+    Then the page should include "Do you know your husband's postal address?"
     Given I select "Yes, I have their address"
 
     When I click "Continue"
@@ -126,15 +121,13 @@ Feature: Applicant 1 sole application
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
 
     When I click "Continue"
-    Then the page URL should be "/other-court-cases"
-    Given I go to "/enter-their-address"
-    Then the form input "Building and street" should be "102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE"
-    And the form input "Town or city" should be "LONDON"
-    And the form input "County" should be "CITY OF WESTMINSTER"
-    And the form input "Postcode" should be "SW1H 9AJ"
+    Then the page should include "Enter your husband's email address (optional)"
+    Then I select "Enter your husband's email address (optional)"
+    And I type "simulate-delivered@notifications.service.gov.uk"
 
     When I click "Continue"
-    Then the page should include "Other court cases relating to this marriage"
+    Then the page URL should be "/other-court-cases"
+    And the page should include "Other court cases relating to this marriage"
     Given I select "No"
 
     When I click "Continue"
@@ -354,17 +347,7 @@ Feature: Applicant 1 sole application
     And I type "SW1A 1AA"
 
     When I click "Continue"
-    Then the page URL should be "/their-email-address"
-    Given I go to "/do-they-have-a-solicitor"
-    And I select "No"
-
-    When I click "Continue"
-    Then the page should include "Enter your husband's email address"
-    Given I select "Your husband's email address"
-    And I type "simulate-delivered@notifications.service.gov.uk"
-
-    When I click "Continue"
-    Then the page should include "Do you have your husband's postal address?"
+    Then the page should include "Do you know your husband's postal address?"
     Given I select "Yes, I have their address"
     When I click "Continue"
     Then the page should include "Enter your husband’s postal address"
@@ -386,19 +369,15 @@ Feature: Applicant 1 sole application
     And I select "Country"
     And I type "France"
     And I click "Continue"
-    Then the page URL should be "/you-need-to-serve"
+    Then the page URL should be "/address-international"
     And the page should include "Divorcing someone who lives outside of England and Wales"
-
-    Given I go to "/do-you-have-address"
-    And I clear the form
-    And I select "No, I do not have their address"
+    When I click "Continue"
 
     When I click "Continue"
-    Then the page should include "You need to get their address"
-    Given I select "I want to apply to have the divorce papers ‘served’ (delivered) to them another way."
-
-    When I click "Continue"
-    Then the page should include "How to apply to serve (deliver) the papers another way"
+    Then the page URL should be "/their-email-address"
+    And the page should include "Enter your husband's email address (optional)"
+    When I select "Enter your husband's email address (optional)"
+    And I type "simulate-delivered@notifications.service.gov.uk"
 
     When I click "Continue"
     And the page should include "Other court cases relating to this marriage"
