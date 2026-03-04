@@ -30,6 +30,7 @@ describe('GeneralApplicationUtils', () => {
           generalApplicationParty: GeneralParties.APPLICANT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
           generalApplicationFeeServiceRequestReference: applicant1GeneralAppServiceRequest,
+          generalApplicationFeeHasCompletedOnlinePayment: YesOrNo.NO,
           generalApplicationFeeOrderSummary: {
             PaymentTotal: '100',
             PaymentReference: 'REF123',
@@ -54,6 +55,7 @@ describe('GeneralApplicationUtils', () => {
           generalApplicationParty: GeneralParties.RESPONDENT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
           generalApplicationFeeServiceRequestReference: applicant2GeneralAppServiceRequest,
+          generalApplicationFeeHasCompletedOnlinePayment: YesOrNo.NO,
           generalApplicationFeeOrderSummary: {
             PaymentTotal: '200',
             PaymentReference: 'REF456',
@@ -75,13 +77,17 @@ describe('GeneralApplicationUtils', () => {
     test('Should return applicant 1 service request if logged in as applicant 1', () => {
       mockReq.session.isApplicant2 = false;
 
-      expect(getGeneralApplicationServiceRequest(mockReq)).toEqual(applicant1GeneralAppServiceRequest);
+      expect(getGeneralApplicationServiceRequest(mockReq.session.isApplicant2, mockReq.session.userCase)).toEqual(
+        applicant1GeneralAppServiceRequest
+      );
     });
 
     test('Should return applicant 2 service request if logged in as applicant 2', () => {
       mockReq.session.isApplicant2 = true;
 
-      expect(getGeneralApplicationServiceRequest(mockReq)).toEqual(applicant2GeneralAppServiceRequest);
+      expect(getGeneralApplicationServiceRequest(mockReq.session.isApplicant2, mockReq.session.userCase)).toEqual(
+        applicant2GeneralAppServiceRequest
+      );
     });
   });
 
@@ -166,6 +172,7 @@ describe('GeneralApplicationUtils', () => {
             generalApplicationParty: GeneralParties.APPLICANT,
             generalApplicationFeePaymentReference: 'paid',
             generalApplicationSubmittedOnline: YesOrNo.NO,
+            generalApplicationFeeHasCompletedOnlinePayment: YesOrNo.YES,
           },
         },
       ];

@@ -6,13 +6,13 @@ import {
   APPLICATION_PAYMENT_STATES,
   ApplicationType,
   FINAL_ORDER_PAYMENT_STATES,
-  GENERAL_APPLICATION_PAYMENT_STATES,
   SERVICE_PAYMENT_STATES,
   State,
   YesOrNo,
 } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
+import { hasGeneralApplicationPaymentInProgress } from '../../app/utils/general-application-utils';
 import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
@@ -94,7 +94,7 @@ export class StateRedirectMiddleware {
         }
 
         if (
-          !this.caseAwaitingPayment(state) ||
+          !this.caseAwaitingPayment(state, isApplicant2, req.session.userCase) ||
           [
             PAY_YOUR_FEE,
             PAY_AND_SUBMIT,
@@ -135,7 +135,10 @@ export class StateRedirectMiddleware {
             ? req.session.userCase.applicant2GeneralAppPayments
             : req.session.userCase.applicant1GeneralAppPayments
         );
-        if (GENERAL_APPLICATION_PAYMENT_STATES.has(state) && generalApplicationPayments.hasPayment) {
+        if (
+          hasGeneralApplicationPaymentInProgress(isApplicant2, req.session.userCase) &&
+          generalApplicationPayments.hasPayment
+        ) {
           return res.redirect(GENERAL_APPLICATION_PAYMENT_CALLBACK);
         }
 
@@ -144,13 +147,11 @@ export class StateRedirectMiddleware {
     );
   }
 
-  private caseAwaitingPayment(state: State): boolean {
-    return new Set([
-      ...APPLICATION_PAYMENT_STATES,
-      ...FINAL_ORDER_PAYMENT_STATES,
-      ...SERVICE_PAYMENT_STATES,
-      ...GENERAL_APPLICATION_PAYMENT_STATES,
-    ]).has(state);
+  private caseAwaitingPayment(state: State, isApplicant2: boolean, userCase: CaseWithId): boolean {
+    return (
+      new Set([...APPLICATION_PAYMENT_STATES, ...FINAL_ORDER_PAYMENT_STATES, ...SERVICE_PAYMENT_STATES]).has(state) ||
+      hasGeneralApplicationPaymentInProgress(isApplicant2, userCase)
+    );
   }
 
   private hasPartnerNotRespondedInTime(userCase: CaseWithId, isApplicant2: boolean) {

@@ -1,0 +1,22 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% if showGeneralApplicationSaveAndSignOutUpdate %}
+  <h2 class="govuk-heading-m">{{ generalApplication.heading }}</h2>
+  <p class="govuk-body">{{ generalApplication.line1 }}</p>
+  <h3 class="govuk-heading-s">{{ generalApplication.subHeading1 }}</h3>
+  <p class="govuk-body">{{ generalApplication.line2 }}</p>
+  <p class="govuk-body">{{ generalApplication.line3 }}</p>
+  <p class="govuk-body">{{ generalApplication.line4 }}</p>
+  {{ govukButton({
+    text: generalApplication.continueLinkText,
+    href: generalApplication.continueLinkUrl,
+    preventDoubleClick: true
+  }) }}
+  <br />
+  {{ govukButton({
+    text: generalApplication.withdrawLinkText,
+    href: generalApplication.withdrawLinkUrl,
+    preventDoubleClick: true,
+    classes: 'govuk-button govuk-button--warning'
+  }) }}
+{% endif %}
