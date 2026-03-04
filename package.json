@@ -167,5 +167,5 @@
     "axios": "1.13.6",
     "serialize-javascript": "^7.0.3"
   },
-  "packageManager": "yarn@3.8.7"
+  "packageManager": "yarn@4.13.0"
 }
