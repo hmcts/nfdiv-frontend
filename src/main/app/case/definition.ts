@@ -1124,6 +1124,9 @@ export interface CaseData {
   applicant1SearchGovRecordsPartnerAdditionalAddressDates1: string;
   applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
+  applicant1NoRespAddressHasFoundAddress: YesOrNo;
+  applicant1NoRespAddressHasWayToContact: YesOrNo;
+  applicant1NoRespAddressWillApplyAltService: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
@@ -1183,6 +1186,7 @@ export interface CaseData {
   withdrawApplicationReason: string;
   applicant2ConfirmWithdrawApplication: YesOrNo;
   applicant2WithdrawApplicationReason: string;
+  applicant1FoundApplicant2Address: YesOrNo;
 }
 
 export interface CaseDocuments {
