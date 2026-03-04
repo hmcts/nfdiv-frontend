@@ -59,6 +59,7 @@ export const en = {
     bailiffService: 'bailiff service',
     alternativeService: 'alternative service',
     searchGovRecords: 'search government records',
+    digitisedGeneralApplicationD11: 'D11',
   },
   feedback: {
     part1: 'This is a new service – your ',
@@ -254,6 +255,7 @@ const cy: typeof en = {
     bailiffService: 'gwasanaeth beili',
     alternativeService: 'cyflwyno amgen',
     searchGovRecords: 'chwilio cofnodion y llywodraeth',
+    digitisedGeneralApplicationD11: 'D11',
   },
   feedback: {
     part1: 'Mae hwn yn wasanaeth newydd - ',
