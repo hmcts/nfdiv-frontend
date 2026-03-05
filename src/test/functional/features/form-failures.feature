@@ -239,7 +239,7 @@ Feature: Form failures
 
     Given I go to "/who-is-the-financial-order-for"
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then the page should include "You need to answer who the financial order is for."
 
     Given I go to "/upload-your-documents"
     When I click "Continue"
