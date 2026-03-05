@@ -18,6 +18,7 @@ import {
   getAppSolAddressFields,
   getApplicant1PartnerContent,
 } from '../../common/content.utils';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJointApplication }) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -137,7 +138,6 @@ const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line23: 'I believe that the facts stated in this application are true.',
   applicantName: `${userCase.applicant1FirstNames} ${userCase.applicant1LastNames}`,
   subHeading13: 'Your acknowledgement',
-  confirmReadPetition: `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`,
   errors: {
     confirmReadPetition: {
       required:
@@ -272,7 +272,6 @@ const cy = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJ
   line23: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
   applicantName: `${userCase.applicant1FirstNames} ${userCase.applicant1LastNames}`,
   subHeading13: 'Eich cydnabyddiad ',
-  confirmReadPetition: `Rwyf wedi darllen y cais ${isDivorce ? 'am ysgariad' : 'i ddod â’n partneriaeth sifil i ben'}`,
   errors: {
     confirmReadPetition: {
       required:
@@ -306,10 +305,22 @@ const languages = {
   cy,
 };
 
+export const checkBoxAnswers = (isDivorce: boolean): InputLabelsByLanguage<Checkbox> => ({
+  en: {
+    [Checkbox.Checked]: `I have read the application ${isDivorce ? 'for divorce' : 'to end our civil partnership'}`,
+    [Checkbox.Unchecked]: '',
+  },
+  cy: {
+    [Checkbox.Checked]: `Rwyf wedi darllen y cais ${isDivorce ? 'am ysgariad' : 'i ddod â’n partneriaeth sifil i ben'}`,
+    [Checkbox.Unchecked]: '',
+  },
+});
+
 export const generateContent: TranslationFn = (content: CommonContent) => {
   const { language, userCase } = content;
   content.applicant1Partner = getApplicant1PartnerContent(content);
   const translations = languages[language](content);
+  const confirmReadPetition = checkBoxAnswers(content.isDivorce)[content.language][Checkbox.Checked];
   const isApplicantAddressPrivate = userCase.applicant1AddressPrivate === YesOrNo.YES;
   const isRespondentAddressPrivate = userCase.applicant2AddressPrivate === YesOrNo.YES;
   const isFinancialOrderYes = userCase.applicant1ApplyForFinancialOrder === YesOrNo.YES;
@@ -325,6 +336,7 @@ export const generateContent: TranslationFn = (content: CommonContent) => {
   const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading6']);
   return {
     ...translations,
+    confirmReadPetition,
     form,
     isApplicantAddressPrivate,
     isRespondentAddressPrivate,

@@ -27,9 +27,9 @@ export const form: FormContent = {
       labelHidden: false,
       hint: l => l.hint,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
         {
-          label: l => l.no,
+          label: l => l[YesOrNo.NO],
           value: YesOrNo.NO,
           conditionalText: l => `<p class="govuk-label">${l.noSelectedWarning}</p>`,
         },
