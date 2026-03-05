@@ -43,7 +43,10 @@ export const getSoleHubTemplate = (
   const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
   const addressRequired =
     userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
-    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(isEmpty);
+    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(
+      isEmpty
+    ) &&
+    userCase?.applicant2AddressOverseas !== YesOrNo.YES;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
