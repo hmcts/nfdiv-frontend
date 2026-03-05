@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isEmailValid } from '../../../app/form/validation';
+import { defaultYesOrNoRadioAnswers } from '../../common/input-labels.content';
 
 const en = ({ partner, isDivorce }) => ({
   title: 'Enter their solicitor’s details',
@@ -142,8 +143,8 @@ export const form: FormContent = {
       classes: 'govuk-radios--inline',
       label: l => l.solicitorAddressOverseas,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
     },
   },
@@ -157,10 +158,14 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = defaultYesOrNoRadioAnswers;
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };
