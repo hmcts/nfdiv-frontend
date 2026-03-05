@@ -22,7 +22,7 @@ const en = ({ isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent, app2O
     text: 'View all documents',
   },
   genAppMakeAnApplication: {
-    url: MAKE_AN_APPLICATION,
+    url: app2OrRespondent + MAKE_AN_APPLICATION,
     text: 'Make an application to the court',
   },
   withdrawApplication: {

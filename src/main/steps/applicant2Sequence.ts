@@ -37,6 +37,7 @@ import {
   HUB_PAGE,
   HUB_PAGE_DOWNLOADS,
   JOINT_APPLICATION_SUBMITTED,
+  MAKE_AN_APPLICATION,
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
   OTHER_COURT_CASES,
@@ -269,6 +270,10 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: REVIEW_YOUR_RESPONSE,
+    getNextStep: () => HUB_PAGE,
+  },
+  {
+    url: MAKE_AN_APPLICATION,
     getNextStep: () => HUB_PAGE,
   },
   ...applicant2WithdrawApplicationSequence,
