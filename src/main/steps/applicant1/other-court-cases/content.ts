@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import type { CommonContent } from '../../common/common.content';
+import { oesOrNacOesRadioAnswers } from '../../common/input-labels.content';
 
 const en = ({ isDivorce, required, marriage, civilPartnership }: CommonContent) => {
   const partnership = isDivorce ? marriage : civilPartnership;
@@ -35,8 +36,6 @@ const cy = ({ isDivorce, partner, required, marriage, civilPartnership }: Common
     partnership: `Ein ${partnership}`,
     property: 'Ein heiddo',
     children: 'Ein plant',
-    yes: 'Oes',
-    no: 'Nac oes',
     errors: {
       applicant1LegalProceedings: {
         required,
@@ -53,8 +52,8 @@ export const form: FormContent = {
       label: l => l.question,
       hint: l => l.hint,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: isFieldFilledIn,
     },
@@ -69,10 +68,14 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = oesOrNacOesRadioAnswers;
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };
