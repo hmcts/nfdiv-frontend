@@ -19,20 +19,19 @@ const en = ({ isDivorce, partner, isApp2Represented }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be completed then verified
 const cy = ({ isDivorce, partner, isApp2Represented }: CommonContent) => ({
   title: 'Bydd angen i chi drefnu gweinyddwr proses',
   line1: `Gallwch nawr <a class="govuk-link" id="downloadPapersLink" href="${PROCESS_SERVER_DOCS}">lawrlwytho’r papurau ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } o’ch cyfrif</a>`,
   whatHappensNextHeader: 'Beth fydd yn digwydd nesaf',
-  line2: `Bydd angen i chi ddod o hyd i weinyddwr proses a’i ddefnyddio. Byddwch angen rhoi eich papurau ${
+  line2: `Rydych nawr angen dod o hyd i weinyddwr proses a’i ddefnyddio. Byddwch angen rhoi papurau eich ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-  } fel y gallant eu cyflwyno ${isApp2Represented ? 'gyfreithiwr eich ' : 'eich '}${partner}.`,
+  } iddynt fel y gallant eu cyflwyno ${isApp2Represented ? 'i gyfreithiwr eich ' : "i'ch "}${partner}.`,
   line3:
     'Pan fyddant wedi cyflwyno’r papurau, byddant yn llenwi tystysgrif cyflwyno (FP6) ac yn ei hanfon atoch. Bydd angen i chi anfon y ddogfen hon i’r llys.',
   hubUrl: {
-    text: 'Dychwelyd i’ch cyfri',
+    text: 'Dychwelyd i’ch cyfrif',
     url: HUB_PAGE,
   },
 });
