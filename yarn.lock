@@ -13239,7 +13239,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"multer@npm:2.1.0, multer@npm:^2.0.2":
+"multer@npm:2.1.1":
+  version: 2.1.1
+  resolution: "multer@npm:2.1.1"
+  dependencies:
+    append-field: ^1.0.0
+    busboy: ^1.6.0
+    concat-stream: ^2.0.0
+    type-is: ^1.6.18
+  checksum: 1d2f4ad42a318b3881afe01d3ea2c16af5822c55a65151eaf94b7f807df0e72ac7bb11c174b65b1815bd814f5f60b06f8b95e2a074d77e0af5cb5b6f2a426aff
+  languageName: node
+  linkType: hard
+
+"multer@npm:^2.0.2":
   version: 2.1.0
   resolution: "multer@npm:2.1.0"
   dependencies:
@@ -13472,7 +13484,7 @@ __metadata:
     mochawesome: ^7.1.3
     mochawesome-merge: ^5.0.0
     mochawesome-report-generator: ^6.2.0
-    multer: 2.1.0
+    multer: 2.1.1
     negotiator: 1.0.0
     node-cache: 5.1.2
     nodemon: 3.1.14
@@ -13491,7 +13503,7 @@ __metadata:
     sonar-scanner: 3.1.0
     striptags: 3.2.0
     style-loader: 4.0.0
-    tar: ^7.5.7
+    tar: ^7.5.10
     toobusy-js: 0.5.1
     ts-jest: 29.4.6
     ts-loader: 9.5.4
@@ -16662,7 +16674,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^7.4.3, tar@npm:^7.5.7":
+"tar@npm:^7.4.3":
   version: 7.5.9
   resolution: "tar@npm:7.5.9"
   dependencies:
@@ -16672,6 +16684,19 @@ __metadata:
     minizlib: ^3.1.0
     yallist: ^5.0.0
   checksum: 26fbbdf536895814167d03e4883f80febb6520729169c54d0f29ee8a163557283862752493f0e5b60800a6f3608aac3250c41fac8e20a4f056ba4fa63f3dbad7
+  languageName: node
+  linkType: hard
+
+"tar@npm:^7.5.10":
+  version: 7.5.10
+  resolution: "tar@npm:7.5.10"
+  dependencies:
+    "@isaacs/fs-minipass": ^4.0.0
+    chownr: ^3.0.0
+    minipass: ^7.1.2
+    minizlib: ^3.1.0
+    yallist: ^5.0.0
+  checksum: aed1a7ae188fc80539184682bfaed7c4d5ae276f591dce67cc03b4ed8898aebde0cc195187f6abd455e3f25b24399a809ed2eaf6410ca3abc1ba30b19a94089e
   languageName: node
   linkType: hard
 
