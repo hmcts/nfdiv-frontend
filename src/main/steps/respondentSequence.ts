@@ -23,6 +23,7 @@ import {
   HUB_PAGE_DOWNLOADS,
   INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
+  MAKE_AN_APPLICATION,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
   PAY_YOUR_FINAL_ORDER_FEE,
@@ -134,6 +135,10 @@ const sequence: Step[] = [
   {
     url: APP_REPRESENTED,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: MAKE_AN_APPLICATION,
+    getNextStep: () => HUB_PAGE,
   },
 ];
 
