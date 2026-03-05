@@ -239,7 +239,7 @@ Feature: Form failures
 
     Given I go to "/who-is-the-financial-order-for"
     When I click "Continue"
-    Then the page should include "You need to answer who the financial order is for."
+    Then the page should include element "#applicant1WhoIsFinancialOrderFor"
 
     Given I go to "/upload-your-documents"
     When I click "Continue"
