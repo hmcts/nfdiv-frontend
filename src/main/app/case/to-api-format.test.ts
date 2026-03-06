@@ -169,6 +169,7 @@ describe('to-api-format', () => {
       applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
       applicant1InRefuge: YesOrNo.YES,
       applicant1KnowsApplicant2Address: YesOrNo.NO,
+      applicant1FoundApplicant2Address: YesOrNo.NO,
       applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
       applicant1WantsToHavePapersServedAnotherWay: null,
       applicant1LanguagePreferenceWelsh: 'No',

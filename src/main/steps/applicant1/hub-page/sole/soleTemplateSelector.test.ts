@@ -461,6 +461,9 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingHWFDecision);
     const testCase = {
       ...userCase,
+      applicant2Address1: 'Line1',
+      applicant2AddressPostcode: 'SW1A 1AA',
+      applicant2AddressCountry: 'United Kingdom',
       applicationType: ApplicationType.SOLE_APPLICATION,
       applicant2Address: {
         AddressLine1: 'Line1',
