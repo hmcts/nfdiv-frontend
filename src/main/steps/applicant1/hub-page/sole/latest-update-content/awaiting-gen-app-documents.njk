@@ -1,7 +1,7 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
 
-{% if awaitingDocuments and not hasPaymentInProgress %}
+{% if awaitingDocuments %}
     <p class="govuk-body">{{ generalApplicationSubmitted.introLine1 }}</p>
     <p class="govuk-body">{{ generalApplicationSubmitted.sendDocumentsLine1 }}</p>
 

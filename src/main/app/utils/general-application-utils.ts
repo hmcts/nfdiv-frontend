@@ -85,7 +85,7 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
 
   const isDraftingD11GeneralApplication =
     interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
-  const hasPaymentInProgress = !!findGenAppAwaitingPayment(userCase, isApplicant2);
+  const hasPaymentInProgress = hasGenAppPaymentInProgress(isApplicant2, userCase);
 
   return (
     isDraftingD11GeneralApplication ||
@@ -100,9 +100,9 @@ export const canSubmitGeneralApplication = (isApplicant2: boolean, userCase: Par
     hasGenAppAwaitingDocuments(isApplicant2, userCase) ||
     hasGenAppPaymentInProgress(isApplicant2, userCase);
 
-  return (
-    !D11_GENERAL_APPLICATION_EXCLUSION_STATES.has(userCase.state as State) &&
-    !hasGenAppInProgress &&
-    !hasGeneralReferralInProgress
+  return !(
+    D11_GENERAL_APPLICATION_EXCLUSION_STATES.has(userCase.state as State) ||
+    hasGenAppInProgress ||
+    hasGeneralReferralInProgress
   );
 };
