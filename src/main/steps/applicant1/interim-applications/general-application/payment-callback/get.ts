@@ -5,15 +5,15 @@ import { AppRequest } from '../../../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../../../app/controller/BasePaymentCallbackGetController';
 import { AnyObject } from '../../../../../app/controller/PostController';
 import {
-  getGeneralApplicationPaymentsField,
-  hasGeneralApplicationPaymentInProgress,
+  getGenAppPaymentsField,
+  hasGenAppPaymentInProgress,
 } from '../../../../../app/utils/general-application-utils';
 import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
 
 @autobind
 export default class GeneralApplicationPaymentCallbackGetController extends BasePaymentCallbackGetController {
   protected isAwaitingPayment(req: AppRequest): boolean {
-    return hasGeneralApplicationPaymentInProgress(req.session.isApplicant2, req.session.userCase);
+    return hasGenAppPaymentInProgress(req.session.isApplicant2, req.session.userCase);
   }
 
   protected noPaymentRequiredUrl(): string {
@@ -33,6 +33,6 @@ export default class GeneralApplicationPaymentCallbackGetController extends Base
   }
 
   protected paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData {
-    return getGeneralApplicationPaymentsField(req) as keyof CaseData;
+    return getGenAppPaymentsField(req) as keyof CaseData;
   }
 }

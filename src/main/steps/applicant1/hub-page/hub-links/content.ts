@@ -1,3 +1,4 @@
+import { canSubmitD11GenApp } from '../../../../app/utils/general-application-utils';
 import { ApplicationType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { CommonContent } from '../../../common/common.content';
@@ -63,12 +64,15 @@ const getApp2OrRespondent = (content: CommonContent): string => {
 };
 
 export const generateContent: TranslationFn = content => {
+  const showGenApplicationLink = canSubmitD11GenApp(content.isApplicant2, content.userCase);
   const showWithdrawLink =
     !content.caseHasBeenIssued && (!content.isApplicant2 || (content.isApplicant2 && content.isJointApplication));
+
   return {
     ...languages[content.language](content, getApp2OrRespondent(content)),
     caseHasBeenIssued: content.caseHasBeenIssued,
     showDownloadLink: areDownloadsAvailable(content),
     showWithdrawLink,
+    showGenApplicationLink,
   };
 };
