@@ -10,7 +10,7 @@ const en = ({
   referenceNumber,
 }: CommonContent) => ({
   title: 'Application submitted',
-  introLine1: `You have submitted your application.`,
+  introLine1: 'You have submitted your application.',
   introLine2:
     'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
   sendDocumentsHeading: 'Send your evidence to the court',
@@ -23,7 +23,8 @@ const en = ({
       'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
   },
   documentsByPost: 'Sending your documents by post',
-  documentsByPostMoreDetails: 'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
+  documentsByPostMoreDetails:
+    'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
   documentsByPostSteps: {
     step1: `Write your reference number on each document: ${referenceNumber}`,
     step2: 'Post the original documents to:',
@@ -56,7 +57,7 @@ const cy: typeof en = ({
   referenceNumber,
 }: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
-  introLine1: `Rydych wedi cyflwyno eich cais.`,
+  introLine1: 'Rydych wedi cyflwyno eich cais.',
   introLine2:
     "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
   sendDocumentsHeading: 'Anfon eich tystiolaeth i’r llys',
@@ -69,7 +70,8 @@ const cy: typeof en = ({
       "Gwnewch yn siŵr eich bod yn dilyn y cyfarwyddiadau ar sut i lwytho eich dogfennau'n ofalus neu gellid eu gwrthod, gan arwain at oedi pellach.",
   },
   documentsByPost: 'Anfon eich dogfennau drwy’r post',
-  documentsByPostMoreDetails: 'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
+  documentsByPostMoreDetails:
+    'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
   documentsByPostSteps: {
     step1: `Ysgrifennwch eich cyfeirnod ar bob dogfen: ${referenceNumber}`,
     step2: 'Postiwch y dogfennau gwreiddiol i:',
@@ -88,7 +90,7 @@ const cy: typeof en = ({
     disclosureViaDwp: {
       title: "Cais wedi'i gyflwyno",
       introLine1: 'Rydych wedi cyflwyno eich cais i chwilio cofnodion y llywodraeth.',
-  happensNextLine2: "Os yw'ch cais yn cael ei gymeradwyo, fel arfer mae'n cymryd 6-8 wythnos i gwblhau chwiliad.",
+      happensNextLine2: "Os yw'ch cais yn cael ei gymeradwyo, fel arfer mae'n cymryd 6-8 wythnos i gwblhau chwiliad.",
     },
   },
 });

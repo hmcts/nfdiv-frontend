@@ -1,5 +1,9 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { hasGenAppAwaitingDocuments, hasGenAppPaymentInProgress, hasGenAppSaveAndSignOutContent } from '../../../../../app/utils/general-application-utils';
+import {
+  hasGenAppAwaitingDocuments,
+  hasGenAppPaymentInProgress,
+  hasGenAppSaveAndSignOutContent,
+} from '../../../../../app/utils/general-application-utils';
 import { CommonContent } from '../../../../common/common.content';
 import { MAKE_AN_APPLICATION, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
 import { generateContent as generalApplicationSubmittedContent } from '../../../interim-applications/general-application/submitted/content';

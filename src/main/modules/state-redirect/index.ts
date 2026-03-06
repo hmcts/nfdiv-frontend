@@ -135,10 +135,7 @@ export class StateRedirectMiddleware {
             ? req.session.userCase.applicant2GeneralAppPayments
             : req.session.userCase.applicant1GeneralAppPayments
         );
-        if (
-          hasGenAppPaymentInProgress(isApplicant2, req.session.userCase) &&
-          generalApplicationPayments.hasPayment
-        ) {
+        if (hasGenAppPaymentInProgress(isApplicant2, req.session.userCase) && generalApplicationPayments.hasPayment) {
           return res.redirect(GENERAL_APPLICATION_PAYMENT_CALLBACK);
         }
 

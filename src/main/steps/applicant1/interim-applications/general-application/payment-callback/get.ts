@@ -4,10 +4,7 @@ import { CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE, CaseData } from '../../../../
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../../../app/controller/BasePaymentCallbackGetController';
 import { AnyObject } from '../../../../../app/controller/PostController';
-import {
-  getGenAppPaymentsField,
-  hasGenAppPaymentInProgress,
-} from '../../../../../app/utils/general-application-utils';
+import { getGenAppPaymentsField, hasGenAppPaymentInProgress } from '../../../../../app/utils/general-application-utils';
 import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
 
 @autobind
