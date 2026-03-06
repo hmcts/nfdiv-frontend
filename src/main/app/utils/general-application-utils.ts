@@ -1,30 +1,24 @@
 import { CaseWithId } from '../case/case';
-import { GeneralApplication, GeneralParties, OrderSummary, YesOrNo } from '../case/definition';
+import {
+  GeneralApplication,
+  GeneralParties,
+  InterimApplicationType,
+  OrderSummary,
+  State,
+  YesOrNo,
+} from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 
-export const findUnpaidGeneralApplication = (
-  userCase: Partial<CaseWithId>,
-  serviceRequest: string | undefined
-): GeneralApplication | undefined => {
-  if (!serviceRequest) {
-    return undefined;
-  }
+const D11_GENERAL_APPLICATION_EXCLUSION_STATES: Set<State> = new Set([
+  State.AwaitingGeneralApplicationPayment,
+  State.AwaitingGenAppDocuments,
+  State.AwaitingGeneralConsideration,
+  State.GeneralApplicationReceived,
+  State.AwaitingGeneralReferralPayment,
+]);
 
-  return userCase?.generalApplications
-    ?.map(generalApplicationValue => generalApplicationValue.value)
-    ?.find(
-      application =>
-        application?.generalApplicationFeeServiceRequestReference === serviceRequest &&
-        !application?.generalApplicationFeePaymentReference &&
-        application?.generalApplicationFeeHasCompletedOnlinePayment === YesOrNo.NO
-    );
-};
-
-export const hasGeneralApplicationPaymentInProgress = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
-  !!findUnpaidGeneralApplication(userCase, getGeneralApplicationServiceRequest(isApplicant2, userCase) as string);
-
-export const findOnlineGeneralApplicationsForUser = (
+export const findAllOnlineGenAppsForUser = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): GeneralApplication[] | undefined => {
@@ -39,19 +33,76 @@ export const findOnlineGeneralApplicationsForUser = (
     );
 };
 
-export const getGeneralApplicationServiceRequest = (
-  isApplicant2: boolean,
-  userCase: Partial<CaseWithId>
-): string | undefined => {
+export const findGenAppAwaitingPayment = (
+  userCase: Partial<CaseWithId>,
+  isApplicant2: boolean
+): GeneralApplication | undefined => {
+  const serviceRequest = getGenAppServiceRequest(userCase, isApplicant2) as string;
+
+  if (!serviceRequest) {
+    return undefined;
+  }
+
+  return findAllOnlineGenAppsForUser(userCase, isApplicant2)?.find(
+    application =>
+      application?.generalApplicationFeeServiceRequestReference === serviceRequest &&
+      !application?.generalApplicationFeePaymentReference &&
+      application?.generalApplicationFeeHasCompletedOnlinePayment === YesOrNo.NO
+  );
+};
+
+export const findGenAppAwaitingDocuments = (
+  userCase: Partial<CaseWithId>,
+  isApplicant2: boolean
+): GeneralApplication | undefined => {
+  return findAllOnlineGenAppsForUser(userCase, isApplicant2)?.find(
+    application => application?.generalApplicationDocsUploadedPreSubmission === YesOrNo.NO
+  );
+};
+
+export const getGenAppServiceRequest = (userCase: Partial<CaseWithId>, isApplicant2: boolean): string | undefined => {
   return isApplicant2 ? userCase?.applicant2GeneralAppServiceRequest : userCase?.applicant1GeneralAppServiceRequest;
 };
 
-export const getGeneralApplicationOrderSummary = (req: AppRequest<AnyObject>): OrderSummary | undefined => {
-  const serviceRequest = getGeneralApplicationServiceRequest(req.session.isApplicant2, req.session.userCase) as string;
-
-  return findUnpaidGeneralApplication(req.session.userCase, serviceRequest)?.generalApplicationFeeOrderSummary;
+export const getGenAppFeeOrderSummary = (req: AppRequest<AnyObject>): OrderSummary | undefined => {
+  return findGenAppAwaitingPayment(req.session.userCase, req.session.isApplicant2)?.generalApplicationFeeOrderSummary;
 };
 
-export const getGeneralApplicationPaymentsField = (req: AppRequest<AnyObject>): keyof AnyObject => {
+export const getGenAppPaymentsField = (req: AppRequest<AnyObject>): keyof AnyObject => {
   return req.session.isApplicant2 ? 'applicant2GeneralAppPayments' : 'applicant1GeneralAppPayments';
+};
+
+export const hasGenAppPaymentInProgress = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
+  !!findGenAppAwaitingPayment(userCase, isApplicant2);
+
+export const hasGenAppAwaitingDocuments = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
+  !!findGenAppAwaitingDocuments(userCase, isApplicant2);
+
+export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+  const interimApplicationType = isApplicant2
+    ? userCase.applicant2InterimApplicationType
+    : userCase.applicant1InterimApplicationType;
+
+  const isDraftingD11GeneralApplication =
+    interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
+  const hasPaymentInProgress = hasGenAppPaymentInProgress(isApplicant2, userCase);
+
+  return (
+    isDraftingD11GeneralApplication ||
+    (hasPaymentInProgress && State.AwaitingGeneralApplicationPayment !== userCase.state)
+  );
+};
+
+export const canSubmitGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+  const hasGeneralReferralInProgress = !!userCase?.generalReferralType;
+  const hasGenAppInProgress =
+    hasGenAppSaveAndSignOutContent(isApplicant2, userCase) ||
+    hasGenAppAwaitingDocuments(isApplicant2, userCase) ||
+    hasGenAppPaymentInProgress(isApplicant2, userCase);
+
+  return !(
+    D11_GENERAL_APPLICATION_EXCLUSION_STATES.has(userCase.state as State) ||
+    hasGenAppInProgress ||
+    hasGeneralReferralInProgress
+  );
 };

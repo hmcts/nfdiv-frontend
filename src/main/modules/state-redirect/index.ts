@@ -12,7 +12,7 @@ import {
 } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
-import { hasGeneralApplicationPaymentInProgress } from '../../app/utils/general-application-utils';
+import { hasGenAppPaymentInProgress } from '../../app/utils/general-application-utils';
 import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
@@ -135,10 +135,7 @@ export class StateRedirectMiddleware {
             ? req.session.userCase.applicant2GeneralAppPayments
             : req.session.userCase.applicant1GeneralAppPayments
         );
-        if (
-          hasGeneralApplicationPaymentInProgress(isApplicant2, req.session.userCase) &&
-          generalApplicationPayments.hasPayment
-        ) {
+        if (hasGenAppPaymentInProgress(isApplicant2, req.session.userCase) && generalApplicationPayments.hasPayment) {
           return res.redirect(GENERAL_APPLICATION_PAYMENT_CALLBACK);
         }
 
@@ -150,7 +147,7 @@ export class StateRedirectMiddleware {
   private caseAwaitingPayment(state: State, isApplicant2: boolean, userCase: CaseWithId): boolean {
     return (
       new Set([...APPLICATION_PAYMENT_STATES, ...FINAL_ORDER_PAYMENT_STATES, ...SERVICE_PAYMENT_STATES]).has(state) ||
-      hasGeneralApplicationPaymentInProgress(isApplicant2, userCase)
+      hasGenAppPaymentInProgress(isApplicant2, userCase)
     );
   }
 

@@ -99,9 +99,7 @@ export const getSoleHubTemplate = (
       }
     case State.GeneralApplicationReceived:
     case State.AwaitingGeneralReferralPayment:
-      return isOnlineGeneralApplication
-        ? HubTemplate.AwaitingGeneralApplicationConsideration
-        : HubTemplate.OfflineGeneralApplicationReceived;
+      return HubTemplate.OfflineGeneralApplicationReceived;
     case State.AwaitingConditionalOrder:
       return HubTemplate.AwaitingConditionalOrder;
     case State.Holding:
@@ -180,6 +178,8 @@ export const getSoleHubTemplate = (
     case State.AwaitingGenAppHWFPartPayment:
     case State.AwaitingGenAppHWFEvidence:
       return HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence;
+    case State.AwaitingGenAppDocuments:
+      return HubTemplate.AwaitingGenAppDocuments;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||

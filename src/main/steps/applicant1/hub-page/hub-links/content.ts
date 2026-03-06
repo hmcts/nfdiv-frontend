@@ -1,5 +1,6 @@
 import { ApplicationType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { canSubmitGeneralApplication } from '../../../../app/utils/general-application-utils';
 import { CommonContent } from '../../../common/common.content';
 import {
   APPLICANT_2,
@@ -63,12 +64,15 @@ const getApp2OrRespondent = (content: CommonContent): string => {
 };
 
 export const generateContent: TranslationFn = content => {
+  const showGenApplicationLink = canSubmitGeneralApplication(content.isApplicant2, content.userCase);
   const showWithdrawLink =
     !content.caseHasBeenIssued && (!content.isApplicant2 || (content.isApplicant2 && content.isJointApplication));
+
   return {
     ...languages[content.language](content, getApp2OrRespondent(content)),
     caseHasBeenIssued: content.caseHasBeenIssued,
     showDownloadLink: areDownloadsAvailable(content),
     showWithdrawLink,
+    showGenApplicationLink,
   };
 };
