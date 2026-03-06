@@ -51,6 +51,7 @@ describe('from-api-format', () => {
     applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
     applicant1InterimAppsStatementOfTruth: YesOrNo.YES,
     applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo.YES,
+    applicant1GenAppCannotUploadAgreedEvidence: YesOrNo.NO,
   };
 
   const resultsWithSecondaryValues: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
@@ -104,6 +105,7 @@ describe('from-api-format', () => {
       applicant1InterimAppsCannotUploadDocs: Checkbox.Unchecked,
       applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
       applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
+      applicant1GenAppCannotUploadAgreedEvidence: Checkbox.Unchecked,
     });
   });
 
@@ -203,6 +205,7 @@ describe('from-api-format', () => {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
       applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
       applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
+      applicant1GenAppCannotUploadAgreedEvidence: Checkbox.Unchecked,
     });
   });
 
@@ -250,6 +253,7 @@ describe('from-api-format', () => {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
       applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
       applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
+      applicant1GenAppCannotUploadAgreedEvidence: Checkbox.Unchecked,
     });
   });
 
@@ -297,6 +301,7 @@ describe('from-api-format', () => {
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
       applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
       applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
+      applicant1GenAppCannotUploadAgreedEvidence: Checkbox.Unchecked,
     });
   });
 
