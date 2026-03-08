@@ -4,6 +4,8 @@ import sysConfig from 'config';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
 import { IdamUserManager } from './steps/IdamUserManager';
+import { createAzurePlaywrightConfig, ServiceAuth, ServiceOS } from "@azure/playwright";
+import { v4 as generateUuid } from 'uuid';
 
 // better handling of unhandled exceptions
 process.on('unhandledRejection', reason => {
@@ -80,6 +82,12 @@ export const autoLoginForApplicant2 = {
   },
 };
 
+export enum TestUserType {
+  CITIZEN = 'citizen',
+  CITIZEN_SINGLETON = 'citizenSingleton',
+  CITIZEN_APPLICANT_2 = 'citizenApplicant2',
+}
+
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
@@ -103,6 +111,25 @@ export const config = {
       password: TestPass,
     };
   },
+  login: async (I: CodeceptJS.I, userType: TestUserType) => {
+    let username: string;
+
+    switch (userType) {
+      case TestUserType.CITIZEN:
+        autoLogin.login(I);
+        break;
+      case TestUserType.CITIZEN_SINGLETON:
+        username = generateTestUsername();
+        await idamUserManager.createUser(username, TestPass);
+        await autoLogin.login(I, username, TestPass);
+        break;
+      case TestUserType.CITIZEN_APPLICANT_2:
+        username = generateTestUsername();
+        await idamUserManager.createUser(username, TestPass);
+        await autoLoginForApplicant2.login(I, username, TestPass);
+        break;
+    }
+  },
   clearNewUsers: async (): Promise<void> => {
     await idamUserManager.clearAndKeepOnlyOriginalUser();
   },
@@ -124,69 +151,33 @@ export const config = {
   },
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   helpers: {},
-  AutoLogin: {
-    enabled: true,
-    saveToFile: false,
-    users: {
-      citizen: autoLogin,
-      citizenSingleton: {
-        login: async (I: CodeceptJS.I): Promise<void> => {
-          const username = generateTestUsername();
-          await idamUserManager.createUser(username, TestPass);
-          autoLogin.login(I, username, TestPass);
-        },
-        check: autoLogin.check,
-        fetch: (): void => {
-          // don't fetch existing login
-        },
-        restore: (): void => {
-          // don't restore existing login
-        },
-      },
-      citizenApplicant2: {
-        login: async (I: CodeceptJS.I): Promise<void> => {
-          const username = generateTestUsername();
-          await idamUserManager.createUser(username, TestPass);
-          autoLoginForApplicant2.login(I, username, TestPass);
-        },
-        check: autoLoginForApplicant2.check,
-        fetch: (): void => {
-          // don't fetch existing login
-        },
-        restore: (): void => {
-          // don't restore existing login
-        },
-      },
-    },
-  },
 };
 
-process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || new Date().toISOString();
+process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || generateUuid();
+
+const playwrightConfig = {
+  url: config.TEST_URL,
+  show: !config.TestHeadlessBrowser,
+  browser: 'chromium',
+  waitForTimeout: config.WaitForTimeout,
+  waitForAction: 350,
+  timeout: config.WaitForTimeout,
+  retries: 3,
+  waitForNavigation: 'load',
+  ignoreHTTPSErrors: true,
+  bypassCSP: true,
+}
 
 config.helpers = {
   Playwright: {
-    url: config.TEST_URL,
-    show: !config.TestHeadlessBrowser,
-    browser: 'chromium',
-    waitForTimeout: config.WaitForTimeout,
-    waitForAction: 350,
-    timeout: config.WaitForTimeout,
-    retries: 3,
-    waitForNavigation: 'load',
-    ignoreHTTPSErrors: true,
-    bypassCSP: true,
-    chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && {
-      timeout: config.WaitForTimeout,
-      headers: {
-        'x-mpt-access-key': process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN,
-      },
+    ...playwrightConfig,
+    chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && createAzurePlaywrightConfig(
+      playwrightConfig, {
+      connectTimeout: config.WaitForTimeout,
+      os: ServiceOS.LINUX,
+      serviceAuthType: ServiceAuth.ACCESS_TOKEN,
       exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
-      browserWSEndpoint: {
-        wsEndpoint: `${process.env.PLAYWRIGHT_SERVICE_URL}?cap=${JSON.stringify({
-          os: 'linux',
-          runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
-        })}`,
-      },
-    },
+      runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
+    }),
   },
 };

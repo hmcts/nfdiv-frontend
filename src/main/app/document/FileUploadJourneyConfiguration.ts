@@ -1,9 +1,10 @@
-import { UPLOAD_EVIDENCE_ALTERNATIVE } from '../../steps/urls';
+import { UPLOAD_EVIDENCE_ALTERNATIVE, UPLOAD_EVIDENCE_DISPENSE } from '../../steps/urls';
 import { ApplicationType } from '../case/definition';
 import type { AppRequest } from '../controller/AppRequest';
 
 export enum FileUploadJourney {
   ALTERNATIVE_SERVICE = 'alternativeService',
+  DISPENSE_SERVICE = 'dispenseService',
 }
 
 export enum FileUploadPath {
@@ -20,6 +21,11 @@ const FileUploadJourneyConfigurationMap: Record<FileUploadJourney, FileUploadJou
   [FileUploadJourney.ALTERNATIVE_SERVICE]: {
     uploadPath: FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
     getRedirectPath: () => UPLOAD_EVIDENCE_ALTERNATIVE,
+    validateUpload: req => validateServiceApplicationDocumentUpload(req),
+  },
+  [FileUploadJourney.DISPENSE_SERVICE]: {
+    uploadPath: FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
+    getRedirectPath: () => UPLOAD_EVIDENCE_DISPENSE,
     validateUpload: req => validateServiceApplicationDocumentUpload(req),
   },
 };
