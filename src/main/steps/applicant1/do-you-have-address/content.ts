@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ partner, isDivorce }) => ({
   title: `Your ${partner}'s postal address`,
@@ -20,7 +21,6 @@ const en = ({ partner, isDivorce }) => ({
   },
 });
 
-//TODO Welsh translation required for NFDIV-4922
 const cy: typeof en = ({ partner, isDivorce }) => ({
   title: `Your ${partner}'s postal address`,
   line1: `We need your ${partner}’s address so that we can notify them about ${
@@ -45,8 +45,8 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: l => l.doYouKnowYourPartnerAddressHeader,
       values: [
-        { label: l => l.haveTheirAddress, value: YesOrNo.YES },
-        { label: l => l.doNotHaveTheirAddress, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -61,11 +61,24 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers: InputLabelsByLanguage<YesOrNo> = {
+  en: {
+    [YesOrNo.YES]: 'Yes, I have their address',
+    [YesOrNo.NO]: 'No, I do not have their address',
+  },
+  cy: {
+    [YesOrNo.YES]: 'Oes, mae gennyf ei gyfeiriad/chyfeiriad',
+    [YesOrNo.NO]: 'Na, nid yw ei gyfeiriad/chyfeiriad gennyf',
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const { language } = content;
   const translations = languages[language]({ ...content });
+  const radioAnswers = radioButtonAnswers[language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };
