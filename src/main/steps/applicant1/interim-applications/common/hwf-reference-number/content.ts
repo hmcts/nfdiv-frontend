@@ -13,6 +13,9 @@ const en = (serviceType: string) => ({
     applicant1InterimAppsHaveHwfReference: {
       required: "Select 'Yes' if you have a help with fees reference number.",
     },
+    applicant2InterimAppsHaveHwfReference: {
+      required: "Select 'Yes' if you have a help with fees reference number.",
+    },
   },
 });
 
@@ -25,6 +28,9 @@ const cy = (serviceType: string) => ({
     applicant1InterimAppsHaveHwfReference: {
       required: "Dewiswch 'Oes' os oes gennych chi gyfeirnod help i dalu ffioedd.",
     },
+    applicant2InterimAppsHaveHwfReference: {
+      required: "Dewiswch 'Oes' os oes gennych chi gyfeirnod help i dalu ffioedd.",
+    },
   },
 });
 
@@ -33,37 +39,52 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: {
-    applicant1InterimAppsHaveHwfReference: {
-      type: 'radios',
-      classes: 'govuk-radios govuk-radios--inline',
-      label: l => l.title,
-      labelHidden: true,
-      values: [
-        {
-          label: l => l.yes,
-          id: 'yes',
-          value: YesOrNo.YES,
-        },
-        {
-          label: l => l.no,
-          id: 'no',
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: value => isFieldFilledIn(value),
+const haveHelpWithFeesReferenceField = () => ({
+  type: 'radios',
+  classes: 'govuk-radios govuk-radios--inline',
+  label: l => l.title,
+  labelHidden: true,
+  values: [
+    {
+      label: l => l.yes,
+      id: 'yes',
+      value: YesOrNo.YES,
     },
+    {
+      label: l => l.no,
+      id: 'no',
+      value: YesOrNo.NO,
+    },
+  ],
+  validator: value => isFieldFilledIn(value),
+});
+
+export const applicant1Form: FormContent = {
+  fields: {
+    applicant1InterimAppsHaveHwfReference: haveHelpWithFeesReferenceField(),
   },
   submit: {
     text: l => l.continue,
   },
 };
 
+export const applicant2Form: FormContent = {
+  ...applicant1Form,
+  fields: {
+    applicant2InterimAppsHaveHwfReference: haveHelpWithFeesReferenceField(),
+  },
+};
+
 export const generateContent: TranslationFn = content => {
+  const isApplicant2 = content.isApplicant2;
+
+  const applicationType = isApplicant2
+    ? content.userCase.applicant2InterimApplicationType
+    : content.userCase.applicant1InterimApplicationType;
+
   let serviceType;
 
-  switch (content.userCase.applicant1InterimApplicationType) {
+  switch (applicationType) {
     case InterimApplicationType.DEEMED_SERVICE: {
       serviceType = generateCommonContent(content).generalApplication.deemed;
       break;
@@ -88,6 +109,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](serviceType);
   return {
     ...translations,
-    form,
+    form: isApplicant2 ? applicant2Form : applicant1Form,
   };
 };

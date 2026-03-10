@@ -1,7 +1,7 @@
 import config from 'config';
 import { isObject } from 'lodash';
 
-import { Checkbox } from '../../../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../../../app/case/case';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
@@ -44,6 +44,15 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
     applicant1GenAppCannotUploadAgreedEvidence: {
       notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
     },
+    applicant2GenAppPartnerAgreesUploadedFiles: {
+      notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
+      errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
+      fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
+      fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
+    },
+    applicant2GenAppCannotUploadAgreedEvidence: {
+      notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
+    },
   },
 });
 
@@ -83,6 +92,15 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
     applicant1GenAppCannotUploadAgreedEvidence: {
       notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
     },
+    applicant2GenAppPartnerAgreesUploadedFiles: {
+      notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
+      errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
+      fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
+      fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
+    },
+    applicant2GenAppCannotUploadAgreedEvidence: {
+      notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
+    },
   },
 });
 
@@ -91,64 +109,110 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: userCase => ({
-    applicant1GenAppPartnerAgreesUploadedFiles: {
-      type: 'hidden',
-      label: l => l.uploadFiles,
-      labelHidden: true,
-      value:
-        (isObject(userCase.applicant1GenAppPartnerAgreesUploadedFiles)
-          ? JSON.stringify(userCase.applicant1GenAppPartnerAgreesUploadedFiles)
-          : userCase.applicant1GenAppPartnerAgreesUploadedFiles) || '[]',
-      parser: data => JSON.parse((data as Record<string, string>).applicant1GenAppPartnerAgreesUploadedFiles || '[]'),
-      validator: (value, formData) => {
-        const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-        const selectedCannotUploadDocuments = !!formData.applicant1GenAppCannotUploadAgreedEvidence?.length;
-        if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
-          return 'notUploaded';
-        }
-      },
-    },
-    applicant1GenAppCannotUploadAgreedEvidence: {
-      type: 'checkboxes',
+const uploadedFilesField = (
+  userCase: Partial<CaseWithId>,
+  uploadedFilesFieldName: keyof CaseWithId,
+  cannotUploadEvidenceFieldName: keyof CaseWithId
+) => ({
+  type: 'hidden',
+  label: l => l.uploadFiles,
+  labelHidden: true,
+  value:
+    (isObject(userCase[uploadedFilesFieldName])
+      ? JSON.stringify(userCase[uploadedFilesFieldName])
+      : userCase[uploadedFilesFieldName]) || '[]',
+  parser: data => JSON.parse((data as Record<string, string>)[uploadedFilesFieldName] || '[]'),
+  validator: (value, formData) => {
+    const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
+    const selectedCannotUploadDocuments = !!formData[cannotUploadEvidenceFieldName]?.length;
+    if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
+      return 'notUploaded';
+    }
+  },
+});
+
+const cannotUploadEvidenceField = (
+  userCase: Partial<CaseWithId>,
+  uploadedFilesFieldName: keyof CaseWithId,
+  cannotUploadEvidenceFieldName: keyof CaseWithId
+) => ({
+  type: 'checkboxes',
+  label: l => l.cannotUpload,
+  labelHidden: true,
+  validator: (value, formData) => {
+    const hasUploadedFiles =
+      (formData[uploadedFilesFieldName] as unknown as string[])?.length &&
+      (formData[uploadedFilesFieldName] as unknown as string) !== '[]';
+    const selectedCannotUploadDocuments = !!formData[cannotUploadEvidenceFieldName]?.length;
+    if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
+      return 'notUploaded';
+    }
+  },
+  values: [
+    {
+      name: cannotUploadEvidenceFieldName,
       label: l => l.cannotUpload,
-      labelHidden: true,
-      validator: (value, formData) => {
-        const hasUploadedFiles =
-          (formData.applicant1GenAppPartnerAgreesUploadedFiles as unknown as string[])?.length &&
-          (formData.applicant1GenAppPartnerAgreesUploadedFiles as unknown as string) !== '[]';
-        const selectedCannotUploadDocuments = !!formData.applicant1GenAppCannotUploadAgreedEvidence?.length;
-        if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
-          return 'notUploaded';
-        }
-      },
-      values: [
-        {
-          name: 'applicant1GenAppCannotUploadAgreedEvidence',
-          label: l => l.cannotUpload,
-          value: Checkbox.Checked,
-        },
-      ],
+      value: Checkbox.Checked,
     },
-  }),
+  ],
+});
+
+export const applicant1Form: FormContent = {
+  fields: userCase => {
+    const uploadedFilesFieldName: keyof CaseWithId = 'applicant1GenAppPartnerAgreesUploadedFiles';
+    const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant1GenAppCannotUploadAgreedEvidence';
+  
+    return {
+      applicant1GenAppPartnerAgreesUploadedFiles: uploadedFilesField(
+        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName
+      ),
+      applicant1GenAppCannotUploadAgreedEvidence: cannotUploadEvidenceField(
+        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName
+      ),
+    }
+  },
   submit: {
     text: l => l.continue,
+  },
+};
+
+export const applicant2Form: FormContent = {
+  ...applicant1Form,
+  fields: userCase => {
+    const uploadedFilesFieldName: keyof CaseWithId = 'applicant2GenAppPartnerAgreesUploadedFiles';
+    const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant2GenAppCannotUploadAgreedEvidence';
+  
+    return {
+      applicant2GenAppPartnerAgreesUploadedFiles: uploadedFilesField(
+        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName
+      ),
+      applicant2GenAppCannotUploadAgreedEvidence: cannotUploadEvidenceField(
+        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName
+      ),
+    }
   },
 };
 
 export const generateContent: TranslationFn = content => {
   const applicant1UploadDocumentContent = uploadDocumentGenerateContent(content);
   const translations = languages[content.language](content, applicant1UploadDocumentContent);
-  const uploadedDocsFilenames = content.userCase.applicant1GenAppPartnerAgreesDocs?.map(item =>
+  const userCase = content.userCase;
+  const uploadedDocs = content.isApplicant2
+    ? userCase?.applicant2GenAppPartnerAgreesDocs
+    : userCase?.applicant1GenAppPartnerAgreesDocs;
+  
+  const uploadedDocsFilenames = uploadedDocs?.map(item =>
     getFilename(item.value)
   );
-  console.log(uploadedDocsFilenames);
+
   const amendable = true;
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
   }`;
+
+  const form = content.isApplicant2 ? applicant2Form : applicant1Form;
+
   return {
     ...applicant1UploadDocumentContent,
     ...translations,

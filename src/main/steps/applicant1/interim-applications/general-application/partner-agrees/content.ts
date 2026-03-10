@@ -17,6 +17,9 @@ const en = ({ partner }: CommonContent) => ({
     applicant1GenAppHearingNotRequired: {
       required: 'You must tell us whether your partner consents or not, or if consent is not needed.',
     },
+    applicant2GenAppHearingNotRequired: {
+      required: 'You must tell us whether your partner consents or not, or if consent is not needed.',
+    },
   },
 });
 
@@ -34,6 +37,9 @@ const cy = ({ partner }: CommonContent) => ({
     applicant1GenAppHearingNotRequired: {
       required: 'You must tell us whether your partner consents or not, or if consent is not needed.',
     },
+    applicant2GenAppHearingNotRequired: {
+      required: 'You must tell us whether your partner consents or not, or if consent is not needed.',
+    },
   },
 });
 
@@ -42,40 +48,49 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: {
-    applicant1GenAppHearingNotRequired: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.questionLabel,
-      labelHidden: false,
-      values: [
-        {
-          label: l => l.partnerAgreesWithApplication,
-          id: 'yesPartnerAgreesWithApplication',
-          value: GeneralApplicationHearingNotRequired.YES_PARTNER_AGREES_WITH_APPLICATION,
-        },
-        {
-          label: l => l.partnerAgreesWithNoHearing,
-          id: 'yesPartnerAgreesWithNoHearing',
-          value: GeneralApplicationHearingNotRequired.YES_PARTNER_AGREES_WITH_NO_HEARING,
-        },
-        {
-          label: l => l.applicationDoesNotNeedConsent,
-          id: 'yesDoesNotNeedConsent',
-          value: GeneralApplicationHearingNotRequired.YES_DOES_NOT_NEED_CONSENT,
-        },
-        {
-          label: l => l.no,
-          id: 'hearingRequired',
-          value: GeneralApplicationHearingNotRequired.NO,
-        },
-      ],
-      validator: value => isFieldFilledIn(value),
+const genAppPartnerAgreesWithHearingField = () => ({
+  type: 'radios',
+  classes: 'govuk-radios',
+  label: l => l.questionLabel,
+  labelHidden: false,
+  values: [
+    {
+      label: l => l.partnerAgreesWithApplication,
+      id: 'yesPartnerAgreesWithApplication',
+      value: GeneralApplicationHearingNotRequired.YES_PARTNER_AGREES_WITH_APPLICATION,
     },
+    {
+      label: l => l.partnerAgreesWithNoHearing,
+      id: 'yesPartnerAgreesWithNoHearing',
+      value: GeneralApplicationHearingNotRequired.YES_PARTNER_AGREES_WITH_NO_HEARING,
+    },
+    {
+      label: l => l.applicationDoesNotNeedConsent,
+      id: 'yesDoesNotNeedConsent',
+      value: GeneralApplicationHearingNotRequired.YES_DOES_NOT_NEED_CONSENT,
+    },
+    {
+      label: l => l.no,
+      id: 'hearingRequired',
+      value: GeneralApplicationHearingNotRequired.NO,
+    },
+  ],
+  validator: value => isFieldFilledIn(value),
+});
+
+export const applicant1Form: FormContent = {
+  fields: {
+    applicant1GenAppHearingNotRequired: genAppPartnerAgreesWithHearingField(),
   },
   submit: {
     text: l => l.continue,
+  },
+};
+
+export const applicant2Form: FormContent = {
+  ...applicant1Form,
+  fields: {
+    applicant2GenAppHearingNotRequired: genAppPartnerAgreesWithHearingField(),
   },
 };
 
@@ -83,6 +98,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form,
+    form: content.isApplicant2 ? applicant2Form : applicant1Form,
   };
 };

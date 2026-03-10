@@ -1,4 +1,4 @@
-import { GeneralApplicationType } from '../../../../../app/case/definition';
+import { ApplicationType, GeneralApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -20,6 +20,12 @@ const en = ({ isDivorce }: CommonContent) => ({
       required: 'Select which application you want to make',
     },
     applicant1GenAppTypeOtherDetails: {
+      required: 'You must explain which application you are making',
+    },
+    applicant2GenAppType: {
+      required: 'Select which application you want to make',
+    },
+    applicant2GenAppTypeOtherDetails: {
       required: 'You must explain which application you are making',
     },
   },
@@ -44,6 +50,12 @@ const cy = ({ isDivorce }: CommonContent) => ({
     applicant1GenAppTypeOtherDetails: {
       required: 'You must explain which application you are making',
     },
+    applicant2GenAppType: {
+      required: 'Select which application you want to make',
+    },
+    applicant2GenAppTypeOtherDetails: {
+      required: 'You must explain which application you are making',
+    },
   },
 });
 
@@ -52,9 +64,16 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: {
-    applicant1GenAppType: {
+const generalApplicationTypeField = (isApplicant2: boolean, applicationType: ApplicationType) => {
+  const isSoleRespondent = isApplicant2 && applicationType === ApplicationType.SOLE_APPLICATION;
+  const soleRespondentApplicationTypes = new Set([
+    GeneralApplicationType.WITHDRAW_POST_ISSUE,
+    GeneralApplicationType.DELAY,
+    GeneralApplicationType.EXPEDITE,
+    GeneralApplicationType.OTHER
+  ]);
+
+  return {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.questionLabel,
@@ -97,9 +116,14 @@ export const form: FormContent = {
             },
           },
         },
-      ],
-      validator: value => isFieldFilledIn(value),
-    },
+      ].filter(applicationType => !isSoleRespondent || soleRespondentApplicationTypes.has(applicationType)),
+      validator: value => isFieldFilledIn(value)
+    }
+  };
+
+export const form: FormContent = {
+  fields: {
+    applicant1GenAppType: genApplicationTypeField(false, userCase.applicationType),
   },
   submit: {
     text: l => l.continue,

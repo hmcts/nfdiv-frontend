@@ -14,7 +14,9 @@ export class UploadedFiles {
       (getById('app2RfiDraftResponseUploadedFiles') as HTMLInputElement) ||
       (getById('applicant1InterimAppsEvidenceUploadedFiles') as HTMLInputElement) ||
       (getById('applicant2LegalProceedingUploadedFiles') as HTMLInputElement) ||
-      (getById('applicant1GenAppPartnerAgreesUploadedFiles') as HTMLInputElement);
+      (getById('applicant1GenAppPartnerAgreesUploadedFiles') as HTMLInputElement) ||
+      (getById('applicant2InterimAppsEvidenceUploadedFiles') as HTMLInputElement) ||
+      (getById('applicant2GenAppPartnerAgreesUploadedFiles') as HTMLInputElement);
     this.documents = JSON.parse(this.storeEl?.value || '[]');
   }
 

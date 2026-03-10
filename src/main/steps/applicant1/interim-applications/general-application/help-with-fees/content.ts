@@ -3,8 +3,7 @@ import config from 'config';
 import { GeneralApplicationHearingNotRequired } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
-import { FormContent } from '../../../../../app/form/Form';
-import { form as helpWithFeesForm } from '../../common/help-with-fees/content';
+import { generateContent as commonContent } from '../../common/help-with-fees/content';
 
 const en = (serviceFee: string) => ({
   title: 'Help with fees',
@@ -16,6 +15,9 @@ const en = (serviceFee: string) => ({
   no: 'No',
   errors: {
     applicant1InterimAppsUseHelpWithFees: {
+      required: "Select 'Yes' if you are using help with fees for this application.",
+    },
+    applicant2InterimAppsUseHelpWithFees: {
       required: "Select 'Yes' if you are using help with fees for this application.",
     },
   },
@@ -33,6 +35,9 @@ const cy = (serviceFee: string) => ({
     applicant1InterimAppsUseHelpWithFees: {
       required: "Dewiswch 'Byddaf' os ydych yn defnyddio’r gwasanaeth help i dalu ffioedd ar gyfer y cais hwn.",
     },
+    applicant2InterimAppsUseHelpWithFees: {
+      required: "Dewiswch 'Byddaf' os ydych yn defnyddio’r gwasanaeth help i dalu ffioedd ar gyfer y cais hwn.",
+    },
   },
 });
 
@@ -41,8 +46,6 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = helpWithFeesForm;
-
 export const generateContent: TranslationFn = content => {
   const serviceFee =
     content.userCase.applicant1GenAppHearingNotRequired === GeneralApplicationHearingNotRequired.NO
@@ -50,7 +53,7 @@ export const generateContent: TranslationFn = content => {
       : getFee(config.get('fees.generalAppWithoutHearing'));
   const translations = languages[content.language](serviceFee);
   return {
+    ...commonContent(content),
     ...translations,
-    form,
   };
 };

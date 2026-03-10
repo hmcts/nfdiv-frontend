@@ -16,7 +16,7 @@ import { userCanUploadDocuments } from '../../app/document/DocumentManagementCon
 import { findAllOnlineGenAppsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
-import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
+import { APPLICANT_2, RESPONDENT, SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
 
 export const yesOrNoOrNotKnown_en = {
   yes: 'Yes',
@@ -590,3 +590,13 @@ export type CommonContent = typeof en & {
   genesysDeploymentId: string;
   lastGeneralApplication?: GeneralApplication | undefined;
 };
+
+export const getRootRedirectPath = (isApplicant2: boolean, userCase: Partial<CaseWithId>): string => {
+  if (!isApplicant2) {
+    return '';
+  }
+
+  return userCase.applicationType === ApplicationType.JOINT_APPLICATION
+    ? APPLICANT_2
+    : RESPONDENT;
+}

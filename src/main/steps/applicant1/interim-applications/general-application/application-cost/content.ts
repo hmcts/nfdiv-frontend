@@ -49,16 +49,20 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const serviceFee =
-    content.userCase.applicant1GenAppHearingNotRequired === GeneralApplicationHearingNotRequired.NO
+  const hearingNotRequiredAnswer = content.isApplicant2
+    ? content.userCase.applicant2GenAppHearingNotRequired
+    : content.userCase.applicant1GenAppHearingNotRequired;
+
+  const hearingNotRequired = hearingNotRequiredAnswer === GeneralApplicationHearingNotRequired.NO;
+
+  const serviceFee = hearingNotRequired
       ? getFee(config.get('fees.generalAppWithHearing'))
       : getFee(config.get('fees.generalAppWithoutHearing'));
   const translations = languages[content.language](content, serviceFee);
-  const showNoConsentContent =
-    content.userCase.applicant1GenAppHearingNotRequired === GeneralApplicationHearingNotRequired.NO;
+
   return {
     ...translations,
     form,
-    showNoConsentContent,
+    showNoConsentContent: hearingNotRequired,
   };
 };

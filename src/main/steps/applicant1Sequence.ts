@@ -4,6 +4,7 @@ import {
   ApplicationType,
   JurisdictionConnections,
   State,
+  WhichApplicant,
   YesOrNo,
 } from '../app/case/definition';
 import { needsToExplainDelay } from '../app/controller/controller.utils';
@@ -620,7 +621,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...serviceApplicationPaymentSequence,
   ...generalApplicationPaymentSequence,
   ...withdrawApplicationSequence,
-  ...generalApplicationD11Sequence,
+  ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1),
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>

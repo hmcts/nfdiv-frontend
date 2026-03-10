@@ -500,6 +500,9 @@ const fields: ToApiConverters = {
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
   }),
+  applicant2InterimAppsIUnderstand: data => ({
+    applicant2InterimAppsIUnderstand: checkboxConverter(data.applicant2InterimAppsIUnderstand),
+  }),
   applicant1InterimAppsUseHelpWithFees: data => ({
     applicant1InterimAppsUseHelpWithFees: data.applicant1InterimAppsUseHelpWithFees,
     ...(data.applicant1InterimAppsUseHelpWithFees === YesOrNo.NO
@@ -523,8 +526,16 @@ const fields: ToApiConverters = {
       ? setUnreachableAnswersToNull(['applicant1DeemedNoEvidenceStatement'])
       : setUnreachableAnswersToNull(['applicant1DeemedEvidenceDetails', 'applicant1InterimAppsCannotUploadDocs'])),
   }),
-  applicant1InterimAppsStatementOfTruth: data => ({
-    applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  applicant2InterimAppsCannotUploadDocs: data => ({
+    applicant2InterimAppsCannotUploadDocs: checkboxConverter(data.applicant2InterimAppsCannotUploadDocs),
+  }),
+  applicant2InterimAppsCanUploadEvidence: data => ({
+    applicant2InterimAppsCanUploadEvidence: data.applicant2InterimAppsCanUploadEvidence,
+    ...(data.applicant2InterimAppsCanUploadEvidence === YesOrNo.YES && 
+      setUnreachableAnswersToNull(['applicant2InterimAppsCannotUploadDocs'])),
+  }),
+  applicant2InterimAppsStatementOfTruth: data => ({
+    applicant2InterimAppsStatementOfTruth: checkboxConverter(data.applicant2InterimAppsStatementOfTruth),
   }),
   applicant1NoResponseRespondentAddressInEnglandWales: data => ({
     applicant1NoResponseRespondentAddressInEnglandWales: checkboxConverter(
@@ -729,6 +740,10 @@ const fields: ToApiConverters = {
     applicant1GenAppCannotUploadAgreedEvidence: checkboxConverter(data.applicant1GenAppCannotUploadAgreedEvidence),
   }),
   applicant1GenAppPartnerAgreesUploadedFiles: () => ({}),
+  applicant2GenAppCannotUploadAgreedEvidence: data => ({
+    applicant2GenAppCannotUploadAgreedEvidence: checkboxConverter(data.applicant2GenAppCannotUploadAgreedEvidence),
+  }),
+  applicant2GenAppPartnerAgreesUploadedFiles: () => ({}),
 };
 
 const toApiDate = (date: CaseDate | undefined | string) => {

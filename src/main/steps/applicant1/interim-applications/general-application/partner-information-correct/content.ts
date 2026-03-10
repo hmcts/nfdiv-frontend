@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
-import { formatApplicant2Address } from '../../no-response/have-they-received/content';
+import { formatApplicant2Address, formatApplicant1Address } from '../../no-response/have-they-received/content';
 
 const en = ({ partner }: CommonContent) => ({
   title: `We need up to date information for your ${partner}`,
@@ -15,6 +15,9 @@ const en = ({ partner }: CommonContent) => ({
   questionLabel: `Are these details for your ${partner} correct and up to date?`,
   errors: {
     applicant1GenAppPartnerDetailsCorrect: {
+      required: 'Select yes if these address details are up to date.',
+    },
+    applicant2GenAppPartnerDetailsCorrect: {
       required: 'Select yes if these address details are up to date.',
     },
   },
@@ -33,6 +36,9 @@ const cy = ({ partner }: CommonContent) => ({
     applicant1GenAppPartnerDetailsCorrect: {
       required: 'Select yes if these address details are up to date.',
     },
+    applicant2GenAppPartnerDetailsCorrect: {
+      required: 'Select yes if these address details are up to date.',
+    },
   },
 });
 
@@ -41,43 +47,53 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: {
-    applicant1GenAppPartnerDetailsCorrect: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.questionLabel,
-      labelHidden: false,
-      values: [
-        {
-          label: l => l.yes,
-          id: 'yesDetailsCorrect',
-          value: YesOrNo.YES,
-        },
-        {
-          label: l => l.no,
-          id: 'noDetailsNotCorrect',
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: value => isFieldFilledIn(value),
+const genAppPartnerDetailsCorrectField = () => ({
+  type: 'radios',
+  classes: 'govuk-radios',
+  label: l => l.questionLabel,
+  labelHidden: false,
+  values: [
+    {
+      label: l => l.yes,
+      id: 'yesDetailsCorrect',
+      value: YesOrNo.YES,
     },
+    {
+      label: l => l.no,
+      id: 'noDetailsNotCorrect',
+      value: YesOrNo.NO,
+    },
+  ],
+  validator: value => isFieldFilledIn(value),
+});
+
+export const applicant1Form: FormContent = {
+  fields: {
+    applicant1GenAppPartnerDetailsCorrect: genAppPartnerDetailsCorrectField(),
   },
   submit: {
     text: l => l.continue,
   },
 };
 
+export const applicant2Form: FormContent = {
+  ...applicant1Form,
+  fields: {
+    applicant2GenAppPartnerDetailsCorrect: genAppPartnerDetailsCorrectField(),
+  },
+};
+
 export const generateContent: TranslationFn = content => {
-  const applicant2Address =
-    content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : formatApplicant2Address(content.userCase);
-  const applicant2Email =
-    content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : content.userCase.applicant2Email;
+  const isApplicant2 = content.isApplicant2;
+  const partnerAddress = isApplicant2 ? formatApplicant1Address(content.userCase) : formatApplicant2Address(content.userCase);
+  const partnerEmail = isApplicant2 ? content.userCase.applicant1Email : content.userCase.applicant2Email;
+  const isPartnerConfidential = isApplicant2 ? content.userCase.applicant1AddressPrivate : content.userCase.applicant2AddressPrivate;
+
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form,
-    applicant2Address,
-    applicant2Email,
+    form: isApplicant2 ? applicant2Form : applicant1Form,
+    partnerAddress: isPartnerConfidential === YesOrNo.YES ? 'N/A' : partnerAddress,
+    partnerEmail: isPartnerConfidential === YesOrNo.YES ? 'N/A' : partnerEmail,
   };
 };

@@ -3,7 +3,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 import {
   generateContent as generateInterruptionContent,
-  form as interruptionForm,
+  applicant1Form as interruptionForm,
 } from '../../common/interruption/content';
 
 const en = ({ partner }: CommonContent) => ({

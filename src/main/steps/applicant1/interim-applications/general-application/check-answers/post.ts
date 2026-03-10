@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 
-import { CITIZEN_GENERAL_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
+import { CITIZEN_GENERAL_APPLICATION, InterimApplicationType, WhichApplicant } from '../../../../../app/case/definition';
 import { Step } from '../../../../../steps/applicant1Sequence';
 import { generalApplicationD11Sequence } from '../../../../generalApplicationD11Sequence';
 import CheckAnswersPostController from '../../common/check-answers/post';
@@ -16,6 +16,6 @@ export default class CheckGeneralApplicationD11AnswersPostController extends Che
   }
 
   protected interimApplicationSequence(): Step[] {
-    return generalApplicationD11Sequence;
+    return generalApplicationD11Sequence(WhichApplicant.APPLICANT_1);
   }
 }

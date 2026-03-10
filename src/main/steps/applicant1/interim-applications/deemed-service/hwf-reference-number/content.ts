@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import {
-  form as hwfReferenceNumberForm,
+  applicant1Form as hwfReferenceNumberForm,
   generateContent as hwfReferenceNumberGenerateContent,
 } from '../../common/hwf-reference-number/content';
 

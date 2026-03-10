@@ -34,22 +34,31 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: {
-    applicant1InterimAppsIUnderstand: {
-      type: 'checkboxes',
-      values: [
-        {
-          name: 'applicant1InterimAppsIUnderstand',
-          label: l => l.iUnderstand,
-          value: Checkbox.Checked,
-          validator: isFieldFilledIn,
-        },
-      ],
+const interimAppsIUnderstandField = (fieldName: string) => ({
+  type: 'checkboxes',
+  values: [
+    {
+      name: fieldName,
+      label: l => l.iUnderstand,
+      value: Checkbox.Checked,
+      validator: isFieldFilledIn,
     },
+  ],
+});
+
+export const applicant1Form: FormContent = {
+  fields: {
+    applicant1InterimAppsIUnderstand: interimAppsIUnderstandField('applicant1InterimAppsIUnderstand'),
   },
   submit: {
     text: l => l.continue,
+  },
+};
+
+export const applicant2Form: FormContent = {
+  ...applicant1Form,
+  fields: {
+    applicant2InterimAppsIUnderstand: interimAppsIUnderstandField('applicant2InterimAppsIUnderstand'),
   },
 };
 
@@ -57,6 +66,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form,
+    form: content.isApplicant2 ? applicant2Form : applicant1Form,
   };
 };

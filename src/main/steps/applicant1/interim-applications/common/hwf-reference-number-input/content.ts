@@ -34,29 +34,40 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
+const helpWithFeesReferenceField = () => ({
+  type: 'text',
+  attributes: {
+    maxLength: 11,
+  },
+  classes: 'govuk-!-width-one-third',
+  label: l => l.title,
+  labelHidden: true,
+  hint: l => l.refExample,
+  validator: isInvalidHelpWithFeesRef,
+});
+
+export const applicant1Form: FormContent = {
   fields: {
-    applicant1InterimAppsHwfRefNumber: {
-      type: 'text',
-      attributes: {
-        maxLength: 11,
-      },
-      classes: 'govuk-!-width-one-third',
-      label: l => l.title,
-      labelHidden: true,
-      hint: l => l.refExample,
-      validator: isInvalidHelpWithFeesRef,
-    },
+    applicant1InterimAppsHwfRefNumber: helpWithFeesReferenceField(),
   },
   submit: {
     text: l => l.continue,
   },
 };
 
+export const applicant2Form: FormContent = {
+  ...applicant1Form,
+  fields: {
+    applicant2InterimAppsHwfRefNumber: helpWithFeesReferenceField(),
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const isApplicant2 = content.isApplicant2;
+
   return {
     ...translations,
-    form,
+    form: isApplicant2 ? applicant2Form : applicant1Form,
   };
 };
