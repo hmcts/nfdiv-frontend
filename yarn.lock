@@ -3661,12 +3661,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/multer@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@types/multer@npm:2.0.0"
+"@types/multer@npm:2.1.0":
+  version: 2.1.0
+  resolution: "@types/multer@npm:2.1.0"
   dependencies:
     "@types/express": "*"
-  checksum: 64efb1076412c69678a58b283139c8bc1547446a7b5cb8064f72af50157b151e29f125952539d133bff1606ed03dbbf2bfae49a9b5def01e84641fde46d63f83
+  checksum: 25212157d492e428357aa795725e7f6b43dc7ac97c9113c8538307b78b7c22cc38ae3ab8fe2fcfd5f46d9fcbbdd45e9550e2153f203e0a4bd03c39670d6072a7
   languageName: node
   linkType: hard
 
@@ -13422,7 +13422,7 @@ __metadata:
     "@types/glob": 8.1.0
     "@types/jest": 30.0.0
     "@types/lodash": 4.17.24
-    "@types/multer": 2.0.0
+    "@types/multer": 2.1.0
     "@types/negotiator": 0.6.4
     "@types/node": 22.19.15
     "@types/nunjucks": 3.2.6
