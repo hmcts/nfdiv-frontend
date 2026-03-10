@@ -36,9 +36,9 @@ const cy: typeof en = ({ partner }: CommonContent, applicationFee) => ({
   line6: "Ni fydd y cais hwn ar y cyd yn cael ei gyflwyno nes i chi dalu'r ffi.",
   line7: `I weld yr atebion yr ydych wedi darparu ar eich cais, cliciwch ar y ddolen hon: <a href=${VIEW_YOUR_ANSWERS} class="govuk-link">Gwirio eich atebion</a>`,
   continue: 'Talu a chyflwyno',
-  line8: `If you do not pay the application fee within ${config.get(
+  line8: `Os na fyddwch yn talu'r ffi ar gyfer gwneud cais o fewn ${config.get(
     'dates.paymentOverdueOffsetDays'
-  )} days, then your application will be rejected, and you will have to start a new application.`,
+  )} diwrnod, yna bydd eich cais yn cael ei wrthod, a bydd yn rhaid i chi ddechrau cais newydd.`,
 });
 
 export const form: FormContent = {
