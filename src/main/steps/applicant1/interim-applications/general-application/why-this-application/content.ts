@@ -9,6 +9,9 @@ const en = () => ({
     applicant1GenAppReason: {
       required: 'You must explain why you are making this application.',
     },
+    applicant2GenAppReason: {
+      required: 'You must explain why you are making this application.',
+    },
   },
 });
 
@@ -20,6 +23,9 @@ const cy = () => ({
     applicant1GenAppReason: {
       required: 'You must explain why you are making this application.',
     },
+    applicant2GenAppReason: {
+      required: 'You must explain why you are making this application.',
+    },
   },
 });
 
@@ -28,18 +34,27 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
+const genAppReasonField = () => ({
+  type: 'textarea',
+  classes: 'govuk-input--width-40',
+  label: l => l.title,
+  labelHidden: true,
+  validator: value => isFieldFilledIn(value),
+});
+
+export const applicant1Form: FormContent = {
   fields: {
-    applicant1GenAppReason: {
-      type: 'textarea',
-      classes: 'govuk-input--width-40',
-      label: l => l.title,
-      labelHidden: true,
-      validator: value => isFieldFilledIn(value),
-    },
+    applicant1GenAppReason: genAppReasonField(),
   },
   submit: {
     text: l => l.continue,
+  },
+};
+
+export const applicant2Form: FormContent = {
+  ...applicant1Form,
+  fields: {
+    applicant2GenAppReason: genAppReasonField(),
   },
 };
 
@@ -47,6 +62,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
-    form,
+    form: content.isApplicant2 ? applicant2Form : applicant1Form,
   };
 };

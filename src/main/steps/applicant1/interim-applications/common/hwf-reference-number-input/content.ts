@@ -12,6 +12,12 @@ const en = () => ({
       invalidUsedExample:
         'You have entered the example Help With Fees number. Enter the number you were sent before continuing.',
     },
+    applicant2InterimAppsHwfRefNumber: {
+      required: 'Help with fees reference number cannot be blank.',
+      invalid: 'Enter your help with fees reference number in the correct format.',
+      invalidUsedExample:
+        'You have entered the example Help With Fees number. Enter the number you were sent before continuing.',
+    },
   },
 });
 
@@ -21,6 +27,12 @@ const cy: typeof en = () => ({
   refExample: 'Er enghraifft, HWF-A1B-23C',
   errors: {
     applicant1InterimAppsHwfRefNumber: {
+      required: 'Ni all y cyfeirnod help i dalu ffioedd gael ei adael yn wag.',
+      invalid: 'Rhowch eich cyfeirnod help i dalu ffioedd yn y fformat cywir.',
+      invalidUsedExample:
+        'Rydych wedi nodi’r rhif Help i Dalu Ffioedd sy’n cael ei ddefnyddio fel enghraifft. Nodwch y rhif a anfonwyd atoch cyn parhau.',
+    },
+    applicant2InterimAppsHwfRefNumber: {
       required: 'Ni all y cyfeirnod help i dalu ffioedd gael ei adael yn wag.',
       invalid: 'Rhowch eich cyfeirnod help i dalu ffioedd yn y fformat cywir.',
       invalidUsedExample:
@@ -46,7 +58,7 @@ const helpWithFeesReferenceField = () => ({
   validator: isInvalidHelpWithFeesRef,
 });
 
-export const applicant1Form: FormContent = {
+export const form: FormContent = {
   fields: {
     applicant1InterimAppsHwfRefNumber: helpWithFeesReferenceField(),
   },
@@ -56,7 +68,7 @@ export const applicant1Form: FormContent = {
 };
 
 export const applicant2Form: FormContent = {
-  ...applicant1Form,
+  ...form,
   fields: {
     applicant2InterimAppsHwfRefNumber: helpWithFeesReferenceField(),
   },
@@ -68,6 +80,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    form: isApplicant2 ? applicant2Form : applicant1Form,
+    form: isApplicant2 ? applicant2Form : form,
   };
 };

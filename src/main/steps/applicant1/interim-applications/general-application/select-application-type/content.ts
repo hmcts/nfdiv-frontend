@@ -1,6 +1,7 @@
+import { CaseWithId } from 'app/case/case';
 import { ApplicationType, GeneralApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
@@ -64,9 +65,9 @@ const languages = {
   cy,
 };
 
-const generalApplicationTypeField = (isApplicant2: boolean, applicationType: ApplicationType) => {
-  const isSoleRespondent = isApplicant2 && applicationType === ApplicationType.SOLE_APPLICATION;
-  const soleRespondentApplicationTypes = new Set([
+const generalApplicationTypeField = (isApplicant2: boolean, userCase: Partial<CaseWithId>) => {
+  const isSoleRespondent = isApplicant2 && userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+  const soleRespondentOptions = new Set([
     GeneralApplicationType.WITHDRAW_POST_ISSUE,
     GeneralApplicationType.DELAY,
     GeneralApplicationType.EXPEDITE,
@@ -107,7 +108,7 @@ const generalApplicationTypeField = (isApplicant2: boolean, applicationType: App
           label: l => l.somethingElse,
           value: GeneralApplicationType.OTHER,
           subFields: {
-            applicant1GenAppTypeOtherDetails: {
+            [isApplicant2 ? 'applicant2GenAppTypeOtherDetails' : 'applicant1GenAppTypeOtherDetails']: {
               type: 'textarea',
               classes: 'govuk-input--width-40',
               labelSize: null,
@@ -116,24 +117,39 @@ const generalApplicationTypeField = (isApplicant2: boolean, applicationType: App
             },
           },
         },
-      ].filter(applicationType => !isSoleRespondent || soleRespondentApplicationTypes.has(applicationType)),
+      ].filter(generalApplicationOption => !isSoleRespondent || soleRespondentOptions.has(
+        generalApplicationOption.value
+      )),
       validator: value => isFieldFilledIn(value)
     }
   };
 
-export const form: FormContent = {
-  fields: {
-    applicant1GenAppType: genApplicationTypeField(false, userCase.applicationType),
+export const applicant1Form: FormContent = {
+  fields: userCase => {
+    return {
+      applicant1GenAppType: generalApplicationTypeField(false, userCase),
+    };  
   },
   submit: {
     text: l => l.continue,
   },
 };
 
+export const applicant2Form: FormContent = {
+  ...applicant1Form,
+  fields: userCase => {
+    return {
+      applicant2GenAppType: generalApplicationTypeField(true, userCase),
+    };
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const form = content.isApplicant2 ? applicant2Form : applicant1Form;
+
   return {
     ...translations,
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };

@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import {
-  applicant1Form as helpWithFeesForm,
+  form as helpWithFeesForm,
   generateContent as helpWithFeesGenerateContent,
 } from '../../common/hwf-reference-number-input/content';
 

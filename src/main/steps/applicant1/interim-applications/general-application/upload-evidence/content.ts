@@ -1,7 +1,7 @@
 import config from 'config';
 import { isObject } from 'lodash';
 
-import { Checkbox } from '../../../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../../../app/case/case';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
@@ -38,6 +38,14 @@ const en = applicant1UploadDocumentContent => ({
         "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
     },
     applicant1GenAppStatementOfEvidence: {
+      notUploaded:
+        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
+    },
+    applicant2InterimAppsCannotUploadDocs: {
+      notUploaded:
+        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
+    },
+    applicant2GenAppStatementOfEvidence: {
       notUploaded:
         "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
     },
@@ -78,51 +86,101 @@ const cy: typeof en = applicant1UploadDocumentContent => ({
       notUploaded:
         "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
     },
+    applicant2InterimAppsCannotUploadDocs: {
+      notUploaded:
+        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
+    },
+    applicant2GenAppStatementOfEvidence: {
+      notUploaded:
+        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
+    },
   },
 });
 
-export const form: FormContent = {
-  fields: userCase => ({
-    applicant1GenAppStatementOfEvidence: {
-      type: 'textarea',
-      classes: 'govuk-input--width-40',
-      label: l => l.statementLabel,
-      labelHidden: true,
-    },
-    applicant1InterimAppsEvidenceUploadedFiles: {
-      type: 'hidden',
-      label: l => l.uploadFilesLabel,
-      labelHidden: true,
-      value:
-        (isObject(userCase.applicant1InterimAppsEvidenceUploadedFiles)
-          ? JSON.stringify(userCase.applicant1InterimAppsEvidenceUploadedFiles)
-          : userCase.applicant1InterimAppsEvidenceUploadedFiles) || '[]',
-      parser: data => JSON.parse((data as Record<string, string>).applicant1InterimAppsEvidenceUploadedFiles || '[]'),
-      validator: (value, formData) => {
-        const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-        const selectedCannotUploadDocuments = !!formData.applicant1InterimAppsCannotUploadDocs?.length;
-        const hasStatement = !!formData.applicant1GenAppStatementOfEvidence?.length;
-        if (!hasUploadedFiles && !selectedCannotUploadDocuments && !hasStatement) {
-          return 'notUploaded';
-        }
-      },
-    },
-    applicant1InterimAppsCannotUploadDocs: {
-      type: 'checkboxes',
+const genAppsStatementOfEvidenceField = () => {
+  return {
+    type: 'textarea',
+    classes: 'govuk-input--width-40',
+    label: l => l.statementLabel,
+    labelHidden: true
+  }
+}
+
+const uploadedFilesField = (
+  userCase: Partial<CaseWithId>,
+  uploadedFilesFieldName: keyof CaseWithId,
+  cannotUploadEvidenceFieldName: keyof CaseWithId,
+  statementOfEvidenceFieldName: keyof CaseWithId
+) => ({
+  type: 'hidden',
+  label: l => l.uploadFilesLabel,
+  labelHidden: true,
+  value:
+    (isObject(userCase[uploadedFilesFieldName])
+      ? JSON.stringify(userCase[uploadedFilesFieldName])
+      : userCase[uploadedFilesFieldName]) || '[]',
+  parser: data => JSON.parse((data as Record<string, string>)[uploadedFilesFieldName] || '[]'),
+  validator: (value, formData) => {
+    const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
+    const selectedCannotUploadDocuments = !!formData[cannotUploadEvidenceFieldName]?.length;
+    const hasStatement = !!formData[statementOfEvidenceFieldName]?.length;
+    if (!hasUploadedFiles && !selectedCannotUploadDocuments && !hasStatement) {
+      return 'notUploaded';
+    }
+  },
+});
+
+const cannotUploadEvidenceField = (cannotUploadEvidenceFieldName: keyof CaseWithId) => ({
+  type: 'checkboxes',
+  label: l => l.cannotUpload,
+  labelHidden: true,
+  values: [
+    {
+      name: cannotUploadEvidenceFieldName,
       label: l => l.cannotUpload,
-      labelHidden: true,
-      values: [
-        {
-          name: 'applicant1InterimAppsCannotUploadDocs',
-          label: l => l.cannotUpload,
-          value: Checkbox.Checked,
-          conditionalText: l => `<p class="govuk-body govuk-!-margin-top-5">${l.cannotUploadInfo}</p>`,
-        },
-      ],
+      value: Checkbox.Checked,
+      conditionalText: l => `<p class="govuk-body govuk-!-margin-top-5">${l.cannotUploadInfo}</p>`,
     },
-  }),
+  ],
+});
+
+export const applicant1Form: FormContent = {
+  fields: userCase => {
+    const uploadedFilesFieldName: keyof CaseWithId = 'applicant1InterimAppsEvidenceUploadedFiles';
+    const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant1InterimAppsCannotUploadDocs';
+    const statementOfEvidenceFieldName: keyof CaseWithId = 'applicant1GenAppStatementOfEvidence';
+  
+    return {
+      applicant1GenAppStatementOfEvidence: genAppsStatementOfEvidenceField(),
+      applicant1InterimAppsEvidenceUploadedFiles: uploadedFilesField(
+        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName, statementOfEvidenceFieldName
+      ),
+      applicant1InterimAppsCannotUploadDocs: cannotUploadEvidenceField(
+        cannotUploadEvidenceFieldName
+      ),
+    }
+  },
   submit: {
     text: l => l.continue,
+  },
+};
+
+export const applicant2Form: FormContent = {
+  ...applicant1Form,
+  fields: userCase => {
+    const uploadedFilesFieldName: keyof CaseWithId = 'applicant2InterimAppsEvidenceUploadedFiles';
+    const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant2InterimAppsCannotUploadDocs';
+    const statementOfEvidenceFieldName: keyof CaseWithId = 'applicant2GenAppStatementOfEvidence';
+  
+    return {
+      applicant2GenAppStatementOfEvidence: genAppsStatementOfEvidenceField(),
+      applicant2InterimAppsEvidenceUploadedFiles: uploadedFilesField(
+        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName, statementOfEvidenceFieldName
+      ),
+      applicant2InterimAppsCannotUploadDocs: cannotUploadEvidenceField(
+        cannotUploadEvidenceFieldName
+      ),
+    }
   },
 };
 
@@ -134,7 +192,12 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const applicant1UploadDocumentContent = uploadDocumentGenerateContent(content);
   const translations = languages[content.language](applicant1UploadDocumentContent);
-  const uploadedDocsFilenames = content.userCase.applicant1InterimAppsEvidenceDocs?.map(item =>
+  const userCase = content.userCase;
+
+  const uploadedDocs = content.isApplicant2
+    ? userCase?.applicant2InterimAppsEvidenceDocs
+    : userCase?.applicant1InterimAppsEvidenceDocs;
+  const uploadedDocsFilenames = uploadedDocs?.map(item =>
     getFilename(item.value)
   );
   const amendable = true;
@@ -142,6 +205,8 @@ export const generateContent: TranslationFn = content => {
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
   }`;
+  const form = content.isApplicant2 ? applicant2Form : applicant1Form;
+
   return {
     ...applicant1UploadDocumentContent,
     ...translations,

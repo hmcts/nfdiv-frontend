@@ -59,7 +59,7 @@ const haveHelpWithFeesReferenceField = () => ({
   validator: value => isFieldFilledIn(value),
 });
 
-export const applicant1Form: FormContent = {
+export const form: FormContent = {
   fields: {
     applicant1InterimAppsHaveHwfReference: haveHelpWithFeesReferenceField(),
   },
@@ -69,7 +69,7 @@ export const applicant1Form: FormContent = {
 };
 
 export const applicant2Form: FormContent = {
-  ...applicant1Form,
+  ...form,
   fields: {
     applicant2InterimAppsHaveHwfReference: haveHelpWithFeesReferenceField(),
   },
@@ -109,6 +109,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](serviceType);
   return {
     ...translations,
-    form: isApplicant2 ? applicant2Form : applicant1Form,
+    form: isApplicant2 ? applicant2Form : form,
   };
 };

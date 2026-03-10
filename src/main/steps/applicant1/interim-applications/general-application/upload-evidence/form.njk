@@ -8,14 +8,14 @@
 {% block form_content %}
 
   {% for fieldName, field in form.fields %}
-    {% if fieldName == 'applicant1GenAppStatementOfEvidence' %}
+    {% if fieldName == 'applicant1GenAppStatementOfEvidence' or fieldName ==  'applicant2GenAppStatementOfEvidence' %}
         <p class="govuk-body">
           <h2 id="uploadAFile" class="govuk-heading-s">{{ statementLabel }}</h2>
         </p>
         {% include "common/form/fields/" + field.type + ".njk" %}
-    {% elseif fieldName == 'applicant1InterimAppsCannotUploadDocs' %}
+    {% elseif fieldName == 'applicant1InterimAppsCannotUploadDocs' or fieldName ==  'applicant2InterimAppsCannotUploadDocs' %}
       {% include "common/form/fields/" + field.type + ".njk" %}
-    {% elseif fieldName == 'applicant1InterimAppsEvidenceUploadedFiles'%}
+    {% elseif fieldName == 'applicant1InterimAppsEvidenceUploadedFiles' or fieldName ==  'applicant2InterimAppsEvidenceUploadedFiles' %}
       <p class="govuk-body">
         <h2 id="uploadAFile" class="govuk-heading-s">{{ uploadFilesLabel }}</h2>
         <p class="govuk-body">{{ line1 | safe }}</p>

@@ -1,7 +1,5 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
 import {
-  applicant1Form as hwfReferenceNumberForm,
   generateContent as hwfReferenceNumberGenerateContent,
 } from '../../common/hwf-reference-number/content';
 
@@ -18,14 +16,11 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = hwfReferenceNumberForm;
-
 export const generateContent: TranslationFn = content => {
   const hwfReferenceNumberContent = hwfReferenceNumberGenerateContent(content);
   const translations = languages[content.language]();
   return {
     ...hwfReferenceNumberContent,
     ...translations,
-    form,
   };
 };
