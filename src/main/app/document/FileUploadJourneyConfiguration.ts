@@ -37,7 +37,7 @@ const FileUploadJourneyConfigurationMap: Record<FileUploadJourney, FileUploadJou
       req.session.isApplicant2
         ? FileUploadPath.APPLICANT_2_GEN_APP_D11_PARTNER_AGREES_EVIDENCE
         : FileUploadPath.APPLICANT_1_GEN_APP_D11_PARTNER_AGREES_EVIDENCE,
-    getRedirectPath: () => GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES,
+    getRedirectPath: (req: AppRequest) => getRootRedirectPath(req.session.isApplicant2, req.session.userCase) + GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES,
     validateUpload: () => true,
   },
   [FileUploadJourney.GEN_APP_D11_SUPPORTING_EVIDENCE]: {
