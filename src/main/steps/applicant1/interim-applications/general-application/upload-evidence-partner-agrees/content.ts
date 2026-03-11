@@ -157,7 +157,7 @@ const cannotUploadEvidenceField = (
   ],
 });
 
-export const applicant1Form: FormContent = {
+export const form: FormContent = {
   fields: userCase => {
     const uploadedFilesFieldName: keyof CaseWithId = 'applicant1GenAppPartnerAgreesUploadedFiles';
     const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant1GenAppCannotUploadAgreedEvidence';
@@ -181,7 +181,7 @@ export const applicant1Form: FormContent = {
 };
 
 export const applicant2Form: FormContent = {
-  ...applicant1Form,
+  ...form,
   fields: userCase => {
     const uploadedFilesFieldName: keyof CaseWithId = 'applicant2GenAppPartnerAgreesUploadedFiles';
     const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant2GenAppCannotUploadAgreedEvidence';
@@ -217,12 +217,12 @@ export const generateContent: TranslationFn = content => {
     "delete": "${content.delete}"
   }`;
 
-  const form = content.isApplicant2 ? applicant2Form : applicant1Form;
+  const contentForm = content.isApplicant2 ? applicant2Form : form;
 
   return {
     ...applicant1UploadDocumentContent,
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    form: { ...contentForm, fields: (contentForm.fields as FormFieldsFn)(content.userCase || {}) },
     uploadedDocsFilenames,
     amendable,
     uploadContentScript,

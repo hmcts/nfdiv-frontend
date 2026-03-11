@@ -124,7 +124,7 @@ const generalApplicationTypeField = (isApplicant2: boolean, userCase: Partial<Ca
   };
 };
 
-export const applicant1Form: FormContent = {
+export const form: FormContent = {
   fields: userCase => {
     return {
       applicant1GenAppType: generalApplicationTypeField(false, userCase),
@@ -136,7 +136,7 @@ export const applicant1Form: FormContent = {
 };
 
 export const applicant2Form: FormContent = {
-  ...applicant1Form,
+  ...form,
   fields: userCase => {
     return {
       applicant2GenAppType: generalApplicationTypeField(true, userCase),
@@ -146,10 +146,10 @@ export const applicant2Form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const form = content.isApplicant2 ? applicant2Form : applicant1Form;
+  const contentForm = content.isApplicant2 ? applicant2Form : form;
 
   return {
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    form: { ...contentForm, fields: (contentForm.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };

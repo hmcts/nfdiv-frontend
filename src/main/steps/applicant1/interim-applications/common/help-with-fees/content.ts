@@ -62,7 +62,7 @@ const yesNoHelpWithFeesField = () => ({
   validator: value => isFieldFilledIn(value),
 });
 
-export const applicant1Form: FormContent = {
+export const form: FormContent = {
   fields: {
     applicant1InterimAppsUseHelpWithFees: yesNoHelpWithFeesField(),
   },
@@ -72,7 +72,7 @@ export const applicant1Form: FormContent = {
 };
 
 export const applicant2Form: FormContent = {
-  ...applicant1Form,
+  ...form,
   fields: {
     applicant2InterimAppsUseHelpWithFees: yesNoHelpWithFeesField(),
   },
@@ -123,6 +123,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](serviceType, serviceFee);
   return {
     ...translations,
-    form: isApplicant2 ? applicant2Form : applicant1Form,
+    form: isApplicant2 ? applicant2Form : form,
   };
 };

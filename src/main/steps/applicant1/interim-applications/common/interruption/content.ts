@@ -46,7 +46,7 @@ const interimAppsIUnderstandField = (fieldName: string) => ({
   ],
 });
 
-export const applicant1Form: FormContent = {
+export const form: FormContent = {
   fields: {
     applicant1InterimAppsIUnderstand: interimAppsIUnderstandField('applicant1InterimAppsIUnderstand'),
   },
@@ -56,7 +56,7 @@ export const applicant1Form: FormContent = {
 };
 
 export const applicant2Form: FormContent = {
-  ...applicant1Form,
+  ...form,
   fields: {
     applicant2InterimAppsIUnderstand: interimAppsIUnderstandField('applicant2InterimAppsIUnderstand'),
   },
@@ -66,6 +66,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form: content.isApplicant2 ? applicant2Form : applicant1Form,
+    form: content.isApplicant2 ? applicant2Form : form,
   };
 };

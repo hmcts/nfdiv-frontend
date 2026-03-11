@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import {
   generateContent as generateInterruptionContent,
-  applicant1Form as interruptionForm,
+  form as interruptionForm,
 } from '../../common/interruption/content';
 
 const en = () => ({

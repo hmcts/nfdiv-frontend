@@ -67,7 +67,7 @@ const genAppPartnerDetailsCorrectField = () => ({
   validator: value => isFieldFilledIn(value),
 });
 
-export const applicant1Form: FormContent = {
+export const form: FormContent = {
   fields: {
     applicant1GenAppPartnerDetailsCorrect: genAppPartnerDetailsCorrectField(),
   },
@@ -77,7 +77,7 @@ export const applicant1Form: FormContent = {
 };
 
 export const applicant2Form: FormContent = {
-  ...applicant1Form,
+  ...form,
   fields: {
     applicant2GenAppPartnerDetailsCorrect: genAppPartnerDetailsCorrectField(),
   },
@@ -96,7 +96,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   return {
     ...translations,
-    form: isApplicant2 ? applicant2Form : applicant1Form,
+    form: isApplicant2 ? applicant2Form : form,
     partnerAddress: isPartnerConfidential === YesOrNo.YES ? 'N/A' : partnerAddress,
     partnerEmail: isPartnerConfidential === YesOrNo.YES ? 'N/A' : partnerEmail,
   };

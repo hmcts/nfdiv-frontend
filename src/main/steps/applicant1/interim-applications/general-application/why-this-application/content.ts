@@ -42,7 +42,7 @@ const genAppReasonField = () => ({
   validator: value => isFieldFilledIn(value),
 });
 
-export const applicant1Form: FormContent = {
+export const form: FormContent = {
   fields: {
     applicant1GenAppReason: genAppReasonField(),
   },
@@ -52,7 +52,7 @@ export const applicant1Form: FormContent = {
 };
 
 export const applicant2Form: FormContent = {
-  ...applicant1Form,
+  ...form,
   fields: {
     applicant2GenAppReason: genAppReasonField(),
   },
@@ -62,6 +62,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
-    form: content.isApplicant2 ? applicant2Form : applicant1Form,
+    form: content.isApplicant2 ? applicant2Form : form,
   };
 };

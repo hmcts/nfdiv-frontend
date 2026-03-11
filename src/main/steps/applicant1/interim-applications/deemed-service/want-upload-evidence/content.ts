@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 import {
-  applicant1Form as wantUploadEvidenceForm,
+  form as wantUploadEvidenceForm,
   generateContent as wantUploadEvidenceGenerateContent,
 } from '../../common/want-upload-evidence/content';
 
