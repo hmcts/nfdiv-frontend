@@ -64,7 +64,7 @@ Feature: Sole final order
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     And I pay and submit the application
-    Then the page should include "Application saved"
+    Then the page should include "Further action needed"
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
@@ -102,7 +102,7 @@ Feature: Sole final order
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     And I pay and submit the application
-    Then the page should include "Application saved"
+    Then the page should include "Further action needed"
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
@@ -146,7 +146,7 @@ Feature: Sole final order
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     And I pay and submit the application
-    Then the page should include "Application saved"
+    Then the page should include "Further action needed"
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
