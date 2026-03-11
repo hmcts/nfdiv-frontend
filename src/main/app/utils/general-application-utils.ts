@@ -11,7 +11,7 @@ import {
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 
-const D11_GENERAL_APPLICATION_EXCLUSION_STATES: Set<State> = new Set([
+const D11_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
   State.AwaitingGeneralApplicationPayment,
   State.AwaitingGenAppDocuments,
   State.AwaitingGeneralConsideration,
@@ -94,8 +94,8 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
   );
 };
 
-export const canSubmitGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
-  if (D11_GENERAL_APPLICATION_EXCLUSION_STATES.has(userCase.state as State)) {
+export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+  if (D11_GENERAL_APPLICATION_EXCLUDED_STATES.has(userCase.state as State)) {
     return false;
   }
 

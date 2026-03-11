@@ -1,5 +1,5 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { canSubmitGeneralApplication } from '../../../../app/utils/general-application-utils';
+import { canStartNewGeneralApplication } from '../../../../app/utils/general-application-utils';
 import { CommonContent, getRootRedirectPath } from '../../../common/common.content';
 import {
   APPLICANT_2,
@@ -55,7 +55,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const showGenApplicationLink = canSubmitGeneralApplication(content.isApplicant2, content.userCase);
+  const showGenApplicationLink = canStartNewGeneralApplication(content.isApplicant2, content.userCase);
   const showWithdrawLink =
     !content.caseHasBeenIssued && (!content.isApplicant2 || (content.isApplicant2 && content.isJointApplication));
 

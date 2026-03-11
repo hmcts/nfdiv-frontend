@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { CaseWithId } from '../case/case';
 import {
+  ApplicationType,
   GeneralApplication,
   GeneralApplicationType,
   GeneralParties,
@@ -12,7 +13,7 @@ import {
 import { AppRequest } from '../controller/AppRequest';
 
 import {
-  canSubmitGeneralApplication,
+  canStartNewGeneralApplication,
   findAllOnlineGenAppsForUser,
   findGenAppAwaitingDocuments,
   findGenAppAwaitingPayment,
@@ -328,29 +329,36 @@ describe('GeneralApplicationUtils', () => {
     });
   });
 
-  describe('canSubmitGeneralApplication', () => {
+  describe('canStartNewGeneralApplication', () => {
     test('Should return true if user can submit general application', () => {
       mockReq.session.userCase.generalApplications = [];
       mockReq.session.userCase.generalReferralType = undefined;
       mockReq.session.userCase.state = State.Submitted;
 
-      expect(canSubmitGeneralApplication(false, mockReq.session.userCase)).toBe(true);
+      expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(true);
     });
 
     test('Should return false if case state is excluded', () => {
       mockReq.session.userCase.state = State.GeneralApplicationReceived;
 
-      expect(canSubmitGeneralApplication(false, mockReq.session.userCase)).toBe(false);
+      expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
     });
 
     test('Should return false if general referral in progress', () => {
       mockReq.session.userCase.generalReferralType = 'SOME_REFERRAL';
 
-      expect(canSubmitGeneralApplication(false, mockReq.session.userCase)).toBe(false);
+      expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
     });
 
     test('Should return false if general application payment in progress', () => {
-      expect(canSubmitGeneralApplication(false, mockReq.session.userCase)).toBe(false);
+      expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
+    });
+
+    test('Should return false if is sole respondent and has not completed the Aos', () => {
+      mockReq.session.isApplicant2 = true;
+      mockReq.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+      mockReq.session.userCase.dateAosSubmitted = undefined;
+      expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
     });
 
     test('Should return false if awaiting documents', () => {
@@ -366,7 +374,7 @@ describe('GeneralApplicationUtils', () => {
         },
       ];
 
-      expect(canSubmitGeneralApplication(false, mockReq.session.userCase)).toBe(false);
+      expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
     });
   });
 });
