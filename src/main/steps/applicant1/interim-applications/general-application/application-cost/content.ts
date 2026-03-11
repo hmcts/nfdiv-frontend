@@ -56,8 +56,8 @@ export const generateContent: TranslationFn = content => {
   const hearingNotRequired = hearingNotRequiredAnswer === GeneralApplicationHearingNotRequired.NO;
 
   const serviceFee = hearingNotRequired
-      ? getFee(config.get('fees.generalAppWithHearing'))
-      : getFee(config.get('fees.generalAppWithoutHearing'));
+    ? getFee(config.get('fees.generalAppWithHearing'))
+    : getFee(config.get('fees.generalAppWithoutHearing'));
   const translations = languages[content.language](content, serviceFee);
 
   return {

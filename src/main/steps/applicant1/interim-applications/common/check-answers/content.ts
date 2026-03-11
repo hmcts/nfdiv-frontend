@@ -70,7 +70,7 @@ const statementOfTruthField = (fieldName: keyof CaseData) => {
       },
     ],
   };
-}
+};
 
 export const form: FormContent = {
   fields: {
@@ -97,9 +97,15 @@ export const generateContent: TranslationFn = content => {
   const userCase = content.userCase;
   const isApplicant2 = content.isApplicant2;
 
-  const useHwf = isApplicant2 ? userCase.applicant2InterimAppsUseHelpWithFees : userCase.applicant1InterimAppsUseHelpWithFees;
-  const haveHwfReference = isApplicant2 ? userCase.applicant2InterimAppsHaveHwfReference : userCase.applicant1InterimAppsHaveHwfReference;
-  const hwfReference = isApplicant2 ? userCase.applicant2InterimAppsHwfRefNumber : userCase.applicant1InterimAppsHwfRefNumber;
+  const useHwf = isApplicant2
+    ? userCase.applicant2InterimAppsUseHelpWithFees
+    : userCase.applicant1InterimAppsUseHelpWithFees;
+  const haveHwfReference = isApplicant2
+    ? userCase.applicant2InterimAppsHaveHwfReference
+    : userCase.applicant1InterimAppsHaveHwfReference;
+  const hwfReference = isApplicant2
+    ? userCase.applicant2InterimAppsHwfRefNumber
+    : userCase.applicant1InterimAppsHwfRefNumber;
   const usingHwf =
     useHwf === YesOrNo.YES && haveHwfReference === YesOrNo.YES && isInvalidHelpWithFeesRef(hwfReference) === undefined;
   const translations = languages[content.language](usingHwf, content);

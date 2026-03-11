@@ -104,17 +104,16 @@ export const canSubmitGeneralApplication = (isApplicant2: boolean, userCase: Par
     return false;
   }
 
-  const isSoleRespondentCompletingAos = isApplicant2
-    && userCase?.applicationType === ApplicationType.SOLE_APPLICATION
-    && !userCase?.dateAosSubmitted;
+  const isSoleRespondentCompletingAos =
+    isApplicant2 && userCase?.applicationType === ApplicationType.SOLE_APPLICATION && !userCase?.dateAosSubmitted;
   if (isSoleRespondentCompletingAos) {
     return false;
   }
 
-  const app1HasSubmittedGenApp = hasGenAppAwaitingDocuments(false, userCase)
-    || hasGenAppPaymentInProgress(false, userCase);
-  const app2HasSubmittedGenApp = hasGenAppAwaitingDocuments(true, userCase)
-    || hasGenAppPaymentInProgress(true, userCase);
+  const app1HasSubmittedGenApp =
+    hasGenAppAwaitingDocuments(false, userCase) || hasGenAppPaymentInProgress(false, userCase);
+  const app2HasSubmittedGenApp =
+    hasGenAppAwaitingDocuments(true, userCase) || hasGenAppPaymentInProgress(true, userCase);
   const genAppHasBeenDrafted = hasGenAppSaveAndSignOutContent(isApplicant2, userCase);
 
   return !(app1HasSubmittedGenApp || app2HasSubmittedGenApp || genAppHasBeenDrafted);

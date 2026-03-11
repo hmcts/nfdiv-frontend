@@ -9,6 +9,7 @@ import { Form, FormContent, FormFields, FormFieldsFn } from '../app/form/Form';
 
 import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
+import { getRootRedirectPath } from './common/common.content';
 import { respondentSequence } from './respondentSequence';
 import { currentStateFn } from './state-sequence';
 import { jurisdictionUrls } from './url-utils';
@@ -24,7 +25,6 @@ import {
   READ_THE_RESPONSE,
   RESPONDENT,
 } from './urls';
-import { getRootRedirectPath } from './common/common.content';
 
 const stepFields: Record<string, FormFields | FormFieldsFn> = {};
 const ext = extname(__filename);

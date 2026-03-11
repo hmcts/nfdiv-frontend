@@ -1,3 +1,4 @@
+import { getRootRedirectPath } from '../../steps/common/common.content';
 import {
   GEN_APP_UPLOAD_EVIDENCE,
   GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES,
@@ -5,7 +6,6 @@ import {
 } from '../../steps/urls';
 import { ApplicationType } from '../case/definition';
 import type { AppRequest } from '../controller/AppRequest';
-import { getRootRedirectPath } from '../../steps/common/common.content';
 
 export enum FileUploadJourney {
   ALTERNATIVE_SERVICE = 'alternativeService',
@@ -33,17 +33,20 @@ const FileUploadJourneyConfigurationMap: Record<FileUploadJourney, FileUploadJou
     validateUpload: req => validateServiceApplicationDocumentUpload(req),
   },
   [FileUploadJourney.GEN_APP_D11_PARTNER_AGREES]: {
-    getUploadPath: req => req.session.isApplicant2
-      ? FileUploadPath.APPLICANT_2_GEN_APP_D11_PARTNER_AGREES_EVIDENCE
-      : FileUploadPath.APPLICANT_1_GEN_APP_D11_PARTNER_AGREES_EVIDENCE,
+    getUploadPath: req =>
+      req.session.isApplicant2
+        ? FileUploadPath.APPLICANT_2_GEN_APP_D11_PARTNER_AGREES_EVIDENCE
+        : FileUploadPath.APPLICANT_1_GEN_APP_D11_PARTNER_AGREES_EVIDENCE,
     getRedirectPath: () => GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES,
     validateUpload: () => true,
   },
   [FileUploadJourney.GEN_APP_D11_SUPPORTING_EVIDENCE]: {
-    getUploadPath: req => req.session.isApplicant2
-      ? FileUploadPath.APPLICANT_2_INTERIM_APPS_EVIDENCE
-      : FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
-    getRedirectPath: (req) => getRootRedirectPath(req.session.isApplicant2, req.session.userCase) + GEN_APP_UPLOAD_EVIDENCE,
+    getUploadPath: req =>
+      req.session.isApplicant2
+        ? FileUploadPath.APPLICANT_2_INTERIM_APPS_EVIDENCE
+        : FileUploadPath.APPLICANT_1_INTERIM_APPS_EVIDENCE,
+    getRedirectPath: req =>
+      getRootRedirectPath(req.session.isApplicant2, req.session.userCase) + GEN_APP_UPLOAD_EVIDENCE,
     validateUpload: () => true,
   },
 };

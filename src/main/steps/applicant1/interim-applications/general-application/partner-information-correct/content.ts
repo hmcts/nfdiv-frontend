@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
-import { formatApplicant2Address, formatApplicant1Address } from '../../no-response/have-they-received/content';
+import { formatApplicant1Address, formatApplicant2Address } from '../../no-response/have-they-received/content';
 
 const en = ({ partner }: CommonContent) => ({
   title: `We need up to date information for your ${partner}`,
@@ -85,9 +85,13 @@ export const applicant2Form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const isApplicant2 = content.isApplicant2;
-  const partnerAddress = isApplicant2 ? formatApplicant1Address(content.userCase) : formatApplicant2Address(content.userCase);
+  const partnerAddress = isApplicant2
+    ? formatApplicant1Address(content.userCase)
+    : formatApplicant2Address(content.userCase);
   const partnerEmail = isApplicant2 ? content.userCase.applicant1Email : content.userCase.applicant2Email;
-  const isPartnerConfidential = isApplicant2 ? content.userCase.applicant1AddressPrivate : content.userCase.applicant2AddressPrivate;
+  const isPartnerConfidential = isApplicant2
+    ? content.userCase.applicant1AddressPrivate
+    : content.userCase.applicant2AddressPrivate;
 
   const translations = languages[content.language](content);
   return {

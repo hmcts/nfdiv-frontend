@@ -596,7 +596,5 @@ export const getRootRedirectPath = (isApplicant2: boolean, userCase: Partial<Cas
     return '';
   }
 
-  return userCase.applicationType === ApplicationType.JOINT_APPLICATION
-    ? APPLICANT_2
-    : RESPONDENT;
-}
+  return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? APPLICANT_2 : RESPONDENT;
+};

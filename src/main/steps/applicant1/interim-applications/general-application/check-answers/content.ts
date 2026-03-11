@@ -183,14 +183,17 @@ export const generateContent: TranslationFn = content => {
     : userCase.applicant1InterimAppsCanUploadEvidence;
   const uploadedDocsFilenames =
     canUpload === YesOrNo.YES
-      ? (isApplicant2
-          ? userCase.applicant2InterimAppsEvidenceDocs?.map(item => getFilename(item.value))
-          : userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value)))
+      ? isApplicant2
+        ? userCase.applicant2InterimAppsEvidenceDocs?.map(item => getFilename(item.value))
+        : userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value))
       : undefined;
-  const cannotUploadDocs =
-    isApplicant2
-    ? userCase.applicant2InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO
-    : userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+  const cannotUploadDocs = isApplicant2
+    ? userCase.applicant2InterimAppsCannotUploadDocs === Checkbox.Checked
+      ? YesOrNo.YES
+      : YesOrNo.NO
+    : userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked
+      ? YesOrNo.YES
+      : YesOrNo.NO;
   const evidenceStatement = isApplicant2
     ? userCase.applicant2GenAppStatementOfEvidence
     : userCase.applicant1GenAppStatementOfEvidence;
@@ -198,20 +201,20 @@ export const generateContent: TranslationFn = content => {
     ? userCase.applicant2GenAppHearingNotRequired
     : userCase.applicant1GenAppHearingNotRequired;
   const cannotUploadHearingNotRequiredEvidence = isApplicant2
-    ? userCase.applicant2GenAppCannotUploadAgreedEvidence === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO
-    : userCase.applicant1GenAppCannotUploadAgreedEvidence === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+    ? userCase.applicant2GenAppCannotUploadAgreedEvidence === Checkbox.Checked
+      ? YesOrNo.YES
+      : YesOrNo.NO
+    : userCase.applicant1GenAppCannotUploadAgreedEvidence === Checkbox.Checked
+      ? YesOrNo.YES
+      : YesOrNo.NO;
   const hearingNotRequiredEvidenceFileNames = isApplicant2
     ? userCase.applicant2GenAppPartnerAgreesDocs?.map(item => getFilename(item.value))
     : userCase.applicant1GenAppPartnerAgreesDocs?.map(item => getFilename(item.value));
-  const reasonForApplication = isApplicant2
-    ? userCase.applicant2GenAppReason
-    : userCase.applicant1GenAppReason;
+  const reasonForApplication = isApplicant2 ? userCase.applicant2GenAppReason : userCase.applicant1GenAppReason;
   const partnerDetailsCorrect = isApplicant2
     ? userCase.applicant2GenAppPartnerDetailsCorrect
     : userCase.applicant1GenAppPartnerDetailsCorrect;
-  const d11Type = isApplicant2
-    ? userCase.applicant2GenAppType
-    : userCase.applicant1GenAppType;
+  const d11Type = isApplicant2 ? userCase.applicant2GenAppType : userCase.applicant1GenAppType;
   const d11TypeOtherDetails = isApplicant2
     ? userCase.applicant2GenAppTypeOtherDetails
     : userCase.applicant1GenAppTypeOtherDetails;
@@ -241,6 +244,6 @@ export const generateContent: TranslationFn = content => {
     hwfReference,
     canUpload,
     uploadedDocsFilenames,
-    cannotUploadDocs
+    cannotUploadDocs,
   };
 };

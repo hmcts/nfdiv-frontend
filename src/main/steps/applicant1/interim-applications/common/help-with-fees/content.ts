@@ -45,21 +45,21 @@ const languages = {
 const yesNoHelpWithFeesField = () => ({
   type: 'radios',
   classes: 'govuk-radios govuk-radios--inline',
-  label: (l: any) => l.useHelpWithFees,
+  label: l => l.useHelpWithFees,
   labelHidden: false,
   values: [
     {
-      label: (l: any) => l.yes,
+      label: l => l.yes,
       id: 'yes',
       value: YesOrNo.YES,
     },
     {
-      label: (l: any) => l.no,
+      label: l => l.no,
       id: 'no',
       value: YesOrNo.NO,
     },
   ],
-  validator: (value) => isFieldFilledIn(value),
+  validator: value => isFieldFilledIn(value),
 });
 
 export const applicant1Form: FormContent = {

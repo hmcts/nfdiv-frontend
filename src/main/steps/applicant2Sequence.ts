@@ -3,9 +3,9 @@ import { ApplicationType, State, WhichApplicant, YesOrNo } from '../app/case/def
 import { needsToExplainDelay } from '../app/controller/controller.utils';
 
 import { Step } from './applicant1Sequence';
+import { applicant2WithdrawApplicationSequence } from './applicant2WithdrawApplicationSequence';
 import { generalApplicationD11Sequence } from './generalApplicationD11Sequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
-import { applicant2WithdrawApplicationSequence } from './applicant2WithdrawApplicationSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,

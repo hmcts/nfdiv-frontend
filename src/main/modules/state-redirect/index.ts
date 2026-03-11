@@ -13,6 +13,7 @@ import {
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
 import { hasGenAppPaymentInProgress } from '../../app/utils/general-application-utils';
+import { getRootRedirectPath } from '../../steps/common/common.content';
 import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
@@ -37,7 +38,6 @@ import {
   WITHDRAW_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
 } from '../../steps/urls';
-import { getRootRedirectPath } from '../../steps/common/common.content';
 
 /**
  * Adds the state redirect middleware to redirect when application is in certain states
@@ -139,7 +139,9 @@ export class StateRedirectMiddleware {
             : req.session.userCase.applicant1GeneralAppPayments
         );
         if (hasGenAppPaymentInProgress(isApplicant2, req.session.userCase) && generalApplicationPayments.hasPayment) {
-          return res.redirect(getRootRedirectPath(isApplicant2, req.session.userCase) + GENERAL_APPLICATION_PAYMENT_CALLBACK);
+          return res.redirect(
+            getRootRedirectPath(isApplicant2, req.session.userCase) + GENERAL_APPLICATION_PAYMENT_CALLBACK
+          );
         }
 
         return next();

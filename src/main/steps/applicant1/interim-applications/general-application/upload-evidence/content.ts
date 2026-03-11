@@ -102,9 +102,9 @@ const genAppsStatementOfEvidenceField = () => {
     type: 'textarea',
     classes: 'govuk-input--width-40',
     label: l => l.statementLabel,
-    labelHidden: true
-  }
-}
+    labelHidden: true,
+  };
+};
 
 const uploadedFilesField = (
   userCase: Partial<CaseWithId>,
@@ -149,16 +149,17 @@ export const applicant1Form: FormContent = {
     const uploadedFilesFieldName: keyof CaseWithId = 'applicant1InterimAppsEvidenceUploadedFiles';
     const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant1InterimAppsCannotUploadDocs';
     const statementOfEvidenceFieldName: keyof CaseWithId = 'applicant1GenAppStatementOfEvidence';
-  
+
     return {
       applicant1GenAppStatementOfEvidence: genAppsStatementOfEvidenceField(),
       applicant1InterimAppsEvidenceUploadedFiles: uploadedFilesField(
-        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName, statementOfEvidenceFieldName
+        userCase,
+        uploadedFilesFieldName,
+        cannotUploadEvidenceFieldName,
+        statementOfEvidenceFieldName
       ),
-      applicant1InterimAppsCannotUploadDocs: cannotUploadEvidenceField(
-        cannotUploadEvidenceFieldName
-      ),
-    }
+      applicant1InterimAppsCannotUploadDocs: cannotUploadEvidenceField(cannotUploadEvidenceFieldName),
+    };
   },
   submit: {
     text: l => l.continue,
@@ -171,16 +172,17 @@ export const applicant2Form: FormContent = {
     const uploadedFilesFieldName: keyof CaseWithId = 'applicant2InterimAppsEvidenceUploadedFiles';
     const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant2InterimAppsCannotUploadDocs';
     const statementOfEvidenceFieldName: keyof CaseWithId = 'applicant2GenAppStatementOfEvidence';
-  
+
     return {
       applicant2GenAppStatementOfEvidence: genAppsStatementOfEvidenceField(),
       applicant2InterimAppsEvidenceUploadedFiles: uploadedFilesField(
-        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName, statementOfEvidenceFieldName
+        userCase,
+        uploadedFilesFieldName,
+        cannotUploadEvidenceFieldName,
+        statementOfEvidenceFieldName
       ),
-      applicant2InterimAppsCannotUploadDocs: cannotUploadEvidenceField(
-        cannotUploadEvidenceFieldName
-      ),
-    }
+      applicant2InterimAppsCannotUploadDocs: cannotUploadEvidenceField(cannotUploadEvidenceFieldName),
+    };
   },
 };
 
@@ -197,9 +199,7 @@ export const generateContent: TranslationFn = content => {
   const uploadedDocs = content.isApplicant2
     ? userCase?.applicant2InterimAppsEvidenceDocs
     : userCase?.applicant1InterimAppsEvidenceDocs;
-  const uploadedDocsFilenames = uploadedDocs?.map(item =>
-    getFilename(item.value)
-  );
+  const uploadedDocsFilenames = uploadedDocs?.map(item => getFilename(item.value));
   const amendable = true;
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},

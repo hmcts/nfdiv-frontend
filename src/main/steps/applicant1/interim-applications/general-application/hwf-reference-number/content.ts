@@ -1,7 +1,5 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import {
-  generateContent as hwfReferenceNumberGenerateContent,
-} from '../../common/hwf-reference-number/content';
+import { generateContent as hwfReferenceNumberGenerateContent } from '../../common/hwf-reference-number/content';
 
 const en = () => ({
   line2: 'You will have received this number when you applied for help with fees for this application.',

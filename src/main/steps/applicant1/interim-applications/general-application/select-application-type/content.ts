@@ -1,4 +1,4 @@
-import { CaseWithId } from 'app/case/case';
+import { CaseWithId } from '../../../../../app/case/case';
 import { ApplicationType, GeneralApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
@@ -71,64 +71,64 @@ const generalApplicationTypeField = (isApplicant2: boolean, userCase: Partial<Ca
     GeneralApplicationType.WITHDRAW_POST_ISSUE,
     GeneralApplicationType.DELAY,
     GeneralApplicationType.EXPEDITE,
-    GeneralApplicationType.OTHER
+    GeneralApplicationType.OTHER,
   ]);
 
   return {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.questionLabel,
-      labelHidden: true,
-      values: [
-        {
-          label: l => l.withdraw,
-          value: GeneralApplicationType.WITHDRAW_POST_ISSUE,
-        },
-        {
-          label: l => l.delay,
-          value: GeneralApplicationType.DELAY,
-        },
-        {
-          label: l => l.extend,
-          value: GeneralApplicationType.EXTEND,
-        },
-        {
-          label: l => l.continueWithoutMarriageCertificate,
-          value: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
-        },
-        {
-          label: l => l.expedite,
-          value: GeneralApplicationType.EXPEDITE,
-        },
-        {
-          label: l => l.amend,
-          value: GeneralApplicationType.AMEND_APPLICATION,
-        },
-        {
-          label: l => l.somethingElse,
-          value: GeneralApplicationType.OTHER,
-          subFields: {
-            [isApplicant2 ? 'applicant2GenAppTypeOtherDetails' : 'applicant1GenAppTypeOtherDetails']: {
-              type: 'textarea',
-              classes: 'govuk-input--width-40',
-              labelSize: null,
-              label: l => l.pleaseSpecify,
-              validator: isFieldFilledIn,
-            },
+    type: 'radios',
+    classes: 'govuk-radios',
+    label: l => l.questionLabel,
+    labelHidden: true,
+    values: [
+      {
+        label: l => l.withdraw,
+        value: GeneralApplicationType.WITHDRAW_POST_ISSUE,
+      },
+      {
+        label: l => l.delay,
+        value: GeneralApplicationType.DELAY,
+      },
+      {
+        label: l => l.extend,
+        value: GeneralApplicationType.EXTEND,
+      },
+      {
+        label: l => l.continueWithoutMarriageCertificate,
+        value: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
+      },
+      {
+        label: l => l.expedite,
+        value: GeneralApplicationType.EXPEDITE,
+      },
+      {
+        label: l => l.amend,
+        value: GeneralApplicationType.AMEND_APPLICATION,
+      },
+      {
+        label: l => l.somethingElse,
+        value: GeneralApplicationType.OTHER,
+        subFields: {
+          [isApplicant2 ? 'applicant2GenAppTypeOtherDetails' : 'applicant1GenAppTypeOtherDetails']: {
+            type: 'textarea',
+            classes: 'govuk-input--width-40',
+            labelSize: null,
+            label: l => l.pleaseSpecify,
+            validator: isFieldFilledIn,
           },
         },
-      ].filter(generalApplicationOption => !isSoleRespondent || soleRespondentOptions.has(
-        generalApplicationOption.value
-      )),
-      validator: value => isFieldFilledIn(value)
-    }
+      },
+    ].filter(
+      generalApplicationOption => !isSoleRespondent || soleRespondentOptions.has(generalApplicationOption.value)
+    ),
+    validator: value => isFieldFilledIn(value),
   };
+};
 
 export const applicant1Form: FormContent = {
   fields: userCase => {
     return {
       applicant1GenAppType: generalApplicationTypeField(false, userCase),
-    };  
+    };
   },
   submit: {
     text: l => l.continue,

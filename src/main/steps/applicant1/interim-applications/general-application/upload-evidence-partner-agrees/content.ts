@@ -161,15 +161,19 @@ export const applicant1Form: FormContent = {
   fields: userCase => {
     const uploadedFilesFieldName: keyof CaseWithId = 'applicant1GenAppPartnerAgreesUploadedFiles';
     const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant1GenAppCannotUploadAgreedEvidence';
-  
+
     return {
       applicant1GenAppPartnerAgreesUploadedFiles: uploadedFilesField(
-        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName
+        userCase,
+        uploadedFilesFieldName,
+        cannotUploadEvidenceFieldName
       ),
       applicant1GenAppCannotUploadAgreedEvidence: cannotUploadEvidenceField(
-        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName
+        userCase,
+        uploadedFilesFieldName,
+        cannotUploadEvidenceFieldName
       ),
-    }
+    };
   },
   submit: {
     text: l => l.continue,
@@ -181,15 +185,19 @@ export const applicant2Form: FormContent = {
   fields: userCase => {
     const uploadedFilesFieldName: keyof CaseWithId = 'applicant2GenAppPartnerAgreesUploadedFiles';
     const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant2GenAppCannotUploadAgreedEvidence';
-  
+
     return {
       applicant2GenAppPartnerAgreesUploadedFiles: uploadedFilesField(
-        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName
+        userCase,
+        uploadedFilesFieldName,
+        cannotUploadEvidenceFieldName
       ),
       applicant2GenAppCannotUploadAgreedEvidence: cannotUploadEvidenceField(
-        userCase, uploadedFilesFieldName, cannotUploadEvidenceFieldName
+        userCase,
+        uploadedFilesFieldName,
+        cannotUploadEvidenceFieldName
       ),
-    }
+    };
   },
 };
 
@@ -200,10 +208,8 @@ export const generateContent: TranslationFn = content => {
   const uploadedDocs = content.isApplicant2
     ? userCase?.applicant2GenAppPartnerAgreesDocs
     : userCase?.applicant1GenAppPartnerAgreesDocs;
-  
-  const uploadedDocsFilenames = uploadedDocs?.map(item =>
-    getFilename(item.value)
-  );
+
+  const uploadedDocsFilenames = uploadedDocs?.map(item => getFilename(item.value));
 
   const amendable = true;
   const uploadContentScript = `{

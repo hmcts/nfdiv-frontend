@@ -13,7 +13,12 @@ import {
   YesOrNo,
 } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
+import {
+  GENERAL_APPLICATION_SUBMITTED,
+  HUB_PAGE,
+  PAY_YOUR_GENERAL_APPLICATION_FEE,
+  RESPONDENT,
+} from '../../../../urls';
 
 import PaymentCallbackGetController from './get';
 
@@ -25,7 +30,6 @@ describe('PaymentCallbackGetController', () => {
   const paymentController = new PaymentCallbackGetController();
 
   let mockReq: AppRequest;
-  let applicant1GeneralAppServiceRequest: string;
   let applicant2GeneralAppServiceRequest: string;
   let applicant2GeneralAppOrderSummary: OrderSummary;
   let applicant2GeneralApplications: ListValue<GeneralApplication>[];
@@ -36,7 +40,6 @@ describe('PaymentCallbackGetController', () => {
 
     mockReq = mockRequest();
 
-    applicant1GeneralAppServiceRequest = 'applicant1-service-request';
     applicant2GeneralAppServiceRequest = 'applicant2-service-request';
     applicant2GeneralAppOrderSummary = {
       PaymentTotal: '100',
@@ -48,7 +51,7 @@ describe('PaymentCallbackGetController', () => {
         id: '1',
         value: {
           generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
-          generalApplicationParty: GeneralParties.APPLICANT,
+          generalApplicationParty: GeneralParties.RESPONDENT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
           generalApplicationFeeHasCompletedOnlinePayment: YesOrNo.NO,
           generalApplicationFeeServiceRequestReference: applicant2GeneralAppServiceRequest,
@@ -59,10 +62,11 @@ describe('PaymentCallbackGetController', () => {
 
     mockReq.session.userCase = {
       id: '1234',
-      applicant1GeneralAppServiceRequest,
       applicant2GeneralAppServiceRequest,
       generalApplications: applicant2GeneralApplications,
     } as CaseWithId;
+
+    mockReq.session.isApplicant2 = true;
   });
 
   describe('callback', () => {
@@ -100,7 +104,7 @@ describe('PaymentCallbackGetController', () => {
         CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE
       );
 
-      expect(res.redirect).toHaveBeenCalledWith(GENERAL_APPLICATION_SUBMITTED);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + GENERAL_APPLICATION_SUBMITTED);
     });
 
     it('redirects to the hub page if the applicant has no outstanding general applications', async () => {
@@ -113,7 +117,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).not.toHaveBeenCalled();
       expect(mockReq.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + HUB_PAGE);
     });
 
     it('redirects to the hub page if there have been no payment attempts', async () => {
@@ -125,7 +129,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).not.toHaveBeenCalled();
       expect(mockReq.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + HUB_PAGE);
     });
 
     it('saves and redirects to the pay your fee page if last payment was unsuccessful', async () => {
@@ -159,7 +163,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockReq.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
 
-      expect(res.redirect).toHaveBeenCalledWith(PAY_YOUR_GENERAL_APPLICATION_FEE);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + PAY_YOUR_GENERAL_APPLICATION_FEE);
     });
 
     it('throws an error if the payment API is down', async () => {

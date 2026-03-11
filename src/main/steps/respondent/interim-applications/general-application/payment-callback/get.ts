@@ -5,7 +5,12 @@ import { AppRequest } from '../../../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../../../app/controller/BasePaymentCallbackGetController';
 import { AnyObject } from '../../../../../app/controller/PostController';
 import { getGenAppPaymentsField, hasGenAppPaymentInProgress } from '../../../../../app/utils/general-application-utils';
-import { GENERAL_APPLICATION_SUBMITTED, HUB_PAGE, PAY_YOUR_GENERAL_APPLICATION_FEE, RESPONDENT } from '../../../../urls';
+import {
+  GENERAL_APPLICATION_SUBMITTED,
+  HUB_PAGE,
+  PAY_YOUR_GENERAL_APPLICATION_FEE,
+  RESPONDENT,
+} from '../../../../urls';
 
 @autobind
 export default class GeneralApplicationPaymentCallbackGetController extends BasePaymentCallbackGetController {
