@@ -1,4 +1,4 @@
-Feature: General Application D11 journey
+Feature: General Application D11 journey sole applicant
 
   Background:
     Given I create a new user and login

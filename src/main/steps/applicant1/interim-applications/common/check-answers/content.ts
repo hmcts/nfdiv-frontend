@@ -1,5 +1,5 @@
 import { Checkbox } from '../../../../../app/case/case';
-import { YesOrNo } from '../../../../../app/case/definition';
+import { CaseData, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidHelpWithFeesRef } from '../../../../../app/form/validation';
@@ -22,6 +22,9 @@ const en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
   submitText: usingHwf ? submit : continueToPay,
   errors: {
     applicant1InterimAppsStatementOfTruth: {
+      required: 'You must agree to the statement of truth before continuing.',
+    },
+    applicant2InterimAppsStatementOfTruth: {
       required: 'You must agree to the statement of truth before continuing.',
     },
   },
@@ -47,27 +50,41 @@ const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
     applicant1InterimAppsStatementOfTruth: {
       required: "Rhaid i chi gytuno â'r datganiad gwirionedd cyn parhau.",
     },
+    applicant2InterimAppsStatementOfTruth: {
+      required: "Rhaid i chi gytuno â'r datganiad gwirionedd cyn parhau.",
+    },
   },
 });
 
+const statementOfTruthField = (fieldName: keyof CaseData) => {
+  return {
+    type: 'checkboxes',
+    label: l => l.statementOfTruthLabel,
+    labelHidden: true,
+    validator: value => isFieldFilledIn(value),
+    values: [
+      {
+        name: fieldName,
+        label: l => l.statementOfTruthLabel,
+        value: Checkbox.Checked,
+      },
+    ],
+  };
+}
+
 export const form: FormContent = {
   fields: {
-    applicant1InterimAppsStatementOfTruth: {
-      type: 'checkboxes',
-      label: l => l.statementOfTruthLabel,
-      labelHidden: true,
-      validator: value => isFieldFilledIn(value),
-      values: [
-        {
-          name: 'applicant1InterimAppsStatementOfTruth',
-          label: l => l.statementOfTruthLabel,
-          value: Checkbox.Checked,
-        },
-      ],
-    },
+    applicant1InterimAppsStatementOfTruth: statementOfTruthField('applicant1InterimAppsStatementOfTruth'),
   },
   submit: {
     text: l => l.submitText,
+  },
+};
+
+export const applicant2Form: FormContent = {
+  ...form,
+  fields: {
+    applicant2InterimAppsStatementOfTruth: statementOfTruthField('applicant2InterimAppsStatementOfTruth'),
   },
 };
 
@@ -77,9 +94,12 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const useHwf = content.userCase.applicant1InterimAppsUseHelpWithFees;
-  const haveHwfReference = content.userCase.applicant1InterimAppsHaveHwfReference;
-  const hwfReference = content.userCase.applicant1InterimAppsHwfRefNumber;
+  const userCase = content.userCase;
+  const isApplicant2 = content.isApplicant2;
+
+  const useHwf = isApplicant2 ? userCase.applicant2InterimAppsUseHelpWithFees : userCase.applicant1InterimAppsUseHelpWithFees;
+  const haveHwfReference = isApplicant2 ? userCase.applicant2InterimAppsHaveHwfReference : userCase.applicant1InterimAppsHaveHwfReference;
+  const hwfReference = isApplicant2 ? userCase.applicant2InterimAppsHwfRefNumber : userCase.applicant1InterimAppsHwfRefNumber;
   const usingHwf =
     useHwf === YesOrNo.YES && haveHwfReference === YesOrNo.YES && isInvalidHelpWithFeesRef(hwfReference) === undefined;
   const translations = languages[content.language](usingHwf, content);
@@ -88,7 +108,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     showStatementOfTruth,
-    form,
+    form: content.isApplicant2 ? applicant2Form : form,
     showChangeLink,
   };
 };

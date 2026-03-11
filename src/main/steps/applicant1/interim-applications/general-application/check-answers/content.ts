@@ -7,7 +7,7 @@ import {
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
+import { CommonContent, getRootRedirectPath } from '../../../../common/common.content';
 import * as urls from '../../../../urls';
 import {
   form as checkAnswersForm,
@@ -27,7 +27,8 @@ const en = (
   reasonForApplication,
   partnerDetailsCorrect,
   d11Type,
-  d11TypeOtherDetails
+  d11TypeOtherDetails,
+  rootRedirectPath
 ) => ({
   stepQuestions: {
     doesNotRequireHearing: 'Application can be dealt with without a hearing',
@@ -72,17 +73,17 @@ const en = (
     evidenceStatement: `${evidenceStatement}`,
   },
   stepLinks: {
-    doesNotRequireHearing: `${urls.GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED}`,
-    hearingNotRequiredEvidenceFiles: `${urls.GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES}`,
-    partnerInformationCorrect: `${urls.GEN_APP_PARTNER_INFORMATION_CORRECT}`,
-    genAppD11Type: `${urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
-    GenAppD11TypeOtherDetails: `${urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
-    reasonForApplication: `${urls.GEN_APP_WHY_THIS_APPLICATION}`,
-    useHwf: `${urls.GEN_APP_HELP_WITH_FEES}`,
-    hwfReference: `${urls.GEN_APP_HWF_REFERENCE_NUMBER_INPUT}`,
-    canUploadEvidence: `${urls.GEN_APP_WANT_TO_UPLOAD_EVIDENCE}`,
-    uploadedFiles: `${urls.GEN_APP_UPLOAD_EVIDENCE}`,
-    evidenceStatement: `${urls.GEN_APP_UPLOAD_EVIDENCE}`,
+    doesNotRequireHearing: `${rootRedirectPath + urls.GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED}`,
+    hearingNotRequiredEvidenceFiles: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES}`,
+    partnerInformationCorrect: `${rootRedirectPath + urls.GEN_APP_PARTNER_INFORMATION_CORRECT}`,
+    genAppD11Type: `${rootRedirectPath + urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
+    GenAppD11TypeOtherDetails: `${rootRedirectPath + urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
+    reasonForApplication: `${rootRedirectPath + urls.GEN_APP_WHY_THIS_APPLICATION}`,
+    useHwf: `${rootRedirectPath + urls.GEN_APP_HELP_WITH_FEES}`,
+    hwfReference: `${rootRedirectPath + urls.GEN_APP_HWF_REFERENCE_NUMBER_INPUT}`,
+    canUploadEvidence: `${rootRedirectPath + urls.GEN_APP_WANT_TO_UPLOAD_EVIDENCE}`,
+    uploadedFiles: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE}`,
+    evidenceStatement: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE}`,
   },
 });
 
@@ -99,7 +100,8 @@ const cy: typeof en = (
   reasonForApplication,
   partnerDetailsCorrect,
   d11Type,
-  d11TypeOtherDetails
+  d11TypeOtherDetails,
+  rootRedirectPath
 ) => ({
   stepQuestions: {
     doesNotRequireHearing: 'Application can be dealt with without a hearing',
@@ -144,17 +146,17 @@ const cy: typeof en = (
     evidenceStatement: `${evidenceStatement}`,
   },
   stepLinks: {
-    doesNotRequireHearing: `${urls.GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED}`,
-    hearingNotRequiredEvidenceFiles: `${urls.GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES}`,
-    partnerInformationCorrect: `${urls.GEN_APP_PARTNER_INFORMATION_CORRECT}`,
-    genAppD11Type: `${urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
-    GenAppD11TypeOtherDetails: `${urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
-    reasonForApplication: `${urls.GEN_APP_WHY_THIS_APPLICATION}`,
-    useHwf: `${urls.GEN_APP_HELP_WITH_FEES}`,
-    hwfReference: `${urls.GEN_APP_HWF_REFERENCE_NUMBER_INPUT}`,
-    canUploadEvidence: `${urls.GEN_APP_WANT_TO_UPLOAD_EVIDENCE}`,
-    uploadedFiles: `${urls.GEN_APP_UPLOAD_EVIDENCE}`,
-    evidenceStatement: `${urls.GEN_APP_UPLOAD_EVIDENCE}`,
+    doesNotRequireHearing: `${rootRedirectPath + urls.GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED}`,
+    hearingNotRequiredEvidenceFiles: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES}`,
+    partnerInformationCorrect: `${rootRedirectPath + urls.GEN_APP_PARTNER_INFORMATION_CORRECT}`,
+    genAppD11Type: `${rootRedirectPath + urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
+    GenAppD11TypeOtherDetails: `${rootRedirectPath + urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
+    reasonForApplication: `${rootRedirectPath + urls.GEN_APP_WHY_THIS_APPLICATION}`,
+    useHwf: `${rootRedirectPath + urls.GEN_APP_HELP_WITH_FEES}`,
+    hwfReference: `${rootRedirectPath + urls.GEN_APP_HWF_REFERENCE_NUMBER_INPUT}`,
+    canUploadEvidence: `${rootRedirectPath + urls.GEN_APP_WANT_TO_UPLOAD_EVIDENCE}`,
+    uploadedFiles: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE}`,
+    evidenceStatement: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE}`,
   },
 });
 
@@ -167,26 +169,54 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const checkAnswersContent = checkAnswersGenerateContent(content);
-  const useHwf = content.userCase.applicant1InterimAppsUseHelpWithFees;
-  const hwfReference = content.userCase.applicant1InterimAppsHwfRefNumber;
-  const canUpload = content.userCase.applicant1InterimAppsCanUploadEvidence;
+  const userCase = content.userCase;
+  const isApplicant2 = content.isApplicant2;
+
+  const useHwf = isApplicant2
+    ? userCase.applicant2InterimAppsUseHelpWithFees
+    : userCase.applicant1InterimAppsUseHelpWithFees;
+  const hwfReference = isApplicant2
+    ? userCase.applicant2InterimAppsHwfRefNumber
+    : userCase.applicant1InterimAppsHwfRefNumber;
+  const canUpload = isApplicant2
+    ? userCase.applicant2InterimAppsCanUploadEvidence
+    : userCase.applicant1InterimAppsCanUploadEvidence;
   const uploadedDocsFilenames =
     canUpload === YesOrNo.YES
-      ? content.userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value))
+      ? (isApplicant2
+          ? userCase.applicant2InterimAppsEvidenceDocs?.map(item => getFilename(item.value))
+          : userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value)))
       : undefined;
   const cannotUploadDocs =
-    content.userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
-  const evidenceStatement = content.userCase.applicant1GenAppStatementOfEvidence;
-  const hearingNotRequired = content.userCase.applicant1GenAppHearingNotRequired;
-  const cannotUploadHearingNotRequiredEvidence =
-    content.userCase.applicant1GenAppCannotUploadAgreedEvidence === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
-  const hearingNotRequiredEvidenceFileNames = content.userCase.applicant1GenAppPartnerAgreesDocs?.map(item =>
-    getFilename(item.value)
-  );
-  const reasonForApplication = content.userCase.applicant1GenAppReason;
-  const partnerDetailsCorrect = content.userCase.applicant1GenAppPartnerDetailsCorrect;
-  const d11Type = content.userCase.applicant1GenAppType;
-  const d11TypeOtherDetails = content.userCase.applicant1GenAppTypeOtherDetails;
+    isApplicant2
+    ? userCase.applicant2InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO
+    : userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+  const evidenceStatement = isApplicant2
+    ? userCase.applicant2GenAppStatementOfEvidence
+    : userCase.applicant1GenAppStatementOfEvidence;
+  const hearingNotRequired = isApplicant2
+    ? userCase.applicant2GenAppHearingNotRequired
+    : userCase.applicant1GenAppHearingNotRequired;
+  const cannotUploadHearingNotRequiredEvidence = isApplicant2
+    ? userCase.applicant2GenAppCannotUploadAgreedEvidence === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO
+    : userCase.applicant1GenAppCannotUploadAgreedEvidence === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+  const hearingNotRequiredEvidenceFileNames = isApplicant2
+    ? userCase.applicant2GenAppPartnerAgreesDocs?.map(item => getFilename(item.value))
+    : userCase.applicant1GenAppPartnerAgreesDocs?.map(item => getFilename(item.value));
+  const reasonForApplication = isApplicant2
+    ? userCase.applicant2GenAppReason
+    : userCase.applicant1GenAppReason;
+  const partnerDetailsCorrect = isApplicant2
+    ? userCase.applicant2GenAppPartnerDetailsCorrect
+    : userCase.applicant1GenAppPartnerDetailsCorrect;
+  const d11Type = isApplicant2
+    ? userCase.applicant2GenAppType
+    : userCase.applicant1GenAppType;
+  const d11TypeOtherDetails = isApplicant2
+    ? userCase.applicant2GenAppTypeOtherDetails
+    : userCase.applicant1GenAppTypeOtherDetails;
+  const rootRedirectPath = getRootRedirectPath(isApplicant2, content.userCase);
+
   const translations = languages[content.language](
     content,
     useHwf,
@@ -200,7 +230,8 @@ export const generateContent: TranslationFn = content => {
     reasonForApplication,
     partnerDetailsCorrect,
     d11Type,
-    d11TypeOtherDetails
+    d11TypeOtherDetails,
+    rootRedirectPath
   );
   return {
     ...checkAnswersContent,
@@ -210,6 +241,6 @@ export const generateContent: TranslationFn = content => {
     hwfReference,
     canUpload,
     uploadedDocsFilenames,
-    cannotUploadDocs,
+    cannotUploadDocs
   };
 };
