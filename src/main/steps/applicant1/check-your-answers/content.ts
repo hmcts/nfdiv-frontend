@@ -713,6 +713,8 @@ const en = ({
     '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.</p>',
   confirmApplicationIsTrueWarning:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  applicationRejectedWarning:
+    'If you proceed to the next page you will have 14 days to pay the application fee, otherwise your application will be rejected, and you will have to start a new application.',
   continue: isJointApplication
     ? 'Send for review'
     : stripTags(userCase.applicant1HelpWithFeesRefNo)
@@ -1252,6 +1254,8 @@ const cy: typeof en = ({
     '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">Mae hyn yn cadarnhau bod yr wybodaeth rydych yn ei chyflwyno yn wir ac yn gywir hyd at eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd’.</p>',
   confirmApplicationIsTrueWarning:
     "Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy'n gwneud datganiad anwir, neu sy'n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu'n onest ei fod yn wir.",
+  applicationRejectedWarning:
+    'If you proceed to the next page you will have 14 days to pay the application fee, otherwise your application will be rejected, and you will have to start a new application.',
   continue: isJointApplication
     ? 'Send for review'
     : stripTags(userCase.applicant1HelpWithFeesRefNo)
@@ -1317,11 +1321,13 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const applicant2Url = content.isApplicant2 ? urls.APPLICANT_2 : '';
+  const helpWithFeesNeeded = content.userCase.applicant1HelpPayingNeeded === YesOrNo.YES;
   return {
     ...translations,
     isApplicationReadyToSubmit,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     applicant2Url,
+    helpWithFeesNeeded,
   };
 };
 
