@@ -178,38 +178,36 @@ export const generateContent: TranslationFn = content => {
   const hwfReference = isApplicant2
     ? userCase.applicant2InterimAppsHwfRefNumber
     : userCase.applicant1InterimAppsHwfRefNumber;
+
   const canUpload = isApplicant2
     ? userCase.applicant2InterimAppsCanUploadEvidence
     : userCase.applicant1InterimAppsCanUploadEvidence;
+  const interimAppsEvidenceDocs = isApplicant2
+    ? userCase.applicant2InterimAppsEvidenceDocs
+    : userCase.applicant1InterimAppsEvidenceDocs;
   const uploadedDocsFilenames =
-    canUpload === YesOrNo.YES
-      ? isApplicant2
-        ? userCase.applicant2InterimAppsEvidenceDocs?.map(item => getFilename(item.value))
-        : userCase.applicant1InterimAppsEvidenceDocs?.map(item => getFilename(item.value))
-      : undefined;
-  const cannotUploadDocs = isApplicant2
-    ? userCase.applicant2InterimAppsCannotUploadDocs === Checkbox.Checked
-      ? YesOrNo.YES
-      : YesOrNo.NO
-    : userCase.applicant1InterimAppsCannotUploadDocs === Checkbox.Checked
-      ? YesOrNo.YES
-      : YesOrNo.NO;
+    canUpload === YesOrNo.YES ? interimAppsEvidenceDocs?.map(item => getFilename(item.value)) : undefined;
+  const cannotUploadInterimAppsDocsAnswers = isApplicant2
+    ? userCase.applicant2InterimAppsCannotUploadDocs
+    : userCase.applicant1InterimAppsCannotUploadDocs;
+  const cannotUploadDocs = cannotUploadInterimAppsDocsAnswers === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
   const evidenceStatement = isApplicant2
     ? userCase.applicant2GenAppStatementOfEvidence
     : userCase.applicant1GenAppStatementOfEvidence;
+
   const hearingNotRequired = isApplicant2
     ? userCase.applicant2GenAppHearingNotRequired
     : userCase.applicant1GenAppHearingNotRequired;
-  const cannotUploadHearingNotRequiredEvidence = isApplicant2
-    ? userCase.applicant2GenAppCannotUploadAgreedEvidence === Checkbox.Checked
-      ? YesOrNo.YES
-      : YesOrNo.NO
-    : userCase.applicant1GenAppCannotUploadAgreedEvidence === Checkbox.Checked
-      ? YesOrNo.YES
-      : YesOrNo.NO;
-  const hearingNotRequiredEvidenceFileNames = isApplicant2
-    ? userCase.applicant2GenAppPartnerAgreesDocs?.map(item => getFilename(item.value))
-    : userCase.applicant1GenAppPartnerAgreesDocs?.map(item => getFilename(item.value));
+  const cannotUploadHearingNotRequiredEvidenceAnswers = isApplicant2
+    ? userCase.applicant2GenAppCannotUploadAgreedEvidence
+    : userCase.applicant1GenAppCannotUploadAgreedEvidence;
+  const cannotUploadHearingNotRequiredEvidence =
+    cannotUploadHearingNotRequiredEvidenceAnswers === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
+  const hearingNotRequiredEvidenceDocs = isApplicant2
+    ? userCase.applicant2GenAppPartnerAgreesDocs
+    : userCase.applicant1GenAppPartnerAgreesDocs;
+  const hearingNotRequiredEvidenceFileNames = hearingNotRequiredEvidenceDocs?.map(item => getFilename(item.value));
+
   const reasonForApplication = isApplicant2 ? userCase.applicant2GenAppReason : userCase.applicant1GenAppReason;
   const partnerDetailsCorrect = isApplicant2
     ? userCase.applicant2GenAppPartnerDetailsCorrect

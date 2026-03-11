@@ -4,35 +4,39 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateCommonContent } from '../../../../common/common.content';
 
-const en = (serviceType: string) => ({
-  title: 'Do you have a help with fees reference number?',
-  line1: `Your reference number must be unique to this ${serviceType} application. You cannot use a reference number you've used for a previous application.`,
-  yes: 'Yes',
-  no: 'No',
-  errors: {
-    applicant1InterimAppsHaveHwfReference: {
-      required: "Select 'Yes' if you have a help with fees reference number.",
-    },
-    applicant2InterimAppsHaveHwfReference: {
-      required: "Select 'Yes' if you have a help with fees reference number.",
-    },
-  },
-});
+const en = (serviceType: string) => {
+  const haveHwfRefNumberErrors = {
+    required: "Select 'Yes' if you have a help with fees reference number.",
+  };
 
-const cy = (serviceType: string) => ({
-  title: 'A oes gennych chi gyfeirnod Help i Dalu Ffioedd?',
-  line1: `Rhaid i’ch cyfeirnod fod yn unigryw i’r cais hwn am ${serviceType}. Ni allwch ddefnyddio cyfeirnod rydych wedi defnyddio ar gyfer cais blaenorol.`,
-  yes: 'Oes',
-  no: 'Nac oes',
-  errors: {
-    applicant1InterimAppsHaveHwfReference: {
-      required: "Dewiswch 'Oes' os oes gennych chi gyfeirnod help i dalu ffioedd.",
+  return {
+    title: 'Do you have a help with fees reference number?',
+    line1: `Your reference number must be unique to this ${serviceType} application. You cannot use a reference number you've used for a previous application.`,
+    yes: 'Yes',
+    no: 'No',
+    errors: {
+      applicant1InterimAppsHaveHwfReference: haveHwfRefNumberErrors,
+      applicant2InterimAppsHaveHwfReference: haveHwfRefNumberErrors,
     },
-    applicant2InterimAppsHaveHwfReference: {
-      required: "Dewiswch 'Oes' os oes gennych chi gyfeirnod help i dalu ffioedd.",
+  };
+};
+
+const cy = (serviceType: string) => {
+  const haveHwfRefNumberErrors = {
+    required: "Dewiswch 'Oes' os oes gennych chi gyfeirnod help i dalu ffioedd.",
+  };
+
+  return {
+    title: 'A oes gennych chi gyfeirnod Help i Dalu Ffioedd?',
+    line1: `Rhaid i’ch cyfeirnod fod yn unigryw i’r cais hwn am ${serviceType}. Ni allwch ddefnyddio cyfeirnod rydych wedi defnyddio ar gyfer cais blaenorol.`,
+    yes: 'Oes',
+    no: 'Nac oes',
+    errors: {
+      applicant1InterimAppsHaveHwfReference: haveHwfRefNumberErrors,
+      applicant2InterimAppsHaveHwfReference: haveHwfRefNumberErrors,
     },
-  },
-});
+  };
+};
 
 const languages = {
   en,

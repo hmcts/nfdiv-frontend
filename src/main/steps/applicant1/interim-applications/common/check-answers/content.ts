@@ -5,56 +5,60 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidHelpWithFeesRef } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
-  title: 'Check your answers',
-  noFilesUploaded: 'No files uploaded',
-  notProvided: 'Not provided',
-  havingTroubleUploading: "I'm having trouble uploading some or all of my documents.",
-  stepQuestions: {},
-  stepAnswers: {},
-  stepLinks: {},
-  statementOfTruth: {
-    title: 'Statement of truth',
-    warning:
-      'I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement in a document verified by a statement of truth without an honest belief in its truth.',
-  },
-  statementOfTruthLabel: 'I believe that the facts stated in this form and any continuation sheets are true.',
-  submitText: usingHwf ? submit : continueToPay,
-  errors: {
-    applicant1InterimAppsStatementOfTruth: {
-      required: 'You must agree to the statement of truth before continuing.',
-    },
-    applicant2InterimAppsStatementOfTruth: {
-      required: 'You must agree to the statement of truth before continuing.',
-    },
-  },
-});
+const en = (usingHwf, { submit, continueToPay }: CommonContent) => {
+  const statementOfTruthErrors = {
+    required: 'You must agree to the statement of truth before continuing.',
+  };
 
-const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
-  title: 'Gwirio eich atebion',
-  noFilesUploaded: 'Nid oes ffeiliau wedi cael eu llwytho',
-  notProvided: 'Dim byd wedi ei ddarparu',
-  havingTroubleUploading: 'Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.',
-  stepQuestions: {},
-  stepAnswers: {},
-  stepLinks: {},
-  statementOfTruth: {
-    title: 'Datganiad gwirionedd',
-    warning:
-      'Deallaf y gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
-  },
-  statementOfTruthLabel:
-    'Rwy’n credu bod y ffeithiau a nodir yn y ffurflen hon, ac ar unrhyw ddalennau parhau, yn wir.',
-  submitText: usingHwf ? submit : continueToPay,
-  errors: {
-    applicant1InterimAppsStatementOfTruth: {
-      required: "Rhaid i chi gytuno â'r datganiad gwirionedd cyn parhau.",
+  return {
+    title: 'Check your answers',
+    noFilesUploaded: 'No files uploaded',
+    notProvided: 'Not provided',
+    havingTroubleUploading: "I'm having trouble uploading some or all of my documents.",
+    stepQuestions: {},
+    stepAnswers: {},
+    stepLinks: {},
+    statementOfTruth: {
+      title: 'Statement of truth',
+      warning:
+        'I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement in a document verified by a statement of truth without an honest belief in its truth.',
     },
-    applicant2InterimAppsStatementOfTruth: {
-      required: "Rhaid i chi gytuno â'r datganiad gwirionedd cyn parhau.",
+    statementOfTruthLabel: 'I believe that the facts stated in this form and any continuation sheets are true.',
+    submitText: usingHwf ? submit : continueToPay,
+    errors: {
+      applicant1InterimAppsStatementOfTruth: statementOfTruthErrors,
+      applicant2InterimAppsStatementOfTruth: statementOfTruthErrors,
     },
-  },
-});
+  };
+};
+
+const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => {
+  const statementOfTruthErrors = {
+    required: "Rhaid i chi gytuno â'r datganiad gwirionedd cyn parhau.",
+  };
+
+  return {
+    title: 'Gwirio eich atebion',
+    noFilesUploaded: 'Nid oes ffeiliau wedi cael eu llwytho',
+    notProvided: 'Dim byd wedi ei ddarparu',
+    havingTroubleUploading: 'Rwyf yn cael trafferth wrth lwytho rhai neu’r cyfan o fy nogfennau.',
+    stepQuestions: {},
+    stepAnswers: {},
+    stepLinks: {},
+    statementOfTruth: {
+      title: 'Datganiad gwirionedd',
+      warning:
+        'Deallaf y gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
+    },
+    statementOfTruthLabel:
+      'Rwy’n credu bod y ffeithiau a nodir yn y ffurflen hon, ac ar unrhyw ddalennau parhau, yn wir.',
+    submitText: usingHwf ? submit : continueToPay,
+    errors: {
+      applicant1InterimAppsStatementOfTruth: statementOfTruthErrors,
+      applicant2InterimAppsStatementOfTruth: statementOfTruthErrors,
+    },
+  };
+};
 
 const statementOfTruthField = (fieldName: keyof CaseData) => {
   return {
