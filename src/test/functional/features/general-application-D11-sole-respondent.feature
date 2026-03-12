@@ -58,7 +58,7 @@ Feature: General Application D11 journey sole respondent
     When I click "Submit"
     Then the page URL should be "/respondent/response-submitted"
 
-  Scenario: Pre-Issue application respondent D11 Journey help with fees
+  Scenario: Respondent D11 Journey help with fees
     Given I go to "/respondent/hub-page"
     And I click element "#makeAnApplicationLink"
     Then the page should include element "#preIssueMakeAnApplicationTitle"
@@ -117,7 +117,7 @@ Feature: General Application D11 journey sole respondent
     Then the page should include element "#generalApplicationSubmittedTitle"
     And the page should include "You have submitted your application"
 
-  Scenario: Pre-Issue respondent D11 Journey card payment
+  Scenario: Respondent D11 Journey card payment
     Given I go to "/respondent/hub-page"
     And I click element "#makeAnApplicationLink"
     Then the page should include element "#preIssueMakeAnApplicationTitle"

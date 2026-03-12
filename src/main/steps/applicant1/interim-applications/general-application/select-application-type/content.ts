@@ -1,4 +1,4 @@
-import { CaseWithId } from '../../../../../app/case/case';
+import { Case } from '../../../../../app/case/case';
 import { ApplicationType, GeneralApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
@@ -69,8 +69,7 @@ const languages = {
   cy,
 };
 
-const generalApplicationTypeField = (isApplicant2: boolean, userCase: Partial<CaseWithId>) => {
-  const isSoleRespondent = isApplicant2 && userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+const generalApplicationTypeField = (isSoleRespondent: boolean, otherDetailsFieldName: keyof Case) => {
   const soleRespondentOptions = new Set([
     GeneralApplicationType.WITHDRAW_POST_ISSUE,
     GeneralApplicationType.DELAY,
@@ -112,7 +111,7 @@ const generalApplicationTypeField = (isApplicant2: boolean, userCase: Partial<Ca
         label: l => l.somethingElse,
         value: GeneralApplicationType.OTHER,
         subFields: {
-          [isApplicant2 ? 'applicant2GenAppTypeOtherDetails' : 'applicant1GenAppTypeOtherDetails']: {
+          [otherDetailsFieldName]: {
             type: 'textarea',
             classes: 'govuk-input--width-40',
             labelSize: null,
@@ -130,8 +129,10 @@ const generalApplicationTypeField = (isApplicant2: boolean, userCase: Partial<Ca
 
 export const form: FormContent = {
   fields: userCase => {
+    const isSoleRespondent = false;
+
     return {
-      applicant1GenAppType: generalApplicationTypeField(false, userCase),
+      applicant1GenAppType: generalApplicationTypeField(isSoleRespondent, 'applicant1GenAppTypeOtherDetails'),
     };
   },
   submit: {
@@ -142,8 +143,10 @@ export const form: FormContent = {
 export const applicant2Form: FormContent = {
   ...form,
   fields: userCase => {
+    const isSoleRespondent = userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+
     return {
-      applicant2GenAppType: generalApplicationTypeField(true, userCase),
+      applicant2GenAppType: generalApplicationTypeField(isSoleRespondent, 'applicant2GenAppTypeOtherDetails'),
     };
   },
 };

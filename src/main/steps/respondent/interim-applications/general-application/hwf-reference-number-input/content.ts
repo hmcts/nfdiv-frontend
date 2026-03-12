@@ -4,4 +4,10 @@ import { applicant2Form } from '../../../../applicant1/interim-applications/comm
 import { generateContent as applicant1GenerateContent } from '../../../../applicant1/interim-applications/general-application/hwf-reference-number-input/content';
 
 export const form: FormContent = applicant2Form;
-export const generateContent: TranslationFn = applicant1GenerateContent;
+
+export const generateContent: TranslationFn = content => {
+  return {
+    ...applicant1GenerateContent(content),
+    form,
+  };
+};

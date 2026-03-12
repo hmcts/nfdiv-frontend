@@ -5,4 +5,9 @@ import { generateContent as applicant1GenerateContent } from '../../../../applic
 
 export const form: FormContent = applicant2Form;
 
-export const generateContent: TranslationFn = applicant1GenerateContent;
+export const generateContent: TranslationFn = content => {
+  return {
+    ...applicant1GenerateContent(content),
+    form,
+  };
+};
