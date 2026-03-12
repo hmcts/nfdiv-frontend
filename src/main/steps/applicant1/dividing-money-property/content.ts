@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ partner, isDivorce }: CommonContent) => ({
   title: 'Dividing your money and property',
@@ -32,8 +33,6 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
     isDivorce ? 'marriage' : 'civil partnership'
   }. If you select yes, then you do not have to go ahead with the application or pay any additional fees. It just gives you the option to apply later in the process, should you want&nbsp;to.`,
   doYouWantToApplyForFinancialOrder: 'Do you want to apply for a financial order?',
-  yes: 'Yes. I want to apply for a financial order.',
-  no: 'No. I do not want to apply for a financial order.',
   errors: {
     applicant1ApplyForFinancialOrder: {
       required: 'You need to answer whether you want to apply for a financial order.',
@@ -63,13 +62,11 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   }.
   Fel arall, gallwch chi neu eich ${partner} wneud hawliadau ariannol yn erbyn y naill a’r llall ar ôl i’r ${
     isDivorce ? 'briodas' : 'partneriaeth sifil'
-  } ddod i ben, 
+  } ddod i ben,
   hyd yn oed os ydych wedi cadw eich cyllid ar wahân yn ystod y ${
     isDivorce ? 'briodas' : 'partneriaeth sifil'
   }. Os byddwch yn dewis 'ydw', yna nid ydych angen mynd ymlaen gyda’r cais na thalu unrhyw ffioedd ychwanegol. Mae’n rhoi’r dewis i chi wneud cais yn ddiweddarach yn y broses, os dymunwch.`,
   doYouWantToApplyForFinancialOrder: 'Ydych chi eisiau gwneud cais am orchymyn ariannol?',
-  yes: 'Ydw. Rwyf eisiau gwneud cais am orchymyn ariannol.',
-  no: 'Nac ydw. Nid wyf eisiau gwneud cais am orchymyn ariannol.',
   errors: {
     applicant1ApplyForFinancialOrder: {
       required: 'Rydych angen ateb os ydych yn dymuno gwneud cais am orchymyn ariannol.',
@@ -86,9 +83,9 @@ export const form: FormContent = {
       labelHidden: false,
       hint: l => l.hint,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
         {
-          label: l => l.no,
+          label: l => l[YesOrNo.NO],
           value: YesOrNo.NO,
           conditionalText: l => `<p class="govuk-label">${l.noSelectedWarning}</p>`,
         },
@@ -106,10 +103,23 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers: InputLabelsByLanguage<YesOrNo> = {
+  en: {
+    [YesOrNo.YES]: 'Yes. I want to apply for a financial order.',
+    [YesOrNo.NO]: 'No. I do not want to apply for a financial order.',
+  },
+  cy: {
+    [YesOrNo.YES]: 'Ydw. Rwyf eisiau gwneud cais am orchymyn ariannol.',
+    [YesOrNo.NO]: 'Nac ydw. Nid wyf eisiau gwneud cais am orchymyn ariannol.',
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };
