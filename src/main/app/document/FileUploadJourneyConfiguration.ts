@@ -50,7 +50,7 @@ export const validateServiceApplicationDocumentUpload = (req: AppRequest): boole
   );
 };
 
-export const validateGeneralApplicationDocumentUpload = (req: AppRequest): boolean => {
+export const validateGeneralApplicationDocumentUpload = (): boolean => {
   return true;
 };
 
