@@ -2613,6 +2613,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@noble/hashes@npm:2.0.1":
+  version: 2.0.1
+  resolution: "@noble/hashes@npm:2.0.1"
+  checksum: aea67a671ca464027cd512d07666a804bd99abc343ba98c93ee8463a1c870c5594f8de468279ef3c60f3b23b6330db9f1a92bd23723b8a911ec73bddc9420248
+  languageName: node
+  linkType: hard
+
 "@noble/hashes@npm:^1.1.5":
   version: 1.8.0
   resolution: "@noble/hashes@npm:1.8.0"
@@ -2748,54 +2755,6 @@ __metadata:
   version: 1.28.0
   resolution: "@opentelemetry/semantic-conventions@npm:1.28.0"
   checksum: 1d708afa654990236cdb6b5da84f7ab899b70bff9f753bc49d93616a5c7f7f339ba1eba6a9fbb57dee596995334f4e7effa57a4624741882ab5b3c419c3511e2
-  languageName: node
-  linkType: hard
-
-"@otplib/core@npm:^12.0.1":
-  version: 12.0.1
-  resolution: "@otplib/core@npm:12.0.1"
-  checksum: b3c34bc20b31bc3f49cc0dc3c0eb070491c0101e8c1efa83cec48ca94158bd736aaca8187df667fc0c4a239d4ac52076bc44084bee04a50c80c3630caf77affa
-  languageName: node
-  linkType: hard
-
-"@otplib/plugin-crypto@npm:^12.0.1":
-  version: 12.0.1
-  resolution: "@otplib/plugin-crypto@npm:12.0.1"
-  dependencies:
-    "@otplib/core": ^12.0.1
-  checksum: 6867c74ee8aca6c2db9670362cf51e44f3648602c39318bf537421242e33f0012a172acd43bbed9a21d706e535dc4c66aff965380673391e9fd74cf685b5b13a
-  languageName: node
-  linkType: hard
-
-"@otplib/plugin-thirty-two@npm:^12.0.1":
-  version: 12.0.1
-  resolution: "@otplib/plugin-thirty-two@npm:12.0.1"
-  dependencies:
-    "@otplib/core": ^12.0.1
-    thirty-two: ^1.0.2
-  checksum: 920099e40d3e8c2941291c84c70064c2d86d0d1ed17230d650445d5463340e406bc413ddf2e40c374ddc4ee988ef1e3facacab9b5248b1ff361fd13df52bf88f
-  languageName: node
-  linkType: hard
-
-"@otplib/preset-default@npm:^12.0.1":
-  version: 12.0.1
-  resolution: "@otplib/preset-default@npm:12.0.1"
-  dependencies:
-    "@otplib/core": ^12.0.1
-    "@otplib/plugin-crypto": ^12.0.1
-    "@otplib/plugin-thirty-two": ^12.0.1
-  checksum: 8133231384f6277f77eb8e42ef83bc32a8b01059bef147d1c358d9e9bfd292e1c239f581fe008367a48489dd68952b7ac0948e6c41412fc06079da2c91b71d16
-  languageName: node
-  linkType: hard
-
-"@otplib/preset-v11@npm:^12.0.1":
-  version: 12.0.1
-  resolution: "@otplib/preset-v11@npm:12.0.1"
-  dependencies:
-    "@otplib/core": ^12.0.1
-    "@otplib/plugin-crypto": ^12.0.1
-    "@otplib/plugin-thirty-two": ^12.0.1
-  checksum: 367cb09397e617c21ec748d54e920ab43f1c5dfba70cbfd88edf73aecca399cf0c09fefe32518f79c7ee8a06e7058d14b200da378cc7d46af3cac4e22a153e2f
   languageName: node
   linkType: hard
 
@@ -13494,7 +13453,7 @@ __metadata:
     nodemon: 3.1.14
     npm-run-all2: 8.0.4
     nunjucks: 3.2.4
-    otplib: 12.0.1
+    otpauth: ^9.5.0
     pa11y: 9.1.1
     pdfjs-dist: 5.4.54
     prettier: 3.8.1
@@ -14035,14 +13994,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"otplib@npm:12.0.1":
-  version: 12.0.1
-  resolution: "otplib@npm:12.0.1"
+"otpauth@npm:^9.5.0":
+  version: 9.5.0
+  resolution: "otpauth@npm:9.5.0"
   dependencies:
-    "@otplib/core": ^12.0.1
-    "@otplib/preset-default": ^12.0.1
-    "@otplib/preset-v11": ^12.0.1
-  checksum: 4a1b91cf1b8e920b50ad4bac2ef2a89126630c62daf68e9b32ff15106b2551db905d3b979955cf5f8f114da0a8883cec3d636901d65e793c1745bb4174e2a572
+    "@noble/hashes": 2.0.1
+  checksum: 32b6eba51b542246e8e089ede79d49f3fdb15a09618911a2288962f037db0efa7486a47bd4c08f3657ffec7b0b470d09d3413ff6a611beddb8f9b879524effba
   languageName: node
   linkType: hard
 
@@ -16798,13 +16755,6 @@ __metadata:
   peerDependencies:
     tslib: ^2
   checksum: e73e4bc96aefc41e4f1fdd1cf65eb988c9837f3b5fcd8a472ee30d91c2f7fa9b144562d6b4c5dade6ce70bc5865caf3e869f6d2975cce064b1d81dac3ece3508
-  languageName: node
-  linkType: hard
-
-"thirty-two@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "thirty-two@npm:1.0.2"
-  checksum: f6700b31d16ef942fdc0d14daed8a2f69ea8b60b0e85db8b83adf58d84bbeafe95a17d343ab55efaae571bb5148b62fc0ee12b04781323bf7af7d7e9693eec76
   languageName: node
   linkType: hard
 
