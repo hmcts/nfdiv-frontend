@@ -108,17 +108,6 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
       ].includes(data.state as State),
   },
   {
-    urls: [...generalApplicationD11Sequence]
-      .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
-      .map(step => step.url as PageLink),
-    condition: data =>
-      [
-        State.AwaitingServicePayment,
-        State.AwaitingServiceConsideration,
-        State.AwaitingGeneralApplicationPayment,
-      ].includes(data.state as State),
-  },
-  {
     urls: [...searchGovRecordsApplicationSequence].map(step => step.url as PageLink),
     condition: data =>
       [

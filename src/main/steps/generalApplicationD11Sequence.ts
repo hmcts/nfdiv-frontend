@@ -1,4 +1,4 @@
-import { GeneralApplicationHearingNotRequired, YesOrNo } from '../app/case/definition';
+import { GeneralApplicationHearingNotRequired, GeneralApplicationType, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
@@ -20,11 +20,16 @@ import {
   GEN_APP_WHY_THIS_APPLICATION,
   MAKE_AN_APPLICATION,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
+  WITHDRAW_THIS_APPLICATION_POST_ISSUE,
 } from './urls';
 
 export const generalApplicationD11Sequence: Step[] = [
   {
     url: MAKE_AN_APPLICATION,
+    getNextStep: () => GEN_APP_INTERRUPTION,
+  },
+  {
+    url: WITHDRAW_THIS_APPLICATION_POST_ISSUE,
     getNextStep: () => GEN_APP_INTERRUPTION,
   },
   {
@@ -49,19 +54,26 @@ export const generalApplicationD11Sequence: Step[] = [
     url: GEN_APP_COST_OF_APPLICATION,
     getNextStep: data =>
       data.applicant2AddressPrivate === YesOrNo.YES
-        ? GEN_APP_SELECT_APPLICATION_TYPE
+        ? data.applicant1GenAppType === GeneralApplicationType.WITHDRAW_POST_ISSUE
+          ? GEN_APP_WHY_THIS_APPLICATION
+          : GEN_APP_SELECT_APPLICATION_TYPE
         : GEN_APP_PARTNER_INFORMATION_CORRECT,
   },
   {
     url: GEN_APP_PARTNER_INFORMATION_CORRECT,
     getNextStep: data =>
       data.applicant1GenAppPartnerDetailsCorrect === YesOrNo.YES
-        ? GEN_APP_SELECT_APPLICATION_TYPE
+        ? data.applicant1GenAppType === GeneralApplicationType.WITHDRAW_POST_ISSUE
+          ? GEN_APP_WHY_THIS_APPLICATION
+          : GEN_APP_SELECT_APPLICATION_TYPE
         : GEN_APP_UPDATE_PARTNER_INFORMATION,
   },
   {
     url: GEN_APP_UPDATE_PARTNER_INFORMATION,
-    getNextStep: () => GEN_APP_SELECT_APPLICATION_TYPE,
+    getNextStep: data =>
+      data.applicant1GenAppType === GeneralApplicationType.WITHDRAW_POST_ISSUE
+        ? GEN_APP_WHY_THIS_APPLICATION
+        : GEN_APP_SELECT_APPLICATION_TYPE,
   },
   {
     url: GEN_APP_SELECT_APPLICATION_TYPE,
