@@ -808,7 +808,7 @@ export interface Case {
   applicant1GenAppPartnerDetailsCorrect?: YesOrNo;
   applicant1GenAppReason?: string;
   applicant1GenAppStatementOfEvidence?: string;
-  applicant1GenAppType?: GeneralApplicationType;
+  applicant1GenAppType?: GeneralApplicationType | null;
   applicant1GenAppTypeOtherDetails?: string;
 }
 

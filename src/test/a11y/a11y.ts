@@ -71,7 +71,7 @@ describe('Accessibility', () => {
       await browser.close();
     }
 
-    browser = await puppeteer.launch({ ignoreHTTPSErrors: true });
+    browser = await puppeteer.launch({ acceptInsecureCerts: true });
     browser.on('disconnected', setup);
 
     // Login once only for other pages to reuse session

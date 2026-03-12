@@ -9,10 +9,11 @@ import {
   MAKE_AN_APPLICATION,
   RESPONDENT,
   WITHDRAW_THIS_APPLICATION,
+  WITHDRAW_THIS_APPLICATION_POST_ISSUE,
 } from '../../../urls';
 import { areDownloadsAvailable } from '../../downloads/content';
 
-const en = ({ isDivorce, isApplicant2 }: CommonContent, app2OrRespondent: string) => ({
+const en = ({ isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent, app2OrRespondent: string) => ({
   reviewContactDetails: {
     url: app2OrRespondent + CHECK_CONTACT_DETAILS,
     text: 'Review your contact details',
@@ -26,13 +27,13 @@ const en = ({ isDivorce, isApplicant2 }: CommonContent, app2OrRespondent: string
     text: 'Make an application to the court',
   },
   withdrawApplication: {
-    url: `${(isApplicant2 ? APPLICANT_2 : '') + WITHDRAW_THIS_APPLICATION}`,
+    url: `${(isApplicant2 ? APPLICANT_2 : '') + (caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : WITHDRAW_THIS_APPLICATION)}`,
     text: `Withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   },
 });
 
 // @TODO translations
-const cy: typeof en = ({ isDivorce, isApplicant2 }: CommonContent, app2OrRespondent) => ({
+const cy: typeof en = ({ isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent, app2OrRespondent) => ({
   reviewContactDetails: {
     url: app2OrRespondent + CHECK_CONTACT_DETAILS,
     text: 'Adolygu eich manylion cyswllt',
@@ -46,7 +47,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2 }: CommonContent, app2OrRespond
     text: 'Make an application to the court',
   },
   withdrawApplication: {
-    url: `${(isApplicant2 ? APPLICANT_2 : '') + WITHDRAW_THIS_APPLICATION}`,
+    url: `${(isApplicant2 ? APPLICANT_2 : '') + (caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : WITHDRAW_THIS_APPLICATION)}`,
     text: `Withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   },
 });
@@ -65,8 +66,7 @@ const getApp2OrRespondent = (content: CommonContent): string => {
 
 export const generateContent: TranslationFn = content => {
   const showGenApplicationLink = canSubmitGeneralApplication(content.isApplicant2, content.userCase);
-  const showWithdrawLink =
-    !content.caseHasBeenIssued && (!content.isApplicant2 || (content.isApplicant2 && content.isJointApplication));
+  const showWithdrawLink = !content.isApplicant2 || (content.isApplicant2 && content.isJointApplication);
 
   return {
     ...languages[content.language](content, getApp2OrRespondent(content)),

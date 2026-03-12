@@ -6,6 +6,7 @@ import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisd
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
 import type { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan } from '../../common/content.utils';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ isDivorce, partner, required, userCase, isJointApplication }: CommonContent) => {
   return {
@@ -92,11 +93,11 @@ export const form: FormContent = {
       label: l => l.jurisdictionAgree,
       values: [
         {
-          label: l => l.yes,
+          label: l => l[YesOrNo.YES],
           value: YesOrNo.YES,
         },
         {
-          label: l => l.no,
+          label: l => l[YesOrNo.NO],
           value: YesOrNo.NO,
           subFields: {
             reasonCourtsOfEnglandAndWalesHaveNoJurisdiction: {
@@ -127,11 +128,24 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers: InputLabelsByLanguage<YesOrNo> = {
+  en: {
+    [YesOrNo.YES]: 'Yes, I agree the courts have jurisdiction',
+    [YesOrNo.NO]: 'No, I do not agree the courts have jurisdiction',
+  },
+  cy: {
+    [YesOrNo.YES]: 'Ydw, rwy’n cytuno bod gan y llysoedd awdurdodaeth',
+    [YesOrNo.NO]: 'Nac ydw, nid wyf yn cytuno bod gan y llysoedd awdurdodaeth',
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
   const readMoreJurisdiction = accessibleDetailsSpan(translations['readMore'], translations['title']);
   return {
     ...translations,
+    ...radioAnswers,
     readMoreJurisdiction,
     form,
   };
