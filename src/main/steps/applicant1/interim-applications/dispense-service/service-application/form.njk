@@ -7,7 +7,7 @@
     {% if not isApp2Confidential and not isApp2Represented %}
       <li>{{ alsoTry.options.updateDetails | safe }}</li>
     {% endif %}
-    {% if not noRespondentAddress %}
+    {% if caseHasBeenIssued and not noRespondentAddress %}
       <li>{{ alsoTry.options.applyProcessServerOrBailiff | safe }}</li>
     {% endif %}
     <li>{{ alsoTry.options.searchRecords | safe }}</li>

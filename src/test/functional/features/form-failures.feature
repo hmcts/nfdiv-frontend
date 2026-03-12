@@ -55,26 +55,28 @@ Feature: Form failures
     Given I go to "/their-email-address"
     And I clear the form
     When I click "Continue"
-    Then the page should include "You have not entered their email address or said you do not know it. You have to do one or the other before continuing."
-    Given I select "Your husband's email address"
+    Then the page should include "Enter an email address, or select 'I do not know their email address.'"
+
+    Given I go to "/their-email-address"
+    And I select "Enter your husband's email address (optional)"
     And I type "test.com"
     When I click "Continue"
-    Then the page should include "You have entered an invalid email address. Check it and enter it again before continuing."
+    Then the page should include "Enter an email address in the correct format, like name@example.com"
     Given I clear the form
-    And I select "Your husband's email address"
+    And I select "Enter your husband's email address (optional)"
     And I type "simulate-delivered@notifications.service.gov.uk"
     And I select "I do not know their email address"
     When I click "Continue"
     Then the page should include "You have entered an email address and indicated that you do not know their email address. You can only do one before continuing."
     Given I clear the form
-    And I select "Your husband's email address"
+    And I select "Enter your husband's email address (optional)"
     And I type my own email address
     When I click "Continue"
     Then the page should include "You have entered your own email address. You need to enter your husband's email address before continuing."
 
     Given I go to "/do-you-have-address"
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then the page should include "Select yes if you know your husband's postal address"
 
     Given I go to "/need-to-get-address"
     When I click "Continue"
@@ -252,7 +254,7 @@ Feature: Form failures
 
     Given I go to "/their-email-address"
     When I click "Continue"
-    Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
+    Then the page should include "Enter an email address, or select 'I do not know their email address.'"
 
     Given I've already completed the form using the fixture "completeCase"
     And I go to "/check-your-answers"
@@ -278,7 +280,7 @@ Feature: Form failures
     When I click "Continue"
     Then the page URL should be "/their-email-address"
     Given I click "Continue"
-    Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
+    Then the page should include "Enter an email address, or select 'I do not know their email address.'"
 
   @nightly
   Scenario: They fail to fill out the respondent forms
