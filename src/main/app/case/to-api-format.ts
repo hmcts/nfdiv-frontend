@@ -516,6 +516,19 @@ const fields: ToApiConverters = {
     applicant1InterimAppsHaveHwfReference:
       data.applicant1InterimAppsHwfRefNumber === '' ? data.applicant1InterimAppsHaveHwfReference : YesOrNo.YES,
   }),
+  applicant2InterimAppsUseHelpWithFees: data => ({
+    applicant2InterimAppsUseHelpWithFees: data.applicant2InterimAppsUseHelpWithFees,
+    ...(data.applicant2InterimAppsUseHelpWithFees === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant2InterimAppsHaveHwfReference', 'applicant2InterimAppsHwfRefNumber'])
+      : {}),
+  }),
+  applicant2InterimAppsHwfRefNumber: data => ({
+    applicant2InterimAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant2InterimAppsHwfRefNumber)
+      ? data.applicant2InterimAppsHwfRefNumber
+      : '',
+    applicant2InterimAppsHaveHwfReference:
+      data.applicant2InterimAppsHwfRefNumber === '' ? data.applicant2InterimAppsHaveHwfReference : YesOrNo.YES,
+  }),
   applicant1InterimAppsEvidenceUploadedFiles: () => ({}),
   applicant1InterimAppsCannotUploadDocs: data => ({
     applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
@@ -528,11 +541,6 @@ const fields: ToApiConverters = {
   }),
   applicant2InterimAppsCannotUploadDocs: data => ({
     applicant2InterimAppsCannotUploadDocs: checkboxConverter(data.applicant2InterimAppsCannotUploadDocs),
-  }),
-  applicant2InterimAppsCanUploadEvidence: data => ({
-    applicant2InterimAppsCanUploadEvidence: data.applicant2InterimAppsCanUploadEvidence,
-    ...(data.applicant2InterimAppsCanUploadEvidence === YesOrNo.YES &&
-      setUnreachableAnswersToNull(['applicant2InterimAppsCannotUploadDocs'])),
   }),
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
