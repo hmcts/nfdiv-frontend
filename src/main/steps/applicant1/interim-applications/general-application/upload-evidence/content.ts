@@ -1,7 +1,7 @@
 import config from 'config';
 import { isObject } from 'lodash';
 
-import { Case, CaseWithId, Checkbox } from '../../../../../app/case/case';
+import { Case, Checkbox } from '../../../../../app/case/case';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
@@ -11,14 +11,14 @@ const en = applicant1UploadDocumentContent => {
   const mustProvideEvidenceErrors = {
     notUploaded:
       "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-  }
+  };
 
   const uploadedFilesErrors = {
     ...mustProvideEvidenceErrors,
     errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
     fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
     fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
-  }
+  };
 
   return {
     title: 'Provide statement or upload evidence',
@@ -46,21 +46,21 @@ const en = applicant1UploadDocumentContent => {
       applicant2InterimAppsCannotUploadDocs: mustProvideEvidenceErrors,
       applicant2GenAppStatementOfEvidence: mustProvideEvidenceErrors,
     },
-  }
+  };
 };
 
 const cy: typeof en = applicant1UploadDocumentContent => {
   const mustProvideEvidenceErrors = {
     notUploaded:
       "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-  }
+  };
 
   const uploadedFilesErrors = {
     ...mustProvideEvidenceErrors,
     errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
     fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
     fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
-  }
+  };
 
   return {
     title: 'Provide statement or upload evidence',
@@ -88,7 +88,7 @@ const cy: typeof en = applicant1UploadDocumentContent => {
       applicant2InterimAppsCannotUploadDocs: mustProvideEvidenceErrors,
       applicant2GenAppStatementOfEvidence: mustProvideEvidenceErrors,
     },
-  }
+  };
 };
 
 const genAppsStatementOfEvidenceField = () => {

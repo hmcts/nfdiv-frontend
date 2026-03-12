@@ -5,6 +5,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
 const en = ({ isDivorce, required, partner }) => ({
   title: `Help with the ${isDivorce ? 'divorce fee' : 'fee to end your civil partnership'}`,
@@ -14,8 +15,6 @@ const en = ({ isDivorce, required, partner }) => ({
   line2: `Your ${partner} has said they need help paying the fee. They can only use Help With Fees on this application if you claim and are eligible for Help With Fees too.`,
   line3: 'You can claim Help With Fees if you: (one or more of the following):',
   helpPayingWhen: ['are on certain benefits', 'have a little or no savings', 'have low income'],
-  yes: 'I need help with fees',
-  no: 'I do not need help with fees',
   subHeading1: 'Do you need help paying the fee?',
   line4: `Your ${partner} can only use help with fees, if you apply and are eligible for Help With Fees too. You will not be asked to pay the fee by this service, no matter which answer you select.`,
   errors: {
@@ -37,8 +36,6 @@ const cy: typeof en = ({ isDivorce, required, partner }) => ({
     'os oes gennych ychydig o gynilion, os o gwbl',
     'incwm isel',
   ],
-  yes: 'Rwyf angen help i dalu ffioedd',
-  no: 'Nid wyf angen help i dalu ffioedd',
   subHeading1: 'Ydych chi angen Help i Dalu Ffioedd?',
   line4: `Dim ond os byddwch hefyd yn gwneud cais ac yn gymwys i gael help i dalu ffioedd y gall eich ${partner} gael help i dalu ffioedd hefyd. Ni fydd y gwasanaeth hwn yn gofyn i chi dalu’r ffi, ni waeth pa ateb a ddewiswch.`,
   errors: {
@@ -56,8 +53,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -72,10 +69,23 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers: InputLabelsByLanguage<YesOrNo> = {
+  en: {
+    [YesOrNo.YES]: 'I need help with fees',
+    [YesOrNo.NO]: 'I do not need help with fees',
+  },
+  cy: {
+    [YesOrNo.YES]: 'Rwyf angen help i dalu ffioedd',
+    [YesOrNo.NO]: 'Nid wyf angen help i dalu ffioedd',
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };

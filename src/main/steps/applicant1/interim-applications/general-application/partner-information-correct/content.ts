@@ -8,7 +8,7 @@ import { formatApplicant1Address, formatApplicant2Address } from '../../no-respo
 const en = ({ partner }: CommonContent) => {
   const genAppPartnerDetailsCorrectErrors = {
     required: 'Select yes if these address details are up to date.',
-  }
+  };
 
   return {
     title: `We need up to date information for your ${partner}`,
@@ -22,15 +22,15 @@ const en = ({ partner }: CommonContent) => {
       applicant1GenAppPartnerDetailsCorrect: genAppPartnerDetailsCorrectErrors,
       applicant2GenAppPartnerDetailsCorrect: genAppPartnerDetailsCorrectErrors,
     },
-  }
+  };
 };
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => {
   const genAppPartnerDetailsCorrectErrors = {
     required: 'Select yes if these address details are up to date.',
-  }
-  
+  };
+
   return {
     title: `We need up to date information for your ${partner}`,
     line1: `We need up to date contact details so that we can send the application to your ${partner}.`,
@@ -91,13 +91,9 @@ export const generateContent: TranslationFn = content => {
   const isApplicant2 = content.isApplicant2;
   const userCase = content.userCase;
 
-  const partnerAddress = isApplicant2
-    ? formatApplicant1Address(userCase)
-    : formatApplicant2Address(userCase);
+  const partnerAddress = isApplicant2 ? formatApplicant1Address(userCase) : formatApplicant2Address(userCase);
   const partnerEmail = isApplicant2 ? userCase.applicant1Email : userCase.applicant2Email;
-  const isPartnerConfidential = isApplicant2
-    ? userCase.applicant1AddressPrivate
-    : userCase.applicant2AddressPrivate;
+  const isPartnerConfidential = isApplicant2 ? userCase.applicant1AddressPrivate : userCase.applicant2AddressPrivate;
 
   const translations = languages[content.language](content);
   return {

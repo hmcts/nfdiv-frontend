@@ -7,7 +7,7 @@ import { CommonContent } from '../../../../common/common.content';
 const en = ({ partner }: CommonContent) => {
   const genAppHearingNotRequiredErrors = {
     required: 'You must tell us whether your partner consents or not, or if consent is not needed.',
-  }
+  };
 
   return {
     title: 'Dealing with your application without a hearing',
@@ -22,14 +22,14 @@ const en = ({ partner }: CommonContent) => {
       applicant1GenAppHearingNotRequired: genAppHearingNotRequiredErrors,
       applicant2GenAppHearingNotRequired: genAppHearingNotRequiredErrors,
     },
-  }
+  };
 };
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => {
   const genAppHearingNotRequiredErrors = {
     required: 'You must tell us whether your partner consents or not, or if consent is not needed.',
-  }
+  };
 
   return {
     title: 'Dealing with your application without a hearing',
@@ -44,7 +44,7 @@ const cy = ({ partner }: CommonContent) => {
       applicant1GenAppHearingNotRequired: genAppHearingNotRequiredErrors,
       applicant2GenAppHearingNotRequired: genAppHearingNotRequiredErrors,
     },
-  }
+  };
 };
 
 const languages = {

@@ -91,8 +91,6 @@ export const OTHER_COURT_CASES: PageLink = '/other-court-cases';
 export const YOU_NEED_TO_SERVE: PageLink = '/you-need-to-serve';
 export const DETAILS_OTHER_PROCEEDINGS: PageLink = '/details-other-proceedings';
 export const MONEY_PROPERTY: PageLink = '/dividing-money-property';
-export const APPLY_FINANCIAL_ORDER: PageLink = '/do-you-want-to-apply-financial-order';
-export const APPLY_FINANCIAL_ORDER_DETAILS: PageLink = '/how-to-apply-financial-order';
 export const DO_YOU_HAVE_ADDRESS: PageLink = '/do-you-have-address';
 export const NEED_TO_GET_ADDRESS: PageLink = '/need-to-get-address';
 export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
@@ -361,3 +359,5 @@ export const GEN_APP_CHECK_ANSWERS: PageLink = '/interim-applications/general-ap
 export const WITHDRAW_THIS_APPLICATION: PageLink = '/withdraw-pre-issue/withdraw-this-application';
 export const CHECK_ANSWERS_WITHDRAW: PageLink = '/withdraw-pre-issue/check-your-answers';
 export const WITHDRAW_CONFIRMATION: PageLink = '/withdraw-pre-issue/application-withdrawn';
+export const WITHDRAW_THIS_APPLICATION_POST_ISSUE: PageLink =
+  '/interim-applications/withdraw-post-issue/withdraw-application/';

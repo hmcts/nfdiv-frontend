@@ -4,13 +4,12 @@ import { GeneralApplicationHearingNotRequired } from '../../../../../app/case/de
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
 import { FormContent } from '../../../../../app/form/Form';
-import { form as helpWithFeesForm } from '../../common/help-with-fees/content';
-import { generateContent as commonContent } from '../../common/help-with-fees/content';
+import { generateContent as commonContent, form as helpWithFeesForm } from '../../common/help-with-fees/content';
 
 const en = (serviceFee: string) => {
   const useHelpWithFeesErrors = {
     required: "Select 'Yes' if you are using help with fees for this application.",
-  }
+  };
 
   return {
     title: 'Help with fees',
@@ -24,13 +23,13 @@ const en = (serviceFee: string) => {
       applicant1InterimAppsUseHelpWithFees: useHelpWithFeesErrors,
       applicant2InterimAppsUseHelpWithFees: useHelpWithFeesErrors,
     },
-  }
+  };
 };
 
 const cy = (serviceFee: string) => {
   const useHelpWithFeesErrors = {
     required: "Dewiswch 'Byddaf' os ydych yn defnyddio’r gwasanaeth help i dalu ffioedd ar gyfer y cais hwn.",
-  }
+  };
 
   return {
     title: 'Help i Dalu Ffioedd',
@@ -44,7 +43,7 @@ const cy = (serviceFee: string) => {
       applicant1InterimAppsUseHelpWithFees: useHelpWithFeesErrors,
       applicant2InterimAppsUseHelpWithFees: useHelpWithFeesErrors,
     },
-  }
+  };
 };
 
 const languages = {
@@ -68,6 +67,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...commonContent(content),
     ...translations,
-    form
+    form,
   };
 };

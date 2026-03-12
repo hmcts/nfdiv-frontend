@@ -5,7 +5,7 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 const en = () => {
   const genAppReasonErrors = {
     required: 'You must explain why you are making this application.',
-  }
+  };
 
   return {
     title: 'Why are you making this application?',
@@ -14,14 +14,14 @@ const en = () => {
       applicant1GenAppReason: genAppReasonErrors,
       applicant2GenAppReason: genAppReasonErrors,
     },
-  }
+  };
 };
 
 // @TODO translations
 const cy = () => {
   const genAppReasonErrors = {
     required: 'You must explain why you are making this application.',
-  }
+  };
 
   return {
     title: 'Why are you making this application?',
@@ -30,7 +30,7 @@ const cy = () => {
       applicant1GenAppReason: genAppReasonErrors,
       applicant2GenAppReason: genAppReasonErrors,
     },
-  }
+  };
 };
 
 const languages = {

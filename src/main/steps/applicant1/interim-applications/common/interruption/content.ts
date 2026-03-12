@@ -1,5 +1,5 @@
-import { CaseData } from 'app/case/definition';
 import { Checkbox } from '../../../../../app/case/case';
+import { CaseData } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';

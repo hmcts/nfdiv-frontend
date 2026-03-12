@@ -8,11 +8,11 @@ import { CommonContent } from '../../../../common/common.content';
 const en = ({ isDivorce }: CommonContent) => {
   const genAppTypeErrors = {
     required: 'Select which application you want to make',
-  }
+  };
 
   const genAppTypeOtherDetailsErrors = {
     required: 'You must explain which application you are making',
-  }
+  };
 
   return {
     title: 'What application are you making?',
@@ -31,18 +31,18 @@ const en = ({ isDivorce }: CommonContent) => {
       applicant2GenAppType: genAppTypeErrors,
       applicant2GenAppTypeOtherDetails: genAppTypeOtherDetailsErrors,
     },
-  }
+  };
 };
 
 // @TODO translations
 const cy = ({ isDivorce }: CommonContent) => {
   const genAppTypeErrors = {
     required: 'Select which application you want to make',
-  }
+  };
 
   const genAppTypeOtherDetailsErrors = {
     required: 'You must explain which application you are making',
-  }
+  };
 
   return {
     title: 'What application are you making?',
@@ -61,7 +61,7 @@ const cy = ({ isDivorce }: CommonContent) => {
       applicant2GenAppType: genAppTypeErrors,
       applicant2GenAppTypeOtherDetails: genAppTypeOtherDetailsErrors,
     },
-  }
+  };
 };
 
 const languages = {

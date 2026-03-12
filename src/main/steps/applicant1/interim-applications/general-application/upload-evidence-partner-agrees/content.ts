@@ -14,11 +14,11 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => {
     errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
     fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
     fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
-  }
+  };
 
   const cannotUploadAgreedEvidenceErrors = {
     notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
-  }
+  };
 
   return {
     title: 'Upload your evidence',
@@ -52,7 +52,7 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => {
       applicant2GenAppPartnerAgreesUploadedFiles: partnerAgreesUploadedFilesErrors,
       applicant2GenAppCannotUploadAgreedEvidence: cannotUploadAgreedEvidenceErrors,
     },
-  }
+  };
 };
 
 const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => {
@@ -61,11 +61,11 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
     errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
     fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
     fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
-  }
+  };
 
   const cannotUploadAgreedEvidenceErrors = {
     notUploaded: "Upload your documents, or select 'I cannot upload some or all of my documents'.",
-  }
+  };
 
   return {
     title: 'Uwchlwytho eich tystiolaeth',
@@ -99,7 +99,7 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
       applicant2GenAppPartnerAgreesUploadedFiles: partnerAgreesUploadedFilesErrors,
       applicant2GenAppCannotUploadAgreedEvidence: cannotUploadAgreedEvidenceErrors,
     },
-  }
+  };
 };
 
 const languages = {
@@ -129,23 +129,10 @@ const uploadedFilesField = (
   },
 });
 
-const cannotUploadEvidenceField = (
-  userCase: Partial<CaseWithId>,
-  uploadedFilesFieldName: keyof CaseWithId,
-  cannotUploadEvidenceFieldName: keyof CaseWithId
-) => ({
+const cannotUploadEvidenceField = (cannotUploadEvidenceFieldName: keyof CaseWithId) => ({
   type: 'checkboxes',
   label: l => l.cannotUpload,
   labelHidden: true,
-  validator: (value, formData) => {
-    const hasUploadedFiles =
-      (formData[uploadedFilesFieldName] as unknown as string[])?.length &&
-      (formData[uploadedFilesFieldName] as unknown as string) !== '[]';
-    const selectedCannotUploadDocuments = !!formData[cannotUploadEvidenceFieldName]?.length;
-    if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
-      return 'notUploaded';
-    }
-  },
   values: [
     {
       name: cannotUploadEvidenceFieldName,
@@ -166,11 +153,7 @@ export const form: FormContent = {
         uploadedFilesFieldName,
         cannotUploadEvidenceFieldName
       ),
-      applicant1GenAppCannotUploadAgreedEvidence: cannotUploadEvidenceField(
-        userCase,
-        uploadedFilesFieldName,
-        cannotUploadEvidenceFieldName
-      ),
+      applicant1GenAppCannotUploadAgreedEvidence: cannotUploadEvidenceField(cannotUploadEvidenceFieldName),
     };
   },
   submit: {
@@ -190,11 +173,7 @@ export const applicant2Form: FormContent = {
         uploadedFilesFieldName,
         cannotUploadEvidenceFieldName
       ),
-      applicant2GenAppCannotUploadAgreedEvidence: cannotUploadEvidenceField(
-        userCase,
-        uploadedFilesFieldName,
-        cannotUploadEvidenceFieldName
-      ),
+      applicant2GenAppCannotUploadAgreedEvidence: cannotUploadEvidenceField(cannotUploadEvidenceFieldName),
     };
   },
 };

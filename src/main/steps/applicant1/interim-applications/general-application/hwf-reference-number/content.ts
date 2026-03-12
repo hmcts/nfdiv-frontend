@@ -26,6 +26,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...hwfReferenceNumberContent,
     ...translations,
-    form
+    form,
   };
 };
