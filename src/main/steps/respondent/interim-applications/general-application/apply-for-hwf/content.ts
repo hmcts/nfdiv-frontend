@@ -6,4 +6,10 @@ import {
 } from '../../../../applicant1/interim-applications/general-application/apply-for-hwf/content';
 
 export const form: FormContent = applicant2Form;
-export const generateContent: TranslationFn = applicant1GenerateContent;
+
+export const generateContent: TranslationFn = content => {
+  return {
+    ...applicant1GenerateContent(content),
+    form,
+  };
+};

@@ -16,5 +16,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...applicant1Content,
     showNoConsentContent,
+    form,
   };
 };
