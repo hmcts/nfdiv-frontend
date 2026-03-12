@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getFee } from '../../../../../app/fees/service/get-fee';
 import { FormContent } from '../../../../../app/form/Form';
-import { findUnpaidGeneralApplication } from '../../../../../app/utils/general-application-utils';
+import { findGenAppAwaitingPayment } from '../../../../../app/utils/general-application-utils';
 
 const en = applicationFee => ({
   title: 'Pay the fee for this application',
@@ -35,13 +35,9 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const paymentServiceRequest = content.isApplicant2
-    ? content.userCase.applicant2GeneralAppServiceRequest
-    : content.userCase.applicant1GeneralAppServiceRequest;
-
-  const orderSummary = findUnpaidGeneralApplication(
+  const orderSummary = findGenAppAwaitingPayment(
     content.userCase,
-    paymentServiceRequest
+    content.isApplicant2
   )?.generalApplicationFeeOrderSummary;
 
   const applicationFee = !isEmpty(orderSummary)

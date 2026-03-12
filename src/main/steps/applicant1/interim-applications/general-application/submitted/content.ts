@@ -1,17 +1,16 @@
 import { GeneralApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { findOnlineGeneralApplicationsForUser } from '../../../../../app/utils/general-application-utils';
+import { findAllOnlineGenAppsForUser } from '../../../../../app/utils/general-application-utils';
 import type { CommonContent } from '../../../../common/common.content';
 
 const en = ({
   generalApplicationResponseDate,
   generalApplicationFeeRequired,
   generalApplicationDocsAllProvided,
-  generalApplicationType,
   referenceNumber,
 }: CommonContent) => ({
   title: 'Application submitted',
-  introLine1: `You have submitted your application to ${generalApplicationType}.`,
+  introLine1: 'You have submitted your application.',
   introLine2:
     'Your application and help with fees reference number will be checked by court staff. You will receive an email notification confirming whether it has been accepted. Check your junk or spam email folder.',
   sendDocumentsHeading: 'Send your evidence to the court',
@@ -19,11 +18,13 @@ const en = ({
   documentsByOnlineForm: 'Sending documents using our online form',
   documentsByOnlineFormSteps: {
     line1: 'You can send photographs or scans of your documents to us by',
-    line2: 'uploading them using our online form.',
+    line2: 'uploading them using our online form (opens in new tab).',
     line3:
       'Make sure you follow the instructions on how to upload your documents carefully or they could be rejected, resulting in further delays.',
   },
   documentsByPost: 'Sending your documents by post',
+  documentsByPostMoreDetails:
+    'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
   documentsByPostSteps: {
     step1: `Write your reference number on each document: ${referenceNumber}`,
     step2: 'Post the original documents to:',
@@ -31,12 +32,11 @@ const en = ({
   happensNextHeading: 'What happens next',
   happensNextLine1: `${
     !generalApplicationFeeRequired && generalApplicationDocsAllProvided
-      ? 'If your help with fees reference number is accepted, the court will'
-      : 'The court will now'
-  } review your application. We will email you ${
+      ? 'If your help with fees reference number is accepted, we will'
+      : 'We will'
+  } review your application and any evidence you have submitted. We will email you ${
     generalApplicationFeeRequired && generalApplicationDocsAllProvided ? `by ${generalApplicationResponseDate} ` : ''
-  }to let you know whether your application has been successful.`,
-  happensNextLine2: 'If your application is approved, it normally takes 6-8 weeks to complete a search.',
+  }to tell you whether your application has been granted.`,
   returnToHub: 'Return to your account',
 
   // Application type specific content overrides:
@@ -44,6 +44,7 @@ const en = ({
     disclosureViaDwp: {
       title: 'Application submitted',
       introLine1: 'You have submitted your application to search government records.',
+      happensNextLine2: 'If your application is approved, it normally takes 6-8 weeks to complete a search.',
     },
   },
 });
@@ -53,11 +54,10 @@ const cy: typeof en = ({
   generalApplicationResponseDate,
   generalApplicationFeeRequired,
   generalApplicationDocsAllProvided,
-  generalApplicationType,
   referenceNumber,
 }: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
-  introLine1: `Rydych wedi cyflwyno eich cais i ${generalApplicationType}.`,
+  introLine1: 'Rydych wedi cyflwyno eich cais.',
   introLine2:
     "Bydd eich cais a'ch cyfeirnod help i dalu ffioedd yn cael eu gwirio gan staff y llys. Byddwch yn cael hysbysiad e-bost yn cadarnhau a yw wedi’i dderbyn. Gwiriwch eich ffolder junk neu spam.",
   sendDocumentsHeading: 'Anfon eich tystiolaeth i’r llys',
@@ -70,6 +70,8 @@ const cy: typeof en = ({
       "Gwnewch yn siŵr eich bod yn dilyn y cyfarwyddiadau ar sut i lwytho eich dogfennau'n ofalus neu gellid eu gwrthod, gan arwain at oedi pellach.",
   },
   documentsByPost: 'Anfon eich dogfennau drwy’r post',
+  documentsByPostMoreDetails:
+    'Make sure you also include in your response a return address. Any cherished documents you send, such as marriage certificates, birth certificates, passports or deed polls will be returned to you. Other documents will not be returned.',
   documentsByPostSteps: {
     step1: `Ysgrifennwch eich cyfeirnod ar bob dogfen: ${referenceNumber}`,
     step2: 'Postiwch y dogfennau gwreiddiol i:',
@@ -82,13 +84,13 @@ const cy: typeof en = ({
   } yn adolygu eich cais. Byddwn yn anfon e-bost atoch i roi gwybod i chi ${
     generalApplicationFeeRequired && generalApplicationDocsAllProvided ? `erbyn ${generalApplicationResponseDate} ` : ''
   }p'un a yw eich cais wedi bod yn llwyddiannus.`,
-  happensNextLine2: "Os yw'ch cais yn cael ei gymeradwyo, fel arfer mae'n cymryd 6-8 wythnos i gwblhau chwiliad.",
   returnToHub: 'Dychwelyd i sgrin yr hyb',
   // Application type specific content overrides:
   contentOverrides: {
     disclosureViaDwp: {
       title: "Cais wedi'i gyflwyno",
       introLine1: 'Rydych wedi cyflwyno eich cais i chwilio cofnodion y llywodraeth.',
+      happensNextLine2: "Os yw'ch cais yn cael ei gymeradwyo, fel arfer mae'n cymryd 6-8 wythnos i gwblhau chwiliad.",
     },
   },
 });
@@ -100,7 +102,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const defaultTranslations = languages[content.language](content);
-  const generalApplications = findOnlineGeneralApplicationsForUser(content.userCase, content.isApplicant2);
+  const generalApplications = findAllOnlineGenAppsForUser(content.userCase, content.isApplicant2);
   const mostRecentApplication = generalApplications?.[0];
   const applicationType = mostRecentApplication?.generalApplicationType as GeneralApplicationType;
 
