@@ -5,60 +5,64 @@ import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ isDivorce }: CommonContent) => ({
-  title: 'What application are you making?',
-  questionLabel: 'What application are you making?',
-  withdraw: `Withdraw your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
-  delay: 'Delay or pause (or ‘put a stay on’) an application',
-  extend: 'More time to serve an application (or ‘extend service’)',
-  continueWithoutMarriageCertificate: `Continue without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
-  expedite: `${isDivorce ? 'Complete a divorce' : 'End a civil partnership'} more quickly (or ‘expedite’ an application)`,
-  amend: 'Amend an existing application',
-  somethingElse: 'Something else',
-  specify: 'Please specify',
-  errors: {
-    applicant1GenAppType: {
-      required: 'Select which application you want to make',
+const en = ({ isDivorce }: CommonContent) => {
+  const genAppTypeErrors = {
+    required: 'Select which application you want to make',
+  }
+
+  const genAppTypeOtherDetailsErrors = {
+    required: 'You must explain which application you are making',
+  }
+
+  return {
+    title: 'What application are you making?',
+    questionLabel: 'What application are you making?',
+    withdraw: `Withdraw your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+    delay: 'Delay or pause (or ‘put a stay on’) an application',
+    extend: 'More time to serve an application (or ‘extend service’)',
+    continueWithoutMarriageCertificate: `Continue without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
+    expedite: `${isDivorce ? 'Complete a divorce' : 'End a civil partnership'} more quickly (or ‘expedite’ an application)`,
+    amend: 'Amend an existing application',
+    somethingElse: 'Something else',
+    specify: 'Please specify',
+    errors: {
+      applicant1GenAppType: genAppTypeErrors,
+      applicant1GenAppTypeOtherDetails: genAppTypeOtherDetailsErrors,
+      applicant2GenAppType: genAppTypeErrors,
+      applicant2GenAppTypeOtherDetails: genAppTypeOtherDetailsErrors,
     },
-    applicant1GenAppTypeOtherDetails: {
-      required: 'You must explain which application you are making',
-    },
-    applicant2GenAppType: {
-      required: 'Select which application you want to make',
-    },
-    applicant2GenAppTypeOtherDetails: {
-      required: 'You must explain which application you are making',
-    },
-  },
-});
+  }
+};
 
 // @TODO translations
-const cy = ({ isDivorce }: CommonContent) => ({
-  title: 'What application are you making?',
-  questionLabel: 'What application are you making?',
-  withdraw: `Withdraw your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
-  delay: 'Delay or pause (or ‘put a stay on’) an application',
-  extend: 'More time to serve an application (or ‘extend service’)',
-  continueWithoutMarriageCertificate: `Continue without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
-  expedite: `${isDivorce ? 'Complete a divorce' : 'End a civil partnership'} more quickly (or ‘expedite’ an application)`,
-  amend: 'Amend an existing application',
-  somethingElse: 'Something else',
-  specify: 'Please specify',
-  errors: {
-    applicant1GenAppType: {
-      required: 'Select which application you want to make',
+const cy = ({ isDivorce }: CommonContent) => {
+  const genAppTypeErrors = {
+    required: 'Select which application you want to make',
+  }
+
+  const genAppTypeOtherDetailsErrors = {
+    required: 'You must explain which application you are making',
+  }
+
+  return {
+    title: 'What application are you making?',
+    questionLabel: 'What application are you making?',
+    withdraw: `Withdraw your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+    delay: 'Delay or pause (or ‘put a stay on’) an application',
+    extend: 'More time to serve an application (or ‘extend service’)',
+    continueWithoutMarriageCertificate: `Continue without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
+    expedite: `${isDivorce ? 'Complete a divorce' : 'End a civil partnership'} more quickly (or ‘expedite’ an application)`,
+    amend: 'Amend an existing application',
+    somethingElse: 'Something else',
+    specify: 'Please specify',
+    errors: {
+      applicant1GenAppType: genAppTypeErrors,
+      applicant1GenAppTypeOtherDetails: genAppTypeOtherDetailsErrors,
+      applicant2GenAppType: genAppTypeErrors,
+      applicant2GenAppTypeOtherDetails: genAppTypeOtherDetailsErrors,
     },
-    applicant1GenAppTypeOtherDetails: {
-      required: 'You must explain which application you are making',
-    },
-    applicant2GenAppType: {
-      required: 'Select which application you want to make',
-    },
-    applicant2GenAppTypeOtherDetails: {
-      required: 'You must explain which application you are making',
-    },
-  },
-});
+  }
+};
 
 const languages = {
   en,

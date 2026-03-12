@@ -1,3 +1,4 @@
+import { CaseData } from 'app/case/definition';
 import { Checkbox } from '../../../../../app/case/case';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
@@ -44,7 +45,7 @@ const languages = {
   cy,
 };
 
-const interimAppsIUnderstandField = (fieldName: string) => ({
+const interimAppsIUnderstandField = (fieldName: keyof CaseData) => ({
   type: 'checkboxes',
   values: [
     {

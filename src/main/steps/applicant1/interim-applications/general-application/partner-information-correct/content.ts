@@ -5,42 +5,46 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 import { formatApplicant1Address, formatApplicant2Address } from '../../no-response/have-they-received/content';
 
-const en = ({ partner }: CommonContent) => ({
-  title: `We need up to date information for your ${partner}`,
-  line1: `We need up to date contact details so that we can send the application to your ${partner}.`,
+const en = ({ partner }: CommonContent) => {
+  const genAppPartnerDetailsCorrectErrors = {
+    required: 'Select yes if these address details are up to date.',
+  }
 
-  homeAddress: 'Home address',
-  emailAddress: 'Email address',
+  return {
+    title: `We need up to date information for your ${partner}`,
+    line1: `We need up to date contact details so that we can send the application to your ${partner}.`,
 
-  questionLabel: `Are these details for your ${partner} correct and up to date?`,
-  errors: {
-    applicant1GenAppPartnerDetailsCorrect: {
-      required: 'Select yes if these address details are up to date.',
+    homeAddress: 'Home address',
+    emailAddress: 'Email address',
+
+    questionLabel: `Are these details for your ${partner} correct and up to date?`,
+    errors: {
+      applicant1GenAppPartnerDetailsCorrect: genAppPartnerDetailsCorrectErrors,
+      applicant2GenAppPartnerDetailsCorrect: genAppPartnerDetailsCorrectErrors,
     },
-    applicant2GenAppPartnerDetailsCorrect: {
-      required: 'Select yes if these address details are up to date.',
-    },
-  },
-});
+  }
+};
 
 // @TODO translations
-const cy = ({ partner }: CommonContent) => ({
-  title: `We need up to date information for your ${partner}`,
-  line1: `We need up to date contact details so that we can send the application to your ${partner}.`,
+const cy = ({ partner }: CommonContent) => {
+  const genAppPartnerDetailsCorrectErrors = {
+    required: 'Select yes if these address details are up to date.',
+  }
+  
+  return {
+    title: `We need up to date information for your ${partner}`,
+    line1: `We need up to date contact details so that we can send the application to your ${partner}.`,
 
-  homeAddress: 'Home address',
-  emailAddress: 'Email address',
+    homeAddress: 'Home address',
+    emailAddress: 'Email address',
 
-  questionLabel: `Are these details for your ${partner} correct and up to date?`,
-  errors: {
-    applicant1GenAppPartnerDetailsCorrect: {
-      required: 'Select yes if these address details are up to date.',
+    questionLabel: `Are these details for your ${partner} correct and up to date?`,
+    errors: {
+      applicant1GenAppPartnerDetailsCorrect: genAppPartnerDetailsCorrectErrors,
+      applicant2GenAppPartnerDetailsCorrect: genAppPartnerDetailsCorrectErrors,
     },
-    applicant2GenAppPartnerDetailsCorrect: {
-      required: 'Select yes if these address details are up to date.',
-    },
-  },
-});
+  };
+};
 
 const languages = {
   en,
@@ -85,13 +89,15 @@ export const applicant2Form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const isApplicant2 = content.isApplicant2;
+  const userCase = content.userCase;
+
   const partnerAddress = isApplicant2
-    ? formatApplicant1Address(content.userCase)
-    : formatApplicant2Address(content.userCase);
-  const partnerEmail = isApplicant2 ? content.userCase.applicant1Email : content.userCase.applicant2Email;
+    ? formatApplicant1Address(userCase)
+    : formatApplicant2Address(userCase);
+  const partnerEmail = isApplicant2 ? userCase.applicant1Email : userCase.applicant2Email;
   const isPartnerConfidential = isApplicant2
-    ? content.userCase.applicant1AddressPrivate
-    : content.userCase.applicant2AddressPrivate;
+    ? userCase.applicant1AddressPrivate
+    : userCase.applicant2AddressPrivate;
 
   const translations = languages[content.language](content);
   return {

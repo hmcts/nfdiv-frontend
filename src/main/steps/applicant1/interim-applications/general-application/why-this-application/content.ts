@@ -2,32 +2,36 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
-const en = () => ({
-  title: 'Why are you making this application?',
-  line1: 'Provide as much information as you can. This will help the court decide whether to grant your application.',
-  errors: {
-    applicant1GenAppReason: {
-      required: 'You must explain why you are making this application.',
+const en = () => {
+  const genAppReasonErrors = {
+    required: 'You must explain why you are making this application.',
+  }
+
+  return {
+    title: 'Why are you making this application?',
+    line1: 'Provide as much information as you can. This will help the court decide whether to grant your application.',
+    errors: {
+      applicant1GenAppReason: genAppReasonErrors,
+      applicant2GenAppReason: genAppReasonErrors,
     },
-    applicant2GenAppReason: {
-      required: 'You must explain why you are making this application.',
-    },
-  },
-});
+  }
+};
 
 // @TODO translations
-const cy = () => ({
-  title: 'Why are you making this application?',
-  line1: 'Provide as much information as you can. This will help the court decide whether to grant your application.',
-  errors: {
-    applicant1GenAppReason: {
-      required: 'You must explain why you are making this application.',
+const cy = () => {
+  const genAppReasonErrors = {
+    required: 'You must explain why you are making this application.',
+  }
+
+  return {
+    title: 'Why are you making this application?',
+    line1: 'Provide as much information as you can. This will help the court decide whether to grant your application.',
+    errors: {
+      applicant1GenAppReason: genAppReasonErrors,
+      applicant2GenAppReason: genAppReasonErrors,
     },
-    applicant2GenAppReason: {
-      required: 'You must explain why you are making this application.',
-    },
-  },
-});
+  }
+};
 
 const languages = {
   en,

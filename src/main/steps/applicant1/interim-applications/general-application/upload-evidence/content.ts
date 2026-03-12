@@ -1,101 +1,95 @@
 import config from 'config';
 import { isObject } from 'lodash';
 
-import { CaseWithId, Checkbox } from '../../../../../app/case/case';
+import { Case, CaseWithId, Checkbox } from '../../../../../app/case/case';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { generateContent as uploadDocumentGenerateContent } from '../../../../applicant1/upload-your-documents/content';
 
-const en = applicant1UploadDocumentContent => ({
-  title: 'Provide statement or upload evidence',
-  statement: 'You can provide a statement and upload any documents you have in support of your application.',
-  statementLabel: 'Provide statement (optional)',
-  uploadFilesLabel: 'Upload evidence (optional)',
-  line1: `If your evidence is in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.certifiedTranslation'
-  )}">certified translation</a>.`,
-  line2: 'You may upload multiple documents.',
-  line3: 'You cannot upload video or audio recordings.',
-  uploadAFile: 'Upload a file',
-  chooseFileButtonText: 'Choose file',
-  noFileChosen: 'No file chosen',
-  uploadedFiles: 'Uploaded files',
-  noFilesUploaded: 'No files uploaded',
-  cannotUpload: 'I cannot upload some or all of my documents',
-  cannotUploadInfo:
-    'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
-  errors: {
-    applicant1InterimAppsEvidenceUploadedFiles: {
-      notUploaded:
-        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-      errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
-      fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
-      fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
-    },
-    applicant1InterimAppsCannotUploadDocs: {
-      notUploaded:
-        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-    },
-    applicant1GenAppStatementOfEvidence: {
-      notUploaded:
-        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-    },
-    applicant2InterimAppsCannotUploadDocs: {
-      notUploaded:
-        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-    },
-    applicant2GenAppStatementOfEvidence: {
-      notUploaded:
-        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-    },
-  },
-});
+const en = applicant1UploadDocumentContent => {
+  const mustProvideEvidenceErrors = {
+    notUploaded:
+      "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
+  }
 
-const cy: typeof en = applicant1UploadDocumentContent => ({
-  title: 'Provide statement or upload evidence',
-  statement: 'You can provide a statement and upload any documents you have in support of your application.',
-  statementLabel: 'Provide statement (optional)',
-  uploadFilesLabel: 'Upload evidence (optional)',
-  line1: `If your evidence is in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
-    'govukUrls.certifiedTranslation'
-  )}">certified translation</a>.`,
-  line2: 'You may upload multiple documents.',
-  line3: 'You cannot upload video or audio recordings.',
-  uploadAFile: 'Upload a file',
-  chooseFileButtonText: 'Choose file',
-  noFileChosen: 'No file chosen',
-  uploadedFiles: 'Uploaded files',
-  noFilesUploaded: 'No files uploaded',
-  cannotUpload: 'I cannot upload some or all of my documents',
-  cannotUploadInfo:
-    'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
-  errors: {
-    applicant1InterimAppsEvidenceUploadedFiles: {
-      notUploaded:
-        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-      errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
-      fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
-      fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
+  const uploadedFilesErrors = {
+    ...mustProvideEvidenceErrors,
+    errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
+    fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
+    fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
+  }
+
+  return {
+    title: 'Provide statement or upload evidence',
+    statement: 'You can provide a statement and upload any documents you have in support of your application.',
+    statementLabel: 'Provide statement (optional)',
+    uploadFilesLabel: 'Upload evidence (optional)',
+    line1: `If your evidence is in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.certifiedTranslation'
+    )}">certified translation</a>.`,
+    line2: 'You may upload multiple documents.',
+    line3: 'You cannot upload video or audio recordings.',
+    uploadAFile: 'Upload a file',
+    chooseFileButtonText: 'Choose file',
+    noFileChosen: 'No file chosen',
+    uploadedFiles: 'Uploaded files',
+    noFilesUploaded: 'No files uploaded',
+    cannotUpload: 'I cannot upload some or all of my documents',
+    cannotUploadInfo:
+      'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
+    errors: {
+      applicant1InterimAppsEvidenceUploadedFiles: uploadedFilesErrors,
+      applicant1InterimAppsCannotUploadDocs: mustProvideEvidenceErrors,
+      applicant1GenAppStatementOfEvidence: mustProvideEvidenceErrors,
+      applicant2InterimAppsEvidenceUploadedFiles: uploadedFilesErrors,
+      applicant2InterimAppsCannotUploadDocs: mustProvideEvidenceErrors,
+      applicant2GenAppStatementOfEvidence: mustProvideEvidenceErrors,
     },
-    applicant1InterimAppsCannotUploadDocs: {
-      notUploaded:
-        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
+  }
+};
+
+const cy: typeof en = applicant1UploadDocumentContent => {
+  const mustProvideEvidenceErrors = {
+    notUploaded:
+      "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
+  }
+
+  const uploadedFilesErrors = {
+    ...mustProvideEvidenceErrors,
+    errorUploading: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.errorUploading,
+    fileSizeTooBig: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileSizeTooBig,
+    fileWrongFormat: applicant1UploadDocumentContent.errors.applicant1UploadedFiles.fileWrongFormat,
+  }
+
+  return {
+    title: 'Provide statement or upload evidence',
+    statement: 'You can provide a statement and upload any documents you have in support of your application.',
+    statementLabel: 'Provide statement (optional)',
+    uploadFilesLabel: 'Upload evidence (optional)',
+    line1: `If your evidence is in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.certifiedTranslation'
+    )}">certified translation</a>.`,
+    line2: 'You may upload multiple documents.',
+    line3: 'You cannot upload video or audio recordings.',
+    uploadAFile: 'Upload a file',
+    chooseFileButtonText: 'Choose file',
+    noFileChosen: 'No file chosen',
+    uploadedFiles: 'Uploaded files',
+    noFilesUploaded: 'No files uploaded',
+    cannotUpload: 'I cannot upload some or all of my documents',
+    cannotUploadInfo:
+      'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
+    errors: {
+      applicant1InterimAppsEvidenceUploadedFiles: uploadedFilesErrors,
+      applicant1InterimAppsCannotUploadDocs: mustProvideEvidenceErrors,
+      applicant1GenAppStatementOfEvidence: mustProvideEvidenceErrors,
+      applicant2InterimAppsEvidenceUploadedFiles: uploadedFilesErrors,
+      applicant2InterimAppsCannotUploadDocs: mustProvideEvidenceErrors,
+      applicant2GenAppStatementOfEvidence: mustProvideEvidenceErrors,
     },
-    applicant1GenAppStatementOfEvidence: {
-      notUploaded:
-        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-    },
-    applicant2InterimAppsCannotUploadDocs: {
-      notUploaded:
-        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-    },
-    applicant2GenAppStatementOfEvidence: {
-      notUploaded:
-        "You must either provide a statement, upload evidence, or select 'I cannot upload some or all of my documents'.",
-    },
-  },
-});
+  }
+};
 
 const genAppsStatementOfEvidenceField = () => {
   return {
@@ -107,10 +101,10 @@ const genAppsStatementOfEvidenceField = () => {
 };
 
 const uploadedFilesField = (
-  userCase: Partial<CaseWithId>,
-  uploadedFilesFieldName: keyof CaseWithId,
-  cannotUploadEvidenceFieldName: keyof CaseWithId,
-  statementOfEvidenceFieldName: keyof CaseWithId
+  userCase: Partial<Case>,
+  uploadedFilesFieldName: keyof Case,
+  cannotUploadEvidenceFieldName: keyof Case,
+  statementOfEvidenceFieldName: keyof Case
 ) => ({
   type: 'hidden',
   label: l => l.uploadFilesLabel,
@@ -130,7 +124,7 @@ const uploadedFilesField = (
   },
 });
 
-const cannotUploadEvidenceField = (cannotUploadEvidenceFieldName: keyof CaseWithId) => ({
+const cannotUploadEvidenceField = (cannotUploadEvidenceFieldName: keyof Case) => ({
   type: 'checkboxes',
   label: l => l.cannotUpload,
   labelHidden: true,
@@ -146,9 +140,9 @@ const cannotUploadEvidenceField = (cannotUploadEvidenceFieldName: keyof CaseWith
 
 export const form: FormContent = {
   fields: userCase => {
-    const uploadedFilesFieldName: keyof CaseWithId = 'applicant1InterimAppsEvidenceUploadedFiles';
-    const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant1InterimAppsCannotUploadDocs';
-    const statementOfEvidenceFieldName: keyof CaseWithId = 'applicant1GenAppStatementOfEvidence';
+    const uploadedFilesFieldName: keyof Case = 'applicant1InterimAppsEvidenceUploadedFiles';
+    const cannotUploadEvidenceFieldName: keyof Case = 'applicant1InterimAppsCannotUploadDocs';
+    const statementOfEvidenceFieldName: keyof Case = 'applicant1GenAppStatementOfEvidence';
 
     return {
       applicant1GenAppStatementOfEvidence: genAppsStatementOfEvidenceField(),
@@ -169,9 +163,9 @@ export const form: FormContent = {
 export const applicant2Form: FormContent = {
   ...form,
   fields: userCase => {
-    const uploadedFilesFieldName: keyof CaseWithId = 'applicant2InterimAppsEvidenceUploadedFiles';
-    const cannotUploadEvidenceFieldName: keyof CaseWithId = 'applicant2InterimAppsCannotUploadDocs';
-    const statementOfEvidenceFieldName: keyof CaseWithId = 'applicant2GenAppStatementOfEvidence';
+    const uploadedFilesFieldName: keyof Case = 'applicant2InterimAppsEvidenceUploadedFiles';
+    const cannotUploadEvidenceFieldName: keyof Case = 'applicant2InterimAppsCannotUploadDocs';
+    const statementOfEvidenceFieldName: keyof Case = 'applicant2GenAppStatementOfEvidence';
 
     return {
       applicant2GenAppStatementOfEvidence: genAppsStatementOfEvidenceField(),
