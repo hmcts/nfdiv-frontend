@@ -269,8 +269,8 @@ const postSubmissionSequence: Step[] = [
     getNextStep: () => HUB_PAGE,
   },
   ...applicant2WithdrawApplicationSequence,
+  ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_2),
   ...generalApplicationPaymentSequence,
-  ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1),
 ];
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
