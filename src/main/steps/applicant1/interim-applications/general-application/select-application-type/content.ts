@@ -128,7 +128,7 @@ const generalApplicationTypeField = (isSoleRespondent: boolean, otherDetailsFiel
 };
 
 export const form: FormContent = {
-  fields: userCase => {
+  fields: () => {
     const isSoleRespondent = false;
 
     return {
