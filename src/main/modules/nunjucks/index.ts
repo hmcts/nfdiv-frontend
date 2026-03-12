@@ -97,8 +97,6 @@ export class Nunjucks {
       next();
     });
 
-    env.addGlobal('govukRebrand', true);
-
     env.addFilter('json', function (value, spaces) {
       if (value instanceof nunjucks.runtime.SafeString) {
         value = value.toString();
