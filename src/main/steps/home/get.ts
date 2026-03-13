@@ -13,7 +13,6 @@ import { form as respondentFirstQuestionForm } from '../respondent/how-do-you-wa
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
-  APPLICATION_SUBMITTED,
   APP_REPRESENTED,
   AWAITING_RESPONSE_TO_HWF_DECISION,
   CHECK_ANSWERS_URL,
@@ -67,7 +66,6 @@ const getApplicant2FirstQuestionForm = (applicationType: ApplicationType) =>
 const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQuestionComplete: boolean) => {
   // Check if applicant1 is solicitor represented
   const isSolicitorRepresented = userCase.applicant1SolicitorRepresented === YesOrNo.YES;
-  const hasServiceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
 
   switch (userCase.state) {
     case State.AwaitingApplicant1Response: {
@@ -82,11 +80,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.Submitted:
     case State.AwaitingDocuments:
     case State.AwaitingHWFDecision: {
-      return isSolicitorRepresented
-        ? APP_REPRESENTED
-        : hasServiceApplicationInProgress
-          ? HUB_PAGE
-          : APPLICATION_SUBMITTED;
+      return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
     }
     case State.AwaitingResponseToHWFDecision:
     case State.AwaitingPayment: {
@@ -120,6 +114,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
         [InterimApplicationType.BAILIFF_SERVICE]: HUB_PAGE,
         [InterimApplicationType.SEARCH_GOV_RECORDS]: HUB_PAGE,
         [InterimApplicationType.PROCESS_SERVER_SERVICE]: HUB_PAGE,
+        [InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11]: HUB_PAGE,
       };
 
       const aosOverdueAndDrafted =
@@ -238,6 +233,7 @@ const respondentRedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.AwaitingGenAppHWFPartPayment:
     case State.AwaitingGeneralConsideration:
     case State.AwaitingGeneralApplicationPayment:
+    case State.AwaitingGenAppDocuments:
     case State.GeneralApplicationReceived: {
       if (hasReviewedTheApplication && !isLastQuestionComplete) {
         return isFirstQuestionComplete ? CHECK_ANSWERS_URL : HOW_DO_YOU_WANT_TO_RESPOND;

@@ -485,7 +485,7 @@ describe('SoleTemplateSelector test', () => {
       ],
     };
     const soleTemplate = getSoleHubTemplate(theState, genAppUserCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AwaitingGeneralApplicationConsideration);
+    expect(soleTemplate).toBe(HubTemplate.OfflineGeneralApplicationReceived);
   });
 
   test('should show /awaiting-general-application-consideration.njk for state AwaitingGeneralConsideration', () => {

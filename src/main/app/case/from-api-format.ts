@@ -186,6 +186,9 @@ const fields: FromApiConverters = {
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
   }),
+  applicant2InterimAppsIUnderstand: data => ({
+    applicant2InterimAppsIUnderstand: checkboxConverter(data.applicant2InterimAppsIUnderstand),
+  }),
   applicant1InterimAppsEvidenceDocs: uploadedFilesFromApiApplicant1,
   applicant1InterimAppsCannotUploadDocs: data => ({
     applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
@@ -224,6 +227,11 @@ const fields: FromApiConverters = {
   }),
   applicant1SearchGovRecordsPartnerLastKnownAddress: data =>
     formatAddress(data, 'applicant1SearchGovRecordsPartnerLastKnown'),
+  applicant1GenAppCannotUploadAgreedEvidence: data => ({
+    applicant1GenAppCannotUploadAgreedEvidence: checkboxConverter(data.applicant1GenAppCannotUploadAgreedEvidence),
+  }),
+  applicant1GenAppPartnerAgreesDocs: uploadedFilesFromApiApplicant1,
+  applicant2GenAppPartnerAgreesDocs: uploadedFilesFromApiApplicant2,
 };
 
 const fromApiDate = date => {
