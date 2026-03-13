@@ -110,6 +110,21 @@ const languages = {
   cy,
 };
 
+export const formatApplicant1Address = (userCase: Partial<CaseWithId>): string => {
+  const checkAddressString = address => {
+    return address !== null && address !== undefined && address.length > 0 ? address + ', ' : '';
+  };
+
+  let address = checkAddressString(userCase.applicant1Address1);
+  address += checkAddressString(userCase.applicant1Address2);
+  address += checkAddressString(userCase.applicant1Address3);
+  address += checkAddressString(userCase.applicant1AddressTown);
+  address += checkAddressString(userCase.applicant1AddressCounty);
+  address += checkAddressString(userCase.applicant1AddressCountry);
+  address += checkAddressString(userCase.applicant1AddressPostcode);
+  return address;
+};
+
 export const formatApplicant2Address = (userCase: Partial<CaseWithId>): string => {
   const checkAddressString = address => {
     return address !== null && address !== undefined && address.length > 0 ? address + ', ' : '';

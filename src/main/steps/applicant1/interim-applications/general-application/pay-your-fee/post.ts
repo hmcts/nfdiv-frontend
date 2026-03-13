@@ -4,7 +4,6 @@ import {
   CITIZEN_GENERAL_APPLICATION,
   CaseData,
   Fee,
-  GENERAL_APPLICATION_PAYMENT_STATES,
   ListValue,
   OrderSummary,
 } from '../../../../../app/case/definition';
@@ -12,22 +11,17 @@ import { AppRequest } from '../../../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../../../app/controller/PostController';
 import {
-  findUnpaidGeneralApplication,
-  getGeneralApplicationOrderSummary,
-  getGeneralApplicationPaymentsField,
-  getGeneralApplicationServiceRequest,
+  getGenAppFeeOrderSummary,
+  getGenAppPaymentsField,
+  getGenAppServiceRequest,
+  hasGenAppPaymentInProgress,
 } from '../../../../../app/utils/general-application-utils';
 import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../../urls';
 
 @autobind
 export default class GeneralApplicationPaymentPostController extends BasePaymentPostController {
   protected readyForPayment(req: AppRequest<AnyObject>): boolean {
-    const serviceRequest = this.getServiceReferenceForFee(req);
-
-    return (
-      GENERAL_APPLICATION_PAYMENT_STATES.has(req.session.userCase.state) &&
-      findUnpaidGeneralApplication(req.session.userCase, serviceRequest) !== undefined
-    );
+    return hasGenAppPaymentInProgress(req.session.isApplicant2, req.session.userCase);
   }
 
   protected awaitingPaymentEvent(): string {
@@ -35,15 +29,15 @@ export default class GeneralApplicationPaymentPostController extends BasePayment
   }
 
   protected getFeesFromOrderSummary(req: AppRequest<AnyObject>): ListValue<Fee>[] {
-    return (getGeneralApplicationOrderSummary(req) as OrderSummary)?.Fees;
+    return (getGenAppFeeOrderSummary(req) as OrderSummary)?.Fees;
   }
 
   protected paymentsCaseField(req: AppRequest<AnyObject>): keyof CaseData {
-    return getGeneralApplicationPaymentsField(req) as keyof CaseData;
+    return getGenAppPaymentsField(req) as keyof CaseData;
   }
 
   protected getServiceReferenceForFee(req: AppRequest<AnyObject>): string {
-    return getGeneralApplicationServiceRequest(req) as string;
+    return getGenAppServiceRequest(req.session.userCase, req.session.isApplicant2) as string;
   }
 
   protected getPaymentCallbackPath(): string {

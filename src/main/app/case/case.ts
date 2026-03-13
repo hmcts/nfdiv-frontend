@@ -213,6 +213,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  applicant2InterimApplicationType: 'applicant2InterimApplicationType',
+  applicant2InterimAppsStatementOfTruth: 'applicant2InterimAppsStatementOfTruth',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
   applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
@@ -233,6 +235,13 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimAppsHwfRefNumber: 'applicant1InterimAppsHwfRefNumber',
   applicant1InterimAppsEvidenceDocs: 'applicant1InterimAppsEvidenceDocs',
   applicant1InterimAppsCannotUploadDocs: 'applicant1InterimAppsCannotUploadDocs',
+  applicant2InterimAppsIUnderstand: 'applicant2InterimAppsIUnderstand',
+  applicant2InterimAppsUseHelpWithFees: 'applicant2InterimAppsUseHelpWithFees',
+  applicant2InterimAppsHaveHwfReference: 'applicant2InterimAppsHaveHwfReference',
+  applicant2InterimAppsCanUploadEvidence: 'applicant2InterimAppsCanUploadEvidence',
+  applicant2InterimAppsHwfRefNumber: 'applicant2InterimAppsHwfRefNumber',
+  applicant2InterimAppsEvidenceDocs: 'applicant2InterimAppsEvidenceDocs',
+  applicant2InterimAppsCannotUploadDocs: 'applicant2InterimAppsCannotUploadDocs',
   applicant1DeemedEvidenceDetails: 'applicant1DeemedEvidenceDetails',
   applicant1DeemedNoEvidenceStatement: 'applicant1DeemedNoEvidenceStatement',
   applicant1BailiffPartnersName: 'applicant1BailiffPartnersName',
@@ -308,6 +317,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1SearchGovRecordsPartnerAdditionalAddress2: 'applicant1SearchGovRecordsPartnerAdditionalAddress2',
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2: 'applicant1SearchGovRecordsPartnerAdditionalAddressDates2',
   generalApplications: 'generalApplications',
+  generalReferralType: 'generalReferralType',
   applicant1GeneralAppServiceRequest: 'applicant1GeneralAppServiceRequest',
   applicant2GeneralAppServiceRequest: 'applicant2GeneralAppServiceRequest',
   applicant1GeneralAppPayments: 'applicant1GeneralAppPayments',
@@ -365,6 +375,14 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1GenAppStatementOfEvidence: 'applicant1GenAppStatementOfEvidence',
   applicant1GenAppType: 'applicant1GenAppType',
   applicant1GenAppTypeOtherDetails: 'applicant1GenAppTypeOtherDetails',
+  applicant2GenAppCannotUploadAgreedEvidence: 'applicant2GenAppCannotUploadAgreedEvidence',
+  applicant2GenAppHearingNotRequired: 'applicant2GenAppHearingNotRequired',
+  applicant2GenAppPartnerAgreesDocs: 'applicant2GenAppPartnerAgreesDocs',
+  applicant2GenAppPartnerDetailsCorrect: 'applicant2GenAppPartnerDetailsCorrect',
+  applicant2GenAppReason: 'applicant2GenAppReason',
+  applicant2GenAppStatementOfEvidence: 'applicant2GenAppStatementOfEvidence',
+  applicant2GenAppType: 'applicant2GenAppType',
+  applicant2GenAppTypeOtherDetails: 'applicant2GenAppTypeOtherDetails',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -639,6 +657,14 @@ export interface Case {
   applicant1InterimAppsEvidenceUploadedFiles?: UploadedFile[];
   applicant1InterimAppsEvidenceDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant1InterimAppsCannotUploadDocs?: Checkbox;
+  applicant2InterimAppsIUnderstand?: Checkbox;
+  applicant2InterimAppsUseHelpWithFees?: YesOrNo;
+  applicant2InterimAppsHaveHwfReference?: YesOrNo;
+  applicant2InterimAppsCanUploadEvidence?: YesOrNo;
+  applicant2InterimAppsHwfRefNumber?: string;
+  applicant2InterimAppsEvidenceUploadedFiles?: UploadedFile[];
+  applicant2InterimAppsEvidenceDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant2InterimAppsCannotUploadDocs?: Checkbox;
   applicant1DeemedEvidenceDetails?: string;
   applicant1DeemedNoEvidenceStatement?: string;
   applicant1BailiffPartnerInARefuge: YesOrNoOrNotKnown;
@@ -676,6 +702,7 @@ export interface Case {
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant2InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
+  applicant2InterimAppsStatementOfTruth?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
@@ -734,6 +761,7 @@ export interface Case {
   applicant1SearchGovRecordsPartnerAdditionalAddress2?: string;
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
   generalApplications?: ListValue<GeneralApplication>[];
+  generalReferralType?: string;
   applicant1GeneralAppServiceRequest?: string;
   applicant2GeneralAppServiceRequest?: string;
   applicant1GeneralAppPayments?: ListValue<Payment>[];
@@ -808,6 +836,15 @@ export interface Case {
   applicant1GenAppStatementOfEvidence?: string;
   applicant1GenAppType?: GeneralApplicationType | null;
   applicant1GenAppTypeOtherDetails?: string;
+  applicant2GenAppCannotUploadAgreedEvidence?: Checkbox;
+  applicant2GenAppHearingNotRequired?: GeneralApplicationHearingNotRequired;
+  applicant2GenAppPartnerAgreesDocs?: ListValue<Partial<DivorceDocument> | null>[];
+  applicant2GenAppPartnerAgreesUploadedFiles?: UploadedFile[];
+  applicant2GenAppPartnerDetailsCorrect?: YesOrNo;
+  applicant2GenAppReason?: string;
+  applicant2GenAppStatementOfEvidence?: string;
+  applicant2GenAppType?: GeneralApplicationType;
+  applicant2GenAppTypeOtherDetails?: string;
 }
 
 export interface CaseWithId extends Case {

@@ -1116,7 +1116,6 @@ export const generateContent: TranslationFn = content => {
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
     NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
-  const isSearchGovRecordsFeeRequired = content.generalApplicationFeeRequired;
 
   const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
     field => field && field.length > 0
@@ -1178,7 +1177,6 @@ export const generateContent: TranslationFn = content => {
     contactDetailsUpdatedUKBased,
     applicant1NoResponseSendPapersAgain,
     isAwaitingProcessServerService,
-    isSearchGovRecordsFeeRequired,
     interimApplicationStartPagePath,
     interimApplicationStartedAosOverdue,
   };

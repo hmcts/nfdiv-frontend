@@ -13,10 +13,10 @@ import {
   YesOrNo,
 } from '../../app/case/definition';
 import { userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
-import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
+import { findAllOnlineGenAppsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
-import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
+import { APPLICANT_2, RESPONDENT, SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
 
 export const yesOrNoOrNotKnown_en = {
   yes: 'Yes',
@@ -491,7 +491,7 @@ export const generateCommonContent = ({
       ? config.get('webchat.genesysDeploymentId')
       : config.get('webchat.genesysDeploymentIdCy');
 
-  const generalApplications = findOnlineGeneralApplicationsForUser(userCase, isApplicant2);
+  const generalApplications = findAllOnlineGenAppsForUser(userCase, isApplicant2);
   const lastGeneralApplication = generalApplications?.[0];
   const generalApplicationType =
     commonTranslations.generalApplication[lastGeneralApplication?.generalApplicationType as string];
@@ -597,4 +597,12 @@ export type CommonContent = typeof en & {
   genesysReferrerPage: string;
   genesysDeploymentId: string;
   lastGeneralApplication?: GeneralApplication | undefined;
+};
+
+export const getRootRedirectPath = (isApplicant2: boolean, userCase: Partial<CaseWithId>): string => {
+  if (!isApplicant2) {
+    return '';
+  }
+
+  return userCase.applicationType === ApplicationType.JOINT_APPLICATION ? APPLICANT_2 : RESPONDENT;
 };
