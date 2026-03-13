@@ -17,7 +17,7 @@ const en = ({ isDivorce, userCase, serviceApplicationType, generalApplicationTyp
   generalApplicationDownload: {
     reference: 'General-application',
     link: '/downloads/general-application',
-    text: `View your ${generalApplicationType || "general"} application (PDF)`,
+    text: `View your ${generalApplicationType || 'general'} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
@@ -125,7 +125,7 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
   generalApplicationDownload: {
     reference: 'General-application',
     link: '/downloads/general-application',
-    text: `View your ${generalApplicationType || "general"} application (PDF)`,
+    text: `View your ${generalApplicationType || 'general'} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
