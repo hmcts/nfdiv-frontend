@@ -269,10 +269,6 @@ const postSubmissionSequence: Step[] = [
     url: REVIEW_YOUR_RESPONSE,
     getNextStep: () => HUB_PAGE,
   },
-  {
-    url: MAKE_AN_APPLICATION,
-    getNextStep: () => HUB_PAGE,
-  },
   ...applicant2WithdrawApplicationSequence,
   ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_2),
   ...generalApplicationPaymentSequence,
