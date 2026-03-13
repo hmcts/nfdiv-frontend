@@ -12,7 +12,7 @@ describe('GenAppUploadPartnerAgreesEvidenceGetController', () => {
     it('saves the gen application partner agrres evidence upload journey to the user session', async () => {
       const userCase = {
         state: State.AwaitingAos,
-        applicationType: ApplicationType.SOLE_APPLICATION,
+        applicationType: ApplicationType.JOINT_APPLICATION,
       };
       const req = mockRequest({ userCase });
       const res = mockResponse();

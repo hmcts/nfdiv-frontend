@@ -11,8 +11,8 @@ describe('GenAppUploadEvidenceGetController', () => {
   describe('Upload journey', () => {
     it('saves the gen application evidence upload journey to the user session', async () => {
       const userCase = {
-        state: State.AwaitingAos,
-        applicationType: ApplicationType.SOLE_APPLICATION,
+        state: State.Holding,
+        applicationType: ApplicationType.JOINT_APPLICATION,
       };
       const req = mockRequest({ userCase });
       const res = mockResponse();

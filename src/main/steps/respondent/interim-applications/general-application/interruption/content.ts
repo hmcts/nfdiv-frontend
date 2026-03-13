@@ -1,14 +1,10 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { applicant2Form as interruptionForm } from '../../../../applicant1/interim-applications/common/interruption/content';
-import { generateContent as generateInterruptionContent } from '../../../../applicant1/interim-applications/general-application/interruption/content';
+import {
+  form as applicant2Form,
+  generateContent as applicant2GenerateContent,
+} from '../../../../applicant2/interim-applications/general-application/interruption/content';
 
-export const form: FormContent = interruptionForm;
+export const form: FormContent = applicant2Form;
 
-export const generateContent: TranslationFn = content => {
-  const interruptionContent = generateInterruptionContent(content);
-  return {
-    ...interruptionContent,
-    form,
-  };
-};
+export const generateContent: TranslationFn = applicant2GenerateContent;
