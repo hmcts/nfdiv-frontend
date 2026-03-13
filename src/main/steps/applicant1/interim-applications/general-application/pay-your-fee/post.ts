@@ -1,4 +1,5 @@
 import autobind from 'autobind-decorator';
+
 import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../../urls';
 import BaseGeneralApplicationPaymentPostController from '../../common/general-application/pay-your-fee/post';
 
