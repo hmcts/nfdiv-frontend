@@ -45,4 +45,5 @@ export const enum HubTemplate {
   AwaitingDwpResponse = '/awaiting-dwp-response.njk',
   AwaitingAlternativeService = '/awaiting-alternative-service.njk',
   AwaitingGenAppHWFPartPaymentOrEvidence = '/awaiting-gen-app-hwf-part-payment-or-evidence.njk',
+  AwaitingGenAppDocuments = '/awaiting-gen-app-documents.njk',
 }

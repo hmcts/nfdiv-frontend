@@ -1,14 +1,14 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../app/case/definition';
+import { ApplicationType, State, WhichApplicant, YesOrNo } from '../app/case/definition';
 import { needsToExplainDelay } from '../app/controller/controller.utils';
 
 import { Step } from './applicant1Sequence';
 import { applicant2WithdrawApplicationSequence } from './applicant2WithdrawApplicationSequence';
+import { generalApplicationD11Sequence } from './generalApplicationD11Sequence';
+import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
-  APPLY_FINANCIAL_ORDER,
-  APPLY_FINANCIAL_ORDER_DETAILS,
   APP_REPRESENTED,
   AWAITING_RESPONSE_TO_HWF_DECISION,
   CHANGES_TO_YOUR_NAME_URL,
@@ -49,6 +49,7 @@ import {
   REVIEW_YOUR_JOINT_APPLICATION,
   REVIEW_YOUR_RESPONSE,
   UPLOAD_YOUR_DOCUMENTS,
+  WHO_IS_THE_FINANCIAL_ORDER_FOR,
   WITHDRAWING_YOUR_APPLICATION,
   YOUR_CERTIFICATE_NAME,
   YOUR_COMMENTS_SENT,
@@ -138,19 +139,15 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: MONEY_PROPERTY,
-    getNextStep: () => APPLY_FINANCIAL_ORDER,
-  },
-  {
-    url: APPLY_FINANCIAL_ORDER,
     getNextStep: data =>
       data.applicant2ApplyForFinancialOrder === YesOrNo.YES
-        ? APPLY_FINANCIAL_ORDER_DETAILS
+        ? WHO_IS_THE_FINANCIAL_ORDER_FOR
         : data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
           ? UPLOAD_YOUR_DOCUMENTS
           : CHECK_JOINT_APPLICATION,
   },
   {
-    url: APPLY_FINANCIAL_ORDER_DETAILS,
+    url: WHO_IS_THE_FINANCIAL_ORDER_FOR,
     getNextStep: data =>
       data.applicant2NameDifferentToMarriageCertificate === YesOrNo.YES
         ? UPLOAD_YOUR_DOCUMENTS
@@ -277,6 +274,8 @@ const postSubmissionSequence: Step[] = [
     getNextStep: () => HUB_PAGE,
   },
   ...applicant2WithdrawApplicationSequence,
+  ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_2),
+  ...generalApplicationPaymentSequence,
 ];
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>

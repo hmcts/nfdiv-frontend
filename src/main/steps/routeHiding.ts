@@ -1,4 +1,4 @@
-import { State, YesOrNo } from '../app/case/definition';
+import { State, WhichApplicant, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
@@ -17,7 +17,6 @@ import {
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
   FINALISING_YOUR_APPLICATION,
-  GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
   HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
   HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
@@ -29,7 +28,6 @@ import {
   NO_RESPONSE_DETAILS_UPDATED,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
-  PAY_YOUR_GENERAL_APPLICATION_FEE,
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER_DOCS,
   PageLink,
@@ -58,7 +56,7 @@ export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
 
 export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
   ...[
-    ...generalApplicationD11Sequence,
+    ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1),
     ...deemedServiceApplicationSequence,
     ...alternativeServiceApplicationSequence,
     ...bailiffServiceApplicationSequence,
@@ -107,27 +105,6 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
         State.AwaitingAos,
         State.AwaitingServiceConsideration,
         State.AwaitingDocuments,
-      ].includes(data.state as State),
-  },
-  {
-    urls: [...generalApplicationD11Sequence]
-      .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
-      .map(step => step.url as PageLink),
-    condition: data =>
-      [
-        State.AwaitingServicePayment,
-        State.AwaitingServiceConsideration,
-        State.AwaitingGeneralApplicationPayment,
-      ].includes(data.state as State),
-  },
-  {
-    urls: [PAY_YOUR_GENERAL_APPLICATION_FEE, GENERAL_APPLICATION_SUBMITTED],
-    condition: data =>
-      ![
-        State.AwaitingGeneralApplicationPayment,
-        State.AwaitingGeneralReferralPayment,
-        State.GeneralApplicationReceived,
-        State.AwaitingGeneralConsideration,
       ].includes(data.state as State),
   },
   {

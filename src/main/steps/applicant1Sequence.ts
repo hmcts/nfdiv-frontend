@@ -4,6 +4,7 @@ import {
   ApplicationType,
   JurisdictionConnections,
   State,
+  WhichApplicant,
   YesOrNo,
 } from '../app/case/definition';
 import { needsToExplainDelay } from '../app/controller/controller.utils';
@@ -27,8 +28,6 @@ import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
   APPLICATION_SUBMITTED,
-  APPLY_FINANCIAL_ORDER,
-  APPLY_FINANCIAL_ORDER_DETAILS,
   APP_REPRESENTED,
   CERTIFICATE_IN_ENGLISH,
   CERTIFICATE_URL,
@@ -105,6 +104,7 @@ import {
   UPLOAD_YOUR_DOCUMENTS,
   VIEW_YOUR_ANSWERS,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
+  WHO_IS_THE_FINANCIAL_ORDER_FOR,
   WITHDRAWING_YOUR_APPLICATION,
   WITHDRAW_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
@@ -414,15 +414,11 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: MONEY_PROPERTY,
-    getNextStep: () => APPLY_FINANCIAL_ORDER,
-  },
-  {
-    url: APPLY_FINANCIAL_ORDER,
     getNextStep: data =>
-      data.applicant1ApplyForFinancialOrder === YesOrNo.YES ? APPLY_FINANCIAL_ORDER_DETAILS : UPLOAD_YOUR_DOCUMENTS,
+      data.applicant1ApplyForFinancialOrder === YesOrNo.YES ? WHO_IS_THE_FINANCIAL_ORDER_FOR : UPLOAD_YOUR_DOCUMENTS,
   },
   {
-    url: APPLY_FINANCIAL_ORDER_DETAILS,
+    url: WHO_IS_THE_FINANCIAL_ORDER_FOR,
     getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
   },
   {
@@ -620,7 +616,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...serviceApplicationPaymentSequence,
   ...generalApplicationPaymentSequence,
   ...withdrawApplicationSequence,
-  ...generalApplicationD11Sequence,
+  ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1),
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>

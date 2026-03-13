@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import type { CommonContent } from '../../common/common.content';
+import { ydyOrNacYdyRadioAnswers } from '../../common/input-labels.content';
 
 const en = ({ partner }: CommonContent) => ({
   title: 'Where your lives are based',
@@ -24,8 +25,6 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   line1: `Mae'r llys angen gwybod p'un a yw eich bywyd chi a bywyd eich ${partner} yng Nghymru neu Loegr. Gall hyn gynnwys gweithio, bod yn berchen ar eiddo, bod â phlant mewn ysgol, neu bod eich prif fywyd teuluol yng Nghymru neu Loegr.`,
   applicant1LifeBasedInEnglandAndWales: 'A yw eich bywyd gan amlaf yng Nghymru neu Loegr?',
   applicant2LifeBasedInEnglandAndWales: `A yw bywyd eich ${partner} gan amlaf yng Nghymru neu Loegr?`,
-  yes: 'Ydy',
-  no: 'Nac ydy',
   errors: {
     applicant1LifeBasedInEnglandAndWales: {
       required: 'Dewiswch “Ydy” os ydych yn treulio’r rhan fwyaf o’ch amser yng Nghymru neu Loegr.',
@@ -43,8 +42,8 @@ export const form: FormContent = {
       classes: 'govuk-radios--inline',
       label: l => l.applicant1LifeBasedInEnglandAndWales,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -53,8 +52,8 @@ export const form: FormContent = {
       classes: 'govuk-radios--inline',
       label: l => l.applicant2LifeBasedInEnglandAndWales,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
@@ -69,10 +68,14 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers = ydyOrNacYdyRadioAnswers;
+
 export const generateContent: TranslationFn = (content: CommonContent) => {
   const translations = languages[content.language](content);
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...translations,
+    ...radioAnswers,
     form,
   };
 };
