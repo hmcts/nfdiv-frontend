@@ -13,7 +13,7 @@ import {
   YesOrNo,
 } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { GENERAL_APPLICATION_PAYMENT_CALLBACK, RESPONDENT } from '../../../../urls';
+import { APPLICANT_2, GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../../urls';
 
 import GeneralApplicationPaymentPostController from './post';
 
@@ -111,7 +111,7 @@ describe('GeneralApplicationPaymentPostController', () => {
 
       await paymentController.post(mockReq, res);
       expect(mockReq.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + GENERAL_APPLICATION_PAYMENT_CALLBACK);
+      expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + GENERAL_APPLICATION_PAYMENT_CALLBACK);
     });
 
     it('transitions the case to awaiting general application payment if it is not ready for payment', async () => {
@@ -176,7 +176,7 @@ describe('GeneralApplicationPaymentPostController', () => {
       expect(mockCreate).not.toHaveBeenCalled();
       expect(mockReq.locals.api.triggerEvent).not.toHaveBeenCalled();
       expect(mockReq.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + GENERAL_APPLICATION_PAYMENT_CALLBACK);
+      expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + GENERAL_APPLICATION_PAYMENT_CALLBACK);
     });
   });
 });

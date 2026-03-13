@@ -14,10 +14,10 @@ import {
 } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import {
+  APPLICANT_2,
   GENERAL_APPLICATION_SUBMITTED,
   HUB_PAGE,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
-  RESPONDENT,
 } from '../../../../urls';
 
 import PaymentCallbackGetController from './get';
@@ -104,7 +104,7 @@ describe('PaymentCallbackGetController', () => {
         CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE
       );
 
-      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + GENERAL_APPLICATION_SUBMITTED);
+      expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + GENERAL_APPLICATION_SUBMITTED);
     });
 
     it('redirects to the hub page if the applicant has no outstanding general applications', async () => {
@@ -117,7 +117,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).not.toHaveBeenCalled();
       expect(mockReq.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + HUB_PAGE);
+      expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + HUB_PAGE);
     });
 
     it('redirects to the hub page if there have been no payment attempts', async () => {
@@ -129,7 +129,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockGet).not.toHaveBeenCalled();
       expect(mockReq.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + HUB_PAGE);
+      expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + HUB_PAGE);
     });
 
     it('saves and redirects to the pay your fee page if last payment was unsuccessful', async () => {
@@ -163,7 +163,7 @@ describe('PaymentCallbackGetController', () => {
 
       expect(mockReq.locals.api.triggerPaymentEvent).not.toHaveBeenCalled();
 
-      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT + PAY_YOUR_GENERAL_APPLICATION_FEE);
+      expect(res.redirect).toHaveBeenCalledWith(APPLICANT_2 + PAY_YOUR_GENERAL_APPLICATION_FEE);
     });
 
     it('throws an error if the payment API is down', async () => {
