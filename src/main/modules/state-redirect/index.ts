@@ -13,6 +13,7 @@ import {
 import { AppRequest } from '../../app/controller/AppRequest';
 import { PaymentModel } from '../../app/payment/PaymentModel';
 import { hasGenAppPaymentInProgress } from '../../app/utils/general-application-utils';
+import { getRootRedirectPath } from '../../steps/common/common.content';
 import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
@@ -105,6 +106,8 @@ export class StateRedirectMiddleware {
             SERVICE_PAYMENT_CALLBACK,
             PAY_YOUR_GENERAL_APPLICATION_FEE,
             GENERAL_APPLICATION_PAYMENT_CALLBACK,
+            RESPONDENT + PAY_YOUR_GENERAL_APPLICATION_FEE,
+            RESPONDENT + GENERAL_APPLICATION_PAYMENT_CALLBACK,
             REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
             SAVE_AND_SIGN_OUT,
             VIEW_YOUR_ANSWERS,
@@ -136,7 +139,9 @@ export class StateRedirectMiddleware {
             : req.session.userCase.applicant1GeneralAppPayments
         );
         if (hasGenAppPaymentInProgress(isApplicant2, req.session.userCase) && generalApplicationPayments.hasPayment) {
-          return res.redirect(GENERAL_APPLICATION_PAYMENT_CALLBACK);
+          return res.redirect(
+            getRootRedirectPath(isApplicant2, req.session.userCase) + GENERAL_APPLICATION_PAYMENT_CALLBACK
+          );
         }
 
         return next();

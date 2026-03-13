@@ -8,7 +8,6 @@ import {
   State,
 } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
-import { generalApplicationD11Sequence } from '../../../../generalApplicationD11Sequence';
 import { getFirstErroredStep } from '../../../../index';
 
 import CheckGeneralApplicationD11AnswersPostController from './post';
@@ -40,13 +39,14 @@ describe('CheckGeneralApplicationD11AnswersPostController', () => {
       applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
     };
     const req = mockRequest({ body });
+    req.session.isApplicant2 = false;
     const res = mockResponse();
 
     (getFirstErroredStep as jest.Mock).mockReturnValue(undefined);
 
     await controller.post(req, res);
 
-    expect(getFirstErroredStep).toHaveBeenCalledWith(req, generalApplicationD11Sequence);
+    expect(getFirstErroredStep).toHaveBeenCalledWith(req, expect.any(Array));
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_GENERAL_APPLICATION);
   });
 
@@ -60,7 +60,7 @@ describe('CheckGeneralApplicationD11AnswersPostController', () => {
 
     await controller.post(req, res);
 
-    expect(getFirstErroredStep).toHaveBeenCalledWith(req, generalApplicationD11Sequence);
+    expect(getFirstErroredStep).toHaveBeenCalledWith(req, expect.any(Array));
     expect(res.redirect).toHaveBeenCalledWith(incompleteStepUrl);
   });
 });

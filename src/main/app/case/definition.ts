@@ -1068,6 +1068,13 @@ export interface CaseData {
   applicant1InterimAppsHwfRefNumber: string;
   applicant1InterimAppsEvidenceDocs: ListValue<DivorceDocument>[];
   applicant1InterimAppsCannotUploadDocs: YesOrNo;
+  applicant2InterimAppsIUnderstand: YesOrNo;
+  applicant2InterimAppsUseHelpWithFees: YesOrNo;
+  applicant2InterimAppsHaveHwfReference: YesOrNo;
+  applicant2InterimAppsCanUploadEvidence: YesOrNo;
+  applicant2InterimAppsHwfRefNumber: string;
+  applicant2InterimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  applicant2InterimAppsCannotUploadDocs: YesOrNo;
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
   applicant1BailiffPartnersName: string;
@@ -1105,6 +1112,7 @@ export interface CaseData {
   applicant1InterimApplicationType: InterimApplicationType;
   applicant2InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
+  applicant2InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
   applicant1NoResponsePartnerEmailAddress: string;
@@ -1191,6 +1199,14 @@ export interface CaseData {
   applicant1GenAppStatementOfEvidence: string;
   applicant1GenAppType: GeneralApplicationType;
   applicant1GenAppTypeOtherDetails: string;
+  applicant2GenAppCannotUploadAgreedEvidence: YesOrNo;
+  applicant2GenAppHearingNotRequired: GeneralApplicationHearingNotRequired;
+  applicant2GenAppPartnerAgreesDocs: ListValue<DivorceDocument>[];
+  applicant2GenAppPartnerDetailsCorrect: YesOrNo;
+  applicant2GenAppReason: string;
+  applicant2GenAppStatementOfEvidence: string;
+  applicant2GenAppType: GeneralApplicationType;
+  applicant2GenAppTypeOtherDetails: string;
 }
 
 export interface CaseDocuments {

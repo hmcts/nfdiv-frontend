@@ -1,13 +1,11 @@
-import { ApplicationType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { canSubmitGeneralApplication } from '../../../../app/utils/general-application-utils';
-import { CommonContent } from '../../../common/common.content';
+import { canStartNewGeneralApplication } from '../../../../app/utils/general-application-utils';
+import { CommonContent, getRootRedirectPath } from '../../../common/common.content';
 import {
   APPLICANT_2,
   CHECK_CONTACT_DETAILS,
   HUB_PAGE_DOWNLOADS,
   MAKE_AN_APPLICATION,
-  RESPONDENT,
   WITHDRAW_THIS_APPLICATION,
   WITHDRAW_THIS_APPLICATION_POST_ISSUE,
 } from '../../../urls';
@@ -23,7 +21,7 @@ const en = ({ isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent, app2O
     text: 'View all documents',
   },
   genAppMakeAnApplication: {
-    url: MAKE_AN_APPLICATION,
+    url: app2OrRespondent + MAKE_AN_APPLICATION,
     text: 'Make an application to the court',
   },
   withdrawApplication: {
@@ -57,19 +55,12 @@ const languages = {
   cy,
 };
 
-const getApp2OrRespondent = (content: CommonContent): string => {
-  if (content.isApplicant2) {
-    return content.userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? RESPONDENT : APPLICANT_2;
-  }
-  return '';
-};
-
 export const generateContent: TranslationFn = content => {
-  const showGenApplicationLink = canSubmitGeneralApplication(content.isApplicant2, content.userCase);
+  const showGenApplicationLink = canStartNewGeneralApplication(content.isApplicant2, content.userCase);
   const showWithdrawLink = !content.isApplicant2 || (content.isApplicant2 && content.isJointApplication);
 
   return {
-    ...languages[content.language](content, getApp2OrRespondent(content)),
+    ...languages[content.language](content, getRootRedirectPath(content.isApplicant2, content.userCase)),
     caseHasBeenIssued: content.caseHasBeenIssued,
     showDownloadLink: areDownloadsAvailable(content),
     showWithdrawLink,

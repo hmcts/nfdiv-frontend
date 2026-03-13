@@ -1,5 +1,6 @@
 import { CaseWithId } from '../case/case';
 import {
+  ApplicationType,
   GeneralApplication,
   GeneralParties,
   InterimApplicationType,
@@ -10,7 +11,7 @@ import {
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 
-const D11_GENERAL_APPLICATION_EXCLUSION_STATES: Set<State> = new Set([
+const D11_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
   State.AwaitingGeneralApplicationPayment,
   State.AwaitingGenAppDocuments,
   State.AwaitingGeneralConsideration,
@@ -93,16 +94,27 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
   );
 };
 
-export const canSubmitGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
-  const hasGeneralReferralInProgress = !!userCase?.generalReferralType;
-  const hasGenAppInProgress =
-    hasGenAppSaveAndSignOutContent(isApplicant2, userCase) ||
-    hasGenAppAwaitingDocuments(isApplicant2, userCase) ||
-    hasGenAppPaymentInProgress(isApplicant2, userCase);
+export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+  if (D11_GENERAL_APPLICATION_EXCLUDED_STATES.has(userCase.state as State)) {
+    return false;
+  }
 
-  return !(
-    D11_GENERAL_APPLICATION_EXCLUSION_STATES.has(userCase.state as State) ||
-    hasGenAppInProgress ||
-    hasGeneralReferralInProgress
-  );
+  const caseHasGeneralReferral = !!userCase?.generalReferralType;
+  if (caseHasGeneralReferral) {
+    return false;
+  }
+
+  const isSoleRespondentCompletingAos =
+    isApplicant2 && userCase?.applicationType === ApplicationType.SOLE_APPLICATION && !userCase?.dateAosSubmitted;
+  if (isSoleRespondentCompletingAos) {
+    return false;
+  }
+
+  const app1HasSubmittedGenApp =
+    hasGenAppAwaitingDocuments(false, userCase) || hasGenAppPaymentInProgress(false, userCase);
+  const app2HasSubmittedGenApp =
+    hasGenAppAwaitingDocuments(true, userCase) || hasGenAppPaymentInProgress(true, userCase);
+  const genAppHasBeenDrafted = hasGenAppSaveAndSignOutContent(isApplicant2, userCase);
+
+  return !(app1HasSubmittedGenApp || app2HasSubmittedGenApp || genAppHasBeenDrafted);
 };

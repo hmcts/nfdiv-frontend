@@ -1,4 +1,4 @@
-import { State, YesOrNo } from '../app/case/definition';
+import { State, WhichApplicant, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
@@ -56,7 +56,7 @@ export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
 
 export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
   ...[
-    ...generalApplicationD11Sequence,
+    ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1),
     ...deemedServiceApplicationSequence,
     ...alternativeServiceApplicationSequence,
     ...bailiffServiceApplicationSequence,
