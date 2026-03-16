@@ -169,6 +169,7 @@ describe('to-api-format', () => {
       applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
       applicant1InRefuge: YesOrNo.YES,
       applicant1KnowsApplicant2Address: YesOrNo.NO,
+      applicant1FoundApplicant2Address: YesOrNo.NO,
       applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
       applicant1WantsToHavePapersServedAnotherWay: null,
       applicant1LanguagePreferenceWelsh: 'No',
@@ -644,9 +645,9 @@ describe('to-api-format', () => {
     },
     {
       applicant1ApplyForFinancialOrder: YesOrNo.NO,
-      applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant1WhoIsFinancialOrderFor: [],
       applicant2ApplyForFinancialOrder: YesOrNo.NO,
-      applicant2WhoIsFinancialOrderFor: [FinancialOrderFor.APPLICANT, FinancialOrderFor.CHILDREN],
+      applicant2WhoIsFinancialOrderFor: [],
       expected: {
         applicant1FinancialOrder: YesOrNo.NO,
         applicant1FinancialOrdersFor: [],

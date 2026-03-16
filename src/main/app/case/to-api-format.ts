@@ -185,6 +185,10 @@ const fields: ToApiConverters = {
   applicant1FoundApplicant2Address: data => ({
     applicant1KnowsApplicant2Address: data.applicant1FoundApplicant2Address,
     applicant1FoundApplicant2Address: data.applicant1FoundApplicant2Address,
+    applicant1WantsToHavePapersServedAnotherWay:
+      data.applicant1FoundApplicant2Address === YesOrNo.YES
+        ? YesOrNo.NO
+        : checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
   applicant1NameChangedHowOtherDetails: data => ({
     applicant1NameChangedHowOtherDetails: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
@@ -366,6 +370,10 @@ const fields: ToApiConverters = {
   applicant1KnowsApplicant2Address: data => ({
     applicant1KnowsApplicant2Address: data.applicant1KnowsApplicant2Address,
     applicant1FoundApplicant2Address: data.applicant1KnowsApplicant2Address,
+    applicant1WantsToHavePapersServedAnotherWay:
+      data.applicant1FoundApplicant2Address === YesOrNo.YES
+        ? YesOrNo.NO
+        : checkboxConverter(data.iWantToHavePapersServedAnotherWay),
     ...(data.applicant1KnowsApplicant2Address === YesOrNo.NO
       ? applicant2AddressToApi(
           setUnreachableAnswersToNull([
@@ -425,13 +433,13 @@ const fields: ToApiConverters = {
   coApplicant2StatementOfTruth: data => ({
     coApplicant2StatementOfTruth: checkboxConverter(data.coApplicant2StatementOfTruth),
   }),
-  applicant1WhoIsFinancialOrderFor: data => ({
-    applicant1FinancialOrdersFor:
-      data.applicant1ApplyForFinancialOrder === YesOrNo.YES ? data.applicant1WhoIsFinancialOrderFor : [],
+  applicant1ApplyForFinancialOrder: data => ({
+    applicant1FinancialOrder: data.applicant1ApplyForFinancialOrder,
+    ...(data.applicant1ApplyForFinancialOrder === YesOrNo.NO && { applicant1FinancialOrdersFor: [] }),
   }),
-  applicant2WhoIsFinancialOrderFor: data => ({
-    applicant2FinancialOrdersFor:
-      data.applicant2ApplyForFinancialOrder === YesOrNo.YES ? data.applicant2WhoIsFinancialOrderFor : [],
+  applicant2ApplyForFinancialOrder: data => ({
+    applicant2FinancialOrder: data.applicant2ApplyForFinancialOrder,
+    ...(data.applicant2ApplyForFinancialOrder === YesOrNo.NO && { applicant2FinancialOrdersFor: [] }),
   }),
   coCannotUploadClarificationDocuments: data => ({
     coCannotUploadClarificationDocuments: checkboxConverter(data.coCannotUploadClarificationDocuments),

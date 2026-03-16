@@ -31,6 +31,16 @@ export const yesOrNoOrNotKnown_cy = {
   notKnown: 'Anhysbys',
 };
 
+export const englishOrWelsh_en = {
+  english: 'English',
+  welsh: 'Welsh',
+};
+
+export const englishOrWelsh_cy = {
+  english: 'Saesneg',
+  welsh: 'Cymraeg',
+};
+
 export const en = {
   phase: 'Beta',
   applyForDivorce: 'apply for a divorce',
@@ -138,8 +148,7 @@ export const en = {
     d89: 'D89',
   },
   ...yesOrNoOrNotKnown_en,
-  english: 'English',
-  welsh: 'Welsh',
+  ...englishOrWelsh_en,
   contactUsForHelp: 'Contact us for help',
   webChat: 'Web chat',
   sendUsAMessage: 'Send us a message',
@@ -208,9 +217,6 @@ export const en = {
   contactEmail: 'contactdivorce@justice.gov.uk',
   contactWebForm: 'https://contact-us-about-a-divorce-application.form.service.justice.gov.uk/',
   saveAndSignOutLink: SAVE_AND_SIGN_OUT,
-  avayaLanguage: 'English',
-  avayaClientUrlFolder: '1',
-  avayaLocaleUrl: '/assets/locales/avaya-webchat/en-gb/',
   genesys: {
     chatWithUs: 'Chat with us',
     onlineAdviceClosed: 'Our online advice service is currently closed',
@@ -334,8 +340,7 @@ const cy: typeof en = {
     d89: 'D89',
   },
   ...yesOrNoOrNotKnown_cy,
-  english: 'Saesneg',
-  welsh: 'Cymraeg',
+  ...englishOrWelsh_cy,
   contactUsForHelp: 'Cysylltu â ni am gymorth',
   webChat: 'Sgwrsio dros y we',
   sendUsAMessage: 'Anfonwch neges atom',
@@ -390,9 +395,6 @@ const cy: typeof en = {
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
   contactEmail: 'contactdivorce@justice.gov.uk',
   contactWebForm: 'https://contact-us-about-a-divorce-application-cy.form.service.justice.gov.uk/',
-  avayaLanguage: 'Welsh',
-  avayaClientUrlFolder: 'welsh',
-  avayaLocaleUrl: '/assets/locales/avaya-webchat/cy-gb/',
   genesys: {
     chatWithUs: 'Sgwrsiwch â ni',
     onlineAdviceClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd',
@@ -518,7 +520,10 @@ export const generateCommonContent = ({
 
   const addressRequired =
     userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
-    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(isEmpty);
+    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(
+      isEmpty
+    ) &&
+    userCase?.applicant2AddressOverseas !== YesOrNo.YES;
 
   return {
     ...commonTranslations,
