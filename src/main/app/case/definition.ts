@@ -3058,6 +3058,7 @@ export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
 export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
 export const CITIZEN_WITHDRAWN = 'citizen-withdrawn';
 export const WITHDRAW_SERVICE_APPLICATION = 'service-application-withdrawn';
+export const WITHDRAW_D11_APPLICATION = 'general-application-withdrawn';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 export const CASEWORKER_REQUEST_FOR_INFORMATION = 'caseworker-request-for-information';
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
