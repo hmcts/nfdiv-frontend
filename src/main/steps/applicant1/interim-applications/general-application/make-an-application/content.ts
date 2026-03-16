@@ -7,7 +7,7 @@ const en = ({ partner, isApplicant2, isDivorce }: CommonContent) => ({
   title: 'Make an application to the court (D11)',
   subHeading: 'You can use this form to make a number of different applications.',
   withdraw: {
-    header: 'Withdraw your divorce or dissolution application',
+    header: `Withdraw your ${isDivorce ? 'divorce' : 'dissolution'} application`,
     preIssueTextSole: `Your application has not yet been served on the other party, so you can <a class="govuk-link" target="_blank" href="${WITHDRAW_THIS_APPLICATION}">withdraw your application without applying to the court (opens in a new tab)</a>.`,
     preIssueTextJoint: `Either you or your ${partner} can <a class="govuk-link" target="_blank" href="${isApplicant2 ? APPLICANT_2 : '' + WITHDRAW_THIS_APPLICATION}">withdraw this application (opens in a new tab)</a>. We will refund you any fees that you have paid if the court confirms that you are due a refund.`,
     postIssueText: 'You can apply to withdraw your application at any point before your final order is issued',
@@ -55,7 +55,7 @@ const cy = ({ partner, isApplicant2, isDivorce }: CommonContent) => ({
   title: 'Make an application to the court (D11)',
   subHeading: 'You can use this form to make a number of different applications.',
   withdraw: {
-    header: 'Withdraw your divorce or dissolution application',
+    header: `Withdraw your ${isDivorce ? 'divorce' : 'dissolution'} application`,
     preIssueTextSole: `Your application has not yet been served on the other party, so you can <a class="govuk-link" target="_blank" href="${WITHDRAW_THIS_APPLICATION}">withdraw your application without applying to the court (opens in a new tab)</a>.`,
     preIssueTextJoint: `Either you or your ${partner} can <a class="govuk-link" target="_blank" href="${isApplicant2 ? APPLICANT_2 : '' + WITHDRAW_THIS_APPLICATION}">withdraw this application (opens in a new tab)</a>. We will refund you any fees that you have paid if the court confirms that you are due a refund.`,
     postIssueText: 'You can apply to withdraw your application at any point before your final order is issued',
