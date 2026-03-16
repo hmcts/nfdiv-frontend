@@ -124,7 +124,7 @@
     "@typescript-eslint/parser": "7.18.0",
     "@wdio/cli": "9.26.1",
     "@wdio/sauce-service": "9.26.1",
-    "allure-commandline": "2.37.0",
+    "allure-commandline": "2.38.0",
     "axios-debug-log": "1.0.0",
     "codeceptjs": "3.7.6",
     "copy-webpack-plugin": "14.0.0",
