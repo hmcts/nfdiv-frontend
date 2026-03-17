@@ -58,9 +58,9 @@ const en = ({ isDivorce }) => ({
   storingYourData: 'Storing your data',
   askedForEmailAddress:
     'When you use this service you’ll be asked to use your email address to set up an account. You will be able to use this email and password to sign into other HMCTS services.',
-  holdYourData: `While you’re filling out or responding to a ${
-    isDivorce ? 'divorce' : 'ending a civil partnership'
-  } application we will hold your data for up to 6 months. If you do not complete the application during this time you’ll have to start again.`,
+  holdYourData: `While you’re filling out your ${
+    isDivorce ? 'divorce application' : 'application to end your civil partnership'
+  } we will hold your data for up to 6 months. If you do not complete the application during this time you’ll have to start again.`,
   whenADivorceIsFinalised: `When ${
     isDivorce ? 'your divorce' : 'ending a civil partnership'
   } is finalised the case is stored for 18 years. After this time, some data (from the conditional order and the final order) is deleted.`,
@@ -183,9 +183,9 @@ const cy: typeof en = ({ isDivorce }) => ({
   storingYourData: 'Storio eich data',
   askedForEmailAddress:
     "Pan fyddwch yn defnyddio'r gwasanaeth hwn fe ofynnir ichi ddefnyddio’ch cyfeiriad e-bost i greu cyfrif. Byddwch yn gallu defnyddio’r cyfeiriad e-bost hwn a chyfrinair i fewngofnodi i wasanaethau eraill GLlTEM.",
-  holdYourData: `Tra byddwch yn llenwi neu'n ymateb i gais ${
-    isDivorce ? 'am ysgariad' : 'i ddiddymu partneriaeth sifil'
-  } byddwn yn cadw eich data am hyd at 6 mis. Os na fyddwch yn cwblhau’r cais yn ystod yr amser hwn, bydd rhaid ichi ddechrau eto.`,
+  holdYourData: `Tra rydych yn ffeilio eich ${
+    isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+  } byddwn yn cadw eich data am hyd at 6 mis. Os na fyddwch yn cwblhau eich cais yn ystod yr amser hwn bydd yn rhaid ichi ddechrau eto.`,
   whenADivorceIsFinalised: `Pan gwblheir ${
     isDivorce ? 'eich ysgariad' : 'diddymiad eich partneriaeth sifil'
   } cedwir manylion yr achos am 18 mlynedd. Ar ôl y cyfnod hwnnw, dilëir peth data (o’r dyfarniad amodol a'r dyfarniad terfynol).`,
