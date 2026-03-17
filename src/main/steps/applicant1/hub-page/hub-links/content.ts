@@ -37,7 +37,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2 }: CommonContent, app2OrRespond
     text: 'Adolygu eich manylion cyswllt',
   },
   hubPageDownloads: {
-    url: HUB_PAGE_DOWNLOADS,
+    url: app2OrRespondent + HUB_PAGE_DOWNLOADS,
     text: 'Gweld eich dogfennau',
   },
   genAppMakeAnApplication: {
