@@ -69,13 +69,31 @@ const languages = {
   cy,
 };
 
-const generalApplicationTypeField = (isSoleRespondent: boolean, otherDetailsFieldName: keyof Case) => {
-  const soleRespondentOptions = new Set([
+const generalApplicationTypeField = (
+  isApplicant2: boolean,
+  isJointApplication: boolean,
+  caseIssued: boolean,
+  otherDetailsFieldName: keyof Case
+) => {
+  const genAppOptions = new Set([
     GeneralApplicationType.WITHDRAW_POST_ISSUE,
-    GeneralApplicationType.DELAY,
     GeneralApplicationType.EXPEDITE,
     GeneralApplicationType.OTHER,
   ]);
+
+  const isSoleRespondent = isApplicant2 && !isJointApplication;
+  const isSoleApplicant = !isApplicant2 && !isJointApplication;
+
+  [
+    [caseIssued, GeneralApplicationType.DELAY],
+    [!isSoleRespondent, GeneralApplicationType.AMEND_APPLICATION],
+    [isSoleApplicant, GeneralApplicationType.EXTEND],
+    [!caseIssued && !isSoleRespondent, GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT],
+  ].forEach(([condition, value]) => {
+    if (condition) {
+      genAppOptions.add(value as GeneralApplicationType);
+    }
+  });
 
   return {
     type: 'radios',
@@ -120,19 +138,24 @@ const generalApplicationTypeField = (isSoleRespondent: boolean, otherDetailsFiel
           },
         },
       },
-    ].filter(
-      generalApplicationOption => !isSoleRespondent || soleRespondentOptions.has(generalApplicationOption.value)
-    ),
+    ].filter(generalApplicationOption => genAppOptions.has(generalApplicationOption.value)),
     validator: value => isFieldFilledIn(value),
   };
 };
 
 export const form: FormContent = {
-  fields: () => {
-    const isSoleRespondent = false;
+  fields: userCase => {
+    const isApplicant2 = false;
+    const isJointApplication = userCase.applicationType === ApplicationType.JOINT_APPLICATION;
+    const caseIssued = !!userCase.issueDate;
 
     return {
-      applicant1GenAppType: generalApplicationTypeField(isSoleRespondent, 'applicant1GenAppTypeOtherDetails'),
+      applicant1GenAppType: generalApplicationTypeField(
+        isApplicant2,
+        isJointApplication,
+        caseIssued,
+        'applicant1GenAppTypeOtherDetails'
+      ),
     };
   },
   submit: {
@@ -143,10 +166,17 @@ export const form: FormContent = {
 export const applicant2Form: FormContent = {
   ...form,
   fields: userCase => {
-    const isSoleRespondent = userCase.applicationType === ApplicationType.SOLE_APPLICATION;
+    const isApplicant2 = true;
+    const isJointApplication = userCase.applicationType === ApplicationType.JOINT_APPLICATION;
+    const caseIssued = !!userCase.issueDate;
 
     return {
-      applicant2GenAppType: generalApplicationTypeField(isSoleRespondent, 'applicant2GenAppTypeOtherDetails'),
+      applicant2GenAppType: generalApplicationTypeField(
+        isApplicant2,
+        isJointApplication,
+        caseIssued,
+        'applicant2GenAppTypeOtherDetails'
+      ),
     };
   },
 };
