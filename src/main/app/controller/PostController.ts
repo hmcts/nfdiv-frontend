@@ -2,7 +2,12 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { PAYMENT_CALLBACK_URL, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import {
+  DRAFT_SAVE_AND_SIGN_OUT,
+  PAYMENT_CALLBACK_URL,
+  REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
+  SAVE_AND_SIGN_OUT,
+} from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 import {
   CITIZEN_APPLICANT2_UPDATE,
@@ -51,7 +56,9 @@ export class PostController<T extends AnyObject> {
     } catch {
       // ignore
     }
-    if (
+    if (req.session.userCase.state === State.Draft) {
+      res.redirect(DRAFT_SAVE_AND_SIGN_OUT);
+    } else if (
       req.session.userCase.state === State.InformationRequested ||
       req.session.userCase.applicant1InterimApplicationType
     ) {
