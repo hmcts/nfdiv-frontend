@@ -10,6 +10,7 @@ import {
   DocumentType,
   FinancialOrderFor,
   Gender,
+  State,
   YesOrNo,
 } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
@@ -1247,12 +1248,15 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const applicant2Url = content.isApplicant2 ? urls.APPLICANT_2 : '';
   const helpWithFeesNeeded = content.userCase.applicant1HelpPayingNeeded === YesOrNo.YES;
+  const showRejectWarning =
+    !content.isApplicant2 && !content.userCase.dateSubmitted && content.userCase.state === State.AwaitingPayment;
   return {
     ...translations,
     isApplicationReadyToSubmit,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     applicant2Url,
     helpWithFeesNeeded,
+    showRejectWarning,
   };
 };
 

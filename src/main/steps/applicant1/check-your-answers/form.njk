@@ -9,11 +9,11 @@
     text: confirmApplicationIsTrueWarning,
     iconFallbackText: "Warning"
   }) }}
-  {% if not helpWithFeesNeeded %}
-  {{ govukWarningText({
-    text: applicationRejectedWarning,
-    iconFallbackText: "Warning"
-  }) }}
+  {% if showRejectWarning %}
+    {{ govukWarningText({
+      text: applicationRejectedWarning,
+      iconFallbackText: "Warning"
+    }) }}
   {% endif %}
 {% endblock %}
 
