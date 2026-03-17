@@ -123,3 +123,55 @@ Feature: General Application D11 journey joint applicant 1
 
     Given I pay and submit the general application
     Then the page should include "You have submitted your application"
+
+  Scenario: Pre-Issue joint application applicant1 D11 Journey withdraw before payment
+    When I sign out
+    And I login with applicant "1"
+    And I go to "/interim-applications/general-application/make-an-application"
+    Then the page should include element "#preIssueMakeAnApplicationTitle"
+
+    When I click start
+    Then the page should include element "#interruptionTitle"
+
+    Given I click element "#applicant1InterimAppsIUnderstand"
+    When I click continue
+    Then the page should include element "#partnerAgreesNoHearingTitle"
+
+    Given I click element "#yesDoesNotNeedConsent"
+    When I click continue
+    Then the page should include element "#applicationCostTitle"
+
+    When I click continue
+    Then the page should include element "#partnerInformationCorrectTitle"
+
+    Given I click element "#yesDetailsCorrect"
+    When I click continue
+    Then the page should include element "#generalApplicationTypeTitle"
+
+    Given I click element "#applicant1GenAppType-5"
+    When I click continue
+    Then the page should include element "#whyThisApplicationTitle"
+
+    Given I select element "#applicant1GenAppReason"
+    And I type "Reason for making this application"
+    When I click continue
+    Then the page should include element "#wantUploadEvidenceTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#helpWithFeesTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#checkAnswersTitle"
+
+    Given I click element "#applicant1InterimAppsStatementOfTruth"
+    When I click submit
+    Then the page should include element "#payYourGeneralApplicationFeeTitle"
+    And the page should include "I want to withdraw this application"
+
+    Given I click element "#withdrawLink"
+    Then the page should include "Withdraw your application"
+
+    When I click submit
+    Then the page should include "Your application has been withdrawn"
