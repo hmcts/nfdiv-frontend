@@ -2,6 +2,7 @@ import { CaseWithId } from '../case/case';
 import {
   ApplicationType,
   GeneralApplication,
+  GeneralApplicationType,
   GeneralParties,
   InterimApplicationType,
   OrderSummary,
@@ -86,12 +87,12 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
 
   const isDraftingD11GeneralApplication =
     interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
-  const hasPaymentInProgress = hasGenAppPaymentInProgress(isApplicant2, userCase);
+  const genAppWithPaymentInProgress = findGenAppAwaitingPayment(userCase, isApplicant2);
 
-  return (
-    isDraftingD11GeneralApplication ||
-    (hasPaymentInProgress && State.AwaitingGeneralApplicationPayment !== userCase.state)
-  );
+  const hasD11PaymentInProgress = !!genAppWithPaymentInProgress
+    && genAppWithPaymentInProgress?.generalApplicationType !== GeneralApplicationType.SEARCH_GOV_RECORDS;
+
+  return isDraftingD11GeneralApplication || hasD11PaymentInProgress;
 };
 
 export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
