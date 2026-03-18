@@ -326,6 +326,10 @@ const en = (
         'The court will review the information from the Third party once provided, then the application can progress.',
     },
   },
+  offlineGeneralApplicationReceived: {
+    line1:
+      'The court is reviewing a general application that has been received and will contact you to let you know your next steps.',
+  },
 });
 
 const cy: typeof en = (
@@ -634,6 +638,10 @@ const cy: typeof en = (
       line2:
         'Bydd y llys yn adolygu’r wybodaeth gan y trydydd parti unwaith y bydd wedi dod i law, ac yna gall y cais barhau.',
     },
+  },
+  offlineGeneralApplicationReceived: {
+    line1:
+      'Mae’r llys yn adolygu cais cyffredinol sydd wedi dod i law a bydd yn cysylltu â chi i roi gwybod i chi beth fydd eich camau nesaf.',
   },
 });
 

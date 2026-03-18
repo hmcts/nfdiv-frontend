@@ -1,3 +1,3 @@
-import GenAppUploadPartnerAgreesEvidenceGetController from '../../../../applicant1/interim-applications/general-application/upload-evidence-partner-agrees/get';
+import GenAppUploadPartnerAgreesEvidenceGetController from '../../../../applicant2/interim-applications/general-application/upload-evidence-partner-agrees/get';
 
 export default GenAppUploadPartnerAgreesEvidenceGetController;

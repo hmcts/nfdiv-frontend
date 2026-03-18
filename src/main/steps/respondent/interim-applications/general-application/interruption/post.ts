@@ -1,12 +1,3 @@
-import autobind from 'autobind-decorator';
+import DigitisedGeneralApplicationPostController from '../../../../applicant2/interim-applications/general-application/interruption/post';
 
-import { InterimApplicationType } from '../../../../../app/case/definition';
-import { AnyObject } from '../../../../../app/controller/PostController';
-import StartInterimApplicationPostController from '../../../../applicant1/interim-applications/common/start-interim-application/post';
-
-@autobind
-export default class DigitisedGeneralApplicationPostController extends StartInterimApplicationPostController<AnyObject> {
-  protected interimApplicationType(): InterimApplicationType {
-    return InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
-  }
-}
+export default DigitisedGeneralApplicationPostController;
