@@ -1,5 +1,4 @@
 import config from 'config';
-import striptags from 'striptags';
 
 import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../app/case/case';
@@ -388,8 +387,6 @@ const languages = {
   cy,
 };
 
-const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const isApplicant1AddressNotPrivate = content.userCase.applicant1AddressPrivate !== YesOrNo.YES;
@@ -403,7 +400,7 @@ export const generateContent: TranslationFn = content => {
   const showRejectWarning =
     !content.isApplicant2 &&
     content.isJointApplication &&
-    !stripTags(content.userCase.applicant1HelpWithFeesRefNo) &&
+    !content.userCase.applicant1HelpWithFeesRefNo &&
     content.userCase.state === State.Applicant2Approved;
 
   return {

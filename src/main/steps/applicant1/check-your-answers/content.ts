@@ -1251,7 +1251,7 @@ export const generateContent: TranslationFn = content => {
   const showRejectWarning =
     !content.isApplicant2 &&
     !content.isJointApplication &&
-    !stripTags(content.userCase.applicant1HelpWithFeesRefNo) &&
+    !content.userCase.applicant1HelpWithFeesRefNo &&
     content.userCase.state === State.Draft;
   return {
     ...translations,
