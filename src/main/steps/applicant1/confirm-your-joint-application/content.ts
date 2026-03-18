@@ -2,7 +2,7 @@ import config from 'config';
 
 import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../app/case/case';
-import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
+import { FinancialOrderFor, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
@@ -397,6 +397,11 @@ export const generateContent: TranslationFn = content => {
   const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading3']);
   const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading6']);
   const helpWithFeesNeeded = content.userCase.applicant1HelpPayingNeeded === YesOrNo.YES;
+  const showRejectWarning =
+    !content.isApplicant2 &&
+    content.isJointApplication &&
+    content.userCase.applicant1HelpWithFeesRefNo &&
+    content.userCase.state === State.Applicant2Approved;
 
   return {
     ...translations,
@@ -409,5 +414,6 @@ export const generateContent: TranslationFn = content => {
     whatThisMeansFinancialOrder,
     form,
     helpWithFeesNeeded,
+    showRejectWarning,
   };
 };
