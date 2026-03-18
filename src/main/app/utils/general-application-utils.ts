@@ -87,10 +87,10 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
 
   const isDraftingD11GeneralApplication =
     interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
-  const genAppWithPaymentInProgress = findGenAppAwaitingPayment(userCase, isApplicant2);
+  const genAppAwaitingPayment = findGenAppAwaitingPayment(userCase, isApplicant2);
 
-  const hasD11PaymentInProgress = !!genAppWithPaymentInProgress
-    && genAppWithPaymentInProgress?.generalApplicationType !== GeneralApplicationType.SEARCH_GOV_RECORDS;
+  const hasD11PaymentInProgress = !!genAppAwaitingPayment
+    && genAppAwaitingPayment?.generalApplicationType !== GeneralApplicationType.SEARCH_GOV_RECORDS;
 
   return isDraftingD11GeneralApplication || hasD11PaymentInProgress;
 };
