@@ -755,6 +755,18 @@ const fields: ToApiConverters = {
     applicant2GenAppCannotUploadAgreedEvidence: checkboxConverter(data.applicant2GenAppCannotUploadAgreedEvidence),
   }),
   applicant2GenAppPartnerAgreesUploadedFiles: () => ({}),
+  // applicant1GenAppType: data => ({
+  //   applicant1GenAppType: data.applicant1GenAppType,
+  //   ...setUnreachableAnswersToNull(
+  //     getApplicantOrApplicant2FieldNames(WhichApplicant.APPLICANT_1, D11_APPLICATION_TYPE_DEPENDENT_FIELDS)
+  //   ),
+  // }),
+  // applicant2GenAppType: data => ({
+  //   applicant2GenAppType: data.applicant2GenAppType,
+  //   ...setUnreachableAnswersToNull(
+  //     getApplicantOrApplicant2FieldNames(WhichApplicant.APPLICANT_2, D11_APPLICATION_TYPE_DEPENDENT_FIELDS)
+  //   ),
+  // })
 };
 
 const toApiDate = (date: CaseDate | undefined | string) => {
@@ -784,3 +796,20 @@ const setUnreachableAnswersToNull = (
   properties.reduce((arr: Record<string, null>, property: string) => ({ ...arr, [property]: null }), {});
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
+
+// const getApplicantOrApplicant2FieldNames = (applicant: WhichApplicant, fieldSuffixes: string[]): (keyof CaseData)[] => {
+//   return fieldSuffixes.map(fieldSuffix =>
+//     `${applicant === WhichApplicant.APPLICANT_1 ? 'applicant1' : 'applicant2'}${fieldSuffix}` as keyof CaseData
+//   );
+// }
+
+// const D11_APPLICATION_TYPE_DEPENDENT_FIELDS = [
+//   'GenAppReason',
+//   'InterimAppsCanUploadEvidence',
+//   'InterimAppsEvidenceDocs',
+//   'InterimAppsCannotUploadDocs',
+//   'GenAppStatementOfEvidence',
+//   'InterimAppsUseHelpWithFees',
+//   'InterimAppsHaveHwfReference',
+//   'InterimAppsHwfRefNumber',
+// ]
