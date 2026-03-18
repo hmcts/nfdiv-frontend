@@ -17,6 +17,7 @@ import { signInNotRequired } from '../../steps/url-utils';
 import {
   APPLICANT_2,
   APP_REPRESENTED,
+  DRAFT_SAVE_AND_SIGN_OUT,
   GENERAL_APPLICATION_PAYMENT_CALLBACK,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
@@ -96,6 +97,7 @@ export class StateRedirectMiddleware {
         if (
           !this.caseAwaitingPayment(state) ||
           [
+            DRAFT_SAVE_AND_SIGN_OUT,
             PAY_YOUR_FEE,
             PAY_AND_SUBMIT,
             PAYMENT_CALLBACK_URL,
