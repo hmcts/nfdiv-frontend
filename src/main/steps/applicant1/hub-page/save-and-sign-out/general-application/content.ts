@@ -5,10 +5,9 @@ import {
   hasGenAppSaveAndSignOutContent,
 } from '../../../../../app/utils/general-application-utils';
 import { CommonContent, getRootRedirectPath } from '../../../../common/common.content';
-import { MAKE_AN_APPLICATION, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
+import { GEN_APP_WITHDRAW_APPLICATION, MAKE_AN_APPLICATION, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
 import { generateContent as generalApplicationSubmittedContent } from '../../../interim-applications/general-application/submitted/content';
-
-const en = ({ isDivorce }: CommonContent, hasPaymentInProgress, continueLinkUrl) => ({
+const en = ({ isDivorce }: CommonContent, hasPaymentInProgress, continueLinkUrl, withdrawLinkUrl) => ({
   generalApplication: {
     heading: 'Your draft general application',
     line1: `You have also started a general application to the court as part of your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
@@ -20,12 +19,12 @@ const en = ({ isDivorce }: CommonContent, hasPaymentInProgress, continueLinkUrl)
     continueLinkText: hasPaymentInProgress ? 'Complete payment' : 'Continue application',
     continueLinkUrl,
     withdrawLinkText: 'Withdraw application',
-    withdrawLinkUrl: '/withdraw',
+    withdrawLinkUrl,
   },
 });
 
 // @TODO translations
-const cy: typeof en = ({ isDivorce }: CommonContent, hasPaymentInProgress, continueLinkUrl) => ({
+const cy: typeof en = ({ isDivorce }: CommonContent, hasPaymentInProgress, continueLinkUrl, withdrawLinkUrl) => ({
   generalApplication: {
     heading: 'Your draft general application',
     line1: `You have also started a general application to the court as part of your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
@@ -37,7 +36,7 @@ const cy: typeof en = ({ isDivorce }: CommonContent, hasPaymentInProgress, conti
     continueLinkText: hasPaymentInProgress ? 'Complete payment' : 'Continue application',
     continueLinkUrl,
     withdrawLinkText: 'Withdraw application',
-    withdrawLinkUrl: '/withdraw',
+    withdrawLinkUrl,
   },
 });
 
@@ -54,9 +53,10 @@ export const generateContent: TranslationFn = content => {
   const continueLinkUrl = hasPaymentInProgress
     ? rootPath + PAY_YOUR_GENERAL_APPLICATION_FEE
     : rootPath + MAKE_AN_APPLICATION;
+  const withdrawLinkUrl = rootPath + GEN_APP_WITHDRAW_APPLICATION;
 
   return {
-    ...languages[content.language](content, hasPaymentInProgress, continueLinkUrl),
+    ...languages[content.language](content, hasPaymentInProgress, continueLinkUrl, withdrawLinkUrl),
     hasGenAppSaveAndSignOutContent: hasGenAppSaveAndSignOutContent(isApplicant2, userCase),
     generalApplicationSubmitted: generalApplicationSubmittedContent(content),
     hasPaymentInProgress,
