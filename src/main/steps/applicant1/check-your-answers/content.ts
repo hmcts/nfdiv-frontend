@@ -1248,7 +1248,10 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const applicant2Url = content.isApplicant2 ? urls.APPLICANT_2 : '';
   const helpWithFeesNeeded = content.userCase.applicant1HelpPayingNeeded === YesOrNo.YES;
-  const showRejectWarning = !content.isApplicant2 && content.userCase.state === State.Draft;
+  const showRejectWarning =
+    content.userCase.applicationType === ApplicationType.JOINT_APPLICATION
+      ? !content.isApplicant2 && content.userCase.state === State.Applicant2Approved
+      : !content.isApplicant2 && content.userCase.state === State.Draft;
   return {
     ...translations,
     isApplicationReadyToSubmit,
