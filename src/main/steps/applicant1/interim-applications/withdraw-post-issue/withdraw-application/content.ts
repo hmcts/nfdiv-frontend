@@ -12,7 +12,7 @@ const en = ({ partner, isDivorce, referenceNumber, userCase }: CommonContent) =>
     isDivorce ? 'Divorce application' : 'Application to end your civil partnership'
   } submitted: ${getFormattedDate(userCase.dateSubmitted)}`,
   line3: `Use this form to apply to the court to withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
-  line4: `We have now sent (issued) the ${
+  line4: `We have already sent (issued) the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } to your ${partner}. There is a fee for withdrawing your application. The exact amount will be shown to you later in the process. You may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
@@ -27,7 +27,7 @@ const cy = ({ partner, isDivorce, referenceNumber, userCase }: CommonContent) =>
     isDivorce ? 'Divorce application' : 'Application to end your civil partnership'
   } submitted: ${getFormattedDate(userCase.dateSubmitted)}`,
   line3: `Use this form to apply to the court to withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
-  line4: `We have now sent (issued) the ${
+  line4: `We have already sent (issued) the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } to your ${partner}. There is a fee for withdrawing your application. The exact amount will be shown to you later in the process. You may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'

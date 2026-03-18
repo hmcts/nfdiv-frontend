@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { CITIZEN_UPDATE } from '../../../../../app/case/definition';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 
 import InitiateD11ApplicationPostController from './post';
@@ -10,7 +10,7 @@ describe('DigitisedGeneralApplicationPostController', () => {
     fields: {},
   } as unknown as FormContent;
 
-  it('Sets digitised general application type', async () => {
+  it('Sets digitised general application type to null for applicant1', async () => {
     const body = {};
 
     const expectedBody = {
@@ -24,5 +24,22 @@ describe('DigitisedGeneralApplicationPostController', () => {
     await initiateD11ApplicationPostController.post(req, res);
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_UPDATE);
+  });
+
+  it('Sets digitised general application type to null for applicant2', async () => {
+    const body = {};
+
+    const expectedBody = {
+      applicant2GenAppType: null,
+    };
+
+    const initiateD11ApplicationPostController = new InitiateD11ApplicationPostController(mockFormContent.fields);
+
+    const req = mockRequest({ body });
+    req.session.isApplicant2 = true;
+    const res = mockResponse();
+    await initiateD11ApplicationPostController.post(req, res);
+
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_APPLICANT2_UPDATE);
   });
 });
