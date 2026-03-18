@@ -8,7 +8,11 @@ import { AnyObject, PostController } from '../../../../../app/controller/PostCon
 @autobind
 export default class InitiateD11WithdrawApplicationPostController extends PostController<AnyObject> {
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    formData.applicant1GenAppType = GeneralApplicationType.WITHDRAW_POST_ISSUE;
+    if (req.session.isApplicant2) {
+      formData.applicant2GenAppType = GeneralApplicationType.WITHDRAW_POST_ISSUE;
+    } else {
+      formData.applicant1GenAppType = GeneralApplicationType.WITHDRAW_POST_ISSUE;
+    }
     return super.save(req, formData, eventName);
   }
 }
