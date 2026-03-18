@@ -7,7 +7,11 @@ import { AnyObject, PostController } from '../../../../../app/controller/PostCon
 @autobind
 export default class InitiateD11ApplicationPostController extends PostController<AnyObject> {
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    formData.applicant1GenAppType = null;
+    if (req.session.isApplicant2) {
+      formData.applicant2GenAppType = null;
+    } else {
+      formData.applicant1GenAppType = null;
+    }
     return super.save(req, formData, eventName);
   }
 }
