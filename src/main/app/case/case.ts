@@ -843,7 +843,7 @@ export interface Case {
   applicant2GenAppPartnerDetailsCorrect?: YesOrNo;
   applicant2GenAppReason?: string;
   applicant2GenAppStatementOfEvidence?: string;
-  applicant2GenAppType?: GeneralApplicationType;
+  applicant2GenAppType?: GeneralApplicationType | null;
   applicant2GenAppTypeOtherDetails?: string;
 }
 
