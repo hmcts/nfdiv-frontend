@@ -1,4 +1,4 @@
-import { GeneralApplicationType } from 'app/case/definition';
+import { GeneralApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import {
   hasGenAppAwaitingDocuments,
@@ -61,7 +61,8 @@ export const generateContent: TranslationFn = content => {
   const withdrawLinkUrl = rootPath + GEN_APP_WITHDRAW_APPLICATION;
 
   const generalApplicationType = isApplicant2 ? userCase?.applicant2GenAppType : userCase?.applicant1GenAppType;
-  const isDraftingWithdraw = !hasPaymentInProgress && generalApplicationType === GeneralApplicationType.WITHDRAW_POST_ISSUE;
+  const isDraftingWithdraw =
+    !hasPaymentInProgress && generalApplicationType === GeneralApplicationType.WITHDRAW_POST_ISSUE;
 
   return {
     ...languages[content.language](content, hasPaymentInProgress, continueLinkUrl, withdrawLinkUrl),
@@ -69,6 +70,6 @@ export const generateContent: TranslationFn = content => {
     generalApplicationSubmitted: generalApplicationSubmittedContent(content),
     hasPaymentInProgress,
     awaitingDocuments,
-    isDraftingWithdraw
+    isDraftingWithdraw,
   };
 };
