@@ -322,8 +322,8 @@ describe('GeneralApplicationUtils', () => {
       expect(hasGenAppSaveAndSignOutContent(false, mockReq.session.userCase)).toBe(true);
     });
 
-    test('Should return false if payment in progress but case is awaiting payment state', () => {
-      mockReq.session.userCase.state = State.AwaitingGeneralApplicationPayment;
+    test('Should return false if payment in progress but is a search government records application', () => {
+      applicant1GeneralApplications[0].value.generalApplicationType = GeneralApplicationType.SEARCH_GOV_RECORDS;
 
       expect(hasGenAppSaveAndSignOutContent(false, mockReq.session.userCase)).toBe(false);
     });
