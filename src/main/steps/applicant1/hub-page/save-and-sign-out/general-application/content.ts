@@ -9,8 +9,8 @@ import { GEN_APP_WITHDRAW_APPLICATION, MAKE_AN_APPLICATION, PAY_YOUR_GENERAL_APP
 import { generateContent as generalApplicationSubmittedContent } from '../../../interim-applications/general-application/submitted/content';
 const en = ({ isDivorce }: CommonContent, hasPaymentInProgress, continueLinkUrl, withdrawLinkUrl) => ({
   generalApplication: {
-    heading: 'Your draft general application',
-    line1: `You have also started a general application to the court as part of your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    heading: 'Your Draft General Application',
+    line1: `You have started a general application to the court as part of your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
     line2:
       'You can continue and complete the application or withdraw the application if you no longer want to continue.',
     line3: `If you withdraw the application, your draft will be deleted. This will not affect your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
@@ -26,8 +26,8 @@ const en = ({ isDivorce }: CommonContent, hasPaymentInProgress, continueLinkUrl,
 // @TODO translations
 const cy: typeof en = ({ isDivorce }: CommonContent, hasPaymentInProgress, continueLinkUrl, withdrawLinkUrl) => ({
   generalApplication: {
-    heading: 'Your draft general application',
-    line1: `You have also started a general application to the court as part of your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    heading: 'Your Draft General Application',
+    line1: `You have started a general application to the court as part of your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
     line2:
       'You can continue and complete the application or withdraw the application if you no longer want to continue.',
     line3: `If you withdraw the application, your draft will be deleted. This will not affect your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,

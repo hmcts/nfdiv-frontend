@@ -193,6 +193,10 @@ const fields: FromApiConverters = {
   applicant1InterimAppsCannotUploadDocs: data => ({
     applicant1InterimAppsCannotUploadDocs: checkboxConverter(data.applicant1InterimAppsCannotUploadDocs),
   }),
+  applicant2InterimAppsEvidenceDocs: uploadedFilesFromApiApplicant2,
+  applicant2InterimAppsCannotUploadDocs: data => ({
+    applicant2InterimAppsCannotUploadDocs: checkboxConverter(data.applicant2InterimAppsCannotUploadDocs),
+  }),
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
   }),
