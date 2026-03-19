@@ -89,13 +89,11 @@ export const YOU_NEED_THEIR_EMAIL_ADDRESS: PageLink = '/you-need-their-email-add
 export const EMAIL_RESENT: PageLink = '/email-resent';
 export const YOU_CANNOT_UPDATE_THEIR_EMAIL: PageLink = '/you-cannot-update-their-email';
 
-export const HOW_TO_APPLY_TO_SERVE: PageLink = '/how-to-apply-to-serve';
 export const OTHER_COURT_CASES: PageLink = '/other-court-cases';
 export const YOU_NEED_TO_SERVE: PageLink = '/you-need-to-serve';
 export const DETAILS_OTHER_PROCEEDINGS: PageLink = '/details-other-proceedings';
 export const MONEY_PROPERTY: PageLink = '/dividing-money-property';
 export const DO_YOU_HAVE_ADDRESS: PageLink = '/do-you-have-address';
-export const NEED_TO_GET_ADDRESS: PageLink = '/need-to-get-address';
 export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
 
 export const UPLOAD_YOUR_DOCUMENTS: PageLink = '/upload-your-documents';
@@ -163,6 +161,12 @@ export const NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS: PageLink =
 export const NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS: PageLink =
   '/interim-applications/no-respondent-address/have-found-address';
 export const NO_RESP_ADDRESS_ENTER_ADDRESS: PageLink = '/interim-applications/no-respondent-address/enter-address';
+export const NO_RESP_ADDRESS_ENTER_EMAIL: PageLink = '/interim-applications/no-respondent-address/enter-email';
+export const NO_RESP_ADDRESS_INTERNATIONAL_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/divorcing-outside';
+export const NO_RESP_ADDRESS_CHECK_ANSWERS_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/contact-details-check-answers';
+export const NO_RESP_ADDRESS_DETAILS_UPDATED: PageLink = '/interim-applications/no-respondent-address/details-updated';
 export const NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS: PageLink =
   '/interim-applications/no-respondent-address/searching-for-contact-details';
 export const NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT: PageLink =
