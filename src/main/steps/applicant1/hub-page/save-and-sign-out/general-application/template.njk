@@ -4,10 +4,18 @@
 
 {% if hasGenAppSaveAndSignOutContent %}
   <h2 class="govuk-heading-m">{{ generalApplication.heading }}</h2>
-  <p class="govuk-body">{{ generalApplication.line1 }}</p>
+  {% if isDraftingWithdraw %}
+    <p class="govuk-body">{{ generalApplication.line1Withdraw }}</p>
+  {% else %}
+    <p class="govuk-body">{{ generalApplication.line1 }}</p>
+  {% endif %}
 
   {% set generalApplicationUpdate %}
-    <p class="govuk-body">{{ generalApplication.line2 }}</p>
+    {% if isDraftingWithdraw %}
+      <p class="govuk-body">{{ generalApplication.line2Withdraw }}</p>
+    {% else %}
+      <p class="govuk-body">{{ generalApplication.line2 }}</p>
+    {% endif %}
     <p class="govuk-body">{{ generalApplication.line3 }}</p>
     <p class="govuk-body">{{ generalApplication.line4 }}</p>
     {{ govukButton({
