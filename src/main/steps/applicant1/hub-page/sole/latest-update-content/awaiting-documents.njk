@@ -1,5 +1,7 @@
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
-  {% if cannotUploadDocuments or userCase.iWantToHavePapersServedAnotherWay or addressRequired %}
+  {% if preIssueServiceApplicationStarted %}
+      {% include "./complete-preIssue-service-application.njk" %}
+  {% elif cannotUploadDocuments or userCase.iWantToHavePapersServedAnotherWay or addressRequired %}
     <p class="govuk-body">{{ sendDocumentsOrProvideAddress }}</p>
     {% if addressRequired %}
       <h3 class="govuk-heading-m">{{ furtherActionNeeded.provideAddressHeading }}</h3>

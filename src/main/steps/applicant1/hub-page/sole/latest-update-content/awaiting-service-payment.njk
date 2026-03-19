@@ -3,7 +3,7 @@
 {% if serviceApplicationSubmittedOnline %}
     {% if serviceApplicationFeeRequired %}
         {% if caseHasBeenIssued %}
-            <p class="govuk-body">{{ awaitingServicePayment.line1 }}</p>
+          <p class="govuk-body">{{ awaitingServicePayment.line1 }}</p>
         {% endif %}
         <p class="govuk-body">{{ awaitingServicePayment.line2 }}</p>
         <h3 class="govuk-heading-s">{{ awaitingServicePayment.doNext }}</h3>
