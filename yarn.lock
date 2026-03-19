@@ -1168,31 +1168,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cucumber/cucumber-expressions@npm:18":
-  version: 18.0.1
-  resolution: "@cucumber/cucumber-expressions@npm:18.0.1"
+"@cucumber/cucumber-expressions@npm:19":
+  version: 19.0.0
+  resolution: "@cucumber/cucumber-expressions@npm:19.0.0"
   dependencies:
     regexp-match-indices: 1.0.2
-  checksum: 3c0c39deebaf111194c41a62d257e1c091a11dbaf98c2f0b83a41bb5f68b73c814c5b7e8e8783ecabe073ba67c8b2e3663d106d63110e63bb781a2a499cca528
+  checksum: d90b2ef7b2c990f5ee46f92d2babaff86c8d411d04f91be0a9b8e261b2ac46a7f68ed68f90acf0757fb951863a74f709b5aeb16d210e10a04b8296c33fa25385
   languageName: node
   linkType: hard
 
-"@cucumber/gherkin@npm:35.1.0":
-  version: 35.1.0
-  resolution: "@cucumber/gherkin@npm:35.1.0"
+"@cucumber/gherkin@npm:39.0.0":
+  version: 39.0.0
+  resolution: "@cucumber/gherkin@npm:39.0.0"
   dependencies:
-    "@cucumber/messages": ">=19.1.4 <30"
-  checksum: 82d278e6bc3ba8bd3318f8ea96ff8d306430d0048b27e067bee86b1eaa82e85939f5fa7342b4f86e44a20da1cc485ce8cb73a815f671a32f419ea5b35bc906d0
+    "@cucumber/messages": ">=31.0.0 <33"
+  checksum: cc65b64c1d61877a9523fe7251d6361d145b548243da1cf1ce0c088ae2e1d2f9fee6760acaf483ce8c005ad19c1664ff68b10a3340bd337580545ab92b23e35d
   languageName: node
   linkType: hard
 
-"@cucumber/messages@npm:29.0.1, @cucumber/messages@npm:>=19.1.4 <30":
-  version: 29.0.1
-  resolution: "@cucumber/messages@npm:29.0.1"
+"@cucumber/messages@npm:32.2.0, @cucumber/messages@npm:>=31.0.0 <33":
+  version: 32.2.0
+  resolution: "@cucumber/messages@npm:32.2.0"
   dependencies:
     class-transformer: 0.5.1
     reflect-metadata: 0.2.2
-  checksum: 728e3e97e3137750c48161dd31a381f4a6b0db160f8fbbca8bc8a3e0e576492cba9dba3d84adfe8c897f1e515187e0b4f9ee8782af70f59d697d9cd462fcb03d
+  checksum: a054d04e50f1a48185bb8281f8da3a882e5d400d950ea6a21ab80b2b543193c2c774a0a6f311fc70f53c261c15fcffb2010a420d86fd8d4829987260a085869c
   languageName: node
   linkType: hard
 
@@ -4834,12 +4834,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:8.15.0, acorn@npm:^8.15.0":
-  version: 8.15.0
-  resolution: "acorn@npm:8.15.0"
+"acorn@npm:8.16.0, acorn@npm:^8.16.0":
+  version: 8.16.0
+  resolution: "acorn@npm:8.16.0"
   bin:
     acorn: bin/acorn
-  checksum: 309c6b49aedf1a2e34aaf266de06de04aab6eb097c02375c66fdeb0f64556a6a823540409914fb364d9a11bc30d79d485a2eba29af47992d3490e9886c4391c3
+  checksum: bbfa466cd0dbd18b4460a85e9d0fc2f35db999380892403c573261beda91f23836db2aa71fd3ae65e94424ad14ff8e2b7bd37c7a2624278fd89137cd6e448c41
   languageName: node
   linkType: hard
 
@@ -4852,12 +4852,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.16.0":
-  version: 8.16.0
-  resolution: "acorn@npm:8.16.0"
+"acorn@npm:^8.15.0":
+  version: 8.15.0
+  resolution: "acorn@npm:8.15.0"
   bin:
     acorn: bin/acorn
-  checksum: bbfa466cd0dbd18b4460a85e9d0fc2f35db999380892403c573261beda91f23836db2aa71fd3ae65e94424ad14ff8e2b7bd37c7a2624278fd89137cd6e448c41
+  checksum: 309c6b49aedf1a2e34aaf266de06de04aab6eb097c02375c66fdeb0f64556a6a823540409914fb364d9a11bc30d79d485a2eba29af47992d3490e9886c4391c3
   languageName: node
   linkType: hard
 
@@ -6464,20 +6464,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codeceptjs@npm:3.7.6":
-  version: 3.7.6
-  resolution: "codeceptjs@npm:3.7.6"
+"codeceptjs@npm:3.7.7":
+  version: 3.7.7
+  resolution: "codeceptjs@npm:3.7.7"
   dependencies:
     "@codeceptjs/configure": 1.0.6
     "@codeceptjs/detox-helper": 1.1.14
     "@codeceptjs/helper": 2.0.4
-    "@cucumber/cucumber-expressions": 18
-    "@cucumber/gherkin": 35.1.0
-    "@cucumber/messages": 29.0.1
+    "@cucumber/cucumber-expressions": 19
+    "@cucumber/gherkin": 39.0.0
+    "@cucumber/messages": 32.2.0
     "@xmldom/xmldom": 0.9.8
-    acorn: 8.15.0
+    acorn: 8.16.0
     arrify: 3.0.0
-    axios: 1.13.2
+    axios: 1.13.6
     chalk: 4.1.2
     cheerio: ^1.0.0
     chokidar: ^4.0.3
@@ -6485,11 +6485,11 @@ __metadata:
     cross-spawn: 7.0.6
     css-to-xpath: 0.1.0
     csstoxpath: 1.6.0
-    envinfo: 7.15.0
+    envinfo: 7.21.0
     escape-string-regexp: 4.0.0
     figures: 3.2.0
     fn-args: 4.0.0
-    fs-extra: 11.3.3
+    fs-extra: 11.3.4
     fuse.js: ^7.0.0
     glob: ">=9.0.0 <12"
     html-minifier-terser: 7.2.0
@@ -6516,7 +6516,7 @@ __metadata:
       optional: true
   bin:
     codeceptjs: bin/codecept.js
-  checksum: de76e7e64da2f22267212310ae5ac42c9f336ffe26b9d2058410251f8bc777caea23074ba0184242a504deae25b8691ab751741ca21880dd8b880221750fce33
+  checksum: 74830c96352c0de5933f913d964265bd3f4bea184db0dc5c62fadbd61e82f7f9ec905aaac79975a896821db459f0b7c8b4ce52bf49d689e607d392319824520e
   languageName: node
   linkType: hard
 
@@ -7919,12 +7919,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"envinfo@npm:7.15.0":
-  version: 7.15.0
-  resolution: "envinfo@npm:7.15.0"
+"envinfo@npm:7.21.0, envinfo@npm:~7.21.0":
+  version: 7.21.0
+  resolution: "envinfo@npm:7.21.0"
   bin:
     envinfo: dist/cli.js
-  checksum: 38595c11134ecb66a40289980d8ca82e89fdcd68849dd72560c1bbc3cfc55c867573b4150967707ff9ff2e5cad6f1d0cb6cc56c333a6eccdcd3533452141c0a8
+  checksum: c9526266810a328396c387c0580d6fc10f6ce8464074ae6eaef6798e2a05b5800b480b2eaf739cf523e3bfb407baba2ef23ff8edebb76c2b8fa7fbac995b3b9b
   languageName: node
   linkType: hard
 
@@ -7934,15 +7934,6 @@ __metadata:
   bin:
     envinfo: dist/cli.js
   checksum: 137c1dd9a4d5781c4a6cdc6b695454ba3c4ba1829f73927198aa4122f11b35b59d7b2cb7e1ceea1364925a30278897548511d22f860c14253a33797d0bebd551
-  languageName: node
-  linkType: hard
-
-"envinfo@npm:~7.21.0":
-  version: 7.21.0
-  resolution: "envinfo@npm:7.21.0"
-  bin:
-    envinfo: dist/cli.js
-  checksum: c9526266810a328396c387c0580d6fc10f6ce8464074ae6eaef6798e2a05b5800b480b2eaf739cf523e3bfb407baba2ef23ff8edebb76c2b8fa7fbac995b3b9b
   languageName: node
   linkType: hard
 
@@ -9176,14 +9167,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:11.3.3":
-  version: 11.3.3
-  resolution: "fs-extra@npm:11.3.3"
+"fs-extra@npm:11.3.4":
+  version: 11.3.4
+  resolution: "fs-extra@npm:11.3.4"
   dependencies:
     graceful-fs: ^4.2.0
     jsonfile: ^6.0.1
     universalify: ^2.0.0
-  checksum: fb2acabbd1e04bcaca90eadfe98e6ffba1523b8009afbb9f4c0aae5efbca0bd0bf6c9a6831df5af5aaacb98d3e499898be848fb0c03d31ae7b9d1b053e81c151
+  checksum: 3d1453db564b20ad58adf7c9583d0821546bd05e158865407fa2767af774ad8353418118655005f48c5bd0dbda19ea4bd053f8a5dcef2ce2e97580f7a039a221
   languageName: node
   linkType: hard
 
@@ -13419,7 +13410,7 @@ __metadata:
     autobind-decorator: 2.4.0
     axios: 1.13.6
     axios-debug-log: 1.0.0
-    codeceptjs: 3.7.6
+    codeceptjs: 3.7.7
     config: 4.4.1
     connect-redis: 7.1.1
     cookie-parser: 1.4.7
