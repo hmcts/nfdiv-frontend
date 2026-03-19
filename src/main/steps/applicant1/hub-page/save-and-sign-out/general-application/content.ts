@@ -15,7 +15,7 @@ const en = ({ isDivorce }: CommonContent, hasPaymentInProgress, continueLinkUrl,
     line1Withdraw: `You have started a general application to the court to withdraw ${isDivorce ? 'your divorce application' : 'the application to end your civil partnership'}.`,
     line2:
       'You can continue and complete the application or withdraw the application if you no longer want to continue.',
-    line2Withdraw: `You can continue and complete the application or withdraw it if you want to continue ${isDivorce ? 'with  your divorce' : 'to end your civil partnership'}.`,
+    line2Withdraw: `You can continue and complete the application or withdraw it if you want to continue ${isDivorce ? 'with your divorce' : 'to end your civil partnership'}.`,
     line3: `If you withdraw the application, your draft will be deleted. This will not affect your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
     line4: 'You can make another general application to the court at any time.',
     continuingTheApplication: 'Progressing your general application',
@@ -34,7 +34,7 @@ const cy: typeof en = ({ isDivorce }: CommonContent, hasPaymentInProgress, conti
     line1Withdraw: `You have started a general application to the court to withdraw ${isDivorce ? 'your divorce application' : 'the application to end your civil partnership'}.`,
     line2:
       'You can continue and complete the application or withdraw the application if you no longer want to continue.',
-    line2Withdraw: `You can continue and complete the application or withdraw it if you want to continue ${isDivorce ? 'with  your divorce' : 'to end your civil partnership'}.`,
+    line2Withdraw: `You can continue and complete the application or withdraw it if you want to continue ${isDivorce ? 'with your divorce' : 'to end your civil partnership'}.`,
     line3: `If you withdraw the application, your draft will be deleted. This will not affect your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
     line4: 'You can make another general application to the court at any time.',
     continuingTheApplication: 'Progressing your general application',
