@@ -4,12 +4,13 @@ import dayjs from 'dayjs';
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { getFee } from '../../../app/fees/service/get-fee';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { isCountryUk } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
-import { HUB_PAGE } from '../../urls';
+import { HUB_PAGE, NO_RESP_ADDRESS_ENTER_ADDRESS, NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS } from '../../urls';
 import { getProgressBarContent } from '../hub-page/progressBarLabels';
 
 const en = ({
@@ -23,11 +24,13 @@ const en = ({
   openingTimes,
   telephoneNumber,
   feedbackLink,
+  userCannotUploadDocuments,
+  addressRequired,
 }: CommonContent) => ({
-  title: `Application ${
-    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
-      ? 'saved'
-      : 'submitted'
+  title: `${
+    addressRequired || userCannotUploadDocuments || userCase.iWantToHavePapersServedAnotherWay
+      ? 'Further action needed'
+      : 'Application submitted'
   }`,
   yourReferenceNumber: 'Your reference number',
   subHeading1: 'What you need to do now',
@@ -142,6 +145,26 @@ const en = ({
     link: feedbackLink,
   },
   useOurOnlineForm: 'Use our online form',
+  hubUrl: {
+    text: 'Return to your account',
+    url: HUB_PAGE,
+  },
+  addressRequiredContent: {
+    provideAddressHeading: 'Provide a postal address',
+    line1: `You have submitted your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but have not provided your ${partner}'s postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnership'
+    } to this address at no additional cost if the address is in England and Wales.`,
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
+      isDivorce ? 'your divorce' : 'ending your civil partnership'
+    } another way</a>. This application will cost ${getFee(
+      config.get('fees.alternativeService')
+    )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.getHelpWithCourtFees'
+    )}">get help paying this fee (opens in a new tab)</a>.`,
+  },
 });
 
 // @TODO Welsh
@@ -156,9 +179,11 @@ const cy: typeof en = ({
   telephoneNumber,
   openingTimes,
   feedbackLink,
+  userCannotUploadDocuments,
+  addressRequired,
 }: CommonContent) => ({
   title: `${
-    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
+    addressRequired || userCannotUploadDocuments || userCase.iWantToHavePapersServedAnotherWay
       ? 'Cais wedi’i gadw'
       : 'Cyflwynwyd y cais'
   }`,
@@ -276,6 +301,26 @@ const cy: typeof en = ({
     part1: 'Rhoi adborth.',
     link: feedbackLink,
   },
+  addressRequiredContent: {
+    provideAddressHeading: 'Provide a postal address',
+    line1: `You have submitted your ${
+      isDivorce ? 'divorce application' : 'application to end your civil partnership'
+    } but have not provided your ${partner}'s postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
+    line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
+      isDivorce ? 'divorce papers' : 'papers to end civil partnership'
+    } to this address at no additional cost if the address is in England and Wales.`,
+    line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
+      isDivorce ? 'your divorce' : 'ending your civil partnership'
+    } another way</a>. This application will cost ${getFee(
+      config.get('fees.alternativeService')
+    )}, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
+      'govukUrls.getHelpWithCourtFees'
+    )}">get help paying this fee (opens in a new tab)</a>.`,
+  },
+  hubUrl: {
+    text: 'Dychwelyd i’ch cyfri',
+    url: HUB_PAGE,
+  },
 });
 
 const languages = {
@@ -292,7 +337,8 @@ export const generateContent: TranslationFn = content => {
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const hasASolicitorContactForPartner =
     userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
-  const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
+  const isRespondentOverseas =
+    userCase.applicant1KnowsApplicant2Address && !isCountryUk(userCase.applicant2AddressCountry);
   const applicationServedAnotherWay =
     !isJointApplication &&
     userCase.applicant2Email &&
@@ -303,6 +349,7 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
+
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
 
   return {

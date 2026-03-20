@@ -1,8 +1,16 @@
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
-  {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
-    <p class="govuk-body">{{ sendDocumentLine1 }}</p>
-    {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload %}
-      <h3 class="govuk-heading-s">{{ sendDocumentHeading }}</h3>
+  {% if preIssueServiceApplicationStarted %}
+      {% include "./complete-preIssue-service-application.njk" %}
+  {% elif cannotUploadDocuments or userCase.iWantToHavePapersServedAnotherWay or addressRequired %}
+    <p class="govuk-body">{{ sendDocumentsOrProvideAddress }}</p>
+    {% if addressRequired %}
+      <h3 class="govuk-heading-m">{{ furtherActionNeeded.provideAddressHeading }}</h3>
+      <p class="govuk-body">{{ furtherActionNeeded.line1 }}</p>
+      <p class="govuk-body">{{ furtherActionNeeded.line2 | safe }}</p>
+      <p class="govuk-body">{{ furtherActionNeeded.line3 | safe }}</p>
+    {% endif %}
+    {% if userCannotUploadDocuments %}
+      <h3 class="govuk-heading-m">{{ sendDocumentHeading }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">
         {% for document in cannotUploadDocuments %}
@@ -32,12 +40,6 @@
         summaryText: documentsByPost,
         html: sendingDocumentsByPost
       }) }}
-    {% endif %}
-    {% if userCase.iWantToHavePapersServedAnotherWay %}
-      <h3 class="govuk-heading-m">{{ subHeading3 }}</h3>
-      <p class="govuk-body">{{ line3.p1 }}</p>
-      <p class="govuk-body">{{ line3.p2 }}</p>
-      <p class="govuk-body"><a class="govuk-link" href={{ line4.link }}>{{ line4.part1 }}</a></p>
     {% endif %}
   {% else %}
     <h2 class="govuk-heading-l">{{ subHeading4 }}</h2>

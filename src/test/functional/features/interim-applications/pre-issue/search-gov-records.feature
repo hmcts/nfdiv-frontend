@@ -1,36 +1,15 @@
-Feature: Search gov records journey
+Feature: Search gov records journey pre-issue
 
   Background:
     Given I create a new user and login
     Then I reject cookies
-    And I've already completed the form using the fixture "issuedCase"
-    Given a superuser updates "issueDate" with "2023-10-31"
-    Then I set the case state to "AwaitingAos"
-
-  Scenario: Search gov records happy path
+    And I've already completed the form using the fixture "completeCase"
+    Then I set the case state to "AwaitingDocuments"
     When I sign out
     And I login with applicant "1"
-    Then the page should include "Your application will be checked by court staff."
+    And I go to "/interim-applications/no-respondent-address/search-gov-records/general-application"
 
-    Given I set the case state to "AosOverdue"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include element "#aosDueLink"
-
-    Given I go to "/interim-applications/no-response/gov-search-possible"
-    And I click element "#search"
-    When I click continue
-    Then the page should include element "#searchGovRecordsApplicationTitle"
-
-  Scenario: Search gov records help with fees happy path
-    Given I set the case state to "AosOverdue"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include element "#aosDueLink"
-
-    Given I go to "/interim-applications/no-response/gov-search-possible"
-    And I click element "#search"
-    When I click continue
+  Scenario: Search gov records help with fees happy path post-issue
     Then the page should include element "#searchGovRecordsApplicationTitle"
 
     When I click continue
@@ -113,15 +92,7 @@ Feature: Search gov records journey
     Then the page should include element "#generalApplicationSubmittedTitle"
     And the page should include "You have submitted your application to search government records."
 
-  Scenario: Search gov records pay by card happy path
-    Given I set the case state to "AosOverdue"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include element "#aosDueLink"
-
-    Given I go to "/interim-applications/no-response/gov-search-possible"
-    And I click element "#search"
-    When I click continue
+  Scenario: Search gov records pay by card happy path post-issue
     Then the page should include element "#searchGovRecordsApplicationTitle"
 
     When I click continue
