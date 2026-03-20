@@ -21,20 +21,20 @@ const en = (confirmWithdrawApplication, withdrawApplicationReason) => ({
 });
 
 const cy: typeof en = (confirmWithdrawApplication, withdrawApplicationReason) => ({
-  title: 'Check your answers',
+  title: 'Gwirio eich atebion',
   stepQuestions: {
-    confirmWithdraw: 'Are you sure you want to withdraw this application?',
-    withdrawApplicationReason: 'What is your reason for withdrawing the application?',
+    confirmWithdraw: 'Ydych chi’n siŵr eich bod eisiau tynnu’r cais hwn yn ôl?',
+    withdrawApplicationReason: 'Beth yw eich rheswm dros dynnu’r cais yn ôl?',
   },
   stepAnswers: {
-    confirmWithdraw: `${confirmWithdrawApplication === YesOrNo.YES ? 'Yes' : 'No'}`,
+    confirmWithdraw: `${confirmWithdrawApplication === YesOrNo.YES ? 'Ydw' : 'Nac ydw'}`,
     withdrawApplicationReason: `${withdrawApplicationReason || ''}`,
   },
   stepLinks: {
     confirmWithdraw: `${APPLICANT_2}${WITHDRAW_THIS_APPLICATION}`,
     withdrawApplicationReason: `${APPLICANT_2}${WITHDRAW_THIS_APPLICATION}`,
   },
-  submitText: 'Withdraw application',
+  submitText: "Tynnu'r cais yn ôl",
 });
 
 export const form: FormContent = {
