@@ -50,9 +50,9 @@ const cy: typeof en = ({ isDivorce, userCase, partner, referenceNumber }: Common
   yes: 'Ydy',
   errors: {
     confirmWithdrawApplication: {
-      required: `Select yes if you want to withdraw your ${
-        isDivorce ? 'divorce application' : 'application to end your civil partnership'
-      }`,
+      required: `Dewiswch ‘ydw’ os ydych eisiau tynnu eich ${
+        isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil'
+      } i ben yn ôl`,
     },
   },
 });
