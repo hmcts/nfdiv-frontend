@@ -16,11 +16,10 @@
   {% endif %}
 
   {% if not generalApplicationDocsAllProvided %}
-    <h2 class="govuk-heading-l">{{ sendDocumentsHeading }}</h2>
     <p class="govuk-body">{{ sendDocumentsLine1 }}</p>
 
     {% set sendingDocumentsByOnlineForm %}
-      <p class="govuk-body">{{ documentsByOnlineFormSteps.line1 }} <a href="{{ contactWebForm }}">{{ documentsByOnlineFormSteps.line2}}</a> </p>
+      <p class="govuk-body">{{ documentsByOnlineFormSteps.line1 }} <a href="{{ contactWebForm }}" target="_blank">{{ documentsByOnlineFormSteps.line2}}</a> </p>
       <p class="govuk-body">{{ documentsByOnlineFormSteps.line3 }}</p>
     {% endset %}
     {{ govukDetails({

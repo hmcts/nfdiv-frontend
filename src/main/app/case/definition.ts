@@ -527,9 +527,9 @@ export interface CaseData {
   applicant1NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
   applicant1NameDifferentToMarriageCertificateOtherDetails: string;
   applicant1WhyNameDifferent: ChangedNameWhy[];
-  applicant1WhyNameDifferentOtherDetails: string,
+  applicant1WhyNameDifferentOtherDetails: string;
   applicant2WhyNameDifferent: ChangedNameWhy[];
-  applicant2WhyNameDifferentOtherDetails: string,
+  applicant2WhyNameDifferentOtherDetails: string;
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;
@@ -964,7 +964,7 @@ export interface CaseData {
   alternativeServiceFeeRequired: YesOrNo;
   serviceApplicationAnswers: DivorceDocument;
   servicePayments: ListValue<Payment>[];
-  serviceApplicationSubmittedOnline: YesOrNo,
+  serviceApplicationSubmittedOnline: YesOrNo;
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeeDateOfPayment: DateAsString;
@@ -1068,6 +1068,13 @@ export interface CaseData {
   applicant1InterimAppsHwfRefNumber: string;
   applicant1InterimAppsEvidenceDocs: ListValue<DivorceDocument>[];
   applicant1InterimAppsCannotUploadDocs: YesOrNo;
+  applicant2InterimAppsIUnderstand: YesOrNo;
+  applicant2InterimAppsUseHelpWithFees: YesOrNo;
+  applicant2InterimAppsHaveHwfReference: YesOrNo;
+  applicant2InterimAppsCanUploadEvidence: YesOrNo;
+  applicant2InterimAppsHwfRefNumber: string;
+  applicant2InterimAppsEvidenceDocs: ListValue<DivorceDocument>[];
+  applicant2InterimAppsCannotUploadDocs: YesOrNo;
   applicant1DeemedEvidenceDetails: string;
   applicant1DeemedNoEvidenceStatement: string;
   applicant1BailiffPartnersName: string;
@@ -1105,6 +1112,7 @@ export interface CaseData {
   applicant1InterimApplicationType: InterimApplicationType;
   applicant2InterimApplicationType: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth: YesOrNo;
+  applicant2InterimAppsStatementOfTruth: YesOrNo;
   applicant1NoResponsePartnerAddress: AddressGlobalUK;
   applicant1NoResponsePartnerAddressOverseas: YesOrNo;
   applicant1NoResponsePartnerEmailAddress: string;
@@ -1151,7 +1159,7 @@ export interface CaseData {
   applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo;
   applicant1DispensePartnerLastSeenDescription: string;
   applicant1DispenseHavePartnerEmailAddresses: YesOrNo;
-  applicant1DispenseHaveSearchedFinalOrder: YesOrNo
+  applicant1DispenseHaveSearchedFinalOrder: YesOrNo;
   applicant1DispenseWhyNoFinalOrderSearch: string;
   applicant1DispensePartnerEmailAddresses: string;
   applicant1DispenseHavePartnerPhoneNumbers: YesOrNo;
@@ -1183,6 +1191,22 @@ export interface CaseData {
   withdrawApplicationReason: string;
   applicant2ConfirmWithdrawApplication: YesOrNo;
   applicant2WithdrawApplicationReason: string;
+  applicant1GenAppCannotUploadAgreedEvidence: YesOrNo;
+  applicant1GenAppHearingNotRequired: GeneralApplicationHearingNotRequired;
+  applicant1GenAppPartnerAgreesDocs: ListValue<DivorceDocument>[];
+  applicant1GenAppPartnerDetailsCorrect: YesOrNo;
+  applicant1GenAppReason: string;
+  applicant1GenAppStatementOfEvidence: string;
+  applicant1GenAppType: GeneralApplicationType;
+  applicant1GenAppTypeOtherDetails: string;
+  applicant2GenAppCannotUploadAgreedEvidence: YesOrNo;
+  applicant2GenAppHearingNotRequired: GeneralApplicationHearingNotRequired;
+  applicant2GenAppPartnerAgreesDocs: ListValue<DivorceDocument>[];
+  applicant2GenAppPartnerDetailsCorrect: YesOrNo;
+  applicant2GenAppReason: string;
+  applicant2GenAppStatementOfEvidence: string;
+  applicant2GenAppType: GeneralApplicationType;
+  applicant2GenAppTypeOtherDetails: string;
 }
 
 export interface CaseDocuments {
@@ -1532,6 +1556,7 @@ export interface GeneralApplication {
   generalApplicationSubmittedOnline?: string;
   generalApplicationReceivedDate?: DateAsString;
   generalApplicationDocsUploadedPreSubmission?: YesOrNo;
+  generalApplicationFeeHasCompletedOnlinePayment?: YesOrNo;
 }
 
 export interface GeneralEmail {
@@ -2098,6 +2123,7 @@ export const enum InterimApplicationType {
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'searchGovRecords',
   PROCESS_SERVER_SERVICE = 'processServerService',
+  DIGITISED_GENERAL_APPLICATION_D11 = 'digitisedGeneralApplicationD11',
 }
 
 export const enum SearchGovRecordsWhichDepartment {
@@ -2115,6 +2141,10 @@ export const enum GeneralApplicationType {
   OTHER = 'other',
   BAILIFF_SERVICE = 'bailiffService',
   SEARCH_GOV_RECORDS = 'disclosureViaDwp',
+  WITHDRAW_POST_ISSUE = 'withdrawPostIssue',
+  DELAY = 'delay',
+  EXTEND = 'extend',
+  AMEND_APPLICATION = 'amendApplication',
 }
 
 export const enum GeneralOrderDivorceParties {
@@ -2168,6 +2198,13 @@ export const enum JudgeCostsClaimGranted {
   YES = 'Yes',
   NO = 'No',
   ADJOURN = 'Adjourn',
+}
+
+export const enum GeneralApplicationHearingNotRequired {
+  YES_PARTNER_AGREES_WITH_APPLICATION = 'yesPartnerAgreesWithApplication',
+  YES_PARTNER_AGREES_WITH_NO_HEARING = 'yesPartnerAgreesWithNoHearing',
+  YES_DOES_NOT_NEED_CONSENT = 'yesDoesNotNeedConsent',
+  NO = 'no',
 }
 
 /**
@@ -2347,6 +2384,7 @@ export const enum State {
   AwaitingFinalOrder = 'AwaitingFinalOrder',
   AwaitingGeneralConsideration = 'AwaitingGeneralConsideration',
   AwaitingGeneralReferralPayment = 'AwaitingGeneralReferralPayment',
+  AwaitingGenAppDocuments = 'AwaitingGenAppDocuments',
   AwaitingGenAppHWFEvidence = 'AwaitingGenAppHWFEvidence',
   AwaitingGenAppHWFPartPayment = 'AwaitingGenAppHWFPartPayment',
   AwaitingHWFDecision = 'AwaitingHWFDecision',
@@ -2404,10 +2442,6 @@ export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
 export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFinalOrderPayment]);
 
 export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
-
-export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingGeneralApplicationPayment
-]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',
@@ -3024,6 +3058,7 @@ export const SYSTEM_LINK_WITH_BULK_CASE = 'system-link-with-bulk-case';
 export const SYSTEM_ISSUE_SOLICITOR_SERVICE_PACK = 'system-issue-solicitor-service-pack';
 export const CITIZEN_WITHDRAWN = 'citizen-withdrawn';
 export const WITHDRAW_SERVICE_APPLICATION = 'service-application-withdrawn';
+export const WITHDRAW_D11_APPLICATION = 'general-application-withdrawn';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 export const CASEWORKER_REQUEST_FOR_INFORMATION = 'caseworker-request-for-information';
 export const CASEWORKER_ISSUE_APPLICATION = 'caseworker-issue-application';
