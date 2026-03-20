@@ -4917,12 +4917,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"allure-commandline@npm:2.38.0":
-  version: 2.38.0
-  resolution: "allure-commandline@npm:2.38.0"
+"allure-commandline@npm:2.38.1":
+  version: 2.38.1
+  resolution: "allure-commandline@npm:2.38.1"
   bin:
     allure: bin/allure
-  checksum: 001efc692d4733574577c1fd272b0ab3ad5ff39002609da0b04d35962e36dc421a05efa16d3af83dbe679bdabf41eff1c604f0595ae7213a6c8aaee1c29cee69
+  checksum: 6dfbddbb03ed8c26d9f0d5437e255706ec64f9583b830eae97fe039d482b8557691fe1decc7152bd20ad257aa3576af30759a1af256a30bf87d6eef922d53479
   languageName: node
   linkType: hard
 
@@ -13405,7 +13405,7 @@ __metadata:
     "@uppy/xhr-upload": 4.4.2
     "@wdio/cli": 9.26.1
     "@wdio/sauce-service": 9.26.1
-    allure-commandline: 2.38.0
+    allure-commandline: 2.38.1
     applicationinsights: 2.9.8
     autobind-decorator: 2.4.0
     axios: 1.13.6
