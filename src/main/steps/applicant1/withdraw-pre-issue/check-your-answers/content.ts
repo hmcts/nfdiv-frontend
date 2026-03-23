@@ -1,7 +1,9 @@
-import { YesOrNo } from '../../../../app/case/definition';
+import striptags from 'striptags';
+
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { WITHDRAW_THIS_APPLICATION } from '../../../urls';
+import { withdrawApplicationAnswers as withdrawApplicationLabels } from '../withdraw-this-application/content';
 
 const en = (confirmWithdrawApplication, withdrawApplicationReason) => ({
   title: 'Check your answers',
@@ -10,7 +12,7 @@ const en = (confirmWithdrawApplication, withdrawApplicationReason) => ({
     withdrawApplicationReason: 'What is your reason for withdrawing the application?',
   },
   stepAnswers: {
-    confirmWithdraw: `${confirmWithdrawApplication === YesOrNo.YES ? 'Yes' : 'No'}`,
+    confirmWithdraw: striptags(withdrawApplicationLabels.en[confirmWithdrawApplication]),
     withdrawApplicationReason: `${withdrawApplicationReason || ''}`,
   },
   stepLinks: {
@@ -27,7 +29,7 @@ const cy: typeof en = (confirmWithdrawApplication, withdrawApplicationReason) =>
     withdrawApplicationReason: 'Beth yw eich rheswm dros dynnu’r cais yn ôl?',
   },
   stepAnswers: {
-    confirmWithdraw: `${confirmWithdrawApplication === YesOrNo.YES ? 'Ydw' : 'Nac ydw'}`,
+    confirmWithdraw: striptags(withdrawApplicationLabels.cy[confirmWithdrawApplication]),
     withdrawApplicationReason: `${withdrawApplicationReason || ''}`,
   },
   stepLinks: {

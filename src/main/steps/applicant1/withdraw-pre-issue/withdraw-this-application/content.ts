@@ -3,8 +3,9 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { CommonContent } from '../../../common/common.content';
 import { SupportedLanguages } from '../../../../modules/i18n';
+import { CommonContent } from '../../../common/common.content';
+import { InputLabelsByLanguage, ydwOrNacYdwRadioAnswers } from '../../../common/input-labels.content';
 
 const en = ({ isDivorce, userCase, partner, referenceNumber }: CommonContent) => ({
   title: `Withdrawing this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -21,7 +22,6 @@ const en = ({ isDivorce, userCase, partner, referenceNumber }: CommonContent) =>
   }.`,
   confirmWithdrawQuestion: 'Are you sure you want to withdraw this application?',
   confirmReason: 'If you want to, you can provide your reasons for withdrawing (optional)',
-  noLabel: 'No (return to your account)',
   errors: {
     confirmWithdrawApplication: {
       required: `Select yes if you want to withdraw your ${
@@ -46,8 +46,6 @@ const cy: typeof en = ({ isDivorce, userCase, partner, referenceNumber }: Common
   }.`,
   confirmWithdrawQuestion: 'Ydych chi’n siŵr eich bod eisiau tynnu’r cais hwn yn ôl?',
   confirmReason: 'Os dymunwch, gallwch roi eich rhesymau dros dynnu yn ôl (dewisol)',
-  noLabel: 'Nac ydw (dychwelwch i’ch cyfrif)',
-  yes: 'Ydy',
   errors: {
     confirmWithdrawApplication: {
       required: `Dewiswch ‘ydw’ os ydych eisiau tynnu eich ${
@@ -65,7 +63,7 @@ export const form: FormContent = {
       label: l => l.confirmWithdrawQuestion,
       values: [
         {
-          label: l => l.yes,
+          label: l => l[YesOrNo.YES],
           id: 'yes',
           value: YesOrNo.YES,
           subFields: {
@@ -76,7 +74,7 @@ export const form: FormContent = {
           },
         },
         {
-          label: l => l.noLabel,
+          label: l => l[YesOrNo.NO],
           id: 'no',
           value: YesOrNo.NO,
         },
@@ -94,9 +92,24 @@ const languages = {
   cy,
 };
 
+export const radioButtonAnswers: InputLabelsByLanguage<YesOrNo> = {
+  en: {
+    [YesOrNo.YES]: ydwOrNacYdwRadioAnswers.en[YesOrNo.YES],
+    [YesOrNo.NO]: 'No (return to your account)',
+  },
+  cy: {
+    [YesOrNo.YES]: ydwOrNacYdwRadioAnswers.cy[YesOrNo.YES],
+    [YesOrNo.NO]: 'Nac ydw (dychwelwch i’ch cyfrif)',
+  },
+};
+
+export const withdrawApplicationAnswers = ydwOrNacYdwRadioAnswers;
+
 export const generateContent: TranslationFn = content => {
+  const radioAnswers = radioButtonAnswers[content.language];
   return {
     ...languages[content.language](content),
+    ...radioAnswers,
     form,
   };
 };
