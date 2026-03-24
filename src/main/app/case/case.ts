@@ -214,6 +214,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1NoRespAddressHasFoundAddress: 'applicant1NoRespAddressHasFoundAddress',
   applicant1NoRespAddressHasWayToContact: 'applicant1NoRespAddressHasWayToContact',
   applicant1NoRespAddressWillApplyAltService: 'applicant1NoRespAddressWillApplyAltService',
+  applicant1NoRespAddressEmail: 'applicant1NoRespAddressEmail',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
   applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
@@ -673,6 +674,17 @@ export interface Case {
   applicant1NoRespAddressHasFoundAddress: YesOrNo;
   applicant1NoRespAddressHasWayToContact: YesOrNo;
   applicant1NoRespAddressWillApplyAltService: YesOrNo;
+  applicant1NoRespAddressAddress?: AddressGlobalUK;
+  applicant1NoRespAddressAddress1?: string;
+  applicant1NoRespAddressAddress2?: string;
+  applicant1NoRespAddressAddress3?: string;
+  applicant1NoRespAddressAddressTown?: string;
+  applicant1NoRespAddressAddressCounty?: string;
+  applicant1NoRespAddressAddressCountry?: string;
+  applicant1NoRespAddressAddressPostcode?: string;
+  applicant1NoRespAddressAddressOverseas?: YesOrNo;
+  applicant1NoRespAddressEmail?: string;
+  applicant1NoRespAddressDoesNotKnowEmailAddress?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;

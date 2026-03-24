@@ -36,7 +36,7 @@ export const noRespondentAddressJourneySequence: Step[] = [
   {
     url: NO_RESP_ADDRESS_ENTER_ADDRESS,
     getNextStep: (data: Partial<CaseWithId>): PageLink =>
-      data.applicant2AddressOverseas === YesOrNo.YES
+      data.applicant1NoRespAddressAddressOverseas === YesOrNo.YES
         ? NO_RESP_ADDRESS_INTERNATIONAL_ADDRESS
         : NO_RESP_ADDRESS_ENTER_EMAIL,
   },

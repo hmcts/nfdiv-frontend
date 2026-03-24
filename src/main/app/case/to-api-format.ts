@@ -26,7 +26,7 @@ import {
 } from './definition';
 import {
   applicant1AddressToApi,
-  applicant1DispenseLivedTogetherAddressToApi,
+  applicant1DispenseLivedTogetherAddressToApi, applicant1NoRespAddressAddressToApi,
   applicant1NoResponsePartnerAddressToApi,
   applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant2AddressToApi,
@@ -738,6 +738,14 @@ const fields: ToApiConverters = {
         ? data.applicant1DispenseChildMaintenanceResults
         : null,
   }),
+  applicant1NoRespAddressDoesNotKnowEmailAddress: data => ({
+    applicant1NoRespAddressKnowsEmail:
+      data.applicant1NoRespAddressDoesNotKnowEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
+  }),
+  applicant1NoRespAddressAddressOverseas: ({ applicant1NoRespAddressAddressOverseas }) => ({
+    applicant1NoRespAddressAddressOverseas: applicant1NoRespAddressAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1NoRespAddressAddressPostcode: applicant1NoRespAddressAddressToApi,
 };
 
 const toApiDate = (date: CaseDate | undefined | string) => {

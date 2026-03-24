@@ -1127,6 +1127,10 @@ export interface CaseData {
   applicant1NoRespAddressHasFoundAddress: YesOrNo;
   applicant1NoRespAddressHasWayToContact: YesOrNo;
   applicant1NoRespAddressWillApplyAltService: YesOrNo;
+  applicant1NoRespAddressAddress: AddressGlobalUK;
+  applicant1NoRespAddressAddressOverseas: YesOrNo;
+  applicant1NoRespAddressEmail: string;
+  applicant1NoRespAddressKnowsEmail: YesOrNo;
   applicant1NoResponseOwnSearches: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo;
   applicant1NoResponsePartnerInUkOrReceivingBenefits: YesOrNo;
