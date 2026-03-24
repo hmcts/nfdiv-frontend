@@ -13,7 +13,7 @@ import { SupportedLanguages } from '../../../../../modules/i18n';
 import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
-  title: `Did you and your ${partner} live together?`,
+  title: `Did you and your ${partner} live together at any time during your relationship? This includes any period you lived together, regardless of how long ago or how short the time was.`,
   lastLivedTogether:
     "Give the date of when you last lived together. If you're not sure of the day you can enter the last day of the month.",
   yes: 'Yes',
@@ -36,7 +36,7 @@ const en = ({ partner }: CommonContent) => ({
 
 // @TODO translations
 const cy = ({ partner }: CommonContent) => ({
-  title: `Oeddech chi a’ch ${partner} yn byw gyda’ch gilydd?`,
+  title: `A oeddech chi a'ch ${partner} yn byw gyda'ch gilydd ar unrhyw adeg yn ystod eich perthynas? Mae hyn yn cynnwys unrhyw gyfnod y buoch chi'n byw gyda'ch gilydd, waeth pa mor bell yn ôl neu pa mor fyr oedd yr amser.`,
   lastLivedTogether:
     'Rhowch y dyddiad yr oeddech yn byw gyda’ch gilydd ddiwethaf. Os nad ydych yn sicr o’r diwrnod gallwch roi diwrnod olaf y mis.',
   yes: 'Oedden',
