@@ -1,4 +1,4 @@
-import { State, YesOrNo } from '../app/case/definition';
+import { State, WhichApplicant, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
@@ -7,7 +7,7 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
-import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
+import { generalApplicationD11Sequence } from './generalApplicationD11Sequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
@@ -17,7 +17,6 @@ import {
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
   FINALISING_YOUR_APPLICATION,
-  GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
   HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
   HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
@@ -29,7 +28,6 @@ import {
   NO_RESPONSE_DETAILS_UPDATED,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
-  PAY_YOUR_GENERAL_APPLICATION_FEE,
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER_DOCS,
   PageLink,
@@ -58,7 +56,7 @@ export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
 
 export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
   ...[
-    ...generalApplicationD11JourneySequence,
+    ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1),
     ...deemedServiceApplicationSequence,
     ...alternativeServiceApplicationSequence,
     ...bailiffServiceApplicationSequence,
@@ -107,22 +105,6 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
         State.AwaitingAos,
         State.AwaitingServiceConsideration,
         State.AwaitingDocuments,
-      ].includes(data.state as State),
-  },
-  {
-    urls: [...generalApplicationD11JourneySequence]
-      .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
-      .map(step => step.url as PageLink),
-    condition: data => data.issueDate !== undefined && data.issueDate !== null,
-  },
-  {
-    urls: [PAY_YOUR_GENERAL_APPLICATION_FEE, GENERAL_APPLICATION_SUBMITTED],
-    condition: data =>
-      ![
-        State.AwaitingGeneralApplicationPayment,
-        State.AwaitingGeneralReferralPayment,
-        State.GeneralApplicationReceived,
-        State.AwaitingGeneralConsideration,
       ].includes(data.state as State),
   },
   {

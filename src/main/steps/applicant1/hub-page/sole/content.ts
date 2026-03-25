@@ -26,6 +26,7 @@ import {
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   FINALISING_YOUR_APPLICATION,
+  MAKE_AN_APPLICATION,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
@@ -1115,7 +1116,6 @@ export const generateContent: TranslationFn = content => {
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
     NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
-  const isSearchGovRecordsFeeRequired = content.generalApplicationFeeRequired;
 
   const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
     field => field && field.length > 0
@@ -1136,6 +1136,8 @@ export const generateContent: TranslationFn = content => {
         return PROCESS_SERVER;
       case InterimApplicationType.SEARCH_GOV_RECORDS:
         return SEARCH_GOV_RECORDS_APPLICATION;
+      case InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11:
+        return MAKE_AN_APPLICATION;
     }
   })();
 
@@ -1175,7 +1177,6 @@ export const generateContent: TranslationFn = content => {
     contactDetailsUpdatedUKBased,
     applicant1NoResponseSendPapersAgain,
     isAwaitingProcessServerService,
-    isSearchGovRecordsFeeRequired,
     interimApplicationStartPagePath,
     interimApplicationStartedAosOverdue,
   };

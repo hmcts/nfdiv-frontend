@@ -21,7 +21,9 @@ export default abstract class CheckAnswersPostController extends PostController<
   }
 
   protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    if (!req.session.isApplicant2) {
+    if (req.session.isApplicant2) {
+      formData.applicant2InterimApplicationType = this.interimApplicationType();
+    } else {
       formData.applicant1InterimApplicationType = this.interimApplicationType();
     }
     return super.save(req, formData, eventName);
