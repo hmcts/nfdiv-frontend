@@ -1,21 +1,27 @@
-import { State, YesOrNo } from '../app/case/definition';
+import { isEmpty } from 'lodash';
+
+import { ApplicationType, State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
-import { RoutePermission } from './applicant1Sequence';
+import { RoutePermission, applicant1PreSubmissionSequence } from './applicant1Sequence';
 import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
+import { noRespondentAddressJourneySequence } from './noRespondentAddressJourneySequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
 import {
+  ADDRESS_PRIVATE,
   CHECK_ANSWERS_URL,
   DETAILS_OTHER_PROCEEDINGS,
   DISPUTING_THE_APPLICATION,
+  EMAIL_RESENT,
   ENGLISH_OR_WELSH,
+  ENTER_YOUR_ADDRESS,
   FINALISING_YOUR_APPLICATION,
   GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
@@ -37,6 +43,7 @@ import {
   SERVICE_APPLICATION_SUBMITTED,
   SUCCESS_SCREEN_PROCESS_SERVER,
   WILL_SERVE_AGAIN,
+  WITHDRAW_APPLICATION, NO_RESP_ADDRESS_DETAILS_UPDATED,
 } from './urls';
 
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
@@ -64,6 +71,8 @@ export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
     ...bailiffServiceApplicationSequence,
     ...noResponseJourneySequence,
     ...dispenseServiceApplicationSequence,
+    ...noRespondentAddressJourneySequence,
+    ...applicant1PreSubmissionSequence,
   ].map(step => step.url as PageLink),
 ];
 
@@ -73,6 +82,13 @@ export const ROUTES_TO_IGNORE: PageLink[] = [
   HAVE_THEY_RECEIVED,
   SUCCESS_SCREEN_PROCESS_SERVER,
   PROCESS_SERVER_DOCS,
+];
+
+export const PRE_SUBMISSION_ROUTES_TO_IGNORE: PageLink[] = [
+  WITHDRAW_APPLICATION,
+  EMAIL_RESENT,
+  ADDRESS_PRIVATE,
+  ENTER_YOUR_ADDRESS,
 ];
 
 export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
@@ -175,5 +191,19 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
         State.AwaitingDocuments,
         State.AwaitingService,
       ].includes(data.state as State),
+  },
+  {
+    urls: [...noRespondentAddressJourneySequence]
+      .filter(step => !NO_RESP_ADDRESS_DETAILS_UPDATED.includes(step.url as PageLink))
+      .map(step => step.url as PageLink),
+    condition: data =>
+      data?.applicationType === ApplicationType.SOLE_APPLICATION &&
+      ![data.applicant2Address1, data.applicant2AddressPostcode, data.applicant2AddressCountry].some(isEmpty),
+  },
+  {
+    urls: [...applicant1PreSubmissionSequence]
+      .filter(step => !PRE_SUBMISSION_ROUTES_TO_IGNORE.includes(step.url as PageLink))
+      .map(step => step.url as PageLink),
+    condition: data => !!data?.dateSubmitted,
   },
 ];
