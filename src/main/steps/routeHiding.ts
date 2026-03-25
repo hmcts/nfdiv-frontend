@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash';
 
-import { ApplicationType, State, YesOrNo } from '../app/case/definition';
+import { State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
@@ -198,7 +198,6 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
       .filter(step => !NO_RESP_ADDRESS_DETAILS_UPDATED.includes(step.url as PageLink))
       .map(step => step.url as PageLink),
     condition: data =>
-      data?.applicationType === ApplicationType.SOLE_APPLICATION &&
       ![data.applicant2Address1, data.applicant2AddressPostcode, data.applicant2AddressCountry].some(isEmpty),
   },
   {
