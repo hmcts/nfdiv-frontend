@@ -2458,31 +2458,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-sdk-common@npm:2.23.0":
-  version: 2.23.0
-  resolution: "@launchdarkly/js-sdk-common@npm:2.23.0"
-  checksum: 1c33f2803475306dc4aa98199aa084f0d3da66cbfe7641811f4e231c7dbcc35fcd488ca61c0a261d198136a0ef2eaaf0d70e51adaefdf083b04f11931d61d413
+"@launchdarkly/js-sdk-common@npm:2.24.0":
+  version: 2.24.0
+  resolution: "@launchdarkly/js-sdk-common@npm:2.24.0"
+  checksum: 022256dbc5a9e056227b788c5956eeb38302bcefa0c14d3f05a3ebd788cffa3f7e42b06d42db354523bdf95942c943f616668e465cf48d37aeb610d09f7ad5e6
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.18.2":
-  version: 2.18.2
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.18.2"
+"@launchdarkly/js-server-sdk-common@npm:2.18.3":
+  version: 2.18.3
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.18.3"
   dependencies:
-    "@launchdarkly/js-sdk-common": 2.23.0
+    "@launchdarkly/js-sdk-common": 2.24.0
     semver: 7.5.4
-  checksum: 99e0e24648d174d3eb940b25596e8a9bb991c740e0df2db76bcb2b4ea7e04521d2258f21467c889c506388c3483c0f8ac89031b90e9e287e79158eceb3a2a62f
+  checksum: f3e1afe3f8bba89e4efb95df63ee8061f00d66667e8bde49427f52f1a8dd06c4619d566ccdaa77ebd9a30ab9f1bc09a1f98e2f691e6f9d192acec774f95a7496
   languageName: node
   linkType: hard
 
 "@launchdarkly/node-server-sdk@npm:>=9.0.0":
-  version: 9.10.9
-  resolution: "@launchdarkly/node-server-sdk@npm:9.10.9"
+  version: 9.10.10
+  resolution: "@launchdarkly/node-server-sdk@npm:9.10.10"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": 2.18.2
+    "@launchdarkly/js-server-sdk-common": 2.18.3
     https-proxy-agent: ^7.0.6
     launchdarkly-eventsource: 2.2.0
-  checksum: fc9b200dd3ec017a20ef2a89d28dd10eb3035c6b49367d2d7091e9fa5927868414c48b5abc56b732d8b78cf88030b1523150a834143dfa760ef24b519012dbbd
+  checksum: 91d591d8c6a8949806879ae52eca5d6635ed53996689ab2404b25e720e5f0923981d76205f57387361bac6b145961ffc68c474d713866f54ef16e6ee9a6ae5da
   languageName: node
   linkType: hard
 
