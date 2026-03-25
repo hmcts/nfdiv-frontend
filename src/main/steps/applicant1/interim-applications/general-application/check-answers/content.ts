@@ -25,6 +25,7 @@ const en = (
   cannotUploadHearingNotRequiredEvidence,
   hearingNotRequiredEvidenceFileNames,
   reasonForApplication,
+  partnerDetailsPrivate,
   partnerDetailsCorrect,
   d11Type,
   d11TypeOtherDetails,
@@ -53,7 +54,7 @@ const en = (
         [GeneralApplicationHearingNotRequired.NO]: 'No, hearing is required',
       }[hearingNotRequired] || '',
     hearingNotRequiredEvidenceFiles: `${hearingNotRequiredEvidenceFileNames?.join(', ')}`,
-    partnerInformationCorrect: `${partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
+    partnerInformationCorrect: `${partnerDetailsPrivate === YesOrNo.YES ? '' : partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
     genAppD11Type:
       {
         [GeneralApplicationType.WITHDRAW_POST_ISSUE]: `Withdraw ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -98,6 +99,7 @@ const cy: typeof en = (
   cannotUploadHearingNotRequiredEvidence,
   hearingNotRequiredEvidenceFileNames,
   reasonForApplication,
+  partnerDetailsPrivate,
   partnerDetailsCorrect,
   d11Type,
   d11TypeOtherDetails,
@@ -126,7 +128,7 @@ const cy: typeof en = (
         [GeneralApplicationHearingNotRequired.NO]: 'No, hearing is required',
       }[hearingNotRequired] || '',
     hearingNotRequiredEvidenceFiles: `${hearingNotRequiredEvidenceFileNames?.join(', ')}`,
-    partnerInformationCorrect: `${partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
+    partnerInformationCorrect: `${partnerDetailsPrivate === YesOrNo.YES ? '' : partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
     genAppD11Type:
       {
         [GeneralApplicationType.WITHDRAW_POST_ISSUE]: `Withdraw ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -209,6 +211,7 @@ export const generateContent: TranslationFn = content => {
   const hearingNotRequiredEvidenceFileNames = hearingNotRequiredEvidenceDocs?.map(item => getFilename(item.value));
 
   const reasonForApplication = isApplicant2 ? userCase.applicant2GenAppReason : userCase.applicant1GenAppReason;
+  const partnerDetailsPrivate = isApplicant2 ? userCase.applicant1AddressPrivate : userCase.applicant2AddressPrivate;
   const partnerDetailsCorrect = isApplicant2
     ? userCase.applicant2GenAppPartnerDetailsCorrect
     : userCase.applicant1GenAppPartnerDetailsCorrect;
@@ -229,6 +232,7 @@ export const generateContent: TranslationFn = content => {
     cannotUploadHearingNotRequiredEvidence,
     hearingNotRequiredEvidenceFileNames,
     reasonForApplication,
+    partnerDetailsPrivate,
     partnerDetailsCorrect,
     d11Type,
     d11TypeOtherDetails,
