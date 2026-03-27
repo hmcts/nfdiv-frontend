@@ -7,11 +7,32 @@ Feature: Search gov records journey pre-issue
     Then I set the case state to "AwaitingDocuments"
     When I sign out
     And I login with applicant "1"
-    And I go to "/interim-applications/no-respondent-address/search-gov-records/general-application"
+    And I go to "/hub-page"
+    And I go to "/interim-applications/no-respondent-address/progress-without-address"
 
-  Scenario: Search gov records help with fees happy path post-issue
+    When I click continue
+    Then the page should include element "#haveYouFoundAddressTitle"
+
+    Given I click element "#no"
+    And I click continue
+    Then the page should include element "#haveDifferentWayToContactTitle"
+
+    Given I click element "#no"
+    And I click continue
+    Then the page should include element "#searchingForContactDetailsTitle"
+
+    Given I click continue
+    Then the page should include element "#isPartnerAbroadTitle"
+
+    Given I click element "#yes"
+    And I click continue
+    Then the page should include element "#govSearchPossibleTitle"
+
+    Given I click element "#search"
+    And I click continue
     Then the page should include element "#searchGovRecordsApplicationTitle"
 
+  Scenario: Search gov records help with fees happy path post-issue
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 
