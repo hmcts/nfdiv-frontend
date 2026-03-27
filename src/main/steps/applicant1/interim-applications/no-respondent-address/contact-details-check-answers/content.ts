@@ -16,22 +16,24 @@ const en = ({ partner, userCase }: CommonContent) => ({
   },
   stepAnswers: {
     partnerAddress: `${[
-      stripTags(userCase.applicant2Address1),
-      stripTags(userCase.applicant2Address2),
-      stripTags(userCase.applicant2Address3),
-      stripTags(userCase.applicant2AddressTown),
-      stripTags(userCase.applicant2AddressCounty),
-      stripTags(userCase.applicant2AddressPostcode),
-      stripTags(userCase.applicant2AddressCountry),
+      stripTags(userCase.applicant1NoRespAddressAddress1),
+      stripTags(userCase.applicant1NoRespAddressAddress2),
+      stripTags(userCase.applicant1NoRespAddressAddress3),
+      stripTags(userCase.applicant1NoRespAddressAddressTown),
+      stripTags(userCase.applicant1NoRespAddressAddressCounty),
+      stripTags(userCase.applicant1NoRespAddressAddressPostcode),
+      stripTags(userCase.applicant1NoRespAddressAddressCountry),
     ]
       .filter(Boolean)
       .join('<br>')}`,
     internationalAddress: `${
-      userCase.applicant2AddressOverseas === YesOrNo.NO ? '' : [stripTags(userCase.applicant2AddressOverseas)]
+      userCase.applicant1NoRespAddressAddressOverseas === YesOrNo.NO
+        ? ''
+        : [stripTags(userCase.applicant1NoRespAddressAddressOverseas)]
     }`,
-    partnerEmail: `${stripTags(userCase.applicant2EmailAddress)}`,
+    partnerEmail: `${stripTags(userCase.applicant1NoRespAddressEmail)}`,
     doNotKnowEmail: `${
-      userCase.applicant1DoesNotKnowApplicant2EmailAddress === Checkbox.Checked
+      userCase.applicant1NoRespAddressDoesNotKnowEmailAddress === Checkbox.Checked
         ? 'I do not know their email address'
         : ''
     }`,
@@ -54,22 +56,24 @@ const cy: typeof en = ({ partner, userCase }: CommonContent) => ({
   },
   stepAnswers: {
     partnerAddress: `${[
-      stripTags(userCase.applicant2Address1),
-      stripTags(userCase.applicant2Address2),
-      stripTags(userCase.applicant2Address3),
-      stripTags(userCase.applicant2AddressTown),
-      stripTags(userCase.applicant2AddressCounty),
-      stripTags(userCase.applicant2AddressPostcode),
-      stripTags(userCase.applicant2AddressCountry),
+      stripTags(userCase.applicant1NoRespAddressAddress1),
+      stripTags(userCase.applicant1NoRespAddressAddress2),
+      stripTags(userCase.applicant1NoRespAddressAddress3),
+      stripTags(userCase.applicant1NoRespAddressAddressTown),
+      stripTags(userCase.applicant1NoRespAddressAddressCounty),
+      stripTags(userCase.applicant1NoRespAddressAddressPostcode),
+      stripTags(userCase.applicant1NoRespAddressAddressCountry),
     ]
       .filter(Boolean)
       .join('<br>')}`,
     internationalAddress: `${
-      userCase.applicant2AddressOverseas === YesOrNo.NO ? '' : [stripTags(userCase.applicant2AddressOverseas)]
+      userCase.applicant1NoRespAddressAddressOverseas === YesOrNo.NO
+        ? ''
+        : [stripTags(userCase.applicant1NoRespAddressAddressOverseas)]
     }`,
-    partnerEmail: `${stripTags(userCase.applicant2EmailAddress)}`,
+    partnerEmail: `${stripTags(userCase.applicant1NoRespAddressEmail)}`,
     doNotKnowEmail: `${
-      userCase.applicant1DoesNotKnowApplicant2EmailAddress === Checkbox.Checked
+      userCase.applicant1NoRespAddressDoesNotKnowEmailAddress === Checkbox.Checked
         ? 'I do not know their email address'
         : ''
     }`,
