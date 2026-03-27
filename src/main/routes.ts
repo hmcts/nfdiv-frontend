@@ -127,7 +127,8 @@ export class Routes {
         app.post(
           step.url,
           this.isRouteForUser as RequestHandler,
-          errorHandler(new postController(step.form.fields).post));
+          errorHandler(new postController(step.form.fields).post)
+        );
       }
     }
 

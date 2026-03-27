@@ -26,10 +26,6 @@ describe('EnterTheirAddressPostController', () => {
     const res = mockResponse();
     await enterTheirAddressPostController.post(req, res);
 
-    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
-      '1234',
-      expectedBody,
-      CITIZEN_UPDATE
-    );
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_UPDATE);
   });
 });

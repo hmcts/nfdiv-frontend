@@ -26,7 +26,8 @@ import {
 } from './definition';
 import {
   applicant1AddressToApi,
-  applicant1DispenseLivedTogetherAddressToApi, applicant1NoRespAddressAddressToApi,
+  applicant1DispenseLivedTogetherAddressToApi,
+  applicant1NoRespAddressAddressToApi,
   applicant1NoResponsePartnerAddressToApi,
   applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant2AddressToApi,
