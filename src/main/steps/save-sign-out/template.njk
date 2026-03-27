@@ -3,12 +3,14 @@
 {% block pageTitle %}{{ title }} - {{ govUk }}{% endblock %}
 
 {% block header %}
-  {{ govukHeader({
-    containerClasses: "govuk-width-container"
-  }) }}
-  {{ govukServiceNavigation({
-    serviceUrl: (globals.basePath if globals.basePath) + "/"
-  }) }}
+  <header class="govuk-template__header">
+    {{ govukHeader({
+      containerClasses: "govuk-width-container"
+    }) }}
+    {{ govukServiceNavigation({
+      serviceUrl: (globals.basePath if globals.basePath) + "/"
+    }) }}
+  </header>
 {% endblock %}
 
 {% block backLink %}{% endblock %}

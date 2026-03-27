@@ -26,20 +26,22 @@
 {% endblock %}
 
 {% block header %}
-  {% include "../cookie-banner/template.njk" %}
-  {{ govukHeader({
-    containerClasses: "govuk-width-container"
-  }) }}
-  {{ govukServiceNavigation({
-    serviceName: serviceName,
-    serviceUrl: (globals.basePath if globals.basePath) + "/",
-    navigation: [
-      {
-        href: "/logout" if isLoggedIn else "/login",
-        text: signOut if isLoggedIn else signIn
-      }
-    ]
-  }) }}
+  <header class="govuk-template__header">
+    {% include "../cookie-banner/template.njk" %}
+    {{ govukHeader({
+      containerClasses: "govuk-width-container"
+    }) }}
+    {{ govukServiceNavigation({
+      serviceName: serviceName,
+      serviceUrl: (globals.basePath if globals.basePath) + "/",
+      navigation: [
+        {
+          href: "/logout" if isLoggedIn else "/login",
+          text: signOut if isLoggedIn else signIn
+        }
+      ]
+    }) }}
+  </header>
 {% endblock %}
 
 {% block pageTitle %}
