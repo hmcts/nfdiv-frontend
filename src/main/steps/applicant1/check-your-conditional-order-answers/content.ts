@@ -139,5 +139,6 @@ export const generateContent: TranslationFn = content => {
     applicantApplyForConditionalOrder,
     ...translation,
     form,
+    showRejectWarning: false,
   };
 };
