@@ -1,8 +1,10 @@
 import dayjs from 'dayjs';
+import { isEmpty } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceType,
+  ApplicationType,
   GeneralApplicationType,
   ServiceApplicationRefusalReason,
   ServiceMethod,
@@ -39,6 +41,12 @@ export const getSoleHubTemplate = (
   const isSearchGovRecords =
     latestGeneralApplication?.generalApplicationType === (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
   const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
+  const addressRequired =
+    userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
+    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(
+      isEmpty
+    ) &&
+    userCase?.applicant2AddressOverseas !== YesOrNo.YES;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -157,7 +165,7 @@ export const getSoleHubTemplate = (
       return HubTemplate.AwaitingHWFPartPayment;
     case State.AwaitingHWFDecision:
     case State.AwaitingHWFEvidence:
-      return userCase.applicant1CannotUpload === Checkbox.Checked
+      return userCase.applicant1CannotUpload === Checkbox.Checked || addressRequired
         ? HubTemplate.AwaitingDocuments
         : HubTemplate.AosAwaitingOrDrafted;
     case State.AwaitingDocuments:
