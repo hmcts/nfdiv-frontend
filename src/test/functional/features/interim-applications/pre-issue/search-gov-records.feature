@@ -7,7 +7,7 @@ Feature: Search gov records journey pre-issue
     Then I set the case state to "AwaitingDocuments"
     When I sign out
     And I login with applicant "1"
-    And I go to "/interim-applications/no-respondent-address/search-gov-records/general-application"
+    And I go to "/interim-applications/search-gov-records/general-application"
 
   Scenario: Search gov records help with fees happy path post-issue
     Then the page should include element "#searchGovRecordsApplicationTitle"
