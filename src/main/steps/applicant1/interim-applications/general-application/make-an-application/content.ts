@@ -3,7 +3,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 import { APPLICANT_2, WITHDRAW_THIS_APPLICATION } from '../../../../urls';
 
-const en = ({ partner, isApplicant2, isDivorce }: CommonContent) => ({
+const en = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonContent) => ({
   title: 'Make an application to the court (D11)',
   subHeading: 'You can use this form to make a number of different applications.',
   withdraw: {
@@ -39,8 +39,14 @@ const en = ({ partner, isApplicant2, isDivorce }: CommonContent) => ({
   },
   amend: {
     header: 'Apply to amend an application',
-    preCO:
-      'You can apply to amend an application any time before a conditional order is made without applying to the court. You will need to serve your amended application on the other party.',
+    preCO: {
+      line1: `${isJointApplication ? `Either you or your ${partner}` : 'You'} can amend your application at any time before the court makes a conditional order. There is no fee to do this.`,
+      line2:
+        'You do not need to apply using the online service. You can send your changes to the court by webform or by post using the contact details on your online account.',
+      line3sole: `If your ${partner} has already responded to the application, the court must see confirmation that they agree to the change. Upload or send evidence of their consent when you submit the amended information.`,
+      line3joint: `Both you and your ${partner} must agree to the change. The court must see confirmation of this. Upload or send evidence of consent from your ${partner} when you submit the amended information.`,
+      line4: 'The court will review the change and will contact you with next steps.',
+    },
     postCO:
       'If a conditional order has been made, you will need to apply for the court to amend your application, and you may need the other party’s consent.',
   },
@@ -51,7 +57,7 @@ const en = ({ partner, isApplicant2, isDivorce }: CommonContent) => ({
   buttonText: 'Start now',
 });
 
-const cy = ({ partner, isApplicant2, isDivorce }: CommonContent) => ({
+const cy = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonContent) => ({
   title: 'Make an application to the court (D11)',
   subHeading: 'You can use this form to make a number of different applications.',
   withdraw: {
@@ -87,8 +93,14 @@ const cy = ({ partner, isApplicant2, isDivorce }: CommonContent) => ({
   },
   amend: {
     header: 'Apply to amend an application',
-    preCO:
-      'You can apply to amend an application any time before a conditional order is made without applying to the court. You will need to serve your amended application on the other party.',
+    preCO: {
+      line1: `${isJointApplication ? `Either you or your ${partner}` : 'You'} can amend your application at any time before the court makes a conditional order. There is no fee to do this.`,
+      line2:
+        'You do not need to apply using the online service. You can send your changes to the court by webform or by post using the contact details on your online account.',
+      line3sole: `If your ${partner} has already responded to the application, the court must see confirmation that they agree to the change. Upload or send evidence of their consent when you submit the amended information.`,
+      line3joint: `Both you and your ${partner} must agree to the change. The court must see confirmation of this. Upload or send evidence of consent from your ${partner} when you submit the amended information.`,
+      line4: 'The court will review the change and will contact you with next steps.',
+    },
     postCO:
       'If a conditional order has been made, you will need to apply for the court to amend your application, and you may need the other party’s consent.',
   },
@@ -116,17 +128,13 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const isRespondent = content.isApplicant2 && !content.isJointApplication;
   const isSoleApplicant = !content.isApplicant2 && !content.isJointApplication;
-  const hasCOBeenSubmitted =
-    (!content.isJointApplication && !!content.userCase.coApplicant1SubmittedDate) ||
-    (content.isJointApplication &&
-      !!content.userCase.coApplicant1SubmittedDate &&
-      !!content.userCase.coApplicant2SubmittedDate);
+  const hasCOBeenGranted = content.userCase.coGrantedDate !== undefined;
   return {
     ...translations,
     form,
     caseHasBeenIssued: content.caseHasBeenIssued,
     isRespondent,
     isSoleApplicant,
-    hasCOBeenSubmitted,
+    hasCOBeenGranted,
   };
 };
