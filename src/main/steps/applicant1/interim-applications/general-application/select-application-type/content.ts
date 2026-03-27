@@ -73,6 +73,7 @@ const generalApplicationTypeField = (
   isApplicant2: boolean,
   isJointApplication: boolean,
   caseIssued: boolean,
+  coGranted: boolean,
   otherDetailsFieldName: keyof Case
 ) => {
   const genAppOptions = new Set([
@@ -86,7 +87,7 @@ const generalApplicationTypeField = (
 
   [
     [caseIssued, GeneralApplicationType.DELAY],
-    [!isSoleRespondent, GeneralApplicationType.AMEND_APPLICATION],
+    [!isSoleRespondent && coGranted, GeneralApplicationType.AMEND_APPLICATION],
     [isSoleApplicant, GeneralApplicationType.EXTEND],
     [!caseIssued && !isSoleRespondent, GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT],
   ].forEach(([condition, value]) => {
@@ -148,12 +149,14 @@ export const form: FormContent = {
     const isApplicant2 = false;
     const isJointApplication = userCase.applicationType === ApplicationType.JOINT_APPLICATION;
     const caseIssued = !!userCase.issueDate;
+    const coGranted = !!userCase.coGrantedDate;
 
     return {
       applicant1GenAppType: generalApplicationTypeField(
         isApplicant2,
         isJointApplication,
         caseIssued,
+        coGranted,
         'applicant1GenAppTypeOtherDetails'
       ),
     };
@@ -169,12 +172,14 @@ export const applicant2Form: FormContent = {
     const isApplicant2 = true;
     const isJointApplication = userCase.applicationType === ApplicationType.JOINT_APPLICATION;
     const caseIssued = !!userCase.issueDate;
+    const coGranted = !!userCase.coGrantedDate;
 
     return {
       applicant2GenAppType: generalApplicationTypeField(
         isApplicant2,
         isJointApplication,
         caseIssued,
+        coGranted,
         'applicant2GenAppTypeOtherDetails'
       ),
     };

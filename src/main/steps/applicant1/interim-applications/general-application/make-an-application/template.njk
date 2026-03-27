@@ -44,7 +44,18 @@
   <p class="govuk-body">{{ expedite.content }}</p>
   {% if not isRespondent %}
     <h1 class="govuk-heading-m">{{ amend.header }}</p>
-    <p class="govuk-body">{% if hasCOBeenSubmitted %}{{ amend.postCO }}{% else %}{{ amend.preCO }}{% endif %}</p>
+    {% if hasCOBeenGranted %}
+      <p class="govuk-body">{{ amend.postCO }}</p>
+    {% else %}
+      <p class="govuk-body">{{ amend.preCO.line1 }}</p>
+      <p class="govuk-body">{{ amend.preCO.line2 }}</p>
+      {% if isJointApplication %}
+        <p class="govuk-body">{{ amend.preCO.line3joint }}</p>
+      {% else %}
+        <p class="govuk-body">{{ amend.preCO.line3sole }}</p>
+      {% endif %}
+      <p class="govuk-body">{{ amend.preCO.line4 }}</p>
+    {% endif %}
   {% endif %}
   <h1 class="govuk-heading-m">{{ other.header }}</p>
   <p class="govuk-body">{{ other.content }}</p>
