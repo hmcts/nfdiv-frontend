@@ -41,13 +41,13 @@
   {% block statement %}
     <p class="govuk-body">{{ statement }}</p>
   {% endblock %}
-  <p class="govuk-body">{{ line2 }}</p>
+  <p class="govuk-body">{{ certifiedTranslation | safe }}</p>
+  <p class="govuk-body">{{ toInclude.header }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ toInclude.bulletOne }}</li>
-    <li>{{ toInclude.bulletTwo }}</li>
-    <li>{{ toInclude.bulletThree }}</li>
+    <li>{{ toInclude.options.bulletOne }}</li>
+    <li>{{ toInclude.options.bulletTwo }}</li>
+    <li>{{ toInclude.options.bulletThree }}</li>
   </ul>
-  <p class="govuk-body">{{ line3 | safe }}</p>
   <p class="govuk-body">{{ line4 }}</p>
   <p class="govuk-body">{{ line5 }}</p>
   <p class="govuk-body">{{ evidenceDateReminder }}</p>
