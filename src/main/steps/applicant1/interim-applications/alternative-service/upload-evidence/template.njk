@@ -39,21 +39,21 @@
 
   <h1 class="govuk-heading-l" id="uploadEvidenceTitle">{{ title }}</h1>
   <p class="govuk-body">{{ statement }}</p>
-  <p class="govuk-body">{{ line2 }}</p>
+  <p class="govuk-body">{{ certifiedTranslation | safe }}</p>
+  <p class="govuk-body">{{ toInclude.header }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ toInclude.partnersName }}</li>
-    <li>{{ toInclude.dateMessageSent }}</li>
+    <li>{{ toInclude.options.partnersName }}</li>
+    <li>{{ toInclude.options.dateMessageSent }}</li>
     {% if methodSelected == 'byEmail' or methodSelected == 'emailAndDifferentWay' %}
-      <li>{{ toInclude.partnersEmailInfo }}</li>
+      <li>{{ toInclude.options.partnersEmailInfo }}</li>
     {% endif %}
     {% if 'textMessage' in waysSelectedForDifferent or 'whatsapp' in waysSelectedForDifferent %}
-      <li>{{ toInclude.partnersPhoneInfo }}</li>
+      <li>{{ toInclude.options.partnersPhoneInfo }}</li>
     {% endif %}
     {% if 'socialMedia' in waysSelectedForDifferent %}
-          <li>{{ toInclude.partnersSocialMediaUsernameInfo }}</li>
+          <li>{{ toInclude.options.partnersSocialMediaUsernameInfo }}</li>
     {% endif %}
   </ul>
-  <p class="govuk-body">{{ line3 | safe }}</p>
   <p class="govuk-body">{{ line4 }}</p>
   <p class="govuk-body">{{ line5 }}</p>
   <p class="govuk-body">{{ evidenceDateReminder }}</p>

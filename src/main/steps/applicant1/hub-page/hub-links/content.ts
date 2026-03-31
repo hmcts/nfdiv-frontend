@@ -37,7 +37,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2 }: CommonContent, app2OrRespond
     text: 'Adolygu eich manylion cyswllt',
   },
   hubPageDownloads: {
-    url: HUB_PAGE_DOWNLOADS,
+    url: app2OrRespondent + HUB_PAGE_DOWNLOADS,
     text: 'Gweld eich dogfennau',
   },
   genAppMakeAnApplication: {
@@ -46,7 +46,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2 }: CommonContent, app2OrRespond
   },
   withdrawApplication: {
     url: `${(isApplicant2 ? APPLICANT_2 : '') + WITHDRAW_THIS_APPLICATION}`,
-    text: `Withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
+    text: `Tynnu’r ${isDivorce ? 'cais hwn am ysgariad' : 'cais hwn i ddod â’ch partneriaeth sifil i ben'} yn ôl`,
   },
 });
 

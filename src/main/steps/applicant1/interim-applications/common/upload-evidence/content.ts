@@ -11,16 +11,18 @@ import { CommonContent } from '../../../../common/common.content';
 const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
   title: 'Upload your evidence',
   statement: '',
-  line2:
-    "If you're uploading images or screenshots of a recent conversation by text, email or social media, make sure they include:",
-  toInclude: {
-    bulletOne: `your ${partner}'s name`,
-    bulletTwo: 'the date the messages were sent',
-    bulletThree: `your ${partner}'s email address, phone number or social media username as appropriate`,
-  },
-  line3: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
+  certifiedTranslation: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
   )}">certified translation</a>.`,
+  toInclude: {
+    header:
+      "If you're uploading images or screenshots of a recent conversation by text, email or social media, make sure they include:",
+    options: {
+      bulletOne: `your ${partner}'s name`,
+      bulletTwo: 'the date the messages were sent',
+      bulletThree: `your ${partner}'s email address, phone number or social media username as appropriate`,
+    },
+  },
   line4: 'You may need to upload multiple documents.',
   line5: 'The court cannot accept video or audio recordings as evidence.',
   uploadAFile: 'Upload a file',
@@ -47,16 +49,18 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
 const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
   title: 'Uwchlwytho eich tystiolaeth',
   statement: '',
-  line2:
-    'Os ydych yn uwchlwytho delweddau o sgwrs ddiweddar trwy neges destun, e-bost neu’r cyfryngau cymdeithasol, gwnewch yn siŵr eu bod yn cynnwys:',
-  toInclude: {
-    bulletOne: `enw eich ${partner}`,
-    bulletTwo: 'y dyddiadau pan anfonwyd y negeseuon',
-    bulletThree: `cyfeiriad e-bost, rhif ffôn neu enw defnyddiwr cyfryngau cymdeithasol eich ${partner}, fel sy’n briodol`,
-  },
-  line3: `Os yw eich tystiolaeth mewn iaith nad yw’n Saesneg, bydd arnoch angen darparu  <a class="govuk-link" target="_blank" href="${config.get(
+  certifiedTranslation: `Os yw eich tystiolaeth mewn iaith nad yw’n Saesneg, bydd arnoch angen darparu  <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
   )}">cyfieithiad ardystiedig</a>.`,
+  toInclude: {
+    header:
+      'Os ydych yn uwchlwytho delweddau o sgwrs ddiweddar trwy neges destun, e-bost neu’r cyfryngau cymdeithasol, gwnewch yn siŵr eu bod yn cynnwys:',
+    options: {
+      bulletOne: `enw eich ${partner}`,
+      bulletTwo: 'y dyddiadau pan anfonwyd y negeseuon',
+      bulletThree: `cyfeiriad e-bost, rhif ffôn neu enw defnyddiwr cyfryngau cymdeithasol eich ${partner}, fel sy’n briodol`,
+    },
+  },
   line4: 'Efallai bydd arnoch angen uwchlwytho sawl dogfen.',
   line5: 'Ni all y llys dderbyn recordiadau fideo neu sain fel tystiolaeth.',
   uploadAFile: 'Llwytho ffeil',
