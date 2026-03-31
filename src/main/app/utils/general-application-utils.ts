@@ -88,8 +88,7 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
     ? userCase.applicant2InterimApplicationType
     : userCase.applicant1InterimApplicationType;
 
-  const isDraftingD11Application =
-    interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
+  const isDraftingD11Application = interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
   const genAppAwaitingPayment = findGenAppAwaitingPayment(userCase, isApplicant2);
 
   const hasD11ApplicationPaymentInProgress =
