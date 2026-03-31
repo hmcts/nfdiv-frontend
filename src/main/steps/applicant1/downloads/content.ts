@@ -24,6 +24,11 @@ const en = ({ isDivorce, userCase, serviceApplicationType, generalApplicationTyp
     link: '/downloads/certificate-of-service',
     text: "View your 'certificate of service' (PDF)",
   },
+  bailiffServiceCertificateDownload: {
+    downloadReference: 'Bailiff-certificate',
+    link: '/downloads/bailiff-unsuccessful-certificate-of-service',
+    text: "View the 'bailiff service certificate' (PDF)",
+  },
   respondentAnswersDownload: {
     reference: 'Respondent-Answers',
     link: '/downloads/respondent-answers',
@@ -132,6 +137,11 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
     link: '/downloads/certificate-of-service',
     text: "View your 'certificate of service' (PDF)",
   },
+  bailiffServiceCertificateDownload: {
+    downloadReference: 'Bailiff-certificate',
+    link: '/downloads/bailiff-unsuccessful-certificate-of-service',
+    text: "View the 'bailiff service certificate' (PDF)",
+  },
   respondentAnswersDownload: {
     reference: 'Respondent-Answers',
     link: '/downloads/respondent-answers',
@@ -237,6 +247,15 @@ const getDownloadLogic: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
   );
 
+  const hasBailiffServiceCertificate =
+    userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.BAILIFF &&
+        alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.NO &&
+        alternativeServiceOutcome.value.certificateOfServiceDocument?.documentType ===
+          DocumentType.CERTIFICATE_OF_SERVICE
+    ) !== undefined;
+
   const hasRefusalOrder = [
     DocumentType.ALTERNATIVE_SERVICE_REFUSED,
     DocumentType.DEEMED_SERVICE_REFUSED,
@@ -272,6 +291,7 @@ const getDownloadLogic: TranslationFn = content => {
         alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant' &&
         hasRefusalOrder
     ),
+    hasBailiffServiceCertificate,
     hasCertificateOfEntitlement: content.userCase.coCertificateOfEntitlementDocument,
     hasConditionalOrderGranted: content.userCase.coConditionalOrderGrantedDocument,
     hasConditionalOrderAnswersAndAccess:
