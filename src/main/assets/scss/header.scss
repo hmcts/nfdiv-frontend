@@ -1,21 +1,23 @@
 @use 'govuk-frontend' as *;
 @use "sass:map";
 
-.govuk-template--rebranded nav {
-  float: right;
-  margin: 0;
+.govuk-service-navigation {
+  margin-bottom: 0;
 
-  .govuk-header__navigation-item {
-    padding: 0 0 0 10px;
-
-    a {
-      font-weight: 700;
-    }
+  &__container {
+    flex-direction: row;
   }
-}
 
-@media (min-width: map-get($govuk-breakpoints, desktop)) {
-  .govuk-template--rebranded nav {
-    margin-top: 24px;
+  &__list {
+    display: flex;
+    flex-wrap: none;
+    margin-bottom: 0;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: map-get($govuk-breakpoints, tablet)) {
+    &__item:first-child {
+      margin: 10px 0 !important;
+    }
   }
 }
