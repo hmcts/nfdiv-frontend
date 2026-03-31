@@ -12,7 +12,7 @@ export const form: FormContent = {
       label: l => l.confirmWithdrawQuestion,
       values: [
         {
-          label: l => l.yes,
+          label: l => l[YesOrNo.YES],
           id: 'yes',
           value: YesOrNo.YES,
           subFields: {
@@ -23,7 +23,7 @@ export const form: FormContent = {
           },
         },
         {
-          label: l => l.noLabel,
+          label: l => l[YesOrNo.NO],
           id: 'no',
           value: YesOrNo.NO,
         },

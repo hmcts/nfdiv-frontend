@@ -105,7 +105,7 @@ export const form: FormContent = {
       label: l => l.addressLine2,
     },
     applicant2SolicitorAddress3: {
-      id: 'address2',
+      id: 'address3',
       type: 'text',
       classes: 'govuk-label',
       label: l => l.addressLine3,
