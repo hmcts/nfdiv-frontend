@@ -61,7 +61,7 @@ const en = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonCont
   caseIsAwaitingPronouncement: {
     header: 'Submitting a general application while your conditional order is listed for pronouncement',
     line1:
-      'If you submit a general application while your conditional order is listed and awaiting pronouncement, the court will need to consider your application before the conditional order hearing can go ahead',
+      'If you submit a general application while your conditional order is listed and awaiting pronouncement, the court will need to consider your application before the conditional order hearing can go ahead.',
     line2: 'This means:',
     bullet1: 'Your conditional order hearing will be cancelled, and',
     bullet2: 'a new hearing will be scheduled after the court has made a decision on your general application.',
@@ -137,7 +137,7 @@ const cy = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonCont
   caseIsAwaitingPronouncement: {
     header: 'Submitting a general application while your conditional order is listed for pronouncement',
     line1:
-      'If you submit a general application while your conditional order is listed and awaiting pronouncement, the court will need to consider your application before the conditional order hearing can go ahead',
+      'If you submit a general application while your conditional order is listed and awaiting pronouncement, the court will need to consider your application before the conditional order hearing can go ahead.',
     line2: 'This means:',
     bullet1: 'Your conditional order hearing will be cancelled, and',
     bullet2: 'a new hearing will be scheduled after the court has made a decision on your general application.',
