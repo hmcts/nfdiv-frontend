@@ -164,8 +164,8 @@
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
-    "axios": "1.13.6",
-    "serialize-javascript": "^7.0.3"
+    "brace-expansion": "^5.0.5",
+    "picomatch": "^4.0.4"
   },
   "packageManager": "yarn@4.13.0"
 }
