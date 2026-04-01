@@ -8,6 +8,11 @@
 {% block page_content %}
   <h1 class="govuk-heading-l" id="alternativeHowToServeTitle">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
+  <p class="govuk-body">{{ evidence.header }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ evidence.options.direct }}</li>
+    <li>{{ evidence.options.thirdParty }}</li>
+  </ul>
   <p class="govuk-body">{{ line2 }}</p>
   <p class="govuk-body">{{ line3 }}</p>
 {% endblock %}
