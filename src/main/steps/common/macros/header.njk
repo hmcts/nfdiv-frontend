@@ -1,0 +1,9 @@
+{% block govukHeader %}
+  {% block govukServiceNavigation %}
+
+  {% endblock %}
+  {{ govukServiceNavigation }}
+  {{ govukHeader(
+    serviceName: serviceName,
+  ) }}
+{% endblock %}
