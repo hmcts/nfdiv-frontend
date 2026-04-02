@@ -31,6 +31,8 @@ fees:
   updateApplication: DivorceAmendPetition
   finalOrderApplicationFee: GAOnNotice
   searchDecreeNisiOrFinalOrder: SearchIndexDivCentral
+  generalAppWithoutHearing: GeneralAppWithoutNotice
+  generalAppWithHearing: GAOnNotice
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'

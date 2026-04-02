@@ -17,7 +17,7 @@ const en = ({ isDivorce, userCase, serviceApplicationType, generalApplicationTyp
   generalApplicationDownload: {
     reference: 'General-application',
     link: '/downloads/general-application',
-    text: `View your ${generalApplicationType} application (PDF)`,
+    text: `View your ${generalApplicationType || 'general'} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
@@ -125,7 +125,7 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
   generalApplicationDownload: {
     reference: 'General-application',
     link: '/downloads/general-application',
-    text: `View your ${generalApplicationType} application (PDF)`,
+    text: `View your ${generalApplicationType || 'general'} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
@@ -252,8 +252,7 @@ const getDownloadLogic: TranslationFn = content => {
     hasDivorceOrDissolutionApplication: !!findDocument(userCase, DocumentType.APPLICATION),
     app1OnlineServiceAppInProgress:
       content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline && !content.isApplicant2,
-    app1OnlineGeneralApp:
-      content.generalApplicationDate && content.generalApplicationSubmittedOnline && !content.isApplicant2,
+    hasOnlineGeneralApplication: content.generalApplicationDate && content.generalApplicationSubmittedOnline,
     isAosSubmitted:
       userCase.dateAosSubmitted &&
       (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||

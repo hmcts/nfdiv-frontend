@@ -1,6 +1,8 @@
-import { YesOrNo } from '../app/case/definition';
+import { WhichApplicant, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
+import { generalApplicationD11Sequence } from './generalApplicationD11Sequence';
+import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -135,6 +137,8 @@ const sequence: Step[] = [
     url: APP_REPRESENTED,
     getNextStep: () => HOME_URL,
   },
+  ...generalApplicationPaymentSequence,
+  ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_2),
 ];
 
 // Generate respondentSequence from the baseSequence

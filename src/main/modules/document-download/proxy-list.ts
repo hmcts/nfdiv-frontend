@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../app/case/case';
 import { DivorceDocument, DocumentType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
+import { findAllOnlineGenAppsForUser } from '../../app/utils/general-application-utils';
 
 export const proxyList: {
   endpoints: string[];
@@ -36,7 +36,7 @@ export const proxyList: {
   {
     endpoints: ['/downloads/general-application'],
     path: (req: AppRequest): string => {
-      const generalApplications = findOnlineGeneralApplicationsForUser(req.session.userCase, req.session.isApplicant2);
+      const generalApplications = findAllOnlineGenAppsForUser(req.session.userCase, req.session.isApplicant2);
       return getPath(req, generalApplications?.[0]?.generalApplicationDocument);
     },
   },

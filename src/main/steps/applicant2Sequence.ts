@@ -1,9 +1,11 @@
 import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../app/case/definition';
+import { ApplicationType, State, WhichApplicant, YesOrNo } from '../app/case/definition';
 import { needsToExplainDelay } from '../app/controller/controller.utils';
 
 import { Step } from './applicant1Sequence';
 import { applicant2WithdrawApplicationSequence } from './applicant2WithdrawApplicationSequence';
+import { generalApplicationD11Sequence } from './generalApplicationD11Sequence';
+import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -267,6 +269,8 @@ const postSubmissionSequence: Step[] = [
     getNextStep: () => HUB_PAGE,
   },
   ...applicant2WithdrawApplicationSequence,
+  ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_2),
+  ...generalApplicationPaymentSequence,
 ];
 
 const hasApp2Confirmed = (data: Partial<CaseWithId>): boolean =>
