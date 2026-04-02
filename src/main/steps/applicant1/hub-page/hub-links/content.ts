@@ -1,5 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { canStartNewGeneralApplication } from '../../../../app/utils/general-application-utils';
+import {
+  canStartNewGeneralApplication,
+  canSubmitD11GeneralApplication,
+} from '../../../../app/utils/general-application-utils';
 import { CommonContent, getRootRedirectPath } from '../../../common/common.content';
 import {
   APPLICANT_2,
@@ -65,17 +68,22 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const canStartOnlineGenApplication = canStartNewGeneralApplication(content.isApplicant2, content.userCase);
-  const showWithdrawLink = !content.isApplicant2 || (content.isApplicant2 && content.isJointApplication);
+  const canStartNewOnlineGenApplication = canStartNewGeneralApplication(content.isApplicant2, content.userCase);
+  const cannotSubmitOnlineD11GenApplication = !canSubmitD11GeneralApplication(content.isApplicant2, content.userCase);
+  const showGenApplicationLink = canStartNewOnlineGenApplication || cannotSubmitOnlineD11GenApplication;
+  const showWithdrawLink =
+    (!content.isApplicant2 || (content.isApplicant2 && content.isJointApplication)) &&
+    (!content.caseHasBeenIssued || canStartNewOnlineGenApplication);
 
   return {
     ...languages[content.language](
       content,
       getRootRedirectPath(content.isApplicant2, content.userCase),
-      canStartOnlineGenApplication
+      canStartNewOnlineGenApplication
     ),
     caseHasBeenIssued: content.caseHasBeenIssued,
     showDownloadLink: areDownloadsAvailable(content),
     showWithdrawLink,
+    showGenApplicationLink,
   };
 };
