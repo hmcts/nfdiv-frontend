@@ -182,6 +182,14 @@ const fields: ToApiConverters = {
   iWantToHavePapersServedAnotherWay: data => ({
     applicant1WantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
+  applicant1FoundApplicant2Address: data => ({
+    applicant1KnowsApplicant2Address: data.applicant1FoundApplicant2Address,
+    applicant1FoundApplicant2Address: data.applicant1FoundApplicant2Address,
+    applicant1WantsToHavePapersServedAnotherWay:
+      data.applicant1FoundApplicant2Address === YesOrNo.YES
+        ? YesOrNo.NO
+        : checkboxConverter(data.iWantToHavePapersServedAnotherWay),
+  }),
   applicant1NameChangedHowOtherDetails: data => ({
     applicant1NameChangedHowOtherDetails: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
       ? data.applicant1NameChangedHowOtherDetails
@@ -361,6 +369,11 @@ const fields: ToApiConverters = {
   }),
   applicant1KnowsApplicant2Address: data => ({
     applicant1KnowsApplicant2Address: data.applicant1KnowsApplicant2Address,
+    applicant1FoundApplicant2Address: data.applicant1KnowsApplicant2Address,
+    applicant1WantsToHavePapersServedAnotherWay:
+      data.applicant1FoundApplicant2Address === YesOrNo.YES
+        ? YesOrNo.NO
+        : checkboxConverter(data.iWantToHavePapersServedAnotherWay),
     ...(data.applicant1KnowsApplicant2Address === YesOrNo.NO
       ? applicant2AddressToApi(
           setUnreachableAnswersToNull([

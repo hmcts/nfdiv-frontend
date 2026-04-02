@@ -108,7 +108,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const { userCase, language, isJointApplication, isDivorce } = content;
+  const { userCase, language, isJointApplication, isDivorce, addressRequired } = content;
   const displayState = currentStateFn(userCase.state).at(
     (userCase.state === State.OfflineDocumentReceived ? userCase.previousState : userCase.state) as State
   );
@@ -122,7 +122,8 @@ export const generateContent: TranslationFn = content => {
     userCase.applicant2Email &&
     !isRespondentOverseas &&
     !userCase.iWantToHavePapersServedAnotherWay &&
-    !hasASolicitorContactForPartner;
+    !hasASolicitorContactForPartner &&
+    !addressRequired;
   const cannotUploadDocuments = new Set([
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),

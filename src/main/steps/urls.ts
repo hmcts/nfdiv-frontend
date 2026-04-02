@@ -78,6 +78,9 @@ export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
 export const DO_THEY_HAVE_A_SOLICITOR: PageLink = '/do-they-have-a-solicitor';
 export const ENTER_SOLICITOR_DETAILS: PageLink = '/enter-solicitor-details';
+export const ADDRESS_FINDING: PageLink = '/address-finding';
+export const ADDRESS_INTERNATIONAL: PageLink = '/address-international';
+export const HOW_TO_PROGRESS_WITHOUT_AN_ADDRESS: PageLink = '/how-to-progress-without-an-address';
 
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
 export const CHANGES_TO_YOUR_NAME_URL: PageLink = '/changes-to-your-name';
@@ -87,13 +90,11 @@ export const YOU_NEED_THEIR_EMAIL_ADDRESS: PageLink = '/you-need-their-email-add
 export const EMAIL_RESENT: PageLink = '/email-resent';
 export const YOU_CANNOT_UPDATE_THEIR_EMAIL: PageLink = '/you-cannot-update-their-email';
 
-export const HOW_TO_APPLY_TO_SERVE: PageLink = '/how-to-apply-to-serve';
 export const OTHER_COURT_CASES: PageLink = '/other-court-cases';
 export const YOU_NEED_TO_SERVE: PageLink = '/you-need-to-serve';
 export const DETAILS_OTHER_PROCEEDINGS: PageLink = '/details-other-proceedings';
 export const MONEY_PROPERTY: PageLink = '/dividing-money-property';
 export const DO_YOU_HAVE_ADDRESS: PageLink = '/do-you-have-address';
-export const NEED_TO_GET_ADDRESS: PageLink = '/need-to-get-address';
 export const ENTER_THEIR_ADDRESS: PageLink = '/enter-their-address';
 
 export const UPLOAD_YOUR_DOCUMENTS: PageLink = '/upload-your-documents';
@@ -155,6 +156,29 @@ export const EXPLAIN_THE_DELAY: PageLink = '/explain-the-delay';
 export const RESPOND_TO_COURT_FEEDBACK: PageLink = '/respond-to-the-courts-feedback';
 export const REVIEW_YOUR_RESPONSE: PageLink = '/review-your-response-to-the-courts-feedback';
 
+// No Respondent Address Journey URLs
+export const NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/progress-without-address';
+export const NO_RESP_ADDRESS_HAVE_FOUND_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/have-found-address';
+export const NO_RESP_ADDRESS_ENTER_ADDRESS: PageLink = '/interim-applications/no-respondent-address/enter-address';
+export const NO_RESP_ADDRESS_ENTER_EMAIL: PageLink = '/interim-applications/no-respondent-address/enter-email';
+export const NO_RESP_ADDRESS_INTERNATIONAL_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/divorcing-outside';
+export const NO_RESP_ADDRESS_CHECK_ANSWERS_ADDRESS: PageLink =
+  '/interim-applications/no-respondent-address/contact-details-check-answers';
+export const NO_RESP_ADDRESS_DETAILS_UPDATED: PageLink = '/interim-applications/no-respondent-address/details-updated';
+export const NO_RESP_ADDRESS_SEARCHING_FOR_DETAILS: PageLink =
+  '/interim-applications/no-respondent-address/searching-for-contact-details';
+export const NO_RESP_ADDRESS_HAVE_DIFFERENT_WAY_TO_CONTACT: PageLink =
+  '/interim-applications/no-respondent-address/have-different-way-to-contact';
+export const NO_RESP_ADDRESS_WILL_APPLY_TO_SEND_PAPERS: PageLink =
+  '/interim-applications/no-respondent-address/will-apply-to-send-papers';
+export const NO_RESP_ADDRESS_IS_PARTNER_ABROAD: PageLink =
+  '/interim-applications/no-respondent-address/is-partner-abroad';
+export const NO_RESP_ADDRESS_GOV_SEARCH_POSSIBLE: PageLink =
+  '/interim-applications/no-respondent-address/gov-search-possible';
+
 // No Response Journey URLs
 export const OPTIONS_FOR_PROGRESSING: PageLink = '/interim-applications/no-response/options-for-progressing';
 export const HAVE_THEY_RECEIVED: PageLink = '/interim-applications/no-response/have-they-received';
@@ -166,9 +190,9 @@ export const NEW_POSTAL_AND_EMAIL: PageLink = '/interim-applications/no-response
 export const NO_NEW_ADDRESS: PageLink = '/interim-applications/no-response/no-new-address';
 export const PARTNER_IN_PERSON: PageLink = '/interim-applications/no-response/partner-in-person';
 export const OWN_SEARCHES: PageLink = '/interim-applications/no-response/own-searches';
-export const IS_PARTNER_ABROAD: PageLink = '/interim-applications/no-response/is-partner-abroad';
+export const NO_RESPONSE_IS_PARTNER_ABROAD: PageLink = '/interim-applications/no-response/is-partner-abroad';
 export const SEARCH_TIPS: PageLink = '/interim-applications/no-response/search-tips';
-export const GOV_SEARCH_POSSIBLE: PageLink = '/interim-applications/no-response/gov-search-possible';
+export const NO_RESPONSE_GOV_SEARCH_POSSIBLE: PageLink = '/interim-applications/no-response/gov-search-possible';
 export const PROCESS_SERVER: PageLink = '/interim-applications/no-response/process-server';
 export const SUCCESS_SCREEN_PROCESS_SERVER: PageLink =
   '/interim-applications/no-response/success-screen-process-server';
