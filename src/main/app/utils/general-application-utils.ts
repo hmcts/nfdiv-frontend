@@ -20,17 +20,20 @@ const D11_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
   State.AwaitingGeneralReferralPayment,
 ]);
 
+const APPLICANT1_GEN_APP_PARTY_NAMES = new Set<GeneralParties>([GeneralParties.APPLICANT]);
+const APPLICANT2_GEN_APP_PARTY_NAMES = new Set<GeneralParties>([GeneralParties.RESPONDENT, GeneralParties.APPLICANT2]);
+
 export const findAllOnlineGenAppsForUser = (
   userCase: Partial<CaseWithId>,
   isApplicant2: boolean
 ): GeneralApplication[] | undefined => {
-  const generalApplicationParty = isApplicant2 ? GeneralParties.RESPONDENT : GeneralParties.APPLICANT;
+  const generalApplicationPartyNames = isApplicant2 ? APPLICANT2_GEN_APP_PARTY_NAMES : APPLICANT1_GEN_APP_PARTY_NAMES;
 
   return userCase?.generalApplications
     ?.map(generalApplicationValue => generalApplicationValue.value)
     ?.filter(
       application =>
-        application?.generalApplicationParty === generalApplicationParty &&
+        generalApplicationPartyNames.has(application?.generalApplicationParty as GeneralParties) &&
         application?.generalApplicationSubmittedOnline === YesOrNo.YES
     );
 };
@@ -85,8 +88,7 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
     ? userCase.applicant2InterimApplicationType
     : userCase.applicant1InterimApplicationType;
 
-  const isDraftingD11Application =
-    interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
+  const isDraftingD11Application = interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
   const genAppAwaitingPayment = findGenAppAwaitingPayment(userCase, isApplicant2);
 
   const hasD11ApplicationPaymentInProgress =
