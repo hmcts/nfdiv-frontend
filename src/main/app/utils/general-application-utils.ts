@@ -133,7 +133,7 @@ export const isGenAppExclusionState = (isApplicant2: boolean, userCase: Partial<
   return false;
 };
 
-export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+export const canSubmitD11GeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
   if (isGenAppExclusionState(isApplicant2, userCase)) {
     return false;
   }
@@ -153,7 +153,13 @@ export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: P
     hasGenAppAwaitingDocuments(false, userCase) || hasGenAppPaymentInProgress(false, userCase);
   const app2HasSubmittedGenApp =
     hasGenAppAwaitingDocuments(true, userCase) || hasGenAppPaymentInProgress(true, userCase);
+
+  return !(app1HasSubmittedGenApp || app2HasSubmittedGenApp);
+};
+
+export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+  const submissionAllowed = canSubmitD11GeneralApplication(isApplicant2, userCase);
   const genAppHasBeenDrafted = hasGenAppSaveAndSignOutContent(isApplicant2, userCase);
 
-  return !(app1HasSubmittedGenApp || app2HasSubmittedGenApp || genAppHasBeenDrafted);
+  return submissionAllowed && !genAppHasBeenDrafted;
 };

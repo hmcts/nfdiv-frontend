@@ -1,6 +1,6 @@
 import { State, WhichApplicant, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
-import { canStartNewGeneralApplication } from '../app/utils/general-application-utils';
+import { canSubmitD11GeneralApplication } from '../app/utils/general-application-utils';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { RoutePermission } from './applicant1Sequence';
@@ -190,6 +190,6 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
     urls: [...D11_URLS, ...convertUrlsToRespondentUrls(D11_URLS), ...convertUrlsToApplicant2Urls(D11_URLS)].filter(
       url => !GEN_APP_WITHDRAW_URLS.includes(url)
     ),
-    condition: (data, isApplicant2 = false) => !canStartNewGeneralApplication(isApplicant2, data),
+    condition: (data, isApplicant2 = false) => !canSubmitD11GeneralApplication(isApplicant2, data),
   },
 ];
