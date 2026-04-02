@@ -357,6 +357,8 @@ export const GEN_APP_APPLY_FOR_HWF: PageLink = '/interim-applications/general-ap
 export const GEN_APP_CHECK_ANSWERS: PageLink = '/interim-applications/general-application/check-answers';
 export const GEN_APP_WITHDRAW_APPLICATION: PageLink = '/interim-applications/general-application/withdraw';
 export const GEN_APP_APPLICATION_WITHDRAWN: PageLink = '/interim-applications/general-application/withdrawn';
+export const MAKE_AN_OFFLINE_APPLICATION: PageLink =
+  '/interim-applications/general-application/make-an-offline-application';
 
 //Withdraw Application URLs
 export const WITHDRAW_THIS_APPLICATION: PageLink = '/withdraw-pre-issue/withdraw-this-application';

@@ -12,12 +12,36 @@ import {
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 
-const D11_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
+export const D11_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
+  State.Applicant2Approved,
+  State.AwaitingPayment,
+  State.Rejected,
+  State.Withdrawn,
+  State.Archived,
+  State.AwaitingApplicant2Response,
   State.AwaitingGeneralApplicationPayment,
   State.AwaitingGenAppDocuments,
   State.AwaitingGeneralConsideration,
   State.GeneralApplicationReceived,
   State.AwaitingGeneralReferralPayment,
+  State.ConditionalOrderPending,
+  State.AwaitingJudgeClarification,
+  State.AwaitingServiceConsideration,
+  State.AwaitingServicePayment,
+  State.BailiffRefused,
+  State.ConditionalOrderDrafted,
+  State.Draft,
+  State.GeneralConsiderationComplete,
+  State.LAServiceReview,
+  State.PendingRefund,
+  State.PendingServiceAppResponse,
+  State.ServiceAdminRefusal,
+  State.FinalOrderComplete,
+]);
+
+export const RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
+  State.AwaitingFinalOrderPayment,
+  State.RespondentFinalOrderRequested,
 ]);
 
 export const findAllOnlineGenAppsForUser = (
@@ -85,8 +109,7 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
     ? userCase.applicant2InterimApplicationType
     : userCase.applicant1InterimApplicationType;
 
-  const isDraftingD11Application =
-    interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
+  const isDraftingD11Application = interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
   const genAppAwaitingPayment = findGenAppAwaitingPayment(userCase, isApplicant2);
 
   const hasD11ApplicationPaymentInProgress =
@@ -96,8 +119,22 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
   return isDraftingD11Application || hasD11ApplicationPaymentInProgress;
 };
 
-export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+export const isGenAppExclusionState = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
   if (D11_GENERAL_APPLICATION_EXCLUDED_STATES.has(userCase.state as State)) {
+    return true;
+  }
+
+  const isSoleRespondent = isApplicant2 && userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
+
+  if (isSoleRespondent && RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES.has(userCase.state as State)) {
+    return true;
+  }
+
+  return false;
+};
+
+export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+  if (isGenAppExclusionState(isApplicant2, userCase)) {
     return false;
   }
 

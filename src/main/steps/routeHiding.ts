@@ -1,5 +1,6 @@
 import { State, WhichApplicant, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
+import { canStartNewGeneralApplication } from '../app/utils/general-application-utils';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { RoutePermission } from './applicant1Sequence';
@@ -17,6 +18,8 @@ import {
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
   FINALISING_YOUR_APPLICATION,
+  GEN_APP_APPLICATION_WITHDRAWN,
+  GEN_APP_WITHDRAW_APPLICATION,
   HAVE_THEY_RECEIVED,
   HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
   HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
@@ -25,6 +28,7 @@ import {
   HOW_THE_COURTS_WILL_CONTACT_YOU,
   INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
+  MAKE_AN_OFFLINE_APPLICATION,
   NO_RESPONSE_DETAILS_UPDATED,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
@@ -44,11 +48,15 @@ export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
 
   const routePermission = ROUTE_HIDE_CONDITIONS.find(i => i.urls.includes(req.url as PageLink));
   if (routePermission) {
-    return routePermission.condition(req.session.userCase);
+    return routePermission.condition(req.session.userCase, req.session.isApplicant2);
   }
 
   return false;
 };
+
+const D11_URLS: PageLink[] = [...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1)].map(
+  step => step.url as PageLink
+);
 
 export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
   return ROUTES_TO_REDIRECT_TO_HUB.includes(req.url as PageLink);
@@ -56,13 +64,15 @@ export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
 
 export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
   ...[
-    ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1),
     ...deemedServiceApplicationSequence,
     ...alternativeServiceApplicationSequence,
     ...bailiffServiceApplicationSequence,
     ...noResponseJourneySequence,
     ...dispenseServiceApplicationSequence,
   ].map(step => step.url as PageLink),
+  ...D11_URLS,
+  ...convertUrlsToRespondentUrls(D11_URLS),
+  ...convertUrlsToApplicant2Urls(D11_URLS),
 ];
 
 export const ROUTES_TO_IGNORE: PageLink[] = [
@@ -71,6 +81,22 @@ export const ROUTES_TO_IGNORE: PageLink[] = [
   HAVE_THEY_RECEIVED,
   SUCCESS_SCREEN_PROCESS_SERVER,
   PROCESS_SERVER_DOCS,
+];
+
+const GEN_APP_WITHDRAW_URLS: PageLink[] = [
+  GEN_APP_WITHDRAW_APPLICATION,
+  GEN_APP_APPLICATION_WITHDRAWN,
+  MAKE_AN_OFFLINE_APPLICATION,
+  ...convertUrlsToRespondentUrls([
+    GEN_APP_WITHDRAW_APPLICATION,
+    GEN_APP_APPLICATION_WITHDRAWN,
+    MAKE_AN_OFFLINE_APPLICATION,
+  ]),
+  ...convertUrlsToApplicant2Urls([
+    GEN_APP_WITHDRAW_APPLICATION,
+    GEN_APP_APPLICATION_WITHDRAWN,
+    MAKE_AN_OFFLINE_APPLICATION,
+  ]),
 ];
 
 export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
@@ -159,5 +185,11 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
         State.AwaitingDocuments,
         State.AwaitingService,
       ].includes(data.state as State),
+  },
+  {
+    urls: [...D11_URLS, ...convertUrlsToRespondentUrls(D11_URLS), ...convertUrlsToApplicant2Urls(D11_URLS)].filter(
+      url => !GEN_APP_WITHDRAW_URLS.includes(url)
+    ),
+    condition: (data, isApplicant2 = false) => !canStartNewGeneralApplication(isApplicant2, data),
   },
 ];

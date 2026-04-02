@@ -6,12 +6,17 @@ import {
   CHECK_CONTACT_DETAILS,
   HUB_PAGE_DOWNLOADS,
   MAKE_AN_APPLICATION,
+  MAKE_AN_OFFLINE_APPLICATION,
   WITHDRAW_THIS_APPLICATION,
   WITHDRAW_THIS_APPLICATION_POST_ISSUE,
 } from '../../../urls';
 import { areDownloadsAvailable } from '../../downloads/content';
 
-const en = ({ isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent, app2OrRespondent: string) => ({
+const en = (
+  { isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent,
+  app2OrRespondent: string,
+  showOnlineGenAppLink: boolean
+) => ({
   reviewContactDetails: {
     url: app2OrRespondent + CHECK_CONTACT_DETAILS,
     text: 'Review your contact details',
@@ -21,7 +26,7 @@ const en = ({ isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent, app2O
     text: 'View all documents',
   },
   genAppMakeAnApplication: {
-    url: app2OrRespondent + MAKE_AN_APPLICATION,
+    url: app2OrRespondent + (showOnlineGenAppLink ? MAKE_AN_APPLICATION : MAKE_AN_OFFLINE_APPLICATION),
     text: 'Make an application to the court',
   },
   withdrawApplication: {
@@ -31,7 +36,11 @@ const en = ({ isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent, app2O
 });
 
 // @TODO translations
-const cy: typeof en = ({ isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent, app2OrRespondent) => ({
+const cy: typeof en = (
+  { isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent,
+  app2OrRespondent,
+  showOnlineGenAppLink: boolean
+) => ({
   reviewContactDetails: {
     url: app2OrRespondent + CHECK_CONTACT_DETAILS,
     text: 'Adolygu eich manylion cyswllt',
@@ -41,7 +50,7 @@ const cy: typeof en = ({ isDivorce, isApplicant2, caseHasBeenIssued }: CommonCon
     text: 'Gweld eich dogfennau',
   },
   genAppMakeAnApplication: {
-    url: MAKE_AN_APPLICATION,
+    url: app2OrRespondent + (showOnlineGenAppLink ? MAKE_AN_APPLICATION : MAKE_AN_OFFLINE_APPLICATION),
     text: 'Make an application to the court',
   },
   withdrawApplication: {
@@ -56,14 +65,17 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const showGenApplicationLink = canStartNewGeneralApplication(content.isApplicant2, content.userCase);
+  const showOnlineGenApplicationLink = canStartNewGeneralApplication(content.isApplicant2, content.userCase);
   const showWithdrawLink = !content.isApplicant2 || (content.isApplicant2 && content.isJointApplication);
 
   return {
-    ...languages[content.language](content, getRootRedirectPath(content.isApplicant2, content.userCase)),
+    ...languages[content.language](
+      content,
+      getRootRedirectPath(content.isApplicant2, content.userCase),
+      showOnlineGenApplicationLink
+    ),
     caseHasBeenIssued: content.caseHasBeenIssued,
     showDownloadLink: areDownloadsAvailable(content),
     showWithdrawLink,
-    showGenApplicationLink,
   };
 };
