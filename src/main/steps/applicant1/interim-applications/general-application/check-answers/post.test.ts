@@ -50,7 +50,7 @@ describe('CheckGeneralApplicationD11AnswersPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_GENERAL_APPLICATION);
   });
 
-  it('Redirects if a alternative service step is incomplete', async () => {
+  it('Redirects if a general application step is incomplete', async () => {
     const body = {};
     const req = mockRequest({ body });
     const res = mockResponse();
