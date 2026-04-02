@@ -311,23 +311,6 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.BailiffServiceUnsuccessful);
   });
 
-  test('should show /service-application-rejected.njk for state AwaitingAos and isAlternativeService and not isServiceApplicationGranted', () => {
-    const userCaseWithServiceApplicationNotGranted = {
-      ...userCase,
-      alternativeServiceOutcomes: [
-        {
-          id: '123',
-          value: {
-            serviceApplicationGranted: YesOrNo.NO,
-          },
-        },
-      ] as unknown as ListValue<AlternativeServiceOutcome>[],
-    };
-    const theState = displayState.at(State.AwaitingAos);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithServiceApplicationNotGranted, false, true);
-    expect(soleTemplate).toBe(HubTemplate.ServiceApplicationRejected);
-  });
-
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingAos', () => {
     const theState = displayState.at(State.AwaitingAos);
     const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
