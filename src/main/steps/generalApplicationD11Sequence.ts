@@ -27,6 +27,7 @@ import {
   GEN_APP_WITHDRAW_APPLICATION,
   HOME_URL,
   MAKE_AN_APPLICATION,
+  MAKE_AN_OFFLINE_APPLICATION,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
   WITHDRAW_THIS_APPLICATION_POST_ISSUE,
 } from './urls';
@@ -37,6 +38,10 @@ export const generalApplicationD11Sequence = (party: WhichApplicant): Step[] => 
     {
       url: MAKE_AN_APPLICATION,
       getNextStep: () => GEN_APP_INTERRUPTION,
+    },
+    {
+      url: MAKE_AN_OFFLINE_APPLICATION,
+      getNextStep: () => HOME_URL,
     },
     {
       url: WITHDRAW_THIS_APPLICATION_POST_ISSUE,

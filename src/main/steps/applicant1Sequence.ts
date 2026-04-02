@@ -123,7 +123,7 @@ export interface Step {
 
 export interface RoutePermission {
   urls: PageLink[];
-  condition: (data: Partial<CaseWithId>) => boolean;
+  condition: (data: Partial<CaseWithId>, isApplicant2: boolean) => boolean;
 }
 
 export const applicant1PreSubmissionSequence: Step[] = [

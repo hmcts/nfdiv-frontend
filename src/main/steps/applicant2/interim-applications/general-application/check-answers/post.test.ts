@@ -33,7 +33,7 @@ describe('CheckGeneralApplicationD11AnswersPostController', () => {
 
   it('Sets the interim application type to general application D11', async () => {
     const body = {
-      applicationType: ApplicationType.SOLE_APPLICATION,
+      applicationType: ApplicationType.JOINT_APPLICATION,
       state: State.AosOverdue,
       applicant2InterimAppsStatementOfTruth: Checkbox.Checked,
       applicant2InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
@@ -50,7 +50,7 @@ describe('CheckGeneralApplicationD11AnswersPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_GENERAL_APPLICATION);
   });
 
-  it('Redirects if a alternative service step is incomplete', async () => {
+  it('Redirects if a general application step is incomplete', async () => {
     const body = {};
     const req = mockRequest({ body });
     const res = mockResponse();

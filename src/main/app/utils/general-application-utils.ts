@@ -12,12 +12,36 @@ import {
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 
-const D11_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
+export const D11_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
+  State.Applicant2Approved,
+  State.AwaitingPayment,
+  State.Rejected,
+  State.Withdrawn,
+  State.Archived,
+  State.AwaitingApplicant2Response,
   State.AwaitingGeneralApplicationPayment,
   State.AwaitingGenAppDocuments,
   State.AwaitingGeneralConsideration,
   State.GeneralApplicationReceived,
   State.AwaitingGeneralReferralPayment,
+  State.ConditionalOrderPending,
+  State.AwaitingJudgeClarification,
+  State.AwaitingServiceConsideration,
+  State.AwaitingServicePayment,
+  State.BailiffRefused,
+  State.ConditionalOrderDrafted,
+  State.Draft,
+  State.GeneralConsiderationComplete,
+  State.LAServiceReview,
+  State.PendingRefund,
+  State.PendingServiceAppResponse,
+  State.ServiceAdminRefusal,
+  State.FinalOrderComplete,
+]);
+
+export const RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
+  State.AwaitingFinalOrderPayment,
+  State.RespondentFinalOrderRequested,
 ]);
 
 const APPLICANT1_GEN_APP_PARTY_NAMES = new Set<GeneralParties>([GeneralParties.APPLICANT]);
@@ -98,8 +122,22 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
   return isDraftingD11Application || hasD11ApplicationPaymentInProgress;
 };
 
-export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+export const isGenAppExclusionState = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
   if (D11_GENERAL_APPLICATION_EXCLUDED_STATES.has(userCase.state as State)) {
+    return true;
+  }
+
+  const isSoleRespondent = isApplicant2 && userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
+
+  if (isSoleRespondent && RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES.has(userCase.state as State)) {
+    return true;
+  }
+
+  return false;
+};
+
+export const canSubmitD11GeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+  if (isGenAppExclusionState(isApplicant2, userCase)) {
     return false;
   }
 
@@ -118,7 +156,13 @@ export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: P
     hasGenAppAwaitingDocuments(false, userCase) || hasGenAppPaymentInProgress(false, userCase);
   const app2HasSubmittedGenApp =
     hasGenAppAwaitingDocuments(true, userCase) || hasGenAppPaymentInProgress(true, userCase);
+
+  return !(app1HasSubmittedGenApp || app2HasSubmittedGenApp);
+};
+
+export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
+  const submissionAllowed = canSubmitD11GeneralApplication(isApplicant2, userCase);
   const genAppHasBeenDrafted = hasGenAppSaveAndSignOutContent(isApplicant2, userCase);
 
-  return !(app1HasSubmittedGenApp || app2HasSubmittedGenApp || genAppHasBeenDrafted);
+  return submissionAllowed && !genAppHasBeenDrafted;
 };

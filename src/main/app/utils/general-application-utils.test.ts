@@ -13,6 +13,8 @@ import {
 import { AppRequest } from '../controller/AppRequest';
 
 import {
+  D11_GENERAL_APPLICATION_EXCLUDED_STATES,
+  RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES,
   canStartNewGeneralApplication,
   findAllOnlineGenAppsForUser,
   findGenAppAwaitingDocuments,
@@ -342,6 +344,32 @@ describe('GeneralApplicationUtils', () => {
       mockReq.session.userCase.state = State.GeneralApplicationReceived;
 
       expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
+    });
+
+    D11_GENERAL_APPLICATION_EXCLUDED_STATES.forEach(state => {
+      test(`should return false for applicant in sole application for excluded state: ${state}`, () => {
+        mockReq.session.userCase.state = state;
+        mockReq.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+        expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
+      });
+    });
+
+    [...D11_GENERAL_APPLICATION_EXCLUDED_STATES, ...RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES].forEach(
+      state => {
+        test(`should return false for respondent in sole application for excluded state: ${state}`, () => {
+          mockReq.session.userCase.state = state;
+          mockReq.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+          expect(canStartNewGeneralApplication(true, mockReq.session.userCase)).toBe(false);
+        });
+      }
+    );
+
+    D11_GENERAL_APPLICATION_EXCLUDED_STATES.forEach(state => {
+      test(`should return false for applicant2 in joint application for excluded state: ${state}`, () => {
+        mockReq.session.userCase.state = state;
+        mockReq.session.userCase.applicationType = ApplicationType.JOINT_APPLICATION;
+        expect(canStartNewGeneralApplication(true, mockReq.session.userCase)).toBe(false);
+      });
     });
 
     test('Should return false if general referral in progress', () => {
