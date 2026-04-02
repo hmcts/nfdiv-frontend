@@ -1,4 +1,8 @@
+import config from 'config';
+
+import { State } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { getFee } from '../../../../../app/fees/service/get-fee';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 import { APPLICANT_2, WITHDRAW_THIS_APPLICATION } from '../../../../urls';
@@ -53,6 +57,27 @@ const en = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonCont
   other: {
     header: 'Make a different application to the court',
     content: 'If none of the above applications are suitable, you can make another type of application',
+  },
+  caseIsAwaitingPronouncement: {
+    header: 'Submitting a general application while your conditional order is listed for pronouncement',
+    line1:
+      'If you submit a general application while your conditional order is listed and awaiting pronouncement, the court will need to consider your application before the conditional order hearing can go ahead.',
+    line2: 'This means:',
+    bullet1: 'Your conditional order hearing will be cancelled, and',
+    bullet2: 'a new hearing will be scheduled after the court has made a decision on your general application.',
+    line3:
+      'You should only make a general application at this stage if you understand that it will delay the pronouncement of your conditional order.',
+    line4: ' If you are unsure whether to make a general application, you may wish to seek legal advice.',
+  },
+  consideringYourFinancialPosition: {
+    header: 'Asking the court to consider your financial position before granting a final order',
+    line1:
+      'If you want the court to consider your financial position before a final order is granted, you must make a separate application. This is done by submitting Form B (Notice of application to consider the financial position of the respondent after a divorce or dissolution).',
+    line2: `The Form B application cannot be submitted through the online service. The fee for Form B is ${getFee(config.get('fees.financialOrder'))} and must be paid before the court can consider the application.`,
+    line3:
+      'You can submit the application using the <a href="https://www.gov.uk/government/publications/form-b-notice-of-application-to-consider-the-financial-position-of-the-respondent-after-divorce-dissolution" target="_blank">Paper Form B</a>.',
+    line4:
+      'Once completed, you can send the form to the court by webform or by post using the contact details on your online account.',
   },
   buttonText: 'Start now',
 });
@@ -109,6 +134,27 @@ const cy = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonCont
     content: 'If none of the above applications are suitable, you can make another type of application',
   },
   buttonText: 'Start now',
+  caseIsAwaitingPronouncement: {
+    header: 'Submitting a general application while your conditional order is listed for pronouncement',
+    line1:
+      'If you submit a general application while your conditional order is listed and awaiting pronouncement, the court will need to consider your application before the conditional order hearing can go ahead.',
+    line2: 'This means:',
+    bullet1: 'Your conditional order hearing will be cancelled, and',
+    bullet2: 'a new hearing will be scheduled after the court has made a decision on your general application.',
+    line3:
+      'You should only make a general application at this stage if you understand that it will delay the pronouncement of your conditional order.',
+    line4: ' If you are unsure whether to make a general application, you may wish to seek legal advice.',
+  },
+  consideringYourFinancialPosition: {
+    header: 'Asking the court to consider your financial position before granting a final order',
+    line1:
+      'If you want the court to consider your financial position before a final order is granted, you must make a separate application. This is done by submitting Form B (Notice of application to consider the financial position of the respondent after a divorce or dissolution).',
+    line2: `The Form B application cannot be submitted through the online service. The fee for Form B is ${getFee(config.get('fees.financialOrder'))} and must be paid before the court can consider the application.`,
+    line3:
+      'You can submit the application using the <a href="https://www.gov.uk/government/publications/form-b-notice-of-application-to-consider-the-financial-position-of-the-respondent-after-divorce-dissolution" target="_blank">Paper Form B</a>.',
+    line4:
+      'Once completed, you can send the form to the court by webform or by post using the contact details on your online account.',
+  },
 });
 
 const languages = {
@@ -129,6 +175,8 @@ export const generateContent: TranslationFn = content => {
   const isRespondent = content.isApplicant2 && !content.isJointApplication;
   const isSoleApplicant = !content.isApplicant2 && !content.isJointApplication;
   const hasCOBeenGranted = content.userCase.coGrantedDate !== undefined;
+  const isAwaitingPronouncement = content.userCase.state === State.AwaitingPronouncement;
+
   return {
     ...translations,
     form,
@@ -136,5 +184,6 @@ export const generateContent: TranslationFn = content => {
     isRespondent,
     isSoleApplicant,
     hasCOBeenGranted,
+    isAwaitingPronouncement,
   };
 };
