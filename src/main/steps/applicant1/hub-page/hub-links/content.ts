@@ -15,7 +15,7 @@ import { areDownloadsAvailable } from '../../downloads/content';
 const en = (
   { isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent,
   app2OrRespondent: string,
-  showOnlineGenAppLink: boolean
+  canStartOnlineGenApplication: boolean
 ) => ({
   reviewContactDetails: {
     url: app2OrRespondent + CHECK_CONTACT_DETAILS,
@@ -26,11 +26,11 @@ const en = (
     text: 'View all documents',
   },
   genAppMakeAnApplication: {
-    url: app2OrRespondent + (showOnlineGenAppLink ? MAKE_AN_APPLICATION : MAKE_AN_OFFLINE_APPLICATION),
+    url: app2OrRespondent + (canStartOnlineGenApplication ? MAKE_AN_APPLICATION : MAKE_AN_OFFLINE_APPLICATION),
     text: 'Make an application to the court',
   },
   withdrawApplication: {
-    url: `${(isApplicant2 ? APPLICANT_2 : '') + (caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : WITHDRAW_THIS_APPLICATION)}`,
+    url: `${(isApplicant2 ? APPLICANT_2 : '') + (caseHasBeenIssued ? (canStartOnlineGenApplication ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : MAKE_AN_OFFLINE_APPLICATION) : WITHDRAW_THIS_APPLICATION)}`,
     text: `Withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   },
 });
@@ -39,7 +39,7 @@ const en = (
 const cy: typeof en = (
   { isDivorce, isApplicant2, caseHasBeenIssued }: CommonContent,
   app2OrRespondent,
-  showOnlineGenAppLink: boolean
+  canStartOnlineGenApplication: boolean
 ) => ({
   reviewContactDetails: {
     url: app2OrRespondent + CHECK_CONTACT_DETAILS,
@@ -50,11 +50,11 @@ const cy: typeof en = (
     text: 'Gweld eich dogfennau',
   },
   genAppMakeAnApplication: {
-    url: app2OrRespondent + (showOnlineGenAppLink ? MAKE_AN_APPLICATION : MAKE_AN_OFFLINE_APPLICATION),
+    url: app2OrRespondent + (canStartOnlineGenApplication ? MAKE_AN_APPLICATION : MAKE_AN_OFFLINE_APPLICATION),
     text: 'Make an application to the court',
   },
   withdrawApplication: {
-    url: `${(isApplicant2 ? APPLICANT_2 : '') + (caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : WITHDRAW_THIS_APPLICATION)}`,
+    url: `${(isApplicant2 ? APPLICANT_2 : '') + (caseHasBeenIssued ? (canStartOnlineGenApplication ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : MAKE_AN_OFFLINE_APPLICATION) : WITHDRAW_THIS_APPLICATION)}`,
     text: `Tynnu’r ${isDivorce ? 'cais hwn am ysgariad' : 'cais hwn i ddod â’ch partneriaeth sifil i ben'} yn ôl`,
   },
 });
@@ -65,14 +65,14 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const showOnlineGenApplicationLink = canStartNewGeneralApplication(content.isApplicant2, content.userCase);
+  const canStartOnlineGenApplication = canStartNewGeneralApplication(content.isApplicant2, content.userCase);
   const showWithdrawLink = !content.isApplicant2 || (content.isApplicant2 && content.isJointApplication);
 
   return {
     ...languages[content.language](
       content,
       getRootRedirectPath(content.isApplicant2, content.userCase),
-      showOnlineGenApplicationLink
+      canStartOnlineGenApplication
     ),
     caseHasBeenIssued: content.caseHasBeenIssued,
     showDownloadLink: areDownloadsAvailable(content),
