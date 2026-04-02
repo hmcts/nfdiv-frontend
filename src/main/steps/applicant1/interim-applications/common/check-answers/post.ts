@@ -5,9 +5,9 @@ import { Case, CaseWithId } from '../../../../../app/case/case';
 import { InterimApplicationType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import { canStartNewGeneralApplication } from '../../../../../app/utils/general-application-utils';
 import { Step } from '../../../../../steps/applicant1Sequence';
 import { getFirstErroredStep } from '../../../../index';
-import { canStartNewGeneralApplication } from '../../../../../app/utils/general-application-utils';
 
 @autobind
 export default abstract class CheckAnswersPostController extends PostController<AnyObject> {
