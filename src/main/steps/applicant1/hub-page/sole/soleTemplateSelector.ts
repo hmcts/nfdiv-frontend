@@ -80,10 +80,8 @@ export const getSoleHubTemplate = (
         return HubTemplate.GeneralApplicationReceived;
       } else if (isAlternativeServiceGrantedOrRefusedPreIssue) {
         return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
-      } else if (isAosOverdue) {
-        return HubTemplate.AoSDue;
       } else {
-        return HubTemplate.AosAwaitingOrDrafted;
+        return HubTemplate.GeneralApplicationReceived;
       }
     case State.AwaitingGeneralConsideration:
       if (userCase.dateFinalOrderSubmitted) {
