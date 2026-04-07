@@ -57,7 +57,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     )}
       to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
         isDivorce ? 'the divorce' : 'ending your civil partnership'
-      }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">download the form here</a>.`,
+      }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-an-application-for-a-divorce-dissolution-of-a-civil-partnership-or-judicial-separation">download the form here</a>.`,
     line3: `Fill in the form and email it to: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
     line4: 'Or post it to:',
     line5: `You’ll have to pay a ${getFee(
@@ -254,7 +254,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
         isDivorce ? 'gais am ysgariad' : 'diddymiad'
       }’. Dyma'r ffurflen ar gyfer herio’r cais am ${
         isDivorce ? 'ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
-      }. Gallwch <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">lawrlwytho'r ffurflen yma</a>.`,
+      }. Gallwch <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-an-application-for-a-divorce-dissolution-of-a-civil-partnership-or-judicial-separation">lawrlwytho'r ffurflen yma</a>.`,
     line3: `Llenwch y ffurflen a'i hanfon drwy e-bost i: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
     line4: 'Neu ei phostio i:',
     line5: `Bydd yn rhaid i chi dalu ffi o ${getFee(
