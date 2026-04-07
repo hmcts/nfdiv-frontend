@@ -30,91 +30,91 @@ describe('SoleTemplateSelector test', () => {
 
   test('should show /final-order-requested.njk for state FinalOrderRequested', () => {
     const theState = displayState.at(State.FinalOrderRequested);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
 
   test('should show /final-order-requested.njk for state RespondentFinalOrderRequested', () => {
     const theState = displayState.at(State.RespondentFinalOrderRequested);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
 
   test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state AwaitingServiceConsideration', () => {
     const theState = displayState.at(State.AwaitingServiceConsideration);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
   });
 
   test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state AwaitingBailiffReferral', () => {
     const theState = displayState.at(State.AwaitingBailiffReferral);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
   });
 
   test('should show /awaiting-service-consideration-or-awaiting-bailiff-referral.njk for state LAServiceReview', () => {
     const theState = displayState.at(State.LAServiceReview);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingServiceConsiderationOrAwaitingBailiffReferral);
   });
 
   test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state BailiffRefused', () => {
     const theState = displayState.at(State.BailiffRefused);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 
   test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state AwaitingServiceApplicationClarification', () => {
     const theState = displayState.at(State.PendingServiceAppResponse);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 
   test('should show /conditional-order-pronounced.njk for state ConditionalOrderPronounced', () => {
     const theState = displayState.at(State.ConditionalOrderPronounced);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.ConditionalOrderPronounced);
   });
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingLegalAdvisorReferral', () => {
     const theState = displayState.at(State.AwaitingLegalAdvisorReferral);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
   });
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state LAReview', () => {
     const theState = displayState.at(State.LAReview);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
   });
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingPronouncement', () => {
     const theState = displayState.at(State.AwaitingPronouncement);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
   });
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state AwaitingAdminClarification', () => {
     const theState = displayState.at(State.AwaitingAdminClarification);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });
 
   test('should show /awaiting-dwp-response.njk for state AwaitingDwpResponse', () => {
     const theState = displayState.at(State.AwaitingDwpResponse);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe('/awaiting-dwp-response.njk');
   });
 
   test('should show /awaiting-alternative-service.njk for state AwaitingDwpResponse', () => {
     const theState = displayState.at(State.AwaitingAlternativeService);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe('/awaiting-alternative-service.njk');
   });
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state ConditionalOrderReview', () => {
     const theState = displayState.at(State.ConditionalOrderReview);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });
 
@@ -124,7 +124,7 @@ describe('SoleTemplateSelector test', () => {
       dateFinalOrderSubmitted: '2024-06-27T14:13:41.478',
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithDateFinalOrderSubmitted, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithDateFinalOrderSubmitted, false);
     expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
   test('should show /conditional-order-pronounced.njk for state AwaitingGeneralConsideration and coGrantedDate', () => {
@@ -133,7 +133,7 @@ describe('SoleTemplateSelector test', () => {
       coGrantedDate: '2024-01-27',
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithCoGrantedDate, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithCoGrantedDate, false);
     expect(soleTemplate).toBe(HubTemplate.ConditionalOrderPronounced);
   });
   test('should show /awaiting-conditional-order.njk for state GeneralConsiderationComplete and coApplicant1SubmittedDate', () => {
@@ -142,7 +142,7 @@ describe('SoleTemplateSelector test', () => {
       coApplicant1SubmittedDate: '2024-01-27',
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingConditionalOrder);
   });
   test('should show /awaiting-conditional-order.njk for state GeneralConsiderationComplete and coApplicant2SubmittedDate', () => {
@@ -151,7 +151,7 @@ describe('SoleTemplateSelector test', () => {
       coApplicant2SubmittedDate: '2024-01-27',
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingConditionalOrder);
   });
   test('should show /awaiting-general-consideration.njk for state GeneralConsiderationComplete and aosStatementOfTruth and no dueDate', () => {
@@ -160,7 +160,7 @@ describe('SoleTemplateSelector test', () => {
       aosStatementOfTruth: Checkbox.Checked,
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
   test('should show /aos-due.njk for state GeneralConsiderationComplete and isAosOverdue', () => {
@@ -169,7 +169,7 @@ describe('SoleTemplateSelector test', () => {
       issueDate: '01.01.2022',
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false);
     expect(soleTemplate).toBe(HubTemplate.AoSDue);
   });
   test('should show /aos-awaiting-or-drafted.njk for state GeneralConsiderationComplete and not isAosOverdue', () => {
@@ -178,7 +178,7 @@ describe('SoleTemplateSelector test', () => {
       issueDate: dayjs().format('D MMMM YYYY'),
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
@@ -188,7 +188,7 @@ describe('SoleTemplateSelector test', () => {
       dateFinalOrderSubmitted: '2024-06-27T14:13:41.478',
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithDateFinalOrderSubmitted, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithDateFinalOrderSubmitted, false);
     expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
   test('should show /awaiting-general-consideration.njk for state AwaitingGeneralConsideration and aosStatementOfTruth', () => {
@@ -197,7 +197,7 @@ describe('SoleTemplateSelector test', () => {
       aosStatementOfTruth: Checkbox.Checked,
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosStatementOfTruth, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosStatementOfTruth, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
   test('should show /general-application-received.njk for state AwaitingGeneralConsideration and isAosOverdue', () => {
@@ -206,7 +206,7 @@ describe('SoleTemplateSelector test', () => {
       issueDate: '01.01.2022',
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
@@ -216,87 +216,87 @@ describe('SoleTemplateSelector test', () => {
       issueDate: dayjs().format('D MMMM YYYY'),
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
   test('should show /awaiting-conditional-order.njk for state AwaitingConditionalOrder', () => {
     const theState = displayState.at(State.AwaitingConditionalOrder);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingConditionalOrder);
   });
 
   test('should show /holding.njk for state Holding', () => {
     const theState = displayState.at(State.Holding);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.Holding);
   });
 
   test('should show /awaiting-clarification.njk for state AwaitingClarification', () => {
     const theState = displayState.at(State.AwaitingClarification);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingClarification);
   });
 
   test('should show /clarification-submitted.njk for state ClarificationSubmitted', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe('/clarification-submitted.njk');
   });
 
   test('should show /awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk for state ClarificationSubmitted when coIsAdminClarificationSubmitted is Yes', () => {
     const theState = displayState.at(State.ClarificationSubmitted);
     userCase.coIsAdminClarificationSubmitted = YesOrNo.YES;
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe('/awaiting-legal-advisor-referral-or-awaiting-pronouncement.njk');
   });
 
   test('should show /awaiting-amended-application.njk for state AwaitingAmendedApplication', () => {
     const theState = displayState.at(State.AwaitingAmendedApplication);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingAmendedApplication);
   });
 
   test('should show /awaiting-bailiff-service.njk for state AwaitingBailiffService', () => {
     const theState = displayState.at(State.AwaitingBailiffService);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingBailiffService);
   });
 
   test('should show /awaiting-bailiff-service.njk for state IssuedToBailiff', () => {
     const theState = displayState.at(State.IssuedToBailiff);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingBailiffService);
   });
 
   test('should show /awaiting-service-payment.njk for state AwaitingServicePayment', () => {
     const theState = displayState.at(State.AwaitingServicePayment);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingServicePayment);
   });
 
   test('should show /awaiting-final-order-or-final-order-overdue.njk for state AwaitingFinalOrder', () => {
     const theState = displayState.at(State.AwaitingFinalOrder);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue);
   });
 
   test('should show /final-order-complete.njk for state FinalOrderComplete', () => {
     const theState = displayState.at(State.FinalOrderComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.FinalOrderComplete);
   });
 
   test('should show /awaiting-bailiff-service.njk when FinalOrder is overdue', () => {
     const theState = displayState.at(State.AwaitingFinalOrder);
     const data = { ...userCase, isFinalOrderOverdue: YesOrNo.YES };
-    const soleTemplate = getSoleHubTemplate(theState, data, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, data, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue);
   });
 
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingAos', () => {
     const theState = displayState.at(State.AwaitingAos);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
@@ -306,25 +306,25 @@ describe('SoleTemplateSelector test', () => {
       issueDate: '01.01.2022',
     };
     const theState = displayState.at(State.AosDrafted);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false);
     expect(soleTemplate).toBe(HubTemplate.AoSDue);
   });
 
   test('should show /aos-due.njk for states after AosDrafted and before Holding', () => {
     const theState = displayState.at(State.AosOverdue);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AoSDue);
   });
 
   test('should show /aos-awaiting-or-drafted.njk', () => {
     const theState = displayState.at(State.NewPaperCase);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
   test('should show /service-admin-refusal-or-bailiff-refused-or-alternative-service-granted.njk for state ServiceAdminRefusal', () => {
     const theState = displayState.at(State.ServiceAdminRefusal);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted);
   });
 
@@ -346,7 +346,6 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(
       theState,
       userCaseWithServiceApplicationRefusedWithRefusalToApplicant,
-      false,
       true
     );
     expect(soleTemplate).toBe(HubTemplate.ServiceApplicationRejected);
@@ -354,61 +353,61 @@ describe('SoleTemplateSelector test', () => {
 
   test('should show /pending-hearing-outcome.njk for state PendingHearingOutcome', () => {
     const theState = displayState.at(State.PendingHearingOutcome);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
 
   test('should show /pending-hearing-outcome.njk for state PendingHearingDate', () => {
     const theState = displayState.at(State.PendingHearingDate);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.PendingHearingOutcome);
   });
 
   test('should show /information-requested.njk for state InformationRequested if request party is Applicant', () => {
     const theState = displayState.at(State.InformationRequested);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, true);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false, true);
     expect(soleTemplate).toBe(HubTemplate.InformationRequested);
   });
 
   test('should show /information-requested-from-other.njk for state InformationRequested if request party is Other', () => {
     const theState = displayState.at(State.InformationRequested);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false, false);
     expect(soleTemplate).toBe(HubTemplate.InformationRequestedFromOther);
   });
 
   test('should show /awaiting-requested-information.njk for state AwaitingRequestedInformation if request party is Applicant', () => {
     const theState = displayState.at(State.AwaitingRequestedInformation);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, true);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false, true);
     expect(soleTemplate).toBe(HubTemplate.AwaitingRequestedInformation);
   });
 
   test('should show /awaiting-requested-information-from-other.njk for state AwaitingRequestedInformation if request party is Other', () => {
     const theState = displayState.at(State.AwaitingRequestedInformation);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false, false);
     expect(soleTemplate).toBe(HubTemplate.InformationRequestedFromOther);
   });
 
   test('should show /requested-information-submitted.njk for state RequestedInformationSubmitted if request party is Applicant', () => {
     const theState = displayState.at(State.RequestedInformationSubmitted);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, true);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false, true);
     expect(soleTemplate).toBe(HubTemplate.RespondedToInformationRequest);
   });
 
   test('should show /requested-information-submitted-from-other.njk for state RequestedInformationSubmitted if request party is Other', () => {
     const theState = displayState.at(State.RequestedInformationSubmitted);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false, false);
     expect(soleTemplate).toBe(HubTemplate.InformationRequestedFromOther);
   });
 
   test('should show /awaiting-documents.njk for state AwaitingDocuments', () => {
     const theState = displayState.at(State.AwaitingDocuments);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 
   test('should show /awaiting-hwf-part-payment.njk for state AwaitingHWFPartPayment', () => {
     const theState = displayState.at(State.AwaitingHWFPartPayment);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingHWFPartPayment);
   });
 
@@ -418,19 +417,19 @@ describe('SoleTemplateSelector test', () => {
       applicant1CannotUpload: Checkbox.Checked,
     };
     const theState = displayState.at(State.AwaitingHWFDecision);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFDecision', () => {
     const theState = displayState.at(State.AwaitingHWFDecision);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
   test('should show /aos-awaiting-or-drafted.njk for state AwaitingHWFEvidence', () => {
     const theState = displayState.at(State.AwaitingHWFEvidence);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
@@ -477,31 +476,31 @@ describe('SoleTemplateSelector test', () => {
   test('should show /awaiting-service.njk for state AwaitingService', () => {
     userCase.serviceMethod = ServiceMethod.PERSONAL_SERVICE;
     const theState = displayState.at(State.AwaitingService);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingService);
   });
 
   test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationReview', () => {
     const theState = displayState.at(State.WelshTranslationReview);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
 
   test('should show /welsh-translation-requested-or-review.njk for state WelshTranslationRequested', () => {
     const theState = displayState.at(State.WelshTranslationRequested);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
 
   test('should show /awaiting-gen-app-hwf-part-payment-or-evidence.njk for state AwaitingGenAppHWFEvidence', () => {
     const theState = displayState.at(State.AwaitingGenAppHWFEvidence);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence);
   });
 
   test('should show /awaiting-gen-app-hwf-part-payment-or-evidence.njk for state AwaitingGenAppHWFPartPayment', () => {
     const theState = displayState.at(State.AwaitingGenAppHWFPartPayment);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence);
   });
 
@@ -558,19 +557,19 @@ describe('SoleTemplateSelector test', () => {
       ],
     };
     const theState = displayState.at(State.GeneralConsiderationComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
   test('should show /general-application-received.njk for state AwaitingGeneralReferralPayment', () => {
     const theState = displayState.at(State.AwaitingGeneralReferralPayment);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
   test('should show /awaiting-general-application-payment.njk for state AwaitingGeneralApplicationPayment', () => {
     const theState = displayState.at(State.AwaitingGeneralApplicationPayment);
-    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCase,false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingGeneralApplicationPayment);
   });
 
@@ -590,7 +589,7 @@ describe('SoleTemplateSelector test', () => {
       ],
     };
     const theState = displayState.at(State.GeneralApplicationReceived);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 });
