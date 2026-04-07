@@ -8,7 +8,7 @@
 .hmcts-progress-bar__icon {
   position: relative;
   background-color: govuk-colour('white');
-  border: 4px solid govuk-colour('mid-grey');
+  border: 4px solid govuk-colour('black', $variant: 'tint-80');
   border-radius: 50%;
   box-sizing: border-box;
   display: block;
@@ -57,7 +57,7 @@
   }
 
   &::before {
-    border-top: 4px solid govuk-colour('mid-grey');
+    border-top: 4px solid govuk-colour('black', $variant: 'tint-80');
     content: "";
     left: 30px;
     position: absolute;
@@ -119,7 +119,7 @@
         border-top:none;
         position:absolute;
         top: 0px;
-        border-left: 6px solid govuk-colour('mid-grey');
+        border-left: 6px solid govuk-colour('black', $variant: 'tint-80');
         height: 100%;
         position:absolute;
         left:20px;
