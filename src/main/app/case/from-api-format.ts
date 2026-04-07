@@ -7,8 +7,9 @@ import {
   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
   fromApiApplicant2 as uploadedFilesFromApiApplicant2,
 } from './formatter/uploaded-files';
+import { applicant1PrivateFieldsFromApi, applicant2PrivateFieldsFromApi } from './formatter/private-fields';
 
-type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
+type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>, isApplicant2?: boolean) => Partial<Case>)>>;
 
 export const checkboxConverter = (value: string | undefined): Checkbox | undefined => {
   if (!value) {
@@ -61,7 +62,12 @@ const fields: FromApiConverters = {
           ? data.applicant2LanguagePreferenceWelsh
           : LanguagePreference.English,
   }),
-  applicant1Address: data => formatAddress(data, 'applicant1'),
+  applicant1Address: (data, isApplicant2) => applicant1PrivateFieldsFromApi(data, isApplicant2),
+  applicant1PhoneNumber: (data, isApplicant2) => applicant1PrivateFieldsFromApi(data, isApplicant2),
+  applicant1Email: (data, isApplicant2) => applicant1PrivateFieldsFromApi(data, isApplicant2),
+  applicant2Address: (data, isApplicant2) => applicant2PrivateFieldsFromApi(data, isApplicant2),
+  applicant2PhoneNumber: (data, isApplicant2) => applicant2PrivateFieldsFromApi(data, isApplicant2),
+  applicant2Email: (data, isApplicant2) => applicant2PrivateFieldsFromApi(data, isApplicant2),
   applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
     applicant1AddressOverseas: applicant1AddressOverseas ?? YesOrNo.NO,
   }),
@@ -96,7 +102,6 @@ const fields: FromApiConverters = {
   applicant2InRefuge: ({ applicant2InRefuge }) => ({
     applicant2InRefuge: applicant2InRefuge ?? YesOrNo.NO,
   }),
-  applicant2Address: data => formatAddress(data, 'applicant2'),
   applicant2AddressOverseas: ({ applicant2AddressOverseas }) => ({
     applicant2AddressOverseas: applicant2AddressOverseas ?? YesOrNo.NO,
   }),
@@ -235,4 +240,4 @@ const fromApiDate = date => {
   return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
 };
 
-export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
+export const fromApiFormat = (data: CaseData, isApplicant2?: boolean): Case => formatCase(fields, data, isApplicant2);

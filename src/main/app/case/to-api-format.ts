@@ -25,16 +25,19 @@ import {
   YesOrNo,
 } from './definition';
 import {
-  applicant1AddressToApi,
   applicant1DispenseLivedTogetherAddressToApi,
   applicant1NoResponsePartnerAddressToApi,
   applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant2AddressToApi,
 } from './formatter/address';
+import {
+  applicant1PrivateFieldsToApi,
+  applicant2PrivateFieldsToApi,
+} from './formatter/private-fields';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
-type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => OrNull<Partial<CaseData>>)>>;
+type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case, isApplicant2?: boolean) => OrNull<Partial<CaseData>>)>>;
 
 const checkboxConverter = (value: string | undefined) => {
   if (value === null) {
@@ -150,7 +153,12 @@ const fields: ToApiConverters = {
   applicant2EnglishOrWelsh: data => ({
     applicant2LanguagePreferenceWelsh: languagePreferenceYesNoOrNull(data.applicant2EnglishOrWelsh),
   }),
-  applicant1AddressPostcode: applicant1AddressToApi,
+  applicant1AddressPostcode: (data, isApplicant2) => applicant1PrivateFieldsToApi(data, isApplicant2),
+  applicant1PhoneNumber: (data, isApplicant2) => applicant1PrivateFieldsToApi(data, isApplicant2),
+  applicant1Email: (data, isApplicant2) => applicant1PrivateFieldsToApi(data, isApplicant2),
+  applicant2AddressPostcode: (data, isApplicant2) => applicant2PrivateFieldsToApi(data, isApplicant2),
+  applicant2PhoneNumber: (data, isApplicant2) => applicant2PrivateFieldsToApi(data, isApplicant2),
+  applicant2Email: (data, isApplicant2) => applicant2PrivateFieldsToApi(data, isApplicant2),
   applicant1AgreeToReceiveEmails: data => ({
     applicant1AgreedToReceiveEmails: checkboxConverter(data.applicant1AgreeToReceiveEmails),
   }),
@@ -174,7 +182,6 @@ const fields: ToApiConverters = {
   applicant2InRefuge: ({ applicant2InRefuge }) => ({
     applicant2InRefuge: applicant2InRefuge ?? YesOrNo.NO, // Default to YesOrNo.NO if undefined
   }),
-  applicant2AddressPostcode: applicant2AddressToApi,
   applicant1DoesNotKnowApplicant2EmailAddress: data => ({
     applicant1KnowsApplicant2EmailAddress:
       data.applicant1DoesNotKnowApplicant2EmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
@@ -753,4 +760,4 @@ const setUnreachableAnswersToNull = (
 ): Record<string, null> =>
   properties.reduce((arr: Record<string, null>, property: string) => ({ ...arr, [property]: null }), {});
 
-export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
+export const toApiFormat = (data: Partial<Case>, isApplicant2: boolean): CaseData => formatCase(fields, data, isApplicant2);

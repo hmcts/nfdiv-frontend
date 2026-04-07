@@ -43,7 +43,7 @@ export class AccessCodePostController {
 
     const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
     try {
-      const caseData = await caseworkerUserApi.getCaseById(caseReference as string);
+      const caseData = await caseworkerUserApi.getCaseById(caseReference as string, req.session.user.id);
 
       logger.info(`AccessCodePostController invoked for case ID: ${caseReference}`);
 
@@ -71,8 +71,8 @@ export class AccessCodePostController {
 
       logger.info(`Calling to link ${systemEvent} to case ID: ${caseReference}`);
       try {
-        req.session.userCase = await caseworkerUserApi.triggerEvent(caseReference as string, formData, systemEvent);
         req.session.isApplicant2 = this.joiningCaseAsApplicant2(req);
+        req.session.userCase = await caseworkerUserApi.triggerEvent(caseReference as string, formData, systemEvent, req.session.isApplicant2);
       } catch (err) {
         req.locals.logger.error(`Error linking applicant/respondent to case ${caseReference}, ${err}`);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });

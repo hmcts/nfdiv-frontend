@@ -87,7 +87,8 @@ export class OidcMiddleware {
       const { newInviteUserCase, existingUserCase } = await req.locals.api.getExistingAndNewUserCases(
         userEmail,
         serviceType,
-        req.locals.logger
+        req.locals.logger,
+        req.session.user.id
       );
 
       let redirectUrl;
@@ -113,7 +114,7 @@ export class OidcMiddleware {
         }
       } else {
         if (!existingUserCase) {
-          if (await req.locals.api.hasDivorceOrDissolutionCaseForOtherDomain(userEmail, serviceType, logger)) {
+          if (await req.locals.api.hasDivorceOrDissolutionCaseForOtherDomain(userEmail, serviceType, logger, req.session.user.id)) {
             logger.info(
               `UserID ${req.session.user.id} is being redirected to domain for the other divorceOrDissolution type`
             );
@@ -152,15 +153,15 @@ export class OidcMiddleware {
             return next();
           }
         }
-        req.session.userCase = req.session.userCase || existingUserCase;
 
+        req.session.userCase = req.session.userCase || existingUserCase;
         req.session.existingCaseId = req.session.userCase?.id;
 
         req.session.isApplicant2 =
           req.session.isApplicant2 ??
           (req.session.userCase
             ? await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id)
-            : false);
+            : false);``
       }
 
       req.session.save(err => {

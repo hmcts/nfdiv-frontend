@@ -129,7 +129,7 @@ describe('CaseApi', () => {
       findUserInviteCases: jest.fn(() => [userCase2]),
     });
     mockApiClient.findExistingUserCases.mockResolvedValue([userCase1]);
-    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never);
+    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never, '1');
 
     expect(results).toStrictEqual({
       existingUserCase: { id: '1', state: State.Draft, divorceOrDissolution: serviceType },
@@ -152,7 +152,7 @@ describe('CaseApi', () => {
       findUserInviteCases: jest.fn(() => [userCase]),
     });
     mockApiClient.findExistingUserCases.mockResolvedValue([userCase]);
-    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never);
+    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never, '1');
 
     expect(results).toStrictEqual({
       existingUserCase: { id: '1234', state: State.Draft, divorceOrDissolution: serviceType },
@@ -336,7 +336,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DIVORCE,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(true);
@@ -356,7 +357,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DIVORCE,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(true);
@@ -371,7 +373,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DIVORCE,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(false);
@@ -391,7 +394,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DISSOLUTION,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(true);
@@ -411,7 +415,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DISSOLUTION,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(true);
@@ -426,7 +431,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DISSOLUTION,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(false);

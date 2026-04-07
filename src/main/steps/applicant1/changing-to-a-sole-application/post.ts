@@ -11,7 +11,7 @@ export default class ChangingToASoleApplicationPostController extends PostContro
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     req.session.errors = [];
     try {
-      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, SWITCH_TO_SOLE_CO);
+      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, SWITCH_TO_SOLE_CO, req.session.isApplicant2);
     } catch (err) {
       req.locals.logger.error('Error encountered whilst switching to sole application ', err);
       req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });

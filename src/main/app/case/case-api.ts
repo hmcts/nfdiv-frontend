@@ -7,7 +7,6 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import { CaseAssignedUserRoles } from './case-roles';
 import { CASE_TYPE } from './case-type';
 import { DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
@@ -25,16 +24,17 @@ export class CaseApi {
     return this.apiClient.createCase(serviceType, userDetails);
   }
 
-  public async getCaseById(caseId: string): Promise<CaseWithId> {
-    return this.apiClient.getCaseById(caseId);
+  public async getCaseById(caseId: string, userId: string): Promise<CaseWithId> {
+    return this.apiClient.getCaseById(caseId, userId);
   }
 
   public async getExistingAndNewUserCases(
     email: string,
     serviceType: string,
-    logger: LoggerInstance
+    logger: LoggerInstance,
+    userId: string
   ): Promise<{ existingUserCase: CaseWithId | false; newInviteUserCase: CaseWithId | false }> {
-    const existingUserCase: CaseWithId | false = await this.getExistingUserCase(serviceType);
+    const existingUserCase: CaseWithId | false = await this.getExistingUserCase(serviceType, userId);
     const newInviteUserCase = await this.getNewInviteCase(email, serviceType, logger);
 
     if (existingUserCase && newInviteUserCase) {
@@ -56,31 +56,30 @@ export class CaseApi {
     return this.getLatestUserCase(userCases);
   }
 
-  public async getExistingUserCase(serviceType: string): Promise<CaseWithId | false> {
+  public async getExistingUserCase(serviceType: string, userId: string): Promise<CaseWithId | false> {
     const userCases = await this.apiClient.findExistingUserCases(CASE_TYPE, serviceType);
-    return this.getPriorityUserCase(userCases);
+    return this.getPriorityUserCase(userCases, userId);
   }
 
   public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
-    const userRole: UserRole = await this.getUsersRoleOnCase(caseId, userId);
-    return userRole === UserRole.APPLICANT_2;
+    return this.apiClient.isApplicant2(caseId, userId);
   }
 
   public async getUsersRoleOnCase(caseId: string, userId: string): Promise<UserRole> {
-    const userRoles: CaseAssignedUserRoles = await this.apiClient.getCaseUserRoles(caseId, userId);
-    return userRoles.case_users[0]?.case_role;
+    return this.apiClient.getUsersRoleOnCase(caseId, userId);
   }
 
-  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    return this.apiClient.sendEvent(caseId, toApiFormat(userData), eventName);
+  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string, isApplicant2?: boolean): Promise<CaseWithId> {
+    return this.apiClient.sendEvent(caseId, toApiFormat(userData, isApplicant2 as boolean), eventName, 0, isApplicant2);
   }
 
   public async triggerPaymentEvent(
     caseId: string,
     eventPayload: { [key: string]: ListValue<Payment>[] },
-    eventName: string
+    eventName: string,
+    isApplicant2?: boolean
   ): Promise<CaseWithId> {
-    return this.apiClient.sendEvent(caseId, eventPayload, eventName);
+    return this.apiClient.sendEvent(caseId, eventPayload, eventName, 0, isApplicant2);
   }
 
   public async hasInProgressDivorceCase(): Promise<boolean> {
@@ -108,7 +107,8 @@ export class CaseApi {
   public async hasDivorceOrDissolutionCaseForOtherDomain(
     email: string,
     serviceType: string,
-    logger: LoggerInstance
+    logger: LoggerInstance,
+    userId: string
   ): Promise<boolean> {
     const alternativeServiceType =
       serviceType === DivorceOrDissolution.DIVORCE ? DivorceOrDissolution.DISSOLUTION : DivorceOrDissolution.DIVORCE;
@@ -116,22 +116,21 @@ export class CaseApi {
     const { newInviteUserCase, existingUserCase } = await this.getExistingAndNewUserCases(
       email,
       alternativeServiceType,
-      logger
+      logger,
+      userId
     );
 
     return !!newInviteUserCase || !!existingUserCase;
   }
 
-  private getPriorityUserCase(userCases: CcdV1Response[] | false): CaseWithId | false {
+  private async getPriorityUserCase(userCases: CcdV1Response[] | false, userId: string): Promise<CaseWithId | false> {
     if (userCases && userCases.length > 1) {
       const submittedUserCase = userCases.find(userCase => !preSubmittedStatePrioritySequence.includes(userCase.state));
       const priorityUserCase = submittedUserCase || getHighestPriorityPreSubmissionCases(userCases)[0];
-      return {
-        ...fromApiFormat(priorityUserCase.case_data),
-        id: priorityUserCase.id.toString(),
-        state: priorityUserCase.state,
-      };
+
+      return await this.getCaseById(priorityUserCase.id, userId);
     }
+
     return this.getLatestUserCase(userCases);
   }
 

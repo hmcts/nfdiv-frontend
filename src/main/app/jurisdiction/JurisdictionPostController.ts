@@ -39,6 +39,6 @@ export class JurisdictionPostController extends PostController<AnyObject> {
       ...formData,
     };
 
-    return req.locals.api.triggerEvent(req.session.userCase.id, dataToSave, eventName);
+    return req.locals.api.triggerEvent(req.session.userCase.id, dataToSave, eventName, req.session.isApplicant2);
   }
 }

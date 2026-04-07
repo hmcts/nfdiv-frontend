@@ -15,6 +15,6 @@ export default class CitizenUpdateContactDetailsPostControllerWithRefuge extends
         ? { applicant1InRefuge: YesOrNo.NO }
         : {};
 
-    return req.locals.api.triggerEvent(req.session.userCase.id, { ...formData, ...setInRefugeDefault }, eventName);
+    return req.locals.api.triggerEvent(req.session.userCase.id, { ...formData, ...setInRefugeDefault }, eventName, false);
   }
 }

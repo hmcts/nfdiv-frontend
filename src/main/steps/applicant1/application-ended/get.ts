@@ -20,7 +20,8 @@ export default class ApplicationEndedGetController extends GetController {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
         req.session.userCase,
-        SWITCH_TO_SOLE
+        SWITCH_TO_SOLE,
+        req.session.isApplicant2
       );
     } catch (err) {
       req.locals.logger.error('Error encountered whilst switching application type to sole ', err);
