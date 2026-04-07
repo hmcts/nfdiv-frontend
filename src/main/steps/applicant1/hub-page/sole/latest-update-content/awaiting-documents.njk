@@ -1,7 +1,7 @@
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
   {% if preIssueServiceApplicationStarted %}
       {% include "./complete-preIssue-service-application.njk" %}
-  {% elif cannotUploadDocuments or userCase.iWantToHavePapersServedAnotherWay or addressRequired %}
+  {% elif cannotUploadDocuments or addressRequired %}
     <p class="govuk-body">{{ sendDocumentsOrProvideAddress }}</p>
     {% if addressRequired %}
       <h3 class="govuk-heading-m">{{ furtherActionNeeded.provideAddressHeading }}</h3>
@@ -43,9 +43,6 @@
     {% endif %}
   {% else %}
     <h2 class="govuk-heading-l">{{ subHeading4 }}</h2>
-    {% if not userCase.iWantToHavePapersServedAnotherWay %}
-      <p class="govuk-body">{{ line5 }}</p>
-    {% endif %}
     {% if not isJointApplication %}
       {% if hasASolicitorContactForPartner %}
         <p class="govuk-body">{{ line7 }}</p>

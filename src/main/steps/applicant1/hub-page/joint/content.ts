@@ -222,7 +222,7 @@ const en = (
     line1:
       "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
   },
-  sendDocumentLine1: 'Your application will not be processed until you have done the following:',
+  sendDocumentsOrProvideAddress: 'Your application will not be processed until you have done the following:',
   sendDocumentHeading: 'Send your documents to the court',
   line2: 'You need to send the following documents to the court because you did not upload them earlier:',
   documents: {
@@ -531,7 +531,7 @@ const cy: typeof en = (
     line1:
       'Mae eich cais wedi cyrraedd y llys a bydd yn cael ei gyfeirio at farnwr i ystyried eich cais. Dylech glywed gan\n y llys am benderfyniad y barnwr.',
   },
-  sendDocumentLine1: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
+  sendDocumentsOrProvideAddress: 'Ni fydd eich cais yn cael ei brosesu hyd nes y byddwch wedi gwneud y canlynol:',
   sendDocumentHeading: 'Anfon eich dogfennau i’r llys',
   line2: 'Mae angen i chi anfon y dogfennau canlynol i’r llys gan na wnaethoch eu llwytho yn gynharach:',
   documents: {
