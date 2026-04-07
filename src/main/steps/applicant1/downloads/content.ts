@@ -135,12 +135,12 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
     link: '/downloads/certificate-of-service',
-    text: "View your 'certificate of service' (PDF)",
+    text: 'Gweld eich ‘tystysgrif cyflwyno’ (PDF)',
   },
   bailiffServiceCertificateDownload: {
     downloadReference: 'Bailiff-certificate',
     link: '/downloads/bailiff-unsuccessful-certificate-of-service',
-    text: "View the 'bailiff service certificate' (PDF)",
+    text: "Gweld y 'dystysgrif a gyflwynir gan feili' (PDF)",
   },
   respondentAnswersDownload: {
     reference: 'Respondent-Answers',
