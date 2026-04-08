@@ -34,8 +34,15 @@ export class CaseApi {
     serviceType: string,
     logger: LoggerInstance
   ): Promise<{ existingUserCase: CaseWithId | false; newInviteUserCase: CaseWithId | false }> {
-    const existingUserCase: CaseWithId | false = await this.getExistingUserCase(serviceType);
-    const newInviteUserCase = await this.getNewInviteCase(email, serviceType, logger);
+    const existingUserCaseElasticSearch: CaseWithId | false = await this.getExistingUserCase(serviceType);
+    const newInviteCaseElasticSearch = await this.getNewInviteCase(email, serviceType, logger);
+
+    const existingUserCase = existingUserCaseElasticSearch
+      ? await this.apiClient.getCaseById(existingUserCaseElasticSearch.id.toString())
+      : false;
+    const newInviteUserCase = newInviteCaseElasticSearch
+      ? await this.apiClient.getCaseById(newInviteCaseElasticSearch.id.toString())
+      : false;
 
     if (existingUserCase && newInviteUserCase) {
       return {
