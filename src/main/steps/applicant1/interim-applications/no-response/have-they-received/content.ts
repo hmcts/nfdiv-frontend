@@ -1,12 +1,9 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { NoResponseCheckContactDetails } from '../../../../../app/case/definition';
+import { NoResponseCheckContactDetails, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
-// import { Logger } from '@hmcts/nodejs-logging';
-
-// const logger = Logger.getLogger('access-code-post-controller');
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: `Check your ${partner}'s contact details`,
@@ -130,10 +127,10 @@ export const formatApplicant2Address = (userCase: Partial<CaseWithId>): string =
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const applicant2Address = formatApplicant2Address(content.userCase);
-  // logger.info(content.userCase);
-  const applicant2Email = content.userCase.applicant2Email;
-  const applicant2PhoneNumber = content.userCase.applicant2PhoneNumber;
+  const applicant2Address =
+    content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : formatApplicant2Address(content.userCase);
+  const applicant2Email =
+    content.userCase.applicant2AddressPrivate === YesOrNo.YES ? 'N/A' : content.userCase.applicant2Email;
   const contactDetailsProvided =
     applicant2Address.length > 0 ||
     (applicant2Email !== null && applicant2Email !== undefined && applicant2Email.length > 0);
@@ -142,7 +139,6 @@ export const generateContent: TranslationFn = content => {
     form: contactDetailsProvided ? form : formNoDetails,
     applicant2Address,
     applicant2Email,
-    applicant2PhoneNumber,
     contactDetailsProvided,
   };
 };

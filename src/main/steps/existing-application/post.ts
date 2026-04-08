@@ -95,7 +95,8 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
     await caseworkerUserApi.triggerEvent(
       req.session.inviteCaseId,
       { [accessCodeToDelete as string]: null },
-      SYSTEM_CANCEL_CASE_INVITE
+      SYSTEM_CANCEL_CASE_INVITE,
+      req.session.isApplicant2
     );
   }
 

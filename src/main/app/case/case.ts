@@ -357,7 +357,11 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant2WithdrawApplicationReason: 'applicant2WithdrawApplicationReason',
 };
 
-export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData, isApplicant2?: boolean): OutputFormat {
+export function formatCase<OutputFormat>(
+  fields: FieldFormats,
+  data: Partial<Case> | CaseData,
+  isApplicant2?: boolean
+): OutputFormat {
   const result = {};
 
   for (const field of Object.keys(data)) {

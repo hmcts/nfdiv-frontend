@@ -3,13 +3,15 @@ import { invert } from 'lodash';
 import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, ContactDetailsType, HowToRespondApplication, MarriageFormation, YesOrNo } from './definition';
 import { fromApi as formatAddress } from './formatter/address';
+import { applicant1PrivateFieldsFromApi, applicant2PrivateFieldsFromApi } from './formatter/private-fields';
 import {
   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
   fromApiApplicant2 as uploadedFilesFromApiApplicant2,
 } from './formatter/uploaded-files';
-import { applicant1PrivateFieldsFromApi, applicant2PrivateFieldsFromApi } from './formatter/private-fields';
 
-type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>, isApplicant2?: boolean) => Partial<Case>)>>;
+type FromApiConverters = Partial<
+  Record<keyof CaseData, string | ((data: Partial<CaseData>, isApplicant2?: boolean) => Partial<Case>)>
+>;
 
 export const checkboxConverter = (value: string | undefined): Checkbox | undefined => {
   if (!value) {

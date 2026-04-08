@@ -143,7 +143,13 @@ export class CaseApiClient {
     }
   }
 
-  public async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string, retries = 0, isApplicant2?: boolean): Promise<CaseWithId> {
+  public async sendEvent(
+    caseId: string,
+    data: Partial<CaseData>,
+    eventName: string,
+    retries = 0,
+    isApplicant2?: boolean
+  ): Promise<CaseWithId> {
     try {
       const tokenResponse = await this.server.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
       const token = tokenResponse.data.token;

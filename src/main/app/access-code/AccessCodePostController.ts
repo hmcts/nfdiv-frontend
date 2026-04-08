@@ -72,7 +72,12 @@ export class AccessCodePostController {
       logger.info(`Calling to link ${systemEvent} to case ID: ${caseReference}`);
       try {
         req.session.isApplicant2 = this.joiningCaseAsApplicant2(req);
-        req.session.userCase = await caseworkerUserApi.triggerEvent(caseReference as string, formData, systemEvent, req.session.isApplicant2);
+        req.session.userCase = await caseworkerUserApi.triggerEvent(
+          caseReference as string,
+          formData,
+          systemEvent,
+          req.session.isApplicant2
+        );
       } catch (err) {
         req.locals.logger.error(`Error linking applicant/respondent to case ${caseReference}, ${err}`);
         req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
@@ -82,7 +87,12 @@ export class AccessCodePostController {
     if (req.session.errors.length === 0) {
       if (req.session.existingCaseId) {
         try {
-          await req.locals.api.triggerEvent(req.session.existingCaseId, {}, SYSTEM_UNLINK_APPLICANT);
+          await req.locals.api.triggerEvent(
+            req.session.existingCaseId,
+            {},
+            SYSTEM_UNLINK_APPLICANT,
+            req.session.isApplicant2
+          );
           req.locals.logger.info(
             `Unlinking userId: "${req.session.user.id}" from existing application: ${req.session.existingCaseId}`
           );

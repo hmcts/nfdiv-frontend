@@ -1,59 +1,116 @@
-import { CaseData, ContactDetailsType, YesOrNo } from '../definition';
-import { fromApi as fromApiAddress, toApiAddress } from './address';
-import { Case } from '../case';
-import { HTTPError } from '../../../steps/error/error.controller';
 import { StatusCodes } from 'http-status-codes';
 
-const applicant1PrivateFieldsAreVisible = (data: Partial<CaseData>, isApplicant2?: boolean): boolean => {
-  return !isApplicant2 || data.applicant1ContactDetailsType === ContactDetailsType.PUBLIC;
-}
+import { HTTPError } from '../../../steps/error/error.controller';
+import { Case } from '../case';
+import { CaseData } from '../definition';
+import { applicant1PrivateFieldPolicy, applicant2PrivateFieldPolicy } from '../policy/private-fields';
 
-const applicant2PrivateFieldsAreVisible = (data: Partial<CaseData>, isApplicant2?: boolean): boolean => {
-  return isApplicant2 || data.applicant2ContactDetailsType === ContactDetailsType.PUBLIC;
-}
+import { fromApi as fromApiAddress, toApiAddress } from './address';
 
 const PRIVATE_FIELD_SUFFIXES = [
-  'Email', 'PhoneNumber', 'Address1', 'Address2', 'Address3', 'AddressTown', 'AddressCounty', 'AddressPostcode', 'AddressCountry'
+  'Email',
+  'PhoneNumber',
+  'Address1',
+  'Address2',
+  'Address3',
+  'AddressTown',
+  'AddressCounty',
+  'AddressPostcode',
+  'AddressCountry',
 ];
 
-const CONFIDENTIAL_LABEL = 'Confidential';
+export const APPLICANT_1_CONFIDENTIAL_PLACEHOLDERS: Partial<Case> = Object.fromEntries(
+  PRIVATE_FIELD_SUFFIXES.map(fieldSuffix => [`applicant1${fieldSuffix}`, CONFIDENTIAL_PLACEHOLDER])
+) as Partial<Case>;
 
-const filterDataFromApi = (fieldPrefix: 'applicant1' | 'applicant2') => {
-  return Object.fromEntries(
-    PRIVATE_FIELD_SUFFIXES.map(fieldSuffix => [`${fieldPrefix}${fieldSuffix}`, CONFIDENTIAL_LABEL])
-  ) as Partial<Case>;
-}
+export const APPLICANT_2_CONFIDENTIAL_PLACEHOLDERS: Partial<Case> = Object.fromEntries(
+  PRIVATE_FIELD_SUFFIXES.map(fieldSuffix => [`applicant2${fieldSuffix}`, CONFIDENTIAL_PLACEHOLDER])
+) as Partial<Case>;
+
+export const CONFIDENTIAL_PLACEHOLDER = 'N/A';
+
+const throwNoAccessError = (): never => {
+  throw new HTTPError('Attempting to update fields with no access.', StatusCodes.BAD_REQUEST);
+};
+
+const containsConfidentialPlaceholder = (data: Partial<Case>, placeholders: Partial<Case>): boolean => {
+  for (const key of Object.keys(placeholders) as (keyof Case)[]) {
+    if (data[key] === CONFIDENTIAL_PLACEHOLDER) {
+      return true;
+    }
+  }
+
+  return false;
+};
 
 export const applicant1PrivateFieldsFromApi = (data: Partial<CaseData>, isApplicant2?: boolean): Partial<Case> => {
-  return applicant1PrivateFieldsAreVisible(data, isApplicant2)
-    ? fromApiAddress(data, 'applicant1')
-    : filterDataFromApi('applicant1');
-}
+  const viewerIsKnown = typeof isApplicant2 === 'boolean';
+
+  if (!(viewerIsKnown && applicant1PrivateFieldPolicy.canView(data, isApplicant2))) {
+    return APPLICANT_1_CONFIDENTIAL_PLACEHOLDERS;
+  }
+
+  return {
+    ...fromApiAddress(data, 'applicant1'),
+    applicant1Email: data.applicant1Email,
+    applicant1PhoneNumber: data.applicant1PhoneNumber,
+  };
+};
 
 export const applicant2PrivateFieldsFromApi = (data: Partial<CaseData>, isApplicant2?: boolean): Partial<Case> => {
-  return applicant2PrivateFieldsAreVisible(data, isApplicant2)
-    ? fromApiAddress(data, 'applicant2')
-    : filterDataFromApi('applicant2');
-}
+  const viewerIsKnown = typeof isApplicant2 === 'boolean';
+
+  if (!(viewerIsKnown && applicant2PrivateFieldPolicy.canView(data, isApplicant2))) {
+    return APPLICANT_2_CONFIDENTIAL_PLACEHOLDERS;
+  }
+
+  return {
+    ...fromApiAddress(data, 'applicant2'),
+    applicant2Email: data.applicant2Email,
+    applicant2PhoneNumber: data.applicant2PhoneNumber,
+  };
+};
 
 export const applicant1PrivateFieldsToApi = (data: Partial<Case>, isApplicant2?: boolean): Partial<CaseData> => {
-  if (!isApplicant2 || !(data.applicant1AddressPrivate === YesOrNo.YES)) {
-    return { applicant1Address: toApiAddress(data, 'applicant1') };
+  const viewerIsKnown = typeof isApplicant2 === 'boolean';
+
+  if (!viewerIsKnown) {
+    throwNoAccessError();
   }
 
-  throw new HTTPError(
-    'Attempting to send applicant 1 private fields to API when they are not visible',
-    StatusCodes.BAD_REQUEST
-  );
-}
+  if (containsConfidentialPlaceholder(data, APPLICANT_1_CONFIDENTIAL_PLACEHOLDERS)) {
+    throwNoAccessError();
+  }
+
+  if (!applicant1PrivateFieldPolicy.canEdit(data, isApplicant2 as boolean)) {
+    throwNoAccessError();
+  }
+
+  return {
+    applicant1Address: toApiAddress(data, 'applicant1'),
+    applicant1Email: data.applicant1Email,
+    applicant1PhoneNumber: data.applicant1PhoneNumber,
+  };
+};
 
 export const applicant2PrivateFieldsToApi = (data: Partial<Case>, isApplicant2?: boolean): Partial<CaseData> => {
-  if (isApplicant2 || data.applicant2AddressPrivate === YesOrNo.NO) {
-    return { applicant2Address: toApiAddress(data, 'applicant2') };
+  const viewerIsKnown = typeof isApplicant2 === 'boolean';
+
+  if (!viewerIsKnown) {
+    throwNoAccessError();
   }
 
-  throw new HTTPError(
-    'Attempting to send applicant 2 private fields to API when they are not visible',
-    StatusCodes.BAD_REQUEST
-  );
-}
+  if (containsConfidentialPlaceholder(data, APPLICANT_2_CONFIDENTIAL_PLACEHOLDERS)) {
+    throwNoAccessError();
+  }
+
+  if (!applicant2PrivateFieldPolicy.canEdit(data, isApplicant2 as boolean)) {
+    throwNoAccessError();
+  }
+
+  return {
+    applicant2Address: toApiAddress(data, 'applicant2'),
+    applicant2Email: data.applicant2Email,
+    applicant2PhoneNumber: data.applicant2PhoneNumber,
+  };
+};

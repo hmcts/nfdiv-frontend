@@ -69,15 +69,20 @@ export class CaseApi {
     return this.apiClient.getUsersRoleOnCase(caseId, userId);
   }
 
-  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string, isApplicant2?: boolean): Promise<CaseWithId> {
-    return this.apiClient.sendEvent(caseId, toApiFormat(userData, isApplicant2 as boolean), eventName, 0, isApplicant2);
+  public async triggerEvent(
+    caseId: string,
+    userData: Partial<Case>,
+    eventName: string,
+    isApplicant2: boolean
+  ): Promise<CaseWithId> {
+    return this.apiClient.sendEvent(caseId, toApiFormat(userData, isApplicant2), eventName, 0, isApplicant2);
   }
 
   public async triggerPaymentEvent(
     caseId: string,
     eventPayload: { [key: string]: ListValue<Payment>[] },
     eventName: string,
-    isApplicant2?: boolean
+    isApplicant2: boolean
   ): Promise<CaseWithId> {
     return this.apiClient.sendEvent(caseId, eventPayload, eventName, 0, isApplicant2);
   }

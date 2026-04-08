@@ -377,7 +377,7 @@ describe('CaseApi', () => {
       },
     });
 
-    const userCase = await api.getCaseById('1234');
+    const userCase = await api.getCaseById('1234', '1');
     expect(userCase).toStrictEqual({ id: '1234', state: 'Draft', accessCode: 'NFSDCLV3' });
   });
 
@@ -387,7 +387,7 @@ describe('CaseApi', () => {
       request: 'mock request',
     });
 
-    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
+    await expect(api.getCaseById('1234', '1')).rejects.toThrow('Case could not be retrieved.');
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error GET https://example.com');
   });
@@ -397,7 +397,7 @@ describe('CaseApi', () => {
       message: 'Error',
     });
 
-    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
+    await expect(api.getCaseById('1234', '1')).rejects.toThrow('Case could not be retrieved.');
 
     expect(mockLogger.error).toHaveBeenCalledWith('API Error', 'Error');
   });

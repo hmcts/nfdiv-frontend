@@ -30,14 +30,13 @@ import {
   applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant2AddressToApi,
 } from './formatter/address';
-import {
-  applicant1PrivateFieldsToApi,
-  applicant2PrivateFieldsToApi,
-} from './formatter/private-fields';
+import { applicant1PrivateFieldsToApi, applicant2PrivateFieldsToApi } from './formatter/private-fields';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
-type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case, isApplicant2?: boolean) => OrNull<Partial<CaseData>>)>>;
+type ToApiConverters = Partial<
+  Record<keyof Case, string | ((data: Case, isApplicant2?: boolean) => OrNull<Partial<CaseData>>)>
+>;
 
 const checkboxConverter = (value: string | undefined) => {
   if (value === null) {
@@ -760,4 +759,5 @@ const setUnreachableAnswersToNull = (
 ): Record<string, null> =>
   properties.reduce((arr: Record<string, null>, property: string) => ({ ...arr, [property]: null }), {});
 
-export const toApiFormat = (data: Partial<Case>, isApplicant2: boolean): CaseData => formatCase(fields, data, isApplicant2);
+export const toApiFormat = (data: Partial<Case>, isApplicant2?: boolean): CaseData =>
+  formatCase(fields, data, isApplicant2);

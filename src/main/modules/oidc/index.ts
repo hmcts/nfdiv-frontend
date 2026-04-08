@@ -114,7 +114,14 @@ export class OidcMiddleware {
         }
       } else {
         if (!existingUserCase) {
-          if (await req.locals.api.hasDivorceOrDissolutionCaseForOtherDomain(userEmail, serviceType, logger, req.session.user.id)) {
+          if (
+            await req.locals.api.hasDivorceOrDissolutionCaseForOtherDomain(
+              userEmail,
+              serviceType,
+              logger,
+              req.session.user.id
+            )
+          ) {
             logger.info(
               `UserID ${req.session.user.id} is being redirected to domain for the other divorceOrDissolution type`
             );
@@ -161,7 +168,8 @@ export class OidcMiddleware {
           req.session.isApplicant2 ??
           (req.session.userCase
             ? await req.locals.api.isApplicant2(req.session.userCase.id, req.session.user.id)
-            : false);``
+            : false);
+        ('');
       }
 
       req.session.save(err => {
