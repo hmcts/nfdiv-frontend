@@ -34,23 +34,23 @@ export class CaseApi {
     serviceType: string,
     logger: LoggerInstance
   ): Promise<{ existingUserCase: CaseWithId | false; newInviteUserCase: CaseWithId | false }> {
-    const existingUserCaseElasticSearch: CaseWithId | false = await this.getExistingUserCase(serviceType);
-    const newInviteCaseElasticSearch = await this.getNewInviteCase(email, serviceType, logger);
-
-    const existingUserCase = existingUserCaseElasticSearch
-      ? await this.apiClient.getCaseById(existingUserCaseElasticSearch.id.toString())
-      : false;
-    const newInviteUserCase = newInviteCaseElasticSearch
-      ? await this.apiClient.getCaseById(newInviteCaseElasticSearch.id.toString())
+    const existingCaseSearchResult: CaseWithId | false = await this.getExistingUserCase(serviceType);
+    const existingCaseCcdData = existingCaseSearchResult
+      ? await this.apiClient.getCaseById(existingCaseSearchResult.id.toString())
       : false;
 
-    if (existingUserCase && newInviteUserCase) {
+    const newInviteCaseSearchResult = await this.getNewInviteCase(email, serviceType, logger);
+    const newInviteCaseCcdData = newInviteCaseSearchResult
+      ? await this.apiClient.getCaseById(newInviteCaseSearchResult.id.toString())
+      : false;
+
+    if (existingCaseCcdData && newInviteCaseCcdData) {
       return {
-        existingUserCase,
-        newInviteUserCase: newInviteUserCase.id !== existingUserCase.id ? newInviteUserCase : false,
+        existingUserCase: existingCaseCcdData,
+        newInviteUserCase: newInviteCaseCcdData.id !== existingCaseCcdData.id ? newInviteCaseCcdData : false,
       };
     }
-    return { existingUserCase, newInviteUserCase };
+    return { existingUserCase: existingCaseCcdData, newInviteUserCase: newInviteCaseCcdData };
   }
 
   public async getNewInviteCase(
