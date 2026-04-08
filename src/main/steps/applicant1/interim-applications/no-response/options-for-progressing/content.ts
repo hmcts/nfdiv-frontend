@@ -34,7 +34,7 @@ const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: Commo
       if (isApp2Represented) {
         return HAVE_THEY_RECEIVED_REPRESENTED;
       }
-      return HAVE_THEY_RECEIVED;
+      return isApp2Confidential ? EVIDENCE_RECEIVED_APPLICATION : HAVE_THEY_RECEIVED;
     },
   },
 });
