@@ -160,7 +160,7 @@
     "webdriverio": "9.27.0",
     "webpack": "5.105.4",
     "webpack-cli": "7.0.2",
-    "webpack-dev-middleware": "8.0.2",
+    "webpack-dev-middleware": "8.0.3",
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
