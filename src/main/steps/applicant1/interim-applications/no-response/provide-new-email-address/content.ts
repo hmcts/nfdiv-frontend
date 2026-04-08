@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
-// import { hasValueChanged, isApplicant2EmailValid, isFieldFilledIn } from '../../../../../app/form/validation';
+import { hasValueChanged, isApplicant2EmailValid, isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
@@ -36,10 +36,18 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: userCase => ({
-    applicant2Email: {
+    applicant1NoResponsePartnerEmailAddress: {
       type: 'text',
+      value: '',
       label: l => l.provideNewEmailHeader,
-      labelSize: null
+      labelSize: null,
+      validator: value => {
+        return (
+          isFieldFilledIn(value) ||
+          isApplicant2EmailValid(value as string, userCase.applicant1Email) ||
+          hasValueChanged(value as string, userCase?.applicant2Email)
+        );
+      },
     },
   }),
   submit: {
