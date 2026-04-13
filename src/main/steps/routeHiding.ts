@@ -1,13 +1,20 @@
+import { isEmpty } from 'lodash';
+
 import { State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
-import { RoutePermission } from './applicant1Sequence';
+import {
+  RoutePermission,
+  applicant1PostSubmissionSequence,
+  applicant1PreSubmissionSequence,
+} from './applicant1Sequence';
 import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
 import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
+import { noRespondentAddressJourneySequence } from './noRespondentAddressJourneySequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
@@ -27,6 +34,7 @@ import {
   INTEND_TO_DELAY,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   NO_RESPONSE_DETAILS_UPDATED,
+  NO_RESP_ADDRESS_DETAILS_UPDATED,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
@@ -64,6 +72,8 @@ export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
     ...bailiffServiceApplicationSequence,
     ...noResponseJourneySequence,
     ...dispenseServiceApplicationSequence,
+    ...noRespondentAddressJourneySequence,
+    ...applicant1PreSubmissionSequence,
   ].map(step => step.url as PageLink),
 ];
 
@@ -175,5 +185,18 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
         State.AwaitingDocuments,
         State.AwaitingService,
       ].includes(data.state as State),
+  },
+  {
+    urls: [...noRespondentAddressJourneySequence]
+      .filter(step => !NO_RESP_ADDRESS_DETAILS_UPDATED.includes(step.url as PageLink))
+      .map(step => step.url as PageLink),
+    condition: data =>
+      ![data.applicant2Address1, data.applicant2AddressPostcode, data.applicant2AddressCountry].some(isEmpty),
+  },
+  {
+    urls: [...applicant1PreSubmissionSequence]
+      .filter(step => !applicant1PostSubmissionSequence.some(postStep => postStep.url === step.url))
+      .map(step => step.url as PageLink),
+    condition: data => !!data?.dateSubmitted,
   },
 ];

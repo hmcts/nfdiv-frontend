@@ -12,6 +12,7 @@ import {
   FINALISING_YOUR_APPLICATION,
   GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
+  NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
@@ -341,6 +342,24 @@ describe('routeHiding', () => {
       test('state is AwaitingAos', () => {
         mockReq.url = HAVE_THEY_RECEIVED;
         mockReq.session.userCase.state = State.AwaitingAos;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+    });
+
+    describe('NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS', () => {
+      test('When respondent address is present - should return true', () => {
+        mockReq.url = NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS;
+        mockReq.session.userCase.applicant2Address1 = 'Test address line 1';
+        mockReq.session.userCase.applicant2AddressPostcode = 'Test postcode';
+        mockReq.session.userCase.applicant2AddressCountry = 'Test country';
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('When respondent address details are absent - should return false', () => {
+        mockReq.url = NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS;
+        mockReq.session.userCase.applicant2Address1 = 'Test address line 1';
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeFalsy();
       });

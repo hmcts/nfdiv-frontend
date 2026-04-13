@@ -14,7 +14,7 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   applicant2EmailAddress: `Enter your ${partner}'s email address (optional)`,
   applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
   errors: {
-    applicant2EmailAddress: {
+    applicant1NoRespAddressEmail: {
       required: "Enter an email address, or select 'I do not know their email address'",
       incorrect:
         'You have entered an email address and indicated that you do not know their email address. You can only do one before continuing.',
@@ -34,7 +34,7 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   applicant2EmailAddress: `Enter your ${partner}'s email address (optional)`,
   applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
   errors: {
-    applicant2EmailAddress: {
+    applicant1NoRespAddressEmail: {
       required: "Enter an email address, or select 'I do not know their email address'",
       incorrect:
         'You have entered an email address and indicated that you do not know their email address. You can only do one before continuing.',
@@ -46,19 +46,19 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
 
 export const form: FormContent = {
   fields: userCase => ({
-    applicant2EmailAddress: {
+    applicant1NoRespAddressEmail: {
       type: 'text',
       label: l => l.applicant2EmailAddress,
       labelSize: null,
       validator: (value, formData) => {
-        if (formData.applicant1DoesNotKnowApplicant2EmailAddress !== Checkbox.Checked) {
+        if (formData.applicant1NoRespAddressDoesNotKnowEmailAddress !== Checkbox.Checked) {
           return isFieldFilledIn(value) || isApplicant2EmailValid(value as string, userCase.applicant1Email);
         } else if (value) {
           return 'incorrect';
         }
       },
     },
-    applicant1DoesNotKnowApplicant2EmailAddress: {
+    applicant1NoRespAddressDoesNotKnowEmailAddress: {
       type: 'checkboxes',
       values: [
         {

@@ -127,7 +127,11 @@ export class Routes {
         const postController = fs.existsSync(`${step.stepDir}/post${ext}`)
           ? require(`${step.stepDir}/post${ext}`).default
           : PostController;
-        app.post(step.url, errorHandler(new postController(step.form.fields).post));
+        app.post(
+          step.url,
+          this.isRouteForUser as RequestHandler,
+          errorHandler(new postController(step.form.fields).post)
+        );
       }
     }
 
