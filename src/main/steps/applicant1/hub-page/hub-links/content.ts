@@ -33,7 +33,7 @@ const en = (
     text: 'Make an application to the court',
   },
   withdrawApplication: {
-    url: `${(isApplicant2 ? APPLICANT_2 : '') + (caseHasBeenIssued ? (canStartOnlineGenApplication ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : MAKE_AN_OFFLINE_APPLICATION) : WITHDRAW_THIS_APPLICATION)}`,
+    url: `${(isApplicant2 ? APPLICANT_2 : '') + (caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : WITHDRAW_THIS_APPLICATION)}`,
     text: `Withdraw this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   },
 });
@@ -57,7 +57,7 @@ const cy: typeof en = (
     text: 'Make an application to the court',
   },
   withdrawApplication: {
-    url: `${(isApplicant2 ? APPLICANT_2 : '') + (caseHasBeenIssued ? (canStartOnlineGenApplication ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : MAKE_AN_OFFLINE_APPLICATION) : WITHDRAW_THIS_APPLICATION)}`,
+    url: `${(isApplicant2 ? APPLICANT_2 : '') + (caseHasBeenIssued ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : WITHDRAW_THIS_APPLICATION)}`,
     text: `Tynnu’r ${isDivorce ? 'cais hwn am ysgariad' : 'cais hwn i ddod â’ch partneriaeth sifil i ben'} yn ôl`,
   },
 });

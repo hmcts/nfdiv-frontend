@@ -123,17 +123,13 @@ export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: 
 };
 
 export const isGenAppExclusionState = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
-  if (D11_GENERAL_APPLICATION_EXCLUDED_STATES.has(userCase.state as State)) {
-    return true;
-  }
+  const state = userCase.state as State;
+  const isSoleRespondent = isApplicant2 && userCase.applicationType === ApplicationType.SOLE_APPLICATION;
 
-  const isSoleRespondent = isApplicant2 && userCase?.applicationType === ApplicationType.SOLE_APPLICATION;
-
-  if (isSoleRespondent && RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES.has(userCase.state as State)) {
-    return true;
-  }
-
-  return false;
+  return (
+    D11_GENERAL_APPLICATION_EXCLUDED_STATES.has(state) ||
+    (isSoleRespondent && RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES.has(state))
+  );
 };
 
 export const canSubmitD11GeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {

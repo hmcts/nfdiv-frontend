@@ -80,7 +80,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const isRespondent = content.isApplicant2 && !content.isJointApplication;
   const isSoleApplicant = !content.isApplicant2 && !content.isJointApplication;
-  const hasCOBeenGranted = content.userCase.coGrantedDate !== undefined;
+  const hasCOBeenGranted = !!content.userCase.coGrantedDate;
   return {
     ...translations,
     caseHasBeenIssued: content.caseHasBeenIssued,
