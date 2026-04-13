@@ -2164,6 +2164,7 @@ export const enum GeneralOrderJudgeOrLegalAdvisorType {
 
 export const enum GeneralParties {
   APPLICANT = 'applicant',
+  APPLICANT2 = 'applicant2',
   RESPONDENT = 'respondent',
   OTHER = 'other',
 }

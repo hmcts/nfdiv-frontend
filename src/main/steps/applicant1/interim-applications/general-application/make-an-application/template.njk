@@ -8,7 +8,7 @@
 {% block page_content %}
   <h1 class="govuk-heading-l" id="preIssueMakeAnApplicationTitle">{{ title }}</h1>
   <p class="govuk-body">{{ subheading }}</p>
-  <h1 class="govuk-heading-m">{{ withdraw.header }}</p>
+  <h2 class="govuk-heading-m">{{ withdraw.header }}</p>
   <p class="govuk-body">
     {% if caseHasBeenIssued %}
       {{ withdraw.postIssueText }}
@@ -21,7 +21,7 @@
     {% endif %}
   </p>
   {% if caseHasBeenIssued %}
-    <h1 class="govuk-heading-m">{{ stay.header }}</h1>
+    <h2 class="govuk-heading-m">{{ stay.header }}</h1>
     <p class="govuk-body">{{ stay.infoHeader }}</p>
       <ul class="govuk-list govuk-list--bullet">
         <li>{{ stay.options.otherProceedings }}</li>
@@ -33,14 +33,14 @@
     {% endif %}
   {% endif %}
   {% if isSoleApplicant %}
-    <h1 class="govuk-heading-m">{{ extend.header }}</h1>
+    <h2 class="govuk-heading-m">{{ extend.header }}</h1>
     <p class="govuk-body">{{ extend.content }}</p>
   {% endif %}
   {% if not caseHasBeenIssued %}
-    <h1 class="govuk-heading-m">{{ applyWithoutMarriageCertificate.header }}</h1>
+    <h2 class="govuk-heading-m">{{ applyWithoutMarriageCertificate.header }}</h1>
     <p class="govuk-body">{{ applyWithoutMarriageCertificate.content }}</p>
   {% endif %}
-  <h1 class="govuk-heading-m">{{ expedite.header }}</p>
+  <h2 class="govuk-heading-m">{{ expedite.header }}</p>
   <p class="govuk-body">{{ expedite.content }}</p>
   {% if not isRespondent %}
     <h1 class="govuk-heading-m">{{ amend.header }}</p>
@@ -57,6 +57,26 @@
       <p class="govuk-body">{{ amend.preCO.line4 }}</p>
     {% endif %}
   {% endif %}
-  <h1 class="govuk-heading-m">{{ other.header }}</p>
+  <h2 class="govuk-heading-m">{{ other.header }}</p>
   <p class="govuk-body">{{ other.content }}</p>
+
+  {% if isAwaitingPronouncement and not isRespondent %}
+    <h2 class="govuk-heading-m">{{ caseIsAwaitingPronouncement.header }}</p>
+    <p class="govuk-body">{{ caseIsAwaitingPronouncement.line1 }}</p>
+    <p class="govuk-body">{{ caseIsAwaitingPronouncement.line2 }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{ caseIsAwaitingPronouncement.bullet1 }}</li>
+      <li>{{ caseIsAwaitingPronouncement.bullet2 }}</li>
+    </ul>
+    <p class="govuk-body">{{ caseIsAwaitingPronouncement.line3 }}</p>
+    <p class="govuk-body">{{ caseIsAwaitingPronouncement.line4 }}</p>
+  {% endif %}
+
+  {% if isRespondent %}
+    <h2 class="govuk-heading-m">{{ consideringYourFinancialPosition.header }}</p>
+    <p class="govuk-body">{{ consideringYourFinancialPosition.line1 }}</p>
+    <p class="govuk-body">{{ consideringYourFinancialPosition.line2 }}</p>
+    <p class="govuk-body">{{ consideringYourFinancialPosition.line3 | safe }}</p>
+    <p class="govuk-body">{{ consideringYourFinancialPosition.line4 }}</p>
+  {% endif %}
 {% endblock %}
