@@ -7,7 +7,8 @@ import { CommonContent } from '../../../../common/common.content';
 const en = ({ partner }: CommonContent) => ({
   title: `Sending the papers to your ${partner}`,
   line1: `If you can show that your ${partner} has an email address that they actively use, the court may be able to email the papers to that address.`,
-  line2:
+  line2: `Evidence that the email address is active can include messages sent directly to you by your ${partner}, or messages where your ${partner} has been included by a third party — for example, a government department, employer, school, bank, solicitor or another organisation. `,
+  line3:
     'If you do not have an email address, or would prefer to send them in a different way (for example text, WhatsApp or social media), you can do so but you will need to arrange this yourself. In these cases, we will email the papers to you so you can do so.',
   wantToApplyChoiceHeader: 'How would you like to apply to send the papers?',
   email: 'By email',
@@ -32,7 +33,8 @@ const en = ({ partner }: CommonContent) => ({
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Anfon y papurau at eich ${partner}`,
   line1: `Os gallwch ddangos bod gan eich ${partner} gyfeiriad e-bost a ddefnyddir ganddynt yn rheolaidd, efallai y gall y llys e-bostio’r papurau i’r cyfeiriad hwnnw.`,
-  line2:
+  line2: `Gall tystiolaeth bod y cyfeiriad e-bost yn weithredol gynnwys negeseuon a anfonwyd yn uniongyrchol atoch gan eich ${partner}, neu negeseuon lle mae eich ${partner} wedi'i gynnwys/chynnwys gan drydydd parti — er enghraifft, adran o'r llywodraeth, cyflogwr, ysgol, banc, cyfreithiwr neu sefydliad arall.`,
+  line3:
     'Os nad oes gennych gyfeiriad e-bost neu os byddai’n well gennych eu hanfon mewn ffordd wahanol (er enghraifft, neges destun, WhatsApp neu’r cyfryngau cymdeithasol), gallwch wneud hynny, ond byddwch angen trefnu hyn eich hun.  Yn yr achosion hyn, byddwn yn e-bostio’r papurau atoch fel y gallwch wneud hynny.',
   wantToApplyChoiceHeader: 'Sut hoffech chi ymgeisio i anfon y papurau?',
   email: 'Trwy e-bost',
