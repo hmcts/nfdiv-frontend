@@ -1141,11 +1141,13 @@ export const generateContent: TranslationFn = content => {
     }
   })();
 
-  const interimApplicationInProgress =
-    !!userCase.applicant1InterimApplicationType &&
-    userCase.applicant1InterimApplicationType !== InterimApplicationType.PROCESS_SERVER_SERVICE;
-  const interimApplicationStartedAosOverdue =
-    interimApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
+  const noResponseApplicationInProgress = !!userCase.applicant1InterimApplicationType && ![
+      InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
+      InterimApplicationType.PROCESS_SERVER_SERVICE
+    ].includes(userCase.applicant1InterimApplicationType as InterimApplicationType);
+
+  const noResponseApplicationStartedAosOverdue =
+    noResponseApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
 
   return {
     ...languages[language](
@@ -1178,6 +1180,6 @@ export const generateContent: TranslationFn = content => {
     applicant1NoResponseSendPapersAgain,
     isAwaitingProcessServerService,
     interimApplicationStartPagePath,
-    interimApplicationStartedAosOverdue,
+    noResponseApplicationStartedAosOverdue,
   };
 };

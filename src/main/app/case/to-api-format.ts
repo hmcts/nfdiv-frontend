@@ -514,7 +514,7 @@ const fields: ToApiConverters = {
       ? data.applicant1InterimAppsHwfRefNumber
       : '',
     applicant1InterimAppsHaveHwfReference:
-      data.applicant1InterimAppsHwfRefNumber === '' ? data.applicant1InterimAppsHaveHwfReference : YesOrNo.YES,
+      !!data.applicant1InterimAppsHwfRefNumber ? YesOrNo.YES : data.applicant1InterimAppsHaveHwfReference,
   }),
   applicant2InterimAppsUseHelpWithFees: data => ({
     applicant2InterimAppsUseHelpWithFees: data.applicant2InterimAppsUseHelpWithFees,
@@ -527,7 +527,7 @@ const fields: ToApiConverters = {
       ? data.applicant2InterimAppsHwfRefNumber
       : '',
     applicant2InterimAppsHaveHwfReference:
-      data.applicant2InterimAppsHwfRefNumber === '' ? data.applicant2InterimAppsHaveHwfReference : YesOrNo.YES,
+      !!data.applicant2InterimAppsHwfRefNumber ? YesOrNo.YES : data.applicant2InterimAppsHaveHwfReference,
   }),
   applicant1InterimAppsEvidenceUploadedFiles: () => ({}),
   applicant1InterimAppsCannotUploadDocs: data => ({

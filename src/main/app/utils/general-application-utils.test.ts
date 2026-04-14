@@ -22,7 +22,6 @@ import {
   getGenAppFeeOrderSummary,
   getGenAppPaymentsField,
   getGenAppServiceRequest,
-  hasGenAppAwaitingDocuments,
   hasGenAppPaymentInProgress,
   hasGenAppSaveAndSignOutContent,
 } from './general-application-utils';
@@ -276,40 +275,6 @@ describe('GeneralApplicationUtils', () => {
     });
   });
 
-  describe('hasGenAppAwaitingDocuments', () => {
-    test('Should return true if application awaiting documents exists', () => {
-      mockReq.session.userCase.generalApplications = [
-        {
-          id: '1',
-          value: {
-            generalApplicationParty: GeneralParties.APPLICANT,
-            generalApplicationSubmittedOnline: YesOrNo.YES,
-            generalApplicationDocsUploadedPreSubmission: YesOrNo.NO,
-            generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
-          },
-        },
-      ];
-
-      expect(hasGenAppAwaitingDocuments(false, mockReq.session.userCase)).toBe(true);
-    });
-
-    test('Should return false if no applications await documents', () => {
-      mockReq.session.userCase.generalApplications = [
-        {
-          id: '1',
-          value: {
-            generalApplicationParty: GeneralParties.APPLICANT,
-            generalApplicationSubmittedOnline: YesOrNo.YES,
-            generalApplicationDocsUploadedPreSubmission: YesOrNo.YES,
-            generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
-          },
-        },
-      ];
-
-      expect(hasGenAppAwaitingDocuments(false, mockReq.session.userCase)).toBe(false);
-    });
-  });
-
   describe('hasGenAppSaveAndSignOutContent', () => {
     test('Should return true if drafting D11 general application', () => {
       mockReq.session.userCase.applicant1InterimApplicationType =
@@ -386,22 +351,6 @@ describe('GeneralApplicationUtils', () => {
       mockReq.session.isApplicant2 = true;
       mockReq.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
       mockReq.session.userCase.dateAosSubmitted = undefined;
-      expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
-    });
-
-    test('Should return false if awaiting documents', () => {
-      mockReq.session.userCase.generalApplications = [
-        {
-          id: '1',
-          value: {
-            generalApplicationParty: GeneralParties.APPLICANT,
-            generalApplicationSubmittedOnline: YesOrNo.YES,
-            generalApplicationDocsUploadedPreSubmission: YesOrNo.NO,
-            generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
-          },
-        },
-      ];
-
       expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
     });
   });

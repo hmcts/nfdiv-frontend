@@ -1,10 +1,6 @@
 import { GeneralApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import {
-  hasGenAppAwaitingDocuments,
-  hasGenAppPaymentInProgress,
-  hasGenAppSaveAndSignOutContent,
-} from '../../../../../app/utils/general-application-utils';
+import { hasGenAppPaymentInProgress, hasGenAppSaveAndSignOutContent } from '../../../../../app/utils/general-application-utils';
 import { CommonContent, getRootRedirectPath } from '../../../../common/common.content';
 import { GEN_APP_INTERRUPTION, GEN_APP_WITHDRAW_APPLICATION, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
 import { generateContent as generalApplicationSubmittedContent } from '../../../interim-applications/general-application/submitted/content';
@@ -53,7 +49,6 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const { isApplicant2, userCase } = content;
   const hasPaymentInProgress = hasGenAppPaymentInProgress(isApplicant2, userCase);
-  const awaitingDocuments = hasGenAppAwaitingDocuments(isApplicant2, userCase);
   const rootPath = getRootRedirectPath(isApplicant2, userCase);
   const continueLinkUrl = hasPaymentInProgress
     ? rootPath + PAY_YOUR_GENERAL_APPLICATION_FEE
@@ -69,7 +64,6 @@ export const generateContent: TranslationFn = content => {
     hasGenAppSaveAndSignOutContent: hasGenAppSaveAndSignOutContent(isApplicant2, userCase),
     generalApplicationSubmitted: generalApplicationSubmittedContent(content),
     hasPaymentInProgress,
-    awaitingDocuments,
     isDraftingWithdraw,
   };
 };
