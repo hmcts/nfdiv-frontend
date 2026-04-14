@@ -5469,17 +5469,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.15.0":
-  version: 1.15.0
-  resolution: "axios@npm:1.15.0"
-  dependencies:
-    follow-redirects: "npm:^1.15.11"
-    form-data: "npm:^4.0.5"
-    proxy-from-env: "npm:^2.1.0"
-  checksum: 10/d39a2c0ebc7ff4739401b282e726cc2673377949d6c46d60eb619458f8d7a2f7eadbcada7097f4dbc7d5c59abb4d3bf6fac33d474412bc3415d3f5aa7ed45530
-  languageName: node
-  linkType: hard
-
 "b4a@npm:^1.6.4":
   version: 1.6.7
   resolution: "b4a@npm:1.6.7"
@@ -13514,7 +13503,6 @@ __metadata:
     allure-commandline: "npm:2.38.1"
     applicationinsights: "npm:2.9.8"
     autobind-decorator: "npm:2.4.0"
-    axios: "npm:1.15.0"
     axios-debug-log: "npm:1.0.0"
     codeceptjs: "npm:3.7.8"
     config: "npm:4.4.1"
