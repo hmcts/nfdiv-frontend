@@ -59,7 +59,7 @@ describe('No Response Journey Sequence test', () => {
   describe('NO_RESP_ADDRESS_ENTER_ADDRESS', () => {
     test('NO_RESP_ADDRESS_ENTER_ADDRESS when not international address', () => {
       const caseData = {
-        applicant2AddressOverseas: YesOrNo.NO,
+        applicant1NoRespAddressAddressOverseas: YesOrNo.NO,
       };
       const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_ENTER_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_ENTER_EMAIL);
@@ -67,7 +67,7 @@ describe('No Response Journey Sequence test', () => {
 
     test('NO_RESP_ADDRESS_ENTER_ADDRESS when international address', () => {
       const caseData = {
-        applicant2AddressOverseas: YesOrNo.YES,
+        applicant1NoRespAddressAddressOverseas: YesOrNo.YES,
       };
       const step = noRespondentAddressJourneySequence.find(obj => obj.url === NO_RESP_ADDRESS_ENTER_ADDRESS) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_RESP_ADDRESS_INTERNATIONAL_ADDRESS);
