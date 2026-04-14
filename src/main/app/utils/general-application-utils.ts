@@ -145,7 +145,8 @@ export const canSubmitD11GeneralApplication = (isApplicant2: boolean, userCase: 
     return false;
   }
 
-  const eitherPartyHasGenAppAwaitingPayment = hasGenAppPaymentInProgress(false, userCase) || hasGenAppPaymentInProgress(true, userCase);
+  const eitherPartyHasGenAppAwaitingPayment =
+    hasGenAppPaymentInProgress(false, userCase) || hasGenAppPaymentInProgress(true, userCase);
 
   return !eitherPartyHasGenAppAwaitingPayment;
 };

@@ -1,6 +1,9 @@
 import { GeneralApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { hasGenAppPaymentInProgress, hasGenAppSaveAndSignOutContent } from '../../../../../app/utils/general-application-utils';
+import {
+  hasGenAppPaymentInProgress,
+  hasGenAppSaveAndSignOutContent,
+} from '../../../../../app/utils/general-application-utils';
 import { CommonContent, getRootRedirectPath } from '../../../../common/common.content';
 import { GEN_APP_INTERRUPTION, GEN_APP_WITHDRAW_APPLICATION, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
 import { generateContent as generalApplicationSubmittedContent } from '../../../interim-applications/general-application/submitted/content';

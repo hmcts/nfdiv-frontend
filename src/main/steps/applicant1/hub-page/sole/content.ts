@@ -1141,10 +1141,11 @@ export const generateContent: TranslationFn = content => {
     }
   })();
 
-  const noResponseApplicationInProgress = !!userCase.applicant1InterimApplicationType && ![
-      InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
-      InterimApplicationType.PROCESS_SERVER_SERVICE
-    ].includes(userCase.applicant1InterimApplicationType as InterimApplicationType);
+  const noResponseApplicationInProgress =
+    !!userCase.applicant1InterimApplicationType &&
+    ![InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11, InterimApplicationType.PROCESS_SERVER_SERVICE].includes(
+      userCase.applicant1InterimApplicationType as InterimApplicationType
+    );
 
   const noResponseApplicationStartedAosOverdue =
     noResponseApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
