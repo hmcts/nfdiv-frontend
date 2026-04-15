@@ -40,10 +40,6 @@ export const generalApplicationD11Sequence = (party: WhichApplicant): Step[] => 
       getNextStep: () => GEN_APP_INTERRUPTION,
     },
     {
-      url: MAKE_AN_OFFLINE_APPLICATION,
-      getNextStep: () => HOME_URL,
-    },
-    {
       url: WITHDRAW_THIS_APPLICATION_POST_ISSUE,
       getNextStep: () => GEN_APP_INTERRUPTION,
     },
@@ -164,13 +160,20 @@ export const generalApplicationD11Sequence = (party: WhichApplicant): Step[] => 
         return generalAppServiceRequest ? PAY_YOUR_GENERAL_APPLICATION_FEE : GENERAL_APPLICATION_SUBMITTED;
       },
     },
-    {
-      url: GEN_APP_WITHDRAW_APPLICATION,
-      getNextStep: () => GEN_APP_APPLICATION_WITHDRAWN,
-    },
-    {
-      url: GEN_APP_APPLICATION_WITHDRAWN,
-      getNextStep: () => HOME_URL,
-    },
   ];
 };
+
+export const generalApplicationOtherSequence: Step[] = [
+  {
+    url: MAKE_AN_OFFLINE_APPLICATION,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: GEN_APP_WITHDRAW_APPLICATION,
+    getNextStep: () => GEN_APP_APPLICATION_WITHDRAWN,
+  },
+  {
+    url: GEN_APP_APPLICATION_WITHDRAWN,
+    getNextStep: () => HOME_URL,
+  },
+];
