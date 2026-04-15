@@ -252,4 +252,10 @@ describe('JointTemplateSelector test', () => {
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
+
+  test('should show /application-stayed.njk for state ApplicationStayed', () => {
+    const theState = displayState.at(State.ApplicationStayed);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.ApplicationStayed);
+  });
 });
