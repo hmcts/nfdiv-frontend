@@ -52,7 +52,7 @@
     "@hmcts/cookie-manager": "1.1.0",
     "@hmcts/nodejs-healthcheck": "1.8.6",
     "@hmcts/nodejs-logging": "4.0.4",
-    "@hmcts/properties-volume": "1.3.1",
+    "@hmcts/properties-volume": "1.3.2",
     "@launchdarkly/node-server-sdk": ">=9.0.0",
     "@types/config": "3.3.5",
     "@types/cookie-parser": "1.4.10",
@@ -78,7 +78,7 @@
     "@uppy/xhr-upload": "4.4.2",
     "applicationinsights": "2.9.8",
     "autobind-decorator": "2.4.0",
-    "axios": "1.13.6",
+    "axios": "1.15.0",
     "config": "4.4.1",
     "connect-redis": "7.1.1",
     "cookie-parser": "1.4.7",
@@ -118,7 +118,7 @@
   "devDependencies": {
     "@azure/playwright": "^1.1.1",
     "@codeceptjs/allure-legacy": "1.0.2",
-    "@playwright/test": "1.59.0",
+    "@playwright/test": "1.59.1",
     "@types/jest": "30.0.0",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
@@ -126,7 +126,7 @@
     "@wdio/sauce-service": "9.27.0",
     "allure-commandline": "2.38.1",
     "axios-debug-log": "1.0.0",
-    "codeceptjs": "3.7.7",
+    "codeceptjs": "3.7.8",
     "copy-webpack-plugin": "14.0.0",
     "css-loader": "7.1.4",
     "eslint": "8.57.1",
@@ -155,19 +155,20 @@
     "sass-loader": "16.0.7",
     "sonar-scanner": "3.1.0",
     "style-loader": "4.0.0",
-    "ts-jest": "29.4.6",
+    "ts-jest": "29.4.9",
     "ts-loader": "9.5.7",
     "webdriverio": "9.27.0",
-    "webpack": "5.105.4",
+    "webpack": "5.106.0",
     "webpack-cli": "7.0.2",
-    "webpack-dev-middleware": "8.0.2",
+    "webpack-dev-middleware": "8.0.3",
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
     "brace-expansion": "^5.0.5",
     "picomatch": "^4.0.4",
-    "undici": "^7.24.0",
-    "lodash": "^4.18.1"
+    "undici": "^8.0.0",
+    "lodash": "^4.18.1",
+    "follow-redirects": "^1.16.0"
   },
   "packageManager": "yarn@4.13.0"
 }
