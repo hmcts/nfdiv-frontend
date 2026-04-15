@@ -2,7 +2,7 @@ import config from 'config';
 
 import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../app/case/case';
-import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
+import { FinancialOrderFor, State, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
@@ -169,6 +169,8 @@ const en = ({ isDivorce, partner, userCase, isApplicant2, isJointApplication }: 
   confirmApplicationIsTrueWarning:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement ' +
     'verified by a statement of truth without an honest belief in its truth.',
+  applicationRejectedWarning:
+    'If you proceed to the next page you will have 14 days to pay the application fee, otherwise your application will be rejected, and you will have to start a new application.',
   errors: {
     applicant1IConfirmPrayer: {
       required: `You need to confirm you are applying to the court to ${
@@ -332,6 +334,8 @@ const cy: typeof en = ({ isDivorce, partner, userCase, isApplicant2, isJointAppl
   continue: `${isSubmit(isApplicant2, userCase) ? 'Cyflwyno' : 'Parhau i’r dudalen dalu'}`,
   confirmApplicationIsTrueWarning:
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
+  applicationRejectedWarning:
+    'If you proceed to the next page you will have 14 days to pay the application fee, otherwise your application will be rejected, and you will have to start a new application.',
   errors: {
     applicant1IConfirmPrayer: {
       required: `Mae angen i chi gadarnhau eich bod yn gwneud cais i'r llys i ${
@@ -392,6 +396,13 @@ export const generateContent: TranslationFn = content => {
   const isCeremonyPlace = content.userCase.ceremonyPlace;
   const whatThisMeansJurisdiction = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading3']);
   const whatThisMeansFinancialOrder = accessibleDetailsSpan(translations['whatThisMeans'], translations['subHeading6']);
+  const helpWithFeesNeeded = content.userCase.applicant1HelpPayingNeeded === YesOrNo.YES;
+  const showRejectWarning =
+    !content.isApplicant2 &&
+    content.isJointApplication &&
+    !content.userCase.applicant1HelpWithFeesRefNo &&
+    content.userCase.state === State.Applicant2Approved;
+
   return {
     ...translations,
     isApplicant1AddressNotPrivate,
@@ -402,5 +413,7 @@ export const generateContent: TranslationFn = content => {
     whatThisMeansJurisdiction,
     whatThisMeansFinancialOrder,
     form,
+    helpWithFeesNeeded,
+    showRejectWarning,
   };
 };
