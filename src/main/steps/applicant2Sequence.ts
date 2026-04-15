@@ -4,7 +4,7 @@ import { needsToExplainDelay } from '../app/controller/controller.utils';
 
 import { Step } from './applicant1Sequence';
 import { applicant2WithdrawApplicationSequence } from './applicant2WithdrawApplicationSequence';
-import { generalApplicationD11Sequence } from './generalApplicationD11Sequence';
+import { generalApplicationD11Sequence, generalApplicationOtherSequence } from './generalApplicationD11Sequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
@@ -270,6 +270,7 @@ const postSubmissionSequence: Step[] = [
   },
   ...applicant2WithdrawApplicationSequence,
   ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_2),
+  ...generalApplicationOtherSequence,
   ...generalApplicationPaymentSequence,
 ];
 

@@ -6,6 +6,7 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { ROUTE_HIDE_CONDITIONS, shouldHideRouteFromUser } from './routeHiding';
 import {
   ACCESSIBILITY_STATEMENT_URL,
+  APPLICANT_2,
   CHECK_ANSWERS_ALTERNATIVE,
   CHECK_ANSWERS_BAILIFF,
   CHECK_ANSWERS_DEEMED,
@@ -13,6 +14,7 @@ import {
   FINALISING_YOUR_APPLICATION,
   GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
+  MAKE_AN_APPLICATION,
   OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
@@ -342,6 +344,65 @@ describe('routeHiding', () => {
       test('state is AwaitingAos', () => {
         mockReq.url = HAVE_THEY_RECEIVED;
         mockReq.session.userCase.state = State.AwaitingAos;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+    });
+
+    describe('Applicant Gen App MAKE_AN_APPLICATION url condition', () => {
+      test('State is General Application received', () => {
+        mockReq.url = MAKE_AN_APPLICATION;
+        mockReq.session.userCase.state = State.GeneralApplicationReceived;
+        mockReq.session.isApplicant2 = false;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('State is Submitted', () => {
+        mockReq.url = MAKE_AN_APPLICATION;
+        mockReq.session.userCase.state = State.Submitted;
+        mockReq.session.isApplicant2 = false;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+    });
+
+    describe('Applicant2 Gen App MAKE_AN_APPLICATION url condition', () => {
+      test('State is Service Admin Refusal', () => {
+        mockReq.url = APPLICANT_2 + MAKE_AN_APPLICATION;
+        mockReq.session.userCase.state = State.ServiceAdminRefusal;
+        mockReq.session.userCase.applicationType = ApplicationType.JOINT_APPLICATION;
+        mockReq.session.isApplicant2 = true;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('State is Submitted', () => {
+        mockReq.url = APPLICANT_2 + MAKE_AN_APPLICATION;
+        mockReq.session.userCase.state = State.Submitted;
+        mockReq.session.userCase.applicationType = ApplicationType.JOINT_APPLICATION;
+        mockReq.session.isApplicant2 = true;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+    });
+
+    describe('Respondent Gen App MAKE_AN_APPLICATION url condition', () => {
+      test('State is Service Adminn refusal', () => {
+        mockReq.url = RESPONDENT + MAKE_AN_APPLICATION;
+        mockReq.session.userCase.state = State.ServiceAdminRefusal;
+        mockReq.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+        mockReq.session.isApplicant2 = true;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('State is Holding', () => {
+        mockReq.url = RESPONDENT + MAKE_AN_APPLICATION;
+        mockReq.session.userCase.state = State.Holding;
+        mockReq.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+        mockReq.session.userCase.dateAosSubmitted = '2021-05-10';
+        mockReq.session.isApplicant2 = true;
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeFalsy();
       });

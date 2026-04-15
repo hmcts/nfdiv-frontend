@@ -1,5 +1,6 @@
 import { State, WhichApplicant, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
+import { canSubmitD11GeneralApplication } from '../app/utils/general-application-utils';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { RoutePermission } from './applicant1Sequence';
@@ -44,11 +45,15 @@ export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
 
   const routePermission = ROUTE_HIDE_CONDITIONS.find(i => i.urls.includes(req.url as PageLink));
   if (routePermission) {
-    return routePermission.condition(req.session.userCase);
+    return routePermission.condition(req.session.userCase, req.session.isApplicant2);
   }
 
   return false;
 };
+
+const D11_URLS: PageLink[] = [...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1)].map(
+  step => step.url as PageLink
+);
 
 export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
   return ROUTES_TO_REDIRECT_TO_HUB.includes(req.url as PageLink);
@@ -56,13 +61,15 @@ export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
 
 export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
   ...[
-    ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1),
     ...deemedServiceApplicationSequence,
     ...alternativeServiceApplicationSequence,
     ...bailiffServiceApplicationSequence,
     ...noResponseJourneySequence,
     ...dispenseServiceApplicationSequence,
   ].map(step => step.url as PageLink),
+  ...D11_URLS,
+  ...convertUrlsToRespondentUrls(D11_URLS),
+  ...convertUrlsToApplicant2Urls(D11_URLS),
 ];
 
 export const ROUTES_TO_IGNORE: PageLink[] = [
@@ -159,5 +166,9 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
         State.AwaitingDocuments,
         State.AwaitingService,
       ].includes(data.state as State),
+  },
+  {
+    urls: [...D11_URLS, ...convertUrlsToRespondentUrls(D11_URLS), ...convertUrlsToApplicant2Urls(D11_URLS)],
+    condition: (data, isApplicant2 = false) => !canSubmitD11GeneralApplication(isApplicant2, data),
   },
 ];

@@ -19,7 +19,7 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { isApplicant2EmailUpdatePossible } from './common/content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
-import { generalApplicationD11Sequence } from './generalApplicationD11Sequence';
+import { generalApplicationD11Sequence, generalApplicationOtherSequence } from './generalApplicationD11Sequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
@@ -123,7 +123,7 @@ export interface Step {
 
 export interface RoutePermission {
   urls: PageLink[];
-  condition: (data: Partial<CaseWithId>) => boolean;
+  condition: (data: Partial<CaseWithId>, isApplicant2: boolean) => boolean;
 }
 
 export const applicant1PreSubmissionSequence: Step[] = [
@@ -617,6 +617,7 @@ export const applicant1PostSubmissionSequence: Step[] = [
   ...generalApplicationPaymentSequence,
   ...withdrawApplicationSequence,
   ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1),
+  ...generalApplicationOtherSequence,
 ];
 
 const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>

@@ -40,6 +40,9 @@ describe('CheckGeneralApplicationD11AnswersPostController', () => {
     };
     const req = mockRequest({ body });
     req.session.isApplicant2 = true;
+    req.session.userCase.state = State.AosOverdue;
+    req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
+    req.session.userCase.dateAosSubmitted = '2022-01-01';
     const res = mockResponse();
 
     (getFirstErroredStep as jest.Mock).mockReturnValue(undefined);
@@ -50,7 +53,7 @@ describe('CheckGeneralApplicationD11AnswersPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_GENERAL_APPLICATION);
   });
 
-  it('Redirects if a alternative service step is incomplete', async () => {
+  it('Redirects if a general application step is incomplete', async () => {
     const body = {};
     const req = mockRequest({ body });
     const res = mockResponse();

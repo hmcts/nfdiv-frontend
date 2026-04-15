@@ -5,6 +5,7 @@ import { Case, CaseWithId } from '../../../../../app/case/case';
 import { InterimApplicationType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import { canSubmitD11GeneralApplication } from '../../../../../app/utils/general-application-utils';
 import { Step } from '../../../../../steps/applicant1Sequence';
 import { getFirstErroredStep } from '../../../../index';
 
@@ -26,6 +27,18 @@ export default abstract class CheckAnswersPostController extends PostController<
     } else {
       formData.applicant1InterimApplicationType = this.interimApplicationType();
     }
+
+    const interimApplicationType = req.session.isApplicant2
+      ? formData.applicant2InterimApplicationType
+      : formData.applicant1InterimApplicationType;
+
+    if (interimApplicationType === InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11) {
+      const canSubmitD11Application = canSubmitD11GeneralApplication(req.session.isApplicant2, req.session.userCase);
+      if (!canSubmitD11Application) {
+        throw new Error('Cannot submit a D11 application when there is an existing application in progress');
+      }
+    }
+
     return super.save(req, formData, eventName);
   }
 
