@@ -36,6 +36,11 @@ const en = ({ isDivorce, userCase, serviceApplicationType, generalApplicationTyp
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } (PDF)`,
   },
+  bailiffServiceRefusedDownload: {
+    downloadReference: 'bailiff-service-refused',
+    link: '/downloads/bailiff-service-refused',
+    text: 'View the court order refusing your application for bailiff service (PDF)',
+  },
   deemedOrDispensedRefusedDownload: {
     reference:
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
@@ -147,6 +152,11 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
     link: '/downloads/respondent-answers',
     text: `Gweld yr ymateb i'r cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
   },
+  bailiffServiceRefusedDownload: {
+    downloadReference: 'bailiff-service-refused',
+    link: '/downloads/bailiff-service-refused',
+    text: 'View the court order refusing your application for bailiff service (PDF)',
+  },
   deemedOrDispensedRefusedDownload: {
     reference:
       userCase.alternativeServiceOutcomes?.[0].value.alternativeServiceType === AlternativeServiceType.DISPENSED
@@ -234,6 +244,11 @@ const languages = {
 const getDownloadLogic: TranslationFn = content => {
   const { userCase } = content;
 
+  const bailiffService = userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.BAILIFF
+  );
+
   const deemedOrDispensedService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
@@ -246,15 +261,6 @@ const getDownloadLogic: TranslationFn = content => {
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DISPENSED ||
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.ALTERNATIVE_SERVICE
   );
-
-  const hasBailiffServiceCertificate =
-    userCase.alternativeServiceOutcomes?.find(
-      alternativeServiceOutcome =>
-        alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.BAILIFF &&
-        alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.NO &&
-        alternativeServiceOutcome.value.certificateOfServiceDocument?.documentType ===
-          DocumentType.CERTIFICATE_OF_SERVICE
-    ) !== undefined;
 
   const hasRefusalOrder = [
     DocumentType.ALTERNATIVE_SERVICE_REFUSED,
@@ -280,6 +286,10 @@ const getDownloadLogic: TranslationFn = content => {
     hasCertificateOfService: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
     ),
+    hasCertificateOfBailiffServiceRefused: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        bailiffService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO && hasRefusalOrder
+    ),
     hasCertificateOfDeemedOrDispensedServiceGranted: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome =>
         deemedOrDispensedService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.YES
@@ -291,7 +301,13 @@ const getDownloadLogic: TranslationFn = content => {
         alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant' &&
         hasRefusalOrder
     ),
-    hasBailiffServiceCertificate,
+    hasBailiffServiceCertificate: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.BAILIFF &&
+        alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.NO &&
+        alternativeServiceOutcome.value.certificateOfServiceDocument?.documentType ===
+          DocumentType.CERTIFICATE_OF_SERVICE
+    ),
     hasCertificateOfEntitlement: content.userCase.coCertificateOfEntitlementDocument,
     hasConditionalOrderGranted: content.userCase.coConditionalOrderGrantedDocument,
     hasConditionalOrderAnswersAndAccess:
@@ -323,5 +339,5 @@ export const generateContent: TranslationFn = content => {
 
 export const areDownloadsAvailable = (content: CommonContent): boolean => {
   const downloadLogic = getDownloadLogic(content);
-  return Object.values(downloadLogic).some(value => value === true);
+  return Object.values(downloadLogic).some(value => !!value);
 };

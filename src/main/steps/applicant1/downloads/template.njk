@@ -36,6 +36,11 @@
      download={{certificateOfServiceDownload.reference}}>{{bailiffServiceCertificateDownload.text}}</a></p>
   {% endif %}
 
+  {% if hasCertificateOfBailiffServiceRefused %}
+    <p class="govuk-body"><a class="govuk-link" href={{bailiffServiceRefusedDownload.link}}
+     download={{bailiffServiceRefusedDownload.reference}}>{{bailiffServiceRefusedDownload.text}}</a></p>
+  {% endif %}
+
   {% if hasCertificateOfDeemedOrDispensedServiceGranted %}
     <p class="govuk-body"><a class="govuk-link" href={{deemedOrDispensedDownload.link}}
      download={{deemedOrDispensedDownload.reference}}>{{deemedOrDispensedDownload.text}}</a></p>
