@@ -1181,7 +1181,7 @@ const cy: typeof en = ({
   confirmApplicationIsTrueWarning:
     "Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy'n gwneud datganiad anwir, neu sy'n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu'n onest ei fod yn wir.",
   applicationRejectedWarning:
-    'If you proceed to the next page you will have 14 days to pay the application fee, otherwise your application will be rejected, and you will have to start a new application.',
+    "Os byddwch yn symud ymlaen i'r dudalen nesaf, bydd gennych 14 diwrnod i dalu'r ffi gwneud cais, fel arall bydd eich cais yn cael ei wrthod, a bydd yn rhaid i chi ddechrau cais newydd.",
   continue: isJointApplication
     ? 'Send for review'
     : stripTags(userCase.applicant1HelpWithFeesRefNo)
