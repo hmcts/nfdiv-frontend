@@ -41,7 +41,8 @@ export default abstract class BasePaymentCallbackGetController {
       req.session.userCase = await req.locals.api.triggerPaymentEvent(
         req.session.userCase.id,
         eventPayload,
-        this.paymentMadeEvent(req)
+        this.paymentMadeEvent(req),
+        req.session.isApplicant2
       );
     }
 

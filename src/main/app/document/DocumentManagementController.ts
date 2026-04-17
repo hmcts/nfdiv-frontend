@@ -126,7 +126,8 @@ export class DocumentManagerController {
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
       { [documentsKey]: updatedDocumentsUploaded },
-      isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
+      isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE,
+      isApplicant2
     );
 
     req.session.save(() => {
@@ -183,7 +184,8 @@ export class DocumentManagerController {
     req.session.userCase = await req.locals.api.triggerEvent(
       req.session.userCase.id,
       { [documentsUploadedKey]: documentsUploaded },
-      isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
+      isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE,
+      isApplicant2
     );
 
     await this.getApiClient(req.session.user).delete({ url: documentUrlToDelete });

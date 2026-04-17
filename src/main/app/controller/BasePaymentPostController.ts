@@ -29,7 +29,8 @@ export default abstract class BasePaymentPostController {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
         {},
-        this.awaitingPaymentEvent()
+        this.awaitingPaymentEvent(),
+        req.session.isApplicant2
       );
     }
 
@@ -42,7 +43,8 @@ export default abstract class BasePaymentPostController {
       req.session.userCase = await req.locals.api.triggerEvent(
         req.session.userCase.id,
         {},
-        CITIZEN_CREATE_SERVICE_REQUEST
+        CITIZEN_CREATE_SERVICE_REQUEST,
+        req.session.isApplicant2
       );
     }
 
@@ -97,7 +99,8 @@ export default abstract class BasePaymentPostController {
     req.session.userCase = await req.locals.api.triggerPaymentEvent(
       req.session.userCase.id,
       eventPayload,
-      CITIZEN_ADD_PAYMENT
+      CITIZEN_ADD_PAYMENT,
+      req.session.isApplicant2
     );
 
     return payment;

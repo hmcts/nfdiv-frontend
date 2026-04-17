@@ -23,7 +23,7 @@ export const fromApi = (
   };
 };
 
-const toApiAddress = (
+export const toApiAddress = (
   data: Partial<Case>,
   addressPrefix:
     | 'applicant1'

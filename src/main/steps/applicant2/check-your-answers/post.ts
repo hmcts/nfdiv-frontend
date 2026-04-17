@@ -11,6 +11,6 @@ export default class Applicant2PrayerPostController extends PostController<AnyOb
     formData.applicant2WhoIsFinancialOrderFor = req.session.userCase.applicant2WhoIsFinancialOrderFor;
     formData.applicant2ApplyForFinancialOrder = req.session.userCase.applicant2ApplyForFinancialOrder;
 
-    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName, req.session.isApplicant2);
   }
 }

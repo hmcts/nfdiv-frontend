@@ -11,6 +11,11 @@ export default class ChangesToYourNamePostController extends PostController<AnyO
       ? { applicant1NameChangedHow: [], applicant1NameChangedHowOtherDetails: '' }
       : {};
 
-    return req.locals.api.triggerEvent(req.session.userCase.id, { ...formData, ...emptyOldFields }, eventName);
+    return req.locals.api.triggerEvent(
+      req.session.userCase.id,
+      { ...formData, ...emptyOldFields },
+      eventName,
+      req.session.isApplicant2
+    );
   }
 }

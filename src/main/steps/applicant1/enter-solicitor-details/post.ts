@@ -20,6 +20,6 @@ export default class EnterSolicitorDetailsPostController extends PostController<
       formData.applicant2SolicitorAddressOverseas = undefined;
     }
 
-    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName, req.session.isApplicant2);
   }
 }

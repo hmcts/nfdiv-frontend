@@ -56,7 +56,8 @@ export default class PCQGetController {
         req.session.userCase = await req.locals.api.triggerEvent(
           req.session.userCase.id,
           { applicant1PcqId: req.session.userCase.applicant1PcqId },
-          CITIZEN_UPDATE
+          CITIZEN_UPDATE,
+          req.session.isApplicant2
         );
       } catch (err) {
         req.locals.logger.error('Error updating PCQ ID for Applicant 1', err);

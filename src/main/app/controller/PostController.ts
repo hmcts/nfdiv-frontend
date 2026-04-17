@@ -109,7 +109,7 @@ export class PostController<T extends AnyObject> {
   }
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+    return req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName, req.session.isApplicant2);
   }
 
   protected getEventName(req: AppRequest<T>): string {

@@ -18,7 +18,12 @@ export class SwitchToSoleApplicationPostController {
     }
     req.session.errors = [];
     try {
-      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, {}, SWITCH_TO_SOLE);
+      req.session.userCase = await req.locals.api.triggerEvent(
+        req.session.userCase.id,
+        {},
+        SWITCH_TO_SOLE,
+        req.session.isApplicant2
+      );
     } catch (err) {
       req.locals.logger.error('Error encountered whilst switching to sole application ', err);
       req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });

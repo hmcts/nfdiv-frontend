@@ -8,7 +8,7 @@ import { UserDetails } from '../controller/AppRequest';
 import { CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
 import { CASE_TYPE } from './case-type';
-import { CITIZEN_CREATE, CaseData, DivorceOrDissolution, State } from './definition';
+import { CITIZEN_CREATE, CaseData, DivorceOrDissolution, State, UserRole } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CaseApiClient {
@@ -84,15 +84,26 @@ export class CaseApiClient {
     }
   }
 
-  public async getCaseById(caseId: string): Promise<CaseWithId> {
+  public async getCaseById(caseId: string, userId: string): Promise<CaseWithId> {
     try {
       const response = await this.server.get<CcdV2Response>(`/cases/${caseId}`);
+      const isApplicant2 = await this.isApplicant2(caseId, userId);
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data, isApplicant2) };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be retrieved.');
     }
+  }
+
+  public async isApplicant2(caseId: string, userId: string): Promise<boolean> {
+    const userRole: UserRole = await this.getUsersRoleOnCase(caseId, userId);
+    return userRole === UserRole.APPLICANT_2;
+  }
+
+  public async getUsersRoleOnCase(caseId: string, userId: string): Promise<UserRole> {
+    const userRoles: CaseAssignedUserRoles = await this.getCaseUserRoles(caseId, userId);
+    return userRoles.case_users[0]?.case_role;
   }
 
   public async createCase(serviceType: DivorceOrDissolution, userDetails: UserDetails): Promise<CaseWithId> {
@@ -132,7 +143,13 @@ export class CaseApiClient {
     }
   }
 
-  public async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string, retries = 0): Promise<CaseWithId> {
+  public async sendEvent(
+    caseId: string,
+    data: Partial<CaseData>,
+    eventName: string,
+    retries = 0,
+    isApplicant2?: boolean
+  ): Promise<CaseWithId> {
     try {
       const tokenResponse = await this.server.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
       const token = tokenResponse.data.token;
@@ -143,12 +160,12 @@ export class CaseApiClient {
         event_token: token,
       });
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data, isApplicant2) };
     } catch (err) {
       if (retries < this.maxRetries && [409, 422, 502, 504].includes(err?.response.status)) {
         ++retries;
         this.logger.info(`retrying send event due to ${err.response.status}. this is retry no (${retries})`);
-        return this.sendEvent(caseId, data, eventName, retries);
+        return this.sendEvent(caseId, data, eventName, retries, isApplicant2);
       }
       this.logError(err);
       throw new Error('Case could not be updated.');

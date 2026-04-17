@@ -31,7 +31,7 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
       if (req.session.errors.length === 0) {
         try {
           const caseworkerUserApi = getCaseApi(await getSystemUser(), req.locals.logger);
-          const existingCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId);
+          const existingCase = await caseworkerUserApi.getCaseById(req.session.existingCaseId, req.session.user.id);
 
           if (formData.existingOrNewApplication === existingOrNew.Existing) {
             logger.info(
@@ -95,7 +95,8 @@ export class ExistingApplicationPostController extends PostController<AnyObject>
     await caseworkerUserApi.triggerEvent(
       req.session.inviteCaseId,
       { [accessCodeToDelete as string]: null },
-      SYSTEM_CANCEL_CASE_INVITE
+      SYSTEM_CANCEL_CASE_INVITE,
+      req.session.isApplicant2
     );
   }
 

@@ -67,14 +67,14 @@ describe('CaseApi', () => {
     const expectedCase = { id: '1234', state: 'Draft', accessCode: 'NFSDCLV3' };
     mockApiClient.getCaseById.mockResolvedValue(expectedCase);
 
-    const actualCase = await api.getCaseById('1234');
+    const actualCase = await api.getCaseById('1234', '1');
     expect(actualCase).toStrictEqual(expectedCase);
   });
 
   test('Should throw error when case could not be fetched', async () => {
     mockApiClient.getCaseById.mockRejectedValue(new Error('Case could not be retrieved.'));
 
-    await expect(api.getCaseById('1234')).rejects.toThrow('Case could not be retrieved.');
+    await expect(api.getCaseById('1234', '1')).rejects.toThrow('Case could not be retrieved.');
   });
 
   test('should return case data for new invite case', async () => {
@@ -129,7 +129,7 @@ describe('CaseApi', () => {
       findUserInviteCases: jest.fn(() => [userCase2]),
     });
     mockApiClient.findExistingUserCases.mockResolvedValue([userCase1]);
-    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never);
+    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never, '1');
 
     expect(results).toStrictEqual({
       existingUserCase: { id: '1', state: State.Draft, divorceOrDissolution: serviceType },
@@ -152,7 +152,7 @@ describe('CaseApi', () => {
       findUserInviteCases: jest.fn(() => [userCase]),
     });
     mockApiClient.findExistingUserCases.mockResolvedValue([userCase]);
-    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never);
+    const results = await api.getExistingAndNewUserCases('user.email@gmail.com', serviceType, {} as never, '1');
 
     expect(results).toStrictEqual({
       existingUserCase: { id: '1234', state: State.Draft, divorceOrDissolution: serviceType },
@@ -177,7 +177,7 @@ describe('CaseApi', () => {
       ];
       mockApiClient.findExistingUserCases.mockResolvedValue(userCase);
 
-      const results = await api.getExistingUserCase(caseType);
+      const results = await api.getExistingUserCase(caseType, '1');
 
       expect(results).toStrictEqual({
         id: '1234',
@@ -192,7 +192,7 @@ describe('CaseApi', () => {
   test('Should throw error when case could not be retrieved', async () => {
     mockApiClient.findExistingUserCases.mockRejectedValue(new Error('Case could not be retrieved.'));
 
-    await expect(api.getExistingUserCase(serviceType)).rejects.toThrow('Case could not be retrieved.');
+    await expect(api.getExistingUserCase(serviceType, '1')).rejects.toThrow('Case could not be retrieved.');
   });
 
   test('Should ignore incomplete divorce cases', async () => {
@@ -202,7 +202,7 @@ describe('CaseApi', () => {
       Promise.resolve(caseType.endsWith('DIVORCE') ? mockDivCase : mockCase)
     );
 
-    const userCase = await api.getExistingUserCase(serviceType);
+    const userCase = await api.getExistingUserCase(serviceType, '1');
 
     expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
@@ -214,7 +214,7 @@ describe('CaseApi', () => {
       Promise.resolve(caseType.endsWith('DIVORCE') ? mockDivCase : mockCase)
     );
 
-    const userCase = await api.getExistingUserCase(serviceType);
+    const userCase = await api.getExistingUserCase(serviceType, '1');
 
     expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: serviceType });
   });
@@ -232,7 +232,7 @@ describe('CaseApi', () => {
     };
     mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockSubmittedCase]);
 
-    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE, '1');
 
     expect(userCase).toStrictEqual({
       id: '2',
@@ -249,7 +249,7 @@ describe('CaseApi', () => {
     };
     mockApiClient.findExistingUserCases.mockResolvedValue([mockCase]);
 
-    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE, '1');
 
     expect(userCase).toStrictEqual({
       id: '1',
@@ -271,7 +271,7 @@ describe('CaseApi', () => {
     };
     mockApiClient.findExistingUserCases.mockResolvedValue([mockDraftCase, mockDraftCase2]);
 
-    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+    const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE, '1');
 
     expect(userCase).toStrictEqual({ id: '1', state: State.Draft, divorceOrDissolution: DivorceOrDissolution.DIVORCE });
   });
@@ -281,7 +281,7 @@ describe('CaseApi', () => {
     mockApiClient.sendEvent.mockResolvedValue(expectedRes);
 
     const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
-    const actualRes = await api.triggerEvent('1234', caseData, CITIZEN_UPDATE);
+    const actualRes = await api.triggerEvent('1234', caseData, CITIZEN_UPDATE, true);
 
     expect(mockApiClient.sendEvent).toHaveBeenCalledWith('1234', caseData, CITIZEN_UPDATE);
     expect(actualRes).toStrictEqual(expectedRes);
@@ -295,7 +295,8 @@ describe('CaseApi', () => {
     const actualRes = await api.triggerPaymentEvent(
       '1234',
       { applicationPayments: payments.list },
-      CITIZEN_ADD_PAYMENT
+      CITIZEN_ADD_PAYMENT,
+      true
     );
 
     expect(mockApiClient.sendEvent).toHaveBeenCalledWith('1234', { applicationPayments: [] }, CITIZEN_ADD_PAYMENT);
@@ -306,7 +307,9 @@ describe('CaseApi', () => {
     mockApiClient.sendEvent.mockRejectedValue(new Error('Case could not be updated.'));
     const caseData = { divorceOrDissolution: DivorceOrDissolution.DIVORCE };
 
-    await expect(api.triggerEvent('not found', caseData, CITIZEN_UPDATE)).rejects.toThrow('Case could not be updated.');
+    await expect(api.triggerEvent('not found', caseData, CITIZEN_UPDATE, true)).rejects.toThrow(
+      'Case could not be updated.'
+    );
   });
 
   test('isApplicant2() should return true if the case role contains applicant 2', async () => {
@@ -336,7 +339,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DIVORCE,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(true);
@@ -356,7 +360,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DIVORCE,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(true);
@@ -371,7 +376,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DIVORCE,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(false);
@@ -391,7 +397,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DISSOLUTION,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(true);
@@ -411,7 +418,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DISSOLUTION,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(true);
@@ -426,7 +434,8 @@ describe('CaseApi', () => {
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
       'user.email@gmail.com',
       DivorceOrDissolution.DISSOLUTION,
-      {} as never
+      {} as never,
+      '1'
     );
 
     expect(result).toStrictEqual(false);
