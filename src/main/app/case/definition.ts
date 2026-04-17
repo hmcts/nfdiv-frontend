@@ -1059,6 +1059,7 @@ export interface CaseData {
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponseSendPapersAgainOrTrySomethingElse: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1NoResponsePartnerHasReceivedPapers: YesOrNo;
+  applicant1NoResponsePartnerHasCertificateOfService: YesOrNo;
   applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
   applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand: YesOrNo;

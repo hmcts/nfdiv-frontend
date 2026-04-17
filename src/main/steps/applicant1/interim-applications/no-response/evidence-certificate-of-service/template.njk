@@ -5,15 +5,8 @@
 {% extends "common/page.njk" %}
 
 {% block page_content %}
-  <h1 class="govuk-heading-l" id="evidenceReceivedApplicationTitle">{{ title }}</h1>
+  <h1 class="govuk-heading-l" id="hasCertificateOfServiceTitle">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
-  <p class="govuk-body">{{ line2 }}</p>
-  <p class="govuk-body">{{ line3 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ suitableEvidence.photo }}</li>
-    <li>{{ suitableEvidence.statement }}</li>
-    <li>{{ suitableEvidence.message }}</li>
-  </ul>
 {% endblock %}
 
 
