@@ -273,16 +273,10 @@ const getDownloadLogic: TranslationFn = content => {
 
   const isAwaitingAmendedApplicationState = userCase.state === State.AwaitingAmendedApplication;
 
-  return {
-    hasDivorceOrDissolutionApplication: !!findDocument(userCase, DocumentType.APPLICATION),
+  const applicant1Only = {
     app1OnlineServiceAppInProgress:
-      content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline && !content.isApplicant2,
-    app1OnlineGeneralApp:
-      content.generalApplicationDate && content.generalApplicationSubmittedOnline && !content.isApplicant2,
-    isAosSubmitted:
-      userCase.dateAosSubmitted &&
-      (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
-        userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)),
+      content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline,
+    app1OnlineGeneralApp: content.generalApplicationDate && content.generalApplicationSubmittedOnline,
     hasCertificateOfService: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
     ),
@@ -308,6 +302,14 @@ const getDownloadLogic: TranslationFn = content => {
         alternativeServiceOutcome.value.certificateOfServiceDocument?.documentType ===
           DocumentType.CERTIFICATE_OF_SERVICE
     ),
+  };
+
+  const bothApplicants = {
+    hasDivorceOrDissolutionApplication: !!findDocument(userCase, DocumentType.APPLICATION),
+    isAosSubmitted:
+      userCase.dateAosSubmitted &&
+      (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
+        userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)),
     hasCertificateOfEntitlement: content.userCase.coCertificateOfEntitlementDocument,
     hasConditionalOrderGranted: content.userCase.coConditionalOrderGrantedDocument,
     hasConditionalOrderAnswersAndAccess:
@@ -327,6 +329,16 @@ const getDownloadLogic: TranslationFn = content => {
     hasFinalOrderApplicationAndFinalOrderRequested: userCase.documentsGenerated?.find(
       doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
     ),
+  };
+
+  if (!content.isApplicant2) {
+    return {
+      ...applicant1Only,
+      ...bothApplicants,
+    };
+  }
+  return {
+    ...bothApplicants,
   };
 };
 
