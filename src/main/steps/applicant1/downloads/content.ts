@@ -24,12 +24,22 @@ const en = ({ isDivorce, userCase, serviceApplicationType, generalApplicationTyp
     link: '/downloads/certificate-of-service',
     text: "View your 'certificate of service' (PDF)",
   },
+  bailiffServiceCertificateDownload: {
+    downloadReference: 'Bailiff-certificate',
+    link: '/downloads/bailiff-unsuccessful-certificate-of-service',
+    text: "View the 'bailiff service certificate' (PDF)",
+  },
   respondentAnswersDownload: {
     reference: 'Respondent-Answers',
     link: '/downloads/respondent-answers',
     text: `View the response to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } (PDF)`,
+  },
+  bailiffServiceRefusedDownload: {
+    downloadReference: 'bailiff-service-refused',
+    link: '/downloads/bailiff-service-refused',
+    text: 'View the court order refusing your application for bailiff service (PDF)',
   },
   deemedOrDispensedRefusedDownload: {
     reference:
@@ -130,12 +140,22 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
     link: '/downloads/certificate-of-service',
-    text: "View your 'certificate of service' (PDF)",
+    text: 'Gweld eich ‘tystysgrif cyflwyno’ (PDF)',
+  },
+  bailiffServiceCertificateDownload: {
+    downloadReference: 'Bailiff-certificate',
+    link: '/downloads/bailiff-unsuccessful-certificate-of-service',
+    text: "Gweld y 'dystysgrif a gyflwynir gan feili' (PDF)",
   },
   respondentAnswersDownload: {
     reference: 'Respondent-Answers',
     link: '/downloads/respondent-answers',
     text: `Gweld yr ymateb i'r cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
+  },
+  bailiffServiceRefusedDownload: {
+    downloadReference: 'bailiff-service-refused',
+    link: '/downloads/bailiff-service-refused',
+    text: 'Gweld y gorchymyn llys yn gwrthod eich cais am wasanaeth beili (PDF)',
   },
   deemedOrDispensedRefusedDownload: {
     reference:
@@ -224,6 +244,11 @@ const languages = {
 const getDownloadLogic: TranslationFn = content => {
   const { userCase } = content;
 
+  const bailiffService = userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.BAILIFF
+  );
+
   const deemedOrDispensedService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
@@ -248,18 +273,16 @@ const getDownloadLogic: TranslationFn = content => {
 
   const isAwaitingAmendedApplicationState = userCase.state === State.AwaitingAmendedApplication;
 
-  return {
-    hasDivorceOrDissolutionApplication: !!findDocument(userCase, DocumentType.APPLICATION),
+  const applicant1Only = {
     app1OnlineServiceAppInProgress:
-      content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline && !content.isApplicant2,
-    app1OnlineGeneralApp:
-      content.generalApplicationDate && content.generalApplicationSubmittedOnline && !content.isApplicant2,
-    isAosSubmitted:
-      userCase.dateAosSubmitted &&
-      (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
-        userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)),
+      content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline,
+    app1OnlineGeneralApp: content.generalApplicationDate && content.generalApplicationSubmittedOnline,
     hasCertificateOfService: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
+    ),
+    hasCertificateOfBailiffServiceRefused: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        bailiffService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO && hasRefusalOrder
     ),
     hasCertificateOfDeemedOrDispensedServiceGranted: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome =>
@@ -272,6 +295,21 @@ const getDownloadLogic: TranslationFn = content => {
         alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant' &&
         hasRefusalOrder
     ),
+    hasBailiffServiceCertificate: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.BAILIFF &&
+        alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.NO &&
+        alternativeServiceOutcome.value.certificateOfServiceDocument?.documentType ===
+          DocumentType.CERTIFICATE_OF_SERVICE
+    ),
+  };
+
+  const bothApplicants = {
+    hasDivorceOrDissolutionApplication: !!findDocument(userCase, DocumentType.APPLICATION),
+    isAosSubmitted:
+      userCase.dateAosSubmitted &&
+      (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
+        userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)),
     hasCertificateOfEntitlement: content.userCase.coCertificateOfEntitlementDocument,
     hasConditionalOrderGranted: content.userCase.coConditionalOrderGrantedDocument,
     hasConditionalOrderAnswersAndAccess:
@@ -292,6 +330,11 @@ const getDownloadLogic: TranslationFn = content => {
       doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
     ),
   };
+
+  return {
+    ...(!content.isApplicant2 && applicant1Only),
+    ...bothApplicants,
+  };
 };
 
 export const generateContent: TranslationFn = content => {
@@ -303,5 +346,5 @@ export const generateContent: TranslationFn = content => {
 
 export const areDownloadsAvailable = (content: CommonContent): boolean => {
   const downloadLogic = getDownloadLogic(content);
-  return Object.values(downloadLogic).some(value => value === true);
+  return Object.values(downloadLogic).some(value => !!value);
 };
