@@ -331,13 +331,8 @@ const getDownloadLogic: TranslationFn = content => {
     ),
   };
 
-  if (!content.isApplicant2) {
-    return {
-      ...applicant1Only,
-      ...bothApplicants,
-    };
-  }
   return {
+    ...(!content.isApplicant2 && applicant1Only),
     ...bothApplicants,
   };
 };
