@@ -140,18 +140,13 @@ export const noResponseJourneySequence: Step[] = [
   },
   {
     url: EVIDENCE_CERTIFICATE_OF_SERVICE,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
-      if (data?.applicant1NoResponsePartnerHasCertificateOfService === YesOrNo.YES) {
-        return SEND_CERTIFICATE_OF_SERVICE;
-      }
-      return DEEMED_SERVICE_APPLICATION;
-    },
+    getNextStep: data => data?.applicant1NoResponsePartnerHasCertificateOfService === YesOrNo.YES
+        ? SEND_CERTIFICATE_OF_SERVICE
+        : DEEMED_SERVICE_APPLICATION;
   },
   {
     url: SEND_CERTIFICATE_OF_SERVICE,
-    getNextStep: (): PageLink => {
-      return HUB_PAGE;
-    },
+    getNextStep: () => HUB_PAGE;
   },
   {
     url: SERVE_AGAIN,
