@@ -12,7 +12,7 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   line2:
     'This should be an email address that only they have access to. Avoid using shared email addresses or their work email address if possible as these may not be private.',
   applicant2EmailAddress: `Enter your ${partner}'s email address (optional)`,
-  applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
+  applicant1NoRespAddressDoesNotKnowEmailAddress: 'I do not know their email address',
   errors: {
     applicant1NoRespAddressEmail: {
       required: "Enter an email address, or select 'I do not know their email address'",
@@ -32,7 +32,7 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   line2:
     'This should be an email address that only they have access to. Avoid using shared email addresses or their work email address if possible as these may not be private.',
   applicant2EmailAddress: `Enter your ${partner}'s email address (optional)`,
-  applicant1DoesNotKnowApplicant2EmailAddress: 'I do not know their email address',
+  applicant1NoRespAddressDoesNotKnowEmailAddress: 'I do not know their email address',
   errors: {
     applicant1NoRespAddressEmail: {
       required: "Enter an email address, or select 'I do not know their email address'",
@@ -62,8 +62,8 @@ export const form: FormContent = {
       type: 'checkboxes',
       values: [
         {
-          name: 'applicant1DoesNotKnowApplicant2EmailAddress',
-          label: l => l.applicant1DoesNotKnowApplicant2EmailAddress,
+          name: 'applicant1NoRespAddressDoesNotKnowEmailAddress',
+          label: l => l.applicant1NoRespAddressDoesNotKnowEmailAddress,
           value: Checkbox.Checked,
         },
       ],

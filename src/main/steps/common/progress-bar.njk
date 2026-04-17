@@ -45,9 +45,9 @@
     active: not caseHasBeenIssued
   }, {
     label: {
-      html: textWithVisuallyHiddenSpan(response, displayState.isAfter('IssuedToBailiff'))
+      html: textWithVisuallyHiddenSpan(response, displayState.isAfter('AwaitingGeneralApplicationPayment'))
     },
-    complete: caseHasBeenIssued and (displayState.isAfter('IssuedToBailiff') or isPendingHearingOutcomeCoPronounced or isPendingHearingOutcomeFoRequested),
+    complete: caseHasBeenIssued and (displayState.isAfter('AwaitingGeneralApplicationPayment') or isPendingHearingOutcomeCoPronounced or isPendingHearingOutcomeFoRequested),
     active: caseHasBeenIssued and (displayState.isAtOrAfter('AwaitingAos') and displayState.isBefore('Holding') and (not isGeneralConsiderationCoPronounced and not isGeneralConsiderationFoRequested and not isPendingHearingOutcomeCoPronounced and not isPendingHearingOutcomeFoRequested))
   }, {
     label: {
