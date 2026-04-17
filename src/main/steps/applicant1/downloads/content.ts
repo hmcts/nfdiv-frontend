@@ -155,7 +155,7 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
   bailiffServiceRefusedDownload: {
     downloadReference: 'bailiff-service-refused',
     link: '/downloads/bailiff-service-refused',
-    text: 'View the court order refusing your application for bailiff service (PDF)',
+    text: 'Gweld y gorchymyn llys yn gwrthod eich cais am wasanaeth beili (PDF)',
   },
   deemedOrDispensedRefusedDownload: {
     reference:
