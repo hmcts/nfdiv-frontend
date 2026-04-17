@@ -211,6 +211,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   serviceApplicationAnswers: 'serviceApplicationAnswers',
   applicant1InterimApplicationType: 'applicant1InterimApplicationType',
   applicant1InterimAppsStatementOfTruth: 'applicant1InterimAppsStatementOfTruth',
+  applicant1NoRespAddressHasFoundAddress: 'applicant1NoRespAddressHasFoundAddress',
+  applicant1NoRespAddressHasWayToContact: 'applicant1NoRespAddressHasWayToContact',
+  applicant1NoRespAddressWillApplyAltService: 'applicant1NoRespAddressWillApplyAltService',
+  applicant1NoRespAddressEmail: 'applicant1NoRespAddressEmail',
   applicant1NoResponseOwnSearches: 'applicant1NoResponseOwnSearches',
   applicant1NoResponseRespondentAddressInEnglandWales: 'applicant1NoResponseRespondentAddressInEnglandWales',
   applicant1NoResponsePartnerInUkOrReceivingBenefits: 'applicant1NoResponsePartnerInUkOrReceivingBenefits',
@@ -355,6 +359,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   withdrawApplicationReason: 'withdrawApplicationReason',
   applicant2ConfirmWithdrawApplication: 'applicant2ConfirmWithdrawApplication',
   applicant2WithdrawApplicationReason: 'applicant2WithdrawApplicationReason',
+  applicant1FoundApplicant2Address: 'applicant1FoundApplicant2Address',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -666,6 +671,20 @@ export interface Case {
   applicant1InterimApplicationType?: InterimApplicationType;
   applicant2InterimApplicationType?: InterimApplicationType;
   applicant1InterimAppsStatementOfTruth?: Checkbox;
+  applicant1NoRespAddressHasFoundAddress: YesOrNo;
+  applicant1NoRespAddressHasWayToContact: YesOrNo;
+  applicant1NoRespAddressWillApplyAltService: YesOrNo;
+  applicant1NoRespAddressAddress?: AddressGlobalUK;
+  applicant1NoRespAddressAddress1?: string;
+  applicant1NoRespAddressAddress2?: string;
+  applicant1NoRespAddressAddress3?: string;
+  applicant1NoRespAddressAddressTown?: string;
+  applicant1NoRespAddressAddressCounty?: string;
+  applicant1NoRespAddressAddressCountry?: string;
+  applicant1NoRespAddressAddressPostcode?: string;
+  applicant1NoRespAddressAddressOverseas?: YesOrNo;
+  applicant1NoRespAddressEmail?: string;
+  applicant1NoRespAddressDoesNotKnowEmailAddress?: Checkbox;
   applicant1NoResponseOwnSearches?: NoResponseOwnSearches;
   applicant1NoResponseRespondentAddressInEnglandWales?: Checkbox;
   applicant1NoResponsePartnerInUkOrReceivingBenefits?: YesOrNo;
@@ -789,6 +808,7 @@ export interface Case {
   withdrawApplicationReason?: string;
   applicant2ConfirmWithdrawApplication?: YesOrNo;
   applicant2WithdrawApplicationReason?: string;
+  applicant1FoundApplicant2Address: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

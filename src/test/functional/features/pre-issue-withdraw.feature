@@ -9,7 +9,7 @@ Feature: Pre-Issue application withdraw journey
     And I click "I believe that the facts stated in this application are true"
     When I click "Continue to payment"
     And I pay and submit the application
-    Then the page should include "Application saved"
+    Then the page should include "Further action needed"
     Then I set the case state to "Submitted"
 
   Scenario: Pre-Issue application withdraw happy path
