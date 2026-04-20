@@ -277,16 +277,9 @@ const getDownloadLogic: TranslationFn = content => {
     app1OnlineServiceAppInProgress:
       content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline,
     app1OnlineGeneralApp: content.generalApplicationDate && content.generalApplicationSubmittedOnline,
-    hasCertificateOfService: userCase.alternativeServiceOutcomes?.find(
-      alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
-    ),
     hasCertificateOfBailiffServiceRefused: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome =>
         bailiffService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO && hasRefusalOrder
-    ),
-    hasCertificateOfDeemedOrDispensedServiceGranted: userCase.alternativeServiceOutcomes?.find(
-      alternativeServiceOutcome =>
-        deemedOrDispensedService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.YES
     ),
     hasCertificateOfDeemedOrDispensedServiceRefused: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome =>
@@ -297,7 +290,7 @@ const getDownloadLogic: TranslationFn = content => {
     ),
     hasBailiffServiceCertificate: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome =>
-        alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.BAILIFF &&
+        bailiffService &&
         alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.NO &&
         alternativeServiceOutcome.value.certificateOfServiceDocument?.documentType ===
           DocumentType.CERTIFICATE_OF_SERVICE
@@ -305,6 +298,14 @@ const getDownloadLogic: TranslationFn = content => {
   };
 
   const bothApplicants = {
+    hasCertificateOfService: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        bailiffService && alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
+    ),
+    hasCertificateOfDeemedOrDispensedServiceGranted: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        deemedOrDispensedService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.YES
+    ),
     hasDivorceOrDissolutionApplication: !!findDocument(userCase, DocumentType.APPLICATION),
     isAosSubmitted:
       userCase.dateAosSubmitted &&
