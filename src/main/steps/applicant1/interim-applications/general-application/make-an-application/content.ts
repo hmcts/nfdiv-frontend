@@ -42,7 +42,7 @@ const en = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonCont
       'You can apply to expedite an application any time until a final order has been issued. You will need to specify which part of your application you want to expedite.',
   },
   amend: {
-    header: 'Apply to amend an application',
+    header: 'Amending your application',
     preCO: {
       line1: `${isJointApplication ? `Either you or your ${partner}` : 'You'} can amend your application at any time before the court makes a conditional order. There is no fee to do this.`,
       line2:
