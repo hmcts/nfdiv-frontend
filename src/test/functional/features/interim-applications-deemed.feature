@@ -29,6 +29,10 @@ Feature: Deemed service journey
 
     Given I click element "#proveYes"
     When I click continue
+    Then the page should include element "#hasCertificateOfServiceTitle"
+
+    Given I click element "#hasCertificateOfServiceNo"
+    When I click continue
     Then the page should include element "#deemedServiceApplicationTitle"
 
   Scenario: Deemed service happy path
