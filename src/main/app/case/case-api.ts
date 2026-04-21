@@ -40,17 +40,14 @@ export class CaseApi {
       : false;
 
     const newInviteCaseSearchResult = await this.getNewInviteCase(email, serviceType, logger);
-    const newInviteCaseCcdData = newInviteCaseSearchResult
-      ? await this.apiClient.getCaseById(newInviteCaseSearchResult.id.toString())
-      : false;
 
-    if (existingCaseCcdData && newInviteCaseCcdData) {
+    if (existingCaseCcdData && newInviteCaseSearchResult) {
       return {
         existingUserCase: existingCaseCcdData,
-        newInviteUserCase: newInviteCaseCcdData.id !== existingCaseCcdData.id ? newInviteCaseCcdData : false,
+        newInviteUserCase: newInviteCaseSearchResult.id !== existingCaseCcdData.id ? newInviteCaseSearchResult : false,
       };
     }
-    return { existingUserCase: existingCaseCcdData, newInviteUserCase: newInviteCaseCcdData };
+    return { existingUserCase: existingCaseCcdData, newInviteUserCase: newInviteCaseSearchResult };
   }
 
   public async getNewInviteCase(
