@@ -1055,7 +1055,7 @@ export interface CaseData {
   sentNotifications: SentNotifications;
   citizenPaymentCallbackUrl: string;
   applicant1NoResponseCheckContactDetails: NoResponseCheckContactDetails;
-  applicant2CheckContactDetails?: YesOrNo;
+  applicant2ConfirmContactDetails?: YesOrNo;
   applicant1NoResponsePartnerNewEmailOrAddress: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponseSendPapersAgainOrTrySomethingElse: NoResponseSendPapersAgainOrTrySomethingElse;

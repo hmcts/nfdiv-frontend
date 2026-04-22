@@ -6,8 +6,8 @@ import {
   APPLICANT_2,
   APP_REPRESENTED,
   CHECK_ANSWERS_URL,
-  CHECK_CONTACT_DETAILS,
   CHECK_PHONE_NUMBER,
+  CONFIRM_CONTACT_DETAILS,
   DETAILS_OTHER_PROCEEDINGS,
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
@@ -38,18 +38,20 @@ const sequence: Step[] = [
   },
   {
     url: ADDRESS_PRIVATE,
-    getNextStep: () => CHECK_CONTACT_DETAILS,
+    getNextStep: () => CONFIRM_CONTACT_DETAILS,
   },
   {
-    url: CHECK_CONTACT_DETAILS,
-    getNextStep: () => HOME_URL,
-  },
-  {
-    url: CHECK_PHONE_NUMBER,
-    getNextStep: () => ADDRESS_PRIVATE,
+    url: CONFIRM_CONTACT_DETAILS,
+    getNextStep: data =>
+      data.applicant2ConfirmContactDetails === YesOrNo.NO ? ENTER_YOUR_ADDRESS : HOW_DO_YOU_WANT_TO_RESPOND,
   },
   {
     url: ENTER_YOUR_ADDRESS,
+    getNextStep: data =>
+      data.applicant2ConfirmContactDetails === YesOrNo.NO ? CHECK_PHONE_NUMBER : HOW_DO_YOU_WANT_TO_RESPOND,
+  },
+  {
+    url: CHECK_PHONE_NUMBER,
     getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
   },
   {

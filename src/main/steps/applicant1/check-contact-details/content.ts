@@ -1,38 +1,14 @@
-import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
 
 const en = () => ({
   title: 'Review your contact details',
   yourAddress: 'Your address',
   yourPhoneNumber: 'Your phone number',
   detailsCorrect: 'Are these details correct and up to date?',
-  upToDate: 'Yes, these details are up to date',
-  needUpdating: 'No, I want to update my contact details',
 });
 
 // @TODO translations
 const cy = en;
-
-export const form: FormContent = {
-  fields: {
-    inTheUk: {
-      type: 'radios',
-      classes: 'govuk-radios--inline',
-      label: l => l.title,
-      labelHidden: true,
-      values: [
-        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
-        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
-      ],
-      validator: value => isFieldFilledIn(value),
-    },
-  },
-  submit: {
-    text: l => l.continue,
-  },
-};
 
 const languages = {
   en,
