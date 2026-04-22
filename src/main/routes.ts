@@ -19,6 +19,7 @@ import { ApplicationWithdrawnPreIssueGetController } from './steps/applicant1/wi
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
 import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
 import { ApplicationWithdrawnGetController } from './steps/application-withdrawn/get';
+import { getRootRedirectPath } from './steps/common/common.content';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { DraftApplicationSaveSignOutGetController } from './steps/draft-application-save-sign-out/get';
@@ -193,7 +194,9 @@ export class Routes {
       !getUserSequence(req).some(r => req.path.includes(r.url)) ||
       shouldHideRouteFromUser(req)
     ) {
-      return shouldRedirectRouteToHub(req) ? res.redirect(HUB_PAGE) : res.redirect('/error');
+      return shouldRedirectRouteToHub(req)
+        ? res.redirect(getRootRedirectPath(req.session.isApplicant2, req.session.userCase) + HUB_PAGE)
+        : res.redirect('/error');
     }
     next();
   }

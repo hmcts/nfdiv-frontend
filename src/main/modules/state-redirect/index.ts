@@ -20,6 +20,7 @@ import {
   APP_REPRESENTED,
   DRAFT_SAVE_AND_SIGN_OUT,
   GENERAL_APPLICATION_PAYMENT_CALLBACK,
+  GEN_APP_WITHDRAW_APPLICATION,
   NO_RESPONSE_YET,
   PAYMENT_CALLBACK_URL,
   PAY_AND_SUBMIT,
@@ -117,6 +118,9 @@ export class StateRedirectMiddleware {
             VIEW_YOUR_ANSWERS,
             WITHDRAW_APPLICATION,
             WITHDRAW_SERVICE_APPLICATION,
+            GEN_APP_WITHDRAW_APPLICATION,
+            RESPONDENT + GEN_APP_WITHDRAW_APPLICATION,
+            APPLICANT_2 + GEN_APP_WITHDRAW_APPLICATION,
           ].includes(req.path as PageLink)
         ) {
           return next();

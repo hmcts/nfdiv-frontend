@@ -1,7 +1,7 @@
 import { WhichApplicant, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
-import { generalApplicationD11Sequence } from './generalApplicationD11Sequence';
+import { generalApplicationD11Sequence, generalApplicationOtherSequence } from './generalApplicationD11Sequence';
 import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
 import {
   ADDRESS_PRIVATE,
@@ -138,6 +138,7 @@ const sequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   ...generalApplicationPaymentSequence,
+  ...generalApplicationOtherSequence,
   ...generalApplicationD11Sequence(WhichApplicant.APPLICANT_2),
 ];
 

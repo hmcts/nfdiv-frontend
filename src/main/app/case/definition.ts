@@ -2425,6 +2425,7 @@ export const enum State {
   OfflineDocumentReceived = 'OfflineDocumentReceived',
   PendingHearingOutcome = 'PendingHearingOutcome',
   PendingHearingDate = 'PendingHearingDate',
+  PendingRefund = 'PendingRefund',
   BulkCaseReject = 'BulkCaseReject',
   RequestedInformationSubmitted = 'RequestedInformationSubmitted',
   RespondentFinalOrderRequested = 'RespondentFinalOrderRequested',
