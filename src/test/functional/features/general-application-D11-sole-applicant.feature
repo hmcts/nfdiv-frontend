@@ -36,7 +36,7 @@ Feature: General Application D11 journey sole applicant
     When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
-    Given I click element "#applicant1GenAppType-5"
+    Given I click element "#applicant1GenAppType-2"
     When I click continue
     Then the page should include element "#whyThisApplicationTitle"
 
@@ -96,7 +96,7 @@ Feature: General Application D11 journey sole applicant
     When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
-    Given I click element "#applicant1GenAppType-5"
+    Given I click element "#applicant1GenAppType-2"
     When I click continue
     Then the page should include element "#whyThisApplicationTitle"
 
@@ -144,7 +144,7 @@ Feature: General Application D11 journey sole applicant
     When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
-    Given I click element "#applicant1GenAppType-5"
+    Given I click element "#applicant1GenAppType-2"
     When I click continue
     Then the page should include element "#whyThisApplicationTitle"
 
