@@ -143,6 +143,10 @@ const en = (
       linkText: 'change your application to a sole application.',
     },
   },
+  generalApplicationReceived: {
+    line1:
+      'The court is reviewing a general application that has been received and will contact you to let you know your next steps.',
+  },
   awaitingLegalAdvisorReferral: {
     line1: `You and your ${partner} have applied for a 'conditional order'.`,
     line2: `The court will check your application and send it to a judge.
@@ -443,6 +447,10 @@ const cy: typeof en = (
       link: `${isApplicant2 ? '/applicant2' : ''}/changing-to-a-sole-application`,
       linkText: 'newid eich cais i fod yn gais unigol.',
     },
+  },
+  generalApplicationReceived: {
+    line1:
+      'Mae’r llys yn adolygu cais cyffredinol sydd wedi dod i law a bydd yn cysylltu â chi i roi gwybod i chi beth fydd eich camau nesaf.',
   },
   awaitingLegalAdvisorReferral: {
     line1: `Rydych chi a'ch ${partner} wedi gwneud cais am 'orchymyn amodol'.`,
