@@ -149,13 +149,15 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
      then you will be able to apply, and ${isDivorce ? 'finalise the divorce' : 'end the civil partnership'}.`,
   },
   awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
-    line1: `Your ${partner} has still not applied for a 'final order', which is the document that will legally end your  ${
+    line1: `Your ${partner} has not yet applied for a final order, which is the document that will legally end your  ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.`,
-    line2: `You can now apply because it has been three months since they could apply and they have not yet done so. You will also need to pay an application fee of ${getFee(
+    line2: `You may now apply because it has been three months since they could apply and they have not yet done so. You will also need to pay an application fee of ${getFee(
       config.get('fees.finalOrderApplicationFee')
     )}, unless you are eligible for Help with Fees.`,
-    line3: 'If you apply, then you may both have to come to court.',
+    line3:
+      'If you apply for a final order, your application will be referred to a judge for a hearing. This process can take up to 6 months to conclude. The court will decide whether to grant the final order after the hearing.',
+    line4: `If you have not yet finished any negotiations or legal proceedings about your money, property or other assets then you should seek legal advice before ${isDivorce ? 'finalising your divorce' : 'ending your civil partnership'}.`,
     buttonText: 'Apply for a final order',
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
@@ -357,12 +359,14 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
      byddwch yn gallu gwneud cais, a ${isDivorce ? 'chadarnhau’r ysgariad' : "dod â'r bartneriaeth sifil i ben"}.`,
   },
   awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply: {
-    line1: `Nid yw eich ${partner} wedi gwneud cais o hyd am 'orchymyn terfynol', sef y ddogfen a fydd yn dod â'ch priodas i ben yn gyfreithiol.`,
-    line2: `Gallwch wneud cais yn awr oherwydd ei fod wedi bod yn dri mis ers y gallent wneud cais, ac nid ydynt wedi gwneud hynny eto. Bydd hefyd angen i chi dalu ffi ymgeisio o ${getFee(
+    line1: `Nid yw eich ${partner} wedi gwneud cais o hyd am orchymyn terfynol, sef y ddogfen a fydd yn dod â'ch ${isDivorce ? 'priodas' : 'partneriaeth sifil'} i ben yn gyfreithiol.`,
+    line2: `Gallwch nawr wneud cais yn awr oherwydd ei fod wedi bod yn dri mis ers y gallent wneud cais, ac nid ydynt wedi gwneud hynny eto. Bydd hefyd angen i chi dalu ffi ymgeisio o ${getFee(
       config.get('fees.finalOrderApplicationFee')
     )}, oni bai eich bod yn gymwys i gael Help i Dalu Ffioedd.`,
-    line3: 'Os byddwch yn gwneud cais, efallai y bydd yn rhaid i’r ddau ohonoch ddod i’r Llys.',
-    buttonText: 'Apply for a final order',
+    line3:
+      "Os byddwch yn gwneud cais am orchymyn terfynol, caiff eich cais ei gyfeirio at farnwr ar gyfer gwrandawiad. Gall y broses hon gymryd hyd at 6 mis i'w chwblhau. Bydd y llys yn penderfynu pa un ai i gymeradwyo'r gorchymyn terfynol ar ôl y gwrandawiad.",
+    line4: `Os nad ydych eto wedi gorffen cynnal unrhyw drafodaethau neu achos cyfreithiol am eich arian, eiddo neu asedau eraill, yna dylech ofyn am gyngor cyfreithiol cyn ${isDivorce ? 'cwblhau eich ysgariad' : 'dod â’ch partneriaeth sifil i ben'}.`,
+    buttonText: 'Gwneud cais am orchymyn terfynol',
     buttonLink: `${RESPONDENT}${FINALISING_YOUR_APPLICATION}`,
   },
   conditionalOrderRejected: {
