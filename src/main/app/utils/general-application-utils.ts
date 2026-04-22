@@ -104,9 +104,6 @@ export const getGenAppPaymentsField = (req: AppRequest<AnyObject>): keyof AnyObj
 export const hasGenAppPaymentInProgress = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
   !!findGenAppAwaitingPayment(userCase, isApplicant2);
 
-export const hasGenAppAwaitingDocuments = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
-  !!findGenAppAwaitingDocuments(userCase, isApplicant2);
-
 export const hasGenAppSaveAndSignOutContent = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
   const interimApplicationType = isApplicant2
     ? userCase.applicant2InterimApplicationType
@@ -148,12 +145,10 @@ export const canSubmitD11GeneralApplication = (isApplicant2: boolean, userCase: 
     return false;
   }
 
-  const app1HasSubmittedGenApp =
-    hasGenAppAwaitingDocuments(false, userCase) || hasGenAppPaymentInProgress(false, userCase);
-  const app2HasSubmittedGenApp =
-    hasGenAppAwaitingDocuments(true, userCase) || hasGenAppPaymentInProgress(true, userCase);
+  const eitherPartyHasGenAppAwaitingPayment =
+    hasGenAppPaymentInProgress(false, userCase) || hasGenAppPaymentInProgress(true, userCase);
 
-  return !(app1HasSubmittedGenApp || app2HasSubmittedGenApp);
+  return !eitherPartyHasGenAppAwaitingPayment;
 };
 
 export const canStartNewGeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
