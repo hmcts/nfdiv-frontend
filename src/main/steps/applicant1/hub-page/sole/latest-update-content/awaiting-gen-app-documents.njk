@@ -1,7 +1,7 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
 
-{% if awaitingDocuments %}
+{% if hasGenAppAwaitingDocuments %}
     <p class="govuk-body">{{ generalApplicationSubmitted.introLine1 }}</p>
     <p class="govuk-body">{{ generalApplicationSubmitted.sendDocumentsLine1 }}</p>
 
@@ -32,5 +32,5 @@
     <p class="govuk-body">{{ generalApplicationSubmitted.happensNextLine2 }}</p>
     <p class="govuk-body">{{ generalApplicationSubmitted.happensNextLine3 }}</p>
 {% else %}
-    <p class="govuk-body" id="offlineGeneralApplicationReceivedLine1Sole">{{ offlineGeneralApplicationReceived.line1 }}</p>
+    <p class="govuk-body" id="offlineGeneralApplicationReceivedLine1Sole">{{ generalApplicationReceived.line1 }}</p>
 {% endif %}

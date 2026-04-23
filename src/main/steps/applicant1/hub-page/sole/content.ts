@@ -39,7 +39,7 @@ import {
 } from '../../../urls';
 import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application/submitted/content';
 import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application/submitted/content';
-
+import { findGenAppAwaitingDocuments } from '../../../../app/utils/general-application-utils';
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
 const en = (
@@ -1157,5 +1157,6 @@ export const generateContent: TranslationFn = content => {
     isAwaitingProcessServerService,
     interimApplicationStartPagePath,
     noResponseApplicationStartedAosOverdue,
+    hasGenAppAwaitingDocuments: !!findGenAppAwaitingDocuments(userCase, content.isApplicant2),
   };
 };
