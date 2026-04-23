@@ -76,16 +76,13 @@ const generalApplicationTypeField = (
   coGranted: boolean,
   otherDetailsFieldName: keyof Case
 ) => {
-  const genAppOptions = new Set([
-    GeneralApplicationType.WITHDRAW_POST_ISSUE,
-    GeneralApplicationType.EXPEDITE,
-    GeneralApplicationType.OTHER,
-  ]);
+  const genAppOptions = new Set([GeneralApplicationType.EXPEDITE, GeneralApplicationType.OTHER]);
 
   const isSoleRespondent = isApplicant2 && !isJointApplication;
   const isSoleApplicant = !isApplicant2 && !isJointApplication;
 
   [
+    [caseIssued, GeneralApplicationType.WITHDRAW_POST_ISSUE],
     [caseIssued, GeneralApplicationType.DELAY],
     [!isSoleRespondent && coGranted, GeneralApplicationType.AMEND_APPLICATION],
     [isSoleApplicant, GeneralApplicationType.EXTEND],
