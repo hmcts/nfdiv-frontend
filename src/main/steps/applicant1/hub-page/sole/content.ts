@@ -15,6 +15,7 @@ import {
   YesOrNo,
 } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { findGenAppAwaitingDocuments } from '../../../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
@@ -39,7 +40,7 @@ import {
 } from '../../../urls';
 import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application/submitted/content';
 import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application/submitted/content';
-import { findGenAppAwaitingDocuments } from '../../../../app/utils/general-application-utils';
+
 import { getSoleHubTemplate } from './soleTemplateSelector';
 
 const en = (
