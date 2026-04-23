@@ -386,6 +386,15 @@ const cy: typeof en = {
       part3: ' unrhyw adeg.',
     },
   },
+  timeout: {
+    title: 'Rydych am gael eich allgofnodi',
+    part1: "Byddwch yn cael eich allgofnodi o'ch cais mewn",
+    part2: 'oherwydd anweithgarwch. Mae hyn er mwyn diogelu eich gwybodaeth bersonol.',
+    buttonText: 'Parhau gyda’ch cais',
+    twoMinutes: '2 munud',
+    minutes: 'munud',
+    seconds: 'eiliad',
+  },
   serviceAddress: {
     line1: 'Canolfan Gwasanaethau Llysoedd a Thribiwnlysoedd',
     line2: 'Gwasanaeth Ysgariadau a Diddymiadau GLlTEF',
