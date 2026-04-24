@@ -5710,9 +5710,9 @@ __metadata:
   linkType: hard
 
 "basic-ftp@npm:^5.0.2":
-  version: 5.2.0
-  resolution: "basic-ftp@npm:5.2.0"
-  checksum: 10/f5a15d789aa98859af4da9e976154b2aeae19052e1762dc68d259d2bce631dafa40c667aa06d7346cd630aa6f9cc9a26f515b468e0bd24243fbae2149c7d01ad
+  version: 5.3.0
+  resolution: "basic-ftp@npm:5.3.0"
+  checksum: 10/08eef717642f32d92936e02f516ab6426ecc61084e4a75b542cd202dd84dddff2520dda321db1be34b7e49860cf1b2aed67ab275dc3e53b185949df311241396
   languageName: node
   linkType: hard
 
@@ -6800,8 +6800,8 @@ __metadata:
   linkType: hard
 
 "compressing@npm:^1.10.0":
-  version: 1.10.4
-  resolution: "compressing@npm:1.10.4"
+  version: 1.10.5
+  resolution: "compressing@npm:1.10.5"
   dependencies:
     "@eggjs/yauzl": "npm:^2.11.0"
     flushwritable: "npm:^1.0.0"
@@ -6812,7 +6812,7 @@ __metadata:
     streamifier: "npm:^0.1.1"
     tar-stream: "npm:^1.5.2"
     yazl: "npm:^2.4.2"
-  checksum: 10/d28f9943c9f361a473e253e169b7899d35ff1e099b52fee9e625c076bdf7985a3406d255d0752bad77d36abdb353b399d61a4f471cbcece803f40dec8472d31e
+  checksum: 10/1251d6ee42126973f584e7ef4ca8f3d7ced18bd3af9afaf0070fe3622d1236b99301511601d4633b498a82d15964ce46bbfe54682ff3d7b83dae0a64d99dd6a6
   languageName: node
   linkType: hard
 
@@ -13564,7 +13564,7 @@ __metadata:
     otpauth: "npm:^9.5.0"
     pa11y: "npm:9.1.1"
     pdfjs-dist: "npm:5.4.54"
-    prettier: "npm:3.8.1"
+    prettier: "npm:3.8.3"
     redis: "npm:5.11.0"
     require-directory: "npm:2.1.1"
     sass: "npm:^1.93.2"
@@ -14680,12 +14680,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.8.1":
-  version: 3.8.1
-  resolution: "prettier@npm:3.8.1"
+"prettier@npm:3.8.3":
+  version: 3.8.3
+  resolution: "prettier@npm:3.8.3"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/3da1cf8c1ef9bea828aa618553696c312e951f810bee368f6887109b203f18ee869fe88f66e65f9cf60b7cb1f2eae859892c860a300c062ff8ec69c381fc8dbd
+  checksum: 10/4b3b12cbb29e4c96bed936e5d070167552500c18d37676fb3e0caae6199c42860662608e4dc116230698f6e2bb0267ef2548158224c92d40f188d309d72fdd6f
   languageName: node
   linkType: hard
 
