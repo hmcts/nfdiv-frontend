@@ -84,7 +84,7 @@ const generalApplicationTypeField = (
   [
     [caseIssued, GeneralApplicationType.WITHDRAW_POST_ISSUE],
     [caseIssued, GeneralApplicationType.DELAY],
-    [!isSoleRespondent && coGranted, GeneralApplicationType.AMEND_APPLICATION],
+    [!isSoleRespondent, GeneralApplicationType.AMEND_APPLICATION],
     [isSoleApplicant, GeneralApplicationType.EXTEND],
     [!caseIssued && !isSoleRespondent, GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT],
   ].forEach(([condition, value]) => {

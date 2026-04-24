@@ -8,8 +8,8 @@
 {% block page_content %}
   <h1 class="govuk-heading-l" id="preIssueMakeAnApplicationTitle">{{ title }}</h1>
   <p class="govuk-body">{{ subheading }}</p>
-  <h2 class="govuk-heading-m">{{ withdraw.header }}</p>
-  <p class="govuk-body">
+    <h2 class="govuk-heading-m">{{ withdraw.header }}</p>
+    <p class="govuk-body">
     {% if caseHasBeenIssued %}
       {{ withdraw.postIssueText }}
     {% else %}
