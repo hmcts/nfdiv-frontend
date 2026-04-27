@@ -2375,6 +2375,7 @@ export const enum State {
   AwaitingAlternativeService = 'AwaitingAlternativeService',
   AwaitingAmendedApplication = 'AwaitingAmendedApplication',
   AwaitingDocuments = 'AwaitingDocuments',
+  ApplicationStayed = 'ApplicationStayed',
   AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingBailiffReferral = 'AwaitingBailiffReferral',
