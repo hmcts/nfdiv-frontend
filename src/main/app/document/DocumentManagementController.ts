@@ -1,6 +1,5 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
-import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
 import {
@@ -92,7 +91,7 @@ export class DocumentManagerController {
     });
 
     const newUploads: ListValue<Partial<DivorceDocument> | null>[] = filesCreated.map(file => ({
-      id: generateUuid(),
+      id: crypto.randomUUID(),
       value: {
         documentComment: 'Uploaded by applicant',
         documentFileName: file.originalDocumentName,

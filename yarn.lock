@@ -3995,13 +3995,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:10.0.0":
-  version: 10.0.0
-  resolution: "@types/uuid@npm:10.0.0"
-  checksum: 10/e3958f8b0fe551c86c14431f5940c3470127293280830684154b91dc7eb3514aeb79fe3216968833cf79d4d1c67f580f054b5be2cd562bebf4f728913e73e944
-  languageName: node
-  linkType: hard
-
 "@types/which@npm:^2.0.1":
   version: 2.0.2
   resolution: "@types/which@npm:2.0.2"
@@ -13504,7 +13497,6 @@ __metadata:
     "@types/serve-favicon": "npm:2.5.7"
     "@types/session-file-store": "npm:1.2.6"
     "@types/toobusy-js": "npm:0.5.4"
-    "@types/uuid": "npm:10.0.0"
     "@typescript-eslint/eslint-plugin": "npm:7.18.0"
     "@typescript-eslint/parser": "npm:7.18.0"
     "@uppy/core": "npm:4.5.3"
@@ -13584,7 +13576,6 @@ __metadata:
     ts-node: "npm:10.9.2"
     tsconfig-paths: "npm:4.2.0"
     typescript: "npm:5.9.3"
-    uuid: "npm:11.1.0"
     webdriverio: "npm:9.27.0"
     webpack: "npm:5.106.0"
     webpack-cli: "npm:7.0.2"
