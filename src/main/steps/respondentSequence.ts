@@ -6,8 +6,8 @@ import {
   APPLICANT_2,
   APP_REPRESENTED,
   CHECK_ANSWERS_URL,
-  CHECK_CONTACT_DETAILS,
   CHECK_PHONE_NUMBER,
+  CONFIRM_CONTACT_DETAILS,
   DETAILS_OTHER_PROCEEDINGS,
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
@@ -34,6 +34,24 @@ import {
 const sequence: Step[] = [
   {
     url: REVIEW_THE_APPLICATION,
+    getNextStep: () => ADDRESS_PRIVATE,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    getNextStep: () => CONFIRM_CONTACT_DETAILS,
+  },
+  {
+    url: CONFIRM_CONTACT_DETAILS,
+    getNextStep: data =>
+      data.applicant2ConfirmContactDetails === YesOrNo.NO ? ENTER_YOUR_ADDRESS : HOW_DO_YOU_WANT_TO_RESPOND,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    getNextStep: data =>
+      data.applicant2ConfirmContactDetails === YesOrNo.NO ? CHECK_PHONE_NUMBER : HOW_DO_YOU_WANT_TO_RESPOND,
+  },
+  {
+    url: CHECK_PHONE_NUMBER,
     getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
   },
   {
@@ -86,22 +104,6 @@ const sequence: Step[] = [
   {
     url: HUB_PAGE_DOWNLOADS,
     getNextStep: () => HUB_PAGE,
-  },
-  {
-    url: CHECK_CONTACT_DETAILS,
-    getNextStep: () => HOME_URL,
-  },
-  {
-    url: CHECK_PHONE_NUMBER,
-    getNextStep: () => ADDRESS_PRIVATE,
-  },
-  {
-    url: ENTER_YOUR_ADDRESS,
-    getNextStep: () => ADDRESS_PRIVATE,
-  },
-  {
-    url: ADDRESS_PRIVATE,
-    getNextStep: () => CHECK_CONTACT_DETAILS,
   },
   {
     url: FINALISING_YOUR_APPLICATION,
