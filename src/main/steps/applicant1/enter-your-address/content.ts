@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
+import { isCountryUk } from '../../applicant1Sequence';
 import { ydyOrNacYdyRadioAnswers } from '../../common/input-labels.content';
 
 const en = () => {
@@ -95,7 +96,6 @@ const cy = () => {
   };
 };
 
-const uk = 'UK';
 export const form: FormContent = {
   fields: {
     applicant1Address1: {
@@ -127,7 +127,7 @@ export const form: FormContent = {
       label: l => l.town,
       labelSize: null,
       validator: (value, formData) => {
-        if (formData.applicant1AddressCountry !== uk) {
+        if (!isCountryUk(formData.applicant1AddressCountry)) {
           return;
         }
         return isFieldFilledIn(value);
@@ -151,7 +151,7 @@ export const form: FormContent = {
         maxLength: 14,
       },
       validator: (value, formData) => {
-        if (formData.applicant1AddressCountry !== uk) {
+        if (!isCountryUk(formData.applicant1AddressCountry)) {
           return;
         }
         return isInvalidPostcode(value);
