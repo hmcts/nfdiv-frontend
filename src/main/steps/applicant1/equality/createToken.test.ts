@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid';
-
 import { SupportedLanguages } from '../../../modules/i18n';
 import { CHECK_ANSWERS_URL } from '../../urls';
 
@@ -9,7 +7,7 @@ describe('createToken', () => {
   const params = {
     serviceId: 'NEW_DIVORCE_LAW',
     actor: 'APPLICANT1',
-    pcqId: uuid(),
+    pcqId: crypto.randomUUID(),
     partyId: 'test@email.com',
     returnUrl: CHECK_ANSWERS_URL,
     language: SupportedLanguages.En,

@@ -3,7 +3,6 @@ import autobind from 'autobind-decorator';
 import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { Response } from 'express';
-import { v4 as uuid } from 'uuid';
 
 import { CITIZEN_UPDATE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -27,7 +26,7 @@ export default class PCQGetController {
       try {
         const response: AxiosResponse<StatusResponse> = await axios.get(health);
         if (response.data.status && response.data.status === 'UP') {
-          req.session.userCase.applicant1PcqId = uuid();
+          req.session.userCase.applicant1PcqId = crypto.randomUUID();
         } else {
           return res.redirect(CHECK_ANSWERS_URL);
         }
