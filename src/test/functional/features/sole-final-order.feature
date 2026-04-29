@@ -16,7 +16,7 @@ Feature: Sole final order
     And I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
     And I login with applicant "1"
-    Then the page should include "You can now apply for a 'final order'."
+    Then the page should include "You may now apply for a 'final order'."
 
     When I click "Apply for a final order"
     Then the page should include "Do you want to finalise your divorce?"
@@ -41,7 +41,7 @@ Feature: Sole final order
     And I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
     And I login with applicant "1"
-    Then the page should include "You can now apply for a 'final order'."
+    Then the page should include "You may now apply for a 'final order'."
 
     When I click "Apply for a final order"
     Then the page should include "Do you want to finalise your divorce?"
@@ -71,7 +71,7 @@ Feature: Sole final order
     Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2020-01-01"
     When I click "Sign out"
     And I login with applicant "2"
-    Then the page should include "Your wife has still not applied for a 'final order'"
+    Then the page should include "Your wife has not yet applied for a final order"
     And the page URL should be "/respondent/hub-page"
 
     And I click "Apply for a final order"
@@ -109,7 +109,7 @@ Feature: Sole final order
     Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2020-01-01"
     When I click "Sign out"
     And I login with applicant "2"
-    Then the page should include "Your wife has still not applied for a 'final order'"
+    Then the page should include "Your wife has not yet applied for a final order"
     And the page URL should be "/respondent/hub-page"
 
     And I click "Apply for a final order"
@@ -128,7 +128,7 @@ Feature: Sole final order
 
     When I go to "/logout"
     And I login with applicant "1"
-    Then the page should include "You can now apply for a 'final order'."
+    Then the page should include "You may now apply for a 'final order'."
 
     When I click "Apply for a final order"
     Then the page should include "Do you want to finalise your divorce?"
@@ -152,7 +152,7 @@ Feature: Sole final order
     And I set the case state to "AwaitingFinalOrder"
     When I click "Sign out"
     And I login with applicant "2"
-    Then the page should include "Your wife has still not applied for a 'final order'"
+    Then the page should include "Your wife has not yet applied for a final order"
     And the page URL should be "/respondent/hub-page"
 
     And I click "Apply for a final order"
@@ -171,7 +171,7 @@ Feature: Sole final order
 
     When I go to "/logout"
     And I login with applicant "1"
-    Then the page should include "You can now apply for a 'final order'."
+    Then the page should include "You may now apply for a 'final order'."
 
     When I click "Apply for a final order"
     Then the page should include "Do you want to finalise your divorce?"
