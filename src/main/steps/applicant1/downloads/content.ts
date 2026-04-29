@@ -269,9 +269,17 @@ const getDownloadLogic: TranslationFn = content => {
     DocumentType.BAILIFF_SERVICE_REFUSED,
   ].some(document => !!findDocument(userCase, document));
 
-  const shouldHaveAccessToCoApplication = content.isJointApplication || !content.isApplicant2;
-
   const isAwaitingAmendedApplicationState = userCase.state === State.AwaitingAmendedApplication;
+
+  const applicant1OrApplicant2OnJointCase = {
+    hasConditionalOrderAnswersAndAccess: content.userCase.documentsGenerated?.find(
+      doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
+    ),
+    hasConditionalOrderApplicationAndAccess: content.userCase.documentsGenerated?.find(
+      doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
+    ),
+    isAwaitingAmendedApplicationStateAndAccess: isAwaitingAmendedApplicationState,
+  };
 
   const applicant1Only = {
     app1OnlineServiceAppInProgress:
@@ -295,6 +303,7 @@ const getDownloadLogic: TranslationFn = content => {
         alternativeServiceOutcome.value.certificateOfServiceDocument?.documentType ===
           DocumentType.CERTIFICATE_OF_SERVICE
     ),
+    ...applicant1OrApplicant2OnJointCase,
   };
 
   const bothApplicants = {
@@ -313,20 +322,9 @@ const getDownloadLogic: TranslationFn = content => {
         userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)),
     hasCertificateOfEntitlement: content.userCase.coCertificateOfEntitlementDocument,
     hasConditionalOrderGranted: content.userCase.coConditionalOrderGrantedDocument,
-    hasConditionalOrderAnswersAndAccess:
-      shouldHaveAccessToCoApplication &&
-      content.userCase.documentsGenerated?.find(
-        doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
-      ),
-    hasConditionalOrderApplicationAndAccess:
-      shouldHaveAccessToCoApplication &&
-      content.userCase.documentsGenerated?.find(
-        doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
-      ),
     hasFinalOrderGranted: content.userCase.documentsGenerated?.find(
       doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
     ),
-    isAwaitingAmendedApplicationStateAndAccess: isAwaitingAmendedApplicationState && shouldHaveAccessToCoApplication,
     hasFinalOrderApplicationAndFinalOrderRequested: userCase.documentsGenerated?.find(
       doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
     ),
@@ -334,6 +332,7 @@ const getDownloadLogic: TranslationFn = content => {
 
   return {
     ...(!content.isApplicant2 && applicant1Only),
+    ...(content.isJointApplication && content.isApplicant2 && applicant1OrApplicant2OnJointCase),
     ...bothApplicants,
   };
 };
