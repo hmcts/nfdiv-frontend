@@ -2,13 +2,9 @@ import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { canStartNewGeneralApplication } from '../../../app/utils/general-application-utils';
 import { CommonContent, getRootRedirectPath } from '../../common/common.content';
-import { MAKE_AN_APPLICATION, MAKE_AN_OFFLINE_APPLICATION } from '../../urls';
+import { MAKE_AN_OFFLINE_APPLICATION, WITHDRAW_THIS_APPLICATION_POST_ISSUE } from '../../urls';
 
-const en = (
-  { isDivorce, partner, isApplicant2 }: CommonContent,
-  canStartOnlineGenApplication: boolean,
-  app2OrRespondent: string
-) => ({
+const en = ({ isDivorce, partner, isApplicant2 }: CommonContent, withdrawLink: string) => ({
   title: `Withdrawing your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   sole: {
     line1: {
@@ -16,9 +12,7 @@ const en = (
         isDivorce ? 'divorce' : 'application to end your civil partnership'
       }.`,
     },
-    line2: `You can apply to withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}:`,
-    withdrawLinkText: 'Link to apply to withdraw your application',
-    withdrawUrl: canStartOnlineGenApplication ? MAKE_AN_APPLICATION : MAKE_AN_OFFLINE_APPLICATION,
+    line2: `You can apply to <a href="${withdrawLink}">withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}</a>.`,
     line3:
       'If you cannot use the online service, you can contact the court for help using the details below. Court staff can explain the process, but they cannot give you legal advice.',
   },
@@ -28,9 +22,7 @@ const en = (
         isDivorce ? 'divorce' : 'application to end your civil partnership'
       }.`,
     },
-    line2: `You can apply to withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}:`,
-    withdrawLinkText: 'Link to apply to withdraw your application',
-    withdrawUrl: app2OrRespondent + (canStartOnlineGenApplication ? MAKE_AN_APPLICATION : MAKE_AN_OFFLINE_APPLICATION),
+    line2: `You can apply to <a href="${withdrawLink}">withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}</a>.`,
     line3:
       'If you cannot use the online service, you can contact the court for help using the details below. Court staff can explain the process, but they cannot give you legal advice.',
     continueAsSole: 'If you want to continue as a sole applicant',
@@ -80,11 +72,7 @@ const en = (
   exitLink: 'Exit service',
 });
 
-const cy: typeof en = (
-  { isDivorce, partner, isApplicant2 }: CommonContent,
-  canStartOnlineGenApplication: boolean,
-  app2OrRespondent: string
-) => ({
+const cy: typeof en = ({ isDivorce, partner, isApplicant2 }: CommonContent, withdrawLink: string) => ({
   title: `Tynnu eich ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} yn ôl`,
   sole: {
     line1: {
@@ -92,9 +80,7 @@ const cy: typeof en = (
         isDivorce ? 'divorce' : 'application to end your civil partnership'
       }.`,
     },
-    line2: `You can apply to withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}:`,
-    withdrawLinkText: 'Link to apply to withdraw your application',
-    withdrawUrl: canStartOnlineGenApplication ? MAKE_AN_APPLICATION : MAKE_AN_OFFLINE_APPLICATION,
+    line2: `You can apply to <a href="${withdrawLink}">withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}</a>.`,
     line3:
       'If you cannot use the online service, you can contact the court for help using the details below. Court staff can explain the process, but they cannot give you legal advice.',
   },
@@ -104,9 +90,7 @@ const cy: typeof en = (
         isDivorce ? 'divorce' : 'application to end your civil partnership'
       }.`,
     },
-    line2: `You can apply to withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}:`,
-    withdrawLinkText: 'Link to apply to withdraw your application',
-    withdrawUrl: app2OrRespondent + (canStartOnlineGenApplication ? MAKE_AN_APPLICATION : MAKE_AN_OFFLINE_APPLICATION),
+    line2: `You can apply to <a href="${withdrawLink}">withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}</a>.`,
     line3:
       'If you cannot use the online service, you can contact the court for help using the details below. Court staff can explain the process, but they cannot give you legal advice.',
     continueAsSole: 'Os ydych am fwrw ymlaen fel yr unig geisydd',
@@ -163,11 +147,10 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const canStartNewOnlineGenApplication = canStartNewGeneralApplication(content.isApplicant2, content.userCase);
-  const translations = languages[content.language](
-    content,
-    canStartNewOnlineGenApplication,
-    getRootRedirectPath(content.isApplicant2, content.userCase)
-  );
+  const d11WithdrawLinkUrl =
+    getRootRedirectPath(content.isApplicant2, content.userCase) +
+    (canStartNewOnlineGenApplication ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : MAKE_AN_OFFLINE_APPLICATION);
+  const translations = languages[content.language](content, d11WithdrawLinkUrl);
   const isJointApplication = content.isJointApplication;
   const isApplicantFirstInTimeApplicant = content.isApplicant2
     ? content.userCase.coApplicant1StatementOfTruth !== Checkbox.Checked
