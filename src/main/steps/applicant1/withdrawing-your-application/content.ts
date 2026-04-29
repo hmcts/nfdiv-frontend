@@ -1,34 +1,30 @@
-import config from 'config';
-
 import { Checkbox } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { CommonContent } from '../../common/common.content';
+import { canStartNewGeneralApplication } from '../../../app/utils/general-application-utils';
+import { CommonContent, getRootRedirectPath } from '../../common/common.content';
+import { MAKE_AN_OFFLINE_APPLICATION, WITHDRAW_THIS_APPLICATION_POST_ISSUE } from '../../urls';
 
-const en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
+const en = ({ isDivorce, partner, isApplicant2 }: CommonContent, withdrawLink: string) => ({
   title: `Withdrawing your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
   sole: {
     line1: {
       part1: `You have said you do not want to continue with your ${
         isDivorce ? 'divorce' : 'application to end your civil partnership'
-      }.
-      If you want to withdraw your application then you need to fill out a separate`,
-      part2: 'D11 form',
-      part3: ' and send it to the court. Details of where to send it are on the form.',
-      link: config.get('govukUrls.d11Form'),
+      }.`,
     },
-    line2:
-      'If you need help then you can contact the court using the details below. The support staff cannot give you legal advice.',
+    line2: `You can apply to <a href="${withdrawLink}">withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}</a>.`,
+    line3:
+      'If you cannot use the online service, you can contact the court for help using the details below. Court staff can explain the process, but they cannot give you legal advice.',
   },
   joint: {
     line1: {
       part1: `You have said you do not want to continue with your ${
         isDivorce ? 'divorce' : 'application to end your civil partnership'
-      }.
-      If you want to withdraw your application then you and your ${partner} need to jointly fill out a`,
-      part2: 'D11 form',
-      part3: 'and send it to the court. Details of where to send it are on the form.',
-      link: config.get('govukUrls.d11Form'),
+      }.`,
     },
+    line2: `You can apply to <a href="${withdrawLink}">withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}</a>.`,
+    line3:
+      'If you cannot use the online service, you can contact the court for help using the details below. Court staff can explain the process, but they cannot give you legal advice.',
     continueAsSole: 'If you want to continue as a sole applicant',
     firstInTimeApplicant: {
       line1: `If you still want to ${
@@ -76,31 +72,27 @@ const en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
   exitLink: 'Exit service',
 });
 
-const cy: typeof en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, partner, isApplicant2 }: CommonContent, withdrawLink: string) => ({
   title: `Tynnu eich ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} yn ôl`,
   sole: {
     line1: {
-      part1: `Rydych wedi dweud nad ydych eisiau bwrw ymlaen â‘ch ${
-        isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-      }.
-      Os ydych eisiau tynnu eich cais yn ôl, yna mae angen i chi lenwi`,
-      part2: 'ffurflen D11',
-      part3: ' ar wahân a’i hanfon i’r llys. Mae manylion ar y ffurflen yn egluro i ble y dylid ei hanfon.',
-      link: config.get('govukUrls.d11Form'),
+      part1: `You have said you do not want to continue with your ${
+        isDivorce ? 'divorce' : 'application to end your civil partnership'
+      }.`,
     },
-    line2:
-      'Os oes arnoch angen help gallwch gysylltu â’r llys gan ddefnyddio’r manylion isod. Ni all y staff cynorthwyol roi cyngor cyfreithiol i chi.',
+    line2: `You can apply to <a href="${withdrawLink}">withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}</a>.`,
+    line3:
+      'If you cannot use the online service, you can contact the court for help using the details below. Court staff can explain the process, but they cannot give you legal advice.',
   },
   joint: {
     line1: {
-      part1: `Rydych wedi dweud nad ydych eisiau bwrw ymlaen â‘ch ${
-        isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-      }.
-      Os ydych eisiau tynnu eich cais yn ôl, yna mae angen i chi a’ch ${partner} lenwi `,
-      part2: 'ffurflen D11',
-      part3: 'ar y cyd a’i hanfon i’r llys. Mae’r ffurflen yn egluro i ble y dylid ei hanfon.',
-      link: config.get('govukUrls.d11Form'),
+      part1: `You have said you do not want to continue with your ${
+        isDivorce ? 'divorce' : 'application to end your civil partnership'
+      }.`,
     },
+    line2: `You can apply to <a href="${withdrawLink}">withdraw your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}</a>.`,
+    line3:
+      'If you cannot use the online service, you can contact the court for help using the details below. Court staff can explain the process, but they cannot give you legal advice.',
     continueAsSole: 'Os ydych am fwrw ymlaen fel yr unig geisydd',
     firstInTimeApplicant: {
       line1: `Os ydych yn dal i fod eisiau ${
@@ -154,7 +146,11 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const canStartNewOnlineGenApplication = canStartNewGeneralApplication(content.isApplicant2, content.userCase);
+  const d11WithdrawLinkUrl =
+    getRootRedirectPath(content.isApplicant2, content.userCase) +
+    (canStartNewOnlineGenApplication ? WITHDRAW_THIS_APPLICATION_POST_ISSUE : MAKE_AN_OFFLINE_APPLICATION);
+  const translations = languages[content.language](content, d11WithdrawLinkUrl);
   const isJointApplication = content.isJointApplication;
   const isApplicantFirstInTimeApplicant = content.isApplicant2
     ? content.userCase.coApplicant1StatementOfTruth !== Checkbox.Checked
