@@ -318,18 +318,6 @@ const en = (
       }`,
     },
   },
-  bailiffServiceUnsuccessful: {
-    line1: `The court bailiff tried to ‘serve’ the ${
-      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-    } at the address you provided. Unfortunately the bailiff was unsuccessful and so your ${partner} has still not been served.`,
-    line2: {
-      part1: 'Read the ',
-      part2: 'bailiff service certificate',
-      part3: ', to see what you can do next.',
-      downloadReference: 'Bailiff-certificate',
-      link: '/downloads/bailiff-unsuccessful-certificate-of-service',
-    },
-  },
   awaitingServicePayment: {
     line1OfflineApplication:
       'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.',
@@ -808,18 +796,6 @@ const cy: typeof en = (
     heading1: 'Anfon eich tystiolaeth i’r llys',
     line1: 'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
   },
-  bailiffServiceUnsuccessful: {
-    line1: `Ceisiodd beili'r llys 'gyflwyno' ${
-      isDivorce ? 'papurau’r ysgariad' : "papurau i ddod â'ch partneriaeth sifil i ben"
-    } yn y cyfeiriad a ddarparwyd gennych. Yn anffodus, ni lwyddodd y beili i wneud hyn ac felly nid yw eich ${partner} wedi cael y papurau.`,
-    line2: {
-      part1: 'Darllenwch ',
-      part2: 'dystysgrif y gwasanaeth beili',
-      part3: ', i weld beth allwch chi ei wneud nesaf.',
-      downloadReference: 'Bailiff-certificate',
-      link: '/downloads/bailiff-unsuccessful-certificate-of-service',
-    },
-  },
   awaitingServicePayment: {
     line1OfflineApplication:
       "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
@@ -1062,7 +1038,6 @@ export const generateContent: TranslationFn = content => {
   const theLatestUpdateTemplate = getSoleHubTemplate(
     displayState,
     userCase,
-    isSuccessfullyServedByBailiff,
     isAlternativeService,
     isApplicantAbleToRespondToRequestForInformation,
     isAwaitingProcessServerService
