@@ -271,7 +271,7 @@ const getDownloadLogic: TranslationFn = content => {
 
   const isAwaitingAmendedApplicationState = userCase.state === State.AwaitingAmendedApplication;
 
-  const applicant1OrApplicant2OnJointCase = {
+  const applicant1OrJointApplicant2 = {
     hasConditionalOrderAnswersAndAccess: content.userCase.documentsGenerated?.find(
       doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
     ),
@@ -303,7 +303,7 @@ const getDownloadLogic: TranslationFn = content => {
         alternativeServiceOutcome.value.certificateOfServiceDocument?.documentType ===
           DocumentType.CERTIFICATE_OF_SERVICE
     ),
-    ...applicant1OrApplicant2OnJointCase,
+    ...applicant1OrJointApplicant2,
   };
 
   const bothApplicants = {
@@ -332,7 +332,7 @@ const getDownloadLogic: TranslationFn = content => {
 
   return {
     ...(!content.isApplicant2 && applicant1Only),
-    ...(content.isJointApplication && content.isApplicant2 && applicant1OrApplicant2OnJointCase),
+    ...(content.isJointApplication && content.isApplicant2 && applicant1OrJointApplicant2),
     ...bothApplicants,
   };
 };
