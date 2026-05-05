@@ -134,7 +134,7 @@ export const canSubmitD11GeneralApplication = (isApplicant2: boolean, userCase: 
     return false;
   }
 
-  const caseHasGeneralReferral = !!userCase?.generalReferralType;
+  const caseHasGeneralReferral = !!userCase?.generalReferralReason;
   if (caseHasGeneralReferral) {
     return false;
   }
