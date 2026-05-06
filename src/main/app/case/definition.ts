@@ -2394,6 +2394,7 @@ export const enum State {
   Submitted = 'Submitted',
   WelshTranslationRequested = 'WelshTranslationRequested',
   WelshTranslationReview = 'WelshTranslationReview',
+  PendingRefund = 'PendingRefund',
 }
 
 export const APPLICATION_PAYMENT_STATES: Set<State> = new Set([
