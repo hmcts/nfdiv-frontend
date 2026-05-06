@@ -71,7 +71,7 @@ const cy = ({ partner }: CommonContent) => ({
   postcodeOptional: 'Cod post, cod zip neu god ardal (dewisol)',
   country: 'Gwlad',
   findAddress: 'Dod o hyd i gyfeiriad',
-  notUK: 'The postcode is not recognised or we lived at an international address',
+  notUK: "Nid yw'r cod post wedi'i gydnabod neu buom yn byw mewn cyfeiriad rhyngwladol",
   enterUkPostcode: 'Nodwch god post yn y DU',
   selectAddress: 'Dewiswch gyfeiriad',
   addressOverseas: 'A yw hwn yn gyfeiriad rhyngwladol?',
