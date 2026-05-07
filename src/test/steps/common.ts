@@ -189,7 +189,9 @@ Given('I type my own email address', async () => {
 Given('I use an invalid CSRF token', async () => {
   await I.executeScript(() => {
     const el = document.querySelector('input[name="_csrf"]');
-    if (el) el.setAttribute('value', 'invalid-token');
+    if (el) {
+      el.setAttribute('value', 'invalid-token');
+    }
   });
 });
 

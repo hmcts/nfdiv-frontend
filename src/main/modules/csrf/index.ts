@@ -1,6 +1,6 @@
-import { Application, Request, Response, NextFunction } from 'express';
-import type { LoggerInstance } from 'winston';
 import { csrfSync } from 'csrf-sync';
+import { Application, NextFunction, Request, Response } from 'express';
+import type { LoggerInstance } from 'winston';
 
 import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
 
@@ -10,10 +10,9 @@ const logger: LoggerInstance = Logger.getLogger('app');
 const { csrfSynchronisedProtection } = csrfSync({
   ignoredMethods: ['GET', 'HEAD', 'OPTIONS'],
 
-  getTokenFromRequest: (req) =>
-    req.body?._csrf || req.headers['x-csrf-token'] as string,
+  getTokenFromRequest: req => req.body?._csrf || (req.headers['x-csrf-token'] as string),
 
-  getTokenFromState: (req) => req.session.csrfToken,
+  getTokenFromState: req => req.session.csrfToken,
 
   storeTokenInState: (req, token) => {
     req.session.csrfToken = token;
@@ -27,7 +26,9 @@ export class CSRFToken {
     app.use((req: Request, res: Response, next: NextFunction) => {
       try {
         const token = req.csrfToken!();
-        if (token) res.locals.csrfToken = token;
+        if (token) {
+          res.locals.csrfToken = token;
+        }
         next();
       } catch (err) {
         next(err);
