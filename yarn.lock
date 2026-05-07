@@ -345,8 +345,8 @@ __metadata:
   linkType: hard
 
 "@azure/playwright@npm:^1.1.1":
-  version: 1.1.4
-  resolution: "@azure/playwright@npm:1.1.4"
+  version: 1.1.5
+  resolution: "@azure/playwright@npm:1.1.5"
   dependencies:
     "@azure/core-auth": "npm:^1.9.0"
     "@azure/core-rest-pipeline": "npm:^1.18.0"
@@ -355,7 +355,7 @@ __metadata:
     tslib: "npm:^2.8.1"
   peerDependencies:
     "@playwright/test": ^1.47.0
-  checksum: 10/31d20ddc8914ec8ef8c824d9a7292f18da7ce217d0033bce35734755e08f14a481b2726c5018715df28b28891d929249368f9ce11b23c63c7bed79fd6d183c95
+  checksum: 10/adff17e871ca906dd1da01a6269d663a530bcd099977e2d285b3a7dd7999dc7419a5492f639151f70683118545bea9d96e22b25c65c13c9f5ef6d76314187489
   languageName: node
   linkType: hard
 
