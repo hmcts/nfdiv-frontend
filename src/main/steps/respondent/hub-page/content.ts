@@ -207,6 +207,11 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     line1:
       "Your application is with the court and will be referred to a judge to consider your request. You should hear back from the court about the judge's decision.",
   },
+  pendingRefund: {
+    line1: `We are currently processing a refund linked to this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    line2:
+      'You do not need to do anything at the moment. We will provide an update once the refund has been completed.',
+  },
 });
 
 // @TODO translations
@@ -416,6 +421,11 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
   pendingHearingOutcome: {
     line1:
       'Mae eich cais wedi cyrraedd y llys a bydd yn cael ei gyfeirio at farnwr i ystyried eich cais. Dylech glywed gan\n y llys am benderfyniad y barnwr.',
+  },
+  pendingRefund: {
+    line1: `Rydym yn prosesu ad-daliad sy’n gysylltiedig â’r hwn ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}.`,
+    line2:
+      'Nid ydych angen gwneud unrhyw beth ar y funud. Byddwn yn rhoi diweddariad unwaith y cwblhawyd yr ad-daliad.',
   },
 });
 

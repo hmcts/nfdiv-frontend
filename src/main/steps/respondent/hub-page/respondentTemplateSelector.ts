@@ -57,6 +57,8 @@ export const getRespondentHubTemplate = (
     case State.WelshTranslationRequested:
     case State.WelshTranslationReview:
       return HubTemplate.WelshTranslationRequestedOrReview;
+    case State.PendingRefund:
+      return HubTemplate.PendingRefund;
     default: {
       if (displayState.isAtOrBefore('AwaitingConditionalOrder') && canSubmitAos) {
         return HubTemplate.AwaitingAoS;

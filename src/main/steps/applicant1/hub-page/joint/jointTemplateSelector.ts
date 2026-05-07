@@ -91,6 +91,8 @@ export const getJointHubTemplate = (
     case State.WelshTranslationRequested:
     case State.WelshTranslationReview:
       return HubTemplate.WelshTranslationRequestedOrReview;
+    case State.PendingRefund:
+      return HubTemplate.PendingRefund;
     default: {
       if (
         displayState.isAfter('Holding') &&
