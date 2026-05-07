@@ -78,7 +78,7 @@
     "@uppy/xhr-upload": "4.4.2",
     "applicationinsights": "2.9.8",
     "autobind-decorator": "2.4.0",
-    "axios": "1.15.0",
+    "axios": "1.15.1",
     "config": "4.4.1",
     "connect-redis": "7.1.1",
     "cookie-parser": "1.4.7",
@@ -113,7 +113,7 @@
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
     "typescript": "5.9.3",
-    "uuid": "11.1.0"
+    "uuid": "11.1.1"
   },
   "devDependencies": {
     "@azure/playwright": "^1.1.1",
