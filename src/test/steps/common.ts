@@ -186,6 +186,13 @@ Given('I type my own email address', async () => {
   I.type(testUser.email);
 });
 
+Given('I use an invalid CSRF token', async () => {
+  await I.executeScript(() => {
+    const el = document.querySelector('input[name="_csrf"]');
+    if (el) el.setAttribute('value', 'invalid-token');
+  });
+});
+
 export const iClearTheForm = async (): Promise<void> => {
   await I.executeScript(() => {
     const checkedInputs = document.querySelectorAll('input:checked') as NodeListOf<HTMLInputElement>;
