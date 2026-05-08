@@ -16,6 +16,7 @@ import {
   BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
+  EVIDENCE_CERTIFICATE_OF_SERVICE,
   EVIDENCE_RECEIVED_APPLICATION,
   GOV_SEARCH_POSSIBLE,
   HAVE_THEY_RECEIVED,
@@ -36,6 +37,7 @@ import {
   PROVIDE_NEW_EMAIL_ADDRESS,
   SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_TIPS,
+  SEND_CERTIFICATE_OF_SERVICE,
   SERVE_AGAIN,
   SUCCESS_SCREEN_PROCESS_SERVER,
   WILL_SERVE_AGAIN,
@@ -110,7 +112,7 @@ describe('No Response Journey Sequence test', () => {
         applicant2AddressOverseas: YesOrNo.NO,
       };
       const step = noResponseJourneySequence.find(obj => obj.url === EVIDENCE_RECEIVED_APPLICATION) as Step;
-      expect(step.getNextStep(caseData)).toBe(DEEMED_SERVICE_APPLICATION);
+      expect(step.getNextStep(caseData)).toBe(EVIDENCE_CERTIFICATE_OF_SERVICE);
     });
 
     test('NOT applicant1NoResponsePartnerHasReceivedPapers', () => {
@@ -129,6 +131,24 @@ describe('No Response Journey Sequence test', () => {
       };
       const step = noResponseJourneySequence.find(obj => obj.url === EVIDENCE_RECEIVED_APPLICATION) as Step;
       expect(step.getNextStep(caseData)).toBe(NO_NEW_ADDRESS);
+    });
+  });
+
+  describe('EVIDENCE_CERTIFICATE_OF_SERVICE', () => {
+    test('EVIDENCE_CERTIFICATE_OF_SERVICE YES', () => {
+      const caseData = {
+        applicant1NoResponsePartnerHasCertificateOfService: YesOrNo.YES,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === EVIDENCE_CERTIFICATE_OF_SERVICE) as Step;
+      expect(step.getNextStep(caseData)).toBe(SEND_CERTIFICATE_OF_SERVICE);
+    });
+
+    test('EVIDENCE_CERTIFICATE_OF_SERVICE NO', () => {
+      const caseData = {
+        applicant1NoResponsePartnerHasCertificateOfService: YesOrNo.NO,
+      };
+      const step = noResponseJourneySequence.find(obj => obj.url === EVIDENCE_CERTIFICATE_OF_SERVICE) as Step;
+      expect(step.getNextStep(caseData)).toBe(DEEMED_SERVICE_APPLICATION);
     });
   });
 
