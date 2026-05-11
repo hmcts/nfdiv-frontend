@@ -15,7 +15,6 @@ import { StateSequence } from '../../../state-sequence';
 export const getSoleHubTemplate = (
   displayState: StateSequence,
   userCase: Partial<CaseWithId>,
-  isSuccessfullyServedByBailiff: boolean,
   isAlternativeService: boolean,
   isApplicantAbleToRespondToRequestForInformation: boolean = false,
   isAwaitingProcessServerService: boolean = false
@@ -121,13 +120,7 @@ export const getSoleHubTemplate = (
     case State.FinalOrderComplete:
       return HubTemplate.FinalOrderComplete;
     case State.AwaitingAos:
-      if (isServiceApplicationGranted && !isSuccessfullyServedByBailiff) {
-        return HubTemplate.BailiffServiceUnsuccessful;
-      } else if (isAlternativeService && !isServiceApplicationGranted) {
-        return HubTemplate.ServiceApplicationRejected;
-      } else {
-        return HubTemplate.AosAwaitingOrDrafted;
-      }
+      return HubTemplate.AosAwaitingOrDrafted;
     case State.ServiceAdminRefusal:
       if (isAlternativeService && !isServiceApplicationGranted && isRefusalOrderToApplicant) {
         return HubTemplate.ServiceApplicationRejected;
