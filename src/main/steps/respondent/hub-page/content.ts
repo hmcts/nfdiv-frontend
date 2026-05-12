@@ -304,7 +304,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
   },
   legalAdvisorReferral: {
     line1: `Mae eich ${partner} wedi gwneud cais am ‘orchymyn amodol’. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
-      isDivorce ? 'gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben'
+      isDivorce ? 'gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben.'
     }`,
     line2: 'Byddwch yn cael e-bost pan fydd y llys wedi cadarnhau’r gorchymyn amodol.',
   },
