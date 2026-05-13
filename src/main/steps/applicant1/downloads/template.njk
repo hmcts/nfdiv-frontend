@@ -11,6 +11,11 @@
     download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
   {% endif %}
 
+  {% if hasHmctsCoversheet %}
+    <p class="govuk-body"><a class="govuk-link" href={{hmctsCoversheetDownload.link}}
+    download={{hmctsCoversheetDownload.reference}}>{{hmctsCoversheetDownload.text}}</a></p>
+  {% endif %}
+
   {% if app1OnlineServiceAppInProgress %}
     <p class="govuk-body"><a class="govuk-link" href={{serviceApplicationDownload.link}}
     download={{serviceApplicationDownload.reference}}>{{serviceApplicationDownload.text}}</a></p>
