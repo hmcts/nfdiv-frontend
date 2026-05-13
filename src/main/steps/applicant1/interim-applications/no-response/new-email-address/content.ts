@@ -42,10 +42,10 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   } drwy e-bost yn unig (heb eu postio). Bydd hyn yn golygu gwneud cais am gyflwyno amgen, a fydd yn costio ${getFee(
     config.get('fees.alternativeService')
   )}. Bydd angen i chi hefyd brofi bod y cyfeiriad e-bost rydych eisiau anfon y papurau iddo yn cael ei ddefnyddio’n rheolaidd gan eich ${partner}.`,
-  line3: `Os yw eich ${partner} yn byw y tu allan allan i'r DU, bydd angen i chi wirio sut i gyflwyno’r papurau’n gyfreithlon yn y wlad lle maent yn byw. Os caniateir cyflwyno drwy e-bost yn y wlad honno, yna gallwch wneud cais am gyflwyno amgen ar ffurf e-bost yn unig. Ni all y llys anfon dogfennau i gyfeiriadau y tu allan i Gymru a Lloegr.`,
+  line3: `Os yw eich ${partner} yn byw y tu allan i'r DU, bydd angen i chi wirio sut i gyflwyno’r papurau’n gyfreithlon yn y wlad lle maent yn byw. Os caniateir cyflwyno drwy e-bost yn y wlad honno, yna gallwch wneud cais am gyflwyno amgen ar ffurf e-bost yn unig. Ni all y llys anfon dogfennau i gyfeiriadau y tu allan i'r DU.`,
   serviceOfDocuments: `<a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.serviceOfDocuments'
-  )}">Mae rhagor o wybodaeth ynghylch cyflwyno dogfennau y tu allan i'r DU ar gael gan yr Adran Prosesau Tramor (yn agor mewn tab newydd)</a>.`,
+  )}">Mae rhagor o wybodaeth ynghylch cyflwyno dogfennau y tu allan i'r Deyrnas Unedig ar gael gan yr Adran Prosesau Tramor (yn agor mewn tab newydd)</a>.`,
   newEmailHeader: 'Beth ydych chi eisiau gwneud?',
   provideNewEmail: 'Rwyf eisiau darparu cyfeiriad e-bost newydd',
   applyForAlternativeService: 'Rwyf eisiau gwneud cais am gyflwyno amgen i gyflwyno’r papurau drwy e-bost yn unig',
