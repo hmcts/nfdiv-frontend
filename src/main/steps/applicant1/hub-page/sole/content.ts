@@ -569,7 +569,7 @@ const cy: typeof en = (
   contactDetailsUpdatedOverseasAddress: {
     line1: `Bydd angen i chi drefnu bod papurau’r ${
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-    } yn cael eu danfon i’ch ${partner} eich hun. Y rheswm dros hyn yw oherwydd nid oes gan lysoedd Cymru a Lloegr bŵer cyfreithiol (awdurdodaeth) yn y wlad ble maent yn byw.`,
+    } yn cael eu danfon i’ch ${partner} eich hun. Mae hyn oherwydd eu bod yn byw y tu allan i'r DU neu oherwydd eich bod wedi dweud wrth y llys eich bod eisiau trefnu i gyflwyno’r papurau eich hun.`,
     whatNeedToDo: 'Beth sydd angen i chi ei wneud',
     line2: `Mae’n bosibl y byddwch yn dymuno ceisio cyngor cyfreithiol ar sut i gyflwyno’r papurau yn y wlad lle mae eich ${partner} yn byw.`,
     line3: `Fe gewch lythyr gan GLlTEF, a fydd yn cynnwys dogfennau y mae angen i chi eu hanfon at eich ${partner}. Gelwir hyn yn ‘Rhybudd o Achos’.`,
