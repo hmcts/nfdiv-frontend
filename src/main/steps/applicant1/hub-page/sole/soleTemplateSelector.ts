@@ -88,8 +88,6 @@ export const getSoleHubTemplate = (
     case State.AwaitingGeneralConsideration:
       if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
-      } else if (isSearchGovRecords && isOnlineGeneralApplication) {
-        return HubTemplate.AwaitingGeneralApplicationConsideration;
       } else {
         return HubTemplate.GeneralApplicationReceived;
       }

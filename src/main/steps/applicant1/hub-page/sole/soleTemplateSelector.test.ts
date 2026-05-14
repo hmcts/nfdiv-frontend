@@ -488,26 +488,6 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
-  test('should show /awaiting-general-application-consideration.njk for state AwaitingGeneralConsideration', () => {
-    const theState = displayState.at(State.AwaitingGeneralConsideration);
-    const genAppUserCase = {
-      ...userCase,
-      generalApplications: [
-        {
-          id: '123',
-          value: {
-            generalAppDateReceivedDate: '2024-06-27',
-            generalApplicationSubmittedOnline: YesOrNo.YES,
-            generalApplicationParty: GeneralParties.APPLICANT,
-            generalApplicationType: GeneralApplicationType.SEARCH_GOV_RECORDS,
-          },
-        },
-      ],
-    };
-    const soleTemplate = getSoleHubTemplate(theState, genAppUserCase, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AwaitingGeneralApplicationConsideration);
-  });
-
   test('should show /awaiting-service.njk for state AwaitingService', () => {
     userCase.serviceMethod = ServiceMethod.PERSONAL_SERVICE;
     const theState = displayState.at(State.AwaitingService);
