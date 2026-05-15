@@ -9,7 +9,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   line1: `We will try to send the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } to the new postal address or email address. You will not have to pay for this.`,
-  line2: `We cannot send court documents to addresses outside of England and Wales. If your ${partner} is living outside of England and Wales, you will need to send them the ${
+  line2: `We cannot send court documents to addresses outside of the UK. If your ${partner} is living outside of the UK, you will need to send them the ${
     isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
   } yourself. We will post the documents to you so that you can arrange this.`,
   newDetailsHeader: `Which of your ${partner}’s contact details do you need to update?`,
@@ -28,7 +28,7 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   line1: `Byddwn yn ceisio anfon papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } i’r cyfeiriad post neu’r cyfeiriad e-bost newydd. Ni fydd rhaid i chi dalu am hyn.`,
-  line2: `Ni allwn anfon dogfennau llys i gyfeiriadau y tu allan i Gymru a Lloegr. Os yw eich ${partner} yn byw y tu allan i Gymru a Lloegr, bydd angen i chi anfon ${
+  line2: `Ni allwn anfon dogfennau llys i gyfeiriadau y tu allan i'r DU. Os yw eich ${partner} yn byw y tu allan i'r DU, bydd angen i chi anfon ${
     isDivorce ? 'papurau’r ysgariad' : 'y papurau i ddod â’ch partneriaeth sifil i ben'
   } atynt eich hun. Mi wnawn bostio’r dogfennau atoch fel y gallwch chi drefnu hyn.`,
   newDetailsHeader: `Pa fanylion cyswllt ar gyfer eich ${partner} ydych chi angen diweddaru?`,

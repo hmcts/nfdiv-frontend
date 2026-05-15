@@ -17,7 +17,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   } papers by email only (without posting them). This will mean completing an application for alternative service, which will cost ${getFee(
     config.get('fees.alternativeService')
   )}. You will also need to prove that the email address you want to serve to is actively being used by your ${partner}.`,
-  line3: `If your ${partner} is living outside of England and Wales, you'll need to check how to legally serve the papers in the country they're living in. If email service is allowed in that country, you could apply for alternative service by email only. The court cannot post documents to addresses outside of England and Wales.`,
+  line3: `If your ${partner} is living outside of the UK, you'll need to check how to legally serve the papers in the country they're living in. If email service is allowed in that country, you could apply for alternative service by email only. The court cannot post documents to addresses outside of the UK.`,
   serviceOfDocuments: `<a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.serviceOfDocuments'
   )}">Further information concerning service out of the United Kingdom can be obtained from the Foreign Process Section (opens in a new tab)</a>.`,
@@ -42,7 +42,7 @@ const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   } drwy e-bost yn unig (heb eu postio). Bydd hyn yn golygu gwneud cais am gyflwyno amgen, a fydd yn costio ${getFee(
     config.get('fees.alternativeService')
   )}. Bydd angen i chi hefyd brofi bod y cyfeiriad e-bost rydych eisiau anfon y papurau iddo yn cael ei ddefnyddio’n rheolaidd gan eich ${partner}.`,
-  line3: `Os yw eich ${partner} yn byw y tu allan i Gymru a Lloegr, bydd angen i chi wirio sut i gyflwyno’r papurau’n gyfreithlon yn y wlad lle maent yn byw. Os caniateir cyflwyno drwy e-bost yn y wlad honno, yna gallwch wneud cais am gyflwyno amgen ar ffurf e-bost yn unig. Ni all y llys anfon dogfennau i gyfeiriadau y tu allan i Gymru a Lloegr.`,
+  line3: `Os yw eich ${partner} yn byw y tu allan i'r DU, bydd angen i chi wirio sut i gyflwyno’r papurau’n gyfreithlon yn y wlad lle maent yn byw. Os caniateir cyflwyno drwy e-bost yn y wlad honno, yna gallwch wneud cais am gyflwyno amgen ar ffurf e-bost yn unig. Ni all y llys anfon dogfennau i gyfeiriadau y tu allan i'r DU.`,
   serviceOfDocuments: `<a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.serviceOfDocuments'
   )}">Mae rhagor o wybodaeth ynghylch cyflwyno dogfennau y tu allan i'r Deyrnas Unedig ar gael gan yr Adran Prosesau Tramor (yn agor mewn tab newydd)</a>.`,

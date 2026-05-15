@@ -370,7 +370,7 @@ Feature: Applicant 1 sole application
     And I type "France"
     And I click "Continue"
     Then the page URL should be "/address-international"
-    And the page should include "Divorcing someone who lives outside of England and Wales"
+    And the page should include "Divorcing someone who lives outside of the UK"
     When I click "Continue"
 
     When I click "Continue"
