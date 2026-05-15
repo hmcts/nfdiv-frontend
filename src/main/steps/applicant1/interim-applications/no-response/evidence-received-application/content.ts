@@ -11,7 +11,10 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   }, you may be able to apply for 'deemed service'. This means that the court is satisfied that your ${partner} has received the papers, so your ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } can proceed without their response.`,
-  line2: 'Suitable evidence may include:',
+  line2: `If you have received a certificate of service completed by a process server confirming that your ${partner} has received the papers, you do not need to apply for deemed service. You must send the certificate of service to the court. The court will review it and decide whether your ${
+    isDivorce ? 'divorce application' : 'application to end your civil partnership'
+  } can proceed without a response from your ${partner}.`,
+  line3: 'Suitable evidence may include:',
   suitableEvidence: {
     photo: `a photo or screenshot of a message from your ${partner} that shows they have received the papers.`,
     statement: `a statement from you or a third party explaining how you know your ${partner} has received the papers.`,
@@ -37,7 +40,10 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   }, efallai y gallwch wneud cais am ‘gyflwyno tybiedig’. Mae hyn yn golygu bod y llys yn derbyn bod eich ${partner} wedi cael y papurau, fel bod eich ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } yn gallu symud yn ei flaen heb eu hymateb.`,
-  line2: 'Mae tystiolaeth addas yn cynnwys:',
+  line2: `If you have received a certificate of service completed by a process server confirming that your ${partner} has received the papers, you do not need to apply for deemed service. You must send the certificate of service to the court. The court will review it and decide whether your ${
+    isDivorce ? 'divorce application' : 'application to end your civil partnership'
+  } can proceed without a response from your ${partner}.`,
+  line3: 'Mae tystiolaeth addas yn cynnwys:',
   suitableEvidence: {
     photo: `llun neu sgrinlun o neges gan eich ${partner} sy’n dangos eu bod wedi cael y papurau.`,
     statement: `datganiad gennych chi neu drydydd parti yn egluro sut rydych yn gwybod bod eich ${partner} wedi cael y papurau.`,
