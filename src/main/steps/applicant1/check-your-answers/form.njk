@@ -9,6 +9,12 @@
     text: confirmApplicationIsTrueWarning,
     iconFallbackText: "Warning"
   }) }}
+  {% if showRejectWarning %}
+    {{ govukWarningText({
+      text: applicationRejectedWarning,
+      iconFallbackText: "Warning"
+    }) }}
+  {% endif %}
 {% endblock %}
 
 {% block withdrawLink %}

@@ -57,7 +57,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
     )}
       to submit the ‘answer a ${isDivorce ? 'divorce' : 'dissolution'}’ form. This is the form for disputing ${
         isDivorce ? 'the divorce' : 'ending your civil partnership'
-      }. You can <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">download the form here</a>.`,
+      }. You can <a class="govuk-link" target="_blank" href="https://www.gov.uk/government/publications/form-d8b-answer-an-application-for-a-divorce-dissolution-of-a-civil-partnership-or-judicial-separation">download the form here</a>.`,
     line3: `Fill in the form and email it to: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
     line4: 'Or post it to:',
     line5: `You’ll have to pay a ${getFee(
@@ -103,7 +103,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
   legalAdvisorReferral: {
     line1: `Your ${partner} has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
-    }`,
+    }.`,
     line2: 'You will receive an email when the conditional order has been granted by the court.',
   },
   clarificationSubmitted: {
@@ -254,7 +254,7 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
         isDivorce ? 'gais am ysgariad' : 'diddymiad'
       }’. Dyma'r ffurflen ar gyfer herio’r cais am ${
         isDivorce ? 'ysgariad' : "i ddod â'ch partneriaeth sifil i ben"
-      }. Gallwch <a class="govuk-link" href="https://www.gov.uk/government/publications/form-d8b-answer-to-a-divorcedissolutionjudicial-separation-or-nullity-petitionapplication">lawrlwytho'r ffurflen yma</a>.`,
+      }. Gallwch <a class="govuk-link" target="_blank" href="https://www.gov.uk/government/publications/form-d8b-answer-an-application-for-a-divorce-dissolution-of-a-civil-partnership-or-judicial-separation">lawrlwytho'r ffurflen yma</a>.`,
     line3: `Llenwch y ffurflen a'i hanfon drwy e-bost i: <a class="govuk-link" href="mailto:${contactEmail}">${contactEmail}</a>`,
     line4: 'Neu ei phostio i:',
     line5: `Bydd yn rhaid i chi dalu ffi o ${getFee(
@@ -303,10 +303,10 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     },
   },
   legalAdvisorReferral: {
-    line1: `Your ${partner} has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
-      isDivorce ? 'get a divorce' : 'end your civil partnership'
-    }`,
-    line2: 'You will receive an email when the conditional order has been granted by the court.',
+    line1: `Mae eich ${partner} wedi gwneud cais am ‘orchymyn amodol’. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
+      isDivorce ? 'gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben'
+    }.`,
+    line2: 'Byddwch yn cael e-bost pan fydd y llys wedi cadarnhau’r gorchymyn amodol.',
   },
   clarificationSubmitted: {
     line1: 'This was the court’s feedback, explaining the information which was needed:',
