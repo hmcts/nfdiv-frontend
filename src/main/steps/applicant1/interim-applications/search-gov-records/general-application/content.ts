@@ -31,7 +31,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   buttonText: 'Start now',
 });
 
-// @TODO translations should be verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: 'Gwneud cais i chwilio cofnodion y llywodraeth (D11)',
   line1: `Gallwch ofyn i’r llys chwilio cofnodion adran y llywodraeth, fel Cyllid a Thollau EF (CThEF) neu’r Adran Gwaith a Phensiynau (DWP), am fanylion cyswllt eich ${partner}.`,

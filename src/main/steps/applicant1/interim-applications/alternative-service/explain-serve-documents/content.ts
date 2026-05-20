@@ -14,7 +14,6 @@ const en = () => ({
   },
 });
 
-// @TODO translations
 const cy = () => ({
   title: 'Pam ydych yn gwneud cais am gyflwyno amgen?',
   line1:
