@@ -35,7 +35,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: `A oeddech chi a'ch ${partner} yn byw gyda'ch gilydd ar unrhyw adeg yn ystod eich perthynas?`,
   subTitle:

@@ -30,7 +30,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be completed then verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: `A yw eich ${partner} wedi cael papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
