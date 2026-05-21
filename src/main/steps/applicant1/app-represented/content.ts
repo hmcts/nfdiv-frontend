@@ -54,7 +54,6 @@ const en = ({
   },
 });
 
-
 const cy: typeof en = ({
   userCase,
   partner,

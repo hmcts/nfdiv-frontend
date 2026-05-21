@@ -8,7 +8,6 @@ const en = () => ({
   moneyAndPropertyLinkText: 'Find out about dividing money and property',
 });
 
-
 const cy: typeof en = () => ({
   iWantTo: 'Rwyf eisiau...',
   gettingHelp: 'Cael help',
