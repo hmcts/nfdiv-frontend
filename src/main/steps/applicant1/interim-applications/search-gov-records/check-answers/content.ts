@@ -130,7 +130,6 @@ const en = (
   },
 });
 
-//TODO: Welsh translation required
 const cy: typeof en = (
   { partner, userCase }: CommonContent,
   {

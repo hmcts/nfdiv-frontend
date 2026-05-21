@@ -13,7 +13,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Beth ydych chi eisoes wedi'i wneud i geisio dod o hyd i fanylion eich ${partner}?`,
   whatIsAlreadyDone: `Dywedwch wrthym am unrhyw beth rydych chi eisoes wedi’i wneud i geisio dod o hyd i fanylion cyswllt eich ${partner}, a chanlyniadau'r camau gweithredu hyn.`,
