@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 import { Checkbox } from '../../../../app/case/case';
 import {
   AlternativeServiceOutcome,
@@ -154,6 +152,7 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false);
     expect(soleTemplate).toBe(HubTemplate.AwaitingConditionalOrder);
   });
+
   test('should show /awaiting-general-consideration.njk for state GeneralConsiderationComplete and aosStatementOfTruth and no dueDate', () => {
     const userCaseWithApplicantSubmittedDate = {
       ...userCase,
@@ -162,24 +161,6 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.GeneralConsiderationComplete);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicantSubmittedDate, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
-  });
-  test('should show /aos-due.njk for state GeneralConsiderationComplete and isAosOverdue', () => {
-    const userCaseWithAosOverdue = {
-      ...userCase,
-      issueDate: '01.01.2022',
-    };
-    const theState = displayState.at(State.GeneralConsiderationComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false);
-    expect(soleTemplate).toBe(HubTemplate.AoSDue);
-  });
-  test('should show /aos-awaiting-or-drafted.njk for state GeneralConsiderationComplete and not isAosOverdue', () => {
-    const userCaseWithNotAosOverdue = {
-      ...userCase,
-      issueDate: dayjs().format('D MMMM YYYY'),
-    };
-    const theState = displayState.at(State.GeneralConsiderationComplete);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false);
-    expect(soleTemplate).toBe(HubTemplate.AosAwaitingOrDrafted);
   });
 
   test('should show /final-order-requested.njk for state AwaitingGeneralConsideration and dateFinalOrderSubmitted', () => {
@@ -191,6 +172,7 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithDateFinalOrderSubmitted, false);
     expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
   });
+
   test('should show /awaiting-general-consideration.njk for state AwaitingGeneralConsideration and aosStatementOfTruth', () => {
     const userCaseWithAosStatementOfTruth = {
       ...userCase,
@@ -200,23 +182,25 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosStatementOfTruth, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
-  test('should show /general-application-received.njk for state AwaitingGeneralConsideration and isAosOverdue', () => {
-    const userCaseWithAosOverdue = {
+
+  test('should show /general-application-received.njk for state AwaitingGeneralConsideration and aos submitted', () => {
+    const userCaseWithAos = {
       ...userCase,
       issueDate: '01.01.2022',
     };
     const theState = displayState.at(State.AwaitingGeneralConsideration);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAosOverdue, false);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAos, true, true);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
-  test('should show /general-application-received.njk for state AwaitingGeneralConsideration and not isAosOverdue', () => {
-    const userCaseWithNotAosOverdue = {
+  test('should show /general-application-received.njk for state GeneralConsiderationComplete and aos submitted', () => {
+    const userCaseWithAos = {
       ...userCase,
-      issueDate: dayjs().format('D MMMM YYYY'),
+      issueDate: '01.01.2022',
+      dateAosSubmitted: '2024-01-01',
     };
-    const theState = displayState.at(State.AwaitingGeneralConsideration);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithNotAosOverdue, false);
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getSoleHubTemplate(theState, userCaseWithAos, true, true);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
