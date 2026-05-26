@@ -319,14 +319,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^3.5.0":
-  version: 3.8.4
-  resolution: "@azure/msal-node@npm:3.8.4"
+"@azure/msal-common@npm:16.6.2":
+  version: 16.6.2
+  resolution: "@azure/msal-common@npm:16.6.2"
+  checksum: 10/df446034a983f44264679489521349d961943518671fb411f7af06f67de3797a756cc35975514828d70a05766771cc619ae990531830631e077dfc1e1d16b1e2
+  languageName: node
+  linkType: hard
+
+"@azure/msal-node@npm:^5.2.2":
+  version: 5.2.2
+  resolution: "@azure/msal-node@npm:5.2.2"
   dependencies:
-    "@azure/msal-common": "npm:15.13.3"
+    "@azure/msal-common": "npm:16.6.2"
     jsonwebtoken: "npm:^9.0.0"
-    uuid: "npm:^8.3.0"
-  checksum: 10/183c52f21d8c6d68e0b3e1a9364efd16eb0d0cbfd3897424990dd72f3e5751f422b1874cb0c0d44dfaf0f03d4df32f6b57549b496833f466c25744946614ef08
+  checksum: 10/29cf3d594207a59d01f4f04ca48203391eca3bf7c389a6a51d4a531b30b83cb990c223deee26c99ceaee8f48f3846d3b006b33c4eefc765f37646e442a79572f
   languageName: node
   linkType: hard
 
@@ -1569,16 +1575,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hmcts/properties-volume@npm:1.3.2":
-  version: 1.3.2
-  resolution: "@hmcts/properties-volume@npm:1.3.2"
+"@hmcts/properties-volume@npm:1.4.0":
+  version: 1.4.0
+  resolution: "@hmcts/properties-volume@npm:1.4.0"
   dependencies:
     "@azure/identity": "npm:^4.13.0"
     "@azure/keyvault-secrets": "npm:^4.10.0"
     "@hmcts/nodejs-logging": "npm:^4.0.4"
     js-yaml: "npm:^4.1.1"
     lodash: "npm:^4.18.0"
-  checksum: 10/87f75cd0630044aad12f55e4a4e4dfaf34fb711e202adfe9c70e2795408e2f5abdc0b71faa0023aba4acae17e0790b3a546c52b3a7e7fb4fcbd78c866e40f939
+  checksum: 10/2d5ecf1286a96b7b35a40e5c71e8fc33b1c0fa59475562c0fa55547fcc3e7901bf6ebbb03eb17df16254447ef68b5f97c0b8d6dcf9b83230f265b98ca3085a76
   languageName: node
   linkType: hard
 
@@ -13494,7 +13500,7 @@ __metadata:
     "@hmcts/cookie-manager": "npm:1.1.0"
     "@hmcts/nodejs-healthcheck": "npm:1.8.6"
     "@hmcts/nodejs-logging": "npm:4.0.4"
-    "@hmcts/properties-volume": "npm:1.3.2"
+    "@hmcts/properties-volume": "npm:1.4.0"
     "@launchdarkly/node-server-sdk": "npm:>=9.0.0"
     "@playwright/test": "npm:1.59.1"
     "@types/config": "npm:3.3.5"
@@ -17704,7 +17710,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^8.3.0, uuid@npm:^8.3.2":
+"uuid@npm:^8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:
