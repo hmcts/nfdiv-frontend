@@ -3995,13 +3995,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:10.0.0":
-  version: 10.0.0
-  resolution: "@types/uuid@npm:10.0.0"
-  checksum: 10/e3958f8b0fe551c86c14431f5940c3470127293280830684154b91dc7eb3514aeb79fe3216968833cf79d4d1c67f580f054b5be2cd562bebf4f728913e73e944
-  languageName: node
-  linkType: hard
-
 "@types/which@npm:^2.0.1":
   version: 2.0.2
   resolution: "@types/which@npm:2.0.2"
@@ -13514,7 +13507,6 @@ __metadata:
     "@types/serve-favicon": "npm:2.5.7"
     "@types/session-file-store": "npm:1.2.6"
     "@types/toobusy-js": "npm:0.5.4"
-    "@types/uuid": "npm:10.0.0"
     "@typescript-eslint/eslint-plugin": "npm:7.18.0"
     "@typescript-eslint/parser": "npm:7.18.0"
     "@uppy/core": "npm:4.5.3"
@@ -17668,12 +17660,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:12.0.1":
-  version: 12.0.1
-  resolution: "uuid@npm:12.0.1"
+"uuid@npm:11.1.1":
+  version: 11.1.1
+  resolution: "uuid@npm:11.1.1"
   bin:
-    uuid: dist/bin/uuid
-  checksum: 10/949407b5ef655432b94a445a66ddfa6b063e5a2efa70e73dbb3ac53a784dd4dfb3b4b18075d5f9ea028130af4aacf6f6307bc5078e705d28c0d98af67c3f0812
+    uuid: dist/esm/bin/uuid
+  checksum: 10/16411d3dc12a08d6691616c09a75e66a7f900ba1beef6628a76fe0602f82fae2ee537b564d0b7bc95c24f58d059ca9b58c75a1e806118efb50e17822ff00ddd2
   languageName: node
   linkType: hard
 
