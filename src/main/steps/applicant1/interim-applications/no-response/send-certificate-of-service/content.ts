@@ -27,7 +27,7 @@ const en = ({ isDivorce, partner, referenceNumber }: CommonContent) => ({
 });
 
 const cy = ({ isDivorce, partner, referenceNumber }: CommonContent) => ({
-  title: 'You need to send the certificate of service to the court',
+  title: "Mae angen i chi anfon eich tystysgrif cyflwyno i'r llys",
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
   documentsByOnlineFormSteps: {
     line1: 'Gallwch anfon lluniau neu sganiau o’ch dogfennau atom trwy ',
@@ -41,9 +41,9 @@ const cy = ({ isDivorce, partner, referenceNumber }: CommonContent) => ({
     step2: 'Postiwch y dogfennau gwreiddiol i:',
   },
   happensNextHeading: 'Beth fydd yn digwydd nesaf',
-  whatHappensNextLine1: `The court will review the certificate of service once received and decide whether your ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  } can proceed without a response from your ${partner}.`,
+  whatHappensNextLine1: `Bydd y llys yn adolygu'r dystysgrif cyflwyno unwaith y bydd yn dod i law ac yn penderfynu a all eich ${
+    isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+  } barhau heb ymateb gan eich ${partner}.`,
   hubUrl: {
     text: 'Dychwelyd i’ch cyfrif',
     url: HUB_PAGE,
