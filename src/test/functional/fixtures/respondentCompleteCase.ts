@@ -12,5 +12,5 @@ export const respondentCompleteCase: Partial<BrowserCase> = {
   applicant2PhoneNumber: '',
   applicant2LegalProceedings: YesOrNo.NO,
   applicant2AgreeToReceiveEmails: Checkbox.Checked,
-  applicant2EnglishOrWelsh: LanguagePreference.English
+  applicant2EnglishOrWelsh: LanguagePreference.English,
 };
