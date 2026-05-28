@@ -7,11 +7,12 @@ const eventTimer = 5 * 60 * 1000; // 5 minutes
 class SessionTimeout {
   TWELVE_HOURS = 12 * 60 * 60 * 1000;
   TWENTY_MINUTES = 20 * 60 * 1000;
-  TIMEOUT_NOTICE = 2 * 60 * 1000; // 2 minutes
+  TIMEOUT_NOTICE = 0.5 * 60 * 1000; // 2 minutes
   sessionTimeoutInterval: number = this.getSessionTimeoutInterval();
   timeout;
   notificationTimer;
   countdownInterval;
+  screenReaderAnnouncementInterval;
 
   notificationPopupIsOpen = false;
   notificationPopup: HTMLElement | null = document.getElementById('timeout-modal-container');
@@ -19,6 +20,9 @@ class SessionTimeout {
     this.notificationPopup?.querySelector('#timeout-modal-close-button');
   countdownTimer: HTMLSpanElement | null | undefined = this.notificationPopup?.querySelector('#countdown-timer');
   form = document.getElementById('main-form');
+  liveTimeoutRegion: HTMLElement | null = document.getElementById('timeout-live-region');
+  modalTitle: HTMLElement | null = document.querySelector('#timeout-modal h1');
+  modalMessage: HTMLElement | null = document.getElementById('timeout-message');
 
   schedule(): void {
     this.scheduleSignOut();
@@ -28,6 +32,7 @@ class SessionTimeout {
   onNotificationPopupClose(): void {
     this.popupCloseBtn?.addEventListener('click', () => {
       this.clearCountdown();
+      this.stopRepeatedAnnouncements();
       this.showNotificationPopup(false);
       this.scheduleSignOut();
       this.pingUserActive();
@@ -54,9 +59,12 @@ class SessionTimeout {
       this.notificationPopupIsOpen = true;
       this.startCountdown();
       this.trapFocusInModal();
+      this.announceTimeoutMessage();
+      this.startRepeatedAnnouncements();
     } else {
       this.notificationPopup?.setAttribute('hidden', 'hidden');
       this.notificationPopupIsOpen = false;
+      this.stopRepeatedAnnouncements();
     }
   }
 
@@ -117,6 +125,39 @@ class SessionTimeout {
         }
       }
     });
+  }
+
+  announceTimeoutMessage(): void {
+    if (!this.liveTimeoutRegion || !this.countdownTimer) {
+      return;
+    }
+
+    const title = this.modalTitle?.textContent?.trim() || '';
+
+    const message = this.modalMessage?.textContent?.trim() || '';
+
+    // Clear first so screen readers re-announce
+    this.liveTimeoutRegion.textContent = '';
+
+    setTimeout(() => {
+      if (this.liveTimeoutRegion) {
+        this.liveTimeoutRegion.textContent = `${title}. ${message}`;
+      }
+    }, 100);
+  }
+
+  startRepeatedAnnouncements(): void {
+    this.screenReaderAnnouncementInterval = setInterval(() => {
+      if (this.notificationPopupIsOpen) {
+        this.announceTimeoutMessage();
+      }
+    }, 30000); // every 30 seconds
+  }
+
+  stopRepeatedAnnouncements(): void {
+    if (this.screenReaderAnnouncementInterval) {
+      clearInterval(this.screenReaderAnnouncementInterval);
+    }
   }
 
   async saveSessionAndRedirect(): Promise<void> {
