@@ -17,7 +17,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: 'A oes unrhyw blant o’r teulu?',
   line1: `Mae hyn yn cynnwys unrhyw blant gennych chi a’ch ${partner}, ac unrhyw lysblant neu blant eraill a ystyriwyd yn rhan o’r teulu.`,

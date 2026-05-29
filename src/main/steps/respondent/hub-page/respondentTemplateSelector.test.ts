@@ -1,4 +1,3 @@
-import { Checkbox } from '../../../app/case/case';
 import { DivorceOrDissolution, State, YesOrNo } from '../../../app/case/definition';
 import { HubTemplate } from '../../common/hubTemplates';
 import { currentStateFn } from '../../state-sequence';
@@ -103,22 +102,6 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe(HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement);
   });
 
-  test('should show /awaiting-general-consideration.njk for state AwaitingGeneralConsideration', () => {
-    const userCaseWithAosStatementOfTruth = {
-      ...userCase,
-      aosStatementOfTruth: Checkbox.Checked,
-    };
-    const theState = displayState.at(State.AwaitingGeneralConsideration);
-    const respondentTemplate = getRespondentHubTemplate(theState, userCaseWithAosStatementOfTruth, false);
-    expect(respondentTemplate).toBe(HubTemplate.GeneralApplicationReceived);
-  });
-
-  test('should show /awaiting-aos.njk for state AwaitingGeneralConsideration if not aosStatementOfTruth', () => {
-    const theState = displayState.at(State.AwaitingGeneralConsideration);
-    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
-    expect(respondentTemplate).toBe(HubTemplate.AwaitingAoS);
-  });
-
   test('should show /holding.njk for state Holding', () => {
     const theState = displayState.at(State.Holding);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
@@ -181,5 +164,49 @@ describe('RespondentTemplateSelector test', () => {
     const theState = displayState.at(State.WelshTranslationRequested);
     const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(respondentTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
+  });
+
+  test('should show /awaiting-aos.njk for state GeneralConsiderationComplete and aos is due', () => {
+    const userCaseWithAosDue = {
+      ...userCase,
+      dateAosSubmitted: undefined,
+      coApplicant1SubmittedDate: undefined,
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAosDue, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingAoS);
+  });
+
+  test('should show /general-application-received.njk for state GeneralConsiderationComplete and aos is due', () => {
+    const userCaseWithAos = {
+      ...userCase,
+      dateAosSubmitted: '2025-01-01',
+      coApplicant1SubmittedDate: undefined,
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAos, true);
+    expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
+  });
+
+  test('should show /awaiting-aos.njk for state AwaitingGeneralConsideration and aos is due', () => {
+    const userCaseWithAosDue = {
+      ...userCase,
+      dateAosSubmitted: undefined,
+      coApplicant1SubmittedDate: undefined,
+    };
+    const theState = displayState.at(State.AwaitingGeneralConsideration);
+    const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAosDue, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingAoS);
+  });
+
+  test('should show /general-application-received.njk for state AwaitingGeneralConsideration and aos is due', () => {
+    const userCaseWithAos = {
+      ...userCase,
+      dateAosSubmitted: '2025-01-01',
+      coApplicant1SubmittedDate: undefined,
+    };
+    const theState = displayState.at(State.AwaitingGeneralConsideration);
+    const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAos, true);
+    expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 });
