@@ -13,7 +13,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   doYouHaveCertificateOfService: 'Do you have a certificate of service?',
   errors: {
     applicant1NoResponsePartnerHasCertificateOfService: {
-      required: "Select 'Yes' if you have certificate of service.",
+      required: "Select 'Yes' if you have a certificate of service.",
     },
   },
 });
@@ -26,7 +26,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   doYouHaveCertificateOfService: 'A oes gennych chi dystysgrif cyflwyno?',
   errors: {
     applicant1NoResponsePartnerHasCertificateOfService: {
-      required: "Dewiswch 'Ie' os oes gennych tystysgrif cyflwyno.",
+      required: "Dewiswch 'Ie' os oes gennych dystysgrif cyflwyno.",
     },
   },
 });
