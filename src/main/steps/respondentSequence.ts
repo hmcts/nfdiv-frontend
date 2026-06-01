@@ -2,7 +2,7 @@ import { YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import {
-  ADDRESS_PRIVATE,
+  ADDRESS_CONFIDENTIAL,
   APPLICANT_2,
   APP_REPRESENTED,
   CHECK_ANSWERS_URL,
@@ -22,6 +22,7 @@ import {
   HUB_PAGE,
   HUB_PAGE_DOWNLOADS,
   INTEND_TO_DELAY,
+  IN_REFUGE,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
@@ -34,21 +35,24 @@ import {
 const sequence: Step[] = [
   {
     url: REVIEW_THE_APPLICATION,
-    getNextStep: () => ADDRESS_PRIVATE,
-  },
-  {
-    url: ADDRESS_PRIVATE,
     getNextStep: () => CONFIRM_CONTACT_DETAILS,
   },
   {
     url: CONFIRM_CONTACT_DETAILS,
     getNextStep: data =>
-      data.applicant2ConfirmContactDetails === YesOrNo.NO ? ENTER_YOUR_ADDRESS : HOW_DO_YOU_WANT_TO_RESPOND,
+      data.applicant2ConfirmContactDetails === YesOrNo.NO ? ADDRESS_CONFIDENTIAL : HOW_DO_YOU_WANT_TO_RESPOND,
+  },
+  {
+    url: ADDRESS_CONFIDENTIAL,
+    getNextStep: data => (data.applicant2AddressPrivate === YesOrNo.NO ? ENTER_YOUR_ADDRESS : IN_REFUGE),
+  },
+  {
+    url: IN_REFUGE,
+    getNextStep: () => ENTER_YOUR_ADDRESS,
   },
   {
     url: ENTER_YOUR_ADDRESS,
-    getNextStep: data =>
-      data.applicant2ConfirmContactDetails === YesOrNo.NO ? CHECK_PHONE_NUMBER : HOW_DO_YOU_WANT_TO_RESPOND,
+    getNextStep: () => CHECK_PHONE_NUMBER,
   },
   {
     url: CHECK_PHONE_NUMBER,

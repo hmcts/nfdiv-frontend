@@ -17,7 +17,9 @@ import { checkBoxAnswers as reviewTheApplicationAnswers } from '../../applicant1
 import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
+import { radioButtonAnswersPrivate as addressConfidentialAnswers } from '../address-confidential/content';
 import { radioButtonAnswers as howDoYouWantToRespondAnswers } from '../how-do-you-want-to-respond/content';
+import { radioButtonAnswers as inRefugeAnswers } from '../in-refuge/content';
 import { radioButtonAnswers as intendToDelayAnswers } from '../intend-to-delay/content';
 import { radioButtonAnswers as legalJurisdictionOfTheCourtsAnswers } from '../legal-jurisdiction-of-the-courts/content';
 
@@ -33,6 +35,7 @@ const en = ({ isDivorce, userCase }) => ({
     aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
     contactYou: 'How the court will contact you',
     otherCourtCases: 'Other court cases',
+    reviewYourDetails: 'Review your details',
   },
   stepQuestions: {
     readApplication: {
@@ -62,6 +65,12 @@ const en = ({ isDivorce, userCase }) => ({
       line2: 'Provide details about the other legal proceedings.',
       line3: 'Have the proceedings been concluded?',
       uploadedFiles: 'Uploaded files',
+    },
+    reviewYourDetails: {
+      inRefuge: 'Are you currently in a refuge?',
+      addressConfidential: 'Do you want to keep your contact details private?',
+      address: 'Your address',
+      phone: 'Your phone number',
     },
   },
   stepAnswers: {
@@ -102,6 +111,22 @@ const en = ({ isDivorce, userCase }) => ({
       }`,
       uploadedFiles: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
     },
+    reviewYourDetails: {
+      inRefuge: stripTags(inRefugeAnswers.en[userCase.applicant2InRefuge]),
+      addressConfidential: stripTags(addressConfidentialAnswers.en[userCase.applicant2AddressPrivate]),
+      address: [
+        stripTags(userCase.applicant2Address1),
+        stripTags(userCase.applicant2Address2),
+        stripTags(userCase.applicant2Address3),
+        stripTags(userCase.applicant2AddressTown),
+        stripTags(userCase.applicant2AddressCounty),
+        stripTags(userCase.applicant2AddressPostcode),
+        stripTags(userCase.applicant2AddressCountry),
+      ]
+        .filter(Boolean)
+        .join('<br>'),
+      phone: striptags(userCase.applicant2PhoneNumber),
+    },
   },
   stepLinks: {
     readApplication: {
@@ -124,6 +149,12 @@ const en = ({ isDivorce, userCase }) => ({
       line2: urls.DETAILS_OTHER_PROCEEDINGS,
       line3: urls.DETAILS_OTHER_PROCEEDINGS,
       uploadedFiles: urls.DETAILS_OTHER_PROCEEDINGS,
+    },
+    reviewYourDetails: {
+      inRefuge: urls.IN_REFUGE,
+      addressConfidential: urls.ADDRESS_CONFIDENTIAL,
+      address: urls.ENTER_YOUR_ADDRESS,
+      phone: urls.CHECK_PHONE_NUMBER,
     },
   },
   continueApplication: 'Continue application',
@@ -159,6 +190,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
     aboutApplication: `Ynghylch eich ${isDivorce ? 'ysgariad' : 'partneriaeth sifil'}`,
     contactYou: 'Sut fydd y llys yn cysylltu â chi',
     otherCourtCases: 'Achosion llys eraill',
+    reviewYourDetails: 'Review your details',
   },
   stepQuestions: {
     readApplication: {
@@ -188,6 +220,12 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       line2: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
       line3: "A yw'r achos wedi'i gwblhau?",
       uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
+    },
+    reviewYourDetails: {
+      inRefuge: 'Are you currently in a refuge?',
+      addressConfidential: 'Do you want to keep your contact details private?',
+      address: 'Your address',
+      phone: 'Your phone number',
     },
   },
   stepAnswers: {
@@ -227,6 +265,23 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
           : ''
       }`,
       uploadedFiles: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
+    },
+    reviewYourDetails: {
+      inRefuge: stripTags(inRefugeAnswers.en[userCase.applicant2InRefuge]),
+
+      addressConfidential: stripTags(addressConfidentialAnswers.en[userCase.applicant2AddressPrivate]),
+      address: [
+        stripTags(userCase.applicant2Address1),
+        stripTags(userCase.applicant2Address2),
+        stripTags(userCase.applicant2Address3),
+        stripTags(userCase.applicant2AddressTown),
+        stripTags(userCase.applicant2AddressCounty),
+        stripTags(userCase.applicant2AddressPostcode),
+        stripTags(userCase.applicant2AddressCountry),
+      ]
+        .filter(Boolean)
+        .join('<br>'),
+      phone: striptags(userCase.applicant2PhoneNumber),
     },
   },
   continueApplication: 'Parhau gyda’r cais',
