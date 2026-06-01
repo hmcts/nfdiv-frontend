@@ -40,7 +40,7 @@ const cy = ({ isDivorce, partner, referenceNumber }: CommonContent) => ({
     step1: `Ysgrifennwch eich cyfeirnod ar bob dogfen: ${referenceNumber}`,
     step2: 'Postiwch y dogfennau gwreiddiol i:',
   },
-  happensNextHeading: 'Beth fydd yn digwydd nesaf',
+  whatHappensNextHeader: 'Beth fydd yn digwydd nesaf',
   whatHappensNextLine1: `Bydd y llys yn adolygu'r dystysgrif cyflwyno unwaith y bydd yn dod i law ac yn penderfynu a all eich ${
     isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
   } barhau heb ymateb gan eich ${partner}.`,
