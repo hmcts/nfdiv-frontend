@@ -50,7 +50,7 @@
 
 {% set bannerHtml %}
   {{ feedback.part1 }}<a class="govuk-link" aria-label="{{ feedback.ariaLabel }}" href="{{ feedback.link }}{{ pageUrl }}" target="_blank">{{ feedback.part2 }}</a>{{ feedback.part3 }}
-  <a href="{{ languageToggle.link }}" class="govuk-link language">{{ languageToggle.text }}</a>
+  <a href="{{ languageToggle.link }}" class="govuk-link language" lang="{{ languageToggle.lang }}">{{ languageToggle.text }}</a>
 {% endset %}
 
 {% block beforeContent %}
