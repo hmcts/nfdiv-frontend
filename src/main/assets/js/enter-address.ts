@@ -29,11 +29,34 @@ if (form && getById('enterPostcode')) {
     applicant1DispenseLivedTogetherAddressCountry;
   const hasBackendError = qsa('.govuk-error-summary').length > 1;
 
+  const isSearchGovRecordsForm = getById('applicant1SearchGovRecordsPartnerLastKnownAddressDates-hint') !== null;
+
+  if (isSearchGovRecordsForm) {
+    const countryField = document.querySelector('[name="applicant1SearchGovRecordsPartnerLastKnownAddressCountry"]') as
+      | HTMLInputElement
+      | HTMLSelectElement
+      | null;
+    if (countryField) {
+      countryField.value = 'UK';
+      countryField.setAttribute('readonly', 'readonly');
+
+      countryField.addEventListener('focus', e => {
+        (e.target as HTMLInputElement).blur();
+      });
+      countryField.addEventListener('keydown', e => {
+        e.preventDefault();
+      });
+      countryField.addEventListener('mousedown', e => {
+        e.preventDefault();
+      });
+    }
+  }
+
   if (addressCountry || hasBackendError) {
     hideEnterPostcode();
 
     if ((addressCountry && !isCountryUk(addressCountry as string)) || (!addressCountry && hasBackendError)) {
-      showInternationalAddressFields();
+      isSearchGovRecordsForm ? showUkAddressFields() : showInternationalAddressFields();
     } else {
       showUkAddressFields();
     }
@@ -41,5 +64,14 @@ if (form && getById('enterPostcode')) {
     hideUkAddressFields();
     hideInternationalAddressFields();
     showEnterPostcode();
+  }
+  if (isSearchGovRecordsForm) {
+    const countryField = document.querySelector('[name="applicant1SearchGovRecordsPartnerLastKnownAddressCountry"]') as
+      | HTMLInputElement
+      | HTMLSelectElement
+      | null;
+    if (countryField) {
+      countryField.value = 'UK';
+    }
   }
 }
