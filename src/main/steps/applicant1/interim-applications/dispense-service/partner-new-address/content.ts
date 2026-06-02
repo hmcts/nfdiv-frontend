@@ -73,7 +73,6 @@ export const form: FormContent = {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.address2,
-      labelHidden: true,
       hint: l => `<div class='govuk-label'>${l.address2 + l.optional}</div>`,
       validator: (value, formData) => {
         if (!isFieldFilledIn(formData.applicant1DispensePartnerPastAddressEnquiries2) && isFieldFilledIn(value)) {
