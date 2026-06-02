@@ -48,7 +48,7 @@ export const radioButtonAnswers: InputLabelsByLanguage<YesOrNo> = {
   },
   cy: {
     [YesOrNo.YES]: 'Ydy, mae’r manylion hyn yn gyfredol',
-    [YesOrNo.NO]: 'No, I want to update my contact details', //TODO Welsh translation required
+    [YesOrNo.NO]: 'Nac ydyn, rwyf eisiau diweddaru fy manylion cyswllt',
   },
 };
 

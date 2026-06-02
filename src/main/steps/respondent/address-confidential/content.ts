@@ -9,7 +9,7 @@ const labels = content => ({
   errors: {
     applicant2AddressPrivate: content.errors.applicant1AddressPrivate,
   },
-  title: content.title, // Reuse the title from applicant1
+  title: content.title,
   detailsNotPrivate: content.detailsNotPrivate,
 });
 
