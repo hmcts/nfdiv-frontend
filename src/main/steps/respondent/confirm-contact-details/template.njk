@@ -5,7 +5,7 @@
 
 {% block content %}
     <h1 class="govuk-heading-l">{{ title }}</h1>
-
+    <p class="govuk-body">{{ currentContactDetails }}</p>
     {% block error_summary %}
         {% include "common/error/summary.njk" %}
     {% endblock %}
@@ -14,7 +14,7 @@
         rows: [
             {
                 key: {
-                text: yourAddress
+                text: homeAddress
             },
                 value: {
                 text: applicantAddress | safe
@@ -22,7 +22,7 @@
             },
             {
                 key: {
-                text: yourPhoneNumber
+                text: telephoneNumber
             },
                 value: {
                 text: phoneNumber

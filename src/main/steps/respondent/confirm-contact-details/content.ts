@@ -2,20 +2,36 @@ import { ApplicationType, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { generateContent as applicant2GenerateContent } from '../../applicant2/check-contact-details/content';
 import { InputLabelsByLanguage } from '../../common/input-labels.content';
 
-const en = ({ required }) => ({
+const en = ({ isDivorce, partner, required }) => ({
+  title: 'Review your contact details',
   detailsCorrect: 'Are these details correct and up to date?',
+  currentContactDetails: `These are the details your ${partner} previously provided and is where we have sent the ${isDivorce ? 'divorce papers' : 'papers to end your civil partnership'} to.`,
+  homeAddress: 'Home address',
+  telephoneNumber: 'Telephone number',
+
   errors: {
-    applicant1KnowsApplicant2Address: {
+    applicant2ConfirmContactDetails: {
       required,
     },
   },
 });
 
 // @TODO translations
-const cy = en;
+const cy: typeof en = ({ isDivorce, partner, required }) => ({
+  title: 'Adolygu eich manylion cyswllt',
+  detailsCorrect: "A yw'r manylion hyn yn gywir ac wedi eu diweddaru?",
+  currentContactDetails: `Dyma'r manylion wnaeth eich ${partner} eu darparu'n flaenorol a dyna ble rydym wedi anfon y ${isDivorce ? 'papurau ysgariad' : "papurau i ddod â'ch partneriaeth sifil i ben"}.`,
+  homeAddress: 'Cyfeiriad cartref',
+  telephoneNumber: 'Rhif ffôn',
+
+  errors: {
+    applicant2ConfirmContactDetails: {
+      required,
+    },
+  },
+});
 
 export const form: FormContent = {
   fields: {
@@ -54,16 +70,28 @@ export const radioButtonAnswers: InputLabelsByLanguage<YesOrNo> = {
 
 export const generateContent: TranslationFn = content => {
   const { language } = content;
-  const applicant2Content = applicant2GenerateContent(content);
   const translations = languages[content.language](content);
   const prefixUrl =
     content.userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? '/respondent' : '/applicant2';
   const radioAnswers = radioButtonAnswers[language];
+  const applicantAddress = [
+    content.userCase?.applicant2Address1,
+    content.userCase?.applicant2Address2,
+    content.userCase?.applicant2Address3,
+    content.userCase?.applicant2AddressTown,
+    content.userCase?.applicant2AddressCounty,
+    content.userCase?.applicant2AddressPostcode,
+    content.userCase?.applicant2AddressCountry,
+  ]
+    .filter(Boolean)
+    .join('<br>');
+  const phoneNumber = content.userCase?.applicant2PhoneNumber;
   return {
     ...translations,
     prefixUrl,
     ...radioAnswers,
-    ...applicant2Content,
+    applicantAddress,
+    phoneNumber,
     form,
   };
 };

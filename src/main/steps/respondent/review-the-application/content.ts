@@ -10,10 +10,9 @@ const en = () => ({
     'If any of your contact details are incorrect, you will be able to update them after you confirm that you have read the application.',
 });
 
-//TODO: Welsh translation required
 const cy = () => ({
   changesToDetails:
-    'If any of your contact details are incorrect, you will be able to update them after you confirm that you have read the application.',
+    'Os bydd unrhyw fanylion cyswllt gennych yn anghywir, byddwch yn gallu eu diweddaru ar ôl ichi gadarnhau eich bod wedi darllen y cais.',
 });
 
 export const form: FormContent = {
