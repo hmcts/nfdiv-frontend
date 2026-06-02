@@ -87,7 +87,7 @@ const en = ({
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
   line9: `If you want the court to serve (send) the application by post instead of by email, then phone ${telephoneNumber}.`,
-  line10: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+  line10: `The address you have provided for your ${partner} is outside of the UK. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
     isDivorce ? 'the divorce' : 'ending the civil partnership'
   }.`,
   line11: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
@@ -156,7 +156,7 @@ const en = ({
     } but have not provided your ${partner}'s postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
     line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
       isDivorce ? 'divorce papers' : 'papers to end civil partnership'
-    } to this address at no additional cost if the address is in England and Wales.`,
+    } to this address at no additional cost if the address is in the UK.`,
     line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
     } another way</a>. This application will cost ${getFee(
@@ -243,7 +243,7 @@ const cy: typeof en = ({
   line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
   line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${telephoneNumber}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
   line9: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
-  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
+  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i'r DU. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
     isDivorce ? 'yr ysgariad' : 'ddiweddu’r bartneriaeth sifil'
   }.`,
   line11: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a drwy’r post, ar ôl i’r cais gael ei wirio.`,
@@ -308,7 +308,7 @@ const cy: typeof en = ({
     } but have not provided your ${partner}'s postal address. We will not be able to process your application until you give us an address or apply to progress another way.`,
     line2: `If you have since found your ${partner}’s address you can <a class="govuk-link" href=${NO_RESP_ADDRESS_ENTER_ADDRESS}>update their details</a>. We will send the ${
       isDivorce ? 'divorce papers' : 'papers to end civil partnership'
-    } to this address at no additional cost if the address is in England and Wales.`,
+    } to this address at no additional cost if the address is in the UK.`,
     line3: `If you cannot find an address for your ${partner}, <a class="govuk-link" href=${NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS}>you can apply to progress ${
       isDivorce ? 'your divorce' : 'ending your civil partnership'
     } another way</a>. This application will cost ${getFee(
