@@ -81,6 +81,7 @@ export const en = {
   languageToggle: {
     text: 'Cymraeg',
     link: '?lng=cy',
+    lang: SupportedLanguages.Cy,
   },
   govUk: 'GOV.UK',
   back: 'Back',
@@ -275,6 +276,7 @@ const cy: typeof en = {
   languageToggle: {
     text: 'English',
     link: '?lng=en',
+    lang: SupportedLanguages.En,
   },
   govUk: 'GOV.UK',
   back: 'Yn ôl',
