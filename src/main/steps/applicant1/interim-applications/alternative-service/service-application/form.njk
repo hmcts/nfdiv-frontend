@@ -6,7 +6,7 @@
     {% if caseHasBeenIssued and not noRespondentAddress %}
       <li>{{ alsoTry.options.deemedService | safe }}</li>
     {% endif %}
-    {% if not isApp2Confidential and not isApp2Represented %}
+    {% if canUpdatePartnerDetails %}
       <li>{{ alsoTry.options.updateDetails | safe }}</li>
     {% endif %}
     {% if caseHasBeenIssued and not noRespondentAddress %}

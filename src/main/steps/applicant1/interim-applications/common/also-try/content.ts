@@ -61,10 +61,14 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const updateDetailsLinkPath = content.caseHasBeenIssued ? NEW_POSTAL_AND_EMAIL : NO_RESP_ADDRESS_ENTER_ADDRESS;
+  const updatePartnerDetailsLinkPath = content.caseHasBeenIssued ? NEW_POSTAL_AND_EMAIL : NO_RESP_ADDRESS_ENTER_ADDRESS;
+  const canUpdatePartnerDetails =
+    !content.isApp2Confidential && (!content.isApp2Represented || !content.caseHasBeenIssued);
 
-  const translations = languages[content.language](content, updateDetailsLinkPath);
+  const translations = languages[content.language](content, updatePartnerDetailsLinkPath);
+
   return {
     ...translations,
+    canUpdatePartnerDetails,
   };
 };
