@@ -18,7 +18,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be verified once provided
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Rhowch gyfeiriad e-bost newydd eich ${partner}`,
   providePersonalEmail:

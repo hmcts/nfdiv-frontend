@@ -16,7 +16,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: '',
   line1: `Os bydd eich cais yn llwyddiannus, byddwn yn rhannu eich ymatebion, ac unrhyw dystiolaeth rydych yn ei darparu, gyda’ch  ${partner}.`,

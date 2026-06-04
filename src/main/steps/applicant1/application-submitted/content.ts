@@ -167,7 +167,6 @@ const en = ({
   },
 });
 
-// @TODO Welsh
 const cy: typeof en = ({
   applicationHasBeenPaidFor,
   isDivorce,

@@ -31,7 +31,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be verified once provided
 const cy: typeof en = ({ isDivorce, partner }: CommonContent) => ({
   title: `Diweddaru cyfeiriad e-bost eich ${partner}`,
   line1: `Gallwch ddiweddaru cyfeiriad e-bost eich ${partner}. Byddwn yn anfon papurau’r ${

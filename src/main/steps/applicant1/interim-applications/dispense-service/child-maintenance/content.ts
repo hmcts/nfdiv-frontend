@@ -20,7 +20,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: 'A oes yna orchymyn llys neu gyfrifiad Gwasanaeth Cynhaliaeth Plant ar gyfer cynhaliaeth plant?',
   childMaintenanceResultsHeader: `Eglurwch ganlyniadau unrhyw ymholiadau a wnaed i’r llys neu i’r Gwasanaeth Cynhaliaeth Plant am leoliad eich ${partner}`,

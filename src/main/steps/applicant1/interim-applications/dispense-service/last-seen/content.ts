@@ -31,7 +31,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: `Pa bryd y gwelwyd neu y clywyd am eich ${partner} ddiwethaf?`,
   lastSeenDate:
