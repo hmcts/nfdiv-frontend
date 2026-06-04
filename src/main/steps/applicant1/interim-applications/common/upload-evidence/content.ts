@@ -13,7 +13,7 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
   statement: '',
   certifiedTranslation: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
-  )}">certified translation</a>.`,
+  )}">certified translation (opens in a new tab)</a>.`,
   toInclude: {
     header:
       "If you're uploading images or screenshots of a recent conversation by text, email or social media, make sure they include:",
@@ -51,7 +51,7 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
   statement: '',
   certifiedTranslation: `Os yw eich tystiolaeth mewn iaith nad yw’n Saesneg, bydd arnoch angen darparu  <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.certifiedTranslation'
-  )}">cyfieithiad ardystiedig</a>.`,
+  )}">cyfieithiad ardystiedig (yn agor mewn tab newydd)</a>.`,
   toInclude: {
     header:
       'Os ydych yn uwchlwytho delweddau o sgwrs ddiweddar trwy neges destun, e-bost neu’r cyfryngau cymdeithasol, gwnewch yn siŵr eu bod yn cynnwys:',
@@ -133,16 +133,15 @@ export const generateContent: TranslationFn = content => {
   const uploadedDocsFilenames = content.userCase.applicant1InterimAppsEvidenceDocs?.map(item =>
     getFilename(item.value)
   );
-  const amendable = content.isAmendableStates;
+
   const uploadContentScript = `{
-    "isAmendableStates": ${content.isAmendableStates},
+    "isAmendableStates": "true",
     "delete": "${content.delete}"
   }`;
   return {
     ...applicant1UploadDocumentContent,
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
-    amendable,
     uploadedDocsFilenames,
     uploadContentScript,
   };

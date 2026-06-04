@@ -24,6 +24,7 @@ describe('from-api-format', () => {
     applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
     applicant1InRefuge: YesOrNo.NO,
     applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
+    applicant1NoRespAddressKnowsEmail: YesOrNo.NO,
     applicant1WantsToHavePapersServedAnotherWay: undefined,
     applicant1LanguagePreferenceWelsh: YesOrNo.YES,
     applicant2LanguagePreferenceWelsh: YesOrNo.YES,
@@ -58,6 +59,7 @@ describe('from-api-format', () => {
     applicant1LanguagePreferenceWelsh: YesOrNo.NO,
     applicant2LanguagePreferenceWelsh: YesOrNo.NO,
     applicant1KnowsApplicant2EmailAddress: YesOrNo.YES,
+    applicant1NoRespAddressKnowsEmail: YesOrNo.YES,
     applicant1ContactDetailsType: ContactDetailsType.PUBLIC,
     applicant2ContactDetailsType: ContactDetailsType.PUBLIC,
     applicant1PrayerDissolveDivorce: [],
@@ -77,6 +79,7 @@ describe('from-api-format', () => {
       applicant1AddressPrivate: YesOrNo.YES,
       applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant1NoRespAddressDoesNotKnowEmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
       applicant1EnglishOrWelsh: LanguagePreference.Welsh,
@@ -115,6 +118,7 @@ describe('from-api-format', () => {
       applicant1EnglishOrWelsh: LanguagePreference.English,
       applicant2EnglishOrWelsh: LanguagePreference.English,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
+      applicant1NoRespAddressDoesNotKnowEmailAddress: Checkbox.Unchecked,
       applicant1AddressPrivate: YesOrNo.NO,
       applicant2AddressPrivate: YesOrNo.NO,
       applicant1IConfirmPrayer: Checkbox.Unchecked,
@@ -158,6 +162,7 @@ describe('from-api-format', () => {
       applicant1AddressPrivate: YesOrNo.YES,
       applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant1NoRespAddressDoesNotKnowEmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
       disputeApplication: YesOrNo.YES,
@@ -230,6 +235,7 @@ describe('from-api-format', () => {
       applicant1AddressPrivate: YesOrNo.YES,
       applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant1NoRespAddressDoesNotKnowEmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
       disputeApplication: null,
@@ -277,6 +283,7 @@ describe('from-api-format', () => {
       applicant1AddressPrivate: YesOrNo.YES,
       applicant1InRefuge: YesOrNo.NO,
       applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+      applicant1NoRespAddressDoesNotKnowEmailAddress: Checkbox.Checked,
       applicant2AddressPrivate: YesOrNo.NO,
       iWantToHavePapersServedAnotherWay: undefined,
       disputeApplication: YesOrNo.NO,
@@ -377,6 +384,29 @@ describe('from-api-format', () => {
         applicant1NoResponsePartnerAddressCounty: 'County',
         applicant1NoResponsePartnerAddressPostcode: 'Postcode',
         applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
+      });
+    });
+
+    test('converts to UK format for applicant1NoRespAddress', () => {
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        applicant1NoRespAddressAddress: {
+          AddressLine1: 'Line 1',
+          AddressLine2: 'Line 2',
+          PostTown: 'Town',
+          County: 'County',
+          PostCode: 'Postcode',
+        },
+        applicant1NoRespAddressAddressOverseas: YesOrNo.NO,
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toMatchObject({
+        applicant1NoRespAddressAddress1: 'Line 1',
+        applicant1NoRespAddressAddress2: 'Line 2',
+        applicant1NoRespAddressAddressTown: 'Town',
+        applicant1NoRespAddressAddressCounty: 'County',
+        applicant1NoRespAddressAddressPostcode: 'Postcode',
+        applicant1NoRespAddressAddressOverseas: YesOrNo.NO,
       });
     });
 
