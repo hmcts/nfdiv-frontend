@@ -20,6 +20,11 @@ Feature: Respondent
 
     Given I select "I have read the application for divorce"
     When I click "Continue"
+    Then the page URL should be "/respondent/confirm-contact-details"
+    And the page should include "Review your contact details"
+    Given I select "Yes, these details are up to date"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
     And the page should include "How do you want to respond to the application?"
     Given I select "Continue without disputing the divorce"
@@ -66,6 +71,11 @@ Feature: Respondent
     And the page should include "Review the divorce application"
 
     Given I select "I have read the application for divorce"
+    When I click "Continue"
+    Then the page URL should be "/respondent/confirm-contact-details"
+    And the page should include "Review your contact details"
+    Given I select "Yes, these details are up to date"
+
     When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
     And the page should include "How do you want to respond to the application?"
@@ -147,8 +157,13 @@ Feature: Respondent
     Given I select "I have read the application for divorce"
 
     When I click "Continue"
+    Then the page URL should be "/respondent/confirm-contact-details"
+    And the page should include "Review your contact details"
+    Given I select "Yes, these details are up to date"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
-    Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
+    Given I've already completed the respondent form using the fixture "respondentCompleteCase" for "respondent"
     And I go to '/respondent/check-your-answers'
     And I select "I confirm that:"
 

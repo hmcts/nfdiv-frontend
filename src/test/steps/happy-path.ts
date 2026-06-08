@@ -1,5 +1,6 @@
 import { State } from '../../main/app/case/definition';
 import {
+  ADDRESS_CONFIDENTIAL,
   ADDRESS_PRIVATE,
   GENERAL_APPLICATION_SUBMITTED,
   HOME_URL,
@@ -16,14 +17,11 @@ import { iEnterTheUkAddress } from './postcode';
 const { I } = inject();
 
 Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
-  I.amOnPage(HOME_URL);
-  const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+  await completeFormWithFixture(fixture, ADDRESS_PRIVATE);
+});
 
-  await iSetTheUsersCaseTo(fixtureJson);
-
-  I.amOnPage(ADDRESS_PRIVATE);
-  I.click('I do not need my contact details kept private');
-  I.click('Continue');
+Given("I've already completed the respondent form using the fixture {string}", async (fixture: string) => {
+  await completeFormWithFixture(fixture, ADDRESS_CONFIDENTIAL);
 });
 
 Given('I set the email address for applicant 2', async () => {
@@ -45,6 +43,19 @@ Given(
 
     I.amOnPage(`/${applicant}` + ADDRESS_PRIVATE);
     I.click('I do not need my contact details kept private');
+    I.click('Continue');
+  }
+);
+
+Given(
+  "I've already completed the respondent form using the fixture {string} for {string}",
+  async (fixture: string, applicant: string) => {
+    const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+
+    await iSetTheUsersCaseTo(fixtureJson);
+
+    I.amOnPage(`/${applicant}` + ADDRESS_CONFIDENTIAL);
+    I.click('No');
     I.click('Continue');
   }
 );
@@ -267,4 +278,15 @@ const completePayment = () => {
 
   I.waitInUrl('/card_details');
   I.click('Confirm payment');
+};
+
+const completeFormWithFixture = async (fixture: string, addressUrl: string): Promise<void> => {
+  I.amOnPage(HOME_URL);
+  const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+
+  await iSetTheUsersCaseTo(fixtureJson);
+
+  I.amOnPage(addressUrl);
+  I.click('I do not need my contact details kept private');
+  I.click('Continue');
 };
