@@ -3,9 +3,11 @@ import { YesOrNo } from '../app/case/definition';
 import { Step } from './applicant1Sequence';
 import {
   ADDRESS_CONFIDENTIAL,
+  ADDRESS_PRIVATE,
   APPLICANT_2,
   APP_REPRESENTED,
   CHECK_ANSWERS_URL,
+  CHECK_CONTACT_DETAILS,
   CHECK_PHONE_NUMBER,
   CONFIRM_CONTACT_DETAILS,
   DETAILS_OTHER_PROCEEDINGS,
@@ -52,11 +54,11 @@ const sequence: Step[] = [
   },
   {
     url: ENTER_YOUR_ADDRESS,
-    getNextStep: () => CHECK_PHONE_NUMBER,
+    getNextStep: data => (data.applicant2ConfirmContactDetails ? CHECK_PHONE_NUMBER : ADDRESS_PRIVATE),
   },
   {
     url: CHECK_PHONE_NUMBER,
-    getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
+    getNextStep: data => (data.applicant2ConfirmContactDetails ? CHECK_PHONE_NUMBER : ADDRESS_PRIVATE),
   },
   {
     url: HOW_DO_YOU_WANT_TO_RESPOND,
@@ -140,6 +142,14 @@ const sequence: Step[] = [
   {
     url: APP_REPRESENTED,
     getNextStep: () => HOME_URL,
+  },
+  {
+    url: CHECK_CONTACT_DETAILS,
+    getNextStep: () => HOME_URL,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    getNextStep: () => CHECK_CONTACT_DETAILS,
   },
 ];
 
