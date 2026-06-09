@@ -42,7 +42,7 @@ const en = ({
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of your foreign ${
       isDivorce ? 'marriage' : 'civil partnership'
     } certificate`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]: `Proof showing why your name or your ${partner}'s name is written differently on your ${isDivorce ? 'divorce' : 'civil partnership'} certificate. For example, a government issued ID, a passport, driving license, birth certificate, deed poll or 'statutory declaration'`,
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Proof showing why your name or your ${partner}'s name is written differently on your ${isDivorce ? 'marriage' : 'civil partnership'} certificate. For example, a government issued ID, a passport, driving license, birth certificate, deed poll or 'statutory declaration'`,
   },
   documentsByOnlineForm: 'Sending documents using our online form',
   documentsByOnlineFormSteps: {
