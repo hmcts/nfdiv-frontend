@@ -19,7 +19,6 @@ const en = ({ partner }: CommonContent) => {
   };
 };
 
-// @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => {
   const invalid = 'Rydych wedi teipio nod annilys, fel rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.';
   return {

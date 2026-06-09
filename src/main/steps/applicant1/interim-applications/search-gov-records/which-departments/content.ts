@@ -27,7 +27,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be verified
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Pa adrannau’r llywodraeth sydd angen i ni chwilio am fanylion eich ${partner}?`,
   titleHint: "Dewiswch bob un sy'n berthnasol",

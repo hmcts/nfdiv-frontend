@@ -23,7 +23,6 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   buttonText: 'Start now',
 });
 
-// @TODO translations should be verified
 const cy = ({ partner, isDivorce }: CommonContent) => ({
   title: 'Gwneud cais am wasanaeth cyflwyno gan feili (D89)',
   line1: `Gwnewch gais i’ch papurau gael eu cyflwyno ar eich ${partner} gan feili llys sirol.`,

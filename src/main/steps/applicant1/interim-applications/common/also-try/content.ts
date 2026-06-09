@@ -31,7 +31,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be completed and verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   alsoTry: {
     header: 'Gallwch hefyd geisio:',

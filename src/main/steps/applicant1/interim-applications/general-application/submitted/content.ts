@@ -48,7 +48,6 @@ const en = ({
   },
 });
 
-// @TODO Welsh
 const cy: typeof en = ({
   generalApplicationResponseDate,
   generalApplicationFeeRequired,
