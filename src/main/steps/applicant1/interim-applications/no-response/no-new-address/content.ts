@@ -43,7 +43,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be completed then verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: 'Cyflwyno personol a chyflwyno amgen',
   line1: `Gallwch geisio ffordd arall i ddanfon papurau’r ${

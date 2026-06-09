@@ -39,10 +39,10 @@ export const getRespondentHubTemplate = (
         return HubTemplate.FinalOrderRequested;
       } else if (userCase.coGrantedDate && State.GeneralConsiderationComplete) {
         return HubTemplate.ConditionalOrderPronounced;
-      } else if (userCase.aosStatementOfTruth && State.AwaitingGeneralConsideration) {
-        return HubTemplate.GeneralApplicationReceived;
-      } else {
+      } else if (canSubmitAos) {
         return HubTemplate.AwaitingAoS;
+      } else {
+        return HubTemplate.GeneralApplicationReceived;
       }
     case State.Holding:
     case State.AwaitingJudgeClarification:

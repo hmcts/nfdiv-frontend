@@ -13,7 +13,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be verified
 const cy = ({ partner }: CommonContent) => ({
   title: `Gwirio manylion cynrychiolydd eich ${partner}`,
   line1: `Dyma fanylion cynrychiolydd eich ${partner}.`,

@@ -103,7 +103,7 @@ const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
   legalAdvisorReferral: {
     line1: `Your ${partner} has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
       isDivorce ? 'get a divorce' : 'end your civil partnership'
-    }`,
+    }.`,
     line2: 'You will receive an email when the conditional order has been granted by the court.',
   },
   clarificationSubmitted: {
@@ -303,10 +303,10 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     },
   },
   legalAdvisorReferral: {
-    line1: `Your ${partner} has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot ${
-      isDivorce ? 'get a divorce' : 'end your civil partnership'
-    }`,
-    line2: 'You will receive an email when the conditional order has been granted by the court.',
+    line1: `Mae eich ${partner} wedi gwneud cais am ‘orchymyn amodol’. Mae gorchymyn amodol yn ddogfen sy'n dweud nad yw'r llys yn gweld unrhyw reswm pam na allwch ${
+      isDivorce ? 'gael ysgariad' : 'ddod â’ch partneriaeth sifil i ben'
+    }.`,
+    line2: 'Byddwch yn cael e-bost pan fydd y llys wedi cadarnhau’r gorchymyn amodol.',
   },
   clarificationSubmitted: {
     line1: 'This was the court’s feedback, explaining the information which was needed:',

@@ -10,7 +10,6 @@ const en = ({ partner }: CommonContent) => ({
   line3: `If you know you will not be able to get their email address and you want to apply online, then you need to <a href="${HOW_DO_YOU_WANT_TO_APPLY}">apply as a sole applicant</a>.`,
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: 'Rydych angen eu cyfeiriad e-bost',
   line1: `Rydych angen cyfeiriad e-bost eich ${partner} er mwyn iddynt allu ymuno â'r cais ar y cyd hwn ar-lein. Dylech <a href="${SAVE_AND_SIGN_OUT}">gadw eich cais ac allgofnodi</a> a dychwelyd ato pan fydd gennych.`,
