@@ -112,6 +112,12 @@ describe('JointTemplateSelector test', () => {
     expect(jointTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
+  test('should show /general-application-received.njk for state GeneralConsiderationComplete', () => {
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.GeneralApplicationReceived);
+  });
+
   test('should show /awaiting-final-order.njk for state AwaitingFinalOrder', () => {
     const theState = displayState.at(State.AwaitingFinalOrder);
     const jointTemplate = getJointHubTemplate(theState, userCase);

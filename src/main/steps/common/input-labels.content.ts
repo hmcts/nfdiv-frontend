@@ -25,6 +25,11 @@ const ydyOrNacYdyLabels: Record<YesOrNo, string> = {
   [YesOrNo.NO]: 'Nac ydy',
 };
 
+const IeOrNaLabels: Record<YesOrNo, string> = {
+  [YesOrNo.YES]: 'Ie',
+  [YesOrNo.NO]: 'Na',
+};
+
 // Shared default radio answers
 export const defaultYesOrNoRadioAnswers: InputLabelsByLanguage<YesOrNo> = {
   en: YesOrNoLabels,
@@ -44,6 +49,11 @@ export const ydwOrNacYdwRadioAnswers: InputLabelsByLanguage<YesOrNo> = {
 export const ydyOrNacYdyRadioAnswers: InputLabelsByLanguage<YesOrNo> = {
   ...defaultYesOrNoRadioAnswers,
   cy: ydyOrNacYdyLabels,
+};
+
+export const IeOrNaRadioAnswers: InputLabelsByLanguage<YesOrNo> = {
+  ...defaultYesOrNoRadioAnswers,
+  cy: IeOrNaLabels,
 };
 
 export type InputLabelsByLanguage<E extends string> = {

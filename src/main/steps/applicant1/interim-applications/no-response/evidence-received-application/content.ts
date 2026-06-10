@@ -30,7 +30,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be completed then verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: `A yw eich ${partner} wedi cael papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
@@ -40,9 +39,9 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
   }, efallai y gallwch wneud cais am ‘gyflwyno tybiedig’. Mae hyn yn golygu bod y llys yn derbyn bod eich ${partner} wedi cael y papurau, fel bod eich ${
     isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   } yn gallu symud yn ei flaen heb eu hymateb.`,
-  line2: `If you have received a certificate of service completed by a process server confirming that your ${partner} has received the papers, you do not need to apply for deemed service. You must send the certificate of service to the court. The court will review it and decide whether your ${
-    isDivorce ? 'divorce application' : 'application to end your civil partnership'
-  } can proceed without a response from your ${partner}.`,
+  line2: `Os ydych wedi cael tystysgrif cyflwyno sydd wedi'i chwblhau gan gyflwynydd proses yn cadarnhau bod eich ${partner} wedi derbyn y papurau, nid oes rhaid i chi wneud cais am gyflwyno tybiedig. Rhaid i chi anfon y dystygrif cyflwyno i'r llys. Bydd y llys yn ei adolygu ac yn penderfynu a all eich ${
+    isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"
+  } barhau heb ymateb gan eich ${partner}.`,
   line3: 'Mae tystiolaeth addas yn cynnwys:',
   suitableEvidence: {
     photo: `llun neu sgrinlun o neges gan eich ${partner} sy’n dangos eu bod wedi cael y papurau.`,

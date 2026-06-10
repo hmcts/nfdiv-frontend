@@ -14,12 +14,12 @@ export const getJointHubTemplate = (
   } = {}
 ): string | undefined => {
   switch (displayState.state()) {
+    case State.GeneralConsiderationComplete:
     case State.AwaitingGeneralConsideration: {
       return HubTemplate.GeneralApplicationReceived;
     }
     case State.FinalOrderRequested:
-    case State.FinalOrderPending:
-    case State.GeneralConsiderationComplete: {
+    case State.FinalOrderPending: {
       return HubTemplate.FinalOrderRequested;
     }
     case State.AwaitingPronouncement: {
