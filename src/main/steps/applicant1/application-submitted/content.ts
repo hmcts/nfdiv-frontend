@@ -144,7 +144,6 @@ const en = ({
   useOurOnlineForm: 'Use our online form',
 });
 
-// @TODO Welsh
 const cy: typeof en = ({
   applicationHasBeenPaidFor,
   isDivorce,

@@ -9,7 +9,6 @@ const en = () => ({
   title: "You're about to apply for alternative service",
 });
 
-// @TODO translations
 const cy = () => ({
   title: 'Rydych ar fin gwneud cais am gyflwyno amgen',
 });

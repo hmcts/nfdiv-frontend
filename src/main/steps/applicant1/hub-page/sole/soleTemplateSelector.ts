@@ -79,10 +79,8 @@ export const getSoleHubTemplate = (
         return HubTemplate.GeneralApplicationReceived;
       } else if (isAlternativeServiceGrantedOrRefusedPreIssue) {
         return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
-      } else if (isAosOverdue) {
-        return HubTemplate.AoSDue;
       } else {
-        return HubTemplate.AosAwaitingOrDrafted;
+        return HubTemplate.GeneralApplicationReceived;
       }
     case State.AwaitingGeneralConsideration:
       if (userCase.dateFinalOrderSubmitted) {
@@ -169,6 +167,8 @@ export const getSoleHubTemplate = (
     case State.AwaitingGenAppHWFPartPayment:
     case State.AwaitingGenAppHWFEvidence:
       return HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence;
+    case State.PendingRefund:
+      return HubTemplate.PendingRefund;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||

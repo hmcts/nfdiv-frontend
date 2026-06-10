@@ -330,6 +330,11 @@ const en = (
         'The court will review the information from the Third party once provided, then the application can progress.',
     },
   },
+  pendingRefund: {
+    line1: `We are currently processing a refund linked to this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    line2:
+      'You do not need to do anything at the moment. We will provide an update once the refund has been completed.',
+  },
 });
 
 const cy: typeof en = (
@@ -642,6 +647,11 @@ const cy: typeof en = (
       line2:
         'Bydd y llys yn adolygu’r wybodaeth gan y trydydd parti unwaith y bydd wedi dod i law, ac yna gall y cais barhau.',
     },
+  },
+  pendingRefund: {
+    line1: `Rydym yn prosesu ad-daliad sy’n gysylltiedig â’r hwn ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}.`,
+    line2:
+      'Nid ydych angen gwneud unrhyw beth ar y funud. Byddwn yn rhoi diweddariad unwaith y cwblhawyd yr ad-daliad.',
   },
 });
 
