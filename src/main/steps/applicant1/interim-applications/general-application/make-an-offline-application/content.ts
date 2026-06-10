@@ -7,11 +7,9 @@ const en = ({ isDivorce, referenceNumber }: CommonContent) => ({
   title: 'Making an application to the court',
   makeAnApplication: {
     header: 'Making an application to the court',
-    line1: `If you need to make an application to the court as part of your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}, you can do so by completing a paper form.`,
-    line2: 'To make a general application, complete Form D11',
-    line3: 'You can download the form from GOV.UK:',
-    d11Text:
-      'Apply for an interim order as part of divorce, dissolution or separation court proceedings: Form D11 - GOV.UK',
+    line1: `There is already an application that has been submitted online in progress on your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    line2Part1: 'If you need to submit a new application, then you can ',
+    line2Part2: 'apply by completing a paper D11 form',
     d11Link: config.get('govukUrls.d11Form'),
     line4: 'You can send the completed form to the court in the following ways:',
   },
@@ -41,11 +39,9 @@ const cy = ({ isDivorce, referenceNumber }: CommonContent) => ({
   title: 'Making an application to the court',
   makeAnApplication: {
     header: 'Making an application to the court',
-    line1: `If you need to make an application to the court as part of your ongoing ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}, you can do so by completing a paper form.`,
-    line2: 'To make a general application, complete Form D11',
-    line3: 'You can download the form from GOV.UK:',
-    d11Text:
-      'Apply for an interim order as part of divorce, dissolution or separation court proceedings: Form D11 - GOV.UK',
+    line1: `There is already an application that has been submitted online in progress on your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    line2Part1: 'If you need to submit a new application, then you can ',
+    line2Part2: 'apply by completing a paper D11 form',
     d11Link: config.get('govukUrls.d11Form'),
     line4: 'You can send the completed form to the court in the following ways:',
   },
