@@ -23,7 +23,7 @@ const en = ({ partner }: Partial<CommonContent>) => {
     line3Optional: 'Address line 3 (optional)',
     town: 'Town or city',
     townOptional: 'Town or city (optional)',
-    county: 'County',
+    county: 'County (optional)',
     countyOptional: 'County, district, state or province (optional)',
     postcode: 'Postcode',
     postcodeOptional: 'Postal code, zip code or area code',
