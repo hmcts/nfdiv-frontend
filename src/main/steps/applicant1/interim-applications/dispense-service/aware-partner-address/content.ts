@@ -15,7 +15,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: `Ydych chi’n ymwybodol ble wnaeth eich ${partner} fyw ar ôl gwahanu?`,
   yes: 'Ydw',

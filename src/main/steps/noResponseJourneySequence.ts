@@ -17,6 +17,7 @@ import {
   BAILIFF_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
+  EVIDENCE_CERTIFICATE_OF_SERVICE,
   EVIDENCE_RECEIVED_APPLICATION,
   GOV_SEARCH_POSSIBLE,
   HAVE_THEY_RECEIVED,
@@ -38,6 +39,7 @@ import {
   PageLink,
   SEARCH_GOV_RECORDS_APPLICATION,
   SEARCH_TIPS,
+  SEND_CERTIFICATE_OF_SERVICE,
   SERVE_AGAIN,
   SUCCESS_SCREEN_PROCESS_SERVER,
   WILL_SERVE_AGAIN,
@@ -127,7 +129,7 @@ export const noResponseJourneySequence: Step[] = [
     url: EVIDENCE_RECEIVED_APPLICATION,
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       if (data?.applicant1NoResponsePartnerHasReceivedPapers === YesOrNo.YES) {
-        return DEEMED_SERVICE_APPLICATION;
+        return EVIDENCE_CERTIFICATE_OF_SERVICE;
       }
       return data.applicant2AddressOverseas === YesOrNo.YES ||
         data?.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
@@ -135,6 +137,17 @@ export const noResponseJourneySequence: Step[] = [
         ? NO_NEW_ADDRESS
         : SERVE_AGAIN;
     },
+  },
+  {
+    url: EVIDENCE_CERTIFICATE_OF_SERVICE,
+    getNextStep: data =>
+      data?.applicant1NoResponsePartnerHasCertificateOfService === YesOrNo.YES
+        ? SEND_CERTIFICATE_OF_SERVICE
+        : DEEMED_SERVICE_APPLICATION,
+  },
+  {
+    url: SEND_CERTIFICATE_OF_SERVICE,
+    getNextStep: () => HUB_PAGE,
   },
   {
     url: SERVE_AGAIN,

@@ -54,7 +54,6 @@ const en = (
   },
 });
 
-// @TODO translations
 const cy: typeof en = (
   { partner }: CommonContent,
   multipleWaysSelected: boolean,

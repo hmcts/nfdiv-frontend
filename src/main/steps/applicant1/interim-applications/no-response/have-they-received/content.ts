@@ -25,7 +25,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be completed then verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: `Gwirio manylion cyswllt eich ${partner}`,
   detailsProvided: `Dyma’r manylion a ddarparwyd gennych yn flaenorol ac i ble rydym wedi anfon papurau’r ${

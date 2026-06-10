@@ -22,7 +22,6 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations should be completed then verified
 const cy = ({ isDivorce, partner }: CommonContent) => ({
   title: `Ceisio dod o hyd i fanylion eich  ${partner}`,
   line1: `Yn y rhan fwyaf o achosion, mae’n rhaid i’r llys fod yn fodlon bod papurau’r  ${

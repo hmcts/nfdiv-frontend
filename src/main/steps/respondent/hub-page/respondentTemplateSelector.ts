@@ -42,10 +42,10 @@ export const getRespondentHubTemplate = (
         return HubTemplate.FinalOrderRequested;
       } else if (userCase.coGrantedDate && State.GeneralConsiderationComplete) {
         return HubTemplate.ConditionalOrderPronounced;
-      } else if (userCase.aosStatementOfTruth && State.AwaitingGeneralConsideration) {
-        return HubTemplate.GeneralApplicationReceived;
-      } else {
+      } else if (canSubmitAos) {
         return HubTemplate.AwaitingAoS;
+      } else {
+        return HubTemplate.GeneralApplicationReceived;
       }
     case State.Holding:
     case State.AwaitingJudgeClarification:
@@ -62,6 +62,8 @@ export const getRespondentHubTemplate = (
       return HubTemplate.WelshTranslationRequestedOrReview;
     case State.AwaitingGenAppDocuments:
       return HubTemplate.AwaitingGenAppDocuments;
+    case State.PendingRefund:
+      return HubTemplate.PendingRefund;
     default: {
       if (displayState.isAtOrBefore('AwaitingConditionalOrder') && canSubmitAos) {
         return HubTemplate.AwaitingAoS;

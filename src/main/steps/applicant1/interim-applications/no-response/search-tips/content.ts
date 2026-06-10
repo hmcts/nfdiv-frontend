@@ -24,7 +24,6 @@ const en = ({ partner }: CommonContent) => ({
     'Keep a record of the results of any searches you do as this will be useful evidence that you’ve tried to contact them.',
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: `Chwilio am fanylion cyswllt eich ${partner}`,
   tryToFind: {

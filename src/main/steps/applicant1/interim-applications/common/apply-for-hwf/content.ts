@@ -20,7 +20,6 @@ const en = (serviceType: string, serviceCode: string, forTo: string) => ({
   },
 });
 
-// @TODO translations
 const cy = (serviceType: string, serviceCode: string, forTo: string) => ({
   title: 'Gwneud cais am help i dalu ffioedd',
   line1: 'Mae’n rhaid i chi wneud cais am Help i Dalu Ffioedd cyn i chi gyflwyno’ch cais.',
