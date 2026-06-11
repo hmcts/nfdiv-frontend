@@ -165,12 +165,10 @@ export const form: FormContent = {
     },
     applicant1SearchGovRecordsPartnerLastKnownAddressCountry: {
       id: 'addressCountry',
-      type: 'text',
-      classes: 'govuk-label govuk-!-width-two-thirds hidden',
-      labelHidden: true,
+      type: 'hidden',
+      classes: 'govuk-visually--hidden',
+      label: l => l.null,
       value: 'UK',
-      label: l => l.country,
-      labelSize: null,
     },
     applicant1SearchGovRecordsPartnerLastKnownAddressOverseas: {
       id: 'addressOverseas',
