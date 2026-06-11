@@ -351,17 +351,18 @@ __metadata:
   linkType: hard
 
 "@azure/playwright@npm:^1.1.1":
-  version: 1.1.5
-  resolution: "@azure/playwright@npm:1.1.5"
+  version: 1.1.6
+  resolution: "@azure/playwright@npm:1.1.6"
   dependencies:
     "@azure/core-auth": "npm:^1.9.0"
     "@azure/core-rest-pipeline": "npm:^1.18.0"
+    "@azure/core-util": "npm:^1.13.0"
     "@azure/logger": "npm:^1.1.4"
     "@azure/storage-blob": "npm:^12.24.0"
     tslib: "npm:^2.8.1"
   peerDependencies:
     "@playwright/test": ^1.47.0
-  checksum: 10/adff17e871ca906dd1da01a6269d663a530bcd099977e2d285b3a7dd7999dc7419a5492f639151f70683118545bea9d96e22b25c65c13c9f5ef6d76314187489
+  checksum: 10/7584bc60fcf198554226abe8bf667c0a350ab7105151af338391680a323c4bb6e65152617deca728a4b2d3b5755acdf1a57783c5b44098af25bacfd27714eb33
   languageName: node
   linkType: hard
 
