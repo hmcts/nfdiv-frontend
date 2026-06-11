@@ -171,7 +171,6 @@ export const form: FormContent = {
       value: 'UK',
       label: l => l.country,
       labelSize: null,
-      validator: isFieldFilledIn,
     },
     applicant1SearchGovRecordsPartnerLastKnownAddressOverseas: {
       id: 'addressOverseas',
