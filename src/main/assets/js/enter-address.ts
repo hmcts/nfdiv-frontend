@@ -8,7 +8,7 @@ import {
   showInternationalAddressFields,
   showUkAddressFields,
 } from './address/links';
-import { getById, qsa } from './selectors';
+import { getById, qs, qsa } from './selectors';
 
 import './address/select';
 import './address/submit';
@@ -39,16 +39,7 @@ if (form && getById('enterPostcode')) {
     if (countryField) {
       countryField.value = 'UK';
       countryField.setAttribute('readonly', 'readonly');
-
-      countryField.addEventListener('focus', e => {
-        (e.target as HTMLInputElement).blur();
-      });
-      countryField.addEventListener('keydown', e => {
-        e.preventDefault();
-      });
-      countryField.addEventListener('mousedown', e => {
-        e.preventDefault();
-      });
+      (qs('.govuk-form-group.addressCountry') as HTMLLabelElement).classList.add('hidden');
     }
   }
 
