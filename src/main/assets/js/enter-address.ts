@@ -8,7 +8,7 @@ import {
   showInternationalAddressFields,
   showUkAddressFields,
 } from './address/links';
-import { getById, qs, qsa } from './selectors';
+import { getById, qsa } from './selectors';
 
 import './address/select';
 import './address/submit';
@@ -31,18 +31,6 @@ if (form && getById('enterPostcode')) {
 
   const isSearchGovRecordsForm = getById('applicant1SearchGovRecordsPartnerLastKnownAddressDates-hint') !== null;
 
-  if (isSearchGovRecordsForm) {
-    const countryField = document.querySelector('[name="applicant1SearchGovRecordsPartnerLastKnownAddressCountry"]') as
-      | HTMLInputElement
-      | HTMLSelectElement
-      | null;
-    if (countryField) {
-      countryField.value = 'UK';
-      countryField.setAttribute('readonly', 'readonly');
-      (qs('.govuk-form-group.addressCountry') as HTMLLabelElement).classList.add('hidden');
-    }
-  }
-
   if (addressCountry || hasBackendError) {
     hideEnterPostcode();
 
@@ -55,14 +43,5 @@ if (form && getById('enterPostcode')) {
     hideUkAddressFields();
     hideInternationalAddressFields();
     showEnterPostcode();
-  }
-  if (isSearchGovRecordsForm) {
-    const countryField = document.querySelector('[name="applicant1SearchGovRecordsPartnerLastKnownAddressCountry"]') as
-      | HTMLInputElement
-      | HTMLSelectElement
-      | null;
-    if (countryField) {
-      countryField.value = 'UK';
-    }
   }
 }
