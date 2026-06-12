@@ -17,7 +17,10 @@ import { checkBoxAnswers as reviewTheApplicationAnswers } from '../../applicant1
 import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
+import { radioButtonAnswersPrivate as addressConfidentialAnswers } from '../address-confidential/content';
+import { radioButtonAnswers as confirmContactDetails } from '../confirm-contact-details/content';
 import { radioButtonAnswers as howDoYouWantToRespondAnswers } from '../how-do-you-want-to-respond/content';
+import { radioButtonAnswers as inRefugeAnswers } from '../in-refuge/content';
 import { radioButtonAnswers as intendToDelayAnswers } from '../intend-to-delay/content';
 import { radioButtonAnswers as legalJurisdictionOfTheCourtsAnswers } from '../legal-jurisdiction-of-the-courts/content';
 
@@ -33,6 +36,7 @@ const en = ({ isDivorce, userCase }) => ({
     aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
     contactYou: 'How the court will contact you',
     otherCourtCases: 'Other court cases',
+    yourContactDetails: 'Your contact details',
   },
   stepQuestions: {
     readApplication: {
@@ -62,6 +66,13 @@ const en = ({ isDivorce, userCase }) => ({
       line2: 'Provide details about the other legal proceedings.',
       line3: 'Have the proceedings been concluded?',
       uploadedFiles: 'Uploaded files',
+    },
+    yourContactDetails: {
+      detailsUptoDate: 'Are your details correct and up to date?',
+      postalAddress: 'Your postal address',
+      telephoneNumber: 'Your telephone number',
+      detailsPrivate: 'Do you need your contact details kept private?',
+      inRefuge: 'Are you currently in a refuge?',
     },
   },
   stepAnswers: {
@@ -102,6 +113,23 @@ const en = ({ isDivorce, userCase }) => ({
       }`,
       uploadedFiles: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
     },
+    yourContactDetails: {
+      detailsUptoDate: stripTags(confirmContactDetails.en[userCase.applicant2ConfirmContactDetails]),
+      postalAddress: `${[
+        stripTags(userCase.applicant2Address1),
+        stripTags(userCase.applicant2Address2),
+        stripTags(userCase.applicant2Address3),
+        stripTags(userCase.applicant2AddressTown),
+        stripTags(userCase.applicant2AddressCounty),
+        stripTags(userCase.applicant2AddressPostcode),
+        stripTags(userCase.applicant2AddressCountry),
+      ]
+        .filter(Boolean)
+        .join('<br>')}`,
+      telephoneNumber: striptags(userCase.applicant2PhoneNumber),
+      detailsPrivate: stripTags(addressConfidentialAnswers.en[userCase.applicant2AddressPrivate]),
+      inRefuge: stripTags(inRefugeAnswers.en[userCase.applicant2InRefuge]),
+    },
   },
   stepLinks: {
     readApplication: {
@@ -124,6 +152,13 @@ const en = ({ isDivorce, userCase }) => ({
       line2: urls.DETAILS_OTHER_PROCEEDINGS,
       line3: urls.DETAILS_OTHER_PROCEEDINGS,
       uploadedFiles: urls.DETAILS_OTHER_PROCEEDINGS,
+    },
+    yourContactDetails: {
+      detailsUptoDate: urls.CONFIRM_CONTACT_DETAILS,
+      postalAddress: urls.ENTER_YOUR_ADDRESS,
+      telephoneNumber: urls.CHECK_PHONE_NUMBER,
+      detailsPrivate: urls.ADDRESS_CONFIDENTIAL,
+      inRefuge: urls.IN_REFUGE,
     },
   },
   continueApplication: 'Continue application',
@@ -159,6 +194,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
     aboutApplication: `Ynghylch eich ${isDivorce ? 'ysgariad' : 'partneriaeth sifil'}`,
     contactYou: 'Sut fydd y llys yn cysylltu â chi',
     otherCourtCases: 'Achosion llys eraill',
+    yourContactDetails: 'Eich manylion cyswllt',
   },
   stepQuestions: {
     readApplication: {
@@ -188,6 +224,13 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       line2: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
       line3: "A yw'r achos wedi'i gwblhau?",
       uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
+    },
+    yourContactDetails: {
+      detailsUptoDate: 'A yw eich manylion yn gywir ac wedi eu diweddaru?',
+      postalAddress: 'Eich cyfeiriad post',
+      telephoneNumber: 'Eich rhif ffôn',
+      detailsPrivate: 'Ydych chi angen i’ch manylion gael eu cadw’n breifat?',
+      inRefuge: 'Ydych chi mewn lloches ar y funud?',
     },
   },
   stepAnswers: {
@@ -227,6 +270,23 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
           : ''
       }`,
       uploadedFiles: `${userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value))}`,
+    },
+    yourContactDetails: {
+      detailsUptoDate: stripTags(confirmContactDetails.cy[userCase.applicant2ConfirmContactDetails]),
+      postalAddress: `${[
+        stripTags(userCase.applicant2Address1),
+        stripTags(userCase.applicant2Address2),
+        stripTags(userCase.applicant2Address3),
+        stripTags(userCase.applicant2AddressTown),
+        stripTags(userCase.applicant2AddressCounty),
+        stripTags(userCase.applicant2AddressPostcode),
+        stripTags(userCase.applicant2AddressCountry),
+      ]
+        .filter(Boolean)
+        .join('<br>')}`,
+      telephoneNumber: striptags(userCase.applicant2PhoneNumber),
+      detailsPrivate: stripTags(addressConfidentialAnswers.cy[userCase.applicant2AddressPrivate]),
+      inRefuge: stripTags(inRefugeAnswers.cy[userCase.applicant2InRefuge]),
     },
   },
   continueApplication: 'Parhau gyda’r cais',

@@ -194,7 +194,7 @@ Feature: Form failures
     And I click "Continue"
     Then the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
 
-    Given I go to "/address-private"
+    Given I go to "/address-confidential"
     When I click "Continue"
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
@@ -301,6 +301,13 @@ Feature: Form failures
     Given I select "I have read the application for divorce"
 
     When I click "Continue"
+    Then the page URL should be "/respondent/confirm-contact-details"
+    And the page should include "Review your contact details"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "Yes, these details are up to date"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
     Given I clear the form
     When I click "Continue"
@@ -336,7 +343,7 @@ Feature: Form failures
     Then the page should include "There was a problem"
     And the page should include "You have to agree to receive email notifications in order to use this online service."
 
-    Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
+    Given I've already completed the respondent form using the fixture "respondentCompleteCase" for "respondent"
     And I go to "/respondent/legal-jurisdiction-of-the-courts"
     When I click "Continue"
     Then the page should include "Do you intend to ask the court to delay"

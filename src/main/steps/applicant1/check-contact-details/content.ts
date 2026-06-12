@@ -4,6 +4,7 @@ const en = () => ({
   title: 'Review your contact details',
   yourAddress: 'Your address',
   yourPhoneNumber: 'Your phone number',
+  detailsCorrect: 'Are these details correct and up to date?',
 });
 
 // @TODO translations
