@@ -79,7 +79,7 @@ const en = (
     line2: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
     line3: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
     line4: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${telephoneNumber}.`,
-    line5: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+    line5: `The address you have provided for your ${partner} is outside of the UK. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
       isDivorce ? 'the divorce' : 'ending the civil partnership'
     }`,
     line6: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
@@ -101,7 +101,7 @@ const en = (
   contactDetailsUpdatedOverseasAddress: {
     line1: `You will need to arrange delivery of the ${
       isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-    } to your ${partner} yourself. This is because the courts of England and Wales do not have legal power (jurisdiction) in the country where they live.`,
+    } to your ${partner} yourself. This is because they live outside of the UK.`,
     whatNeedToDo: 'What you need to do',
     line2: `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`,
     line3: `You will receive a letter from HMCTS, which contains documents that need to be sent to your ${partner}. It’s called the ‘Notice of Proceedings’.`,
@@ -418,7 +418,7 @@ const en = (
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
   line9: `If you want the court to serve (send) the application by post instead of by email, then phone ${telephoneNumber}.`,
-  line10: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+  line10: `The address you have provided for your ${partner} is outside of the UK. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
     isDivorce ? 'the divorce' : 'ending the civil partnership'
   }.`,
   line11: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
@@ -554,7 +554,7 @@ const cy: typeof en = (
     line2: `Yna fe anfonir copi o’r cais at eich ${partner}. Fe ofynnir iddynt wirio’r wybodaeth ac ymateb. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
     line3: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau at eich ${partner} eich hun, yna ffoniwch ${telephoneNumber} i ofyn am gael gwneud hynny. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
     line4: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais i’w gyflwyno drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
-    line5: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu mai chi sy’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sy’n hysbysu’ch ${partner} am yr ysgariad.`,
+    line5: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i'r DU. Mae hynny’n golygu mai chi sy’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sy’n hysbysu’ch ${partner} am yr ysgariad.`,
     line6: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a llythyr, ar ôl i’r cais gael ei wirio.`,
     line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddynt gadarnhau eu bod yn eu cynrychioli. Fe anfonir copi o’r cais atynt ac fe ofynnir iddynt ymateb.`,
   },
@@ -574,7 +574,7 @@ const cy: typeof en = (
   contactDetailsUpdatedOverseasAddress: {
     line1: `Bydd angen i chi drefnu bod papurau’r ${
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-    } yn cael eu danfon i’ch ${partner} eich hun. Y rheswm dros hyn yw oherwydd nid oes gan lysoedd Cymru a Lloegr bŵer cyfreithiol (awdurdodaeth) yn y wlad ble maent yn byw.`,
+    } yn cael eu danfon i’ch ${partner} eich hun. Mae hyn oherwydd eu bod yn byw tu allan i'r DU.`,
     whatNeedToDo: 'Beth sydd angen i chi ei wneud',
     line2: `Mae’n bosibl y byddwch yn dymuno ceisio cyngor cyfreithiol ar sut i gyflwyno’r papurau yn y wlad lle mae eich ${partner} yn byw.`,
     line3: `Fe gewch lythyr gan GLlTEF, a fydd yn cynnwys dogfennau y mae angen i chi eu hanfon at eich ${partner}. Gelwir hyn yn ‘Rhybudd o Achos’.`,
@@ -915,7 +915,7 @@ const cy: typeof en = (
   line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
   line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${telephoneNumber}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
   line9: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
-  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
+  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i'r DU. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
     isDivorce ? 'yr ysgariad' : 'ddiweddu’r bartneriaeth sifil'
   }.`,
   line11: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a drwy’r post, ar ôl i’r cais gael ei wirio.`,
