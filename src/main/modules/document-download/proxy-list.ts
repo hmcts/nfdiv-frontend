@@ -125,8 +125,13 @@ export const proxyList: {
     path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.FINAL_ORDER_GRANTED),
   },
   {
-    endpoints: ['downloads/general-order'],
-    path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.GENERAL_ORDER),
+    endpoints: ['/downloads/general-order'],
+    path: (req: AppRequest): string => getPath(
+      req, req.session.userCase
+      ?.overdueFinalOrderAuthorisation
+      ?.finalOrderGeneralOrder
+      ?.generalOrderDocument
+    ),
   },
 ];
 
