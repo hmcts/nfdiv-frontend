@@ -2,6 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
+import { isCountryUk } from '../../applicant1Sequence';
 import { ydyOrNacYdyRadioAnswers } from '../../common/input-labels.content';
 
 const en = () => {
@@ -20,7 +21,7 @@ const en = () => {
     line3Optional: 'Address line 3 (optional)',
     town: 'Town or city',
     townOptional: 'Town or city (optional)',
-    county: 'County',
+    county: 'County (optional)',
     countyOptional: 'County, district, state or province (optional)',
     postcode: 'Postcode',
     postcodeOptional: 'Postal code, zip code or area code (optional)',
@@ -65,7 +66,7 @@ const cy = () => {
     line3Optional: 'Llinell 3 y cyfeiriad (dewisol)',
     town: 'Tref neu ddinas',
     townOptional: 'Tref neu ddinas (dewisol)',
-    county: 'Sir',
+    county: 'Sir (dewisol)',
     countyOptional: 'Sir, ardal, gwladwriaeth neu dalaith (dewisol)',
     postcode: 'Cod post',
     postcodeOptional: 'Cod post, cod zip neu god ardal (dewisol)',
@@ -95,7 +96,6 @@ const cy = () => {
   };
 };
 
-const uk = 'UK';
 export const form: FormContent = {
   fields: {
     applicant1Address1: {
@@ -127,7 +127,7 @@ export const form: FormContent = {
       label: l => l.town,
       labelSize: null,
       validator: (value, formData) => {
-        if (formData.applicant1AddressCountry !== uk) {
+        if (!isCountryUk(formData.applicant1AddressCountry)) {
           return;
         }
         return isFieldFilledIn(value);
@@ -151,7 +151,7 @@ export const form: FormContent = {
         maxLength: 14,
       },
       validator: (value, formData) => {
-        if (formData.applicant1AddressCountry !== uk) {
+        if (!isCountryUk(formData.applicant1AddressCountry)) {
           return;
         }
         return isInvalidPostcode(value);
