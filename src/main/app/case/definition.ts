@@ -2579,6 +2579,7 @@ export const enum DocumentType {
   AMENDED_APPLICATION = 'amendedApplication',
   ANNEX_A = 'annexA',
   APPLICATION = 'application',
+  HMCTS_COVERSHEET = 'hmctsCoversheet',
   APPLIED_FOR_CO_LETTER = 'appliedForCoLetter',
   BAILIFF_CERTIFICATE_OF_SERVICE = 'bailiffCertificateOfService',
   BAILIFF_SERVICE = 'bailiffService',
