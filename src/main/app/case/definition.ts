@@ -889,7 +889,7 @@ export interface CaseData {
   doesApplicant2IntendToSwitchToSole: YesOrNo;
   dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
   expeditedFinalOrderAuthorisation: ExpeditedFinalOrderAuthorisation;
-  overdueFinalOrderAuthorisation: ExpeditedFinalOrderAuthorisation;
+  overdueFinalOrderAuthorisation: FinalOrderAuthorisation;
   generalOrderDate: DateAsString;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
@@ -1457,6 +1457,11 @@ export interface DivorceGeneralOrder {
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
 }
 
+export interface FinalOrderAuthorisation {
+  finalOrderGeneralOrder: DivorceGeneralOrder;
+  finalOrderJudgeName: string;
+}
+
 export interface ExpeditedFinalOrderAuthorisation {
   expeditedFinalOrderGeneralOrder: DivorceGeneralOrder;
   expeditedFinalOrderJudgeName: string;
@@ -1511,7 +1516,7 @@ export interface FinalOrder {
   doesApplicant2IntendToSwitchToSole: YesOrNo;
   dateApplicant2DeclaredIntentionToSwitchToSoleFo: DateAsString;
   expeditedFinalOrderAuthorisation: ExpeditedFinalOrderAuthorisation;
-  overdueFinalOrderAuthorisation: ExpeditedFinalOrderAuthorisation;
+  overdueFinalOrderAuthorisation: FinalOrderAuthorisation;
 }
 
 export interface GeneralApplication {

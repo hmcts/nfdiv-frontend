@@ -18,6 +18,7 @@ import {
   DivorceDocument,
   DivorceOrDissolution,
   DocumentType,
+  FinalOrderAuthorisation,
   FinancialOrderFor,
   Gender,
   GeneralApplication,
@@ -199,6 +200,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1CanIntendToSwitchToSoleFo: 'applicant1CanIntendToSwitchToSoleFo',
   applicant2CanIntendToSwitchToSoleFo: 'applicant2CanIntendToSwitchToSoleFo',
   isFinalOrderOverdue: 'isFinalOrderOverdue',
+  overdueFinalOrderAuthorisation: 'overdueFinalOrderAuthorisation',
   app1RfiDraftResponseDocs: 'app1RfiDraftResponseDocs',
   app2RfiDraftResponseDocs: 'app2RfiDraftResponseDocs',
   citizenPaymentCallbackUrl: 'citizenPaymentCallbackUrl',
@@ -598,6 +600,7 @@ export interface Case {
   applicant1CanIntendToSwitchToSoleFo: YesOrNo;
   applicant2CanIntendToSwitchToSoleFo: YesOrNo;
   isFinalOrderOverdue: YesOrNo;
+  overdueFinalOrderAuthorisation: FinalOrderAuthorisation;
   requestsForInformation?: ListValue<Partial<RequestForInformation> | null>[];
   requestForInformation?: RequestForInformation;
   requestForInformationSoleParties?: string;
