@@ -24,7 +24,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: `Cysylltu â chyflogwr hysbys diwethaf eich ${partner}`,
   line1: `Os ydych yn gwybod ble wnaeth eich ${partner} weithio ddiwethaf, dylech geisio cysylltu â’r cyflogwr. Efallai y gallan nhw gadarnhau pa un a yw eich ${partner} yn dal i weithio yno, neu eich helpu i ddod o hyd i’ch ${partner}.`,

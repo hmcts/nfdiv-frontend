@@ -282,7 +282,7 @@ const en = (
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
   line9: `If you want the court to serve (send) the application by post instead of by email, then phone ${telephoneNumber}.`,
-  line10: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+  line10: `The address you have provided for your ${partner} is outside of the UK. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
     isDivorce ? 'the divorce' : 'ending the civil partnership'
   }.`,
   line11: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
@@ -328,6 +328,11 @@ const en = (
       line2:
         'The court will review the information from the Third party once provided, then the application can progress.',
     },
+  },
+  pendingRefund: {
+    line1: `We are currently processing a refund linked to this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    line2:
+      'You do not need to do anything at the moment. We will provide an update once the refund has been completed.',
   },
 });
 
@@ -596,7 +601,7 @@ const cy: typeof en = (
   line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
   line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${telephoneNumber}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
   line9: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
-  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
+  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i'r DU. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
     isDivorce ? 'yr ysgariad' : 'ddiweddu’r bartneriaeth sifil'
   }.`,
   line11: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a drwy’r post, ar ôl i’r cais gael ei wirio.`,
@@ -642,6 +647,11 @@ const cy: typeof en = (
       line2:
         'Bydd y llys yn adolygu’r wybodaeth gan y trydydd parti unwaith y bydd wedi dod i law, ac yna gall y cais barhau.',
     },
+  },
+  pendingRefund: {
+    line1: `Rydym yn prosesu ad-daliad sy’n gysylltiedig â’r hwn ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}.`,
+    line2:
+      'Nid ydych angen gwneud unrhyw beth ar y funud. Byddwn yn rhoi diweddariad unwaith y cwblhawyd yr ad-daliad.',
   },
 });
 

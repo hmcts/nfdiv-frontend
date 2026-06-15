@@ -15,7 +15,6 @@ const en = () => ({
   },
 });
 
-// @TODO translations
 const cy: typeof en = () => ({
   title: 'Rhowch eich cyfeirnod Help i Dalu Ffioedd',
   refExample: 'Er enghraifft, HWF-A1B-23C',
