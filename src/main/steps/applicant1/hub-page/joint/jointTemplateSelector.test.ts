@@ -258,4 +258,10 @@ describe('JointTemplateSelector test', () => {
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
+
+  test('should show /pending-refund.njk for state PendingRefund', () => {
+    const theState = displayState.at(State.PendingRefund);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.PendingRefund);
+  });
 });

@@ -1,4 +1,5 @@
 import { DivorceOrDissolution, State, YesOrNo } from '../../../app/case/definition';
+import { getSoleHubTemplate } from '../../applicant1/hub-page/sole/soleTemplateSelector';
 import { HubTemplate } from '../../common/hubTemplates';
 import { currentStateFn } from '../../state-sequence';
 
@@ -208,5 +209,11 @@ describe('RespondentTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAos, true);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
+  });
+
+  test('should show /pending-refund.njk for state PendingRefund', () => {
+    const theState = displayState.at(State.PendingRefund);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.PendingRefund);
   });
 });
