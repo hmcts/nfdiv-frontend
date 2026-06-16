@@ -14,6 +14,7 @@ import {
   CHECK_ANSWERS_URL,
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
+  DATE_OF_BIRTH,
   DEEMED_INTERRUPTION,
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
@@ -97,6 +98,16 @@ describe('Steps', () => {
       mockReq.session.userCase.gender = Gender.MALE;
       mockReq.session.userCase.sameSex = Checkbox.Unchecked;
       expect(getNextIncompleteStepUrl(mockReq)).toBe(`${HAS_RELATIONSHIP_BROKEN_URL}?customQueryString`);
+    });
+
+    it('returns the applicant date-of-birth step if user has not completed the form', () => {
+      mockReq.session.userCase = {
+        ...mockReq.session.userCase,
+        ...completeCase,
+        applicant1DateOfBirth: undefined,
+      };
+      const actual = getNextIncompleteStepUrl(mockReq);
+      expect(actual).toBe(DATE_OF_BIRTH);
     });
 
     it('returns the upload-your-documents step if user has not completed the form', () => {

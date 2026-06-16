@@ -285,6 +285,7 @@ export interface Applicant {
   MiddleName: string;
   LastName: string;
   Email: string;
+  DateOfBirth: DateAsString;
   AgreedToReceiveEmails: YesOrNo;
   ConfirmReceipt: YesOrNo;
   LanguagePreferenceWelsh: YesOrNo;
@@ -517,6 +518,7 @@ export interface CaseData {
   applicant1LastName: string;
   applicant1ConfirmFullName: YesOrNo;
   applicant1Email: string;
+  applicant1DateOfBirth: DateAsString;
   applicant1AgreedToReceiveEmails: YesOrNo;
   applicant1ConfirmReceipt: YesOrNo;
   applicant1LanguagePreferenceWelsh: YesOrNo;
@@ -570,6 +572,7 @@ export interface CaseData {
   applicant2LastName: string;
   applicant2ConfirmFullName: YesOrNo;
   applicant2Email: string;
+  applicant2DateOfBirth: DateAsString;
   applicant2AgreedToReceiveEmails: YesOrNo;
   applicant2ConfirmReceipt: YesOrNo;
   applicant2LanguagePreferenceWelsh: YesOrNo;

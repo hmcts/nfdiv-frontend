@@ -11,6 +11,7 @@ import {
   DETAILS_OTHER_PROCEEDINGS,
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
+  DATE_OF_BIRTH,
   ENTER_YOUR_ADDRESS,
   FINALISING_YOUR_APPLICATION,
   HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
@@ -69,6 +70,10 @@ const sequence: Step[] = [
   },
   {
     url: ENGLISH_OR_WELSH,
+    getNextStep: () => DATE_OF_BIRTH,
+  },
+  {
+    url: DATE_OF_BIRTH,
     getNextStep: () => CHECK_ANSWERS_URL,
   },
   {

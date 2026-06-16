@@ -21,6 +21,7 @@ import {
   CONTINUE_WITH_YOUR_APPLICATION,
   DETAILS_OTHER_PROCEEDINGS,
   ENGLISH_OR_WELSH,
+  DATE_OF_BIRTH,
   ENTER_YOUR_ADDRESS,
   ENTER_YOUR_NAME,
   EXPLAIN_THE_DELAY,
@@ -116,6 +117,10 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: ENGLISH_OR_WELSH,
+    getNextStep: () => DATE_OF_BIRTH,
+  },
+  {
+    url: DATE_OF_BIRTH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {

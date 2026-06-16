@@ -14,6 +14,11 @@ export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2WhoIsFinancialOrderFor: [],
   applicant2PhoneNumber: '',
   applicant2EnglishOrWelsh: LanguagePreference.English,
+  applicant2DateOfBirth: {
+    day: '01',
+    month: '01',
+    year: '1919',
+  },
   applicant2MiddleNames: '',
   applicant2Address1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
   applicant2Address2: '',

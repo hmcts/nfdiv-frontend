@@ -44,6 +44,7 @@ import {
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
   COUNTRY_AND_PLACE,
+  DATE_OF_BIRTH,
   DETAILS_OTHER_PROCEEDINGS,
   DO_THEY_HAVE_A_SOLICITOR,
   DO_YOU_HAVE_ADDRESS,
@@ -324,6 +325,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: ENGLISH_OR_WELSH,
+    getNextStep: () => DATE_OF_BIRTH,
+  },
+  {
+    url: DATE_OF_BIRTH,
     getNextStep: () => ADDRESS_PRIVATE,
   },
   {

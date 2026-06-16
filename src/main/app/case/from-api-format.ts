@@ -38,6 +38,12 @@ const fields: FromApiConverters = {
   marriageDate: data => ({
     relationshipDate: fromApiDate(data.marriageDate),
   }),
+  applicant1DateOfBirth: data => ({
+    applicant1DateOfBirth: fromApiDate(data.applicant1DateOfBirth),
+  }),
+  applicant2DateOfBirth: data => ({
+    applicant2DateOfBirth: fromApiDate(data.applicant2DateOfBirth),
+  }),
   applicant1BailiffPartnersDateOfBirth: data => ({
     applicant1BailiffPartnersDateOfBirth: fromApiDate(data.applicant1BailiffPartnersDateOfBirth),
   }),

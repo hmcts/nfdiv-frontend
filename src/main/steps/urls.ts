@@ -71,6 +71,7 @@ export const CONFIRM_THEIR_NAME: PageLink = '/confirm-their-name';
 
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
+export const DATE_OF_BIRTH: PageLink = '/date-of-birth';
 export const YOUR_CERTIFICATE_NAME: PageLink = '/your-name-on-certificate';
 export const THEIR_CERTIFICATE_NAME: PageLink = '/their-name-on-certificate';
 export const ADDRESS_PRIVATE: PageLink = '/address-private';

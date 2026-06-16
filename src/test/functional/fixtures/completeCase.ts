@@ -53,6 +53,11 @@ export const completeCase: Partial<BrowserCase> = {
   applicationType: ApplicationType.SOLE_APPLICATION,
   applicant1ApplyForFinancialOrder: YesOrNo.NO,
   applicant1WhoIsFinancialOrderFor: [],
+  applicant1DateOfBirth: {
+    day: '01',
+    month: '01',
+    year: '1919',
+  },
   applicant1CannotUpload: Checkbox.Checked,
   applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
   divorceOrDissolution: DivorceOrDissolution.DIVORCE,
