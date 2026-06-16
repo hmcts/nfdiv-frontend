@@ -690,8 +690,7 @@ const en = ({
         ? 'and make financial orders to decide how our money and property will be split'
         : ''
     }.`,
-  confirmPrayerHint:
-    'This confirms what you are asking the court to do. It’s known as ‘the prayer’.',
+  confirmPrayerHint: 'This confirms what you are asking the court to do. It’s known as ‘the prayer’.',
   confirmApplicationIsTrue: 'I believe that the facts stated in this application are true',
   confirmApplicationIsTrueHint:
     'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
