@@ -659,9 +659,9 @@ const en = ({
       line3: urls.THEIR_NAME,
       line4: urls.DO_THEY_HAVE_A_SOLICITOR,
       line5: urls.ENTER_SOLICITOR_DETAILS,
-      line6: urls.THEIR_EMAIL_ADDRESS,
-      line7: urls.DO_YOU_HAVE_ADDRESS,
-      line8: urls.ENTER_THEIR_ADDRESS,
+      line6: urls.ENTER_SOLICITOR_DETAILS,
+      line7: urls.THEIR_EMAIL_ADDRESS,
+      line8: urls.DO_YOU_HAVE_ADDRESS,
       line9: urls.ENTER_THEIR_ADDRESS,
       line10: urls.ENTER_THEIR_ADDRESS,
     },
@@ -691,10 +691,10 @@ const en = ({
         : ''
     }.`,
   confirmPrayerHint:
-    '<br><p class="govuk-body govuk-!-margin-bottom-0">This confirms what you are asking the court to do. It’s known as ‘the prayer’.</p>',
+    'This confirms what you are asking the court to do. It’s known as ‘the prayer’.',
   confirmApplicationIsTrue: 'I believe that the facts stated in this application are true',
   confirmApplicationIsTrueHint:
-    '<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-0">This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.</p>',
+    'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
   confirmApplicationIsTrueWarning:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   applicationRejectedWarning:
