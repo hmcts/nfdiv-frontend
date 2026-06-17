@@ -2,9 +2,22 @@ import { getById, hidden } from '../selectors';
 
 import { hideErrors, showError } from './errors';
 
+let cannotFindAddress = false;
+
+const cannotFindAddressElement = getById('cannotFindAddress');
+if (cannotFindAddressElement) {
+  cannotFindAddressElement.addEventListener('click', () => {
+    cannotFindAddress = true;
+  });
+}
+
 const selectAddressInput = getById('selectAddressInput') as HTMLInputElement | null;
 if (selectAddressInput) {
   const updateAddressInputs = () => {
+    if (cannotFindAddress) {
+      return;
+    }
+
     const selectedValue = selectAddressInput.value;
     if (selectedValue !== '-1') {
       const selectedAddress = JSON.parse(selectedValue);
