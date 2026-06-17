@@ -42,8 +42,7 @@ const en = ({
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of your foreign ${
       isDivorce ? 'marriage' : 'civil partnership'
     } certificate`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Proof that you changed your name. For example, deed poll or statutory declaration.',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Proof showing why your name or your ${partner}'s name is written differently on your ${isDivorce ? 'marriage' : 'civil partnership'} certificate. For example, a government issued ID, a passport, driving license, birth certificate, deed poll or 'statutory declaration'`,
   },
   documentsByOnlineForm: 'Sending documents using our online form',
   documentsByOnlineFormSteps: {
@@ -84,7 +83,7 @@ const en = ({
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
   line9: `If you want the court to serve (send) the application by post instead of by email, then phone ${telephoneNumber}.`,
-  line10: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+  line10: `The address you have provided for your ${partner} is outside of the UK. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
     isDivorce ? 'the divorce' : 'ending the civil partnership'
   }.`,
   line11: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
@@ -174,8 +173,9 @@ const cy: typeof en = ({
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `Cyfieithiad ardystiedig o’ch tystysgrif ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } dramor`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Tystiolaeth eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Tystiolaeth yn dangos pam bod eich enw neu enw eich ${partner} wedi'i ysgrifennu'n wahanol ar eich ${
+      isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
+    }. Er enghraifft, cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru, tystysgrif geni, gweithred newid enw neu 'ddatganiad statudol'.`,
   },
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
   documentsByOnlineFormSteps: {
@@ -217,7 +217,7 @@ const cy: typeof en = ({
   line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
   line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${telephoneNumber}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
   line9: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
-  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
+  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i'r DU. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
     isDivorce ? 'yr ysgariad' : 'ddiweddu’r bartneriaeth sifil'
   }.`,
   line11: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a drwy’r post, ar ôl i’r cais gael ei wirio.`,
