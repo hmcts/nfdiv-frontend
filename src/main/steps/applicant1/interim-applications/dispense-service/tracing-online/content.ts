@@ -23,7 +23,6 @@ const en = ({ partner }: CommonContent) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }: CommonContent) => ({
   title: `Olrhain eich ${partner} ar-lein`,
   line1: `Gallech ystyried defnyddio gwasanaethau dod o hyd i bobl ar-lein i ddod o hyd i fanylion eich ${partner}.`,

@@ -387,7 +387,7 @@ Feature: Applicant 1 sole application
     And I type "France"
     And I click "Continue"
     Then the page URL should be "/you-need-to-serve"
-    And the page should include "Divorcing someone who lives outside of England and Wales"
+    And the page should include "Divorcing someone who lives outside of the UK"
 
     Given I go to "/do-you-have-address"
     And I clear the form

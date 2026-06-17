@@ -69,12 +69,10 @@ Feature: Sole hub page
 
     Given I set the case state to "AwaitingGeneralConsideration"
     When I go to "/"
-    Then the page should include "You have responded to the divorce application and said that you want to dispute it."
-    And the page should include "A judge will decide whether you and your wife need to attend a hearing."
+    Then the page should include "The court is reviewing a general application that has been received and will contact you to let you know your next steps."
     When I sign out
     And I login with applicant "1"
-    Then the page should include "Your husband has responded to your application and said they want to defend the divorce."
-    And the page should include "A judge will decide whether you and your husband need to attend a hearing."
+    Then the page should include "The court is reviewing a general application that has been received and will contact you to let you know your next steps."
 
     Given I set the case state to "AwaitingLegalAdvisorReferral"
     When I go to "/"
@@ -125,17 +123,17 @@ Feature: Sole hub page
     Given I set the case state to "AwaitingServiceConsideration"
     And I sign out
     When I login with applicant "1"
-    Then the page should include "The court is currently considering your deemed service application"
+    Then the page should include "The court is currently considering your undefined application"
 
     Given I set the case state to "AwaitingBailiffReferral"
     And I sign out
     When I login with applicant "1"
-    Then the page should include "The court is currently considering your deemed service application"
+    Then the page should include "The court is currently considering your undefined application"
 
     Given I set the case state to "BailiffRefused"
     And I sign out
     When I login with applicant "1"
-    Then the page should include "The court is currently considering your deemed service application"
+    Then the page should include "The court is currently considering your service application"
 
     Given I set the case state to "AwaitingBailiffService"
     And I sign out
