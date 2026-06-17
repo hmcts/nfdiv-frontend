@@ -75,7 +75,7 @@ export const en = {
     part2: 'feedback',
     part3: ' will help us to improve it.',
     ariaLabel:
-      'Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress.',
+      'Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 20 mins so you don’t lose your progress.',
     link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
   },
   languageToggle: {

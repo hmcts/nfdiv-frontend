@@ -1,8 +1,14 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 <div id="timeout-modal-container" class="modal" hidden>
   <div #outerContainer id="timeout-modal" class="modal-content govuk-width-container clearfix" tabindex="0">
+    <div
+          id="timeout-live-region"
+          class="govuk-visually-hidden"
+          aria-live="assertive"
+          aria-atomic="true">
+    </div>
     <h1 class="govuk-heading-l">{{ timeout.title }}</h1>
-    <p class="govuk-body">{{ timeout.part1 }}<span id="countdown-timer"
+    <p id="timeout-message" class="govuk-body">{{ timeout.part1 }}<span id="countdown-timer"
                                                    data-minutes="{{ timeout.minutes }}"
                                                    data-seconds="{{ timeout.seconds }}"
                                                    data-default="{{ timeout.twoMinutes }}"> {{ timeout.twoMinutes }} </span>{{ timeout.part2 }}</p>
