@@ -68,7 +68,13 @@ import {
 } from './steps/urls';
 import { WebChatGetController } from './steps/webchat/get';
 
-const handleUploads = multer();
+const handleUploads = multer({
+  limits: {
+    fileSize: 25 * 1024 * 1024,
+    files: 5,
+  },
+});
+
 const ext = extname(__filename);
 
 export class Routes {
