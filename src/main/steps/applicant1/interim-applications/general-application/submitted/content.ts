@@ -65,7 +65,7 @@ const en = ({
     extend: {
       introLine1: `Your application to get more time to serve your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} has been submitted.`,
     },
-    amend: {
+    amendApplication: {
       introLine1: `Your application to amend your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} has been submitted.`,
     },
   },
@@ -132,7 +132,7 @@ const cy: typeof en = ({
     extend: {
       introLine1: `Your application to get more time to serve your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} has been submitted.`,
     },
-    amend: {
+    amendApplication: {
       introLine1: `Your application to amend your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} has been submitted.`,
     },
   },
