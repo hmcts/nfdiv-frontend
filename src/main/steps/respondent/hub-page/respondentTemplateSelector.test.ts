@@ -255,4 +255,10 @@ describe('RespondentTemplateSelector test', () => {
     const soleTemplate = getRespondentHubTemplate(theState, userCase, false);
     expect(soleTemplate).toBe(HubTemplate.PendingRefund);
   });
+
+  test('should show /application-stayed.njk for state ApplicationStayed', () => {
+    const theState = displayState.at(State.ApplicationStayed);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.ApplicationStayed);
+  });
 });

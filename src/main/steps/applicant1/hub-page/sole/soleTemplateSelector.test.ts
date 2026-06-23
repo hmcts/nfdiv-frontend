@@ -582,4 +582,10 @@ describe('SoleTemplateSelector test', () => {
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
+
+  test('should show /application-stayed.njk for state ApplicationStayed', () => {
+    const theState = displayState.at(State.ApplicationStayed);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.ApplicationStayed);
+  });
 });
