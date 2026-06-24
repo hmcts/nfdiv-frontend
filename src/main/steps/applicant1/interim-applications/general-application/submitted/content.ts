@@ -8,6 +8,7 @@ const en = ({
   generalApplicationFeeRequired,
   generalApplicationDocsAllProvided,
   referenceNumber,
+  isDivorce,
 }: CommonContent) => ({
   title: 'Application submitted',
   introLine1: 'You have submitted your application.',
@@ -46,6 +47,27 @@ const en = ({
       introLine1: 'You have submitted your application to search government records.',
       happensNextLine2: 'If your application is approved, it normally takes 6-8 weeks to complete a search.',
     },
+    issueDivorceWithoutMarriageCertificate: {
+      introLine1: `Your application to continue your ${isDivorce ? 'divorce' : 'dissolution'} case without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate has been submitted.`,
+    },
+    expedite: {
+      introLine1: `Your application to complete your ${isDivorce ? 'divorce' : 'dissolution'} case more quickly has been submitted.`,
+    },
+    other: {
+      introLine1: `Your general application relating to your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+    },
+    withdrawPostIssue: {
+      introLine1: `Your application to withdraw your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+    },
+    delay: {
+      introLine1: `Your application to delay or pause your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+    },
+    extend: {
+      introLine1: `Your application to get more time to serve your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+    },
+    amendApplication: {
+      introLine1: `Your application to amend your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+    },
   },
 });
 
@@ -54,6 +76,7 @@ const cy: typeof en = ({
   generalApplicationFeeRequired,
   generalApplicationDocsAllProvided,
   referenceNumber,
+  isDivorce,
 }: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
   introLine1: 'Rydych wedi cyflwyno eich cais.',
@@ -90,6 +113,27 @@ const cy: typeof en = ({
       title: "Cais wedi'i gyflwyno",
       introLine1: 'Rydych wedi cyflwyno eich cais i chwilio cofnodion y llywodraeth.',
       happensNextLine2: "Os yw'ch cais yn cael ei gymeradwyo, fel arfer mae'n cymryd 6-8 wythnos i gwblhau chwiliad.",
+    },
+    issueDivorceWithoutMarriageCertificate: {
+      introLine1: `Your application to continue your ${isDivorce ? 'divorce' : 'dissolution'} case without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate has been submitted.`,
+    },
+    expedite: {
+      introLine1: `Your application to complete your ${isDivorce ? 'divorce' : 'dissolution'} case more quickly has been submitted.`,
+    },
+    other: {
+      introLine1: `Your general application relating to your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+    },
+    withdrawPostIssue: {
+      introLine1: `Your application to withdraw your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+    },
+    delay: {
+      introLine1: `Your application to delay or pause your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+    },
+    extend: {
+      introLine1: `Your application to get more time to serve your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+    },
+    amendApplication: {
+      introLine1: `Your application to amend your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
     },
   },
 });
