@@ -22,7 +22,7 @@ const en = ({ isDivorce }: CommonContent) => {
     extend: 'More time to serve an application (or ‘extend service’)',
     continueWithoutMarriageCertificate: `Continue without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
     expedite: `${isDivorce ? 'Complete a divorce' : 'End a civil partnership'} more quickly (or ‘expedite’ an application)`,
-    amend: 'Amend an existing application',
+    amend: `Amend your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
     somethingElse: 'Something else',
     specify: 'Please specify',
     errors: {
@@ -52,7 +52,7 @@ const cy = ({ isDivorce }: CommonContent) => {
     extend: 'More time to serve an application (or ‘extend service’)',
     continueWithoutMarriageCertificate: `Continue without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate`,
     expedite: `${isDivorce ? 'Complete a divorce' : 'End a civil partnership'} more quickly (or ‘expedite’ an application)`,
-    amend: 'Amend an existing application',
+    amend: `Amend your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
     somethingElse: 'Something else',
     specify: 'Please specify',
     errors: {
