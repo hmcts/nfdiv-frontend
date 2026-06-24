@@ -17,7 +17,7 @@ const en = ({ isDivorce, userCase, serviceApplicationType, generalApplicationTyp
   generalApplicationDownload: {
     reference: 'General-application',
     link: '/downloads/general-application',
-    text: `View your ${generalApplicationType} application (PDF)`,
+    text: `View your ${generalApplicationType || 'general'} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
@@ -135,7 +135,7 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
   generalApplicationDownload: {
     reference: 'General-application',
     link: '/downloads/general-application',
-    text: `View your ${generalApplicationType} application (PDF)`,
+    text: `View your ${generalApplicationType || 'general'} application (PDF)`,
   },
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
@@ -284,7 +284,6 @@ const getDownloadLogic: TranslationFn = content => {
   const applicant1Only = {
     app1OnlineServiceAppInProgress:
       content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline,
-    app1OnlineGeneralApp: content.generalApplicationDate && content.generalApplicationSubmittedOnline,
     hasCertificateOfBailiffServiceRefused: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome =>
         bailiffService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO && hasRefusalOrder
@@ -328,6 +327,7 @@ const getDownloadLogic: TranslationFn = content => {
     hasFinalOrderApplicationAndFinalOrderRequested: userCase.documentsGenerated?.find(
       doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
     ),
+    hasOnlineGeneralApplication: content.generalApplicationDate && content.generalApplicationSubmittedOnline,
   };
 
   return {

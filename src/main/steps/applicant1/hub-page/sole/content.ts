@@ -15,6 +15,7 @@ import {
   YesOrNo,
 } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { findGenAppAwaitingDocuments } from '../../../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../../../modules/i18n';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
@@ -26,6 +27,7 @@ import {
   DEEMED_SERVICE_APPLICATION,
   DISPENSE_SERVICE_APPLICATION,
   FINALISING_YOUR_APPLICATION,
+  MAKE_AN_APPLICATION,
   OPTIONS_FOR_PROGRESSING,
   OWN_SEARCHES,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
@@ -1075,7 +1077,6 @@ export const generateContent: TranslationFn = content => {
   const applicant1NoResponseSendPapersAgain =
     userCase.applicant1NoResponseSendPapersAgainOrTrySomethingElse ===
     NoResponseSendPapersAgainOrTrySomethingElse.PAPERS_SENT;
-  const isSearchGovRecordsFeeRequired = content.generalApplicationFeeRequired;
 
   const respondentAddressProvided: boolean = getAddressFields('applicant2', userCase).some(
     field => field && field.length > 0
@@ -1096,14 +1097,19 @@ export const generateContent: TranslationFn = content => {
         return PROCESS_SERVER;
       case InterimApplicationType.SEARCH_GOV_RECORDS:
         return SEARCH_GOV_RECORDS_APPLICATION;
+      case InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11:
+        return MAKE_AN_APPLICATION;
     }
   })();
 
-  const interimApplicationInProgress =
+  const noResponseApplicationInProgress =
     !!userCase.applicant1InterimApplicationType &&
-    userCase.applicant1InterimApplicationType !== InterimApplicationType.PROCESS_SERVER_SERVICE;
-  const interimApplicationStartedAosOverdue =
-    interimApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
+    ![InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11, InterimApplicationType.PROCESS_SERVER_SERVICE].includes(
+      userCase.applicant1InterimApplicationType as InterimApplicationType
+    );
+
+  const noResponseApplicationStartedAosOverdue =
+    noResponseApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
 
   return {
     ...languages[language](
@@ -1135,8 +1141,8 @@ export const generateContent: TranslationFn = content => {
     contactDetailsUpdatedUKBased,
     applicant1NoResponseSendPapersAgain,
     isAwaitingProcessServerService,
-    isSearchGovRecordsFeeRequired,
     interimApplicationStartPagePath,
-    interimApplicationStartedAosOverdue,
+    noResponseApplicationStartedAosOverdue,
+    hasGenAppAwaitingDocuments: !!findGenAppAwaitingDocuments(userCase, content.isApplicant2),
   };
 };

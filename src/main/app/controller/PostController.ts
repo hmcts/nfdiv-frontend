@@ -56,12 +56,11 @@ export class PostController<T extends AnyObject> {
     } catch {
       // ignore
     }
-    if (req.session.userCase.state === State.Draft) {
+
+    const caseState = req.session.userCase?.state;
+    if (caseState === State.Draft) {
       res.redirect(DRAFT_SAVE_AND_SIGN_OUT);
-    } else if (
-      req.session.userCase.state === State.InformationRequested ||
-      req.session.userCase.applicant1InterimApplicationType
-    ) {
+    } else if (caseState === State.InformationRequested) {
       res.redirect(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
     } else {
       res.redirect(SAVE_AND_SIGN_OUT);

@@ -99,6 +99,7 @@ describe('to-api-format', () => {
     app2RfiDraftResponseUploadedFiles: [],
     applicant2UnableToUploadEvidence: Checkbox.Checked,
     applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
+    applicant1GenAppCannotUploadAgreedEvidence: Checkbox.Checked,
   };
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
@@ -226,6 +227,7 @@ describe('to-api-format', () => {
       app2RfiDraftResponseDetails: 'test',
       applicant2UnableToUploadEvidence: YesOrNo.YES,
       applicant1InterimAppsStatementOfTruth: YesOrNo.YES,
+      applicant1GenAppCannotUploadAgreedEvidence: YesOrNo.YES,
     });
   });
 
@@ -1489,6 +1491,61 @@ describe('to-api-format', () => {
         expected: {
           applicant1NoResponsePartnerAddressOverseas: YesOrNo.NO,
           applicant1DispenseLivedTogetherAddressOverseas: YesOrNo.NO,
+        },
+      },
+    ])('transform dispense answers if condition met', ({ expected, ...formData }) => {
+      expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+    });
+  });
+
+  describe('applicant2 D11 GenApp transformation', () => {
+    test.each([
+      {
+        applicant2InterimAppsCannotUploadDocs: YesOrNo.NO,
+        applicant2InterimAppsIUnderstand: Checkbox.Checked,
+        applicant2GenAppCannotUploadAgreedEvidence: Checkbox.Checked,
+        expected: {
+          applicant2InterimAppsCannotUploadDocs: YesOrNo.NO,
+          applicant2InterimAppsIUnderstand: YesOrNo.YES,
+          applicant2GenAppCannotUploadAgreedEvidence: YesOrNo.YES,
+        },
+      },
+      {
+        applicant2InterimAppsHaveHwfReference: YesOrNo.YES,
+        applicant2InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+        applicant2InterimAppsUseHelpWithFees: YesOrNo.NO,
+        expected: {
+          applicant2InterimAppsUseHelpWithFees: YesOrNo.NO,
+          applicant2InterimAppsHaveHwfReference: null,
+          applicant2InterimAppsHwfRefNumber: null,
+        },
+      },
+      {
+        applicant2InterimAppsHaveHwfReference: YesOrNo.NO,
+        applicant2InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+        applicant2InterimAppsUseHelpWithFees: YesOrNo.YES,
+        expected: {
+          applicant2InterimAppsHaveHwfReference: YesOrNo.YES,
+          applicant2InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+          applicant2InterimAppsUseHelpWithFees: YesOrNo.YES,
+        },
+      },
+      {
+        applicant2InterimAppsHaveHwfReference: YesOrNo.NO,
+        applicant2InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+        applicant2InterimAppsUseHelpWithFees: YesOrNo.YES,
+        expected: {
+          applicant2InterimAppsHaveHwfReference: YesOrNo.YES,
+          applicant2InterimAppsHwfRefNumber: 'HWF-A1B-23D',
+          applicant2InterimAppsUseHelpWithFees: YesOrNo.YES,
+        },
+      },
+      {
+        applicant2InterimAppsHaveHwfReference: YesOrNo.NO,
+        applicant2InterimAppsHwfRefNumber: 'test',
+        expected: {
+          applicant2InterimAppsHwfRefNumber: '',
+          applicant2InterimAppsHaveHwfReference: YesOrNo.YES,
         },
       },
     ])('transform dispense answers if condition met', ({ expected, ...formData }) => {

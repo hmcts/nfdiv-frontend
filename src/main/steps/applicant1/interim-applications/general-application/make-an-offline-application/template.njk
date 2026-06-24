@@ -1,0 +1,45 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l" id="offlineD11ApplicationTitle">{{ title }}</h1>
+  <h1 class="govuk-heading-m">{{ makeAnApplication.header }}</p>
+  <p class="govuk-body">{{ makeAnApplication.line1 }}</p>
+  <p class="govuk-body">{{ makeAnApplication.line2 }}</p>
+  <p class="govuk-body">{{ makeAnApplication.line3 }}</p>
+  <p class="govuk-body"><a class="govuk-link" id="d11Link" href="{{ makeAnApplication.d11Link }}" target="_blank">{{ makeAnApplication.d11Text }}</a></p>
+  <p class="govuk-body">{{ makeAnApplication.line4 }}</p>
+  {% set sendingDocumentsByOnlineForm %}
+    <p class="govuk-body">{{ documentsByOnlineFormSteps.line1 }} <a href="{{ contactWebForm }}">{{ documentsByOnlineFormSteps.line2}}</a> </p>
+    <p class="govuk-body">{{ documentsByOnlineFormSteps.line3 }}</p>
+  {% endset %}
+  {{ govukDetails({
+    summaryText: documentsByOnlineForm,
+    html: sendingDocumentsByOnlineForm
+  }) }}
+
+  {% set sendingDocumentsByPost %}
+    <ol class="govuk-list govuk-list--number">
+      {% for property, step in documentsByPostSteps %}
+        <li>{{ step }}</li>
+      {% endfor %}
+    </ol>
+    {{ serviceAddressMacro(serviceAddress) }}
+    <p class="govuk-body">{{ documentsByPostMoreDetails }}</p>
+  {% endset %}
+  {{ govukDetails({
+    summaryText: documentsByPost,
+    html: sendingDocumentsByPost
+  }) }}
+  <h1 class="govuk-heading-m">{{ whatHappensNext.header }}</p>
+  <p class="govuk-body">{{ whatHappensNext.line1 }}</p>
+
+
+  <p class="govuk-body">
+        <a class="govuk-link" href="/">{{ returnToHub }}</a>
+  </p>
+{% endblock %}

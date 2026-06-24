@@ -25,6 +25,11 @@ export const getJointHubTemplate = (
     case State.FinalOrderPending: {
       return HubTemplate.FinalOrderRequested;
     }
+    case State.GeneralApplicationReceived:
+    case State.AwaitingGeneralReferralPayment:
+      return HubTemplate.GeneralApplicationReceived;
+    case State.AwaitingGenAppDocuments:
+      return HubTemplate.AwaitingGenAppDocuments;
     case State.AwaitingPronouncement: {
       return HubTemplate.AwaitingPronouncement;
     }
