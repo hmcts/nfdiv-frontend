@@ -135,7 +135,7 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
   hmctsCoversheetDownload: {
     reference: 'HMCTS-coversheet',
     link: '/downloads/hmcts-coversheet',
-    text: 'Download the HMCTS coversheet (PDF)',
+    text: 'Gweld y dalen flaen HMCTS (PDF)',
   },
   serviceApplicationDownload: {
     reference: 'Service-application',
