@@ -166,6 +166,26 @@ describe('RespondentTemplateSelector test', () => {
     expect(respondentTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
   });
 
+  test('should show /final-order-requested.njk for state GeneralConsiderationComplete and FO submitted', () => {
+    const userCaseWithAosDue = {
+      ...userCase,
+      dateFinalOrderSubmitted: '2025-01-01',
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAosDue, false);
+    expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
+  });
+
+  test('should show /conditional-order-pronounced.njk for state GeneralConsiderationComplete and CO granted', () => {
+    const userCaseWithAosDue = {
+      ...userCase,
+      coGrantedDate: '2025-01-01',
+    };
+    const theState = displayState.at(State.GeneralConsiderationComplete);
+    const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAosDue, false);
+    expect(soleTemplate).toBe(HubTemplate.ConditionalOrderPronounced);
+  });
+
   test('should show /awaiting-aos.njk for state GeneralConsiderationComplete and aos is due', () => {
     const userCaseWithAosDue = {
       ...userCase,
@@ -188,6 +208,26 @@ describe('RespondentTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
+  test('should show /final-order-requested.njk for state AwaitingGeneralConsideration and FO submitted', () => {
+    const userCaseWithAosDue = {
+      ...userCase,
+      dateFinalOrderSubmitted: '2025-01-01',
+    };
+    const theState = displayState.at(State.AwaitingGeneralConsideration);
+    const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAosDue, false);
+    expect(soleTemplate).toBe(HubTemplate.FinalOrderRequested);
+  });
+
+  test('should show /conditional-order-pronounced.njk for state AwaitingGeneralConsideration and CO granted', () => {
+    const userCaseWithAosDue = {
+      ...userCase,
+      coGrantedDate: '2025-01-01',
+    };
+    const theState = displayState.at(State.AwaitingGeneralConsideration);
+    const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAosDue, false);
+    expect(soleTemplate).toBe(HubTemplate.ConditionalOrderPronounced);
+  });
+
   test('should show /awaiting-aos.njk for state AwaitingGeneralConsideration and aos is due', () => {
     const userCaseWithAosDue = {
       ...userCase,
@@ -208,5 +248,17 @@ describe('RespondentTemplateSelector test', () => {
     const theState = displayState.at(State.AwaitingGeneralConsideration);
     const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAos, true);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
+  });
+
+  test('should show /pending-refund.njk for state PendingRefund', () => {
+    const theState = displayState.at(State.PendingRefund);
+    const soleTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(soleTemplate).toBe(HubTemplate.PendingRefund);
+  });
+
+  test('should show /application-stayed.njk for state ApplicationStayed', () => {
+    const theState = displayState.at(State.ApplicationStayed);
+    const respondentTemplate = getRespondentHubTemplate(theState, userCase, false);
+    expect(respondentTemplate).toBe(HubTemplate.ApplicationStayed);
   });
 });
