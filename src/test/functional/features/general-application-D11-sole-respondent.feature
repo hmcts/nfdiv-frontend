@@ -13,7 +13,6 @@ Feature: General Application D11 journey sole respondent
 
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
-    And the page should not include element "#makeAnApplicationLink"
 
     Given I click "Respond to the application"
     Then the page URL should be "/respondent/review-the-application"
@@ -68,17 +67,6 @@ Feature: General Application D11 journey sole respondent
 
     Given I click element "#applicant2InterimAppsIUnderstand"
     When I click continue
-    Then the page should include element "#partnerAgreesNoHearingTitle"
-
-    Given I click element "#yesDoesNotNeedConsent"
-    When I click continue
-    Then the page should include element "#applicationCostTitle"
-
-    When I click continue
-    Then the page should include element "#partnerInformationCorrectTitle"
-
-    Given I click element "#yesDetailsCorrect"
-    When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
     Given I click element "#applicant2GenAppType-2"
@@ -95,6 +83,13 @@ Feature: General Application D11 journey sole respondent
     Then the page should include element "#uploadEvidenceTitle"
 
     Given I click element "#applicant2InterimAppsCannotUploadDocs"
+    When I click continue
+    Then the page should include element "#partnerAgreesNoHearingTitle"
+
+    Given I click element "#yesDoesNotNeedConsent"
+    When I click continue
+    Then the page should include element "#applicationCostTitle"
+
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 
@@ -127,17 +122,6 @@ Feature: General Application D11 journey sole respondent
 
     Given I click element "#applicant2InterimAppsIUnderstand"
     When I click continue
-    Then the page should include element "#partnerAgreesNoHearingTitle"
-
-    Given I click element "#yesDoesNotNeedConsent"
-    When I click continue
-    Then the page should include element "#applicationCostTitle"
-
-    When I click continue
-    Then the page should include element "#partnerInformationCorrectTitle"
-
-    Given I click element "#yesDetailsCorrect"
-    When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
     Given I click element "#applicant2GenAppType-2"
@@ -149,7 +133,18 @@ Feature: General Application D11 journey sole respondent
     When I click continue
     Then the page should include element "#wantUploadEvidenceTitle"
 
-    Given I click element "#no"
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#uploadEvidenceTitle"
+
+    Given I click element "#applicant2InterimAppsCannotUploadDocs"
+    When I click continue
+    Then the page should include element "#partnerAgreesNoHearingTitle"
+
+    Given I click element "#yesDoesNotNeedConsent"
+    When I click continue
+    Then the page should include element "#applicationCostTitle"
+
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 
@@ -174,17 +169,6 @@ Feature: General Application D11 journey sole respondent
 
     Given I click element "#applicant2InterimAppsIUnderstand"
     When I click continue
-    Then the page should include element "#partnerAgreesNoHearingTitle"
-
-    Given I click element "#yesDoesNotNeedConsent"
-    When I click continue
-    Then the page should include element "#applicationCostTitle"
-
-    When I click continue
-    Then the page should include element "#partnerInformationCorrectTitle"
-
-    Given I click element "#yesDetailsCorrect"
-    When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
     Given I click element "#applicant2GenAppType-2"
@@ -196,7 +180,18 @@ Feature: General Application D11 journey sole respondent
     When I click continue
     Then the page should include element "#wantUploadEvidenceTitle"
 
-    Given I click element "#no"
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#uploadEvidenceTitle"
+
+    Given I click element "#applicant2InterimAppsCannotUploadDocs"
+    When I click continue
+    Then the page should include element "#partnerAgreesNoHearingTitle"
+
+    Given I click element "#yesDoesNotNeedConsent"
+    When I click continue
+    Then the page should include element "#applicationCostTitle"
+
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 
