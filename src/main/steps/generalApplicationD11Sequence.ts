@@ -1,4 +1,5 @@
 import {
+  ApplicationType,
   GeneralApplicationHearingNotRequired,
   GeneralApplicationType,
   WhichApplicant,
@@ -45,6 +46,15 @@ export const generalApplicationD11Sequence = (party: WhichApplicant): Step[] => 
     },
     {
       url: GEN_APP_INTERRUPTION,
+      getNextStep: data => {
+        const generalApplicationType = isApplicant1 ? data.applicant1GenAppType : data.applicant2GenAppType;
+        return generalApplicationType === GeneralApplicationType.WITHDRAW_POST_ISSUE
+          ? GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED
+          : GEN_APP_SELECT_APPLICATION_TYPE;
+      },
+    },
+    {
+      url: GEN_APP_SELECT_APPLICATION_TYPE,
       getNextStep: () => GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED,
     },
     {
@@ -70,12 +80,10 @@ export const generalApplicationD11Sequence = (party: WhichApplicant): Step[] => 
       url: GEN_APP_COST_OF_APPLICATION,
       getNextStep: data => {
         const partnerDetailsArePrivate = isApplicant1 ? data.applicant2AddressPrivate : data.applicant1AddressPrivate;
-        const generalApplicationType = isApplicant1 ? data.applicant1GenAppType : data.applicant2GenAppType;
+        const isRespondent = !isApplicant1 && data.applicationType === ApplicationType.SOLE_APPLICATION;
 
-        return partnerDetailsArePrivate === YesOrNo.YES
-          ? generalApplicationType === GeneralApplicationType.WITHDRAW_POST_ISSUE
-            ? GEN_APP_WHY_THIS_APPLICATION
-            : GEN_APP_SELECT_APPLICATION_TYPE
+        return partnerDetailsArePrivate === YesOrNo.YES || isRespondent
+          ? GEN_APP_WHY_THIS_APPLICATION
           : GEN_APP_PARTNER_INFORMATION_CORRECT;
       },
     },
@@ -85,27 +93,14 @@ export const generalApplicationD11Sequence = (party: WhichApplicant): Step[] => 
         const partnerDetailsAreCorrect = isApplicant1
           ? data.applicant1GenAppPartnerDetailsCorrect
           : data.applicant2GenAppPartnerDetailsCorrect;
-        const generalApplicationType = isApplicant1 ? data.applicant1GenAppType : data.applicant2GenAppType;
 
         return partnerDetailsAreCorrect === YesOrNo.YES
-          ? generalApplicationType === GeneralApplicationType.WITHDRAW_POST_ISSUE
-            ? GEN_APP_WHY_THIS_APPLICATION
-            : GEN_APP_SELECT_APPLICATION_TYPE
+          ? GEN_APP_WHY_THIS_APPLICATION
           : GEN_APP_UPDATE_PARTNER_INFORMATION;
       },
     },
     {
       url: GEN_APP_UPDATE_PARTNER_INFORMATION,
-      getNextStep: data => {
-        const generalApplicationType = isApplicant1 ? data.applicant1GenAppType : data.applicant2GenAppType;
-
-        return generalApplicationType === GeneralApplicationType.WITHDRAW_POST_ISSUE
-          ? GEN_APP_WHY_THIS_APPLICATION
-          : GEN_APP_SELECT_APPLICATION_TYPE;
-      },
-    },
-    {
-      url: GEN_APP_SELECT_APPLICATION_TYPE,
       getNextStep: () => GEN_APP_WHY_THIS_APPLICATION,
     },
     {

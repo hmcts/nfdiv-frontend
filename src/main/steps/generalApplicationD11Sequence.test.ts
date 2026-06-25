@@ -1,4 +1,5 @@
 import {
+  ApplicationType,
   GeneralApplicationHearingNotRequired,
   GeneralApplicationType,
   WhichApplicant,
@@ -49,8 +50,24 @@ describe('Applicant1 General Application D11 Sequence test', () => {
   });
 
   describe('GEN_APP_INTERRUPTION', () => {
-    test('GEN_APP_INTERRUPTION', () => {
+    test('GEN_APP_INTERRUPTION Using direct withdraw link', () => {
+      const caseData = {
+        applicant1GenAppType: GeneralApplicationType.WITHDRAW_POST_ISSUE,
+      };
       const step = sequence.find(obj => obj.url === GEN_APP_INTERRUPTION) as Step;
+      expect(step.getNextStep(caseData)).toBe(GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED);
+    });
+
+    test('GEN_APP_INTERRUPTION Using normal D11 flow', () => {
+      const caseData = {};
+      const step = sequence.find(obj => obj.url === GEN_APP_INTERRUPTION) as Step;
+      expect(step.getNextStep(caseData)).toBe(GEN_APP_SELECT_APPLICATION_TYPE);
+    });
+  });
+
+  describe('GEN_APP_SELECT_APPLICATION_TYPE', () => {
+    test('GEN_APP_SELECT_APPLICATION_TYPE', () => {
+      const step = sequence.find(obj => obj.url === GEN_APP_SELECT_APPLICATION_TYPE) as Step;
       expect(step.getNextStep({})).toBe(GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED);
     });
   });
@@ -102,17 +119,6 @@ describe('Applicant1 General Application D11 Sequence test', () => {
         applicant2AddressPrivate: YesOrNo.YES,
       };
       const step = sequence.find(obj => obj.url === GEN_APP_COST_OF_APPLICATION) as Step;
-      expect(step.getNextStep(caseData)).toBe(GEN_APP_SELECT_APPLICATION_TYPE);
-    });
-
-    test('Partner address is private and D11 type is withdraw', () => {
-      const caseData = {
-        applicant2AddressPrivate: YesOrNo.YES,
-        applicant1GenAppType: GeneralApplicationType.WITHDRAW_POST_ISSUE,
-      };
-      const step = generalApplicationD11Sequence(WhichApplicant.APPLICANT_1).find(
-        obj => obj.url === GEN_APP_COST_OF_APPLICATION
-      ) as Step;
       expect(step.getNextStep(caseData)).toBe(GEN_APP_WHY_THIS_APPLICATION);
     });
 
@@ -131,15 +137,6 @@ describe('Applicant1 General Application D11 Sequence test', () => {
         applicant1GenAppPartnerDetailsCorrect: YesOrNo.YES,
       };
       const step = sequence.find(obj => obj.url === GEN_APP_PARTNER_INFORMATION_CORRECT) as Step;
-      expect(step.getNextStep(caseData)).toBe(GEN_APP_SELECT_APPLICATION_TYPE);
-    });
-
-    test('Partner information correct and D11 is withdraw', () => {
-      const caseData = {
-        applicant1GenAppPartnerDetailsCorrect: YesOrNo.YES,
-        applicant1GenAppType: GeneralApplicationType.WITHDRAW_POST_ISSUE,
-      };
-      const step = sequence.find(obj => obj.url === GEN_APP_PARTNER_INFORMATION_CORRECT) as Step;
       expect(step.getNextStep(caseData)).toBe(GEN_APP_WHY_THIS_APPLICATION);
     });
 
@@ -153,24 +150,8 @@ describe('Applicant1 General Application D11 Sequence test', () => {
   });
 
   describe('GEN_APP_UPDATE_PARTNER_INFORMATION', () => {
-    test('D11 type is withdraw', () => {
-      const caseData = {
-        applicant1GenAppType: GeneralApplicationType.WITHDRAW_POST_ISSUE,
-      };
+    test('GEN_APP_UPDATE_PARTNER_INFORMATION', () => {
       const step = sequence.find(obj => obj.url === GEN_APP_UPDATE_PARTNER_INFORMATION) as Step;
-      expect(step.getNextStep(caseData)).toBe(GEN_APP_WHY_THIS_APPLICATION);
-    });
-
-    test('D11 type is not withdraw', () => {
-      const caseData = {};
-      const step = sequence.find(obj => obj.url === GEN_APP_UPDATE_PARTNER_INFORMATION) as Step;
-      expect(step.getNextStep(caseData)).toBe(GEN_APP_SELECT_APPLICATION_TYPE);
-    });
-  });
-
-  describe('GEN_APP_SELECT_APPLICATION_TYPE', () => {
-    test('GEN_APP_SELECT_APPLICATION_TYPE', () => {
-      const step = sequence.find(obj => obj.url === GEN_APP_SELECT_APPLICATION_TYPE) as Step;
       expect(step.getNextStep({})).toBe(GEN_APP_WHY_THIS_APPLICATION);
     });
   });
@@ -268,6 +249,13 @@ describe('Respondent/Applicant 2 General Application D11 Sequence test', () => {
   describe('GEN_APP_INTERRUPTION', () => {
     test('GEN_APP_INTERRUPTION', () => {
       const step = sequence.find(obj => obj.url === GEN_APP_INTERRUPTION) as Step;
+      expect(step.getNextStep({})).toBe(GEN_APP_SELECT_APPLICATION_TYPE);
+    });
+  });
+
+  describe('GEN_APP_SELECT_APPLICATION_TYPE', () => {
+    test('GEN_APP_SELECT_APPLICATION_TYPE', () => {
+      const step = sequence.find(obj => obj.url === GEN_APP_SELECT_APPLICATION_TYPE) as Step;
       expect(step.getNextStep({})).toBe(GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED);
     });
   });
@@ -319,12 +307,22 @@ describe('Respondent/Applicant 2 General Application D11 Sequence test', () => {
         applicant1AddressPrivate: YesOrNo.YES,
       };
       const step = sequence.find(obj => obj.url === GEN_APP_COST_OF_APPLICATION) as Step;
-      expect(step.getNextStep(caseData)).toBe(GEN_APP_SELECT_APPLICATION_TYPE);
+      expect(step.getNextStep(caseData)).toBe(GEN_APP_WHY_THIS_APPLICATION);
     });
 
-    test('Partner address is not private', () => {
+    test('Partner address is not private but sole application', () => {
       const caseData = {
         applicant1AddressPrivate: YesOrNo.NO,
+        applicationType: ApplicationType.SOLE_APPLICATION,
+      };
+      const step = sequence.find(obj => obj.url === GEN_APP_COST_OF_APPLICATION) as Step;
+      expect(step.getNextStep(caseData)).toBe(GEN_APP_WHY_THIS_APPLICATION);
+    });
+
+    test('Partner address is not private but joint application', () => {
+      const caseData = {
+        applicant1AddressPrivate: YesOrNo.NO,
+        applicationType: ApplicationType.JOINT_APPLICATION,
       };
       const step = sequence.find(obj => obj.url === GEN_APP_COST_OF_APPLICATION) as Step;
       expect(step.getNextStep(caseData)).toBe(GEN_APP_PARTNER_INFORMATION_CORRECT);
@@ -337,7 +335,7 @@ describe('Respondent/Applicant 2 General Application D11 Sequence test', () => {
         applicant2GenAppPartnerDetailsCorrect: YesOrNo.YES,
       };
       const step = sequence.find(obj => obj.url === GEN_APP_PARTNER_INFORMATION_CORRECT) as Step;
-      expect(step.getNextStep(caseData)).toBe(GEN_APP_SELECT_APPLICATION_TYPE);
+      expect(step.getNextStep(caseData)).toBe(GEN_APP_WHY_THIS_APPLICATION);
     });
 
     test('Partner information not correct', () => {
@@ -352,13 +350,6 @@ describe('Respondent/Applicant 2 General Application D11 Sequence test', () => {
   describe('GEN_APP_UPDATE_PARTNER_INFORMATION', () => {
     test('GEN_APP_UPDATE_PARTNER_INFORMATION', () => {
       const step = sequence.find(obj => obj.url === GEN_APP_UPDATE_PARTNER_INFORMATION) as Step;
-      expect(step.getNextStep({})).toBe(GEN_APP_SELECT_APPLICATION_TYPE);
-    });
-  });
-
-  describe('GEN_APP_SELECT_APPLICATION_TYPE', () => {
-    test('GEN_APP_SELECT_APPLICATION_TYPE', () => {
-      const step = sequence.find(obj => obj.url === GEN_APP_SELECT_APPLICATION_TYPE) as Step;
       expect(step.getNextStep({})).toBe(GEN_APP_WHY_THIS_APPLICATION);
     });
   });

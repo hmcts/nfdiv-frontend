@@ -29,20 +29,21 @@ const en = (
   partnerDetailsCorrect,
   d11Type,
   d11TypeOtherDetails,
-  rootRedirectPath
+  rootRedirectPath,
+  isRespondent
 ) => ({
   stepQuestions: {
+    genAppD11Type: 'Type of application',
+    GenAppD11TypeOtherDetails: 'Other application type details',
     doesNotRequireHearing: 'Application can be dealt with without a hearing',
     hearingNotRequiredEvidenceFiles: 'Evidence files uploaded to support that a hearing is not required',
     partnerInformationCorrect: `Details of your ${partner} are correct`,
-    genAppD11Type: 'Type of application',
-    GenAppD11TypeOtherDetails: 'Other application type details',
     reasonForApplication: 'Reason for making the application',
-    useHwf: 'Help paying the application fee',
-    hwfReference: 'Help with fees reference number',
     canUploadEvidence: 'Are you able to upload evidence?',
     uploadedFiles: 'Uploaded files',
     evidenceStatement: 'Evidence statement',
+    useHwf: 'Help paying the application fee',
+    hwfReference: 'Help with fees reference number',
   },
   stepAnswers: {
     doesNotRequireHearing:
@@ -54,7 +55,7 @@ const en = (
         [GeneralApplicationHearingNotRequired.NO]: 'No, hearing is required',
       }[hearingNotRequired] || '',
     hearingNotRequiredEvidenceFiles: `${hearingNotRequiredEvidenceFileNames?.join(', ')}`,
-    partnerInformationCorrect: `${partnerDetailsPrivate === YesOrNo.YES ? '' : partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
+    partnerInformationCorrect: `${isRespondent || partnerDetailsPrivate === YesOrNo.YES ? '' : partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
     genAppD11Type:
       {
         [GeneralApplicationType.WITHDRAW_POST_ISSUE]: `Withdraw ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -103,20 +104,21 @@ const cy: typeof en = (
   partnerDetailsCorrect,
   d11Type,
   d11TypeOtherDetails,
-  rootRedirectPath
+  rootRedirectPath,
+  isRespondent
 ) => ({
   stepQuestions: {
+    genAppD11Type: 'Type of application',
+    GenAppD11TypeOtherDetails: 'Other application type details',
     doesNotRequireHearing: 'Application can be dealt with without a hearing',
     hearingNotRequiredEvidenceFiles: 'Evidence files uploaded to support that a hearing is not required',
     partnerInformationCorrect: `Details of your ${partner} are correct`,
-    genAppD11Type: 'Type of application',
-    GenAppD11TypeOtherDetails: 'Other application type details',
     reasonForApplication: 'Reason for making the application',
-    useHwf: 'Help paying the application fee',
-    hwfReference: 'Help with fees reference number',
     canUploadEvidence: 'Are you able to upload evidence?',
     uploadedFiles: 'Uploaded files',
     evidenceStatement: 'Evidence statement',
+    useHwf: 'Help paying the application fee',
+    hwfReference: 'Help with fees reference number',
   },
   stepAnswers: {
     doesNotRequireHearing:
@@ -128,7 +130,7 @@ const cy: typeof en = (
         [GeneralApplicationHearingNotRequired.NO]: 'No, hearing is required',
       }[hearingNotRequired] || '',
     hearingNotRequiredEvidenceFiles: `${hearingNotRequiredEvidenceFileNames?.join(', ')}`,
-    partnerInformationCorrect: `${partnerDetailsPrivate === YesOrNo.YES ? '' : partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
+    partnerInformationCorrect: `${isRespondent || partnerDetailsPrivate === YesOrNo.YES ? '' : partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
     genAppD11Type:
       {
         [GeneralApplicationType.WITHDRAW_POST_ISSUE]: `Withdraw ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,
@@ -173,6 +175,7 @@ export const generateContent: TranslationFn = content => {
   const checkAnswersContent = checkAnswersGenerateContent(content);
   const userCase = content.userCase;
   const isApplicant2 = content.isApplicant2;
+  const isRespondent = isApplicant2 && !content.isJointApplication;
 
   const useHwf = isApplicant2
     ? userCase.applicant2InterimAppsUseHelpWithFees
@@ -236,7 +239,8 @@ export const generateContent: TranslationFn = content => {
     partnerDetailsCorrect,
     d11Type,
     d11TypeOtherDetails,
-    rootRedirectPath
+    rootRedirectPath,
+    isRespondent
   );
   return {
     ...checkAnswersContent,
