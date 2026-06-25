@@ -41,7 +41,7 @@ import { radioButtonAnswers as habituallyResidentAnswers } from '../habitually-r
 import { radioButtonAnswers as helpWithYourFeeAnswers } from '../help-with-your-fee/content';
 import { radioButtonAnswers as howDoYouWantToApplyAnswers } from '../how-do-you-want-to-apply/content';
 import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../how-the-court-will-contact-you/content';
-import { radioButtonAnswersRefuge as addressPrivateAnswersRefuge } from '../in-refuge/content';
+import { radioButtonAnswersRefuge as answersRefuge } from '../in-refuge/content';
 import { radioButtonAnswers as inTheUkAnswers } from '../in-the-uk/content';
 import { radioButtonAnswers as irretrievableBreakdownAnswers } from '../irretrievable-breakdown/content';
 import { radioButtonAnswers as livingEnglandWalesSixMonthsAnswers } from '../living-england-wales-six-months/content';
@@ -283,7 +283,7 @@ const en = ({
       line6: 'By phone',
       line7: 'What language do you want to receive emails and documents in?',
       line8: `Do you need your contact details kept private from your ${partner}?`,
-      line9: 'Are you currently in a refuge?',
+      line9: 'Do you currently live in a refuge?',
       line10: 'Your postal address',
       line11: 'Is this an international address?',
     },
@@ -478,7 +478,7 @@ const en = ({
       line9: `${
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
-          : stripTags(addressPrivateAnswersRefuge.en[userCase.applicant1InRefuge])
+          : stripTags(answersRefuge.en[userCase.applicant1InRefuge])
       }`,
       line10: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
@@ -647,7 +647,7 @@ const en = ({
       line6: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
       line7: urls.ENGLISH_OR_WELSH,
       line8: urls.ADDRESS_PRIVATE,
-      line9: urls.ADDRESS_PRIVATE,
+      line9: urls.IN_REFUGE,
       line10: urls.ENTER_YOUR_ADDRESS,
       line11: urls.ENTER_YOUR_ADDRESS,
     },
@@ -839,7 +839,7 @@ const cy: typeof en = ({
       line6: 'Dros y ffôn',
       line7: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
       line8: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
-      line9: 'Ydych chi’n preswylio mewn lloches ar hyn o bryd?',
+      line9: 'Ydych chi’n byw mewn lloches ar hyno bryd?',
       line10: 'Eich cyfeiriad post',
       line11: 'Ydy hwn yn gyfeiriad rhyngwladol?',
     },
@@ -1043,7 +1043,7 @@ const cy: typeof en = ({
       line9: `${
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
-          : stripTags(addressPrivateAnswersRefuge.cy[userCase.applicant1InRefuge])
+          : stripTags(answersRefuge.cy[userCase.applicant1InRefuge])
       }`,
       line10: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
