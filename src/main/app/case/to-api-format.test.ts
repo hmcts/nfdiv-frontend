@@ -234,6 +234,7 @@ describe('to-api-format', () => {
 
     expect(apiFormat).toStrictEqual({
       applicant1ContactDetailsType: ContactDetailsType.PUBLIC,
+      applicant1InRefuge: null,
       applicant1KnowsApplicant2EmailAddress: YesOrNo.YES,
       applicant2ContactDetailsType: ContactDetailsType.PUBLIC,
       applicant1PrayerDissolveDivorce: [],
@@ -296,7 +297,7 @@ describe('to-api-format', () => {
       applicant2HWFReferenceNumber: '',
       applicant1InterimAppsHwfRefNumber: '',
       marriageDate: undefined,
-      applicant1InRefuge: YesOrNo.NO,
+      applicant1InRefuge: undefined,
       applicant1AddressOverseas: YesOrNo.NO,
       applicant2AddressOverseas: YesOrNo.NO,
       applicant2SolicitorAddressOverseas: YesOrNo.NO,

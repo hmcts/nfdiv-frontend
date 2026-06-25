@@ -559,16 +559,6 @@ describe('from-api-format', () => {
     });
   });
   describe('fromApiFormat - applicant1InRefuge transformation', () => {
-    test('defaults applicant1InRefuge to NO if undefined', () => {
-      const nfdivFormat = fromApiFormat({
-        applicant1InRefuge: undefined, // Simulate missing value
-      } as unknown as CaseData);
-
-      expect(nfdivFormat).toMatchObject({
-        applicant1InRefuge: YesOrNo.NO,
-      });
-    });
-
     test('retains applicant1InRefuge value if set to YES', () => {
       const nfdivFormat = fromApiFormat({
         applicant1InRefuge: YesOrNo.YES, // Explicit value set
@@ -578,7 +568,6 @@ describe('from-api-format', () => {
         applicant1InRefuge: YesOrNo.YES,
       });
     });
-
     test('retains applicant1InRefuge value if set to NO', () => {
       const nfdivFormat = fromApiFormat({
         applicant1InRefuge: YesOrNo.NO, // Explicit value set
@@ -590,7 +579,7 @@ describe('from-api-format', () => {
     });
 
     test.each([
-      { applicant1InRefuge: undefined, expected: YesOrNo.NO },
+      { applicant1InRefuge: undefined, expected: undefined },
       { applicant1InRefuge: YesOrNo.YES, expected: YesOrNo.YES },
       { applicant1InRefuge: YesOrNo.NO, expected: YesOrNo.NO },
     ])('correctly handles applicant1InRefuge with value %p', ({ applicant1InRefuge, expected }) => {
@@ -600,11 +589,11 @@ describe('from-api-format', () => {
 
     test('handles null applicant1InRefuge gracefully', () => {
       const nfdivFormat = fromApiFormat({
-        applicant1InRefuge: null, // Explicit null value
+        applicant1InRefuge: null,
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({
-        applicant1InRefuge: YesOrNo.NO, // Defaults to NO
+        applicant1InRefuge: null,
       });
     });
   });

@@ -23,10 +23,7 @@ import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDe
 import { SupportedLanguages } from '../../../modules/i18n';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
-import {
-  radioButtonAnswersPrivate as addressPrivateAnswersPrivate,
-  radioButtonAnswersRefuge as addressPrivateAnswersRefuge,
-} from '../address-private/content';
+import { radioButtonAnswersPrivate as addressPrivateAnswersPrivate } from '../address-private/content';
 import { radioButtonAnswers as residualJurisdictionAnswers } from '../are-you-eligible-for-residual-jurisdiction/content';
 import { radioButtonAnswers as certificateInEnglishAnswers } from '../certificate-in-english/content';
 import { radioButtonAnswers as certifiedTranslationAnswers } from '../certified-translation/content';
@@ -44,6 +41,7 @@ import { radioButtonAnswers as habituallyResidentAnswers } from '../habitually-r
 import { radioButtonAnswers as helpWithYourFeeAnswers } from '../help-with-your-fee/content';
 import { radioButtonAnswers as howDoYouWantToApplyAnswers } from '../how-do-you-want-to-apply/content';
 import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../how-the-court-will-contact-you/content';
+import { radioButtonAnswersRefuge as addressPrivateAnswersRefuge } from '../in-refuge/content';
 import { radioButtonAnswers as inTheUkAnswers } from '../in-the-uk/content';
 import { radioButtonAnswers as irretrievableBreakdownAnswers } from '../irretrievable-breakdown/content';
 import { radioButtonAnswers as livingEnglandWalesSixMonthsAnswers } from '../living-england-wales-six-months/content';

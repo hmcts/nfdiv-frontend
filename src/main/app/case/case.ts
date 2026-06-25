@@ -65,6 +65,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   certifiedTranslation: 'marriageCertifiedTranslation',
   ceremonyCountry: 'marriageCountryOfMarriage',
   ceremonyPlace: 'marriagePlaceOfMarriage',
+  applicant1InRefuge: 'applicant1InRefuge',
   applicant1LifeBasedInEnglandAndWales: 'jurisdictionApplicant1Residence',
   applicant2LifeBasedInEnglandAndWales: 'jurisdictionApplicant2Residence',
   applicant1DomicileInEnglandWales: 'jurisdictionApplicant1Domicile',

@@ -157,12 +157,10 @@ const fields: ToApiConverters = {
   applicant2AgreeToReceiveEmails: data => ({
     applicant2AgreedToReceiveEmails: checkboxConverter(data.applicant2AgreeToReceiveEmails),
   }),
-  applicant1AddressPrivate: ({ applicant1AddressPrivate }) => ({
+  applicant1AddressPrivate: data => ({
     applicant1ContactDetailsType:
-      applicant1AddressPrivate === YesOrNo.YES ? ContactDetailsType.PRIVATE : ContactDetailsType.PUBLIC,
-  }),
-  applicant1InRefuge: ({ applicant1InRefuge }) => ({
-    applicant1InRefuge: applicant1InRefuge ?? YesOrNo.NO, // Default to YesOrNo.NO if undefined
+      data.applicant1AddressPrivate === YesOrNo.YES ? ContactDetailsType.PRIVATE : ContactDetailsType.PUBLIC,
+    ...(data.applicant1AddressPrivate === YesOrNo.NO ? setUnreachableAnswersToNull(['applicant1InRefuge']) : {}),
   }),
   applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
     applicant1AddressOverseas: applicant1AddressOverseas ?? YesOrNo.NO,
