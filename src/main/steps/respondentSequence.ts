@@ -22,6 +22,7 @@ import {
   HUB_PAGE,
   HUB_PAGE_DOWNLOADS,
   INTEND_TO_DELAY,
+  IN_REFUGE,
   LEGAL_JURISDICTION_OF_THE_COURTS,
   OTHER_COURT_CASES,
   PAYMENT_CALLBACK_URL,
@@ -101,6 +102,10 @@ const sequence: Step[] = [
   },
   {
     url: ADDRESS_PRIVATE,
+    getNextStep: data => (data.applicant2AddressPrivate === YesOrNo.YES ? IN_REFUGE : CHECK_CONTACT_DETAILS),
+  },
+  {
+    url: IN_REFUGE,
     getNextStep: () => CHECK_CONTACT_DETAILS,
   },
   {
