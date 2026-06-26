@@ -165,12 +165,10 @@ const fields: ToApiConverters = {
   applicant1AddressOverseas: ({ applicant1AddressOverseas }) => ({
     applicant1AddressOverseas: applicant1AddressOverseas ?? YesOrNo.NO,
   }),
-  applicant2AddressPrivate: ({ applicant2AddressPrivate }) => ({
+  applicant2AddressPrivate: data => ({
     applicant2ContactDetailsType:
-      applicant2AddressPrivate === YesOrNo.YES ? ContactDetailsType.PRIVATE : ContactDetailsType.PUBLIC,
-  }),
-  applicant2InRefuge: ({ applicant2InRefuge }) => ({
-    applicant2InRefuge: applicant2InRefuge ?? YesOrNo.NO, // Default to YesOrNo.NO if undefined
+      data.applicant2AddressPrivate === YesOrNo.YES ? ContactDetailsType.PRIVATE : ContactDetailsType.PUBLIC,
+    ...(data.applicant2AddressPrivate === YesOrNo.NO ? setUnreachableAnswersToNull(['applicant2InRefuge']) : {}),
   }),
   applicant2AddressPostcode: applicant2AddressToApi,
   applicant1DoesNotKnowApplicant2EmailAddress: data => ({

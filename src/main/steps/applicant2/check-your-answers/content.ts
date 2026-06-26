@@ -9,7 +9,7 @@ import { generateContent as applicant1GenerateContent } from '../../applicant1/c
 import { radioButtonAnswers as dividingMoneyPropertyAnswers } from '../../applicant1/dividing-money-property/content';
 import { radioButtonAnswers as englishOrWelshAnswers } from '../../applicant1/english-or-welsh/content';
 import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../../applicant1/how-the-court-will-contact-you/content';
-import { radioButtonAnswersRefuge as addressPrivateAnswersRefuge } from '../../applicant1/in-refuge/content';
+import { radioButtonAnswersRefuge as answersRefuge } from '../../applicant1/in-refuge/content';
 import { radioButtonAnswers as irretrievableBreakdownAnswers } from '../../applicant1/irretrievable-breakdown/content';
 import { radioButtonAnswers as otherCourtCasesAnswers } from '../../applicant1/other-court-cases/content';
 import { radioButtonAnswers as helpWithYourFeeAnswers } from '../help-with-your-fee/content';
@@ -82,7 +82,7 @@ const en = ({ isDivorce, userCase, isApplicant2, marriage, civilPartnership }) =
       line9: `${
         !userCase.applicant2AddressPrivate || (userCase.applicant2AddressPrivate === YesOrNo.YES && !isApplicant2)
           ? ''
-          : stripTags(addressPrivateAnswersRefuge.en[userCase.applicant2InRefuge])
+          : stripTags(answersRefuge.en[userCase.applicant2InRefuge])
       }`,
       line10: `${[
         userCase.applicant2Address1,
@@ -198,7 +198,7 @@ const cy: typeof en = ({ isDivorce, userCase, isApplicant2 }) => ({
       line9: `${
         !userCase.applicant2AddressPrivate || (userCase.applicant2AddressPrivate === YesOrNo.YES && !isApplicant2)
           ? ''
-          : stripTags(addressPrivateAnswersRefuge.cy[userCase.applicant2InRefuge])
+          : stripTags(answersRefuge.cy[userCase.applicant2InRefuge])
       }`,
       line10: `${[
         userCase.applicant2Address1,

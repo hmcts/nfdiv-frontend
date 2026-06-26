@@ -90,9 +90,6 @@ const fields: FromApiConverters = {
   applicant2ContactDetailsType: ({ applicant2ContactDetailsType }) => ({
     applicant2AddressPrivate: applicant2ContactDetailsType === ContactDetailsType.PRIVATE ? YesOrNo.YES : YesOrNo.NO,
   }),
-  applicant2InRefuge: ({ applicant2InRefuge }) => ({
-    applicant2InRefuge: applicant2InRefuge ?? YesOrNo.NO,
-  }),
   applicant2Address: data => formatAddress(data, 'applicant2'),
   applicant2AddressOverseas: ({ applicant2AddressOverseas }) => ({
     applicant2AddressOverseas: applicant2AddressOverseas ?? YesOrNo.NO,
