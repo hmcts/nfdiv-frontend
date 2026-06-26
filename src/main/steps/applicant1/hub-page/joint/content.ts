@@ -237,8 +237,7 @@ const en = (
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of your foreign ${
       isDivorce ? 'marriage' : 'civil partnership'
     } certificate`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Proof that you changed your name. For example, deed poll or statutory declaration.',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Proof showing why your name or your ${partner}'s name is written differently on your ${isDivorce ? 'marriage' : 'civil partnership'} certificate. For example, a government issued ID, a passport, driving license, birth certificate, deed poll or 'statutory declaration'`,
   },
   documentsByOnlineForm: 'Sending documents using our online form',
   documentsByOnlineFormSteps: {
@@ -329,6 +328,11 @@ const en = (
       line2:
         'The court will review the information from the Third party once provided, then the application can progress.',
     },
+  },
+  pendingRefund: {
+    line1: `We are currently processing a refund linked to this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    line2:
+      'You do not need to do anything at the moment. We will provide an update once the refund has been completed.',
   },
 });
 
@@ -550,8 +554,9 @@ const cy: typeof en = (
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `Cyfieithiad ardystiedig o’ch tystysgrif ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } dramor`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Tystiolaeth eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Tystiolaeth yn dangos pam bod eich enw neu enw eich ${partner} wedi'i ysgrifennu'n wahanol ar eich ${
+      isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
+    }. Er enghraifft, cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru, tystysgrif geni, gweithred newid enw neu 'ddatganiad statudol'.`,
   },
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
   documentsByOnlineFormSteps: {
@@ -642,6 +647,11 @@ const cy: typeof en = (
       line2:
         'Bydd y llys yn adolygu’r wybodaeth gan y trydydd parti unwaith y bydd wedi dod i law, ac yna gall y cais barhau.',
     },
+  },
+  pendingRefund: {
+    line1: `Rydym yn prosesu ad-daliad sy’n gysylltiedig â’r hwn ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}.`,
+    line2:
+      'Nid ydych angen gwneud unrhyw beth ar y funud. Byddwn yn rhoi diweddariad unwaith y cwblhawyd yr ad-daliad.',
   },
 });
 

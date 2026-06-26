@@ -81,6 +81,7 @@ export const orderedStateSequence: State[] = [
   State.AwaitingGeneralReferralPayment,
   State.AwaitingGeneralConsideration,
   State.GeneralConsiderationComplete,
+  State.ApplicationStayed,
   State.AwaitingJudgeClarification,
   State.Holding,
   State.AwaitingConditionalOrder,
@@ -110,6 +111,7 @@ export const orderedStateSequence: State[] = [
   State.BulkCaseReject,
   State.PendingHearingOutcome,
   State.PendingHearingDate,
+  State.PendingRefund,
 ];
 
 export const preSubmittedStatePrioritySequence: State[] = orderedStateSequence.slice(

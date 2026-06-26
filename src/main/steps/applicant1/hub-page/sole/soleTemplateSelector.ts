@@ -58,6 +58,9 @@ export const getSoleHubTemplate = (
     case State.AwaitingServicePayment: {
       return HubTemplate.AwaitingServicePayment;
     }
+    case State.ApplicationStayed: {
+      return HubTemplate.ApplicationStayed;
+    }
     case State.AwaitingServiceConsideration:
     case State.LAServiceReview:
     case State.AwaitingBailiffReferral:
@@ -175,6 +178,8 @@ export const getSoleHubTemplate = (
     case State.AwaitingGenAppHWFPartPayment:
     case State.AwaitingGenAppHWFEvidence:
       return HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence;
+    case State.PendingRefund:
+      return HubTemplate.PendingRefund;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||
