@@ -32,7 +32,7 @@ import {
   REVIEW_THE_APPLICATION,
 } from './urls';
 
-const sequence: Step[] = [
+export const sequence: Step[] = [
   {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
