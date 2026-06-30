@@ -78,13 +78,13 @@ export const form: FormContent = {
           label: l => l.yes,
           value: YesOrNo.YES,
           id: 'yes',
-          errorId: 'applicant1BailiffPartnersDateOfBirth-day',
           subFields: {
             applicant1BailiffPartnersDateOfBirth: {
               type: 'date',
               classes: 'govuk-date-input',
               label: l => l.enterDateOfBirthLabel,
               hint: l => l.enterDateOfBirthHint,
+              errorId: 'applicant1BailiffPartnersDateOfBirth-day',
               values: [
                 {
                   label: language === SupportedLanguages.Cy ? 'Diwrnod' : 'Day',
