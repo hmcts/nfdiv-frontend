@@ -83,6 +83,7 @@ export const form: FormContent = {
               label: l => l.lastLivedTogether,
               labelHidden: false,
               hint: l => l.hint,
+              errorId: 'applicant1DispenseLastLivedTogetherDate-day',
               values: [
                 {
                   label: language === SupportedLanguages.Cy ? 'Diwrnod' : 'Day',

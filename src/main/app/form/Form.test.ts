@@ -85,6 +85,49 @@ describe('Form', () => {
     ]);
   });
 
+  test('Should use FormInput id as error focus id when provided', async () => {
+    const formWithInputId = new Form({
+      applicant1Address1: {
+        id: 'address1',
+        type: 'text',
+        label: 'Address line 1',
+        validator: isFieldFilledIn,
+      },
+    });
+
+    const errors = formWithInputId.getErrors({});
+
+    expect(errors).toStrictEqual([
+      {
+        propertyName: 'applicant1Address1',
+        errorType: 'required',
+        focusId: 'address1',
+      },
+    ]);
+  });
+
+  test('Should use FormInput errorId as focus id override when provided', async () => {
+    const formWithInputErrorId = new Form({
+      applicant1UploadedFiles: {
+        id: 'applicant1UploadedFiles',
+        errorId: 'uploadGroup',
+        type: 'hidden',
+        label: 'Uploaded files',
+        validator: isFieldFilledIn,
+      },
+    });
+
+    const errors = formWithInputErrorId.getErrors({});
+
+    expect(errors).toStrictEqual([
+      {
+        propertyName: 'applicant1UploadedFiles',
+        errorType: 'required',
+        focusId: 'uploadGroup',
+      },
+    ]);
+  });
+
   describe('subfield validation and parser', () => {
     const mockSubFieldForm: FormContent = {
       fields: {

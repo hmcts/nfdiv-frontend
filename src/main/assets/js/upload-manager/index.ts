@@ -77,7 +77,6 @@ const initUploadManager = (): void => {
 };
 
 const upload = qs('.upload');
-
 if (upload) {
   upload.classList.remove(hidden);
   initUploadManager();

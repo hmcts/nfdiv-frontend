@@ -78,6 +78,7 @@ export const form: FormContent = {
           label: l => l.yes,
           value: YesOrNo.YES,
           id: 'yes',
+          errorId: 'applicant1BailiffPartnersDateOfBirth-day',
           subFields: {
             applicant1BailiffPartnersDateOfBirth: {
               type: 'date',
