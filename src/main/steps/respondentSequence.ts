@@ -56,8 +56,7 @@ const sequence: Step[] = [
   },
   {
     url: ENTER_YOUR_ADDRESS,
-    getNextStep: data =>
-      data.applicant2ConfirmContactDetails === YesOrNo.NO ? CHECK_PHONE_NUMBER : HOW_DO_YOU_WANT_TO_RESPOND,
+    getNextStep: () => CHECK_PHONE_NUMBER,
   },
   {
     url: CHECK_PHONE_NUMBER,
