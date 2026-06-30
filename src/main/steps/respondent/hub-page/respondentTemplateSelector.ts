@@ -19,6 +19,9 @@ export const getRespondentHubTemplate = (
     case State.AwaitingFinalOrder: {
       return HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue;
     }
+    case State.ApplicationStayed: {
+      return HubTemplate.ApplicationStayed;
+    }
     case State.ConditionalOrderPronounced: {
       return HubTemplate.ConditionalOrderPronounced;
     }
@@ -57,6 +60,8 @@ export const getRespondentHubTemplate = (
     case State.WelshTranslationRequested:
     case State.WelshTranslationReview:
       return HubTemplate.WelshTranslationRequestedOrReview;
+    case State.PendingRefund:
+      return HubTemplate.PendingRefund;
     default: {
       if (displayState.isAtOrBefore('AwaitingConditionalOrder') && canSubmitAos) {
         return HubTemplate.AwaitingAoS;

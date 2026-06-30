@@ -557,6 +557,12 @@ describe('SoleTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.AwaitingGeneralApplicationPayment);
   });
 
+  test('should show /pending-refund.njk for state PendingRefund', () => {
+    const theState = displayState.at(State.PendingRefund);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.PendingRefund);
+  });
+
   test('should show /awaiting-general-applicant-received.njk for state GeneralApplicationReceived and isOnlineGeneralApplication is No', () => {
     const userCaseWithOfflineGeneralApplication = {
       ...userCase,
@@ -575,5 +581,11 @@ describe('SoleTemplateSelector test', () => {
     const theState = displayState.at(State.GeneralApplicationReceived);
     const soleTemplate = getSoleHubTemplate(theState, userCaseWithOfflineGeneralApplication, false);
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
+  });
+
+  test('should show /application-stayed.njk for state ApplicationStayed', () => {
+    const theState = displayState.at(State.ApplicationStayed);
+    const soleTemplate = getSoleHubTemplate(theState, userCase, false, false);
+    expect(soleTemplate).toBe(HubTemplate.ApplicationStayed);
   });
 });

@@ -18,6 +18,9 @@ export const getJointHubTemplate = (
     case State.AwaitingGeneralConsideration: {
       return HubTemplate.GeneralApplicationReceived;
     }
+    case State.ApplicationStayed: {
+      return HubTemplate.ApplicationStayed;
+    }
     case State.FinalOrderRequested:
     case State.FinalOrderPending: {
       return HubTemplate.FinalOrderRequested;
@@ -91,6 +94,8 @@ export const getJointHubTemplate = (
     case State.WelshTranslationRequested:
     case State.WelshTranslationReview:
       return HubTemplate.WelshTranslationRequestedOrReview;
+    case State.PendingRefund:
+      return HubTemplate.PendingRefund;
     default: {
       if (
         displayState.isAfter('Holding') &&
