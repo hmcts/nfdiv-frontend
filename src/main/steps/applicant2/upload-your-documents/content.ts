@@ -10,6 +10,7 @@ import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/upload-your-documents/content';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
 
 const labels = applicant1Content => ({
   errors: {
@@ -32,6 +33,7 @@ export const form: FormContent = {
       type: 'hidden',
       label: l => l.uploadFiles,
       labelHidden: true,
+      errorId: UPPY_FILE_INPUT_BUTTON_ID,
       value:
         (isObject(userCase.applicant2UploadedFiles)
           ? JSON.stringify(userCase.applicant2UploadedFiles)
@@ -49,6 +51,7 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.cannotUploadDocuments,
       labelHidden: true,
+      errorId: UPPY_FILE_INPUT_BUTTON_ID,
       validator: (value, formData) => {
         if ((value as string[])?.includes(Checkbox.Checked)) {
           return atLeastOneFieldIsChecked(formData?.applicant2CannotUploadDocuments);

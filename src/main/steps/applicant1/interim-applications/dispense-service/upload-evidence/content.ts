@@ -7,6 +7,7 @@ import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 import { getDispenseLogicalTests } from '../../../../dispenseServiceApplicationSequence';
 import { generateContent as uploadEvidenceGenerateContent } from '../../common/upload-evidence/content';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../../../app/document/DocumentManagementConstants';
 
 const en = ({ partner }: CommonContent) => ({
   statement: {
@@ -52,6 +53,7 @@ export const form: FormContent = {
     applicant1InterimAppsEvidenceUploadedFiles: {
       type: 'hidden',
       label: l => l.uploadFiles,
+      errorId: UPPY_FILE_INPUT_BUTTON_ID,
       labelHidden: true,
       value:
         (isObject(userCase.applicant1InterimAppsEvidenceUploadedFiles)
@@ -74,6 +76,7 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.cannotUpload,
       labelHidden: true,
+      errorId: UPPY_FILE_INPUT_BUTTON_ID,
       validator: (value, formData) => {
         const hasUploadedFiles =
           (formData.applicant1InterimAppsEvidenceUploadedFiles as unknown as string[])?.length &&

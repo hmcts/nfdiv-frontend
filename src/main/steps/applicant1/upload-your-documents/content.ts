@@ -8,6 +8,7 @@ import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan } from '../../common/content.utils';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
 
 const en = ({ isDivorce, marriage, civilPartnership, partner, isJointApplication }: CommonContent) => {
   const union = isDivorce ? marriage : civilPartnership;
@@ -174,6 +175,7 @@ export const form: FormContent = {
 
     return {
       applicant1UploadedFiles: {
+        errorId: UPPY_FILE_INPUT_BUTTON_ID,
         type: 'hidden',
         label: l => l.uploadFiles,
         labelHidden: true,
@@ -193,6 +195,7 @@ export const form: FormContent = {
       ...(checkboxes.length > 1
         ? {
             applicant1CannotUpload: {
+              errorId: UPPY_FILE_INPUT_BUTTON_ID,
               type: 'checkboxes',
               label: l => l.cannotUploadDocuments,
               labelHidden: true,

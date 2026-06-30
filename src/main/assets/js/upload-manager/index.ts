@@ -11,6 +11,7 @@ import { getById, hidden, qs } from '../selectors';
 import { FileUploadEvents } from './FileUploadEvents';
 import { UploadedFiles } from './UploadedFiles';
 import { updateFileList } from './updateFileList';
+import { UPPY_FILE_INPUT_BUTTON_CLASS, UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
 
 import '@uppy/drop-target/src/style.scss';
 import '@uppy/progress-bar/src/style.scss';
@@ -76,6 +77,7 @@ const initUploadManager = (): void => {
 };
 
 const upload = qs('.upload');
+
 if (upload) {
   upload.classList.remove(hidden);
   initUploadManager();
@@ -83,3 +85,8 @@ if (upload) {
 
 const fileInput = qs('.uppy-FileInput-input');
 fileInput?.setAttribute('tabindex', '-1');
+
+const btn = document.getElementsByClassName(UPPY_FILE_INPUT_BUTTON_CLASS)[0] as HTMLElement | null;
+if (btn && !btn.id) {
+  btn.id = UPPY_FILE_INPUT_BUTTON_ID;
+}

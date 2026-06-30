@@ -12,7 +12,7 @@ import {
   State,
   YesOrNo,
 } from '../../app/case/definition';
-import { userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
+import { UPPY_FILE_INPUT_BUTTON_ID, userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
 import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
@@ -232,6 +232,9 @@ export const en = {
     },
     popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
   },
+  elementSelectors: {
+    uploadButtonId: `#${UPPY_FILE_INPUT_BUTTON_ID}`,
+  }
 };
 
 const cy: typeof en = {
@@ -420,6 +423,9 @@ const cy: typeof en = {
     },
     popupBlocked: 'Naidlen wedi’i rhwystro. Caniatáu naidlen ar gyfer y wefan hon.',
   },
+  elementSelectors: {
+    uploadButtonId: `#${UPPY_FILE_INPUT_BUTTON_ID}`,
+  }
 };
 
 export const generateCommonContent = ({

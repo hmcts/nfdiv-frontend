@@ -7,6 +7,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/details-other-proceedings/content';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
 
 const labels = applicant1Content => ({
   errors: {
@@ -47,6 +48,7 @@ export const form: FormContent = {
     applicant2LegalProceedingUploadedFiles: {
       type: 'hidden',
       label: l => l.uploadFiles,
+      errorId: UPPY_FILE_INPUT_BUTTON_ID,
       labelHidden: true,
       value:
         (isObject(userCase.applicant2LegalProceedingUploadedFiles)
@@ -65,6 +67,7 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.unableToUploadEvidence,
       labelHidden: true,
+      errorId: UPPY_FILE_INPUT_BUTTON_ID,
       validator: (value, formData) => {
         const hasUploadedFiles =
           (formData.applicant2LegalProceedingUploadedFiles as unknown as string[])?.length &&
