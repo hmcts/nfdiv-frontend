@@ -4,6 +4,10 @@ import FileInput from '@uppy/file-input';
 import ProgressBar from '@uppy/progress-bar';
 import XHRUpload from '@uppy/xhr-upload';
 
+import {
+  UPPY_FILE_INPUT_BUTTON_CLASS,
+  UPPY_FILE_INPUT_BUTTON_ID,
+} from '../../../app/document/DocumentManagementConstants';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById, hidden, qs } from '../selectors';
@@ -11,7 +15,6 @@ import { getById, hidden, qs } from '../selectors';
 import { FileUploadEvents } from './FileUploadEvents';
 import { UploadedFiles } from './UploadedFiles';
 import { updateFileList } from './updateFileList';
-import { UPPY_FILE_INPUT_BUTTON_CLASS, UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
 
 import '@uppy/drop-target/src/style.scss';
 import '@uppy/progress-bar/src/style.scss';

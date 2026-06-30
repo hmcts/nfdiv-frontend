@@ -234,7 +234,7 @@ export const en = {
   },
   elementSelectors: {
     uploadButtonId: `#${UPPY_FILE_INPUT_BUTTON_ID}`,
-  }
+  },
 };
 
 const cy: typeof en = {
@@ -425,7 +425,7 @@ const cy: typeof en = {
   },
   elementSelectors: {
     uploadButtonId: `#${UPPY_FILE_INPUT_BUTTON_ID}`,
-  }
+  },
 };
 
 export const generateCommonContent = ({

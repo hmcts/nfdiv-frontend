@@ -3,11 +3,11 @@ import { isObject } from 'lodash';
 import { Checkbox } from '../../../../../app/case/case';
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../../../app/document/DocumentManagementConstants';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 import { getDispenseLogicalTests } from '../../../../dispenseServiceApplicationSequence';
 import { generateContent as uploadEvidenceGenerateContent } from '../../common/upload-evidence/content';
-import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../../../app/document/DocumentManagementConstants';
 
 const en = ({ partner }: CommonContent) => ({
   statement: {

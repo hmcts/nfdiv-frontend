@@ -4,10 +4,10 @@ import { isObject } from 'lodash';
 import { Checkbox } from '../../../../../app/case/case';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../../../app/document/DocumentManagementConstants';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { generateContent as uploadDocumentGenerateContent } from '../../../../applicant1/upload-your-documents/content';
 import { CommonContent } from '../../../../common/common.content';
-import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../../../app/document/DocumentManagementConstants';
 
 const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => ({
   title: 'Upload your evidence',
