@@ -10,6 +10,7 @@ import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
+import { MAX_UPLOAD_FILE_COUNT, MAX_UPLOAD_FILE_SIZE_BYTES } from './app/document/DocumentUploadLimits';
 import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content';
@@ -22,7 +23,7 @@ import { ApplicationWithdrawnGetController } from './steps/application-withdrawn
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { DraftApplicationSaveSignOutGetController } from './steps/draft-application-save-sign-out/get';
-import { ErrorController } from './steps/error/error.controller';
+import { ErrorController, HTTPError } from './steps/error/error.controller';
 import * as existingApplicationContent from './steps/existing-application/content';
 import { ExistingApplicationGetController } from './steps/existing-application/get';
 import { ExistingApplicationPostController } from './steps/existing-application/post';
@@ -70,10 +71,34 @@ import { WebChatGetController } from './steps/webchat/get';
 
 const handleUploads = multer({
   limits: {
-    fileSize: 25 * 1024 * 1024,
-    files: 5,
+    fileSize: MAX_UPLOAD_FILE_SIZE_BYTES,
+    files: MAX_UPLOAD_FILE_COUNT,
   },
 });
+
+const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
+  handleUploads.array('files[]', MAX_UPLOAD_FILE_COUNT)(req, res, err => {
+    if (!err) {
+      return next();
+    }
+
+    if (err instanceof multer.MulterError) {
+      (req as AppRequest).locals?.logger?.warn(
+        `Multer rejected upload(code=${err.code}, contentLength=${req.headers['content-length'] || 'n/a'})`
+      );
+
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return next(new HTTPError('Uploaded file exceeds the 25MB limit', 413));
+      }
+
+      if (err.code === 'LIMIT_FILE_COUNT') {
+        return next(new HTTPError('Uploaded file count exceeds the allowed limit', 400));
+      }
+    }
+
+    return next(err);
+  });
+};
 
 const ext = extname(__filename);
 
@@ -111,7 +136,7 @@ export class Routes {
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
     const documentManagerController = new DocumentManagerController();
-    app.post(DOCUMENT_MANAGER, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
+    app.post(DOCUMENT_MANAGER, uploadFilesMiddleware, errorHandler(documentManagerController.post));
     app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
 
     for (const step of stepsWithContent) {
