@@ -41,6 +41,10 @@ export default class SelectGeneralApplicationTypePostController extends PostCont
       InterimAppsUseHelpWithFees: null,
       InterimAppsHaveHwfReference: null,
       InterimAppsHwfRefNumber: null,
+      GenAppHearingNotRequired: null,
+      GenAppPartnerAgreesDocs: [],
+      GenAppCannotUploadAgreedEvidence: null,
+      GenAppPartnerDetailsCorrect: null,
     };
 
     return Object.fromEntries(Object.entries(fields).map(([key, value]) => [`${caseFieldPrefix}${key}`, value]));
