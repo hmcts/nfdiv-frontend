@@ -44,6 +44,14 @@ const checkboxConverter = (value: string | undefined) => {
   return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
 };
 
+const convertToArray = value => {
+  if (!value) {
+    return [];
+  }
+
+  return Array.isArray(value) ? value : [value];
+};
+
 const prayerConverter = (applicant: 'applicant1' | 'applicant2') => {
   return data => {
     const isDivorce = data.divorceOrDissolution === DivorceOrDissolution.DIVORCE;
@@ -192,21 +200,15 @@ const fields: ToApiConverters = {
       ? data.applicant2NameChangedHowOtherDetails
       : '',
   }),
-  applicant1CannotUploadDocuments: data => ({
-    applicant1CannotUploadSupportingDocument: data.applicant1CannotUploadDocuments
-      ? !Array.isArray(data.applicant1CannotUploadDocuments)
-        ? [data.applicant1CannotUploadDocuments]
-        : data.applicant1CannotUploadDocuments
-      : [],
-    applicant1CannotUpload: data.applicant1CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
+  applicant1CannotUpload: data => ({
+    applicant1CannotUpload: checkboxConverter(data.applicant1CannotUpload),
+    applicant1CannotUploadSupportingDocument:
+      data.applicant1CannotUpload === Checkbox.Checked ? convertToArray(data.applicant1CannotUploadDocuments) : [],
   }),
-  applicant2CannotUploadDocuments: data => ({
-    applicant2CannotUploadSupportingDocument: data.applicant2CannotUploadDocuments
-      ? !Array.isArray(data.applicant2CannotUploadDocuments)
-        ? [data.applicant2CannotUploadDocuments]
-        : data.applicant2CannotUploadDocuments
-      : [],
-    applicant2CannotUpload: data.applicant2CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
+  applicant2CannotUpload: data => ({
+    applicant2CannotUpload: checkboxConverter(data.applicant2CannotUpload),
+    applicant2CannotUploadSupportingDocument:
+      data.applicant2CannotUpload === Checkbox.Checked ? convertToArray(data.applicant2CannotUploadDocuments) : [],
   }),
   applicant1IConfirmPrayer: prayerConverter('applicant1'),
   applicant2IConfirmPrayer: prayerConverter('applicant2'),
