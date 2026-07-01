@@ -5,7 +5,6 @@ import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
 } from '../../applicant1/enter-your-address/content';
-import { isCountryUk } from '../../applicant1Sequence';
 
 const labels = applicant1Content => ({
   errors: {
@@ -17,6 +16,7 @@ const labels = applicant1Content => ({
   },
 });
 
+const uk = 'UK';
 const applicant1FormFields = applicant1Form.fields as FormFields;
 export const form: FormContent = {
   ...applicant1Form,
@@ -27,7 +27,7 @@ export const form: FormContent = {
     applicant2AddressTown: {
       ...(applicant1FormFields.applicant1AddressTown as FormField),
       validator: (value, formData) => {
-        if (!isCountryUk(formData.applicant2AddressCountry)) {
+        if (formData.applicant2AddressCountry !== uk) {
           return;
         }
         return isFieldFilledIn(value);
@@ -37,7 +37,7 @@ export const form: FormContent = {
     applicant2AddressPostcode: {
       ...(applicant1FormFields.applicant1AddressPostcode as FormField),
       validator: (value, formData) => {
-        if (!isCountryUk(formData.applicant2AddressCountry)) {
+        if (formData.applicant2AddressCountry !== uk) {
           return;
         }
         return isInvalidPostcode(value);
