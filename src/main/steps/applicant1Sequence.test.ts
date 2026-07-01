@@ -1,8 +1,13 @@
-import { ApplicationType, YesOrNo } from '../app/case/definition';
+import { Checkbox } from '../app/case/case';
+import { ApplicationType, State, YesOrNo } from '../app/case/definition';
 
 import { Step, applicant1PreSubmissionSequence, isCountryUk } from './applicant1Sequence';
 import {
+  ADDRESS_PRIVATE,
+  CHECK_CONTACT_DETAILS,
   ENTER_THEIR_ADDRESS,
+  ENTER_YOUR_ADDRESS,
+  IN_REFUGE,
   MONEY_PROPERTY,
   OTHER_COURT_CASES,
   UPLOAD_YOUR_DOCUMENTS,
@@ -71,5 +76,41 @@ describe('isCountryUk test', () => {
 
   test('Undefined country', () => {
     expect(isCountryUk(undefined)).toBe(false);
+  });
+  describe('ADDRESS_PRIVATE', () => {
+    const step = applicant1PreSubmissionSequence.find(obj => obj.url === ADDRESS_PRIVATE) as Step;
+
+    test('routes to in refuge when address is private', () => {
+      const caseData = {
+        applicant1AddressPrivate: YesOrNo.YES,
+        state: State.Submitted,
+        applicant1IConfirmPrayer: Checkbox.Checked,
+        applicant1StatementOfTruth: Checkbox.Checked,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(IN_REFUGE);
+    });
+
+    test('routes to check contact details when address is not private and applicant has confirmed', () => {
+      const caseData = {
+        applicant1AddressPrivate: YesOrNo.NO,
+        state: State.Submitted,
+        applicant1IConfirmPrayer: Checkbox.Checked,
+        applicant1StatementOfTruth: Checkbox.Checked,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(CHECK_CONTACT_DETAILS);
+    });
+
+    test('routes to enter your address when address is not private and case is still draft', () => {
+      const caseData = {
+        applicant1AddressPrivate: YesOrNo.NO,
+        state: State.Draft,
+        applicant1IConfirmPrayer: Checkbox.Checked,
+        applicant1StatementOfTruth: Checkbox.Checked,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(ENTER_YOUR_ADDRESS);
+    });
   });
 });

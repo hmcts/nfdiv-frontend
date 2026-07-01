@@ -1,8 +1,18 @@
-import { YesOrNo } from '../app/case/definition';
+import { Checkbox } from '../app/case/case';
+import { State, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
 import { preSubmissionSequence } from './applicant2Sequence';
-import { CHECK_JOINT_APPLICATION, MONEY_PROPERTY, UPLOAD_YOUR_DOCUMENTS, WHO_IS_THE_FINANCIAL_ORDER_FOR } from './urls';
+import {
+  ADDRESS_PRIVATE,
+  CHECK_CONTACT_DETAILS,
+  CHECK_JOINT_APPLICATION,
+  ENTER_YOUR_ADDRESS,
+  IN_REFUGE,
+  MONEY_PROPERTY,
+  UPLOAD_YOUR_DOCUMENTS,
+  WHO_IS_THE_FINANCIAL_ORDER_FOR,
+} from './urls';
 
 describe('Applicant 2 Sequence test', () => {
   describe('MONEY_PROPERTY', () => {
@@ -73,6 +83,42 @@ describe('Applicant 2 Sequence test', () => {
 
       const step = preSubmissionSequence.find(obj => obj.url === WHO_IS_THE_FINANCIAL_ORDER_FOR) as Step;
       expect(step.getNextStep(caseData)).toBe(UPLOAD_YOUR_DOCUMENTS);
+    });
+  });
+  describe('ADDRESS_PRIVATE', () => {
+    const step = preSubmissionSequence.find(obj => obj.url === ADDRESS_PRIVATE) as Step;
+
+    test('routes to in refuge when applicant2 address is private', () => {
+      const caseData = {
+        applicant2AddressPrivate: YesOrNo.YES,
+        state: State.Submitted,
+        applicant2IConfirmPrayer: Checkbox.Checked,
+        applicant2StatementOfTruth: Checkbox.Checked,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(IN_REFUGE);
+    });
+
+    test('routes to check contact details when applicant2 address is not private and applicant has confirmed', () => {
+      const caseData = {
+        applicant2AddressPrivate: YesOrNo.NO,
+        state: State.Submitted,
+        applicant2IConfirmPrayer: Checkbox.Checked,
+        applicant2StatementOfTruth: Checkbox.Checked,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(CHECK_CONTACT_DETAILS);
+    });
+
+    test('routes to enter your address when applicant2 address is not private and case is still draft', () => {
+      const caseData = {
+        applicant2AddressPrivate: YesOrNo.NO,
+        state: State.Draft,
+        applicant2IConfirmPrayer: Checkbox.Checked,
+        applicant2StatementOfTruth: Checkbox.Checked,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(ENTER_YOUR_ADDRESS);
     });
   });
 });
