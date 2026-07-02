@@ -63,7 +63,8 @@ const en = (
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  noResponseStartPagePath: string
+  noResponseStartPagePath: string,
+  finalOrderOverdueDate: string
 ) => ({
   aosAwaiting: {
     line1:
@@ -230,10 +231,12 @@ const en = (
       'You have to wait 6 weeks until after your conditional order, to apply for the final order.',
   },
   awaitingFinalOrderOrFinalOrderOverdue: {
-    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
+    line1: `You may now apply for a 'final order'. A final order is the document that will legally end your ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.
     It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    line2: `You may apply for the final order before ${finalOrderOverdueDate}. If you apply after this date, your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} will still be valid, but you will need to provide a reason for the delay. The court will consider your explanation when deciding whether to grant your final order.`,
+    line3: `If you have not yet finished any negotiations or legal proceedings about your money, property or other assets then you should seek legal advice before ${isDivorce ? 'finalising your divorce' : 'ending your civil partnership'}.`,
     buttonText: 'Apply for a final order',
     buttonLink: FINALISING_YOUR_APPLICATION,
   },
@@ -375,8 +378,7 @@ const en = (
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of your foreign ${
       isDivorce ? 'marriage' : 'civil partnership'
     } certificate`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Proof that you changed your name. For example, deed poll or statutory declaration.',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Proof showing why your name or your ${partner}'s name is written differently on your ${isDivorce ? 'marriage' : 'civil partnership'} certificate. For example, a government issued ID, a passport, driving license, birth certificate, deed poll or 'statutory declaration'`,
   },
   documentsByOnlineForm: 'Sending documents using our online form',
   documentsByOnlineFormSteps: {
@@ -541,7 +543,8 @@ const cy: typeof en = (
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  noResponseStartPagePath: string
+  noResponseStartPagePath: string,
+  finalOrderOverdueDate: string
 ) => ({
   aosAwaiting: {
     line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau
@@ -715,6 +718,8 @@ const cy: typeof en = (
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } i ben yn gyfreithiol.
     Dyma'r cam olaf yn y ${isDivorce ? 'broses ysgaru' : "proses i ddod â'ch partneriaeth sifil i ben"}.`,
+    line2: `Dylech fod wneud gwneud cais am y gorchymyn terfynol cyn ${finalOrderOverdueDate}. Os byddwch yn gwneud cais ar ôl y dyddiad hwn, bydd eich ${isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"} yn parhau'n ddilys, ond byddwch angen rhoi rheswm am yr oedi. Bydd y llys yn ystyried eich eglurhad wrth benderfynu pa un ai i ganiatau eich gorchymyn terfynol.`,
+    line3: `Os nad ydych eto wedi gorffen cynnal unrhyw drafodaethau neu achos cyfreithiol am eich arian, eiddo neu asedau eraill, yna dylech ofyn am gyngor cyfreithiol cyn ${isDivorce ? 'cwblhau eich ysgariad' : "dod â'ch partneriaeth sifil i ben"}.`,
     buttonText: 'Gwneud cais am orchymyn terfynol',
     buttonLink: FINALISING_YOUR_APPLICATION,
   },
@@ -872,8 +877,9 @@ const cy: typeof en = (
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `Cyfieithiad ardystiedig o’ch tystysgrif ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } dramor`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Tystiolaeth eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Tystiolaeth yn dangos pam bod eich enw neu enw eich ${partner} wedi'i ysgrifennu'n wahanol ar eich ${
+      isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
+    }. Er enghraifft, cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru, tystysgrif geni, gweithred newid enw neu 'ddatganiad statudol'.`,
   },
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
   documentsByOnlineFormSteps: {
@@ -1099,6 +1105,8 @@ export const generateContent: TranslationFn = content => {
     }
   })();
 
+  const finalOrderOverdueDate = getFormattedDate(dayjs(userCase.coGrantedDate).add(12, 'months')) || '';
+
   const interimApplicationInProgress =
     !!userCase.applicant1InterimApplicationType &&
     userCase.applicant1InterimApplicationType !== InterimApplicationType.PROCESS_SERVER_SERVICE;
@@ -1110,7 +1118,8 @@ export const generateContent: TranslationFn = content => {
       content,
       alternativeServiceType,
       dateOfCourtReplyToRequestForInformationResponse,
-      noResponseStartPagePath
+      noResponseStartPagePath,
+      finalOrderOverdueDate
     ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
     generalApplicationSubmitted: generalApplicationSubmittedContent(content),
