@@ -38,7 +38,7 @@ export const form: FormContent = {
   fields: {
     applicant1InRefuge: {
       type: 'radios',
-      classes: 'govuk-radios--inline',
+      classes: 'govuk-radios',
       label: l => l.title,
       values: [
         { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
