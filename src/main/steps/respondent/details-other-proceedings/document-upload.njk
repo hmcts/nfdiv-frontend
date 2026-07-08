@@ -1,5 +1,6 @@
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "common/macros/document-delete-button.njk" import documentDeleteButton %}
 
 <script id="uploadContent" type="application/json">
   {{ uploadContentScript | safe }}
@@ -47,10 +48,7 @@
     {% for filename in uploadedDocsFilenames %}
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
         {{ filename }}
-        <form action="/document-manager/delete/{{ loop.index0 }}" method="post" class="govuk-!-display-inline">
-          <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-          <button type="submit" class="hmcts-button-link govuk-link--no-visited-state">{{ delete }}</button>
-        </form>
+        {{ documentDeleteButton(loop.index0, csrfToken, delete) }}
       </li>
     {% endfor %}
   </ul>
