@@ -56,7 +56,7 @@ const en = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonCont
   },
   other: {
     header: 'Make a different application to the court',
-    content: 'If none of the above applications are suitable, you can make another type of application',
+    content: 'If none of the above applications are suitable, you can make another type of application.',
   },
   caseIsAwaitingPronouncement: {
     header: 'Submitting a general application while your conditional order is listed for pronouncement',
@@ -78,6 +78,13 @@ const en = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonCont
       'You can submit the application using the <a href="https://www.gov.uk/government/publications/form-b-notice-of-application-to-consider-the-financial-position-of-the-respondent-after-divorce-dissolution" target="_blank">Paper Form B (opens in a new tab)</a>.',
     line4:
       'Once completed, you can send the form to the court by webform or by post using the contact details on your online account.',
+  },
+  feesOfApplication: {
+    header: 'Fees',
+    line1: `If you do not need a hearing for your application, there will be a fee of ${getFee(config.get('fees.generalAppWithoutHearing'))}.`,
+    line2: `If you do need a hearing for your application, there will be a fee of ${getFee(config.get('fees.generalAppWithHearing'))}.`,
+    canGetHelpWithFees: `You may be able to <a class="govuk-link" target="_blank" href="${config.get('govukUrls.getHelpWithCourtFees')}">get help paying this fee (opens in a new tab)</a>.`,
+    line3: 'You will be able to tell us later whether you think a hearing is required.',
   },
   buttonText: 'Start now',
 });
@@ -131,7 +138,7 @@ const cy = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonCont
   },
   other: {
     header: 'Make a different application to the court',
-    content: 'If none of the above applications are suitable, you can make another type of application',
+    content: 'If none of the above applications are suitable, you can make another type of application.',
   },
   buttonText: 'Start now',
   caseIsAwaitingPronouncement: {
@@ -154,6 +161,13 @@ const cy = ({ partner, isApplicant2, isDivorce, isJointApplication }: CommonCont
       'You can submit the application using the <a href="https://www.gov.uk/government/publications/form-b-notice-of-application-to-consider-the-financial-position-of-the-respondent-after-divorce-dissolution" target="_blank">Paper Form B (opens in a new tab)</a>.',
     line4:
       'Once completed, you can send the form to the court by webform or by post using the contact details on your online account.',
+  },
+  feesOfApplication: {
+    header: 'Fees',
+    line1: `If you do not need a hearing for your application, there will be a fee of ${getFee(config.get('fees.generalAppWithoutHearing'))}.`,
+    line2: `If you do need a hearing for your application, there will be a fee of ${getFee(config.get('fees.generalAppWithHearing'))}.`,
+    canGetHelpWithFees: `You may be able to <a class="govuk-link" target="_blank" href="${config.get('govukUrls.getHelpWithCourtFees')}">get help paying this fee (opens in a new tab)</a>.`,
+    line3: 'You will be able to tell us later whether you think a hearing is required.',
   },
 });
 
