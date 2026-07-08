@@ -83,7 +83,7 @@ export class Helmet {
           fontSrc: [self, 'data:', 'https://fonts.gstatic.com'],
           formAction,
           imgSrc,
-          objectSrc: ['none'],
+          objectSrc: ["'none'"],
           scriptSrc,
           manifestSrc,
           styleSrc: [self, ...tagManager, "'unsafe-inline'", 'https://fonts.googleapis.com'],
