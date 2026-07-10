@@ -839,7 +839,7 @@ const cy: typeof en = ({
       line6: 'Dros y ffôn',
       line7: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
       line8: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
-      line9: 'Ydych chi’n byw mewn lloches ar hyno bryd?',
+      line9: 'Ydych chi’n byw mewn lloches ar hyn o bryd?',
       line10: 'Eich cyfeiriad post',
       line11: 'Ydy hwn yn gyfeiriad rhyngwladol?',
     },
