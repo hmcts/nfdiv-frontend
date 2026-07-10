@@ -1,4 +1,4 @@
-Feature: Search gov records journey
+Feature: Search gov records journey post-issue
 
   Background:
     Given I create a new user and login
@@ -7,7 +7,7 @@ Feature: Search gov records journey
     Given a superuser updates "issueDate" with "2023-10-31"
     Then I set the case state to "AwaitingAos"
 
-  Scenario: Search gov records happy path
+  Scenario: Search gov records happy path post-issue
     When I sign out
     And I login with applicant "1"
     Then the page should include "Your application will be checked by court staff."
@@ -22,7 +22,7 @@ Feature: Search gov records journey
     When I click continue
     Then the page should include element "#searchGovRecordsApplicationTitle"
 
-  Scenario: Search gov records help with fees happy path
+  Scenario: Search gov records help with fees happy path post-issue
     Given I set the case state to "AosOverdue"
     When I sign out
     And I login with applicant "1"
@@ -113,7 +113,7 @@ Feature: Search gov records journey
     Then the page should include element "#generalApplicationSubmittedTitle"
     And the page should include "You have submitted your application to search government records."
 
-  Scenario: Search gov records pay by card happy path
+  Scenario: Search gov records pay by card happy path post-issue
     Given I set the case state to "AosOverdue"
     When I sign out
     And I login with applicant "1"

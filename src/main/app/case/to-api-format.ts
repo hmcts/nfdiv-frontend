@@ -27,6 +27,7 @@ import {
 import {
   applicant1AddressToApi,
   applicant1DispenseLivedTogetherAddressToApi,
+  applicant1NoRespAddressAddressToApi,
   applicant1NoResponsePartnerAddressToApi,
   applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant2AddressToApi,
@@ -181,6 +182,14 @@ const fields: ToApiConverters = {
   }),
   iWantToHavePapersServedAnotherWay: data => ({
     applicant1WantsToHavePapersServedAnotherWay: checkboxConverter(data.iWantToHavePapersServedAnotherWay),
+  }),
+  applicant1FoundApplicant2Address: data => ({
+    applicant1KnowsApplicant2Address: data.applicant1FoundApplicant2Address,
+    applicant1FoundApplicant2Address: data.applicant1FoundApplicant2Address,
+    applicant1WantsToHavePapersServedAnotherWay:
+      data.applicant1FoundApplicant2Address === YesOrNo.YES
+        ? YesOrNo.NO
+        : checkboxConverter(data.iWantToHavePapersServedAnotherWay),
   }),
   applicant1NameChangedHowOtherDetails: data => ({
     applicant1NameChangedHowOtherDetails: data.applicant1NameChangedHow?.includes(ChangedNameHow.OTHER)
@@ -361,6 +370,11 @@ const fields: ToApiConverters = {
   }),
   applicant1KnowsApplicant2Address: data => ({
     applicant1KnowsApplicant2Address: data.applicant1KnowsApplicant2Address,
+    applicant1FoundApplicant2Address: data.applicant1KnowsApplicant2Address,
+    applicant1WantsToHavePapersServedAnotherWay:
+      data.applicant1KnowsApplicant2Address === YesOrNo.YES
+        ? YesOrNo.NO
+        : checkboxConverter(data.iWantToHavePapersServedAnotherWay),
     ...(data.applicant1KnowsApplicant2Address === YesOrNo.NO
       ? applicant2AddressToApi(
           setUnreachableAnswersToNull([
@@ -725,6 +739,14 @@ const fields: ToApiConverters = {
         ? data.applicant1DispenseChildMaintenanceResults
         : null,
   }),
+  applicant1NoRespAddressDoesNotKnowEmailAddress: data => ({
+    applicant1NoRespAddressKnowsEmail:
+      data.applicant1NoRespAddressDoesNotKnowEmailAddress === Checkbox.Checked ? YesOrNo.NO : YesOrNo.YES,
+  }),
+  applicant1NoRespAddressAddressOverseas: ({ applicant1NoRespAddressAddressOverseas }) => ({
+    applicant1NoRespAddressAddressOverseas: applicant1NoRespAddressAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1NoRespAddressAddressPostcode: applicant1NoRespAddressAddressToApi,
 };
 
 const toApiDate = (date: CaseDate | undefined | string) => {
