@@ -2,6 +2,7 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "common/macros/document-delete-button.njk" import documentDeleteButton %}
 
 {{ govukWarningText({
   text: warningPhoto,
@@ -32,7 +33,8 @@
   <ul id="filesUploaded" class="govuk-list">
     {% for filename in uploadedDocsFilenames %}
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-        {{ filename }} <a href="/document-manager/delete/{{ loop.index0 }}?_csrf={{ csrfToken }}" class="govuk-link govuk-link--no-visited-state">{{ delete }}</a>
+        {{ filename }}
+        {{ documentDeleteButton(loop.index0, csrfToken, delete) }}
       </li>
     {% endfor %}
   </ul>
