@@ -13,7 +13,6 @@ const en = ({ partner }) => ({
   },
 });
 
-// @TODO translations
 const cy = ({ partner }) => ({
   title: 'Eich rhif ffôn',
   line1: `Rhowch eich rhif ffôn fel y gall staff y llys gysylltu â chi'n gyflym os oes angen. Gallwch ddewis i gadw eich rhif ffôn yn breifat oddi wrth eich ${partner} yn ddiweddarach yn y cais hwn.`,

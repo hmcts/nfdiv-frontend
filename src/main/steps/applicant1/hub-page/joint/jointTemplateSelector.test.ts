@@ -2,7 +2,6 @@ import { Checkbox } from '../../../../app/case/case';
 import { DivorceOrDissolution, State, YesOrNo } from '../../../../app/case/definition';
 import { HubTemplate } from '../../../common/hubTemplates';
 import { currentStateFn } from '../../../state-sequence';
-import { getSoleHubTemplate } from '../sole/soleTemplateSelector';
 
 import { getJointHubTemplate } from './jointTemplateSelector';
 
@@ -108,6 +107,12 @@ describe('JointTemplateSelector test', () => {
 
   test('should show /general-application-received.njk for state AwaitingGeneralConsideration', () => {
     const theState = displayState.at(State.AwaitingGeneralConsideration);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.GeneralApplicationReceived);
+  });
+
+  test('should show /general-application-received.njk for state GeneralConsiderationComplete', () => {
+    const theState = displayState.at(State.GeneralConsiderationComplete);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
@@ -225,14 +230,24 @@ describe('JointTemplateSelector test', () => {
       applicant1CannotUpload: Checkbox.Checked,
     };
     const theState = displayState.at(State.AwaitingHWFDecision);
-    const soleTemplate = getSoleHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments, false, false);
-    expect(soleTemplate).toBe(HubTemplate.AwaitingDocuments);
+    const jointTemplate = getJointHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 
   test('should show /holding.njk for state AwaitingHWFDecision', () => {
     const theState = displayState.at(State.AwaitingHWFDecision);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.Holding);
+  });
+
+  test('should show /awaiting-documents.njk for state AwaitingHWFEvidence and reason is "cannot upload documents"', () => {
+    const userCaseWithApplicant1CannotUploadDocuments = {
+      ...userCase,
+      applicant1CannotUpload: Checkbox.Checked,
+    };
+    const theState = displayState.at(State.AwaitingHWFEvidence);
+    const jointTemplate = getJointHubTemplate(theState, userCaseWithApplicant1CannotUploadDocuments);
+    expect(jointTemplate).toBe(HubTemplate.AwaitingDocuments);
   });
 
   test('should show /holding.njk for state AwaitingHWFEvidence', () => {
@@ -251,5 +266,17 @@ describe('JointTemplateSelector test', () => {
     const theState = displayState.at(State.WelshTranslationRequested);
     const jointTemplate = getJointHubTemplate(theState, userCase);
     expect(jointTemplate).toBe(HubTemplate.WelshTranslationRequestedOrReview);
+  });
+
+  test('should show /pending-refund.njk for state PendingRefund', () => {
+    const theState = displayState.at(State.PendingRefund);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.PendingRefund);
+  });
+
+  test('should show /application-stayed.njk for state ApplicationStayed', () => {
+    const theState = displayState.at(State.ApplicationStayed);
+    const jointTemplate = getJointHubTemplate(theState, userCase);
+    expect(jointTemplate).toBe(HubTemplate.ApplicationStayed);
   });
 });
