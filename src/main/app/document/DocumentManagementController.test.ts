@@ -186,9 +186,7 @@ describe('DocumentManagerController', () => {
       ] as unknown as Express.Multer.File[];
       req.headers.accept = 'application/json';
 
-      await expect(() => documentManagerController.post(req, res)).rejects.toThrow(
-        'Uploaded file exceeds the limit'
-      );
+      await expect(() => documentManagerController.post(req, res)).rejects.toThrow('Uploaded file exceeds the limit');
 
       expect(mockCreate).not.toHaveBeenCalled();
       expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
