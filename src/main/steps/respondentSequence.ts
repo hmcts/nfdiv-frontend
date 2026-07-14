@@ -32,11 +32,12 @@ import {
   RESPONSE_SUBMITTED,
   REVIEW_THE_APPLICATION,
   UPDATE_ADDRESS_PRIVATE,
+  UPDATE_IN_REFUGE,
   UPDATE_PHONE_NUMBER,
   UPDATE_YOUR_ADDRESS,
 } from './urls';
 
-const sequence: Step[] = [
+export const sequence: Step[] = [
   {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => CONFIRM_CONTACT_DETAILS,
@@ -127,6 +128,10 @@ const sequence: Step[] = [
   },
   {
     url: UPDATE_ADDRESS_PRIVATE,
+    getNextStep: data => (data.applicant2AddressPrivate === YesOrNo.YES ? UPDATE_IN_REFUGE : CHECK_CONTACT_DETAILS),
+  },
+  {
+    url: UPDATE_IN_REFUGE,
     getNextStep: () => CHECK_CONTACT_DETAILS,
   },
   {

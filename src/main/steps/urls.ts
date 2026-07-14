@@ -75,6 +75,7 @@ export const YOUR_CERTIFICATE_NAME: PageLink = '/your-name-on-certificate';
 export const THEIR_CERTIFICATE_NAME: PageLink = '/their-name-on-certificate';
 export const ADDRESS_PRIVATE: PageLink = '/address-private';
 export const IN_REFUGE: PageLink = '/in-refuge';
+export const UPDATE_IN_REFUGE: PageLink = '/update-in-refuge';
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
 export const DO_THEY_HAVE_A_SOLICITOR: PageLink = '/do-they-have-a-solicitor';
