@@ -11,7 +11,7 @@ const en = ({ required }) => ({
     'A refuge is a secure place for people and their children to stay when they are escaping domestic abuse. It provides a space to feel safe and supported.',
   line2: 'Find out more about refuges at',
   citizenAdvice: "Citizen's Advice (opens in a new tab)",
-  domesticAbuseLink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help',
+  domesticAbuseLink: 'https://www.citizensadvice.org.uk/family/gender-violence/domestic-violence-and-abuse/',
   errors: {
     applicant1InRefuge: {
       required,
@@ -26,7 +26,7 @@ const cy: typeof en = ({ required }) => ({
     'Mae lloches yn lle diogel i oedolion a’u plant aros pan maent yn dianc rhag camdrin domestig. Mae’n darparu amgylchedd lle gallwch gael cefnogaeth a theimlo’n ddiogel.',
   line2: 'Darllenwch fwy am lochesau yn',
   citizenAdvice: 'Cyngor ar Bopeth (yn agor mewn tab newydd)',
-  domesticAbuseLink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help.cy',
+  domesticAbuseLink: 'https://www.citizensadvice.org.uk/cymraeg/Teulu/gender-violence/Cam-drin-domestig/',
   errors: {
     applicant1InRefuge: {
       required,
