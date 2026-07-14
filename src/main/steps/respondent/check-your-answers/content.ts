@@ -39,6 +39,7 @@ const en = ({ isDivorce, userCase }) => ({
     aboutApplication: `About your ${isDivorce ? 'divorce' : 'civil partnership'}`,
     contactYou: 'How the court will contact you',
     otherCourtCases: 'Other court cases',
+    yourContactDetails: 'Your contact details',
   },
   stepQuestions: {
     readApplication: {
