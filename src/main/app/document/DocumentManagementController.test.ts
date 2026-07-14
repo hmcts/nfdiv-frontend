@@ -21,6 +21,7 @@ import {
 } from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
+import { MAX_UPLOAD_FILE_SIZE_BYTES } from './DocumentUploadLimits';
 import { FileUploadJourney } from './FileUploadJourneyConfiguration';
 
 const { mockCreate, mockDelete } = require('./CaseDocumentManagementClient');
@@ -159,6 +160,93 @@ describe('DocumentManagerController', () => {
           ],
         },
         isApplicant2 ? CITIZEN_APPLICANT2_UPDATE : CITIZEN_UPDATE
+      );
+
+      expect(res.json).toHaveBeenCalledWith([
+        {
+          id: expect.any(String),
+          name: 'uploaded-file.jpg',
+        },
+      ]);
+    });
+
+    it('throws an error when an uploaded file exceeds the size limit', async () => {
+      const req = mockRequest({
+        userCase: {
+          state: State.Draft,
+          applicant1DocumentsUploaded: ['an-existing-doc'],
+        },
+      });
+      const res = mockResponse();
+      req.files = [
+        {
+          originalname: 'too-large-file.jpg',
+          size: MAX_UPLOAD_FILE_SIZE_BYTES + 1,
+        },
+      ] as unknown as Express.Multer.File[];
+      req.headers.accept = 'application/json';
+
+      await expect(() => documentManagerController.post(req, res)).rejects.toThrow(
+        'Uploaded file exceeds the limit'
+      );
+
+      expect(mockCreate).not.toHaveBeenCalled();
+      expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+      expect(res.json).not.toHaveBeenCalled();
+    });
+
+    it('uses the file upload journey upload path when present', async () => {
+      const req = mockRequest({
+        userCase: {
+          state: State.AosOverdue,
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          applicant1InterimAppsEvidenceDocs: ['an-existing-doc'],
+        },
+        session: {
+          fileUploadJourney: FileUploadJourney.ALTERNATIVE_SERVICE,
+        },
+      });
+      const res = mockResponse();
+      req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
+      req.headers.accept = 'application/json';
+
+      (mockCreate as jest.Mock).mockReturnValue([
+        {
+          originalDocumentName: 'uploaded-file.jpg',
+          _links: {
+            self: { href: 'https://link-self-processed-doc' },
+            binary: { href: 'https://link-binary-processed-doc' },
+          },
+        },
+      ]);
+
+      (req.locals.api.triggerEvent as jest.Mock).mockReturnValue({
+        state: State.AosOverdue,
+        applicant1InterimAppsEvidenceUploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
+      });
+
+      await documentManagerController.post(req, res);
+
+      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+        '1234',
+        {
+          applicant1InterimAppsEvidenceDocs: [
+            {
+              id: expect.any(String),
+              value: {
+                documentComment: 'Uploaded by applicant',
+                documentFileName: 'uploaded-file.jpg',
+                documentLink: {
+                  document_binary_url: 'https://link-binary-processed-doc',
+                  document_filename: 'uploaded-file.jpg',
+                  document_url: 'https://link-self-processed-doc',
+                },
+              },
+            },
+            'an-existing-doc',
+          ],
+        },
+        CITIZEN_UPDATE
       );
 
       expect(res.json).toHaveBeenCalledWith([
@@ -312,6 +400,15 @@ describe('DocumentManagerController', () => {
         },
         redirectUrl: UPLOAD_EVIDENCE_DISPENSE,
       },
+      {
+        isApplicant2: false,
+        state: State.AosDrafted,
+        uploadFields: {
+          field1: 'applicant1InterimApplicationDocs',
+          field2: 'applicant1InterimApplicationUploadedFiles',
+        },
+        redirectUrl: '/previous-page',
+      },
     ])(
       "interim application - redirects if browser doesn't accept JSON/has JavaScript disabled - %o",
       async ({ isApplicant2, state, applicant1InterimApplicationType, uploadFields, redirectUrl }) => {
@@ -325,6 +422,7 @@ describe('DocumentManagerController', () => {
             },
           },
         });
+        req.get = jest.fn(header => (header === 'Referrer' ? '/previous-page' : undefined)) as never;
         const res = mockResponse();
         req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
 
@@ -672,6 +770,81 @@ describe('DocumentManagerController', () => {
         expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
       }
     );
+
+    it('throws if saving the session fails after deleting a file', async () => {
+      const req = mockRequest({
+        userCase: {
+          state: State.Draft,
+          applicant1DocumentsUploaded: [
+            { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+            { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
+          ],
+        },
+        session: {
+          save: jest.fn((callback: (err?: Error) => void) => callback(new Error('session save failed'))),
+        },
+        appLocals: {
+          api: { triggerEvent: jest.fn() },
+        },
+      });
+      req.params = { index: '1' };
+      const res = mockResponse();
+
+      const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
+      mockApiTriggerEvent.mockResolvedValue({
+        state: State.Draft,
+        applicant1UploadedFiles: ['an-existing-doc'],
+      });
+
+      await expect(documentManagerController.delete(req, res)).rejects.toThrow('session save failed');
+
+      expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
+      expect(mockApiTriggerEvent).toHaveBeenCalled();
+      expect(res.redirect).not.toHaveBeenCalled();
+    });
+
+    it('deletes from interim applications evidence docs when applicant 1 is in AosDrafted', async () => {
+      const req = mockRequest({
+        userCase: {
+          state: State.AosDrafted,
+          applicant1InterimAppsEvidenceDocs: [
+            { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+            { id: '2', value: { documentLink: { document_url: 'object-of-doc-to-delete' } } },
+            { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+          ],
+        },
+        appLocals: {
+          api: { triggerEvent: jest.fn() },
+        },
+      });
+      req.get = jest.fn(header => (header === 'Referrer' ? '/previous-page' : undefined)) as never;
+      req.params = { index: '1' };
+      req.headers.accept = 'application/json';
+      const res = mockResponse();
+
+      const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock;
+      mockApiTriggerEvent.mockResolvedValue({
+        state: State.AosDrafted,
+        applicant1InterimAppsEvidenceUploadedFiles: ['an-existing-doc'],
+      });
+
+      await documentManagerController.delete(req, res);
+
+      expect(mockApiTriggerEvent).toHaveBeenCalledWith(
+        '1234',
+        {
+          applicant1InterimAppsEvidenceDocs: [
+            { id: '1', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+            { id: '2', value: null },
+            { id: '3', value: { documentLink: { document_url: 'object-of-doc-not-to-delete' } } },
+          ],
+        },
+        CITIZEN_UPDATE
+      );
+
+      expect(mockDelete).toHaveBeenCalledWith({ url: 'object-of-doc-to-delete' });
+      expect(res.redirect).toHaveBeenCalledWith('/previous-page');
+    });
 
     it.each([
       {
