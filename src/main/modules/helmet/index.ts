@@ -30,7 +30,7 @@ export class Helmet {
     app.use(helmet() as RequestHandler);
 
     this.setContentSecurityPolicy(app);
-    this.setReferrerPolicy(app, 'origin');
+    this.setReferrerPolicy(app, 'strict-origin-when-cross-origin');
   }
 
   private setContentSecurityPolicy(app: express.Express): void {
