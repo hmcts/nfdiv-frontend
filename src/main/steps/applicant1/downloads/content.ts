@@ -9,6 +9,11 @@ const en = ({ isDivorce, userCase, serviceApplicationType, generalApplicationTyp
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
     text: `View the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} (PDF)`,
   },
+  hmctsCoversheetDownload: {
+    reference: 'HMCTS-coversheet',
+    link: '/downloads/hmcts-coversheet',
+    text: 'Download the HMCTS coversheet (PDF)',
+  },
   serviceApplicationDownload: {
     reference: 'Service-application',
     link: '/downloads/service-application',
@@ -126,6 +131,11 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
     reference: 'Divorce-Application',
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
     text: `Gweld y cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
+  },
+  hmctsCoversheetDownload: {
+    reference: 'HMCTS-coversheet',
+    link: '/downloads/hmcts-coversheet',
+    text: 'Gweld y dalen flaen HMCTS (PDF)',
   },
   serviceApplicationDownload: {
     reference: 'Service-application',
@@ -307,6 +317,7 @@ const getDownloadLogic: TranslationFn = content => {
   };
 
   const bothApplicants = {
+    hasHmctsCoverSheet: !!findDocument(userCase, DocumentType.HMCTS_COVERSHEET),
     hasCertificateOfService: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome =>
         bailiffService && alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
