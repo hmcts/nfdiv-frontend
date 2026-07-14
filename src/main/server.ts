@@ -49,6 +49,14 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  if (req.accepts('html')) {
+    res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+  }
+
+  next();
+});
+
 (async () => {
   try {
     new AxiosLogger().enableFor(app);
