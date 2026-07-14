@@ -37,6 +37,8 @@ export const D11_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
   State.PendingServiceAppResponse,
   State.ServiceAdminRefusal,
   State.FinalOrderComplete,
+  State.WelshTranslationReview,
+  State.WelshTranslationRequested,
 ]);
 
 export const RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([

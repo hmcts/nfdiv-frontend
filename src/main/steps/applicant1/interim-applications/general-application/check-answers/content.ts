@@ -41,6 +41,7 @@ const en = (
     evidenceStatement: 'Evidence statement',
     doesNotRequireHearing: 'Application can be dealt with without a hearing',
     hearingNotRequiredEvidenceFiles: 'Evidence files uploaded to support that a hearing is not required',
+    unableToUploadAllEvidenceFiles: 'Have you uploaded all the documents to support that a hearing is not required?',
     partnerInformationCorrect: `Details of your ${partner} are correct`,
     useHwf: 'Help paying the application fee',
     hwfReference: 'Help with fees reference number',
@@ -55,6 +56,7 @@ const en = (
         [GeneralApplicationHearingNotRequired.NO]: 'No, hearing is required',
       }[hearingNotRequired] || '',
     hearingNotRequiredEvidenceFiles: `${hearingNotRequiredEvidenceFileNames?.join(', ')}`,
+    unableToUploadAllEvidenceFiles: `${cannotUploadHearingNotRequiredEvidence === YesOrNo.YES ? 'No, unable to upload some or all of my documents' : ''}`,
     partnerInformationCorrect: `${isRespondent || partnerDetailsPrivate === YesOrNo.YES ? '' : partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
     genAppD11Type:
       {
@@ -77,6 +79,7 @@ const en = (
   stepLinks: {
     doesNotRequireHearing: `${rootRedirectPath + urls.GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED}`,
     hearingNotRequiredEvidenceFiles: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES}`,
+    unableToUploadAllEvidenceFiles: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES}`,
     partnerInformationCorrect: `${rootRedirectPath + urls.GEN_APP_PARTNER_INFORMATION_CORRECT}`,
     genAppD11Type: `${rootRedirectPath + urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
     GenAppD11TypeOtherDetails: `${rootRedirectPath + urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
@@ -87,6 +90,7 @@ const en = (
     uploadedFiles: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE}`,
     evidenceStatement: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE}`,
   },
+  statementOfTruthLabel: 'I believe that the facts stated in this application are true.',
 });
 
 const cy: typeof en = (
@@ -116,6 +120,7 @@ const cy: typeof en = (
     evidenceStatement: 'Evidence statement',
     doesNotRequireHearing: 'Application can be dealt with without a hearing',
     hearingNotRequiredEvidenceFiles: 'Evidence files uploaded to support that a hearing is not required',
+    unableToUploadAllEvidenceFiles: 'Have you uploaded all the documents to support that a hearing is not required?',
     partnerInformationCorrect: `Details of your ${partner} are correct`,
     useHwf: 'Help paying the application fee',
     hwfReference: 'Help with fees reference number',
@@ -130,6 +135,8 @@ const cy: typeof en = (
         [GeneralApplicationHearingNotRequired.NO]: 'No, hearing is required',
       }[hearingNotRequired] || '',
     hearingNotRequiredEvidenceFiles: `${hearingNotRequiredEvidenceFileNames?.join(', ')}`,
+    unableToUploadAllEvidenceFiles: `${cannotUploadHearingNotRequiredEvidence === YesOrNo.YES ? 'No, unable to upload some or all of my documents' : ''}`,
+    unableToUploadEvidenceFiles: 'Have uploaded all the evidence files',
     partnerInformationCorrect: `${isRespondent || partnerDetailsPrivate === YesOrNo.YES ? '' : partnerDetailsCorrect === YesOrNo.YES ? 'Yes' : 'No'}`,
     genAppD11Type:
       {
@@ -152,6 +159,7 @@ const cy: typeof en = (
   stepLinks: {
     doesNotRequireHearing: `${rootRedirectPath + urls.GEN_APP_PARTNER_AGREES_HEARING_NOT_REQUIRED}`,
     hearingNotRequiredEvidenceFiles: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES}`,
+    unableToUploadAllEvidenceFiles: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE_PARTNER_AGREES}`,
     partnerInformationCorrect: `${rootRedirectPath + urls.GEN_APP_PARTNER_INFORMATION_CORRECT}`,
     genAppD11Type: `${rootRedirectPath + urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
     GenAppD11TypeOtherDetails: `${rootRedirectPath + urls.GEN_APP_SELECT_APPLICATION_TYPE}`,
@@ -162,6 +170,7 @@ const cy: typeof en = (
     uploadedFiles: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE}`,
     evidenceStatement: `${rootRedirectPath + urls.GEN_APP_UPLOAD_EVIDENCE}`,
   },
+  statementOfTruthLabel: 'I believe that the facts stated in this application are true.',
 });
 
 export const form: FormContent = checkAnswersForm;
