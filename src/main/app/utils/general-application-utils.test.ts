@@ -5,6 +5,7 @@ import {
   GeneralApplication,
   GeneralApplicationType,
   GeneralParties,
+  GeneralReferralReason,
   InterimApplicationType,
   ListValue,
   State,
@@ -299,10 +300,18 @@ describe('GeneralApplicationUtils', () => {
   describe('canStartNewGeneralApplication', () => {
     test('Should return true if user can submit general application', () => {
       mockReq.session.userCase.generalApplications = [];
-      mockReq.session.userCase.generalReferralType = undefined;
+      mockReq.session.userCase.generalReferralReason = undefined;
       mockReq.session.userCase.state = State.Submitted;
 
       expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(true);
+    });
+
+    test('Should return false if general referral in progress', () => {
+      mockReq.session.userCase.generalApplications = [];
+      mockReq.session.userCase.generalReferralReason = GeneralReferralReason.CASEWORKER_REFERRAL;
+      mockReq.session.userCase.state = State.Submitted;
+
+      expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
     });
 
     test('Should return false if case state is excluded', () => {

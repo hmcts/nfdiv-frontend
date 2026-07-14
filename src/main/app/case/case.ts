@@ -319,6 +319,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2: 'applicant1SearchGovRecordsPartnerAdditionalAddressDates2',
   generalApplications: 'generalApplications',
   generalReferralType: 'generalReferralType',
+  generalReferralReason: 'generalReferralReason',
   applicant1GeneralAppServiceRequest: 'applicant1GeneralAppServiceRequest',
   applicant2GeneralAppServiceRequest: 'applicant2GeneralAppServiceRequest',
   applicant1GeneralAppPayments: 'applicant1GeneralAppPayments',
@@ -764,6 +765,7 @@ export interface Case {
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
   generalApplications?: ListValue<GeneralApplication>[];
   generalReferralType?: string;
+  generalReferralReason?: string;
   applicant1GeneralAppServiceRequest?: string;
   applicant2GeneralAppServiceRequest?: string;
   applicant1GeneralAppPayments?: ListValue<Payment>[];
