@@ -8,6 +8,7 @@ import {
   CHECK_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
   CHECK_PHONE_NUMBER,
+  CONFIRM_CONTACT_DETAILS,
   DETAILS_OTHER_PROCEEDINGS,
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
@@ -30,11 +31,35 @@ import {
   RESPONDENT,
   RESPONSE_SUBMITTED,
   REVIEW_THE_APPLICATION,
+  UPDATE_ADDRESS_PRIVATE,
+  UPDATE_PHONE_NUMBER,
+  UPDATE_YOUR_ADDRESS,
 } from './urls';
 
-export const sequence: Step[] = [
+const sequence: Step[] = [
   {
     url: REVIEW_THE_APPLICATION,
+    getNextStep: () => CONFIRM_CONTACT_DETAILS,
+  },
+  {
+    url: CONFIRM_CONTACT_DETAILS,
+    getNextStep: data =>
+      data.applicant2ConfirmContactDetails === YesOrNo.NO ? ADDRESS_PRIVATE : HOW_DO_YOU_WANT_TO_RESPOND,
+  },
+  {
+    url: ADDRESS_PRIVATE,
+    getNextStep: data => (data.applicant2AddressPrivate === YesOrNo.NO ? ENTER_YOUR_ADDRESS : IN_REFUGE),
+  },
+  {
+    url: IN_REFUGE,
+    getNextStep: () => ENTER_YOUR_ADDRESS,
+  },
+  {
+    url: ENTER_YOUR_ADDRESS,
+    getNextStep: () => CHECK_PHONE_NUMBER,
+  },
+  {
+    url: CHECK_PHONE_NUMBER,
     getNextStep: () => HOW_DO_YOU_WANT_TO_RESPOND,
   },
   {
@@ -93,19 +118,15 @@ export const sequence: Step[] = [
     getNextStep: () => HOME_URL,
   },
   {
-    url: CHECK_PHONE_NUMBER,
-    getNextStep: () => ADDRESS_PRIVATE,
+    url: UPDATE_PHONE_NUMBER,
+    getNextStep: () => UPDATE_ADDRESS_PRIVATE,
   },
   {
-    url: ENTER_YOUR_ADDRESS,
-    getNextStep: () => ADDRESS_PRIVATE,
+    url: UPDATE_YOUR_ADDRESS,
+    getNextStep: () => UPDATE_ADDRESS_PRIVATE,
   },
   {
-    url: ADDRESS_PRIVATE,
-    getNextStep: data => (data.applicant2AddressPrivate === YesOrNo.YES ? IN_REFUGE : CHECK_CONTACT_DETAILS),
-  },
-  {
-    url: IN_REFUGE,
+    url: UPDATE_ADDRESS_PRIVATE,
     getNextStep: () => CHECK_CONTACT_DETAILS,
   },
   {
