@@ -1,8 +1,3 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
-
 import {
   CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE,
   CaseData,
@@ -11,6 +6,7 @@ import {
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../../../app/controller/BasePaymentCallbackGetController';
 import { AnyObject } from '../../../../../app/controller/PostController';
+import autobind from '../../../../../app/utils/autobind';
 import {
   findUnpaidGeneralApplication,
   getGeneralApplicationPaymentsField,

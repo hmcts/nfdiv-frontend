@@ -1,8 +1,4 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { Response } from 'express';
@@ -10,6 +6,7 @@ import { v4 as uuid } from 'uuid';
 
 import { CITIZEN_UPDATE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import autobind from '../../../app/utils/autobind';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { CHECK_ANSWERS_URL } from '../../urls';
 

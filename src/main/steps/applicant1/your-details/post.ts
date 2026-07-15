@@ -1,13 +1,10 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields } from '../../../app/form/Form';
 import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
+import autobind from '../../../app/utils/autobind';
 
 @autobind
 export default class YourDetailsPostController extends PostController<AnyObject> {

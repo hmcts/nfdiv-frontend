@@ -1,9 +1,6 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 
+import autobind from '../../app/utils/autobind';
 import { SupportedLanguages } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
 import { CommonContent, generateCommonContent } from '../../steps/common/common.content';

@@ -1,12 +1,9 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 
 import { YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 import { APPLICANT_2, ENTER_YOUR_NAMES } from '../../urls';
 
 @autobind

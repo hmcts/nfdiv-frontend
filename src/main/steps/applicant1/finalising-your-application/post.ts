@@ -1,7 +1,3 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 
 import { Case, CaseWithId } from '../../../app/case/case';
@@ -17,6 +13,7 @@ import {
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { needsToExplainDelay } from '../../../app/controller/controller.utils';
+import autobind from '../../../app/utils/autobind';
 import { getSwitchToSoleFoStatus } from '../../common/switch-to-sole-content.utils';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls';
 

@@ -1,11 +1,7 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
-
 import { APPLICANT_2_REQUEST_CHANGES, CITIZEN_APPLICANT2_UPDATE, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 import Applicant2PrayerPostController from '../check-your-answers/post';
 
 @autobind

@@ -1,12 +1,8 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
-
 import { Case, CaseWithId } from '../../../../../app/case/case';
 import { CITIZEN_START_INTERIM_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import autobind from '../../../../../app/utils/autobind';
 
 @autobind
 export default abstract class StartInterimApplicationPostController<T extends AnyObject> extends PostController<T> {

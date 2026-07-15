@@ -226,7 +226,9 @@ const getStepFiles = (runtimeStepDir: string, sourceStepDir: string) => {
                   text: l => l.continue,
                 },
                 fields: ((userCase: Partial<Case>, language?: string) => {
-                  const module = getStepContentModule(stepContentFile) as { form?: { fields?: FormFields | FormFieldsFn } };
+                  const module = getStepContentModule(stepContentFile) as {
+                    form?: { fields?: FormFields | FormFieldsFn };
+                  };
                   const fields = module.form?.fields;
                   if (!fields) {
                     return {} as FormFields;

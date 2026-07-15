@@ -1,7 +1,3 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 import lodash from 'lodash';
 
@@ -12,6 +8,7 @@ import { ApplicationType, SUBMIT_CONDITIONAL_ORDER, YesOrNo } from '../../../app
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
+import autobind from '../../../app/utils/autobind';
 import { APPLICANT_2, REVIEW_YOUR_APPLICATION, REVIEW_YOUR_JOINT_APPLICATION } from '../../urls';
 
 @autobind

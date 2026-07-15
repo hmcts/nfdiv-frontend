@@ -1,9 +1,6 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 
+import autobind from '../../app/utils/autobind';
 import { HOME_URL } from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';

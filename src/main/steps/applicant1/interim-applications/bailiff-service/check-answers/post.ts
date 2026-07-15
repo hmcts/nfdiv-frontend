@@ -1,9 +1,5 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
-
 import { CITIZEN_SERVICE_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
+import autobind from '../../../../../app/utils/autobind';
 import { Step } from '../../../../../steps/applicant1Sequence';
 import { bailiffServiceApplicationSequence as bailiffServiceSequence } from '../../../../bailiffServiceApplicationSequence';
 import CheckAnswersPostController from '../../common/check-answers/post';

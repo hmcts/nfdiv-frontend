@@ -1,7 +1,3 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 import lodash from 'lodash';
 
@@ -15,6 +11,7 @@ import {
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form } from '../../../../../app/form/Form';
+import autobind from '../../../../../app/utils/autobind';
 import { PROVIDE_NEW_EMAIL_ADDRESS } from '../../../../urls';
 
 @autobind

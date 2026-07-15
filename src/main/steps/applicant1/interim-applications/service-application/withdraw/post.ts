@@ -1,13 +1,10 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 
 import { WITHDRAW_SERVICE_APPLICATION } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import autobind from '../../../../../app/utils/autobind';
 import { SERVICE_APPLICATION_WITHDRAWN } from '../../../../urls';
 
 const logger = Logger.getLogger('withdraw-service-application-controller');

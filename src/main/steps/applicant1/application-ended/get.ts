@@ -1,14 +1,11 @@
 import path from 'path';
 
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 
 import { ApplicationType, SWITCH_TO_SOLE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
+import autobind from '../../../app/utils/autobind';
 
 import { generateContent } from './content';
 

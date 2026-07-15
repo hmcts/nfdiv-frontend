@@ -1,10 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 
+import autobind from '../../app/utils/autobind';
 import { CaseData } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { PaymentClient } from '../payment/PaymentClient';

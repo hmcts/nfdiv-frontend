@@ -16,6 +16,7 @@
     "lib": ["es2020", "dom", "dom.iterable"],
     "baseUrl": "src/main",
     "paths": {
+      "autobind": ["app/utils/autobind"],
       "router/*": ["router/*"],
       "routes/*": ["routes/*"]
     },

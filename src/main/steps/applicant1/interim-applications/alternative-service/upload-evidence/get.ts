@@ -1,13 +1,9 @@
 import path from 'path';
 
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
-
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { GetController } from '../../../../../app/controller/GetController';
 import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfiguration';
+import autobind from '../../../../../app/utils/autobind';
 
 import { generateContent } from './content';
 

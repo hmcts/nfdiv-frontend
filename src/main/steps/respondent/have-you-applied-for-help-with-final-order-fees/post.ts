@@ -1,11 +1,7 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
-
 import { CITIZEN_APPLICANT2_UPDATE, RESPONDENT_APPLY_FOR_FINAL_ORDER } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 
 @autobind
 export default class HaveYouAppliedForHelpWithFinalOrderFeesController extends PostController<AnyObject> {

@@ -1,10 +1,6 @@
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
-
 import { APPLICANT_2_NOT_BROKEN } from '../../../app/case/definition';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 
 @autobind
 export default class Applicant2IrretrievableBreakdownPostController extends PostController<AnyObject> {

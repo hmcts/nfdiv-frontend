@@ -1,8 +1,4 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobindDecorator from 'autobind-decorator';
-
-const autobind = ((autobindDecorator as { default?: unknown }).default ??
-  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 import lodash from 'lodash';
 
@@ -15,6 +11,7 @@ import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
+import autobind from '../../app/utils/autobind';
 import { APPLICANT_1, APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { existingOrNew } from './content';
