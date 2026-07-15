@@ -1,4 +1,6 @@
-import { invert } from 'lodash';
+import lodash from 'lodash';
+
+const { invert } = lodash;
 
 import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData, ContactDetailsType, HowToRespondApplication, MarriageFormation, YesOrNo } from './definition';

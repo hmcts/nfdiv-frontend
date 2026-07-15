@@ -1,6 +1,11 @@
-import autobind from 'autobind-decorator';
+import autobindDecorator from 'autobind-decorator';
+
+const autobind = ((autobindDecorator as { default?: unknown }).default ??
+  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
-import { isEmpty } from 'lodash';
+import lodash from 'lodash';
+
+const { isEmpty } = lodash;
 
 import { Case } from '../../../../../app/case/case';
 import {

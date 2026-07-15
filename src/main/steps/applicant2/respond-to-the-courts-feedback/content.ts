@@ -1,4 +1,6 @@
-import { isEmpty, isObject } from 'lodash';
+import lodash from 'lodash';
+
+const { isEmpty, isObject } = lodash;
 
 import { Checkbox } from '../../../app/case/case';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';

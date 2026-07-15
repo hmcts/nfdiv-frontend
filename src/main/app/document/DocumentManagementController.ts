@@ -1,4 +1,7 @@
-import autobind from 'autobind-decorator';
+import autobindDecorator from 'autobind-decorator';
+
+const autobind = ((autobindDecorator as { default?: unknown }).default ??
+  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';

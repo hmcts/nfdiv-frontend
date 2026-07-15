@@ -1,4 +1,7 @@
-import autobind from 'autobind-decorator';
+import autobindDecorator from 'autobind-decorator';
+
+const autobind = ((autobindDecorator as { default?: unknown }).default ??
+  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
 
 import { SWITCH_TO_SOLE_CO } from '../../../app/case/definition';

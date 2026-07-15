@@ -1,6 +1,8 @@
 import dayjs from 'dayjs';
 import { Response } from 'express';
-import { isEmpty } from 'lodash';
+import lodash from 'lodash';
+
+const { isEmpty } = lodash;
 
 import { CaseWithId } from '../../app/case/case';
 import { ApplicationType, InterimApplicationType, State, YesOrNo } from '../../app/case/definition';

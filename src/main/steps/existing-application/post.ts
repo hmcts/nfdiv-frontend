@@ -1,7 +1,12 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobind from 'autobind-decorator';
+import autobindDecorator from 'autobind-decorator';
+
+const autobind = ((autobindDecorator as { default?: unknown }).default ??
+  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { Response } from 'express';
-import { isEmpty } from 'lodash';
+import lodash from 'lodash';
+
+const { isEmpty } = lodash;
 
 import { getSystemUser } from '../../app/auth/user/oidc';
 import { CaseWithId, formFieldsToCaseMapping } from '../../app/case/case';

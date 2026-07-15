@@ -1,4 +1,7 @@
-import autobind from 'autobind-decorator';
+import autobindDecorator from 'autobind-decorator';
+
+const autobind = ((autobindDecorator as { default?: unknown }).default ??
+  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 
 import { InterimApplicationType } from '../../../../../app/case/definition';
 import { AnyObject } from '../../../../../app/controller/PostController';

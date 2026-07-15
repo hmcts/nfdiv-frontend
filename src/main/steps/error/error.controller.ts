@@ -1,4 +1,7 @@
-import autobind from 'autobind-decorator';
+import autobindDecorator from 'autobind-decorator';
+
+const autobind = ((autobindDecorator as { default?: unknown }).default ??
+  autobindDecorator) as unknown as ClassDecorator & MethodDecorator;
 import { AxiosError, AxiosResponse } from 'axios';
 import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';

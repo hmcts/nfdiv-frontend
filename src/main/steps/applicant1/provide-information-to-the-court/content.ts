@@ -1,4 +1,6 @@
-import { isEmpty, isObject } from 'lodash';
+import lodash from 'lodash';
+
+const { isEmpty, isObject } = lodash;
 
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';

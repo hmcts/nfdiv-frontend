@@ -1,4 +1,6 @@
-import { isObject } from 'lodash';
+import lodash from 'lodash';
+
+const { isObject } = lodash;
 
 import { CaseWithId, Checkbox } from '../../../app/case/case';
 import { DocumentType, YesOrNo } from '../../../app/case/definition';

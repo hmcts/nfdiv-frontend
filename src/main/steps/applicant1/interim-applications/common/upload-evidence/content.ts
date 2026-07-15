@@ -1,5 +1,7 @@
 import config from 'config';
-import { isObject } from 'lodash';
+import lodash from 'lodash';
+
+const { isObject } = lodash;
 
 import { Checkbox } from '../../../../../app/case/case';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';

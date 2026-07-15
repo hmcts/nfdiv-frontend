@@ -1,7 +1,7 @@
 import * as path from 'path';
 
 import { Logger } from '@hmcts/nodejs-logging';
-import * as bodyParser from 'body-parser';
+import bodyParser from 'body-parser';
 import config from 'config';
 import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';

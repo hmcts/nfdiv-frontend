@@ -102,7 +102,10 @@ const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
 };
 
 const requireFromRoot = createRequire(path.resolve(process.cwd(), 'package.json'));
-const routesFilePath = path.resolve(process.cwd(), 'src/main/routes.ts');
+const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
+const routesFilePath = isTestRuntime
+  ? path.resolve(process.cwd(), 'src/main/routes.ts')
+  : path.resolve(process.cwd(), 'src/main/main/routes.js');
 const ext = extname(routesFilePath);
 
 export class Routes {

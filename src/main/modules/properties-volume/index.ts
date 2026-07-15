@@ -3,7 +3,9 @@ import { SecretClient } from '@azure/keyvault-secrets';
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config from 'config';
 import { Application } from 'express';
-import { get, set } from 'lodash';
+import lodash from 'lodash';
+
+const { get, set } = lodash;
 import { v4 as uuidv4 } from 'uuid';
 
 export class PropertiesVolume {
