@@ -1,5 +1,6 @@
 import * as fs from 'fs';
-import { extname } from 'path';
+import { createRequire } from 'module';
+import { dirname, extname, resolve } from 'path';
 
 import { CaseWithId } from '../app/case/case';
 import { ApplicationType, State } from '../app/case/definition';
@@ -26,7 +27,10 @@ import {
 } from './urls';
 
 const stepFields: Record<string, FormFields | FormFieldsFn> = {};
-const ext = extname(__filename);
+const requireFromRoot = createRequire(resolve(process.cwd(), 'package.json'));
+const stepsFilePath = resolve(process.cwd(), 'src/main/steps/index.ts');
+const stepsBaseDir = dirname(stepsFilePath);
+const ext = extname(stepsFilePath);
 
 const allSequences = [
   applicant1PreSubmissionSequence,
@@ -37,11 +41,11 @@ const allSequences = [
 ];
 
 allSequences.forEach((sequence: Step[], i: number) => {
-  const dir = __dirname + (i === 0 || i === 1 ? '/applicant1' : '');
+  const dir = stepsBaseDir + (i === 0 || i === 1 ? '/applicant1' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content${ext}`;
     if (fs.existsSync(stepContentFile)) {
-      const content = require(stepContentFile);
+      const content = requireFromRoot(stepContentFile);
 
       if (content.form) {
         stepFields[step.url] = content.form.fields;
@@ -175,7 +179,7 @@ const getPathAndQueryString = (req: AppRequest): { path: string; queryString: st
 
 const getStepFiles = (stepDir: string) => {
   const stepContentFile = `${stepDir}/content${ext}`;
-  const content = fs.existsSync(stepContentFile) ? require(stepContentFile) : {};
+  const content = fs.existsSync(stepContentFile) ? requireFromRoot(stepContentFile) : {};
   const stepViewFile = `${stepDir}/template.njk`;
   const view = fs.existsSync(stepViewFile) ? stepViewFile : `${stepDir}/../../common/template.njk`;
 
@@ -191,7 +195,7 @@ export type StepWithContent = Step & {
 
 const getStepsWithContent = (sequence: Step[]): StepWithContent[] => {
   const isApplicant1 = [applicant1PreSubmissionSequence, applicant1PostSubmissionSequence].includes(sequence);
-  const dir = __dirname + (isApplicant1 ? '/applicant1' : '');
+  const dir = stepsBaseDir + (isApplicant1 ? '/applicant1' : '');
 
   const results: StepWithContent[] = [];
   for (const step of sequence) {

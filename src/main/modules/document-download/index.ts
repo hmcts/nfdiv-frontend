@@ -1,6 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Application } from 'express';
+import proxy from 'express-http-proxy';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -9,7 +10,6 @@ import { TIMED_OUT_URL } from '../../steps/urls';
 import { proxyList } from './proxy-list';
 
 const log = Logger.getLogger('document-download');
-const proxy = require('express-http-proxy');
 
 export class DocumentDownloadMiddleware {
   public enableFor(app: Application): void {

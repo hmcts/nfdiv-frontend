@@ -1,10 +1,10 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import csurf from 'csurf';
 import type { Application, RequestHandler } from 'express';
 import type { LoggerInstance } from 'winston';
 
 import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
 
-const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
 
 export class CSRFToken {

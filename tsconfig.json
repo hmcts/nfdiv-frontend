@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "outDir": "./src/",
-    "module": "commonjs",
+    "module": "ES2022",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2020",
+    "target": "ES2022",
     "strict": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noUnusedLocals": true,
     "experimentalDecorators": true,
     "useUnknownInCatchVariables": false,
@@ -20,6 +20,10 @@
       "routes/*": ["routes/*"]
     },
     "typeRoots": ["./node_modules/@types"]
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   },
   "exclude": ["**/*.test.ts", "**/codecept.conf.ts", "**/__mocks__/*"]
 }

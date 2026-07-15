@@ -1,3 +1,5 @@
+import path from 'path';
+
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
@@ -10,7 +12,7 @@ import { generateContent } from './content';
 @autobind
 export default class ApplicationEndedGetController extends GetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(path.resolve(process.cwd(), 'src/main/steps/applicant1/application-ended/template'), generateContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

@@ -1,3 +1,5 @@
+import path from 'path';
+
 import autobind from 'autobind-decorator';
 
 import { AppRequest } from '../../../../../app/controller/AppRequest';
@@ -9,7 +11,13 @@ import { generateContent } from './content';
 @autobind
 export default class AlternativeServiceUploadEvidenceGetController extends GetController {
   constructor() {
-    super(__dirname + '/template.njk', generateContent);
+    super(
+      path.resolve(
+        process.cwd(),
+        'src/main/steps/applicant1/interim-applications/alternative-service/upload-evidence/template.njk'
+      ),
+      generateContent
+    );
   }
 
   protected setSessionOverrides(req: AppRequest): void {

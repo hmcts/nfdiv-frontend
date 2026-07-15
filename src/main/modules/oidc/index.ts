@@ -1,4 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
+import axios from 'axios';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
@@ -126,7 +127,6 @@ export class OidcMiddleware {
           }
           if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
             logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
-            const axios = require('axios');
 
             const token = req.session.user.accessToken;
             const decreeNisiUrl = config.get('services.decreeNisi.url') + '/authenticated';
