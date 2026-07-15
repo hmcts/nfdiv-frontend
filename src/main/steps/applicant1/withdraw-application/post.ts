@@ -2,9 +2,11 @@ import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { endIdamSessionUrl } from '../../../app/auth/user/oidc';
 import { CITIZEN_WITHDRAWN } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import { getServiceUrl } from '../../../app/controller/url';
 import { APPLICATION_WITHDRAWN } from '../../urls';
 
 const logger = Logger.getLogger('withdraw-application-controller');
@@ -25,7 +27,7 @@ export default class WithdrawApplicationPostController extends PostController<An
         throw err;
       }
 
-      res.redirect(APPLICATION_WITHDRAWN);
+      res.redirect(endIdamSessionUrl(getServiceUrl(req, res, APPLICATION_WITHDRAWN)));
     });
   }
 }

@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { endIdamSessionUrl } from '../../../app/auth/user/oidc';
 import { CITIZEN_WITHDRAWN } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { APPLICATION_WITHDRAWN } from '../../urls';
@@ -14,6 +15,7 @@ describe('WithdrawApplicationPostController', () => {
   test('Should withdraw case and delete user session', async () => {
     const req = mockRequest();
     const res = mockResponse();
+    (res.locals as Record<string, string>).host = 'localhost';
 
     const controller = new WithdrawApplicationPostController(mockFormContent.fields);
     await controller.post(req, res);
@@ -22,6 +24,6 @@ describe('WithdrawApplicationPostController', () => {
 
     expect(req.session.destroy).toHaveBeenCalled();
 
-    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_WITHDRAWN);
+    expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl(`https://localhost${APPLICATION_WITHDRAWN}`));
   });
 });

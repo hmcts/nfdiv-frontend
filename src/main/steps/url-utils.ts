@@ -13,6 +13,7 @@ import {
   PageLink,
   RESIDUAL_JURISDICTION,
   RESPONDENT,
+  SIGN_OUT_URL,
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
   WEBCHAT_URL,
@@ -31,6 +32,7 @@ export const signInNotRequired = (reqPath: string): boolean =>
     WEBCHAT_URL,
     TIMED_OUT_URL,
     WITHDRAW_CONFIRMATION,
+    SIGN_OUT_URL,
   ].includes(reqPath as PageLink);
 
 export const isLinkingUrl = (reqPath: string): boolean =>

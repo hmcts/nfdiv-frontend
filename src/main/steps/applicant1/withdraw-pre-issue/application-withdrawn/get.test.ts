@@ -1,31 +1,22 @@
-import { defaultViewArgs } from '../../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { SupportedLanguages } from '../../../../modules/i18n';
-import { generateCommonContent } from '../../../common/common.content';
+import { endIdamSessionUrl } from '../../../../app/auth/user/oidc';
+import { WITHDRAW_CONFIRMATION } from '../../../urls';
 
 import { ApplicationWithdrawnPreIssueGetController } from './get';
 
 describe('ApplicationWithdrawnPreIssueGetController', () => {
   const controller = new ApplicationWithdrawnPreIssueGetController();
 
-  test('Should render application withdrawn page', async () => {
+  test('Should destroy session and redirect to IDAM logout', async () => {
     const req = mockRequest();
     const res = mockResponse();
-    await controller.get(req, res);
-    const language = SupportedLanguages.En;
+    (res.locals as Record<string, string>).host = 'localhost';
+    (req as { path: string }).path = WITHDRAW_CONFIRMATION;
 
-    expect(res.render).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        ...generateCommonContent({
-          language,
-          userEmail: 'test@example.com',
-          userCase: req.session.userCase,
-        }),
-        ...defaultViewArgs,
-        isAmendableStates: undefined,
-      })
-    );
+    await controller.get(req, res);
+
+    expect(req.session.destroy).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl(`https://localhost${WITHDRAW_CONFIRMATION}`));
   });
 });

@@ -14,9 +14,10 @@ export const idamTokenCache = new NodeCache({ stdTTL: 3600, checkperiod: 1800 })
 export const getRedirectUrl = (serviceUrl: string, requestPath: string): string => {
   const id: string = config.get('services.idam.clientID');
   const loginUrl: string = config.get('services.idam.authorizationURL');
+  const loginScope: string = config.get('services.idam.authorizationScope');
   const callbackUrl = encodeURI(serviceUrl + (requestPath === SIGN_IN_URL ? CALLBACK_URL : APPLICANT_2_CALLBACK_URL));
 
-  return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}`;
+  return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}&scope=${loginScope}`;
 };
 
 export const getUserDetails = async (
@@ -109,4 +110,10 @@ export const getIdamToken = async (
   }
 
   return response;
+};
+
+export const endIdamSessionUrl = (redirectUrl: string): string => {
+  const endSessionUrl: string = config.get('services.idam.endSessionURL');
+
+  return `${endSessionUrl}?post_logout_redirect_uri=${redirectUrl}`;
 };

@@ -1,5 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { endIdamSessionUrl } from '../../app/auth/user/oidc';
+import { REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT } from '../urls';
 
 import { RequestForInformationSaveSignOutGetController } from './get';
 
@@ -9,8 +11,13 @@ describe('RequestForInformationSaveSignOutGetController', () => {
 
     const req = mockRequest({ session: { user: { email: 'test@example.com' } } });
     const res = mockResponse();
+    (res.locals as Record<string, string>).host = 'localhost';
+    (req as { path: string }).path = REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT;
     await controller.get(req, res);
 
     expect(req.session.destroy).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(
+      endIdamSessionUrl(`https://localhost${REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT}`)
+    );
   });
 });

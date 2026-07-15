@@ -1,8 +1,10 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { endIdamSessionUrl } from '../../app/auth/user/oidc';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
+import { getServiceUrl } from '../../app/controller/url';
 
 import { generateContent } from './content';
 
@@ -13,6 +15,10 @@ export class TimedOutGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+    if (!req.session.user) {
+      return super.get(req, res);
+    }
+
     res.locals['lang'] = req.session.lang;
 
     req.session.destroy(err => {
@@ -20,7 +26,7 @@ export class TimedOutGetController extends GetController {
         throw err;
       }
 
-      super.get(req, res);
+      res.redirect(endIdamSessionUrl(getServiceUrl(req, res, req.path)));
     });
   }
 }
