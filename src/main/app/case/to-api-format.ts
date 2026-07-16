@@ -721,6 +721,12 @@ const fields: ToApiConverters = {
         ? data.applicant1DispenseChildMaintenanceResults
         : null,
   }),
+  applicant2ConfirmContactDetails: data => ({
+    applicant2ConfirmContactDetails: data.applicant2ConfirmContactDetails,
+    ...(data.applicant2ConfirmContactDetails === YesOrNo.YES
+      ? setUnreachableAnswersToNull(['applicant2InRefuge'])
+      : {}),
+  }),
 };
 
 const toApiDate = (date: CaseDate | undefined | string) => {

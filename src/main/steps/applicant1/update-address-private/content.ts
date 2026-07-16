@@ -1,10 +1,10 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import {
-  form as applicant2Form,
-  generateContent as applicant2GenerateContent,
-} from '../../applicant2/address-private/content';
+  form as applicant1Form,
+  generateContent as applicant1GenerateContent,
+} from '../../applicant1/address-private/content';
 
-export const form: FormContent = applicant2Form;
+export const form: FormContent = applicant1Form;
 
-export const generateContent: TranslationFn = applicant2GenerateContent;
+export const generateContent: TranslationFn = applicant1GenerateContent;

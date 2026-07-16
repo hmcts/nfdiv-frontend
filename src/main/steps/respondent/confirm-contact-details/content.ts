@@ -74,6 +74,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const prefixUrl = getRootRedirectPath(isApplicant2, content.userCase);
   const radioAnswers = radioButtonAnswers[language];
+  const respondentContactDetailsPublic = content.userCase?.applicant2AddressPrivate !== YesOrNo.YES;
   const applicantAddress = [
     content.userCase?.applicant2Address1,
     content.userCase?.applicant2Address2,
@@ -93,5 +94,6 @@ export const generateContent: TranslationFn = content => {
     applicantAddress,
     phoneNumber,
     form,
+    respondentContactDetailsPublic,
   };
 };
