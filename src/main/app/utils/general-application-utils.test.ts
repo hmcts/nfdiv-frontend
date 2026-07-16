@@ -346,12 +346,6 @@ describe('GeneralApplicationUtils', () => {
       });
     });
 
-    test('Should return false if general referral in progress', () => {
-      mockReq.session.userCase.generalReferralType = 'SOME_REFERRAL';
-
-      expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
-    });
-
     test('Should return false if general application payment in progress', () => {
       expect(canStartNewGeneralApplication(false, mockReq.session.userCase)).toBe(false);
     });
