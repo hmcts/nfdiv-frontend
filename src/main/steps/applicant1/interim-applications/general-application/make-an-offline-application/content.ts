@@ -3,15 +3,14 @@ import config from 'config';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { CommonContent } from '../../../../common/common.content';
 
-const en = ({ isDivorce, referenceNumber }: CommonContent) => ({
+const en = ({ referenceNumber }: CommonContent) => ({
   title: 'Making an application to the court',
   makeAnApplication: {
     header: 'Making an application to the court',
-    line1: `There is already an application that has been submitted online in progress on your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
-    line2Part1: 'If you need to submit a new application, then you can ',
-    line2Part2: 'apply by completing a paper D11 form',
+    line1Part1: 'If you need to submit a general application to the court, then you can ',
+    line1Part2: 'apply by completing a paper D11 form.',
     d11Link: config.get('govukUrls.d11Form'),
-    line4: 'You can send the completed form to the court in the following ways:',
+    line2: 'You can send the completed form to the court in the following ways:',
   },
   documentsByOnlineForm: 'Sending documents using our online form',
   documentsByOnlineFormSteps: {
@@ -35,15 +34,14 @@ const en = ({ isDivorce, referenceNumber }: CommonContent) => ({
   returnToHub: 'Return to hub screen',
 });
 
-const cy = ({ isDivorce, referenceNumber }: CommonContent) => ({
+const cy = ({ referenceNumber }: CommonContent) => ({
   title: 'Making an application to the court',
   makeAnApplication: {
     header: 'Making an application to the court',
-    line1: `There is already an application that has been submitted online in progress on your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
-    line2Part1: 'If you need to submit a new application, then you can ',
-    line2Part2: 'apply by completing a paper D11 form',
+    line1Part1: 'If you need to submit a general application to the court, then you can ',
+    line1Part2: 'apply by completing a paper D11 form.',
     d11Link: config.get('govukUrls.d11Form'),
-    line4: 'You can send the completed form to the court in the following ways:',
+    line2: 'You can send the completed form to the court in the following ways:',
   },
   documentsByOnlineForm: 'Sending documents using our online form',
   documentsByOnlineFormSteps: {
