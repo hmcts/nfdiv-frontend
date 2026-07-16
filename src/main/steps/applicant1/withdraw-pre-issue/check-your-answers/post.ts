@@ -2,12 +2,11 @@ import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { endIdamSessionUrl } from '../../../../app/auth/user/oidc';
 import { Case } from '../../../../app/case/case';
 import { CITIZEN_WITHDRAWN } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { getServiceUrl } from '../../../../app/controller/url';
+import { destroySessionAndRedirectToSignOut } from '../../../../app/controller/controller.utils';
 import { Form } from '../../../../app/form/Form';
 
 const logger = Logger.getLogger('withdraw-application-controller');
@@ -30,13 +29,7 @@ export default class PreIssueWithdrawPostController extends PostController<AnyOb
 
     const withdrawConfirmationPath = req.path.replace('check-your-answers', 'application-withdrawn');
 
-    req.session.destroy(err => {
-      if (err) {
-        throw err;
-      }
-
-      res.redirect(endIdamSessionUrl(getServiceUrl(req, res, withdrawConfirmationPath)));
-    });
+    destroySessionAndRedirectToSignOut(req, res, withdrawConfirmationPath);
   }
 
   protected getEventName(): string {

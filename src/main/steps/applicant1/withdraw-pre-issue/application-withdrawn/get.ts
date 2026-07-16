@@ -1,10 +1,9 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { endIdamSessionUrl } from '../../../../app/auth/user/oidc';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
-import { getServiceUrl } from '../../../../app/controller/url';
+import { destroySessionAndRedirectToSignOut } from '../../../../app/controller/controller.utils';
 
 import { generateContent } from './content';
 
@@ -22,12 +21,6 @@ export class ApplicationWithdrawnPreIssueGetController extends GetController {
     res.locals['email'] = req.session.user?.email;
     res.locals['lang'] = req.session.lang;
 
-    req.session.destroy(err => {
-      if (err) {
-        throw err;
-      }
-
-      res.redirect(endIdamSessionUrl(getServiceUrl(req, res, req.path)));
-    });
+    destroySessionAndRedirectToSignOut(req, res);
   }
 }

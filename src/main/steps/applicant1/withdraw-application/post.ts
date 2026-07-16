@@ -2,11 +2,10 @@ import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { endIdamSessionUrl } from '../../../app/auth/user/oidc';
 import { CITIZEN_WITHDRAWN } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { getServiceUrl } from '../../../app/controller/url';
+import { destroySessionAndRedirectToSignOut } from '../../../app/controller/controller.utils';
 import { APPLICATION_WITHDRAWN } from '../../urls';
 
 const logger = Logger.getLogger('withdraw-application-controller');
@@ -22,12 +21,6 @@ export default class WithdrawApplicationPostController extends PostController<An
       throw new Error('Failed to withdraw case. Please try again later.');
     }
 
-    req.session.destroy(err => {
-      if (err) {
-        throw err;
-      }
-
-      res.redirect(endIdamSessionUrl(getServiceUrl(req, res, APPLICATION_WITHDRAWN)));
-    });
+    destroySessionAndRedirectToSignOut(req, res, APPLICATION_WITHDRAWN);
   }
 }
