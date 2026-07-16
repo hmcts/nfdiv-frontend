@@ -181,6 +181,11 @@ const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication,
         ? 'The court will update you on the progress of the application.'
         : 'The court will contact you to tell you your next steps.',
   },
+  applicationStayed: {
+    line1: `Your application has been paused by the court after a stay was granted. This means the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'} will not move forward unless you contact the court to ask for it to continue.`,
+    line2: `If you decide you want to progress your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}, you’ll need to contact the court.`,
+    line3: 'The court will explain what happens next and whether you need to make another application.',
+  },
 });
 
 const cy: typeof en = ({
@@ -355,6 +360,11 @@ const cy: typeof en = ({
       isApplicant2 && !isJointApplication
         ? 'Bydd y llys yn eich diweddaru ar gynnydd y cais.'
         : 'Bydd y llys yn cysylltu â chi i ddweud wrthych beth yw’r camau nesaf.',
+  },
+  applicationStayed: {
+    line1: `Your application has been paused by the court after a stay was granted. This means the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'} will not move forward unless you contact the court to ask for it to continue.`,
+    line2: `If you decide you want to progress your ${isDivorce ? 'divorce' : 'application to end your civil partnership'}, you’ll need to contact the court.`,
+    line3: 'The court will explain what happens next and whether you need to make another application.',
   },
 });
 

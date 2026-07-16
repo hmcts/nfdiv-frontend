@@ -4,6 +4,7 @@ import { CaseWithId, Checkbox } from '../../../../../app/case/case';
 import {
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_UPDATE,
+  GeneralApplicationHearingNotRequired,
   GeneralApplicationType,
   YesOrNo,
 } from '../../../../../app/case/definition';
@@ -28,6 +29,10 @@ describe('SelectApplicationTypePostController', () => {
       applicant1InterimAppsHaveHwfReference: YesOrNo.YES,
       applicant1InterimAppsHwfRefNumber: 'dummy-ref-app1',
       applicant1GenAppType: GeneralApplicationType.AMEND_APPLICATION,
+      applicant1GenAppCannotUploadAgreedEvidence: Checkbox.Checked,
+      applicant1GenAppHearingNotRequired: GeneralApplicationHearingNotRequired.YES_PARTNER_AGREES_WITH_APPLICATION,
+      applicant1GenAppPartnerAgreesDocs: [{ id: 'mock-id-app1', value: {} }],
+      applicant1GenAppPartnerDetailsCorrect: YesOrNo.YES,
       applicant2InterimAppsEvidenceDocs: [{ id: 'mock-id-app2', value: {} }],
       applicant2InterimAppsCannotUploadDocs: Checkbox.Checked,
       applicant2InterimAppsCanUploadEvidence: YesOrNo.YES,
@@ -37,6 +42,10 @@ describe('SelectApplicationTypePostController', () => {
       applicant2InterimAppsHaveHwfReference: YesOrNo.YES,
       applicant2InterimAppsHwfRefNumber: 'dummy-ref-app2',
       applicant2GenAppType: GeneralApplicationType.EXPEDITE,
+      applicant2GenAppCannotUploadAgreedEvidence: Checkbox.Checked,
+      applicant2GenAppHearingNotRequired: GeneralApplicationHearingNotRequired.YES_PARTNER_AGREES_WITH_APPLICATION,
+      applicant2GenAppPartnerAgreesDocs: [{ id: 'mock-id-app1', value: {} }],
+      applicant2GenAppPartnerDetailsCorrect: YesOrNo.YES,
     } as CaseWithId;
   });
 
@@ -91,6 +100,10 @@ describe('SelectApplicationTypePostController', () => {
         applicant1InterimAppsHaveHwfReference: null,
         applicant1InterimAppsHwfRefNumber: null,
         applicant1InterimAppsUseHelpWithFees: null,
+        applicant1GenAppCannotUploadAgreedEvidence: null,
+        applicant1GenAppHearingNotRequired: null,
+        applicant1GenAppPartnerAgreesDocs: [],
+        applicant1GenAppPartnerDetailsCorrect: null,
       };
       expect(mockReq.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_UPDATE);
     });
@@ -147,6 +160,10 @@ describe('SelectApplicationTypePostController', () => {
         applicant2InterimAppsHaveHwfReference: null,
         applicant2InterimAppsHwfRefNumber: null,
         applicant2InterimAppsUseHelpWithFees: null,
+        applicant2GenAppCannotUploadAgreedEvidence: null,
+        applicant2GenAppHearingNotRequired: null,
+        applicant2GenAppPartnerAgreesDocs: [],
+        applicant2GenAppPartnerDetailsCorrect: null,
       };
       expect(mockReq.locals.api.triggerEvent).toHaveBeenCalledWith('1234', expectedBody, CITIZEN_APPLICANT2_UPDATE);
     });

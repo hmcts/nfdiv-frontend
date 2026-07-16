@@ -37,6 +37,8 @@ export const D11_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
   State.PendingServiceAppResponse,
   State.ServiceAdminRefusal,
   State.FinalOrderComplete,
+  State.WelshTranslationReview,
+  State.WelshTranslationRequested,
 ]);
 
 export const RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES: Set<State> = new Set([
@@ -134,7 +136,7 @@ export const canSubmitD11GeneralApplication = (isApplicant2: boolean, userCase: 
     return false;
   }
 
-  const caseHasGeneralReferral = !!userCase?.generalReferralType;
+  const caseHasGeneralReferral = !!userCase?.generalReferralReason;
   if (caseHasGeneralReferral) {
     return false;
   }
