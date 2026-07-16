@@ -1,7 +1,12 @@
 import { Checkbox } from '../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../app/case/definition';
 
-import { Step, applicant1PreSubmissionSequence, isCountryUk } from './applicant1Sequence';
+import {
+  Step,
+  applicant1PostSubmissionSequence,
+  applicant1PreSubmissionSequence,
+  isCountryUk,
+} from './applicant1Sequence';
 import {
   ADDRESS_PRIVATE,
   CHECK_CONTACT_DETAILS,
@@ -10,6 +15,8 @@ import {
   IN_REFUGE,
   MONEY_PROPERTY,
   OTHER_COURT_CASES,
+  UPDATE_ADDRESS_PRIVATE,
+  UPDATE_IN_REFUGE,
   UPLOAD_YOUR_DOCUMENTS,
   WHO_IS_THE_FINANCIAL_ORDER_FOR,
   YOU_NEED_TO_SERVE,
@@ -111,6 +118,45 @@ describe('isCountryUk test', () => {
       };
 
       expect(step.getNextStep(caseData)).toBe(ENTER_YOUR_ADDRESS);
+    });
+  });
+
+  describe('applicant1 UPDATE_ADDRESS_PRIVATE', () => {
+    const step = applicant1PostSubmissionSequence.find(obj => obj.url === UPDATE_ADDRESS_PRIVATE) as Step;
+
+    test('routes to in refuge when address is private', () => {
+      const caseData = {
+        applicant1AddressPrivate: YesOrNo.YES,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(UPDATE_IN_REFUGE);
+    });
+
+    test('routes to check contact details when address is not private', () => {
+      const caseData = {
+        applicant1AddressPrivate: YesOrNo.NO,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(CHECK_CONTACT_DETAILS);
+    });
+  });
+  describe('applicant1 UPDATE_IN_REFUGE', () => {
+    const step = applicant1PostSubmissionSequence.find(obj => obj.url === UPDATE_IN_REFUGE) as Step;
+
+    test('routes to in refuge when address is private', () => {
+      const caseData = {
+        applicant1InRefuge: YesOrNo.YES,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(CHECK_CONTACT_DETAILS);
+    });
+
+    test('routes to check contact details when address is not private', () => {
+      const caseData = {
+        applicant1InRefuge: YesOrNo.NO,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(CHECK_CONTACT_DETAILS);
     });
   });
 });

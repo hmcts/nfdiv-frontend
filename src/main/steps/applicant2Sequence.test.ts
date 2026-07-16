@@ -2,7 +2,8 @@ import { Checkbox } from '../app/case/case';
 import { State, YesOrNo } from '../app/case/definition';
 
 import { Step } from './applicant1Sequence';
-import { preSubmissionSequence } from './applicant2Sequence';
+import { postSubmissionSequence, preSubmissionSequence } from './applicant2Sequence';
+import { sequence } from './respondentSequence';
 import {
   ADDRESS_PRIVATE,
   CHECK_CONTACT_DETAILS,
@@ -10,6 +11,8 @@ import {
   ENTER_YOUR_ADDRESS,
   IN_REFUGE,
   MONEY_PROPERTY,
+  UPDATE_ADDRESS_PRIVATE,
+  UPDATE_IN_REFUGE,
   UPLOAD_YOUR_DOCUMENTS,
   WHO_IS_THE_FINANCIAL_ORDER_FOR,
 } from './urls';
@@ -119,6 +122,44 @@ describe('Applicant 2 Sequence test', () => {
       };
 
       expect(step.getNextStep(caseData)).toBe(ENTER_YOUR_ADDRESS);
+    });
+  });
+  describe('Applicant2 UPDATE_ADDRESS_PRIVATE', () => {
+    const step = postSubmissionSequence.find(obj => obj.url === UPDATE_ADDRESS_PRIVATE) as Step;
+
+    test('routes to in refuge when address is private', () => {
+      const caseData = {
+        applicant2AddressPrivate: YesOrNo.YES,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(UPDATE_IN_REFUGE);
+    });
+
+    test('routes to check contact details when address is not private', () => {
+      const caseData = {
+        applicant2AddressPrivate: YesOrNo.NO,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(CHECK_CONTACT_DETAILS);
+    });
+  });
+  describe('Respondent UPDATE_IN_REFUGE', () => {
+    const step = sequence.find(obj => obj.url === UPDATE_IN_REFUGE) as Step;
+
+    test('routes to in refuge when address is private', () => {
+      const caseData = {
+        applicant2InRefuge: YesOrNo.YES,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(CHECK_CONTACT_DETAILS);
+    });
+
+    test('routes to check contact details when address is not private', () => {
+      const caseData = {
+        applicant2InRefuge: YesOrNo.NO,
+      };
+
+      expect(step.getNextStep(caseData)).toBe(CHECK_CONTACT_DETAILS);
     });
   });
 });

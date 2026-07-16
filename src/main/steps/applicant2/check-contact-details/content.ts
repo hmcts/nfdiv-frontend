@@ -1,10 +1,12 @@
-import { ApplicationType } from '../../../app/case/definition';
+import { ApplicationType, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 
 const en = () => ({
   title: 'Review your contact details',
   yourAddress: 'Your address',
   yourPhoneNumber: 'Your phone number',
+  addressPrivateQuestion: 'Do you need your contact details kept private?',
+  inRefugeQuestion: 'Are you currently in a refuge?',
 });
 
 // @TODO translations
@@ -28,6 +30,8 @@ export const generateContent: TranslationFn = content => {
     .filter(Boolean)
     .join('<br>');
   const phoneNumber = content.userCase?.applicant2PhoneNumber;
+  const addressPrivate = content.userCase?.applicant2AddressPrivate;
+  const inRefuge = content.userCase?.applicant2InRefuge;
   const translations = languages[content.language]();
   const prefixUrl =
     content.userCase?.applicationType === ApplicationType.SOLE_APPLICATION ? '/respondent' : '/applicant2';
@@ -35,6 +39,9 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     applicantAddress,
     phoneNumber,
+    addressPrivate,
+    inRefuge,
+    showInRefugeQuestion: addressPrivate === YesOrNo.YES,
     prefixUrl,
   };
 };

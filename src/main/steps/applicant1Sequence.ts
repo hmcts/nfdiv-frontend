@@ -101,6 +101,7 @@ import {
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
   UPDATE_ADDRESS_PRIVATE,
+  UPDATE_IN_REFUGE,
   UPDATE_PHONE_NUMBER,
   UPDATE_YOUR_ADDRESS,
   UPLOAD_YOUR_DOCUMENTS,
@@ -541,6 +542,10 @@ export const applicant1PostSubmissionSequence: Step[] = [
   },
   {
     url: UPDATE_ADDRESS_PRIVATE,
+    getNextStep: data => (data.applicant1AddressPrivate === YesOrNo.YES ? UPDATE_IN_REFUGE : CHECK_CONTACT_DETAILS),
+  },
+  {
+    url: UPDATE_IN_REFUGE,
     getNextStep: () => CHECK_CONTACT_DETAILS,
   },
   {
