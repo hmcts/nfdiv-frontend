@@ -6,8 +6,10 @@ import {
   CITIZEN_GENERAL_APPLICATION,
   InterimApplicationType,
   State,
+  YesOrNo,
 } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
+import { SupportedLanguages } from '../../../../../modules/i18n';
 import { getFirstErroredStep } from '../../../../index';
 
 import CheckGeneralApplicationD11AnswersPostController from './post';
@@ -80,5 +82,26 @@ describe('CheckGeneralApplicationD11AnswersPostController', () => {
 
     expect(getFirstErroredStep).toHaveBeenCalledWith(req, expect.any(Array));
     expect(res.redirect).toHaveBeenCalledWith(incompleteStepUrl);
+  });
+
+  it('Sets the applicant1UsedWelshTranslationOnSubmission field', async () => {
+    const body = {
+      applicationType: ApplicationType.SOLE_APPLICATION,
+      state: State.AosOverdue,
+      applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
+      applicant1InterimApplicationType: InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11,
+      applicant1UsedWelshTranslationOnSubmission: YesOrNo.YES,
+    };
+    const req = mockRequest({ body });
+    req.session.isApplicant2 = false;
+    req.session.lang = SupportedLanguages.Cy;
+    const res = mockResponse();
+
+    (getFirstErroredStep as jest.Mock).mockReturnValue(undefined);
+
+    await controller.post(req, res);
+
+    expect(getFirstErroredStep).toHaveBeenCalledWith(req, expect.any(Array));
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_GENERAL_APPLICATION);
   });
 });

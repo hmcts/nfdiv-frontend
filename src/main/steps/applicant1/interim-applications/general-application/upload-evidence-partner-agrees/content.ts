@@ -37,7 +37,7 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => {
     },
     line3: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
       'govukUrls.certifiedTranslation'
-    )}">certified translation</a>.`,
+    )}">certified translation (opens in a new tab)</a>.`,
     line4: 'You may need to upload multiple documents.',
     line5: 'You cannot upload video or audio recordings.',
     uploadAFile: 'Upload a file',
@@ -84,7 +84,7 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
     },
     line3: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
       'govukUrls.certifiedTranslation'
-    )}">certified translation</a>.`,
+    )}">certified translation (opens in a new tab)</a>.`,
     line4: 'You may need to upload multiple documents.',
     line5: 'You cannot upload video or audio recordings.',
     uploadAFile: 'Upload a file',
