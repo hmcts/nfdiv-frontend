@@ -75,7 +75,7 @@ Feature: General Application D11 journey joint applicant 2
     Given I click element "#applicant2InterimAppsStatementOfTruth"
     When I click continue
     Then the page should include element "#generalApplicationSubmittedTitle"
-    And the page should include "You have submitted your application"
+    And the page should include "Your application has been submitted"
 
   Scenario: Joint Applicant 2 D11 Journey card payment
     When I go to "/applicant2/hub-page"
@@ -126,7 +126,7 @@ Feature: General Application D11 journey joint applicant 2
     Then the page should include element "#payYourGeneralApplicationFeeTitle"
 
     Given I pay and submit the general application
-    Then the page should include "You have submitted your application"
+    Then the page should include "Your application has been submitted"
 
   Scenario: Joint Applicant 2 D11 Journey withdraw before payment
     When I go to "/applicant2/hub-page"
