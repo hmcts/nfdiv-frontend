@@ -25,8 +25,8 @@ import {
   getSelectedGender,
   getServiceName,
   hasApplicantAppliedForFoFirst,
-  isApplicant2EmailUpdatePossible,
   isAddressRequired,
+  isApplicant2EmailUpdatePossible,
   latestLegalAdvisorDecisionContent,
 } from './content.utils';
 
