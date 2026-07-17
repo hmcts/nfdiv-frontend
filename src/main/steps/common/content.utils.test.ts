@@ -25,6 +25,7 @@ import {
   getSelectedGender,
   getServiceName,
   hasApplicantAppliedForFoFirst,
+  isAddressRequired,
   isApplicant2EmailUpdatePossible,
   latestLegalAdvisorDecisionContent,
 } from './content.utils';
@@ -166,6 +167,68 @@ describe('content.utils', () => {
     const actual = formattedCaseId(caseId);
 
     expect(actual).toEqual('1111-2222-3333-4444');
+  });
+
+  describe('isAddressRequired', () => {
+    test.each([
+      [
+        {
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          issueDate: undefined,
+          applicant2Address1: undefined,
+          applicant2AddressPostcode: 'SW1A 1AA',
+          applicant2AddressCountry: 'UK',
+          applicant2AddressOverseas: YesOrNo.NO,
+        },
+        true,
+      ],
+      [
+        {
+          applicationType: ApplicationType.JOINT_APPLICATION,
+          issueDate: undefined,
+          applicant2Address1: undefined,
+          applicant2AddressPostcode: 'SW1A 1AA',
+          applicant2AddressCountry: 'UK',
+          applicant2AddressOverseas: YesOrNo.NO,
+        },
+        false,
+      ],
+      [
+        {
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          issueDate: '2024-10-10',
+          applicant2Address1: undefined,
+          applicant2AddressPostcode: 'SW1A 1AA',
+          applicant2AddressCountry: 'UK',
+          applicant2AddressOverseas: YesOrNo.NO,
+        },
+        false,
+      ],
+      [
+        {
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          issueDate: undefined,
+          applicant2Address1: '10 Downing Street',
+          applicant2AddressPostcode: 'SW1A 2AA',
+          applicant2AddressCountry: 'UK',
+          applicant2AddressOverseas: YesOrNo.NO,
+        },
+        false,
+      ],
+      [
+        {
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          issueDate: undefined,
+          applicant2Address1: undefined,
+          applicant2AddressPostcode: '75007',
+          applicant2AddressCountry: 'France',
+          applicant2AddressOverseas: YesOrNo.YES,
+        },
+        false,
+      ],
+    ])('returns %s for userCase %j', (userCase, expected) => {
+      expect(isAddressRequired(userCase as Partial<CaseWithId>)).toBe(expected);
+    });
   });
 
   describe('test latestLegalAdvisorDecisionContent', () => {

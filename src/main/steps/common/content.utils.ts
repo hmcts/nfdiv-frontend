@@ -1,4 +1,4 @@
-import { capitalize } from 'lodash';
+import { capitalize, isEmpty } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
@@ -92,6 +92,17 @@ export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWi
     return userCase[`${addressPrefix}Address`].split('\n');
   }
   return addressFields;
+};
+
+export const isAddressRequired = (userCase: Partial<CaseWithId>): boolean => {
+  return (
+    userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
+    !userCase?.issueDate &&
+    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(
+      isEmpty
+    ) &&
+    userCase?.applicant2AddressOverseas !== YesOrNo.YES
+  );
 };
 
 export const formattedCaseId = (caseId: string | undefined): string | undefined => {
