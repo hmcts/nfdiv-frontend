@@ -29,6 +29,10 @@ Feature: No response journey
 
     Given I click element "#proveYes"
     When I click continue
+    Then the page should include element "#hasCertificateOfServiceTitle"
+
+    Given I click element "#hasCertificateOfServiceNo"
+    When I click continue
     Then the page should include element "#deemedServiceApplicationTitle"
 
   Scenario: No response respondent represented happy path to deemed service
@@ -55,6 +59,10 @@ Feature: No response journey
 
     Given I click element "#proveYes"
     When I click continue
+    Then the page should include element "#hasCertificateOfServiceTitle"
+
+    Given I click element "#hasCertificateOfServiceNo"
+    When I click continue
     Then the page should include element "#deemedServiceApplicationTitle"
 
   Scenario: No response respondent confidential happy path to deemed service
@@ -76,6 +84,10 @@ Feature: No response journey
     Then the page should include element "#evidenceReceivedApplicationTitle"
 
     Given I click element "#proveYes"
+    When I click continue
+    Then the page should include element "#hasCertificateOfServiceTitle"
+
+    Given I click element "#hasCertificateOfServiceNo"
     When I click continue
     Then the page should include element "#deemedServiceApplicationTitle"
 

@@ -162,6 +162,9 @@ export const HAVE_THEY_RECEIVED_REPRESENTED: PageLink =
   '/interim-applications/no-response/have-they-received-represented';
 export const EVIDENCE_RECEIVED_APPLICATION: PageLink =
   '/interim-applications/no-response/evidence-received-application';
+export const EVIDENCE_CERTIFICATE_OF_SERVICE: PageLink =
+  '/interim-applications/no-response/evidence-certificate-of-service';
+export const SEND_CERTIFICATE_OF_SERVICE: PageLink = '/interim-applications/no-response/send-certificate-of-service';
 export const NEW_POSTAL_AND_EMAIL: PageLink = '/interim-applications/no-response/new-postal-and-email';
 export const NO_NEW_ADDRESS: PageLink = '/interim-applications/no-response/no-new-address';
 export const PARTNER_IN_PERSON: PageLink = '/interim-applications/no-response/partner-in-person';

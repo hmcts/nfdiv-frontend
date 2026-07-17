@@ -150,6 +150,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.RequestedInformationSubmitted:
     case State.AwaitingGeneralConsideration:
     case State.GeneralConsiderationComplete:
+    case State.ApplicationStayed:
     case State.PendingHearingDate:
     case State.PendingHearingOutcome:
     case State.FinalOrderRequested:
@@ -175,7 +176,8 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingHWFEvidence:
     case State.WelshTranslationReview:
     case State.WelshTranslationRequested:
-    case State.AwaitingLegalAdvisorReferral: {
+    case State.AwaitingLegalAdvisorReferral:
+    case State.PendingRefund: {
       return isSolicitorRepresented ? APP_REPRESENTED : HUB_PAGE;
     }
     case State.AwaitingPayment:
