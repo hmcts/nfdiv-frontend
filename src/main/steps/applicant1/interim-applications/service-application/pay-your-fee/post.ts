@@ -1,5 +1,3 @@
-import autobind from 'autobind-decorator';
-
 import {
   CITIZEN_SERVICE_APPLICATION,
   CaseData,
@@ -10,6 +8,7 @@ import {
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../../../app/controller/PostController';
+import autobind from '../../../../../app/utils/autobind';
 import { SERVICE_PAYMENT_CALLBACK } from '../../../../urls';
 
 @autobind

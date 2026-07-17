@@ -11,7 +11,7 @@ RUN yarn build:prod
 
 # ---- Runtime image ----
 FROM build AS runtime
-RUN rm -rf webpack/ webpack.config.js
+RUN rm -rf webpack/ webpack.config.cjs
 COPY --from=build $WORKDIR/src/main ./src/main
 RUN yarn build:ts
 

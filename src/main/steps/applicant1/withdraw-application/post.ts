@@ -1,10 +1,10 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CITIZEN_WITHDRAWN } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 import { APPLICATION_WITHDRAWN } from '../../urls';
 
 const logger = Logger.getLogger('withdraw-application-controller');

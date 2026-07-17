@@ -1,9 +1,8 @@
-import autobind from 'autobind-decorator';
-
 import { APPLICATION_PAYMENT_STATES, CITIZEN_SUBMIT, CaseData, Fee, ListValue } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 import { PAYMENT_CALLBACK_URL } from '../../../steps/urls';
 
 @autobind

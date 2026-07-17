@@ -1,5 +1,3 @@
-import autobind from 'autobind-decorator';
-
 import {
   CaseData,
   FINAL_ORDER_PAYMENT_STATES,
@@ -10,6 +8,7 @@ import {
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
 import { AnyObject } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 import { PAYMENT_CALLBACK_URL, RESPONDENT } from '../../../steps/urls';
 
 @autobind

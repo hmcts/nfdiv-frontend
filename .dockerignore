@@ -11,7 +11,7 @@
 !webpack/**
 !src/main/**
 !config/**
-!webpack.config.js
+!webpack.config.cjs
 !version
 !.yarnrc.yml
 !.tsconfig.eslint.json

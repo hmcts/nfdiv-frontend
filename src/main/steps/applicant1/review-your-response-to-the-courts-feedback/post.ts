@@ -1,9 +1,8 @@
-import autobind from 'autobind-decorator';
-
 import { Case, CaseWithId } from '../../../app/case/case';
 import { RESPOND_TO_REQUEST_FOR_INFORMATION } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 
 @autobind
 export default class ReviewYourResponsePostController extends PostController<AnyObject> {

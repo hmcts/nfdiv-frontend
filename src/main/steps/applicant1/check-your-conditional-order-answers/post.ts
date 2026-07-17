@@ -1,12 +1,14 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import { isEmpty } from 'lodash';
+import lodash from 'lodash';
+
+const { isEmpty } = lodash;
 
 import { Case, CaseWithId } from '../../../app/case/case';
 import { ApplicationType, SUBMIT_CONDITIONAL_ORDER, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
+import autobind from '../../../app/utils/autobind';
 import { APPLICANT_2, REVIEW_YOUR_APPLICATION, REVIEW_YOUR_JOINT_APPLICATION } from '../../urls';
 
 @autobind

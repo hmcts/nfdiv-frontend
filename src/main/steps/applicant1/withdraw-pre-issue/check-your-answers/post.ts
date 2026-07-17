@@ -1,5 +1,4 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { Case } from '../../../../app/case/case';
@@ -7,6 +6,7 @@ import { CITIZEN_WITHDRAWN } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form } from '../../../../app/form/Form';
+import autobind from '../../../../app/utils/autobind';
 
 const logger = Logger.getLogger('withdraw-application-controller');
 

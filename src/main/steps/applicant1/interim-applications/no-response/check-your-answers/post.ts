@@ -1,6 +1,7 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import { isEmpty } from 'lodash';
+import lodash from 'lodash';
+
+const { isEmpty } = lodash;
 
 import { Case } from '../../../../../app/case/case';
 import {
@@ -10,6 +11,7 @@ import {
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form } from '../../../../../app/form/Form';
+import autobind from '../../../../../app/utils/autobind';
 import { PROVIDE_NEW_EMAIL_ADDRESS } from '../../../../urls';
 
 @autobind

@@ -1,18 +1,28 @@
 import path from 'path';
 
+import config from 'config';
 import express from 'express';
 import nunjucks from 'nunjucks';
 
 import { DivorceOrDissolution } from '../../app/case/definition';
 import { Form, FormInput } from '../../app/form/Form';
 
-const config = require('config');
+const nunjucksModuleDir = path.resolve(process.cwd(), 'src/main/modules/nunjucks');
 
 export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
-    const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend', 'dist');
-    const env = nunjucks.configure([path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath], {
+    const govUkFrontendPath = path.join(
+      nunjucksModuleDir,
+      '..',
+      '..',
+      '..',
+      '..',
+      'node_modules',
+      'govuk-frontend',
+      'dist'
+    );
+    const env = nunjucks.configure([path.join(nunjucksModuleDir, '..', '..', 'steps'), govUkFrontendPath], {
       autoescape: true,
       watch: app.locals.developmentMode,
       express: app,
@@ -55,14 +65,14 @@ export class Nunjucks {
           let output = '';
 
           if (i.warning) {
-            output += env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
+            output += env.render(`${nunjucksModuleDir}/../../steps/common/error/warning.njk`, {
               message: this.env.globals.getContent.call(this, i.warning),
               warning: this.ctx.warning,
             });
           }
 
           if (i.subFields) {
-            output += env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
+            output += env.render(`${nunjucksModuleDir}/../../steps/common/form/fields.njk`, {
               ...this.ctx,
               form: { fields: i.subFields },
             });
@@ -111,7 +121,7 @@ export class Nunjucks {
       res.locals.serviceType =
         res.locals.host.includes('civil') ||
         'forceCivilMode' in req.query ||
-        (process.env.NODE_ENV !== 'production' && config.get('forceCivilMode').toString().toLowerCase() === 'true')
+        (process.env.NODE_ENV !== 'production' && String(config.get('forceCivilMode')).toLowerCase() === 'true')
           ? DivorceOrDissolution.DISSOLUTION
           : DivorceOrDissolution.DIVORCE;
       next();

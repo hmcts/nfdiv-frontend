@@ -1,6 +1,6 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import autobind from '../../app/utils/autobind';
 import { getNextStepUrl } from '../../steps';
 import {
   DRAFT_SAVE_AND_SIGN_OUT,

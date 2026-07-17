@@ -1,4 +1,6 @@
-import { throttle } from 'lodash';
+import lodash from 'lodash';
+
+const { throttle } = lodash;
 
 import { PageLink, TIMED_OUT_URL, WEBCHAT_URL } from '../../steps/urls';
 

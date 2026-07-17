@@ -1,6 +1,5 @@
-import autobind from 'autobind-decorator';
-
 import { CITIZEN_SERVICE_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
+import autobind from '../../../../../app/utils/autobind';
 import { Step } from '../../../../../steps/applicant1Sequence';
 import { alternativeServiceApplicationSequence as alternativeServiceSequence } from '../../../../alternativeServiceApplicationSequence';
 import CheckAnswersPostController from '../../common/check-answers/post';

@@ -1,5 +1,3 @@
-import autobind from 'autobind-decorator';
-
 import {
   CITIZEN_GENERAL_APPLICATION_PAYMENT_MADE,
   CaseData,
@@ -8,6 +6,7 @@ import {
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../../../app/controller/BasePaymentCallbackGetController';
 import { AnyObject } from '../../../../../app/controller/PostController';
+import autobind from '../../../../../app/utils/autobind';
 import {
   findUnpaidGeneralApplication,
   getGeneralApplicationPaymentsField,

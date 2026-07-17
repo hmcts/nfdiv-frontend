@@ -1,6 +1,6 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import autobind from '../../app/utils/autobind';
 import { JURISDICTION_INTERSTITIAL_URL } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 import { AppRequest } from '../controller/AppRequest';

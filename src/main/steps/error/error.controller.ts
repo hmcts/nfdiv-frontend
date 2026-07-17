@@ -1,9 +1,9 @@
-import autobind from 'autobind-decorator';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
 import { AppRequest } from '../../app/controller/AppRequest';
+import autobind from '../../app/utils/autobind';
 import { SupportedLanguages } from '../../modules/i18n';
 import { generateCommonContent } from '../common/common.content';
 

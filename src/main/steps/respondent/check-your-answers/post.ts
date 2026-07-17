@@ -1,4 +1,3 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { Case, CaseWithId, Checkbox } from '../../../app/case/case';
@@ -6,6 +5,7 @@ import { SUBMIT_AOS, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
+import autobind from '../../../app/utils/autobind';
 
 @autobind
 export default class RespondentCheckYourAnswersPostController extends PostController<AnyObject> {

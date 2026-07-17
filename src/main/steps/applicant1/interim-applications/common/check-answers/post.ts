@@ -1,10 +1,10 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { Case, CaseWithId } from '../../../../../app/case/case';
 import { InterimApplicationType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import autobind from '../../../../../app/utils/autobind';
 import { Step } from '../../../../../steps/applicant1Sequence';
 import { getFirstErroredStep } from '../../../../index';
 

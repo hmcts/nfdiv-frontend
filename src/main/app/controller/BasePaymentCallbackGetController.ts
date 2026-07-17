@@ -1,7 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import autobind from '../../app/utils/autobind';
 import { CaseData } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { PaymentClient } from '../payment/PaymentClient';

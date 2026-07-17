@@ -1,7 +1,7 @@
-import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
+import autobind from '../../app/utils/autobind';
 import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import {
   CITIZEN_ADD_PAYMENT,

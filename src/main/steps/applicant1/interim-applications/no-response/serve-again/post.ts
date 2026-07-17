@@ -1,5 +1,3 @@
-import autobind from 'autobind-decorator';
-
 import {
   CITIZEN_UPDATE,
   NoResponseSendPapersAgainOrTrySomethingElse,
@@ -8,6 +6,7 @@ import {
 } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import autobind from '../../../../../app/utils/autobind';
 
 @autobind
 export default class SendPapersAgainOrTrySomethingElsePostController extends PostController<AnyObject> {

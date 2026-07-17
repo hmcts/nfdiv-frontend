@@ -527,9 +527,9 @@ export interface CaseData {
   applicant1NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
   applicant1NameDifferentToMarriageCertificateOtherDetails: string;
   applicant1WhyNameDifferent: ChangedNameWhy[];
-  applicant1WhyNameDifferentOtherDetails: string,
+  applicant1WhyNameDifferentOtherDetails: string;
   applicant2WhyNameDifferent: ChangedNameWhy[];
-  applicant2WhyNameDifferentOtherDetails: string,
+  applicant2WhyNameDifferentOtherDetails: string;
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;
@@ -964,7 +964,7 @@ export interface CaseData {
   alternativeServiceFeeRequired: YesOrNo;
   serviceApplicationAnswers: DivorceDocument;
   servicePayments: ListValue<Payment>[];
-  serviceApplicationSubmittedOnline: YesOrNo,
+  serviceApplicationSubmittedOnline: YesOrNo;
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeeDateOfPayment: DateAsString;
@@ -1152,7 +1152,7 @@ export interface CaseData {
   applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo;
   applicant1DispensePartnerLastSeenDescription: string;
   applicant1DispenseHavePartnerEmailAddresses: YesOrNo;
-  applicant1DispenseHaveSearchedFinalOrder: YesOrNo
+  applicant1DispenseHaveSearchedFinalOrder: YesOrNo;
   applicant1DispenseWhyNoFinalOrderSearch: string;
   applicant1DispensePartnerEmailAddresses: string;
   applicant1DispenseHavePartnerPhoneNumbers: YesOrNo;
@@ -2314,7 +2314,7 @@ export const enum ServicePaymentMethod {
   FEE_PAY_BY_ACCOUNT = 'feePayByAccount',
   FEE_PAY_BY_HWF = 'feePayByHelp',
   FEE_PAY_BY_PHONE = 'feePayByTelephone',
-  FEE_PAY_BY_CARD = 'feePayByCard'
+  FEE_PAY_BY_CARD = 'feePayByCard',
 }
 
 export const enum SolicitorPaymentMethod {
@@ -2408,9 +2408,7 @@ export const FINAL_ORDER_PAYMENT_STATES: Set<State> = new Set([State.AwaitingFin
 
 export const SERVICE_PAYMENT_STATES: Set<State> = new Set([State.AwaitingServicePayment]);
 
-export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([
-  State.AwaitingGeneralApplicationPayment
-]);
+export const GENERAL_APPLICATION_PAYMENT_STATES: Set<State> = new Set([State.AwaitingGeneralApplicationPayment]);
 
 export const enum SupplementaryCaseType {
   NA = 'notApplicable',

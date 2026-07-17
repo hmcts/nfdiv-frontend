@@ -1,3 +1,5 @@
+import path from 'path';
+
 import { Response } from 'express';
 
 import { ApplicationType } from '../../app/case/definition';
@@ -10,7 +12,7 @@ import { generateContent } from './content';
 
 export class ExistingApplicationGetController extends GetController {
   constructor() {
-    super(__dirname + '/template.njk', generateContent);
+    super(path.resolve(process.cwd(), 'src/main/steps/existing-application/template.njk'), generateContent);
   }
 
   public getPageContent(req: AppRequest, res: Response, language: SupportedLanguages): PageContent {

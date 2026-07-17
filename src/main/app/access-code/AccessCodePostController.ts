@@ -1,7 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import autobind from '../../app/utils/autobind';
 import { APPLICANT_2, HOME_URL, RESPONDENT, SIGN_OUT_URL } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/case-api';

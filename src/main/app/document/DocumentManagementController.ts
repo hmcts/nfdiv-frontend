@@ -1,8 +1,8 @@
-import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
+import autobind from '../../app/utils/autobind';
 import { HTTPError } from '../../steps/error/error.controller';
 import {
   APPLICANT_2,

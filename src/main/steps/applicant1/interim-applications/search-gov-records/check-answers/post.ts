@@ -1,6 +1,5 @@
-import autobind from 'autobind-decorator';
-
 import { CITIZEN_GENERAL_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
+import autobind from '../../../../../app/utils/autobind';
 import { Step } from '../../../../../steps/applicant1Sequence';
 import { searchGovRecordsApplicationSequence as searchGovRecordsSequence } from '../../../../searchGovRecordsApplicationSequence';
 import CheckAnswersPostController from '../../common/check-answers/post';

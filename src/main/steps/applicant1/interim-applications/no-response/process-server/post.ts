@@ -1,9 +1,8 @@
-import autobind from 'autobind-decorator';
-
 import { Case, CaseWithId } from '../../../../../app/case/case';
 import { CITIZEN_GENERATE_PROCESS_SERVER_DOCS, InterimApplicationType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
+import autobind from '../../../../../app/utils/autobind';
 
 @autobind
 export default class ProcessServerPostController extends PostController<AnyObject> {

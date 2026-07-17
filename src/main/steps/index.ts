@@ -1,10 +1,11 @@
 import * as fs from 'fs';
-import { extname } from 'path';
+import { createRequire } from 'module';
+import { dirname, extname, resolve } from 'path';
 
-import { CaseWithId } from '../app/case/case';
+import { Case, CaseWithId } from '../app/case/case';
 import { ApplicationType, State } from '../app/case/definition';
 import { AppRequest, AppSession } from '../app/controller/AppRequest';
-import { TranslationFn } from '../app/controller/GetController';
+import { PageContent, TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent, FormFields, FormFieldsFn } from '../app/form/Form';
 
 import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
@@ -25,8 +26,17 @@ import {
   RESPONDENT,
 } from './urls';
 
-const stepFields: Record<string, FormFields | FormFieldsFn> = {};
-const ext = extname(__filename);
+const requireFromRoot = createRequire(resolve(process.cwd(), 'package.json'));
+const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
+const sourceStepsBaseDir = resolve(process.cwd(), 'src/main/steps');
+const stepsFilePath = isTestRuntime
+  ? resolve(process.cwd(), 'src/main/steps/index.ts')
+  : resolve(process.cwd(), 'src/main/main/steps/index.js');
+const runtimeStepsBaseDir = dirname(stepsFilePath);
+const ext = extname(stepsFilePath);
+const stepContentFileByUrl: Record<string, string> = {};
+const stepContentModuleCache = new Map<string, Record<string, unknown>>();
+const stepHasFormCache = new Map<string, boolean>();
 
 const allSequences = [
   applicant1PreSubmissionSequence,
@@ -37,26 +47,59 @@ const allSequences = [
 ];
 
 allSequences.forEach((sequence: Step[], i: number) => {
-  const dir = __dirname + (i === 0 || i === 1 ? '/applicant1' : '');
+  const dir = runtimeStepsBaseDir + (i === 0 || i === 1 ? '/applicant1' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content${ext}`;
     if (fs.existsSync(stepContentFile)) {
-      const content = require(stepContentFile);
-
-      if (content.form) {
-        stepFields[step.url] = content.form.fields;
-      }
+      stepContentFileByUrl[step.url] = stepContentFile;
     }
   }
 });
 
+const getStepContentModule = (contentFile: string): Record<string, unknown> => {
+  const cached = stepContentModuleCache.get(contentFile);
+  if (cached) {
+    return cached;
+  }
+
+  const loaded = requireFromRoot(contentFile) as Record<string, unknown>;
+  stepContentModuleCache.set(contentFile, loaded);
+  return loaded;
+};
+
+const stepContentHasForm = (contentFile: string): boolean => {
+  const cached = stepHasFormCache.get(contentFile);
+  if (cached !== undefined) {
+    return cached;
+  }
+
+  const source = fs.readFileSync(contentFile, 'utf8');
+  const hasForm = /export\s+const\s+form\s*[:=]/.test(source);
+  stepHasFormCache.set(contentFile, hasForm);
+  return hasForm;
+};
+
+const getStepFields = (stepUrl: string, data: CaseWithId): FormFields | undefined => {
+  const contentFile = stepContentFileByUrl[stepUrl];
+  if (!contentFile || !stepContentHasForm(contentFile)) {
+    return undefined;
+  }
+
+  const content = getStepContentModule(contentFile) as { form?: { fields?: FormFields | FormFieldsFn } };
+  const fields = content.form?.fields;
+  if (!fields) {
+    return undefined;
+  }
+
+  return typeof fields === 'function' ? fields(data) : fields;
+};
+
 const getNextIncompleteStep = (data: CaseWithId, step: Step, sequence: Step[], checkedSteps: Step[] = []): string => {
-  const stepField = stepFields[step.url];
+  const stepField = getStepFields(step.url, data);
   // if this step has a form
   if (stepField) {
     // and that form has errors
-    const fields = typeof stepField === 'function' ? stepField(data) : stepField;
-    const stepForm = new Form(fields);
+    const stepForm = new Form(stepField);
     if (!stepForm.isComplete(data) || stepForm.getErrors(data).length > 0) {
       // go to that step
       return step.url;
@@ -137,8 +180,7 @@ export const getFirstErroredStep = (req: AppRequest, sequence: Step[]): string |
     }
     visitedSteps.add(stepUrl);
 
-    const stepField = stepFields[stepUrl];
-    const fields = typeof stepField === 'function' ? stepField(userData) : stepField;
+    const fields = getStepFields(stepUrl, userData);
 
     if (fields) {
       const stepForm = new Form(fields);
@@ -173,11 +215,42 @@ const getPathAndQueryString = (req: AppRequest): { path: string; queryString: st
   return { path, queryString };
 };
 
-const getStepFiles = (stepDir: string) => {
-  const stepContentFile = `${stepDir}/content${ext}`;
-  const content = fs.existsSync(stepContentFile) ? require(stepContentFile) : {};
-  const stepViewFile = `${stepDir}/template.njk`;
-  const view = fs.existsSync(stepViewFile) ? stepViewFile : `${stepDir}/../../common/template.njk`;
+const getStepFiles = (runtimeStepDir: string, sourceStepDir: string) => {
+  const stepContentFile = `${runtimeStepDir}/content${ext}`;
+  const content = fs.existsSync(stepContentFile)
+    ? {
+        ...(stepContentHasForm(stepContentFile)
+          ? {
+              form: {
+                submit: {
+                  text: l => l.continue,
+                },
+                fields: ((userCase: Partial<Case>, language?: string) => {
+                  const module = getStepContentModule(stepContentFile) as {
+                    form?: { fields?: FormFields | FormFieldsFn };
+                  };
+                  const fields = module.form?.fields;
+                  if (!fields) {
+                    return {} as FormFields;
+                  }
+
+                  return typeof fields === 'function' ? fields(userCase, language) : fields;
+                }) as FormFieldsFn,
+              },
+            }
+          : {}),
+        generateContent: (contentData: Parameters<TranslationFn>[0]) => {
+          const module = getStepContentModule(stepContentFile) as {
+            generateContent?: (contentInput: unknown) => PageContent;
+          };
+          return module.generateContent ? module.generateContent(contentData) : {};
+        },
+      }
+    : {
+        generateContent: () => ({}),
+      };
+  const stepViewFile = `${sourceStepDir}/template.njk`;
+  const view = fs.existsSync(stepViewFile) ? stepViewFile : `${sourceStepsBaseDir}/common/template.njk`;
 
   return { content, view };
 };
@@ -185,18 +258,20 @@ const getStepFiles = (stepDir: string) => {
 export type StepWithContent = Step & {
   stepDir: string;
   generateContent: TranslationFn;
-  form: FormContent;
+  form?: FormContent;
   view: string;
 };
 
 const getStepsWithContent = (sequence: Step[]): StepWithContent[] => {
   const isApplicant1 = [applicant1PreSubmissionSequence, applicant1PostSubmissionSequence].includes(sequence);
-  const dir = __dirname + (isApplicant1 ? '/applicant1' : '');
+  const runtimeDir = runtimeStepsBaseDir + (isApplicant1 ? '/applicant1' : '');
+  const sourceDir = sourceStepsBaseDir + (isApplicant1 ? '/applicant1' : '');
 
   const results: StepWithContent[] = [];
   for (const step of sequence) {
-    const stepDir = `${dir}${step.url}`;
-    const { content, view } = getStepFiles(stepDir);
+    const stepDir = `${runtimeDir}${step.url}`;
+    const sourceStepDir = `${sourceDir}${step.url}`;
+    const { content, view } = getStepFiles(stepDir, sourceStepDir);
     results.push({ stepDir, ...step, ...content, view });
   }
   return results;

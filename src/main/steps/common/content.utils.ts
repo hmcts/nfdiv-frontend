@@ -1,4 +1,6 @@
-import { capitalize } from 'lodash';
+import lodash from 'lodash';
+
+const { capitalize } = lodash;
 
 import { CaseWithId, Checkbox } from '../../app/case/case';
 import {

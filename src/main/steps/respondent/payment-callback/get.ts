@@ -1,8 +1,7 @@
-import autobind from 'autobind-decorator';
-
 import { CaseData, FINAL_ORDER_PAYMENT_MADE, FINAL_ORDER_PAYMENT_STATES } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
+import autobind from '../../../app/utils/autobind';
 import { HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT } from '../../urls';
 
 @autobind

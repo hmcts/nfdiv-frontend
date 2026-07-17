@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
-import { toUpper } from 'lodash';
+import lodash from 'lodash';
+
+const { toUpper } = lodash;
 
 import { isInvalidHelpWithFeesRef } from '../form/validation';
 

@@ -1,5 +1,3 @@
-import autobind from 'autobind-decorator';
-
 import {
   APPLICANT_1_CONFIRM_RECEIPT,
   APPLICANT_2_CONFIRM_RECEIPT,
@@ -10,6 +8,7 @@ import {
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 
 @autobind
 export default class HubPagePostController extends PostController<AnyObject> {

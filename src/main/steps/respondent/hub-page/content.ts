@@ -1,6 +1,8 @@
 import config from 'config';
 import dayjs from 'dayjs';
-import { isEmpty } from 'lodash';
+import lodash from 'lodash';
+
+const { isEmpty } = lodash;
 
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';

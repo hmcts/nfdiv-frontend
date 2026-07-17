@@ -1,6 +1,7 @@
 import * as path from 'path';
 
-import * as bodyParser from 'body-parser';
+import { Logger } from '@hmcts/nodejs-logging';
+import bodyParser from 'body-parser';
 import config from 'config';
 import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
@@ -28,12 +29,12 @@ import { TooBusy } from './modules/too-busy';
 import { WebpackDev } from './modules/webpack-dev';
 import { Routes } from './routes';
 
-const { Logger } = require('@hmcts/nodejs-logging');
+const mainPath = path.resolve(process.cwd(), 'src/main');
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
-app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
+app.use(favicon(path.join(mainPath, '/public/assets/images/favicon.ico')));
 
 function setCachingPolicy(res, file) {
   if (path.extname(file).match(/\.(woff2?|ttf|otf|eot|svg|png)$/i)) {
@@ -44,7 +45,7 @@ function setCachingPolicy(res, file) {
 }
 
 app.use(
-  express.static(path.join(__dirname, 'public'), {
+  express.static(path.join(mainPath, 'public'), {
     setHeaders: setCachingPolicy,
   })
 );

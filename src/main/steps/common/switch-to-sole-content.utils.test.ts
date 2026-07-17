@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
-import { now } from 'lodash';
+import lodash from 'lodash';
+
+const { now } = lodash;
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
 import { CaseWithId } from '../../app/case/case';

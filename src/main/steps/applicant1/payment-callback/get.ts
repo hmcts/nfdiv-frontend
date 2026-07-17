@@ -1,5 +1,3 @@
-import autobind from 'autobind-decorator';
-
 import {
   APPLICATION_PAYMENT_STATES,
   ApplicationType,
@@ -8,6 +6,7 @@ import {
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
+import autobind from '../../../app/utils/autobind';
 import {
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,

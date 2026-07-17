@@ -1,8 +1,10 @@
-import autobind from 'autobind-decorator';
+import path from 'path';
+
 import { Response } from 'express';
 
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
+import autobind from '../../../app/utils/autobind';
 import { HOME_URL } from '../../urls';
 
 import { generateContent } from './content';
@@ -10,7 +12,10 @@ import { generateContent } from './content';
 @autobind
 export class Applicant2AccessCodeGetController extends GetController {
   constructor() {
-    super(__dirname + '/template.njk', generateContent);
+    super(
+      path.resolve(process.cwd(), 'src/main/steps/applicant2/enter-your-access-code/template.njk'),
+      generateContent
+    );
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

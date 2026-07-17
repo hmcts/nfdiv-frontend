@@ -1,4 +1,3 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { Case, Checkbox } from '../../../app/case/case';
@@ -6,6 +5,7 @@ import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, DRAFT_AOS } from '..
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form } from '../../../app/form/Form';
+import autobind from '../../../app/utils/autobind';
 import { SAVE_AND_SIGN_OUT } from '../../urls';
 
 @autobind

@@ -1,5 +1,6 @@
 import fs from 'fs';
-import { extname } from 'path';
+import { createRequire } from 'module';
+import path, { extname } from 'path';
 
 import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
@@ -100,7 +101,12 @@ const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
   });
 };
 
-const ext = extname(__filename);
+const requireFromRoot = createRequire(path.resolve(process.cwd(), 'package.json'));
+const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
+const routesFilePath = isTestRuntime
+  ? path.resolve(process.cwd(), 'src/main/routes.ts')
+  : path.resolve(process.cwd(), 'src/main/main/routes.js');
+const ext = extname(routesFilePath);
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -141,7 +147,7 @@ export class Routes {
 
     for (const step of stepsWithContent) {
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
-        ? require(`${step.stepDir}/get${ext}`).default
+        ? requireFromRoot(`${step.stepDir}/get${ext}`).default
         : GetController;
 
       app.get(
@@ -152,7 +158,7 @@ export class Routes {
 
       if (step.form) {
         const postController = fs.existsSync(`${step.stepDir}/post${ext}`)
-          ? require(`${step.stepDir}/post${ext}`).default
+          ? requireFromRoot(`${step.stepDir}/post${ext}`).default
           : PostController;
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }

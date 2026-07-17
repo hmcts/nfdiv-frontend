@@ -1,7 +1,8 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import { isEmpty } from 'lodash';
+import lodash from 'lodash';
+
+const { isEmpty } = lodash;
 
 import { getSystemUser } from '../../app/auth/user/oidc';
 import { CaseWithId, formFieldsToCaseMapping } from '../../app/case/case';
@@ -10,6 +11,7 @@ import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
+import autobind from '../../app/utils/autobind';
 import { APPLICANT_1, APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { existingOrNew } from './content';

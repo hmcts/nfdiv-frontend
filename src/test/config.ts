@@ -4,7 +4,7 @@ import sysConfig from 'config';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
 import { IdamUserManager } from './steps/IdamUserManager';
-import { createAzurePlaywrightConfig, ServiceAuth, ServiceOS } from "@azure/playwright";
+import { createAzurePlaywrightConfig, ServiceAuth, ServiceOS } from '@azure/playwright';
 import { v4 as generateUuid } from 'uuid';
 
 // better handling of unhandled exceptions
@@ -146,7 +146,7 @@ export const config = {
     ],
   },
   bootstrap: async (): Promise<void> => {
-    await initializeTestEnvironment(); 
+    await initializeTestEnvironment();
     await idamUserManager.createUser(TestUser, TestPass);
   },
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
@@ -166,18 +166,19 @@ const playwrightConfig = {
   waitForNavigation: 'load',
   ignoreHTTPSErrors: true,
   bypassCSP: true,
-}
+};
 
 config.helpers = {
   Playwright: {
     ...playwrightConfig,
-    chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && createAzurePlaywrightConfig(
-      playwrightConfig, {
-      connectTimeout: config.WaitForTimeout,
-      os: ServiceOS.LINUX,
-      serviceAuthType: ServiceAuth.ACCESS_TOKEN,
-      exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
-      runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
-    }),
+    chromium:
+      process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN &&
+      createAzurePlaywrightConfig(playwrightConfig, {
+        connectTimeout: config.WaitForTimeout,
+        os: ServiceOS.LINUX,
+        serviceAuthType: ServiceAuth.ACCESS_TOKEN,
+        exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
+        runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
+      }),
   },
 };

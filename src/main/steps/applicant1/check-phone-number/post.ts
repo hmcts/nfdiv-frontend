@@ -1,5 +1,3 @@
-import autobind from 'autobind-decorator';
-
 import {
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS,
@@ -9,6 +7,7 @@ import {
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 
 @autobind
 export default class CitizenUpdateContactDetailsPostController extends PostController<AnyObject> {

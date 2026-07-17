@@ -1,9 +1,8 @@
-import autobind from 'autobind-decorator';
-
 import { Case, CaseWithId } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject } from '../../../app/controller/PostController';
+import autobind from '../../../app/utils/autobind';
 import CitizenUpdateContactDetailsPostController from '../../applicant1/check-phone-number/post';
 
 @autobind

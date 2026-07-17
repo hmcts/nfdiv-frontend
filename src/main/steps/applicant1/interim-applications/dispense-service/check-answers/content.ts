@@ -1,5 +1,7 @@
-import { capitalize } from 'lodash';
+import lodash from 'lodash';
 import striptags from 'striptags';
+
+const { capitalize } = lodash;
 
 import { getFormattedCaseDate } from '../../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../../app/case/case';

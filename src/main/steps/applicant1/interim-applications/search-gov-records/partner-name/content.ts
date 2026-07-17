@@ -1,4 +1,6 @@
-import { capitalize } from 'lodash';
+import lodash from 'lodash';
+
+const { capitalize } = lodash;
 
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';

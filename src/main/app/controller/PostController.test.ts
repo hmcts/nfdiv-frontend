@@ -1,7 +1,9 @@
 // noinspection TypeScriptValidateTypes
 
 import config from 'config';
-import { set } from 'lodash';
+import lodash from 'lodash';
+
+const { set } = lodash;
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
