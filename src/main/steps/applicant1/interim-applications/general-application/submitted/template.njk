@@ -11,6 +11,10 @@
   </div>
   <br/>
   <p class="govuk-body">{{ introLine1 }}</p>
+  {% if generalApplicationFeeRequired and not caseHasBeenIssued %}
+      <p class="govuk-body">{{ d11Line1 }}</p>
+  {% endif %}
+
   {% if generalApplicationDocsAllProvided and not generalApplicationFeeRequired %}
     <p class="govuk-body">{{ introLine2 }}</p>
   {% endif %}
