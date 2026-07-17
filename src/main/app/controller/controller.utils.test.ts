@@ -3,8 +3,18 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { endIdamSessionUrl } from '../auth/user/oidc';
 import { CaseWithId } from '../case/case';
 import { DivorceOrDissolution, State, YesOrNo } from '../case/definition';
+import {
+  DRAFT_SAVE_AND_SIGN_OUT,
+  REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
+  SAVE_AND_SIGN_OUT,
+} from '../../steps/urls';
 
-import { destroySessionAndRedirectToSignOut, needsToExplainDelay } from './controller.utils';
+import {
+  destroySessionAndRedirectToSignOut,
+  destroySessionAndRedirectToSignOutViaCallback,
+  getPostLogoutRedirectPath,
+  needsToExplainDelay,
+} from './controller.utils';
 
 describe('Controller utils', () => {
   describe('needsToExplainDelay', () => {
@@ -64,6 +74,70 @@ describe('Controller utils', () => {
 
       expect(req.session.destroy).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl('https://localhost/custom-path'));
+    });
+  });
+
+  describe('destroySessionAndRedirectToSignOutViaCallback', () => {
+    test('redirects to IDAM sign out with whitelisted callback path', () => {
+      const req = mockRequest();
+      const res = mockResponse();
+      (res.locals as Record<string, string>).host = 'localhost';
+
+      destroySessionAndRedirectToSignOutViaCallback(req, res, DRAFT_SAVE_AND_SIGN_OUT);
+
+      expect(req.session.destroy).toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}`));
+    });
+
+    test('sets cookie when redirect path differs from callback path', () => {
+      const req = mockRequest();
+      const res = mockResponse();
+      (res.locals as Record<string, string>).host = 'localhost';
+
+      destroySessionAndRedirectToSignOutViaCallback(req, res, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
+
+      expect(res.cookie).toHaveBeenCalledWith(
+        'nfdiv-signout-target',
+        REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
+        expect.objectContaining({
+          httpOnly: true,
+          sameSite: 'lax',
+          maxAge: 5 * 60 * 1000,
+          secure: true,
+        })
+      );
+    });
+
+    test('does not set cookie when callback path already requested', () => {
+      const req = mockRequest();
+      const res = mockResponse();
+      (res.locals as Record<string, string>).host = 'localhost';
+
+      destroySessionAndRedirectToSignOutViaCallback(req, res, SAVE_AND_SIGN_OUT);
+
+      expect(res.cookie).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('getPostLogoutRedirectPath', () => {
+    test('returns valid redirect target from cookie and clears cookie', () => {
+      const req = mockRequest({ cookies: { 'nfdiv-signout-target': DRAFT_SAVE_AND_SIGN_OUT } });
+      const res = mockResponse();
+
+      const path = getPostLogoutRedirectPath(req, res);
+
+      expect(path).toBe(DRAFT_SAVE_AND_SIGN_OUT);
+      expect(res.clearCookie).toHaveBeenCalledWith('nfdiv-signout-target');
+    });
+
+    test('returns undefined for invalid redirect target and still clears cookie', () => {
+      const req = mockRequest({ cookies: { 'nfdiv-signout-target': '/invalid' } });
+      const res = mockResponse();
+
+      const path = getPostLogoutRedirectPath(req, res);
+
+      expect(path).toBeUndefined();
+      expect(res.clearCookie).toHaveBeenCalledWith('nfdiv-signout-target');
     });
   });
 });

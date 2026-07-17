@@ -10,7 +10,7 @@ import { endIdamSessionUrl } from './app/auth/user/oidc';
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
-import { getServiceOrigin } from './app/controller/url';
+import { getServiceOrigin } from './app/controller/controller.utils';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { MAX_UPLOAD_FILE_COUNT, MAX_UPLOAD_FILE_SIZE_BYTES } from './app/document/DocumentUploadLimits';
 import { getUserSequence, stepsWithContent } from './steps';

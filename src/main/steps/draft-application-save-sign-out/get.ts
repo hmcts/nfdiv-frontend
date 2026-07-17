@@ -3,9 +3,10 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import { destroySessionAndRedirectToSignOut } from '../../app/controller/controller.utils';
+import { destroySessionAndRedirectToSignOutViaCallback } from '../../app/controller/controller.utils';
 
 import { generateContent } from './content';
+import { DRAFT_SAVE_AND_SIGN_OUT } from '../urls';
 
 @autobind
 export class DraftApplicationSaveSignOutGetController extends GetController {
@@ -14,13 +15,13 @@ export class DraftApplicationSaveSignOutGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (!req.session.user) {
+    if (!req.session?.user) {
       return super.get(req, res);
     }
 
     res.locals['email'] = req.session.user?.email;
     res.locals['lang'] = req.session.lang;
 
-    destroySessionAndRedirectToSignOut(req, res);
+    destroySessionAndRedirectToSignOutViaCallback(req, res, DRAFT_SAVE_AND_SIGN_OUT);
   }
 }

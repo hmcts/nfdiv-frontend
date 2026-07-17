@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { endIdamSessionUrl } from '../../app/auth/user/oidc';
-import { SAVE_AND_SIGN_OUT } from '../urls';
+import { DRAFT_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { SaveSignOutGetController } from './get';
 
@@ -17,5 +17,30 @@ describe('SaveSignOutGetController', () => {
 
     expect(req.session.destroy).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}`));
+  });
+
+  it('redirects signed out user to cookie target path', async () => {
+    const controller = new SaveSignOutGetController();
+
+    const req = mockRequest({ session: { user: undefined }, cookies: { 'nfdiv-signout-target': DRAFT_SAVE_AND_SIGN_OUT } });
+    const res = mockResponse();
+
+    await controller.get(req, res);
+
+    expect(res.clearCookie).toHaveBeenCalledWith('nfdiv-signout-target');
+    expect(res.redirect).toHaveBeenCalledWith(DRAFT_SAVE_AND_SIGN_OUT);
+    expect(res.render).not.toHaveBeenCalled();
+  });
+
+  it('renders save-and-sign-out page for signed out user when no cookie target', async () => {
+    const controller = new SaveSignOutGetController();
+
+    const req = mockRequest({ session: { user: undefined }, cookies: {} });
+    const res = mockResponse();
+
+    await controller.get(req, res);
+
+    expect(res.clearCookie).toHaveBeenCalledWith('nfdiv-signout-target');
+    expect(res.render).toHaveBeenCalled();
   });
 });

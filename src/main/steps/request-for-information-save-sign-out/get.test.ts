@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { endIdamSessionUrl } from '../../app/auth/user/oidc';
-import { REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT } from '../urls';
+import { REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { RequestForInformationSaveSignOutGetController } from './get';
 
@@ -16,8 +16,11 @@ describe('RequestForInformationSaveSignOutGetController', () => {
     await controller.get(req, res);
 
     expect(req.session.destroy).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(
-      endIdamSessionUrl(`https://localhost${REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT}`)
+    expect(res.cookie).toHaveBeenCalledWith(
+      'nfdiv-signout-target',
+      REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
+      expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
     );
+    expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}`));
   });
 });

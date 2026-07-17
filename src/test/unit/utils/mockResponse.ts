@@ -12,6 +12,7 @@ export const mockResponse = ({ locals = { serviceType: DivorceOrDissolution.DIVO
   res.type = jest.fn().mockReturnValue(res);
   res.end = jest.fn();
   res.cookie = jest.fn();
+  res.clearCookie = jest.fn();
   res.status = jest.fn().mockImplementation((code = 200) => {
     res.statusCode = code;
     return res;

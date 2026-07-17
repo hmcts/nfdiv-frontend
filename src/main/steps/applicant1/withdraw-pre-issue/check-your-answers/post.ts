@@ -8,6 +8,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { destroySessionAndRedirectToSignOut } from '../../../../app/controller/controller.utils';
 import { Form } from '../../../../app/form/Form';
+import { WITHDRAW_CONFIRMATION } from '../../../../steps/urls';
 
 const logger = Logger.getLogger('withdraw-application-controller');
 
@@ -27,9 +28,7 @@ export default class PreIssueWithdrawPostController extends PostController<AnyOb
       throw new Error('Failed to withdraw case. Please try again later.');
     }
 
-    const withdrawConfirmationPath = req.path.replace('check-your-answers', 'application-withdrawn');
-
-    destroySessionAndRedirectToSignOut(req, res, withdrawConfirmationPath);
+    destroySessionAndRedirectToSignOut(req, res, WITHDRAW_CONFIRMATION);
   }
 
   protected getEventName(): string {
