@@ -19,6 +19,9 @@ export const getRespondentHubTemplate = (
     case State.AwaitingFinalOrder: {
       return HubTemplate.AwaitingFinalOrderOrFinalOrderOverdue;
     }
+    case State.ApplicationStayed: {
+      return HubTemplate.ApplicationStayed;
+    }
     case State.ConditionalOrderPronounced: {
       return HubTemplate.ConditionalOrderPronounced;
     }

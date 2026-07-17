@@ -148,6 +148,7 @@ const applicant2RedirectPageSwitch = (req: AppRequest, isFirstQuestionComplete: 
     case State.AwaitingGeneralConsideration:
     case State.GeneralApplicationReceived:
     case State.GeneralConsiderationComplete:
+    case State.ApplicationStayed:
     case State.PendingHearingDate:
     case State.PendingHearingOutcome:
     case State.FinalOrderRequested:

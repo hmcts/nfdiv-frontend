@@ -8,11 +8,8 @@
 {% block page_content %}
   <h1 class="govuk-heading-l" id="offlineD11ApplicationTitle">{{ title }}</h1>
   <h1 class="govuk-heading-m">{{ makeAnApplication.header }}</p>
-  <p class="govuk-body">{{ makeAnApplication.line1 }}</p>
+  <p class="govuk-body">{{ makeAnApplication.line1Part1 }} <a class="govuk-link" id="d11Link" href="{{ makeAnApplication.d11Link }}" target="_blank">{{ makeAnApplication.line1Part2 }}</a></p>
   <p class="govuk-body">{{ makeAnApplication.line2 }}</p>
-  <p class="govuk-body">{{ makeAnApplication.line3 }}</p>
-  <p class="govuk-body"><a class="govuk-link" id="d11Link" href="{{ makeAnApplication.d11Link }}" target="_blank">{{ makeAnApplication.d11Text }}</a></p>
-  <p class="govuk-body">{{ makeAnApplication.line4 }}</p>
   {% set sendingDocumentsByOnlineForm %}
     <p class="govuk-body">{{ documentsByOnlineFormSteps.line1 }} <a href="{{ contactWebForm }}">{{ documentsByOnlineFormSteps.line2}}</a> </p>
     <p class="govuk-body">{{ documentsByOnlineFormSteps.line3 }}</p>
