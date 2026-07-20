@@ -8,7 +8,7 @@ const en = ({ referenceNumber }: CommonContent) => ({
   makeAnApplication: {
     header: 'Making an application to the court',
     line1Part1: 'If you need to submit a general application to the court, then you can ',
-    line1Part2: 'apply by completing a paper D11 form.',
+    line1Part2: 'apply by completing a paper D11 form (opens in a new tab).',
     d11Link: config.get('govukUrls.d11Form'),
     line2: 'You can send the completed form to the court in the following ways:',
   },
@@ -39,7 +39,7 @@ const cy = ({ referenceNumber }: CommonContent) => ({
   makeAnApplication: {
     header: 'Making an application to the court',
     line1Part1: 'If you need to submit a general application to the court, then you can ',
-    line1Part2: 'apply by completing a paper D11 form.',
+    line1Part2: 'apply by completing a paper D11 form (opens in a new tab).',
     d11Link: config.get('govukUrls.d11Form'),
     line2: 'You can send the completed form to the court in the following ways:',
   },
