@@ -8,6 +8,7 @@ const en = ({
   generalApplicationFeeRequired,
   generalApplicationDocsAllProvided,
   referenceNumber,
+  isDivorce,
 }: CommonContent) => ({
   title: 'Application submitted',
   introLine1: 'You have submitted your application.',
@@ -46,6 +47,41 @@ const en = ({
       introLine1: 'You have submitted your application to search government records.',
       happensNextLine2: 'If your application is approved, it normally takes 6-8 weeks to complete a search.',
     },
+    issueDivorceWithoutMarriageCertificate: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to continue your ${isDivorce ? 'divorce' : 'dissolution'} case without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    expedite: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to complete your ${isDivorce ? 'divorce' : 'dissolution'} case more quickly has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    other: {
+      title: 'Your application has been submitted',
+      introLine1: `Your general application relating to your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    withdrawPostIssue: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to withdraw your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    delay: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to delay or pause your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    extend: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to get more time to serve your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    amendApplication: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to amend your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
   },
 });
 
@@ -54,6 +90,7 @@ const cy: typeof en = ({
   generalApplicationFeeRequired,
   generalApplicationDocsAllProvided,
   referenceNumber,
+  isDivorce,
 }: CommonContent) => ({
   title: "Cais wedi'i gyflwyno",
   introLine1: 'Rydych wedi cyflwyno eich cais.',
@@ -90,6 +127,41 @@ const cy: typeof en = ({
       title: "Cais wedi'i gyflwyno",
       introLine1: 'Rydych wedi cyflwyno eich cais i chwilio cofnodion y llywodraeth.',
       happensNextLine2: "Os yw'ch cais yn cael ei gymeradwyo, fel arfer mae'n cymryd 6-8 wythnos i gwblhau chwiliad.",
+    },
+    issueDivorceWithoutMarriageCertificate: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to continue your ${isDivorce ? 'divorce' : 'dissolution'} case without a ${isDivorce ? 'marriage' : 'civil partnership'} certificate has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    expedite: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to complete your ${isDivorce ? 'divorce' : 'dissolution'} case more quickly has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    other: {
+      title: 'Your application has been submitted',
+      introLine1: `Your general application relating to your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    withdrawPostIssue: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to withdraw your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    delay: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to delay or pause your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    extend: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to get more time to serve your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    },
+    amendApplication: {
+      title: 'Your application has been submitted',
+      introLine1: `Your application to amend your ${isDivorce ? 'divorce' : 'dissolution'} case has been submitted.`,
+      d11Line1: `This application will be considered together with your full ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
     },
   },
 });
