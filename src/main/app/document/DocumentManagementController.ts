@@ -1,8 +1,8 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
-import { v4 as generateUuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
+import { HTTPError } from '../../steps/error/error.controller';
 import {
   APPLICANT_2,
   DETAILS_OTHER_PROCEEDINGS,
@@ -30,6 +30,7 @@ import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
 import { userCanUploadDocuments } from './DocumentManagementConstants';
+import { MAX_UPLOAD_FILE_SIZE_BYTES } from './DocumentUploadLimits';
 import FileUploadJourneyConfigurationMap, { FileUploadJourneyConfiguration } from './FileUploadJourneyConfiguration';
 
 @autobind
@@ -86,13 +87,21 @@ export class DocumentManagerController {
       }
     }
 
+    const uploadedFiles = (
+      Array.isArray(req.files) ? req.files : Object.values(req.files).flat()
+    ) as Express.Multer.File[];
+
+    if (uploadedFiles.some(file => file.size > MAX_UPLOAD_FILE_SIZE_BYTES)) {
+      throw new HTTPError('Uploaded file exceeds the limit', 413);
+    }
+
     const filesCreated = await this.getApiClient(req.session.user).create({
-      files: req.files,
+      files: uploadedFiles,
       classification: Classification.Public,
     });
 
     const newUploads: ListValue<Partial<DivorceDocument> | null>[] = filesCreated.map(file => ({
-      id: generateUuid(),
+      id: crypto.randomUUID(),
       value: {
         documentComment: 'Uploaded by applicant',
         documentFileName: file.originalDocumentName,
