@@ -2,8 +2,16 @@ import { Response } from 'express';
 
 import { DivorceOrDissolution } from '../../../main/app/case/definition';
 
-export const mockResponse = ({ locals = { serviceType: DivorceOrDissolution.DIVORCE } } = {}): Response => {
-  const res: Partial<Response> = { locals };
+export const mockResponse = ({
+  locals = {},
+} = {}): Response => {
+  const res: Partial<Response> = {
+    locals: {
+      serviceType: DivorceOrDissolution.DIVORCE,
+      host: 'localhost',
+      ...locals,
+    },
+  };
 
   res.redirect = jest.fn().mockReturnValue(res);
   res.render = jest.fn().mockReturnValue(res);

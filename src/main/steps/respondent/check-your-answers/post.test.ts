@@ -5,6 +5,7 @@ import { SUBMIT_AOS, YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { SAVE_AND_SIGN_OUT } from '../../urls';
+import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
 
 import RespondentCheckYourAnswersPostController from './post';
 
@@ -77,6 +78,6 @@ describe('RespondentCheckYourAnswersPostController', () => {
 
     await respondentCheckYourAnswerPostController.post(req, res);
 
-    expect(res.redirect).toHaveBeenLastCalledWith(SAVE_AND_SIGN_OUT);
+    expect(res.redirect).toHaveBeenLastCalledWith(303, getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`));
   });
 });

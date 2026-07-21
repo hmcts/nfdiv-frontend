@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { getEndIdamSessionUrl } from '../../app/auth/user/oidc';
-import { APPLICATION_WITHDRAWN } from '../urls';
+import { APPLICATION_WITHDRAWN, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { ApplicationWithdrawnGetController } from './get';
 
@@ -17,6 +17,11 @@ describe('WithdrawApplicationController', () => {
     await controller.get(req, res);
 
     expect(req.session.destroy).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(303, getEndIdamSessionUrl(`https://localhost${APPLICATION_WITHDRAWN}`));
+    expect(res.cookie).toHaveBeenCalledWith(
+      'nfdiv-signout-target',
+      APPLICATION_WITHDRAWN,
+      expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(303, getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`));
   });
 });

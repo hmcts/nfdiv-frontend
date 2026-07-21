@@ -4,6 +4,7 @@ import { ApplicationType, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '
 import { FormContent } from '../../../app/form/Form';
 import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 import { SAVE_AND_SIGN_OUT, SWITCH_TO_SOLE_APPLICATION } from '../../urls';
+import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
 
 import ApplicationTypePostController from './post';
 
@@ -79,6 +80,6 @@ describe('ApplicationTypePostController', () => {
       CITIZEN_SAVE_AND_CLOSE
     );
 
-    expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+    expect(res.redirect).toHaveBeenCalledWith(303, getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`));
   });
 });

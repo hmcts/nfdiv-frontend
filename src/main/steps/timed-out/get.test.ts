@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { getEndIdamSessionUrl } from '../../app/auth/user/oidc';
-import { TIMED_OUT_URL } from '../urls';
+import { SAVE_AND_SIGN_OUT, TIMED_OUT_URL } from '../urls';
 
 import { TimedOutGetController } from './get';
 
@@ -17,6 +17,11 @@ describe('TimedOutGetController', () => {
     await controller.get(req, res);
 
     expect(req.session.destroy).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(303, getEndIdamSessionUrl(`https://localhost${TIMED_OUT_URL}`));
+    expect(res.cookie).toHaveBeenCalledWith(
+      'nfdiv-signout-target',
+      TIMED_OUT_URL,
+      expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(303, getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`));
   });
 });
