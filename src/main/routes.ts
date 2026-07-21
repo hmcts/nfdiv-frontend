@@ -211,11 +211,8 @@ export class Routes {
           if (err) {
             throw err;
           }
-          const redirectUrl = config.get('govukUrls.applyForDivorce') as string;
-          const postLogoutRedirectUri =
-            redirectUrl.startsWith('http://') || redirectUrl.startsWith('https://')
-              ? redirectUrl
-              : `${getServiceOrigin(req, res)}${redirectUrl}`;
+
+          const postLogoutRedirectUri = getServiceOrigin(req, res);
 
           res.redirect(endIdamSessionUrl(postLogoutRedirectUri));
         });
