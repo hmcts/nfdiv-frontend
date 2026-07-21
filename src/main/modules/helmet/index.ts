@@ -10,6 +10,18 @@ const azureBlob = '*.blob.core.windows.net';
 const doubleclick = 'stats.g.doubleclick.net';
 const self = "'self'";
 
+const getOrigin = (url?: string): string | undefined => {
+  if (!url) {
+    return undefined;
+  }
+
+  try {
+    return new URL(url).origin;
+  } catch {
+    return undefined;
+  }
+};
+
 type ReferrerPolicyToken =
   | 'no-referrer'
   | 'no-referrer-when-downgrade'
@@ -62,7 +74,13 @@ export class Helmet {
       "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
       `'nonce-${config.get('nonce')}'`,
     ];
+
     const formAction = [self, 'https://card.payments.service.gov.uk', 'https://idam-web-public.aat.platform.hmcts.net'];
+    const idamEndSessionOrigin = getOrigin(config.get('services.idam.endSessionURL'));
+    if (idamEndSessionOrigin) {
+      formAction.push(idamEndSessionOrigin);
+    }
+
     // Equality URL added to work around redirects after form action - https://github.com/w3c/webappsec-csp/issues/8
     const equalityUrl: string = config.get('services.equalityAndDiversity.url');
     if (equalityUrl) {
