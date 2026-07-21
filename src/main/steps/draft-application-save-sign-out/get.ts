@@ -1,27 +1,22 @@
 import autobind from 'autobind-decorator';
-import { Response } from 'express';
 
-import { AppRequest } from '../../app/controller/AppRequest';
-import { GetController } from '../../app/controller/GetController';
-import { destroySessionAndRedirectToSignOutViaCallback } from '../../app/controller/signout';
+import BaseEndSessionGetController from '../../app/controller/BaseEndSessionGetController';
 
 import { generateContent } from './content';
 import { DRAFT_SAVE_AND_SIGN_OUT } from '../urls';
+import { AppRequest } from '../../app/controller/AppRequest';
 
 @autobind
-export class DraftApplicationSaveSignOutGetController extends GetController {
+export class DraftApplicationSaveSignOutGetController extends BaseEndSessionGetController {
   constructor() {
     super(__dirname + '/template', generateContent);
   }
 
-  public async get(req: AppRequest, res: Response): Promise<void> {
-    if (!req.session?.user) {
-      return super.get(req, res);
-    }
+  protected signoutPagePath() {
+    return DRAFT_SAVE_AND_SIGN_OUT;
+  }
 
-    res.locals['email'] = req.session.user?.email;
-    res.locals['lang'] = req.session.lang;
-
-    destroySessionAndRedirectToSignOutViaCallback(req, res, DRAFT_SAVE_AND_SIGN_OUT);
+  protected shouldSignOutViaCallback(_req: AppRequest): boolean {
+    return true;
   }
 }

@@ -14,6 +14,15 @@ import { getServiceUrl } from './url';
 const SIGN_OUT_REDIRECT_COOKIE = 'nfdiv-signout-target';
 const SIGN_OUT_REDIRECT_COOKIE_MAX_AGE_MS = 5 * 60 * 1000;
 
+const addLanguageQueryParam = (path: string, language?: string): string => {
+  if (!language) {
+    return path;
+  }
+
+  const separator = path.includes('?') ? '&' : '?';
+  return `${path}${separator}lng=${encodeURIComponent(language)}`;
+};
+
 const POST_LOGOUT_REDIRECT_PATHS = new Set<PageLink>([
   SAVE_AND_SIGN_OUT,
   DRAFT_SAVE_AND_SIGN_OUT,
@@ -52,7 +61,9 @@ export const destroySessionAndRedirectToSignOutViaCallback = async (
     });
   }
 
-  await destroySessionAndRedirectToSignOut(req, res, SAVE_AND_SIGN_OUT);
+  const callbackRedirectPath = addLanguageQueryParam(SAVE_AND_SIGN_OUT, req.session.lang);
+
+  await destroySessionAndRedirectToSignOut(req, res, callbackRedirectPath);
 };
 
 export const getPostLogoutRedirectPath = (req: AppRequest, res: Response): PageLink | undefined => {

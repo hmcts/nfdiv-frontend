@@ -28,9 +28,6 @@ export class SaveSignOutGetController extends GetController {
       return super.get(req, res);
     }
 
-    res.locals['email'] = req.session.user?.email;
-    res.locals['lang'] = req.session.lang;
-
     destroySessionAndRedirectToSignOutViaCallback(req, res, SAVE_AND_SIGN_OUT);
   }
 }

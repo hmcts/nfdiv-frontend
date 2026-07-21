@@ -17,6 +17,6 @@ describe('ApplicationWithdrawnPreIssueGetController', () => {
     await controller.get(req, res);
 
     expect(req.session.destroy).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl(`https://localhost${WITHDRAW_CONFIRMATION}`));
+    expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl(`https://localhost${WITHDRAW_CONFIRMATION}`));
   });
 });

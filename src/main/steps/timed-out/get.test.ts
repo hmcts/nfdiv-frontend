@@ -17,6 +17,6 @@ describe('TimedOutGetController', () => {
     await controller.get(req, res);
 
     expect(req.session.destroy).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl(`https://localhost${TIMED_OUT_URL}`));
+    expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl(`https://localhost${TIMED_OUT_URL}`));
   });
 });

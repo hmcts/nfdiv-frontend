@@ -62,7 +62,7 @@ describe('Controller utils', () => {
       destroySessionAndRedirectToSignOut(req, res);
 
       expect(req.session.destroy).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl('https://localhost/signout-path'));
+      expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl('https://localhost/signout-path'));
     });
 
     test('uses provided redirect path when supplied', () => {
@@ -73,7 +73,7 @@ describe('Controller utils', () => {
       destroySessionAndRedirectToSignOut(req, res, '/custom-path');
 
       expect(req.session.destroy).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl('https://localhost/custom-path'));
+      expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl('https://localhost/custom-path'));
     });
   });
 
@@ -86,7 +86,7 @@ describe('Controller utils', () => {
       destroySessionAndRedirectToSignOutViaCallback(req, res, DRAFT_SAVE_AND_SIGN_OUT);
 
       expect(req.session.destroy).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}`));
+      expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`));
     });
 
     test('sets cookie when redirect path differs from callback path', () => {
@@ -116,6 +116,16 @@ describe('Controller utils', () => {
       destroySessionAndRedirectToSignOutViaCallback(req, res, SAVE_AND_SIGN_OUT);
 
       expect(res.cookie).not.toHaveBeenCalled();
+    });
+
+    test('uses Welsh language query param when session language is cy', () => {
+      const req = mockRequest({ session: { lang: 'cy' } });
+      const res = mockResponse();
+      (res.locals as Record<string, string>).host = 'localhost';
+
+      destroySessionAndRedirectToSignOutViaCallback(req, res, SAVE_AND_SIGN_OUT);
+
+      expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=cy`));
     });
   });
 

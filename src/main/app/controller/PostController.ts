@@ -58,8 +58,6 @@ export class PostController<T extends AnyObject> {
       // ignore
     }
 
-    return res.redirect("https://idam-web-public.aat.platform.hmcts.net/o/endSession?post_logout_redirect_uri=http://localhost:3001/save-sign-out");
-
     res.locals['email'] = req.session.user?.email;
     res.locals['lang'] = req.session.lang;
     
