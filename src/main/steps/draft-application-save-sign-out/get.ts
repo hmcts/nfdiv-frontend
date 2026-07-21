@@ -4,7 +4,6 @@ import BaseEndSessionGetController from '../../app/controller/BaseEndSessionGetC
 
 import { generateContent } from './content';
 import { DRAFT_SAVE_AND_SIGN_OUT } from '../urls';
-import { AppRequest } from '../../app/controller/AppRequest';
 
 @autobind
 export class DraftApplicationSaveSignOutGetController extends BaseEndSessionGetController {

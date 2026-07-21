@@ -1,25 +1,17 @@
 import autobind from 'autobind-decorator';
-import { Response } from 'express';
 
-import { AppRequest } from '../../app/controller/AppRequest';
-import { GetController } from '../../app/controller/GetController';
-import { destroySessionAndRedirectToSignOut } from '../../app/controller/signout';
+import { TIMED_OUT_URL } from '../urls';
 
 import { generateContent } from './content';
+import BaseEndSessionGetController from 'app/controller/BaseEndSessionGetController';
 
 @autobind
-export class TimedOutGetController extends GetController {
+export class TimedOutGetController extends BaseEndSessionGetController {
   constructor() {
     super(__dirname + '/template', generateContent);
   }
 
-  public async get(req: AppRequest, res: Response): Promise<void> {
-    if (!req.session.user) {
-      return super.get(req, res);
-    }
-
-    res.locals['lang'] = req.session.lang;
-
-    destroySessionAndRedirectToSignOut(req, res);
+  protected signoutPagePath() {
+    return TIMED_OUT_URL;
   }
 }
