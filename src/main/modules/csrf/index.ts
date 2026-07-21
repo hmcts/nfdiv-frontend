@@ -12,7 +12,11 @@ const { csrfSynchronisedProtection } = csrfSync({
 
   getTokenFromRequest: req => {
     const queryToken = req.query?._csrf;
-    return req.body?._csrf || (req.headers['x-csrf-token'] as string) || (Array.isArray(queryToken) ? queryToken[0] : queryToken);
+    return (
+      req.body?._csrf ||
+      (req.headers['x-csrf-token'] as string) ||
+      (Array.isArray(queryToken) ? queryToken[0] : queryToken)
+    );
   },
 
   getTokenFromState: req => req.session.csrfToken,
