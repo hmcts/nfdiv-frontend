@@ -1,17 +1,17 @@
 import autobind from 'autobind-decorator';
 
-import BaseEndSessionGetController from '../../app/controller/BaseEndSessionGetController';
+import EndSessionGetController from '../../app/controller/EndSessionGetController';
+import { DRAFT_SAVE_AND_SIGN_OUT, PageLink } from '../urls';
 
 import { generateContent } from './content';
-import { DRAFT_SAVE_AND_SIGN_OUT } from '../urls';
 
 @autobind
-export class DraftApplicationSaveSignOutGetController extends BaseEndSessionGetController {
+export class DraftApplicationSaveSignOutGetController extends EndSessionGetController {
   constructor() {
     super(__dirname + '/template', generateContent);
   }
 
-  protected signoutPagePath() {
+  protected signoutPagePath(): PageLink {
     return DRAFT_SAVE_AND_SIGN_OUT;
   }
 }

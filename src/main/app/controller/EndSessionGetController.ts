@@ -5,14 +5,14 @@ import { CommonContent } from '../../steps/common/common.content';
 import { PageLink } from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';
-import { destroySessionAndRedirectToSignOutPage } from './signout';
 import { GetController } from './GetController';
+import { destroySessionAndRedirectToSignOutPage } from './signout';
 
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
 
 @autobind
-export default abstract class BaseEndSessionGetController extends GetController {
+export default abstract class EndSessionGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (!req.session.user) {
       return super.get(req, res);

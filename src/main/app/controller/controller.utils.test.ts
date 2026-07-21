@@ -1,19 +1,16 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { endIdamSessionUrl } from '../auth/user/oidc';
-import { CaseWithId } from '../case/case';
-import { DivorceOrDissolution, State, YesOrNo } from '../case/definition';
 import {
   DRAFT_SAVE_AND_SIGN_OUT,
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   SAVE_AND_SIGN_OUT,
 } from '../../steps/urls';
+import { endIdamSessionUrl } from '../auth/user/oidc';
+import { CaseWithId } from '../case/case';
+import { DivorceOrDissolution, State, YesOrNo } from '../case/definition';
 
-import {
-  destroySessionAndRedirectToSignOutPage,
-  getPostLogoutRedirectPath,
-} from './signout';
 import { needsToExplainDelay } from './controller.utils';
+import { destroySessionAndRedirectToSignOutPage, getPostLogoutRedirectPath } from './signout';
 
 describe('Controller utils', () => {
   describe('needsToExplainDelay', () => {

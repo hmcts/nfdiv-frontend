@@ -3,13 +3,10 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import {
-  destroySessionAndRedirectToSignOutPage,
-  getPostLogoutRedirectPath,
-} from '../../app/controller/signout';
+import { destroySessionAndRedirectToSignOutPage, getPostLogoutRedirectPath } from '../../app/controller/signout';
+import { SAVE_AND_SIGN_OUT } from '../urls';
 
 import { generateContent } from './content';
-import { SAVE_AND_SIGN_OUT } from '../urls';
 
 @autobind
 export class SaveSignOutGetController extends GetController {

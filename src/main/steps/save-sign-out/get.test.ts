@@ -22,7 +22,10 @@ describe('SaveSignOutGetController', () => {
   it('redirects signed out user to cookie target path', async () => {
     const controller = new SaveSignOutGetController();
 
-    const req = mockRequest({ session: { user: undefined }, cookies: { 'nfdiv-signout-target': DRAFT_SAVE_AND_SIGN_OUT } });
+    const req = mockRequest({
+      session: { user: undefined },
+      cookies: { 'nfdiv-signout-target': DRAFT_SAVE_AND_SIGN_OUT },
+    });
     const res = mockResponse();
 
     await controller.get(req, res);

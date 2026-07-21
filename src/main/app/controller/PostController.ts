@@ -58,18 +58,17 @@ export class PostController<T extends AnyObject> {
       // ignore
     }
 
-    res.locals['email'] = req.session.user?.email;
-    res.locals['lang'] = req.session.lang;
-    
-    if (req.session.userCase.state === State.Draft) {
-      return await destroySessionAndRedirectToSignOutPage(req, res, DRAFT_SAVE_AND_SIGN_OUT);
-    } else if (
-      req.session.userCase.state === State.InformationRequested || req.session.userCase.applicant1InterimApplicationType
-    ) {
-      return await destroySessionAndRedirectToSignOutPage(req, res, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
-    } else {
-      return await destroySessionAndRedirectToSignOutPage(req, res, SAVE_AND_SIGN_OUT);
+    const caseState = req.session.userCase.state;
+
+    let signoutPage = SAVE_AND_SIGN_OUT;
+
+    if (caseState === State.Draft) {
+      signoutPage = DRAFT_SAVE_AND_SIGN_OUT;
+    } else if (caseState === State.InformationRequested) {
+      signoutPage = REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT;
     }
+
+    return destroySessionAndRedirectToSignOutPage(req, res, signoutPage);
   }
 
   protected getNextUrl(req: AppRequest): string {

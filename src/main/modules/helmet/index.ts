@@ -75,7 +75,7 @@ export class Helmet {
       `'nonce-${config.get('nonce')}'`,
     ];
 
-    const formAction = [self, 'https://card.payments.service.gov.uk', 'https://idam-web-public.aat.platform.hmcts.net'];
+    const formAction = [self, 'https://card.payments.service.gov.uk', 'https://hmcts-access.service.gov.uk/login'];
     const idamEndSessionOrigin = getOrigin(config.get('services.idam.endSessionURL'));
     if (idamEndSessionOrigin) {
       formAction.push(idamEndSessionOrigin);

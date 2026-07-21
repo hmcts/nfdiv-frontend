@@ -2,14 +2,14 @@ import { TranslationFn } from '../../app/controller/GetController';
 
 const en = () => ({
   title: 'Your application has been saved',
-  applicationSentTo: `We've emailed you a link to continue your application.`,
+  applicationSentTo: "We've emailed you a link to continue your application.",
   beenSignedOut: 'You have been signed out.',
   signBackIn: 'Sign back in and continue',
 });
 
 const cy: typeof en = () => ({
   title: 'Mae eich cais wedi cael ei gadw',
-  applicationSentTo: `Rydym wedi anfon dolen atoch drwy e-bost i barhau â'ch cais.`,
+  applicationSentTo: "Rydym wedi anfon dolen atoch drwy e-bost i barhau â'ch cais.",
   beenSignedOut: 'Rydych wedi cael eich allgofnodi.',
   signBackIn: 'Mewngofnodi eto a pharhau',
 });

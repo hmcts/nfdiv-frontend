@@ -1,21 +1,17 @@
 import autobind from 'autobind-decorator';
 
-import BaseEndSessionGetController from '../../app/controller/BaseEndSessionGetController';
+import EndSessionGetController from '../../app/controller/EndSessionGetController';
+import { PageLink, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT } from '../urls';
 
 import { generateContent } from './content';
-import { REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT } from '../urls';
 
 @autobind
-export class RequestForInformationSaveSignOutGetController extends BaseEndSessionGetController {
+export class RequestForInformationSaveSignOutGetController extends EndSessionGetController {
   constructor() {
     super(__dirname + '/template', generateContent);
   }
 
-  protected signoutPagePath() {
+  protected signoutPagePath(): PageLink {
     return REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT;
-  }
-
-  protected shouldSignOutViaCallback(): boolean {
-    return true;
   }
 }

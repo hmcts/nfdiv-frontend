@@ -1,12 +1,8 @@
 import { Response } from 'express';
 
+import { SIGNOUT_PAGE_URLS } from '../../steps/url-utils';
+import { PageLink, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { endIdamSessionUrl } from '../auth/user/oidc';
-import {
-  DRAFT_SAVE_AND_SIGN_OUT,
-  REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
-  SAVE_AND_SIGN_OUT,
-  PageLink,
-} from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';
 import { getServiceUrl } from './url';
@@ -23,18 +19,12 @@ const addLanguageQueryParam = (path: string, language?: string): string => {
   return `${path}${separator}lng=${encodeURIComponent(language)}`;
 };
 
-const POST_LOGOUT_REDIRECT_PATHS = new Set<PageLink>([
-  SAVE_AND_SIGN_OUT,
-  DRAFT_SAVE_AND_SIGN_OUT,
-  REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
-]);
-
 export const destroySessionAndRedirectToSignOutPage = async (
   req: AppRequest,
   res: Response,
   redirectPath: PageLink = SAVE_AND_SIGN_OUT
 ): Promise<void> => {
-  if (redirectPath !== SAVE_AND_SIGN_OUT && POST_LOGOUT_REDIRECT_PATHS.has(redirectPath)) {
+  if (redirectPath !== SAVE_AND_SIGN_OUT && SIGNOUT_PAGE_URLS.has(redirectPath)) {
     res.cookie(SIGN_OUT_REDIRECT_COOKIE, redirectPath, {
       httpOnly: true,
       maxAge: SIGN_OUT_REDIRECT_COOKIE_MAX_AGE_MS,
@@ -62,7 +52,7 @@ export const getPostLogoutRedirectPath = (req: AppRequest, res: Response): PageL
   const redirectPath = req.cookies[SIGN_OUT_REDIRECT_COOKIE] as PageLink | undefined;
   res.clearCookie(SIGN_OUT_REDIRECT_COOKIE);
 
-  if (redirectPath && POST_LOGOUT_REDIRECT_PATHS.has(redirectPath)) {
+  if (redirectPath && SIGNOUT_PAGE_URLS.has(redirectPath)) {
     return redirectPath;
   }
 
