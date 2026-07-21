@@ -14,4 +14,8 @@ export class RequestForInformationSaveSignOutGetController extends BaseEndSessio
   protected signoutPagePath() {
     return REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT;
   }
+
+  protected shouldSignOutViaCallback(): boolean {
+    return true;
+  }
 }

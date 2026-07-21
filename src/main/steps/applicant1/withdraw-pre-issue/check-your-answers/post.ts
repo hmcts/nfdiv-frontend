@@ -6,7 +6,7 @@ import { Case } from '../../../../app/case/case';
 import { CITIZEN_WITHDRAWN } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { destroySessionAndRedirectToSignOut } from '../../../../app/controller/signout';
+import { destroySessionAndRedirectToSignOutPage } from '../../../../app/controller/signout';
 import { Form } from '../../../../app/form/Form';
 import { WITHDRAW_CONFIRMATION } from '../../../../steps/urls';
 
@@ -28,7 +28,7 @@ export default class PreIssueWithdrawPostController extends PostController<AnyOb
       throw new Error('Failed to withdraw case. Please try again later.');
     }
 
-    destroySessionAndRedirectToSignOut(req, res, WITHDRAW_CONFIRMATION);
+    destroySessionAndRedirectToSignOutPage(req, res, WITHDRAW_CONFIRMATION);
   }
 
   protected getEventName(): string {

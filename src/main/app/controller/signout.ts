@@ -29,25 +29,7 @@ const POST_LOGOUT_REDIRECT_PATHS = new Set<PageLink>([
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
 ]);
 
-export const destroySessionAndRedirectToSignOut = (
-  req: AppRequest,
-  res: Response,
-  redirectPath: string = req.path
-): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    req.session.destroy(err => {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      res.redirect(303, endIdamSessionUrl(getServiceUrl(req, res, redirectPath)));
-      resolve();
-    });
-  });
-};
-
-export const destroySessionAndRedirectToSignOutViaCallback = async (
+export const destroySessionAndRedirectToSignOutPage = async (
   req: AppRequest,
   res: Response,
   redirectPath: PageLink = SAVE_AND_SIGN_OUT
@@ -63,7 +45,17 @@ export const destroySessionAndRedirectToSignOutViaCallback = async (
 
   const callbackRedirectPath = addLanguageQueryParam(SAVE_AND_SIGN_OUT, req.session.lang);
 
-  await destroySessionAndRedirectToSignOut(req, res, callbackRedirectPath);
+  return new Promise((resolve, reject) => {
+    req.session.destroy(err => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      res.redirect(303, endIdamSessionUrl(getServiceUrl(req, res, callbackRedirectPath)));
+      resolve();
+    });
+  });
 };
 
 export const getPostLogoutRedirectPath = (req: AppRequest, res: Response): PageLink | undefined => {

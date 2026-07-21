@@ -5,7 +5,7 @@ import { CommonContent } from '../../steps/common/common.content';
 import { PageLink } from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';
-import { destroySessionAndRedirectToSignOut } from './signout';
+import { destroySessionAndRedirectToSignOutPage } from './signout';
 import { GetController } from './GetController';
 
 export type PageContent = Record<string, unknown>;
@@ -18,7 +18,7 @@ export default abstract class BaseEndSessionGetController extends GetController 
       return super.get(req, res);
     }
 
-    return destroySessionAndRedirectToSignOut(req, res, this.signoutPagePath(req));
+    return destroySessionAndRedirectToSignOutPage(req, res, this.signoutPagePath(req));
   }
 
   protected abstract signoutPagePath(req: AppRequest): PageLink;

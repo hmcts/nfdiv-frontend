@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
 import {
-  destroySessionAndRedirectToSignOutViaCallback,
+  destroySessionAndRedirectToSignOutPage,
   getPostLogoutRedirectPath,
 } from '../../app/controller/signout';
 
@@ -28,6 +28,6 @@ export class SaveSignOutGetController extends GetController {
       return super.get(req, res);
     }
 
-    destroySessionAndRedirectToSignOutViaCallback(req, res, SAVE_AND_SIGN_OUT);
+    destroySessionAndRedirectToSignOutPage(req, res, SAVE_AND_SIGN_OUT);
   }
 }

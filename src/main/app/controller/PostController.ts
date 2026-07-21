@@ -20,7 +20,7 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
 import { getPaymentCallbackUrl } from './BasePaymentPostController';
-import { destroySessionAndRedirectToSignOutViaCallback } from './signout';
+import { destroySessionAndRedirectToSignOutPage } from './signout';
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -62,13 +62,13 @@ export class PostController<T extends AnyObject> {
     res.locals['lang'] = req.session.lang;
     
     if (req.session.userCase.state === State.Draft) {
-      return await destroySessionAndRedirectToSignOutViaCallback(req, res, DRAFT_SAVE_AND_SIGN_OUT);
+      return await destroySessionAndRedirectToSignOutPage(req, res, DRAFT_SAVE_AND_SIGN_OUT);
     } else if (
       req.session.userCase.state === State.InformationRequested || req.session.userCase.applicant1InterimApplicationType
     ) {
-      return await destroySessionAndRedirectToSignOutViaCallback(req, res, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
+      return await destroySessionAndRedirectToSignOutPage(req, res, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
     } else {
-      return await destroySessionAndRedirectToSignOutViaCallback(req, res, SAVE_AND_SIGN_OUT);
+      return await destroySessionAndRedirectToSignOutPage(req, res, SAVE_AND_SIGN_OUT);
     }
   }
 

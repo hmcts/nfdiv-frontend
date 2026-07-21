@@ -10,8 +10,7 @@ import {
 } from '../../steps/urls';
 
 import {
-  destroySessionAndRedirectToSignOut,
-  destroySessionAndRedirectToSignOutViaCallback,
+  destroySessionAndRedirectToSignOutPage,
   getPostLogoutRedirectPath,
 } from './signout';
 import { needsToExplainDelay } from './controller.utils';
@@ -52,38 +51,13 @@ describe('Controller utils', () => {
     });
   });
 
-  describe('destroySessionAndRedirectToSignOut', () => {
-    test('destroys session and redirects to IDAM sign out URL', () => {
-      const req = mockRequest();
-      const res = mockResponse();
-      (res.locals as Record<string, string>).host = 'localhost';
-      (req as { path: string }).path = '/signout-path';
-
-      destroySessionAndRedirectToSignOut(req, res);
-
-      expect(req.session.destroy).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl('https://localhost/signout-path'));
-    });
-
-    test('uses provided redirect path when supplied', () => {
-      const req = mockRequest();
-      const res = mockResponse();
-      (res.locals as Record<string, string>).host = 'localhost';
-
-      destroySessionAndRedirectToSignOut(req, res, '/custom-path');
-
-      expect(req.session.destroy).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl('https://localhost/custom-path'));
-    });
-  });
-
-  describe('destroySessionAndRedirectToSignOutViaCallback', () => {
+  describe('destroySessionAndRedirectToSignOutPage', () => {
     test('redirects to IDAM sign out with whitelisted callback path', () => {
       const req = mockRequest();
       const res = mockResponse();
       (res.locals as Record<string, string>).host = 'localhost';
 
-      destroySessionAndRedirectToSignOutViaCallback(req, res, DRAFT_SAVE_AND_SIGN_OUT);
+      destroySessionAndRedirectToSignOutPage(req, res, DRAFT_SAVE_AND_SIGN_OUT);
 
       expect(req.session.destroy).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`));
@@ -94,7 +68,7 @@ describe('Controller utils', () => {
       const res = mockResponse();
       (res.locals as Record<string, string>).host = 'localhost';
 
-      destroySessionAndRedirectToSignOutViaCallback(req, res, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
+      destroySessionAndRedirectToSignOutPage(req, res, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
 
       expect(res.cookie).toHaveBeenCalledWith(
         'nfdiv-signout-target',
@@ -113,7 +87,7 @@ describe('Controller utils', () => {
       const res = mockResponse();
       (res.locals as Record<string, string>).host = 'localhost';
 
-      destroySessionAndRedirectToSignOutViaCallback(req, res, SAVE_AND_SIGN_OUT);
+      destroySessionAndRedirectToSignOutPage(req, res, SAVE_AND_SIGN_OUT);
 
       expect(res.cookie).not.toHaveBeenCalled();
     });
@@ -123,7 +97,7 @@ describe('Controller utils', () => {
       const res = mockResponse();
       (res.locals as Record<string, string>).host = 'localhost';
 
-      destroySessionAndRedirectToSignOutViaCallback(req, res, SAVE_AND_SIGN_OUT);
+      destroySessionAndRedirectToSignOutPage(req, res, SAVE_AND_SIGN_OUT);
 
       expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=cy`));
     });
