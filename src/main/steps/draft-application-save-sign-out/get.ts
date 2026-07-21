@@ -15,8 +15,4 @@ export class DraftApplicationSaveSignOutGetController extends BaseEndSessionGetC
   protected signoutPagePath() {
     return DRAFT_SAVE_AND_SIGN_OUT;
   }
-
-  protected shouldSignOutViaCallback(_req: AppRequest): boolean {
-    return true;
-  }
 }
