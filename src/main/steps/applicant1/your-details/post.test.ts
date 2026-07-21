@@ -1,11 +1,11 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
 import { CaseWithId, Checkbox } from '../../../app/case/case';
 import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, DivorceOrDissolution, Gender } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
 import { SAVE_AND_SIGN_OUT } from '../../urls';
-import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
 
 import YourDetailsPostController from './post';
 
@@ -72,7 +72,10 @@ describe('YourDetailsPostController', () => {
       CITIZEN_SAVE_AND_CLOSE
     );
 
-    expect(res.redirect).toHaveBeenCalledWith(303, getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`));
+    expect(res.redirect).toHaveBeenCalledWith(
+      303,
+      getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`)
+    );
   });
 
   it('creates a new case if there is none in the session', async () => {

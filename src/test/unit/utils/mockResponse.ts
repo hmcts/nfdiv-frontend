@@ -2,9 +2,7 @@ import { Response } from 'express';
 
 import { DivorceOrDissolution } from '../../../main/app/case/definition';
 
-export const mockResponse = ({
-  locals = {},
-} = {}): Response => {
+export const mockResponse = ({ locals = {} } = {}): Response => {
   const res: Partial<Response> = {
     locals: {
       serviceType: DivorceOrDissolution.DIVORCE,

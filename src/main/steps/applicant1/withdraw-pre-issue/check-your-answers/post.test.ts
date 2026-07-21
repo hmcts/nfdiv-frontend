@@ -29,6 +29,9 @@ describe('PreIssueWithdrawPostController', () => {
       WITHDRAW_CONFIRMATION,
       expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
     );
-    expect(res.redirect).toHaveBeenCalledWith(303, getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`));
+    expect(res.redirect).toHaveBeenCalledWith(
+      303,
+      getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`)
+    );
   });
 });
