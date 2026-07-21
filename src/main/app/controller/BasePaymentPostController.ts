@@ -12,7 +12,7 @@ import {
 } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
-import { getServiceUrl } from '../controller/controller.utils';
+import { getServiceUrl } from '../controller/url';
 import { Payment, PaymentClient } from '../payment/PaymentClient';
 import { PaymentModel } from '../payment/PaymentModel';
 

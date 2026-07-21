@@ -14,6 +14,7 @@ import {
   PageLink,
   RESIDUAL_JURISDICTION,
   RESPONDENT,
+  SAVE_AND_SIGN_OUT,
   SIGN_OUT_URL,
   TERMS_AND_CONDITIONS_URL,
   TIMED_OUT_URL,
@@ -35,6 +36,7 @@ export const signInNotRequired = (reqPath: string): boolean =>
     TIMED_OUT_URL,
     WITHDRAW_CONFIRMATION,
     SIGN_OUT_URL,
+    SAVE_AND_SIGN_OUT,
   ].includes(reqPath as PageLink);
 
 export const isLinkingUrl = (reqPath: string): boolean =>

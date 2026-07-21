@@ -20,6 +20,7 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
 import { getPaymentCallbackUrl } from './BasePaymentPostController';
+import { destroySessionAndRedirectToSignOutViaCallback } from './signout';
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -56,15 +57,20 @@ export class PostController<T extends AnyObject> {
     } catch {
       // ignore
     }
+
+    return res.redirect("https://idam-web-public.aat.platform.hmcts.net/o/endSession?post_logout_redirect_uri=http://localhost:3001/save-sign-out");
+
+    res.locals['email'] = req.session.user?.email;
+    res.locals['lang'] = req.session.lang;
+    
     if (req.session.userCase.state === State.Draft) {
-      res.redirect(DRAFT_SAVE_AND_SIGN_OUT);
+      return await destroySessionAndRedirectToSignOutViaCallback(req, res, DRAFT_SAVE_AND_SIGN_OUT);
     } else if (
-      req.session.userCase.state === State.InformationRequested ||
-      req.session.userCase.applicant1InterimApplicationType
+      req.session.userCase.state === State.InformationRequested || req.session.userCase.applicant1InterimApplicationType
     ) {
-      res.redirect(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
+      return await destroySessionAndRedirectToSignOutViaCallback(req, res, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
     } else {
-      res.redirect(SAVE_AND_SIGN_OUT);
+      return await destroySessionAndRedirectToSignOutViaCallback(req, res, SAVE_AND_SIGN_OUT);
     }
   }
 

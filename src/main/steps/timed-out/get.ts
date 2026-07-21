@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import { destroySessionAndRedirectToSignOut } from '../../app/controller/controller.utils';
+import { destroySessionAndRedirectToSignOut } from '../../app/controller/signout';
 
 import { generateContent } from './content';
 

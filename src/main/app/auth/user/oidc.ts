@@ -3,7 +3,6 @@ import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { jwtDecode } from 'jwt-decode';
 import NodeCache from 'node-cache';
-
 import { APPLICANT_2_CALLBACK_URL, CALLBACK_URL, PageLink, SIGN_IN_URL } from '../../../steps/urls';
 import { UserDetails } from '../../controller/AppRequest';
 
@@ -115,5 +114,5 @@ export const getIdamToken = async (
 export const endIdamSessionUrl = (redirectUrl: string): string => {
   const endSessionUrl: string = config.get('services.idam.endSessionURL');
 
-  return `${endSessionUrl}?post_logout_redirect_uri=${redirectUrl}`;
+  return `${endSessionUrl}?post_logout_redirect_uri=${encodeURI(redirectUrl)}`;
 };

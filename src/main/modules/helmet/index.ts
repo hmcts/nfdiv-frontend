@@ -62,7 +62,7 @@ export class Helmet {
       "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
       `'nonce-${config.get('nonce')}'`,
     ];
-    const formAction = [self, 'https://card.payments.service.gov.uk'];
+    const formAction = [self, 'https://card.payments.service.gov.uk', 'https://idam-web-public.aat.platform.hmcts.net'];
     // Equality URL added to work around redirects after form action - https://github.com/w3c/webappsec-csp/issues/8
     const equalityUrl: string = config.get('services.equalityAndDiversity.url');
     if (equalityUrl) {

@@ -6,7 +6,7 @@ import { GetController } from '../../app/controller/GetController';
 import {
   destroySessionAndRedirectToSignOutViaCallback,
   getPostLogoutRedirectPath,
-} from '../../app/controller/controller.utils';
+} from '../../app/controller/signout';
 
 import { generateContent } from './content';
 import { SAVE_AND_SIGN_OUT } from '../urls';

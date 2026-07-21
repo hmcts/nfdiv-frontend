@@ -6,7 +6,7 @@ import { Case } from '../../../../app/case/case';
 import { CITIZEN_WITHDRAWN } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { destroySessionAndRedirectToSignOut } from '../../../../app/controller/controller.utils';
+import { destroySessionAndRedirectToSignOut } from '../../../../app/controller/signout';
 import { Form } from '../../../../app/form/Form';
 import { WITHDRAW_CONFIRMATION } from '../../../../steps/urls';
 

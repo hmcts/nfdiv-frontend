@@ -13,8 +13,8 @@ import {
   destroySessionAndRedirectToSignOut,
   destroySessionAndRedirectToSignOutViaCallback,
   getPostLogoutRedirectPath,
-  needsToExplainDelay,
-} from './controller.utils';
+} from './signout';
+import { needsToExplainDelay } from './controller.utils';
 
 describe('Controller utils', () => {
   describe('needsToExplainDelay', () => {
