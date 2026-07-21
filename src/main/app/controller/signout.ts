@@ -2,7 +2,7 @@ import { Response } from 'express';
 
 import { SIGNOUT_PAGE_URLS } from '../../steps/url-utils';
 import { PageLink, SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { endIdamSessionUrl } from '../auth/user/oidc';
+import { getEndIdamSessionUrl } from '../auth/user/oidc';
 
 import { AppRequest } from './AppRequest';
 import { getServiceUrl } from './url';
@@ -33,8 +33,6 @@ export const destroySessionAndRedirectToSignOutPage = async (
     });
   }
 
-  const callbackRedirectPath = addLanguageQueryParam(SAVE_AND_SIGN_OUT, req.session.lang);
-
   return new Promise((resolve, reject) => {
     req.session.destroy(err => {
       if (err) {
@@ -42,7 +40,11 @@ export const destroySessionAndRedirectToSignOutPage = async (
         return;
       }
 
-      res.redirect(303, endIdamSessionUrl(getServiceUrl(req, res, callbackRedirectPath)));
+      const postLogoutRedirectPath = addLanguageQueryParam(SAVE_AND_SIGN_OUT, req.session.lang);
+
+      const postLogoutRedirectUri = getServiceUrl(req, res, postLogoutRedirectPath);
+
+      res.redirect(303, getEndIdamSessionUrl(postLogoutRedirectUri));
       resolve();
     });
   });

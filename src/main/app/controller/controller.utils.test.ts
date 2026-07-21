@@ -5,7 +5,7 @@ import {
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   SAVE_AND_SIGN_OUT,
 } from '../../steps/urls';
-import { endIdamSessionUrl } from '../auth/user/oidc';
+import { getEndIdamSessionUrl } from '../auth/user/oidc';
 import { CaseWithId } from '../case/case';
 import { DivorceOrDissolution, State, YesOrNo } from '../case/definition';
 
@@ -57,7 +57,10 @@ describe('Controller utils', () => {
       destroySessionAndRedirectToSignOutPage(req, res, DRAFT_SAVE_AND_SIGN_OUT);
 
       expect(req.session.destroy).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`));
+      expect(res.redirect).toHaveBeenCalledWith(
+        303,
+        getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`)
+      );
     });
 
     test('sets cookie when redirect path differs from callback path', () => {
@@ -96,7 +99,10 @@ describe('Controller utils', () => {
 
       destroySessionAndRedirectToSignOutPage(req, res, SAVE_AND_SIGN_OUT);
 
-      expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=cy`));
+      expect(res.redirect).toHaveBeenCalledWith(
+        303,
+        getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=cy`)
+      );
     });
   });
 

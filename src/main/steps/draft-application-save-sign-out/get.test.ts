@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { endIdamSessionUrl } from '../../app/auth/user/oidc';
+import { getEndIdamSessionUrl } from '../../app/auth/user/oidc';
 import { DRAFT_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../urls';
 
 import { DraftApplicationSaveSignOutGetController } from './get';
@@ -21,6 +21,9 @@ describe('DraftApplicationSaveSignOutGetController', () => {
       DRAFT_SAVE_AND_SIGN_OUT,
       expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
     );
-    expect(res.redirect).toHaveBeenCalledWith(303, endIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`));
+    expect(res.redirect).toHaveBeenCalledWith(
+      303,
+      getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`)
+    );
   });
 });

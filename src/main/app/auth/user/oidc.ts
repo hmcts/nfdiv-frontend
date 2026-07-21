@@ -112,7 +112,7 @@ export const getIdamToken = async (
   return response;
 };
 
-export const endIdamSessionUrl = (redirectUrl: string): string => {
+export const getEndIdamSessionUrl = (redirectUrl: string): string => {
   const endSessionUrl: string = config.get('services.idam.endSessionURL');
 
   return `${endSessionUrl}?post_logout_redirect_uri=${encodeURI(redirectUrl)}`;

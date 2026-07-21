@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { endIdamSessionUrl } from '../../../app/auth/user/oidc';
+import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
 import { CITIZEN_WITHDRAWN } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { APPLICATION_WITHDRAWN } from '../../urls';
@@ -24,6 +24,6 @@ describe('WithdrawApplicationPostController', () => {
 
     expect(req.session.destroy).toHaveBeenCalled();
 
-    expect(res.redirect).toHaveBeenCalledWith(endIdamSessionUrl(`https://localhost${APPLICATION_WITHDRAWN}`));
+    expect(res.redirect).toHaveBeenCalledWith(getEndIdamSessionUrl(`https://localhost${APPLICATION_WITHDRAWN}`));
   });
 });

@@ -6,7 +6,7 @@ import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
-import { endIdamSessionUrl } from './app/auth/user/oidc';
+import { getEndIdamSessionUrl } from './app/auth/user/oidc';
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -214,7 +214,7 @@ export class Routes {
 
           const postLogoutRedirectUri = getServiceOrigin(req, res);
 
-          res.redirect(endIdamSessionUrl(postLogoutRedirectUri));
+          res.redirect(getEndIdamSessionUrl(postLogoutRedirectUri));
         });
       })
     );

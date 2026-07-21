@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { endIdamSessionUrl } from '../../../../app/auth/user/oidc';
+import { getEndIdamSessionUrl } from '../../../../app/auth/user/oidc';
 import { CITIZEN_WITHDRAWN } from '../../../../app/case/definition';
 import { FormContent } from '../../../../app/form/Form';
 import { APPLICANT_1, CHECK_ANSWERS_WITHDRAW, WITHDRAW_CONFIRMATION } from '../../../urls';
@@ -25,7 +25,7 @@ describe('PreIssueWithdrawPostController', () => {
 
     expect(req.session.destroy).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(
-      endIdamSessionUrl(`https://localhost${APPLICANT_1}${WITHDRAW_CONFIRMATION}`)
+      getEndIdamSessionUrl(`https://localhost${APPLICANT_1}${WITHDRAW_CONFIRMATION}`)
     );
   });
 });

@@ -2,7 +2,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { endIdamSessionUrl, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { getEndIdamSessionUrl, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/case-api';
 import { ApplicationType, DivorceOrDissolution, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -36,7 +36,7 @@ export class OidcMiddleware {
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, req.path))
     );
     app.get(SIGN_OUT_URL, (req, res) => {
-      req.session.destroy(() => res.redirect(endIdamSessionUrl(`${protocol}${res.locals.host}${port}`)));
+      req.session.destroy(() => res.redirect(getEndIdamSessionUrl(`${protocol}${res.locals.host}${port}`)));
     });
     app.get([CALLBACK_URL, APPLICANT_2_CALLBACK_URL], errorHandler(this.callbackHandler(protocol, port)));
 
