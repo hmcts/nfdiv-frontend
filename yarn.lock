@@ -309,20 +309,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:16.11.1":
-  version: 16.11.1
-  resolution: "@azure/msal-common@npm:16.11.1"
-  checksum: 10/cd53b636aec9b724ee838366fb5d37e14d2523764232659b62dd0e04b8de85b24b0d1c1966e5e3b9f923475975be7a1e30c57cdee1f8239551d3f275984a98b8
+"@azure/msal-common@npm:16.11.2":
+  version: 16.11.2
+  resolution: "@azure/msal-common@npm:16.11.2"
+  checksum: 10/72e09ba1bf2b4a601acfa2e08c993d9bea868d5bf268c207e421d133557b3ed422415dc744dc0a0beb5b0e5c0f398ea0e6ea6a81422d53b7ee955b251d2442a7
   languageName: node
   linkType: hard
 
 "@azure/msal-node@npm:^5.2.2":
-  version: 5.4.0
-  resolution: "@azure/msal-node@npm:5.4.0"
+  version: 5.4.1
+  resolution: "@azure/msal-node@npm:5.4.1"
   dependencies:
-    "@azure/msal-common": "npm:16.11.1"
+    "@azure/msal-common": "npm:16.11.2"
     jsonwebtoken: "npm:^9.0.0"
-  checksum: 10/a04f971dad660bc29af97ec68af2ec1efbfc3853f20e2cf1857ff4f8af491bd52771ca02ba22f0b955a0cf73a4d03ddbd6873747f7732205430ad35c832b9fe9
+  checksum: 10/868807a1a48f5ee45b08b00ab6835a418767eacacea7a04ff15b606ae6db0c4933e974838a16e170c0fb49e631a7266b1cf7887b8c99aba605b44e25f61677d3
   languageName: node
   linkType: hard
 
@@ -3938,13 +3938,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:10.0.0":
-  version: 10.0.0
-  resolution: "@types/uuid@npm:10.0.0"
-  checksum: 10/e3958f8b0fe551c86c14431f5940c3470127293280830684154b91dc7eb3514aeb79fe3216968833cf79d4d1c67f580f054b5be2cd562bebf4f728913e73e944
-  languageName: node
-  linkType: hard
-
 "@types/which@npm:^2.0.1":
   version: 2.0.2
   resolution: "@types/which@npm:2.0.2"
@@ -5720,19 +5713,19 @@ __metadata:
   linkType: hard
 
 "body-parser@npm:^2.2.1":
-  version: 2.2.2
-  resolution: "body-parser@npm:2.2.2"
+  version: 2.3.0
+  resolution: "body-parser@npm:2.3.0"
   dependencies:
     bytes: "npm:^3.1.2"
-    content-type: "npm:^1.0.5"
+    content-type: "npm:^2.0.0"
     debug: "npm:^4.4.3"
-    http-errors: "npm:^2.0.0"
-    iconv-lite: "npm:^0.7.0"
+    http-errors: "npm:^2.0.1"
+    iconv-lite: "npm:^0.7.2"
     on-finished: "npm:^2.4.1"
-    qs: "npm:^6.14.1"
-    raw-body: "npm:^3.0.1"
-    type-is: "npm:^2.0.1"
-  checksum: 10/69671f67d4d5ae5974593901a92d639757231da1725ed6de4d35e86cde9ce7650afdf1cd28df9b6f7892ea7f9eb03ccb30c70fe27d679275ae4cb4aae5ce1b21
+    qs: "npm:^6.15.2"
+    raw-body: "npm:^3.0.2"
+    type-is: "npm:^2.1.0"
+  checksum: 10/94f741ff525358dd0d47f0a042936dc61b9d2e348ff1228c5ffd79f1902c673a317bbb9495b3f7d1db4483befe6ffed1c42bc4cdd8da8f41690530810cfe4dad
   languageName: node
   linkType: hard
 
@@ -6837,6 +6830,13 @@ __metadata:
   version: 1.0.5
   resolution: "content-type@npm:1.0.5"
   checksum: 10/585847d98dc7fb8035c02ae2cb76c7a9bd7b25f84c447e5ed55c45c2175e83617c8813871b4ee22f368126af6b2b167df655829007b21aa10302873ea9c62662
+  languageName: node
+  linkType: hard
+
+"content-type@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "content-type@npm:2.0.0"
+  checksum: 10/0bbb276b790ba7e86c479c7d69fae1861b2e908ff3ce2cb01975b516f93eede2216d242902ed6c5b15cd554014611ce9dfdcf51cd35b16569e45a979e50d0cef
   languageName: node
   linkType: hard
 
@@ -10202,6 +10202,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"iconv-lite@npm:^0.7.2":
+  version: 0.7.3
+  resolution: "iconv-lite@npm:0.7.3"
+  dependencies:
+    safer-buffer: "npm:>= 2.1.2 < 3.0.0"
+  checksum: 10/b88a3f4527795c96854743bcdcdd03e0083ff5f1c072cb13d3e27c67cd276efd9a2a364922cb836538e976456f82323d645f7ea91d5bc8da1f000dc16742a0aa
+  languageName: node
+  linkType: hard
+
 "icss-utils@npm:^5.0.0, icss-utils@npm:^5.1.0":
   version: 5.1.0
   resolution: "icss-utils@npm:5.1.0"
@@ -11743,14 +11752,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "js-yaml@npm:4.2.0"
+"js-yaml@npm:4.3.0":
+  version: 4.3.0
+  resolution: "js-yaml@npm:4.3.0"
   dependencies:
     argparse: "npm:^2.0.1"
   bin:
     js-yaml: bin/js-yaml.js
-  checksum: 10/51de2067a2b44b07ba5206132e56005f8b568ff279bb4d2f645068958c56fa4827d40a6841c983234671fa0a134bf094d0b0717873c2a3d319185297af145a6d
+  checksum: 10/2bcec3a8118d7f744badeb04e14366578d234a736f353d41fe35d2305e4ce2409a8e041d277f07cd6bbc8aaa12128d650a68ce43247072519bede20962d2126f
   languageName: node
   linkType: hard
 
@@ -13489,7 +13498,6 @@ __metadata:
     "@types/serve-favicon": "npm:2.5.7"
     "@types/session-file-store": "npm:1.2.6"
     "@types/toobusy-js": "npm:0.5.4"
-    "@types/uuid": "npm:10.0.0"
     "@typescript-eslint/eslint-plugin": "npm:7.18.0"
     "@typescript-eslint/parser": "npm:7.18.0"
     "@uppy/core": "npm:4.5.3"
@@ -13532,7 +13540,7 @@ __metadata:
     jest: "npm:30.3.0"
     jest-html-reporters: "npm:^3.1.7"
     jest-junit: "npm:^16.0.0"
-    js-yaml: "npm:4.2.0"
+    js-yaml: "npm:4.3.0"
     jwt-decode: "npm:4.0.0"
     lint-staged: "npm:16.4.0"
     lodash: "npm:4.18.1"
@@ -13569,7 +13577,6 @@ __metadata:
     ts-node: "npm:10.9.2"
     tsconfig-paths: "npm:4.2.0"
     typescript: "npm:5.9.3"
-    uuid: "npm:11.1.1"
     webdriverio: "npm:9.27.0"
     webpack: "npm:5.106.0"
     webpack-cli: "npm:7.0.3"
@@ -15018,7 +15025,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"raw-body@npm:^3.0.1":
+"raw-body@npm:^3.0.2":
   version: 3.0.2
   resolution: "raw-body@npm:3.0.2"
   dependencies:
@@ -17291,6 +17298,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"type-is@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "type-is@npm:2.1.0"
+  dependencies:
+    content-type: "npm:^2.0.0"
+    media-typer: "npm:^1.1.0"
+    mime-types: "npm:^3.0.0"
+  checksum: 10/f011885fefb6c6882f36fab89cc596596b96eab1d208a3774628537cad7ce1f91232a6d758115e1a6ed03f0f8c21e9654bb6d280a5c6827ff72a35f6df0fa182
+  languageName: node
+  linkType: hard
+
 "typed-array-buffer@npm:^1.0.2":
   version: 1.0.2
   resolution: "typed-array-buffer@npm:1.0.2"
@@ -17668,39 +17686,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:11.1.0":
-  version: 11.1.0
-  resolution: "uuid@npm:11.1.0"
+"uuid@npm:^14.0.0":
+  version: 14.0.1
+  resolution: "uuid@npm:14.0.1"
   bin:
-    uuid: dist/esm/bin/uuid
-  checksum: 10/d2da43b49b154d154574891ced66d0c83fc70caaad87e043400cf644423b067542d6f3eb641b7c819224a7cd3b4c2f21906acbedd6ec9c6a05887aa9115a9cf5
-  languageName: node
-  linkType: hard
-
-"uuid@npm:11.1.1":
-  version: 11.1.1
-  resolution: "uuid@npm:11.1.1"
-  bin:
-    uuid: dist/esm/bin/uuid
-  checksum: 10/16411d3dc12a08d6691616c09a75e66a7f900ba1beef6628a76fe0602f82fae2ee537b564d0b7bc95c24f58d059ca9b58c75a1e806118efb50e17822ff00ddd2
-  languageName: node
-  linkType: hard
-
-"uuid@npm:^3.0.0":
-  version: 3.4.0
-  resolution: "uuid@npm:3.4.0"
-  bin:
-    uuid: ./bin/uuid
-  checksum: 10/4f2b86432b04cc7c73a0dd1bcf11f1fc18349d65d2e4e32dd0fc658909329a1e0cc9244aa93f34c0cccfdd5ae1af60a149251a5f420ec3ac4223a3dab198fb2e
-  languageName: node
-  linkType: hard
-
-"uuid@npm:^8.3.2":
-  version: 8.3.2
-  resolution: "uuid@npm:8.3.2"
-  bin:
-    uuid: dist/bin/uuid
-  checksum: 10/9a5f7aa1d6f56dd1e8d5f2478f855f25c645e64e26e347a98e98d95781d5ed20062d6cca2eecb58ba7c84bc3910be95c0451ef4161906abaab44f9cb68ffbdd1
+    uuid: dist-node/bin/uuid
+  checksum: 10/0f978fd5b0269d7acb615342aeb131f0b8d85eeb8ec34f2915d906baa3befcc14a079a430d0f8116aec6fd20c850cbfab65d1b3d1643fa81ed373c0cf9574f18
   languageName: node
   linkType: hard
 

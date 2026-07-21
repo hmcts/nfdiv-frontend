@@ -4,7 +4,6 @@ import * as propertiesVolume from '@hmcts/properties-volume';
 import config from 'config';
 import { Application } from 'express';
 import { get, set } from 'lodash';
-import { v4 as uuidv4 } from 'uuid';
 
 export class PropertiesVolume {
   private client: SecretClient;
@@ -48,7 +47,7 @@ export class PropertiesVolume {
       await this.setLocalSecret('genesys-api-key', 'webchat.genesysApiKey');
       await this.setLocalSecret('launch-darkly-sdk-key', 'launchDarkly.sdkKey');
     }
-    set(config, 'nonce', uuidv4().replace(/-/g, ''));
+    set(config, 'nonce', crypto.randomUUID().replace(/-/g, ''));
   };
 
   private async setSecret(fromPath: string, toPath: string): Promise<void> {
