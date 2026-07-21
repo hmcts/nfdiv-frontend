@@ -10,7 +10,10 @@ const logger: LoggerInstance = Logger.getLogger('app');
 const { csrfSynchronisedProtection } = csrfSync({
   ignoredMethods: ['GET', 'HEAD', 'OPTIONS'],
 
-  getTokenFromRequest: req => req.body?._csrf || (req.headers['x-csrf-token'] as string),
+  getTokenFromRequest: req => {
+    const queryToken = req.query?._csrf;
+    return req.body?._csrf || (req.headers['x-csrf-token'] as string) || (Array.isArray(queryToken) ? queryToken[0] : queryToken);
+  },
 
   getTokenFromState: req => req.session.csrfToken,
 
