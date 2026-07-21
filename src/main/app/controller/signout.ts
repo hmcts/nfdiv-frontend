@@ -33,16 +33,15 @@ export const destroySessionAndRedirectToSignOutPage = async (
     });
   }
 
+  const postLogoutRedirectPath = addLanguageQueryParam(SAVE_AND_SIGN_OUT, req.session.lang);
+  const postLogoutRedirectUri = getServiceUrl(req, res, postLogoutRedirectPath);
+
   return new Promise((resolve, reject) => {
     req.session.destroy(err => {
       if (err) {
         reject(err);
         return;
       }
-
-      const postLogoutRedirectPath = addLanguageQueryParam(SAVE_AND_SIGN_OUT, req.session.lang);
-
-      const postLogoutRedirectUri = getServiceUrl(req, res, postLogoutRedirectPath);
 
       res.redirect(303, getEndIdamSessionUrl(postLogoutRedirectUri));
       resolve();
