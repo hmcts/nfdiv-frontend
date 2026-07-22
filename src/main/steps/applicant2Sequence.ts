@@ -46,6 +46,7 @@ import {
   REVIEW_YOUR_JOINT_APPLICATION,
   REVIEW_YOUR_RESPONSE,
   UPDATE_ADDRESS_PRIVATE,
+  UPDATE_IN_REFUGE,
   UPDATE_PHONE_NUMBER,
   UPDATE_YOUR_ADDRESS,
   UPLOAD_YOUR_DOCUMENTS,
@@ -184,7 +185,7 @@ export const preSubmissionSequence: Step[] = [
   },
 ];
 
-const postSubmissionSequence: Step[] = [
+export const postSubmissionSequence: Step[] = [
   {
     url: JOINT_APPLICATION_SUBMITTED,
     getNextStep: () => HOME_URL,
@@ -260,6 +261,10 @@ const postSubmissionSequence: Step[] = [
   },
   {
     url: UPDATE_ADDRESS_PRIVATE,
+    getNextStep: data => (data.applicant2AddressPrivate === YesOrNo.YES ? UPDATE_IN_REFUGE : CHECK_CONTACT_DETAILS),
+  },
+  {
+    url: UPDATE_IN_REFUGE,
     getNextStep: () => CHECK_CONTACT_DETAILS,
   },
   {

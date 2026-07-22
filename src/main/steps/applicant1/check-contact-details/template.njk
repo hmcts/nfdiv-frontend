@@ -10,8 +10,7 @@
     {% include "common/error/summary.njk" %}
   {% endblock %}
 
-  {{ govukSummaryList({
-    rows: [
+    {% set rows = [
       {
         key: {
           text: yourAddress
@@ -45,10 +44,45 @@
             }
           ]
         }
+      },
+      {
+        key: {
+          text: addressPrivateQuestion
+        },
+        value: {
+          text: addressPrivate
+        },
+        actions: {
+          items: [
+            {
+              href: prefixUrl + '/update-address-private',
+              text: "Change",
+              visuallyHiddenText: "update whether your contact details are private"
+            }
+          ]
+        }
       }
-    ]
-
-  }) }}
+    ]  %}
+    {% if showInRefugeQuestion %}
+      {% set rows = (rows.push({
+        key: {
+          text: inRefugeQuestion
+        },
+        value: {
+          text: inRefuge
+        },
+        actions: {
+          items: [
+            {
+              href: prefixUrl + '/update-in-refuge',
+              text: "Change",
+              visuallyHiddenText: "update whether you live in a refuge"
+            }
+          ]
+        }
+      }), rows) %}
+    {% endif %}
+  {{ govukSummaryList({ rows: rows }) }}
 
   {{ govukButton({
     text: 'Continue',
