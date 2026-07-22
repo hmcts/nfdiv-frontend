@@ -46,6 +46,8 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => {
     uploadedFiles: 'Uploaded files',
     noFilesUploaded: 'No files uploaded',
     cannotUpload: 'I cannot upload some or all of my documents',
+    cannotUploadInfo:
+      'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
     errors: {
       applicant1GenAppPartnerAgreesUploadedFiles: partnerAgreesUploadedFilesErrors,
       applicant1GenAppCannotUploadAgreedEvidence: cannotUploadAgreedEvidenceErrors,
@@ -93,6 +95,8 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
     uploadedFiles: 'Uploaded files',
     noFilesUploaded: 'No files uploaded',
     cannotUpload: 'I cannot upload some or all of my documents',
+    cannotUploadInfo:
+      'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
     errors: {
       applicant1GenAppPartnerAgreesUploadedFiles: partnerAgreesUploadedFilesErrors,
       applicant1GenAppCannotUploadAgreedEvidence: cannotUploadAgreedEvidenceErrors,
@@ -138,6 +142,7 @@ const cannotUploadEvidenceField = (cannotUploadEvidenceFieldName: keyof CaseWith
       name: cannotUploadEvidenceFieldName,
       label: l => l.cannotUpload,
       value: Checkbox.Checked,
+      conditionalText: l => `<p class="govuk-body govuk-!-margin-top-5">${l.cannotUploadInfo}</p>`,
     },
   ],
 });
