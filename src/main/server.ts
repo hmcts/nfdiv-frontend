@@ -1,6 +1,7 @@
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
+import compression from 'compression';
 import config from 'config';
 import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
@@ -33,6 +34,9 @@ const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
+
+app.use(compression());
+
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 
 function setStaticCachingPolicy(res, file) {
