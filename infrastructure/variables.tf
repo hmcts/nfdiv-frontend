@@ -49,4 +49,5 @@ variable "managed_redis_persistence_rdb_frequency" {
 variable "private_dns_subscription_id" {
   description = "Subscription ID containing the private DNS zone for Managed Redis private endpoints."
   type        = string
+  default     = "1baf5470-1c3e-40d3-a6f7-74bfbce4b348"
 }
