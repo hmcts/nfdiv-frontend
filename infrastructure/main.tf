@@ -17,11 +17,6 @@ data "azurerm_subnet" "redis_private_endpoint" {
   virtual_network_name = "core-infra-vnet-${var.env}"
 }
 
-data "azurerm_key_vault" "product_key_vault" {
-  name                = "${var.product}si-${var.env}"
-  resource_group_name = "${var.product}-shared-infrastructure-${var.env}"
-}
-
 module "nfdiv-frontend-redis6" {
   source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product                       = var.product
@@ -70,5 +65,5 @@ resource "azurerm_key_vault_secret" "redis6_access_key" {
 resource "azurerm_key_vault_secret" "managed_redis_connection_string" {
   name         = "azure-managed-redis-connection-string"
   value        = "rediss://default:${urlencode(module.managed_redis.primary_access_key)}@${module.managed_redis.hostname}:${module.managed_redis.port}"
-  key_vault_id = data.azurerm_key_vault.product_key_vault.id
+  key_vault_id = data.azurerm_key_vault.key_vault.id
 }
