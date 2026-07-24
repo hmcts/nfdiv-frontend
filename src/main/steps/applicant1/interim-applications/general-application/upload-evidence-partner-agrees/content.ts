@@ -37,7 +37,7 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => {
     },
     line3: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
       'govukUrls.certifiedTranslation'
-    )}">certified translation</a>.`,
+    )}">certified translation (opens in a new tab)</a>.`,
     line4: 'You may need to upload multiple documents.',
     line5: 'You cannot upload video or audio recordings.',
     uploadAFile: 'Upload a file',
@@ -46,6 +46,8 @@ const en = ({ partner }: CommonContent, applicant1UploadDocumentContent) => {
     uploadedFiles: 'Uploaded files',
     noFilesUploaded: 'No files uploaded',
     cannotUpload: 'I cannot upload some or all of my documents',
+    cannotUploadInfo:
+      'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
     errors: {
       applicant1GenAppPartnerAgreesUploadedFiles: partnerAgreesUploadedFilesErrors,
       applicant1GenAppCannotUploadAgreedEvidence: cannotUploadAgreedEvidenceErrors,
@@ -84,7 +86,7 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
     },
     line3: `If your evidence is a conversation in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
       'govukUrls.certifiedTranslation'
-    )}">certified translation</a>.`,
+    )}">certified translation (opens in a new tab)</a>.`,
     line4: 'You may need to upload multiple documents.',
     line5: 'You cannot upload video or audio recordings.',
     uploadAFile: 'Upload a file',
@@ -93,6 +95,8 @@ const cy: typeof en = ({ partner }: CommonContent, applicant1UploadDocumentConte
     uploadedFiles: 'Uploaded files',
     noFilesUploaded: 'No files uploaded',
     cannotUpload: 'I cannot upload some or all of my documents',
+    cannotUploadInfo:
+      'You can send your documents to the court by post or webform. You must send your evidence and any certified translations if you need them. You’ll receive details of how to send them after you’ve submitted this application.',
     errors: {
       applicant1GenAppPartnerAgreesUploadedFiles: partnerAgreesUploadedFilesErrors,
       applicant1GenAppCannotUploadAgreedEvidence: cannotUploadAgreedEvidenceErrors,
@@ -138,6 +142,7 @@ const cannotUploadEvidenceField = (cannotUploadEvidenceFieldName: keyof CaseWith
       name: cannotUploadEvidenceFieldName,
       label: l => l.cannotUpload,
       value: Checkbox.Checked,
+      conditionalText: l => `<p class="govuk-body govuk-!-margin-top-5">${l.cannotUploadInfo}</p>`,
     },
   ],
 });

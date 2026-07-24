@@ -1,4 +1,4 @@
-Feature: General Application D11 journey sole respondent
+Feature: General Application D11 journey joint applicant 2
 
   Background:
     Given I create a new user and login
@@ -28,17 +28,6 @@ Feature: General Application D11 journey sole respondent
 
     Given I click element "#applicant2InterimAppsIUnderstand"
     When I click continue
-    Then the page should include element "#partnerAgreesNoHearingTitle"
-
-    Given I click element "#yesDoesNotNeedConsent"
-    When I click continue
-    Then the page should include element "#applicationCostTitle"
-
-    When I click continue
-    Then the page should include element "#partnerInformationCorrectTitle"
-
-    Given I click element "#yesDetailsCorrect"
-    When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
     Given I click element "#applicant2GenAppType-2"
@@ -55,6 +44,17 @@ Feature: General Application D11 journey sole respondent
     Then the page should include element "#uploadEvidenceTitle"
 
     Given I click element "#applicant2InterimAppsCannotUploadDocs"
+    When I click continue
+    Then the page should include element "#partnerAgreesNoHearingTitle"
+
+    Given I click element "#yesDoesNotNeedConsent"
+    When I click continue
+    Then the page should include element "#applicationCostTitle"
+
+    When I click continue
+    Then the page should include element "#partnerInformationCorrectTitle"
+
+    Given I click element "#yesDetailsCorrect"
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 
@@ -75,7 +75,7 @@ Feature: General Application D11 journey sole respondent
     Given I click element "#applicant2InterimAppsStatementOfTruth"
     When I click continue
     Then the page should include element "#generalApplicationSubmittedTitle"
-    And the page should include "You have submitted your application"
+    And the page should include "Your application has been submitted"
 
   Scenario: Joint Applicant 2 D11 Journey card payment
     When I go to "/applicant2/hub-page"
@@ -86,17 +86,6 @@ Feature: General Application D11 journey sole respondent
     Then the page should include element "#interruptionTitle"
 
     Given I click element "#applicant2InterimAppsIUnderstand"
-    When I click continue
-    Then the page should include element "#partnerAgreesNoHearingTitle"
-
-    Given I click element "#yesDoesNotNeedConsent"
-    When I click continue
-    Then the page should include element "#applicationCostTitle"
-
-    When I click continue
-    Then the page should include element "#partnerInformationCorrectTitle"
-
-    Given I click element "#yesDetailsCorrect"
     When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
@@ -109,7 +98,22 @@ Feature: General Application D11 journey sole respondent
     When I click continue
     Then the page should include element "#wantUploadEvidenceTitle"
 
-    Given I click element "#no"
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#uploadEvidenceTitle"
+
+    Given I click element "#applicant2InterimAppsCannotUploadDocs"
+    When I click continue
+    Then the page should include element "#partnerAgreesNoHearingTitle"
+
+    Given I click element "#yesDoesNotNeedConsent"
+    When I click continue
+    Then the page should include element "#applicationCostTitle"
+
+    When I click continue
+    Then the page should include element "#partnerInformationCorrectTitle"
+
+    Given I click element "#yesDetailsCorrect"
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 
@@ -122,7 +126,7 @@ Feature: General Application D11 journey sole respondent
     Then the page should include element "#payYourGeneralApplicationFeeTitle"
 
     Given I pay and submit the general application
-    Then the page should include "You have submitted your application"
+    Then the page should include "Your application has been submitted"
 
   Scenario: Joint Applicant 2 D11 Journey withdraw before payment
     When I go to "/applicant2/hub-page"
@@ -133,17 +137,6 @@ Feature: General Application D11 journey sole respondent
     Then the page should include element "#interruptionTitle"
 
     Given I click element "#applicant2InterimAppsIUnderstand"
-    When I click continue
-    Then the page should include element "#partnerAgreesNoHearingTitle"
-
-    Given I click element "#yesDoesNotNeedConsent"
-    When I click continue
-    Then the page should include element "#applicationCostTitle"
-
-    When I click continue
-    Then the page should include element "#partnerInformationCorrectTitle"
-
-    Given I click element "#yesDetailsCorrect"
     When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
@@ -156,7 +149,22 @@ Feature: General Application D11 journey sole respondent
     When I click continue
     Then the page should include element "#wantUploadEvidenceTitle"
 
-    Given I click element "#no"
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#uploadEvidenceTitle"
+
+    Given I click element "#applicant2InterimAppsCannotUploadDocs"
+    When I click continue
+    Then the page should include element "#partnerAgreesNoHearingTitle"
+
+    Given I click element "#yesDoesNotNeedConsent"
+    When I click continue
+    Then the page should include element "#applicationCostTitle"
+
+    When I click continue
+    Then the page should include element "#partnerInformationCorrectTitle"
+
+    Given I click element "#yesDetailsCorrect"
     When I click continue
     Then the page should include element "#helpWithFeesTitle"
 

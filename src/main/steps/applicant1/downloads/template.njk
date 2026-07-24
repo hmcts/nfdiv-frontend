@@ -11,6 +11,11 @@
     download={{applicationDownload.reference}}>{{applicationDownload.text}}</a></p>
   {% endif %}
 
+  {% if hasHmctsCoverSheet %}
+    <p class="govuk-body"><a class="govuk-link" href={{hmctsCoversheetDownload.link}}
+    download={{hmctsCoversheetDownload.reference}}>{{hmctsCoversheetDownload.text}}</a></p>
+  {% endif %}
+
   {% if app1OnlineServiceAppInProgress %}
     <p class="govuk-body"><a class="govuk-link" href={{serviceApplicationDownload.link}}
     download={{serviceApplicationDownload.reference}}>{{serviceApplicationDownload.text}}</a></p>
@@ -29,6 +34,16 @@
   {% if hasCertificateOfService %}
     <p class="govuk-body"><a class="govuk-link" href={{certificateOfServiceDownload.link}}
      download={{certificateOfServiceDownload.reference}}>{{certificateOfServiceDownload.text}}</a></p>
+  {% endif %}
+
+  {% if hasBailiffServiceCertificate %}
+    <p class="govuk-body"><a class="govuk-link" href={{bailiffServiceCertificateDownload.link}}
+     download={{certificateOfServiceDownload.reference}}>{{bailiffServiceCertificateDownload.text}}</a></p>
+  {% endif %}
+
+  {% if hasCertificateOfBailiffServiceRefused %}
+    <p class="govuk-body"><a class="govuk-link" href={{bailiffServiceRefusedDownload.link}}
+     download={{bailiffServiceRefusedDownload.reference}}>{{bailiffServiceRefusedDownload.text}}</a></p>
   {% endif %}
 
   {% if hasCertificateOfDeemedOrDispensedServiceGranted %}

@@ -228,6 +228,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1NoResponsePartnerEmailAddress: 'applicant1NoResponsePartnerEmailAddress',
   applicant1NoResponseSendPapersAgainOrTrySomethingElse: 'applicant1NoResponseSendPapersAgainOrTrySomethingElse',
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
+  applicant1NoResponsePartnerHasCertificateOfService: 'applicant1NoResponsePartnerHasCertificateOfService',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
   applicant1InterimAppsHaveHwfReference: 'applicant1InterimAppsHaveHwfReference',
@@ -318,6 +319,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2: 'applicant1SearchGovRecordsPartnerAdditionalAddressDates2',
   generalApplications: 'generalApplications',
   generalReferralType: 'generalReferralType',
+  generalReferralReason: 'generalReferralReason',
   applicant1GeneralAppServiceRequest: 'applicant1GeneralAppServiceRequest',
   applicant2GeneralAppServiceRequest: 'applicant2GeneralAppServiceRequest',
   applicant1GeneralAppPayments: 'applicant1GeneralAppPayments',
@@ -646,6 +648,7 @@ export interface Case {
   applicant1NoResponsePartnerNewEmailOrAddress?: NoResponsePartnerNewEmailOrAddress;
   applicant1NoResponseProvidePartnerNewEmailOrAlternativeService?: NoResponseProvidePartnerNewEmailOrAlternativeService;
   applicant1NoResponsePartnerHasReceivedPapers?: YesOrNo;
+  applicant1NoResponsePartnerHasCertificateOfService?: YesOrNo;
   applicant1NoResponseSendPapersAgainOrTrySomethingElse?: NoResponseSendPapersAgainOrTrySomethingElse;
   applicant1NoResponseNoNewAddressDetails?: NoResponseNoNewAddressDetails;
   applicant1NoResponseProcessServerOrBailiff?: NoResponseProcessServerOrBailiff;
@@ -762,6 +765,7 @@ export interface Case {
   applicant1SearchGovRecordsPartnerAdditionalAddressDates2?: string;
   generalApplications?: ListValue<GeneralApplication>[];
   generalReferralType?: string;
+  generalReferralReason?: string;
   applicant1GeneralAppServiceRequest?: string;
   applicant2GeneralAppServiceRequest?: string;
   applicant1GeneralAppPayments?: ListValue<Payment>[];

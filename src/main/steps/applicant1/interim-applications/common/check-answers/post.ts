@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { Case, CaseWithId } from '../../../../../app/case/case';
-import { InterimApplicationType } from '../../../../../app/case/definition';
+import { InterimApplicationType, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { canSubmitD11GeneralApplication } from '../../../../../app/utils/general-application-utils';
@@ -36,6 +36,14 @@ export default abstract class CheckAnswersPostController extends PostController<
       const canSubmitD11Application = canSubmitD11GeneralApplication(req.session.isApplicant2, req.session.userCase);
       if (!canSubmitD11Application) {
         throw new Error('Cannot submit a D11 application when there is an existing application in progress');
+      }
+    }
+
+    if (req.session.lang === 'cy') {
+      if (req.session.isApplicant2) {
+        formData.applicant2UsedWelshTranslationOnSubmission = YesOrNo.YES;
+      } else {
+        formData.applicant1UsedWelshTranslationOnSubmission = YesOrNo.YES;
       }
     }
 

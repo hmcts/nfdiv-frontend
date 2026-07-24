@@ -65,7 +65,8 @@ const en = (
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  noResponseStartPagePath: string
+  noResponseStartPagePath: string,
+  finalOrderOverdueDate: string
 ) => ({
   aosAwaiting: {
     line1:
@@ -81,7 +82,7 @@ const en = (
     line2: `Your ${partner} will then be sent a copy of the application. They will be asked to check the information and respond. If they do not respond then you will be told what you can do next to progress the application.`,
     line3: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
     line4: `If you want the court to serve (send) the application to be served by post instead of by email, then phone ${telephoneNumber}.`,
-    line5: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+    line5: `The address you have provided for your ${partner} is outside of the UK. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
       isDivorce ? 'the divorce' : 'ending the civil partnership'
     }`,
     line6: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
@@ -103,7 +104,7 @@ const en = (
   contactDetailsUpdatedOverseasAddress: {
     line1: `You will need to arrange delivery of the ${
       isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-    } to your ${partner} yourself. This is because the courts of England and Wales do not have legal power (jurisdiction) in the country where they live.`,
+    } to your ${partner} yourself. This is because they live outside of the UK.`,
     whatNeedToDo: 'What you need to do',
     line2: `You may wish to seek legal advice on how to serve the papers in the country your ${partner} is living in.`,
     line3: `You will receive a letter from HMCTS, which contains documents that need to be sent to your ${partner}. It’s called the ‘Notice of Proceedings’.`,
@@ -232,10 +233,12 @@ const en = (
       'You have to wait 6 weeks until after your conditional order, to apply for the final order.',
   },
   awaitingFinalOrderOrFinalOrderOverdue: {
-    line1: `You can now apply for a 'final order'. A final order is the document that will legally end your ${
+    line1: `You may now apply for a 'final order'. A final order is the document that will legally end your ${
       isDivorce ? 'marriage' : 'civil partnership'
     }.
     It’s the final step in the ${isDivorce ? 'divorce process' : 'process to end your civil partnership'}.`,
+    line2: `You may apply for the final order before ${finalOrderOverdueDate}. If you apply after this date, your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} will still be valid, but you will need to provide a reason for the delay. The court will consider your explanation when deciding whether to grant your final order.`,
+    line3: `If you have not yet finished any negotiations or legal proceedings about your money, property or other assets then you should seek legal advice before ${isDivorce ? 'finalising your divorce' : 'ending your civil partnership'}.`,
     buttonText: 'Apply for a final order',
     buttonLink: FINALISING_YOUR_APPLICATION,
   },
@@ -320,18 +323,6 @@ const en = (
       }`,
     },
   },
-  bailiffServiceUnsuccessful: {
-    line1: `The court bailiff tried to ‘serve’ the ${
-      isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
-    } at the address you provided. Unfortunately the bailiff was unsuccessful and so your ${partner} has still not been served.`,
-    line2: {
-      part1: 'Read the ',
-      part2: 'bailiff service certificate',
-      part3: ', to see what you can do next.',
-      downloadReference: 'Bailiff-certificate',
-      link: '/downloads/bailiff-unsuccessful-certificate-of-service',
-    },
-  },
   awaitingServicePayment: {
     line1OfflineApplication:
       'Your application for service has been received. You need to pay the service application fee before it can be referred to a judge to consider your request. The court will contact you on how payment can be made.',
@@ -389,8 +380,7 @@ const en = (
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `A certified translation of your foreign ${
       isDivorce ? 'marriage' : 'civil partnership'
     } certificate`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Proof that you changed your name. For example, deed poll or statutory declaration.',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Proof showing why your name or your ${partner}'s name is written differently on your ${isDivorce ? 'marriage' : 'civil partnership'} certificate. For example, a government issued ID, a passport, driving license, birth certificate, deed poll or 'statutory declaration'`,
   },
   documentsByOnlineForm: 'Sending documents using our online form',
   documentsByOnlineFormSteps: {
@@ -432,7 +422,7 @@ const en = (
   line7: `Your ${partner}’s solicitor will be contacted by the court, and asked to confirm they are representing them. They will be sent a copy of the application and asked to respond.`,
   line8: `If you want to ‘serve’ (send) the documents to your ${partner} yourself then phone ${telephoneNumber} to request it. Otherwise the court will do it.`,
   line9: `If you want the court to serve (send) the application by post instead of by email, then phone ${telephoneNumber}.`,
-  line10: `The address you have provided for your ${partner} is outside of England and Wales. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
+  line10: `The address you have provided for your ${partner} is outside of the UK. That means you are responsible for ‘serving’ (sending) the court documents, which notify your ${partner} about ${
     isDivorce ? 'the divorce' : 'ending the civil partnership'
   }.`,
   line11: `You will receive the documents that you need to send to your ${partner} by email and letter, after the application has been checked.`,
@@ -525,6 +515,11 @@ const en = (
     line1:
       'The court is reviewing your application and help with fees reference number. You will receive an email notification confirming what you need to do next.',
   },
+  pendingRefund: {
+    line1: `We are currently processing a refund linked to this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}.`,
+    line2:
+      'You do not need to do anything at the moment. We will provide an update once the refund has been completed.',
+  },
 });
 
 // @TODO translations
@@ -550,7 +545,8 @@ const cy: typeof en = (
   }: CommonContent,
   alternativeServiceType: AlternativeServiceType,
   dateOfCourtReplyToRequestForInformationResponse: string,
-  noResponseStartPagePath: string
+  noResponseStartPagePath: string,
+  finalOrderOverdueDate: string
 ) => ({
   aosAwaiting: {
     line1: `Bydd eich cais ar y cyd yn cael ei wirio gan staff y llys. Byddwch yn derbyn hysbysiad drwy e-bost yn cadarnhau
@@ -563,7 +559,7 @@ const cy: typeof en = (
     line2: `Yna fe anfonir copi o’r cais at eich ${partner}. Fe ofynnir iddynt wirio’r wybodaeth ac ymateb. Os na fyddant yn ymateb, fe ddywedir wrthych beth allwch ei wneud nesaf i symud y cais yn ei flaen.`,
     line3: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau at eich ${partner} eich hun, yna ffoniwch ${telephoneNumber} i ofyn am gael gwneud hynny. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
     line4: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais i’w gyflwyno drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
-    line5: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu mai chi sy’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sy’n hysbysu’ch ${partner} am yr ysgariad.`,
+    line5: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i'r DU. Mae hynny’n golygu mai chi sy’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sy’n hysbysu’ch ${partner} am yr ysgariad.`,
     line6: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a llythyr, ar ôl i’r cais gael ei wirio.`,
     line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddynt gadarnhau eu bod yn eu cynrychioli. Fe anfonir copi o’r cais atynt ac fe ofynnir iddynt ymateb.`,
   },
@@ -583,7 +579,7 @@ const cy: typeof en = (
   contactDetailsUpdatedOverseasAddress: {
     line1: `Bydd angen i chi drefnu bod papurau’r ${
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
-    } yn cael eu danfon i’ch ${partner} eich hun. Y rheswm dros hyn yw oherwydd nid oes gan lysoedd Cymru a Lloegr bŵer cyfreithiol (awdurdodaeth) yn y wlad ble maent yn byw.`,
+    } yn cael eu danfon i’ch ${partner} eich hun. Mae hyn oherwydd eu bod yn byw tu allan i'r DU.`,
     whatNeedToDo: 'Beth sydd angen i chi ei wneud',
     line2: `Mae’n bosibl y byddwch yn dymuno ceisio cyngor cyfreithiol ar sut i gyflwyno’r papurau yn y wlad lle mae eich ${partner} yn byw.`,
     line3: `Fe gewch lythyr gan GLlTEF, a fydd yn cynnwys dogfennau y mae angen i chi eu hanfon at eich ${partner}. Gelwir hyn yn ‘Rhybudd o Achos’.`,
@@ -724,6 +720,8 @@ const cy: typeof en = (
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } i ben yn gyfreithiol.
     Dyma'r cam olaf yn y ${isDivorce ? 'broses ysgaru' : "proses i ddod â'ch partneriaeth sifil i ben"}.`,
+    line2: `Dylech fod wneud gwneud cais am y gorchymyn terfynol cyn ${finalOrderOverdueDate}. Os byddwch yn gwneud cais ar ôl y dyddiad hwn, bydd eich ${isDivorce ? 'cais am ysgariad' : "cais i ddod â'ch partneriaeth sifil i ben"} yn parhau'n ddilys, ond byddwch angen rhoi rheswm am yr oedi. Bydd y llys yn ystyried eich eglurhad wrth benderfynu pa un ai i ganiatau eich gorchymyn terfynol.`,
+    line3: `Os nad ydych eto wedi gorffen cynnal unrhyw drafodaethau neu achos cyfreithiol am eich arian, eiddo neu asedau eraill, yna dylech ofyn am gyngor cyfreithiol cyn ${isDivorce ? 'cwblhau eich ysgariad' : "dod â'ch partneriaeth sifil i ben"}.`,
     buttonText: 'Gwneud cais am orchymyn terfynol',
     buttonLink: FINALISING_YOUR_APPLICATION,
   },
@@ -810,18 +808,6 @@ const cy: typeof en = (
     heading1: 'Anfon eich tystiolaeth i’r llys',
     line1: 'Nawr mae arnoch angen anfon eich dogfennau atom. Gallwch wneud hyn trwy un o’r ffyrdd canlynol:',
   },
-  bailiffServiceUnsuccessful: {
-    line1: `Ceisiodd beili'r llys 'gyflwyno' ${
-      isDivorce ? 'papurau’r ysgariad' : "papurau i ddod â'ch partneriaeth sifil i ben"
-    } yn y cyfeiriad a ddarparwyd gennych. Yn anffodus, ni lwyddodd y beili i wneud hyn ac felly nid yw eich ${partner} wedi cael y papurau.`,
-    line2: {
-      part1: 'Darllenwch ',
-      part2: 'dystysgrif y gwasanaeth beili',
-      part3: ', i weld beth allwch chi ei wneud nesaf.',
-      downloadReference: 'Bailiff-certificate',
-      link: '/downloads/bailiff-unsuccessful-certificate-of-service',
-    },
-  },
   awaitingServicePayment: {
     line1OfflineApplication:
       "Mae eich cais am wasanaeth wedi'i dderbyn. Mae angen i chi dalu'r ffi cais am wasanaeth cyn y gellir ei gyfeirio at farnwr i ystyried eich cais. Bydd y llys yn cysylltu â chi ynghylch sut y gellir talu.",
@@ -893,8 +879,9 @@ const cy: typeof en = (
     [DocumentType.MARRIAGE_CERTIFICATE_TRANSLATION]: `Cyfieithiad ardystiedig o’ch tystysgrif ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
     } dramor`,
-    [DocumentType.NAME_CHANGE_EVIDENCE]:
-      'Tystiolaeth eich bod wedi newid eich enw. Er enghraifft, gweithred newid enw neu ddatganiad statudol.',
+    [DocumentType.NAME_CHANGE_EVIDENCE]: `Tystiolaeth yn dangos pam bod eich enw neu enw eich ${partner} wedi'i ysgrifennu'n wahanol ar eich ${
+      isDivorce ? 'tystysgrif priodas' : 'tystysgrif partneriaeth sifil'
+    }. Er enghraifft, cerdyn adnabod a gyhoeddwyd gan y llywodraeth, pasbort, trwydded yrru, tystysgrif geni, gweithred newid enw neu 'ddatganiad statudol'.`,
   },
   documentsByOnlineForm: 'Anfon dogfennau drwy ddefnyddio ein ffurflen ar-lein',
   documentsByOnlineFormSteps: {
@@ -936,7 +923,7 @@ const cy: typeof en = (
   line7: `Bydd y llys yn cysylltu â chyfreithiwr eich ${partner} ac yn gofyn iddo gadarnhau ei fod yn cynrychioli eich ${partner}. Fe anfonir copi o’r cais ato ac fe ofynnir iddo ymateb.`,
   line8: `Os ydych eisiau ‘cyflwyno’ (anfon) y dogfennau ar eich ${partner} eich hun, yna ffoniwch ${telephoneNumber}. Fel arall, bydd y llys yn gwneud hyn ar eich rhan.`,
   line9: `Os ydych eisiau i’r llys gyflwyno (anfon) y cais drwy’r post yn hytrach na drwy e-bost, ffoniwch ${telephoneNumber}.`,
-  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i Gymru a Lloegr. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
+  line10: `Mae’r cyfeiriad rydych wedi’i ddarparu ar gyfer eich ${partner} y tu allan i'r DU. Mae hynny’n golygu eich bod chi’n gyfrifol am ‘gyflwyno’ (anfon) dogfennau’r llys, sydd yn hysbysu eich ${partner} am ${
     isDivorce ? 'yr ysgariad' : 'ddiweddu’r bartneriaeth sifil'
   }.`,
   line11: `Fe gewch y dogfennau y bydd angen i chi eu hanfon at eich ${partner} drwy e-bost a drwy’r post, ar ôl i’r cais gael ei wirio.`,
@@ -1025,6 +1012,11 @@ const cy: typeof en = (
     line1:
       'Mae’r llys yn adolygu eich cais a’ch cyfeirnod help i dalu ffioedd.  Byddwch yn derbyn e-bost yn cadarnhau beth rydych angen ei wneud nesaf.',
   },
+  pendingRefund: {
+    line1: `Rydym yn prosesu ad-daliad sy’n gysylltiedig â’r hwn ${isDivorce ? 'cais am ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'}.`,
+    line2:
+      'Nid ydych angen gwneud unrhyw beth ar y funud. Byddwn yn rhoi diweddariad unwaith y cwblhawyd yr ad-daliad.',
+  },
 });
 
 const languages = {
@@ -1064,7 +1056,6 @@ export const generateContent: TranslationFn = content => {
   const theLatestUpdateTemplate = getSoleHubTemplate(
     displayState,
     userCase,
-    isSuccessfullyServedByBailiff,
     isAlternativeService,
     isApplicantAbleToRespondToRequestForInformation,
     isAwaitingProcessServerService
@@ -1117,6 +1108,8 @@ export const generateContent: TranslationFn = content => {
     }
   })();
 
+  const finalOrderOverdueDate = getFormattedDate(dayjs(userCase.coGrantedDate).add(12, 'months')) || '';
+
   const noResponseApplicationInProgress =
     !!userCase.applicant1InterimApplicationType &&
     ![InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11, InterimApplicationType.PROCESS_SERVER_SERVICE].includes(
@@ -1131,7 +1124,8 @@ export const generateContent: TranslationFn = content => {
       content,
       alternativeServiceType,
       dateOfCourtReplyToRequestForInformationResponse,
-      noResponseStartPagePath
+      noResponseStartPagePath,
+      finalOrderOverdueDate
     ),
     serviceApplicationSubmitted: serviceApplicationSubmittedContent(content),
     generalApplicationSubmitted: generalApplicationSubmittedContent(content),

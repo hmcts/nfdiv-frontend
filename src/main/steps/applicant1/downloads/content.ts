@@ -9,6 +9,11 @@ const en = ({ isDivorce, userCase, serviceApplicationType, generalApplicationTyp
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
     text: `View the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'} (PDF)`,
   },
+  hmctsCoversheetDownload: {
+    reference: 'HMCTS-coversheet',
+    link: '/downloads/hmcts-coversheet',
+    text: 'Download the HMCTS coversheet (PDF)',
+  },
   serviceApplicationDownload: {
     reference: 'Service-application',
     link: '/downloads/service-application',
@@ -24,12 +29,22 @@ const en = ({ isDivorce, userCase, serviceApplicationType, generalApplicationTyp
     link: '/downloads/certificate-of-service',
     text: "View your 'certificate of service' (PDF)",
   },
+  bailiffServiceCertificateDownload: {
+    downloadReference: 'Bailiff-certificate',
+    link: '/downloads/bailiff-unsuccessful-certificate-of-service',
+    text: "View the 'bailiff service certificate' (PDF)",
+  },
   respondentAnswersDownload: {
     reference: 'Respondent-Answers',
     link: '/downloads/respondent-answers',
     text: `View the response to the ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     } (PDF)`,
+  },
+  bailiffServiceRefusedDownload: {
+    downloadReference: 'bailiff-service-refused',
+    link: '/downloads/bailiff-service-refused',
+    text: 'View the court order refusing your application for bailiff service (PDF)',
   },
   deemedOrDispensedRefusedDownload: {
     reference:
@@ -117,6 +132,11 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
     link: `/downloads/${isDivorce ? 'divorce-application' : 'application-to-end-civil-partnership'}`,
     text: `Gweld y cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
   },
+  hmctsCoversheetDownload: {
+    reference: 'HMCTS-coversheet',
+    link: '/downloads/hmcts-coversheet',
+    text: 'Gweld y dalen flaen HMCTS (PDF)',
+  },
   serviceApplicationDownload: {
     reference: 'Service-application',
     link: '/downloads/service-application',
@@ -130,12 +150,22 @@ const cy: typeof en = ({ isDivorce, userCase, serviceApplicationType, generalApp
   certificateOfServiceDownload: {
     reference: 'Certificate-of-Service',
     link: '/downloads/certificate-of-service',
-    text: "View your 'certificate of service' (PDF)",
+    text: 'Gweld eich ‘tystysgrif cyflwyno’ (PDF)',
+  },
+  bailiffServiceCertificateDownload: {
+    downloadReference: 'Bailiff-certificate',
+    link: '/downloads/bailiff-unsuccessful-certificate-of-service',
+    text: "Gweld y 'dystysgrif a gyflwynir gan feili' (PDF)",
   },
   respondentAnswersDownload: {
     reference: 'Respondent-Answers',
     link: '/downloads/respondent-answers',
     text: `Gweld yr ymateb i'r cais ${isDivorce ? 'am ysgariad' : 'i ddod â’ch partneriaeth sifil i ben'} (PDF)`,
+  },
+  bailiffServiceRefusedDownload: {
+    downloadReference: 'bailiff-service-refused',
+    link: '/downloads/bailiff-service-refused',
+    text: 'Gweld y gorchymyn llys yn gwrthod eich cais am wasanaeth beili (PDF)',
   },
   deemedOrDispensedRefusedDownload: {
     reference:
@@ -224,6 +254,11 @@ const languages = {
 const getDownloadLogic: TranslationFn = content => {
   const { userCase } = content;
 
+  const bailiffService = userCase.alternativeServiceOutcomes?.find(
+    alternativeServiceOutcome =>
+      alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.BAILIFF
+  );
+
   const deemedOrDispensedService = userCase.alternativeServiceOutcomes?.find(
     alternativeServiceOutcome =>
       alternativeServiceOutcome.value.alternativeServiceType === AlternativeServiceType.DEEMED ||
@@ -244,25 +279,24 @@ const getDownloadLogic: TranslationFn = content => {
     DocumentType.BAILIFF_SERVICE_REFUSED,
   ].some(document => !!findDocument(userCase, document));
 
-  const shouldHaveAccessToCoApplication = content.isJointApplication || !content.isApplicant2;
-
   const isAwaitingAmendedApplicationState = userCase.state === State.AwaitingAmendedApplication;
 
-  return {
-    hasDivorceOrDissolutionApplication: !!findDocument(userCase, DocumentType.APPLICATION),
-    app1OnlineServiceAppInProgress:
-      content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline && !content.isApplicant2,
-    hasOnlineGeneralApplication: content.generalApplicationDate && content.generalApplicationSubmittedOnline,
-    isAosSubmitted:
-      userCase.dateAosSubmitted &&
-      (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
-        userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)),
-    hasCertificateOfService: userCase.alternativeServiceOutcomes?.find(
-      alternativeServiceOutcome => alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
+  const applicant1OrJointApplicant2 = {
+    hasConditionalOrderAnswersAndAccess: content.userCase.documentsGenerated?.find(
+      doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
     ),
-    hasCertificateOfDeemedOrDispensedServiceGranted: userCase.alternativeServiceOutcomes?.find(
+    hasConditionalOrderApplicationAndAccess: content.userCase.documentsGenerated?.find(
+      doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
+    ),
+    isAwaitingAmendedApplicationStateAndAccess: isAwaitingAmendedApplicationState,
+  };
+
+  const applicant1Only = {
+    app1OnlineServiceAppInProgress:
+      content.hasServiceApplicationInProgress && content.serviceApplicationSubmittedOnline,
+    hasCertificateOfBailiffServiceRefused: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome =>
-        deemedOrDispensedService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.YES
+        bailiffService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.NO && hasRefusalOrder
     ),
     hasCertificateOfDeemedOrDispensedServiceRefused: userCase.alternativeServiceOutcomes?.find(
       alternativeServiceOutcome =>
@@ -271,25 +305,46 @@ const getDownloadLogic: TranslationFn = content => {
         alternativeServiceOutcome.value.refusalReason === 'refusalOrderToApplicant' &&
         hasRefusalOrder
     ),
+    hasBailiffServiceCertificate: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        bailiffService &&
+        alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.NO &&
+        alternativeServiceOutcome.value.certificateOfServiceDocument?.documentType ===
+          DocumentType.CERTIFICATE_OF_SERVICE
+    ),
+    ...applicant1OrJointApplicant2,
+  };
+
+  const bothApplicants = {
+    hasHmctsCoverSheet: !!findDocument(userCase, DocumentType.HMCTS_COVERSHEET),
+    hasCertificateOfService: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        bailiffService && alternativeServiceOutcome.value.successfulServedByBailiff === YesOrNo.YES
+    ),
+    hasCertificateOfDeemedOrDispensedServiceGranted: userCase.alternativeServiceOutcomes?.find(
+      alternativeServiceOutcome =>
+        deemedOrDispensedService && alternativeServiceOutcome.value.serviceApplicationGranted === YesOrNo.YES
+    ),
+    hasDivorceOrDissolutionApplication: !!findDocument(userCase, DocumentType.APPLICATION),
+    isAosSubmitted:
+      userCase.dateAosSubmitted &&
+      (userCase.documentsUploaded?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS) ||
+        userCase.documentsGenerated?.find(doc => doc.value.documentType === DocumentType.RESPONDENT_ANSWERS)),
     hasCertificateOfEntitlement: content.userCase.coCertificateOfEntitlementDocument,
     hasConditionalOrderGranted: content.userCase.coConditionalOrderGrantedDocument,
-    hasConditionalOrderAnswersAndAccess:
-      shouldHaveAccessToCoApplication &&
-      content.userCase.documentsGenerated?.find(
-        doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_ANSWERS
-      ),
-    hasConditionalOrderApplicationAndAccess:
-      shouldHaveAccessToCoApplication &&
-      content.userCase.documentsGenerated?.find(
-        doc => doc.value.documentType === DocumentType.CONDITIONAL_ORDER_APPLICATION
-      ),
     hasFinalOrderGranted: content.userCase.documentsGenerated?.find(
       doc => doc.value.documentType === DocumentType.FINAL_ORDER_GRANTED
     ),
-    isAwaitingAmendedApplicationStateAndAccess: isAwaitingAmendedApplicationState && shouldHaveAccessToCoApplication,
     hasFinalOrderApplicationAndFinalOrderRequested: userCase.documentsGenerated?.find(
       doc => doc.value.documentType === DocumentType.FINAL_ORDER_APPLICATION
     ),
+    hasOnlineGeneralApplication: content.generalApplicationDate && content.generalApplicationSubmittedOnline,
+  };
+
+  return {
+    ...(!content.isApplicant2 && applicant1Only),
+    ...(content.isJointApplication && content.isApplicant2 && applicant1OrJointApplicant2),
+    ...bothApplicants,
   };
 };
 
@@ -302,5 +357,5 @@ export const generateContent: TranslationFn = content => {
 
 export const areDownloadsAvailable = (content: CommonContent): boolean => {
   const downloadLogic = getDownloadLogic(content);
-  return Object.values(downloadLogic).some(value => value === true);
+  return Object.values(downloadLogic).some(value => !!value);
 };

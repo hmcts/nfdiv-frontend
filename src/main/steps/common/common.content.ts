@@ -76,12 +76,13 @@ export const en = {
     part2: 'feedback',
     part3: ' will help us to improve it.',
     ariaLabel:
-      'Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress.',
+      'Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 20 mins so you don’t lose your progress.',
     link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
   },
   languageToggle: {
     text: 'Cymraeg',
     link: '?lng=cy',
+    lang: SupportedLanguages.Cy,
   },
   govUk: 'GOV.UK',
   back: 'Back',
@@ -219,17 +220,7 @@ export const en = {
   saveAndSignOutLink: SAVE_AND_SIGN_OUT,
   genesys: {
     chatWithUs: 'Chat with us',
-    onlineAdviceClosed: 'Our online advice service is currently closed',
     startWebchat: 'Start web chat (opens in a new window)',
-    busy: 'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
-    noAgentsAvailable: 'No agents are available, please try again later.',
-    checkingAvailability: 'Checking availability...',
-    error:
-      'We’re currently unable to check the availability of our team. Please try again later or contact us using one of the ways below.',
-    errorChecking: {
-      line1: 'Sorry, we couldn’t check the availability of our team.',
-      line2: 'Please try refreshing the page or contact us using one of the ways below.',
-    },
     popupBlocked: 'Popup blocked. Please allow pop‑ups for this site.',
   },
 };
@@ -277,6 +268,7 @@ const cy: typeof en = {
   languageToggle: {
     text: 'English',
     link: '?lng=en',
+    lang: SupportedLanguages.En,
   },
   govUk: 'GOV.UK',
   back: 'Yn ôl',
@@ -407,17 +399,7 @@ const cy: typeof en = {
   contactWebForm: 'https://contact-us-about-a-divorce-application-cy.form.service.justice.gov.uk/',
   genesys: {
     chatWithUs: 'Sgwrsiwch â ni',
-    onlineAdviceClosed: 'Mae ein gwasanaeth cyngor ar-lein ar gau ar hyn o bryd',
     startWebchat: 'Dechrau sgwrs dros y we (yn agor mewn ffenestr newydd)',
-    busy: "Mae ein asiantau sgwrsio dros y we i gyd yn brysur ar hyn o bryd yn helpu eraill. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau isod.",
-    noAgentsAvailable: 'Nid oes asiant ar gael ar hyn o bryd; rhowch gynnig arall arni yn hwyrach ymlaen.',
-    checkingAvailability: 'Wrthi’n gwirio argaeledd...',
-    error:
-      "Ar hyn o bryd nid ydym yn gallu gwirio argaeledd ein tîm. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o'r dulliau isod.",
-    errorChecking: {
-      line1: "Mae'n ddrwg gennym, ni allem wirio argaeledd ein tîm.",
-      line2: "Ceisiwch adnewyddu’r dudalen neu cysylltwch â ni drwy un o'r dulliau isod.'",
-    },
     popupBlocked: 'Naidlen wedi’i rhwystro. Caniatáu naidlen ar gyfer y wefan hon.',
   },
 };

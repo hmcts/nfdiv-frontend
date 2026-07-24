@@ -15,7 +15,6 @@ import { StateSequence } from '../../../state-sequence';
 export const getSoleHubTemplate = (
   displayState: StateSequence,
   userCase: Partial<CaseWithId>,
-  isSuccessfullyServedByBailiff: boolean,
   isAlternativeService: boolean,
   isApplicantAbleToRespondToRequestForInformation: boolean = false,
   isAwaitingProcessServerService: boolean = false
@@ -50,6 +49,9 @@ export const getSoleHubTemplate = (
     case State.AwaitingServicePayment: {
       return HubTemplate.AwaitingServicePayment;
     }
+    case State.ApplicationStayed: {
+      return HubTemplate.ApplicationStayed;
+    }
     case State.AwaitingServiceConsideration:
     case State.LAServiceReview:
     case State.AwaitingBailiffReferral:
@@ -79,10 +81,8 @@ export const getSoleHubTemplate = (
         return HubTemplate.GeneralApplicationReceived;
       } else if (isAlternativeServiceGrantedOrRefusedPreIssue) {
         return HubTemplate.ServiceAdminRefusalOrBailiffRefusedOrAlternativeServiceGranted;
-      } else if (isAosOverdue) {
-        return HubTemplate.AoSDue;
       } else {
-        return HubTemplate.AosAwaitingOrDrafted;
+        return HubTemplate.GeneralApplicationReceived;
       }
     case State.AwaitingGeneralConsideration:
       if (userCase.dateFinalOrderSubmitted) {
@@ -116,13 +116,7 @@ export const getSoleHubTemplate = (
     case State.FinalOrderComplete:
       return HubTemplate.FinalOrderComplete;
     case State.AwaitingAos:
-      if (isServiceApplicationGranted && !isSuccessfullyServedByBailiff) {
-        return HubTemplate.BailiffServiceUnsuccessful;
-      } else if (isAlternativeService && !isServiceApplicationGranted) {
-        return HubTemplate.ServiceApplicationRejected;
-      } else {
-        return HubTemplate.AosAwaitingOrDrafted;
-      }
+      return HubTemplate.AosAwaitingOrDrafted;
     case State.ServiceAdminRefusal:
       if (isAlternativeService && !isServiceApplicationGranted && isRefusalOrderToApplicant) {
         return HubTemplate.ServiceApplicationRejected;
@@ -173,6 +167,8 @@ export const getSoleHubTemplate = (
       return HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence;
     case State.AwaitingGenAppDocuments:
       return HubTemplate.AwaitingGenAppDocuments;
+    case State.PendingRefund:
+      return HubTemplate.PendingRefund;
     default: {
       if (
         (State.AosDrafted && isAosOverdue) ||
