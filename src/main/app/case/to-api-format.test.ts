@@ -234,6 +234,8 @@ describe('to-api-format', () => {
 
     expect(apiFormat).toStrictEqual({
       applicant1ContactDetailsType: ContactDetailsType.PUBLIC,
+      applicant1InRefuge: null,
+      applicant2InRefuge: null,
       applicant1KnowsApplicant2EmailAddress: YesOrNo.YES,
       applicant2ContactDetailsType: ContactDetailsType.PUBLIC,
       applicant1PrayerDissolveDivorce: [],
@@ -296,7 +298,7 @@ describe('to-api-format', () => {
       applicant2HWFReferenceNumber: '',
       applicant1InterimAppsHwfRefNumber: '',
       marriageDate: undefined,
-      applicant1InRefuge: YesOrNo.NO,
+      applicant1InRefuge: undefined,
       applicant1AddressOverseas: YesOrNo.NO,
       applicant2AddressOverseas: YesOrNo.NO,
       applicant2SolicitorAddressOverseas: YesOrNo.NO,
@@ -810,16 +812,6 @@ describe('to-api-format', () => {
   });
 
   describe('applicant2InRefuge transformation', () => {
-    test('defaults applicant2InRefuge to NO if undefined', () => {
-      const apiFormat = toApiFormat({
-        applicant2InRefuge: undefined, // Simulate missing value
-      } as Partial<Case>);
-
-      expect(apiFormat).toMatchObject({
-        applicant2InRefuge: YesOrNo.NO,
-      });
-    });
-
     test('retains applicant2InRefuge value if set', () => {
       const apiFormatYes = toApiFormat({
         applicant2InRefuge: YesOrNo.YES, // Simulate value is already set
@@ -839,7 +831,7 @@ describe('to-api-format', () => {
     });
 
     test.each([
-      { applicant2InRefuge: undefined, expected: YesOrNo.NO },
+      { applicant2InRefuge: undefined, expected: undefined },
       { applicant2InRefuge: YesOrNo.YES, expected: YesOrNo.YES },
       { applicant2InRefuge: YesOrNo.NO, expected: YesOrNo.NO },
     ])('correctly handles applicant2InRefuge with value %p', ({ applicant2InRefuge, expected }) => {
