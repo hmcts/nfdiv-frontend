@@ -13580,7 +13580,7 @@ __metadata:
     webdriverio: "npm:9.27.0"
     webpack: "npm:5.106.0"
     webpack-cli: "npm:7.0.3"
-    webpack-dev-middleware: "npm:8.0.3"
+    webpack-dev-middleware: "npm:8.0.4"
     webpack-node-externals: "npm:3.0.0"
   languageName: unknown
   linkType: soft
@@ -17876,13 +17876,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:8.0.3":
-  version: 8.0.3
-  resolution: "webpack-dev-middleware@npm:8.0.3"
+"webpack-dev-middleware@npm:8.0.4":
+  version: 8.0.4
+  resolution: "webpack-dev-middleware@npm:8.0.4"
   dependencies:
     memfs: "npm:^4.56.10"
     mime-types: "npm:^3.0.2"
-    on-finished: "npm:^2.4.1"
     range-parser: "npm:^1.2.1"
     schema-utils: "npm:^4.3.3"
   peerDependencies:
@@ -17890,7 +17889,7 @@ __metadata:
   peerDependenciesMeta:
     webpack:
       optional: true
-  checksum: 10/32ac645eecad3f81c1d38cf6222591f11f3adf47c1ae92acfd5a241458706f4f026f78f0fcf7bf9a83ae93f34e32707a4a194e84caea3bc49580f9609c2f7f2d
+  checksum: 10/2f687ec9c5a439d0b3534a14eb1494e63a7c9bfc8c6409f70e31fa717c7ee257b6012a7505688121086929182b4fa74edacec795cddeaf5ec39d53d0fdff9b6b
   languageName: node
   linkType: hard
 
