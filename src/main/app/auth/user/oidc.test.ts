@@ -32,21 +32,26 @@ const mockSystemPayload = {
 // Generate a mock JWT for testing
 const mockToken = jwt.sign(mockPayload, mockSecret, { expiresIn: '1h' });
 const mockSystemToken = jwt.sign(mockSystemPayload, mockSecret, { expiresIn: '1h' });
+const mockedServiceId = 'nfdiv';
+const mockedAuthorizationURL = 'https://idam-web-public.aat.platform.hmcts.net/login';
+const mockedAuthorizationScope = 'openid profile roles';
 
 describe('getRedirectUrl', () => {
   test('should create a valid URL to redirect to the login screen', () => {
-    mockedConfig.get.mockReturnValueOnce('divorce');
-    mockedConfig.get.mockReturnValueOnce('https://idam-web-public.aat.platform.hmcts.net/login');
+    mockedConfig.get.mockReturnValueOnce(mockedServiceId);
+    mockedConfig.get.mockReturnValueOnce(mockedAuthorizationURL);
+    mockedConfig.get.mockReturnValueOnce(mockedAuthorizationScope);
     expect(getRedirectUrl('http://localhost', SIGN_IN_URL)).toBe(
-      'https://idam-web-public.aat.platform.hmcts.net/login?client_id=divorce&response_type=code&redirect_uri=http://localhost/oauth2/callback'
+      'https://idam-web-public.aat.platform.hmcts.net/login?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback&scope=openid profile roles'
     );
   });
 
   test('should create a valid URL to redirect to applicant2 login screen', () => {
-    mockedConfig.get.mockReturnValueOnce('divorce');
-    mockedConfig.get.mockReturnValueOnce('https://idam-web-public.aat.platform.hmcts.net/login');
+    mockedConfig.get.mockReturnValueOnce(mockedServiceId);
+    mockedConfig.get.mockReturnValueOnce(mockedAuthorizationURL);
+    mockedConfig.get.mockReturnValueOnce(mockedAuthorizationScope);
     expect(getRedirectUrl('http://localhost', APPLICANT_2_SIGN_IN_URL)).toBe(
-      'https://idam-web-public.aat.platform.hmcts.net/login?client_id=divorce&response_type=code&redirect_uri=http://localhost/oauth2/callback-applicant2'
+      'https://idam-web-public.aat.platform.hmcts.net/login?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback-applicant2&scope=openid profile roles'
     );
   });
 });

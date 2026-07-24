@@ -1,8 +1,9 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
 import { CITIZEN_WITHDRAWN } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
-import { APPLICATION_WITHDRAWN } from '../../urls';
+import { APPLICATION_WITHDRAWN, SAVE_AND_SIGN_OUT } from '../../urls';
 
 import WithdrawApplicationPostController from './post';
 
@@ -14,6 +15,7 @@ describe('WithdrawApplicationPostController', () => {
   test('Should withdraw case and delete user session', async () => {
     const req = mockRequest();
     const res = mockResponse();
+    (res.locals as Record<string, string>).host = 'localhost';
 
     const controller = new WithdrawApplicationPostController(mockFormContent.fields);
     await controller.post(req, res);
@@ -21,7 +23,14 @@ describe('WithdrawApplicationPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_WITHDRAWN);
 
     expect(req.session.destroy).toHaveBeenCalled();
-
-    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_WITHDRAWN);
+    expect(res.cookie).toHaveBeenCalledWith(
+      'nfdiv-signout-target',
+      APPLICATION_WITHDRAWN,
+      expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(
+      303,
+      getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`)
+    );
   });
 });

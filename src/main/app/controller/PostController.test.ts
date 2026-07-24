@@ -12,6 +12,7 @@ import {
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   SAVE_AND_SIGN_OUT,
 } from '../../steps/urls';
+import { getEndIdamSessionUrl } from '../auth/user/oidc';
 import { Checkbox } from '../case/case';
 import {
   ApplicationType,
@@ -32,6 +33,8 @@ set(config, 'services.idam.systemPassword', 'DUMMY_VALUE_REPLACE');
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
 describe('PostController', () => {
+  const saveAndSignOutRedirect = getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`);
+
   afterEach(() => {
     getNextStepUrlMock.mockClear();
   });
@@ -220,7 +223,7 @@ describe('PostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_SAVE_AND_CLOSE);
 
-    expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+    expect(res.redirect).toHaveBeenCalledWith(303, saveAndSignOutRedirect);
   });
 
   test('Should save the users data and end response for session timeout when Draft', async () => {
@@ -234,7 +237,12 @@ describe('PostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_SAVE_AND_CLOSE);
 
-    expect(res.redirect).toHaveBeenCalledWith(DRAFT_SAVE_AND_SIGN_OUT);
+    expect(res.cookie).toHaveBeenCalledWith(
+      'nfdiv-signout-target',
+      DRAFT_SAVE_AND_SIGN_OUT,
+      expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(303, saveAndSignOutRedirect);
   });
 
   test('Should save the users data and end response for session timeout when InformationRequested', async () => {
@@ -248,7 +256,12 @@ describe('PostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { gender: 'female' }, CITIZEN_SAVE_AND_CLOSE);
 
-    expect(res.redirect).toHaveBeenCalledWith(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
+    expect(res.cookie).toHaveBeenCalledWith(
+      'nfdiv-signout-target',
+      REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
+      expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(303, saveAndSignOutRedirect);
   });
 
   it('saves and signs out with empty form data if there are errors', async () => {
@@ -270,7 +283,7 @@ describe('PostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SAVE_AND_CLOSE);
 
-    expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+    expect(res.redirect).toHaveBeenCalledWith(303, saveAndSignOutRedirect);
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -294,7 +307,12 @@ describe('PostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SAVE_AND_CLOSE);
 
-    expect(res.redirect).toHaveBeenCalledWith(DRAFT_SAVE_AND_SIGN_OUT);
+    expect(res.cookie).toHaveBeenCalledWith(
+      'nfdiv-signout-target',
+      DRAFT_SAVE_AND_SIGN_OUT,
+      expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(303, saveAndSignOutRedirect);
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -318,7 +336,12 @@ describe('PostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', {}, CITIZEN_SAVE_AND_CLOSE);
 
-    expect(res.redirect).toHaveBeenCalledWith(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
+    expect(res.cookie).toHaveBeenCalledWith(
+      'nfdiv-signout-target',
+      REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
+      expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(303, saveAndSignOutRedirect);
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -337,7 +360,7 @@ describe('PostController', () => {
       CITIZEN_SAVE_AND_CLOSE
     );
 
-    expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+    expect(res.redirect).toHaveBeenCalledWith(303, saveAndSignOutRedirect);
   });
 
   it('saves and signs out even if was an error saving data when Draft', async () => {
@@ -356,7 +379,12 @@ describe('PostController', () => {
       CITIZEN_SAVE_AND_CLOSE
     );
 
-    expect(res.redirect).toHaveBeenCalledWith(DRAFT_SAVE_AND_SIGN_OUT);
+    expect(res.cookie).toHaveBeenCalledWith(
+      'nfdiv-signout-target',
+      DRAFT_SAVE_AND_SIGN_OUT,
+      expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(303, saveAndSignOutRedirect);
   });
 
   it('saves and signs out even if was an error saving data when InformationRequested', async () => {
@@ -375,7 +403,12 @@ describe('PostController', () => {
       CITIZEN_SAVE_AND_CLOSE
     );
 
-    expect(res.redirect).toHaveBeenCalledWith(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
+    expect(res.cookie).toHaveBeenCalledWith(
+      'nfdiv-signout-target',
+      REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
+      expect.objectContaining({ httpOnly: true, sameSite: 'lax' })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(303, saveAndSignOutRedirect);
   });
 
   test('triggers citizen-applicant2-update-application event if user is applicant2', async () => {

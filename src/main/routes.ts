@@ -6,9 +6,11 @@ import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
+import { getEndIdamSessionUrl } from './app/auth/user/oidc';
 import { AppRequest } from './app/controller/AppRequest';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
+import { getServiceOrigin } from './app/controller/url';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { MAX_UPLOAD_FILE_COUNT, MAX_UPLOAD_FILE_SIZE_BYTES } from './app/document/DocumentUploadLimits';
 import { getUserSequence, stepsWithContent } from './steps';
@@ -209,7 +211,10 @@ export class Routes {
           if (err) {
             throw err;
           }
-          res.redirect(config.get('govukUrls.applyForDivorce'));
+
+          const postLogoutRedirectUri = getServiceOrigin(req, res);
+
+          res.redirect(getEndIdamSessionUrl(postLogoutRedirectUri));
         });
       })
     );

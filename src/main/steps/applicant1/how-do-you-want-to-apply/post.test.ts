@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
 import { ApplicationType, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
@@ -79,6 +80,9 @@ describe('ApplicationTypePostController', () => {
       CITIZEN_SAVE_AND_CLOSE
     );
 
-    expect(res.redirect).toHaveBeenCalledWith(SAVE_AND_SIGN_OUT);
+    expect(res.redirect).toHaveBeenCalledWith(
+      303,
+      getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`)
+    );
   });
 });
