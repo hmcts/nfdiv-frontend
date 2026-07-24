@@ -2,6 +2,9 @@ import { orderedStateSequence } from '../../steps/state-sequence';
 import { CaseWithId } from '../case/case';
 import { ApplicationType, State } from '../case/definition';
 
+export const UPPY_FILE_INPUT_BUTTON_CLASS = 'uppy-FileInput-btn';
+export const UPPY_FILE_INPUT_BUTTON_ID = 'file-upload-btn';
+
 const APPLICANT_ONE_DOC_UPLOAD_STATES = [
   State.Draft,
   State.AosDrafted,

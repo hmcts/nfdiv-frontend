@@ -4,6 +4,10 @@ import FileInput from '@uppy/file-input';
 import ProgressBar from '@uppy/progress-bar';
 import XHRUpload from '@uppy/xhr-upload';
 
+import {
+  UPPY_FILE_INPUT_BUTTON_CLASS,
+  UPPY_FILE_INPUT_BUTTON_ID,
+} from '../../../app/document/DocumentManagementConstants';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById, hidden, qs } from '../selectors';
@@ -83,3 +87,8 @@ if (upload) {
 
 const fileInput = qs('.uppy-FileInput-input');
 fileInput?.setAttribute('tabindex', '-1');
+
+const btn = document.getElementsByClassName(UPPY_FILE_INPUT_BUTTON_CLASS)[0] as HTMLElement | null;
+if (btn && !btn.id) {
+  btn.id = UPPY_FILE_INPUT_BUTTON_ID;
+}
