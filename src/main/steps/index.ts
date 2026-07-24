@@ -9,6 +9,7 @@ import { Form, FormContent, FormFields, FormFieldsFn } from '../app/form/Form';
 
 import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
 import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
+import { getRootRedirectPath } from './common/common.content';
 import { respondentSequence } from './respondentSequence';
 import { currentStateFn } from './state-sequence';
 import { jurisdictionUrls } from './url-utils';
@@ -121,17 +122,19 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<CaseWithId>): stri
 
 export const getFirstErroredStep = (req: AppRequest, sequence: Step[]): string | undefined => {
   const userData = req.session.userCase;
+  const rootPath = getRootRedirectPath(req.session.isApplicant2, req.session.userCase);
 
   const visitedSteps = new Set<string>();
   let nextStepIndex = 0;
   while (nextStepIndex < sequence.length) {
     const step = sequence[nextStepIndex];
-    const stepUrl = step?.url;
+    const stepPath = step?.url;
 
-    if (!stepUrl) {
+    if (!stepPath) {
       break;
     }
 
+    const stepUrl = rootPath + stepPath;
     if (visitedSteps.has(stepUrl)) {
       break;
     }
