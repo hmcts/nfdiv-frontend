@@ -21,7 +21,6 @@ export const enum HubTemplate {
   AwaitingPronouncement = '/awaiting-pronouncement.njk',
   AwaitingRequestedInformation = '/awaiting-requested-information.njk',
   AwaitingServiceConsiderationOrAwaitingBailiffReferral = '/awaiting-service-consideration-or-awaiting-bailiff-referral.njk',
-  AwaitingGeneralApplicationConsideration = '/awaiting-general-application-consideration.njk',
   ClarificationSubmitted = '/clarification-submitted.njk',
   ConditionalOrderPending = '/conditional-order-pending.njk',
   ConditionalOrderPronounced = '/conditional-order-pronounced.njk',
