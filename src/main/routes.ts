@@ -15,6 +15,7 @@ import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content';
 import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your-access-code/get';
+import { PartnerContactDetailsUpdatedGetController } from './steps/applicant1/interim-applications/no-respondent-address/details-updated/get';
 import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
 import { ApplicationWithdrawnPreIssueGetController } from './steps/applicant1/withdraw-pre-issue/application-withdrawn/get';
 import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
@@ -55,6 +56,7 @@ import {
   HOME_URL,
   HUB_PAGE,
   NO_RESPONSE_YET,
+  NO_RESP_ADDRESS_DETAILS_UPDATED,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
@@ -135,6 +137,8 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.post(POSTCODE_LOOKUP, errorHandler(new PostcodeLookupPostController().post));
 
+    app.get(NO_RESP_ADDRESS_DETAILS_UPDATED, errorHandler(new PartnerContactDetailsUpdatedGetController().get));
+
     const documentManagerController = new DocumentManagerController();
     app.post(DOCUMENT_MANAGER, uploadFilesMiddleware, errorHandler(documentManagerController.post));
     app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
@@ -154,7 +158,11 @@ export class Routes {
         const postController = fs.existsSync(`${step.stepDir}/post${ext}`)
           ? require(`${step.stepDir}/post${ext}`).default
           : PostController;
-        app.post(step.url, errorHandler(new postController(step.form.fields).post));
+        app.post(
+          step.url,
+          this.isRouteForUser as RequestHandler,
+          errorHandler(new postController(step.form.fields).post)
+        );
       }
     }
 
