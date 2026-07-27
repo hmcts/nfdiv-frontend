@@ -158,9 +158,9 @@ const en = ({ isDivorce, userCase }) => ({
     },
     yourContactDetails: {
       detailsUptoDate: urls.CONFIRM_CONTACT_DETAILS,
-      postalAddress: urls.UPDATE_YOUR_ADDRESS,
-      telephoneNumber: urls.UPDATE_PHONE_NUMBER,
-      detailsPrivate: urls.UPDATE_ADDRESS_PRIVATE,
+      postalAddress: urls.ENTER_YOUR_ADDRESS,
+      telephoneNumber: urls.CHECK_PHONE_NUMBER,
+      detailsPrivate: urls.ADDRESS_PRIVATE,
       inRefuge: urls.IN_REFUGE,
     },
   },
