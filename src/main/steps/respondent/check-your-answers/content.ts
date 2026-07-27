@@ -233,7 +233,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       postalAddress: 'Eich cyfeiriad post',
       telephoneNumber: 'Eich rhif ffôn',
       detailsPrivate: 'Ydych chi angen i’ch manylion gael eu cadw’n breifat?',
-      inRefuge: 'Ydych chi mewn lloches ar y funud?',
+      inRefuge: "Ydych chi'n byw mewn lloches ar hyn o bryd?",
     },
   },
   stepAnswers: {
