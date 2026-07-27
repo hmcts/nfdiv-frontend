@@ -527,9 +527,9 @@ export interface CaseData {
   applicant1NameDifferentToMarriageCertificateMethod: ChangedNameHow[];
   applicant1NameDifferentToMarriageCertificateOtherDetails: string;
   applicant1WhyNameDifferent: ChangedNameWhy[];
-  applicant1WhyNameDifferentOtherDetails: string,
+  applicant1WhyNameDifferentOtherDetails: string;
   applicant2WhyNameDifferent: ChangedNameWhy[];
-  applicant2WhyNameDifferentOtherDetails: string,
+  applicant2WhyNameDifferentOtherDetails: string;
   applicant1NameChangedHow: ChangedNameHow[];
   applicant1NameChangedHowOtherDetails: string;
   applicant1Address: AddressGlobalUK;
@@ -964,7 +964,7 @@ export interface CaseData {
   alternativeServiceFeeRequired: YesOrNo;
   serviceApplicationAnswers: DivorceDocument;
   servicePayments: ListValue<Payment>[];
-  serviceApplicationSubmittedOnline: YesOrNo,
+  serviceApplicationSubmittedOnline: YesOrNo;
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   servicePaymentFeeAccountNumber: string;
   servicePaymentFeeDateOfPayment: DateAsString;
@@ -1152,7 +1152,7 @@ export interface CaseData {
   applicant1DispensePartnerLastSeenOver2YearsAgo: YesOrNo;
   applicant1DispensePartnerLastSeenDescription: string;
   applicant1DispenseHavePartnerEmailAddresses: YesOrNo;
-  applicant1DispenseHaveSearchedFinalOrder: YesOrNo
+  applicant1DispenseHaveSearchedFinalOrder: YesOrNo;
   applicant1DispenseWhyNoFinalOrderSearch: string;
   applicant1DispensePartnerEmailAddresses: string;
   applicant1DispenseHavePartnerPhoneNumbers: YesOrNo;
@@ -1184,6 +1184,7 @@ export interface CaseData {
   withdrawApplicationReason: string;
   applicant2ConfirmWithdrawApplication: YesOrNo;
   applicant2WithdrawApplicationReason: string;
+  applicant2ConfirmContactDetails?: YesOrNo;
 }
 
 export interface CaseDocuments {

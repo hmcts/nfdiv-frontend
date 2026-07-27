@@ -78,6 +78,10 @@ export const IN_REFUGE: PageLink = '/in-refuge';
 export const ENTER_YOUR_ADDRESS: PageLink = '/enter-your-address';
 export const POSTCODE_LOOKUP: PageLink = '/postcode-lookup';
 export const DO_THEY_HAVE_A_SOLICITOR: PageLink = '/do-they-have-a-solicitor';
+export const UPDATE_ADDRESS_PRIVATE: PageLink = '/update-address-private';
+export const UPDATE_YOUR_ADDRESS: PageLink = '/update-your-address';
+export const UPDATE_PHONE_NUMBER: PageLink = '/update-phone-number';
+
 export const ENTER_SOLICITOR_DETAILS: PageLink = '/enter-solicitor-details';
 
 export const YOU_CANNOT_APPLY: PageLink = '/you-cannot-apply';
@@ -140,6 +144,7 @@ export const CHECK_CONTACT_DETAILS: PageLink = '/check-contact-details';
 export const CHECK_PHONE_NUMBER: PageLink = '/check-phone-number';
 export const HOW_DO_YOU_WANT_TO_RESPOND: PageLink = '/how-do-you-want-to-respond';
 export const DISPUTING_THE_APPLICATION: PageLink = '/disputing-the-application';
+export const CONFIRM_CONTACT_DETAILS: PageLink = '/confirm-contact-details';
 export const LEGAL_JURISDICTION_OF_THE_COURTS: PageLink = '/legal-jurisdiction-of-the-courts';
 export const INTEND_TO_DELAY: PageLink = '/intend-to-delay';
 
