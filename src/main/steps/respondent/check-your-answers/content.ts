@@ -73,7 +73,6 @@ const en = ({ isDivorce, userCase }) => ({
     yourContactDetails: {
       detailsUptoDate: 'Are your details correct and up to date?',
       postalAddress: 'Your postal address',
-      telephoneNumber: 'Your telephone number',
       detailsPrivate: 'Do you need your contact details kept private?',
       inRefuge: 'Are you currently in a refuge?',
     },
@@ -129,7 +128,6 @@ const en = ({ isDivorce, userCase }) => ({
       ]
         .filter(Boolean)
         .join('<br>')}`,
-      telephoneNumber: striptags(userCase.applicant2PhoneNumber),
       detailsPrivate: stripTags(updateAddressPrivateAnswers.en[userCase.applicant2AddressPrivate]),
       inRefuge: stripTags(inRefugeAnswers.en[userCase.applicant2InRefuge]),
     },
@@ -159,7 +157,6 @@ const en = ({ isDivorce, userCase }) => ({
     yourContactDetails: {
       detailsUptoDate: urls.CONFIRM_CONTACT_DETAILS,
       postalAddress: urls.ENTER_YOUR_ADDRESS,
-      telephoneNumber: urls.CHECK_PHONE_NUMBER,
       detailsPrivate: urls.ADDRESS_PRIVATE,
       inRefuge: urls.IN_REFUGE,
     },
@@ -231,7 +228,6 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
     yourContactDetails: {
       detailsUptoDate: 'A yw eich manylion yn gywir ac wedi eu diweddaru?',
       postalAddress: 'Eich cyfeiriad post',
-      telephoneNumber: 'Eich rhif ffôn',
       detailsPrivate: 'Ydych chi angen i’ch manylion gael eu cadw’n breifat?',
       inRefuge: "Ydych chi'n byw mewn lloches ar hyn o bryd?",
     },
@@ -287,7 +283,6 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       ]
         .filter(Boolean)
         .join('<br>')}`,
-      telephoneNumber: striptags(userCase.applicant2PhoneNumber),
       detailsPrivate: stripTags(radioButtonAnswersPrivate.cy[userCase.applicant2AddressPrivate]),
       inRefuge: stripTags(inRefugeAnswers.cy[userCase.applicant2InRefuge]),
     },
