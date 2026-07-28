@@ -1,6 +1,5 @@
 import axios from 'axios';
 import config from 'config';
-import { jest } from '@jest/globals';
 
 jest.retryTimes(20);
 jest.setTimeout(5000);

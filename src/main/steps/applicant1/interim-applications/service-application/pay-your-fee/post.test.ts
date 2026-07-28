@@ -1,13 +1,16 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { CITIZEN_SERVICE_APPLICATION, PaymentStatus, State } from '../../../../../app/case/definition';
-import { mockCreate, mockGet } from '../../../../../app/payment/PaymentClient';
 import { SERVICE_PAYMENT_CALLBACK } from '../../../../urls';
 
 import ServicePaymentPostController from './post';
-import { jest } from '@jest/globals';
 
 jest.mock('../../../../../app/payment/PaymentClient');
+
+const { mockCreate, mockGet } = jest.requireMock('../../../../../app/payment/PaymentClient') as {
+  mockCreate: jest.Mock;
+  mockGet: jest.Mock;
+};
 
 describe('ServicePaymentPostController', () => {
   const paymentController = new ServicePaymentPostController();

@@ -9,7 +9,6 @@ import {
 } from '../../../test/unit/utils/mockPostcodeResponses';
 
 import { getAddressesFromPostcode } from './postcode-lookup';
-import { jest } from '@jest/globals';
 
 jest.mock('axios');
 

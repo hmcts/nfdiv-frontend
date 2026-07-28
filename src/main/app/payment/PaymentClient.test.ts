@@ -7,7 +7,6 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { DivorceOrDissolution, Fee, ListValue } from '../case/definition';
 
 import { PaymentClient } from './PaymentClient';
-import { jest } from '@jest/globals';
 
 jest.mock('axios');
 jest.mock('config');

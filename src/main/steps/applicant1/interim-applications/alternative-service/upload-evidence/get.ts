@@ -9,7 +9,10 @@ import { generateContent } from './content';
 @autobind
 export default class AlternativeServiceUploadEvidenceGetController extends GetController {
   constructor() {
-    super(getStepTemplatePath('applicant1/interim-applications/alternative-service/upload-evidence', 'template.njk'), generateContent);
+    super(
+      getStepTemplatePath('applicant1/interim-applications/alternative-service/upload-evidence', 'template.njk'),
+      generateContent
+    );
   }
 
   protected setSessionOverrides(req: AppRequest): void {

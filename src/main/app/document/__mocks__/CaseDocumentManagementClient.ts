@@ -1,5 +1,3 @@
-import { jest } from '@jest/globals';
-
 export enum Classification {
   Private = 'PRIVATE',
   Restricted = 'RESTRICTED',

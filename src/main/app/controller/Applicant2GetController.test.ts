@@ -3,7 +3,6 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { HOME_URL } from '../../steps/urls';
 
 import { Applicant2GetController } from './Applicant2GetController';
-import { jest } from '@jest/globals';
 
 describe('Applicant2GetController', () => {
   it("redirects back to the home page if they're logged in as applicant 1", () => {

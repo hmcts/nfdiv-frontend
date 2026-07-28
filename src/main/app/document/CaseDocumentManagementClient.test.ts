@@ -5,7 +5,6 @@ import * as serviceAuth from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { CaseDocumentManagementClient, Classification, UploadedFiles } from './CaseDocumentManagementClient';
-import { jest } from '@jest/globals';
 
 jest.mock('axios');
 jest.mock('config');

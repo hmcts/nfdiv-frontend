@@ -1,9 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { ApplicationType, CITIZEN_PAYMENT_MADE, PaymentStatus, State } from '../../../app/case/definition';
-import { mockCreate, mockGet } from '../../../app/payment/PaymentClient';
 import {
-
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
   JOINT_APPLICATION_SUBMITTED,
@@ -12,9 +10,13 @@ import {
 } from '../../urls';
 
 import PaymentCallbackGetController from './get';
-import { jest } from '@jest/globals';
 
 jest.mock('../../../app/payment/PaymentClient');
+
+const { mockCreate, mockGet } = jest.requireMock('../../../app/payment/PaymentClient') as {
+  mockCreate: jest.Mock;
+  mockGet: jest.Mock;
+};
 
 describe('PaymentCallbackGetController', () => {
   const paymentController = new PaymentCallbackGetController();

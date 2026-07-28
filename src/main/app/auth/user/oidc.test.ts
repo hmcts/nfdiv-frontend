@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 import { APPLICANT_2_SIGN_IN_URL, CALLBACK_URL, SIGN_IN_URL } from '../../../steps/urls';
 
 import { OidcResponse, getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
-import { jest } from '@jest/globals';
 
 jest.mock('axios');
 jest.mock('config');

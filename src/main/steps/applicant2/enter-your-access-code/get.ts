@@ -2,8 +2,8 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
-import { getStepTemplatePath } from '../../getStepTemplatePath';
 import autobind from '../../../app/utils/autobind';
+import { getStepTemplatePath } from '../../getStepTemplatePath';
 import { HOME_URL } from '../../urls';
 
 import { generateContent } from './content';

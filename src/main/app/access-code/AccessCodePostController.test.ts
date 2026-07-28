@@ -7,7 +7,6 @@ import { ApplicationType, SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, Stat
 import { FormContent, FormFields } from '../form/Form';
 
 import { AccessCodePostController } from './AccessCodePostController';
-import { jest } from '@jest/globals';
 
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');

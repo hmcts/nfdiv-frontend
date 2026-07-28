@@ -5,7 +5,6 @@ import { FormContent } from '../../app/form/Form';
 import { HOME_URL, PAY_AND_SUBMIT, SWITCH_TO_SOLE_APPLICATION, YOUR_DETAILS_URL } from '../urls';
 
 import { SwitchToSoleApplicationPostController } from './post';
-import { jest } from '@jest/globals';
 
 describe('SwitchToSoleApplicationPostController', () => {
   const mockFormContent = {

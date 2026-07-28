@@ -5,7 +5,6 @@ import { PaymentModel } from '../payment/PaymentModel';
 import { CaseApi, getCaseApi } from './case-api';
 import * as caseApiClient from './case-api-client';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition';
-import { jest } from '@jest/globals';
 
 jest.mock('axios');
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');

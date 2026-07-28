@@ -1,17 +1,15 @@
 import fs from 'fs';
-import { fileURLToPath } from 'url';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 import axios from 'axios';
+import pa11y from 'pa11y';
 import puppeteer from 'puppeteer';
 
 import * as urls from '../../main/steps/urls';
 import { config } from '../config';
-import { jest } from '@jest/globals';
 
 const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
-
-import pa11y from 'pa11y';
 const server = axios.create({ baseURL: config.TEST_URL });
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 

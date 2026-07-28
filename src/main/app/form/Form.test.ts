@@ -4,7 +4,6 @@ import { YesOrNo } from '../case/definition';
 import { Form, FormContent, FormFields, FormFieldsFn } from './Form';
 import { covertToDateObject } from './parser';
 import { areDateFieldsFilledIn, isFieldFilledIn } from './validation';
-import { jest } from '@jest/globals';
 
 describe('Form', () => {
   const mockForm: FormContent = {

@@ -6,7 +6,6 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CHECK_ANSWERS_URL } from '../../urls';
 
 import PCQGetController from './get';
-import { jest } from '@jest/globals';
 
 jest.mock('axios');
 jest.mock('config');

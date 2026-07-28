@@ -1,5 +1,3 @@
-import { jest } from '@jest/globals';
-
 export const mockLogger = {
   error: jest.fn(),
   info: jest.fn(),

@@ -3,8 +3,8 @@ import { Response } from 'express';
 import { ApplicationType, SWITCH_TO_SOLE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
-import { getStepTemplatePath } from '../../getStepTemplatePath';
 import autobind from '../../../app/utils/autobind';
+import { getStepTemplatePath } from '../../getStepTemplatePath';
 
 import { generateContent } from './content';
 

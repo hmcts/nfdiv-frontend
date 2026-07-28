@@ -7,7 +7,6 @@ import { DivorceOrDissolution, Gender, State } from '../case/definition';
 import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
 
 import { GetController } from './GetController';
-import { jest } from '@jest/globals';
 
 describe('GetController', () => {
   const languages = {

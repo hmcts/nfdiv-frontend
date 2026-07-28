@@ -9,7 +9,6 @@ import { errorContent } from './content';
 import { ErrorController, HTTPError } from './error.controller';
 
 import Mock = jest.Mock;
-import { jest } from '@jest/globals';
 
 describe('ErrorController', () => {
   const controller = new ErrorController();

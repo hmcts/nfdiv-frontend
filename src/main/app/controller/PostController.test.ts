@@ -1,9 +1,7 @@
-
 // noinspection TypeScriptValidateTypes
 
 import config from 'config';
 import lodash from 'lodash';
-import { jest } from '@jest/globals';
 
 const { set } = lodash;
 
