@@ -1,1 +1,12 @@
-{% include "../../common/upload-evidence/template.njk" %}
+{% extends "../../common/upload-evidence/template.njk" %}
+
+{% block uploadGuidance %}
+    <h1 class="govuk-heading-l" id="uploadEvidenceTitle">{{ title }}</h1>
+    <p class="govuk-body">{{ line2 }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ toInclude.options.bulletOne }}</li>
+        <li>{{ toInclude.options.bulletTwo }}</li>
+        <li>{{ toInclude.options.bulletThree }}</li>
+    </ul>
+    <p class="govuk-body">{{ line3 }}</p>
+{% endblock %}

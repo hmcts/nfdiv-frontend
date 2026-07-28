@@ -33,7 +33,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: l => l.continue,
+    text: l => l.submit,
     classes: DISABLE_UPON_SUBMIT,
   },
 };

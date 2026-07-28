@@ -57,7 +57,7 @@ Feature: Joint conditional order
     Then the page URL should be "/applicant2/check-your-conditional-order-answers"
 
     Given I select "I believe that the facts stated in this application are true"
-    When I click "Continue"
+    When I click "Submit"
     Then the page URL should be "/applicant2/hub-page"
     And the page should include "You and your wife have applied for a 'conditional order'"
 
@@ -81,7 +81,7 @@ Feature: Joint conditional order
     Then the page URL should be "/applicant2/check-your-conditional-order-answers"
 
     Given I select "I believe that the facts stated in this application are true"
-    When I click "Continue"
+    When I click "Submit"
     Then the page URL should be "/applicant2/hub-page"
     And the page should include "You have applied for a conditional order. Your wife also needs to apply"
     When I click "Sign out"
