@@ -12,6 +12,10 @@ export const proxyList: {
     path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.APPLICATION),
   },
   {
+    endpoints: ['/downloads/hmcts-coversheet'],
+    path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.HMCTS_COVERSHEET),
+  },
+  {
     endpoints: ['/downloads/applicant2-notice-of-proceedings'],
     path: (req: AppRequest): string => findDocumentAndGetPath(req, DocumentType.NOTICE_OF_PROCEEDINGS_APP_2),
   },
