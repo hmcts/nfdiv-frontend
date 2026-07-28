@@ -129,6 +129,7 @@ export const form: FormContent = {
       type: 'textarea',
       classes: 'govuk-input--width-40',
       label: l => l.responseLabel,
+      errorId: 'choose-file',
       validator: (value, formData) => {
         const hasUploadedFiles =
           (formData.app1RfiDraftResponseUploadedFiles as unknown as string[])?.length &&
@@ -144,6 +145,7 @@ export const form: FormContent = {
       type: 'hidden',
       label: l => l.uploadFiles,
       labelHidden: true,
+      errorId: 'choose-file',
       value:
         (isObject(userCase.app1RfiDraftResponseUploadedFiles)
           ? JSON.stringify(userCase.app1RfiDraftResponseUploadedFiles)
@@ -162,6 +164,7 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.havingTroubleUploading,
       labelHidden: true,
+      errorId: 'choose-file',
       validator: (value, formData) => {
         const hasEnteredDetails = !isEmpty(formData.app1RfiDraftResponseDetails);
         const hasUploadedFiles =

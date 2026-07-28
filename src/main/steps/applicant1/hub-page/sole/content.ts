@@ -329,7 +329,7 @@ const en = (
     line1: `Your ${partner} has not responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
-    line2: `You have have started a ${serviceApplicationType} application.`,
+    line2: `You have started a ${serviceApplicationType} application.`,
     doNext: 'What you can do next',
     line3: 'You need to pay the service application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
@@ -344,7 +344,7 @@ const en = (
     line1: `Your ${partner} has not responded to your ${
       isDivorce ? 'divorce application' : 'application to end your civil partnership'
     }.`,
-    line2: `You have have started a ${generalApplicationType} application.`,
+    line2: `You have started a ${generalApplicationType} application.`,
     doNext: 'What you can do next',
     line3: 'You need to pay the general application fee before it can be referred to a judge to consider your request.',
     linkText: 'Complete payment',
