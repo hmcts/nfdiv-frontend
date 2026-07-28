@@ -7,6 +7,7 @@ import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdict
 import { SAVE_AND_SIGN_OUT } from '../../urls';
 
 import YourDetailsPostController from './post';
+import { jest } from '@jest/globals';
 
 describe('YourDetailsPostController', () => {
   const mockFormContent = {

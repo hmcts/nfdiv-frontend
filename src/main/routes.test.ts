@@ -10,6 +10,7 @@ import {
   TERMS_AND_CONDITIONS_URL,
   YOUR_DETAILS_URL,
 } from './steps/urls';
+import { jest } from '@jest/globals';
 
 describe('Routes', () => {
   it('sets up dynamic step sequence routes', () => {

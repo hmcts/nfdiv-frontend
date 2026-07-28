@@ -6,6 +6,7 @@ import { FormContent } from '../../../app/form/Form';
 import * as contentUtils from '../../common/content.utils';
 
 import TheirEmailAddressPostController from './post';
+import { jest } from '@jest/globals';
 
 const isApplicant2EmailUpdatePossibleMock = jest.spyOn(contentUtils, 'isApplicant2EmailUpdatePossible');
 

@@ -5,6 +5,7 @@ import { FormContent } from '../../../app/form/Form';
 import { CHANGING_TO_SOLE_APPLICATION, HUB_PAGE } from '../../urls';
 
 import ChangingToASoleApplicationPostController from './post';
+import { jest } from '@jest/globals';
 
 describe('ChangingToASoleApplicationPostController', () => {
   const mockFormContent = {

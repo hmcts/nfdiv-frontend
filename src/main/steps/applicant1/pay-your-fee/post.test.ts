@@ -1,13 +1,13 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CITIZEN_SUBMIT, PaymentStatus, State } from '../../../app/case/definition';
+import { mockCreate, mockGet } from '../../../app/payment/PaymentClient';
 import { PAYMENT_CALLBACK_URL, SAVE_AND_SIGN_OUT } from '../../urls';
 
 import PaymentPostController from './post';
+import { jest } from '@jest/globals';
 
 jest.mock('../../../app/payment/PaymentClient');
-
-const { mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
 
 describe('PaymentPostController', () => {
   const paymentController = new PaymentPostController();

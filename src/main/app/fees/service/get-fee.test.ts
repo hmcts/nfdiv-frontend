@@ -1,3 +1,5 @@
+import { jest } from '@jest/globals';
+
 jest.mock('axios');
 jest.mock('@hmcts/nodejs-logging');
 jest.useFakeTimers({ legacyFakeTimers: true });

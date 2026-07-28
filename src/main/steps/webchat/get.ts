@@ -1,11 +1,10 @@
-import { fileURLToPath } from 'node:url';
-
 import { GetController } from '../../app/controller/GetController';
+import { getStepTemplatePath } from '../getStepTemplatePath';
 
 import { generateContent } from './content';
 
 export class WebChatGetController extends GetController {
   constructor() {
-    super(fileURLToPath(new URL('./template', import.meta.url)), generateContent);
+    super(getStepTemplatePath('webchat', 'template'), generateContent);
   }
 }

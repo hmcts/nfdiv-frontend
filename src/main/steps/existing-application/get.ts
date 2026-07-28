@@ -1,5 +1,3 @@
-import { fileURLToPath } from 'node:url';
-
 import { Response } from 'express';
 
 import { ApplicationType } from '../../app/case/definition';
@@ -7,12 +5,13 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController, PageContent } from '../../app/controller/GetController';
 import { SupportedLanguages } from '../../modules/i18n';
 import { CommonContent } from '../common/common.content';
+import { getStepTemplatePath } from '../getStepTemplatePath';
 
 import { generateContent } from './content';
 
 export class ExistingApplicationGetController extends GetController {
   constructor() {
-    super(fileURLToPath(new URL('./template.njk', import.meta.url)), generateContent);
+    super(getStepTemplatePath('existing-application', 'template.njk'), generateContent);
   }
 
   public getPageContent(req: AppRequest, res: Response, language: SupportedLanguages): PageContent {

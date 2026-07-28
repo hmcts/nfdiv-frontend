@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { CaseWithId } from '../../../../../app/case/case';
 import {
+
   CITIZEN_GENERAL_APPLICATION,
   GeneralApplication,
   GeneralApplicationType,
@@ -13,13 +14,13 @@ import {
   YesOrNo,
 } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
+import { mockCreate, mockGet } from '../../../../../app/payment/PaymentClient';
 import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../../urls';
 
 import GeneralApplicationPaymentPostController from './post';
+import { jest } from '@jest/globals';
 
 jest.mock('../../../../../app/payment/PaymentClient');
-
-const { mockCreate, mockGet } = require('../../../../../app/payment/PaymentClient');
 
 describe('GeneralApplicationPaymentPostController', () => {
   const paymentController = new GeneralApplicationPaymentPostController();

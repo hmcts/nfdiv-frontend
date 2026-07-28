@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../../../app/case/case';
 import {
+
   ApplicationType,
   CITIZEN_SERVICE_APPLICATION,
   InterimApplicationType,
@@ -12,6 +13,7 @@ import { bailiffServiceApplicationSequence } from '../../../../bailiffServiceApp
 import { getFirstErroredStep } from '../../../../index';
 
 import CheckBailiffServiceAnswersPostController from './post';
+import { jest } from '@jest/globals';
 
 jest.mock('../../../../index', () => ({
   getFirstErroredStep: jest.fn(),

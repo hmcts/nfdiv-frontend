@@ -6,6 +6,7 @@ import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import {
+
   APPLICANT_1,
   APPLICANT_2,
   ENTER_YOUR_ACCESS_CODE,
@@ -16,6 +17,7 @@ import {
 
 import { existingOrNew } from './content';
 import { ExistingApplicationPostController } from './post';
+import { jest } from '@jest/globals';
 
 jest.spyOn(oidc, 'getSystemUser').mockResolvedValue({
   accessToken: 'token',

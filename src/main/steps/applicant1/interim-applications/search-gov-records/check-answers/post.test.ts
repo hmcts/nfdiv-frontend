@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../../../app/case/case';
 import {
+
   ApplicationType,
   CITIZEN_GENERAL_APPLICATION,
   InterimApplicationType,
@@ -12,6 +13,7 @@ import { getFirstErroredStep } from '../../../../index';
 import { searchGovRecordsApplicationSequence } from '../../../../searchGovRecordsApplicationSequence';
 
 import CheckAnswersPostController from './post';
+import { jest } from '@jest/globals';
 
 jest.mock('../../../../index', () => ({
   getFirstErroredStep: jest.fn(),

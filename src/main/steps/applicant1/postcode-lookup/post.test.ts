@@ -3,6 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { getAddressesFromPostcode } from '../../../app/postcode/postcode-lookup';
 
 import { PostcodeLookupPostController } from './post';
+import { jest } from '@jest/globals';
 
 jest.mock('../../../app/postcode/postcode-lookup');
 

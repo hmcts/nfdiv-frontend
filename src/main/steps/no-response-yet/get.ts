@@ -1,11 +1,10 @@
-import { fileURLToPath } from 'node:url';
-
 import { GetController } from '../../app/controller/GetController';
+import { getStepTemplatePath } from '../getStepTemplatePath';
 
 import { generateContent } from './content';
 
 export class NoResponseYetApplicationGetController extends GetController {
   constructor() {
-    super(fileURLToPath(new URL('./template.njk', import.meta.url)), generateContent);
+    super(getStepTemplatePath('no-response-yet', 'template.njk'), generateContent);
   }
 }

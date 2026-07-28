@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import {
+
   APPLICANT_2,
   DETAILS_OTHER_PROCEEDINGS,
   PROVIDE_INFORMATION_TO_THE_COURT,
@@ -21,10 +22,10 @@ import {
 } from '../case/definition';
 
 import { DocumentManagerController } from './DocumentManagementController';
+import { mockCreate, mockDelete } from './CaseDocumentManagementClient';
 import { MAX_UPLOAD_FILE_SIZE_BYTES } from './DocumentUploadLimits';
 import { FileUploadJourney } from './FileUploadJourneyConfiguration';
-
-const { mockCreate, mockDelete } = require('./CaseDocumentManagementClient');
+import { jest } from '@jest/globals';
 
 jest.mock('../document/CaseDocumentManagementClient');
 

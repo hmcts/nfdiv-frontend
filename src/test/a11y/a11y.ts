@@ -1,15 +1,19 @@
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 import axios from 'axios';
 import puppeteer from 'puppeteer';
 
 import * as urls from '../../main/steps/urls';
 import { config } from '../config';
+import { jest } from '@jest/globals';
 
 const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
 
-const pa11y = require('pa11y');
+import pa11y from 'pa11y';
 const server = axios.create({ baseURL: config.TEST_URL });
+const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
 interface Pa11yResult {
   documentTitle: string;
@@ -33,9 +37,9 @@ function ensurePageCallWillSucceed(url: string): Promise<void> {
 function runPally(url: string, browser): Promise<Pa11yResult> {
   let screenCapture: string | boolean = false;
   if (!config.TestHeadlessBrowser) {
-    const screenshotDir = `${__dirname}/../../../functional-output/pa11y`;
+    const screenshotDir = path.resolve(currentDir, '../../../functional-output/pa11y');
     fs.mkdirSync(screenshotDir, { recursive: true });
-    screenCapture = `${screenshotDir}/${url.replace(/^\/$/, 'home').replace('/', '')}.png`;
+    screenCapture = path.resolve(screenshotDir, `${url.replace(/^\/$/, 'home').replace('/', '')}.png`);
   }
 
   const fullUrl = `${config.TEST_URL}${url}`;

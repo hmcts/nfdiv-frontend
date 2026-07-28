@@ -4,6 +4,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { SupportedLanguages } from '../../../modules/i18n';
 
 import ApplicationEndedGetController from './get';
+import { jest } from '@jest/globals';
 
 describe('ApplicationEndedGetController', () => {
   const controller = new ApplicationEndedGetController();

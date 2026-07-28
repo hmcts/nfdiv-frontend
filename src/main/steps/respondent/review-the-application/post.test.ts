@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Checkbox } from '../../../app/case/case';
 import {
+
   ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_SAVE_AND_CLOSE,
@@ -12,6 +13,7 @@ import * as steps from '../../index';
 import { SAVE_AND_SIGN_OUT } from '../../urls';
 
 import ReviewTheApplicationPostController from './post';
+import { jest } from '@jest/globals';
 
 describe('ReviewTheApplicationPostController', () => {
   const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');

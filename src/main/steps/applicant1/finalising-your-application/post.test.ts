@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CaseWithId, Checkbox } from '../../../app/case/case';
 import {
+
   APPLICANT2_FINAL_ORDER_REQUESTED,
   ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
@@ -17,6 +18,7 @@ import { SupportedLanguages } from '../../../modules/i18n';
 import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HUB_PAGE } from '../../urls';
 
 import FinalisingYourApplicationPostController from './post';
+import { jest } from '@jest/globals';
 
 describe('FinalisingYourApplicationPostController', () => {
   const userCase: Partial<CaseWithId> = {

@@ -9,15 +9,46 @@ import {
   THEIR_EMAIL_ADDRESS,
 } from '../../main/steps/urls';
 import { autoLogin, config as testConfig } from '../config';
+import { completeCase } from '../functional/fixtures/completeCase';
+import { finalOrderCompleteCase } from '../functional/fixtures/finalOrderCompleteCase';
+import { finalOrderOverdueCompleteCase } from '../functional/fixtures/finalOrderOverdueCompleteCase';
+import { issuedCase } from '../functional/fixtures/issuedCase';
+import { jointApplicant1AppliedFirstCompleteCase } from '../functional/fixtures/jointApplicant1AppliedFirstCompleteCase';
+import { jointApplicant1CompleteCase } from '../functional/fixtures/jointApplicant1CompleteCase';
+import { jointApplicant2CompleteCase } from '../functional/fixtures/jointApplicant2CompleteCase';
+import { jointFinalOrderCompleteCase } from '../functional/fixtures/jointFinalOrderCompleteCase';
+import { respondentCompleteCase } from '../functional/fixtures/respondentCompleteCase';
+import { respondentCompleteCaseWithDispute } from '../functional/fixtures/respondentCompleteCaseWithDispute';
 
 import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
 
+const fixtures = {
+  completeCase,
+  finalOrderCompleteCase,
+  finalOrderOverdueCompleteCase,
+  issuedCase,
+  jointApplicant1AppliedFirstCompleteCase,
+  jointApplicant1CompleteCase,
+  jointApplicant2CompleteCase,
+  jointFinalOrderCompleteCase,
+  respondentCompleteCase,
+  respondentCompleteCaseWithDispute,
+};
+
+function getFixtureJson(fixture: string) {
+  const fixtureJson = fixtures[fixture];
+  if (!fixtureJson) {
+    throw new Error(`Fixture not found: ${fixture}`);
+  }
+  return fixtureJson;
+}
+
 Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
   I.amOnPage(HOME_URL);
-  const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+  const fixtureJson = getFixtureJson(fixture);
 
   await iSetTheUsersCaseTo(fixtureJson);
 
@@ -39,7 +70,7 @@ Given('I set the email address for applicant 2', async () => {
 Given(
   "I've already completed the form using the fixture {string} for {string}",
   async (fixture: string, applicant: string) => {
-    const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+    const fixtureJson = getFixtureJson(fixture);
 
     await iSetTheUsersCaseTo(fixtureJson);
 

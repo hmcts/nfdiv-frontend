@@ -6,6 +6,7 @@ import { FormContent } from '../form/Form';
 
 import { JurisdictionPostController } from './JurisdictionPostController';
 import { addConnectionsBasedOnQuestions } from './connections';
+import { jest } from '@jest/globals';
 
 jest.mock('./connections');
 const addConnectionsBasedOnQuestionsMock = addConnectionsBasedOnQuestions as jest.Mock<JurisdictionConnections[]>;
