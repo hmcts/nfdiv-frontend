@@ -4,6 +4,7 @@ import { Checkbox } from '../../../app/case/case';
 import { DocumentType } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import {
@@ -32,6 +33,7 @@ export const form: FormContent = {
       type: 'hidden',
       label: l => l.uploadFiles,
       labelHidden: true,
+      errorId: UPPY_FILE_INPUT_BUTTON_ID,
       value:
         (isObject(userCase.applicant2UploadedFiles)
           ? JSON.stringify(userCase.applicant2UploadedFiles)
@@ -49,6 +51,7 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.cannotUploadDocuments,
       labelHidden: true,
+      errorId: UPPY_FILE_INPUT_BUTTON_ID,
       validator: (value, formData) => {
         if ((value as string[])?.includes(Checkbox.Checked)) {
           return atLeastOneFieldIsChecked(formData?.applicant2CannotUploadDocuments);
