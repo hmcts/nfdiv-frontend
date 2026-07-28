@@ -37,7 +37,6 @@ export const getSoleHubTemplate = (
   const latestGeneralApplication = userCase.generalApplications?.[0]?.value;
   const isSearchGovRecords =
     latestGeneralApplication?.generalApplicationType === (GeneralApplicationType.SEARCH_GOV_RECORDS as string);
-  const isOnlineGeneralApplication = latestGeneralApplication?.generalApplicationSubmittedOnline === YesOrNo.YES;
 
   switch (displayState.state()) {
     case State.RespondentFinalOrderRequested:
@@ -88,16 +87,12 @@ export const getSoleHubTemplate = (
     case State.AwaitingGeneralConsideration:
       if (userCase.dateFinalOrderSubmitted) {
         return HubTemplate.FinalOrderRequested;
-      } else if (isSearchGovRecords && isOnlineGeneralApplication) {
-        return HubTemplate.AwaitingGeneralApplicationConsideration;
       } else {
         return HubTemplate.GeneralApplicationReceived;
       }
     case State.GeneralApplicationReceived:
     case State.AwaitingGeneralReferralPayment:
-      return isOnlineGeneralApplication
-        ? HubTemplate.AwaitingGeneralApplicationConsideration
-        : HubTemplate.GeneralApplicationReceived;
+      return HubTemplate.GeneralApplicationReceived;
     case State.AwaitingConditionalOrder:
       return HubTemplate.AwaitingConditionalOrder;
     case State.Holding:
@@ -170,6 +165,8 @@ export const getSoleHubTemplate = (
     case State.AwaitingGenAppHWFPartPayment:
     case State.AwaitingGenAppHWFEvidence:
       return HubTemplate.AwaitingGenAppHWFPartPaymentOrEvidence;
+    case State.AwaitingGenAppDocuments:
+      return HubTemplate.AwaitingGenAppDocuments;
     case State.PendingRefund:
       return HubTemplate.PendingRefund;
     default: {

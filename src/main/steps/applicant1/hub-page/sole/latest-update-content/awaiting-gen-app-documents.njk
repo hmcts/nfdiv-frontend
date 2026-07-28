@@ -1,0 +1,36 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+
+{% if hasGenAppAwaitingDocuments %}
+    <p class="govuk-body">{{ generalApplicationSubmitted.introLine1 }}</p>
+    <p class="govuk-body">{{ generalApplicationSubmitted.sendDocumentsLine1 }}</p>
+
+    {% set sendingDocumentsByOnlineForm %}
+    <p class="govuk-body">{{ generalApplicationSubmitted.documentsByOnlineFormSteps.line1 }} <a href="{{ contactWebForm }}" target="_blank">{{ documentsByOnlineFormSteps.line2}}</a> </p>
+    <p class="govuk-body">{{ generalApplicationSubmitted.documentsByOnlineFormSteps.line3 }}</p>
+    {% endset %}
+    {{ govukDetails({
+    summaryText: generalApplicationSubmitted.documentsByOnlineForm,
+    html: sendingDocumentsByOnlineForm
+    }) }}
+
+    {% set sendingDocumentsByPost %}
+    <ol class="govuk-list govuk-list--number">
+    {% for property, step in generalApplicationSubmitted.documentsByPostSteps %}
+        <li>{{ step }}</li>
+    {% endfor %}
+    </ol>
+    {{ serviceAddressMacro(serviceAddress) }}
+    <p class="govuk-body">{{ generalApplicationSubmitted.documentsByPostMoreDetails }}</p>
+    {% endset %}
+    {{ govukDetails({
+        summaryText: generalApplicationSubmitted.documentsByPost,
+        html: sendingDocumentsByPost
+    }) }}
+    <h3 class="govuk-heading-s">{{ generalApplicationSubmitted.happensNextHeading }}</h3>
+    <p class="govuk-body">{{ generalApplicationSubmitted.happensNextLine1 }}</p>
+    <p class="govuk-body">{{ generalApplicationSubmitted.happensNextLine2 }}</p>
+    <p class="govuk-body">{{ generalApplicationSubmitted.happensNextLine3 }}</p>
+{% else %}
+    <p class="govuk-body" id="offlineGeneralApplicationReceivedLine1Sole">{{ generalApplicationReceived.line1 }}</p>
+{% endif %}
