@@ -82,6 +82,7 @@ export const form: FormContent = {
               label: l => l.enterPartnerDob,
               labelSize: 'normal',
               hint: l => l.enterPartnerDobHint,
+              errorId: 'applicant1SearchGovRecordsPartnerDateOfBirth-day',
               values: [
                 {
                   label: language === SupportedLanguages.Cy ? 'Diwrnod' : 'Day',
