@@ -11,10 +11,7 @@ import { generateContent } from './content';
 @autobind
 export class ApplicationWithdrawnPreIssueGetController extends GetController {
   constructor() {
-    super(
-      fileURLToPath(new URL('./template', import.meta.url)),
-      generateContent
-    );
+    super(fileURLToPath(new URL('./template', import.meta.url)), generateContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
