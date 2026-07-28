@@ -1,4 +1,4 @@
-import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 import { Response } from 'express';
 
@@ -12,10 +12,7 @@ import { generateContent } from './content';
 @autobind
 export class Applicant1AccessCodeGetController extends GetController {
   constructor() {
-    super(
-      path.resolve(process.cwd(), 'src/main/steps/applicant1/enter-your-access-code/template.njk'),
-      generateContent
-    );
+    super(fileURLToPath(new URL('./template.njk', import.meta.url)), generateContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

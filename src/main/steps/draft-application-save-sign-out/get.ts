@@ -1,4 +1,4 @@
-import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 import { Response } from 'express';
 
@@ -11,7 +11,7 @@ import { generateContent } from './content';
 @autobind
 export class DraftApplicationSaveSignOutGetController extends GetController {
   constructor() {
-    super(path.resolve(process.cwd(), 'src/main/steps/draft-application-save-sign-out/template'), generateContent);
+    super(fileURLToPath(new URL('./template', import.meta.url)), generateContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

@@ -1,4 +1,4 @@
-import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { GetController } from '../../../../../app/controller/GetController';
@@ -10,13 +10,7 @@ import { generateContent } from './content';
 @autobind
 export default class AlternativeServiceUploadEvidenceGetController extends GetController {
   constructor() {
-    super(
-      path.resolve(
-        process.cwd(),
-        'src/main/steps/applicant1/interim-applications/alternative-service/upload-evidence/template.njk'
-      ),
-      generateContent
-    );
+    super(fileURLToPath(new URL('./template.njk', import.meta.url)), generateContent);
   }
 
   protected setSessionOverrides(req: AppRequest): void {

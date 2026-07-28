@@ -1,4 +1,4 @@
-import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 import { Response } from 'express';
 
@@ -12,7 +12,7 @@ import { generateContent } from './content';
 @autobind
 export default class ApplicationEndedGetController extends GetController {
   constructor() {
-    super(path.resolve(process.cwd(), 'src/main/steps/applicant1/application-ended/template'), generateContent);
+    super(fileURLToPath(new URL('./template', import.meta.url)), generateContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

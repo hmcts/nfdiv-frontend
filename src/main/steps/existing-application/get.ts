@@ -1,4 +1,4 @@
-import path from 'path';
+import { fileURLToPath } from 'node:url';
 
 import { Response } from 'express';
 
@@ -12,7 +12,7 @@ import { generateContent } from './content';
 
 export class ExistingApplicationGetController extends GetController {
   constructor() {
-    super(path.resolve(process.cwd(), 'src/main/steps/existing-application/template.njk'), generateContent);
+    super(fileURLToPath(new URL('./template.njk', import.meta.url)), generateContent);
   }
 
   public getPageContent(req: AppRequest, res: Response, language: SupportedLanguages): PageContent {
