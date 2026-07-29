@@ -1,6 +1,6 @@
-import { StepWithContent } from '../../../steps/index';
-import { Form, FormFields } from '../../form/Form';
-import { Case } from '../case';
+import { StepWithContent } from '../../../steps/index.js';
+import { Form, FormFields } from '../../form/Form.js';
+import { Case } from '../case.js';
 
 export const getAllPossibleAnswerFieldsForSteps = (caseState: Partial<Case>, steps: StepWithContent[]): string[] => {
   const sequenceWithForms = steps.filter(step => step.form);

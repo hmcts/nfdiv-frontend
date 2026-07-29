@@ -1,5 +1,5 @@
-import { Case, Checkbox } from '../case';
-import { CaseData, DivorceDocument } from '../definition';
+import { Case, Checkbox } from '../case.js';
+import { CaseData, DivorceDocument } from '../definition.js';
 
 const checkboxConverter = (value: string | undefined): Checkbox | undefined => {
   if (!value) {

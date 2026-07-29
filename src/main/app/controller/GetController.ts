@@ -1,12 +1,12 @@
 import { Response } from 'express';
 
-import autobind from '../../app/utils/autobind';
-import { SupportedLanguages } from '../../modules/i18n/index';
-import { CommonContent, generateCommonContent } from '../../steps/common/common.content';
-import { getNextIncompleteStepUrl } from '../../steps/index';
-import { DivorceOrDissolution } from '../case/definition';
+import autobind from '../../app/utils/autobind.js';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
+import { CommonContent, generateCommonContent } from '../../steps/common/common.content.js';
+import { getNextIncompleteStepUrl } from '../../steps/index.js';
+import { DivorceOrDissolution } from '../case/definition.js';
 
-import { AppRequest } from './AppRequest';
+import { AppRequest } from './AppRequest.js';
 
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;

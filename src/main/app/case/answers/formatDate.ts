@@ -1,9 +1,9 @@
 import dayjs, { Dayjs } from 'dayjs';
-import 'dayjs/locale/cy';
+import 'dayjs/locale/cy.js';
 
-import { SupportedLanguages } from '../../../modules/i18n/index';
-import { isDateInputInvalid } from '../../form/validation';
-import type { CaseDate } from '../case';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { isDateInputInvalid } from '../../form/validation.js';
+import type { CaseDate } from '../case.js';
 
 export const getFormattedCaseDate = (date: CaseDate | undefined, locale = SupportedLanguages.En): string | false =>
   date && !isDateInputInvalid(date) ? getFormattedDate(Object.values(date).join('-'), locale) : false;

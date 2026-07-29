@@ -3,16 +3,16 @@ import lodash from 'lodash';
 
 const { isEmpty } = lodash;
 
-import { Case } from '../../../../../app/case/case';
+import { Case } from '../../../../../app/case/case.js';
 import {
   NoResponsePartnerNewEmailOrAddress,
   UPDATE_CONTACT_DETAILS_AND_REISSUE,
-} from '../../../../../app/case/definition';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../../../app/controller/PostController';
-import { Form } from '../../../../../app/form/Form';
-import autobind from '../../../../../app/utils/autobind';
-import { PROVIDE_NEW_EMAIL_ADDRESS } from '../../../../urls';
+} from '../../../../../app/case/definition.js';
+import { AppRequest } from '../../../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../../../app/controller/PostController.js';
+import { Form } from '../../../../../app/form/Form.js';
+import autobind from '../../../../../app/utils/autobind.js';
+import { PROVIDE_NEW_EMAIL_ADDRESS } from '../../../../urls.js';
 
 @autobind
 export default class CheckAnswersPostController extends PostController<AnyObject> {

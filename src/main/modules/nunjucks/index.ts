@@ -4,8 +4,8 @@ import config from 'config';
 import express from 'express';
 import nunjucks from 'nunjucks';
 
-import { DivorceOrDissolution } from '../../app/case/definition';
-import { Form, FormInput } from '../../app/form/Form';
+import { DivorceOrDissolution } from '../../app/case/definition.js';
+import { Form, FormInput } from '../../app/form/Form.js';
 
 const nunjucksModuleDir = path.resolve(process.cwd(), 'src/main/modules/nunjucks');
 

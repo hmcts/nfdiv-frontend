@@ -34,7 +34,7 @@ import {
   getUserSequence,
   isApplicationReadyToSubmit,
   isConditionalOrderReadyToSubmit,
-} from './index';
+} from './index.js';
 
 describe('Steps', () => {
   describe('getNextStepUrl()', () => {

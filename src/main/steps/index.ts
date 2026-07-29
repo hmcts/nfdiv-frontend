@@ -2,17 +2,17 @@ import * as fs from 'fs';
 import { createRequire } from 'module';
 import { dirname, extname, resolve } from 'path';
 
-import { Case, CaseWithId } from '../app/case/case';
-import { ApplicationType, State } from '../app/case/definition';
-import { AppRequest, AppSession } from '../app/controller/AppRequest';
-import { PageContent, TranslationFn } from '../app/controller/GetController';
-import { Form, FormContent, FormFields, FormFieldsFn } from '../app/form/Form';
+import { Case, CaseWithId } from '../app/case/case.js';
+import { ApplicationType, State } from '../app/case/definition.js';
+import { AppRequest, AppSession } from '../app/controller/AppRequest.js';
+import { PageContent, TranslationFn } from '../app/controller/GetController.js';
+import { Form, FormContent, FormFields, FormFieldsFn } from '../app/form/Form.js';
 
-import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
-import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
-import { respondentSequence } from './respondentSequence';
-import { currentStateFn } from './state-sequence';
-import { jurisdictionUrls } from './url-utils';
+import { Step, applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence.js';
+import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence.js';
+import { respondentSequence } from './respondentSequence.js';
+import { currentStateFn } from './state-sequence.js';
+import { jurisdictionUrls } from './url-utils.js';
 import {
   APPLICANT_2,
   APPLICATION_SUBMITTED,
@@ -24,14 +24,14 @@ import {
   JOINT_APPLICATION_SUBMITTED,
   READ_THE_RESPONSE,
   RESPONDENT,
-} from './urls';
+} from './urls.js';
 
 const requireFromRoot = createRequire(resolve(process.cwd(), 'package.json'));
 const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
 const sourceStepsBaseDir = resolve(process.cwd(), 'src/main/steps');
 const stepsFilePath = isTestRuntime
   ? resolve(process.cwd(), 'src/main/steps/index.ts')
-  : resolve(process.cwd(), 'src/main/main/steps/index');
+  : resolve(process.cwd(), 'src/main/main/steps/index.js');
 const runtimeStepsBaseDir = dirname(stepsFilePath);
 const ext = extname(stepsFilePath);
 const stepContentFileByUrl: Record<string, string> = {};

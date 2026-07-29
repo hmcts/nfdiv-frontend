@@ -1,8 +1,8 @@
 import config from 'config';
 import striptags from 'striptags';
 
-import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../app/case/case';
+import { getFormattedCaseDate } from '../../../app/case/answers/formatDate.js';
+import { Checkbox } from '../../../app/case/case.js';
 import {
   ApplicationType,
   ChangedNameHow,
@@ -12,45 +12,45 @@ import {
   Gender,
   State,
   YesOrNo,
-} from '../../../app/case/definition';
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
-import { SupportedLanguages } from '../../../modules/i18n/index';
-import { isApplicationReadyToSubmit } from '../../index';
-import * as urls from '../../urls';
+} from '../../../app/case/definition.js';
+import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent.js';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { isApplicationReadyToSubmit } from '../../index.js';
+import * as urls from '../../urls.js';
 import {
   radioButtonAnswersPrivate as addressPrivateAnswersPrivate,
   radioButtonAnswersRefuge as addressPrivateAnswersRefuge,
-} from '../address-private/content';
-import { radioButtonAnswers as residualJurisdictionAnswers } from '../are-you-eligible-for-residual-jurisdiction/content';
-import { radioButtonAnswers as certificateInEnglishAnswers } from '../certificate-in-english/content';
-import { radioButtonAnswers as certifiedTranslationAnswers } from '../certified-translation/content';
-import { radioButtonAnswers as checkTheirNameAnswers } from '../check-their-name/content';
-import { radioButtonAnswers as checkYourNameAnswers } from '../check-your-name/content';
-import { radioButtonAnswers as confirmYourNameAnswers } from '../confirm-your-name/content';
-import { radioButtonAnswers as dividingMoneyPropertyAnswers } from '../dividing-money-property/content';
-import { radioButtonAnswers as doTheyHaveASolicitorAnswers } from '../do-they-have-a-solicitor/content';
-import { radioButtonAnswers as doYouHaveAddressAnswers } from '../do-you-have-address/content';
-import { radioButtonAnswers as doYouHaveYourCertificateAnswers } from '../do-you-have-your-certificate/content';
-import { radioButtonAnswers as englishOrWelshAnswers } from '../english-or-welsh/content';
-import { radioButtonAnswers as enterSolicitorDetailsAnswers } from '../enter-solicitor-details/content';
-import { radioButtonAnswers as enterYourAddressAnswers } from '../enter-your-address/content';
-import { radioButtonAnswers as habituallyResidentAnswers } from '../habitually-resident-england-wales/content';
-import { radioButtonAnswers as helpWithYourFeeAnswers } from '../help-with-your-fee/content';
-import { radioButtonAnswers as howDoYouWantToApplyAnswers } from '../how-do-you-want-to-apply/content';
-import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../how-the-court-will-contact-you/content';
-import { radioButtonAnswers as inTheUkAnswers } from '../in-the-uk/content';
-import { radioButtonAnswers as irretrievableBreakdownAnswers } from '../irretrievable-breakdown/content';
-import { radioButtonAnswers as livingEnglandWalesSixMonthsAnswers } from '../living-england-wales-six-months/content';
-import { radioButtonAnswers as livingEnglandWalesTwelveMonthsAnswers } from '../living-england-wales-twelve-months/content';
-import { radioButtonAnswers as otherCourtCasesAnswers } from '../other-court-cases/content';
-import { radioButtonAnswers as whereYourLivesAreBasedAnswers } from '../where-your-lives-are-based/content';
-import { radioButtonAnswers as yourDomicileAnswers } from '../your-domicile/content';
+} from '../address-private/content.js';
+import { radioButtonAnswers as residualJurisdictionAnswers } from '../are-you-eligible-for-residual-jurisdiction/content.js';
+import { radioButtonAnswers as certificateInEnglishAnswers } from '../certificate-in-english/content.js';
+import { radioButtonAnswers as certifiedTranslationAnswers } from '../certified-translation/content.js';
+import { radioButtonAnswers as checkTheirNameAnswers } from '../check-their-name/content.js';
+import { radioButtonAnswers as checkYourNameAnswers } from '../check-your-name/content.js';
+import { radioButtonAnswers as confirmYourNameAnswers } from '../confirm-your-name/content.js';
+import { radioButtonAnswers as dividingMoneyPropertyAnswers } from '../dividing-money-property/content.js';
+import { radioButtonAnswers as doTheyHaveASolicitorAnswers } from '../do-they-have-a-solicitor/content.js';
+import { radioButtonAnswers as doYouHaveAddressAnswers } from '../do-you-have-address/content.js';
+import { radioButtonAnswers as doYouHaveYourCertificateAnswers } from '../do-you-have-your-certificate/content.js';
+import { radioButtonAnswers as englishOrWelshAnswers } from '../english-or-welsh/content.js';
+import { radioButtonAnswers as enterSolicitorDetailsAnswers } from '../enter-solicitor-details/content.js';
+import { radioButtonAnswers as enterYourAddressAnswers } from '../enter-your-address/content.js';
+import { radioButtonAnswers as habituallyResidentAnswers } from '../habitually-resident-england-wales/content.js';
+import { radioButtonAnswers as helpWithYourFeeAnswers } from '../help-with-your-fee/content.js';
+import { radioButtonAnswers as howDoYouWantToApplyAnswers } from '../how-do-you-want-to-apply/content.js';
+import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../how-the-court-will-contact-you/content.js';
+import { radioButtonAnswers as inTheUkAnswers } from '../in-the-uk/content.js';
+import { radioButtonAnswers as irretrievableBreakdownAnswers } from '../irretrievable-breakdown/content.js';
+import { radioButtonAnswers as livingEnglandWalesSixMonthsAnswers } from '../living-england-wales-six-months/content.js';
+import { radioButtonAnswers as livingEnglandWalesTwelveMonthsAnswers } from '../living-england-wales-twelve-months/content.js';
+import { radioButtonAnswers as otherCourtCasesAnswers } from '../other-court-cases/content.js';
+import { radioButtonAnswers as whereYourLivesAreBasedAnswers } from '../where-your-lives-are-based/content.js';
+import { radioButtonAnswers as yourDomicileAnswers } from '../your-domicile/content.js';
 
 const moreDetailsComponent = (textAndTitleObject: {
   text: { heading: string; body: string }[];

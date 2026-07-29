@@ -1,8 +1,8 @@
-import { CITIZEN_SERVICE_PAYMENT_MADE, CaseData, SERVICE_PAYMENT_STATES } from '../../../../../app/case/definition';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import BasePaymentCallbackGetController from '../../../../../app/controller/BasePaymentCallbackGetController';
-import autobind from '../../../../../app/utils/autobind';
-import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED } from '../../../../urls';
+import { CITIZEN_SERVICE_PAYMENT_MADE, CaseData, SERVICE_PAYMENT_STATES } from '../../../../../app/case/definition.js';
+import { AppRequest } from '../../../../../app/controller/AppRequest.js';
+import BasePaymentCallbackGetController from '../../../../../app/controller/BasePaymentCallbackGetController.js';
+import autobind from '../../../../../app/utils/autobind.js';
+import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED } from '../../../../urls.js';
 
 @autobind
 export default class ServiceApplicationPaymentCallbackGetController extends BasePaymentCallbackGetController {

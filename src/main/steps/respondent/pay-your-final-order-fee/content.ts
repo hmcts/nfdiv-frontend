@@ -3,9 +3,9 @@ import lodash from 'lodash';
 
 const { isEmpty } = lodash;
 
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent } from '../../../app/form/Form';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../app/form/Form.js';
 
 const en = applicant2FinalOrderPayment => ({
   title: 'Pay your Final Order fee',

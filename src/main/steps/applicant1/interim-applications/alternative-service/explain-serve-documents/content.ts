@@ -2,8 +2,8 @@ import lodash from 'lodash';
 
 const { isEmpty } = lodash;
 
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
 
 const en = () => ({
   title: 'Why are you applying for alternative service?',

@@ -1,17 +1,17 @@
-import { CaseDate } from '../../../../../app/case/case';
-import { YesOrNo } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
-import { covertToDateObject } from '../../../../../app/form/parser';
+import { CaseDate } from '../../../../../app/case/case.js';
+import { YesOrNo } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form.js';
+import { covertToDateObject } from '../../../../../app/form/parser.js';
 import {
   areDateFieldsFilledIn,
   isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
   isValidNumber,
-} from '../../../../../app/form/validation';
-import { SupportedLanguages } from '../../../../../modules/i18n/index';
-import type { CommonContent } from '../../../../common/common.content';
+} from '../../../../../app/form/validation.js';
+import { SupportedLanguages } from '../../../../../modules/i18n/index.js';
+import type { CommonContent } from '../../../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Your ${partner}`,

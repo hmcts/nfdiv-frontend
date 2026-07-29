@@ -1,35 +1,35 @@
-import capitalize from 'lodash/capitalize';
+import capitalize from 'lodash/capitalize.js';
 
-import { getFormattedCaseDate } from '../../../../../app/case/answers/formatDate';
-import { CaseDate, Checkbox } from '../../../../../app/case/case';
-import { YesOrNo, YesOrNoOrNotKnown } from '../../../../../app/case/definition';
-import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { SupportedLanguages } from '../../../../../modules/i18n/index';
+import { getFormattedCaseDate } from '../../../../../app/case/answers/formatDate.js';
+import { CaseDate, Checkbox } from '../../../../../app/case/case.js';
+import { YesOrNo, YesOrNoOrNotKnown } from '../../../../../app/case/definition.js';
+import { getFilename } from '../../../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { SupportedLanguages } from '../../../../../modules/i18n/index.js';
 import {
   CommonContent,
   generateCommonContent,
   yesOrNoOrNotKnown_cy,
   yesOrNoOrNotKnown_en,
-} from '../../../../common/common.content';
-import * as urls from '../../../../urls';
+} from '../../../../common/common.content.js';
+import * as urls from '../../../../urls.js';
 import {
   form as checkAnswersForm,
   generateContent as checkAnswersGenerateContent,
-} from '../../common/check-answers/content';
-import { generateContent as ableToUploadPartnerPhotoContent } from '../able-to-upload-partner-photo/content';
-import { generateContent as areThereDangerousAnimalsContent } from '../are-there-dangerous-animals/content';
-import { generateContent as doesPartnerHaveVehicleContent } from '../does-partner-have-a-vehicle/content';
-import { generateContent as doesPartnerHaveMentalHealthIssuesContent } from '../does-partner-have-mental-health-issues/content';
-import { generateContent as doesPartnerHoldFirearmsLicenseContent } from '../does-partner-hold-firearms-license/content';
-import { generateContent as hasPartnerBeenViolentContent } from '../has-partner-been-violent/content';
-import { generateContent as hasPartnerMadeThreatsContent } from '../has-partner-made-threats/content';
-import { generateContent as havePoliceBeenInvolvedContent } from '../have-police-been-involved/content';
-import { generateContent as haveSocialServicesBeenInvolvedContent } from '../have-social-services-been-involved/content';
-import { generateContent as partnerDateOfBirthContent } from '../partner-date-of-birth/content';
-import { generateContent as partnerInRefugeContent } from '../partner-in-refuge/content';
-import { generateContent as partnerPhoneNumberContent } from '../partner-phone-number/content';
+} from '../../common/check-answers/content.js';
+import { generateContent as ableToUploadPartnerPhotoContent } from '../able-to-upload-partner-photo/content.js';
+import { generateContent as areThereDangerousAnimalsContent } from '../are-there-dangerous-animals/content.js';
+import { generateContent as doesPartnerHaveVehicleContent } from '../does-partner-have-a-vehicle/content.js';
+import { generateContent as doesPartnerHaveMentalHealthIssuesContent } from '../does-partner-have-mental-health-issues/content.js';
+import { generateContent as doesPartnerHoldFirearmsLicenseContent } from '../does-partner-hold-firearms-license/content.js';
+import { generateContent as hasPartnerBeenViolentContent } from '../has-partner-been-violent/content.js';
+import { generateContent as hasPartnerMadeThreatsContent } from '../has-partner-made-threats/content.js';
+import { generateContent as havePoliceBeenInvolvedContent } from '../have-police-been-involved/content.js';
+import { generateContent as haveSocialServicesBeenInvolvedContent } from '../have-social-services-been-involved/content.js';
+import { generateContent as partnerDateOfBirthContent } from '../partner-date-of-birth/content.js';
+import { generateContent as partnerInRefugeContent } from '../partner-in-refuge/content.js';
+import { generateContent as partnerPhoneNumberContent } from '../partner-phone-number/content.js';
 
 const en = ({ partner, isDivorce }: CommonContent, stepAnswers, stepLinks) => ({
   stepQuestions: {

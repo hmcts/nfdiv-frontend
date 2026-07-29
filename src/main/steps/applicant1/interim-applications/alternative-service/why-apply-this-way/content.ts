@@ -2,10 +2,14 @@ import lodash from 'lodash';
 
 const { isEmpty } = lodash;
 
-import { AlternativeServiceDifferentWays, AlternativeServiceMethod, YesOrNo } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
+import {
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
+  YesOrNo,
+} from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { CommonContent } from '../../../../common/common.content.js';
 
 const en = (
   { partner }: CommonContent,

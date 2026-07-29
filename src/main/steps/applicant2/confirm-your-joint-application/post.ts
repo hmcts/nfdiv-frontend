@@ -1,9 +1,9 @@
-import { Case, CaseWithId } from '../../../app/case/case';
-import { APPLICANT_2_APPROVE, YesOrNo } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject } from '../../../app/controller/PostController';
-import autobind from '../../../app/utils/autobind';
-import Applicant2PrayerPostController from '../check-your-answers/post';
+import { Case, CaseWithId } from '../../../app/case/case.js';
+import { APPLICANT_2_APPROVE, YesOrNo } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
+import Applicant2PrayerPostController from '../check-your-answers/post.js';
 
 @autobind
 export default class ConfirmYourJointApplicationPostController extends Applicant2PrayerPostController {

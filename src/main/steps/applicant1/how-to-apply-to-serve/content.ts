@@ -1,9 +1,9 @@
 import config from 'config';
 
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent } from '../../../app/form/Form';
-import { CommonContent } from '../../common/common.content';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { CommonContent } from '../../common/common.content.js';
 
 const en = ({ isDivorce, divorce, endingCivilPartnership, userCase }: CommonContent) => ({
   title: 'How to apply to serve (deliver) the papers another way',

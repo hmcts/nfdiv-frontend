@@ -2,14 +2,14 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { UserDetails } from '../controller/AppRequest';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token.js';
+import { UserDetails } from '../controller/AppRequest.js';
 
-import { CaseWithId } from './case';
-import { CaseAssignedUserRoles } from './case-roles';
-import { CASE_TYPE } from './case-type';
-import { CITIZEN_CREATE, CaseData, DivorceOrDissolution, State } from './definition';
-import { fromApiFormat } from './from-api-format';
+import { CaseAssignedUserRoles } from './case-roles.js';
+import { CASE_TYPE } from './case-type.js';
+import { CaseWithId } from './case.js';
+import { CITIZEN_CREATE, CaseData, DivorceOrDissolution, State } from './definition.js';
+import { fromApiFormat } from './from-api-format.js';
 
 export class CaseApiClient {
   readonly maxRetries: number = 3;

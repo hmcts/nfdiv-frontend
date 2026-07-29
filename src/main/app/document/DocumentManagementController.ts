@@ -1,8 +1,8 @@
 import type { Response } from 'express';
 import { LoggerInstance } from 'winston';
 
-import autobind from '../../app/utils/autobind';
-import { HTTPError } from '../../steps/error/error.controller';
+import autobind from '../../app/utils/autobind.js';
+import { HTTPError } from '../../steps/error/error.controller.js';
 import {
   APPLICANT_2,
   DETAILS_OTHER_PROCEEDINGS,
@@ -14,8 +14,8 @@ import {
   UPLOAD_EVIDENCE_DISPENSE,
   UPLOAD_PARTNER_PHOTO,
   UPLOAD_YOUR_DOCUMENTS,
-} from '../../steps/urls';
-import { CaseWithId } from '../case/case';
+} from '../../steps/urls.js';
+import { CaseWithId } from '../case/case.js';
 import {
   ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
@@ -24,14 +24,14 @@ import {
   InterimApplicationType,
   ListValue,
   State,
-} from '../case/definition';
-import { getFilename } from '../case/formatter/uploaded-files';
-import type { AppRequest, UserDetails } from '../controller/AppRequest';
+} from '../case/definition.js';
+import { getFilename } from '../case/formatter/uploaded-files.js';
+import type { AppRequest, UserDetails } from '../controller/AppRequest.js';
 
-import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient';
-import { userCanUploadDocuments } from './DocumentManagementConstants';
-import { MAX_UPLOAD_FILE_SIZE_BYTES } from './DocumentUploadLimits';
-import FileUploadJourneyConfigurationMap, { FileUploadJourneyConfiguration } from './FileUploadJourneyConfiguration';
+import { CaseDocumentManagementClient, Classification } from './CaseDocumentManagementClient.js';
+import { userCanUploadDocuments } from './DocumentManagementConstants.js';
+import { MAX_UPLOAD_FILE_SIZE_BYTES } from './DocumentUploadLimits.js';
+import FileUploadJourneyConfigurationMap, { FileUploadJourneyConfiguration } from './FileUploadJourneyConfiguration.js';
 
 @autobind
 export class DocumentManagerController {

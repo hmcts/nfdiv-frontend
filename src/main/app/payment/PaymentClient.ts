@@ -2,10 +2,10 @@ import { Logger } from '@hmcts/nodejs-logging';
 import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
-import { SupportedLanguages } from '../../modules/i18n/index';
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { Fee, ListValue } from '../case/definition';
-import type { AppSession } from '../controller/AppRequest';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token.js';
+import { Fee, ListValue } from '../case/definition.js';
+import type { AppSession } from '../controller/AppRequest.js';
 
 const logger = Logger.getLogger('payment');
 

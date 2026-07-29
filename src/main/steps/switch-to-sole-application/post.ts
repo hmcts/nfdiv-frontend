@@ -1,12 +1,12 @@
 import { Response } from 'express';
 
-import { CaseWithId } from '../../app/case/case';
-import { SWITCH_TO_SOLE, State } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
-import { AnyObject } from '../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../app/form/Form';
-import autobind from '../../app/utils/autobind';
-import { HOME_URL, PAY_AND_SUBMIT, YOUR_DETAILS_URL } from '../urls';
+import { CaseWithId } from '../../app/case/case.js';
+import { SWITCH_TO_SOLE, State } from '../../app/case/definition.js';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import { AnyObject } from '../../app/controller/PostController.js';
+import { FormFields, FormFieldsFn } from '../../app/form/Form.js';
+import autobind from '../../app/utils/autobind.js';
+import { HOME_URL, PAY_AND_SUBMIT, YOUR_DETAILS_URL } from '../urls.js';
 
 @autobind
 export class SwitchToSoleApplicationPostController {

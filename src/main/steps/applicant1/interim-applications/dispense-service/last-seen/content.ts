@@ -1,15 +1,15 @@
-import { CaseDate } from '../../../../../app/case/case';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
-import { covertToDateObject } from '../../../../../app/form/parser';
+import { CaseDate } from '../../../../../app/case/case.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form.js';
+import { covertToDateObject } from '../../../../../app/form/parser.js';
 import {
   areDateFieldsFilledIn,
   isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
-} from '../../../../../app/form/validation';
-import { SupportedLanguages } from '../../../../../modules/i18n/index';
-import { CommonContent } from '../../../../common/common.content';
+} from '../../../../../app/form/validation.js';
+import { SupportedLanguages } from '../../../../../modules/i18n/index.js';
+import { CommonContent } from '../../../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: `When was your ${partner} last seen or heard of?`,

@@ -2,16 +2,16 @@ import lodash from 'lodash';
 
 const { isObject } = lodash;
 
-import { Checkbox } from '../../../app/case/case';
-import { YesOrNo } from '../../../app/case/definition';
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
+import { Checkbox } from '../../../app/case/case.js';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/review-your-response-to-the-courts-feedback/content';
-import { APPLICANT_2, RESPOND_TO_COURT_FEEDBACK } from '../../urls';
+} from '../../applicant1/review-your-response-to-the-courts-feedback/content.js';
+import { APPLICANT_2, RESPOND_TO_COURT_FEEDBACK } from '../../urls.js';
 
 const labels = (detailsText, uploadedDocsFilenames) => ({
   stepAnswers: {

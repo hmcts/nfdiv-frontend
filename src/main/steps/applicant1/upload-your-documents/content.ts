@@ -2,15 +2,15 @@ import lodash from 'lodash';
 
 const { isObject } = lodash;
 
-import { CaseWithId, Checkbox } from '../../../app/case/case';
-import { DocumentType, YesOrNo } from '../../../app/case/definition';
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan } from '../../common/content.utils';
+import { CaseWithId, Checkbox } from '../../../app/case/case.js';
+import { DocumentType, YesOrNo } from '../../../app/case/definition.js';
+import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants.js';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
+import { accessibleDetailsSpan } from '../../common/content.utils.js';
 
 const en = ({ isDivorce, marriage, civilPartnership, partner, isJointApplication }: CommonContent) => {
   const union = isDivorce ? marriage : civilPartnership;

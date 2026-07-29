@@ -18,7 +18,7 @@ import {
   WEBCHAT_URL,
   WHERE_YOUR_LIVES_ARE_BASED_URL,
   WITHDRAW_CONFIRMATION,
-} from './urls';
+} from './urls.js';
 
 export const signInNotRequired = (reqPath: string): boolean =>
   [

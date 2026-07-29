@@ -4,17 +4,17 @@ import lodash from 'lodash';
 
 const { isEmpty } = lodash;
 
-import { getSystemUser } from '../../app/auth/user/oidc';
-import { CaseWithId, formFieldsToCaseMapping } from '../../app/case/case';
-import { CaseApi, getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../app/controller/PostController';
-import { Form, FormFields } from '../../app/form/Form';
-import autobind from '../../app/utils/autobind';
-import { APPLICANT_1, APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls';
+import { getSystemUser } from '../../app/auth/user/oidc.js';
+import { CaseApi, getCaseApi } from '../../app/case/case-api.js';
+import { CaseWithId, formFieldsToCaseMapping } from '../../app/case/case.js';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/case/definition.js';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../app/controller/PostController.js';
+import { Form, FormFields } from '../../app/form/Form.js';
+import autobind from '../../app/utils/autobind.js';
+import { APPLICANT_1, APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, SAVE_AND_SIGN_OUT } from '../urls.js';
 
-import { existingOrNew } from './content';
+import { existingOrNew } from './content.js';
 
 const logger = Logger.getLogger('existing-application-post-controller');
 

@@ -4,12 +4,12 @@ import {
   Fee,
   ListValue,
   SERVICE_PAYMENT_STATES,
-} from '../../../../../app/case/definition';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import BasePaymentPostController from '../../../../../app/controller/BasePaymentPostController';
-import { AnyObject } from '../../../../../app/controller/PostController';
-import autobind from '../../../../../app/utils/autobind';
-import { SERVICE_PAYMENT_CALLBACK } from '../../../../urls';
+} from '../../../../../app/case/definition.js';
+import { AppRequest } from '../../../../../app/controller/AppRequest.js';
+import BasePaymentPostController from '../../../../../app/controller/BasePaymentPostController.js';
+import { AnyObject } from '../../../../../app/controller/PostController.js';
+import autobind from '../../../../../app/utils/autobind.js';
+import { SERVICE_PAYMENT_CALLBACK } from '../../../../urls.js';
 
 @autobind
 export default class ServicePaymentPostController extends BasePaymentPostController {

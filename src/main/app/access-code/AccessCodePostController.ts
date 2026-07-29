@@ -1,14 +1,19 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import { Response } from 'express';
 
-import autobind from '../../app/utils/autobind';
-import { APPLICANT_2, HOME_URL, RESPONDENT, SIGN_OUT_URL } from '../../steps/urls';
-import { getSystemUser } from '../auth/user/oidc';
-import { getCaseApi } from '../case/case-api';
-import { SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, SYSTEM_UNLINK_APPLICANT, State } from '../case/definition';
-import { AppRequest } from '../controller/AppRequest';
-import { AnyObject } from '../controller/PostController';
-import { Form, FormFields, FormFieldsFn } from '../form/Form';
+import autobind from '../../app/utils/autobind.js';
+import { APPLICANT_2, HOME_URL, RESPONDENT, SIGN_OUT_URL } from '../../steps/urls.js';
+import { getSystemUser } from '../auth/user/oidc.js';
+import { getCaseApi } from '../case/case-api.js';
+import {
+  SYSTEM_LINK_APPLICANT_1,
+  SYSTEM_LINK_APPLICANT_2,
+  SYSTEM_UNLINK_APPLICANT,
+  State,
+} from '../case/definition.js';
+import { AppRequest } from '../controller/AppRequest.js';
+import { AnyObject } from '../controller/PostController.js';
+import { Form, FormFields, FormFieldsFn } from '../form/Form.js';
 
 const logger = Logger.getLogger('access-code-post-controller');
 

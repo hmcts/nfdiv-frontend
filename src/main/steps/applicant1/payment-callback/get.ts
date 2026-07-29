@@ -3,17 +3,17 @@ import {
   ApplicationType,
   CITIZEN_PAYMENT_MADE,
   CaseData,
-} from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController';
-import autobind from '../../../app/utils/autobind';
+} from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import BasePaymentCallbackGetController from '../../../app/controller/BasePaymentCallbackGetController.js';
+import autobind from '../../../app/utils/autobind.js';
 import {
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
   JOINT_APPLICATION_SUBMITTED,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
-} from '../../urls';
+} from '../../urls.js';
 
 @autobind
 export default class PaymentCallbackGetController extends BasePaymentCallbackGetController {

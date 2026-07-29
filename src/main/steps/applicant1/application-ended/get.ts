@@ -1,12 +1,12 @@
 import { Response } from 'express';
 
-import { ApplicationType, SWITCH_TO_SOLE } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { GetController } from '../../../app/controller/GetController';
-import autobind from '../../../app/utils/autobind';
-import { getStepTemplatePath } from '../../getStepTemplatePath';
+import { ApplicationType, SWITCH_TO_SOLE } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { GetController } from '../../../app/controller/GetController.js';
+import autobind from '../../../app/utils/autobind.js';
+import { getStepTemplatePath } from '../../getStepTemplatePath.js';
 
-import { generateContent } from './content';
+import { generateContent } from './content.js';
 
 @autobind
 export default class ApplicationEndedGetController extends GetController {

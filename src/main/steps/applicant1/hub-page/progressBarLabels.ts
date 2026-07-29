@@ -1,4 +1,4 @@
-import { StateSequence } from '../../state-sequence';
+import { StateSequence } from '../../state-sequence.js';
 
 const en = (isDivorce: boolean) => ({
   submitted: 'Submitted',

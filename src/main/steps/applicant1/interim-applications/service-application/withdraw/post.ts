@@ -1,11 +1,11 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import { Response } from 'express';
 
-import { WITHDRAW_SERVICE_APPLICATION } from '../../../../../app/case/definition';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../../../app/controller/PostController';
-import autobind from '../../../../../app/utils/autobind';
-import { SERVICE_APPLICATION_WITHDRAWN } from '../../../../urls';
+import { WITHDRAW_SERVICE_APPLICATION } from '../../../../../app/case/definition.js';
+import { AppRequest } from '../../../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../../../app/controller/PostController.js';
+import autobind from '../../../../../app/utils/autobind.js';
+import { SERVICE_APPLICATION_WITHDRAWN } from '../../../../urls.js';
 
 const logger = Logger.getLogger('withdraw-service-application-controller');
 

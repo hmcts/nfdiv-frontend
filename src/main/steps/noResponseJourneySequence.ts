@@ -1,4 +1,4 @@
-import { CaseWithId } from '../app/case/case';
+import { CaseWithId } from '../app/case/case.js';
 import {
   NoResponseCheckContactDetails,
   NoResponseNoNewAddressDetails,
@@ -9,9 +9,9 @@ import {
   NoResponseSearchOrDispense,
   NoResponseSendPapersAgainOrTrySomethingElse,
   YesOrNo,
-} from '../app/case/definition';
+} from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
+import { Step } from './applicant1Sequence.js';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
   BAILIFF_SERVICE_APPLICATION,
@@ -43,7 +43,7 @@ import {
   SERVE_AGAIN,
   SUCCESS_SCREEN_PROCESS_SERVER,
   WILL_SERVE_AGAIN,
-} from './urls';
+} from './urls.js';
 
 export const noResponseJourneySequence: Step[] = [
   {

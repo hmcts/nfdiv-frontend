@@ -1,10 +1,10 @@
 import { Response } from 'express';
 
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { Form, FormFields } from '../../../app/form/Form';
-import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
-import autobind from '../../../app/utils/autobind';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import { Form, FormFields } from '../../../app/form/Form.js';
+import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper.js';
+import autobind from '../../../app/utils/autobind.js';
 
 @autobind
 export default class YourDetailsPostController extends PostController<AnyObject> {

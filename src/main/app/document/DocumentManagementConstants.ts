@@ -1,6 +1,6 @@
-import { orderedStateSequence } from '../../steps/state-sequence';
-import { CaseWithId } from '../case/case';
-import { ApplicationType, State } from '../case/definition';
+import { orderedStateSequence } from '../../steps/state-sequence.js';
+import { CaseWithId } from '../case/case.js';
+import { ApplicationType, State } from '../case/definition.js';
 
 export const UPPY_FILE_INPUT_BUTTON_CLASS = 'uppy-FileInput-btn';
 export const UPPY_FILE_INPUT_BUTTON_ID = 'file-upload-btn';

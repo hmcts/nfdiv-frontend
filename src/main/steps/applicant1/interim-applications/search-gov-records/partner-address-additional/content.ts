@@ -1,8 +1,8 @@
-import { Case, CaseDate } from '../../../../../app/case/case';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
-import { CommonContent } from '../../../../common/common.content';
+import { Case, CaseDate } from '../../../../../app/case/case.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../../../app/form/validation.js';
+import { CommonContent } from '../../../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Enter any other addresses related to your ${partner}`,

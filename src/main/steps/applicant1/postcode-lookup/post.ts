@@ -1,9 +1,9 @@
 import { Response } from 'express';
 
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject } from '../../../app/controller/PostController';
-import { Address, getAddressesFromPostcode } from '../../../app/postcode/postcode-lookup';
-import autobind from '../../../app/utils/autobind';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject } from '../../../app/controller/PostController.js';
+import { Address, getAddressesFromPostcode } from '../../../app/postcode/postcode-lookup.js';
+import autobind from '../../../app/utils/autobind.js';
 
 @autobind
 export class PostcodeLookupPostController {

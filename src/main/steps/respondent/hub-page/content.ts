@@ -4,20 +4,20 @@ import lodash from 'lodash';
 
 const { isEmpty } = lodash;
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { SupportedLanguages } from '../../../modules/i18n/index';
+import { getFormattedDate } from '../../../app/case/answers/formatDate.js';
+import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/hub-page/content';
-import { CommonContent } from '../../common/common.content';
-import { currentStateFn } from '../../state-sequence';
-import { FINALISING_YOUR_APPLICATION, RESPONDENT } from '../../urls';
+} from '../../applicant1/hub-page/content.js';
+import { CommonContent } from '../../common/common.content.js';
+import { currentStateFn } from '../../state-sequence.js';
+import { FINALISING_YOUR_APPLICATION, RESPONDENT } from '../../urls.js';
 
-import { getRespondentHubTemplate } from './respondentTemplateSelector';
+import { getRespondentHubTemplate } from './respondentTemplateSelector.js';
 
 const en = ({ isDivorce, partner, userCase, contactEmail }: CommonContent) => ({
   subHeading1:

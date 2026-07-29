@@ -1,13 +1,13 @@
 import { Response } from 'express';
 
-import { ApplicationType } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
-import { GetController, PageContent } from '../../app/controller/GetController';
-import { SupportedLanguages } from '../../modules/i18n/index';
-import { CommonContent } from '../common/common.content';
-import { getStepTemplatePath } from '../getStepTemplatePath';
+import { ApplicationType } from '../../app/case/definition.js';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import { GetController, PageContent } from '../../app/controller/GetController.js';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
+import { CommonContent } from '../common/common.content.js';
+import { getStepTemplatePath } from '../getStepTemplatePath.js';
 
-import { generateContent } from './content';
+import { generateContent } from './content.js';
 
 export class ExistingApplicationGetController extends GetController {
   constructor() {

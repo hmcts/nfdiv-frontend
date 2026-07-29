@@ -2,14 +2,14 @@ import lodash from 'lodash';
 
 const { isObject } = lodash;
 
-import { Checkbox } from '../../../../../app/case/case';
-import { YesOrNo } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../../../app/document/DocumentManagementConstants';
-import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
-import { getDispenseLogicalTests } from '../../../../dispenseServiceApplicationSequence';
-import { generateContent as uploadEvidenceGenerateContent } from '../../common/upload-evidence/content';
+import { Checkbox } from '../../../../../app/case/case.js';
+import { YesOrNo } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../../../app/document/DocumentManagementConstants.js';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { getDispenseLogicalTests } from '../../../../dispenseServiceApplicationSequence.js';
+import { generateContent as uploadEvidenceGenerateContent } from '../../common/upload-evidence/content.js';
 
 const en = ({ partner }: CommonContent) => ({
   statement: {

@@ -1,7 +1,7 @@
 import appInsights from 'applicationinsights';
 import config from 'config';
 
-import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
+import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls.js';
 
 export class AppInsights {
   enable(): void {

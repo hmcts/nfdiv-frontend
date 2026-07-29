@@ -1,7 +1,7 @@
-import { Case, CaseWithId } from '../../../app/case/case';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import autobind from '../../../app/utils/autobind';
+import { Case, CaseWithId } from '../../../app/case/case.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
 
 @autobind
 export default class EnterTheirNamePostController extends PostController<AnyObject> {

@@ -9,11 +9,11 @@ import {
 } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 import { bailiffServiceApplicationSequence } from '../../../../bailiffServiceApplicationSequence';
-import { getFirstErroredStep } from '../../../../index';
+import { getFirstErroredStep } from '../../../../index.js';
 
 import CheckBailiffServiceAnswersPostController from './post';
 
-jest.mock('../../../../index', () => ({
+jest.mock('../../../../index.js', () => ({
   getFirstErroredStep: jest.fn(),
   getNextStepUrl: jest.fn(() => '/next-step-url'),
 }));

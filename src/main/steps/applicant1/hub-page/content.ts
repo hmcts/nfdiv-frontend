@@ -1,22 +1,22 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent } from '../../../app/form/Form';
-import { SupportedLanguages } from '../../../modules/i18n/index';
-import { CommonContent } from '../../common/common.content';
-import { formattedCaseId, getName, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
-import { StateSequence } from '../../state-sequence';
-import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls';
+import { getFormattedDate } from '../../../app/case/answers/formatDate.js';
+import { ConditionalOrderCourt, birmingham, buryStEdmunds } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { CommonContent } from '../../common/common.content.js';
+import { formattedCaseId, getName, latestLegalAdvisorDecisionContent } from '../../common/content.utils.js';
+import { StateSequence } from '../../state-sequence.js';
+import { APPLICANT_2, PROVIDE_INFORMATION_TO_THE_COURT } from '../../urls.js';
 
-import { generateContent as hubLinksContent } from './hub-links/content';
-import { generateContent as jointGenerateContent } from './joint/content';
-import { getProgressBarContent } from './progressBarLabels';
-import { generateContent as columnGenerateContent } from './right-column/content';
-import { generateContent as soleGenerateContent } from './sole/content';
+import { generateContent as hubLinksContent } from './hub-links/content.js';
+import { generateContent as jointGenerateContent } from './joint/content.js';
+import { getProgressBarContent } from './progressBarLabels.js';
+import { generateContent as columnGenerateContent } from './right-column/content.js';
+import { generateContent as soleGenerateContent } from './sole/content.js';
 
 const en = ({ isDivorce, userCase, referenceNumber, partner, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `${getName(userCase, 'applicant1')} & ${getName(userCase, 'applicant2')}`,

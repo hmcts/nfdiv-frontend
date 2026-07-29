@@ -2,14 +2,14 @@ import lodash from 'lodash';
 
 const { isEmpty, isObject } = lodash;
 
-import { Checkbox } from '../../../app/case/case';
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
+import { Checkbox } from '../../../app/case/case.js';
+import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/respond-to-the-courts-feedback/content';
+} from '../../applicant1/respond-to-the-courts-feedback/content.js';
 
 const labels = applicant1GeneratedContent => ({
   errors: {

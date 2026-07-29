@@ -1,8 +1,8 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { getFormattedDate } from '../../app/case/answers/formatDate';
-import { CaseWithId } from '../../app/case/case';
+import { getFormattedDate } from '../../app/case/answers/formatDate.js';
+import { CaseWithId } from '../../app/case/case.js';
 import {
   ApplicationType,
   GeneralApplication,
@@ -11,12 +11,12 @@ import {
   ServicePaymentMethod,
   State,
   YesOrNo,
-} from '../../app/case/definition';
-import { UPPY_FILE_INPUT_BUTTON_ID, userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
-import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
-import { SupportedLanguages } from '../../modules/i18n/index';
-import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
-import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
+} from '../../app/case/definition.js';
+import { UPPY_FILE_INPUT_BUTTON_ID, userCanUploadDocuments } from '../../app/document/DocumentManagementConstants.js';
+import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils.js';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
+import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils.js';
+import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls.js';
 
 export const yesOrNoOrNotKnown_en = {
   yes: 'Yes',

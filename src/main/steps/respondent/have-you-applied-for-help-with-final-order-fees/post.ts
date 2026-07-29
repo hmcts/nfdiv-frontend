@@ -1,7 +1,7 @@
-import { CITIZEN_APPLICANT2_UPDATE, RESPONDENT_APPLY_FOR_FINAL_ORDER } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import autobind from '../../../app/utils/autobind';
+import { CITIZEN_APPLICANT2_UPDATE, RESPONDENT_APPLY_FOR_FINAL_ORDER } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
 
 @autobind
 export default class HaveYouAppliedForHelpWithFinalOrderFeesController extends PostController<AnyObject> {

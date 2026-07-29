@@ -1,25 +1,25 @@
 import { Response } from 'express';
 
-import autobind from '../../app/utils/autobind';
-import { getNextStepUrl } from '../../steps/index';
+import autobind from '../../app/utils/autobind.js';
+import { getNextStepUrl } from '../../steps/index.js';
 import {
   DRAFT_SAVE_AND_SIGN_OUT,
   PAYMENT_CALLBACK_URL,
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   SAVE_AND_SIGN_OUT,
-} from '../../steps/urls';
-import { Case, CaseWithId } from '../case/case';
+} from '../../steps/urls.js';
+import { Case, CaseWithId } from '../case/case.js';
 import {
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_SAVE_AND_CLOSE,
   CITIZEN_SUBMIT,
   CITIZEN_UPDATE,
   State,
-} from '../case/definition';
-import { Form, FormFields, FormFieldsFn } from '../form/Form';
+} from '../case/definition.js';
+import { Form, FormFields, FormFieldsFn } from '../form/Form.js';
 
-import { AppRequest } from './AppRequest';
-import { getPaymentCallbackUrl } from './BasePaymentPostController';
+import { AppRequest } from './AppRequest.js';
+import { getPaymentCallbackUrl } from './BasePaymentPostController.js';
 
 @autobind
 export class PostController<T extends AnyObject> {

@@ -3,7 +3,7 @@ import csurf from 'csurf';
 import type { Application, RequestHandler } from 'express';
 import type { LoggerInstance } from 'winston';
 
-import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
+import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls.js';
 
 const logger: LoggerInstance = Logger.getLogger('app');
 

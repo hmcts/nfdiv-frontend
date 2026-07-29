@@ -4,14 +4,14 @@ import lodash from 'lodash';
 
 const { isEmpty } = lodash;
 
-import { CaseWithId } from '../../app/case/case';
-import { ApplicationType, InterimApplicationType, State, YesOrNo } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
-import { Form, FormFields } from '../../app/form/Form';
-import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content';
-import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable-breakdown/content';
-import { getNextIncompleteStepUrl } from '../index';
-import { form as respondentFirstQuestionForm } from '../respondent/how-do-you-want-to-respond/content';
+import { CaseWithId } from '../../app/case/case.js';
+import { ApplicationType, InterimApplicationType, State, YesOrNo } from '../../app/case/definition.js';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import { Form, FormFields } from '../../app/form/Form.js';
+import { form as applicant1FirstQuestionForm } from '../applicant1/your-details/content.js';
+import { form as applicant2FirstQuestionForm } from '../applicant2/irretrievable-breakdown/content.js';
+import { getNextIncompleteStepUrl } from '../index.js';
+import { form as respondentFirstQuestionForm } from '../respondent/how-do-you-want-to-respond/content.js';
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
@@ -34,7 +34,7 @@ import {
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-} from '../urls';
+} from '../urls.js';
 
 export class HomeGetController {
   public get(req: AppRequest, res: Response): void {

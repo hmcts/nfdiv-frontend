@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2023-09-13 16:10:38.
 
-import { CaseDate, Checkbox } from './case';
+import { CaseDate, Checkbox } from './case.js';
 
 export interface Address {
   AddressLine1: string;

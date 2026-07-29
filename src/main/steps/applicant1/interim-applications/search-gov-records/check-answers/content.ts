@@ -3,18 +3,18 @@ import striptags from 'striptags';
 
 const { capitalize } = lodash;
 
-import { getFormattedCaseDate } from '../../../../../app/case/answers/formatDate';
-import { CaseDate } from '../../../../../app/case/case';
-import { SearchGovRecordsWhichDepartment, YesOrNo } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { SupportedLanguages } from '../../../../../modules/i18n/index';
-import { CommonContent } from '../../../../common/common.content';
-import * as urls from '../../../../urls';
+import { getFormattedCaseDate } from '../../../../../app/case/answers/formatDate.js';
+import { CaseDate } from '../../../../../app/case/case.js';
+import { SearchGovRecordsWhichDepartment, YesOrNo } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { SupportedLanguages } from '../../../../../modules/i18n/index.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import * as urls from '../../../../urls.js';
 import {
   form as checkAnswersForm,
   generateContent as checkAnswersGenerateContent,
-} from '../../common/check-answers/content';
+} from '../../common/check-answers/content.js';
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 

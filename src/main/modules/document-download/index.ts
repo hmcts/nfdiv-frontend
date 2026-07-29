@@ -3,11 +3,11 @@ import config from 'config';
 import { Application } from 'express';
 import proxy from 'express-http-proxy';
 
-import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
-import { AppRequest } from '../../app/controller/AppRequest';
-import { TIMED_OUT_URL } from '../../steps/urls';
+import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token.js';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import { TIMED_OUT_URL } from '../../steps/urls.js';
 
-import { proxyList } from './proxy-list';
+import { proxyList } from './proxy-list.js';
 
 const log = Logger.getLogger('document-download');
 

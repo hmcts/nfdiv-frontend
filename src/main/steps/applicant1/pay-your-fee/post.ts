@@ -1,9 +1,9 @@
-import { APPLICATION_PAYMENT_STATES, CITIZEN_SUBMIT, CaseData, Fee, ListValue } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
-import { AnyObject } from '../../../app/controller/PostController';
-import autobind from '../../../app/utils/autobind';
-import { PAYMENT_CALLBACK_URL } from '../../../steps/urls';
+import { APPLICATION_PAYMENT_STATES, CITIZEN_SUBMIT, CaseData, Fee, ListValue } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import BasePaymentPostController from '../../../app/controller/BasePaymentPostController.js';
+import { AnyObject } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
+import { PAYMENT_CALLBACK_URL } from '../../../steps/urls.js';
 
 @autobind
 export default class PaymentPostController extends BasePaymentPostController {

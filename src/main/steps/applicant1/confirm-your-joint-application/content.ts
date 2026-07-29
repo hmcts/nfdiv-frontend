@@ -1,17 +1,17 @@
 import config from 'config';
 
-import { getFormattedCaseDate } from '../../../app/case/answers/formatDate';
-import { CaseWithId, Checkbox } from '../../../app/case/case';
-import { FinancialOrderFor, State, YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
-import { SupportedLanguages } from '../../../modules/i18n/index';
-import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, formattedCaseId, getName } from '../../common/content.utils';
+import { getFormattedCaseDate } from '../../../app/case/answers/formatDate.js';
+import { CaseWithId, Checkbox } from '../../../app/case/case.js';
+import { FinancialOrderFor, State, YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent.js';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { CommonContent } from '../../common/common.content.js';
+import { accessibleDetailsSpan, formattedCaseId, getName } from '../../common/content.utils.js';
 
 const isSubmit = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean =>
   isApplicant2 ||

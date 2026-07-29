@@ -2,13 +2,13 @@ import lodash from 'lodash';
 
 const { isObject } = lodash;
 
-import { Checkbox } from '../../../app/case/case';
-import { YesOrNo } from '../../../app/case/definition';
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import * as urls from '../../urls';
-import { RESPOND_TO_COURT_FEEDBACK } from '../../urls';
+import { Checkbox } from '../../../app/case/case.js';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
+import * as urls from '../../urls.js';
+import { RESPOND_TO_COURT_FEEDBACK } from '../../urls.js';
 
 const en = (detailsText, uploadedDocsFilenames) => ({
   title: 'Review your response',

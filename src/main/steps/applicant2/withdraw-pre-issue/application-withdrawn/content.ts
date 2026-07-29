@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { generateContent as applicationWithdrawnGenerateContent } from '../../../applicant1/withdraw-pre-issue/application-withdrawn/content';
+import { TranslationFn } from '../../../../app/controller/GetController.js';
+import { generateContent as applicationWithdrawnGenerateContent } from '../../../applicant1/withdraw-pre-issue/application-withdrawn/content.js';
 
 export const generateContent: TranslationFn = content => {
   const appWithdrawnContent = applicationWithdrawnGenerateContent(content);

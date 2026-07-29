@@ -5,18 +5,18 @@ import {
   GENERAL_APPLICATION_PAYMENT_STATES,
   ListValue,
   OrderSummary,
-} from '../../../../../app/case/definition';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import BasePaymentPostController from '../../../../../app/controller/BasePaymentPostController';
-import { AnyObject } from '../../../../../app/controller/PostController';
-import autobind from '../../../../../app/utils/autobind';
+} from '../../../../../app/case/definition.js';
+import { AppRequest } from '../../../../../app/controller/AppRequest.js';
+import BasePaymentPostController from '../../../../../app/controller/BasePaymentPostController.js';
+import { AnyObject } from '../../../../../app/controller/PostController.js';
+import autobind from '../../../../../app/utils/autobind.js';
 import {
   findUnpaidGeneralApplication,
   getGeneralApplicationOrderSummary,
   getGeneralApplicationPaymentsField,
   getGeneralApplicationServiceRequest,
-} from '../../../../../app/utils/general-application-utils';
-import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../../urls';
+} from '../../../../../app/utils/general-application-utils.js';
+import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../../urls.js';
 
 @autobind
 export default class GeneralApplicationPaymentPostController extends BasePaymentPostController {

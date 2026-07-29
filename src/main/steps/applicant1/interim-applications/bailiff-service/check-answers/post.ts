@@ -1,8 +1,8 @@
-import { CITIZEN_SERVICE_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
-import autobind from '../../../../../app/utils/autobind';
-import { Step } from '../../../../../steps/applicant1Sequence';
-import { bailiffServiceApplicationSequence as bailiffServiceSequence } from '../../../../bailiffServiceApplicationSequence';
-import CheckAnswersPostController from '../../common/check-answers/post';
+import { CITIZEN_SERVICE_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition.js';
+import autobind from '../../../../../app/utils/autobind.js';
+import { Step } from '../../../../../steps/applicant1Sequence.js';
+import { bailiffServiceApplicationSequence as bailiffServiceSequence } from '../../../../bailiffServiceApplicationSequence.js';
+import CheckAnswersPostController from '../../common/check-answers/post.js';
 
 @autobind
 export default class CheckBailiffServiceAnswersPostController extends CheckAnswersPostController {

@@ -8,7 +8,7 @@ import {
   DRAFT_AOS,
 } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
-import * as steps from '../../index';
+import * as steps from '../../index.js';
 import { SAVE_AND_SIGN_OUT } from '../../urls';
 
 import ReviewTheApplicationPostController from './post';

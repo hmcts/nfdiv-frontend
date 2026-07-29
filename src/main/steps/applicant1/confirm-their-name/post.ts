@@ -1,10 +1,10 @@
 import { Response } from 'express';
 
-import { YesOrNo } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import autobind from '../../../app/utils/autobind';
-import { THEIR_NAME } from '../../urls';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
+import { THEIR_NAME } from '../../urls.js';
 
 @autobind
 export default class ConfirmYourNamePostController extends PostController<AnyObject> {

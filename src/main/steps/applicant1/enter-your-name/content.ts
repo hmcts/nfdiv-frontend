@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn, isFieldLetters } from '../../../app/form/validation';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn, isFieldLetters } from '../../../app/form/validation.js';
 
 const en = () => {
   const invalid = 'You have entered an invalid character, like a number. Enter your name using letters only.';

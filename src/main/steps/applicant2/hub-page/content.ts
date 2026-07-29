@@ -1,8 +1,8 @@
-import { TranslationFn } from '../../../app/controller/GetController';
+import { TranslationFn } from '../../../app/controller/GetController.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/hub-page/content';
+} from '../../applicant1/hub-page/content.js';
 
 export const form = applicant1Form;
 

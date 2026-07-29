@@ -1,11 +1,11 @@
 import config from 'config';
 
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { InputLabelsByLanguage } from '../../common/input-labels.content';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { InputLabelsByLanguage } from '../../common/input-labels.content.js';
 
 const en = ({ isDivorce, required }) => ({
   title: `Do you need help paying the fee for ${isDivorce ? 'your divorce' : 'ending your civil partnership'}?`,

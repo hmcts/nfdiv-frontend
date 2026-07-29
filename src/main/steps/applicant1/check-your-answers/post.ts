@@ -1,4 +1,4 @@
-import { Case, CaseWithId } from '../../../app/case/case';
+import { Case, CaseWithId } from '../../../app/case/case.js';
 import {
   APPLICANT_1_RESUBMIT,
   ApplicationType,
@@ -6,10 +6,10 @@ import {
   INVITE_APPLICANT_2,
   State,
   YesOrNo,
-} from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import autobind from '../../../app/utils/autobind';
+} from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
 
 @autobind
 export default class CheckYourAnswersPostController extends PostController<AnyObject> {

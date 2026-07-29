@@ -1,4 +1,4 @@
-import { UserRole } from './definition';
+import { UserRole } from './definition.js';
 
 export interface CaseAssignedUserRoles {
   case_users: CaseAssignedUserRole[];

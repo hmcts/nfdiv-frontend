@@ -1,24 +1,24 @@
 import config from 'config';
 
-import { getFormattedCaseDate, getFormattedDate } from '../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../app/case/case';
-import { Applicant2Represented, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
-import { SupportedLanguages } from '../../../modules/i18n/index';
-import { CommonContent } from '../../common/common.content';
+import { getFormattedCaseDate, getFormattedDate } from '../../../app/case/answers/formatDate.js';
+import { Checkbox } from '../../../app/case/case.js';
+import { Applicant2Represented, FinancialOrderFor, YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent.js';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { CommonContent } from '../../common/common.content.js';
 import {
   accessibleDetailsSpan,
   formattedCaseId,
   getAddressFields,
   getAppSolAddressFields,
   getApplicant1PartnerContent,
-} from '../../common/content.utils';
-import { InputLabelsByLanguage } from '../../common/input-labels.content';
+} from '../../common/content.utils.js';
+import { InputLabelsByLanguage } from '../../common/input-labels.content.js';
 
 const en = ({ isDivorce, userCase, partner, applicant1Partner, isApplicant2, isJointApplication }) => ({
   title: `Review the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,

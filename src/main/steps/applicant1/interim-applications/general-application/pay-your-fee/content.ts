@@ -3,10 +3,10 @@ import lodash from 'lodash';
 
 const { isEmpty } = lodash;
 
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { getFee } from '../../../../../app/fees/service/get-fee';
-import { FormContent } from '../../../../../app/form/Form';
-import { findUnpaidGeneralApplication } from '../../../../../app/utils/general-application-utils';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { getFee } from '../../../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { findUnpaidGeneralApplication } from '../../../../../app/utils/general-application-utils.js';
 
 const en = applicationFee => ({
   title: 'Pay the fee for this application',
