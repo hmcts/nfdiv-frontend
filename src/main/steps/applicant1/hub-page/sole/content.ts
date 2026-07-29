@@ -1145,8 +1145,24 @@ export const generateContent: TranslationFn = content => {
     userCase.applicant1InterimApplicationType !== InterimApplicationType.PROCESS_SERVER_SERVICE;
   const interimApplicationStartedAosOverdue =
     interimApplicationInProgress && (userCase.state === State.AosOverdue || aosOverdueAndDrafted);
+  const noRespondentAddressInterimTypes = new Set<InterimApplicationType>([
+    InterimApplicationType.SEARCH_GOV_RECORDS,
+    InterimApplicationType.DISPENSE_WITH_SERVICE,
+    InterimApplicationType.ALTERNATIVE_SERVICE,
+  ]);
 
-  const preIssueServiceApplicationStarted = !!userCase.applicant1InterimApplicationType && !content.caseHasBeenIssued;
+  const hasNoRespondentAddressJourneyData = Boolean(
+    userCase.applicant1NoRespAddressHasFoundAddress ||
+    userCase.applicant1NoRespAddressHasWayToContact ||
+    userCase.applicant1NoRespAddressWillApplyAltService ||
+    userCase.applicant1NoRespAddressAddress1 ||
+    userCase.applicant1NoRespAddressEmail
+  );
+
+  const preIssueNoRespondentAddressApplicationStarted =
+    !content.caseHasBeenIssued &&
+    noRespondentAddressInterimTypes.has(userCase.applicant1InterimApplicationType as InterimApplicationType) &&
+    hasNoRespondentAddressJourneyData;
 
   return {
     ...languages[language](
@@ -1182,6 +1198,6 @@ export const generateContent: TranslationFn = content => {
     isSearchGovRecordsFeeRequired,
     interimApplicationStartPagePath,
     interimApplicationStartedAosOverdue,
-    preIssueServiceApplicationStarted,
+    preIssueNoRespondentAddressApplicationStarted,
   };
 };
