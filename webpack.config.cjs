@@ -31,6 +31,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    extensionAlias: {
+      '.js': ['.js', '.ts'],
+    },
   },
   output: {
     path: path.resolve(__dirname, 'src/main/public/'),
