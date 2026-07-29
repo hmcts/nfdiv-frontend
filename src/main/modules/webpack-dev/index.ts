@@ -5,12 +5,11 @@ import { Application } from 'express';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 
-const requireFromRoot = createRequire(path.resolve(process.cwd(), 'package.json'));
-const webpackConfig = requireFromRoot(path.resolve(process.cwd(), 'webpack.config.cjs'));
-
 export class WebpackDev {
   public enableFor(app: Application): void {
     if (app.locals.developmentMode) {
+      const requireFromRoot = createRequire(path.resolve(process.cwd(), 'package.json'));
+      const webpackConfig = requireFromRoot(path.resolve(process.cwd(), 'webpack.config.cjs'));
       const compiler = webpack(webpackConfig);
       app.use(webpackDevMiddleware(compiler, { publicPath: 'src/main/public/' }));
     }
