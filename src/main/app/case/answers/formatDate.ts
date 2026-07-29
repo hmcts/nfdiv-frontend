@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/cy';
 
-import { SupportedLanguages } from '../../../modules/i18n';
+import { SupportedLanguages } from '../../../modules/i18n/index';
 import { isDateInputInvalid } from '../../form/validation';
 import type { CaseDate } from '../case';
 

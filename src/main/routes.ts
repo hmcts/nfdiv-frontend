@@ -12,7 +12,6 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import { MAX_UPLOAD_FILE_COUNT, MAX_UPLOAD_FILE_SIZE_BYTES } from './app/document/DocumentUploadLimits';
-import { getUserSequence, stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content';
 import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your-access-code/get';
@@ -29,6 +28,7 @@ import * as existingApplicationContent from './steps/existing-application/conten
 import { ExistingApplicationGetController } from './steps/existing-application/get';
 import { ExistingApplicationPostController } from './steps/existing-application/post';
 import { HomeGetController } from './steps/home/get';
+import { getUserSequence, stepsWithContent } from './steps/index';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { RequestForInformationSaveSignOutGetController } from './steps/request-for-information-save-sign-out/get';

@@ -5,7 +5,7 @@ import { getFormattedDate } from '../../../../app/case/answers/formatDate';
 import { CaseWithId, Checkbox } from '../../../../app/case/case';
 import { DocumentType, State, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { SupportedLanguages } from '../../../../modules/i18n';
+import { SupportedLanguages } from '../../../../modules/i18n/index';
 import type { CommonContent } from '../../../common/common.content';
 import { canIntendToSwitchToSoleFo, hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
 import { getSwitchToSoleFoStatus } from '../../../common/switch-to-sole-content.utils';

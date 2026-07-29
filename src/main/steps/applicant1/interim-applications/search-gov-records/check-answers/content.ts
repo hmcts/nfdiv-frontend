@@ -8,7 +8,7 @@ import { CaseDate } from '../../../../../app/case/case';
 import { SearchGovRecordsWhichDepartment, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { SupportedLanguages } from '../../../../../modules/i18n';
+import { SupportedLanguages } from '../../../../../modules/i18n/index';
 import { CommonContent } from '../../../../common/common.content';
 import * as urls from '../../../../urls';
 import {

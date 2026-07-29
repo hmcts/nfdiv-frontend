@@ -6,7 +6,7 @@ import { Response } from 'express';
 import { CITIZEN_UPDATE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import autobind from '../../../app/utils/autobind';
-import { SupportedLanguages } from '../../../modules/i18n';
+import { SupportedLanguages } from '../../../modules/i18n/index';
 import { CHECK_ANSWERS_URL } from '../../urls';
 
 import { createToken } from './createToken';

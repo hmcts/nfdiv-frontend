@@ -6,7 +6,7 @@ import { YesOrNo, YesOrNoOrNotKnown } from '../../../../../app/case/definition';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { SupportedLanguages } from '../../../../../modules/i18n';
+import { SupportedLanguages } from '../../../../../modules/i18n/index';
 import {
   CommonContent,
   generateCommonContent,

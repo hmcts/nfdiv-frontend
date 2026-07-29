@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
 
-import { SupportedLanguages } from '../../modules/i18n';
+import { SupportedLanguages } from '../../modules/i18n/index';
 import { Case, CaseWithId } from '../case/case';
 import { CaseApi } from '../case/case-api';
 import { ApplicationType } from '../case/definition';

@@ -20,7 +20,7 @@ import { FormContent, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
 import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
-import { SupportedLanguages } from '../../../modules/i18n';
+import { SupportedLanguages } from '../../../modules/i18n/index';
 import { isApplicationReadyToSubmit } from '../../index';
 import * as urls from '../../urls';
 import {

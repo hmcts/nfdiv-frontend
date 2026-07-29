@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import autobind from '../../app/utils/autobind';
-import { SupportedLanguages } from '../../modules/i18n';
+import { SupportedLanguages } from '../../modules/i18n/index';
 import { generateCommonContent } from '../common/common.content';
 
 import { errorContent } from './content';

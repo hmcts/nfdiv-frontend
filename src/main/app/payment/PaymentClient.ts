@@ -2,7 +2,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
-import { SupportedLanguages } from '../../modules/i18n';
+import { SupportedLanguages } from '../../modules/i18n/index';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { Fee, ListValue } from '../case/definition';
 import type { AppSession } from '../controller/AppRequest';

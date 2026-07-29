@@ -7,7 +7,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { SupportedLanguages } from '../../../modules/i18n';
+import { SupportedLanguages } from '../../../modules/i18n/index';
 import { CommonContent } from '../../common/common.content';
 
 const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({

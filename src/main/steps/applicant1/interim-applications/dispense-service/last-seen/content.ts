@@ -8,7 +8,7 @@ import {
   isFieldFilledIn,
   isFutureDate,
 } from '../../../../../app/form/validation';
-import { SupportedLanguages } from '../../../../../modules/i18n';
+import { SupportedLanguages } from '../../../../../modules/i18n/index';
 import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({

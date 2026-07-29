@@ -1,7 +1,7 @@
 import { getFormattedDate } from '../../../../../app/case/answers/formatDate';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { SupportedLanguages } from '../../../../../modules/i18n';
+import { SupportedLanguages } from '../../../../../modules/i18n/index';
 import { CommonContent } from '../../../../common/common.content';
 import {
   form as uploadEvidenceForm,

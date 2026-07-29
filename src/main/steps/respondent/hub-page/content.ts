@@ -8,7 +8,7 @@ import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { ConditionalOrderCourt, State, YesOrNo, birmingham, buryStEdmunds } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getFee } from '../../../app/fees/service/get-fee';
-import { SupportedLanguages } from '../../../modules/i18n';
+import { SupportedLanguages } from '../../../modules/i18n/index';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,

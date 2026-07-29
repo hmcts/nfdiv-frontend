@@ -1,9 +1,9 @@
 import { Response } from 'express';
 
 import autobind from '../../app/utils/autobind';
-import { SupportedLanguages } from '../../modules/i18n';
-import { getNextIncompleteStepUrl } from '../../steps';
+import { SupportedLanguages } from '../../modules/i18n/index';
 import { CommonContent, generateCommonContent } from '../../steps/common/common.content';
+import { getNextIncompleteStepUrl } from '../../steps/index';
 import { DivorceOrDissolution } from '../case/definition';
 
 import { AppRequest } from './AppRequest';

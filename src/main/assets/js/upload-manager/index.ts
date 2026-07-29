@@ -8,7 +8,7 @@ import {
   UPPY_FILE_INPUT_BUTTON_CLASS,
   UPPY_FILE_INPUT_BUTTON_ID,
 } from '../../../app/document/DocumentManagementConstants';
-import { SupportedLanguages } from '../../../modules/i18n';
+import { SupportedLanguages } from '../../../modules/i18n/index';
 import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById, hidden, qs } from '../selectors';
 

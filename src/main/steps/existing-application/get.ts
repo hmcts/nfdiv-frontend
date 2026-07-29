@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { ApplicationType } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController, PageContent } from '../../app/controller/GetController';
-import { SupportedLanguages } from '../../modules/i18n';
+import { SupportedLanguages } from '../../modules/i18n/index';
 import { CommonContent } from '../common/common.content';
 import { getStepTemplatePath } from '../getStepTemplatePath';
 

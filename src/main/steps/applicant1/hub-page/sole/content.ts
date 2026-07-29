@@ -17,7 +17,7 @@ import {
   YesOrNo,
 } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { SupportedLanguages } from '../../../../modules/i18n';
+import { SupportedLanguages } from '../../../../modules/i18n/index';
 import { isCountryUk } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
 import { getAddressFields } from '../../../common/content.utils';

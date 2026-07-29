@@ -14,7 +14,7 @@ import {
 } from '../../app/case/definition';
 import { UPPY_FILE_INPUT_BUTTON_ID, userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
 import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
-import { SupportedLanguages } from '../../modules/i18n';
+import { SupportedLanguages } from '../../modules/i18n/index';
 import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
 

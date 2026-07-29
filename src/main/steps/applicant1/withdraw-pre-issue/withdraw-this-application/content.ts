@@ -3,7 +3,7 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { SupportedLanguages } from '../../../../modules/i18n';
+import { SupportedLanguages } from '../../../../modules/i18n/index';
 import { CommonContent } from '../../../common/common.content';
 import { InputLabelsByLanguage, ydwOrNacYdwRadioAnswers } from '../../../common/input-labels.content';
 

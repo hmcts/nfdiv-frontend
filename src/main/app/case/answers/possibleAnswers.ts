@@ -1,4 +1,4 @@
-import { StepWithContent } from '../../../steps';
+import { StepWithContent } from '../../../steps/index';
 import { Form, FormFields } from '../../form/Form';
 import { Case } from '../case';
 

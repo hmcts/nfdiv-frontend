@@ -1,4 +1,4 @@
-import { stepsWithContentPreSubmissionApplicant1 } from '../../steps';
+import { stepsWithContentPreSubmissionApplicant1 } from '../../steps/index';
 import { getAllPossibleAnswerFieldsForSteps } from '../case/answers/possibleAnswers';
 import { Case } from '../case/case';
 

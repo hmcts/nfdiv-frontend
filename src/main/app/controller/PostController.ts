@@ -1,7 +1,7 @@
 import { Response } from 'express';
 
 import autobind from '../../app/utils/autobind';
-import { getNextStepUrl } from '../../steps';
+import { getNextStepUrl } from '../../steps/index';
 import {
   DRAFT_SAVE_AND_SIGN_OUT,
   PAYMENT_CALLBACK_URL,

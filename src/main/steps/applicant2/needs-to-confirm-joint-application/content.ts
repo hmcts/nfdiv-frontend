@@ -1,7 +1,7 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { SupportedLanguages } from '../../../modules/i18n';
+import { SupportedLanguages } from '../../../modules/i18n/index';
 import type { CommonContent } from '../../common/common.content';
 
 const en = ({ partner, userCase }: CommonContent) => ({
