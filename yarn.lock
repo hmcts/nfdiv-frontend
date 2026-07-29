@@ -2542,24 +2542,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.19.5":
-  version: 2.19.5
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.19.5"
+"@launchdarkly/js-server-sdk-common@npm:2.20.0":
+  version: 2.20.0
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.20.0"
   dependencies:
     "@launchdarkly/js-sdk-common": "npm:2.25.2"
     semver: "npm:7.5.4"
-  checksum: 10/b446c9b9c59115dac8f70fcf6b94b91ed2f8b331eb411ce24bcb00cbf058b266dbe097ad7b264e9204f14b06371007b082880c19cc03a4b6487b2342a958f380
+  checksum: 10/b77bab9910537d5e5eeb968f41e35e0a00a8949517d2873e4127397f024fae1f94886ede533e86fa16d4a7f421b55ae34ef0671ad908e97d7f6eaff29afb2981
   languageName: node
   linkType: hard
 
 "@launchdarkly/node-server-sdk@npm:>=9.0.0":
-  version: 9.12.3
-  resolution: "@launchdarkly/node-server-sdk@npm:9.12.3"
+  version: 9.13.0
+  resolution: "@launchdarkly/node-server-sdk@npm:9.13.0"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": "npm:2.19.5"
+    "@launchdarkly/js-server-sdk-common": "npm:2.20.0"
     https-proxy-agent: "npm:^7.0.6"
     launchdarkly-eventsource: "npm:2.2.0"
-  checksum: 10/a516b76178c76da6dab88add06c96fed80a258e38c88c25934e36abd6de386d87240eb44479e7a3c987ffc2faa5475712af3fae6bbbf7036fe9a125cf73a46c2
+  checksum: 10/b33d78c0c19d65bacf3ea4c654616ec413c4f3291e73242f845700023eeba065b1108b53e4d824cd311967d90a4e44879fd2874502dc3d629d045fffd553a132
   languageName: node
   linkType: hard
 
@@ -13588,7 +13588,7 @@ __metadata:
     otpauth: "npm:^9.5.0"
     pa11y: "npm:9.1.1"
     pdfjs-dist: "npm:5.4.54"
-    prettier: "npm:3.8.4"
+    prettier: "npm:3.9.6"
     redis: "npm:5.11.0"
     require-directory: "npm:2.1.1"
     sass: "npm:^1.93.2"
@@ -14703,12 +14703,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.8.4":
-  version: 3.8.4
-  resolution: "prettier@npm:3.8.4"
+"prettier@npm:3.9.6":
+  version: 3.9.6
+  resolution: "prettier@npm:3.9.6"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/54684a3cc6689238692b29fab541c01934af7677be94c02293ba49981a1ac121c8bebe2a865f0c3b963e99d208f847c53aed354cc0ce8750e2d45791d64506c5
+  checksum: 10/1dd1a1e0e40ec3b91cda9d294c4a95022aef61880ca3f441aad99b1252279f58a766c4cece81132c01550dcff1fd445efbd8812ea4a2374313e7fc6c8136f11f
   languageName: node
   linkType: hard
 
