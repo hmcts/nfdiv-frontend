@@ -45,8 +45,8 @@ const en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
       You will receive an email with information on how to change your application, if they do not apply.`,
       line4: {
         part1: 'If you want to apply for a conditional order as a sole applicant now, then you need to',
-        part2: 'download and fill out a D84 paper form.',
-        link: 'https://www.gov.uk/government/publications/form-d84-application-for-a-decree-nisi-conditional-order-or-judicial-separation-decreeorder',
+        part2: 'download and fill out a D84 paper form (opens in a new tab).',
+        link: config.get('govukUrls.d84Form'),
       },
       line5:
         'Details of where to post it are on the form. Your application will be lodged as soon as the form is received by the court but it could take up to three weeks to process the application. ' +
@@ -64,8 +64,8 @@ const en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => ({
         part1: `If you want to change to a sole application then it will delay the ${
           isDivorce ? 'divorce' : 'ending of your civil partnership'
         }. You will have to make a separate application by`,
-        part2: 'downloading and filling out a D84 paper form.',
-        link: 'https://www.gov.uk/government/publications/form-d84-application-for-a-decree-nisi-conditional-order-or-judicial-separation-decreeorder',
+        part2: 'downloading and filling out a D84 paper form (opens in a new tab).',
+        link: config.get('govukUrls.d84Form'),
       },
       line3:
         'Details of where to send it are on the form. You should exit the service and send in the form if you want to change to a sole application.',
@@ -117,8 +117,8 @@ const cy: typeof en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => (
        Byddwch yn cael e-bost gyda gwybodaeth am sut i newid eich cais, os na fydd yn gwneud cais.`,
       line4: {
         part1: 'Os ydych eisiau gwneud cais am orchymyn amodol fel yr unig geisydd nawr, yna bydd angen ichi',
-        part2: 'lwytho a llenwi ffurflen D84 bapur.',
-        link: 'https://www.gov.uk/government/publications/form-d84-application-for-a-decree-nisi-conditional-order-or-judicial-separation-decreeorder',
+        part2: 'lwytho a llenwi ffurflen D84 bapur (yn agor mewn tab newydd).',
+        link: config.get('govukUrls.d84Form'),
       },
       line5: `Mae manylion ar y ffurflen yn egluro i ble y dylid ei hanfon. Bydd eich cais yn cael ei gofnodi cyn gynted ag y bydd y llys yn derbyn y
        ffurflen ond gallai gymryd hyd at dair wythnos i brosesu’r cais. Os ydych eisiau dewis yr opsiwn hwn, dylech adael y gwasanaeth.`,
@@ -135,8 +135,8 @@ const cy: typeof en = ({ isDivorce, partner, isApplicant2 }: CommonContent) => (
         part1: `Os ydych eisiau newid i gais unigol, bydd hynny’n achosi oedi i’r ${
           isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
         }. Bydd yn rhaid ichi wneud cais ar wahân drwy`,
-        part2: 'lwytho ffurflen bapur D84 a’i llenwi.',
-        link: 'https://www.gov.uk/government/publications/form-d84-application-for-a-decree-nisi-conditional-order-or-judicial-separation-decreeorder',
+        part2: 'lwytho ffurflen bapur D84 a’i llenwi (yn agor mewn tab newydd).',
+        link: config.get('govukUrls.d84Form'),
       },
       line3:
         'Mae manylion ar y ffurflen yn egluro i ble y dylid ei hanfon. Dylech adael y gwasanaeth ac anfon y ffurflen i mewn os ydych eisiau newid i gais unigol.',
