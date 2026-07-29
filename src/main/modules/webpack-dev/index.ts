@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { createRequire } from 'module';
 import path from 'path';
 
@@ -8,8 +9,13 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 export class WebpackDev {
   public enableFor(app: Application): void {
     if (app.locals.developmentMode) {
+      const webpackConfigPath = path.resolve(process.cwd(), 'webpack.config.cjs');
+      if (!fs.existsSync(webpackConfigPath)) {
+        return;
+      }
+
       const requireFromRoot = createRequire(path.resolve(process.cwd(), 'package.json'));
-      const webpackConfig = requireFromRoot(path.resolve(process.cwd(), 'webpack.config.cjs'));
+      const webpackConfig = requireFromRoot(webpackConfigPath);
       const compiler = webpack(webpackConfig);
       app.use(webpackDevMiddleware(compiler, { publicPath: 'src/main/public/' }));
     }
