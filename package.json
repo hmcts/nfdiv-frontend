@@ -157,7 +157,7 @@
     "ts-loader": "9.5.7",
     "webdriverio": "9.27.0",
     "webpack": "5.109.2",
-    "webpack-cli": "7.0.3",
+    "webpack-cli": "7.2.2",
     "webpack-dev-middleware": "8.0.4",
     "webpack-node-externals": "3.0.0"
   },
