@@ -34,11 +34,13 @@ export class SessionStorage {
 
   private getStore(app: Application, logger: Logger) {
     const redisHost = config.get('session.redis.host');
+    const redisPort = config.get('session.redis.port');
+
     if (redisHost) {
       const client = redis.createClient({
         socket: {
           host: redisHost as string,
-          port: 6380,
+          port: redisPort as number,
           connectTimeout: 15000,
           tls: true,
         },

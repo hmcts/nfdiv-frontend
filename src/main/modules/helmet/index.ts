@@ -31,6 +31,7 @@ export class Helmet {
 
     this.setContentSecurityPolicy(app);
     this.setReferrerPolicy(app, 'origin');
+    this.setPermissionsPolicy(app);
   }
 
   private setContentSecurityPolicy(app: express.Express): void {
@@ -83,7 +84,7 @@ export class Helmet {
           fontSrc: [self, 'data:', 'https://fonts.gstatic.com'],
           formAction,
           imgSrc,
-          objectSrc: [self],
+          objectSrc: ["'none'"],
           scriptSrc,
           manifestSrc,
           styleSrc: [self, ...tagManager, "'unsafe-inline'", 'https://fonts.googleapis.com'],
@@ -98,5 +99,27 @@ export class Helmet {
     }
 
     app.use(referrerPolicy({ policy }) as RequestHandler);
+  }
+
+  private setPermissionsPolicy(app: express.Express): void {
+    app.use((req, res, next) => {
+      res.setHeader(
+        'Permissions-Policy',
+        [
+          'autoplay=()',
+          'camera=()',
+          'display-capture=()',
+          'geolocation=()',
+          'gyroscope=()',
+          'magnetometer=()',
+          'microphone=()',
+          'payment=()',
+          'serial=()',
+          'usb=()',
+          'vibrate=()',
+        ].join(', ')
+      );
+      next();
+    });
   }
 }

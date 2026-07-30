@@ -31,6 +31,7 @@ port: PORT
 session:
   redis:
     host: REDIS_HOST
+    port: REDIS_PORT
 appInsights:
   instrumentationKey: APPINSIGHTS_KEY
 launchDarkly:
