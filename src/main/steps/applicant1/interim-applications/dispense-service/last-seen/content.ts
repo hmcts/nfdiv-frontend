@@ -64,6 +64,7 @@ export const form: FormContent = {
       label: l => l.lastSeenDate,
       labelHidden: true,
       hint: l => `<div class="govuk-label">${l.lastSeenDate}</div>`,
+      errorId: 'applicant1DispensePartnerLastSeenOrHeardOfDate-day',
       values: [
         {
           label: language === SupportedLanguages.Cy ? 'Diwrnod' : 'Day',
