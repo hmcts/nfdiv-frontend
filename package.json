@@ -156,7 +156,7 @@
     "ts-jest": "29.4.12",
     "ts-loader": "9.5.7",
     "webdriverio": "9.27.0",
-    "webpack": "5.106.0",
+    "webpack": "5.109.2",
     "webpack-cli": "7.0.3",
     "webpack-dev-middleware": "8.0.4",
     "webpack-node-externals": "3.0.0"
