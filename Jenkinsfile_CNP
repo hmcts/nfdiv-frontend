@@ -63,6 +63,10 @@ withPipeline(type, product, component) {
     sh './src/test/setup-web-browsers.sh'
   }
 
+  before('functionalTest:preview') {
+    sh './src/test/setup-web-browsers.sh'
+  }
+
   afterAlways('functionalTest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/Functional test report.html'
   }
