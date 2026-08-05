@@ -1,26 +1,31 @@
-import csurf from 'csurf';
+import { csrfSync } from 'csrf-sync';
 import type { Application } from 'express';
 
 import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
 
 import { CSRFToken } from './index';
 
-jest.mock('csurf', () => jest.fn());
+jest.mock('csrf-sync', () => ({
+  csrfSync: jest.fn().mockReturnValue({
+    csrfSynchronisedProtection: jest.fn(),
+  }),
+}));
 
 describe('CSRFToken', () => {
-  const csrfMiddleware = jest.fn();
   const app = { use: jest.fn() } as unknown as Application;
   const csrfToken = new CSRFToken();
 
+  const csrfSyncMock = csrfSync as unknown as jest.Mock;
+  const csrfConfig = csrfSyncMock.mock.calls[0][0];
+
   beforeEach(() => {
-    jest.clearAllMocks();
-    (csurf as unknown as jest.Mock).mockReturnValue(csrfMiddleware);
+    (app.use as jest.Mock).mockClear();
   });
 
   test('stores generated csrf token in res.locals and calls next', () => {
     csrfToken.enableFor(app);
 
-    const tokenInjector = (app.use as jest.Mock).mock.calls[0][1];
+    const tokenInjector = (app.use as jest.Mock).mock.calls[1][0];
     const req = { csrfToken: jest.fn().mockReturnValue('csrf-token-value') };
     const res = { locals: {} as Record<string, unknown> };
     const next = jest.fn();
@@ -32,11 +37,18 @@ describe('CSRFToken', () => {
     expect(next).toHaveBeenCalledTimes(1);
   });
 
+  test('extracts csrf token from request body when present', () => {
+    const token = csrfConfig.getTokenFromRequest({
+      body: { _csrf: 'body-token' },
+      headers: { 'x-csrf-token': 'header-token' },
+    });
+
+    expect(token).toBe('body-token');
+  });
+
   test('extracts csrf token from csrf-token header when body token is missing', () => {
     csrfToken.enableFor(app);
-
-    const csurfOptions = (csurf as unknown as jest.Mock).mock.calls[0][0];
-    const token = csurfOptions.value({
+    const token = csrfConfig.getTokenFromRequest({
       body: {},
       headers: { 'csrf-token': 'header-token' },
     });
@@ -46,9 +58,7 @@ describe('CSRFToken', () => {
 
   test('extracts csrf token from x-csrf-token header when csrf-token header is missing', () => {
     csrfToken.enableFor(app);
-
-    const csurfOptions = (csurf as unknown as jest.Mock).mock.calls[0][0];
-    const token = csurfOptions.value({
+    const token = csrfConfig.getTokenFromRequest({
       body: {},
       headers: { 'x-csrf-token': 'x-csrf-token-value' },
     });
@@ -58,9 +68,7 @@ describe('CSRFToken', () => {
 
   test('extracts csrf token from x-xsrf-token header when other headers are missing', () => {
     csrfToken.enableFor(app);
-
-    const csurfOptions = (csurf as unknown as jest.Mock).mock.calls[0][0];
-    const token = csurfOptions.value({
+    const token = csrfConfig.getTokenFromRequest({
       body: {},
       headers: { 'x-xsrf-token': 'x-xsrf-token-value' },
     });
@@ -71,7 +79,7 @@ describe('CSRFToken', () => {
   test('redirects to csrf token error page when csrf validation fails', () => {
     csrfToken.enableFor(app);
 
-    const errorMiddleware = (app.use as jest.Mock).mock.calls[1][0];
+    const errorMiddleware = (app.use as jest.Mock).mock.calls[2][0];
     const res = { redirect: jest.fn() };
     const next = jest.fn();
 
@@ -84,7 +92,7 @@ describe('CSRFToken', () => {
   test('passes non csrf errors to next middleware', () => {
     csrfToken.enableFor(app);
 
-    const errorMiddleware = (app.use as jest.Mock).mock.calls[1][0];
+    const errorMiddleware = (app.use as jest.Mock).mock.calls[2][0];
     const res = { redirect: jest.fn() };
     const next = jest.fn();
 
