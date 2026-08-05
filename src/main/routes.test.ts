@@ -35,7 +35,7 @@ describe('Routes', () => {
     expect(appMock.get).toHaveBeenCalledWith(EXIT_SERVICE, undefined);
     expect(appMock.get).toHaveBeenCalledWith(TERMS_AND_CONDITIONS_URL, undefined);
     expect(appMock.get).toHaveBeenCalledWith(YOUR_DETAILS_URL, expect.any(Function), undefined);
-    expect(appMock.get).toHaveBeenCalledWith('/document-manager/delete/:index', undefined);
+    expect(appMock.post).toHaveBeenCalledWith('/document-manager/delete/:index', undefined);
 
     expect(appMock.use).toHaveBeenCalled();
   });

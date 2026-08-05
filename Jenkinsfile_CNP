@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("Infrastructure@2.4.4")
+@Library("Infrastructure@2.4.9")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
 import uk.gov.hmcts.contino.GithubAPI
@@ -60,6 +60,10 @@ withPipeline(type, product, component) {
   }
 
   before('smoketest:preview') {
+    sh './src/test/setup-web-browsers.sh'
+  }
+
+  before('functionalTest:preview') {
     sh './src/test/setup-web-browsers.sh'
   }
 
