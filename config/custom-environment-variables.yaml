@@ -6,6 +6,7 @@ services:
   idam:
     authorizationURL: IDAM_WEB_URL
     tokenURL: IDAM_API_URL
+    endSessionURL: IDAM_END_SESSION_URL
     clientID: IDAM_CLIENT_ID
     clientSecret: IDAM_SECRET
     caching: IDAM_TOKEN_CACHE
