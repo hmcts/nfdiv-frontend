@@ -1,6 +1,6 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import autobind from '../../app/utils/autobind.js';
 import { CommonContent } from '../../steps/common/common.content.js';
 import { PageLink } from '../../steps/urls.js';
 
