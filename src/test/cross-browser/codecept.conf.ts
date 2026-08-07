@@ -42,6 +42,7 @@ if (process.env.SAUCE === 'true') {
 }
 
 export const config: CodeceptJS.Config = {
+  noGlobals: true,
   name: 'nfdiv-frontend-cross-browser',
   gherkin: testConfig.Gherkin,
   output: '../../../functional-output/crossbrowser/reports',
@@ -59,7 +60,7 @@ export const config: CodeceptJS.Config = {
   plugins: {
     allure: {
       enabled: true,
-      require: '@codeceptjs/allure-legacy',
+      require: 'allure-codeceptjs',
     },
     pauseOnFail: {
       enabled: !testConfig.TestHeadlessBrowser,
@@ -67,10 +68,7 @@ export const config: CodeceptJS.Config = {
     retryFailedStep: {
       enabled: true,
     },
-    tryTo: {
-      enabled: true,
-    },
-    screenshotOnFail: {
+    screenshot: {
       enabled: true,
     },
     ...plugins,

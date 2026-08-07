@@ -1,3 +1,5 @@
+import { inject } from 'codeceptjs';
+
 import { State } from '../../main/app/case/definition.js';
 import {
   ADDRESS_PRIVATE,

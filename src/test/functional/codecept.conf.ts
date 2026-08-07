@@ -5,6 +5,7 @@ import { config as testConfig } from '../config.js';
 setHeadlessWhen(testConfig.TestHeadlessBrowser);
 
 export const config: CodeceptJS.Config = {
+  noGlobals: true,
   name: 'nfdiv-frontend-functional',
   gherkin: testConfig.Gherkin,
   output: '../../../functional-output/functional/reports',
@@ -18,10 +19,7 @@ export const config: CodeceptJS.Config = {
     retryFailedStep: {
       enabled: true,
     },
-    retryTo: {
-      enabled: true,
-    },
-    screenshotOnFail: {
+    screenshot: {
       enabled: true,
       fullPageScreenshots: true,
     },

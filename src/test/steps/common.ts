@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 
 import { AxiosResponse } from 'axios';
+import { inject, pause } from 'codeceptjs';
 import { jwtDecode } from 'jwt-decode';
-import { Logger, transports } from 'winston';
+import winston from 'winston';
 
 import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc.js';
 import { CaseApi, getCaseApi } from '../../main/app/case/case-api.js';
@@ -30,6 +31,7 @@ import {
 import { TestUserType, autoLogin, config as testConfig } from '../config.js';
 
 const { I } = inject();
+const { Logger, transports } = winston;
 
 Before(test => {
   // Retry failed scenarios x times

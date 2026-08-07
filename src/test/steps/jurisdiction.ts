@@ -1,3 +1,5 @@
+import { inject } from 'codeceptjs';
+
 import { Checkbox } from '../../main/app/case/case.js';
 import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition.js';
 import { CHECK_JURISDICTION } from '../../main/steps/urls.js';
