@@ -33,8 +33,9 @@ import { TestUserType, autoLogin, config as testConfig } from '../config.js';
 const { I } = inject();
 const { Logger, transports } = winston;
 
-Before(test => {
+Before(args => {
   // Retry failed scenarios x times
+  const test = (args as unknown as { test: { retries(retries: number): void } }).test;
   test.retries(3);
 });
 
