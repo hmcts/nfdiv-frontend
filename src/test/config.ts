@@ -131,6 +131,7 @@ export const config = {
     }
   },
   clearNewUsers: async (): Promise<void> => {
+    if (!idamUserManager) return;
     await idamUserManager.clearAndKeepOnlyOriginalUser();
   },
   Gherkin: {
@@ -149,7 +150,9 @@ export const config = {
     await initializeTestEnvironment();
     await idamUserManager.createUser(TestUser, TestPass);
   },
-  teardown: async (): Promise<void> => idamUserManager.deleteAll(),
+  teardown: async (): Promise<void> => {
+    if (idamUserManager) await idamUserManager.deleteAll();
+  },
   helpers: {},
 };
 
