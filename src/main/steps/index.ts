@@ -31,7 +31,7 @@ const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JES
 const sourceStepsBaseDir = resolve(process.cwd(), 'src/main/steps');
 const stepsFilePath = isTestRuntime
   ? resolve(process.cwd(), 'src/main/steps/index.ts')
-  : resolve(process.cwd(), 'src/main/main/steps/index.js');
+  : resolve(process.cwd(), 'src/main/steps/index.js');
 const runtimeStepsBaseDir = dirname(stepsFilePath);
 const ext = extname(stepsFilePath);
 const stepContentFileByUrl: Record<string, string> = {};
