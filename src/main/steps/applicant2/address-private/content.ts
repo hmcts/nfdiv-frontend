@@ -9,10 +9,7 @@ const labels = content => ({
     applicant2AddressPrivate: content.errors.applicant1AddressPrivate,
   },
   title: content.title, // Reuse the title from applicant1
-  inRefugeLabel: content.inRefugeLabel, // Reuse the refuge label
   detailsPrivate: content.detailsPrivate, // Reuse the "details private" wording
-  detailsPrivateMoreDetails: content.detailsPrivateMoreDetails,
-  supportAvailable: content.supportAvailable,
   detailsNotPrivate: content.detailsNotPrivate,
 });
 
@@ -27,21 +24,6 @@ export const form: FormContent = {
         {
           label: l => l.detailsPrivate,
           value: YesOrNo.YES,
-          conditionalText: l =>
-            `<p class="govuk-label">${l.detailsPrivateMoreDetails} <a class="govuk-link" href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help">${l.supportAvailable}</a></p>`,
-          subFields: {
-            applicant2InRefuge: {
-              id: 'applicant2InRefuge',
-              type: 'radios',
-              classes: 'govuk-radios--inline',
-              label: l => l.inRefugeLabel,
-              values: [
-                { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
-                { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
-              ],
-              value: YesOrNo.NO, // Default value
-            },
-          },
         },
         {
           label: l => l.detailsNotPrivate,

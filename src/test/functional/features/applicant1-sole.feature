@@ -320,9 +320,10 @@ Feature: Applicant 1 sole application
     When I click "Continue"
     Then the page should include "Do you need your contact details kept private from your husband?"
     Given I select "Keep my contact details private"
-    Then the page should include "Are you currently in a refuge?"
+
+    When I click "Continue"
+    Then the page should include "Do you currently live in a refuge?"
     Given I select "No"
-    Then the page should include "If you think you might be experiencing domestic abuse or you feel unsafe, then support is available"
 
     When I click "Continue"
     Then the page should include "Enter your postal address"
