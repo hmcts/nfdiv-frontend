@@ -3,7 +3,7 @@
 import * as pdfjs from 'pdfjs-dist/build/pdf.mjs';
 import 'pdfjs-dist/build/pdf.worker.mjs';
 
-pdfjs.workerSrc = '/assets/pdf/pdf.worker.mjs';
+pdfjs.GlobalWorkerOptions.workerSrc = '/assets/pdf/pdf.worker.mjs';
 
 const loadingMsg = document.getElementById('loading-msg') as HTMLDivElement;
 const pdfContainer = document.getElementById('pdf-container') as HTMLDivElement;
