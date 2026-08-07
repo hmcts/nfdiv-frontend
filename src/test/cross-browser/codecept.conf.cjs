@@ -1,5 +1,5 @@
 require('ts-node').register({
-  project: 'src/test/tsconfig.json',
+  project: 'src/test/tsconfig.codecept.json',
   experimentalResolver: true,
   preferTsExts: true,
   moduleTypes: {
