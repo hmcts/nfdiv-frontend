@@ -1,7 +1,7 @@
-import { Checkbox } from '../case';
-import { DivorceDocument, DocumentType, YesOrNo } from '../definition';
+import { Checkbox } from '../case.js';
+import { DivorceDocument, DocumentType, YesOrNo } from '../definition.js';
 
-import { fromApiApplicant1, fromApiApplicant2, getFilename } from './uploaded-files';
+import { fromApiApplicant1, fromApiApplicant2, getFilename } from './uploaded-files.js';
 
 describe('uploadedFilesFromApiApplicant1', () => {
   it('converts documents', async () => {

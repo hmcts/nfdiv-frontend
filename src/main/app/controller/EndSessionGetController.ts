@@ -1,12 +1,12 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CommonContent } from '../../steps/common/common.content';
-import { PageLink } from '../../steps/urls';
+import { CommonContent } from '../../steps/common/common.content.js';
+import { PageLink } from '../../steps/urls.js';
 
-import { AppRequest } from './AppRequest';
-import { GetController } from './GetController';
-import { destroySessionAndRedirectToSignOutPage } from './signout';
+import { AppRequest } from './AppRequest.js';
+import { GetController } from './GetController.js';
+import { destroySessionAndRedirectToSignOutPage } from './signout.js';
 
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;

@@ -1,4 +1,4 @@
-import { Case, Checkbox, LanguagePreference } from './case';
+import { Case, Checkbox, LanguagePreference } from './case.js';
 import {
   AlternativeServiceDifferentWays,
   AlternativeServiceMethod,
@@ -19,8 +19,8 @@ import {
   NoResponsePartnerNewEmailOrAddress,
   NoResponseProcessServerOrBailiff,
   YesOrNo,
-} from './definition';
-import { OrNull, toApiFormat } from './to-api-format';
+} from './definition.js';
+import { OrNull, toApiFormat } from './to-api-format.js';
 
 const dateNow = new Date(Date.now());
 

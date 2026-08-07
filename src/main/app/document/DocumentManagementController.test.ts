@@ -1,5 +1,5 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
 import {
   APPLICANT_2,
   DETAILS_OTHER_PROCEEDINGS,
@@ -11,18 +11,18 @@ import {
   UPLOAD_EVIDENCE_DISPENSE,
   UPLOAD_PARTNER_PHOTO,
   UPLOAD_YOUR_DOCUMENTS,
-} from '../../steps/urls';
+} from '../../steps/urls.js';
 import {
   ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_UPDATE,
   InterimApplicationType,
   State,
-} from '../case/definition';
+} from '../case/definition.js';
 
-import { DocumentManagerController } from './DocumentManagementController';
-import { MAX_UPLOAD_FILE_SIZE_BYTES } from './DocumentUploadLimits';
-import { FileUploadJourney } from './FileUploadJourneyConfiguration';
+import { DocumentManagerController } from './DocumentManagementController.js';
+import { MAX_UPLOAD_FILE_SIZE_BYTES } from './DocumentUploadLimits.js';
+import { FileUploadJourney } from './FileUploadJourneyConfiguration.js';
 
 jest.mock('../document/CaseDocumentManagementClient');
 
