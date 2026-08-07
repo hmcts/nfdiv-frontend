@@ -2,8 +2,8 @@ import * as oidc from '../auth/user/oidc.js';
 import { UserDetails } from '../controller/AppRequest.js';
 import { PaymentModel } from '../payment/PaymentModel.js';
 
-import { CaseApi, getCaseApi } from './case-api.js';
 import * as caseApiClient from './case-api-client.js';
+import { CaseApi, getCaseApi } from './case-api.js';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition.js';
 
 jest.mock('axios');
