@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { Logger } from '@hmcts/nodejs-logging';
 import axios from 'axios';
 import config from 'config';
