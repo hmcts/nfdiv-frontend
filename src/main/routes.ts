@@ -7,9 +7,11 @@ import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController.js';
+import { getEndIdamSessionUrl } from './app/auth/user/oidc.js';
 import { AppRequest } from './app/controller/AppRequest.js';
 import { GetController } from './app/controller/GetController.js';
 import { PostController } from './app/controller/PostController.js';
+import { getServiceOrigin } from './app/controller/url.js';
 import { DocumentManagerController } from './app/document/DocumentManagementController.js';
 import { MAX_UPLOAD_FILE_COUNT, MAX_UPLOAD_FILE_SIZE_BYTES } from './app/document/DocumentUploadLimits.js';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get.js';
@@ -143,7 +145,7 @@ export class Routes {
 
     const documentManagerController = new DocumentManagerController();
     app.post(DOCUMENT_MANAGER, uploadFilesMiddleware, errorHandler(documentManagerController.post));
-    app.get(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
+    app.post(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
 
     for (const step of stepsWithContent) {
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
@@ -215,7 +217,10 @@ export class Routes {
           if (err) {
             throw err;
           }
-          res.redirect(config.get('govukUrls.applyForDivorce'));
+
+          const postLogoutRedirectUri = getServiceOrigin(req, res);
+
+          res.redirect(getEndIdamSessionUrl(postLogoutRedirectUri));
         });
       })
     );

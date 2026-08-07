@@ -1,9 +1,15 @@
 import { Response } from 'express';
 
-import { DivorceOrDissolution } from '../../../main/app/case/definition';
+import { DivorceOrDissolution } from '../../../main/app/case/definition.js';
 
-export const mockResponse = ({ locals = { serviceType: DivorceOrDissolution.DIVORCE } } = {}): Response => {
-  const res: Partial<Response> = { locals };
+export const mockResponse = ({ locals = {} } = {}): Response => {
+  const res: Partial<Response> = {
+    locals: {
+      serviceType: DivorceOrDissolution.DIVORCE,
+      host: 'localhost',
+      ...locals,
+    },
+  };
 
   res.redirect = jest.fn().mockReturnValue(res) as unknown as Response['redirect'];
   res.render = jest.fn().mockReturnValue(res) as unknown as Response['render'];
@@ -12,6 +18,7 @@ export const mockResponse = ({ locals = { serviceType: DivorceOrDissolution.DIVO
   res.type = jest.fn().mockReturnValue(res) as unknown as Response['type'];
   res.end = jest.fn() as unknown as Response['end'];
   res.cookie = jest.fn() as unknown as Response['cookie'];
+  res.clearCookie = jest.fn() as unknown as Response['clearCookie'];
   res.status = jest.fn().mockImplementation((code = 200) => {
     res.statusCode = code;
     return res;

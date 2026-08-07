@@ -3,7 +3,7 @@ import axios from 'axios';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc.js';
+import { getEndIdamSessionUrl, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc.js';
 import { getCaseApi } from '../../app/case/case-api.js';
 import { ApplicationType, DivorceOrDissolution, State } from '../../app/case/definition.js';
 import { AppRequest } from '../../app/controller/AppRequest.js';
@@ -36,7 +36,9 @@ export class OidcMiddleware {
     app.get([SIGN_IN_URL, APPLICANT_2_SIGN_IN_URL], (req, res) =>
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, req.path))
     );
-    app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
+    app.get(SIGN_OUT_URL, (req, res) => {
+      req.session.destroy(() => res.redirect(getEndIdamSessionUrl(`${protocol}${res.locals.host}${port}`)));
+    });
     app.get([CALLBACK_URL, APPLICANT_2_CALLBACK_URL], errorHandler(this.callbackHandler(protocol, port)));
 
     app.use(

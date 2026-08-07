@@ -1,28 +1,17 @@
-import { Response } from 'express';
-
-import { AppRequest } from '../../app/controller/AppRequest.js';
-import { GetController } from '../../app/controller/GetController.js';
+import EndSessionGetController from '../../app/controller/EndSessionGetController.js';
 import autobind from '../../app/utils/autobind.js';
 import { getStepTemplatePath } from '../getStepTemplatePath.js';
+import { PageLink, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT } from '../urls.js';
 
 import { generateContent } from './content.js';
 
 @autobind
-export class RequestForInformationSaveSignOutGetController extends GetController {
+export class RequestForInformationSaveSignOutGetController extends EndSessionGetController {
   constructor() {
     super(getStepTemplatePath('request-for-information-save-sign-out', 'template'), generateContent);
   }
 
-  public async get(req: AppRequest, res: Response): Promise<void> {
-    res.locals['email'] = req.session.user?.email;
-    res.locals['lang'] = req.session.lang;
-
-    req.session.destroy(err => {
-      if (err) {
-        throw err;
-      }
-
-      super.get(req, res);
-    });
+  protected signoutPagePath(): PageLink {
+    return REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT;
   }
 }

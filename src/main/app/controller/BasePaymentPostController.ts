@@ -1,4 +1,3 @@
-import config from 'config';
 import { Response } from 'express';
 
 import autobind from '../../app/utils/autobind.js';
@@ -13,6 +12,7 @@ import {
 } from '../case/definition.js';
 import { AppRequest } from '../controller/AppRequest.js';
 import { AnyObject } from '../controller/PostController.js';
+import { getServiceUrl } from '../controller/url.js';
 import { Payment, PaymentClient } from '../payment/PaymentClient.js';
 import { PaymentModel } from '../payment/PaymentModel.js';
 
@@ -112,7 +112,5 @@ export default abstract class BasePaymentPostController {
 }
 
 export function getPaymentCallbackUrl(req: AppRequest, res: Response, callbackPath: string): string {
-  const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';
-  const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-  return `${protocol}${res.locals.host}${port}${callbackPath}`;
+  return getServiceUrl(req, res, callbackPath);
 }
