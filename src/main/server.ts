@@ -1,39 +1,40 @@
 import * as path from 'path';
 
-import * as bodyParser from 'body-parser';
+import { Logger } from '@hmcts/nodejs-logging';
+import bodyParser from 'body-parser';
 import config from 'config';
 import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
-import { AppInsights } from './modules/appinsights';
-import { AuthProvider } from './modules/auth-provider';
-import { AxiosLogger } from './modules/axios-logger';
-import { CSRFToken } from './modules/csrf';
-import { DocumentDownloadMiddleware } from './modules/document-download';
-import { ErrorHandler } from './modules/error-handler';
-import { FeesRegister } from './modules/fees-register';
-import { HealthCheck } from './modules/health';
-import { Helmet } from './modules/helmet';
-import { LanguageToggle } from './modules/i18n';
-import { LaunchDarkly } from './modules/launch-darkly';
-import { Nunjucks } from './modules/nunjucks';
-import { OidcMiddleware } from './modules/oidc';
-import { PropertiesVolume } from './modules/properties-volume';
-import { SessionStorage } from './modules/session';
-import { StateRedirectMiddleware } from './modules/state-redirect';
-import { LoadTimeouts } from './modules/timeouts';
-import { TooBusy } from './modules/too-busy';
-import { WebpackDev } from './modules/webpack-dev';
-import { Routes } from './routes';
+import { AppInsights } from './modules/appinsights/index.js';
+import { AuthProvider } from './modules/auth-provider/index.js';
+import { AxiosLogger } from './modules/axios-logger/index.js';
+import { CSRFToken } from './modules/csrf/index.js';
+import { DocumentDownloadMiddleware } from './modules/document-download/index.js';
+import { ErrorHandler } from './modules/error-handler/index.js';
+import { FeesRegister } from './modules/fees-register/index.js';
+import { HealthCheck } from './modules/health/index.js';
+import { Helmet } from './modules/helmet/index.js';
+import { LanguageToggle } from './modules/i18n/index.js';
+import { LaunchDarkly } from './modules/launch-darkly/index.js';
+import { Nunjucks } from './modules/nunjucks/index.js';
+import { OidcMiddleware } from './modules/oidc/index.js';
+import { PropertiesVolume } from './modules/properties-volume/index.js';
+import { SessionStorage } from './modules/session/index.js';
+import { StateRedirectMiddleware } from './modules/state-redirect/index.js';
+import { LoadTimeouts } from './modules/timeouts/index.js';
+import { TooBusy } from './modules/too-busy/index.js';
+import { WebpackDev } from './modules/webpack-dev/index.js';
+import { Routes } from './routes.js';
 
-const { Logger } = require('@hmcts/nodejs-logging');
+const mainPath = path.resolve(process.cwd(), 'src/main');
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
-app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
+app.use(favicon(path.join(mainPath, '/public/assets/images/favicon.ico')));
 
 function setStaticCachingPolicy(res, file) {
   if (path.extname(file).match(/\.(woff2?|ttf|otf|eot|svg|png)$/i)) {
@@ -44,7 +45,7 @@ function setStaticCachingPolicy(res, file) {
 }
 
 app.use(
-  express.static(path.join(__dirname, 'public'), {
+  express.static(path.join(mainPath, 'public'), {
     setHeaders: setStaticCachingPolicy,
   })
 );

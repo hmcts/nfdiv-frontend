@@ -1,9 +1,9 @@
-import { Applicant2Represented } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
-import { InputLabelsByLanguage } from '../../common/input-labels.content';
+import { Applicant2Represented } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
+import { InputLabelsByLanguage } from '../../common/input-labels.content.js';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: `Does your ${partner} have a solicitor representing them?`,

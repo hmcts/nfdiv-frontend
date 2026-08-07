@@ -1,6 +1,6 @@
-import { AlternativeServiceMethod, ServicePaymentMethod, YesOrNo } from '../app/case/definition';
+import { AlternativeServiceMethod, ServicePaymentMethod, YesOrNo } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
+import { Step } from './applicant1Sequence.js';
 import {
   ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS,
   ALTERNATIVE_HOW_TO_SERVE,
@@ -17,7 +17,7 @@ import {
   SERVICE_APPLICATION_SUBMITTED,
   UPLOAD_EVIDENCE_ALTERNATIVE,
   WANT_UPLOAD_EVIDENCE_ALTERNATIVE,
-} from './urls';
+} from './urls.js';
 
 export const alternativeServiceApplicationSequence: Step[] = [
   {

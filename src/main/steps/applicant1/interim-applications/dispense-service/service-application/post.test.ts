@@ -1,14 +1,14 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../../../app/case/case';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../../../app/case/case.js';
 import {
   CITIZEN_START_INTERIM_APPLICATION,
   CITIZEN_UPDATE,
   InterimApplicationType,
-} from '../../../../../app/case/definition';
-import { FormContent } from '../../../../../app/form/Form';
+} from '../../../../../app/case/definition.js';
+import { FormContent } from '../../../../../app/form/Form.js';
 
-import DispenseServiceApplicationPostController from './post';
+import DispenseServiceApplicationPostController from './post.js';
 
 describe('DispenseServiceApplicationPostController', () => {
   const mockFormContent = {

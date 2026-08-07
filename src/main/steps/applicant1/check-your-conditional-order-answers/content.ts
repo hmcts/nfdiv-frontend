@@ -1,11 +1,11 @@
-import { Checkbox } from '../../../app/case/case';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
-import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
-import { isConditionalOrderReadyToSubmit } from '../../index';
-import * as urls from '../../urls';
+import { Checkbox } from '../../../app/case/case.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils.js';
+import { isConditionalOrderReadyToSubmit } from '../../index.js';
+import * as urls from '../../urls.js';
 
 const en = ({ isJointApplication, isDivorce, userCase, isApplicant2 }: CommonContent) => ({
   title: 'Check your answers',

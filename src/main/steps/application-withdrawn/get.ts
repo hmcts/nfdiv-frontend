@@ -1,14 +1,14 @@
-import autobind from 'autobind-decorator';
+import EndSessionGetController from '../../app/controller/EndSessionGetController.js';
+import autobind from '../../app/utils/autobind.js';
+import { APPLICATION_WITHDRAWN, PageLink } from '../../steps/urls.js';
+import { getStepTemplatePath } from '../getStepTemplatePath.js';
 
-import EndSessionGetController from '../../app/controller/EndSessionGetController';
-import { APPLICATION_WITHDRAWN, PageLink } from '../../steps/urls';
-
-import { generateContent } from './content';
+import { generateContent } from './content.js';
 
 @autobind
 export class ApplicationWithdrawnGetController extends EndSessionGetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(getStepTemplatePath('application-withdrawn', 'template'), generateContent);
   }
 
   protected signoutPagePath(): PageLink {

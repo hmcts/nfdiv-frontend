@@ -1,9 +1,11 @@
 import dayjs from 'dayjs';
-import { toUpper } from 'lodash';
+import lodash from 'lodash';
 
-import { isInvalidHelpWithFeesRef } from '../form/validation';
+const { toUpper } = lodash;
 
-import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case';
+import { isInvalidHelpWithFeesRef } from '../form/validation.js';
+
+import { Case, CaseDate, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case.js';
 import {
   AlternativeServiceDifferentWays,
   AlternativeServiceMethod,
@@ -23,14 +25,14 @@ import {
   HowToRespondApplication,
   MarriageFormation,
   YesOrNo,
-} from './definition';
+} from './definition.js';
 import {
   applicant1AddressToApi,
   applicant1DispenseLivedTogetherAddressToApi,
   applicant1NoResponsePartnerAddressToApi,
   applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant2AddressToApi,
-} from './formatter/address';
+} from './formatter/address.js';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 

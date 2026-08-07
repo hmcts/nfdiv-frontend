@@ -1,9 +1,9 @@
-import { Checkbox } from '../../../../app/case/case';
-import { DivorceOrDissolution, State, YesOrNo } from '../../../../app/case/definition';
-import { HubTemplate } from '../../../common/hubTemplates';
-import { currentStateFn } from '../../../state-sequence';
+import { Checkbox } from '../../../../app/case/case.js';
+import { DivorceOrDissolution, State, YesOrNo } from '../../../../app/case/definition.js';
+import { HubTemplate } from '../../../common/hubTemplates.js';
+import { currentStateFn } from '../../../state-sequence.js';
 
-import { getJointHubTemplate } from './jointTemplateSelector';
+import { getJointHubTemplate } from './jointTemplateSelector.js';
 
 describe('JointTemplateSelector test', () => {
   const userCase = {

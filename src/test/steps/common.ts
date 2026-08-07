@@ -1,10 +1,13 @@
-import { AxiosResponse } from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import { Logger, transports } from 'winston';
+/* eslint-disable no-console */
 
-import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc';
-import { Case } from '../../main/app/case/case';
-import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
+import { AxiosResponse } from 'axios';
+import { inject, pause } from 'codeceptjs';
+import { jwtDecode } from 'jwt-decode';
+import winston from 'winston';
+
+import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc.js';
+import { CaseApi, getCaseApi } from '../../main/app/case/case-api.js';
+import { Case } from '../../main/app/case/case.js';
 import {
   CASEWORKER_ISSUE_APPLICATION,
   CASEWORKER_REQUEST_FOR_INFORMATION,
@@ -13,20 +16,22 @@ import {
   DivorceOrDissolution,
   SYSTEM_UPDATE_CASE_COURT_HEARING,
   State,
-} from '../../main/app/case/definition';
-import { toApiFormat } from '../../main/app/case/to-api-format';
-import { UserDetails } from '../../main/app/controller/AppRequest';
-import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
-import { SupportedLanguages } from '../../main/modules/i18n';
-import { APPLICANT_1, APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
-import { TestUserType, autoLogin, config as testConfig } from '../config';
+} from '../../main/app/case/definition.js';
+import { toApiFormat } from '../../main/app/case/to-api-format.js';
+import { UserDetails } from '../../main/app/controller/AppRequest.js';
+import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections.js';
+import { SupportedLanguages } from '../../main/modules/i18n/index.js';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  CHECK_JURISDICTION,
+  ENTER_YOUR_ACCESS_CODE,
+  HOME_URL,
+} from '../../main/steps/urls.js';
+import { TestUserType, autoLogin, config as testConfig } from '../config.js';
 
 const { I } = inject();
-
-Before(test => {
-  // Retry failed scenarios x times
-  test.retries(3);
-});
+const { Logger, transports } = winston;
 
 After(async () => {
   await testConfig.clearNewUsers();

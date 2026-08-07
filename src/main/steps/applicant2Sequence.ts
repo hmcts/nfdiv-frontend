@@ -1,9 +1,9 @@
-import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../app/case/definition';
-import { needsToExplainDelay } from '../app/controller/controller.utils';
+import { CaseWithId, Checkbox } from '../app/case/case.js';
+import { ApplicationType, State, YesOrNo } from '../app/case/definition.js';
+import { needsToExplainDelay } from '../app/controller/controller.utils.js';
 
-import { Step } from './applicant1Sequence';
-import { applicant2WithdrawApplicationSequence } from './applicant2WithdrawApplicationSequence';
+import { Step } from './applicant1Sequence.js';
+import { applicant2WithdrawApplicationSequence } from './applicant2WithdrawApplicationSequence.js';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -53,7 +53,7 @@ import {
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_CANNOT_APPLY,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-} from './urls';
+} from './urls.js';
 
 export const preSubmissionSequence: Step[] = [
   {

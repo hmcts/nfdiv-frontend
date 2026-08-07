@@ -1,14 +1,14 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { Case } from '../../../../app/case/case';
-import { CITIZEN_WITHDRAWN } from '../../../../app/case/definition';
-import { AppRequest } from '../../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { destroySessionAndRedirectToSignOutPage } from '../../../../app/controller/signout';
-import { Form } from '../../../../app/form/Form';
-import { WITHDRAW_CONFIRMATION } from '../../../../steps/urls';
+import { Case } from '../../../../app/case/case.js';
+import { CITIZEN_WITHDRAWN } from '../../../../app/case/definition.js';
+import { AppRequest } from '../../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../../app/controller/PostController.js';
+import { destroySessionAndRedirectToSignOutPage } from '../../../../app/controller/signout.js';
+import { Form } from '../../../../app/form/Form.js';
+import autobind from '../../../../app/utils/autobind.js';
+import { WITHDRAW_CONFIRMATION } from '../../../../steps/urls.js';
 
 const logger = Logger.getLogger('withdraw-application-controller');
 

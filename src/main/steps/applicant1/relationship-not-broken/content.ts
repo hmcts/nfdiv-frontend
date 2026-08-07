@@ -1,4 +1,4 @@
-import { TranslationFn } from '../../../app/controller/GetController';
+import { TranslationFn } from '../../../app/controller/GetController.js';
 
 const en = ({ isDivorce }) => ({
   title: isDivorce ? 'You cannot apply to get a divorce' : 'You cannot apply to end your civil partnership',

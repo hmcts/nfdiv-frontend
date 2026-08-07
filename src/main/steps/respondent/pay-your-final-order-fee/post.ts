@@ -1,16 +1,15 @@
-import autobind from 'autobind-decorator';
-
 import {
   CaseData,
   FINAL_ORDER_PAYMENT_STATES,
   Fee,
   ListValue,
   RESPONDENT_APPLY_FOR_FINAL_ORDER,
-} from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import BasePaymentPostController from '../../../app/controller/BasePaymentPostController';
-import { AnyObject } from '../../../app/controller/PostController';
-import { PAYMENT_CALLBACK_URL, RESPONDENT } from '../../../steps/urls';
+} from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import BasePaymentPostController from '../../../app/controller/BasePaymentPostController.js';
+import { AnyObject } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
+import { PAYMENT_CALLBACK_URL, RESPONDENT } from '../../../steps/urls.js';
 
 @autobind
 export default class FinalOrderPaymentPostController extends BasePaymentPostController {

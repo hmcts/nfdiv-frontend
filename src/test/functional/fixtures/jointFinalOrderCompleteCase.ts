@@ -1,6 +1,6 @@
-import { BrowserCase } from '../../steps/common';
+import { BrowserCase } from '../../steps/common.js';
 
-import { jointApplicant1CompleteCase } from './jointApplicant1CompleteCase';
+import { jointApplicant1CompleteCase } from './jointApplicant1CompleteCase.js';
 
 export const jointFinalOrderCompleteCase: Partial<BrowserCase> = {
   ...jointApplicant1CompleteCase,

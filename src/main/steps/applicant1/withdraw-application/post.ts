@@ -1,12 +1,12 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CITIZEN_WITHDRAWN } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { destroySessionAndRedirectToSignOutPage } from '../../../app/controller/signout';
-import { APPLICATION_WITHDRAWN } from '../../urls';
+import { CITIZEN_WITHDRAWN } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import { destroySessionAndRedirectToSignOutPage } from '../../../app/controller/signout.js';
+import autobind from '../../../app/utils/autobind.js';
+import { APPLICATION_WITHDRAWN } from '../../urls.js';
 
 const logger = Logger.getLogger('withdraw-application-controller');
 

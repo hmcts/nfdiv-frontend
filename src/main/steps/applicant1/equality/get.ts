@@ -1,15 +1,15 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import autobind from 'autobind-decorator';
 import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { Response } from 'express';
 
-import { CITIZEN_UPDATE } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { SupportedLanguages } from '../../../modules/i18n';
-import { CHECK_ANSWERS_URL } from '../../urls';
+import { CITIZEN_UPDATE } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import autobind from '../../../app/utils/autobind.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { CHECK_ANSWERS_URL } from '../../urls.js';
 
-import { createToken } from './createToken';
+import { createToken } from './createToken.js';
 
 const logger = Logger.getLogger('PCQGetController');
 

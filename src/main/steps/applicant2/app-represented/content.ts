@@ -1,13 +1,13 @@
 import config from 'config';
 
-import { Applicant2Represented, State } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { SupportedLanguages } from '../../../modules/i18n';
-import { getProgressBarContent } from '../../applicant1/hub-page/progressBarLabels';
-import { isCountryUk } from '../../applicant1Sequence';
-import type { CommonContent } from '../../common/common.content';
-import { formattedCaseId } from '../../common/content.utils';
-import { currentStateFn } from '../../state-sequence';
+import { Applicant2Represented, State } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { getProgressBarContent } from '../../applicant1/hub-page/progressBarLabels.js';
+import { isCountryUk } from '../../applicant1Sequence.js';
+import type { CommonContent } from '../../common/common.content.js';
+import { formattedCaseId } from '../../common/content.utils.js';
+import { currentStateFn } from '../../state-sequence.js';
 
 const en = ({
   userCase,

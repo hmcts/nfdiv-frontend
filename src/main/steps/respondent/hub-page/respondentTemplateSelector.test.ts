@@ -1,8 +1,8 @@
-import { DivorceOrDissolution, State, YesOrNo } from '../../../app/case/definition';
-import { HubTemplate } from '../../common/hubTemplates';
-import { currentStateFn } from '../../state-sequence';
+import { DivorceOrDissolution, State, YesOrNo } from '../../../app/case/definition.js';
+import { HubTemplate } from '../../common/hubTemplates.js';
+import { currentStateFn } from '../../state-sequence.js';
 
-import { getRespondentHubTemplate } from './respondentTemplateSelector';
+import { getRespondentHubTemplate } from './respondentTemplateSelector.js';
 
 describe('RespondentTemplateSelector test', () => {
   const userCase: {

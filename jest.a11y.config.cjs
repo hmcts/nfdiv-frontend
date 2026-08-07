@@ -3,8 +3,17 @@ module.exports = {
   testRegex: '(/src/test/.*|\\.test)\\.(ts|js)$',
   moduleFileExtensions: ['ts', 'js'],
   testEnvironment: 'node',
+  setupFilesAfterEnv: [],
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.ts$': [
+      'ts-jest',
+      {
+        diagnostics: false,
+      },
+    ],
+  },
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
   },
   reporters: [
     'default',

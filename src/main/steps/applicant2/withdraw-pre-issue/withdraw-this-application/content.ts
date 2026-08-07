@@ -1,8 +1,8 @@
-import { YesOrNo } from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
-import { generateContent as withdrawThisApplicationGenerateContent } from '../../../applicant1/withdraw-pre-issue/withdraw-this-application/content';
+import { YesOrNo } from '../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../../app/form/validation.js';
+import { generateContent as withdrawThisApplicationGenerateContent } from '../../../applicant1/withdraw-pre-issue/withdraw-this-application/content.js';
 
 export const form: FormContent = {
   fields: {

@@ -1,7 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import axios from 'axios';
 import config from 'config';
-import OTPAuth from 'otpauth';
+import * as OTPAuth from 'otpauth';
 
 const logger = Logger.getLogger('service-auth-token');
 let token;

@@ -1,12 +1,12 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { ApplicationType, State } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { Form, FormFields } from '../../../app/form/Form';
-import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
-import { SWITCH_TO_SOLE_APPLICATION } from '../../urls';
+import { ApplicationType, State } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import { Form, FormFields } from '../../../app/form/Form.js';
+import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper.js';
+import autobind from '../../../app/utils/autobind.js';
+import { SWITCH_TO_SOLE_APPLICATION } from '../../urls.js';
 
 @autobind
 export default class ApplicationTypePostController extends PostController<AnyObject> {

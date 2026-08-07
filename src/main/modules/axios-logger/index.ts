@@ -1,9 +1,10 @@
+import axiosDebugLog from 'axios-debug-log';
 import { Application } from 'express';
 
 export class AxiosLogger {
   enableFor(app: Application): void {
     if (app.locals.developmentMode) {
-      require('axios-debug-log')({
+      axiosDebugLog({
         request: (debug, req) =>
           debug(
             `Sending "${req.method}" request to: "${req.baseURL || ''}${req.url}" data:`,

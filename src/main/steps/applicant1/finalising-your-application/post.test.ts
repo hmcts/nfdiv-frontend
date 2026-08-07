@@ -1,6 +1,6 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CaseWithId, Checkbox } from '../../../app/case/case';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { CaseWithId, Checkbox } from '../../../app/case/case.js';
 import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
   ApplicationType,
@@ -11,12 +11,12 @@ import {
   SWITCH_TO_SOLE_FO,
   State,
   YesOrNo,
-} from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
-import { SupportedLanguages } from '../../../modules/i18n';
-import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HUB_PAGE } from '../../urls';
+} from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { APPLICANT_2, FINALISING_YOUR_APPLICATION, HUB_PAGE } from '../../urls.js';
 
-import FinalisingYourApplicationPostController from './post';
+import FinalisingYourApplicationPostController from './post.js';
 
 describe('FinalisingYourApplicationPostController', () => {
   const userCase: Partial<CaseWithId> = {

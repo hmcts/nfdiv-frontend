@@ -1,6 +1,6 @@
-import { DivorceOrDissolution } from '../../../main/app/case/definition';
-import { AppRequest } from '../../../main/app/controller/AppRequest';
-import { SupportedLanguages } from '../../../main/modules/i18n';
+import { DivorceOrDissolution } from '../../../main/app/case/definition.js';
+import { AppRequest } from '../../../main/app/controller/AppRequest.js';
+import { SupportedLanguages } from '../../../main/modules/i18n/index.js';
 
 export const mockRequest = ({
   headers = {},

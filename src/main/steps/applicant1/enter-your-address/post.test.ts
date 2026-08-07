@@ -1,13 +1,13 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CaseWithId } from '../../../app/case/case';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { CaseWithId } from '../../../app/case/case.js';
 import {
   CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS,
   CITIZEN_UPDATE_CONTACT_DETAILS,
   YesOrNo,
-} from '../../../app/case/definition';
+} from '../../../app/case/definition.js';
 
-import EnterYourAddressPostController from './post';
+import EnterYourAddressPostController from './post.js';
 
 describe('EnterYourAddressPostController', () => {
   let userCase: Partial<CaseWithId>;

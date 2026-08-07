@@ -1,11 +1,11 @@
-import { Checkbox } from '../case/case';
-import { ApplicationType, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
+import { Checkbox } from '../case/case.js';
+import { ApplicationType, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition.js';
 
 import {
   addConnectionsBasedOnQuestions,
   allowedToAnswerResidualJurisdiction,
   previousConnectionMadeUptoLastHabituallyResident,
-} from './connections';
+} from './connections.js';
 
 describe('connections', () => {
   test('Should be allowed to answer residual jurisdiction if residual jurisdiction for dissolution connection is already made', async () => {

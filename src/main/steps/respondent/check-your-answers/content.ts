@@ -1,25 +1,25 @@
 import striptags from 'striptags';
 
-import { Checkbox } from '../../../app/case/case';
-import { YesOrNo } from '../../../app/case/definition';
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
+import { Checkbox } from '../../../app/case/case.js';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
 import {
   checkBoxAnswers as detailsOtherProceedingsCheckBoxAnswers,
   radioButtonAnswers as detailsOtherProceedingsRadioAnswers,
-} from '../../applicant1/details-other-proceedings/content';
-import { radioButtonAnswers as englishOrWelshAnswers } from '../../applicant1/english-or-welsh/content';
-import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../../applicant1/how-the-court-will-contact-you/content';
-import { radioButtonAnswers as otherCourtCasesAnswers } from '../../applicant1/other-court-cases/content';
-import { checkBoxAnswers as reviewTheApplicationAnswers } from '../../applicant1/review-the-application/content';
-import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
-import { isApplicationReadyToSubmit } from '../../index';
-import * as urls from '../../urls';
-import { radioButtonAnswers as howDoYouWantToRespondAnswers } from '../how-do-you-want-to-respond/content';
-import { radioButtonAnswers as intendToDelayAnswers } from '../intend-to-delay/content';
-import { radioButtonAnswers as legalJurisdictionOfTheCourtsAnswers } from '../legal-jurisdiction-of-the-courts/content';
+} from '../../applicant1/details-other-proceedings/content.js';
+import { radioButtonAnswers as englishOrWelshAnswers } from '../../applicant1/english-or-welsh/content.js';
+import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../../applicant1/how-the-court-will-contact-you/content.js';
+import { radioButtonAnswers as otherCourtCasesAnswers } from '../../applicant1/other-court-cases/content.js';
+import { checkBoxAnswers as reviewTheApplicationAnswers } from '../../applicant1/review-the-application/content.js';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils.js';
+import { isApplicationReadyToSubmit } from '../../index.js';
+import * as urls from '../../urls.js';
+import { radioButtonAnswers as howDoYouWantToRespondAnswers } from '../how-do-you-want-to-respond/content.js';
+import { radioButtonAnswers as intendToDelayAnswers } from '../intend-to-delay/content.js';
+import { radioButtonAnswers as legalJurisdictionOfTheCourtsAnswers } from '../legal-jurisdiction-of-the-courts/content.js';
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 

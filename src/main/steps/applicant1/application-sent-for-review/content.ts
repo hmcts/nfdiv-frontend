@@ -1,9 +1,9 @@
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { SupportedLanguages } from '../../../modules/i18n';
-import type { CommonContent } from '../../common/common.content';
-import { isApplicant2EmailUpdatePossible } from '../../common/content.utils';
-import { THEIR_EMAIL_ADDRESS, YOU_CANNOT_UPDATE_THEIR_EMAIL } from '../../urls';
+import { getFormattedDate } from '../../../app/case/answers/formatDate.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import type { CommonContent } from '../../common/common.content.js';
+import { isApplicant2EmailUpdatePossible } from '../../common/content.utils.js';
+import { THEIR_EMAIL_ADDRESS, YOU_CANNOT_UPDATE_THEIR_EMAIL } from '../../urls.js';
 
 const en = ({ partner, userCase }: CommonContent) => ({
   title: `Your answers have been sent to your ${partner} to review`,

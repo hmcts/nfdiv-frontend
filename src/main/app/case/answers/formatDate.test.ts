@@ -1,7 +1,7 @@
-import { SupportedLanguages } from '../../../modules/i18n';
-import { CaseDate } from '../case';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { CaseDate } from '../case.js';
 
-import { getFormattedCaseDate, getFormattedDate } from './formatDate';
+import { getFormattedCaseDate, getFormattedDate } from './formatDate.js';
 
 describe('Format case date', () => {
   describe('getFormattedCaseDate()', () => {

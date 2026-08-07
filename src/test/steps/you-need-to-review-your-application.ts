@@ -1,8 +1,8 @@
-import { Checkbox } from '../../main/app/case/case';
-import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
-import { jointApplicant1CompleteCase } from '../functional/fixtures/jointApplicant1CompleteCase';
+import { Checkbox } from '../../main/app/case/case.js';
+import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition.js';
+import { jointApplicant1CompleteCase } from '../functional/fixtures/jointApplicant1CompleteCase.js';
 
-import { iSetTheUsersCaseTo } from './common';
+import { iSetTheUsersCaseTo } from './common.js';
 
 Given('I am reviewing an application for divorce created by my wife', async () => {
   iSetTheUsersCaseTo({

@@ -1,5 +1,5 @@
-import type { UploadedFile } from '../../../app/case/case';
-import { getById } from '../selectors';
+import type { UploadedFile } from '../../../app/case/case.js';
+import { getById } from '../selectors.js';
 
 export class UploadedFiles {
   documents: UploadedFile[];

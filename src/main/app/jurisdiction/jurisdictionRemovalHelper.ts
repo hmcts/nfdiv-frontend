@@ -1,6 +1,6 @@
-import { stepsWithContentPreSubmissionApplicant1 } from '../../steps';
-import { getAllPossibleAnswerFieldsForSteps } from '../case/answers/possibleAnswers';
-import { Case } from '../case/case';
+import { stepsWithContentPreSubmissionApplicant1 } from '../../steps/index.js';
+import { getAllPossibleAnswerFieldsForSteps } from '../case/answers/possibleAnswers.js';
+import { Case } from '../case/case.js';
 
 const jurisdictionFields = [
   'connections',
