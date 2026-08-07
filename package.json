@@ -37,7 +37,7 @@
     "test:cucumber:headless:docker:grep": "NODE_ENV=docker yarn test:cucumber:headless:grep",
     "test:cucumber:reports": "npx allure-commandline serve functional-output/functional/reports",
     "sonar-scan": "sonar-scanner",
-    "test:smoke": "jest -c jest.smoke.config.js",
+    "test:smoke": "jest -c jest.smoke.config.cjs",
     "test:setup:install-browsers": "npx playwright install chromium chromium-headless-shell firefox webkit && npx puppeteer browsers install chrome",
     "test:functional": "yarn test:e2e",
     "test:fullfunctional": "run-p test:cucumber test:pa11y",
