@@ -13,7 +13,7 @@ export const config: CodeceptJS.Config = {
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
   plugins: {
-    pauseOnFail: {
+    pause: {
       enabled: !testConfig.TestHeadlessBrowser,
     },
     retryFailedStep: {
@@ -23,29 +23,10 @@ export const config: CodeceptJS.Config = {
       enabled: true,
       fullPageScreenshots: true,
     },
-  },
-  mocha: {
-    reporterOptions: {
-      'codeceptjs-cli-reporter': {
-        stdout: '-',
-        options: { steps: true },
-      },
-      'mocha-junit-reporter': {
-        stdout: '-',
-        options: {
-          mochaFile: './functional-output/result.xml',
-        },
-      },
-      mochawesome: {
-        stdout: './functional-output/console.log',
-        options: {
-          reportDir: './temp-reports',
-          inlineAssets: true,
-          overwrite: false,
-          html: false,
-          json: true,
-        },
-      },
+    junitReporter: {
+      enabled: true,
+      output: 'functional-output/functional/reports',
+      outputName: 'result.xml',
     },
   },
 };
