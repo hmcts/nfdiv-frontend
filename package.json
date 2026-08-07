@@ -78,7 +78,7 @@
     "autobind-decorator": "2.4.0",
     "axios": "1.19.0",
     "config": "4.4.1",
-    "connect-redis": "7.1.1",
+    "connect-redis": "10.0.0",
     "cookie-parser": "1.4.7",
     "csrf-sync": "^4.2.1",
     "dayjs": "1.11.21",
