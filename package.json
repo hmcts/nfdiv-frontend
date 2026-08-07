@@ -20,7 +20,7 @@
     "test:unit": "jest",
     "test:coverage": "jest --coverage",
     "test:a11y": "echo 'nope' && exit 0",
-    "test:pa11y": "PUPPETEER_SKIP_DOWNLOAD=false PUPPETEER_SKIP_CHROME_DOWNLOAD=false PUPPETEER_SKIP_CHROME_HEADLESS_SHELL_DOWNLOAD=true node node_modules/puppeteer/install.mjs && jest -c jest.a11y.config.js --maxWorkers 1",
+    "test:pa11y": "jest -c jest.a11y.config.js --maxWorkers 1",
     "test:cucumber": "yarn test:parallel '^(?!.*@flaky)' ; yarn merge-reports",
     "test:cucumber:docker": "yarn test:parallel:docker '^(?!.*@flaky)' ; yarn merge-reports",
     "test:e2e": "yarn test:parallel '^(?!.*(@nightly|@flaky))' ; yarn merge-reports",
