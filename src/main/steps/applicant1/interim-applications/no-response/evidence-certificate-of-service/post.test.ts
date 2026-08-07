@@ -1,8 +1,8 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { CITIZEN_EVIDENCE_CERTIFICATE_OF_SERVICE } from '../../../../../app/case/definition';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { CITIZEN_EVIDENCE_CERTIFICATE_OF_SERVICE } from '../../../../../app/case/definition.js';
 
-import CertificateOfServiceEvidencePostController from './post';
+import CertificateOfServiceEvidencePostController from './post.js';
 
 describe('CertificateOfServiceEvidencePostController', () => {
   it('Calls the right event', async () => {

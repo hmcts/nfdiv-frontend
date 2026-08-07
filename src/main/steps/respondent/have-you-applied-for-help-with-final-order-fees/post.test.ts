@@ -1,13 +1,13 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
 import {
   ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
   RESPONDENT_APPLY_FOR_FINAL_ORDER,
-} from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+} from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import HaveYouAppliedForHelpWithFinalOrderFeesPostController from './post';
+import HaveYouAppliedForHelpWithFinalOrderFeesPostController from './post.js';
 
 describe('HaveYouAppliedForHelpWithFinalOrderFeesPostController', () => {
   const mockFormContent = {

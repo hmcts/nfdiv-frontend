@@ -1,15 +1,15 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { ApplicationType, CITIZEN_PAYMENT_MADE, PaymentStatus, State } from '../../../app/case/definition';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { ApplicationType, CITIZEN_PAYMENT_MADE, PaymentStatus, State } from '../../../app/case/definition.js';
 import {
   APPLICATION_SUBMITTED,
   CHECK_ANSWERS_URL,
   JOINT_APPLICATION_SUBMITTED,
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
-} from '../../urls';
+} from '../../urls.js';
 
-import PaymentCallbackGetController from './get';
+import PaymentCallbackGetController from './get.js';
 
 jest.mock('../../../app/payment/PaymentClient');
 

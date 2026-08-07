@@ -7,10 +7,10 @@ import {
   NoResponseSearchOrDispense,
   NoResponseSendPapersAgainOrTrySomethingElse,
   YesOrNo,
-} from '../app/case/definition';
+} from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
-import { noResponseJourneySequence } from './noResponseJourneySequence';
+import { Step } from './applicant1Sequence.js';
+import { noResponseJourneySequence } from './noResponseJourneySequence.js';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
   BAILIFF_SERVICE_APPLICATION,
@@ -41,7 +41,7 @@ import {
   SERVE_AGAIN,
   SUCCESS_SCREEN_PROCESS_SERVER,
   WILL_SERVE_AGAIN,
-} from './urls';
+} from './urls.js';
 
 describe('No Response Journey Sequence test', () => {
   describe('OPTIONS_FOR_PROGRESSING', () => {

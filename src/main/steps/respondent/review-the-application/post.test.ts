@@ -1,17 +1,17 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../app/case/case';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../app/case/case.js';
 import {
   ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_SAVE_AND_CLOSE,
   DRAFT_AOS,
-} from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+} from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 import * as steps from '../../index.js';
-import { SAVE_AND_SIGN_OUT } from '../../urls';
+import { SAVE_AND_SIGN_OUT } from '../../urls.js';
 
-import ReviewTheApplicationPostController from './post';
+import ReviewTheApplicationPostController from './post.js';
 
 describe('ReviewTheApplicationPostController', () => {
   const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');

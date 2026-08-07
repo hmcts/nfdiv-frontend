@@ -3,11 +3,11 @@ import lodash from 'lodash';
 
 const { now } = lodash;
 
-import { getFormattedDate } from '../../app/case/answers/formatDate';
-import { CaseWithId } from '../../app/case/case';
-import { State, YesOrNo } from '../../app/case/definition';
+import { getFormattedDate } from '../../app/case/answers/formatDate.js';
+import { CaseWithId } from '../../app/case/case.js';
+import { State, YesOrNo } from '../../app/case/definition.js';
 
-import { doesApplicantIntendToSwitchToSoleFo, getSwitchToSoleFoStatus } from './switch-to-sole-content.utils';
+import { doesApplicantIntendToSwitchToSoleFo, getSwitchToSoleFoStatus } from './switch-to-sole-content.utils.js';
 
 describe('switch.to.sole.content.utils', () => {
   test('doesApplicantIntendToSwitchToSoleFinalOrder - applicant 1 intends', () => {

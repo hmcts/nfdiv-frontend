@@ -1,17 +1,17 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../../../app/case/case';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../../../app/case/case.js';
 import {
   ApplicationType,
   CITIZEN_GENERAL_APPLICATION,
   InterimApplicationType,
   State,
-} from '../../../../../app/case/definition';
-import { FormContent } from '../../../../../app/form/Form';
+} from '../../../../../app/case/definition.js';
+import { FormContent } from '../../../../../app/form/Form.js';
 import { getFirstErroredStep } from '../../../../index.js';
-import { searchGovRecordsApplicationSequence } from '../../../../searchGovRecordsApplicationSequence';
+import { searchGovRecordsApplicationSequence } from '../../../../searchGovRecordsApplicationSequence.js';
 
-import CheckAnswersPostController from './post';
+import CheckAnswersPostController from './post.js';
 
 jest.mock('../../../../index.js', () => ({
   getFirstErroredStep: jest.fn(),
