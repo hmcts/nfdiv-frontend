@@ -1,9 +1,9 @@
-import { PropertiesVolume } from '../main/modules/properties-volume';
+import { PropertiesVolume } from '../main/modules/properties-volume/index.js';
 import { Application } from 'express';
 import sysConfig from 'config';
-import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
-import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
-import { IdamUserManager } from './steps/IdamUserManager';
+import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token.js';
+import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls.js';
+import { IdamUserManager } from './steps/IdamUserManager.js';
 import { createAzurePlaywrightConfig, ServiceAuth, ServiceOS } from "@azure/playwright";
 import { randomUUID } from 'crypto';
 

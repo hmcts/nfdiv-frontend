@@ -1,4 +1,4 @@
-import { State } from '../../main/app/case/definition';
+import { State } from '../../main/app/case/definition.js';
 import {
   ADDRESS_PRIVATE,
   GENERAL_APPLICATION_SUBMITTED,
@@ -7,21 +7,21 @@ import {
   PAY_YOUR_SERVICE_FEE,
   SERVICE_APPLICATION_SUBMITTED,
   THEIR_EMAIL_ADDRESS,
-} from '../../main/steps/urls';
-import { autoLogin, config as testConfig } from '../config';
-import { completeCase } from '../functional/fixtures/completeCase';
-import { finalOrderCompleteCase } from '../functional/fixtures/finalOrderCompleteCase';
-import { finalOrderOverdueCompleteCase } from '../functional/fixtures/finalOrderOverdueCompleteCase';
-import { issuedCase } from '../functional/fixtures/issuedCase';
-import { jointApplicant1AppliedFirstCompleteCase } from '../functional/fixtures/jointApplicant1AppliedFirstCompleteCase';
-import { jointApplicant1CompleteCase } from '../functional/fixtures/jointApplicant1CompleteCase';
-import { jointApplicant2CompleteCase } from '../functional/fixtures/jointApplicant2CompleteCase';
-import { jointFinalOrderCompleteCase } from '../functional/fixtures/jointFinalOrderCompleteCase';
-import { respondentCompleteCase } from '../functional/fixtures/respondentCompleteCase';
-import { respondentCompleteCaseWithDispute } from '../functional/fixtures/respondentCompleteCaseWithDispute';
+} from '../../main/steps/urls.js';
+import { autoLogin, config as testConfig } from '../config.js';
+import { completeCase } from '../functional/fixtures/completeCase.js';
+import { finalOrderCompleteCase } from '../functional/fixtures/finalOrderCompleteCase.js';
+import { finalOrderOverdueCompleteCase } from '../functional/fixtures/finalOrderOverdueCompleteCase.js';
+import { issuedCase } from '../functional/fixtures/issuedCase.js';
+import { jointApplicant1AppliedFirstCompleteCase } from '../functional/fixtures/jointApplicant1AppliedFirstCompleteCase.js';
+import { jointApplicant1CompleteCase } from '../functional/fixtures/jointApplicant1CompleteCase.js';
+import { jointApplicant2CompleteCase } from '../functional/fixtures/jointApplicant2CompleteCase.js';
+import { jointFinalOrderCompleteCase } from '../functional/fixtures/jointFinalOrderCompleteCase.js';
+import { respondentCompleteCase } from '../functional/fixtures/respondentCompleteCase.js';
+import { respondentCompleteCaseWithDispute } from '../functional/fixtures/respondentCompleteCaseWithDispute.js';
 
-import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common';
-import { iEnterTheUkAddress } from './postcode';
+import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common.js';
+import { iEnterTheUkAddress } from './postcode.js';
 
 const { I } = inject();
 

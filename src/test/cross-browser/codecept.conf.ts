@@ -1,6 +1,6 @@
 import { setHeadlessWhen } from '@codeceptjs/configure';
 
-import { config as testConfig } from '../config';
+import { config as testConfig } from '../config.js';
 
 setHeadlessWhen(testConfig.TestHeadlessBrowser);
 

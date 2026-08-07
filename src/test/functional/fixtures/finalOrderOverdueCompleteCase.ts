@@ -1,7 +1,7 @@
-import { YesOrNo } from '../../../main/app/case/definition';
-import { BrowserCase } from '../../steps/common';
+import { YesOrNo } from '../../../main/app/case/definition.js';
+import { BrowserCase } from '../../steps/common.js';
 
-import { completeCase } from './completeCase';
+import { completeCase } from './completeCase.js';
 
 export const finalOrderOverdueCompleteCase: Partial<BrowserCase> = {
   ...completeCase,

@@ -1,4 +1,4 @@
-import { iClearTheForm, iClick } from './common';
+import { iClearTheForm, iClick } from './common.js';
 
 const { I } = inject();
 

@@ -1,4 +1,4 @@
-import { iClick } from './common';
+import { iClick } from './common.js';
 
 const { I } = inject();
 

@@ -2,7 +2,7 @@
 
 import axios, { AxiosInstance } from 'axios';
 
-import { UserRole } from '../../main/app/case/definition';
+import { UserRole } from '../../main/app/case/definition.js';
 
 export class IdamUserManager {
   client: AxiosInstance;

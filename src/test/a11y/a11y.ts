@@ -6,8 +6,8 @@ import axios from 'axios';
 import pa11y from 'pa11y';
 import puppeteer from 'puppeteer';
 
-import * as urls from '../../main/steps/urls';
-import { config } from '../config';
+import * as urls from '../../main/steps/urls.js';
+import { config } from '../config.js';
 
 const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
 const server = axios.create({ baseURL: config.TEST_URL });
