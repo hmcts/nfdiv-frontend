@@ -57,6 +57,7 @@ export const config: CodeceptJS.Config = {
   },
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
+  retry: { Scenario: 3 },
   plugins: {
     allure: {
       enabled: true,
