@@ -11,11 +11,11 @@ const { csrfSynchronisedProtection } = csrfSync({
   ignoredMethods: ['GET', 'HEAD', 'OPTIONS'],
 
   getTokenFromRequest: req => {
-    const queryToken = req.query?._csrf;
     return (
       req.body?._csrf ||
+      (req.headers['csrf-token'] as string) ||
       (req.headers['x-csrf-token'] as string) ||
-      (Array.isArray(queryToken) ? queryToken[0] : queryToken)
+      (req.headers['x-xsrf-token'] as string)
     );
   },
 
