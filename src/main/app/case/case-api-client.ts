@@ -168,19 +168,22 @@ export class CaseApiClient {
 }
 
 export const getCaseApiClient = (userDetails: UserDetails, logger: LoggerInstance): CaseApiClient => {
-  return new CaseApiClient(
-    createAxios({
-      baseURL: config.get('services.case.url'),
-      headers: {
-        Authorization: 'Bearer ' + userDetails.accessToken,
-        ServiceAuthorization: getServiceAuthToken(),
-        experimental: 'true',
-        Accept: '*/*',
-        'Content-Type': 'application/json',
-      },
-    }),
-    logger
-  );
+  const server = createAxios({
+    baseURL: config.get('services.case.url'),
+    headers: {
+      Authorization: 'Bearer ' + userDetails.accessToken,
+      experimental: 'true',
+      Accept: '*/*',
+      'Content-Type': 'application/json',
+    },
+  });
+
+  server.interceptors.request.use(request => {
+    request.headers.set('ServiceAuthorization', getServiceAuthToken());
+    return request;
+  });
+
+  return new CaseApiClient(server, logger);
 };
 
 interface ES<T> {

@@ -33,7 +33,7 @@ const initializeTestEnvironment = async () => {
     await setupTestSecrets();
   }
 
-  getTokenFromApi();
+  await getTokenFromApi();
 
   testState.TestUser = generateTestUsername();
   testState.TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';

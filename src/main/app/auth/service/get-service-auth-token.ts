@@ -4,9 +4,11 @@ import config from 'config';
 import * as OTPAuth from 'otpauth';
 
 const logger = Logger.getLogger('service-auth-token');
-let token;
+const processState = globalThis as typeof globalThis & {
+  __nfdivServiceAuthToken?: string;
+};
 
-export const getTokenFromApi = (): void => {
+export const getTokenFromApi = async (): Promise<string> => {
   logger.info('Refreshing service auth token');
 
   const url: string = config.get('services.authProvider.url') + '/lease';
@@ -15,10 +17,15 @@ export const getTokenFromApi = (): void => {
   const oneTimePassword = createOneTimePassword(secret);
   const body = { microservice, oneTimePassword };
 
-  axios
-    .post(url, body)
-    .then(response => (token = response.data))
-    .catch(err => logger.error(err.response?.status, err.response?.data));
+  try {
+    const response = await axios.post(url, body);
+    const serviceAuthToken = response.data as string;
+    processState.__nfdivServiceAuthToken = serviceAuthToken;
+    return serviceAuthToken;
+  } catch (err) {
+    logger.error(err.response?.status, err.response?.data);
+    throw err;
+  }
 };
 
 const createOneTimePassword = (secret: string): string => {
@@ -31,11 +38,19 @@ const createOneTimePassword = (secret: string): string => {
   return totp.generate();
 };
 
-export const initAuthToken = (): void => {
-  getTokenFromApi();
-  setInterval(getTokenFromApi, 1000 * 60 * 60);
+export const initAuthToken = async (): Promise<void> => {
+  await getTokenFromApi();
+  setInterval(
+    () => {
+      void getTokenFromApi().catch(() => undefined);
+    },
+    1000 * 60 * 60
+  );
 };
 
 export const getServiceAuthToken = (): string => {
-  return token;
+  if (!processState.__nfdivServiceAuthToken) {
+    throw new Error('Service auth token is not available');
+  }
+  return processState.__nfdivServiceAuthToken;
 };
