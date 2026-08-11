@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { createRequire } from 'module';
-import path, { extname } from 'path';
+import path from 'path';
+import { pathToFileURL } from 'url';
 
 import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
@@ -30,7 +31,7 @@ import * as existingApplicationContent from './steps/existing-application/conten
 import { ExistingApplicationGetController } from './steps/existing-application/get.js';
 import { ExistingApplicationPostController } from './steps/existing-application/post.js';
 import { HomeGetController } from './steps/home/get.js';
-import { getUserSequence, stepsWithContent } from './steps/index.js';
+import { getUserSequence, initializeStepContent, stepsWithContent } from './steps/index.js';
 import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get.js';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get.js';
 import { RequestForInformationSaveSignOutGetController } from './steps/request-for-information-save-sign-out/get.js';
@@ -105,15 +106,18 @@ const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
 
 const requireFromRoot = createRequire(path.resolve(process.cwd(), 'package.json'));
 const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
-const routesFilePath = isTestRuntime
-  ? path.resolve(process.cwd(), 'src/main/routes.ts')
-  : path.resolve(process.cwd(), 'src/main/routes.js');
-const ext = extname(routesFilePath);
+const ext = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
 
 export class Routes {
-  public enableFor(app: Application): void {
+  public async enableFor(app: Application): Promise<void> {
     const { errorHandler } = app.locals;
     const errorController = new ErrorController();
+
+    if (isTestRuntime) {
+      initializeStepContent();
+    } else {
+      await initializeStepContent();
+    }
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(EXISTING_APPLICATION, errorHandler(new ExistingApplicationGetController().get));
@@ -148,9 +152,12 @@ export class Routes {
     app.post(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
 
     for (const step of stepsWithContent) {
-      const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
-        ? requireFromRoot(`${step.stepDir}/get${ext}`).default
-        : GetController;
+      let getController = GetController;
+      if (fs.existsSync(`${step.stepDir}/get${ext}`)) {
+        getController = isTestRuntime
+          ? requireFromRoot(`${step.stepDir}/get${ext}`).default
+          : (await import(pathToFileURL(`${step.stepDir}/get${ext}`).href)).default;
+      }
 
       app.get(
         step.url,
@@ -159,9 +166,12 @@ export class Routes {
       );
 
       if (step.form) {
-        const postController = fs.existsSync(`${step.stepDir}/post${ext}`)
-          ? requireFromRoot(`${step.stepDir}/post${ext}`).default
-          : PostController;
+        let postController = PostController;
+        if (fs.existsSync(`${step.stepDir}/post${ext}`)) {
+          postController = isTestRuntime
+            ? requireFromRoot(`${step.stepDir}/post${ext}`).default
+            : (await import(pathToFileURL(`${step.stepDir}/post${ext}`).href)).default;
+        }
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }

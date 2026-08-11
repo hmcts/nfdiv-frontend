@@ -88,7 +88,7 @@ app.use((req, res, next) => {
 
     new OidcMiddleware().enableFor(app);
     new StateRedirectMiddleware().enableFor(app);
-    new Routes().enableFor(app);
+    await new Routes().enableFor(app);
     new ErrorHandler().handleNextErrorsFor(app);
 
     const port = config.get('port');

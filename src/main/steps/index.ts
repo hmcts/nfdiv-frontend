@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import { createRequire } from 'module';
-import { dirname, extname, resolve } from 'path';
+import { resolve } from 'path';
+import { pathToFileURL } from 'url';
 
 import { Case, CaseWithId } from '../app/case/case.js';
 import { ApplicationType, State } from '../app/case/definition.js';
@@ -27,13 +28,10 @@ import {
 } from './urls.js';
 
 const requireFromRoot = createRequire(resolve(process.cwd(), 'package.json'));
-const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
 const sourceStepsBaseDir = resolve(process.cwd(), 'src/main/steps');
-const stepsFilePath = isTestRuntime
-  ? resolve(process.cwd(), 'src/main/steps/index.ts')
-  : resolve(process.cwd(), 'src/main/steps/index.js');
-const runtimeStepsBaseDir = dirname(stepsFilePath);
-const ext = extname(stepsFilePath);
+const runtimeStepsBaseDir = sourceStepsBaseDir;
+const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
+const ext = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
 const stepContentFileByUrl: Record<string, string> = {};
 const stepContentModuleCache = new Map<string, Record<string, unknown>>();
 const stepHasFormCache = new Map<string, boolean>();
@@ -62,9 +60,26 @@ const getStepContentModule = (contentFile: string): Record<string, unknown> => {
     return cached;
   }
 
-  const loaded = requireFromRoot(contentFile) as Record<string, unknown>;
-  stepContentModuleCache.set(contentFile, loaded);
-  return loaded;
+  if (isTestRuntime) {
+    const loaded = requireFromRoot(contentFile) as Record<string, unknown>;
+    stepContentModuleCache.set(contentFile, loaded);
+    return loaded;
+  }
+
+  throw new Error(`Step content module has not been loaded: ${contentFile}`);
+};
+
+export const initializeStepContent = async (): Promise<void> => {
+  for (const contentFile of Object.values(stepContentFileByUrl)) {
+    if (stepContentModuleCache.has(contentFile)) {
+      continue;
+    }
+
+    const loaded = isTestRuntime
+      ? (requireFromRoot(contentFile) as Record<string, unknown>)
+      : ((await import(pathToFileURL(contentFile).href)) as Record<string, unknown>);
+    stepContentModuleCache.set(contentFile, loaded);
+  }
 };
 
 const stepContentHasForm = (contentFile: string): boolean => {
