@@ -180,16 +180,6 @@ describe('getSystemUser', () => {
     });
   });
   describe('IDAM token URL resolution', () => {
-    const accessTokenResponse: AxiosResponse<OidcResponse> = {
-      status: 200,
-      data: {
-        id_token: mockSystemToken,
-        access_token: 'systemUserTestToken',
-      },
-      statusText: 'ok',
-      headers: { test: 'now' },
-      config: { headers: [] as unknown as AxiosRequestHeaders },
-    };
 
     test('should post token request to apiBaseUrl + tokenPath when configured', async () => {
       (mockedConfig.has as jest.Mock).mockImplementation(
