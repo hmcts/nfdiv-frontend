@@ -47,7 +47,7 @@ export const iAmOnPage = (text: string): void => {
 Given('I go to {string}', iAmOnPage);
 
 Then('the page URL should be {string}', (url: string) => {
-  I.waitInUrl(url);
+  iWaitInPath(url);
 });
 
 Given('I login', async () => {
@@ -77,11 +77,7 @@ export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?
 };
 
 export const iWaitInPath = (path: string, wait?: number): void => {
-  I.waitForFunction(
-    expectedPath => window.location.pathname.includes(expectedPath),
-    [path],
-    wait
-  );
+  I.waitForFunction(expectedPath => window.location.pathname.includes(expectedPath), [path], wait);
 };
 
 export const iClickElement = (elemId: string, wait?: number): void => {
