@@ -77,7 +77,14 @@ export class Helmet {
     ];
 
     const formAction = [self, 'https://card.payments.service.gov.uk', 'https://hmcts-access.service.gov.uk/login'];
-    const idamEndSessionOrigin = getOrigin(config.get('services.idam.endSessionURL'));
+    const endSessionUrl =
+      config.has('services.idam.webBaseUrl') && config.has('services.idam.endSessionPath')
+        ? new URL(
+            config.get('services.idam.endSessionPath') as string,
+            `${config.get('services.idam.webBaseUrl') as string}/`
+          ).toString()
+        : (config.get('services.idam.endSessionURL') as string);
+    const idamEndSessionOrigin = getOrigin(endSessionUrl);
     if (idamEndSessionOrigin) {
       formAction.push(idamEndSessionOrigin);
     }

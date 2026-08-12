@@ -33,7 +33,7 @@ const mockSystemPayload = {
 const mockToken = jwt.sign(mockPayload, mockSecret, { expiresIn: '1h' });
 const mockSystemToken = jwt.sign(mockSystemPayload, mockSecret, { expiresIn: '1h' });
 const mockedServiceId = 'nfdiv';
-const mockedAuthorizationURL = 'https://idam-web-public.aat.platform.hmcts.net/login';
+const mockedAuthorizationURL = 'https://idam-web-public.aat.platform.hmcts.net/o/authorize';
 const mockedAuthorizationScope = 'openid profile roles';
 
 describe('getRedirectUrl', () => {
@@ -42,7 +42,7 @@ describe('getRedirectUrl', () => {
     mockedConfig.get.mockReturnValueOnce(mockedAuthorizationURL);
     mockedConfig.get.mockReturnValueOnce(mockedAuthorizationScope);
     expect(getRedirectUrl('http://localhost', SIGN_IN_URL)).toBe(
-      'https://idam-web-public.aat.platform.hmcts.net/login?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback&scope=openid profile roles'
+      'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback&scope=openid profile roles'
     );
   });
 
@@ -51,7 +51,7 @@ describe('getRedirectUrl', () => {
     mockedConfig.get.mockReturnValueOnce(mockedAuthorizationURL);
     mockedConfig.get.mockReturnValueOnce(mockedAuthorizationScope);
     expect(getRedirectUrl('http://localhost', APPLICANT_2_SIGN_IN_URL)).toBe(
-      'https://idam-web-public.aat.platform.hmcts.net/login?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback-applicant2&scope=openid profile roles'
+      'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback-applicant2&scope=openid profile roles'
     );
   });
 });
