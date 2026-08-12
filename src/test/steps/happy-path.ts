@@ -22,7 +22,7 @@ import { jointFinalOrderCompleteCase } from '../functional/fixtures/jointFinalOr
 import { respondentCompleteCase } from '../functional/fixtures/respondentCompleteCase.js';
 import { respondentCompleteCaseWithDispute } from '../functional/fixtures/respondentCompleteCaseWithDispute.js';
 
-import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common.js';
+import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait, iWaitInPath } from './common.js';
 import { iEnterTheUkAddress } from './postcode.js';
 
 const { I } = inject();
@@ -277,7 +277,7 @@ Given('I pay and submit the joint application', () => {
 });
 
 const completePayment = () => {
-  I.waitInUrl('/card_details', 15);
+  iWaitInPath('/card_details', 15);
   iClick('Card number', '#card-no', 15);
   I.type('4444333322221111');
   iClick('Month', '#expiry-month');
@@ -298,6 +298,6 @@ const completePayment = () => {
   I.type('nightly-functional-test@example.com');
   iClick('Continue');
 
-  I.waitInUrl('/card_details');
+  iWaitInPath('/card_details');
   I.click('Confirm payment');
 };

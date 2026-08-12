@@ -96,7 +96,7 @@ const stepContentHasForm = (contentFile: string): boolean => {
 
 const getStepFields = (stepUrl: string, data: CaseWithId): FormFields | undefined => {
   const contentFile = stepContentFileByUrl[stepUrl];
-  if (!contentFile || !stepContentHasForm(contentFile)) {
+  if (!contentFile) {
     return undefined;
   }
 

@@ -76,6 +76,14 @@ export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?
   I.click(locator || text);
 };
 
+export const iWaitInPath = (path: string, wait?: number): void => {
+  I.waitForFunction(
+    expectedPath => window.location.pathname.includes(expectedPath),
+    [path],
+    wait
+  );
+};
+
 export const iClickElement = (elemId: string, wait?: number): void => {
   I.waitForElement(elemId, wait);
   I.click(elemId);
