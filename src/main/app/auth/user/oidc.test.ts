@@ -180,7 +180,6 @@ describe('getSystemUser', () => {
     });
   });
   describe('IDAM token URL resolution', () => {
-
     test('should post token request to apiBaseUrl + tokenPath when configured', async () => {
       (mockedConfig.has as jest.Mock).mockImplementation(
         key => key === 'services.idam.apiBaseUrl' || key === 'services.idam.tokenPath'
