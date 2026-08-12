@@ -23,7 +23,7 @@ describe('CaseDocumentManagementClient', () => {
       interceptors: { request: mockRequestInterceptor },
     } as unknown as AxiosInstance);
     mockedConfig.get.mockReturnValueOnce('case-document-management-base-url');
-    mockServiceAuth.getServiceAuthToken.mockReturnValueOnce('dummyS2SAuthToken');
+    mockServiceAuth.getServiceAuthToken.mockResolvedValueOnce('dummyS2SAuthToken');
 
     const client = new CaseDocumentManagementClient({
       id: 'userId',
