@@ -41,6 +41,6 @@ describe('getServiceAuthToken', () => {
     mockedAxios.post.mockResolvedValue({ data: 'token' });
 
     await initAuthToken();
-    expect(getServiceAuthToken()).toBe('token');
+    await expect(getServiceAuthToken()).resolves.toBe('token');
   });
 });

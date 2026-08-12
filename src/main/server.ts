@@ -83,7 +83,7 @@ app.use((req, res, next) => {
 
     new CSRFToken().enableFor(app);
     new LanguageToggle().enableFor(app);
-    await new AuthProvider().enable();
+    new AuthProvider().enable();
     new FeesRegister().enable();
 
     new OidcMiddleware().enableFor(app);

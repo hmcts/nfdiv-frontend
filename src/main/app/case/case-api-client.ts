@@ -178,8 +178,8 @@ export const getCaseApiClient = (userDetails: UserDetails, logger: LoggerInstanc
     },
   });
 
-  server.interceptors.request.use(request => {
-    request.headers.set('ServiceAuthorization', getServiceAuthToken());
+  server.interceptors.request.use(async request => {
+    request.headers.set('ServiceAuthorization', await getServiceAuthToken());
     return request;
   });
 

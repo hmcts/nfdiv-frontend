@@ -70,16 +70,18 @@ const getStepContentModule = (contentFile: string): Record<string, unknown> => {
 };
 
 export const initializeStepContent = async (): Promise<void> => {
-  for (const contentFile of Object.values(stepContentFileByUrl)) {
-    if (stepContentModuleCache.has(contentFile)) {
-      continue;
-    }
+  await Promise.all(
+    Object.values(stepContentFileByUrl).map(async contentFile => {
+      if (stepContentModuleCache.has(contentFile)) {
+        return;
+      }
 
-    const loaded = isTestRuntime
-      ? (requireFromRoot(contentFile) as Record<string, unknown>)
-      : ((await import(pathToFileURL(contentFile).href)) as Record<string, unknown>);
-    stepContentModuleCache.set(contentFile, loaded);
-  }
+      const loaded = isTestRuntime
+        ? (requireFromRoot(contentFile) as Record<string, unknown>)
+        : ((await import(pathToFileURL(contentFile).href)) as Record<string, unknown>);
+      stepContentModuleCache.set(contentFile, loaded);
+    })
+  );
 };
 
 const stepContentHasForm = (contentFile: string): boolean => {

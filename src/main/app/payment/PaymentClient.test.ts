@@ -16,6 +16,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedConfig = config as jest.Mocked<typeof config>;
 const mockGetServiceAuthToken = getServiceAuthToken as jest.Mocked<jest.Mock>;
 const serviceRequestNumber = 'test123';
+const mockRequestInterceptor = { use: jest.fn() };
 
 describe('PaymentClient', () => {
   it('creates payments', async () => {
@@ -25,7 +26,10 @@ describe('PaymentClient', () => {
     const mockPost = jest.fn().mockResolvedValueOnce({
       data: { mockPayment: 'data', next_url: 'http://example.com/pay' },
     });
-    mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
+    mockedAxios.create.mockReturnValueOnce({
+      post: mockPost,
+      interceptors: { request: mockRequestInterceptor },
+    } as unknown as AxiosInstance);
 
     const orderSummaryFees: ListValue<Fee>[] = [
       {
@@ -55,7 +59,6 @@ describe('PaymentClient', () => {
       baseURL: 'http://mock-service-url',
       headers: {
         Authorization: 'Bearer mock-user-access-token',
-        ServiceAuthorization: 'mock-server-auth-token',
       },
     });
 
@@ -77,7 +80,10 @@ describe('PaymentClient', () => {
     mockedConfig.get.mockReturnValueOnce('mock-api-key');
     mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
     const mockPost = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data, but missing _links' } });
-    mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
+    mockedAxios.create.mockReturnValueOnce({
+      post: mockPost,
+      interceptors: { request: mockRequestInterceptor },
+    } as unknown as AxiosInstance);
     const orderSummaryFees: ListValue<Fee>[] = [
       {
         id: '1',
@@ -110,7 +116,10 @@ describe('PaymentClient', () => {
 
   it('gets payment data', async () => {
     const mockGet = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data' } });
-    mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
+    mockedAxios.create.mockReturnValueOnce({
+      get: mockGet,
+      interceptors: { request: mockRequestInterceptor },
+    } as unknown as AxiosInstance);
     const req = mockRequest();
 
     const client = new PaymentClient(req.session, 'http://return-url');
@@ -124,7 +133,10 @@ describe('PaymentClient', () => {
 
   it('logs errors if it fails to fetch data', async () => {
     const mockGet = jest.fn().mockRejectedValueOnce({ data: { some: 'error' } });
-    mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
+    mockedAxios.create.mockReturnValueOnce({
+      get: mockGet,
+      interceptors: { request: mockRequestInterceptor },
+    } as unknown as AxiosInstance);
     const req = mockRequest();
 
     const client = new PaymentClient(req.session, 'http://return-url');

@@ -113,10 +113,40 @@ export class Routes {
     const { errorHandler } = app.locals;
     const errorController = new ErrorController();
 
+    let stepControllers;
     if (isTestRuntime) {
-      initializeStepContent();
+      void initializeStepContent();
+      stepControllers = stepsWithContent.map(step => {
+        let getController = GetController;
+        if (fs.existsSync(`${step.stepDir}/get${ext}`)) {
+          getController = requireFromRoot(`${step.stepDir}/get${ext}`).default;
+        }
+
+        let postController = PostController;
+        if (step.form && fs.existsSync(`${step.stepDir}/post${ext}`)) {
+          postController = requireFromRoot(`${step.stepDir}/post${ext}`).default;
+        }
+
+        return { step, getController, postController };
+      });
     } else {
-      await initializeStepContent();
+      const stepControllersPromise = Promise.all(
+        stepsWithContent.map(async step => {
+          let getController = GetController;
+          if (fs.existsSync(`${step.stepDir}/get${ext}`)) {
+            getController = (await import(pathToFileURL(`${step.stepDir}/get${ext}`).href)).default;
+          }
+
+          let postController = PostController;
+          if (step.form && fs.existsSync(`${step.stepDir}/post${ext}`)) {
+            postController = (await import(pathToFileURL(`${step.stepDir}/post${ext}`).href)).default;
+          }
+
+          return { step, getController, postController };
+        })
+      );
+      const [, loadedStepControllers] = await Promise.all([initializeStepContent(), stepControllersPromise]);
+      stepControllers = loadedStepControllers;
     }
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
@@ -151,14 +181,7 @@ export class Routes {
     app.post(DOCUMENT_MANAGER, uploadFilesMiddleware, errorHandler(documentManagerController.post));
     app.post(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
 
-    for (const step of stepsWithContent) {
-      let getController = GetController;
-      if (fs.existsSync(`${step.stepDir}/get${ext}`)) {
-        getController = isTestRuntime
-          ? requireFromRoot(`${step.stepDir}/get${ext}`).default
-          : (await import(pathToFileURL(`${step.stepDir}/get${ext}`).href)).default;
-      }
-
+    for (const { step, getController, postController } of stepControllers) {
       app.get(
         step.url,
         this.isRouteForUser as RequestHandler,
@@ -166,12 +189,6 @@ export class Routes {
       );
 
       if (step.form) {
-        let postController = PostController;
-        if (fs.existsSync(`${step.stepDir}/post${ext}`)) {
-          postController = isTestRuntime
-            ? requireFromRoot(`${step.stepDir}/post${ext}`).default
-            : (await import(pathToFileURL(`${step.stepDir}/post${ext}`).href)).default;
-        }
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }
