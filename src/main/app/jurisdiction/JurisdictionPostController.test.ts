@@ -32,10 +32,10 @@ describe('JurisdictionPostController', () => {
       id: '1234',
     };
     const mockFormContent = {
-      fields: {
+      fields: () => ({
         applicant2LifeBasedInEnglandAndWales: {},
         applicant1LifeBasedInEnglandAndWales: {},
-      },
+      }),
     } as unknown as FormContent;
 
     const jurisdictionController = new JurisdictionPostController(mockFormContent.fields);
@@ -73,9 +73,9 @@ describe('JurisdictionPostController', () => {
       id: '1234',
     };
     const mockFormContent = {
-      fields: {
+      fields: () => ({
         connections: {},
-      },
+      }),
     } as unknown as FormContent;
 
     const jurisdictionController = new JurisdictionPostController(mockFormContent.fields);

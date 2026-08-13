@@ -5,7 +5,7 @@ import { JURISDICTION_INTERSTITIAL_URL } from '../../steps/urls.js';
 import { Case, CaseWithId } from '../case/case.js';
 import { AppRequest } from '../controller/AppRequest.js';
 import { AnyObject, PostController } from '../controller/PostController.js';
-import { Form, FormFields, FormFieldsFn } from '../form/Form.js';
+import { FormFields, FormFieldsFn } from '../form/Form.js';
 
 import { addConnectionsBasedOnQuestions } from './connections.js';
 import { setUnreachableJurisdictionFieldsAsNull } from './jurisdictionRemovalHelper.js';
@@ -17,7 +17,7 @@ export class JurisdictionPostController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const form = new Form(<FormFields>this.fields);
+    const form = this.getForm(req);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
