@@ -15,12 +15,19 @@ const buildUrlFromBaseAndPath = (baseUrl: string, path: string): string => new U
 
 const getIdamAuthorizationUrl = (): string => {
   if (config.has('services.idam.webBaseUrl') && config.has('services.idam.authorizationPath')) {
-    return buildUrlFromBaseAndPath(
+    const url = buildUrlFromBaseAndPath(
       config.get('services.idam.webBaseUrl') as string,
       config.get('services.idam.authorizationPath') as string
     );
+    const parsed = new URL(url);
+    logger.info('IDAM auth URL source=basePath host=%s path=%s', parsed.host, parsed.pathname);
+    return url;
   }
-  return config.get('services.idam.authorizationURL') as string;
+
+  const url = config.get('services.idam.authorizationURL') as string;
+  const parsed = new URL(url);
+  logger.info('IDAM auth URL source=legacy host=%s path=%s', parsed.host, parsed.pathname);
+  return url;
 };
 
 const getIdamTokenUrl = (): string => {
