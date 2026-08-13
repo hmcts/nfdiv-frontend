@@ -26,12 +26,16 @@ import { destroySessionAndRedirectToSignOutPage } from './signout.js';
 export class PostController<T extends AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {}
 
+  protected getForm(req: AppRequest): Form {
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    return new Form(fields);
+  }
+
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    const form = new Form(fields);
+    const form = this.getForm(req);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 
