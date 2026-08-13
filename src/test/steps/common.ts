@@ -142,6 +142,10 @@ Then('the page should include visible element {string}', (elemId: string) => {
 When('I select element {string}', iClickElement);
 When('I click element {string}', iClickElement);
 
+When('I click back', () => {
+  iClickElement('a.govuk-back-link');
+});
+
 When('I click start', () => {
   iClickElement('.govuk-button--start');
 });
