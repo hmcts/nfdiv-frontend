@@ -164,8 +164,18 @@ When('I click send for review', iClickSubmit);
 When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
 When('I click accept and send', iClickSubmit);
+When('I click apply for conditional order', () => {
+  iClickElement('#applyForConditionalOrderButton');
+});
+When('I click apply for final order', () => {
+  iClickElement('#applyForFinalOrderButton');
+});
+When('I click confirm', iClickSubmit);
 When('I click continue to the next steps', () => {
   iClickElement('a.govuk-button[href="/return-to-service"]');
+});
+When('I click respond to the application', () => {
+  iClickElement('#respondToTheApplicationButton');
 });
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
