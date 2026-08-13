@@ -85,8 +85,12 @@ export const iClickElement = (elemId: string, wait?: number): void => {
   I.click(elemId);
 };
 
-export const iClickSubmit = (): void => {
-  iClickElement('#main-form-submit');
+export const iClickSubmit = async (): Promise<void> => {
+  const submitSelector = await I.executeScript(() =>
+    document.querySelector('#main-form-submit') ? '#main-form-submit' : 'button[type="submit"]'
+  );
+
+  iClickElement(submitSelector as string);
 };
 
 export const iRejectCookies = (): void => {
@@ -160,6 +164,9 @@ When('I click send for review', iClickSubmit);
 When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
 When('I click accept and send', iClickSubmit);
+When('I click continue to the next steps', () => {
+  iClickElement('a.govuk-button[href="/return-to-service"]');
+});
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
   I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
