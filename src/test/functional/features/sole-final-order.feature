@@ -69,7 +69,7 @@ Feature: Sole final order
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
     Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2020-01-01"
-    When I click sign out
+    When I sign out
     And I login with applicant "2"
     Then the page should include "Your wife has not yet applied for a final order"
     And the page URL should be "/respondent/hub-page"
@@ -89,7 +89,7 @@ Feature: Sole final order
     Given I pay and submit the final order application
     Then the page should include "You have submitted your final order application"
 
-    Given I click sign out
+    Given I sign out
     When I login with applicant "1"
     Then the page should include "Your husband has applied for a ‘final order’."
     And the page should include "A judge will review the application"
@@ -107,7 +107,7 @@ Feature: Sole final order
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
     Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2020-01-01"
-    When I click sign out
+    When I sign out
     And I login with applicant "2"
     Then the page should include "Your wife has not yet applied for a final order"
     And the page URL should be "/respondent/hub-page"
@@ -150,7 +150,7 @@ Feature: Sole final order
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
-    When I click sign out
+    When I sign out
     And I login with applicant "2"
     Then the page should include "Your wife has not yet applied for a final order"
     And the page URL should be "/respondent/hub-page"
