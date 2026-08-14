@@ -8,11 +8,11 @@ Feature: Applicant 1 joint application
 
   Scenario: They fill out a happy path applicant 1 joint journey
     Given I select "My husband"
-    And I click "Continue"
+    And I click continue
     Then the page should include "Has your marriage broken down irretrievably (it cannot be saved)?"
     Given I select "I confirm my marriage has broken down irretrievably"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "When did you get married?"
     Given I select "Day"
     And I type "1"
@@ -21,40 +21,40 @@ Feature: Applicant 1 joint application
     Given I select "Year"
     And I type "2000"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Do you have your marriage certificate with you?"
     Given I select "Yes, I have my marriage certificate with me"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Do you need help paying the fee for your divorce?"
     Given I select "I do not need help paying the fee"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "How do you want to apply for the divorce?"
     Given I select "I want to apply jointly, with my husband"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Enter your husband's email address"
     Given I clear the form
     And I select "Your husband's email address"
     And I type "simulate-delivered@notifications.service.gov.uk"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Did you get married in the UK?"
     Given I select "Yes"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Check if you can get a divorce in England or Wales"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Where your lives are based"
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "You can use English or Welsh courts to get a divorce"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Enter your name"
     Given I clear the form
     And I select "Your first name"
@@ -62,27 +62,27 @@ Feature: Applicant 1 joint application
     And I select "Your last name"
     And I type "Smith"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
     Given I select "No"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "How is your name written on your marriage certificate"
     Given I select "Copy your full name from the marriage certificate"
     And I type "Sarah Smith"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "How the court will contact you"
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-    When I click "Continue"
+    When I click continue
     Then the page should include "What language do you want to receive emails and documents in"
     Given I select "English"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Do you need your contact details kept private from your husband?"
     Given I select "I do not need my contact details kept private"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Enter your postal address"
     Given I select "Enter a UK postcode"
     And I type "SW1H 9AJ"
@@ -92,19 +92,19 @@ Feature: Applicant 1 joint application
     And I wait for the postcode lookup to return results
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Other court cases relating to this marriage"
     Given I select "No"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Dividing your money and property"
     Given I select "No. I do not want to apply for a financial order"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Upload your documents"
     Given I select "I cannot upload my original marriage certificate"
 
-    When I click "Continue"
+    When I click continue
     And I go to "/"
     And the page should include "Check your answers"
     And the page should include "When did you get married?"
@@ -115,7 +115,7 @@ Feature: Applicant 1 joint application
     And the page should include "I do not need help paying the fee"
     And the page should include "Did you get married in the UK?"
 
-    When I click "Send for review"
+    When I click send for review
     Then the page URL should be "/application-sent-for-review"
     And the page should include "Your answers have been sent to your husband to review"
 
@@ -125,18 +125,18 @@ Feature: Applicant 1 joint application
     Given I select "My husband"
     And I select "We were a same-sex couple when we got married"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Has your marriage broken down irretrievably (it cannot be saved)?"
     Given I select "My marriage has not broken down irretrievably"
     Then the page should include "Your marriage must have broken down irretrievably for you to get a divorce. This is the law in England and Wales."
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "You cannot apply to get a divorce"
-    Given I click "Back"
+    Given I click back
     Then the page URL should be "/irretrievable-breakdown"
     Given I select "I confirm my marriage has broken down irretrievably"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "When did you get married?"
     Given I select "Day"
     And I type "1"
@@ -145,85 +145,85 @@ Feature: Applicant 1 joint application
     Given I select "Year"
     And I type "2000"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Do you have your marriage certificate with you?"
     Given I select "No, I do not have marriage certificate with me"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "You need your marriage certificate"
-    Given I click "Back"
+    Given I click back
     Then the page URL should be "/do-you-have-your-certificate"
     Given I select "Yes, I have my marriage certificate with me"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Do you need help paying the fee for your divorce?"
     Given I select "I need help paying the fee"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Have you already applied for help with your divorce fee?"
     Given I select "No"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "You need to apply for help with your divorce fees"
     Given I click "enter it here"
     Then the page URL should be "/help-with-your-fee"
     Given I select "I need help paying the fee"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/have-you-applied-for-help-with-fees"
     Given I select "Yes"
     And I select "Enter your Help With Fees reference number"
     And I type "HWF-ABC-123"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "How do you want to apply for the divorce?"
     Given I select "I want to apply jointly, with my husband"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Enter your husband's email address"
     Given I select "I do not know their email address"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "You need to get their email address"
 
-    When I click "Back"
+    When I click back
     Then the page URL should be "/their-email-address"
     Given I clear the form
     And I select "Your husband's email address"
     And I type "simulate-delivered@notifications.service.gov.uk"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Did you get married in the UK?"
     Given I select "No"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Is your original marriage certificate in English?"
     Given I select "No"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Do you have a ‘certified translation’ of your marriage certificate?"
     Given I select "No, I do not have a certified translation"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "You need to get a ‘certified translation’ of your marriage certificate"
-    Given I click "Back"
+    Given I click back
     Then the page URL should be "/certified-translation"
     Given I select "Yes, I have a certified translation"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Where you got married"
     Given I select "Enter the country where you got married"
     And I type "England"
     Given I select "Enter the place where you got married"
     And I type "London"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/check-jurisdiction"
     Given I go to "/certificate-in-english"
     And I clear the form
     And I select "Yes"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Where you got married"
     Given I clear the form
     And I select "Enter the country where you got married"
@@ -231,18 +231,18 @@ Feature: Applicant 1 joint application
     Given I select "Enter the place where you got married"
     And I type "London"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Check if you can get a divorce in England or Wales"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Where your lives are based"
     Given I select "Yes" for "Is your life mainly based in England or Wales?"
     And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "You can use English or Welsh courts to get a divorce"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Enter your name"
     Given I clear the form
     And I select "Your first name"
@@ -250,33 +250,33 @@ Feature: Applicant 1 joint application
     And I select "Your last name"
     And I type "Smith"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
     Given I select "No"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "How is your name written on your marriage certificate"
     Given I select "Copy your full name from the marriage certificate"
     And I type "Sarah Smith"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "How the court will contact you"
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
     And I select "Enter your phone number (optional)"
     And I type "123456789"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "What language do you want to receive emails and documents in?"
     Given I select "English"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Do you need your contact details kept private from your husband?"
     Given I select "Keep my contact details private"
     Then the page should include "Are you currently in a refuge?"
     Given I select "No"
     Then the page should include "If you think you might be experiencing domestic abuse or you feel unsafe, then support is available"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Enter your postal address"
     Given I click "I have an international address"
     And I select "Address line 1"
@@ -288,32 +288,32 @@ Feature: Applicant 1 joint application
     And I select "Country"
     And I type "UK"
 
-    When I click "Continue"
+    When I click continue
     And the page should include "Other court cases relating to this marriage"
     Given I select "Yes"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Details of the other legal proceedings"
     Given I select "Provide details about the other legal proceedings."
     And I type "Test other legal proceedings details"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/dividing-money-property"
     And the page should include "Dividing your money and property"
     Given I select "Yes. I want to apply for a financial order"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/who-is-the-financial-order-for"
     And the page should include "Who is the financial order for?"
     And I select "I need a financial order for myself and my child(ren)"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Upload your documents"
     Given I delete any previously uploaded files
     Then the page should include "No files uploaded"
     Given I select "I cannot upload my original foreign marriage certificate"
 
-    When I click "Continue"
+    When I click continue
     And I go to "/"
     Then the page should include "Check your answers"
     And the page should include "I confirm my marriage has broken down irretrievably"
@@ -331,7 +331,7 @@ Feature: Applicant 1 joint application
     And the page should include "Did you get married in the UK?"
     And the page should include "No"
 
-    When I click "Send for review"
+    When I click send for review
     Then the page URL should be "/application-sent-for-review"
     And the page should include "Your answers have been sent to your husband to review"
 
@@ -348,7 +348,7 @@ Feature: Applicant 1 joint application
     And I wait until the page doesn't contain "larry-the-cat.jpg"
     When I clear the form
     And I select "I cannot upload my original marriage certificate"
-    When I click "Continue"
+    When I click continue
     And I go to "/"
     Then the page should include "Check your answers"
     And the page should include "I cannot upload some or all of my documents"
