@@ -8,6 +8,8 @@ import event from 'codeceptjs/lib/event';
 const attempts = new Map();
 const outputDir = path.resolve(process.cwd(), 'functional-output/functional/retry-audit');
 
+const getAttemptKey = test => `${threadId}:${test.uid}`;
+
 const serialiseError = error => {
   if (!error) {
     return null;
@@ -33,11 +35,13 @@ const writeAttempt = (test, status, error, hookName) => {
     return;
   }
 
-  const attempt = (attempts.get(test.uid) || 0) + 1;
-  attempts.set(test.uid, attempt);
+  const attemptKey = getAttemptKey(test);
+  const attempt = (attempts.get(attemptKey) || 0) + 1;
+  attempts.set(attemptKey, attempt);
 
   const details = {
     ...getTestDetails(test),
+    attemptKey,
     attempt,
     status,
     hookName: hookName || null,
