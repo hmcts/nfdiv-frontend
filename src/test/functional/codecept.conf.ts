@@ -28,6 +28,11 @@ export const config: CodeceptJS.Config = {
       enabled: true,
       require: 'allure-codeceptjs',
     },
+    retryAudit: {
+      enabled: true,
+      runInParent: false,
+      require: path.resolve(process.cwd(), 'src/test/functional/retry-audit.mjs'),
+    },
     screenshot: {
       enabled: true,
       fullPageScreenshots: true,
