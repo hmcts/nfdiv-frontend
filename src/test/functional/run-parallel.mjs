@@ -1,5 +1,5 @@
-import { readdir } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
+import { readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -21,10 +21,7 @@ let failed = false;
 const runFeature = (feature, workerIndex) =>
   new Promise(resolve => {
     const featureName = path.basename(feature, '.feature').replace(/[^a-zA-Z0-9_-]/g, '_');
-    const reportDir = path.join(
-      'functional-output/functional/reports',
-      `worker-${workerIndex}-${featureName}`
-    );
+    const reportDir = path.join('functional-output/functional/reports', `worker-${workerIndex}-${featureName}`);
     const override = JSON.stringify({
       output: reportDir,
       plugins: {
