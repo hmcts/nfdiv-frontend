@@ -21,12 +21,17 @@ let failed = false;
 const runFeature = (feature, workerIndex) =>
   new Promise(resolve => {
     const featureName = path.basename(feature, '.feature').replace(/[^a-zA-Z0-9_-]/g, '_');
-    const reportDir = path.join('functional-output/functional/reports', `worker-${workerIndex}-${featureName}`);
+    const reportDir = path.join(
+      projectRoot,
+      'functional-output/functional/reports',
+      `worker-${workerIndex}-${featureName}`
+    );
+    const junitReportDir = path.join(projectRoot, 'functional-output/functional/reports');
     const override = JSON.stringify({
       output: reportDir,
       plugins: {
         junitReporter: {
-          output: 'functional-output/functional/reports',
+          output: junitReportDir,
           outputName: `result-worker-${workerIndex}-${featureName}.xml`,
         },
       },
@@ -39,7 +44,13 @@ const runFeature = (feature, workerIndex) =>
 
     const child = spawn(codeceptBin, args, {
       cwd: projectRoot,
-      env: process.env,
+      // Some feature files contain only @nightly scenarios. When the normal
+      // e2e grep excludes them, CodeceptJS treats that child as an empty run
+      // and exits 1. The parent runner treats it as a skipped file.
+      env: {
+        ...process.env,
+        DONT_FAIL_ON_EMPTY_RUN: 'true',
+      },
       stdio: ['ignore', 'pipe', 'pipe'],
     });
 
