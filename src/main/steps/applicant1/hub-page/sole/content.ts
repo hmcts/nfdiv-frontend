@@ -1151,18 +1151,9 @@ export const generateContent: TranslationFn = content => {
     InterimApplicationType.ALTERNATIVE_SERVICE,
   ]);
 
-  const hasNoRespondentAddressJourneyData = Boolean(
-    userCase.applicant1NoRespAddressHasFoundAddress ||
-    userCase.applicant1NoRespAddressHasWayToContact ||
-    userCase.applicant1NoRespAddressWillApplyAltService ||
-    userCase.applicant1NoRespAddressAddress1 ||
-    userCase.applicant1NoRespAddressEmail
-  );
-
   const preIssueNoRespondentAddressApplicationStarted =
     !content.caseHasBeenIssued &&
-    noRespondentAddressInterimTypes.has(userCase.applicant1InterimApplicationType as InterimApplicationType) &&
-    hasNoRespondentAddressJourneyData;
+    noRespondentAddressInterimTypes.has(userCase.applicant1InterimApplicationType as InterimApplicationType);
 
   return {
     ...languages[language](
