@@ -41,7 +41,11 @@ describe('CheckYourAnswersPostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      { ...body, divorceOrDissolution: DivorceOrDissolution.DIVORCE },
+      expect.objectContaining({
+        ...body,
+        divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        citizenPaymentCallbackUrl: 'https://localhost/payment-callback',
+      }),
       CITIZEN_SUBMIT
     );
   });
@@ -127,13 +131,14 @@ describe('CheckYourAnswersPostController', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       '1234',
-      {
+      expect.objectContaining({
         ...body,
         divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+        citizenPaymentCallbackUrl: 'https://localhost/payment-callback',
         applicant1ApplyForFinancialOrder: YesOrNo.YES,
         applicant1WhoIsFinancialOrderFor: [FinancialOrderFor.CHILDREN],
         applicant1UsedWelshTranslationOnSubmission: YesOrNo.YES,
-      },
+      }),
       CITIZEN_SUBMIT
     );
   });
