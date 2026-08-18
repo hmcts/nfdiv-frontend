@@ -13,10 +13,6 @@ nodejs:
   livenessDelay: 45
   livenessTimeout: 5
   livenessPeriod: 15
-  memoryLimits: '384Mi'
-  memoryRequests: '384Mi'
-  cpuLimits: '1000m'
-  cpuRequests: '200m'
   devcpuRequests: '400m'
   devmemoryLimits: '384Mi'
   devmemoryRequests: '384Mi'
@@ -55,11 +51,6 @@ nodejs:
     NFDIV_DIVORCE_URL: 'https://nfdiv-apply-for-divorce.{{ .Values.global.environment }}.platform.hmcts.net'
     NFDIV_DISSOLUTION_URL: 'https://nfdiv-end-civil-partnership.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_TOKEN_CACHE: false
-#disable autoscaling because it doesnt deploy AAT
-  autoscaling:
-    enabled: true
-    maxReplicas: 8
-    targetCPUUtilizationPercentage: 80
 
 idam-pr:
   enabled: false
