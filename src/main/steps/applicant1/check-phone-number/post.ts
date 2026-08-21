@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { Case } from '../../../app/case/case';
+import { Case, CaseWithId } from '../../../app/case/case';
 import {
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS,
@@ -31,7 +31,7 @@ export default class CitizenUpdateContactDetailsPostController extends PostContr
     form: Form,
     formData: Partial<Case>
   ): Promise<void> {
-    const fieldValueChanged = this.hasValueChanged(formData, req.session.userCase, req.session.isApplicant2);
+    const fieldValueChanged = this.hasValueChanged(formData, req.session.userCase);
 
     Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
@@ -50,18 +50,8 @@ export default class CitizenUpdateContactDetailsPostController extends PostContr
     this.saveSessionAndRedirect(req, res);
   }
 
-  private hasValueChanged(formData: Partial<Case>, userCase: Case, isApplicant2: boolean): boolean {
-    const applicant = isApplicant2 ? 'applicant2' : 'applicant1';
-
-    const formDataFields = Object.keys(userCase).filter(
-      key => key.startsWith(applicant) && formData[key] !== undefined
-    );
-    return formDataFields.some(key => {
-      const formField = formData[key];
-      const userCaseField = userCase[key];
-
-      return this.normalizeValue(formField) !== this.normalizeValue(userCaseField);
-    });
+  private hasValueChanged(formData: Partial<Case>, userCase: CaseWithId): boolean {
+    return Object.keys(formData).some(key => this.normalizeValue(formData[key]) !== this.normalizeValue(userCase[key]));
   }
 
   private normalizeValue(value: string | number | boolean | string[] | object | null | undefined): string {
