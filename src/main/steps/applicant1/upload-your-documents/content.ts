@@ -4,6 +4,7 @@ import { CaseWithId, Checkbox } from '../../../app/case/case';
 import { DocumentType, YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
@@ -174,6 +175,7 @@ export const form: FormContent = {
 
     return {
       applicant1UploadedFiles: {
+        errorId: UPPY_FILE_INPUT_BUTTON_ID,
         type: 'hidden',
         label: l => l.uploadFiles,
         labelHidden: true,
@@ -193,6 +195,7 @@ export const form: FormContent = {
       ...(checkboxes.length > 1
         ? {
             applicant1CannotUpload: {
+              errorId: UPPY_FILE_INPUT_BUTTON_ID,
               type: 'checkboxes',
               label: l => l.cannotUploadDocuments,
               labelHidden: true,
