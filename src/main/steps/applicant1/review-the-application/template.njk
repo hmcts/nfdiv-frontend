@@ -93,6 +93,8 @@
     <p class="govuk-body">{{ userCase.applicant1Email }}</p>
   {% endif %}
   {% if not isRespondentAddressPrivate or hasApplicant2SolicitorsAddress %}
+    <br>
+    <p class="govuk-body"><strong>{{ changesToDetails }}</strong></p>
     <h3 class="govuk-heading-m">{{ subHeading9 }}</h3>
     <p class="govuk-body">
       {% for line in respondentAddress %}{{ line }}<br>{% endfor %}

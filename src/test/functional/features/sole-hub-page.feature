@@ -36,6 +36,11 @@ Feature: Sole hub page
     Then the page should include "Review the divorce application"
     Given I select "I have read the application for divorce"
 
+    When I click "Continue"
+    Then the page URL should be "/respondent/confirm-contact-details"
+    And the page should include "Review your contact details"
+    Given I select "Yes, these details are up to date"
+
     When I click continue
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
     Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
