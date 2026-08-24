@@ -45,6 +45,7 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       hint: l => l.hint,
+      errorId: 'relationshipDate-day',
       values: [
         {
           label: language === SupportedLanguages.Cy ? 'Diwrnod' : 'Day',

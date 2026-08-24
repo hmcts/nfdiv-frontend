@@ -4,6 +4,10 @@ import FileInput from '@uppy/file-input';
 import ProgressBar from '@uppy/progress-bar';
 import XHRUpload from '@uppy/xhr-upload';
 
+import {
+  UPPY_FILE_INPUT_BUTTON_CLASS,
+  UPPY_FILE_INPUT_BUTTON_ID,
+} from '../../../app/document/DocumentManagementConstants';
 import { SupportedLanguages } from '../../../modules/i18n';
 import { DOCUMENT_MANAGER } from '../../../steps/urls';
 import { getById, hidden, qs } from '../selectors';
@@ -18,7 +22,6 @@ import '@uppy/progress-bar/src/style.scss';
 const initUploadManager = (): void => {
   const url = DOCUMENT_MANAGER;
   const csrfToken = (getById('csrfToken') as HTMLInputElement)?.value;
-  const csrfQuery = `?_csrf=${csrfToken}`;
   const language = document.documentElement.lang;
   location.hash = '';
 
@@ -57,9 +60,12 @@ const initUploadManager = (): void => {
       hideAfterFinish: true,
     })
     .use(XHRUpload, {
-      endpoint: `${url}${csrfQuery}`,
+      endpoint: url,
       bundle: true,
-      headers: { accept: 'application/json' },
+      headers: {
+        accept: 'application/json',
+        'csrf-token': csrfToken,
+      },
       timeout: 60000,
     })
     .on('files-added', async () => {
@@ -83,3 +89,8 @@ if (upload) {
 
 const fileInput = qs('.uppy-FileInput-input');
 fileInput?.setAttribute('tabindex', '-1');
+
+const btn = document.getElementsByClassName(UPPY_FILE_INPUT_BUTTON_CLASS)[0] as HTMLElement | null;
+if (btn && !btn.id) {
+  btn.id = UPPY_FILE_INPUT_BUTTON_ID;
+}
