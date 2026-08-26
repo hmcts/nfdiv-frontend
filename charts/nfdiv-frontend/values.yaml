@@ -13,10 +13,6 @@ nodejs:
   livenessDelay: 45
   livenessTimeout: 5
   livenessPeriod: 15
-  memoryLimits: '384Mi'
-  memoryRequests: '384Mi'
-  cpuLimits: '1000m'
-  cpuRequests: '200m'
   devcpuRequests: '400m'
   devmemoryLimits: '384Mi'
   devmemoryRequests: '384Mi'
@@ -39,11 +35,13 @@ nodejs:
         - launch-darkly-sdk-key
   environment:
     SERVICE_AUTH_PROVIDER_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login'
+    IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/o/authorize'
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
+    IDAM_END_SESSION_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/o/endSession'
     PAYMENTS_API_URL: 'http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     FEES_API_URL: 'http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     REDIS_HOST: 'nfdiv-frontend-{{ .Values.global.environment }}.redis.cache.windows.net'
+    REDIS_PORT: 6380
     CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     #CCD_URL: 'https://nfdiv-case-api-pr-3980.preview.platform.hmcts.net'
     #SKIP_DIV_CASE_CHECK: false #this is required to connect to nfdiv-case-api in preview
@@ -53,11 +51,6 @@ nodejs:
     NFDIV_DIVORCE_URL: 'https://nfdiv-apply-for-divorce.{{ .Values.global.environment }}.platform.hmcts.net'
     NFDIV_DISSOLUTION_URL: 'https://nfdiv-end-civil-partnership.{{ .Values.global.environment }}.platform.hmcts.net'
     IDAM_TOKEN_CACHE: false
-#disable autoscaling because it doesnt deploy AAT
-  autoscaling:
-    enabled: true
-    maxReplicas: 8
-    targetCPUUtilizationPercentage: 80
 
 idam-pr:
   enabled: false

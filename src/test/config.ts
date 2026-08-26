@@ -5,7 +5,7 @@ import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token
 import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
 import { IdamUserManager } from './steps/IdamUserManager';
 import { createAzurePlaywrightConfig, ServiceAuth, ServiceOS } from "@azure/playwright";
-import { v4 as generateUuid } from 'uuid';
+import { randomUUID } from 'crypto';
 
 // better handling of unhandled exceptions
 process.on('unhandledRejection', reason => {
@@ -146,14 +146,14 @@ export const config = {
     ],
   },
   bootstrap: async (): Promise<void> => {
-    await initializeTestEnvironment(); 
+    await initializeTestEnvironment();
     await idamUserManager.createUser(TestUser, TestPass);
   },
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   helpers: {},
 };
 
-process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || generateUuid();
+process.env.PLAYWRIGHT_SERVICE_RUN_ID = process.env.PLAYWRIGHT_SERVICE_RUN_ID || randomUUID();
 
 const playwrightConfig = {
   url: config.TEST_URL,

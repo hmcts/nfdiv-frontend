@@ -20,6 +20,7 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
 import { getPaymentCallbackUrl } from './BasePaymentPostController';
+import { destroySessionAndRedirectToSignOutPage } from './signout';
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -65,6 +66,8 @@ export class PostController<T extends AnyObject> {
     } else {
       res.redirect(SAVE_AND_SIGN_OUT);
     }
+
+    return destroySessionAndRedirectToSignOutPage(req, res, signoutPage);
   }
 
   protected getNextUrl(req: AppRequest): string {
