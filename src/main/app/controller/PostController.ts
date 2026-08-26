@@ -59,12 +59,13 @@ export class PostController<T extends AnyObject> {
     }
 
     const caseState = req.session.userCase?.state;
+
+    let signoutPage = SAVE_AND_SIGN_OUT;
+
     if (caseState === State.Draft) {
-      res.redirect(DRAFT_SAVE_AND_SIGN_OUT);
+      signoutPage = DRAFT_SAVE_AND_SIGN_OUT;
     } else if (caseState === State.InformationRequested) {
-      res.redirect(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
-    } else {
-      res.redirect(SAVE_AND_SIGN_OUT);
+      signoutPage = REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT;
     }
 
     return destroySessionAndRedirectToSignOutPage(req, res, signoutPage);
