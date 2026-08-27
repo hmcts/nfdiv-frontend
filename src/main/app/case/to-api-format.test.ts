@@ -175,7 +175,6 @@ describe('to-api-format', () => {
       applicant2LanguagePreferenceWelsh: 'No',
       applicant2ContactDetailsType: ContactDetailsType.PRIVATE,
       applicant1CannotUploadSupportingDocument: [],
-      applicant1CannotUpload: 'No',
       applicant2CannotUploadSupportingDocument: [],
       applicant2CannotUpload: 'No',
       applicant1PrayerDissolveDivorce: [],
@@ -263,8 +262,7 @@ describe('to-api-format', () => {
       applicant2NameChangedHowOtherDetails: '',
       applicant1NameChangedHow: [],
       applicant2NameChangedHow: [],
-      applicant1CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
-      applicant1CannotUpload: YesOrNo.YES,
+      applicant1CannotUploadSupportingDocument: [],
       applicant2CannotUploadSupportingDocument: [DocumentType.NAME_CHANGE_EVIDENCE],
       applicant2CannotUpload: YesOrNo.YES,
       applicant1FinancialOrder: YesOrNo.YES,
@@ -1493,6 +1491,24 @@ describe('to-api-format', () => {
       },
     ])('transform dispense answers if condition met', ({ expected, ...formData }) => {
       expect(toApiFormat(formData as Partial<Case>)).toMatchObject(expected);
+    });
+  });
+  describe('applicant1CannotUploadDocuments', () => {
+    test('should clear applicant1CannotUploadSupportingDocument when I cannot upload some or all of my evidence checkbox is unchecked', () => {
+      const apiFormat = toApiFormat({
+        applicant1CannotUpload: undefined, // Outer checkbox unchecked
+        applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE], // Inner checkboxes still have values
+      });
+
+      expect(apiFormat.applicant1CannotUploadSupportingDocument).toEqual([]);
+    });
+    test('should not applicant1CannotUploadSupportingDocument when I cannot upload some or all of my evidence checkbox is checked', () => {
+      const apiFormat = toApiFormat({
+        applicant1CannotUpload: Checkbox.Checked,
+        applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE], // Inner checkboxes still have values
+      });
+
+      expect(apiFormat.applicant1CannotUploadSupportingDocument).toEqual([DocumentType.MARRIAGE_CERTIFICATE]);
     });
   });
 });

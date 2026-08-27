@@ -193,12 +193,15 @@ const fields: ToApiConverters = {
       : '',
   }),
   applicant1CannotUploadDocuments: data => ({
-    applicant1CannotUploadSupportingDocument: data.applicant1CannotUploadDocuments
-      ? !Array.isArray(data.applicant1CannotUploadDocuments)
-        ? [data.applicant1CannotUploadDocuments]
-        : data.applicant1CannotUploadDocuments
-      : [],
-    applicant1CannotUpload: data.applicant1CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
+    applicant1CannotUploadSupportingDocument:
+      data.applicant1CannotUpload === Checkbox.Checked && data.applicant1CannotUploadDocuments
+        ? !Array.isArray(data.applicant1CannotUploadDocuments)
+          ? [data.applicant1CannotUploadDocuments]
+          : data.applicant1CannotUploadDocuments
+        : [],
+  }),
+  applicant1CannotUpload: data => ({
+    applicant1CannotUpload: data.applicant1CannotUpload === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO,
   }),
   applicant2CannotUploadDocuments: data => ({
     applicant2CannotUploadSupportingDocument: data.applicant2CannotUploadDocuments

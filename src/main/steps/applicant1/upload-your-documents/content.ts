@@ -186,8 +186,7 @@ export const form: FormContent = {
         parser: data => JSON.parse((data as Record<string, string>).applicant1UploadedFiles || '[]'),
         validator: (value, formData) => {
           const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-          const selectedCannotUploadDocuments = !!formData.applicant1CannotUploadDocuments?.length;
-          if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
+          if (!hasUploadedFiles && formData.applicant1CannotUpload !== Checkbox.Checked) {
             return 'notUploaded';
           }
         },
