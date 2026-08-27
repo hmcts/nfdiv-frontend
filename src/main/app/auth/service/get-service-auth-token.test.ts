@@ -14,6 +14,16 @@ import { getServiceAuthToken, initAuthToken } from './get-service-auth-token.js'
 
 const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 
+beforeEach(() => {
+  jest.resetModules();
+  jest.clearAllMocks();
+  delete (
+    globalThis as typeof globalThis & {
+      __nfdivServiceAuthToken?: string;
+    }
+  ).__nfdivServiceAuthToken;
+});
+
 describe('initAuthToken', () => {
   test('Should fetch a token before starting the refresh interval', async () => {
     mockedAxios.post.mockResolvedValue({ data: 'token' });
