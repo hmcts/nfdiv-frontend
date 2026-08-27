@@ -13,9 +13,9 @@ import {
   YesOrNo,
 } from '../../app/case/definition';
 import { ValidationCheck } from '../../app/form/Form';
+import { isCountryUk } from '../applicant1Sequence';
 
 import { CommonContent, en } from './common.content';
-import { isCountryUk } from '../applicant1Sequence';
 
 export const DISABLE_UPON_SUBMIT = 'disable-upon-submit';
 
