@@ -1494,7 +1494,7 @@ describe('to-api-format', () => {
     });
   });
   describe('applicant1CannotUploadDocuments', () => {
-    test('should clear applicant1CannotUploadSupportingDocument when "I cannot upload some or all of my evidence" checkbox is unchecked', () => {
+    test('should clear clear applicant1CannotUploadSupportingDocument when "I cannot upload some or all of my evidence" checkbox is unchecked', () => {
       const apiFormat = toApiFormat({
         applicant1CannotUpload: undefined,
         applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
