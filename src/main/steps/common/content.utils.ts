@@ -13,6 +13,7 @@ import {
   YesOrNo,
 } from '../../app/case/definition';
 import { ValidationCheck } from '../../app/form/Form';
+import { isCountryUk } from '../applicant1Sequence';
 
 import { CommonContent, en } from './common.content';
 
@@ -95,12 +96,16 @@ export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWi
 };
 
 export const isAddressRequired = (userCase: Partial<CaseWithId>): boolean => {
+  const postCodeRequired = isCountryUk(userCase.applicant2AddressCountry);
+  const addressCheckList = [
+    userCase.applicant2Address1,
+    userCase.applicant2AddressCountry,
+    ...(postCodeRequired ? [userCase.applicant2AddressPostcode] : []),
+  ];
   return (
     userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
     !userCase?.issueDate &&
-    [userCase.applicant2Address1, userCase.applicant2AddressPostcode, userCase.applicant2AddressCountry].some(
-      isEmpty
-    ) &&
+    addressCheckList.some(isEmpty) &&
     userCase?.applicant2AddressOverseas !== YesOrNo.YES
   );
 };

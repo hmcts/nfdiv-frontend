@@ -226,6 +226,17 @@ describe('content.utils', () => {
         },
         false,
       ],
+      [
+        {
+          applicationType: ApplicationType.SOLE_APPLICATION,
+          issueDate: undefined,
+          applicant2Address1: 'Line 1',
+          applicant2AddressPostcode: undefined,
+          applicant2AddressCountry: 'France',
+          applicant2AddressOverseas: YesOrNo.NO,
+        },
+        false,
+      ],
     ])('returns %s for userCase %j', (userCase, expected) => {
       expect(isAddressRequired(userCase as Partial<CaseWithId>)).toBe(expected);
     });
