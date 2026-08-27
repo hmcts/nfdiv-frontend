@@ -2,17 +2,8 @@ module.exports = {
   roots: ['<rootDir>/src/test/smoke'],
   testRegex: '(/src/test/.*|\\.test)\\.(ts|js)$',
   testEnvironment: 'node',
-  setupFilesAfterEnv: [],
   transform: {
-    '^.+\\.ts$': [
-      'ts-jest',
-      {
-        diagnostics: false,
-      },
-    ],
+    '^.+\\.ts$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'json'],
-  moduleNameMapper: {
-    '^(\\.{1,2}/.*)\\.js$': '$1',
-  },
 };
