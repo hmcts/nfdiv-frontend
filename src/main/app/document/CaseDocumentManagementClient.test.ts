@@ -13,17 +13,13 @@ jest.mock('../auth/service/get-service-auth-token');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedConfig = config as jest.Mocked<typeof config>;
 const mockServiceAuth = serviceAuth as jest.Mocked<typeof serviceAuth>;
-const mockRequestInterceptor = { use: jest.fn() };
 
 describe('CaseDocumentManagementClient', () => {
   it('creates documents', async () => {
     const mockPost = jest.fn().mockResolvedValue({ data: { documents: ['a-document'] } });
-    mockedAxios.create.mockReturnValueOnce({
-      post: mockPost,
-      interceptors: { request: mockRequestInterceptor },
-    } as unknown as AxiosInstance);
+    mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
     mockedConfig.get.mockReturnValueOnce('case-document-management-base-url');
-    mockServiceAuth.getServiceAuthToken.mockResolvedValueOnce('dummyS2SAuthToken');
+    mockServiceAuth.getServiceAuthToken.mockReturnValueOnce('dummyS2SAuthToken');
 
     const client = new CaseDocumentManagementClient({
       id: 'userId',
@@ -37,7 +33,10 @@ describe('CaseDocumentManagementClient', () => {
 
     expect(mockedAxios.create).toHaveBeenCalledWith({
       baseURL: 'case-document-management-base-url',
-      headers: { Authorization: 'Bearer userAccessToken' },
+      headers: {
+        Authorization: 'Bearer userAccessToken',
+        ServiceAuthorization: 'dummyS2SAuthToken',
+      },
     });
 
     expect(mockPost.mock.calls[0][0]).toEqual('/cases/documents');
@@ -49,10 +48,7 @@ describe('CaseDocumentManagementClient', () => {
 
   it('deletes documents', async () => {
     const mockDelete = jest.fn().mockResolvedValue({ data: 'MOCKED-OK' });
-    mockedAxios.create.mockReturnValueOnce({
-      delete: mockDelete,
-      interceptors: { request: mockRequestInterceptor },
-    } as unknown as AxiosInstance);
+    mockedAxios.create.mockReturnValueOnce({ delete: mockDelete } as unknown as AxiosInstance);
 
     const client = new CaseDocumentManagementClient({
       id: 'userId',

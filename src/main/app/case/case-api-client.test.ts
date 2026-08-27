@@ -405,11 +405,6 @@ describe('CaseApi', () => {
 
 describe('getCaseApiClient', () => {
   test('should create a CaseApiClient', () => {
-    const mockedAxios = axios as jest.Mocked<typeof axios>;
-    mockedAxios.create.mockReturnValue({
-      interceptors: { request: { use: jest.fn() } },
-    } as never);
-
     expect(getCaseApiClient(userDetails, {} as never)).toBeInstanceOf(CaseApiClient);
   });
 });

@@ -37,15 +37,15 @@ export class DocumentDownloadMiddleware {
     }
   }
 
-  async addCdamHeaders(
+  addCdamHeaders(
     proxyReqOpts: { headers: Record<string, unknown> },
     userReq: AppRequest
-  ): Promise<{ headers: Record<string, unknown> }> {
+  ): { headers: Record<string, unknown> } {
     if (!userReq.session.user) {
       throw new UserNotLoggedInError();
     }
 
-    proxyReqOpts.headers['ServiceAuthorization'] = await getServiceAuthToken();
+    proxyReqOpts.headers['ServiceAuthorization'] = getServiceAuthToken();
     proxyReqOpts.headers['Authorization'] = `Bearer ${userReq.session.user.accessToken}`;
     proxyReqOpts.headers['user-roles'] = userReq.session.user.roles.join(',');
     return proxyReqOpts;

@@ -20,11 +20,8 @@ export class PaymentClient {
       baseURL: config.get('services.payments.url'),
       headers: {
         Authorization: 'Bearer ' + session.user.accessToken,
+        ServiceAuthorization: getServiceAuthToken(),
       },
-    });
-    this.client.interceptors.request.use(async request => {
-      request.headers.set('ServiceAuthorization', await getServiceAuthToken());
-      return request;
     });
     this.returnUrl = returnUrl;
   }

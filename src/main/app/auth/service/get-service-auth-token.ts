@@ -4,13 +4,9 @@ import config from 'config';
 import { TOTP } from 'otpauth';
 
 const logger = Logger.getLogger('service-auth-token');
-const processState = globalThis as typeof globalThis & {
-  __nfdivServiceAuthToken?: string;
-};
-let tokenRefreshPromise: Promise<string> | undefined;
-let refreshIntervalStarted = false;
+let token: string;
 
-export const getTokenFromApi = async (): Promise<string> => {
+export const getTokenFromApi = (): void => {
   logger.info('Refreshing service auth token');
 
   const url: string = config.get('services.authProvider.url') + '/lease';
@@ -19,15 +15,10 @@ export const getTokenFromApi = async (): Promise<string> => {
   const oneTimePassword = createOneTimePassword(secret);
   const body = { microservice, oneTimePassword };
 
-  try {
-    const response = await axios.post(url, body);
-    const serviceAuthToken = response.data as string;
-    processState.__nfdivServiceAuthToken = serviceAuthToken;
-    return serviceAuthToken;
-  } catch (err) {
-    logger.error(err.response?.status, err.response?.data);
-    throw err;
-  }
+  axios
+    .post(url, body)
+    .then(response => (token = response.data))
+    .catch(err => logger.error(err.response?.status, err.response?.data));
 };
 
 const createOneTimePassword = (secret: string): string => {
@@ -40,41 +31,11 @@ const createOneTimePassword = (secret: string): string => {
   return totp.generate();
 };
 
-export const initAuthToken = async (): Promise<void> => {
-  const initialRefresh = refreshToken();
-
-  if (!refreshIntervalStarted) {
-    refreshIntervalStarted = true;
-    setInterval(
-      () => {
-        void refreshToken().catch(() => undefined);
-      },
-      1000 * 60 * 60
-    );
-  }
-
-  await initialRefresh;
+export const initAuthToken = (): void => {
+  getTokenFromApi();
+  setInterval(getTokenFromApi, 1000 * 60 * 60);
 };
 
-const refreshToken = (): Promise<string> => {
-  if (!tokenRefreshPromise) {
-    const refresh = getTokenFromApi();
-    tokenRefreshPromise = refresh;
-    void refresh
-      .finally(() => {
-        if (tokenRefreshPromise === refresh) {
-          tokenRefreshPromise = undefined;
-        }
-      })
-      .catch(() => undefined);
-  }
-  return tokenRefreshPromise;
-};
-
-export const getServiceAuthToken = async (): Promise<string> => {
-  if (processState.__nfdivServiceAuthToken) {
-    return processState.__nfdivServiceAuthToken;
-  }
-
-  return refreshToken();
+export const getServiceAuthToken = (): string => {
+  return token;
 };

@@ -16,11 +16,8 @@ export class CaseDocumentManagementClient {
       baseURL: this.BASE_URL,
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
+        ServiceAuthorization: getServiceAuthToken(),
       },
-    });
-    this.client.interceptors.request.use(async request => {
-      request.headers.set('ServiceAuthorization', await getServiceAuthToken());
-      return request;
     });
   }
 
