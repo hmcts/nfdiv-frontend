@@ -1,4 +1,5 @@
-import path from 'path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import config from 'config';
 import express from 'express';
@@ -7,7 +8,7 @@ import nunjucks from 'nunjucks';
 import { DivorceOrDissolution } from '../../app/case/definition.js';
 import { Form, FormInput } from '../../app/form/Form.js';
 
-const nunjucksModuleDir = path.resolve(process.cwd(), 'src/main/modules/nunjucks');
+const nunjucksModuleDir = path.dirname(fileURLToPath(import.meta.url));
 
 export class Nunjucks {
   enableFor(app: express.Express): void {
