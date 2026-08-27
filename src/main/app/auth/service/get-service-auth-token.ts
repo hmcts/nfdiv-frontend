@@ -1,7 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import axios from 'axios';
 import config from 'config';
-import * as OTPAuth from 'otpauth';
+import { TOTP } from 'otpauth';
 
 const logger = Logger.getLogger('service-auth-token');
 const processState = globalThis as typeof globalThis & {
@@ -31,7 +31,7 @@ export const getTokenFromApi = async (): Promise<string> => {
 };
 
 const createOneTimePassword = (secret: string): string => {
-  const totp = new OTPAuth.TOTP({
+  const totp = new TOTP({
     secret,
     digits: 6,
     period: 30,
