@@ -8,7 +8,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "start": "NODE_ENV=production yarn node --experimental-specifier-resolution=node src/main/server.js",
+    "start": "NODE_ENV=production yarn node src/main/server.js",
     "start:dev": "NODE_ENV=development yarn start:watch",
     "start:docker": "NODE_ENV=docker yarn start:watch",
     "start:docker:civil": "NODE_ENV=docker FORCE_CIVIL_MODE=true yarn start:watch",
