@@ -1494,18 +1494,19 @@ describe('to-api-format', () => {
     });
   });
   describe('applicant1CannotUploadDocuments', () => {
-    test('should clear applicant1CannotUploadSupportingDocument when I cannot upload some or all of my evidence checkbox is unchecked', () => {
+    test('should clear applicant1CannotUploadSupportingDocument when "I cannot upload some or all of my evidence" checkbox is unchecked', () => {
       const apiFormat = toApiFormat({
-        applicant1CannotUpload: undefined, // Outer checkbox unchecked
-        applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE], // Inner checkboxes still have values
+        applicant1CannotUpload: undefined,
+        applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
       });
 
       expect(apiFormat.applicant1CannotUploadSupportingDocument).toEqual([]);
     });
-    test('should not applicant1CannotUploadSupportingDocument when I cannot upload some or all of my evidence checkbox is checked', () => {
+
+    test('should not applicant1CannotUploadSupportingDocument when "I cannot upload some or all of my evidence" checkbox is checked', () => {
       const apiFormat = toApiFormat({
         applicant1CannotUpload: Checkbox.Checked,
-        applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE], // Inner checkboxes still have values
+        applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
       });
 
       expect(apiFormat.applicant1CannotUploadSupportingDocument).toEqual([DocumentType.MARRIAGE_CERTIFICATE]);
