@@ -1,4 +1,5 @@
-import * as path from 'path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { Logger } from '@hmcts/nodejs-logging';
 import bodyParser from 'body-parser';
@@ -29,7 +30,7 @@ import { TooBusy } from './modules/too-busy/index.js';
 import { WebpackDev } from './modules/webpack-dev/index.js';
 import { Routes } from './routes.js';
 
-const mainPath = path.resolve(process.cwd(), 'src/main');
+const mainPath = path.dirname(fileURLToPath(import.meta.url));
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
