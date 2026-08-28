@@ -33,18 +33,11 @@ import {
   applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant2AddressToApi,
 } from './formatter/address.js';
+import { checkboxToYesNo as checkboxConverter } from './formatter/checkbox-converter';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
 type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => OrNull<Partial<CaseData>>)>>;
-
-const checkboxConverter = (value: string | undefined) => {
-  if (value === null) {
-    return null;
-  }
-
-  return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
-};
 
 const prayerConverter = (applicant: 'applicant1' | 'applicant2') => {
   return data => {
