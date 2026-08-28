@@ -39,11 +39,19 @@ type ReferrerPolicyToken =
 export class Helmet {
   public enableFor(app: Express): void {
     // include default helmet functions
-    app.use(helmet() as RequestHandler);
+    app.use(
+      helmet({
+        strictTransportSecurity: this.getTransportSecurity(app),
+      }) as RequestHandler
+    );
 
     this.setContentSecurityPolicy(app);
     this.setReferrerPolicy(app, 'origin');
     this.setPermissionsPolicy(app);
+  }
+
+  private getTransportSecurity(app: Express): boolean | undefined {
+    return app.locals.developmentMode ? false : undefined;
   }
 
   private setContentSecurityPolicy(app: express.Express): void {
@@ -106,6 +114,7 @@ export class Helmet {
           scriptSrc,
           manifestSrc,
           styleSrc: [self, ...tagManager, "'unsafe-inline'", 'https://fonts.googleapis.com'],
+          upgradeInsecureRequests: app.locals.developmentMode ? null : [],
         },
       }) as RequestHandler
     );
