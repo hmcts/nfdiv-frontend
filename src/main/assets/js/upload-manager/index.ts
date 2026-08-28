@@ -22,7 +22,6 @@ import '@uppy/progress-bar/src/style.scss';
 const initUploadManager = (): void => {
   const url = DOCUMENT_MANAGER;
   const csrfToken = (getById('csrfToken') as HTMLInputElement)?.value;
-  const csrfQuery = `?_csrf=${csrfToken}`;
   const language = document.documentElement.lang;
   location.hash = '';
 
@@ -61,9 +60,12 @@ const initUploadManager = (): void => {
       hideAfterFinish: true,
     })
     .use(XHRUpload, {
-      endpoint: `${url}${csrfQuery}`,
+      endpoint: url,
       bundle: true,
-      headers: { accept: 'application/json' },
+      headers: {
+        accept: 'application/json',
+        'csrf-token': csrfToken,
+      },
       timeout: 60000,
     })
     .on('files-added', async () => {
