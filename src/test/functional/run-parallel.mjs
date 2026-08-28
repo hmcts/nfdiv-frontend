@@ -181,19 +181,14 @@ const runFeature = (feature, workerIndex) =>
   new Promise(resolve => {
     const featureTitle = featureNames.get(feature);
     const featureName = path.basename(feature, '.feature').replace(/[^a-zA-Z0-9_-]/g, '_');
-    const reportDir = path.join(
-      projectRoot,
-      'functional-output/functional/reports',
-      `worker-${workerIndex}-${featureName}`
-    );
-    const junitReportDir = path.join(projectRoot, 'functional-output/functional/reports');
-    const junitReportFile = path.join(junitReportDir, `result-worker-${workerIndex}-${featureName}.xml`);
+    const reportDir = path.join(reportsRoot, featureName);
+    const junitReportFile = path.join(reportDir, 'result.xml');
     const override = JSON.stringify({
       output: reportDir,
       plugins: {
         junitReporter: {
-          output: junitReportDir,
-          outputName: `result-worker-${workerIndex}-${featureName}.xml`,
+          output: reportDir,
+          outputName: 'result.xml',
         },
       },
     });
@@ -242,9 +237,7 @@ const worker = async workerIndex => {
 
 const reportFiles = features.flatMap(feature => {
   const featureName = path.basename(feature, '.feature').replace(/[^a-zA-Z0-9_-]/g, '_');
-  return Array.from({ length: Math.min(workerCount, features.length) }, (_, workerIndex) =>
-    path.join(reportsRoot, `result-worker-${workerIndex + 1}-${featureName}.xml`)
-  );
+  return path.join(reportsRoot, featureName, 'result.xml');
 });
 
 if (process.env.FUNCTIONAL_REPORT_ONLY === 'true') {
