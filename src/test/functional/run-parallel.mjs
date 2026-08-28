@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { readdir } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -18,6 +18,61 @@ const features = (await readdir(featuresDir))
 let nextFeature = 0;
 let failed = false;
 
+const reportsRoot = path.join(projectRoot, 'functional-output/functional/reports');
+
+const xmlEscape = value =>
+  String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
+
+const ensureJunitReport = async (reportFile, featureName, exitCode) => {
+  try {
+    await readFile(reportFile);
+    return;
+  } catch {
+    // CodeceptJS may exit before its reporter receives the result event,
+    // particularly when a Before/After hook fails. Keep Jenkins' JUnit step
+    // usable by writing a valid report for that feature.
+    const failedTest = exitCode !== 0;
+    const failure = failedTest
+      ? `<failure message="Feature process exited with code ${exitCode}" type="FunctionalTestFailure"/>`
+      : '';
+    const report =
+      '<?xml version="1.0" encoding="UTF-8"?>\n' +
+      `<testsuites tests="1" failures="${failedTest ? 1 : 0}" errors="0" skipped="0">` +
+      `<testsuite name="${xmlEscape(featureName)}" tests="1" failures="${failedTest ? 1 : 0}" errors="0" skipped="0">` +
+      `<testcase name="${xmlEscape(featureName)}">${failure}</testcase>` +
+      '</testsuite></testsuites>\n';
+    await mkdir(path.dirname(reportFile), { recursive: true });
+    await writeFile(reportFile, report);
+  }
+};
+
+const createAggregateJunitReport = async reportFiles => {
+  const suites = (
+    await Promise.all(
+      reportFiles.map(async reportFile => {
+        try {
+          const report = await readFile(reportFile, 'utf8');
+          return report.match(/<testsuite(?:\s|>)[\s\S]*<\/testsuite>/)?.[0] || '';
+        } catch {
+          return '';
+        }
+      })
+    )
+  )
+    .filter(Boolean)
+    .join('');
+
+  await writeFile(
+    path.join(reportsRoot, 'result.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<testsuites>${suites}</testsuites>\n`
+  );
+};
+
 const runFeature = (feature, workerIndex) =>
   new Promise(resolve => {
     const featureName = path.basename(feature, '.feature').replace(/[^a-zA-Z0-9_-]/g, '_');
@@ -27,6 +82,7 @@ const runFeature = (feature, workerIndex) =>
       `worker-${workerIndex}-${featureName}`
     );
     const junitReportDir = path.join(projectRoot, 'functional-output/functional/reports');
+    const junitReportFile = path.join(junitReportDir, `result-worker-${workerIndex}-${featureName}.xml`);
     const override = JSON.stringify({
       output: reportDir,
       plugins: {
@@ -66,7 +122,7 @@ const runFeature = (feature, workerIndex) =>
       if (code !== 0) {
         failed = true;
       }
-      resolve();
+      ensureJunitReport(junitReportFile, featureName, code).finally(resolve);
     });
   });
 
@@ -78,5 +134,13 @@ const worker = async workerIndex => {
 };
 
 await Promise.all(Array.from({ length: Math.min(workerCount, features.length) }, (_, index) => worker(index + 1)));
+
+const reportFiles = features.flatMap(feature => {
+  const featureName = path.basename(feature, '.feature').replace(/[^a-zA-Z0-9_-]/g, '_');
+  return Array.from({ length: Math.min(workerCount, features.length) }, (_, workerIndex) =>
+    path.join(reportsRoot, `result-worker-${workerIndex + 1}-${featureName}.xml`)
+  );
+});
+await createAggregateJunitReport(reportFiles);
 
 process.exitCode = failed ? 1 : 0;
