@@ -28,8 +28,7 @@ import {
 } from './urls.js';
 
 const requireFromRoot = createRequire(resolve(process.cwd(), 'package.json'));
-const sourceStepsBaseDir = resolve(process.cwd(), 'src/main/steps');
-const runtimeStepsBaseDir = sourceStepsBaseDir;
+const stepsBaseDir = resolve(process.cwd(), 'src/main/steps');
 const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
 const ext = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
 const stepContentFileByUrl: Record<string, string> = {};
@@ -45,7 +44,7 @@ const allSequences = [
 ];
 
 allSequences.forEach((sequence: Step[], i: number) => {
-  const dir = runtimeStepsBaseDir + (i === 0 || i === 1 ? '/applicant1' : '');
+  const dir = stepsBaseDir + (i === 0 || i === 1 ? '/applicant1' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content${ext}`;
     if (fs.existsSync(stepContentFile)) {
@@ -232,8 +231,8 @@ const getPathAndQueryString = (req: AppRequest): { path: string; queryString: st
   return { path, queryString };
 };
 
-const getStepFiles = (runtimeStepDir: string, sourceStepDir: string) => {
-  const stepContentFile = `${runtimeStepDir}/content${ext}`;
+const getStepFiles = (stepDir: string) => {
+  const stepContentFile = `${stepDir}/content${ext}`;
   const content = fs.existsSync(stepContentFile)
     ? {
         ...(stepContentHasForm(stepContentFile)
@@ -269,8 +268,8 @@ const getStepFiles = (runtimeStepDir: string, sourceStepDir: string) => {
     : {
         generateContent: () => ({}),
       };
-  const stepViewFile = `${sourceStepDir}/template.njk`;
-  const view = fs.existsSync(stepViewFile) ? stepViewFile : `${sourceStepsBaseDir}/common/template.njk`;
+  const stepViewFile = `${stepDir}/template.njk`;
+  const view = fs.existsSync(stepViewFile) ? stepViewFile : `${stepsBaseDir}/common/template.njk`;
 
   return { content, view };
 };
@@ -284,14 +283,12 @@ export type StepWithContent = Step & {
 
 const getStepsWithContent = (sequence: Step[]): StepWithContent[] => {
   const isApplicant1 = [applicant1PreSubmissionSequence, applicant1PostSubmissionSequence].includes(sequence);
-  const runtimeDir = runtimeStepsBaseDir + (isApplicant1 ? '/applicant1' : '');
-  const sourceDir = sourceStepsBaseDir + (isApplicant1 ? '/applicant1' : '');
+  const dir = stepsBaseDir + (isApplicant1 ? '/applicant1' : '');
 
   const results: StepWithContent[] = [];
   for (const step of sequence) {
-    const stepDir = `${runtimeDir}${step.url}`;
-    const sourceStepDir = `${sourceDir}${step.url}`;
-    const { content, view } = getStepFiles(stepDir, sourceStepDir);
+    const stepDir = `${dir}${step.url}`;
+    const { content, view } = getStepFiles(stepDir);
     results.push({ stepDir, ...step, ...content, view });
   }
   return results;
