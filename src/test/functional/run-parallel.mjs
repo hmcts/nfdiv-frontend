@@ -15,6 +15,17 @@ const features = (await readdir(featuresDir))
   .sort()
   .map(file => path.join(featuresDir, file));
 
+const featureMetadata = new Map(
+  await Promise.all(
+    features.map(async feature => {
+      const source = await readFile(feature, 'utf8');
+      const featureName = source.match(/^\s*Feature:\s*(.+)$/m)?.[1]?.trim() || path.basename(feature, '.feature');
+      const scenarios = [...source.matchAll(/^\s*Scenario(?: Outline)?:\s*(.+)$/gm)].map(match => match[1].trim());
+      return [feature, { featureName, scenarios }];
+    })
+  )
+);
+
 let nextFeature = 0;
 let failed = false;
 
@@ -73,8 +84,42 @@ const createAggregateJunitReport = async reportFiles => {
   );
 };
 
+const createLogFormatter = (workerIndex, metadata) => {
+  let scenarioIndex = -1;
+  let pending = '';
+
+  const formatLine = line => {
+    // eslint-disable-next-line no-control-regex
+    const cleanLine = line.replace(/\u001b\[[0-?]*[ -/]*[@-~]/g, '');
+    const scenarioMarker = `${metadata.featureName} › `;
+    const scenarioFromOutput = cleanLine.includes(scenarioMarker) ? cleanLine.split(scenarioMarker, 2)[1].trim() : '';
+    if (scenarioFromOutput) {
+      scenarioIndex = metadata.scenarios.indexOf(scenarioFromOutput);
+    } else if (/^\s*Scenario\(\)/.test(cleanLine)) {
+      scenarioIndex += 1;
+    }
+    const scenarioName = metadata.scenarios[scenarioIndex] || 'before scenario';
+    return `[Feature worker ${workerIndex}][${metadata.featureName}][${scenarioName}] ${line}`;
+  };
+
+  return {
+    write(data) {
+      pending += data.toString();
+      const lines = pending.split('\n');
+      pending = lines.pop();
+      lines.forEach(line => process.stdout.write(`${formatLine(line)}\n`));
+    },
+    flush() {
+      if (pending) {
+        process.stdout.write(formatLine(pending) + '\n');
+      }
+    },
+  };
+};
+
 const runFeature = (feature, workerIndex) =>
   new Promise(resolve => {
+    const metadata = featureMetadata.get(feature);
     const featureName = path.basename(feature, '.feature').replace(/[^a-zA-Z0-9_-]/g, '_');
     const reportDir = path.join(
       projectRoot,
@@ -93,7 +138,7 @@ const runFeature = (feature, workerIndex) =>
       },
     });
 
-    const args = ['run', feature, '--config', configFile, '--override', override];
+    const args = ['run', feature, '--config', configFile, '--override', override, '--steps'];
     if (grep) {
       args.push('--grep', grep);
     }
@@ -110,18 +155,20 @@ const runFeature = (feature, workerIndex) =>
       stdio: ['ignore', 'pipe', 'pipe'],
     });
 
-    const prefix = `[Feature worker ${workerIndex}] `;
-    child.stdout.on('data', data => process.stdout.write(`${prefix}${data}`));
-    child.stderr.on('data', data => process.stderr.write(`${prefix}${data}`));
+    const formatter = createLogFormatter(workerIndex, metadata);
+    child.stdout.on('data', data => formatter.write(data));
+    child.stderr.on('data', data => formatter.write(data));
     child.on('error', error => {
       failed = true;
-      process.stderr.write(`${prefix}${error.stack || error}\n`);
+      formatter.write(error.stack || error);
+      formatter.flush();
       resolve();
     });
     child.on('close', code => {
       if (code !== 0) {
         failed = true;
       }
+      formatter.flush();
       ensureJunitReport(junitReportFile, featureName, code).finally(resolve);
     });
   });
