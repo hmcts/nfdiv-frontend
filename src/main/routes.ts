@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
+import path from 'path';
 
 import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
@@ -103,7 +104,7 @@ const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
   });
 };
 
-const requireFromModule = createRequire(import.meta.url);
+const requireFromRoot = createRequire(path.resolve(process.cwd(), 'package.json'));
 const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
 const ext = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
 
@@ -118,12 +119,12 @@ export class Routes {
       stepControllers = stepsWithContent.map(step => {
         let getController = GetController;
         if (fs.existsSync(`${step.stepDir}/get${ext}`)) {
-          getController = requireFromModule(`${step.stepDir}/get${ext}`).default;
+          getController = requireFromRoot(`${step.stepDir}/get${ext}`).default;
         }
 
         let postController = PostController;
         if (step.form && fs.existsSync(`${step.stepDir}/post${ext}`)) {
-          postController = requireFromModule(`${step.stepDir}/post${ext}`).default;
+          postController = requireFromRoot(`${step.stepDir}/post${ext}`).default;
         }
 
         return { step, getController, postController };
