@@ -5,7 +5,7 @@ const { invert } = lodash;
 import { Case, Checkbox, LanguagePreference, formFieldsToCaseMapping, formatCase } from './case.js';
 import { CaseData, ContactDetailsType, HowToRespondApplication, MarriageFormation, YesOrNo } from './definition.js';
 import { fromApi as formatAddress } from './formatter/address.js';
-import { checkboxConverter } from './formatter/checkbox-converter.js';
+import { yesNoToCheckbox as checkboxConverter } from './formatter/checkbox-converter.js';
 import {
   fromApiApplicant1 as uploadedFilesFromApiApplicant1,
   fromApiApplicant2 as uploadedFilesFromApiApplicant2,
