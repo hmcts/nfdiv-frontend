@@ -12,6 +12,7 @@ import { respondentSequence } from './respondentSequence.js';
 import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
+  CHECK_ANSWERS_WITHDRAW,
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
   DEEMED_INTERRUPTION,
@@ -34,9 +35,17 @@ import {
   getUserSequence,
   isApplicationReadyToSubmit,
   isConditionalOrderReadyToSubmit,
+  stepsWithContent,
 } from './index.js';
 
 describe('Steps', () => {
+  it('preserves form submit configuration from step content', () => {
+    const configuredStep = stepsWithContent.find(candidate => candidate.url === CHECK_ANSWERS_WITHDRAW);
+    const submitText = configuredStep?.form?.submit.text as unknown as (content: { submitText: string }) => string;
+
+    expect(submitText({ submitText: 'Withdraw application' })).toBe('Withdraw application');
+  });
+
   describe('getNextStepUrl()', () => {
     let mockReq: AppRequest;
     beforeEach(() => {

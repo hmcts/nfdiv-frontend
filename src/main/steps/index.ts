@@ -239,8 +239,11 @@ const getStepFiles = (runtimeStepDir: string, sourceStepDir: string) => {
         ...(stepContentHasForm(stepContentFile)
           ? {
               form: {
-                submit: {
-                  text: l => l.continue,
+                get submit() {
+                  const module = getStepContentModule(stepContentFile) as {
+                    form?: FormContent;
+                  };
+                  return module.form?.submit ?? { text: l => l.continue };
                 },
                 fields: ((userCase: Partial<Case>, language?: string) => {
                   const module = getStepContentModule(stepContentFile) as {
