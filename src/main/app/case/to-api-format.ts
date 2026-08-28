@@ -33,7 +33,7 @@ import {
   applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant2AddressToApi,
 } from './formatter/address.js';
-import { checkboxToYesNo as checkboxConverter } from './formatter/checkbox-converter';
+import { checkboxToYesNo as checkboxConverter } from './formatter/checkbox-converter.js';
 
 export type OrNull<T> = { [K in keyof T]: T[K] | null };
 
