@@ -96,9 +96,6 @@ describe('Accessibility', () => {
       await page.type('#password', process.env.TEST_PASSWORD);
       await page.click('input[type="submit"], button[type="submit"]');
     }
-    await page.type('#username', 'nfdiv.frontend.test@hmcts.net');
-    await page.type('#password', process.env.TEST_PASSWORD);
-    await page.click('input[type="submit"]');
     cookies = await page.cookies(config.TEST_URL);
     await page.close();
   };
