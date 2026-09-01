@@ -50,6 +50,10 @@ Given('I login', async () => {
 });
 
 Given('I create a new user and login', async () => {
+  if (process.env.TEST_USER) {
+    await testConfig.login(I, TestUserType.CITIZEN);
+    return;
+  }
   await testConfig.login(I, TestUserType.CITIZEN_SINGLETON);
 });
 

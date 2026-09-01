@@ -31,7 +31,7 @@ const initializeTestEnvironment = async () => {
 
   getTokenFromApi();
 
-  TestUser = generateTestUsername();
+  TestUser = process.env.TEST_USER || generateTestUsername();
   TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
   idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
 };
@@ -150,14 +150,22 @@ export const config = {
         await autoLogin.login(I);
         break;
       case TestUserType.CITIZEN_SINGLETON:
-        username = generateTestUsername();
-        await idamUserManager.createUser(username, TestPass);
-        await autoLogin.login(I, username, TestPass);
+        if (process.env.TEST_USER) {
+          await autoLogin.login(I, TestUser, TestPass);
+        } else {
+          username = generateTestUsername();
+          await idamUserManager.createUser(username, TestPass);
+          await autoLogin.login(I, username, TestPass);
+        }
         break;
       case TestUserType.CITIZEN_APPLICANT_2:
-        username = generateTestUsername();
-        await idamUserManager.createUser(username, TestPass);
-        await autoLoginForApplicant2.login(I, username, TestPass);
+        if (process.env.TEST_USER) {
+          await autoLoginForApplicant2.login(I, TestUser, TestPass);
+        } else {
+          username = generateTestUsername();
+          await idamUserManager.createUser(username, TestPass);
+          await autoLoginForApplicant2.login(I, username, TestPass);
+        }
         break;
     }
   },
@@ -178,7 +186,9 @@ export const config = {
   },
   bootstrap: async (): Promise<void> => {
     await initializeTestEnvironment();
-    await idamUserManager.createUser(TestUser, TestPass);
+    if (!process.env.TEST_USER) {
+      await idamUserManager.createUser(TestUser, TestPass);
+    }
   },
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   helpers: {},
