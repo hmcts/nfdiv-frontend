@@ -1,10 +1,12 @@
-import { isEmpty, isObject } from 'lodash';
+import lodash from 'lodash';
 
-import { Checkbox } from '../../../app/case/case';
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
+const { isEmpty, isObject } = lodash;
+
+import { Checkbox } from '../../../app/case/case.js';
+import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
+import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content.js';
 
 const en = (courtsReasons: string, applicant1UploadDocumentContent) => ({
   title: "Respond to the court's feedback",

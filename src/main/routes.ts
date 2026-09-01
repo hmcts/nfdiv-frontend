@@ -1,45 +1,47 @@
-import fs from 'fs';
-import { extname } from 'path';
+import fs from 'node:fs';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+import path from 'path';
 
 import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
 import multer from 'multer';
 
-import { AccessCodePostController } from './app/access-code/AccessCodePostController';
-import { getEndIdamSessionUrl } from './app/auth/user/oidc';
-import { AppRequest } from './app/controller/AppRequest';
-import { GetController } from './app/controller/GetController';
-import { PostController } from './app/controller/PostController';
-import { getServiceOrigin } from './app/controller/url';
-import { DocumentManagerController } from './app/document/DocumentManagementController';
-import { MAX_UPLOAD_FILE_COUNT, MAX_UPLOAD_FILE_SIZE_BYTES } from './app/document/DocumentUploadLimits';
-import { getUserSequence, stepsWithContent } from './steps';
-import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
-import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content';
-import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your-access-code/get';
-import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post';
-import { ApplicationWithdrawnPreIssueGetController } from './steps/applicant1/withdraw-pre-issue/application-withdrawn/get';
-import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content';
-import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get';
-import { ApplicationWithdrawnGetController } from './steps/application-withdrawn/get';
-import { ContactUsGetController } from './steps/contact-us/get';
-import { CookiesGetController } from './steps/cookies/get';
-import { DraftApplicationSaveSignOutGetController } from './steps/draft-application-save-sign-out/get';
-import { ErrorController, HTTPError } from './steps/error/error.controller';
-import * as existingApplicationContent from './steps/existing-application/content';
-import { ExistingApplicationGetController } from './steps/existing-application/get';
-import { ExistingApplicationPostController } from './steps/existing-application/post';
-import { HomeGetController } from './steps/home/get';
-import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get';
-import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import { RequestForInformationSaveSignOutGetController } from './steps/request-for-information-save-sign-out/get';
-import { shouldHideRouteFromUser, shouldRedirectRouteToHub } from './steps/routeHiding';
-import { SaveSignOutGetController } from './steps/save-sign-out/get';
-import * as switchToSoleAppContent from './steps/switch-to-sole-application/content';
-import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get';
-import { SwitchToSoleApplicationPostController } from './steps/switch-to-sole-application/post';
-import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
-import { TimedOutGetController } from './steps/timed-out/get';
+import { AccessCodePostController } from './app/access-code/AccessCodePostController.js';
+import { getEndIdamSessionUrl } from './app/auth/user/oidc.js';
+import { AppRequest } from './app/controller/AppRequest.js';
+import { GetController } from './app/controller/GetController.js';
+import { PostController } from './app/controller/PostController.js';
+import { getServiceOrigin } from './app/controller/url.js';
+import { DocumentManagerController } from './app/document/DocumentManagementController.js';
+import { MAX_UPLOAD_FILE_COUNT, MAX_UPLOAD_FILE_SIZE_BYTES } from './app/document/DocumentUploadLimits.js';
+import { AccessibilityStatementGetController } from './steps/accessibility-statement/get.js';
+import * as applicant1AccessCodeContent from './steps/applicant1/enter-your-access-code/content.js';
+import { Applicant1AccessCodeGetController } from './steps/applicant1/enter-your-access-code/get.js';
+import { PostcodeLookupPostController } from './steps/applicant1/postcode-lookup/post.js';
+import { ApplicationWithdrawnPreIssueGetController } from './steps/applicant1/withdraw-pre-issue/application-withdrawn/get.js';
+import * as applicant2AccessCodeContent from './steps/applicant2/enter-your-access-code/content.js';
+import { Applicant2AccessCodeGetController } from './steps/applicant2/enter-your-access-code/get.js';
+import { ApplicationWithdrawnGetController } from './steps/application-withdrawn/get.js';
+import { ContactUsGetController } from './steps/contact-us/get.js';
+import { CookiesGetController } from './steps/cookies/get.js';
+import { DraftApplicationSaveSignOutGetController } from './steps/draft-application-save-sign-out/get.js';
+import { ErrorController, HTTPError } from './steps/error/error.controller.js';
+import * as existingApplicationContent from './steps/existing-application/content.js';
+import { ExistingApplicationGetController } from './steps/existing-application/get.js';
+import { ExistingApplicationPostController } from './steps/existing-application/post.js';
+import { HomeGetController } from './steps/home/get.js';
+import { getUserSequence, initializeStepContent, stepsWithContent } from './steps/index.js';
+import { NoResponseYetApplicationGetController } from './steps/no-response-yet/get.js';
+import { PrivacyPolicyGetController } from './steps/privacy-policy/get.js';
+import { RequestForInformationSaveSignOutGetController } from './steps/request-for-information-save-sign-out/get.js';
+import { shouldHideRouteFromUser, shouldRedirectRouteToHub } from './steps/routeHiding.js';
+import { SaveSignOutGetController } from './steps/save-sign-out/get.js';
+import * as switchToSoleAppContent from './steps/switch-to-sole-application/content.js';
+import { SwitchToSoleApplicationGetController } from './steps/switch-to-sole-application/get.js';
+import { SwitchToSoleApplicationPostController } from './steps/switch-to-sole-application/post.js';
+import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get.js';
+import { TimedOutGetController } from './steps/timed-out/get.js';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   ACTIVE,
@@ -68,8 +70,8 @@ import {
   TIMED_OUT_URL,
   WEBCHAT_URL,
   WITHDRAW_CONFIRMATION,
-} from './steps/urls';
-import { WebChatGetController } from './steps/webchat/get';
+} from './steps/urls.js';
+import { WebChatGetController } from './steps/webchat/get.js';
 
 const handleUploads = multer({
   limits: {
@@ -102,12 +104,50 @@ const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
   });
 };
 
-const ext = extname(__filename);
+const requireFromRoot = createRequire(path.resolve(process.cwd(), 'package.json'));
+const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
+const ext = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
 
 export class Routes {
-  public enableFor(app: Application): void {
+  public async enableFor(app: Application): Promise<void> {
     const { errorHandler } = app.locals;
     const errorController = new ErrorController();
+
+    let stepControllers;
+    if (isTestRuntime) {
+      void initializeStepContent();
+      stepControllers = stepsWithContent.map(step => {
+        let getController = GetController;
+        if (fs.existsSync(`${step.stepDir}/get${ext}`)) {
+          getController = requireFromRoot(`${step.stepDir}/get${ext}`).default;
+        }
+
+        let postController = PostController;
+        if (step.form && fs.existsSync(`${step.stepDir}/post${ext}`)) {
+          postController = requireFromRoot(`${step.stepDir}/post${ext}`).default;
+        }
+
+        return { step, getController, postController };
+      });
+    } else {
+      const stepControllersPromise = Promise.all(
+        stepsWithContent.map(async step => {
+          let getController = GetController;
+          if (fs.existsSync(`${step.stepDir}/get${ext}`)) {
+            getController = (await import(pathToFileURL(`${step.stepDir}/get${ext}`).href)).default;
+          }
+
+          let postController = PostController;
+          if (step.form && fs.existsSync(`${step.stepDir}/post${ext}`)) {
+            postController = (await import(pathToFileURL(`${step.stepDir}/post${ext}`).href)).default;
+          }
+
+          return { step, getController, postController };
+        })
+      );
+      const [, loadedStepControllers] = await Promise.all([initializeStepContent(), stepControllersPromise]);
+      stepControllers = loadedStepControllers;
+    }
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(EXISTING_APPLICATION, errorHandler(new ExistingApplicationGetController().get));
@@ -141,11 +181,7 @@ export class Routes {
     app.post(DOCUMENT_MANAGER, uploadFilesMiddleware, errorHandler(documentManagerController.post));
     app.post(`${DOCUMENT_MANAGER}/delete/:index`, errorHandler(documentManagerController.delete));
 
-    for (const step of stepsWithContent) {
-      const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
-        ? require(`${step.stepDir}/get${ext}`).default
-        : GetController;
-
+    for (const { step, getController, postController } of stepControllers) {
       app.get(
         step.url,
         this.isRouteForUser as RequestHandler,
@@ -153,9 +189,6 @@ export class Routes {
       );
 
       if (step.form) {
-        const postController = fs.existsSync(`${step.stepDir}/post${ext}`)
-          ? require(`${step.stepDir}/post${ext}`).default
-          : PostController;
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }

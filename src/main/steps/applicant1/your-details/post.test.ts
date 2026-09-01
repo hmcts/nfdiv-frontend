@@ -1,13 +1,13 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
-import { CaseWithId, Checkbox } from '../../../app/case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, DivorceOrDissolution, Gender } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
-import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
-import { SAVE_AND_SIGN_OUT } from '../../urls';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc.js';
+import { CaseWithId, Checkbox } from '../../../app/case/case.js';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, DivorceOrDissolution, Gender } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper.js';
+import { SAVE_AND_SIGN_OUT } from '../../urls.js';
 
-import YourDetailsPostController from './post';
+import YourDetailsPostController from './post.js';
 
 describe('YourDetailsPostController', () => {
   const mockFormContent = {

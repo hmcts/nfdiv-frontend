@@ -1,8 +1,10 @@
-import { isEmpty } from 'lodash';
+import lodash from 'lodash';
 
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
+const { isEmpty } = lodash;
+
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { CommonContent } from '../../../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: 'Tell us about your evidence',

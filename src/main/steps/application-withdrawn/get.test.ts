@@ -1,9 +1,9 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { getEndIdamSessionUrl } from '../../app/auth/user/oidc';
-import { APPLICATION_WITHDRAWN, SAVE_AND_SIGN_OUT } from '../urls';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { getEndIdamSessionUrl } from '../../app/auth/user/oidc.js';
+import { APPLICATION_WITHDRAWN, SAVE_AND_SIGN_OUT } from '../urls.js';
 
-import { ApplicationWithdrawnGetController } from './get';
+import { ApplicationWithdrawnGetController } from './get.js';
 
 describe('WithdrawApplicationController', () => {
   const controller = new ApplicationWithdrawnGetController();

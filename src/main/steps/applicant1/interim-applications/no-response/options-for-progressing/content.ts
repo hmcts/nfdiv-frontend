@@ -1,9 +1,9 @@
 import config from 'config';
 
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { getFee } from '../../../../../app/fees/service/get-fee';
-import { CommonContent } from '../../../../common/common.content';
-import { EVIDENCE_RECEIVED_APPLICATION, HAVE_THEY_RECEIVED, HAVE_THEY_RECEIVED_REPRESENTED } from '../../../../urls';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { getFee } from '../../../../../app/fees/service/get-fee.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { EVIDENCE_RECEIVED_APPLICATION, HAVE_THEY_RECEIVED, HAVE_THEY_RECEIVED_REPRESENTED } from '../../../../urls.js';
 
 const en = ({ isDivorce, partner, isApp2Represented, isApp2Confidential }: CommonContent) => ({
   title: `Options for progressing with ${isDivorce ? 'your divorce' : 'ending your civil partnership'}`,

@@ -1,8 +1,13 @@
-import { YesOrNo } from '../app/case/definition';
+import { YesOrNo } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
-import { preSubmissionSequence } from './applicant2Sequence';
-import { CHECK_JOINT_APPLICATION, MONEY_PROPERTY, UPLOAD_YOUR_DOCUMENTS, WHO_IS_THE_FINANCIAL_ORDER_FOR } from './urls';
+import { Step } from './applicant1Sequence.js';
+import { preSubmissionSequence } from './applicant2Sequence.js';
+import {
+  CHECK_JOINT_APPLICATION,
+  MONEY_PROPERTY,
+  UPLOAD_YOUR_DOCUMENTS,
+  WHO_IS_THE_FINANCIAL_ORDER_FOR,
+} from './urls.js';
 
 describe('Applicant 2 Sequence test', () => {
   describe('MONEY_PROPERTY', () => {

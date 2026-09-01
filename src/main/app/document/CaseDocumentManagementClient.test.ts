@@ -1,10 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
-import * as serviceAuth from '../auth/service/get-service-auth-token';
-import { UserDetails } from '../controller/AppRequest';
+import * as serviceAuth from '../auth/service/get-service-auth-token.js';
+import { UserDetails } from '../controller/AppRequest.js';
 
-import { CaseDocumentManagementClient, Classification, UploadedFiles } from './CaseDocumentManagementClient';
+import { CaseDocumentManagementClient, Classification, UploadedFiles } from './CaseDocumentManagementClient.js';
 
 jest.mock('axios');
 jest.mock('config');
@@ -33,7 +33,10 @@ describe('CaseDocumentManagementClient', () => {
 
     expect(mockedAxios.create).toHaveBeenCalledWith({
       baseURL: 'case-document-management-base-url',
-      headers: { Authorization: 'Bearer userAccessToken', ServiceAuthorization: 'dummyS2SAuthToken' },
+      headers: {
+        Authorization: 'Bearer userAccessToken',
+        ServiceAuthorization: 'dummyS2SAuthToken',
+      },
     });
 
     expect(mockPost.mock.calls[0][0]).toEqual('/cases/documents');

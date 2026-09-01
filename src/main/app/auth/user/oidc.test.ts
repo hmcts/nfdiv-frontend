@@ -1,11 +1,10 @@
 import axios, { AxiosRequestHeaders, AxiosResponse, AxiosStatic } from 'axios';
+import config from 'config';
 import jwt from 'jsonwebtoken';
 
-import { APPLICANT_2_SIGN_IN_URL, CALLBACK_URL, SIGN_IN_URL } from '../../../steps/urls';
+import { APPLICANT_2_SIGN_IN_URL, CALLBACK_URL, SIGN_IN_URL } from '../../../steps/urls.js';
 
-import { OidcResponse, getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
-
-const config = require('config');
+import { OidcResponse, getRedirectUrl, getSystemUser, getUserDetails } from './oidc.js';
 
 jest.mock('axios');
 jest.mock('config');

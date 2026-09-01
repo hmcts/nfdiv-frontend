@@ -19,6 +19,14 @@ module.exports = {
     project: './tsconfig.eslint.json',
   },
   globals: { Atomics: 'readonly', SharedArrayBuffer: 'readonly' },
+  overrides: [
+    {
+      files: ['**/*.ts', '**/*.tsx'],
+      rules: {
+        'import/no-unresolved': 'off',
+      },
+    },
+  ],
   rules: {
     '@typescript-eslint/array-type': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'error',

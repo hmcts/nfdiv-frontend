@@ -1,18 +1,18 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance, AxiosResponse, create as createAxios } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
 
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { CASE_TYPE } from '../case/case-type';
-import { JURISDICTION } from '../case/definition';
-import type { UserDetails } from '../controller/AppRequest';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token.js';
+import { CASE_TYPE } from '../case/case-type.js';
+import { JURISDICTION } from '../case/definition.js';
+import type { UserDetails } from '../controller/AppRequest.js';
 
 export class CaseDocumentManagementClient {
   client: AxiosInstance;
   BASE_URL: string = config.get('services.caseDocumentManagement.url');
 
   constructor(private readonly user: UserDetails) {
-    this.client = axios.create({
+    this.client = createAxios({
       baseURL: this.BASE_URL,
       headers: {
         Authorization: `Bearer ${user.accessToken}`,

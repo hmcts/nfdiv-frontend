@@ -1,11 +1,11 @@
-import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { getEndIdamSessionUrl } from '../../../../app/auth/user/oidc';
-import { CITIZEN_WITHDRAWN } from '../../../../app/case/definition';
-import { FormContent } from '../../../../app/form/Form';
-import { CHECK_ANSWERS_WITHDRAW, SAVE_AND_SIGN_OUT, WITHDRAW_CONFIRMATION } from '../../../urls';
+import { mockRequest } from '../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../test/unit/utils/mockResponse.js';
+import { getEndIdamSessionUrl } from '../../../../app/auth/user/oidc.js';
+import { CITIZEN_WITHDRAWN } from '../../../../app/case/definition.js';
+import { FormContent } from '../../../../app/form/Form.js';
+import { CHECK_ANSWERS_WITHDRAW, SAVE_AND_SIGN_OUT, WITHDRAW_CONFIRMATION } from '../../../urls.js';
 
-import PreIssueWithdrawPostController from './post';
+import PreIssueWithdrawPostController from './post.js';
 
 describe('PreIssueWithdrawPostController', () => {
   const mockFormContent = {

@@ -1,11 +1,11 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../app/case/case';
-import { CITIZEN_RESEND_INVITE, CITIZEN_UPDATE } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
-import * as contentUtils from '../../common/content.utils';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../app/case/case.js';
+import { CITIZEN_RESEND_INVITE, CITIZEN_UPDATE } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
+import * as contentUtils from '../../common/content.utils.js';
 
-import TheirEmailAddressPostController from './post';
+import TheirEmailAddressPostController from './post.js';
 
 const isApplicant2EmailUpdatePossibleMock = jest.spyOn(contentUtils, 'isApplicant2EmailUpdatePossible');
 

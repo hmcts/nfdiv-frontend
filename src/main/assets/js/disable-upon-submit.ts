@@ -1,4 +1,4 @@
-import { DISABLE_UPON_SUBMIT } from '../../steps/common/content.utils';
+import { DISABLE_UPON_SUBMIT } from '../../steps/common/content.utils.js';
 
 const DEBOUNCE_TIMEOUT_IN_SECONDS = 10;
 let debounceFormSubmitTimer: undefined | ReturnType<typeof setTimeout>;

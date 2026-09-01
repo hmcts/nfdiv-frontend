@@ -1,9 +1,9 @@
-import { existingOrNew } from '../../steps/existing-application/content';
-import { Case, CaseDate, CaseWithId } from '../case/case';
-import { YesOrNo } from '../case/definition';
-import { AnyObject } from '../controller/PostController';
+import { existingOrNew } from '../../steps/existing-application/content.js';
+import { Case, CaseDate, CaseWithId } from '../case/case.js';
+import { YesOrNo } from '../case/definition.js';
+import { AnyObject } from '../controller/PostController.js';
 
-import { setupCheckboxParser } from './parser';
+import { setupCheckboxParser } from './parser.js';
 
 const WHITELISTED_FIELDS = [
   'applicant1ConfirmReceipt',

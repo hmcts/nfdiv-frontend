@@ -12,7 +12,7 @@ export interface GovUkNunjucksSummary {
         href: string;
         text: string;
         visuallyHiddenText: string;
-      }
+      },
     ];
   };
 }

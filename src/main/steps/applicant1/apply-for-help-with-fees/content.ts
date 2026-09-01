@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { APPLICANT_2, HELP_WITH_YOUR_FEE_URL } from '../../urls';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { APPLICANT_2, HELP_WITH_YOUR_FEE_URL } from '../../urls.js';
 
 const en = ({ isDivorce, isApplicant2 }) => ({
   title: `You need to apply for help with your ${isDivorce ? 'divorce fees' : 'fees to end your civil partnership'}`,

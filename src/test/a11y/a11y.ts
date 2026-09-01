@@ -1,15 +1,17 @@
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-import axios from 'axios';
-import puppeteer from 'puppeteer';
+import { create as createAxios } from 'axios';
+import pa11y from 'pa11y';
+import { launch as puppeteerLaunch } from 'puppeteer';
 
-import * as urls from '../../main/steps/urls';
-import { config } from '../config';
+import * as urls from '../../main/steps/urls.js';
+import { config } from '../config.js';
 
 const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
-
-const pa11y = require('pa11y');
-const server = axios.create({ baseURL: config.TEST_URL });
+const server = createAxios({ baseURL: config.TEST_URL });
+const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
 interface Pa11yResult {
   documentTitle: string;
@@ -33,9 +35,9 @@ function ensurePageCallWillSucceed(url: string): Promise<void> {
 function runPally(url: string, browser): Promise<Pa11yResult> {
   let screenCapture: string | boolean = false;
   if (!config.TestHeadlessBrowser) {
-    const screenshotDir = `${__dirname}/../../../functional-output/pa11y`;
+    const screenshotDir = path.resolve(currentDir, '../../../functional-output/pa11y');
     fs.mkdirSync(screenshotDir, { recursive: true });
-    screenCapture = `${screenshotDir}/${url.replace(/^\/$/, 'home').replace('/', '')}.png`;
+    screenCapture = path.resolve(screenshotDir, `${url.replace(/^\/$/, 'home').replace('/', '')}.png`);
   }
 
   const fullUrl = `${config.TEST_URL}${url}`;
@@ -71,7 +73,7 @@ describe('Accessibility', () => {
       await browser.close();
     }
 
-    browser = await puppeteer.launch({ acceptInsecureCerts: true });
+    browser = await puppeteerLaunch({ acceptInsecureCerts: true });
     browser.on('disconnected', setup);
 
     // Login once only for other pages to reuse session

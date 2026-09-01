@@ -1,6 +1,6 @@
-import { ApplicationType } from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { CommonContent } from '../../../common/common.content';
+import { ApplicationType } from '../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../app/controller/GetController.js';
+import { CommonContent } from '../../../common/common.content.js';
 import {
   APPLICANT_2,
   CHECK_CONTACT_DETAILS,
@@ -8,8 +8,8 @@ import {
   MAKE_AN_APPLICATION,
   RESPONDENT,
   WITHDRAW_THIS_APPLICATION,
-} from '../../../urls';
-import { areDownloadsAvailable } from '../../downloads/content';
+} from '../../../urls.js';
+import { areDownloadsAvailable } from '../../downloads/content.js';
 
 const en = ({ isDivorce, isApplicant2 }: CommonContent, app2OrRespondent: string) => ({
   reviewContactDetails: {

@@ -1,9 +1,9 @@
-import { Checkbox } from '../../../app/case/case';
-import { Gender } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
+import { Checkbox } from '../../../app/case/case.js';
+import { Gender } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils.js';
 
 const en = ({ isDivorce, required }) => ({
   title: isDivorce ? 'Who are you applying to divorce?' : 'Are you male or female?',

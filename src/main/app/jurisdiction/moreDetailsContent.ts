@@ -1,4 +1,4 @@
-import { JurisdictionConnections } from '../case/definition';
+import { JurisdictionConnections } from '../case/definition.js';
 
 const HABITUAL_RESIDENCE = 'Habitual residence';
 const DOMICILE = 'Domicile';

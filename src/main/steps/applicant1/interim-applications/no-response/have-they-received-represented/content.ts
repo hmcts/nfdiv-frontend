@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { CommonContent } from '../../../../common/common.content';
-import { EVIDENCE_RECEIVED_APPLICATION } from '../../../../urls';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { EVIDENCE_RECEIVED_APPLICATION } from '../../../../urls.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Check your ${partner}'s representative details`,

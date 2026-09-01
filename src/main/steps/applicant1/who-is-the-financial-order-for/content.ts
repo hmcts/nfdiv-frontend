@@ -1,8 +1,8 @@
-import { FinancialOrderFor } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn, FormInput } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
+import { FinancialOrderFor } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn, FormInput } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: 'Who is the financial order for?',

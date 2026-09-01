@@ -1,12 +1,12 @@
-import { completeCase } from '../../../../test/functional/fixtures/completeCase';
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CaseWithId } from '../../../app/case/case';
-import { ApplicationType, CITIZEN_UPDATE, YesOrNo } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
-import { ENTER_YOUR_NAME, ENTER_YOUR_NAMES } from '../../urls';
+import { completeCase } from '../../../../test/functional/fixtures/completeCase.js';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { CaseWithId } from '../../../app/case/case.js';
+import { ApplicationType, CITIZEN_UPDATE, YesOrNo } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { ENTER_YOUR_NAME, ENTER_YOUR_NAMES } from '../../urls.js';
 
-import ConfirmYourNamePostController from './post';
+import ConfirmYourNamePostController from './post.js';
 
 describe('ConfirmYourNamePostController', () => {
   let userCase: Partial<CaseWithId>;

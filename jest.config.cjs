@@ -9,5 +9,6 @@ module.exports = {
   setupFilesAfterEnv: [],
   moduleNameMapper: {
     '@hmcts/nodejs-logging': '<rootDir>/src/test/unit/mocks/hmcts/nodejs-logging',
+    '^(\\.{1,2}/.*)\\.js$': '$1',
   },
 };

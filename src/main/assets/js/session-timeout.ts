@@ -1,6 +1,8 @@
-import { throttle } from 'lodash';
+import lodash from 'lodash';
 
-import { PageLink, TIMED_OUT_URL, WEBCHAT_URL } from '../../steps/urls';
+const { throttle } = lodash;
+
+import { PageLink, TIMED_OUT_URL, WEBCHAT_URL } from '../../steps/urls.js';
 
 const eventTimer = 5 * 60 * 1000; // 5 minutes
 

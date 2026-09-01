@@ -1,5 +1,5 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
 import {
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS,
@@ -7,10 +7,10 @@ import {
   CITIZEN_UPDATE_CONTACT_DETAILS,
   State,
   YesOrNo,
-} from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+} from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import CitizenUpdateContactDetailsPostController from './post';
+import CitizenUpdateContactDetailsPostController from './post.js';
 
 describe('CitizenUpdateContactDetailsPostController', () => {
   const mockFormContent = {
