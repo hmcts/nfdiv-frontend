@@ -69,6 +69,7 @@ import {
   HOW_TO_FINALISE_APPLICATION,
   HUB_PAGE,
   HUB_PAGE_DOWNLOADS,
+  IN_REFUGE,
   IN_THE_UK,
   JOINT_APPLICATION_SUBMITTED,
   JURISDICTION_DOMICILE,
@@ -328,6 +329,15 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: ADDRESS_PRIVATE,
+    getNextStep: data =>
+      data.applicant1AddressPrivate === YesOrNo.NO
+        ? hasApp1Confirmed(data)
+          ? CHECK_CONTACT_DETAILS
+          : ENTER_YOUR_ADDRESS
+        : IN_REFUGE,
+  },
+  {
+    url: IN_REFUGE,
     getNextStep: data => (hasApp1Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
   },
   {
