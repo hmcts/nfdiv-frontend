@@ -50,6 +50,7 @@ describe('PaymentCallbackGetController', () => {
           generalApplicationType: GeneralApplicationType.ISSUE_DIVORCE_WITHOUT_CERT,
           generalApplicationParty: GeneralParties.APPLICANT,
           generalApplicationSubmittedOnline: YesOrNo.YES,
+          generalApplicationFeeHasCompletedOnlinePayment: YesOrNo.NO,
           generalApplicationFeeServiceRequestReference: applicant1GeneralAppServiceRequest,
           generalApplicationFeeOrderSummary: applicant1GeneralAppOrderSummary,
         },

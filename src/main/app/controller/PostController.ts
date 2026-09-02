@@ -58,7 +58,7 @@ export class PostController<T extends AnyObject> {
       // ignore
     }
 
-    const caseState = req.session.userCase.state;
+    const caseState = req.session.userCase?.state;
 
     let signoutPage = SAVE_AND_SIGN_OUT;
 
