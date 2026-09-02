@@ -7,12 +7,12 @@ import { ROUTE_HIDE_CONDITIONS, shouldHideRouteFromUser } from './routeHiding';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   CHECK_ANSWERS_ALTERNATIVE,
-  CHECK_ANSWERS_BAILIFF,
   CHECK_ANSWERS_DEEMED,
   CHECK_YOUR_ANSWERS_GOV_RECORDS,
   FINALISING_YOUR_APPLICATION,
   GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
+  NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS,
   OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
@@ -203,11 +203,11 @@ describe('routeHiding', () => {
         expect(result).toBeTruthy();
       });
 
-      test('Not visible in AwaitingDocuments state', () => {
-        mockReq.url = CHECK_ANSWERS_BAILIFF;
+      test('Visible in AwaitingDocuments state', () => {
+        mockReq.url = CHECK_ANSWERS_ALTERNATIVE;
         mockReq.session.userCase.state = State.AwaitingDocuments;
         const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeTruthy();
+        expect(result).toBeFalsy();
       });
 
       test('Not visible in AwaitingServicePayment state', () => {
@@ -281,13 +281,6 @@ describe('routeHiding', () => {
         expect(result).toBeTruthy();
       });
 
-      test('Not visible in AwaitingDocuments state', () => {
-        mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
-        mockReq.session.userCase.state = State.AwaitingDocuments;
-        const result = shouldHideRouteFromUser(mockReq);
-        expect(result).toBeTruthy();
-      });
-
       test('Not visible in AwaitingGeneralApplicationPayment state', () => {
         mockReq.url = CHECK_YOUR_ANSWERS_GOV_RECORDS;
         mockReq.session.userCase.state = State.AwaitingGeneralApplicationPayment;
@@ -349,6 +342,24 @@ describe('routeHiding', () => {
       test('state is AwaitingAos', () => {
         mockReq.url = HAVE_THEY_RECEIVED;
         mockReq.session.userCase.state = State.AwaitingAos;
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeFalsy();
+      });
+    });
+
+    describe('NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS', () => {
+      test('When respondent address is present - should return true', () => {
+        mockReq.url = NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS;
+        mockReq.session.userCase.applicant2Address1 = 'Test address line 1';
+        mockReq.session.userCase.applicant2AddressPostcode = 'Test postcode';
+        mockReq.session.userCase.applicant2AddressCountry = 'Test country';
+        const result = shouldHideRouteFromUser(mockReq);
+        expect(result).toBeTruthy();
+      });
+
+      test('When respondent address details are absent - should return false', () => {
+        mockReq.url = NO_RESP_ADDRESS_PROGRESS_WITHOUT_ADDRESS;
+        mockReq.session.userCase.applicant2Address1 = 'Test address line 1';
         const result = shouldHideRouteFromUser(mockReq);
         expect(result).toBeFalsy();
       });
