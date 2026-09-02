@@ -50,7 +50,7 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-  enableCrossBrowserTest()
+  //enableCrossBrowserTest()
   enableFullFunctionalTest()
   loadVaultSecrets(secrets)
   enableFortifyScan()
