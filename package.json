@@ -162,7 +162,7 @@
   },
   "resolutions": {
     "brace-expansion": "^5.0.6",
-    "qs": "^6.16.0",
+    "qs": "^6.15.2",
     "picomatch": "^4.0.4",
     "undici": "^8.0.0",
     "lodash": "^4.18.1",
@@ -182,7 +182,7 @@
     "ws": "^8.21.3",
     "serialize-javascript": "^7.0.5",
     "tmp": "^0.2.6",
-    "fast-uri": "^3.1.6",
+    "fast-uri": "^3.1.5",
     "postcss": "^8.5.26",
     "multer": "^2.2.0",
     "mochawesome-merge/minimatch": "10.2.6",
