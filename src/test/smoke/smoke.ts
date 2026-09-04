@@ -4,10 +4,18 @@ import config from 'config';
 jest.retryTimes(20);
 jest.setTimeout(5000);
 
+const idamWebUrl = config.has('services.idam.webBaseUrl')
+  ? `${config.get('services.idam.webBaseUrl') as string}/health`
+  : new URL('/health', config.get('services.idam.authorizationURL') as string).toString();
+
+const idamApiUrl = config.has('services.idam.apiBaseUrl')
+  ? `${config.get('services.idam.apiBaseUrl') as string}/health`
+  : new URL('/health', config.get('services.idam.tokenURL') as string).toString();
+
 const servicesToCheck = [
   { name: 'No Fault Divorce Web', url: process.env.TEST_URL },
-  { name: 'IDAM Web', url: config.get('services.idam.authorizationURL') },
-  { name: 'IDAM API', url: config.get('services.idam.tokenURL') },
+  { name: 'IDAM Web', url: idamWebUrl },
+  { name: 'IDAM API', url: idamApiUrl },
   { name: 'Auth Provider', url: config.get('services.authProvider.url') },
   { name: 'CCD Data Store', url: config.get('services.case.url') },
   { name: 'Payment API', url: config.get('services.payments.url') },

@@ -38,6 +38,11 @@ services:
     microservice: 'divorce_frontend'
     secret: 'NEED TO INSERT SECRET'
   idam:
+    webBaseUrl: 'https://idam-web-public.aat.platform.hmcts.net'
+    apiBaseUrl: 'https://idam-api.aat.platform.hmcts.net'
+    authorizationPath: '/o/authorize'
+    tokenPath: '/o/token'
+    endSessionPath: '/o/endSession'
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/o/authorize'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     endSessionURL: 'https://idam-web-public.aat.platform.hmcts.net/o/endSession'
