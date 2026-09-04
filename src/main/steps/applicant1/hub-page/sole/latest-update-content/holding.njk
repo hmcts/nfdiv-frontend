@@ -6,19 +6,19 @@
   <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
 {% else %}
-  {% if isDeemedOrDispensedApplication %}
+  {% if isAosSubmitted %}
+      <p class="govuk-body">{{ holding.line1 | safe }}</p>
+  {% elif isDeemedOrDispensedApplication %}
     <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted }}
       <a class="govuk-link" href={{ deemedOrDispensedAccepted.downloadReference }}
       download="Certificate-of-Service">
         {{ deemedOrDispensedAccepted.line1 }}</a>
     </p>
 
-    {% elif isSuccessfullyServedByBailiff %}
+  {% elif isSuccessfullyServedByBailiff %}
     <p class="govuk-body">{{ servedByBailiff.line1 | safe }}
     </p>
 
-    {% elif isAosSubmitted %}
-    <p class="govuk-body">{{ holding.line1 | safe }}</p>
   {% endif %}
 
   <p class="govuk-body">{{ holding.line2 }}</p>
