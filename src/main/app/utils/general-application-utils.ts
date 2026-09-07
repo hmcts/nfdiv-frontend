@@ -131,6 +131,16 @@ export const isGenAppExclusionState = (isApplicant2: boolean, userCase: Partial<
   );
 };
 
+export const shouldShowGenAppSaveAndSignOutContent = (
+  isApplicant2: boolean,
+  userCase: Partial<CaseWithId>
+): boolean => {
+  const isDraftingD11Application = hasGenAppSaveAndSignOutContent(isApplicant2, userCase);
+  const isExcludedState = isGenAppExclusionState(isApplicant2, userCase);
+
+  return isDraftingD11Application && !isExcludedState;
+};
+
 export const canSubmitD11GeneralApplication = (isApplicant2: boolean, userCase: Partial<CaseWithId>): boolean => {
   if (isGenAppExclusionState(isApplicant2, userCase)) {
     return false;

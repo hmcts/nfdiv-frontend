@@ -14,9 +14,8 @@ import {
 import { AppRequest } from '../controller/AppRequest';
 
 import {
-  D11_GENERAL_APPLICATION_EXCLUDED_STATES,
-  RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES,
   canStartNewGeneralApplication,
+  D11_GENERAL_APPLICATION_EXCLUDED_STATES,
   findAllOnlineGenAppsForUser,
   findGenAppAwaitingDocuments,
   findGenAppAwaitingPayment,
@@ -25,6 +24,8 @@ import {
   getGenAppServiceRequest,
   hasGenAppPaymentInProgress,
   hasGenAppSaveAndSignOutContent,
+  RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES,
+  shouldShowGenAppSaveAndSignOutContent,
 } from './general-application-utils';
 
 describe('GeneralApplicationUtils', () => {
@@ -294,6 +295,24 @@ describe('GeneralApplicationUtils', () => {
       applicant1GeneralApplications[0].value.generalApplicationType = GeneralApplicationType.SEARCH_GOV_RECORDS;
 
       expect(hasGenAppSaveAndSignOutContent(false, mockReq.session.userCase)).toBe(false);
+    });
+  });
+
+  describe('shouldShowGenAppSaveAndSignOutContent', () => {
+    test('Should return true if drafting D11 general application and state is not a blocking state', () => {
+      mockReq.session.userCase.applicant1InterimApplicationType =
+        InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
+      mockReq.session.userCase.state = State.Submitted;
+
+      expect(shouldShowGenAppSaveAndSignOutContent(false, mockReq.session.userCase)).toBe(true);
+    });
+
+    test('Should return false if drafting D11 general application and state is a blocking state', () => {
+      mockReq.session.userCase.applicant1InterimApplicationType =
+        InterimApplicationType.DIGITISED_GENERAL_APPLICATION_D11;
+      mockReq.session.userCase.state = State.AwaitingServicePayment;
+
+      expect(shouldShowGenAppSaveAndSignOutContent(false, mockReq.session.userCase)).toBe(false);
     });
   });
 
