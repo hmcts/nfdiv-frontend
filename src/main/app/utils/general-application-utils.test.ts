@@ -14,8 +14,9 @@ import {
 import { AppRequest } from '../controller/AppRequest';
 
 import {
-  canStartNewGeneralApplication,
   D11_GENERAL_APPLICATION_EXCLUDED_STATES,
+  RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES,
+  canStartNewGeneralApplication,
   findAllOnlineGenAppsForUser,
   findGenAppAwaitingDocuments,
   findGenAppAwaitingPayment,
@@ -24,7 +25,6 @@ import {
   getGenAppServiceRequest,
   hasGenAppPaymentInProgress,
   hasGenAppSaveAndSignOutContent,
-  RESPONDENT_ONLY_GENERAL_APPLICATION_EXCLUDED_STATES,
   shouldShowGenAppSaveAndSignOutContent,
 } from './general-application-utils';
 
