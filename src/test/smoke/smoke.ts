@@ -32,7 +32,10 @@ describe('Homepage should redirect to IDAM', () => {
   test('Homepage', async () => {
     const checkHomepage = async () => {
       const response = await axios.get(process.env.TEST_URL as string);
-      if (response.status !== 200 || !response.data.includes('password')) {
+      const loginMarkers = ['Sign in or create an account', 'Sign in'];
+      const hasExpectedLoginContent = loginMarkers.some(marker => response.data.includes(marker));
+
+      if (response.status !== 200 || !hasExpectedLoginContent) {
         throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
       }
     };

@@ -77,9 +77,25 @@ describe('Accessibility', () => {
     // Login once only for other pages to reuse session
     const page = await browser.newPage();
     await page.goto(config.TEST_URL);
-    await page.type('#username', 'nfdiv.frontend.test@hmcts.net');
-    await page.type('#password', process.env.TEST_PASSWORD);
-    await page.click('input[type="submit"]');
+    await page.waitForSelector('h1', { timeout: 15000 });
+    const bodyText = await page.evaluate(() => document.body.innerText);
+    const isModern = bodyText.includes('You may already have an account if you have used an HMCTS service before');
+    if (isModern) {
+      if (bodyText.includes('Sign in or create an account')) {
+        await page.click('text/Sign in');
+      }
+      await page.waitForSelector('input[name="email"]', { timeout: 15000 });
+      await page.type('input[name="email"]', 'nfdiv.frontend.test@hmcts.net');
+      await page.click('button[type="submit"], input[type="submit"]');
+      await page.waitForSelector('input[name="password"]', { timeout: 15000 });
+      await page.type('input[name="password"]', process.env.TEST_PASSWORD);
+      await page.click('button[type="submit"], input[type="submit"]');
+    } else {
+      await page.waitForSelector('#username', { timeout: 15000 });
+      await page.type('#username', 'nfdiv.frontend.test@hmcts.net');
+      await page.type('#password', process.env.TEST_PASSWORD);
+      await page.click('input[type="submit"], button[type="submit"]');
+    }
     cookies = await page.cookies(config.TEST_URL);
     await page.close();
   };
