@@ -1,4 +1,5 @@
 import * as path from 'path';
+import crypto from 'crypto';
 
 import * as bodyParser from 'body-parser';
 import config from 'config';
@@ -33,6 +34,11 @@ const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
+
+app.use((req, res, next) => {
+  res.locals.nonce = crypto.randomUUID().replace(/-/g, '');
+  next();
+});
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 
 function setStaticCachingPolicy(res, file) {

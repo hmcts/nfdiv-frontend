@@ -1,4 +1,6 @@
+import type { IncomingMessage, ServerResponse } from 'http';
 import config from 'config';
+
 import * as express from 'express';
 import { Express, RequestHandler } from 'express';
 import helmet, { contentSecurityPolicy, referrerPolicy } from 'helmet';
@@ -81,7 +83,7 @@ export class Helmet {
       "'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw='",
       "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
       "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
-      `'nonce-${config.get('nonce')}'`,
+      (_req: IncomingMessage, res: ServerResponse) => `'nonce-${(res as express.Response).locals.nonce}'`,
     ];
 
     const formAction = [self, 'https://card.payments.service.gov.uk', 'https://hmcts-access.service.gov.uk/login'];

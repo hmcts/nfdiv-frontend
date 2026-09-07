@@ -113,6 +113,7 @@ serviceAddress:
   poBox: 'PO Box 13226'
   town: 'Harlow'
   postcode: 'CM20 9UG'
+enableTracking: true
 govukUrls:
   d11Form: 'https://www.gov.uk/government/publications/form-d11-application-notice'
   d36Form: 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/952032/d36-eng.pdf'

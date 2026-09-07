@@ -78,7 +78,6 @@ export class Nunjucks {
     });
 
     const globals = {
-      nonce: config.get('nonce'),
       webchat: {
         genesysBaseUrl: config.get('webchat.genesysBaseUrl'),
         genesysEnvironment: config.get('webchat.genesysEnvironment'),
@@ -88,6 +87,7 @@ export class Nunjucks {
       dynatrace: {
         dynatraceUrl: config.get('dynatrace.dynatraceUrl'),
       },
+      enableTracking: config.get('enableTracking'),
     };
 
     env.addGlobal('globals', globals);
