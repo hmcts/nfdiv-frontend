@@ -30,32 +30,33 @@ describe.each(servicesToCheck)('Required services should return 200 status UP', 
 
 describe('Homepage should redirect to IDAM', () => {
   test('Homepage', async () => {
-    const checkHomepage = async () => {
-      const frontendUrl = process.env.TEST_URL as string;
-      const expectedIdamHost = new URL(config.get('services.idam.authorizationURL') as string).host;
+    const frontendUrl = process.env.TEST_URL as string;
+    const expectedIdamHost = new URL(config.get('services.idam.authorizationURL') as string).host;
+    const redirectStatuses = [301, 302, 303, 307, 308];
 
-      const response = await axios.get(frontendUrl, {
-        maxRedirects: 0,
-        validateStatus: () => true,
-      });
+    // Hop 1: / -> /login (frontend)
+    const first = await axios.get(frontendUrl, {
+      maxRedirects: 0,
+      validateStatus: (status: number) => redirectStatuses.includes(status),
+    });
 
-      const redirectStatuses = [301, 302, 303, 307, 308];
-      const location = String(response.headers.location || '');
+    const firstLocation = String(first.headers.location || '');
+    expect(redirectStatuses).toContain(first.status);
+    expect(firstLocation).toBeTruthy();
 
-      let redirectedHost = '';
-      try {
-        redirectedHost = new URL(location, frontendUrl).host;
-      } catch (e) {
-        redirectedHost = '';
-      }
+    // If first hop is relative (/login), resolve against frontend and check next hop
+    const secondUrl = new URL(firstLocation, frontendUrl).toString();
 
-      if (!redirectStatuses.includes(response.status) || redirectedHost !== expectedIdamHost) {
-        throw new Error(
-          `Status: ${response.status} Location: '${location}' RedirectHost: '${redirectedHost}' ExpectedHost: '${expectedIdamHost}' Data: '${JSON.stringify(response.data)}'`
-        );
-      }
-    };
+    // Hop 2: /login -> IdAM (or another redirect on the way)
+    const second = await axios.get(secondUrl, {
+      maxRedirects: 0,
+      validateStatus: (status: number) => redirectStatuses.includes(status),
+    });
 
-    await expect(checkHomepage()).resolves.not.toThrow();
+    const secondLocation = String(second.headers.location || '');
+    const secondRedirectHost = new URL(secondLocation, secondUrl).host;
+
+    expect(redirectStatuses).toContain(second.status);
+    expect(secondRedirectHost).toBe(expectedIdamHost);
   });
 });
