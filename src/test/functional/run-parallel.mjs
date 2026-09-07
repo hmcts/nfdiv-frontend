@@ -62,12 +62,30 @@ const ensureJunitReport = async (reportFile, featureName, exitCode) => {
 };
 
 const createAggregateJunitReport = async reportFiles => {
+  const formatTagAttributes = (xml, tagName, indent) =>
+    xml.replace(new RegExp(`<${tagName}\\b([^>]*?)(/?)>`, 'g'), (_, attributes, closing) => {
+      const formattedAttributes = [...attributes.matchAll(/\s+[\w:-]+="[^"]*"/g)]
+        .map(([attribute]) => `${indent}  ${attribute.trim()}`)
+        .join('\n');
+      return `<${tagName}\n${formattedAttributes}\n${indent}${closing}>`;
+    });
+
   const suites = (
     await Promise.all(
       reportFiles.map(async reportFile => {
         try {
           const report = await readFile(reportFile, 'utf8');
-          return report.match(/<testsuite(?:\s|>)[\s\S]*<\/testsuite>/)?.[0] || '';
+          const suite = report.match(/<testsuite(?:\s|>)[\s\S]*<\/testsuite>/)?.[0] || '';
+          return formatTagAttributes(formatTagAttributes(suite, 'testsuite', ''), 'testcase', '')
+            .replaceAll('<testsuite', '\n<testsuite')
+            .replaceAll('<testcase', '\n<testcase')
+            .replaceAll('><properties>', '>\n<properties>\n')
+            .replaceAll('\n<property', '\n  <property')
+            .replaceAll('/><property', '/>\n  <property')
+            .replaceAll('</properties><system-out>', '</properties>\n<system-out>')
+            .replaceAll('</properties>', '\n</properties>')
+            .replaceAll('<system-out>', '<system-out>\n')
+            .replaceAll('</system-out>', '\n</system-out>');
         } catch {
           return '';
         }
@@ -79,7 +97,7 @@ const createAggregateJunitReport = async reportFiles => {
 
   await writeFile(
     path.join(reportsRoot, 'result.xml'),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<testsuites>${suites}</testsuites>\n`
+    `<?xml version="1.0" encoding="UTF-8"?>\n<testsuites>${suites}\n</testsuites>\n`
   );
 };
 
@@ -127,7 +145,7 @@ const createHtmlReport = async reportFiles => {
         .join('\n');
       const featureFailedCount = featureTests.filter(test => test.failed).length;
       const featureSummary =
-        `(${featureTests.length} tests: <span${featureTests.length - featureFailedCount > 0 ? ' class="passed"' : ''}>${featureTests.length - featureFailedCount} passed</span>, ` +
+        `(${featureTests.length} test${featureTests.length > 1 ? 's' : ''}: <span${featureTests.length - featureFailedCount > 0 ? ' class="passed"' : ''}>${featureTests.length - featureFailedCount} passed</span>, ` +
         `<span${featureFailedCount > 0 ? ' class="failed"' : ''}>${featureFailedCount} failed</span>)`;
       return (
         `<h3 class="featureTitle">${xmlEscape(featureName)}</h3><div class="featureSummary">${featureSummary}</div>` +
