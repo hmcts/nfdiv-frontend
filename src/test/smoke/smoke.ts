@@ -31,14 +31,31 @@ describe.each(servicesToCheck)('Required services should return 200 status UP', 
 describe('Homepage should redirect to IDAM', () => {
   test('Homepage', async () => {
     const checkHomepage = async () => {
-      const response = await axios.get(process.env.TEST_URL as string);
-      const loginMarkers = ['Sign in or create an account', 'Sign in'];
-      const hasExpectedLoginContent = loginMarkers.some(marker => response.data.includes(marker));
+      const frontendUrl = process.env.TEST_URL as string;
+      const expectedIdamHost = new URL(config.get('services.idam.authorizationURL') as string).host;
 
-      if (response.status !== 200 || !hasExpectedLoginContent) {
-        throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
+      const response = await axios.get(frontendUrl, {
+        maxRedirects: 0,
+        validateStatus: () => true,
+      });
+
+      const redirectStatuses = [301, 302, 303, 307, 308];
+      const location = String(response.headers.location || '');
+
+      let redirectedHost = '';
+      try {
+        redirectedHost = new URL(location, frontendUrl).host;
+      } catch (e) {
+        redirectedHost = '';
+      }
+
+      if (!redirectStatuses.includes(response.status) || redirectedHost !== expectedIdamHost) {
+        throw new Error(
+          `Status: ${response.status} Location: '${location}' RedirectHost: '${redirectedHost}' ExpectedHost: '${expectedIdamHost}' Data: '${JSON.stringify(response.data)}'`
+        );
       }
     };
+
     await expect(checkHomepage()).resolves.not.toThrow();
   });
 });
