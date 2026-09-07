@@ -33,8 +33,6 @@ describe('Homepage should redirect to IDAM', () => {
     const frontendUrl = process.env.TEST_URL as string;
     const expectedIdamHost = new URL(config.get('services.idam.authorizationURL') as string).host;
     const redirectStatuses = [301, 302, 303, 307, 308];
-
-    // Hop 1: / -> /login (frontend)
     const first = await axios.get(frontendUrl, {
       maxRedirects: 0,
       validateStatus: (status: number) => redirectStatuses.includes(status),
@@ -43,20 +41,18 @@ describe('Homepage should redirect to IDAM', () => {
     const firstLocation = String(first.headers.location || '');
     expect(redirectStatuses).toContain(first.status);
     expect(firstLocation).toBeTruthy();
-
-    // If first hop is relative (/login), resolve against frontend and check next hop
     const secondUrl = new URL(firstLocation, frontendUrl).toString();
-
-    // Hop 2: /login -> IdAM (or another redirect on the way)
     const second = await axios.get(secondUrl, {
       maxRedirects: 0,
       validateStatus: (status: number) => redirectStatuses.includes(status),
     });
 
     const secondLocation = String(second.headers.location || '');
-    const secondRedirectHost = new URL(secondLocation, secondUrl).host;
+    const secondRedirectUrl = new URL(secondLocation, secondUrl);
+
 
     expect(redirectStatuses).toContain(second.status);
-    expect(secondRedirectHost).toBe(expectedIdamHost);
+    expect(secondRedirectUrl.host).toBe(expectedIdamHost);
+    expect(secondRedirectUrl.pathname).toMatch(/^\/(o\/authorize|login)/i);
   });
 });
