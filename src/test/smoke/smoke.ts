@@ -49,8 +49,6 @@ describe('Homepage should redirect to IDAM', () => {
 
     const secondLocation = String(second.headers.location || '');
     const secondRedirectUrl = new URL(secondLocation, secondUrl);
-
-
     expect(redirectStatuses).toContain(second.status);
     expect(secondRedirectUrl.host).toBe(expectedIdamHost);
     expect(secondRedirectUrl.pathname).toMatch(/^\/(o\/authorize|login)/i);
