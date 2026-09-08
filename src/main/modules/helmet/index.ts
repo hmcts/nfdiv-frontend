@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'http';
-import config from 'config';
 
+import config from 'config';
 import * as express from 'express';
 import { Express, RequestHandler } from 'express';
 import helmet, { contentSecurityPolicy, referrerPolicy } from 'helmet';

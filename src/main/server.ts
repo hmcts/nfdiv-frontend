@@ -1,5 +1,5 @@
-import * as path from 'path';
 import crypto from 'crypto';
+import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
 import config from 'config';
