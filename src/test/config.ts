@@ -37,16 +37,56 @@ const initializeTestEnvironment = async () => {
 
   testState.TestUser = generateTestUsername();
   testState.TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
-  testState.idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
+  const idamTokenUrl =
+    sysConfig.has('services.idam.apiBaseUrl') && sysConfig.has('services.idam.tokenPath')
+      ? new URL(
+        sysConfig.get('services.idam.tokenPath') as string,
+        `${sysConfig.get('services.idam.apiBaseUrl') as string}/`
+      ).toString()
+      : (sysConfig.get('services.idam.tokenURL') as string);
+  testState.idamUserManager = new IdamUserManager(idamTokenUrl);
+};
+
+const LOGIN_HEADING = 'Sign in or create an account';
+const MODERN_INTRO_TEXT = 'You may already have an account if you have used an HMCTS service before';
+const MODERN_EMAIL_HEADING = 'Enter your email address';
+const MODERN_PASSWORD_HEADING = 'Enter your password';
+
+const doClassicLogin = async (I: CodeceptJS.I, username: string, password: string): Promise<void> => {
+  I.waitForText(LOGIN_HEADING, LOGIN_TIMEOUT);
+  I.fillField('username', username);
+  I.fillField('password', password);
+  I.click('Sign in');
+};
+
+const doModernLogin = async (I: CodeceptJS.I, username: string, password: string): Promise<void> => {
+  I.waitForText(LOGIN_HEADING, LOGIN_TIMEOUT);
+  I.click('Sign in');
+  I.waitForText(MODERN_EMAIL_HEADING, LOGIN_TIMEOUT);
+  I.fillField('email', username);
+  I.click('Continue');
+  I.waitForText(MODERN_PASSWORD_HEADING, LOGIN_TIMEOUT);
+  I.fillField('password', password);
+  I.click('Continue');
+};
+
+const doIdamLogin = async (I: CodeceptJS.I, username: string, password: string): Promise<void> => {
+  I.waitForElement('h1', LOGIN_TIMEOUT);
+  const pageText = await I.grabTextFrom('body');
+
+  if (pageText.includes(MODERN_INTRO_TEXT)) {
+    await doModernLogin(I, username, password);
+    return;
+  }
+
+  await doClassicLogin(I, username, password);
 };
 
 export const autoLogin = {
-  login: (I: CodeceptJS.I, username = testState.TestUser, password = testState.TestPass, createCase = true): void => {
+  login: async (I: CodeceptJS.I, username = testState.TestUser, password = testState.TestPass, createCase = true): Promise<void> => {
     I.amOnPage(HOME_URL);
-    I.waitForText('Sign in or create an account');
-    I.fillField('username', username);
-    I.fillField('password', password);
-    I.click('Sign in');
+    await doIdamLogin(I, username, password);
+
     I.waitForText('Apply for a divorce', LOGIN_TIMEOUT);
     if (createCase) {
       I.amOnPage(YOUR_DETAILS_URL);
@@ -68,12 +108,10 @@ export const autoLogin = {
 };
 
 export const autoLoginForApplicant2 = {
-  login: (I: CodeceptJS.I, username = testState.TestUser, password = testState.TestPass): void => {
+  login: async (I: CodeceptJS.I, username = testState.TestUser, password = testState.TestPass): Promise<void> => {
     I.amOnPage(APPLICANT_2);
-    I.waitForText('Sign in or create an account');
-    I.fillField('username', username);
-    I.fillField('password', password);
-    I.click('Sign in');
+    await doIdamLogin(I, username, password);
+
     I.waitForText('Apply for a divorce', LOGIN_TIMEOUT);
   },
   check: (I: CodeceptJS.I): void => {
@@ -120,7 +158,7 @@ export const config = {
 
     switch (userType) {
       case TestUserType.CITIZEN:
-        autoLogin.login(I);
+        await autoLogin.login(I);
         break;
       case TestUserType.CITIZEN_SINGLETON:
         username = generateTestUsername();

@@ -6,7 +6,7 @@ import express from 'express';
 import nunjucks from 'nunjucks';
 
 import { DivorceOrDissolution } from '../../app/case/definition.js';
-import { Form, FormInput } from '../../app/form/Form.js';
+import { FormInput } from '../../app/form/Form.js';
 
 const nunjucksModuleDir = path.dirname(fileURLToPath(import.meta.url));
 
@@ -34,10 +34,9 @@ export class Nunjucks {
     });
 
     env.addGlobal('getError', function (fieldName: string): { text?: string } | boolean {
-      const { form, sessionErrors, errors } = this.ctx;
+      const { sessionErrors, errors } = this.ctx;
 
-      const hasMoreThanTwoFields = new Form(form.fields).getFieldNames().size >= 2;
-      if (!sessionErrors?.length || !hasMoreThanTwoFields) {
+      if (!sessionErrors?.length) {
         return false;
       }
 

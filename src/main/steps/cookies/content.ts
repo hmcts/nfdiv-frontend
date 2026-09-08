@@ -40,33 +40,13 @@ const en = ({ isDivorce }) => ({
   googleAnalyticsCookieName3: '_gid',
   googleAnalyticsCookiePurpose3: 'Identifies you to the service',
   googleAnalyticsCookieExpiry3: '24 hours',
-  introMessageCookiesHeading1: 'To turn our introductory message off',
-  introMessageCookiesParagraph1:
-    'You may see a pop-up welcome message when you first visit the service. We’ll store a cookie so that your computer knows you’ve seen it and knows not to show it again.',
-  introMessageCookiesAriaDescribedby: 'List of introductory cookies used.',
-  introMessageCookieName1: 'seen_cookie_message',
-  introMessageCookiePurpose1: 'Saves a message to let us know that you&rsquo;ve seen our cookie message',
-  introMessageCookieExpiry1: '1 month',
   sessionCookiesHeading1:
     'To store the answers you&rsquo;ve given during your visit (known as a &lsquo;session&rsquo;)',
   sessionCookiesParagraph1:
     'Session cookies are stored on your computer as you travel through a website, and let the website know what you&rsquo;ve seen and done so far. These are temporary cookies and are automatically deleted a short while after you leave the website.',
   sessionCookiesAriaDescribedby: 'List of session cookies used.',
-  sessionCookieName1: 'connect.sid',
+  sessionCookieName1: 'nfdiv-session',
   sessionCookiePurpose1: 'Carries details of your current session',
-  identityCookiesHeading1: 'To identify you when you come back to the service',
-  identityCookiesParagraph1: 'We use authentication cookies to identify you when you return to the service.',
-  identityCookiesAriaDescribedby: 'List of authorisation cookies used.',
-  identityCookieName1: '__auth-token',
-  identityCookiePurpose1: 'Identifies you to the service',
-  securityCookiesHeading1: 'To make the service more secure',
-  securityCookiesParagraph1:
-    'We set cookies which prevent attackers from modifying the contents of the other cookies we set. This makes the service more secure and protects your personal information.',
-  securityCookiesAriaDescribedby: 'List of security cookies used.',
-  securityCookieName1: 'TSxxxxxxxx',
-  securityCookiePurpose1: 'Protects your session from tampering',
-  securityCookieName2: '__state',
-  securityCookiePurpose2: 'Identifies you to the service and secures your authentication',
   dynatraceCookiesHeading1: 'To measure application performance',
   dynatraceCookiesParagraph1:
     'We use Dynatrace Software Intelligence Platform to provide an Application Performance Monitoring Service to collect information about how you use HMCTS services.' +
@@ -139,34 +119,13 @@ const cy: typeof en = ({ isDivorce }) => ({
   googleAnalyticsCookieName3: '_gid',
   googleAnalyticsCookiePurpose3: 'Gadael i’r gwasanaeth wybod pwy ydych chi',
   googleAnalyticsCookieExpiry3: '24 awr',
-  introMessageCookiesHeading1: 'Cwcis a ddefnyddir i droi ein neges gyflwyno i ffwrdd',
-  introMessageCookiesParagraph1:
-    'Efallai y byddwch yn gweld neges groeso pan fyddwch yn ymweld â’r gwasanaeth am y tro cyntaf. Byddwn yn storio cwci ar eich cyfrifiadur fel ei fod yn gwybod i beidio â’i dangos eto.',
-  introMessageCookiesAriaDescribedby: 'List of introductory cookies used.',
-  introMessageCookieName1: 'seen_cookie_message',
-  introMessageCookiePurpose1:
-    'Cadw neges ar eich cyfrifiadur i roi gwybod inni eich bod wedi gweld ein neges ynglŷn â chwcis',
-  introMessageCookieExpiry1: '1 mis',
   sessionCookiesHeading1:
     'Cwcis a ddefnyddir i storio’r atebion a roesoch yn ystod eich ymweliad (gelwir hyn yn ‘sesiwn’)',
   sessionCookiesParagraph1:
     'Caiff cwcis sesiwn eu storio ar eich cyfrifiadur wrth ichi fynd drwy wefan, ac maent yn gadael i&rsquo;r wefan wybod beth rydych wedi&rsquo;i weld a&rsquo;i wneud hyd yn hyn. Cwcis dros dro yw&rsquo;r rhain ac fe&rsquo;u dilëir yn awtomatig ychydig ar ôl ichi adael y wefan.',
   sessionCookiesAriaDescribedby: 'List of session cookies used.',
-  sessionCookieName1: 'connect.sid',
+  sessionCookieName1: 'nfdiv-session',
   sessionCookiePurpose1: 'Gwybodaeth am eich sesiwn gyfredol',
-  identityCookiesHeading1: 'Cwcis a ddefnyddir i’ch adnabod pan fyddwch yn dod nôl i’r gwasanaeth',
-  identityCookiesParagraph1: 'Rydym yn defnyddio cwcis dilysu i’ch adnabod pan fyddwch yn dod nôl i’r gwasanaeth.',
-  identityCookiesAriaDescribedby: 'List of authorisation cookies used.',
-  identityCookieName1: '__auth-token',
-  identityCookiePurpose1: 'Gadael i’r gwasanaeth wybod pwy ydych chi',
-  securityCookiesHeading1: 'Cwcis a ddefnyddir i wneud y gwasanaeth yn fwy diogel',
-  securityCookiesParagraph1:
-    'Rydym yn gosod cwcis er mwyn rhwystro hacwyr rhag addasu cynnwys y cwcis eraill a osodon ni. Mae hyn yn gwneud y gwasanaeth yn fwy diogel ac yn diogelu eich gwybodaeth bersonol.',
-  securityCookiesAriaDescribedby: 'List of security cookies used.',
-  securityCookieName1: 'TSxxxxxxxx',
-  securityCookiePurpose1: 'Amddiffyn eich sesiwn rhag i rywun ymyrryd ag o',
-  securityCookieName2: '__state',
-  securityCookiePurpose2: 'Gadael i’r gwasanaeth wybod pwy ydych chi a diogelu eich manylion',
   whenYouCloseYourBrowser: 'Pan fyddwch chi’n cau’ch porwr',
   dynatraceCookiesHeading1: 'Cwcis a ddefnyddir i fesur perfformiad y gwasanaeth',
   dynatraceCookiesParagraph1:
