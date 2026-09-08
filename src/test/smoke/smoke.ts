@@ -38,15 +38,27 @@ describe.each(servicesToCheck)('Required services should return 200 status UP', 
 
 describe('Homepage should redirect to IDAM', () => {
   test('Homepage', async () => {
-    const checkHomepage = async () => {
-      const response = await axios.get(process.env.TEST_URL as string);
-      const loginMarkers = ['Sign in or create an account', 'Sign in'];
-      const hasExpectedLoginContent = loginMarkers.some(marker => response.data.includes(marker));
+    const frontendUrl = process.env.TEST_URL as string;
+    const expectedIdamHost = new URL(config.get('services.idam.authorizationURL') as string).host;
+    const redirectStatuses = [301, 302, 303, 307, 308];
+    const first = await axios.get(frontendUrl, {
+      maxRedirects: 0,
+      validateStatus: (status: number) => redirectStatuses.includes(status),
+    });
 
-      if (response.status !== 200 || !hasExpectedLoginContent) {
-        throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
-      }
-    };
-    await expect(checkHomepage()).resolves.not.toThrow();
+    const firstLocation = String(first.headers.location || '');
+    expect(redirectStatuses).toContain(first.status);
+    expect(firstLocation).toBeTruthy();
+    const secondUrl = new URL(firstLocation, frontendUrl).toString();
+    const second = await axios.get(secondUrl, {
+      maxRedirects: 0,
+      validateStatus: (status: number) => redirectStatuses.includes(status),
+    });
+
+    const secondLocation = String(second.headers.location || '');
+    const secondRedirectUrl = new URL(secondLocation, secondUrl);
+    expect(redirectStatuses).toContain(second.status);
+    expect(secondRedirectUrl.host).toBe(expectedIdamHost);
+    expect(secondRedirectUrl.pathname).toMatch(/^\/(o\/authorize|login)/i);
   });
 });
