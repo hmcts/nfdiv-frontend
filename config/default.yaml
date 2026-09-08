@@ -38,9 +38,11 @@ services:
     microservice: 'divorce_frontend'
     secret: 'NEED TO INSERT SECRET'
   idam:
-    authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
+    authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/o/authorize'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
-    clientID: 'divorce'
+    endSessionURL: 'https://idam-web-public.aat.platform.hmcts.net/o/endSession'
+    authorizationScope: 'openid profile roles'
+    clientID: 'nfdiv'
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword:

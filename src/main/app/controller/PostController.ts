@@ -20,6 +20,7 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 import { AppRequest } from './AppRequest';
 import { getPaymentCallbackUrl } from './BasePaymentPostController';
+import { destroySessionAndRedirectToSignOutPage } from './signout';
 
 @autobind
 export class PostController<T extends AnyObject> {
@@ -56,16 +57,18 @@ export class PostController<T extends AnyObject> {
     } catch {
       // ignore
     }
-    if (req.session.userCase.state === State.Draft) {
-      res.redirect(DRAFT_SAVE_AND_SIGN_OUT);
-    } else if (
-      req.session.userCase.state === State.InformationRequested ||
-      req.session.userCase.applicant1InterimApplicationType
-    ) {
-      res.redirect(REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
-    } else {
-      res.redirect(SAVE_AND_SIGN_OUT);
+
+    const caseState = req.session.userCase.state;
+
+    let signoutPage = SAVE_AND_SIGN_OUT;
+
+    if (caseState === State.Draft) {
+      signoutPage = DRAFT_SAVE_AND_SIGN_OUT;
+    } else if (caseState === State.InformationRequested) {
+      signoutPage = REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT;
     }
+
+    return destroySessionAndRedirectToSignOutPage(req, res, signoutPage);
   }
 
   protected getNextUrl(req: AppRequest): string {

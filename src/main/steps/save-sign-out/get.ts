@@ -3,6 +3,8 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
+import { destroySessionAndRedirectToSignOutPage, getPostLogoutRedirectPath } from '../../app/controller/signout';
+import { SAVE_AND_SIGN_OUT } from '../urls';
 
 import { generateContent } from './content';
 
@@ -13,15 +15,16 @@ export class SaveSignOutGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    res.locals['email'] = req.session.user?.email;
-    res.locals['lang'] = req.session.lang;
+    if (!req.session.user) {
+      const postLogoutRedirectPath = getPostLogoutRedirectPath(req, res);
 
-    req.session.destroy(err => {
-      if (err) {
-        throw err;
+      if (postLogoutRedirectPath && postLogoutRedirectPath !== SAVE_AND_SIGN_OUT) {
+        return res.redirect(postLogoutRedirectPath);
       }
 
-      super.get(req, res);
-    });
+      return super.get(req, res);
+    }
+
+    destroySessionAndRedirectToSignOutPage(req, res, SAVE_AND_SIGN_OUT);
   }
 }

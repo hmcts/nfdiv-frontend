@@ -6,6 +6,7 @@ import type { UploadedFiles } from './UploadedFiles';
 const noFilesUploadedEl = getById('noFilesUploaded');
 const filesUploadedEl = getById('filesUploaded');
 const content = JSON.parse(getById('uploadContent')?.textContent || '{}');
+const csrfToken = (getById('csrfToken') as HTMLInputElement)?.value || '';
 
 export const updateFileList = (uploadedFiles: UploadedFiles): void => {
   if (noFilesUploadedEl) {
@@ -35,13 +36,26 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
       filenameEl.textContent = file.name;
       fileEl.appendChild(filenameEl);
 
-      const deleteEl = document.createElement('a');
-      deleteEl.classList.add('govuk-link', 'govuk-link--no-visited-state');
+      const deleteFormEl = document.createElement('form');
+      deleteFormEl.classList.add('govuk-!-display-inline');
+      deleteFormEl.action = `${DOCUMENT_MANAGER}/delete/${i - 1}`;
+      deleteFormEl.method = 'post';
+
+      const csrfEl = document.createElement('input');
+      csrfEl.type = 'hidden';
+      csrfEl.name = '_csrf';
+      csrfEl.value = csrfToken;
+      deleteFormEl.appendChild(csrfEl);
+
+      const deleteEl = document.createElement('button');
+      deleteEl.classList.add('hmcts-button-link', 'govuk-link--no-visited-state');
       deleteEl.id = `Delete${i}`;
-      deleteEl.href = `${DOCUMENT_MANAGER}/delete/${i - 1}`;
+      deleteEl.type = 'submit';
       deleteEl.textContent = content.delete;
       deleteEl.setAttribute('aria-labelledby', `Delete${i} Document${i}`);
-      fileEl.appendChild(deleteEl);
+      deleteFormEl.appendChild(deleteEl);
+
+      fileEl.appendChild(deleteFormEl);
 
       filesUploadedEl.appendChild(fileEl);
       i++;

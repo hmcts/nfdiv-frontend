@@ -6,7 +6,9 @@ import { Case } from '../../../../app/case/case';
 import { CITIZEN_WITHDRAWN } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
+import { destroySessionAndRedirectToSignOutPage } from '../../../../app/controller/signout';
 import { Form } from '../../../../app/form/Form';
+import { WITHDRAW_CONFIRMATION } from '../../../../steps/urls';
 
 const logger = Logger.getLogger('withdraw-application-controller');
 
@@ -15,22 +17,18 @@ export default class PreIssueWithdrawPostController extends PostController<AnyOb
   protected async saveAndContinue(
     req: AppRequest<AnyObject>,
     res: Response,
-    form: Form,
+    _form: Form,
     formData: Partial<Case>
   ): Promise<void> {
     try {
-      await super.saveAndContinue(req, res, form, formData);
+      await super.save(req, formData, this.getEventName());
     } catch (err) {
       logger.error(`Failed to withdraw citizen case: ${req.session.userCase.caseReference}, error: ${err}`);
 
       throw new Error('Failed to withdraw case. Please try again later.');
     }
 
-    req.session.destroy(err => {
-      if (err) {
-        throw err;
-      }
-    });
+    destroySessionAndRedirectToSignOutPage(req, res, WITHDRAW_CONFIRMATION);
   }
 
   protected getEventName(): string {

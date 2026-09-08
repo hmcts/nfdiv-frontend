@@ -1,27 +1,17 @@
 import autobind from 'autobind-decorator';
-import { Response } from 'express';
 
-import { AppRequest } from '../../app/controller/AppRequest';
-import { GetController } from '../../app/controller/GetController';
+import EndSessionGetController from '../../app/controller/EndSessionGetController';
+import { DRAFT_SAVE_AND_SIGN_OUT, PageLink } from '../urls';
 
 import { generateContent } from './content';
 
 @autobind
-export class DraftApplicationSaveSignOutGetController extends GetController {
+export class DraftApplicationSaveSignOutGetController extends EndSessionGetController {
   constructor() {
     super(__dirname + '/template', generateContent);
   }
 
-  public async get(req: AppRequest, res: Response): Promise<void> {
-    res.locals['email'] = req.session.user?.email;
-    res.locals['lang'] = req.session.lang;
-
-    req.session.destroy(err => {
-      if (err) {
-        throw err;
-      }
-
-      super.get(req, res);
-    });
+  protected signoutPagePath(): PageLink {
+    return DRAFT_SAVE_AND_SIGN_OUT;
   }
 }

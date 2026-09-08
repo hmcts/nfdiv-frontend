@@ -5,6 +5,7 @@ import { Response } from 'express';
 import { CITIZEN_WITHDRAWN } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
+import { destroySessionAndRedirectToSignOutPage } from '../../../app/controller/signout';
 import { APPLICATION_WITHDRAWN } from '../../urls';
 
 const logger = Logger.getLogger('withdraw-application-controller');
@@ -20,12 +21,6 @@ export default class WithdrawApplicationPostController extends PostController<An
       throw new Error('Failed to withdraw case. Please try again later.');
     }
 
-    req.session.destroy(err => {
-      if (err) {
-        throw err;
-      }
-
-      res.redirect(APPLICATION_WITHDRAWN);
-    });
+    destroySessionAndRedirectToSignOutPage(req, res, APPLICATION_WITHDRAWN);
   }
 }
