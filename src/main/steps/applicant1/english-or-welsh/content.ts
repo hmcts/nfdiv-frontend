@@ -1,9 +1,9 @@
-import { LanguagePreference } from '../../../app/case/case';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { englishOrWelsh_cy, englishOrWelsh_en } from '../../common/common.content';
-import { InputLabelsByLanguage } from '../../common/input-labels.content';
+import { LanguagePreference } from '../../../app/case/case.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { englishOrWelsh_cy, englishOrWelsh_en } from '../../common/common.content.js';
+import { InputLabelsByLanguage } from '../../common/input-labels.content.js';
 
 const en = ({ required }) => ({
   title: 'What language do you want to receive emails and documents in?',

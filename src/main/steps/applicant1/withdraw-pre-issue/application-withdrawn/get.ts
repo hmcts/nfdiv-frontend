@@ -1,13 +1,14 @@
-import autobind from 'autobind-decorator';
+import EndSessionGetController from '../../../../app/controller/EndSessionGetController.js';
+import autobind from '../../../../app/utils/autobind.js';
+import { getStepTemplatePath } from '../../../getStepTemplatePath.js';
+import { PageLink, WITHDRAW_CONFIRMATION } from '../../../urls.js';
 
-import EndSessionGetController from '../../../../app/controller/EndSessionGetController';
-import { PageLink, WITHDRAW_CONFIRMATION } from '../../../urls';
+import { generateContent } from './content.js';
 
-import { generateContent } from './content';
 @autobind
 export class ApplicationWithdrawnPreIssueGetController extends EndSessionGetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(getStepTemplatePath('applicant1/withdraw-pre-issue/application-withdrawn', 'template'), generateContent);
   }
 
   protected signoutPagePath(): PageLink {

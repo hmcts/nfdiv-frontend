@@ -1,12 +1,12 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { SupportedLanguages } from '../../modules/i18n';
-import { getNextIncompleteStepUrl } from '../../steps';
-import { CommonContent, generateCommonContent } from '../../steps/common/common.content';
-import { DivorceOrDissolution } from '../case/definition';
+import autobind from '../../app/utils/autobind.js';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
+import { CommonContent, generateCommonContent } from '../../steps/common/common.content.js';
+import { getNextIncompleteStepUrl } from '../../steps/index.js';
+import { DivorceOrDissolution } from '../case/definition.js';
 
-import { AppRequest } from './AppRequest';
+import { AppRequest } from './AppRequest.js';
 
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;

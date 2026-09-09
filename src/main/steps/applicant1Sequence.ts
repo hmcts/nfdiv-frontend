@@ -1,28 +1,28 @@
-import { CaseWithId, Checkbox } from '../app/case/case';
+import { CaseWithId, Checkbox } from '../app/case/case.js';
 import {
   Applicant2Represented,
   ApplicationType,
   JurisdictionConnections,
   State,
   YesOrNo,
-} from '../app/case/definition';
-import { needsToExplainDelay } from '../app/controller/controller.utils';
-import { isLessThanAYearAgoInc } from '../app/form/validation';
+} from '../app/case/definition.js';
+import { needsToExplainDelay } from '../app/controller/controller.utils.js';
+import { isLessThanAYearAgoInc } from '../app/form/validation.js';
 import {
   allowedToAnswerResidualJurisdiction,
   previousConnectionMadeUptoLastHabituallyResident,
-} from '../app/jurisdiction/connections';
+} from '../app/jurisdiction/connections.js';
 
-import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
-import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
-import { isApplicant2EmailUpdatePossible } from './common/content.utils';
-import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
-import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
-import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
-import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence';
-import { noResponseJourneySequence } from './noResponseJourneySequence';
-import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
-import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
+import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence.js';
+import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence.js';
+import { isApplicant2EmailUpdatePossible } from './common/content.utils.js';
+import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence.js';
+import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence.js';
+import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence.js';
+import { generalApplicationPaymentSequence } from './generalApplicationPaymentSequence.js';
+import { noResponseJourneySequence } from './noResponseJourneySequence.js';
+import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence.js';
+import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence.js';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_ENDED,
@@ -112,8 +112,8 @@ import {
   YOU_CANNOT_UPDATE_THEIR_EMAIL,
   YOU_NEED_THEIR_EMAIL_ADDRESS,
   YOU_NEED_TO_SERVE,
-} from './urls';
-import { withdrawApplicationSequence } from './withdrawApplicationSequence';
+} from './urls.js';
+import { withdrawApplicationSequence } from './withdrawApplicationSequence.js';
 
 export interface Step {
   url: string;

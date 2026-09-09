@@ -1,6 +1,6 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { CaseWithId } from '../../../../../app/case/case';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { CaseWithId } from '../../../../../app/case/case.js';
 import {
   CITIZEN_GENERAL_APPLICATION,
   GeneralApplication,
@@ -11,15 +11,18 @@ import {
   PaymentStatus,
   State,
   YesOrNo,
-} from '../../../../../app/case/definition';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../../urls';
+} from '../../../../../app/case/definition.js';
+import { AppRequest } from '../../../../../app/controller/AppRequest.js';
+import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../../urls.js';
 
-import GeneralApplicationPaymentPostController from './post';
+import GeneralApplicationPaymentPostController from './post.js';
 
 jest.mock('../../../../../app/payment/PaymentClient');
 
-const { mockCreate, mockGet } = require('../../../../../app/payment/PaymentClient');
+const { mockCreate, mockGet } = jest.requireMock('../../../../../app/payment/PaymentClient') as {
+  mockCreate: jest.Mock;
+  mockGet: jest.Mock;
+};
 
 describe('GeneralApplicationPaymentPostController', () => {
   const paymentController = new GeneralApplicationPaymentPostController();

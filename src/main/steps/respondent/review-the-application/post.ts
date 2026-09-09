@@ -1,12 +1,12 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { Case, Checkbox } from '../../../app/case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, DRAFT_AOS } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { Form } from '../../../app/form/Form';
-import { SAVE_AND_SIGN_OUT } from '../../urls';
+import { Case, Checkbox } from '../../../app/case/case.js';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_SAVE_AND_CLOSE, DRAFT_AOS } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import { Form } from '../../../app/form/Form.js';
+import autobind from '../../../app/utils/autobind.js';
+import { SAVE_AND_SIGN_OUT } from '../../urls.js';
 
 @autobind
 export default class ReviewTheApplicationPostController extends PostController<AnyObject> {

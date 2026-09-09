@@ -1,5 +1,5 @@
-import { CaseWithId } from '../case/case';
-import { YesOrNo } from '../case/definition';
+import { CaseWithId } from '../case/case.js';
+import { YesOrNo } from '../case/definition.js';
 
 export const needsToExplainDelay = (userCase: Partial<CaseWithId>): boolean => {
   return (

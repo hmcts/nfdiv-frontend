@@ -1,19 +1,21 @@
 // noinspection TypeScriptValidateTypes
 
 import config from 'config';
-import { set } from 'lodash';
+import lodash from 'lodash';
 
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { FormContent } from '../../app/form/Form';
-import * as steps from '../../steps';
+const { set } = lodash;
+
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { FormContent } from '../../app/form/Form.js';
+import * as steps from '../../steps/index.js';
 import {
   DRAFT_SAVE_AND_SIGN_OUT,
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   SAVE_AND_SIGN_OUT,
-} from '../../steps/urls';
-import { getEndIdamSessionUrl } from '../auth/user/oidc';
-import { Checkbox } from '../case/case';
+} from '../../steps/urls.js';
+import { getEndIdamSessionUrl } from '../auth/user/oidc.js';
+import { Checkbox } from '../case/case.js';
 import {
   ApplicationType,
   CITIZEN_APPLICANT2_UPDATE,
@@ -21,12 +23,10 @@ import {
   CITIZEN_UPDATE,
   Gender,
   State,
-} from '../case/definition';
-import { isPhoneNoValid } from '../form/validation';
+} from '../case/definition.js';
+import { isPhoneNoValid } from '../form/validation.js';
 
-import { PostController } from './PostController';
-
-import Mock = jest.Mock;
+import { PostController } from './PostController.js';
 
 set(config, 'services.idam.systemPassword', 'DUMMY_VALUE_REPLACE');
 
@@ -444,6 +444,6 @@ describe('PostController', () => {
 });
 
 interface MockedLogger {
-  info: Mock;
-  error: Mock;
+  info: jest.Mock;
+  error: jest.Mock;
 }

@@ -1,12 +1,12 @@
-import { ChangedNameHow, ChangedNameWhy } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
+import { ChangedNameHow, ChangedNameWhy } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/changes-to-your-name/content';
-import { getNameChangeOtherDetailsValidator } from '../../common/content.utils';
+} from '../../applicant1/changes-to-your-name/content.js';
+import { getNameChangeOtherDetailsValidator } from '../../common/content.utils.js';
 
 const labels = content => ({
   errors: {

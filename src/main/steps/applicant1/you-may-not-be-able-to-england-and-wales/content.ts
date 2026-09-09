@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { CommonContent } from '../../common/common.content';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { CommonContent } from '../../common/common.content.js';
 
 const en = ({ isDivorce }: CommonContent) => ({
   title: `You may not be able to ${isDivorce ? 'get a divorce' : 'end your civil partnership'} in England and Wales`,

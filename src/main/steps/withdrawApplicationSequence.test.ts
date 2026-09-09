@@ -1,8 +1,8 @@
-import { YesOrNo } from '../app/case/definition';
+import { YesOrNo } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
-import { CHECK_ANSWERS_WITHDRAW, HUB_PAGE, WITHDRAW_CONFIRMATION, WITHDRAW_THIS_APPLICATION } from './urls';
-import { withdrawApplicationSequence } from './withdrawApplicationSequence';
+import { Step } from './applicant1Sequence.js';
+import { CHECK_ANSWERS_WITHDRAW, HUB_PAGE, WITHDRAW_CONFIRMATION, WITHDRAW_THIS_APPLICATION } from './urls.js';
+import { withdrawApplicationSequence } from './withdrawApplicationSequence.js';
 
 describe('Pre Issue Withdraw Application Sequence test', () => {
   describe('WITHDRAW_THIS_APPLICATION', () => {

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { CaseWithId, Checkbox } from '../../../../app/case/case';
+import { CaseWithId, Checkbox } from '../../../../app/case/case.js';
 import {
   AlternativeServiceType,
   GeneralApplicationType,
@@ -8,9 +8,9 @@ import {
   ServiceMethod,
   State,
   YesOrNo,
-} from '../../../../app/case/definition';
-import { HubTemplate } from '../../../common/hubTemplates';
-import { StateSequence } from '../../../state-sequence';
+} from '../../../../app/case/definition.js';
+import { HubTemplate } from '../../../common/hubTemplates.js';
+import { StateSequence } from '../../../state-sequence.js';
 
 export const getSoleHubTemplate = (
   displayState: StateSequence,

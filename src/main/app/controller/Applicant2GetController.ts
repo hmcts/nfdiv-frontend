@@ -1,10 +1,10 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { HOME_URL } from '../../steps/urls';
+import autobind from '../../app/utils/autobind.js';
+import { HOME_URL } from '../../steps/urls.js';
 
-import { AppRequest } from './AppRequest';
-import { GetController } from './GetController';
+import { AppRequest } from './AppRequest.js';
+import { GetController } from './GetController.js';
 
 @autobind
 export class Applicant2GetController extends GetController {

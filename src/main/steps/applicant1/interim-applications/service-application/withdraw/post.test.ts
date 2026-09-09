@@ -1,10 +1,10 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { WITHDRAW_SERVICE_APPLICATION } from '../../../../../app/case/definition';
-import { FormContent } from '../../../../../app/form/Form';
-import { SERVICE_APPLICATION_WITHDRAWN } from '../../../../urls';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { WITHDRAW_SERVICE_APPLICATION } from '../../../../../app/case/definition.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { SERVICE_APPLICATION_WITHDRAWN } from '../../../../urls.js';
 
-import WithdrawServiceApplicationPostController from './post';
+import WithdrawServiceApplicationPostController from './post.js';
 
 describe('WithdrawServiceApplicationPostController', () => {
   const mockFormContent = {

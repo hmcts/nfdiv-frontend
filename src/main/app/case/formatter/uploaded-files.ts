@@ -1,6 +1,7 @@
-import { Case, Checkbox } from '../case';
-import { CaseData, DivorceDocument } from '../definition';
-import { checkboxConverter } from '../from-api-format';
+import { Case, Checkbox } from '../case.js';
+import { CaseData, DivorceDocument } from '../definition.js';
+
+import { yesNoToCheckbox as checkboxConverter } from './checkbox-converter.js';
 
 export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
   applicant1UploadedFiles:

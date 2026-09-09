@@ -1,12 +1,12 @@
 import config from 'config';
 
-import { Case, CaseDate, Checkbox } from '../../../../../app/case/case';
-import { NoResponseProcessServerOrBailiff, YesOrNo } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { getFee } from '../../../../../app/fees/service/get-fee';
-import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
-import { CommonContent } from '../../../../common/common.content';
+import { Case, CaseDate, Checkbox } from '../../../../../app/case/case.js';
+import { NoResponseProcessServerOrBailiff, YesOrNo } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { getFee } from '../../../../../app/fees/service/get-fee.js';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../../../app/form/validation.js';
+import { CommonContent } from '../../../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: 'In person service by process server or court bailiff',

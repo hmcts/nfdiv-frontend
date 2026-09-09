@@ -1,9 +1,9 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
 import {
   generateContent as generateInterruptionContent,
   form as interruptionForm,
-} from '../../common/interruption/content';
+} from '../../common/interruption/content.js';
 
 const en = () => ({
   title: "You're about to apply for alternative service",

@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import type { CommonContent } from '../../common/common.content';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import type { CommonContent } from '../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: 'Your Help With Fees Application has been refused',

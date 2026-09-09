@@ -5,7 +5,7 @@ import {
   PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
   PAY_YOUR_FINAL_ORDER_FEE,
-} from '../../steps/urls';
+} from '../../steps/urls.js';
 
 const backLink: HTMLAnchorElement | null = document.querySelector('.govuk-back-link');
 if (backLink) {

@@ -1,8 +1,10 @@
-import { Checkbox } from '../../main/app/case/case';
-import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
-import { CHECK_JURISDICTION } from '../../main/steps/urls';
+import { inject } from 'codeceptjs';
 
-import { iSetTheUsersCaseTo } from './common';
+import { Checkbox } from '../../main/app/case/case.js';
+import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition.js';
+import { CHECK_JURISDICTION } from '../../main/steps/urls.js';
+
+import { iSetTheUsersCaseTo } from './common.js';
 
 const { I } = inject();
 

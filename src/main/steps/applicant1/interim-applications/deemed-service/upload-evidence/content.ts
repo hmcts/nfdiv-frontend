@@ -1,12 +1,12 @@
-import { getFormattedDate } from '../../../../../app/case/answers/formatDate';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { SupportedLanguages } from '../../../../../modules/i18n';
-import { CommonContent } from '../../../../common/common.content';
+import { getFormattedDate } from '../../../../../app/case/answers/formatDate.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { SupportedLanguages } from '../../../../../modules/i18n/index.js';
+import { CommonContent } from '../../../../common/common.content.js';
 import {
   form as uploadEvidenceForm,
   generateContent as uploadEvidenceGenerateContent,
-} from '../../common/upload-evidence/content';
+} from '../../common/upload-evidence/content.js';
 
 const en = ({ userCase, partner }: CommonContent) => ({
   statement: `Upload your evidence to support your application for deemed service. This should be evidence you've found from after the date that your application was issued: ${getFormattedDate(

@@ -1,12 +1,12 @@
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
-import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent';
-import type { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan } from '../../common/content.utils';
-import { InputLabelsByLanguage } from '../../common/input-labels.content';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent.js';
+import { jurisdictionMoreDetailsContent } from '../../../app/jurisdiction/moreDetailsContent.js';
+import type { CommonContent } from '../../common/common.content.js';
+import { accessibleDetailsSpan } from '../../common/content.utils.js';
+import { InputLabelsByLanguage } from '../../common/input-labels.content.js';
 
 const en = ({ isDivorce, partner, required, userCase, isJointApplication }: CommonContent) => {
   return {

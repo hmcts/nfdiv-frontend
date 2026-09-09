@@ -1,6 +1,8 @@
-import { capitalize } from 'lodash';
+import lodash from 'lodash';
 
-import { CaseWithId, Checkbox } from '../../app/case/case';
+const { capitalize } = lodash;
+
+import { CaseWithId, Checkbox } from '../../app/case/case.js';
 import {
   ApplicationType,
   ChangedNameHow,
@@ -11,10 +13,10 @@ import {
   ListValue,
   State,
   YesOrNo,
-} from '../../app/case/definition';
-import { ValidationCheck } from '../../app/form/Form';
+} from '../../app/case/definition.js';
+import { ValidationCheck } from '../../app/form/Form.js';
 
-import { CommonContent, en } from './common.content';
+import { CommonContent, en } from './common.content.js';
 
 export const DISABLE_UPON_SUBMIT = 'disable-upon-submit';
 

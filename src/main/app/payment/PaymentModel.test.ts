@@ -1,6 +1,6 @@
-import { Payment } from '../../app/case/definition';
+import { Payment } from '../../app/case/definition.js';
 
-import { PaymentModel } from './PaymentModel';
+import { PaymentModel } from './PaymentModel.js';
 
 describe('PaymentModel', () => {
   it('returns a list of payments', async () => {

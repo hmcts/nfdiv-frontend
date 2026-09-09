@@ -1,7 +1,7 @@
-import { CaseWithId, Checkbox } from '../../../../app/case/case';
-import { State, YesOrNo } from '../../../../app/case/definition';
-import { HubTemplate } from '../../../common/hubTemplates';
-import { StateSequence } from '../../../state-sequence';
+import { CaseWithId, Checkbox } from '../../../../app/case/case.js';
+import { State, YesOrNo } from '../../../../app/case/definition.js';
+import { HubTemplate } from '../../../common/hubTemplates.js';
+import { StateSequence } from '../../../state-sequence.js';
 
 export const getJointHubTemplate = (
   displayState: StateSequence,

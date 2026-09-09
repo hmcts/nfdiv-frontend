@@ -1,9 +1,9 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { UPDATE_CONTACT_DETAILS_AND_REISSUE } from '../../../../../app/case/definition';
-import { FormContent } from '../../../../../app/form/Form';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { UPDATE_CONTACT_DETAILS_AND_REISSUE } from '../../../../../app/case/definition.js';
+import { FormContent } from '../../../../../app/form/Form.js';
 
-import CheckAnswersPostController from './post';
+import CheckAnswersPostController from './post.js';
 
 describe('NewPostalAddressPostController', () => {
   const mockFormContent = {

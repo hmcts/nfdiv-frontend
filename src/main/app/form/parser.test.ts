@@ -1,5 +1,5 @@
-import { FormField } from './Form';
-import { covertToDateObject, setupCheckboxParser } from './parser';
+import { FormField } from './Form.js';
+import { covertToDateObject, setupCheckboxParser } from './parser.js';
 
 describe('Parser', () => {
   describe('covertToDateObject()', () => {

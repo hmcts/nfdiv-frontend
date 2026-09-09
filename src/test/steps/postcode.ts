@@ -1,4 +1,6 @@
-import { iClearTheForm, iClick } from './common';
+import { inject } from 'codeceptjs';
+
+import { iClearTheForm, iClick } from './common.js';
 
 const { I } = inject();
 

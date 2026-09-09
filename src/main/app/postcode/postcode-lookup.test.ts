@@ -6,9 +6,9 @@ import {
   invalidPostcode400Response,
   invalidPostcodeKey401Response,
   validPostcode200Response,
-} from '../../../test/unit/utils/mockPostcodeResponses';
+} from '../../../test/unit/utils/mockPostcodeResponses.js';
 
-import { getAddressesFromPostcode } from './postcode-lookup';
+import { getAddressesFromPostcode } from './postcode-lookup.js';
 
 jest.mock('axios');
 

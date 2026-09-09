@@ -1,9 +1,9 @@
 import config from 'config';
 
-import { NoResponsePartnerNewEmailOrAddress, ServiceMethod } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { CommonContent } from '../../../../common/common.content';
-import { HUB_PAGE } from '../../../../urls';
+import { NoResponsePartnerNewEmailOrAddress, ServiceMethod } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { HUB_PAGE } from '../../../../urls.js';
 
 const en = ({ partner, isDivorce, userCase }: CommonContent, isPersonalServiceRequired, isAddressOnlyUpdate) => {
   const divorceOrDissolutionPapers = isDivorce ? 'divorce papers' : 'papers to end your civil partnership';

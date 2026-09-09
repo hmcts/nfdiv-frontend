@@ -1,5 +1,5 @@
-import { isLinkingUrl, signInNotRequired } from './url-utils';
-import { ACCESSIBILITY_STATEMENT_URL, HOME_URL, RESPONDENT } from './urls';
+import { isLinkingUrl, signInNotRequired } from './url-utils.js';
+import { ACCESSIBILITY_STATEMENT_URL, HOME_URL, RESPONDENT } from './urls.js';
 
 describe('url-utils', () => {
   describe('signInNotRequired', () => {

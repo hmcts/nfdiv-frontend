@@ -6,7 +6,7 @@ Feature: Update contact details
     And I go to '/check-your-answers'
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
+    When I click continue to payment
     And I pay and submit the application
     Then the page should include "Application saved"
     When a case worker issues the application
@@ -32,18 +32,18 @@ Feature: Update contact details
     And I select "Country"
     And I type "UK"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/address-private"
     Given I clear the form
     And I select "I do not need my contact details kept private"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/check-contact-details"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/hub-page"
 
-    Given I click "Sign out"
+    Given I sign out
     And I login with applicant "1"
     Then the page URL should be "/hub-page"
 
@@ -64,13 +64,13 @@ Feature: Update contact details
     And I select "Country"
     And I type "UK"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/address-private"
     Given I clear the form
     And I select "I do not need my contact details kept private"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/check-contact-details"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/hub-page"

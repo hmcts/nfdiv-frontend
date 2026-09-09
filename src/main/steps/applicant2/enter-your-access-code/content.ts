@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn, isValidAccessCode, isValidCaseReference } from '../../../app/form/validation';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn, isValidAccessCode, isValidCaseReference } from '../../../app/form/validation.js';
 
 const en = () => ({
   title: 'Enter your access details',

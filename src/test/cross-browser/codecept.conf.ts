@@ -1,6 +1,6 @@
 import { setHeadlessWhen } from '@codeceptjs/configure';
 
-import { config as testConfig } from '../config';
+import { config as testConfig } from '../config.js';
 
 setHeadlessWhen(testConfig.TestHeadlessBrowser);
 
@@ -42,6 +42,7 @@ if (process.env.SAUCE === 'true') {
 }
 
 export const config: CodeceptJS.Config = {
+  noGlobals: true,
   name: 'nfdiv-frontend-cross-browser',
   gherkin: testConfig.Gherkin,
   output: '../../../functional-output/crossbrowser/reports',
@@ -56,21 +57,19 @@ export const config: CodeceptJS.Config = {
   },
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
+  retry: { Scenario: 3 },
   plugins: {
     allure: {
       enabled: true,
-      require: '@codeceptjs/allure-legacy',
+      require: 'allure-codeceptjs',
     },
-    pauseOnFail: {
+    pause: {
       enabled: !testConfig.TestHeadlessBrowser,
     },
     retryFailedStep: {
       enabled: true,
     },
-    tryTo: {
-      enabled: true,
-    },
-    screenshotOnFail: {
+    screenshot: {
       enabled: true,
     },
     ...plugins,

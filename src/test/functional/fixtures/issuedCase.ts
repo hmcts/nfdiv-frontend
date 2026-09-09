@@ -1,6 +1,6 @@
-import { BrowserCase } from '../../steps/common';
+import { BrowserCase } from '../../steps/common.js';
 
-import { completeCase } from './completeCase';
+import { completeCase } from './completeCase.js';
 
 export const issuedCase: Partial<BrowserCase> = {
   ...completeCase,

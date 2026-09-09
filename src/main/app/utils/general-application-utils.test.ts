@@ -1,7 +1,7 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { CaseWithId } from '../case/case';
-import { GeneralApplication, GeneralApplicationType, GeneralParties, ListValue, YesOrNo } from '../case/definition';
-import { AppRequest } from '../controller/AppRequest';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { CaseWithId } from '../case/case.js';
+import { GeneralApplication, GeneralApplicationType, GeneralParties, ListValue, YesOrNo } from '../case/definition.js';
+import { AppRequest } from '../controller/AppRequest.js';
 
 import {
   findOnlineGeneralApplicationsForUser,
@@ -9,7 +9,7 @@ import {
   getGeneralApplicationOrderSummary,
   getGeneralApplicationPaymentsField,
   getGeneralApplicationServiceRequest,
-} from './general-application-utils';
+} from './general-application-utils.js';
 
 describe('GeneralApplicationUtils', () => {
   let mockReq: AppRequest;

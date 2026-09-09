@@ -1,14 +1,14 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
 import {
   CITIZEN_UPDATE,
   NoResponseSendPapersAgainOrTrySomethingElse,
   UPDATE_CONTACT_DETAILS_AND_REISSUE,
   YesOrNo,
-} from '../../../../../app/case/definition';
-import { FormContent } from '../../../../../app/form/Form';
+} from '../../../../../app/case/definition.js';
+import { FormContent } from '../../../../../app/form/Form.js';
 
-import SendPapersAgainOrTrySomethingElsePostController from './post';
+import SendPapersAgainOrTrySomethingElsePostController from './post.js';
 
 describe('NewPostalAddressPostController', () => {
   const mockFormContent = {

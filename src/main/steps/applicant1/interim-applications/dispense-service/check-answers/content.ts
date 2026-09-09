@@ -1,31 +1,33 @@
-import { capitalize } from 'lodash';
+import lodash from 'lodash';
 import striptags from 'striptags';
 
-import { getFormattedCaseDate } from '../../../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../../../app/case/case';
-import { YesOrNo } from '../../../../../app/case/definition';
-import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent, generateCommonContent } from '../../../../common/common.content';
-import { getDispenseLogicalTests } from '../../../../dispenseServiceApplicationSequence';
-import * as urls from '../../../../urls';
+const { capitalize } = lodash;
+
+import { getFormattedCaseDate } from '../../../../../app/case/answers/formatDate.js';
+import { Checkbox } from '../../../../../app/case/case.js';
+import { YesOrNo } from '../../../../../app/case/definition.js';
+import { getFilename } from '../../../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { CommonContent, generateCommonContent } from '../../../../common/common.content.js';
+import { getDispenseLogicalTests } from '../../../../dispenseServiceApplicationSequence.js';
+import * as urls from '../../../../urls.js';
 import {
   form as checkAnswersForm,
   generateContent as checkAnswersGenerateContent,
-} from '../../common/check-answers/content';
-import { generateContent as awarePartnerAddressContent } from '../aware-partner-address/content';
-import { generateContent as childMaintenanceContent } from '../child-maintenance/content';
-import { generateContent as childrenContactContent } from '../children-contact/content';
-import { generateContent as childrenFamilyContent } from '../children-family/content';
-import { generateContent as emailContent } from '../email/content';
-import { generateContent as employmentContactContent } from '../employment-contact/content';
-import { generateContent as finalOrderSearchContent } from '../final-order-search/content';
-import { generateContent as lastDateContent } from '../last-date/content';
-import { generateContent as phoneNumberContent } from '../phone-number/content';
-import { generateContent as searchingOnlineContent } from '../searching-online/content';
-import { generateContent as tracingAgentContent } from '../tracing-agent/content';
-import { generateContent as tracingOnlineContent } from '../tracing-online/content';
+} from '../../common/check-answers/content.js';
+import { generateContent as awarePartnerAddressContent } from '../aware-partner-address/content.js';
+import { generateContent as childMaintenanceContent } from '../child-maintenance/content.js';
+import { generateContent as childrenContactContent } from '../children-contact/content.js';
+import { generateContent as childrenFamilyContent } from '../children-family/content.js';
+import { generateContent as emailContent } from '../email/content.js';
+import { generateContent as employmentContactContent } from '../employment-contact/content.js';
+import { generateContent as finalOrderSearchContent } from '../final-order-search/content.js';
+import { generateContent as lastDateContent } from '../last-date/content.js';
+import { generateContent as phoneNumberContent } from '../phone-number/content.js';
+import { generateContent as searchingOnlineContent } from '../searching-online/content.js';
+import { generateContent as tracingAgentContent } from '../tracing-agent/content.js';
+import { generateContent as tracingOnlineContent } from '../tracing-online/content.js';
 
 const stepLinks = {
   useHwf: `${urls.HELP_WITH_FEES_DISPENSE}`,

@@ -1,16 +1,17 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { ApplicationType, SWITCH_TO_SOLE } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { GetController } from '../../../app/controller/GetController';
+import { ApplicationType, SWITCH_TO_SOLE } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { GetController } from '../../../app/controller/GetController.js';
+import autobind from '../../../app/utils/autobind.js';
+import { getStepTemplatePath } from '../../getStepTemplatePath.js';
 
-import { generateContent } from './content';
+import { generateContent } from './content.js';
 
 @autobind
 export default class ApplicationEndedGetController extends GetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(getStepTemplatePath('applicant1/application-ended', 'template'), generateContent);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

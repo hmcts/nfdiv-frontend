@@ -13,6 +13,6 @@ Feature: Joint hub page applied first
     Given I set the case state to "AwaitingFinalOrder"
     And I go to "/"
     Then the page should include element "#hasAppliedForFinalOrderContent"
-    When I click "Sign out"
+    When I sign out
     And I login with applicant "1"
     Then the page should include element "#hasAppliedForFinalOrderContent"

@@ -1,16 +1,16 @@
-import { Checkbox } from '../../../app/case/case';
-import { ApplicationType, DivorceOrDissolution, JurisdictionConnections } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn, Label } from '../../../app/form/Form';
-import { cyConnectionUserReads, enConnectionUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
-import { addConnectionsBasedOnQuestions } from '../../../app/jurisdiction/connections';
+import { Checkbox } from '../../../app/case/case.js';
+import { ApplicationType, DivorceOrDissolution, JurisdictionConnections } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn, Label } from '../../../app/form/Form.js';
+import { cyConnectionUserReads, enConnectionUserReads } from '../../../app/jurisdiction/bulletedPointsContent.js';
+import { addConnectionsBasedOnQuestions } from '../../../app/jurisdiction/connections.js';
 import {
   cyDomicile,
   cyHabitualResident,
   enDomicile,
   enHabitualResident,
-} from '../../../app/jurisdiction/moreDetailsContent';
-import type { CommonContent } from '../../common/common.content';
+} from '../../../app/jurisdiction/moreDetailsContent.js';
+import type { CommonContent } from '../../common/common.content.js';
 
 const jurisdictionConnectionList = [
   JurisdictionConnections.APP_1_APP_2_RESIDENT,

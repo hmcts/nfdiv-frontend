@@ -1,10 +1,10 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { CommonContent } from '../../../../common/common.content.js';
 import {
   form as wantUploadEvidenceForm,
   generateContent as wantUploadEvidenceGenerateContent,
-} from '../../common/want-upload-evidence/content';
+} from '../../common/want-upload-evidence/content.js';
 
 const en = ({ partner, isDivorce }: CommonContent) => ({
   statement: `Any evidence you can provide will help the court decide whether it is satisfied that your ${partner} has received the ${

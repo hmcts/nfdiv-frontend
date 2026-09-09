@@ -1,4 +1,4 @@
-import { Checkbox, LanguagePreference } from './case';
+import { Checkbox, LanguagePreference } from './case.js';
 import {
   CaseData,
   ContactDetailsType,
@@ -9,8 +9,8 @@ import {
   MarriageFormation,
   ThePrayer,
   YesOrNo,
-} from './definition';
-import { fromApiFormat } from './from-api-format';
+} from './definition.js';
+import { fromApiFormat } from './from-api-format.js';
 
 describe('from-api-format', () => {
   const results: Partial<CaseData> = {

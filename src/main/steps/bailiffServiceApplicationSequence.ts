@@ -1,6 +1,6 @@
-import { ServicePaymentMethod, YesOrNo, YesOrNoOrNotKnown } from '../app/case/definition';
+import { ServicePaymentMethod, YesOrNo, YesOrNoOrNotKnown } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
+import { Step } from './applicant1Sequence.js';
 import {
   ABLE_TO_UPLOAD_PARTNER_PHOTO,
   APPLY_FOR_HWF_BAILIFF,
@@ -32,7 +32,7 @@ import {
   SERVICE_APPLICATION_SUBMITTED,
   UPLOAD_PARTNER_PHOTO,
   WHEN_IS_BEST_TO_SERVE,
-} from './urls';
+} from './urls.js';
 
 export const bailiffServiceApplicationSequence: Step[] = [
   {

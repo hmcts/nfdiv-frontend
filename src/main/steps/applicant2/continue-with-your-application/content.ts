@@ -1,10 +1,10 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFields } from '../../../app/form/Form';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFields } from '../../../app/form/Form.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/continue-with-your-application/content';
-import { CommonContent } from '../../common/common.content';
+} from '../../applicant1/continue-with-your-application/content.js';
+import { CommonContent } from '../../common/common.content.js';
 
 const labels = ({ required }: CommonContent) => {
   return {

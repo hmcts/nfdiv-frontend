@@ -2,9 +2,9 @@ import config from 'config';
 import { Application } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { AppRequest } from '../../app/controller/AppRequest';
-import { ErrorController, HTTPError } from '../../steps/error/error.controller';
-import { DOCUMENT_MANAGER, PageLink } from '../../steps/urls';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import { ErrorController, HTTPError } from '../../steps/error/error.controller.js';
+import { DOCUMENT_MANAGER, PageLink } from '../../steps/urls.js';
 
 export class LoadTimeouts {
   public enableFor(app: Application): void {

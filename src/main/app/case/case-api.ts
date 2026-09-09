@@ -1,17 +1,17 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import { LoggerInstance } from 'winston';
 
-import { getHighestPriorityPreSubmissionCases, preSubmittedStatePrioritySequence } from '../../steps/state-sequence';
-import { getSystemUser } from '../auth/user/oidc';
-import { UserDetails } from '../controller/AppRequest';
+import { getHighestPriorityPreSubmissionCases, preSubmittedStatePrioritySequence } from '../../steps/state-sequence.js';
+import { getSystemUser } from '../auth/user/oidc.js';
+import { UserDetails } from '../controller/AppRequest.js';
 
-import { Case, CaseWithId } from './case';
-import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client';
-import { CaseAssignedUserRoles } from './case-roles';
-import { CASE_TYPE } from './case-type';
-import { DivorceOrDissolution, ListValue, Payment, UserRole } from './definition';
-import { fromApiFormat } from './from-api-format';
-import { toApiFormat } from './to-api-format';
+import { CaseApiClient, CcdV1Response, getCaseApiClient } from './case-api-client.js';
+import { CaseAssignedUserRoles } from './case-roles.js';
+import { CASE_TYPE } from './case-type.js';
+import { Case, CaseWithId } from './case.js';
+import { DivorceOrDissolution, ListValue, Payment, UserRole } from './definition.js';
+import { fromApiFormat } from './from-api-format.js';
+import { toApiFormat } from './to-api-format.js';
 
 export class CaseApi {
   readonly maxRetries: number = 3;

@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { WITHDRAW_THIS_APPLICATION } from '../../../../urls';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { WITHDRAW_THIS_APPLICATION } from '../../../../urls.js';
 
 const en = () => ({
   title: 'Make an application to the court (D11)',

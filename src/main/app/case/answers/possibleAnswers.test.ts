@@ -1,7 +1,7 @@
-import { StepWithContent } from '../../../steps';
-import { Case } from '../case';
+import { StepWithContent } from '../../../steps/index.js';
+import { Case } from '../case.js';
 
-import { getAllPossibleAnswerFieldsForSteps } from './possibleAnswers';
+import { getAllPossibleAnswerFieldsForSteps } from './possibleAnswers.js';
 
 describe('omitUnreachableAnswers()', () => {
   test('omits unreachable answer fields', () => {

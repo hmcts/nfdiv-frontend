@@ -1,9 +1,9 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { ApplicationType, State } from '../../../../../app/case/definition';
-import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfiguration';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { ApplicationType, State } from '../../../../../app/case/definition.js';
+import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfiguration.js';
 
-import AlternativeServiceUploadEvidenceGetController from './get';
+import AlternativeServiceUploadEvidenceGetController from './get.js';
 
 describe('AlternativeServiceUploadEvidenceGetController', () => {
   const controller = new AlternativeServiceUploadEvidenceGetController();

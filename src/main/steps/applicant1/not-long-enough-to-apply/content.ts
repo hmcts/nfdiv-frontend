@@ -1,4 +1,4 @@
-import { TranslationFn } from '../../../app/controller/GetController';
+import { TranslationFn } from '../../../app/controller/GetController.js';
 
 const en = ({ isDivorce }) => ({
   title: `You have not been ${isDivorce ? 'married' : 'in a civil partnership'} long enough to apply ${

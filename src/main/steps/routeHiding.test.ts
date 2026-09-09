@@ -1,9 +1,9 @@
-import { mockRequest } from '../../test/unit/utils/mockRequest';
-import { CaseWithId } from '../app/case/case';
-import { ApplicationType, State, YesOrNo } from '../app/case/definition';
-import { AppRequest } from '../app/controller/AppRequest';
+import { mockRequest } from '../../test/unit/utils/mockRequest.js';
+import { CaseWithId } from '../app/case/case.js';
+import { ApplicationType, State, YesOrNo } from '../app/case/definition.js';
+import { AppRequest } from '../app/controller/AppRequest.js';
 
-import { ROUTE_HIDE_CONDITIONS, shouldHideRouteFromUser } from './routeHiding';
+import { ROUTE_HIDE_CONDITIONS, shouldHideRouteFromUser } from './routeHiding.js';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   CHECK_ANSWERS_ALTERNATIVE,
@@ -19,7 +19,7 @@ import {
   RESPONDENT,
   REVIEW_THE_APPLICATION,
   SERVICE_APPLICATION_SUBMITTED,
-} from './urls';
+} from './urls.js';
 
 describe('routeHiding', () => {
   let mockReq: AppRequest;

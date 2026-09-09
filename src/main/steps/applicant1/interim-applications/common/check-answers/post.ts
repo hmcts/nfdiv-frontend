@@ -1,12 +1,12 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { Case, CaseWithId } from '../../../../../app/case/case';
-import { InterimApplicationType } from '../../../../../app/case/definition';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../../../app/controller/PostController';
-import { Step } from '../../../../../steps/applicant1Sequence';
-import { getFirstErroredStep } from '../../../../index';
+import { Case, CaseWithId } from '../../../../../app/case/case.js';
+import { InterimApplicationType } from '../../../../../app/case/definition.js';
+import { AppRequest } from '../../../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../../../app/controller/PostController.js';
+import autobind from '../../../../../app/utils/autobind.js';
+import { Step } from '../../../../../steps/applicant1Sequence.js';
+import { getFirstErroredStep } from '../../../../index.js';
 
 @autobind
 export default abstract class CheckAnswersPostController extends PostController<AnyObject> {

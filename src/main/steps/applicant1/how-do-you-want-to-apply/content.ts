@@ -1,9 +1,9 @@
-import { ApplicationType } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
-import { InputLabelsByLanguage } from '../../common/input-labels.content';
+import { ApplicationType } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
+import { InputLabelsByLanguage } from '../../common/input-labels.content.js';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: `How do you want to apply ${isDivorce ? 'for the divorce' : 'to end your civil partnership'}?`,

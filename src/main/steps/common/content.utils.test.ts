@@ -1,4 +1,4 @@
-import { CaseWithId, Checkbox } from '../../app/case/case';
+import { CaseWithId, Checkbox } from '../../app/case/case.js';
 import {
   ApplicationType,
   ChangedNameHow,
@@ -11,9 +11,9 @@ import {
   RejectionReason,
   State,
   YesOrNo,
-} from '../../app/case/definition';
+} from '../../app/case/definition.js';
 
-import { CommonContent, en } from './common.content';
+import { CommonContent, en } from './common.content.js';
 import {
   canIntendToSwitchToSoleFo,
   formattedCaseId,
@@ -27,7 +27,7 @@ import {
   hasApplicantAppliedForFoFirst,
   isApplicant2EmailUpdatePossible,
   latestLegalAdvisorDecisionContent,
-} from './content.utils';
+} from './content.utils.js';
 
 describe('content.utils', () => {
   test.each([

@@ -10,7 +10,7 @@ Feature: Sole hub page
   Scenario: Sole hub applicant and respondent pages
     When I go to "/"
     Then the page should include "Your wife has submitted an application for divorce."
-    When I click "Respond to the application"
+    When I click respond to the application
     Then the page URL should be "/respondent/review-the-application"
     When I sign out
     And I login with applicant "1"

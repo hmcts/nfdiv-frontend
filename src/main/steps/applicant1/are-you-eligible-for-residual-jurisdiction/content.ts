@@ -1,9 +1,9 @@
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
-import { ydyOrNacYdyRadioAnswers } from '../../common/input-labels.content';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
+import { ydyOrNacYdyRadioAnswers } from '../../common/input-labels.content.js';
 
 const en = ({ required }: CommonContent) => ({
   line1: `Are the Applicant and Respondent registered as civil partners of each other in England or Wales or,
