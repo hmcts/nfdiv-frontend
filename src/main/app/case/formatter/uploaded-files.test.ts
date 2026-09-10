@@ -60,6 +60,19 @@ describe('uploadedFilesFromApiApplicant1', () => {
     expect(result.applicant1InterimAppsEvidenceUploadedFiles?.[0].id).toBe('1');
     expect(result.applicant1InterimAppsEvidenceUploadedFiles?.[1].id).toBe('2');
   });
+
+  it('converts general application partner agrees evidence documents', async () => {
+    const result = fromApiApplicant1({
+      applicant1GenAppPartnerAgreesDocs: [
+        { id: '1', value: { documentFileName: 'filename' } as DivorceDocument },
+        { id: '2', value: { documentFileName: 'filename' } as DivorceDocument },
+      ],
+    });
+
+    expect(result.applicant1GenAppPartnerAgreesUploadedFiles?.length).toBe(2);
+    expect(result.applicant1GenAppPartnerAgreesUploadedFiles?.[0].id).toBe('1');
+    expect(result.applicant1GenAppPartnerAgreesUploadedFiles?.[1].id).toBe('2');
+  });
 });
 
 describe('uploadedFilesFromApiApplicant2', () => {

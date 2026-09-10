@@ -1,4 +1,4 @@
-{% if interimApplicationStartedAosOverdue %}
+{% if noResponseApplicationStartedAosOverdue %}
   {% include "./complete-interim-application.njk" %}
 {% elif aosOverdueAndDrafted %}
   <p class="govuk-body" id="aosDueAndDraftedLine1">{{ aosDueAndDrafted.line1 }}</p>

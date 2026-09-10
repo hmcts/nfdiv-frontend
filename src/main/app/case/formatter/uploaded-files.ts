@@ -29,6 +29,12 @@ export const fromApiApplicant1 = (data: Partial<CaseData>): Partial<Case> => ({
       id: `${file.id}`,
       name: `${getFilename(file.value)}`,
     })) || [],
+  applicant1GenAppPartnerAgreesDocs: data.applicant1GenAppPartnerAgreesDocs,
+  applicant1GenAppPartnerAgreesUploadedFiles:
+    data.applicant1GenAppPartnerAgreesDocs?.map(file => ({
+      id: `${file.id}`,
+      name: `${getFilename(file.value)}`,
+    })) || [],
 });
 
 export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
@@ -53,6 +59,18 @@ export const fromApiApplicant2 = (data: Partial<CaseData>): Partial<Case> => ({
       name: `${getFilename(file.value)}`,
     })) || [],
   applicant2UnableToUploadEvidence: checkboxConverter(data.applicant2UnableToUploadEvidence),
+  applicant2InterimAppsEvidenceDocs: data.applicant2InterimAppsEvidenceDocs,
+  applicant2InterimAppsEvidenceUploadedFiles:
+    data.applicant2InterimAppsEvidenceDocs?.map(file => ({
+      id: `${file.id}`,
+      name: `${getFilename(file.value)}`,
+    })) || [],
+  applicant2GenAppPartnerAgreesDocs: data.applicant2GenAppPartnerAgreesDocs,
+  applicant2GenAppPartnerAgreesUploadedFiles:
+    data.applicant2GenAppPartnerAgreesDocs?.map(file => ({
+      id: `${file.id}`,
+      name: `${getFilename(file.value)}`,
+    })) || [],
 });
 
 export const getFilename = (document: Partial<DivorceDocument> | undefined | null): string | undefined => {
