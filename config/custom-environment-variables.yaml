@@ -43,6 +43,7 @@ launchDarkly:
   initTimeoutSeconds: LAUNCH_DARKLY_INIT_TIMEOUT_SECONDS
   defaultUserKey: LAUNCH_DARKLY_DEFAULT_USER_KEY
   flagPrefix: LAUNCH_DARKLY_FLAG_PREFIX
+enableTracking: ENABLE_TRACKING
 webchat:
   genesysReferrerPage: GENESYS_REFERRER_PAGE
   genesysReferrerPageCy: GENESYS_REFERRER_PAGE_CY
