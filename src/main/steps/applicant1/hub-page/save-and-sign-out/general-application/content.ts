@@ -2,7 +2,7 @@ import { GeneralApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import {
   hasGenAppPaymentInProgress,
-  hasGenAppSaveAndSignOutContent,
+  shouldShowGenAppSaveAndSignOutContent,
 } from '../../../../../app/utils/general-application-utils';
 import { CommonContent, getRootRedirectPath } from '../../../../common/common.content';
 import { GEN_APP_INTERRUPTION, GEN_APP_WITHDRAW_APPLICATION, PAY_YOUR_GENERAL_APPLICATION_FEE } from '../../../../urls';
@@ -64,7 +64,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...languages[content.language](content, hasPaymentInProgress, continueLinkUrl, withdrawLinkUrl),
-    hasGenAppSaveAndSignOutContent: hasGenAppSaveAndSignOutContent(isApplicant2, userCase),
+    hasGenAppSaveAndSignOutContent: shouldShowGenAppSaveAndSignOutContent(isApplicant2, userCase),
     generalApplicationSubmitted: generalApplicationSubmittedContent(content),
     hasPaymentInProgress,
     isDraftingWithdraw,
