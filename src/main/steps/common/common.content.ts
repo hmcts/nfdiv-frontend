@@ -225,6 +225,7 @@ export const en = {
   elementSelectors: {
     uploadButtonId: `#${UPPY_FILE_INPUT_BUTTON_ID}`,
   },
+  pageTitleError: 'Error: ',
 };
 
 const cy: typeof en = {
@@ -406,6 +407,7 @@ const cy: typeof en = {
   elementSelectors: {
     uploadButtonId: `#${UPPY_FILE_INPUT_BUTTON_ID}`,
   },
+  pageTitleError: 'Gwall: ',
 };
 
 export const generateCommonContent = ({
