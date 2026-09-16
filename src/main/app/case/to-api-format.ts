@@ -192,22 +192,38 @@ const fields: ToApiConverters = {
       ? data.applicant2NameChangedHowOtherDetails
       : '',
   }),
-  applicant1CannotUploadDocuments: data => ({
-    applicant1CannotUploadSupportingDocument: data.applicant1CannotUploadDocuments
-      ? !Array.isArray(data.applicant1CannotUploadDocuments)
-        ? [data.applicant1CannotUploadDocuments]
-        : data.applicant1CannotUploadDocuments
-      : [],
-    applicant1CannotUpload: data.applicant1CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
-  }),
-  applicant2CannotUploadDocuments: data => ({
-    applicant2CannotUploadSupportingDocument: data.applicant2CannotUploadDocuments
-      ? !Array.isArray(data.applicant2CannotUploadDocuments)
-        ? [data.applicant2CannotUploadDocuments]
-        : data.applicant2CannotUploadDocuments
-      : [],
-    applicant2CannotUpload: data.applicant2CannotUploadDocuments?.length ? YesOrNo.YES : YesOrNo.NO,
-  }),
+  applicant1CannotUploadDocuments: data => {
+    const cannotUpload = Object.prototype.hasOwnProperty.call(data, 'applicant1CannotUpload')
+      ? data.applicant1CannotUpload === Checkbox.Checked
+      : (data.applicant1CannotUploadDocuments?.length ?? 0) > 0;
+
+    return {
+      applicant1CannotUploadSupportingDocument:
+        cannotUpload && data.applicant1CannotUploadDocuments
+          ? !Array.isArray(data.applicant1CannotUploadDocuments)
+            ? [data.applicant1CannotUploadDocuments]
+            : data.applicant1CannotUploadDocuments
+          : [],
+
+      applicant1CannotUpload: cannotUpload ? YesOrNo.YES : YesOrNo.NO,
+    };
+  },
+  applicant2CannotUploadDocuments: data => {
+    const cannotUpload = Object.prototype.hasOwnProperty.call(data, 'applicant2CannotUpload')
+      ? data.applicant2CannotUpload === Checkbox.Checked
+      : (data.applicant2CannotUploadDocuments?.length ?? 0) > 0;
+
+    return {
+      applicant2CannotUploadSupportingDocument:
+        cannotUpload && data.applicant2CannotUploadDocuments
+          ? !Array.isArray(data.applicant2CannotUploadDocuments)
+            ? [data.applicant2CannotUploadDocuments]
+            : data.applicant2CannotUploadDocuments
+          : [],
+
+      applicant2CannotUpload: cannotUpload ? YesOrNo.YES : YesOrNo.NO,
+    };
+  },
   applicant1IConfirmPrayer: prayerConverter('applicant1'),
   applicant2IConfirmPrayer: prayerConverter('applicant2'),
   applicant1StatementOfTruth: data => ({
