@@ -1,5 +1,6 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% extends "govuk/template.njk" %}
 
@@ -59,6 +60,10 @@
       text: phase
     },
     html: bannerHtml
+  }) }}
+  {{ govukNotificationBanner({
+      titleText: bannerTitle,
+      text: notificationBanner
   }) }}
   {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>
