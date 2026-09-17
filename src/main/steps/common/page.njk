@@ -46,7 +46,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-  {{ title }} - {{ serviceName }} - {{ govUk }}
+  {% if sessionErrors and sessionErrors | length %}{{ pageTitleError }} {% endif %}{{ title }} - {{ serviceName }} - {{ govUk }}
 {% endblock %}
 
 {% set bannerHtml %}
