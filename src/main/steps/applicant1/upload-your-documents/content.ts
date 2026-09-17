@@ -270,6 +270,7 @@ export const generateContent: TranslationFn = content => {
     translations['infoTakePhoto'],
     'More information about how ' + translations['infoTakePhoto']
   );
+  const showWarning = true;
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
@@ -279,5 +280,6 @@ export const generateContent: TranslationFn = content => {
     infoTakePhotoAccessibleSpan,
     applicant1HasChangedName,
     nameDifferenceEvidenceRequired,
+    showWarning,
   };
 };
