@@ -29,6 +29,7 @@ let nextFeature = 0;
 let failed = false;
 
 const reportsRoot = path.join(projectRoot, 'functional-output/functional/reports');
+const retryAuditRoot = path.join(projectRoot, 'functional-output/functional/retry-audit');
 
 const xmlEscape = value =>
   String(value)
@@ -101,9 +102,58 @@ const createAggregateJunitReport = async reportFiles => {
   );
 };
 
+const readRetryAudit = async () => {
+  try {
+    const auditFiles = (await readdir(retryAuditRoot)).filter(file => file.endsWith('.json'));
+    const attempts = new Map();
+
+    await Promise.all(
+      auditFiles.map(async auditFile => {
+        try {
+          const audit = JSON.parse(await readFile(path.join(retryAuditRoot, auditFile), 'utf8'));
+          if (!audit.feature || !audit.scenario || typeof audit.durationMs !== 'number') {
+            return;
+          }
+
+          const key = `${audit.feature}\u0000${audit.scenario}`;
+          attempts.set(key, [...(attempts.get(key) || []), audit]);
+        } catch {
+          // Ignore an audit file that is incomplete or no longer valid JSON.
+        }
+      })
+    );
+
+    return new Map(
+      [...attempts].map(([key, scenarioAttempts]) => {
+        const orderedAttempts = scenarioAttempts.sort(
+          (first, second) => first.attempt - second.attempt || first.recordedAt.localeCompare(second.recordedAt)
+        );
+        const firstAttempt = orderedAttempts[0];
+        const successfulAttempt = orderedAttempts.find(
+          audit => audit.attempt > firstAttempt.attempt && firstAttempt.status !== 'passed' && audit.status === 'passed'
+        );
+        return [key, { attempts: orderedAttempts, latest: orderedAttempts.at(-1), successfulAttempt }];
+      })
+    );
+  } catch {
+    // Retry audit output is optional, so report generation still works when it is absent.
+    return new Map();
+  }
+};
+
 const createHtmlReport = async reportFiles => {
   const tests = [];
+  const retryAudit = await readRetryAudit();
+  const hasRetryAudit = retryAudit.size > 0;
   const attribute = (attributes, name) => attributes.match(new RegExp(`${name}="([^"]*)"`))?.[1] || '';
+  const xmlUnescape = value =>
+    value
+      .replaceAll('&quot;', '"')
+      .replaceAll('&apos;', "'")
+      .replaceAll('&lt;', '<')
+      .replaceAll('&gt;', '>')
+      .replaceAll('&amp;', '&');
+  const formatRuntime = durationMs => (durationMs >= 1000 ? `${(durationMs / 1000).toFixed(3)}s` : `${durationMs}ms`);
 
   for (const reportFile of reportFiles) {
     try {
@@ -114,8 +164,8 @@ const createHtmlReport = async reportFiles => {
         const attributes = match[1];
         const body = match[2] || '';
         tests.push({
-          featureName: suiteName,
-          name: attribute(attributes, 'name') || '(unnamed test)',
+          featureName: xmlUnescape(suiteName),
+          name: xmlUnescape(attribute(attributes, 'name')) || '(unnamed test)',
           failed: body.includes('<failure') || body.includes('<error'),
         });
       }
@@ -133,15 +183,74 @@ const createHtmlReport = async reportFiles => {
       return Number(secondFailed) - Number(firstFailed);
     })
     .map(([featureName, featureTests]) => {
-      const rows = featureTests
-        .map(test => {
-          const status = test.failed ? 'Failed' : 'Passed';
-          const statusClass = test.failed ? 'failed' : 'passed';
-          return (
+      const renderTest = (test, tableType) => {
+        const status = test.failed ? 'Failed' : 'Passed';
+        const statusClass = test.failed ? 'failed' : 'passed';
+        const audit = retryAudit.get(`${test.featureName}\u0000${test.name}`);
+        const retried = audit?.attempts.some(attempt => attempt.attempt > 1);
+        const showRuntime = hasRetryAudit && tableType !== 'retried';
+        const showError = hasRetryAudit && tableType === 'failure';
+        const runtime = retried ? audit?.successfulAttempt?.durationMs : audit?.latest.durationMs;
+        const error = audit?.latest.error?.message || audit?.latest.error?.stack || '';
+        const attemptRows = retried
+          ? audit.attempts
+              .map(attempt => {
+                const attemptStatus =
+                  attempt.status === 'passed' ? 'Passed' : attempt.status === 'skipped' ? 'Skipped' : 'Failed';
+                const attemptClass =
+                  attempt.status === 'passed' ? 'passed' : attempt.status === 'skipped' ? '' : 'failed';
+                const attemptError =
+                  attempt.status === 'failed' ? attempt.error?.message || attempt.error?.stack || '' : '';
+                return (
+                  `<tr><td class="attempt">${attempt.attempt}</td><td class="result ${attemptClass}">${attemptStatus}</td>` +
+                  `<td class="runtime">${formatRuntime(attempt.durationMs)}</td>` +
+                  `<td>${xmlEscape(attemptError)}</td>` +
+                  '</tr>'
+                );
+              })
+              .join('')
+          : '';
+        const attemptTable = `<table class="attempts"><thead><tr><th class="attempt">Attempt</th><th class="result">Result</th><th class="runtime">Runtime</th><th>Error</th></tr></thead><tbody>${attemptRows}</tbody></table>`;
+        return {
+          row:
             `<tr><td class="${statusClass}">${status}</td>` +
-            `<td class="${statusClass}">${xmlEscape(test.name)}</td></tr>`
-          );
-        })
+            (showRuntime ? `<td class="runtime">${runtime === undefined ? '' : formatRuntime(runtime)}</td>` : '') +
+            `<td class="${statusClass}">${xmlEscape(test.name)}</td>` +
+            (showError ? `<td class="error">${xmlEscape(error)}</td>` : '') +
+            '</tr>' +
+            (retried ? `<tr><td class="empty"></td><td colspan="2">${attemptTable}</td></tr>` : ''),
+        };
+      };
+      const tables = [];
+      let rows = [];
+      let tableType = null;
+      const flushTable = () => {
+        if (rows.length > 0) {
+          tables.push({ rows, tableType });
+          rows = [];
+        }
+      };
+      for (const test of featureTests) {
+        const audit = retryAudit.get(`${test.featureName}\u0000${test.name}`);
+        const retried = audit?.attempts.some(attempt => attempt.attempt > 1);
+        const nextTableType = retried ? 'retried' : test.failed ? 'failure' : 'normal';
+        if (rows.length > 0 && tableType !== nextTableType) {
+          flushTable();
+        }
+        tableType = nextTableType;
+        const renderedTest = renderTest(test, tableType);
+        rows.push(renderedTest.row);
+        if (retried) {
+          flushTable();
+        }
+      }
+      flushTable();
+      const renderedTables = tables
+        .map(
+          table =>
+            `<table><thead><tr><th>Result</th>${hasRetryAudit && table.tableType !== 'retried' ? '<th class="runtime">Runtime</th>' : ''}<th>Test</th>${hasRetryAudit && table.tableType === 'failure' ? '<th class="error">Error</th>' : ''}</tr></thead>` +
+            `<tbody>${table.rows.join('\n')}</tbody></table>`
+        )
         .join('\n');
       const featureFailedCount = featureTests.filter(test => test.failed).length;
       const featureSummary =
@@ -149,8 +258,7 @@ const createHtmlReport = async reportFiles => {
         `<span${featureFailedCount > 0 ? ' class="failed"' : ''}>${featureFailedCount} failed</span>)`;
       return (
         `<h3 class="featureTitle">${xmlEscape(featureName)}</h3><div class="featureSummary">${featureSummary}</div>` +
-        '<table><thead><tr><th>Result</th><th>Test</th></tr></thead>' +
-        `<tbody>${rows}</tbody></table>`
+        renderedTables
       );
     })
     .join('\n');
@@ -158,7 +266,7 @@ const createHtmlReport = async reportFiles => {
   const html = `<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>Functional test report</title>
-<style>body{font:16px sans-serif;margin:2rem}table{border-collapse:collapse;width:100%}thead > tr:first-child{border-bottom: 1px solid #ddd}th,td{border:none;padding:.5rem;text-align:left}th:first-child,td:first-child{min-width:1%;padding-left: 0;border-right:1px solid #ddd}th:last-child,td:last-child{padding-right: 0}.passed{color:#087f23}.failed{color:#b00020}.featureTitle{display: inline-block;margin-top:2.75rem;margin-bottom:.75rem;margin-right:.25rem}.featureTitle:first-of-type{margin-top: 0}.featureSummary{font-size:1.1rem;display:inline-block}.totalSummary{font-size:1.1rem;}hr{margin-top:1.3575rem;margin-bottom:1.3575rem;border:0 transparent;border-top:1px solid #ddd}</style>
+<style>body{font:16px sans-serif;margin:2rem}table{border-collapse:collapse;width:100%;margin-bottom:0.5rem}thead > tr:first-child{border-bottom: 1px solid #ddd}th,td{border:none;border-right:1px solid #ddd;min-width: max-content;padding:.5rem;text-align:left;}th:first-child,td:first-child{padding-left: 0;}th.attempt,td.attempt{text-align: center;}td.empty{min-width: 1%;padding-right: 0;border-right: none;}th:last-child,td:last-child{width: 100%;padding-right: 0;border-right: none;}.passed{color:#087f23}.failed{color:#b00020}.featureTitle{display: inline-block;margin-top:2.75rem;margin-bottom:.75rem;margin-right:.25rem}.featureTitle:first-of-type{margin-top: 0}.featureSummary{font-size:1.1rem;display:inline-block}.totalSummary{font-size:1.1rem;}hr{margin-top:1.3575rem;margin-bottom:1.3575rem;border:0 transparent;border-top:1px solid #ddd}</style>
 </head><body><h1>Functional test report</h1>
 <div class="totalSummary">${tests.length} tests: <span${tests.length - failedCount > 0 ? ' class="passed"' : ''}>${tests.length - failedCount} passed</span>, <span${failedCount > 0 ? ' class="failed"' : ''}>${failedCount} failed.</span></div><hr>
 ${featureTables}</body></html>\n`;
