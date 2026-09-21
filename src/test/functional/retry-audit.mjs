@@ -6,9 +6,23 @@ import { threadId } from 'node:worker_threads';
 import event from 'codeceptjs/lib/event';
 
 const attempts = new Map();
+const attemptStarts = new Map();
 const outputDir = path.resolve(process.cwd(), 'functional-output/functional/retry-audit');
 
 const getAttemptKey = test => `${threadId}:${test.uid}`;
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getDurationMs = (test, startedAt, endedAt = performance.now()) => {
+  if (Number.isFinite(test?.duration) && test.duration > 0) {
+    return test.duration;
+  }
+
+  if (Number.isFinite(startedAt) && Number.isFinite(endedAt)) {
+    return Math.max(0, Math.round(endedAt - startedAt));
+  }
+
+  return 0;
+};
 
 const serialiseError = error => {
   if (!error) {
@@ -38,6 +52,8 @@ const writeAttempt = (test, status, error, hookName) => {
   const attemptKey = getAttemptKey(test);
   const attempt = (attempts.get(attemptKey) || 0) + 1;
   attempts.set(attemptKey, attempt);
+  const durationMs = getDurationMs(test, attemptStarts.get(attemptKey));
+  attemptStarts.delete(attemptKey);
 
   const details = {
     ...getTestDetails(test),
@@ -45,7 +61,7 @@ const writeAttempt = (test, status, error, hookName) => {
     attempt,
     status,
     hookName: hookName || null,
-    durationMs: test.duration || 0,
+    durationMs,
     error: serialiseError(error || test.err),
     recordedAt: new Date().toISOString(),
   };
@@ -57,6 +73,12 @@ const writeAttempt = (test, status, error, hookName) => {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function retryAudit() {
+  event.dispatcher.on(event.test.started, test => {
+    if (test?.uid) {
+      attemptStarts.set(getAttemptKey(test), performance.now());
+    }
+  });
+
   event.dispatcher.on(event.test.finished, test => {
     const status = test.err || test.state === 'failed' ? 'failed' : test.state === 'skipped' ? 'skipped' : 'passed';
     writeAttempt(test, status, test.err);
