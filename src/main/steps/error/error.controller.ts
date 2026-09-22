@@ -1,13 +1,13 @@
-import autobind from 'autobind-decorator';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { AppRequest } from '../../app/controller/AppRequest';
-import { SupportedLanguages } from '../../modules/i18n';
-import { generateCommonContent } from '../common/common.content';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import autobind from '../../app/utils/autobind.js';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
+import { generateCommonContent } from '../common/common.content.js';
 
-import { errorContent } from './content';
+import { errorContent } from './content.js';
 
 @autobind
 export class ErrorController {

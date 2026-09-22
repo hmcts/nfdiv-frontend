@@ -1,11 +1,11 @@
-import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { ApplicationType, DivorceOrDissolution } from '../../app/case/definition';
-import { PageContent } from '../../app/controller/GetController';
-import { SupportedLanguages } from '../../modules/i18n';
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs.js';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { ApplicationType, DivorceOrDissolution } from '../../app/case/definition.js';
+import { PageContent } from '../../app/controller/GetController.js';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
 
-import { ExistingApplicationGetController } from './get';
+import { ExistingApplicationGetController } from './get.js';
 
 describe('ExistingApplicationGetController', () => {
   const controller = new ExistingApplicationGetController();

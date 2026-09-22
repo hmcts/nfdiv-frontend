@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { isInvalidHelpWithFeesRef } from '../../../../../app/form/validation';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { isInvalidHelpWithFeesRef } from '../../../../../app/form/validation.js';
 
 const en = () => ({
   title: 'Enter your Help With Fees reference number',

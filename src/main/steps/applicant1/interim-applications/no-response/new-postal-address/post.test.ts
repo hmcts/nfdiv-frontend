@@ -1,10 +1,10 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../../../app/case/case';
-import { CITIZEN_UPDATE } from '../../../../../app/case/definition';
-import { FormContent } from '../../../../../app/form/Form';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../../../app/case/case.js';
+import { CITIZEN_UPDATE } from '../../../../../app/case/definition.js';
+import { FormContent } from '../../../../../app/form/Form.js';
 
-import NewPostalAddressPostController from './post';
+import NewPostalAddressPostController from './post.js';
 
 describe('NewPostalAddressPostController', () => {
   const mockFormContent = {

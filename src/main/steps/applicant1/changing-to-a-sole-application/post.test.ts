@@ -1,10 +1,10 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { ApplicationType, SWITCH_TO_SOLE_CO } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
-import { CHANGING_TO_SOLE_APPLICATION, HUB_PAGE } from '../../urls';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { ApplicationType, SWITCH_TO_SOLE_CO } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { CHANGING_TO_SOLE_APPLICATION, HUB_PAGE } from '../../urls.js';
 
-import ChangingToASoleApplicationPostController from './post';
+import ChangingToASoleApplicationPostController from './post.js';
 
 describe('ChangingToASoleApplicationPostController', () => {
   const mockFormContent = {

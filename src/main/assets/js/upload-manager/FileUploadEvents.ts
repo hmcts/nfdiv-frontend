@@ -1,8 +1,8 @@
 import type { Uppy } from '@uppy/core';
 
-import { getById, hidden } from '../selectors';
+import { getById, hidden } from '../selectors.js';
 
-import { UploadedFiles } from './UploadedFiles';
+import { UploadedFiles } from './UploadedFiles.js';
 
 const uploadProcessEl = getById('uploadProgressBar');
 const uploadGroupEl = getById('uploadGroup');

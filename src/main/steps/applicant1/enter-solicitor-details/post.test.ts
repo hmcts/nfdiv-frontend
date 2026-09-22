@@ -1,9 +1,9 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CITIZEN_UPDATE, YesOrNo } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { CITIZEN_UPDATE, YesOrNo } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import EnterSolicitorDetailsPostController from './post';
+import EnterSolicitorDetailsPostController from './post.js';
 
 describe('EnterSolicitorDetailsPostController', () => {
   const mockFormContent = {

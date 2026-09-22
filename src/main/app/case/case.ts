@@ -1,4 +1,4 @@
-import { AnyObject } from '../controller/PostController';
+import { AnyObject } from '../controller/PostController.js';
 
 import {
   AddressGlobalUK,
@@ -42,7 +42,7 @@ import {
   State,
   YesOrNo,
   YesOrNoOrNotKnown,
-} from './definition';
+} from './definition.js';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   applicationType: 'applicationType',

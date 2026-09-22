@@ -1,16 +1,16 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../app/case/case';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../app/case/case.js';
 import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
   FINAL_ORDER_REQUESTED,
   SWITCH_TO_SOLE_FO,
   State,
   YesOrNo,
-} from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+} from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import ExplainTheDelayPostController from './post';
+import ExplainTheDelayPostController from './post.js';
 
 describe('ExplainTheDelayPostController', () => {
   describe('getEventName', () => {

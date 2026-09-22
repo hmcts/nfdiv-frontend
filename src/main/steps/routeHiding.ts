@@ -1,16 +1,16 @@
-import { State, YesOrNo } from '../app/case/definition';
-import { AppRequest } from '../app/controller/AppRequest';
+import { State, YesOrNo } from '../app/case/definition.js';
+import { AppRequest } from '../app/controller/AppRequest.js';
 
-import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
-import { RoutePermission } from './applicant1Sequence';
-import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence';
-import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
-import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
-import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
-import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
-import { noResponseJourneySequence } from './noResponseJourneySequence';
-import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
-import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
+import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence.js';
+import { RoutePermission } from './applicant1Sequence.js';
+import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSequence.js';
+import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils.js';
+import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence.js';
+import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence.js';
+import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence.js';
+import { noResponseJourneySequence } from './noResponseJourneySequence.js';
+import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence.js';
+import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils.js';
 import {
   CHECK_ANSWERS_URL,
   DETAILS_OTHER_PROCEEDINGS,
@@ -37,7 +37,7 @@ import {
   SERVICE_APPLICATION_SUBMITTED,
   SUCCESS_SCREEN_PROCESS_SERVER,
   WILL_SERVE_AGAIN,
-} from './urls';
+} from './urls.js';
 
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
   if (!req.session.userCase) {

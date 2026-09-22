@@ -1,11 +1,11 @@
 import { Response } from 'express';
 
-import { SIGNOUT_PAGE_URLS } from '../../steps/url-utils';
-import { PageLink, SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { getEndIdamSessionUrl } from '../auth/user/oidc';
+import { SIGNOUT_PAGE_URLS } from '../../steps/url-utils.js';
+import { PageLink, SAVE_AND_SIGN_OUT } from '../../steps/urls.js';
+import { getEndIdamSessionUrl } from '../auth/user/oidc.js';
 
-import { AppRequest } from './AppRequest';
-import { getServiceUrl } from './url';
+import { AppRequest } from './AppRequest.js';
+import { getServiceUrl } from './url.js';
 
 const SIGN_OUT_REDIRECT_COOKIE = 'nfdiv-signout-target';
 const SIGN_OUT_REDIRECT_COOKIE_MAX_AGE_MS = 5 * 60 * 1000;

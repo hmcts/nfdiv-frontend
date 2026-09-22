@@ -1,7 +1,7 @@
-import { AlternativeServiceType, DocumentType, State, YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { findDocument } from '../../../modules/document-download/proxy-list';
-import type { CommonContent } from '../../common/common.content';
+import { AlternativeServiceType, DocumentType, State, YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { findDocument } from '../../../modules/document-download/proxy-list.js';
+import type { CommonContent } from '../../common/common.content.js';
 
 const en = ({ isDivorce, userCase, serviceApplicationType, generalApplicationType }: CommonContent) => ({
   applicationDownload: {

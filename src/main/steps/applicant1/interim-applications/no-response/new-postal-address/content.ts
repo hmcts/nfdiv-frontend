@@ -1,13 +1,13 @@
 import config from 'config';
 
-import { YesOrNo } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
-import { hasValueChanged, isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
-import { isCountryUk } from '../../../../applicant1Sequence';
-import { CommonContent } from '../../../../common/common.content';
-import { getAddressFieldNames } from '../../../../common/content.utils';
-import { generateContent as enterTheirAddressContent } from '../../../enter-their-address/content';
+import { YesOrNo } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form.js';
+import { hasValueChanged, isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation.js';
+import { isCountryUk } from '../../../../applicant1Sequence.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { getAddressFieldNames } from '../../../../common/content.utils.js';
+import { generateContent as enterTheirAddressContent } from '../../../enter-their-address/content.js';
 
 const en = ({ partner }: Partial<CommonContent>) => {
   const addressPostcode = {

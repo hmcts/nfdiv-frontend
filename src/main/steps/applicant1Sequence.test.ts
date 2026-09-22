@@ -1,6 +1,6 @@
-import { ApplicationType, YesOrNo } from '../app/case/definition';
+import { ApplicationType, YesOrNo } from '../app/case/definition.js';
 
-import { Step, applicant1PreSubmissionSequence, isCountryUk } from './applicant1Sequence';
+import { Step, applicant1PreSubmissionSequence, isCountryUk } from './applicant1Sequence.js';
 import {
   ENTER_THEIR_ADDRESS,
   MONEY_PROPERTY,
@@ -8,7 +8,7 @@ import {
   UPLOAD_YOUR_DOCUMENTS,
   WHO_IS_THE_FINANCIAL_ORDER_FOR,
   YOU_NEED_TO_SERVE,
-} from './urls';
+} from './urls.js';
 
 describe('Applicant 1 Sequence test', () => {
   describe('ENTER_THEIR_ADDRESS', () => {

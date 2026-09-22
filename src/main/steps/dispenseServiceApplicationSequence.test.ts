@@ -1,9 +1,9 @@
 import { describe } from 'node:test';
 
-import { ServicePaymentMethod, YesOrNo } from '../app/case/definition';
+import { ServicePaymentMethod, YesOrNo } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
-import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
+import { Step } from './applicant1Sequence.js';
+import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence.js';
 import {
   APPLY_FOR_HWF_DISPENSE,
   AWARE_PARTNER_ADDRESS_DISPENSE,
@@ -39,7 +39,7 @@ import {
   TRACING_ONLINE_RESULTS_DISPENSE,
   UPLOAD_EVIDENCE_DISPENSE,
   WHEN_CONTACT_CHILDREN_DISPENSE,
-} from './urls';
+} from './urls.js';
 
 describe('Dispense With Service Application Sequence test', () => {
   describe('DISPENSE_SERVICE_APPLICATION', () => {

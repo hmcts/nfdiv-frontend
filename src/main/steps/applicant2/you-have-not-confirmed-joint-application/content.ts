@@ -1,4 +1,4 @@
-import { TranslationFn } from '../../../app/controller/GetController';
+import { TranslationFn } from '../../../app/controller/GetController.js';
 
 const en = ({ isDivorce, partner }) => ({
   title: 'You have not confirmed your joint application',

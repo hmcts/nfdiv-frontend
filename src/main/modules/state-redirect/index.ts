@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { Application, NextFunction, Response } from 'express';
 
-import { CaseWithId } from '../../app/case/case';
+import { CaseWithId } from '../../app/case/case.js';
 import {
   APPLICATION_PAYMENT_STATES,
   ApplicationType,
@@ -10,10 +10,10 @@ import {
   SERVICE_PAYMENT_STATES,
   State,
   YesOrNo,
-} from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
-import { PaymentModel } from '../../app/payment/PaymentModel';
-import { signInNotRequired } from '../../steps/url-utils';
+} from '../../app/case/definition.js';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import { PaymentModel } from '../../app/payment/PaymentModel.js';
+import { signInNotRequired } from '../../steps/url-utils.js';
 import {
   APPLICANT_2,
   APP_REPRESENTED,
@@ -37,7 +37,7 @@ import {
   VIEW_YOUR_ANSWERS,
   WITHDRAW_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
-} from '../../steps/urls';
+} from '../../steps/urls.js';
 
 /**
  * Adds the state redirect middleware to redirect when application is in certain states

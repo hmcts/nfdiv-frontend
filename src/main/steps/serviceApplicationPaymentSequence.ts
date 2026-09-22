@@ -1,5 +1,5 @@
-import { Step } from './applicant1Sequence';
-import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED, SERVICE_PAYMENT_CALLBACK } from './urls';
+import { Step } from './applicant1Sequence.js';
+import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED, SERVICE_PAYMENT_CALLBACK } from './urls.js';
 
 export const serviceApplicationPaymentSequence: Step[] = [
   {

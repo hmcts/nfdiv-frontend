@@ -1,10 +1,10 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CaseWithId } from '../../../app/case/case';
-import { YesOrNo } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { CaseWithId } from '../../../app/case/case.js';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import CitizenUpdateContactDetailsPostControllerApp2WithRefuge from './post';
+import CitizenUpdateContactDetailsPostControllerApp2WithRefuge from './post.js';
 
 describe('CitizenUpdateContactDetailsPostControllerApp2WithRefuge', () => {
   let userCase: Partial<CaseWithId>;

@@ -1,9 +1,9 @@
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import type { CommonContent } from '../../common/common.content';
-import { formattedCaseId } from '../../common/content.utils';
-import { HUB_PAGE, RESPONDENT } from '../../urls';
-import { generateContent as hubPageContent } from '../hub-page/content';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import type { CommonContent } from '../../common/common.content.js';
+import { formattedCaseId } from '../../common/content.utils.js';
+import { HUB_PAGE, RESPONDENT } from '../../urls.js';
+import { generateContent as hubPageContent } from '../hub-page/content.js';
 
 const en = ({ feedbackLink }: CommonContent) => ({
   responseSubmittedTitle: 'Response submitted',

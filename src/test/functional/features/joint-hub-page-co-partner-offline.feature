@@ -35,7 +35,7 @@ Feature: Joint hub page co partner offline
     And the page should include element "#partnerIsOfflineContent"
     And the page should not include element "#applyForConditionalOrderButton"
 
-    When I click "Sign out"
+    When I sign out
     Given a superuser updates "applicant1Offline" with "Yes"
     And I login with applicant "2"
 

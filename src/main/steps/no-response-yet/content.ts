@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../app/controller/GetController';
-import { SWITCH_TO_SOLE_APPLICATION } from '../urls';
+import { TranslationFn } from '../../app/controller/GetController.js';
+import { SWITCH_TO_SOLE_APPLICATION } from '../urls.js';
 
 const en = ({ partner }) => ({
   title: `Your ${partner} has not responded`,

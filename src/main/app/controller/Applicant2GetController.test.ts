@@ -1,8 +1,8 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { HOME_URL } from '../../steps/urls';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { HOME_URL } from '../../steps/urls.js';
 
-import { Applicant2GetController } from './Applicant2GetController';
+import { Applicant2GetController } from './Applicant2GetController.js';
 
 describe('Applicant2GetController', () => {
   it("redirects back to the home page if they're logged in as applicant 1", () => {

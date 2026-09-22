@@ -1,9 +1,9 @@
-import { Checkbox } from '../../../app/case/case';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
-import { InputLabelsByLanguage, ydwOrNacYdwRadioAnswers } from '../../common/input-labels.content';
+import { Checkbox } from '../../../app/case/case.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
+import { InputLabelsByLanguage, ydwOrNacYdwRadioAnswers } from '../../common/input-labels.content.js';
 
 const en = ({ isDivorce }: CommonContent) => ({
   title: 'Details of the other legal proceedings',

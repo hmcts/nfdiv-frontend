@@ -1,11 +1,11 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import axios, { AxiosInstance } from 'axios';
+import { AxiosInstance, create as createAxios } from 'axios';
 import config from 'config';
 
-import { SupportedLanguages } from '../../modules/i18n';
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { Fee, ListValue } from '../case/definition';
-import type { AppSession } from '../controller/AppRequest';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token.js';
+import { Fee, ListValue } from '../case/definition.js';
+import type { AppSession } from '../controller/AppRequest.js';
 
 const logger = Logger.getLogger('payment');
 
@@ -16,7 +16,7 @@ export class PaymentClient {
     private readonly session: AppSession,
     readonly returnUrl: string
   ) {
-    this.client = axios.create({
+    this.client = createAxios({
       baseURL: config.get('services.payments.url'),
       headers: {
         Authorization: 'Bearer ' + session.user.accessToken,

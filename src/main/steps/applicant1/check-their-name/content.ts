@@ -1,8 +1,8 @@
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { oesOrNacOesRadioAnswers } from '../../common/input-labels.content';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { oesOrNacOesRadioAnswers } from '../../common/input-labels.content.js';
 
 const en = ({ userCase, isDivorce, marriage, civilPartnership, partner }) => {
   return {

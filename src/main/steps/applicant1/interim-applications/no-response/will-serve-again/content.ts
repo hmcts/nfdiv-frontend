@@ -1,8 +1,8 @@
 import config from 'config';
 
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { CommonContent } from '../../../../common/common.content';
-import { HUB_PAGE } from '../../../../urls';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { HUB_PAGE } from '../../../../urls.js';
 
 const en = ({ isDivorce, isApp2Represented, partner }: CommonContent) => ({
   title: 'We will send the documents again',

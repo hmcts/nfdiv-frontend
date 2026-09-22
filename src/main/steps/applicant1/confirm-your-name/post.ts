@@ -1,10 +1,10 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { ApplicationType, YesOrNo } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { ENTER_YOUR_NAME, ENTER_YOUR_NAMES } from '../../urls';
+import { ApplicationType, YesOrNo } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
+import { ENTER_YOUR_NAME, ENTER_YOUR_NAMES } from '../../urls.js';
 
 @autobind
 export default class ConfirmYourNamePostController extends PostController<AnyObject> {

@@ -1,9 +1,8 @@
-import autobind from 'autobind-decorator';
-
-import { CITIZEN_SERVICE_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition';
-import { Step } from '../../../../../steps/applicant1Sequence';
-import { alternativeServiceApplicationSequence as alternativeServiceSequence } from '../../../../alternativeServiceApplicationSequence';
-import CheckAnswersPostController from '../../common/check-answers/post';
+import { CITIZEN_SERVICE_APPLICATION, InterimApplicationType } from '../../../../../app/case/definition.js';
+import autobind from '../../../../../app/utils/autobind.js';
+import { Step } from '../../../../../steps/applicant1Sequence.js';
+import { alternativeServiceApplicationSequence as alternativeServiceSequence } from '../../../../alternativeServiceApplicationSequence.js';
+import CheckAnswersPostController from '../../common/check-answers/post.js';
 
 @autobind
 export default class CheckAltServiceAnswersPostController extends CheckAnswersPostController {

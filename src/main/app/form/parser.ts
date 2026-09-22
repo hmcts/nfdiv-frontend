@@ -1,6 +1,6 @@
-import { CaseDate } from '../case/case';
+import { CaseDate } from '../case/case.js';
 
-import { FormField, FormOptions } from './Form';
+import { FormField, FormOptions } from './Form.js';
 
 export type DateParser = (property: string, body: Record<string, unknown>) => CaseDate;
 

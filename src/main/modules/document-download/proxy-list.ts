@@ -1,7 +1,7 @@
-import { CaseWithId } from '../../app/case/case';
-import { DivorceDocument, DocumentType, YesOrNo } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
-import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
+import { CaseWithId } from '../../app/case/case.js';
+import { DivorceDocument, DocumentType, YesOrNo } from '../../app/case/definition.js';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils.js';
 
 export const proxyList: {
   endpoints: string[];

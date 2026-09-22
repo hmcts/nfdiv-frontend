@@ -1,6 +1,6 @@
-import { ApplicationType, State } from '../case/definition';
+import { ApplicationType, State } from '../case/definition.js';
 
-import { userCanUploadDocuments } from './DocumentManagementConstants';
+import { userCanUploadDocuments } from './DocumentManagementConstants.js';
 
 describe('userCanUploadDocuments', () => {
   describe('when user is applicant 1', () => {

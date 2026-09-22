@@ -68,10 +68,14 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('functionalTest:aat') {
+    steps.sh 'yarn test:functional:report || true'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'allure-results/**/*, functional-output/functional/allure-report/**/*, functional-output/functional/retry-audit/**/*'
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/Functional test report.html'
   }
 
   afterAlways('functionalTest:preview') {
+    steps.sh 'yarn test:functional:report || true'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'allure-results/**/*, functional-output/functional/allure-report/**/*, functional-output/functional/retry-audit/**/*'
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/Functional test report.html'
   }
 

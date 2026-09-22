@@ -1,4 +1,6 @@
-import { iClick } from './common';
+import { inject } from 'codeceptjs';
+
+import { iClick } from './common.js';
 
 const { I } = inject();
 

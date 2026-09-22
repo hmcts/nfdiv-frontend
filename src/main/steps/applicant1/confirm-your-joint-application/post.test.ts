@@ -1,11 +1,11 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../app/case/case';
-import { CITIZEN_SUBMIT, DivorceOrDissolution, YesOrNo } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
-import { SupportedLanguages } from '../../../modules/i18n';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../app/case/case.js';
+import { CITIZEN_SUBMIT, DivorceOrDissolution, YesOrNo } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
 
-import Applicant1ConfirmYourJointApplicationPostController from './post';
+import Applicant1ConfirmYourJointApplicationPostController from './post.js';
 
 describe('Applicant1ConfirmYourJointApplicationPostController', () => {
   it('triggers CITIZEN_SUBMIT', async () => {

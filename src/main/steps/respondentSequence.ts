@@ -1,6 +1,6 @@
-import { YesOrNo } from '../app/case/definition';
+import { YesOrNo } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
+import { Step } from './applicant1Sequence.js';
 import {
   ADDRESS_PRIVATE,
   APPLICANT_2,
@@ -29,7 +29,7 @@ import {
   RESPONDENT,
   RESPONSE_SUBMITTED,
   REVIEW_THE_APPLICATION,
-} from './urls';
+} from './urls.js';
 
 const sequence: Step[] = [
   {

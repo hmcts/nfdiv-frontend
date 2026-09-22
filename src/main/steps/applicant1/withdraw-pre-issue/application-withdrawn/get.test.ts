@@ -1,9 +1,9 @@
-import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { getEndIdamSessionUrl } from '../../../../app/auth/user/oidc';
-import { SAVE_AND_SIGN_OUT, WITHDRAW_CONFIRMATION } from '../../../urls';
+import { mockRequest } from '../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../test/unit/utils/mockResponse.js';
+import { getEndIdamSessionUrl } from '../../../../app/auth/user/oidc.js';
+import { SAVE_AND_SIGN_OUT, WITHDRAW_CONFIRMATION } from '../../../urls.js';
 
-import { ApplicationWithdrawnPreIssueGetController } from './get';
+import { ApplicationWithdrawnPreIssueGetController } from './get.js';
 
 describe('ApplicationWithdrawnPreIssueGetController', () => {
   const controller = new ApplicationWithdrawnPreIssueGetController();

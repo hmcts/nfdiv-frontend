@@ -1,11 +1,13 @@
 import dayjs from 'dayjs';
-import { now } from 'lodash';
+import lodash from 'lodash';
 
-import { getFormattedDate } from '../../app/case/answers/formatDate';
-import { CaseWithId } from '../../app/case/case';
-import { State, YesOrNo } from '../../app/case/definition';
+const { now } = lodash;
 
-import { doesApplicantIntendToSwitchToSoleFo, getSwitchToSoleFoStatus } from './switch-to-sole-content.utils';
+import { getFormattedDate } from '../../app/case/answers/formatDate.js';
+import { CaseWithId } from '../../app/case/case.js';
+import { State, YesOrNo } from '../../app/case/definition.js';
+
+import { doesApplicantIntendToSwitchToSoleFo, getSwitchToSoleFoStatus } from './switch-to-sole-content.utils.js';
 
 describe('switch.to.sole.content.utils', () => {
   test('doesApplicantIntendToSwitchToSoleFinalOrder - applicant 1 intends', () => {

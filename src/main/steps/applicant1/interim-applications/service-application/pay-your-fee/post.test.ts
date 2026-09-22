@@ -1,13 +1,16 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { CITIZEN_SERVICE_APPLICATION, PaymentStatus, State } from '../../../../../app/case/definition';
-import { SERVICE_PAYMENT_CALLBACK } from '../../../../urls';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { CITIZEN_SERVICE_APPLICATION, PaymentStatus, State } from '../../../../../app/case/definition.js';
+import { SERVICE_PAYMENT_CALLBACK } from '../../../../urls.js';
 
-import ServicePaymentPostController from './post';
+import ServicePaymentPostController from './post.js';
 
 jest.mock('../../../../../app/payment/PaymentClient');
 
-const { mockCreate, mockGet } = require('../../../../../app/payment/PaymentClient');
+const { mockCreate, mockGet } = jest.requireMock('../../../../../app/payment/PaymentClient') as {
+  mockCreate: jest.Mock;
+  mockGet: jest.Mock;
+};
 
 describe('ServicePaymentPostController', () => {
   const paymentController = new ServicePaymentPostController();

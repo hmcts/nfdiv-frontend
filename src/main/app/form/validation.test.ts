@@ -1,4 +1,4 @@
-import { CaseDate } from '../case/case';
+import { CaseDate } from '../case/case.js';
 
 import {
   areDateFieldsFilledIn,
@@ -18,7 +18,7 @@ import {
   isValidAccessCode,
   isValidCaseReference,
   isValidNumber,
-} from './validation';
+} from './validation.js';
 
 describe('Validation', () => {
   describe('isFieldFilledIn()', () => {

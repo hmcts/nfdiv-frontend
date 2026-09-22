@@ -1,8 +1,8 @@
-import { ChangedNameHow, ChangedNameWhy } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
-import { getNameChangeOtherDetailsValidator } from '../../common/content.utils';
+import { ChangedNameHow, ChangedNameWhy } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation.js';
+import { getNameChangeOtherDetailsValidator } from '../../common/content.utils.js';
 
 const en = ({ isDivorce, partner }) => ({
   title: `Why is your legal name different to how it is written on the ${

@@ -1,14 +1,14 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
 import {
   APPLICANT_2_REQUEST_CHANGES,
   CITIZEN_APPLICANT2_UPDATE,
   DivorceOrDissolution,
   YesOrNo,
-} from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+} from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import CheckYourJointApplicationPostController from './post';
+import CheckYourJointApplicationPostController from './post.js';
 
 describe('CheckYourJointApplicationPostController', () => {
   const mockFormContent = {

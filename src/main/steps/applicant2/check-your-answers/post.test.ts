@@ -1,6 +1,6 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../app/case/case';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../app/case/case.js';
 import {
   ApplicationType,
   CITIZEN_UPDATE,
@@ -8,10 +8,10 @@ import {
   FinancialOrderFor,
   State,
   YesOrNo,
-} from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+} from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import Applicant2PrayerPostController from './post';
+import Applicant2PrayerPostController from './post.js';
 
 describe('CheckYourAnswersPostController', () => {
   const mockFormContent = {

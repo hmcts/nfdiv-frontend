@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { CommonContent } from '../../../../common/common.content';
-import { HUB_PAGE } from '../../../../urls';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { HUB_PAGE } from '../../../../urls.js';
 
 const en = ({ isDivorce, partner, referenceNumber }: CommonContent) => ({
   title: 'You need to send the certificate of service to the court',

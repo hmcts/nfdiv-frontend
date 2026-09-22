@@ -1,12 +1,12 @@
-import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { SupportedLanguages } from '../../modules/i18n';
-import { generateCommonContent } from '../../steps/common/common.content';
-import { DivorceOrDissolution, Gender, State } from '../case/definition';
-import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
+import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs.js';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
+import { generateCommonContent } from '../../steps/common/common.content.js';
+import { DivorceOrDissolution, Gender, State } from '../case/definition.js';
+import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration.js';
 
-import { GetController } from './GetController';
+import { GetController } from './GetController.js';
 
 describe('GetController', () => {
   const languages = {

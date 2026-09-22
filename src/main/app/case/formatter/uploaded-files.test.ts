@@ -1,7 +1,7 @@
-import { Checkbox } from '../case';
-import { DivorceDocument, DocumentType, YesOrNo } from '../definition';
+import { Checkbox } from '../case.js';
+import { DivorceDocument, DocumentType, YesOrNo } from '../definition.js';
 
-import { fromApiApplicant1, fromApiApplicant2 } from './uploaded-files';
+import { fromApiApplicant1, fromApiApplicant2, getFilename } from './uploaded-files.js';
 
 describe('uploadedFilesFromApiApplicant1', () => {
   it('converts documents', async () => {
@@ -121,8 +121,6 @@ describe('uploadedFilesFromApiApplicant2', () => {
 });
 
 describe('getFilename', () => {
-  const { getFilename } = require('./uploaded-files');
-
   it('returns documentFileName if present', () => {
     expect(getFilename({ documentFileName: 'filename' } as DivorceDocument)).toBe('filename');
   });

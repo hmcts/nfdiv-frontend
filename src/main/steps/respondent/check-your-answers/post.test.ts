@@ -1,13 +1,13 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
-import { Checkbox } from '../../../app/case/case';
-import { SUBMIT_AOS, YesOrNo } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
-import { SupportedLanguages } from '../../../modules/i18n';
-import { SAVE_AND_SIGN_OUT } from '../../urls';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc.js';
+import { Checkbox } from '../../../app/case/case.js';
+import { SUBMIT_AOS, YesOrNo } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { SAVE_AND_SIGN_OUT } from '../../urls.js';
 
-import RespondentCheckYourAnswersPostController from './post';
+import RespondentCheckYourAnswersPostController from './post.js';
 
 describe('RespondentCheckYourAnswersPostController', () => {
   it('triggers CITIZEN_SUBMIT', async () => {

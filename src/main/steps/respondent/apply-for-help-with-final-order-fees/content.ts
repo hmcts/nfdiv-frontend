@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED, RESPONDENT } from '../../urls';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED, RESPONDENT } from '../../urls.js';
 
 const en = () => ({
   title: 'You need to apply for help with your final order application fees',

@@ -1,12 +1,15 @@
+/* eslint-disable no-console */
+
 import { Logger } from '@hmcts/nodejs-logging';
+import axios from 'axios';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { getEndIdamSessionUrl, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
-import { getCaseApi } from '../../app/case/case-api';
-import { ApplicationType, DivorceOrDissolution, State } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
-import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils';
+import { getEndIdamSessionUrl, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc.js';
+import { getCaseApi } from '../../app/case/case-api.js';
+import { ApplicationType, DivorceOrDissolution, State } from '../../app/case/definition.js';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import { isLinkingUrl, signInNotRequired } from '../../steps/url-utils.js';
 import {
   APPLICANT_1,
   APPLICANT_2,
@@ -21,7 +24,7 @@ import {
   SIGN_IN_URL,
   SIGN_OUT_URL,
   SWITCH_TO_SOLE_APPLICATION,
-} from '../../steps/urls';
+} from '../../steps/urls.js';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -128,7 +131,6 @@ export class OidcMiddleware {
           }
           if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
             logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
-            const axios = require('axios');
 
             const token = req.session.user.accessToken;
             const decreeNisiUrl = config.get('services.decreeNisi.url') + '/authenticated';

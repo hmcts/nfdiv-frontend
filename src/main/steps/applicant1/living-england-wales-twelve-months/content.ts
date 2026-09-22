@@ -1,8 +1,8 @@
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { ydwOrNacYdwRadioAnswers } from '../../common/input-labels.content';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { ydwOrNacYdwRadioAnswers } from '../../common/input-labels.content.js';
 
 const en = ({ required }) => ({
   title: 'Have you been living in England or Wales for the last 12 months?',

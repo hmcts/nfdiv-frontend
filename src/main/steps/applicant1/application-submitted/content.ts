@@ -1,16 +1,16 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { SupportedLanguages } from '../../../modules/i18n';
-import { isCountryUk } from '../../applicant1Sequence';
-import type { CommonContent } from '../../common/common.content';
-import { formattedCaseId } from '../../common/content.utils';
-import { currentStateFn } from '../../state-sequence';
-import { HUB_PAGE } from '../../urls';
-import { getProgressBarContent } from '../hub-page/progressBarLabels';
+import { getFormattedDate } from '../../../app/case/answers/formatDate.js';
+import { Applicant2Represented, DocumentType, State, YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { isCountryUk } from '../../applicant1Sequence.js';
+import type { CommonContent } from '../../common/common.content.js';
+import { formattedCaseId } from '../../common/content.utils.js';
+import { currentStateFn } from '../../state-sequence.js';
+import { HUB_PAGE } from '../../urls.js';
+import { getProgressBarContent } from '../hub-page/progressBarLabels.js';
 
 const en = ({
   applicationHasBeenPaidFor,

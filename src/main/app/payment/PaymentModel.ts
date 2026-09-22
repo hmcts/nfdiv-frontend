@@ -1,6 +1,6 @@
-import { ListValue, Payment, PaymentStatus } from '../../app/case/definition';
+import { ListValue, Payment, PaymentStatus } from '../../app/case/definition.js';
 
-import { HmctsPayStatus } from './PaymentClient';
+import { HmctsPayStatus } from './PaymentClient.js';
 
 export class PaymentModel {
   public constructor(private payments: ListValue<Payment>[] = []) {}

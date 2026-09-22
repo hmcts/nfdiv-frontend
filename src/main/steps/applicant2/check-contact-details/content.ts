@@ -1,5 +1,5 @@
-import { ApplicationType } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
+import { ApplicationType } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
 
 const en = () => ({
   title: 'Review your contact details',

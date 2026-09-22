@@ -1,9 +1,9 @@
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
-import { isCountryUk } from '../../applicant1Sequence';
-import type { CommonContent } from '../../common/common.content';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation.js';
+import { isCountryUk } from '../../applicant1Sequence.js';
+import type { CommonContent } from '../../common/common.content.js';
 
 const en = ({ partner }: Partial<CommonContent>) => {
   const addressPostcode = {

@@ -1,7 +1,7 @@
-import { ServicePaymentMethod, YesOrNo } from '../app/case/definition';
+import { ServicePaymentMethod, YesOrNo } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
-import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
+import { Step } from './applicant1Sequence.js';
+import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence.js';
 import {
   APPLY_FOR_HWF_DEEMED,
   CHECK_ANSWERS_DEEMED,
@@ -16,7 +16,7 @@ import {
   UPLOAD_EVIDENCE_DEEMED,
   WANT_UPLOAD_EVIDENCE_DEEMED,
   WHY_NO_EVIDENCE_DEEMED,
-} from './urls';
+} from './urls.js';
 
 describe('Deemed Service Application Sequence test', () => {
   describe('DEEMED_SERVICE_APPLICATION', () => {

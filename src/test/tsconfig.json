@@ -3,11 +3,12 @@
     "files": true
   },
   "compilerOptions": {
-    "target": "es2020",
-    "lib": ["es2020", "dom", "dom.iterable"],
+    "target": "es2022",
+    "lib": ["es2022", "dom", "dom.iterable"],
     "esModuleInterop": true,
-    "module": "commonjs",
+    "module": "ES2022",
     "strictNullChecks": true,
-    "types": ["codeceptjs", "jest"]
+    "types": ["codeceptjs", "jest"],
+    "moduleResolution": "bundler"
   }
 }

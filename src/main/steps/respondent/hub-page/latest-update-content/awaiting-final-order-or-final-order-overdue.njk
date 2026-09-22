@@ -8,7 +8,8 @@
   {{ govukButton({
     text: awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply.buttonText,
     href: awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply.buttonLink,
-    preventDoubleClick: true
+    preventDoubleClick: true,
+    id: 'applyForFinalOrderButton'
   }) }}
 {% else %}
   <p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdue.line1 }}</p>

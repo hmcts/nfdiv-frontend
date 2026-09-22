@@ -1,8 +1,8 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import type { CommonContent } from '../../../../common/common.content';
-import { getAddressFields } from '../../../../common/content.utils';
-import { NEW_POSTAL_AND_EMAIL } from '../../../../urls';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import type { CommonContent } from '../../../../common/common.content.js';
+import { getAddressFields } from '../../../../common/content.utils.js';
+import { NEW_POSTAL_AND_EMAIL } from '../../../../urls.js';
 
 const en = ({ isApp2Confidential, partner }: CommonContent, applicant2Address, updateEmailLinkPath) => ({
   title: 'Which address (in England or Wales) should bailiff service be attempted at?',

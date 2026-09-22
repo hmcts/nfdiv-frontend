@@ -1,7 +1,6 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { Case, CaseWithId } from '../../../app/case/case';
+import { Case, CaseWithId } from '../../../app/case/case.js';
 import {
   APPLICANT2_FINAL_ORDER_REQUESTED,
   ApplicationType,
@@ -10,12 +9,13 @@ import {
   FINAL_ORDER_REQUESTED,
   SWITCH_TO_SOLE_FO,
   YesOrNo,
-} from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { needsToExplainDelay } from '../../../app/controller/controller.utils';
-import { getSwitchToSoleFoStatus } from '../../common/switch-to-sole-content.utils';
-import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls';
+} from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import { needsToExplainDelay } from '../../../app/controller/controller.utils.js';
+import autobind from '../../../app/utils/autobind.js';
+import { getSwitchToSoleFoStatus } from '../../common/switch-to-sole-content.utils.js';
+import { APPLICANT_2, FINALISING_YOUR_APPLICATION } from '../../urls.js';
 
 @autobind
 export default class FinalisingYourApplicationPostController extends PostController<AnyObject> {

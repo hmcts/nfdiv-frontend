@@ -1,9 +1,11 @@
 import config from 'config';
 import dayjs from 'dayjs';
-import { isEmpty } from 'lodash';
+import lodash from 'lodash';
 
-import { getFormattedDate } from '../../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../../app/case/case';
+const { isEmpty } = lodash;
+
+import { getFormattedDate } from '../../../../app/case/answers/formatDate.js';
+import { Checkbox } from '../../../../app/case/case.js';
 import {
   AlternativeServiceType,
   Applicant2Represented,
@@ -13,13 +15,13 @@ import {
   NoResponseSendPapersAgainOrTrySomethingElse,
   State,
   YesOrNo,
-} from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { SupportedLanguages } from '../../../../modules/i18n';
-import { isCountryUk } from '../../../applicant1Sequence';
-import type { CommonContent } from '../../../common/common.content';
-import { getAddressFields } from '../../../common/content.utils';
-import { currentStateFn } from '../../../state-sequence';
+} from '../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../app/controller/GetController.js';
+import { SupportedLanguages } from '../../../../modules/i18n/index.js';
+import { isCountryUk } from '../../../applicant1Sequence.js';
+import type { CommonContent } from '../../../common/common.content.js';
+import { getAddressFields } from '../../../common/content.utils.js';
+import { currentStateFn } from '../../../state-sequence.js';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
   BAILIFF_SERVICE_APPLICATION,
@@ -35,11 +37,11 @@ import {
   RESPOND_TO_COURT_FEEDBACK,
   SEARCH_GOV_RECORDS_APPLICATION,
   WITHDRAW_SERVICE_APPLICATION,
-} from '../../../urls';
-import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application/submitted/content';
-import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application/submitted/content';
+} from '../../../urls.js';
+import { generateContent as generalApplicationSubmittedContent } from '../../interim-applications/general-application/submitted/content.js';
+import { generateContent as serviceApplicationSubmittedContent } from '../../interim-applications/service-application/submitted/content.js';
 
-import { getSoleHubTemplate } from './soleTemplateSelector';
+import { getSoleHubTemplate } from './soleTemplateSelector.js';
 
 const en = (
   {

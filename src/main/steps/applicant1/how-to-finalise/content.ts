@@ -1,8 +1,8 @@
-import { Checkbox } from '../../../app/case/case';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
+import { Checkbox } from '../../../app/case/case.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: `How to ${isDivorce ? 'finalise your divorce' : 'end your civil partnership'}`,

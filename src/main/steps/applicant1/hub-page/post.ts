@@ -1,5 +1,3 @@
-import autobind from 'autobind-decorator';
-
 import {
   APPLICANT_1_CONFIRM_RECEIPT,
   APPLICANT_2_CONFIRM_RECEIPT,
@@ -7,9 +5,10 @@ import {
   CITIZEN_UPDATE,
   DRAFT_CONDITIONAL_ORDER,
   State,
-} from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
+} from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
 
 @autobind
 export default class HubPagePostController extends PostController<AnyObject> {

@@ -1,4 +1,4 @@
-import { TranslationFn } from '../../../app/controller/GetController';
+import { TranslationFn } from '../../../app/controller/GetController.js';
 
 const en = ({ partner }) => ({
   title: `Your comments have been sent to your ${partner}`,

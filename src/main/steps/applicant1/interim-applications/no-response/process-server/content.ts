@@ -1,7 +1,7 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
-import { generateContent as alsoTryGenerateContent } from '../../common/also-try/content';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { generateContent as alsoTryGenerateContent } from '../../common/also-try/content.js';
 
 const en = ({ isDivorce, partner, isApp2Represented }: CommonContent) => ({
   title: 'Arrange service by a process server',

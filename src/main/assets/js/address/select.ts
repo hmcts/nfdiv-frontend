@@ -1,6 +1,6 @@
-import { getById, hidden } from '../selectors';
+import { getById, hidden } from '../selectors.js';
 
-import { hideErrors, showError } from './errors';
+import { hideErrors, showError } from './errors.js';
 
 const selectAddressInput = getById('selectAddressInput') as HTMLInputElement | null;
 if (selectAddressInput) {

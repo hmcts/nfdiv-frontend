@@ -1,6 +1,6 @@
-import { Case, CaseWithId } from '../../../app/case/case';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
+import { Case, CaseWithId } from '../../../app/case/case.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
 
 export default class Applicant2PrayerPostController extends PostController<AnyObject> {
   /**

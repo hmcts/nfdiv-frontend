@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const genesysConfig = {};
 const genesysConfigId = 'genesysConfig';
 const requiredConfigAttributes = [

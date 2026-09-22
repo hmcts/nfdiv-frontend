@@ -1,11 +1,13 @@
-import { isEmpty, isObject } from 'lodash';
+import lodash from 'lodash';
 
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { generateContent as hubPageContent } from '../../applicant1/hub-page/content';
-import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
-import { formattedCaseId, latestLegalAdvisorDecisionContent } from '../../common/content.utils';
+const { isEmpty, isObject } = lodash;
+
+import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
+import { generateContent as hubPageContent } from '../../applicant1/hub-page/content.js';
+import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content.js';
+import { formattedCaseId, latestLegalAdvisorDecisionContent } from '../../common/content.utils.js';
 
 const en = ({ partner, applicant1UploadDocumentContent }) => ({
   title: 'Provide information to the court',
