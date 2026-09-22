@@ -71,23 +71,31 @@ const writeAttempt = (test, status, error, hookName) => {
   fs.writeFileSync(path.join(outputDir, fileName), `${JSON.stringify(details, null, 2)}\n`);
 };
 
+const deferWriteAttempt = (...args) => {
+  queueMicrotask(() => writeAttempt(...args));
+};
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function retryAudit() {
-  event.dispatcher.on(event.test.started, test => {
+  const recordAttemptStart = test => {
     if (test?.uid) {
       attemptStarts.set(getAttemptKey(test), performance.now());
     }
-  });
+  };
+
+  // A Before hook can fail before CodeceptJS emits test.started.
+  event.dispatcher.on(event.test.before, recordAttemptStart);
+  event.dispatcher.on(event.test.started, recordAttemptStart);
 
   event.dispatcher.on(event.test.finished, test => {
     const status = test.err || test.state === 'failed' ? 'failed' : test.state === 'skipped' ? 'skipped' : 'passed';
-    writeAttempt(test, status, test.err);
+    deferWriteAttempt(test, status, test.err);
   });
 
   // Hook failures may emit test.failed without a corresponding test.finished event.
   event.dispatcher.on(event.test.failed, (test, error, hookName) => {
     if (hookName) {
-      writeAttempt(test, 'failed', error, hookName);
+      deferWriteAttempt(test, 'failed', error, hookName);
     }
   });
 }
