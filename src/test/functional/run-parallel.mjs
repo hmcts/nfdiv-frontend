@@ -186,7 +186,19 @@ const createHtmlReport = async reportFiles => {
     }
   }
 
-  const testsByFeature = Map.groupBy(tests, test => test.featureName);
+  const logicalTests = [...Map.groupBy(tests, test => `${test.featureName}\u0000${test.name}`)].map(
+    ([, scenarioAttempts]) => {
+      const test = scenarioAttempts[0];
+      const audit = retryAudit.get(`${test.featureName}\u0000${test.name}`);
+      const latestAttempt = audit?.latest;
+
+      return {
+        ...test,
+        failed: latestAttempt ? latestAttempt.status === 'failed' : scenarioAttempts.some(attempt => attempt.failed),
+      };
+    }
+  );
+  const testsByFeature = Map.groupBy(logicalTests, test => test.featureName);
   const featureTables = [...testsByFeature]
     .sort(([, firstTests], [, secondTests]) => {
       const firstFailed = firstTests.some(test => test.failed);
@@ -215,13 +227,13 @@ const createHtmlReport = async reportFiles => {
                 return (
                   `<tr><td class="attempt">${attempt.attempt}</td><td class="result ${attemptClass}">${attemptStatus}</td>` +
                   `<td class="runtime">${formatRuntime(attempt.durationMs)}</td>` +
-                  `<td>${xmlEscape(attemptError)}</td>` +
+                  `<td class="error">${xmlEscape(attemptError)}</td>` +
                   '</tr>'
                 );
               })
               .join('')
           : '';
-        const attemptTable = `<table class="attempts"><thead><tr><th class="attempt">Attempt</th><th class="result">Result</th><th class="runtime">Runtime</th><th>Error</th></tr></thead><tbody>${attemptRows}</tbody></table>`;
+        const attemptTable = `<table class="attempts"><thead><tr><th class="attempt">Attempt</th><th class="result">Result</th><th class="runtime">Runtime</th><th class="error">Error</th></tr></thead><tbody>${attemptRows}</tbody></table>`;
         return {
           row:
             `<tr><td class="${statusClass}">${status}</td>` +
@@ -273,20 +285,20 @@ const createHtmlReport = async reportFiles => {
       );
     })
     .join('\n');
-  const failedCount = tests.filter(test => test.failed).length;
+  const failedCount = logicalTests.filter(test => test.failed).length;
   const html = `<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><title>Functional test report</title>
 <meta name="color-scheme" content="light dark">
 <style>:root{color-scheme:light;--background:#FFFFFF;--foreground:#292A2E;--muted-border:#ddd;--passed:#087f23;--failed:#b00020}</style>
 <style>:root[data-theme="dark"]{color-scheme:dark;--background:#1F1F21;--foreground:#CECfD2;--muted-border:#505357;--passed:#65d184;--failed:#ff8585}</style>
-<style>*{box-sizing:border-box}html{background:var(--background)}body{background:var(--background);color:var(--foreground);font:16px sans-serif;margin:2rem}</style>
-<style>table{border-collapse:collapse;width:100%;margin-bottom:0.5rem}thead > tr:first-child{border-bottom:1px solid var(--muted-border)}th,td{border:none;border-right:1px solid var(--muted-border);min-width:max-content;padding:.5rem;text-align:left}th:first-child,td:first-child{padding-left:0}th.attempt,td.attempt{text-align:center}td.empty{min-width:1%;padding-right:0;border-right:none}th:last-child,td:last-child{width:100%;padding-right:0;border-right:none}</style>
+<style>html{background:var(--background)}body{background:var(--background);color:var(--foreground);font:16px sans-serif;margin:2rem}</style>
+<style>table{border-collapse:collapse;width:100%;margin-bottom:0.5rem}thead > tr:first-child{border-bottom:1px solid var(--muted-border)}th,td{border:none;border-right:1px solid var(--muted-border);min-width:max-content;padding:.5rem .75rem;text-align:left}th:first-child:not(.attempt),td:first-child:not(.attempt){padding-left:0;}th.attempt,td.attempt,th.result,td.result,th.runtime,td.runtime{text-align:center;}td.empty{min-width:1%;padding:0;border-right:none}th:last-child,td:last-child{width:100%;padding-right:0;border-right:none}</style>
 <style>.passed{color:var(--passed)}.failed{color:var(--failed)}.featureTitle{display:inline-block;margin-top:2.75rem;margin-bottom:.75rem;margin-right:.25rem}.featureTitle:first-of-type{margin-top:0}.featureSummary{font-size:1.1rem;display:inline-block}.totalSummary{font-size:1.1rem}hr{margin-top:1.3575rem;margin-bottom:1.3575rem;border:0 transparent;border-top:1px solid var(--muted-border)}</style>
 <style>#themeToggle{position:absolute;top:1rem;right:1rem;z-index:1;border:1px solid var(--muted-border);border-radius:.35rem;background:var(--background);color:var(--foreground);cursor:pointer;font:inherit;width:2.5rem;height:2.5rem;padding:0;font-size:0}#themeToggle:focus-visible{outline:2px solid var(--foreground);outline-offset:2px}</style>
 <style>#themeToggle::before{font-size:1.5rem;content:'☾'}:root[data-theme="dark"] #themeToggle::before{content:'☀'}@media(prefers-color-scheme:dark){:root:not([data-theme]) #themeToggle::before{content:'☀'}}</style>
 </head><body><button id="themeToggle" type="button" aria-label="Switch to dark theme"></button><h1>Functional test report</h1>
-<div class="totalSummary">${tests.length} tests: <span${tests.length - failedCount > 0 ? ' class="passed"' : ''}>${tests.length - failedCount} passed</span>, <span${failedCount > 0 ? ' class="failed"' : ''}>${failedCount} failed.</span></div><hr>
+<div class="totalSummary">${logicalTests.length} tests: <span${logicalTests.length - failedCount > 0 ? ' class="passed"' : ''}>${logicalTests.length - failedCount} passed</span>, <span${failedCount > 0 ? ' class="failed"' : ''}>${failedCount} failed.</span></div><hr>
 ${featureTables}<script>const root=document.documentElement;const button=document.getElementById('themeToggle');const getSystemTheme=()=>window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';const getStoredTheme=()=>{try{return localStorage.getItem('functional-report-theme')}catch{return null}};const storeTheme=theme=>{try{localStorage.setItem('functional-report-theme',theme)}catch{}};const applyTheme=theme=>{if(theme==='system'){root.removeAttribute('data-theme')}else{root.dataset.theme=theme}const isDark=(theme==='system'?getSystemTheme():theme)==='dark';button.textContent=isDark?'☀ Light':'☾ Dark';button.setAttribute('aria-label',isDark?'Switch to light theme':'Switch to dark theme')};const storedTheme=getStoredTheme();applyTheme(storedTheme==='light'||storedTheme==='dark'?storedTheme:'system');button.addEventListener('click',()=>{const currentTheme=root.dataset.theme||getSystemTheme();const theme=currentTheme==='dark'?'light':'dark';applyTheme(theme);storeTheme(theme)});</script></body></html>\n`;
   await writeFile(path.join(reportsRoot, 'Functional test report.html'), html);
 };
