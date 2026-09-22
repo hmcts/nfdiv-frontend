@@ -153,7 +153,18 @@ const createHtmlReport = async reportFiles => {
       .replaceAll('&lt;', '<')
       .replaceAll('&gt;', '>')
       .replaceAll('&amp;', '&');
-  const formatRuntime = durationMs => (durationMs >= 1000 ? `${(durationMs / 1000).toFixed(3)}s` : `${durationMs}ms`);
+  const formatRuntime = durationMs => {
+    if (durationMs < 1000) {
+      return `${durationMs}ms`;
+    }
+    if (durationMs < 60 * 1000) {
+      return `${(durationMs / 1000).toFixed(3)}s`;
+    }
+    if (durationMs < 60 * 60 * 1000) {
+      return `${(durationMs / (60 * 1000)).toFixed(3)}m`;
+    }
+    return `${(durationMs / (60 * 60 * 1000)).toFixed(3)}h`;
+  };
 
   for (const reportFile of reportFiles) {
     try {
