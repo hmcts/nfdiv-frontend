@@ -213,7 +213,7 @@ const en = ({
     },
     helpWithFees: {
       line1: `Help paying the ${isDivorce ? 'divorce fee' : 'fee to end your civil partnership'}`,
-      line2: `Have you already applied for help with your ${isDivorce ? 'divorce ' : ''}fee?`,
+      line2: 'Help with fees reference number',
     },
     connectionsToEnglandWales: {
       line1: `Did you ${isDivorce ? 'get married' : 'form your civil partnership'} in the UK?`,
@@ -344,7 +344,7 @@ const en = ({
         !isApplicant2 &&
         userCase.applicant1AlreadyAppliedForHelpPaying &&
         userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
-          ? `Yes <br> ${stripTags(userCase.applicant1HelpWithFeesRefNo)}`
+          ? `${stripTags(userCase.applicant1HelpWithFeesRefNo)}`
           : '',
     },
     connectionsToEnglandWales: {
@@ -769,7 +769,7 @@ const cy: typeof en = ({
       line1: `A oes angen help arnoch i dalu'r ffi am ${
         isDivorce ? 'eich ysgariad?' : "ddod â'ch partneriaeth sifil i ben?"
       }`,
-      line2: `Ydych chi eisoes wedi gwneud cais am help i dalu ${isDivorce ? 'ffi eich ysgariad' : 'eich ffi'}?`,
+      line2: 'Cyfeirnod help i dalu ffioedd',
     },
     connectionsToEnglandWales: {
       line1: `A wnaethoch chi ${isDivorce ? 'briodi' : 'ffurfio eich partneriaeth sifil'} yn y DU?`,
@@ -905,7 +905,7 @@ const cy: typeof en = ({
       }`,
       line2: userCase.applicant1AlreadyAppliedForHelpPaying
         ? userCase.applicant1AlreadyAppliedForHelpPaying === YesOrNo.YES
-          ? `Do <br> ${userCase.applicant1HelpWithFeesRefNo ? userCase.applicant1HelpWithFeesRefNo : ''}`
+          ? `${userCase.applicant1HelpWithFeesRefNo ? userCase.applicant1HelpWithFeesRefNo : ''}`
           : ''
         : '',
     },

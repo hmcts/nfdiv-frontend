@@ -49,6 +49,7 @@ import {
   DO_YOU_HAVE_ADDRESS,
   EMAIL_RESENT,
   ENGLISH_OR_WELSH,
+  ENTER_HWF_NUMBER_URL,
   ENTER_SOLICITOR_DETAILS,
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
@@ -166,7 +167,11 @@ export const applicant1PreSubmissionSequence: Step[] = [
   {
     url: HELP_PAYING_HAVE_YOU_APPLIED,
     getNextStep: data =>
-      data.applicant1AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : HOW_DO_YOU_WANT_TO_APPLY,
+      data.applicant1AlreadyAppliedForHelpPaying === YesOrNo.NO ? HELP_PAYING_NEED_TO_APPLY : ENTER_HWF_NUMBER_URL,
+  },
+  {
+    url: ENTER_HWF_NUMBER_URL,
+    getNextStep: () => HOW_DO_YOU_WANT_TO_APPLY,
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,
