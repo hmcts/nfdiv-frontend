@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import axios from 'axios';
 import config from 'config';
 
