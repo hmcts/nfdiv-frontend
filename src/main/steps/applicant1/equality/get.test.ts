@@ -1,15 +1,16 @@
-import axios from 'axios';
-import config from 'config';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
 import { CHECK_ANSWERS_URL } from '../../urls.js';
 
-import PCQGetController from './get.js';
+jest.unstable_mockModule('axios', () => jest.createMockFromModule('axios'));
+jest.unstable_mockModule('config', () => ({ default: jest.createMockFromModule('config') }));
 
-jest.mock('axios');
-jest.mock('config');
-
+const { default: axios } = await import('axios');
+const { default: config } = await import('config');
+const { default: PCQGetController } = await import('./get.js');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedConfig = config as jest.Mocked<typeof config>;
 
@@ -32,7 +33,9 @@ describe('PCQGetController', () => {
         status: 'UP',
       },
     });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ applicant1PcqId: 'UUID' });
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce({
+      applicant1PcqId: 'UUID',
+    });
 
     await controller.get(req, res);
 
@@ -78,3 +81,4 @@ describe('PCQGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS_URL);
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */
