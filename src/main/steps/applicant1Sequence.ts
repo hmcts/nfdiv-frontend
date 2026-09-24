@@ -175,7 +175,7 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: HELP_PAYING_NEED_TO_APPLY,
-    getNextStep: () => HELP_PAYING_HAVE_YOU_APPLIED,
+    getNextStep: () => ENTER_HWF_NUMBER_URL,
   },
   {
     url: HOW_DO_YOU_WANT_TO_APPLY,
