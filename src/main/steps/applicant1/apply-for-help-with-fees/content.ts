@@ -15,8 +15,7 @@ const en = ({ isDivorce }) => ({
     )}">apply for help with fees (opens in a new tab)</a>.`,
     enterCode: 'Enter D8 when you are asked to enter a court or tribunal number',
     completeHwf: 'Complete the help with fees application',
-    returnCode: `Return to complete your ${isDivorce ? 'divorce' : 'ending a civil partnership'
-    } application`,
+    returnCode: `Return to complete your ${isDivorce ? 'divorce' : 'ending a civil partnership'} application`,
     enterHwfRefNo: 'Enter your help with fees reference number',
   },
 });
