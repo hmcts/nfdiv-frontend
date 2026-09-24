@@ -28,7 +28,7 @@ const en = ({ isDivorce, userCase, isApplicant2, marriage, civilPartnership }) =
       line2: `${
         userCase.applicant2AlreadyAppliedForHelpPaying
           ? userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
-            ? `Yes <br> ${userCase.applicant2HelpWithFeesRefNo ? userCase.applicant2HelpWithFeesRefNo : ''}`
+            ? `${userCase.applicant2HelpWithFeesRefNo ? userCase.applicant2HelpWithFeesRefNo : ''}`
             : ''
           : ''
       }`,
@@ -139,7 +139,7 @@ const cy: typeof en = ({ isDivorce, userCase, isApplicant2 }) => ({
       line1: `${stripTags(helpWithYourFeeAnswers.cy[userCase.applicant2HelpPayingNeeded])}`,
       line2: userCase.applicant2AlreadyAppliedForHelpPaying
         ? userCase.applicant2AlreadyAppliedForHelpPaying === YesOrNo.YES
-          ? `Do <br> ${userCase.applicant2HelpWithFeesRefNo ? userCase.applicant2HelpWithFeesRefNo : ''}`
+          ? `${userCase.applicant2HelpWithFeesRefNo ? userCase.applicant2HelpWithFeesRefNo : ''}`
           : ''
         : '',
     },

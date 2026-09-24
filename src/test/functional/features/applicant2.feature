@@ -78,7 +78,7 @@ Feature: Applicant 2
     And the page should include "Do you have your marriage certificate with you?"
     And the page should include "Yes, I have my marriage certificate with me"
     And the page should include "Help paying the divorce fee"
-    And the page should include "I do not need help paying the fee"
+    And the page should include "No"
     And the page should include "Did you get married in the UK?"
     Given I select "Yes" for "Is the information your wife provided correct?"
 
@@ -127,13 +127,17 @@ Feature: Applicant 2
   @nightly
   Scenario: They fill out an unhappy path applicant 2 journey with help with fees
     When I go to "/help-with-your-fee"
-    And I select "I need help paying the fee"
+    And I select "Yes"
 
     When I click "Continue"
-    Then the page URL should be "/have-you-applied-for-help-with-fees"
+    Then the page should include "Do you have a help with fees reference number?"
     Given I select "Yes"
-    And I select "Enter your Help With Fees reference number"
+
+    When I click "Continue"
+    Then the page should include "Enter your Help With Fees reference number"
+    Given I select element "#applicant1HelpWithFeesRefNo"
     And I type "HWF-ABC-123"
+
     When I click "Continue"
     Then the page URL should be "/how-do-you-want-to-apply"
 
@@ -150,30 +154,31 @@ Feature: Applicant 2
 
     When I click "Continue"
     Then the page URL should be "/applicant2/help-with-your-fee"
-    And the page should include "Help with the divorce fee"
-    Given I select "I do not need help with fees"
+    And the page should include "Help with fees"
+    Given I select "No"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/enter-your-name"
     Given I go to "/applicant2/help-with-your-fee"
-    And I select "I need help with fees"
+    And I select "Yes"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/have-you-applied-for-help-with-fees"
-    And the page should include "Have you already applied for help with your divorce fee?"
+    And the page should include "Do you have a help with fees reference number?"
     Given I select "No"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/apply-for-help-with-fees"
-    And the page should include "You need to apply for help with your divorce fees"
-    Given I click "enter it here"
-    Then the page URL should be "/applicant2/help-with-your-fee"
-    Given I select "I need help with fees"
+    And the page should include "Apply for help with fees"
 
     When I click "Continue"
     Then the page URL should be "/applicant2/have-you-applied-for-help-with-fees"
+    And the page should include "Do you have a help with fees reference number?"
     Given I select "Yes"
-    And I select "Enter your Help With Fees reference number"
+
+    Given I click "Continue"
+    Then the page URL should be "/applicant2/hwf-reference-number-input"
+    Given I select element "#applicant2HelpWithFeesRefNo"
     And I type "HWF-ABC-123"
 
     When I click "Continue"

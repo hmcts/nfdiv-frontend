@@ -35,18 +35,18 @@ Feature: Form failures
 
     Given I go to "/help-with-your-fee"
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then the page should include "Select 'Yes' if you are using help with fees for this application."
 
     Given I go to "/have-you-applied-for-help-with-fees"
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "Yes"
+    Then the page should include "Select 'Yes' if you have a help with fees reference number"
+    Given I select element "#applicant1AlreadyAppliedForHelpPaying"
     When I click "Continue"
-    Then the page should include "You need to enter your Help With Fees reference number before continuing. You received this when you applied."
-    Given I select "Enter your Help With Fees reference number"
+    Then the page should include "Enter your Help With Fees reference number"
+    Given I select element "#applicant1HelpWithFeesRefNo"
     And I type "invalid"
     When I click "Continue"
-    Then the page should include "You have entered an invalid Help With Fees reference number. Check the number and enter it again."
+    Then the page should include "Enter your help with fees reference number in the correct format."
 
     Given I go to "/how-do-you-want-to-apply"
     When I click "Continue"
@@ -376,15 +376,15 @@ Feature: Form failures
     Given I go to "/applicant2/help-with-your-fee"
     And I clear the form
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then the page should include "Select 'Yes' if you are using help with fees for this application."
 
     Given I go to "/applicant2/have-you-applied-for-help-with-fees"
     And I clear the form
     When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "Yes"
+    Then the page should include "Select 'Yes' if you have a help with fees reference number."
+    Given I select element "#applicant2AlreadyAppliedForHelpPaying"
     When I click "Continue"
-    Then the page should include "You need to enter your Help With Fees reference number before continuing. You received this when you applied."
+    Then the page should include "Enter your Help With Fees reference number"
 
     Given I go to "/applicant2/enter-your-name"
     And I clear the form
