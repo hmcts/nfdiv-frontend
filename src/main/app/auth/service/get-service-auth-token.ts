@@ -4,9 +4,7 @@ import config from 'config';
 import { TOTP } from 'otpauth';
 
 const logger = Logger.getLogger('service-auth-token');
-const processState = globalThis as typeof globalThis & {
-  __nfdivServiceAuthToken?: string;
-};
+let token: string;
 
 export const getTokenFromApi = (): void => {
   logger.info('Refreshing service auth token');
@@ -19,7 +17,7 @@ export const getTokenFromApi = (): void => {
 
   axios
     .post(url, body)
-    .then(response => (processState.__nfdivServiceAuthToken = response.data))
+    .then(response => (token = response.data))
     .catch(err => logger.error(err.response?.status, err.response?.data));
 };
 
@@ -39,5 +37,5 @@ export const initAuthToken = (): void => {
 };
 
 export const getServiceAuthToken = (): string => {
-  return processState.__nfdivServiceAuthToken as string;
+  return token;
 };

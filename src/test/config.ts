@@ -18,7 +18,7 @@ type TestState = {
   idamUserManager: IdamUserManager;
 };
 
-const testState = ((globalThis as typeof globalThis & { nfdivTestState?: TestState }).nfdivTestState ??= {} as TestState);
+const testState = {} as TestState;
 const LOGIN_TIMEOUT = 60;
 
 const setupTestSecrets = async () => {
