@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs.js';
 import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
@@ -174,7 +177,7 @@ describe('GetController', () => {
   describe('generatePageContent()', () => {
     test('calls generatePageContent with correct arguments for new sessions', async () => {
       const getContentMock = jest.fn().mockReturnValue({});
-      const controller = new GetController('page', getContentMock);
+      const controller = new GetController('page', getContentMock as any);
 
       const req = mockRequest({ userCase: { state: State.Draft } });
       const res = mockResponse();
@@ -214,7 +217,7 @@ describe('GetController', () => {
           { partnerKey: 'partner' },
         ])('calls getContent with correct arguments %s selected', async ({ gender }) => {
           const getContentMock = jest.fn().mockReturnValue({ pageText: `something in ${language}` });
-          const controller = new GetController('page', getContentMock);
+          const controller = new GetController('page', getContentMock as any);
 
           const req = mockRequest({ session: { lang: language, userCase: { gender } } });
           const res = mockResponse({ locals: { serviceType } });
@@ -243,3 +246,4 @@ describe('GetController', () => {
     });
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { Application } from 'express';
 
 import { Routes } from './routes.js';
@@ -12,7 +13,7 @@ import {
 } from './steps/urls.js';
 
 describe('Routes', () => {
-  it('sets up dynamic step sequence routes', () => {
+  it('sets up dynamic step sequence routes', async () => {
     const appMock = {
       get: jest.fn(),
       post: jest.fn(),
@@ -23,7 +24,7 @@ describe('Routes', () => {
       },
     } as unknown as Application;
 
-    new Routes().enableFor(appMock);
+    await new Routes().enableFor(appMock);
 
     expect(appMock.locals.errorHandler).toHaveBeenCalled();
 

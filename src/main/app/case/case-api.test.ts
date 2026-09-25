@@ -1,14 +1,22 @@
-import * as oidc from '../auth/user/oidc.js';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { UserDetails } from '../controller/AppRequest.js';
 import { PaymentModel } from '../payment/PaymentModel.js';
 
-import * as caseApiClient from './case-api-client.js';
-import { CaseApi, getCaseApi } from './case-api.js';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State, UserRole } from './definition.js';
 
-jest.mock('axios');
-const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
-const getCaseApiClientMock = jest.spyOn(caseApiClient, 'getCaseApiClient');
+jest.unstable_mockModule('../auth/user/oidc.js', () => ({ getSystemUser: jest.fn() }));
+jest.unstable_mockModule('./case-api-client.js', () => ({ getCaseApiClient: jest.fn() }));
+const { getSystemUser: getSystemUserMock } = (await import('../auth/user/oidc.js')) as unknown as {
+  getSystemUser: jest.Mock<(...args: any[]) => any>;
+};
+const { getCaseApiClient: getCaseApiClientMock } = (await import('./case-api-client.js')) as unknown as {
+  getCaseApiClient: jest.Mock<(...args: any[]) => any>;
+};
+const { CaseApi, getCaseApi } = await import('./case-api.js');
+type CaseApiClient = import('./case-api-client.js').CaseApiClient;
+type CaseApiType = InstanceType<typeof CaseApi>;
 
 const userDetails: UserDetails = {
   accessToken: '123',
@@ -27,11 +35,11 @@ describe('CaseApi', () => {
     findExistingUserCases: jest.fn(),
     getCaseUserRoles: jest.fn(),
     sendEvent: jest.fn(),
-  };
+  } as Record<string, jest.Mock<(...args: any[]) => any>>;
 
-  let api: CaseApi;
+  let api: CaseApiType;
   beforeEach(() => {
-    api = new CaseApi(mockApiClient as unknown as caseApiClient.CaseApiClient);
+    api = new CaseApi(mockApiClient as unknown as CaseApiClient);
   });
 
   afterEach(() => {
@@ -47,7 +55,7 @@ describe('CaseApi', () => {
 
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
     'Should create a %s case',
-    async caseType => {
+    async (caseType: DivorceOrDissolution) => {
       const createdCase = { id: '1234', state: State.Draft, divorceOrDissolution: caseType };
       mockApiClient.createCase.mockResolvedValue(createdCase);
 
@@ -87,7 +95,7 @@ describe('CaseApi', () => {
       roles: ['caseworker'],
     });
     const mockCase = [{ id: '1', state: State.Draft, case_data: { divorceOrDissolution: serviceType } }];
-    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+    (getCaseApiClientMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       findUserInviteCases: jest.fn(() => mockCase),
     });
     const results = await api.getNewInviteCase('user.email@gmail.com', serviceType, {} as never);
@@ -105,7 +113,7 @@ describe('CaseApi', () => {
       familyName: 'worker',
       roles: ['caseworker'],
     });
-    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+    (getCaseApiClientMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       findUserInviteCases: jest.fn(() => false),
     });
     const results = await api.getNewInviteCase('user.email@gmail.com', serviceType, {} as never);
@@ -128,7 +136,7 @@ describe('CaseApi', () => {
 
     const userCase1InApiFormat = { id: '1', state: State.Draft, divorceOrDissolution: serviceType };
     const userCase2InApiFormat = { id: '2', state: State.Draft, divorceOrDissolution: serviceType };
-    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+    (getCaseApiClientMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       findUserInviteCases: jest.fn(() => [userCase2]),
     });
     mockApiClient.findExistingUserCases.mockResolvedValue([userCase1]);
@@ -154,7 +162,7 @@ describe('CaseApi', () => {
     });
     const userCase = { id: '1234', state: State.Draft, case_data: { divorceOrDissolution: serviceType } };
     const userCaseInApiFormat = { id: '1234', state: State.Draft, divorceOrDissolution: serviceType };
-    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+    (getCaseApiClientMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       findUserInviteCases: jest.fn(() => [userCase]),
     });
     mockApiClient.findExistingUserCases.mockResolvedValue([userCase]);
@@ -170,7 +178,7 @@ describe('CaseApi', () => {
 
   test.each([DivorceOrDissolution.DIVORCE, DivorceOrDissolution.DISSOLUTION])(
     'Should return %s case data response',
-    async caseType => {
+    async (caseType: DivorceOrDissolution) => {
       const userCase = [
         {
           id: '1234',
@@ -337,7 +345,7 @@ describe('CaseApi', () => {
       case_data: { divorceOrDissolution: DivorceOrDissolution.DISSOLUTION },
     };
     mockApiClient.findExistingUserCases.mockResolvedValue([userCase1]);
-    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+    (getCaseApiClientMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       findUserInviteCases: jest.fn(() => false),
     });
     mockApiClient.getCaseById.mockResolvedValueOnce(userCase1);
@@ -359,7 +367,7 @@ describe('CaseApi', () => {
       case_data: { divorceOrDissolution: DivorceOrDissolution.DISSOLUTION },
     };
     mockApiClient.findExistingUserCases.mockResolvedValue(false);
-    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+    (getCaseApiClientMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       findUserInviteCases: jest.fn(() => [userCase1]),
     });
     mockApiClient.getCaseById.mockResolvedValueOnce(userCase1);
@@ -376,7 +384,7 @@ describe('CaseApi', () => {
 
   test('hasDivorceOrDissolutionCaseForOtherDomain should return false if service is divorce and finds no dissolution cases', async () => {
     mockApiClient.findExistingUserCases.mockResolvedValue(false);
-    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+    (getCaseApiClientMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       findUserInviteCases: jest.fn(() => false),
     });
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
@@ -396,7 +404,7 @@ describe('CaseApi', () => {
       case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
     };
     mockApiClient.findExistingUserCases.mockResolvedValue([userCase1]);
-    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+    (getCaseApiClientMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       findUserInviteCases: jest.fn(() => false),
     });
     mockApiClient.getCaseById.mockResolvedValueOnce(userCase1);
@@ -418,7 +426,7 @@ describe('CaseApi', () => {
       case_data: { divorceOrDissolution: DivorceOrDissolution.DIVORCE },
     };
     mockApiClient.findExistingUserCases.mockResolvedValue(false);
-    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+    (getCaseApiClientMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       findUserInviteCases: jest.fn(() => [userCase1]),
     });
     mockApiClient.getCaseById.mockResolvedValueOnce(userCase1);
@@ -435,7 +443,7 @@ describe('CaseApi', () => {
 
   test('hasDivorceOrDissolutionCaseForOtherDomain should return false if service is dissolution and finds no divorce cases', async () => {
     mockApiClient.findExistingUserCases.mockResolvedValue(false);
-    (getCaseApiClientMock as jest.Mock).mockReturnValue({
+    (getCaseApiClientMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       findUserInviteCases: jest.fn(() => false),
     });
     const result = await api.hasDivorceOrDissolutionCaseForOtherDomain(
@@ -461,3 +469,4 @@ describe('getCaseApi', () => {
     expect(getCaseApi(userDetails, {} as never)).toBeInstanceOf(CaseApi);
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

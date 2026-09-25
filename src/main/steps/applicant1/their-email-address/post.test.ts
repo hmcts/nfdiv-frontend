@@ -1,13 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
 import { Checkbox } from '../../../app/case/case.js';
 import { CITIZEN_RESEND_INVITE, CITIZEN_UPDATE } from '../../../app/case/definition.js';
 import { FormContent } from '../../../app/form/Form.js';
-import * as contentUtils from '../../common/content.utils.js';
-
-import TheirEmailAddressPostController from './post.js';
-
-const isApplicant2EmailUpdatePossibleMock = jest.spyOn(contentUtils, 'isApplicant2EmailUpdatePossible');
+jest.unstable_mockModule('../../common/content.utils.js', () => ({
+  isApplicant2EmailUpdatePossible: jest.fn(),
+}));
+const { isApplicant2EmailUpdatePossible: isApplicant2EmailUpdatePossibleMock } =
+  (await import('../../common/content.utils.js')) as unknown as {
+    isApplicant2EmailUpdatePossible: jest.Mock<(...args: any[]) => any>;
+  };
+const { default: TheirEmailAddressPostController } = await import('./post.js');
 
 describe('TheirEmailAddressPostController', () => {
   const mockFormContent = {
@@ -49,3 +55,4 @@ describe('TheirEmailAddressPostController', () => {
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', body, CITIZEN_UPDATE);
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

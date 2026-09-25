@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
 import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc.js';
@@ -88,10 +91,11 @@ describe('YourDetailsPostController', () => {
     };
 
     const req = mockRequest({ body, session: { userCase: false } });
-    (req.locals.api.createCase as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.createCase as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await yourDetailsController.post(req, res);
 
     expect(req.locals.api.createCase).toHaveBeenCalledWith('divorce', req.session.user);
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

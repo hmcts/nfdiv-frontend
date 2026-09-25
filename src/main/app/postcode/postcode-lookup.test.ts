@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import axios from 'axios';
 import { LoggerInstance } from 'winston';
 
@@ -10,8 +11,6 @@ import {
 
 import { getAddressesFromPostcode } from './postcode-lookup.js';
 
-jest.mock('axios');
-
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('Postcode Lookup', () => {
@@ -19,7 +18,7 @@ describe('Postcode Lookup', () => {
 
   beforeEach(() => {
     mockLogger = {
-      error: jest.fn().mockImplementation((message: string) => message),
+      error: jest.fn().mockImplementation((...args: unknown[]) => args[0]),
     } as unknown as LoggerInstance;
   });
 

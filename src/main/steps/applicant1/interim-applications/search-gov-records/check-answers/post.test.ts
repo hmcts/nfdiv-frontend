@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
 import { Checkbox } from '../../../../../app/case/case.js';
@@ -8,15 +11,15 @@ import {
   State,
 } from '../../../../../app/case/definition.js';
 import { FormContent } from '../../../../../app/form/Form.js';
-import { getFirstErroredStep } from '../../../../index.js';
 import { searchGovRecordsApplicationSequence } from '../../../../searchGovRecordsApplicationSequence.js';
 
-import CheckAnswersPostController from './post.js';
-
-jest.mock('../../../../index.js', () => ({
+jest.unstable_mockModule('../../../../index.js', () => ({
   getFirstErroredStep: jest.fn(),
   getNextStepUrl: jest.fn(() => '/next-step-url'),
 }));
+
+const { getFirstErroredStep } = await import('../../../../index.js');
+const { default: CheckAnswersPostController } = await import('./post.js');
 
 describe('CheckAnswersPostController', () => {
   const mockFormContent = {
@@ -42,7 +45,7 @@ describe('CheckAnswersPostController', () => {
     const req = mockRequest({ body });
     const res = mockResponse();
 
-    (getFirstErroredStep as jest.Mock).mockReturnValue(undefined);
+    (getFirstErroredStep as jest.Mock<(...args: any[]) => any>).mockReturnValue(undefined);
 
     await controller.post(req, res);
 
@@ -56,7 +59,7 @@ describe('CheckAnswersPostController', () => {
     const res = mockResponse();
 
     const incompleteStepUrl = '/incomplete-step';
-    (getFirstErroredStep as jest.Mock).mockReturnValue(incompleteStepUrl);
+    (getFirstErroredStep as jest.Mock<(...args: any[]) => any>).mockReturnValue(incompleteStepUrl);
 
     await controller.post(req, res);
 
@@ -64,3 +67,4 @@ describe('CheckAnswersPostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(incompleteStepUrl);
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

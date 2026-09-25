@@ -1,3 +1,5 @@
+import { jest } from '@jest/globals';
+
 import { DivorceOrDissolution } from '../../../main/app/case/definition.js';
 import { AppRequest } from '../../../main/app/controller/AppRequest.js';
 import { SupportedLanguages } from '../../../main/modules/i18n/index.js';
@@ -46,8 +48,8 @@ export const mockRequest = ({
       lang: SupportedLanguages.En,
       existingCaseId: '123456',
       isApplicant2,
-      save: jest.fn(done => done()),
-      destroy: jest.fn(done => done()),
+      save: jest.fn((done: () => void) => done()),
+      destroy: jest.fn((done: () => void) => done()),
       ...session,
     },
     app: {
@@ -112,8 +114,8 @@ export const mockRequestApp2 = ({
       lang: SupportedLanguages.En,
       existingCaseId: '123456',
       isApplicant2,
-      save: jest.fn(done => done()),
-      destroy: jest.fn(done => done()),
+      save: jest.fn((done: () => void) => done()),
+      destroy: jest.fn((done: () => void) => done()),
       ...session,
     },
     app: {
