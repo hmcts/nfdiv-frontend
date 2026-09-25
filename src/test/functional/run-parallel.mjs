@@ -215,6 +215,8 @@ const createHtmlReport = async reportFiles => {
         const showError = hasRetryAudit && tableType === 'failure';
         const runtime = retried ? audit?.successfulAttempt?.durationMs : audit?.latest.durationMs;
         const error = audit?.latest.error?.message || audit?.latest.error?.stack || '';
+        const hookName = audit?.latest.status === 'failed' ? audit.latest.hookName : null;
+        const hookFailure = hookName ? `<span class="failed">(Hook failure: ${xmlEscape(hookName)})</span> ` : '';
         const attemptRows = retried
           ? audit.attempts
               .map(attempt => {
@@ -224,10 +226,14 @@ const createHtmlReport = async reportFiles => {
                   attempt.status === 'passed' ? 'passed' : attempt.status === 'skipped' ? '' : 'failed';
                 const attemptError =
                   attempt.status === 'failed' ? attempt.error?.message || attempt.error?.stack || '' : '';
+                const attemptHookFailure =
+                  attempt.status === 'failed' && attempt.hookName
+                    ? `<span class="failed">(Hook failure: ${xmlEscape(attempt.hookName)})</span> `
+                    : '';
                 return (
                   `<tr><td class="attempt">${attempt.attempt}</td><td class="result ${attemptClass}">${attemptStatus}</td>` +
                   `<td class="runtime">${formatRuntime(attempt.durationMs)}</td>` +
-                  `<td class="error">${xmlEscape(attemptError)}</td>` +
+                  `<td class="error">${attemptHookFailure}${xmlEscape(attemptError)}</td>` +
                   '</tr>'
                 );
               })
@@ -239,7 +245,7 @@ const createHtmlReport = async reportFiles => {
             `<tr><td class="${statusClass}">${status}</td>` +
             (showRuntime ? `<td class="runtime">${runtime === undefined ? '' : formatRuntime(runtime)}</td>` : '') +
             `<td class="${statusClass}">${xmlEscape(test.name)}</td>` +
-            (showError ? `<td class="error">${xmlEscape(error)}</td>` : '') +
+            (showError ? `<td class="error">${hookFailure}${xmlEscape(error)}</td>` : '') +
             '</tr>' +
             (retried ? `<tr><td class="empty"></td><td colspan="2">${attemptTable}</td></tr>` : ''),
         };
