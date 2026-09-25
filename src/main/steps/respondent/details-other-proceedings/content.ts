@@ -8,6 +8,7 @@ import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagem
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/details-other-proceedings/content';
+import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content';
 
 const labels = applicant1Content => ({
   errors: {
@@ -93,18 +94,17 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
+  const uploadDocumentContent = uploadDocumentGenerateContent(content);
   const uploadedDocsFilenames = content.userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
-  const uploadContentScript = `{
-    "isAmendableStates": ${content.isAmendableStates},
-    "delete": "${content.delete}"
-  }`;
+  const showWarning = false;
   return {
     ...applicant1Content,
+    ...uploadDocumentContent,
     ...labels(applicant1Content),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     amendable,
     uploadedDocsFilenames,
-    uploadContentScript,
+    showWarning,
   };
 };

@@ -21,11 +21,6 @@ const en = ({ isDivorce }: CommonContent) => ({
   point8: 'the details of any orders that have been made',
   legalProceedingsDetails: 'Provide details about the other legal proceedings.',
   legalProceedingsConcluded: 'Have the proceedings been concluded?',
-  uploadAFile: 'Upload a file',
-  chooseFileButtonText: 'Choose file',
-  noFileChosen: 'No file chosen',
-  uploadedFiles: 'Uploaded files',
-  noFilesUploaded: 'No files uploaded',
   legalProceedingsConcludedEvidence:
     'You will have to upload evidence to show that the proceedings have been concluded or withdrawn. For example, an order or confirmation email from the court that the proceedings have been concluded or withdrawn.',
   legalProceedingsOngoingEvidence:
@@ -69,11 +64,6 @@ const cy: typeof en = ({ isDivorce }: CommonContent) => ({
   point8: 'manylion unrhyw orchmynion sydd wedi’u gwneud',
   legalProceedingsDetails: 'Rhowch fanylion am yr achosion cyfreithiol eraill.',
   legalProceedingsConcluded: "A yw'r achos wedi'i gwblhau?",
-  uploadAFile: 'Llwytho ffeil',
-  chooseFileButtonText: 'Dewis ffeil',
-  noFileChosen: "Dim ffeil wedi'i dewis",
-  uploadedFiles: 'Ffeiliau sydd wedi cael eu llwytho',
-  noFilesUploaded: 'Nid oes ffeiliau wedi cael eu llwytho',
   legalProceedingsConcludedEvidence:
     'Bydd rhaid i chi uwchlwytho tystiolaeth i ddangos bod yr achos wedi’i gwblhau neu wedi’i dynnu’n ôl. Er enghraifft, gorchymyn neu e-bost cadarnhad gan y llys yn dweud bod yr achos wedi’i gwblhau neu wedi’i dynnu’n ôl.',
   legalProceedingsOngoingEvidence:
