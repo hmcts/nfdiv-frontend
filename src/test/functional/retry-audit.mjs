@@ -11,6 +11,11 @@ const outputDir = path.resolve(process.cwd(), 'functional-output/functional/retr
 
 const getAttemptKey = test => `${threadId}:${test.uid}`;
 
+const isCurrentHookTest = test => {
+  const currentTest = test?.parent?.ctx?.currentTest;
+  return currentTest === test || (currentTest?.uid && currentTest.uid === test.uid);
+};
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getDurationMs = (test, startedAt, endedAt = performance.now()) => {
   if (Number.isFinite(test?.duration) && test.duration > 0) {
@@ -94,7 +99,9 @@ export default function retryAudit() {
 
   // Hook failures may emit test.failed without a corresponding test.finished event.
   event.dispatcher.on(event.test.failed, (test, error, hookName) => {
-    if (hookName) {
+    // CodeceptJS emits a hook failure for every test in the feature suite. Only
+    // the test whose hook is running represents a real attempt.
+    if (hookName && isCurrentHookTest(test)) {
       deferWriteAttempt(test, 'failed', error, hookName);
     }
   });
