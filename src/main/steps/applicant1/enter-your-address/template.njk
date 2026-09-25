@@ -6,6 +6,7 @@
   {% include "./postcodeEnter.njk" %}
   {% include "./postcodeSelect.njk" %}
   <p class="govuk-body hidden" id="international-service-guidance">{{ serviceOfDocuments | safe }}</p>
+  <div id="errorPrefixData" data-error-prefix="{{ pageTitleError }}" style="display: none;"></div>
 {% endblock %}
 
 {% block form %}
