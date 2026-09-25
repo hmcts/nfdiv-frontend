@@ -67,6 +67,7 @@ describe('PaymentCallbackGetController', () => {
       );
 
       expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+      expect(res.redirect).toHaveBeenCalledTimes(1);
     });
 
     it('saves and redirects to the joint submitted page if last payment was successful for joint application', async () => {
@@ -109,6 +110,7 @@ describe('PaymentCallbackGetController', () => {
       );
 
       expect(res.redirect).toHaveBeenCalledWith(JOINT_APPLICATION_SUBMITTED);
+      expect(res.redirect).toHaveBeenCalledTimes(1);
     });
 
     it('redirects to the home page if the state is not awaiting payment', async () => {
