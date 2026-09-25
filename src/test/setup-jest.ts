@@ -1,4 +1,6 @@
-import { initializeStepContent } from '../main/steps/index.js';
+const { initializeStepContent } = await import('../main/steps/index.js');
+
+export {};
 
 beforeAll(async () => {
   try {
