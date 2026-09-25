@@ -10,6 +10,5 @@ export default {
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
-  setupFiles: ['<rootDir>/src/test/setup-jest-esm.ts'],
   moduleFileExtensions: ['ts', 'js', 'json'],
 };
