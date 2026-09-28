@@ -5,22 +5,35 @@ import { xmlEscape } from './report-utils.mjs';
 
 const hasFailure = report => /<(?:failure|error)\b/.test(report);
 
-export const buildFallbackJunitReport = (featureName, exitCode) => {
+export const buildFallbackJunitReport = (featureName, exitCode, scenarioAttempts = []) => {
   const failedTest = exitCode !== 0;
-  const failure = failedTest
-    ? `<failure message="Feature process exited with code ${exitCode}" type="FunctionalTestFailure"/>`
-    : '';
+  const scenarios = scenarioAttempts.length
+    ? scenarioAttempts
+    : [{ scenario: featureName, status: failedTest ? 'failed' : 'passed' }];
+  const failedCount = scenarios.filter(attempt => attempt.status === 'failed').length;
+  const skippedCount = scenarios.filter(attempt => attempt.status === 'skipped').length;
+  const testCases = scenarios
+    .map(attempt => {
+      const failure =
+        attempt.status === 'failed'
+          ? `<failure message="${xmlEscape(attempt.error?.message || `Feature process exited with code ${exitCode}`)}" type="${xmlEscape(attempt.error?.name || 'FunctionalTestFailure')}"/>`
+          : attempt.status === 'skipped'
+            ? '<skipped/>'
+            : '';
+      return `<testcase name="${xmlEscape(attempt.scenario)}">${failure}</testcase>`;
+    })
+    .join('');
 
   return (
     '<?xml version="1.0" encoding="UTF-8"?>\n' +
-    `<testsuites tests="1" failures="${failedTest ? 1 : 0}" errors="0" skipped="0">` +
-    `<testsuite name="${xmlEscape(featureName)}" tests="1" failures="${failedTest ? 1 : 0}" errors="0" skipped="0">` +
-    `<testcase name="${xmlEscape(featureName)}">${failure}</testcase>` +
+    `<testsuites tests="${scenarios.length}" failures="${failedCount}" errors="0" skipped="${skippedCount}">` +
+    `<testsuite name="${xmlEscape(featureName)}" tests="${scenarios.length}" failures="${failedCount}" errors="0" skipped="${skippedCount}">` +
+    testCases +
     '</testsuite></testsuites>\n'
   );
 };
 
-export const ensureJunitReport = async (reportFile, featureName, exitCode) => {
+export const ensureJunitReport = async (reportFile, featureName, exitCode, scenarioAttempts = []) => {
   let report;
 
   try {
@@ -33,12 +46,19 @@ export const ensureJunitReport = async (reportFile, featureName, exitCode) => {
   // particularly when a Before/After hook fails. It can also write a
   // zero-failure report before the child process exits. In either case,
   // keep Jenkins' JUnit step aligned with the feature process exit code.
-  if (report && (exitCode === 0 || hasFailure(report))) {
+  const hasAuditFailures = scenarioAttempts.some(attempt => attempt.status === 'failed');
+  if (report && exitCode === 0) {
+    return;
+  }
+  if (report && hasFailure(report) && !hasAuditFailures) {
     return;
   }
 
   await mkdir(path.dirname(reportFile), { recursive: true });
-  await writeFile(reportFile, buildFallbackJunitReport(featureName, exitCode));
+  await writeFile(
+    reportFile,
+    buildFallbackJunitReport(featureName, exitCode, hasAuditFailures ? scenarioAttempts : [])
+  );
 };
 
 export const createAggregateJunitReport = async (reportFiles, outputFile) => {

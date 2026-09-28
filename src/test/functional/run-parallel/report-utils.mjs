@@ -74,3 +74,9 @@ export const loadRetryAudit = async retryAuditRoot => {
     return new Map();
   }
 };
+
+export const getRetryAuditScenarios = (retryAudit, featureName) =>
+  [...retryAudit.values()]
+    .map(audit => audit.latest)
+    .filter(attempt => attempt?.feature === featureName)
+    .sort((first, second) => first.scenario.localeCompare(second.scenario));

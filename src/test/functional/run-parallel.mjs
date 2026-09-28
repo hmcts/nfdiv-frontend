@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import { createHtmlReport } from './run-parallel/html-report.mjs';
 import { createAggregateJunitReport, ensureJunitReport } from './run-parallel/junit-report.mjs';
-import { featureReportDirectoryName, loadRetryAudit } from './run-parallel/report-utils.mjs';
+import { featureReportDirectoryName, getRetryAuditScenarios, loadRetryAudit } from './run-parallel/report-utils.mjs';
 import { createRetryAuditReport } from './run-parallel/retry-audit-report.mjs';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
@@ -126,7 +126,11 @@ const runFeature = (feature, workerIndex) =>
         failed = true;
       }
       formatter.flush();
-      ensureJunitReport(feature.reportFile, feature.title, code).finally(resolve);
+      loadRetryAudit(retryAuditRoot)
+        .then(retryAudit =>
+          ensureJunitReport(feature.reportFile, feature.title, code, getRetryAuditScenarios(retryAudit, feature.title))
+        )
+        .finally(resolve);
     });
   });
 
@@ -142,6 +146,14 @@ const htmlReportFile = path.join(reportsRoot, 'Functional test report.html');
 
 const createReports = async () => {
   const retryAudit = await loadRetryAudit(retryAuditRoot);
+  await Promise.all(
+    featureDescriptors.map(async feature => {
+      const scenarioAttempts = getRetryAuditScenarios(retryAudit, feature.title);
+      if (scenarioAttempts.some(attempt => attempt.status === 'failed')) {
+        await ensureJunitReport(feature.reportFile, feature.title, 1, scenarioAttempts);
+      }
+    })
+  );
   const reportFiles = [...new Set(await findJunitReports(reportsRoot))].filter(
     reportFile => reportFile !== aggregateJunitFile
   );
