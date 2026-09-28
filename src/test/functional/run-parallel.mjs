@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import { createHtmlReport } from './run-parallel/html-report.mjs';
 import { createAggregateJunitReport, ensureJunitReport } from './run-parallel/junit-report.mjs';
+import { featureReportDirectoryName } from './run-parallel/report-utils.mjs';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const featuresDir = path.join(projectRoot, 'src/test/functional/features');
@@ -18,26 +19,29 @@ const features = (await readdir(featuresDir))
   .sort()
   .map(file => path.join(featuresDir, file));
 
-const featureNames = new Map(
-  await Promise.all(
-    features.map(async feature => {
-      const source = await readFile(feature, 'utf8');
-      const featureName = source.match(/^\s*Feature:\s*(.+)$/m)?.[1]?.trim() || path.basename(feature, '.feature');
-      return [feature, featureName];
-    })
-  )
+const reportsRoot = path.join(projectRoot, 'functional-output/functional/reports');
+const retryAuditRoot = path.join(projectRoot, 'functional-output/functional/retry-audit');
+
+const featureDescriptors = await Promise.all(
+  features.map(async feature => {
+    const source = await readFile(feature, 'utf8');
+    const reportDirectoryName = featureReportDirectoryName(feature);
+    return {
+      file: feature,
+      title: source.match(/^\s*Feature:\s*(.+)$/m)?.[1]?.trim() || path.basename(feature, '.feature'),
+      reportDir: path.join(reportsRoot, reportDirectoryName),
+      reportFile: path.join(reportsRoot, reportDirectoryName, 'result.xml'),
+    };
+  })
 );
 
 let nextFeature = 0;
 let failed = false;
 
-const reportsRoot = path.join(projectRoot, 'functional-output/functional/reports');
-const retryAuditRoot = path.join(projectRoot, 'functional-output/functional/retry-audit');
-
-const createLogFormatter = (workerIndex, featureName) => {
+const createLogFormatter = (workerIndex, featureTitle) => {
   let pending = '';
 
-  const formatLine = line => `[Feature worker ${workerIndex}][${featureName}] ${line}`;
+  const formatLine = line => `[Feature worker ${workerIndex}][${featureTitle}] ${line}`;
 
   return {
     write(data) {
@@ -64,21 +68,17 @@ const createLogFormatter = (workerIndex, featureName) => {
 
 const runFeature = (feature, workerIndex) =>
   new Promise(resolve => {
-    const featureTitle = featureNames.get(feature);
-    const featureName = path.basename(feature, '.feature').replace(/[^a-zA-Z0-9_-]/g, '_');
-    const reportDir = path.join(reportsRoot, featureName);
-    const junitReportFile = path.join(reportDir, 'result.xml');
     const override = JSON.stringify({
-      output: reportDir,
+      output: feature.reportDir,
       plugins: {
         junitReporter: {
-          output: reportDir,
+          output: feature.reportDir,
           outputName: 'result.xml',
         },
       },
     });
 
-    const args = ['run', feature, '--config', configFile, '--override', override];
+    const args = ['run', feature.file, '--config', configFile, '--override', override];
     if (grep) {
       args.push('--grep', grep);
     }
@@ -95,7 +95,7 @@ const runFeature = (feature, workerIndex) =>
       stdio: ['ignore', 'pipe', 'pipe'],
     });
 
-    const formatter = createLogFormatter(workerIndex, featureTitle);
+    const formatter = createLogFormatter(workerIndex, feature.title);
     child.stdout.on('data', data => formatter.write(data));
     child.stderr.on('data', data => formatter.write(data));
     child.on('error', error => {
@@ -109,21 +109,18 @@ const runFeature = (feature, workerIndex) =>
         failed = true;
       }
       formatter.flush();
-      ensureJunitReport(junitReportFile, featureName, code).finally(resolve);
+      ensureJunitReport(feature.reportFile, feature.title, code).finally(resolve);
     });
   });
 
 const worker = async workerIndex => {
   while (nextFeature < features.length) {
-    const feature = features[nextFeature++];
+    const feature = featureDescriptors[nextFeature++];
     await runFeature(feature, workerIndex);
   }
 };
 
-const reportFiles = features.flatMap(feature => {
-  const featureName = path.basename(feature, '.feature').replace(/[^a-zA-Z0-9_-]/g, '_');
-  return path.join(reportsRoot, featureName, 'result.xml');
-});
+const reportFiles = featureDescriptors.map(feature => feature.reportFile);
 const aggregateJunitFile = path.join(reportsRoot, 'result.xml');
 const htmlReportFile = path.join(reportsRoot, 'Functional test report.html');
 

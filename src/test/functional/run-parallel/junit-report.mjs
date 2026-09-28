@@ -1,9 +1,10 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
+import { xmlEscape } from './report-utils.mjs';
+
 const hasFailure = report => /<(?:failure|error)\b/.test(report);
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const buildFallbackJunitReport = (featureName, exitCode) => {
   const failedTest = exitCode !== 0;
   const failure = failedTest
@@ -19,15 +20,6 @@ export const buildFallbackJunitReport = (featureName, exitCode) => {
   );
 };
 
-const xmlEscape = value =>
-  String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&apos;');
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const ensureJunitReport = async (reportFile, featureName, exitCode) => {
   let report;
 
@@ -49,7 +41,6 @@ export const ensureJunitReport = async (reportFile, featureName, exitCode) => {
   await writeFile(reportFile, buildFallbackJunitReport(featureName, exitCode));
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const createAggregateJunitReport = async (reportFiles, outputFile) => {
   const formatTagAttributes = (xml, tagName, indent) =>
     xml.replace(new RegExp(`<${tagName}\b([^>]*?)(/?)>`, 'g'), (_, attributes, closing) => {

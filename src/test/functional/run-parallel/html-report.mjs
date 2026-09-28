@@ -1,13 +1,7 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const xmlEscape = value =>
-  String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&apos;');
+import { scenarioKey, xmlEscape, xmlUnescape } from './report-utils.mjs';
 
 const readRetryAudit = async retryAuditRoot => {
   try {
@@ -22,7 +16,7 @@ const readRetryAudit = async retryAuditRoot => {
             return;
           }
 
-          const key = `${audit.feature}\u0000${audit.scenario}`;
+          const key = scenarioKey(audit.feature, audit.scenario);
           attempts.set(key, [...(attempts.get(key) || []), audit]);
         } catch {
           // Ignore an audit file that is incomplete or no longer valid JSON.
@@ -48,19 +42,25 @@ const readRetryAudit = async retryAuditRoot => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const getAttemptStatus = attempt =>
+  attempt?.status === 'passed' ? 'Passed' : attempt?.status === 'skipped' ? 'Skipped' : 'Failed';
+
+const getAttemptClass = attempt =>
+  attempt?.status === 'passed' ? 'passed' : attempt?.status === 'skipped' ? '' : 'failed';
+
+const getAttemptError = attempt =>
+  attempt?.status === 'failed' ? attempt.error?.message || attempt.error?.stack || '' : '';
+
+const getHookFailure = attempt =>
+  attempt?.status === 'failed' && attempt.hookName
+    ? `<span class="failed">(Hook failure: ${xmlEscape(attempt.hookName)})</span> `
+    : '';
+
 export const createHtmlReport = async (reportFiles, retryAuditRoot, outputFile) => {
   const tests = [];
   const retryAudit = await readRetryAudit(retryAuditRoot);
   const hasRetryAudit = retryAudit.size > 0;
   const attribute = (attributes, name) => attributes.match(new RegExp(`${name}="([^"]*)"`))?.[1] || '';
-  const xmlUnescape = value =>
-    value
-      .replaceAll('&quot;', '"')
-      .replaceAll('&apos;', "'")
-      .replaceAll('&lt;', '<')
-      .replaceAll('&gt;', '>')
-      .replaceAll('&amp;', '&');
   const formatRuntime = durationMs => {
     if (durationMs < 1000) {
       return `${durationMs}ms`;
@@ -94,10 +94,10 @@ export const createHtmlReport = async (reportFiles, retryAuditRoot, outputFile) 
     }
   }
 
-  const logicalTests = [...Map.groupBy(tests, test => `${test.featureName}\u0000${test.name}`)].map(
+  const logicalTests = [...Map.groupBy(tests, test => scenarioKey(test.featureName, test.name))].map(
     ([, scenarioAttempts]) => {
       const test = scenarioAttempts[0];
-      const audit = retryAudit.get(`${test.featureName}\u0000${test.name}`);
+      const audit = retryAudit.get(scenarioKey(test.featureName, test.name));
       const latestAttempt = audit?.latest;
 
       return {
@@ -117,31 +117,20 @@ export const createHtmlReport = async (reportFiles, retryAuditRoot, outputFile) 
       const renderTest = (test, tableType) => {
         const status = test.failed ? 'Failed' : 'Passed';
         const statusClass = test.failed ? 'failed' : 'passed';
-        const audit = retryAudit.get(`${test.featureName}\u0000${test.name}`);
+        const audit = retryAudit.get(scenarioKey(test.featureName, test.name));
         const retried = audit?.attempts.some(attempt => attempt.attempt > 1);
         const showRuntime = hasRetryAudit && tableType !== 'retried';
         const showError = hasRetryAudit && tableType === 'failure';
         const runtime = retried ? audit?.successfulAttempt?.durationMs : audit?.latest.durationMs;
-        const error = audit?.latest.error?.message || audit?.latest.error?.stack || '';
-        const hookName = audit?.latest.status === 'failed' ? audit.latest.hookName : null;
-        const hookFailure = hookName ? `<span class="failed">(Hook failure: ${xmlEscape(hookName)})</span> ` : '';
+        const error = getAttemptError(audit?.latest);
+        const hookFailure = getHookFailure(audit?.latest);
         const attemptRows = retried
           ? audit.attempts
               .map(attempt => {
-                const attemptStatus =
-                  attempt.status === 'passed' ? 'Passed' : attempt.status === 'skipped' ? 'Skipped' : 'Failed';
-                const attemptClass =
-                  attempt.status === 'passed' ? 'passed' : attempt.status === 'skipped' ? '' : 'failed';
-                const attemptError =
-                  attempt.status === 'failed' ? attempt.error?.message || attempt.error?.stack || '' : '';
-                const attemptHookFailure =
-                  attempt.status === 'failed' && attempt.hookName
-                    ? `<span class="failed">(Hook failure: ${xmlEscape(attempt.hookName)})</span> `
-                    : '';
                 return (
-                  `<tr><td class="attempt">${attempt.attempt}</td><td class="result ${attemptClass}">${attemptStatus}</td>` +
+                  `<tr><td class="attempt">${attempt.attempt}</td><td class="result ${getAttemptClass(attempt)}">${getAttemptStatus(attempt)}</td>` +
                   `<td class="runtime">${formatRuntime(attempt.durationMs)}</td>` +
-                  `<td class="error">${attemptHookFailure}${xmlEscape(attemptError)}</td>` +
+                  `<td class="error">${getHookFailure(attempt)}${xmlEscape(getAttemptError(attempt))}</td>` +
                   '</tr>'
                 );
               })
@@ -168,7 +157,7 @@ export const createHtmlReport = async (reportFiles, retryAuditRoot, outputFile) 
         }
       };
       for (const test of featureTests) {
-        const audit = retryAudit.get(`${test.featureName}\u0000${test.name}`);
+        const audit = retryAudit.get(scenarioKey(test.featureName, test.name));
         const retried = audit?.attempts.some(attempt => attempt.attempt > 1);
         const nextTableType = retried ? 'retried' : test.failed ? 'failure' : 'normal';
         if (rows.length > 0 && tableType !== nextTableType) {
