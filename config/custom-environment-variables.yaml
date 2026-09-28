@@ -4,6 +4,8 @@ services:
     url: SERVICE_AUTH_PROVIDER_URL
     secret: SERVICE_AUTH_SECRET
   idam:
+    webBaseUrl: IDAM_WEB_BASE_URL
+    apiBaseUrl: IDAM_API_BASE_URL
     authorizationURL: IDAM_WEB_URL
     tokenURL: IDAM_API_URL
     endSessionURL: IDAM_END_SESSION_URL

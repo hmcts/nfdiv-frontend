@@ -2535,31 +2535,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-sdk-common@npm:2.25.2":
-  version: 2.25.2
-  resolution: "@launchdarkly/js-sdk-common@npm:2.25.2"
-  checksum: 10/7b9ffdfd5e6e92ec7e916c795abec647af7a9b97293c74c9edaa922d53f6e688a7e6b276f5005532fa049ed270fe912c124ee0ff3e1316d61758658814a165fb
+"@launchdarkly/js-sdk-common@npm:2.26.1":
+  version: 2.26.1
+  resolution: "@launchdarkly/js-sdk-common@npm:2.26.1"
+  checksum: 10/b7e5df006ef78bec334c4bc6a8b387bf1cede23e56ef24d2e98decfb0c1771d5778144909f34bdb0b786cdf73ab0fa2dbdb4d8e69a84004f5a012bb9deb07b6c
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.20.1":
-  version: 2.20.1
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.20.1"
+"@launchdarkly/js-server-sdk-common@npm:2.21.5":
+  version: 2.21.5
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.21.5"
   dependencies:
-    "@launchdarkly/js-sdk-common": "npm:2.25.2"
+    "@launchdarkly/js-sdk-common": "npm:2.26.1"
     semver: "npm:7.5.4"
-  checksum: 10/67282f6a111b986780594b789e6b50245deeccf1fcd17f770bbe92dfc6643d52e6b8495b812cb657549bf586f86349502bdf78cc9874cb832f6f478e2ead78cb
+  checksum: 10/f0087da469d80621e8856afb5bab1cd15d7f23100dc9e92419a6f035f96a28b9e8d7de88a500094a2a0ef739886c6251a6cb1771adb76a1a856d85e09881d4e7
   languageName: node
   linkType: hard
 
 "@launchdarkly/node-server-sdk@npm:>=9.0.0":
-  version: 9.13.1
-  resolution: "@launchdarkly/node-server-sdk@npm:9.13.1"
+  version: 9.13.7
+  resolution: "@launchdarkly/node-server-sdk@npm:9.13.7"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": "npm:2.20.1"
+    "@launchdarkly/js-server-sdk-common": "npm:2.21.5"
     https-proxy-agent: "npm:^7.0.6"
     launchdarkly-eventsource: "npm:2.2.0"
-  checksum: 10/ef43ddc9485f338f0d1ab09215f9f8d749140c82fef94f3dc81732fdb59275cf353ec30c1495d3a3dd2d3578807ba84b7c7d872e2e7c0182af4800a1c51fd185
+  checksum: 10/5f58a2bf6b21b6fbedc9fbbfd4ea797ed126835cf101b6e8a25788fd37e266ef6b090c9eed71439f8b59b2e8d1a0925f63ad92c7fa6b36ae289997e3be8331d4
   languageName: node
   linkType: hard
 
@@ -2690,10 +2690,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/hashes@npm:2.2.0":
-  version: 2.2.0
-  resolution: "@noble/hashes@npm:2.2.0"
-  checksum: 10/b1b78bedc2a01394be047429f3d888905015fe8a09f1b7e43e0b5736b54133df62f73dcc73ede43af38e96e86156afb45b86973fdeaa95d9f0880333c3fc0907
+"@noble/hashes@npm:2.4.0":
+  version: 2.4.0
+  resolution: "@noble/hashes@npm:2.4.0"
+  checksum: 10/88d4cdd6cef00f412a39f65bda1d24cba2264c6cacdd1c6c48d7ed66fd9be865ffb7231024fb81177975c684b8a463879b89c5ae6960370b05a546c0fd8afa2c
   languageName: node
   linkType: hard
 
@@ -12757,12 +12757,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:9.0.7":
-  version: 9.0.7
-  resolution: "minimatch@npm:9.0.7"
+"minimatch@npm:9.0.9, minimatch@npm:^9.0.4, minimatch@npm:^9.0.5":
+  version: 9.0.9
+  resolution: "minimatch@npm:9.0.9"
   dependencies:
-    brace-expansion: "npm:^5.0.2"
-  checksum: 10/72b9ba4af39f6a89934d56c9cc3bf1d86fb004b00c5e5b3d7f48b004f224005fd2919f52785643b7a18d53fc86f7befc7f25c85ef194cc06708b078682f8c9e5
+    brace-expansion: "npm:^2.0.2"
+  checksum: 10/b91fad937deaffb68a45a2cb731ff3cff1c3baf9b6469c879477ed16f15c8f4ce39d63a3f75c2455107c2fdff0f3ab597d97dc09e2e93b883aafcf926ef0c8f9
   languageName: node
   linkType: hard
 
@@ -12781,15 +12781,6 @@ __metadata:
   dependencies:
     brace-expansion: "npm:^2.0.1"
   checksum: 10/23b4feb64dcb77ba93b70a72be551eb2e2677ac02178cf1ed3d38836cc4cd84802d90b77f60ef87f2bac64d270d2d8eba242e428f0554ea4e36bfdb7e9d25d0c
-  languageName: node
-  linkType: hard
-
-"minimatch@npm:^9.0.4, minimatch@npm:^9.0.5":
-  version: 9.0.9
-  resolution: "minimatch@npm:9.0.9"
-  dependencies:
-    brace-expansion: "npm:^2.0.2"
-  checksum: 10/b91fad937deaffb68a45a2cb731ff3cff1c3baf9b6469c879477ed16f15c8f4ce39d63a3f75c2455107c2fdff0f3ab597d97dc09e2e93b883aafcf926ef0c8f9
   languageName: node
   linkType: hard
 
@@ -13187,15 +13178,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"multer@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "multer@npm:2.2.0"
+"multer@npm:2.3.0":
+  version: 2.3.0
+  resolution: "multer@npm:2.3.0"
   dependencies:
     append-field: "npm:^1.0.0"
     busboy: "npm:^1.6.0"
     concat-stream: "npm:^2.0.0"
     type-is: "npm:^1.6.18"
-  checksum: 10/24525113776291c1909e6ca6ee260c41a6dc4bc6dea944485f6cc0d1442a7690829a07f2dcdea5edd5886bb6ab87df795da6ffb6de7289e1c140ec98b8e9d253
+  checksum: 10/bd939b7d364aea9d859eb7ff7f86811b0ae620e9d4b5684d3ef33e9b336f062b053c06fc2f3d292a5e373835e84828d68ce8bc35aad63df0c5ba5769f146c50e
   languageName: node
   linkType: hard
 
@@ -13411,7 +13402,7 @@ __metadata:
     mochawesome: "npm:^7.1.3"
     mochawesome-merge: "npm:^5.0.0"
     mochawesome-report-generator: "npm:^6.2.0"
-    multer: "npm:2.2.0"
+    multer: "npm:2.3.0"
     negotiator: "npm:1.0.0"
     node-cache: "npm:5.1.2"
     nodemon: "npm:3.1.14"
@@ -13951,11 +13942,11 @@ __metadata:
   linkType: hard
 
 "otpauth@npm:^9.5.0":
-  version: 9.5.1
-  resolution: "otpauth@npm:9.5.1"
+  version: 9.5.2
+  resolution: "otpauth@npm:9.5.2"
   dependencies:
-    "@noble/hashes": "npm:2.2.0"
-  checksum: 10/6e5cfa7b4b90f6125da7d23977a4395d230dc8c5d0d9853cad0ec933bb0286ee5721ba42f89b8b3d7a325ea1c48308fbd7c2d9e7fa5adc471aae7f7400a2803d
+    "@noble/hashes": "npm:2.4.0"
+  checksum: 10/4a1e189619a7e4e601f29a4e50ee3ff6949135091bcb998086e9be9865a1760c4eef7ba1bea77b0f4bd258a9ff2502ac8a8607af97cd5f82f092eb839c65ce32
   languageName: node
   linkType: hard
 

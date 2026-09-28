@@ -26,8 +26,19 @@ interface PallyIssue {
   typeCode: number;
 }
 
-function ensurePageCallWillSucceed(url: string): Promise<void> {
-  return server.get(url);
+async function ensurePageCallWillSucceed(url: string): Promise<void> {
+  const response = await server.get(url, {
+    maxRedirects: 0,
+    validateStatus: () => true,
+  });
+
+  const allowedStatuses = [200, 301, 302, 303, 307, 308];
+  if (allowedStatuses.includes(response.status)) {
+    return;
+  }
+  throw new Error(
+    `Precheck failed for '${url}' with status ${response.status}, location='${String(response.headers.location || '')}'`
+  );
 }
 
 function runPally(url: string, browser): Promise<Pa11yResult> {
