@@ -9,7 +9,9 @@
   <!-- {{ userCase.id }} -->
   {% if globals.enableTracking == true %}
   <!-- Google Tag Manager -->
+  {% if globals.enableTracking == true %}
   <meta name="gtm-one-time" content="{{ nonce }}">
+  {% endif %}
   <script nonce="{{ nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
