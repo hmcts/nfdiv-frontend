@@ -1,4 +1,8 @@
+import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+
+import { testToFileName } from 'codeceptjs/lib/mocha/test';
 
 import { scenarioKey, xmlEscape, xmlUnescape } from './report-utils.mjs';
 
@@ -19,6 +23,35 @@ const getHookFailure = attempt =>
 export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
   const tests = [];
   const hasRetryAudit = retryAudit.size > 0;
+  const linkTo = file => encodeURI(path.relative(path.dirname(outputFile), file).replaceAll(path.sep, '/'));
+  const artifactLink = (label, file) => {
+    if (!file) {
+      return label;
+    }
+
+    const href = linkTo(file);
+    return `<a class="artifact-link" href="${xmlEscape(href)}" title="${xmlEscape(href)}" target="_blank" rel="noopener">${label}</a>`;
+  };
+  const screenshotSpan = file => {
+    if (!file || !existsSync(file)) {
+      return '';
+    }
+
+    return `<span class="failed">${artifactLink('(Screenshot)', file)}</span> `;
+  };
+  const resolveScreenshot = (reportFile, screenshotFile) => {
+    if (!screenshotFile) {
+      return null;
+    }
+
+    const file = path.resolve(path.dirname(reportFile), screenshotFile);
+    return existsSync(file) ? file : null;
+  };
+  const defaultScreenshot = test =>
+    resolveScreenshot(
+      test.junitReportFile,
+      `${testToFileName({ title: test.name }, { suffix: '', unique: false })}.failed.png`
+    );
   const attribute = (attributes, name) => attributes.match(new RegExp(`${name}="([^"]*)"`))?.[1] || '';
   const formatRuntime = durationMs => {
     if (durationMs < 1000) {
@@ -45,6 +78,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
           featureName: xmlUnescape(suiteName),
           name: xmlUnescape(attribute(attributes, 'name')) || '(unnamed test)',
           failed: body.includes('<failure') || body.includes('<error'),
+          junitReportFile: reportFile,
         });
       }
     } catch {
@@ -83,13 +117,26 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
         const runtime = retried ? audit?.successfulAttempt?.durationMs : audit?.latest.durationMs;
         const error = getAttemptError(audit?.latest);
         const hookFailure = getHookFailure(audit?.latest);
+        const summaryScreenshot = hasRetryAudit
+          ? !retried && audit?.latest?.status === 'failed'
+            ? resolveScreenshot(test.junitReportFile, audit.latest.screenshotFile)
+            : null
+          : test.failed
+            ? defaultScreenshot(test)
+            : null;
+        const resultLink =
+          hasRetryAudit && !retried && (audit?.latest?.status === 'passed' || audit?.latest?.status === 'failed')
+            ? audit.latest.auditFile
+            : null;
         const attemptRows = retried
           ? audit.attempts
               .map(attempt => {
+                const attemptScreenshot =
+                  attempt.status === 'failed' ? resolveScreenshot(test.junitReportFile, attempt.screenshotFile) : null;
                 return (
-                  `<tr><td class="attempt">${attempt.attempt}</td><td class="result ${getAttemptClass(attempt)}">${getAttemptStatus(attempt)}</td>` +
+                  `<tr><td class="attempt">${attempt.attempt}</td><td class="result ${getAttemptClass(attempt)}">${artifactLink(getAttemptStatus(attempt), attempt.auditFile)}</td>` +
                   `<td class="runtime">${formatRuntime(attempt.durationMs)}</td>` +
-                  `<td class="error">${getHookFailure(attempt)}${xmlEscape(getAttemptError(attempt))}</td>` +
+                  `<td class="error">${getHookFailure(attempt)}${screenshotSpan(attemptScreenshot)}${xmlEscape(getAttemptError(attempt))}</td>` +
                   '</tr>'
                 );
               })
@@ -98,10 +145,12 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
         const attemptTable = `<table class="attempts"><thead><tr><th class="attempt">Attempt</th><th class="result">Result</th><th class="runtime">Runtime</th><th class="error">Error</th></tr></thead><tbody>${attemptRows}</tbody></table>`;
         return {
           row:
-            `<tr><td class="${statusClass}">${status}</td>` +
+            `<tr><td class="${statusClass}">${artifactLink(status, resultLink)}</td>` +
             (showRuntime ? `<td class="runtime">${runtime === undefined ? '' : formatRuntime(runtime)}</td>` : '') +
-            `<td class="${statusClass}">${xmlEscape(test.name)}</td>` +
-            (showError ? `<td class="error">${hookFailure}${xmlEscape(error)}</td>` : '') +
+            `<td class="${statusClass}">${artifactLink(xmlEscape(test.name), test.junitReportFile)}${!hasRetryAudit ? screenshotSpan(summaryScreenshot) : ''}</td>` +
+            (showError
+              ? `<td class="error">${hookFailure}${screenshotSpan(summaryScreenshot)}${xmlEscape(error)}</td>`
+              : '') +
             '</tr>' +
             (retried ? `<tr><td class="empty"></td><td colspan="2">${attemptTable}</td></tr>` : ''),
         };
@@ -155,6 +204,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
 <style>:root{color-scheme:light;--background:#FFFFFF;--foreground:#292A2E;--muted-border:#ddd;--passed:#087f23;--failed:#b00020}</style>
 <style>:root[data-theme="dark"]{color-scheme:dark;--background:#1F1F21;--foreground:#CECfD2;--muted-border:#505357;--passed:#65d184;--failed:#ff8585}</style>
 <style>html{background:var(--background)}body{background:var(--background);color:var(--foreground);font:16px sans-serif;margin:2rem}</style>
+<style>.artifact-link{color:inherit}.artifact-link:visited{font-weight:bold}</style>
 <style>table{border-collapse:collapse;width:100%;margin-bottom:0.5rem}thead > tr:first-child{border-bottom:1px solid var(--muted-border)}th,td{border:none;border-right:1px solid var(--muted-border);min-width:max-content;padding:.5rem .75rem;text-align:left}th:first-child:not(.attempt),td:first-child:not(.attempt){padding-left:0;}th.attempt,td.attempt,th.result,td.result,th.runtime,td.runtime{text-align:center;}td.empty{min-width:1%;padding:0;border-right:none}th:last-child,td:last-child{width:100%;min-width:initial;padding-right:0;border-right:none}</style>
 <style>.passed{color:var(--passed)}.failed{color:var(--failed)}.featureTitle{display:inline-block;margin-top:2.75rem;margin-bottom:.75rem;margin-right:.25rem}.featureTitle:first-of-type{margin-top:0}.featureSummary{font-size:1.1rem;display:inline-block}.totalSummary{font-size:1.1rem}hr{margin-top:1.3575rem;margin-bottom:1.3575rem;border:0 transparent;border-top:1px solid var(--muted-border)}</style>
 <style>#themeToggle{position:absolute;top:1rem;right:1rem;z-index:1;border:1px solid var(--muted-border);border-radius:.35rem;background:var(--background);color:var(--foreground);cursor:pointer;font:inherit;width:2.5rem;height:2.5rem;padding:0;font-size:0}#themeToggle:focus-visible{outline:2px solid var(--foreground);outline-offset:2px}</style>

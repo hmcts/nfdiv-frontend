@@ -8,7 +8,8 @@ const formatFailure = attempt => {
     return attempt.status === 'skipped' ? '<skipped/>' : '';
   }
 
-  const message = attempt.error?.message || `Feature scenario failed${attempt.hookName ? ` in ${attempt.hookName}` : ''}`;
+  const message =
+    attempt.error?.message || `Feature scenario failed${attempt.hookName ? ` in ${attempt.hookName}` : ''}`;
   const details = attempt.error?.stack || attempt.error?.message || '';
   const type = attempt.error?.name || 'FunctionalTestFailure';
   return `<failure message="${xmlEscape(message)}" type="${xmlEscape(type)}">${xmlEscape(details)}</failure>`;

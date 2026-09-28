@@ -37,6 +37,21 @@ const featureDescriptors = await Promise.all(
   })
 );
 
+const findJunitReports = async directory => {
+  try {
+    const entries = await readdir(directory, { withFileTypes: true });
+    const reports = await Promise.all(
+      entries.map(entry => {
+        const entryPath = path.join(directory, entry.name);
+        return entry.isDirectory() ? findJunitReports(entryPath) : entry.name === 'result.xml' ? [entryPath] : [];
+      })
+    );
+    return reports.flat();
+  } catch {
+    return [];
+  }
+};
+
 let nextFeature = 0;
 let failed = false;
 
@@ -122,12 +137,14 @@ const worker = async workerIndex => {
   }
 };
 
-const reportFiles = featureDescriptors.map(feature => feature.reportFile);
 const aggregateJunitFile = path.join(reportsRoot, 'result.xml');
 const htmlReportFile = path.join(reportsRoot, 'Functional test report.html');
 
 const createReports = async () => {
   const retryAudit = await loadRetryAudit(retryAuditRoot);
+  const reportFiles = [...new Set(await findJunitReports(reportsRoot))].filter(
+    reportFile => reportFile !== aggregateJunitFile
+  );
   await createAggregateJunitReport(reportFiles, aggregateJunitFile);
   await createHtmlReport(reportFiles, retryAudit, htmlReportFile);
   await createRetryAuditReport(retryAudit, retryAuditReportFile);

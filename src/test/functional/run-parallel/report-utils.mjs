@@ -47,7 +47,10 @@ export const loadRetryAudit = async retryAuditRoot => {
           }
 
           const key = scenarioKey(audit.feature, audit.scenario);
-          attempts.set(key, [...(attempts.get(key) || []), audit]);
+          attempts.set(key, [
+            ...(attempts.get(key) || []),
+            { ...audit, auditFile: path.join(retryAuditRoot, auditFile) },
+          ]);
         } catch {
           // Ignore an audit file that is incomplete or no longer valid JSON.
         }
