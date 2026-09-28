@@ -3,11 +3,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { threadId } from 'node:worker_threads';
 
+import Config from 'codeceptjs/lib/config';
 import event from 'codeceptjs/lib/event';
+
+import { getRetryAuditScreenshotFileName } from './retry-audit/retry-audit-screenshot-file-name.mjs';
+import retryAuditScreenshot, { isScreenshotRenameEnabled } from './retry-audit/retry-audit-screenshot.mjs';
 
 const attempts = new Map();
 const attemptStarts = new Map();
 const outputDir = path.resolve(process.cwd(), 'functional-output/functional/retry-audit');
+let screenshotRenamingEnabled = true;
 
 const getAttemptKey = test => `${threadId}:${test.uid}`;
 
@@ -50,6 +55,26 @@ const getTestDetails = test => ({
   workerThreadId: threadId,
 });
 
+export const createAttemptDetails = (
+  test,
+  attempt,
+  status,
+  error,
+  hookName,
+  durationMs,
+  shouldRenameScreenshot = true
+) => ({
+  ...getTestDetails(test),
+  attemptKey: getAttemptKey(test),
+  attempt,
+  status,
+  hookName: hookName || null,
+  screenshotFile: status === 'failed' && shouldRenameScreenshot ? getRetryAuditScreenshotFileName(test, attempt) : null,
+  durationMs,
+  error: serialiseError(error || test.err),
+  recordedAt: new Date().toISOString(),
+});
+
 const writeAttempt = (test, status, error, hookName) => {
   if (!isTrackableTest(test)) {
     return;
@@ -61,16 +86,7 @@ const writeAttempt = (test, status, error, hookName) => {
   const durationMs = getDurationMs(test, attemptStarts.get(attemptKey));
   attemptStarts.delete(attemptKey);
 
-  const details = {
-    ...getTestDetails(test),
-    attemptKey,
-    attempt,
-    status,
-    hookName: hookName || null,
-    durationMs,
-    error: serialiseError(error || test.err),
-    recordedAt: new Date().toISOString(),
-  };
+  const details = createAttemptDetails(test, attempt, status, error, hookName, durationMs, screenshotRenamingEnabled);
 
   fs.mkdirSync(outputDir, { recursive: true });
   const fileName = `${threadId}-${test.uid}-${attempt}-${randomUUID()}.json`.replace(/[^a-zA-Z0-9._-]/g, '_');
@@ -82,6 +98,10 @@ const deferWriteAttempt = (...args) => {
 };
 
 export default function retryAudit() {
+  const screenshotConfig = Config.get('plugins')?.screenshot ?? {};
+  screenshotRenamingEnabled = isScreenshotRenameEnabled(screenshotConfig);
+  retryAuditScreenshot(screenshotConfig);
+
   const recordAttemptStart = test => {
     if (isTrackableTest(test)) {
       attemptStarts.set(getAttemptKey(test), performance.now());
