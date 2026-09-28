@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { testToFileName } from 'codeceptjs/lib/mocha/test';
@@ -32,12 +32,45 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
     const href = linkTo(file);
     return `<a class="artifact-link" href="${xmlEscape(href)}" title="${xmlEscape(href)}" target="_blank" rel="noopener">${label}</a>`;
   };
-  const screenshotSpan = file => {
+  const screenshotSpan = (file, label = 'Screenshot', linkedScreenshots) => {
     if (!file || !existsSync(file)) {
       return '';
     }
 
-    return `<span class="failed">${artifactLink('(Screenshot)', file)}</span> `;
+    linkedScreenshots?.add(file);
+    return `<span class="failed">(${artifactLink(label, file)})</span> `;
+  };
+  const numberedScreenshotSpans = (files, linkedScreenshots) =>
+    files.map((file, index) => screenshotSpan(file, `Screenshot ${index + 1}`, linkedScreenshots)).join('');
+  const testScreenshotSpans = (files, linkedScreenshots) =>
+    files.length === 1
+      ? screenshotSpan(files[0], 'Screenshot', linkedScreenshots)
+      : numberedScreenshotSpans(files, linkedScreenshots);
+  const featureScreenshots = new Map();
+  const loadFeatureScreenshots = async reportFile => {
+    const directory = path.dirname(reportFile);
+    if (featureScreenshots.has(directory)) {
+      return featureScreenshots.get(directory);
+    }
+
+    try {
+      const files = (await readdir(directory, { withFileTypes: true }))
+        .filter(entry => entry.isFile() && entry.name.toLowerCase().endsWith('.png'))
+        .map(entry => path.join(directory, entry.name))
+        .sort();
+      featureScreenshots.set(directory, files);
+      return files;
+    } catch {
+      featureScreenshots.set(directory, []);
+      return [];
+    }
+  };
+  const scenarioScreenshotMatches = (test, files) => {
+    const scenarioName = testToFileName({ title: test.name }, { suffix: '', unique: false }).toLowerCase();
+    return files.filter(file => {
+      const fileName = path.basename(file, path.extname(file)).toLowerCase();
+      return fileName.includes(scenarioName) || scenarioName.includes(fileName);
+    });
   };
   const resolveScreenshot = (reportFile, screenshotFile) => {
     if (!screenshotFile) {
@@ -47,11 +80,6 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
     const file = path.resolve(path.dirname(reportFile), screenshotFile);
     return existsSync(file) ? file : null;
   };
-  const defaultScreenshot = test =>
-    resolveScreenshot(
-      test.junitReportFile,
-      `${testToFileName({ title: test.name }, { suffix: '', unique: false })}.failed.png`
-    );
   const attribute = (attributes, name) => attributes.match(new RegExp(`${name}="([^"]*)"`))?.[1] || '';
   const formatRuntime = durationMs => {
     if (durationMs < 1000) {
@@ -70,7 +98,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
     try {
       const report = await readFile(reportFile, 'utf8');
       const suiteName = attribute(report.match(/<testsuite\b([^>]*)>/)?.[1] || '', 'name');
-      const testcasePattern = /<testcase\b([^>]*)(?:>([\s\S]*?)<\/testcase>|\/>)/g;
+      const testcasePattern = /<testcase\b([^>]*?)(?:\/>|>([\s\S]*?)<\/testcase>)/g;
       for (const match of report.matchAll(testcasePattern)) {
         const attributes = match[1];
         const body = match[2] || '';
@@ -86,6 +114,8 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
       // that cannot be read so the summary can still be generated.
     }
   }
+
+  await Promise.all([...new Set(tests.map(test => test.junitReportFile))].map(loadFeatureScreenshots));
 
   const logicalTests = [...Map.groupBy(tests, test => scenarioKey(test.featureName, test.name))].map(
     ([, scenarioAttempts]) => {
@@ -107,6 +137,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
       return Number(secondFailed) - Number(firstFailed);
     })
     .map(([featureName, featureTests]) => {
+      const linkedScreenshots = new Set();
       const renderTest = (test, tableType) => {
         const status = test.failed ? 'Failed' : 'Passed';
         const statusClass = test.failed ? 'failed' : 'passed';
@@ -117,13 +148,22 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
         const runtime = retried ? audit?.successfulAttempt?.durationMs : audit?.latest.durationMs;
         const error = getAttemptError(audit?.latest);
         const hookFailure = getHookFailure(audit?.latest);
-        const summaryScreenshot = hasRetryAudit
-          ? !retried && audit?.latest?.status === 'failed'
+        const noRetryScreenshots =
+          !hasRetryAudit && test.failed
+            ? test.name === test.featureName
+              ? featureScreenshots.get(path.dirname(test.junitReportFile)) || []
+              : scenarioScreenshotMatches(test, featureScreenshots.get(path.dirname(test.junitReportFile)) || [])
+            : [];
+        const summaryScreenshot =
+          hasRetryAudit && !retried && audit?.latest?.status === 'failed'
             ? resolveScreenshot(test.junitReportFile, audit.latest.screenshotFile)
-            : null
-          : test.failed
-            ? defaultScreenshot(test)
             : null;
+        const retryAuditFallbackScreenshots =
+          hasRetryAudit && !retried && audit?.latest?.status === 'failed' && !summaryScreenshot
+            ? test.name === test.featureName
+              ? featureScreenshots.get(path.dirname(test.junitReportFile)) || []
+              : scenarioScreenshotMatches(test, featureScreenshots.get(path.dirname(test.junitReportFile)) || [])
+            : [];
         const resultLink =
           hasRetryAudit && !retried && (audit?.latest?.status === 'passed' || audit?.latest?.status === 'failed')
             ? audit.latest.auditFile
@@ -136,7 +176,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
                 return (
                   `<tr><td class="attempt">${attempt.attempt}</td><td class="result ${getAttemptClass(attempt)}">${artifactLink(getAttemptStatus(attempt), attempt.auditFile)}</td>` +
                   `<td class="runtime">${formatRuntime(attempt.durationMs)}</td>` +
-                  `<td class="error">${getHookFailure(attempt)}${screenshotSpan(attemptScreenshot)}${xmlEscape(getAttemptError(attempt))}</td>` +
+                  `<td class="error">${getHookFailure(attempt)}${screenshotSpan(attemptScreenshot, 'Screenshot', linkedScreenshots)}${xmlEscape(getAttemptError(attempt))}</td>` +
                   '</tr>'
                 );
               })
@@ -147,9 +187,9 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
           row:
             `<tr><td class="${statusClass}">${artifactLink(status, resultLink)}</td>` +
             (showRuntime ? `<td class="runtime">${runtime === undefined ? '' : formatRuntime(runtime)}</td>` : '') +
-            `<td class="${statusClass}">${artifactLink(xmlEscape(test.name), test.junitReportFile)}${!hasRetryAudit ? screenshotSpan(summaryScreenshot) : ''}</td>` +
+            `<td class="${statusClass}${!showError ? ' noerror' : ''}">${artifactLink(xmlEscape(test.name), test.junitReportFile)}${!hasRetryAudit ? testScreenshotSpans(noRetryScreenshots, linkedScreenshots) : ''}</td>` +
             (showError
-              ? `<td class="error">${hookFailure}${screenshotSpan(summaryScreenshot)}${xmlEscape(error)}</td>`
+              ? `<td class="error">${hookFailure}${summaryScreenshot ? screenshotSpan(summaryScreenshot, 'Screenshot', linkedScreenshots) : testScreenshotSpans(retryAuditFallbackScreenshots, linkedScreenshots)}${xmlEscape(error)}</td>`
               : '') +
             '</tr>' +
             (retried ? `<tr><td class="empty"></td><td colspan="2">${attemptTable}</td></tr>` : ''),
@@ -179,6 +219,13 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
         }
       }
       flushTable();
+      const featureDirectory = path.dirname(featureTests[0].junitReportFile);
+      const unmatchedScreenshots = (featureScreenshots.get(featureDirectory) || []).filter(
+        screenshot => !linkedScreenshots.has(screenshot)
+      );
+      const unmatchedScreenshotSection = unmatchedScreenshots.length
+        ? `<div class="unmatchedScreenshots"><h4>Unmatched Screenshots:</h4>${numberedScreenshotSpans(unmatchedScreenshots)}</div>`
+        : '';
       const renderedTables = tables
         .map(
           table =>
@@ -192,6 +239,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
         `<span${featureFailedCount > 0 ? ' class="failed"' : ''}>${featureFailedCount} failed</span>)`;
       return (
         `<h3 class="featureTitle">${xmlEscape(featureName)}</h3><div class="featureSummary">${featureSummary}</div>` +
+        unmatchedScreenshotSection +
         renderedTables
       );
     })
@@ -205,8 +253,9 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
 <style>:root[data-theme="dark"]{color-scheme:dark;--background:#1F1F21;--foreground:#CECfD2;--muted-border:#505357;--passed:#65d184;--failed:#ff8585}</style>
 <style>html{background:var(--background)}body{background:var(--background);color:var(--foreground);font:16px sans-serif;margin:2rem}</style>
 <style>.artifact-link{color:inherit}.artifact-link:visited{font-weight:bold}</style>
-<style>table{border-collapse:collapse;width:100%;margin-bottom:0.5rem}thead > tr:first-child{border-bottom:1px solid var(--muted-border)}th,td{border:none;border-right:1px solid var(--muted-border);min-width:max-content;padding:.5rem .75rem;text-align:left}th:first-child:not(.attempt),td:first-child:not(.attempt){padding-left:0;}th.attempt,td.attempt,th.result,td.result,th.runtime,td.runtime{text-align:center;}td.empty{min-width:1%;padding:0;border-right:none}th:last-child,td:last-child{width:100%;min-width:initial;padding-right:0;border-right:none}</style>
+<style>table{border-collapse:collapse;width:100%;margin-bottom:0.5rem}thead > tr:first-child{border-bottom:1px solid var(--muted-border)}th,td{border:none;border-right:1px solid var(--muted-border);min-width:max-content;padding:.5rem .75rem;text-align:left}th:first-child:not(.attempt),td:first-child:not(.attempt){padding-left:0;}th.attempt,td.attempt,th.result,td.result,th.runtime,td.runtime{text-align:center;}td.noerror > span.failed{margin-left: .25rem;}td.empty{min-width:1%;padding:0;border-right:none}th:last-child,td:last-child{width:100%;min-width:initial;padding-right:0;border-right:none}</style>
 <style>.passed{color:var(--passed)}.failed{color:var(--failed)}.featureTitle{display:inline-block;margin-top:2.75rem;margin-bottom:.75rem;margin-right:.25rem}.featureTitle:first-of-type{margin-top:0}.featureSummary{font-size:1.1rem;display:inline-block}.totalSummary{font-size:1.1rem}hr{margin-top:1.3575rem;margin-bottom:1.3575rem;border:0 transparent;border-top:1px solid var(--muted-border)}</style>
+<style>.unmatchedScreenshots{ margin-bottom: .75rem;}.unmatchedScreenshots > h4{ display: inline-block; margin: .25rem .25rem 0 0}</style>
 <style>#themeToggle{position:absolute;top:1rem;right:1rem;z-index:1;border:1px solid var(--muted-border);border-radius:.35rem;background:var(--background);color:var(--foreground);cursor:pointer;font:inherit;width:2.5rem;height:2.5rem;padding:0;font-size:0}#themeToggle:focus-visible{outline:2px solid var(--foreground);outline-offset:2px}</style>
 <style>#themeToggle::before{font-size:1.5rem;content:'☾'}:root[data-theme="dark"] #themeToggle::before{content:'☀'}@media(prefers-color-scheme:dark){:root:not([data-theme]) #themeToggle::before{content:'☀'}}</style>
 </head><body><button id="themeToggle" type="button" aria-label="Switch to dark theme"></button><h1>Functional test report</h1>
