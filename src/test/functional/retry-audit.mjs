@@ -16,6 +16,8 @@ const isCurrentHookTest = test => {
   return currentTest === test || (currentTest?.uid && currentTest.uid === test.uid);
 };
 
+const isTrackableTest = test => Boolean(test?.uid);
+
 export const getDurationMs = (test, startedAt, endedAt = performance.now()) => {
   if (Number.isFinite(test?.duration) && test.duration > 0) {
     return test.duration;
@@ -49,7 +51,7 @@ const getTestDetails = test => ({
 });
 
 const writeAttempt = (test, status, error, hookName) => {
-  if (!test?.uid) {
+  if (!isTrackableTest(test)) {
     return;
   }
 
@@ -81,14 +83,15 @@ const deferWriteAttempt = (...args) => {
 
 export default function retryAudit() {
   const recordAttemptStart = test => {
-    if (test?.uid) {
+    if (isTrackableTest(test)) {
       attemptStarts.set(getAttemptKey(test), performance.now());
     }
   };
 
   // A Before hook can fail before CodeceptJS emits test.started.
-  event.dispatcher.on(event.test.before, recordAttemptStart);
-  event.dispatcher.on(event.test.started, recordAttemptStart);
+  for (const eventName of [event.test.before, event.test.started]) {
+    event.dispatcher.on(eventName, recordAttemptStart);
+  }
 
   event.dispatcher.on(event.test.finished, test => {
     const status = test.err || test.state === 'failed' ? 'failed' : test.state === 'skipped' ? 'skipped' : 'passed';
