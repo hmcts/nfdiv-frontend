@@ -83,6 +83,7 @@ export const form: FormContent = {
           name: 'applicant2UnableToUploadEvidence',
           label: l => l.unableToUploadEvidence,
           value: Checkbox.Checked,
+          conditionalText: l => l.cannotUploadYouCanPost,
         },
       ],
     },
