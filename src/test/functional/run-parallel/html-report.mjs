@@ -1,46 +1,6 @@
-import { readFile, readdir, writeFile } from 'node:fs/promises';
-import path from 'node:path';
+import { readFile, writeFile } from 'node:fs/promises';
 
 import { scenarioKey, xmlEscape, xmlUnescape } from './report-utils.mjs';
-
-const readRetryAudit = async retryAuditRoot => {
-  try {
-    const auditFiles = (await readdir(retryAuditRoot)).filter(file => file.endsWith('.json'));
-    const attempts = new Map();
-
-    await Promise.all(
-      auditFiles.map(async auditFile => {
-        try {
-          const audit = JSON.parse(await readFile(path.join(retryAuditRoot, auditFile), 'utf8'));
-          if (!audit.feature || !audit.scenario || typeof audit.durationMs !== 'number') {
-            return;
-          }
-
-          const key = scenarioKey(audit.feature, audit.scenario);
-          attempts.set(key, [...(attempts.get(key) || []), audit]);
-        } catch {
-          // Ignore an audit file that is incomplete or no longer valid JSON.
-        }
-      })
-    );
-
-    return new Map(
-      [...attempts].map(([key, scenarioAttempts]) => {
-        const orderedAttempts = scenarioAttempts.sort(
-          (first, second) => first.attempt - second.attempt || first.recordedAt.localeCompare(second.recordedAt)
-        );
-        const firstAttempt = orderedAttempts[0];
-        const successfulAttempt = orderedAttempts.find(
-          audit => audit.attempt > firstAttempt.attempt && firstAttempt.status !== 'passed' && audit.status === 'passed'
-        );
-        return [key, { attempts: orderedAttempts, latest: orderedAttempts.at(-1), successfulAttempt }];
-      })
-    );
-  } catch {
-    // Retry audit output is optional, so report generation still works when it is absent.
-    return new Map();
-  }
-};
 
 const getAttemptStatus = attempt =>
   attempt?.status === 'passed' ? 'Passed' : attempt?.status === 'skipped' ? 'Skipped' : 'Failed';
@@ -56,9 +16,8 @@ const getHookFailure = attempt =>
     ? `<span class="failed">(Hook failure: ${xmlEscape(attempt.hookName)})</span> `
     : '';
 
-export const createHtmlReport = async (reportFiles, retryAuditRoot, outputFile) => {
+export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
   const tests = [];
-  const retryAudit = await readRetryAudit(retryAuditRoot);
   const hasRetryAudit = retryAudit.size > 0;
   const attribute = (attributes, name) => attributes.match(new RegExp(`${name}="([^"]*)"`))?.[1] || '';
   const formatRuntime = durationMs => {

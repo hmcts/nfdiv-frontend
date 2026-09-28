@@ -5,7 +5,8 @@ import { fileURLToPath } from 'node:url';
 
 import { createHtmlReport } from './run-parallel/html-report.mjs';
 import { createAggregateJunitReport, ensureJunitReport } from './run-parallel/junit-report.mjs';
-import { featureReportDirectoryName } from './run-parallel/report-utils.mjs';
+import { featureReportDirectoryName, loadRetryAudit } from './run-parallel/report-utils.mjs';
+import { createRetryAuditReport } from './run-parallel/retry-audit-report.mjs';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const featuresDir = path.join(projectRoot, 'src/test/functional/features');
@@ -21,6 +22,7 @@ const features = (await readdir(featuresDir))
 
 const reportsRoot = path.join(projectRoot, 'functional-output/functional/reports');
 const retryAuditRoot = path.join(projectRoot, 'functional-output/functional/retry-audit');
+const retryAuditReportFile = path.join(reportsRoot, 'retry-audit-result.xml');
 
 const featureDescriptors = await Promise.all(
   features.map(async feature => {
@@ -125,8 +127,10 @@ const aggregateJunitFile = path.join(reportsRoot, 'result.xml');
 const htmlReportFile = path.join(reportsRoot, 'Functional test report.html');
 
 const createReports = async () => {
+  const retryAudit = await loadRetryAudit(retryAuditRoot);
   await createAggregateJunitReport(reportFiles, aggregateJunitFile);
-  await createHtmlReport(reportFiles, retryAuditRoot, htmlReportFile);
+  await createHtmlReport(reportFiles, retryAudit, htmlReportFile);
+  await createRetryAuditReport(retryAudit, retryAuditReportFile);
 };
 
 if (process.env.FUNCTIONAL_REPORT_ONLY === 'true') {
