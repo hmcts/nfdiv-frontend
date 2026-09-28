@@ -16,7 +16,6 @@ const isCurrentHookTest = test => {
   return currentTest === test || (currentTest?.uid && currentTest.uid === test.uid);
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getDurationMs = (test, startedAt, endedAt = performance.now()) => {
   if (Number.isFinite(test?.duration) && test.duration > 0) {
     return test.duration;
@@ -80,7 +79,6 @@ const deferWriteAttempt = (...args) => {
   queueMicrotask(() => writeAttempt(...args));
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function retryAudit() {
   const recordAttemptStart = test => {
     if (test?.uid) {
