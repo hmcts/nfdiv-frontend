@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { testToFileName } from 'codeceptjs/lib/mocha/test';
@@ -69,9 +69,16 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
     const scenarioName = testToFileName({ title: test.name }, { suffix: '', unique: false }).toLowerCase();
     return files.filter(file => {
       const fileName = path.basename(file, path.extname(file)).toLowerCase();
-      return fileName.includes(scenarioName) || scenarioName.includes(fileName);
+      const retryAuditFileName = fileName.replace(/\.attempt_\d+\.failed$/, '');
+      return (
+        fileName.includes(scenarioName) ||
+        scenarioName.includes(fileName) ||
+        retryAuditFileName.includes(scenarioName) ||
+        scenarioName.includes(retryAuditFileName)
+      );
     });
   };
+  const uniqueScreenshots = files => [...new Set(files.filter(Boolean))];
   const resolveScreenshot = (reportFile, screenshotFile) => {
     if (!screenshotFile) {
       return null;
@@ -148,21 +155,22 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
         const runtime = retried ? audit?.successfulAttempt?.durationMs : audit?.latest.durationMs;
         const error = getAttemptError(audit?.latest);
         const hookFailure = getHookFailure(audit?.latest);
-        const noRetryScreenshots =
-          !hasRetryAudit && test.failed
-            ? test.name === test.featureName
-              ? featureScreenshots.get(path.dirname(test.junitReportFile)) || []
-              : scenarioScreenshotMatches(test, featureScreenshots.get(path.dirname(test.junitReportFile)) || [])
+        const screenshots = featureScreenshots.get(path.dirname(test.junitReportFile)) || [];
+        const nameMatchedScreenshots =
+          test.name === test.featureName ? screenshots : scenarioScreenshotMatches(test, screenshots);
+        const auditScreenshots = retried
+          ? audit.attempts
+              .filter(attempt => attempt.status === 'failed')
+              .map(attempt => resolveScreenshot(test.junitReportFile, attempt.screenshotFile))
+          : audit?.latest?.status === 'failed'
+            ? [resolveScreenshot(test.junitReportFile, audit.latest.screenshotFile)]
             : [];
-        const summaryScreenshot =
+        const validAuditScreenshots = uniqueScreenshots(auditScreenshots);
+        const matchedScreenshots = nameMatchedScreenshots.filter(file => !validAuditScreenshots.includes(file));
+        const noRetryScreenshots = !hasRetryAudit && test.failed ? nameMatchedScreenshots : [];
+        const summaryScreenshots =
           hasRetryAudit && !retried && audit?.latest?.status === 'failed'
-            ? resolveScreenshot(test.junitReportFile, audit.latest.screenshotFile)
-            : null;
-        const retryAuditFallbackScreenshots =
-          hasRetryAudit && !retried && audit?.latest?.status === 'failed' && !summaryScreenshot
-            ? test.name === test.featureName
-              ? featureScreenshots.get(path.dirname(test.junitReportFile)) || []
-              : scenarioScreenshotMatches(test, featureScreenshots.get(path.dirname(test.junitReportFile)) || [])
+            ? uniqueScreenshots([...validAuditScreenshots, ...matchedScreenshots])
             : [];
         const resultLink =
           hasRetryAudit && !retried && (audit?.latest?.status === 'passed' || audit?.latest?.status === 'failed')
@@ -182,14 +190,21 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
               })
               .join('')
           : '';
+        const retriedTestScreenshots = retried ? matchedScreenshots : [];
         const attemptTable = `<table class="attempts"><thead><tr><th class="attempt">Attempt</th><th class="result">Result</th><th class="runtime">Runtime</th><th class="error">Error</th></tr></thead><tbody>${attemptRows}</tbody></table>`;
         return {
           row:
             `<tr><td class="${statusClass}">${artifactLink(status, resultLink)}</td>` +
             (showRuntime ? `<td class="runtime">${runtime === undefined ? '' : formatRuntime(runtime)}</td>` : '') +
-            `<td class="${statusClass}${!showError ? ' noerror' : ''}">${artifactLink(xmlEscape(test.name), test.junitReportFile)}${!hasRetryAudit ? testScreenshotSpans(noRetryScreenshots, linkedScreenshots) : ''}</td>` +
+            `<td class="${statusClass}${!showError ? ' noerror' : ''}">${artifactLink(xmlEscape(test.name), test.junitReportFile)}${
+              !hasRetryAudit
+                ? testScreenshotSpans(noRetryScreenshots, linkedScreenshots)
+                : retriedTestScreenshots.length
+                  ? testScreenshotSpans(retriedTestScreenshots, linkedScreenshots)
+                  : ''
+            }</td>` +
             (showError
-              ? `<td class="error">${hookFailure}${summaryScreenshot ? screenshotSpan(summaryScreenshot, 'Screenshot', linkedScreenshots) : testScreenshotSpans(retryAuditFallbackScreenshots, linkedScreenshots)}${xmlEscape(error)}</td>`
+              ? `<td class="error">${hookFailure}${testScreenshotSpans(summaryScreenshots, linkedScreenshots)}${xmlEscape(error)}</td>`
               : '') +
             '</tr>' +
             (retried ? `<tr><td class="empty"></td><td colspan="2">${attemptTable}</td></tr>` : ''),
