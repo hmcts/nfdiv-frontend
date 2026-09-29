@@ -3,7 +3,10 @@ import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
 import {
+  ADDRESS_PRIVATE,
+  CHECK_ANSWERS_URL,
   DRAFT_SAVE_AND_SIGN_OUT,
+  ENTER_YOUR_ADDRESS, HOW_THE_COURTS_WILL_CONTACT_YOU,
   PAYMENT_CALLBACK_URL,
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   SAVE_AND_SIGN_OUT,
@@ -72,9 +75,22 @@ export class PostController<T extends AnyObject> {
   }
 
   protected getNextUrl(req: AppRequest): string {
-    return req.session.errors !== undefined && req.session.errors.length > 0
-      ? req.url
-      : getNextStepUrl(req, req.session.userCase);
+    if (req.session.errors !== undefined && req.session.errors.length > 0) {
+      return req.url;
+    }
+
+    if (req.session.cyaEditMode) {
+      if (req.url.includes(ENTER_YOUR_ADDRESS) || req.url.includes(HOW_THE_COURTS_WILL_CONTACT_YOU)) {
+        return ADDRESS_PRIVATE;
+      }
+
+      if (req.url.includes(ADDRESS_PRIVATE)) {
+        req.session.cyaEditMode = false;
+        return CHECK_ANSWERS_URL;
+      }
+    }
+
+    return getNextStepUrl(req, req.session.userCase);
   }
 
   protected saveSessionAndRedirect(req: AppRequest, res: Response): void {
