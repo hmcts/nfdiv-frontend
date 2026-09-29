@@ -1,15 +1,22 @@
 import autobind from 'autobind-decorator';
+import { Response } from 'express';
 
-import { Case, CaseWithId } from '../../../app/case/case';
+import { Case } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject } from '../../../app/controller/PostController';
+import { Form } from '../../../app/form/Form';
 import CitizenUpdateContactDetailsPostController from '../check-phone-number/post';
 
 @autobind
 export default class EnterTheirAddressPostController extends CitizenUpdateContactDetailsPostController {
-  protected async save(req: AppRequest<AnyObject>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+  protected async saveAndContinue(
+    req: AppRequest<AnyObject>,
+    res: Response,
+    form: Form,
+    formData: Partial<Case>
+  ): Promise<void> {
     formData.applicant2AddressOverseas ??= YesOrNo.NO;
-    return super.save(req, formData, eventName);
+    await super.saveAndContinue(req, res, form, formData);
   }
 }

@@ -33,7 +33,7 @@ Feature: Update contact details
     And I type "UK"
 
     When I click "Continue"
-    Then the page URL should be "/address-private"
+    Then the page URL should be "/update-address-private"
     Given I clear the form
     And I select "I do not need my contact details kept private"
 
@@ -65,7 +65,7 @@ Feature: Update contact details
     And I type "UK"
 
     When I click "Continue"
-    Then the page URL should be "/address-private"
+    Then the page URL should be "/update-address-private"
     Given I clear the form
     And I select "I do not need my contact details kept private"
 

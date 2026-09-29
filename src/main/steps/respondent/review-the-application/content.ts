@@ -5,6 +5,16 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/review-the-application/content';
 import { checkboxToBoolean } from '../../common/content.utils';
 
+const en = () => ({
+  changesToDetails:
+    'If any of your contact details are incorrect, you will be able to update them after you confirm that you have read the application.',
+});
+
+const cy = () => ({
+  changesToDetails:
+    'Os bydd unrhyw fanylion cyswllt gennych yn anghywir, byddwch yn gallu eu diweddaru ar ôl ichi gadarnhau eich bod wedi darllen y cais.',
+});
+
 export const form: FormContent = {
   fields: userCase => {
     const shouldDisableCheckbox = checkboxToBoolean(userCase.confirmReadPetition);
@@ -31,8 +41,16 @@ export const form: FormContent = {
   },
 };
 
+const languages = {
+  en,
+  cy,
+};
+
 export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language]();
+
   return {
+    ...translations,
     ...applicant1GenerateContent(content),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
