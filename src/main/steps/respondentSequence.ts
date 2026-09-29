@@ -43,16 +43,21 @@ const sequence: Step[] = [
   },
   {
     url: CONFIRM_CONTACT_DETAILS,
-    getNextStep: data =>
-      data.applicant2ConfirmContactDetails === YesOrNo.NO ? ADDRESS_PRIVATE : HOW_DO_YOU_WANT_TO_RESPOND,
+    getNextStep: () => ADDRESS_PRIVATE,
   },
   {
     url: ADDRESS_PRIVATE,
-    getNextStep: data => (data.applicant2AddressPrivate === YesOrNo.NO ? ENTER_YOUR_ADDRESS : IN_REFUGE),
+    getNextStep: data =>
+      data.applicant2AddressPrivate === YesOrNo.YES
+        ? IN_REFUGE
+        : data.applicant2ConfirmContactDetails === YesOrNo.NO
+          ? ENTER_YOUR_ADDRESS
+          : HOW_DO_YOU_WANT_TO_RESPOND,
   },
   {
     url: IN_REFUGE,
-    getNextStep: () => ENTER_YOUR_ADDRESS,
+    getNextStep: data =>
+      data.applicant2ConfirmContactDetails === YesOrNo.NO ? ENTER_YOUR_ADDRESS : HOW_DO_YOU_WANT_TO_RESPOND,
   },
   {
     url: ENTER_YOUR_ADDRESS,
