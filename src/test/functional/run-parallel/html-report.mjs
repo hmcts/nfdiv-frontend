@@ -145,14 +145,25 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
     })
     .map(([featureName, featureTests]) => {
       const linkedScreenshots = new Set();
+      const getResultColumnCount = test => {
+        if (!hasRetryAudit) {
+          return 2;
+        }
+
+        const audit = retryAudit.get(scenarioKey(test.featureName, test.name));
+        const retried = audit?.attempts.some(attempt => attempt.attempt > 1);
+        return 3 + Number(test.failed && !retried);
+      };
       const renderTest = (test, tableType) => {
         const status = test.failed ? 'Failed' : 'Passed';
         const statusClass = test.failed ? 'failed' : 'passed';
         const audit = retryAudit.get(scenarioKey(test.featureName, test.name));
         const retried = audit?.attempts.some(attempt => attempt.attempt > 1);
-        const showRuntime = hasRetryAudit && tableType !== 'retried';
+        const showRuntime = hasRetryAudit;
         const showError = hasRetryAudit && tableType === 'failure';
-        const runtime = retried ? audit?.successfulAttempt?.durationMs : audit?.latest.durationMs;
+        const runtime = retried
+          ? audit.attempts.reduce((total, attempt) => total + attempt.durationMs, 0)
+          : audit?.latest.durationMs;
         const error = getAttemptError(audit?.latest);
         const hookFailure = getHookFailure(audit?.latest);
         const screenshots = featureScreenshots.get(path.dirname(test.junitReportFile)) || [];
@@ -196,7 +207,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
           row:
             `<tr><td class="${statusClass}">${artifactLink(status, resultLink)}</td>` +
             (showRuntime ? `<td class="runtime">${runtime === undefined ? '' : formatRuntime(runtime)}</td>` : '') +
-            `<td class="${statusClass}${!showError ? ' noerror' : ''}">${artifactLink(xmlEscape(test.name), test.junitReportFile)}${
+            `<td class="${statusClass}${!showError ? ' noerror' : ''}">${xmlEscape(test.name)}${
               !hasRetryAudit
                 ? testScreenshotSpans(noRetryScreenshots, linkedScreenshots)
                 : retriedTestScreenshots.length
@@ -213,20 +224,26 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
       const tables = [];
       let rows = [];
       let tableType = null;
+      let tableColumnCount = null;
       const flushTable = () => {
         if (rows.length > 0) {
           tables.push({ rows, tableType });
           rows = [];
+          tableColumnCount = null;
         }
       };
       for (const test of featureTests) {
         const audit = retryAudit.get(scenarioKey(test.featureName, test.name));
         const retried = audit?.attempts.some(attempt => attempt.attempt > 1);
-        const nextTableType = retried ? 'retried' : test.failed ? 'failure' : 'normal';
-        if (rows.length > 0 && tableType !== nextTableType) {
+        const nextTableType = hasRetryAudit ? (retried ? 'retried' : test.failed ? 'failure' : 'normal') : 'normal';
+        const resultColumnCount = getResultColumnCount(test);
+        if (rows.length > 0 && tableColumnCount !== resultColumnCount) {
           flushTable();
         }
-        tableType = nextTableType;
+        if (rows.length === 0) {
+          tableType = nextTableType;
+          tableColumnCount = resultColumnCount;
+        }
         const renderedTest = renderTest(test, tableType);
         rows.push(renderedTest.row);
         if (retried) {
@@ -244,7 +261,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
       const renderedTables = tables
         .map(
           table =>
-            `<table><thead><tr><th>Result</th>${hasRetryAudit && table.tableType !== 'retried' ? '<th class="runtime">Runtime</th>' : ''}<th>Test</th>${hasRetryAudit && table.tableType === 'failure' ? '<th class="error">Error</th>' : ''}</tr></thead>` +
+            `<table><thead><tr><th>Result</th>${hasRetryAudit ? '<th class="runtime">Runtime</th>' : ''}<th>Test</th>${hasRetryAudit && table.tableType === 'failure' ? '<th class="error">Error</th>' : ''}</tr></thead>` +
             `<tbody>${table.rows.join('\n')}</tbody></table>`
         )
         .join('\n');
@@ -255,7 +272,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
       const featureStatus =
         featureFailedCount > 0 ? '<h3 class="featureStatus failed">✗</h3>' : '<h3 class="featureStatus passed">✓</h3>';
       return (
-        `<div class="featureResultsContainer"><div class="featureTitleContainer">${featureStatus}<h3 class="featureTitle">${xmlEscape(featureName)}</h3><div class="featureSummary">${featureSummary}</div></div>` +
+        `<div class="featureResultsContainer"><div class="featureTitleContainer">${featureStatus}<h3 class="featureTitle">${artifactLink(xmlEscape(featureName), featureTests[0].junitReportFile)}</h3><div class="featureSummary">${featureSummary}</div></div>` +
         unmatchedScreenshotSection +
         `${renderedTables}</div>`
       );
