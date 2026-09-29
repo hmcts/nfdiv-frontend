@@ -6,23 +6,28 @@
 {% block head %}
   {% include "./webpack/css.njk" %}
   <!-- {{ userCase.id }} -->
+  {% if globals.enableTracking == true %}
   <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  <meta name="gtm-one-time" content="{{ nonce }}">
+  <script nonce="{{ nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-WG59GG2');</script>
   <!-- End Google Tag Manager -->
+  {% endif %}
   <!-- Dynatrace -->
   <script type="text/javascript" src="{{ globals.dynatrace.dynatraceUrl }}" crossorigin="anonymous"></script>
   <!-- End Dynatrace -->
 {% endblock %}
 
 {% block bodyStart %}
+ {% if globals.enableTracking == true %}
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WG59GG2"
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+  {% endif %}
 {% endblock %}
 
 {% block header %}
