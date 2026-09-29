@@ -252,10 +252,12 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
       const featureSummary =
         `(${featureTests.length} test${featureTests.length > 1 ? 's' : ''}: <span${featureTests.length - featureFailedCount > 0 ? ' class="passed"' : ''}>${featureTests.length - featureFailedCount} passed</span>, ` +
         `<span${featureFailedCount > 0 ? ' class="failed"' : ''}>${featureFailedCount} failed</span>)`;
+      const featureStatus =
+        featureFailedCount > 0 ? '<h3 class="featureStatus failed">✗</h3>' : '<h3 class="featureStatus passed">✓</h3>';
       return (
-        `<h3 class="featureTitle">${xmlEscape(featureName)}</h3><div class="featureSummary">${featureSummary}</div>` +
+        `<div class="featureResultsContainer"><div class="featureTitleContainer">${featureStatus}<h3 class="featureTitle">${xmlEscape(featureName)}</h3><div class="featureSummary">${featureSummary}</div></div>` +
         unmatchedScreenshotSection +
-        renderedTables
+        `${renderedTables}</div>`
       );
     })
     .join('\n');
@@ -268,13 +270,13 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
 <style>:root[data-theme="dark"]{color-scheme:dark;--background:#1F1F21;--foreground:#CECfD2;--muted-border:#505357;--passed:#65d184;--failed:#ff8585}</style>
 <style>html{background:var(--background)}body{background:var(--background);color:var(--foreground);font:16px sans-serif;margin:2rem}</style>
 <style>.artifact-link{color:inherit}.artifact-link:visited{font-weight:bold}</style>
-<style>table{border-collapse:collapse;width:100%;margin-bottom:0.5rem}thead > tr:first-child{border-bottom:1px solid var(--muted-border)}th,td{border:none;border-right:1px solid var(--muted-border);min-width:max-content;padding:.5rem .75rem;text-align:left}th:first-child:not(.attempt),td:first-child:not(.attempt){padding-left:0;}th.attempt,td.attempt,th.result,td.result,th.runtime,td.runtime{text-align:center;}td.noerror > span.failed{margin-left: .25rem;}td.empty{min-width:1%;padding:0;border-right:none}th:last-child,td:last-child{width:100%;min-width:initial;padding-right:0;border-right:none}</style>
-<style>.passed{color:var(--passed)}.failed{color:var(--failed)}.featureTitle{display:inline-block;margin-top:2.75rem;margin-bottom:.75rem;margin-right:.25rem}.featureTitle:first-of-type{margin-top:0}.featureSummary{font-size:1.1rem;display:inline-block}.totalSummary{font-size:1.1rem}hr{margin-top:1.3575rem;margin-bottom:1.3575rem;border:0 transparent;border-top:1px solid var(--muted-border)}</style>
-<style>.unmatchedScreenshots{ margin-bottom: .75rem;}.unmatchedScreenshots > h4{ display: inline-block; margin: .25rem .25rem 0 0}</style>
+<style>table:last-of-type{margin-bottom: 0;}table{border-collapse:collapse;width:100%;margin-bottom:0.5rem}thead > tr:first-child{border-bottom:1px solid var(--muted-border)}th,td{border:none;border-right:1px solid var(--muted-border);min-width:max-content;padding:.5rem .75rem;text-align:left}th:first-child:not(.attempt),td:first-child:not(.attempt){padding-left:0;}th.attempt,td.attempt,th.result,td.result,th.runtime,td.runtime{text-align:center;}td.noerror > span.failed{margin-left: .25rem;}td.empty{min-width:1%;padding:0;border-right:none}th:last-child,td:last-child{width:100%;min-width:initial;padding-right:0;border-right:none}</style>
+<style>.passed{color:var(--passed)}.failed{color:var(--failed)}.featureResultsContainer{padding-top: 2.5rem; padding-left: 1.42rem; padding-bottom: 2.5rem;}.featureTitleContainer{margin-left: -1.42rem; padding-bottom:1rem;}.featureTitle,.featureStatus{display:inline-block;margin-top:0;margin-bottom:0;}.featureTitle{margin-right:.75rem}.featureStatus{width: 1.17rem;font-size:1.17rem;margin-right:.25rem}.featureSummary{font-size:1.1rem;display:inline-block}.totalSummary{font-size:1.1rem}hr{margin: 0; margin-top:1.5rem;border:0 transparent;border-top:1px solid var(--muted-border)}</style>
+<style>.unmatchedScreenshots{padding-bottom: 1rem;}.unmatchedScreenshots > h4{ display: inline-block; margin: 0 .5rem 0 0}</style>
 <style>#themeToggle{position:absolute;top:1rem;right:1rem;z-index:1;border:1px solid var(--muted-border);border-radius:.35rem;background:var(--background);color:var(--foreground);cursor:pointer;font:inherit;width:2.5rem;height:2.5rem;padding:0;font-size:0}#themeToggle:focus-visible{outline:2px solid var(--foreground);outline-offset:2px}</style>
 <style>#themeToggle::before{font-size:1.5rem;content:'☾'}:root[data-theme="dark"] #themeToggle::before{content:'☀'}@media(prefers-color-scheme:dark){:root:not([data-theme]) #themeToggle::before{content:'☀'}}</style>
-</head><body><button id="themeToggle" type="button" aria-label="Switch to dark theme"></button><h1>Functional test report</h1>
-<div class="totalSummary">${logicalTests.length} tests: <span${logicalTests.length - failedCount > 0 ? ' class="passed"' : ''}>${logicalTests.length - failedCount} passed</span>, <span${failedCount > 0 ? ' class="failed"' : ''}>${failedCount} failed.</span></div><hr>
+</head><body><div class="titleContainer"><button id="themeToggle" type="button" aria-label="Switch to dark theme"></button><h1>Functional test report</h1>
+<div class="totalSummary">${logicalTests.length} tests: <span${logicalTests.length - failedCount > 0 ? ' class="passed"' : ''}>${logicalTests.length - failedCount} passed</span>, <span${failedCount > 0 ? ' class="failed"' : ''}>${failedCount} failed.</span></div><hr></div>
 ${featureTables}<script>const root=document.documentElement;const button=document.getElementById('themeToggle');const getSystemTheme=()=>window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';const getStoredTheme=()=>{try{return localStorage.getItem('functional-report-theme')}catch{return null}};const storeTheme=theme=>{try{localStorage.setItem('functional-report-theme',theme)}catch{}};const applyTheme=theme=>{if(theme==='system'){root.removeAttribute('data-theme')}else{root.dataset.theme=theme}const isDark=(theme==='system'?getSystemTheme():theme)==='dark';button.textContent=isDark?'☀ Light':'☾ Dark';button.setAttribute('aria-label',isDark?'Switch to light theme':'Switch to dark theme')};const storedTheme=getStoredTheme();applyTheme(storedTheme==='light'||storedTheme==='dark'?storedTheme:'system');button.addEventListener('click',()=>{const currentTheme=root.dataset.theme||getSystemTheme();const theme=currentTheme==='dark'?'light':'dark';applyTheme(theme);storeTheme(theme)});</script></body></html>\n`;
   await writeFile(outputFile, html);
 };
