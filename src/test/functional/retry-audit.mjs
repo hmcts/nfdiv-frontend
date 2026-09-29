@@ -11,8 +11,10 @@ import retryAuditScreenshot, { isScreenshotRenameEnabled } from './retry-audit/r
 
 const attempts = new Map();
 const attemptStarts = new Map();
+const activeAttempts = new Map();
 const outputDir = path.resolve(process.cwd(), 'functional-output/functional/retry-audit');
 let screenshotRenamingEnabled = true;
+let processExitError = null;
 
 const getAttemptKey = test => `${threadId}:${test.uid}`;
 
@@ -81,6 +83,7 @@ const writeAttempt = (test, status, error, hookName) => {
   }
 
   const attemptKey = getAttemptKey(test);
+  activeAttempts.delete(attemptKey);
   const attempt = (attempts.get(attemptKey) || 0) + 1;
   attempts.set(attemptKey, attempt);
   const durationMs = getDurationMs(test, attemptStarts.get(attemptKey));
@@ -91,6 +94,21 @@ const writeAttempt = (test, status, error, hookName) => {
   fs.mkdirSync(outputDir, { recursive: true });
   const fileName = `${threadId}-${test.uid}-${attempt}-${randomUUID()}.json`.replace(/[^a-zA-Z0-9._-]/g, '_');
   fs.writeFileSync(path.join(outputDir, fileName), `${JSON.stringify(details, null, 2)}\n`);
+};
+
+export const flushActiveAttempts = (exitCode, error) => {
+  if (exitCode === 0) {
+    return;
+  }
+
+  for (const { test, error: activeError, hookName } of activeAttempts.values()) {
+    writeAttempt(
+      test,
+      'failed',
+      error || activeError || new Error(`Feature process exited with code ${exitCode}`),
+      hookName
+    );
+  }
 };
 
 const deferWriteAttempt = (...args) => {
@@ -104,9 +122,16 @@ export default function retryAudit() {
 
   const recordAttemptStart = test => {
     if (isTrackableTest(test)) {
-      attemptStarts.set(getAttemptKey(test), performance.now());
+      const attemptKey = getAttemptKey(test);
+      attemptStarts.set(attemptKey, performance.now());
+      activeAttempts.set(attemptKey, { test });
     }
   };
+
+  process.on('uncaughtExceptionMonitor', error => {
+    processExitError = error;
+  });
+  process.on('exit', code => flushActiveAttempts(code, processExitError));
 
   // A Before hook can fail before CodeceptJS emits test.started.
   for (const eventName of [event.test.before, event.test.started]) {
@@ -115,6 +140,12 @@ export default function retryAudit() {
 
   event.dispatcher.on(event.test.finished, test => {
     const status = test.err || test.state === 'failed' ? 'failed' : test.state === 'skipped' ? 'skipped' : 'passed';
+    if (status === 'failed') {
+      const activeAttempt = activeAttempts.get(getAttemptKey(test));
+      if (activeAttempt) {
+        activeAttempt.error = test.err;
+      }
+    }
     deferWriteAttempt(test, status, test.err);
   });
 
@@ -123,6 +154,11 @@ export default function retryAudit() {
     // CodeceptJS emits a hook failure for every test in the feature suite. Only
     // the test whose hook is running represents a real attempt.
     if (hookName && isCurrentHookTest(test)) {
+      const activeAttempt = activeAttempts.get(getAttemptKey(test));
+      if (activeAttempt) {
+        activeAttempt.error = error;
+        activeAttempt.hookName = hookName;
+      }
       deferWriteAttempt(test, 'failed', error, hookName);
     }
   });
