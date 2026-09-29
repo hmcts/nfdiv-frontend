@@ -766,9 +766,7 @@ const cy: typeof en = ({
       line6: `Sut ydych chi eisiau gwneud cais ${isDivorce ? 'am ysgariad' : "i ddod â'ch partneriaeth sifil i ben"}?`,
     },
     helpWithFees: {
-      line1: `A oes angen help arnoch i dalu'r ffi am ${
-        isDivorce ? 'eich ysgariad?' : "ddod â'ch partneriaeth sifil i ben?"
-      }`,
+      line1: 'A fyddwch chi’n defnyddio help i dalu ffioedd i dalu am y cais hwn?',
       line2: 'Cyfeirnod help i dalu ffioedd',
     },
     connectionsToEnglandWales: {
