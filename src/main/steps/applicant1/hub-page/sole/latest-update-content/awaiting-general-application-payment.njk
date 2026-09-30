@@ -1,11 +1,13 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-<p class="govuk-body">{{ awaitingGeneralApplicationPayment.line1 }}</p>
+{% if caseHasBeenIssued %}
+  <p class="govuk-body">{{ awaitingGeneralApplicationPayment.line1 }}</p>
+{% endif %}
 <p class="govuk-body">{{ awaitingGeneralApplicationPayment.line2 }}</p>
 <h3 class="govuk-heading-s">{{ awaitingGeneralApplicationPayment.doNext }}</h3>
 <p class="govuk-body">{{ awaitingGeneralApplicationPayment.line3 }}</p>
 {{ govukButton({
-    text: awaitingGeneralApplicationPayment.linkText,
-    href: awaitingGeneralApplicationPayment.linkUrl,
-    preventDoubleClick: true
+  text: awaitingGeneralApplicationPayment.linkText,
+  href: awaitingGeneralApplicationPayment.linkUrl,
+  preventDoubleClick: true
 }) }}

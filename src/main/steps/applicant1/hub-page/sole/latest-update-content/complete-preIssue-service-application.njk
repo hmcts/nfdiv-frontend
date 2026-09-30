@@ -1,0 +1,13 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+<h4 class="govuk-heading-s">{{ preIssueServiceAppSaveAndSignOut.latestUpdate }}</h4>
+<p class="govuk-body">{{ interimApplicationsSaveAndSignOut.line2 }}</p>
+<h4 class="govuk-heading-s">{{ interimApplicationsSaveAndSignOut.whatYouCanDoNext }}</h4>
+<p class="govuk-body">{{ interimApplicationsSaveAndSignOut.line3 }}</p>
+{{ govukButton({
+    text: interimApplicationsSaveAndSignOut.completeApplication,
+    href: interimApplicationStartPagePath,
+    preventDoubleClick: true
+}) }}
+<p class="govuk-body">{{ furtherActionNeeded.line2 | safe }}</p>
+<p class="govuk-body">{{ furtherActionNeeded.line3 | safe }}</p>
