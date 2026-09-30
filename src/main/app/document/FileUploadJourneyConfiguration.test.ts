@@ -1,9 +1,9 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { CaseWithId } from '../case/case';
-import { AlternativeServiceType, ApplicationType } from '../case/definition';
-import type { AppRequest } from '../controller/AppRequest';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { CaseWithId } from '../case/case.js';
+import { AlternativeServiceType, ApplicationType } from '../case/definition.js';
+import type { AppRequest } from '../controller/AppRequest.js';
 
-import { validateServiceApplicationDocumentUpload } from './FileUploadJourneyConfiguration';
+import { validateServiceApplicationDocumentUpload } from './FileUploadJourneyConfiguration.js';
 
 describe('validateServiceApplicationDocumentUpload', () => {
   let mockReq: AppRequest;

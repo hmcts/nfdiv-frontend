@@ -1,4 +1,4 @@
-import { getById } from './selectors';
+import { getById } from './selectors.js';
 
 const enableConfirmReadPetitionFieldOnSubmit = (): void => {
   const confirmReadPetitionField = getById('confirmReadPetitionId') as HTMLFormElement | null;

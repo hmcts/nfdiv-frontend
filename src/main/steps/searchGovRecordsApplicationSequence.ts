@@ -1,7 +1,7 @@
-import { CaseWithId } from '../app/case/case';
-import { YesOrNo } from '../app/case/definition';
+import { CaseWithId } from '../app/case/case.js';
+import { YesOrNo } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
+import { Step } from './applicant1Sequence.js';
 import {
   CHECK_YOUR_ANSWERS_GOV_RECORDS,
   GENERAL_APPLICATION_SUBMITTED,
@@ -20,7 +20,7 @@ import {
   SEARCH_GOV_RECORDS_HWF,
   WHICH_GOV_DEPARTMENTS,
   WHY_SEARCH_GOV_RECORDS,
-} from './urls';
+} from './urls.js';
 
 export const searchGovRecordsApplicationSequence: Step[] = [
   {

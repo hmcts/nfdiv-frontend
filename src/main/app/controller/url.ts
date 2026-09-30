@@ -1,7 +1,7 @@
 import config from 'config';
 import { Response } from 'express';
 
-import { AppRequest } from './AppRequest';
+import { AppRequest } from './AppRequest.js';
 
 export const getServiceOrigin = (req: AppRequest, res: Response): string => {
   const protocol = req.app.locals.developmentMode ? 'http://' : 'https://';

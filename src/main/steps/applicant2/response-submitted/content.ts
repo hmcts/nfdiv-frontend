@@ -1,7 +1,7 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import type { CommonContent } from '../../common/common.content';
-import { formattedCaseId } from '../../common/content.utils';
-import { generateContent as hubPageContent } from '../needs-to-confirm-joint-application/content';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import type { CommonContent } from '../../common/common.content.js';
+import { formattedCaseId } from '../../common/content.utils.js';
+import { generateContent as hubPageContent } from '../needs-to-confirm-joint-application/content.js';
 
 const en = ({ partner, feedbackLink }: CommonContent) => ({
   title: `Your ${partner} needs to confirm your joint application`,

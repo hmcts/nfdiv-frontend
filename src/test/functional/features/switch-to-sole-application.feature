@@ -4,7 +4,7 @@ Feature: Switch To Sole Application
     Given I create a new user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     And I go to "/"
-    And I click "Send for review"
+    And I click send for review
     Then the page URL should be "/application-sent-for-review"
 
   @nightly
@@ -15,15 +15,15 @@ Feature: Switch To Sole Application
     And I go to '/applicant2/check-your-joint-application'
     And I click "Yes"
 
-    When I click "Continue"
+    When I click continue
     And I go to '/applicant2/confirm-your-joint-application'
     And I clear the form
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
 
-    When I click "Submit"
+    When I click submit
     Then the page URL should be "/applicant2/response-submitted"
-    Given I click "Sign out"
+    Given I sign out
     And I login with applicant "1"
 
     When I go to '/confirm-your-joint-application'
@@ -31,13 +31,13 @@ Feature: Switch To Sole Application
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
 
-    When I click "Continue"
+    When I click continue
     And I go to '/switch-to-sole-application'
 
     When I click "Create a new application"
     Then the page URL should be "/your-details"
     Given I select "My husband"
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/irretrievable-breakdown"
 
   @nightly
@@ -56,13 +56,13 @@ Feature: Switch To Sole Application
     And I go to '/applicant2/check-your-joint-application'
     And I click "Yes"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Check your answers"
     Given I go to "/applicant2/confirm-your-joint-application"
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
 
-    When I click "Submit"
+    When I click submit
     Then the page URL should be "/applicant2/response-submitted"
     And the page should include "Your wife needs to confirm your joint application"
     Given I go to "/switch-to-sole-application"
@@ -71,7 +71,7 @@ Feature: Switch To Sole Application
     Then the page URL should be "/your-details"
     Given I select "My husband"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/irretrievable-breakdown"
 
   @nightly
@@ -85,22 +85,21 @@ Feature: Switch To Sole Application
     And I select "Explain what is incorrect or needs changing. Your answer will be sent to your wife."
     And I type "Incorrect test details"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/applicant2/your-comments-sent"
     And the page should include "Your comments have been sent to your wife"
 
-    Given I click "Sign out"
+    Given I sign out
     And I login with applicant "1"
     And I go to "/how-do-you-want-to-apply"
     And I select "I want to apply on my own, as a sole applicant"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/switch-to-sole-application"
 
     When I click "Create a new application"
     Then the page URL should be "/your-details"
     Given I select "My husband"
 
-    When I click "Continue"
+    When I click continue
     Then the page URL should be "/irretrievable-breakdown"
-

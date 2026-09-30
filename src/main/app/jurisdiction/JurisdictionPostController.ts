@@ -1,14 +1,14 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { JURISDICTION_INTERSTITIAL_URL } from '../../steps/urls';
-import { Case, CaseWithId } from '../case/case';
-import { AppRequest } from '../controller/AppRequest';
-import { AnyObject, PostController } from '../controller/PostController';
-import { Form, FormFields, FormFieldsFn } from '../form/Form';
+import autobind from '../../app/utils/autobind.js';
+import { JURISDICTION_INTERSTITIAL_URL } from '../../steps/urls.js';
+import { Case, CaseWithId } from '../case/case.js';
+import { AppRequest } from '../controller/AppRequest.js';
+import { AnyObject, PostController } from '../controller/PostController.js';
+import { FormFields, FormFieldsFn } from '../form/Form.js';
 
-import { addConnectionsBasedOnQuestions } from './connections';
-import { setUnreachableJurisdictionFieldsAsNull } from './jurisdictionRemovalHelper';
+import { addConnectionsBasedOnQuestions } from './connections.js';
+import { setUnreachableJurisdictionFieldsAsNull } from './jurisdictionRemovalHelper.js';
 
 @autobind
 export class JurisdictionPostController extends PostController<AnyObject> {
@@ -17,7 +17,7 @@ export class JurisdictionPostController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const form = new Form(<FormFields>this.fields);
+    const form = this.getForm(req);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 

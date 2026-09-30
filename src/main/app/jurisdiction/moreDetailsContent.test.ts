@@ -1,4 +1,4 @@
-import { JurisdictionConnections } from '../case/definition';
+import { JurisdictionConnections } from '../case/definition.js';
 
 import {
   cyDomicile,
@@ -8,7 +8,7 @@ import {
   enHabitualResident,
   enResidual,
   jurisdictionMoreDetailsContent,
-} from './moreDetailsContent';
+} from './moreDetailsContent.js';
 
 describe('jurisdictionMoreDetailsContent', () => {
   test('Given showAllResidences is true should return all 3 connection content', async () => {

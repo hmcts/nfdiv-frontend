@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../app/case/definition';
+import { YesOrNo } from '../../app/case/definition.js';
 
 const YesOrNoLabels: Record<YesOrNo, string> = {
   [YesOrNo.YES]: 'Yes',

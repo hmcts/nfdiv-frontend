@@ -1,9 +1,9 @@
 import striptags from 'striptags';
 
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { WITHDRAW_THIS_APPLICATION } from '../../../urls';
-import { withdrawApplicationAnswers as withdrawApplicationLabels } from '../withdraw-this-application/content';
+import { TranslationFn } from '../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../app/form/Form.js';
+import { WITHDRAW_THIS_APPLICATION } from '../../../urls.js';
+import { withdrawApplicationAnswers as withdrawApplicationLabels } from '../withdraw-this-application/content.js';
 
 const en = (confirmWithdrawApplication, withdrawApplicationReason) => ({
   title: 'Check your answers',

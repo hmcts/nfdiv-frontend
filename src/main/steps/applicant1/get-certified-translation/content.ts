@@ -1,4 +1,4 @@
-import { TranslationFn } from '../../../app/controller/GetController';
+import { TranslationFn } from '../../../app/controller/GetController.js';
 
 const en = ({ isDivorce }) => ({
   title: `You need to get a ‘certified translation’ of your ${

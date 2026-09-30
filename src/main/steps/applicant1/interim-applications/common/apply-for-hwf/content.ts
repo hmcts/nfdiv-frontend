@@ -1,9 +1,9 @@
 import config from 'config';
 
-import { InterimApplicationType } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { generateCommonContent } from '../../../../common/common.content';
+import { InterimApplicationType } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { generateCommonContent } from '../../../../common/common.content.js';
 
 const en = (serviceType: string, serviceCode: string, forTo: string) => ({
   title: 'Apply for help with fees',

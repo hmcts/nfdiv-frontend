@@ -10,7 +10,7 @@ const logger = {
 };
 Logger.getLogger.mockReturnValue(logger);
 
-import { getFee, initFees } from './get-fee';
+import { getFee, initFees } from './get-fee.js';
 
 const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 

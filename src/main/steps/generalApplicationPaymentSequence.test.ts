@@ -1,6 +1,6 @@
-import { Step } from './applicant1Sequence';
-import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence';
-import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED, SERVICE_PAYMENT_CALLBACK } from './urls';
+import { Step } from './applicant1Sequence.js';
+import { serviceApplicationPaymentSequence } from './serviceApplicationPaymentSequence.js';
+import { HUB_PAGE, PAY_YOUR_SERVICE_FEE, SERVICE_APPLICATION_SUBMITTED, SERVICE_PAYMENT_CALLBACK } from './urls.js';
 
 describe('Service Application Payment Sequence test', () => {
   describe('PAY_YOUR_SERVICE_FEE', () => {

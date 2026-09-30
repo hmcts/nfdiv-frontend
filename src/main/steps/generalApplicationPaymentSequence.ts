@@ -1,10 +1,10 @@
-import { Step } from './applicant1Sequence';
+import { Step } from './applicant1Sequence.js';
 import {
   GENERAL_APPLICATION_PAYMENT_CALLBACK,
   GENERAL_APPLICATION_SUBMITTED,
   HUB_PAGE,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
-} from './urls';
+} from './urls.js';
 
 export const generalApplicationPaymentSequence: Step[] = [
   {

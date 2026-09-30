@@ -1,11 +1,11 @@
-import { Checkbox } from '../../../app/case/case';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn, isPhoneNoValid } from '../../../app/form/validation';
+import { Checkbox } from '../../../app/case/case.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn, isPhoneNoValid } from '../../../app/form/validation.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/how-the-court-will-contact-you/content';
+} from '../../applicant1/how-the-court-will-contact-you/content.js';
 
 const labels = content => {
   return {

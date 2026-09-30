@@ -1,9 +1,9 @@
-import { PropertiesVolume } from '../main/modules/properties-volume';
+import { PropertiesVolume } from '../main/modules/properties-volume/index.js';
 import { Application } from 'express';
 import sysConfig from 'config';
-import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
-import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls';
-import { IdamUserManager } from './steps/IdamUserManager';
+import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token.js';
+import { APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL, YOUR_DETAILS_URL } from '../main/steps/urls.js';
+import { IdamUserManager } from './steps/IdamUserManager.js';
 import { createAzurePlaywrightConfig, ServiceAuth, ServiceOS } from "@azure/playwright";
 import { randomUUID } from 'crypto';
 
@@ -12,9 +12,13 @@ process.on('unhandledRejection', reason => {
   throw reason;
 });
 
-let TestUser: string;
-let TestPass: string;
-let idamUserManager: IdamUserManager;
+type TestState = {
+  TestUser: string;
+  TestPass: string;
+  idamUserManager: IdamUserManager;
+};
+
+const testState = ((globalThis as typeof globalThis & { nfdivTestState?: TestState }).nfdivTestState ??= {} as TestState);
 const LOGIN_TIMEOUT = 60;
 
 const setupTestSecrets = async () => {
@@ -29,10 +33,10 @@ const initializeTestEnvironment = async () => {
     await setupTestSecrets();
   }
 
-  getTokenFromApi();
+  await getTokenFromApi();
 
-  TestUser = generateTestUsername();
-  TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
+  testState.TestUser = generateTestUsername();
+  testState.TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
   const idamTokenUrl =
     sysConfig.has('services.idam.apiBaseUrl') && sysConfig.has('services.idam.tokenPath')
       ? new URL(
@@ -40,8 +44,7 @@ const initializeTestEnvironment = async () => {
         `${sysConfig.get('services.idam.apiBaseUrl') as string}/`
       ).toString()
       : (sysConfig.get('services.idam.tokenURL') as string);
-
-  idamUserManager = new IdamUserManager(idamTokenUrl);
+  testState.idamUserManager = new IdamUserManager(idamTokenUrl);
 };
 
 const LOGIN_HEADING = 'Sign in or create an account';
@@ -80,7 +83,7 @@ const doIdamLogin = async (I: CodeceptJS.I, username: string, password: string):
 };
 
 export const autoLogin = {
-  login: async (I: CodeceptJS.I, username = TestUser, password = TestPass, createCase = true): Promise<void> => {
+  login: async (I: CodeceptJS.I, username = testState.TestUser, password = testState.TestPass, createCase = true): Promise<void> => {
     I.amOnPage(HOME_URL);
     await doIdamLogin(I, username, password);
 
@@ -105,7 +108,7 @@ export const autoLogin = {
 };
 
 export const autoLoginForApplicant2 = {
-  login: async (I: CodeceptJS.I, username = TestUser, password = TestPass): Promise<void> => {
+  login: async (I: CodeceptJS.I, username = testState.TestUser, password = testState.TestPass): Promise<void> => {
     I.amOnPage(APPLICANT_2);
     await doIdamLogin(I, username, password);
 
@@ -132,22 +135,22 @@ export const config = {
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
   WaitForTimeout: 30000,
   GetCurrentUser: (): { username: string; password: string } => ({
-    username: idamUserManager.getCurrentUsername(),
-    password: TestPass,
+    username: testState.idamUserManager.getCurrentUsername(),
+    password: testState.TestPass,
   }),
   GetUser: (index: number): { username: string; password: string } => ({
-    username: idamUserManager.getUsername(index),
-    password: TestPass,
+    username: testState.idamUserManager.getUsername(index),
+    password: testState.TestPass,
   }),
   GetOrCreateCaseWorker: async (): Promise<{ username: string; password: string }> => {
-    let caseWorker = idamUserManager.getCaseWorker();
+    let caseWorker = testState.idamUserManager.getCaseWorker();
     if (!caseWorker) {
       caseWorker = generateTestUsername();
-      await idamUserManager.createCaseWorker(caseWorker, TestPass);
+      await testState.idamUserManager.createCaseWorker(caseWorker, testState.TestPass);
     }
     return {
       username: caseWorker,
-      password: TestPass,
+      password: testState.TestPass,
     };
   },
   login: async (I: CodeceptJS.I, userType: TestUserType) => {
@@ -159,18 +162,19 @@ export const config = {
         break;
       case TestUserType.CITIZEN_SINGLETON:
         username = generateTestUsername();
-        await idamUserManager.createUser(username, TestPass);
-        await autoLogin.login(I, username, TestPass);
+        await testState.idamUserManager.createUser(username, testState.TestPass);
+        await autoLogin.login(I, username, testState.TestPass);
         break;
       case TestUserType.CITIZEN_APPLICANT_2:
         username = generateTestUsername();
-        await idamUserManager.createUser(username, TestPass);
-        await autoLoginForApplicant2.login(I, username, TestPass);
+        await testState.idamUserManager.createUser(username, testState.TestPass);
+        await autoLoginForApplicant2.login(I, username, testState.TestPass);
         break;
     }
   },
   clearNewUsers: async (): Promise<void> => {
-    await idamUserManager.clearAndKeepOnlyOriginalUser();
+    if (!testState.idamUserManager) return;
+    await testState.idamUserManager.clearAndKeepOnlyOriginalUser();
   },
   Gherkin: {
     features: './features/**/*.feature',
@@ -186,9 +190,11 @@ export const config = {
   },
   bootstrap: async (): Promise<void> => {
     await initializeTestEnvironment();
-    await idamUserManager.createUser(TestUser, TestPass);
+    await testState.idamUserManager.createUser(testState.TestUser, testState.TestPass);
   },
-  teardown: async (): Promise<void> => idamUserManager.deleteAll(),
+  teardown: async (): Promise<void> => {
+    if (testState.idamUserManager) await testState.idamUserManager.deleteAll();
+  },
   helpers: {},
 };
 
@@ -205,18 +211,19 @@ const playwrightConfig = {
   waitForNavigation: 'load',
   ignoreHTTPSErrors: true,
   bypassCSP: true,
-}
+};
 
 config.helpers = {
   Playwright: {
     ...playwrightConfig,
-    chromium: process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN && createAzurePlaywrightConfig(
-      playwrightConfig, {
-      connectTimeout: config.WaitForTimeout,
-      os: ServiceOS.LINUX,
-      serviceAuthType: ServiceAuth.ACCESS_TOKEN,
-      exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
-      runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
-    }),
+    chromium:
+      process.env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN &&
+      createAzurePlaywrightConfig(playwrightConfig, {
+        connectTimeout: config.WaitForTimeout,
+        os: ServiceOS.LINUX,
+        serviceAuthType: ServiceAuth.ACCESS_TOKEN,
+        exposeNetwork: process.env.TEST_URL ? '*.platform.hmcts.net' : '<loopback>',
+        runId: process.env.PLAYWRIGHT_SERVICE_RUN_ID,
+      }),
   },
 };

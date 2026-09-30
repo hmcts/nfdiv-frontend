@@ -1,8 +1,8 @@
 import { Application, NextFunction, Request, Response } from 'express';
 import { LoggerInstance } from 'winston';
 
-import { AppRequest } from '../../app/controller/AppRequest';
-import { ErrorController } from '../../steps/error/error.controller';
+import { AppRequest } from '../../app/controller/AppRequest.js';
+import { ErrorController } from '../../steps/error/error.controller.js';
 
 const errorController = new ErrorController();
 

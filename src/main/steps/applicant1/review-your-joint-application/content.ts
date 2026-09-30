@@ -1,21 +1,21 @@
 import config from 'config';
 
-import { getFormattedCaseDate, getFormattedDate } from '../../../app/case/answers/formatDate';
-import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent';
+import { getFormattedCaseDate, getFormattedDate } from '../../../app/case/answers/formatDate.js';
+import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { connectionBulletPointsUserReads } from '../../../app/jurisdiction/bulletedPointsContent.js';
 import {
   cyDomicile,
   cyHabitualResident,
   enDomicile,
   enHabitualResident,
-} from '../../../app/jurisdiction/moreDetailsContent';
-import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields, getName } from '../../common/content.utils';
-import { APPLICANT_2, CHECK_CONTACT_DETAILS } from '../../urls';
+} from '../../../app/jurisdiction/moreDetailsContent.js';
+import { CommonContent } from '../../common/common.content.js';
+import { accessibleDetailsSpan, formattedCaseId, getAppSolAddressFields, getName } from '../../common/content.utils.js';
+import { APPLICANT_2, CHECK_CONTACT_DETAILS } from '../../urls.js';
 
 const en = ({ isApplicant2, isDivorce, userCase, partner, required, isJointApplication }: CommonContent) => ({
   title: `Review your joint ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,

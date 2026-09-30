@@ -1,10 +1,13 @@
-import { AxiosResponse } from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import { Logger, transports } from 'winston';
+/* eslint-disable no-console */
 
-import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc';
-import { Case } from '../../main/app/case/case';
-import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
+import { AxiosResponse } from 'axios';
+import { inject, pause } from 'codeceptjs';
+import { jwtDecode } from 'jwt-decode';
+import winston from 'winston';
+
+import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc.js';
+import { CaseApi, getCaseApi } from '../../main/app/case/case-api.js';
+import { Case } from '../../main/app/case/case.js';
 import {
   CASEWORKER_ISSUE_APPLICATION,
   CASEWORKER_REQUEST_FOR_INFORMATION,
@@ -13,20 +16,22 @@ import {
   DivorceOrDissolution,
   SYSTEM_UPDATE_CASE_COURT_HEARING,
   State,
-} from '../../main/app/case/definition';
-import { toApiFormat } from '../../main/app/case/to-api-format';
-import { UserDetails } from '../../main/app/controller/AppRequest';
-import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
-import { SupportedLanguages } from '../../main/modules/i18n';
-import { APPLICANT_1, APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
-import { TestUserType, autoLogin, config as testConfig } from '../config';
+} from '../../main/app/case/definition.js';
+import { toApiFormat } from '../../main/app/case/to-api-format.js';
+import { UserDetails } from '../../main/app/controller/AppRequest.js';
+import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections.js';
+import { SupportedLanguages } from '../../main/modules/i18n/index.js';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  CHECK_JURISDICTION,
+  ENTER_YOUR_ACCESS_CODE,
+  HOME_URL,
+} from '../../main/steps/urls.js';
+import { TestUserType, autoLogin, config as testConfig } from '../config.js';
 
 const { I } = inject();
-
-Before(test => {
-  // Retry failed scenarios x times
-  test.retries(3);
-});
+const { Logger, transports } = winston;
 
 After(async () => {
   await testConfig.clearNewUsers();
@@ -42,7 +47,7 @@ export const iAmOnPage = (text: string): void => {
 Given('I go to {string}', iAmOnPage);
 
 Then('the page URL should be {string}', (url: string) => {
-  I.waitInUrl(url);
+  iWaitInPath(url);
 });
 
 Given('I login', async () => {
@@ -71,13 +76,21 @@ export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?
   I.click(locator || text);
 };
 
+export const iWaitInPath = (path: string, wait?: number): void => {
+  I.waitForFunction(expectedPath => window.location.pathname.includes(expectedPath), [path], wait);
+};
+
 export const iClickElement = (elemId: string, wait?: number): void => {
   I.waitForElement(elemId, wait);
   I.click(elemId);
 };
 
-export const iClickSubmit = (): void => {
-  iClickElement('#main-form-submit');
+export const iClickSubmit = async (): Promise<void> => {
+  const submitSelector = await I.executeScript(() =>
+    document.querySelector('#main-form-submit') ? '#main-form-submit' : 'button[type="submit"]'
+  );
+
+  iClickElement(submitSelector as string);
 };
 
 export const iRejectCookies = (): void => {
@@ -133,6 +146,10 @@ Then('the page should include visible element {string}', (elemId: string) => {
 When('I select element {string}', iClickElement);
 When('I click element {string}', iClickElement);
 
+When('I click back', () => {
+  iClickElement('a.govuk-back-link');
+});
+
 When('I click start', () => {
   iClickElement('.govuk-button--start');
 });
@@ -147,6 +164,19 @@ When('I click send for review', iClickSubmit);
 When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
 When('I click accept and send', iClickSubmit);
+When('I click apply for conditional order', () => {
+  iClickElement('#applyForConditionalOrderButton');
+});
+When('I click apply for final order', () => {
+  iClickElement('#applyForFinalOrderButton');
+});
+When('I click confirm', iClickSubmit);
+When('I click continue to the next steps', () => {
+  iClickElement('a.govuk-button[href="/return-to-service"]');
+});
+When('I click respond to the application', () => {
+  iClickElement('#respondToTheApplicationButton');
+});
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
   I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");

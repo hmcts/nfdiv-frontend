@@ -10,7 +10,7 @@ const logger = {
 };
 Logger.getLogger.mockReturnValue(logger);
 
-import { getServiceAuthToken, initAuthToken } from './get-service-auth-token';
+import { getServiceAuthToken, initAuthToken } from './get-service-auth-token.js';
 
 const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 

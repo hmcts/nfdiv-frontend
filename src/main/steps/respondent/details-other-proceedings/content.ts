@@ -1,13 +1,15 @@
-import { isObject } from 'lodash';
+import lodash from 'lodash';
 
-import { Checkbox } from '../../../app/case/case';
-import { YesOrNo } from '../../../app/case/definition';
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { generateContent as applicant1GenerateContent } from '../../applicant1/details-other-proceedings/content';
+const { isObject } = lodash;
+
+import { Checkbox } from '../../../app/case/case.js';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants.js';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { generateContent as applicant1GenerateContent } from '../../applicant1/details-other-proceedings/content.js';
 
 const labels = applicant1Content => ({
   errors: {

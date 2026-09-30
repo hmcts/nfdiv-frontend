@@ -1,9 +1,9 @@
-import { Case, CaseDate } from '../../../../../app/case/case';
-import { SearchGovRecordsWhichDepartment } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
-import { CommonContent } from '../../../../common/common.content';
+import { Case, CaseDate } from '../../../../../app/case/case.js';
+import { SearchGovRecordsWhichDepartment } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation.js';
+import { CommonContent } from '../../../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Which government departments do you need us to search for your ${partner}’s details?`,

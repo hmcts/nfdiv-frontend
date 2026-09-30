@@ -1,7 +1,7 @@
-import { State } from '../../../app/case/definition';
-import { currentStateFn } from '../../state-sequence';
+import { State } from '../../../app/case/definition.js';
+import { currentStateFn } from '../../state-sequence.js';
 
-import { getProgressBarContent } from './progressBarLabels';
+import { getProgressBarContent } from './progressBarLabels.js';
 
 describe('getProgressBarContent', () => {
   test('should return english divorce progress bar labels', () => {

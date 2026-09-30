@@ -1,9 +1,10 @@
-import { GetController } from '../../app/controller/GetController';
+import { GetController } from '../../app/controller/GetController.js';
+import { getStepTemplatePath } from '../getStepTemplatePath.js';
 
-import { generateContent } from './content';
+import { generateContent } from './content.js';
 
 export class SwitchToSoleApplicationGetController extends GetController {
   constructor() {
-    super(__dirname + '/template.njk', generateContent);
+    super(getStepTemplatePath('switch-to-sole-application', 'template.njk'), generateContent);
   }
 }

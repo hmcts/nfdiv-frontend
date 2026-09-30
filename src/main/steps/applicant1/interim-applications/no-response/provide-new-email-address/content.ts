@@ -1,7 +1,7 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
-import { hasValueChanged, isApplicant2EmailValid, isFieldFilledIn } from '../../../../../app/form/validation';
-import { CommonContent } from '../../../../common/common.content';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../../../app/form/Form.js';
+import { hasValueChanged, isApplicant2EmailValid, isFieldFilledIn } from '../../../../../app/form/validation.js';
+import { CommonContent } from '../../../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Enter your ${partner}'s new email address`,

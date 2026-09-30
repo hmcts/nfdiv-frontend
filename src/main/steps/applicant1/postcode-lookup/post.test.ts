@@ -1,8 +1,8 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { getAddressesFromPostcode } from '../../../app/postcode/postcode-lookup';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { getAddressesFromPostcode } from '../../../app/postcode/postcode-lookup.js';
 
-import { PostcodeLookupPostController } from './post';
+import { PostcodeLookupPostController } from './post.js';
 
 jest.mock('../../../app/postcode/postcode-lookup');
 

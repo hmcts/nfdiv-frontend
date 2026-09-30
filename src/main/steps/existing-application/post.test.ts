@@ -1,10 +1,10 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import * as oidc from '../../app/auth/user/oidc';
-import * as caseApi from '../../app/case/case-api';
-import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/case/definition';
-import { FormContent } from '../../app/form/Form';
-import { isFieldFilledIn } from '../../app/form/validation';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import * as oidc from '../../app/auth/user/oidc.js';
+import * as caseApi from '../../app/case/case-api.js';
+import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/case/definition.js';
+import { FormContent } from '../../app/form/Form.js';
+import { isFieldFilledIn } from '../../app/form/validation.js';
 import {
   APPLICANT_1,
   APPLICANT_2,
@@ -12,10 +12,10 @@ import {
   EXISTING_APPLICATION,
   HOME_URL,
   SAVE_AND_SIGN_OUT,
-} from '../urls';
+} from '../urls.js';
 
-import { existingOrNew } from './content';
-import { ExistingApplicationPostController } from './post';
+import { existingOrNew } from './content.js';
+import { ExistingApplicationPostController } from './post.js';
 
 jest.spyOn(oidc, 'getSystemUser').mockResolvedValue({
   accessToken: 'token',

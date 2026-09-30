@@ -1,9 +1,9 @@
-import { Case, CaseDate, Checkbox } from '../case/case';
-import { YesOrNo } from '../case/definition';
+import { Case, CaseDate, Checkbox } from '../case/case.js';
+import { YesOrNo } from '../case/definition.js';
 
-import { Form, FormContent, FormFields, FormFieldsFn } from './Form';
-import { covertToDateObject } from './parser';
-import { areDateFieldsFilledIn, isFieldFilledIn } from './validation';
+import { Form, FormContent, FormFields, FormFieldsFn } from './Form.js';
+import { covertToDateObject } from './parser.js';
+import { areDateFieldsFilledIn, isFieldFilledIn } from './validation.js';
 
 describe('Form', () => {
   const mockForm: FormContent = {

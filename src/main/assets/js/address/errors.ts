@@ -1,4 +1,4 @@
-import { getById, hidden } from '../selectors';
+import { getById, hidden } from '../selectors.js';
 
 export const showError = (id: string): void => {
   getById('addressErrorSummary')?.classList.remove(hidden);

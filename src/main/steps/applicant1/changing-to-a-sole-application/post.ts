@@ -1,10 +1,10 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { SWITCH_TO_SOLE_CO } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { HUB_PAGE } from '../../urls';
+import { SWITCH_TO_SOLE_CO } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
+import { HUB_PAGE } from '../../urls.js';
 
 @autobind
 export default class ChangingToASoleApplicationPostController extends PostController<AnyObject> {

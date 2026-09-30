@@ -1,11 +1,11 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { JURISDICTION_INTERSTITIAL_URL } from '../../steps/urls';
-import { CITIZEN_UPDATE, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
-import { FormContent } from '../form/Form';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { JURISDICTION_INTERSTITIAL_URL } from '../../steps/urls.js';
+import { CITIZEN_UPDATE, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition.js';
+import { FormContent } from '../form/Form.js';
 
-import { JurisdictionPostController } from './JurisdictionPostController';
-import { addConnectionsBasedOnQuestions } from './connections';
+import { JurisdictionPostController } from './JurisdictionPostController.js';
+import { addConnectionsBasedOnQuestions } from './connections.js';
 
 jest.mock('./connections');
 const addConnectionsBasedOnQuestionsMock = addConnectionsBasedOnQuestions as jest.Mock<JurisdictionConnections[]>;
@@ -32,10 +32,10 @@ describe('JurisdictionPostController', () => {
       id: '1234',
     };
     const mockFormContent = {
-      fields: {
+      fields: () => ({
         applicant2LifeBasedInEnglandAndWales: {},
         applicant1LifeBasedInEnglandAndWales: {},
-      },
+      }),
     } as unknown as FormContent;
 
     const jurisdictionController = new JurisdictionPostController(mockFormContent.fields);
@@ -73,9 +73,9 @@ describe('JurisdictionPostController', () => {
       id: '1234',
     };
     const mockFormContent = {
-      fields: {
+      fields: () => ({
         connections: {},
-      },
+      }),
     } as unknown as FormContent;
 
     const jurisdictionController = new JurisdictionPostController(mockFormContent.fields);

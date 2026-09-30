@@ -1,11 +1,11 @@
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn, isInvalidHelpWithFeesRef } from '../../../app/form/validation';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn, isInvalidHelpWithFeesRef } from '../../../app/form/validation.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/have-you-applied-for-help-with-fees/content';
+} from '../../applicant1/have-you-applied-for-help-with-fees/content.js';
 
 const labels = content => ({
   line1: '',

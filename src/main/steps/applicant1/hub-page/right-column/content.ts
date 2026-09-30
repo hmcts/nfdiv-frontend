@@ -1,6 +1,6 @@
-import { State } from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { currentStateFn } from '../../../state-sequence';
+import { State } from '../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../app/controller/GetController.js';
+import { currentStateFn } from '../../../state-sequence.js';
 
 const en = () => ({
   iWantTo: 'I want to...',
