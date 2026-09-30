@@ -1,0 +1,6 @@
+{% macro documentDeleteButton(index, csrfToken, deleteLabel) %}
+  <form action="/document-manager/delete/{{ index }}" method="post" class="govuk-!-display-inline">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    <button type="submit" class="hmcts-button-link govuk-link--no-visited-state">{{ deleteLabel }}</button>
+  </form>
+{% endmacro %}

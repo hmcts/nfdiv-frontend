@@ -84,6 +84,7 @@ export const form: FormContent = {
               classes: 'govuk-date-input',
               label: l => l.enterDateOfBirthLabel,
               hint: l => l.enterDateOfBirthHint,
+              errorId: 'applicant1BailiffPartnersDateOfBirth-day',
               values: [
                 {
                   label: language === SupportedLanguages.Cy ? 'Diwrnod' : 'Day',

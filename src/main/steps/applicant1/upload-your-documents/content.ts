@@ -4,6 +4,7 @@ import { CaseWithId, Checkbox } from '../../../app/case/case';
 import { DocumentType, YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
@@ -174,6 +175,7 @@ export const form: FormContent = {
 
     return {
       applicant1UploadedFiles: {
+        errorId: UPPY_FILE_INPUT_BUTTON_ID,
         type: 'hidden',
         label: l => l.uploadFiles,
         labelHidden: true,
@@ -184,8 +186,20 @@ export const form: FormContent = {
         parser: data => JSON.parse((data as Record<string, string>).applicant1UploadedFiles || '[]'),
         validator: (value, formData) => {
           const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-          const selectedCannotUploadDocuments = !!formData.applicant1CannotUploadDocuments?.length;
-          if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
+          const isMultiDocumentsUploadCase = Object.prototype.hasOwnProperty.call(formData, 'applicant1CannotUpload');
+
+          const app1CannotUploadDocsCheckbox = formData.applicant1CannotUpload;
+          const app1CannotUploadDocsCheckboxChecked = Array.isArray(app1CannotUploadDocsCheckbox)
+            ? app1CannotUploadDocsCheckbox.includes(Checkbox.Checked)
+            : app1CannotUploadDocsCheckbox === Checkbox.Checked;
+
+          const app1CannotUploadDocsSelected = (formData.applicant1CannotUploadDocuments as string[])?.length > 0;
+
+          const app1CannotUploadIndicated = isMultiDocumentsUploadCase
+            ? app1CannotUploadDocsCheckboxChecked && app1CannotUploadDocsSelected
+            : app1CannotUploadDocsSelected;
+
+          if (!hasUploadedFiles && !app1CannotUploadIndicated) {
             return 'notUploaded';
           }
         },
@@ -193,6 +207,7 @@ export const form: FormContent = {
       ...(checkboxes.length > 1
         ? {
             applicant1CannotUpload: {
+              errorId: UPPY_FILE_INPUT_BUTTON_ID,
               type: 'checkboxes',
               label: l => l.cannotUploadDocuments,
               labelHidden: true,

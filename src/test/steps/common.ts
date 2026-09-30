@@ -58,7 +58,7 @@ Given('I create a new user and login as applicant 2', async () => {
 });
 
 Given('I login with applicant {string}', async (applicant: string) => {
-  autoLogin.login(
+  await autoLogin.login(
     I,
     testConfig.GetUser(parseInt(applicant)).username,
     testConfig.GetUser(parseInt(applicant)).password,
@@ -184,6 +184,15 @@ Given('I type my own email address', async () => {
   const user = testConfig.GetCurrentUser();
   const testUser = await iGetTheTestUser(user);
   I.type(testUser.email);
+});
+
+Given('I use an invalid CSRF token', async () => {
+  await I.executeScript(() => {
+    const el = document.querySelector('input[name="_csrf"]');
+    if (el) {
+      el.setAttribute('value', 'invalid-token');
+    }
+  });
 });
 
 export const iClearTheForm = async (): Promise<void> => {

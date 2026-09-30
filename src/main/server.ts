@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
@@ -33,9 +34,14 @@ const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
+
+app.use((req, res, next) => {
+  res.locals.nonce = crypto.randomUUID().replace(/-/g, '');
+  next();
+});
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 
-function setCachingPolicy(res, file) {
+function setStaticCachingPolicy(res, file) {
   if (path.extname(file).match(/\.(woff2?|ttf|otf|eot|svg|png)$/i)) {
     res.setHeader('Cache-Control', 'max-age=604800'); // Cache for 1 week
   } else {
@@ -45,9 +51,17 @@ function setCachingPolicy(res, file) {
 
 app.use(
   express.static(path.join(__dirname, 'public'), {
-    setHeaders: setCachingPolicy,
+    setHeaders: setStaticCachingPolicy,
   })
 );
+
+app.use((req, res, next) => {
+  if (req.accepts('html')) {
+    res.setHeader('Cache-Control', 'no-store');
+  }
+
+  next();
+});
 
 (async () => {
   try {

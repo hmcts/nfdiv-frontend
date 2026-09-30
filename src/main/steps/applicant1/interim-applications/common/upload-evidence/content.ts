@@ -4,6 +4,7 @@ import { isObject } from 'lodash';
 import { Checkbox } from '../../../../../app/case/case';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../../../app/document/DocumentManagementConstants';
 import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
 import { generateContent as uploadDocumentGenerateContent } from '../../../../applicant1/upload-your-documents/content';
 import { CommonContent } from '../../../../common/common.content';
@@ -90,6 +91,7 @@ export const form: FormContent = {
       type: 'hidden',
       label: l => l.uploadFiles,
       labelHidden: true,
+      errorId: UPPY_FILE_INPUT_BUTTON_ID,
       value:
         (isObject(userCase.applicant1InterimAppsEvidenceUploadedFiles)
           ? JSON.stringify(userCase.applicant1InterimAppsEvidenceUploadedFiles)
@@ -107,6 +109,7 @@ export const form: FormContent = {
       type: 'checkboxes',
       label: l => l.cannotUpload,
       labelHidden: true,
+      errorId: UPPY_FILE_INPUT_BUTTON_ID,
       values: [
         {
           name: 'applicant1InterimAppsCannotUploadDocs',

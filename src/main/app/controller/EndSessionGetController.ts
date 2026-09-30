@@ -1,0 +1,25 @@
+import autobind from 'autobind-decorator';
+import { Response } from 'express';
+
+import { CommonContent } from '../../steps/common/common.content';
+import { PageLink } from '../../steps/urls';
+
+import { AppRequest } from './AppRequest';
+import { GetController } from './GetController';
+import { destroySessionAndRedirectToSignOutPage } from './signout';
+
+export type PageContent = Record<string, unknown>;
+export type TranslationFn = (content: CommonContent) => PageContent;
+
+@autobind
+export default abstract class EndSessionGetController extends GetController {
+  public async get(req: AppRequest, res: Response): Promise<void> {
+    if (!req.session.user) {
+      return super.get(req, res);
+    }
+
+    return destroySessionAndRedirectToSignOutPage(req, res, this.signoutPagePath(req));
+  }
+
+  protected abstract signoutPagePath(req: AppRequest): PageLink;
+}

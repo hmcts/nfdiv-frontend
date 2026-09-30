@@ -123,3 +123,22 @@ if (postcodeEntry && backLink) {
     }
   };
 }
+
+const errorSummary = getById('addressErrorSummary');
+if (errorSummary) {
+  new MutationObserver(() => {
+    const title = document.querySelector('title');
+    const prefix = getById('errorPrefixData')?.getAttribute('data-error-prefix') || 'Error: ';
+    const currentTitle = title?.textContent || '';
+    const hasError = !errorSummary.classList.contains(hidden);
+
+    if (title) {
+      title.textContent =
+        hasError && !currentTitle.startsWith(prefix)
+          ? prefix + currentTitle
+          : !hasError && currentTitle.startsWith(prefix)
+            ? currentTitle.replace(prefix, '')
+            : currentTitle;
+    }
+  }).observe(errorSummary, { attributes: true, attributeFilter: ['class'] });
+}

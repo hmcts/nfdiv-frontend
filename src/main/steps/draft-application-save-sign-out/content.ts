@@ -2,7 +2,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 
 const en = () => ({
   title: 'Your application has been saved',
-  applicationSentTo: 'A link to your application has been sent to:',
+  applicationSentTo: "We've emailed you a link to continue your application.",
   applicationSavedFor6Months:
     "While you're filling out or responding to an application we will hold your data for up to 6 months. If you do not complete the application during this time you'll have to start again.",
   beenSignedOut: 'You have been signed out.',
@@ -11,7 +11,7 @@ const en = () => ({
 
 const cy: typeof en = () => ({
   title: 'Mae eich cais wedi cael ei gadw',
-  applicationSentTo: 'Anfonwyd dolen sy’n arwain at eich cais i:',
+  applicationSentTo: "Rydym wedi anfon dolen atoch drwy e-bost i barhau â'ch cais.",
   applicationSavedFor6Months:
     "Tra byddwch yn llenwi neu'n ymateb i gais byddwn yn cadw eich data am hyd at 6 mis. Os na fyddwch yn cwblhau’r cais yn ystod yr amser hwn, bydd rhaid ichi ddechrau eto.",
   beenSignedOut: 'Rydych wedi cael eich allgofnodi.',

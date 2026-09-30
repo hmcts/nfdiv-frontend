@@ -20,10 +20,14 @@ if (selectAddressInput) {
   updateAddressInputs();
 
   (getById('main-form') as HTMLFormElement).onsubmit = () => {
-    updateAddressInputs();
+    const hasSelectedAddress = !getById('selectAddress')?.classList.contains(hidden);
+
+    if (hasSelectedAddress) {
+      updateAddressInputs();
+    }
     hideErrors();
 
-    if (!getById('selectAddress')?.classList.contains(hidden) && selectAddressInput.value === '-1') {
+    if (hasSelectedAddress && selectAddressInput.value === '-1') {
       showError('errorAddressNotSelected');
       return false;
     }
