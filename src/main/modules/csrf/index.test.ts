@@ -1,31 +1,33 @@
-import { csrfSync } from 'csrf-sync';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
 import type { Application } from 'express';
 
 import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls.js';
 
-import { CSRFToken } from './index.js';
-
-jest.mock('csrf-sync', () => ({
+jest.unstable_mockModule('csrf-sync', () => ({
   csrfSync: jest.fn().mockReturnValue({
     csrfSynchronisedProtection: jest.fn(),
   }),
 }));
 
+const { csrfSync } = await import('csrf-sync');
+const { CSRFToken } = await import('./index.js');
+
 describe('CSRFToken', () => {
   const app = { use: jest.fn() } as unknown as Application;
   const csrfToken = new CSRFToken();
 
-  const csrfSyncMock = csrfSync as unknown as jest.Mock;
+  const csrfSyncMock = csrfSync as unknown as jest.Mock<(...args: any[]) => any>;
   const csrfConfig = csrfSyncMock.mock.calls[0][0];
 
   beforeEach(() => {
-    (app.use as jest.Mock).mockClear();
+    (app.use as jest.Mock<(...args: any[]) => any>).mockClear();
   });
 
   test('stores generated csrf token in res.locals and calls next', () => {
     csrfToken.enableFor(app);
 
-    const tokenInjector = (app.use as jest.Mock).mock.calls[1][0];
+    const tokenInjector = (app.use as jest.Mock<(...args: any[]) => any>).mock.calls[1][0];
     const req = { csrfToken: jest.fn().mockReturnValue('csrf-token-value') };
     const res = { locals: {} as Record<string, unknown> };
     const next = jest.fn();
@@ -79,7 +81,7 @@ describe('CSRFToken', () => {
   test('redirects to csrf token error page when csrf validation fails', () => {
     csrfToken.enableFor(app);
 
-    const errorMiddleware = (app.use as jest.Mock).mock.calls[2][0];
+    const errorMiddleware = (app.use as jest.Mock<(...args: any[]) => any>).mock.calls[2][0];
     const res = { redirect: jest.fn() };
     const next = jest.fn();
 
@@ -92,7 +94,7 @@ describe('CSRFToken', () => {
   test('passes non csrf errors to next middleware', () => {
     csrfToken.enableFor(app);
 
-    const errorMiddleware = (app.use as jest.Mock).mock.calls[2][0];
+    const errorMiddleware = (app.use as jest.Mock<(...args: any[]) => any>).mock.calls[2][0];
     const res = { redirect: jest.fn() };
     const next = jest.fn();
 
@@ -102,3 +104,4 @@ describe('CSRFToken', () => {
     expect(next).toHaveBeenCalledTimes(1);
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

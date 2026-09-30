@@ -1,14 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
 import { JURISDICTION_INTERSTITIAL_URL } from '../../steps/urls.js';
 import { CITIZEN_UPDATE, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition.js';
 import { FormContent } from '../form/Form.js';
 
-import { JurisdictionPostController } from './JurisdictionPostController.js';
-import { addConnectionsBasedOnQuestions } from './connections.js';
-
-jest.mock('./connections');
-const addConnectionsBasedOnQuestionsMock = addConnectionsBasedOnQuestions as jest.Mock<JurisdictionConnections[]>;
+jest.unstable_mockModule('./connections.js', () => ({ addConnectionsBasedOnQuestions: jest.fn() }));
+const { addConnectionsBasedOnQuestions: addConnectionsBasedOnQuestionsMock } =
+  (await import('./connections.js')) as unknown as {
+    addConnectionsBasedOnQuestions: jest.Mock<(...args: any[]) => any>;
+  };
+const { JurisdictionPostController } = await import('./JurisdictionPostController.js');
 
 describe('JurisdictionPostController', () => {
   test('Should add connections field and call trigger PATCH and set unreachable fields as null', async () => {
@@ -47,7 +51,7 @@ describe('JurisdictionPostController', () => {
     };
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await jurisdictionController.post(req, res);
 
@@ -88,7 +92,7 @@ describe('JurisdictionPostController', () => {
 
     const req = mockRequest({ body });
     req.url = JURISDICTION_INTERSTITIAL_URL;
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await jurisdictionController.post(req, res);
 
@@ -99,3 +103,4 @@ describe('JurisdictionPostController', () => {
     expect(req.session.userCase).toEqual(expectedUserCase);
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

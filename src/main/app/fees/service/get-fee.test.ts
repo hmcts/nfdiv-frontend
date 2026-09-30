@@ -1,16 +1,19 @@
-jest.mock('axios');
-jest.mock('@hmcts/nodejs-logging');
+import { jest } from '@jest/globals';
+
+jest.unstable_mockModule('axios', () => jest.createMockFromModule('axios'));
+jest.unstable_mockModule('@hmcts/nodejs-logging', () => ({ Logger: { getLogger: jest.fn() } }));
 jest.useFakeTimers({ legacyFakeTimers: true });
 
-import { Logger } from '@hmcts/nodejs-logging';
-import axios, { AxiosStatic } from 'axios';
+const { Logger } = await import('@hmcts/nodejs-logging');
+const { default: axios } = await import('axios');
+type AxiosStatic = import('axios').AxiosStatic;
 const logger = {
   info: jest.fn(),
   error: jest.fn(),
 };
 Logger.getLogger.mockReturnValue(logger);
 
-import { getFee, initFees } from './get-fee.js';
+const { getFee, initFees } = await import('./get-fee.js');
 
 const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 

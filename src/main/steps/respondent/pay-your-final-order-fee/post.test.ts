@@ -1,17 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
 import { PaymentStatus, RESPONDENT_APPLY_FOR_FINAL_ORDER, State } from '../../../app/case/definition.js';
 import { PAYMENT_CALLBACK_URL, RESPONDENT, SAVE_AND_SIGN_OUT } from '../../urls.js';
 
-import PaymentPostController from './post.js';
+jest.unstable_mockModule(
+  '../../../app/payment/PaymentClient',
+  async () => import('../../../app/payment/__mocks__/PaymentClient.js')
+);
 
-jest.mock('../../../app/payment/PaymentClient');
-
-const { mockCreate, mockGet } = jest.requireMock('../../../app/payment/PaymentClient') as {
-  mockCreate: jest.Mock;
-  mockGet: jest.Mock;
+const { mockCreate, mockGet } = (await import('../../../app/payment/PaymentClient.js')) as unknown as {
+  mockCreate: jest.Mock<(...args: any[]) => any>;
+  mockGet: jest.Mock<(...args: any[]) => any>;
 };
-
+const { default: PaymentPostController } = await import('./post.js');
 describe('PaymentPostController', () => {
   const paymentController = new PaymentPostController();
 
@@ -42,14 +46,14 @@ describe('PaymentPostController', () => {
       });
       const res = mockResponse();
 
-      (req.locals.api.triggerPaymentEvent as jest.Mock).mockReturnValueOnce({
+      (req.locals.api.triggerPaymentEvent as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
         finalOrderPayments: [{ new: 'payment' }],
         applicant2FinalOrderFeeOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
       });
 
-      (mockCreate as jest.Mock).mockReturnValueOnce({
+      (mockCreate as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
         date_created: '1999-12-31T23:59:59.999Z',
         reference: 'mock ref',
         external_reference: 'mock external reference payment id',
@@ -65,7 +69,7 @@ describe('PaymentPostController', () => {
       const req = mockRequest();
       const res = mockResponse();
 
-      (req.locals.api.triggerEvent as jest.Mock).mockReturnValueOnce({
+      (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
         state: State.AwaitingFinalOrder,
         applicant2FinalOrderFeeServiceRequestReference: '/payment-callback',
         applicant2FinalOrderFeeOrderSummary: {
@@ -73,7 +77,7 @@ describe('PaymentPostController', () => {
         },
       });
 
-      (mockCreate as jest.Mock).mockReturnValueOnce({
+      (mockCreate as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
         date_created: '1999-12-31T23:59:59.999Z',
         reference: 'mock ref',
         external_reference: 'mock external reference payment id',
@@ -138,3 +142,4 @@ describe('PaymentPostController', () => {
     });
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

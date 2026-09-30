@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs.js';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
@@ -24,7 +27,7 @@ describe('ApplicationEndedGetController', () => {
   test('Should throw an error when issue encountered switching to sole', async () => {
     const req = mockRequest();
     const res = mockResponse();
-    (req.locals.api.triggerEvent as jest.Mock).mockImplementation(
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockImplementation(
       jest.fn(() => {
         throw Error;
       })
@@ -36,3 +39,4 @@ describe('ApplicationEndedGetController', () => {
     expect(req.locals.logger.error).toHaveBeenCalled();
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { Response } from 'express';
 
 import { DivorceOrDissolution } from '../../../main/app/case/definition.js';
@@ -19,7 +20,7 @@ export const mockResponse = ({ locals = {} } = {}): Response => {
   res.end = jest.fn() as unknown as Response['end'];
   res.cookie = jest.fn() as unknown as Response['cookie'];
   res.clearCookie = jest.fn() as unknown as Response['clearCookie'];
-  res.status = jest.fn().mockImplementation((code = 200) => {
+  res.status = jest.fn((code: number = 200) => {
     res.statusCode = code;
     return res;
   }) as unknown as Response['status'];
