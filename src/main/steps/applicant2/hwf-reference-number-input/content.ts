@@ -22,7 +22,8 @@ export const form: FormContent = {
         maxLength: 11,
       },
       classes: 'govuk-!-width-one-third',
-      label: l => l.enterRefNo,
+      label: l => l.title,
+      labelHidden: true,
       hint: l => `
                 <p class="govuk-label">${l.refReceivedWhenApplied}</p>
                 ${l.refExample}`,

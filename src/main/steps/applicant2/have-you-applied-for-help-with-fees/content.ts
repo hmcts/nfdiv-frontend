@@ -23,8 +23,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.yes, value: YesOrNo.YES },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: isFieldFilledIn,
     },
