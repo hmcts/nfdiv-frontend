@@ -35,6 +35,9 @@ export class GetController {
     if (req.session) {
       this.setSessionDefaults(req);
       this.setSessionOverrides(req);
+      if (req.query.fromCya === 'true') {
+        req.session.cyaEditMode = true;
+      }
     }
 
     res.render(this.view, {

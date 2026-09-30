@@ -34,6 +34,7 @@ export interface AppSession extends Session {
   fileUploadJourney?: FileUploadJourney;
   lang: SupportedLanguages | undefined;
   errors: FormError[] | undefined;
+  cyaEditMode: boolean;
 }
 
 export interface UserDetails {
