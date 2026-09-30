@@ -49,7 +49,7 @@ Connect to the VPN and run: `DEBUG=axios yarn start:dev`
 
 ## Unit tests
 
-Unit tests are written in Jest and can be started by running `yarn test`.
+Unit tests are written in Vitest and can be started by running `yarn test`.
 
 Code coverage is set at 90% and is reported by Sonar.
 

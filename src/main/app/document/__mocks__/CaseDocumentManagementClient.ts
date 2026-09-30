@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
 
 export enum Classification {
   Private = 'PRIVATE',
@@ -6,8 +6,8 @@ export enum Classification {
   Public = 'PUBLIC',
 }
 
-export const mockCreate = jest.fn();
-export const mockDelete = jest.fn();
-export const CaseDocumentManagementClient = jest.fn().mockImplementation(() => {
+export const mockCreate = vi.fn();
+export const mockDelete = vi.fn();
+export const CaseDocumentManagementClient = vi.fn(function CaseDocumentManagementClient() {
   return { create: mockCreate, delete: mockDelete };
 });

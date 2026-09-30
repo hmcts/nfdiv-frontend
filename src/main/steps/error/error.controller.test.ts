@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
 import { AxiosError } from 'axios';
+import { type Mock } from 'vitest';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
@@ -137,7 +137,7 @@ describe('ErrorController', () => {
 });
 
 interface MockedLogger {
-  info: jest.Mock<(...args: any[]) => any>;
-  error: jest.Mock<(...args: any[]) => any>;
+  info: Mock<(...args: any[]) => any>;
+  error: Mock<(...args: any[]) => any>;
 }
 /* eslint-disable @typescript-eslint/no-explicit-any */

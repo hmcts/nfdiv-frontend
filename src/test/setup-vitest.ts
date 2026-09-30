@@ -1,6 +1,5 @@
-const { initializeStepContent } = await import('../main/steps/index.js');
-
-export {};
+import { initializeStepContent } from '../main/steps/index.js';
+import './setup-vitest-esm.ts';
 
 beforeAll(async () => {
   try {

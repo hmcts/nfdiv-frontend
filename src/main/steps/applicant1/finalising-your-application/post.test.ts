@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
@@ -187,7 +187,7 @@ describe('FinalisingYourApplicationPostController', () => {
       const req = mockRequest({ body });
       req.session.lang = SupportedLanguages.Cy;
       req.session.isApplicant2 = true;
-      req.locals.api.triggerEvent = jest.fn().mockReturnValue({}) as any;
+      req.locals.api.triggerEvent = vi.fn().mockReturnValue({}) as any;
 
       const res = mockResponse();
       await finalisingYourApplicationPostController.post(req, res);
@@ -216,7 +216,7 @@ describe('FinalisingYourApplicationPostController', () => {
       );
 
       const req = mockRequest({ body, session: { isApplicant2: true } });
-      req.locals.api.triggerEvent = jest.fn().mockReturnValue({}) as any;
+      req.locals.api.triggerEvent = vi.fn().mockReturnValue({}) as any;
       const res = mockResponse();
       await finalisingYourApplicationPostController.post(req, res);
 
@@ -240,7 +240,7 @@ describe('FinalisingYourApplicationPostController', () => {
       );
 
       const req = mockRequest({ body, userCase, session: { isApplicant2: true } });
-      req.locals.api.triggerEvent = jest.fn().mockReturnValue({}) as any;
+      req.locals.api.triggerEvent = vi.fn().mockReturnValue({}) as any;
       const res = mockResponse();
       await finalisingYourApplicationPostController.post(req, res);
 
@@ -267,7 +267,7 @@ describe('FinalisingYourApplicationPostController', () => {
         state: State.AwaitingJointFinalOrder,
       };
       const req = mockRequest({ body, session: { isApplicant2: false }, userCase: switchToSoleUserCase });
-      req.locals.api.triggerEvent = jest.fn().mockReturnValue({}) as any;
+      req.locals.api.triggerEvent = vi.fn().mockReturnValue({}) as any;
       req.originalUrl = FINALISING_YOUR_APPLICATION;
       const res = mockResponse();
       await finalisingYourApplicationPostController.post(req, res);
@@ -297,7 +297,7 @@ describe('FinalisingYourApplicationPostController', () => {
       };
       const req = mockRequest({ body, session: { isApplicant2: true }, userCase: switchToSoleUserCase });
       req.originalUrl = APPLICANT_2 + FINALISING_YOUR_APPLICATION;
-      req.locals.api.triggerEvent = jest
+      req.locals.api.triggerEvent = vi
         .fn()
         .mockReturnValue({ finalOrderSwitchedToSole: YesOrNo.YES, state: State.FinalOrderRequested }) as any;
       const res = mockResponse();

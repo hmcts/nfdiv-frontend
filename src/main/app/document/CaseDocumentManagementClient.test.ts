@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { type Mock, type Mocked, vi } from 'vitest';
 
 import { UserDetails } from '../controller/AppRequest.js';
 
-jest.unstable_mockModule('axios', () => jest.createMockFromModule('axios'));
-jest.unstable_mockModule('config', () => ({ default: jest.createMockFromModule('config') }));
-jest.unstable_mockModule('../auth/service/get-service-auth-token.js', () =>
-  jest.createMockFromModule('../auth/service/get-service-auth-token.js')
-);
+vi.mock(import('axios'));
+vi.mock(import('config'));
+vi.mock(import('../auth/service/get-service-auth-token.js'));
 
 const { default: axios } = await import('axios');
 const config = await import('config');
@@ -16,13 +14,13 @@ const { CaseDocumentManagementClient, Classification } = await import('./CaseDoc
 type AxiosInstance = import('axios').AxiosInstance;
 type UploadedFiles = import('./CaseDocumentManagementClient.js').UploadedFiles;
 
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-const mockedConfig = config.default as jest.Mocked<typeof config.default>;
-const mockServiceAuth = serviceAuth as jest.Mocked<typeof serviceAuth>;
+const mockedAxios = axios as Mocked<typeof axios>;
+const mockedConfig = config.default as Mocked<typeof config.default>;
+const mockServiceAuth = serviceAuth as Mocked<typeof serviceAuth>;
 
 describe('CaseDocumentManagementClient', () => {
   it('creates documents', async () => {
-    const mockPost = jest.fn() as jest.Mock<(...args: any[]) => any>;
+    const mockPost = vi.fn() as Mock<(...args: any[]) => any>;
     mockPost.mockResolvedValue({ data: { documents: ['a-document'] } });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
     mockedConfig.get.mockReturnValueOnce('case-document-management-base-url');
@@ -54,7 +52,7 @@ describe('CaseDocumentManagementClient', () => {
   });
 
   it('deletes documents', async () => {
-    const mockDelete = jest.fn() as jest.Mock<(...args: any[]) => any>;
+    const mockDelete = vi.fn() as Mock<(...args: any[]) => any>;
     mockDelete.mockResolvedValue({ data: 'MOCKED-OK' });
     mockedAxios.create.mockReturnValueOnce({ delete: mockDelete } as unknown as AxiosInstance);
 

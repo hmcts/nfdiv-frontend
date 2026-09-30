@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { type Mock, vi } from 'vitest';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
@@ -26,7 +26,7 @@ import {
 import { MAX_UPLOAD_FILE_SIZE_BYTES } from './DocumentUploadLimits.js';
 import { FileUploadJourney } from './FileUploadJourneyConfiguration.js';
 
-jest.unstable_mockModule(
+vi.mock(
   '../document/CaseDocumentManagementClient.js',
   async () => import('../document/__mocks__/CaseDocumentManagementClient.js')
 );
@@ -124,7 +124,7 @@ describe('DocumentManagerController', () => {
       req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
       req.headers.accept = 'application/json';
 
-      (mockCreate as jest.Mock<(...args: any[]) => any>).mockReturnValue([
+      (mockCreate as Mock<(...args: any[]) => any>).mockReturnValue([
         {
           originalDocumentName: 'uploaded-file.jpg',
           _links: {
@@ -134,7 +134,7 @@ describe('DocumentManagerController', () => {
         },
       ]);
 
-      (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockReturnValue({
+      (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockReturnValue({
         state,
         [uploadFields.field2]: ['an-existing-doc', 'uploaded-file.jpg'],
       });
@@ -214,7 +214,7 @@ describe('DocumentManagerController', () => {
       req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
       req.headers.accept = 'application/json';
 
-      (mockCreate as jest.Mock<(...args: any[]) => any>).mockReturnValue([
+      (mockCreate as Mock<(...args: any[]) => any>).mockReturnValue([
         {
           originalDocumentName: 'uploaded-file.jpg',
           _links: {
@@ -224,7 +224,7 @@ describe('DocumentManagerController', () => {
         },
       ]);
 
-      (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockReturnValue({
+      (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockReturnValue({
         state: State.AosOverdue,
         applicant1InterimAppsEvidenceUploadedFiles: ['an-existing-doc', 'uploaded-file.jpg'],
       });
@@ -340,7 +340,7 @@ describe('DocumentManagerController', () => {
         const res = mockResponse();
         req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
 
-        (mockCreate as jest.Mock<(...args: any[]) => any>).mockReturnValue([
+        (mockCreate as Mock<(...args: any[]) => any>).mockReturnValue([
           {
             originalDocumentName: 'uploaded-file.jpg',
             _links: {
@@ -350,7 +350,7 @@ describe('DocumentManagerController', () => {
           },
         ]);
 
-        (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockReturnValue({
+        (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockReturnValue({
           applicationType,
           state,
           [uploadFields.field2]: ['an-existing-doc', 'uploaded-file.jpg'],
@@ -426,11 +426,11 @@ describe('DocumentManagerController', () => {
             },
           },
         });
-        req.get = jest.fn(header => (header === 'Referrer' ? '/previous-page' : undefined)) as never;
+        req.get = vi.fn(header => (header === 'Referrer' ? '/previous-page' : undefined)) as never;
         const res = mockResponse();
         req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
 
-        (mockCreate as jest.Mock<(...args: any[]) => any>).mockReturnValue([
+        (mockCreate as Mock<(...args: any[]) => any>).mockReturnValue([
           {
             originalDocumentName: 'uploaded-file.jpg',
             _links: {
@@ -440,7 +440,7 @@ describe('DocumentManagerController', () => {
           },
         ]);
 
-        (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockReturnValue({
+        (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockReturnValue({
           state,
           applicant1InterimApplicationType,
           [uploadFields.field2]: ['an-existing-doc', 'uploaded-file.jpg'],
@@ -732,14 +732,14 @@ describe('DocumentManagerController', () => {
           },
           session: { fileUploadJourney },
           appLocals: {
-            api: { triggerEvent: jest.fn() },
+            api: { triggerEvent: vi.fn() },
           },
         });
         req.params = { index: '1' };
         req.headers.accept = 'application/json';
         const res = mockResponse();
 
-        const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>;
+        const mockApiTriggerEvent = req.locals.api.triggerEvent as Mock<(...args: any[]) => any>;
         mockApiTriggerEvent.mockResolvedValue({
           applicationType,
           state,
@@ -785,16 +785,16 @@ describe('DocumentManagerController', () => {
           ],
         },
         session: {
-          save: jest.fn((callback: (err?: Error) => void) => callback(new Error('session save failed'))),
+          save: vi.fn((callback: (err?: Error) => void) => callback(new Error('session save failed'))),
         },
         appLocals: {
-          api: { triggerEvent: jest.fn() },
+          api: { triggerEvent: vi.fn() },
         },
       });
       req.params = { index: '1' };
       const res = mockResponse();
 
-      const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>;
+      const mockApiTriggerEvent = req.locals.api.triggerEvent as Mock<(...args: any[]) => any>;
       mockApiTriggerEvent.mockResolvedValue({
         state: State.Draft,
         applicant1UploadedFiles: ['an-existing-doc'],
@@ -818,15 +818,15 @@ describe('DocumentManagerController', () => {
           ],
         },
         appLocals: {
-          api: { triggerEvent: jest.fn() },
+          api: { triggerEvent: vi.fn() },
         },
       });
-      req.get = jest.fn(header => (header === 'Referrer' ? '/previous-page' : undefined)) as never;
+      req.get = vi.fn(header => (header === 'Referrer' ? '/previous-page' : undefined)) as never;
       req.params = { index: '1' };
       req.headers.accept = 'application/json';
       const res = mockResponse();
 
-      const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>;
+      const mockApiTriggerEvent = req.locals.api.triggerEvent as Mock<(...args: any[]) => any>;
       mockApiTriggerEvent.mockResolvedValue({
         state: State.AosDrafted,
         applicant1InterimAppsEvidenceUploadedFiles: ['an-existing-doc'],
@@ -933,13 +933,13 @@ describe('DocumentManagerController', () => {
           },
           session: { fileUploadJourney },
           appLocals: {
-            api: { triggerEvent: jest.fn() },
+            api: { triggerEvent: vi.fn() },
           },
         });
         req.params = { id: '2' };
         const res = mockResponse();
 
-        const mockApiTriggerEvent = req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>;
+        const mockApiTriggerEvent = req.locals.api.triggerEvent as Mock<(...args: any[]) => any>;
         mockApiTriggerEvent.mockResolvedValue({
           applicationType,
           state,

@@ -1,9 +1,9 @@
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
 
 export const mockLogger = {
-  error: jest.fn(),
-  info: jest.fn(),
-  debug: jest.fn(),
+  error: vi.fn(),
+  info: vi.fn(),
+  debug: vi.fn(),
 };
 
-export const Logger = { getLogger: jest.fn().mockReturnValue(mockLogger) };
+export const Logger = { getLogger: vi.fn().mockReturnValue(mockLogger) };

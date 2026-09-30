@@ -1,7 +1,7 @@
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
 
-export const mockCreate = jest.fn();
-export const mockGet = jest.fn();
-export const PaymentClient = jest.fn().mockImplementation(() => {
+export const mockCreate = vi.fn();
+export const mockGet = vi.fn();
+export const PaymentClient = vi.fn(function PaymentClient() {
   return { create: mockCreate, get: mockGet };
 });

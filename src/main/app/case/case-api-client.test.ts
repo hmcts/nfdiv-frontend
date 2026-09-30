@@ -1,5 +1,5 @@
-import { jest } from '@jest/globals';
 import axios from 'axios';
+import { type Mocked, vi } from 'vitest';
 import { LoggerInstance } from 'winston';
 
 import { UserDetails } from '../controller/AppRequest.js';
@@ -19,18 +19,18 @@ const userDetails: UserDetails = {
 };
 
 describe('CaseApi', () => {
-  const mockedAxios = axios as jest.Mocked<typeof axios>;
+  const mockedAxios = axios as Mocked<typeof axios>;
 
   let mockLogger = {
-    error: jest.fn().mockImplementation((...args: unknown[]) => args[0]),
-    info: jest.fn().mockImplementation((...args: unknown[]) => args[0]),
+    error: vi.fn().mockImplementation((...args: unknown[]) => args[0]),
+    info: vi.fn().mockImplementation((...args: unknown[]) => args[0]),
   } as unknown as LoggerInstance;
 
   let api: CaseApiClient;
   beforeEach(() => {
     mockLogger = {
-      error: jest.fn().mockImplementation((...args: unknown[]) => args[0]),
-      info: jest.fn().mockImplementation((...args: unknown[]) => args[0]),
+      error: vi.fn().mockImplementation((...args: unknown[]) => args[0]),
+      info: vi.fn().mockImplementation((...args: unknown[]) => args[0]),
     } as unknown as LoggerInstance;
 
     api = new CaseApiClient(mockedAxios, mockLogger);
