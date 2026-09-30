@@ -20,7 +20,7 @@
       "router/*": ["router/*"],
       "routes/*": ["routes/*"]
     },
-    "typeRoots": ["./node_modules/@types"]
+    "types": ["node", "vitest/globals", "codeceptjs"]
   },
   "ts-node": {
     "esm": true

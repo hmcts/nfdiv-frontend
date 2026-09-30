@@ -2,10 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { jest } from '@jest/globals';
 import { create as createAxios } from 'axios';
 import pa11y from 'pa11y';
 import { launch as puppeteerLaunch } from 'puppeteer';
+import { vi } from 'vitest';
 
 import * as urls from '../../main/steps/urls.js';
 import { config } from '../config.js';
@@ -69,8 +69,7 @@ function expectNoErrors(messages: PallyIssue[]): void {
   }
 }
 
-jest.retryTimes(3);
-jest.setTimeout(30000);
+vi.setConfig({ testTimeout: 30000 });
 
 describe('Accessibility', () => {
   let browser;

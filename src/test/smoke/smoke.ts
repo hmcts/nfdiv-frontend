@@ -1,9 +1,8 @@
-import { jest } from '@jest/globals';
 import axios from 'axios';
 import config from 'config';
+import { vi } from 'vitest';
 
-jest.retryTimes(20);
-jest.setTimeout(5000);
+vi.setConfig({ testTimeout: 5000 });
 
 const idamWebUrl = config.has('services.idam.webBaseUrl')
   ? `${config.get('services.idam.webBaseUrl') as string}/health`
