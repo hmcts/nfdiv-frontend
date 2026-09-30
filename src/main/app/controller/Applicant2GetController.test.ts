@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
@@ -9,7 +9,7 @@ import { Applicant2GetController } from './Applicant2GetController.js';
 
 describe('Applicant2GetController', () => {
   it("redirects back to the home page if they're logged in as applicant 1", () => {
-    const controller = new Applicant2GetController('page', jest.fn() as any);
+    const controller = new Applicant2GetController('page', vi.fn() as any);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -19,7 +19,7 @@ describe('Applicant2GetController', () => {
   });
 
   it("continues with the normal GetController if they're logged in as applicant 2", () => {
-    const controller = new Applicant2GetController('page', jest.fn() as any);
+    const controller = new Applicant2GetController('page', vi.fn() as any);
 
     const req = mockRequest({ session: { isApplicant2: true } });
     const res = mockResponse();

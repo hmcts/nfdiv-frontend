@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
 
 import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs.js';
 import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
@@ -176,7 +176,7 @@ describe('GetController', () => {
 
   describe('generatePageContent()', () => {
     test('calls generatePageContent with correct arguments for new sessions', async () => {
-      const getContentMock = jest.fn().mockReturnValue({});
+      const getContentMock = vi.fn().mockReturnValue({});
       const controller = new GetController('page', getContentMock as any);
 
       const req = mockRequest({ userCase: { state: State.Draft } });
@@ -216,7 +216,7 @@ describe('GetController', () => {
           { gender: Gender.FEMALE, partnerKey: 'wife' },
           { partnerKey: 'partner' },
         ])('calls getContent with correct arguments %s selected', async ({ gender }) => {
-          const getContentMock = jest.fn().mockReturnValue({ pageText: `something in ${language}` });
+          const getContentMock = vi.fn().mockReturnValue({ pageText: `something in ${language}` });
           const controller = new GetController('page', getContentMock as any);
 
           const req = mockRequest({ session: { lang: language, userCase: { gender } } });

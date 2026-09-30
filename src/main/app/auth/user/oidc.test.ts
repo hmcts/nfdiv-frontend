@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
 import jwt from 'jsonwebtoken';
+import { type Mock, type Mocked, vi } from 'vitest';
 
 import { APPLICANT_2_SIGN_IN_URL, CALLBACK_URL, SIGN_IN_URL } from '../../../steps/urls.js';
 
 import type { OidcResponse } from './oidc.js';
 
-jest.unstable_mockModule('axios', () => jest.createMockFromModule('axios'));
-jest.unstable_mockModule('config', () => ({ default: jest.createMockFromModule('config') }));
+vi.mock(import('axios'));
+vi.mock(import('config'));
 
 const { default: axios } = await import('axios');
 const { default: config } = await import('config');
 const { getEndIdamSessionUrl, getRedirectUrl, getSystemUser, getUserDetails } = await import('./oidc.js');
 type AxiosRequestHeaders = import('axios').AxiosRequestHeaders;
 type AxiosStatic = import('axios').AxiosStatic;
-const mockedConfig = config as jest.Mocked<typeof config>;
-const mockedAxios = axios as jest.Mocked<AxiosStatic>;
+const mockedConfig = config as Mocked<typeof config>;
+const mockedAxios = axios as Mocked<AxiosStatic>;
 
 const mockSecret = 'mock-secret';
 const mockPayload = {
@@ -60,8 +60,8 @@ describe('getRedirectUrl', () => {
   });
 
   test('should fall back to authorizationURL when webBaseUrl and authorizationPath are not configured', () => {
-    (mockedConfig.has as jest.Mock<(...args: any[]) => any>).mockReturnValue(false);
-    (mockedConfig.get as jest.Mock<(...args: any[]) => any>).mockImplementation((key: string) => {
+    (mockedConfig.has as Mock<(...args: any[]) => any>).mockReturnValue(false);
+    (mockedConfig.get as Mock<(...args: any[]) => any>).mockImplementation((key: string) => {
       const values: Record<string, string> = {
         'services.idam.clientID': mockedServiceId,
         'services.idam.authorizationURL': mockedAuthorizationURL,
@@ -153,10 +153,10 @@ describe('getSystemUser', () => {
 
   describe('getEndIdamSessionUrl', () => {
     test('should build end session URL using webBaseUrl and endSessionPath when configured', () => {
-      (mockedConfig.has as jest.Mock<(...args: any[]) => any>).mockImplementation(
+      (mockedConfig.has as Mock<(...args: any[]) => any>).mockImplementation(
         key => key === 'services.idam.webBaseUrl' || key === 'services.idam.endSessionPath'
       );
-      (mockedConfig.get as jest.Mock<(...args: any[]) => any>).mockImplementation((key: string) => {
+      (mockedConfig.get as Mock<(...args: any[]) => any>).mockImplementation((key: string) => {
         const values: Record<string, string> = {
           'services.idam.webBaseUrl': 'https://hmcts-access.service.gov.uk',
           'services.idam.endSessionPath': '/o/endSession',
@@ -170,8 +170,8 @@ describe('getSystemUser', () => {
     });
 
     test('should fall back to endSessionURL when webBaseUrl and endSessionPath are not configured', () => {
-      (mockedConfig.has as jest.Mock<(...args: any[]) => any>).mockReturnValue(false);
-      (mockedConfig.get as jest.Mock<(...args: any[]) => any>).mockImplementation((key: string) => {
+      (mockedConfig.has as Mock<(...args: any[]) => any>).mockReturnValue(false);
+      (mockedConfig.get as Mock<(...args: any[]) => any>).mockImplementation((key: string) => {
         const values: Record<string, string> = {
           'services.idam.endSessionURL': 'https://idam-web-public.aat.platform.hmcts.net/o/endSession',
         };
@@ -185,10 +185,10 @@ describe('getSystemUser', () => {
   });
   describe('IDAM token URL resolution', () => {
     test('should post token request to apiBaseUrl + tokenPath when configured', async () => {
-      (mockedConfig.has as jest.Mock<(...args: any[]) => any>).mockImplementation(
+      (mockedConfig.has as Mock<(...args: any[]) => any>).mockImplementation(
         key => key === 'services.idam.apiBaseUrl' || key === 'services.idam.tokenPath'
       );
-      (mockedConfig.get as jest.Mock<(...args: any[]) => any>).mockImplementation((key: string) => {
+      (mockedConfig.get as Mock<(...args: any[]) => any>).mockImplementation((key: string) => {
         const values: Record<string, string> = {
           'services.idam.systemUsername': 'system.user@hmcts.net',
           'services.idam.systemPassword': 'password',
@@ -212,8 +212,8 @@ describe('getSystemUser', () => {
     });
 
     test('should fall back to tokenURL when apiBaseUrl and tokenPath are not configured', async () => {
-      (mockedConfig.has as jest.Mock<(...args: any[]) => any>).mockReturnValue(false);
-      (mockedConfig.get as jest.Mock<(...args: any[]) => any>).mockImplementation((key: string) => {
+      (mockedConfig.has as Mock<(...args: any[]) => any>).mockReturnValue(false);
+      (mockedConfig.get as Mock<(...args: any[]) => any>).mockImplementation((key: string) => {
         const values: Record<string, string> = {
           'services.idam.systemUsername': 'system.user@hmcts.net',
           'services.idam.systemPassword': 'password',

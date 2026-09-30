@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { type Mock, type Mocked, vi } from 'vitest';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
 import { DivorceOrDissolution, Fee, ListValue } from '../case/definition.js';
 
-jest.unstable_mockModule('axios', () => jest.createMockFromModule('axios'));
-jest.unstable_mockModule('config', () => ({ default: jest.createMockFromModule('config') }));
-jest.unstable_mockModule('../auth/service/get-service-auth-token.js', () => ({ getServiceAuthToken: jest.fn() }));
-jest.unstable_mockModule('@hmcts/nodejs-logging', () => ({
-  Logger: { getLogger: jest.fn().mockReturnValue({ error: jest.fn(), info: jest.fn() }) },
+vi.mock(import('axios'));
+vi.mock(import('config'));
+vi.mock('../auth/service/get-service-auth-token.js', () => ({ getServiceAuthToken: vi.fn() }));
+vi.mock('@hmcts/nodejs-logging', () => ({
+  Logger: { getLogger: vi.fn().mockReturnValue({ error: vi.fn(), info: vi.fn() }) },
 }));
-jest.unstable_mockModule('../../../test/unit/mocks/hmcts/nodejs-logging', () => ({
-  Logger: { getLogger: jest.fn().mockReturnValue({ error: jest.fn(), info: jest.fn() }) },
+vi.mock('../../../test/unit/mocks/hmcts/nodejs-logging', () => ({
+  Logger: { getLogger: vi.fn().mockReturnValue({ error: vi.fn(), info: vi.fn() }) },
 }));
 
 const { default: axios } = await import('axios');
@@ -19,14 +19,13 @@ const { default: config } = await import('config');
 const { getServiceAuthToken } = await import('../auth/service/get-service-auth-token.js');
 const { PaymentClient } = await import('./PaymentClient.js');
 const { Logger } = await import('@hmcts/nodejs-logging');
-const paymentLogger = (Logger.getLogger as unknown as jest.Mock<(...args: any[]) => any>).mock.results.at(-1)
-  ?.value as {
-  error: jest.Mock<(...args: any[]) => any>;
+const paymentLogger = (Logger.getLogger as unknown as Mock<(...args: any[]) => any>).mock.results.at(-1)?.value as {
+  error: Mock<(...args: any[]) => any>;
 };
 type AxiosInstance = import('axios').AxiosInstance;
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-const mockedConfig = config as jest.Mocked<typeof config>;
-const mockGetServiceAuthToken = getServiceAuthToken as jest.Mocked<jest.Mock<(...args: any[]) => any>>;
+const mockedAxios = axios as Mocked<typeof axios>;
+const mockedConfig = config as Mocked<typeof config>;
+const mockGetServiceAuthToken = getServiceAuthToken as Mocked<Mock<(...args: any[]) => any>>;
 const serviceRequestNumber = 'test123';
 
 describe('PaymentClient', () => {
@@ -34,7 +33,7 @@ describe('PaymentClient', () => {
     mockedConfig.get.mockReturnValueOnce('http://mock-service-url');
     mockedConfig.get.mockReturnValueOnce('mock-api-key');
     mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
-    const mockPost = jest.fn() as jest.Mock<(...args: any[]) => any>;
+    const mockPost = vi.fn() as Mock<(...args: any[]) => any>;
     mockPost.mockResolvedValueOnce({
       data: { mockPayment: 'data', next_url: 'http://example.com/pay' },
     });
@@ -89,7 +88,7 @@ describe('PaymentClient', () => {
     mockedConfig.get.mockReturnValueOnce('http://mock-service-url');
     mockedConfig.get.mockReturnValueOnce('mock-api-key');
     mockGetServiceAuthToken.mockReturnValueOnce('mock-server-auth-token');
-    const mockPost = jest.fn() as jest.Mock<(...args: any[]) => any>;
+    const mockPost = vi.fn() as Mock<(...args: any[]) => any>;
     mockPost.mockResolvedValueOnce({ data: { mockPayment: 'data, but missing _links' } });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
     const orderSummaryFees: ListValue<Fee>[] = [
@@ -123,7 +122,7 @@ describe('PaymentClient', () => {
   });
 
   it('gets payment data', async () => {
-    const mockGet = jest.fn() as jest.Mock<(...args: any[]) => any>;
+    const mockGet = vi.fn() as Mock<(...args: any[]) => any>;
     mockGet.mockResolvedValueOnce({ data: { mockPayment: 'data' } });
     mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
     const req = mockRequest();
@@ -138,7 +137,7 @@ describe('PaymentClient', () => {
   });
 
   it('logs errors if it fails to fetch data', async () => {
-    const mockGet = jest.fn() as jest.Mock<(...args: any[]) => any>;
+    const mockGet = vi.fn() as Mock<(...args: any[]) => any>;
     mockGet.mockRejectedValueOnce({ data: { some: 'error' } });
     mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
     const req = mockRequest();

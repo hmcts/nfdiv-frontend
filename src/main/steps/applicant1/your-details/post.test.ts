@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { type Mock } from 'vitest';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
@@ -91,7 +91,7 @@ describe('YourDetailsPostController', () => {
     };
 
     const req = mockRequest({ body, session: { userCase: false } });
-    (req.locals.api.createCase as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.createCase as Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await yourDetailsController.post(req, res);
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { type Mock, vi } from 'vitest';
 
 import { mockRequest, mockRequestApp2 } from '../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
@@ -7,13 +7,13 @@ import { HOME_URL, SIGN_OUT_URL } from '../../steps/urls.js';
 import { ApplicationType, SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, State } from '../case/definition.js';
 import { FormContent, FormFields } from '../form/Form.js';
 
-jest.unstable_mockModule('../auth/user/oidc.js', () => ({ getSystemUser: jest.fn() }));
-jest.unstable_mockModule('../case/case-api.js', () => ({ getCaseApi: jest.fn() }));
+vi.mock('../auth/user/oidc.js', () => ({ getSystemUser: vi.fn() }));
+vi.mock('../case/case-api.js', () => ({ getCaseApi: vi.fn() }));
 const { getSystemUser: getSystemUserMock } = (await import('../auth/user/oidc.js')) as unknown as {
-  getSystemUser: jest.Mock<(...args: any[]) => any>;
+  getSystemUser: Mock<(...args: any[]) => any>;
 };
 const { getCaseApi: getCaseApiMock } = (await import('../case/case-api.js')) as unknown as {
-  getCaseApi: jest.Mock<(...args: any[]) => any>;
+  getCaseApi: Mock<(...args: any[]) => any>;
 };
 const { AccessCodePostController } = await import('./AccessCodePostController.js');
 
@@ -45,25 +45,25 @@ describe('AccessCodePostController', () => {
     const controller = new AccessCodePostController(mockFormContent.fields);
 
     const caseApiMockFn = {
-      triggerEvent: jest.fn(() => {
+      triggerEvent: vi.fn(() => {
         return {
           accessCodeApplicant1: 'QWERTY78',
           id: '1234123412341234',
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
-      getCaseById: jest.fn(() => {
+      getCaseById: vi.fn(() => {
         return {
           accessCodeApplicant1: 'QWERTY78',
           id: '1234123412341234',
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
-      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: vi.fn(() => {
         return undefined;
       }),
     };
-    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(caseApiMockFn);
+    (getCaseApiMock as Mock<(...args: any[]) => any>).mockReturnValue(caseApiMockFn);
 
     const req = mockRequest({ body });
     const res = mockResponse();
@@ -89,25 +89,25 @@ describe('AccessCodePostController', () => {
     const controller = new AccessCodePostController(mockFormContent.fields);
 
     const caseApiMockFn = {
-      triggerEvent: jest.fn(() => {
+      triggerEvent: vi.fn(() => {
         return {
           accessCode: 'QWERTY78',
           id: '1234123412341234',
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
-      getCaseById: jest.fn(() => {
+      getCaseById: vi.fn(() => {
         return {
           accessCode: 'QWERTY78',
           id: '1234123412341234',
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
-      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: vi.fn(() => {
         return undefined;
       }),
     };
-    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(caseApiMockFn);
+    (getCaseApiMock as Mock<(...args: any[]) => any>).mockReturnValue(caseApiMockFn);
 
     const req = mockRequestApp2({ body });
     const res = mockResponse();
@@ -133,25 +133,25 @@ describe('AccessCodePostController', () => {
     const controller = new AccessCodePostController(mockFormContent.fields);
 
     const caseApiMockFn = {
-      triggerEvent: jest.fn(() => {
+      triggerEvent: vi.fn(() => {
         return {
           accessCode: 'QWERTY78',
           id: '1234123412341234',
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
-      getCaseById: jest.fn(() => {
+      getCaseById: vi.fn(() => {
         return {
           accessCode: 'QWERTY78',
           id: '1234123412341234',
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
-      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: vi.fn(() => {
         return undefined;
       }),
     };
-    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(caseApiMockFn);
+    (getCaseApiMock as Mock<(...args: any[]) => any>).mockReturnValue(caseApiMockFn);
 
     const req = mockRequestApp2({ body });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
@@ -181,25 +181,25 @@ describe('AccessCodePostController', () => {
     const controller = new AccessCodePostController(mockFormContent.fields);
 
     const caseApiMockFn = {
-      triggerEvent: jest.fn(() => {
+      triggerEvent: vi.fn(() => {
         return {
           accessCode: '  Qwer TY 78  ',
           caseReference: '1234123412341234',
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
-      getCaseById: jest.fn(() => {
+      getCaseById: vi.fn(() => {
         return {
           accessCode: 'QWERTY78',
           caseReference: '1234123412341234',
           applicationType: ApplicationType.SOLE_APPLICATION,
         };
       }),
-      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: vi.fn(() => {
         return undefined;
       }),
     };
-    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(caseApiMockFn);
+    (getCaseApiMock as Mock<(...args: any[]) => any>).mockReturnValue(caseApiMockFn);
 
     const req = mockRequestApp2({ body });
     req.session.userCase.applicationType = ApplicationType.SOLE_APPLICATION;
@@ -225,16 +225,16 @@ describe('AccessCodePostController', () => {
     const controller = new AccessCodePostController(mockFormContent.fields);
 
     const req = mockRequestApp2({ body });
-    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
-      triggerEvent: jest.fn(),
-      getCaseById: jest.fn(() => {
+    (getCaseApiMock as Mock<(...args: any[]) => any>).mockReturnValue({
+      triggerEvent: vi.fn(),
+      getCaseById: vi.fn(() => {
         return {
           accessCode: 'QWERTY78',
           caseReference: '1234123412341234',
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
-      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: vi.fn(() => {
         return undefined;
       }),
     });
@@ -256,12 +256,12 @@ describe('AccessCodePostController', () => {
     const controller = new AccessCodePostController(mockFormContent.fields);
 
     const req = mockRequestApp2({ body });
-    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
-      triggerEvent: jest.fn(),
-      getCaseById: jest.fn(() => {
+    (getCaseApiMock as Mock<(...args: any[]) => any>).mockReturnValue({
+      triggerEvent: vi.fn(),
+      getCaseById: vi.fn(() => {
         throw Error;
       }),
-      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: vi.fn(() => {
         return undefined;
       }),
     });
@@ -282,18 +282,18 @@ describe('AccessCodePostController', () => {
     const controller = new AccessCodePostController(mockFormContent.fields);
 
     const req = mockRequestApp2({ body });
-    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
-      triggerEvent: jest.fn(() => {
+    (getCaseApiMock as Mock<(...args: any[]) => any>).mockReturnValue({
+      triggerEvent: vi.fn(() => {
         throw Error;
       }),
-      getCaseById: jest.fn(() => {
+      getCaseById: vi.fn(() => {
         return {
           accessCode: 'QWERTY78',
           caseReference: '1234123412341234',
           applicationType: ApplicationType.JOINT_APPLICATION,
         };
       }),
-      unlinkStaleDraftCaseIfFound: jest.fn(() => {
+      unlinkStaleDraftCaseIfFound: vi.fn(() => {
         return undefined;
       }),
     });

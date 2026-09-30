@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
 
 import { Case, CaseDate, Checkbox } from '../case/case.js';
 import { YesOrNo } from '../case/definition.js';
@@ -17,7 +17,7 @@ describe('Form', () => {
           { label: l => l.no, value: YesOrNo.YES },
           { label: l => l.yes, value: YesOrNo.NO },
         ],
-        validator: jest.fn().mockImplementation(isFieldFilledIn as any) as any,
+        validator: vi.fn().mockImplementation(isFieldFilledIn as any) as any,
       },
       dateField: {
         type: 'date',
