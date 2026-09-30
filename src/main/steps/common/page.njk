@@ -17,7 +17,6 @@
     })(window,document,'script','dataLayer','GTM-WG59GG2');</script>
   <!-- End Google Tag Manager -->
   {% endif %}
-  {% endif %}
   <!-- Dynatrace -->
   <script type="text/javascript" src="{{ globals.dynatrace.dynatraceUrl }}" crossorigin="anonymous"></script>
   <!-- End Dynatrace -->
@@ -25,12 +24,10 @@
 
 {% block bodyStart %}
  {% if globals.enableTracking == true %}
- {% if globals.enableTracking == true %}
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WG59GG2"
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-  {% endif %}
   {% endif %}
 {% endblock %}
 
