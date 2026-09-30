@@ -26,6 +26,6 @@ export class SaveSignOutGetController extends GetController {
       return super.get(req, res);
     }
 
-    destroySessionAndRedirectToSignOutPage(req, res, SAVE_AND_SIGN_OUT);
+    await destroySessionAndRedirectToSignOutPage(req, res, SAVE_AND_SIGN_OUT);
   }
 }
