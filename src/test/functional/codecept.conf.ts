@@ -35,7 +35,7 @@ export const config: CodeceptJS.Config = {
       'mocha-junit-reporter': {
         stdout: '-',
         options: {
-          mochaFile: './functional-output/result.xml',
+          mochaFile: './functional-output/junit/[hash]/result.xml',
         },
       },
       mochawesome: {
