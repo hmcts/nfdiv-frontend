@@ -12,6 +12,10 @@ export const config: CodeceptJS.Config = {
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
   plugins: {
+    failOnHook: {
+      enabled: true,
+      require: '../plugins/fail-on-hook.cjs',
+    },
     pauseOnFail: {
       enabled: !testConfig.TestHeadlessBrowser,
     },
