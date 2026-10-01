@@ -24,7 +24,7 @@ src/*
 !version
 !.yarnrc.yml
 !.yarn
-.yarn/*
+.yarn/cache
 !.yarn/releases
 !.yarn/releases/**
 !.tsconfig.eslint.json
