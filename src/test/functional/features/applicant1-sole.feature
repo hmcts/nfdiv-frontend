@@ -14,7 +14,6 @@ Feature: Applicant 1 sole application
 
     When I click "Continue"
     Then the page should include "When did you get married?"
-    And the page should include "Testing a Failed Scenario"
     Given I select "Day"
     And I type "1"
     Given I select "Month"
