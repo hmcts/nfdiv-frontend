@@ -1181,7 +1181,7 @@ const cy: typeof en = ({
   applicationRejectedWarning:
     "Os byddwch yn symud ymlaen i'r dudalen nesaf, bydd gennych 14 diwrnod i dalu'r ffi gwneud cais, fel arall bydd eich cais yn cael ei wrthod, a bydd yn rhaid i chi ddechrau cais newydd.",
   continue: isJointApplication
-    ? 'Send for review'
+    ? 'Anfon i’w adolygu'
     : stripTags(userCase.applicant1HelpWithFeesRefNo)
       ? 'Cyflwyno eich cais'
       : 'Parhau i’r dudalen dalu',
