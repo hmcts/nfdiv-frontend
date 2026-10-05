@@ -138,11 +138,15 @@ const fields: ToApiConverters = {
     applicant1HWFReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
       ? data.applicant1HelpWithFeesRefNo
       : '',
+    applicant1HWFAppliedForFees:
+      data.applicant1HelpWithFeesRefNo === '' ? data.applicant1AlreadyAppliedForHelpPaying : YesOrNo.YES,
   }),
   applicant2HelpWithFeesRefNo: data => ({
     applicant2HWFReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant2HelpWithFeesRefNo)
       ? data.applicant2HelpWithFeesRefNo
       : '',
+    applicant2HWFAppliedForFees:
+      data.applicant2HelpWithFeesRefNo === '' ? data.applicant2AlreadyAppliedForHelpPaying : YesOrNo.YES,
   }),
   applicant1EnglishOrWelsh: data => ({
     applicant1LanguagePreferenceWelsh: languagePreferenceYesNoOrNull(data.applicant1EnglishOrWelsh),
