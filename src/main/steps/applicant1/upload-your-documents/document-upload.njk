@@ -4,7 +4,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "common/macros/document-delete-button.njk" import documentDeleteButton %}
 
-{% if applicationDocumentUpload  %}
+{% if showWarning  %}
 {{ govukWarningText({
   text: warningPhoto,
   iconFallbackText: "Warning"

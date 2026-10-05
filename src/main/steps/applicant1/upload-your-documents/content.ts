@@ -1,7 +1,7 @@
 import { isObject } from 'lodash';
 
 import { CaseWithId, Checkbox } from '../../../app/case/case';
-import { DocumentType, YesOrNo } from '../../../app/case/definition';
+import { DocumentType, State, YesOrNo } from '../../../app/case/definition';
 import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagementConstants';
@@ -277,9 +277,10 @@ export const generateContent: TranslationFn = content => {
   const applicant1HasChangedName =
     content.userCase.applicant1LastNameChangedWhenMarried === YesOrNo.YES ||
     content.userCase.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES;
-  const applicationDocumentUpload = true;
+  const showWarning = true;
+  const isApplicationDocumentUpload = content.userCase.state !== State.AwaitingAos;
 
-  const translations = languages[content.language](content, applicationDocumentUpload);
+  const translations = languages[content.language](content, isApplicationDocumentUpload);
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
@@ -297,6 +298,6 @@ export const generateContent: TranslationFn = content => {
     infoTakePhotoAccessibleSpan,
     applicant1HasChangedName,
     nameDifferenceEvidenceRequired,
-    applicationDocumentUpload,
+    showWarning,
   };
 };
