@@ -47,5 +47,8 @@
     <li>{{ point7 }}</li>
     <li>{{ point8 }}</li>
   </ul>
-  {% include "../../applicant1/upload-your-documents/document-upload.njk" %}
+{% endblock %}
+
+{% block form %}
+  {% include "./form.njk" %}
 {% endblock %}
