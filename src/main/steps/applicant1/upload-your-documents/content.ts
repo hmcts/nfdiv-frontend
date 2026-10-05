@@ -10,7 +10,10 @@ import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 import { accessibleDetailsSpan } from '../../common/content.utils';
 
-const en = ({ isDivorce, marriage, civilPartnership, partner, isJointApplication }: CommonContent) => {
+const en = (
+  { isDivorce, marriage, civilPartnership, partner, isJointApplication }: CommonContent,
+  applicationDocumentUpload: boolean
+) => {
   const union = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Upload your documents',
@@ -44,8 +47,7 @@ const en = ({ isDivorce, marriage, civilPartnership, partner, isJointApplication
     cannotUploadDocuments: 'I cannot upload some or all of my documents',
     cannotUploadWhich: 'Which document can you not upload?',
     checkAllThatApply: 'Select all that apply',
-    cannotUploadYouCanPost: `<p class="govuk-body govuk-!-margin-top-5">You can post or email your documents to the court. If you post them you must send the original documents or certified copies. You’ll receive details of how to send them after you have submitted this application.</p>
-      <p class="govuk-body">Continue with your application.</p>`,
+    cannotUploadYouCanPost: `<p class="govuk-body govuk-!-margin-top-5">You can post or email your documents to the court. If you post them you must send the original documents or certified copies. You’ll receive details of how to send them after you have submitted this ${applicationDocumentUpload ? 'application.</p> <p class="govuk-body">Continue with your application.</p>' : 'response'}`,
     cannotUploadCertificateSingular: `I cannot upload my original ${union} certificate`,
     cannotUploadForeignCertificateSingular: `I cannot upload my original foreign ${union} certificate`,
     cannotUploadCertificate: `My original ${union} certificate`,
@@ -71,7 +73,10 @@ const en = ({ isDivorce, marriage, civilPartnership, partner, isJointApplication
   };
 };
 
-const cy = ({ isDivorce, marriage, civilPartnership, partner, isJointApplication }: CommonContent) => {
+const cy = (
+  { isDivorce, marriage, civilPartnership, partner, isJointApplication }: CommonContent,
+  applicationDocumentUpload: boolean
+) => {
   const union = isDivorce ? marriage : civilPartnership;
   return {
     title: 'Uwchlwytho eich dogfennau',
@@ -108,8 +113,7 @@ const cy = ({ isDivorce, marriage, civilPartnership, partner, isJointApplication
     cannotUploadDocuments: 'Ni allaf uwchlwytho rhai neu bob un o fy nogfennau',
     cannotUploadWhich: 'Pa ddogfen na allwch ei huwchlwytho?',
     checkAllThatApply: "Dewiswch bob un sy'n berthnasol",
-    cannotUploadYouCanPost: `<p class="govuk-body govuk-!-margin-top-5">Gallwch bostio neu e-bostio eich dogfennau i'r llys. Os byddwch yn eu postio, rhaid i chi anfon y dogfennau gwreiddiol neu gopïau wedi'u hardystio. Byddwch yn cael manylion am sut i'w hanfon ar ôl i chi gyflwyno'r cais hwn.</p>
-      <p class="govuk-body">Ewch ymlaen gyda'ch cais.</p>`,
+    cannotUploadYouCanPost: `<p class="govuk-body govuk-!-margin-top-5">Gallwch bostio neu e-bostio eich dogfennau i'r llys. Os byddwch yn eu postio, rhaid i chi anfon y dogfennau gwreiddiol neu gopïau wedi'u hardystio. Byddwch yn cael manylion am sut i'w hanfon ar ôl i chi gyflwyno ${applicationDocumentUpload ? '\'r cais hwn.</p><p class="govuk-body">Ewch ymlaen gyda\'ch cais.</p>' : 'eich ymateb'}`,
     cannotUploadCertificateSingular: `Ni allaf uwchlwytho fy nhystysgrif ${union} wreiddiol`,
     cannotUploadForeignCertificateSingular: `Ni allaf uwchlwytho fy nhystysgrif ${union} dramor wreiddiol`,
     cannotUploadCertificate: `Fy nhystysgrif ${union} wreiddiol`,
@@ -273,7 +277,9 @@ export const generateContent: TranslationFn = content => {
   const applicant1HasChangedName =
     content.userCase.applicant1LastNameChangedWhenMarried === YesOrNo.YES ||
     content.userCase.applicant1NameDifferentToMarriageCertificate === YesOrNo.YES;
-  const translations = languages[content.language](content);
+  const applicationDocumentUpload = true;
+
+  const translations = languages[content.language](content, applicationDocumentUpload);
   const uploadContentScript = `{
     "isAmendableStates": ${content.isAmendableStates},
     "delete": "${content.delete}"
@@ -282,7 +288,6 @@ export const generateContent: TranslationFn = content => {
     translations['infoTakePhoto'],
     'More information about how ' + translations['infoTakePhoto']
   );
-  const showWarning = true;
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
@@ -292,6 +297,6 @@ export const generateContent: TranslationFn = content => {
     infoTakePhotoAccessibleSpan,
     applicant1HasChangedName,
     nameDifferenceEvidenceRequired,
-    showWarning,
+    applicationDocumentUpload,
   };
 };
