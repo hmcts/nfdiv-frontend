@@ -1498,6 +1498,45 @@ describe('to-api-format', () => {
     });
   });
 
+  describe('applicant1CannotUploadDocuments', () => {
+    test('should clear applicant1CannotUploadSupportingDocument when "I cannot upload some or all of my evidence" checkbox is unchecked', () => {
+      const apiFormat = toApiFormat({
+        applicant1CannotUpload: undefined,
+        applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
+      });
+
+      expect(apiFormat.applicant1CannotUploadSupportingDocument).toEqual([]);
+    });
+
+    test('should not clear applicant1CannotUploadSupportingDocument when "I cannot upload some or all of my evidence" checkbox is checked', () => {
+      const apiFormat = toApiFormat({
+        applicant1CannotUpload: Checkbox.Checked,
+        applicant1CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
+      });
+
+      expect(apiFormat.applicant1CannotUploadSupportingDocument).toEqual([DocumentType.MARRIAGE_CERTIFICATE]);
+    });
+  });
+  describe('applicant2CannotUploadDocuments', () => {
+    test('should clear applicant2CannotUploadSupportingDocument when "I cannot upload some or all of my evidence" checkbox is unchecked', () => {
+      const apiFormat = toApiFormat({
+        applicant2CannotUpload: undefined,
+        applicant2CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
+      });
+
+      expect(apiFormat.applicant2CannotUploadSupportingDocument).toEqual([]);
+    });
+
+    test('should not clear applicant2CannotUploadSupportingDocument when "I cannot upload some or all of my evidence" checkbox is checked', () => {
+      const apiFormat = toApiFormat({
+        applicant2CannotUpload: Checkbox.Checked,
+        applicant2CannotUploadDocuments: [DocumentType.MARRIAGE_CERTIFICATE],
+      });
+
+      expect(apiFormat.applicant2CannotUploadSupportingDocument).toEqual([DocumentType.MARRIAGE_CERTIFICATE]);
+    });
+  });
+
   describe('applicant2 D11 GenApp transformation', () => {
     test.each([
       {

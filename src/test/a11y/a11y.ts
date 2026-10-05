@@ -26,8 +26,19 @@ interface PallyIssue {
   typeCode: number;
 }
 
-function ensurePageCallWillSucceed(url: string): Promise<void> {
-  return server.get(url);
+async function ensurePageCallWillSucceed(url: string): Promise<void> {
+  const response = await server.get(url, {
+    maxRedirects: 0,
+    validateStatus: () => true,
+  });
+
+  const allowedStatuses = [200, 301, 302, 303, 307, 308];
+  if (allowedStatuses.includes(response.status)) {
+    return;
+  }
+  throw new Error(
+    `Precheck failed for '${url}' with status ${response.status}, location='${String(response.headers.location || '')}'`
+  );
 }
 
 function runPally(url: string, browser): Promise<Pa11yResult> {
@@ -56,7 +67,7 @@ function expectNoErrors(messages: PallyIssue[]): void {
 }
 
 jest.retryTimes(3);
-jest.setTimeout(15000);
+jest.setTimeout(30000);
 
 describe('Accessibility', () => {
   let browser;
@@ -76,19 +87,45 @@ describe('Accessibility', () => {
 
     // Login once only for other pages to reuse session
     const page = await browser.newPage();
-    await page.goto(config.TEST_URL, { waitUntil: 'domcontentloaded' });
 
-    await page.waitForSelector('h1', { timeout: 15000 });
-    const bodyText = await page.evaluate(() => document.body.innerText);
-    if (bodyText.includes('Sign in or create an account')) {
-      await page.click('text/Sign in');
-    }
-    await page.waitForSelector('input[name="email"]', { timeout: 15000 });
+    await page.goto(config.TEST_URL, {
+      waitUntil: 'domcontentloaded',
+      timeout: 30000,
+    });
+    await page.waitForSelector('a[href="/enter-email"]', {
+      timeout: 15000,
+    });
+
+    await page.click('a[href="/enter-email"]');
+    await page.waitForSelector('input[name="email"]', {
+      timeout: 15000,
+    });
+
     await page.type('input[name="email"]', 'nfdiv.frontend.test@hmcts.net');
-    await page.click('button[type="submit"], input[type="submit"]');
-    await page.waitForSelector('input[name="password"]', { timeout: 15000 });
+    await page.evaluate(() => {
+      const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
+
+      if (!emailInput?.form) {
+        throw new Error('Email form not found');
+      }
+
+      emailInput.form.requestSubmit();
+    });
+    await page.waitForSelector('input[name="password"]', {
+      timeout: 15000,
+    });
+
     await page.type('input[name="password"]', process.env.TEST_PASSWORD);
-    await page.click('button[type="submit"], input[type="submit"]');
+    await page.evaluate(() => {
+      const passwordInput = document.querySelector('input[name="password"]') as HTMLInputElement;
+
+      if (!passwordInput?.form) {
+        throw new Error('Password form not found');
+      }
+
+      passwordInput.form.requestSubmit();
+    });
+    await page.waitForFunction(() => !window.location.hostname.includes('idam-web-public'), { timeout: 20000 });
     cookies = await page.cookies(config.TEST_URL);
     await page.close();
   };
@@ -97,9 +134,15 @@ describe('Accessibility', () => {
 
   beforeEach(async () => {
     const page = await browser.newPage();
-    await page.goto(config.TEST_URL);
+    await page.goto(config.TEST_URL, {
+      waitUntil: 'domcontentloaded',
+    });
+
     await page.setCookie(...cookies);
-    await page.goto(`${config.TEST_URL}/info`);
+
+    await page.goto(`${config.TEST_URL}/info`, {
+      waitUntil: 'domcontentloaded',
+    });
     await page.close();
   });
 

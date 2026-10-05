@@ -113,6 +113,9 @@ export const en = {
   privacyPolicy: 'Privacy policy',
   termsAndConditions: 'Terms and conditions',
   contactUs: 'Contact us',
+  bannerTitle: 'Important',
+  notificationBanner:
+    'The sign in screen will have a new look soon. This will not affect your case details or how you access this service.',
   marriage: 'marriage',
   divorce: 'divorce',
   civilPartnership: 'civil partnership',
@@ -226,6 +229,7 @@ export const en = {
   elementSelectors: {
     uploadButtonId: `#${UPPY_FILE_INPUT_BUTTON_ID}`,
   },
+  pageTitleError: 'Error: ',
 };
 
 const cy: typeof en = {
@@ -302,6 +306,9 @@ const cy: typeof en = {
   privacyPolicy: 'Polisi Preifatrwydd',
   termsAndConditions: 'Telerau ac Amodau',
   contactUs: 'Cysylltu â ni',
+  bannerTitle: 'Pwysig',
+  notificationBanner:
+    "Bydd y sgrin mewngofnodi yn cael golwg newydd yn fuan. Ni fydd hyn yn effeithio ar fanylion eich achos na sut rydych yn defnyddio'r gwasanaeth hwn.",
   marriage: 'priodas',
   divorce: 'ysgariad',
   endingCivilPartnership: 'dod â phartneriaeth sifil i ben',
@@ -408,6 +415,7 @@ const cy: typeof en = {
   elementSelectors: {
     uploadButtonId: `#${UPPY_FILE_INPUT_BUTTON_ID}`,
   },
+  pageTitleError: 'Gwall: ',
 };
 
 export const generateCommonContent = ({
