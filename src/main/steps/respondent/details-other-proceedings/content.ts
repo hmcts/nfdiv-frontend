@@ -98,7 +98,7 @@ export const generateContent: TranslationFn = content => {
   const uploadDocumentContent = uploadDocumentGenerateContent(content);
   const uploadedDocsFilenames = content.userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
-  const showWarning = false;
+  const applicationDocumentUpload = false;
   return {
     ...applicant1Content,
     ...uploadDocumentContent,
@@ -106,6 +106,6 @@ export const generateContent: TranslationFn = content => {
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     amendable,
     uploadedDocsFilenames,
-    showWarning,
+    applicationDocumentUpload,
   };
 };
