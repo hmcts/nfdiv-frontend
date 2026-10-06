@@ -26,8 +26,8 @@ Feature: Applicant 1 joint application
     Given I select "Yes, I have my marriage certificate with me"
 
     When I click "Continue"
-    Then the page should include "Do you need help paying the fee for your divorce?"
-    Given I select "I do not need help paying the fee"
+    Then the page should include "Help with fees"
+    Given I select "No"
 
     When I click "Continue"
     Then the page should include "How do you want to apply for the divorce?"
@@ -111,8 +111,8 @@ Feature: Applicant 1 joint application
     And the page should include "1 January 2000"
     And the page should include "Do you have your marriage certificate with you?"
     And the page should include "Yes, I have my marriage certificate with me"
-    And the page should include "Help with fees"
-    And the page should include "I do not need help paying the fee"
+    And the page should include "Help paying the divorce fee"
+    And the page should include "No"
     And the page should include "Did you get married in the UK?"
 
     When I click "Send for review"
@@ -156,23 +156,23 @@ Feature: Applicant 1 joint application
     Given I select "Yes, I have my marriage certificate with me"
 
     When I click "Continue"
-    Then the page should include "Do you need help paying the fee for your divorce?"
-    Given I select "I need help paying the fee"
+    Then the page should include "Help with fees"
+    Given I select "Yes"
 
     When I click "Continue"
-    Then the page should include "Have you already applied for help with your divorce fee?"
+    Then the page should include "Do you have a help with fees reference number?"
     Given I select "No"
 
     When I click "Continue"
-    Then the page should include "You need to apply for help with your divorce fees"
-    Given I click "enter it here"
-    Then the page URL should be "/help-with-your-fee"
-    Given I select "I need help paying the fee"
+    Then the page should include "Apply for help with fees"
 
     When I click "Continue"
-    Then the page URL should be "/have-you-applied-for-help-with-fees"
+    Then the page should include "Do you have a help with fees reference number?"
     Given I select "Yes"
-    And I select "Enter your Help With Fees reference number"
+
+    When I click "Continue"
+    Then the page should include "Enter your Help With Fees reference number"
+    Given I select element "#applicant1HelpWithFeesRefNo"
     And I type "HWF-ABC-123"
 
     When I click "Continue"
@@ -321,10 +321,9 @@ Feature: Applicant 1 joint application
     And the page should include "1 January 2000"
     And the page should include "Do you have your marriage certificate with you?"
     And the page should include "Yes, I have my marriage certificate with me"
-    And the page should include "Help with fees"
     And the page should include "Help paying the divorce fee"
-    And the page should include "I need help paying the fee"
-    And the page should include "Have you already applied for help with your divorce fee?"
+    And the page should include "Yes"
+    And the page should include "Help with fees reference number"
     And the page should include "HWF-ABC-123"
     And the page should include "Enter the country where you got married"
     And the page should include "England"
