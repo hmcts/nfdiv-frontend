@@ -11,10 +11,13 @@ properties([
 @Library("Infrastructure@2.11.2")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
+import uk.gov.hmcts.contino.Environment
 
 def type = "nodejs"
 def product = "nfdiv"
 def component = "frontend"
+
+env.ENVIRONMENT = new Environment(env).nonProdName
 
 // SAUCELABS config - configured on Jenkins
 env.SAUCE_USERNAME = 'username'
