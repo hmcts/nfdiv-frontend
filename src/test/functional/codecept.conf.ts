@@ -18,7 +18,6 @@ export const config: CodeceptJS.Config = {
   teardown: testConfig.teardown,
   retry: {
     Scenario: 3,
-    Before: 3,
   },
   plugins: {
     pause: {
@@ -26,6 +25,14 @@ export const config: CodeceptJS.Config = {
     },
     retryFailedStep: {
       enabled: true,
+    },
+    hookRetry: {
+      enabled: true,
+      runInParent: false,
+      require: path.resolve(process.cwd(), 'src/test/functional/gherkin-background-retry.mjs'),
+      retries: 3,
+      minTimeout: 1000,
+      factor: 2,
     },
     allure: {
       enabled: true,
