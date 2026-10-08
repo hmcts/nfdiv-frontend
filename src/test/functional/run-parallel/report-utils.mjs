@@ -32,6 +32,7 @@ export const loadRetryAudit = async retryAuditRoot => {
   try {
     const auditFiles = (await readdir(retryAuditRoot)).filter(file => file.endsWith('.json'));
     const attempts = new Map();
+    const hookAttempts = new Map();
 
     await Promise.all(
       auditFiles.map(async auditFile => {
@@ -47,6 +48,21 @@ export const loadRetryAudit = async retryAuditRoot => {
           }
 
           const key = scenarioKey(audit.feature, audit.scenario);
+          if (audit.kind === 'hook') {
+            if (
+              audit.hookName !== 'Before' ||
+              !Number.isFinite(audit.durationMs) ||
+              audit.durationMs < 0 ||
+              ![audit.scenarioAttempt, audit.hookAttempt].every(value => Number.isInteger(value) && value > 0)
+            ) {
+              return;
+            }
+            hookAttempts.set(key, [
+              ...(hookAttempts.get(key) || []),
+              { ...audit, auditFile: path.join(retryAuditRoot, auditFile) },
+            ]);
+            return;
+          }
           attempts.set(key, [
             ...(attempts.get(key) || []),
             { ...audit, auditFile: path.join(retryAuditRoot, auditFile) },
@@ -66,7 +82,20 @@ export const loadRetryAudit = async retryAuditRoot => {
         const successfulAttempt = orderedAttempts.find(
           audit => audit.attempt > firstAttempt.attempt && firstAttempt.status !== 'passed' && audit.status === 'passed'
         );
-        return [key, { attempts: orderedAttempts, latest: orderedAttempts.at(-1), successfulAttempt }];
+        const hooks = hookAttempts
+          .get(key)
+          ?.sort(
+            (first, second) => first.scenarioAttempt - second.scenarioAttempt || first.hookAttempt - second.hookAttempt
+          );
+        return [
+          key,
+          {
+            attempts: orderedAttempts,
+            latest: orderedAttempts.at(-1),
+            successfulAttempt,
+            ...(hooks?.length ? { hookAttempts: hooks } : {}),
+          },
+        ];
       })
     );
   } catch {

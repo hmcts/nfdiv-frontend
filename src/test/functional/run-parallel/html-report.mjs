@@ -15,10 +15,11 @@ const getAttemptClass = attempt =>
 const getAttemptError = attempt =>
   attempt?.status === 'failed' ? attempt.error?.message || attempt.error?.stack || '' : '';
 
-const getHookFailure = attempt =>
-  attempt?.status === 'failed' && attempt.hookName
-    ? `<span class="failed">(Hook failure: ${xmlEscape(attempt.hookName)})</span> `
-    : '';
+const getBackgroundAttempts = (audit, attempt) =>
+  (audit?.hookAttempts || []).filter(hook => hook.scenarioAttempt === attempt?.attempt);
+
+const hasRetries = audit =>
+  audit?.attempts.some(attempt => attempt.attempt > 1) || audit?.hookAttempts?.some(attempt => attempt.hookAttempt > 1);
 
 export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
   const tests = [];
@@ -100,6 +101,22 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
     }
     return `${(durationMs / (60 * 60 * 1000)).toFixed(3)}h`;
   };
+  const getHookFailure = (attempt, hooks) => {
+    if (attempt?.status !== 'failed' || !attempt.hookName) {
+      return '';
+    }
+    const finalHook = hooks.reduce(
+      (final, hook) => (!final || hook.hookAttempt > final.hookAttempt ? hook : final),
+      null
+    );
+    const hasRuntime =
+      finalHook?.status === 'failed' &&
+      finalHook.hookName === attempt.hookName &&
+      hooks.every(hook => Number.isFinite(hook.durationMs) && hook.durationMs >= 0);
+    const runtime = hasRuntime ? ` in ${formatRuntime(hooks.reduce((total, hook) => total + hook.durationMs, 0))}` : '';
+    const label = `Hook failure: ${xmlEscape(attempt.hookName)}${runtime}`;
+    return `<span class="failed">(${hasRuntime ? artifactLink(label, finalHook.auditFile) : label})</span> `;
+  };
 
   for (const reportFile of reportFiles) {
     try {
@@ -177,7 +194,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
       const linkedScreenshots = new Set();
       const getRuntime = test => {
         const audit = retryAudit.get(scenarioKey(test.featureName, test.name));
-        const retried = audit?.attempts.some(attempt => attempt.attempt > 1);
+        const retried = hasRetries(audit);
         if (retried && audit.attempts.every(attempt => Number.isFinite(attempt.durationMs))) {
           return audit.attempts.reduce((total, attempt) => total + attempt.durationMs, 0);
         }
@@ -200,12 +217,12 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
         const status = test.failed ? 'Failed' : 'Passed';
         const statusClass = test.failed ? 'failed' : 'passed';
         const audit = retryAudit.get(scenarioKey(test.featureName, test.name));
-        const retried = audit?.attempts.some(attempt => attempt.attempt > 1);
+        const retried = hasRetries(audit);
         const runtime = getRuntime(test);
         const showRuntime = layout.hasRuntime;
         const showError = layout.hasError;
         const error = getEffectiveError(test);
-        const hookFailure = getHookFailure(audit?.latest);
+        const hookFailure = getHookFailure(audit?.latest, getBackgroundAttempts(audit, audit?.latest));
         const screenshots = featureScreenshots.get(path.dirname(test.junitReportFile)) || [];
         const nameMatchedScreenshots =
           test.name === test.featureName ? screenshots : scenarioScreenshotMatches(test, screenshots);
@@ -216,7 +233,10 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
           : audit?.latest?.status === 'failed'
             ? [resolveScreenshot(test.junitReportFile, audit.latest.screenshotFile)]
             : [];
-        const validAuditScreenshots = uniqueScreenshots(auditScreenshots);
+        const hookScreenshots = (audit?.hookAttempts || []).map(attempt =>
+          resolveScreenshot(test.junitReportFile, attempt.screenshotFile)
+        );
+        const validAuditScreenshots = uniqueScreenshots([...auditScreenshots, ...hookScreenshots]);
         const matchedScreenshots = nameMatchedScreenshots.filter(file => !validAuditScreenshots.includes(file));
         const errorScreenshots = showError
           ? retried
@@ -233,25 +253,52 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
         const resultLink =
           hasRetryAudit &&
           !test.processFailure &&
-          !retried &&
           (audit?.latest?.status === 'passed' || audit?.latest?.status === 'failed')
             ? audit.latest.auditFile
             : null;
-        const attemptRows = retried
-          ? audit.attempts
-              .map(attempt => {
-                const attemptScreenshot =
-                  attempt.status === 'failed' ? resolveScreenshot(test.junitReportFile, attempt.screenshotFile) : null;
-                return (
-                  `<tr><td class="attempt">${attempt.attempt}</td><td class="result ${getAttemptClass(attempt)}">${artifactLink(getAttemptStatus(attempt), attempt.auditFile)}</td>` +
-                  `<td class="runtime">${formatRuntime(attempt.durationMs)}</td>` +
-                  `<td class="error">${getHookFailure(attempt)}${screenshotSpan(attemptScreenshot, 'Screenshot', linkedScreenshots)}${xmlEscape(getAttemptError(attempt))}</td>` +
-                  '</tr>'
-                );
-              })
-              .join('')
-          : '';
-        const attemptTable = `<table class="attempts"><thead><tr><th class="attempt">Attempt</th><th class="result">Result</th><th class="runtime">Runtime</th><th class="error">Error</th></tr></thead><tbody>${attemptRows}</tbody></table>`;
+        const attemptTables = [];
+        let attemptRows = [];
+        const flushAttemptTable = () => {
+          if (attemptRows.length) {
+            const errorClass = attemptRows.every(row => row.passed) ? 'error hidden' : 'error';
+            attemptTables.push(
+              `<table class="attempts"><thead><tr><th class="attempt">Attempt</th><th class="result">Result</th><th class="runtime">Runtime</th><th class="${errorClass}">Error</th></tr></thead><tbody>${attemptRows.map(row => row.render(errorClass)).join('')}</tbody></table>`
+            );
+            attemptRows = [];
+          }
+        };
+        for (const attempt of retried ? audit.attempts : []) {
+          const attemptScreenshot =
+            attempt.status === 'failed' ? resolveScreenshot(test.junitReportFile, attempt.screenshotFile) : null;
+          const hooks = getBackgroundAttempts(audit, attempt);
+          const visibleHooks = hooks.some(hook => hook.hookAttempt > 1) ? hooks : [];
+          const hookRows = visibleHooks
+            .map(hook => {
+              const label = `${hook.hookAttempt}`;
+              return (
+                `<tr><td class="attempt">${label}</td><td class="result ${getAttemptClass(hook)}">${artifactLink(getAttemptStatus(hook), hook.auditFile)}</td>` +
+                `<td class="runtime">${formatRuntime(hook.durationMs)}</td>` +
+                `<td class="error">${screenshotSpan(resolveScreenshot(test.junitReportFile, hook.screenshotFile), 'Screenshot', linkedScreenshots)}${xmlEscape(getAttemptError(hook))}</td></tr>`
+              );
+            })
+            .join('');
+          const hookTable = visibleHooks.length
+            ? `<tr><td class="empty"></td><td colspan="3"><table class="hook-attempts"><thead><tr><th class="attempt">Background Attempt</th><th class="result">Result</th><th class="runtime">Runtime</th><th class="error">Error</th></tr></thead><tbody>${hookRows}</tbody></table></td></tr>`
+            : '';
+          const attemptError = `${getHookFailure(attempt, hooks)}${screenshotSpan(attemptScreenshot, 'Screenshot', linkedScreenshots)}${xmlEscape(getAttemptError(attempt))}`;
+          attemptRows.push({
+            passed: attempt.status === 'passed',
+            render: errorClass =>
+              `<tr><td class="attempt">${attempt.attempt}</td><td class="result ${getAttemptClass(attempt)}">${artifactLink(getAttemptStatus(attempt), attempt.auditFile)}</td>` +
+              `<td class="runtime">${formatRuntime(attempt.durationMs)}</td>` +
+              `<td class="${errorClass}">${attemptError}</td>` +
+              `</tr>${hookTable}`,
+          });
+          if (hookTable) {
+            flushAttemptTable();
+          }
+        }
+        flushAttemptTable();
         return {
           row:
             `<tr><td class="${statusClass}">${artifactLink(status, resultLink)}</td>` +
@@ -263,7 +310,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
               ? `<td class="error">${hookFailure}${testScreenshotSpans(errorScreenshots, linkedScreenshots)}${xmlEscape(error)}</td>`
               : '') +
             '</tr>' +
-            (retried ? `<tr><td class="empty"></td><td colspan="3">${attemptTable}</td></tr>` : ''),
+            (retried ? `<tr><td class="empty"></td><td colspan="3">${attemptTables.join('')}</td></tr>` : ''),
         };
       };
       const tables = [];
@@ -279,7 +326,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
       };
       for (const test of featureTests) {
         const audit = retryAudit.get(scenarioKey(test.featureName, test.name));
-        const retried = audit?.attempts.some(attempt => attempt.attempt > 1);
+        const retried = hasRetries(audit);
         const nextTableType = retried ? 'retried' : test.failed ? 'failure' : 'normal';
         const nextTableLayout = getResultLayout(test);
         const nextTableKey = `${nextTableLayout.hasRuntime}:${nextTableLayout.hasError}`;
@@ -334,7 +381,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
 <style>:root[data-theme="dark"]{color-scheme:dark;--background:#1F1F21;--foreground:#CECfD2;--muted-border:#505357;--passed:#65d184;--failed:#ff8585}</style>
 <style>html{background:var(--background)}body{background:var(--background);color:var(--foreground);font:16px sans-serif;margin:2rem}</style>
 <style>.artifact-link{color:inherit}.artifact-link:visited{font-weight:bold}</style>
-<style>table:last-of-type{margin-bottom: 0;}table{border-collapse:collapse;width:100%;margin-bottom:0.5rem}thead > tr:first-child{border-bottom:1px solid var(--muted-border)}th,td{border:none;border-right:1px solid var(--muted-border);min-width:max-content;padding:.5rem .75rem;text-align:left}th:first-child:not(.attempt),td:first-child:not(.attempt){padding-left:0;}th.attempt,td.attempt,th.result,td.result,th.runtime,td.runtime{text-align:center;}td.noerror > span.failed{margin-left: .25rem;}td.empty{min-width:1%;padding:0;border-right:none}th:last-child,td:last-child{width:100%;min-width:initial;padding-right:0;border-right:none}</style>
+<style>table:last-of-type{margin-bottom: 0;}table{border-collapse:collapse;width:100%;margin-bottom:0.5rem}thead > tr > th{border-bottom:1px solid var(--muted-border)}th,td{border:none;border-right:1px solid var(--muted-border);min-width:max-content;padding:.5rem .75rem;text-align:left}th:first-child:not(.attempt),td:first-child:not(.attempt){padding-left:0;}th.attempt,td.attempt,th.result,td.result,th.runtime,td.runtime{text-align:center;}td.noerror > span.failed{margin-left: .25rem;}td.empty{min-width:1%;padding:0;border-right:none}th:has(+ th.hidden), td:has(+ td.hidden){border-right: none;}th.hidden{border-bottom: none; color: var(--background)}th:last-child,td:last-child{width:100%;min-width:initial;padding-right:0;border-right:none;}</style>
 <style>.passed{color:var(--passed)}.failed{color:var(--failed)}.featureResultsContainer{padding-top: 2.5rem; padding-left: 1.42rem; padding-bottom: 2.5rem;}.featureTitleContainer{margin-left: -1.42rem; padding-bottom:1rem;}.featureTitle,.featureStatus{display:inline-block;margin-top:0;margin-bottom:0;}.featureTitle{margin-right:.75rem}.featureStatus{width: 1.17rem;font-size:1.17rem;margin-right:.25rem}.featureSummary{font-size:1.1rem;display:inline-block}.totalSummary{font-size:1.1rem}hr{margin: 0; margin-top:1.5rem;border:0 transparent;border-top:1px solid var(--muted-border)}</style>
 <style>.unmatchedScreenshots{padding-bottom: 1rem;}.unmatchedScreenshots > h4{ display: inline-block; margin: 0 .5rem 0 0}</style>
 <style>#themeToggle{position:absolute;top:1rem;right:1rem;z-index:1;border:1px solid var(--muted-border);border-radius:.35rem;background:var(--background);color:var(--foreground);cursor:pointer;font:inherit;width:2.5rem;height:2.5rem;padding:0;font-size:0}#themeToggle:focus-visible{outline:2px solid var(--foreground);outline-offset:2px}</style>
