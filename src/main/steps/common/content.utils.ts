@@ -96,11 +96,11 @@ export const getAddressFields = (addressPrefix: string, userCase: Partial<CaseWi
 };
 
 export const isAddressRequired = (userCase: Partial<CaseWithId>): boolean => {
-  const postCodeRequired = isCountryUk(userCase.applicant2AddressCountry);
+  const postCodeRequired = isCountryUk(userCase?.applicant2AddressCountry || '');
   const addressCheckList = [
-    userCase.applicant2Address1,
-    userCase.applicant2AddressCountry,
-    ...(postCodeRequired ? [userCase.applicant2AddressPostcode] : []),
+    userCase?.applicant2Address1 || '',
+    userCase?.applicant2AddressCountry || '',
+    ...(postCodeRequired ? [userCase?.applicant2AddressPostcode || ''] : []),
   ];
   return (
     userCase?.applicationType === ApplicationType.SOLE_APPLICATION &&
