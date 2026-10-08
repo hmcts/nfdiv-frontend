@@ -20,7 +20,7 @@ src/*
 !config
 !config/**
 
-!webpack.config.js
+!webpack.config.cjs
 !version
 !.yarnrc.yml
 !.yarn
