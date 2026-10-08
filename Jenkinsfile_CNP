@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("Infrastructure@2.4.9")
+@Library("Infrastructure@2.12.1")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
 import uk.gov.hmcts.contino.GithubAPI
@@ -68,11 +68,11 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('functionalTest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/Functional test report.html'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/Functional test report.html'
   }
 
   afterAlways('functionalTest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: './functional-output/functional/reports/Functional test report.html'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/Functional test report.html'
   }
 
   // uncomment to connect backend PR
