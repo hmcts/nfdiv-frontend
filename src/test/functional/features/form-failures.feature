@@ -34,18 +34,21 @@ Feature: Form failures
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
     Given I go to "/help-with-your-fee"
-    When I click "Continue"
+    When I click continue
     Then the page should include "Select 'Yes' if you are using help with fees for this application."
 
     Given I go to "/have-you-applied-for-help-with-fees"
-    When I click "Continue"
+    When I click continue
     Then the page should include "Select 'Yes' if you have a help with fees reference number"
     Given I select element "#applicant1AlreadyAppliedForHelpPaying"
-    When I click "Continue"
+    When I click continue
     Then the page should include "Enter your Help With Fees reference number"
     Given I select element "#applicant1HelpWithFeesRefNo"
+    When I click continue
+    Then the page should include "Help with fees reference number cannot be blank."
+    Given I select element "#applicant1HelpWithFeesRefNo"
     And I type "invalid"
-    When I click "Continue"
+    When I click continue
     Then the page should include "Enter your help with fees reference number in the correct format."
 
     Given I go to "/how-do-you-want-to-apply"
@@ -91,26 +94,26 @@ Feature: Form failures
     Then the page should include "There was a problem"
 
     Given I go to "/enter-their-address"
-    When I click "Find address"
+    When I click element "#findAddressButton"
     Then the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
     Given I reset the postcode lookup form
     And I wait "1" seconds
-    And I select "Enter a UK postcode"
+    And I select element "#postcode"
     And I type "not a postcode!"
-    When I click "Find address"
+    When I click element "#findAddressButton"
     Then the page should include "You have not entered a valid UK postcode. Enter a valid UK postcode before continuing."
     Given I reset the postcode lookup form
     And I wait "1" seconds
-    And I select "Enter a UK postcode"
+    And I select element "#postcode"
     And I type "SW1H 9AJ"
-    And I click "Find address"
-    And I click "I cannot find the address in the list"
+    And I click element "#findAddressButton"
+    And I click element "#cannotFindAddress"
     And I click continue
     Then the page should include "You have not entered your husband’s building and street address. Enter their building and street address before continuing."
     And the page should include "You have not entered your husband’s town or city. Enter their town or city before continuing."
     And the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
     Given I reset the postcode lookup form
-    And I click "I have an international address"
+    And I click element "#cannot-enter-uk-postcode"
     When I click continue
     Then the page should include "You have not entered your husband’s building and street address. Enter their building and street address before continuing."
     And the page should include "You have not entered your husband’s country. Enter their country before continuing."
@@ -142,9 +145,9 @@ Feature: Form failures
     Then the page should include "You have not entered your first name. Enter it before continuing."
     And the page should include "You have not entered your last name. Enter it before continuing."
     Given I clear the form
-    When I select "Your first name"
+    When I select element "#applicant1FirstNames"
     And I type "My first name!"
-    And I select "Your last name"
+    And I select element "#applicant1LastNames"
     And I type "My last-name1"
     And I click continue
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
@@ -199,21 +202,21 @@ Feature: Form failures
     Then the page should include "You have not answered the question. You need to select an answer before continuing."
 
     Given I go to "/enter-your-address"
-    When I click "Find address"
+    When I click element "#findAddressButton"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
     Given I wait "1" seconds
-    And I select "Enter a UK postcode"
+    And I select element "#postcode"
     And I type "ZZ00 0ZZ"
-    And I click "Find address"
-    And I click "I cannot find the address in the list"
+    And I click element "#findAddressButton"
+    And I click element "#cannotFindAddress"
     When I click continue
     Then the page should include "You have not entered your building and street address. Enter your building and street address before continuing."
     And the page should include "You have not entered your town or city. Enter your town or city before continuing."
     And the page should include "You have not entered your postcode. Enter your postcode before continuing."
     Given I reset the postcode lookup form
-    And I select "Enter a UK postcode"
+    And I select element "#postcode"
     And I type "SW1H 9AJ"
-    When I click "Find address"
+    When I click element "#findAddressButton"
     Then the page should include "SW1H 9AJ"
     Given I wait for the postcode lookup to return results
     And I click continue
@@ -293,7 +296,7 @@ Feature: Form failures
     And I enter my valid case reference and valid access code
     Then the page URL should be "/respondent/hub-page"
 
-    When I click "Respond to the application"
+    When I click respond to the application
     Then the page URL should be "/respondent/review-the-application"
     And the page should include "Review the divorce application"
     When I click continue
@@ -375,25 +378,28 @@ Feature: Form failures
 
     Given I go to "/applicant2/help-with-your-fee"
     And I clear the form
-    When I click "Continue"
+    When I click continue
     Then the page should include "Select 'Yes' if you are using help with fees for this application."
 
     Given I go to "/applicant2/have-you-applied-for-help-with-fees"
     And I clear the form
-    When I click "Continue"
+    When I click continue
     Then the page should include "Select 'Yes' if you have a help with fees reference number."
     Given I select element "#applicant2AlreadyAppliedForHelpPaying"
-    When I click "Continue"
+    When I click continue
     Then the page should include "Enter your Help With Fees reference number"
+    Given I clear the form
+    When I click continue
+    Then the page should include "Help with fees reference number cannot be blank."
 
     Given I go to "/applicant2/enter-your-name"
     And I clear the form
     When I click continue
     Then the page should include "You have not entered your first name. Enter it before continuing."
     And the page should include "You have not entered your last name. Enter it before continuing."
-    Given I select "Your first name"
+    Given I select element "#applicant2FirstNames"
     And I type "My first name!"
-    And I select "Your last name"
+    And I select element "#applicant2LastNames"
     And I type "My last-name1"
     When I click continue
     Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
@@ -421,22 +427,22 @@ Feature: Form failures
 
     Given I go to "/applicant2/enter-your-address"
     And I clear the form
-    When I click "Find address"
+    When I click element "#findAddressButton"
     Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
 
     Given I wait "1" seconds
-    And I select "Enter a UK postcode"
+    And I select element "#postcode"
     And I type "ZZ00 0ZZ"
-    And I click "Find address"
-    And I click "I cannot find the address in the list"
+    And I click element "#findAddressButton"
+    And I click element "#cannotFindAddress"
     When I click continue
     Then the page should include "You have not entered your building and street address. Enter your building and street address before continuing."
     And the page should include "You have not entered your town or city. Enter your town or city before continuing."
     And the page should include "You have not entered your postcode. Enter your postcode before continuing."
     Given I reset the postcode lookup form
-    And I select "Enter a UK postcode"
+    And I select element "#postcode"
     And I type "SW1H 9AJ"
-    When I click "Find address"
+    When I click element "#findAddressButton"
     Then the page should include "SW1H 9AJ"
     Given I wait for the postcode lookup to return results
     And I click continue
@@ -497,7 +503,7 @@ Feature: Form failures
     And I login with applicant "1"
     Then the page URL should be "/hub-page"
 
-    When I click "Apply for conditional order"
+    When I click apply for conditional order
     Then the page URL should be "/continue-with-your-application"
 
     When I click continue
@@ -526,7 +532,7 @@ Feature: Form failures
     And I set the case state to "ConditionalOrderPending"
     When I go to "/"
     Then the page URL should be "/applicant2/hub-page"
-    When I click "Apply for conditional order"
+    When I click apply for conditional order
     Then the page URL should be "/applicant2/continue-with-your-application"
     When I click continue
     Then the page should include "You have not answered the question. You need to select an answer before continuing."

@@ -25,7 +25,7 @@ Feature: Applicant 1 joint application
     Then the page should include "Do you have your marriage certificate with you?"
     Given I select "Yes, I have my marriage certificate with me"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Help with fees"
     Given I select "No"
 
@@ -57,9 +57,9 @@ Feature: Applicant 1 joint application
     When I click continue
     Then the page should include "Enter your name"
     Given I clear the form
-    And I select "Your first name"
+    And I select element "#applicant1FirstNames"
     And I type "Sarah"
-    And I select "Your last name"
+    And I select element "#applicant1LastNames"
     And I type "Smith"
 
     When I click continue
@@ -84,10 +84,10 @@ Feature: Applicant 1 joint application
 
     When I click continue
     Then the page should include "Enter your postal address"
-    Given I select "Enter a UK postcode"
+    Given I select element "#postcode"
     And I type "SW1H 9AJ"
 
-    When I click "Find address"
+    When I click element "#findAddressButton"
     Then the page should include "SW1H 9AJ"
     And I wait for the postcode lookup to return results
     Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
@@ -155,22 +155,18 @@ Feature: Applicant 1 joint application
     Then the page URL should be "/do-you-have-your-certificate"
     Given I select "Yes, I have my marriage certificate with me"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Help with fees"
     Given I select "Yes"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Do you have a help with fees reference number?"
     Given I select "No"
 
-    When I click "Continue"
+    When I click continue
     Then the page should include "Apply for help with fees"
 
-    When I click "Continue"
-    Then the page should include "Do you have a help with fees reference number?"
-    Given I select "Yes"
-
-    When I click "Continue"
+    When I click continue
     Then the page should include "Enter your Help With Fees reference number"
     Given I select element "#applicant1HelpWithFeesRefNo"
     And I type "HWF-ABC-123"
@@ -245,9 +241,9 @@ Feature: Applicant 1 joint application
     When I click continue
     Then the page should include "Enter your name"
     Given I clear the form
-    And I select "Your first name"
+    And I select element "#applicant1FirstNames"
     And I type "Sarah"
-    And I select "Your last name"
+    And I select element "#applicant1LastNames"
     And I type "Smith"
 
     When I click continue
@@ -278,7 +274,7 @@ Feature: Applicant 1 joint application
 
     When I click continue
     Then the page should include "Enter your postal address"
-    Given I click "I have an international address"
+    Given I click element "#cannot-enter-uk-postcode"
     And I select "Address line 1"
     And I type "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102 PETTY FRANCE"
     And I select "Town or city"
