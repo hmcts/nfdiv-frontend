@@ -8,12 +8,30 @@
 !yarn.lock
 
 !tsconfig.json
+
+!webpack
 !webpack/**
+
+!src
+src/*
+!src/main
 !src/main/**
+
+!config
 !config/**
-!webpack.config.cjs
+
+!webpack.config.js
 !version
 !.yarnrc.yml
-!.tsconfig.eslint.json
 !.yarn
+.yarn/cache
+.yarn/install-state.gz
+!.yarn/releases
 !.yarn/releases/**
+!.tsconfig.eslint.json
+
+# development-only files inside the application allowlist
+src/main/**/*.test.ts
+src/main/**/*.test.js
+src/main/test
+**/.DS_Store

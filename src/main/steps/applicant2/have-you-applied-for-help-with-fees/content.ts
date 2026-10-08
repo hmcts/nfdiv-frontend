@@ -1,7 +1,7 @@
 import { YesOrNo } from '../../../app/case/definition.js';
 import { TranslationFn } from '../../../app/controller/GetController.js';
 import { FormContent } from '../../../app/form/Form.js';
-import { isFieldFilledIn, isInvalidHelpWithFeesRef } from '../../../app/form/validation.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
@@ -11,7 +11,6 @@ const labels = content => ({
   line1: '',
   errors: {
     applicant2AlreadyAppliedForHelpPaying: content.errors.applicant1AlreadyAppliedForHelpPaying,
-    applicant2HelpWithFeesRefNo: content.errors.applicant1HelpWithFeesRefNo,
   },
 });
 
@@ -24,25 +23,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        {
-          label: l => l.yes,
-          value: YesOrNo.YES,
-          subFields: {
-            applicant2HelpWithFeesRefNo: {
-              type: 'text',
-              attributes: {
-                maxLength: 11,
-              },
-              classes: 'govuk-!-width-one-third',
-              label: l => l.enterRefNo,
-              hint: l => `
-                <p class="govuk-label">${l.refReceivedWhenApplied}</p>
-                ${l.refExample}`,
-              validator: isInvalidHelpWithFeesRef,
-            },
-          },
-        },
-        { label: l => l.no, value: YesOrNo.NO },
+        { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
+        { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
       ],
       validator: isFieldFilledIn,
     },

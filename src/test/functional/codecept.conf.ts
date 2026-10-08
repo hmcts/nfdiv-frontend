@@ -16,7 +16,10 @@ export const config: CodeceptJS.Config = {
   helpers: testConfig.helpers,
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
-  retry: { Scenario: 3 },
+  retry: {
+    Scenario: 3,
+    Before: 3,
+  },
   plugins: {
     pause: {
       enabled: !testConfig.TestHeadlessBrowser,

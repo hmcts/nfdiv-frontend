@@ -188,8 +188,20 @@ export const form: FormContent = {
         parser: data => JSON.parse((data as Record<string, string>).applicant1UploadedFiles || '[]'),
         validator: (value, formData) => {
           const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-          const selectedCannotUploadDocuments = !!formData.applicant1CannotUploadDocuments?.length;
-          if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
+          const isMultiDocumentsUploadCase = Object.prototype.hasOwnProperty.call(formData, 'applicant1CannotUpload');
+
+          const app1CannotUploadDocsCheckbox = formData.applicant1CannotUpload;
+          const app1CannotUploadDocsCheckboxChecked = Array.isArray(app1CannotUploadDocsCheckbox)
+            ? app1CannotUploadDocsCheckbox.includes(Checkbox.Checked)
+            : app1CannotUploadDocsCheckbox === Checkbox.Checked;
+
+          const app1CannotUploadDocsSelected = (formData.applicant1CannotUploadDocuments as string[])?.length > 0;
+
+          const app1CannotUploadIndicated = isMultiDocumentsUploadCase
+            ? app1CannotUploadDocsCheckboxChecked && app1CannotUploadDocsSelected
+            : app1CannotUploadDocsSelected;
+
+          if (!hasUploadedFiles && !app1CannotUploadIndicated) {
             return 'notUploaded';
           }
         },
@@ -272,6 +284,8 @@ export const generateContent: TranslationFn = content => {
     translations['infoTakePhoto'],
     'More information about how ' + translations['infoTakePhoto']
   );
+  const showWarning = true;
+
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
@@ -281,5 +295,6 @@ export const generateContent: TranslationFn = content => {
     infoTakePhotoAccessibleSpan,
     applicant1HasChangedName,
     nameDifferenceEvidenceRequired,
+    showWarning,
   };
 };

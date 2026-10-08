@@ -1,7 +1,5 @@
 import lodash from 'lodash';
 
-const { isObject } = lodash;
-
 import { Checkbox } from '../../../app/case/case.js';
 import { YesOrNo } from '../../../app/case/definition.js';
 import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
@@ -10,6 +8,9 @@ import { UPPY_FILE_INPUT_BUTTON_ID } from '../../../app/document/DocumentManagem
 import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
 import { isFieldFilledIn } from '../../../app/form/validation.js';
 import { generateContent as applicant1GenerateContent } from '../../applicant1/details-other-proceedings/content.js';
+import { generateContent as uploadDocumentGenerateContent } from '../../applicant1/upload-your-documents/content.js';
+
+const { isObject } = lodash;
 
 const labels = applicant1Content => ({
   errors: {
@@ -84,6 +85,7 @@ export const form: FormContent = {
           name: 'applicant2UnableToUploadEvidence',
           label: l => l.unableToUploadEvidence,
           value: Checkbox.Checked,
+          conditionalText: l => l.cannotUploadYouCanPost,
         },
       ],
     },
@@ -95,18 +97,17 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const applicant1Content = applicant1GenerateContent(content);
+  const uploadDocumentContent = uploadDocumentGenerateContent(content);
   const uploadedDocsFilenames = content.userCase.applicant2LegalProceedingDocs?.map(item => getFilename(item.value));
   const amendable = content.isAmendableStates;
-  const uploadContentScript = `{
-    "isAmendableStates": ${content.isAmendableStates},
-    "delete": "${content.delete}"
-  }`;
+  const showWarning = false;
   return {
     ...applicant1Content,
+    ...uploadDocumentContent,
     ...labels(applicant1Content),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     amendable,
     uploadedDocsFilenames,
-    uploadContentScript,
+    showWarning,
   };
 };
