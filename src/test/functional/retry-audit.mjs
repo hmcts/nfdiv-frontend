@@ -12,6 +12,8 @@ import retryAuditScreenshot, { isScreenshotRenameEnabled } from './retry-audit/r
 const attempts = new Map();
 const attemptStarts = new Map();
 const activeAttempts = new Map();
+const activeHooks = new Map();
+const completedHooks = new Set();
 const outputDir = path.resolve(process.cwd(), 'functional-output/functional/retry-audit');
 let screenshotRenamingEnabled = true;
 let processExitError = null;
@@ -83,10 +85,18 @@ const writeAttempt = (test, status, error, hookName) => {
   }
 
   const attemptKey = getAttemptKey(test);
-  activeAttempts.delete(attemptKey);
-  const attempt = (attempts.get(attemptKey) || 0) + 1;
+  const activeAttempt = activeAttempts.get(attemptKey);
+  if (activeAttempt?.managed && activeAttempt.completed) {
+    return;
+  }
+  if (activeAttempt?.managed) {
+    activeAttempt.completed = true;
+  } else {
+    activeAttempts.delete(attemptKey);
+  }
+  const attempt = activeAttempt?.managed ? activeAttempt.scenarioAttempt : (attempts.get(attemptKey) || 0) + 1;
   attempts.set(attemptKey, attempt);
-  const durationMs = getDurationMs(test, attemptStarts.get(attemptKey));
+  const durationMs = getDurationMs(activeAttempt?.managed ? null : test, attemptStarts.get(attemptKey));
   attemptStarts.delete(attemptKey);
 
   const details = createAttemptDetails(test, attempt, status, error, hookName, durationMs, screenshotRenamingEnabled);
@@ -96,12 +106,53 @@ const writeAttempt = (test, status, error, hookName) => {
   fs.writeFileSync(path.join(outputDir, fileName), `${JSON.stringify(details, null, 2)}\n`);
 };
 
+const getHookKey = details => `${getAttemptKey(details.test)}:${details.scenarioAttempt}:${details.hookAttempt}`;
+
+const isTrackableHook = details =>
+  isTrackableTest(details?.test) &&
+  [details.scenarioAttempt, details.hookAttempt].every(value => Number.isInteger(value) && value > 0);
+
+const writeHookAttempt = details => {
+  if (!isTrackableHook(details)) {
+    return;
+  }
+  const key = getHookKey(details);
+  if (completedHooks.has(key)) {
+    return;
+  }
+  const activeHook = activeHooks.get(key);
+  activeHooks.delete(key);
+  completedHooks.add(key);
+  const audit = {
+    ...getTestDetails(details.test),
+    kind: 'hook',
+    scenarioAttempt: details.scenarioAttempt,
+    hookAttempt: details.hookAttempt,
+    hookName: details.hookName,
+    status: details.status,
+    durationMs: Number.isFinite(details.durationMs) ? details.durationMs : getDurationMs(null, activeHook?.startedAt),
+    screenshotFile: details.screenshotFile || null,
+    error: serialiseError(details.error),
+    recordedAt: new Date().toISOString(),
+  };
+  fs.mkdirSync(outputDir, { recursive: true });
+  const fileName = `${key}-${randomUUID()}.hook.json`.replace(/[^a-zA-Z0-9._-]/g, '_');
+  fs.writeFileSync(path.join(outputDir, fileName), `${JSON.stringify(audit, null, 2)}\n`);
+};
+
 export const flushActiveAttempts = (exitCode, error) => {
   if (exitCode === 0) {
     return;
   }
 
-  for (const { test, error: activeError, hookName } of activeAttempts.values()) {
+  const exitError = error || new Error(`Feature process exited with code ${exitCode}`);
+  for (const details of activeHooks.values()) {
+    writeHookAttempt({ ...details, status: 'failed', error: exitError });
+  }
+  for (const { test, error: activeError, hookName, completed } of activeAttempts.values()) {
+    if (completed) {
+      continue;
+    }
     writeAttempt(
       test,
       'failed',
@@ -123,6 +174,11 @@ export default function retryAudit() {
   const recordAttemptStart = test => {
     if (isTrackableTest(test)) {
       const attemptKey = getAttemptKey(test);
+      // test.started follows the Background and must not discard setup time.
+      const activeAttempt = activeAttempts.get(attemptKey);
+      if (activeAttempt?.managed && !activeAttempt.completed) {
+        return;
+      }
       attemptStarts.set(attemptKey, performance.now());
       activeAttempts.set(attemptKey, { test });
     }
@@ -137,6 +193,39 @@ export default function retryAudit() {
   for (const eventName of [event.test.before, event.test.started]) {
     event.dispatcher.on(eventName, recordAttemptStart);
   }
+  event.dispatcher.on(event.test.started, test => {
+    const activeAttempt = activeAttempts.get(getAttemptKey(test));
+    if (activeAttempt?.managed) {
+      // Setup has completed: an abnormal body exit is a scenario failure.
+      delete activeAttempt.hookName;
+    }
+  });
+
+  // Optional event contract: deliberately do not import or require the Background retry plugin.
+  // With no custom events, all existing scenario/hook listeners operate as before.
+  event.dispatcher.on('nfdiv.hookAttempt.started', details => {
+    if (!isTrackableHook(details)) {
+      return;
+    }
+    const attemptKey = getAttemptKey(details.test);
+    let activeAttempt = activeAttempts.get(attemptKey);
+    if (!activeAttempt || activeAttempt.completed || activeAttempt.scenarioAttempt !== details.scenarioAttempt) {
+      const setupElapsed = Number.isFinite(details.test.startedAt)
+        ? Math.max(0, Date.now() - details.test.startedAt)
+        : 0;
+      const startedAt = activeAttempt && !activeAttempt.completed ? attemptStarts.get(attemptKey) : undefined;
+      attemptStarts.set(attemptKey, startedAt ?? performance.now() - setupElapsed);
+      activeAttempt = { test: details.test };
+      activeAttempts.set(attemptKey, activeAttempt);
+    }
+    Object.assign(activeAttempt, {
+      managed: true,
+      scenarioAttempt: details.scenarioAttempt,
+      hookName: details.hookName,
+    });
+    activeHooks.set(getHookKey(details), { ...details, startedAt: performance.now() });
+  });
+  event.dispatcher.on('nfdiv.hookAttempt.finished', writeHookAttempt);
 
   event.dispatcher.on(event.test.finished, test => {
     const status = test.err || test.state === 'failed' ? 'failed' : test.state === 'skipped' ? 'skipped' : 'passed';
@@ -162,4 +251,6 @@ export default function retryAudit() {
       deferWriteAttempt(test, 'failed', error, hookName);
     }
   });
+
+  return { auditsBackgroundRetries: true };
 }
