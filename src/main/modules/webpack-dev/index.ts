@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { Application } from 'express';
-import { webpack } from 'webpack';
+import webpackLib from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 
 const webpackDevModuleDir = path.dirname(fileURLToPath(import.meta.url));
@@ -19,7 +19,7 @@ export class WebpackDev {
 
       const requireFromModule = createRequire(import.meta.url);
       const webpackConfig = requireFromModule(webpackConfigPath);
-      const compiler = webpack(webpackConfig);
+      const compiler = webpackLib(webpackConfig);
       app.use(webpackDevMiddleware(compiler, { publicPath: 'src/main/public/' }));
     }
   }
