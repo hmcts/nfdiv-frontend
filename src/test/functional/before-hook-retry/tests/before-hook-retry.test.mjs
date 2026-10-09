@@ -175,6 +175,9 @@ if (${Boolean(options.disabledPlugin || options.missingPlugin)}) {
 config.plugins.hookRetry.minTimeout = 0;
 config.plugins.retryFailedStep.enabled = ${Boolean(options.stepRetries)};
 config.plugins.screenshot.enabled = ${Boolean(options.screenshots)};
+if (${Number.isInteger(options.retryBefore)}) {
+  config.retry.Before = ${Number.isInteger(options.retryBefore) ? options.retryBefore : 0};
+}
 if (!${Boolean(options.missingAudit || options.disabledAudit)}) {
   config.plugins.retryAudit.require = ${JSON.stringify(path.join(projectRoot, 'src/test/functional/retry-audit.mjs'))};
 }
@@ -274,7 +277,7 @@ test('records recovered hook failures and screenshots without failing the scenar
   );
   assert.equal(result.audit.latest.status, 'passed');
   assert.equal(result.audit.attempts.length, 1);
-  assert.match(result.html, /<th class="attempt">Before Attempt<\/th>/);
+  assert.match(result.html, /<th class="attempt">Before Hook Attempt<\/th>/);
   assert.match(result.html, /<tr><td class="attempt">1<\/td><td class="result failed">/);
   assert.match(result.html, /<tr><td class="attempt">2<\/td><td class="result passed">/);
   assert.match(result.html, /controlled plain failure/);
@@ -367,6 +370,16 @@ test('retries the generated Before hook without rerunning helper _before in the 
   assert.match(result.stdout, /BACKGROUND_CALL 2/);
 });
 
+test('uses the higher retry count from retry.Before when custom before-hook retries are active', async context => {
+  const result = await runFixture(context, { plainFailures: 4, retryBefore: 4 });
+  assert.equal(result.code, 0, result.stdout);
+  assert.match(result.stdout, /BACKGROUND_CALL 5/);
+  assert.deepEqual(
+    result.audit.hookAttempts.map(attempt => attempt.status),
+    ['failed', 'failed', 'failed', 'failed', 'passed']
+  );
+});
+
 for (const screenshots of [undefined, 'closed', 'fail']) {
   test(`screenshot availability (${screenshots || 'disabled'}) does not prevent hook recovery`, async context => {
     const result = await runFixture(context, { plainFailures: 1, screenshots });
@@ -401,6 +414,16 @@ for (const fallback of ['missingAudit', 'disabledAudit']) {
     assert.doesNotMatch(result.stdout, /HOOK_ATTEMPT_EVENT/);
     assert.deepEqual(result.records, []);
     assert.doesNotMatch(result.html, /<table class="(?:attempts|hook-attempts)"/);
+  });
+}
+
+for (const fallback of ['missingAudit', 'disabledAudit']) {
+  test(`${fallback} uses the higher retry count of retry.Before and hookRetry.retries`, async context => {
+    const result = await runFixture(context, { [fallback]: true, plainFailures: 4, retryBefore: 4 });
+    assert.equal(result.code, 0, result.stdout);
+    assert.match(result.stdout, /BACKGROUND_CALL 5/);
+    assert.match(result.stdout, /BODY_RAN 1/);
+    assert.doesNotMatch(result.stdout, /HOOK_ATTEMPT_EVENT/);
   });
 }
 
@@ -554,7 +577,7 @@ for (const legacy of [false, true]) {
     const file = path.join(result.reportDir, 'mixed.html');
     await createHtmlReport([path.join(result.reportDir, 'result.xml')], loaded, file);
     const html = await readFile(file, 'utf8');
-    assert.match(html, /<th class="attempt">Before Attempt<\/th>/);
+    assert.match(html, /<th class="attempt">Before Hook Attempt<\/th>/);
     assert.match(html, /<tr><td class="attempt">1<\/td><td class="result failed">/);
     assert.match(html, /<tr><td class="attempt">2<\/td><td class="result passed">/);
     assert.match(html, /recovered hook failure/);

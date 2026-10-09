@@ -1,5 +1,6 @@
 import { setTimeout as delay } from 'node:timers/promises';
 
+import Config from 'codeceptjs/lib/config';
 import container from 'codeceptjs/lib/container';
 import event from 'codeceptjs/lib/event';
 import { fireHook } from 'codeceptjs/lib/mocha/hooks';
@@ -65,6 +66,31 @@ const clearSuiteHookFailures = suite => {
   suite.eachTest(testCase => {
     delete testCase.err;
   });
+};
+
+const getConfiguredBeforeRetries = suite => {
+  const explicitSuiteRetries =
+    Number.isInteger(suite.opts?.retryBefore) && suite.opts.retryBefore >= 0 ? suite.opts.retryBefore : 0;
+  let retries = explicitSuiteRetries;
+  let retryConfig = Config.get('retry');
+  if (!retryConfig || Number.isInteger(+retryConfig)) {
+    return retries;
+  }
+  if (!Array.isArray(retryConfig)) {
+    retryConfig = [retryConfig];
+  }
+  for (const candidate of retryConfig) {
+    if (!candidate || typeof candidate !== 'object') {
+      continue;
+    }
+    if (candidate.grep && !suite.title.includes(candidate.grep)) {
+      continue;
+    }
+    if (Number.isInteger(candidate.Before) && candidate.Before >= 0) {
+      retries = Math.max(retries, candidate.Before);
+    }
+  }
+  return retries;
 };
 
 export const createBeforeHookRetryHandler = (suite, beforeFn, { retries, minTimeout, factor }) =>
@@ -159,15 +185,18 @@ export default function beforeHookRetry(options = {}) {
       output.plugin('hookRetry', 'retry-audit is unavailable; using built-in Before retries');
     }
     const visit = suite => {
+      const effectiveRetries = Math.max(config.retries, getConfiguredBeforeRetries(suite));
       if (suite.feature && !auditAvailable) {
-        suite.opts = { ...suite.opts, retryBefore: config.retries };
+        suite.opts = { ...suite.opts, retryBefore: effectiveRetries };
       } else if (suite.feature) {
         const hooks = suite._beforeEach.filter(hook => hook.title.endsWith(': Before'));
         if (hooks.length > 1) {
           throw new Error(`Before hook registration is incompatible with hookRetry: ${suite.title}`);
         }
         if (hooks.length) {
-          hooks[0].fn = createBeforeHookRetryHandler(suite, hooks[0].fn, config);
+          // Disable CodeceptJS inner Before retries to avoid nested retry loops.
+          suite.opts = { ...suite.opts, retryBefore: 0 };
+          hooks[0].fn = createBeforeHookRetryHandler(suite, hooks[0].fn, { ...config, retries: effectiveRetries });
         }
       }
       suite.suites.forEach(visit);
