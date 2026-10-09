@@ -1,6 +1,6 @@
-import { UPLOAD_EVIDENCE_ALTERNATIVE } from '../../steps/urls';
-import { ApplicationType } from '../case/definition';
-import type { AppRequest } from '../controller/AppRequest';
+import { UPLOAD_EVIDENCE_ALTERNATIVE } from '../../steps/urls.js';
+import { ApplicationType } from '../case/definition.js';
+import type { AppRequest } from '../controller/AppRequest.js';
 
 export enum FileUploadJourney {
   ALTERNATIVE_SERVICE = 'alternativeService',

@@ -1,19 +1,19 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../../../app/case/case';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../../../app/case/case.js';
 import {
   ApplicationType,
   CITIZEN_SERVICE_APPLICATION,
   InterimApplicationType,
   State,
-} from '../../../../../app/case/definition';
-import { FormContent } from '../../../../../app/form/Form';
-import { bailiffServiceApplicationSequence } from '../../../../bailiffServiceApplicationSequence';
-import { getFirstErroredStep } from '../../../../index';
+} from '../../../../../app/case/definition.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { bailiffServiceApplicationSequence } from '../../../../bailiffServiceApplicationSequence.js';
+import { getFirstErroredStep } from '../../../../index.js';
 
-import CheckBailiffServiceAnswersPostController from './post';
+import CheckBailiffServiceAnswersPostController from './post.js';
 
-jest.mock('../../../../index', () => ({
+jest.mock('../../../../index.js', () => ({
   getFirstErroredStep: jest.fn(),
   getNextStepUrl: jest.fn(() => '/next-step-url'),
 }));

@@ -1,11 +1,11 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
-import { CITIZEN_WITHDRAWN } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
-import { APPLICATION_WITHDRAWN, SAVE_AND_SIGN_OUT } from '../../urls';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc.js';
+import { CITIZEN_WITHDRAWN } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { APPLICATION_WITHDRAWN, SAVE_AND_SIGN_OUT } from '../../urls.js';
 
-import WithdrawApplicationPostController from './post';
+import WithdrawApplicationPostController from './post.js';
 
 describe('WithdrawApplicationPostController', () => {
   const mockFormContent = {

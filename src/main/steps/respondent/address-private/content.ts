@@ -1,9 +1,9 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
 import {
   form as applicant2Form,
   generateContent as applicant2GenerateContent,
-} from '../../applicant2/address-private/content';
+} from '../../applicant2/address-private/content.js';
 
 export const form: FormContent = applicant2Form;
 

@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
 
 const en = ({ isDivorce, partner }) => ({
   title: `You cannot apply to ${isDivorce ? 'get a divorce' : 'end your civil partnership'}`,

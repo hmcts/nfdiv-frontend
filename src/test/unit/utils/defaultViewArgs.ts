@@ -1,5 +1,5 @@
-import { SupportedLanguages } from '../../../main/modules/i18n';
-import { generateCommonContent } from '../../../main/steps/common/common.content';
+import { SupportedLanguages } from '../../../main/modules/i18n/index.js';
+import { generateCommonContent } from '../../../main/steps/common/common.content.js';
 
 export const defaultViewArgs = {
   ...generateCommonContent({

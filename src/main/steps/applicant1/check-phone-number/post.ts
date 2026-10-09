@@ -1,14 +1,13 @@
-import autobind from 'autobind-decorator';
-
 import {
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_APPLICANT2_UPDATE_CONTACT_DETAILS,
   CITIZEN_UPDATE,
   CITIZEN_UPDATE_CONTACT_DETAILS,
   State,
-} from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
+} from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject, PostController } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
 
 @autobind
 export default class CitizenUpdateContactDetailsPostController extends PostController<AnyObject> {

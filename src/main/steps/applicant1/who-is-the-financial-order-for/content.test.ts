@@ -1,7 +1,7 @@
-import { FinancialOrderFor } from '../../../app/case/definition';
-import { Form, FormFieldsFn } from '../../../app/form/Form';
+import { FinancialOrderFor } from '../../../app/case/definition.js';
+import { Form, FormFieldsFn } from '../../../app/form/Form.js';
 
-import { form as formContent } from './content';
+import { form as formContent } from './content.js';
 
 describe('FormContent', () => {
   let form: Form;

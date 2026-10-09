@@ -1,5 +1,5 @@
-import { Step } from './applicant1Sequence';
-import { HUB_PAGE, MAKE_AN_APPLICATION } from './urls';
+import { Step } from './applicant1Sequence.js';
+import { HUB_PAGE, MAKE_AN_APPLICATION } from './urls.js';
 
 export const generalApplicationD11JourneySequence: Step[] = [
   {

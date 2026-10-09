@@ -4,12 +4,12 @@ import {
   NoResponsePartnerNewEmailOrAddress,
   NoResponseSendPapersAgainOrTrySomethingElse,
   YesOrNo,
-} from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
-import { DISABLE_UPON_SUBMIT } from '../../../../common/content.utils';
-import * as urls from '../../../../urls';
+} from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { DISABLE_UPON_SUBMIT } from '../../../../common/content.utils.js';
+import * as urls from '../../../../urls.js';
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 

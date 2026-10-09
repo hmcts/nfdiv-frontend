@@ -1,9 +1,9 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
 import {
   form as applyForHwfForm,
   generateContent as applyForHwfGenerateContent,
-} from '../../common/apply-for-hwf/content';
+} from '../../common/apply-for-hwf/content.js';
 
 export const form: FormContent = applyForHwfForm;
 

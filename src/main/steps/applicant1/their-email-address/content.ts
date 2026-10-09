@@ -1,8 +1,8 @@
-import { Checkbox } from '../../../app/case/case';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { isApplicant2EmailValid, isFieldFilledIn } from '../../../app/form/validation';
-import { isApplicant2EmailUpdatePossible } from '../../common/content.utils';
+import { Checkbox } from '../../../app/case/case.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
+import { isApplicant2EmailValid, isFieldFilledIn } from '../../../app/form/validation.js';
+import { isApplicant2EmailUpdatePossible } from '../../common/content.utils.js';
 
 const en = ({ userCase, partner, isDivorce, isJointApplication, hasEnteredSolicitorDetails }) => ({
   title: `Enter your ${partner}'s email address`,

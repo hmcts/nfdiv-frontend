@@ -1,11 +1,11 @@
 import config from 'config';
 
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { getFee } from '../../../../../app/fees/service/get-fee';
-import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
-import { generateContent as alsoTryGenerateContent } from '../../common/also-try/content';
-import { formatApplicant2Address } from '../../no-response/have-they-received/content';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { getFee } from '../../../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { generateContent as alsoTryGenerateContent } from '../../common/also-try/content.js';
+import { formatApplicant2Address } from '../../no-response/have-they-received/content.js';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: 'Apply to ask the court to search government records (D11)',

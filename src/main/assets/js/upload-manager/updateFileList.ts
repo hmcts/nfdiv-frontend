@@ -1,7 +1,7 @@
-import { DOCUMENT_MANAGER } from '../../../steps/urls';
-import { getById, hidden } from '../selectors';
+import { DOCUMENT_MANAGER } from '../../../steps/urls.js';
+import { getById, hidden } from '../selectors.js';
 
-import type { UploadedFiles } from './UploadedFiles';
+import type { UploadedFiles } from './UploadedFiles.js';
 
 const noFilesUploadedEl = getById('noFilesUploaded');
 const filesUploadedEl = getById('filesUploaded');

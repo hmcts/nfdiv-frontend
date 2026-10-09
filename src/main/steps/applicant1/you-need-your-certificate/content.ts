@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import type { CommonContent } from '../../common/common.content';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import type { CommonContent } from '../../common/common.content.js';
 
 const en = ({ isDivorce, partner, civilPartner }: CommonContent, relationship: string) => ({
   title: `You need your ${relationship} certificate`,

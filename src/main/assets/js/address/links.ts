@@ -1,6 +1,6 @@
-import { getById, hidden, qs, qsa } from '../selectors';
+import { getById, hidden, qs, qsa } from '../selectors.js';
 
-import { hideErrors } from './errors';
+import { hideErrors } from './errors.js';
 
 const toggleLookupPostcode = (toggle: string) => {
   (getById('enterPostcode') as HTMLElement).classList[toggle](hidden);

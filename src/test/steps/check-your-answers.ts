@@ -1,7 +1,9 @@
-import { Checkbox } from '../../main/app/case/case';
-import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
+import { inject } from 'codeceptjs';
 
-import { iSetTheUsersCaseTo } from './common';
+import { Checkbox } from '../../main/app/case/case.js';
+import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition.js';
+
+import { iSetTheUsersCaseTo } from './common.js';
 
 const { I } = inject();
 

@@ -1,8 +1,8 @@
-import { Checkbox } from '../../../app/case/case';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { generateContent as applicant1GenerateContent } from '../../applicant1/confirm-your-joint-application/content';
+import { Checkbox } from '../../../app/case/case.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { generateContent as applicant1GenerateContent } from '../../applicant1/confirm-your-joint-application/content.js';
 
 const labels = content => {
   return {

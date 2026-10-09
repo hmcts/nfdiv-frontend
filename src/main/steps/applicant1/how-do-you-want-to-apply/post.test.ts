@@ -1,12 +1,12 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc';
-import { ApplicationType, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
-import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper';
-import { SAVE_AND_SIGN_OUT, SWITCH_TO_SOLE_APPLICATION } from '../../urls';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { getEndIdamSessionUrl } from '../../../app/auth/user/oidc.js';
+import { ApplicationType, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, State } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { setJurisdictionFieldsAsNull } from '../../../app/jurisdiction/jurisdictionRemovalHelper.js';
+import { SAVE_AND_SIGN_OUT, SWITCH_TO_SOLE_APPLICATION } from '../../urls.js';
 
-import ApplicationTypePostController from './post';
+import ApplicationTypePostController from './post.js';
 
 describe('ApplicationTypePostController', () => {
   const mockFormContent = {

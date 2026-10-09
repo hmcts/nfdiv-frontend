@@ -1,11 +1,11 @@
-import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs';
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { DivorceOrDissolution } from '../../../app/case/definition';
-import { SupportedLanguages } from '../../../modules/i18n';
-import { HOME_URL } from '../../urls';
+import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs.js';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { DivorceOrDissolution } from '../../../app/case/definition.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { HOME_URL } from '../../urls.js';
 
-import { Applicant1AccessCodeGetController } from './get';
+import { Applicant1AccessCodeGetController } from './get.js';
 
 describe('AccessCodeGetController', () => {
   const controller = new Applicant1AccessCodeGetController();

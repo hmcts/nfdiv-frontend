@@ -1,6 +1,6 @@
 import { Application } from 'express';
 
-import { Routes } from './routes';
+import { Routes } from './routes.js';
 import {
   APPLICANT_2,
   ENTER_YOUR_ACCESS_CODE,
@@ -9,7 +9,7 @@ import {
   RESPONDENT,
   TERMS_AND_CONDITIONS_URL,
   YOUR_DETAILS_URL,
-} from './steps/urls';
+} from './steps/urls.js';
 
 describe('Routes', () => {
   it('sets up dynamic step sequence routes', () => {

@@ -1,11 +1,11 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormField, FormFields } from '../../../app/form/Form';
-import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormField, FormFields } from '../../../app/form/Form.js';
+import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/enter-your-address/content';
-import { isCountryUk } from '../../applicant1Sequence';
+} from '../../applicant1/enter-your-address/content.js';
+import { isCountryUk } from '../../applicant1Sequence.js';
 
 const labels = applicant1Content => ({
   errors: {

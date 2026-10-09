@@ -1,7 +1,7 @@
-import { CaseWithId } from '../case/case';
-import { GeneralApplication, GeneralParties, OrderSummary, YesOrNo } from '../case/definition';
-import { AppRequest } from '../controller/AppRequest';
-import { AnyObject } from '../controller/PostController';
+import { CaseWithId } from '../case/case.js';
+import { GeneralApplication, GeneralParties, OrderSummary, YesOrNo } from '../case/definition.js';
+import { AppRequest } from '../controller/AppRequest.js';
+import { AnyObject } from '../controller/PostController.js';
 
 export const findUnpaidGeneralApplication = (
   userCase: Partial<CaseWithId>,

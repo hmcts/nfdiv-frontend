@@ -1,5 +1,5 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
 import {
   APPLICANT_1_CONFIRM_RECEIPT,
   APPLICANT_2_CONFIRM_RECEIPT,
@@ -8,10 +8,10 @@ import {
   DRAFT_CONDITIONAL_ORDER,
   State,
   YesOrNo,
-} from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+} from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import HubPagePostController from './post';
+import HubPagePostController from './post.js';
 
 describe('HubPagePostController', () => {
   it('triggers APPLICANT_1_CONFIRM_RECEIPT in Holding state', async () => {

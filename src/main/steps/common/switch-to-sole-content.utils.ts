@@ -1,10 +1,10 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { CaseWithId } from '../../app/case/case';
-import { State, YesOrNo } from '../../app/case/definition';
+import { CaseWithId } from '../../app/case/case.js';
+import { State, YesOrNo } from '../../app/case/definition.js';
 
-import { hasApplicantAppliedForFoFirst } from './content.utils';
+import { hasApplicantAppliedForFoFirst } from './content.utils.js';
 
 interface SwitchToSoleFinalOrderStatus {
   isWithinSwitchToSoleFoIntentionNotificationPeriod: boolean;

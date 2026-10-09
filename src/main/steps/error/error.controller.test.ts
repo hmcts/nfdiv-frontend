@@ -1,14 +1,12 @@
 import { AxiosError } from 'axios';
 
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { SupportedLanguages } from '../../modules/i18n';
-import { generateCommonContent } from '../common/common.content';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
+import { generateCommonContent } from '../common/common.content.js';
 
-import { errorContent } from './content';
-import { ErrorController, HTTPError } from './error.controller';
-
-import Mock = jest.Mock;
+import { errorContent } from './content.js';
+import { ErrorController, HTTPError } from './error.controller.js';
 
 describe('ErrorController', () => {
   const controller = new ErrorController();
@@ -137,6 +135,6 @@ describe('ErrorController', () => {
 });
 
 interface MockedLogger {
-  info: Mock;
-  error: Mock;
+  info: jest.Mock;
+  error: jest.Mock;
 }

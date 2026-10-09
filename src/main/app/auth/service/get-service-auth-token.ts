@@ -1,10 +1,12 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import axios from 'axios';
 import config from 'config';
-import OTPAuth from 'otpauth';
+import { TOTP } from 'otpauth';
 
 const logger = Logger.getLogger('service-auth-token');
-let token;
+const processState = globalThis as typeof globalThis & {
+  __nfdivServiceAuthToken?: string;
+};
 
 export const getTokenFromApi = (): void => {
   logger.info('Refreshing service auth token');
@@ -17,12 +19,12 @@ export const getTokenFromApi = (): void => {
 
   axios
     .post(url, body)
-    .then(response => (token = response.data))
+    .then(response => (processState.__nfdivServiceAuthToken = response.data))
     .catch(err => logger.error(err.response?.status, err.response?.data));
 };
 
 const createOneTimePassword = (secret: string): string => {
-  const totp = new OTPAuth.TOTP({
+  const totp = new TOTP({
     secret,
     digits: 6,
     period: 30,
@@ -37,5 +39,5 @@ export const initAuthToken = (): void => {
 };
 
 export const getServiceAuthToken = (): string => {
-  return token;
+  return processState.__nfdivServiceAuthToken as string;
 };

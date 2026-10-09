@@ -1,9 +1,9 @@
 import { csrfSync } from 'csrf-sync';
 import type { Application } from 'express';
 
-import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
+import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls.js';
 
-import { CSRFToken } from './index';
+import { CSRFToken } from './index.js';
 
 jest.mock('csrf-sync', () => ({
   csrfSync: jest.fn().mockReturnValue({

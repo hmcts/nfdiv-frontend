@@ -1,25 +1,24 @@
+import { defaultClient, setup } from 'applicationinsights';
 import config from 'config';
 
-import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
-
-const appInsights = require('applicationinsights');
+import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls.js';
 
 export class AppInsights {
   enable(): void {
     if (config.get('appInsights.instrumentationKey')) {
-      appInsights
-        .setup(config.get('appInsights.instrumentationKey'))
+      setup(config.get('appInsights.instrumentationKey'))
         .setSendLiveMetrics(true)
         .setAutoCollectConsole(true, true)
         .setAutoCollectExceptions(true)
         .start();
 
-      appInsights.defaultClient.addTelemetryProcessor(
+      defaultClient.addTelemetryProcessor(
         (env, ctx) =>
-          ctx['http.ServerResponse']?.req.url !== CSRF_TOKEN_ERROR_URL && ctx['http.ServerResponse']?.statusCode !== 404
+          ctx?.['http.ServerResponse']?.req.url !== CSRF_TOKEN_ERROR_URL &&
+          ctx?.['http.ServerResponse']?.statusCode !== 404
       );
-      appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'nfdiv-frontend';
-      appInsights.defaultClient.trackTrace({ message: 'App insights activated' });
+      defaultClient.context.tags[defaultClient.context.keys.cloudRole] = 'nfdiv-frontend';
+      defaultClient.trackTrace({ message: 'App insights activated' });
     }
   }
 }

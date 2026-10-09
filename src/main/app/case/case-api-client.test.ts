@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { LoggerInstance } from 'winston';
 
-import { UserDetails } from '../controller/AppRequest';
-import { PaymentModel } from '../payment/PaymentModel';
+import { UserDetails } from '../controller/AppRequest.js';
+import { PaymentModel } from '../payment/PaymentModel.js';
 
-import { CaseApiClient, getCaseApiClient } from './case-api-client';
-import { CASE_TYPE } from './case-type';
-import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition';
+import { CaseApiClient, getCaseApiClient } from './case-api-client.js';
+import { CASE_TYPE } from './case-type.js';
+import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition.js';
 
 jest.mock('axios');
 

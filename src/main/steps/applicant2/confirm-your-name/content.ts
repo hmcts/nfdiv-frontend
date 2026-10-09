@@ -1,9 +1,9 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFields } from '../../../app/form/Form';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFields } from '../../../app/form/Form.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/confirm-your-name/content';
+} from '../../applicant1/confirm-your-name/content.js';
 
 const en = ({ userCase, required }) => ({
   title: `Is ${userCase.applicant2FirstNames} ${userCase.applicant2MiddleNames} ${userCase.applicant2LastNames} your full name, including any middle names?`,
