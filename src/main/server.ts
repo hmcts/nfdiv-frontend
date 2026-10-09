@@ -5,9 +5,9 @@ import { fileURLToPath } from 'node:url';
 import { Logger } from '@hmcts/nodejs-logging';
 import bodyParser from 'body-parser';
 import config from 'config';
-import express, { RequestHandler } from 'express';
+import express, { RequestHandler, static as staticMiddleware } from 'express';
 import favicon from 'serve-favicon';
-import toobusy from 'toobusy-js';
+import { shutdown as tooBusyShutdown } from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
 import { AppInsights } from './modules/appinsights/index.js';
@@ -52,7 +52,7 @@ function setStaticCachingPolicy(res, file) {
 }
 
 app.use(
-  express.static(path.join(mainPath, 'public'), {
+  staticMiddleware(path.join(mainPath, 'public'), {
     setHeaders: setStaticCachingPolicy,
   })
 );
@@ -105,7 +105,7 @@ app.use((req, res, next) => {
 
     process.on('SIGINT', function () {
       server.close();
-      toobusy.shutdown();
+      tooBusyShutdown();
       process.exit();
     });
   } catch (error) {

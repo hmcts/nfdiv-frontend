@@ -1,9 +1,9 @@
 import { Application } from 'express';
-import toobusy from 'toobusy-js';
+import toobusy, { maxLag } from 'toobusy-js';
 
 export class TooBusy {
   public enableFor(app: Application): void {
-    toobusy.maxLag(200);
+    maxLag(200);
 
     app.use(function (req, res, next) {
       if (toobusy()) {

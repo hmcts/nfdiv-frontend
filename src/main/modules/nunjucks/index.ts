@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 import config from 'config';
 import express from 'express';
-import nunjucks from 'nunjucks';
+import { configure, runtime } from 'nunjucks';
 
 import { DivorceOrDissolution } from '../../app/case/definition.js';
 import { FormInput } from '../../app/form/Form.js';
@@ -23,7 +23,7 @@ export class Nunjucks {
       'govuk-frontend',
       'dist'
     );
-    const env = nunjucks.configure([path.join(nunjucksModuleDir, '..', '..', 'steps'), govUkFrontendPath], {
+    const env = configure([path.join(nunjucksModuleDir, '..', '..', 'steps'), govUkFrontendPath], {
       autoescape: true,
       watch: app.locals.developmentMode,
       express: app,
@@ -108,11 +108,11 @@ export class Nunjucks {
     });
 
     env.addFilter('json', function (value, spaces) {
-      if (value instanceof nunjucks.runtime.SafeString) {
+      if (value instanceof runtime.SafeString) {
         value = value.toString();
       }
       const jsonString = JSON.stringify(value, null, spaces).replace(/</g, '\\u003c');
-      return new nunjucks.runtime.SafeString(jsonString);
+      return new runtime.SafeString(jsonString);
     });
 
     app.use((req, res, next) => {
