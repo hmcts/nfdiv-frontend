@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+import { jest } from '@jest/globals';
 import { create as createAxios } from 'axios';
 import pa11y from 'pa11y';
 import { launch as puppeteerLaunch } from 'puppeteer';

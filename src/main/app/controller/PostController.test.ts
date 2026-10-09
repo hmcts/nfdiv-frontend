@@ -1,5 +1,5 @@
-// noinspection TypeScriptValidateTypes
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
 import config from 'config';
 import lodash from 'lodash';
 
@@ -8,7 +8,6 @@ const { set } = lodash;
 import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
 import { FormContent } from '../../app/form/Form.js';
-import * as steps from '../../steps/index.js';
 import {
   DRAFT_SAVE_AND_SIGN_OUT,
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
@@ -26,11 +25,13 @@ import {
 } from '../case/definition.js';
 import { isPhoneNoValid } from '../form/validation.js';
 
-import { PostController } from './PostController.js';
-
 set(config, 'services.idam.systemPassword', 'DUMMY_VALUE_REPLACE');
 
-const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+jest.unstable_mockModule('../../steps/index.js', () => ({ getNextStepUrl: jest.fn() }));
+const { getNextStepUrl: getNextStepUrlMock } = (await import('../../steps/index.js')) as unknown as {
+  getNextStepUrl: jest.Mock<(...args: any[]) => any>;
+};
+const { PostController } = await import('./PostController.js');
 
 describe('PostController', () => {
   const saveAndSignOutRedirect = getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`);
@@ -97,7 +98,7 @@ describe('PostController', () => {
     };
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -127,7 +128,7 @@ describe('PostController', () => {
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock).mockRejectedValueOnce('Error saving');
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockRejectedValueOnce('Error saving');
     const logger = req.locals.logger as unknown as MockedLogger;
     const res = mockResponse();
     await controller.post(req, res);
@@ -155,9 +156,11 @@ describe('PostController', () => {
     const body = { gender: Gender.FEMALE };
     const controller = new PostController(mockFormContent.fields);
 
-    const mockSave = jest.fn(done => done('An error while saving session'));
+    const mockSave = jest.fn((done: (error: string) => void) => done('An error while saving session'));
     const req = mockRequest({ body, session: { save: mockSave } });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ gender: Gender.FEMALE });
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce({
+      gender: Gender.FEMALE,
+    });
     const res = mockResponse();
     await expect(controller.post(req, res)).rejects.toEqual('An error while saving session');
 
@@ -178,7 +181,9 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     const res = mockResponse();
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ sameSex: Checkbox.Checked });
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce({
+      sameSex: Checkbox.Checked,
+    });
 
     await controller.post(req, res);
 
@@ -197,7 +202,7 @@ describe('PostController', () => {
     };
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -350,7 +355,7 @@ describe('PostController', () => {
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
-    (req.locals.api.triggerEvent as jest.Mock).mockRejectedValue('Error saving');
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -369,7 +374,7 @@ describe('PostController', () => {
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body, userCase, session: { user: { email: 'test@example.com' } } });
-    (req.locals.api.triggerEvent as jest.Mock).mockRejectedValue('Error saving');
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -393,7 +398,7 @@ describe('PostController', () => {
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body, userCase, session: { user: { email: 'test@example.com' } } });
-    (req.locals.api.triggerEvent as jest.Mock).mockRejectedValue('Error saving');
+    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -444,6 +449,7 @@ describe('PostController', () => {
 });
 
 interface MockedLogger {
-  info: jest.Mock;
-  error: jest.Mock;
+  info: jest.Mock<(...args: any[]) => any>;
+  error: jest.Mock<(...args: any[]) => any>;
 }
+/* eslint-disable @typescript-eslint/no-explicit-any */

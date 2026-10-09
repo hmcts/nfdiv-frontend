@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import axios from 'axios';
 import { LoggerInstance } from 'winston';
 
@@ -7,8 +8,6 @@ import { PaymentModel } from '../payment/PaymentModel.js';
 import { CaseApiClient, getCaseApiClient } from './case-api-client.js';
 import { CASE_TYPE } from './case-type.js';
 import { CITIZEN_ADD_PAYMENT, CITIZEN_UPDATE, DivorceOrDissolution, State } from './definition.js';
-
-jest.mock('axios');
 
 const userDetails: UserDetails = {
   accessToken: '123',
@@ -23,15 +22,15 @@ describe('CaseApi', () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
 
   let mockLogger = {
-    error: jest.fn().mockImplementation((message: string) => message),
-    info: jest.fn().mockImplementation((message: string) => message),
+    error: jest.fn().mockImplementation((...args: unknown[]) => args[0]),
+    info: jest.fn().mockImplementation((...args: unknown[]) => args[0]),
   } as unknown as LoggerInstance;
 
   let api: CaseApiClient;
   beforeEach(() => {
     mockLogger = {
-      error: jest.fn().mockImplementation((message: string) => message),
-      info: jest.fn().mockImplementation((message: string) => message),
+      error: jest.fn().mockImplementation((...args: unknown[]) => args[0]),
+      info: jest.fn().mockImplementation((...args: unknown[]) => args[0]),
     } as unknown as LoggerInstance;
 
     api = new CaseApiClient(mockedAxios, mockLogger);

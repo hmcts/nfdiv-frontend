@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
 import { ApplicationType, CITIZEN_PAYMENT_MADE, PaymentStatus, State } from '../../../app/case/definition.js';
@@ -9,15 +12,16 @@ import {
   PAY_YOUR_FEE,
 } from '../../urls.js';
 
-import PaymentCallbackGetController from './get.js';
+jest.unstable_mockModule(
+  '../../../app/payment/PaymentClient',
+  async () => import('../../../app/payment/__mocks__/PaymentClient.js')
+);
 
-jest.mock('../../../app/payment/PaymentClient');
-
-const { mockCreate, mockGet } = jest.requireMock('../../../app/payment/PaymentClient') as {
-  mockCreate: jest.Mock;
-  mockGet: jest.Mock;
+const { mockCreate, mockGet } = (await import('../../../app/payment/PaymentClient.js')) as unknown as {
+  mockCreate: jest.Mock<(...args: any[]) => any>;
+  mockGet: jest.Mock<(...args: any[]) => any>;
 };
-
+const { default: PaymentCallbackGetController } = await import('./get.js');
 describe('PaymentCallbackGetController', () => {
   const paymentController = new PaymentCallbackGetController();
 
@@ -48,10 +52,10 @@ describe('PaymentCallbackGetController', () => {
       const req = mockRequest({
         userCase,
       });
-      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase);
+      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase) as any;
       const res = mockResponse();
 
-      (mockGet as jest.Mock).mockReturnValueOnce({
+      (mockGet as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
         payment_id: 'mock payment id',
         status: 'Success',
       });
@@ -91,10 +95,10 @@ describe('PaymentCallbackGetController', () => {
       const req = mockRequest({
         userCase,
       });
-      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase);
+      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase) as any;
       const res = mockResponse();
 
-      (mockGet as jest.Mock).mockReturnValueOnce({
+      (mockGet as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
         payment_id: 'mock payment id',
         status: 'Success',
       });
@@ -165,10 +169,10 @@ describe('PaymentCallbackGetController', () => {
       const req = mockRequest({
         userCase,
       });
-      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase);
+      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase) as any;
       const res = mockResponse();
 
-      (mockGet as jest.Mock).mockReturnValueOnce({
+      (mockGet as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
         payment_id: 'mock payment id',
         status: 'Failed',
       });
@@ -204,10 +208,10 @@ describe('PaymentCallbackGetController', () => {
       const req = mockRequest({
         userCase,
       });
-      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase);
+      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase) as any;
       const res = mockResponse();
 
-      (mockGet as jest.Mock).mockReturnValueOnce(undefined);
+      (mockGet as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce(undefined);
 
       await expect(paymentController.get(req, res)).rejects.toThrow(
         new Error('Could not retrieve payment status from payment service')
@@ -238,10 +242,10 @@ describe('PaymentCallbackGetController', () => {
       const req = mockRequest({
         userCase,
       });
-      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase);
+      req.locals.api.triggerPaymentEvent = jest.fn().mockReturnValue(userCase) as any;
       const res = mockResponse();
 
-      (mockGet as jest.Mock).mockReturnValueOnce({
+      (mockGet as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
         payment_id: 'mock payment id',
         status: 'Failed',
       });
@@ -256,3 +260,4 @@ describe('PaymentCallbackGetController', () => {
     });
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

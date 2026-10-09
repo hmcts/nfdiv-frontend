@@ -1,7 +1,6 @@
 import fs from 'node:fs';
-import { createRequire } from 'node:module';
-import { pathToFileURL } from 'node:url';
-import path from 'path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
@@ -104,51 +103,37 @@ const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
   });
 };
 
-const requireFromRoot = createRequire(path.resolve(process.cwd(), 'package.json'));
-const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
 const ext = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
+const routesDirectory = path.dirname(fileURLToPath(import.meta.url));
+
+const getModuleSpecifier = (modulePath: string): string => {
+  const relativePath = path.relative(routesDirectory, modulePath).replace(/\\/g, '/').replace(/\.ts$/, '.js');
+  return `./${relativePath}`;
+};
 
 export class Routes {
   public async enableFor(app: Application): Promise<void> {
     const { errorHandler } = app.locals;
     const errorController = new ErrorController();
 
-    let stepControllers;
-    if (isTestRuntime) {
-      void initializeStepContent();
-      stepControllers = stepsWithContent.map(step => {
-        let getController = GetController;
-        if (fs.existsSync(`${step.stepDir}/get${ext}`)) {
-          getController = requireFromRoot(`${step.stepDir}/get${ext}`).default;
-        }
+    await initializeStepContent();
 
-        let postController = PostController;
-        if (step.form && fs.existsSync(`${step.stepDir}/post${ext}`)) {
-          postController = requireFromRoot(`${step.stepDir}/post${ext}`).default;
-        }
+    // Dynamic step controllers have different constructor signatures by design.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const stepControllers: { step: (typeof stepsWithContent)[number]; getController: any; postController: any }[] = [];
+    for (const step of stepsWithContent) {
+      let getController = GetController;
+      if (fs.existsSync(`${step.stepDir}/get${ext}`)) {
+        getController = (await import(getModuleSpecifier(`${step.stepDir}/get${ext}`))).default;
+      }
 
-        return { step, getController, postController };
-      });
-    } else {
-      const stepControllersPromise = Promise.all(
-        stepsWithContent.map(async step => {
-          let getController = GetController;
-          if (fs.existsSync(`${step.stepDir}/get${ext}`)) {
-            getController = (await import(pathToFileURL(`${step.stepDir}/get${ext}`).href)).default;
-          }
+      let postController = PostController;
+      if (step.form && fs.existsSync(`${step.stepDir}/post${ext}`)) {
+        postController = (await import(getModuleSpecifier(`${step.stepDir}/post${ext}`))).default;
+      }
 
-          let postController = PostController;
-          if (step.form && fs.existsSync(`${step.stepDir}/post${ext}`)) {
-            postController = (await import(pathToFileURL(`${step.stepDir}/post${ext}`).href)).default;
-          }
-
-          return { step, getController, postController };
-        })
-      );
-      const [, loadedStepControllers] = await Promise.all([initializeStepContent(), stepControllersPromise]);
-      stepControllers = loadedStepControllers;
+      stepControllers.push({ step, getController, postController });
     }
-
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(EXISTING_APPLICATION, errorHandler(new ExistingApplicationGetController().get));
     app.post(

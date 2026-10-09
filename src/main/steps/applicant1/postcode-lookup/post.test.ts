@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
-import { getAddressesFromPostcode } from '../../../app/postcode/postcode-lookup.js';
 
-import { PostcodeLookupPostController } from './post.js';
+jest.unstable_mockModule('../../../app/postcode/postcode-lookup.js', () => ({
+  getAddressesFromPostcode: jest.fn(),
+}));
 
-jest.mock('../../../app/postcode/postcode-lookup');
+const { getAddressesFromPostcode } = await import('../../../app/postcode/postcode-lookup.js');
+const { PostcodeLookupPostController } = await import('./post.js');
 
-const mockGetAddressesFromPostcode = getAddressesFromPostcode as jest.Mocked<jest.Mock>;
+const mockGetAddressesFromPostcode = getAddressesFromPostcode as unknown as jest.Mock<(...args: any[]) => any>;
 
 describe('PostcodeLookupPostController', () => {
   afterEach(() => {
@@ -39,6 +44,7 @@ describe('PostcodeLookupPostController', () => {
     await postcodeLookupPostController.post(mockReq, mockRes);
 
     expect(mockGetAddressesFromPostcode).not.toHaveBeenCalled();
-    expect((mockRes.json as jest.Mock).mock.calls[0][0]).toMatchObject(expected);
+    expect((mockRes.json as jest.Mock<(...args: any[]) => any>).mock.calls[0][0]).toMatchObject(expected);
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

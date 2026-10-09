@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { jest } from '@jest/globals';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
-import * as oidc from '../../app/auth/user/oidc.js';
-import * as caseApi from '../../app/case/case-api.js';
 import { ApplicationType, SYSTEM_CANCEL_CASE_INVITE, UserRole } from '../../app/case/definition.js';
 import { FormContent } from '../../app/form/Form.js';
 import { isFieldFilledIn } from '../../app/form/validation.js';
@@ -15,17 +16,22 @@ import {
 } from '../urls.js';
 
 import { existingOrNew } from './content.js';
-import { ExistingApplicationPostController } from './post.js';
-
-jest.spyOn(oidc, 'getSystemUser').mockResolvedValue({
-  accessToken: 'token',
-  id: '1234',
-  email: 'user@caseworker.com',
-  givenName: 'case',
-  familyName: 'worker',
-  roles: ['caseworker'],
-});
-const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');
+jest.unstable_mockModule('../../app/auth/user/oidc.js', () => ({
+  getSystemUser: jest.fn(async () => ({
+    accessToken: 'token',
+    id: '1234',
+    email: 'user@caseworker.com',
+    givenName: 'case',
+    familyName: 'worker',
+    roles: ['caseworker'],
+  })),
+  getEndIdamSessionUrl: jest.fn(),
+}));
+jest.unstable_mockModule('../../app/case/case-api.js', () => ({ getCaseApi: jest.fn() }));
+const { getCaseApi: getCaseApiMock } = (await import('../../app/case/case-api.js')) as unknown as {
+  getCaseApi: jest.Mock<(...args: any[]) => any>;
+};
+const { ExistingApplicationPostController } = await import('./post.js');
 const caseApiMockFn = existingCaseData => ({
   triggerEvent: jest.fn(),
   getCaseById: jest.fn(() => existingCaseData),
@@ -63,7 +69,7 @@ describe('ExistingApplicationPostController', () => {
       };
 
       const mockCaseApi = caseApiMockFn({ applicationType, id: '1234' });
-      (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+      (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(mockCaseApi);
       const req = mockRequest({ body });
       req.url = EXISTING_APPLICATION;
       const res = mockResponse();
@@ -86,7 +92,7 @@ describe('ExistingApplicationPostController', () => {
       };
 
       const mockCaseApi = caseApiMockFn({ applicationType, id: '1234' });
-      (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+      (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(mockCaseApi);
       const req = mockRequest({ body });
       req.url = EXISTING_APPLICATION;
       req.session.inviteCaseIsApplicant1 = true;
@@ -113,7 +119,7 @@ describe('ExistingApplicationPostController', () => {
       };
 
       const mockCaseApi = caseApiMockFn({ applicationType, dateSubmitted, dateAosSubmitted, id: '1234' });
-      (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+      (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(mockCaseApi);
       const req = mockRequest({ body });
       req.url = EXISTING_APPLICATION;
       const res = mockResponse();
@@ -146,7 +152,7 @@ describe('ExistingApplicationPostController', () => {
 
     const mockCaseApi = caseApiMockFn(caseData);
     mockCaseApi.getUsersRoleOnCase = jest.fn(() => UserRole.APPLICANT_2);
-    (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(mockCaseApi);
     const req = mockRequest({ body });
 
     req.url = EXISTING_APPLICATION;
@@ -175,7 +181,7 @@ describe('ExistingApplicationPostController', () => {
 
     const mockCaseApi = caseApiMockFn(caseData);
     mockCaseApi.getUsersRoleOnCase = jest.fn(() => UserRole.APPLICANT_2);
-    (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(mockCaseApi);
 
     const req = mockRequest({ body });
     req.url = EXISTING_APPLICATION;
@@ -211,7 +217,7 @@ describe('ExistingApplicationPostController', () => {
 
     const mockCaseApi = caseApiMockFn(caseData);
     mockCaseApi.getUsersRoleOnCase = jest.fn(() => UserRole.APPLICANT_2);
-    (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(mockCaseApi);
 
     const req = mockRequest({ body });
     req.url = EXISTING_APPLICATION;
@@ -242,7 +248,7 @@ describe('ExistingApplicationPostController', () => {
 
     const caseData = { id: '1234' };
     const mockCaseApi = caseApiMockFn(caseData);
-    (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(mockCaseApi);
 
     req.originalUrl = EXISTING_APPLICATION;
     req.session.existingCaseId = '1234';
@@ -275,7 +281,7 @@ describe('ExistingApplicationPostController', () => {
 
     const caseData = { id: '1234' };
     const mockCaseApi = caseApiMockFn(caseData);
-    (getCaseApiMock as jest.Mock).mockReturnValue(mockCaseApi);
+    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue(mockCaseApi);
 
     req.originalUrl = EXISTING_APPLICATION;
     req.session.existingCaseId = '1234';
@@ -305,7 +311,7 @@ describe('ExistingApplicationPostController', () => {
     };
     const req = mockRequest({ body });
     req.url = EXISTING_APPLICATION;
-    (getCaseApiMock as jest.Mock).mockReturnValue({
+    (getCaseApiMock as jest.Mock<(...args: any[]) => any>).mockReturnValue({
       triggerEvent: jest.fn(() => {
         throw Error;
       }),
@@ -343,3 +349,4 @@ describe('ExistingApplicationPostController', () => {
     expect(req.session.errors).toEqual(errors);
   });
 });
+/* eslint-disable @typescript-eslint/no-explicit-any */

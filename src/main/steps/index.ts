@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import { createRequire } from 'module';
 import { resolve } from 'path';
 import { pathToFileURL } from 'url';
 
@@ -27,9 +26,7 @@ import {
   RESPONDENT,
 } from './urls.js';
 
-const requireFromRoot = createRequire(resolve(process.cwd(), 'package.json'));
 const stepsBaseDir = resolve(process.cwd(), 'src/main/steps');
-const isTestRuntime = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
 const ext = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
 const stepContentFileByUrl: Record<string, string> = {};
 const stepContentModuleCache = new Map<string, Record<string, unknown>>();
@@ -59,12 +56,6 @@ const getStepContentModule = (contentFile: string): Record<string, unknown> => {
     return cached;
   }
 
-  if (isTestRuntime) {
-    const loaded = requireFromRoot(contentFile) as Record<string, unknown>;
-    stepContentModuleCache.set(contentFile, loaded);
-    return loaded;
-  }
-
   throw new Error(`Step content module has not been loaded: ${contentFile}`);
 };
 
@@ -74,9 +65,7 @@ export const initializeStepContent = async (): Promise<void> => {
       continue;
     }
 
-    const loaded = isTestRuntime
-      ? (requireFromRoot(contentFile) as Record<string, unknown>)
-      : ((await import(pathToFileURL(contentFile).href)) as Record<string, unknown>);
+    const loaded = (await import(pathToFileURL(contentFile).href)) as Record<string, unknown>;
     stepContentModuleCache.set(contentFile, loaded);
   }
 };
