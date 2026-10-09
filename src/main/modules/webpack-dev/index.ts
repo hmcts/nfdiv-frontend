@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { Application } from 'express';
-import webpack from 'webpack';
+import { webpack } from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 
 const webpackDevModuleDir = path.dirname(fileURLToPath(import.meta.url));
