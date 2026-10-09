@@ -44,6 +44,9 @@ Feature: Form failures
     When I click "Continue"
     Then the page should include "Enter your Help With Fees reference number"
     Given I select element "#applicant1HelpWithFeesRefNo"
+    When I click continue
+    Then the page should include "Help with fees reference number cannot be blank."
+    Given I select element "#applicant1HelpWithFeesRefNo"
     And I type "invalid"
     When I click "Continue"
     Then the page should include "Enter your help with fees reference number in the correct format."
@@ -385,6 +388,9 @@ Feature: Form failures
     Given I select element "#applicant2AlreadyAppliedForHelpPaying"
     When I click "Continue"
     Then the page should include "Enter your Help With Fees reference number"
+    Given I clear the form
+    When I click continue
+    Then the page should include "Help with fees reference number cannot be blank."
 
     Given I go to "/applicant2/enter-your-name"
     And I clear the form
