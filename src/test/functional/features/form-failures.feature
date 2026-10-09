@@ -192,7 +192,7 @@ Feature: Form failures
     Then the page should include "You have to agree to receive email notifications in order to use this online service."
     Given I clear the form
     And I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-    When I select "Enter your phone number (optional)"
+    When I select element "#applicant1PhoneNumber"
     And I type "12345"
     And I click continue
     Then the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
@@ -414,7 +414,7 @@ Feature: Form failures
 
     Given I go to "/applicant2/how-the-court-will-contact-you"
     And I clear the form
-    And I select "Enter your phone number (optional)"
+    And I select element "#applicant2PhoneNumber"
     And I type "12345"
     When I click continue
     Then the page should include "You have to agree to receive email notifications in order to use this online service."

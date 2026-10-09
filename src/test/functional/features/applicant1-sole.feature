@@ -307,7 +307,7 @@ Feature: Applicant 1 sole application
     When I click continue
     Then the page should include "How the court will contact you"
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-    And I select "Enter your phone number (optional)"
+    And I select element "#applicant1PhoneNumber"
     And I type "123456789"
 
     When I click continue
@@ -403,7 +403,7 @@ Feature: Applicant 1 sole application
 
     When I click continue
     Then the page should include "Details of the other legal proceedings"
-    Given I select "Provide details about the other legal proceedings."
+    Given I select element "#applicant1LegalProceedingsDetails"
     And I type "Test other legal proceedings details"
 
     When I click continue

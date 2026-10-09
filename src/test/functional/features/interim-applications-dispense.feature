@@ -68,7 +68,7 @@ Feature: Dispense with service journey
 
     Given I select element "#postcode"
     And I type "SW1H 9AJ"
-    When I click "Find address"
+    When I click element "#findAddressButton"
     Then the page should include "SW1H 9AJ"
     And I wait for the postcode lookup to return results
 

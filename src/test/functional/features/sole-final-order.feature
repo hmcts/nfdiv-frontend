@@ -49,7 +49,7 @@ Feature: Sole final order
 
     When I click continue
     And the page should include "Explain the delay"
-    Given I select "You are making this application for a final order over one year from when the conditional order was made. Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application."
+    Given I select element "#applicant1FinalOrderLateExplanation"
     And I type "Reason for delay"
     And I select "I believe that the facts stated in this application are true"
     When I click submit
@@ -62,7 +62,7 @@ Feature: Sole final order
     And I go to '/check-your-answers'
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
+    When I click continue to payment
     And I pay and submit the application
     Then the page should include "Application saved"
     Given a case worker issues the application
@@ -78,7 +78,7 @@ Feature: Sole final order
     Then the page URL should be "/respondent/finalising-your-application"
 
     Given I click "I want permission to apply for a final order, and to finalise my divorce"
-    And I select "Explain why you need to apply for the final order"
+    And I select element "#applicant2FinalOrderExplanation"
     And I type "I want to apply myself"
     When I click continue
     Then the page URL should be '/respondent/help-with-your-final-order-fee'
@@ -100,7 +100,7 @@ Feature: Sole final order
     And I go to '/check-your-answers'
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
+    When I click continue to payment
     And I pay and submit the application
     Then the page should include "Application saved"
     Given a case worker issues the application
@@ -116,7 +116,7 @@ Feature: Sole final order
     Then the page URL should be "/respondent/finalising-your-application"
 
     Given I click "I want permission to apply for a final order, and to finalise my divorce"
-    And I select "Explain why you need to apply for the final order"
+    And I select element "#applicant2FinalOrderExplanation"
     And I type "I want to apply myself"
     When I click continue
     Then the page URL should be '/respondent/help-with-your-final-order-fee'
@@ -124,7 +124,7 @@ Feature: Sole final order
     Given I select "I do not need help paying the fee"
     When I click continue
     Then the page URL should be '/respondent/pay-your-final-order-fee'
-    And I click "Pay and submit application"
+    And I click pay and submit application
 
     When I go to "/logout"
     And I login with applicant "1"
@@ -144,7 +144,7 @@ Feature: Sole final order
     And I go to '/check-your-answers'
     And I click "I confirm"
     And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
+    When I click continue to payment
     And I pay and submit the application
     Then the page should include "Application saved"
     Given a case worker issues the application
@@ -159,7 +159,7 @@ Feature: Sole final order
     Then the page URL should be "/respondent/finalising-your-application"
 
     Given I click "I want permission to apply for a final order, and to finalise my divorce"
-    And I select "Explain why you need to apply for the final order"
+    And I select element "#applicant2FinalOrderExplanation"
     And I type "I want to apply myself"
     When I click continue
     Then the page URL should be '/respondent/help-with-your-final-order-fee'
@@ -167,7 +167,7 @@ Feature: Sole final order
     Given I select "I do not need help paying the fee"
     When I click continue
     Then the page URL should be '/respondent/pay-your-final-order-fee'
-    And I click "Pay and submit application"
+    And I click pay and submit application
 
     When I go to "/logout"
     And I login with applicant "1"
@@ -179,11 +179,10 @@ Feature: Sole final order
 
     When I click continue
     And the page should include "Explain the delay"
-    Given I select "You are making this application for a final order over one year from when the conditional order was made. Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application."
+    Given I select element "#applicant1FinalOrderLateExplanation"
     And I type "Reason for delay"
     And I select "I believe that the facts stated in this application are true"
     When I click submit
     Then the page URL should be "/hub-page"
     And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
     And the page should include "You will receive an email confirming whether it has been granted once a Judge has made a decision."
-

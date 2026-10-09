@@ -163,6 +163,7 @@ When('I click continue', iClickSubmit);
 When('I click send for review', iClickSubmit);
 When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
+When('I click pay and submit application', iClickSubmit);
 When('I click accept and send', iClickSubmit);
 When('I click apply for conditional order', () => {
   iClickElement('#applyForConditionalOrderButton');

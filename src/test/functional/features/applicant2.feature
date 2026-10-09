@@ -198,7 +198,7 @@ Feature: Applicant 2
     Then the page URL should be "/applicant2/how-the-court-will-contact-you"
     And the page should include "How the court will contact you"
     Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-    And I select "Enter your phone number (optional)"
+    And I select element "#applicant2PhoneNumber"
     And I type "123456789"
 
     When I click continue
@@ -239,7 +239,7 @@ Feature: Applicant 2
     When I click continue
     Then the page URL should be "/applicant2/details-other-proceedings"
     And the page should include "Details of the other legal proceedings"
-    Given I select "Provide details about the other legal proceedings."
+    Given I select element "#applicant2LegalProceedingsDetails"
     And I type "Test other legal proceedings details"
 
     When I click continue
@@ -256,7 +256,7 @@ Feature: Applicant 2
     Then the page URL should be "/applicant2/check-your-joint-application"
     And the page should include "Check your wife's answers"
     Given I select "No" for "Is the information your wife provided correct?"
-    And I select "Explain what is incorrect or needs changing. Your answer will be sent to your wife."
+    And I select element "#applicant2Explanation"
     And I type "Incorrect test details"
 
     When I click continue

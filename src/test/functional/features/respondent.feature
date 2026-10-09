@@ -92,7 +92,7 @@ Feature: Respondent
     When I click continue
     Then the page URL should be "legal-jurisdiction-of-the-courts"
     Given I select "No, I do not agree the courts have jurisdiction"
-    And I click "Explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to grant your divorce."
+    And I click element "#reasonCourtsOfEnglandAndWalesHaveNoJurisdiction"
     And I type "test details"
     And I select "Which country is your life mainly based?"
     And I type "test details"
@@ -110,7 +110,7 @@ Feature: Respondent
     When I click continue
     Then the page URL should be "/respondent/details-other-proceedings"
     And the page should include "Details of the other legal proceedings"
-    Given I select "Provide details about the other legal proceedings."
+    Given I select element "#applicant2LegalProceedingsDetails"
     And I type "test details"
     And I select "Yes" for "Have the proceedings been concluded?"
     And I select "I cannot upload some or all of my documents"
@@ -120,7 +120,7 @@ Feature: Respondent
     Then the page URL should be "/respondent/how-the-court-will-contact-you"
     And the page should include "How the court will contact you"
     Given I click "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-    And I click "Enter your phone number (optional)"
+    And I click element "#applicant2PhoneNumber"
     And I type "0123456789"
 
     When I click continue

@@ -104,7 +104,7 @@ Feature: Sole hub page
     Given I click 'Provide information'
     Then the page URL should be '/provide-information-to-the-court'
     And the page should include "Provide information to the court"
-    Given I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."
+    Given I select element "#coClarificationResponses"
     And I type "test details"
     And I select "I cannot upload some or all of my documents"
     Then the page should include "You can post your documents to the court if you cannot upload them"

@@ -82,7 +82,7 @@ Feature: Switch To Sole Application
     Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
     And I go to '/applicant2/check-your-joint-application'
     And I select "No" for "Is the information your wife provided correct?"
-    And I select "Explain what is incorrect or needs changing. Your answer will be sent to your wife."
+    And I select element "#applicant2Explanation"
     And I type "Incorrect test details"
 
     When I click continue
