@@ -1,9 +1,10 @@
 import { Application } from 'express';
-import toobusy, { maxLag } from 'toobusy-js';
+import toobusy from 'toobusy-js';
 
 export class TooBusy {
   public enableFor(app: Application): void {
-    maxLag(200);
+    // eslint-disable-next-line import/no-named-as-default-member
+    toobusy.maxLag(200);
 
     app.use(function (req, res, next) {
       if (toobusy()) {

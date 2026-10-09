@@ -1,11 +1,12 @@
-import dayjs, { extend } from 'dayjs';
+import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import { validate as isValidEmail } from 'email-validator';
 import isEqual from 'lodash/isEqual.js';
 
 import { Case, CaseDate } from '../case/case.js';
 
-extend(customParseFormat);
+// eslint-disable-next-line import/no-named-as-default-member
+dayjs.extend(customParseFormat);
 
 export type Validator = (value: string | string[] | CaseDate | Partial<Case> | undefined) => void | string;
 export type NumberValidator = (

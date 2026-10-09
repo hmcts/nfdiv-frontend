@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 import config from 'config';
 import express, { RequestHandler, static as staticMiddleware } from 'express';
 import favicon from 'serve-favicon';
-import { shutdown as tooBusyShutdown } from 'toobusy-js';
+import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
 import { AppInsights } from './modules/appinsights/index.js';
@@ -105,7 +105,8 @@ app.use((req, res, next) => {
 
     process.on('SIGINT', function () {
       server.close();
-      tooBusyShutdown();
+      // eslint-disable-next-line import/no-named-as-default-member
+      toobusy.shutdown();
       process.exit();
     });
   } catch (error) {

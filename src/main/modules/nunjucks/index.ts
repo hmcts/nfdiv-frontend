@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 import config from 'config';
 import express from 'express';
-import { configure, runtime } from 'nunjucks';
+import nunjucks from 'nunjucks';
 
 import { DivorceOrDissolution } from '../../app/case/definition.js';
 import { FormInput } from '../../app/form/Form.js';
@@ -23,7 +23,8 @@ export class Nunjucks {
       'govuk-frontend',
       'dist'
     );
-    const env = configure([path.join(nunjucksModuleDir, '..', '..', 'steps'), govUkFrontendPath], {
+    // eslint-disable-next-line import/no-named-as-default-member
+    const env = nunjucks.configure([path.join(nunjucksModuleDir, '..', '..', 'steps'), govUkFrontendPath], {
       autoescape: true,
       watch: app.locals.developmentMode,
       express: app,
@@ -108,11 +109,13 @@ export class Nunjucks {
     });
 
     env.addFilter('json', function (value, spaces) {
-      if (value instanceof runtime.SafeString) {
+      // eslint-disable-next-line import/no-named-as-default-member
+      if (value instanceof nunjucks.runtime.SafeString) {
         value = value.toString();
       }
       const jsonString = JSON.stringify(value, null, spaces).replace(/</g, '\\u003c');
-      return new runtime.SafeString(jsonString);
+      // eslint-disable-next-line import/no-named-as-default-member
+      return new nunjucks.runtime.SafeString(jsonString);
     });
 
     app.use((req, res, next) => {
