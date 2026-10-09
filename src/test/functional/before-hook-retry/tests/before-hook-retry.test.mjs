@@ -14,8 +14,8 @@ import container from 'codeceptjs/lib/container';
 import event from 'codeceptjs/lib/event';
 import store from 'codeceptjs/lib/store';
 
-import gherkinBackgroundRetry from '../../gherkin-background-retry.mjs';
-import { captureHookScreenshot } from '../gherkin-background-screenshots.mjs';
+import beforeHookRetry from '../../before-hook-retry.mjs';
+import { captureHookScreenshot } from '../before-hook-screenshots.mjs';
 import { createHtmlReport } from '../../run-parallel/html-report.mjs';
 import { ensureJunitReport } from '../../run-parallel/junit-report.mjs';
 import { getRetryAuditScenarios, loadRetryAudit, scenarioKey } from '../../run-parallel/report-utils.mjs';
@@ -35,8 +35,8 @@ const runFixture = async (context, options = {}) => {
   await mkdir(functionalDir, { recursive: true });
   if (!options.missingPlugin) {
     await symlink(
-      path.join(projectRoot, 'src/test/functional/gherkin-background-retry.mjs'),
-      path.join(functionalDir, 'gherkin-background-retry.mjs')
+      path.join(projectRoot, 'src/test/functional/before-hook-retry.mjs'),
+      path.join(functionalDir, 'before-hook-retry.mjs')
     );
   }
   await writeFile(path.join(directory, 'package.json'), '{"type":"module"}');
@@ -84,7 +84,7 @@ export default class Probe extends Helper {
     };
     this.browser = { isConnected: () => true };
   }
-  _before() { beforeCalls++; }
+  _before() { console.log('BEFORE_CALL', ++beforeCalls); }
   probe() {
     console.log('HELPER_CALL', ++calls);
     if (calls <= (settings.helperFailures || 0)) throw new Error('controlled helper failure');
@@ -119,7 +119,7 @@ await Given('a controlled background', async () => {
 });
 await Given('a number {int}', value => assert.equal(value, 42));
 await Given('a table', value => assert.deepEqual(value.parse().hashes(), [{ name: 'item', value: '123' }]));
-await Given('a document', value => assert.equal(value, 'some text'));
+await Given('a document', value => assert.equal(typeof value === 'string' ? value : value?.content, 'some text'));
 await Then('the body succeeds', () => {
   console.log('BODY_RAN', ++bodies);
   if (settings.exitDuringBody) process.exit(7);
@@ -168,16 +168,17 @@ if (settings.duplicateFinish) {
     path.join(directory, 'config.js'),
     `${compiled}
 config.plugins.allure.enabled = false;
-if (${Boolean(options.disabledPlugin)}) {
+if (${Boolean(options.disabledPlugin || options.missingPlugin)}) {
   config.plugins.hookRetry.enabled = false;
+  config.retry.Before = config.plugins.hookRetry.retries;
 }
 config.plugins.hookRetry.minTimeout = 0;
 config.plugins.retryFailedStep.enabled = ${Boolean(options.stepRetries)};
 config.plugins.screenshot.enabled = ${Boolean(options.screenshots)};
-if (!${Boolean(options.missingAudit)}) {
+if (!${Boolean(options.missingAudit || options.disabledAudit)}) {
   config.plugins.retryAudit.require = ${JSON.stringify(path.join(projectRoot, 'src/test/functional/retry-audit.mjs'))};
 }
-if (${Boolean(options.disabledAudit)}) {
+if (${Boolean(options.missingAudit || options.disabledAudit)}) {
   config.plugins.retryAudit.enabled = false;
 }
 ${options.auditOverride === true ? 'config.plugins.retryAudit.enabled = false;' : ''}
@@ -247,7 +248,7 @@ ${options.auditOverride === true ? 'config.plugins.retryAudit.enabled = false;' 
   };
 };
 
-test('records a successful Background separately and preserves arguments and BDD events', async context => {
+test('records a successful Before hook separately and preserves arguments and BDD events', async context => {
   const result = await runFixture(context, { arguments: true });
   assert.equal(result.code, 0, result.stdout);
   assert.deepEqual(
@@ -273,7 +274,7 @@ test('records recovered hook failures and screenshots without failing the scenar
   );
   assert.equal(result.audit.latest.status, 'passed');
   assert.equal(result.audit.attempts.length, 1);
-  assert.match(result.html, /<th class="attempt">Background Attempt<\/th>/);
+  assert.match(result.html, /<th class="attempt">Before Attempt<\/th>/);
   assert.match(result.html, /<tr><td class="attempt">1<\/td><td class="result failed">/);
   assert.match(result.html, /<tr><td class="attempt">2<\/td><td class="result passed">/);
   assert.match(result.html, /controlled plain failure/);
@@ -299,7 +300,7 @@ test('executes all four helper attempts even when the last attempt is the first 
   assert.match(result.stdout, /BODY_RAN 1/);
 });
 
-test('preserves individual helper step retries within Background retries', async context => {
+test('preserves individual helper step retries within Before hook retries', async context => {
   const result = await runFixture(context, { helperFailures: 12, stepRetries: true });
   assert.equal(result.code, 0, result.stdout);
   assert.equal(result.audit.hookAttempts.length, 4);
@@ -354,6 +355,16 @@ test('associates hook retries with the right scenario attempt after a body retry
     ]
   );
   assert.equal(result.audit.latest.attempt, 2);
+  assert.match(result.stdout, /BEFORE_CALL 1/);
+  assert.match(result.stdout, /BEFORE_CALL 2/);
+});
+
+test('retries the generated Before hook without rerunning helper _before in the same scenario attempt', async context => {
+  const result = await runFixture(context, { plainFailures: 1 });
+  assert.equal(result.code, 0, result.stdout);
+  assert.match(result.stdout, /BEFORE_CALL 1/);
+  assert.doesNotMatch(result.stdout, /BEFORE_CALL 2/);
+  assert.match(result.stdout, /BACKGROUND_CALL 2/);
 });
 
 for (const screenshots of [undefined, 'closed', 'fail']) {
@@ -381,10 +392,10 @@ for (const fallback of ['missingPlugin', 'disabledPlugin']) {
 }
 
 for (const fallback of ['missingAudit', 'disabledAudit']) {
-  test(`${fallback} disables custom Background retries and preserves built-in retries`, async context => {
+  test(`${fallback} disables custom Before hook retries and preserves built-in retries`, async context => {
     const result = await runFixture(context, { [fallback]: true, plainFailures: 1 });
     assert.equal(result.code, 0, result.stdout);
-    assert.match(result.stdout, /CUSTOM_ENABLED false BUILTIN_BEFORE 3/);
+    assert.match(result.stdout, /CUSTOM_ENABLED true BUILTIN_BEFORE 0/);
     assert.match(result.stdout, /BACKGROUND_CALL 2/);
     assert.match(result.stdout, /BODY_RAN 1/);
     assert.doesNotMatch(result.stdout, /HOOK_ATTEMPT_EVENT/);
@@ -399,7 +410,7 @@ for (const enabled of [true, false]) {
     assert.equal(result.code, 0, result.stdout);
     assert.match(
       result.stdout,
-      enabled ? /CUSTOM_ENABLED true BUILTIN_BEFORE 0/ : /CUSTOM_ENABLED false BUILTIN_BEFORE 3/
+      enabled ? /CUSTOM_ENABLED true BUILTIN_BEFORE 0/ : /CUSTOM_ENABLED true BUILTIN_BEFORE 0/
     );
     assert.match(result.stdout, /BACKGROUND_CALL 2/);
     if (enabled) {
@@ -414,8 +425,8 @@ for (const enabled of [true, false]) {
   });
 }
 
-for (const loadedAudit of [undefined, {}, { auditsBackgroundRetries: true }]) {
-  test(`requires an initialized retry-audit plugin before replacing Background hooks (${JSON.stringify(loadedAudit)})`, context => {
+for (const loadedAudit of [undefined, {}, { auditsBeforeHookRetries: true }]) {
+  test(`requires an initialized retry-audit plugin before replacing Before hooks (${JSON.stringify(loadedAudit)})`, context => {
     restoreListeners(context, event.dispatcher);
     const original = () => {};
     const feature = {
@@ -428,9 +439,9 @@ for (const loadedAudit of [undefined, {}, { auditsBackgroundRetries: true }]) {
     const root = { suites: [feature], beforeAll: context.mock.fn() };
     context.mock.method(container, 'mocha', () => ({ suite: root }));
     context.mock.method(container, 'plugins', () => loadedAudit);
-    gherkinBackgroundRetry({ retries: 3, minTimeout: 0 });
+    beforeHookRetry({ retries: 3, minTimeout: 0 });
     event.dispatcher.emit(event.all.before);
-    if (loadedAudit?.auditsBackgroundRetries) {
+    if (loadedAudit?.auditsBeforeHookRetries) {
       assert.notEqual(feature._beforeEach[0].fn, original);
       assert.equal(feature.opts.retryBefore, 0);
     } else {
@@ -543,7 +554,7 @@ for (const legacy of [false, true]) {
     const file = path.join(result.reportDir, 'mixed.html');
     await createHtmlReport([path.join(result.reportDir, 'result.xml')], loaded, file);
     const html = await readFile(file, 'utf8');
-    assert.match(html, /<th class="attempt">Background Attempt<\/th>/);
+    assert.match(html, /<th class="attempt">Before Attempt<\/th>/);
     assert.match(html, /<tr><td class="attempt">1<\/td><td class="result failed">/);
     assert.match(html, /<tr><td class="attempt">2<\/td><td class="result passed">/);
     assert.match(html, /recovered hook failure/);
@@ -554,7 +565,7 @@ for (const legacy of [false, true]) {
   });
 }
 
-test('a timed-out screenshot does not hang the Background retry', async context => {
+test('a timed-out screenshot does not hang the Before hook retry', async context => {
   const directory = await mkdtemp(path.join(os.tmpdir(), 'nfdiv-hook-screenshot-'));
   const previousOutput = store.outputDir;
   const previousConfig = Config.get();

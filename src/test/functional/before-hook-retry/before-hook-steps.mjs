@@ -4,10 +4,10 @@ import { matchStep } from 'codeceptjs/lib/mocha/bdd';
 import recorder from 'codeceptjs/lib/recorder';
 import MetaStep from 'codeceptjs/lib/step/meta';
 
-// Background callbacks are closed over inside CodeceptJS's built-in retry
+// Before-hook callbacks are closed over inside CodeceptJS's built-in retry
 // wrapper. Execute the registered steps locally so intermediate failures never
 // enter that wrapper's final-failure handling.
-export const runBackgroundSteps = async steps => {
+export const runBeforeHookSteps = async steps => {
   for (const source of steps) {
     const step = { ...source };
     const metaStep = new MetaStep(null, step.text);

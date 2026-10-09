@@ -123,7 +123,7 @@ test('shows every Background retry when it recovers on the first scenario attemp
     ]
   );
   assert.match(html, /<table class="attempts"/);
-  assert.match(html, /<th class="attempt">Background Attempt<\/th>/);
+  assert.match(html, /<th class="attempt">Before Hook Attempt<\/th>/);
   assert.match(html, /href="background-1-1\.json"[^>]*>Failed<\/a>/);
   assert.match(html, /href="background-1-2\.json"[^>]*>Passed<\/a>/);
   assert.match(html, /href="background\.png"[^>]*>Screenshot<\/a>/);

@@ -7,7 +7,7 @@ import recorder from 'codeceptjs/lib/recorder';
 
 import { restoreListeners } from '../../run-parallel/tests/unit-test-support.mjs';
 
-import { runBackgroundSteps } from '../gherkin-background-steps.mjs';
+import { runBeforeHookSteps } from '../before-hook-steps.mjs';
 
 const setup = context => {
   clearSteps();
@@ -32,7 +32,7 @@ test('runs registered steps in order with parsed parameters and BDD lifecycle ev
     { keyword: 'And ', text: 'another step' },
   ];
 
-  await runBackgroundSteps(steps);
+  await runBeforeHookSteps(steps);
 
   assert.deepEqual(calls, [42, 'next']);
   assert.deepEqual(
@@ -78,7 +78,7 @@ test('passes data tables and doc strings without mutating the Gherkin arguments'
   await Given('a document', value => {
     document = value;
   });
-  await runBackgroundSteps([
+  await runBeforeHookSteps([
     { keyword: 'Given ', text: 'a table', dataTable: table },
     { keyword: 'And ', text: 'a document', docString: { content: 'some text' } },
   ]);
@@ -90,7 +90,7 @@ test('passes data tables and doc strings without mutating the Gherkin arguments'
   assert.equal(events[5][1].comment, '\n"""\nsome text\n"""');
 });
 
-test('attaches Background metadata to nested helper steps before other listeners run', async context => {
+test('attaches Before hook metadata to nested helper steps before other listeners run', async context => {
   const events = setup(context);
   const leaf = {};
   const helper = { metaStep: leaf };
@@ -100,7 +100,7 @@ test('attaches Background metadata to nested helper steps before other listeners
     event.dispatcher.emit(event.step.before, helper);
     event.dispatcher.emit(event.step.before, helper);
   });
-  await runBackgroundSteps([{ keyword: 'Given ', text: 'a helper' }]);
+  await runBeforeHookSteps([{ keyword: 'Given ', text: 'a helper' }]);
   assert.equal(helper.metaStep, leaf);
   assert.deepEqual(observed, [events[1][1], events[1][1]]);
   assert.equal(leaf.metaStep.metaStep, undefined);
@@ -117,7 +117,7 @@ test('waits for queued helpers before running the next definition', async contex
   const calls = [];
   await Given('first step', () => calls.push('first'));
   await Given('second step', () => calls.push('second'));
-  const run = runBackgroundSteps([
+  const run = runBeforeHookSteps([
     { keyword: 'Given ', text: 'first step' },
     { keyword: 'And ', text: 'second step' },
   ]);
@@ -143,7 +143,7 @@ for (const queued of [false, true]) {
       context.mock.method(recorder, 'promise', () => Promise.reject(failure));
     }
     await assert.rejects(
-      runBackgroundSteps([
+      runBeforeHookSteps([
         { keyword: 'Given ', text: 'a failed step' },
         { keyword: 'And ', text: 'a later step' },
       ]),
@@ -163,7 +163,7 @@ for (const queued of [false, true]) {
 
 test('rejects undefined steps without registering helper listeners', async context => {
   const events = setup(context);
-  await assert.rejects(runBackgroundSteps([{ keyword: 'Given ', text: 'an undefined step' }]), /No steps matching/);
+  await assert.rejects(runBeforeHookSteps([{ keyword: 'Given ', text: 'an undefined step' }]), /No steps matching/);
   assert.deepEqual(events, []);
   assert.equal(event.dispatcher.listenerCount(event.step.before), 0);
 });

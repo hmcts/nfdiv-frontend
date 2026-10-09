@@ -283,7 +283,7 @@ export const createHtmlReport = async (reportFiles, retryAudit, outputFile) => {
             })
             .join('');
           const hookTable = visibleHooks.length
-            ? `<tr><td class="empty"></td><td colspan="3"><table class="hook-attempts"><thead><tr><th class="attempt">Background Attempt</th><th class="result">Result</th><th class="runtime">Runtime</th><th class="error">Error</th></tr></thead><tbody>${hookRows}</tbody></table></td></tr>`
+            ? `<tr><td class="empty"></td><td colspan="3"><table class="hook-attempts"><thead><tr><th class="attempt">Before Hook Attempt</th><th class="result">Result</th><th class="runtime">Runtime</th><th class="error">Error</th></tr></thead><tbody>${hookRows}</tbody></table></td></tr>`
             : '';
           const attemptError = `${getHookFailure(attempt, hooks)}${screenshotSpan(attemptScreenshot, 'Screenshot', linkedScreenshots)}${xmlEscape(getAttemptError(attempt))}`;
           attemptRows.push({

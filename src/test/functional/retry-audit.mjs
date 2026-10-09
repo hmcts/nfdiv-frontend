@@ -174,7 +174,7 @@ export default function retryAudit() {
   const recordAttemptStart = test => {
     if (isTrackableTest(test)) {
       const attemptKey = getAttemptKey(test);
-      // test.started follows the Background and must not discard setup time.
+      // test.started follows the Before hook and must not discard setup time.
       const activeAttempt = activeAttempts.get(attemptKey);
       if (activeAttempt?.managed && !activeAttempt.completed) {
         return;
@@ -201,7 +201,7 @@ export default function retryAudit() {
     }
   });
 
-  // Optional event contract: deliberately do not import or require the Background retry plugin.
+  // Optional event contract: deliberately do not import or require the Before hook retry plugin.
   // With no custom events, all existing scenario/hook listeners operate as before.
   event.dispatcher.on('nfdiv.hookAttempt.started', details => {
     if (!isTrackableHook(details)) {
@@ -252,5 +252,5 @@ export default function retryAudit() {
     }
   });
 
-  return { auditsBackgroundRetries: true };
+  return { auditsBeforeHookRetries: true };
 }

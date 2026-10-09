@@ -29,7 +29,7 @@ export const config: CodeceptJS.Config = {
     hookRetry: {
       enabled: true,
       runInParent: false,
-      require: path.resolve(process.cwd(), 'src/test/functional/gherkin-background-retry.mjs'),
+      require: path.resolve(process.cwd(), 'src/test/functional/before-hook-retry.mjs'),
       retries: 3,
       minTimeout: 1000,
       factor: 2,

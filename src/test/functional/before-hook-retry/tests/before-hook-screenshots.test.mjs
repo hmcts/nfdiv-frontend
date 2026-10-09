@@ -9,7 +9,7 @@ import store from 'codeceptjs/lib/store';
 
 import { temporaryDirectory } from '../../run-parallel/tests/unit-test-support.mjs';
 
-import { captureHookScreenshot, getTerminalHookScreenshot } from '../gherkin-background-screenshots.mjs';
+import { captureHookScreenshot, getTerminalHookScreenshot } from '../before-hook-screenshots.mjs';
 
 const setup = async (context, config = {}) => {
   const directory = await temporaryDirectory(context, 'nfdiv-background-screenshot-unit-');
@@ -87,7 +87,7 @@ test('does not report a screenshot that the helper did not write', async context
   assert.equal(await captureHookScreenshot({ title: 'A background' }, 1, 1, { helper }), null);
 });
 
-test('logs capture failures and lets the Background retry continue', async context => {
+test('logs capture failures and lets the Before hook retry continue', async context => {
   const { warnings } = await setup(context);
   const helper = {
     page: {
@@ -99,7 +99,7 @@ test('logs capture failures and lets the Background retry continue', async conte
   assert.equal(await captureHookScreenshot({ title: 'A background' }, 1, 1, { helper }), null);
   assert.deepEqual(warnings.mock.calls[0].arguments, [
     'hookRetry',
-    'Could not capture Background screenshot: page unavailable',
+    'Could not capture Before hook screenshot: page unavailable',
   ]);
 });
 

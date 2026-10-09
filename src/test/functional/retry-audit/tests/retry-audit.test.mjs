@@ -22,7 +22,7 @@ const setup = async context => {
   const url = new URL('../../retry-audit.mjs', import.meta.url);
   url.searchParams.set('unit', String(++moduleNumber));
   const audit = await import(url.href);
-  assert.deepEqual(audit.default(), { auditsBackgroundRetries: true });
+  assert.deepEqual(audit.default(), { auditsBeforeHookRetries: true });
   const records = async () => {
     await Promise.resolve();
     const root = path.join(directory, 'functional-output/functional/retry-audit');
@@ -79,7 +79,7 @@ test('serializes scenario identity, errors, hook names, and screenshot policy', 
   assert.equal(createAttemptDetails(testCase, 2, 'failed', error, null, 25, false).screenshotFile, null);
 });
 
-test('tracks independent legacy scenario retries without the Background plugin', async context => {
+test('tracks independent legacy scenario retries without the Before hook plugin', async context => {
   const { records } = await setup(context);
   const first = scenario('first');
   const second = scenario('second');
@@ -160,7 +160,7 @@ test('uses managed attempt numbers and deduplicates hook and scenario completion
   assert.equal(results.find(r => r.kind !== 'hook').attempt, 3);
 });
 
-test('preserves setup runtime when test.started follows a managed Background', async context => {
+test('preserves setup runtime when test.started follows a managed Before hook', async context => {
   const { records } = await setup(context);
   let now = 100;
   context.mock.method(performance, 'now', () => now);

@@ -48,7 +48,7 @@ export const captureHookScreenshot = async (
     ]);
     return existsSync(file) ? fileName : null;
   } catch (error) {
-    output.plugin('hookRetry', `Could not capture Background screenshot: ${error?.message || String(error)}`);
+    output.plugin('hookRetry', `Could not capture Before hook screenshot: ${error?.message || String(error)}`);
     return null;
   } finally {
     clearTimeout(timeout);
