@@ -48,9 +48,12 @@ describe('from-api-format', () => {
     app1RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
     app2RfiDraftResponseCannotUploadDocs: YesOrNo.NO,
     applicant1InterimAppsIUnderstand: YesOrNo.YES,
+    applicant2InterimAppsIUnderstand: YesOrNo.YES,
     applicant1InterimAppsCannotUploadDocs: YesOrNo.NO,
+    applicant2InterimAppsCannotUploadDocs: YesOrNo.NO,
     applicant1InterimAppsStatementOfTruth: YesOrNo.YES,
     applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo.YES,
+    applicant1GenAppCannotUploadAgreedEvidence: YesOrNo.NO,
   };
 
   const resultsWithSecondaryValues: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
@@ -101,9 +104,12 @@ describe('from-api-format', () => {
       app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
       app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
+      applicant2InterimAppsIUnderstand: Checkbox.Checked,
       applicant1InterimAppsCannotUploadDocs: Checkbox.Unchecked,
+      applicant2InterimAppsCannotUploadDocs: Checkbox.Unchecked,
       applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
       applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
+      applicant1GenAppCannotUploadAgreedEvidence: Checkbox.Unchecked,
     });
   });
 
@@ -200,9 +206,12 @@ describe('from-api-format', () => {
         year: '2000',
       },
       applicant1InterimAppsCannotUploadDocs: Checkbox.Unchecked,
+      applicant2InterimAppsCannotUploadDocs: Checkbox.Unchecked,
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
+      applicant2InterimAppsIUnderstand: Checkbox.Checked,
       applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
       applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
+      applicant1GenAppCannotUploadAgreedEvidence: Checkbox.Unchecked,
     });
   });
 
@@ -247,9 +256,12 @@ describe('from-api-format', () => {
       app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
       app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
       applicant1InterimAppsCannotUploadDocs: Checkbox.Unchecked,
+      applicant2InterimAppsCannotUploadDocs: Checkbox.Unchecked,
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
+      applicant2InterimAppsIUnderstand: Checkbox.Checked,
       applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
       applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
+      applicant1GenAppCannotUploadAgreedEvidence: Checkbox.Unchecked,
     });
   });
 
@@ -294,9 +306,12 @@ describe('from-api-format', () => {
       app1RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
       app2RfiDraftResponseCannotUploadDocs: Checkbox.Unchecked,
       applicant1InterimAppsCannotUploadDocs: Checkbox.Unchecked,
+      applicant2InterimAppsCannotUploadDocs: Checkbox.Unchecked,
       applicant1InterimAppsIUnderstand: Checkbox.Checked,
+      applicant2InterimAppsIUnderstand: Checkbox.Checked,
       applicant1InterimAppsStatementOfTruth: Checkbox.Checked,
       applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
+      applicant1GenAppCannotUploadAgreedEvidence: Checkbox.Unchecked,
     });
   });
 

@@ -12,7 +12,6 @@ import {
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
-  APPLICATION_SUBMITTED,
   APP_REPRESENTED,
   AWAITING_RESPONSE_TO_HWF_DECISION,
   CHECK_ANSWERS_URL,
@@ -608,7 +607,7 @@ describe('HomeGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(PAY_AND_SUBMIT);
   });
 
-  test('redirects to application submitted page for applicant 1 users in submitted state', () => {
+  test('redirects to hub page for applicant 1 users in submitted state', () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -621,7 +620,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
   });
 
   test('redirects to application represented page for applicant 1 users in submitted state when represented', () => {
@@ -980,7 +979,7 @@ describe('HomeGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(YOUR_DETAILS_URL);
   });
 
-  test('redirects to submitted page for applicant 1 users in submitted state when not represented', () => {
+  test('redirects to hub page for applicant 1 users in submitted state when not represented', () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -994,10 +993,10 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
   });
 
-  test('redirects to submitted page for applicant 1 users in awaiting HWF decision state when not represented', () => {
+  test('redirects to hub page for applicant 1 users in awaiting HWF decision state when not represented', () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -1011,10 +1010,10 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
   });
 
-  test('redirects to submitted page for applicant 1 users in awaiting documents state when not represented', () => {
+  test('redirects to hub page for applicant 1 users in awaiting documents state when not represented', () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -1028,7 +1027,7 @@ describe('HomeGetController', () => {
     const res = mockResponse();
     controller.get(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
   });
 
   test('redirects to hub page for applicant 2 users in submitted state when not represented', () => {
