@@ -5,7 +5,8 @@ node_modules/
 
 .idea/*
 !.idea/inspectionProfiles/
-!.idea/inspectionProfiles/Project_Default.xml
+!.idea/inspectionProfiles/ESM_Project_Default.xml
+!.idea/inspectionProfiles/profiles_settings.xml
 *.iml
 *.iws
 *.ipr
