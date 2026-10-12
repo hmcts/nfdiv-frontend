@@ -1,11 +1,15 @@
-import fs from 'fs';
-
 import axios from 'axios';
+import sysConfig from 'config';
+import type { Application } from 'express';
+import fs from 'fs';
 import puppeteer from 'puppeteer';
 
+import { PropertiesVolume } from '../../main/modules/properties-volume';
 import * as urls from '../../main/steps/urls';
 import { config } from '../config';
 
+let TestPass: string;
+let TestUser: string;
 const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
 
 const pa11y = require('pa11y');
@@ -66,6 +70,26 @@ function expectNoErrors(messages: PallyIssue[]): void {
   }
 }
 
+const setupTestSecrets = async (): Promise<void> => {
+  const propertiesVolume = new PropertiesVolume();
+  await propertiesVolume.enableFor({ locals: { developmentMode: true } } as unknown as Application);
+};
+
+const initializeTestEnvironment = async () => {
+  if (!process.env.TEST_PASSWORD) {
+    await setupTestSecrets();
+  }
+
+  TestUser = 'nfdiv.frontend.test@hmcts.net';
+  TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
+
+  if (!TestPass || TestPass === '') {
+    throw new Error(
+      "Missing test password. Set TEST_PASSWORD or authenticate for Azure Key Vault."
+    );
+  }
+};
+
 jest.retryTimes(3);
 jest.setTimeout(30000);
 
@@ -101,7 +125,7 @@ describe('Accessibility', () => {
       timeout: 15000,
     });
 
-    await page.type('input[name="email"]', 'nfdiv.frontend.test@hmcts.net');
+    await page.type('input[name="email"]', TestUser);
     await page.evaluate(() => {
       const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
 
@@ -115,7 +139,7 @@ describe('Accessibility', () => {
       timeout: 15000,
     });
 
-    await page.type('input[name="password"]', process.env.TEST_PASSWORD);
+    await page.type('input[name="password"]', TestPass);
     await page.evaluate(() => {
       const passwordInput = document.querySelector('input[name="password"]') as HTMLInputElement;
 
@@ -130,7 +154,10 @@ describe('Accessibility', () => {
     await page.close();
   };
 
-  beforeAll(setup);
+  beforeAll(async () => {
+    await initializeTestEnvironment();
+    await setup();
+  });
 
   beforeEach(async () => {
     const page = await browser.newPage();
