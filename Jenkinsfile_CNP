@@ -65,6 +65,7 @@ withPipeline(type, product, component) {
 
   before('functionalTest:preview') {
     sh './src/test/setup-web-browsers.sh'
+    sh 'yarn test:pa11y'
   }
 
   afterAlways('functionalTest:aat') {
@@ -72,6 +73,8 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/accessibility/reports/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/pa11y/**/*'
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/Functional test report.html'
   }
 
