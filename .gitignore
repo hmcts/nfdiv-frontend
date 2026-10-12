@@ -4,6 +4,7 @@ node_modules/
 *.css
 
 .idea/
+!./idea/inspectionProfiles/Project_Default.xml
 *.iml
 *.iws
 *.ipr
