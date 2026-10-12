@@ -1,8 +1,9 @@
-import axios from 'axios';
+import fs from 'fs';
+
+import { create as axiosCreate } from 'axios';
 import sysConfig from 'config';
 import type { Application } from 'express';
-import fs from 'fs';
-import puppeteer from 'puppeteer';
+import { launch as launchPuppeteer } from 'puppeteer';
 
 import { PropertiesVolume } from '../../main/modules/properties-volume';
 import * as urls from '../../main/steps/urls';
@@ -13,7 +14,7 @@ let TestUser: string;
 const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
 
 const pa11y = require('pa11y');
-const server = axios.create({ baseURL: config.TEST_URL });
+const server = axiosCreate({ baseURL: config.TEST_URL });
 
 interface Pa11yResult {
   documentTitle: string;
@@ -84,9 +85,7 @@ const initializeTestEnvironment = async () => {
   TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
 
   if (!TestPass || TestPass === '') {
-    throw new Error(
-      "Missing test password. Set TEST_PASSWORD or authenticate for Azure Key Vault."
-    );
+    throw new Error('Missing test password. Set TEST_PASSWORD or authenticate for Azure Key Vault.');
   }
 };
 
@@ -106,7 +105,7 @@ describe('Accessibility', () => {
       await browser.close();
     }
 
-    browser = await puppeteer.launch({ acceptInsecureCerts: true });
+    browser = await launchPuppeteer({ acceptInsecureCerts: true });
     browser.on('disconnected', setup);
 
     // Login once only for other pages to reuse session

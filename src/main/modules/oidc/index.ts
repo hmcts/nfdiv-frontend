@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
