@@ -3,8 +3,9 @@ node_modules/
 .sass-cache
 *.css
 
-.idea/
-!./idea/inspectionProfiles/Project_Default.xml
+.idea/*
+!.idea/inspectionProfiles/
+!.idea/inspectionProfiles/Project_Default.xml
 *.iml
 *.iws
 *.ipr
