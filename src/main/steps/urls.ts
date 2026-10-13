@@ -63,7 +63,6 @@ export const RESIDUAL_JURISDICTION: PageLink = '/are-you-eligible-for-residual-j
 export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-to-england-and-wales';
 
 export const ENTER_YOUR_NAME: PageLink = '/enter-your-name';
-export const ENTER_YOUR_NAMES: PageLink = '/enter-your-names';
 export const CHECK_YOUR_NAME: PageLink = '/check-your-name';
 export const CHECK_THEIR_NAME: PageLink = '/check-their-name';
 export const THEIR_NAME: PageLink = '/enter-their-name';
