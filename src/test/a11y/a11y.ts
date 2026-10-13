@@ -11,6 +11,7 @@ import { config } from '../config';
 
 let TestPass: string;
 let TestUser: string;
+let cookies;
 const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
 
 const pa11y = require('pa11y');
@@ -35,15 +36,21 @@ async function ensurePageCallWillSucceed(url: string): Promise<void> {
   const response = await server.get(url, {
     maxRedirects: 0,
     validateStatus: () => true,
+    headers: {
+      Cookie: cookies.map(c => `${c.name}=${c.value}`).join('; '),
+    },
   });
 
-  const allowedStatuses = [200, 301, 302, 303, 307, 308];
-  if (allowedStatuses.includes(response.status)) {
-    return;
+  const location = String(response.headers.location || '');
+  const isRedirect = [301, 302, 303, 307, 308].includes(response.status);
+
+  if (isRedirect && location.includes(urls.SIGN_IN_URL)) {
+    throw new Error(`Precheck redirected to sign-in for '${url}'`);
   }
-  throw new Error(
-    `Precheck failed for '${url}' with status ${response.status}, location='${String(response.headers.location || '')}'`
-  );
+
+  if (response.status !== 200) {
+    throw new Error(`Precheck failed for '${url}' with ${response.status}, location='${location}'`);
+  }
 }
 
 function runPally(url: string, browser): Promise<Pa11yResult> {
@@ -94,7 +101,6 @@ jest.setTimeout(30000);
 
 describe('Accessibility', () => {
   let browser;
-  let cookies;
   let hasAfterAllRun = false;
 
   const setup = async () => {
