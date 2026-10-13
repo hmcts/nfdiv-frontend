@@ -480,7 +480,6 @@ const en = ({
           : stripTags(addressPrivateAnswersRefuge.en[userCase.applicant1InRefuge])
       }`,
       line9: `${
-
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [
