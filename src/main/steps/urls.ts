@@ -66,7 +66,6 @@ export const ENTER_YOUR_NAME: PageLink = '/enter-your-name';
 export const ENTER_YOUR_NAMES: PageLink = '/enter-your-names';
 export const CHECK_YOUR_NAME: PageLink = '/check-your-name';
 export const CHECK_THEIR_NAME: PageLink = '/check-their-name';
-export const CONFIRM_YOUR_NAME: PageLink = '/confirm-your-name';
 export const THEIR_NAME: PageLink = '/enter-their-name';
 export const CONFIRM_THEIR_NAME: PageLink = '/confirm-their-name';
 
