@@ -66,7 +66,6 @@ export const ENTER_YOUR_NAME: PageLink = '/enter-your-name';
 export const CHECK_YOUR_NAME: PageLink = '/check-your-name';
 export const CHECK_THEIR_NAME: PageLink = '/check-their-name';
 export const THEIR_NAME: PageLink = '/enter-their-name';
-export const CONFIRM_THEIR_NAME: PageLink = '/confirm-their-name';
 
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
