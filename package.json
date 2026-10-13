@@ -20,7 +20,7 @@
     "test:unit": "jest",
     "test:coverage": "jest --coverage",
     "test:a11y": "echo 'nope' && exit 0",
-    "test:pa11y": "jest -c jest.a11y.config.js --maxWorkers 1",
+    "test:pa11y": "jest -c jest.a11y.config.js --runInBand --verbose --silent=false --useStderr",
     "test:with-reports": "yarn \"$@\"; test_status=$?; yarn merge-reports; report_status=$?; test \"$test_status\" -eq 0 && exit \"$report_status\" || exit \"$test_status\"",
     "test:cucumber": "yarn test:with-reports test:parallel '^(?!.*@flaky)'",
     "test:cucumber:docker": "yarn test:with-reports test:parallel:docker '^(?!.*@flaky)'",
