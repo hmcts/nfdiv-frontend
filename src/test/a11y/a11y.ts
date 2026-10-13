@@ -56,9 +56,9 @@ async function ensurePageCallWillSucceed(url: string): Promise<void> {
 function runPally(url: string, browser): Promise<Pa11yResult> {
   let screenCapture: string | boolean = false;
   // if (!config.TestHeadlessBrowser) {
-    const screenshotDir = `${__dirname}/../../../functional-output/pa11y`;
-    fs.mkdirSync(screenshotDir, { recursive: true });
-    screenCapture = `${screenshotDir}/${url.replace(/^\/$/, 'home').replace('/', '')}.png`;
+  const screenshotDir = `${__dirname}/../../../functional-output/pa11y`;
+  fs.mkdirSync(screenshotDir, { recursive: true });
+  screenCapture = `${screenshotDir}/${url.replace(/^\/$/, 'home').replace('/', '')}.png`;
   // }
 
   const fullUrl = `${config.TEST_URL}${url}`;
