@@ -181,7 +181,6 @@ export const PROVIDE_NEW_EMAIL_ADDRESS: PageLink = '/interim-applications/no-res
 export const NEW_CONTACT_DETAIL_CHECK_ANSWERS: PageLink = '/interim-applications/no-response/check-your-answers';
 export const NO_RESPONSE_DETAILS_UPDATED: PageLink = '/interim-applications/no-response/details-updated';
 export const WILL_SERVE_AGAIN: PageLink = '/interim-applications/no-response/will-serve-again';
-export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/partner-in-prison';
 
 // Search Government Records URLs
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';
