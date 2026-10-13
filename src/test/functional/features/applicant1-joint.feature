@@ -167,10 +167,6 @@ Feature: Applicant 1 joint application
     Then the page should include "Apply for help with fees"
 
     When I click "Continue"
-    Then the page should include "Do you have a help with fees reference number?"
-    Given I select "Yes"
-
-    When I click "Continue"
     Then the page should include "Enter your Help With Fees reference number"
     Given I select element "#applicant1HelpWithFeesRefNo"
     And I type "HWF-ABC-123"
