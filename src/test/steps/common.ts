@@ -151,12 +151,29 @@ When('I click back', () => {
   iClickElement('a.govuk-back-link');
 });
 
+When('I toggle language to Welsh', () => {
+  iClickElement('a.govuk-link.language[lang="cy"]');
+});
+When('I toggle language to English', () => {
+  iClickElement('a.govuk-link.language[lang="en"]');
+});
+
 When('I click start', () => {
   iClickElement('.govuk-button--start');
 });
 
 When('I sign out', () => {
   iClickElement('#navigation > li > a[href="/logout"]');
+});
+
+When('I click find address', () => {
+  iClickElement('#findAddressButton');
+});
+When('I cannot find the address in the list', () => {
+  iClickElement('#cannotFindAddress');
+});
+When('I have an international address', () => {
+  iClickElement('#cannot-enter-uk-postcode');
 });
 
 When('I click submit', iClickSubmit);
@@ -166,6 +183,12 @@ When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
 When('I click pay and submit application', iClickSubmit);
 When('I click accept and send', iClickSubmit);
+When('I click save and sign out', () => {
+  iClickElement('#saveAndSignOutButton');
+});
+When('I click provide information', () => {
+  iClickElement('#provideInformationButton');
+});
 When('I click apply for conditional order', () => {
   iClickElement('#applyForConditionalOrderButton');
 });
