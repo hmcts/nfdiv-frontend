@@ -4,21 +4,21 @@ Feature: Homepage
   Scenario: Test pages that don't require sign in
     Given I go to "/contact-us"
     Then the page should include "0300 303 0642"
-    When I click "Cookies"
+    When I click element "#cookiesLink"
     Then the page should include "A cookie is a small piece of data that’s stored on your computer"
-    When I click "Privacy policy"
+    When I click element "#privacyPolicyLink"
     Then the page should include "This privacy policy explains why we collect your personal data"
 
   Scenario: Switch language to Welsh and back to English
     Given I login
-    When I click "Cymraeg"
+    When I toggle language to Welsh
     Then the page should include "Mae hwn yn wasanaeth newydd"
-    When I click "English"
+    When I toggle language to English
     Then the page should include "This is a new service"
 
-    When I click "Accessibility statement"
+    When I click element "#accessibilityStatementLink"
     Then the page should include "This accessibility statement applies to the website available at"
-    When I click "Terms and conditions"
+    When I click element "#termsAndConditionsLink"
     Then the page should include "This page explains this service’s terms of use"
 
   @nightly
@@ -27,7 +27,7 @@ Feature: Homepage
     When I go to '/your-details'
     Then the page should include "Apply for a divorce"
     And the page should include "Who are you applying to divorce?"
-    And I click "Save and sign out"
+    And I click save and sign out
     Then the page should include "Your application has been saved"
     And I expect the page title to be "Your application has been saved - GOV.UK"
     And the page should not include "Apply for a divorce"
