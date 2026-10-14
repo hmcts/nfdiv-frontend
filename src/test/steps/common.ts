@@ -6,6 +6,7 @@ import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc';
 import { Case } from '../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
+  ApplicationType,
   CASEWORKER_ISSUE_APPLICATION,
   CASEWORKER_REQUEST_FOR_INFORMATION,
   CITIZEN_UPDATE_CASE_STATE_AAT,
@@ -13,7 +14,6 @@ import {
   DivorceOrDissolution,
   SYSTEM_UPDATE_CASE_COURT_HEARING,
   State,
-  ApplicationType,
 } from '../../main/app/case/definition';
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
@@ -45,7 +45,9 @@ const getUserPrefix = (user: string | null): string => {
   let userPrefix = '';
   if (user) {
     userPrefix = urls[user.toUpperCase()];
-    if (!userPrefix) userPrefix = user;
+    if (!userPrefix) {
+      userPrefix = user;
+    }
   }
   return userPrefix;
 };
@@ -59,7 +61,7 @@ export const iGoToPage = (url: string, user: string | null = null): void => {
   } else {
     iAmOnPage(userPrefix + url);
   }
-}
+};
 
 export const iWaitInUrl = (url: string, user: string | null = null): void => {
   const userPrefix = getUserPrefix(user);
@@ -135,10 +137,11 @@ export const iClickElement = (elemId: string, wait?: number): void => {
   I.click(elemId);
 };
 
-
 export const iClickSubmit = async (): Promise<void> => {
   const submitSelector = await I.executeScript(() =>
-    document.querySelector('#main-form-submit') ? '#main-form-submit' : 'button[type="submit"]:not(.document-delete-button)'
+    document.querySelector('#main-form-submit')
+      ? '#main-form-submit'
+      : 'button[type="submit"]:not(.document-delete-button)'
   );
 
   iClickElement(submitSelector as string);
@@ -261,11 +264,11 @@ When('I click respond to the application', () => {
 });
 
 When('I confirm the prayer and statement of truth', () => {
-  iClickElement(`#iConfirmPrayer`);
-  iClickElement(`#statementOfTruth`);
+  iClickElement('#iConfirmPrayer');
+  iClickElement('#statementOfTruth');
 });
 When('I confirm the statement of truth', () => {
-  iClickElement(`#statementOfTruth`);
+  iClickElement('#statementOfTruth');
 });
 When('I have read the application for divorce', () => {
   iClickElement('#confirmReadPetitionId');
