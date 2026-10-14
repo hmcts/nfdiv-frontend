@@ -13,6 +13,7 @@ import {
   DivorceOrDissolution,
   SYSTEM_UPDATE_CASE_COURT_HEARING,
   State,
+  ApplicationType,
 } from '../../main/app/case/definition';
 import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
@@ -218,26 +219,26 @@ Given('I clear the form', iClearTheForm);
 Given("I've said I'm applying as a joint application", async () => {
   I.amOnPage('/how-do-you-want-to-apply');
   await iClearTheForm();
-  I.checkOption('I want to apply jointly');
-  I.click('Continue');
+  I.checkOption(`#${ApplicationType.JOINT_APPLICATION}`);
+  iClickSubmit();
 });
 
 Given("I've said I do not have my husband's email address", async () => {
   I.amOnPage('/their-email-address');
   await iClearTheForm();
-  I.checkOption('I do not know their email address');
-  I.click('Continue');
+  I.checkOption('#doNotKnowEmailAddress');
+  iClickSubmit();
 });
 
 Given('I delete any previously uploaded files', async () => {
-  const locator = '//a[text()="Delete"]';
+  const locator = 'button.document-delete-button';
   let numberOfElements = await I.grabNumberOfVisibleElements(locator);
 
   const maxRetries = 10;
   let i = 0;
   while (numberOfElements > 0 && i < maxRetries) {
-    I.click('Delete');
-    I.wait(1);
+    iClickElement('button.document-delete-button');
+    I.wait(2); // Wait for the deletion to complete and the page to update
     numberOfElements = await I.grabNumberOfVisibleElements(locator);
     i++;
   }
@@ -270,15 +271,15 @@ When('I enter my valid case reference and valid access code', async () => {
       throw new Error(`No case reference or access code was returned for ${testUser}`);
     }
 
-    iClick('Sign out');
+    iClickElement('#navigation > li > a[href="/logout"]');
     await testConfig.login(I, TestUserType.CITIZEN_APPLICANT_2);
     I.amOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
 
-    iClick('Your reference number');
+    iClickElement('#caseReference');
     I.type(caseReference);
-    iClick('Your access code');
+    iClickElement('#accessCode');
     I.type(accessCode);
-    iClick('Continue');
+    iClickSubmit();
   } else {
     console.error('Could not get case data as ' + user.username);
     process.exit(-1);
@@ -304,15 +305,15 @@ When('I as applicant1 enter my valid case reference and valid access code', asyn
       throw new Error(`No case reference or access code was returned for Applicant1 ${testUser}`);
     }
 
-    iClick('Sign out');
+    iClickElement('#navigation > li > a[href="/logout"]');
     await testConfig.login(I, TestUserType.CITIZEN_SINGLETON);
     I.amOnPage(APPLICANT_1 + ENTER_YOUR_ACCESS_CODE);
 
-    iClick('Your reference number');
+    iClickElement('#caseReference');
     I.type(caseReference);
-    iClick('Your access code');
+    iClickElement('#accessCode');
     I.type(accessCode);
-    iClick('Continue');
+    iClickSubmit();
   } else {
     console.error('Could not get case data as ' + user.username);
     process.exit(-1);
@@ -399,7 +400,7 @@ When('I reset the jurisdiction connections', async () => {
   };
   await executeUserCaseScript(userCaseObj);
   I.amOnPage(CHECK_JURISDICTION);
-  I.click('Continue');
+  iClickSubmit();
 });
 
 const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
