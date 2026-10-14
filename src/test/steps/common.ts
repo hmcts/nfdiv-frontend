@@ -19,7 +19,15 @@ import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
 import { SupportedLanguages } from '../../main/modules/i18n';
-import { APPLICANT_1, APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  CHECK_JURISDICTION,
+  ENTER_YOUR_ACCESS_CODE,
+  HOME_URL,
+  HOW_DO_YOU_WANT_TO_APPLY,
+  THEIR_EMAIL_ADDRESS,
+} from '../../main/steps/urls';
 import { TestUserType, autoLogin, config as testConfig } from '../config';
 
 const { I } = inject();
@@ -77,8 +85,13 @@ export const iClickElement = (elemId: string, wait?: number): void => {
   I.click(elemId);
 };
 
-export const iClickSubmit = (): void => {
-  iClickElement('#main-form-submit');
+
+export const iClickSubmit = async (): Promise<void> => {
+  const submitSelector = await I.executeScript(() =>
+    document.querySelector('#main-form-submit') ? '#main-form-submit' : 'button[type="submit"]:not(.document-delete-button)'
+  );
+
+  iClickElement(submitSelector as string);
 };
 
 export const iRejectCookies = (): void => {
@@ -134,6 +147,10 @@ Then('the page should include visible element {string}', (elemId: string) => {
 When('I select element {string}', iClickElement);
 When('I click element {string}', iClickElement);
 
+When('I click back', () => {
+  iClickElement('a.govuk-back-link');
+});
+
 When('I click start', () => {
   iClickElement('.govuk-button--start');
 });
@@ -147,7 +164,21 @@ When('I click continue', iClickSubmit);
 When('I click send for review', iClickSubmit);
 When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
+When('I click pay and submit application', iClickSubmit);
 When('I click accept and send', iClickSubmit);
+When('I click apply for conditional order', () => {
+  iClickElement('#applyForConditionalOrderButton');
+});
+When('I click apply for final order', () => {
+  iClickElement('#applyForFinalOrderButton');
+});
+When('I click confirm', iClickSubmit);
+When('I click continue to the next steps', () => {
+  iClickElement('a.govuk-button[href="/return-to-service"]');
+});
+When('I click respond to the application', () => {
+  iClickElement('#respondToTheApplicationButton');
+});
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
   I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
@@ -217,17 +248,17 @@ export const iClearTheForm = async (): Promise<void> => {
 Given('I clear the form', iClearTheForm);
 
 Given("I've said I'm applying as a joint application", async () => {
-  I.amOnPage('/how-do-you-want-to-apply');
+  I.amOnPage(HOW_DO_YOU_WANT_TO_APPLY);
   await iClearTheForm();
   I.checkOption(`#${ApplicationType.JOINT_APPLICATION}`);
-  iClickSubmit();
+  await iClickSubmit();
 });
 
 Given("I've said I do not have my husband's email address", async () => {
-  I.amOnPage('/their-email-address');
+  I.amOnPage(THEIR_EMAIL_ADDRESS);
   await iClearTheForm();
   I.checkOption('#doNotKnowEmailAddress');
-  iClickSubmit();
+  await iClickSubmit();
 });
 
 Given('I delete any previously uploaded files', async () => {
@@ -279,7 +310,7 @@ When('I enter my valid case reference and valid access code', async () => {
     I.type(caseReference);
     iClickElement('#accessCode');
     I.type(accessCode);
-    iClickSubmit();
+    await iClickSubmit();
   } else {
     console.error('Could not get case data as ' + user.username);
     process.exit(-1);
@@ -313,7 +344,7 @@ When('I as applicant1 enter my valid case reference and valid access code', asyn
     I.type(caseReference);
     iClickElement('#accessCode');
     I.type(accessCode);
-    iClickSubmit();
+    await iClickSubmit();
   } else {
     console.error('Could not get case data as ' + user.username);
     process.exit(-1);
@@ -400,7 +431,7 @@ When('I reset the jurisdiction connections', async () => {
   };
   await executeUserCaseScript(userCaseObj);
   I.amOnPage(CHECK_JURISDICTION);
-  iClickSubmit();
+  await iClickSubmit();
 });
 
 const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
