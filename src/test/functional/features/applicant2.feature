@@ -172,11 +172,6 @@ Feature: Applicant 2
     And the page should include "Apply for help with fees"
 
     When I click "Continue"
-    Then the page URL should be "/applicant2/have-you-applied-for-help-with-fees"
-    And the page should include "Do you have a help with fees reference number?"
-    Given I select "Yes"
-
-    Given I click "Continue"
     Then the page URL should be "/applicant2/hwf-reference-number-input"
     Given I select element "#applicant2HelpWithFeesRefNo"
     And I type "HWF-ABC-123"
