@@ -38,7 +38,11 @@ export const getRespondentHubTemplate = (
       return HubTemplate.FinalOrderComplete;
     case State.GeneralApplicationReceived:
     case State.AwaitingGeneralReferralPayment:
-      return HubTemplate.GeneralApplicationReceived;
+      if (canSubmitAos) {
+        return HubTemplate.AwaitingAoS;
+      } else {
+        return HubTemplate.GeneralApplicationReceived;
+      }
     case State.AwaitingGeneralConsideration:
     case State.GeneralConsiderationComplete:
       if (userCase.dateFinalOrderSubmitted) {
