@@ -19,15 +19,7 @@ import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
 import { SupportedLanguages } from '../../main/modules/i18n';
-import {
-  APPLICANT_1,
-  APPLICANT_2,
-  CHECK_JURISDICTION,
-  ENTER_YOUR_ACCESS_CODE,
-  HOME_URL,
-  HOW_DO_YOU_WANT_TO_APPLY,
-  THEIR_EMAIL_ADDRESS,
-} from '../../main/steps/urls';
+import * as urls from '../../main/steps/urls';
 import { TestUserType, autoLogin, config as testConfig } from '../config';
 
 const { I } = inject();
@@ -48,10 +40,68 @@ export const iAmOnPage = (text: string): void => {
   }
   I.amOnPage(url.toString());
 };
-Given('I go to {string}', iAmOnPage);
 
+const getUserPrefix = (user: string | null): string => {
+  let userPrefix = '';
+  if (user) {
+    userPrefix = urls[user.toUpperCase()];
+    if (!userPrefix) userPrefix = user;
+  }
+  return userPrefix;
+};
+
+export const iGoToPage = (url: string, user: string | null = null): void => {
+  const userPrefix = getUserPrefix(user);
+
+  const definedUrl = urls[url];
+  if (definedUrl) {
+    iAmOnPage(userPrefix + urls[url]);
+  } else {
+    iAmOnPage(userPrefix + url);
+  }
+}
+
+export const iWaitInUrl = (url: string, user: string | null = null): void => {
+  const userPrefix = getUserPrefix(user);
+
+  const definedUrl = urls[url];
+  if (definedUrl) {
+    I.waitInUrl(userPrefix + urls[url]);
+  } else {
+    I.waitInUrl(userPrefix + url);
+  }
+};
+
+Given('I go to {string} {string}', (user: string, url: string) => {
+  iGoToPage(url, user);
+});
+Given('I go to {string}', (url: string) => {
+  iGoToPage(url);
+});
+Given('I go to applicant1 {string}', (url: string) => {
+  iGoToPage(url, 'APPLICANT_1');
+});
+Given('I go to respondent {string}', (url: string) => {
+  iGoToPage(url, 'RESPONDENT');
+});
+Given('I go to applicant2 {string}', (url: string) => {
+  iGoToPage(url, 'APPLICANT_2');
+});
+
+Then('the page URL should be {string} {string}', (user: string, url: string) => {
+  iWaitInUrl(url, user);
+});
 Then('the page URL should be {string}', (url: string) => {
-  I.waitInUrl(url);
+  iWaitInUrl(url);
+});
+Then('the page URL should be applicant1 {string}', (url: string) => {
+  iWaitInUrl(url, 'APPLICANT_1');
+});
+Then('the page URL should be respondent {string}', (url: string) => {
+  iWaitInUrl(url, 'RESPONDENT');
+});
+Then('the page URL should be applicant2 {string}', (url: string) => {
+  iWaitInUrl(url, 'APPLICANT_2');
 });
 
 Given('I login', async () => {
@@ -113,6 +163,13 @@ When('I click {string}', iClick);
 When('I select {string}', iClick);
 When('I click for more details', iClickMoreDetailsComponent);
 When('I wait {string} seconds', iWait);
+
+When('I click yes', () => {
+  iClickElement('#yes');
+});
+When('I click no', () => {
+  iClickElement('#no');
+});
 
 export const checkOptionFor = (optionLabel: string, fieldLabel: string): void =>
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
@@ -203,6 +260,17 @@ When('I click respond to the application', () => {
   iClickElement('#respondToTheApplicationButton');
 });
 
+When('I confirm the prayer and statement of truth', () => {
+  iClickElement(`#iConfirmPrayer`);
+  iClickElement(`#statementOfTruth`);
+});
+When('I confirm the statement of truth', () => {
+  iClickElement(`#statementOfTruth`);
+});
+When('I have read the application for divorce', () => {
+  iClickElement('#confirmReadPetitionId');
+});
+
 Then('the page should show an error for field {string}', (fieldName: string) => {
   I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
 });
@@ -271,14 +339,14 @@ export const iClearTheForm = async (): Promise<void> => {
 Given('I clear the form', iClearTheForm);
 
 Given("I've said I'm applying as a joint application", async () => {
-  I.amOnPage(HOW_DO_YOU_WANT_TO_APPLY);
+  I.amOnPage(urls.HOW_DO_YOU_WANT_TO_APPLY);
   await iClearTheForm();
   I.checkOption(`#${ApplicationType.JOINT_APPLICATION}`);
   await iClickSubmit();
 });
 
 Given("I've said I do not have my husband's email address", async () => {
-  I.amOnPage(THEIR_EMAIL_ADDRESS);
+  I.amOnPage(urls.THEIR_EMAIL_ADDRESS);
   await iClearTheForm();
   I.checkOption('#doNotKnowEmailAddress');
   await iClickSubmit();
@@ -307,7 +375,7 @@ When('I upload the file {string}', (pathToFile: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  I.amOnPage(HOME_URL);
+  I.amOnPage(urls.HOME_URL);
   await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
@@ -327,7 +395,7 @@ When('I enter my valid case reference and valid access code', async () => {
 
     iClickElement('#navigation > li > a[href="/logout"]');
     await testConfig.login(I, TestUserType.CITIZEN_APPLICANT_2);
-    I.amOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
+    I.amOnPage(urls.APPLICANT_2 + urls.ENTER_YOUR_ACCESS_CODE);
 
     iClickElement('#caseReference');
     I.type(caseReference);
@@ -341,7 +409,7 @@ When('I enter my valid case reference and valid access code', async () => {
 });
 
 When('I as applicant1 enter my valid case reference and valid access code', async () => {
-  I.amOnPage(HOME_URL);
+  I.amOnPage(urls.HOME_URL);
   await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
@@ -361,7 +429,7 @@ When('I as applicant1 enter my valid case reference and valid access code', asyn
 
     iClickElement('#navigation > li > a[href="/logout"]');
     await testConfig.login(I, TestUserType.CITIZEN_SINGLETON);
-    I.amOnPage(APPLICANT_1 + ENTER_YOUR_ACCESS_CODE);
+    I.amOnPage(urls.APPLICANT_1 + urls.ENTER_YOUR_ACCESS_CODE);
 
     iClickElement('#caseReference');
     I.type(caseReference);
@@ -453,12 +521,12 @@ When('I reset the jurisdiction connections', async () => {
     jurisdictionResidualEligible: null,
   };
   await executeUserCaseScript(userCaseObj);
-  I.amOnPage(CHECK_JURISDICTION);
+  I.amOnPage(urls.CHECK_JURISDICTION);
   await iClickSubmit();
 });
 
 const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
-  I.amOnPage(HOME_URL);
+  I.amOnPage(urls.HOME_URL);
   await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
