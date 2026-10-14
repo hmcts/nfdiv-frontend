@@ -35,6 +35,8 @@
   </div>
 </form>
 
-<form id="document-delete-form" method="post">
-  <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-</form>
+{% if uploadContentScript %}
+  <form id="document-delete-form" method="post">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+  </form>
+{% endif %}
