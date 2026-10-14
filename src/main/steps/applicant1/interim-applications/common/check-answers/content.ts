@@ -59,6 +59,7 @@ export const form: FormContent = {
       validator: value => isFieldFilledIn(value),
       values: [
         {
+          id: 'statementOfTruth',
           name: 'applicant1InterimAppsStatementOfTruth',
           label: l => l.statementOfTruthLabel,
           value: Checkbox.Checked,
