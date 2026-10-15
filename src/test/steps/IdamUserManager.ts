@@ -1,16 +1,17 @@
-/* eslint-disable no-console */
-
-import axios, { AxiosInstance } from 'axios';
+import { Logger } from '@hmcts/nodejs-logging';
+import { AxiosInstance, create as axiosCreate } from 'axios';
 
 import { UserRole } from '../../main/app/case/definition';
 
 export class IdamUserManager {
+  logger: Logger;
   client: AxiosInstance;
   users: Set<string> = new Set();
   caseWorker: string;
 
   constructor(idamUrl: string) {
-    this.client = axios.create({
+    this.logger = Logger.getLogger('IdamUserManager');
+    this.client = axiosCreate({
       baseURL: new URL('/', idamUrl).toString(),
     });
     this.caseWorker = '';
@@ -50,9 +51,9 @@ export class IdamUserManager {
         forename: 'FunctionalTest',
         surname: 'LastNameTest',
       });
-      console.info('Created user', email);
+      this.logger.info('Created user', email);
     } catch (e) {
-      console.info('Error creating user', email, e);
+      this.logger.error('Error creating user', email, e);
       throw e;
     }
   }
@@ -61,9 +62,9 @@ export class IdamUserManager {
     try {
       await this.client.delete(`/testing-support/accounts/${email}`);
       this.users.delete(email);
-      console.info('Deleted user', email);
+      this.logger.info('Deleted user', email);
     } catch (e) {
-      console.info('Error deleting user', email, e);
+      this.logger.error('Error deleting user', email, e);
     }
   }
 
@@ -83,7 +84,7 @@ export class IdamUserManager {
     try {
       await Promise.all(users.map(user => this.client.delete(user)));
     } catch (err) {
-      console.log('Error deleting users');
+      this.logger.error('Error deleting users', err);
     }
 
     this.users = new Set([firstUser]);
