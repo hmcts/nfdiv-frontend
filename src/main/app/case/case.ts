@@ -230,6 +230,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1NoResponsePartnerHasReceivedPapers: 'applicant1NoResponsePartnerHasReceivedPapers',
   applicant1NoResponsePartnerHasCertificateOfService: 'applicant1NoResponsePartnerHasCertificateOfService',
   applicant1InterimAppsIUnderstand: 'applicant1InterimAppsIUnderstand',
+  applicant1GeneralApplicationAcknowledgementCheckbox: 'applicant1GeneralApplicationAcknowledgementCheckbox',
   applicant1InterimAppsUseHelpWithFees: 'applicant1InterimAppsUseHelpWithFees',
   applicant1InterimAppsHaveHwfReference: 'applicant1InterimAppsHaveHwfReference',
   applicant1InterimAppsCanUploadEvidence: 'applicant1InterimAppsCanUploadEvidence',
@@ -237,6 +238,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1InterimAppsEvidenceDocs: 'applicant1InterimAppsEvidenceDocs',
   applicant1InterimAppsCannotUploadDocs: 'applicant1InterimAppsCannotUploadDocs',
   applicant2InterimAppsIUnderstand: 'applicant2InterimAppsIUnderstand',
+  applicant2GeneralApplicationAcknowledgementCheckbox: 'applicant2GeneralApplicationAcknowledgementCheckbox',
   applicant2InterimAppsUseHelpWithFees: 'applicant2InterimAppsUseHelpWithFees',
   applicant2InterimAppsHaveHwfReference: 'applicant2InterimAppsHaveHwfReference',
   applicant2InterimAppsCanUploadEvidence: 'applicant2InterimAppsCanUploadEvidence',
@@ -653,6 +655,7 @@ export interface Case {
   applicant1NoResponseNoNewAddressDetails?: NoResponseNoNewAddressDetails;
   applicant1NoResponseProcessServerOrBailiff?: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand?: Checkbox;
+  applicant1GeneralApplicationAcknowledgementCheckbox?: Checkbox;
   applicant1InterimAppsUseHelpWithFees?: YesOrNo;
   applicant1InterimAppsHaveHwfReference?: YesOrNo;
   applicant1InterimAppsCanUploadEvidence?: YesOrNo;
@@ -661,6 +664,7 @@ export interface Case {
   applicant1InterimAppsEvidenceDocs?: ListValue<Partial<DivorceDocument> | null>[];
   applicant1InterimAppsCannotUploadDocs?: Checkbox;
   applicant2InterimAppsIUnderstand?: Checkbox;
+  applicant2GeneralApplicationAcknowledgementCheckbox?: Checkbox;
   applicant2InterimAppsUseHelpWithFees?: YesOrNo;
   applicant2InterimAppsHaveHwfReference?: YesOrNo;
   applicant2InterimAppsCanUploadEvidence?: YesOrNo;

@@ -18,6 +18,14 @@ export const checkboxConverter = (value: string | undefined): Checkbox | undefin
   return value === YesOrNo.YES ? Checkbox.Checked : Checkbox.Unchecked;
 };
 
+const yesSetToCheckboxConverter = (value: string[] | undefined): Checkbox | undefined => {
+  if (!value) {
+    return undefined;
+  }
+
+  return value.includes('Yes') ? Checkbox.Checked : Checkbox.Unchecked;
+};
+
 const prayerConverter = (applicant: 'applicant1' | 'applicant2') => {
   return data => ({
     [`${applicant}IConfirmPrayer`]:
@@ -188,6 +196,16 @@ const fields: FromApiConverters = {
   }),
   applicant2InterimAppsIUnderstand: data => ({
     applicant2InterimAppsIUnderstand: checkboxConverter(data.applicant2InterimAppsIUnderstand),
+  }),
+  applicant1GeneralApplicationAcknowledgementCheckbox: data => ({
+    applicant1GeneralApplicationAcknowledgementCheckbox: yesSetToCheckboxConverter(
+      data.applicant1GeneralApplicationAcknowledgementCheckbox
+    ),
+  }),
+  applicant2GeneralApplicationAcknowledgementCheckbox: data => ({
+    applicant2GeneralApplicationAcknowledgementCheckbox: yesSetToCheckboxConverter(
+      data.applicant2GeneralApplicationAcknowledgementCheckbox
+    ),
   }),
   applicant1InterimAppsEvidenceDocs: uploadedFilesFromApiApplicant1,
   applicant1InterimAppsCannotUploadDocs: data => ({

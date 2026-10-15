@@ -44,6 +44,14 @@ const checkboxConverter = (value: string | undefined) => {
   return value === Checkbox.Checked ? YesOrNo.YES : YesOrNo.NO;
 };
 
+const checkboxToYesSetConverter = (value: string | undefined) => {
+  if (value === null) {
+    return null;
+  }
+
+  return value === Checkbox.Checked ? ['Yes'] : [];
+};
+
 const prayerConverter = (applicant: 'applicant1' | 'applicant2') => {
   return data => {
     const isDivorce = data.divorceOrDissolution === DivorceOrDissolution.DIVORCE;
@@ -522,6 +530,16 @@ const fields: ToApiConverters = {
   }),
   applicant2InterimAppsIUnderstand: data => ({
     applicant2InterimAppsIUnderstand: checkboxConverter(data.applicant2InterimAppsIUnderstand),
+  }),
+  applicant1GeneralApplicationAcknowledgementCheckbox: data => ({
+    applicant1GeneralApplicationAcknowledgementCheckbox: checkboxToYesSetConverter(
+      data.applicant1GeneralApplicationAcknowledgementCheckbox
+    ),
+  }),
+  applicant2GeneralApplicationAcknowledgementCheckbox: data => ({
+    applicant2GeneralApplicationAcknowledgementCheckbox: checkboxToYesSetConverter(
+      data.applicant2GeneralApplicationAcknowledgementCheckbox
+    ),
   }),
   applicant1InterimAppsUseHelpWithFees: data => ({
     applicant1InterimAppsUseHelpWithFees: data.applicant1InterimAppsUseHelpWithFees,

@@ -25,7 +25,7 @@ Feature: General Application D11 journey joint applicant 1
     When I click start
     Then the page should include element "#interruptionTitle"
 
-    Given I click element "#applicant1InterimAppsIUnderstand"
+    Given I click element "#applicant1GeneralApplicationAcknowledgementCheckbox"
     When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
@@ -85,7 +85,7 @@ Feature: General Application D11 journey joint applicant 1
     When I click start
     Then the page should include element "#interruptionTitle"
 
-    Given I click element "#applicant1InterimAppsIUnderstand"
+    Given I click element "#applicant1GeneralApplicationAcknowledgementCheckbox"
     When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 
@@ -137,7 +137,7 @@ Feature: General Application D11 journey joint applicant 1
     When I click start
     Then the page should include element "#interruptionTitle"
 
-    Given I click element "#applicant1InterimAppsIUnderstand"
+    Given I click element "#applicant1GeneralApplicationAcknowledgementCheckbox"
     When I click continue
     Then the page should include element "#generalApplicationTypeTitle"
 

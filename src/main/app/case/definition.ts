@@ -1063,6 +1063,7 @@ export interface CaseData {
   applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails;
   applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff;
   applicant1InterimAppsIUnderstand: YesOrNo;
+  applicant1GeneralApplicationAcknowledgementCheckbox: string[];
   applicant1InterimAppsUseHelpWithFees: YesOrNo;
   applicant1InterimAppsHaveHwfReference: YesOrNo;
   applicant1InterimAppsCanUploadEvidence: YesOrNo;
@@ -1070,6 +1071,7 @@ export interface CaseData {
   applicant1InterimAppsEvidenceDocs: ListValue<DivorceDocument>[];
   applicant1InterimAppsCannotUploadDocs: YesOrNo;
   applicant2InterimAppsIUnderstand: YesOrNo;
+  applicant2GeneralApplicationAcknowledgementCheckbox: string[];
   applicant2InterimAppsUseHelpWithFees: YesOrNo;
   applicant2InterimAppsHaveHwfReference: YesOrNo;
   applicant2InterimAppsCanUploadEvidence: YesOrNo;
