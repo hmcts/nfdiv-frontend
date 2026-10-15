@@ -2,7 +2,7 @@ import { Checkbox } from '../../main/app/case/case';
 import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
 import { CHECK_JURISDICTION } from '../../main/steps/urls';
 
-import { iSetTheUsersCaseTo } from './common';
+import { iClickSubmit, iSetTheUsersCaseTo } from './common';
 
 const { I } = inject();
 
@@ -23,5 +23,5 @@ Given("I've completed all questions correctly to get to the jurisdiction section
     applicant2LifeBasedInEnglandAndWales: YesOrNo.YES,
   });
   I.amOnPage(CHECK_JURISDICTION);
-  I.click('Continue');
+  await iClickSubmit();
 });
