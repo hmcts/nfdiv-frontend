@@ -79,15 +79,11 @@ export class IdamUserManager {
 
   async clearAndKeepOnlyOriginalUser(): Promise<void> {
     const users = Array.from(this.users);
-    const firstUser = users.shift() as string;
+    const firstUser = users.shift();
 
-    try {
-      await Promise.all(users.map(user => this.client.delete(user)));
-    } catch (err) {
-      this.logger.error('Error deleting users', err);
-    }
+    await Promise.all(users.map(user => this.delete(user)));
 
-    this.users = new Set([firstUser]);
+    this.users = firstUser ? new Set([firstUser]) : new Set();
   }
 
   getCurrentUsername(): string {
