@@ -1,3 +1,4 @@
+import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
 import { AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { Logger, transports } from 'winston';
@@ -19,9 +20,20 @@ import { toApiFormat } from '../../main/app/case/to-api-format';
 import { UserDetails } from '../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
 import { SupportedLanguages } from '../../main/modules/i18n';
-import * as urls from '../../main/steps/urls';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  CHECK_JURISDICTION,
+  ENTER_YOUR_ACCESS_CODE,
+  HOME_URL,
+  HOW_DO_YOU_WANT_TO_APPLY,
+  THEIR_EMAIL_ADDRESS,
+} from '../../main/steps/urls';
 import { TestUserType, autoLogin, config as testConfig } from '../config';
 
+import { urlLookup } from './urlLookup';
+
+const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
 
 Before(test => {
@@ -44,7 +56,7 @@ export const iAmOnPage = (text: string): void => {
 const getUserPrefix = (user: string | null): string => {
   let userPrefix = '';
   if (user) {
-    userPrefix = urls[user.toUpperCase()];
+    userPrefix = urlLookup[user.toUpperCase()];
     if (!userPrefix) {
       userPrefix = user;
     }
@@ -55,9 +67,9 @@ const getUserPrefix = (user: string | null): string => {
 export const iGoToPage = (url: string, user: string | null = null): void => {
   const userPrefix = getUserPrefix(user);
 
-  const definedUrl = urls[url];
+  const definedUrl = urlLookup[url];
   if (definedUrl) {
-    iAmOnPage(userPrefix + urls[url]);
+    iAmOnPage(userPrefix + definedUrl);
   } else {
     iAmOnPage(userPrefix + url);
   }
@@ -66,9 +78,9 @@ export const iGoToPage = (url: string, user: string | null = null): void => {
 export const iWaitInUrl = (url: string, user: string | null = null): void => {
   const userPrefix = getUserPrefix(user);
 
-  const definedUrl = urls[url];
+  const definedUrl = urlLookup[url];
   if (definedUrl) {
-    I.waitInUrl(userPrefix + urls[url]);
+    I.waitInUrl(userPrefix + definedUrl);
   } else {
     I.waitInUrl(userPrefix + url);
   }
@@ -342,14 +354,14 @@ export const iClearTheForm = async (): Promise<void> => {
 Given('I clear the form', iClearTheForm);
 
 Given("I've said I'm applying as a joint application", async () => {
-  I.amOnPage(urls.HOW_DO_YOU_WANT_TO_APPLY);
+  I.amOnPage(HOW_DO_YOU_WANT_TO_APPLY);
   await iClearTheForm();
   I.checkOption(`#${ApplicationType.JOINT_APPLICATION}`);
   await iClickSubmit();
 });
 
 Given("I've said I do not have my husband's email address", async () => {
-  I.amOnPage(urls.THEIR_EMAIL_ADDRESS);
+  I.amOnPage(THEIR_EMAIL_ADDRESS);
   await iClearTheForm();
   I.checkOption('#doNotKnowEmailAddress');
   await iClickSubmit();
@@ -378,7 +390,7 @@ When('I upload the file {string}', (pathToFile: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  I.amOnPage(urls.HOME_URL);
+  I.amOnPage(HOME_URL);
   await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
@@ -398,7 +410,7 @@ When('I enter my valid case reference and valid access code', async () => {
 
     iClickElement('#navigation > li > a[href="/logout"]');
     await testConfig.login(I, TestUserType.CITIZEN_APPLICANT_2);
-    I.amOnPage(urls.APPLICANT_2 + urls.ENTER_YOUR_ACCESS_CODE);
+    I.amOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
 
     iClickElement('#caseReference');
     I.type(caseReference);
@@ -406,13 +418,13 @@ When('I enter my valid case reference and valid access code', async () => {
     I.type(accessCode);
     await iClickSubmit();
   } else {
-    console.error('Could not get case data as ' + user.username);
+    logger.error('Could not get case data as ' + user.username);
     process.exit(-1);
   }
 });
 
 When('I as applicant1 enter my valid case reference and valid access code', async () => {
-  I.amOnPage(urls.HOME_URL);
+  I.amOnPage(HOME_URL);
   await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
@@ -432,7 +444,7 @@ When('I as applicant1 enter my valid case reference and valid access code', asyn
 
     iClickElement('#navigation > li > a[href="/logout"]');
     await testConfig.login(I, TestUserType.CITIZEN_SINGLETON);
-    I.amOnPage(urls.APPLICANT_1 + urls.ENTER_YOUR_ACCESS_CODE);
+    I.amOnPage(APPLICANT_1 + ENTER_YOUR_ACCESS_CODE);
 
     iClickElement('#caseReference');
     I.type(caseReference);
@@ -440,7 +452,7 @@ When('I as applicant1 enter my valid case reference and valid access code', asyn
     I.type(accessCode);
     await iClickSubmit();
   } else {
-    console.error('Could not get case data as ' + user.username);
+    logger.error('Could not get case data as ' + user.username);
     process.exit(-1);
   }
 });
@@ -524,12 +536,12 @@ When('I reset the jurisdiction connections', async () => {
     jurisdictionResidualEligible: null,
   };
   await executeUserCaseScript(userCaseObj);
-  I.amOnPage(urls.CHECK_JURISDICTION);
+  I.amOnPage(CHECK_JURISDICTION);
   await iClickSubmit();
 });
 
 const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
-  I.amOnPage(urls.HOME_URL);
+  I.amOnPage(HOME_URL);
   await iClearTheForm();
 
   const user = testConfig.GetCurrentUser();
@@ -549,7 +561,7 @@ const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
     const cwCaseApi = iGetTheCaseApi(caseWorker);
     await cwCaseApi.triggerEvent(caseReference, userData, eventName);
   } else {
-    console.error('Could not get case data as ' + user.username);
+    logger.error('Could not get case data as ' + user.username);
     process.exit(-1);
   }
 };
@@ -577,11 +589,11 @@ export const iGetTheTestUser = async (user: { username: string; password: string
 };
 
 export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
-  const logger = new Logger({
+  const caseApiLogger = new Logger({
     transports: [new transports.Console(), new transports.File({ filename: 'test.log' })],
   });
 
-  return getCaseApi(testUser, logger);
+  return getCaseApi(testUser, caseApiLogger);
 };
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
@@ -609,8 +621,8 @@ const executeUserCaseScript = async data => {
     try {
       await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
     } catch (error) {
-      console.error('Could not set fixture data as ' + user.username);
-      console.error(toApiFormat(data));
+      logger.error('Could not set fixture data as ' + user.username);
+      logger.error(toApiFormat(data));
       process.exit(-1);
     }
   }
