@@ -8,7 +8,7 @@ Feature: Sole conditional order
 
     When I click continue to payment
     And I pay and submit the application
-    Then the page should include "Application saved"
+    Then the page should include element "#applicationSavedTitle"
 
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
@@ -16,7 +16,7 @@ Feature: Sole conditional order
 
     When I click respond to the application
     Then the page URL should be respondent "REVIEW_THE_APPLICATION"
-    And the page should include "Review the divorce application"
+    And the page should include element "#reviewTheApplicationTitle"
     Given I have read the application for divorce
 
     When I click continue
@@ -33,11 +33,11 @@ Feature: Sole conditional order
     When I sign out
     And I login with applicant "1"
     When I go to "HOME_URL"
-    Then the page should include "You can now apply for a ‘conditional order’"
+    Then the page should include element "#awaitingConditionalOrderStatement"
 
     When I click apply for conditional order
     Then the page URL should be "READ_THE_RESPONSE"
-    And the page should include "Read your husband's response"
+    And the page should include element "#readTheResponseTitle"
 
     When I click continue
     Then the page URL should be "CONTINUE_WITH_YOUR_APPLICATION"
@@ -56,11 +56,11 @@ Feature: Sole conditional order
     And I set the case state to "AwaitingClarification"
     When I sign out
     And I login with applicant "1"
-    When I go to "/provide-information-to-the-court"
-    Then the page should include "Upload any documents"
+    When I go to "PROVIDE_INFORMATION_TO_THE_COURT"
+    Then the page should include element "#provideInformationToTheCourtTitle"
 
     When I clear the form
-    And I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."
+    And I select element "#coClarificationResponses"
     And I type "test details"
 
     Given I delete any previously uploaded files
@@ -69,7 +69,7 @@ Feature: Sole conditional order
     Then I wait until the page contains image "larry-the-cat.jpg"
 
     When I click continue
-    Then the page URL should be "/hub-page"
+    Then the page URL should be "HUB_PAGE"
     And the page should include "You have provided the information requested by the court."
     And the page should include "This was the court’s feedback, explaining what was needed"
 
