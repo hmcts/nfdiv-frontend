@@ -1423,6 +1423,7 @@ describe('to-api-format', () => {
         applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
         applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
         applicant1InterimAppsIUnderstand: Checkbox.Checked,
+        applicant1GeneralApplicationAcknowledgementCheckbox: Checkbox.Checked,
         applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
         applicant1NoResponseRespondentAddressInEnglandWales: Checkbox.Checked,
         expected: {
@@ -1435,6 +1436,7 @@ describe('to-api-format', () => {
           applicant1NoResponseNoNewAddressDetails: NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS,
           applicant1NoResponseProcessServerOrBailiff: NoResponseProcessServerOrBailiff.PROCESS_SERVER,
           applicant1InterimAppsIUnderstand: YesOrNo.YES,
+          applicant1GeneralApplicationAcknowledgementCheckbox: ['Yes'],
           applicant1NoResponsePartnerAddressOverseas: YesOrNo.YES,
           applicant1NoResponseRespondentAddressInEnglandWales: YesOrNo.YES,
         },
