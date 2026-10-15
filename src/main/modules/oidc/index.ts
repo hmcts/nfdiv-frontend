@@ -146,7 +146,7 @@ export class OidcMiddleware {
                 res.redirect(decreeNisiUrl);
               })
               .catch(error => {
-                console.error('Error authenticating with Old Divorce service:', error);
+                logger.error('Error authenticating with Old Divorce service:', error);
                 res.status(500).send('Internal Server Error');
               });
           }
