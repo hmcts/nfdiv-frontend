@@ -29,8 +29,9 @@ import {
   HOW_DO_YOU_WANT_TO_APPLY,
   THEIR_EMAIL_ADDRESS,
 } from '../../main/steps/urls';
-import { TestUserType, autoLogin, config as testConfig } from '../config';
+import { TestUserType, config as testConfig } from '../config';
 
+import { autoLogin, iSignOut, login } from './login';
 import { urlLookup } from './urlLookup';
 
 const logger = hmctsLogger.getLogger('common-steps');
@@ -119,20 +120,19 @@ Then('the page URL should be applicant2 {string}', (url: string) => {
 });
 
 Given('I login', async () => {
-  await testConfig.login(I, TestUserType.CITIZEN);
+  await login(TestUserType.CITIZEN);
 });
 
 Given('I create a new user and login', async () => {
-  await testConfig.login(I, TestUserType.CITIZEN_SINGLETON);
+  await login(TestUserType.CITIZEN_SINGLETON);
 });
 
 Given('I create a new user and login as applicant 2', async () => {
-  await testConfig.login(I, TestUserType.CITIZEN_APPLICANT_2);
+  await login(TestUserType.CITIZEN_APPLICANT_2);
 });
 
 Given('I login with applicant {string}', async (applicant: string) => {
   await autoLogin.login(
-    I,
     testConfig.GetUser(parseInt(applicant)).username,
     testConfig.GetUser(parseInt(applicant)).password,
     false
@@ -151,7 +151,7 @@ export const iClickElement = (elemId: string, wait?: number): void => {
 
 export const iClickSubmit = async (): Promise<void> => {
   const submitSelector = await I.executeScript(() =>
-    document.querySelector('#main-form-submit')
+    document.getElementById('main-form-submit')
       ? '#main-form-submit'
       : 'button[type="submit"]:not(.document-delete-button)'
   );
@@ -168,6 +168,10 @@ When('I reject cookies', iRejectCookies);
 
 export const iWait = (time: number): void => {
   I.wait(time);
+};
+
+export const iWaitForElementWithText = async (selector: string, text: string, timeout: number): Promise<void> => {
+  I.waitForText(text, timeout, selector);
 };
 
 export const iClickMoreDetailsComponent = (): void => {
@@ -234,9 +238,7 @@ When('I click start', () => {
   iClickElement('.govuk-button--start');
 });
 
-When('I sign out', () => {
-  iClickElement('#navigation > li > a[href="/logout"]');
-});
+When('I sign out', iSignOut);
 
 When('I click find address', () => {
   iClickElement('#findAddressButton');
@@ -409,7 +411,7 @@ When('I enter my valid case reference and valid access code', async () => {
     }
 
     iClickElement('#navigation > li > a[href="/logout"]');
-    await testConfig.login(I, TestUserType.CITIZEN_APPLICANT_2);
+    await login(TestUserType.CITIZEN_APPLICANT_2);
     I.amOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
 
     iClickElement('#caseReference');
@@ -443,7 +445,7 @@ When('I as applicant1 enter my valid case reference and valid access code', asyn
     }
 
     iClickElement('#navigation > li > a[href="/logout"]');
-    await testConfig.login(I, TestUserType.CITIZEN_SINGLETON);
+    await login(TestUserType.CITIZEN_SINGLETON);
     I.amOnPage(APPLICANT_1 + ENTER_YOUR_ACCESS_CODE);
 
     iClickElement('#caseReference');
