@@ -23,6 +23,7 @@ export const form: FormContent = {
       labelSize: 'm',
       values: [
         {
+          id: 'statementOfTruth',
           name: 'coApplicant2StatementOfTruth',
           label: l => l.confirmApplicationIsTrue,
           hint: l => l.confirmApplicationIsTrueHint,

@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosError, AxiosInstance, AxiosResponse, create as axiosCreate } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
@@ -169,7 +169,7 @@ export class CaseApiClient {
 
 export const getCaseApiClient = (userDetails: UserDetails, logger: LoggerInstance): CaseApiClient => {
   return new CaseApiClient(
-    axios.create({
+    axiosCreate({
       baseURL: config.get('services.case.url'),
       headers: {
         Authorization: 'Bearer ' + userDetails.accessToken,

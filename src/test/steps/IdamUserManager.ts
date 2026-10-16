@@ -1,16 +1,18 @@
-/* eslint-disable no-console */
-
-import axios, { AxiosInstance } from 'axios';
+import { Logger } from '@hmcts/nodejs-logging';
+import { AxiosInstance, create as axiosCreate } from 'axios';
 
 import { UserRole } from '../../main/app/case/definition';
 
 export class IdamUserManager {
+  logger: Logger;
   client: AxiosInstance;
   users: Set<string> = new Set();
+  usersBeingDeleted: Set<string> = new Set();
   caseWorker: string;
 
   constructor(idamUrl: string) {
-    this.client = axios.create({
+    this.logger = Logger.getLogger('IdamUserManager');
+    this.client = axiosCreate({
       baseURL: new URL('/', idamUrl).toString(),
     });
     this.caseWorker = '';
@@ -50,43 +52,57 @@ export class IdamUserManager {
         forename: 'FunctionalTest',
         surname: 'LastNameTest',
       });
-      console.info('Created user', email);
+      this.logger.info('Created user', email);
     } catch (e) {
-      console.info('Error creating user', email, e);
+      this.logger.error('Error creating user', email, e);
       throw e;
     }
   }
 
   async delete(email: string): Promise<void> {
+    if (!this.users.has(email) && this.caseWorker !== email) {
+      return;
+    }
+
+    if (this.usersBeingDeleted.has(email)) {
+      return;
+    }
+
+    this.usersBeingDeleted.add(email);
+
     try {
       await this.client.delete(`/testing-support/accounts/${email}`);
       this.users.delete(email);
-      console.info('Deleted user', email);
+      if (this.caseWorker === email) {
+        this.caseWorker = '';
+      }
+      this.logger.info('Deleted user', email);
     } catch (e) {
-      console.info('Error deleting user', email, e);
+      this.logger.error('Error deleting user', email, e);
+    } finally {
+      this.usersBeingDeleted.delete(email);
     }
   }
 
   async deleteAll(): Promise<void> {
-    for (const user of this.users) {
-      await this.delete(user);
-    }
+    const usersToDelete = new Set(this.users);
+
     if (this.caseWorker) {
-      await this.delete(this.caseWorker);
+      usersToDelete.add(this.caseWorker);
+    }
+
+    for (const user of usersToDelete) {
+      await this.delete(user);
     }
   }
 
   async clearAndKeepOnlyOriginalUser(): Promise<void> {
     const users = Array.from(this.users);
-    const firstUser = users.shift() as string;
+    const firstUser = users.shift();
 
-    try {
-      await Promise.all(users.map(user => this.client.delete(user)));
-    } catch (err) {
-      console.log('Error deleting users');
-    }
+    await Promise.all(users.map(user => this.delete(user)));
 
-    this.users = new Set([firstUser]);
+    this.users = firstUser ? new Set([firstUser]) : new Set();
   }
 
   getCurrentUsername(): string {

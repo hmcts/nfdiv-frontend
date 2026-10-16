@@ -8,9 +8,10 @@ import {
   SERVICE_APPLICATION_SUBMITTED,
   THEIR_EMAIL_ADDRESS,
 } from '../../main/steps/urls';
-import { autoLogin, config as testConfig } from '../config';
+import { config as testConfig } from '../config';
 
 import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common';
+import { autoLogin } from './login';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
@@ -56,7 +57,7 @@ Given('I set the case state to {string}', async (state: State) => {
   });
   await I.grabCurrentUrl();
   I.amOnPage('/logout');
-  await autoLogin.login(I, user.username, user.password, false);
+  await autoLogin.login(user.username, user.password, false);
 });
 
 Given("I've completed all happy path questions correctly", async () => {
