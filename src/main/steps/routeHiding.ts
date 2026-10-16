@@ -1,5 +1,6 @@
-import { State, YesOrNo } from '../app/case/definition';
+import { State, WhichApplicant, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
+import { canSubmitD11GeneralApplication } from '../app/utils/general-application-utils';
 
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { RoutePermission } from './applicant1Sequence';
@@ -7,7 +8,7 @@ import { bailiffServiceApplicationSequence } from './bailiffServiceApplicationSe
 import { getSwitchToSoleFoStatus } from './common/switch-to-sole-content.utils';
 import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
 import { dispenseServiceApplicationSequence } from './dispenseServiceApplicationSequence';
-import { generalApplicationD11JourneySequence } from './generalApplicationD11JourneySequence';
+import { generalApplicationD11Sequence } from './generalApplicationD11Sequence';
 import { noResponseJourneySequence } from './noResponseJourneySequence';
 import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
 import { convertUrlsToApplicant2Urls, convertUrlsToRespondentUrls } from './url-utils';
@@ -17,7 +18,6 @@ import {
   DISPUTING_THE_APPLICATION,
   ENGLISH_OR_WELSH,
   FINALISING_YOUR_APPLICATION,
-  GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
   HELP_PAYING_FINAL_ORDER_HAVE_YOU_APPLIED,
   HELP_PAYING_FINAL_ORDER_NEED_TO_APPLY,
@@ -29,7 +29,6 @@ import {
   NO_RESPONSE_DETAILS_UPDATED,
   OTHER_COURT_CASES,
   PAY_YOUR_FINAL_ORDER_FEE,
-  PAY_YOUR_GENERAL_APPLICATION_FEE,
   PAY_YOUR_SERVICE_FEE,
   PROCESS_SERVER_DOCS,
   PageLink,
@@ -46,11 +45,15 @@ export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
 
   const routePermission = ROUTE_HIDE_CONDITIONS.find(i => i.urls.includes(req.url as PageLink));
   if (routePermission) {
-    return routePermission.condition(req.session.userCase);
+    return routePermission.condition(req.session.userCase, req.session.isApplicant2);
   }
 
   return false;
 };
+
+const D11_URLS: PageLink[] = [...generalApplicationD11Sequence(WhichApplicant.APPLICANT_1)].map(
+  step => step.url as PageLink
+);
 
 export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
   return ROUTES_TO_REDIRECT_TO_HUB.includes(req.url as PageLink);
@@ -58,13 +61,15 @@ export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
 
 export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
   ...[
-    ...generalApplicationD11JourneySequence,
     ...deemedServiceApplicationSequence,
     ...alternativeServiceApplicationSequence,
     ...bailiffServiceApplicationSequence,
     ...noResponseJourneySequence,
     ...dispenseServiceApplicationSequence,
   ].map(step => step.url as PageLink),
+  ...D11_URLS,
+  ...convertUrlsToRespondentUrls(D11_URLS),
+  ...convertUrlsToApplicant2Urls(D11_URLS),
 ];
 
 export const ROUTES_TO_IGNORE: PageLink[] = [
@@ -107,22 +112,6 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
         State.AwaitingAos,
         State.AwaitingServiceConsideration,
         State.AwaitingDocuments,
-      ].includes(data.state as State),
-  },
-  {
-    urls: [...generalApplicationD11JourneySequence]
-      .filter(step => !ROUTES_TO_IGNORE.includes(step.url as PageLink))
-      .map(step => step.url as PageLink),
-    condition: data => data.issueDate !== undefined && data.issueDate !== null,
-  },
-  {
-    urls: [PAY_YOUR_GENERAL_APPLICATION_FEE, GENERAL_APPLICATION_SUBMITTED],
-    condition: data =>
-      ![
-        State.AwaitingGeneralApplicationPayment,
-        State.AwaitingGeneralReferralPayment,
-        State.GeneralApplicationReceived,
-        State.AwaitingGeneralConsideration,
       ].includes(data.state as State),
   },
   {
@@ -177,5 +166,9 @@ export const ROUTE_HIDE_CONDITIONS: RoutePermission[] = [
         State.AwaitingDocuments,
         State.AwaitingService,
       ].includes(data.state as State),
+  },
+  {
+    urls: [...D11_URLS, ...convertUrlsToRespondentUrls(D11_URLS), ...convertUrlsToApplicant2Urls(D11_URLS)],
+    condition: (data, isApplicant2 = false) => !canSubmitD11GeneralApplication(isApplicant2, data),
   },
 ];

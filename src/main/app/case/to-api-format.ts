@@ -520,6 +520,9 @@ const fields: ToApiConverters = {
   applicant1InterimAppsIUnderstand: data => ({
     applicant1InterimAppsIUnderstand: checkboxConverter(data.applicant1InterimAppsIUnderstand),
   }),
+  applicant2InterimAppsIUnderstand: data => ({
+    applicant2InterimAppsIUnderstand: checkboxConverter(data.applicant2InterimAppsIUnderstand),
+  }),
   applicant1InterimAppsUseHelpWithFees: data => ({
     applicant1InterimAppsUseHelpWithFees: data.applicant1InterimAppsUseHelpWithFees,
     ...(data.applicant1InterimAppsUseHelpWithFees === YesOrNo.NO
@@ -530,8 +533,23 @@ const fields: ToApiConverters = {
     applicant1InterimAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant1InterimAppsHwfRefNumber)
       ? data.applicant1InterimAppsHwfRefNumber
       : '',
-    applicant1InterimAppsHaveHwfReference:
-      data.applicant1InterimAppsHwfRefNumber === '' ? data.applicant1InterimAppsHaveHwfReference : YesOrNo.YES,
+    applicant1InterimAppsHaveHwfReference: data.applicant1InterimAppsHwfRefNumber
+      ? YesOrNo.YES
+      : data.applicant1InterimAppsHaveHwfReference,
+  }),
+  applicant2InterimAppsUseHelpWithFees: data => ({
+    applicant2InterimAppsUseHelpWithFees: data.applicant2InterimAppsUseHelpWithFees,
+    ...(data.applicant2InterimAppsUseHelpWithFees === YesOrNo.NO
+      ? setUnreachableAnswersToNull(['applicant2InterimAppsHaveHwfReference', 'applicant2InterimAppsHwfRefNumber'])
+      : {}),
+  }),
+  applicant2InterimAppsHwfRefNumber: data => ({
+    applicant2InterimAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant2InterimAppsHwfRefNumber)
+      ? data.applicant2InterimAppsHwfRefNumber
+      : '',
+    applicant2InterimAppsHaveHwfReference: data.applicant2InterimAppsHwfRefNumber
+      ? YesOrNo.YES
+      : data.applicant2InterimAppsHaveHwfReference,
   }),
   applicant1InterimAppsEvidenceUploadedFiles: () => ({}),
   applicant1InterimAppsCannotUploadDocs: data => ({
@@ -543,8 +561,14 @@ const fields: ToApiConverters = {
       ? setUnreachableAnswersToNull(['applicant1DeemedNoEvidenceStatement'])
       : setUnreachableAnswersToNull(['applicant1DeemedEvidenceDetails', 'applicant1InterimAppsCannotUploadDocs'])),
   }),
+  applicant2InterimAppsCannotUploadDocs: data => ({
+    applicant2InterimAppsCannotUploadDocs: checkboxConverter(data.applicant2InterimAppsCannotUploadDocs),
+  }),
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
+  }),
+  applicant2InterimAppsStatementOfTruth: data => ({
+    applicant2InterimAppsStatementOfTruth: checkboxConverter(data.applicant2InterimAppsStatementOfTruth),
   }),
   applicant1NoResponseRespondentAddressInEnglandWales: data => ({
     applicant1NoResponseRespondentAddressInEnglandWales: checkboxConverter(
@@ -745,6 +769,14 @@ const fields: ToApiConverters = {
         ? data.applicant1DispenseChildMaintenanceResults
         : null,
   }),
+  applicant1GenAppCannotUploadAgreedEvidence: data => ({
+    applicant1GenAppCannotUploadAgreedEvidence: checkboxConverter(data.applicant1GenAppCannotUploadAgreedEvidence),
+  }),
+  applicant1GenAppPartnerAgreesUploadedFiles: () => ({}),
+  applicant2GenAppCannotUploadAgreedEvidence: data => ({
+    applicant2GenAppCannotUploadAgreedEvidence: checkboxConverter(data.applicant2GenAppCannotUploadAgreedEvidence),
+  }),
+  applicant2GenAppPartnerAgreesUploadedFiles: () => ({}),
 };
 
 const toApiDate = (date: CaseDate | undefined | string) => {
