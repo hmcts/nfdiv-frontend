@@ -702,7 +702,7 @@ const cy: typeof en = (
      alternativeServiceType === AlternativeServiceType.DISPENSED ? 'gyflwyno tybiedig' : 'i hepgor cyflwyno’r cais'
    }, a gafodd ei gadarnhau. Gallwch `,
   legalAdvisorReferral: {
-    switchToSoleCoLine: `You have changed the application to a ‘sole application’. Your ${partner} has been notified by email.`,
+    switchToSoleCoLine: `Rydych wedi newid y cais i fod yn ‘gais unigol'. Mae eich ${partner} wedi cael ei hysbysu trwy e-bost.`,
     line1: `Rydych wedi gwneud cais am 'orchymyn amodol'. Bydd y llys yn gwirio'ch cais ac yn ei anfon at farnwr. Os yw'r barnwr yn cytuno y dylech ${
       isDivorce ? 'gael ysgariad' : "dod â'ch partneriaeth sifil i ben"
     }, bydd yn rhoi caniatâd i chi gael orchymyn amodol ac yn ei 'gyhoeddi' yn y llys. Byddwch yn cael e-bost erbyn ${getFormattedDate(
@@ -749,9 +749,9 @@ const cy: typeof en = (
     link: config.get('govukUrls.moneyAndProperty'),
   },
   finalOrderRequested: {
-    applicant2AppliedFirstLine1: `Your ${partner} has applied for a ‘final order’.`,
+    applicant2AppliedFirstLine1: `Mae eich ${partner} wedi gwneud cais am 'orchymyn terfynol'.`,
     applicant2AppliedFirstLine2:
-      'A judge will review the application. You will then receive an email telling you what they decide.',
+      "Bydd barnwr yn adolygu’r cais. Byddwch wedyn yn cael e-bost yn dweud wrthych beth maen nhw'n ei benderfynu.",
     line1: "Rydych wedi gwneud cais am 'orchymyn terfynol'. Bydd eich cais yn cael ei wirio gan staff y llys.",
     line2: `Os nad oes unrhyw geisiadau eraill y mae angen eu cwblhau yna bydd eich ${
       isDivorce ? 'priodas' : 'partneriaeth sifil'
