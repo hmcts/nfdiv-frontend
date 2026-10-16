@@ -1,14 +1,14 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { SupportedLanguages } from '../../../modules/i18n';
-import { CommonContent } from '../../common/common.content';
+import { getFormattedDate } from '../../../app/case/answers/formatDate.js';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { CommonContent } from '../../common/common.content.js';
 
 const en = ({ isDivorce, partner, required, userCase }: CommonContent) => ({
   title: `Disputing the ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,

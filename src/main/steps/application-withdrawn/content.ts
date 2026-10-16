@@ -1,4 +1,4 @@
-import type { TranslationFn } from '../../app/controller/GetController';
+import type { TranslationFn } from '../../app/controller/GetController.js';
 
 const en = ({ isDivorce }) => ({
   title: 'Application Withdrawn',

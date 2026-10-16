@@ -1,10 +1,10 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { CommonContent } from '../../../../common/common.content.js';
 import {
   form as uploadEvidenceForm,
   generateContent as uploadEvidenceGenerateContent,
-} from '../../common/upload-evidence/content';
+} from '../../common/upload-evidence/content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Upload a recent picture of your ${partner}`,

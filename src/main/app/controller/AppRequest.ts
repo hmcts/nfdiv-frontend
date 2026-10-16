@@ -2,12 +2,12 @@ import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
 
-import { SupportedLanguages } from '../../modules/i18n';
-import { Case, CaseWithId } from '../case/case';
-import { CaseApi } from '../case/case-api';
-import { ApplicationType } from '../case/definition';
-import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
-import { FormError } from '../form/Form';
+import { SupportedLanguages } from '../../modules/i18n/index.js';
+import { CaseApi } from '../case/case-api.js';
+import { Case, CaseWithId } from '../case/case.js';
+import { ApplicationType } from '../case/definition.js';
+import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration.js';
+import { FormError } from '../form/Form.js';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
   session: AppSession;

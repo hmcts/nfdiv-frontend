@@ -1,19 +1,19 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { Checkbox } from '../../../app/case/case';
-import { State } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { needsToExplainDelay } from '../../../app/controller/controller.utils';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
-import { DISABLE_UPON_SUBMIT } from '../../common/content.utils';
+import { getFormattedDate } from '../../../app/case/answers/formatDate.js';
+import { Checkbox } from '../../../app/case/case.js';
+import { State } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { needsToExplainDelay } from '../../../app/controller/controller.utils.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
+import { DISABLE_UPON_SUBMIT } from '../../common/content.utils.js';
 import {
   doesApplicantIntendToSwitchToSoleFo,
   getSwitchToSoleFoStatus,
-} from '../../common/switch-to-sole-content.utils';
+} from '../../common/switch-to-sole-content.utils.js';
 
 const en = ({ isDivorce, partner, userCase, isJointApplication, isApplicant2 }: CommonContent) => ({
   title: `Do you want to ${isDivorce ? 'finalise your divorce' : 'end your civil partnership'}?`,

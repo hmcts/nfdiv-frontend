@@ -1,5 +1,5 @@
-import { CcdV1Response } from '../app/case/case-api-client';
-import { State } from '../app/case/definition';
+import { CcdV1Response } from '../app/case/case-api-client.js';
+import { State } from '../app/case/definition.js';
 
 export class StateSequence {
   states: State[];

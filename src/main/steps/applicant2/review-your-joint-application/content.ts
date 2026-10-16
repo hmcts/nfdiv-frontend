@@ -1,9 +1,9 @@
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { generateContent as applicant1GenerateContent } from '../../applicant1/review-your-joint-application/content';
-import { CommonContent } from '../../common/common.content';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { generateContent as applicant1GenerateContent } from '../../applicant1/review-your-joint-application/content.js';
+import { CommonContent } from '../../common/common.content.js';
 
 const labels = ({ required }: CommonContent) => {
   return {

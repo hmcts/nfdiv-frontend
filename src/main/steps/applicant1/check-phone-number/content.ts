@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isPhoneNoValid } from '../../../app/form/validation';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isPhoneNoValid } from '../../../app/form/validation.js';
 
 const en = ({ partner }) => ({
   title: 'Your phone number',

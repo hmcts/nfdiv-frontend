@@ -1,15 +1,18 @@
-import autobind from 'autobind-decorator';
+import { AppRequest } from '../../../../../app/controller/AppRequest.js';
+import { GetController } from '../../../../../app/controller/GetController.js';
+import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfiguration.js';
+import autobind from '../../../../../app/utils/autobind.js';
+import { getStepTemplatePath } from '../../../../getStepTemplatePath.js';
 
-import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { GetController } from '../../../../../app/controller/GetController';
-import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfiguration';
-
-import { generateContent } from './content';
+import { generateContent } from './content.js';
 
 @autobind
 export default class AlternativeServiceUploadEvidenceGetController extends GetController {
   constructor() {
-    super(__dirname + '/template.njk', generateContent);
+    super(
+      getStepTemplatePath('applicant1/interim-applications/alternative-service/upload-evidence', 'template.njk'),
+      generateContent
+    );
   }
 
   protected setSessionOverrides(req: AppRequest): void {

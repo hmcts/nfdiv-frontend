@@ -1,7 +1,7 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import autobind from '../../app/utils/autobind.js';
+import { SAVE_AND_SIGN_OUT } from '../../steps/urls.js';
 import {
   CITIZEN_ADD_PAYMENT,
   CITIZEN_CREATE_SERVICE_REQUEST,
@@ -9,12 +9,12 @@ import {
   Fee,
   ListValue,
   PaymentStatus,
-} from '../case/definition';
-import { AppRequest } from '../controller/AppRequest';
-import { AnyObject } from '../controller/PostController';
-import { getServiceUrl } from '../controller/url';
-import { Payment, PaymentClient } from '../payment/PaymentClient';
-import { PaymentModel } from '../payment/PaymentModel';
+} from '../case/definition.js';
+import { AppRequest } from '../controller/AppRequest.js';
+import { AnyObject } from '../controller/PostController.js';
+import { getServiceUrl } from '../controller/url.js';
+import { Payment, PaymentClient } from '../payment/PaymentClient.js';
+import { PaymentModel } from '../payment/PaymentModel.js';
 
 @autobind
 export default abstract class BasePaymentPostController {

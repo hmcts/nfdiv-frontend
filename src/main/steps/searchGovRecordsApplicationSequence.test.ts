@@ -1,7 +1,7 @@
-import { YesOrNo } from '../app/case/definition';
+import { YesOrNo } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
-import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence';
+import { Step } from './applicant1Sequence.js';
+import { searchGovRecordsApplicationSequence } from './searchGovRecordsApplicationSequence.js';
 import {
   CHECK_YOUR_ANSWERS_GOV_RECORDS,
   GENERAL_APPLICATION_SUBMITTED,
@@ -19,7 +19,7 @@ import {
   SEARCH_GOV_RECORDS_HWF,
   WHICH_GOV_DEPARTMENTS,
   WHY_SEARCH_GOV_RECORDS,
-} from './urls';
+} from './urls.js';
 
 describe('SEARCH_GOV_RECORDS', () => {
   test('Search gov records', () => {

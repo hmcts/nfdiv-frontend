@@ -1,5 +1,5 @@
-import { CaseWithId, Checkbox } from '../case/case';
-import { ApplicationType, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition';
+import { CaseWithId, Checkbox } from '../case/case.js';
+import { ApplicationType, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition.js';
 
 type Who = 'applicant1' | 'applicant2';
 

@@ -1,4 +1,4 @@
-import { Checkbox } from '../../../../app/case/case';
+import { Checkbox } from '../../../../app/case/case.js';
 import {
   AlternativeServiceOutcome,
   AlternativeServiceType,
@@ -9,11 +9,11 @@ import {
   ServiceMethod,
   State,
   YesOrNo,
-} from '../../../../app/case/definition';
-import { HubTemplate } from '../../../common/hubTemplates';
-import { currentStateFn } from '../../../state-sequence';
+} from '../../../../app/case/definition.js';
+import { HubTemplate } from '../../../common/hubTemplates.js';
+import { currentStateFn } from '../../../state-sequence.js';
 
-import { getSoleHubTemplate } from './soleTemplateSelector';
+import { getSoleHubTemplate } from './soleTemplateSelector.js';
 
 describe('SoleTemplateSelector test', () => {
   const userCase = {

@@ -1,6 +1,6 @@
-import { State } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { State } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
 
 const en = ({ partner, isDivorce, isFinalOrderState }) => ({
   title: 'Changing to a sole application',

@@ -1,9 +1,9 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { getEndIdamSessionUrl } from '../../app/auth/user/oidc';
-import { REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../urls';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { getEndIdamSessionUrl } from '../../app/auth/user/oidc.js';
+import { REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT, SAVE_AND_SIGN_OUT } from '../urls.js';
 
-import { RequestForInformationSaveSignOutGetController } from './get';
+import { RequestForInformationSaveSignOutGetController } from './get.js';
 
 describe('RequestForInformationSaveSignOutGetController', () => {
   it('saves and signs out', async () => {

@@ -1,12 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 
-import { mockLogger } from '../../../test/unit/mocks/hmcts/nodejs-logging';
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { DivorceOrDissolution, Fee, ListValue } from '../case/definition';
+import { mockLogger } from '../../../test/unit/mocks/hmcts/nodejs-logging.js';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token.js';
+import { DivorceOrDissolution, Fee, ListValue } from '../case/definition.js';
 
-import { PaymentClient } from './PaymentClient';
+import { PaymentClient } from './PaymentClient.js';
 
 jest.mock('axios');
 jest.mock('config');

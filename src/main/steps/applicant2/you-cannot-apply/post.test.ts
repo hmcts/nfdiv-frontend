@@ -1,9 +1,9 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { APPLICANT_2_NOT_BROKEN, YesOrNo } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { APPLICANT_2_NOT_BROKEN, YesOrNo } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import Applicant2IrretrievableBreakdownPostController from './post';
+import Applicant2IrretrievableBreakdownPostController from './post.js';
 
 describe('Applicant2IrretrievableBreakdownPostController', () => {
   test('Should have no errors and trigger applicant2-not-broken event', async () => {

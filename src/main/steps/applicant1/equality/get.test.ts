@@ -1,11 +1,11 @@
 import axios from 'axios';
 import config from 'config';
 
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CHECK_ANSWERS_URL } from '../../urls';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { CHECK_ANSWERS_URL } from '../../urls.js';
 
-import PCQGetController from './get';
+import PCQGetController from './get.js';
 
 jest.mock('axios');
 jest.mock('config');

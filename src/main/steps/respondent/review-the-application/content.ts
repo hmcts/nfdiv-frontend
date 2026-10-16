@@ -1,9 +1,9 @@
-import { Checkbox } from '../../../app/case/case';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { generateContent as applicant1GenerateContent } from '../../applicant1/review-the-application/content';
-import { checkboxToBoolean } from '../../common/content.utils';
+import { Checkbox } from '../../../app/case/case.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { generateContent as applicant1GenerateContent } from '../../applicant1/review-the-application/content.js';
+import { checkboxToBoolean } from '../../common/content.utils.js';
 
 export const form: FormContent = {
   fields: userCase => {

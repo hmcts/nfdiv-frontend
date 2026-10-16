@@ -1,13 +1,13 @@
-import { Checkbox } from '../../../../../app/case/case';
-import { YesOrNo } from '../../../../../app/case/definition';
-import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import * as urls from '../../../../urls';
+import { Checkbox } from '../../../../../app/case/case.js';
+import { YesOrNo } from '../../../../../app/case/definition.js';
+import { getFilename } from '../../../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import * as urls from '../../../../urls.js';
 import {
   form as checkAnswersForm,
   generateContent as checkAnswersGenerateContent,
-} from '../../common/check-answers/content';
+} from '../../common/check-answers/content.js';
 
 const en = (useHwf, hwfReference, canUpload, uploadedDocsFilenames, evidenceDetails, noEvidenceStatement) => ({
   stepQuestions: {

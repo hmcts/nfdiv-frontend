@@ -1,7 +1,7 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isInvalidHelpWithFeesRef } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isInvalidHelpWithFeesRef } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
 
 const en = ({ partner, isJointApplication }: CommonContent) => ({
   title: 'Enter your Help With Fees reference number',

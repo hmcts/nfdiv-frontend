@@ -1,37 +1,41 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getNextStepUrl } from '../../steps';
+import autobind from '../../app/utils/autobind.js';
+import { getNextStepUrl } from '../../steps/index.js';
 import {
   DRAFT_SAVE_AND_SIGN_OUT,
   PAYMENT_CALLBACK_URL,
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   SAVE_AND_SIGN_OUT,
-} from '../../steps/urls';
-import { Case, CaseWithId } from '../case/case';
+} from '../../steps/urls.js';
+import { Case, CaseWithId } from '../case/case.js';
 import {
   CITIZEN_APPLICANT2_UPDATE,
   CITIZEN_SAVE_AND_CLOSE,
   CITIZEN_SUBMIT,
   CITIZEN_UPDATE,
   State,
-} from '../case/definition';
-import { Form, FormFields, FormFieldsFn } from '../form/Form';
+} from '../case/definition.js';
+import { Form, FormFields, FormFieldsFn } from '../form/Form.js';
 
-import { AppRequest } from './AppRequest';
-import { getPaymentCallbackUrl } from './BasePaymentPostController';
-import { destroySessionAndRedirectToSignOutPage } from './signout';
+import { AppRequest } from './AppRequest.js';
+import { getPaymentCallbackUrl } from './BasePaymentPostController.js';
+import { destroySessionAndRedirectToSignOutPage } from './signout.js';
 
 @autobind
 export class PostController<T extends AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {}
 
+  protected getForm(req: AppRequest): Form {
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    return new Form(fields);
+  }
+
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    const form = new Form(fields);
+    const form = this.getForm(req);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 

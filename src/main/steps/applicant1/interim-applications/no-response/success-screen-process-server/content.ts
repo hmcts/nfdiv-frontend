@@ -1,6 +1,6 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { CommonContent } from '../../../../common/common.content';
-import { HUB_PAGE, PROCESS_SERVER_DOCS } from '../../../../urls';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { HUB_PAGE, PROCESS_SERVER_DOCS } from '../../../../urls.js';
 
 const en = ({ isDivorce, partner, isApp2Represented }: CommonContent) => ({
   title: 'You need to arrange a process server',

@@ -1,8 +1,8 @@
-import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { CITIZEN_GENERATE_PROCESS_SERVER_DOCS, InterimApplicationType } from '../../../../../app/case/definition';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
+import { CITIZEN_GENERATE_PROCESS_SERVER_DOCS, InterimApplicationType } from '../../../../../app/case/definition.js';
 
-import ProcessServerPostController from './post';
+import ProcessServerPostController from './post.js';
 
 describe('ProcessServerPostController', () => {
   it('Set process server service general application type and generate d10', async () => {

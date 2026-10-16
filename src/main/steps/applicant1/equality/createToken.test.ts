@@ -1,7 +1,7 @@
-import { SupportedLanguages } from '../../../modules/i18n';
-import { CHECK_ANSWERS_URL } from '../../urls';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
+import { CHECK_ANSWERS_URL } from '../../urls.js';
 
-import { createToken } from './createToken';
+import { createToken } from './createToken.js';
 
 describe('createToken', () => {
   const params = {

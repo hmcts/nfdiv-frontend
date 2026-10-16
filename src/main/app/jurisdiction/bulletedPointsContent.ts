@@ -1,4 +1,4 @@
-import { JurisdictionConnections } from '../case/definition';
+import { JurisdictionConnections } from '../case/definition.js';
 
 const enConnectionBulletPoints = (isDivorce: boolean, isJointApplication: boolean) => ({
   [JurisdictionConnections.APP_1_APP_2_RESIDENT]: `both parties to the ${

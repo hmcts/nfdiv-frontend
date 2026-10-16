@@ -1,7 +1,7 @@
-import { Case } from '../app/case/case';
-import { DispenseWithServiceJourneyLogicalTests, ServicePaymentMethod, YesOrNo } from '../app/case/definition';
+import { Case } from '../app/case/case.js';
+import { DispenseWithServiceJourneyLogicalTests, ServicePaymentMethod, YesOrNo } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
+import { Step } from './applicant1Sequence.js';
 import {
   APPLY_FOR_HWF_DISPENSE,
   AWARE_PARTNER_ADDRESS_DISPENSE,
@@ -37,7 +37,7 @@ import {
   TRACING_ONLINE_RESULTS_DISPENSE,
   UPLOAD_EVIDENCE_DISPENSE,
   WHEN_CONTACT_CHILDREN_DISPENSE,
-} from './urls';
+} from './urls.js';
 
 export const dispenseServiceApplicationSequence: Step[] = [
   {

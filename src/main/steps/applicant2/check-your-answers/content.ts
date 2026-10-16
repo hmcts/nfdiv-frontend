@@ -1,20 +1,20 @@
 import striptags from 'striptags';
 
-import { ChangedNameHow, ChangedNameWhy, FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
-import { getFilename } from '../../../app/case/formatter/uploaded-files';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { ChangedNameHow, ChangedNameWhy, FinancialOrderFor, YesOrNo } from '../../../app/case/definition.js';
+import { getFilename } from '../../../app/case/formatter/uploaded-files.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
 import {
   radioButtonAnswersPrivate as addressPrivateAnswersPrivate,
   radioButtonAnswersRefuge as addressPrivateAnswersRefuge,
-} from '../../applicant1/address-private/content';
-import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content';
-import { radioButtonAnswers as dividingMoneyPropertyAnswers } from '../../applicant1/dividing-money-property/content';
-import { radioButtonAnswers as englishOrWelshAnswers } from '../../applicant1/english-or-welsh/content';
-import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../../applicant1/how-the-court-will-contact-you/content';
-import { radioButtonAnswers as irretrievableBreakdownAnswers } from '../../applicant1/irretrievable-breakdown/content';
-import { radioButtonAnswers as otherCourtCasesAnswers } from '../../applicant1/other-court-cases/content';
-import { radioButtonAnswers as helpWithYourFeeAnswers } from '../help-with-your-fee/content';
+} from '../../applicant1/address-private/content.js';
+import { generateContent as applicant1GenerateContent } from '../../applicant1/check-your-answers/content.js';
+import { radioButtonAnswers as dividingMoneyPropertyAnswers } from '../../applicant1/dividing-money-property/content.js';
+import { radioButtonAnswers as englishOrWelshAnswers } from '../../applicant1/english-or-welsh/content.js';
+import { checkBoxAnswers as howTheCourtWillContactYouAnswers } from '../../applicant1/how-the-court-will-contact-you/content.js';
+import { radioButtonAnswers as irretrievableBreakdownAnswers } from '../../applicant1/irretrievable-breakdown/content.js';
+import { radioButtonAnswers as otherCourtCasesAnswers } from '../../applicant1/other-court-cases/content.js';
+import { radioButtonAnswers as helpWithYourFeeAnswers } from '../help-with-your-fee/content.js';
 
 const stripTags = value => (typeof value === 'string' ? striptags(value) : value);
 

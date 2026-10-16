@@ -1,7 +1,7 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn, isFieldLetters } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn, isFieldLetters } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => {
   const invalid = 'You have entered an invalid character, like a number. Enter their name using letters only.';

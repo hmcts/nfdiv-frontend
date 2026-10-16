@@ -1,11 +1,11 @@
 import config from 'config';
 
-import { Checkbox } from '../../../app/case/case';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { CommonContent } from '../../common/common.content';
+import { Checkbox } from '../../../app/case/case.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { CommonContent } from '../../common/common.content.js';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: isDivorce ? 'Finalising your divorce' : 'Ending your civil partnership',

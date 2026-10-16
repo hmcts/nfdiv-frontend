@@ -1,11 +1,11 @@
-import { getFormattedDate } from '../../../../app/case/answers/formatDate';
-import { YesOrNo } from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
-import { SupportedLanguages } from '../../../../modules/i18n';
-import { CommonContent } from '../../../common/common.content';
-import { InputLabelsByLanguage, ydwOrNacYdwRadioAnswers } from '../../../common/input-labels.content';
+import { getFormattedDate } from '../../../../app/case/answers/formatDate.js';
+import { YesOrNo } from '../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../../app/form/validation.js';
+import { SupportedLanguages } from '../../../../modules/i18n/index.js';
+import { CommonContent } from '../../../common/common.content.js';
+import { InputLabelsByLanguage, ydwOrNacYdwRadioAnswers } from '../../../common/input-labels.content.js';
 
 const en = ({ isDivorce, userCase, partner, referenceNumber }: CommonContent) => ({
   title: `Withdrawing this ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,

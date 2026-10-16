@@ -1,6 +1,6 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../app/case/case';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../app/case/case.js';
 import {
   APPLICANT_1_RESUBMIT,
   ApplicationType,
@@ -10,11 +10,11 @@ import {
   INVITE_APPLICANT_2,
   State,
   YesOrNo,
-} from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
-import { SupportedLanguages } from '../../../modules/i18n';
+} from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
 
-import CheckYourAnswersPostController from './post';
+import CheckYourAnswersPostController from './post.js';
 
 describe('CheckYourAnswersPostController', () => {
   const mockFormContent = {

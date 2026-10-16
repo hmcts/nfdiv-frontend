@@ -1,5 +1,5 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { CommonContent } from '../../../../common/common.content';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { CommonContent } from '../../../../common/common.content.js';
 import {
   ALTERNATIVE_SERVICE_APPLICATION,
   DEEMED_SERVICE_APPLICATION,
@@ -7,7 +7,7 @@ import {
   NEW_POSTAL_AND_EMAIL,
   PARTNER_IN_PERSON,
   SEARCH_GOV_RECORDS_APPLICATION,
-} from '../../../../urls';
+} from '../../../../urls.js';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   alsoTry: {

@@ -1,17 +1,18 @@
-import { completeCase } from '../../test/functional/fixtures/completeCase';
-import { jointApplicant2CompleteCase } from '../../test/functional/fixtures/jointApplicant2CompleteCase';
-import { mockRequest } from '../../test/unit/utils/mockRequest';
-import { CaseWithId, Checkbox } from '../app/case/case';
-import { ApplicationType, Gender, State, YesOrNo } from '../app/case/definition';
-import { AppRequest } from '../app/controller/AppRequest';
+import { completeCase } from '../../test/functional/fixtures/completeCase.js';
+import { jointApplicant2CompleteCase } from '../../test/functional/fixtures/jointApplicant2CompleteCase.js';
+import { mockRequest } from '../../test/unit/utils/mockRequest.js';
+import { CaseWithId, Checkbox } from '../app/case/case.js';
+import { ApplicationType, Gender, State, YesOrNo } from '../app/case/definition.js';
+import { AppRequest } from '../app/controller/AppRequest.js';
 
-import { applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence';
-import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence';
-import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence';
-import { respondentSequence } from './respondentSequence';
+import { applicant1PostSubmissionSequence, applicant1PreSubmissionSequence } from './applicant1Sequence.js';
+import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from './applicant2Sequence.js';
+import { deemedServiceApplicationSequence } from './deemedServiceApplicationSequence.js';
+import { respondentSequence } from './respondentSequence.js';
 import {
   APPLICANT_2,
   CHECK_ANSWERS_URL,
+  CHECK_ANSWERS_WITHDRAW,
   CONFIRM_JOINT_APPLICATION,
   CONTINUE_WITH_YOUR_APPLICATION,
   DEEMED_INTERRUPTION,
@@ -25,7 +26,7 @@ import {
   UPLOAD_EVIDENCE_DEEMED,
   UPLOAD_YOUR_DOCUMENTS,
   YOUR_DETAILS_URL,
-} from './urls';
+} from './urls.js';
 
 import {
   getFirstErroredStep,
@@ -34,9 +35,17 @@ import {
   getUserSequence,
   isApplicationReadyToSubmit,
   isConditionalOrderReadyToSubmit,
-} from './index';
+  stepsWithContent,
+} from './index.js';
 
 describe('Steps', () => {
+  it('preserves form submit configuration from step content', () => {
+    const configuredStep = stepsWithContent.find(candidate => candidate.url === CHECK_ANSWERS_WITHDRAW);
+    const submitText = configuredStep?.form?.submit.text as unknown as (content: { submitText: string }) => string;
+
+    expect(submitText({ submitText: 'Withdraw application' })).toBe('Withdraw application');
+  });
+
   describe('getNextStepUrl()', () => {
     let mockReq: AppRequest;
     beforeEach(() => {

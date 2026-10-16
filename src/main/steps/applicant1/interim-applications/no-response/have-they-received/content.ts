@@ -1,9 +1,9 @@
-import { CaseWithId } from '../../../../../app/case/case';
-import { NoResponseCheckContactDetails, YesOrNo } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
-import { CommonContent } from '../../../../common/common.content';
+import { CaseWithId } from '../../../../../app/case/case.js';
+import { NoResponseCheckContactDetails, YesOrNo } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../../../app/form/validation.js';
+import { CommonContent } from '../../../../common/common.content.js';
 
 const en = ({ isDivorce, partner }: CommonContent) => ({
   title: `Check your ${partner}'s contact details`,

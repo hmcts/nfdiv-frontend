@@ -1,9 +1,9 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { getEndIdamSessionUrl } from '../../app/auth/user/oidc';
-import { SAVE_AND_SIGN_OUT, TIMED_OUT_URL } from '../urls';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { getEndIdamSessionUrl } from '../../app/auth/user/oidc.js';
+import { SAVE_AND_SIGN_OUT, TIMED_OUT_URL } from '../urls.js';
 
-import { TimedOutGetController } from './get';
+import { TimedOutGetController } from './get.js';
 
 describe('TimedOutGetController', () => {
   const controller = new TimedOutGetController();

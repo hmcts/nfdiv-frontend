@@ -1,5 +1,5 @@
-import { Case } from '../case';
-import { AddressGlobalUK, CaseData } from '../definition';
+import { Case } from '../case.js';
+import { AddressGlobalUK, CaseData } from '../definition.js';
 
 export const fromApi = (
   data: Partial<CaseData>,

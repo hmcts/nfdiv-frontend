@@ -1,13 +1,13 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { getFormattedCaseDate, getFormattedDate } from '../../../app/case/answers/formatDate';
-import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { getFee } from '../../../app/fees/service/get-fee';
-import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
-import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent';
+import { getFormattedCaseDate, getFormattedDate } from '../../../app/case/answers/formatDate.js';
+import { FinancialOrderFor, YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { getFee } from '../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
+import { connectionBulletPointsSummarisedForAllUsers } from '../../../app/jurisdiction/bulletedPointsContent.js';
 import {
   cyDomicile,
   cyHabitualResident,
@@ -15,10 +15,10 @@ import {
   enDomicile,
   enHabitualResident,
   enResidual,
-} from '../../../app/jurisdiction/moreDetailsContent';
-import { CommonContent } from '../../common/common.content';
-import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils';
-import { CHECK_CONTACT_DETAILS } from '../../urls';
+} from '../../../app/jurisdiction/moreDetailsContent.js';
+import { CommonContent } from '../../common/common.content.js';
+import { accessibleDetailsSpan, formattedCaseId } from '../../common/content.utils.js';
+import { CHECK_CONTACT_DETAILS } from '../../urls.js';
 
 const en = ({ isDivorce, isApplicant2, userCase, partner, required, isJointApplication }: CommonContent) => ({
   title: `Review your ${isDivorce ? 'divorce application' : 'application to end your civil partnership'}`,

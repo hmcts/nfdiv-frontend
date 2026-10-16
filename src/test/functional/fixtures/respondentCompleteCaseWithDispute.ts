@@ -1,6 +1,6 @@
-import { Checkbox, LanguagePreference } from '../../../main/app/case/case';
-import { YesOrNo } from '../../../main/app/case/definition';
-import { BrowserCase } from '../../steps/common';
+import { Checkbox, LanguagePreference } from '../../../main/app/case/case.js';
+import { YesOrNo } from '../../../main/app/case/definition.js';
+import { BrowserCase } from '../../steps/common.js';
 
 export const respondentCompleteCaseWithDispute: Partial<BrowserCase> = {
   confirmReadPetition: Checkbox.Checked,

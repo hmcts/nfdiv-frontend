@@ -1,9 +1,9 @@
-import capitalize from 'lodash/capitalize';
+import capitalize from 'lodash/capitalize.js';
 
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
-import type { CommonContent } from '../../../../common/common.content';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../../../app/form/validation.js';
+import type { CommonContent } from '../../../../common/common.content.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Enter your ${partner}'s name`,

@@ -1,14 +1,14 @@
-import { jointApplicant2CompleteCase } from '../../../test/functional/fixtures/jointApplicant2CompleteCase';
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../app/case/case';
+import { jointApplicant2CompleteCase } from '../../../test/functional/fixtures/jointApplicant2CompleteCase.js';
+import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../app/case/case.js';
 import {
   ApplicationType,
   DivorceOrDissolution,
   InterimApplicationType,
   State,
   YesOrNo,
-} from '../../app/case/definition';
+} from '../../app/case/definition.js';
 import {
   APPLICANT_2,
   APPLICATION_ENDED,
@@ -31,9 +31,9 @@ import {
   YOUR_DETAILS_URL,
   YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
-} from '../urls';
+} from '../urls.js';
 
-import { HomeGetController } from './get';
+import { HomeGetController } from './get.js';
 
 describe('HomeGetController', () => {
   const controller = new HomeGetController();

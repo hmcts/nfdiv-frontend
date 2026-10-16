@@ -1,3 +1,3 @@
-import { JurisdictionPostController } from '../../../app/jurisdiction/JurisdictionPostController';
+import { JurisdictionPostController } from '../../../app/jurisdiction/JurisdictionPostController.js';
 
 export default JurisdictionPostController;
