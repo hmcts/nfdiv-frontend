@@ -1,4 +1,4 @@
-Feature: Alternative service journey
+Feature: Alternative service journey post-issue
 
   Background:
     Given I create a new user and login
@@ -31,7 +31,7 @@ Feature: Alternative service journey
     When I click continue
     Then the page should include element "#alternativeServiceApplicationTitle"
 
-  Scenario: Alternative service happy path
+  Scenario: Alternative service happy path post-issue
     When I click start
     Then the page should include element "#interruptionTitle"
 
@@ -79,7 +79,7 @@ Feature: Alternative service journey
     Given I pay and submit the service application
     Then the page should include "You have submitted your application"
 
-  Scenario: Alternative service HWF happy path
+  Scenario: Alternative service HWF happy path post-issue
     When I click start
     Then the page should include element "#interruptionTitle"
 

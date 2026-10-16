@@ -118,7 +118,7 @@ Feature: Applicant 2
     When I click "Back"
     Then the page URL should be "/pay-and-submit"
     When I pay and submit the joint application
-    Then the page should include "Application saved"
+    Then the page should include "Further action needed"
     Given I click "Sign out"
     And I login with applicant "2"
     Then the page URL should be "/hub-page"
