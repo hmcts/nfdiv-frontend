@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import axios, { AxiosInstance } from 'axios';
+import { AxiosInstance, create as axiosCreate } from 'axios';
 
 import { UserRole } from '../../main/app/case/definition';
 
@@ -10,7 +10,7 @@ export class IdamUserManager {
   caseWorker: string;
 
   constructor(idamUrl: string) {
-    this.client = axios.create({
+    this.client = axiosCreate({
       baseURL: new URL('/', idamUrl).toString(),
     });
     this.caseWorker = '';
