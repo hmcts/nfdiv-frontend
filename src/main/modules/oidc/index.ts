@@ -36,7 +36,16 @@ export class OidcMiddleware {
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, req.path))
     );
     app.get(SIGN_OUT_URL, (req, res) => {
-      req.session.destroy(() => res.redirect(getEndIdamSessionUrl(`${protocol}${res.locals.host}${port}`)));
+      const appReq = req as AppRequest;
+      const idToken = appReq.session.user?.idToken;
+      const postLogoutRedirectUri = `${protocol}${res.locals.host}${port}`;
+
+      req.session.destroy(() => {
+        if (!idToken) {
+          return res.redirect(postLogoutRedirectUri);
+        }
+        return res.redirect(getEndIdamSessionUrl(postLogoutRedirectUri, idToken));
+      });
     });
     app.get([CALLBACK_URL, APPLICANT_2_CALLBACK_URL], errorHandler(this.callbackHandler(protocol, port)));
 
