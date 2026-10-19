@@ -112,9 +112,6 @@ export const en = {
   privacyPolicy: 'Privacy policy',
   termsAndConditions: 'Terms and conditions',
   contactUs: 'Contact us',
-  bannerTitle: 'Important',
-  notificationBanner:
-    'The sign in screen will have a new look soon. This will not affect your case details or how you access this service.',
   marriage: 'marriage',
   divorce: 'divorce',
   civilPartnership: 'civil partnership',
@@ -267,7 +264,7 @@ const cy: typeof en = {
     part2: 'bydd eich sylwadau',
     part3: ' yn ein helpu i wella’r gwasanaeth.',
     ariaLabel:
-      'Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod.',
+      'Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen i chi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 20 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod.',
     link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
   },
   languageToggle: {
@@ -304,9 +301,6 @@ const cy: typeof en = {
   privacyPolicy: 'Polisi Preifatrwydd',
   termsAndConditions: 'Telerau ac Amodau',
   contactUs: 'Cysylltu â ni',
-  bannerTitle: 'Pwysig',
-  notificationBanner:
-    "Bydd y sgrin mewngofnodi yn cael golwg newydd yn fuan. Ni fydd hyn yn effeithio ar fanylion eich achos na sut rydych yn defnyddio'r gwasanaeth hwn.",
   marriage: 'priodas',
   divorce: 'ysgariad',
   endingCivilPartnership: 'dod â phartneriaeth sifil i ben',
