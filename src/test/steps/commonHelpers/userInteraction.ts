@@ -3,42 +3,49 @@ import {
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
+  SIGN_OUT_URL,
   YOUR_DETAILS_URL,
-} from '../../main/steps/urls';
-import { TestUserType, config as testConfig } from '../config';
+} from '../../../main/steps/urls';
+import { TestUserType, config as testConfig } from '../../config';
 
-import { iClickElement, iClickSubmit, iWaitForElementWithText } from './common';
+import { TestUserAndPassword } from './IdamUserManager';
+import { iClickElement, iClickSubmit, iEnterValueIntoInput, iWaitForElementWithText } from './elementInteraction';
+import { iAmOnPage, iClickToNavigate, iWaitInUrl } from './navigation';
 
 const { I } = inject();
 
 const LOGIN_TIMEOUT = 60;
 
+const idamUserManager = testConfig.getIdamUserManager();
+const defaultTestUser = idamUserManager.getDefaultTestUser();
+
+export const iClickSignOut = (): void => {
+  iClickToNavigate(
+    `#navigation > li > a[href="${SIGN_OUT_URL}"]`,
+    LOGIN_TIMEOUT,
+    /^https?:\/\/idam-web-public[^/]*\//,
+    'domcontentloaded'
+  );
+};
+
 export const iSignOut = (): void => {
-  iClickElement('#navigation > li > a[href="/logout"]');
-  I.waitForURL(/^https?:\/\/idam-web-public[^/]*\//, { waitUntil: 'domcontentloaded' });
+  I.amOnPage(SIGN_OUT_URL);
 };
 
 const iClickSignIn = (): void => {
-  const signInButtonSelector = 'a.govuk-button[href="/enter-email"]';
-  I.waitForElement(signInButtonSelector, LOGIN_TIMEOUT);
-  I.click(signInButtonSelector);
-};
-
-const iEnterCredential = (credential: string, inputSelector: string): void => {
-  I.waitForElement(inputSelector);
-  I.fillField(inputSelector, credential);
+  iClickToNavigate('a.govuk-button[href="/enter-email"]', LOGIN_TIMEOUT);
 };
 
 const iEnterUsername = (username: string): void => {
-  iEnterCredential(username, '#username');
+  iEnterValueIntoInput(username, '#username');
 };
 
 const iEnterEmail = (email: string): void => {
-  iEnterCredential(email, '#email');
+  iEnterValueIntoInput(email, '#email');
 };
 
 const iEnterPassword = (password: string): void => {
-  iEnterCredential(password, '#password');
+  iEnterValueIntoInput(password, '#password');
 };
 
 const doClassicLogin = async (username: string, password: string): Promise<void> => {
@@ -97,7 +104,7 @@ const doesUrlHostStartWith = (url: string, prefix: string): boolean => {
 const doIdamLogin = async (username: string, password: string): Promise<void> => {
   let currentPageUrl = await I.grabCurrentUrl();
   if (currentPageUrl.startsWith(testConfig.TEST_URL) && (await isNfdServiceLinkPresent())) {
-    iSignOut();
+    iClickSignOut();
     currentPageUrl = await I.grabCurrentUrl();
   }
   if (doesUrlHostStartWith(currentPageUrl, 'idam-web-public')) {
@@ -115,8 +122,8 @@ const doIdamLogin = async (username: string, password: string): Promise<void> =>
 
 export const autoLogin = {
   login: async (
-    username = testConfig.getTestUser(),
-    password = testConfig.getTestPass(),
+    username = defaultTestUser.username,
+    password = defaultTestUser.password,
     createCase = true
   ): Promise<void> => {
     I.amOnPage(HOME_URL);
@@ -124,16 +131,16 @@ export const autoLogin = {
 
     await iWaitForNfdServiceLink();
     if (createCase) {
-      I.amOnPage(YOUR_DETAILS_URL);
+      iAmOnPage(YOUR_DETAILS_URL);
       iClickElement('#male');
       await iClickSubmit();
-      I.waitInUrl(HAS_RELATIONSHIP_BROKEN_URL, LOGIN_TIMEOUT);
-      I.amOnPage(YOUR_DETAILS_URL);
+      iWaitInUrl(HAS_RELATIONSHIP_BROKEN_URL, LOGIN_TIMEOUT);
+      iAmOnPage(YOUR_DETAILS_URL);
       await iWaitForNfdServiceLink();
     }
   },
   check: async (): Promise<void> => {
-    I.amOnPage(`${YOUR_DETAILS_URL}?lng=en`);
+    iAmOnPage(YOUR_DETAILS_URL);
     await iWaitForNfdServiceLink();
   },
   restore: (cookies: CodeceptJS.Cookie[]): void => {
@@ -143,14 +150,14 @@ export const autoLogin = {
 };
 
 export const autoLoginForApplicant2 = {
-  login: async (username = testConfig.getTestUser(), password = testConfig.getTestPass()): Promise<void> => {
-    I.amOnPage(APPLICANT_2);
+  login: async (username = defaultTestUser.username, password = defaultTestUser.password): Promise<void> => {
+    iAmOnPage(APPLICANT_2);
     await doIdamLogin(username, password);
 
     await iWaitForNfdServiceLink();
   },
   check: async (): Promise<void> => {
-    I.amOnPage(`${APPLICANT_2 + ENTER_YOUR_ACCESS_CODE}?lng=en`);
+    iAmOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
     await iWaitForNfdServiceLink();
   },
   restore: (cookies: CodeceptJS.Cookie[]): void => {
@@ -160,22 +167,44 @@ export const autoLoginForApplicant2 = {
 };
 
 export const login = async (userType: TestUserType): Promise<void> => {
-  const idamUserManager = testConfig.getIdamUserManager();
-  const TestPass = testConfig.getTestPass();
-  let username: string;
-  switch (userType) {
-    case TestUserType.CITIZEN:
-      await autoLogin.login();
-      break;
-    case TestUserType.CITIZEN_SINGLETON:
-      username = testConfig.generateTestUsername();
-      await idamUserManager.createUser(username, TestPass);
-      await autoLogin.login(username, TestPass);
-      break;
-    case TestUserType.CITIZEN_APPLICANT_2:
-      username = testConfig.generateTestUsername();
-      await idamUserManager.createUser(username, TestPass);
-      await autoLoginForApplicant2.login(username, TestPass);
-      break;
+  if (userType === TestUserType.CITIZEN) {
+    await autoLogin.login();
+    return;
   }
+
+  const user = await idamUserManager.createUser();
+  if (userType === TestUserType.CITIZEN_SINGLETON) {
+    await autoLogin.login(user.username, user.password);
+  } else {
+    await autoLoginForApplicant2.login(user.username, user.password);
+  }
+};
+
+export const autoLoginWithUserIndex = async (userIndex: number, createCase: boolean = false): Promise<void> => {
+  const user = idamUserManager.getUser(userIndex);
+  await autoLogin.login(user.username, user.password, createCase);
+};
+
+export const getCurrentUser = (): TestUserAndPassword => {
+  return idamUserManager.getCurrentUser();
+};
+
+export const getUser = (index: number): TestUserAndPassword => {
+  return idamUserManager.getUser(index);
+};
+
+export const getUserEmail = (index: number): string => {
+  return idamUserManager.getUser(index).username;
+};
+
+export const getOrCreateCaseWorker = async (): Promise<TestUserAndPassword> => {
+  let caseWorker = idamUserManager.getCaseWorker();
+  if (!caseWorker.username) {
+    caseWorker = await idamUserManager.createCaseWorker();
+  }
+  return caseWorker;
+};
+
+export const clearNewUsers = async (): Promise<void> => {
+  await idamUserManager.clearAndKeepOnlyOriginalUser();
 };

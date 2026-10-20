@@ -1,0 +1,90 @@
+import { iClickToNavigate } from './navigation';
+
+const { I } = inject();
+
+export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
+  I.waitForText(text, wait);
+  I.click(locator || text);
+};
+
+export const iClickElement = (selector: string, wait?: number): void => {
+  I.waitForElement(selector, wait);
+  I.click(selector);
+};
+export const iClickNo = (): void => {
+  iClickElement('#no');
+};
+export const iClickYes = (): void => {
+  iClickElement('#yes');
+};
+
+export const iClickSubmit = async (wait?: number, nextUrl?: string, waitUntil = 'load'): Promise<void> => {
+  const submitSelector = await I.executeScript(() =>
+    document.getElementById('main-form-submit')
+      ? '#main-form-submit'
+      : 'button[type="submit"]:not(.document-delete-button)'
+  );
+  iClickToNavigate(submitSelector, wait, nextUrl, waitUntil);
+};
+
+export const iRejectCookies = (): void => {
+  iClickElement('button.cookie-banner-reject-button');
+  iClickElement('button.cookie-banner-hide-button');
+};
+
+export const iWait = (time: number): void => {
+  I.wait(time);
+};
+
+export const iWaitForElementWithText = async (selector: string, text: string, timeout: number): Promise<void> => {
+  I.waitForText(text, timeout, selector);
+};
+
+export const iClickMoreDetailsComponent = (): void => {
+  iClickElement("span[class='govuk-details__summary-text']");
+};
+
+export const iCheckOptionFor = (optionLabel: string, fieldLabel: string): void =>
+  I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
+
+export const iEnterValueIntoInput = (value: string, inputSelector: string): void => {
+  I.waitForElement(inputSelector);
+  I.fillField(inputSelector, value);
+};
+
+export const iClearTheForm = async (): Promise<void> => {
+  await I.executeScript(() => {
+    const checkedInputs = document.querySelectorAll('input:checked') as NodeListOf<HTMLInputElement>;
+    for (const checkedInput of checkedInputs) {
+      checkedInput.checked = false;
+    }
+
+    const clearInputs = (inputs: NodeListOf<HTMLInputElement | HTMLTextAreaElement>) => {
+      for (const input of inputs) {
+        input.value = '';
+      }
+    };
+
+    clearInputs(document.querySelectorAll('textarea'));
+    clearInputs(document.querySelectorAll('input[type="text"]'));
+  });
+  await I.grabCurrentUrl();
+};
+
+export const iDeleteAllUploadedFiles = async (): Promise<void> => {
+  const documentDeleteButtonSelector = 'button.document-delete-button';
+  let numberOfElements = await I.grabNumberOfVisibleElements(documentDeleteButtonSelector);
+
+  const maxRetries = 10;
+  let i = 0;
+  while (numberOfElements > 0 && i < maxRetries) {
+    iClickElement(documentDeleteButtonSelector);
+    iWait(2); // Wait for the deletion to complete and the page to update
+    numberOfElements = await I.grabNumberOfVisibleElements(documentDeleteButtonSelector);
+    i++;
+  }
+
+  if (numberOfElements > 0) {
+    throw new Error('Unable to delete previously uploaded files');
+  }
+};

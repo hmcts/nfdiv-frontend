@@ -4,23 +4,19 @@ import { randomUUID } from 'crypto';
 import { Application } from 'express';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { PropertiesVolume } from '../main/modules/properties-volume';
-import { IdamUserManager } from './steps/IdamUserManager';
+import { IdamUserManager } from './steps/commonHelpers/IdamUserManager';
 
 // better handling of unhandled exceptions
 process.on('unhandledRejection', reason => {
   throw reason;
 });
 
-let TestUser: string;
-let TestPass: string;
 let idamUserManager: IdamUserManager;
 
 const setupTestSecrets = async () => {
   const propertiesVolume = new PropertiesVolume();
   await propertiesVolume.enableFor({ locals: { developmentMode: true } } as unknown as Application);
 };
-
-const generateTestUsername = () => `nfdiv.frontend.test.${new Date().getTime()}.${Math.random()}@hmcts.net`;
 
 const initializeTestEnvironment = async () => {
   if (!process.env.TEST_PASSWORD) {
@@ -29,8 +25,6 @@ const initializeTestEnvironment = async () => {
 
   getTokenFromApi();
 
-  TestUser = generateTestUsername();
-  TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
   const idamTokenUrl =
     sysConfig.has('services.idam.apiBaseUrl') && sysConfig.has('services.idam.tokenPath')
       ? new URL(
@@ -39,7 +33,11 @@ const initializeTestEnvironment = async () => {
         ).toString()
       : (sysConfig.get('services.idam.tokenURL') as string);
 
-  idamUserManager = new IdamUserManager(idamTokenUrl);
+  const testUsernameGenerator = () => `nfdiv.frontend.test.${new Date().getTime()}.${Math.random()}@hmcts.net`;
+  const testPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
+
+  const userManager = new IdamUserManager(idamTokenUrl, testUsernameGenerator, testPass);
+  idamUserManager = await userManager.init();
 };
 
 export enum TestUserType {
@@ -52,37 +50,8 @@ export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
   WaitForTimeout: 30000,
-  generateTestUsername: generateTestUsername,
   getIdamUserManager: () => {
     return idamUserManager;
-  },
-  getTestUser: () => {
-    return TestUser;
-  },
-  getTestPass: () => {
-    return TestPass;
-  },
-  GetCurrentUser: (): { username: string; password: string } => ({
-    username: idamUserManager.getCurrentUsername(),
-    password: TestPass,
-  }),
-  GetUser: (index: number): { username: string; password: string } => ({
-    username: idamUserManager.getUsername(index),
-    password: TestPass,
-  }),
-  GetOrCreateCaseWorker: async (): Promise<{ username: string; password: string }> => {
-    let caseWorker = idamUserManager.getCaseWorker();
-    if (!caseWorker) {
-      caseWorker = generateTestUsername();
-      await idamUserManager.createCaseWorker(caseWorker, TestPass);
-    }
-    return {
-      username: caseWorker,
-      password: TestPass,
-    };
-  },
-  clearNewUsers: async (): Promise<void> => {
-    await idamUserManager.clearAndKeepOnlyOriginalUser();
   },
   Gherkin: {
     features: './features/**/*.feature',
@@ -98,7 +67,6 @@ export const config = {
   },
   bootstrap: async (): Promise<void> => {
     await initializeTestEnvironment();
-    await idamUserManager.createUser(TestUser, TestPass);
   },
   teardown: async (): Promise<void> => idamUserManager.deleteAll(),
   helpers: {},
