@@ -8,33 +8,41 @@ import {
   SERVICE_APPLICATION_SUBMITTED,
   THEIR_EMAIL_ADDRESS,
 } from '../../main/steps/urls';
-import { config as testConfig } from '../config';
 
-import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common';
-import { autoLogin } from './login';
+import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
+import {
+  iCheckOptionFor,
+  iClearTheForm,
+  iClick,
+  iClickNo,
+  iClickSubmit,
+  iEnterValueIntoInput,
+  iWait,
+} from './commonHelpers/elementInteraction';
+import { iAmOnPage } from './commonHelpers/navigation';
+import { autoLogin, getCurrentUser, getUserEmail, iSignOut } from './commonHelpers/userInteraction';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
 
 Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
-  I.amOnPage(HOME_URL);
+  iAmOnPage(HOME_URL);
   const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
 
   await iSetTheUsersCaseTo(fixtureJson);
 
-  I.amOnPage(ADDRESS_PRIVATE);
-  I.click('I do not need my contact details kept private');
-  I.click('Continue');
+  iAmOnPage(ADDRESS_PRIVATE);
+  iClickNo();
+  await iClickSubmit();
 });
 
 Given('I set the email address for applicant 2', async () => {
-  I.amOnPage(THEIR_EMAIL_ADDRESS);
-  const applicant2EmailAddress = testConfig.GetUser(parseInt('2')).username;
+  iAmOnPage(THEIR_EMAIL_ADDRESS);
+  const applicant2EmailAddress = getUserEmail(2);
 
   await iClearTheForm();
-  iClick("Your husband's email address");
-  I.type(applicant2EmailAddress);
-  I.click('Continue');
+  iEnterValueIntoInput(applicant2EmailAddress, '#applicant2EmailAddress');
+  await iClickSubmit();
 });
 
 Given(
@@ -44,25 +52,25 @@ Given(
 
     await iSetTheUsersCaseTo(fixtureJson);
 
-    I.amOnPage(`/${applicant}` + ADDRESS_PRIVATE);
-    I.click('I do not need my contact details kept private');
-    I.click('Continue');
+    iAmOnPage(`/${applicant}` + ADDRESS_PRIVATE);
+    iClickNo();
+    await iClickSubmit();
   }
 );
 
 Given('I set the case state to {string}', async (state: State) => {
-  const user = testConfig.GetCurrentUser();
+  const user = getCurrentUser();
   await iSetTheUsersCaseTo({
     state,
   });
-  await I.grabCurrentUrl();
-  I.amOnPage('/logout');
+  await I.grabCurrentUrl(); // Do we need to do this??
+  iSignOut();
   await autoLogin.login(user.username, user.password, false);
 });
 
 Given("I've completed all happy path questions correctly", async () => {
   iAmOnPage('/your-details');
-  iClearTheForm();
+  await iClearTheForm();
   iClick('My husband');
   iClick('Continue');
 
@@ -71,7 +79,7 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('Continue');
 
   I.waitInUrl('/date-from-certificate');
-  iClearTheForm();
+  await iClearTheForm();
   iClick('Day');
   I.type('31');
   iClick('Month');
@@ -100,15 +108,15 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('Continue');
 
   I.waitInUrl('/where-your-lives-are-based');
-  checkOptionFor('Yes', 'Is your life mainly based in England or Wales?');
-  checkOptionFor('Yes', 'Is your husband’s life mainly based in England or Wales?');
+  iCheckOptionFor('Yes', 'Is your life mainly based in England or Wales?');
+  iCheckOptionFor('Yes', 'Is your husband’s life mainly based in England or Wales?');
   iClick('Continue');
 
   I.waitInUrl('/you-can-use-english-welsh-courts');
   iClick('Continue');
 
   I.waitInUrl('/enter-your-name');
-  iClearTheForm();
+  await iClearTheForm();
   iClick('first name');
   I.type('Test your name');
   iClick('last name');
@@ -116,18 +124,18 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('Continue');
 
   I.waitInUrl('/check-your-name');
-  iClearTheForm();
+  await iClearTheForm();
   iClick('No');
   iClick('Continue');
 
   I.waitInUrl('/your-name-on-certificate');
-  iClearTheForm();
+  await iClearTheForm();
   iClick('full name');
   I.type('Test your name');
   iClick('Continue');
 
   I.waitInUrl('/enter-their-name');
-  iClearTheForm();
+  await iClearTheForm();
   iClick('first name');
   I.type('Test their name');
   iClick('last name');
@@ -135,18 +143,18 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('Continue');
 
   I.waitInUrl('/check-their-name');
-  iClearTheForm();
+  await iClearTheForm();
   iClick('No');
   iClick('Continue');
 
   I.waitInUrl('/their-name-on-certificate');
-  iClearTheForm();
+  await iClearTheForm();
   iClick("Copy your husband's full name");
   I.type('Husbands name');
   iClick('Continue');
 
   I.waitInUrl('/how-the-court-will-contact-you');
-  iClearTheForm();
+  await iClearTheForm();
   iClick('I agree that the divorce service can send me notifications');
   iClick('Continue');
 
@@ -167,7 +175,7 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('Continue');
 
   I.waitInUrl('/their-email-address');
-  iClearTheForm();
+  await iClearTheForm();
   iClick("Your husband's email address");
   I.type('husband@example.com');
   iClick('Continue');
@@ -189,14 +197,14 @@ Given("I've completed all happy path questions correctly", async () => {
   iClick('Continue');
 
   I.waitInUrl('/upload-your-documents');
-  iClearTheForm();
+  await iClearTheForm();
   iClick('I cannot upload my original marriage certificate');
   iClick('Continue');
   iWait(5);
   I.amOnPage(HOME_URL);
 
   I.waitInUrl('/check-your-answers');
-  iClearTheForm();
+  await iClearTheForm();
   iClick('I confirm');
   iClick('I believe that the facts stated in this application are true');
   iClick('Continue to payment');
