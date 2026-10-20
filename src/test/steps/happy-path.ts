@@ -65,7 +65,7 @@ Given('I set the case state to {string}', async (state: State) => {
   });
   await I.grabCurrentUrl(); // Do we need to do this??
   iSignOut();
-  await autoLogin.login(user.username, user.password, false);
+  await autoLogin.login(user, false);
 });
 
 Given("I've completed all happy path questions correctly", async () => {

@@ -16,9 +16,6 @@ const { I } = inject();
 
 const LOGIN_TIMEOUT = 60;
 
-const idamUserManager = testConfig.getIdamUserManager();
-const defaultTestUser = idamUserManager.getDefaultTestUser();
-
 export const iClickSignOut = (): void => {
   iClickToNavigate(
     `#navigation > li > a[href="${SIGN_OUT_URL}"]`,
@@ -122,12 +119,11 @@ const doIdamLogin = async (username: string, password: string): Promise<void> =>
 
 export const autoLogin = {
   login: async (
-    username = defaultTestUser.username,
-    password = defaultTestUser.password,
+    user = testConfig.getIdamUserManager().getDefaultTestUser(),
     createCase = true
   ): Promise<void> => {
     I.amOnPage(HOME_URL);
-    await doIdamLogin(username, password);
+    await doIdamLogin(user.username, user.password);
 
     await iWaitForNfdServiceLink();
     if (createCase) {
@@ -150,9 +146,9 @@ export const autoLogin = {
 };
 
 export const autoLoginForApplicant2 = {
-  login: async (username = defaultTestUser.username, password = defaultTestUser.password): Promise<void> => {
+  login: async (user = testConfig.getIdamUserManager().getDefaultTestUser()): Promise<void> => {
     iAmOnPage(APPLICANT_2);
-    await doIdamLogin(username, password);
+    await doIdamLogin(user.username, user.password);
 
     await iWaitForNfdServiceLink();
   },
@@ -167,6 +163,7 @@ export const autoLoginForApplicant2 = {
 };
 
 export const login = async (userType: TestUserType): Promise<void> => {
+  const idamUserManager = testConfig.getIdamUserManager();
   if (userType === TestUserType.CITIZEN) {
     await autoLogin.login();
     return;
@@ -174,30 +171,35 @@ export const login = async (userType: TestUserType): Promise<void> => {
 
   const user = await idamUserManager.createUser();
   if (userType === TestUserType.CITIZEN_SINGLETON) {
-    await autoLogin.login(user.username, user.password);
+    await autoLogin.login(user);
   } else {
-    await autoLoginForApplicant2.login(user.username, user.password);
+    await autoLoginForApplicant2.login(user);
   }
 };
 
 export const autoLoginWithUserIndex = async (userIndex: number, createCase: boolean = false): Promise<void> => {
+  const idamUserManager = testConfig.getIdamUserManager();
   const user = idamUserManager.getUser(userIndex);
-  await autoLogin.login(user.username, user.password, createCase);
+  await autoLogin.login(user, createCase);
 };
 
 export const getCurrentUser = (): TestUserAndPassword => {
+  const idamUserManager = testConfig.getIdamUserManager();
   return idamUserManager.getCurrentUser();
 };
 
 export const getUser = (index: number): TestUserAndPassword => {
+  const idamUserManager = testConfig.getIdamUserManager();
   return idamUserManager.getUser(index);
 };
 
 export const getUserEmail = (index: number): string => {
+  const idamUserManager = testConfig.getIdamUserManager();
   return idamUserManager.getUser(index).username;
 };
 
 export const getOrCreateCaseWorker = async (): Promise<TestUserAndPassword> => {
+  const idamUserManager = testConfig.getIdamUserManager();
   let caseWorker = idamUserManager.getCaseWorker();
   if (!caseWorker.username) {
     caseWorker = await idamUserManager.createCaseWorker();
@@ -206,5 +208,6 @@ export const getOrCreateCaseWorker = async (): Promise<TestUserAndPassword> => {
 };
 
 export const clearNewUsers = async (): Promise<void> => {
+  const idamUserManager = testConfig.getIdamUserManager();
   await idamUserManager.clearAndKeepOnlyOriginalUser();
 };
