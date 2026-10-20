@@ -41,6 +41,7 @@ export const form: FormContent = {
         {
           label: l => l.detailsPrivate,
           value: YesOrNo.YES,
+          id: 'yes',
           conditionalText: l =>
             `<p class="govuk-label">${l.detailsPrivateMoreDetails} <a class="govuk-link" href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help">${l.supportAvailable}</a></p>`,
           subFields: {
@@ -50,8 +51,8 @@ export const form: FormContent = {
               classes: 'govuk-radios--inline',
               label: l => l.inRefugeLabel,
               values: [
-                { label: l => l[YesOrNo.YES], value: YesOrNo.YES },
-                { label: l => l[YesOrNo.NO], value: YesOrNo.NO },
+                { label: l => l[YesOrNo.YES], value: YesOrNo.YES, id: 'refugeYes' },
+                { label: l => l[YesOrNo.NO], value: YesOrNo.NO, id: 'refugeNo' },
               ],
               validator: value => isFieldFilledIn(value), // Only validate if this field is shown
             },
@@ -60,6 +61,7 @@ export const form: FormContent = {
         {
           label: l => l.detailsNotPrivate,
           value: YesOrNo.NO,
+          id: 'no',
         },
       ],
       validator: value => isFieldFilledIn(value),
