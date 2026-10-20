@@ -1,4 +1,4 @@
-import { iClearTheForm, iClick } from './common';
+import { iClearTheForm, iClick } from './commonHelpers/elementInteraction';
 
 const { I } = inject();
 

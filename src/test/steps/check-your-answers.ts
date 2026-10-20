@@ -1,7 +1,7 @@
 import { Checkbox } from '../../main/app/case/case';
 import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
 
-import { iSetTheUsersCaseTo } from './common';
+import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
 
 const { I } = inject();
 

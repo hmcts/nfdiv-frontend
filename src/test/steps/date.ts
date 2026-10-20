@@ -1,4 +1,4 @@
-import { iClick } from './common';
+import { iClick } from './commonHelpers/elementInteraction';
 
 const { I } = inject();
 
