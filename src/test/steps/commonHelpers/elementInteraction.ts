@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../../main/app/case/definition';
 import { iClickToNavigate } from './navigation';
 
 const { I } = inject();
@@ -11,11 +12,26 @@ export const iClickElement = (selector: string, wait?: number): void => {
   I.waitForVisible(selector, wait);
   I.click(selector);
 };
+
+export const iClickRadioValueForField = (value: string, field: string = ''): void => {
+  let radioSelector = `input[type="radio"][value="${value}"]`;
+  if (field.trim().length > 0) {
+    radioSelector += `[name="${field.trim()}"]`;
+  }
+  console.log(value, field)
+  iClickElement(radioSelector);
+};
+export const iClickRadioValue = (value: string): void => {
+  iClickRadioValueForField(value);
+};
+export const iClickYesOrNoForField = (yesOrNo: YesOrNo.YES | YesOrNo.NO, field?: string): void => {
+  iClickRadioValueForField(yesOrNo, field);
+};
 export const iClickNo = (): void => {
-  iClickElement('#no');
+  iClickYesOrNoForField(YesOrNo.NO);
 };
 export const iClickYes = (): void => {
-  iClickElement('#yes');
+  iClickYesOrNoForField(YesOrNo.YES);
 };
 
 export const iClickSubmit = async (nextUrl?: string, wait?: number, waitUntil: string = 'load'): Promise<void> => {

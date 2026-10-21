@@ -1,4 +1,5 @@
-import { ApplicationType, State } from '../../main/app/case/definition';
+import { LanguagePreference } from '../../main/app/case/case';
+import { ApplicationType, Gender, State, YesOrNo } from '../../main/app/case/definition';
 import {
   ADDRESS_PRIVATE,
   APPLICATION_SUBMITTED,
@@ -48,8 +49,10 @@ import {
   iClearTheForm,
   iClickElement,
   iClickNo,
+  iClickRadioValue,
+  iClickRadioValueForField,
   iClickSubmit,
-  iClickYes,
+  iClickYes, iClickYesOrNoForField,
   iConfirmPrayerAndStatementOfTruth,
   iEnterValueIntoInput,
 } from './commonHelpers/elementInteraction';
@@ -106,7 +109,7 @@ Given('I set the case state to {string}', async (state: State) => {
 Given("I've completed all happy path questions correctly", async () => {
   iAmOnPage(YOUR_DETAILS_URL);
   await iClearTheForm();
-  iClickElement('#male');
+  iClickRadioValue(Gender.MALE);
   await iClickSubmit(HAS_RELATIONSHIP_BROKEN_URL);
 
   // I.waitInUrl('/irretrievable-breakdown');
@@ -127,7 +130,7 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmit(HOW_DO_YOU_WANT_TO_APPLY);
 
   // I.waitInUrl('/how-do-you-want-to-apply');
-  iClickElement(`#${ApplicationType.SOLE_APPLICATION}`);
+  iClickRadioValue(ApplicationType.SOLE_APPLICATION);
   await iClickSubmit(IN_THE_UK);
 
   // I.waitInUrl('/in-the-uk');
@@ -138,8 +141,8 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmit(WHERE_YOUR_LIVES_ARE_BASED_URL);
 
   // I.waitInUrl('/where-your-lives-are-based');
-  iClickElement('#applicant1_yes');
-  iClickElement('#applicant2_yes');
+  iClickYesOrNoForField(YesOrNo.YES, 'applicant1LifeBasedInEnglandAndWales');
+  iClickYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
   await iClickSubmit(JURISDICTION_INTERSTITIAL_URL);
 
   // I.waitInUrl('/you-can-use-english-welsh-courts');
@@ -183,11 +186,12 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmit(ENGLISH_OR_WELSH);
 
   // I.waitInUrl('/english-or-welsh');
-  iClickElement('#english');
+  // iClickElement('#english');
+  iClickRadioValueForField(LanguagePreference.English, 'applicant1EnglishOrWelsh');
   await iClickSubmit(ADDRESS_PRIVATE);
 
   // I.waitInUrl('/address-private');
-  iClickNo();
+  iClickYesOrNoForField(YesOrNo.NO, 'applicant1AddressPrivate');
   await iClickSubmit(ENTER_YOUR_ADDRESS);
 
   // iAmOnPage('/enter-your-address');

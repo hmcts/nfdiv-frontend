@@ -21,6 +21,7 @@ import {
   iClickElement,
   iClickMoreDetailsComponent,
   iClickNo,
+  iClickRadioValueForField,
   iClickSubmit,
   iClickYes,
   iConfirmPrayerAndStatementOfTruth,
@@ -183,6 +184,12 @@ When('I click respond to the application', () => {
 });
 When('I click yes', iClickYes);
 When('I click no', iClickNo);
+When('I click radio value {string} for field {string}', (value: string, field: string) => {
+  iClickRadioValueForField(value, field);
+});
+When('I click radio value {string}', (value: string) => {
+  iClickRadioValueForField(value);
+});
 
 When('I confirm the prayer and statement of truth', iConfirmPrayerAndStatementOfTruth);
 When('I confirm the statement of truth', () => {
