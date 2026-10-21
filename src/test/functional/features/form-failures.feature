@@ -12,20 +12,15 @@ Feature: Form failures
     Given I go to "/date-from-certificate"
     When I click continue
     Then the page should include "You have not entered a date. Enter a date to continue."
-    Given I select "Day"
-    And I type "!"
-    And I select "Month"
-    And I type "1"
-    And I select "Year"
-    And I type "abc"
+    Given I enter a date of "!" "1" "abc" into the "relationshipDate" field
     When I click continue
     Then the page should include "You have entered an invalid date. Enter the date using the following format: 31 3 2002"
     Given I clear the form
-    And I enter a date 2 years ahead
+    And I enter a relationship date 2 years ahead
     When I click continue
     Then the page should include "You have entered a date that is in the future. Enter a date that is in the past before continuing."
     Given I clear the form
-    And I enter a date 6 months ago
+    And I enter a relationship date 6 months ago
     When I click continue
     Then the page should include "You have not been married long enough to apply for a divorce"
 
@@ -113,6 +108,7 @@ Feature: Form failures
     And the page should include "You have not entered your husband’s town or city. Enter their town or city before continuing."
     And the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
     Given I reset the postcode lookup form
+    Then I click back
     And I have an international address
     When I click continue
     Then the page should include "You have not entered your husband’s building and street address. Enter their building and street address before continuing."
@@ -214,6 +210,7 @@ Feature: Form failures
     And the page should include "You have not entered your town or city. Enter your town or city before continuing."
     And the page should include "You have not entered your postcode. Enter your postcode before continuing."
     Given I reset the postcode lookup form
+    Then I click back
     And I select "Enter a UK postcode"
     And I type "SW1H 9AJ"
     When I click find address
@@ -439,6 +436,7 @@ Feature: Form failures
     And the page should include "You have not entered your town or city. Enter your town or city before continuing."
     And the page should include "You have not entered your postcode. Enter your postcode before continuing."
     Given I reset the postcode lookup form
+    Then I click back
     And I select "Enter a UK postcode"
     And I type "SW1H 9AJ"
     When I click find address
