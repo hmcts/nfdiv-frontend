@@ -62,12 +62,10 @@ export const form: FormContent = {
       labelHidden: true,
       values: [
         {
-          id: ApplicationType.SOLE_APPLICATION,
           label: l => l[ApplicationType.SOLE_APPLICATION],
           value: ApplicationType.SOLE_APPLICATION,
         },
         {
-          id: ApplicationType.JOINT_APPLICATION,
           label: l => l[ApplicationType.JOINT_APPLICATION],
           value: ApplicationType.JOINT_APPLICATION,
           conditionalText: l => `<p class="govuk-label">${l.discussWithPartner}</p>`,

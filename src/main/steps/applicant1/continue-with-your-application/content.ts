@@ -68,8 +68,8 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
-        { label: l => l.yes, value: YesOrNo.YES, id: 'yes' },
-        { label: l => l.no, value: YesOrNo.NO, id: 'no' },
+        { label: l => l.yes, value: YesOrNo.YES },
+        { label: l => l.no, value: YesOrNo.NO },
       ],
       validator: value => isFieldFilledIn(value),
     },
