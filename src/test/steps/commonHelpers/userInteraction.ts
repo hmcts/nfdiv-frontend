@@ -16,8 +16,8 @@ const { I } = inject();
 
 const LOGIN_TIMEOUT = 60;
 
-export const iClickSignOut = (): void => {
-  iClickToNavigate(
+export const iClickSignOut = async (): Promise<void> => {
+  await iClickToNavigate(
     `#navigation > li > a[href="${SIGN_OUT_URL}"]`,
     LOGIN_TIMEOUT,
     /^https?:\/\/idam-web-public[^/]*\//,
@@ -29,8 +29,8 @@ export const iSignOut = (): void => {
   I.amOnPage(SIGN_OUT_URL);
 };
 
-const iClickSignIn = (): void => {
-  iClickToNavigate('a.govuk-button[href="/enter-email"]', LOGIN_TIMEOUT);
+const iClickSignIn = async (): Promise<void> => {
+  await iClickToNavigate('a.govuk-button[href="/enter-email"]', LOGIN_TIMEOUT);
 };
 
 const iEnterUsername = (username: string): void => {
@@ -56,7 +56,7 @@ const doModernLogin = async (username: string, password: string): Promise<void> 
   const modernEmailLabelText = 'Enter your email address';
   const modernPasswordLabelText = 'Enter your password';
 
-  iClickSignIn();
+  await iClickSignIn();
   await iWaitForElementWithText(emailPasswordLabelSelector, modernEmailLabelText, LOGIN_TIMEOUT);
   iEnterEmail(username);
   await iClickSubmit();
@@ -101,7 +101,7 @@ const doesUrlHostStartWith = (url: string, prefix: string): boolean => {
 const doIdamLogin = async (username: string, password: string): Promise<void> => {
   let currentPageUrl = await I.grabCurrentUrl();
   if (currentPageUrl.startsWith(testConfig.TEST_URL) && (await isNfdServiceLinkPresent())) {
-    iClickSignOut();
+    await iClickSignOut();
     currentPageUrl = await I.grabCurrentUrl();
   }
   if (doesUrlHostStartWith(currentPageUrl, 'idam-web-public')) {
@@ -118,10 +118,7 @@ const doIdamLogin = async (username: string, password: string): Promise<void> =>
 };
 
 export const autoLogin = {
-  login: async (
-    user = testConfig.getIdamUserManager().getDefaultTestUser(),
-    createCase = true
-  ): Promise<void> => {
+  login: async (user = testConfig.getIdamUserManager().getDefaultTestUser(), createCase = true): Promise<void> => {
     I.amOnPage(HOME_URL);
     await doIdamLogin(user.username, user.password);
 

@@ -23,6 +23,7 @@ import {
   iClickNo,
   iClickSubmit,
   iClickYes,
+  iConfirmPrayerAndStatementOfTruth,
   iDeleteAllUploadedFiles,
   iRejectCookies,
   iWait,
@@ -183,10 +184,7 @@ When('I click respond to the application', () => {
 When('I click yes', iClickYes);
 When('I click no', iClickNo);
 
-When('I confirm the prayer and statement of truth', () => {
-  iClickElement('#iConfirmPrayer');
-  iClickElement('#statementOfTruth');
-});
+When('I confirm the prayer and statement of truth', iConfirmPrayerAndStatementOfTruth);
 When('I confirm the statement of truth', () => {
   iClickElement('#statementOfTruth');
 });

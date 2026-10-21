@@ -144,7 +144,7 @@ export const linkUserToCase = async (
     );
   }
 
-  iClickSignOut();
+  await iClickSignOut();
   await login(userType);
   const user = userType === TestUserType.CITIZEN_SINGLETON ? APPLICANT_1 : APPLICANT_2;
   iAmOnPage(user + ENTER_YOUR_ACCESS_CODE);
