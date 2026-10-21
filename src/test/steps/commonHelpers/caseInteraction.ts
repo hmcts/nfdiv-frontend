@@ -137,7 +137,7 @@ export const linkUserToCase = async (
 
   const fetchedCase = await getCaseForCurrentUser();
 
-  const accessCode = TestUserType.CITIZEN_SINGLETON ? fetchedCase.accessCodeApplicant1 : fetchedCase.accessCode;
+  const accessCode = userType === TestUserType.CITIZEN_SINGLETON ? fetchedCase.accessCodeApplicant1 : fetchedCase.accessCode;
   if (!accessCode) {
     throw new Error(
       `No access code was returned for ${userType === TestUserType.CITIZEN_SINGLETON ? fetchedCase.applicant1Email : fetchedCase.applicant2Email}`
