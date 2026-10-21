@@ -6,6 +6,10 @@ export const iEnterADateIntoField = (day: string, month: string, year: string, f
   iEnterValueIntoInput(year, `#${field}-year`);
 };
 
+Given('I enter a date of {string} {string} {string} into the {string} field', (day: string, month: string, year: string, field: string) => {
+  iEnterADateIntoField(day, month, year, field);
+});
+
 /** Setting the date to the first due to different months having different total number of days **/
 Given(/I enter a relationship date (\d+) (?:month|months) ago/, (month: string) => {
   const date = new Date();
