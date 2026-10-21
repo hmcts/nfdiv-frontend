@@ -8,7 +8,7 @@ export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?
 };
 
 export const iClickElement = (selector: string, wait?: number): void => {
-  I.waitForElement(selector, wait);
+  I.waitForVisible(selector, wait);
   I.click(selector);
 };
 export const iClickNo = (): void => {
@@ -18,13 +18,17 @@ export const iClickYes = (): void => {
   iClickElement('#yes');
 };
 
-export const iClickSubmit = async (wait?: number, nextUrl?: string, waitUntil = 'load'): Promise<void> => {
+export const iClickSubmit = async (nextUrl?: string, wait?: number, waitUntil: string = 'load'): Promise<void> => {
   const submitSelector = await I.executeScript(() =>
     document.getElementById('main-form-submit')
       ? '#main-form-submit'
       : 'button[type="submit"]:not(.document-delete-button)'
   );
-  iClickToNavigate(submitSelector, wait, nextUrl, waitUntil);
+  await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil);
+};
+
+export const iCannotUploadDocs = (): void => {
+  iClickElement('#cannotUploadDocs');
 };
 
 export const iRejectCookies = (): void => {
@@ -36,8 +40,8 @@ export const iWait = (time: number): void => {
   I.wait(time);
 };
 
-export const iWaitForElementWithText = async (selector: string, text: string, timeout: number): Promise<void> => {
-  I.waitForText(text, timeout, selector);
+export const iWaitForElementWithText = async (selector: string, text: string, wait?: number): Promise<void> => {
+  I.waitForText(text, wait, selector);
 };
 
 export const iClickMoreDetailsComponent = (): void => {
@@ -47,8 +51,8 @@ export const iClickMoreDetailsComponent = (): void => {
 export const iCheckOptionFor = (optionLabel: string, fieldLabel: string): void =>
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
 
-export const iEnterValueIntoInput = (value: string, inputSelector: string): void => {
-  I.waitForElement(inputSelector);
+export const iEnterValueIntoInput = (value: string, inputSelector: string, wait?: number): void => {
+  I.waitForVisible(inputSelector, wait);
   I.fillField(inputSelector, value);
 };
 
@@ -87,4 +91,9 @@ export const iDeleteAllUploadedFiles = async (): Promise<void> => {
   if (numberOfElements > 0) {
     throw new Error('Unable to delete previously uploaded files');
   }
+};
+
+export const iConfirmPrayerAndStatementOfTruth = (): void => {
+  iClickElement('#iConfirmPrayer');
+  iClickElement('#statementOfTruth');
 };
