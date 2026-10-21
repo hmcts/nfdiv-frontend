@@ -5,7 +5,7 @@ import { jointApplicant1CompleteCase } from '../functional/fixtures/jointApplica
 import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
 
 Given('I am reviewing an application for divorce created by my wife', async () => {
-  iSetTheUsersCaseTo({
+  await iSetTheUsersCaseTo({
     ...jointApplicant1CompleteCase,
     applicationType: ApplicationType.JOINT_APPLICATION,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -16,7 +16,7 @@ Given('I am reviewing an application for divorce created by my wife', async () =
 });
 
 Given('I am reviewing an application for divorce created by my husband', async () => {
-  iSetTheUsersCaseTo({
+  await iSetTheUsersCaseTo({
     ...jointApplicant1CompleteCase,
     applicationType: ApplicationType.JOINT_APPLICATION,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -27,7 +27,7 @@ Given('I am reviewing an application for divorce created by my husband', async (
 });
 
 Given('I am reviewing an application for dissolution of my civil partnership', async () => {
-  iSetTheUsersCaseTo({
+  await iSetTheUsersCaseTo({
     ...jointApplicant1CompleteCase,
     applicationType: ApplicationType.JOINT_APPLICATION,
     divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,
