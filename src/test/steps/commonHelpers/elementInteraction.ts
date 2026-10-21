@@ -1,4 +1,5 @@
 import { YesOrNo } from '../../../main/app/case/definition';
+
 import { iClickToNavigate } from './navigation';
 
 const { I } = inject();
@@ -18,7 +19,6 @@ export const iClickRadioValueForField = (value: string, field: string = ''): voi
   if (field.trim().length > 0) {
     radioSelector += `[name="${field.trim()}"]`;
   }
-  console.log(value, field)
   iClickElement(radioSelector);
 };
 export const iClickRadioValue = (value: string): void => {

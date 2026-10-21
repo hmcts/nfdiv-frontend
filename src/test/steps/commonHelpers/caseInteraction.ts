@@ -6,7 +6,6 @@ import { Logger, transports } from 'winston';
 import { OidcResponse, getIdamToken } from '../../../main/app/auth/user/oidc';
 import { Case, CaseWithId } from '../../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../../main/app/case/case-api';
-
 import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../../main/app/case/definition';
 import { toApiFormat } from '../../../main/app/case/to-api-format';
 import { UserDetails } from '../../../main/app/controller/AppRequest';
@@ -137,7 +136,8 @@ export const linkUserToCase = async (
 
   const fetchedCase = await getCaseForCurrentUser();
 
-  const accessCode = userType === TestUserType.CITIZEN_SINGLETON ? fetchedCase.accessCodeApplicant1 : fetchedCase.accessCode;
+  const accessCode =
+    userType === TestUserType.CITIZEN_SINGLETON ? fetchedCase.accessCodeApplicant1 : fetchedCase.accessCode;
   if (!accessCode) {
     throw new Error(
       `No access code was returned for ${userType === TestUserType.CITIZEN_SINGLETON ? fetchedCase.applicant1Email : fetchedCase.applicant2Email}`

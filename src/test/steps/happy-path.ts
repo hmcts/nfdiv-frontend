@@ -52,7 +52,8 @@ import {
   iClickRadioValue,
   iClickRadioValueForField,
   iClickSubmit,
-  iClickYes, iClickYesOrNoForField,
+  iClickYes,
+  iClickYesOrNoForField,
   iConfirmPrayerAndStatementOfTruth,
   iEnterValueIntoInput,
 } from './commonHelpers/elementInteraction';
