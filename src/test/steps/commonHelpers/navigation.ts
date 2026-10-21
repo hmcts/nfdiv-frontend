@@ -1,4 +1,5 @@
 import { SupportedLanguages } from '../../../main/modules/i18n';
+import { CHECK_ANSWERS_URL } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
 import { urlLookup } from '../urlLookup';
 
@@ -78,32 +79,58 @@ const getFullUrl = (user?: string, url?: string): string => {
   return userPrefix + definedUrl;
 };
 
-export const iAmOnPage = (text: string): void => {
-  const url = new URL(text, testConfig.TEST_URL);
+const iClickNavTrigger = (elemId: string, waitUntil?: string): void => {
+  const waitForNavigation = waitUntil ? { waitForNavigation: waitUntil } : {};
+  I.click(elemId, null, { noWaitAfter: false, ...waitForNavigation });
+};
+
+const checkForEquityAndDiversityRedirect = async (elemId: string): Promise<void> => {
+  const equityAndDiversityUrl = testConfig.getEquityAndDiversityUrl();
+  iClickNavTrigger(elemId, 'domcontentloaded');
+  const currentUrl = await I.grabCurrentUrl();
+
+  if (currentUrl.startsWith(testConfig.TEST_URL)) {
+    return;
+  }
+  const optOutButtonSelector = 'button[name="opt-out-button"]';
+  if (currentUrl.startsWith(equityAndDiversityUrl)) {
+    console.log('Got redirected to equity and diversity page. Clicking opt-out button.');
+    I.waitForElement(optOutButtonSelector);
+    iClickNavTrigger(optOutButtonSelector);
+  }
+};
+
+export const iAmOnPage = (urlString: string): void => {
+  const url = new URL(urlString, testConfig.TEST_URL);
   if (!url.searchParams.has('lng')) {
     url.searchParams.set('lng', SupportedLanguages.En);
   }
   I.amOnPage(url.toString());
 };
 
-export const iClickToNavigate = (
+export const iClickToNavigate = async (
   elemId: string,
   wait?: number,
   nextUrl?: string | RegExp,
   waitUntil = 'load'
-): void => {
-  I.waitForElement(elemId, wait);
-
+): Promise<void> => {
   const nextUrlIsString = nextUrl && typeof nextUrl === 'string' && nextUrl.trim().length > 0;
   const nextUrlIsRegExp = !nextUrlIsString && nextUrl && typeof nextUrl === 'object' && nextUrl instanceof RegExp;
-  const dontWaitForNextUrl = !nextUrlIsRegExp;
+  const dontWaitForNextUrl = !nextUrlIsString && !nextUrlIsRegExp;
+
+  I.waitForElement(elemId, wait);
   if (dontWaitForNextUrl) {
-    return I.click(elemId, null, { noWaitAfter: false, waitForNavigation: waitUntil });
+    return iClickNavTrigger(elemId, waitUntil);
+  }
+
+  if (nextUrlIsString && nextUrl === CHECK_ANSWERS_URL) {
+    await checkForEquityAndDiversityRedirect(elemId);
+  } else {
+    iClickNavTrigger(elemId);
   }
 
   const timeout = wait ? { timeout: wait * 1000 } : {};
 
-  I.click(elemId, null, { noWaitAfter: false });
   if (nextUrlIsString) {
     return I.waitForURL(urlStringToRegExp(nextUrl), { ...timeout, waitUntil });
   }
