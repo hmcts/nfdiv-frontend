@@ -1,8 +1,11 @@
+import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
+
 import { SupportedLanguages } from '../../../main/modules/i18n';
 import { CHECK_ANSWERS_URL } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
 import { urlLookup } from '../urlLookup';
 
+const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
 
 const isFullyQualifiedUrl = (value: string): boolean => {
@@ -94,7 +97,7 @@ const checkForEquityAndDiversityRedirect = async (elemId: string): Promise<void>
   }
   const optOutButtonSelector = 'button[name="opt-out-button"]';
   if (currentUrl.startsWith(equityAndDiversityUrl)) {
-    console.log('Got redirected to equity and diversity page. Clicking opt-out button.');
+    logger.info('Got redirected to equity and diversity page. Clicking opt-out button.');
     I.waitForElement(optOutButtonSelector);
     iClickNavTrigger(optOutButtonSelector);
   }
