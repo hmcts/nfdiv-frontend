@@ -55,6 +55,7 @@ import {
 } from './commonHelpers/elementInteraction';
 import { iAmOnPage, iWaitInUrl, iWaitInUrlAsUser } from './commonHelpers/navigation';
 import { autoLogin, getCurrentUser, getUserEmail, iSignOut } from './commonHelpers/userInteraction';
+import { iEnterADateIntoField } from './date';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
@@ -114,9 +115,7 @@ Given("I've completed all happy path questions correctly", async () => {
 
   // I.waitInUrl('/date-from-certificate');
   await iClearTheForm();
-  iEnterValueIntoInput('31', '#relationshipDate-day');
-  iEnterValueIntoInput('12', '#relationshipDate-month');
-  iEnterValueIntoInput('1999', '#relationshipDate-year');
+  iEnterADateIntoField('31', '12', '1999', 'relationshipDate');
   await iClickSubmit(CERTIFICATE_URL);
 
   // I.waitInUrl('/do-you-have-your-certificate');
