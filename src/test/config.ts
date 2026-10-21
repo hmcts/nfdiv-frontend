@@ -12,6 +12,11 @@ process.on('unhandledRejection', reason => {
 });
 
 let idamUserManager: IdamUserManager;
+let equityAndDiversityUrl: string;
+
+const getEquityAndDiversityUrl = (): string => {
+  return sysConfig.get('services.equalityAndDiversity.url') as string;
+}
 
 const setupTestSecrets = async () => {
   const propertiesVolume = new PropertiesVolume();
@@ -33,6 +38,8 @@ const initializeTestEnvironment = async () => {
         ).toString()
       : (sysConfig.get('services.idam.tokenURL') as string);
 
+  equityAndDiversityUrl = getEquityAndDiversityUrl();
+
   const testUsernameGenerator = () => `nfdiv.frontend.test.${new Date().getTime()}.${Math.random()}@hmcts.net`;
   const testPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
 
@@ -50,9 +57,8 @@ export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
   WaitForTimeout: 30000,
-  getIdamUserManager: () => {
-    return idamUserManager;
-  },
+  getIdamUserManager: () => idamUserManager,
+  getEquityAndDiversityUrl: () => equityAndDiversityUrl,
   Gherkin: {
     features: './features/**/*.feature',
     steps: [
