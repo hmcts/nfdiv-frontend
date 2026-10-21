@@ -48,18 +48,21 @@ export const form: FormContent = {
       errorId: 'relationshipDate-day',
       values: [
         {
+          id: 'day',
           label: language === SupportedLanguages.Cy ? 'Diwrnod' : 'Day',
           name: 'day',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2 },
         },
         {
+          id: 'month',
           label: language === SupportedLanguages.Cy ? 'Mis' : 'Month',
           name: 'month',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2 },
         },
         {
+          id: 'year',
           label: language === SupportedLanguages.Cy ? 'Blwyddyn' : 'Year',
           name: 'year',
           classes: 'govuk-input--width-4',
