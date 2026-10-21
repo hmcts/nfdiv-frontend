@@ -39,8 +39,8 @@ export const form: FormContent = {
       label: l => l.title,
       labelHidden: true,
       values: [
-        { label: l => l.male, value: Gender.MALE, id: 'male' },
-        { label: l => l.female, value: Gender.FEMALE, id: 'female' },
+        { label: l => l.male, value: Gender.MALE },
+        { label: l => l.female, value: Gender.FEMALE },
       ],
       validator: value => isFieldFilledIn(value),
     },
