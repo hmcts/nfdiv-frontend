@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import * as path from 'path';
 
+import { Logger } from '@hmcts/nodejs-logging';
 import bodyParser from 'body-parser';
 import config from 'config';
 import express, { RequestHandler, static as staticMiddleware } from 'express';
@@ -28,8 +29,6 @@ import { LoadTimeouts } from './modules/timeouts';
 import { TooBusy } from './modules/too-busy';
 import { WebpackDev } from './modules/webpack-dev';
 import { Routes } from './routes';
-
-const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
