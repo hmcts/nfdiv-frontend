@@ -1,25 +1,51 @@
+import { Locator, Page } from '@playwright/test';
 import { YesOrNo } from '../../../main/app/case/definition';
 
 import { iClickToNavigate } from './navigation';
 
 const { I } = inject();
 
-export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
+type LocatorClickOptions = NonNullable<Parameters<Locator['click']>[0]>;
+export type WaitUntil = NonNullable<Parameters<Page['waitForURL']>[1]>['waitUntil'];
+export type IClickOptions = LocatorClickOptions & { waitForNavigation?: WaitUntil };
+
+export const iClick = (selector: string | CodeceptJS.LocatorOrString, options: IClickOptions = {}): void => {
+  const defaultOptions = { noWaitAfter: false };
+  I.click(selector, null, { ...defaultOptions, ...options });
+}
+
+export const iClickString = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
   I.waitForText(text, wait);
-  I.click(locator || text);
+  iClick(locator || text);
 };
+
+export const iWaitForVisible = (selector: string, wait?: number): void => {
+  I.waitForVisible(selector + ':not(.hidden)', wait);
+}
 
 export const iClickElement = (selector: string, wait?: number): void => {
-  I.waitForVisible(selector, wait);
-  I.click(selector);
+  iWaitForVisible(selector, wait);
+  iClick(selector);
 };
 
-export const iClickRadioValueForField = (value: string, field: string = ''): void => {
-  let radioSelector = `input[type="radio"][value="${value}"]`;
+export const iCheckOption= (selector: string, wait?: number): void => {
+  iWaitForVisible(selector, wait);
+  I.checkOption(selector);
+}
+
+export const iCheckValueForField = (value: string, inputType: 'radio' | 'checkbox', field: string = '' ): void => {
+  let selector = `input[type="${inputType}"][value="${value}"]`;
   if (field.trim().length > 0) {
-    radioSelector += `[name="${field.trim()}"]`;
+    selector += `[name="${field.trim()}"]`;
   }
-  iClickElement(radioSelector);
+  iCheckOption(selector);
+};
+
+export const iCheckOptionValueForField = (value: string, field: string = ''): void => {
+  iCheckValueForField(value, 'checkbox', field);
+}
+export const iClickRadioValueForField = (value: string, field: string = ''): void => {
+  iCheckValueForField(value, 'radio', field);
 };
 export const iClickRadioValue = (value: string): void => {
   iClickRadioValueForField(value);
@@ -34,13 +60,18 @@ export const iClickYes = (): void => {
   iClickYesOrNoForField(YesOrNo.YES);
 };
 
-export const iClickSubmit = async (nextUrl?: string, wait?: number, waitUntil: string = 'load'): Promise<void> => {
+export const iClickSubmit = async (nextUrl?: string, wait?: number, waitUntil: WaitUntil = 'load'): Promise<void> => {
   const submitSelector = await I.executeScript(() =>
     document.getElementById('main-form-submit')
       ? '#main-form-submit'
       : 'button[type="submit"]:not(.document-delete-button)'
   );
   await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil);
+};
+
+export const iClickChangeLinkForQuestion = async (questionText: string): Promise<void> => {
+  const selector = `a.govuk-link:has(span.govuk-visually-hidden:has-text("${questionText}"))`;
+  await iClickToNavigate(selector);
 };
 
 export const iCannotUploadDocs = (): void => {
@@ -68,7 +99,7 @@ export const iCheckOptionFor = (optionLabel: string, fieldLabel: string): void =
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
 
 export const iEnterValueIntoInput = (value: string, inputSelector: string, wait?: number): void => {
-  I.waitForVisible(inputSelector, wait);
+  iWaitForVisible(inputSelector, wait);
   I.fillField(inputSelector, value);
 };
 
