@@ -17,7 +17,11 @@ Given(
 Given(/I enter a relationship date (\d+) (?:month|months) ago/, (month: string) => {
   const date = new Date();
   date.setDate(1);
-  date.getMonth() - +month === 0 ? date.setMonth(1) : date.setMonth(date.getMonth() - +month);
+  if (date.getMonth() - +month === 0) {
+    date.setMonth(1);
+  } else {
+    date.setMonth(date.getMonth() - +month);
+  }
   iEnterADateIntoField(
     date.getDate().toString(),
     (date.getMonth() + 1).toString(),
