@@ -1,12 +1,11 @@
 import path from 'path';
 
+import config from 'config';
 import express from 'express';
 import nunjucks from 'nunjucks';
 
 import { DivorceOrDissolution } from '../../app/case/definition';
 import { FormInput } from '../../app/form/Form';
-
-const config = require('config');
 
 export class Nunjucks {
   enableFor(app: express.Express): void {
@@ -113,7 +112,7 @@ export class Nunjucks {
       res.locals.serviceType =
         res.locals.host.includes('civil') ||
         'forceCivilMode' in req.query ||
-        (process.env.NODE_ENV !== 'production' && config.get('forceCivilMode').toString().toLowerCase() === 'true')
+        (process.env.NODE_ENV !== 'production' && config.get<string>('forceCivilMode').toLowerCase() === 'true')
           ? DivorceOrDissolution.DISSOLUTION
           : DivorceOrDissolution.DIVORCE;
       next();
