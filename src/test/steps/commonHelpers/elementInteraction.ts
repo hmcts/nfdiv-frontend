@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+
 import { YesOrNo } from '../../../main/app/case/definition';
 
 import { iClickToNavigate } from './navigation';
@@ -12,7 +13,7 @@ export type IClickOptions = LocatorClickOptions & { waitForNavigation?: WaitUnti
 export const iClick = (selector: string | CodeceptJS.LocatorOrString, options: IClickOptions = {}): void => {
   const defaultOptions = { noWaitAfter: false };
   I.click(selector, null, { ...defaultOptions, ...options });
-}
+};
 
 export const iClickString = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
   I.waitForText(text, wait);
@@ -21,19 +22,19 @@ export const iClickString = (text: string, locator?: CodeceptJS.LocatorOrString,
 
 export const iWaitForVisible = (selector: string, wait?: number): void => {
   I.waitForVisible(selector + ':not(.hidden)', wait);
-}
+};
 
 export const iClickElement = (selector: string, wait?: number): void => {
   iWaitForVisible(selector, wait);
   iClick(selector);
 };
 
-export const iCheckOption= (selector: string, wait?: number): void => {
+export const iCheckOption = (selector: string, wait?: number): void => {
   iWaitForVisible(selector, wait);
   I.checkOption(selector);
-}
+};
 
-export const iCheckValueForField = (value: string, inputType: 'radio' | 'checkbox', field: string = '' ): void => {
+export const iCheckValueForField = (value: string, inputType: 'radio' | 'checkbox', field: string = ''): void => {
   let selector = `input[type="${inputType}"][value="${value}"]`;
   if (field.trim().length > 0) {
     selector += `[name="${field.trim()}"]`;
@@ -43,7 +44,7 @@ export const iCheckValueForField = (value: string, inputType: 'radio' | 'checkbo
 
 export const iCheckOptionValueForField = (value: string, field: string = ''): void => {
   iCheckValueForField(value, 'checkbox', field);
-}
+};
 export const iClickRadioValueForField = (value: string, field: string = ''): void => {
   iCheckValueForField(value, 'radio', field);
 };
@@ -60,13 +61,21 @@ export const iClickYes = (): void => {
   iClickYesOrNoForField(YesOrNo.YES);
 };
 
-export const iClickSubmit = async (nextUrl?: string, wait?: number, waitUntil: WaitUntil = 'load'): Promise<void> => {
+export const iClickSubmitAndExpectUrl = async (
+  nextUrl?: string,
+  wait?: number,
+  waitUntil: WaitUntil = 'load'
+): Promise<void> => {
   const submitSelector = await I.executeScript(() =>
     document.getElementById('main-form-submit')
       ? '#main-form-submit'
       : 'button[type="submit"]:not(.document-delete-button)'
   );
   await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil);
+};
+
+export const iClickSubmit = async (wait?: number): Promise<void> => {
+  await iClickSubmitAndExpectUrl(undefined, wait);
 };
 
 export const iClickChangeLinkForQuestion = async (questionText: string): Promise<void> => {
