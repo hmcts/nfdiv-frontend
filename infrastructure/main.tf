@@ -66,3 +66,9 @@ resource "azurerm_key_vault_secret" "managed_redis_connection_string" {
   value        = "rediss://default:${urlencode(module.managed_redis.primary_access_key)}@${module.managed_redis.hostname}:${module.managed_redis.port}"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
+
+resource "azurerm_key_vault_secret" "managed_redis_access_key" {
+  name         = "azure-managed-redis-access-key"
+  value        = module.managed_redis.primary_access_key
+  key_vault_id = data.azurerm_key_vault.key_vault.id
+}
