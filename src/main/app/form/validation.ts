@@ -119,7 +119,7 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
   }
 
   if (typeof value === 'string') {
-    if (!value.match(/^HWF-[A-Z0-9]{3}-[A-Z0-9]{3}$/i)) {
+    if (!value.match(/^HWF-?[A-Z0-9]{3}-?[A-Z0-9]{3}$/i)) {
       return 'invalid';
     }
 
@@ -137,7 +137,7 @@ export const isInvalidNationalInsuranceNumber: Validator = value => {
 
   const upperValue = (value as string).toUpperCase();
 
-  const niRegex = /^[A-Z]{2} \d{2} \d{2} \d{2} [A-Z]$/;
+  const niRegex = /^[A-Z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[A-Z]{1}$/;
 
   if (!niRegex.test(upperValue)) {
     return 'invalidFormat';
