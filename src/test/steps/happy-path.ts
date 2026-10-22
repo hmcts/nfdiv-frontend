@@ -1,3 +1,5 @@
+import { createRequire } from 'module';
+
 import { LanguagePreference } from '../../main/app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../../main/app/case/definition';
 import {
@@ -63,10 +65,11 @@ import { iEnterADateIntoField } from './date';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
+const requireFromFixture = createRequire(__filename);
 
 Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
   iAmOnPage(HOME_URL);
-  const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+  const fixtureJson = requireFromFixture(`../functional/fixtures/${fixture}`)[fixture];
 
   await iSetTheUsersCaseTo(fixtureJson);
 
@@ -87,7 +90,7 @@ Given('I set the email address for applicant 2', async () => {
 Given(
   "I've already completed the form using the fixture {string} for {string}",
   async (fixture: string, applicant: string) => {
-    const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+    const fixtureJson = requireFromFixture(`../functional/fixtures/${fixture}`)[fixture];
 
     await iSetTheUsersCaseTo(fixtureJson);
 

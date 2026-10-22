@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { createRequire } from 'module';
 import { extname } from 'path';
 
 import config from 'config';
@@ -103,6 +104,7 @@ const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
 };
 
 const ext = extname(__filename);
+const requireFromRoutes = createRequire(__filename);
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -143,7 +145,7 @@ export class Routes {
 
     for (const step of stepsWithContent) {
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
-        ? require(`${step.stepDir}/get${ext}`).default
+        ? (requireFromRoutes(`${step.stepDir}/get${ext}`) as { default: typeof GetController }).default
         : GetController;
 
       app.get(
@@ -154,7 +156,7 @@ export class Routes {
 
       if (step.form) {
         const postController = fs.existsSync(`${step.stepDir}/post${ext}`)
-          ? require(`${step.stepDir}/post${ext}`).default
+          ? (requireFromRoutes(`${step.stepDir}/post${ext}`) as { default: typeof PostController }).default
           : PostController;
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
