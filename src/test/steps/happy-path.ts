@@ -47,6 +47,7 @@ import {
 
 import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
 import {
+  WaitUntil,
   iCannotUploadDocs,
   iClearTheForm,
   iClickElement,
@@ -54,6 +55,7 @@ import {
   iClickRadioValue,
   iClickRadioValueForField,
   iClickSubmit,
+  iClickSubmitAndExpectUrl,
   iClickYes,
   iClickYesOrNoForField,
   iConfirmPrayerAndStatementOfTruth,
@@ -114,132 +116,100 @@ Given("I've completed all happy path questions correctly", async () => {
   iAmOnPage(YOUR_DETAILS_URL);
   await iClearTheForm();
   iClickRadioValue(Gender.MALE);
-  await iClickSubmit(HAS_RELATIONSHIP_BROKEN_URL);
+  await iClickSubmitAndExpectUrl(HAS_RELATIONSHIP_BROKEN_URL);
 
-  // I.waitInUrl('/irretrievable-breakdown');
   iClickYes();
-  await iClickSubmit(RELATIONSHIP_DATE_URL);
+  await iClickSubmitAndExpectUrl(RELATIONSHIP_DATE_URL);
 
-  // I.waitInUrl('/date-from-certificate');
   await iClearTheForm();
   iEnterADateIntoField('31', '12', '1999', 'relationshipDate');
-  await iClickSubmit(CERTIFICATE_URL);
+  await iClickSubmitAndExpectUrl(CERTIFICATE_URL);
 
-  // I.waitInUrl('/do-you-have-your-certificate');
   iClickYes();
-  await iClickSubmit(HELP_WITH_YOUR_FEE_URL);
+  await iClickSubmitAndExpectUrl(HELP_WITH_YOUR_FEE_URL);
 
-  // I.waitInUrl('/help-with-your-fee');
   iClickNo();
-  await iClickSubmit(HOW_DO_YOU_WANT_TO_APPLY);
+  await iClickSubmitAndExpectUrl(HOW_DO_YOU_WANT_TO_APPLY);
 
-  // I.waitInUrl('/how-do-you-want-to-apply');
   iClickRadioValue(ApplicationType.SOLE_APPLICATION);
-  await iClickSubmit(IN_THE_UK);
+  await iClickSubmitAndExpectUrl(IN_THE_UK);
 
-  // I.waitInUrl('/in-the-uk');
   iClickYes();
-  await iClickSubmit(CHECK_JURISDICTION);
+  await iClickSubmitAndExpectUrl(CHECK_JURISDICTION);
 
-  // I.waitInUrl('/check-jurisdiction');
-  await iClickSubmit(WHERE_YOUR_LIVES_ARE_BASED_URL);
+  await iClickSubmitAndExpectUrl(WHERE_YOUR_LIVES_ARE_BASED_URL);
 
-  // I.waitInUrl('/where-your-lives-are-based');
   iClickYesOrNoForField(YesOrNo.YES, 'applicant1LifeBasedInEnglandAndWales');
   iClickYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
-  await iClickSubmit(JURISDICTION_INTERSTITIAL_URL);
+  await iClickSubmitAndExpectUrl(JURISDICTION_INTERSTITIAL_URL);
 
-  // I.waitInUrl('/you-can-use-english-welsh-courts');
-  await iClickSubmit(ENTER_YOUR_NAME);
+  await iClickSubmitAndExpectUrl(ENTER_YOUR_NAME);
 
-  // I.waitInUrl('/enter-your-name');
   await iClearTheForm();
   iEnterValueIntoInput('Test your name', '#applicant1FirstNames');
   iEnterValueIntoInput('Test your last name', '#applicant1LastNames');
-  await iClickSubmit(CHECK_YOUR_NAME);
+  await iClickSubmitAndExpectUrl(CHECK_YOUR_NAME);
 
-  // I.waitInUrl('/check-your-name');
   await iClearTheForm();
   iClickNo();
-  await iClickSubmit(YOUR_CERTIFICATE_NAME);
+  await iClickSubmitAndExpectUrl(YOUR_CERTIFICATE_NAME);
 
-  // I.waitInUrl('/your-name-on-certificate');
   await iClearTheForm();
   iEnterValueIntoInput('Test your name', '#applicant1FullNameOnCertificate');
-  await iClickSubmit(THEIR_NAME);
+  await iClickSubmitAndExpectUrl(THEIR_NAME);
 
-  // I.waitInUrl('/enter-their-name');
   await iClearTheForm();
   iEnterValueIntoInput('Test their name', '#applicant2FirstNames');
   iEnterValueIntoInput('Test their last name', '#applicant2LastNames');
-  await iClickSubmit(CHECK_THEIR_NAME);
+  await iClickSubmitAndExpectUrl(CHECK_THEIR_NAME);
 
-  // I.waitInUrl('/check-their-name');
   await iClearTheForm();
   iClickNo();
-  await iClickSubmit(THEIR_CERTIFICATE_NAME);
+  await iClickSubmitAndExpectUrl(THEIR_CERTIFICATE_NAME);
 
-  // I.waitInUrl('/their-name-on-certificate');
   await iClearTheForm();
   iEnterValueIntoInput('Husbands name', '#applicant2FullNameOnCertificate');
-  await iClickSubmit(HOW_THE_COURTS_WILL_CONTACT_YOU);
+  await iClickSubmitAndExpectUrl(HOW_THE_COURTS_WILL_CONTACT_YOU);
 
-  // I.waitInUrl('/how-the-court-will-contact-you');
   await iClearTheForm();
   iClickElement('#applicant1AgreeToReceiveEmails');
-  await iClickSubmit(ENGLISH_OR_WELSH);
+  await iClickSubmitAndExpectUrl(ENGLISH_OR_WELSH);
 
-  // I.waitInUrl('/english-or-welsh');
-  // iClickElement('#english');
   iClickRadioValueForField(LanguagePreference.English, 'applicant1EnglishOrWelsh');
-  await iClickSubmit(ADDRESS_PRIVATE);
+  await iClickSubmitAndExpectUrl(ADDRESS_PRIVATE);
 
-  // I.waitInUrl('/address-private');
   iClickYesOrNoForField(YesOrNo.NO, 'applicant1AddressPrivate');
-  await iClickSubmit(ENTER_YOUR_ADDRESS);
+  await iClickSubmitAndExpectUrl(ENTER_YOUR_ADDRESS);
 
-  // iAmOnPage('/enter-your-address');
   await iEnterTheUkAddress('BUCKINGHAM PALACE, LONDON, SW1A 1AA');
-  await iClickSubmit(DO_THEY_HAVE_A_SOLICITOR);
+  await iClickSubmitAndExpectUrl(DO_THEY_HAVE_A_SOLICITOR);
 
-  // I.waitInUrl('/do-they-have-a-solicitor');
   iClickNo();
-  await iClickSubmit(THEIR_EMAIL_ADDRESS);
+  await iClickSubmitAndExpectUrl(THEIR_EMAIL_ADDRESS);
 
-  // I.waitInUrl('/their-email-address');
   await iClearTheForm();
   iEnterValueIntoInput('husband@example.com', '#applicant2EmailAddress');
-  await iClickSubmit(DO_YOU_HAVE_ADDRESS);
+  await iClickSubmitAndExpectUrl(DO_YOU_HAVE_ADDRESS);
 
-  // I.waitInUrl('/do-you-have-address');
   iClickYes();
-  await iClickSubmit(ENTER_THEIR_ADDRESS);
+  await iClickSubmitAndExpectUrl(ENTER_THEIR_ADDRESS);
 
-  // I.waitInUrl('/enter-their-address');
   await iEnterTheUkAddress('MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ');
-  await iClickSubmit(OTHER_COURT_CASES);
+  await iClickSubmitAndExpectUrl(OTHER_COURT_CASES);
 
-  // I.waitInUrl('/other-court-cases');
   iClickNo();
-  await iClickSubmit(MONEY_PROPERTY);
+  await iClickSubmitAndExpectUrl(MONEY_PROPERTY);
 
-  // I.waitInUrl('/dividing-money-property');
   iClickNo();
-  await iClickSubmit(UPLOAD_YOUR_DOCUMENTS);
+  await iClickSubmitAndExpectUrl(UPLOAD_YOUR_DOCUMENTS);
 
-  // I.waitInUrl('/upload-your-documents');
   await iClearTheForm();
   iCannotUploadDocs();
-  await iClickSubmit(CHECK_ANSWERS_URL);
-  // iWait(5);
-  // I.amOnPage(HOME_URL);
+  await iClickSubmitAndExpectUrl(CHECK_ANSWERS_URL);
 
-  // I.waitInUrl('/check-your-answers');
   await iClearTheForm();
   iConfirmPrayerAndStatementOfTruth();
-  await iClickSubmit(PAY_YOUR_FEE);
-
-  // I.waitInUrl('/pay-your-fee');
+  await iClickSubmitAndExpectUrl(PAY_YOUR_FEE);
 });
 
 Given('I pay and submit the application', async () => {
@@ -247,7 +217,6 @@ Given('I pay and submit the application', async () => {
   await iClickSubmit();
 
   await completePayment(APPLICATION_SUBMITTED, 15);
-  // iWaitInUrl(APPLICATION_SUBMITTED, 15);
 });
 
 Given('I pay and submit the service application', async () => {
@@ -255,7 +224,6 @@ Given('I pay and submit the service application', async () => {
   await iClickSubmit();
 
   await completePayment(SERVICE_APPLICATION_SUBMITTED, 15);
-  // iWaitInUrl(SERVICE_APPLICATION_SUBMITTED, 15);
 });
 
 Given('I pay and submit the general application', async () => {
@@ -263,7 +231,6 @@ Given('I pay and submit the general application', async () => {
   await iClickSubmit();
 
   await completePayment(GENERAL_APPLICATION_SUBMITTED, 15);
-  // iWaitInUrl(GENERAL_APPLICATION_SUBMITTED, 15);
 });
 
 Given('I pay and submit the final order application', async () => {
@@ -271,7 +238,6 @@ Given('I pay and submit the final order application', async () => {
   await iClickSubmit();
 
   await completePayment(RESPONDENT + HUB_PAGE, 15);
-  // iWaitInUrlAsUser(HUB_PAGE, RESPONDENT, 15);
 });
 
 Given('I pay and submit the joint application', async () => {
@@ -279,10 +245,9 @@ Given('I pay and submit the joint application', async () => {
   await iClickSubmit();
 
   await completePayment(JOINT_APPLICATION_SUBMITTED, 15);
-  // iWaitInUrl(JOINT_APPLICATION_SUBMITTED, 15);
 });
 
-const completePayment = async (nextUrl?: string, wait?: number, waitUntil?: string) => {
+const completePayment = async (nextUrl?: string, wait?: number, waitUntil?: WaitUntil) => {
   iWaitInUrl('/card_details', 15);
   iEnterValueIntoInput('4444333322221111', '#card-no', 15);
   iEnterValueIntoInput('12', '#expiry-month');
@@ -295,5 +260,5 @@ const completePayment = async (nextUrl?: string, wait?: number, waitUntil?: stri
   iEnterValueIntoInput('nightly-functional-test@example.com', '#email');
   await iClickSubmit();
   iWaitInUrl('/card_details');
-  await iClickSubmit(nextUrl, wait, waitUntil);
+  await iClickSubmitAndExpectUrl(nextUrl, wait, waitUntil);
 };
