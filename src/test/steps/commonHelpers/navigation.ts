@@ -4,7 +4,8 @@ import { SupportedLanguages } from '../../../main/modules/i18n';
 import { CHECK_ANSWERS_URL } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
 import { urlLookup } from '../urlLookup';
-import { iClick, iWaitForVisible, WaitUntil } from './elementInteraction';
+
+import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';
 
 const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
@@ -175,5 +176,5 @@ export const iWaitForUrl = (url?: string | RegExp, wait?: number, waitUntil: Wai
 
   const timeout = wait ? { timeout: wait * 1000 } : {};
 
-  I.waitForURL(url as RegExp, { ...timeout, waitUntil: waitUntil });
-}
+  I.waitForURL(url as RegExp, { ...timeout, waitUntil });
+};

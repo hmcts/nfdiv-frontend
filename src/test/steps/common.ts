@@ -17,11 +17,11 @@ import {
 import {
   iCheckOptionFor,
   iClearTheForm,
-  iClickString,
   iClickElement,
   iClickMoreDetailsComponent,
   iClickNo,
   iClickRadioValueForField,
+  iClickString,
   iClickSubmit,
   iClickYes,
   iConfirmPrayerAndStatementOfTruth,

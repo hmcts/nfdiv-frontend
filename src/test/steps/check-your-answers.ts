@@ -4,8 +4,6 @@ import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../ma
 import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
 import { iClickChangeLinkForQuestion } from './commonHelpers/elementInteraction';
 
-const { I } = inject();
-
 Given("I've completed enough questions correctly to get to the check your answers page", async () => {
   await iSetTheUsersCaseTo({
     applicationType: ApplicationType.SOLE_APPLICATION,
