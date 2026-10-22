@@ -174,7 +174,7 @@ export class OidcMiddleware {
           return next();
         }
       });
-    } catch (e) {
+    } catch {
       return res.redirect(SIGN_OUT_URL);
     }
   }

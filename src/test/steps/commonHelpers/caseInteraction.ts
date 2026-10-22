@@ -104,7 +104,7 @@ export const executeUserCaseScript = async (data: any): Promise<void> => {
 
     try {
       await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
-    } catch (error) {
+    } catch {
       logger.error('Could not set fixture data as ' + user.username);
       logger.error(toApiFormat(data));
       process.exit(-1);
