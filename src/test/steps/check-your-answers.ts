@@ -2,6 +2,7 @@ import { Checkbox } from '../../main/app/case/case';
 import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
 
 import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
+import { iClickChangeLinkForQuestion } from './commonHelpers/elementInteraction';
 
 const { I } = inject();
 
@@ -48,6 +49,6 @@ Given(
   }
 );
 
-When('I click to change the answer to {string}', questionText => {
-  I.click(`//a/*[contains(text(), '${questionText}')]/..`);
+When('I click to change the answer to {string}', async (questionText: string): Promise<void> => {
+  await iClickChangeLinkForQuestion(questionText);
 });

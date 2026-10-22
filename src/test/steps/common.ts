@@ -17,7 +17,7 @@ import {
 import {
   iCheckOptionFor,
   iClearTheForm,
-  iClick,
+  iClickString,
   iClickElement,
   iClickMoreDetailsComponent,
   iClickNo,
@@ -28,6 +28,7 @@ import {
   iDeleteAllUploadedFiles,
   iRejectCookies,
   iWait,
+  iWaitForVisible,
 } from './commonHelpers/elementInteraction';
 import { iAmOnPage, iGoToPage, iGoToPageAsUser, iWaitInUrl, iWaitInUrlAsUser } from './commonHelpers/navigation';
 import { autoLoginWithUserIndex, clearNewUsers, iClickSignOut, login } from './commonHelpers/userInteraction';
@@ -82,21 +83,19 @@ Given('I login', async () => {
 Given('I create a new user and login', async () => {
   await login(TestUserType.CITIZEN_SINGLETON);
 });
-
 Given('I create a new user and login as applicant 2', async () => {
   await login(TestUserType.CITIZEN_APPLICANT_2);
 });
-
 Given('I login with applicant {string}', async (applicant: string) => {
   await autoLoginWithUserIndex(parseInt(applicant));
 });
 
 When('I reject cookies', iRejectCookies);
 
-When('I click {string}', iClick);
-When('I select {string}', iClick);
-When('I click for more details', iClickMoreDetailsComponent);
+When('I click {string}', iClickString);
+When('I select {string}', iClickString);
 When('I wait {string} seconds', iWait);
+When('I click for more details', iClickMoreDetailsComponent);
 
 When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
   iCheckOptionFor(optionLabel, fieldLabel);
@@ -122,9 +121,7 @@ Then('the page should not include element {string}', (elemId: string) => {
   I.dontSeeElementInDOM(elemId);
 });
 
-Then('the page should include visible element {string}', (elemId: string) => {
-  I.waitForVisible(elemId + ':not(.hidden)');
-});
+Then('the page should include visible element {string}', iWaitForVisible);
 
 When('I select element {string}', iClickElement);
 When('I click element {string}', iClickElement);
