@@ -112,7 +112,8 @@ export class Nunjucks {
       res.locals.serviceType =
         res.locals.host.includes('civil') ||
         'forceCivilMode' in req.query ||
-        (process.env.NODE_ENV !== 'production' && config.get<string>('forceCivilMode').toLowerCase() === 'true')
+        (process.env.NODE_ENV !== 'production' &&
+          config.get<string | boolean>('forceCivilMode').toString().toLowerCase() === 'true')
           ? DivorceOrDissolution.DISSOLUTION
           : DivorceOrDissolution.DIVORCE;
       next();
