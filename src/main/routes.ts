@@ -3,7 +3,7 @@ import { extname } from 'path';
 
 import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
-import multer from 'multer';
+import multer, { MulterError } from 'multer';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
 import { getEndIdamSessionUrl } from './app/auth/user/oidc';
@@ -84,7 +84,7 @@ const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
       return next();
     }
 
-    if (err instanceof multer.MulterError) {
+    if (err instanceof MulterError) {
       (req as AppRequest).locals?.logger?.warn(
         `Multer rejected upload(code=${err.code}, contentLength=${req.headers['content-length'] || 'n/a'})`
       );
