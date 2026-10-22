@@ -33,7 +33,15 @@ const initializeTestEnvironment = async () => {
 
   TestUser = generateTestUsername();
   TestPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
-  idamUserManager = new IdamUserManager(sysConfig.get('services.idam.tokenURL'));
+  const idamTokenUrl =
+    sysConfig.has('services.idam.apiBaseUrl') && sysConfig.has('services.idam.tokenPath')
+      ? new URL(
+        sysConfig.get('services.idam.tokenPath') as string,
+        `${sysConfig.get('services.idam.apiBaseUrl') as string}/`
+      ).toString()
+      : (sysConfig.get('services.idam.tokenURL') as string);
+
+  idamUserManager = new IdamUserManager(idamTokenUrl);
 };
 
 const LOGIN_HEADING = 'Sign in or create an account';

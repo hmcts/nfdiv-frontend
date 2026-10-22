@@ -34,6 +34,7 @@ export const HAS_RELATIONSHIP_BROKEN_URL: PageLink = '/irretrievable-breakdown';
 export const RELATIONSHIP_NOT_BROKEN_URL: PageLink = '/relationship-not-broken';
 export const HELP_WITH_YOUR_FEE_URL: PageLink = '/help-with-your-fee';
 export const HELP_WITH_YOUR_FINAL_ORDER_FEE_URL: PageLink = '/help-with-your-final-order-fee';
+export const ENTER_HWF_NUMBER_URL: PageLink = '/hwf-reference-number-input';
 export const PAY_YOUR_FINAL_ORDER_FEE: PageLink = '/pay-your-final-order-fee';
 export const HELP_PAYING_HAVE_YOU_APPLIED: PageLink = '/have-you-applied-for-help-with-fees';
 export const HELP_PAYING_NEED_TO_APPLY: PageLink = '/apply-for-help-with-fees';

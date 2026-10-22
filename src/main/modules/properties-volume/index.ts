@@ -47,7 +47,6 @@ export class PropertiesVolume {
       await this.setLocalSecret('genesys-api-key', 'webchat.genesysApiKey');
       await this.setLocalSecret('launch-darkly-sdk-key', 'launchDarkly.sdkKey');
     }
-    set(config, 'nonce', crypto.randomUUID().replace(/-/g, ''));
   };
 
   private async setSecret(fromPath: string, toPath: string): Promise<void> {

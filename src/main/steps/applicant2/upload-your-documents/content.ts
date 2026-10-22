@@ -41,8 +41,20 @@ export const form: FormContent = {
       parser: data => JSON.parse((data as Record<string, string>).applicant2UploadedFiles || '[]'),
       validator: (value, formData) => {
         const hasUploadedFiles = (value as string[])?.length && (value as string) !== '[]';
-        const selectedCannotUploadDocuments = !!formData.applicant2CannotUploadDocuments?.length;
-        if (!hasUploadedFiles && !selectedCannotUploadDocuments) {
+        const isMultiDocumentsUploadCase = Object.prototype.hasOwnProperty.call(formData, 'applicant2CannotUpload');
+
+        const app2CannotUploadDocsCheckbox = formData.applicant2CannotUpload;
+        const app2CannotUploadDocsCheckboxChecked = Array.isArray(app2CannotUploadDocsCheckbox)
+          ? app2CannotUploadDocsCheckbox.includes(Checkbox.Checked)
+          : app2CannotUploadDocsCheckbox === Checkbox.Checked;
+
+        const app2CannotUploadDocsSelected = (formData.applicant2CannotUploadDocuments as string[])?.length > 0;
+
+        const app2CannotUploadIndicated = isMultiDocumentsUploadCase
+          ? app2CannotUploadDocsCheckboxChecked && app2CannotUploadDocsSelected
+          : app2CannotUploadDocsSelected;
+
+        if (!hasUploadedFiles && !app2CannotUploadIndicated) {
           return 'notUploaded';
         }
       },

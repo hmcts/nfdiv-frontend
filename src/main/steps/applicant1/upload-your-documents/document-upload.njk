@@ -4,10 +4,12 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "common/macros/document-delete-button.njk" import documentDeleteButton %}
 
+{% if showWarning  %}
 {{ govukWarningText({
   text: warningPhoto,
   iconFallbackText: "Warning"
 }) }}
+{% endif %}
 {% set infoTakePhotoDetails %}
   <ol class="govuk-list govuk-list--number">
     <li>{{ infoBullet1 }}</li>

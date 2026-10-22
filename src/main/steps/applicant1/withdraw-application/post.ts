@@ -21,6 +21,6 @@ export default class WithdrawApplicationPostController extends PostController<An
       throw new Error('Failed to withdraw case. Please try again later.');
     }
 
-    destroySessionAndRedirectToSignOutPage(req, res, APPLICATION_WITHDRAWN);
+    await destroySessionAndRedirectToSignOutPage(req, res, APPLICATION_WITHDRAWN);
   }
 }
