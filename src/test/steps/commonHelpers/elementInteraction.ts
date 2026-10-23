@@ -69,7 +69,7 @@ export const iClickSubmitAndExpectUrl = async (
   const submitSelector = await I.executeScript(() =>
     document.getElementById('main-form-submit')
       ? '#main-form-submit'
-      : 'button[type="submit"]:not(.document-delete-button)'
+      : 'button[type="submit"]:not(#hide-message):not(.document-delete-button)'
   );
   await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil);
 };
@@ -90,6 +90,7 @@ export const iCannotUploadDocs = (): void => {
 export const iRejectCookies = (): void => {
   iClickElement('button.cookie-banner-reject-button');
   iClickElement('button.cookie-banner-hide-button');
+  iClickElement('button#hide-message');
 };
 
 export const iWait = (time: number): void => {
