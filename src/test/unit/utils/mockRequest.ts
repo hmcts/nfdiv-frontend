@@ -33,6 +33,7 @@ export const mockRequest = ({
       user: {
         id: '123456',
         accessToken: 'mock-user-access-token',
+        idToken: 'test-id-token',
         name: 'test',
         givenName: 'First name',
         familyName: 'Last name',
@@ -99,6 +100,7 @@ export const mockRequestApp2 = ({
       user: {
         id: '123456',
         accessToken: 'mock-user-access-token',
+        idToken: 'test-id-token',
         name: 'test',
         givenName: 'First name',
         familyName: 'Last name',

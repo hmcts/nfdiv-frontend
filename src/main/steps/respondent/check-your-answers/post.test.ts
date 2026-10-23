@@ -80,7 +80,7 @@ describe('RespondentCheckYourAnswersPostController', () => {
 
     expect(res.redirect).toHaveBeenLastCalledWith(
       303,
-      getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`)
+      getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`, 'test-id-token')
     );
   });
 });
