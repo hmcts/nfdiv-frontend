@@ -15,11 +15,11 @@ Then('I wait for the postcode lookup to return results', iWaitForPostcodeLookUpR
 export const iResetThePostCodeLookUpForm = async (): Promise<void> => {
   await iClearTheForm();
 
-  const visibleReset = await tryTo(() => I.waitForVisible('#resetPostcodeLookup', 1));
+  const visibleReset = (await I.grabNumberOfVisibleElements('#resetPostcodeLookup')) > 0;
   if (visibleReset) {
     iClickElement('#resetPostcodeLookup');
   } else {
-    logger.warn('Reset postcode element not found, continuing with cleared form.');
+    logger.info('Reset postcode element not found, continuing with cleared form.');
   }
 };
 Given('I reset the postcode lookup form', iResetThePostCodeLookUpForm);
