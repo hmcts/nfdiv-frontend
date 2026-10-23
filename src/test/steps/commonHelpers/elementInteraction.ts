@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+import { tryTo } from 'codeceptjs/effects';
 
 import { YesOrNo } from '../../../main/app/case/definition';
 
@@ -100,7 +101,7 @@ const handleCookieBanner = async (action: 'accept' | 'reject'): Promise<void> =>
   const cookieBannerSelector = onIdam
     ? 'div#cookie-banner:not([hidden])'
     : 'div.cookie-banner.govuk-cookie-banner:not([hidden])';
-  const cookieBannerVisible = (await I.grabNumberOfVisibleElements(cookieBannerSelector)) > 0;
+  const cookieBannerVisible = await tryTo(() => I.waitForVisible(cookieBannerSelector, 1));
   if (!cookieBannerVisible) {
     return;
   }
