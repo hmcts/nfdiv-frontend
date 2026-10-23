@@ -104,17 +104,17 @@ const getTypeOfUrl = (url?: string | RegExp): UrlType => {
   }
 };
 
-const checkForEquityAndDiversityRedirect = async (elemId: string): Promise<void> => {
-  const equityAndDiversityUrl = testConfig.getEquityAndDiversityUrl();
-  iClick(elemId, { waitForNavigation: 'domcontentloaded' });
+const checkForEqualityAndDiversityRedirect = async (selector: string): Promise<void> => {
+  const equalityAndDiversityUrl = testConfig.EQUALITY_URL;
+  iClick(selector, { waitForNavigation: 'domcontentloaded' });
   const currentUrl = await I.grabCurrentUrl();
 
   if (currentUrl.startsWith(testConfig.TEST_URL)) {
     return;
   }
   const optOutButtonSelector = 'button[name="opt-out-button"]';
-  if (currentUrl.startsWith(equityAndDiversityUrl)) {
-    logger.info('Got redirected to equity and diversity page. Clicking opt-out button.');
+  if (currentUrl.startsWith(equalityAndDiversityUrl)) {
+    logger.info('Got redirected to equality and diversity page. Clicking opt-out button.');
     I.waitForElement(optOutButtonSelector);
     iClick(optOutButtonSelector);
   }
@@ -129,22 +129,22 @@ export const iAmOnPage = (urlString: string): void => {
 };
 
 export const iClickToNavigate = async (
-  elemId: string,
+  selector: string,
   wait?: number,
   nextUrl?: string | RegExp,
   waitUntil: WaitUntil = 'load'
 ): Promise<void> => {
   const urlType = getTypeOfUrl(nextUrl);
 
-  iWaitForVisible(elemId, wait);
+  iWaitForVisible(selector, wait);
   if (urlType === 'empty-string' || urlType === undefined) {
-    return iClick(elemId, { waitForNavigation: waitUntil });
+    return iClick(selector, { waitForNavigation: waitUntil });
   }
 
   if (urlType === 'string' && nextUrl === CHECK_ANSWERS_URL) {
-    await checkForEquityAndDiversityRedirect(elemId);
+    await checkForEqualityAndDiversityRedirect(selector);
   }
-  iClick(elemId);
+  iClick(selector);
   iWaitForUrl(nextUrl, wait, waitUntil);
 };
 
@@ -177,4 +177,17 @@ export const iWaitForUrl = (url?: string | RegExp, wait?: number, waitUntil: Wai
   const timeout = wait ? { timeout: wait * 1000 } : {};
 
   I.waitForURL(url as RegExp, { ...timeout, waitUntil });
+};
+
+export const doesCurrentUrlStartWith = async (serviceUrl: string): Promise<boolean> => {
+  const currentUrl = await I.grabCurrentUrl();
+  return currentUrl.startsWith(serviceUrl);
+};
+
+export const iAmOnIdam = async (): Promise<boolean> => {
+  return doesCurrentUrlStartWith(testConfig.IDAM_WEB_BASE_URL);
+};
+
+export const iAmOnNfd = async (): Promise<boolean> => {
+  return doesCurrentUrlStartWith(testConfig.TEST_URL);
 };
