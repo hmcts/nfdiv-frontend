@@ -21,7 +21,7 @@ export const iClickString = (text: string, locator?: CodeceptJS.LocatorOrString,
 };
 
 export const iWaitForVisible = (selector: string, wait?: number): void => {
-  I.waitForVisible(selector + ':not(.hidden)', wait);
+  I.waitForVisible(selector + ':not(.hidden):not([hidden])', wait);
 };
 
 export const iClickElement = (selector: string, wait?: number): void => {
@@ -95,25 +95,31 @@ export const iCannotUploadDocs = (): void => {
   iCheckOption('#cannotUploadDocs');
 };
 
-export const iAcceptCookies = async (): Promise<void> => {
-  if (await iAmOnIdam()) {
-    iClickElement('button#accept-additional-cookies');
-    iClickElement('button#hide-message');
+const handleCookieBanner = async (action: 'accept' | 'reject'): Promise<void> => {
+  const onIdam = await iAmOnIdam();
+  const cookieBannerSelector = onIdam
+    ? 'div#cookie-banner:not([hidden])'
+    : 'div.cookie-banner.govuk-cookie-banner:not([hidden])';
+  const cookieBannerVisible = (await I.grabNumberOfVisibleElements(cookieBannerSelector)) > 0;
+  if (!cookieBannerVisible) {
     return;
   }
-  iClickElement('button.cookie-banner-accept-button');
-  iClickElement('div.cookie-banner-accept-message button.cookie-banner-hide-button');
+
+  const actionButtonSelector = onIdam ? `button#${action}-additional-cookies` : `button.cookie-banner-${action}-button`;
+  const hideButtonSelector = onIdam
+    ? 'button#hide-message'
+    : `div.cookie-banner-${action}-message button.cookie-banner-hide-button`;
+
+  iClickElement(actionButtonSelector);
+  iClickElement(hideButtonSelector);
+};
+
+export const iAcceptCookies = async (): Promise<void> => {
+  await handleCookieBanner('accept');
 };
 
 export const iRejectCookies = async (): Promise<void> => {
-  if (await iAmOnIdam()) {
-    iClickElement('button#reject-additional-cookies');
-    iClickElement('button#hide-message');
-    return;
-  }
-
-  iClickElement('button.cookie-banner-reject-button');
-  iClickElement('div.cookie-banner-reject-message button.cookie-banner-hide-button');
+  await handleCookieBanner('reject');
 };
 
 export const iWait = (time: number): void => {
