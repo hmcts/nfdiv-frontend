@@ -12,21 +12,21 @@ Feature: Sole conditional order
 
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
-    Then the page URL should be respondent "HUB_PAGE"
+    Then the page URL should be "RESPONDENT" / "HUB_PAGE"
 
     When I click respond to the application
-    Then the page URL should be respondent "REVIEW_THE_APPLICATION"
+    Then the page URL should be "RESPONDENT" / "REVIEW_THE_APPLICATION"
     And the page should include element "#reviewTheApplicationTitle"
     Given I have read the application for divorce
 
     When I click continue
-    Then the page URL should be respondent "HOW_DO_YOU_WANT_TO_RESPOND"
+    Then the page URL should be "RESPONDENT" / "HOW_DO_YOU_WANT_TO_RESPOND"
     Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
-    And I go to respondent 'CHECK_ANSWERS_URL'
+    And I go to "RESPONDENT" / "CHECK_ANSWERS_URL"
     And I confirm the statement of truth
 
     When I click submit
-    Then the page URL should be respondent "RESPONSE_SUBMITTED"
+    Then the page URL should be "RESPONDENT" / "RESPONSE_SUBMITTED"
 
   Scenario: Applicant 1 applies for conditional order and responds with additional information
     Given I set the case state to "AwaitingConditionalOrder"
@@ -60,8 +60,7 @@ Feature: Sole conditional order
     Then the page should include element "#provideInformationToTheCourtTitle"
 
     When I clear the form
-    And I select element "#coClarificationResponses"
-    And I type "test details"
+    And I enter "test details" into "#coClarificationResponses"
 
     Given I delete any previously uploaded files
     Then the page should include "No files uploaded"
