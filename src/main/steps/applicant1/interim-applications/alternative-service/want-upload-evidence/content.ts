@@ -1,10 +1,10 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { CommonContent } from '../../../../common/common.content.js';
 import {
   form as wantUploadEvidenceForm,
   generateContent as wantUploadEvidenceGenerateContent,
-} from '../../common/want-upload-evidence/content';
+} from '../../common/want-upload-evidence/content.js';
 
 const en = ({ partner }: CommonContent) => ({
   statement: `The evidence you provide may help the court decide whether your papers can be served in the way you've requested. For example, this may include a photo or screenshot of a recent conversation by text or email, or a post by your ${partner} on social media.<br><br>Make sure that the photo or screenshot clearly shows the date of the conversations between you and your ${partner}. If the date is not visible, the court may reject your application.`,

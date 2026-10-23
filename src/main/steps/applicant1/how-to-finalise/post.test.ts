@@ -1,10 +1,10 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { Checkbox } from '../../../app/case/case';
-import { ApplicationType, INTEND_SWITCH_TO_SOLE_FO } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { Checkbox } from '../../../app/case/case.js';
+import { ApplicationType, INTEND_SWITCH_TO_SOLE_FO } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import HowToFinalisePostController from './post';
+import HowToFinalisePostController from './post.js';
 
 describe('HowToFinalisePostController', () => {
   const mockFormContent = {

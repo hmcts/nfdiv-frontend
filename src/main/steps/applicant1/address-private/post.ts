@@ -1,10 +1,9 @@
-import autobind from 'autobind-decorator';
-
-import { Case, CaseWithId } from '../../../app/case/case';
-import { YesOrNo } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject } from '../../../app/controller/PostController';
-import CitizenUpdateContactDetailsPostController from '../check-phone-number/post';
+import { Case, CaseWithId } from '../../../app/case/case.js';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { AppRequest } from '../../../app/controller/AppRequest.js';
+import { AnyObject } from '../../../app/controller/PostController.js';
+import autobind from '../../../app/utils/autobind.js';
+import CitizenUpdateContactDetailsPostController from '../check-phone-number/post.js';
 
 @autobind
 export default class CitizenUpdateContactDetailsPostControllerWithRefuge extends CitizenUpdateContactDetailsPostController {

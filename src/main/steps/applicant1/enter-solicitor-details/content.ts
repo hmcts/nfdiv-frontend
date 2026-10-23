@@ -1,8 +1,8 @@
-import { YesOrNo } from '../../../app/case/definition';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isEmailValid } from '../../../app/form/validation';
-import { defaultYesOrNoRadioAnswers } from '../../common/input-labels.content';
+import { YesOrNo } from '../../../app/case/definition.js';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isEmailValid } from '../../../app/form/validation.js';
+import { defaultYesOrNoRadioAnswers } from '../../common/input-labels.content.js';
 
 const en = ({ partner, isDivorce }) => ({
   title: 'Enter their solicitor’s details',

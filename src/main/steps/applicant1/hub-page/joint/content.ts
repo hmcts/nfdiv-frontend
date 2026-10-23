@@ -1,23 +1,23 @@
 import config from 'config';
 import dayjs from 'dayjs';
 
-import { getFormattedDate } from '../../../../app/case/answers/formatDate';
-import { CaseWithId, Checkbox } from '../../../../app/case/case';
-import { DocumentType, State, YesOrNo } from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { SupportedLanguages } from '../../../../modules/i18n';
-import type { CommonContent } from '../../../common/common.content';
-import { canIntendToSwitchToSoleFo, hasApplicantAppliedForFoFirst } from '../../../common/content.utils';
-import { getSwitchToSoleFoStatus } from '../../../common/switch-to-sole-content.utils';
-import { currentStateFn } from '../../../state-sequence';
+import { getFormattedDate } from '../../../../app/case/answers/formatDate.js';
+import { CaseWithId, Checkbox } from '../../../../app/case/case.js';
+import { DocumentType, State, YesOrNo } from '../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../app/controller/GetController.js';
+import { SupportedLanguages } from '../../../../modules/i18n/index.js';
+import type { CommonContent } from '../../../common/common.content.js';
+import { canIntendToSwitchToSoleFo, hasApplicantAppliedForFoFirst } from '../../../common/content.utils.js';
+import { getSwitchToSoleFoStatus } from '../../../common/switch-to-sole-content.utils.js';
+import { currentStateFn } from '../../../state-sequence.js';
 import {
   APPLICANT_2,
   FINALISING_YOUR_APPLICATION,
   HOW_TO_FINALISE_APPLICATION,
   RESPOND_TO_COURT_FEEDBACK,
-} from '../../../urls';
+} from '../../../urls.js';
 
-import { getJointHubTemplate } from './jointTemplateSelector';
+import { getJointHubTemplate } from './jointTemplateSelector.js';
 
 const hubPageSubheading = (
   userCase: Partial<CaseWithId>,

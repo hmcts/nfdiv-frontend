@@ -1,12 +1,12 @@
-import { Checkbox, LanguagePreference } from '../../../main/app/case/case';
+import { Checkbox, LanguagePreference } from '../../../main/app/case/case.js';
 import {
   ApplicationType,
   DivorceOrDissolution,
   DocumentType,
   Gender,
   YesOrNo,
-} from '../../../main/app/case/definition';
-import { BrowserCase } from '../../steps/common';
+} from '../../../main/app/case/definition.js';
+import { BrowserCase } from '../../steps/common.js';
 
 export const jointApplicant1AppliedFirstCompleteCase: Partial<BrowserCase> = {
   applicant1Address1: 'BUCKINGHAM PALACE',

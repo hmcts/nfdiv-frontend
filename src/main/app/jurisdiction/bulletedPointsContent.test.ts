@@ -1,11 +1,11 @@
-import { JurisdictionConnections } from '../case/definition';
+import { JurisdictionConnections } from '../case/definition.js';
 
 import {
   connectionBulletPointsSummarisedForAllUsers,
   connectionBulletPointsUserReads,
   cyConnectionUserReads,
   enConnectionUserReads,
-} from './bulletedPointsContent';
+} from './bulletedPointsContent.js';
 
 describe('jurisdictionBulletPointContent', () => {
   test('Given both applicant 1 and applicant 2 are both habitually resident, should find connection B for bullet point summarised for all users for divorce in English', async () => {

@@ -1,9 +1,9 @@
-import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs';
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { SupportedLanguages } from '../../../modules/i18n';
+import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs.js';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { SupportedLanguages } from '../../../modules/i18n/index.js';
 
-import ApplicationEndedGetController from './get';
+import ApplicationEndedGetController from './get.js';
 
 describe('ApplicationEndedGetController', () => {
   const controller = new ApplicationEndedGetController();

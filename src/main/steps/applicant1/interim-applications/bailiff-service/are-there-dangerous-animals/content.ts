@@ -1,7 +1,7 @@
-import { YesOrNoOrNotKnown } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { YesOrNoOrNotKnown } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../../../app/form/validation.js';
 
 const en = () => ({
   title: 'Are any dogs or other potentially dangerous animals kept at the property?',

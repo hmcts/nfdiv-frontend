@@ -1,11 +1,13 @@
 import config from 'config';
-import { isEmpty } from 'lodash';
+import lodash from 'lodash';
 
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { getFee } from '../../../../../app/fees/service/get-fee';
-import { FormContent } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
-import { WITHDRAW_SERVICE_APPLICATION } from '../../../../urls';
+const { isEmpty } = lodash;
+
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { getFee } from '../../../../../app/fees/service/get-fee.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { WITHDRAW_SERVICE_APPLICATION } from '../../../../urls.js';
 
 const en = (applicationFee, { isDivorce, serviceApplicationType }: CommonContent) => ({
   title: 'Pay the fee for this application',

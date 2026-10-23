@@ -1,10 +1,10 @@
-import { isInvalidPostcode as checkIfPostcodeInvalid } from '../../../app/form/validation';
-import { generateContent } from '../../../steps/applicant1/enter-your-address/content';
-import type { CommonContent } from '../../../steps/common/common.content';
-import { POSTCODE_LOOKUP } from '../../../steps/urls';
-import { getById, hidden } from '../selectors';
+import { isInvalidPostcode as checkIfPostcodeInvalid } from '../../../app/form/validation.js';
+import { generateContent } from '../../../steps/applicant1/enter-your-address/content.js';
+import type { CommonContent } from '../../../steps/common/common.content.js';
+import { POSTCODE_LOOKUP } from '../../../steps/urls.js';
+import { getById, hidden } from '../selectors.js';
 
-import { hideErrors, showError } from './errors';
+import { hideErrors, showError } from './errors.js';
 
 const postcodeLookupForm = getById('postcodeLookup') as HTMLFormElement | null;
 const findAddressButton = getById('findAddressButton') as HTMLInputElement | null;

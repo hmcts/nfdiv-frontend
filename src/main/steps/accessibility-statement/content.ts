@@ -1,5 +1,5 @@
-import type { TranslationFn } from '../../app/controller/GetController';
-import type { CommonContent } from '../common/common.content';
+import type { TranslationFn } from '../../app/controller/GetController.js';
+import type { CommonContent } from '../common/common.content.js';
 
 const en = ({ isDivorce, telephoneNumber, openingTimes }: CommonContent) => ({
   title: `Accessibility Statement for the ${isDivorce ? 'Apply for a divorce' : 'End a civil partnership'} service`,

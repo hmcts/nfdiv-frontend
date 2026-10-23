@@ -1,4 +1,4 @@
-import { isCountryUk } from '../../steps/applicant1Sequence';
+import { isCountryUk } from '../../steps/applicant1Sequence.js';
 
 import {
   hideEnterPostcode,
@@ -7,11 +7,11 @@ import {
   showEnterPostcode,
   showInternationalAddressFields,
   showUkAddressFields,
-} from './address/links';
-import { getById, qsa } from './selectors';
+} from './address/links.js';
+import { getById, qsa } from './selectors.js';
 
-import './address/select';
-import './address/submit';
+import './address/select.js';
+import './address/submit.js';
 
 const form = getById('main-form') as HTMLFormElement | null;
 if (form && getById('enterPostcode')) {

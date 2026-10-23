@@ -1,9 +1,9 @@
-import { YesOrNo } from '../../../../../app/case/definition';
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
-import { CommonContent } from '../../../../common/common.content';
-import { ALTERNATIVE_SERVICE_APPLICATION, NEW_POSTAL_AND_EMAIL } from '../../../../urls';
+import { YesOrNo } from '../../../../../app/case/definition.js';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../../../app/form/validation.js';
+import { CommonContent } from '../../../../common/common.content.js';
+import { ALTERNATIVE_SERVICE_APPLICATION, NEW_POSTAL_AND_EMAIL } from '../../../../urls.js';
 
 const en = ({ partner }: CommonContent) => ({
   title: `Finding your ${partner} online by searching the internet`,

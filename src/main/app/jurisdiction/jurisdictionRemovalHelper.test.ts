@@ -1,7 +1,7 @@
-import { Case } from '../case/case';
-import { YesOrNo } from '../case/definition';
+import { Case } from '../case/case.js';
+import { YesOrNo } from '../case/definition.js';
 
-import { setJurisdictionFieldsAsNull, setUnreachableJurisdictionFieldsAsNull } from './jurisdictionRemovalHelper';
+import { setJurisdictionFieldsAsNull, setUnreachableJurisdictionFieldsAsNull } from './jurisdictionRemovalHelper.js';
 
 describe('JurisdictionRemovalHelper', () => {
   test('Should set unreachable fields as null', async () => {

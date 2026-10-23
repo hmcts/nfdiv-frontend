@@ -1,7 +1,7 @@
-import { YesOrNo } from '../app/case/definition';
+import { YesOrNo } from '../app/case/definition.js';
 
-import { Step } from './applicant1Sequence';
-import { CHECK_ANSWERS_WITHDRAW, HUB_PAGE, WITHDRAW_CONFIRMATION, WITHDRAW_THIS_APPLICATION } from './urls';
+import { Step } from './applicant1Sequence.js';
+import { CHECK_ANSWERS_WITHDRAW, HUB_PAGE, WITHDRAW_CONFIRMATION, WITHDRAW_THIS_APPLICATION } from './urls.js';
 
 export const applicant2WithdrawApplicationSequence: Step[] = [
   {

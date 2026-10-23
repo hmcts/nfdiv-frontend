@@ -1,7 +1,7 @@
 import config from 'config';
 
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
 
 const en = ({ isDivorce }) => ({
   title: 'Apply for help with fees',

@@ -67,7 +67,10 @@
     {{ govukButton({
       text: continueApplication,
       href: nextIncompleteStep,
-      preventDoubleClick: true
+      preventDoubleClick: true,
+      attributes: {
+        id: 'main-form-submit'
+      }
     }) }}
   {% endif %}
 

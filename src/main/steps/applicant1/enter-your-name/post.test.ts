@@ -1,11 +1,11 @@
-import { completeCase } from '../../../../test/functional/fixtures/completeCase';
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CaseWithId } from '../../../app/case/case';
-import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE } from '../../../app/case/definition';
-import { FormContent } from '../../../app/form/Form';
+import { completeCase } from '../../../../test/functional/fixtures/completeCase.js';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
+import { CaseWithId } from '../../../app/case/case.js';
+import { CITIZEN_APPLICANT2_UPDATE, CITIZEN_UPDATE } from '../../../app/case/definition.js';
+import { FormContent } from '../../../app/form/Form.js';
 
-import EnterYourNamePostController from './post';
+import EnterYourNamePostController from './post.js';
 
 describe('EnterYourNamePostController', () => {
   let userCase: Partial<CaseWithId>;

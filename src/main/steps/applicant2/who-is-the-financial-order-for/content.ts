@@ -1,11 +1,11 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form.js';
+import { isFieldFilledIn } from '../../../app/form/validation.js';
 import {
   RadioButtons,
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/who-is-the-financial-order-for/content';
+} from '../../applicant1/who-is-the-financial-order-for/content.js';
 
 const labels = applicant1Content => {
   return {

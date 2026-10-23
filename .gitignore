@@ -3,7 +3,10 @@ node_modules/
 .sass-cache
 *.css
 
-.idea/
+.idea/*
+!.idea/inspectionProfiles/
+!.idea/inspectionProfiles/ESM_Project_Default.xml
+!.idea/inspectionProfiles/profiles_settings.xml
 *.iml
 *.iws
 *.ipr
@@ -20,6 +23,7 @@ lib/
 
 node-rpm-packaging/
 mochawesome-report/
+allure-results/
 npm-debug.log.*
 
 .gradle/

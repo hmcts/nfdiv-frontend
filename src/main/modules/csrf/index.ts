@@ -1,10 +1,10 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import { csrfSync } from 'csrf-sync';
 import { Application, NextFunction, Request, Response } from 'express';
 import type { LoggerInstance } from 'winston';
 
-import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls';
+import { CSRF_TOKEN_ERROR_URL } from '../../steps/urls.js';
 
-const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
 
 const { csrfSynchronisedProtection } = csrfSync({

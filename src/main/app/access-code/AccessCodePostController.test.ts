@@ -1,12 +1,12 @@
-import { mockRequest, mockRequestApp2 } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { HOME_URL, SIGN_OUT_URL } from '../../steps/urls';
-import * as oidc from '../auth/user/oidc';
-import * as caseApi from '../case/case-api';
-import { ApplicationType, SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, State } from '../case/definition';
-import { FormContent, FormFields } from '../form/Form';
+import { mockRequest, mockRequestApp2 } from '../../../test/unit/utils/mockRequest.js';
+import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
+import { HOME_URL, SIGN_OUT_URL } from '../../steps/urls.js';
+import * as oidc from '../auth/user/oidc.js';
+import * as caseApi from '../case/case-api.js';
+import { ApplicationType, SYSTEM_LINK_APPLICANT_1, SYSTEM_LINK_APPLICANT_2, State } from '../case/definition.js';
+import { FormContent, FormFields } from '../form/Form.js';
 
-import { AccessCodePostController } from './AccessCodePostController';
+import { AccessCodePostController } from './AccessCodePostController.js';
 
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 const getCaseApiMock = jest.spyOn(caseApi, 'getCaseApi');

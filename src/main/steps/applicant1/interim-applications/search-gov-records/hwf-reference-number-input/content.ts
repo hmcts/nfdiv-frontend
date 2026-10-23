@@ -1,9 +1,9 @@
-import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import { TranslationFn } from '../../../../../app/controller/GetController.js';
+import { FormContent } from '../../../../../app/form/Form.js';
 import {
   form as helpWithFeesForm,
   generateContent as helpWithFeesGenerateContent,
-} from '../../common/hwf-reference-number-input/content';
+} from '../../common/hwf-reference-number-input/content.js';
 
 export const form: FormContent = helpWithFeesForm;
 

@@ -1,10 +1,10 @@
-import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { isInvalidHelpWithFeesRef } from '../../../app/form/validation';
+import { TranslationFn } from '../../../app/controller/GetController.js';
+import { FormContent } from '../../../app/form/Form.js';
+import { isInvalidHelpWithFeesRef } from '../../../app/form/validation.js';
 import {
   form as applicant1Form,
   generateContent as applicant1GenerateContent,
-} from '../../applicant1/hwf-reference-number-input/content';
+} from '../../applicant1/hwf-reference-number-input/content.js';
 
 const labels = content => ({
   line1: '',

@@ -18,10 +18,28 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.eslint.json',
   },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+        project: './tsconfig.eslint.json',
+      },
+      node: {
+        extensions: ['.js', '.cjs', '.mjs', '.ts', '.tsx', '.d.ts'],
+      },
+    },
+  },
   globals: { Atomics: 'readonly', SharedArrayBuffer: 'readonly' },
+  overrides: [
+    {
+      files: ['**/*.ts', '**/*.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 'error',
+      },
+    },
+  ],
   rules: {
     '@typescript-eslint/array-type': 'error',
-    '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-unused-vars': [

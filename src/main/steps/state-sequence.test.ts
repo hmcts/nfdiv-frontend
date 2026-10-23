@@ -1,12 +1,12 @@
-import { CcdV1Response } from '../app/case/case-api-client';
-import { DivorceOrDissolution, State } from '../app/case/definition';
+import { CcdV1Response } from '../app/case/case-api-client.js';
+import { DivorceOrDissolution, State } from '../app/case/definition.js';
 
 import {
   currentStateFn,
   getHighestPriorityPreSubmissionCases,
   orderedStateSequence,
   preSubmittedStatePrioritySequence,
-} from './state-sequence';
+} from './state-sequence.js';
 
 describe('StateSequence', () => {
   test('Should ensure state is before test state', () => {

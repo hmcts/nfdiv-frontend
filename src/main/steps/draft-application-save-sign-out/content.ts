@@ -1,4 +1,4 @@
-import { TranslationFn } from '../../app/controller/GetController';
+import { TranslationFn } from '../../app/controller/GetController.js';
 
 const en = () => ({
   title: 'Your application has been saved',
