@@ -60,7 +60,7 @@ import {
   iSelectYes,
   iSelectYesOrNoForField,
 } from './commonHelpers/elementInteraction';
-import { iAmOnPage, iWaitInUrl, iWaitInUrlAsUser } from './commonHelpers/navigation';
+import { iAmOnPage, iGoToPageAsUser, iWaitInUrl, iWaitInUrlAsUser } from './commonHelpers/navigation';
 import { autoLogin, getCurrentUser, getUserEmail, iSignOut } from './commonHelpers/userInteraction';
 import { iEnterADateIntoField } from './date';
 import { iEnterTheUkAddress } from './postcode';
@@ -75,7 +75,7 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
   await iSetTheUsersCaseTo(fixtureJson);
 
   iAmOnPage(ADDRESS_PRIVATE);
-  iSelectNo();
+  iSelectYesOrNoForField(YesOrNo.NO, 'applicant1AddressPrivate');
   await iClickSubmit();
 });
 
@@ -90,13 +90,13 @@ Given('I set the email address for applicant 2', async () => {
 
 Given(
   "I've already completed the form using the fixture {string} for {string}",
-  async (fixture: string, applicant: string) => {
+  async (fixture: string, user: string) => {
     const fixtureJson = requireFromFixture(`../functional/fixtures/${fixture}`)[fixture];
 
     await iSetTheUsersCaseTo(fixtureJson);
 
-    iAmOnPage(`/${applicant}` + ADDRESS_PRIVATE);
-    iSelectNo();
+    const resolvedApplicant = iGoToPageAsUser(ADDRESS_PRIVATE, user);
+    iSelectYesOrNoForField(YesOrNo.NO, `${resolvedApplicant}AddressPrivate`);
     await iClickSubmit();
   }
 );
