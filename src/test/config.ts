@@ -11,12 +11,13 @@ process.on('unhandledRejection', reason => {
   throw reason;
 });
 
-let idamUserManager: IdamUserManager;
-let equityAndDiversityUrl: string;
-
-const getEquityAndDiversityUrl = (): string => {
+const getEqualityUrl = (): string => {
   return sysConfig.get('services.equalityAndDiversity.url') as string;
 }
+
+const getIdamWebBaseUrl = (): string => {
+  return sysConfig.get('services.idam.webBaseUrl') as string;
+};
 
 const setupTestSecrets = async () => {
   const propertiesVolume = new PropertiesVolume();
@@ -38,13 +39,14 @@ const initializeTestEnvironment = async () => {
         ).toString()
       : (sysConfig.get('services.idam.tokenURL') as string);
 
-  equityAndDiversityUrl = getEquityAndDiversityUrl();
+  config.IDAM_WEB_BASE_URL = getIdamWebBaseUrl();
+  config.EQUALITY_URL = getEqualityUrl();
 
   const testUsernameGenerator = () => `nfdiv.frontend.test.${new Date().getTime()}.${Math.random()}@hmcts.net`;
   const testPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
 
   const userManager = new IdamUserManager(idamTokenUrl, testUsernameGenerator, testPass);
-  idamUserManager = await userManager.init();
+  config.idamUserManager = await userManager.init();
 };
 
 export enum TestUserType {
@@ -55,10 +57,17 @@ export enum TestUserType {
 
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
+  IDAM_WEB_BASE_URL: 'Test Environment Not Yet Initialized',
+  EQUALITY_URL: 'Test Environment Not Yet Initialized',
+  idamUserManager: undefined as IdamUserManager | undefined,
+  getIdamUserManager: (): IdamUserManager => {
+    if (!config.idamUserManager) {
+      throw new Error('IdamUserManager is not initialized');
+    }
+    return config.idamUserManager;
+  },
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
   WaitForTimeout: 30000,
-  getIdamUserManager: () => idamUserManager,
-  getEquityAndDiversityUrl: () => equityAndDiversityUrl,
   Gherkin: {
     features: './features/**/*.feature',
     steps: [
@@ -74,7 +83,7 @@ export const config = {
   bootstrap: async (): Promise<void> => {
     await initializeTestEnvironment();
   },
-  teardown: async (): Promise<void> => idamUserManager.deleteAll(),
+  teardown: async (): Promise<void> => config.getIdamUserManager().deleteAll(),
   helpers: {},
 };
 
