@@ -37,6 +37,9 @@ export class SessionStorage {
     const redisPort = config.get('session.redis.port');
 
     if (redisHost) {
+      // TODO This is only for debugging and we will need to remove this
+      //  log line after migration to production completes
+      logger.info(`Connecting to Redis at ${redisHost}:${redisPort}`);
       const client = redis.createClient({
         socket: {
           host: redisHost as string,
