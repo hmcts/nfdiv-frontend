@@ -1,5 +1,4 @@
 import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
-import { tryTo } from 'codeceptjs/effects';
 
 import { iClearTheForm, iClickElement, iEnterValueIntoInput } from './commonHelpers/elementInteraction';
 

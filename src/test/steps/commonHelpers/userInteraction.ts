@@ -98,7 +98,7 @@ const isNfdServiceLinkPresent = async (): Promise<boolean> => {
 };
 
 const doIdamLogin = async (username: string, password: string, rejectCookies: boolean = true): Promise<void> => {
-  if (await iAmOnNfd() && await isNfdServiceLinkPresent()) {
+  if ((await iAmOnNfd()) && (await isNfdServiceLinkPresent())) {
     await iClickSignOut();
   }
   if (await iAmOnIdam()) {
