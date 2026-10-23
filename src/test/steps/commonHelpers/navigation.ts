@@ -58,18 +58,21 @@ const getUserPrefix = (user?: string): string => {
   }
   user = user.trim();
   switch (user.toUpperCase()) {
+    case 'APPLICANT':
     case 'APPLICANT1':
     case 'APPLICANT 1':
     case 'APPLICANT_1':
+    case 'THE APPLICANT':
       return APPLICANT_1;
     case 'APPLICANT2':
     case 'APPLICANT 2':
     case 'APPLICANT_2':
       return APPLICANT_2;
     case 'RESPONDENT':
+    case 'THE RESPONDENT':
       return RESPONDENT;
     default:
-      return user;
+      throw new Error(`Cannot resolve user prefix URL from: ${user}`);
   }
 };
 
@@ -140,20 +143,26 @@ export const iClickToNavigate = async (
   iWaitForUrl(nextUrl, wait, waitUntil);
 };
 
-export const iGoToPageAsUser = (url: string, user?: string): void => {
-  iAmOnPage(getFullUrl(user, url));
+type ResolvedApplicant = 'applicant1' | 'applicant2';
+
+export const iGoToPageAsUser = (url: string, user?: string): ResolvedApplicant => {
+  const fullUrl = getFullUrl(user, url);
+  iAmOnPage(fullUrl);
+  return fullUrl.startsWith('/respondent') || fullUrl.startsWith('/applicant2') ? 'applicant2' : 'applicant1';
 };
 
-export const iGoToPage = (url: string): void => {
-  iGoToPageAsUser(url);
+export const iGoToPage = (url: string): ResolvedApplicant => {
+  return iGoToPageAsUser(url);
 };
 
-export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number): void => {
-  I.waitInUrl(getFullUrl(user, url), wait);
+export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number): ResolvedApplicant => {
+  const fullUrl = getFullUrl(user, url);
+  I.waitInUrl(fullUrl, wait);
+  return fullUrl.startsWith('/respondent') || fullUrl.startsWith('/applicant2') ? 'applicant2' : 'applicant1';
 };
 
-export const iWaitInUrl = (url: string, wait?: number): void => {
-  iWaitInUrlAsUser(url, undefined, wait);
+export const iWaitInUrl = (url: string, wait?: number): ResolvedApplicant => {
+  return iWaitInUrlAsUser(url, undefined, wait);
 };
 
 export const iWaitForUrl = (url?: string | RegExp, wait?: number, waitUntil: WaitUntil = 'load'): void => {
