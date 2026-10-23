@@ -5,7 +5,14 @@ import {
   ConditionalOrderCourt,
   SYSTEM_UPDATE_CASE_COURT_HEARING,
 } from '../../main/app/case/definition';
-import { CHECK_JURISDICTION, HOW_DO_YOU_WANT_TO_APPLY, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  CHECK_JURISDICTION,
+  HOW_DO_YOU_WANT_TO_APPLY,
+  RESPONDENT,
+  THEIR_EMAIL_ADDRESS,
+} from '../../main/steps/urls';
 import { TestUserType } from '../config';
 
 import {
@@ -52,13 +59,13 @@ Given('I go to {string}', (url: string) => {
   iGoToPage(url);
 });
 Given('I go to applicant1 {string}', (url: string) => {
-  iGoToPageAsUser(url, 'APPLICANT_1');
+  iGoToPageAsUser(url, APPLICANT_1);
 });
 Given('I go to respondent {string}', (url: string) => {
-  iGoToPageAsUser(url, 'RESPONDENT');
+  iGoToPageAsUser(url, RESPONDENT);
 });
 Given('I go to applicant2 {string}', (url: string) => {
-  iGoToPageAsUser(url, 'APPLICANT_2');
+  iGoToPageAsUser(url, APPLICANT_2);
 });
 
 Then('the page URL should be {string} {string}', (user: string, url: string) => {
@@ -68,13 +75,13 @@ Then('the page URL should be {string}', (url: string) => {
   iWaitInUrl(url);
 });
 Then('the page URL should be applicant1 {string}', (url: string) => {
-  iWaitInUrlAsUser(url, 'APPLICANT_1');
+  iWaitInUrlAsUser(url, APPLICANT_1);
 });
 Then('the page URL should be respondent {string}', (url: string) => {
-  iWaitInUrlAsUser(url, 'RESPONDENT');
+  iWaitInUrlAsUser(url, RESPONDENT);
 });
 Then('the page URL should be applicant2 {string}', (url: string) => {
-  iWaitInUrlAsUser(url, 'APPLICANT_2');
+  iWaitInUrlAsUser(url, APPLICANT_2);
 });
 
 Given('I login', async () => {
