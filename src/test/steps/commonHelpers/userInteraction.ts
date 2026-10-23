@@ -1,3 +1,4 @@
+import { Gender } from '../../../main/app/case/definition';
 import {
   APPLICANT_2,
   ENTER_YOUR_ACCESS_CODE,
@@ -9,8 +10,14 @@ import {
 import { TestUserType, config as testConfig } from '../../config';
 
 import { TestUserAndPassword } from './IdamUserManager';
-import { iClickElement, iClickSubmit, iEnterValueIntoInput, iWaitForElementWithText } from './elementInteraction';
-import { iAmOnPage, iClickToNavigate, iWaitInUrl } from './navigation';
+import {
+  iClickSubmit,
+  iEnterValueIntoInput,
+  iRejectCookies,
+  iSelectRadioValue,
+  iWaitForElementWithText,
+} from './elementInteraction';
+import { iAmOnIdam, iAmOnNfd, iAmOnPage, iClickToNavigate, iWaitInUrl } from './navigation';
 
 const { I } = inject();
 
@@ -90,23 +97,17 @@ const isNfdServiceLinkPresent = async (): Promise<boolean> => {
   }
 };
 
-const doesUrlHostStartWith = (url: string, prefix: string): boolean => {
-  try {
-    return new URL(url).hostname.startsWith(prefix);
-  } catch {
-    return false;
-  }
-};
-
-const doIdamLogin = async (username: string, password: string): Promise<void> => {
-  let currentPageUrl = await I.grabCurrentUrl();
-  if (currentPageUrl.startsWith(testConfig.TEST_URL) && (await isNfdServiceLinkPresent())) {
+const doIdamLogin = async (username: string, password: string, rejectCookies: boolean = true): Promise<void> => {
+  if ((await iAmOnNfd()) && (await isNfdServiceLinkPresent())) {
     await iClickSignOut();
-    currentPageUrl = await I.grabCurrentUrl();
   }
-  if (doesUrlHostStartWith(currentPageUrl, 'idam-web-public')) {
+  if (await iAmOnIdam()) {
     const loginHeading = 'Sign in or create an account';
     await iWaitForElementWithText('h1', loginHeading, LOGIN_TIMEOUT);
+
+    if (rejectCookies) {
+      await iRejectCookies();
+    }
 
     if (await isModernIdamLogin()) {
       await doModernLogin(username, password);
@@ -118,14 +119,21 @@ const doIdamLogin = async (username: string, password: string): Promise<void> =>
 };
 
 export const autoLogin = {
-  login: async (user = testConfig.getIdamUserManager().getDefaultTestUser(), createCase = true): Promise<void> => {
+  login: async (
+    user = testConfig.getIdamUserManager().getDefaultTestUser(),
+    createCase = true,
+    rejectCookies: boolean = true
+  ): Promise<void> => {
     I.amOnPage(HOME_URL);
-    await doIdamLogin(user.username, user.password);
+    await doIdamLogin(user.username, user.password, rejectCookies);
 
     await iWaitForNfdServiceLink();
+    if (rejectCookies) {
+      await iRejectCookies();
+    }
     if (createCase) {
       iAmOnPage(YOUR_DETAILS_URL);
-      iClickElement('#male');
+      iSelectRadioValue(Gender.MALE);
       await iClickSubmit();
       iWaitInUrl(HAS_RELATIONSHIP_BROKEN_URL, LOGIN_TIMEOUT);
       iAmOnPage(YOUR_DETAILS_URL);
@@ -143,11 +151,17 @@ export const autoLogin = {
 };
 
 export const autoLoginForApplicant2 = {
-  login: async (user = testConfig.getIdamUserManager().getDefaultTestUser()): Promise<void> => {
+  login: async (
+    user = testConfig.getIdamUserManager().getDefaultTestUser(),
+    rejectCookies: boolean = true
+  ): Promise<void> => {
     iAmOnPage(APPLICANT_2);
-    await doIdamLogin(user.username, user.password);
+    await doIdamLogin(user.username, user.password, rejectCookies);
 
     await iWaitForNfdServiceLink();
+    if (rejectCookies) {
+      await iRejectCookies();
+    }
   },
   check: async (): Promise<void> => {
     iAmOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
@@ -159,25 +173,29 @@ export const autoLoginForApplicant2 = {
   },
 };
 
-export const login = async (userType: TestUserType): Promise<void> => {
+export const login = async (userType: TestUserType, rejectCookies: boolean = true): Promise<void> => {
   const idamUserManager = testConfig.getIdamUserManager();
   if (userType === TestUserType.CITIZEN) {
-    await autoLogin.login();
+    await autoLogin.login(undefined, undefined, rejectCookies);
     return;
   }
 
   const user = await idamUserManager.createUser();
   if (userType === TestUserType.CITIZEN_SINGLETON) {
-    await autoLogin.login(user);
+    await autoLogin.login(user, undefined, rejectCookies);
   } else {
-    await autoLoginForApplicant2.login(user);
+    await autoLoginForApplicant2.login(user, rejectCookies);
   }
 };
 
-export const autoLoginWithUserIndex = async (userIndex: number, createCase: boolean = false): Promise<void> => {
+export const autoLoginWithUserIndex = async (
+  userIndex: number,
+  createCase: boolean = false,
+  rejectCookies: boolean = true
+): Promise<void> => {
   const idamUserManager = testConfig.getIdamUserManager();
   const user = idamUserManager.getUser(userIndex);
-  await autoLogin.login(user, createCase);
+  await autoLogin.login(user, createCase, rejectCookies);
 };
 
 export const getCurrentUser = (): TestUserAndPassword => {
