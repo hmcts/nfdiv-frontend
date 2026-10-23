@@ -5,14 +5,7 @@ import {
   ConditionalOrderCourt,
   SYSTEM_UPDATE_CASE_COURT_HEARING,
 } from '../../main/app/case/definition';
-import {
-  APPLICANT_1,
-  APPLICANT_2,
-  CHECK_JURISDICTION,
-  HOW_DO_YOU_WANT_TO_APPLY,
-  RESPONDENT,
-  THEIR_EMAIL_ADDRESS,
-} from '../../main/steps/urls';
+import { CHECK_JURISDICTION, HOW_DO_YOU_WANT_TO_APPLY, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
 import { TestUserType } from '../config';
 
 import {
@@ -31,6 +24,7 @@ import {
   iClickSubmit,
   iConfirmPrayerAndStatementOfTruth,
   iDeleteAllUploadedFiles,
+  iEnterValueIntoInput,
   iRejectCookies,
   iSelectNo,
   iSelectRadioValueForField,
@@ -52,36 +46,18 @@ After(async () => {
   await clearNewUsers();
 });
 
-Given('I go to {string} for {string}', (url: string, user: string) => {
+Given(/^I go to "([^"]*)" \/ "([^"]*)"$/, (user: string, url: string) => {
   iGoToPageAsUser(url, user);
 });
 Given('I go to {string}', (url: string) => {
   iGoToPage(url);
 });
-Given('I go to applicant1 {string}', (url: string) => {
-  iGoToPageAsUser(url, APPLICANT_1);
-});
-Given('I go to respondent {string}', (url: string) => {
-  iGoToPageAsUser(url, RESPONDENT);
-});
-Given('I go to applicant2 {string}', (url: string) => {
-  iGoToPageAsUser(url, APPLICANT_2);
-});
 
-Then('the page URL should be {string} {string}', (user: string, url: string) => {
+Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$/, (user: string, url: string) => {
   iWaitInUrlAsUser(url, user);
 });
 Then('the page URL should be {string}', (url: string) => {
   iWaitInUrl(url);
-});
-Then('the page URL should be applicant1 {string}', (url: string) => {
-  iWaitInUrlAsUser(url, APPLICANT_1);
-});
-Then('the page URL should be respondent {string}', (url: string) => {
-  iWaitInUrlAsUser(url, RESPONDENT);
-});
-Then('the page URL should be applicant2 {string}', (url: string) => {
-  iWaitInUrlAsUser(url, APPLICANT_2);
 });
 
 Given('I login', async () => {
@@ -223,6 +199,10 @@ Then('I wait until the page contains file element {string}', (selector: string) 
 
 Then('the page should not include {string}', (text: string) => {
   I.dontSee(text);
+});
+
+Then('I enter {string} into {string}', (value: string, selector: string) => {
+  iEnterValueIntoInput(value, selector);
 });
 
 Then("I wait until the page doesn't contain {string}", (text: string) => {
