@@ -15,18 +15,19 @@ import {
   triggerAnEvent,
 } from './commonHelpers/caseInteraction';
 import {
+  iAcceptCookies,
   iCheckOptionFor,
   iClearTheForm,
   iClickElement,
   iClickMoreDetailsComponent,
-  iClickNo,
-  iClickRadioValueForField,
   iClickString,
   iClickSubmit,
-  iClickYes,
   iConfirmPrayerAndStatementOfTruth,
   iDeleteAllUploadedFiles,
   iRejectCookies,
+  iSelectNo,
+  iSelectRadioValueForField,
+  iSelectYes,
   iWait,
   iWaitForVisible,
 } from './commonHelpers/elementInteraction';
@@ -90,6 +91,7 @@ Given('I login with applicant {string}', async (applicant: string) => {
   await autoLoginWithUserIndex(parseInt(applicant));
 });
 
+When('I accept cookies', iAcceptCookies);
 When('I reject cookies', iRejectCookies);
 
 When('I click {string}', iClickString);
@@ -113,12 +115,12 @@ Then('the page should include {string}', (text: string) => {
   I.waitForText(text);
 });
 
-Then('the page should include element {string}', (elemId: string) => {
-  I.waitForElement(elemId);
+Then('the page should include element {string}', (selector: string) => {
+  I.waitForElement(selector);
 });
 
-Then('the page should not include element {string}', (elemId: string) => {
-  I.dontSeeElementInDOM(elemId);
+Then('the page should not include element {string}', (selector: string) => {
+  I.dontSeeElementInDOM(selector);
 });
 
 Then('the page should include visible element {string}', iWaitForVisible);
@@ -179,13 +181,13 @@ When('I click continue to the next steps', () => {
 When('I click respond to the application', () => {
   iClickElement('#respondToTheApplicationButton');
 });
-When('I click yes', iClickYes);
-When('I click no', iClickNo);
+When('I click yes', iSelectYes);
+When('I click no', iSelectNo);
 When('I click radio value {string} for field {string}', (value: string, field: string) => {
-  iClickRadioValueForField(value, field);
+  iSelectRadioValueForField(value, field);
 });
 When('I click radio value {string}', (value: string) => {
-  iClickRadioValueForField(value);
+  iSelectRadioValueForField(value);
 });
 
 When('I confirm the prayer and statement of truth', iConfirmPrayerAndStatementOfTruth);
@@ -208,8 +210,8 @@ Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
 });
 
-Then('I wait until the page contains file element {string}', (elemId: string) => {
-  I.waitForElement(elemId, 30);
+Then('I wait until the page contains file element {string}', (selector: string) => {
+  I.waitForElement(selector, 30);
 });
 
 Then('the page should not include {string}', (text: string) => {
