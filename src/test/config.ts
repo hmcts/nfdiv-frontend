@@ -11,14 +11,6 @@ process.on('unhandledRejection', reason => {
   throw reason;
 });
 
-const getEqualityUrl = (): string => {
-  return sysConfig.get('services.equalityAndDiversity.url') as string;
-}
-
-const getIdamWebBaseUrl = (): string => {
-  return sysConfig.get('services.idam.webBaseUrl') as string;
-};
-
 const setupTestSecrets = async () => {
   const propertiesVolume = new PropertiesVolume();
   await propertiesVolume.enableFor({ locals: { developmentMode: true } } as unknown as Application);
@@ -39,8 +31,8 @@ const initializeTestEnvironment = async () => {
         ).toString()
       : (sysConfig.get('services.idam.tokenURL') as string);
 
-  config.IDAM_WEB_BASE_URL = getIdamWebBaseUrl();
-  config.EQUALITY_URL = getEqualityUrl();
+  config.IDAM_WEB_BASE_URL = sysConfig.get('services.idam.webBaseUrl') as string;
+  config.EQUALITY_URL = sysConfig.get('services.equalityAndDiversity.url') as string;
 
   const testUsernameGenerator = () => `nfdiv.frontend.test.${new Date().getTime()}.${Math.random()}@hmcts.net`;
   const testPass = process.env.TEST_PASSWORD || sysConfig.get('e2e.userTestPassword') || '';
