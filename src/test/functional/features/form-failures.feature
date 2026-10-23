@@ -301,6 +301,13 @@ Feature: Form failures
     Given I select "I have read the application for divorce"
 
     When I click "Continue"
+    Then the page URL should be "/respondent/confirm-contact-details"
+    And the page should include "Review your contact details"
+    When I click "Continue"
+    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I select "Yes, these details are up to date"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
     Given I clear the form
     When I click "Continue"

@@ -37,7 +37,7 @@
                 {{ havingTroubleUploading }}
               {% endif %}
             {% else %}
-              {{ text }}
+              {{ text | safe }}
             {% endif %}
           {% endset %}
 

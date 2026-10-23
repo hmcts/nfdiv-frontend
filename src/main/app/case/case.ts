@@ -358,6 +358,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   withdrawApplicationReason: 'withdrawApplicationReason',
   applicant2ConfirmWithdrawApplication: 'applicant2ConfirmWithdrawApplication',
   applicant2WithdrawApplicationReason: 'applicant2WithdrawApplicationReason',
+  applicant2ConfirmContactDetails: 'applicant2ConfirmContactDetails',
 };
 
 export function formatCase<OutputFormat>(fields: FieldFormats, data: Partial<Case> | CaseData): OutputFormat {
@@ -793,6 +794,7 @@ export interface Case {
   withdrawApplicationReason?: string;
   applicant2ConfirmWithdrawApplication?: YesOrNo;
   applicant2WithdrawApplicationReason?: string;
+  applicant2ConfirmContactDetails?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
