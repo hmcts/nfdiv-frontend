@@ -49,17 +49,16 @@ import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
 import {
   WaitUntil,
   iCannotUploadDocs,
+  iCheckOption,
   iClearTheForm,
-  iClickElement,
-  iClickNo,
-  iClickRadioValue,
-  iClickRadioValueForField,
   iClickSubmit,
   iClickSubmitAndExpectUrl,
-  iClickYes,
-  iClickYesOrNoForField,
   iConfirmPrayerAndStatementOfTruth,
   iEnterValueIntoInput,
+  iSelectNo,
+  iSelectRadioValue,
+  iSelectYes,
+  iSelectYesOrNoForField,
 } from './commonHelpers/elementInteraction';
 import { iAmOnPage, iWaitInUrl, iWaitInUrlAsUser } from './commonHelpers/navigation';
 import { autoLogin, getCurrentUser, getUserEmail, iSignOut } from './commonHelpers/userInteraction';
@@ -76,7 +75,7 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
   await iSetTheUsersCaseTo(fixtureJson);
 
   iAmOnPage(ADDRESS_PRIVATE);
-  iClickNo();
+  iSelectNo();
   await iClickSubmit();
 });
 
@@ -97,7 +96,7 @@ Given(
     await iSetTheUsersCaseTo(fixtureJson);
 
     iAmOnPage(`/${applicant}` + ADDRESS_PRIVATE);
-    iClickNo();
+    iSelectNo();
     await iClickSubmit();
   }
 );
@@ -115,32 +114,32 @@ Given('I set the case state to {string}', async (state: State) => {
 Given("I've completed all happy path questions correctly", async () => {
   iAmOnPage(YOUR_DETAILS_URL);
   await iClearTheForm();
-  iClickRadioValue(Gender.MALE);
+  iSelectRadioValue(Gender.MALE);
   await iClickSubmitAndExpectUrl(HAS_RELATIONSHIP_BROKEN_URL);
 
-  iClickYes();
+  iSelectYes();
   await iClickSubmitAndExpectUrl(RELATIONSHIP_DATE_URL);
 
   await iClearTheForm();
   iEnterADateIntoField('31', '12', '1999', 'relationshipDate');
   await iClickSubmitAndExpectUrl(CERTIFICATE_URL);
 
-  iClickYes();
+  iSelectYes();
   await iClickSubmitAndExpectUrl(HELP_WITH_YOUR_FEE_URL);
 
-  iClickNo();
+  iSelectNo();
   await iClickSubmitAndExpectUrl(HOW_DO_YOU_WANT_TO_APPLY);
 
-  iClickRadioValue(ApplicationType.SOLE_APPLICATION);
+  iSelectRadioValue(ApplicationType.SOLE_APPLICATION);
   await iClickSubmitAndExpectUrl(IN_THE_UK);
 
-  iClickYes();
+  iSelectYes();
   await iClickSubmitAndExpectUrl(CHECK_JURISDICTION);
 
   await iClickSubmitAndExpectUrl(WHERE_YOUR_LIVES_ARE_BASED_URL);
 
-  iClickYesOrNoForField(YesOrNo.YES, 'applicant1LifeBasedInEnglandAndWales');
-  iClickYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
+  iSelectYesOrNoForField(YesOrNo.YES, 'applicant1LifeBasedInEnglandAndWales');
+  iSelectYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
   await iClickSubmitAndExpectUrl(JURISDICTION_INTERSTITIAL_URL);
 
   await iClickSubmitAndExpectUrl(ENTER_YOUR_NAME);
@@ -151,7 +150,7 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmitAndExpectUrl(CHECK_YOUR_NAME);
 
   await iClearTheForm();
-  iClickNo();
+  iSelectNo();
   await iClickSubmitAndExpectUrl(YOUR_CERTIFICATE_NAME);
 
   await iClearTheForm();
@@ -164,7 +163,7 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmitAndExpectUrl(CHECK_THEIR_NAME);
 
   await iClearTheForm();
-  iClickNo();
+  iSelectNo();
   await iClickSubmitAndExpectUrl(THEIR_CERTIFICATE_NAME);
 
   await iClearTheForm();
@@ -172,35 +171,35 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmitAndExpectUrl(HOW_THE_COURTS_WILL_CONTACT_YOU);
 
   await iClearTheForm();
-  iClickElement('#applicant1AgreeToReceiveEmails');
+  iCheckOption('#applicant1AgreeToReceiveEmails');
   await iClickSubmitAndExpectUrl(ENGLISH_OR_WELSH);
 
-  iClickRadioValueForField(LanguagePreference.English, 'applicant1EnglishOrWelsh');
+  iSelectRadioValue(LanguagePreference.English);
   await iClickSubmitAndExpectUrl(ADDRESS_PRIVATE);
 
-  iClickYesOrNoForField(YesOrNo.NO, 'applicant1AddressPrivate');
+  iSelectYesOrNoForField(YesOrNo.NO, 'applicant1AddressPrivate');
   await iClickSubmitAndExpectUrl(ENTER_YOUR_ADDRESS);
 
   await iEnterTheUkAddress('BUCKINGHAM PALACE, LONDON, SW1A 1AA');
   await iClickSubmitAndExpectUrl(DO_THEY_HAVE_A_SOLICITOR);
 
-  iClickNo();
+  iSelectNo();
   await iClickSubmitAndExpectUrl(THEIR_EMAIL_ADDRESS);
 
   await iClearTheForm();
   iEnterValueIntoInput('husband@example.com', '#applicant2EmailAddress');
   await iClickSubmitAndExpectUrl(DO_YOU_HAVE_ADDRESS);
 
-  iClickYes();
+  iSelectYes();
   await iClickSubmitAndExpectUrl(ENTER_THEIR_ADDRESS);
 
   await iEnterTheUkAddress('MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ');
   await iClickSubmitAndExpectUrl(OTHER_COURT_CASES);
 
-  iClickNo();
+  iSelectNo();
   await iClickSubmitAndExpectUrl(MONEY_PROPERTY);
 
-  iClickNo();
+  iSelectNo();
   await iClickSubmitAndExpectUrl(UPLOAD_YOUR_DOCUMENTS);
 
   await iClearTheForm();
