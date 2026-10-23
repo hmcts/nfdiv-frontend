@@ -27,7 +27,7 @@ export const iClickSignOut = async (): Promise<void> => {
   await iClickToNavigate(
     `#navigation > li > a[href="${SIGN_OUT_URL}"]`,
     LOGIN_TIMEOUT,
-    /^https?:\/\/idam-web-public[^/]*\//,
+    testConfig.IDAM_WEB_BASE_URL,
     'domcontentloaded'
   );
 };
@@ -193,8 +193,7 @@ export const autoLoginWithUserIndex = async (
   createCase: boolean = false,
   rejectCookies: boolean = true
 ): Promise<void> => {
-  const idamUserManager = testConfig.getIdamUserManager();
-  const user = idamUserManager.getUser(userIndex);
+  const user = getUser(userIndex);
   await autoLogin.login(user, createCase, rejectCookies);
 };
 
