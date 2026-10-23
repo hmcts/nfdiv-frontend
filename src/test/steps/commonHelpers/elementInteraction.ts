@@ -2,7 +2,7 @@ import { Locator, Page } from '@playwright/test';
 
 import { YesOrNo } from '../../../main/app/case/definition';
 
-import { iClickToNavigate } from './navigation';
+import { iAmOnIdam, iClickToNavigate } from './navigation';
 
 const { I } = inject();
 
@@ -34,31 +34,39 @@ export const iCheckOption = (selector: string, wait?: number): void => {
   I.checkOption(selector);
 };
 
-export const iCheckValueForField = (value: string, inputType: 'radio' | 'checkbox', field: string = ''): void => {
+export const iCheckValueForField = (
+  value: string,
+  inputType: 'radio' | 'checkbox',
+  field: string = '',
+  wait?: number
+): void => {
   let selector = `input[type="${inputType}"][value="${value}"]`;
   if (field.trim().length > 0) {
     selector += `[name="${field.trim()}"]`;
   }
-  iCheckOption(selector);
+  iCheckOption(selector, wait);
 };
 
-export const iCheckOptionValueForField = (value: string, field: string = ''): void => {
-  iCheckValueForField(value, 'checkbox', field);
+export const iCheckOptionValueForField = (value: string, field: string = '', wait?: number): void => {
+  iCheckValueForField(value, 'checkbox', field, wait);
 };
-export const iClickRadioValueForField = (value: string, field: string = ''): void => {
-  iCheckValueForField(value, 'radio', field);
+export const iCheckOptionValue = (value: string, wait?: number): void => {
+  iCheckOptionValueForField(value, '', wait);
 };
-export const iClickRadioValue = (value: string): void => {
-  iClickRadioValueForField(value);
+export const iSelectRadioValueForField = (value: string, field: string = '', wait?: number): void => {
+  iCheckValueForField(value, 'radio', field, wait);
 };
-export const iClickYesOrNoForField = (yesOrNo: YesOrNo.YES | YesOrNo.NO, field?: string): void => {
-  iClickRadioValueForField(yesOrNo, field);
+export const iSelectRadioValue = (value: string, wait?: number): void => {
+  iSelectRadioValueForField(value, '', wait);
 };
-export const iClickNo = (): void => {
-  iClickYesOrNoForField(YesOrNo.NO);
+export const iSelectYesOrNoForField = (yesOrNo: YesOrNo.YES | YesOrNo.NO, field: string = '', wait?: number): void => {
+  iSelectRadioValueForField(yesOrNo, field, wait);
 };
-export const iClickYes = (): void => {
-  iClickYesOrNoForField(YesOrNo.YES);
+export const iSelectNo = (wait?: number): void => {
+  iSelectYesOrNoForField(YesOrNo.NO, '', wait);
+};
+export const iSelectYes = (wait?: number): void => {
+  iSelectYesOrNoForField(YesOrNo.YES, '', wait);
 };
 
 export const iClickSubmitAndExpectUrl = async (
@@ -69,7 +77,7 @@ export const iClickSubmitAndExpectUrl = async (
   const submitSelector = await I.executeScript(() =>
     document.getElementById('main-form-submit')
       ? '#main-form-submit'
-      : 'button[type="submit"]:not(#hide-message):not(.document-delete-button)'
+      : 'button[type="submit"]:not(#hide-message):not(.document-delete-button):not(.web-payment-button--apple-pay)'
   );
   await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil);
 };
@@ -84,13 +92,28 @@ export const iClickChangeLinkForQuestion = async (questionText: string): Promise
 };
 
 export const iCannotUploadDocs = (): void => {
-  iClickElement('#cannotUploadDocs');
+  iCheckOption('#cannotUploadDocs');
 };
 
-export const iRejectCookies = (): void => {
+export const iAcceptCookies = async (): Promise<void> => {
+  if (await iAmOnIdam()) {
+    iClickElement('button#accept-additional-cookies');
+    iClickElement('button#hide-message');
+    return;
+  }
+  iClickElement('button.cookie-banner-accept-button');
+  iClickElement('div.cookie-banner-accept-message button.cookie-banner-hide-button');
+};
+
+export const iRejectCookies = async (): Promise<void> => {
+  if (await iAmOnIdam()) {
+    iClickElement('button#reject-additional-cookies');
+    iClickElement('button#hide-message');
+    return;
+  }
+
   iClickElement('button.cookie-banner-reject-button');
-  iClickElement('button.cookie-banner-hide-button');
-  iClickElement('button#hide-message');
+  iClickElement('div.cookie-banner-reject-message button.cookie-banner-hide-button');
 };
 
 export const iWait = (time: number): void => {
@@ -151,6 +174,6 @@ export const iDeleteAllUploadedFiles = async (): Promise<void> => {
 };
 
 export const iConfirmPrayerAndStatementOfTruth = (): void => {
-  iClickElement('#iConfirmPrayer');
-  iClickElement('#statementOfTruth');
+  iCheckOption('#iConfirmPrayer');
+  iCheckOption('#statementOfTruth');
 };
