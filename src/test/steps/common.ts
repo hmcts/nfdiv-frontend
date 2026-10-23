@@ -3,6 +3,7 @@ import {
   CASEWORKER_ISSUE_APPLICATION,
   CITIZEN_UPDATE_CASE_STATE_AAT,
   ConditionalOrderCourt,
+  Gender,
   SYSTEM_UPDATE_CASE_COURT_HEARING,
 } from '../../main/app/case/definition';
 import { CHECK_JURISDICTION, HOW_DO_YOU_WANT_TO_APPLY, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
@@ -22,11 +23,13 @@ import {
   iClickMoreDetailsComponent,
   iClickString,
   iClickSubmit,
+  iClickSubmitAndExpectUrl,
   iConfirmPrayerAndStatementOfTruth,
   iDeleteAllUploadedFiles,
   iEnterValueIntoInput,
   iRejectCookies,
   iSelectNo,
+  iSelectRadioValue,
   iSelectRadioValueForField,
   iSelectYes,
   iWait,
@@ -85,6 +88,22 @@ When('I click for more details', iClickMoreDetailsComponent);
 When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
   iCheckOptionFor(optionLabel, fieldLabel);
 });
+When('I select the option {string}', (value: string) => {
+  switch (value) {
+    case 'Yes':
+      iSelectYes();
+      break;
+    case 'No':
+      iSelectNo();
+      break;
+    case 'my husband':
+      iSelectRadioValue(Gender.MALE);
+      break;
+    default:
+      iClickString(value); // Fallback here for now. Refactor this step def when I have worked through more features
+  }
+});
+Given('I confirm my marriage has broken down irretrievably', iSelectYes);
 
 Given('I choose {string} from {string}', (option: string, select: string) => {
   I.selectOption(select, option);
@@ -140,6 +159,9 @@ When('I have an international address', () => {
 
 When('I click submit', iClickSubmit);
 When('I click continue', iClickSubmit);
+When('I click continue and expect URL {string}', async (url: string) => {
+  await iClickSubmitAndExpectUrl(url);
+});
 When('I click send for review', iClickSubmit);
 When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
