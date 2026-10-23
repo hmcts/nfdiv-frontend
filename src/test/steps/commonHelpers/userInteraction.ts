@@ -27,7 +27,7 @@ export const iClickSignOut = async (): Promise<void> => {
   await iClickToNavigate(
     `#navigation > li > a[href="${SIGN_OUT_URL}"]`,
     LOGIN_TIMEOUT,
-    testConfig.IDAM_WEB_BASE_URL,
+    new RegExp(`^${testConfig.IDAM_WEB_BASE_URL.replace(/\/+$/, '')}(?:/|$)`),
     'domcontentloaded'
   );
 };
@@ -98,7 +98,7 @@ const isNfdServiceLinkPresent = async (): Promise<boolean> => {
 };
 
 const doIdamLogin = async (username: string, password: string, rejectCookies: boolean = true): Promise<void> => {
-  if ((await iAmOnNfd()) && (await isNfdServiceLinkPresent())) {
+  if (await iAmOnNfd() && await isNfdServiceLinkPresent()) {
     await iClickSignOut();
   }
   if (await iAmOnIdam()) {
