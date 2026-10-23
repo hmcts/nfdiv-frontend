@@ -1,7 +1,7 @@
 import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
 
 import { SupportedLanguages } from '../../../main/modules/i18n';
-import { CHECK_ANSWERS_URL } from '../../../main/steps/urls';
+import { APPLICANT_1, APPLICANT_2, CHECK_ANSWERS_URL, RESPONDENT } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
 import { urlLookup } from '../urlLookup';
 
@@ -61,21 +61,16 @@ const getUserPrefix = (user?: string): string => {
     case 'APPLICANT1':
     case 'APPLICANT 1':
     case 'APPLICANT_1':
-      user = 'APPLICANT_1';
-      break;
+      return APPLICANT_1;
     case 'APPLICANT2':
     case 'APPLICANT 2':
     case 'APPLICANT_2':
-      user = 'APPLICANT_2';
-      break;
+      return APPLICANT_2;
     case 'RESPONDENT':
-      user = 'RESPONDENT';
-      break;
+      return RESPONDENT;
     default:
-      break;
+      return user;
   }
-
-  return lookupUrl(user);
 };
 
 const getFullUrl = (user?: string, url?: string): string => {
@@ -104,18 +99,11 @@ const getTypeOfUrl = (url?: string | RegExp): UrlType => {
   }
 };
 
-const checkForEqualityAndDiversityRedirect = async (selector: string): Promise<void> => {
-  const equalityAndDiversityUrl = testConfig.EQUALITY_URL;
-  iClick(selector, { waitForNavigation: 'domcontentloaded' });
-  const currentUrl = await I.grabCurrentUrl();
-
-  if (currentUrl.startsWith(testConfig.TEST_URL)) {
-    return;
-  }
+const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
   const optOutButtonSelector = 'button[name="opt-out-button"]';
-  if (currentUrl.startsWith(equalityAndDiversityUrl)) {
+  if (await iAmOnEqualityAndDiversity()) {
     logger.info('Got redirected to equality and diversity page. Clicking opt-out button.');
-    I.waitForElement(optOutButtonSelector);
+    iWaitForVisible(optOutButtonSelector);
     iClick(optOutButtonSelector);
   }
 };
@@ -142,9 +130,13 @@ export const iClickToNavigate = async (
   }
 
   if (urlType === 'string' && nextUrl === CHECK_ANSWERS_URL) {
-    await checkForEqualityAndDiversityRedirect(selector);
+    iClick(selector, { waitForNavigation: 'domcontentloaded' });
+    if (!(await iAmOnNfd())) {
+      await checkForEqualityAndDiversityRedirect();
+    }
+  } else {
+    iClick(selector);
   }
-  iClick(selector);
   iWaitForUrl(nextUrl, wait, waitUntil);
 };
 
@@ -190,4 +182,8 @@ export const iAmOnIdam = async (): Promise<boolean> => {
 
 export const iAmOnNfd = async (): Promise<boolean> => {
   return doesCurrentUrlStartWith(testConfig.TEST_URL);
+};
+
+export const iAmOnEqualityAndDiversity = async (): Promise<boolean> => {
+  return doesCurrentUrlStartWith(testConfig.EQUALITY_URL);
 };
