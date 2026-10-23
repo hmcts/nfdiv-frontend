@@ -55,6 +55,7 @@ const cy: typeof en = () => ({
 export const form: FormContent = {
   fields: {
     caseReference: {
+      id: 'caseReference',
       type: 'text',
       label: l => l.caseReference,
       hint: l => l.caseReferenceHint,
@@ -63,6 +64,7 @@ export const form: FormContent = {
       validator: input => isFieldFilledIn(input) || isValidCaseReference(input),
     },
     accessCode: {
+      id: 'accessCode',
       type: 'text',
       label: l => l.accessCode,
       hint: l => l.accessCodeHint,

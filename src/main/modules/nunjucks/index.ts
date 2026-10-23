@@ -1,17 +1,17 @@
 import path from 'path';
 
+import config from 'config';
 import express from 'express';
 import nunjucks from 'nunjucks';
 
 import { DivorceOrDissolution } from '../../app/case/definition';
 import { FormInput } from '../../app/form/Form';
 
-const config = require('config');
-
 export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend', 'dist');
+    // eslint-disable-next-line import/no-named-as-default-member
     const env = nunjucks.configure([path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath], {
       autoescape: true,
       watch: app.locals.developmentMode,
@@ -97,10 +97,12 @@ export class Nunjucks {
     });
 
     env.addFilter('json', function (value, spaces) {
+      // eslint-disable-next-line import/no-named-as-default-member
       if (value instanceof nunjucks.runtime.SafeString) {
         value = value.toString();
       }
       const jsonString = JSON.stringify(value, null, spaces).replace(/</g, '\\u003c');
+      // eslint-disable-next-line import/no-named-as-default-member
       return new nunjucks.runtime.SafeString(jsonString);
     });
 
@@ -110,7 +112,8 @@ export class Nunjucks {
       res.locals.serviceType =
         res.locals.host.includes('civil') ||
         'forceCivilMode' in req.query ||
-        (process.env.NODE_ENV !== 'production' && config.get('forceCivilMode').toString().toLowerCase() === 'true')
+        (process.env.NODE_ENV !== 'production' &&
+          config.get<string | boolean>('forceCivilMode').toString().toLowerCase() === 'true')
           ? DivorceOrDissolution.DISSOLUTION
           : DivorceOrDissolution.DIVORCE;
       next();

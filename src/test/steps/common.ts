@@ -1,25 +1,42 @@
-import { AxiosResponse } from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import { Logger, transports } from 'winston';
-
-import { OidcResponse, getIdamToken } from '../../main/app/auth/user/oidc';
-import { Case } from '../../main/app/case/case';
-import { CaseApi, getCaseApi } from '../../main/app/case/case-api';
 import {
+  ApplicationType,
   CASEWORKER_ISSUE_APPLICATION,
-  CASEWORKER_REQUEST_FOR_INFORMATION,
   CITIZEN_UPDATE_CASE_STATE_AAT,
   ConditionalOrderCourt,
-  DivorceOrDissolution,
+  Gender,
   SYSTEM_UPDATE_CASE_COURT_HEARING,
-  State,
 } from '../../main/app/case/definition';
-import { toApiFormat } from '../../main/app/case/to-api-format';
-import { UserDetails } from '../../main/app/controller/AppRequest';
-import { addConnectionsBasedOnQuestions } from '../../main/app/jurisdiction/connections';
-import { SupportedLanguages } from '../../main/modules/i18n';
-import { APPLICANT_1, APPLICANT_2, CHECK_JURISDICTION, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../main/steps/urls';
-import { TestUserType, autoLogin, config as testConfig } from '../config';
+import { CHECK_JURISDICTION, HOW_DO_YOU_WANT_TO_APPLY, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
+import { TestUserType } from '../config';
+
+import {
+  executeUserCaseScript,
+  iGetTheTestUser,
+  linkUserToCase,
+  triggerAnEvent,
+} from './commonHelpers/caseInteraction';
+import {
+  iAcceptCookies,
+  iCheckOptionFor,
+  iClearTheForm,
+  iClickElement,
+  iClickMoreDetailsComponent,
+  iClickString,
+  iClickSubmit,
+  iClickSubmitAndExpectUrl,
+  iConfirmPrayerAndStatementOfTruth,
+  iDeleteAllUploadedFiles,
+  iEnterValueIntoInput,
+  iRejectCookies,
+  iSelectNo,
+  iSelectRadioValue,
+  iSelectRadioValueForField,
+  iSelectYes,
+  iWait,
+  iWaitForVisible,
+} from './commonHelpers/elementInteraction';
+import { iAmOnPage, iGoToPage, iGoToPageAsUser, iWaitInUrl, iWaitInUrlAsUser } from './commonHelpers/navigation';
+import { autoLoginWithUserIndex, clearNewUsers, iClickSignOut, login } from './commonHelpers/userInteraction';
 
 const { I } = inject();
 
@@ -29,82 +46,64 @@ Before(test => {
 });
 
 After(async () => {
-  await testConfig.clearNewUsers();
+  await clearNewUsers();
 });
 
-export const iAmOnPage = (text: string): void => {
-  const url = new URL(text, testConfig.TEST_URL);
-  if (!url.searchParams.has('lng')) {
-    url.searchParams.set('lng', SupportedLanguages.En);
-  }
-  I.amOnPage(url.toString());
-};
-Given('I go to {string}', iAmOnPage);
+Given(/^I go to "([^"]*)" \/ "([^"]*)"$/, (user: string, url: string) => {
+  iGoToPageAsUser(url, user);
+});
+Given('I go to {string}', (url: string) => {
+  iGoToPage(url);
+});
 
+Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$/, (user: string, url: string) => {
+  iWaitInUrlAsUser(url, user);
+});
 Then('the page URL should be {string}', (url: string) => {
-  I.waitInUrl(url);
+  iWaitInUrl(url);
 });
 
 Given('I login', async () => {
-  await testConfig.login(I, TestUserType.CITIZEN);
+  await login(TestUserType.CITIZEN);
 });
 
 Given('I create a new user and login', async () => {
-  await testConfig.login(I, TestUserType.CITIZEN_SINGLETON);
+  await login(TestUserType.CITIZEN_SINGLETON);
 });
-
 Given('I create a new user and login as applicant 2', async () => {
-  await testConfig.login(I, TestUserType.CITIZEN_APPLICANT_2);
+  await login(TestUserType.CITIZEN_APPLICANT_2);
 });
-
 Given('I login with applicant {string}', async (applicant: string) => {
-  await autoLogin.login(
-    I,
-    testConfig.GetUser(parseInt(applicant)).username,
-    testConfig.GetUser(parseInt(applicant)).password,
-    false
-  );
+  await autoLoginWithUserIndex(parseInt(applicant));
 });
 
-export const iClick = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
-  I.waitForText(text, wait);
-  I.click(locator || text);
-};
-
-export const iClickElement = (elemId: string, wait?: number): void => {
-  I.waitForElement(elemId, wait);
-  I.click(elemId);
-};
-
-export const iClickSubmit = (): void => {
-  iClickElement('#main-form-submit');
-};
-
-export const iRejectCookies = (): void => {
-  iClickElement('button.cookie-banner-reject-button');
-  iClickElement('button.cookie-banner-hide-button');
-};
-
+When('I accept cookies', iAcceptCookies);
 When('I reject cookies', iRejectCookies);
 
-export const iWait = (time: number): void => {
-  I.wait(time);
-};
-
-export const iClickMoreDetailsComponent = (): void => {
-  I.click("span[class='govuk-details__summary-text']");
-};
-
-When('I click {string}', iClick);
-When('I select {string}', iClick);
-When('I click for more details', iClickMoreDetailsComponent);
+When('I click {string}', iClickString);
+When('I select {string}', iClickString);
 When('I wait {string} seconds', iWait);
+When('I click for more details', iClickMoreDetailsComponent);
 
-export const checkOptionFor = (optionLabel: string, fieldLabel: string): void =>
-  I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
 When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
-  checkOptionFor(optionLabel, fieldLabel);
+  iCheckOptionFor(optionLabel, fieldLabel);
 });
+When('I select the option {string}', (value: string) => {
+  switch (value) {
+    case 'Yes':
+      iSelectYes();
+      break;
+    case 'No':
+      iSelectNo();
+      break;
+    case 'my husband':
+      iSelectRadioValue(Gender.MALE);
+      break;
+    default:
+      iClickString(value); // Fallback here for now. Refactor this step def when I have worked through more features
+  }
+});
+Given('I confirm my marriage has broken down irretrievably', iSelectYes);
 
 Given('I choose {string} from {string}', (option: string, select: string) => {
   I.selectOption(select, option);
@@ -118,35 +117,91 @@ Then('the page should include {string}', (text: string) => {
   I.waitForText(text);
 });
 
-Then('the page should include element {string}', (elemId: string) => {
-  I.waitForElement(elemId);
+Then('the page should include element {string}', (selector: string) => {
+  I.waitForElement(selector);
 });
 
-Then('the page should not include element {string}', (elemId: string) => {
-  I.dontSeeElementInDOM(elemId);
+Then('the page should not include element {string}', (selector: string) => {
+  I.dontSeeElementInDOM(selector);
 });
 
-Then('the page should include visible element {string}', (elemId: string) => {
-  I.waitForVisible(elemId + ':not(.hidden)');
-});
+Then('the page should include visible element {string}', iWaitForVisible);
 
 When('I select element {string}', iClickElement);
 When('I click element {string}', iClickElement);
+
+When('I click back', () => {
+  iClickElement('a.govuk-back-link');
+});
+
+When('I toggle language to Welsh', () => {
+  iClickElement('a.govuk-link.language[lang="cy"]');
+});
+When('I toggle language to English', () => {
+  iClickElement('a.govuk-link.language[lang="en"]');
+});
 
 When('I click start', () => {
   iClickElement('.govuk-button--start');
 });
 
-When('I sign out', () => {
-  iClickElement('#navigation > li > a[href="/logout"]');
+When('I sign out', iClickSignOut);
+
+When('I click find address', () => {
+  iClickElement('#findAddressButton');
+});
+When('I cannot find the address in the list', () => {
+  iClickElement('#cannotFindAddress');
+});
+When('I have an international address', () => {
+  iClickElement('#cannot-enter-uk-postcode');
 });
 
 When('I click submit', iClickSubmit);
 When('I click continue', iClickSubmit);
+When('I click continue and expect URL {string}', async (url: string) => {
+  await iClickSubmitAndExpectUrl(url);
+});
 When('I click send for review', iClickSubmit);
 When('I click submit application', iClickSubmit);
 When('I click continue to payment', iClickSubmit);
+When('I click pay and submit application', iClickSubmit);
 When('I click accept and send', iClickSubmit);
+When('I click save and sign out', () => {
+  iClickElement('#saveAndSignOutButton');
+});
+When('I click provide information', () => {
+  iClickElement('#provideInformationButton');
+});
+When('I click apply for conditional order', () => {
+  iClickElement('#applyForConditionalOrderButton');
+});
+When('I click apply for final order', () => {
+  iClickElement('#applyForFinalOrderButton');
+});
+When('I click confirm', iClickSubmit);
+When('I click continue to the next steps', () => {
+  iClickElement('a.govuk-button[href="/return-to-service"]');
+});
+When('I click respond to the application', () => {
+  iClickElement('#respondToTheApplicationButton');
+});
+When('I click yes', iSelectYes);
+When('I click no', iSelectNo);
+When('I click radio value {string} for field {string}', (value: string, field: string) => {
+  iSelectRadioValueForField(value, field);
+});
+When('I click radio value {string}', (value: string) => {
+  iSelectRadioValueForField(value);
+});
+
+When('I confirm the prayer and statement of truth', iConfirmPrayerAndStatementOfTruth);
+When('I confirm the statement of truth', () => {
+  iClickElement('#statementOfTruth');
+});
+When('I have read the application for divorce', () => {
+  iClickElement('#confirmReadPetitionId');
+});
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
   I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
@@ -160,12 +215,16 @@ Then('I wait until the page contains image {string}', (text: string) => {
   I.waitForText(text, 30);
 });
 
-Then('I wait until the page contains file element {string}', (elemId: string) => {
-  I.waitForElement(elemId, 30);
+Then('I wait until the page contains file element {string}', (selector: string) => {
+  I.waitForElement(selector, 30);
 });
 
 Then('the page should not include {string}', (text: string) => {
   I.dontSee(text);
+});
+
+Then('I enter {string} into {string}', (value: string, selector: string) => {
+  iEnterValueIntoInput(value, selector);
 });
 
 Then("I wait until the page doesn't contain {string}", (text: string) => {
@@ -181,8 +240,7 @@ Then('I type {string}', (text: string) => {
 });
 
 Given('I type my own email address', async () => {
-  const user = testConfig.GetCurrentUser();
-  const testUser = await iGetTheTestUser(user);
+  const testUser = await iGetTheTestUser();
   I.type(testUser.email);
 });
 
@@ -195,56 +253,24 @@ Given('I use an invalid CSRF token', async () => {
   });
 });
 
-export const iClearTheForm = async (): Promise<void> => {
-  await I.executeScript(() => {
-    const checkedInputs = document.querySelectorAll('input:checked') as NodeListOf<HTMLInputElement>;
-    for (const checkedInput of checkedInputs) {
-      checkedInput.checked = false;
-    }
-
-    const clearInputs = (inputs: NodeListOf<HTMLInputElement | HTMLTextAreaElement>) => {
-      for (const input of inputs) {
-        input.value = '';
-      }
-    };
-
-    clearInputs(document.querySelectorAll('textarea'));
-    clearInputs(document.querySelectorAll('input[type="text"]'));
-  });
-  await I.grabCurrentUrl();
-};
 Given('I clear the form', iClearTheForm);
 
 Given("I've said I'm applying as a joint application", async () => {
-  I.amOnPage('/how-do-you-want-to-apply');
+  iAmOnPage(HOW_DO_YOU_WANT_TO_APPLY);
   await iClearTheForm();
-  I.checkOption('I want to apply jointly');
-  I.click('Continue');
+  I.checkOption(`#${ApplicationType.JOINT_APPLICATION}`);
+  await iClickSubmit();
 });
 
 Given("I've said I do not have my husband's email address", async () => {
-  I.amOnPage('/their-email-address');
+  iAmOnPage(THEIR_EMAIL_ADDRESS);
   await iClearTheForm();
-  I.checkOption('I do not know their email address');
-  I.click('Continue');
+  iClickElement('#doNotKnowEmailAddress');
+  await iClickSubmit();
 });
 
 Given('I delete any previously uploaded files', async () => {
-  const locator = '//a[text()="Delete"]';
-  let numberOfElements = await I.grabNumberOfVisibleElements(locator);
-
-  const maxRetries = 10;
-  let i = 0;
-  while (numberOfElements > 0 && i < maxRetries) {
-    I.click('Delete');
-    I.wait(1);
-    numberOfElements = await I.grabNumberOfVisibleElements(locator);
-    i++;
-  }
-
-  if (numberOfElements > 0) {
-    throw new Error('Unable to delete previously uploaded files');
-  }
+  await iDeleteAllUploadedFiles();
 });
 
 When('I upload the file {string}', (pathToFile: string) => {
@@ -252,117 +278,11 @@ When('I upload the file {string}', (pathToFile: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  I.amOnPage(HOME_URL);
-  await iClearTheForm();
-
-  const user = testConfig.GetCurrentUser();
-  const testUser = await iGetTheTestUser(user);
-  const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
-
-  if (userCase) {
-    const fetchedCase = await caseApi.getCaseById(userCase.id);
-
-    const caseReference = userCase.id;
-    const accessCode = fetchedCase.accessCode;
-
-    if (!caseReference || !accessCode) {
-      throw new Error(`No case reference or access code was returned for ${testUser}`);
-    }
-
-    iClick('Sign out');
-    await testConfig.login(I, TestUserType.CITIZEN_APPLICANT_2);
-    I.amOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
-
-    iClick('Your reference number');
-    I.type(caseReference);
-    iClick('Your access code');
-    I.type(accessCode);
-    iClick('Continue');
-  } else {
-    console.error('Could not get case data as ' + user.username);
-    process.exit(-1);
-  }
+  await linkUserToCase(TestUserType.CITIZEN_APPLICANT_2);
 });
 
 When('I as applicant1 enter my valid case reference and valid access code', async () => {
-  I.amOnPage(HOME_URL);
-  await iClearTheForm();
-
-  const user = testConfig.GetCurrentUser();
-  const testUser = await iGetTheTestUser(user);
-  const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
-
-  if (userCase) {
-    const fetchedCase = await caseApi.getCaseById(userCase.id);
-
-    const caseReference = userCase.id;
-    const accessCode = fetchedCase.accessCodeApplicant1;
-
-    if (!caseReference || !accessCode) {
-      throw new Error(`No case reference or access code was returned for Applicant1 ${testUser}`);
-    }
-
-    iClick('Sign out');
-    await testConfig.login(I, TestUserType.CITIZEN_SINGLETON);
-    I.amOnPage(APPLICANT_1 + ENTER_YOUR_ACCESS_CODE);
-
-    iClick('Your reference number');
-    I.type(caseReference);
-    iClick('Your access code');
-    I.type(accessCode);
-    iClick('Continue');
-  } else {
-    console.error('Could not get case data as ' + user.username);
-    process.exit(-1);
-  }
-});
-
-When('a case worker issues a request for information', async () => {
-  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
-    requestForInformationSoleParties: 'applicant',
-    requestForInformationDetails: 'test',
-  });
-});
-
-When('a case worker issues a request for information to a third party', async () => {
-  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
-    requestForInformationSoleParties: 'other',
-    requestForInformationDetails: 'test',
-    requestForInformationName: 'third party',
-    requestForInformationEmailAddress: 'thirdparty@hmcts.net',
-  });
-});
-
-When('a case worker issues a request for information to app1 on a joint case', async () => {
-  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
-    requestForInformationJointParties: 'applicant1',
-    requestForInformationDetails: 'test',
-  });
-});
-
-When('a case worker issues a request for information to app2 on a joint case', async () => {
-  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
-    requestForInformationJointParties: 'applicant2',
-    requestForInformationDetails: 'test',
-  });
-});
-
-When('a case worker issues a request for information to both parties on a joint case', async () => {
-  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
-    requestForInformationJointParties: 'both',
-    requestForInformationDetails: 'test',
-  });
-});
-
-When('a case worker issues a request for information to a third party on a joint case', async () => {
-  await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, {
-    requestForInformationJointParties: 'other',
-    requestForInformationDetails: 'test',
-    requestForInformationName: 'third party',
-    requestForInformationEmailAddress: 'thirdparty@hmcts.net',
-  });
+  await linkUserToCase(TestUserType.CITIZEN_SINGLETON);
 });
 
 When('a case worker issues the application', async () => {
@@ -378,9 +298,7 @@ When('a case worker updates court case hearing', async () => {
 });
 
 When('a superuser updates {string} with {string}', async (field: string, value: string) => {
-  const data = {};
-  data[field] = value;
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, data);
+  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, { [field]: value });
 });
 
 When('I pause the test', () => pause());
@@ -398,98 +316,6 @@ When('I reset the jurisdiction connections', async () => {
     jurisdictionResidualEligible: null,
   };
   await executeUserCaseScript(userCaseObj);
-  I.amOnPage(CHECK_JURISDICTION);
-  I.click('Continue');
+  iAmOnPage(CHECK_JURISDICTION);
+  await iClickSubmit();
 });
-
-const triggerAnEvent = async (eventName: string, userData: Partial<Case>) => {
-  I.amOnPage(HOME_URL);
-  await iClearTheForm();
-
-  const user = testConfig.GetCurrentUser();
-  const testUser = await iGetTheTestUser(user);
-  const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
-
-  if (userCase) {
-    const caseReference = userCase.id;
-
-    if (!caseReference) {
-      throw new Error(`No case reference or access code was returned for ${testUser}`);
-    }
-
-    const cwUser = await testConfig.GetOrCreateCaseWorker();
-    const caseWorker = await iGetTheTestUser(cwUser);
-    const cwCaseApi = iGetTheCaseApi(caseWorker);
-    await cwCaseApi.triggerEvent(caseReference, userData, eventName);
-  } else {
-    console.error('Could not get case data as ' + user.username);
-    process.exit(-1);
-  }
-};
-
-export const iGetTheTestUser = async (user: { username: string; password: string }): Promise<UserDetails> => {
-  const params = { username: user.username, password: user.password };
-  const response: AxiosResponse<OidcResponse> = await getIdamToken(params, params.username);
-
-  const jwt = jwtDecode(response.data.id_token) as {
-    uid: string;
-    sub: string;
-    given_name: string;
-    family_name: string;
-    roles: string[];
-  };
-
-  return {
-    accessToken: response.data.access_token,
-    id: jwt.uid,
-    email: jwt.sub,
-    givenName: jwt.given_name,
-    familyName: jwt.family_name,
-    roles: jwt.roles,
-  };
-};
-
-export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
-  const logger = new Logger({
-    transports: [new transports.Console(), new transports.File({ filename: 'test.log' })],
-  });
-
-  return getCaseApi(testUser, logger);
-};
-
-export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj);
-
-const executeUserCaseScript = async data => {
-  await I.grabCurrentUrl();
-
-  const user = testConfig.GetCurrentUser();
-  const testUser = await iGetTheTestUser(user);
-  const api = iGetTheCaseApi(testUser);
-
-  // add a delay after logging a user in because it creates an extra case that needs to be added to the ES index
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
-
-  if (userCase) {
-    data.applicant2MiddleNames = data.state || userCase.state;
-
-    const connections = addConnectionsBasedOnQuestions(data);
-
-    // don't set as applicant 2 as they don't have permission
-    data.connections = connections.length > 0 ? connections : undefined;
-
-    try {
-      await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
-    } catch (error) {
-      console.error('Could not set fixture data as ' + user.username);
-      console.error(toApiFormat(data));
-      process.exit(-1);
-    }
-  }
-};
-
-export interface BrowserCase extends Case {
-  state: State;
-}

@@ -1,26 +1,42 @@
-import { iClick } from './common';
+import { iEnterValueIntoInput } from './commonHelpers/elementInteraction';
 
-const { I } = inject();
-
-const enterDate = (day: string, month: string, year: string) => {
-  iClick('Day');
-  I.type(day);
-  iClick('Month');
-  I.type(month);
-  iClick('Year');
-  I.type(year);
+export const iEnterADateIntoField = (day: string, month: string, year: string, field: string): void => {
+  iEnterValueIntoInput(day, `#${field}-day`);
+  iEnterValueIntoInput(month, `#${field}-month`);
+  iEnterValueIntoInput(year, `#${field}-year`);
 };
 
+Given(
+  'I enter a date of {string} {string} {string} into the {string} field',
+  (day: string, month: string, year: string, field: string) => {
+    iEnterADateIntoField(day, month, year, field);
+  }
+);
+
 /** Setting the date to the first due to different months having different total number of days **/
-Given(/I enter a date (\d+) (?:month|months) ago/, (month: string) => {
+Given(/I enter a relationship date (\d+) (?:month|months) ago/, (month: string) => {
   const date = new Date();
   date.setDate(1);
-  date.getMonth() - +month === 0 ? date.setMonth(1) : date.setMonth(date.getMonth() - +month);
-  enterDate(date.getDate().toString(), (date.getMonth() + 1).toString(), date.getFullYear().toString());
+  if (date.getMonth() - +month === 0) {
+    date.setMonth(1);
+  } else {
+    date.setMonth(date.getMonth() - +month);
+  }
+  iEnterADateIntoField(
+    date.getDate().toString(),
+    (date.getMonth() + 1).toString(),
+    date.getFullYear().toString(),
+    'relationshipDate'
+  );
 });
 
-Given(/I enter a date (\d+) (?:year|years) ahead/, (year: string) => {
+Given(/I enter a relationship date (\d+) (?:year|years) ahead/, (year: string) => {
   const date = new Date();
   date.setFullYear(date.getFullYear() + +year);
-  enterDate(date.getDate().toString(), (date.getMonth() + 1).toString(), date.getFullYear().toString());
+  iEnterADateIntoField(
+    date.getDate().toString(),
+    (date.getMonth() + 1).toString(),
+    date.getFullYear().toString(),
+    'relationshipDate'
+  );
 });
