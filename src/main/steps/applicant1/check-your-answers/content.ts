@@ -32,7 +32,6 @@ import { radioButtonAnswers as certificateInEnglishAnswers } from '../certificat
 import { radioButtonAnswers as certifiedTranslationAnswers } from '../certified-translation/content';
 import { radioButtonAnswers as checkTheirNameAnswers } from '../check-their-name/content';
 import { radioButtonAnswers as checkYourNameAnswers } from '../check-your-name/content';
-import { radioButtonAnswers as confirmYourNameAnswers } from '../confirm-your-name/content';
 import { radioButtonAnswers as dividingMoneyPropertyAnswers } from '../dividing-money-property/content';
 import { radioButtonAnswers as doTheyHaveASolicitorAnswers } from '../do-they-have-a-solicitor/content';
 import { radioButtonAnswers as doYouHaveAddressAnswers } from '../do-you-have-address/content';
@@ -280,14 +279,13 @@ const en = ({
       line1: 'Your first name(s)',
       line2: 'Your middle name(s) (if you have one)',
       line3: 'Your last name(s)',
-      line4: 'Have you confirmed your full name, including any middle name(s) (if you have one)',
-      line5: 'By email',
-      line6: 'By phone',
-      line7: 'What language do you want to receive emails and documents in?',
-      line8: `Do you need your contact details kept private from your ${partner}?`,
-      line9: 'Are you currently in a refuge?',
-      line10: 'Your postal address',
-      line11: 'Is this an international address?',
+      line4: 'By email',
+      line5: 'By phone',
+      line6: 'What language do you want to receive emails and documents in?',
+      line7: `Do you need your contact details kept private from your ${partner}?`,
+      line8: 'Are you currently in a refuge?',
+      line9: 'Your postal address',
+      line10: 'Is this an international address?',
     },
     contactThem: {
       line1: `Your ${partner}'s first name(s)`,
@@ -465,24 +463,23 @@ const en = ({
       line1: `${stripTags(userCase.applicant1FirstNames)}`,
       line2: `${stripTags(userCase.applicant1MiddleNames)}`,
       line3: `${stripTags(userCase.applicant1LastNames)}`,
-      line4: stripTags(confirmYourNameAnswers.en[userCase.applicant1ConfirmFullName]),
-      line5: `${stripTags(howTheCourtWillContactYouAnswers(isDivorce).en[userCase.applicant1AgreeToReceiveEmails])}`,
-      line6: `${
+      line4: `${stripTags(howTheCourtWillContactYouAnswers(isDivorce).en[userCase.applicant1AgreeToReceiveEmails])}`,
+      line5: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : stripTags(userCase.applicant1PhoneNumber)
       }`,
-      line7: `${stripTags(englishOrWelshAnswers.en[userCase.applicant1EnglishOrWelsh])}`,
-      line8:
+      line6: `${stripTags(englishOrWelshAnswers.en[userCase.applicant1EnglishOrWelsh])}`,
+      line7:
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : stripTags(addressPrivateAnswersPrivate.en[userCase.applicant1AddressPrivate]),
-      line9: `${
+      line8: `${
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : stripTags(addressPrivateAnswersRefuge.en[userCase.applicant1InRefuge])
       }`,
-      line10: `${
+      line9: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [
@@ -497,7 +494,7 @@ const en = ({
               .filter(Boolean)
               .join('<br>')
       }`,
-      line11: `${
+      line10: `${
         (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2) ||
         userCase.applicant1AddressOverseas === YesOrNo.NO
           ? ''
@@ -644,14 +641,13 @@ const en = ({
       line1: urls.ENTER_YOUR_NAME,
       line2: urls.ENTER_YOUR_NAME,
       line3: urls.ENTER_YOUR_NAME,
-      line4: urls.CONFIRM_YOUR_NAME,
+      line4: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
       line5: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
-      line6: urls.HOW_THE_COURTS_WILL_CONTACT_YOU,
-      line7: urls.ENGLISH_OR_WELSH,
+      line6: urls.ENGLISH_OR_WELSH,
+      line7: urls.ADDRESS_PRIVATE,
       line8: urls.ADDRESS_PRIVATE,
-      line9: urls.ADDRESS_PRIVATE,
+      line9: urls.ENTER_YOUR_ADDRESS,
       line10: urls.ENTER_YOUR_ADDRESS,
-      line11: urls.ENTER_YOUR_ADDRESS,
     },
     contactThem: {
       line1: urls.THEIR_NAME,
@@ -833,14 +829,13 @@ const cy: typeof en = ({
       line1: 'Eich enw(au) cyntaf',
       line2: 'Eich enw(au) canol (os oes gennych un)',
       line3: 'Eich cyfenw(au)',
-      line4: 'A ydych wedi cadarnhau eich enw llawn, gan gynnwys unrhyw enw(au) canol (os oes gennych un)',
-      line5: 'Trwy e-bost',
-      line6: 'Dros y ffôn',
-      line7: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
-      line8: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
-      line9: 'Ydych chi’n preswylio mewn lloches ar hyn o bryd?',
-      line10: 'Eich cyfeiriad post',
-      line11: 'Ydy hwn yn gyfeiriad rhyngwladol?',
+      line4: 'Trwy e-bost',
+      line5: 'Dros y ffôn',
+      line6: 'Ym mha iaith hoffech chi gael negeseuon e-bost a dogfennau?',
+      line7: `A oes arnoch angen cadw eich manylion cyswllt yn breifat oddi wrth eich ${partner}?`,
+      line8: 'Ydych chi’n preswylio mewn lloches ar hyn o bryd?',
+      line9: 'Eich cyfeiriad post',
+      line10: 'Ydy hwn yn gyfeiriad rhyngwladol?',
     },
     contactThem: {
       line1: `Enw(au) cyntaf eich ${partner}`,
@@ -1027,24 +1022,23 @@ const cy: typeof en = ({
       line1: `${stripTags(userCase.applicant1FirstNames)}`,
       line2: `${stripTags(userCase.applicant1MiddleNames)}`,
       line3: `${stripTags(userCase.applicant1LastNames)}`,
-      line4: stripTags(confirmYourNameAnswers.cy[userCase.applicant1ConfirmFullName]),
-      line5: `${stripTags(howTheCourtWillContactYouAnswers(isDivorce).cy[userCase.applicant1AgreeToReceiveEmails])}`,
-      line6: `${
+      line4: `${stripTags(howTheCourtWillContactYouAnswers(isDivorce).cy[userCase.applicant1AgreeToReceiveEmails])}`,
+      line5: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : stripTags(userCase.applicant1PhoneNumber)
       }`,
-      line7: `${stripTags(englishOrWelshAnswers.cy[userCase.applicant1EnglishOrWelsh])}`,
-      line8:
+      line6: `${stripTags(englishOrWelshAnswers.cy[userCase.applicant1EnglishOrWelsh])}`,
+      line7:
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : stripTags(addressPrivateAnswersPrivate.cy[userCase.applicant1AddressPrivate]),
-      line9: `${
+      line8: `${
         !userCase.applicant1AddressPrivate || (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2)
           ? ''
           : stripTags(addressPrivateAnswersRefuge.cy[userCase.applicant1InRefuge])
       }`,
-      line10: `${
+      line9: `${
         userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2
           ? ''
           : [
@@ -1059,7 +1053,7 @@ const cy: typeof en = ({
               .filter(Boolean)
               .join('<br>')
       }`,
-      line11: `${
+      line10: `${
         (userCase.applicant1AddressPrivate === YesOrNo.YES && isApplicant2) ||
         userCase.applicant1AddressOverseas === YesOrNo.NO
           ? ''

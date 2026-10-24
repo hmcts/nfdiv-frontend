@@ -63,12 +63,9 @@ export const RESIDUAL_JURISDICTION: PageLink = '/are-you-eligible-for-residual-j
 export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-to-england-and-wales';
 
 export const ENTER_YOUR_NAME: PageLink = '/enter-your-name';
-export const ENTER_YOUR_NAMES: PageLink = '/enter-your-names';
 export const CHECK_YOUR_NAME: PageLink = '/check-your-name';
 export const CHECK_THEIR_NAME: PageLink = '/check-their-name';
-export const CONFIRM_YOUR_NAME: PageLink = '/confirm-your-name';
 export const THEIR_NAME: PageLink = '/enter-their-name';
-export const CONFIRM_THEIR_NAME: PageLink = '/confirm-their-name';
 
 export const HOW_THE_COURTS_WILL_CONTACT_YOU: PageLink = '/how-the-court-will-contact-you';
 export const ENGLISH_OR_WELSH: PageLink = '/english-or-welsh';
@@ -184,7 +181,6 @@ export const PROVIDE_NEW_EMAIL_ADDRESS: PageLink = '/interim-applications/no-res
 export const NEW_CONTACT_DETAIL_CHECK_ANSWERS: PageLink = '/interim-applications/no-response/check-your-answers';
 export const NO_RESPONSE_DETAILS_UPDATED: PageLink = '/interim-applications/no-response/details-updated';
 export const WILL_SERVE_AGAIN: PageLink = '/interim-applications/no-response/will-serve-again';
-export const PARTNER_IN_PRISON: PageLink = '/interim-applications/no-response/partner-in-prison';
 
 // Search Government Records URLs
 export const SEARCH_GOV_RECORDS_APPLICATION: PageLink = '/interim-applications/search-gov-records/general-application';

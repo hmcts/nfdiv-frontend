@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { Logger, transports } from 'winston';

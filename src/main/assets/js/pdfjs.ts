@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import * as pdfjs from 'pdfjs-dist/build/pdf.mjs';
 import 'pdfjs-dist/build/pdf.worker.mjs';
 

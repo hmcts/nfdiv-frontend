@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
@@ -59,9 +61,10 @@ export class OidcMiddleware {
 
           if (
             req.path.endsWith(SWITCH_TO_SOLE_APPLICATION) &&
-            req.session.userCase.state !== State.Applicant2Approved &&
-            req.session.userCase.applicationType !== ApplicationType.JOINT_APPLICATION &&
-            req.session.isApplicant2
+            (!req.session.userCase ||
+              (req.session.userCase.state !== State.Applicant2Approved &&
+                req.session.userCase.applicationType !== ApplicationType.JOINT_APPLICATION &&
+                req.session.isApplicant2))
           ) {
             return res.redirect(HOME_URL);
           }
