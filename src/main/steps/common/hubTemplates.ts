@@ -21,7 +21,6 @@ export const enum HubTemplate {
   AwaitingPronouncement = '/awaiting-pronouncement.njk',
   AwaitingRequestedInformation = '/awaiting-requested-information.njk',
   AwaitingServiceConsiderationOrAwaitingBailiffReferral = '/awaiting-service-consideration-or-awaiting-bailiff-referral.njk',
-  AwaitingGeneralApplicationConsideration = '/awaiting-general-application-consideration.njk',
   ClarificationSubmitted = '/clarification-submitted.njk',
   ConditionalOrderPending = '/conditional-order-pending.njk',
   ConditionalOrderPronounced = '/conditional-order-pronounced.njk',
@@ -45,5 +44,6 @@ export const enum HubTemplate {
   AwaitingDwpResponse = '/awaiting-dwp-response.njk',
   AwaitingAlternativeService = '/awaiting-alternative-service.njk',
   AwaitingGenAppHWFPartPaymentOrEvidence = '/awaiting-gen-app-hwf-part-payment-or-evidence.njk',
+  AwaitingGenAppDocuments = '/awaiting-gen-app-documents.njk',
   PendingRefund = '/pending-refund.njk',
 }

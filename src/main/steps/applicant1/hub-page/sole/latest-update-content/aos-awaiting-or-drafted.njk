@@ -1,4 +1,4 @@
-{% if interimApplicationStartedAosOverdue %}
+{% if noResponseApplicationStartedAosOverdue %}
     {% include "./complete-interim-application.njk" %}
 {% elif contactDetailsUpdatedUKBased %}
     <p class="govuk-body">{{ contactDetailsUpdated.line1 }}</p>
