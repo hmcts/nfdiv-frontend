@@ -128,7 +128,9 @@ const en = ({ isDivorce, userCase }) => ({
       ]
         .filter(Boolean)
         .join('<br>')}`,
-      detailsPrivate: stripTags(updateAddressPrivateAnswers.en[userCase.applicant2AddressPrivate]),
+      detailsPrivate: userCase?.applicant2AddressPrivate
+        ? stripTags(updateAddressPrivateAnswers.en[userCase.applicant2AddressPrivate])
+        : 'Not answered',
       inRefuge: stripTags(inRefugeAnswers.en[userCase.applicant2InRefuge]),
     },
   },
@@ -228,7 +230,9 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
     yourContactDetails: {
       detailsUptoDate: 'A yw eich manylion yn gywir ac wedi eu diweddaru?',
       postalAddress: 'Eich cyfeiriad post',
-      detailsPrivate: 'Ydych chi angen i’ch manylion gael eu cadw’n breifat?',
+      detailsPrivate: userCase?.applicant2AddressPrivate
+        ? stripTags(updateAddressPrivateAnswers.en[userCase.applicant2AddressPrivate])
+        : 'Heb ei ateb',
       inRefuge: "Ydych chi'n byw mewn lloches ar hyn o bryd?",
     },
   },
