@@ -8,7 +8,7 @@ import { generateContent as generateInterruptionContent } from '../../common/int
 const en = ({ partner }: CommonContent) => ({
   title: `This application will be shared with your ${partner}`,
   errors: {
-    generalApplicationAcknowledgementCheckbox: {
+    applicant1GeneralApplicationAcknowledgementCheckbox: {
       required: "You must select 'I understand' before continuing.",
     },
   },
@@ -18,7 +18,7 @@ const en = ({ partner }: CommonContent) => ({
 const cy = ({ partner }: CommonContent) => ({
   title: `This application will be shared with your ${partner}`,
   errors: {
-    generalApplicationAcknowledgementCheckbox: {
+    applicant1GeneralApplicationAcknowledgementCheckbox: {
       required: 'Rhaid i chi ddewis ‘Rwy’n deall’ cyn parhau',
     },
   },
@@ -30,12 +30,12 @@ export const form: FormContent = {
   fields: {
     applicant1GeneralApplicationAcknowledgementCheckbox: {
       type: 'checkboxes',
+      validator: isFieldFilledIn,
       values: [
         {
           name: 'applicant1GeneralApplicationAcknowledgementCheckbox',
           label: l => l.iUnderstand,
           value: Checkbox.Checked,
-          validator: isFieldFilledIn,
         },
       ],
     },
