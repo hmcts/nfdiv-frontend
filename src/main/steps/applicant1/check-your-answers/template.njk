@@ -36,7 +36,7 @@
               {
                 href: applicant2Url + stepLinks[section][line],
                 text: change,
-                visuallyHiddenText: stepQuestions[section][line]
+                visuallyHiddenText: (sectionTitles[section] + ' ' + (stepQuestions[section][line] | lower)) if (stepQuestions[section][line] == 'By email' or stepQuestions[section][line] == 'Trwy e-bost') else stepQuestions[section][line]
               }
             ]
           }

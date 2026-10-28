@@ -320,20 +320,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:16.12.0":
-  version: 16.12.0
-  resolution: "@azure/msal-common@npm:16.12.0"
-  checksum: 10/08e231e9352a60d5bfe690e5260d5a721848de5d7e9797c0c41cf25a156ba9f72df067930034d7804e087dc277cbc66debd7a7db1689155be5cd8ad9ed82d8b2
+"@azure/msal-common@npm:16.14.3":
+  version: 16.14.3
+  resolution: "@azure/msal-common@npm:16.14.3"
+  checksum: 10/be6df5c62dee049588494e605e9288f2cd601f3949de1e1165dd99822ea70c73a270e3e9c12190c9ed39a215d4de2910053506846450199e3d6634179b82f478
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^5.2.2":
-  version: 5.5.0
-  resolution: "@azure/msal-node@npm:5.5.0"
+"@azure/msal-node@npm:7.1.1":
+  version: 7.1.1
+  resolution: "@azure/msal-node@npm:7.1.1"
   dependencies:
-    "@azure/msal-common": "npm:16.12.0"
+    "@azure/msal-common": "npm:16.14.3"
     jsonwebtoken: "npm:^9.0.0"
-  checksum: 10/79a0e7442803f0ed79c70825a0bec70e541917e51cc303d58e9eae8867af0122fe66b2b27cef5f1ff2df62d7ebc55366e8e261820a5ed8e42aa870ba47a8951f
+  checksum: 10/a27627213db1feb1c90322e4620cb5379ed8f3a9463a74718d58612c4597a43bed1140df93a7429575c7e238f2461348b1e134319a5976bebd1c6147cd64fcf3
   languageName: node
   linkType: hard
 
@@ -3760,10 +3760,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:4.17.26":
-  version: 4.17.26
-  resolution: "@types/lodash@npm:4.17.26"
-  checksum: 10/49620ccc6e8c03e0f7589be3d21ead40409fb6a2c4808170e57f35cd4523d146ebf6ecbd97a266d767a71e98417fce215740690f4f131be060d1a534cac09b84
+"@types/lodash@npm:4.17.27":
+  version: 4.17.27
+  resolution: "@types/lodash@npm:4.17.27"
+  checksum: 10/ae02ef86268664e5a024fd1a7d907b676fe7cd9b58b52bdddc7c42c7ffb3d05e869f6bd13e3e6cbb4001cac1d072f5e2a6e5deed2ef7dc62d7853fc735a077be
   languageName: node
   linkType: hard
 
@@ -5791,20 +5791,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:^2.2.1":
-  version: 2.3.0
-  resolution: "body-parser@npm:2.3.0"
+"body-parser@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "body-parser@npm:2.4.0"
   dependencies:
     bytes: "npm:^3.1.2"
-    content-type: "npm:^2.0.0"
+    content-type: "npm:^2.1.0"
     debug: "npm:^4.4.3"
     http-errors: "npm:^2.0.1"
-    iconv-lite: "npm:^0.7.2"
+    iconv-lite: "npm:^0.7.3"
     on-finished: "npm:^2.4.1"
-    qs: "npm:^6.15.2"
+    qs: "npm:^6.16.1"
     raw-body: "npm:^3.0.2"
     type-is: "npm:^2.1.0"
-  checksum: 10/94f741ff525358dd0d47f0a042936dc61b9d2e348ff1228c5ffd79f1902c673a317bbb9495b3f7d1db4483befe6ffed1c42bc4cdd8da8f41690530810cfe4dad
+  checksum: 10/e34971abf7051529d4fae37d3714382e7fa8198bc969f1ec4932af48aef53bba71523545c034ce04fa808d3b15e0d63849e6e93b4f1131d65227e1f414437f68
   languageName: node
   linkType: hard
 
@@ -6922,6 +6922,13 @@ __metadata:
   version: 2.0.0
   resolution: "content-type@npm:2.0.0"
   checksum: 10/0bbb276b790ba7e86c479c7d69fae1861b2e908ff3ce2cb01975b516f93eede2216d242902ed6c5b15cd554014611ce9dfdcf51cd35b16569e45a979e50d0cef
+  languageName: node
+  linkType: hard
+
+"content-type@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "content-type@npm:2.1.0"
+  checksum: 10/8aac907922538f430d8bfab1d8fe2fbdc1eb890a0fa7a619f712db4bfefe24be951ba464f972007df64840c775bf2db284ca8223547ac5317ad9ab2ee8e6501b
   languageName: node
   linkType: hard
 
@@ -10370,7 +10377,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iconv-lite@npm:^0.7.2":
+"iconv-lite@npm:^0.7.3":
   version: 0.7.3
   resolution: "iconv-lite@npm:0.7.3"
   dependencies:
@@ -13587,14 +13594,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"multer@npm:2.4.0":
-  version: 2.4.0
-  resolution: "multer@npm:2.4.0"
+"multer@npm:2.5.0":
+  version: 2.5.0
+  resolution: "multer@npm:2.5.0"
   dependencies:
     append-field: "npm:^1.0.0"
     busboy: "npm:^1.6.0"
     type-is: "npm:^1.6.18"
-  checksum: 10/644efb2eefa60079866c3ed9eb549e76c93bd642af2790c2579b224de9a4a4e0545d8e36aeafca21207445b6d2505e85779dca365351eb6f45fca8ce44a8e605
+  checksum: 10/c5b968f51f69df631059bb01088c15d0e670853fcfed029af3cf8167ef50f798bb6344143eb1884708bd0de34317d1b4696d74aa93c482390e7d291172958ae9
   languageName: node
   linkType: hard
 
@@ -13748,7 +13755,7 @@ __metadata:
     "@types/express-session": "npm:1.19.0"
     "@types/glob": "npm:8.1.0"
     "@types/jest": "npm:30.0.0"
-    "@types/lodash": "npm:4.17.26"
+    "@types/lodash": "npm:4.17.27"
     "@types/multer": "npm:2.2.0"
     "@types/negotiator": "npm:0.6.5"
     "@types/node": "npm:22.20.1"
@@ -15188,13 +15195,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.16.0":
-  version: 6.16.0
-  resolution: "qs@npm:6.16.0"
+"qs@npm:^6.17.0":
+  version: 6.17.0
+  resolution: "qs@npm:6.17.0"
   dependencies:
     es-define-property: "npm:^1.0.1"
     side-channel: "npm:^1.1.1"
-  checksum: 10/7fbf9c2eb9c9bbd8997700caecc4b057ac259635873deefd5027fb26d06d79426cf468da55da87ffd147a24e93d3641352d8ac6664bd84688ad5b2f0b8d04828
+  checksum: 10/c6e6d98d25721c2eb61b2b8b0a99c299e335abd5b8dea3ae6b6335b51da38a0dbf83535c48c02c32745175ed7b96acb25772667647b1a6cc2cac69825f56c7f9
   languageName: node
   linkType: hard
 
@@ -16198,9 +16205,9 @@ __metadata:
   linkType: hard
 
 "serialize-javascript@npm:^7.0.5":
-  version: 7.1.0
-  resolution: "serialize-javascript@npm:7.1.0"
-  checksum: 10/ac3da6a2f725fae5b0e28eec87e945b4cb1e67460f9653e260463b7dbdd6417b24f712a9760f82ff62679ce474665a5aa1aff6a12fd467d0895bb448172cf01f
+  version: 7.1.4
+  resolution: "serialize-javascript@npm:7.1.4"
+  checksum: 10/d6f5963177cdf6c8684197bd996130c3296c77a5b1d49647f8e96b02d93b9f6fd15f2c4ff8bdc5890cb8c7f731b0c792e34ec512b72b4af2a459b1b6da3e40af
   languageName: node
   linkType: hard
 
