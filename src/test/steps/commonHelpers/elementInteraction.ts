@@ -4,6 +4,7 @@ import { tryTo } from 'codeceptjs/effects';
 import { YesOrNo } from '../../../main/app/case/definition';
 
 import { iAmOnIdam, iClickToNavigate } from './navigation';
+import { getApplicantString } from './userInteraction';
 
 const { I } = inject();
 
@@ -25,6 +26,10 @@ export const iWaitForVisible = (selector: string, wait?: number): void => {
   I.waitForVisible(selector + ':not(.hidden):not([hidden])', wait);
 };
 
+export const iWaitForInvisible = (selector: string, wait?: number): void => {
+  I.waitForInvisible(selector, wait);
+}
+
 export const iClickElement = (selector: string, wait?: number): void => {
   iWaitForVisible(selector, wait);
   iClick(selector);
@@ -40,47 +45,49 @@ export const iCheckValueForField = (
   inputType: 'radio' | 'checkbox',
   field: string = '',
   wait?: number
-): void => {
+): string => {
   let selector = `input[type="${inputType}"][value="${value}"]`;
   if (field.trim().length > 0) {
     selector += `[name="${field.trim()}"]`;
   }
   iCheckOption(selector, wait);
+  return selector;
 };
 
-export const iCheckOptionValueForField = (value: string, field: string = '', wait?: number): void => {
-  iCheckValueForField(value, 'checkbox', field, wait);
+export const iCheckOptionValueForField = (value: string, field: string = '', wait?: number): string => {
+  return iCheckValueForField(value, 'checkbox', field, wait);
 };
-export const iCheckOptionValue = (value: string, wait?: number): void => {
-  iCheckOptionValueForField(value, '', wait);
+export const iCheckOptionValue = (value: string, wait?: number): string => {
+  return iCheckOptionValueForField(value, '', wait);
 };
-export const iSelectRadioValueForField = (value: string, field: string = '', wait?: number): void => {
-  iCheckValueForField(value, 'radio', field, wait);
+export const iSelectRadioValueForField = (value: string, field: string = '', wait?: number): string => {
+  return iCheckValueForField(value, 'radio', field, wait);
 };
-export const iSelectRadioValue = (value: string, wait?: number): void => {
-  iSelectRadioValueForField(value, '', wait);
+export const iSelectRadioValue = (value: string, wait?: number): string => {
+  return iSelectRadioValueForField(value, '', wait);
 };
-export const iSelectYesOrNoForField = (yesOrNo: YesOrNo.YES | YesOrNo.NO, field: string = '', wait?: number): void => {
-  iSelectRadioValueForField(yesOrNo, field, wait);
+export const iSelectYesOrNoForField = (yesOrNo: YesOrNo.YES | YesOrNo.NO, field: string = '', wait?: number): string => {
+  return iSelectRadioValueForField(yesOrNo, field, wait);
 };
-export const iSelectNo = (wait?: number): void => {
-  iSelectYesOrNoForField(YesOrNo.NO, '', wait);
+export const iSelectNo = (wait?: number): string => {
+  return iSelectYesOrNoForField(YesOrNo.NO, '', wait);
 };
-export const iSelectYes = (wait?: number): void => {
-  iSelectYesOrNoForField(YesOrNo.YES, '', wait);
+export const iSelectYes = (wait?: number): string => {
+  return iSelectYesOrNoForField(YesOrNo.YES, '', wait);
 };
 
 export const iClickSubmitAndExpectUrl = async (
   nextUrl?: string,
   wait?: number,
-  waitUntil: WaitUntil = 'load'
+  waitUntil: WaitUntil = 'load',
+  customTitleSelector?: string,
 ): Promise<void> => {
   const submitSelector = await I.executeScript(() =>
     document.getElementById('main-form-submit')
       ? '#main-form-submit'
       : 'button[type="submit"]:not(#hide-message):not(.document-delete-button):not(.web-payment-button--apple-pay)'
   );
-  await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil);
+  await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil, customTitleSelector);
 };
 
 export const iClickSubmit = async (wait?: number): Promise<void> => {
@@ -143,6 +150,22 @@ export const iEnterValueIntoInput = (value: string, inputSelector: string, wait?
   I.fillField(inputSelector, value);
 };
 
+const iSetAddressPrivacy = (isPrivate: boolean = false, inRefuge: boolean = false): void => {
+  iSelectYesOrNoForField(isPrivate ? YesOrNo.YES : YesOrNo.NO, `${getApplicantString()}AddressPrivate`);
+  if (isPrivate) {
+    iWaitForVisible('#inRefugeConditional');
+    iSelectYesOrNoForField(inRefuge ? YesOrNo.YES : YesOrNo.NO, `${getApplicantString()}InRefuge`);
+  } else {
+    iWaitForInvisible('#inRefugeConditional');
+  }
+}
+export const iSetPrivateAddress = (isPrivate: boolean = false): void => {
+  iSetAddressPrivacy(isPrivate, false);
+}
+export const iSetInRefuge = (inRefuge: boolean = false): void => {
+  iSetAddressPrivacy(true, inRefuge);
+};
+
 export const iClearTheForm = async (): Promise<void> => {
   await I.executeScript(() => {
     const checkedInputs = document.querySelectorAll('input:checked') as NodeListOf<HTMLInputElement>;
@@ -162,6 +185,18 @@ export const iClearTheForm = async (): Promise<void> => {
   await I.grabCurrentUrl();
 };
 
+export const iWaitForUploadedFile = async (pathToFile: string, wait?: number): Promise<void> => {
+  I.attachFile('input[type="file"]', pathToFile);
+  const filename = pathToFile.split('/').pop();
+  iWaitForVisible(`#filesUploaded > li.uploadedFile[data-filename='${filename}']`, wait);
+}
+
+export const iDeleteUploadedFile = async (filename: string, wait?: number): Promise<void> => {
+  const uploadedFileSelector = `#filesUploaded > li.uploadedFile[data-filename="${filename}"]`;
+  await iClickToNavigate(`${uploadedFileSelector} > button.document-delete-button`, wait);
+  I.dontSeeElementInDOM(uploadedFileSelector);
+};
+
 export const iDeleteAllUploadedFiles = async (): Promise<void> => {
   const documentDeleteButtonSelector = 'button.document-delete-button';
   let numberOfElements = await I.grabNumberOfVisibleElements(documentDeleteButtonSelector);
@@ -169,8 +204,8 @@ export const iDeleteAllUploadedFiles = async (): Promise<void> => {
   const maxRetries = 10;
   let i = 0;
   while (numberOfElements > 0 && i < maxRetries) {
-    iClickElement(documentDeleteButtonSelector);
-    iWait(2); // Wait for the deletion to complete and the page to update
+    await iClickToNavigate(documentDeleteButtonSelector);
+    // iWait(2); // Wait for the deletion to complete and the page to update - no longer needed. iClickToNavigate waits for load event.
     numberOfElements = await I.grabNumberOfVisibleElements(documentDeleteButtonSelector);
     i++;
   }
@@ -178,7 +213,14 @@ export const iDeleteAllUploadedFiles = async (): Promise<void> => {
   if (numberOfElements > 0) {
     throw new Error('Unable to delete previously uploaded files');
   }
+
+  iWaitForVisible('#noFilesUploaded');
 };
+
+export const iConfirmWeLiveInEnglandOrWales = (): void => {
+  iSelectYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
+  iSelectYesOrNoForField(YesOrNo.YES, 'applicant1LifeBasedInEnglandAndWales');
+}
 
 export const iConfirmPrayerAndStatementOfTruth = (): void => {
   iCheckOption('#iConfirmPrayer');
