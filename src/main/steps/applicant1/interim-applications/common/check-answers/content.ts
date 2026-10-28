@@ -40,8 +40,7 @@ const cy: typeof en = (usingHwf, { submit, continueToPay }: CommonContent) => ({
     warning:
       'Deallaf y gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   },
-  statementOfTruthLabel:
-    'Rwy’n credu bod y ffeithiau a nodir yn y ffurflen hon, ac ar unrhyw ddalennau parhau, yn wir.',
+  statementOfTruthLabel: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
   submitText: usingHwf ? submit : continueToPay,
   errors: {
     applicant1InterimAppsStatementOfTruth: {
