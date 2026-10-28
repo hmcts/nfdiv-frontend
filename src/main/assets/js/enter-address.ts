@@ -31,10 +31,14 @@ if (form && getById('enterPostcode')) {
 
   const isSearchGovRecordsForm = getById('applicant1SearchGovRecordsPartnerLastKnownAddressDates-hint') !== null;
 
-  if (addressCountry || hasBackendError) {
+  const addressOverseas = formData.get('applicant1AddressOverseas') || formData.get('applicant2AddressOverseas');
+
+  if (addressOverseas || addressCountry || hasBackendError) {
     hideEnterPostcode();
 
-    if ((addressCountry && !isCountryUk(addressCountry as string)) || (!addressCountry && hasBackendError)) {
+    if (addressOverseas) {
+      showInternationalAddressFields();
+    } else if ((addressCountry && !isCountryUk(addressCountry as string)) || (!addressCountry && hasBackendError)) {
       if (isSearchGovRecordsForm) {
         showUkAddressFields();
       } else {
