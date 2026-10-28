@@ -121,7 +121,7 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmitAndExpectUrl(RELATIONSHIP_DATE_URL);
 
   await iClearTheForm();
-  iEnterADateIntoField('31', '12', '1999', 'relationshipDate');
+  iEnterADateIntoField('1/1/2000', 'relationshipDate');
   await iClickSubmitAndExpectUrl(CERTIFICATE_URL);
 
   iSelectYes();
@@ -215,7 +215,7 @@ Given('I pay and submit the application', async () => {
   iWaitInUrl(PAY_YOUR_FEE);
   await iClickSubmit();
 
-  await completePayment(APPLICATION_SUBMITTED, 15);
+  await completePayment(APPLICATION_SUBMITTED, 15, undefined, '#applicationSavedTitle');
 });
 
 Given('I pay and submit the service application', async () => {
@@ -246,8 +246,9 @@ Given('I pay and submit the joint application', async () => {
   await completePayment(JOINT_APPLICATION_SUBMITTED, 15);
 });
 
-const completePayment = async (nextUrl?: string, wait?: number, waitUntil?: WaitUntil) => {
-  iWaitInUrl('/card_details', 15);
+const completePayment = async (nextUrl?: string, wait?: number, waitUntil?: WaitUntil, customTitleSelector?: string) => {
+  const cardDetailsUrl = '/card_details';
+  iWaitInUrl(cardDetailsUrl, 15);
   iEnterValueIntoInput('4444333322221111', '#card-no', 15);
   iEnterValueIntoInput('12', '#expiry-month');
   iEnterValueIntoInput('30', '#expiry-year');
@@ -258,6 +259,6 @@ const completePayment = async (nextUrl?: string, wait?: number, waitUntil?: Wait
   iEnterValueIntoInput('SW1A 1AA', '#address-postcode');
   iEnterValueIntoInput('nightly-functional-test@example.com', '#email');
   await iClickSubmit();
-  iWaitInUrl('/card_details');
-  await iClickSubmitAndExpectUrl(nextUrl, wait, waitUntil);
+  iWaitInUrl(cardDetailsUrl);
+  await iClickSubmitAndExpectUrl(nextUrl, wait, waitUntil, customTitleSelector);
 };
