@@ -4,7 +4,7 @@
 {% extends "common/page.njk" %}
 
 {% block content %}
-  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <h1 class="govuk-heading-l" id="{{ titleId }}">{{ title }}</h1>
 
   {% block error_summary %}
     {% include "common/error/summary.njk" %}
