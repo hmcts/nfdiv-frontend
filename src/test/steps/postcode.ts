@@ -5,6 +5,8 @@ import { iClearTheForm, iClickElement, iEnterValueIntoInput } from './commonHelp
 const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
 
+const defaultAddress = 'MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ';
+
 export const iWaitForPostcodeLookUpResults = async (): Promise<void> => {
   I.waitForElement('#selectAddressInput');
   I.waitForElement('option[value^="{\\"fullAddress"]', 10);
@@ -45,3 +47,21 @@ export const iEnterTheUkAddress = async (address: string): Promise<void> => {
   }
 };
 Given('I enter the UK address {string}', iEnterTheUkAddress);
+Given('I enter my address', async () => {
+  await iEnterTheUkAddress(defaultAddress);
+});
+
+export const iEnterTheInternationalAddress = async (address: string): Promise<void> => {
+  const addressParts = address.split(', ');
+  let country = address === defaultAddress ? 'UK' : addressParts[addressParts.length - 1];
+
+  await iResetThePostCodeLookUpForm();
+
+  iClickElement('#cannot-enter-uk-postcode');
+  iEnterValueIntoInput(addressParts[0], '#address1');
+  iEnterValueIntoInput(country, '#addressCountry');
+};
+Given('I enter the international address {string}', iEnterTheInternationalAddress);
+Given('I enter my international address', async () => {
+  await iEnterTheInternationalAddress(defaultAddress);
+});
