@@ -12,7 +12,7 @@ Feature: Form failures
     Given I go to "/date-from-certificate"
     When I click continue
     Then the page should include "You have not entered a date. Enter a date to continue."
-    Given I enter a date of "!" "1" "abc" into the "relationshipDate" field
+    Given I enter a date of "! 1 abc" into the "relationshipDate" field
     When I click continue
     Then the page should include "You have entered an invalid date. Enter the date using the following format: 31 3 2002"
     Given I clear the form
