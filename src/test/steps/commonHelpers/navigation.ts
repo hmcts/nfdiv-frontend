@@ -1,43 +1,24 @@
 import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
 
 import { SupportedLanguages } from '../../../main/modules/i18n';
-import { APPLICANT_1, APPLICANT_2, CHECK_ANSWERS_URL, RESPONDENT } from '../../../main/steps/urls';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  CHECK_ANSWERS_URL,
+  getPageTitleIdFromUrl,
+  PageLink,
+  RESPONDENT,
+} from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
-import { urlLookup } from '../urlLookup';
+import { isInternalPageLink, isFullyQualifiedUrl, lookupUrl } from '../urlLookup';
 
 import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';
 
 const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
 
-const isFullyQualifiedUrl = (value: string): boolean => {
-  value = value.trim();
-  if (!value.toLowerCase().startsWith('http://') && !value.toLowerCase().startsWith('https://')) {
-    return false;
-  }
-
-  try {
-    new URL(value);
-    return true; // e.g. https://idam-web-public...
-  } catch {
-    return false; // e.g. /applicant1/check, applicant1/check, SOME_KEY
-  }
-};
-
-const lookupUrl = (url?: string): string => {
-  if (!url || url.trim().length === 0) {
-    return '';
-  }
-  url = url.trim();
-  if (isFullyQualifiedUrl(url)) {
-    return url;
-  }
-  const definedUrl = url.startsWith('/') ? url : urlLookup[url.toUpperCase()];
-  if (!definedUrl) {
-    return url;
-  }
-  return definedUrl;
-};
+type UrlType = 'string' | 'empty-string' | 'regexp' | undefined;
+const BACK_LINK_SELECTOR = 'a.govuk-back-link';
 
 const urlStringToRegExp = (url: string): RegExp => {
   const escapeRegExp = (toEscape: string) => toEscape.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -82,8 +63,6 @@ const getFullUrl = (user?: string, url?: string): string => {
   return userPrefix + definedUrl;
 };
 
-type UrlType = 'string' | 'empty-string' | 'regexp' | undefined;
-
 const getTypeOfUrl = (url?: string | RegExp): UrlType => {
   if (!url) {
     return undefined;
@@ -92,9 +71,8 @@ const getTypeOfUrl = (url?: string | RegExp): UrlType => {
   if (urlIsString) {
     if (url.trim().length > 0) {
       return 'string';
-    } else {
-      return 'empty-string';
     }
+    return 'empty-string';
   }
   const urlIsRegExp = typeof url === 'object' && url instanceof RegExp;
   if (urlIsRegExp) {
@@ -111,6 +89,14 @@ const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
   }
 };
 
+export const iDontSeeABackLink = (): void => {
+  I.dontSeeElementInDOM(BACK_LINK_SELECTOR);
+}
+export const iClickBackLink = async (nextUrl?: string | RegExp): Promise<void> => {
+  iWaitForVisible(BACK_LINK_SELECTOR);
+  await iClickToNavigate(BACK_LINK_SELECTOR, undefined, nextUrl);
+};
+
 export const iAmOnPage = (urlString: string): void => {
   const url = new URL(urlString, testConfig.TEST_URL);
   if (!url.searchParams.has('lng')) {
@@ -123,13 +109,23 @@ export const iClickToNavigate = async (
   selector: string,
   wait?: number,
   nextUrl?: string | RegExp,
-  waitUntil: WaitUntil = 'load'
+  waitUntil: WaitUntil = 'load',
+  titleSelector: string = '',
 ): Promise<void> => {
   const urlType = getTypeOfUrl(nextUrl);
 
   iWaitForVisible(selector, wait);
   if (urlType === 'empty-string' || urlType === undefined) {
     return iClick(selector, { waitForNavigation: waitUntil });
+  }
+
+  let checkTitle: boolean = titleSelector.trim().length > 0;
+  if (urlType === 'string') {
+    nextUrl = lookupUrl(nextUrl as string);
+    if (isInternalPageLink(nextUrl) && !checkTitle) {
+      checkTitle = true;
+      titleSelector = `#${getPageTitleIdFromUrl(nextUrl as PageLink)}`;
+    }
   }
 
   if (urlType === 'string' && nextUrl === CHECK_ANSWERS_URL) {
@@ -141,6 +137,9 @@ export const iClickToNavigate = async (
     iClick(selector);
   }
   iWaitForUrl(nextUrl, wait, waitUntil);
+  if (checkTitle) {
+    I.waitForElement(titleSelector, wait);
+  }
 };
 
 type ResolvedApplicant = 'applicant1' | 'applicant2';
