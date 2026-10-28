@@ -6,10 +6,7 @@ import { getFilename } from '../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import {
-  radioButtonAnswersPrivate,
-  radioButtonAnswersPrivate as updateAddressPrivateAnswers,
-} from '../../applicant1/address-private/content';
+import { radioButtonAnswersPrivate as updateAddressPrivateAnswers } from '../../applicant1/address-private/content';
 import {
   checkBoxAnswers as detailsOtherProceedingsCheckBoxAnswers,
   radioButtonAnswers as detailsOtherProceedingsRadioAnswers,
@@ -230,9 +227,7 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
     yourContactDetails: {
       detailsUptoDate: 'A yw eich manylion yn gywir ac wedi eu diweddaru?',
       postalAddress: 'Eich cyfeiriad post',
-      detailsPrivate: userCase?.applicant2AddressPrivate
-        ? stripTags(updateAddressPrivateAnswers.en[userCase.applicant2AddressPrivate])
-        : 'Heb ei ateb',
+      detailsPrivate: 'Ydych chi angen i’ch manylion gael eu cadw’n breifat?',
       inRefuge: "Ydych chi'n byw mewn lloches ar hyn o bryd?",
     },
   },
@@ -287,7 +282,9 @@ const cy: typeof en = ({ isDivorce, userCase }) => ({
       ]
         .filter(Boolean)
         .join('<br>')}`,
-      detailsPrivate: stripTags(radioButtonAnswersPrivate.cy[userCase.applicant2AddressPrivate]),
+      detailsPrivate: userCase?.applicant2AddressPrivate
+        ? stripTags(updateAddressPrivateAnswers.cy[userCase.applicant2AddressPrivate])
+        : 'Heb ei ateb',
       inRefuge: stripTags(inRefugeAnswers.cy[userCase.applicant2InRefuge]),
     },
   },
