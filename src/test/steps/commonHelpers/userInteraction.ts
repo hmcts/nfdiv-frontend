@@ -23,6 +23,8 @@ const { I } = inject();
 
 const LOGIN_TIMEOUT = 60;
 
+let _isApplicant2 = false;
+
 export const iClickSignOut = async (): Promise<void> => {
   await iClickToNavigate(
     `#navigation > li > a[href="${SIGN_OUT_URL}"]`,
@@ -162,6 +164,7 @@ export const autoLoginForApplicant2 = {
     if (rejectCookies) {
       await iRejectCookies();
     }
+    _isApplicant2 = true;
   },
   check: async (): Promise<void> => {
     iAmOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
@@ -183,6 +186,7 @@ export const login = async (userType: TestUserType, rejectCookies: boolean = tru
   const user = await idamUserManager.createUser();
   if (userType === TestUserType.CITIZEN_SINGLETON) {
     await autoLogin.login(user, undefined, rejectCookies);
+    _isApplicant2 = false;
   } else {
     await autoLoginForApplicant2.login(user, rejectCookies);
   }
@@ -195,6 +199,7 @@ export const autoLoginWithUserIndex = async (
 ): Promise<void> => {
   const user = getUser(userIndex);
   await autoLogin.login(user, createCase, rejectCookies);
+  _isApplicant2 = userIndex === 2;
 };
 
 export const getCurrentUser = (): TestUserAndPassword => {
@@ -224,4 +229,24 @@ export const getOrCreateCaseWorker = async (): Promise<TestUserAndPassword> => {
 export const clearNewUsers = async (): Promise<void> => {
   const idamUserManager = testConfig.getIdamUserManager();
   await idamUserManager.clearAndKeepOnlyOriginalUser();
+};
+
+export const isApplicant2 = (): boolean => {
+  return _isApplicant2;
+}
+
+export const getApplicantNumber = (): number => {
+  return isApplicant2() ? 2 : 1;
+}
+
+export const getOtherApplicantNumber = (): number => {
+  return isApplicant2() ? 1 : 2;
+};
+
+export const getApplicantString = (): string => {
+  return `applicant${getApplicantNumber()}`;
+}
+
+export const getOtherApplicantString = (): string => {
+  return `applicant${getOtherApplicantNumber()}`;
 };
