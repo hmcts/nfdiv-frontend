@@ -83,7 +83,6 @@ export const form: FormContent = {
       hidden: isApplicant2EmailUpdatePossible(userCase),
       values: [
         {
-          id: 'doNotKnowEmailAddress',
           name: 'applicant1DoesNotKnowApplicant2EmailAddress',
           label: l => l.applicant1DoesNotKnowApplicant2EmailAddress,
           value: Checkbox.Checked,
