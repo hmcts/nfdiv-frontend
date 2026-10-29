@@ -2,9 +2,11 @@ import { iEnterValueIntoInput } from './commonHelpers/elementInteraction';
 
 const defaultRelationshipDate = '1/1/2000';
 
-export const iEnterADateIntoField = (date: string , field: string): void => {
-  console.log(date);
-  const [day, month, year] = date.trim().split(/[\/.\-\s]+/).map(part => part.trim());
+export const iEnterADateIntoField = (date: string, field: string): void => {
+  const [day, month, year] = date
+    .trim()
+    .split(/[/.\-\s]+/)
+    .map(part => part.trim());
 
   iEnterValueIntoInput(day, `#${field}-day`);
   iEnterValueIntoInput(month, `#${field}-month`);
@@ -16,14 +18,11 @@ const dateToString = (date: Date): string => {
   const month = (date.getMonth() + 1).toString();
   const year = date.getFullYear().toString();
   return `${day}/${month}/${year}`;
-}
+};
 
-Given(
-  'I enter a date of {string} into the {string} field',
-  (date, field: string) => {
-    iEnterADateIntoField(date, field);
-  }
-);
+Given('I enter a date of {string} into the {string} field', (date, field: string) => {
+  iEnterADateIntoField(date, field);
+});
 Given('I enter the relationship date', () => {
   iEnterADateIntoField(defaultRelationshipDate, 'relationshipDate');
 });
