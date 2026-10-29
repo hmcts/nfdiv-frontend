@@ -53,7 +53,7 @@ Given('I enter my address', async () => {
 
 export const iEnterTheInternationalAddress = async (address: string): Promise<void> => {
   const addressParts = address.split(', ');
-  let country = address === defaultAddress ? 'UK' : addressParts[addressParts.length - 1];
+  const country = address === defaultAddress ? 'UK' : addressParts[addressParts.length - 1];
 
   await iResetThePostCodeLookUpForm();
 

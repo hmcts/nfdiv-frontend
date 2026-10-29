@@ -3,7 +3,7 @@ import type { PageLink } from '../../main/steps/urls';
 
 const { getPageTitleIdFromUrl, ...urlPageLinks } = urls;
 
-export const urlLookup = urlPageLinks;
+const urlLookup = urlPageLinks;
 type UrlLookupKey = keyof typeof urlLookup;
 export type InternalPageLink = (typeof urlLookup)[UrlLookupKey];
 
@@ -16,7 +16,7 @@ const lookupUrlByKey = (urlKey: string): InternalPageLink | undefined => {
 };
 
 const lookupUrlByPath = (urlPath: string): InternalPageLink | undefined => {
-  return isInternalPageLink(urlPath) ? urlPath as InternalPageLink : undefined;
+  return isInternalPageLink(urlPath) ? (urlPath as InternalPageLink) : undefined;
 };
 
 const isDefinedInternalPageLink = (url: string): InternalPageLink | undefined => {
@@ -28,7 +28,7 @@ const isDefinedInternalPageLink = (url: string): InternalPageLink | undefined =>
 
 const isInternalPageLinkKey = (linkKeyValue: string): linkKeyValue is UrlLookupKey => {
   return internalPageLinkKeySet.has(linkKeyValue.toUpperCase() as UrlLookupKey);
-}
+};
 
 export const isInternalPageLink = (linkValue: string): linkValue is InternalPageLink => {
   return internalPageLinkSet.has(linkValue as PageLink);
@@ -52,5 +52,5 @@ export const lookupUrl = (url?: string): InternalPageLink | string => {
     return '';
   }
   url = url.trim();
-  return (isDefinedInternalPageLink(url) ?? url);
+  return isDefinedInternalPageLink(url) ?? url;
 };

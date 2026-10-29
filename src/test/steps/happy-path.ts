@@ -246,7 +246,12 @@ Given('I pay and submit the joint application', async () => {
   await completePayment(JOINT_APPLICATION_SUBMITTED, 15);
 });
 
-const completePayment = async (nextUrl?: string, wait?: number, waitUntil?: WaitUntil, customTitleSelector?: string) => {
+const completePayment = async (
+  nextUrl?: string,
+  wait?: number,
+  waitUntil?: WaitUntil,
+  customTitleSelector?: string
+) => {
   const cardDetailsUrl = '/card_details';
   iWaitInUrl(cardDetailsUrl, 15);
   iEnterValueIntoInput('4444333322221111', '#card-no', 15);

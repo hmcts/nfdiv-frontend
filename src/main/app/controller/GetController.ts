@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { SupportedLanguages } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
 import { CommonContent, generateCommonContent } from '../../steps/common/common.content';
-import { getPageTitleIdFromUrl, PageLink } from '../../steps/urls';
+import { PageLink, getPageTitleIdFromUrl } from '../../steps/urls';
 import { DivorceOrDissolution } from '../case/definition';
 
 import { AppRequest } from './AppRequest';

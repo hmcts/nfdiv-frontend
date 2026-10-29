@@ -1,5 +1,4 @@
 import { LanguagePreference } from '../../main/app/case/case';
-import { FinancialOrderForRadioOption } from '../../main/steps/applicant1/who-is-the-financial-order-for/content';
 import {
   ApplicationType,
   CASEWORKER_ISSUE_APPLICATION,
@@ -9,6 +8,7 @@ import {
   SYSTEM_UPDATE_CASE_COURT_HEARING,
   YesOrNo,
 } from '../../main/app/case/definition';
+import { FinancialOrderForRadioOption } from '../../main/steps/applicant1/who-is-the-financial-order-for/content';
 import { CHECK_JURISDICTION, HOW_DO_YOU_WANT_TO_APPLY, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
 import { TestUserType } from '../config';
 
@@ -39,11 +39,9 @@ import {
   iSelectRadioValue,
   iSelectRadioValueForField,
   iSelectYes,
-  iSelectYesOrNoForField,
   iSetInRefuge,
   iSetPrivateAddress,
   iWait,
-  iWaitForInvisible,
   iWaitForUploadedFile,
   iWaitForVisible,
 } from './commonHelpers/elementInteraction';
@@ -115,7 +113,8 @@ When('I click for more details', iClickMoreDetailsComponent);
 When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
   iCheckOptionFor(optionLabel, fieldLabel);
 });
-When('I select the option {string}', (value: string) => { // pretty sure we can remove this for direct syntactic helpers
+When('I select the option {string}', (value: string) => {
+  // pretty sure we can remove this for direct syntactic helpers
   switch (value.toLowerCase()) {
     case 'yes':
       iSelectYes();
@@ -150,10 +149,10 @@ Given('I agree that the court can contact me by email', () => {
 Given('we were a same-sex couple when we got married', () => {
   iCheckOption('#sameSex');
 });
-Given("I do not have their email address", async () => {
+Given('I do not have their email address', async () => {
   iCheckOption('#applicant1DoesNotKnowApplicant2EmailAddress');
 });
-Given("we both live in England or Wales", () => {
+Given('we both live in England or Wales', () => {
   iConfirmWeLiveInEnglandOrWales();
 });
 
@@ -217,9 +216,12 @@ When('I click continue', iClickSubmit);
 When('I click continue and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
 });
-When('I click continue and expect URL {string} and title element {string}', async (url: string, titleSelector: string) => {
-  await iClickSubmitAndExpectUrl(url, undefined, undefined, titleSelector);
-});
+When(
+  'I click continue and expect URL {string} and title element {string}',
+  async (url: string, titleSelector: string) => {
+    await iClickSubmitAndExpectUrl(url, undefined, undefined, titleSelector);
+  }
+);
 When('I click send for review', iClickSubmit);
 When('I click send for review and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
@@ -265,7 +267,7 @@ When('I select radio value {string}', (value: string) => {
 });
 When('I want to apply jointly', () => {
   iSelectRadioValueForField(ApplicationType.JOINT_APPLICATION);
-})
+});
 When('I select English', () => {
   iSelectRadioValueForField(LanguagePreference.English);
 });
@@ -279,7 +281,10 @@ When('I am in a refuge', () => {
   iSetInRefuge(true);
 });
 When('I need a financial order for myself and my children', () => {
-  iSelectRadioValueForField(FinancialOrderForRadioOption.APPLICANT_AND_CHILDREN, `${getApplicantString()}WhoIsFinancialOrderFor`);
+  iSelectRadioValueForField(
+    FinancialOrderForRadioOption.APPLICANT_AND_CHILDREN,
+    `${getApplicantString()}WhoIsFinancialOrderFor`
+  );
 });
 
 When('I confirm the prayer and statement of truth', iConfirmPrayerAndStatementOfTruth);
@@ -314,7 +319,7 @@ Then('I enter {string} into {string}', (value: string, selector: string) => {
   iEnterValueIntoInput(value, selector);
 });
 Then('I enter their email address', async () => {
-  iEnterValueIntoInput('simulate-delivered@notifications.service.gov.uk', `#applicant2EmailAddress`);
+  iEnterValueIntoInput('simulate-delivered@notifications.service.gov.uk', '#applicant2EmailAddress');
 });
 Then('I enter my HWF reference number', () => {
   iEnterValueIntoInput('HWF-ABC-123', `#${getApplicantString()}HelpWithFeesRefNo`);
@@ -336,7 +341,7 @@ Then('I enter {string} as my name', (name: string) => {
 });
 Then('I enter my name', () => {
   let firstName = 'Sarah';
-  let lastName = 'Smith';
+  const lastName = 'Smith';
   if (isApplicant2()) {
     firstName = 'John';
   }
@@ -349,7 +354,7 @@ Then('I enter {string} as my name on the certificate', (name: string) => {
 });
 Then('I enter my name on the certificate', () => {
   let firstName = 'Sarah';
-  let lastName = 'Smith';
+  const lastName = 'Smith';
   if (isApplicant2()) {
     firstName = 'John';
   }
@@ -357,10 +362,10 @@ Then('I enter my name on the certificate', () => {
 });
 Then('I enter my phone number', () => {
   iEnterValueIntoInput('07700 900457', `#${getApplicantString()}PhoneNumber`);
-})
+});
 Then('I enter details of the other proceedings', () => {
   iEnterValueIntoInput('Test other legal proceedings details', `#${getApplicantString()}LegalProceedingsDetails`);
-})
+});
 
 Then("I wait until the page doesn't contain {string}", (text: string) => {
   I.waitForFunction(content => document.body.textContent?.search(content) === -1, [text], 20);

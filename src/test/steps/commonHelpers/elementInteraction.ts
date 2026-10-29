@@ -28,7 +28,7 @@ export const iWaitForVisible = (selector: string, wait?: number): void => {
 
 export const iWaitForInvisible = (selector: string, wait?: number): void => {
   I.waitForInvisible(selector, wait);
-}
+};
 
 export const iClickElement = (selector: string, wait?: number): void => {
   iWaitForVisible(selector, wait);
@@ -66,7 +66,11 @@ export const iSelectRadioValueForField = (value: string, field: string = '', wai
 export const iSelectRadioValue = (value: string, wait?: number): string => {
   return iSelectRadioValueForField(value, '', wait);
 };
-export const iSelectYesOrNoForField = (yesOrNo: YesOrNo.YES | YesOrNo.NO, field: string = '', wait?: number): string => {
+export const iSelectYesOrNoForField = (
+  yesOrNo: YesOrNo.YES | YesOrNo.NO,
+  field: string = '',
+  wait?: number
+): string => {
   return iSelectRadioValueForField(yesOrNo, field, wait);
 };
 export const iSelectNo = (wait?: number): string => {
@@ -80,7 +84,7 @@ export const iClickSubmitAndExpectUrl = async (
   nextUrl?: string,
   wait?: number,
   waitUntil: WaitUntil = 'load',
-  customTitleSelector?: string,
+  customTitleSelector?: string
 ): Promise<void> => {
   const submitSelector = await I.executeScript(() =>
     document.getElementById('main-form-submit')
@@ -158,10 +162,10 @@ const iSetAddressPrivacy = (isPrivate: boolean = false, inRefuge: boolean = fals
   } else {
     iWaitForInvisible('#inRefugeConditional');
   }
-}
+};
 export const iSetPrivateAddress = (isPrivate: boolean = false): void => {
   iSetAddressPrivacy(isPrivate, false);
-}
+};
 export const iSetInRefuge = (inRefuge: boolean = false): void => {
   iSetAddressPrivacy(true, inRefuge);
 };
@@ -189,7 +193,7 @@ export const iWaitForUploadedFile = async (pathToFile: string, wait?: number): P
   I.attachFile('input[type="file"]', pathToFile);
   const filename = pathToFile.split('/').pop();
   iWaitForVisible(`#filesUploaded > li.uploadedFile[data-filename='${filename}']`, wait);
-}
+};
 
 export const iDeleteUploadedFile = async (filename: string, wait?: number): Promise<void> => {
   const uploadedFileSelector = `#filesUploaded > li.uploadedFile[data-filename="${filename}"]`;
@@ -220,7 +224,7 @@ export const iDeleteAllUploadedFiles = async (): Promise<void> => {
 export const iConfirmWeLiveInEnglandOrWales = (): void => {
   iSelectYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
   iSelectYesOrNoForField(YesOrNo.YES, 'applicant1LifeBasedInEnglandAndWales');
-}
+};
 
 export const iConfirmPrayerAndStatementOfTruth = (): void => {
   iCheckOption('#iConfirmPrayer');

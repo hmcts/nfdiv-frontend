@@ -233,11 +233,11 @@ export const clearNewUsers = async (): Promise<void> => {
 
 export const isApplicant2 = (): boolean => {
   return _isApplicant2;
-}
+};
 
 export const getApplicantNumber = (): number => {
   return isApplicant2() ? 2 : 1;
-}
+};
 
 export const getOtherApplicantNumber = (): number => {
   return isApplicant2() ? 1 : 2;
@@ -245,7 +245,7 @@ export const getOtherApplicantNumber = (): number => {
 
 export const getApplicantString = (): string => {
   return `applicant${getApplicantNumber()}`;
-}
+};
 
 export const getOtherApplicantString = (): string => {
   return `applicant${getOtherApplicantNumber()}`;

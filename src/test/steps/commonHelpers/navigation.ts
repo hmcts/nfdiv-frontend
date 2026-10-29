@@ -5,12 +5,12 @@ import {
   APPLICANT_1,
   APPLICANT_2,
   CHECK_ANSWERS_URL,
-  getPageTitleIdFromUrl,
   PageLink,
   RESPONDENT,
+  getPageTitleIdFromUrl,
 } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
-import { isInternalPageLink, isFullyQualifiedUrl, lookupUrl } from '../urlLookup';
+import { isFullyQualifiedUrl, isInternalPageLink, lookupUrl } from '../urlLookup';
 
 import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';
 
@@ -91,7 +91,7 @@ const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
 
 export const iDontSeeABackLink = (): void => {
   I.dontSeeElementInDOM(BACK_LINK_SELECTOR);
-}
+};
 export const iClickBackLink = async (nextUrl?: string | RegExp): Promise<void> => {
   iWaitForVisible(BACK_LINK_SELECTOR);
   await iClickToNavigate(BACK_LINK_SELECTOR, undefined, nextUrl);
@@ -110,7 +110,7 @@ export const iClickToNavigate = async (
   wait?: number,
   nextUrl?: string | RegExp,
   waitUntil: WaitUntil = 'load',
-  titleSelector: string = '',
+  titleSelector: string = ''
 ): Promise<void> => {
   const urlType = getTypeOfUrl(nextUrl);
 
