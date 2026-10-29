@@ -36,14 +36,14 @@ if (form && getById('enterPostcode')) {
   if (addressOverseas || addressCountry || hasBackendError) {
     hideEnterPostcode();
 
-    if (addressOverseas) {
-      showInternationalAddressFields();
-    } else if ((addressCountry && !isCountryUk(addressCountry as string)) || (!addressCountry && hasBackendError)) {
+    if ((addressCountry && !isCountryUk(addressCountry as string)) || (!addressCountry && hasBackendError)) {
       if (isSearchGovRecordsForm) {
         showUkAddressFields();
       } else {
         showInternationalAddressFields();
       }
+    } else if (addressOverseas) {
+      showInternationalAddressFields();
     } else {
       showUkAddressFields();
     }
