@@ -123,7 +123,7 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
       return 'invalid';
     }
 
-    if (value.toUpperCase() === 'HWF-A1B-23C') {
+    if (value.toUpperCase().replace(/-+/g, '') === 'HWFA1B23C') {
       return 'invalidUsedExample';
     }
   }
@@ -143,7 +143,7 @@ export const isInvalidNationalInsuranceNumber: Validator = value => {
     return 'invalidFormat';
   }
 
-  if (upperValue === 'JB 34 66 84 D') {
+  if (upperValue.replace(/\s+/g, '') === 'JB346684D') {
     return 'invalidUsedExample';
   }
 };
