@@ -1,270 +1,269 @@
-import { State } from '../../main/app/case/definition';
+import { createRequire } from 'module';
+
+import { LanguagePreference } from '../../main/app/case/case';
+import { ApplicationType, Gender, State, YesOrNo } from '../../main/app/case/definition';
 import {
   ADDRESS_PRIVATE,
+  APPLICATION_SUBMITTED,
+  CERTIFICATE_URL,
+  CHECK_ANSWERS_URL,
+  CHECK_JURISDICTION,
+  CHECK_THEIR_NAME,
+  CHECK_YOUR_NAME,
+  DO_THEY_HAVE_A_SOLICITOR,
+  DO_YOU_HAVE_ADDRESS,
+  ENGLISH_OR_WELSH,
+  ENTER_THEIR_ADDRESS,
+  ENTER_YOUR_ADDRESS,
+  ENTER_YOUR_NAME,
   GENERAL_APPLICATION_SUBMITTED,
+  HAS_RELATIONSHIP_BROKEN_URL,
+  HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
+  HOW_DO_YOU_WANT_TO_APPLY,
+  HOW_THE_COURTS_WILL_CONTACT_YOU,
+  HUB_PAGE,
+  IN_THE_UK,
+  JOINT_APPLICATION_SUBMITTED,
+  JURISDICTION_INTERSTITIAL_URL,
+  MONEY_PROPERTY,
+  OTHER_COURT_CASES,
+  PAY_AND_SUBMIT,
+  PAY_YOUR_FEE,
+  PAY_YOUR_FINAL_ORDER_FEE,
   PAY_YOUR_GENERAL_APPLICATION_FEE,
   PAY_YOUR_SERVICE_FEE,
+  RELATIONSHIP_DATE_URL,
+  RESPONDENT,
   SERVICE_APPLICATION_SUBMITTED,
+  THEIR_CERTIFICATE_NAME,
   THEIR_EMAIL_ADDRESS,
+  THEIR_NAME,
+  UPLOAD_YOUR_DOCUMENTS,
+  WHERE_YOUR_LIVES_ARE_BASED_URL,
+  YOUR_CERTIFICATE_NAME,
+  YOUR_DETAILS_URL,
 } from '../../main/steps/urls';
-import { autoLogin, config as testConfig } from '../config';
 
-import { checkOptionFor, iAmOnPage, iClearTheForm, iClick, iSetTheUsersCaseTo, iWait } from './common';
+import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
+import {
+  WaitUntil,
+  iCannotUploadDocs,
+  iCheckOption,
+  iClearTheForm,
+  iClickSubmit,
+  iClickSubmitAndExpectUrl,
+  iConfirmPrayerAndStatementOfTruth,
+  iEnterValueIntoInput,
+  iSelectNo,
+  iSelectRadioValue,
+  iSelectYes,
+  iSelectYesOrNoForField,
+} from './commonHelpers/elementInteraction';
+import { iAmOnPage, iGoToPageAsUser, iWaitInUrl, iWaitInUrlAsUser } from './commonHelpers/navigation';
+import { autoLogin, getCurrentUser, getUserEmail, iSignOut } from './commonHelpers/userInteraction';
+import { iEnterADateIntoField } from './date';
 import { iEnterTheUkAddress } from './postcode';
 
 const { I } = inject();
+const requireFromFixture = createRequire(__filename);
 
 Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
-  I.amOnPage(HOME_URL);
-  const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+  iAmOnPage(HOME_URL);
+  const fixtureJson = requireFromFixture(`../functional/fixtures/${fixture}`)[fixture];
 
   await iSetTheUsersCaseTo(fixtureJson);
 
-  I.amOnPage(ADDRESS_PRIVATE);
-  I.click('I do not need my contact details kept private');
-  I.click('Continue');
+  iAmOnPage(ADDRESS_PRIVATE);
+  iSelectYesOrNoForField(YesOrNo.NO, 'applicant1AddressPrivate');
+  await iClickSubmit();
 });
 
 Given('I set the email address for applicant 2', async () => {
-  I.amOnPage(THEIR_EMAIL_ADDRESS);
-  const applicant2EmailAddress = testConfig.GetUser(parseInt('2')).username;
+  iAmOnPage(THEIR_EMAIL_ADDRESS);
+  const applicant2EmailAddress = getUserEmail(2);
 
   await iClearTheForm();
-  iClick("Your husband's email address");
-  I.type(applicant2EmailAddress);
-  I.click('Continue');
+  iEnterValueIntoInput(applicant2EmailAddress, '#applicant2EmailAddress');
+  await iClickSubmit();
 });
 
 Given(
   "I've already completed the form using the fixture {string} for {string}",
-  async (fixture: string, applicant: string) => {
-    const fixtureJson = require(`../functional/fixtures/${fixture}`)[fixture];
+  async (fixture: string, user: string) => {
+    const fixtureJson = requireFromFixture(`../functional/fixtures/${fixture}`)[fixture];
 
     await iSetTheUsersCaseTo(fixtureJson);
 
-    I.amOnPage(`/${applicant}` + ADDRESS_PRIVATE);
-    I.click('I do not need my contact details kept private');
-    I.click('Continue');
+    const resolvedApplicant = iGoToPageAsUser(ADDRESS_PRIVATE, user);
+    iSelectYesOrNoForField(YesOrNo.NO, `${resolvedApplicant}AddressPrivate`);
+    await iClickSubmit();
   }
 );
 
 Given('I set the case state to {string}', async (state: State) => {
-  const user = testConfig.GetCurrentUser();
+  const user = getCurrentUser();
   await iSetTheUsersCaseTo({
     state,
   });
-  await I.grabCurrentUrl();
-  I.amOnPage('/logout');
-  await autoLogin.login(I, user.username, user.password, false);
+  await I.grabCurrentUrl(); // Do we need to do this??
+  iSignOut();
+  await autoLogin.login(user, false);
 });
 
 Given("I've completed all happy path questions correctly", async () => {
-  iAmOnPage('/your-details');
-  iClearTheForm();
-  iClick('My husband');
-  iClick('Continue');
+  iAmOnPage(YOUR_DETAILS_URL);
+  await iClearTheForm();
+  iSelectRadioValue(Gender.MALE);
+  await iClickSubmitAndExpectUrl(HAS_RELATIONSHIP_BROKEN_URL);
 
-  I.waitInUrl('/irretrievable-breakdown');
-  iClick('I confirm my marriage has broken down irretrievably');
-  iClick('Continue');
+  iSelectYes();
+  await iClickSubmitAndExpectUrl(RELATIONSHIP_DATE_URL);
 
-  I.waitInUrl('/date-from-certificate');
-  iClearTheForm();
-  iClick('Day');
-  I.type('31');
-  iClick('Month');
-  I.type('12');
-  iClick('Year');
-  I.type('1999');
-  iClick('Continue');
+  await iClearTheForm();
+  iEnterADateIntoField('1/1/2000', 'relationshipDate');
+  await iClickSubmitAndExpectUrl(CERTIFICATE_URL);
 
-  I.waitInUrl('/do-you-have-your-certificate');
-  iClick('Yes, I have my marriage certificate');
-  iClick('Continue');
+  iSelectYes();
+  await iClickSubmitAndExpectUrl(HELP_WITH_YOUR_FEE_URL);
 
-  I.waitInUrl('/help-with-your-fee');
-  iClick('I do not need help paying the fee');
-  iClick('Continue');
+  iSelectNo();
+  await iClickSubmitAndExpectUrl(HOW_DO_YOU_WANT_TO_APPLY);
 
-  I.waitInUrl('/how-do-you-want-to-apply');
-  iClick('I want to apply on my own, as a sole applicant');
-  iClick('Continue');
+  iSelectRadioValue(ApplicationType.SOLE_APPLICATION);
+  await iClickSubmitAndExpectUrl(IN_THE_UK);
 
-  I.waitInUrl('/in-the-uk');
-  iClick('Yes');
-  iClick('Continue');
+  iSelectYes();
+  await iClickSubmitAndExpectUrl(CHECK_JURISDICTION);
 
-  I.waitInUrl('/check-jurisdiction');
-  iClick('Continue');
+  await iClickSubmitAndExpectUrl(WHERE_YOUR_LIVES_ARE_BASED_URL);
 
-  I.waitInUrl('/where-your-lives-are-based');
-  checkOptionFor('Yes', 'Is your life mainly based in England or Wales?');
-  checkOptionFor('Yes', 'Is your husband’s life mainly based in England or Wales?');
-  iClick('Continue');
+  iSelectYesOrNoForField(YesOrNo.YES, 'applicant1LifeBasedInEnglandAndWales');
+  iSelectYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
+  await iClickSubmitAndExpectUrl(JURISDICTION_INTERSTITIAL_URL);
 
-  I.waitInUrl('/you-can-use-english-welsh-courts');
-  iClick('Continue');
+  await iClickSubmitAndExpectUrl(ENTER_YOUR_NAME);
 
-  I.waitInUrl('/enter-your-name');
-  iClearTheForm();
-  iClick('first name');
-  I.type('Test your name');
-  iClick('last name');
-  I.type('Test your last name');
-  iClick('Continue');
+  await iClearTheForm();
+  iEnterValueIntoInput('Test your name', '#applicant1FirstNames');
+  iEnterValueIntoInput('Test your last name', '#applicant1LastNames');
+  await iClickSubmitAndExpectUrl(CHECK_YOUR_NAME);
 
-  I.waitInUrl('/check-your-name');
-  iClearTheForm();
-  iClick('No');
-  iClick('Continue');
+  await iClearTheForm();
+  iSelectNo();
+  await iClickSubmitAndExpectUrl(YOUR_CERTIFICATE_NAME);
 
-  I.waitInUrl('/your-name-on-certificate');
-  iClearTheForm();
-  iClick('full name');
-  I.type('Test your name');
-  iClick('Continue');
+  await iClearTheForm();
+  iEnterValueIntoInput('Test your name', '#applicant1FullNameOnCertificate');
+  await iClickSubmitAndExpectUrl(THEIR_NAME);
 
-  I.waitInUrl('/enter-their-name');
-  iClearTheForm();
-  iClick('first name');
-  I.type('Test their name');
-  iClick('last name');
-  I.type('Test their last name');
-  iClick('Continue');
+  await iClearTheForm();
+  iEnterValueIntoInput('Test their name', '#applicant2FirstNames');
+  iEnterValueIntoInput('Test their last name', '#applicant2LastNames');
+  await iClickSubmitAndExpectUrl(CHECK_THEIR_NAME);
 
-  I.waitInUrl('/check-their-name');
-  iClearTheForm();
-  iClick('No');
-  iClick('Continue');
+  await iClearTheForm();
+  iSelectNo();
+  await iClickSubmitAndExpectUrl(THEIR_CERTIFICATE_NAME);
 
-  I.waitInUrl('/their-name-on-certificate');
-  iClearTheForm();
-  iClick("Copy your husband's full name");
-  I.type('Husbands name');
-  iClick('Continue');
+  await iClearTheForm();
+  iEnterValueIntoInput('Husbands name', '#applicant2FullNameOnCertificate');
+  await iClickSubmitAndExpectUrl(HOW_THE_COURTS_WILL_CONTACT_YOU);
 
-  I.waitInUrl('/how-the-court-will-contact-you');
-  iClearTheForm();
-  iClick('I agree that the divorce service can send me notifications');
-  iClick('Continue');
+  await iClearTheForm();
+  iCheckOption('#applicant1AgreeToReceiveEmails');
+  await iClickSubmitAndExpectUrl(ENGLISH_OR_WELSH);
 
-  I.waitInUrl('/english-or-welsh');
-  iClick('English');
-  iClick('Continue');
+  iSelectRadioValue(LanguagePreference.English);
+  await iClickSubmitAndExpectUrl(ADDRESS_PRIVATE);
 
-  I.waitInUrl('/address-private');
-  iClick('I do not need my contact details kept private');
-  iClick('Continue');
+  iSelectYesOrNoForField(YesOrNo.NO, 'applicant1AddressPrivate');
+  await iClickSubmitAndExpectUrl(ENTER_YOUR_ADDRESS);
 
-  iAmOnPage('/enter-your-address');
   await iEnterTheUkAddress('BUCKINGHAM PALACE, LONDON, SW1A 1AA');
-  iClick('Continue');
+  await iClickSubmitAndExpectUrl(DO_THEY_HAVE_A_SOLICITOR);
 
-  I.waitInUrl('/do-they-have-a-solicitor');
-  iClick('No');
-  iClick('Continue');
+  iSelectNo();
+  await iClickSubmitAndExpectUrl(THEIR_EMAIL_ADDRESS);
 
-  I.waitInUrl('/their-email-address');
-  iClearTheForm();
-  iClick("Your husband's email address");
-  I.type('husband@example.com');
-  iClick('Continue');
+  await iClearTheForm();
+  iEnterValueIntoInput('husband@example.com', '#applicant2EmailAddress');
+  await iClickSubmitAndExpectUrl(DO_YOU_HAVE_ADDRESS);
 
-  I.waitInUrl('/do-you-have-address');
-  iClick('Yes, I have their address');
-  iClick('Continue');
+  iSelectYes();
+  await iClickSubmitAndExpectUrl(ENTER_THEIR_ADDRESS);
 
-  I.waitInUrl('/enter-their-address');
   await iEnterTheUkAddress('MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ');
-  iClick('Continue');
+  await iClickSubmitAndExpectUrl(OTHER_COURT_CASES);
 
-  I.waitInUrl('/other-court-cases');
-  iClick('No');
-  iClick('Continue');
+  iSelectNo();
+  await iClickSubmitAndExpectUrl(MONEY_PROPERTY);
 
-  I.waitInUrl('/dividing-money-property');
-  iClick('No');
-  iClick('Continue');
+  iSelectNo();
+  await iClickSubmitAndExpectUrl(UPLOAD_YOUR_DOCUMENTS);
 
-  I.waitInUrl('/upload-your-documents');
-  iClearTheForm();
-  iClick('I cannot upload my original marriage certificate');
-  iClick('Continue');
-  iWait(5);
-  I.amOnPage(HOME_URL);
+  await iClearTheForm();
+  iCannotUploadDocs();
+  await iClickSubmitAndExpectUrl(CHECK_ANSWERS_URL);
 
-  I.waitInUrl('/check-your-answers');
-  iClearTheForm();
-  iClick('I confirm');
-  iClick('I believe that the facts stated in this application are true');
-  iClick('Continue to payment');
-
-  I.waitInUrl('/pay-your-fee');
+  await iClearTheForm();
+  iConfirmPrayerAndStatementOfTruth();
+  await iClickSubmitAndExpectUrl(PAY_YOUR_FEE);
 });
 
-Given('I pay and submit the application', () => {
-  I.waitInUrl('/pay-your-fee');
-  iClick('Pay and submit application');
+Given('I pay and submit the application', async () => {
+  iWaitInUrl(PAY_YOUR_FEE);
+  await iClickSubmit();
 
-  completePayment();
-  I.waitInUrl('/application-submitted', 15);
+  await completePayment(APPLICATION_SUBMITTED, 15, undefined, '#applicationSavedTitle');
 });
 
-Given('I pay and submit the service application', () => {
-  I.waitInUrl(PAY_YOUR_SERVICE_FEE);
-  iClick('Pay and submit application');
+Given('I pay and submit the service application', async () => {
+  iWaitInUrl(PAY_YOUR_SERVICE_FEE);
+  await iClickSubmit();
 
-  completePayment();
-  I.waitInUrl(SERVICE_APPLICATION_SUBMITTED, 15);
+  await completePayment(SERVICE_APPLICATION_SUBMITTED, 15);
 });
 
-Given('I pay and submit the general application', () => {
-  I.waitInUrl(PAY_YOUR_GENERAL_APPLICATION_FEE);
-  iClick('Pay and submit application');
+Given('I pay and submit the general application', async () => {
+  iWaitInUrl(PAY_YOUR_GENERAL_APPLICATION_FEE);
+  await iClickSubmit();
 
-  completePayment();
-  I.waitInUrl(GENERAL_APPLICATION_SUBMITTED, 15);
+  await completePayment(GENERAL_APPLICATION_SUBMITTED, 15);
 });
 
-Given('I pay and submit the final order application', () => {
-  I.waitInUrl('/respondent/pay-your-final-order-fee');
-  iClick('Pay and submit application');
+Given('I pay and submit the final order application', async () => {
+  iWaitInUrlAsUser(PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT);
+  await iClickSubmit();
 
-  completePayment();
-  I.waitInUrl('/respondent/hub-page', 15);
+  await completePayment(RESPONDENT + HUB_PAGE, 15);
 });
 
-Given('I pay and submit the joint application', () => {
-  I.waitInUrl('/pay-and-submit');
-  iClick('Pay and submit');
+Given('I pay and submit the joint application', async () => {
+  iWaitInUrl(PAY_AND_SUBMIT);
+  await iClickSubmit();
 
-  completePayment();
-  I.waitInUrl('/joint-application-submitted', 15);
+  await completePayment(JOINT_APPLICATION_SUBMITTED, 15);
 });
 
-const completePayment = () => {
-  I.waitInUrl('/card_details', 15);
-  iClick('Card number', '#card-no', 15);
-  I.type('4444333322221111');
-  iClick('Month', '#expiry-month');
-  I.type('12');
-  iClick('Year', '#expiry-year');
-  I.type('30');
-  iClick('Name on card', '#cardholder-name');
-  I.type('Nightly test');
-  iClick('Card security code', '#cvc');
-  I.type('123');
-  iClick('Address line 1', '#address-line-1');
-  I.type('BUCKINGHAM PALACE');
-  iClick('Town or city', '#address-city');
-  I.type('LONDON');
-  iClick('Postcode', '#address-postcode');
-  I.type('SW1A 1AA');
-  iClick('Email', '#email');
-  I.type('nightly-functional-test@example.com');
-  iClick('Continue');
-
-  I.waitInUrl('/card_details');
-  I.click('Confirm payment');
+const completePayment = async (
+  nextUrl?: string,
+  wait?: number,
+  waitUntil?: WaitUntil,
+  customTitleSelector?: string
+) => {
+  const cardDetailsUrl = '/card_details';
+  iWaitInUrl(cardDetailsUrl, 15);
+  iEnterValueIntoInput('4444333322221111', '#card-no', 15);
+  iEnterValueIntoInput('12', '#expiry-month');
+  iEnterValueIntoInput('30', '#expiry-year');
+  iEnterValueIntoInput('Nightly test', '#cardholder-name');
+  iEnterValueIntoInput('123', '#cvc');
+  iEnterValueIntoInput('BUCKINGHAM PALACE', '#address-line-1');
+  iEnterValueIntoInput('LONDON', '#address-city');
+  iEnterValueIntoInput('SW1A 1AA', '#address-postcode');
+  iEnterValueIntoInput('nightly-functional-test@example.com', '#email');
+  await iClickSubmit();
+  iWaitInUrl(cardDetailsUrl);
+  await iClickSubmitAndExpectUrl(nextUrl, wait, waitUntil, customTitleSelector);
 };

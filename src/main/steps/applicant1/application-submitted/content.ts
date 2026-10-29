@@ -303,9 +303,15 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
   const progressBarContent = getProgressBarContent(isDivorce, displayState, language === SupportedLanguages.En);
+  const savedOrSubmitted =
+    userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
+      ? 'Saved'
+      : 'Submitted';
+  const titleId = `application${savedOrSubmitted}Title`;
 
   return {
     ...languages[language]({ ...content, referenceNumber }),
+    titleId,
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,

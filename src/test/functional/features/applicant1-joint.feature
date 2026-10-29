@@ -2,348 +2,197 @@ Feature: Applicant 1 joint application
 
   Background:
     Given I create a new user and login
-    Then the page URL should be "/your-details"
-    And the page should include "Who are you applying to divorce?"
-    And the page should not include "Back"
+    Then the page URL should be "YOUR_DETAILS_URL"
+    And the page should not include a back link
 
   Scenario: They fill out a happy path applicant 1 joint journey
-    Given I select "My husband"
-    And I click "Continue"
-    Then the page should include "Has your marriage broken down irretrievably (it cannot be saved)?"
-    Given I select "I confirm my marriage has broken down irretrievably"
+    Given I want to divorce my husband
+    Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
-    When I click "Continue"
-    Then the page should include "When did you get married?"
-    Given I select "Day"
-    And I type "1"
-    Given I select "Month"
-    And I type "1"
-    Given I select "Year"
-    And I type "2000"
+    Given I confirm my marriage has broken down irretrievably
+    Then I click continue and expect URL "RELATIONSHIP_DATE_URL"
 
-    When I click "Continue"
-    Then the page should include "Do you have your marriage certificate with you?"
-    Given I select "Yes, I have my marriage certificate with me"
+    Given I enter the relationship date
+    Then I click continue and expect URL "CERTIFICATE_URL"
 
-    When I click "Continue"
-    Then the page should include "Help with fees"
-    Given I select "No"
+    Given I have my marriage certificate with me
+    Then I click continue and expect URL "HELP_WITH_YOUR_FEE_URL"
 
-    When I click "Continue"
-    Then the page should include "How do you want to apply for the divorce?"
-    Given I select "I want to apply jointly, with my husband"
+    Given I select no
+    Then I click continue and expect URL "HOW_DO_YOU_WANT_TO_APPLY"
 
-    When I click "Continue"
-    Then the page should include "Enter your husband's email address"
-    Given I clear the form
-    And I select "Your husband's email address"
-    And I type "simulate-delivered@notifications.service.gov.uk"
+    Given I want to apply jointly
+    Then I click continue and expect URL "THEIR_EMAIL_ADDRESS"
 
-    When I click "Continue"
-    Then the page should include "Did you get married in the UK?"
-    Given I select "Yes"
+    Given I enter their email address
+    Then I click continue and expect URL "IN_THE_UK"
 
-    When I click "Continue"
-    Then the page should include "Check if you can get a divorce in England or Wales"
+    Given I select yes
+    Then I click continue and expect URL "CHECK_JURISDICTION"
 
-    When I click "Continue"
-    Then the page should include "Where your lives are based"
-    Given I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
+    Then I click continue and expect URL "WHERE_YOUR_LIVES_ARE_BASED_URL"
 
-    When I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
+    Given we both live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
 
-    When I click "Continue"
-    Then the page should include "Enter your name"
-    Given I clear the form
-    And I select "Your first name"
-    And I type "Sarah"
-    And I select "Your last name"
-    And I type "Smith"
+    Then I click continue and expect URL "ENTER_YOUR_NAME"
 
-    When I click "Continue"
-    Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
-    Given I select "No"
+    Given I enter my name
+    Then I click continue and expect URL "CHECK_YOUR_NAME"
 
-    When I click "Continue"
-    Then the page should include "How is your name written on your marriage certificate"
-    Given I select "Copy your full name from the marriage certificate"
-    And I type "Sarah Smith"
+    Given I select no
+    Then I click continue and expect URL "YOUR_CERTIFICATE_NAME"
 
-    When I click "Continue"
-    Then the page should include "How the court will contact you"
-    Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-    When I click "Continue"
-    Then the page should include "What language do you want to receive emails and documents in"
-    Given I select "English"
+    Given I enter my name on the certificate
+    Then I click continue and expect URL "HOW_THE_COURTS_WILL_CONTACT_YOU"
 
-    When I click "Continue"
-    Then the page should include "Do you need your contact details kept private from your husband?"
-    Given I select "I do not need my contact details kept private"
+    Given I agree that the court can contact me by email
+    Then I click continue and expect URL "ENGLISH_OR_WELSH"
 
-    When I click "Continue"
-    Then the page should include "Enter your postal address"
-    Given I select "Enter a UK postcode"
-    And I type "SW1H 9AJ"
+    Given I select English
+    Then I click continue and expect URL "ADDRESS_PRIVATE"
 
-    When I click "Find address"
-    Then the page should include "SW1H 9AJ"
-    And I wait for the postcode lookup to return results
-    Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    Given I do not need my contact details kept private
+    Then I click continue and expect URL "ENTER_YOUR_ADDRESS"
 
-    When I click "Continue"
-    Then the page should include "Other court cases relating to this marriage"
-    Given I select "No"
+    Given I enter my address
+    Then I click continue and expect URL "OTHER_COURT_CASES"
 
-    When I click "Continue"
-    Then the page should include "Dividing your money and property"
-    Given I select "No. I do not want to apply for a financial order"
+    Given I select no
+    Then I click continue and expect URL "MONEY_PROPERTY"
 
-    When I click "Continue"
-    Then the page should include "Upload your documents"
-    Given I select "I cannot upload my original marriage certificate"
+    Given I select no
+    Then I click continue and expect URL "UPLOAD_YOUR_DOCUMENTS"
 
-    When I click "Continue"
-    And I go to "/"
-    And the page should include "Check your answers"
-    And the page should include "When did you get married?"
-    And the page should include "1 January 2000"
-    And the page should include "Do you have your marriage certificate with you?"
-    And the page should include "Yes, I have my marriage certificate with me"
-    And the page should include "Help paying the divorce fee"
-    And the page should include "No"
-    And the page should include "Did you get married in the UK?"
+    Given I cannot upload my original marriage certificate
+    Then I click continue and expect URL "CHECK_ANSWERS_URL"
 
-    When I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
-    And the page should include "Your answers have been sent to your husband to review"
+    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
 
   @nightly
   Scenario: They fill out an unhappy path applicant 1 joint journey with help with fees
-    Given I select "My husband"
-    And I select "We were a same-sex couple when we got married"
+    Given I want to divorce my husband
+    And we were a same-sex couple when we got married
+    Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
-    When I click "Continue"
-    Then the page should include "Has your marriage broken down irretrievably (it cannot be saved)?"
-    Given I select "My marriage has not broken down irretrievably"
-    Then the page should include "Your marriage must have broken down irretrievably for you to get a divorce. This is the law in England and Wales."
+    Given my marriage has not broken down irretrievably
+    When I click continue and expect URL "RELATIONSHIP_NOT_BROKEN_URL"
+    Then I click back and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
-    When I click "Continue"
-    Then the page should include "You cannot apply to get a divorce"
-    Given I click "Back"
-    Then the page URL should be "/irretrievable-breakdown"
-    Given I select "I confirm my marriage has broken down irretrievably"
+    Given I confirm my marriage has broken down irretrievably
+    Then I click continue and expect URL "RELATIONSHIP_DATE_URL"
 
-    When I click "Continue"
-    Then the page should include "When did you get married?"
-    Given I select "Day"
-    And I type "1"
-    Given I select "Month"
-    And I type "1"
-    Given I select "Year"
-    And I type "2000"
+    Given I enter the relationship date
+    Then I click continue and expect URL "CERTIFICATE_URL"
 
-    When I click "Continue"
-    Then the page should include "Do you have your marriage certificate with you?"
-    Given I select "No, I do not have marriage certificate with me"
+    Given I do not have my marriage certificate with me
+    When I click continue and expect URL "NO_CERTIFICATE_URL"
+    Then I click back and expect URL "CERTIFICATE_URL"
 
-    When I click "Continue"
-    Then the page should include "You need your marriage certificate"
-    Given I click "Back"
-    Then the page URL should be "/do-you-have-your-certificate"
-    Given I select "Yes, I have my marriage certificate with me"
+    Given I have my marriage certificate with me
+    Then I click continue and expect URL "HELP_WITH_YOUR_FEE_URL"
 
-    When I click "Continue"
-    Then the page should include "Help with fees"
-    Given I select "Yes"
+    Given I select yes
+    Then I click continue and expect URL "HELP_PAYING_HAVE_YOU_APPLIED"
 
-    When I click "Continue"
-    Then the page should include "Do you have a help with fees reference number?"
-    Given I select "No"
+    Given I select no
+    Then I click continue and expect URL "HELP_PAYING_NEED_TO_APPLY"
 
-    When I click "Continue"
-    Then the page should include "Apply for help with fees"
+    Then I click continue and expect URL "ENTER_HWF_NUMBER_URL"
 
-    When I click "Continue"
-    Then the page should include "Enter your Help With Fees reference number"
-    Given I select element "#applicant1HelpWithFeesRefNo"
-    And I type "HWF-ABC-123"
+    Given I enter my HWF reference number
+    Then I click continue and expect URL "HOW_DO_YOU_WANT_TO_APPLY"
 
-    When I click "Continue"
-    Then the page should include "How do you want to apply for the divorce?"
-    Given I select "I want to apply jointly, with my husband"
+    Given I want to apply jointly
+    Then I click continue and expect URL "THEIR_EMAIL_ADDRESS"
 
-    When I click "Continue"
-    Then the page should include "Enter your husband's email address"
     Given I select "I do not know their email address"
+    When I click continue and expect URL "YOU_NEED_THEIR_EMAIL_ADDRESS"
+    Then I click back and expect URL "THEIR_EMAIL_ADDRESS"
 
-    When I click "Continue"
-    Then the page should include "You need to get their email address"
-
-    When I click "Back"
-    Then the page URL should be "/their-email-address"
     Given I clear the form
-    And I select "Your husband's email address"
-    And I type "simulate-delivered@notifications.service.gov.uk"
+    And I enter their email address
+    Then I click continue and expect URL "IN_THE_UK"
 
-    When I click "Continue"
-    Then the page should include "Did you get married in the UK?"
-    Given I select "No"
+    Given I select no
+    Then I click continue and expect URL "CERTIFICATE_IN_ENGLISH"
 
-    When I click "Continue"
-    Then the page should include "Is your original marriage certificate in English?"
-    Given I select "No"
+    Given I select no
+    Then I click continue and expect URL "CERTIFIED_TRANSLATION"
 
-    When I click "Continue"
-    Then the page should include "Do you have a ‘certified translation’ of your marriage certificate?"
-    Given I select "No, I do not have a certified translation"
+    Given I select no
+    When I click continue and expect URL "GET_CERTIFIED_TRANSLATION"
+    Then I click back and expect URL "CERTIFIED_TRANSLATION"
 
-    When I click "Continue"
-    Then the page should include "You need to get a ‘certified translation’ of your marriage certificate"
-    Given I click "Back"
-    Then the page URL should be "/certified-translation"
-    Given I select "Yes, I have a certified translation"
+    Given I select yes
+    Then I click continue and expect URL "COUNTRY_AND_PLACE"
 
-    When I click "Continue"
-    Then the page should include "Where you got married"
-    Given I select "Enter the country where you got married"
-    And I type "England"
-    Given I select "Enter the place where you got married"
-    And I type "London"
+    Given I enter the marriage location
+    Then I click continue and expect URL "CHECK_JURISDICTION"
 
-    When I click "Continue"
-    Then the page URL should be "/check-jurisdiction"
-    Given I go to "/certificate-in-english"
-    And I clear the form
-    And I select "Yes"
+    Given I go to "CERTIFICATE_IN_ENGLISH"
+    Then I clear the form
+    And I select yes
+    Then I click continue and expect URL "COUNTRY_AND_PLACE"
 
-    When I click "Continue"
-    Then the page should include "Where you got married"
-    Given I clear the form
-    And I select "Enter the country where you got married"
-    And I type "England"
-    Given I select "Enter the place where you got married"
-    And I type "London"
+    Given I enter the marriage location
+    Then I click continue and expect URL "CHECK_JURISDICTION"
 
-    When I click "Continue"
-    Then the page should include "Check if you can get a divorce in England or Wales"
+    Then I click continue and expect URL "WHERE_YOUR_LIVES_ARE_BASED_URL"
 
-    When I click "Continue"
-    Then the page should include "Where your lives are based"
-    Given I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
+    Given we both live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
 
-    When I click "Continue"
-    Then the page should include "You can use English or Welsh courts to get a divorce"
+    Then I click continue and expect URL "ENTER_YOUR_NAME"
 
-    When I click "Continue"
-    Then the page should include "Enter your name"
-    Given I clear the form
-    And I select "Your first name"
-    And I type "Sarah"
-    And I select "Your last name"
-    And I type "Smith"
+    Given I enter my name
+    Then I click continue and expect URL "CHECK_YOUR_NAME"
 
-    When I click "Continue"
-    Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
-    Given I select "No"
+    Given I select no
+    Then I click continue and expect URL "YOUR_CERTIFICATE_NAME"
 
-    When I click "Continue"
-    Then the page should include "How is your name written on your marriage certificate"
-    Given I select "Copy your full name from the marriage certificate"
-    And I type "Sarah Smith"
+    Given I enter my name on the certificate
+    Then I click continue and expect URL "HOW_THE_COURTS_WILL_CONTACT_YOU"
 
-    When I click "Continue"
-    Then the page should include "How the court will contact you"
-    Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-    And I select "Enter your phone number (optional)"
-    And I type "123456789"
+    Given I agree that the court can contact me by email
+    And I enter my phone number
+    Then I click continue and expect URL "ENGLISH_OR_WELSH"
 
-    When I click "Continue"
-    Then the page should include "What language do you want to receive emails and documents in?"
-    Given I select "English"
+    Given I select English
+    Then I click continue and expect URL "ADDRESS_PRIVATE"
 
-    When I click "Continue"
-    Then the page should include "Do you need your contact details kept private from your husband?"
-    Given I select "Keep my contact details private"
-    Then the page should include "Are you currently in a refuge?"
-    Given I select "No"
-    Then the page should include "If you think you might be experiencing domestic abuse or you feel unsafe, then support is available"
+    Given I need my contact details kept private
+    Then I click continue and expect URL "ENTER_YOUR_ADDRESS"
 
-    When I click "Continue"
-    Then the page should include "Enter your postal address"
-    Given I click "I have an international address"
-    And I select "Address line 1"
-    And I type "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102 PETTY FRANCE"
-    And I select "Town or city"
-    And I type "London"
-    And I select "Postal code, zip code or area code (optional)"
-    And I type "SW1H 9AJ"
-    And I select "Country"
-    And I type "UK"
+    Given I enter my international address
+    Then I click continue and expect URL "OTHER_COURT_CASES"
 
-    When I click "Continue"
-    And the page should include "Other court cases relating to this marriage"
-    Given I select "Yes"
+    Given I select yes
+    Then I click continue and expect URL "DETAILS_OTHER_PROCEEDINGS"
 
-    When I click "Continue"
-    Then the page should include "Details of the other legal proceedings"
-    Given I select "Provide details about the other legal proceedings."
-    And I type "Test other legal proceedings details"
+    Given I enter details of the other proceedings
+    Then I click continue and expect URL "MONEY_PROPERTY"
 
-    When I click "Continue"
-    Then the page URL should be "/dividing-money-property"
-    And the page should include "Dividing your money and property"
-    Given I select "Yes. I want to apply for a financial order"
+    Given I select yes
+    Then I click continue and expect URL "WHO_IS_THE_FINANCIAL_ORDER_FOR"
 
-    When I click "Continue"
-    Then the page URL should be "/who-is-the-financial-order-for"
-    And the page should include "Who is the financial order for?"
-    And I select "I need a financial order for myself and my child(ren)"
+    Given I need a financial order for myself and my children
+    Then I click continue and expect URL "UPLOAD_YOUR_DOCUMENTS"
 
-    When I click "Continue"
-    Then the page should include "Upload your documents"
     Given I delete any previously uploaded files
-    Then the page should include "No files uploaded"
-    Given I select "I cannot upload my original foreign marriage certificate"
+    And I cannot upload my original foreign marriage certificate
+    Then I click continue and expect URL "CHECK_ANSWERS_URL"
 
-    When I click "Continue"
-    And I go to "/"
-    Then the page should include "Check your answers"
-    And the page should include "I confirm my marriage has broken down irretrievably"
-    And the page should include "When did you get married?"
-    And the page should include "1 January 2000"
-    And the page should include "Do you have your marriage certificate with you?"
-    And the page should include "Yes, I have my marriage certificate with me"
-    And the page should include "Help paying the divorce fee"
-    And the page should include "Yes"
-    And the page should include "Help with fees reference number"
-    And the page should include "HWF-ABC-123"
-    And the page should include "Enter the country where you got married"
-    And the page should include "England"
-    And the page should include "Did you get married in the UK?"
-    And the page should include "No"
-
-    When I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
-    And the page should include "Your answers have been sent to your husband to review"
+    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
   @flaky
   Scenario: Applicant 1 upload larry-the-cat
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    When I go to "/upload-your-documents"
-    Then the page should include "Upload your documents"
+    When I go to "UPLOAD_YOUR_DOCUMENTS"
     Given I delete any previously uploaded files
-    Then the page should include "No files uploaded"
     When I upload the file "fixtures/larry-the-cat.jpg"
-    Then I wait until the page contains image "larry-the-cat.jpg"
-    And I click "Delete"
-    And I wait until the page doesn't contain "larry-the-cat.jpg"
-    When I clear the form
-    And I select "I cannot upload my original marriage certificate"
-    When I click "Continue"
-    And I go to "/"
-    Then the page should include "Check your answers"
-    And the page should include "I cannot upload some or all of my documents"
+    Then I delete the file "larry-the-cat.jpg"
+    And I clear the form
+    And I cannot upload my original marriage certificate
+    Then I click continue and expect URL "CHECK_ANSWERS_URL"

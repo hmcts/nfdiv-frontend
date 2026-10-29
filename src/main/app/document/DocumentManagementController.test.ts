@@ -24,9 +24,12 @@ import { DocumentManagerController } from './DocumentManagementController';
 import { MAX_UPLOAD_FILE_SIZE_BYTES } from './DocumentUploadLimits';
 import { FileUploadJourney } from './FileUploadJourneyConfiguration';
 
-const { mockCreate, mockDelete } = require('./CaseDocumentManagementClient');
+jest.mock('./CaseDocumentManagementClient');
 
-jest.mock('../document/CaseDocumentManagementClient');
+const { mockCreate, mockDelete } = jest.requireMock('./CaseDocumentManagementClient') as {
+  mockCreate: jest.Mock;
+  mockDelete: jest.Mock;
+};
 
 describe('DocumentManagerController', () => {
   const documentManagerController = new DocumentManagerController();

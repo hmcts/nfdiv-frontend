@@ -58,6 +58,7 @@ export const form: FormContent = {
       type: 'checkboxes',
       values: [
         {
+          id: 'statementOfTruth',
           name: 'applicant1FinalOrderStatementOfTruth',
           label: l => l.finalOrderStatementOfTruth,
           value: Checkbox.Checked,

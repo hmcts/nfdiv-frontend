@@ -7,7 +7,10 @@ import PaymentPostController from './post';
 
 jest.mock('../../../app/payment/PaymentClient');
 
-const { mockCreate, mockGet } = require('../../../app/payment/PaymentClient');
+const { mockCreate, mockGet } = jest.requireMock('../../../app/payment/PaymentClient') as {
+  mockCreate: jest.Mock;
+  mockGet: jest.Mock;
+};
 
 describe('PaymentPostController', () => {
   const paymentController = new PaymentPostController();

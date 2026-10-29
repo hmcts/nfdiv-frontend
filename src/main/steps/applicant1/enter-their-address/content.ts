@@ -132,6 +132,9 @@ export const form: FormContent = {
         if (!isCountryUk(formData.applicant2AddressCountry)) {
           return;
         }
+        if (formData.applicant2AddressOverseas === YesOrNo.YES) {
+          return;
+        }
         return isFieldFilledIn(value);
       },
     },
@@ -154,6 +157,9 @@ export const form: FormContent = {
       },
       validator: (value, formData) => {
         if (!isCountryUk(formData.applicant2AddressCountry)) {
+          return;
+        }
+        if (formData.applicant2AddressOverseas === YesOrNo.YES) {
           return;
         }
         return isInvalidPostcode(value);

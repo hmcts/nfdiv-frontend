@@ -20,7 +20,7 @@
     {% include "common/error/summary.njk" %}
   {% endblock %}
 
-  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  <h1 class="govuk-heading-xl" id="{{ titleId }}">{{ title }}</h1>
 
   {% set answerRows = [] %}
   {% for question, text in stepQuestions %}

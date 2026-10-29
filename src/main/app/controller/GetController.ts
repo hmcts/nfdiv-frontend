@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { SupportedLanguages } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
 import { CommonContent, generateCommonContent } from '../../steps/common/common.content';
+import { PageLink, getPageTitleIdFromUrl } from '../../steps/urls';
 import { DivorceOrDissolution } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
@@ -47,7 +48,10 @@ export class GetController {
   }
 
   public getPageContent(req: AppRequest, res: Response, language: SupportedLanguages): PageContent {
-    const content = this.getCommonContent(req, res, language);
+    const content = {
+      ...this.getCommonContent(req, res, language),
+      titleId: getPageTitleIdFromUrl(req.path as PageLink),
+    };
 
     if (this.pageContent) {
       Object.assign(content, this.pageContent(content));
