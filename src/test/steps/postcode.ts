@@ -50,10 +50,13 @@ Given('I enter the UK address {string}', iEnterTheUkAddress);
 Given('I enter my address', async () => {
   await iEnterTheUkAddress(defaultAddress);
 });
+Given('I enter their address', async () => {
+  await iEnterTheUkAddress(defaultAddress);
+});
 
 export const iEnterTheInternationalAddress = async (address: string): Promise<void> => {
   const addressParts = address.split(', ');
-  const country = address === defaultAddress ? 'UK' : addressParts[addressParts.length - 1];
+  const country = address === defaultAddress ? 'Other Country' : addressParts[addressParts.length - 1];
 
   await iResetThePostCodeLookUpForm();
 
@@ -63,5 +66,8 @@ export const iEnterTheInternationalAddress = async (address: string): Promise<vo
 };
 Given('I enter the international address {string}', iEnterTheInternationalAddress);
 Given('I enter my international address', async () => {
+  await iEnterTheInternationalAddress(defaultAddress);
+});
+Given('I enter their international address', async () => {
   await iEnterTheInternationalAddress(defaultAddress);
 });
