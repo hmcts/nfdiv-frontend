@@ -61,7 +61,7 @@ Feature: Applicant 1 joint application
     Given I select no
     Then I click continue and expect URL "MONEY_PROPERTY"
 
-    Given I select no
+    Given I do not need a financial order
     Then I click continue and expect URL "UPLOAD_YOUR_DOCUMENTS"
 
     Given I cannot upload my original marriage certificate
