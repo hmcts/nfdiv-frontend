@@ -33,26 +33,48 @@ export class SessionStorage {
   }
 
   private getStore(app: Application, logger: Logger) {
-    const redisHost = config.get('session.redis.host');
-    const redisPort = config.get('session.redis.port');
+    const redisHost = config.get('session.redis.host') as string;
+    const redisPort = config.get('session.redis.port') as number;
+    const redisKey = config.get('session.redis.key') as string;
 
-    if (redisHost) {
-      const client = redis.createClient({
-        socket: {
-          host: redisHost as string,
-          port: redisPort as number,
-          connectTimeout: 15000,
-          tls: true,
-        },
-        password: config.get('session.redis.key') as string,
-      });
-
-      client.connect().catch(logger.error);
-
-      app.locals.redisClient = client;
-      return new RedisStore({ client });
+    if (!redisHost) {
+      logger.info('No Redis host configured, using file store');
+      return new FileStore({ path: '/tmp' });
     }
 
-    return new FileStore({ path: '/tmp' });
+    const isManagedRedisCache = redisHost.includes('azure.net');
+
+    logger.info(`Connecting to Redis ${isManagedRedisCache ? 'cluster' : 'standalone'} at ${redisHost}:${redisPort}`);
+
+    const client = isManagedRedisCache
+      ? redis.createCluster({
+          rootNodes: [
+            {
+              socket: {
+                host: redisHost as string,
+                port: redisPort as number,
+                connectTimeout: 15000,
+                tls: true,
+              },
+            },
+          ],
+          defaults: {
+            password: redisKey,
+          },
+        })
+      : redis.createClient({
+          socket: {
+            host: redisHost as string,
+            port: redisPort as number,
+            connectTimeout: 15000,
+            tls: true,
+          },
+          password: redisKey,
+        });
+
+    client.connect().catch(logger.error);
+
+    app.locals.redisClient = client;
+    return new RedisStore({ client });
   }
 }
