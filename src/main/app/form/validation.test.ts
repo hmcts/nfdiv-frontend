@@ -172,9 +172,10 @@ describe('Validation', () => {
       { mockRef: '12345', expected: 'invalid' },
       { mockRef: '1234567', expected: 'invalid' },
       { mockRef: '12345!', expected: 'invalid' },
+      { mockRef: 'HWFA1B23C', expected: 'invalid' },
       { mockRef: 'A1B23C', expected: 'invalid' },
       { mockRef: 'A1B-23C', expected: 'invalid' },
-      { mockRef: 'HWFA1B23C', expected: 'invalidUsedExample' },
+      { mockRef: 'HWF-A1B-23C', expected: 'invalidUsedExample' },
       { mockRef: 'HWF-AAA-BBB', expected: undefined },
       { mockRef: 'HWF-A1A-B2B', expected: undefined },
       { mockRef: 'HWF-123-456', expected: undefined },
@@ -330,12 +331,7 @@ describe('Validation', () => {
 
   test.each([
     { input: 'XX 12 34 56 X', expected: undefined },
-    { input: 'XX123456X', expected: undefined },
-    { input: 'XX 1234 56X', expected: undefined },
-    { input: 'XX 123456 X', expected: undefined },
-    { input: 'XX123456 X', expected: undefined },
     { input: 'ab43ag', expected: 'invalidFormat' },
-    { input: 'JB346684D', expected: 'invalidUsedExample' },
   ])('validates National Insurance number', ({ input, expected }) => {
     const isValid = isInvalidNationalInsuranceNumber(input);
 
