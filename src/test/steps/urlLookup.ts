@@ -31,17 +31,14 @@ const isInternalPageLinkKey = (linkKeyValue: string): linkKeyValue is UrlLookupK
 };
 
 const getPathWithoutPrefix = (path: PageLink): string => {
-  let pathWithoutPrefix: string;
   if (path === urls.APPLICANT_1 || path.startsWith(`${urls.APPLICANT_1}/`)) {
-    pathWithoutPrefix = path.slice(urls.APPLICANT_1.length);
+    return path.slice(urls.APPLICANT_1.length);
   } else if (path === urls.APPLICANT_2 || path.startsWith(`${urls.APPLICANT_2}/`)) {
-    pathWithoutPrefix = path.slice(urls.APPLICANT_2.length);
+    return path.slice(urls.APPLICANT_2.length);
   } else if (path === urls.RESPONDENT || path.startsWith(`${urls.RESPONDENT}/`)) {
-    pathWithoutPrefix = path.slice(urls.RESPONDENT.length);
-  } else {
-    pathWithoutPrefix = path;
+    return path.slice(urls.RESPONDENT.length);
   }
-  return pathWithoutPrefix;
+  return path;
 };
 
 export const isInternalPageLink = (linkValue: string): linkValue is InternalPageLink => {
