@@ -107,7 +107,7 @@ Feature: Applicant 1 joint application
     Given I want to apply jointly
     Then I click continue and expect URL "THEIR_EMAIL_ADDRESS"
 
-    Given I select "I do not know their email address"
+    Given I do not have their email address
     When I click continue and expect URL "YOU_NEED_THEIR_EMAIL_ADDRESS"
     Then I click back and expect URL "THEIR_EMAIL_ADDRESS"
 
