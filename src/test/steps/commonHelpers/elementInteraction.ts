@@ -4,9 +4,19 @@ import { tryTo } from 'codeceptjs/effects';
 import { YesOrNo } from '../../../main/app/case/definition';
 
 import { iAmOnIdam, iClickToNavigate } from './navigation';
-import { getApplicantString, getMyName, getOtherApplicantString, getTheirName } from './userInteraction';
+import {
+  getApplicantNumber,
+  getApplicantString,
+  getMyName,
+  getOtherApplicantNumber,
+  getOtherApplicantString,
+  getTheirName,
+  getUserEmail,
+} from './userInteraction';
 
 const { I } = inject();
+
+export const DEFAULT_EMAIL_ADDRESS = 'simulate-delivered@notifications.service.gov.uk';
 
 type LocatorClickOptions = NonNullable<Parameters<Locator['click']>[0]>;
 export type WaitUntil = NonNullable<Parameters<Page['waitForURL']>[1]>['waitUntil'];
@@ -261,4 +271,25 @@ export const iEnterTheirCertificateName = (
   name: string | { firstName: string; lastName: string } = getTheirName()
 ): void => {
   iEnterCertificateName(getOtherApplicantString(), name);
+};
+
+export const iEnterTheDefaultEmailAddressInto = (selector: string): void => {
+  iEnterValueIntoInput(DEFAULT_EMAIL_ADDRESS, selector);
+};
+export const iEnterTheirDefaultEmailAddress = (): void => {
+  const applicant = getOtherApplicantString();
+  iEnterTheDefaultEmailAddressInto(`#${applicant}EmailAddress`);
+};
+export const iEnterTheirDefaultSolicitorEmailAddress = (): void => {
+  const applicant = getOtherApplicantString();
+  iEnterTheDefaultEmailAddressInto(`#${applicant}SolicitorEmail`);
+};
+
+export const iEnterMyEmailAddress = (selector: string = `#${getApplicantString()}EmailAddress`): void => {
+  const testUserEmail = getUserEmail(getApplicantNumber());
+  iEnterValueIntoInput(testUserEmail, selector);
+};
+export const iEnterTheirEmailAddress = (selector: string = `#${getOtherApplicantString()}EmailAddress`): void => {
+  const theirEmailAddress = getUserEmail(getOtherApplicantNumber());
+  iEnterValueIntoInput(theirEmailAddress, selector);
 };
