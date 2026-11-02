@@ -1,9 +1,6 @@
 import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
-import { AxiosResponse } from 'axios';
-import { jwtDecode } from 'jwt-decode';
 import { Logger, transports } from 'winston';
 
-import { OidcResponse, getIdamToken } from '../../../main/app/auth/user/oidc';
 import { Case, CaseWithId } from '../../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../../main/app/case/case-api';
 import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../../main/app/case/definition';
@@ -15,7 +12,7 @@ import { TestUserType } from '../../config';
 
 import { iClearTheForm, iClickSubmit, iEnterValueIntoInput, iWait } from './elementInteraction';
 import { iAmOnPage } from './navigation';
-import { getCurrentUser, getOrCreateCaseWorker, iClickSignOut, login } from './userInteraction';
+import { getCurrentUser, getOrCreateCaseWorker, iClickSignOut, iGetTheTestUser, login } from './userInteraction';
 
 const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
@@ -44,30 +41,6 @@ export const triggerAnEvent = async (eventName: string, userData: Partial<Case>)
     logger.error('Could not get case data as ' + user.username);
     process.exit(-1);
   }
-};
-
-export const iGetTheTestUser = async (
-  user: { username: string; password: string } = getCurrentUser()
-): Promise<UserDetails> => {
-  const params = { username: user.username, password: user.password };
-  const response: AxiosResponse<OidcResponse> = await getIdamToken(params, params.username);
-
-  const jwt = jwtDecode(response.data.id_token) as {
-    uid: string;
-    sub: string;
-    given_name: string;
-    family_name: string;
-    roles: string[];
-  };
-
-  return {
-    accessToken: response.data.access_token,
-    id: jwt.uid,
-    email: jwt.sub,
-    givenName: jwt.given_name,
-    familyName: jwt.family_name,
-    roles: jwt.roles,
-  };
 };
 
 export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
