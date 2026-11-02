@@ -307,11 +307,10 @@ export const generateContent: TranslationFn = content => {
     userCase.applicant1CannotUpload || userCase.applicant2CannotUpload || userCase.iWantToHavePapersServedAnotherWay
       ? 'Saved'
       : 'Submitted';
-  const titleId = `application${savedOrSubmitted}Title`;
 
   return {
     ...languages[language]({ ...content, referenceNumber }),
-    titleId,
+    savedOrSubmitted,
     displayState,
     isRespondentRepresented,
     hasASolicitorContactForPartner,
