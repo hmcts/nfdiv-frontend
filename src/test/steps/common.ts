@@ -12,12 +12,7 @@ import { FinancialOrderForRadioOption } from '../../main/steps/applicant1/who-is
 import { CHECK_JURISDICTION, HOW_DO_YOU_WANT_TO_APPLY, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
 import { TestUserType } from '../config';
 
-import {
-  executeUserCaseScript,
-  iGetTheTestUser,
-  linkUserToCase,
-  triggerAnEvent,
-} from './commonHelpers/caseInteraction';
+import { executeUserCaseScript, linkUserToCase, triggerAnEvent } from './commonHelpers/caseInteraction';
 import {
   iAcceptCookies,
   iCannotUploadDocs,
@@ -33,6 +28,10 @@ import {
   iConfirmWeLiveInEnglandOrWales,
   iDeleteAllUploadedFiles,
   iDeleteUploadedFile,
+  iEnterMyCertificateName,
+  iEnterMyName,
+  iEnterTheirCertificateName,
+  iEnterTheirName,
   iEnterValueIntoInput,
   iRejectCookies,
   iSelectNo,
@@ -59,7 +58,7 @@ import {
   clearNewUsers,
   getApplicantString,
   iClickSignOut,
-  isApplicant2,
+  iGetTheTestUser,
   login,
 } from './commonHelpers/userInteraction';
 
@@ -227,7 +226,13 @@ When('I click send for review and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
 });
 When('I click submit application', iClickSubmit);
+When('I click submit application and expect URL {string}', async (url: string) => {
+  await iClickSubmitAndExpectUrl(url);
+});
 When('I click continue to payment', iClickSubmit);
+When('I click continue to payment and expect URL {string}', async (url: string) => {
+  await iClickSubmitAndExpectUrl(url);
+});
 When('I click pay and submit application', iClickSubmit);
 When('I click accept and send', iClickSubmit);
 When('I click save and sign out', () => {
@@ -268,6 +273,9 @@ When('I select radio value {string}', (value: string) => {
 When('I want to apply jointly', () => {
   iSelectRadioValueForField(ApplicationType.JOINT_APPLICATION);
 });
+When('I want to apply on my own', () => {
+  iSelectRadioValueForField(ApplicationType.SOLE_APPLICATION);
+});
 When('I select English', () => {
   iSelectRadioValueForField(LanguagePreference.English);
 });
@@ -280,11 +288,15 @@ When('I need my contact details kept private', () => {
 When('I am in a refuge', () => {
   iSetInRefuge(true);
 });
+When('I do not need a financial order', iSelectNo);
 When('I need a financial order for myself and my children', () => {
   iSelectRadioValueForField(
     FinancialOrderForRadioOption.APPLICANT_AND_CHILDREN,
     `${getApplicantString()}WhoIsFinancialOrderFor`
   );
+});
+When('I want to apply to serve another way', () => {
+  iCheckOption('#iWantToHavePapersServedAnotherWay');
 });
 
 When('I confirm the prayer and statement of truth', iConfirmPrayerAndStatementOfTruth);
@@ -321,6 +333,9 @@ Then('I enter {string} into {string}', (value: string, selector: string) => {
 Then('I enter their email address', async () => {
   iEnterValueIntoInput('simulate-delivered@notifications.service.gov.uk', '#applicant2EmailAddress');
 });
+Then("I enter their solicitor's email address", async () => {
+  iEnterValueIntoInput('simulate-delivered@notifications.service.gov.uk', '#applicant2SolicitorEmail');
+});
 Then('I enter my HWF reference number', () => {
   iEnterValueIntoInput('HWF-ABC-123', `#${getApplicantString()}HelpWithFeesRefNo`);
 });
@@ -333,35 +348,31 @@ Then('I enter the marriage location', () => {
   iEnterValueIntoInput('London', '#ceremonyPlace');
 });
 Then('I enter {string} as my name', (name: string) => {
-  const firstName = name.split(' ')[0];
-  const lastName = name.split(' ')[1];
-  const applicant = getApplicantString();
-  iEnterValueIntoInput(firstName, `#${applicant}FirstNames`);
-  iEnterValueIntoInput(lastName, `#${applicant}LastNames`);
+  iEnterMyName(name);
 });
 Then('I enter my name', () => {
-  let firstName = 'Sarah';
-  const lastName = 'Smith';
-  if (isApplicant2()) {
-    firstName = 'John';
-  }
-  const applicant = getApplicantString();
-  iEnterValueIntoInput(firstName, `#${applicant}FirstNames`);
-  iEnterValueIntoInput(lastName, `#${applicant}LastNames`);
+  iEnterMyName();
 });
 Then('I enter {string} as my name on the certificate', (name: string) => {
-  iEnterValueIntoInput(name, `#${getApplicantString()}FullNameOnCertificate`);
+  iEnterMyCertificateName(name);
 });
 Then('I enter my name on the certificate', () => {
-  let firstName = 'Sarah';
-  const lastName = 'Smith';
-  if (isApplicant2()) {
-    firstName = 'John';
-  }
-  iEnterValueIntoInput(`${firstName} ${lastName}`, `#${getApplicantString()}FullNameOnCertificate`);
+  iEnterMyCertificateName();
 });
 Then('I enter my phone number', () => {
   iEnterValueIntoInput('07700 900457', `#${getApplicantString()}PhoneNumber`);
+});
+Then('I enter {string} as their name', (name: string) => {
+  iEnterTheirName(name);
+});
+Then('I enter their name', () => {
+  iEnterTheirName();
+});
+Then('I enter {string} as their name on the certificate', (name: string) => {
+  iEnterTheirCertificateName(name);
+});
+Then('I enter their name on the certificate', () => {
+  iEnterTheirCertificateName();
 });
 Then('I enter details of the other proceedings', () => {
   iEnterValueIntoInput('Test other legal proceedings details', `#${getApplicantString()}LegalProceedingsDetails`);
