@@ -1,3 +1,4 @@
+import { getPageTitleIdFromUrl } from '../../main/steps/url-utils';
 import {
   APPLICATION_SUBMITTED,
   GENERAL_APPLICATION_SUBMITTED,
@@ -11,7 +12,6 @@ import {
   PageLink,
   RESPONDENT,
   SERVICE_APPLICATION_SUBMITTED,
-  getPageTitleIdFromUrl,
 } from '../../main/steps/urls';
 
 import {

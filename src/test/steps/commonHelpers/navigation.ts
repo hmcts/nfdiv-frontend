@@ -1,14 +1,8 @@
 import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
 
 import { SupportedLanguages } from '../../../main/modules/i18n';
-import {
-  APPLICANT_1,
-  APPLICANT_2,
-  CHECK_ANSWERS_URL,
-  PageLink,
-  RESPONDENT,
-  getPageTitleIdFromUrl,
-} from '../../../main/steps/urls';
+import { getPageTitleIdFromUrl } from '../../../main/steps/url-utils';
+import { APPLICANT_1, APPLICANT_2, CHECK_ANSWERS_URL, PageLink, RESPONDENT } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
 import { isFullyQualifiedUrl, isInternalPageLink, lookupUrl } from '../urlLookup';
 
