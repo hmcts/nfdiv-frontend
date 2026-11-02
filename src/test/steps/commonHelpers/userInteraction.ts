@@ -1,4 +1,8 @@
+import { AxiosResponse } from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { getIdamToken, OidcResponse } from '../../../main/app/auth/user/oidc';
 import { Gender } from '../../../main/app/case/definition';
+import { UserDetails } from '../../../main/app/controller/AppRequest';
 import {
   APPLICANT_2,
   ENTER_YOUR_ACCESS_CODE,
@@ -24,6 +28,10 @@ const { I } = inject();
 const LOGIN_TIMEOUT = 60;
 
 let _isApplicant2 = false;
+
+export const APPLICANT_1_FIRST_NAME = 'Sarah';
+export const APPLICANT_2_FIRST_NAME = 'John';
+export const APPLICANTS_LAST_NAME = 'Smith';
 
 export const iClickSignOut = async (): Promise<void> => {
   await iClickToNavigate(
@@ -231,6 +239,30 @@ export const clearNewUsers = async (): Promise<void> => {
   await idamUserManager.clearAndKeepOnlyOriginalUser();
 };
 
+export const iGetTheTestUser = async (
+  user: { username: string; password: string } = getCurrentUser()
+): Promise<UserDetails> => {
+  const params = { username: user.username, password: user.password };
+  const response: AxiosResponse<OidcResponse> = await getIdamToken(params, params.username);
+
+  const jwt = jwtDecode(response.data.id_token) as {
+    uid: string;
+    sub: string;
+    given_name: string;
+    family_name: string;
+    roles: string[];
+  };
+
+  return {
+    accessToken: response.data.access_token,
+    id: jwt.uid,
+    email: jwt.sub,
+    givenName: jwt.given_name,
+    familyName: jwt.family_name,
+    roles: jwt.roles,
+  };
+};
+
 export const isApplicant2 = (): boolean => {
   return _isApplicant2;
 };
@@ -249,4 +281,19 @@ export const getApplicantString = (): string => {
 
 export const getOtherApplicantString = (): string => {
   return `applicant${getOtherApplicantNumber()}`;
+};
+
+const getFirstName = (otherParty: boolean = false): string => {
+  if (otherParty) {
+    return isApplicant2() ? APPLICANT_1_FIRST_NAME : APPLICANT_2_FIRST_NAME;
+  }
+  return isApplicant2() ? APPLICANT_2_FIRST_NAME : APPLICANT_1_FIRST_NAME;
+};
+
+export const getMyName = (): { firstName: string; lastName: string } => {
+  return { firstName: getFirstName(), lastName: APPLICANTS_LAST_NAME };
+};
+
+export const getTheirName = (): { firstName: string; lastName: string } => {
+  return { firstName: getFirstName(true), lastName: APPLICANTS_LAST_NAME };
 };
