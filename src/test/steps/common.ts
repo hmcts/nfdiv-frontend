@@ -6,13 +6,19 @@ import {
   ConditionalOrderCourt,
   Gender,
   SYSTEM_UPDATE_CASE_COURT_HEARING,
+  State,
   YesOrNo,
 } from '../../main/app/case/definition';
 import { FinancialOrderForRadioOption } from '../../main/steps/applicant1/who-is-the-financial-order-for/content';
 import { CHECK_JURISDICTION, HOW_DO_YOU_WANT_TO_APPLY, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
 import { TestUserType } from '../config';
 
-import { executeUserCaseScript, linkUserToCase, triggerAnEvent } from './commonHelpers/caseInteraction';
+import {
+  executeUserCaseScript,
+  iSetTheCaseStateAndSignOut,
+  linkUserToCase,
+  triggerAnEvent,
+} from './commonHelpers/caseInteraction';
 import {
   iAcceptCookies,
   iCannotUploadDocs,
@@ -198,6 +204,10 @@ When('I click start', () => {
 });
 
 When('I sign out', iClickSignOut);
+
+Given('I set the case state to {string}', async (state: State) => {
+  await iSetTheCaseStateAndSignOut(state);
+});
 
 // These three should be tidied up
 When('I click find address', () => {

@@ -12,7 +12,15 @@ import { TestUserType } from '../../config';
 
 import { iClearTheForm, iClickSubmit, iEnterValueIntoInput, iWait } from './elementInteraction';
 import { iAmOnPage } from './navigation';
-import { getCurrentUser, getOrCreateCaseWorker, iClickSignOut, iGetTheTestUser, login } from './userInteraction';
+import {
+  autoLogin,
+  getCurrentUser,
+  getOrCreateCaseWorker,
+  iClickSignOut,
+  iGetTheTestUser,
+  iSignOut,
+  login,
+} from './userInteraction';
 
 const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
@@ -53,6 +61,16 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
 
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
   executeUserCaseScript(userCaseObj);
+
+export const iSetTheCaseStateAndSignOut = async (state: State): Promise<void> => {
+  const user = getCurrentUser();
+  await iSetTheUsersCaseTo({
+    state,
+  });
+  await I.grabCurrentUrl(); // Do we need to do this??
+  iSignOut();
+  await autoLogin.login(user, false);
+};
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 export const executeUserCaseScript = async (data: any): Promise<void> => {

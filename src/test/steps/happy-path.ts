@@ -1,7 +1,7 @@
 import { createRequire } from 'module';
 
 import { LanguagePreference } from '../../main/app/case/case';
-import { ApplicationType, Gender, State, YesOrNo } from '../../main/app/case/definition';
+import { ApplicationType, Gender, YesOrNo } from '../../main/app/case/definition';
 import {
   ADDRESS_PRIVATE,
   CERTIFICATE_URL,
@@ -50,11 +50,10 @@ import {
   iSelectYesOrNoForField,
 } from './commonHelpers/elementInteraction';
 import { iAmOnPage, iGoToPageAsUser } from './commonHelpers/navigation';
-import { autoLogin, getCurrentUser, getUserEmail, iSignOut } from './commonHelpers/userInteraction';
+import { getUserEmail } from './commonHelpers/userInteraction';
 import { iEnterADateIntoField } from './date';
 import { iEnterTheUkAddress } from './postcode';
 
-const { I } = inject();
 const requireFromFixture = createRequire(__filename);
 
 Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
@@ -89,16 +88,6 @@ Given(
     await iClickSubmit();
   }
 );
-
-Given('I set the case state to {string}', async (state: State) => {
-  const user = getCurrentUser();
-  await iSetTheUsersCaseTo({
-    state,
-  });
-  await I.grabCurrentUrl(); // Do we need to do this??
-  iSignOut();
-  await autoLogin.login(user, false);
-});
 
 Given("I've completed all happy path questions correctly", async () => {
   iAmOnPage(YOUR_DETAILS_URL);
