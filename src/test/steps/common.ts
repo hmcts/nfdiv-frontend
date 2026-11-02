@@ -21,6 +21,7 @@ import {
 } from './commonHelpers/caseInteraction';
 import {
   iAcceptCookies,
+  iAgreeTheCourtCanContactMeByEmail,
   iCannotUploadDocs,
   iCheckOption,
   iCheckOptionFor,
@@ -149,10 +150,7 @@ Given('I have my marriage certificate with me', iSelectYes);
 Given('I do not have my marriage certificate with me', iSelectNo);
 Given('I cannot upload my original marriage certificate', iCannotUploadDocs);
 Given('I cannot upload my original foreign marriage certificate', iCannotUploadDocs);
-Given('I agree that the court can contact me by email', () => {
-  const selector = `#${getApplicantString()}AgreeToReceiveEmails`;
-  iCheckOption(selector);
-});
+Given('I agree that the court can contact me by email', iAgreeTheCourtCanContactMeByEmail);
 Given('we were a same-sex couple when we got married', () => {
   iCheckOption('#sameSex');
 });
@@ -295,10 +293,10 @@ When('I do not need my contact details kept private', () => {
   iSetPrivateAddress(false);
 });
 When('I need my contact details kept private', () => {
-  iSetPrivateAddress(true);
+  iSetPrivateAddress();
 });
 When('I am in a refuge', () => {
-  iSetInRefuge(true);
+  iSetInRefuge();
 });
 When('I do not need a financial order', iSelectNo);
 When('I need a financial order for myself and my children', () => {
