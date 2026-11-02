@@ -164,7 +164,7 @@ export const iEnterValueIntoInput = (value: string, inputSelector: string, wait?
   I.fillField(inputSelector, value);
 };
 
-const iSetAddressPrivacy = (isPrivate: boolean = false, inRefuge: boolean = false): void => {
+const iSetAddressPrivacy = (isPrivate: boolean = true, inRefuge: boolean = false): void => {
   iSelectYesOrNoForField(isPrivate ? YesOrNo.YES : YesOrNo.NO, `${getApplicantString()}AddressPrivate`);
   if (isPrivate) {
     iWaitForVisible('#inRefugeConditional');
@@ -173,10 +173,10 @@ const iSetAddressPrivacy = (isPrivate: boolean = false, inRefuge: boolean = fals
     iWaitForInvisible('#inRefugeConditional');
   }
 };
-export const iSetPrivateAddress = (isPrivate: boolean = false): void => {
+export const iSetPrivateAddress = (isPrivate: boolean = true): void => {
   iSetAddressPrivacy(isPrivate, false);
 };
-export const iSetInRefuge = (inRefuge: boolean = false): void => {
+export const iSetInRefuge = (inRefuge: boolean = true): void => {
   iSetAddressPrivacy(true, inRefuge);
 };
 
@@ -271,6 +271,11 @@ export const iEnterTheirCertificateName = (
   name: string | { firstName: string; lastName: string } = getTheirName()
 ): void => {
   iEnterCertificateName(getOtherApplicantString(), name);
+};
+
+export const iAgreeTheCourtCanContactMeByEmail = (): void => {
+  const selector = `#${getApplicantString()}AgreeToReceiveEmails`;
+  iCheckOption(selector);
 };
 
 export const iEnterTheDefaultEmailAddressInto = (selector: string): void => {
