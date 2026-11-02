@@ -4,7 +4,7 @@ import { tryTo } from 'codeceptjs/effects';
 import { YesOrNo } from '../../../main/app/case/definition';
 
 import { iAmOnIdam, iClickToNavigate } from './navigation';
-import { getApplicantString } from './userInteraction';
+import { getApplicantString, getMyName, getOtherApplicantString, getTheirName } from './userInteraction';
 
 const { I } = inject();
 
@@ -84,14 +84,14 @@ export const iClickSubmitAndExpectUrl = async (
   nextUrl?: string,
   wait?: number,
   waitUntil: WaitUntil = 'load',
-  customTitleSelector?: string
+  titleSelector?: string
 ): Promise<void> => {
   const submitSelector = await I.executeScript(() =>
     document.getElementById('main-form-submit')
       ? '#main-form-submit'
       : 'button[type="submit"]:not(#hide-message):not(.document-delete-button):not(.web-payment-button--apple-pay)'
   );
-  await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil, customTitleSelector);
+  await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil, titleSelector);
 };
 
 export const iClickSubmit = async (wait?: number): Promise<void> => {
@@ -222,11 +222,43 @@ export const iDeleteAllUploadedFiles = async (): Promise<void> => {
 };
 
 export const iConfirmWeLiveInEnglandOrWales = (): void => {
-  iSelectYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
   iSelectYesOrNoForField(YesOrNo.YES, 'applicant1LifeBasedInEnglandAndWales');
+  iSelectYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
 };
 
 export const iConfirmPrayerAndStatementOfTruth = (): void => {
   iCheckOption('#iConfirmPrayer');
   iCheckOption('#statementOfTruth');
+};
+
+export const iEnterNames = (applicant: string, names: string | { firstName: string; lastName: string }): void => {
+  if (typeof names === 'string') {
+    names = { firstName: names.split(' ')[0], lastName: names.split(' ')[1] };
+  }
+  iEnterValueIntoInput(names.firstName, `#${applicant}FirstNames`);
+  iEnterValueIntoInput(names.lastName, `#${applicant}LastNames`);
+};
+export const iEnterMyName = (names: string | { firstName: string; lastName: string } = getMyName()): void => {
+  iEnterNames(getApplicantString(), names);
+};
+export const iEnterTheirName = (names: string | { firstName: string; lastName: string } = getTheirName()): void => {
+  iEnterNames(getOtherApplicantString(), names);
+};
+
+export const iEnterCertificateName = (
+  applicant: string,
+  names: string | { firstName: string; lastName: string }
+): void => {
+  if (typeof names === 'object') {
+    names = `${names.firstName} ${names.lastName}`;
+  }
+  iEnterValueIntoInput(names, `#${applicant}FullNameOnCertificate`);
+};
+export const iEnterMyCertificateName = (name: string | { firstName: string; lastName: string } = getMyName()): void => {
+  iEnterCertificateName(getApplicantString(), name);
+};
+export const iEnterTheirCertificateName = (
+  name: string | { firstName: string; lastName: string } = getTheirName()
+): void => {
+  iEnterCertificateName(getOtherApplicantString(), name);
 };
