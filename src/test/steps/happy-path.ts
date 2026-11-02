@@ -4,7 +4,6 @@ import { LanguagePreference } from '../../main/app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../../main/app/case/definition';
 import {
   ADDRESS_PRIVATE,
-  APPLICATION_SUBMITTED,
   CERTIFICATE_URL,
   CHECK_ANSWERS_URL,
   CHECK_JURISDICTION,
@@ -16,26 +15,17 @@ import {
   ENTER_THEIR_ADDRESS,
   ENTER_YOUR_ADDRESS,
   ENTER_YOUR_NAME,
-  GENERAL_APPLICATION_SUBMITTED,
   HAS_RELATIONSHIP_BROKEN_URL,
   HELP_WITH_YOUR_FEE_URL,
   HOME_URL,
   HOW_DO_YOU_WANT_TO_APPLY,
   HOW_THE_COURTS_WILL_CONTACT_YOU,
-  HUB_PAGE,
   IN_THE_UK,
-  JOINT_APPLICATION_SUBMITTED,
   JURISDICTION_INTERSTITIAL_URL,
   MONEY_PROPERTY,
   OTHER_COURT_CASES,
-  PAY_AND_SUBMIT,
   PAY_YOUR_FEE,
-  PAY_YOUR_FINAL_ORDER_FEE,
-  PAY_YOUR_GENERAL_APPLICATION_FEE,
-  PAY_YOUR_SERVICE_FEE,
   RELATIONSHIP_DATE_URL,
-  RESPONDENT,
-  SERVICE_APPLICATION_SUBMITTED,
   THEIR_CERTIFICATE_NAME,
   THEIR_EMAIL_ADDRESS,
   THEIR_NAME,
@@ -47,7 +37,6 @@ import {
 
 import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
 import {
-  WaitUntil,
   iCannotUploadDocs,
   iCheckOption,
   iClearTheForm,
@@ -60,7 +49,7 @@ import {
   iSelectYes,
   iSelectYesOrNoForField,
 } from './commonHelpers/elementInteraction';
-import { iAmOnPage, iGoToPageAsUser, iWaitInUrl, iWaitInUrlAsUser } from './commonHelpers/navigation';
+import { iAmOnPage, iGoToPageAsUser } from './commonHelpers/navigation';
 import { autoLogin, getCurrentUser, getUserEmail, iSignOut } from './commonHelpers/userInteraction';
 import { iEnterADateIntoField } from './date';
 import { iEnterTheUkAddress } from './postcode';
@@ -210,60 +199,3 @@ Given("I've completed all happy path questions correctly", async () => {
   iConfirmPrayerAndStatementOfTruth();
   await iClickSubmitAndExpectUrl(PAY_YOUR_FEE);
 });
-
-Given('I pay and submit the application', async () => {
-  iWaitInUrl(PAY_YOUR_FEE);
-  await iClickSubmit();
-
-  await completePayment(APPLICATION_SUBMITTED, 15, undefined, '#applicationSavedTitle');
-});
-
-Given('I pay and submit the service application', async () => {
-  iWaitInUrl(PAY_YOUR_SERVICE_FEE);
-  await iClickSubmit();
-
-  await completePayment(SERVICE_APPLICATION_SUBMITTED, 15);
-});
-
-Given('I pay and submit the general application', async () => {
-  iWaitInUrl(PAY_YOUR_GENERAL_APPLICATION_FEE);
-  await iClickSubmit();
-
-  await completePayment(GENERAL_APPLICATION_SUBMITTED, 15);
-});
-
-Given('I pay and submit the final order application', async () => {
-  iWaitInUrlAsUser(PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT);
-  await iClickSubmit();
-
-  await completePayment(RESPONDENT + HUB_PAGE, 15);
-});
-
-Given('I pay and submit the joint application', async () => {
-  iWaitInUrl(PAY_AND_SUBMIT);
-  await iClickSubmit();
-
-  await completePayment(JOINT_APPLICATION_SUBMITTED, 15);
-});
-
-const completePayment = async (
-  nextUrl?: string,
-  wait?: number,
-  waitUntil?: WaitUntil,
-  customTitleSelector?: string
-) => {
-  const cardDetailsUrl = '/card_details';
-  iWaitInUrl(cardDetailsUrl, 15);
-  iEnterValueIntoInput('4444333322221111', '#card-no', 15);
-  iEnterValueIntoInput('12', '#expiry-month');
-  iEnterValueIntoInput('30', '#expiry-year');
-  iEnterValueIntoInput('Nightly test', '#cardholder-name');
-  iEnterValueIntoInput('123', '#cvc');
-  iEnterValueIntoInput('BUCKINGHAM PALACE', '#address-line-1');
-  iEnterValueIntoInput('LONDON', '#address-city');
-  iEnterValueIntoInput('SW1A 1AA', '#address-postcode');
-  iEnterValueIntoInput('nightly-functional-test@example.com', '#email');
-  await iClickSubmit();
-  iWaitInUrl(cardDetailsUrl);
-  await iClickSubmitAndExpectUrl(nextUrl, wait, waitUntil, customTitleSelector);
-};
