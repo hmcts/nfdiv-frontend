@@ -1,6 +1,6 @@
 import { iEnterValueIntoInput } from './commonHelpers/elementInteraction';
 
-const defaultRelationshipDate = '1/1/2000';
+export const DEFAULT_RELATIONSHIP_DATE = '1/1/2000';
 
 export const iEnterADateIntoField = (date: string, field: string): void => {
   const [day, month, year] = date
@@ -11,6 +11,10 @@ export const iEnterADateIntoField = (date: string, field: string): void => {
   iEnterValueIntoInput(day, `#${field}-day`);
   iEnterValueIntoInput(month, `#${field}-month`);
   iEnterValueIntoInput(year, `#${field}-year`);
+};
+
+export const iEnterTheDefaultRelationshipDate = (): void => {
+  iEnterADateIntoField(DEFAULT_RELATIONSHIP_DATE, 'relationshipDate');
 };
 
 const dateToString = (date: Date): string => {
@@ -24,7 +28,7 @@ Given('I enter a date of {string} into the {string} field', (date, field: string
   iEnterADateIntoField(date, field);
 });
 Given('I enter the relationship date', () => {
-  iEnterADateIntoField(defaultRelationshipDate, 'relationshipDate');
+  iEnterTheDefaultRelationshipDate();
 });
 
 /** Setting the date to the first due to different months having different total number of days **/
