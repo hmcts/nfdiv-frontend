@@ -1,7 +1,7 @@
+import { PageLink } from '../../main/steps/urls';
 import * as urls from '../../main/steps/urls';
-import type { PageLink } from '../../main/steps/urls';
 
-const { getPageTitleIdFromUrl, ...urlPageLinks } = urls;
+const { ...urlPageLinks } = urls;
 
 const urlLookup = urlPageLinks;
 type UrlLookupKey = keyof typeof urlLookup;
@@ -30,8 +30,23 @@ const isInternalPageLinkKey = (linkKeyValue: string): linkKeyValue is UrlLookupK
   return internalPageLinkKeySet.has(linkKeyValue.toUpperCase() as UrlLookupKey);
 };
 
+const getPathWithoutPrefix = (path: PageLink): string => {
+  let pathWithoutPrefix: string;
+  if (path === urls.APPLICANT_1 || path.startsWith(`${urls.APPLICANT_1}/`)) {
+    pathWithoutPrefix = path.slice(urls.APPLICANT_1.length);
+  } else if (path === urls.APPLICANT_2 || path.startsWith(`${urls.APPLICANT_2}/`)) {
+    pathWithoutPrefix = path.slice(urls.APPLICANT_2.length);
+  } else if (path === urls.RESPONDENT || path.startsWith(`${urls.RESPONDENT}/`)) {
+    pathWithoutPrefix = path.slice(urls.RESPONDENT.length);
+  } else {
+    pathWithoutPrefix = path;
+  }
+  return pathWithoutPrefix;
+};
+
 export const isInternalPageLink = (linkValue: string): linkValue is InternalPageLink => {
-  return internalPageLinkSet.has(linkValue as PageLink);
+  const linkValueWithoutPrefix = getPathWithoutPrefix(linkValue as PageLink);
+  return internalPageLinkSet.has(linkValueWithoutPrefix as PageLink);
 };
 
 export const isFullyQualifiedUrl = (url: string): boolean => {
