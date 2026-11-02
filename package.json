@@ -188,6 +188,7 @@
     "multer": "2.5.0",
     "mochawesome-merge/minimatch": "10.2.6",
     "glob/minimatch": "11.0.1",
+    "cacache/glob": "14.0.2",
     "editorconfig/minimatch": "9.0.9",
     "cacache": "^21.0.1",
     "rimraf": "6.1.3",
