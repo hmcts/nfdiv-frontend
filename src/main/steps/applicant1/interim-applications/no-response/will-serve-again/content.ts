@@ -4,7 +4,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { CommonContent } from '../../../../common/common.content';
 import { HUB_PAGE } from '../../../../urls';
 
-const en = ({ isDivorce, isApp2Represented, partner }: CommonContent) => ({
+const en = ({ isDivorce, isApp2Represented, partner, isApp2Confidential }: CommonContent) => ({
   title: 'We will send the documents again',
   detailsProvided: `These are the details you previously provided and is where we have sent the ${
     isDivorce ? 'divorce' : 'application to end your civil partnership'
@@ -13,7 +13,7 @@ const en = ({ isDivorce, isApp2Represented, partner }: CommonContent) => ({
     isDivorce ? 'divorce' : 'application to end your civil partnership'
   } papers to your ${partner}${
     isApp2Represented ? "'s solicitor" : ''
-  } again using the postal address and any email addresses you provided before. The papers will be sent to the address by first class post, and will be sent by email now, if applicable.`,
+  } again using the ${isApp2Confidential ? 'contact details available to the court' : 'postal address and any email addresses you provided before'}. The papers will be sent to the address by first class post, and will be sent by email now, if applicable.`,
   whatHappensNext: 'What happens next',
   line2: `Your ${partner} will have ${config.get(
     'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
