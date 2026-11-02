@@ -43,6 +43,7 @@ import {
   iClickSubmit,
   iClickSubmitAndExpectUrl,
   iConfirmPrayerAndStatementOfTruth,
+  iEnterTheirEmailAddress,
   iEnterValueIntoInput,
   iSelectNo,
   iSelectRadioValue,
@@ -50,9 +51,8 @@ import {
   iSelectYesOrNoForField,
 } from './commonHelpers/elementInteraction';
 import { iAmOnPage, iGoToPageAsUser } from './commonHelpers/navigation';
-import { getUserEmail } from './commonHelpers/userInteraction';
 import { iEnterADateIntoField } from './date';
-import { iEnterTheUkAddress } from './postcode';
+import { DEFAULT_ADDRESS, iEnterTheUkAddress } from './postcode';
 
 const requireFromFixture = createRequire(__filename);
 
@@ -69,10 +69,8 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
 
 Given('I set the email address for applicant 2', async () => {
   iAmOnPage(THEIR_EMAIL_ADDRESS);
-  const applicant2EmailAddress = getUserEmail(2);
-
   await iClearTheForm();
-  iEnterValueIntoInput(applicant2EmailAddress, '#applicant2EmailAddress');
+  iEnterTheirEmailAddress();
   await iClickSubmit();
 });
 
@@ -158,7 +156,7 @@ Given("I've completed all happy path questions correctly", async () => {
   iSelectYesOrNoForField(YesOrNo.NO, 'applicant1AddressPrivate');
   await iClickSubmitAndExpectUrl(ENTER_YOUR_ADDRESS);
 
-  await iEnterTheUkAddress('BUCKINGHAM PALACE, LONDON, SW1A 1AA');
+  await iEnterTheUkAddress(DEFAULT_ADDRESS);
   await iClickSubmitAndExpectUrl(DO_THEY_HAVE_A_SOLICITOR);
 
   iSelectNo();
@@ -171,7 +169,7 @@ Given("I've completed all happy path questions correctly", async () => {
   iSelectYes();
   await iClickSubmitAndExpectUrl(ENTER_THEIR_ADDRESS);
 
-  await iEnterTheUkAddress('MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ');
+  await iEnterTheUkAddress(DEFAULT_ADDRESS);
   await iClickSubmitAndExpectUrl(OTHER_COURT_CASES);
 
   iSelectNo();

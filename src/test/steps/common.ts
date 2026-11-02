@@ -35,8 +35,11 @@ import {
   iDeleteAllUploadedFiles,
   iDeleteUploadedFile,
   iEnterMyCertificateName,
+  iEnterMyEmailAddress,
   iEnterMyName,
   iEnterTheirCertificateName,
+  iEnterTheirDefaultEmailAddress,
+  iEnterTheirDefaultSolicitorEmailAddress,
   iEnterTheirName,
   iEnterValueIntoInput,
   iRejectCookies,
@@ -64,7 +67,6 @@ import {
   clearNewUsers,
   getApplicantString,
   iClickSignOut,
-  iGetTheTestUser,
   login,
 } from './commonHelpers/userInteraction';
 
@@ -341,10 +343,13 @@ Then('I enter {string} into {string}', (value: string, selector: string) => {
   iEnterValueIntoInput(value, selector);
 });
 Then('I enter their email address', async () => {
-  iEnterValueIntoInput('simulate-delivered@notifications.service.gov.uk', '#applicant2EmailAddress');
+  iEnterTheirDefaultEmailAddress();
 });
 Then("I enter their solicitor's email address", async () => {
-  iEnterValueIntoInput('simulate-delivered@notifications.service.gov.uk', '#applicant2SolicitorEmail');
+  iEnterTheirDefaultSolicitorEmailAddress();
+});
+Given('I enter my email address', () => {
+  iEnterMyEmailAddress('#applicant2EmailAddress');
 });
 Then('I enter my HWF reference number', () => {
   iEnterValueIntoInput('HWF-ABC-123', `#${getApplicantString()}HelpWithFeesRefNo`);
@@ -398,11 +403,6 @@ Then('the form input {string} should be {string}', (formInput: string, value: st
 
 Then('I type {string}', (text: string) => {
   I.type(text);
-});
-
-Given('I type my own email address', async () => {
-  const testUser = await iGetTheTestUser();
-  I.type(testUser.email);
 });
 
 Given('I use an invalid CSRF token', async () => {
