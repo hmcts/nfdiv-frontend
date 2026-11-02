@@ -5,7 +5,7 @@ import { iClearTheForm, iClickElement, iEnterValueIntoInput } from './commonHelp
 const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
 
-const defaultAddress = 'MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ';
+export const DEFAULT_ADDRESS = 'MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ';
 
 export const iWaitForPostcodeLookUpResults = async (): Promise<void> => {
   I.waitForElement('#selectAddressInput');
@@ -48,15 +48,15 @@ export const iEnterTheUkAddress = async (address: string): Promise<void> => {
 };
 Given('I enter the UK address {string}', iEnterTheUkAddress);
 Given('I enter my address', async () => {
-  await iEnterTheUkAddress(defaultAddress);
+  await iEnterTheUkAddress(DEFAULT_ADDRESS);
 });
 Given('I enter their address', async () => {
-  await iEnterTheUkAddress(defaultAddress);
+  await iEnterTheUkAddress(DEFAULT_ADDRESS);
 });
 
 export const iEnterTheInternationalAddress = async (address: string): Promise<void> => {
   const addressParts = address.split(', ');
-  const country = address === defaultAddress ? 'Other Country' : addressParts[addressParts.length - 1];
+  const country = address === DEFAULT_ADDRESS ? 'Other Country' : addressParts[addressParts.length - 1];
 
   await iResetThePostCodeLookUpForm();
 
@@ -66,8 +66,8 @@ export const iEnterTheInternationalAddress = async (address: string): Promise<vo
 };
 Given('I enter the international address {string}', iEnterTheInternationalAddress);
 Given('I enter my international address', async () => {
-  await iEnterTheInternationalAddress(defaultAddress);
+  await iEnterTheInternationalAddress(DEFAULT_ADDRESS);
 });
 Given('I enter their international address', async () => {
-  await iEnterTheInternationalAddress(defaultAddress);
+  await iEnterTheInternationalAddress(DEFAULT_ADDRESS);
 });
