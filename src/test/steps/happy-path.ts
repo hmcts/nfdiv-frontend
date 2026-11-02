@@ -37,21 +37,27 @@ import {
 
 import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
 import {
+  iAgreeTheCourtCanContactMeByEmail,
   iCannotUploadDocs,
-  iCheckOption,
   iClearTheForm,
   iClickSubmit,
   iClickSubmitAndExpectUrl,
   iConfirmPrayerAndStatementOfTruth,
+  iConfirmWeLiveInEnglandOrWales,
+  iEnterMyCertificateName,
+  iEnterMyName,
+  iEnterTheirCertificateName,
+  iEnterTheirDefaultEmailAddress,
   iEnterTheirEmailAddress,
-  iEnterValueIntoInput,
+  iEnterTheirName,
   iSelectNo,
   iSelectRadioValue,
   iSelectYes,
   iSelectYesOrNoForField,
+  iSetPrivateAddress,
 } from './commonHelpers/elementInteraction';
 import { iAmOnPage, iGoToPageAsUser } from './commonHelpers/navigation';
-import { iEnterADateIntoField } from './date';
+import { iEnterTheDefaultRelationshipDate } from './date';
 import { DEFAULT_ADDRESS, iEnterTheUkAddress } from './postcode';
 
 const requireFromFixture = createRequire(__filename);
@@ -81,8 +87,8 @@ Given(
 
     await iSetTheUsersCaseTo(fixtureJson);
 
-    const resolvedApplicant = iGoToPageAsUser(ADDRESS_PRIVATE, user);
-    iSelectYesOrNoForField(YesOrNo.NO, `${resolvedApplicant}AddressPrivate`);
+    iGoToPageAsUser(ADDRESS_PRIVATE, user);
+    iSetPrivateAddress(false);
     await iClickSubmit();
   }
 );
@@ -97,7 +103,7 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmitAndExpectUrl(RELATIONSHIP_DATE_URL);
 
   await iClearTheForm();
-  iEnterADateIntoField('1/1/2000', 'relationshipDate');
+  iEnterTheDefaultRelationshipDate();
   await iClickSubmitAndExpectUrl(CERTIFICATE_URL);
 
   iSelectYes();
@@ -114,15 +120,13 @@ Given("I've completed all happy path questions correctly", async () => {
 
   await iClickSubmitAndExpectUrl(WHERE_YOUR_LIVES_ARE_BASED_URL);
 
-  iSelectYesOrNoForField(YesOrNo.YES, 'applicant1LifeBasedInEnglandAndWales');
-  iSelectYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
+  iConfirmWeLiveInEnglandOrWales();
   await iClickSubmitAndExpectUrl(JURISDICTION_INTERSTITIAL_URL);
 
   await iClickSubmitAndExpectUrl(ENTER_YOUR_NAME);
 
   await iClearTheForm();
-  iEnterValueIntoInput('Test your name', '#applicant1FirstNames');
-  iEnterValueIntoInput('Test your last name', '#applicant1LastNames');
+  iEnterMyName();
   await iClickSubmitAndExpectUrl(CHECK_YOUR_NAME);
 
   await iClearTheForm();
@@ -130,12 +134,11 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmitAndExpectUrl(YOUR_CERTIFICATE_NAME);
 
   await iClearTheForm();
-  iEnterValueIntoInput('Test your name', '#applicant1FullNameOnCertificate');
+  iEnterMyCertificateName();
   await iClickSubmitAndExpectUrl(THEIR_NAME);
 
   await iClearTheForm();
-  iEnterValueIntoInput('Test their name', '#applicant2FirstNames');
-  iEnterValueIntoInput('Test their last name', '#applicant2LastNames');
+  iEnterTheirName();
   await iClickSubmitAndExpectUrl(CHECK_THEIR_NAME);
 
   await iClearTheForm();
@@ -143,17 +146,17 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmitAndExpectUrl(THEIR_CERTIFICATE_NAME);
 
   await iClearTheForm();
-  iEnterValueIntoInput('Husbands name', '#applicant2FullNameOnCertificate');
+  iEnterTheirCertificateName();
   await iClickSubmitAndExpectUrl(HOW_THE_COURTS_WILL_CONTACT_YOU);
 
   await iClearTheForm();
-  iCheckOption('#applicant1AgreeToReceiveEmails');
+  iAgreeTheCourtCanContactMeByEmail();
   await iClickSubmitAndExpectUrl(ENGLISH_OR_WELSH);
 
   iSelectRadioValue(LanguagePreference.English);
   await iClickSubmitAndExpectUrl(ADDRESS_PRIVATE);
 
-  iSelectYesOrNoForField(YesOrNo.NO, 'applicant1AddressPrivate');
+  iSetPrivateAddress(false);
   await iClickSubmitAndExpectUrl(ENTER_YOUR_ADDRESS);
 
   await iEnterTheUkAddress(DEFAULT_ADDRESS);
@@ -163,7 +166,7 @@ Given("I've completed all happy path questions correctly", async () => {
   await iClickSubmitAndExpectUrl(THEIR_EMAIL_ADDRESS);
 
   await iClearTheForm();
-  iEnterValueIntoInput('husband@example.com', '#applicant2EmailAddress');
+  iEnterTheirDefaultEmailAddress();
   await iClickSubmitAndExpectUrl(DO_YOU_HAVE_ADDRESS);
 
   iSelectYes();
