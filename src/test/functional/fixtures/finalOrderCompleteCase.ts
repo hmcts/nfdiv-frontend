@@ -1,4 +1,4 @@
-import { BrowserCase } from '../../steps/common';
+import { BrowserCase } from '../../steps/commonHelpers/caseInteraction';
 
 import { completeCase } from './completeCase';
 

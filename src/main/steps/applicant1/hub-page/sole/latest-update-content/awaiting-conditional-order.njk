@@ -1,6 +1,6 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
-<p class="govuk-body">{{ awaitingConditionalOrder | safe }}</p>
+<p class="govuk-body" id="awaitingConditionalOrderStatement">{{ awaitingConditionalOrder | safe }}</p>
 
 {% if isDeemedOrDispensedApplication and not userCase.aosStatementOfTruth %}
   <p class="govuk-body">{{ conditionalOrderWithDeemedOrDispensedService }}

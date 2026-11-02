@@ -1,4 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
+import axios from 'axios';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
@@ -128,7 +129,6 @@ export class OidcMiddleware {
           }
           if (config.get('services.case.checkDivCases') && (await req.locals.api.hasInProgressDivorceCase())) {
             logger.info(`UserID ${req.session.user.id} being redirected to old divorce`);
-            const axios = require('axios');
 
             const token = req.session.user.accessToken;
             const decreeNisiUrl = config.get('services.decreeNisi.url') + '/authenticated';
@@ -146,7 +146,7 @@ export class OidcMiddleware {
                 res.redirect(decreeNisiUrl);
               })
               .catch(error => {
-                console.error('Error authenticating with Old Divorce service:', error);
+                logger.error('Error authenticating with Old Divorce service:', error);
                 res.status(500).send('Internal Server Error');
               });
           }
@@ -174,7 +174,7 @@ export class OidcMiddleware {
           return next();
         }
       });
-    } catch (e) {
+    } catch {
       return res.redirect(SIGN_OUT_URL);
     }
   }

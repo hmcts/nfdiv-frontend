@@ -228,6 +228,7 @@ export const form: FormContent = {
                       label: l => l.cannotUploadWhich,
                       hint: l => l.checkAllThatApply,
                       values: checkboxes.map(checkbox => ({
+                        id: checkbox.id,
                         name: 'applicant1CannotUploadDocuments',
                         label: l => l[checkbox.id],
                         value: checkbox.value,
@@ -246,6 +247,7 @@ export const form: FormContent = {
               label: l => l.cannotUploadDocuments,
               labelHidden: true,
               values: checkboxes.map(checkbox => ({
+                id: 'cannotUploadDocs',
                 name: 'applicant1CannotUploadDocuments',
                 label: l => l[`${checkbox.id}Singular`],
                 value: checkbox.value,

@@ -86,7 +86,7 @@ export class AccessCodePostController {
           req.locals.logger.info(
             `Unlinking userId: "${req.session.user.id}" from existing application: ${req.session.existingCaseId}`
           );
-        } catch (err) {
+        } catch {
           req.locals.logger.error(
             `Could not unlink user(${req.session.user.id}) from case(${req.session.existingCaseId})`
           );

@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormField, FormFields } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
@@ -30,6 +31,9 @@ export const form: FormContent = {
         if (!isCountryUk(formData.applicant2AddressCountry)) {
           return;
         }
+        if (formData.applicant2AddressOverseas === YesOrNo.YES) {
+          return;
+        }
         return isFieldFilledIn(value);
       },
     },
@@ -38,6 +42,9 @@ export const form: FormContent = {
       ...(applicant1FormFields.applicant1AddressPostcode as FormField),
       validator: (value, formData) => {
         if (!isCountryUk(formData.applicant2AddressCountry)) {
+          return;
+        }
+        if (formData.applicant2AddressOverseas === YesOrNo.YES) {
           return;
         }
         return isInvalidPostcode(value);

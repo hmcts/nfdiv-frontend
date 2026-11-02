@@ -3,7 +3,7 @@
 {% block backLink %}{% endblock %}
 
 {% block page_content %}
-  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  <h1 class="govuk-heading-xl" id="{{ titleId }}">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
   <p class="govuk-body">{{ line2 }}</p>
   <p class="govuk-body"><a href="/exit-service" class="govuk-link">{{ exitLink }}</a></p>

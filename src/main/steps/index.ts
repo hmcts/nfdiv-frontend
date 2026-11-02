@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { createRequire } from 'module';
 import { extname } from 'path';
 
 import { CaseWithId } from '../app/case/case';
@@ -27,6 +28,7 @@ import {
 
 const stepFields: Record<string, FormFields | FormFieldsFn> = {};
 const ext = extname(__filename);
+const requireFromStepFile = createRequire(__filename);
 
 const allSequences = [
   applicant1PreSubmissionSequence,
@@ -41,7 +43,7 @@ allSequences.forEach((sequence: Step[], i: number) => {
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content${ext}`;
     if (fs.existsSync(stepContentFile)) {
-      const content = require(stepContentFile);
+      const content = requireFromStepFile(stepContentFile);
 
       if (content.form) {
         stepFields[step.url] = content.form.fields;
@@ -175,7 +177,7 @@ const getPathAndQueryString = (req: AppRequest): { path: string; queryString: st
 
 const getStepFiles = (stepDir: string) => {
   const stepContentFile = `${stepDir}/content${ext}`;
-  const content = fs.existsSync(stepContentFile) ? require(stepContentFile) : {};
+  const content = fs.existsSync(stepContentFile) ? requireFromStepFile(stepContentFile) : {};
   const stepViewFile = `${stepDir}/template.njk`;
   const view = fs.existsSync(stepViewFile) ? stepViewFile : `${stepDir}/../../common/template.njk`;
 

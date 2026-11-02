@@ -46,14 +46,15 @@
           }
         },
         items: [
-          { text: yes, value: 'Yes', checked: userCase[fieldName] == 'Yes' },
+          { text: yes, value: 'Yes', checked: userCase[fieldName] == 'Yes', id: 'yes' },
           {
             text: no,
             value: 'No',
             checked: userCase[fieldName] == 'No',
             conditional: {
               html: textArea
-            }
+            },
+            id: 'no'
           }
         ],
         errorMessage: getError(fieldName),

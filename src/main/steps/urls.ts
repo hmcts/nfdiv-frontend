@@ -342,3 +342,23 @@ export const MAKE_AN_APPLICATION: PageLink = '/interim-applications/general-appl
 export const WITHDRAW_THIS_APPLICATION: PageLink = '/withdraw-pre-issue/withdraw-this-application';
 export const CHECK_ANSWERS_WITHDRAW: PageLink = '/withdraw-pre-issue/check-your-answers';
 export const WITHDRAW_CONFIRMATION: PageLink = '/withdraw-pre-issue/application-withdrawn';
+
+export const getPageTitleIdFromUrl = (path: PageLink): string => {
+  const pathWithoutPrefix =
+    path === APPLICANT_1 || path.startsWith(`${APPLICANT_1}/`)
+      ? path.slice(APPLICANT_1.length)
+      : path === APPLICANT_2 || path.startsWith(`${APPLICANT_2}/`)
+        ? path.slice(APPLICANT_2.length)
+        : path === RESPONDENT || path.startsWith(`${RESPONDENT}/`)
+          ? path.slice(RESPONDENT.length)
+          : path;
+
+  const words = pathWithoutPrefix
+    .split('/')
+    .flatMap(segment => segment.split('-'))
+    .filter(Boolean);
+  const [firstWord = '', ...otherWords] = words;
+
+  const camelCasePath = firstWord + otherWords.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+  return `${camelCasePath}Title`;
+};

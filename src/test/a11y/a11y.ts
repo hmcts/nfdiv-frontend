@@ -1,15 +1,18 @@
 import fs from 'fs';
 
-import axios from 'axios';
-import puppeteer from 'puppeteer';
+import { create as axiosCreate } from 'axios';
+import pa11y from 'pa11y';
+import { launch as launchPuppeteer } from 'puppeteer';
 
-import * as urls from '../../main/steps/urls';
+import * as urlsExports from '../../main/steps/urls';
 import { config } from '../config';
+
+const { getPageTitleIdFromUrl, ...urlPageLinks } = urlsExports;
+const urls = urlPageLinks;
 
 const IGNORED_URLS = [urls.SIGN_IN_URL, urls.SIGN_OUT_URL];
 
-const pa11y = require('pa11y');
-const server = axios.create({ baseURL: config.TEST_URL });
+const server = axiosCreate({ baseURL: config.TEST_URL });
 
 interface Pa11yResult {
   documentTitle: string;
@@ -82,7 +85,7 @@ describe('Accessibility', () => {
       await browser.close();
     }
 
-    browser = await puppeteer.launch({ acceptInsecureCerts: true });
+    browser = await launchPuppeteer({ acceptInsecureCerts: true });
     browser.on('disconnected', setup);
 
     // Login once only for other pages to reuse session

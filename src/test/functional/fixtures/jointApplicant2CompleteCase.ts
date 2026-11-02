@@ -1,6 +1,6 @@
 import { Checkbox, LanguagePreference } from '../../../main/app/case/case';
 import { ChangedNameHow, DocumentType, YesOrNo } from '../../../main/app/case/definition';
-import { BrowserCase } from '../../steps/common';
+import { BrowserCase } from '../../steps/commonHelpers/caseInteraction';
 
 export const jointApplicant2CompleteCase: Partial<BrowserCase> = {
   applicant2AgreeToReceiveEmails: Checkbox.Checked,

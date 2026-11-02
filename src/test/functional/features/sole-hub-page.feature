@@ -101,7 +101,7 @@ Feature: Sole hub page
     Then the page should include "You need to provide some information before your application can progress."
     And the page should include "What you need to do"
 
-    Given I click 'Provide information'
+    Given I click provide information
     Then the page URL should be '/provide-information-to-the-court'
     And the page should include "Provide information to the court"
     Given I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."

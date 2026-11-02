@@ -18,7 +18,7 @@
 {% endset %}
 
 {% block page_content %}
-  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <h1 class="govuk-heading-l" id="{{ titleId }}">{{ title }}</h1>
   <p class="govuk-body">{{ line1 | safe }}</p>
 
   {% if isJointApplication %}
