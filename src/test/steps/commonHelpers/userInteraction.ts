@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { getIdamToken, OidcResponse } from '../../../main/app/auth/user/oidc';
+
+import { OidcResponse, getIdamToken } from '../../../main/app/auth/user/oidc';
 import { Gender } from '../../../main/app/case/definition';
 import { UserDetails } from '../../../main/app/controller/AppRequest';
 import {
