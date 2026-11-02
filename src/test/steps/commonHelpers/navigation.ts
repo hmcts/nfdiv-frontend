@@ -142,26 +142,22 @@ export const iClickToNavigate = async (
   }
 };
 
-type ResolvedApplicant = 'applicant1' | 'applicant2';
-
-export const iGoToPageAsUser = (url: string, user?: string): ResolvedApplicant => {
+export const iGoToPageAsUser = (url: string, user?: string): void => {
   const fullUrl = getFullUrl(user, url);
   iAmOnPage(fullUrl);
-  return fullUrl.startsWith('/respondent') || fullUrl.startsWith('/applicant2') ? 'applicant2' : 'applicant1';
 };
 
-export const iGoToPage = (url: string): ResolvedApplicant => {
-  return iGoToPageAsUser(url);
+export const iGoToPage = (url: string): void => {
+  iGoToPageAsUser(url);
 };
 
-export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number): ResolvedApplicant => {
+export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number): void => {
   const fullUrl = getFullUrl(user, url);
   I.waitInUrl(fullUrl, wait);
-  return fullUrl.startsWith('/respondent') || fullUrl.startsWith('/applicant2') ? 'applicant2' : 'applicant1';
 };
 
-export const iWaitInUrl = (url: string, wait?: number): ResolvedApplicant => {
-  return iWaitInUrlAsUser(url, undefined, wait);
+export const iWaitInUrl = (url: string, wait?: number): void => {
+  iWaitInUrlAsUser(url, undefined, wait);
 };
 
 export const iWaitForUrl = (url?: string | RegExp, wait?: number, waitUntil: WaitUntil = 'load'): void => {
