@@ -28,14 +28,14 @@ const en = ({ isDivorce, isApp2Represented, partner, isApp2Confidential }: Commo
   },
 });
 
-const cy: typeof en = ({ isDivorce, isApp2Represented, partner }: CommonContent) => ({
+const cy: typeof en = ({ isDivorce, isApp2Represented, partner, isApp2Confidential }: CommonContent) => ({
   title: 'Mi wnawn anfon y dogfennau eto',
   detailsProvided: `Dyma’r manylion a ddarparwyd gennych yn flaenorol ac i ble’r ydym wedi anfon ${
     isDivorce ? 'papurau’r ysgariad' : 'y papurau i ddod â’ch partneriaeth sifil i ben'
   }.`,
-  line1: `Byddwn nawr yn anfon papurau’r ${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} at ${
+  line1: `Byddwn yn awr yn anfon y papurau ${isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'} at ${
     isApp2Represented ? 'gyfreithiwr eich' : 'eich'
-  } ${partner} eto gan ddefnyddio’r cyfeiriad post ac unrhyw gyfeiriadau e-bost a ddarparwyd gennych yn flaenorol. Bydd y papurau’n cael eu hanfon i’r cyfeiriad drwy’r post dosbarth cyntaf, a drwy e-bost nawr, os yw hynny’n berthnasol.`,
+  } ${partner} eto gan ddefnyddio’r ${isApp2Confidential ? 'manylion cyswllt sydd ar gael i’r llys' : 'cyfeiriad post ac unrhyw gyfeiriadau e-bost a ddarparwyd gennych o’r blaen'}. Bydd y papurau’n cael eu hanfon i’r cyfeiriad drwy’r post dosbarth cyntaf, a drwy e-bost nawr, os yw hynny’n berthnasol.`,
   whatHappensNext: 'Beth fydd yn digwydd nesaf',
   line2: `Bydd gan eich ${partner} ${config.get(
     'dates.interimApplicationNoResponseNewContactDetailsOffsetDays'
