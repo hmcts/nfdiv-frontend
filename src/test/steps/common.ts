@@ -62,6 +62,7 @@ import {
   iDontSeeABackLink,
   iGoToPage,
   iGoToPageAsUser,
+  iWaitInErrorPage,
   iWaitInUrl,
   iWaitInUrlAsUser,
 } from './commonHelpers/navigation';
@@ -96,6 +97,9 @@ Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$/, (user: string, url: stri
 });
 Then('the page URL should be {string}', (url: string) => {
   iWaitInUrl(url);
+});
+Then('the request should redirect to the error page', () => {
+  iWaitInErrorPage();
 });
 
 Given('I login', async () => {

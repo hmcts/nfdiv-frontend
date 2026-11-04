@@ -23,6 +23,7 @@ const { I } = inject();
 type UrlType = 'string' | 'empty-string' | 'regexp' | undefined;
 const BACK_LINK_SELECTOR = 'a.govuk-back-link';
 const CHECK_ANSWERS_SELECTOR = `a[href="${VIEW_YOUR_ANSWERS}"]`;
+const ERROR_PAGE_URL = '/error';
 
 const urlStringToRegExp = (url: string): RegExp => {
   const escapeRegExp = (toEscape: string) => toEscape.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -69,6 +70,7 @@ export const getFullUrl = (user?: string, url?: string): string => {
   const definedUrl = lookupUrl(url);
 
   const definedOnly =
+    userPrefix === '' ||
     isFullyQualifiedUrl(definedUrl) ||
     (userPrefix === APPLICANT_1 && definedUrl !== ENTER_YOUR_ACCESS_CODE) ||
     getPathPrefix(definedUrl as PageLink) !== '';
@@ -103,12 +105,13 @@ const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
 };
 
 export const setUserPathPrefix = (nextUrl: string, user?: string): InternalPageLink | string => {
-  if (user && user.trim().length > 0) {
+  if (user !== undefined) {
     return getFullUrl(user, nextUrl);
   }
   if (isApplicant2()) {
     return getFullUrl(APPLICANT_2, nextUrl);
-  } else if (isRespondent()) {
+  }
+  if (isRespondent()) {
     return getFullUrl(RESPONDENT, nextUrl);
   }
   return lookupUrl(nextUrl);
@@ -182,12 +185,16 @@ export const iGoToPage = (url: string): void => {
 };
 
 export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number): void => {
-  const fullUrl = getFullUrl(user, url);
-  I.waitInUrl(fullUrl, wait);
+  url = setUserPathPrefix(url, user);
+  I.waitInUrl(url, wait);
 };
 
 export const iWaitInUrl = (url: string, wait?: number): void => {
   iWaitInUrlAsUser(url, undefined, wait);
+};
+
+export const iWaitInErrorPage = (wait?: number): void => {
+  iWaitInUrlAsUser(ERROR_PAGE_URL, '', wait);
 };
 
 export const iWaitForUrl = (url?: string | RegExp, wait?: number, waitUntil: WaitUntil = 'load'): void => {
