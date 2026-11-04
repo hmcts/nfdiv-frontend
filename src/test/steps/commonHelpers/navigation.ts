@@ -6,13 +6,21 @@ import {
   APPLICANT_1,
   APPLICANT_2,
   CHECK_ANSWERS_URL,
+  CSRF_TOKEN_ERROR_URL,
   ENTER_YOUR_ACCESS_CODE,
   PageLink,
   RESPONDENT,
   VIEW_YOUR_ANSWERS,
 } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
-import { InternalPageLink, getPathPrefix, isFullyQualifiedUrl, isInternalPageLink, lookupUrl } from '../urlLookup';
+import {
+  ERROR_PAGE_URL,
+  InternalPageLink,
+  getPathPrefix,
+  isFullyQualifiedUrl,
+  isInternalPageLink,
+  lookupUrl,
+} from '../urlLookup';
 
 import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';
 import { isApplicant2, isRespondent } from './userInteraction';
@@ -24,7 +32,6 @@ type UrlType = 'string' | 'empty-string' | 'regexp' | undefined;
 const BACK_LINK_SELECTOR = 'a.govuk-back-link';
 const CHECK_ANSWERS_SELECTOR = `a[href="${VIEW_YOUR_ANSWERS}"]`;
 const WITHDRAW_LINK_SELECTOR = 'a#withdrawLink';
-const ERROR_PAGE_URL = '/error';
 
 const urlStringToRegExp = (url: string): RegExp => {
   const escapeRegExp = (toEscape: string) => toEscape.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -105,7 +112,22 @@ const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
   }
 };
 
+export const isErrorUrl = (url: string): boolean => {
+  switch (url.toUpperCase()) {
+    case 'ERROR_PAGE_URL':
+    case ERROR_PAGE_URL.toUpperCase():
+    case 'CSRF_TOKEN_ERROR_URL':
+    case CSRF_TOKEN_ERROR_URL.toUpperCase():
+      return true;
+    default:
+      return false;
+  }
+};
+
 export const setUserPathPrefix = (nextUrl: string, user?: string): InternalPageLink | string => {
+  if (isErrorUrl(nextUrl)) {
+    return lookupUrl(nextUrl);
+  }
   if (user !== undefined) {
     return getFullUrl(user, nextUrl);
   }
@@ -200,7 +222,12 @@ export const iWaitInUrl = (url: string, wait?: number): void => {
 };
 
 export const iWaitInErrorPage = (wait?: number): void => {
-  iWaitInUrlAsUser(ERROR_PAGE_URL, '', wait);
+  iWaitInUrlAsUser(ERROR_PAGE_URL, undefined, wait);
+};
+
+export const iWaitInPageNotFoundErrorPage = (wait?: number): void => {
+  iWaitInUrlAsUser(lookupUrl(ERROR_PAGE_URL), undefined, wait);
+  iWaitForVisible('#pageNotFoundTitle', wait);
 };
 
 export const iWaitForUrl = (url?: string | RegExp, wait?: number, waitUntil: WaitUntil = 'load'): void => {
