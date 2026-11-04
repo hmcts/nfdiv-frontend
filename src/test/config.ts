@@ -76,7 +76,7 @@ export const config = {
   bootstrap: async (): Promise<void> => {
     await initializeTestEnvironment();
   },
-  teardown: async (): Promise<void> => config.getIdamUserManager().deleteAll(),
+  teardown: async (): Promise<void> => await config.getIdamUserManager().deleteAll(),
   helpers: {},
 };
 
