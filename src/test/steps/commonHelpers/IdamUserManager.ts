@@ -6,11 +6,15 @@ import { UserRole } from '../../../main/app/case/definition';
 export class IdamUserManager {
   logger: Logger;
   client: AxiosInstance;
-  users: Set<string> = new Set();
   usersBeingDeleted: Set<string> = new Set();
   private caseWorker: TestUserAndPassword;
   generateTestUsername: () => string;
   private readonly testUser: TestUserAndPassword;
+  private applicant1: TestUserAndPassword;
+  private applicant2: TestUserAndPassword;
+  private respondent: TestUserAndPassword;
+  private currentUser: TestUserKey | undefined;
+  private cleanupBarrier: Promise<void> = Promise.resolve();
 
   constructor(idamUrl: string, testUserNameGenerator: () => string, testPass: string) {
     this.logger = Logger.getLogger('IdamUserManager');
@@ -19,6 +23,9 @@ export class IdamUserManager {
     });
     this.generateTestUsername = () => testUserNameGenerator();
     this.testUser = { username: this.generateTestUsername(), password: testPass };
+    this.applicant1 = { username: '', password: '' };
+    this.applicant2 = { username: '', password: '' };
+    this.respondent = { username: '', password: '' };
     this.caseWorker = { username: '', password: '' };
   }
 
@@ -27,14 +34,41 @@ export class IdamUserManager {
     return this;
   }
 
+  private queueCleanup(work: () => Promise<void>): Promise<void> {
+    const run = this.cleanupBarrier.then(work, work);
+    this.cleanupBarrier = run.then(
+      () => undefined,
+      () => undefined
+    ); // keep barrier chain alive
+    return run;
+  }
+
+  private async waitForCleanup(): Promise<void> {
+    await this.cleanupBarrier;
+  }
+
   async createUser(
     email: string = this.generateTestUsername(),
     password: string = this.getTestPass(),
     role = ['citizen']
   ): Promise<TestUserAndPassword> {
-    const user = await this.create(email, password, role);
-    this.users.add(user.username);
-    return user;
+    await this.waitForCleanup();
+    return this.create(email, password, role);
+  }
+
+  async createApplicant1(): Promise<TestUserAndPassword> {
+    this.applicant1 = await this.createUser();
+    return this.applicant1;
+  }
+
+  async createApplicant2(): Promise<TestUserAndPassword> {
+    this.applicant2 = await this.createUser();
+    return this.applicant2;
+  }
+
+  async createRespondent(): Promise<TestUserAndPassword> {
+    this.respondent = await this.createUser();
+    return this.respondent;
   }
 
   async createCaseWorker(
@@ -49,11 +83,12 @@ export class IdamUserManager {
       UserRole.SUPER_USER,
     ]
   ): Promise<TestUserAndPassword> {
+    await this.waitForCleanup();
     this.caseWorker = await this.create(email, password, role);
     return this.caseWorker;
   }
 
-  async create(email: string, password: string, role: string[]): Promise<TestUserAndPassword> {
+  private async create(email: string, password: string, role: string[]): Promise<TestUserAndPassword> {
     try {
       await this.client.post('/testing-support/accounts', {
         email,
@@ -77,8 +112,14 @@ export class IdamUserManager {
     }
   }
 
+  hasUser = (userKey: TestUserKey): boolean => {
+    const user = this[userKey];
+    return !!user && !!user.username && user.username !== '';
+  };
+
   async delete(email: string): Promise<void> {
-    if (!this.users.has(email) && this.caseWorker.username !== email) {
+    email = email.trim();
+    if (email.length === 0) {
       return;
     }
 
@@ -90,10 +131,6 @@ export class IdamUserManager {
 
     try {
       await this.client.delete(`/testing-support/accounts/${email}`);
-      this.users.delete(email);
-      if (this.caseWorker.username === email) {
-        this.caseWorker = { username: '', password: '' };
-      }
       this.logger.info('Deleted user', email);
     } catch (e) {
       this.logger.error('Error deleting user', email, e);
@@ -102,48 +139,114 @@ export class IdamUserManager {
     }
   }
 
+  private clearUser(userKey: TestUserKey): void {
+    if (this.hasUser(userKey) && userKey !== TestUserKey.TEST_USER) {
+      this[userKey] = { username: '', password: '' };
+    }
+    if (this.getCurrentUserKey() === userKey) {
+      this.clearCurrentUser();
+    }
+  }
+
+  private getUsersToDelete(): Set<string> {
+    const usersToDelete: Set<string> = new Set();
+    if (this.hasUser(TestUserKey.APPLICANT_1)) {
+      usersToDelete.add(this[TestUserKey.APPLICANT_1].username);
+      this.clearUser(TestUserKey.APPLICANT_1);
+    }
+    if (this.hasUser(TestUserKey.APPLICANT_2)) {
+      usersToDelete.add(this[TestUserKey.APPLICANT_2].username);
+      this.clearUser(TestUserKey.APPLICANT_2);
+    }
+    if (this.hasUser(TestUserKey.RESPONDENT)) {
+      usersToDelete.add(this[TestUserKey.RESPONDENT].username);
+      this.clearUser(TestUserKey.RESPONDENT);
+    }
+    if (this.hasUser(TestUserKey.CASEWORKER)) {
+      usersToDelete.add(this[TestUserKey.CASEWORKER].username);
+      this.clearUser(TestUserKey.CASEWORKER);
+    }
+    return usersToDelete;
+  }
+
   async deleteAll(): Promise<void> {
-    const usersToDelete = new Set(this.users);
+    let usersToDelete: string[] = [];
+    await this.queueCleanup(async () => {
+      usersToDelete = Array.from(this.getUsersToDelete());
 
-    if (this.caseWorker.username && this.caseWorker.username !== '') {
-      usersToDelete.add(this.caseWorker.username);
-    }
-
-    for (const user of usersToDelete) {
-      await this.delete(user);
-    }
+      if (this.hasUser(TestUserKey.TEST_USER)) {
+        usersToDelete.push(this[TestUserKey.TEST_USER].username);
+      }
+    });
+    await Promise.all(usersToDelete.map(email => this.delete(email)));
   }
 
   async clearAndKeepOnlyOriginalUser(): Promise<void> {
-    const users = Array.from(this.users);
-    const firstUser = users.shift();
-
-    await Promise.all(users.map(user => this.delete(user)));
-
-    this.users = firstUser ? new Set([firstUser]) : new Set();
+    let usersToDelete: string[] = [];
+    await this.queueCleanup(async () => {
+      usersToDelete = Array.from(this.getUsersToDelete());
+    });
+    await Promise.all(usersToDelete.map(email => this.delete(email)));
   }
 
   getCurrentUser(): TestUserAndPassword {
-    const username = Array.from(this.users).pop() as string;
-    const password = !username ? '' : this.getTestPass();
-    return {
-      username,
-      password,
-    };
+    if (!this.currentUser) {
+      throw new Error('No current user set');
+    }
+    return this[this.currentUser];
   }
 
-  getUser(index: number): TestUserAndPassword {
-    const username = Array.from(this.users)[index] as string;
-    const password = !username ? '' : this.getTestPass();
-    return {
-      username,
-      password,
-    };
+  getCurrentUserKey(): TestUserKey | undefined {
+    return this.currentUser;
   }
 
-  getCaseWorker(): TestUserAndPassword {
+  clearCurrentUser(): void {
+    this.currentUser = undefined;
+  }
+
+  isApplicant2(): boolean {
+    return this.currentUser === TestUserKey.APPLICANT_2;
+  }
+
+  isRespondent(): boolean {
+    return this.currentUser === TestUserKey.RESPONDENT;
+  }
+
+  getUser(userKey: TestUserKey): TestUserAndPassword {
+    return this[userKey];
+  }
+
+  setCurrentUser(userKey: TestUserKey): void {
+    this.currentUser = userKey;
+  }
+
+  getApplicant1 = async (): Promise<TestUserAndPassword> => {
+    if (!this.hasUser(TestUserKey.APPLICANT_1)) {
+      await this.createApplicant1();
+    }
+    return this.applicant1;
+  };
+
+  getApplicant2 = async (): Promise<TestUserAndPassword> => {
+    if (!this.hasUser(TestUserKey.APPLICANT_2)) {
+      await this.createApplicant2();
+    }
+    return this.applicant2;
+  };
+
+  getRespondent = async (): Promise<TestUserAndPassword> => {
+    if (!this.hasUser(TestUserKey.RESPONDENT)) {
+      await this.createRespondent();
+    }
+    return this.respondent;
+  };
+
+  getCaseWorker = async (): Promise<TestUserAndPassword> => {
+    if (!this.hasUser(TestUserKey.CASEWORKER)) {
+      await this.createCaseWorker();
+    }
     return this.caseWorker;
-  }
+  };
 
   getDefaultTestUser(): TestUserAndPassword {
     return this.testUser;
@@ -157,4 +260,12 @@ export class IdamUserManager {
 export interface TestUserAndPassword {
   username: string;
   password: string;
+}
+
+export enum TestUserKey {
+  APPLICANT_1 = 'applicant1',
+  APPLICANT_2 = 'applicant2',
+  RESPONDENT = 'respondent',
+  CASEWORKER = 'caseWorker',
+  TEST_USER = 'testUser',
 }
