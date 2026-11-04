@@ -6,6 +6,7 @@ import {
   APPLICANT_1,
   APPLICANT_2,
   CHECK_ANSWERS_URL,
+  ENTER_YOUR_ACCESS_CODE,
   PageLink,
   RESPONDENT,
   VIEW_YOUR_ANSWERS,
@@ -66,13 +67,13 @@ const getUserPrefix = (user?: string): string => {
 export const getFullUrl = (user?: string, url?: string): string => {
   const userPrefix = getUserPrefix(user);
   const definedUrl = lookupUrl(url);
-  if (isFullyQualifiedUrl(definedUrl)) {
-    return definedUrl;
-  }
-  if (getPathPrefix(definedUrl as PageLink) === userPrefix) {
-    return definedUrl;
-  }
-  return userPrefix + definedUrl;
+
+  const definedOnly =
+    isFullyQualifiedUrl(definedUrl) ||
+    (userPrefix === APPLICANT_1 && definedUrl !== ENTER_YOUR_ACCESS_CODE) ||
+    getPathPrefix(definedUrl as PageLink) !== '';
+
+  return definedOnly ? definedUrl : userPrefix + definedUrl;
 };
 
 const getTypeOfUrl = (url?: string | RegExp): UrlType => {
@@ -101,7 +102,10 @@ const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
   }
 };
 
-export const setUserPathPrefix = (nextUrl: string): InternalPageLink | string => {
+export const setUserPathPrefix = (nextUrl: string, user?: string): InternalPageLink | string => {
+  if (user && user.trim().length > 0) {
+    return getFullUrl(user, nextUrl);
+  }
   if (isApplicant2()) {
     return getFullUrl(APPLICANT_2, nextUrl);
   } else if (isRespondent()) {
@@ -123,8 +127,8 @@ export const iClickCheckYourAnswersLink = async (nextUrl?: string | RegExp): Pro
   await iClickToNavigate(CHECK_ANSWERS_SELECTOR, undefined, nextUrl || VIEW_YOUR_ANSWERS);
 };
 
-export const iAmOnPage = (urlString: string): void => {
-  urlString = setUserPathPrefix(urlString);
+export const iAmOnPage = (urlString: string, user?: string): void => {
+  urlString = setUserPathPrefix(urlString, user);
   const url = new URL(urlString, testConfig.TEST_URL);
   if (!url.searchParams.has('lng')) {
     url.searchParams.set('lng', SupportedLanguages.En);
@@ -170,8 +174,7 @@ export const iClickToNavigate = async (
 };
 
 export const iGoToPageAsUser = (url: string, user?: string): void => {
-  const fullUrl = getFullUrl(user, url);
-  iAmOnPage(fullUrl);
+  iAmOnPage(url, user);
 };
 
 export const iGoToPage = (url: string): void => {
