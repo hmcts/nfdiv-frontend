@@ -73,6 +73,7 @@ import {
   iWaitInUrlAsUser,
 } from './commonHelpers/navigation';
 import {
+  clearAndRecreateApplicant1,
   clearNewUsers,
   getApplicantString,
   getCurrentUserKey,
@@ -113,6 +114,10 @@ Given('I login', async () => {
 });
 
 Given('I create a new user and login', async () => {
+  await login(TestUserKey.APPLICANT_1, true);
+});
+Given('I create a new applicant 1 user and login', async () => {
+  await clearAndRecreateApplicant1();
   await login(TestUserKey.APPLICANT_1, true);
 });
 Given('I create a new user and login as applicant 2', async () => {
@@ -247,6 +252,9 @@ When('I have an international address', () => {
 });
 
 When('I click submit', iClickSubmit);
+When('I click submit and expect URL {string}', async (url: string) => {
+  await iClickSubmitAndExpectUrl(url);
+});
 When('I click continue', iClickSubmit);
 When('I click continue and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
@@ -321,6 +329,12 @@ When('I want to apply on my own', () => {
 });
 When('I select English', () => {
   iSelectRadioValueForField(LanguagePreference.English);
+});
+When('I want to continue with my existing application', () => {
+  iSelectRadioValueForField('existing');
+});
+When('I want to join the new application', () => {
+  iSelectRadioValue('new');
 });
 When('I do not need my contact details kept private', () => {
   iSetPrivateAddress(false);
