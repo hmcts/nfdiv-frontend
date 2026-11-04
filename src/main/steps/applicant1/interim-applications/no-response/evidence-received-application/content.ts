@@ -67,7 +67,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     message: `neges gennym ni yn dweud bod eich ${partner} wedi ymateb`,
   },
   line5:
-    "Rhaid i dystiolaeth fel sgrinluniau gynnwys dyddiadau a, lle bo'n berthnasol, rhifau ffôn neu enwau defnyddwyr",
+    "Rhaid i dystiolaeth fel sgrinluniau gynnwys dyddiadau a, lle bo'n berthnasol, rhifau ffôn neu enwau defnyddwyr.",
   line6: `Os ydych chi'n cyflwyno datganiad, gwnewch yn siŵr bod gennych chi brawf bod y papurau wedi dod i law. Rhaid i chi esbonio'n glir, gan ddefnyddio dyddiadau a ffeithiau eraill, sut rydych chi'n gwybod bod eich ${partner} wedi cael y papurau, a phryd a sut y daethoch chi'n ymwybodol eu bod nhw wedi dod i law.`,
   headingSection4: 'Rhaid i ddatganiadau gan drydydd partïon fod:',
   statementFromThirdParty: {
