@@ -10,7 +10,12 @@ import {
   YesOrNo,
 } from '../../main/app/case/definition';
 import { FinancialOrderForRadioOption } from '../../main/steps/applicant1/who-is-the-financial-order-for/content';
-import { CHECK_JURISDICTION, HOW_DO_YOU_WANT_TO_APPLY, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
+import {
+  CHECK_JURISDICTION,
+  CSRF_TOKEN_ERROR_URL,
+  HOW_DO_YOU_WANT_TO_APPLY,
+  THEIR_EMAIL_ADDRESS,
+} from '../../main/steps/urls';
 
 import { TestUserKey } from './commonHelpers/IdamUserManager';
 import {
@@ -63,7 +68,7 @@ import {
   iDontSeeABackLink,
   iGoToPage,
   iGoToPageAsUser,
-  iWaitInErrorPage,
+  iWaitInPageNotFoundErrorPage,
   iWaitInUrl,
   iWaitInUrlAsUser,
 } from './commonHelpers/navigation';
@@ -99,8 +104,8 @@ Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$/, (user: string, url: stri
 Then('the page URL should be {string}', (url: string) => {
   iWaitInUrl(url);
 });
-Then('the request should redirect to the error page', () => {
-  iWaitInErrorPage();
+Then('the request should redirect to the page not found error page', () => {
+  iWaitInPageNotFoundErrorPage();
 });
 
 Given('I login', async () => {
@@ -247,11 +252,14 @@ When('I click continue and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
 });
 When(
-  'I click continue and expect URL {string} and title element {string}',
+  'I click continue and expect URL {string} with title element {string}',
   async (url: string, titleSelector: string) => {
     await iClickSubmitAndExpectUrl(url, undefined, undefined, titleSelector);
   }
 );
+When('I click continue the request should redirect to the CSRF error page', async () => {
+  await iClickSubmitAndExpectUrl(CSRF_TOKEN_ERROR_URL, undefined, undefined, '#badRequestTitle');
+});
 When('I click send for review', iClickSubmit);
 When('I click send for review and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
