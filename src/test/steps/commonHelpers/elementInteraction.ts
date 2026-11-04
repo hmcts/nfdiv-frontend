@@ -1,5 +1,4 @@
 import { Locator, Page } from '@playwright/test';
-import { tryTo } from 'codeceptjs/effects';
 
 import { YesOrNo } from '../../../main/app/case/definition';
 
@@ -117,12 +116,33 @@ export const iCannotUploadDocs = (): void => {
   iCheckOption('#cannotUploadDocs');
 };
 
+export const iCannotUploadNameChangeProof = (): void => {
+  iCannotUploadDocs();
+  iCheckOption('#cannotUploadNameChangeProof');
+};
+
+// Non-failing element visibility check.  Useful for preventing test failures when checking for optional elements
+export const isElementVisible = async (selector: string, wait: number = 1, delay: number = 100): Promise<boolean> => {
+  const deadline = Date.now() + wait * 1000;
+
+  while (Date.now() < deadline) {
+    const visibleCount = await I.grabNumberOfVisibleElements(selector);
+    if (visibleCount > 0) {
+      return true;
+    }
+    await new Promise<void>(resolve => setTimeout(resolve, delay));
+  }
+
+  return (await I.grabNumberOfVisibleElements(selector)) > 0;
+};
+
 const handleCookieBanner = async (action: 'accept' | 'reject'): Promise<void> => {
   const onIdam = await iAmOnIdam();
   const cookieBannerSelector = onIdam
     ? 'div#cookie-banner:not([hidden])'
     : 'div.cookie-banner.govuk-cookie-banner:not([hidden])';
-  const cookieBannerVisible = await tryTo(() => I.waitForVisible(cookieBannerSelector, 1));
+
+  const cookieBannerVisible = await isElementVisible(cookieBannerSelector);
   if (!cookieBannerVisible) {
     return;
   }
@@ -148,7 +168,7 @@ export const iWait = (time: number): void => {
   I.wait(time);
 };
 
-export const iWaitForElementWithText = async (selector: string, text: string, wait?: number): Promise<void> => {
+export const iWaitForElementWithText = (selector: string, text: string, wait?: number): void => {
   I.waitForText(text, wait, selector);
 };
 
@@ -219,7 +239,6 @@ export const iDeleteAllUploadedFiles = async (): Promise<void> => {
   let i = 0;
   while (numberOfElements > 0 && i < maxRetries) {
     await iClickToNavigate(documentDeleteButtonSelector);
-    // iWait(2); // Wait for the deletion to complete and the page to update - no longer needed. iClickToNavigate waits for load event.
     numberOfElements = await I.grabNumberOfVisibleElements(documentDeleteButtonSelector);
     i++;
   }
