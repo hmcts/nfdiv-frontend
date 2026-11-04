@@ -3,35 +3,29 @@ Feature: Existing Application
   Background:
     Given I create a new user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    And I go to "/"
-    And I click send for review
-    Then the page URL should be "/application-sent-for-review"
+    And I go to "HOME_URL"
+    And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
     Given I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
     Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
-    And I go to "/applicant2/confirm-your-joint-application"
+    And I go to "APPLICANT_2" / "CONFIRM_JOINT_APPLICATION"
     Given I confirm the prayer and statement of truth
-    When I click submit
-    Then the page URL should be "/applicant2/response-submitted"
+    Then I click submit and expect URL "RESPONSE_SUBMITTED"
     Given I sign out
-    Given I create a new user and login
-    And I've already completed the form using the fixture "jointApplicant1CompleteCase"
+    Then I create a new applicant 1 user and login
+    Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     And I set the email address for applicant 2
-    And I go to "/"
-    And I click send for review
-    Then the page URL should be "/application-sent-for-review"
+    And I go to "HOME_URL"
+    And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
     Given I sign out
     And I login with applicant "2"
-    Then the page URL should be "/existing-application"
+    Then the page URL should be "EXISTING_APPLICATION"
 
   @nightly
   Scenario: Continuing with existing application
-    When I click "I want to continue with my existing application"
-    And I click continue
-    Then the page URL should be "/applicant2/needs-to-confirm-joint-application"
+    Given I want to continue with my existing application
+    Then I click continue and expect URL "YOUR_SPOUSE_NEEDS_TO_CONFIRM_YOUR_JOINT_APPLICATION"
 
   @nightly
   Scenario: Joining new application
-    When I click "I want to join the new application"
-    And I click continue
-    Then the page URL should be "/applicant2/enter-your-access-code"
+    Given I want to join the new application
+    Then I click continue and expect URL "ENTER_YOUR_ACCESS_CODE"
