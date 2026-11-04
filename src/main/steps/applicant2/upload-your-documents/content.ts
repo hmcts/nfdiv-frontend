@@ -74,6 +74,7 @@ export const form: FormContent = {
           name: 'applicant2CannotUpload',
           label: l => l.cannotUploadDocuments,
           value: Checkbox.Checked,
+          id: 'cannotUploadDocs',
           subFields: {
             applicant2CannotUploadDocuments: {
               type: 'checkboxes',
@@ -81,6 +82,7 @@ export const form: FormContent = {
               hint: l => l.checkAllThatApply,
               values: [
                 {
+                  id: 'cannotUploadNameChangeProof',
                   name: 'applicant2CannotUploadDocuments',
                   label: l => l.cannotUploadNameChangeProof,
                   value: DocumentType.NAME_CHANGE_EVIDENCE,
