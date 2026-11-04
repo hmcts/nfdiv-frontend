@@ -117,7 +117,7 @@ export class IdamUserManager {
     return !!user && !!user.username && user.username !== '';
   };
 
-  async delete(email: string): Promise<void> {
+  private async delete(email: string): Promise<void> {
     email = email.trim();
     if (email.length === 0) {
       return;
@@ -145,6 +145,14 @@ export class IdamUserManager {
     }
     if (this.getCurrentUserKey() === userKey) {
       this.clearCurrentUser();
+    }
+  }
+
+  async deleteUser(userKey: TestUserKey): Promise<void> {
+    if (this.hasUser(userKey)) {
+      const email = this[userKey].username;
+      this.clearUser(userKey);
+      await this.delete(email);
     }
   }
 
