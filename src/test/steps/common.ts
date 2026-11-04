@@ -59,6 +59,7 @@ import {
   iAmOnPage,
   iClickBackLink,
   iClickCheckYourAnswersLink,
+  iClickWithdrawLink,
   iDontSeeABackLink,
   iGoToPage,
   iGoToPageAsUser,
@@ -202,6 +203,10 @@ When('I click element {string}', iClickElement);
 When('I click back', iClickBackLink);
 When('I click back and expect URL {string}', async (url: string) => {
   await iClickBackLink(url);
+});
+
+When('I click to withdraw and expect URL {string}', async (url: string) => {
+  await iClickWithdrawLink(url);
 });
 
 When('I click check your answers', async () => {

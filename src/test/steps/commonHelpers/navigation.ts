@@ -23,6 +23,7 @@ const { I } = inject();
 type UrlType = 'string' | 'empty-string' | 'regexp' | undefined;
 const BACK_LINK_SELECTOR = 'a.govuk-back-link';
 const CHECK_ANSWERS_SELECTOR = `a[href="${VIEW_YOUR_ANSWERS}"]`;
+const WITHDRAW_LINK_SELECTOR = 'a#withdrawLink';
 const ERROR_PAGE_URL = '/error';
 
 const urlStringToRegExp = (url: string): RegExp => {
@@ -123,6 +124,11 @@ export const iDontSeeABackLink = (): void => {
 export const iClickBackLink = async (nextUrl?: string | RegExp): Promise<void> => {
   iWaitForVisible(BACK_LINK_SELECTOR);
   await iClickToNavigate(BACK_LINK_SELECTOR, undefined, nextUrl);
+};
+
+export const iClickWithdrawLink = async (nextUrl?: string | RegExp): Promise<void> => {
+  iWaitForVisible(WITHDRAW_LINK_SELECTOR);
+  await iClickToNavigate(WITHDRAW_LINK_SELECTOR, undefined, nextUrl);
 };
 
 export const iClickCheckYourAnswersLink = async (nextUrl?: string | RegExp): Promise<void> => {
