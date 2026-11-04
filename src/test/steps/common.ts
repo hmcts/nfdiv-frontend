@@ -11,8 +11,8 @@ import {
 } from '../../main/app/case/definition';
 import { FinancialOrderForRadioOption } from '../../main/steps/applicant1/who-is-the-financial-order-for/content';
 import { CHECK_JURISDICTION, HOW_DO_YOU_WANT_TO_APPLY, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
-import { TestUserType } from '../config';
 
+import { TestUserKey } from './commonHelpers/IdamUserManager';
 import {
   executeUserCaseScript,
   iSetTheCaseStateAndSignOut,
@@ -23,6 +23,7 @@ import {
   iAcceptCookies,
   iAgreeTheCourtCanContactMeByEmail,
   iCannotUploadDocs,
+  iCannotUploadNameChangeProof,
   iCheckOption,
   iCheckOptionFor,
   iClearTheForm,
@@ -57,6 +58,7 @@ import {
 import {
   iAmOnPage,
   iClickBackLink,
+  iClickCheckYourAnswersLink,
   iDontSeeABackLink,
   iGoToPage,
   iGoToPageAsUser,
@@ -64,9 +66,9 @@ import {
   iWaitInUrlAsUser,
 } from './commonHelpers/navigation';
 import {
-  autoLoginWithUserIndex,
   clearNewUsers,
   getApplicantString,
+  getCurrentUserKey,
   iClickSignOut,
   login,
 } from './commonHelpers/userInteraction';
@@ -97,17 +99,21 @@ Then('the page URL should be {string}', (url: string) => {
 });
 
 Given('I login', async () => {
-  await login(TestUserType.CITIZEN);
+  await login(getCurrentUserKey() || TestUserKey.APPLICANT_1);
 });
 
 Given('I create a new user and login', async () => {
-  await login(TestUserType.CITIZEN_SINGLETON);
+  await login(TestUserKey.APPLICANT_1, true);
 });
 Given('I create a new user and login as applicant 2', async () => {
-  await login(TestUserType.CITIZEN_APPLICANT_2);
+  await login(TestUserKey.APPLICANT_2);
 });
 Given('I login with applicant {string}', async (applicant: string) => {
-  await autoLoginWithUserIndex(parseInt(applicant));
+  const userKey = parseInt(applicant) === 1 ? TestUserKey.APPLICANT_1 : TestUserKey.APPLICANT_2;
+  await login(userKey);
+});
+Given('I login with the respondent', async () => {
+  await login(TestUserKey.RESPONDENT);
 });
 
 When('I accept cookies', iAcceptCookies);
@@ -150,6 +156,8 @@ Given('I have my marriage certificate with me', iSelectYes);
 Given('I do not have my marriage certificate with me', iSelectNo);
 Given('I cannot upload my original marriage certificate', iCannotUploadDocs);
 Given('I cannot upload my original foreign marriage certificate', iCannotUploadDocs);
+Given('I cannot upload some or all of my documents', iCannotUploadDocs);
+Given('I cannot upload my name change proof', iCannotUploadNameChangeProof);
 Given('I agree that the court can contact me by email', iAgreeTheCourtCanContactMeByEmail);
 Given('we were a same-sex couple when we got married', () => {
   iCheckOption('#sameSex');
@@ -190,6 +198,10 @@ When('I click element {string}', iClickElement);
 When('I click back', iClickBackLink);
 When('I click back and expect URL {string}', async (url: string) => {
   await iClickBackLink(url);
+});
+
+When('I click check your answers', async () => {
+  await iClickCheckYourAnswersLink();
 });
 
 When('I toggle language to Welsh', () => {
@@ -245,6 +257,11 @@ When('I click continue to payment and expect URL {string}', async (url: string) 
 });
 When('I click pay and submit application', iClickSubmit);
 When('I click accept and send', iClickSubmit);
+When('I click confirm', iClickSubmit);
+When('I click end the joint application', iClickSubmit);
+When('I click end the joint application and expect URL {string}', async (url: string) => {
+  await iClickSubmitAndExpectUrl(url);
+});
 When('I click save and sign out', () => {
   iClickElement('#saveAndSignOutButton');
 });
@@ -257,7 +274,6 @@ When('I click apply for conditional order', () => {
 When('I click apply for final order', () => {
   iClickElement('#applyForFinalOrderButton');
 });
-When('I click confirm', iClickSubmit);
 When('I click continue to the next steps', () => {
   iClickElement('a.govuk-button[href="/return-to-service"]');
 });
@@ -299,12 +315,17 @@ When('I am in a refuge', () => {
   iSetInRefuge();
 });
 When('I do not need a financial order', iSelectNo);
+When('I need a financial order for myself', () => {
+  iSelectRadioValueForField(FinancialOrderForRadioOption.APPLICANT, `${getApplicantString()}WhoIsFinancialOrderFor`);
+});
 When('I need a financial order for myself and my children', () => {
   iSelectRadioValueForField(
     FinancialOrderForRadioOption.APPLICANT_AND_CHILDREN,
     `${getApplicantString()}WhoIsFinancialOrderFor`
   );
 });
+When('I confirm the information my partner provided is correct', iSelectYes);
+When('I deny the information my partner provided is correct', iSelectNo);
 When('I want to apply to serve another way', () => {
   iCheckOption('#iWantToHavePapersServedAnotherWay');
 });
@@ -440,11 +461,13 @@ When('I delete the file {string}', async (filename: string) => {
 });
 
 When('I enter my valid case reference and valid access code', async () => {
-  await linkUserToCase(TestUserType.CITIZEN_APPLICANT_2);
+  await linkUserToCase(TestUserKey.APPLICANT_2);
 });
-
+When('I as respondent enter my valid case reference and valid access code', async () => {
+  await linkUserToCase(TestUserKey.RESPONDENT);
+});
 When('I as applicant1 enter my valid case reference and valid access code', async () => {
-  await linkUserToCase(TestUserType.CITIZEN_SINGLETON);
+  await linkUserToCase(TestUserKey.APPLICANT_1);
 });
 
 When('a case worker issues the application', async () => {
