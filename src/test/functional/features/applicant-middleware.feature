@@ -8,7 +8,7 @@ Feature: Applicant middleware
   @nightly
   Scenario: The applicants attempt to access the wrong page
     When I go to "APPLICANT_2" / "OTHER_COURT_CASES"
-    Then the request should redirect to the error page
+    Then the request should redirect to the page not found error page
 
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "HOME_URL"
@@ -18,4 +18,4 @@ Feature: Applicant middleware
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
     When I go to "APPLICANT_1" / "OTHER_COURT_CASES"
-    Then the request should redirect to the error page
+    Then the request should redirect to the page not found error page
