@@ -2,17 +2,26 @@ import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
 
 import { SupportedLanguages } from '../../../main/modules/i18n';
 import { getPageTitleIdFromUrl } from '../../../main/steps/url-utils';
-import { APPLICANT_1, APPLICANT_2, CHECK_ANSWERS_URL, PageLink, RESPONDENT } from '../../../main/steps/urls';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  CHECK_ANSWERS_URL,
+  PageLink,
+  RESPONDENT,
+  VIEW_YOUR_ANSWERS,
+} from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
-import { isFullyQualifiedUrl, isInternalPageLink, lookupUrl } from '../urlLookup';
+import { InternalPageLink, getPathPrefix, isFullyQualifiedUrl, isInternalPageLink, lookupUrl } from '../urlLookup';
 
 import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';
+import { isApplicant2, isRespondent } from './userInteraction';
 
 const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
 
 type UrlType = 'string' | 'empty-string' | 'regexp' | undefined;
 const BACK_LINK_SELECTOR = 'a.govuk-back-link';
+const CHECK_ANSWERS_SELECTOR = `a[href="${VIEW_YOUR_ANSWERS}"]`;
 
 const urlStringToRegExp = (url: string): RegExp => {
   const escapeRegExp = (toEscape: string) => toEscape.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -38,22 +47,31 @@ const getUserPrefix = (user?: string): string => {
     case 'APPLICANT 1':
     case 'APPLICANT_1':
     case 'THE APPLICANT':
+    case APPLICANT_1.toUpperCase():
       return APPLICANT_1;
     case 'APPLICANT2':
     case 'APPLICANT 2':
     case 'APPLICANT_2':
+    case APPLICANT_2.toUpperCase():
       return APPLICANT_2;
     case 'RESPONDENT':
     case 'THE RESPONDENT':
+    case RESPONDENT.toUpperCase():
       return RESPONDENT;
     default:
       throw new Error(`Cannot resolve user prefix URL from: ${user}`);
   }
 };
 
-const getFullUrl = (user?: string, url?: string): string => {
+export const getFullUrl = (user?: string, url?: string): string => {
   const userPrefix = getUserPrefix(user);
   const definedUrl = lookupUrl(url);
+  if (isFullyQualifiedUrl(definedUrl)) {
+    return definedUrl;
+  }
+  if (getPathPrefix(definedUrl as PageLink) === userPrefix) {
+    return definedUrl;
+  }
   return userPrefix + definedUrl;
 };
 
@@ -83,6 +101,15 @@ const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
   }
 };
 
+export const setUserPathPrefix = (nextUrl: string): InternalPageLink | string => {
+  if (isApplicant2()) {
+    return getFullUrl(APPLICANT_2, nextUrl);
+  } else if (isRespondent()) {
+    return getFullUrl(RESPONDENT, nextUrl);
+  }
+  return lookupUrl(nextUrl);
+};
+
 export const iDontSeeABackLink = (): void => {
   I.dontSeeElementInDOM(BACK_LINK_SELECTOR);
 };
@@ -91,7 +118,13 @@ export const iClickBackLink = async (nextUrl?: string | RegExp): Promise<void> =
   await iClickToNavigate(BACK_LINK_SELECTOR, undefined, nextUrl);
 };
 
+export const iClickCheckYourAnswersLink = async (nextUrl?: string | RegExp): Promise<void> => {
+  iWaitForVisible(CHECK_ANSWERS_SELECTOR);
+  await iClickToNavigate(CHECK_ANSWERS_SELECTOR, undefined, nextUrl || VIEW_YOUR_ANSWERS);
+};
+
 export const iAmOnPage = (urlString: string): void => {
+  urlString = setUserPathPrefix(urlString);
   const url = new URL(urlString, testConfig.TEST_URL);
   if (!url.searchParams.has('lng')) {
     url.searchParams.set('lng', SupportedLanguages.En);
@@ -115,7 +148,7 @@ export const iClickToNavigate = async (
 
   let checkTitle: boolean = titleSelector.trim().length > 0;
   if (urlType === 'string') {
-    nextUrl = lookupUrl(nextUrl as string);
+    nextUrl = setUserPathPrefix(nextUrl as string);
     if (isInternalPageLink(nextUrl) && !checkTitle) {
       checkTitle = true;
       titleSelector = `#${getPageTitleIdFromUrl(nextUrl as PageLink)}`;

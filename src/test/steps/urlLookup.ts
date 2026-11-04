@@ -41,12 +41,26 @@ const getPathWithoutPrefix = (path: PageLink): string => {
   return path;
 };
 
+export const getPathPrefix = (path: PageLink): string => {
+  if (path === urls.APPLICANT_1 || path.startsWith(`${urls.APPLICANT_1}/`)) {
+    return urls.APPLICANT_1;
+  } else if (path === urls.APPLICANT_2 || path.startsWith(`${urls.APPLICANT_2}/`)) {
+    return urls.APPLICANT_2;
+  } else if (path === urls.RESPONDENT || path.startsWith(`${urls.RESPONDENT}/`)) {
+    return urls.RESPONDENT;
+  }
+  return '';
+};
+
 export const isInternalPageLink = (linkValue: string): linkValue is InternalPageLink => {
   const linkValueWithoutPrefix = getPathWithoutPrefix(linkValue as PageLink);
   return internalPageLinkSet.has(linkValueWithoutPrefix as PageLink);
 };
 
-export const isFullyQualifiedUrl = (url: string): boolean => {
+export const isFullyQualifiedUrl = (url?: string): boolean => {
+  if (!url || url.trim().length === 0) {
+    return false;
+  }
   url = url.trim();
   if (!url.toLowerCase().startsWith('http://') && !url.toLowerCase().startsWith('https://')) {
     return false;
