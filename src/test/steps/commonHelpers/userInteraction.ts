@@ -218,6 +218,12 @@ export const login = async (
   }
 };
 
+export const clearAndRecreateApplicant1 = async (): Promise<void> => {
+  const idamUserManager = testConfig.getIdamUserManager();
+  await idamUserManager.deleteUser(TestUserKey.APPLICANT_1);
+  await idamUserManager.createApplicant1();
+};
+
 export const getCurrentUser = (): TestUserAndPassword => {
   const idamUserManager = testConfig.getIdamUserManager();
   return idamUserManager.getCurrentUser();
