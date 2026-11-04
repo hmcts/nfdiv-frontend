@@ -10,6 +10,9 @@ export type InternalPageLink = (typeof urlLookup)[UrlLookupKey];
 const internalPageLinkKeySet = new Set(Object.keys(urlLookup));
 const internalPageLinkSet = new Set(Object.values(urlLookup));
 
+const ERROR_PAGE_URL_KEY = 'ERROR_PAGE_URL';
+export const ERROR_PAGE_URL = '/error';
+
 const lookupUrlByKey = (urlKey: string): InternalPageLink | undefined => {
   urlKey = urlKey.trim().toUpperCase();
   return isInternalPageLinkKey(urlKey) ? urlLookup[urlKey] : undefined;
@@ -27,7 +30,10 @@ const isDefinedInternalPageLink = (url: string): InternalPageLink | undefined =>
 };
 
 const isInternalPageLinkKey = (linkKeyValue: string): linkKeyValue is UrlLookupKey => {
-  return internalPageLinkKeySet.has(linkKeyValue.toUpperCase() as UrlLookupKey);
+  return (
+    internalPageLinkKeySet.has(linkKeyValue.toUpperCase() as UrlLookupKey) ||
+    linkKeyValue.toUpperCase() === ERROR_PAGE_URL_KEY
+  );
 };
 
 const getPathWithoutPrefix = (path: PageLink): string => {
@@ -54,7 +60,7 @@ export const getPathPrefix = (path: PageLink): string => {
 
 export const isInternalPageLink = (linkValue: string): linkValue is InternalPageLink => {
   const linkValueWithoutPrefix = getPathWithoutPrefix(linkValue as PageLink);
-  return internalPageLinkSet.has(linkValueWithoutPrefix as PageLink);
+  return internalPageLinkSet.has(linkValueWithoutPrefix as PageLink) || linkValueWithoutPrefix === ERROR_PAGE_URL;
 };
 
 export const isFullyQualifiedUrl = (url?: string): boolean => {
