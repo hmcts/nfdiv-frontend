@@ -8,6 +8,7 @@ import {
   CHECK_ANSWERS_URL,
   CSRF_TOKEN_ERROR_URL,
   ENTER_YOUR_ACCESS_CODE,
+  EXISTING_APPLICATION,
   PageLink,
   RESPONDENT,
   VIEW_YOUR_ANSWERS,
@@ -112,12 +113,14 @@ const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
   }
 };
 
-export const isErrorUrl = (url: string): boolean => {
+export const isNoPathPrefixUrl = (url: string): boolean => {
   switch (url.toUpperCase()) {
     case 'ERROR_PAGE_URL':
     case ERROR_PAGE_URL.toUpperCase():
     case 'CSRF_TOKEN_ERROR_URL':
     case CSRF_TOKEN_ERROR_URL.toUpperCase():
+    case 'EXISTING_APPLICATION':
+    case EXISTING_APPLICATION.toUpperCase():
       return true;
     default:
       return false;
@@ -125,7 +128,7 @@ export const isErrorUrl = (url: string): boolean => {
 };
 
 export const setUserPathPrefix = (nextUrl: string, user?: string): InternalPageLink | string => {
-  if (isErrorUrl(nextUrl)) {
+  if (isNoPathPrefixUrl(nextUrl)) {
     return lookupUrl(nextUrl);
   }
   if (user !== undefined) {
