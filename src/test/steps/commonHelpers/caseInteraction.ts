@@ -1,4 +1,5 @@
 import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
+import { recorder } from 'codeceptjs';
 import { Logger, transports } from 'winston';
 
 import { Case, CaseWithId } from '../../../main/app/case/case';
@@ -7,15 +8,29 @@ import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../.
 import { toApiFormat } from '../../../main/app/case/to-api-format';
 import { UserDetails } from '../../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../../main/app/jurisdiction/connections';
-import { APPLICANT_1, APPLICANT_2, ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../../main/steps/urls';
-import { TestUserType } from '../../config';
+import {
+  APPLICANT_1,
+  APPLICANT_2,
+  ENTER_YOUR_ACCESS_CODE,
+  HOME_URL,
+  HUB_PAGE,
+  YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
+} from '../../../main/steps/urls';
 
-import { iClearTheForm, iClickSubmit, iEnterValueIntoInput, iWait } from './elementInteraction';
+import { TestUserAndPassword, TestUserKey } from './IdamUserManager';
+import {
+  iClearTheForm,
+  iClickSubmit,
+  iClickSubmitAndExpectUrl,
+  iEnterValueIntoInput,
+  iWait,
+} from './elementInteraction';
 import { iAmOnPage } from './navigation';
 import {
-  autoLogin,
+  getCaseworker,
   getCurrentUser,
-  getOrCreateCaseWorker,
+  getCurrentUserKey,
+  getUser,
   iClickSignOut,
   iGetTheTestUser,
   iSignOut,
@@ -41,7 +56,7 @@ export const triggerAnEvent = async (eventName: string, userData: Partial<Case>)
       throw new Error(`No case reference or access code was returned for ${testUser}`);
     }
 
-    const cwUser = await getOrCreateCaseWorker();
+    const cwUser = await getCaseworker();
     const caseWorker = await iGetTheTestUser(cwUser);
     const cwCaseApi = iGetTheCaseApi(caseWorker);
     await cwCaseApi.triggerEvent(caseReference, userData, eventName);
@@ -63,13 +78,13 @@ export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Pro
   executeUserCaseScript(userCaseObj);
 
 export const iSetTheCaseStateAndSignOut = async (state: State): Promise<void> => {
-  const user = getCurrentUser();
+  const userKey = getCurrentUserKey() || TestUserKey.APPLICANT_1;
   await iSetTheUsersCaseTo({
     state,
   });
   await I.grabCurrentUrl(); // Do we need to do this??
   iSignOut();
-  await autoLogin.login(user, false);
+  await login(userKey, false, false);
 };
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
@@ -103,8 +118,8 @@ export const executeUserCaseScript = async (data: any): Promise<void> => {
   }
 };
 
-export const getCaseForCurrentUser = async (): Promise<CaseWithId> => {
-  const testUser = await iGetTheTestUser();
+export const iGetTheCaseForUser = async (user: TestUserAndPassword = getCurrentUser()): Promise<CaseWithId> => {
+  const testUser = await iGetTheTestUser(user);
   const caseApi = iGetTheCaseApi(testUser);
   const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
 
@@ -119,30 +134,45 @@ export const getCaseForCurrentUser = async (): Promise<CaseWithId> => {
   }
 };
 
+export const getCaseForCurrentUser = async (): Promise<CaseWithId> => {
+  return iGetTheCaseForUser();
+};
+
+export const getCaseForApplicant1 = async (): Promise<CaseWithId> => {
+  return iGetTheCaseForUser(getUser(TestUserKey.APPLICANT_1));
+};
+
 export const linkUserToCase = async (
-  userType: TestUserType.CITIZEN_SINGLETON | TestUserType.CITIZEN_APPLICANT_2
+  userKey: TestUserKey.APPLICANT_1 | TestUserKey.APPLICANT_2 | TestUserKey.RESPONDENT
 ): Promise<void> => {
   iAmOnPage(HOME_URL);
   await iClearTheForm();
 
   const fetchedCase = await getCaseForCurrentUser();
 
-  const accessCode =
-    userType === TestUserType.CITIZEN_SINGLETON ? fetchedCase.accessCodeApplicant1 : fetchedCase.accessCode;
+  const accessCode = userKey === TestUserKey.APPLICANT_1 ? fetchedCase.accessCodeApplicant1 : fetchedCase.accessCode;
   if (!accessCode) {
     throw new Error(
-      `No access code was returned for ${userType === TestUserType.CITIZEN_SINGLETON ? fetchedCase.applicant1Email : fetchedCase.applicant2Email}`
+      `No access code was returned for ${userKey === TestUserKey.APPLICANT_2 ? fetchedCase.applicant1Email : fetchedCase.applicant2Email}`
     );
   }
 
   await iClickSignOut();
-  await login(userType);
-  const user = userType === TestUserType.CITIZEN_SINGLETON ? APPLICANT_1 : APPLICANT_2;
-  iAmOnPage(user + ENTER_YOUR_ACCESS_CODE);
+  await login(userKey);
+
+  const pathPrefix = userKey === TestUserKey.APPLICANT_1 ? APPLICANT_1 : APPLICANT_2;
+  iAmOnPage(pathPrefix + ENTER_YOUR_ACCESS_CODE);
 
   iEnterValueIntoInput(fetchedCase.id, '#caseReference');
   iEnterValueIntoInput(accessCode, '#accessCode');
-  await iClickSubmit();
+  if (userKey === TestUserKey.APPLICANT_2) {
+    await iClickSubmitAndExpectUrl(YOU_NEED_TO_REVIEW_YOUR_APPLICATION);
+  } else if (userKey === TestUserKey.RESPONDENT) {
+    await iClickSubmitAndExpectUrl(HUB_PAGE);
+  } else {
+    await iClickSubmit(); // What is the applicant 1 URL once they enter their access code?
+  }
+  await recorder.promise();
 };
 
 export interface BrowserCase extends Case {

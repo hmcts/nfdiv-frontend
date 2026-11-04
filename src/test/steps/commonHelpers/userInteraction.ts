@@ -9,12 +9,13 @@ import {
   ENTER_YOUR_ACCESS_CODE,
   HAS_RELATIONSHIP_BROKEN_URL,
   HOME_URL,
+  RESPONDENT,
   SIGN_OUT_URL,
   YOUR_DETAILS_URL,
 } from '../../../main/steps/urls';
-import { TestUserType, config as testConfig } from '../../config';
+import { config as testConfig } from '../../config';
 
-import { TestUserAndPassword } from './IdamUserManager';
+import { TestUserAndPassword, TestUserKey } from './IdamUserManager';
 import {
   iClickSubmit,
   iEnterValueIntoInput,
@@ -28,8 +29,6 @@ const { I } = inject();
 
 const LOGIN_TIMEOUT = 60;
 
-let _isApplicant2 = false;
-
 export const APPLICANT_1_FIRST_NAME = 'Sarah';
 export const APPLICANT_2_FIRST_NAME = 'John';
 export const APPLICANTS_LAST_NAME = 'Smith';
@@ -41,10 +40,12 @@ export const iClickSignOut = async (): Promise<void> => {
     new RegExp(`^${testConfig.IDAM_WEB_BASE_URL.replace(/\/+$/, '')}(?:/|$)`),
     'domcontentloaded'
   );
+  testConfig.getIdamUserManager().clearCurrentUser();
 };
 
 export const iSignOut = (): void => {
-  I.amOnPage(SIGN_OUT_URL);
+  iAmOnPage(SIGN_OUT_URL);
+  testConfig.getIdamUserManager().clearCurrentUser();
 };
 
 const iClickSignIn = async (): Promise<void> => {
@@ -75,10 +76,10 @@ const doModernLogin = async (username: string, password: string): Promise<void> 
   const modernPasswordLabelText = 'Enter your password';
 
   await iClickSignIn();
-  await iWaitForElementWithText(emailPasswordLabelSelector, modernEmailLabelText, LOGIN_TIMEOUT);
+  iWaitForElementWithText(emailPasswordLabelSelector, modernEmailLabelText, LOGIN_TIMEOUT);
   iEnterEmail(username);
   await iClickSubmit();
-  await iWaitForElementWithText(emailPasswordLabelSelector, modernPasswordLabelText, LOGIN_TIMEOUT);
+  iWaitForElementWithText(emailPasswordLabelSelector, modernPasswordLabelText, LOGIN_TIMEOUT);
   iEnterPassword(password);
   await iClickSubmit();
 };
@@ -88,20 +89,20 @@ const isModernIdamLogin = async (): Promise<boolean> => {
   const modernIntroText = 'You may already have an account if you have used an HMCTS service before';
 
   try {
-    await iWaitForElementWithText(modernIntroSelector, modernIntroText, 10);
+    iWaitForElementWithText(modernIntroSelector, modernIntroText, 10);
     return true;
   } catch {
     return false;
   }
 };
 
-const iWaitForNfdServiceLink = async (timeout = LOGIN_TIMEOUT): Promise<void> => {
-  await iWaitForElementWithText('a.govuk-service-navigation__link', 'Apply for a divorce', timeout);
+const iWaitForNfdServiceLink = (timeout = LOGIN_TIMEOUT): void => {
+  iWaitForElementWithText('a.govuk-service-navigation__link', 'Apply for a divorce', timeout);
 };
 
-const isNfdServiceLinkPresent = async (): Promise<boolean> => {
+const isNfdServiceLinkPresent = (): boolean => {
   try {
-    await iWaitForNfdServiceLink(10);
+    iWaitForNfdServiceLink(10);
     return true;
   } catch {
     return false;
@@ -109,12 +110,12 @@ const isNfdServiceLinkPresent = async (): Promise<boolean> => {
 };
 
 const doIdamLogin = async (username: string, password: string, rejectCookies: boolean = true): Promise<void> => {
-  if ((await iAmOnNfd()) && (await isNfdServiceLinkPresent())) {
+  if ((await iAmOnNfd()) && isNfdServiceLinkPresent()) {
     await iClickSignOut();
   }
   if (await iAmOnIdam()) {
     const loginHeading = 'Sign in or create an account';
-    await iWaitForElementWithText('h1', loginHeading, LOGIN_TIMEOUT);
+    iWaitForElementWithText('h1', loginHeading, LOGIN_TIMEOUT);
 
     if (rejectCookies) {
       await iRejectCookies();
@@ -130,15 +131,12 @@ const doIdamLogin = async (username: string, password: string, rejectCookies: bo
 };
 
 export const autoLogin = {
-  login: async (
-    user = testConfig.getIdamUserManager().getDefaultTestUser(),
-    createCase = true,
-    rejectCookies: boolean = true
-  ): Promise<void> => {
-    I.amOnPage(HOME_URL);
+  login: async (createCase = true, rejectCookies: boolean = true): Promise<void> => {
+    const user = await testConfig.getIdamUserManager().getApplicant1();
+    iAmOnPage(HOME_URL);
     await doIdamLogin(user.username, user.password, rejectCookies);
 
-    await iWaitForNfdServiceLink();
+    iWaitForNfdServiceLink();
     if (rejectCookies) {
       await iRejectCookies();
     }
@@ -148,12 +146,13 @@ export const autoLogin = {
       await iClickSubmit();
       iWaitInUrl(HAS_RELATIONSHIP_BROKEN_URL, LOGIN_TIMEOUT);
       iAmOnPage(YOUR_DETAILS_URL);
-      await iWaitForNfdServiceLink();
+      iWaitForNfdServiceLink();
     }
+    testConfig.getIdamUserManager().setCurrentUser(TestUserKey.APPLICANT_1);
   },
   check: async (): Promise<void> => {
     iAmOnPage(YOUR_DETAILS_URL);
-    await iWaitForNfdServiceLink();
+    iWaitForNfdServiceLink();
   },
   restore: (cookies: CodeceptJS.Cookie[]): void => {
     I.amOnPage('/info');
@@ -162,22 +161,20 @@ export const autoLogin = {
 };
 
 export const autoLoginForApplicant2 = {
-  login: async (
-    user = testConfig.getIdamUserManager().getDefaultTestUser(),
-    rejectCookies: boolean = true
-  ): Promise<void> => {
+  login: async (rejectCookies: boolean = true): Promise<void> => {
+    const user = await testConfig.getIdamUserManager().getApplicant2();
     iAmOnPage(APPLICANT_2);
     await doIdamLogin(user.username, user.password, rejectCookies);
 
-    await iWaitForNfdServiceLink();
+    iWaitForNfdServiceLink();
     if (rejectCookies) {
       await iRejectCookies();
     }
-    _isApplicant2 = true;
+    testConfig.getIdamUserManager().setCurrentUser(TestUserKey.APPLICANT_2);
   },
   check: async (): Promise<void> => {
     iAmOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
-    await iWaitForNfdServiceLink();
+    iWaitForNfdServiceLink();
   },
   restore: (cookies: CodeceptJS.Cookie[]): void => {
     I.amOnPage('/info');
@@ -185,30 +182,40 @@ export const autoLoginForApplicant2 = {
   },
 };
 
-export const login = async (userType: TestUserType, rejectCookies: boolean = true): Promise<void> => {
-  const idamUserManager = testConfig.getIdamUserManager();
-  if (userType === TestUserType.CITIZEN) {
-    await autoLogin.login(undefined, undefined, rejectCookies);
-    return;
-  }
+export const autoLoginForRespondent = {
+  login: async (rejectCookies: boolean = true): Promise<void> => {
+    const user = await testConfig.getIdamUserManager().getRespondent();
+    iAmOnPage(RESPONDENT);
+    await doIdamLogin(user.username, user.password, rejectCookies);
 
-  const user = await idamUserManager.createUser();
-  if (userType === TestUserType.CITIZEN_SINGLETON) {
-    await autoLogin.login(user, undefined, rejectCookies);
-    _isApplicant2 = false;
-  } else {
-    await autoLoginForApplicant2.login(user, rejectCookies);
-  }
+    iWaitForNfdServiceLink();
+    if (rejectCookies) {
+      await iRejectCookies();
+    }
+    testConfig.getIdamUserManager().setCurrentUser(TestUserKey.RESPONDENT);
+  },
+  check: async (): Promise<void> => {
+    iAmOnPage(RESPONDENT + ENTER_YOUR_ACCESS_CODE);
+    iWaitForNfdServiceLink();
+  },
+  restore: (cookies: CodeceptJS.Cookie[]): void => {
+    I.amOnPage('/info');
+    I.setCookie(cookies);
+  },
 };
 
-export const autoLoginWithUserIndex = async (
-  userIndex: number,
+export const login = async (
+  userKey: TestUserKey,
   createCase: boolean = false,
   rejectCookies: boolean = true
 ): Promise<void> => {
-  const user = getUser(userIndex);
-  await autoLogin.login(user, createCase, rejectCookies);
-  _isApplicant2 = userIndex === 2;
+  if (userKey === TestUserKey.APPLICANT_1) {
+    await autoLogin.login(createCase, rejectCookies);
+  } else if (userKey === TestUserKey.APPLICANT_2) {
+    await autoLoginForApplicant2.login(rejectCookies);
+  } else if (userKey === TestUserKey.RESPONDENT) {
+    await autoLoginForRespondent.login(rejectCookies);
+  }
 };
 
 export const getCurrentUser = (): TestUserAndPassword => {
@@ -216,23 +223,35 @@ export const getCurrentUser = (): TestUserAndPassword => {
   return idamUserManager.getCurrentUser();
 };
 
-export const getUser = (index: number): TestUserAndPassword => {
+export const getCurrentUserKey = (): TestUserKey | undefined => {
   const idamUserManager = testConfig.getIdamUserManager();
-  return idamUserManager.getUser(index);
+  return idamUserManager.getCurrentUserKey();
+};
+
+export const getUser = (userKey: TestUserKey): TestUserAndPassword => {
+  const idamUserManager = testConfig.getIdamUserManager();
+  return idamUserManager.getUser(userKey);
+};
+
+export const getUserKeyByIndex = (index: number): TestUserKey => {
+  const idamUserManager = testConfig.getIdamUserManager();
+  if (index === 1) {
+    return TestUserKey.APPLICANT_1;
+  } else if (index === 2) {
+    return idamUserManager.hasUser(TestUserKey.APPLICANT_2) ? TestUserKey.APPLICANT_2 : TestUserKey.RESPONDENT;
+  }
+  throw new Error(`Invalid applicant user index: ${index}`);
 };
 
 export const getUserEmail = (index: number): string => {
   const idamUserManager = testConfig.getIdamUserManager();
-  return idamUserManager.getUser(index).username;
+  const userKey = getUserKeyByIndex(index);
+  return idamUserManager.getUser(userKey).username;
 };
 
-export const getOrCreateCaseWorker = async (): Promise<TestUserAndPassword> => {
+export const getCaseworker = async (): Promise<TestUserAndPassword> => {
   const idamUserManager = testConfig.getIdamUserManager();
-  let caseWorker = idamUserManager.getCaseWorker();
-  if (!caseWorker.username) {
-    caseWorker = await idamUserManager.createCaseWorker();
-  }
-  return caseWorker;
+  return idamUserManager.getCaseWorker();
 };
 
 export const clearNewUsers = async (): Promise<void> => {
@@ -265,15 +284,21 @@ export const iGetTheTestUser = async (
 };
 
 export const isApplicant2 = (): boolean => {
-  return _isApplicant2;
+  const idamUserManager = testConfig.getIdamUserManager();
+  return idamUserManager.isApplicant2();
+};
+
+export const isRespondent = (): boolean => {
+  const idamUserManager = testConfig.getIdamUserManager();
+  return idamUserManager.isRespondent();
 };
 
 export const getApplicantNumber = (): number => {
-  return isApplicant2() ? 2 : 1;
+  return isApplicant2() || isRespondent() ? 2 : 1;
 };
 
 export const getOtherApplicantNumber = (): number => {
-  return isApplicant2() ? 1 : 2;
+  return isApplicant2() || isRespondent() ? 1 : 2;
 };
 
 export const getApplicantString = (): string => {
@@ -286,9 +311,9 @@ export const getOtherApplicantString = (): string => {
 
 const getFirstName = (otherParty: boolean = false): string => {
   if (otherParty) {
-    return isApplicant2() ? APPLICANT_1_FIRST_NAME : APPLICANT_2_FIRST_NAME;
+    return isApplicant2() || isRespondent() ? APPLICANT_1_FIRST_NAME : APPLICANT_2_FIRST_NAME;
   }
-  return isApplicant2() ? APPLICANT_2_FIRST_NAME : APPLICANT_1_FIRST_NAME;
+  return isApplicant2() || isRespondent() ? APPLICANT_2_FIRST_NAME : APPLICANT_1_FIRST_NAME;
 };
 
 export const getMyName = (): { firstName: string; lastName: string } => {
