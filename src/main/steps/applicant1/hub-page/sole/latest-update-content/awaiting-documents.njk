@@ -2,7 +2,7 @@
   {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload or userCase.iWantToHavePapersServedAnotherWay %}
     <p class="govuk-body">{{ sendDocumentLine1 }}</p>
     {% if userCase.applicant1CannotUpload or userCase.applicant2CannotUpload %}
-      <h3 class="govuk-heading-s">{{ sendDocumentHeading }}</h3>
+      <h3 class="govuk-heading-s" id="awaitingDocumentsTitle">{{ sendDocumentHeading }}</h3>
       <p class="govuk-body">{{ line2 }}</p>
       <ul class="govuk-list govuk-list--bullet">
         {% for document in cannotUploadDocuments %}
