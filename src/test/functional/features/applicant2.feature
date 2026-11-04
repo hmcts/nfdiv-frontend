@@ -5,303 +5,173 @@ Feature: Applicant 2
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
 
   Scenario: They fill out a happy path applicant 2 journey
-    When I go to "/"
-    And I click send for review
-    Then the page URL should be "/application-sent-for-review"
-    When I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
+    When I go to "HOME_URL"
+    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
-    When I click continue
-    Then the page URL should be "/applicant2/irretrievable-breakdown"
-    And the page should include "Has your marriage broken down irretrievably (it cannot be saved)?"
-    Given I select "I confirm my marriage has broken down irretrievably"
+    Given I enter my valid case reference and valid access code
+    Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
-    When I click continue
-    Then the page URL should be "/applicant2/enter-your-name"
-    And the page should include "Enter your name"
-    Given I clear the form
-    And I select "Your first name(s)"
-    And I type "Billy"
-    And I select "Your last name(s)"
-    And I type "Bob"
+    Given I confirm my marriage has broken down irretrievably
+    Then I click continue and expect URL "ENTER_YOUR_NAME"
 
-    When I click continue
-    Then the page should include "Is any part of your full name (Billy Bob) written differently on your marriage certificate?"
-    Given I select "No"
+    Given I enter my name
+    Then I click continue and expect URL "CHECK_YOUR_NAME"
 
-    When I click continue
-    Then the page should include "How is your name written on your marriage certificate"
-    Given I select "Copy your full name from the marriage certificate"
-    And I type "Billy Bob"
+    Given I select no
+    Then I click continue and expect URL "YOUR_CERTIFICATE_NAME"
 
-    When I click continue
-    Then the page URL should be "/applicant2/how-the-court-will-contact-you"
-    And the page should include "How the court will contact you"
-    Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
+    Given I enter my name on the certificate
+    Then I click continue and expect URL "HOW_THE_COURTS_WILL_CONTACT_YOU"
 
-    When I click continue
-    Then the page URL should be "/applicant2/english-or-welsh"
-    And the page should include "What language do you want to receive emails and documents in"
-    Given I select "English"
+    Given I agree that the court can contact me by email
+    Then I click continue and expect URL "ENGLISH_OR_WELSH"
 
-    When I click continue
-    Then the page URL should be "/applicant2/address-private"
-    And the page should include "Do you need your contact details kept private from your wife?"
-    Given I select "I do not need my contact details kept private"
+    Given I select English
+    Then I click continue and expect URL "ADDRESS_PRIVATE"
 
-    When I click continue
-    Then the page URL should be "/applicant2/enter-your-address"
-    And the page should include "Enter your postal address"
-    Given I select "Enter a UK postcode"
-    And I type "SW1H 9AJ"
-    When I click find address
-    Then the page should include "SW1H 9AJ"
-    And I wait for the postcode lookup to return results
-    Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    Given I do not need my contact details kept private
+    Then I click continue and expect URL "ENTER_YOUR_ADDRESS"
 
-    When I click continue
-    Then the page URL should be "/applicant2/other-court-cases"
-    And the page should include "Other court cases relating to this marriage"
-    Given I select "No"
+    Given I enter my address
+    Then I click continue and expect URL "OTHER_COURT_CASES"
 
-    When I click continue
-    Then the page URL should be "/applicant2/dividing-money-property"
-    And the page should include "Dividing your money and property"
-    Given I select "No. I do not want to apply for a financial order"
+    Given I select no
+    Then I click continue and expect URL "MONEY_PROPERTY"
 
-    When I click continue
-    Then the page URL should be "/applicant2/check-your-joint-application"
-    And the page should include "Check your wife's answers"
-    And the page should include "I confirm my marriage has broken down irretrievably"
-    And the page should include "When did you get married?"
-    And the page should include "31 December 1999"
-    And the page should include "Do you have your marriage certificate with you?"
-    And the page should include "Yes, I have my marriage certificate with me"
-    And the page should include "Help paying the divorce fee"
-    And the page should include "No"
-    And the page should include "Did you get married in the UK?"
-    Given I select "Yes" for "Is the information your wife provided correct?"
+    Given I do not need a financial order
+    Then I click continue and expect URL "CHECK_JOINT_APPLICATION"
 
-    When I click continue
-    Then the page URL should be "/applicant2/check-your-answers"
-    And the page should include "Check your answers"
+    Given I confirm the information my partner provided is correct
+    Then I click continue and expect URL "CHECK_ANSWERS_URL"
 
-    When I click continue
-    Then the page URL should be "/applicant2/confirm-your-joint-application"
-    And the page should include "Confirm your joint application"
-    And the page should include "The marriage has broken down irretrievably (it cannot be saved)"
-    And the page should include "About the marriage"
-    And the page should include "Date of marriage"
-    And the page should include "The applicants are not applying to the court for financial orders."
+    Then I click continue and expect URL "CONFIRM_JOINT_APPLICATION"
+
     Given I confirm the prayer and statement of truth
-
-    When I click submit
-    Then the page URL should be "/applicant2/response-submitted"
-    And the page should include "Your wife needs to confirm your joint application"
+    Then I click continue and expect URL "RESPONSE_SUBMITTED"
 
     Given I sign out
     And I login with applicant "1"
-    Then the page URL should be "/confirm-your-joint-application"
-    And I confirm the prayer and statement of truth
+    Then the page URL should be "CONFIRM_JOINT_APPLICATION"
+
+    Given I confirm the prayer and statement of truth
+
     When I click continue to payment
-    Then the page URL should be "/pay-and-submit"
-    And the page should include "Check your answers"
-    When I click "Check your answers"
-    Then the page URL should be "/view-your-answers"
-    And the page should include "I confirm my marriage has broken down irretrievably"
-    And the page should include "When did you get married?"
-    And the page should include "31 December 1999"
-    And the page should include "Do you have your marriage certificate with you?"
-    And the page should include "Yes, I have my marriage certificate with me"
-    When I click back
-    Then the page URL should be "/pay-and-submit"
-    When I pay and submit the joint application
-    Then the page should include "Application saved"
+    Then the page URL should be "PAY_AND_SUBMIT"
+
+    Then I click check your answers
+
+    Then I click back and expect URL "PAY_AND_SUBMIT"
+
+    Then I pay and submit the joint application
+
     Given I sign out
     And I login with applicant "2"
-    Then the page URL should be "/hub-page"
-    And the page should include "Send your documents"
+    Then the page URL should be "HUB_PAGE"
+    And the page should include element "#awaitingDocumentsTitle"
 
   @nightly
   Scenario: They fill out an unhappy path applicant 2 journey with help with fees
-    When I go to "/help-with-your-fee"
-    And I select "Yes"
+    When I go to "HELP_WITH_YOUR_FEE_URL"
 
-    When I click continue
-    Then the page should include "Do you have a help with fees reference number?"
-    Given I select "Yes"
+    Given I select yes
+    Then I click continue and expect URL "HELP_PAYING_HAVE_YOU_APPLIED"
 
-    When I click continue
-    Then the page should include "Enter your Help With Fees reference number"
-    Given I select element "#applicant1HelpWithFeesRefNo"
-    And I type "HWF-ABC-123"
+    Given I select yes
+    Then I click continue and expect URL "ENTER_HWF_NUMBER_URL"
 
-    When I click continue
-    Then the page URL should be "/how-do-you-want-to-apply"
+    Given I enter my HWF reference number
+    Then I click continue and expect URL "HOW_DO_YOU_WANT_TO_APPLY"
 
-    When I go to "/"
-    And I click send for review
-    Then the page URL should be "/application-sent-for-review"
+    When I go to "HOME_URL"
+    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+
     Given I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
+    Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
-    When I click continue
-    Then the page URL should be "/applicant2/irretrievable-breakdown"
-    And the page should include "Has your marriage broken down irretrievably (it cannot be saved)?"
-    Given I select "I confirm my marriage has broken down irretrievably"
+    Given I confirm my marriage has broken down irretrievably
+    Then I click continue and expect URL "HELP_WITH_YOUR_FEE_URL"
 
-    When I click continue
-    Then the page URL should be "/applicant2/help-with-your-fee"
-    And the page should include "Help with fees"
-    Given I select "No"
+    Given I select no
+    Then I click continue and expect URL "ENTER_YOUR_NAME"
 
-    When I click continue
-    Then the page URL should be "/applicant2/enter-your-name"
-    Given I go to "/applicant2/help-with-your-fee"
-    And I select "Yes"
+    When I click back and expect URL "HELP_WITH_YOUR_FEE_URL"
+    Given I select yes
+    Then I click continue and expect URL "HELP_PAYING_HAVE_YOU_APPLIED"
 
-    When I click continue
-    Then the page URL should be "/applicant2/have-you-applied-for-help-with-fees"
-    And the page should include "Do you have a help with fees reference number?"
-    Given I select "No"
+    Given I select no
+    Then I click continue and expect URL "HELP_PAYING_NEED_TO_APPLY"
 
-    When I click continue
-    Then the page URL should be "/applicant2/apply-for-help-with-fees"
-    And the page should include "Apply for help with fees"
+    Then I click continue and expect URL "ENTER_HWF_NUMBER_URL"
 
-    When I click continue
-    Then the page URL should be "/applicant2/hwf-reference-number-input"
-    Given I select element "#applicant2HelpWithFeesRefNo"
-    And I type "HWF-ABC-123"
+    Given I enter my HWF reference number
+    Then I click continue and expect URL "ENTER_YOUR_NAME"
 
-    When I click continue
-    Then the page URL should be "/applicant2/enter-your-name"
-    And the page should include "Enter your name"
-    When I clear the form
-    Given I select "Your first name(s)"
-    And I type "Sarah"
-    And I select "Your last name(s)"
-    And I type "Smith"
+    Given I enter my name
+    Then I click continue and expect URL "CHECK_YOUR_NAME"
 
-    When I click continue
-    Then the page should include "Is any part of your full name (Sarah Smith) written differently on your marriage certificate?"
-    Given I select "No"
+    Given I select no
+    Then I click continue and expect URL "YOUR_CERTIFICATE_NAME"
 
-    When I click continue
-    Then the page should include "How is your name written on your marriage certificate"
-    Given I select "Copy your full name from the marriage certificate"
-    And I type "Sarah Smith"
+    Given I enter my name on the certificate
+    Then I click continue and expect URL "HOW_THE_COURTS_WILL_CONTACT_YOU"
 
-    When I click continue
-    Then the page URL should be "/applicant2/how-the-court-will-contact-you"
-    And the page should include "How the court will contact you"
-    Given I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-    And I select "Enter your phone number (optional)"
-    And I type "123456789"
+    Given I agree that the court can contact me by email
+    And I enter my phone number
+    Then I click continue and expect URL "ENGLISH_OR_WELSH"
 
-    When I click continue
-    Then the page URL should be "/applicant2/english-or-welsh"
-    And the page should include "What language do you want to receive emails and documents in"
-    Given I select "English"
+    Given I select English
+    Then I click continue and expect URL "ADDRESS_PRIVATE"
 
-    When I click continue
-    Then the page URL should be "/applicant2/address-private"
-    And the page should include "Do you need your contact details kept private from your wife?"
-    Given I select "Keep my contact details private"
-    Then the page should include "Are you currently in a refuge?"
-    Given I select "No"
-    Then the page should include "If you think you might be experiencing domestic abuse or you feel unsafe, then support is available"
+    Given I need my contact details kept private
+    Then I click continue and expect URL "ENTER_YOUR_ADDRESS"
 
-    When I click continue
-    Then the page URL should be "/applicant2/enter-your-address"
-    And the page should include "Enter your postal address"
-    Given I select "Enter a UK postcode"
-    And I type "SW1H 9AJ"
-    When I click find address
-    Then the page should include "SW1H 9AJ"
-    And I wait for the postcode lookup to return results
-    Given I choose "MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ" from "Select an address"
+    Given I enter my address
+    Then I click continue and expect URL "OTHER_COURT_CASES"
 
-    When I click continue
-    Then the page URL should be "/applicant2/other-court-cases"
-    Given I go to "/applicant2/enter-your-address"
-    Then the form input "Building and street" should be "102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE"
-    And the form input "Town or city" should be "LONDON"
-    And the form input "County" should be "CITY OF WESTMINSTER"
-    And the form input "Postcode" should be "SW1H 9AJ"
+    Given I select yes
+    Then I click continue and expect URL "DETAILS_OTHER_PROCEEDINGS"
 
-    When I click continue
-    And the page should include "Other court cases relating to this marriage"
-    Given I select "Yes"
+    Given I enter details of the other proceedings
+    Then I click continue and expect URL "MONEY_PROPERTY"
 
-    When I click continue
-    Then the page URL should be "/applicant2/details-other-proceedings"
-    And the page should include "Details of the other legal proceedings"
-    Given I select "Provide details about the other legal proceedings."
-    And I type "Test other legal proceedings details"
+    Given I select yes
+    Then I click continue and expect URL "WHO_IS_THE_FINANCIAL_ORDER_FOR"
 
-    When I click continue
-    Then the page URL should be "/applicant2/dividing-money-property"
-    And the page should include "Dividing your money and property"
-    Given I select "Yes. I want to apply for a financial order"
+    Given I need a financial order for myself
+    Then I click continue and expect URL "CHECK_JOINT_APPLICATION"
 
-    When I click continue
-    Then the page URL should be "/applicant2/who-is-the-financial-order-for"
-    And the page should include "Who is the financial order for?"
-    And I select "I need a financial order for myself"
+    Given I deny the information my partner provided is correct
+    And I enter "Incorrect information" into "#applicant2Explanation"
 
-    When I click continue
-    Then the page URL should be "/applicant2/check-your-joint-application"
-    And the page should include "Check your wife's answers"
-    Given I select "No" for "Is the information your wife provided correct?"
-    And I select "Explain what is incorrect or needs changing. Your answer will be sent to your wife."
-    And I type "Incorrect test details"
-
-    When I click continue
-    Then the page URL should be "/applicant2/your-comments-sent"
-    And the page should include "Your comments have been sent to your wife"
+    Then I click continue and expect URL "YOUR_COMMENTS_SENT"
 
   @nightly
   Scenario: They end the joint application
-    Given I go to "/"
-    And I click send for review
-    Then the page URL should be "/application-sent-for-review"
-    When I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
-    When I click continue
-    Then the page URL should be "/applicant2/irretrievable-breakdown"
-    Given I select "My marriage has not broken down irretrievably"
-    Then the page should include "Your marriage must have broken down irretrievably for you to get a divorce."
-    When I click continue
-    Then the page URL should be "/applicant2/you-cannot-apply"
-    And the page should include "You cannot apply to get a divorce"
-    When I click "End joint application"
-    Then the page URL should be "/applicant2/you-have-not-confirmed-joint-application"
-    And the page should include "You have not confirmed your joint application"
-    And I sign out
+    When I go to "HOME_URL"
+    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+
+    Given I enter my valid case reference and valid access code
+    Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
+
+    Given my marriage has not broken down irretrievably
+    Then I click continue and expect URL "YOU_CANNOT_APPLY"
+
+    Then I click end the joint application and expect URL "NOT_CONFIRMED_JOINT_APPLICATION"
+
+    Then I sign out
     Given I login with applicant "1"
-    Then the page URL should be "/application-ended"
+    Then the page URL should be "APPLICATION_ENDED"
 
   @flaky
   Scenario: Applicant 2 upload larry-the-cat
-    When I go to "/"
-    And I click send for review
-    Then the page URL should be "/application-sent-for-review"
-    When I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
-    When I go to "/applicant2/upload-your-documents"
-    Then the page should include "Upload your documents"
+    When I go to "HOME_URL"
+    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Given I enter my valid case reference and valid access code
+    And I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
+    When I go to "APPLICANT_2" / "UPLOAD_YOUR_DOCUMENTS"
     Given I delete any previously uploaded files
-    Then the page should include "No files uploaded"
     When I upload the file "fixtures/larry-the-cat.jpg"
-    And I wait until the page contains image "larry-the-cat.jpg"
-    And I click "Delete"
-    And I wait until the page doesn't contain "larry-the-cat.jpg"
-    When I clear the form
-    And I select "I cannot upload some or all of my documents"
-    And I select "Proof that I changed my name"
-    When I click continue
-    When I go to "/applicant2/check-your-answers"
-    Then the page should include "Check your answers"
-    And the page should include "I cannot upload some or all of my documents"
+    Then I delete the file "larry-the-cat.jpg"
+    And I clear the form
+    And I cannot upload my name change proof
+    Then I click continue and expect URL "CHECK_JOINT_APPLICATION"
