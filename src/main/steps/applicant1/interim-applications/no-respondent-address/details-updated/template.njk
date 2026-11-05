@@ -1,5 +1,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "common/macros/service-address.njk" import serviceAddressMacro %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% extends "common/page.njk" %}
 {% block backLink %}{% endblock %}
@@ -9,15 +11,51 @@
 </div>
   <p class="govuk-body">{{ line1 }}</p>
   <br/>
-  <h2 class="govuk-heading-m">{{ whatHappensNext }}</h2>
-  <br/>
-  <p class="govuk-body">{{ line2 }}</p>
-  {% if overseasAddressForRespondent %}
-    <p class="govuk-body">{{ line5 }}</p>
-    <p class="govuk-body">{{ line6 | safe }}</p>
+  {% if userCannotUploadDocuments %}
+    <h3 class="govuk-heading-m">{{ awaitingDocuments.subHeading1 }}</h3>
+    <p class="govuk-body">{{ awaitingDocuments.line1 }}</p>
+    <h3 class="govuk-heading-m">{{ awaitingDocuments.subHeading2 }}</h3>
+    <p class="govuk-body">{{ awaitingDocuments.line2 }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for document in cannotUploadDocuments %}
+        <li>{{ awaitingDocuments.documents[document] }}</li>
+      {% endfor %}
+    </ul>
+
+    {% set sendingDocumentsByOnlineForm %}
+      <p class="govuk-body">{{ awaitingDocuments.documentsByOnlineFormSteps.line1 }} <a href="{{ contactWebForm }}">{{ awaitingDocuments.documentsByOnlineFormSteps.line2}}</a> </p>
+      <p class="govuk-body">{{ awaitingDocuments.documentsByOnlineFormSteps.line3 }}</p>
+    {% endset %}
+    {{ govukDetails({
+      summaryText: awaitingDocuments.documentsByOnlineForm,
+      html: sendingDocumentsByOnlineForm
+    }) }}
+
+    {% set sendingDocumentsByPost %}
+      <ol class="govuk-list govuk-list--number">
+        {% for property, step in awaitingDocuments.documentsByPostSteps %}
+          <li>{{ step }}</li>
+        {% endfor %}
+      </ol>
+      {{ serviceAddressMacro(serviceAddress) }}
+      <p class="govuk-body">{{ awaitingDocuments.documentsByPostMoreDetails }}</p>
+    {% endset %}
+    {{ govukDetails({
+      summaryText: awaitingDocuments.documentsByPost,
+      html: sendingDocumentsByPost
+    }) }}
+    <br>
   {% else %}
-    <p class="govuk-body">{{ line3 }}</p>
-    <p class="govuk-body">{{ line4 }}</p>
+    <h2 class="govuk-heading-m">{{ whatHappensNext }}</h2>
+    <br/>
+    <p class="govuk-body">{{ line2 }}</p>
+    {% if overseasAddressForRespondent %}
+      <p class="govuk-body">{{ line5 }}</p>
+      <p class="govuk-body">{{ line6 | safe }}</p>
+    {% else %}
+      <p class="govuk-body">{{ line3 }}</p>
+      <p class="govuk-body">{{ line4 }}</p>
+    {% endif %}
   {% endif %}
   <p class="govuk-body">{{ returnToYourAccount | safe }}</p>
 {% endblock %}
