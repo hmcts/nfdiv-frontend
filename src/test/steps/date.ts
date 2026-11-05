@@ -2,6 +2,13 @@ import { iEnterValueIntoInput } from './commonHelpers/elementInteraction';
 
 export const DEFAULT_RELATIONSHIP_DATE = '1/1/2000';
 
+export const dateToString = (date: Date): string => {
+  const day = date.getDate().toString();
+  const month = (date.getMonth() + 1).toString();
+  const year = date.getFullYear().toString();
+  return `${day}/${month}/${year}`;
+};
+
 export const iEnterADateIntoField = (date: string, field: string): void => {
   const [day, month, year] = date
     .trim()
@@ -17,34 +24,9 @@ export const iEnterTheDefaultRelationshipDate = (): void => {
   iEnterADateIntoField(DEFAULT_RELATIONSHIP_DATE, 'relationshipDate');
 };
 
-const dateToString = (date: Date): string => {
-  const day = date.getDate().toString();
-  const month = (date.getMonth() + 1).toString();
-  const year = date.getFullYear().toString();
-  return `${day}/${month}/${year}`;
-};
-
 Given('I enter a date of {string} into the {string} field', (date, field: string) => {
   iEnterADateIntoField(date, field);
 });
 Given('I enter the relationship date', () => {
   iEnterTheDefaultRelationshipDate();
-});
-
-/** Setting the date to the first due to different months having different total number of days **/
-Given(/I enter a relationship date (\d+) (?:month|months) ago/, (month: string) => {
-  const date = new Date();
-  date.setDate(1);
-  if (date.getMonth() - +month === 0) {
-    date.setMonth(1);
-  } else {
-    date.setMonth(date.getMonth() - +month);
-  }
-  iEnterADateIntoField(dateToString(date), 'relationshipDate');
-});
-
-Given(/I enter a relationship date (\d+) (?:year|years) ahead/, (year: string) => {
-  const date = new Date();
-  date.setFullYear(date.getFullYear() + +year);
-  iEnterADateIntoField(dateToString(date), 'relationshipDate');
 });
