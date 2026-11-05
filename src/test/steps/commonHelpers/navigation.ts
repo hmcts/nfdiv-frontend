@@ -248,17 +248,25 @@ export const iWaitForUrl = (url?: string | RegExp, wait?: number, waitUntil: Wai
   I.waitForURL(url as RegExp, { ...timeout, waitUntil });
 };
 
-export const doesCurrentUrlStartWith = async (serviceUrl: string): Promise<boolean> => {
-  const currentUrl = await I.grabCurrentUrl();
+export const doesCurrentUrlStartWith = async (serviceUrl: string, currentUrl?: string): Promise<boolean> => {
+  currentUrl = currentUrl || (await I.grabCurrentUrl());
   return currentUrl.startsWith(serviceUrl);
+};
+
+export const iGrabCurrentUrl = async (): Promise<string> => {
+  const currentUrl = await I.grabCurrentUrl();
+  if (await iAmOnNfd(currentUrl)) {
+    return new URL(currentUrl).pathname;
+  }
+  return currentUrl;
 };
 
 export const iAmOnIdam = async (): Promise<boolean> => {
   return doesCurrentUrlStartWith(testConfig.IDAM_WEB_BASE_URL);
 };
 
-export const iAmOnNfd = async (): Promise<boolean> => {
-  return doesCurrentUrlStartWith(testConfig.TEST_URL);
+export const iAmOnNfd = async (currentUrl?: string): Promise<boolean> => {
+  return doesCurrentUrlStartWith(testConfig.TEST_URL, currentUrl);
 };
 
 export const iAmOnEqualityAndDiversity = async (): Promise<boolean> => {
