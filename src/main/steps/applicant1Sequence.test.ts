@@ -2,12 +2,12 @@ import { ApplicationType, YesOrNo } from '../app/case/definition';
 
 import { Step, applicant1PreSubmissionSequence, isCountryUk } from './applicant1Sequence';
 import {
+  ADDRESS_INTERNATIONAL,
   ENTER_THEIR_ADDRESS,
   MONEY_PROPERTY,
-  OTHER_COURT_CASES,
+  THEIR_EMAIL_ADDRESS,
   UPLOAD_YOUR_DOCUMENTS,
   WHO_IS_THE_FINANCIAL_ORDER_FOR,
-  YOU_NEED_TO_SERVE,
 } from './urls';
 
 describe('Applicant 1 Sequence test', () => {
@@ -15,23 +15,24 @@ describe('Applicant 1 Sequence test', () => {
     const caseData = {
       applicationType: ApplicationType.SOLE_APPLICATION,
       applicant2AddressCountry: 'United Kingdom',
+      applicant2AddressOverseas: YesOrNo.NO,
     };
 
     test('Applicant 2 Country - United Kingdom', () => {
       const step = applicant1PreSubmissionSequence.find(obj => obj.url === ENTER_THEIR_ADDRESS) as Step;
-      expect(step.getNextStep(caseData)).toBe(OTHER_COURT_CASES);
+      expect(step.getNextStep(caseData)).toBe(THEIR_EMAIL_ADDRESS);
     });
 
     test('Applicant 2 Country - u.k', () => {
       caseData.applicant2AddressCountry = 'u.k';
       const step = applicant1PreSubmissionSequence.find(obj => obj.url === ENTER_THEIR_ADDRESS) as Step;
-      expect(step.getNextStep(caseData)).toBe(OTHER_COURT_CASES);
+      expect(step.getNextStep(caseData)).toBe(THEIR_EMAIL_ADDRESS);
     });
 
     test('Applicant 2 Country - France', () => {
-      caseData.applicant2AddressCountry = 'France';
+      caseData.applicant2AddressOverseas = YesOrNo.YES;
       const step = applicant1PreSubmissionSequence.find(obj => obj.url === ENTER_THEIR_ADDRESS) as Step;
-      expect(step.getNextStep(caseData)).toBe(YOU_NEED_TO_SERVE);
+      expect(step.getNextStep(caseData)).toBe(ADDRESS_INTERNATIONAL);
     });
   });
 
