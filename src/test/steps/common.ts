@@ -14,6 +14,7 @@ import {
   CHECK_JURISDICTION,
   CSRF_TOKEN_ERROR_URL,
   HOW_DO_YOU_WANT_TO_APPLY,
+  REVIEW_THE_APPLICATION,
   THEIR_EMAIL_ADDRESS,
 } from '../../main/steps/urls';
 
@@ -63,6 +64,7 @@ import {
   iAmOnPage,
   iClickBackLink,
   iClickCheckYourAnswersLink,
+  iClickToNavigate,
   iClickWithdrawLink,
   iDontSeeABackLink,
   iGoToPage,
@@ -274,8 +276,8 @@ When('I click apply for final order', () => {
 When('I click continue to the next steps', () => {
   iClickElement('a.govuk-button[href="/return-to-service"]');
 });
-When('I click respond to the application', () => {
-  iClickElement('#respondToTheApplicationButton');
+When('I click respond to the application', async () => {
+  await iClickToNavigate('#respondToTheApplicationButton', undefined, REVIEW_THE_APPLICATION);
 });
 When('I click yes', iSelectYes);
 When('I select yes', iSelectYes);
@@ -338,7 +340,7 @@ When('I confirm the statement of truth', () => {
   iClickElement('#statementOfTruth');
 });
 When('I have read the application for divorce', () => {
-  iClickElement('#confirmReadPetitionId');
+  iCheckOption('#confirmReadPetitionId');
 });
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
