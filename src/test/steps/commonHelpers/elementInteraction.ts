@@ -2,7 +2,7 @@ import { Locator, Page } from '@playwright/test';
 
 import { YesOrNo } from '../../../main/app/case/definition';
 
-import { iAmOnIdam, iClickToNavigate } from './navigation';
+import { iAmOnIdam, iClickToNavigate, iGrabCurrentUrl } from './navigation';
 import {
   getApplicantNumber,
   getApplicantString,
@@ -107,6 +107,11 @@ export const iClickSubmit = async (wait?: number): Promise<void> => {
   await iClickSubmitAndExpectUrl(undefined, wait);
 };
 
+export const iClickSubmitAndExpectTheCurrentPage = async (): Promise<void> => {
+  const nextUrl = await iGrabCurrentUrl();
+  await iClickSubmitAndExpectUrl(nextUrl);
+};
+
 export const iClickChangeLinkForQuestion = async (questionText: string): Promise<void> => {
   const selector = `a.govuk-link:has(span.govuk-visually-hidden:has-text("${questionText}"))`;
   await iClickToNavigate(selector);
@@ -184,6 +189,15 @@ export const iEnterValueIntoInput = (value: string, inputSelector: string, wait?
   I.fillField(inputSelector, value);
 };
 
+export const iWaitForVisibleErrorSummary = (wait?: number): void => {
+  iWaitForVisible('div.govuk-error-summary', wait);
+};
+
+export const iWaitForVisibleError = (wait?: number): void => {
+  iWaitForVisibleErrorSummary(wait);
+  iWaitForVisible('p.govuk-error-message', wait);
+};
+
 const iSetAddressPrivacy = (isPrivate: boolean = true, inRefuge: boolean = false): void => {
   iSelectYesOrNoForField(isPrivate ? YesOrNo.YES : YesOrNo.NO, `${getApplicantString()}AddressPrivate`);
   if (isPrivate) {
@@ -216,7 +230,7 @@ export const iClearTheForm = async (): Promise<void> => {
     clearInputs(document.querySelectorAll('textarea'));
     clearInputs(document.querySelectorAll('input[type="text"]'));
   });
-  await I.grabCurrentUrl();
+  await I.grabCurrentUrl(); // Do we need to do this??
 };
 
 export const iWaitForUploadedFile = async (pathToFile: string, wait?: number): Promise<void> => {
