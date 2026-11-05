@@ -42,7 +42,6 @@ import {
   iDeleteAllUploadedFiles,
   iDeleteUploadedFile,
   iEnterMyCertificateName,
-  iEnterMyEmailAddress,
   iEnterMyName,
   iEnterTheirCertificateName,
   iEnterTheirDefaultEmailAddress,
@@ -142,22 +141,6 @@ When('I click for more details', iClickMoreDetailsComponent);
 When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
   iCheckOptionFor(optionLabel, fieldLabel);
 });
-When('I select the option {string}', (value: string) => {
-  // pretty sure we can remove this for direct syntactic helpers
-  switch (value.toLowerCase()) {
-    case 'yes':
-      iSelectYes();
-      break;
-    case 'no':
-      iSelectNo();
-      break;
-    case 'my husband':
-      iSelectRadioValue(Gender.MALE);
-      break;
-    default:
-      iClickString(value); // Fallback here for now. Refactor this step def when I have worked through more features
-  }
-});
 Given('I want to divorce my husband', () => {
   iSelectRadioValue(Gender.MALE);
 });
@@ -238,17 +221,6 @@ When('I sign out', iClickSignOut);
 
 Given('I set the case state to {string}', async (state: State) => {
   await iSetTheCaseStateAndSignOut(state);
-});
-
-// These three should be tidied up
-When('I click find address', () => {
-  iClickElement('#findAddressButton');
-});
-When('I cannot find the address in the list', () => {
-  iClickElement('#cannotFindAddress');
-});
-When('I have an international address', () => {
-  iClickElement('#cannot-enter-uk-postcode');
 });
 
 When('I click submit', iClickSubmit);
@@ -392,15 +364,8 @@ Then('the page should not include {string}', (text: string) => {
 Then('I enter {string} into {string}', (value: string, selector: string) => {
   iEnterValueIntoInput(value, selector);
 });
-Then('I enter their email address', async () => {
-  iEnterTheirDefaultEmailAddress();
-});
-Then("I enter their solicitor's email address", async () => {
-  iEnterTheirDefaultSolicitorEmailAddress();
-});
-Given('I enter my email address', () => {
-  iEnterMyEmailAddress('#applicant2EmailAddress');
-});
+Then('I enter their email address', iEnterTheirDefaultEmailAddress);
+Then("I enter their solicitor's email address", iEnterTheirDefaultSolicitorEmailAddress);
 Then('I enter my HWF reference number', () => {
   iEnterValueIntoInput('HWF-ABC-123', `#${getApplicantString()}HelpWithFeesRefNo`);
 });
