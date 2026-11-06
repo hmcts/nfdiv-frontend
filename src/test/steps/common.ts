@@ -310,6 +310,7 @@ When('I select English', () => {
 When('I want to continue with my existing application', () => {
   iSelectRadioValueForField('existing');
 });
+When('I want to continue with my divorce application', iSelectYes);
 When('I want to join the new application', () => {
   iSelectRadioValue('new');
 });
