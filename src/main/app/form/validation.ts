@@ -119,11 +119,11 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
   }
 
   if (typeof value === 'string') {
-    if (!value.match(/^HWF-?[A-Z0-9]{3}-?[A-Z0-9]{3}$/i)) {
+    if (!value.match(/^HWF-[A-Z0-9]{3}-[A-Z0-9]{3}$/i)) {
       return 'invalid';
     }
 
-    if (value.toUpperCase().replace(/-+/g, '') === 'HWFA1B23C') {
+    if (value.toUpperCase() === 'HWF-A1B-23C') {
       return 'invalidUsedExample';
     }
   }
@@ -137,13 +137,13 @@ export const isInvalidNationalInsuranceNumber: Validator = value => {
 
   const upperValue = (value as string).toUpperCase();
 
-  const niRegex = /^[A-Z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[A-Z]{1}$/;
+  const niRegex = /^[A-Z]{2} \d{2} \d{2} \d{2} [A-Z]$/;
 
   if (!niRegex.test(upperValue)) {
     return 'invalidFormat';
   }
 
-  if (upperValue.replace(/\s+/g, '') === 'JB346684D') {
+  if (upperValue === 'JB 34 66 84 D') {
     return 'invalidUsedExample';
   }
 };
