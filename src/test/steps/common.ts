@@ -216,8 +216,11 @@ When('I click check your answers', async () => {
 When('I toggle language to Welsh', iToggleLanguageToWelsh);
 When('I toggle language to English', iToggleLanguageToEnglish);
 
-When('I click start', () => {
-  iClickElement('.govuk-button--start');
+When('I click start', async () => {
+  await iClickToNavigate('.govuk-button--start');
+});
+When('I click start and expect URL {string}', async (url: string) => {
+  await iClickToNavigate('.govuk-button--start', undefined, url);
 });
 
 When('I sign out', iClickSignOut);
