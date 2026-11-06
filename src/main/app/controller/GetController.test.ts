@@ -39,7 +39,7 @@ describe('GetController', () => {
       userCase: req.session.userCase,
       userEmail,
       isRequestForInformationAmendableState: false,
-      titleId
+      titleId,
     });
   });
 
