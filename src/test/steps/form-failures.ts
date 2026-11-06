@@ -40,6 +40,13 @@ export const iClickSubmitAndExpectErrorSummary = async (): Promise<void> => {
   iWaitForVisibleErrorSummary();
 };
 
+export const iEnterAnInvalidReferenceNumber = (): void => {
+  iEnterValueIntoInput('1234123412341234', '#caseReference');
+};
+export const iEnterAnInvalidAccessCode = (): void => {
+  iEnterValueIntoInput('QWERTY45', '#accessCode');
+};
+
 When('I click submit and expect error elements', iClickSubmitAndExpectErrorElements);
 When('I click continue and expect error elements', iClickSubmitAndExpectErrorElements);
 When('I click continue and expect an error summary', iClickSubmitAndExpectErrorSummary);
@@ -115,3 +122,13 @@ When('I enter an invalid phone number', () => {
   iEnterValueIntoInput('12345', `#${getApplicantString()}PhoneNumber`);
 });
 When('I do not agree the courts have jurisdiction', iSelectNo);
+When('I enter an invalid reference number and invalid access code', () => {
+  iEnterAnInvalidReferenceNumber();
+  iEnterAnInvalidAccessCode();
+});
+When('I enter an invalid access code', () => {
+  iEnterAnInvalidAccessCode();
+});
+When('I enter an invalid reference number', () => {
+  iEnterAnInvalidReferenceNumber();
+});
