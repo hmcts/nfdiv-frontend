@@ -1,8 +1,9 @@
 import { Locator, Page } from '@playwright/test';
 
 import { YesOrNo } from '../../../main/app/case/definition';
+import { SupportedLanguages } from '../../../main/modules/i18n';
 
-import { iAmOnIdam, iClickToNavigate, iGrabCurrentUrl } from './navigation';
+import { iAmOnIdam, iClickToNavigate, iGrabCurrentUrl, iWaitForUrlParam } from './navigation';
 import {
   getApplicantNumber,
   getApplicantString,
@@ -330,4 +331,20 @@ export const iEnterMyEmailAddress = (selector: string = `#${getApplicantString()
 export const iEnterTheirEmailAddress = (selector: string = `#${getOtherApplicantString()}EmailAddress`): void => {
   const theirEmailAddress = getUserEmail(getOtherApplicantNumber());
   iEnterValueIntoInput(theirEmailAddress, selector);
+};
+
+const getLanguageToggleSelector = (lang: SupportedLanguages): string => {
+  return `#languageToggleLink[lang="${lang}"]`;
+};
+
+export const iToggleLanguageToWelsh = async (): Promise<void> => {
+  await iClickToNavigate(getLanguageToggleSelector(SupportedLanguages.Cy));
+  iWaitForUrlParam('lng', SupportedLanguages.Cy, 10);
+  iWaitForVisible(getLanguageToggleSelector(SupportedLanguages.En), 10);
+};
+
+export const iToggleLanguageToEnglish = async (): Promise<void> => {
+  await iClickToNavigate(getLanguageToggleSelector(SupportedLanguages.En));
+  iWaitForUrlParam('lng', SupportedLanguages.En, 10);
+  iWaitForVisible(getLanguageToggleSelector(SupportedLanguages.Cy), 10);
 };
