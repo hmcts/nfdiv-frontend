@@ -39,7 +39,7 @@ export class SessionStorage {
     const connectionString = config.get('session.redis.connectionString') as string;
 
     if (!redisHost) {
-      logger.info('No Redis host configured, using file store');
+      logger.info('No Redis host configured, using file store for redis');
       return new FileStore({ path: '/tmp' });
     }
 
