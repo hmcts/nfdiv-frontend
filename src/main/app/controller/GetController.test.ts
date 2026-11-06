@@ -3,6 +3,8 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { SupportedLanguages } from '../../modules/i18n';
 import { generateCommonContent } from '../../steps/common/common.content';
+import { getPageTitleIdFromUrl } from '../../steps/url-utils';
+import { PageLink } from '../../steps/urls';
 import { DivorceOrDissolution, Gender, State } from '../case/definition';
 import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
 
@@ -25,6 +27,7 @@ describe('GetController', () => {
     const req = mockRequest({ userCase: { state: State.Draft } });
     const res = mockResponse();
     await controller.get(req, res);
+    const titleId = getPageTitleIdFromUrl(req.path as PageLink);
 
     expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
@@ -36,6 +39,7 @@ describe('GetController', () => {
       userCase: req.session.userCase,
       userEmail,
       isRequestForInformationAmendableState: false,
+      titleId
     });
   });
 
@@ -58,11 +62,13 @@ describe('GetController', () => {
     const req = mockRequest({ userCase: { state: State.AwaitingPayment } });
     const res = mockResponse();
     await controller.get(req, res);
+    const titleId = getPageTitleIdFromUrl(req.path as PageLink);
 
     expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
       isAmendableStates: false,
       isRequestForInformationAmendableState: false,
+      titleId,
     });
   });
 
@@ -157,6 +163,7 @@ describe('GetController', () => {
     const res = mockResponse();
     req.session.userCase.gender = Gender.FEMALE;
     await controller.get(req, res);
+    const titleId = getPageTitleIdFromUrl(req.path as PageLink);
 
     expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
@@ -168,6 +175,7 @@ describe('GetController', () => {
       },
       text: 'english',
       userEmail,
+      titleId,
     });
   });
 
@@ -185,6 +193,7 @@ describe('GetController', () => {
         userEmail,
         userCase: req.session.userCase,
       });
+      const titleId = getPageTitleIdFromUrl(req.path as PageLink);
 
       expect(getContentMock).toHaveBeenCalledTimes(1);
       expect(getContentMock).toHaveBeenCalledWith({
@@ -194,12 +203,14 @@ describe('GetController', () => {
         userCase: req.session.userCase,
         partner: 'spouse',
         userEmail,
+        titleId,
       });
       expect(res.render).toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
         isAmendableStates: true,
         userCase: req.session.userCase,
         isRequestForInformationAmendableState: false,
+        titleId,
       });
     });
 
@@ -221,6 +232,7 @@ describe('GetController', () => {
           await controller.get(req, res);
 
           const commonContent = controller.getPageContent(req, res, language);
+          const titleId = getPageTitleIdFromUrl(req.path as PageLink);
 
           expect(getContentMock).toHaveBeenCalledTimes(2);
           expect(getContentMock).toHaveBeenCalledWith({
@@ -228,6 +240,7 @@ describe('GetController', () => {
             isDivorce,
             language,
             userCase: req.session.userCase,
+            titleId,
           });
           expect(res.render).toHaveBeenCalledWith('page', {
             ...defaultViewArgs,
@@ -237,6 +250,7 @@ describe('GetController', () => {
             language,
             pageText: `something in ${language}`,
             userEmail,
+            titleId,
           });
         });
       });
