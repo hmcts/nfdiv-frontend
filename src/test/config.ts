@@ -68,6 +68,7 @@ export const config = {
       '../steps/check-your-answers.ts',
       '../steps/form-failures.ts',
       '../steps/happy-path.ts',
+      '../steps/interim-applications.ts',
       '../steps/jurisdiction.ts',
       '../steps/payAndSubmit.ts',
       '../steps/postcode.ts',
