@@ -112,6 +112,7 @@ export const form: FormContent = {
       errorId: UPPY_FILE_INPUT_BUTTON_ID,
       values: [
         {
+          id: 'cannotUploadDocs',
           name: 'applicant1InterimAppsCannotUploadDocs',
           label: l => l.cannotUpload,
           value: Checkbox.Checked,

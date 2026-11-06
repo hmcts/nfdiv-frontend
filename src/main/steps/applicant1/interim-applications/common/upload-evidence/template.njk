@@ -38,7 +38,7 @@
   }) }}
 
   {% block uploadGuidance %}
-    <h1 class="govuk-heading-l" id="uploadEvidenceTitle">{{ title }}</h1>
+    <h1 class="govuk-heading-l" id="{{ titleId }}">{{ title }}</h1>
     {% block statement %}
       <p class="govuk-body">{{ statement }}</p>
     {% endblock %}

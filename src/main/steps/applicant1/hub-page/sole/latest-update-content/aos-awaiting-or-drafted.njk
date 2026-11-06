@@ -15,7 +15,7 @@
         <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
         <p class="govuk-body">{{ sendPapersAgain.line3 }}</p>
     {% else %}
-        <p class="govuk-body">{{ aosAwaiting.line1 }}</p>
+        <p class="govuk-body" id="aosAwaitingLine1">{{ aosAwaiting.line1 }}</p>
         {% if isRespondentOverseas %}
             {% if isRespondentRepresented %}
                 <p class="govuk-body">{{ aosAwaiting.line7 }}</p>
