@@ -56,6 +56,8 @@ import {
   iSelectYes,
   iSetInRefuge,
   iSetPrivateAddress,
+  iToggleLanguageToEnglish,
+  iToggleLanguageToWelsh,
   iWait,
   iWaitForUploadedFile,
   iWaitForVisible,
@@ -194,6 +196,9 @@ Then('the page should include visible element {string}', iWaitForVisible);
 
 When('I select element {string}', iClickElement);
 When('I click element {string}', iClickElement);
+When('I click element {string} and expect URL {string}', async (selector: string, url: string) => {
+  await iClickToNavigate(selector, undefined, url);
+});
 
 When('I click back', iClickBackLink);
 When('I click back and expect URL {string}', async (url: string) => {
@@ -208,12 +213,8 @@ When('I click check your answers', async () => {
   await iClickCheckYourAnswersLink();
 });
 
-When('I toggle language to Welsh', () => {
-  iClickElement('a.govuk-link.language[lang="cy"]');
-});
-When('I toggle language to English', () => {
-  iClickElement('a.govuk-link.language[lang="en"]');
-});
+When('I toggle language to Welsh', iToggleLanguageToWelsh);
+When('I toggle language to English', iToggleLanguageToEnglish);
 
 When('I click start', () => {
   iClickElement('.govuk-button--start');
@@ -263,6 +264,9 @@ When('I click end the joint application and expect URL {string}', async (url: st
 });
 When('I click save and sign out', async () => {
   await iClickToNavigate('#saveAndSignOutButton');
+});
+When('I click save and sign out and expect URL {string}', async (url: string) => {
+  await iClickToNavigate('#saveAndSignOutButton', undefined, url);
 });
 When('I click provide information', async () => {
   await iClickToNavigate('#provideInformationButton');
