@@ -261,20 +261,23 @@ When('I click end the joint application', iClickSubmit);
 When('I click end the joint application and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
 });
-When('I click save and sign out', () => {
-  iClickElement('#saveAndSignOutButton');
+When('I click save and sign out', async () => {
+  await iClickToNavigate('#saveAndSignOutButton');
 });
-When('I click provide information', () => {
-  iClickElement('#provideInformationButton');
+When('I click provide information', async () => {
+  await iClickToNavigate('#provideInformationButton');
 });
-When('I click apply for conditional order', () => {
-  iClickElement('#applyForConditionalOrderButton');
+When('I click apply for conditional order', async () => {
+  await iClickToNavigate('#applyForConditionalOrderButton');
 });
-When('I click apply for final order', () => {
-  iClickElement('#applyForFinalOrderButton');
+When('I click apply for conditional order and expect URL {string}', async (url: string) => {
+  await iClickToNavigate('#applyForConditionalOrderButton', undefined, url);
 });
-When('I click continue to the next steps', () => {
-  iClickElement('a.govuk-button[href="/return-to-service"]');
+When('I click apply for final order', async () => {
+  await iClickToNavigate('#applyForFinalOrderButton');
+});
+When('I click continue to the next steps', async () => {
+  await iClickToNavigate('a.govuk-button[href="/return-to-service"]');
 });
 When('I click respond to the application', async () => {
   await iClickToNavigate('#respondToTheApplicationButton', undefined, REVIEW_THE_APPLICATION);
