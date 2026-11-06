@@ -20,8 +20,19 @@ const en = ({ partner }: CommonContent) => ({
     },
   },
   line2: `You'll need to show evidence that your ${partner} is actively using the method you choose. For example, this could be a photo or screenshot of a recent conversation by text, email or social media.`,
-  line3: `If the court approves your application for alternative service, and the papers have been served correctly, you will not need a response from your ${partner}.`,
-  line4: `There is a fee of ${getFee(
+  line3: `Your evidence must show that the contact method is currently in use and belongs to your ${partner}.`,
+  line4: 'Make sure it:',
+  makeSureList: {
+    item1: 'shows the date of the conversation',
+    item2: 'is from within the last 3 months',
+    item3: `includes enough information to identify your ${partner}, such as their name, contact details or username`,
+    item4: 'shows the phone number for text message or WhatsApp evidence',
+    item5: 'shows the account username or profile name for social media messages',
+  },
+  line5:
+    'The evidence should be clear and easy to read. Do not crop screenshots so that key details (such as dates, usernames or phone numbers) are missing.',
+  line6: `If the court approves your application for alternative service, and the papers have been served correctly, you will not need a response from your ${partner}.`,
+  line7: `There is a fee of ${getFee(
     config.get('fees.alternativeService')
   )} to apply for alternative service, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
@@ -42,8 +53,19 @@ const cy = ({ partner }: CommonContent) => ({
     },
   },
   line2: `Byddwch angen dangos tystiolaeth bod eich ${partner} yn defnyddio’r dull a ddewisir gennych. Er enghraifft, gall hyn gynnwys llun neu sgrinlun o sgwrs ddiweddar trwy neges destun, e-bost neu’r cyfryngau cymdeithasol.`,
-  line3: `Os yw’r llys yn cymeradwyo eich cais am gyflwyno amgen, a bod y papurau wedi’u cyflwyno’n gywir, ni fyddwch angen ymateb gan eich ${partner}.`,
-  line4: `Mae yna ffi o ${getFee(
+  line3: `Rhaid i’ch tystiolaeth ddangos bod y dull cysylltu yn cael ei ddefnyddio ar hyn o bryd ac yn perthyn i’ch ${partner}.`,
+  line4: 'Gwnewch yn siŵr ei fod:',
+  makeSureList: {
+    item1: 'yn dangos dyddiad y sgwrs',
+    item2: 'o fewn y 3 mis diwethaf',
+    item3: `yn cynnwys digon o wybodaeth i adnabod eich ${partner}, fel ei henw, manylion cyswllt neu enw defnyddiwr`,
+    item4: 'yn dangos y rhif ffôn ar gyfer tystiolaeth neges destun neu WhatsApp',
+    item5: 'yn dangos enw defnyddiwr y cyfrif neu enw proffil ar gyfer negeseuon cyfryngau cymdeithasol',
+  },
+  line5:
+    'Dylai’r dystiolaeth fod yn glir ac yn hawdd ei darllen. Peidiwch â thorri sgrinluniau fel bod manylion allweddol (fel dyddiadau, enwau defnyddwyr neu rifau ffôn) ar goll.',
+  line6: `Os yw’r llys yn cymeradwyo eich cais am gyflwyno amgen, a bod y papurau wedi’u cyflwyno’n gywir, ni fyddwch angen ymateb gan eich ${partner}.`,
+  line7: `Mae yna ffi o ${getFee(
     config.get('fees.alternativeService')
   )} i wneud cais am gyflwyno amgen, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFeesCY'
