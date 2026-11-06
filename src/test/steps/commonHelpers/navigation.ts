@@ -161,6 +161,15 @@ export const iClickCheckYourAnswersLink = async (nextUrl?: string | RegExp): Pro
   await iClickToNavigate(CHECK_ANSWERS_SELECTOR, undefined, nextUrl || VIEW_YOUR_ANSWERS);
 };
 
+export const iWaitForUrlParam = (param: string, value: string, wait: number = 10): void => {
+  I.waitForFunction(
+    ([urlParam, expectedValue]: [string, string]) =>
+      new URL(window.location.href).searchParams.get(urlParam) === expectedValue,
+    [param, value],
+    wait
+  );
+};
+
 export const iAmOnPage = (urlString: string, user?: string): void => {
   urlString = setUserPathPrefix(urlString, user);
   const url = new URL(urlString, testConfig.TEST_URL);
