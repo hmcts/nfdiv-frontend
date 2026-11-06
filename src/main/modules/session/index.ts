@@ -44,7 +44,9 @@ export class SessionStorage {
 
     const isManagedRedisCache = redisHost.includes('azure.net');
 
-    logger.info(`Connecting to Redis ${isManagedRedisCache ? 'cluster' : 'standalone'} at ${redisHost}:${redisPort}`);
+    logger.info(
+      `Connecting to Redis on host ${isManagedRedisCache ? 'cluster' : 'standalone'} at ${redisHost}:${redisPort}`
+    );
 
     const client = isManagedRedisCache
       ? redis.createCluster({
