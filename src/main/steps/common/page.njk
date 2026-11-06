@@ -55,7 +55,7 @@
 
 {% set bannerHtml %}
   {{ feedback.part1 }}<a class="govuk-link" aria-label="{{ feedback.ariaLabel }}" href="{{ feedback.link }}{{ pageUrl }}" target="_blank">{{ feedback.part2 }}</a>{{ feedback.part3 }}
-  <a href="{{ languageToggle.link }}" class="govuk-link language" lang="{{ languageToggle.lang }}">{{ languageToggle.text }}</a>
+  <a id="languageToggleLink" href="{{ languageToggle.link }}" class="govuk-link language" lang="{{ languageToggle.lang }}">{{ languageToggle.text }}</a>
 {% endset %}
 
 {% block beforeContent %}
@@ -106,22 +106,30 @@
         {
           href: "/cookies",
           text: cookies,
-          id: 'cookiesLink'
+          attributes: {
+            id: 'cookiesLink'
+          }
         },
         {
           href: "/privacy-policy",
           text: privacyPolicy,
-          id: 'privacyPolicyLink'
+          attributes: {
+            id: 'privacyPolicyLink'
+          }
         },
         {
           href: "/accessibility-statement",
           text: accessibility,
-          id: 'accessibilityStatementLink'
+          attributes: {
+            id: 'accessibilityStatementLink'
+          }
         },
         {
           href: "/terms-and-conditions",
           text: termsAndConditions,
-          id: 'termsAndConditionsLink'
+          attributes: {
+            id: 'termsAndConditionsLink'
+          }
         },
         {
           href: "/contact-us",
