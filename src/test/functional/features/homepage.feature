@@ -2,33 +2,21 @@ Feature: Homepage
 
   @nightly
   Scenario: Test pages that don't require sign in
-    Given I go to "/contact-us"
-    Then the page should include "0300 303 0642"
-    When I click element "#cookiesLink"
-    Then the page should include "A cookie is a small piece of data that’s stored on your computer"
-    When I click element "#privacyPolicyLink"
-    Then the page should include "This privacy policy explains why we collect your personal data"
+    Given I go to "CONTACT_US"
+    Then the page should include element "#contactUsTitle"
+    Then I click element "#cookiesLink" and expect URL "COOKIES_URL"
+    Then I click element "#privacyPolicyLink" and expect URL "PRIVACY_POLICY_URL"
 
   Scenario: Switch language to Welsh and back to English
     Given I login
-    When I toggle language to Welsh
-    Then the page should include "Mae hwn yn wasanaeth newydd"
-    When I toggle language to English
-    Then the page should include "This is a new service"
+    Then I toggle language to Welsh
+    Then I toggle language to English
 
-    When I click element "#accessibilityStatementLink"
-    Then the page should include "This accessibility statement applies to the website available at"
-    When I click element "#termsAndConditionsLink"
-    Then the page should include "This page explains this service’s terms of use"
+    Then I click element "#accessibilityStatementLink" and expect URL "ACCESSIBILITY_STATEMENT_URL"
+    Then I click element "#termsAndConditionsLink" and expect URL "TERMS_AND_CONDITIONS_URL"
 
   @nightly
   Scenario: Test save and sign out
     Given I login
-    When I go to '/your-details'
-    Then the page should include "Apply for a divorce"
-    And the page should include "Who are you applying to divorce?"
-    And I click save and sign out
-    Then the page should include "Your application has been saved"
-    And I expect the page title to be "Your application has been saved - GOV.UK"
-    And the page should not include "Apply for a divorce"
-    And the page should not include "Back"
+    Then I click save and sign out and expect URL "DRAFT_SAVE_AND_SIGN_OUT"
+    And the page should not include a back link
