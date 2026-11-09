@@ -18,6 +18,7 @@ import {
 const { I } = inject();
 
 export const DEFAULT_EMAIL_ADDRESS = 'simulate-delivered@notifications.service.gov.uk';
+export const DEFAULT_PHONE_NUMBER = '07700 900457';
 
 type LocatorClickOptions = NonNullable<Parameters<Locator['click']>[0]>;
 export type WaitUntil = NonNullable<Parameters<Page['waitForURL']>[1]>['waitUntil'];
@@ -31,6 +32,10 @@ export const iClick = (selector: string | CodeceptJS.LocatorOrString, options: I
 export const iClickString = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
   I.waitForText(text, wait);
   iClick(locator || text);
+};
+
+export const iWaitForElement = (selector: string, wait?: number): void => {
+  I.waitForElement(selector, wait);
 };
 
 export const iWaitForVisible = (selector: string, wait?: number): void => {
@@ -115,6 +120,14 @@ export const iClickSubmit = async (wait?: number): Promise<void> => {
 export const iClickSubmitAndExpectTheCurrentPage = async (): Promise<void> => {
   const nextUrl = await iGrabCurrentUrl();
   await iClickSubmitAndExpectUrl(nextUrl);
+};
+
+export const iClickStartAndExpectUrl = async (nextUrl?: string, wait?: number): Promise<void> => {
+  await iClickToNavigate('.govuk-button--start', wait, nextUrl);
+};
+
+export const iClickStart = async (wait?: number): Promise<void> => {
+  await iClickStartAndExpectUrl(undefined, wait);
 };
 
 export const iClickChangeLinkForQuestion = async (questionText: string): Promise<void> => {
