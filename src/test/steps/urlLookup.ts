@@ -12,6 +12,7 @@ const internalPageLinkSet = new Set(Object.values(urlLookup));
 
 const ERROR_PAGE_URL_KEY = 'ERROR_PAGE_URL';
 export const ERROR_PAGE_URL = '/error';
+export const INTERIM_APPLICATIONS_BASE_PATH = '/interim-applications';
 
 const lookupUrlByKey = (urlKey: string): InternalPageLink | undefined => {
   urlKey = urlKey.trim().toUpperCase();
@@ -85,4 +86,8 @@ export const lookupUrl = (url?: string): InternalPageLink | string => {
   }
   url = url.trim();
   return isDefinedInternalPageLink(url) ?? url;
+};
+
+export const isInterimApplicationsUrl = (url: string): boolean => {
+  return url.trim().startsWith(INTERIM_APPLICATIONS_BASE_PATH);
 };
