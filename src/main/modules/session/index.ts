@@ -40,18 +40,18 @@ export class SessionStorage {
     const url = new URL(connectionString);
 
     const managedRedisConfig = {
-      host: url.hostname,
+      hostname: url.hostname,
       port: url.port,
       user: url.username,
       password: url.password,
     };
 
-    if (!managedRedisConfig.host) {
+    if (!managedRedisConfig.hostname) {
       logger.info('No Redis host configured, using file store for redis');
       return new FileStore({ path: '/tmp' });
     }
 
-    const isManagedRedisCache = managedRedisConfig.host.includes('azure.net');
+    const isManagedRedisCache = managedRedisConfig.hostname.includes('azure.net');
 
     const DEFAULT_REDIS_PORT = 10000;
 
@@ -63,14 +63,14 @@ export class SessionStorage {
       ? redis.createCluster({
           rootNodes: [
             {
-              url: connectionString, // e.g., 'rediss://default:PASSWORD@host:10000'
+              url: connectionString,
             },
           ],
           defaults: {
+            password: decodeURIComponent(managedRedisConfig.password),
             socket: {
               tls: true,
-              rejectUnauthorized: true,
-              connectTimeout: 30000,
+              servername: managedRedisConfig.hostname,
             },
           },
         })
