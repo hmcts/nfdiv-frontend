@@ -26,6 +26,7 @@ import {
   triggerAnEvent,
 } from './commonHelpers/caseInteraction';
 import {
+  DEFAULT_PHONE_NUMBER,
   iAcceptCookies,
   iAgreeTheCourtCanContactMeByEmail,
   iCannotUploadDocs,
@@ -35,6 +36,8 @@ import {
   iClearTheForm,
   iClickElement,
   iClickMoreDetailsComponent,
+  iClickStart,
+  iClickStartAndExpectUrl,
   iClickString,
   iClickSubmit,
   iClickSubmitAndExpectUrl,
@@ -60,6 +63,7 @@ import {
   iToggleLanguageToEnglish,
   iToggleLanguageToWelsh,
   iWait,
+  iWaitForElement,
   iWaitForUploadedFile,
   iWaitForVisible,
 } from './commonHelpers/elementInteraction';
@@ -70,14 +74,11 @@ import {
   iClickToNavigate,
   iClickWithdrawLink,
   iDontSeeABackLink,
-  iGoToPage,
-  iGoToPageAsUser,
   iWaitInPageNotFoundErrorPage,
   iWaitInUrl,
   iWaitInUrlAsUser,
 } from './commonHelpers/navigation';
 import {
-  clearAndRecreateApplicant1,
   clearNewUsers,
   getApplicantString,
   getCurrentUserKey,
@@ -97,10 +98,10 @@ After(async () => {
 });
 
 Given(/^I go to "([^"]*)" \/ "([^"]*)"$/, (user: string, url: string) => {
-  iGoToPageAsUser(url, user);
+  iAmOnPage(url, user);
 });
 Given('I go to {string}', (url: string) => {
-  iGoToPage(url);
+  iAmOnPage(url);
 });
 
 Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$/, (user: string, url: string) => {
@@ -118,10 +119,6 @@ Given('I login', async () => {
 });
 
 Given('I create a new user and login', async () => {
-  await login(TestUserKey.APPLICANT_1, true);
-});
-Given('I create a new applicant 1 user and login', async () => {
-  await clearAndRecreateApplicant1();
   await login(TestUserKey.APPLICANT_1, true);
 });
 Given('I create a new user and login as applicant 2', async () => {
@@ -185,7 +182,7 @@ Then('the page should include {string}', (text: string) => {
 });
 
 Then('the page should include element {string}', (selector: string) => {
-  I.waitForElement(selector);
+  iWaitForElement(selector);
 });
 
 Then('the page should not include element {string}', (selector: string) => {
@@ -218,10 +215,10 @@ When('I toggle language to Welsh', iToggleLanguageToWelsh);
 When('I toggle language to English', iToggleLanguageToEnglish);
 
 When('I click start', async () => {
-  await iClickToNavigate('.govuk-button--start');
+  await iClickStart();
 });
 When('I click start and expect URL {string}', async (url: string) => {
-  await iClickToNavigate('.govuk-button--start', undefined, url);
+  await iClickStartAndExpectUrl(url);
 });
 
 When('I sign out', iClickSignOut);
@@ -356,11 +353,11 @@ When('I have read the application for divorce', () => {
 });
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
-  I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
+  iWaitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
 });
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
-  I.waitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
+  iWaitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
 });
 
 Then('I wait until the page contains image {string}', (text: string) => {
@@ -368,7 +365,7 @@ Then('I wait until the page contains image {string}', (text: string) => {
 });
 
 Then('I wait until the page contains file element {string}', (selector: string) => {
-  I.waitForElement(selector, 30);
+  iWaitForElement(selector, 30);
 });
 
 Then('the page should not include {string}', (text: string) => {
@@ -402,7 +399,7 @@ Then('I enter my name on the certificate', () => {
   iEnterMyCertificateName();
 });
 Then('I enter my phone number', () => {
-  iEnterValueIntoInput('07700 900457', `#${getApplicantString()}PhoneNumber`);
+  iEnterValueIntoInput(DEFAULT_PHONE_NUMBER, `#${getApplicantString()}PhoneNumber`);
 });
 Then('I enter {string} as their name', (name: string) => {
   iEnterTheirName(name);
