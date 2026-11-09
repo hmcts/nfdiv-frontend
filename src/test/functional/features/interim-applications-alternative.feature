@@ -1,25 +1,7 @@
 Feature: Alternative service journey
 
   Background:
-    Given I create a new user and login
-    And I've already completed the form using the fixture "issuedCase"
-    Given a superuser updates "issueDate" with "2023-10-31"
-    Then I set the case state to "AwaitingAos"
-    When I sign out
-    And I login with applicant "1"
-    Then the page URL should be "HUB_PAGE"
-    And the page should include element "#aosAwaitingLine1"
-
-    Given I set the case state to "AosDrafted"
-    And a superuser updates "aosIsDrafted" with "Yes"
-    When I sign out
-    And I login with applicant "1"
-    Then the page URL should be "HUB_PAGE"
-    Then the page should include element "#aosDueAndDraftedLine1"
-
-    Then I click element "#aosDueAndDraftedLink" and expect URL "OPTIONS_FOR_PROGRESSING"
-
-    Then I click start and expect URL "HAVE_THEY_RECEIVED"
+    Given I prep the case for an interim application
 
     Given I don't know my partner's contact details
     Then I click continue and expect URL "NO_NEW_ADDRESS"
