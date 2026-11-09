@@ -90,7 +90,7 @@ export class SessionStorage {
         logger.info('Redis cluster connection established successfully');
       })
       .catch(err => {
-        logger.error('Failed to connect to Redis cluster:', err.message);
+        logger.info('Failed to connect to Redis cluster:', err.message);
       });
 
     app.locals.redisClient = client;
