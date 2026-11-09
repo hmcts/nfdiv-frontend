@@ -1,300 +1,174 @@
 Feature: Bailiff service journey
 
   Background:
-    Given I create a new user and login
-    Then I reject cookies
-    And I've already completed the form using the fixture "issuedCase"
-    Given a superuser updates "issueDate" with "2023-10-31"
-    Then I set the case state to "AwaitingAos"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include "Your application will be checked by court staff."
+    Given I prep the case for an interim application
 
-    Given I set the case state to "AosDrafted"
-    And a superuser updates "aosIsDrafted" with "Yes"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include element "#aosDueAndDraftedLine1"
+    Given I don't know my partner's contact details
+    Then I click continue and expect URL "NO_NEW_ADDRESS"
 
-    When I click element "#aosDueAndDraftedLink"
-    Then the page should include element "#optionsForProgressingTitle"
+    Given I select in person service
+    Then I click continue and expect URL "PARTNER_IN_PERSON"
 
-    When I click start
-    Then the page should include element "#haveTheyReceivedTitle"
-    And the page should include element "#detailsProvided"
-
-    Given I click element "#notKnown"
-    When I click continue
-    Then the page should include element "#noNewContactDetailsTitle"
-
-    Given I click element "#inPersonService"
-    When I click continue
-    Then the page should include element "#partnerInPersonTitle"
-
-    Given I click element "#bailiffService"
-    Given I click element "#respondentAddressInEnglandWales"
-    When I click continue
-    Then the page should include element "#bailiffServiceApplicationTitle"
+    Given I select bailiff service
+    Then I click continue and expect URL "BAILIFF_SERVICE_APPLICATION"
 
   Scenario: Bailiff service happy path
-    When I click start
-    Then the page should include element "#helpWithFeesTitle"
+    Given I click start and expect URL "HELP_WITH_FEES_BAILIFF"
 
-    Given I click element "#no"
-    When I click continue
-    Then the page should include element "#bailiffPartnersNameTitle"
+    Given I select no
+    Then I click continue and expect URL "ENTER_PARTNERS_NAME_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersName"
-    And I type "test name"
-    When I click continue
-    Then the page should include element "#bailiffPartnerInRefugeTitle"
+    Given I enter their name for the bailiff
+    Then I click continue and expect URL "PARTNER_IN_REFUGE_BAILIFF"
 
-    Given I click element "#no"
-    When I click continue
-    Then the page should include element "#bailiffPartnersAddressTitle"
+    Given I select no
+    Then I click continue and expect URL "PARTNER_ADDRESS_BAILIFF"
 
-    When I click continue
-    Then the page should include element "#bailiffPartnerPhoneTitle"
+    Then I click continue and expect URL "PARTNER_PHONE_NUMBER_BAILIFF"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPartnersPhone"
-    And I type "07777777777"
-    When I click continue
-    Then the page should include element "#bailiffPartnersDateOfBirthTitle"
+    Given I select yes
+    And I enter their phone number for the bailiff
+    Then I click continue and expect URL "PARTNER_DATE_OF_BIRTH_BAILIFF"
 
-    Given I click element "#no"
-    And I select element "#applicant1BailiffPartnersApproximateAge"
-    And I type "52"
-    When I click continue
-    Then the page should include element "#bailiffPartnersHeightTitle"
+    Given I select no
+    And I enter their approximate age
+    Then I click continue and expect URL "PARTNER_HEIGHT_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersHeight"
-    And I type "6 feet"
-    When I click continue
-    Then the page should include element "#bailiffPartnersHairColourTitle"
+    Given I enter their height
+    Then I click continue and expect URL "PARTNER_HAIR_COLOUR_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersHairColour"
-    And I type "brown"
-    When I click continue
-    Then the page should include element "#bailiffPartnersEyeColourTitle"
+    Given I enter their hair colour
+    Then I click continue and expect URL "PARTNER_EYE_COLOUR_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersEyeColour"
-    And I type "green"
-    When I click continue
-    Then the page should include element "#bailiffPartnersEthnicGroupTitle"
+    Given I enter their eye colour
+    Then I click continue and expect URL "PARTNER_ETHNIC_GROUP_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersEthnicGroup"
-    And I type "Bangladeshi"
-    When I click continue
-    Then the page should include element "#bailiffPartnersDistinguishingFeaturesTitle"
+    Given I enter their ethnic group
+    Then I click continue and expect URL "PARTNER_DISTINGUISHING_FEATURES_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersDistinguishingFeatures"
-    And I type "none"
-    When I click continue
-    Then the page should include element "#bailiffAbleToUploadPhotoTitle"
+    Given I enter their distinguishing features
+    Then I click continue and expect URL "ABLE_TO_UPLOAD_PARTNER_PHOTO"
 
-    Given I click element "#no"
-    When I click continue
-    Then the page should include element "#bailiffBestTimeToServeTitle"
+    Given I select no
+    Then I click continue and expect URL "WHEN_IS_BEST_TO_SERVE"
 
-    Given I select element "#applicant1BailiffBestTimeToServe"
-    And I type "Saturday afternoon"
-    When I click continue
-    Then the page should include element "#bailiffDoesPartnerHaveVehicleTitle"
+    Given I enter the best time to serve the papers
+    Then I click continue and expect URL "DOES_PARTNER_HAVE_A_VEHICLE"
 
-    Given I click element "#yes"
-    When I click continue
-    Then the page should include element "#bailiffPartnerVehicleDetailsTitle"
+    Given I select yes
+    Then I click continue and expect URL "PARTNER_VEHICLE_DETAILS"
 
-    Given I select element "#applicant1BailiffPartnerVehicleModel"
-    And I type "A car"
-    When I click continue
-    Then the page should include element "#bailiffHasPartnerBeenViolentTitle"
+    Given I enter details of their vehicle
+    Then I click continue and expect URL "HAS_PARTNER_BEEN_VIOLENT"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPartnerViolenceDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffPartnerMadeThreatsTitle"
+    Given my partner has been violent
+    Then I click continue and expect URL "HAS_PARTNER_MADE_THREATS"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPartnerThreatsDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffHavePoliceBeenInvolvedTitle"
+    Given my partner has made threats
+    Then I click continue and expect URL "HAVE_POLICE_BEEN_INVOLVED"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPoliceInvolvedDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffHaveSocialServicesBeenInvolvedTitle"
+    Given the police have been involved
+    Then I click continue and expect URL "HAVE_SOCIAL_SERVICES_BEEN_INVOLVED"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffSocialServicesInvolvedDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffDangerousAnimalsTitle"
+    Given social services have been involved
+    Then I click continue and expect URL "ARE_THERE_DANGEROUS_ANIMALS"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffDangerousAnimalsDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffPartnerMentalHealthTitle"
+    Given my partner keeps dangerous animals
+    Then I click continue and expect URL "PARTNER_MENTAL_HEALTH_BAILIFF"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPartnerMentalIssuesDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffPartnerFirearmsLicenseTitle"
+    Given my partner has a history of mental health issues
+    Then I click continue and expect URL "PARTNER_FIREARMS_LICENSE_BAILIFF"
 
+    Given my partner has a firearms licence
+    Then I click continue and expect URL "CHECK_ANSWERS_BAILIFF"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPartnerFirearmsLicenseDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#checkAnswersTitle"
-
-    Given I click element "#applicant1InterimAppsStatementOfTruth"
-    When I click submit
-    Then the page should include element "#payYourServiceFeeTitle"
+    Given I confirm the statement of truth
+    Then I click submit and expect URL "PAY_YOUR_SERVICE_FEE"
 
     Given I pay and submit the service application
-    Then the page should include "You have submitted your request"
 
-    Given I click element "#returnToHub"
-    Then the page should include "considering your request for bailiff service"
+    Given I click return to hub
+    Then the page should include element "#awaitingServiceConsiderationOrBailiffReferralLine1"
 
   @nightly
   Scenario: Bailiff service HWF journey
-    When I click start
-    Then the page should include element "#helpWithFeesTitle"
+    Given I click start and expect URL "HELP_WITH_FEES_BAILIFF"
 
-    Given I click element "#yes"
-    When I click continue
-    Then the page should include element "#hwfReferenceNumberTitle"
+    Given I select yes
+    Then I click continue and expect URL "HWF_REFERENCE_NUMBER_BAILIFF"
 
-    Given I click element "#yes"
-    When I click continue
-    Then the page should include element "#hwfReferenceNumberInputTitle"
+    Given I select yes
+    Then I click continue and expect URL "HWF_REFERENCE_NUMBER_INPUT_BAILIFF"
 
-    Given I select element "#applicant1InterimAppsHwfRefNumber"
-    And I type "HWF-A1B-23D"
-    When I click continue
-    Then the page should include element "#bailiffPartnersNameTitle"
+    Given I enter my HWF reference number
+    Then I click continue and expect URL "ENTER_PARTNERS_NAME_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersName"
-    And I type "test name"
-    When I click continue
-    Then the page should include element "#bailiffPartnerInRefugeTitle"
+    Given I enter their name for the bailiff
+    Then I click continue and expect URL "PARTNER_IN_REFUGE_BAILIFF"
 
-    Given I click element "#no"
-    When I click continue
-    Then the page should include element "#bailiffPartnersAddressTitle"
+    Given I select no
+    Then I click continue and expect URL "PARTNER_ADDRESS_BAILIFF"
 
-    When I click continue
-    Then the page should include element "#bailiffPartnerPhoneTitle"
+    Then I click continue and expect URL "PARTNER_PHONE_NUMBER_BAILIFF"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPartnersPhone"
-    And I type "07777777777"
-    When I click continue
-    Then the page should include element "#bailiffPartnersDateOfBirthTitle"
+    Given I select yes
+    And I enter their phone number for the bailiff
+    Then I click continue and expect URL "PARTNER_DATE_OF_BIRTH_BAILIFF"
 
-    Given I click element "#no"
-    And I select element "#applicant1BailiffPartnersApproximateAge"
-    And I type "52"
-    When I click continue
-    Then the page should include element "#bailiffPartnersHeightTitle"
+    Given I select no
+    And I enter their approximate age
+    Then I click continue and expect URL "PARTNER_HEIGHT_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersHeight"
-    And I type "6 feet"
-    When I click continue
-    Then the page should include element "#bailiffPartnersHairColourTitle"
+    Given I enter their height
+    Then I click continue and expect URL "PARTNER_HAIR_COLOUR_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersHairColour"
-    And I type "brown"
-    When I click continue
-    Then the page should include element "#bailiffPartnersEyeColourTitle"
+    Given I enter their hair colour
+    Then I click continue and expect URL "PARTNER_EYE_COLOUR_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersEyeColour"
-    And I type "green"
-    When I click continue
-    Then the page should include element "#bailiffPartnersEthnicGroupTitle"
+    Given I enter their eye colour
+    Then I click continue and expect URL "PARTNER_ETHNIC_GROUP_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersEthnicGroup"
-    And I type "Bangladeshi"
-    When I click continue
-    Then the page should include element "#bailiffPartnersDistinguishingFeaturesTitle"
+    Given I enter their ethnic group
+    Then I click continue and expect URL "PARTNER_DISTINGUISHING_FEATURES_BAILIFF"
 
-    Given I select element "#applicant1BailiffPartnersDistinguishingFeatures"
-    And I type "none"
-    When I click continue
-    Then the page should include element "#bailiffAbleToUploadPhotoTitle"
+    Given I enter their distinguishing features
+    Then I click continue and expect URL "ABLE_TO_UPLOAD_PARTNER_PHOTO"
 
-    Given I click element "#no"
-    When I click continue
-    Then the page should include element "#bailiffBestTimeToServeTitle"
+    Given I select no
+    Then I click continue and expect URL "WHEN_IS_BEST_TO_SERVE"
 
-    Given I select element "#applicant1BailiffBestTimeToServe"
-    And I type "Saturday afternoon"
-    When I click continue
-    Then the page should include element "#bailiffDoesPartnerHaveVehicleTitle"
+    Given I enter the best time to serve the papers
+    Then I click continue and expect URL "DOES_PARTNER_HAVE_A_VEHICLE"
 
-    Given I click element "#yes"
-    When I click continue
-    Then the page should include element "#bailiffPartnerVehicleDetailsTitle"
+    Given I select yes
+    Then I click continue and expect URL "PARTNER_VEHICLE_DETAILS"
 
-    Given I select element "#applicant1BailiffPartnerVehicleModel"
-    And I type "A car"
-    When I click continue
-    Then the page should include element "#bailiffHasPartnerBeenViolentTitle"
+    Given I enter details of their vehicle
+    Then I click continue and expect URL "HAS_PARTNER_BEEN_VIOLENT"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPartnerViolenceDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffPartnerMadeThreatsTitle"
+    Given my partner has been violent
+    Then I click continue and expect URL "HAS_PARTNER_MADE_THREATS"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPartnerThreatsDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffHavePoliceBeenInvolvedTitle"
+    Given my partner has made threats
+    Then I click continue and expect URL "HAVE_POLICE_BEEN_INVOLVED"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPoliceInvolvedDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffHaveSocialServicesBeenInvolvedTitle"
+    Given the police have been involved
+    Then I click continue and expect URL "HAVE_SOCIAL_SERVICES_BEEN_INVOLVED"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffSocialServicesInvolvedDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffDangerousAnimalsTitle"
+    Given social services have been involved
+    Then I click continue and expect URL "ARE_THERE_DANGEROUS_ANIMALS"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffDangerousAnimalsDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffPartnerMentalHealthTitle"
+    Given my partner keeps dangerous animals
+    Then I click continue and expect URL "PARTNER_MENTAL_HEALTH_BAILIFF"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPartnerMentalIssuesDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#bailiffPartnerFirearmsLicenseTitle"
+    Given my partner has a history of mental health issues
+    Then I click continue and expect URL "PARTNER_FIREARMS_LICENSE_BAILIFF"
 
+    Given my partner has a firearms licence
+    Then I click continue and expect URL "CHECK_ANSWERS_BAILIFF"
 
-    Given I click element "#yes"
-    Then I select element "#applicant1BailiffPartnerFirearmsLicenseDetails"
-    And I type "example"
-    When I click continue
-    Then the page should include element "#checkAnswersTitle"
+    Given I confirm the statement of truth
+    Then I click submit and expect URL "SERVICE_APPLICATION_SUBMITTED"
 
-    Given I click element "#applicant1InterimAppsStatementOfTruth"
-    When I click submit
-    Then the page should include "You have submitted your request"
-
-    Given I click element "#returnToHub"
-    Then the page should include "help with fees reference number will be checked"
+    Given I click return to hub
+    Then the page should include element "#serviceApplicationSubmittedIntroLine1"
