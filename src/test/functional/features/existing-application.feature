@@ -11,7 +11,7 @@ Feature: Existing Application
     Given I confirm the prayer and statement of truth
     Then I click submit and expect URL "RESPONSE_SUBMITTED"
     Given I sign out
-    Then I create a new applicant 1 user and login
+    Then I create a new user and login
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     And I set the email address for applicant 2
     And I go to "HOME_URL"
