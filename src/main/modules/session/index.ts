@@ -44,6 +44,7 @@ export class SessionStorage {
       port: url.port,
       user: url.username,
       password: url.password,
+      protocol: url.protocol,
     };
 
     if (!managedRedisConfig.hostname) {
@@ -53,10 +54,8 @@ export class SessionStorage {
 
     const isManagedRedisCache = managedRedisConfig.hostname.includes('azure.net');
 
-    const DEFAULT_REDIS_PORT = 10000;
-
     logger.info(
-      `Redis connection - Host: ${url.hostname}, Port: ${url.port || DEFAULT_REDIS_PORT}, Protocol: ${url.protocol}`
+      `Redis connection - Host: ${managedRedisConfig.hostname}, Port: ${managedRedisConfig.port || managedRedisConfig.port}, Protocol: ${managedRedisConfig.protocol}`
     );
 
     const client = isManagedRedisCache
