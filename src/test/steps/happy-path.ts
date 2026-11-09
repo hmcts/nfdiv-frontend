@@ -1,7 +1,7 @@
 import { createRequire } from 'module';
 
 import { LanguagePreference } from '../../main/app/case/case';
-import { ApplicationType, Gender, YesOrNo } from '../../main/app/case/definition';
+import { ApplicationType, Gender } from '../../main/app/case/definition';
 import {
   ADDRESS_PRIVATE,
   CERTIFICATE_URL,
@@ -53,25 +53,39 @@ import {
   iSelectNo,
   iSelectRadioValue,
   iSelectYes,
-  iSelectYesOrNoForField,
   iSetPrivateAddress,
 } from './commonHelpers/elementInteraction';
-import { iAmOnPage, iGoToPageAsUser } from './commonHelpers/navigation';
+import { iAmOnPage } from './commonHelpers/navigation';
 import { iEnterTheDefaultRelationshipDate } from './date';
 import { DEFAULT_ADDRESS, iEnterTheUkAddress } from './postcode';
 
 const requireFromFixture = createRequire(__filename);
 
-Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
-  iAmOnPage(HOME_URL);
+export const completedFormWithFixtureForUser = async (fixture: string, user?: string): Promise<void> => {
+  iAmOnPage(HOME_URL, user);
   const fixtureJson = requireFromFixture(`../functional/fixtures/${fixture}`)[fixture];
 
   await iSetTheUsersCaseTo(fixtureJson);
 
-  iAmOnPage(ADDRESS_PRIVATE);
-  iSelectYesOrNoForField(YesOrNo.NO, 'applicant1AddressPrivate');
+  iAmOnPage(ADDRESS_PRIVATE, user);
+  iSetPrivateAddress(false);
   await iClickSubmit();
+};
+
+export const completedFormWithFixture = async (fixture: string): Promise<void> => {
+  await completedFormWithFixtureForUser(fixture);
+};
+
+Given("I've already completed the form using the fixture {string}", async (fixture: string) => {
+  await completedFormWithFixtureForUser(fixture);
 });
+
+Given(
+  "I've already completed the form using the fixture {string} for {string}",
+  async (fixture: string, user: string) => {
+    await completedFormWithFixtureForUser(fixture, user);
+  }
+);
 
 Given('I set the email address for applicant 2', async () => {
   iAmOnPage(THEIR_EMAIL_ADDRESS);
@@ -79,19 +93,6 @@ Given('I set the email address for applicant 2', async () => {
   iEnterTheirEmailAddress();
   await iClickSubmit();
 });
-
-Given(
-  "I've already completed the form using the fixture {string} for {string}",
-  async (fixture: string, user: string) => {
-    const fixtureJson = requireFromFixture(`../functional/fixtures/${fixture}`)[fixture];
-
-    await iSetTheUsersCaseTo(fixtureJson);
-
-    iGoToPageAsUser(ADDRESS_PRIVATE, user);
-    iSetPrivateAddress(false);
-    await iClickSubmit();
-  }
-);
 
 Given("I've completed all happy path questions correctly", async () => {
   iAmOnPage(YOUR_DETAILS_URL);
