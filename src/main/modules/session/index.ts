@@ -53,7 +53,6 @@ export class SessionStorage {
 
     const isManagedRedisCache = managedRedisConfig.host.includes('azure.net');
 
-    const REDIS_PROTOCOL = 'rediss:';
     const DEFAULT_REDIS_PORT = 10000;
 
     logger.info(
@@ -64,19 +63,15 @@ export class SessionStorage {
       ? redis.createCluster({
           rootNodes: [
             {
-              socket: {
-                host: managedRedisConfig.host,
-                port: Number(managedRedisConfig.port) || DEFAULT_REDIS_PORT,
-                ...(url.protocol === REDIS_PROTOCOL && {
-                  tls: true,
-                  servername: managedRedisConfig.host,
-                }),
-              },
+              url: connectionString, // e.g., 'rediss://default:PASSWORD@host:10000'
             },
           ],
           defaults: {
-            ...(managedRedisConfig.user && { username: managedRedisConfig.user }),
-            ...(managedRedisConfig.password && { password: decodeURIComponent(managedRedisConfig.password) }),
+            socket: {
+              tls: true,
+              rejectUnauthorized: true,
+              connectTimeout: 30000,
+            },
           },
         })
       : redis.createClient({
@@ -96,8 +91,6 @@ export class SessionStorage {
       })
       .catch(err => {
         logger.error('Failed to connect to Redis cluster:', err.message);
-        logger.error('Connection details - Host:', url.hostname, 'Port:', url.port || DEFAULT_REDIS_PORT);
-        logger.warn('Session will not be persisted until Redis connection is established');
       });
 
     app.locals.redisClient = client;
