@@ -2,6 +2,7 @@ import { Locator, Page } from '@playwright/test';
 
 import { YesOrNo } from '../../../main/app/case/definition';
 import { SupportedLanguages } from '../../../main/modules/i18n';
+import { isInterimApplicationsUrl } from '../urlLookup';
 
 import { iAmOnIdam, iClickToNavigate, iGrabCurrentUrl, iWaitForUrlParam } from './navigation';
 import {
@@ -72,7 +73,7 @@ export const iCheckOptionValue = (value: string, wait?: number): string => {
 };
 export const iSelectRadio = (selector: string, wait?: number): void => {
   iCheckOption(selector, wait);
-}
+};
 export const iSelectRadioValueForField = (value: string, field: string = '', wait?: number): string => {
   return iCheckValueForField(value, 'radio', field, wait);
 };
@@ -350,4 +351,11 @@ export const iToggleLanguageToEnglish = async (): Promise<void> => {
   await iClickToNavigate(getLanguageToggleSelector(SupportedLanguages.En));
   iWaitForUrlParam('lng', SupportedLanguages.En, 10);
   iWaitForVisible(getLanguageToggleSelector(SupportedLanguages.Cy), 10);
+};
+
+export const iEnterMyHwfReference = async (): Promise<void> => {
+  const selector = isInterimApplicationsUrl(await iGrabCurrentUrl())
+    ? `#${getApplicantString()}InterimAppsHwfRefNumber`
+    : `#${getApplicantString()}HelpWithFeesRefNo`;
+  iEnterValueIntoInput('HWF-ABC-123', selector);
 };

@@ -43,6 +43,7 @@ import {
   iDeleteAllUploadedFiles,
   iDeleteUploadedFile,
   iEnterMyCertificateName,
+  iEnterMyHwfReference,
   iEnterMyName,
   iEnterTheirCertificateName,
   iEnterTheirDefaultEmailAddress,
@@ -379,9 +380,7 @@ Then('I enter {string} into {string}', (value: string, selector: string) => {
 });
 Then('I enter their email address', iEnterTheirDefaultEmailAddress);
 Then("I enter their solicitor's email address", iEnterTheirDefaultSolicitorEmailAddress);
-Then('I enter my HWF reference number', () => {
-  iEnterValueIntoInput('HWF-ABC-123', `#${getApplicantString()}HelpWithFeesRefNo`);
-});
+Then('I enter my HWF reference number', iEnterMyHwfReference);
 Then('we got married in {string} in {string}', (place: string, country: string) => {
   iEnterValueIntoInput(country, '#ceremonyCountry');
   iEnterValueIntoInput(place, '#ceremonyPlace');
