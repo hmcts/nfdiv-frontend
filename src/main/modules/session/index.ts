@@ -37,15 +37,22 @@ export class SessionStorage {
     const redisPort = config.get('session.redis.port') as number;
     const redisKey = config.get('session.redis.key') as string;
     const connectionString = config.get('session.redis.connectionString') as string;
+    const url = new URL(connectionString);
 
-    if (!redisHost) {
+    const managedRedisConfig = {
+      host: url.hostname,
+      port: url.port,
+      user: url.username,
+      password: url.password,
+    };
+
+    if (!managedRedisConfig.host) {
       logger.info('No Redis host configured, using file store for redis');
       return new FileStore({ path: '/tmp' });
     }
 
-    const isManagedRedisCache = redisHost.includes('azure.net');
+    const isManagedRedisCache = managedRedisConfig.host.includes('azure.net');
 
-    const url = new URL(connectionString);
     const REDIS_PROTOCOL = 'rediss:';
     const DEFAULT_REDIS_PORT = 10000;
 
@@ -58,18 +65,18 @@ export class SessionStorage {
           rootNodes: [
             {
               socket: {
-                host: url.hostname,
-                port: Number(url.port) || DEFAULT_REDIS_PORT,
+                host: managedRedisConfig.host,
+                port: Number(managedRedisConfig.port) || DEFAULT_REDIS_PORT,
                 ...(url.protocol === REDIS_PROTOCOL && {
                   tls: true,
-                  servername: url.hostname,
+                  servername: managedRedisConfig.host,
                 }),
               },
             },
           ],
           defaults: {
-            ...(url.username && { username: url.username }),
-            ...(url.password && { password: decodeURIComponent(url.password) }),
+            ...(managedRedisConfig.user && { username: managedRedisConfig.user }),
+            ...(managedRedisConfig.password && { password: decodeURIComponent(managedRedisConfig.password) }),
           },
         })
       : redis.createClient({
