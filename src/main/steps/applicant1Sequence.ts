@@ -398,7 +398,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: ENTER_THEIR_ADDRESS,
-    getNextStep: data => (isCountryUk(data.applicant2AddressCountry) ? OTHER_COURT_CASES : YOU_NEED_TO_SERVE),
+    getNextStep: data =>
+      isCountryUk(data.applicant2AddressCountry) && !isOverseas(data.applicant2AddressOverseas)
+        ? OTHER_COURT_CASES
+        : YOU_NEED_TO_SERVE,
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,
@@ -634,4 +637,8 @@ export const isCountryUk = (value: string | undefined): boolean => {
   const ukTerms = ['uk', 'unitedkingdom', 'u.k', 'u.k.'];
   const country = value || '';
   return ukTerms.includes(country.replace(' ', '').toLowerCase());
+};
+
+export const isOverseas = (value: YesOrNo | FormDataEntryValue | undefined | null): boolean => {
+  return !!value && typeof value === 'string' && value.toLowerCase() === YesOrNo.YES.toLowerCase();
 };

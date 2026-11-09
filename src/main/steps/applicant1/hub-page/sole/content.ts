@@ -16,7 +16,7 @@ import {
 } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../../modules/i18n';
-import { isCountryUk } from '../../../applicant1Sequence';
+import { isCountryUk, isOverseas } from '../../../applicant1Sequence';
 import type { CommonContent } from '../../../common/common.content';
 import { getAddressFields } from '../../../common/content.utils';
 import { currentStateFn } from '../../../state-sequence';
@@ -1065,7 +1065,8 @@ export const generateContent: TranslationFn = content => {
     ...(userCase.applicant1CannotUploadDocuments || []),
     ...(userCase.applicant2CannotUploadDocuments || []),
   ]);
-  const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
+  const isRespondentOverseas =
+    !isCountryUk(userCase.applicant2AddressCountry) || isOverseas(userCase.applicant2AddressOverseas);
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const isAosSubmitted = !isEmpty(userCase.dateAosSubmitted);
   const aosIsDrafted = userCase.aosIsDrafted === YesOrNo.YES;
