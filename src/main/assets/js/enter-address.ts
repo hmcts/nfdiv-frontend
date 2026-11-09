@@ -38,7 +38,11 @@ if (form && getById('enterPostcode')) {
   if (addressOverseas || addressCountry || hasBackendError) {
     hideEnterPostcode();
 
-    if (addressOverseas || (addressCountry && !isCountryUk(addressCountry as string)) || (!addressCountry && hasBackendError)) {
+    if (
+      addressOverseas ||
+      (addressCountry && !isCountryUk(addressCountry as string)) ||
+      (!addressCountry && hasBackendError)
+    ) {
       isSearchGovRecordsForm ? showUkAddressFields() : showInternationalAddressFields();
     } else {
       showUkAddressFields();

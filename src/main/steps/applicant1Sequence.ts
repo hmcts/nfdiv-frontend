@@ -639,8 +639,20 @@ export const isCountryUk = (value: string | undefined): boolean => {
   }
 
   const ukTerms = [
-    "unitedkingdom", "uk", "england", "wales", "scotland", "northernireland", "greatbritain",
-    "deyrnasunedig", "du", "lloegr", "cymru", "yralban", "gogleddiwerddon", "prydainfawr"
+    'unitedkingdom',
+    'uk',
+    'england',
+    'wales',
+    'scotland',
+    'northernireland',
+    'greatbritain',
+    'deyrnasunedig',
+    'du',
+    'lloegr',
+    'cymru',
+    'yralban',
+    'gogleddiwerddon',
+    'prydainfawr',
   ];
 
   const sanitisedCountry = value.replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
