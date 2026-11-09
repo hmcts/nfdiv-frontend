@@ -8,6 +8,7 @@ import {
   iCheckOption,
   iClickStartAndExpectUrl,
   iEnterValueIntoInput,
+  iSelectNo,
   iSelectRadio,
   iSelectYes,
   iWaitForElement,
@@ -56,6 +57,11 @@ Given('I progress the case to AwaitingAos', createCaseAtAwaitingAos);
 When("I don't know my partner's contact details", () => {
   iSelectRadio('#notKnown');
 });
+When('I confirm their details are up to date', () => {
+  iSelectRadio('#upToDate');
+});
+When('I have evidence they have received the papers', iSelectYes);
+When('I do not have a certificate of service', iSelectNo);
 When('I select alternative service', () => {
   iSelectRadio('#alternativeService');
 });
@@ -145,4 +151,12 @@ Given('my partner has a firearms licence', () => {
 });
 Given('I click return to hub', async () => {
   await iClickToNavigate('#returnToHub', undefined, HUB_PAGE);
+});
+
+// Deemed Service
+Given('I enter the evidence details', () => {
+  iEnterValueIntoInput('Evidence details', `#${getApplicantString()}DeemedEvidenceDetails`);
+});
+Given('I enter the no evidence statement', () => {
+  iEnterValueIntoInput('No Evidence', `#${getApplicantString()}DeemedNoEvidenceStatement`);
 });
