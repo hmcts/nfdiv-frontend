@@ -8,8 +8,7 @@ Feature: Sole final order
     And I go to '/check-your-answers'
     And I confirm the prayer and statement of truth
     When I click continue to payment
-    And I pay and submit the application
-    Then the page should include "Application saved"
+    And I pay and submit and expect the application to be saved
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
@@ -32,8 +31,7 @@ Feature: Sole final order
     And I go to '/check-your-answers'
     And I confirm the prayer and statement of truth
     When I click continue to payment
-    And I pay and submit the application
-    Then the page should include "Application saved"
+    And I pay and submit and expect the application to be saved
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
@@ -60,8 +58,7 @@ Feature: Sole final order
     And I go to '/check-your-answers'
     And I confirm the prayer and statement of truth
     When I click continue to payment
-    And I pay and submit the application
-    Then the page should include "Application saved"
+    And I pay and submit and expect the application to be saved
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
@@ -97,8 +94,7 @@ Feature: Sole final order
     And I go to '/check-your-answers'
     And I confirm the prayer and statement of truth
     When I click continue to payment
-    And I pay and submit the application
-    Then the page should include "Application saved"
+    And I pay and submit and expect the application to be saved
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"
@@ -140,8 +136,7 @@ Feature: Sole final order
     And I go to '/check-your-answers'
     And I confirm the prayer and statement of truth
     When I click continue to payment
-    And I pay and submit the application
-    Then the page should include "Application saved"
+    And I pay and submit and expect the application to be saved
     Given a case worker issues the application
     And I enter my valid case reference and valid access code
     And I set the case state to "AwaitingFinalOrder"

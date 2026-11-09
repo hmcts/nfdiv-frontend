@@ -7,8 +7,7 @@ Feature: Sole conditional order
     And I confirm the prayer and statement of truth
 
     When I click continue to payment
-    And I pay and submit the application
-    Then the page should include element "#applicationSavedTitle"
+    And I pay and submit and expect the application to be saved
 
     Given a case worker issues the application
     And I enter my valid case reference and valid access code

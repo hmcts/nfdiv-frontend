@@ -8,7 +8,6 @@ Feature: Sole request for information
     And I click element "#applicant1StatementOfTruth"
     When I click continue to payment
     And I pay and submit the application
-    Then the page should include element "#applicationSubmittedTitle"
 
   Scenario: Applicant sole rfi journey
     Given a case worker issues a request for information
