@@ -1,144 +1,88 @@
 Feature: Deemed service journey
 
   Background:
-    Given I create a new user and login
-    Then I reject cookies
-    And I've already completed the form using the fixture "issuedCase"
-    Given a superuser updates "issueDate" with "2023-10-31"
-    Then I set the case state to "AwaitingAos"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include "Your application will be checked by court staff."
+    Given I prep the case for an interim application
 
-    Given I set the case state to "AosDrafted"
-    And a superuser updates "aosIsDrafted" with "Yes"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include element "#aosDueAndDraftedLine1"
+    Given I confirm their details are up to date
+    Then I click continue and expect URL "EVIDENCE_RECEIVED_APPLICATION"
 
-    When I click element "#aosDueAndDraftedLink"
-    Then the page should include element "#optionsForProgressingTitle"
+    Given I have evidence they have received the papers
+    Then I click continue and expect URL "EVIDENCE_CERTIFICATE_OF_SERVICE"
 
-    When I click start
-    Then the page should include element "#haveTheyReceivedTitle"
-    And the page should include element "#detailsProvided"
-
-    Given I click element "#upToDate"
-    When I click continue
-    Then the page should include element "#evidenceReceivedApplicationTitle"
-
-    Given I click element "#proveYes"
-    When I click continue
-    Then the page should include element "#hasCertificateOfServiceTitle"
-
-    Given I click element "#hasCertificateOfServiceNo"
-    When I click continue
-    Then the page should include element "#deemedServiceApplicationTitle"
+    Given I do not have a certificate of service
+    Then I click continue and expect URL "DEEMED_SERVICE_APPLICATION"
 
   Scenario: Deemed service happy path
-    When I click start
-    Then the page should include element "#interruptionTitle"
+    Then I click start and expect URL "DEEMED_INTERRUPTION"
 
-    Given I click element "#applicant1InterimAppsIUnderstand"
-    When I click continue
-    Then the page should include element "#helpWithFeesTitle"
+    Given I confirm I understand
+    Then I click continue and expect URL "HELP_WITH_FEES_DEEMED"
 
-    Given I click element "#yes"
-    When I click continue
-    Then the page should include element "#hwfReferenceNumberTitle"
+    Given I select yes
+    Then I click continue and expect URL "HWF_REFERENCE_NUMBER_DEEMED"
 
-    Given I click element "#yes"
-    When I click continue
-    Then the page should include element "#hwfReferenceNumberInputTitle"
+    Given I select yes
+    Then I click continue and expect URL "HWF_REFERENCE_NUMBER_INPUT_DEEMED"
 
-    Given I select element "#applicant1InterimAppsHwfRefNumber"
-    And I type "HWF-A1B-23D"
+    Given I enter my HWF reference number
+    Then I click continue and expect URL "WANT_UPLOAD_EVIDENCE_DEEMED"
 
-    When I click continue
-    Then the page should include element "#wantUploadEvidenceTitle"
+    Given I select yes
+    Then I click continue and expect URL "UPLOAD_EVIDENCE_DEEMED"
 
-    Given I click element "#yes"
-    When I click continue
-    Then the page should include element "#uploadEvidenceTitle"
+    Given I cannot upload some or all of my documents
+    Then I click continue and expect URL "HOW_DO_YOU_KNOW_DEEMED"
 
-    Given I click element "#applicant1InterimAppsCannotUploadDocs"
-    When I click continue
-    Then the page should include element "#howDoYouKnowDeemedTitle"
+    Given I enter the evidence details
+    Then I click continue and expect URL "CHECK_ANSWERS_DEEMED"
 
-    Given I select element "#applicant1DeemedEvidenceDetails"
-    And I type "Evidence Details"
-    When I click continue
-    Then the page should include element "#checkAnswersTitle"
-
-    Given I click element "#applicant1InterimAppsStatementOfTruth"
-    When I click submit
-    Then the page should include element "#serviceApplicationSubmittedTitle"
+    Given I confirm the statement of truth
+    Then I click submit and expect URL "SERVICE_APPLICATION_SUBMITTED"
 
   Scenario: Deemed service no evidence journey
-    When I click start
-    Then the page should include element "#interruptionTitle"
+    Then I click start and expect URL "DEEMED_INTERRUPTION"
 
-    Given I click element "#applicant1InterimAppsIUnderstand"
-    When I click continue
-    Then the page should include element "#helpWithFeesTitle"
+    Given I confirm I understand
+    Then I click continue and expect URL "HELP_WITH_FEES_DEEMED"
 
-    Given I click element "#yes"
-    When I click continue
-    Then the page should include element "#hwfReferenceNumberTitle"
+    Given I select yes
+    Then I click continue and expect URL "HWF_REFERENCE_NUMBER_DEEMED"
 
-    Given I click element "#yes"
-    When I click continue
-    Then the page should include element "#hwfReferenceNumberInputTitle"
+    Given I select yes
+    Then I click continue and expect URL "HWF_REFERENCE_NUMBER_INPUT_DEEMED"
 
-    Given I select element "#applicant1InterimAppsHwfRefNumber"
-    And I type "HWF-A1B-236"
-    When I click continue
-    Then the page should include element "#wantUploadEvidenceTitle"
+    Given I enter my HWF reference number
+    Then I click continue and expect URL "WANT_UPLOAD_EVIDENCE_DEEMED"
 
-    Given I click element "#no"
-    When I click continue
-    Then the page should include element "#whyNoEvidenceDeemedTitle"
+    Given I select no
+    Then I click continue and expect URL "WHY_NO_EVIDENCE_DEEMED"
 
-    Given I select element "#applicant1DeemedNoEvidenceStatement"
-    And I type "No Evidence"
-    When I click continue
-    Then the page should include element "#checkAnswersTitle"
+    Given I enter the no evidence statement
+    Then I click continue and expect URL "CHECK_ANSWERS_DEEMED"
 
-    Given I click element "#applicant1InterimAppsStatementOfTruth"
-    When I click submit
-    Then the page should include element "#serviceApplicationSubmittedTitle"
+    Given I confirm the statement of truth
+    Then I click submit and expect URL "SERVICE_APPLICATION_SUBMITTED"
 
   Scenario: Deemed service withdrawn application
-    When I click start
-    Then the page should include element "#interruptionTitle"
+    Then I click start and expect URL "DEEMED_INTERRUPTION"
 
-    Given I click element "#applicant1InterimAppsIUnderstand"
-    When I click continue
-    Then the page should include element "#helpWithFeesTitle"
+    Given I confirm I understand
+    Then I click continue and expect URL "HELP_WITH_FEES_DEEMED"
 
-    Given I click element "#no"
-    When I click continue
-    Then the page should include element "#wantUploadEvidenceTitle"
+    Given I select no
+    Then I click continue and expect URL "WANT_UPLOAD_EVIDENCE_DEEMED"
 
-    Given I click element "#yes"
-    When I click continue
-    Then the page should include element "#uploadEvidenceTitle"
+    Given I select yes
+    Then I click continue and expect URL "UPLOAD_EVIDENCE_DEEMED"
 
-    Given I click element "#applicant1InterimAppsCannotUploadDocs"
-    When I click continue
-    Then the page should include element "#howDoYouKnowDeemedTitle"
+    Given I cannot upload some or all of my documents
+    Then I click continue and expect URL "HOW_DO_YOU_KNOW_DEEMED"
 
-    Given I select element "#applicant1DeemedEvidenceDetails"
-    And I type "Evidence Details"
-    When I click continue
-    Then the page should include element "#checkAnswersTitle"
+    Given I enter the evidence details
+    Then I click continue and expect URL "CHECK_ANSWERS_DEEMED"
 
-    Given I click element "#applicant1InterimAppsStatementOfTruth"
-    When I click submit
-    Then the page should include element "#payYourServiceFeeTitle"
-    And the page should include "I want to withdraw this application"
+    Given I confirm the statement of truth
+    Then I click submit and expect URL "PAY_YOUR_SERVICE_FEE"
 
-    Given I click element "#withdrawLink"
-    Then the page should include "Withdraw your service application"
-    When I click submit
-    Then the page should include "Service application withdrawn"
+    Given I click to withdraw and expect URL "WITHDRAW_SERVICE_APPLICATION"
+    Then I click submit and expect URL "SERVICE_APPLICATION_WITHDRAWN"
