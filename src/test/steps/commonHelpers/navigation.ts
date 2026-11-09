@@ -216,14 +216,6 @@ export const iClickToNavigate = async (
   }
 };
 
-export const iGoToPageAsUser = (url: string, user?: string): void => {
-  iAmOnPage(url, user);
-};
-
-export const iGoToPage = (url: string): void => {
-  iGoToPageAsUser(url);
-};
-
 export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number): void => {
   url = setUserPathPrefix(url, user);
   I.waitInUrl(url, wait);
