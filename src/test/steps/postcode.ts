@@ -49,9 +49,23 @@ export const iClickCannotFindAddress = (wait?: number): void => {
   iClickElement('#cannotFindAddress', wait);
 };
 
-export const iEnterTheUkAddress = async (address: string): Promise<void> => {
+const splitUkAddress = (address: string): { addressParts: string[]; postcode: string } => {
   const addressParts = address.split(', ');
   const postcode = addressParts[addressParts.length - 1];
+  return { addressParts, postcode };
+};
+
+export const iEnterTheUkAddressIntoFields = (address: string): void => {
+  const { addressParts, postcode } = splitUkAddress(address);
+
+  iEnterValueIntoInput(addressParts[0], '#address1');
+  iEnterValueIntoInput(addressParts[1], '#addressTown');
+  iEnterValueIntoInput(postcode, '#addressPostcode');
+  iEnterValueIntoInput('UK', '#addressCountry');
+};
+
+export const iEnterTheUkAddress = async (address: string): Promise<void> => {
+  const { postcode } = splitUkAddress(address);
 
   await iResetThePostCodeLookUpForm();
 
@@ -64,10 +78,7 @@ export const iEnterTheUkAddress = async (address: string): Promise<void> => {
   } catch (e) {
     logger.warn('Warning: Postcode lookup service failed, entering address manually', e);
     iClickCannotFindAddress();
-    iEnterValueIntoInput(addressParts[0], '#address1');
-    iEnterValueIntoInput(addressParts[1], '#addressTown');
-    iEnterValueIntoInput(postcode, '#addressPostcode');
-    iEnterValueIntoInput('UK', '#addressCountry');
+    iEnterTheUkAddressIntoFields(address);
   }
 };
 Given('I enter the UK address {string}', iEnterTheUkAddress);
@@ -76,6 +87,9 @@ Given('I enter my address', async () => {
 });
 Given('I enter their address', async () => {
   await iEnterTheUkAddress(DEFAULT_ADDRESS);
+});
+Given('I enter my address directly', () => {
+  iEnterTheUkAddressIntoFields(DEFAULT_ADDRESS);
 });
 
 export const iClickCannotEnterUkPostcode = (): void => {
