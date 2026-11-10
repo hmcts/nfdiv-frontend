@@ -272,7 +272,7 @@ const cy: typeof en = ({
       required,
     },
     applicant1ReasonInformationNotCorrect: {
-      required: 'You need to say what information is incorrect before continuing.',
+      required: 'Mae angen i chi ddweud pa wybodaeth sy’n anghywir cyn parhau.',
     },
   },
 });
