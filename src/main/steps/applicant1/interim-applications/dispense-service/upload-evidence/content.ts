@@ -92,6 +92,7 @@ export const form: FormContent = {
       },
       values: [
         {
+          id: 'cannotUploadDocs',
           name: 'applicant1InterimAppsCannotUploadDocs',
           label: l => l.cannotUpload,
           value: Checkbox.Checked,

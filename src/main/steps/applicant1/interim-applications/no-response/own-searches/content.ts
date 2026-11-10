@@ -52,17 +52,14 @@ export const form: FormContent = {
       values: [
         {
           label: l => l.yes,
-          id: 'yes',
           value: NoResponseOwnSearches.YES,
         },
         {
           label: l => l.no,
-          id: 'no',
           value: NoResponseOwnSearches.NO,
         },
         {
           label: l => l.notFound,
-          id: 'notFound',
           value: NoResponseOwnSearches.NOT_FOUND,
         },
       ],
