@@ -4,6 +4,7 @@ import { HAVE_THEY_RECEIVED, HUB_PAGE, OPTIONS_FOR_PROGRESSING } from '../../mai
 import { TestUserKey } from './commonHelpers/IdamUserManager';
 import { iSetTheCaseStateAndReSignIn, triggerAnEvent } from './commonHelpers/caseInteraction';
 import {
+  DEFAULT_EMAIL_ADDRESS,
   DEFAULT_PHONE_NUMBER,
   iCheckOption,
   iClickStartAndExpectUrl,
@@ -15,7 +16,9 @@ import {
 } from './commonHelpers/elementInteraction';
 import { iClickToNavigate, iWaitInUrl } from './commonHelpers/navigation';
 import { getApplicantString, getTheirName, iSignOut, login } from './commonHelpers/userInteraction';
+import { DEFAULT_RELATIONSHIP_DATE, iEnterADateIntoField } from './date';
 import { completedFormWithFixture } from './happy-path';
+import { DEFAULT_ADDRESS, iEnterTheUkAddress } from './postcode';
 
 const signOutAndLoginAsUser = async (user: TestUserKey, expectedUrl: string, expectedElementSelector: string) => {
   iSignOut();
@@ -159,4 +162,71 @@ Given('I enter the evidence details', () => {
 });
 Given('I enter the no evidence statement', () => {
   iEnterValueIntoInput('No Evidence', `#${getApplicantString()}DeemedNoEvidenceStatement`);
+});
+
+// Dispense with Service
+Given('I have no contact details for my partner', () => {
+  iSelectRadio('#noContactDetails');
+});
+Given('I enter the date we last lived together', () => {
+  iEnterADateIntoField(DEFAULT_RELATIONSHIP_DATE, `${getApplicantString()}DispenseLastLivedTogetherDate`);
+});
+Given('I enter their last known address', async () => {
+  await iEnterTheUkAddress(DEFAULT_ADDRESS);
+});
+Given('I enter their past address', () => {
+  const applicantString = getApplicantString();
+  iEnterValueIntoInput(DEFAULT_ADDRESS, `#${applicantString}DispensePartnerPastAddress1`);
+  iEnterValueIntoInput('Example Enquiries', `#${applicantString}DispensePartnerPastAddressEnquiries1`);
+});
+Given('I enter the date they were last seen', () => {
+  const applicantString = getApplicantString();
+  iEnterADateIntoField(DEFAULT_RELATIONSHIP_DATE, `${applicantString}DispensePartnerLastSeenOrHeardOfDate`);
+  iEnterValueIntoInput('Example last seen description', `#${applicantString}DispensePartnerLastSeenDescription`);
+});
+Given('I enter details of attempts to contact them via email', () => {
+  iEnterValueIntoInput(
+    DEFAULT_EMAIL_ADDRESS + ' - no response to email',
+    `#${getApplicantString()}DispensePartnerEmailAddresses`
+  );
+});
+Given('I enter details of attempts to contact them via phone', () => {
+  iEnterValueIntoInput(
+    DEFAULT_PHONE_NUMBER + ' - no response to phone',
+    `#${getApplicantString()}DispensePartnerPhoneNumbers`
+  );
+});
+Given('I enter the tracing agent results', () => {
+  iEnterValueIntoInput('Example tracing agent results', `#${getApplicantString()}DispenseTracingAgentResults`);
+});
+Given('I enter the results of an online trace', () => {
+  iEnterValueIntoInput('Example online trace results', `#${getApplicantString()}DispenseTracingOnlineResults`);
+});
+Given('I enter the results of an online search', () => {
+  iEnterValueIntoInput('Example online search results', `#${getApplicantString()}DispenseSearchingOnlineResults`);
+});
+Given('I enter details of attempts to contact their employer', () => {
+  const applicantString = getApplicantString();
+  iEnterValueIntoInput('Example Employer', `#${applicantString}DispenseEmployerName`);
+  iEnterValueIntoInput(DEFAULT_ADDRESS, `#${applicantString}DispenseEmployerAddress`);
+  iEnterValueIntoInput('Example Occupation', `#${applicantString}DispensePartnerOccupation`);
+  iEnterValueIntoInput('Example employer contact results', `#${applicantString}DispenseContactingEmployerResults`);
+});
+Given('I enter details of how they contact the children', () => {
+  iEnterValueIntoInput('Example contact method', `#${getApplicantString()}DispenseHowPartnerContactChildren`);
+});
+Given('I enter the results of a child maintenance search', () => {
+  iEnterValueIntoInput(
+    'Example child maintenance search results',
+    `#${getApplicantString()}DispenseChildMaintenanceResults`
+  );
+});
+Given('I enter contact details for their friends and relatives', () => {
+  iEnterValueIntoInput(
+    'Example friends and relatives contact details',
+    `#${getApplicantString()}DispenseContactFriendsOrRelativesDetails`
+  );
+});
+Given('I enter details of my other enquiries', () => {
+  iEnterValueIntoInput('Example other enquiries', `#${getApplicantString()}DispenseOtherEnquiries`);
 });
