@@ -77,7 +77,7 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
 export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
   executeUserCaseScript(userCaseObj);
 
-export const iSetTheCaseStateAndSignOut = async (state: State): Promise<void> => {
+export const iSetTheCaseStateAndReSignIn = async (state: State): Promise<void> => {
   const userKey = getCurrentUserKey() || TestUserKey.APPLICANT_1;
   await iSetTheUsersCaseTo({
     state,

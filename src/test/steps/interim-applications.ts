@@ -2,7 +2,7 @@ import { CITIZEN_UPDATE_CASE_STATE_AAT, State, YesOrNo } from '../../main/app/ca
 import { HAVE_THEY_RECEIVED, HUB_PAGE, OPTIONS_FOR_PROGRESSING } from '../../main/steps/urls';
 
 import { TestUserKey } from './commonHelpers/IdamUserManager';
-import { iSetTheCaseStateAndSignOut, triggerAnEvent } from './commonHelpers/caseInteraction';
+import { iSetTheCaseStateAndReSignIn, triggerAnEvent } from './commonHelpers/caseInteraction';
 import {
   DEFAULT_PHONE_NUMBER,
   iCheckOption,
@@ -28,13 +28,13 @@ export const createCaseAtAwaitingAos = async (): Promise<void> => {
   await login(TestUserKey.APPLICANT_1, true);
   await completedFormWithFixture('issuedCase');
   await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, { ['issueDate']: '2023-10-31' });
-  await iSetTheCaseStateAndSignOut(State.AwaitingAos);
+  await iSetTheCaseStateAndReSignIn(State.AwaitingAos);
 };
 
 export const prepCaseForInterimApplications = async (): Promise<void> => {
   await createCaseAtAwaitingAos();
   await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, '#aosAwaitingLine1');
-  await iSetTheCaseStateAndSignOut(State.AosDrafted);
+  await iSetTheCaseStateAndReSignIn(State.AosDrafted);
   await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, { ['aosIsDrafted']: YesOrNo.YES });
   await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, '#aosDueAndDraftedLine1');
   await iClickToNavigate('#aosDueAndDraftedLink', undefined, OPTIONS_FOR_PROGRESSING);
