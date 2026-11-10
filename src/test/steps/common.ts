@@ -21,7 +21,7 @@ import {
 import { TestUserKey } from './commonHelpers/IdamUserManager';
 import {
   executeUserCaseScript,
-  iSetTheCaseStateAndSignOut,
+  iSetTheCaseStateAndReSignIn,
   linkUserToCase,
   triggerAnEvent,
 } from './commonHelpers/caseInteraction';
@@ -76,6 +76,7 @@ import {
   iClickToNavigate,
   iClickWithdrawLink,
   iDontSeeABackLink,
+  iGrabCurrentUrl,
   iWaitInPageNotFoundErrorPage,
   iWaitInUrl,
   iWaitInUrlAsUser,
@@ -227,7 +228,7 @@ When('I click start and expect URL {string}', async (url: string) => {
 When('I sign out', iClickSignOut);
 
 Given('I set the case state to {string}', async (state: State) => {
-  await iSetTheCaseStateAndSignOut(state);
+  await iSetTheCaseStateAndReSignIn(state);
 });
 
 When('I click submit', iClickSubmit);
@@ -345,6 +346,16 @@ When('I confirm the information my partner provided is correct', iSelectYes);
 When('I deny the information my partner provided is correct', iSelectNo);
 When('I want to apply to serve another way', () => {
   iCheckOption('#iWantToHavePapersServedAnotherWay');
+});
+
+When('I confirm receipt of the application', async () => {
+  await iClickToNavigate(
+    '#confirmReceiptButton',
+    undefined,
+    await iGrabCurrentUrl(),
+    undefined,
+    '#applicantConfirmedReceiptContent'
+  );
 });
 
 When('I confirm the prayer and statement of truth', iConfirmPrayerAndStatementOfTruth);
