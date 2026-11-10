@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 
-import { YesOrNo } from '../../../main/app/case/definition';
+import { NoResponseOwnSearches, YesOrNo } from '../../../main/app/case/definition';
 import { SupportedLanguages } from '../../../main/modules/i18n';
 import { isInterimApplicationsUrl } from '../urlLookup';
 
@@ -97,6 +97,9 @@ export const iSelectNo = (wait?: number): string => {
 };
 export const iSelectYes = (wait?: number): string => {
   return iSelectYesOrNoForField(YesOrNo.YES, '', wait);
+};
+export const iSelectNotFound = (wait?: number): string => {
+  return iSelectRadioValueForField(NoResponseOwnSearches.NOT_FOUND, '', wait);
 };
 
 export const iClickSubmitAndExpectUrl = async (

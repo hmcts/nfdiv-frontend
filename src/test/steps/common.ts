@@ -55,6 +55,7 @@ import {
   iEnterValueIntoInput,
   iRejectCookies,
   iSelectNo,
+  iSelectNotFound,
   iSelectRadioValue,
   iSelectRadioValueForField,
   iSelectYes,
@@ -301,6 +302,7 @@ When('I select no', iSelectNo);
 When('I select no for field {string}', (field: string) => {
   iSelectRadioValueForField(YesOrNo.NO, field);
 });
+When('I select not found', iSelectNotFound);
 When('I select radio value {string} for field {string}', (value: string, field: string) => {
   iSelectRadioValueForField(value, field);
 });
