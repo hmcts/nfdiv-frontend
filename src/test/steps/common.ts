@@ -70,6 +70,8 @@ import {
 import {
   iAmOnPage,
   iClickBackLink,
+  iClickChangeAddressLink,
+  iClickCheckContactDetailsHubLink,
   iClickCheckYourAnswersLink,
   iClickToNavigate,
   iClickWithdrawLink,
@@ -204,6 +206,9 @@ When('I click back and expect URL {string}', async (url: string) => {
 When('I click to withdraw and expect URL {string}', async (url: string) => {
   await iClickWithdrawLink(url);
 });
+
+When('I click to review my contact details', iClickCheckContactDetailsHubLink);
+When('I click to change my address', iClickChangeAddressLink);
 
 When('I click check your answers', async () => {
   await iClickCheckYourAnswersLink();

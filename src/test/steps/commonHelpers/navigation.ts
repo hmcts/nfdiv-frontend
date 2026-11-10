@@ -6,8 +6,10 @@ import {
   APPLICANT_1,
   APPLICANT_2,
   CHECK_ANSWERS_URL,
+  CHECK_CONTACT_DETAILS,
   CSRF_TOKEN_ERROR_URL,
   ENTER_YOUR_ACCESS_CODE,
+  ENTER_YOUR_ADDRESS,
   EXISTING_APPLICATION,
   PageLink,
   RESPONDENT,
@@ -33,6 +35,8 @@ type UrlType = 'string' | 'empty-string' | 'regexp' | undefined;
 const BACK_LINK_SELECTOR = 'a.govuk-back-link';
 const CHECK_ANSWERS_SELECTOR = `a[href="${VIEW_YOUR_ANSWERS}"]`;
 const WITHDRAW_LINK_SELECTOR = 'a#withdrawLink';
+const CHECK_CONTACT_DETAILS_HUB_LINK_SELECTOR = 'a#checkContactDetailsHubLink';
+const CHANGE_ADDRESS_LINK_SELECTOR = 'a#changeAddressLink';
 
 const urlStringToRegExp = (url: string): RegExp => {
   const escapeRegExp = (toEscape: string) => toEscape.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -156,6 +160,14 @@ export const iClickWithdrawLink = async (nextUrl?: string | RegExp, wait?: numbe
 
 export const iClickCheckYourAnswersLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
   await iClickToNavigate(CHECK_ANSWERS_SELECTOR, wait, nextUrl || VIEW_YOUR_ANSWERS);
+};
+
+export const iClickCheckContactDetailsHubLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
+  await iClickToNavigate(CHECK_CONTACT_DETAILS_HUB_LINK_SELECTOR, wait, nextUrl || CHECK_CONTACT_DETAILS);
+};
+
+export const iClickChangeAddressLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
+  await iClickToNavigate(CHANGE_ADDRESS_LINK_SELECTOR, wait, nextUrl || ENTER_YOUR_ADDRESS);
 };
 
 export const iWaitForUrlParam = (param: string, value: string, wait: number = 10): void => {
