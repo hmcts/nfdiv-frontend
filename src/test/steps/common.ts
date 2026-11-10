@@ -414,6 +414,9 @@ Then('I enter their name on the certificate', () => {
 Then('I enter details of the other proceedings', () => {
   iEnterValueIntoInput('Test other legal proceedings details', `#${getApplicantString()}LegalProceedingsDetails`);
 });
+Then('I enter my reason for withdrawing', () => {
+  iEnterValueIntoInput('Reason for withdrawing the application', '#withdrawApplicationReason');
+});
 
 Then("I wait until the page doesn't contain {string}", (text: string) => {
   I.waitForFunction(content => document.body.textContent?.search(content) === -1, [text], 20);
