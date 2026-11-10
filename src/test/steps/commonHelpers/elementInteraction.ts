@@ -106,14 +106,14 @@ export const iClickSubmitAndExpectUrl = async (
   nextUrl?: string,
   wait?: number,
   waitUntil: WaitUntil = 'load',
-  titleSelector?: string
+  expectedElementSelector?: string
 ): Promise<void> => {
   const submitSelector = await I.executeScript(() =>
     document.getElementById('main-form-submit')
       ? '#main-form-submit'
       : 'button[type="submit"]:not(#hide-message):not(.document-delete-button):not(.web-payment-button--apple-pay)'
   );
-  await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil, titleSelector);
+  await iClickToNavigate(submitSelector, wait, nextUrl, waitUntil, expectedElementSelector);
 };
 
 export const iClickSubmit = async (wait?: number): Promise<void> => {
@@ -131,6 +131,26 @@ export const iClickStartAndExpectUrl = async (nextUrl?: string, wait?: number): 
 
 export const iClickStart = async (wait?: number): Promise<void> => {
   await iClickStartAndExpectUrl(undefined, wait);
+};
+
+export const iClickContinueAndExpectUrl = async (
+  nextUrl?: string,
+  wait?: number,
+  waitUntil?: WaitUntil,
+  expectedElementSelector?: string
+): Promise<void> => {
+  const continueSelector = await I.executeScript(() =>
+    document.getElementById('noFormSubmit') ? '#noFormSubmit' : null
+  );
+  if (continueSelector) {
+    await iClickToNavigate(continueSelector, wait, nextUrl, waitUntil, expectedElementSelector);
+  } else {
+    await iClickSubmitAndExpectUrl(nextUrl, wait, waitUntil, expectedElementSelector);
+  }
+};
+
+export const iClickContinue = async (wait?: number): Promise<void> => {
+  await iClickContinueAndExpectUrl(undefined, wait);
 };
 
 export const iClickChangeLinkForQuestion = async (questionText: string): Promise<void> => {

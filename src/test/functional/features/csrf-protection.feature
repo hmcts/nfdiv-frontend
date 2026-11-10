@@ -13,5 +13,5 @@ Feature: CSRF protection
   Scenario: They submit the form with an invalid CSRF token
     Given I confirm my marriage has broken down irretrievably
     And I use an invalid CSRF token
-    Then I click continue the request should redirect to the CSRF error page
+    Then I click continue and the request should redirect to the CSRF error page
 

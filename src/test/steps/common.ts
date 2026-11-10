@@ -34,6 +34,8 @@ import {
   iCheckOption,
   iCheckOptionFor,
   iClearTheForm,
+  iClickContinue,
+  iClickContinueAndExpectUrl,
   iClickElement,
   iClickMoreDetailsComponent,
   iClickStart,
@@ -199,6 +201,12 @@ When('I click element {string}', iClickElement);
 When('I click element {string} and expect URL {string}', async (selector: string, url: string) => {
   await iClickToNavigate(selector, undefined, url);
 });
+When(
+  'I click element {string} and expect URL {string} with element {string}',
+  async (selector: string, url: string, expectedElementSelector: string) => {
+    await iClickToNavigate(selector, undefined, url, undefined, expectedElementSelector);
+  }
+);
 
 When('I click back', iClickBackLink);
 When('I click back and expect URL {string}', async (url: string) => {
@@ -236,18 +244,18 @@ When('I click submit', iClickSubmit);
 When('I click submit and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
 });
-When('I click continue', iClickSubmit);
+When('I click continue', iClickContinue);
 When('I click continue and expect URL {string}', async (url: string) => {
-  await iClickSubmitAndExpectUrl(url);
+  await iClickContinueAndExpectUrl(url);
 });
 When(
-  'I click continue and expect URL {string} with title element {string}',
-  async (url: string, titleSelector: string) => {
-    await iClickSubmitAndExpectUrl(url, undefined, undefined, titleSelector);
+  'I click continue and expect URL {string} with element {string}',
+  async (url: string, expectedElementSelector: string) => {
+    await iClickContinueAndExpectUrl(url, undefined, undefined, expectedElementSelector);
   }
 );
-When('I click continue the request should redirect to the CSRF error page', async () => {
-  await iClickSubmitAndExpectUrl(CSRF_TOKEN_ERROR_URL, undefined, undefined, '#badRequestTitle');
+When('I click continue and the request should redirect to the CSRF error page', async () => {
+  await iClickContinueAndExpectUrl(CSRF_TOKEN_ERROR_URL, undefined, undefined, '#badRequestTitle');
 });
 When('I click send for review', iClickSubmit);
 When('I click send for review and expect URL {string}', async (url: string) => {
@@ -263,6 +271,9 @@ When('I click continue to payment and expect URL {string}', async (url: string) 
 });
 When('I click pay and submit application', iClickSubmit);
 When('I click accept and send', iClickSubmit);
+When('I click accept and send and expect URL {string}', async (url: string) => {
+  await iClickSubmitAndExpectUrl(url);
+});
 When('I click confirm', iClickSubmit);
 When('I click end the joint application', iClickSubmit);
 When('I click end the joint application and expect URL {string}', async (url: string) => {
@@ -366,10 +377,6 @@ When('I confirm the statement of truth', () => {
 });
 When('I have read the application for divorce', () => {
   iCheckOption('#confirmReadPetitionId');
-});
-
-Then('the page should show an error for field {string}', (fieldName: string) => {
-  iWaitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
 });
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
