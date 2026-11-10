@@ -3,72 +3,43 @@ Feature: Update contact details
   Background:
     Given I create a new user and login
     And I've already completed the form using the fixture "completeCase"
-    And I go to '/check-your-answers'
+    When I go to 'CHECK_ANSWERS_URL'
     And I confirm the prayer and statement of truth
-    When I click continue to payment
-    And I pay and submit and expect the application to be saved
-    When a case worker issues the application
-    And I enter my valid case reference and valid access code
-    Then the page URL should be "/respondent/hub-page"
+    Then I click continue to payment and expect URL "PAY_YOUR_FEE"
+
+    Given I pay and submit and expect the application to be saved
+    And a case worker issues the application
+    When I as respondent enter my valid case reference and valid access code
+    Then the page URL should be "RESPONDENT" / "HUB_PAGE"
 
   @nightly
   Scenario: Applicant and Respondent update contact details
-    When I click "Review your contact details"
-    Then the page should include "Review your contact details"
+    When I click to review my contact details
+    Then I click to change my address
 
-    When I click "Change"
-    Then the page should include "Enter your postal address"
+    Given I enter my address directly
+    Then I click continue and expect URL "ADDRESS_PRIVATE"
+
     Given I clear the form
-    And I select "Building and street"
-    And I type "Address 2"
-    And I select "Town or city"
-    And I type "LONDON"
-    And I select "County"
-    And I type "CITY OF WESTMINSTER"
-    And I select "Postcode"
-    And I type "SW1H 9AB"
-    And I select "Country"
-    And I type "UK"
+    And I do not need my contact details kept private
 
-    When I click continue
-    Then the page URL should be "/address-private"
-    Given I clear the form
-    And I select "I do not need my contact details kept private"
+    Then I click continue and expect URL "CHECK_CONTACT_DETAILS"
 
-    When I click continue
-    Then the page URL should be "/check-contact-details"
-
-    When I click continue
-    Then the page URL should be "/hub-page"
+    Then I click continue and expect URL "HUB_PAGE"
 
     Given I sign out
     And I login with applicant "1"
-    Then the page URL should be "/hub-page"
+    Then the page URL should be "HUB_PAGE"
 
-    When I click "Review your contact details"
-    Then the page should include "Review your contact details"
+    When I click to review my contact details
+    Then I click to change my address
 
-    When I click "Change"
-    Then the page should include "Enter your postal address"
+    Given I enter my address directly
+    Then I click continue and expect URL "ADDRESS_PRIVATE"
+
     Given I clear the form
-    And I select "Building and street"
-    And I type "Address 1"
-    And I select "Town or city"
-    And I type "LONDON"
-    And I select "County"
-    And I type "CITY OF WESTMINSTER"
-    And I select "Postcode"
-    And I type "SW1H 9AA"
-    And I select "Country"
-    And I type "UK"
+    And I do not need my contact details kept private
 
-    When I click continue
-    Then the page URL should be "/address-private"
-    Given I clear the form
-    And I select "I do not need my contact details kept private"
+    Then I click continue and expect URL "CHECK_CONTACT_DETAILS"
 
-    When I click continue
-    Then the page URL should be "/check-contact-details"
-
-    When I click continue
-    Then the page URL should be "/hub-page"
+    Then I click continue and expect URL "HUB_PAGE"
