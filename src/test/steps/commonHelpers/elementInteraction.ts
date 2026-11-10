@@ -286,14 +286,6 @@ export const iConfirmWeLiveInEnglandOrWales = (): void => {
   iSelectYesOrNoForField(YesOrNo.YES, 'applicant1LifeBasedInEnglandAndWales');
   iSelectYesOrNoForField(YesOrNo.YES, 'applicant2LifeBasedInEnglandAndWales');
 };
-export const iDenyWeLiveInEnglandOrWales = (): void => {
-  iSelectYesOrNoForField(YesOrNo.NO, 'applicant1LifeBasedInEnglandAndWales');
-  iSelectYesOrNoForField(YesOrNo.NO, 'applicant2LifeBasedInEnglandAndWales');
-};
-export const iDenyWeAreDomiciledInEnglandOrWales = (): void => {
-  iSelectYesOrNoForField(YesOrNo.NO, 'applicant1DomicileInEnglandWales');
-  iSelectYesOrNoForField(YesOrNo.NO, 'applicant2DomicileInEnglandWales');
-};
 
 export const iConfirmPrayerAndStatementOfTruth = (): void => {
   iCheckOption('#iConfirmPrayer');

@@ -6,7 +6,6 @@ import {
   APPLICANT_1,
   APPLICANT_2,
   CHECK_ANSWERS_URL,
-  CHECK_JURISDICTION,
   CSRF_TOKEN_ERROR_URL,
   ENTER_YOUR_ACCESS_CODE,
   EXISTING_APPLICATION,
@@ -34,7 +33,6 @@ type UrlType = 'string' | 'empty-string' | 'regexp' | undefined;
 const BACK_LINK_SELECTOR = 'a.govuk-back-link';
 const CHECK_ANSWERS_SELECTOR = `a[href="${VIEW_YOUR_ANSWERS}"]`;
 const WITHDRAW_LINK_SELECTOR = 'a#withdrawLink';
-const CHECK_JURISDICTION_LINK_SELECTOR = `a[href="${CHECK_JURISDICTION}"]`;
 
 const urlStringToRegExp = (url: string): RegExp => {
   const escapeRegExp = (toEscape: string) => toEscape.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -158,10 +156,6 @@ export const iClickWithdrawLink = async (nextUrl?: string | RegExp, wait?: numbe
 
 export const iClickCheckYourAnswersLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
   await iClickToNavigate(CHECK_ANSWERS_SELECTOR, wait, nextUrl || VIEW_YOUR_ANSWERS);
-};
-
-export const iClickCheckJurisdictionLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
-  await iClickToNavigate(CHECK_JURISDICTION_LINK_SELECTOR, wait, nextUrl || CHECK_JURISDICTION);
 };
 
 export const iWaitForUrlParam = (param: string, value: string, wait: number = 10): void => {

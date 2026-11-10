@@ -45,8 +45,6 @@ import {
   iConfirmWeLiveInEnglandOrWales,
   iDeleteAllUploadedFiles,
   iDeleteUploadedFile,
-  iDenyWeAreDomiciledInEnglandOrWales,
-  iDenyWeLiveInEnglandOrWales,
   iEnterMyCertificateName,
   iEnterMyHwfReference,
   iEnterMyName,
@@ -72,7 +70,6 @@ import {
 import {
   iAmOnPage,
   iClickBackLink,
-  iClickCheckJurisdictionLink,
   iClickCheckYourAnswersLink,
   iClickToNavigate,
   iClickWithdrawLink,
@@ -169,8 +166,6 @@ Given('I do not have their email address', async () => {
   iCheckOption('#applicant1DoesNotKnowApplicant2EmailAddress');
 });
 Given('we both live in England or Wales', iConfirmWeLiveInEnglandOrWales);
-Given('neither of us live in England or Wales', iDenyWeLiveInEnglandOrWales);
-Given('neither of us are domiciled in England or Wales', iDenyWeAreDomiciledInEnglandOrWales);
 
 Given('I choose {string} from {string}', (option: string, select: string) => {
   I.selectOption(select, option);
@@ -209,8 +204,6 @@ When('I click back and expect URL {string}', async (url: string) => {
 When('I click to withdraw and expect URL {string}', async (url: string) => {
   await iClickWithdrawLink(url);
 });
-
-When('I click to check how we are connected to England or Wales again', iClickCheckJurisdictionLink);
 
 When('I click check your answers', async () => {
   await iClickCheckYourAnswersLink();
