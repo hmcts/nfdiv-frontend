@@ -193,7 +193,7 @@ export const iClickToNavigate = async (
   wait?: number,
   nextUrl?: string | RegExp,
   waitUntil: WaitUntil = 'load',
-  titleSelector: string = ''
+  expectedElementSelector: string = ''
 ): Promise<void> => {
   const urlType = getTypeOfUrl(nextUrl);
 
@@ -202,12 +202,12 @@ export const iClickToNavigate = async (
     return iClick(selector, { waitForNavigation: waitUntil });
   }
 
-  let checkTitle: boolean = titleSelector.trim().length > 0;
+  let expectElement: boolean = expectedElementSelector.trim().length > 0;
   if (urlType === 'string') {
     nextUrl = setUserPathPrefix(nextUrl as string);
-    if (isInternalPageLink(nextUrl) && !checkTitle) {
-      checkTitle = true;
-      titleSelector = `#${getPageTitleIdFromUrl(nextUrl as PageLink)}`;
+    if (isInternalPageLink(nextUrl) && !expectElement) {
+      expectElement = true;
+      expectedElementSelector = `#${getPageTitleIdFromUrl(nextUrl as PageLink)}`;
     }
   }
 
@@ -220,8 +220,8 @@ export const iClickToNavigate = async (
     iClick(selector);
   }
   iWaitForUrl(nextUrl, wait, waitUntil);
-  if (checkTitle) {
-    I.waitForElement(titleSelector, wait);
+  if (expectElement) {
+    I.waitForElement(expectedElementSelector, wait);
   }
 };
 
