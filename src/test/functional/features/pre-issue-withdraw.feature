@@ -2,28 +2,24 @@ Feature: Pre-Issue application withdraw journey
 
   Background:
     Given I create a new user and login
-    Then I reject cookies
     And I've already completed the form using the fixture "completeCase"
-    And I go to '/check-your-answers'
+    When I go to 'CHECK_ANSWERS_URL'
     And I confirm the prayer and statement of truth
-    When I click continue to payment
-    And I pay and submit and expect the application to be saved
+    Then I click continue to payment and expect URL "PAY_YOUR_FEE"
+
+    Given I pay and submit and expect the application to be saved
     Then I set the case state to "Submitted"
 
   Scenario: Pre-Issue application withdraw happy path
     When I sign out
     And I login with applicant "1"
-    And I go to "/withdraw-pre-issue/withdraw-this-application"
-    Then the page should include element "#withdrawThisApplicationTitle"
+    Then I go to "WITHDRAW_THIS_APPLICATION"
 
-    Given I click element "#yes"
-    And I click element "#withdrawApplicationReason"
-    And I type "Reason for withdrawing the application"
-    When I click continue
-    Then the page should include element "#checkAnswersTitle"
+    Given I select yes
+    And I enter my reason for withdrawing
+    Then I click continue and expect URL "CHECK_ANSWERS_WITHDRAW"
 
-    When I click submit
-    Then the page should include element "#applicationWithdrawnTitle"
+    Then I click submit and expect URL "WITHDRAW_CONFIRMATION"
 
 
 
