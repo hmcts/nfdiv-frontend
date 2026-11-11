@@ -114,15 +114,21 @@ Given('I go to {string}', (url: string) => {
 Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$/, (user: string, url: string) => {
   iWaitInUrlAsUser(url, user);
 });
-Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$ and the page should include element "([^"]*)"$/, (user: string, url: string, expectedElementSelector: string) => {
-  iWaitInUrlAsUser(url, user, undefined, expectedElementSelector);
-});
+Then(
+  /^the page URL should be "([^"]*)" \/ "([^"]*)"$ and the page should include element "([^"]*)"$/,
+  (user: string, url: string, expectedElementSelector: string) => {
+    iWaitInUrlAsUser(url, user, undefined, expectedElementSelector);
+  }
+);
 Then('the page URL should be {string}', (url: string) => {
   iWaitInUrl(url);
 });
-Then('the page URL should be {string} and the page should include element {string}', (url: string, expectedElementSelector: string) => {
-  iWaitInUrl(url, undefined, expectedElementSelector);
-});
+Then(
+  'the page URL should be {string} and the page should include element {string}',
+  (url: string, expectedElementSelector: string) => {
+    iWaitInUrl(url, undefined, expectedElementSelector);
+  }
+);
 Then('the request should redirect to the page not found error page', () => {
   iWaitInPageNotFoundErrorPage();
 });
