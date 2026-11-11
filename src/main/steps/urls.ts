@@ -280,6 +280,10 @@ export const ALTERNATIVE_SENDING_PAPERS_TO_PARTNER: PageLink =
 export const ALTERNATIVE_WHY_APPLY_THIS_WAY: PageLink = '/interim-applications/alternative-service/why-apply-this-way';
 export const ALTERNATIVE_SERVICE_APPLICATION: PageLink =
   '/interim-applications/alternative-service/service-application';
+export const ALTERNATIVE_DETAILS_ABOUT_EVIDENCE: PageLink =
+  '/interim-applications/alternative-service/details-about-evidence';
+export const ALTERNATIVE_CHOSEN_METHOD_NOT_ACTIVE: PageLink =
+  '/interim-applications/alternative-service/chosen-method-not-active';
 
 // Dispense With Service URLs
 export const DISPENSE_SERVICE_APPLICATION: PageLink = '/interim-applications/dispense-service/service-application';

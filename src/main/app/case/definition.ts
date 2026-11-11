@@ -1138,6 +1138,8 @@ export interface CaseData {
   applicant1AltServicePartnerOtherDetails: string;
   applicant1AltServiceMethodJustification: string;
   applicant1AltServiceDifferentWays: AlternativeServiceDifferentWays[];
+  applicant1AltServiceMethodActive: YesOrNo;
+  applicant1AltServiceDateOfEvidence: CaseDate | DateAsString;
   applicant1DispenseLiveTogether: YesOrNo;
   applicant1DispenseLivedTogetherDate: DateAsString;
   applicant1DispenseLivedTogetherAddress: AddressGlobalUK;
@@ -1294,6 +1296,8 @@ export interface AlternativeServiceJourneyOptions {
   altServicePartnerOtherDetails: string;
   altServiceMethodJustification: string;
   altServiceDifferentWays: AlternativeServiceDifferentWays[];
+  altServiceMethodActive: YesOrNo;
+  altServiceDateOfEvidence: DateAsString;
 }
 
 export interface RequestForInformationResponse {
