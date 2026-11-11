@@ -1,14 +1,12 @@
-import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
-
 import {
   iClearTheForm,
   iClickElement,
   iEnterValueIntoInput,
   iWaitForVisible,
 } from './commonHelpers/elementInteraction';
+import { logger } from './commonHelpers/logger';
 import { iClickToNavigate, iGrabCurrentUrl } from './commonHelpers/navigation';
 
-const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
 
 export const DEFAULT_ADDRESS = 'MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ';

@@ -1,5 +1,3 @@
-import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
-
 import { SupportedLanguages } from '../../../main/modules/i18n';
 import { getPageTitleIdFromUrl } from '../../../main/steps/url-utils';
 import {
@@ -26,9 +24,9 @@ import {
 } from '../urlLookup';
 
 import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';
+import { logger } from './logger';
 import { isApplicant2, isRespondent } from './userInteraction';
 
-const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
 
 type UrlType = 'string' | 'empty-string' | 'regexp' | undefined;
