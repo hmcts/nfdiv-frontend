@@ -225,13 +225,16 @@ export const iClickToNavigate = async (
   }
 };
 
-export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number): void => {
+export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number, expectedElementSelector?: string): void => {
   url = setUserPathPrefix(url, user);
   I.waitInUrl(url, wait);
+  if (expectedElementSelector && expectedElementSelector.trim().length > 0) {
+    iWaitForVisible(expectedElementSelector, wait);
+  }
 };
 
-export const iWaitInUrl = (url: string, wait?: number): void => {
-  iWaitInUrlAsUser(url, undefined, wait);
+export const iWaitInUrl = (url: string, wait?: number, expectedElementSelector?: string): void => {
+  iWaitInUrlAsUser(url, undefined, wait, expectedElementSelector);
 };
 
 export const iWaitInErrorPage = (wait?: number): void => {
