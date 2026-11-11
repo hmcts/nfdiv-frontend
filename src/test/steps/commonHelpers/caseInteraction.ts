@@ -4,7 +4,7 @@ import { Logger, transports } from 'winston';
 import { Case, CaseWithId } from '../../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../../main/app/case/case-api';
 import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../../main/app/case/definition';
-import { toApiFormat } from '../../../main/app/case/to-api-format';
+import { OrNull, toApiFormat } from '../../../main/app/case/to-api-format';
 import { UserDetails } from '../../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../../main/app/jurisdiction/connections';
 import {
@@ -17,13 +17,7 @@ import {
 } from '../../../main/steps/urls';
 
 import { TestUserAndPassword, TestUserKey } from './IdamUserManager';
-import {
-  iClearTheForm,
-  iClickSubmit,
-  iClickSubmitAndExpectUrl,
-  iEnterValueIntoInput,
-  iWait,
-} from './elementInteraction';
+import { iClickSubmit, iClickSubmitAndExpectUrl, iEnterValueIntoInput } from './elementInteraction';
 import { logger } from './logger';
 import { iAmOnPage } from './navigation';
 import {
@@ -34,17 +28,88 @@ import {
   iClickSignOut,
   iGetTheTestUser,
   iSignOut,
+  isApplicant2,
+  isRespondent,
   login,
 } from './userInteraction';
 
-const { I } = inject();
+const canSenderSetConnections = (asCurrentUser: boolean): boolean =>
+  !asCurrentUser || (!isApplicant2() && !isRespondent());
+
+const formatPayloadForCitizenUpdateCaseStateAat = (
+  data: Partial<OrNull<BrowserCase>>,
+  includeConnections: boolean
+): Partial<Case> => {
+  const { state, ...otherFields } = data;
+  const caseData = otherFields as Partial<Case>;
+  const payload: Partial<Case> = state ? { ...caseData, applicant2MiddleNames: state } : caseData;
+
+  // don't set as applicant 2 as they don't have permission
+  if (includeConnections) {
+    const connections = addConnectionsBasedOnQuestions(payload);
+
+    if (connections.length > 0) {
+      payload.connections = connections;
+    }
+  }
+  return payload;
+};
+
+const getApiAndCaseReferenceForUser = async (
+  user: TestUserAndPassword = getCurrentUser()
+): Promise<{ user: TestUserAndPassword; caseApi: CaseApi; caseReference: string }> => {
+  const testUser = await iGetTheTestUser(user);
+  const caseApi = iGetTheCaseApi(testUser);
+
+  let userCase: false | CaseWithId;
+
+  try {
+    userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+  } catch (error) {
+    logFailedToGetCaseError(user, error);
+  }
+
+  if (!userCase) {
+    logFailedToGetCaseError(user);
+  }
+
+  const caseReference = userCase.id;
+  if (!caseReference) {
+    const message = `No case reference was returned for ${testUser.email}`;
+    logger.error(message);
+    throw new Error(message);
+  }
+
+  return { user, caseApi, caseReference };
+};
+
+function logFailedToGetCaseError(user: TestUserAndPassword, error?: Error): never {
+  logger.error(`Could not get case data as ${user.username}${error ? ' : ' + error.message : ''}`);
+  process.exit(-1);
+}
+
+function logFailedToSetCaseError(
+  user: TestUserAndPassword,
+  eventName: string,
+  error: Error,
+  data: Partial<OrNull<BrowserCase>>
+): never {
+  logger.error(`Could not set case data as ${user.username} via event ${eventName} :  ${error}`);
+  logger.error(toApiFormat(data as Partial<BrowserCase>));
+  process.exit(-1);
+}
 
 export function triggerAnEvent(
   eventName: typeof CITIZEN_UPDATE_CASE_STATE_AAT,
-  userData: Partial<BrowserCase>
+  userData: Partial<BrowserCase>,
+  asCurrentUser?: boolean
 ): Promise<void>;
-export function triggerAnEvent(eventName: string, userData: Partial<Case>): Promise<void>;
-export async function triggerAnEvent(eventName: string, userData: Partial<BrowserCase>): Promise<void> {
+export function triggerAnEvent(eventName: string, userData: Partial<Case>, asCurrentUser?: boolean): Promise<void>;
+export async function triggerAnEvent(
+  eventName: string,
+  userData: Partial<BrowserCase>,
+  asCurrentUser: boolean = false
+): Promise<void> {
   const { state, ...caseData } = userData;
   if (state && eventName !== CITIZEN_UPDATE_CASE_STATE_AAT) {
     logger.error(
@@ -52,30 +117,27 @@ export async function triggerAnEvent(eventName: string, userData: Partial<Browse
     );
     process.exit(-1);
   }
+
+  await recorder.promise(); // let queued I.* steps finish before calling the API
+
+  const { user: currentUser, caseApi, caseReference } = await getApiAndCaseReferenceForUser();
+
   const payload: Partial<Case> =
-    state && eventName === CITIZEN_UPDATE_CASE_STATE_AAT ? { ...caseData, applicant2MiddleNames: state } : caseData;
+    eventName === CITIZEN_UPDATE_CASE_STATE_AAT
+      ? formatPayloadForCitizenUpdateCaseStateAat(userData, canSenderSetConnections(asCurrentUser))
+      : caseData;
 
-  iAmOnPage(HOME_URL);
-  await iClearTheForm();
-
-  const user = getCurrentUser();
-  const testUser = await iGetTheTestUser(user);
-  const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
-
-  if (userCase) {
-    const caseReference = userCase.id;
-    if (!caseReference) {
-      throw new Error(`No case reference or access code was returned for ${testUser.email}`);
+  const eventUser = asCurrentUser ? currentUser : await getCaseworker();
+  try {
+    if (asCurrentUser) {
+      await caseApi.triggerEvent(caseReference, payload, eventName);
+    } else {
+      const caseWorker = await iGetTheTestUser(eventUser);
+      const cwCaseApi = iGetTheCaseApi(caseWorker);
+      await cwCaseApi.triggerEvent(caseReference, payload, eventName);
     }
-
-    const cwUser = await getCaseworker();
-    const caseWorker = await iGetTheTestUser(cwUser);
-    const cwCaseApi = iGetTheCaseApi(caseWorker);
-    await cwCaseApi.triggerEvent(caseReference, payload, eventName);
-  } else {
-    logger.error('Could not get case data as ' + user.username);
-    process.exit(-1);
+  } catch (error) {
+    logFailedToSetCaseError(eventUser, eventName, error, payload);
   }
 }
 
@@ -87,63 +149,38 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
   return getCaseApi(testUser, caseApiLogger);
 };
 
-export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> =>
-  executeUserCaseScript(userCaseObj);
+export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> => {
+  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, userCaseObj, true);
+};
 
 export const iSetTheCaseStateAndReSignIn = async (state: State): Promise<void> => {
   const userKey = getCurrentUserKey() || TestUserKey.APPLICANT_1;
-  await iSetTheUsersCaseTo({
-    state,
-  });
-  await I.grabCurrentUrl(); // Do we need to do this??
+  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, { state }, true);
   iSignOut();
   await login(userKey, false, false);
 };
 
-//eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-export const executeUserCaseScript = async (data: any): Promise<void> => {
-  await I.grabCurrentUrl(); // Do we need to do this??
+export const executeUserCaseScript = async (data: Partial<OrNull<BrowserCase>>): Promise<void> => {
+  await recorder.promise(); // let queued I.* steps finish before calling the API
 
-  const user = getCurrentUser();
-  const testUser = await iGetTheTestUser(user);
-  const api = iGetTheCaseApi(testUser);
+  const { user, caseApi, caseReference } = await getApiAndCaseReferenceForUser();
 
-  // add a delay after logging a user in because it creates an extra case that needs to be added to the ES index
-  // await new Promise(resolve => setTimeout(resolve, 2000));
-  iWait(2);
-  const userCase = await api.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+  const payload: Partial<Case> = formatPayloadForCitizenUpdateCaseStateAat(data, canSenderSetConnections(true));
 
-  if (userCase) {
-    data.applicant2MiddleNames = data.state || userCase.state;
-
-    const connections = addConnectionsBasedOnQuestions(data);
-
-    // don't set as applicant 2 as they don't have permission
-    data.connections = connections.length > 0 ? connections : undefined;
-
-    try {
-      await api.triggerEvent(userCase.id, data, CITIZEN_UPDATE_CASE_STATE_AAT);
-    } catch {
-      logger.error('Could not set fixture data as ' + user.username);
-      logger.error(toApiFormat(data));
-      process.exit(-1);
-    }
+  try {
+    await caseApi.triggerEvent(caseReference, payload, CITIZEN_UPDATE_CASE_STATE_AAT);
+  } catch (error) {
+    logFailedToSetCaseError(user, CITIZEN_UPDATE_CASE_STATE_AAT, error, payload);
   }
 };
 
 export const iGetTheCaseForUser = async (user: TestUserAndPassword = getCurrentUser()): Promise<CaseWithId> => {
-  const testUser = await iGetTheTestUser(user);
-  const caseApi = iGetTheCaseApi(testUser);
-  const userCase = await caseApi.getExistingUserCase(DivorceOrDissolution.DIVORCE);
+  const { caseApi, caseReference } = await getApiAndCaseReferenceForUser(user);
 
-  if (userCase) {
-    if (!userCase.id) {
-      throw new Error(`No case reference was returned for ${testUser.email}`);
-    }
-    return caseApi.getCaseById(userCase.id);
-  } else {
-    logger.error('Could not get case data as ' + testUser.email);
-    process.exit(-1);
+  try {
+    return await caseApi.getCaseById(caseReference);
+  } catch (error) {
+    logFailedToGetCaseError(user, error);
   }
 };
 
@@ -159,15 +196,16 @@ export const linkUserToCase = async (
   userKey: TestUserKey.APPLICANT_1 | TestUserKey.APPLICANT_2 | TestUserKey.RESPONDENT
 ): Promise<void> => {
   iAmOnPage(HOME_URL);
-  await iClearTheForm();
+  await recorder.promise(); // let queued I.* steps finish before calling the API
 
   const fetchedCase = await getCaseForCurrentUser();
 
-  const accessCode = userKey === TestUserKey.APPLICANT_1 ? fetchedCase.accessCodeApplicant1 : fetchedCase.accessCode;
+  const accessCodeField = userKey === TestUserKey.APPLICANT_1 ? 'accessCodeApplicant1' : 'accessCode';
+  const accessCode = fetchedCase[accessCodeField];
   if (!accessCode) {
-    throw new Error(
-      `No access code was returned for ${userKey === TestUserKey.APPLICANT_2 ? fetchedCase.applicant1Email : fetchedCase.applicant2Email}`
-    );
+    const errorMessage = `No access code (expected in field ${accessCodeField}) was returned for case ${fetchedCase.id} retrieved by ${getCurrentUser().username}`;
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
   }
 
   await iClickSignOut();
