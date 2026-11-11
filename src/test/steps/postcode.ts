@@ -12,6 +12,7 @@ const { I } = inject();
 export const GOVUK_FRONTEND_BUTTON_DEBOUNCE_TIMEOUT_IN_SECONDS = 1;
 
 export const DEFAULT_ADDRESS = 'MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ';
+export const SECONDARY_ADDRESS = 'BUCKINGHAM PALACE, LONDON, SW1A 1AA';
 
 export const iWaitForPostcodeLookUpResults = async (): Promise<void> => {
   iWaitForVisible('#selectAddressInput', 10);
