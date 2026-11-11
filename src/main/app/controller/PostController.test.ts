@@ -5,7 +5,6 @@ import { set } from 'lodash';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
 import {
   DRAFT_SAVE_AND_SIGN_OUT,
@@ -22,6 +21,7 @@ import {
   Gender,
   State,
 } from '../case/definition';
+import { FormContent } from '../form/Form';
 import { isPhoneNoValid } from '../form/validation';
 
 import { PostController } from './PostController';
@@ -33,7 +33,7 @@ set(config, 'services.idam.systemPassword', 'DUMMY_VALUE_REPLACE');
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
 describe('PostController', () => {
-  const saveAndSignOutRedirect = getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`);
+  const saveAndSignOutRedirect = getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`, 'test-id-token');
 
   afterEach(() => {
     getNextStepUrlMock.mockClear();
@@ -349,7 +349,7 @@ describe('PostController', () => {
     const body = { gender: Gender.FEMALE, saveAndSignOut: true };
     const controller = new PostController(mockFormContent.fields);
 
-    const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
+    const req = mockRequest({ body, session: { user: { email: 'test@example.com', idToken: 'test-id-token' } } });
     (req.locals.api.triggerEvent as jest.Mock).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);
@@ -368,7 +368,11 @@ describe('PostController', () => {
     const body = { gender: Gender.FEMALE, saveAndSignOut: true };
     const controller = new PostController(mockFormContent.fields);
 
-    const req = mockRequest({ body, userCase, session: { user: { email: 'test@example.com' } } });
+    const req = mockRequest({
+      body,
+      userCase,
+      session: { user: { email: 'test@example.com', idToken: 'test-id-token' } },
+    });
     (req.locals.api.triggerEvent as jest.Mock).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);
@@ -392,7 +396,11 @@ describe('PostController', () => {
     const body = { gender: Gender.FEMALE, saveAndSignOut: true };
     const controller = new PostController(mockFormContent.fields);
 
-    const req = mockRequest({ body, userCase, session: { user: { email: 'test@example.com' } } });
+    const req = mockRequest({
+      body,
+      userCase,
+      session: { user: { email: 'test@example.com', idToken: 'test-id-token' } },
+    });
     (req.locals.api.triggerEvent as jest.Mock).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);

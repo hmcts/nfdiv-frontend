@@ -73,6 +73,7 @@ export const getUserDetails = async (
 
   return {
     accessToken: response.data.access_token,
+    idToken: response.data.id_token,
     id: jwt.uid,
     email: jwt.sub,
     givenName: jwt.given_name,
@@ -92,6 +93,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
 
   return {
     accessToken: response.data.access_token,
+    idToken: response.data.id_token,
     id: jwt.uid,
     email: jwt.sub,
     givenName: jwt.given_name,
@@ -151,8 +153,8 @@ export const getIdamToken = async (
   return response;
 };
 
-export const getEndIdamSessionUrl = (redirectUrl: string): string => {
+export const getEndIdamSessionUrl = (redirectUrl: string, idToken: string): string => {
   const endSessionUrl: string = getIdamEndSessionUrl();
 
-  return `${endSessionUrl}?post_logout_redirect_uri=${encodeURI(redirectUrl)}`;
+  return `${endSessionUrl}?post_logout_redirect_uri=${encodeURI(redirectUrl)}&id_token_hint=${encodeURI(idToken)}`;
 };

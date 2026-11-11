@@ -19,6 +19,7 @@ import { ExistingApplicationPostController } from './post';
 
 jest.spyOn(oidc, 'getSystemUser').mockResolvedValue({
   accessToken: 'token',
+  idToken: 'test-id-token',
   id: '1234',
   email: 'user@caseworker.com',
   givenName: 'case',

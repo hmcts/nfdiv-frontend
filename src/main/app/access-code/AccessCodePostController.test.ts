@@ -15,6 +15,7 @@ describe('AccessCodePostController', () => {
   beforeEach(() => {
     getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
+      idToken: 'id_token',
       id: '1234',
       email: 'user@caseworker.com',
       givenName: 'case',
