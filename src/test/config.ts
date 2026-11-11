@@ -91,7 +91,6 @@ const playwrightConfig = {
   waitForTimeout: config.WaitForTimeout,
   waitForAction: 350,
   timeout: config.WaitForTimeout,
-  retries: 3,
   waitForNavigation: 'load',
   ignoreHTTPSErrors: true,
   bypassCSP: true,
