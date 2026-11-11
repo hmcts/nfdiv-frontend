@@ -140,7 +140,7 @@ export const iClickContinueAndExpectUrl = async (
   expectedElementSelector?: string
 ): Promise<void> => {
   const continueSelector = await I.executeScript(() =>
-    document.getElementById('noFormSubmit') ? '#noFormSubmit' : null
+    document.getElementById('noFormContinue') ? '#noFormContinue' : null
   );
   if (continueSelector) {
     await iClickToNavigate(continueSelector, wait, nextUrl, waitUntil, expectedElementSelector);
