@@ -31,7 +31,7 @@ const en = ({ partner, userCase }: CommonContent, methodLabel) => ({
   subquestion: `${
     userCase.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
       ? `Provide the date of the email. If the email is more than three months old, the court may not accept it as evidence that your ${partner} is currently using the email address. If you have more than one email conversation, provide the date of the most recent email.`
-      : `Provide the date of the conversation using the chosen contact method. If the conversation is more than three months old, the court may not accept t as evidence that your ${partner} is currently using that contact method. If you have conversations using multiple contact methods, provide the date of the most recent conversation.`
+      : `Provide the date of the conversation using the chosen contact method. If the conversation is more than three months old, the court may not accept it as evidence that your ${partner} is currently using that contact method. If you have conversations using multiple contact methods, provide the date of the most recent conversation.`
   }`,
   yes: 'Yes',
   no: 'No',
