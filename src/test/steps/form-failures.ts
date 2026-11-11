@@ -8,7 +8,6 @@ import {
   iEnterTheirName,
   iEnterValueIntoInput,
   iSelectNo,
-  iWait,
   iWaitForVisibleError,
   iWaitForVisibleErrorSummary,
 } from './commonHelpers/elementInteraction';

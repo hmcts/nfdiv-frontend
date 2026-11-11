@@ -6,7 +6,6 @@ import {
   iWaitForVisible,
 } from './commonHelpers/elementInteraction';
 import { logger } from './commonHelpers/logger';
-import { iClickToNavigate, iGrabCurrentUrl } from './commonHelpers/navigation';
 
 const { I } = inject();
 
@@ -43,17 +42,21 @@ export const iEnterPostcode = (postcode: string): void => {
 
 export const iClickFindAddress = async (wait?: number): Promise<void> => {
   const FIND_ADDRESS_BUTTON_SELECTOR = '#findAddressButton';
+  type WindowWithFindAddressClick = Window & { __lastFindAddressClick?: number };
+  
   iWaitForVisible(FIND_ADDRESS_BUTTON_SELECTOR, wait);
   I.waitForFunction(
-    (debounce_timeout_in_seconds: number) => {
-      const last = (window as any).__lastFindAddressClick;
-      return !last || performance.now() - last > (debounce_timeout_in_seconds * 1000);
+    (debounceTimeoutInSeconds: number) => {
+      const last = (window as WindowWithFindAddressClick).__lastFindAddressClick;
+      return !last || performance.now() - last > debounceTimeoutInSeconds * 1000 + 100;
     },
     [GOVUK_FRONTEND_BUTTON_DEBOUNCE_TIMEOUT_IN_SECONDS],
     wait
   );
-  await I.executeScript(() => ((window as any).__lastFindAddressClick = performance.now()));
   iClick(FIND_ADDRESS_BUTTON_SELECTOR);
+  await I.executeScript(() => {
+    (window as WindowWithFindAddressClick).__lastFindAddressClick = performance.now();
+  });
 };
 
 export const iClickCannotFindAddress = (wait?: number): void => {
