@@ -1,4 +1,3 @@
-import { Logger as hmctsLogger } from '@hmcts/nodejs-logging';
 import { recorder } from 'codeceptjs';
 import { Logger, transports } from 'winston';
 
@@ -25,6 +24,7 @@ import {
   iEnterValueIntoInput,
   iWait,
 } from './elementInteraction';
+import { logger } from './logger';
 import { iAmOnPage } from './navigation';
 import {
   getCaseworker,
@@ -37,10 +37,24 @@ import {
   login,
 } from './userInteraction';
 
-const logger = hmctsLogger.getLogger('common-steps');
 const { I } = inject();
 
-export const triggerAnEvent = async (eventName: string, userData: Partial<Case>): Promise<void> => {
+export function triggerAnEvent(
+  eventName: typeof CITIZEN_UPDATE_CASE_STATE_AAT,
+  userData: Partial<BrowserCase>
+): Promise<void>;
+export function triggerAnEvent(eventName: string, userData: Partial<Case>): Promise<void>;
+export async function triggerAnEvent(eventName: string, userData: Partial<BrowserCase>): Promise<void> {
+  const { state, ...caseData } = userData;
+  if (state && eventName !== CITIZEN_UPDATE_CASE_STATE_AAT) {
+    logger.error(
+      `State can only be set via ${CITIZEN_UPDATE_CASE_STATE_AAT}. toApiFormat would drop State for ${eventName}`
+    );
+    process.exit(-1);
+  }
+  const payload: Partial<Case> =
+    state && eventName === CITIZEN_UPDATE_CASE_STATE_AAT ? { ...caseData, applicant2MiddleNames: state } : caseData;
+
   iAmOnPage(HOME_URL);
   await iClearTheForm();
 
@@ -51,20 +65,19 @@ export const triggerAnEvent = async (eventName: string, userData: Partial<Case>)
 
   if (userCase) {
     const caseReference = userCase.id;
-
     if (!caseReference) {
-      throw new Error(`No case reference or access code was returned for ${testUser}`);
+      throw new Error(`No case reference or access code was returned for ${testUser.email}`);
     }
 
     const cwUser = await getCaseworker();
     const caseWorker = await iGetTheTestUser(cwUser);
     const cwCaseApi = iGetTheCaseApi(caseWorker);
-    await cwCaseApi.triggerEvent(caseReference, userData, eventName);
+    await cwCaseApi.triggerEvent(caseReference, payload, eventName);
   } else {
     logger.error('Could not get case data as ' + user.username);
     process.exit(-1);
   }
-};
+}
 
 export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
   const caseApiLogger = new Logger({
