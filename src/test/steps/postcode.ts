@@ -43,7 +43,7 @@ export const iEnterPostcode = (postcode: string): void => {
 export const iClickFindAddress = async (wait?: number): Promise<void> => {
   const FIND_ADDRESS_BUTTON_SELECTOR = '#findAddressButton';
   type WindowWithFindAddressClick = Window & { __lastFindAddressClick?: number };
-  
+
   iWaitForVisible(FIND_ADDRESS_BUTTON_SELECTOR, wait);
   I.waitForFunction(
     (debounceTimeoutInSeconds: number) => {
