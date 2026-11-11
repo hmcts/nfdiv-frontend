@@ -47,6 +47,10 @@ export enum TestUserType {
   CITIZEN_APPLICANT_2 = 'citizenApplicant2',
 }
 
+export const areRetriesDisabled = (): boolean => {
+  return config.DisableRetries;
+}
+
 export const config = {
   TEST_URL: process.env.TEST_URL || 'http://localhost:3001',
   IDAM_WEB_BASE_URL: 'Test Environment Not Yet Initialized',
@@ -59,6 +63,7 @@ export const config = {
     return config.idamUserManager;
   },
   TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
+  DisableRetries: process.env.TEST_DISABLE_RETRIES ? process.env.TEST_DISABLE_RETRIES === 'true' : false,
   WaitForTimeout: 30000,
   Gherkin: {
     features: './features/**/*.feature',
