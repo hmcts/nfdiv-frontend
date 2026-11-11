@@ -1,5 +1,6 @@
 import {
   iClearTheForm,
+  iClick,
   iClickElement,
   iEnterValueIntoInput,
   iWaitForVisible,
@@ -8,6 +9,8 @@ import { logger } from './commonHelpers/logger';
 import { iClickToNavigate, iGrabCurrentUrl } from './commonHelpers/navigation';
 
 const { I } = inject();
+
+export const GOVUK_FRONTEND_BUTTON_DEBOUNCE_TIMEOUT_IN_SECONDS = 1;
 
 export const DEFAULT_ADDRESS = 'MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ';
 
@@ -39,8 +42,18 @@ export const iEnterPostcode = (postcode: string): void => {
 };
 
 export const iClickFindAddress = async (wait?: number): Promise<void> => {
-  const nextUrl = await iGrabCurrentUrl();
-  await iClickToNavigate('#findAddressButton', wait, nextUrl);
+  const FIND_ADDRESS_BUTTON_SELECTOR = '#findAddressButton';
+  iWaitForVisible(FIND_ADDRESS_BUTTON_SELECTOR, wait);
+  I.waitForFunction(
+    (debounce_timeout_in_seconds: number) => {
+      const last = (window as any).__lastFindAddressClick;
+      return !last || performance.now() - last > (debounce_timeout_in_seconds * 1000);
+    },
+    [GOVUK_FRONTEND_BUTTON_DEBOUNCE_TIMEOUT_IN_SECONDS],
+    wait
+  );
+  await I.executeScript(() => ((window as any).__lastFindAddressClick = performance.now()));
+  iClick(FIND_ADDRESS_BUTTON_SELECTOR);
 };
 
 export const iClickCannotFindAddress = (wait?: number): void => {

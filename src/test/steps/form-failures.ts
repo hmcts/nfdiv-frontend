@@ -95,7 +95,6 @@ When('I click find address', async () => {
 When('I click find address and expect error elements', async () => {
   await iClickFindAddress();
   iWaitForVisibleErrorSummary();
-  iWait(1); // The next iClickFindAddress() call (without reloading the page) can fail without this wait
 });
 When('I enter an invalid postcode', () => {
   iEnterPostcode('not a postcode!');
