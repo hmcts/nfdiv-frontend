@@ -21,6 +21,7 @@ import {
   iEnterValueIntoInput,
   iRejectCookies,
   iSelectRadioValue,
+  iWaitForElement,
   iWaitForElementWithText,
 } from './elementInteraction';
 import { iAmOnIdam, iAmOnNfd, iAmOnPage, iClickToNavigate, iWaitInUrl } from './navigation';
@@ -32,6 +33,17 @@ const LOGIN_TIMEOUT = 60;
 export const APPLICANT_1_FIRST_NAME = 'Sarah';
 export const APPLICANT_2_FIRST_NAME = 'John';
 export const APPLICANTS_LAST_NAME = 'Smith';
+
+export const iSignOutAndLoginAsUser = async (user: TestUserKey, expectedUrl?: string, expectedElementSelector?: string) => {
+  iSignOut();
+  await login(user);
+  if (expectedUrl) {
+    iWaitInUrl(expectedUrl);
+  }
+  if (expectedElementSelector) {
+    iWaitForElement(expectedElementSelector);
+  }
+};
 
 export const iClickSignOut = async (): Promise<void> => {
   await iClickToNavigate(

@@ -35,7 +35,13 @@ import {
   iWaitForElement,
 } from './commonHelpers/elementInteraction';
 import { iClickToNavigate, iWaitInUrl } from './commonHelpers/navigation';
-import { getApplicantString, getTheirName, iSignOut, login } from './commonHelpers/userInteraction';
+import {
+  getApplicantString,
+  getTheirName,
+  iSignOut,
+  iSignOutAndLoginAsUser,
+  login,
+} from './commonHelpers/userInteraction';
 import { DEFAULT_RELATIONSHIP_DATE, iEnterADateIntoField } from './date';
 import { completedFormWithFixture } from './happy-path';
 import { DEFAULT_ADDRESS, SECONDARY_ADDRESS, iEnterTheUkAddress } from './postcode';
@@ -50,18 +56,11 @@ const TEST_SOLICITOR_FIRM_NAME = 'Test Solicitor Firm Name';
 const AOS_AWAITING_EVENT_DATA = { state: State.AwaitingAos, issueDate: DEFAULT_DATE_STRING };
 const DEFAULT_NI_NUMBER = 'JB 34 66 84 E';
 
-const signOutAndLoginAsUser = async (user: TestUserKey, expectedUrl: string, expectedElementSelector: string) => {
-  iSignOut();
-  await login(user);
-  iWaitInUrl(expectedUrl);
-  iWaitForElement(expectedElementSelector);
-};
-
 export const createCaseAtAwaitingAos = async (): Promise<void> => {
   await login(TestUserKey.APPLICANT_1, true);
   await completedFormWithFixture('issuedCase');
   await caseworkerUpdatesTheCase(AOS_AWAITING_EVENT_DATA);
-  await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, AOS_AWAITING_LINE_SELECTOR);
+  await iSignOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, AOS_AWAITING_LINE_SELECTOR);
 };
 
 export const setTheCaseToAosOverdueOrDrafted = async (
@@ -82,7 +81,7 @@ export const setTheCaseToAosOverdueOrDrafted = async (
     eventData.applicant2AddressPrivate = YesOrNo.YES;
   }
   await caseworkerUpdatesTheCase(eventData);
-  await signOutAndLoginAsUser(
+  await iSignOutAndLoginAsUser(
     TestUserKey.APPLICANT_1,
     HUB_PAGE,
     drafted ? AOS_DUE_AND_DRAFTED_LINE_SELECTOR : AOS_DUE_LINE_SELECTOR
