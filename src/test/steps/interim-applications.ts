@@ -1,4 +1,4 @@
-import { CITIZEN_UPDATE_CASE_STATE_AAT, State, YesOrNo } from '../../main/app/case/definition';
+import { SearchGovRecordsWhichDepartment, State, YesOrNo } from '../../main/app/case/definition';
 import {
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
@@ -7,16 +7,18 @@ import {
 } from '../../main/steps/urls';
 
 import { TestUserKey } from './commonHelpers/IdamUserManager';
-import { BrowserCase, triggerAnEvent } from './commonHelpers/caseInteraction';
+import { BrowserCase, caseworkerUpdatesTheCase } from './commonHelpers/caseInteraction';
 import {
   DEFAULT_EMAIL_ADDRESS,
   DEFAULT_PHONE_NUMBER,
   iCheckOption,
+  iCheckOptionValue,
   iClickStartAndExpectUrl,
   iEnterTheDefaultEmailAddressInto,
   iEnterValueIntoInput,
   iSelectNo,
   iSelectRadio,
+  iSelectRadioValue,
   iSelectYes,
   iWaitForElement,
 } from './commonHelpers/elementInteraction';
@@ -25,6 +27,16 @@ import { getApplicantString, getTheirName, iSignOut, login } from './commonHelpe
 import { DEFAULT_RELATIONSHIP_DATE, iEnterADateIntoField } from './date';
 import { completedFormWithFixture } from './happy-path';
 import { DEFAULT_ADDRESS, SECONDARY_ADDRESS, iEnterTheUkAddress } from './postcode';
+
+const AOS_DUE_AND_DRAFTED_LINE_SELECTOR = '#aosDueAndDraftedLine1';
+const AOS_DUE_LINE_SELECTOR = '#aosDueLine1';
+const AOS_AWAITING_LINE_SELECTOR = '#aosAwaitingLine1';
+const AOS_DUE_AND_DRAFTED_LINK_SELECTOR = '#aosDueAndDraftedLink';
+const AOS_DUE_LINK_SELECTOR = '#aosDueLink';
+const DEFAULT_DATE_STRING = '2020-01-01';
+const TEST_SOLICITOR_FIRM_NAME = 'Test Solicitor Firm Name';
+const AOS_AWAITING_EVENT_DATA = { state: State.AwaitingAos, issueDate: DEFAULT_DATE_STRING };
+const DEFAULT_NI_NUMBER = 'JB 34 66 84 E';
 
 const signOutAndLoginAsUser = async (user: TestUserKey, expectedUrl: string, expectedElementSelector: string) => {
   iSignOut();
@@ -36,42 +48,67 @@ const signOutAndLoginAsUser = async (user: TestUserKey, expectedUrl: string, exp
 export const createCaseAtAwaitingAos = async (): Promise<void> => {
   await login(TestUserKey.APPLICANT_1, true);
   await completedFormWithFixture('issuedCase');
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, { state: State.AwaitingAos, issueDate: '2023-10-31' });
-  await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, '#aosAwaitingLine1');
+  await caseworkerUpdatesTheCase(AOS_AWAITING_EVENT_DATA);
+  await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, AOS_AWAITING_LINE_SELECTOR);
 };
 
-export const iSetTheCaseToAosDrafted = async (
+export const setTheCaseToAosOverdueOrDrafted = async (
   applicant2Represented: boolean = false,
-  applicant2IsPrivate: boolean = false
+  applicant2IsPrivate: boolean = false,
+  drafted: boolean = false
 ): Promise<void> => {
-  const eventData: Partial<BrowserCase> = { state: State.AosDrafted, aosIsDrafted: YesOrNo.YES };
+  const eventData: Partial<BrowserCase> = { state: State.AosOverdue };
+  if (drafted) {
+    eventData.state = State.AosDrafted;
+    eventData.aosIsDrafted = YesOrNo.YES;
+  }
   if (applicant2Represented) {
     eventData.applicant2SolicitorRepresented = YesOrNo.YES;
-    eventData.applicant2SolicitorFirmName = 'Test Solicitor Firm Name';
+    eventData.applicant2SolicitorFirmName = TEST_SOLICITOR_FIRM_NAME;
   }
   if (applicant2IsPrivate) {
     eventData.applicant2AddressPrivate = YesOrNo.YES;
   }
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, eventData);
-  await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, '#aosDueAndDraftedLine1');
-  await iClickToNavigate('#aosDueAndDraftedLink', undefined, OPTIONS_FOR_PROGRESSING);
+  await caseworkerUpdatesTheCase(eventData);
+  await signOutAndLoginAsUser(
+    TestUserKey.APPLICANT_1,
+    HUB_PAGE,
+    drafted ? AOS_DUE_AND_DRAFTED_LINE_SELECTOR : AOS_DUE_LINE_SELECTOR
+  );
+  await iClickToNavigate(
+    drafted ? AOS_DUE_AND_DRAFTED_LINK_SELECTOR : AOS_DUE_LINK_SELECTOR,
+    undefined,
+    OPTIONS_FOR_PROGRESSING
+  );
 };
 
-export const iSetTheCaseToAosOverdue = async (): Promise<void> => {
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, { state: State.AosOverdue });
-  await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, '#aosDueLine1');
-  await iClickToNavigate('#aosDueLink', undefined, OPTIONS_FOR_PROGRESSING);
+export const setTheCaseToAosDrafted = async (
+  applicant2Represented: boolean = false,
+  applicant2IsPrivate: boolean = false
+): Promise<void> => {
+  await setTheCaseToAosOverdueOrDrafted(applicant2Represented, applicant2IsPrivate, true);
+};
+
+export const setTheCaseToAosOverdue = async (
+  applicant2Represented: boolean = false,
+  applicant2IsPrivate: boolean = false
+): Promise<void> => {
+  await setTheCaseToAosOverdueOrDrafted(applicant2Represented, applicant2IsPrivate, false);
 };
 
 export const iProgressTheJourneyToHaveTheyReceived = async (represented: boolean = false): Promise<void> => {
-  await iClickToNavigate('#aosDueAndDraftedLink', undefined, OPTIONS_FOR_PROGRESSING);
+  await iClickToNavigate(AOS_DUE_AND_DRAFTED_LINK_SELECTOR, undefined, OPTIONS_FOR_PROGRESSING);
   await iClickStartAndExpectUrl(represented ? HAVE_THEY_RECEIVED_REPRESENTED : HAVE_THEY_RECEIVED);
 };
 
-export const prepCaseForInterimApplications = async (): Promise<void> => {
+export const prepCaseForInterimApplications = async (
+  applicant2Represented: boolean = false,
+  applicant2IsPrivate: boolean = false,
+  drafted: boolean = true
+): Promise<void> => {
   await createCaseAtAwaitingAos();
-  await iSetTheCaseToAosDrafted();
-  await iProgressTheJourneyToHaveTheyReceived();
+  await setTheCaseToAosOverdueOrDrafted(applicant2Represented, applicant2IsPrivate, drafted);
+  await iClickStartAndExpectUrl(applicant2Represented ? HAVE_THEY_RECEIVED_REPRESENTED : HAVE_THEY_RECEIVED);
 };
 
 export const iEnterTheirNameForTheBailiff = (
@@ -83,20 +120,33 @@ export const iEnterTheirNameForTheBailiff = (
   iEnterValueIntoInput(names, `#${getApplicantString()}BailiffPartnersName`);
 };
 
+export const iEnterTheirNameForSearchGovRecords = (
+  names: string | { firstName: string; lastName: string } = getTheirName()
+): void => {
+  if (typeof names === 'object') {
+    names = `${names.firstName} ${names.lastName}`;
+  }
+  iEnterValueIntoInput(names, `#${getApplicantString()}SearchGovRecordsPartnerName`);
+};
+
 Given('I prep the case for an interim application', prepCaseForInterimApplications);
+
+Given('I prep the case for an overdue interim application', async () => {
+  await prepCaseForInterimApplications(false, false, false);
+});
 
 Given('I progress the case to AwaitingAos', createCaseAtAwaitingAos);
 
-Given('I set the case to AosDrafted', iSetTheCaseToAosDrafted);
+Given('I set the case to AosDrafted', setTheCaseToAosDrafted);
 
-Given('I set the case to AosOverdue', iSetTheCaseToAosOverdue);
+Given('I set the case to AosOverdue', setTheCaseToAosOverdue);
 
 Given('I set the case to AosDrafted and Applicant 2 is represented', async () => {
-  await iSetTheCaseToAosDrafted(true);
+  await setTheCaseToAosDrafted(true);
 });
 
 Given('I set the case to AosDrafted and Applicant 2 is private', async () => {
-  await iSetTheCaseToAosDrafted(false, true);
+  await setTheCaseToAosDrafted(false, true);
 });
 
 When("I don't know my partner's contact details", () => {
@@ -301,4 +351,39 @@ Given('I enter their new email address', () => {
 });
 Given('I want to send the papers again', () => {
   iSelectRadio('#sendPapersAgain');
+});
+
+// search gov records
+Given('I want to search government records', () => {
+  iSelectRadio('#search');
+});
+When('I enter the reason for applying', () => {
+  iEnterValueIntoInput('Example reason for applying', `#${getApplicantString()}SearchGovRecordsReasonForApplying`);
+});
+Given('I want to search other departments', () => {
+  iCheckOptionValue(SearchGovRecordsWhichDepartment.OTHER);
+  iEnterValueIntoInput('Example other departments', `#${getApplicantString()}SearchGovRecordsOtherDepartmentNames`);
+  iEnterValueIntoInput(
+    'Example reason for these departments',
+    `#${getApplicantString()}SearchGovRecordsWhyTheseDepartments`
+  );
+});
+Given('I enter their name for the search', iEnterTheirNameForSearchGovRecords);
+Given('I do not know their date of birth', () => {
+  iSelectNo();
+  iEnterValueIntoInput('40', `#${getApplicantString()}SearchGovRecordsPartnerApproximateAge`);
+});
+Given('I enter the dates they lived at this address', () => {
+  iEnterValueIntoInput('Example dates', `#${getApplicantString()}SearchGovRecordsPartnerLastKnownAddressDates`);
+});
+Given('I enter their date of birth for the search', () => {
+  iSelectYes();
+  iEnterADateIntoField(DEFAULT_RELATIONSHIP_DATE, `${getApplicantString()}SearchGovRecordsPartnerDateOfBirth`);
+});
+Given('I enter their NI number for the search', () => {
+  iEnterValueIntoInput(DEFAULT_NI_NUMBER, `#${getApplicantString()}SearchGovRecordsPartnerNationalInsurance`);
+});
+Given('I enter their additional address for the search', () => {
+  iEnterValueIntoInput(SECONDARY_ADDRESS, `#${getApplicantString()}SearchGovRecordsPartnerAdditionalAddress1`);
+  iEnterValueIntoInput('Example dates', `#${getApplicantString()}SearchGovRecordsPartnerAdditionalAddressDates1`);
 });
