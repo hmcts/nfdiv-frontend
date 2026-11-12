@@ -7,7 +7,7 @@ import {
 } from '../../main/steps/urls';
 
 import { TestUserKey } from './commonHelpers/IdamUserManager';
-import { triggerAnEvent } from './commonHelpers/caseInteraction';
+import { BrowserCase, triggerAnEvent } from './commonHelpers/caseInteraction';
 import {
   DEFAULT_EMAIL_ADDRESS,
   DEFAULT_PHONE_NUMBER,
@@ -40,14 +40,27 @@ export const createCaseAtAwaitingAos = async (): Promise<void> => {
   await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, '#aosAwaitingLine1');
 };
 
-export const iSetTheCaseToAosDrafted = async (): Promise<void> => {
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, { state: State.AosDrafted, aosIsDrafted: YesOrNo.YES });
+export const iSetTheCaseToAosDrafted = async (
+  applicant2Represented: boolean = false,
+  applicant2IsPrivate: boolean = false
+): Promise<void> => {
+  const eventData: Partial<BrowserCase> = { state: State.AosDrafted, aosIsDrafted: YesOrNo.YES };
+  if (applicant2Represented) {
+    eventData.applicant2SolicitorRepresented = YesOrNo.YES;
+    eventData.applicant2SolicitorFirmName = 'Test Solicitor Firm Name';
+  }
+  if (applicant2IsPrivate) {
+    eventData.applicant2AddressPrivate = YesOrNo.YES;
+  }
+  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, eventData);
   await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, '#aosDueAndDraftedLine1');
+  await iClickToNavigate('#aosDueAndDraftedLink', undefined, OPTIONS_FOR_PROGRESSING);
 };
 
 export const iSetTheCaseToAosOverdue = async (): Promise<void> => {
   await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, { state: State.AosOverdue });
   await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, '#aosDueLine1');
+  await iClickToNavigate('#aosDueLink', undefined, OPTIONS_FOR_PROGRESSING);
 };
 
 export const iSetTheCaseToAosDraftedAndApplicant2IsPrivate = async (): Promise<void> => {
@@ -64,22 +77,10 @@ export const iProgressTheJourneyToHaveTheyReceived = async (represented: boolean
   await iClickStartAndExpectUrl(represented ? HAVE_THEY_RECEIVED_REPRESENTED : HAVE_THEY_RECEIVED);
 };
 
-export const iProgressTheJourneyToHaveTheyReceivedWhenOverdue = async (represented: boolean = false): Promise<void> => {
-  await iClickToNavigate('#aosDueLink', undefined, OPTIONS_FOR_PROGRESSING);
-  await iClickStartAndExpectUrl(represented ? HAVE_THEY_RECEIVED_REPRESENTED : HAVE_THEY_RECEIVED);
-};
-
 export const prepCaseForInterimApplications = async (): Promise<void> => {
   await createCaseAtAwaitingAos();
   await iSetTheCaseToAosDrafted();
   await iProgressTheJourneyToHaveTheyReceived();
-};
-
-export const iSetApplicant2Represented = async (): Promise<void> => {
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, {
-    applicant2SolicitorRepresented: YesOrNo.YES,
-    applicant2SolicitorFirmName: 'Test Solicitor Firm Name',
-  });
 };
 
 export const iEnterTheirNameForTheBailiff = (
@@ -99,17 +100,13 @@ Given('I set the case to AosDrafted', iSetTheCaseToAosDrafted);
 
 Given('I set the case to AosOverdue', iSetTheCaseToAosOverdue);
 
-Given('I set the case to AosDrafted and Applicant 2 is private', iSetTheCaseToAosDraftedAndApplicant2IsPrivate);
-
-Given('I progress to HAVE_THEY_RECEIVED', iProgressTheJourneyToHaveTheyReceived);
-
-Given('I progress to HAVE_THEY_RECEIVED when overdue', iProgressTheJourneyToHaveTheyReceivedWhenOverdue);
-
-Given('I progress to HAVE_THEY_RECEIVED_REPRESENTED', async () => {
-  await iProgressTheJourneyToHaveTheyReceived(true);
+Given('I set the case to AosDrafted and Applicant 2 is represented', async () => {
+  await iSetTheCaseToAosDrafted(true);
 });
 
-Given('a superuser sets Applicant 2 represented', iSetApplicant2Represented);
+Given('I set the case to AosDrafted and Applicant 2 is private', async () => {
+  await iSetTheCaseToAosDrafted(false, true);
+});
 
 When("I don't know my partner's contact details", () => {
   iSelectRadio('#notKnown');
