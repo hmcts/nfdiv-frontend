@@ -34,7 +34,11 @@ export const APPLICANT_1_FIRST_NAME = 'Sarah';
 export const APPLICANT_2_FIRST_NAME = 'John';
 export const APPLICANTS_LAST_NAME = 'Smith';
 
-export const iSignOutAndLoginAsUser = async (user: TestUserKey, expectedUrl?: string, expectedElementSelector?: string) => {
+export const iSignOutAndLoginAsUser = async (
+  user: TestUserKey,
+  expectedUrl?: string,
+  expectedElementSelector?: string
+): Promise<void> => {
   iSignOut();
   await login(user);
   if (expectedUrl) {

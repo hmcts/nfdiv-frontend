@@ -32,16 +32,9 @@ import {
   iSelectNo,
   iSelectRadioValue,
   iSelectYes,
-  iWaitForElement,
 } from './commonHelpers/elementInteraction';
-import { iClickToNavigate, iWaitInUrl } from './commonHelpers/navigation';
-import {
-  getApplicantString,
-  getTheirName,
-  iSignOut,
-  iSignOutAndLoginAsUser,
-  login,
-} from './commonHelpers/userInteraction';
+import { iClickToNavigate } from './commonHelpers/navigation';
+import { getApplicantString, getTheirName, iSignOutAndLoginAsUser, login } from './commonHelpers/userInteraction';
 import { DEFAULT_RELATIONSHIP_DATE, iEnterADateIntoField } from './date';
 import { completedFormWithFixture } from './happy-path';
 import { DEFAULT_ADDRESS, SECONDARY_ADDRESS, iEnterTheUkAddress } from './postcode';
