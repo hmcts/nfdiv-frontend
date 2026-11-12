@@ -2,10 +2,10 @@ import { Checkbox } from '../../main/app/case/case';
 import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
 import { jointApplicant1CompleteCase } from '../functional/fixtures/jointApplicant1CompleteCase';
 
-import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
+import { iUpdateTheCase } from './commonHelpers/caseInteraction';
 
 Given('I am reviewing an application for divorce created by my wife', async () => {
-  await iSetTheUsersCaseTo({
+  await iUpdateTheCase({
     ...jointApplicant1CompleteCase,
     applicationType: ApplicationType.JOINT_APPLICATION,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -16,7 +16,7 @@ Given('I am reviewing an application for divorce created by my wife', async () =
 });
 
 Given('I am reviewing an application for divorce created by my husband', async () => {
-  await iSetTheUsersCaseTo({
+  await iUpdateTheCase({
     ...jointApplicant1CompleteCase,
     applicationType: ApplicationType.JOINT_APPLICATION,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
@@ -27,7 +27,7 @@ Given('I am reviewing an application for divorce created by my husband', async (
 });
 
 Given('I am reviewing an application for dissolution of my civil partnership', async () => {
-  await iSetTheUsersCaseTo({
+  await iUpdateTheCase({
     ...jointApplicant1CompleteCase,
     applicationType: ApplicationType.JOINT_APPLICATION,
     divorceOrDissolution: DivorceOrDissolution.DISSOLUTION,

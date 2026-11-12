@@ -2,7 +2,7 @@ import { Checkbox } from '../../main/app/case/case';
 import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
 import { CHECK_JURISDICTION } from '../../main/steps/urls';
 
-import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
+import { iUpdateTheCase } from './commonHelpers/caseInteraction';
 import { iClickSubmit, iSelectYesOrNoForField } from './commonHelpers/elementInteraction';
 import { iAmOnPage, iClickToNavigate } from './commonHelpers/navigation';
 
@@ -22,7 +22,7 @@ export const iClickCheckJurisdictionLink = async (nextUrl?: string | RegExp, wai
 };
 
 Given("I've completed all questions correctly to get to the jurisdiction section", async () => {
-  await iSetTheUsersCaseTo({
+  await iUpdateTheCase({
     applicationType: ApplicationType.SOLE_APPLICATION,
     divorceOrDissolution: DivorceOrDissolution.DIVORCE,
     gender: Gender.MALE,

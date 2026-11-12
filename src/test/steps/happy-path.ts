@@ -35,7 +35,7 @@ import {
   YOUR_DETAILS_URL,
 } from '../../main/steps/urls';
 
-import { iSetTheUsersCaseTo } from './commonHelpers/caseInteraction';
+import { iUpdateTheCase } from './commonHelpers/caseInteraction';
 import {
   iAgreeTheCourtCanContactMeByEmail,
   iCannotUploadDocs,
@@ -65,7 +65,7 @@ export const completedFormWithFixtureForUser = async (fixture: string, user?: st
   iAmOnPage(HOME_URL, user);
   const fixtureJson = requireFromFixture(`../functional/fixtures/${fixture}`)[fixture];
 
-  await iSetTheUsersCaseTo(fixtureJson);
+  await iUpdateTheCase(fixtureJson);
 
   iAmOnPage(ADDRESS_PRIVATE, user);
   iSetPrivateAddress(false);

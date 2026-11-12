@@ -1,14 +1,5 @@
 import { LanguagePreference } from '../../main/app/case/case';
-import {
-  ApplicationType,
-  CASEWORKER_ISSUE_APPLICATION,
-  CITIZEN_UPDATE_CASE_STATE_AAT,
-  ConditionalOrderCourt,
-  Gender,
-  SYSTEM_UPDATE_CASE_COURT_HEARING,
-  State,
-  YesOrNo,
-} from '../../main/app/case/definition';
+import { ApplicationType, Gender, State, YesOrNo } from '../../main/app/case/definition';
 import { FinancialOrderForRadioOption } from '../../main/steps/applicant1/who-is-the-financial-order-for/content';
 import {
   CHECK_JURISDICTION,
@@ -21,10 +12,12 @@ import { areRetriesDisabled } from '../config';
 
 import { TestUserKey } from './commonHelpers/IdamUserManager';
 import {
-  executeUserCaseScript,
+  caseworkerIssuesCase,
+  caseworkerUpdatesCourtCaseHearing,
+  caseworkerUpdatesTheCase,
+  iResetJurisdictionConnections,
   iSetTheCaseStateAndReSignIn,
   linkUserToCase,
-  triggerAnEvent,
 } from './commonHelpers/caseInteraction';
 import {
   DEFAULT_PHONE_NUMBER,
@@ -517,37 +510,18 @@ When('I as applicant1 enter my valid case reference and valid access code', asyn
   await linkUserToCase(TestUserKey.APPLICANT_1);
 });
 
-When('a case worker issues the application', async () => {
-  await triggerAnEvent(CASEWORKER_ISSUE_APPLICATION, { ceremonyPlace: 'Somewhere' });
-});
+When('a case worker issues the application', caseworkerIssuesCase);
 
-When('a case worker updates court case hearing', async () => {
-  await triggerAnEvent(SYSTEM_UPDATE_CASE_COURT_HEARING, {
-    coDateAndTimeOfHearing: '2021-11-10T00:00:00.000',
-    coCourt: ConditionalOrderCourt.BIRMINGHAM,
-    coDecisionDate: '2021-05-10',
-  });
-});
+When('a case worker updates court case hearing', caseworkerUpdatesCourtCaseHearing);
 
 When('a superuser updates {string} with {string}', async (field: string, value: string) => {
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, { [field]: value });
+  await caseworkerUpdatesTheCase({ [field]: value });
 });
 
 When('I pause the test', () => pause());
 
 When('I reset the jurisdiction connections', async () => {
-  const userCaseObj = {
-    connections: null,
-    applicant1LifeBasedInEnglandAndWales: null,
-    applicant2LifeBasedInEnglandAndWales: null,
-    applicant1DomicileInEnglandWales: null,
-    applicant2DomicileInEnglandWales: null,
-    bothLastHabituallyResident: null,
-    applicant1LivingInEnglandWalesTwelveMonths: null,
-    applicant1LivingInEnglandWalesSixMonths: null,
-    jurisdictionResidualEligible: null,
-  };
-  await executeUserCaseScript(userCaseObj);
+  await iResetJurisdictionConnections();
   iAmOnPage(CHECK_JURISDICTION);
   await iClickSubmit();
 });

@@ -3,7 +3,14 @@ import { Logger, transports } from 'winston';
 
 import { Case, CaseWithId } from '../../../main/app/case/case';
 import { CaseApi, getCaseApi } from '../../../main/app/case/case-api';
-import { CITIZEN_UPDATE_CASE_STATE_AAT, DivorceOrDissolution, State } from '../../../main/app/case/definition';
+import {
+  CASEWORKER_ISSUE_APPLICATION,
+  CITIZEN_UPDATE_CASE_STATE_AAT,
+  ConditionalOrderCourt,
+  DivorceOrDissolution,
+  SYSTEM_UPDATE_CASE_COURT_HEARING,
+  State,
+} from '../../../main/app/case/definition';
 import { OrNull, toApiFormat } from '../../../main/app/case/to-api-format';
 import { UserDetails } from '../../../main/app/controller/AppRequest';
 import { addConnectionsBasedOnQuestions } from '../../../main/app/jurisdiction/connections';
@@ -24,7 +31,6 @@ import {
   getCaseworker,
   getCurrentUser,
   getCurrentUserKey,
-  getUser,
   iClickSignOut,
   iGetTheTestUser,
   iSignOut,
@@ -101,13 +107,13 @@ function logFailedToSetCaseError(
 
 export function triggerAnEvent(
   eventName: typeof CITIZEN_UPDATE_CASE_STATE_AAT,
-  userData: Partial<BrowserCase>,
+  userData: Partial<OrNull<BrowserCase>>,
   asCurrentUser?: boolean
 ): Promise<void>;
 export function triggerAnEvent(eventName: string, userData: Partial<Case>, asCurrentUser?: boolean): Promise<void>;
 export async function triggerAnEvent(
   eventName: string,
-  userData: Partial<BrowserCase>,
+  userData: Partial<OrNull<BrowserCase>>,
   asCurrentUser: boolean = false
 ): Promise<void> {
   const { state, ...caseData } = userData;
@@ -125,7 +131,7 @@ export async function triggerAnEvent(
   const payload: Partial<Case> =
     eventName === CITIZEN_UPDATE_CASE_STATE_AAT
       ? formatPayloadForCitizenUpdateCaseStateAat(userData, canSenderSetConnections(asCurrentUser))
-      : caseData;
+      : (caseData as Partial<Case>);
 
   const eventUser = asCurrentUser ? currentUser : await getCaseworker();
   try {
@@ -149,29 +155,19 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
   return getCaseApi(testUser, caseApiLogger);
 };
 
-export const iSetTheUsersCaseTo = async (userCaseObj: Partial<BrowserCase>): Promise<void> => {
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, userCaseObj, true);
+export const caseworkerUpdatesTheCase = async (eventData: Partial<BrowserCase>): Promise<void> => {
+  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, eventData);
+};
+
+export const iUpdateTheCase = async (eventData: Partial<OrNull<BrowserCase>>): Promise<void> => {
+  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, eventData, true);
 };
 
 export const iSetTheCaseStateAndReSignIn = async (state: State): Promise<void> => {
   const userKey = getCurrentUserKey() || TestUserKey.APPLICANT_1;
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, { state }, true);
+  await iUpdateTheCase({ state });
   iSignOut();
   await login(userKey, false, false);
-};
-
-export const executeUserCaseScript = async (data: Partial<OrNull<BrowserCase>>): Promise<void> => {
-  await recorder.promise(); // let queued I.* steps finish before calling the API
-
-  const { user, caseApi, caseReference } = await getApiAndCaseReferenceForUser();
-
-  const payload: Partial<Case> = formatPayloadForCitizenUpdateCaseStateAat(data, canSenderSetConnections(true));
-
-  try {
-    await caseApi.triggerEvent(caseReference, payload, CITIZEN_UPDATE_CASE_STATE_AAT);
-  } catch (error) {
-    logFailedToSetCaseError(user, CITIZEN_UPDATE_CASE_STATE_AAT, error, payload);
-  }
 };
 
 export const iGetTheCaseForUser = async (user: TestUserAndPassword = getCurrentUser()): Promise<CaseWithId> => {
@@ -186,10 +182,6 @@ export const iGetTheCaseForUser = async (user: TestUserAndPassword = getCurrentU
 
 export const getCaseForCurrentUser = async (): Promise<CaseWithId> => {
   return iGetTheCaseForUser();
-};
-
-export const getCaseForApplicant1 = async (): Promise<CaseWithId> => {
-  return iGetTheCaseForUser(getUser(TestUserKey.APPLICANT_1));
 };
 
 export const linkUserToCase = async (
@@ -224,6 +216,32 @@ export const linkUserToCase = async (
     await iClickSubmit(); // What is the applicant 1 URL once they enter their access code?
   }
   await recorder.promise();
+};
+
+export const caseworkerIssuesCase = async (): Promise<void> => {
+  await triggerAnEvent(CASEWORKER_ISSUE_APPLICATION, { ceremonyPlace: 'Somewhere' });
+};
+
+export const caseworkerUpdatesCourtCaseHearing = async (): Promise<void> => {
+  await triggerAnEvent(SYSTEM_UPDATE_CASE_COURT_HEARING, {
+    coDateAndTimeOfHearing: '2021-11-10T00:00:00.000',
+    coCourt: ConditionalOrderCourt.BIRMINGHAM,
+  });
+};
+
+export const iResetJurisdictionConnections = async (): Promise<void> => {
+  const userCase = {
+    connections: null,
+    applicant1LifeBasedInEnglandAndWales: null,
+    applicant2LifeBasedInEnglandAndWales: null,
+    applicant1DomicileInEnglandWales: null,
+    applicant2DomicileInEnglandWales: null,
+    bothLastHabituallyResident: null,
+    applicant1LivingInEnglandWalesTwelveMonths: null,
+    applicant1LivingInEnglandWalesSixMonths: null,
+    jurisdictionResidualEligible: null,
+  };
+  await iUpdateTheCase(userCase);
 };
 
 export interface BrowserCase extends Case {
