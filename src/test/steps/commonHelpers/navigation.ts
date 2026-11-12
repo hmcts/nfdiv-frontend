@@ -148,6 +148,9 @@ export const setUserPathPrefix = (nextUrl: string, user?: string): InternalPageL
 export const iDontSeeABackLink = (): void => {
   I.dontSeeElementInDOM(BACK_LINK_SELECTOR);
 };
+export const iSeeABackLink = (): void => {
+  iWaitForVisible(BACK_LINK_SELECTOR);
+}
 export const iClickBackLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
   await iClickToNavigate(BACK_LINK_SELECTOR, wait, nextUrl);
 };
