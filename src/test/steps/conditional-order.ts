@@ -1,7 +1,8 @@
 import { State } from '../../main/app/case/definition';
 import { HUB_PAGE } from '../../main/steps/urls';
-import { iSetTheCaseStateAndSignInAsUser } from './commonHelpers/caseInteraction';
+
 import { TestUserKey } from './commonHelpers/IdamUserManager';
+import { iSetTheCaseStateAndSignInAsUser } from './commonHelpers/caseInteraction';
 import { iClickToNavigate } from './commonHelpers/navigation';
 
 Given('I progress the case to AwaitingConditionalOrder', async () => {
