@@ -69,6 +69,7 @@ export const config = {
     features: './features/**/*.feature',
     steps: [
       '../steps/common.ts',
+      '../steps/conditional-order.ts',
       '../steps/date.ts',
       '../steps/check-your-answers.ts',
       '../steps/form-failures.ts',
