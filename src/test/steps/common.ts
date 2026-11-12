@@ -115,7 +115,7 @@ Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$/, (user: string, url: stri
   iWaitInUrlAsUser(url, user);
 });
 Then(
-  /^the page URL should be "([^"]*)" \/ "([^"]*)"$ and the page should include element "([^"]*)"$/,
+  /^the page URL should be "([^"]*)" \/ "([^"]*)"$ with element "([^"]*)"$/,
   (user: string, url: string, expectedElementSelector: string) => {
     iWaitInUrlAsUser(url, user, undefined, expectedElementSelector);
   }
@@ -123,12 +123,9 @@ Then(
 Then('the page URL should be {string}', (url: string) => {
   iWaitInUrl(url);
 });
-Then(
-  'the page URL should be {string} and the page should include element {string}',
-  (url: string, expectedElementSelector: string) => {
-    iWaitInUrl(url, undefined, expectedElementSelector);
-  }
-);
+Then('the page URL should be {string} with element {string}', (url: string, expectedElementSelector: string) => {
+  iWaitInUrl(url, undefined, expectedElementSelector);
+});
 Then('the request should redirect to the page not found error page', () => {
   iWaitInPageNotFoundErrorPage();
 });
@@ -199,7 +196,7 @@ Then('the page should include {string}', (text: string) => {
 });
 
 Then('the page should include element {string}', (selector: string) => {
-  iWaitForElement(selector);
+  iWaitForVisible(selector);
 });
 
 Then('the page should not include element {string}', (selector: string) => {
@@ -246,6 +243,12 @@ When('I click start', async () => {
 When('I click start and expect URL {string}', async (url: string) => {
   await iClickStartAndExpectUrl(url);
 });
+When(
+  'I click start and expect URL {string} with element {string}',
+  async (url: string, expectedElementSelector: string) => {
+    await iClickStartAndExpectUrl(url, undefined, undefined, expectedElementSelector);
+  }
+);
 
 When('I sign out', iClickSignOut);
 
