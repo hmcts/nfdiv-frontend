@@ -143,7 +143,7 @@ export class IdamUserManager {
     if (this.hasUser(userKey) && userKey !== TestUserKey.TEST_USER) {
       this[userKey] = { username: '', password: '' };
     }
-    if (this.getCurrentUserKey() === userKey) {
+    if (this.currentUser === userKey) {
       this.clearCurrentUser();
     }
   }
@@ -204,7 +204,10 @@ export class IdamUserManager {
     return this[this.currentUser];
   }
 
-  getCurrentUserKey(): TestUserKey | undefined {
+  getCurrentUserKey(): TestUserKey {
+    if (!this.currentUser) {
+      throw new Error('No current user set');
+    }
     return this.currentUser;
   }
 
@@ -220,9 +223,20 @@ export class IdamUserManager {
     return this.currentUser === TestUserKey.RESPONDENT;
   }
 
-  getUser(userKey: TestUserKey): TestUserAndPassword {
-    return this[userKey];
-  }
+  getUser = async (userKey: TestUserKey): Promise<TestUserAndPassword> => {
+    switch (userKey) {
+      case TestUserKey.APPLICANT_1:
+        return this.getApplicant1();
+      case TestUserKey.APPLICANT_2:
+        return this.getApplicant2();
+      case TestUserKey.RESPONDENT:
+        return this.getRespondent();
+      case TestUserKey.CASEWORKER:
+        return this.getCaseWorker();
+      case TestUserKey.TEST_USER:
+        return this.getDefaultTestUser();
+    }
+  };
 
   setCurrentUser(userKey: TestUserKey): void {
     this.currentUser = userKey;
