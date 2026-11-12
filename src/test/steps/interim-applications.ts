@@ -108,11 +108,6 @@ export const setTheCaseToAosOverdue = async (
   await setTheCaseToAosOverdueOrDrafted(applicant2Represented, applicant2IsPrivate, false);
 };
 
-export const iProgressTheJourneyToHaveTheyReceived = async (represented: boolean = false): Promise<void> => {
-  await iClickToNavigate(AOS_DUE_AND_DRAFTED_LINK_SELECTOR, undefined, OPTIONS_FOR_PROGRESSING);
-  await iClickStartAndExpectUrl(represented ? HAVE_THEY_RECEIVED_REPRESENTED : HAVE_THEY_RECEIVED);
-};
-
 export const prepCaseForInterimApplications = async (
   applicant2Represented: boolean = false,
   applicant2IsPrivate: boolean = false,
