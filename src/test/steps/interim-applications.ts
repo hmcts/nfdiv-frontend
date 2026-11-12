@@ -18,7 +18,6 @@ import {
   iEnterValueIntoInput,
   iSelectNo,
   iSelectRadio,
-  iSelectRadioValue,
   iSelectYes,
   iWaitForElement,
 } from './commonHelpers/elementInteraction';
