@@ -63,15 +63,6 @@ export const iSetTheCaseToAosOverdue = async (): Promise<void> => {
   await iClickToNavigate('#aosDueLink', undefined, OPTIONS_FOR_PROGRESSING);
 };
 
-export const iSetTheCaseToAosDraftedAndApplicant2IsPrivate = async (): Promise<void> => {
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, {
-    state: State.AosDrafted,
-    aosIsDrafted: YesOrNo.YES,
-    applicant2AddressPrivate: YesOrNo.YES,
-  });
-  await signOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, '#aosDueAndDraftedLine1');
-};
-
 export const iProgressTheJourneyToHaveTheyReceived = async (represented: boolean = false): Promise<void> => {
   await iClickToNavigate('#aosDueAndDraftedLink', undefined, OPTIONS_FOR_PROGRESSING);
   await iClickStartAndExpectUrl(represented ? HAVE_THEY_RECEIVED_REPRESENTED : HAVE_THEY_RECEIVED);
