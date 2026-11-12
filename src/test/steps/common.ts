@@ -1,6 +1,7 @@
 import { LanguagePreference } from '../../main/app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../../main/app/case/definition';
 import { FinancialOrderForRadioOption } from '../../main/steps/applicant1/who-is-the-financial-order-for/content';
+import { existingOrNew } from '../../main/steps/existing-application/content';
 import {
   CHECK_JURISDICTION,
   CSRF_TOKEN_ERROR_URL,
@@ -74,11 +75,12 @@ import {
   iClickWithdrawLink,
   iDontSeeABackLink,
   iGrabCurrentUrl,
+  iSeeABackLink,
   iWaitInPageNotFoundErrorPage,
   iWaitInUrl,
   iWaitInUrlAsUser,
 } from './commonHelpers/navigation';
-import { clearNewUsers, getApplicantString, iClickSignOut, login } from './commonHelpers/userInteraction';
+import { clearNewUsers, getApplicantString, iClickSignOut, iSignOutAndLoginAsUser, login } from './commonHelpers/userInteraction';
 
 const { I } = inject();
 
@@ -127,6 +129,17 @@ Given('I login with applicant {string}', async (applicant: string) => {
   const userKey = parseInt(applicant) === 1 ? TestUserKey.APPLICANT_1 : TestUserKey.APPLICANT_2;
   await login(userKey);
 });
+Given('I sign out then login with applicant {string} and expect URL {string}', async (applicant: string, url: string) => {
+  const userKey = parseInt(applicant) === 1 ? TestUserKey.APPLICANT_1 : TestUserKey.APPLICANT_2;
+  await iSignOutAndLoginAsUser(userKey, url);
+});
+Given(
+  'I sign out then login with applicant {string} and expect URL {string} with element {string}',
+  async (applicant: string, url: string, expectedElementSelector: string) => {
+    const userKey = parseInt(applicant) === 1 ? TestUserKey.APPLICANT_1 : TestUserKey.APPLICANT_2;
+    await iSignOutAndLoginAsUser(userKey, url, expectedElementSelector);
+  }
+);
 Given('I login with the respondent', async () => {
   await login(TestUserKey.RESPONDENT);
 });
@@ -186,6 +199,7 @@ Then('the page should not include element {string}', (selector: string) => {
   I.dontSeeElementInDOM(selector);
 });
 Then('the page should not include a back link', iDontSeeABackLink);
+Then('the page should include a back link', iSeeABackLink);
 
 Then('the page should include visible element {string}', iWaitForVisible);
 
@@ -243,6 +257,9 @@ When('I click submit', iClickSubmit);
 When('I click submit and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
 });
+When('I click submit and expect URL {string} with element {string}', async (url: string, expectedElementSelector: string) => {
+  await iClickSubmitAndExpectUrl(url, undefined, undefined, expectedElementSelector);
+});
 When('I click continue', iClickContinue);
 When('I click continue and expect URL {string}', async (url: string) => {
   await iClickContinueAndExpectUrl(url);
@@ -287,12 +304,6 @@ When('I click save and sign out and expect URL {string}', async (url: string) =>
 When('I click provide information', async () => {
   await iClickToNavigate('#provideInformationButton');
 });
-When('I click apply for conditional order', async () => {
-  await iClickToNavigate('#applyForConditionalOrderButton');
-});
-When('I click apply for conditional order and expect URL {string}', async (url: string) => {
-  await iClickToNavigate('#applyForConditionalOrderButton', undefined, url);
-});
 When('I click apply for final order', async () => {
   await iClickToNavigate('#applyForFinalOrderButton');
 });
@@ -329,11 +340,11 @@ When('I select English', () => {
   iSelectRadioValueForField(LanguagePreference.English);
 });
 When('I want to continue with my existing application', () => {
-  iSelectRadioValueForField('existing');
+  iSelectRadioValueForField(existingOrNew.Existing);
 });
 When('I want to continue with my divorce application', iSelectYes);
 When('I want to join the new application', () => {
-  iSelectRadioValue('new');
+  iSelectRadioValue(existingOrNew.New);
 });
 When('I do not need my contact details kept private', () => {
   iSetPrivateAddress(false);
