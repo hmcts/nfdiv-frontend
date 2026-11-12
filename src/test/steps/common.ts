@@ -13,9 +13,9 @@ import { areRetriesDisabled } from '../config';
 import { TestUserKey } from './commonHelpers/IdamUserManager';
 import {
   caseworkerIssuesCase,
+  caseworkerResetsJurisdictionConnections,
   caseworkerUpdatesCourtCaseHearing,
   caseworkerUpdatesTheCase,
-  iResetJurisdictionConnections,
   iSetTheCaseStateAndReSignIn,
   linkUserToCase,
 } from './commonHelpers/caseInteraction';
@@ -78,13 +78,7 @@ import {
   iWaitInUrl,
   iWaitInUrlAsUser,
 } from './commonHelpers/navigation';
-import {
-  clearNewUsers,
-  getApplicantString,
-  getCurrentUserKey,
-  iClickSignOut,
-  login,
-} from './commonHelpers/userInteraction';
+import { clearNewUsers, getApplicantString, iClickSignOut, login } from './commonHelpers/userInteraction';
 
 const { I } = inject();
 
@@ -121,10 +115,6 @@ Then('the page URL should be {string} with element {string}', (url: string, expe
 });
 Then('the request should redirect to the page not found error page', () => {
   iWaitInPageNotFoundErrorPage();
-});
-
-Given('I login', async () => {
-  await login(getCurrentUserKey() || TestUserKey.APPLICANT_1);
 });
 
 Given('I create a new user and login', async () => {
@@ -521,7 +511,7 @@ When('a superuser updates {string} with {string}', async (field: string, value: 
 When('I pause the test', () => pause());
 
 When('I reset the jurisdiction connections', async () => {
-  await iResetJurisdictionConnections();
+  await caseworkerResetsJurisdictionConnections();
   iAmOnPage(CHECK_JURISDICTION);
   await iClickSubmit();
 });

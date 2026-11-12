@@ -28,19 +28,18 @@ import { iClickSubmit, iClickSubmitAndExpectUrl, iEnterValueIntoInput } from './
 import { logger } from './logger';
 import { iAmOnPage } from './navigation';
 import {
-  getCaseworker,
   getCurrentUser,
   getCurrentUserKey,
+  getUser,
   iClickSignOut,
   iGetTheTestUser,
   iSignOut,
-  isApplicant2,
-  isRespondent,
   login,
 } from './userInteraction';
 
-const canSenderSetConnections = (asCurrentUser: boolean): boolean =>
-  !asCurrentUser || (!isApplicant2() && !isRespondent());
+const canSenderSetConnections = (sender: TestUserKey): boolean => {
+  return sender !== TestUserKey.APPLICANT_2 && sender !== TestUserKey.RESPONDENT;
+};
 
 const formatPayloadForCitizenUpdateCaseStateAat = (
   data: Partial<OrNull<BrowserCase>>,
@@ -108,13 +107,18 @@ function logFailedToSetCaseError(
 export function triggerAnEvent(
   eventName: typeof CITIZEN_UPDATE_CASE_STATE_AAT,
   userData: Partial<OrNull<BrowserCase>>,
-  asCurrentUser?: boolean
+  asUser: typeof TestUserKey.CASEWORKER
 ): Promise<void>;
-export function triggerAnEvent(eventName: string, userData: Partial<Case>, asCurrentUser?: boolean): Promise<void>;
+export function triggerAnEvent(
+  eventName: typeof CITIZEN_UPDATE_CASE_STATE_AAT,
+  userData: Partial<BrowserCase>,
+  asUser: typeof TestUserKey.APPLICANT_1 | typeof TestUserKey.APPLICANT_2 | typeof TestUserKey.RESPONDENT
+): Promise<void>;
+export function triggerAnEvent(eventName: string, userData: Partial<Case>, asUser: TestUserKey): Promise<void>;
 export async function triggerAnEvent(
   eventName: string,
   userData: Partial<OrNull<BrowserCase>>,
-  asCurrentUser: boolean = false
+  asUser: TestUserKey = TestUserKey.CASEWORKER
 ): Promise<void> {
   const { state, ...caseData } = userData;
   if (state && eventName !== CITIZEN_UPDATE_CASE_STATE_AAT) {
@@ -126,21 +130,21 @@ export async function triggerAnEvent(
 
   await recorder.promise(); // let queued I.* steps finish before calling the API
 
-  const { user: currentUser, caseApi, caseReference } = await getApiAndCaseReferenceForUser();
+  const { caseApi, caseReference } = await getApiAndCaseReferenceForUser();
 
   const payload: Partial<Case> =
     eventName === CITIZEN_UPDATE_CASE_STATE_AAT
-      ? formatPayloadForCitizenUpdateCaseStateAat(userData, canSenderSetConnections(asCurrentUser))
+      ? formatPayloadForCitizenUpdateCaseStateAat(userData, canSenderSetConnections(asUser))
       : (caseData as Partial<Case>);
 
-  const eventUser = asCurrentUser ? currentUser : await getCaseworker();
+  const eventUser = await getUser(asUser);
   try {
-    if (asCurrentUser) {
+    if (asUser === getCurrentUserKey()) {
       await caseApi.triggerEvent(caseReference, payload, eventName);
     } else {
-      const caseWorker = await iGetTheTestUser(eventUser);
-      const cwCaseApi = iGetTheCaseApi(caseWorker);
-      await cwCaseApi.triggerEvent(caseReference, payload, eventName);
+      const sender = await iGetTheTestUser(eventUser);
+      const senderCaseApi = iGetTheCaseApi(sender);
+      await senderCaseApi.triggerEvent(caseReference, payload, eventName);
     }
   } catch (error) {
     logFailedToSetCaseError(eventUser, eventName, error, payload);
@@ -155,22 +159,23 @@ export const iGetTheCaseApi = (testUser: UserDetails): CaseApi => {
   return getCaseApi(testUser, caseApiLogger);
 };
 
-export const caseworkerUpdatesTheCase = async (eventData: Partial<BrowserCase>): Promise<void> => {
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, eventData);
+export const caseworkerUpdatesTheCase = async (eventData: Partial<OrNull<BrowserCase>>): Promise<void> => {
+  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, eventData, TestUserKey.CASEWORKER);
 };
 
-export const iUpdateTheCase = async (eventData: Partial<OrNull<BrowserCase>>): Promise<void> => {
-  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, eventData, true);
+export const iUpdateTheCase = async (eventData: Partial<BrowserCase>): Promise<void> => {
+  await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, eventData, getCurrentUserKey());
 };
 
 export const iSetTheCaseStateAndReSignIn = async (state: State): Promise<void> => {
-  const userKey = getCurrentUserKey() || TestUserKey.APPLICANT_1;
+  const userKey = getCurrentUserKey();
   await iUpdateTheCase({ state });
   iSignOut();
   await login(userKey, false, false);
 };
 
-export const iGetTheCaseForUser = async (user: TestUserAndPassword = getCurrentUser()): Promise<CaseWithId> => {
+export const iGetTheCaseForUser = async (userKey: TestUserKey): Promise<CaseWithId> => {
+  const user: TestUserAndPassword = await getUser(userKey);
   const { caseApi, caseReference } = await getApiAndCaseReferenceForUser(user);
 
   try {
@@ -181,7 +186,7 @@ export const iGetTheCaseForUser = async (user: TestUserAndPassword = getCurrentU
 };
 
 export const getCaseForCurrentUser = async (): Promise<CaseWithId> => {
-  return iGetTheCaseForUser();
+  return iGetTheCaseForUser(getCurrentUserKey());
 };
 
 export const linkUserToCase = async (
@@ -219,17 +224,21 @@ export const linkUserToCase = async (
 };
 
 export const caseworkerIssuesCase = async (): Promise<void> => {
-  await triggerAnEvent(CASEWORKER_ISSUE_APPLICATION, { ceremonyPlace: 'Somewhere' });
+  await triggerAnEvent(CASEWORKER_ISSUE_APPLICATION, { ceremonyPlace: 'Somewhere' }, TestUserKey.CASEWORKER);
 };
 
 export const caseworkerUpdatesCourtCaseHearing = async (): Promise<void> => {
-  await triggerAnEvent(SYSTEM_UPDATE_CASE_COURT_HEARING, {
-    coDateAndTimeOfHearing: '2021-11-10T00:00:00.000',
-    coCourt: ConditionalOrderCourt.BIRMINGHAM,
-  });
+  await triggerAnEvent(
+    SYSTEM_UPDATE_CASE_COURT_HEARING,
+    {
+      coDateAndTimeOfHearing: '2021-11-10T00:00:00.000',
+      coCourt: ConditionalOrderCourt.BIRMINGHAM,
+    },
+    TestUserKey.CASEWORKER
+  );
 };
 
-export const iResetJurisdictionConnections = async (): Promise<void> => {
+export const caseworkerResetsJurisdictionConnections = async (): Promise<void> => {
   const userCase = {
     connections: null,
     applicant1LifeBasedInEnglandAndWales: null,
@@ -241,7 +250,7 @@ export const iResetJurisdictionConnections = async (): Promise<void> => {
     applicant1LivingInEnglandWalesSixMonths: null,
     jurisdictionResidualEligible: null,
   };
-  await iUpdateTheCase(userCase);
+  await caseworkerUpdatesTheCase(userCase);
 };
 
 export interface BrowserCase extends Case {

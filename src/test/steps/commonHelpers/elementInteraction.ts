@@ -369,12 +369,16 @@ export const iEnterTheirDefaultSolicitorEmailAddress = (): void => {
   iEnterTheDefaultEmailAddressInto(`#${applicant}SolicitorEmail`);
 };
 
-export const iEnterMyEmailAddress = (selector: string = `#${getApplicantString()}EmailAddress`): void => {
-  const testUserEmail = getUserEmail(getApplicantNumber());
+export const iEnterMyEmailAddress = async (
+  selector: string = `#${getApplicantString()}EmailAddress`
+): Promise<void> => {
+  const testUserEmail = await getUserEmail(getApplicantNumber());
   iEnterValueIntoInput(testUserEmail, selector);
 };
-export const iEnterTheirEmailAddress = (selector: string = `#${getOtherApplicantString()}EmailAddress`): void => {
-  const theirEmailAddress = getUserEmail(getOtherApplicantNumber());
+export const iEnterTheirEmailAddress = async (
+  selector: string = `#${getOtherApplicantString()}EmailAddress`
+): Promise<void> => {
+  const theirEmailAddress = await getUserEmail(getOtherApplicantNumber());
   iEnterValueIntoInput(theirEmailAddress, selector);
 };
 

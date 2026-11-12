@@ -80,8 +80,8 @@ Then('I enter {string} as their email address', (theirEmailAddress: string) => {
   iEnterValueAsTheirEmailAddress(theirEmailAddress);
 });
 
-Then('I enter my email address as their email address', () => {
-  iEnterMyEmailAddress(`#${getOtherApplicantString()}EmailAddress`);
+Then('I enter my email address as their email address', async () => {
+  await iEnterMyEmailAddress(`#${getOtherApplicantString()}EmailAddress`);
 });
 
 Then('I enter {string} as their solicitor email address', (theirSolicitorEmailAddress: string) => {

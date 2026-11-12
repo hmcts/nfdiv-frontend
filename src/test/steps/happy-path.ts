@@ -90,7 +90,7 @@ Given(
 Given('I set the email address for applicant 2', async () => {
   iAmOnPage(THEIR_EMAIL_ADDRESS);
   await iClearTheForm();
-  iEnterTheirEmailAddress();
+  await iEnterTheirEmailAddress();
   await iClickSubmit();
 });
 

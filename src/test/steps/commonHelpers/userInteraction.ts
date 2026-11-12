@@ -226,12 +226,12 @@ export const getCurrentUser = (): TestUserAndPassword => {
   return idamUserManager.getCurrentUser();
 };
 
-export const getCurrentUserKey = (): TestUserKey | undefined => {
+export const getCurrentUserKey = (): TestUserKey => {
   const idamUserManager = testConfig.getIdamUserManager();
   return idamUserManager.getCurrentUserKey();
 };
 
-export const getUser = (userKey: TestUserKey): TestUserAndPassword => {
+export const getUser = async (userKey: TestUserKey): Promise<TestUserAndPassword> => {
   const idamUserManager = testConfig.getIdamUserManager();
   return idamUserManager.getUser(userKey);
 };
@@ -246,10 +246,11 @@ export const getUserKeyByIndex = (index: number): TestUserKey => {
   throw new Error(`Invalid applicant user index: ${index}`);
 };
 
-export const getUserEmail = (index: number): string => {
+export const getUserEmail = async (index: number): Promise<string> => {
   const idamUserManager = testConfig.getIdamUserManager();
   const userKey = getUserKeyByIndex(index);
-  return idamUserManager.getUser(userKey).username;
+  const user = await idamUserManager.getUser(userKey);
+  return user.username;
 };
 
 export const getCaseworker = async (): Promise<TestUserAndPassword> => {
