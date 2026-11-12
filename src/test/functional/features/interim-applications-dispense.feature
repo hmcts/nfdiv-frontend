@@ -40,7 +40,6 @@ Feature: Dispense with service journey
     Given I enter their past address
     Then I click continue and expect URL "LAST_SEEN_DISPENSE"
 
-
     Given I enter the date they were last seen
     Then I click continue and expect URL "FINAL_ORDER_SEARCH_DISPENSE"
 
