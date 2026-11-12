@@ -1,4 +1,17 @@
-import { SearchGovRecordsWhichDepartment, State, YesOrNo } from '../../main/app/case/definition';
+import {
+  AlternativeServiceDifferentWays,
+  AlternativeServiceMethod,
+  NoResponseCheckContactDetails,
+  NoResponseNoNewAddressDetails,
+  NoResponsePartnerNewEmailOrAddress,
+  NoResponseProcessServerOrBailiff,
+  NoResponseProvidePartnerNewEmailOrAlternativeService,
+  NoResponseSearchOrDispense,
+  NoResponseSendPapersAgainOrTrySomethingElse,
+  SearchGovRecordsWhichDepartment,
+  State,
+  YesOrNo,
+} from '../../main/app/case/definition';
 import {
   HAVE_THEY_RECEIVED,
   HAVE_THEY_RECEIVED_REPRESENTED,
@@ -17,7 +30,7 @@ import {
   iEnterTheDefaultEmailAddressInto,
   iEnterValueIntoInput,
   iSelectNo,
-  iSelectRadio,
+  iSelectRadioValue,
   iSelectYes,
   iWaitForElement,
 } from './commonHelpers/elementInteraction';
@@ -149,29 +162,29 @@ Given('I set the case to AosDrafted and Applicant 2 is private', async () => {
 });
 
 When("I don't know my partner's contact details", () => {
-  iSelectRadio('#notKnown');
+  iSelectRadioValue(NoResponseCheckContactDetails.NOT_KNOWN);
 });
 When('I confirm their details are up to date', () => {
-  iSelectRadio('#upToDate');
+  iSelectRadioValue(NoResponseCheckContactDetails.UP_TO_DATE);
 });
 When('I have new contact details for my partner', () => {
-  iSelectRadio('#newAddress');
+  iSelectRadioValue(NoResponseCheckContactDetails.NEW_ADDRESS);
 });
 When('I have evidence they have received the papers', iSelectYes);
 When('I do not have evidence they have received the papers', iSelectNo);
 When('I do not have a certificate of service', iSelectNo);
 When('I select alternative service', () => {
-  iSelectRadio('#alternativeService');
+  iSelectRadioValue(NoResponseNoNewAddressDetails.ALTERNATIVE_SERVICE);
 });
 When('I select in person service', () => {
-  iSelectRadio('#inPersonService');
+  iSelectRadioValue(NoResponseNoNewAddressDetails.IN_PERSON_SERVICE);
 });
 When('I select bailiff service', () => {
-  iSelectRadio('#bailiffService');
+  iSelectRadioValue(NoResponseProcessServerOrBailiff.COURT_BAILIFF);
   iCheckOption('#respondentAddressInEnglandWales');
 });
 When('I select process server service', () => {
-  iSelectRadio('#processServer');
+  iSelectRadioValue(NoResponseProcessServerOrBailiff.PROCESS_SERVER);
 });
 When('I confirm I understand', () => {
   iCheckOption(`#${getApplicantString()}InterimAppsIUnderstand`);
@@ -182,12 +195,11 @@ Given('I enter my alternative service reason', () => {
   iEnterValueIntoInput('Alternative service reason', `#${getApplicantString()}AltServiceReasonForApplying`);
 });
 When('I want to send papers in a different way', () => {
-  iSelectRadio('#inADifferentWay');
+  iSelectRadioValue(AlternativeServiceMethod.DIFFERENT_WAY);
 });
 When('I want to serve by phone', () => {
-  const applicantString = getApplicantString();
-  iCheckOption(`#${applicantString}AltServiceDifferentWays`);
-  iEnterValueIntoInput('07700 900457', `#${applicantString}AltServicePartnerPhone`);
+  iCheckOptionValue(AlternativeServiceDifferentWays.TEXT_MESSAGE);
+  iEnterValueIntoInput('07700 900457', `#${getApplicantString()}AltServicePartnerPhone`);
 });
 Given('I enter more details', () => {
   iEnterValueIntoInput('More details', `#${getApplicantString()}AltServiceMethodJustification`);
@@ -264,7 +276,7 @@ Given('I enter the no evidence statement', () => {
 
 // Dispense with Service
 Given('I have no contact details for my partner', () => {
-  iSelectRadio('#noContactDetails');
+  iSelectRadioValue(NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS);
 });
 Given('I enter the date we last lived together', () => {
   iEnterADateIntoField(DEFAULT_RELATIONSHIP_DATE, `${getApplicantString()}DispenseLastLivedTogetherDate`);
@@ -331,40 +343,41 @@ Given('I enter details of my other enquiries', () => {
 
 // No response
 When('I have a new address for my partner', () => {
-  iSelectRadio('#newPostalAddress');
+  iSelectRadioValue(NoResponsePartnerNewEmailOrAddress.ADDRESS);
 });
 When('I enter their new address', async () => {
   await iEnterTheUkAddress(SECONDARY_ADDRESS);
 });
 When('I have a new email address for my partner', () => {
-  iSelectRadio('#newEmailAddress');
+  iSelectRadioValue(NoResponsePartnerNewEmailOrAddress.EMAIL);
 });
 When('I have a new postal and email address for my partner', () => {
-  iSelectRadio('#bothEmailAndPostalAddress');
+  iSelectRadioValue(NoResponsePartnerNewEmailOrAddress.EMAIL_AND_ADDRESS);
 });
 When('I want to provide a new email address for my partner', () => {
-  iSelectRadio('#provideNewEmail');
+  iSelectRadioValue(NoResponseProvidePartnerNewEmailOrAlternativeService.PROVIDE_NEW_EMAIL);
 });
 Given('I enter their new email address', () => {
   iEnterTheDefaultEmailAddressInto(`#${getApplicantString()}NoResponsePartnerEmailAddress`);
 });
 Given('I want to send the papers again', () => {
-  iSelectRadio('#sendPapersAgain');
+  iSelectRadioValue(NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN);
 });
 
 // search gov records
 Given('I want to search government records', () => {
-  iSelectRadio('#search');
+  iSelectRadioValue(NoResponseSearchOrDispense.SEARCH);
 });
 When('I enter the reason for applying', () => {
   iEnterValueIntoInput('Example reason for applying', `#${getApplicantString()}SearchGovRecordsReasonForApplying`);
 });
 Given('I want to search other departments', () => {
   iCheckOptionValue(SearchGovRecordsWhichDepartment.OTHER);
-  iEnterValueIntoInput('Example other departments', `#${getApplicantString()}SearchGovRecordsOtherDepartmentNames`);
+  const applicantString = getApplicantString();
+  iEnterValueIntoInput('Example other departments', `#${applicantString}SearchGovRecordsOtherDepartmentNames`);
   iEnterValueIntoInput(
     'Example reason for these departments',
-    `#${getApplicantString()}SearchGovRecordsWhyTheseDepartments`
+    `#${applicantString}SearchGovRecordsWhyTheseDepartments`
   );
 });
 Given('I enter their name for the search', iEnterTheirNameForSearchGovRecords);
@@ -383,6 +396,7 @@ Given('I enter their NI number for the search', () => {
   iEnterValueIntoInput(DEFAULT_NI_NUMBER, `#${getApplicantString()}SearchGovRecordsPartnerNationalInsurance`);
 });
 Given('I enter their additional address for the search', () => {
-  iEnterValueIntoInput(SECONDARY_ADDRESS, `#${getApplicantString()}SearchGovRecordsPartnerAdditionalAddress1`);
-  iEnterValueIntoInput('Example dates', `#${getApplicantString()}SearchGovRecordsPartnerAdditionalAddressDates1`);
+  const applicantString = getApplicantString();
+  iEnterValueIntoInput(SECONDARY_ADDRESS, `#${applicantString}SearchGovRecordsPartnerAdditionalAddress1`);
+  iEnterValueIntoInput('Example dates', `#${applicantString}SearchGovRecordsPartnerAdditionalAddressDates1`);
 });

@@ -76,9 +76,6 @@ export const iCheckOptionValueForField = (value: string, field: string = '', wai
 export const iCheckOptionValue = (value: string, wait?: number): string => {
   return iCheckOptionValueForField(value, '', wait);
 };
-export const iSelectRadio = (selector: string, wait?: number): void => {
-  iCheckOption(selector, wait);
-};
 export const iSelectRadioValueForField = (value: string, field: string = '', wait?: number): string => {
   return iCheckValueForField(value, 'radio', field, wait);
 };
