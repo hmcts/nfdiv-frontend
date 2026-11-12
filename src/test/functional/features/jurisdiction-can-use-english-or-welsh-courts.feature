@@ -1,7 +1,7 @@
 Feature: Jurisdiction - can use English or Welsh courts
 
   Background:
-    Given I login
+    Given I login with applicant "1"
     And I've completed all questions correctly to get to the jurisdiction section
 
   Scenario: Jurisdiction happy path tests, part one

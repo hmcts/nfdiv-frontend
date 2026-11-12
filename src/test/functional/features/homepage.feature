@@ -8,7 +8,7 @@ Feature: Homepage
     Then I click element "#privacyPolicyLink" and expect URL "PRIVACY_POLICY_URL"
 
   Scenario: Switch language to Welsh and back to English
-    Given I login
+    Given I login with applicant "1"
     Then I toggle language to Welsh
     Then I toggle language to English
 
@@ -17,6 +17,6 @@ Feature: Homepage
 
   @nightly
   Scenario: Test save and sign out
-    Given I login
+    Given I login with applicant "1"
     Then I click save and sign out and expect URL "DRAFT_SAVE_AND_SIGN_OUT"
     And the page should not include a back link
