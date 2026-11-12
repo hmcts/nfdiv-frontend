@@ -125,8 +125,13 @@ export const iClickSubmitAndExpectTheCurrentPage = async (): Promise<void> => {
   await iClickSubmitAndExpectUrl(nextUrl);
 };
 
-export const iClickStartAndExpectUrl = async (nextUrl?: string, wait?: number): Promise<void> => {
-  await iClickToNavigate('.govuk-button--start', wait, nextUrl);
+export const iClickStartAndExpectUrl = async (
+  nextUrl?: string,
+  wait?: number,
+  waitUntil?: WaitUntil,
+  expectedElementSelector?: string
+): Promise<void> => {
+  await iClickToNavigate('.govuk-button--start', wait, nextUrl, waitUntil, expectedElementSelector);
 };
 
 export const iClickStart = async (wait?: number): Promise<void> => {
