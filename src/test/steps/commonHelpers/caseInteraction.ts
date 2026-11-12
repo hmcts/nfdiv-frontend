@@ -34,6 +34,7 @@ import {
   iClickSignOut,
   iGetTheTestUser,
   iSignOut,
+  iSignOutAndLoginAsUser,
   login,
 } from './userInteraction';
 
@@ -167,11 +168,15 @@ export const iUpdateTheCase = async (eventData: Partial<BrowserCase>): Promise<v
   await triggerAnEvent(CITIZEN_UPDATE_CASE_STATE_AAT, eventData, getCurrentUserKey());
 };
 
+export const iSetTheCaseStateAndSignInAsUser = async (state: State, userKey: TestUserKey, expectedUrl?: string, expectedElementSelector?: string): Promise<void> => {
+  await iUpdateTheCase({ state });
+  await iSignOutAndLoginAsUser(userKey, expectedUrl, expectedElementSelector);
+}
+
 export const iSetTheCaseStateAndReSignIn = async (state: State): Promise<void> => {
   const userKey = getCurrentUserKey();
   await iUpdateTheCase({ state });
-  iSignOut();
-  await login(userKey, false, false);
+  await iSignOutAndLoginAsUser(userKey);
 };
 
 export const iGetTheCaseForUser = async (userKey: TestUserKey): Promise<CaseWithId> => {
