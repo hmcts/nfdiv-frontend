@@ -56,6 +56,10 @@ const isInternalPageLinkKey = (linkKeyValue: string): linkKeyValue is UrlLookupK
   return internalPageLinkKeySet.has(linkKeyValue.toUpperCase() as UrlLookupKey);
 };
 
+const isUserPrefixKey = (userKeyValue: string): userKeyValue is UserPrefixKey => {
+  return userPrefixKeySet.has(userKeyValue.toUpperCase() as UserPrefixKey);
+};
+
 const getPathWithoutPrefix = (path: PageLink): string => {
   if (path === urls.APPLICANT_1 || path.startsWith(`${urls.APPLICANT_1}/`)) {
     return path.slice(urls.APPLICANT_1.length);
@@ -110,8 +114,6 @@ export const isPrefixedRoute = (url: string): boolean => {
   return prefixedRoutes.has(urlWithoutQuery);
 };
 
-const isUserPrefixKey = (userKeyValue: string): userKeyValue is UserPrefixKey => userPrefixKeySet.has(userKeyValue);
-
 export const lookupUserPrefix = (user?: string): '' | PageLink | undefined => {
   user = user?.trim();
   if (!user) {
@@ -120,5 +122,6 @@ export const lookupUserPrefix = (user?: string): '' | PageLink | undefined => {
   if (user.startsWith('/')) {
     return userPrefixSet.has(user as PageLink) ? (user as PageLink) : undefined;
   }
+  user = user.toUpperCase();
   return isUserPrefixKey(user) ? userPrefixLookup[user] : undefined;
 };
