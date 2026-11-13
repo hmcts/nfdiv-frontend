@@ -2,7 +2,7 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../../../app/form/validation';
-import { isCountryUk } from '../../../../applicant1Sequence';
+import { isCountryUk, isOverseas } from '../../../../applicant1Sequence';
 import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: Partial<CommonContent>) => {
@@ -131,7 +131,10 @@ export const form: FormContent = {
       label: l => l.town,
       labelSize: null,
       validator: (value, formData) => {
-        if (!isCountryUk(formData.applicant1SearchGovRecordsPartnerLastKnownAddressCountry)) {
+        if (
+          !isCountryUk(formData.applicant1SearchGovRecordsPartnerLastKnownAddressCountry) ||
+          isOverseas(formData.applicant1SearchGovRecordsPartnerLastKnownAddressOverseas)
+        ) {
           return;
         }
         return isFieldFilledIn(value);
@@ -155,9 +158,10 @@ export const form: FormContent = {
         maxLength: 14,
       },
       validator: (value, formData) => {
-        const country = formData.applicant1SearchGovRecordsPartnerLastKnownAddressCountry;
-
-        if (country && !isCountryUk(country)) {
+        if (
+          !isCountryUk(formData.applicant1SearchGovRecordsPartnerLastKnownAddressCountry) ||
+          isOverseas(formData.applicant1SearchGovRecordsPartnerLastKnownAddressOverseas)
+        ) {
           return;
         }
         return isInvalidPostcode(value);

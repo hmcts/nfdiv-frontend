@@ -398,7 +398,10 @@ export const applicant1PreSubmissionSequence: Step[] = [
   },
   {
     url: ENTER_THEIR_ADDRESS,
-    getNextStep: data => (isCountryUk(data.applicant2AddressCountry) ? OTHER_COURT_CASES : YOU_NEED_TO_SERVE),
+    getNextStep: data =>
+      isCountryUk(data.applicant2AddressCountry) && !isOverseas(data.applicant2AddressOverseas)
+        ? OTHER_COURT_CASES
+        : YOU_NEED_TO_SERVE,
   },
   {
     url: HOW_TO_APPLY_TO_SERVE,
@@ -631,7 +634,32 @@ const hasApp1Confirmed = (data: Partial<CaseWithId>): boolean =>
   data.applicant1StatementOfTruth === Checkbox.Checked;
 
 export const isCountryUk = (value: string | undefined): boolean => {
-  const ukTerms = ['uk', 'unitedkingdom', 'u.k', 'u.k.'];
-  const country = value || '';
-  return ukTerms.includes(country.replace(' ', '').toLowerCase());
+  if (!value) {
+    return false;
+  }
+
+  const ukTerms = [
+    'unitedkingdom',
+    'uk',
+    'england',
+    'wales',
+    'scotland',
+    'northernireland',
+    'greatbritain',
+    'deyrnasunedig',
+    'du',
+    'lloegr',
+    'cymru',
+    'yralban',
+    'gogleddiwerddon',
+    'prydainfawr',
+  ];
+
+  const sanitisedCountry = value.replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+
+  return ukTerms.includes(sanitisedCountry);
+};
+
+export const isOverseas = (value: YesOrNo | FormDataEntryValue | undefined | null): boolean => {
+  return !!value && typeof value === 'string' && value.toLowerCase() === YesOrNo.YES.toLowerCase();
 };

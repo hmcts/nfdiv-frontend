@@ -1,4 +1,4 @@
-import { isCountryUk } from '../../steps/applicant1Sequence';
+import { isCountryUk, isOverseas } from '../../steps/applicant1Sequence';
 
 import {
   hideEnterPostcode,
@@ -17,7 +17,9 @@ const form = getById('main-form') as HTMLFormElement | null;
 if (form && getById('enterPostcode')) {
   const formData = new FormData(form);
   const applicant1AddressCountry = formData.get('applicant1AddressCountry');
+  const applicant1AddressOverseas = formData.get('applicant1AddressOverseas');
   const applicant2AddressCountry = formData.get('applicant2AddressCountry');
+  const applicant2AddressOverseas = formData.get('applicant2AddressOverseas');
   const applicant1DispenseLivedTogetherAddressCountry = formData.get('applicant1DispenseLivedTogetherAddressCountry');
   const applicant1SearchGovRecordsPartnerLastKnownAddress1 = formData.get(
     'applicant1SearchGovRecordsPartnerLastKnownAddress1'
@@ -31,10 +33,16 @@ if (form && getById('enterPostcode')) {
 
   const isSearchGovRecordsForm = getById('applicant1SearchGovRecordsPartnerLastKnownAddressDates-hint') !== null;
 
-  if (addressCountry || hasBackendError) {
+  const addressOverseas = isOverseas(applicant1AddressOverseas) || isOverseas(applicant2AddressOverseas);
+
+  if (addressOverseas || addressCountry || hasBackendError) {
     hideEnterPostcode();
 
-    if ((addressCountry && !isCountryUk(addressCountry as string)) || (!addressCountry && hasBackendError)) {
+    if (
+      addressOverseas ||
+      (addressCountry && !isCountryUk(addressCountry as string)) ||
+      (!addressCountry && hasBackendError)
+    ) {
       isSearchGovRecordsForm ? showUkAddressFields() : showInternationalAddressFields();
     } else {
       showUkAddressFields();

@@ -3,7 +3,7 @@ import config from 'config';
 import { Applicant2Represented, State } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { SupportedLanguages } from '../../../modules/i18n';
-import { isCountryUk } from '../../applicant1Sequence';
+import { isCountryUk, isOverseas } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 import { formattedCaseId } from '../../common/content.utils';
 import { currentStateFn } from '../../state-sequence';
@@ -115,7 +115,8 @@ export const generateContent: TranslationFn = content => {
   const isRespondentRepresented = userCase.applicant1IsApplicant2Represented === Applicant2Represented.YES;
   const hasASolicitorContactForPartner =
     userCase.applicant2SolicitorEmail || userCase.applicant2SolicitorAddressPostcode;
-  const isRespondentOverseas = !isCountryUk(userCase.applicant2AddressCountry);
+  const isRespondentOverseas =
+    !isCountryUk(userCase.applicant2AddressCountry) || isOverseas(userCase.applicant2AddressOverseas);
   const applicationServedAnotherWay =
     !isJointApplication &&
     userCase.applicant2Email &&
