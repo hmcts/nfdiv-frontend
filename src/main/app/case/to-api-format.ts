@@ -136,18 +136,14 @@ const fields: ToApiConverters = {
   }),
   applicant1HelpWithFeesRefNo: data => ({
     applicant1HWFReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant1HelpWithFeesRefNo)
-      ? toUpper(data.applicant1HelpWithFeesRefNo)
-          .replace(/-+/g, '')
-          .replace(/^(HWF)([A-Z0-9]{3})([A-Z0-9]{3})$/i, '$1-$2-$3')
+      ? data.applicant1HelpWithFeesRefNo
       : '',
     applicant1HWFAppliedForFees:
       data.applicant1HelpWithFeesRefNo === '' ? data.applicant1AlreadyAppliedForHelpPaying : YesOrNo.YES,
   }),
   applicant2HelpWithFeesRefNo: data => ({
     applicant2HWFReferenceNumber: !isInvalidHelpWithFeesRef(data.applicant2HelpWithFeesRefNo)
-      ? toUpper(data.applicant2HelpWithFeesRefNo)
-          .replace(/-+/g, '')
-          .replace(/^(HWF)([A-Z0-9]{3})([A-Z0-9]{3})$/i, '$1-$2-$3')
+      ? data.applicant2HelpWithFeesRefNo
       : '',
     applicant2HWFAppliedForFees:
       data.applicant2HelpWithFeesRefNo === '' ? data.applicant2AlreadyAppliedForHelpPaying : YesOrNo.YES,
@@ -532,9 +528,7 @@ const fields: ToApiConverters = {
   }),
   applicant1InterimAppsHwfRefNumber: data => ({
     applicant1InterimAppsHwfRefNumber: !isInvalidHelpWithFeesRef(data.applicant1InterimAppsHwfRefNumber)
-      ? toUpper(data.applicant1InterimAppsHwfRefNumber)
-          .replace(/-+/g, '')
-          .replace(/^(HWF)([A-Z0-9]{3})([A-Z0-9]{3})$/i, '$1-$2-$3')
+      ? data.applicant1InterimAppsHwfRefNumber
       : '',
     applicant1InterimAppsHaveHwfReference:
       data.applicant1InterimAppsHwfRefNumber === '' ? data.applicant1InterimAppsHaveHwfReference : YesOrNo.YES,
@@ -564,9 +558,9 @@ const fields: ToApiConverters = {
   }),
   applicant1SearchGovRecordsPartnerLastKnownAddressPostcode: applicant1SearchGovRecordsPartnerLastKnownAddressToApi,
   applicant1SearchGovRecordsPartnerNationalInsurance: data => ({
-    applicant1SearchGovRecordsPartnerNationalInsurance: toUpper(data.applicant1SearchGovRecordsPartnerNationalInsurance)
-      .replace(/\s+/g, '')
-      .replace(/^([A-Z]{2})(\d{2})(\d{2})(\d{2})([A-Z])$/, '$1 $2 $3 $4 $5'),
+    applicant1SearchGovRecordsPartnerNationalInsurance: toUpper(
+      data.applicant1SearchGovRecordsPartnerNationalInsurance
+    ),
   }),
   applicant1SearchGovRecordsKnowPartnerDateOfBirth: data => ({
     applicant1SearchGovRecordsKnowPartnerDateOfBirth: data.applicant1SearchGovRecordsKnowPartnerDateOfBirth,
