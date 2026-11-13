@@ -49,10 +49,10 @@ const urlStringToRegExp = (url: string): RegExp => {
 };
 
 const getUserPrefix = (user?: string): string => {
-  if (!user || user.trim().length === 0) {
+  user = user?.trim();
+  if (!user) {
     return '';
   }
-  user = user.trim();
   if (user === TestUserKey.APPLICANT_1 || user === TestUserKey.APPLICANT_2 || user === TestUserKey.RESPONDENT) {
     user = `/${user}`;
   }
