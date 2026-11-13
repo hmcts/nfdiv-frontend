@@ -83,6 +83,7 @@ import {
 import {
   clearNewUsers,
   getApplicantString,
+  getUserKeyByIndex,
   iClickSignOut,
   iSignOutAndLoginAsUser,
   login,
@@ -132,20 +133,20 @@ Given('I create a new user and login as applicant 2', async () => {
   await login(TestUserKey.APPLICANT_2);
 });
 Given('I login with applicant {string}', async (applicant: string) => {
-  const userKey = parseInt(applicant) === 1 ? TestUserKey.APPLICANT_1 : TestUserKey.APPLICANT_2;
+  const userKey = getUserKeyByIndex(parseInt(applicant));
   await login(userKey);
 });
 Given(
   'I sign out then login with applicant {string} and expect URL {string}',
   async (applicant: string, url: string) => {
-    const userKey = parseInt(applicant) === 1 ? TestUserKey.APPLICANT_1 : TestUserKey.APPLICANT_2;
+    const userKey = getUserKeyByIndex(parseInt(applicant));
     await iSignOutAndLoginAsUser(userKey, url);
   }
 );
 Given(
   'I sign out then login with applicant {string} and expect URL {string} with element {string}',
   async (applicant: string, url: string, expectedElementSelector: string) => {
-    const userKey = parseInt(applicant) === 1 ? TestUserKey.APPLICANT_1 : TestUserKey.APPLICANT_2;
+    const userKey = getUserKeyByIndex(parseInt(applicant));
     await iSignOutAndLoginAsUser(userKey, url, expectedElementSelector);
   }
 );
