@@ -10,11 +10,16 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   }`,
   line1: `You will need to provide evidence that your ${partner} actively uses each method you choose.`,
   evidence: {
-    header: `Evidence that your ${partner} actively uses the merthod you chose can be:`,
+    header: `Evidence that your ${partner} actively uses the contact method you chose can be:`,
     options: {
-      direct: `messages or calls sent directly to you by your ${partner} from the social media account or telephone number, or`,
-      thirdParty: `messages or calls between your ${partner} and someone else — for example, a relative, your children (if appropriate), or another person that shows the account or number is active.`,
+      direct: `messages sent directly to you by your ${partner} from the social media account or telephone number, or`,
+      thirdParty: `messages between your ${partner} and someone else — for example, a relative, your children (if appropriate), or another person that shows the account or number is active.`,
     },
+  },
+  messageWithThirdParty: `If you rely on messages between your ${partner} and another person, you must:`,
+  messageMustList: {
+    item1: 'Provide the name of the person; and',
+    item2: `Explain their relationship to both you and your ${partner}`,
   },
   line2: `You can only use social media platforms where you or a friend or relative can upload documents in a private message to your ${partner}.`,
   line3: `You will be responsible for making sure the papers are sent to your ${partner} in the way you choose, even if someone helps you. You will need to complete a certificate of service form (FP6) and send it to the court once you have sent the papers.`,
@@ -55,13 +60,18 @@ const cy: typeof en = ({ partner, isDivorce }: CommonContent) => ({
   title: `Dewiswch sut rydych eisiau anfon y papurau’r ${
     isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
   }`,
-  line1: `Byddwch angen rhoi tystiolaeth bod eich ${partner} yn defnyddio pob dull a ddewisir gennych yn rheolaid.`,
+  line1: `Gall tystiolaeth bod eich ${partner} yn defnyddio'r dull cysylltu a ddewisoch yn rheolaidd fod yn.`,
   evidence: {
     header: `Gall tystiolaeth bod eich ${partner} yn defnyddio'r dull a ddewisoch yn weithredol fod yn:`,
     options: {
-      direct: `negeseuon neu alwadau a anfonir yn uniongyrchol atoch gan eich ${partner} o'r cyfrif cyfryngau cymdeithasol neu'r rhif ffôn, neu`,
-      thirdParty: `negeseuon neu alwadau rhwng eich ${partner} a rhywun arall — er enghraifft, perthynas, eich plant (os yw'n briodol), neu berson arall sy'n dangos bod y cyfrif neu'r rhif yn weithredol.`,
+      direct: `negeseuon a anfonir yn uniongyrchol atoch gan eich ${partner} o'r cyfrif cyfryngau cymdeithasol neu'r rhif ffôn, neu`,
+      thirdParty: `negeseuon rhwng eich ${partner} a rhywun arall — er enghraifft, perthynas, eich plant (os yw'n briodol), neu berson arall sy'n dangos bod y cyfrif neu'r rhif yn weithredol.`,
     },
+  },
+  messageWithThirdParty: `Os ydych yn dibynnu ar negeseuon rhwng eich ${partner} ac unigolyn arall, rhaid i chi wneud y canlynol:`,
+  messageMustList: {
+    item1: 'Darparu enw’r unigolyn; ac',
+    item2: `Egluro eu perthynas â chi a'ch ${partner}`,
   },
   line2: `Gallwch ond defnyddio platfform cyfryngau cymdeithasol ble gallwch chi neu ffrind neu berthynas uwchlwytho dogfennau mewn neges breifat at eich ${partner}.`,
   line3: `Byddwch chi’n gyfrifol am sicrhau bod y papurau yn cael eu hanfon at eich ${partner} yn y ffordd a ddewisir gennych, hyd yn oed os bydd rhywun yn eich helpu chi.  Byddwch angen llenwi ffurflen tystysgrif cyflwyno (ffurflen FP6) a’i hanfon i’r llys unwaith y byddwch wedi anfon y papurau.`,

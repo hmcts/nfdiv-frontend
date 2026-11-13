@@ -7,11 +7,11 @@ import {
 } from '../../common/want-upload-evidence/content';
 
 const en = ({ partner }: CommonContent) => ({
-  statement: `The evidence you provide may help the court decide whether your papers can be served in the way you've requested. For example, this may include a photo or screenshot of a recent conversation by text or email, or a post by your ${partner} on social media.<br><br>Make sure that the photo or screenshot clearly shows the date of the conversations between you and your ${partner}. If the date is not visible, the court may reject your application.`,
+  statement: `The evidence you provide may help the court decide whether your papers can be served in the way you've requested. For example, this may include a photo or screenshot of a recent conversation by text or email, or a post by your ${partner} on social media.<br><br>Make sure that the photo or screenshot clearly shows the date of the conversations between you and your ${partner}. If the date is not visible, the court may reject your application.<br><br>If you upload a screenshot of a conversation with your ${partner}, it needs to show that the message was successfully delivered. For example, a WhatsApp message must show the double-tick icon to prove that the message has been delivered.`,
 });
 
 const cy = ({ partner }: CommonContent) => ({
-  statement: `Gall y dystiolaeth a ddarperir gennych helpu’r llys i benderfynu pa un a ellir cyflwyno’ch papurau yn y ffordd a ofynnwyd gennych. Er enghraifft, gall hyn gynnwys llun neu sgrinlun o sgwrs ddiweddar trwy neges destun neu e-bost neu neges gan eich ${partner} ar y cyfryngau cymdeithasol yn ddiweddar.<br><br>Gwnewch yn siŵr bod y llun neu'r sgrinlun yn dangos dyddiad y sgyrsiau rhyngoch chi a'ch ${partner} yn glir. Os nad yw’r dyddiad yn weladwy, gall y llys wrthod eich cais.`,
+  statement: `Gall y dystiolaeth a ddarperir gennych helpu’r llys i benderfynu pa un a ellir cyflwyno’ch papurau yn y ffordd a ofynnwyd gennych. Er enghraifft, gall hyn gynnwys llun neu sgrinlun o sgwrs ddiweddar trwy neges destun neu e-bost neu neges gan eich ${partner} ar y cyfryngau cymdeithasol yn ddiweddar.<br><br>Gwnewch yn siŵr bod y llun neu'r sgrinlun yn dangos dyddiad y sgyrsiau rhyngoch chi a'ch ${partner} yn glir. Os nad yw’r dyddiad yn weladwy, gall y llys wrthod eich cais.<br><br>Os byddwch yn uwchlwytho sgrinlun o sgwrs gyda'ch ${partner}, mae angen iddo ddangos bod y neges wedi'i hanfon yn llwyddiannus. Er enghraifft, rhaid i neges WhatsApp ddangos yr eicon tic dwbl i brofi bod y neges wedi'i hanfon.`,
 });
 
 const languages = {
