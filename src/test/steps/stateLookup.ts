@@ -1,7 +1,7 @@
 import * as definition from '../../main/app/case/definition';
 import { State } from '../../main/app/case/definition';
 
-import { logger } from './commonHelpers/logger';
+import { logAndThrow } from './commonHelpers/logger';
 
 const stateEnum = (definition as unknown as { State?: Record<string, State> }).State;
 if (!stateEnum) {
@@ -24,16 +24,12 @@ export const isState = (value?: string): value is State => {
 };
 
 /**
- * Resolves a state from either its enum key or its value. Matching is case-insensitive but otherwise exact, so
- * "awaitingconditionalorder" resolves to State.AwaitingConditionalOrder, whereas " AwaitingConditionalOrder" or
- * "Awaiting_Conditional_Order" do not.
+ * Resolves a state from either its enum key or its value. Matching is case-insensitive
  */
 export const lookupState = (value?: string): State => {
   const state = value ? stateLookup.get(value.trim().toLowerCase()) : undefined;
   if (!state) {
-    const errorMessage = `Unknown case state: "${value}". Provide a valid State key or value.`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    return logAndThrow(`Unknown case state: "${value}". Provide a valid State key or value.`);
   }
   return state;
 };

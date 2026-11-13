@@ -23,7 +23,7 @@ import {
 
 import { TestUserKey } from './IdamUserManager';
 import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';
-import { logger } from './logger';
+import { logAndThrow, logger } from './logger';
 import { isApplicant2, isRespondent } from './userInteraction';
 
 const { I } = inject();
@@ -58,9 +58,7 @@ const getUserPrefix = (user?: string): string => {
   }
   const userPrefix = lookupUserPrefix(user);
   if (userPrefix === undefined) {
-    const errorMessage = `Cannot resolve user prefix URL from: ${user}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    return logAndThrow(`Cannot resolve user prefix URL from: ${user}`);
   }
   return userPrefix;
 };

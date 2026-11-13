@@ -26,7 +26,7 @@ import { lookupState } from '../stateLookup';
 
 import { TestUserAndPassword, TestUserKey } from './IdamUserManager';
 import { iClickSubmit, iClickSubmitAndExpectUrl, iEnterValueIntoInput } from './elementInteraction';
-import { logger } from './logger';
+import { logAndExit, logAndThrow, logger } from './logger';
 import { iAmOnPage } from './navigation';
 import {
   getCurrentUser,
@@ -81,17 +81,14 @@ const getApiAndCaseReferenceForUser = async (
 
   const caseReference = userCase.id;
   if (!caseReference) {
-    const message = `No case reference was returned for ${testUser.email}`;
-    logger.error(message);
-    throw new Error(message);
+    logAndThrow(`No case reference was returned for ${testUser.email}`);
   }
 
   return { user, caseApi, caseReference };
 };
 
 function logFailedToGetCaseError(user: TestUserAndPassword, error?: Error): never {
-  logger.error(`Could not get case data as ${user.username}${error ? ' : ' + error.message : ''}`);
-  process.exit(-1);
+  return logAndExit(`Could not get case data as ${user.username}${error ? ' : ' + error.message : ''}`);
 }
 
 function logFailedToSetCaseError(
@@ -101,8 +98,7 @@ function logFailedToSetCaseError(
   data: Partial<OrNull<BrowserCase>>
 ): never {
   logger.error(`Could not set case data as ${user.username} via event ${eventName} :  ${error}`);
-  logger.error(toApiFormat(data as Partial<BrowserCase>));
-  process.exit(-1);
+  return logAndExit(toApiFormat(data as Partial<BrowserCase>));
 }
 
 export function triggerAnEvent(
@@ -123,10 +119,9 @@ export async function triggerAnEvent(
 ): Promise<void> {
   const { state, ...caseData } = userData;
   if (state && eventName !== CITIZEN_UPDATE_CASE_STATE_AAT) {
-    logger.error(
+    return logAndExit(
       `State can only be set via ${CITIZEN_UPDATE_CASE_STATE_AAT}. toApiFormat would drop State for ${eventName}`
     );
-    process.exit(-1);
   }
 
   if (state) {
@@ -214,9 +209,9 @@ export const linkUserToCase = async (
   const accessCodeField = userKey === TestUserKey.APPLICANT_1 ? 'accessCodeApplicant1' : 'accessCode';
   const accessCode = fetchedCase[accessCodeField];
   if (!accessCode) {
-    const errorMessage = `No access code (expected in field ${accessCodeField}) was returned for case ${fetchedCase.id} retrieved by ${getCurrentUser().username}`;
-    logger.error(errorMessage);
-    throw new Error(errorMessage);
+    return logAndThrow(
+      `No access code (expected in field ${accessCodeField}) was returned for case ${fetchedCase.id} retrieved by ${getCurrentUser().username}`
+    );
   }
 
   await iClickSignOut();

@@ -1,10 +1,11 @@
-import { Logger } from '@hmcts/nodejs-logging';
 import { AxiosInstance, create as axiosCreate } from 'axios';
 
 import { UserRole } from '../../../main/app/case/definition';
 
+import { logger } from './logger';
+
 export class IdamUserManager {
-  logger: Logger;
+  logger: typeof logger;
   client: AxiosInstance;
   usersBeingDeleted: Set<string> = new Set();
   private caseWorker: TestUserAndPassword;
@@ -17,7 +18,7 @@ export class IdamUserManager {
   private cleanupBarrier: Promise<void> = Promise.resolve();
 
   constructor(idamUrl: string, testUserNameGenerator: () => string, testPass: string) {
-    this.logger = Logger.getLogger('IdamUserManager');
+    this.logger = logger;
     this.client = axiosCreate({
       baseURL: new URL('/', idamUrl).toString(),
     });
