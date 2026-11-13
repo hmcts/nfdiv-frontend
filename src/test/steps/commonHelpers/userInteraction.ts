@@ -215,7 +215,7 @@ export const autoLoginForRespondent = {
     testConfig.getIdamUserManager().setCurrentUser(TestUserKey.RESPONDENT);
   },
   check: async (): Promise<void> => {
-    iAmOnPage(RESPONDENT + ENTER_YOUR_ACCESS_CODE);
+    iAmOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
     iWaitForNfdServiceLink();
   },
   restore: (cookies: CodeceptJS.Cookie[]): void => {
