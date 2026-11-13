@@ -24,6 +24,7 @@ import {
   iWaitForElement,
   iWaitForElementWithText,
 } from './elementInteraction';
+import { logger } from './logger';
 import { iAmOnIdam, iAmOnNfd, iAmOnPage, iClickToNavigate, iWaitInUrl } from './navigation';
 
 const { I } = inject();
@@ -259,7 +260,9 @@ export const getUserKeyByIndex = (index: number): TestUserKey => {
   } else if (index === 2) {
     return idamUserManager.hasUser(TestUserKey.APPLICANT_2) ? TestUserKey.APPLICANT_2 : TestUserKey.RESPONDENT;
   }
-  throw new Error(`Invalid applicant user index: ${index}`);
+  const errorMessage = `Invalid applicant user index: ${index}`;
+  logger.error(errorMessage);
+  throw new Error(errorMessage);
 };
 
 export const getUserEmail = async (index: number): Promise<string> => {
