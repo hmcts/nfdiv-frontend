@@ -1,14 +1,10 @@
 import { SupportedLanguages } from '../../../main/modules/i18n';
 import { getPageTitleIdFromUrl } from '../../../main/steps/url-utils';
 import {
-  APPLICANT_1,
   APPLICANT_2,
   CHECK_ANSWERS_URL,
   CHECK_CONTACT_DETAILS,
-  CSRF_TOKEN_ERROR_URL,
-  ENTER_YOUR_ACCESS_CODE,
   ENTER_YOUR_ADDRESS,
-  EXISTING_APPLICATION,
   PageLink,
   RESPONDENT,
   VIEW_YOUR_ANSWERS,
@@ -17,12 +13,15 @@ import { config as testConfig } from '../../config';
 import {
   ERROR_PAGE_URL,
   InternalPageLink,
-  getPathPrefix,
+  getUrlWithoutQuery,
   isFullyQualifiedUrl,
   isInternalPageLink,
+  isPrefixedRoute,
   lookupUrl,
+  lookupUserPrefix,
 } from '../urlLookup';
 
+import { TestUserKey } from './IdamUserManager';
 import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';
 import { logger } from './logger';
 import { isApplicant2, isRespondent } from './userInteraction';
@@ -54,39 +53,16 @@ const getUserPrefix = (user?: string): string => {
     return '';
   }
   user = user.trim();
-  switch (user.toUpperCase()) {
-    case 'APPLICANT':
-    case 'APPLICANT1':
-    case 'APPLICANT 1':
-    case 'APPLICANT_1':
-    case 'THE APPLICANT':
-    case APPLICANT_1.toUpperCase():
-      return APPLICANT_1;
-    case 'APPLICANT2':
-    case 'APPLICANT 2':
-    case 'APPLICANT_2':
-    case APPLICANT_2.toUpperCase():
-      return APPLICANT_2;
-    case 'RESPONDENT':
-    case 'THE RESPONDENT':
-    case RESPONDENT.toUpperCase():
-      return RESPONDENT;
-    default:
-      throw new Error(`Cannot resolve user prefix URL from: ${user}`);
+  if (user === TestUserKey.APPLICANT_1 || user === TestUserKey.APPLICANT_2 || user === TestUserKey.RESPONDENT) {
+    user = `/${user}`;
   }
-};
-
-export const getFullUrl = (user?: string, url?: string): string => {
-  const userPrefix = getUserPrefix(user);
-  const definedUrl = lookupUrl(url);
-
-  const definedOnly =
-    userPrefix === '' ||
-    isFullyQualifiedUrl(definedUrl) ||
-    (userPrefix === APPLICANT_1 && definedUrl !== ENTER_YOUR_ACCESS_CODE) ||
-    getPathPrefix(definedUrl as PageLink) !== '';
-
-  return definedOnly ? definedUrl : userPrefix + definedUrl;
+  const userPrefix = lookupUserPrefix(user);
+  if (userPrefix === undefined) {
+    const errorMessage = `Cannot resolve user prefix URL from: ${user}`;
+    logger.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+  return userPrefix;
 };
 
 const getTypeOfUrl = (url?: string | RegExp): UrlType => {
@@ -115,34 +91,19 @@ const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
   }
 };
 
-export const isNoPathPrefixUrl = (url: string): boolean => {
-  switch (url.toUpperCase()) {
-    case 'ERROR_PAGE_URL':
-    case ERROR_PAGE_URL.toUpperCase():
-    case 'CSRF_TOKEN_ERROR_URL':
-    case CSRF_TOKEN_ERROR_URL.toUpperCase():
-    case 'EXISTING_APPLICATION':
-    case EXISTING_APPLICATION.toUpperCase():
-      return true;
-    default:
-      return false;
-  }
-};
-
 export const setUserPathPrefix = (nextUrl: string, user?: string): InternalPageLink | string => {
-  if (isNoPathPrefixUrl(nextUrl)) {
-    return lookupUrl(nextUrl);
+  let userPrefix = '';
+  if (user?.trim()) {
+    userPrefix = getUserPrefix(user);
+  } else if (isApplicant2()) {
+    userPrefix = APPLICANT_2;
+  } else if (isRespondent()) {
+    userPrefix = RESPONDENT;
   }
-  if (user !== undefined) {
-    return getFullUrl(user, nextUrl);
-  }
-  if (isApplicant2()) {
-    return getFullUrl(APPLICANT_2, nextUrl);
-  }
-  if (isRespondent()) {
-    return getFullUrl(RESPONDENT, nextUrl);
-  }
-  return lookupUrl(nextUrl);
+  const definedUrl = lookupUrl(nextUrl);
+
+  const prefixedUrl = `${userPrefix}${definedUrl}`;
+  return isPrefixedRoute(prefixedUrl) ? prefixedUrl : definedUrl;
 };
 
 export const iDontSeeABackLink = (): void => {
@@ -208,7 +169,7 @@ export const iClickToNavigate = async (
     nextUrl = setUserPathPrefix(nextUrl as string);
     if (isInternalPageLink(nextUrl) && !expectElement) {
       expectElement = true;
-      expectedElementSelector = `#${getPageTitleIdFromUrl(nextUrl as PageLink)}`;
+      expectedElementSelector = `#${getPageTitleIdFromUrl(getUrlWithoutQuery(nextUrl) as PageLink)}`;
     }
   }
 
