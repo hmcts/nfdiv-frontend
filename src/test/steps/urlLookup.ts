@@ -71,17 +71,6 @@ export const getUrlWithoutQuery = (url: string): string => {
   return url.split('?')[0].split('#')[0];
 };
 
-export const getPathPrefix = (path: PageLink): string => {
-  if (path === urls.APPLICANT_1 || path.startsWith(`${urls.APPLICANT_1}/`)) {
-    return urls.APPLICANT_1;
-  } else if (path === urls.APPLICANT_2 || path.startsWith(`${urls.APPLICANT_2}/`)) {
-    return urls.APPLICANT_2;
-  } else if (path === urls.RESPONDENT || path.startsWith(`${urls.RESPONDENT}/`)) {
-    return urls.RESPONDENT;
-  }
-  return '';
-};
-
 export const isInternalPageLink = (linkValue: string): linkValue is InternalPageLink => {
   const linkValueWithoutPrefix = getPathWithoutPrefix(linkValue as PageLink);
   const linkValueWithoutQuery = getUrlWithoutQuery(linkValueWithoutPrefix);
