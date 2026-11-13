@@ -35,6 +35,7 @@ import {
   YOUR_DETAILS_URL,
 } from '../../main/steps/urls';
 
+import { TestUserKey } from './commonHelpers/IdamUserManager';
 import { iUpdateTheCase } from './commonHelpers/caseInteraction';
 import {
   iAgreeTheCourtCanContactMeByEmail,
@@ -56,6 +57,7 @@ import {
   iSetPrivateAddress,
 } from './commonHelpers/elementInteraction';
 import { iAmOnPage } from './commonHelpers/navigation';
+import { getUserKeyByIndex } from './commonHelpers/userInteraction';
 import { iEnterTheDefaultRelationshipDate } from './date';
 import { DEFAULT_ADDRESS, iEnterTheUkAddress } from './postcode';
 
@@ -81,11 +83,15 @@ Given("I've already completed the form using the fixture {string}", async (fixtu
 });
 
 Given(
-  "I've already completed the form using the fixture {string} for {string}",
-  async (fixture: string, user: string) => {
-    await completedFormWithFixtureForUser(fixture, user);
+  "I've already completed the form using the fixture {string} for applicant {string}",
+  async (fixture: string, applicant: string) => {
+    await completedFormWithFixtureForUser(fixture, getUserKeyByIndex(parseInt(applicant)).toString());
   }
 );
+
+Given("I've already completed the form using the fixture {string} for the respondent", async (fixture: string) => {
+  await completedFormWithFixtureForUser(fixture, TestUserKey.RESPONDENT);
+});
 
 Given('I set the email address for applicant 2', async () => {
   iAmOnPage(THEIR_EMAIL_ADDRESS);

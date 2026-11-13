@@ -222,7 +222,7 @@ Feature: Form failures
     Given I go to "RESPONDENT" / "HOW_THE_COURTS_WILL_CONTACT_YOU"
     Then I click continue and expect error elements
 
-    Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
+    Given I've already completed the form using the fixture "respondentCompleteCase" for the respondent
     And I go to "RESPONDENT" / "LEGAL_JURISDICTION_OF_THE_COURTS"
     Then I click continue and expect URL "INTEND_TO_DELAY"
 
@@ -310,7 +310,7 @@ Feature: Form failures
     Given I select no
     Then I click continue and expect error elements
 
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     And I go to "APPLICANT_2" / "UPLOAD_YOUR_DOCUMENTS"
     Then I click continue
 

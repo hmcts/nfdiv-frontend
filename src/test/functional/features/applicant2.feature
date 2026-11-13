@@ -167,7 +167,7 @@ Feature: Applicant 2
     When I go to "HOME_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
     Given I enter my valid case reference and valid access code
-    And I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
+    And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     When I go to "APPLICANT_2" / "UPLOAD_YOUR_DOCUMENTS"
     Given I delete any previously uploaded files
     When I upload the file "fixtures/larry-the-cat.jpg"

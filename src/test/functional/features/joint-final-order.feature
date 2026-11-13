@@ -8,7 +8,7 @@ Feature: Joint final order
     Then the page URL should be "/application-sent-for-review"
     When I enter my valid case reference and valid access code
     Then the page should include "You need to review your joint application"
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     And I go to "/applicant2/confirm-your-joint-application"
     Given I confirm the prayer and statement of truth
     When I click submit

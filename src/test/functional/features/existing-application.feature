@@ -6,7 +6,7 @@ Feature: Existing Application
     And I go to "HOME_URL"
     And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
     Given I enter my valid case reference and valid access code
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     And I go to "APPLICANT_2" / "CONFIRM_JOINT_APPLICATION"
     Given I confirm the prayer and statement of truth
     Then I click submit and expect URL "RESPONSE_SUBMITTED"

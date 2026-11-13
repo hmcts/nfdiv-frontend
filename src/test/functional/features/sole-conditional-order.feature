@@ -20,7 +20,7 @@ Feature: Sole conditional order
 
     When I click continue
     Then the page URL should be "RESPONDENT" / "HOW_DO_YOU_WANT_TO_RESPOND"
-    Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
+    Given I've already completed the form using the fixture "respondentCompleteCase" for the respondent
     And I go to "RESPONDENT" / "CHECK_ANSWERS_URL"
     And I confirm the statement of truth
 
