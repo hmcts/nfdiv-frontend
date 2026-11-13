@@ -2,7 +2,7 @@ import config from 'config';
 import dayjs from 'dayjs';
 
 import { getFormattedDate } from '../../app/case/answers/formatDate';
-import { CaseWithId } from '../../app/case/case';
+import { CaseWithId, Checkbox } from '../../app/case/case';
 import {
   ApplicationType,
   GeneralApplication,
@@ -15,7 +15,13 @@ import {
 import { UPPY_FILE_INPUT_BUTTON_ID, userCanUploadDocuments } from '../../app/document/DocumentManagementConstants';
 import { findOnlineGeneralApplicationsForUser } from '../../app/utils/general-application-utils';
 import { SupportedLanguages } from '../../modules/i18n';
-import { formattedCaseId, getPartner, getSelectedGender, getServiceName } from '../common/content.utils';
+import {
+  formattedCaseId,
+  getPartner,
+  getSelectedGender,
+  getServiceName,
+  isAddressRequired,
+} from '../common/content.utils';
 import { SAVE_AND_SIGN_OUT, WITHDRAW_APPLICATION } from '../urls';
 
 export const yesOrNoOrNotKnown_en = {
@@ -512,6 +518,12 @@ export const generateCommonContent = ({
         ? 'searchGovRecords'
         : (userCase?.applicant1InterimApplicationType as string)
     ];
+
+  const userCannotUploadDocuments =
+    userCase?.applicant1CannotUpload === Checkbox.Checked || userCase?.applicant2CannotUpload === Checkbox.Checked;
+
+  const addressRequired = isAddressRequired(userCase);
+
   return {
     ...commonTranslations,
     applicationHasBeenPaidFor,
@@ -552,6 +564,8 @@ export const generateCommonContent = ({
     generalApplicationFeeRequired,
     generalApplicationDocsAllProvided,
     generalApplicationSubmittedOnline,
+    userCannotUploadDocuments,
+    addressRequired,
   };
 };
 
@@ -594,4 +608,6 @@ export type CommonContent = typeof en & {
   genesysReferrerPage: string;
   genesysDeploymentId: string;
   lastGeneralApplication?: GeneralApplication | undefined;
+  userCannotUploadDocuments: boolean;
+  addressRequired: boolean;
 };

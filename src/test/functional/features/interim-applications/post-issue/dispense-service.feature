@@ -1,4 +1,4 @@
-Feature: Dispense with service journey
+Feature: Dispense with service journey post-issue
 
   Background:
     Given I create a new user and login
@@ -39,7 +39,7 @@ Feature: Dispense with service journey
     When I click continue
     Then the page should include element "#dispenseWithServiceApplicationTitle"
 
-  Scenario: Dispense with service happy path
+  Scenario: Dispense with service happy path post-issue
     When I click start
     Then the page should include element "#helpWithFeesTitle"
 
