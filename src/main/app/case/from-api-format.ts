@@ -212,6 +212,9 @@ const fields: FromApiConverters = {
     applicant1AltServicePartnerEmail: data.applicant1AltServicePartnerEmail,
     applicant1AltServicePartnerEmailWhenDifferent: data.applicant1AltServicePartnerEmail,
   }),
+  applicant1AltServiceDateOfEvidence: data => ({
+    applicant1AltServiceDateOfEvidence: fromApiDate(data.applicant1AltServiceDateOfEvidence),
+  }),
   applicant1DispenseLivedTogetherDate: data => ({
     applicant1DispenseLastLivedTogetherDate: fromApiDate(data.applicant1DispenseLivedTogetherDate),
   }),

@@ -60,6 +60,32 @@ export const areDateFieldsFilledIn: DateValidator = fields => {
   }
 };
 
+export const areIndividualDateFieldsFilledIn: DateValidator = fields => {
+  if (typeof fields !== 'object' || Object.keys(fields).length !== 3) {
+    return 'required';
+  }
+
+  const missingFields: string[] = [];
+
+  if (!fields.day) {
+    missingFields.push('Day');
+  }
+  if (!fields.month) {
+    missingFields.push('Month');
+  }
+  if (!fields.year) {
+    missingFields.push('Year');
+  }
+
+  if (missingFields.length === 1) {
+    return `required${missingFields[0]}`;
+  } else if (missingFields.length === 2) {
+    return `required${missingFields.join('')}`;
+  } else if (missingFields.length === 3) {
+    return 'required';
+  }
+};
+
 export const isDateInputInvalid: DateValidator = date => {
   const invalid = 'invalidDate';
   if (!date) {
@@ -109,6 +135,19 @@ export const isLessThanAYearAgoInc: DateValidator = date => {
   const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
   if (!dayjs(enteredDate).isBefore(oneYearAgo)) {
     return 'lessThanAYearAgoInc';
+  }
+};
+
+export const isMoreThanThreeMonthsAgo: DateValidator = date => {
+  if (!date) {
+    return;
+  }
+
+  const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
+  const today = new Date();
+  const threeMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 3, today.getDate());
+  if (dayjs(enteredDate).isBefore(threeMonthsAgo)) {
+    return 'moreThanThreeMonthsAgo';
   }
 };
 

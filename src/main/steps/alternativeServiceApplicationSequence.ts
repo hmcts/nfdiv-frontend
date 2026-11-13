@@ -1,7 +1,11 @@
+import { CaseDate } from '../app/case/case';
 import { AlternativeServiceMethod, ServicePaymentMethod, YesOrNo } from '../app/case/definition';
+import { isMoreThanThreeMonthsAgo } from '../app/form/validation';
 
 import { Step } from './applicant1Sequence';
 import {
+  ALTERNATIVE_CHOSEN_METHOD_NOT_ACTIVE,
+  ALTERNATIVE_DETAILS_ABOUT_EVIDENCE,
   ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS,
   ALTERNATIVE_HOW_TO_SERVE,
   ALTERNATIVE_INTERRUPTION,
@@ -11,6 +15,7 @@ import {
   APPLY_FOR_HWF_ALTERNATIVE,
   CHECK_ANSWERS_ALTERNATIVE,
   HELP_WITH_FEES_ALTERNATIVE,
+  HOME_URL,
   HWF_REFERENCE_NUMBER_ALTERNATIVE,
   HWF_REFERENCE_NUMBER_INPUT_ALTERNATIVE,
   PAY_YOUR_SERVICE_FEE,
@@ -69,8 +74,21 @@ export const alternativeServiceApplicationSequence: Step[] = [
     url: WANT_UPLOAD_EVIDENCE_ALTERNATIVE,
     getNextStep: data =>
       data?.applicant1InterimAppsCanUploadEvidence === YesOrNo.YES
-        ? UPLOAD_EVIDENCE_ALTERNATIVE
+        ? ALTERNATIVE_DETAILS_ABOUT_EVIDENCE
         : ALTERNATIVE_WHY_APPLY_THIS_WAY,
+  },
+  {
+    url: ALTERNATIVE_DETAILS_ABOUT_EVIDENCE,
+    getNextStep: data =>
+      data?.applicant1AltServiceMethodActive === YesOrNo.NO ||
+      (data?.applicant1AltServiceMethodActive === YesOrNo.YES &&
+        isMoreThanThreeMonthsAgo(data.applicant1AltServiceDateOfEvidence as CaseDate) === 'moreThanThreeMonthsAgo')
+        ? ALTERNATIVE_CHOSEN_METHOD_NOT_ACTIVE
+        : UPLOAD_EVIDENCE_ALTERNATIVE,
+  },
+  {
+    url: ALTERNATIVE_CHOSEN_METHOD_NOT_ACTIVE,
+    getNextStep: () => HOME_URL,
   },
   {
     url: UPLOAD_EVIDENCE_ALTERNATIVE,

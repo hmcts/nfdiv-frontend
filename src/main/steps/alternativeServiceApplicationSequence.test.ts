@@ -3,6 +3,8 @@ import { AlternativeServiceMethod, ServicePaymentMethod, YesOrNo } from '../app/
 import { alternativeServiceApplicationSequence } from './alternativeServiceApplicationSequence';
 import { Step } from './applicant1Sequence';
 import {
+  ALTERNATIVE_CHOSEN_METHOD_NOT_ACTIVE,
+  ALTERNATIVE_DETAILS_ABOUT_EVIDENCE,
   ALTERNATIVE_EXPLAIN_SERVE_DOCUMENTS,
   ALTERNATIVE_HOW_TO_SERVE,
   ALTERNATIVE_INTERRUPTION,
@@ -139,7 +141,7 @@ describe('Alternative Service Application Sequence test', () => {
       const step = alternativeServiceApplicationSequence.find(
         obj => obj.url === WANT_UPLOAD_EVIDENCE_ALTERNATIVE
       ) as Step;
-      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_ALTERNATIVE);
+      expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_DETAILS_ABOUT_EVIDENCE);
     });
 
     test('Do not have Evidence', () => {
@@ -150,6 +152,28 @@ describe('Alternative Service Application Sequence test', () => {
         obj => obj.url === WANT_UPLOAD_EVIDENCE_ALTERNATIVE
       ) as Step;
       expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_WHY_APPLY_THIS_WAY);
+    });
+  });
+
+  describe('ALTERNATIVE_DETAILS_ABOUT_EVIDENCE', () => {
+    test('Evidence recent', () => {
+      const caseData = {
+        applicant1AltServiceMethodActive: YesOrNo.YES,
+      };
+      const step = alternativeServiceApplicationSequence.find(
+        obj => obj.url === ALTERNATIVE_DETAILS_ABOUT_EVIDENCE
+      ) as Step;
+      expect(step.getNextStep(caseData)).toBe(UPLOAD_EVIDENCE_ALTERNATIVE);
+    });
+
+    test('Evidence not recent', () => {
+      const caseData = {
+        applicant1AltServiceMethodActive: YesOrNo.NO,
+      };
+      const step = alternativeServiceApplicationSequence.find(
+        obj => obj.url === ALTERNATIVE_DETAILS_ABOUT_EVIDENCE
+      ) as Step;
+      expect(step.getNextStep(caseData)).toBe(ALTERNATIVE_CHOSEN_METHOD_NOT_ACTIVE);
     });
   });
 

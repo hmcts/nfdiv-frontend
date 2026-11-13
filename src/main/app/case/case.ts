@@ -276,6 +276,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   applicant1AltServicePartnerOtherDetails: 'applicant1AltServicePartnerOtherDetails',
   applicant1AltServiceMethodJustification: 'applicant1AltServiceMethodJustification',
   applicant1AltServiceDifferentWays: 'applicant1AltServiceDifferentWays',
+  applicant1AltServiceMethodActive: 'applicant1AltServiceMethodActive',
+  applicant1AltServiceDateOfEvidence: 'applicant1AltServiceDateOfEvidence',
   servicePaymentFeePaymentMethod: 'servicePaymentFeePaymentMethod',
   servicePaymentFeeDateOfPayment: 'servicePaymentFeeDateOfPayment',
   servicePaymentFeeOrderSummary: 'servicePaymentFeeOrderSummary',
@@ -704,6 +706,8 @@ export interface Case {
   applicant1AltServicePartnerOtherDetails?: string;
   applicant1AltServiceMethodJustification?: string;
   applicant1AltServiceDifferentWays?: AlternativeServiceDifferentWays[];
+  applicant1AltServiceMethodActive?: YesOrNo;
+  applicant1AltServiceDateOfEvidence?: CaseDate | DateAsString;
   servicePaymentFeeDateOfPayment: DateAsString;
   servicePaymentFeePaymentMethod: ServicePaymentMethod;
   applicant2LegalProceedingDocs?: ListValue<Partial<DivorceDocument> | null>[];
