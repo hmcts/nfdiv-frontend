@@ -23,6 +23,7 @@ export class PropertiesVolume {
       await this.setSecret('secrets.nfdiv.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       await this.setSecret('secrets.nfdiv.redis-access-key', 'session.redis.key');
       await this.setSecret('secrets.nfdiv.redis-access-key', 'session.secret');
+      await this.setSecret('secrets.nfdiv.azure-managed-redis-connection-string', 'session.redis.connectionString');
       await this.setSecret('secrets.nfdiv.idam-secret', 'services.idam.clientSecret');
       await this.setSecret('secrets.nfdiv.frontend-secret', 'services.authProvider.secret');
       await this.setSecret('secrets.nfdiv.os-places-token', 'services.postcodeLookup.token');

@@ -33,26 +33,66 @@ export class SessionStorage {
   }
 
   private getStore(app: Application, logger: Logger) {
-    const redisHost = config.get('session.redis.host');
-    const redisPort = config.get('session.redis.port');
+    const redisHost = config.get('session.redis.host') as string;
+    const redisPort = config.get('session.redis.port') as number;
+    const redisKey = config.get('session.redis.key') as string;
+    const connectionString = config.get('session.redis.connectionString') as string;
+    const url = new URL(connectionString);
 
-    if (redisHost) {
-      const client = redis.createClient({
-        socket: {
-          host: redisHost as string,
-          port: redisPort as number,
-          connectTimeout: 15000,
-          tls: true,
-        },
-        password: config.get('session.redis.key') as string,
-      });
+    const managedRedisConfig = {
+      hostname: url.hostname,
+      port: url.port,
+      user: url.username,
+      password: url.password,
+      protocol: url.protocol,
+    };
 
-      client.connect().catch(logger.error);
-
-      app.locals.redisClient = client;
-      return new RedisStore({ client });
+    if (!managedRedisConfig.hostname) {
+      logger.info('No Redis host configured, using file store for redis');
+      return new FileStore({ path: '/tmp' });
     }
 
-    return new FileStore({ path: '/tmp' });
+    const isManagedRedisCache = managedRedisConfig.hostname.includes('azure.net');
+
+    logger.info(
+      `Redis connection - Host: ${managedRedisConfig.hostname}, Port: ${managedRedisConfig.port || managedRedisConfig.port}, Protocol: ${managedRedisConfig.protocol}`
+    );
+
+    const client = isManagedRedisCache
+      ? redis.createCluster({
+          rootNodes: [
+            {
+              url: connectionString,
+            },
+          ],
+          defaults: {
+            password: decodeURIComponent(managedRedisConfig.password),
+            socket: {
+              tls: true,
+              servername: managedRedisConfig.hostname,
+            },
+          },
+        })
+      : redis.createClient({
+          socket: {
+            host: redisHost as string,
+            port: redisPort as number,
+            connectTimeout: 15000,
+            tls: true,
+          },
+          password: redisKey,
+        });
+
+    client
+      .connect()
+      .then(() => {
+        logger.info('Redis cluster connection established successfully');
+      })
+      .catch(err => {
+        logger.info('Failed to connect to Redis cluster:', err.message);
+      });
+
+    app.locals.redisClient = client;
+    return new RedisStore({ client });
   }
 }
