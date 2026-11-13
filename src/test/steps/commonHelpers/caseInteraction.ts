@@ -22,6 +22,7 @@ import {
   HUB_PAGE,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from '../../../main/steps/urls';
+import { lookupState } from '../stateLookup';
 
 import { TestUserAndPassword, TestUserKey } from './IdamUserManager';
 import { iClickSubmit, iClickSubmitAndExpectUrl, iEnterValueIntoInput } from './elementInteraction';
@@ -126,6 +127,10 @@ export async function triggerAnEvent(
       `State can only be set via ${CITIZEN_UPDATE_CASE_STATE_AAT}. toApiFormat would drop State for ${eventName}`
     );
     process.exit(-1);
+  }
+
+  if (state) {
+    userData.state = lookupState(state);
   }
 
   await recorder.promise(); // let queued I.* steps finish before calling the API
