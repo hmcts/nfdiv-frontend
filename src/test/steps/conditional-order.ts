@@ -14,10 +14,6 @@ Given('I progress the case to AwaitingConditionalOrder and login as applicant {s
 Given('I progress the case to AwaitingConditionalOrder and sign in as the respondent', async () => {
   await iSetTheCaseStateAndSignInAsUser(State.AwaitingConditionalOrder, TestUserKey.RESPONDENT, HUB_PAGE);
 });
-Given('I set the case state to {string} and login as applicant {string}', async (state: string, applicant: string) => {
-  const userKey = getUserKeyByIndex(parseInt(applicant));
-  await iSetTheCaseStateAndSignInAsUser(state as State, userKey, HUB_PAGE);
-});
 When('I click apply for conditional order', async () => {
   await iClickToNavigate('#applyForConditionalOrderButton');
 });
