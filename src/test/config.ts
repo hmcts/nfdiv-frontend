@@ -68,13 +68,14 @@ export const config = {
   Gherkin: {
     features: './features/**/*.feature',
     steps: [
+      '../steps/check-your-answers.ts',
       '../steps/common.ts',
       '../steps/conditional-order.ts',
-      '../steps/final-order.ts',
       '../steps/date.ts',
-      '../steps/check-your-answers.ts',
+      '../steps/final-order.ts',
       '../steps/form-failures.ts',
       '../steps/happy-path.ts',
+      '../steps/hub-page.ts',
       '../steps/interim-applications.ts',
       '../steps/jurisdiction.ts',
       '../steps/payAndSubmit.ts',
