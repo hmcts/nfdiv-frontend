@@ -89,6 +89,21 @@ const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
   }
 };
 
+const iWaitForUrl = (url?: string | RegExp, wait?: number, waitUntil: WaitUntil = 'load'): void => {
+  const urlType = getTypeOfUrl(url);
+  if (urlType === 'empty-string' || urlType === undefined) {
+    logAndThrow(`Cannot wait for URL: "${url}"`);
+  }
+
+  if (urlType === 'string') {
+    url = urlStringToRegExp(url as string);
+  }
+
+  const timeout = wait ? { timeout: wait * 1000 } : {};
+
+  I.waitForURL(url as RegExp, { ...timeout, waitUntil });
+};
+
 export const setUserPathPrefix = (nextUrl: string, user?: string): InternalPageLink | string => {
   let userPrefix = '';
   if (user?.trim()) {
@@ -204,21 +219,6 @@ export const iWaitInErrorPage = (wait?: number): void => {
 export const iWaitInPageNotFoundErrorPage = (wait?: number): void => {
   iWaitInUrlAsUser(lookupUrl(ERROR_PAGE_URL), undefined, wait);
   iWaitForVisible('#pageNotFoundTitle', wait);
-};
-
-export const iWaitForUrl = (url?: string | RegExp, wait?: number, waitUntil: WaitUntil = 'load'): void => {
-  const urlType = getTypeOfUrl(url);
-  if (urlType === 'empty-string' || urlType === undefined) {
-    throw new Error(`Cannot wait for URL: "${url}"`);
-  }
-
-  if (urlType === 'string') {
-    url = urlStringToRegExp(url as string);
-  }
-
-  const timeout = wait ? { timeout: wait * 1000 } : {};
-
-  I.waitForURL(url as RegExp, { ...timeout, waitUntil });
 };
 
 export const doesCurrentUrlStartWith = async (serviceUrl: string, currentUrl?: string): Promise<boolean> => {
