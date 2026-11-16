@@ -11,36 +11,36 @@ Feature: Joint final order
     Then I go to "APPLICANT_2" / "CONFIRM_JOINT_APPLICATION"
     And I confirm the prayer and statement of truth
     Then I click submit and expect URL "RESPONSE_SUBMITTED"
-    Then I set the case state to "AwaitingFinalOrder"
+    And I set the case state to "AwaitingFinalOrder"
 
   @nightly
   Scenario: [1] Applicant joint final order journey within a year
-    Given I sign out then login with applicant "1" and expect URL "HUB_PAGE" with element "#awaitingFinalOrderContent"
+    Given I sign out then login with applicant "1" and expect hub element "#awaitingFinalOrderContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
-    Then I click continue and expect URL "HUB_PAGE" with element "#hasAppliedForFinalOrderContent"
+    Then I click continue and expect hub element "#hasAppliedForFinalOrderContent"
 
-    Given I sign out then login with applicant "2" and expect URL "HUB_PAGE" with element "#awaitingFinalOrderContent"
+    Given I sign out then login with applicant "2" and expect hub element "#awaitingFinalOrderContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
-    Then I click submit and expect URL "HUB_PAGE" with element "#finalOrderRequestedContent"
+    Then I click submit and expect hub element "#finalOrderRequestedContent"
 
   @nightly
   Scenario: [2] Applicant 1 joint switch to sole final order journey
-    Given I sign out then login with applicant "1" and expect URL "HUB_PAGE" with element "#awaitingFinalOrderContent"
+    Given I sign out then login with applicant "1" and expect hub element "#awaitingFinalOrderContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
-    Then I click continue and expect URL "HUB_PAGE" with element "#hasAppliedForFinalOrderContent"
+    Then I click continue and expect hub element "#hasAppliedForFinalOrderContent"
 
     Given I prepare the case for applicant "1" switch-to-sole final order
     And I intend to apply for final order as a sole applicant
-    Then I click confirm and expect URL "HUB_PAGE" with element "#intendToSwitchToSoleFinalOrderContent"
+    Then I click confirm and expect hub element "#intendToSwitchToSoleFinalOrderContent"
     And a superuser updates "dateApplicant1DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
 
-    Given I sign out then login with applicant "1" and expect URL "HUB_PAGE" with element "#intendingAndAbleToSwitchToSoleFinalOrderContent"
+    Given I sign out then login with applicant "1" and expect hub element "#intendingAndAbleToSwitchToSoleFinalOrderContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -48,18 +48,18 @@ Feature: Joint final order
 
   @nightly
   Scenario: [3] Applicant 2 joint switch to sole final order journey
-    Given I sign out then login with applicant "2" and expect URL "HUB_PAGE" with element "#awaitingFinalOrderContent"
+    Given I sign out then login with applicant "2" and expect hub element "#awaitingFinalOrderContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
-    Then I click submit and expect URL "HUB_PAGE" with element "#hasAppliedForFinalOrderContent"
+    Then I click submit and expect hub element "#hasAppliedForFinalOrderContent"
 
     Given I prepare the case for applicant "2" switch-to-sole final order
     And I intend to apply for final order as a sole applicant
-    Then I click confirm and expect URL "HUB_PAGE" with element "#intendToSwitchToSoleFinalOrderContent"
+    Then I click confirm and expect hub element "#intendToSwitchToSoleFinalOrderContent"
     And a superuser updates "dateApplicant2DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
 
-    Given I sign out then login with applicant "2" and expect URL "HUB_PAGE" with element "#intendingAndAbleToSwitchToSoleFinalOrderContent"
+    Given I sign out then login with applicant "2" and expect hub element "#intendingAndAbleToSwitchToSoleFinalOrderContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -67,18 +67,18 @@ Feature: Joint final order
 
   @nightly
   Scenario: [4] Applicant 1 joint switch to sole final order journey when case goes overdue after applying
-    Given I sign out then login with applicant "1" and expect URL "HUB_PAGE" with element "#awaitingFinalOrderContent"
+    Given I sign out then login with applicant "1" and expect hub element "#awaitingFinalOrderContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
-    Then I click submit and expect URL "HUB_PAGE" with element "#hasAppliedForFinalOrderContent"
+    Then I click submit and expect hub element "#hasAppliedForFinalOrderContent"
 
     Given I prepare the case for applicant "1" switch-to-sole when final order overdue
     And I intend to apply for final order as a sole applicant
-    Then I click confirm and expect URL "HUB_PAGE" with element "#intendToSwitchToSoleFinalOrderContent"
+    Then I click confirm and expect hub element "#intendToSwitchToSoleFinalOrderContent"
     And a superuser updates "dateApplicant1DeclaredIntentionToSwitchToSoleFo" with "2022-10-21"
 
-    Given I sign out then login with applicant "1" and expect URL "HUB_PAGE" with element "#intendingAndAbleToSwitchToSoleFinalOrderContent"
+    Given I sign out then login with applicant "1" and expect hub element "#intendingAndAbleToSwitchToSoleFinalOrderContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -86,11 +86,11 @@ Feature: Joint final order
 
     Given I enter the reason for the delay
     And I confirm the statement of truth
-    Then I click submit and expect URL "HUB_PAGE" with element "#finalOrderRequestedContent"
+    Then I click submit and expect hub element "#finalOrderRequestedContent"
 
   Scenario: Applicant joint final order journey overdue applicant 1 applies first
     Given a superuser updates "isFinalOrderOverdue" with "Yes"
-    Then I sign out then login with applicant "1" and expect URL "HUB_PAGE" with element "#awaitingFinalOrderContent"
+    Then I sign out then login with applicant "1" and expect hub element "#awaitingFinalOrderContent"
     And I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -98,9 +98,9 @@ Feature: Joint final order
 
     Given I enter the reason for the delay
     And I confirm the statement of truth
-    Then I click submit and expect URL "HUB_PAGE" with element "#hasAppliedForFinalOrderContent"
+    Then I click submit and expect hub element "#hasAppliedForFinalOrderContent"
 
-    Given I sign out then login with applicant "2" and expect URL "HUB_PAGE" with element "#awaitingFinalOrderContent"
+    Given I sign out then login with applicant "2" and expect hub element "#awaitingFinalOrderContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -108,11 +108,11 @@ Feature: Joint final order
 
     Given I enter the reason for the delay
     And I confirm the statement of truth
-    Then I click submit and expect URL "HUB_PAGE" with element "#finalOrderRequestedContent"
+    Then I click submit and expect hub element "#finalOrderRequestedContent"
 
   Scenario: Applicant joint final order journey overdue applicant 2 applies first
     Given a superuser updates "isFinalOrderOverdue" with "Yes"
-    Then I sign out then login with applicant "2" and expect URL "HUB_PAGE" with element "#awaitingFinalOrderContent"
+    Then I sign out then login with applicant "2" and expect hub element "#awaitingFinalOrderContent"
     And I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -120,9 +120,9 @@ Feature: Joint final order
 
     Given I enter the reason for the delay
     And I confirm the statement of truth
-    Then I click submit and expect URL "HUB_PAGE" with element "#hasAppliedForFinalOrderContent"
+    Then I click submit and expect hub element "#hasAppliedForFinalOrderContent"
 
-    Given I sign out then login with applicant "1" and expect URL "HUB_PAGE" with element "#awaitingFinalOrderContent"
+    Given I sign out then login with applicant "1" and expect hub element "#awaitingFinalOrderContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -130,4 +130,4 @@ Feature: Joint final order
 
     Given I enter the reason for the delay
     And I confirm the statement of truth
-    Then I click submit and expect URL "HUB_PAGE" with element "#finalOrderRequestedContent"
+    Then I click submit and expect hub element "#finalOrderRequestedContent"

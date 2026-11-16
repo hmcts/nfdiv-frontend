@@ -25,7 +25,7 @@ Feature: Joint conditional order
     Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
     Given I confirm the statement of truth
-    Then I click submit and expect URL "HUB_PAGE" with element "#jointCoPendingBeforeDueDateLine1"
+    Then I click submit and expect hub element "#jointCoPendingBeforeDueDateLine1"
 
     Then I sign out then login with applicant "2" and expect URL "HUB_PAGE"
 
@@ -38,7 +38,7 @@ Feature: Joint conditional order
     Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
     Given I confirm the statement of truth
-    Then I click submit and expect URL "HUB_PAGE" with element "#awaitingLegalAdvisorReferralLine1"
+    Then I click submit and expect hub element "#awaitingLegalAdvisorReferralLine1"
 
   @nightly
   Scenario: Applicant 2 is first in time applicant for conditional order journey and responds with additional information
@@ -54,7 +54,7 @@ Feature: Joint conditional order
     Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
     Given I confirm the statement of truth
-    Then I click submit and expect URL "HUB_PAGE" with element "#jointCoPendingBeforeDueDateLine1"
+    Then I click submit and expect hub element "#jointCoPendingBeforeDueDateLine1"
 
     Then I sign out then login with applicant "1" and expect URL "HUB_PAGE"
 
@@ -67,7 +67,7 @@ Feature: Joint conditional order
     Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
     Given I confirm the statement of truth
-    Then I click submit and expect URL "HUB_PAGE" with element "#awaitingLegalAdvisorReferralLine1"
+    Then I click submit and expect hub element "#awaitingLegalAdvisorReferralLine1"
 
     Given I set the case state to "AwaitingClarification" and login as applicant "2"
 
