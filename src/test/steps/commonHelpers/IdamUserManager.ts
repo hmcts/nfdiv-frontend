@@ -278,6 +278,18 @@ export class IdamUserManager {
   getTestPass(): string {
     return this.testUser.password;
   }
+
+  switchApplicant1AndApplicant2(): void {
+    const applicant1 = this.applicant1;
+    const currentUser = this.currentUser;
+    this.applicant1 = this.applicant2;
+    this.applicant2 = applicant1;
+    if (currentUser === TestUserKey.APPLICANT_1) {
+      this.currentUser = TestUserKey.APPLICANT_2;
+    } else if (currentUser === TestUserKey.APPLICANT_2) {
+      this.currentUser = TestUserKey.APPLICANT_1;
+    }
+  }
 }
 
 export interface TestUserAndPassword {
