@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { capitalize } from 'lodash';
 
 import { OidcResponse, getIdamToken } from '../../../main/app/auth/user/oidc';
 import { Gender } from '../../../main/app/case/definition';
@@ -35,12 +36,11 @@ export const APPLICANT_1_FIRST_NAME = 'Sarah';
 export const APPLICANT_2_FIRST_NAME = 'John';
 export const APPLICANTS_LAST_NAME = 'Smith';
 
-export const iSignOutAndLoginAsUser = async (
+export const iLoginAsUser = async (
   user: TestUserKey,
   expectedUrl?: string,
   expectedElementSelector?: string
 ): Promise<void> => {
-  iSignOut();
   await login(user);
   if (expectedUrl) {
     iWaitInUrl(expectedUrl);
@@ -48,6 +48,14 @@ export const iSignOutAndLoginAsUser = async (
   if (expectedElementSelector) {
     iWaitForElement(expectedElementSelector);
   }
+};
+export const iSignOutAndLoginAsUser = async (
+  user: TestUserKey,
+  expectedUrl?: string,
+  expectedElementSelector?: string
+): Promise<void> => {
+  iSignOut();
+  await iLoginAsUser(user, expectedUrl, expectedElementSelector);
 };
 
 export const iClickSignOut = async (): Promise<void> => {
@@ -304,6 +312,11 @@ export const iGetTheTestUser = async (
   };
 };
 
+export const switchApplicant1AndApplicant2 = (): void => {
+  const idamUserManager = testConfig.getIdamUserManager();
+  idamUserManager.switchApplicant1AndApplicant2();
+};
+
 export const isApplicant2 = (): boolean => {
   const idamUserManager = testConfig.getIdamUserManager();
   return idamUserManager.isApplicant2();
@@ -325,9 +338,15 @@ export const getOtherApplicantNumber = (): number => {
 export const getApplicantString = (): string => {
   return `applicant${getApplicantNumber()}`;
 };
+export const getCapitalisedApplicantString = (): string => {
+  return capitalize(getApplicantString());
+};
 
 export const getOtherApplicantString = (): string => {
   return `applicant${getOtherApplicantNumber()}`;
+};
+export const getCapitalisedOtherApplicantString = (): string => {
+  return capitalize(getOtherApplicantString());
 };
 
 const getFirstName = (otherParty: boolean = false): string => {
