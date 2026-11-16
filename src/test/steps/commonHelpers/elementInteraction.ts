@@ -118,7 +118,10 @@ export const iClickSubmit = async (wait?: number): Promise<void> => {
   await iClickSubmitAndExpectUrl(undefined, wait);
 };
 
-export const iClickSubmitAndExpectHubElement = async (expectedElementSelector: string, wait?: number): Promise<void> => {
+export const iClickSubmitAndExpectHubElement = async (
+  expectedElementSelector: string,
+  wait?: number
+): Promise<void> => {
   await iClickSubmitAndExpectUrl(HUB_PAGE, wait, undefined, expectedElementSelector);
 };
 
@@ -160,7 +163,10 @@ export const iClickContinue = async (wait?: number): Promise<void> => {
   await iClickContinueAndExpectUrl(undefined, wait);
 };
 
-export const iClickContinueAndExpectHubElement = async (expectedElementSelector: string, wait?: number): Promise<void> => {
+export const iClickContinueAndExpectHubElement = async (
+  expectedElementSelector: string,
+  wait?: number
+): Promise<void> => {
   await iClickContinueAndExpectUrl(HUB_PAGE, wait, undefined, expectedElementSelector);
 };
 

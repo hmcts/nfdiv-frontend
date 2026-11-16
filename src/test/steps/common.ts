@@ -255,9 +255,12 @@ When(
     await iClickToNavigate(selector, undefined, url, undefined, expectedElementSelector);
   }
 );
-When('I click element {string} and expect hub element {string}', async (selector: string, expectedElementSelector: string) => {
-  await iClickToNavigate(selector, undefined, HUB_PAGE, undefined, expectedElementSelector);
-});
+When(
+  'I click element {string} and expect hub element {string}',
+  async (selector: string, expectedElementSelector: string) => {
+    await iClickToNavigate(selector, undefined, HUB_PAGE, undefined, expectedElementSelector);
+  }
+);
 
 When('I click back', iClickBackLink);
 When('I click back and expect URL {string}', async (url: string) => {
