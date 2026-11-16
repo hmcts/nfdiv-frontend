@@ -79,13 +79,9 @@ Given('I enter the reason for the delay', () => {
   iEnterValueIntoInput('Example reason for the delay', `#${getApplicantString()}FinalOrderLateExplanation`);
 });
 
-When('I click confirm', iClickSubmit);
-When('I click confirm and expect URL {string}', async (url: string) => {
-  await iClickSubmitAndExpectUrl(url);
-});
 When(
-  'I click confirm and expect URL {string} with element {string}',
-  async (url: string, expectedElementSelector: string) => {
-    await iClickSubmitAndExpectUrl(url, undefined, undefined, expectedElementSelector);
+  'I click confirm and expect hub element {string}',
+  async (expectedElementSelector: string) => {
+    await iClickSubmitAndExpectUrl(HUB_PAGE, undefined, undefined, expectedElementSelector);
   }
 );
