@@ -416,3 +416,13 @@ export const iEnterMyHwfReference = async (): Promise<void> => {
     : `#${getApplicantString()}HelpWithFeesRefNo`;
   iEnterValueIntoInput('HWF-ABC-123', selector);
 };
+
+export const iConfirmReceiptOfTheApplication = async (): Promise<void> => {
+  await iClickToNavigate(
+    '#confirmReceiptButton',
+    undefined,
+    await iGrabCurrentUrl(),
+    undefined,
+    '#applicantConfirmedReceiptContent'
+  );
+};

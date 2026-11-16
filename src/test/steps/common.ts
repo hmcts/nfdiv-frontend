@@ -44,6 +44,7 @@ import {
   iClickSubmitAndExpectHubElement,
   iClickSubmitAndExpectUrl,
   iConfirmPrayerAndStatementOfTruth,
+  iConfirmReceiptOfTheApplication,
   iConfirmWeLiveInEnglandOrWales,
   iDeleteAllUploadedFiles,
   iDeleteUploadedFile,
@@ -79,7 +80,6 @@ import {
   iClickToNavigate,
   iClickWithdrawLink,
   iDontSeeABackLink,
-  iGrabCurrentUrl,
   iSeeABackLink,
   iWaitInPageNotFoundErrorPage,
   iWaitInUrl,
@@ -369,6 +369,9 @@ When('I click save and sign out and expect URL {string}', async (url: string) =>
 When('I click provide information', async () => {
   await iClickToNavigate('#provideInformationButton');
 });
+When('I click provide information and expect URL {string}', async (url: string) => {
+  await iClickToNavigate('#provideInformationButton', undefined, url);
+});
 When('I click continue to the next steps', async () => {
   await iClickToNavigate('a.govuk-button[href="/return-to-service"]');
 });
@@ -433,15 +436,7 @@ When('I want to apply to serve another way', () => {
   iCheckOption('#iWantToHavePapersServedAnotherWay');
 });
 
-When('I confirm receipt of the application', async () => {
-  await iClickToNavigate(
-    '#confirmReceiptButton',
-    undefined,
-    await iGrabCurrentUrl(),
-    undefined,
-    '#applicantConfirmedReceiptContent'
-  );
-});
+When('I confirm receipt of the application', iConfirmReceiptOfTheApplication);
 
 When('I confirm the prayer and statement of truth', iConfirmPrayerAndStatementOfTruth);
 When('I confirm the statement of truth', () => {
