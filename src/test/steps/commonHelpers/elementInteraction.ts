@@ -2,6 +2,7 @@ import { Locator, Page } from '@playwright/test';
 
 import { NoResponseOwnSearches, YesOrNo } from '../../../main/app/case/definition';
 import { SupportedLanguages } from '../../../main/modules/i18n';
+import { HUB_PAGE } from '../../../main/steps/urls';
 import { isInterimApplicationsUrl } from '../urlLookup';
 
 import { iAmOnIdam, iClickToNavigate, iGrabCurrentUrl, iWaitForUrlParam } from './navigation';
@@ -117,6 +118,10 @@ export const iClickSubmit = async (wait?: number): Promise<void> => {
   await iClickSubmitAndExpectUrl(undefined, wait);
 };
 
+export const iClickSubmitAndExpectHubElement = async (expectedElementSelector: string, wait?: number): Promise<void> => {
+  await iClickSubmitAndExpectUrl(HUB_PAGE, wait, undefined, expectedElementSelector);
+};
+
 export const iClickSubmitAndExpectTheCurrentPage = async (): Promise<void> => {
   const nextUrl = await iGrabCurrentUrl();
   await iClickSubmitAndExpectUrl(nextUrl);
@@ -153,6 +158,10 @@ export const iClickContinueAndExpectUrl = async (
 
 export const iClickContinue = async (wait?: number): Promise<void> => {
   await iClickContinueAndExpectUrl(undefined, wait);
+};
+
+export const iClickContinueAndExpectHubElement = async (expectedElementSelector: string, wait?: number): Promise<void> => {
+  await iClickContinueAndExpectUrl(HUB_PAGE, wait, undefined, expectedElementSelector);
 };
 
 export const iClickChangeLinkForQuestion = async (questionText: string): Promise<void> => {

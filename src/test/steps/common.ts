@@ -33,6 +33,7 @@ import {
   iCheckOptionFor,
   iClearTheForm,
   iClickContinue,
+  iClickContinueAndExpectHubElement,
   iClickContinueAndExpectUrl,
   iClickElement,
   iClickMoreDetailsComponent,
@@ -40,6 +41,7 @@ import {
   iClickStartAndExpectUrl,
   iClickString,
   iClickSubmit,
+  iClickSubmitAndExpectHubElement,
   iClickSubmitAndExpectUrl,
   iConfirmPrayerAndStatementOfTruth,
   iConfirmWeLiveInEnglandOrWales,
@@ -152,6 +154,13 @@ Given(
   }
 );
 Given(
+  'I login with applicant {string} and expect hub element {string}',
+  async (applicant: string, expectedElementSelector: string) => {
+    const userKey = getUserKeyByIndex(parseInt(applicant));
+    await iLoginAsUser(userKey, HUB_PAGE, expectedElementSelector);
+  }
+);
+Given(
   'I sign out then login with applicant {string} and expect URL {string}',
   async (applicant: string, url: string) => {
     const userKey = getUserKeyByIndex(parseInt(applicant));
@@ -163,6 +172,13 @@ Given(
   async (applicant: string, url: string, expectedElementSelector: string) => {
     const userKey = getUserKeyByIndex(parseInt(applicant));
     await iSignOutAndLoginAsUser(userKey, url, expectedElementSelector);
+  }
+);
+Given(
+  'I sign out then login with applicant {string} and expect hub element {string}',
+  async (applicant: string, expectedElementSelector: string) => {
+    const userKey = getUserKeyByIndex(parseInt(applicant));
+    await iSignOutAndLoginAsUser(userKey, HUB_PAGE, expectedElementSelector);
   }
 );
 Given('I login with the respondent', async () => {
@@ -239,6 +255,9 @@ When(
     await iClickToNavigate(selector, undefined, url, undefined, expectedElementSelector);
   }
 );
+When('I click element {string} and expect hub element {string}', async (selector: string, expectedElementSelector: string) => {
+  await iClickToNavigate(selector, undefined, HUB_PAGE, undefined, expectedElementSelector);
+});
 
 When('I click back', iClickBackLink);
 When('I click back and expect URL {string}', async (url: string) => {
@@ -271,6 +290,9 @@ When(
     await iClickStartAndExpectUrl(url, undefined, undefined, expectedElementSelector);
   }
 );
+When('I click start and expect hub element {string}', async (expectedElementSelector: string) => {
+  await iClickStartAndExpectUrl(HUB_PAGE, undefined, undefined, expectedElementSelector);
+});
 
 When('I sign out', iClickSignOut);
 
@@ -295,6 +317,9 @@ When(
     await iClickSubmitAndExpectUrl(url, undefined, undefined, expectedElementSelector);
   }
 );
+When('I click submit and expect hub element {string}', async (expectedElementSelector: string) => {
+  await iClickSubmitAndExpectHubElement(expectedElementSelector);
+});
 When('I click continue', iClickContinue);
 When('I click continue and expect URL {string}', async (url: string) => {
   await iClickContinueAndExpectUrl(url);
@@ -305,6 +330,9 @@ When(
     await iClickContinueAndExpectUrl(url, undefined, undefined, expectedElementSelector);
   }
 );
+When('I click continue and expect hub element {string}', async (expectedElementSelector: string) => {
+  await iClickContinueAndExpectHubElement(expectedElementSelector);
+});
 When('I click continue and the request should redirect to the CSRF error page', async () => {
   await iClickContinueAndExpectUrl(CSRF_TOKEN_ERROR_URL, undefined, undefined, '#badRequestTitle');
 });
