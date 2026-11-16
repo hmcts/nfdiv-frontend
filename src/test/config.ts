@@ -70,6 +70,7 @@ export const config = {
     steps: [
       '../steps/common.ts',
       '../steps/conditional-order.ts',
+      '../steps/final-order.ts',
       '../steps/date.ts',
       '../steps/check-your-answers.ts',
       '../steps/form-failures.ts',
