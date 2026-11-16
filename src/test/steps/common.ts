@@ -6,6 +6,7 @@ import {
   CHECK_JURISDICTION,
   CSRF_TOKEN_ERROR_URL,
   HOW_DO_YOU_WANT_TO_APPLY,
+  HUB_PAGE,
   REVIEW_THE_APPLICATION,
   THEIR_EMAIL_ADDRESS,
 } from '../../main/steps/urls';
@@ -18,6 +19,8 @@ import {
   caseworkerUpdatesCourtCaseHearing,
   caseworkerUpdatesTheCase,
   iSetTheCaseStateAndReSignIn,
+  iSetTheCaseStateAndSignInAsUser,
+  iSetTheCaseStateAndSignOut,
   linkUserToCase,
 } from './commonHelpers/caseInteraction';
 import {
@@ -85,6 +88,7 @@ import {
   getApplicantString,
   getUserKeyByIndex,
   iClickSignOut,
+  iLoginAsUser,
   iSignOutAndLoginAsUser,
   login,
 } from './commonHelpers/userInteraction';
@@ -111,7 +115,7 @@ Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$/, (user: string, url: stri
   iWaitInUrlAsUser(url, user);
 });
 Then(
-  /^the page URL should be "([^"]*)" \/ "([^"]*)"$ with element "([^"]*)"$/,
+  /^the page URL should be "([^"]*)" \/ "([^"]*)" with element "([^"]*)"$/,
   (user: string, url: string, expectedElementSelector: string) => {
     iWaitInUrlAsUser(url, user, undefined, expectedElementSelector);
   }
@@ -134,8 +138,19 @@ Given('I create a new user and login as applicant 2', async () => {
 });
 Given('I login with applicant {string}', async (applicant: string) => {
   const userKey = getUserKeyByIndex(parseInt(applicant));
-  await login(userKey);
+  await iLoginAsUser(userKey);
 });
+Given('I login with applicant {string} and expect URL {string}', async (applicant: string, url: string) => {
+  const userKey = getUserKeyByIndex(parseInt(applicant));
+  await iLoginAsUser(userKey, url);
+});
+Given(
+  'I login with applicant {string} and expect URL {string} with element {string}',
+  async (applicant: string, url: string, expectedElementSelector: string) => {
+    const userKey = getUserKeyByIndex(parseInt(applicant));
+    await iLoginAsUser(userKey, url, expectedElementSelector);
+  }
+);
 Given(
   'I sign out then login with applicant {string} and expect URL {string}',
   async (applicant: string, url: string) => {
@@ -262,6 +277,13 @@ When('I sign out', iClickSignOut);
 Given('I set the case state to {string}', async (state: State) => {
   await iSetTheCaseStateAndReSignIn(state);
 });
+Given('I set the case state to {string} and login as applicant {string}', async (state: string, applicant: string) => {
+  const userKey = getUserKeyByIndex(parseInt(applicant));
+  await iSetTheCaseStateAndSignInAsUser(state as State, userKey, HUB_PAGE);
+});
+Given('I set the case state to {string} and sign out', async (state: State) => {
+  await iSetTheCaseStateAndSignOut(state);
+});
 
 When('I click submit', iClickSubmit);
 When('I click submit and expect URL {string}', async (url: string) => {
@@ -303,7 +325,6 @@ When('I click accept and send', iClickSubmit);
 When('I click accept and send and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
 });
-When('I click confirm', iClickSubmit);
 When('I click end the joint application', iClickSubmit);
 When('I click end the joint application and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
@@ -316,9 +337,6 @@ When('I click save and sign out and expect URL {string}', async (url: string) =>
 });
 When('I click provide information', async () => {
   await iClickToNavigate('#provideInformationButton');
-});
-When('I click apply for final order', async () => {
-  await iClickToNavigate('#applyForFinalOrderButton');
 });
 When('I click continue to the next steps', async () => {
   await iClickToNavigate('a.govuk-button[href="/return-to-service"]');
