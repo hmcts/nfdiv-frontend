@@ -4,8 +4,7 @@ Feature: Joint conditional order
     Given I create a new user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "HOME_URL"
-    And I click send for review
-    Then the page URL should be "SENT_TO_APPLICANT2_FOR_REVIEW"
+    And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
     When I enter my valid case reference and valid access code
     Then the page URL should be "APPLICANT_2" / "YOU_NEED_TO_REVIEW_YOUR_APPLICATION"
     Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
