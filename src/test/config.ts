@@ -80,6 +80,7 @@ export const config = {
       '../steps/jurisdiction.ts',
       '../steps/payAndSubmit.ts',
       '../steps/postcode.ts',
+      '../steps/requestForInformation.ts',
       '../steps/you-need-to-review-your-application.ts',
     ],
   },
