@@ -28,7 +28,7 @@ export default class PreIssueWithdrawPostController extends PostController<AnyOb
       throw new Error('Failed to withdraw case. Please try again later.');
     }
 
-    destroySessionAndRedirectToSignOutPage(req, res, WITHDRAW_CONFIRMATION);
+    await destroySessionAndRedirectToSignOutPage(req, res, WITHDRAW_CONFIRMATION);
   }
 
   protected getEventName(): string {

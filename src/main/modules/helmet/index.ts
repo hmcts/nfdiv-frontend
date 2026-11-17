@@ -1,3 +1,5 @@
+import type { IncomingMessage, ServerResponse } from 'http';
+
 import config from 'config';
 import * as express from 'express';
 import { Express, RequestHandler } from 'express';
@@ -39,11 +41,19 @@ type ReferrerPolicyToken =
 export class Helmet {
   public enableFor(app: Express): void {
     // include default helmet functions
-    app.use(helmet() as RequestHandler);
+    app.use(
+      helmet({
+        strictTransportSecurity: this.getTransportSecurity(app),
+      }) as RequestHandler
+    );
 
     this.setContentSecurityPolicy(app);
     this.setReferrerPolicy(app, 'origin');
     this.setPermissionsPolicy(app);
+  }
+
+  private getTransportSecurity(app: Express): boolean | undefined {
+    return app.locals.developmentMode ? false : undefined;
   }
 
   private setContentSecurityPolicy(app: express.Express): void {
@@ -73,11 +83,18 @@ export class Helmet {
       "'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw='",
       "'sha256-gpnWB3ld/ux/M3KURJluvKNOUQ82MPOtzVeCtqK7gmE='",
       "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
-      `'nonce-${config.get('nonce')}'`,
+      (_req: IncomingMessage, res: ServerResponse) => `'nonce-${(res as express.Response).locals.nonce}'`,
     ];
 
     const formAction = [self, 'https://card.payments.service.gov.uk', 'https://hmcts-access.service.gov.uk/login'];
-    const idamEndSessionOrigin = getOrigin(config.get('services.idam.endSessionURL'));
+    const endSessionUrl =
+      config.has('services.idam.webBaseUrl') && config.has('services.idam.endSessionPath')
+        ? new URL(
+            config.get('services.idam.endSessionPath') as string,
+            `${config.get('services.idam.webBaseUrl') as string}/`
+          ).toString()
+        : (config.get('services.idam.endSessionURL') as string);
+    const idamEndSessionOrigin = getOrigin(endSessionUrl);
     if (idamEndSessionOrigin) {
       formAction.push(idamEndSessionOrigin);
     }
@@ -106,6 +123,7 @@ export class Helmet {
           scriptSrc,
           manifestSrc,
           styleSrc: [self, ...tagManager, "'unsafe-inline'", 'https://fonts.googleapis.com'],
+          upgradeInsecureRequests: app.locals.developmentMode ? null : [],
         },
       }) as RequestHandler
     );

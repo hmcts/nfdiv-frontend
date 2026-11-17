@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import { APPLICANT_2_SIGN_IN_URL, CALLBACK_URL, SIGN_IN_URL } from '../../../steps/urls';
 
-import { OidcResponse, getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
+import { OidcResponse, getEndIdamSessionUrl, getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
 
 const config = require('config');
 
@@ -33,7 +33,7 @@ const mockSystemPayload = {
 const mockToken = jwt.sign(mockPayload, mockSecret, { expiresIn: '1h' });
 const mockSystemToken = jwt.sign(mockSystemPayload, mockSecret, { expiresIn: '1h' });
 const mockedServiceId = 'nfdiv';
-const mockedAuthorizationURL = 'https://idam-web-public.aat.platform.hmcts.net/login';
+const mockedAuthorizationURL = 'https://idam-web-public.aat.platform.hmcts.net/o/authorize';
 const mockedAuthorizationScope = 'openid profile roles';
 
 describe('getRedirectUrl', () => {
@@ -42,7 +42,7 @@ describe('getRedirectUrl', () => {
     mockedConfig.get.mockReturnValueOnce(mockedAuthorizationURL);
     mockedConfig.get.mockReturnValueOnce(mockedAuthorizationScope);
     expect(getRedirectUrl('http://localhost', SIGN_IN_URL)).toBe(
-      'https://idam-web-public.aat.platform.hmcts.net/login?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback&scope=openid profile roles'
+      'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback&scope=openid profile roles'
     );
   });
 
@@ -51,7 +51,23 @@ describe('getRedirectUrl', () => {
     mockedConfig.get.mockReturnValueOnce(mockedAuthorizationURL);
     mockedConfig.get.mockReturnValueOnce(mockedAuthorizationScope);
     expect(getRedirectUrl('http://localhost', APPLICANT_2_SIGN_IN_URL)).toBe(
-      'https://idam-web-public.aat.platform.hmcts.net/login?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback-applicant2&scope=openid profile roles'
+      'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback-applicant2&scope=openid profile roles'
+    );
+  });
+
+  test('should fall back to authorizationURL when webBaseUrl and authorizationPath are not configured', () => {
+    (mockedConfig.has as jest.Mock).mockReturnValue(false);
+    mockedConfig.get.mockImplementation((key: string) => {
+      const values: Record<string, string> = {
+        'services.idam.clientID': mockedServiceId,
+        'services.idam.authorizationURL': mockedAuthorizationURL,
+        'services.idam.authorizationScope': mockedAuthorizationScope,
+      };
+      return values[key];
+    });
+
+    expect(getRedirectUrl('http://localhost', SIGN_IN_URL)).toBe(
+      'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=nfdiv&response_type=code&redirect_uri=http://localhost/oauth2/callback&scope=openid profile roles'
     );
   });
 });
@@ -68,6 +84,7 @@ describe('getUserDetails', () => {
     const result = await getUserDetails('http://localhost', '123', CALLBACK_URL);
     expect(result).toStrictEqual({
       accessToken: 'token',
+      idToken: mockToken,
       email: 'test@test.com',
       givenName: 'John',
       familyName: 'Dorian',
@@ -101,10 +118,12 @@ describe('getSystemUser', () => {
     roles: string[];
     id: string;
     accessToken: string;
+    idToken: string;
     email: string;
   } = {
     email: 'user-email',
     accessToken: 'systemUserTestToken',
+    idToken: mockSystemToken,
     id: '456',
     givenName: undefined,
     familyName: undefined,
@@ -129,5 +148,90 @@ describe('getSystemUser', () => {
 
     const result = await getSystemUser();
     expect(result).toStrictEqual(expectedGetSystemUserResponse);
+  });
+
+  describe('getEndIdamSessionUrl', () => {
+    test('should build end session URL using webBaseUrl and endSessionPath when configured', () => {
+      (mockedConfig.has as jest.Mock).mockImplementation(
+        key => key === 'services.idam.webBaseUrl' || key === 'services.idam.endSessionPath'
+      );
+      mockedConfig.get.mockImplementation((key: string) => {
+        const values: Record<string, string> = {
+          'services.idam.webBaseUrl': 'https://hmcts-access.service.gov.uk',
+          'services.idam.endSessionPath': '/o/endSession',
+        };
+        return values[key];
+      });
+
+      expect(getEndIdamSessionUrl('http://localhost/save-sign-out', 'mock-id-token')).toBe(
+        'https://hmcts-access.service.gov.uk/o/endSession?post_logout_redirect_uri=http://localhost/save-sign-out&id_token_hint=mock-id-token'
+      );
+    });
+
+    test('should fall back to endSessionURL when webBaseUrl and endSessionPath are not configured', () => {
+      (mockedConfig.has as jest.Mock).mockReturnValue(false);
+      mockedConfig.get.mockImplementation((key: string) => {
+        const values: Record<string, string> = {
+          'services.idam.endSessionURL': 'https://idam-web-public.aat.platform.hmcts.net/o/endSession',
+        };
+        return values[key];
+      });
+
+      expect(getEndIdamSessionUrl('http://localhost/save-sign-out', 'mock-id-token')).toBe(
+        'https://idam-web-public.aat.platform.hmcts.net/o/endSession?post_logout_redirect_uri=http://localhost/save-sign-out&id_token_hint=mock-id-token'
+      );
+    });
+  });
+  describe('IDAM token URL resolution', () => {
+    test('should post token request to apiBaseUrl + tokenPath when configured', async () => {
+      (mockedConfig.has as jest.Mock).mockImplementation(
+        key => key === 'services.idam.apiBaseUrl' || key === 'services.idam.tokenPath'
+      );
+      mockedConfig.get.mockImplementation((key: string) => {
+        const values: Record<string, string> = {
+          'services.idam.systemUsername': 'system.user@hmcts.net',
+          'services.idam.systemPassword': 'password',
+          'services.idam.clientID': 'nfdiv',
+          'services.idam.clientSecret': 'secret',
+          'services.idam.apiBaseUrl': 'https://idam-api.platform.hmcts.net',
+          'services.idam.tokenPath': '/o/token',
+          'services.idam.caching': 'false',
+        };
+        return values[key];
+      });
+      mockedAxios.post.mockResolvedValue(accessTokenResponse);
+
+      await getSystemUser();
+
+      expect(mockedAxios.post).toHaveBeenCalledWith(
+        'https://idam-api.platform.hmcts.net/o/token',
+        expect.any(String),
+        expect.any(Object)
+      );
+    });
+
+    test('should fall back to tokenURL when apiBaseUrl and tokenPath are not configured', async () => {
+      (mockedConfig.has as jest.Mock).mockReturnValue(false);
+      mockedConfig.get.mockImplementation((key: string) => {
+        const values: Record<string, string> = {
+          'services.idam.systemUsername': 'system.user@hmcts.net',
+          'services.idam.systemPassword': 'password',
+          'services.idam.clientID': 'nfdiv',
+          'services.idam.clientSecret': 'secret',
+          'services.idam.tokenURL': 'https://legacy-idam.platform.hmcts.net/o/token',
+          'services.idam.caching': 'false',
+        };
+        return values[key];
+      });
+      mockedAxios.post.mockResolvedValue(accessTokenResponse);
+
+      await getSystemUser();
+
+      expect(mockedAxios.post).toHaveBeenCalledWith(
+        'https://legacy-idam.platform.hmcts.net/o/token',
+        expect.any(String),
+        expect.any(Object)
+      );
+    });
   });
 });
