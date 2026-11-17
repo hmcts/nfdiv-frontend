@@ -9,8 +9,7 @@ Feature: Update contact details
 
     Given I pay and submit and expect the application to be saved
     And a case worker issues the application
-    When I as respondent enter my valid case reference and valid access code
-    Then the page URL should be "RESPONDENT" / "HUB_PAGE"
+    Then I as respondent enter my valid case reference and valid access code
 
   @nightly
   Scenario: Applicant and Respondent update contact details
@@ -27,10 +26,7 @@ Feature: Update contact details
 
     Then I click continue and expect URL "HUB_PAGE"
 
-    Given I sign out
-    And I login with applicant "1"
-    Then the page URL should be "HUB_PAGE"
-
+    Given I sign out then login with applicant "1" and expect URL "HUB_PAGE"
     When I click to review my contact details
     Then I click to change my address
 
