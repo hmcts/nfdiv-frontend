@@ -308,18 +308,19 @@ export const iWaitForUploadedFile = async (pathToFile: string, wait?: number): P
 
 export const iDeleteUploadedFile = async (filename: string, wait?: number): Promise<void> => {
   const uploadedFileSelector = `#filesUploaded > li.uploadedFile[data-filename="${filename}"]`;
-  await iClickToNavigate(`${uploadedFileSelector} > button.document-delete-button`, wait);
+  await iClickToNavigate(`${uploadedFileSelector} > button.document-delete-button`, wait, await iGrabCurrentUrl());
   I.dontSeeElementInDOM(uploadedFileSelector);
 };
 
 export const iDeleteAllUploadedFiles = async (): Promise<void> => {
-  const documentDeleteButtonSelector = 'button.document-delete-button';
+  const currentUrl = await iGrabCurrentUrl();
+  const documentDeleteButtonSelector = '#filesUploaded > li.uploadedFile > button.document-delete-button';
   let numberOfElements = await I.grabNumberOfVisibleElements(documentDeleteButtonSelector);
 
   const maxRetries = 10;
   let i = 0;
   while (numberOfElements > 0 && i < maxRetries) {
-    await iClickToNavigate(documentDeleteButtonSelector);
+    await iClickToNavigate(documentDeleteButtonSelector, undefined, currentUrl);
     numberOfElements = await I.grabNumberOfVisibleElements(documentDeleteButtonSelector);
     i++;
   }
