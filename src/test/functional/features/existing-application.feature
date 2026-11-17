@@ -3,22 +3,25 @@ Feature: Existing Application
   Background:
     Given I create a new user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    And I go to "HOME_URL"
+    Then I go to "HOME_URL"
     And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+
     Given I enter my valid case reference and valid access code
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
-    And I go to "APPLICANT_2" / "CONFIRM_JOINT_APPLICATION"
+    And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
+    Then I go to "APPLICANT_2" / "CONFIRM_JOINT_APPLICATION"
+
     Given I confirm the prayer and statement of truth
     Then I click submit and expect URL "RESPONSE_SUBMITTED"
-    Given I sign out
-    Then I create a new user and login
+
+    Then I sign out
+    And I create a new user and login
+
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     And I set the email address for applicant 2
-    And I go to "HOME_URL"
+    Then I go to "HOME_URL"
     And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
-    Given I sign out
-    And I login with applicant "2"
-    Then the page URL should be "EXISTING_APPLICATION"
+
+    Given I sign out then login with applicant "2" and expect URL "EXISTING_APPLICATION"
 
   @nightly
   Scenario: Continuing with existing application
