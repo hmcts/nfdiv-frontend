@@ -305,6 +305,7 @@ export const iGetTheTestUser = async (
   return {
     accessToken: response.data.access_token,
     id: jwt.uid,
+    idToken: response.data.id_token,
     email: jwt.sub,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
