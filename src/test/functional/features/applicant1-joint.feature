@@ -180,8 +180,7 @@ Feature: Applicant 1 joint application
     Given I need a financial order for myself and my children
     Then I click continue and expect URL "UPLOAD_YOUR_DOCUMENTS"
 
-    Given I delete any previously uploaded files
-    And I cannot upload my original foreign marriage certificate
+    Given I cannot upload my original foreign marriage certificate
     Then I click continue and expect URL "CHECK_ANSWERS_URL"
 
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
@@ -190,8 +189,7 @@ Feature: Applicant 1 joint application
   Scenario: Applicant 1 upload larry-the-cat
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "UPLOAD_YOUR_DOCUMENTS"
-    Given I delete any previously uploaded files
-    When I upload the file "fixtures/larry-the-cat.jpg"
+    Given I upload the file "fixtures/larry-the-cat.jpg"
     Then I delete the file "larry-the-cat.jpg"
     And I clear the form
     And I cannot upload my original marriage certificate
