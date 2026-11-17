@@ -160,6 +160,10 @@ Given(
     await iLoginAsUser(userKey, HUB_PAGE, expectedElementSelector);
   }
 );
+Given('I sign out then login with applicant {string}', async (applicant: string) => {
+  const userKey = getUserKeyByIndex(parseInt(applicant));
+  await iSignOutAndLoginAsUser(userKey);
+});
 Given(
   'I sign out then login with applicant {string} and expect URL {string}',
   async (applicant: string, url: string) => {
@@ -193,6 +197,9 @@ Given(
     await iLoginAsUser(TestUserKey.RESPONDENT, url, expectedElementSelector);
   }
 );
+Given('I sign out then login with the respondent', async () => {
+  await iSignOutAndLoginAsUser(TestUserKey.RESPONDENT);
+});
 Given('I sign out then login with the respondent and expect URL {string}', async (url: string) => {
   await iSignOutAndLoginAsUser(TestUserKey.RESPONDENT, url);
 });
