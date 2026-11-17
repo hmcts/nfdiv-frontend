@@ -49,25 +49,17 @@ Feature: Applicant 2
     Given I confirm the prayer and statement of truth
     Then I click continue and expect URL "RESPONSE_SUBMITTED"
 
-    Given I sign out
-    And I login with applicant "1"
-    Then the page URL should be "CONFIRM_JOINT_APPLICATION"
+    Given I sign out then login with applicant "1" and expect URL "CONFIRM_JOINT_APPLICATION"
 
     Given I confirm the prayer and statement of truth
+    Then I click continue to payment and expect URL "PAY_AND_SUBMIT"
 
-    When I click continue to payment
-    Then the page URL should be "PAY_AND_SUBMIT"
-
-    Then I click check your answers
-
+    Given I click check your answers
     Then I click back and expect URL "PAY_AND_SUBMIT"
 
     Then I pay and submit the joint application
 
-    Given I sign out
-    And I login with applicant "2"
-    Then the page URL should be "HUB_PAGE"
-    And the page should include element "#awaitingDocumentsTitle"
+    Then I sign out then login with applicant "2" and expect hub element "#awaitingDocumentsTitle"
 
   @nightly
   Scenario: They fill out an unhappy path applicant 2 journey with help with fees
@@ -141,8 +133,7 @@ Feature: Applicant 2
     Then I click continue and expect URL "CHECK_JOINT_APPLICATION"
 
     Given I deny the information my partner provided is correct
-    And I enter "Incorrect information" into "#applicant2Explanation"
-
+    And I explain what is incorrect or needs changing
     Then I click continue and expect URL "YOUR_COMMENTS_SENT"
 
   @nightly
@@ -158,9 +149,7 @@ Feature: Applicant 2
 
     Then I click end the joint application and expect URL "NOT_CONFIRMED_JOINT_APPLICATION"
 
-    Then I sign out
-    Given I login with applicant "1"
-    Then the page URL should be "APPLICATION_ENDED"
+    Then I sign out then login with applicant "1" and expect URL "APPLICATION_ENDED"
 
   @flaky
   Scenario: Applicant 2 upload larry-the-cat
@@ -169,8 +158,7 @@ Feature: Applicant 2
     Given I enter my valid case reference and valid access code
     And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     When I go to "APPLICANT_2" / "UPLOAD_YOUR_DOCUMENTS"
-    Given I delete any previously uploaded files
-    When I upload the file "fixtures/larry-the-cat.jpg"
+    Given I upload the file "fixtures/larry-the-cat.jpg"
     Then I delete the file "larry-the-cat.jpg"
     And I clear the form
     And I cannot upload my name change proof
