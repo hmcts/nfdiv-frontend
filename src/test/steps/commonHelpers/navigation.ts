@@ -205,6 +205,9 @@ export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number, expe
   I.waitInUrl(url, wait);
   if (expectedElementSelector && expectedElementSelector.trim().length > 0) {
     iWaitForVisible(expectedElementSelector, wait);
+  } else if (isInternalPageLink(url)) {
+    expectedElementSelector = `#${getPageTitleIdFromUrl(getUrlWithoutQuery(url) as PageLink)}`;
+    iWaitForVisible(expectedElementSelector, wait);
   }
 };
 
@@ -217,8 +220,7 @@ export const iWaitInErrorPage = (wait?: number): void => {
 };
 
 export const iWaitInPageNotFoundErrorPage = (wait?: number): void => {
-  iWaitInUrlAsUser(lookupUrl(ERROR_PAGE_URL), undefined, wait);
-  iWaitForVisible('#pageNotFoundTitle', wait);
+  iWaitInUrlAsUser(lookupUrl(ERROR_PAGE_URL), undefined, wait, '#pageNotFoundTitle');
 };
 
 export const doesCurrentUrlStartWith = async (serviceUrl: string, currentUrl?: string): Promise<boolean> => {
