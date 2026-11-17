@@ -12,6 +12,7 @@ const getCaseApiClientMock = jest.spyOn(caseApiClient, 'getCaseApiClient');
 
 const userDetails: UserDetails = {
   accessToken: '123',
+  idToken: '123',
   email: 'billy@bob.com',
   givenName: 'billy',
   familyName: 'bob',
@@ -80,6 +81,7 @@ describe('CaseApi', () => {
   test('should return case data for new invite case', async () => {
     getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
+      idToken: 'token',
       id: '1234',
       email: 'user@caseworker.com',
       givenName: 'case',
@@ -99,6 +101,7 @@ describe('CaseApi', () => {
   test('should return false for if there is no invite case', async () => {
     getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
+      idToken: 'token',
       id: '1234',
       email: 'user@caseworker.com',
       givenName: 'case',
@@ -117,6 +120,7 @@ describe('CaseApi', () => {
   test('getExistingAndNewUserCases should return both existing case and new invite case if unique cases', async () => {
     getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
+      idToken: 'token',
       id: '1234',
       email: 'user@caseworker.com',
       givenName: 'case',
@@ -146,6 +150,7 @@ describe('CaseApi', () => {
   test('getExistingAndNewUserCases should return existing case and false if invited case is an existing case', async () => {
     getSystemUserMock.mockResolvedValue({
       accessToken: 'token',
+      idToken: 'token',
       id: '1234',
       email: 'user@caseworker.com',
       givenName: 'case',
