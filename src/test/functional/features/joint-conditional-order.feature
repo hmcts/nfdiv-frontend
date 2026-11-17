@@ -5,10 +5,11 @@ Feature: Joint conditional order
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "HOME_URL"
     And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
-    When I enter my valid case reference and valid access code
-    Then the page URL should be "APPLICANT_2" / "YOU_NEED_TO_REVIEW_YOUR_APPLICATION"
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
-    And I go to "APPLICANT_2" / "CONFIRM_JOINT_APPLICATION"
+
+    Given I enter my valid case reference and valid access code
+    And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
+    Then I go to "APPLICANT_2" / "CONFIRM_JOINT_APPLICATION"
+
     Given I confirm the prayer and statement of truth
     Then I click submit and expect URL "RESPONSE_SUBMITTED"
 
@@ -56,7 +57,7 @@ Feature: Joint conditional order
     Given I confirm the statement of truth
     Then I click submit and expect hub element "#jointCoPendingBeforeDueDateLine1"
 
-    Then I sign out then login with applicant "1" and expect URL "HUB_PAGE"
+    Then I sign out then login with applicant "1" and expect hub element "#applicantNotYetAppliedForConditionalOrderContent"
 
     Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 
@@ -79,17 +80,16 @@ Feature: Joint conditional order
     And I cannot upload some or all of my documents
     Then the page should include element "#cannotUploadYouCanPostConditional"
 
-    Then I click continue and expect URL "HUB_PAGE"
+    Then I click continue and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
 
   @flaky
-  Scenario: Applicant 2 response with additional information and uploads for conditional order journey
+  Scenario: Applicant 2 responds with additional information and uploads for conditional order journey
     Given I set the case state to "AwaitingClarification" and login as applicant "2"
     When I go to "APPLICANT_2" / "PROVIDE_INFORMATION_TO_THE_COURT"
     Then the page should include element "#provideInformationToTheCourtUploadTitle"
     And I clear the form
 
     Given I provide additional details
-    And I delete any previously uploaded files
     Then I upload the file "fixtures/larry-the-cat.jpg"
 
-    Then I click continue and expect URL "HUB_PAGE"
+    Then I click continue and expect hub element "#clarificationSubmittedWithDocumentsContent"
