@@ -25,6 +25,11 @@ Feature: Respondent
     Given I select "Yes, these details are up to date"
 
     When I click "Continue"
+    Then the page URL should be "/respondent/address-private"
+    And the page should include "Do you need your contact details kept private"
+    Given I select "I do not need my contact details kept private"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
     And the page should include "How do you want to respond to the application?"
     Given I select "Continue without disputing the divorce"
@@ -75,6 +80,11 @@ Feature: Respondent
     Then the page URL should be "/respondent/confirm-contact-details"
     And the page should include "Review your contact details"
     Given I select "Yes, these details are up to date"
+
+    When I click "Continue"
+    Then the page URL should be "/respondent/address-private"
+    And the page should include "Do you need your contact details kept private"
+    Given I select "I do not need my contact details kept private"
 
     When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
@@ -160,6 +170,11 @@ Feature: Respondent
     Then the page URL should be "/respondent/confirm-contact-details"
     And the page should include "Review your contact details"
     Given I select "Yes, these details are up to date"
+
+    When I click "Continue"
+    Then the page URL should be "/respondent/address-private"
+    And the page should include "Do you need your contact details kept private"
+    Given I select "I do not need my contact details kept private"
 
     When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"

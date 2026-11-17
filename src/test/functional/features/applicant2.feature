@@ -212,7 +212,7 @@ Feature: Applicant 2
     Given I select "Keep my contact details private"
 
     When I click "Continue"
-    Then the page should include "Are you currently in a refuge?"
+    Then the page should include "Do you currently live in a refuge?"
     Given I select "No"
 
     When I click "Continue"

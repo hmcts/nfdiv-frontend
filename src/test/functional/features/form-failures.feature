@@ -311,6 +311,11 @@ Feature: Form failures
     Given I select "Yes, these details are up to date"
 
     When I click "Continue"
+    Then the page URL should be "/respondent/address-private"
+    And the page should include "Do you need your contact details kept private"
+    Given I select "I do not need my contact details kept private"
+
+    When I click "Continue"
     Then the page URL should be "/respondent/how-do-you-want-to-respond"
     Given I clear the form
     When I click "Continue"

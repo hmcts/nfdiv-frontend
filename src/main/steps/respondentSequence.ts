@@ -36,23 +36,28 @@ import {
   UPDATE_YOUR_ADDRESS,
 } from './urls';
 
-const sequence: Step[] = [
+export const sequence: Step[] = [
   {
     url: REVIEW_THE_APPLICATION,
     getNextStep: () => CONFIRM_CONTACT_DETAILS,
   },
   {
     url: CONFIRM_CONTACT_DETAILS,
-    getNextStep: data =>
-      data.applicant2ConfirmContactDetails === YesOrNo.NO ? ADDRESS_PRIVATE : HOW_DO_YOU_WANT_TO_RESPOND,
+    getNextStep: () => ADDRESS_PRIVATE,
   },
   {
     url: ADDRESS_PRIVATE,
-    getNextStep: data => (data.applicant2AddressPrivate === YesOrNo.NO ? ENTER_YOUR_ADDRESS : IN_REFUGE),
+    getNextStep: data =>
+      data.applicant2AddressPrivate === YesOrNo.NO
+        ? data.applicant2ConfirmContactDetails === YesOrNo.NO
+          ? ENTER_YOUR_ADDRESS
+          : HOW_DO_YOU_WANT_TO_RESPOND
+        : IN_REFUGE,
   },
   {
     url: IN_REFUGE,
-    getNextStep: () => ENTER_YOUR_ADDRESS,
+    getNextStep: data =>
+      data.applicant2ConfirmContactDetails === YesOrNo.NO ? ENTER_YOUR_ADDRESS : HOW_DO_YOU_WANT_TO_RESPOND,
   },
   {
     url: ENTER_YOUR_ADDRESS,
