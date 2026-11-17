@@ -81,6 +81,7 @@ export const config = {
       '../steps/payAndSubmit.ts',
       '../steps/postcode.ts',
       '../steps/requestForInformation.ts',
+      '../steps/switchToSole.ts',
       '../steps/you-need-to-review-your-application.ts',
     ],
   },
