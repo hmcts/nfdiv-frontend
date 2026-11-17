@@ -5,7 +5,7 @@ Feature: Applicant 2
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
 
   Scenario: They fill out a happy path applicant 2 journey
-    When I go to "HOME_URL"
+    When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
     Given I enter my valid case reference and valid access code
@@ -74,7 +74,7 @@ Feature: Applicant 2
     Given I enter my HWF reference number
     Then I click continue and expect URL "HOW_DO_YOU_WANT_TO_APPLY"
 
-    When I go to "HOME_URL"
+    When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
     Given I enter my valid case reference and valid access code
@@ -138,7 +138,7 @@ Feature: Applicant 2
 
   @nightly
   Scenario: They end the joint application
-    When I go to "HOME_URL"
+    When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
     Given I enter my valid case reference and valid access code
@@ -153,7 +153,7 @@ Feature: Applicant 2
 
   @flaky
   Scenario: Applicant 2 upload larry-the-cat
-    When I go to "HOME_URL"
+    When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
     Given I enter my valid case reference and valid access code
     And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"

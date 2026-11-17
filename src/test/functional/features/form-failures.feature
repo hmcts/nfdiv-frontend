@@ -241,7 +241,7 @@ Feature: Form failures
   @nightly
   Scenario: They fail to fill out the applicant 2 forms
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    When I go to "HOME_URL"
+    When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
     Given I enter my valid case reference and valid access code
@@ -321,7 +321,7 @@ Feature: Form failures
   @nightly
   Scenario: They fail to fill out joint conditional order questions
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    When I go to "HOME_URL"
+    When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
     When I enter my valid case reference and valid access code
     Given I set the case state to "AwaitingConditionalOrder"

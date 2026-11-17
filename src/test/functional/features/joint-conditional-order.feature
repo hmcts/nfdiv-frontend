@@ -3,7 +3,7 @@ Feature: Joint conditional order
   Background:
     Given I create a new user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    When I go to "HOME_URL"
+    When I go to "CHECK_ANSWERS_URL"
     And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
     Given I enter my valid case reference and valid access code

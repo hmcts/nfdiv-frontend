@@ -3,7 +3,7 @@ Feature: Joint final order
   Background: Logged in for hub page and progress case to AwaitingFinalOrder
     Given I create a new user and login
     And I've already completed the form using the fixture "jointFinalOrderCompleteCase"
-    Then I go to "HOME_URL"
+    Then I go to "CHECK_ANSWERS_URL"
     And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
     Then I enter my valid case reference and valid access code
 
