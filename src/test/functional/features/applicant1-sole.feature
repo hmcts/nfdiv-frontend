@@ -229,8 +229,7 @@ Feature: Applicant 1 sole application
     Given I need a financial order for myself and my children
     Then I click continue and expect URL "UPLOAD_YOUR_DOCUMENTS"
 
-    Given I delete any previously uploaded files
-    And I cannot upload my original foreign marriage certificate
+    Given I cannot upload my original foreign marriage certificate
     Then I click continue and expect URL "CHECK_ANSWERS_URL"
 
     Given I confirm the prayer and statement of truth
