@@ -175,6 +175,15 @@ export const iClickChangeLinkForQuestion = async (questionText: string): Promise
   await iClickToNavigate(selector);
 };
 
+export const iClickProvideInformation = async (
+  nextUrl?: string,
+  wait?: number,
+  waitUntil: WaitUntil = 'load',
+  expectedElementSelector?: string
+): Promise<void> => {
+  await iClickToNavigate('#provideInformationButton', wait, nextUrl, waitUntil, expectedElementSelector);
+};
+
 export const iCannotUploadDocs = (): void => {
   iCheckOption('#cannotUploadDocs');
 };

@@ -37,6 +37,7 @@ import {
   iClickContinueAndExpectUrl,
   iClickElement,
   iClickMoreDetailsComponent,
+  iClickProvideInformation,
   iClickStart,
   iClickStartAndExpectUrl,
   iClickString,
@@ -398,10 +399,13 @@ When('I click save and sign out and expect URL {string}', async (url: string) =>
   await iClickToNavigate('#saveAndSignOutButton', undefined, url);
 });
 When('I click provide information', async () => {
-  await iClickToNavigate('#provideInformationButton');
+  await iClickProvideInformation();
 });
 When('I click provide information and expect URL {string}', async (url: string) => {
-  await iClickToNavigate('#provideInformationButton', undefined, url);
+  await iClickProvideInformation(url);
+});
+When('I click provide information and expect URL {string} with element {string}', async (url: string, expectedElementSelector: string) => {
+  await iClickProvideInformation(url, undefined, undefined, expectedElementSelector);
 });
 When('I click continue to the next steps', async () => {
   await iClickToNavigate('a.govuk-button[href="/return-to-service"]');
