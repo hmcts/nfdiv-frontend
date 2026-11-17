@@ -1,48 +1,8 @@
-import { State, YesOrNo } from '../../main/app/case/definition';
-import { EXPLAIN_THE_DELAY, HOW_TO_FINALISE_APPLICATION, HUB_PAGE } from '../../main/steps/urls';
-
-import { BrowserCase, caseworkerUpdatesTheCase } from './commonHelpers/caseInteraction';
-import {
-  iCheckOption,
-  iClickSubmit,
-  iClickSubmitAndExpectUrl,
-  iEnterValueIntoInput,
-} from './commonHelpers/elementInteraction';
-import { iClickToNavigate, iWaitInUrl } from './commonHelpers/navigation';
-import {
-  getApplicantString,
-  getCapitalisedApplicantString,
-  getUserKeyByIndex,
-  iSignOutAndLoginAsUser,
-  isApplicant2,
-  switchApplicant1AndApplicant2,
-} from './commonHelpers/userInteraction';
-
-export const prepareTheCaseForSwitchToSoleFinalOrder = async (
-  applicantIndex: string,
-  overdue: boolean = false
-): Promise<void> => {
-  const userKey = getUserKeyByIndex(parseInt(applicantIndex));
-  const caseData: Partial<BrowserCase> = {
-    state: State.AwaitingJointFinalOrder,
-    dateFinalOrderSubmitted: '2022-09-21T08:08:34.548',
-    [`${getApplicantString()}CanIntendToSwitchToSoleFo`]: YesOrNo.YES,
-  };
-  if (overdue) {
-    caseData.isFinalOrderOverdue = YesOrNo.YES;
-  }
-  await caseworkerUpdatesTheCase(caseData);
-  await iSignOutAndLoginAsUser(userKey, HUB_PAGE, '#secondInTimeFinalOrderNotSubmittedContent');
-  await iClickToNavigate('#switchToSoleLink', undefined, HOW_TO_FINALISE_APPLICATION);
-};
-
-export const iSubmitToApplyForFinalOrderAsSoleApplicant = async (overdue: boolean = false): Promise<void> => {
-  await iClickSubmit();
-  if (isApplicant2()) {
-    switchApplicant1AndApplicant2();
-  }
-  iWaitInUrl(overdue ? EXPLAIN_THE_DELAY : HUB_PAGE, undefined, overdue ? undefined : '#finalOrderRequestedContent');
-};
+import { HOW_TO_FINALISE_APPLICATION, HUB_PAGE } from '../../main/steps/urls';
+import { iCheckOption, iClickSubmitAndExpectUrl, iEnterValueIntoInput } from './commonHelpers/elementInteraction';
+import { iClickToNavigate } from './commonHelpers/navigation';
+import { getApplicantString, getCapitalisedApplicantString } from './commonHelpers/userInteraction';
+import { iSubmitToApplyForFinalOrderAsSoleApplicant, prepareTheCaseForSwitchToSoleFinalOrder } from './switchToSole';
 
 When('I click apply for final order', async () => {
   await iClickToNavigate('#applyForFinalOrderButton');
