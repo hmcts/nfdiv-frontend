@@ -213,8 +213,13 @@ export class Routes {
           }
 
           const postLogoutRedirectUri = getServiceOrigin(req, res);
+          const idToken = req.session.user?.idToken;
 
-          res.redirect(getEndIdamSessionUrl(postLogoutRedirectUri));
+          if (!idToken) {
+            return res.redirect(postLogoutRedirectUri);
+          }
+
+          return res.redirect(getEndIdamSessionUrl(postLogoutRedirectUri, idToken));
         });
       })
     );

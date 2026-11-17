@@ -27,12 +27,6 @@ const updateLabels = (type: 'uk' | 'international') => {
   (qs('.govuk-form-group.addressTown label') as HTMLLabelElement).textContent = labels[type].town;
   (qs('.govuk-form-group.addressCounty label') as HTMLLabelElement).textContent = labels[type].county;
   (qs('.govuk-form-group.addressPostcode label') as HTMLLabelElement).textContent = labels[type].postcode;
-
-  if (type === 'uk') {
-    (qs('.govuk-form-group.address2 label') as HTMLLabelElement).classList.add('govuk-visually-hidden');
-  } else {
-    (qs('.govuk-form-group.address2 label') as HTMLLabelElement).classList.remove('govuk-visually-hidden');
-  }
 };
 
 const toggleInternationalAddressFields = (toggle: string) => {
@@ -122,4 +116,23 @@ if (postcodeEntry && backLink) {
       history.go(-1);
     }
   };
+}
+
+const errorSummary = getById('addressErrorSummary');
+if (errorSummary) {
+  new MutationObserver(() => {
+    const title = document.querySelector('title');
+    const prefix = getById('errorPrefixData')?.getAttribute('data-error-prefix') || 'Error: ';
+    const currentTitle = title?.textContent || '';
+    const hasError = !errorSummary.classList.contains(hidden);
+
+    if (title) {
+      title.textContent =
+        hasError && !currentTitle.startsWith(prefix)
+          ? prefix + currentTitle
+          : !hasError && currentTitle.startsWith(prefix)
+            ? currentTitle.replace(prefix, '')
+            : currentTitle;
+    }
+  }).observe(errorSummary, { attributes: true, attributeFilter: ['class'] });
 }

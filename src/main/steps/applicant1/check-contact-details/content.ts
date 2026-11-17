@@ -4,10 +4,17 @@ const en = () => ({
   title: 'Review your contact details',
   yourAddress: 'Your address',
   yourPhoneNumber: 'Your phone number',
+  continue: 'Continue',
+  change: 'Change',
 });
 
-// @TODO translations
-const cy = en;
+const cy = () => ({
+  title: 'Adolygu eich manylion cyswllt',
+  yourAddress: 'Eich cyfeiriad',
+  yourPhoneNumber: 'Eich rhif ffôn',
+  continue: 'Parhau',
+  change: 'Newid',
+});
 
 const languages = {
   en,
@@ -15,6 +22,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language]();
   const applicantAddress = [
     content.userCase?.applicant1Address1,
     content.userCase?.applicant1Address2,
@@ -27,7 +35,6 @@ export const generateContent: TranslationFn = content => {
     .filter(Boolean)
     .join('<br>');
   const phoneNumber = content.userCase?.applicant1PhoneNumber;
-  const translations = languages[content.language]();
   const prefixUrl = '';
   return {
     ...translations,

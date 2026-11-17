@@ -225,6 +225,7 @@ export const en = {
   elementSelectors: {
     uploadButtonId: `#${UPPY_FILE_INPUT_BUTTON_ID}`,
   },
+  pageTitleError: 'Error: ',
 };
 
 const cy: typeof en = {
@@ -263,7 +264,7 @@ const cy: typeof en = {
     part2: 'bydd eich sylwadau',
     part3: ' yn ein helpu i wella’r gwasanaeth.',
     ariaLabel:
-      'Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen ichi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 60 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod.',
+      'Dolen adborth, Bydd hyn yn agor tab newydd. Bydd angen i chi ddod yn ôl at y tab hwn a pharhau â’ch cais o fewn 20 munud fel na fyddwch yn colli’r gwaith yr ydych wedi ei wneud yn barod.',
     link: 'https://www.smartsurvey.co.uk/s/NFD_Feedback/?pageurl=',
   },
   languageToggle: {
@@ -406,6 +407,7 @@ const cy: typeof en = {
   elementSelectors: {
     uploadButtonId: `#${UPPY_FILE_INPUT_BUTTON_ID}`,
   },
+  pageTitleError: 'Gwall: ',
 };
 
 export const generateCommonContent = ({

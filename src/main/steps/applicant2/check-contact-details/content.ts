@@ -7,8 +7,11 @@ const en = () => ({
   yourPhoneNumber: 'Your phone number',
 });
 
-// @TODO translations
-const cy = en;
+const cy = () => ({
+  title: 'Adolygu eich manylion cyswllt',
+  yourAddress: 'Eich cyfeiriad',
+  yourPhoneNumber: 'Eich rhif ffôn',
+});
 
 const languages = {
   en,
