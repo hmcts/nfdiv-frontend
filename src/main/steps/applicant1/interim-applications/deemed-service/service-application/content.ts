@@ -23,7 +23,7 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
     config.get('fees.deemedService')
   )}. You may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
-  )}">get help paying this fee</a>.`,
+  )}">get help paying this fee (opens in a new tab)</a>.`,
   buttonText: 'Start application',
 });
 
@@ -44,7 +44,7 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     config.get('fees.deemedService')
   )}. Efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFeesCY'
-  )}">gael help i dalu’r ffi hon</a>.`,
+  )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
   buttonText: 'Dechrau gwneud y cais',
 });
 

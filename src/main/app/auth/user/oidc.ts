@@ -11,9 +11,48 @@ const logger = Logger.getLogger('oidc');
 
 export const idamTokenCache = new NodeCache({ stdTTL: 3600, checkperiod: 1800 });
 
+const buildUrlFromBaseAndPath = (baseUrl: string, path: string): string => new URL(path, `${baseUrl}/`).toString();
+
+const getIdamAuthorizationUrl = (): string => {
+  if (config.has('services.idam.webBaseUrl') && config.has('services.idam.authorizationPath')) {
+    const url = buildUrlFromBaseAndPath(
+      config.get('services.idam.webBaseUrl') as string,
+      config.get('services.idam.authorizationPath') as string
+    );
+    const parsed = new URL(url);
+    logger.info('IDAM auth URL source=basePath host=%s path=%s', parsed.host, parsed.pathname);
+    return url;
+  }
+
+  const url = config.get('services.idam.authorizationURL') as string;
+  const parsed = new URL(url);
+  logger.info('IDAM auth URL source=legacy host=%s path=%s', parsed.host, parsed.pathname);
+  return url;
+};
+
+const getIdamTokenUrl = (): string => {
+  if (config.has('services.idam.apiBaseUrl') && config.has('services.idam.tokenPath')) {
+    return buildUrlFromBaseAndPath(
+      config.get('services.idam.apiBaseUrl') as string,
+      config.get('services.idam.tokenPath') as string
+    );
+  }
+  return config.get('services.idam.tokenURL') as string;
+};
+
+const getIdamEndSessionUrl = (): string => {
+  if (config.has('services.idam.webBaseUrl') && config.has('services.idam.endSessionPath')) {
+    return buildUrlFromBaseAndPath(
+      config.get('services.idam.webBaseUrl') as string,
+      config.get('services.idam.endSessionPath') as string
+    );
+  }
+  return config.get('services.idam.endSessionURL') as string;
+};
+
 export const getRedirectUrl = (serviceUrl: string, requestPath: string): string => {
   const id: string = config.get('services.idam.clientID');
-  const loginUrl: string = config.get('services.idam.authorizationURL');
+  const loginUrl: string = getIdamAuthorizationUrl();
   const loginScope: string = config.get('services.idam.authorizationScope');
   const callbackUrl = encodeURI(serviceUrl + (requestPath === SIGN_IN_URL ? CALLBACK_URL : APPLICANT_2_CALLBACK_URL));
 
@@ -34,6 +73,7 @@ export const getUserDetails = async (
 
   return {
     accessToken: response.data.access_token,
+    idToken: response.data.id_token,
     id: jwt.uid,
     email: jwt.sub,
     givenName: jwt.given_name,
@@ -53,6 +93,7 @@ export const getSystemUser = async (): Promise<UserDetails> => {
 
   return {
     accessToken: response.data.access_token,
+    idToken: response.data.id_token,
     id: jwt.uid,
     email: jwt.sub,
     givenName: jwt.given_name,
@@ -77,7 +118,7 @@ export interface OidcResponse {
 const createIdamToken = (params: Record<string, string>): Promise<AxiosResponse<OidcResponse>> => {
   const id: string = config.get('services.idam.clientID');
   const secret: string = config.get('services.idam.clientSecret');
-  const tokenUrl: string = config.get('services.idam.tokenURL');
+  const tokenUrl: string = getIdamTokenUrl();
   const headers = { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' };
 
   let data = '';
@@ -112,8 +153,8 @@ export const getIdamToken = async (
   return response;
 };
 
-export const getEndIdamSessionUrl = (redirectUrl: string): string => {
-  const endSessionUrl: string = config.get('services.idam.endSessionURL');
+export const getEndIdamSessionUrl = (redirectUrl: string, idToken: string): string => {
+  const endSessionUrl: string = getIdamEndSessionUrl();
 
-  return `${endSessionUrl}?post_logout_redirect_uri=${encodeURI(redirectUrl)}`;
+  return `${endSessionUrl}?post_logout_redirect_uri=${encodeURI(redirectUrl)}&id_token_hint=${encodeURI(idToken)}`;
 };
