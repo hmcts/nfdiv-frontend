@@ -1,4 +1,5 @@
 import { HOW_TO_FINALISE_APPLICATION, HUB_PAGE } from '../../main/steps/urls';
+
 import { iCheckOption, iClickSubmitAndExpectUrl, iEnterValueIntoInput } from './commonHelpers/elementInteraction';
 import { iClickToNavigate } from './commonHelpers/navigation';
 import { getApplicantString, getCapitalisedApplicantString } from './commonHelpers/userInteraction';

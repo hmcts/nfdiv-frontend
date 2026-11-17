@@ -1,14 +1,14 @@
 import { State, YesOrNo } from '../../main/app/case/definition';
 import { EXPLAIN_THE_DELAY, HOW_TO_FINALISE_APPLICATION, HUB_PAGE, YOUR_DETAILS_URL } from '../../main/steps/urls';
+
 import { BrowserCase, caseworkerUpdatesTheCase } from './commonHelpers/caseInteraction';
-import { iCheckOption, iClickSubmit, iClickSubmitAndExpectUrl } from './commonHelpers/elementInteraction';
+import { iClickSubmit } from './commonHelpers/elementInteraction';
 import { iClickToNavigate, iWaitInUrl } from './commonHelpers/navigation';
 import {
   getApplicantString,
-  getCapitalisedApplicantString,
   getUserKeyByIndex,
-  isApplicant2,
   iSignOutAndLoginAsUser,
+  isApplicant2,
   switchApplicant1AndApplicant2,
 } from './commonHelpers/userInteraction';
 
