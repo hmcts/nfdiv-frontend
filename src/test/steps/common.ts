@@ -184,6 +184,30 @@ Given(
 Given('I login with the respondent', async () => {
   await login(TestUserKey.RESPONDENT);
 });
+Given('I login with the respondent and expect URL {string}', async (url: string) => {
+  await iLoginAsUser(TestUserKey.RESPONDENT, url);
+});
+Given(
+  'I login with the respondent and expect URL {string} with element {string}',
+  async (url: string, expectedElementSelector: string) => {
+    await iLoginAsUser(TestUserKey.RESPONDENT, url, expectedElementSelector);
+  }
+);
+Given('I sign out then login with the respondent and expect URL {string}', async (url: string) => {
+  await iSignOutAndLoginAsUser(TestUserKey.RESPONDENT, url);
+});
+Given(
+  'I sign out then login with the respondent and expect URL {string} with element {string}',
+  async (url: string, expectedElementSelector: string) => {
+    await iSignOutAndLoginAsUser(TestUserKey.RESPONDENT, url, expectedElementSelector);
+  }
+);
+Given(
+  'I sign out then login with the respondent and expect hub element {string}',
+  async (applicant: string, expectedElementSelector: string) => {
+    await iSignOutAndLoginAsUser(TestUserKey.RESPONDENT, HUB_PAGE, expectedElementSelector);
+  }
+);
 
 When('I accept cookies', iAcceptCookies);
 When('I reject cookies', iRejectCookies);
