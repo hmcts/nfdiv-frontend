@@ -404,9 +404,12 @@ When('I click provide information', async () => {
 When('I click provide information and expect URL {string}', async (url: string) => {
   await iClickProvideInformation(url);
 });
-When('I click provide information and expect URL {string} with element {string}', async (url: string, expectedElementSelector: string) => {
-  await iClickProvideInformation(url, undefined, undefined, expectedElementSelector);
-});
+When(
+  'I click provide information and expect URL {string} with element {string}',
+  async (url: string, expectedElementSelector: string) => {
+    await iClickProvideInformation(url, undefined, undefined, expectedElementSelector);
+  }
+);
 When('I click continue to the next steps', async () => {
   await iClickToNavigate('a.govuk-button[href="/return-to-service"]');
 });
@@ -543,6 +546,9 @@ Then('I enter details of the other proceedings', () => {
 });
 Then('I enter my reason for withdrawing', () => {
   iEnterValueIntoInput('Reason for withdrawing the application', '#withdrawApplicationReason');
+});
+Then('I explain what is incorrect or needs changing', () => {
+  iEnterValueIntoInput('Example incorrect information', `#${getApplicantString()}Explanation`);
 });
 
 Then("I wait until the page doesn't contain {string}", (text: string) => {
