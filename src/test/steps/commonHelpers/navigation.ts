@@ -154,13 +154,16 @@ export const iWaitForUrlParam = (param: string, value: string, wait: number = 10
   );
 };
 
-export const iAmOnPage = (urlString: string, user?: string): void => {
+export const iAmOnPage = (urlString: string, user?: string, expectedElementSelector?: string): void => {
   urlString = setUserPathPrefix(urlString, user);
   const url = new URL(urlString, testConfig.TEST_URL);
   if (!url.searchParams.has('lng')) {
     url.searchParams.set('lng', SupportedLanguages.En);
   }
   I.amOnPage(url.toString());
+  if (expectedElementSelector && expectedElementSelector.trim().length > 0) {
+    iWaitForVisible(expectedElementSelector);
+  }
 };
 
 export const iClickToNavigate = async (
@@ -236,8 +239,8 @@ export const iGrabCurrentUrl = async (): Promise<string> => {
   return currentUrl;
 };
 
-export const iAmOnIdam = async (): Promise<boolean> => {
-  return doesCurrentUrlStartWith(testConfig.IDAM_WEB_BASE_URL);
+export const iAmOnIdam = async (currentUrl?: string): Promise<boolean> => {
+  return doesCurrentUrlStartWith(testConfig.IDAM_WEB_BASE_URL, currentUrl);
 };
 
 export const iAmOnNfd = async (currentUrl?: string): Promise<boolean> => {
