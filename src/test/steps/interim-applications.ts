@@ -34,7 +34,7 @@ import {
   iSelectYes,
 } from './commonHelpers/elementInteraction';
 import { iClickToNavigate } from './commonHelpers/navigation';
-import { getApplicantString, getTheirName, iSignOutAndLoginAsUser, login } from './commonHelpers/userInteraction';
+import { getApplicantString, getTheirName, iLoginAsUser, login } from './commonHelpers/userInteraction';
 import { DEFAULT_RELATIONSHIP_DATE, iEnterADateIntoField } from './date';
 import { completedFormWithFixture } from './happy-path';
 import { DEFAULT_ADDRESS, SECONDARY_ADDRESS, iEnterTheUkAddress } from './postcode';
@@ -53,15 +53,16 @@ export const createCaseAtAwaitingAos = async (): Promise<void> => {
   await login(TestUserKey.APPLICANT_1, true);
   await completedFormWithFixture('issuedCase');
   await caseworkerUpdatesTheCase(AOS_AWAITING_EVENT_DATA);
-  await iSignOutAndLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, AOS_AWAITING_LINE_SELECTOR);
+  await iLoginAsUser(TestUserKey.APPLICANT_1, HUB_PAGE, AOS_AWAITING_LINE_SELECTOR);
 };
 
 export const setTheCaseToAosOverdueOrDrafted = async (
   applicant2Represented: boolean = false,
   applicant2IsPrivate: boolean = false,
-  drafted: boolean = false
+  drafted: boolean = false,
+  loginAs: TestUserKey = TestUserKey.APPLICANT_1
 ): Promise<void> => {
-  const eventData: Partial<BrowserCase> = { state: State.AosOverdue };
+  const eventData: Partial<BrowserCase> = { state: State.AosOverdue, aosIsDrafted: YesOrNo.NO };
   if (drafted) {
     eventData.state = State.AosDrafted;
     eventData.aosIsDrafted = YesOrNo.YES;
@@ -74,16 +75,7 @@ export const setTheCaseToAosOverdueOrDrafted = async (
     eventData.applicant2AddressPrivate = YesOrNo.YES;
   }
   await caseworkerUpdatesTheCase(eventData);
-  await iSignOutAndLoginAsUser(
-    TestUserKey.APPLICANT_1,
-    HUB_PAGE,
-    drafted ? AOS_DUE_AND_DRAFTED_LINE_SELECTOR : AOS_DUE_LINE_SELECTOR
-  );
-  await iClickToNavigate(
-    drafted ? AOS_DUE_AND_DRAFTED_LINK_SELECTOR : AOS_DUE_LINK_SELECTOR,
-    undefined,
-    OPTIONS_FOR_PROGRESSING
-  );
+  await iLoginAsUser(loginAs, HUB_PAGE, drafted ? AOS_DUE_AND_DRAFTED_LINE_SELECTOR : AOS_DUE_LINE_SELECTOR);
 };
 
 export const setTheCaseToAosDrafted = async (
@@ -107,6 +99,11 @@ export const prepCaseForInterimApplications = async (
 ): Promise<void> => {
   await createCaseAtAwaitingAos();
   await setTheCaseToAosOverdueOrDrafted(applicant2Represented, applicant2IsPrivate, drafted);
+  await iClickToNavigate(
+    drafted ? AOS_DUE_AND_DRAFTED_LINK_SELECTOR : AOS_DUE_LINK_SELECTOR,
+    undefined,
+    OPTIONS_FOR_PROGRESSING
+  );
   await iClickStartAndExpectUrl(applicant2Represented ? HAVE_THEY_RECEIVED_REPRESENTED : HAVE_THEY_RECEIVED);
 };
 
@@ -138,14 +135,26 @@ Given('I progress the case to AwaitingAos', createCaseAtAwaitingAos);
 
 Given('I set the case to AosDrafted', setTheCaseToAosDrafted);
 
-Given('I set the case to AosOverdue', setTheCaseToAosOverdue);
-
-Given('I set the case to AosDrafted and Applicant 2 is represented', async () => {
-  await setTheCaseToAosDrafted(true);
+Given('I set the case to AosDrafted to review my options', async () => {
+  await setTheCaseToAosDrafted();
+  await iClickToNavigate(AOS_DUE_AND_DRAFTED_LINK_SELECTOR, undefined, OPTIONS_FOR_PROGRESSING);
 });
 
-Given('I set the case to AosDrafted and Applicant 2 is private', async () => {
+Given('I set the case to AosOverdue', setTheCaseToAosOverdue);
+
+Given('I set the case to AosOverdue to review my options', async () => {
+  await setTheCaseToAosOverdue();
+  await iClickToNavigate(AOS_DUE_LINK_SELECTOR, undefined, OPTIONS_FOR_PROGRESSING);
+});
+
+Given('I set the case to AosDrafted to review my options and Applicant 2 is represented', async () => {
+  await setTheCaseToAosDrafted(true);
+  await iClickToNavigate(AOS_DUE_AND_DRAFTED_LINK_SELECTOR, undefined, OPTIONS_FOR_PROGRESSING);
+});
+
+Given('I set the case to AosDrafted to review my options and Applicant 2 is private', async () => {
   await setTheCaseToAosDrafted(false, true);
+  await iClickToNavigate(AOS_DUE_AND_DRAFTED_LINK_SELECTOR, undefined, OPTIONS_FOR_PROGRESSING);
 });
 
 When("I don't know my partner's contact details", () => {
