@@ -7,7 +7,7 @@ import { iClickToNavigate, iWaitInUrl } from './commonHelpers/navigation';
 import {
   getApplicantString,
   getUserKeyByIndex,
-  iSignOutAndLoginAsUser,
+  iLoginAsUser,
   isApplicant2,
   switchApplicant1AndApplicant2,
 } from './commonHelpers/userInteraction';
@@ -34,7 +34,7 @@ export const prepareTheCaseForSwitchToSoleFinalOrder = async (
     caseData.isFinalOrderOverdue = YesOrNo.YES;
   }
   await caseworkerUpdatesTheCase(caseData);
-  await iSignOutAndLoginAsUser(userKey, HUB_PAGE, '#secondInTimeFinalOrderNotSubmittedContent');
+  await iLoginAsUser(userKey, HUB_PAGE, '#secondInTimeFinalOrderNotSubmittedContent');
   await iClickToNavigate('#switchToSoleLink', undefined, HOW_TO_FINALISE_APPLICATION);
 };
 
