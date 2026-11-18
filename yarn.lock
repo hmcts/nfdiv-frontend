@@ -14423,7 +14423,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^4.0.7":
+"picomatch@npm:^4.0.4":
   version: 4.0.7
   resolution: "picomatch@npm:4.0.7"
   checksum: 10/66e1df34bc39c72fa3756be4069f7887ea3e35e94bba1c3f6167763007698cb04b8a0a365161d186fda6e9571a2d3efb606b2966eb6a7dea6252911224dc2f48
