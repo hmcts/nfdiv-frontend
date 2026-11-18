@@ -92,7 +92,6 @@ import {
   getUserKeyByIndex,
   iClickSignOut,
   iLoginAsUser,
-  iSignOutAndLoginAsUser,
   login,
 } from './commonHelpers/userInteraction';
 
@@ -110,8 +109,17 @@ After(async () => {
 Given(/^I go to "([^"]*)" \/ "([^"]*)"$/, (user: string, url: string) => {
   iAmOnPage(url, user);
 });
+Given(
+  /^I go to "([^"]*)" \/ "([^"]*)" and expect element "([^"]*)"$/,
+  (user: string, url: string, expectedElementSelector: string) => {
+    iAmOnPage(url, user, expectedElementSelector);
+  }
+);
 Given('I go to {string}', (url: string) => {
   iAmOnPage(url);
+});
+Given('I go to {string} and expect element {string}', (url: string, expectedElementSelector: string) => {
+  iAmOnPage(url, undefined, expectedElementSelector);
 });
 
 Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$/, (user: string, url: string) => {
@@ -161,31 +169,6 @@ Given(
     await iLoginAsUser(userKey, HUB_PAGE, expectedElementSelector);
   }
 );
-Given('I sign out then login with applicant {string}', async (applicant: string) => {
-  const userKey = getUserKeyByIndex(parseInt(applicant));
-  await iSignOutAndLoginAsUser(userKey);
-});
-Given(
-  'I sign out then login with applicant {string} and expect URL {string}',
-  async (applicant: string, url: string) => {
-    const userKey = getUserKeyByIndex(parseInt(applicant));
-    await iSignOutAndLoginAsUser(userKey, url);
-  }
-);
-Given(
-  'I sign out then login with applicant {string} and expect URL {string} with element {string}',
-  async (applicant: string, url: string, expectedElementSelector: string) => {
-    const userKey = getUserKeyByIndex(parseInt(applicant));
-    await iSignOutAndLoginAsUser(userKey, url, expectedElementSelector);
-  }
-);
-Given(
-  'I sign out then login with applicant {string} and expect hub element {string}',
-  async (applicant: string, expectedElementSelector: string) => {
-    const userKey = getUserKeyByIndex(parseInt(applicant));
-    await iSignOutAndLoginAsUser(userKey, HUB_PAGE, expectedElementSelector);
-  }
-);
 Given('I login with the respondent', async () => {
   await login(TestUserKey.RESPONDENT);
 });
@@ -198,24 +181,9 @@ Given(
     await iLoginAsUser(TestUserKey.RESPONDENT, url, expectedElementSelector);
   }
 );
-Given('I sign out then login with the respondent', async () => {
-  await iSignOutAndLoginAsUser(TestUserKey.RESPONDENT);
+Given('I login with the respondent and expect hub element {string}', async (expectedElementSelector: string) => {
+  await iLoginAsUser(TestUserKey.RESPONDENT, HUB_PAGE, expectedElementSelector);
 });
-Given('I sign out then login with the respondent and expect URL {string}', async (url: string) => {
-  await iSignOutAndLoginAsUser(TestUserKey.RESPONDENT, url);
-});
-Given(
-  'I sign out then login with the respondent and expect URL {string} with element {string}',
-  async (url: string, expectedElementSelector: string) => {
-    await iSignOutAndLoginAsUser(TestUserKey.RESPONDENT, url, expectedElementSelector);
-  }
-);
-Given(
-  'I sign out then login with the respondent and expect hub element {string}',
-  async (applicant: string, expectedElementSelector: string) => {
-    await iSignOutAndLoginAsUser(TestUserKey.RESPONDENT, HUB_PAGE, expectedElementSelector);
-  }
-);
 
 When('I accept cookies', iAcceptCookies);
 When('I reject cookies', iRejectCookies);
