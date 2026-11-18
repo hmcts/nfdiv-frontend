@@ -1,7 +1,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% if isRespondentAbleToApplyForFinalOrder %}
-  <p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply.line1 }}</p>
+  <p class="govuk-body" id="awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent">{{ awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply.line1 }}</p>
   <p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply.line2 }}</p>
   <p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply.line3 }}</p>
   <p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdueRespondentCanApply.line4 }}</p>
@@ -12,6 +12,6 @@
     id: 'applyForFinalOrderButton'
   }) }}
 {% else %}
-  <p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdue.line1 }}</p>
+  <p class="govuk-body" id="awaitingFinalOrderOrFinalOrderOverdueRespondentContent">{{ awaitingFinalOrderOrFinalOrderOverdue.line1 }}</p>
   <p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdue.line2 }}</p>
 {% endif %}
