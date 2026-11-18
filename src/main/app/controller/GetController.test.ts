@@ -4,7 +4,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { SupportedLanguages } from '../../modules/i18n';
 import { generateCommonContent } from '../../steps/common/common.content';
 import { getPageTitleIdFromUrl } from '../../steps/url-utils';
-import { PageLink } from '../../steps/urls';
+import { HUB_PAGE } from '../../steps/urls';
 import { DivorceOrDissolution, Gender, State } from '../case/definition';
 import { FileUploadJourney } from '../document/FileUploadJourneyConfiguration';
 
@@ -22,12 +22,12 @@ describe('GetController', () => {
   const userEmail = 'test@example.com';
   const generateContent = content => languages[content.language];
   test('Should render the page', async () => {
-    const controller = new GetController('page', generateContent);
+    const controller = new GetController('page', generateContent, HUB_PAGE);
 
     const req = mockRequest({ userCase: { state: State.Draft } });
     const res = mockResponse();
+    const titleId = getPageTitleIdFromUrl(HUB_PAGE);
     await controller.get(req, res);
-    const titleId = getPageTitleIdFromUrl(req.path as PageLink);
 
     expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
@@ -44,7 +44,7 @@ describe('GetController', () => {
   });
 
   test('Should set session default values', async () => {
-    const controller = new GetController('page', generateContent);
+    const controller = new GetController('page', generateContent, HUB_PAGE);
 
     const req = mockRequest({
       userCase: { state: State.Draft },
@@ -57,12 +57,12 @@ describe('GetController', () => {
   });
 
   test('Detects when application is not in a draft state', async () => {
-    const controller = new GetController('page', () => ({}));
+    const controller = new GetController('page', () => ({}), HUB_PAGE);
 
     const req = mockRequest({ userCase: { state: State.AwaitingPayment } });
     const res = mockResponse();
+    const titleId = getPageTitleIdFromUrl(HUB_PAGE);
     await controller.get(req, res);
-    const titleId = getPageTitleIdFromUrl(req.path as PageLink);
 
     expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
@@ -74,11 +74,12 @@ describe('GetController', () => {
 
   describe('Getting the users preferred language', () => {
     test('Language via query string', async () => {
-      const controller = new GetController('page', generateContent);
+      const controller = new GetController('page', generateContent, HUB_PAGE);
 
       const language = SupportedLanguages.Cy;
       const req = mockRequest();
       const res = mockResponse();
+      const titleId = getPageTitleIdFromUrl(HUB_PAGE);
       req.session.lang = language;
       await controller.get(req, res);
 
@@ -90,15 +91,17 @@ describe('GetController', () => {
         htmlLang: SupportedLanguages.Cy,
         userCase: req.session.userCase,
         userEmail,
+        titleId,
       });
     });
 
     test('Language via session', async () => {
-      const controller = new GetController('page', generateContent);
+      const controller = new GetController('page', generateContent, HUB_PAGE);
 
       const language = SupportedLanguages.Cy;
       const req = mockRequest();
       const res = mockResponse();
+      const titleId = getPageTitleIdFromUrl(HUB_PAGE);
       req.session.lang = language;
       await controller.get(req, res);
 
@@ -110,15 +113,17 @@ describe('GetController', () => {
         htmlLang: SupportedLanguages.Cy,
         userCase: req.session.userCase,
         userEmail,
+        titleId,
       });
     });
 
     test('Language via browser settings', async () => {
-      const controller = new GetController('page', generateContent);
+      const controller = new GetController('page', generateContent, HUB_PAGE);
 
       const language = SupportedLanguages.Cy;
       const req = mockRequest({ headers: { 'accept-language': language } });
       const res = mockResponse();
+      const titleId = getPageTitleIdFromUrl(HUB_PAGE);
       req.session.lang = language;
       await controller.get(req, res);
 
@@ -130,12 +135,13 @@ describe('GetController', () => {
         htmlLang: SupportedLanguages.Cy,
         userCase: req.session.userCase,
         userEmail,
+        titleId,
       });
     });
   });
 
   test("Doesn't call render if an error page has already been rendered upstream", async () => {
-    const controller = new GetController('page', generateContent);
+    const controller = new GetController('page', generateContent, HUB_PAGE);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -146,7 +152,7 @@ describe('GetController', () => {
   });
 
   test("Doesn't call render if headers have already been sent already upstream", async () => {
-    const controller = new GetController('page', generateContent);
+    const controller = new GetController('page', generateContent, HUB_PAGE);
 
     const req = mockRequest();
     const res = mockResponse();
@@ -157,13 +163,13 @@ describe('GetController', () => {
   });
 
   test('sends the current page form session state to the view', async () => {
-    const controller = new GetController('page', generateContent);
+    const controller = new GetController('page', generateContent, HUB_PAGE);
 
     const req = mockRequest();
     const res = mockResponse();
     req.session.userCase.gender = Gender.FEMALE;
     await controller.get(req, res);
-    const titleId = getPageTitleIdFromUrl(req.path as PageLink);
+    const titleId = getPageTitleIdFromUrl(HUB_PAGE);
 
     expect(res.render).toHaveBeenCalledWith('page', {
       ...defaultViewArgs,
@@ -182,7 +188,7 @@ describe('GetController', () => {
   describe('generatePageContent()', () => {
     test('calls generatePageContent with correct arguments for new sessions', async () => {
       const getContentMock = jest.fn().mockReturnValue({});
-      const controller = new GetController('page', getContentMock);
+      const controller = new GetController('page', getContentMock, HUB_PAGE);
 
       const req = mockRequest({ userCase: { state: State.Draft } });
       const res = mockResponse();
@@ -193,7 +199,7 @@ describe('GetController', () => {
         userEmail,
         userCase: req.session.userCase,
       });
-      const titleId = getPageTitleIdFromUrl(req.path as PageLink);
+      const titleId = getPageTitleIdFromUrl(HUB_PAGE);
 
       expect(getContentMock).toHaveBeenCalledTimes(1);
       expect(getContentMock).toHaveBeenCalledWith({
@@ -203,7 +209,6 @@ describe('GetController', () => {
         userCase: req.session.userCase,
         partner: 'spouse',
         userEmail,
-        titleId,
       });
       expect(res.render).toHaveBeenCalledWith('page', {
         ...defaultViewArgs,
@@ -225,14 +230,14 @@ describe('GetController', () => {
           { partnerKey: 'partner' },
         ])('calls getContent with correct arguments %s selected', async ({ gender }) => {
           const getContentMock = jest.fn().mockReturnValue({ pageText: `something in ${language}` });
-          const controller = new GetController('page', getContentMock);
+          const controller = new GetController('page', getContentMock, HUB_PAGE);
 
           const req = mockRequest({ session: { lang: language, userCase: { gender } } });
           const res = mockResponse({ locals: { serviceType } });
           await controller.get(req, res);
 
           const commonContent = controller.getPageContent(req, res, language);
-          const titleId = getPageTitleIdFromUrl(req.path as PageLink);
+          const titleId = getPageTitleIdFromUrl(HUB_PAGE);
 
           expect(getContentMock).toHaveBeenCalledTimes(2);
           expect(getContentMock).toHaveBeenCalledWith({
@@ -240,7 +245,6 @@ describe('GetController', () => {
             isDivorce,
             language,
             userCase: req.session.userCase,
-            titleId,
           });
           expect(res.render).toHaveBeenCalledWith('page', {
             ...defaultViewArgs,

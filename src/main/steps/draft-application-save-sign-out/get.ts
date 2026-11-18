@@ -8,7 +8,7 @@ import { generateContent } from './content';
 @autobind
 export class DraftApplicationSaveSignOutGetController extends EndSessionGetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(__dirname + '/template', generateContent, DRAFT_SAVE_AND_SIGN_OUT);
   }
 
   protected signoutPagePath(): PageLink {

@@ -17,7 +17,8 @@ export type TranslationFn = (content: CommonContent) => PageContent;
 export class GetController {
   constructor(
     protected readonly view: string,
-    protected readonly pageContent: TranslationFn
+    protected readonly pageContent: TranslationFn,
+    protected readonly url: PageLink
   ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -41,6 +42,7 @@ export class GetController {
 
     res.render(this.view, {
       ...this.getPageContent(req, res, language),
+      titleId: getPageTitleIdFromUrl(this.url),
       sessionErrors,
       htmlLang: language,
       pageUrl: req.url,
@@ -51,7 +53,6 @@ export class GetController {
   public getPageContent(req: AppRequest, res: Response, language: SupportedLanguages): PageContent {
     const content = {
       ...this.getCommonContent(req, res, language),
-      titleId: getPageTitleIdFromUrl(req.path as PageLink),
     };
 
     if (this.pageContent) {

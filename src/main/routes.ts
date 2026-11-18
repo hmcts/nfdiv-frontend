@@ -58,6 +58,7 @@ import {
   HOME_URL,
   HUB_PAGE,
   NO_RESPONSE_YET,
+  PageLink,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
@@ -151,7 +152,7 @@ export class Routes {
       app.get(
         step.url,
         this.isRouteForUser as RequestHandler,
-        errorHandler(new getController(step.view, step.generateContent).get)
+        errorHandler(new getController(step.view, step.generateContent, step.url as PageLink).get)
       );
 
       if (step.form) {

@@ -5,12 +5,13 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController, PageContent } from '../../app/controller/GetController';
 import { SupportedLanguages } from '../../modules/i18n';
 import { CommonContent } from '../common/common.content';
+import { EXISTING_APPLICATION } from '../urls';
 
 import { generateContent } from './content';
 
 export class ExistingApplicationGetController extends GetController {
   constructor() {
-    super(__dirname + '/template.njk', generateContent);
+    super(__dirname + '/template.njk', generateContent, EXISTING_APPLICATION);
   }
 
   public getPageContent(req: AppRequest, res: Response, language: SupportedLanguages): PageContent {
