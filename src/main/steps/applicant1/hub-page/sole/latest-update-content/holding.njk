@@ -1,13 +1,13 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% if isDisputedApplication and isAosSubmitted %}
-  <p class="govuk-body">{{ d8Awaiting.line1 | safe }}</p>
+  <p class="govuk-body" id="d8AwaitingContent">{{ d8Awaiting.line1 | safe }}</p>
   <h4 class="govuk-heading-s">{{ whatHappensNext }}</h4>
   <p class="govuk-body">{{ d8Awaiting.line2 }}</p>
   <p class="govuk-body">{{ d8Awaiting.line3 }}</p>
 {% else %}
   {% if isAosSubmitted %}
-      <p class="govuk-body">{{ holding.line1 | safe }}</p>
+      <p class="govuk-body" id="holdingContent">{{ holding.line1 | safe }}</p>
   {% elif isDeemedOrDispensedApplication %}
     <p class="govuk-body">{{ holdingAndDeemedOrDispensedAccepted }}
       <a class="govuk-link" href={{ deemedOrDispensedAccepted.downloadReference }}
