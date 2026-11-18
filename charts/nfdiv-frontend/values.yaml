@@ -21,7 +21,7 @@ nodejs:
       resourceGroup: nfdiv
       secrets:
         - idam-secret
-        - AppInsightsInstrumentationKey
+        - app-insights-connection-string
         - name: redis6-access-key
           alias: redis-access-key
         - frontend-secret
