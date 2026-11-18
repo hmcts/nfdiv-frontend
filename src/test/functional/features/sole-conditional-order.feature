@@ -22,8 +22,7 @@ Feature: Sole conditional order journey
     Then I click submit and expect URL "RESPONSE_SUBMITTED"
 
   Scenario: Applicant 1 applies for conditional order
-    Given I set the case state to "AwaitingConditionalOrder" and login as applicant "1"
-    Then the page should include element "#awaitingConditionalOrderStatement"
+    Given I set the case state to "AwaitingConditionalOrder" then login as applicant "1" and expect hub element "#awaitingConditionalOrderContent"
 
     Given I click apply for conditional order and expect URL "READ_THE_RESPONSE"
     Then I click continue and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
@@ -38,7 +37,7 @@ Feature: Sole conditional order journey
     Then I click submit and expect hub element "#legalAdvisorReferralContent"
 
   Scenario: Applicant 1 applies for conditional order and provides additional information
-    Given I set the case state to "AwaitingClarification" and login as applicant "1"
+    Given I set the case state to "AwaitingClarification" then login as applicant "1" and expect hub element "#awaitingClarificationSoleContent"
     Then I click provide information and expect URL "PROVIDE_INFORMATION_TO_THE_COURT"
 
     Given I clear the form
@@ -50,7 +49,7 @@ Feature: Sole conditional order journey
 
   @flaky
   Scenario: Applicant 1 applies for conditional order and provides additional information with uploads
-    Given I set the case state to "AwaitingClarification" and login as applicant "1"
+    Given I set the case state to "AwaitingClarification" then login as applicant "1" and expect hub element "#awaitingClarificationSoleContent"
     Then I click provide information and expect URL "PROVIDE_INFORMATION_TO_THE_COURT"
 
     Given I clear the form

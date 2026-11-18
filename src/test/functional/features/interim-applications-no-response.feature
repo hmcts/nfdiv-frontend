@@ -4,7 +4,7 @@ Feature: No response journey
     Given I progress the case to AwaitingAos
 
   Scenario: No response happy path to deemed service
-    Given I set the case to AosDrafted
+    Given I set the case to AosDrafted to review my options
     Then I click start and expect URL "HAVE_THEY_RECEIVED" with element "#detailsProvided"
 
     Given I confirm their details are up to date
@@ -17,7 +17,7 @@ Feature: No response journey
     Then I click continue and expect URL "DEEMED_SERVICE_APPLICATION"
 
   Scenario: No response respondent represented happy path to deemed service
-    Given I set the case to AosDrafted and Applicant 2 is represented
+    Given I set the case to AosDrafted to review my options and Applicant 2 is represented
     Then I click start and expect URL "HAVE_THEY_RECEIVED_REPRESENTED"
 
     Then I click continue and expect URL "EVIDENCE_RECEIVED_APPLICATION"
@@ -29,7 +29,7 @@ Feature: No response journey
     Then I click continue and expect URL "DEEMED_SERVICE_APPLICATION"
 
   Scenario: No response respondent confidential happy path to deemed service
-    Given I set the case to AosDrafted and Applicant 2 is private
+    Given I set the case to AosDrafted to review my options and Applicant 2 is private
     Then I click start and expect URL "EVIDENCE_RECEIVED_APPLICATION"
 
     Given I have evidence they have received the papers
@@ -39,14 +39,14 @@ Feature: No response journey
     Then I click continue and expect URL "DEEMED_SERVICE_APPLICATION"
 
   Scenario: No response respondent confidential HAVE_THEY_RECEIVED redirects to HUB_PAGE
-    Given I set the case to AosDrafted and Applicant 2 is private
+    Given I set the case to AosDrafted to review my options and Applicant 2 is private
     Then I click start and expect URL "EVIDENCE_RECEIVED_APPLICATION"
 
     When I go to "HAVE_THEY_RECEIVED"
     Then the page URL should be "HUB_PAGE" with element "#aosDueAndDraftedLine1"
 
   Scenario: No response unhappy path to process server
-    Given I set the case to AosDrafted
+    Given I set the case to AosDrafted to review my options
     Then I click start and expect URL "HAVE_THEY_RECEIVED" with element "#detailsProvided"
 
     Given I don't know my partner's contact details
@@ -63,7 +63,7 @@ Feature: No response journey
     Then I click element "#downloadPapersLink" and expect URL "PROCESS_SERVER_DOCS"
 
   Scenario: No response new postal address
-    Given I set the case to AosOverdue
+    Given I set the case to AosOverdue to review my options
     Then I click start and expect URL "HAVE_THEY_RECEIVED"
 
     Given I have new contact details for my partner
@@ -78,7 +78,7 @@ Feature: No response journey
     Then I click accept and send and expect URL "NO_RESPONSE_DETAILS_UPDATED"
 
   Scenario: No response new email address
-    Given I set the case to AosOverdue
+    Given I set the case to AosOverdue to review my options
     Then I click start and expect URL "HAVE_THEY_RECEIVED"
 
     Given I have new contact details for my partner
@@ -96,7 +96,7 @@ Feature: No response journey
     Then I click accept and send and expect URL "NO_RESPONSE_DETAILS_UPDATED"
 
   Scenario: No response new postal and email address
-    Given I set the case to AosOverdue
+    Given I set the case to AosOverdue to review my options
     Then I click start and expect URL "HAVE_THEY_RECEIVED"
 
     Given I have new contact details for my partner
@@ -114,14 +114,14 @@ Feature: No response journey
     Then I click accept and send and expect URL "NO_RESPONSE_DETAILS_UPDATED"
 
   Scenario: No response update contact details NEW_POSTAL_AND_EMAIL throws error
-    Given I set the case to AosOverdue
+    Given I set the case to AosOverdue to review my options
 
     When I go to "NEW_POSTAL_AND_EMAIL"
     Then I click continue
     Then the page should show an error for field "newPostalAddress"
 
   Scenario: No response send papers again or try something else
-    Given I set the case to AosOverdue
+    Given I set the case to AosOverdue to review my options
     Then I click start and expect URL "HAVE_THEY_RECEIVED"
 
     Given I confirm their details are up to date
