@@ -8,10 +8,9 @@ Feature: Pre-Issue application withdraw journey
     Then I click continue to payment and expect URL "PAY_YOUR_FEE"
 
     Given I pay and submit and expect the application to be saved
-    Then I set the case state to "Submitted"
+    Then I set the case state to "Submitted" and login as applicant "1"
 
   Scenario: Pre-Issue application withdraw happy path
-    Given I login with applicant "1"
     Then I go to "WITHDRAW_THIS_APPLICATION"
 
     Given I select yes
