@@ -1,4 +1,4 @@
-Feature: Applicant 1 sole application
+Feature: Applicant 1 sole application journey
 
   Background:
     Given I create a new user and login

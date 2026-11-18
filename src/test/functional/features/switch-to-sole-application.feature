@@ -1,4 +1,4 @@
-Feature: Switch To Sole Application
+Feature: Switch to sole application journey
 
   Background:
     Given I create a new user and login
@@ -20,7 +20,7 @@ Feature: Switch To Sole Application
     Given I confirm the prayer and statement of truth
     Then I click continue and expect URL "RESPONSE_SUBMITTED"
 
-    Given I sign out then login with applicant "1"
+    Given I login with applicant "1"
     Then I go to 'CONFIRM_JOINT_APPLICATION'
 
     Given I confirm the prayer and statement of truth
@@ -72,7 +72,7 @@ Feature: Switch To Sole Application
     And I explain what is incorrect or needs changing
     Then I click continue and expect URL "YOUR_COMMENTS_SENT"
 
-    Given I sign out then login with applicant "1"
+    Given I login with applicant "1"
     Then I go to "HOW_DO_YOU_WANT_TO_APPLY"
 
     Given I want to apply on my own

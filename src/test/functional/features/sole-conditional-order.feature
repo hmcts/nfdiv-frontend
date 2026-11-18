@@ -1,4 +1,4 @@
-Feature: Sole conditional order
+Feature: Sole conditional order journey
 
   Background: Logged in for hub page
     Given I create a new user and login
@@ -46,7 +46,7 @@ Feature: Sole conditional order
     And I cannot upload some or all of my documents
     Then I click continue and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
 
-    Given I sign out then login with the respondent and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
+    Given I login with the respondent and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
 
   @flaky
   Scenario: Applicant 1 applies for conditional order and provides additional information with uploads
@@ -59,4 +59,4 @@ Feature: Sole conditional order
     Then I upload the file "fixtures/larry-the-cat.jpg"
     And I click continue and expect hub element "#clarificationSubmittedWithDocumentsContent"
 
-    Then I sign out then login with the respondent and expect hub element "#clarificationSubmittedWithDocumentsContent"
+    Then I login with the respondent and expect hub element "#clarificationSubmittedWithDocumentsContent"

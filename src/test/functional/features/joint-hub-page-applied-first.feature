@@ -10,4 +10,4 @@ Feature: Joint hub page applied first
 
   Scenario: Joint hub applicant 1 and applicant 2 applied first
     Given I set the case state to "AwaitingFinalOrder" and expect hub element "#hasAppliedForFinalOrderContent"
-    Then I sign out then login with applicant "1" and expect hub element "#hasAppliedForFinalOrderContent"
+    Then I login with applicant "1" and expect hub element "#hasAppliedForFinalOrderContent"

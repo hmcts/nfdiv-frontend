@@ -1,10 +1,10 @@
-Feature: Applicant 2
+Feature: Applicant 2 joint application journey
 
   Background:
     Given I create a new user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
 
-  Scenario: They fill out a happy path applicant 2 journey
+  Scenario: They fill out a happy path applicant 2 joint application journey
     When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
@@ -49,7 +49,7 @@ Feature: Applicant 2
     Given I confirm the prayer and statement of truth
     Then I click continue and expect URL "RESPONSE_SUBMITTED"
 
-    Given I sign out then login with applicant "1" and expect URL "CONFIRM_JOINT_APPLICATION"
+    Given I login with applicant "1" and expect URL "CONFIRM_JOINT_APPLICATION"
 
     Given I confirm the prayer and statement of truth
     Then I click continue to payment and expect URL "PAY_AND_SUBMIT"
@@ -59,10 +59,10 @@ Feature: Applicant 2
 
     Then I pay and submit the joint application
 
-    Then I sign out then login with applicant "2" and expect hub element "#awaitingDocumentsTitle"
+    Then I login with applicant "2" and expect hub element "#awaitingDocumentsTitle"
 
   @nightly
-  Scenario: They fill out an unhappy path applicant 2 journey with help with fees
+  Scenario: They fill out an unhappy path applicant 2 joint application journey with help with fees
     When I go to "HELP_WITH_YOUR_FEE_URL"
 
     Given I select yes
@@ -149,7 +149,7 @@ Feature: Applicant 2
 
     Then I click end the joint application and expect URL "NOT_CONFIRMED_JOINT_APPLICATION"
 
-    Then I sign out then login with applicant "1" and expect URL "APPLICATION_ENDED"
+    Then I login with applicant "1" and expect URL "APPLICATION_ENDED"
 
   @flaky
   Scenario: Applicant 2 upload larry-the-cat

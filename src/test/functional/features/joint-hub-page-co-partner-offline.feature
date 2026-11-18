@@ -11,7 +11,7 @@ Feature: Joint hub page co partner offline
     Given I set the case state to "Holding" and expect hub element "#applicantSubmittedContent"
     Then I confirm receipt of the application
 
-    Given I sign out then login with applicant "1" and expect hub element "#applicantSubmittedContent"
+    Given I login with applicant "1" and expect hub element "#applicantSubmittedContent"
     Then I confirm receipt of the application
     And I set the case state to "AwaitingConditionalOrder"
 

@@ -1,4 +1,4 @@
-Feature: Joint conditional order
+Feature: Joint conditional order journey
 
   Background:
     Given I create a new user and login
@@ -28,7 +28,7 @@ Feature: Joint conditional order
     Given I confirm the statement of truth
     Then I click submit and expect hub element "#jointCoPendingBeforeDueDateLine1"
 
-    Then I sign out then login with applicant "2" and expect URL "HUB_PAGE"
+    Then I login with applicant "2" and expect URL "HUB_PAGE"
 
     Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 
@@ -57,7 +57,7 @@ Feature: Joint conditional order
     Given I confirm the statement of truth
     Then I click submit and expect hub element "#jointCoPendingBeforeDueDateLine1"
 
-    Then I sign out then login with applicant "1" and expect hub element "#applicantNotYetAppliedForConditionalOrderContent"
+    Then I login with applicant "1" and expect hub element "#applicantNotYetAppliedForConditionalOrderContent"
 
     Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 

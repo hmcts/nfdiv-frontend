@@ -1,4 +1,4 @@
-Feature: Existing Application
+Feature: Existing application journey
 
   Background:
     Given I create a new user and login
@@ -21,7 +21,7 @@ Feature: Existing Application
     Then I go to "CHECK_ANSWERS_URL"
     And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
-    Given I sign out then login with applicant "2" and expect URL "EXISTING_APPLICATION"
+    Given I login with applicant "2" and expect URL "EXISTING_APPLICATION"
 
   @nightly
   Scenario: Continuing with existing application

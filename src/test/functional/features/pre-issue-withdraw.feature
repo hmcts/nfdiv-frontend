@@ -11,7 +11,7 @@ Feature: Pre-Issue application withdraw journey
     Then I set the case state to "Submitted"
 
   Scenario: Pre-Issue application withdraw happy path
-    Given I sign out then login with applicant "1"
+    Given I login with applicant "1"
     Then I go to "WITHDRAW_THIS_APPLICATION"
 
     Given I select yes

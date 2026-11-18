@@ -1,4 +1,4 @@
-Feature: Update contact details
+Feature: Update contact details journey
 
   Background:
     Given I create a new user and login
@@ -26,7 +26,7 @@ Feature: Update contact details
 
     Then I click continue and expect URL "HUB_PAGE"
 
-    Given I sign out then login with applicant "1" and expect URL "HUB_PAGE"
+    Given I login with applicant "1" and expect URL "HUB_PAGE"
     When I click to review my contact details
     Then I click to change my address
 
