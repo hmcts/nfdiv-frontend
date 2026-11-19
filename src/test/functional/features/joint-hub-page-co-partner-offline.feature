@@ -17,11 +17,11 @@ Feature: Joint hub page co partner offline
 
   Scenario: Joint hub both applicants apply for co page when partner is offline
     Given a superuser updates "applicant2Offline" with "Yes"
-    Then I login with applicant "1" and expect hub element "#applicantNotYetAppliedForConditionalOrderContent"
+    Then I login with applicant "1" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
     And the page should include element "#partnerIsOfflineContent"
     And the page should not include element "#applyForConditionalOrderButton"
 
     Given a superuser updates "applicant1Offline" with "Yes"
-    And I login with applicant "2" and expect hub element "#applicantNotYetAppliedForConditionalOrderContent"
+    And I login with applicant "2" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
     And the page should include element "#partnerIsOfflineContent"
     And the page should not include element "#applyForConditionalOrderButton"

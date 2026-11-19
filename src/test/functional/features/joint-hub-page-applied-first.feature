@@ -9,5 +9,5 @@ Feature: Joint hub page applied first
     And a superuser updates "issueDate" with "2020-01-01"
 
   Scenario: Joint hub applicant 1 and applicant 2 applied first
-    Given I set the case state to "AwaitingFinalOrder" and expect hub element "#hasAppliedForFinalOrderContent"
-    Then I login with applicant "1" and expect hub element "#hasAppliedForFinalOrderContent"
+    Given I set the case state to "AwaitingFinalOrder" and expect hub element "#hasAppliedForJointFinalOrderContent"
+    Then I login with applicant "1" and expect hub element "#hasAppliedForJointFinalOrderContent"
