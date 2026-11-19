@@ -71,5 +71,8 @@ const getRfiApplicantString = (): 'app1' | 'app2' => {
 };
 
 Given('I provide the requested information', async () => {
-  iEnterValueIntoInput('Example response details', `#${getRfiApplicantString()}${APPLICANT_RFI_DRAFT_RESPONSE_DETAILS_SELECTOR_SUFFIX}`);
+  iEnterValueIntoInput(
+    'Example response details',
+    `#${getRfiApplicantString()}${APPLICANT_RFI_DRAFT_RESPONSE_DETAILS_SELECTOR_SUFFIX}`
+  );
 });
