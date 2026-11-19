@@ -1,10 +1,19 @@
 import { Case } from '../../main/app/case/case';
-import { CASEWORKER_REQUEST_FOR_INFORMATION } from '../../main/app/case/definition';
+import {
+  CASEWORKER_REQUEST_FOR_INFORMATION,
+  RequestForInformationJointParties,
+  RequestForInformationSoleParties,
+} from '../../main/app/case/definition';
 
 import { TestUserKey } from './commonHelpers/IdamUserManager';
 import { triggerAnEvent } from './commonHelpers/caseInteraction';
 import { iEnterValueIntoInput } from './commonHelpers/elementInteraction';
 import { getApplicantString } from './commonHelpers/userInteraction';
+
+const REQUEST_FOR_INFORMATION_DETAILS = 'Example request for information details';
+const REQUEST_FOR_INFORMATION_THIRD_PARTY_NAME = 'Example third party name';
+const REQUEST_FOR_INFORMATION_THIRD_PARTY_EMAIL_ADDRESS = 'thirdparty@hmcts.net';
+const APPLICANT_RFI_DRAFT_RESPONSE_DETAILS_SELECTOR_SUFFIX = 'RfiDraftResponseDetails';
 
 export const caseworkerIssuesRequestForInformation = async (eventData: Partial<Case>): Promise<void> => {
   await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, eventData, TestUserKey.CASEWORKER);
@@ -12,47 +21,47 @@ export const caseworkerIssuesRequestForInformation = async (eventData: Partial<C
 
 When('a case worker issues a request for information', async () => {
   await caseworkerIssuesRequestForInformation({
-    requestForInformationSoleParties: 'applicant',
-    requestForInformationDetails: 'test',
+    requestForInformationSoleParties: RequestForInformationSoleParties.APPLICANT,
+    requestForInformationDetails: REQUEST_FOR_INFORMATION_DETAILS,
   });
 });
 
 When('a case worker issues a request for information to a third party', async () => {
   await caseworkerIssuesRequestForInformation({
-    requestForInformationSoleParties: 'other',
-    requestForInformationDetails: 'test',
-    requestForInformationName: 'third party',
-    requestForInformationEmailAddress: 'thirdparty@hmcts.net',
+    requestForInformationSoleParties: RequestForInformationSoleParties.OTHER,
+    requestForInformationDetails: REQUEST_FOR_INFORMATION_DETAILS,
+    requestForInformationName: REQUEST_FOR_INFORMATION_THIRD_PARTY_NAME,
+    requestForInformationEmailAddress: REQUEST_FOR_INFORMATION_THIRD_PARTY_EMAIL_ADDRESS,
   });
 });
 
 When('a case worker issues a request for information to app1 on a joint case', async () => {
   await caseworkerIssuesRequestForInformation({
-    requestForInformationJointParties: 'applicant1',
-    requestForInformationDetails: 'test',
+    requestForInformationJointParties: RequestForInformationJointParties.APPLICANT1,
+    requestForInformationDetails: REQUEST_FOR_INFORMATION_DETAILS,
   });
 });
 
 When('a case worker issues a request for information to app2 on a joint case', async () => {
   await caseworkerIssuesRequestForInformation({
-    requestForInformationJointParties: 'applicant2',
-    requestForInformationDetails: 'test',
+    requestForInformationJointParties: RequestForInformationJointParties.APPLICANT2,
+    requestForInformationDetails: REQUEST_FOR_INFORMATION_DETAILS,
   });
 });
 
 When('a case worker issues a request for information to both parties on a joint case', async () => {
   await caseworkerIssuesRequestForInformation({
-    requestForInformationJointParties: 'both',
-    requestForInformationDetails: 'test',
+    requestForInformationJointParties: RequestForInformationJointParties.BOTH,
+    requestForInformationDetails: REQUEST_FOR_INFORMATION_DETAILS,
   });
 });
 
 When('a case worker issues a request for information to a third party on a joint case', async () => {
   await caseworkerIssuesRequestForInformation({
-    requestForInformationJointParties: 'other',
-    requestForInformationDetails: 'test',
-    requestForInformationName: 'third party',
-    requestForInformationEmailAddress: 'thirdparty@hmcts.net',
+    requestForInformationJointParties: RequestForInformationJointParties.OTHER,
+    requestForInformationDetails: REQUEST_FOR_INFORMATION_DETAILS,
+    requestForInformationName: REQUEST_FOR_INFORMATION_THIRD_PARTY_NAME,
+    requestForInformationEmailAddress: REQUEST_FOR_INFORMATION_THIRD_PARTY_EMAIL_ADDRESS,
   });
 });
 
@@ -62,5 +71,5 @@ const getRfiApplicantString = (): 'app1' | 'app2' => {
 };
 
 Given('I provide the requested information', async () => {
-  iEnterValueIntoInput('Example response details', `#${getRfiApplicantString()}RfiDraftResponseDetails`);
+  iEnterValueIntoInput('Example response details', `#${getRfiApplicantString()}${APPLICANT_RFI_DRAFT_RESPONSE_DETAILS_SELECTOR_SUFFIX}`);
 });
