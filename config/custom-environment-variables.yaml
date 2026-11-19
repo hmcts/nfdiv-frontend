@@ -36,7 +36,7 @@ session:
     host: REDIS_HOST
     port: REDIS_PORT
 appInsights:
-  connectionString: APPLICATIONINSIGHTS_CONNECTION_STRING
+  connectionString: APP-INSIGHTS-CONNECTION-STRING
 launchDarkly:
   sdkKey: LAUNCH_DARKLY_SDK_KEY
   offline: LAUNCH_DARKLY_OFFLINE
