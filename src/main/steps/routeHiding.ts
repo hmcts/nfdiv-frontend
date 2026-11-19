@@ -39,7 +39,16 @@ import {
   WILL_SERVE_AGAIN,
 } from './urls';
 
-const cleanPathname = (req: AppRequest) => req.path.replace(/\/+$/, '') || '/';
+const cleanPathname = (req: AppRequest) => {
+  const pathname = req.path;
+  let end = pathname.length;
+
+  while (end > 0 && pathname[end - 1] === '/') {
+    end--;
+  }
+
+  return pathname.slice(0, end) || '/';
+}
 
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
   if (!req.session.userCase) {
