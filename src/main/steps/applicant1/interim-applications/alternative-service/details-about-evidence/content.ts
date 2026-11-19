@@ -21,7 +21,7 @@ const en = ({ partner, userCase }: CommonContent, methodLabel) => ({
         ? 'email or chosen contact method'
         : 'chosen contact method'
   } is currently in use and belongs to your ${partner}. It must show the date of the ${methodLabel} and must be from within the last 3 months.`,
-  question: `Does the evidence show that the ${
+  question: `Does your evidence show that the ${
     userCase.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
       ? 'email'
       : userCase.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
@@ -67,8 +67,8 @@ const cy: typeof en = ({ partner, userCase }: CommonContent, methodLabel) => ({
     userCase.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
       ? `Rhaid i'ch tystiolaeth ddangos bod y cyfeiriad e-bost yn cael ei ddefnyddio ar hyn o bryd ac mai cyfeiriad e-bost eich ${partner} ydyw. Rhaid iddi ddangos dyddiad yr e-bost a rhaid iddi fod o fewn y 3 mis diwethaf.`
       : userCase.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
-        ? `Rhaid i'ch tystiolaeth ddangos bod y dull cysylltu a ddewiswyd yn cael ei ddefnyddio ar hyn o bryd ac yn perthyn i'ch ${partner}. Rhaid iddi ddangos dyddiad y sgwrs a rhaid iddi fod o fewn y 3 mis diwethaf.`
-        : `Rhaid i'ch tystiolaeth ddangos bod yr e-bost neu'r dull cysylltu a ddewiswyd yn cael ei ddefnyddio ar hyn o bryd ac yn perthyn i'ch ${partner}. Rhaid iddi ddangos dyddiad yr e-bost neu'r sgwrs a rhaid iddi fod o fewn y 3 mis diwethaf.`
+        ? `Rhaid i'ch tystiolaeth ddangos bod yr e-bost neu'r dull cysylltu a ddewiswyd yn cael ei ddefnyddio ar hyn o bryd ac yn perthyn i'ch ${partner}. Rhaid iddi ddangos dyddiad y sgwrs a rhaid iddi fod o fewn y 3 mis diwethaf.`
+        : `Rhaid i'ch tystiolaeth ddangos bod y dull cysylltu a ddewiswyd yn cael ei ddefnyddio ar hyn o bryd ac yn perthyn i'ch ${partner}. Rhaid iddi ddangos dyddiad yr e-bost neu'r sgwrs a rhaid iddi fod o fewn y 3 mis diwethaf.`
   }`,
   question: `A yw eich tystiolaeth yn dangos bod ${
     userCase.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
