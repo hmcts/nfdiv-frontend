@@ -12,6 +12,12 @@ import {
   switchApplicant1AndApplicant2,
 } from './commonHelpers/userInteraction';
 
+const DATE_FINAL_ORDER_SUBMITTED = '2022-09-21T08:08:34.548';
+const SWITCH_TO_SOLE_LINK_SELECTOR = '#switchToSoleLink';
+const AWAITING_JOINT_FINAL_ORDER_OVERDUE_CONTENT_SELECTOR = '#awaitingJointFinalOrderOrFinalOrderOverdueContent';
+const FINAL_ORDER_REQUESTED_CONTENT_SELECTOR = '#finalOrderRequestedContent';
+const APPLICANT_CAN_INTEND_TO_SWITCH_TO_SOLE_FO_SELECTOR_SUFFIX = 'CanIntendToSwitchToSoleFo';
+
 export const iSubmitToApplyAsSoleApplicant = async (url: string, expectedElementSelector?: string): Promise<void> => {
   await iClickSubmit();
   if (isApplicant2()) {
@@ -27,21 +33,21 @@ export const prepareTheCaseForSwitchToSoleFinalOrder = async (
   const userKey = getUserKeyByIndex(parseInt(applicantIndex));
   const caseData: Partial<BrowserCase> = {
     state: State.AwaitingJointFinalOrder,
-    dateFinalOrderSubmitted: '2022-09-21T08:08:34.548',
-    [`${getApplicantString()}CanIntendToSwitchToSoleFo`]: YesOrNo.YES,
+    dateFinalOrderSubmitted: DATE_FINAL_ORDER_SUBMITTED,
+    [`${getApplicantString()}${APPLICANT_CAN_INTEND_TO_SWITCH_TO_SOLE_FO_SELECTOR_SUFFIX}`]: YesOrNo.YES,
   };
   if (overdue) {
     caseData.isFinalOrderOverdue = YesOrNo.YES;
   }
   await caseworkerUpdatesTheCase(caseData);
-  await iLoginAsUser(userKey, HUB_PAGE, '#secondInTimeFinalOrderNotSubmittedContent');
-  await iClickToNavigate('#switchToSoleLink', undefined, HOW_TO_FINALISE_APPLICATION);
+  await iLoginAsUser(userKey, HUB_PAGE, AWAITING_JOINT_FINAL_ORDER_OVERDUE_CONTENT_SELECTOR);
+  await iClickToNavigate(SWITCH_TO_SOLE_LINK_SELECTOR, undefined, HOW_TO_FINALISE_APPLICATION);
 };
 
 export const iSubmitToApplyForFinalOrderAsSoleApplicant = async (overdue: boolean = false): Promise<void> => {
   await iSubmitToApplyAsSoleApplicant(
     overdue ? EXPLAIN_THE_DELAY : HUB_PAGE,
-    overdue ? undefined : '#finalOrderRequestedContent'
+    overdue ? undefined : FINAL_ORDER_REQUESTED_CONTENT_SELECTOR
   );
 };
 
