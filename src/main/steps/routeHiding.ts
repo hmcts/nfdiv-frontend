@@ -48,7 +48,7 @@ const cleanPathname = (req: AppRequest) => {
   }
 
   return pathname.slice(0, end) || '/';
-}
+};
 
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
   if (!req.session.userCase) {
