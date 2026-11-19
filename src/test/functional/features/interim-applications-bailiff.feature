@@ -88,7 +88,7 @@ Feature: Bailiff service journey
     Given I pay and submit the service application
 
     Given I click return to hub
-    Then the page should include element "#awaitingServiceConsiderationOrBailiffReferralLine1"
+    Then the page should include element "#awaitingServiceConsiderationOrBailiffReferralContent"
 
   @nightly
   Scenario: Bailiff service HWF journey

@@ -26,7 +26,7 @@ Feature: Joint conditional order journey
     Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
     Given I confirm the statement of truth
-    Then I click submit and expect hub element "#jointCoPendingBeforeDueDateLine1"
+    Then I click submit and expect hub element "#jointConditionalOrderPendingContent"
 
     Then I login with applicant "2" and expect URL "HUB_PAGE"
 
@@ -39,7 +39,7 @@ Feature: Joint conditional order journey
     Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
     Given I confirm the statement of truth
-    Then I click submit and expect hub element "#awaitingLegalAdvisorReferralLine1"
+    Then I click submit and expect hub element "#awaitingLegalAdvisorReferralJointContent"
 
   @nightly
   Scenario: Applicant 2 is first in time applicant for conditional order journey and responds with additional information
@@ -55,9 +55,9 @@ Feature: Joint conditional order journey
     Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
     Given I confirm the statement of truth
-    Then I click submit and expect hub element "#jointCoPendingBeforeDueDateLine1"
+    Then I click submit and expect hub element "#jointConditionalOrderPendingContent"
 
-    Then I login with applicant "1" and expect hub element "#applicantNotYetAppliedForConditionalOrderContent"
+    Then I login with applicant "1" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
 
     Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 
@@ -68,7 +68,7 @@ Feature: Joint conditional order journey
     Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
     Given I confirm the statement of truth
-    Then I click submit and expect hub element "#awaitingLegalAdvisorReferralLine1"
+    Then I click submit and expect hub element "#awaitingLegalAdvisorReferralJointContent"
 
     Given I set the case state to "AwaitingClarification" and login as applicant "2"
 
