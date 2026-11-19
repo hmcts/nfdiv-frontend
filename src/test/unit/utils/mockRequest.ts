@@ -63,7 +63,9 @@ export const mockRequest = ({
       },
     },
     cookies,
-    path: '/request',
+    get path() {
+      return this.url.split(/[?#]/, 1)[0];
+    },
     url: '/request',
     originalUrl: '/request',
     logout: jest.fn(),

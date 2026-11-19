@@ -16,7 +16,7 @@ describe('PreIssueWithdrawPostController', () => {
     const req = mockRequest();
     const res = mockResponse();
     (res.locals as Record<string, string>).host = 'localhost';
-    (req as { path: string }).path = CHECK_ANSWERS_WITHDRAW;
+    req.url = CHECK_ANSWERS_WITHDRAW;
 
     const controller = new PreIssueWithdrawPostController(mockFormContent.fields);
     await controller.post(req, res);

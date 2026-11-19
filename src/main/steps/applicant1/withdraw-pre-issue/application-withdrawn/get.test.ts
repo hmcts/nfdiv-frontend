@@ -12,7 +12,7 @@ describe('ApplicationWithdrawnPreIssueGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     (res.locals as Record<string, string>).host = 'localhost';
-    (req as { path: string }).path = WITHDRAW_CONFIRMATION;
+    req.url = WITHDRAW_CONFIRMATION;
 
     await controller.get(req, res);
 

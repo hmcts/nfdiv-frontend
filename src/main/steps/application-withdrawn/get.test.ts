@@ -12,7 +12,7 @@ describe('WithdrawApplicationController', () => {
     const req = mockRequest();
     const res = mockResponse();
     (res.locals as Record<string, string>).host = 'localhost';
-    (req as { path: string }).path = APPLICATION_WITHDRAWN;
+    req.url = APPLICATION_WITHDRAWN;
 
     await controller.get(req, res);
 
