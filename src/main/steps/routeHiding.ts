@@ -39,12 +39,13 @@ import {
   WILL_SERVE_AGAIN,
 } from './urls';
 
+const cleanPathname = (req: AppRequest) => req.path.replace(/\/+$/, '') || '/';
+
 export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
   if (!req.session.userCase) {
     return false;
   }
-
-  const routePermission = ROUTE_HIDE_CONDITIONS.find(i => i.urls.includes(req.url as PageLink));
+  const routePermission = ROUTE_HIDE_CONDITIONS.find(i => i.urls.includes(cleanPathname(req) as PageLink));
   if (routePermission) {
     return routePermission.condition(req.session.userCase);
   }
@@ -53,7 +54,7 @@ export const shouldHideRouteFromUser = (req: AppRequest): boolean => {
 };
 
 export const shouldRedirectRouteToHub = (req: AppRequest): boolean => {
-  return ROUTES_TO_REDIRECT_TO_HUB.includes(req.url as PageLink);
+  return ROUTES_TO_REDIRECT_TO_HUB.includes(cleanPathname(req) as PageLink);
 };
 
 export const ROUTES_TO_REDIRECT_TO_HUB: PageLink[] = [
