@@ -2,6 +2,8 @@ import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { SupportedLanguages } from '../../../modules/i18n';
+import { getPageTitleIdFromUrl } from '../../url-utils';
+import { APPLICATION_ENDED } from '../../urls';
 
 import ApplicationEndedGetController from './get';
 
@@ -18,6 +20,7 @@ describe('ApplicationEndedGetController', () => {
       ...defaultViewArgs,
       ...controller.getPageContent(req, res, language),
       userCase: req.session.userCase,
+      titleId: getPageTitleIdFromUrl(APPLICATION_ENDED),
     });
   });
 

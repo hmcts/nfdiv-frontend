@@ -4,6 +4,8 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { ApplicationType, DivorceOrDissolution } from '../../app/case/definition';
 import { PageContent } from '../../app/controller/GetController';
 import { SupportedLanguages } from '../../modules/i18n';
+import { getPageTitleIdFromUrl } from '../url-utils';
+import { EXISTING_APPLICATION } from '../urls';
 
 import { ExistingApplicationGetController } from './get';
 
@@ -24,6 +26,7 @@ describe('ExistingApplicationGetController', () => {
         ...defaultViewArgs,
         ...controller.getPageContent(req, res, language),
         userCase: req.session.userCase,
+        titleId: getPageTitleIdFromUrl(EXISTING_APPLICATION),
       });
     }
   );
