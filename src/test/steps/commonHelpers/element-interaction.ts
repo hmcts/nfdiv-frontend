@@ -266,9 +266,14 @@ export const iWaitForVisibleError = (wait?: number): void => {
 };
 
 export const iWaitForErrorForField = (fieldName: string, wait?: number): void => {
-  iWaitForVisible("div.govuk-error-summary div.govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']", wait);
+  iWaitForVisible(
+    "div.govuk-error-summary div.govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" +
+      fieldName +
+      "']",
+    wait
+  );
   iWaitForVisible('#' + fieldName + '-error', wait);
-}
+};
 
 const iSetAddressPrivacy = (isPrivate: boolean = true, inRefuge: boolean = false): void => {
   iSelectYesOrNoForField(isPrivate ? YesOrNo.YES : YesOrNo.NO, `${getApplicantString()}AddressPrivate`);
