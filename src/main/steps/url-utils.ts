@@ -62,3 +62,14 @@ export const jurisdictionUrls: PageLink[] = [
   LIVING_ENGLAND_WALES_SIX_MONTHS,
   RESIDUAL_JURISDICTION,
 ];
+
+export const getPageTitleIdFromUrl = (path: PageLink): string => {
+  const words = path
+    .split('/')
+    .flatMap(segment => segment.split('-'))
+    .filter(Boolean);
+  const [firstWord = '', ...otherWords] = words;
+
+  const camelCasePath = firstWord + otherWords.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+  return `${camelCasePath}Title`;
+};

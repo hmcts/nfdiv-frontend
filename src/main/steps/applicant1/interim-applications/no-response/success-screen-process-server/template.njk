@@ -7,7 +7,7 @@
 
 {% block page_content %}
   <div class="govuk-panel govuk-panel--confirmation govuk-panel--blue">
-    <h1 class="govuk-panel__title" id="successScreenProcessServerTitle">{{ title }}</h1>
+    <h1 class="govuk-panel__title" id="{{ titleId }}">{{ title }}</h1>
   </div>
   <p class="govuk-body">{{ line1 | safe }}</p>
   <h2 class="govuk-heading-m">{{ whatHappensNextHeader }}</h2>

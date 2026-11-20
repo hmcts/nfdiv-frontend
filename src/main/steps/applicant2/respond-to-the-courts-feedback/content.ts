@@ -78,6 +78,7 @@ export const form: FormContent = {
       },
       values: [
         {
+          id: 'cannotUploadDocs',
           name: 'app2RfiDraftResponseCannotUploadDocs',
           label: l => l.havingTroubleUploading,
           value: Checkbox.Checked,

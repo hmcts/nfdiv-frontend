@@ -1,8 +1,8 @@
 {% if hasApplicant2AppliedForFinalOrderFirst %}
     {% if applicant2FoHelpPayingNeeded and applicant2FoHasHwfRef %}
-        <p class="govuk-body">{{ finalOrderRequested.line2hwf }}</p>
+        <p class="govuk-body" id="finalOrderRequestedRespondentHwfContent">{{ finalOrderRequested.line2hwf }}</p>
     {% else %}
-        <p class="govuk-body">{{ finalOrderRequested.line2 }}</p>
+        <p class="govuk-body" id="finalOrderRequestedRespondentContent">{{ finalOrderRequested.line2 }}</p>
     {% endif %}
 {% else %}
     <p class="govuk-body">{{ finalOrderRequested.line1 }}</p>

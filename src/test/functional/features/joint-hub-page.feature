@@ -3,122 +3,75 @@ Feature: Joint hub page
   Background:
     Given I create a new user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    Given I go to "/"
-    When I click send for review
-    Then the page URL should be "/application-sent-for-review"
+    Given I go to "CHECK_ANSWERS_URL"
+    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
     Given I enter my valid case reference and valid access code
     And a superuser updates "issueDate" with "2020-01-01"
 
   Scenario: Joint hub applicant 1 and applicant 2 pages
-    Given I set the case state to "Holding"
-    And I go to "/"
-    Then the page should include element "#applicantSubmittedContent"
-    When I click element "#confirmReceiptButton"
-    Then the page should include element "#applicantConfirmedReceiptContent"
-    And the page should not include element "#confirmReceiptButton"
+    Given I set the case state to "Holding" and expect hub element "#applicantSubmittedContent"
+    Then I confirm receipt of the application
 
-    Given I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include element "#applicantSubmittedContent"
-    When I click element "#confirmReceiptButton"
-    Then the page should include element "#applicantConfirmedReceiptContent"
-    And the page should not include element "#confirmReceiptButton"
+    Given I login with applicant "1" and expect hub element "#applicantSubmittedContent"
+    Then I confirm receipt of the application
 
-    Given I set the case state to "AwaitingConditionalOrder"
-    When I go to "/"
-    Then the page should include element "#applicantNotYetAppliedForConditionalOrderContent"
+    Given I set the case state to "AwaitingConditionalOrder" and expect hub element "#applicantNotYetAppliedForConditionalOrderContent"
     And the page should not include element "#partnerIsOfflineContent"
-    When I click element "#applyForConditionalOrderButton"
-    Then the page URL should be "/continue-with-your-application"
-    When I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include element "#applicantNotYetAppliedForConditionalOrderContent"
+    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
+
+    Given I login with applicant "2" and expect hub element "#applicantNotYetAppliedForConditionalOrderContent"
     And the page should not include element "#partnerIsOfflineContent"
-    When I click element "#applyForConditionalOrderButton"
-    Then the page URL should be "/continue-with-your-application"
+    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 
-    Given I set the case state to "ConditionalOrderPronounced"
-    When I go to "/"
-    Then the page should include element "#conditionalOrderPronouncedContent"
-    When I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include element "#conditionalOrderPronouncedContent"
+    Given I set the case state to "ConditionalOrderPronounced" and expect hub element "#conditionalOrderPronouncedJointContent"
+    Then I login with applicant "1" and expect hub element "#conditionalOrderPronouncedJointContent"
 
-    Given I set the case state to "AwaitingPronouncement"
-    Then the page should include element "#awaitingLegalAdvisorReferralContent"
-    When I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include element "#awaitingLegalAdvisorReferralContent"
+    Given I set the case state to "AwaitingPronouncement" and expect hub element "#awaitingLegalAdvisorReferralJointContent"
+    Then I login with applicant "2" and expect hub element "#awaitingLegalAdvisorReferralJointContent"
 
   Scenario: Joint hub applicant 1 and applicant 2 pages, Part two
-    Given I set the case state to "AwaitingPronouncement"
-    And a case worker updates court case hearing
-    When I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 10 November 2021 at 12:00AM."
-    And the page should include element "#certificateOfEntitlementLink"
-    When I click "Sign out"
-    And I login with applicant "2"
-    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 10 November 2021 at 12:00AM."
+    Given I progress the case to awaiting pronouncement and expect hub element "#awaitingPronouncementJointContent"
+    Then the page should include element "#certificateOfEntitlementLink"
+
+    Given I login with applicant "2" and expect hub element "#awaitingPronouncementJointContent"
     And the page should include element "#certificateOfEntitlementLink"
 
-    Given I set the case state to "AwaitingClarification"
-    Then the page should include element "#awaitingClarificationContent"
-    When I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include element "#awaitingClarificationContent"
+    Given I set the case state to "AwaitingClarification" and expect hub element "#awaitingClarificationJointContent"
+    Then I login with applicant "1" and expect hub element "#awaitingClarificationJointContent"
 
-    Given I set the case state to "AwaitingFinalOrder"
-    And I go to "/"
-    Then the page should include element "#awaitingFinalOrderContent"
+    Given I set the case state to "AwaitingFinalOrder" and expect hub element "#awaitingFinalOrderJointContent"
     And the page should include element "#applyForFinalOrderButton"
 
-    Given I set the case state to "AwaitingJointFinalOrder"
-    And I go to "/"
-    Then the page should include element "#awaitingFinalOrderContent"
+    Given I login with applicant "2" and expect hub element "#awaitingFinalOrderJointContent"
     And the page should include element "#applyForFinalOrderButton"
 
-    Given I set the case state to "FinalOrderRequested"
-    And I go to "/"
-    Then the page should include element "#finalOrderRequestedContent"
-    Given I click "Sign out"
-    And I login with applicant "1"
-    Then the page URL should be "/hub-page"
-    Then the page should include element "#finalOrderRequestedContent"
+    Given I set the case state to "AwaitingJointFinalOrder" and expect hub element "#awaitingFinalOrderJointContent"
+    And the page should include element "#applyForFinalOrderButton"
+
+    Given I login with applicant "1" and expect hub element "#awaitingFinalOrderJointContent"
+    And the page should include element "#applyForFinalOrderButton"
+
+    Given I set the case state to "FinalOrderRequested" and expect hub element "#finalOrderRequestedJointContent"
+    Then I login with applicant "2" and expect hub element "#finalOrderRequestedJointContent"
 
   @nightly
   Scenario: Joint hub applicant 1 and applicant 2 submitted documents
-    And I set the case state to "AwaitingClarification"
-    When I click "Sign out"
-    And I login with applicant "1"
-    When I go to "/provide-information-to-the-court"
-    Then the page should include element "#provideInformationToTheCourtUploadTitle"
+    Given I set the case state to "AwaitingClarification" and expect hub element "#awaitingClarificationJointContent"
+    Then I click provide information and expect URL "PROVIDE_INFORMATION_TO_THE_COURT"
 
-    When I clear the form
-    And I select element "#coClarificationResponses"
-    And I type "test details"
+    Given I provide additional details
+    Then I click continue and expect hub element "#clarificationSubmittedWithDocumentsContent"
 
-    When I click continue
-    Then the page URL should be "/hub-page"
-    And the page should include element "#clarificationSubmittedWithDocumentsContent"
-
-    When I click "Sign out"
-    And I login with applicant "1"
-    And the page should include element "#clarificationSubmittedWithDocumentsContent"
+    Then I login with applicant "1" and expect hub element "#clarificationSubmittedWithDocumentsContent"
 
   @nightly
   Scenario: Joint hub applicant 1 and applicant 2 documents not submitted
-    And I set the case state to "AwaitingClarification"
-    When I click "Sign out"
-    And I login with applicant "1"
-    When I go to "/provide-information-to-the-court"
-    Then the page should include element "#provideInformationToTheCourtUploadTitle"
+    Given I set the case state to "AwaitingClarification" and expect hub element "#awaitingClarificationJointContent"
+    Then I click provide information and expect URL "PROVIDE_INFORMATION_TO_THE_COURT"
 
-    And I select element "#coCannotUploadClarificationDocuments"
-    When I click continue
-    And the page should include element "#clarificationSubmittedWithoutDocumentsContent"
+    Given I provide additional details
+    And I cannot upload some or all of my documents
+    Then I click continue and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
 
-    When I click "Sign out"
-    And I login with applicant "1"
-    And the page should include element "#clarificationSubmittedWithoutDocumentsContent"
+    Then I login with applicant "1" and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
 

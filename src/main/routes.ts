@@ -1,9 +1,10 @@
 import fs from 'fs';
+import { createRequire } from 'module';
 import { extname } from 'path';
 
 import config from 'config';
 import { Application, NextFunction, RequestHandler, Response } from 'express';
-import multer from 'multer';
+import multer, { MulterError } from 'multer';
 
 import { AccessCodePostController } from './app/access-code/AccessCodePostController';
 import { getEndIdamSessionUrl } from './app/auth/user/oidc';
@@ -59,6 +60,7 @@ import {
   NO_RESPONSE_YET,
   POSTCODE_LOOKUP,
   PRIVACY_POLICY_URL,
+  PageLink,
   REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT,
   RESPONDENT,
   SAVE_AND_SIGN_OUT,
@@ -84,7 +86,7 @@ const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
       return next();
     }
 
-    if (err instanceof multer.MulterError) {
+    if (err instanceof MulterError) {
       (req as AppRequest).locals?.logger?.warn(
         `Multer rejected upload(code=${err.code}, contentLength=${req.headers['content-length'] || 'n/a'})`
       );
@@ -103,6 +105,7 @@ const uploadFilesMiddleware: RequestHandler = (req, res, next) => {
 };
 
 const ext = extname(__filename);
+const requireFromRoutes = createRequire(__filename);
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -143,18 +146,18 @@ export class Routes {
 
     for (const step of stepsWithContent) {
       const getController = fs.existsSync(`${step.stepDir}/get${ext}`)
-        ? require(`${step.stepDir}/get${ext}`).default
+        ? (requireFromRoutes(`${step.stepDir}/get${ext}`) as { default: typeof GetController }).default
         : GetController;
 
       app.get(
         step.url,
         this.isRouteForUser as RequestHandler,
-        errorHandler(new getController(step.view, step.generateContent).get)
+        errorHandler(new getController(step.view, step.generateContent, step.url as PageLink).get)
       );
 
       if (step.form) {
         const postController = fs.existsSync(`${step.stepDir}/post${ext}`)
-          ? require(`${step.stepDir}/post${ext}`).default
+          ? (requireFromRoutes(`${step.stepDir}/post${ext}`) as { default: typeof PostController }).default
           : PostController;
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }

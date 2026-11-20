@@ -10,7 +10,7 @@
         {% include "common/error/summary.njk" %}
       {% endblock %}
 
-      <h1 class="govuk-heading-l">{{ title }}</h1>
+      <h1 class="govuk-heading-l" id="{{ titleId }}">{{ title }}</h1>
       {% if preMadeConnections.length > 1 %}
         <p class="govuk-body">{{ line1Prefix }}:
           <ul class="govuk-list govuk-list--bullet">

@@ -3,7 +3,8 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution } from '../../../app/case/definition';
 import { SupportedLanguages } from '../../../modules/i18n';
-import { HOME_URL } from '../../urls';
+import { getPageTitleIdFromUrl } from '../../url-utils';
+import { ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../urls';
 
 import { Applicant1AccessCodeGetController } from './get';
 
@@ -24,6 +25,7 @@ describe('AccessCodeGetController', () => {
         ...defaultViewArgs,
         ...controller.getPageContent(req, res, language),
         userCase: req.session.userCase,
+        titleId: getPageTitleIdFromUrl(ENTER_YOUR_ACCESS_CODE),
       });
     }
   );

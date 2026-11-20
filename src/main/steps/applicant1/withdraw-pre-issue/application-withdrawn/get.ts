@@ -7,7 +7,7 @@ import { generateContent } from './content';
 @autobind
 export class ApplicationWithdrawnPreIssueGetController extends EndSessionGetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(__dirname + '/template', generateContent, WITHDRAW_CONFIRMATION);
   }
 
   protected signoutPagePath(): PageLink {

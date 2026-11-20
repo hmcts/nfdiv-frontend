@@ -5,185 +5,130 @@ Feature: Sole final order
 
   Scenario: Applicant sole final order journey within a year
     Given I've already completed the form using the fixture "finalOrderCompleteCase"
-    And I go to '/check-your-answers'
-    And I click "I confirm"
-    And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
-    And I pay and submit the application
-    Then the page should include "Application saved"
-    Given a case worker issues the application
-    And I enter my valid case reference and valid access code
-    And I set the case state to "AwaitingFinalOrder"
-    When I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include "You may now apply for a 'final order'."
+    Then I go to 'CHECK_ANSWERS_URL'
 
-    When I click "Apply for a final order"
-    Then the page should include "Do you want to finalise your divorce?"
+    Given I confirm the prayer and statement of truth
+    Then I click continue to payment and expect URL "PAY_YOUR_FEE"
 
-    Given I select "I want to finalise my divorce"
-    When I click "Submit"
-    Then the page URL should be "/hub-page"
-    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
-    And the page should include "You should receive an email within 2 working days, confirming whether the final order has been granted."
+    Given I pay and submit and expect the application to be saved
+    And a case worker issues the application
+    Then I as respondent enter my valid case reference and valid access code
+    And I set the case state to "AwaitingFinalOrder" and sign out
+
+    Given I login with applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
+    Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+
+    Given I want to finalise my divorce
+    Then I click submit and expect hub element "#finalOrderRequestedContent"
 
   @nightly
   Scenario: Applicant sole final order journey overdue
     Given I've already completed the form using the fixture "finalOrderOverdueCompleteCase"
-    And I go to '/check-your-answers'
-    And I click "I confirm"
-    And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
-    And I pay and submit the application
-    Then the page should include "Application saved"
-    Given a case worker issues the application
-    And I enter my valid case reference and valid access code
-    And I set the case state to "AwaitingFinalOrder"
-    When I click "Sign out"
-    And I login with applicant "1"
-    Then the page should include "You may now apply for a 'final order'."
+    Then I go to 'CHECK_ANSWERS_URL'
 
-    When I click "Apply for a final order"
-    Then the page should include "Do you want to finalise your divorce?"
-    Given I select "I want to finalise my divorce"
+    Given I confirm the prayer and statement of truth
+    Then I click continue to payment and expect URL "PAY_YOUR_FEE"
 
-    When I click "Continue"
-    And the page should include "Explain the delay"
-    Given I select "You are making this application for a final order over one year from when the conditional order was made. Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application."
-    And I type "Reason for delay"
-    And I select "I believe that the facts stated in this application are true"
-    When I click "Submit"
-    Then the page URL should be "/hub-page"
-    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
-    And the page should include "You will receive an email confirming whether it has been granted once a Judge has made a decision."
+    Given I pay and submit and expect the application to be saved
+    And a case worker issues the application
+    Then I as respondent enter my valid case reference and valid access code
+    And I set the case state to "AwaitingFinalOrder" and sign out
+
+    Given I login with applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
+    Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+
+    Given I want to finalise my divorce
+    Then I click submit to apply for final order as a sole applicant when overdue
+
+    Given I enter the reason for the delay
+    And I confirm the statement of truth
+    Then I click submit and expect hub element "#finalOrderRequestedContent"
 
   Scenario: Respondent sole final order payment journey
     Given I've already completed the form using the fixture "finalOrderCompleteCase"
-    And I go to '/check-your-answers'
-    And I click "I confirm"
-    And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
-    And I pay and submit the application
-    Then the page should include "Application saved"
-    Given a case worker issues the application
-    And I enter my valid case reference and valid access code
-    And I set the case state to "AwaitingFinalOrder"
-    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2020-01-01"
-    When I click "Sign out"
-    And I login with applicant "2"
-    Then the page should include "Your wife has not yet applied for a final order"
-    And the page URL should be "/respondent/hub-page"
+    Then I go to 'CHECK_ANSWERS_URL'
 
-    And I click "Apply for a final order"
-    Then the page URL should be "/respondent/finalising-your-application"
+    Given I confirm the prayer and statement of truth
+    Then I click continue to payment and expect URL "PAY_YOUR_FEE"
 
-    Given I click "I want permission to apply for a final order, and to finalise my divorce"
-    And I select "Explain why you need to apply for the final order"
-    And I type "I want to apply myself"
-    When I click "Continue"
-    Then the page URL should be '/respondent/help-with-your-final-order-fee'
-    Then the page should include "Do you need help paying the fee for your final order?"
-    Given I select "I do not need help paying the fee"
-    When I click "Continue"
-    Then the page URL should be '/respondent/pay-your-final-order-fee'
+    Given I pay and submit and expect the application to be saved
+    And a case worker issues the application
+    Then I as respondent enter my valid case reference and valid access code
+    And I prepare the case for the respondent to apply for final order
+
+    Given I login with the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
+    Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+
+    Given I want to finalise my divorce
+    And I explain why I need to apply for the final order
+    Then I click continue and expect URL "HELP_WITH_YOUR_FINAL_ORDER_FEE_URL"
+
+    Given I select no
+    Then I click continue and expect URL "PAY_YOUR_FINAL_ORDER_FEE"
+
     Given I pay and submit the final order application
-    Then the page should include "You have submitted your final order application"
-
-    Given I click "Sign out"
-    When I login with applicant "1"
-    Then the page should include "Your husband has applied for a ‘final order’."
-    And the page should include "A judge will review the application"
-    And the page should include "You will then receive an email telling you what they decide."
+    Then I login with applicant "1" and expect hub element "#finalOrderRequestedApplicant2AppliedFirstContent"
 
   Scenario: Applicant sole final order within a year after respondent does not complete payment
     Given I've already completed the form using the fixture "finalOrderCompleteCase"
-    And I go to '/check-your-answers'
-    And I click "I confirm"
-    And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
-    And I pay and submit the application
-    Then the page should include "Application saved"
-    Given a case worker issues the application
-    And I enter my valid case reference and valid access code
-    And I set the case state to "AwaitingFinalOrder"
-    Given a superuser updates "dateFinalOrderEligibleToRespondent" with "2020-01-01"
-    When I click "Sign out"
-    And I login with applicant "2"
-    Then the page should include "Your wife has not yet applied for a final order"
-    And the page URL should be "/respondent/hub-page"
+    Then I go to 'CHECK_ANSWERS_URL'
 
-    And I click "Apply for a final order"
-    Then the page URL should be "/respondent/finalising-your-application"
+    Given I confirm the prayer and statement of truth
+    Then I click continue to payment and expect URL "PAY_YOUR_FEE"
 
-    Given I click "I want permission to apply for a final order, and to finalise my divorce"
-    And I select "Explain why you need to apply for the final order"
-    And I type "I want to apply myself"
-    When I click "Continue"
-    Then the page URL should be '/respondent/help-with-your-final-order-fee'
-    Then the page should include "Do you need help paying the fee for your final order?"
-    Given I select "I do not need help paying the fee"
-    When I click "Continue"
-    Then the page URL should be '/respondent/pay-your-final-order-fee'
-    And I click "Pay and submit application"
+    Given I pay and submit and expect the application to be saved
+    And a case worker issues the application
+    Then I as respondent enter my valid case reference and valid access code
+    And I prepare the case for the respondent to apply for final order
 
-    When I go to "/logout"
-    And I login with applicant "1"
-    Then the page should include "You may now apply for a 'final order'."
+    Given I login with the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
+    Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
-    When I click "Apply for a final order"
-    Then the page should include "Do you want to finalise your divorce?"
-    Given I select "I want to finalise my divorce"
-    When I click "Submit"
-    Then the page URL should be "/hub-page"
-    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
-    And the page should include "You should receive an email within 2 working days, confirming whether the final order has been granted."
+    Given I want to finalise my divorce
+    And I explain why I need to apply for the final order
+    Then I click continue and expect URL "HELP_WITH_YOUR_FINAL_ORDER_FEE_URL"
+
+    Given I select no
+    Then I click continue and expect URL "PAY_YOUR_FINAL_ORDER_FEE"
+
+    Given I click pay and submit but do not complete the payment
+    Then I login with applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
+
+    Given I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+    And I want to finalise my divorce
+    Then I click submit and expect hub element "#finalOrderRequestedContent"
 
   @nightly
   Scenario: Applicant sole final order after respondent does not complete payment when overdue
     Given I've already completed the form using the fixture "finalOrderOverdueCompleteCase"
-    And I go to '/check-your-answers'
-    And I click "I confirm"
-    And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
-    And I pay and submit the application
-    Then the page should include "Application saved"
-    Given a case worker issues the application
-    And I enter my valid case reference and valid access code
-    And I set the case state to "AwaitingFinalOrder"
-    When I click "Sign out"
-    And I login with applicant "2"
-    Then the page should include "Your wife has not yet applied for a final order"
-    And the page URL should be "/respondent/hub-page"
+    Then I go to 'CHECK_ANSWERS_URL'
 
-    And I click "Apply for a final order"
-    Then the page URL should be "/respondent/finalising-your-application"
+    Given I confirm the prayer and statement of truth
+    Then I click continue to payment and expect URL "PAY_YOUR_FEE"
 
-    Given I click "I want permission to apply for a final order, and to finalise my divorce"
-    And I select "Explain why you need to apply for the final order"
-    And I type "I want to apply myself"
-    When I click "Continue"
-    Then the page URL should be '/respondent/help-with-your-final-order-fee'
-    Then the page should include "Do you need help paying the fee for your final order?"
-    Given I select "I do not need help paying the fee"
-    When I click "Continue"
-    Then the page URL should be '/respondent/pay-your-final-order-fee'
-    And I click "Pay and submit application"
+    Given I pay and submit and expect the application to be saved
+    And a case worker issues the application
+    Then I as respondent enter my valid case reference and valid access code
+    And I prepare the case for the respondent to apply for final order
 
-    When I go to "/logout"
-    And I login with applicant "1"
-    Then the page should include "You may now apply for a 'final order'."
+    Given I login with the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
+    Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
-    When I click "Apply for a final order"
-    Then the page should include "Do you want to finalise your divorce?"
-    Given I select "I want to finalise my divorce"
+    Given I want to finalise my divorce
+    And I explain why I need to apply for the final order
+    Then I click continue and expect URL "HELP_WITH_YOUR_FINAL_ORDER_FEE_URL"
 
-    When I click "Continue"
-    And the page should include "Explain the delay"
-    Given I select "You are making this application for a final order over one year from when the conditional order was made. Explain to the court why you did not apply for a final order earlier. Your answer will be reviewed as part of your application."
-    And I type "Reason for delay"
-    And I select "I believe that the facts stated in this application are true"
-    When I click "Submit"
-    Then the page URL should be "/hub-page"
-    And the page should include "You have applied for a ‘final order’. Your application will be checked by court staff."
-    And the page should include "You will receive an email confirming whether it has been granted once a Judge has made a decision."
+    Given I select no
+    Then I click continue and expect URL "PAY_YOUR_FINAL_ORDER_FEE"
+
+    Given I click pay and submit but do not complete the payment
+    Then I login with applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
+
+    Given I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+    And I want to finalise my divorce
+    Then I click continue and expect URL "EXPLAIN_THE_DELAY"
+
+    Given I enter the reason for the delay
+    And I confirm the statement of truth
+    Then I click submit and expect hub element "#finalOrderRequestedContent"
 

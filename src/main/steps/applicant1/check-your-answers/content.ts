@@ -1208,6 +1208,7 @@ export const form: FormContent = {
             labelSize: 'm',
             values: [
               {
+                id: 'iConfirmPrayer',
                 name: 'applicant1IConfirmPrayer',
                 label: l => l.confirmPrayer,
                 hint: l => l.confirmPrayerHint,
@@ -1221,6 +1222,7 @@ export const form: FormContent = {
             labelHidden: true,
             values: [
               {
+                id: 'statementOfTruth',
                 name: 'applicant1StatementOfTruth',
                 label: l => l.confirmApplicationIsTrue,
                 hint: l => l.confirmApplicationIsTrueHint,

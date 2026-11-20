@@ -104,7 +104,8 @@ export const form: FormContent = {
         {
           label: l => l.yes,
           value: YesOrNo.YES,
-          conditionalText: l => `<p class="govuk-label">${l.disputedSelected}</p>`,
+          conditionalText: l =>
+            `<p class="govuk-label" id="confirmDisputeApplicationConditional">${l.disputedSelected}</p>`,
         },
         { label: l => l.no, value: YesOrNo.NO },
       ],

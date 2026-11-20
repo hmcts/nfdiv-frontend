@@ -1,6 +1,6 @@
 {% from "common/macros/service-address.njk" import serviceAddressMacro %}
 
-<p class="govuk-body" id='applicantNotYetAppliedForConditionalOrderContent'>{{ applicantNotYetAppliedForConditionalOrder.content }}</p>
+<p class="govuk-body" id='applicantNotYetAppliedForJointConditionalOrderContent'>{{ applicantNotYetAppliedForConditionalOrder.content }}</p>
 {% if partnerIsOffline %}
   <div id="partnerIsOfflineContent">
     <p class="govuk-body">{{ applicantNotYetAppliedForConditionalOrder.notOnline.youWontBeAbleToApplyOnline | safe }}</p>

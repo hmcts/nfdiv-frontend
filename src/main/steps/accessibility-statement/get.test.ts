@@ -3,6 +3,8 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
+import { getPageTitleIdFromUrl } from '../url-utils';
+import { ACCESSIBILITY_STATEMENT_URL } from '../urls';
 
 import { AccessibilityStatementGetController } from './get';
 
@@ -20,6 +22,7 @@ describe('AccessibilityStatementGetController', () => {
       ...defaultViewArgs,
       isAmendableStates: undefined,
       userCase: req.session.userCase,
+      titleId: getPageTitleIdFromUrl(ACCESSIBILITY_STATEMENT_URL),
     });
   });
 
@@ -35,6 +38,7 @@ describe('AccessibilityStatementGetController', () => {
       ...defaultViewArgs,
       isAmendableStates: undefined,
       userCase: req.session.userCase,
+      titleId: getPageTitleIdFromUrl(ACCESSIBILITY_STATEMENT_URL),
     });
   });
 });

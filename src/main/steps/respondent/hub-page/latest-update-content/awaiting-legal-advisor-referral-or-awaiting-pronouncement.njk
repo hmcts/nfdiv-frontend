@@ -1,7 +1,7 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% if displayState.state() == 'AwaitingPronouncement' and isCoFieldsSet %}
-  <p class="govuk-body">{{ awaitingPronouncement.line1 }}</p>
+  <p class="govuk-body" id="awaitingPronouncementRespondentContent">{{ awaitingPronouncement.line1 }}</p>
   <p class="govuk-body">{{ awaitingPronouncement.line2 }}</p>
   {{ govukInsetText({
     text: awaitingPronouncement.line3
@@ -15,6 +15,6 @@
   </p>
 
 {% elif (displayState.state() == 'AwaitingLegalAdvisorReferral' or displayState.state() == 'AwaitingPronouncement' or displayState.state() == 'LAReview' or displayState.state() == 'ConditionalOrderReview' or displayState.state() == 'AwaitingAdminClarification' or displayState.state() == 'AwaitingClarification' and not isCoFieldsSet) or displayState.state() == 'AwaitingAmendedApplication' %}
-  <p class="govuk-body">{{ legalAdvisorReferral.line1 }}</p>
+  <p class="govuk-body" id="awaitingLegalAdvisorReferralRespondentContent">{{ legalAdvisorReferral.line1 }}</p>
   <p class="govuk-body">{{ legalAdvisorReferral.line2 }}</p>
 {% endif %}

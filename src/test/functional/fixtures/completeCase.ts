@@ -8,7 +8,7 @@ import {
   JurisdictionConnections,
   YesOrNo,
 } from '../../../main/app/case/definition';
-import { BrowserCase } from '../../steps/common';
+import { BrowserCase } from '../../steps/commonHelpers/case-interaction';
 
 export const completeCase: Partial<BrowserCase> = {
   applicant1Address1: 'BUCKINGHAM PALACE',

@@ -1,12 +1,11 @@
 import { Checkbox } from '../../main/app/case/case';
 import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
 
-import { iSetTheUsersCaseTo } from './common';
-
-const { I } = inject();
+import { iUpdateTheCase } from './commonHelpers/case-interaction';
+import { iClickChangeLinkForQuestion } from './commonHelpers/element-interaction';
 
 Given("I've completed enough questions correctly to get to the check your answers page", async () => {
-  await iSetTheUsersCaseTo({
+  await iUpdateTheCase({
     applicationType: ApplicationType.SOLE_APPLICATION,
     applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
     certificateInEnglish: YesOrNo.NO,
@@ -28,7 +27,7 @@ Given("I've completed enough questions correctly to get to the check your answer
 Given(
   "I've completed enough questions correctly to get to the check your answers page as a joint applicant",
   async () => {
-    await iSetTheUsersCaseTo({
+    await iUpdateTheCase({
       applicationType: ApplicationType.JOINT_APPLICATION,
       applicant1HelpWithFeesRefNo: 'HWF-ABC-123',
       certificateInEnglish: YesOrNo.NO,
@@ -48,6 +47,6 @@ Given(
   }
 );
 
-When('I click to change the answer to {string}', questionText => {
-  I.click(`//a/*[contains(text(), '${questionText}')]/..`);
+When('I click to change the answer to {string}', async (questionText: string): Promise<void> => {
+  await iClickChangeLinkForQuestion(questionText);
 });

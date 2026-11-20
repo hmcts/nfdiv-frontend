@@ -4,6 +4,8 @@ import { Response } from 'express';
 import { SupportedLanguages } from '../../modules/i18n';
 import { getNextIncompleteStepUrl } from '../../steps';
 import { CommonContent, generateCommonContent } from '../../steps/common/common.content';
+import { getPageTitleIdFromUrl } from '../../steps/url-utils';
+import { PageLink } from '../../steps/urls';
 import { DivorceOrDissolution } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
@@ -15,7 +17,8 @@ export type TranslationFn = (content: CommonContent) => PageContent;
 export class GetController {
   constructor(
     protected readonly view: string,
-    protected readonly pageContent: TranslationFn
+    protected readonly pageContent: TranslationFn,
+    protected readonly url: PageLink
   ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -39,6 +42,7 @@ export class GetController {
 
     res.render(this.view, {
       ...this.getPageContent(req, res, language),
+      titleId: getPageTitleIdFromUrl(this.url),
       sessionErrors,
       htmlLang: language,
       pageUrl: req.url,
@@ -47,7 +51,9 @@ export class GetController {
   }
 
   public getPageContent(req: AppRequest, res: Response, language: SupportedLanguages): PageContent {
-    const content = this.getCommonContent(req, res, language);
+    const content = {
+      ...this.getCommonContent(req, res, language),
+    };
 
     if (this.pageContent) {
       Object.assign(content, this.pageContent(content));

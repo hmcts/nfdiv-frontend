@@ -63,7 +63,7 @@ export const getRespondentHubTemplate = (
     case State.PendingRefund:
       return HubTemplate.PendingRefund;
     default: {
-      if (displayState.isAtOrBefore('AwaitingConditionalOrder') && canSubmitAos) {
+      if (displayState.isAtOrBefore(State.AwaitingConditionalOrder) && canSubmitAos) {
         return HubTemplate.AwaitingAoS;
       }
     }

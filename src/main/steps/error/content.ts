@@ -19,14 +19,17 @@ const en = {
   [StatusCodes.BAD_REQUEST]: {
     ...common.en,
     title: 'Bad request',
+    titleId: 'badRequestTitle',
   },
   [StatusCodes.NOT_FOUND]: {
     ...common.en,
     title: 'Page not found',
+    titleId: 'pageNotFoundTitle',
   },
   [StatusCodes.INTERNAL_SERVER_ERROR]: {
     ...common.en,
     title: 'Sorry, we’re having technical problems',
+    titleId: 'internalServerErrorTitle',
     info: 'Please try again in a few minutes',
   },
 };
@@ -35,14 +38,17 @@ const cy: typeof en = {
   [StatusCodes.BAD_REQUEST]: {
     ...common.cy,
     title: 'Cais gwael',
+    titleId: 'badRequestTitle',
   },
   [StatusCodes.NOT_FOUND]: {
     ...common.cy,
     title: 'Ni ellir dod o hyd i’r dudalen',
+    titleId: 'pageNotFoundTitle',
   },
   [StatusCodes.INTERNAL_SERVER_ERROR]: {
     ...common.cy,
     title: 'Yn anffodus, rydym yn cael problemau technegol',
+    titleId: 'internalServerErrorTitle',
     info: 'Rhowch gynnig arall arni ymhen ychydig funudau',
   },
 };

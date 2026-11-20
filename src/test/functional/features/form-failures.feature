@@ -5,608 +5,402 @@ Feature: Form failures
 
   @nightly
   Scenario: They fail to fill out the applicant 1 forms
-    Given I go to "/irretrievable-breakdown"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I go to "HAS_RELATIONSHIP_BROKEN_URL"
+    Then I click continue and expect error elements
 
-    Given I go to "/date-from-certificate"
-    When I click "Continue"
-    Then the page should include "You have not entered a date. Enter a date to continue."
-    Given I select "Day"
-    And I type "!"
-    And I select "Month"
-    And I type "1"
-    And I select "Year"
-    And I type "abc"
-    When I click "Continue"
-    Then the page should include "You have entered an invalid date. Enter the date using the following format: 31 3 2002"
+    Given I go to "RELATIONSHIP_DATE_URL"
+    Then I click continue and expect error elements
+    Given I enter an invalid relationship date
+    Then I click continue and expect error elements
+    Given I enter a relationship date that is 2 years in the future
+    Then I click continue and expect error elements
+    Given I enter a relationship date that is 6 months in the past
+    Then I click continue and expect URL "RELATIONSHIP_NOT_LONG_ENOUGH_URL"
+
+    Given I go to "CERTIFICATE_URL"
+    Then I click continue and expect error elements
+
+    Given I go to "HELP_WITH_YOUR_FEE_URL"
+    Then I click continue and expect error elements
+
+    Given I go to "HELP_PAYING_HAVE_YOU_APPLIED"
+    Then I click continue and expect error elements
+    Given I select yes
+    Then I click continue and expect URL "ENTER_HWF_NUMBER_URL"
+
+    Then I click continue and expect error elements
+    Given I enter an invalid HWF reference number
+    Then I click continue and expect error elements
+
+    Given I go to "HOW_DO_YOU_WANT_TO_APPLY"
+    Then I click continue and expect error elements
+
+    Given I go to "THEIR_EMAIL_ADDRESS"
+    Then I click continue and expect error elements
+    Given I enter "test.com" as their email address
+    Then I click continue and expect error elements
+    Given I enter their email address
+    And I do not have their email address
+    Then I click continue and expect error elements
     Given I clear the form
-    And I enter a date 2 years ahead
-    When I click "Continue"
-    Then the page should include "You have entered a date that is in the future. Enter a date that is in the past before continuing."
-    Given I clear the form
-    And I enter a date 6 months ago
-    When I click "Continue"
-    Then the page should include "You have not been married long enough to apply for a divorce"
+    And I enter my email address as their email address
+    Then I click continue and expect error elements
 
-    Given I go to "/do-you-have-your-certificate"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I go to "DO_YOU_HAVE_ADDRESS"
+    Then I click continue and expect error elements
 
-    Given I go to "/help-with-your-fee"
-    When I click "Continue"
-    Then the page should include "Select 'Yes' if you are using help with fees for this application."
+    Given I go to "NEED_TO_GET_ADDRESS"
+    Then I click continue and expect error elements
 
-    Given I go to "/have-you-applied-for-help-with-fees"
-    When I click "Continue"
-    Then the page should include "Select 'Yes' if you have a help with fees reference number"
-    Given I select element "#applicant1AlreadyAppliedForHelpPaying"
-    When I click "Continue"
-    Then the page should include "Enter your Help With Fees reference number"
-    Given I select element "#applicant1HelpWithFeesRefNo"
-    When I click continue
-    Then the page should include "Help with fees reference number cannot be blank."
-    Given I select element "#applicant1HelpWithFeesRefNo"
-    And I type "invalid"
-    When I click "Continue"
-    Then the page should include "Enter your help with fees reference number in the correct format."
-
-    Given I go to "/how-do-you-want-to-apply"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/their-email-address"
+    Given I go to "OTHER_COURT_CASES"
     And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not entered their email address or said you do not know it. You have to do one or the other before continuing."
-    Given I select "Your husband's email address"
-    And I type "test.com"
-    When I click "Continue"
-    Then the page should include "You have entered an invalid email address. Check it and enter it again before continuing."
-    Given I clear the form
-    And I select "Your husband's email address"
-    And I type "simulate-delivered@notifications.service.gov.uk"
-    And I select "I do not know their email address"
-    When I click "Continue"
-    Then the page should include "You have entered an email address and indicated that you do not know their email address. You can only do one before continuing."
-    Given I clear the form
-    And I select "Your husband's email address"
-    And I type my own email address
-    When I click "Continue"
-    Then the page should include "You have entered your own email address. You need to enter your husband's email address before continuing."
+    Then I click continue and expect error elements
 
-    Given I go to "/do-you-have-address"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/need-to-get-address"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/other-court-cases"
+    Given I go to "DETAILS_OTHER_PROCEEDINGS"
     And I clear the form
-    And I click "Continue"
-    Then the page should include "There was a problem"
+    Then I click continue and expect error elements
 
-    Given I go to "/details-other-proceedings"
-    And I clear the form
-    And I click "Continue"
-    Then the page should include "There was a problem"
-
-    Given I go to "/enter-their-address"
-    When I click "Find address"
-    Then the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
+    Given I go to "ENTER_THEIR_ADDRESS"
+    Then I click find address and expect error elements
     Given I reset the postcode lookup form
-    And I wait "1" seconds
-    And I select "Enter a UK postcode"
-    And I type "not a postcode!"
-    When I click "Find address"
-    Then the page should include "You have not entered a valid UK postcode. Enter a valid UK postcode before continuing."
+    And I enter an invalid postcode
+    Then I click find address and expect error elements
     Given I reset the postcode lookup form
-    And I wait "1" seconds
-    And I select "Enter a UK postcode"
-    And I type "SW1H 9AJ"
-    And I click "Find address"
-    And I click "I cannot find the address in the list"
-    And I click "Continue"
-    Then the page should include "You have not entered your husband’s building and street address. Enter their building and street address before continuing."
-    And the page should include "You have not entered your husband’s town or city. Enter their town or city before continuing."
-    And the page should include "You have not entered your husband’s postcode. Enter their postcode before continuing."
-    Given I reset the postcode lookup form
-    And I click "I have an international address"
-    When I click "Continue"
-    Then the page should include "You have not entered your husband’s building and street address. Enter their building and street address before continuing."
-    And the page should include "You have not entered your husband’s country. Enter their country before continuing."
-
-    Given I go to "/in-the-uk"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/certificate-in-english"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/certified-translation"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/country-and-place"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to enter the country."
-    And the page should include "You have not answered the question. You need to enter the place."
-
-    Given I go to "/where-your-lives-are-based"
-    When I click "Continue"
-    Then the page should include 'Select "Yes" if your life is mainly based in England or Wales.'
-
-    Given I go to "/enter-your-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not entered your first name. Enter it before continuing."
-    And the page should include "You have not entered your last name. Enter it before continuing."
-    Given I clear the form
-    When I select "Your first name"
-    And I type "My first name!"
-    And I select "Your last name"
-    And I type "My last-name1"
-    And I click "Continue"
-    Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
-
-    Given I go to "/check-your-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You need to answer if any part of your full name is written differently on your marriage certificate."
-
-    Given I go to "/enter-their-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not entered their first name. Enter it before continuing."
-    And the page should include "You have not entered their last name. Enter it before continuing."
-    Given I clear the form
-    When I select "Your husband’s first name(s)"
-    And I type "Their first name!"
-    And I select "Your husband’s last name(s)"
-    And I type "Their last-name1"
-    And I click "Continue"
-    Then the page should include "You have entered an invalid character, like a number. Enter their name using letters only."
-
-    Given I go to "/check-their-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You need to answer if any part of your husband's full name is written differently on your marriage certificate."
-
-    Given I go to "/your-name-on-certificate"
-    When I click "Continue"
-    Then the page should include "You have not entered anything. Enter your full name as it appears on your marriage certificate."
-    Given I select "Copy your full name from the marriage certificate"
-
-    Given I go to "/changes-to-your-name"
-    When I click "Continue"
-    Then the page should include "You need to select a reason for why your legal name is different from your marriage certificate."
-    Given I select "Other"
-    When I click "Continue"
-    Then the page should include "You need to provide details of why your name is written differently on the marriage certificate."
-
-    Given I go to "/how-the-court-will-contact-you"
-    And I click "Continue"
-    Then the page should include "You have to agree to receive email notifications in order to use this online service."
-    Given I clear the form
-    And I select "I agree that the divorce service can send me notifications and serve (deliver) court documents to me by email."
-    When I select "Enter your phone number (optional)"
-    And I type "12345"
-    And I click "Continue"
-    Then the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
-
-    Given I go to "/address-private"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/enter-your-address"
-    When I click "Find address"
-    Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
-    Given I wait "1" seconds
-    And I select "Enter a UK postcode"
-    And I type "ZZ00 0ZZ"
-    And I click "Find address"
-    And I click "I cannot find the address in the list"
-    When I click "Continue"
-    Then the page should include "You have not entered your building and street address. Enter your building and street address before continuing."
-    And the page should include "You have not entered your town or city. Enter your town or city before continuing."
-    And the page should include "You have not entered your postcode. Enter your postcode before continuing."
-    Given I reset the postcode lookup form
-    And I select "Enter a UK postcode"
-    And I type "SW1H 9AJ"
-    When I click "Find address"
-    Then the page should include "SW1H 9AJ"
+    And I enter the default UK postcode
+    Then I click find address
     Given I wait for the postcode lookup to return results
-    And I click "Continue"
-    Then the page should include "You have not selected your address. Select your address from the list before continuing."
+    And I cannot find the address in the list
+    Then I click continue and expect error elements
+    Given I click back
+    Then I reset the postcode lookup form
+    And I have an international address
+    Then I click continue and expect error elements
 
-    Given I go to "/do-they-have-a-solicitor"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. Select an answer before continuing."
+    Given I go to "IN_THE_UK"
+    Then I click continue and expect error elements
 
-    Given I go to "/enter-solicitor-details"
-    And I select "Solicitor email address"
-    And I type "test"
-    When I click "Continue"
-    Then the page should include "You have entered the email address in the wrong format. Check it and enter it again."
+    Given I go to "CERTIFICATE_IN_ENGLISH"
+    Then I click continue and expect error elements
 
-    Given I go to "/details-other-proceedings"
-    When I click "Continue"
-    Then the page should include "You have not provided any information. You need to enter details of the other legal proceedings."
+    Given I go to "CERTIFIED_TRANSLATION"
+    Then I click continue and expect error elements
 
-    Given I go to "/dividing-money-property"
-    When I click "Continue"
-    Then the page should include "You need to answer whether you want to apply for a financial order."
+    Given I go to "COUNTRY_AND_PLACE"
+    Then I click continue and expect error elements
 
-    Given I go to "/who-is-the-financial-order-for"
-    When I click "Continue"
-    Then the page should include element "#applicant1WhoIsFinancialOrderFor"
+    Given I go to "WHERE_YOUR_LIVES_ARE_BASED_URL"
+    Then I click continue and expect error elements
 
-    Given I go to "/upload-your-documents"
-    When I click "Continue"
-    Then the page should include "You have not uploaded anything. Either upload your document or select that you cannot upload your documents."
+    Given I go to "ENTER_YOUR_NAME"
+    And I clear the form
+    Then I click continue and expect error elements
+    Given I enter invalid characters in my name
+    And I click continue and expect error elements
 
-    Given I go to "/how-do-you-want-to-apply"
-    And I select "I want to apply jointly, with my husband"
-    When I click "Continue"
-    Then the page URL should be "/their-email-address"
+    Given I go to "CHECK_YOUR_NAME"
+    And I clear the form
+    Then I click continue and expect error elements
 
-    Given I go to "/their-email-address"
-    When I click "Continue"
-    Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
+    Given I go to "THEIR_NAME"
+    And I clear the form
+    When I click continue and expect error elements
+    Given I enter invalid characters in their name
+    Then I click continue and expect error elements
+
+    Given I go to "CHECK_THEIR_NAME"
+    And I clear the form
+    Then I click continue and expect error elements
+
+    Given I go to "YOUR_CERTIFICATE_NAME"
+    Then I click continue and expect error elements
+
+    Given I go to "CHANGES_TO_YOUR_NAME_URL"
+    Then I click continue and expect error elements
+    Given I select other
+    Then I click continue and expect error elements
+
+    Given I go to "HOW_THE_COURTS_WILL_CONTACT_YOU"
+    Then I click continue and expect error elements
+    Given I agree that the court can contact me by email
+    And I enter an invalid phone number
+    Then I click continue and expect error elements
+
+    Given I go to "ADDRESS_PRIVATE"
+    Then I click continue and expect error elements
+
+    Given I go to "ENTER_YOUR_ADDRESS"
+    Then I click find address and expect error elements
+    Given I reset the postcode lookup form
+    And I enter the default UK postcode
+    Then I click find address
+    Given I wait for the postcode lookup to return results
+    And I cannot find the address in the list
+    Then I click continue and expect error elements
+    Given I click back
+    Then I reset the postcode lookup form
+    And I enter the default UK postcode
+    Given I click find address
+    And I wait for the postcode lookup to return results
+    Then I click continue and expect an error summary
+
+    Given I go to "DO_THEY_HAVE_A_SOLICITOR"
+    Then I click continue and expect error elements
+
+    Given I go to "ENTER_SOLICITOR_DETAILS"
+    And I enter 'test' as their solicitor email address
+    Then I click continue and expect error elements
+
+    Given I go to "DETAILS_OTHER_PROCEEDINGS"
+    Then I click continue and expect error elements
+
+    Given I go to "MONEY_PROPERTY"
+    When I click continue and expect error elements
+
+    Given I go to "WHO_IS_THE_FINANCIAL_ORDER_FOR"
+    Then I click continue and expect error elements
+
+    Given I go to "UPLOAD_YOUR_DOCUMENTS"
+    Then I click continue and expect error elements
+
+    Given I go to "HOW_DO_YOU_WANT_TO_APPLY"
+    And I want to apply jointly
+    Then I click continue and expect URL "THEIR_EMAIL_ADDRESS"
+
+    Then I click continue and expect error elements
 
     Given I've already completed the form using the fixture "completeCase"
-    And I go to "/check-your-answers"
-    When I click "Continue"
-    Then the page should include "You have not confirmed what you are applying to the court to do. You need to confirm before continuing."
-    And the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
+    And I go to "CHECK_ANSWERS_URL"
+    Then I click continue and expect error elements
 
     Given I set the case state to "AwaitingFinalOrder"
-    And I go to "/finalising-your-application"
-    When I click "Submit"
-    Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
+    And I go to "FINALISING_YOUR_APPLICATION"
+    Then I click submit and expect error elements
 
-    Given I go to "/explain-the-delay"
-    When I click "Submit"
-    Then the page should include "You have not entered any information. You need to explain why your application has been delayed before continuing."
-    And the page should include "You have not confirmed you believe the information you have entered is true. Confirm you believe it’s true before continuing."
+    Given I go to "EXPLAIN_THE_DELAY"
+    Then I click submit and expect error elements
 
 
   @nightly
   Scenario: They fail to fill out the applicant 1 joint application forms
-    Given I go to "/how-do-you-want-to-apply"
-    And I select "I want to apply jointly, with my husband"
-    When I click "Continue"
-    Then the page URL should be "/their-email-address"
-    Given I click "Continue"
-    Then the page should include "You have not entered their email address. You have to enter their email address to do a joint application."
+    Given I go to "HOW_DO_YOU_WANT_TO_APPLY"
+    And I want to apply jointly
+    Then I click continue and expect URL "THEIR_EMAIL_ADDRESS"
+    Then I click continue and expect error elements
 
   @nightly
   Scenario: They fail to fill out the respondent forms
     Given I've already completed the form using the fixture "completeCase"
-    And I go to '/check-your-answers'
-    And I click "I confirm"
-    And I click "I believe that the facts stated in this application are true"
-    When I click "Continue to payment"
-    And I pay and submit the application
-    Then the page should include "Application saved"
+    And I go to "CHECK_ANSWERS_URL"
+    And I confirm the prayer and statement of truth
+    When I click continue to payment
+    And I pay and submit and expect the application to be saved
     Given a case worker issues the application
-    And I enter my valid case reference and valid access code
-    Then the page URL should be "/respondent/hub-page"
+    And I as respondent enter my valid case reference and valid access code
+    Then the page URL should be "RESPONDENT" / "HUB_PAGE"
 
-    When I click "Respond to the application"
-    Then the page URL should be "/respondent/review-the-application"
-    And the page should include "Review the divorce application"
-    When I click "Continue"
-    Then the page should include "You need to confirm that you have read the application before you continue."
-    Given I select "I have read the application for divorce"
+    Given I click respond to the application
+    Then I click continue and expect error elements
+    Given I have read the application for divorce
 
-    When I click "Continue"
-    Then the page URL should be "/respondent/how-do-you-want-to-respond"
-    Given I clear the form
-    When I click "Continue"
-    Then the page should include "You need to select how you want to respond before continuing."
+    Then I click continue and expect URL "HOW_DO_YOU_WANT_TO_RESPOND"
+    Then I click continue and expect error elements
 
-    Given I go to "/respondent/disputing-the-application"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I go to "RESPONDENT" / "DISPUTING_THE_APPLICATION"
+    Then I click continue and expect error elements
 
-    Given I go to "/respondent/legal-jurisdiction-of-the-courts"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    Given I select "No, I do not agree the courts have jurisdiction"
-    When I click "Continue"
-    Then the page should include "You need to explain why you think the courts of England and Wales do not have the legal power (jurisdiction) to grant your divorce"
-    And the page should include "You need to tell us which country your life is mainly based"
+    Given I go to "RESPONDENT" / "LEGAL_JURISDICTION_OF_THE_COURTS"
+    Then I click continue and expect error elements
+    Given I do not agree the courts have jurisdiction
+    Then I click continue and expect error elements
 
-    Given I go to "/respondent/other-court-cases"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
+    Given I go to "RESPONDENT" / "OTHER_COURT_CASES"
+    Then I click continue and expect error elements
 
-    Given I go to "/respondent/details-other-proceedings"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
+    Given I go to "RESPONDENT" / "DETAILS_OTHER_PROCEEDINGS"
+    Then I click continue and expect error elements
 
-    Given I go to "/respondent/how-the-court-will-contact-you"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "There was a problem"
-    And the page should include "You have to agree to receive email notifications in order to use this online service."
+    Given I go to "RESPONDENT" / "HOW_THE_COURTS_WILL_CONTACT_YOU"
+    Then I click continue and expect error elements
 
-    Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
-    And I go to "/respondent/legal-jurisdiction-of-the-courts"
-    When I click "Continue"
-    Then the page should include "Do you intend to ask the court to delay"
+    Given I've already completed the form using the fixture "respondentCompleteCase" for the respondent
+    And I go to "RESPONDENT" / "LEGAL_JURISDICTION_OF_THE_COURTS"
+    Then I click continue and expect URL "INTEND_TO_DELAY"
 
-    Given I select "No"
-    And I click "Continue"
-    Then the page should include "Other court cases relating to this marriage"
+    Given I select no
+    Then I click continue and expect URL "OTHER_COURT_CASES"
 
-    Given I go to "/respondent/how-the-court-will-contact-you"
-    When I click "Continue"
-    Then the page should include "What language do you want to receive emails and documents in?"
+    Given I go to "RESPONDENT" / "HOW_THE_COURTS_WILL_CONTACT_YOU"
+    Then I click continue and expect URL "ENGLISH_OR_WELSH"
 
-    Given I go to "/"
-    When I click "Submit"
-    Then the page should include "You have not confirmed that you are the respondent and that you believe the facts in the application are true. You need to confirm before continuing."
+    Given I go to "RESPONDENT"
+    Then I click submit and expect error elements
 
-    Given I go to "/respondent/finalising-your-application"
-    When I click "Continue"
-    Then the page should include "You cannot continue without selecting the checkbox. If you do not want to continue then save and sign out."
-    Then the page should include "You need to explain why you are applying for the final order before continuing."
+    Given I go to "RESPONDENT" / "FINALISING_YOUR_APPLICATION"
+    Then I click continue and expect error elements
 
   @nightly
   Scenario: They fail to fill out the applicant 2 forms
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    When I go to "/"
-    And I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
-    When I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
+    When I go to "CHECK_ANSWERS_URL"
+    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
-    When I click "Continue"
-    Then the page URL should be "/applicant2/irretrievable-breakdown"
-    Given I clear the form
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I enter my valid case reference and valid access code
+    Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
-    Given I go to "/applicant2/help-with-your-fee"
+    Then I click continue and expect error elements
+
+    Given I go to "APPLICANT_2" / "HELP_WITH_YOUR_FEE_URL"
+    Then I click continue and expect error elements
+
+    Given I go to "APPLICANT_2" / "HELP_PAYING_HAVE_YOU_APPLIED"
+    Then I click continue and expect error elements
+    Given I select yes
+    Then I click continue and expect URL "ENTER_HWF_NUMBER_URL"
+
+    Then I click continue and expect error elements
+
+    Given I go to "APPLICANT_2" / "ENTER_YOUR_NAME"
     And I clear the form
-    When I click "Continue"
-    Then the page should include "Select 'Yes' if you are using help with fees for this application."
+    Then I click continue and expect error elements
+    Given I enter invalid characters in my name
+    Then I click continue and expect error elements
 
-    Given I go to "/applicant2/have-you-applied-for-help-with-fees"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "Select 'Yes' if you have a help with fees reference number."
-    Given I select element "#applicant2AlreadyAppliedForHelpPaying"
-    When I click "Continue"
-    Then the page should include "Enter your Help With Fees reference number"
-    Given I clear the form
-    When I click continue
-    Then the page should include "Help with fees reference number cannot be blank."
+    Given I go to "APPLICANT_2" / "CHANGES_TO_YOUR_NAME_URL"
+    Then I click continue and expect error elements
+    Given I select other
+    Then I click continue and expect error elements
 
-    Given I go to "/applicant2/enter-your-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not entered your first name. Enter it before continuing."
-    And the page should include "You have not entered your last name. Enter it before continuing."
-    Given I select "Your first name"
-    And I type "My first name!"
-    And I select "Your last name"
-    And I type "My last-name1"
-    When I click "Continue"
-    Then the page should include "You have entered an invalid character, like a number. Enter your name using letters only."
+    Given I go to "APPLICANT_2" / "HOW_THE_COURTS_WILL_CONTACT_YOU"
+    And I enter an invalid phone number
+    Then I click continue and expect error elements
 
-    Given I go to "/applicant2/changes-to-your-name"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You need to select a reason for why your legal name is different from your marriage certificate."
-    Given I select "Other"
-    When I click "Continue"
-    Then the page should include "You need to provide details of why your name is written differently on the marriage certificate."
+    Given I go to "APPLICANT_2" / "ADDRESS_PRIVATE"
+    When I click continue and expect error elements
 
-    Given I go to "/applicant2/how-the-court-will-contact-you"
-    And I clear the form
-    And I select "Enter your phone number (optional)"
-    And I type "12345"
-    When I click "Continue"
-    Then the page should include "You have to agree to receive email notifications in order to use this online service."
-    And the page should include "The phone number you have entered is invalid. Enter a valid phone number to continue."
+    Given I go to "APPLICANT_2" / "ENTER_YOUR_ADDRESS"
+    Then I click find address and expect error elements
 
-    Given I go to "/applicant2/address-private"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-
-    Given I go to "/applicant2/enter-your-address"
-    And I clear the form
-    When I click "Find address"
-    Then the page should include "You have not entered your postcode. Enter your postcode before continuing."
-
-    Given I wait "1" seconds
-    And I select "Enter a UK postcode"
-    And I type "ZZ00 0ZZ"
-    And I click "Find address"
-    And I click "I cannot find the address in the list"
-    When I click "Continue"
-    Then the page should include "You have not entered your building and street address. Enter your building and street address before continuing."
-    And the page should include "You have not entered your town or city. Enter your town or city before continuing."
-    And the page should include "You have not entered your postcode. Enter your postcode before continuing."
     Given I reset the postcode lookup form
-    And I select "Enter a UK postcode"
-    And I type "SW1H 9AJ"
-    When I click "Find address"
-    Then the page should include "SW1H 9AJ"
+    And I enter the default UK postcode
+    Then I click find address
+    And I cannot find the address in the list
+    Then I click continue and expect error elements
+    Then I click back
+    Given I reset the postcode lookup form
+    And I enter the default UK postcode
+    Then I click find address
     Given I wait for the postcode lookup to return results
-    And I click "Continue"
-    Then the page should include "You have not selected your address. Select your address from the list before continuing."
+    Then I click continue and expect an error summary
 
-    Given I go to "/applicant2/other-court-cases"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I go to "APPLICANT_2" / "OTHER_COURT_CASES"
+    Then I click continue and expect error elements
 
-    Given I go to "/applicant2/details-other-proceedings"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not provided any information. You need to enter details of the other legal proceedings."
+    Given I go to "APPLICANT_2" / "DETAILS_OTHER_PROCEEDINGS"
+    Then I click continue and expect error elements
 
-    Given I go to "/applicant2/dividing-money-property"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You need to answer whether you want to apply for a financial order."
+    Given I go to "APPLICANT_2" / "MONEY_PROPERTY"
+    Then I click continue and expect error elements
 
-    Given I go to "/applicant2/upload-your-documents"
-    And I clear the form
-    And I select "I cannot upload some or all of my documents"
-    When I click "Continue"
-    Then the page should include "You have not uploaded anything. Either upload your document or select that you cannot upload your documents."
-    And the page should include "Select which file you could not upload before continuing."
+    Given I go to "APPLICANT_2" / "UPLOAD_YOUR_DOCUMENTS"
+    And I cannot upload some or all of my documents
+    Then I click continue and expect error elements
 
-    Given I go to "/applicant2/check-your-joint-application"
-    And I clear the form
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "No"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Given I go to "APPLICANT_2" / "CHECK_JOINT_APPLICATION"
+    Then I click continue and expect error elements
+    Given I select no
+    Then I click continue and expect error elements
 
-    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for "applicant2"
-    And I go to "/applicant2/upload-your-documents"
-    When I click "Continue"
-    Then the page should include "Select which file you could not upload before continuing."
+    Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
+    And I go to "APPLICANT_2" / "UPLOAD_YOUR_DOCUMENTS"
+    Then I click continue
 
-    Given I go to "/applicant2/confirm-your-joint-application"
-    And I clear the form
-    When I click "Submit"
-    Then the page should include "You need to confirm you are applying to the court to dissolve your marriage (get a divorce)."
-    And the page should include "You need to confirm the facts stated in this application are true"
+    Given I go to "APPLICANT_2" / "CONFIRM_JOINT_APPLICATION"
+    Then I click submit and expect error elements
 
 
   @nightly
   Scenario: They fail to fill out joint conditional order questions
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    When I go to "/"
-    And I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
+    When I go to "CHECK_ANSWERS_URL"
+    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
     When I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
     Given I set the case state to "AwaitingConditionalOrder"
-    When I click "Sign out"
+    When I sign out
     And I login with applicant "1"
-    Then the page URL should be "/hub-page"
+    Then the page URL should be "HUB_PAGE"
 
-    When I click "Apply for conditional order"
-    Then the page URL should be "/continue-with-your-application"
+    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "I want to continue with my divorce application"
+    Then I click continue and expect error elements
 
-    When I click "Continue"
-    Then the page URL should be "/review-your-joint-application"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
-    Given I select "No"
-    When I click "Continue"
-    Then the page should include "You need to say what information is incorrect before continuing."
-    Given I select "Yes"
+    Given I want to continue with my divorce application
+    Then I click continue and expect URL "REVIEW_YOUR_JOINT_APPLICATION"
 
-    When I click "Continue"
-    Then the page URL should be "/check-your-conditional-order-answers"
-    When I click "Submit"
-    Then the page should include "You have not confirmed that you believe the facts in the application are true. You need to confirm before continuing."
-    Given I select "I believe that the facts stated in this application are true"
+    Then I click continue and expect error elements
+    Given I select no
+    Then I click continue and expect an error summary
+    Given I select yes
+    Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
-    When I click "Submit"
-    Then the page URL should be "/hub-page"
-    When I click "Sign out"
+    Then I click submit and expect error elements
+    Given I confirm the statement of truth
+    Then I click submit and expect URL "HUB_PAGE"
+
+    When I sign out
     And I login with applicant "2"
     And I set the case state to "ConditionalOrderPending"
-    When I go to "/"
-    Then the page URL should be "/applicant2/hub-page"
-    When I click "Apply for conditional order"
-    Then the page URL should be "/applicant2/continue-with-your-application"
-    When I click "Continue"
-    Then the page should include "You have not answered the question. You need to select an answer before continuing."
+    Then I go to "APPLICANT_2" / "HUB_PAGE"
+
+    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
+
+    Then I click continue and expect error elements
 
     Given I set the case state to "AwaitingClarification"
-    When I click "Sign out"
+    When I sign out
     And I login with applicant "1"
-    When I go to "/provide-information-to-the-court"
-    Then the page should include "Upload any documents"
+    Then I go to "PROVIDE_INFORMATION_TO_THE_COURT"
 
-    Given I clear the form
-    When I click "Continue"
-    Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
-    When I click "Sign out"
+    Then I click continue and expect error elements
+
+    When I sign out
     And I login with applicant "2"
-    When I go to "/applicant2/provide-information-to-the-court"
-    Then the page should include "Upload any documents"
+    Then I go to "APPLICANT_2" / "PROVIDE_INFORMATION_TO_THE_COURT"
 
-    Given I clear the form
-    When I click "Continue"
-    Then the page should include "You have not provided any information or uploaded any documents. You need to provide the information or documents the court has requested. Or if you are going to post any documents in, select that option."
+    Then I click continue and expect error elements
 
   @nightly
   Scenario: Jurisdiction form failures
-    Given I go to "/where-your-lives-are-based"
-    When I click "Continue"
-    Then the page should include "There was a problem"
+    Given I go to "WHERE_YOUR_LIVES_ARE_BASED_URL"
+    Then I click continue and expect error elements
 
-    Given I go to "/your-domicile"
-    When I click "Continue"
-    Then the page should include "There was a problem"
+    Given I go to "JURISDICTION_DOMICILE"
+    Then I click continue and expect error elements
 
-    Given I go to "/living-england-wales-twelve-months"
-    When I click "Continue"
-    Then the page should include "There was a problem"
+    Given I go to "JURISDICTION_LAST_TWELVE_MONTHS"
+    Then I click continue and expect error elements
 
-    Given I go to "/living-england-wales-six-months"
-    When I click "Continue"
-    Then the page should include "There was a problem"
+    Given I go to "LIVING_ENGLAND_WALES_SIX_MONTHS"
+    Then I click continue and expect error elements
 
-    Given I go to "/habitually-resident-england-wales"
-    When I click "Continue"
-    Then the page should include "There was a problem"
-
-    Given I go to "/living-england-wales-twelve-months"
-    When I click "Continue"
-    Then the page should include "There was a problem"
+    Given I go to "HABITUALLY_RESIDENT_ENGLAND_WALES"
+    Then I click continue and expect error elements
 
   @nightly
   Scenario: Enter your access code form failures
-    Given I go to "/your-details"
-    And I click "Sign out"
+    Given I go to "YOUR_DETAILS_URL"
+    And I sign out
     When I create a new user and login as applicant 2
-    And I go to "/applicant2/enter-your-access-code"
     And I clear the form
-    And I select "Your reference number"
-    And I type "1234123412341234"
-    And I select "Your access code"
-    And I type "QWERTY45"
-    When I click "Continue"
-    Then the page should include "You have entered the wrong reference number"
+    Then I enter an invalid reference number and invalid access code
+    Then I click continue and expect error elements
 
     Given I clear the form
-    And I select "Your access code"
-    And I type "QWERTY45"
-    When I click "Continue"
-    Then the page should include "You have not entered a reference number"
+    And I enter an invalid access code
+    Then I click continue and expect error elements
 
     Given I clear the form
-    And I select "Your reference number"
-    And I type "1234123412341234"
-    When I click "Continue"
-    Then the page should include "You have not entered an access code"
+    And I enter an invalid reference number
+    Then I click continue and expect error elements
 
     Given I clear the form
-    When I click "Continue"
-    Then the page should include "You have not entered"
+    Then I click continue and expect error elements

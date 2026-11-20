@@ -4,7 +4,7 @@
 {% extends "common/page.njk" %}
 
 {% block content %}
-  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <h1 class="govuk-heading-l" id="{{ titleId }}">{{ title }}</h1>
 
   {% block error_summary %}
     {% include "common/error/summary.njk" %}
@@ -24,7 +24,10 @@
             {
               href: prefixUrl + '/enter-your-address',
               text: change,
-              visuallyHiddenText: "enter your address"
+              visuallyHiddenText: "enter your address",
+              attributes: {
+                id: 'changeAddressLink'
+              }
             }
           ]
         }
@@ -41,7 +44,10 @@
             {
               href: prefixUrl + '/check-phone-number',
               text: change,
-              visuallyHiddenText: "check your phone number"
+              visuallyHiddenText: "check your phone number",
+              attributes: {
+                id: 'changePhoneNumberLink'
+              }
             }
           ]
         }
@@ -53,7 +59,8 @@
   {{ govukButton({
     text: continue,
     href: '/',
-    preventDoubleClick: true
+    preventDoubleClick: true,
+    id: 'main-form-submit'
   }) }}
 
   {% block contact_us %}

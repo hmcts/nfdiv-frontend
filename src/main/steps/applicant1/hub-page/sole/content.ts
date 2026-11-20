@@ -11,6 +11,7 @@ import {
   InterimApplicationType,
   NoResponsePartnerNewEmailOrAddress,
   NoResponseSendPapersAgainOrTrySomethingElse,
+  RequestForInformationSoleParties,
   State,
   YesOrNo,
 } from '../../../../app/case/definition';
@@ -1041,7 +1042,7 @@ export const generateContent: TranslationFn = content => {
   );
   const latestRequestForInformation = userCase.requestsForInformation?.at(0)?.value;
   const isApplicantAbleToRespondToRequestForInformation =
-    latestRequestForInformation?.requestForInformationSoleParties === 'applicant';
+    latestRequestForInformation?.requestForInformationSoleParties === RequestForInformationSoleParties.APPLICANT;
   const dateOfCourtReplyToRequestForInformationResponse =
     getFormattedDate(
       dayjs(

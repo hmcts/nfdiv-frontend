@@ -11,7 +11,7 @@ import { generateContent } from './content';
 @autobind
 export class SaveSignOutGetController extends GetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(__dirname + '/template', generateContent, SAVE_AND_SIGN_OUT);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
