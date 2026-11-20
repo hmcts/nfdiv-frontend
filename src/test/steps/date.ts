@@ -1,6 +1,6 @@
 import { iEnterValueIntoInput } from './commonHelpers/elementInteraction';
 
-export const DEFAULT_RELATIONSHIP_DATE = '1/1/2000';
+export const DEFAULT_DATE = '1/1/2000';
 
 const splitDateString = (date: string): [string, string, string] => {
   const [day, month, year] = date
@@ -31,7 +31,7 @@ export const iEnterADateIntoField = (date: string, field: string): void => {
 };
 
 export const iEnterTheDefaultRelationshipDate = (): void => {
-  iEnterADateIntoField(DEFAULT_RELATIONSHIP_DATE, 'relationshipDate');
+  iEnterADateIntoField(DEFAULT_DATE, 'relationshipDate');
 };
 
 Given('I enter a date of {string} into the {string} field', (date, field: string) => {

@@ -10,13 +10,13 @@ import {
 } from './commonHelpers/elementInteraction';
 import { iClickToNavigate, iWaitInUrl } from './commonHelpers/navigation';
 import { getApplicantString, getCapitalisedApplicantString, iSignOut } from './commonHelpers/userInteraction';
-import { DEFAULT_RELATIONSHIP_DATE, dateStringToApi } from './date';
+import { DEFAULT_DATE, dateStringToApi } from './date';
 import { iSubmitToApplyForFinalOrderAsSoleApplicant, prepareTheCaseForSwitchToSoleFinalOrder } from './switchToSole';
 
 export const prepareTheCaseForRespondentToApplyForFinalOrder = async (): Promise<void> => {
   await caseworkerUpdatesTheCase({
     state: State.AwaitingFinalOrder,
-    dateFinalOrderEligibleToRespondent: dateStringToApi(DEFAULT_RELATIONSHIP_DATE),
+    dateFinalOrderEligibleToRespondent: dateStringToApi(DEFAULT_DATE),
   });
 };
 

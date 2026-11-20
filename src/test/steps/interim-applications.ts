@@ -35,7 +35,7 @@ import {
 } from './commonHelpers/elementInteraction';
 import { iClickToNavigate } from './commonHelpers/navigation';
 import { getApplicantString, getTheirName, iLoginAsUser, login } from './commonHelpers/userInteraction';
-import { DEFAULT_RELATIONSHIP_DATE, iEnterADateIntoField } from './date';
+import { DEFAULT_DATE, iEnterADateIntoField } from './date';
 import { completedFormWithFixture } from './happy-path';
 import { DEFAULT_ADDRESS, SECONDARY_ADDRESS, iEnterTheUkAddress } from './postcode';
 
@@ -275,7 +275,7 @@ Given('I have no contact details for my partner', () => {
   iSelectRadioValue(NoResponseNoNewAddressDetails.NO_CONTACT_DETAILS);
 });
 Given('I enter the date we last lived together', () => {
-  iEnterADateIntoField(DEFAULT_RELATIONSHIP_DATE, `${getApplicantString()}DispenseLastLivedTogetherDate`);
+  iEnterADateIntoField(DEFAULT_DATE, `${getApplicantString()}DispenseLastLivedTogetherDate`);
 });
 Given('I enter their last known address', async () => {
   await iEnterTheUkAddress(DEFAULT_ADDRESS);
@@ -287,7 +287,7 @@ Given('I enter their past address', () => {
 });
 Given('I enter the date they were last seen', () => {
   const applicantString = getApplicantString();
-  iEnterADateIntoField(DEFAULT_RELATIONSHIP_DATE, `${applicantString}DispensePartnerLastSeenOrHeardOfDate`);
+  iEnterADateIntoField(DEFAULT_DATE, `${applicantString}DispensePartnerLastSeenOrHeardOfDate`);
   iEnterValueIntoInput('Example last seen description', `#${applicantString}DispensePartnerLastSeenDescription`);
 });
 Given('I enter details of attempts to contact them via email', () => {
@@ -386,7 +386,7 @@ Given('I enter the dates they lived at this address', () => {
 });
 Given('I enter their date of birth for the search', () => {
   iSelectYes();
-  iEnterADateIntoField(DEFAULT_RELATIONSHIP_DATE, `${getApplicantString()}SearchGovRecordsPartnerDateOfBirth`);
+  iEnterADateIntoField(DEFAULT_DATE, `${getApplicantString()}SearchGovRecordsPartnerDateOfBirth`);
 });
 Given('I enter their NI number for the search', () => {
   iEnterValueIntoInput(DEFAULT_NI_NUMBER, `#${getApplicantString()}SearchGovRecordsPartnerNationalInsurance`);
