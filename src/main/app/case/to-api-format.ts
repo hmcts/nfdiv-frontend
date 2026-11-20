@@ -547,7 +547,12 @@ const fields: ToApiConverters = {
     applicant1InterimAppsCanUploadEvidence: data.applicant1InterimAppsCanUploadEvidence,
     ...(data.applicant1InterimAppsCanUploadEvidence === YesOrNo.YES
       ? setUnreachableAnswersToNull(['applicant1DeemedNoEvidenceStatement'])
-      : setUnreachableAnswersToNull(['applicant1DeemedEvidenceDetails', 'applicant1InterimAppsCannotUploadDocs'])),
+      : setUnreachableAnswersToNull([
+          'applicant1DeemedEvidenceDetails',
+          'applicant1InterimAppsCannotUploadDocs',
+          'applicant1AltServiceMethodActive',
+          'applicant1AltServiceDateOfEvidence',
+        ])),
   }),
   applicant1InterimAppsStatementOfTruth: data => ({
     applicant1InterimAppsStatementOfTruth: checkboxConverter(data.applicant1InterimAppsStatementOfTruth),
@@ -622,6 +627,9 @@ const fields: ToApiConverters = {
     )
       ? data.applicant1AltServicePartnerOtherDetails
       : null,
+  }),
+  applicant1AltServiceDateOfEvidence: data => ({
+    applicant1AltServiceDateOfEvidence: toApiDate(data.applicant1AltServiceDateOfEvidence),
   }),
   applicant1DispenseLiveTogether: data => ({
     applicant1DispenseLiveTogether: data.applicant1DispenseLiveTogether,

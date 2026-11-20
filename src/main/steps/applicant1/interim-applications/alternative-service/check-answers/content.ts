@@ -1,8 +1,10 @@
+import { getFormattedCaseDate } from '../../../../../app/case/answers/formatDate';
 import { Checkbox } from '../../../../../app/case/case';
 import { AlternativeServiceDifferentWays, AlternativeServiceMethod, YesOrNo } from '../../../../../app/case/definition';
 import { getFilename } from '../../../../../app/case/formatter/uploaded-files';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { SupportedLanguages } from '../../../../../modules/i18n';
 import { CommonContent } from '../../../../common/common.content';
 import * as urls from '../../../../urls';
 import {
@@ -11,7 +13,7 @@ import {
 } from '../../common/check-answers/content';
 
 const en = (
-  { isDivorce }: CommonContent,
+  { isDivorce, partner }: CommonContent,
   useHwf,
   hwfReference,
   canUpload,
@@ -24,7 +26,9 @@ const en = (
   alternativeServicePartnerPhone,
   alternativeServicePartnerWANumber,
   alternativeServicePartnerSocialMedia,
-  alternativeServicePartnerOtherDetails
+  alternativeServicePartnerOtherDetails,
+  alternativeServiceEvidenceCurrent,
+  altenativeServiceDateOfEvidence
 ) => ({
   stepQuestions: {
     useHwf: 'Help paying the application fee',
@@ -42,6 +46,20 @@ const en = (
     alternativeServicePartnerSocialMedia: 'Social media details',
     alternativeServicePartnerOtherDetails: 'Other details',
     alternativeServiceMethodJustification: 'Why are you applying to send the papers this way?',
+    alternativeServiceEvidenceCurrent: `Does the evidence show that the ${
+      alternativeServiceMethod === AlternativeServiceMethod.EMAIL
+        ? 'email'
+        : alternativeServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? 'email or chosen contact method'
+          : 'chosen contact method'
+    } is still actively used by your ${partner}`,
+    alternativeServiceDateOfEvidence: `Date of the ${
+      alternativeServiceMethod === AlternativeServiceMethod.EMAIL
+        ? 'email'
+        : alternativeServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? 'email or conversation'
+          : 'conversation'
+    }`,
   },
   stepAnswers: {
     useHwf: `${useHwf}`,
@@ -92,6 +110,9 @@ const en = (
     alternativeServicePartnerSocialMedia: `${alternativeServicePartnerSocialMedia}`,
     alternativeServicePartnerOtherDetails: `${alternativeServicePartnerOtherDetails}`,
     alternativeServiceMethodJustification: `${alternativeServiceMethodJustification}`,
+    alternativeServiceEvidenceCurrent: `${alternativeServiceEvidenceCurrent}`,
+    alternativeServiceDateOfEvidence:
+      getFormattedCaseDate(altenativeServiceDateOfEvidence, SupportedLanguages.En) || undefined,
   },
   stepLinks: {
     useHwf: `${urls.HELP_WITH_FEES_ALTERNATIVE}`,
@@ -107,11 +128,13 @@ const en = (
     alternativeServicePartnerSocialMedia: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
     alternativeServicePartnerOtherDetails: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
     alternativeServiceMethodJustification: `${urls.ALTERNATIVE_WHY_APPLY_THIS_WAY}`,
+    alternativeServiceEvidenceCurrent: `${urls.ALTERNATIVE_DETAILS_ABOUT_EVIDENCE}`,
+    alternativeServiceDateOfEvidence: `${urls.ALTERNATIVE_DETAILS_ABOUT_EVIDENCE}`,
   },
 });
 
 const cy: typeof en = (
-  { isDivorce }: CommonContent,
+  { isDivorce, partner }: CommonContent,
   useHwf,
   hwfReference,
   canUpload,
@@ -124,7 +147,9 @@ const cy: typeof en = (
   alternativeServicePartnerPhone,
   alternativeServicePartnerWANumber,
   alternativeServicePartnerSocialMedia,
-  alternativeServicePartnerOtherDetails
+  alternativeServicePartnerOtherDetails,
+  alternativeServiceEvidenceCurrent,
+  altenativeServiceDateOfEvidence
 ) => ({
   stepQuestions: {
     useHwf: 'Helpi  i dalu’r ffi gwneud cais',
@@ -142,6 +167,20 @@ const cy: typeof en = (
     alternativeServicePartnerSocialMedia: 'Manylion cyfryngau cymdeithasol',
     alternativeServicePartnerOtherDetails: 'Manylion eraill',
     alternativeServiceMethodJustification: 'Pam ydych yn gwneud cais i anfon y papurau yn y ffordd yma?',
+    alternativeServiceEvidenceCurrent: `${
+      alternativeServiceMethod === AlternativeServiceMethod.EMAIL
+        ? 'A yw eich tystiolaeth yn dangos bod yr e-bost yn dal i gael ei ddefnyddio’n weithredol gan eich'
+        : alternativeServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? 'A yw eich tystiolaeth yn dangos bod yr e-bost neu’r dull cysylltu a ddewiswyd yn dal i gael ei ddefnyddio’n weithredol gan eich'
+          : 'A yw eich tystiolaeth yn dangos bod y dull cysylltu a ddewiswyd yn dal i gael ei ddefnyddio’n weithredol gan eich'
+    } ${partner}`,
+    alternativeServiceDateOfEvidence: `${
+      alternativeServiceMethod === AlternativeServiceMethod.EMAIL
+        ? 'Dyddiad yr e-bost'
+        : alternativeServiceMethod === AlternativeServiceMethod.EMAIL_AND_DIFFERENT
+          ? 'Dyddiad yr e-bost neu’r sgwrs'
+          : 'Dyddiad y sgwrs'
+    }`,
   },
   stepAnswers: {
     useHwf: `${useHwf === YesOrNo.YES ? 'Byddaf' : 'Na fyddaf'}`,
@@ -192,6 +231,9 @@ const cy: typeof en = (
     alternativeServicePartnerSocialMedia: `${alternativeServicePartnerSocialMedia}`,
     alternativeServicePartnerOtherDetails: `${alternativeServicePartnerOtherDetails}`,
     alternativeServiceMethodJustification: `${alternativeServiceMethodJustification}`,
+    alternativeServiceEvidenceCurrent: `${alternativeServiceEvidenceCurrent === YesOrNo.YES ? 'Ydy' : 'Nac ydw'}`,
+    alternativeServiceDateOfEvidence:
+      getFormattedCaseDate(altenativeServiceDateOfEvidence, SupportedLanguages.Cy) || undefined,
   },
   stepLinks: {
     useHwf: `${urls.HELP_WITH_FEES_ALTERNATIVE}`,
@@ -207,6 +249,8 @@ const cy: typeof en = (
     alternativeServicePartnerSocialMedia: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
     alternativeServicePartnerOtherDetails: `${urls.ALTERNATIVE_HOW_TO_SERVE}`,
     alternativeServiceMethodJustification: `${urls.ALTERNATIVE_WHY_APPLY_THIS_WAY}`,
+    alternativeServiceEvidenceCurrent: `${urls.ALTERNATIVE_DETAILS_ABOUT_EVIDENCE}`,
+    alternativeServiceDateOfEvidence: `${urls.ALTERNATIVE_DETAILS_ABOUT_EVIDENCE}`,
   },
 });
 
@@ -237,6 +281,8 @@ export const generateContent: TranslationFn = content => {
   const alternativeServicePartnerWANumber = content.userCase.applicant1AltServicePartnerWANum;
   const alternativeServicePartnerSocialMedia = content.userCase.applicant1AltServicePartnerSocialDetails;
   const alternativeServicePartnerOtherDetails = content.userCase.applicant1AltServicePartnerOtherDetails;
+  const alternativeServiceEvidenceCurrent = content.userCase.applicant1AltServiceMethodActive;
+  const altenativeServiceDateOfEvidence = content.userCase.applicant1AltServiceDateOfEvidence;
   const translations = languages[content.language](
     content,
     useHwf,
@@ -251,7 +297,9 @@ export const generateContent: TranslationFn = content => {
     alternativeServicePartnerPhone,
     alternativeServicePartnerWANumber,
     alternativeServicePartnerSocialMedia,
-    alternativeServicePartnerOtherDetails
+    alternativeServicePartnerOtherDetails,
+    alternativeServiceEvidenceCurrent,
+    altenativeServiceDateOfEvidence
   );
   return {
     ...checkAnswersContent,

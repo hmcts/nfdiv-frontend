@@ -60,6 +60,12 @@ Feature: Alternative service journey
 
     Given I click element "#yes"
     When I click continue
+    Then the page should include element "#detailsAboutEvidenceTitle"
+
+    Given I click element "#yes"
+    Then the page should include element "#applicant1AltServiceDateOfEvidence"
+    And I enter a date 2 months ago
+    When I click continue
     Then the page should include element "#uploadEvidenceTitle"
 
     Given I click element "#applicant1InterimAppsCannotUploadDocs"
@@ -117,6 +123,12 @@ Feature: Alternative service journey
 
     Given I click element "#yes"
     When I click continue
+    Then the page should include element "#detailsAboutEvidenceTitle"
+
+    Given I click element "#yes"
+    Then the page should include element "#applicant1AltServiceDateOfEvidence"
+    And I enter a date 2 months ago
+    When I click continue
     Then the page should include element "#uploadEvidenceTitle"
 
     Given I click element "#applicant1InterimAppsCannotUploadDocs"
@@ -132,3 +144,75 @@ Feature: Alternative service journey
     Given I click element "#applicant1InterimAppsStatementOfTruth"
     When I click submit
     Then the page should include element "#serviceApplicationSubmittedTitle"
+
+  Scenario: Alternative service unhappy path no recent evidence
+    When I click start
+    Then the page should include element "#interruptionTitle"
+
+    Given I click element "#applicant1InterimAppsIUnderstand"
+    When I click continue
+    Then the page should include element "#helpWithFeesTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#whyAlternativeServiceTitle"
+
+    Given I select element "#applicant1AltServiceReasonForApplying"
+    And I type "Alternative service reason"
+    When I click continue
+    Then the page should include element "#alternativeSendingPapersTitle"
+
+    Given I click element "#inADifferentWay"
+    When I click continue
+    Then the page should include element "#alternativeHowToServeTitle"
+
+    Given I select element "#applicant1AltServiceDifferentWays"
+    And I select element "#applicant1AltServicePartnerPhone"
+    And I type "01234567890"
+    When I click continue
+    Then the page should include element "#wantUploadEvidenceTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#detailsAboutEvidenceTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#methodNotActiveTitle"
+
+  Scenario: Alternative service unhappy path recent evidence greater than 3 months old
+    When I click start
+    Then the page should include element "#interruptionTitle"
+
+    Given I click element "#applicant1InterimAppsIUnderstand"
+    When I click continue
+    Then the page should include element "#helpWithFeesTitle"
+
+    Given I click element "#no"
+    When I click continue
+    Then the page should include element "#whyAlternativeServiceTitle"
+
+    Given I select element "#applicant1AltServiceReasonForApplying"
+    And I type "Alternative service reason"
+    When I click continue
+    Then the page should include element "#alternativeSendingPapersTitle"
+
+    Given I click element "#inADifferentWay"
+    When I click continue
+    Then the page should include element "#alternativeHowToServeTitle"
+
+    Given I select element "#applicant1AltServiceDifferentWays"
+    And I select element "#applicant1AltServicePartnerPhone"
+    And I type "01234567890"
+    When I click continue
+    Then the page should include element "#wantUploadEvidenceTitle"
+
+    Given I click element "#yes"
+    When I click continue
+    Then the page should include element "#detailsAboutEvidenceTitle"
+
+    Given I click element "#yes"
+    Then the page should include element "#applicant1AltServiceDateOfEvidence"
+    And I enter a date 4 months ago
+    When I click continue
+    Then the page should include element "#methodNotActiveTitle"

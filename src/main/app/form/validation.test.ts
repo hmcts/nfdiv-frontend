@@ -14,6 +14,7 @@ import {
   isInvalidNationalInsuranceNumber,
   isInvalidPostcode,
   isLessThanAYearAgoInc,
+  isMoreThanThreeMonthsAgo,
   isPhoneNoValid,
   isValidAccessCode,
   isValidCaseReference,
@@ -140,6 +141,30 @@ describe('Validation', () => {
       };
       const isValid = isLessThanAYearAgoInc(date);
 
+      expect(isValid).toStrictEqual(undefined);
+    });
+  });
+
+  describe('isMoreThanThreeMonthsAgo()', () => {
+    test('Should check if date entered is more than 3 months ago', async () => {
+      const dateObj = new Date();
+      const date = {
+        day: dateObj.getUTCDate().toString(),
+        month: (dateObj.getUTCMonth() - 4).toString(),
+        year: dateObj.getUTCFullYear().toString(),
+      };
+      const isValid = isMoreThanThreeMonthsAgo(date);
+      expect(isValid).toStrictEqual('moreThanThreeMonthsAgo');
+    });
+
+    test('Should check if date entered is less than 3 months ago', async () => {
+      const dateObj = new Date();
+      const date = {
+        day: dateObj.getUTCDate().toString(),
+        month: (dateObj.getUTCMonth() - 2).toString(),
+        year: dateObj.getUTCFullYear().toString(),
+      };
+      const isValid = isMoreThanThreeMonthsAgo(date);
       expect(isValid).toStrictEqual(undefined);
     });
   });
