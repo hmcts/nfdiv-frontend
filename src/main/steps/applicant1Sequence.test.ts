@@ -1,6 +1,6 @@
 import { ApplicationType, YesOrNo } from '../app/case/definition';
 
-import { Step, applicant1PreSubmissionSequence, isCountryUk } from './applicant1Sequence';
+import { Step, applicant1PreSubmissionSequence, isCountryUk, isOverseas } from './applicant1Sequence';
 import {
   ENTER_THEIR_ADDRESS,
   MONEY_PROPERTY,
@@ -71,5 +71,27 @@ describe('isCountryUk test', () => {
 
   test('Undefined country', () => {
     expect(isCountryUk(undefined)).toBe(false);
+  });
+});
+
+describe('isOverseas test', () => {
+  test('Overseas field set, Pre-Formatted', () => {
+    expect(isOverseas(YesOrNo.YES)).toBe(true);
+  });
+
+  test('Overseas field set, Not-Formatted, Contains String type', () => {
+    expect(isOverseas('Yes' as FormDataEntryValue)).toBe(true);
+  });
+
+  test('Overseas field set, Not-Formatted, Contains File type', () => {
+    expect(isOverseas(new File([] as BlobPart[], '') as FormDataEntryValue)).toBe(false);
+  });
+
+  test('Undefined overseas field', () => {
+    expect(isOverseas(undefined)).toBe(false);
+  });
+
+  test('Null overseas field', () => {
+    expect(isOverseas(null)).toBe(false);
   });
 });

@@ -2,7 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
-import { isCountryUk } from '../../applicant1Sequence';
+import { isCountryUk, isOverseas } from '../../applicant1Sequence';
 import type { CommonContent } from '../../common/common.content';
 
 const en = ({ partner }: Partial<CommonContent>) => {
@@ -129,7 +129,7 @@ export const form: FormContent = {
       label: l => l.town,
       labelSize: null,
       validator: (value, formData) => {
-        if (!isCountryUk(formData.applicant2AddressCountry)) {
+        if (!isCountryUk(formData.applicant2AddressCountry) || isOverseas(formData.applicant2AddressOverseas)) {
           return;
         }
         return isFieldFilledIn(value);
@@ -153,7 +153,7 @@ export const form: FormContent = {
         maxLength: 14,
       },
       validator: (value, formData) => {
-        if (!isCountryUk(formData.applicant2AddressCountry)) {
+        if (!isCountryUk(formData.applicant2AddressCountry) || isOverseas(formData.applicant2AddressOverseas)) {
           return;
         }
         return isInvalidPostcode(value);
