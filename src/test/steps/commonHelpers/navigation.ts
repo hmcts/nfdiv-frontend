@@ -10,6 +10,10 @@ import {
   VIEW_YOUR_ANSWERS,
 } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
+
+import { TestUserKey } from './IdamUserManager';
+import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';
+import { logAndThrow, logger } from './logger';
 import {
   ERROR_PAGE_URL,
   InternalPageLink,
@@ -20,10 +24,6 @@ import {
   lookupUrl,
   lookupUserPrefix,
 } from './url-lookup';
-
-import { TestUserKey } from './IdamUserManager';
-import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';
-import { logAndThrow, logger } from './logger';
 import { isApplicant2, isRespondent } from './userInteraction';
 
 const { I } = inject();

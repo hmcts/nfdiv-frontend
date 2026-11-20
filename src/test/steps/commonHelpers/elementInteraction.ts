@@ -3,9 +3,9 @@ import { Locator, Page } from '@playwright/test';
 import { NoResponseOwnSearches, YesOrNo } from '../../../main/app/case/definition';
 import { SupportedLanguages } from '../../../main/modules/i18n';
 import { HUB_PAGE } from '../../../main/steps/urls';
-import { isInterimApplicationsUrl } from './url-lookup';
 
 import { iAmOnIdam, iClickToNavigate, iGrabCurrentUrl, iWaitForUrlParam } from './navigation';
+import { isInterimApplicationsUrl } from './url-lookup';
 import {
   getApplicantNumber,
   getApplicantString,

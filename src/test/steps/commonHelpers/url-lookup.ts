@@ -1,4 +1,7 @@
-import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from '../../../main/steps/applicant2Sequence';
+import {
+  applicant2PostSubmissionSequence,
+  applicant2PreSubmissionSequence,
+} from '../../../main/steps/applicant2Sequence';
 import { respondentSequence } from '../../../main/steps/respondentSequence';
 import * as urls from '../../../main/steps/urls';
 import {
