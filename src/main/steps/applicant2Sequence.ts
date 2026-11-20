@@ -35,6 +35,7 @@ import {
   HOW_TO_FINALISE_APPLICATION,
   HUB_PAGE,
   HUB_PAGE_DOWNLOADS,
+  IN_REFUGE,
   JOINT_APPLICATION_SUBMITTED,
   MONEY_PROPERTY,
   NOT_CONFIRMED_JOINT_APPLICATION,
@@ -125,6 +126,15 @@ export const preSubmissionSequence: Step[] = [
   },
   {
     url: ADDRESS_PRIVATE,
+    getNextStep: data =>
+      data.applicant2AddressPrivate === YesOrNo.NO
+        ? hasApp2Confirmed(data)
+          ? CHECK_CONTACT_DETAILS
+          : ENTER_YOUR_ADDRESS
+        : IN_REFUGE,
+  },
+  {
+    url: IN_REFUGE,
     getNextStep: data => (hasApp2Confirmed(data) ? CHECK_CONTACT_DETAILS : ENTER_YOUR_ADDRESS),
   },
   {
