@@ -624,6 +624,23 @@ describe('HomeGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
   });
 
+  test('redirects to HUB page for applicant 1 users in submitted state but when pre issue service application is in progress', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          divorceOrDissolution: DivorceOrDissolution.DIVORCE,
+          state: State.Submitted,
+          applicant1InterimApplicationType: InterimApplicationType.ALTERNATIVE_SERVICE,
+        },
+      },
+    });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(HUB_PAGE);
+  });
+
   test('redirects to application represented page for applicant 1 users in submitted state when represented', () => {
     const req = mockRequest({
       session: {

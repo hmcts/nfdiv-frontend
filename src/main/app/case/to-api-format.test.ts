@@ -53,6 +53,7 @@ describe('to-api-format', () => {
     applicant2FoHelpPayingNeeded: YesOrNo.YES,
     applicant1AgreeToReceiveEmails: Checkbox.Checked,
     applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Checked,
+    applicant1NoRespAddressDoesNotKnowEmailAddress: Checkbox.Checked,
     applicant1AddressPrivate: YesOrNo.YES,
     applicant1InRefuge: YesOrNo.YES,
     applicant1KnowsApplicant2Address: YesOrNo.NO,
@@ -103,6 +104,7 @@ describe('to-api-format', () => {
 
   const resultsWithSecondaryValues: OrNull<Partial<Case>> = {
     applicant1DoesNotKnowApplicant2EmailAddress: Checkbox.Unchecked,
+    applicant1NoRespAddressDoesNotKnowEmailAddress: Checkbox.Unchecked,
     applicant1IConfirmPrayer: Checkbox.Unchecked,
     applicant2IConfirmPrayer: Checkbox.Unchecked,
     applicant1AddressPrivate: YesOrNo.NO,
@@ -169,7 +171,9 @@ describe('to-api-format', () => {
       applicant1ContactDetailsType: ContactDetailsType.PRIVATE,
       applicant1InRefuge: YesOrNo.YES,
       applicant1KnowsApplicant2Address: YesOrNo.NO,
+      applicant1FoundApplicant2Address: YesOrNo.NO,
       applicant1KnowsApplicant2EmailAddress: YesOrNo.NO,
+      applicant1NoRespAddressKnowsEmail: YesOrNo.NO,
       applicant1WantsToHavePapersServedAnotherWay: null,
       applicant1LanguagePreferenceWelsh: 'No',
       applicant2LanguagePreferenceWelsh: 'No',
@@ -235,6 +239,7 @@ describe('to-api-format', () => {
     expect(apiFormat).toStrictEqual({
       applicant1ContactDetailsType: ContactDetailsType.PUBLIC,
       applicant1KnowsApplicant2EmailAddress: YesOrNo.YES,
+      applicant1NoRespAddressKnowsEmail: YesOrNo.YES,
       applicant2ContactDetailsType: ContactDetailsType.PUBLIC,
       applicant1PrayerDissolveDivorce: [],
       applicant1PrayerEndCivilPartnership: [],

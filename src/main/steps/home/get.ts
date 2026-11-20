@@ -69,6 +69,16 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
   const isSolicitorRepresented = userCase.applicant1SolicitorRepresented === YesOrNo.YES;
   const hasServiceApplicationInProgress = !!userCase.receivedServiceApplicationDate;
 
+  const noRespondentAddressInterimTypes = new Set<InterimApplicationType>([
+    InterimApplicationType.SEARCH_GOV_RECORDS,
+    InterimApplicationType.DISPENSE_WITH_SERVICE,
+    InterimApplicationType.ALTERNATIVE_SERVICE,
+  ]);
+
+  const preIssueNoRespondentAddressApplicationStarted =
+    !userCase?.issueDate &&
+    noRespondentAddressInterimTypes.has(userCase.applicant1InterimApplicationType as InterimApplicationType);
+
   switch (userCase.state) {
     case State.AwaitingApplicant1Response: {
       return userCase.applicant2ScreenHasUnionBroken === YesOrNo.NO ? APPLICATION_ENDED : CHECK_ANSWERS_URL;
@@ -84,7 +94,7 @@ const applicant1RedirectPageSwitch = (userCase: Partial<CaseWithId>, isFirstQues
     case State.AwaitingHWFDecision: {
       return isSolicitorRepresented
         ? APP_REPRESENTED
-        : hasServiceApplicationInProgress
+        : hasServiceApplicationInProgress || preIssueNoRespondentAddressApplicationStarted
           ? HUB_PAGE
           : APPLICATION_SUBMITTED;
     }

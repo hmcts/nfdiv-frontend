@@ -224,6 +224,14 @@ const fields: FromApiConverters = {
   }),
   applicant1SearchGovRecordsPartnerLastKnownAddress: data =>
     formatAddress(data, 'applicant1SearchGovRecordsPartnerLastKnown'),
+  applicant1NoRespAddressAddressOverseas: ({ applicant1NoRespAddressAddressOverseas }) => ({
+    applicant1NoRespAddressAddressOverseas: applicant1NoRespAddressAddressOverseas ?? YesOrNo.NO,
+  }),
+  applicant1NoRespAddressKnowsEmail: data => ({
+    applicant1NoRespAddressDoesNotKnowEmailAddress:
+      data.applicant1NoRespAddressKnowsEmail === YesOrNo.YES ? Checkbox.Unchecked : Checkbox.Checked,
+  }),
+  applicant1NoRespAddressAddress: data => formatAddress(data, 'applicant1NoRespAddress'),
 };
 
 const fromApiDate = date => {
