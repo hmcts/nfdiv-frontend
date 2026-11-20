@@ -1,7 +1,7 @@
-import * as definition from '../../main/app/case/definition';
-import { State } from '../../main/app/case/definition';
+import * as definition from '../../../main/app/case/definition';
+import { State } from '../../../main/app/case/definition';
 
-import { logAndThrow } from './commonHelpers/logger';
+import { logAndThrow } from './logger';
 
 const stateEnum = (definition as unknown as { State?: Record<string, State> }).State;
 if (!stateEnum) {

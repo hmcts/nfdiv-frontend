@@ -19,7 +19,7 @@ import {
   isPrefixedRoute,
   lookupUrl,
   lookupUserPrefix,
-} from '../urlLookup';
+} from './url-lookup';
 
 import { TestUserKey } from './IdamUserManager';
 import { WaitUntil, iClick, iWaitForVisible } from './elementInteraction';

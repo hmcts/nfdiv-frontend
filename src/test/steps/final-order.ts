@@ -11,7 +11,7 @@ import {
 import { iClickToNavigate, iWaitInUrl } from './commonHelpers/navigation';
 import { getApplicantString, getCapitalisedApplicantString, iSignOut } from './commonHelpers/userInteraction';
 import { DEFAULT_DATE, dateStringToApi } from './date';
-import { iSubmitToApplyForFinalOrderAsSoleApplicant, prepareTheCaseForSwitchToSoleFinalOrder } from './switchToSole';
+import { iSubmitToApplyForFinalOrderAsSoleApplicant, prepareTheCaseForSwitchToSoleFinalOrder } from './switch-to-sole';
 
 export const prepareTheCaseForRespondentToApplyForFinalOrder = async (): Promise<void> => {
   await caseworkerUpdatesTheCase({

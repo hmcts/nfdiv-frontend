@@ -1,6 +1,6 @@
-import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from '../../main/steps/applicant2Sequence';
-import { respondentSequence } from '../../main/steps/respondentSequence';
-import * as urls from '../../main/steps/urls';
+import { applicant2PostSubmissionSequence, applicant2PreSubmissionSequence } from '../../../main/steps/applicant2Sequence';
+import { respondentSequence } from '../../../main/steps/respondentSequence';
+import * as urls from '../../../main/steps/urls';
 import {
   APPLICANT_1,
   APPLICANT_2,
@@ -8,7 +8,7 @@ import {
   PageLink,
   RESPONDENT,
   WITHDRAW_CONFIRMATION,
-} from '../../main/steps/urls';
+} from '../../../main/steps/urls';
 
 export const ERROR_PAGE_URL: PageLink = '/error';
 const urlLookup = { ...urls, ERROR_PAGE_URL };

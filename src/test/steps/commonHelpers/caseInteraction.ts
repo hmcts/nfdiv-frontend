@@ -22,7 +22,7 @@ import {
   HUB_PAGE,
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from '../../../main/steps/urls';
-import { lookupState } from '../stateLookup';
+import { lookupState } from './state-lookup';
 
 import { TestUserAndPassword, TestUserKey } from './IdamUserManager';
 import { iClickSubmit, iClickSubmitAndExpectUrl, iEnterValueIntoInput } from './elementInteraction';
