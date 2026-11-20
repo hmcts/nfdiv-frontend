@@ -3,7 +3,7 @@ import { CaseWithId } from '../app/case/case';
 import { ApplicationType, State, YesOrNo } from '../app/case/definition';
 import { AppRequest } from '../app/controller/AppRequest';
 
-import { ROUTE_HIDE_CONDITIONS, shouldHideRouteFromUser } from './routeHiding';
+import { ROUTE_HIDE_CONDITIONS, shouldHideRouteFromUser, shouldRedirectRouteToHub } from './routeHiding';
 import {
   ACCESSIBILITY_STATEMENT_URL,
   CHECK_ANSWERS_ALTERNATIVE,
@@ -13,6 +13,7 @@ import {
   FINALISING_YOUR_APPLICATION,
   GENERAL_APPLICATION_SUBMITTED,
   HAVE_THEY_RECEIVED,
+  MAKE_AN_APPLICATION,
   OPTIONS_FOR_PROGRESSING,
   PAY_YOUR_SERVICE_FEE,
   PageLink,
@@ -44,6 +45,30 @@ describe('routeHiding', () => {
       expect(result).toBeFalsy();
     });
 
+    test('return false if URL is not in the list of conditions and has a trailing slash', () => {
+      mockReq.url = ACCESSIBILITY_STATEMENT_URL + '/';
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeFalsy();
+    });
+
+    test('return false if URL is not in the list of conditions and has parameters', () => {
+      mockReq.url = ACCESSIBILITY_STATEMENT_URL + '?lng=en';
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeFalsy();
+    });
+
+    test('return false if URL is not in the list of conditions and has a trailing slash and parameters', () => {
+      mockReq.url = ACCESSIBILITY_STATEMENT_URL + '/?lng=en';
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeFalsy();
+    });
+
+    test('return false if URL is not in the list of conditions and has a value', () => {
+      mockReq.url = ACCESSIBILITY_STATEMENT_URL + '#value';
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeFalsy();
+    });
+
     test('return true if URL fulfils the hide condition', () => {
       mockReq.url = FINALISING_YOUR_APPLICATION;
       mockReq.session.userCase = {
@@ -54,19 +79,124 @@ describe('routeHiding', () => {
       const result = shouldHideRouteFromUser(mockReq);
       expect(result).toBeTruthy();
     });
+
+    test('return true if URL is in the list of conditions but has a trailing slash', () => {
+      mockReq.url = FINALISING_YOUR_APPLICATION + '/';
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.FinalOrderRequested,
+        applicationType: ApplicationType.JOINT_APPLICATION,
+      } as CaseWithId;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('return true if URL is in the list of conditions but has parameters', () => {
+      mockReq.url = FINALISING_YOUR_APPLICATION + '?lng=en';
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.FinalOrderRequested,
+        applicationType: ApplicationType.JOINT_APPLICATION,
+      } as CaseWithId;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('return true if URL is in the list of conditions but has a trailing slash and parameters', () => {
+      mockReq.url = FINALISING_YOUR_APPLICATION + '/?lng=en';
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.FinalOrderRequested,
+        applicationType: ApplicationType.JOINT_APPLICATION,
+      } as CaseWithId;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('return true if URL is in the list of conditions but has a value', () => {
+      mockReq.url = FINALISING_YOUR_APPLICATION + '#value';
+      mockReq.session.userCase = {
+        id: '1234',
+        state: State.FinalOrderRequested,
+        applicationType: ApplicationType.JOINT_APPLICATION,
+      } as CaseWithId;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('Should return true for generalApplicationD11SubmittedJourneySequence URLs when the case is issued', () => {
+      mockReq.url = MAKE_AN_APPLICATION;
+      mockReq.session.userCase = { issueDate: new Date().toString() } as CaseWithId;
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('Should return false for generalApplicationD11SubmittedJourneySequence URLs before the case is issued', () => {
+      mockReq.url = MAKE_AN_APPLICATION + '/?lng=en';
+      const result = shouldHideRouteFromUser(mockReq);
+      expect(result).toBeFalsy();
+    });
   });
 
   describe('shouldRedirectRouteToHub()', () => {
     test('return false if URL is not in the list of routes to redirect to hub', () => {
       mockReq.url = ACCESSIBILITY_STATEMENT_URL;
-      const result = shouldHideRouteFromUser(mockReq);
+      const result = shouldRedirectRouteToHub(mockReq);
+      expect(result).toBeFalsy();
+    });
+
+    test('return false if URL is not in the list of routes to redirect to hub and has a trailing slash', () => {
+      mockReq.url = ACCESSIBILITY_STATEMENT_URL + '/';
+      const result = shouldRedirectRouteToHub(mockReq);
+      expect(result).toBeFalsy();
+    });
+
+    test('return false if URL is not in the list of routes to redirect to hub and has parameters', () => {
+      mockReq.url = ACCESSIBILITY_STATEMENT_URL + '?lng=en';
+      const result = shouldRedirectRouteToHub(mockReq);
+      expect(result).toBeFalsy();
+    });
+
+    test('return false if URL is not in the list of routes to redirect to hub and has a trailing slash and parameters', () => {
+      mockReq.url = ACCESSIBILITY_STATEMENT_URL + '/?lng=en';
+      const result = shouldRedirectRouteToHub(mockReq);
+      expect(result).toBeFalsy();
+    });
+
+    test('return false if URL is not in the list of routes to redirect to hub and has a value', () => {
+      mockReq.url = ACCESSIBILITY_STATEMENT_URL + '#value';
+      const result = shouldRedirectRouteToHub(mockReq);
       expect(result).toBeFalsy();
     });
 
     test('return true if URL is in the list of routes to redirect to hub', () => {
       mockReq.url = CHECK_ANSWERS_DEEMED;
-      const result = shouldHideRouteFromUser(mockReq);
-      expect(result).toBeFalsy();
+      const result = shouldRedirectRouteToHub(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('return true if URL is in the list of routes to redirect to hub but has a trailing slash', () => {
+      mockReq.url = CHECK_ANSWERS_DEEMED + '/';
+      const result = shouldRedirectRouteToHub(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('return true if URL is in the list of routes to redirect to hub but has parameters', () => {
+      mockReq.url = CHECK_ANSWERS_DEEMED + '?lng=en';
+      const result = shouldRedirectRouteToHub(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('return true if URL is in the list of routes to redirect to hub but has a trailing slash and parameters', () => {
+      mockReq.url = CHECK_ANSWERS_DEEMED + '/?lng=en';
+      const result = shouldRedirectRouteToHub(mockReq);
+      expect(result).toBeTruthy();
+    });
+
+    test('return true if URL is in the list of routes to redirect to hub but has a value', () => {
+      mockReq.url = CHECK_ANSWERS_DEEMED + '#value';
+      const result = shouldRedirectRouteToHub(mockReq);
+      expect(result).toBeTruthy();
     });
   });
 

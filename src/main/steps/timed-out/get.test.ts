@@ -12,7 +12,7 @@ describe('TimedOutGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     (res.locals as Record<string, string>).host = 'localhost';
-    (req as { path: string }).path = TIMED_OUT_URL;
+    req.url = TIMED_OUT_URL;
 
     await controller.get(req, res);
 
