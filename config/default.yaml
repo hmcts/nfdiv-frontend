@@ -94,7 +94,7 @@ session:
 e2e:
   userTestPassword: ''
 appInsights:
-  instrumentationKey:
+  connectionString:
 launchDarkly:
   sdkKey: 'NEED TO INSERT SECRET'
   offline: false

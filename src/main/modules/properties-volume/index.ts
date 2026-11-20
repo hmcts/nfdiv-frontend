@@ -20,7 +20,7 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
 
-      await this.setSecret('secrets.nfdiv.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+      await this.setSecret('secrets.nfdiv.app-insights-connection-string', 'appInsights.connectionString');
       await this.setSecret('secrets.nfdiv.redis-access-key', 'session.redis.key');
       await this.setSecret('secrets.nfdiv.redis-access-key', 'session.secret');
       await this.setSecret('secrets.nfdiv.idam-secret', 'services.idam.clientSecret');
