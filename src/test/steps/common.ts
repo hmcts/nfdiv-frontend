@@ -68,6 +68,7 @@ import {
   iToggleLanguageToWelsh,
   iWait,
   iWaitForElement,
+  iWaitForErrorForField,
   iWaitForUploadedFile,
   iWaitForVisible,
 } from './commonHelpers/element-interaction';
@@ -219,6 +220,18 @@ Given('I do not have their email address', async () => {
   iCheckOption('#applicant1DoesNotKnowApplicant2EmailAddress');
 });
 Given('we both live in England or Wales', iConfirmWeLiveInEnglandOrWales);
+Given('I do not want to dispute the application', iSelectNo);
+Given('I want to dispute the application', iSelectYes);
+Given('I confirm that I want to dispute the application', () => {
+  iSelectYes();
+  iWaitForVisible('#confirmDisputeApplicationConditional');
+});
+Given('I agree that the courts have jurisdiction', iSelectYes);
+Given('I do not agree that the courts have jurisdiction', iSelectNo);
+Given('I explain why the courts do not have jurisdiction', async () => {
+  iEnterValueIntoInput('Example explanation', '#reasonCourtsOfEnglandAndWalesHaveNoJurisdiction');
+  iEnterValueIntoInput('Example country', '#inWhichCountryIsYourLifeMainlyBased');
+});
 
 Given('I choose {string} from {string}', (option: string, select: string) => {
   I.selectOption(select, option);
@@ -453,7 +466,7 @@ When('I have read the application for divorce', () => {
 });
 
 Then('the page should show an error for field {string}', (fieldName: string) => {
-  iWaitForElement(".govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" + fieldName + "']");
+  iWaitForErrorForField(fieldName);
 });
 
 Then('I wait until the page contains image {string}', (text: string) => {
@@ -512,6 +525,7 @@ Then('I enter their name on the certificate', () => {
 Then('I enter details of the other proceedings', () => {
   iEnterValueIntoInput('Test other legal proceedings details', `#${getApplicantString()}LegalProceedingsDetails`);
 });
+Then('I confirm that the other proceedings have been concluded', iSelectYes);
 Then('I enter my reason for withdrawing', () => {
   iEnterValueIntoInput('Reason for withdrawing the application', '#withdrawApplicationReason');
 });

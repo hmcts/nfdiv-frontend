@@ -8,6 +8,7 @@ import {
   iEnterTheirName,
   iEnterValueIntoInput,
   iSelectNo,
+  iWaitForErrorForField,
   iWaitForVisibleError,
   iWaitForVisibleErrorSummary,
 } from './commonHelpers/element-interaction';
@@ -29,9 +30,13 @@ export const iEnterValueAsTheirSolicitorEmailAddress = (value: string): void => 
   iEnterValueIntoInput(value, `#${getOtherApplicantString()}SolicitorEmail`);
 };
 
-export const iClickSubmitAndExpectErrorElements = async (): Promise<void> => {
+export const iClickSubmitAndExpectErrorElements = async (fieldName?: string): Promise<void> => {
   await iClickSubmitAndExpectTheCurrentPage();
-  iWaitForVisibleError();
+  if (fieldName) {
+    iWaitForErrorForField(fieldName);
+  } else {
+    iWaitForVisibleError();
+  }
 };
 
 export const iClickSubmitAndExpectErrorSummary = async (): Promise<void> => {
@@ -48,6 +53,9 @@ export const iEnterAnInvalidAccessCode = (): void => {
 
 When('I click submit and expect error elements', iClickSubmitAndExpectErrorElements);
 When('I click continue and expect error elements', iClickSubmitAndExpectErrorElements);
+When('I click continue and expect error for field {string}', async (fieldName: string) => {
+  await iClickSubmitAndExpectErrorElements(fieldName);
+});
 When('I click continue and expect an error summary', iClickSubmitAndExpectErrorSummary);
 
 Given('I enter an invalid relationship date', () => {
@@ -55,7 +63,7 @@ Given('I enter an invalid relationship date', () => {
 });
 
 /** Setting the date to the first due to different months having different total number of days **/
-Given(/I enter a relationship date that is (\d+) (?:month|months) in the past/, (month: string) => {
+Given(/I enter a relationship date that is (\d+) (?:month|months) in the pa st/, (month: string) => {
   const date = new Date();
   date.setDate(1);
   if (date.getMonth() - +month === 0) {
