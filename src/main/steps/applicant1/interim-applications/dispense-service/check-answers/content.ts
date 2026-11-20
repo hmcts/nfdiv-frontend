@@ -274,6 +274,7 @@ const stepAnswers = (content, uploads) => ({
   childMaintenanceDetails: content.userCase.applicant1DispenseChildMaintenanceResults,
   friendsOrRelatives: content.userCase.applicant1DispenseContactFriendsOrRelativesDetails,
   otherEnquiries: content.userCase.applicant1DispenseOtherEnquiries,
+  uploadedFiles: `${uploads.uploadedDocsFilenames}`,
   ...uploads,
 });
 

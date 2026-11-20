@@ -6,14 +6,27 @@
 
 {% block page_content %}
   <h1 class="govuk-heading-l" id="evidenceReceivedApplicationTitle">{{ title }}</h1>
+  <h2 class="govuk-heading-m">{{ headingSection1 }}</h2>
   <p class="govuk-body">{{ line1 }}</p>
+  <h2 class="govuk-heading-m">{{ headingSection2 }}</h2>
   <p class="govuk-body">{{ line2 }}</p>
   <p class="govuk-body">{{ line3 }}</p>
+  <p class="govuk-body">{{ line4 }}</p>
+  <h2 class="govuk-heading-m">{{ headingSection3 }}</h2>
   <ul class="govuk-list govuk-list--bullet">
     <li>{{ suitableEvidence.photo }}</li>
     <li>{{ suitableEvidence.statement }}</li>
     <li>{{ suitableEvidence.message }}</li>
   </ul>
+  <p class="govuk-body">{{ line5 }}</p>
+  <p class="govuk-body">{{ line6 }}</p>
+  <h2 class="govuk-heading-m">{{ headingSection4 }}</h2>
+  <ul class="govuk-list govuk-list--bullet">
+      <li>{{ statementFromThirdParty.line1 }}</li>
+      <li>{{ statementFromThirdParty.line2 }}</li>
+      <li>{{ statementFromThirdParty.line3 }}</li>
+  </ul>
+  <br>
 {% endblock %}
 
 

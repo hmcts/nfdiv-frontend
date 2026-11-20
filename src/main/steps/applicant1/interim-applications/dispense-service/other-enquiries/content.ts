@@ -5,8 +5,8 @@ import { CommonContent } from '../../../../common/common.content';
 
 const en = ({ partner }: CommonContent) => ({
   title: `What other enquiries have you made, or information do you have concerning the whereabouts of your ${partner}?`,
-  otherEnquiriesHeader:
-    "For example, this could include enquiries made of any professional organisations they may be a member of. Enter 'none' if you do not have any more information.",
+  otherEnquiriesHint:
+    "For example, this could include enquiries made of any professional organisations they may be a member of; enter 'none' if you do not have any more information.",
   uploadHint: 'You will be able to upload any evidence you have at the end of this application.',
   errors: {
     applicant1DispenseOtherEnquiries: {
@@ -17,8 +17,8 @@ const en = ({ partner }: CommonContent) => ({
 
 const cy: typeof en = ({ partner }: CommonContent) => ({
   title: `Pa ymholiadau eraill a wnaethoch, neu pa wybodaeth sydd gennych, ynghylch ble mae eich ${partner}?`,
-  otherEnquiriesHeader:
-    'Er enghraifft, gallai hyn gynnwys ymholiadau a wnaed am unrhyw sefydliadau proffesiynol maent yn aelod ohonynt. Rhowch ‘dim’ os nad oes gennych fwy o wybodaeth.',
+  otherEnquiriesHint:
+    'Er enghraifft, gallai hyn gynnwys ymholiadau a wnaed am unrhyw sefydliadau proffesiynol maent yn aelod ohonynt; rhowch ‘dim’ os nad oes gennych fwy o wybodaeth.',
   uploadHint: 'Byddwch yn gallu uwchlwytho unrhyw dystiolaeth sydd gennych ar ddiwedd y cais hwn.',
   errors: {
     applicant1DispenseOtherEnquiries: {
@@ -37,7 +37,8 @@ export const form: FormContent = {
     applicant1DispenseOtherEnquiries: {
       type: 'textarea',
       classes: 'govuk-input--width-40',
-      label: l => l.otherEnquiriesHeader,
+      label: l => l.title,
+      hint: l => l.otherEnquiriesHint,
       labelHidden: true,
       validator: value => isFieldFilledIn(value),
     },

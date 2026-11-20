@@ -84,6 +84,7 @@ describe('getUserDetails', () => {
     const result = await getUserDetails('http://localhost', '123', CALLBACK_URL);
     expect(result).toStrictEqual({
       accessToken: 'token',
+      idToken: mockToken,
       email: 'test@test.com',
       givenName: 'John',
       familyName: 'Dorian',
@@ -117,10 +118,12 @@ describe('getSystemUser', () => {
     roles: string[];
     id: string;
     accessToken: string;
+    idToken: string;
     email: string;
   } = {
     email: 'user-email',
     accessToken: 'systemUserTestToken',
+    idToken: mockSystemToken,
     id: '456',
     givenName: undefined,
     familyName: undefined,
@@ -160,8 +163,8 @@ describe('getSystemUser', () => {
         return values[key];
       });
 
-      expect(getEndIdamSessionUrl('http://localhost/save-sign-out')).toBe(
-        'https://hmcts-access.service.gov.uk/o/endSession?post_logout_redirect_uri=http://localhost/save-sign-out'
+      expect(getEndIdamSessionUrl('http://localhost/save-sign-out', 'mock-id-token')).toBe(
+        'https://hmcts-access.service.gov.uk/o/endSession?post_logout_redirect_uri=http://localhost/save-sign-out&id_token_hint=mock-id-token'
       );
     });
 
@@ -174,8 +177,8 @@ describe('getSystemUser', () => {
         return values[key];
       });
 
-      expect(getEndIdamSessionUrl('http://localhost/save-sign-out')).toBe(
-        'https://idam-web-public.aat.platform.hmcts.net/o/endSession?post_logout_redirect_uri=http://localhost/save-sign-out'
+      expect(getEndIdamSessionUrl('http://localhost/save-sign-out', 'mock-id-token')).toBe(
+        'https://idam-web-public.aat.platform.hmcts.net/o/endSession?post_logout_redirect_uri=http://localhost/save-sign-out&id_token_hint=mock-id-token'
       );
     });
   });

@@ -8,7 +8,9 @@
 {% block page_content %}
   <h1 class="govuk-heading-l" id="bailiffPartnersAddressTitle">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
-  <p class="govuk-body">{{ line2 | safe }}</p>
+  {% if not isApp2Confidential %}
+    <p class="govuk-body">{{ line2 | safe }}</p>
+  {% endif %}
 
   {% set contactDetailsRows = [] %}
   {% set contactDetailsRows = (contactDetailsRows.push({

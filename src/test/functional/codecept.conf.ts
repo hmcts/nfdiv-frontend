@@ -11,6 +11,9 @@ export const config: CodeceptJS.Config = {
   helpers: testConfig.helpers,
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
+  retry: {
+    Before: 3,
+  },
   plugins: {
     failOnHook: {
       enabled: true,
