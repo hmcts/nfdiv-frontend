@@ -5,10 +5,10 @@ import {
   RequestForInformationSoleParties,
 } from '../../main/app/case/definition';
 
-import { TestUserKey } from './commonHelpers/IdamUserManager';
-import { triggerAnEvent } from './commonHelpers/caseInteraction';
-import { iEnterValueIntoInput } from './commonHelpers/elementInteraction';
-import { getApplicantString } from './commonHelpers/userInteraction';
+import { triggerAnEvent } from './commonHelpers/case-interaction';
+import { iEnterValueIntoInput } from './commonHelpers/element-interaction';
+import { TestUserKey } from './commonHelpers/idam-user-manager';
+import { getApplicantString } from './commonHelpers/user-interaction';
 
 const REQUEST_FOR_INFORMATION_DETAILS = 'Example request for information details';
 const REQUEST_FOR_INFORMATION_THIRD_PARTY_NAME = 'Example third party name';

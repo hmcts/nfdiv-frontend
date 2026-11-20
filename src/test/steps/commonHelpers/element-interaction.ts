@@ -14,7 +14,7 @@ import {
   getOtherApplicantString,
   getTheirName,
   getUserEmail,
-} from './userInteraction';
+} from './user-interaction';
 
 const { I } = inject();
 

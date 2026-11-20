@@ -12,7 +12,6 @@ import {
 } from '../../main/steps/urls';
 import { areRetriesDisabled } from '../config';
 
-import { TestUserKey } from './commonHelpers/IdamUserManager';
 import {
   caseworkerIssuesCase,
   caseworkerResetsJurisdictionConnections,
@@ -22,7 +21,7 @@ import {
   iSetTheCaseStateAndSignInAsUser,
   iSetTheCaseStateAndSignOut,
   linkUserToCase,
-} from './commonHelpers/caseInteraction';
+} from './commonHelpers/case-interaction';
 import {
   DEFAULT_PHONE_NUMBER,
   iAcceptCookies,
@@ -71,7 +70,8 @@ import {
   iWaitForElement,
   iWaitForUploadedFile,
   iWaitForVisible,
-} from './commonHelpers/elementInteraction';
+} from './commonHelpers/element-interaction';
+import { TestUserKey } from './commonHelpers/idam-user-manager';
 import {
   iAmOnPage,
   iClickBackLink,
@@ -93,7 +93,7 @@ import {
   iClickSignOut,
   iLoginAsUser,
   login,
-} from './commonHelpers/userInteraction';
+} from './commonHelpers/user-interaction';
 
 const { I } = inject();
 

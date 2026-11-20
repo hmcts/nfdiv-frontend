@@ -1,15 +1,15 @@
 import { State } from '../../main/app/case/definition';
 import { HOW_TO_FINALISE_APPLICATION, HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE } from '../../main/steps/urls';
 
-import { caseworkerUpdatesTheCase } from './commonHelpers/caseInteraction';
+import { caseworkerUpdatesTheCase } from './commonHelpers/case-interaction';
 import {
   iCheckOption,
   iClickSubmit,
   iClickSubmitAndExpectUrl,
   iEnterValueIntoInput,
-} from './commonHelpers/elementInteraction';
+} from './commonHelpers/element-interaction';
 import { iClickToNavigate, iWaitInUrl } from './commonHelpers/navigation';
-import { getApplicantString, getCapitalisedApplicantString, iSignOut } from './commonHelpers/userInteraction';
+import { getApplicantString, getCapitalisedApplicantString, iSignOut } from './commonHelpers/user-interaction';
 import { DEFAULT_DATE, dateStringToApi } from './date';
 import { iSubmitToApplyForFinalOrderAsSoleApplicant, prepareTheCaseForSwitchToSoleFinalOrder } from './switch-to-sole';
 

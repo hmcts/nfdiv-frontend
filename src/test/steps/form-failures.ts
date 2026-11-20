@@ -10,8 +10,8 @@ import {
   iSelectNo,
   iWaitForVisibleError,
   iWaitForVisibleErrorSummary,
-} from './commonHelpers/elementInteraction';
-import { getApplicantString, getOtherApplicantString } from './commonHelpers/userInteraction';
+} from './commonHelpers/element-interaction';
+import { getApplicantString, getOtherApplicantString } from './commonHelpers/user-interaction';
 import { dateToString, iEnterADateIntoField } from './date';
 import {
   getDefaultPostcode,

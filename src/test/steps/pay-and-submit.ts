@@ -19,7 +19,7 @@ import {
   iClickSubmit,
   iClickSubmitAndExpectUrl,
   iEnterValueIntoInput,
-} from './commonHelpers/elementInteraction';
+} from './commonHelpers/element-interaction';
 import { iWaitInUrl, iWaitInUrlAsUser } from './commonHelpers/navigation';
 
 const completePayment = async (nextUrl?: string, wait?: number, waitUntil?: WaitUntil, titleSelector?: string) => {

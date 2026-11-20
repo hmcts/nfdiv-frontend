@@ -1,11 +1,11 @@
 import { State } from '../../main/app/case/definition';
 import { HUB_PAGE } from '../../main/steps/urls';
 
-import { TestUserKey } from './commonHelpers/IdamUserManager';
-import { iSetTheCaseStateAndSignInAsUser } from './commonHelpers/caseInteraction';
-import { iEnterValueIntoInput } from './commonHelpers/elementInteraction';
+import { iSetTheCaseStateAndSignInAsUser } from './commonHelpers/case-interaction';
+import { iEnterValueIntoInput } from './commonHelpers/element-interaction';
+import { TestUserKey } from './commonHelpers/idam-user-manager';
 import { iClickToNavigate } from './commonHelpers/navigation';
-import { getUserKeyByIndex } from './commonHelpers/userInteraction';
+import { getUserKeyByIndex } from './commonHelpers/user-interaction';
 
 const APPLY_FOR_CONDITIONAL_ORDER_BUTTON_SELECTOR = '#applyForConditionalOrderButton';
 const EXAMPLE_ADDITIONAL_DETAILS = 'Example additional details';

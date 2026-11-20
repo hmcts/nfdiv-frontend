@@ -1,4 +1,4 @@
-import { BrowserCase } from '../../steps/commonHelpers/caseInteraction';
+import { BrowserCase } from '../../steps/commonHelpers/case-interaction';
 
 import { jointApplicant1CompleteCase } from './jointApplicant1CompleteCase';
 

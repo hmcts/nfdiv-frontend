@@ -6,7 +6,7 @@ import {
   Gender,
   YesOrNo,
 } from '../../../main/app/case/definition';
-import { BrowserCase } from '../../steps/commonHelpers/caseInteraction';
+import { BrowserCase } from '../../steps/commonHelpers/case-interaction';
 
 export const jointApplicant1AppliedFirstCompleteCase: Partial<BrowserCase> = {
   applicant1Address1: 'BUCKINGHAM PALACE',

@@ -19,8 +19,7 @@ import {
   OPTIONS_FOR_PROGRESSING,
 } from '../../main/steps/urls';
 
-import { TestUserKey } from './commonHelpers/IdamUserManager';
-import { BrowserCase, caseworkerUpdatesTheCase } from './commonHelpers/caseInteraction';
+import { BrowserCase, caseworkerUpdatesTheCase } from './commonHelpers/case-interaction';
 import {
   DEFAULT_EMAIL_ADDRESS,
   DEFAULT_PHONE_NUMBER,
@@ -32,9 +31,10 @@ import {
   iSelectNo,
   iSelectRadioValue,
   iSelectYes,
-} from './commonHelpers/elementInteraction';
+} from './commonHelpers/element-interaction';
+import { TestUserKey } from './commonHelpers/idam-user-manager';
 import { iClickToNavigate } from './commonHelpers/navigation';
-import { getApplicantString, getTheirName, iLoginAsUser, login } from './commonHelpers/userInteraction';
+import { getApplicantString, getTheirName, iLoginAsUser, login } from './commonHelpers/user-interaction';
 import { DEFAULT_DATE, dateStringToApi, iEnterADateIntoField } from './date';
 import { completedFormWithFixture } from './happy-path';
 import { DEFAULT_ADDRESS, SECONDARY_ADDRESS, iEnterTheUkAddress } from './postcode';

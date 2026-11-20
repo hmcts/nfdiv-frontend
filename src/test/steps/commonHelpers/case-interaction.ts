@@ -23,8 +23,8 @@ import {
   YOU_NEED_TO_REVIEW_YOUR_APPLICATION,
 } from '../../../main/steps/urls';
 
-import { TestUserAndPassword, TestUserKey } from './IdamUserManager';
-import { iClickSubmit, iClickSubmitAndExpectUrl, iEnterValueIntoInput } from './elementInteraction';
+import { iClickSubmit, iClickSubmitAndExpectUrl, iEnterValueIntoInput } from './element-interaction';
+import { TestUserAndPassword, TestUserKey } from './idam-user-manager';
 import { logAndExit, logAndThrow, logger } from './logger';
 import { iAmOnPage } from './navigation';
 import { lookupState } from './state-lookup';
@@ -37,7 +37,7 @@ import {
   iLoginAsUser,
   iSignOut,
   login,
-} from './userInteraction';
+} from './user-interaction';
 
 const canSenderSetConnections = (sender: TestUserKey): boolean => {
   return sender !== TestUserKey.APPLICANT_2 && sender !== TestUserKey.RESPONDENT;

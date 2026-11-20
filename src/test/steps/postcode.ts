@@ -4,7 +4,7 @@ import {
   iClickElement,
   iEnterValueIntoInput,
   iWaitForVisible,
-} from './commonHelpers/elementInteraction';
+} from './commonHelpers/element-interaction';
 import { logger } from './commonHelpers/logger';
 
 const { I } = inject();

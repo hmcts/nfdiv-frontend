@@ -1,8 +1,8 @@
 import { State, YesOrNo } from '../../main/app/case/definition';
 import { EXPLAIN_THE_DELAY, HOW_TO_FINALISE_APPLICATION, HUB_PAGE, YOUR_DETAILS_URL } from '../../main/steps/urls';
 
-import { BrowserCase, caseworkerUpdatesTheCase } from './commonHelpers/caseInteraction';
-import { iClickSubmit } from './commonHelpers/elementInteraction';
+import { BrowserCase, caseworkerUpdatesTheCase } from './commonHelpers/case-interaction';
+import { iClickSubmit } from './commonHelpers/element-interaction';
 import { iClickToNavigate, iWaitInUrl } from './commonHelpers/navigation';
 import {
   getApplicantString,
@@ -10,7 +10,7 @@ import {
   iLoginAsUser,
   isApplicant2,
   switchApplicant1AndApplicant2,
-} from './commonHelpers/userInteraction';
+} from './commonHelpers/user-interaction';
 
 const DATE_FINAL_ORDER_SUBMITTED = '2022-09-21T08:08:34.548';
 const SWITCH_TO_SOLE_LINK_SELECTOR = '#switchToSoleLink';

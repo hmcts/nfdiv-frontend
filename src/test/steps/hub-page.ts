@@ -6,8 +6,8 @@ import {
   iSetTheCaseStateAndReSignIn,
   iSetTheCaseStateAndSignInAsUser,
   iUpdateTheCase,
-} from './commonHelpers/caseInteraction';
-import { getCurrentUserKey, getUserKeyByIndex, iLoginAsUser } from './commonHelpers/userInteraction';
+} from './commonHelpers/case-interaction';
+import { getCurrentUserKey, getUserKeyByIndex, iLoginAsUser } from './commonHelpers/user-interaction';
 
 export const progressCaseToAwaitingPronouncement = async (expectedElementSelector?: string): Promise<void> => {
   const currentUserKey = getCurrentUserKey();

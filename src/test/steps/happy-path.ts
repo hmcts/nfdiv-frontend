@@ -35,8 +35,7 @@ import {
   YOUR_DETAILS_URL,
 } from '../../main/steps/urls';
 
-import { TestUserKey } from './commonHelpers/IdamUserManager';
-import { iUpdateTheCase } from './commonHelpers/caseInteraction';
+import { iUpdateTheCase } from './commonHelpers/case-interaction';
 import {
   iAgreeTheCourtCanContactMeByEmail,
   iCannotUploadDocs,
@@ -55,9 +54,10 @@ import {
   iSelectRadioValue,
   iSelectYes,
   iSetPrivateAddress,
-} from './commonHelpers/elementInteraction';
+} from './commonHelpers/element-interaction';
+import { TestUserKey } from './commonHelpers/idam-user-manager';
 import { iAmOnPage } from './commonHelpers/navigation';
-import { getUserKeyByIndex } from './commonHelpers/userInteraction';
+import { getUserKeyByIndex } from './commonHelpers/user-interaction';
 import { iEnterTheDefaultRelationshipDate } from './date';
 import { DEFAULT_ADDRESS, iEnterTheUkAddress } from './postcode';
 

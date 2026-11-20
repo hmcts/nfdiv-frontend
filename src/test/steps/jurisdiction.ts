@@ -2,8 +2,8 @@ import { Checkbox } from '../../main/app/case/case';
 import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
 import { CHECK_JURISDICTION } from '../../main/steps/urls';
 
-import { iUpdateTheCase } from './commonHelpers/caseInteraction';
-import { iClickSubmit, iSelectYesOrNoForField } from './commonHelpers/elementInteraction';
+import { iUpdateTheCase } from './commonHelpers/case-interaction';
+import { iClickSubmit, iSelectYesOrNoForField } from './commonHelpers/element-interaction';
 import { iAmOnPage, iClickToNavigate } from './commonHelpers/navigation';
 
 const CHECK_JURISDICTION_LINK_SELECTOR = `a[href="${CHECK_JURISDICTION}"]`;

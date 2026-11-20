@@ -1,4 +1,4 @@
-import { iEnterValueIntoInput } from './commonHelpers/elementInteraction';
+import { iEnterValueIntoInput } from './commonHelpers/element-interaction';
 
 export const DEFAULT_DATE = '1/1/2000';
 

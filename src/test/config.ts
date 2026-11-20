@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 import { Application } from 'express';
 import { getTokenFromApi } from '../main/app/auth/service/get-service-auth-token';
 import { PropertiesVolume } from '../main/modules/properties-volume';
-import { IdamUserManager } from './steps/commonHelpers/IdamUserManager';
+import { IdamUserManager } from './steps/commonHelpers/idam-user-manager';
 
 // better handling of unhandled exceptions
 process.on('unhandledRejection', reason => {

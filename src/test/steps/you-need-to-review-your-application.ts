@@ -2,7 +2,7 @@ import { Checkbox } from '../../main/app/case/case';
 import { ApplicationType, DivorceOrDissolution, Gender, YesOrNo } from '../../main/app/case/definition';
 import { jointApplicant1CompleteCase } from '../functional/fixtures/jointApplicant1CompleteCase';
 
-import { iUpdateTheCase } from './commonHelpers/caseInteraction';
+import { iUpdateTheCase } from './commonHelpers/case-interaction';
 
 Given('I am reviewing an application for divorce created by my wife', async () => {
   await iUpdateTheCase({

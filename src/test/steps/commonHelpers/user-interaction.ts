@@ -17,7 +17,6 @@ import {
 } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
 
-import { TestUserAndPassword, TestUserKey } from './IdamUserManager';
 import {
   iClickSubmit,
   iClickSubmitAndExpectUrl,
@@ -26,7 +25,8 @@ import {
   iSelectRadioValue,
   iWaitForElement,
   iWaitForElementWithText,
-} from './elementInteraction';
+} from './element-interaction';
+import { TestUserAndPassword, TestUserKey } from './idam-user-manager';
 import { logAndThrow } from './logger';
 import { iAmOnIdam, iAmOnNfd, iAmOnPage, iClickToNavigate, iGrabCurrentUrl, iWaitInUrl } from './navigation';
 
