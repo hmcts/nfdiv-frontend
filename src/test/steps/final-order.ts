@@ -13,6 +13,10 @@ import { getApplicantString, getCapitalisedApplicantString, iSignOut } from './c
 import { DEFAULT_DATE, dateStringToApi } from './date';
 import { iSubmitToApplyForFinalOrderAsSoleApplicant, prepareTheCaseForSwitchToSoleFinalOrder } from './switch-to-sole';
 
+const APPLY_FOR_FINAL_ORDER_BUTTON_SELECTOR = '#applyForFinalOrderButton';
+const EXAMPLE_REASON_FOR_DELAY = 'Example reason for the delay';
+const EXAMPLE_REASON_FOR_RESPONDENT_FO_APPLICATION = 'Example reason for respondent fo application';
+
 export const prepareTheCaseForRespondentToApplyForFinalOrder = async (): Promise<void> => {
   await caseworkerUpdatesTheCase({
     state: State.AwaitingFinalOrder,
@@ -26,10 +30,10 @@ Given(
 );
 
 When('I click apply for final order', async () => {
-  await iClickToNavigate('#applyForFinalOrderButton');
+  await iClickToNavigate(APPLY_FOR_FINAL_ORDER_BUTTON_SELECTOR);
 });
 When('I click apply for final order and expect URL {string}', async (url: string) => {
-  await iClickToNavigate('#applyForFinalOrderButton', undefined, url);
+  await iClickToNavigate(APPLY_FOR_FINAL_ORDER_BUTTON_SELECTOR, undefined, url);
 });
 
 Given('I want to finalise my divorce', () => {
@@ -57,10 +61,10 @@ Given('I click submit to apply for final order as a sole applicant when overdue'
 });
 
 Given('I enter the reason for the delay', () => {
-  iEnterValueIntoInput('Example reason for the delay', `#${getApplicantString()}FinalOrderLateExplanation`);
+  iEnterValueIntoInput(EXAMPLE_REASON_FOR_DELAY, `#${getApplicantString()}FinalOrderLateExplanation`);
 });
 Given('I explain why I need to apply for the final order', () => {
-  iEnterValueIntoInput('Example reason for respondent fo application', `#${getApplicantString()}FinalOrderExplanation`);
+  iEnterValueIntoInput(EXAMPLE_REASON_FOR_RESPONDENT_FO_APPLICATION, `#${getApplicantString()}FinalOrderExplanation`);
 });
 
 When('I click confirm and expect hub element {string}', async (expectedElementSelector: string) => {

@@ -35,7 +35,7 @@ import {
 } from './commonHelpers/elementInteraction';
 import { iClickToNavigate } from './commonHelpers/navigation';
 import { getApplicantString, getTheirName, iLoginAsUser, login } from './commonHelpers/userInteraction';
-import { DEFAULT_DATE, iEnterADateIntoField } from './date';
+import { DEFAULT_DATE, dateStringToApi, iEnterADateIntoField } from './date';
 import { completedFormWithFixture } from './happy-path';
 import { DEFAULT_ADDRESS, SECONDARY_ADDRESS, iEnterTheUkAddress } from './postcode';
 
@@ -44,9 +44,8 @@ const AOS_DUE_LINE_SELECTOR = '#aosDueLine1';
 const AOS_AWAITING_LINE_SELECTOR = '#aosAwaitingLine1';
 const AOS_DUE_AND_DRAFTED_LINK_SELECTOR = '#aosDueAndDraftedLink';
 const AOS_DUE_LINK_SELECTOR = '#aosDueLink';
-const DEFAULT_DATE_STRING = '2020-01-01';
 const TEST_SOLICITOR_FIRM_NAME = 'Test Solicitor Firm Name';
-const AOS_AWAITING_EVENT_DATA = { state: State.AwaitingAos, issueDate: DEFAULT_DATE_STRING };
+const AOS_AWAITING_EVENT_DATA = { state: State.AwaitingAos, issueDate: dateStringToApi(DEFAULT_DATE) };
 const DEFAULT_NI_NUMBER = 'JB 34 66 84 E';
 
 export const createCaseAtAwaitingAos = async (): Promise<void> => {
