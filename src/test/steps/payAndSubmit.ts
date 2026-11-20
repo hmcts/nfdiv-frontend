@@ -76,7 +76,7 @@ Given('I pay and submit the final order application', async () => {
   iWaitInUrlAsUser(PAY_YOUR_FINAL_ORDER_FEE, RESPONDENT);
   await iClickSubmit();
 
-  await completePayment(RESPONDENT + HUB_PAGE, 15);
+  await completePayment(RESPONDENT + HUB_PAGE, 15, undefined, '#finalOrderRequestedRespondentContent');
 });
 
 Given('I pay and submit the joint application', async () => {
