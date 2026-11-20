@@ -54,7 +54,7 @@ Feature: Sole hub page
 
     Then I click continue and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
 
-    Given I set the case state to "ConditionalOrderPronounced" and expect hub element "#conditionalOrderPronouncedSoleContent"
+    Given I set the case state to "ConditionalOrderPronounced" and expect hub element "#conditionalOrderPronouncedContent"
     Then I login with the respondent and expect hub element "#conditionalOrderPronouncedRespondentContent"
 
     Given I set the case state to "AwaitingServiceConsideration" then login as applicant "1" and expect hub element "#awaitingServiceConsiderationOrBailiffReferralContent"
