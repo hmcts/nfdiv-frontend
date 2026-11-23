@@ -2,19 +2,11 @@ import { LanguagePreference } from '../../main/app/case/case';
 import { ApplicationType, Gender, State, YesOrNo } from '../../main/app/case/definition';
 import { FinancialOrderForRadioOption } from '../../main/steps/applicant1/who-is-the-financial-order-for/content';
 import { existingOrNew } from '../../main/steps/existing-application/content';
-import {
-  CHECK_JURISDICTION,
-  CSRF_TOKEN_ERROR_URL,
-  HOW_DO_YOU_WANT_TO_APPLY,
-  HUB_PAGE,
-  REVIEW_THE_APPLICATION,
-  THEIR_EMAIL_ADDRESS,
-} from '../../main/steps/urls';
+import { CSRF_TOKEN_ERROR_URL, HUB_PAGE, REVIEW_THE_APPLICATION, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
 import { areRetriesDisabled } from '../config';
 
 import {
   caseworkerIssuesCase,
-  caseworkerResetsJurisdictionConnections,
   caseworkerUpdatesCourtCaseHearing,
   caseworkerUpdatesTheCase,
   iSetTheCaseStateAndReSignIn,
@@ -35,7 +27,6 @@ import {
   iClickContinueAndExpectHubElement,
   iClickContinueAndExpectUrl,
   iClickElement,
-  iClickMoreDetailsComponent,
   iClickProvideInformation,
   iClickStart,
   iClickStartAndExpectUrl,
@@ -48,6 +39,7 @@ import {
   iConfirmWeLiveInEnglandOrWales,
   iDeleteAllUploadedFiles,
   iDeleteUploadedFile,
+  iDontSeeElementInDOM,
   iEnterMyCertificateName,
   iEnterMyHwfReference,
   iEnterMyName,
@@ -192,7 +184,6 @@ When('I reject cookies', iRejectCookies);
 When('I click {string}', iClickString);
 When('I select {string}', iClickString);
 When('I wait {string} seconds', iWait);
-When('I click for more details', iClickMoreDetailsComponent);
 
 When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
   iCheckOptionFor(optionLabel, fieldLabel);
@@ -250,7 +241,7 @@ Then('the page should include element {string}', (selector: string) => {
 });
 
 Then('the page should not include element {string}', (selector: string) => {
-  I.dontSeeElementInDOM(selector);
+  iDontSeeElementInDOM(selector);
 });
 Then('the page should not include a back link', iDontSeeABackLink);
 Then('the page should include a back link', iSeeABackLink);
@@ -556,13 +547,6 @@ Given('I use an invalid CSRF token', async () => {
 
 Given('I clear the form', iClearTheForm);
 
-Given("I've said I'm applying as a joint application", async () => {
-  iAmOnPage(HOW_DO_YOU_WANT_TO_APPLY);
-  await iClearTheForm();
-  iCheckOption(`#${ApplicationType.JOINT_APPLICATION}`);
-  await iClickSubmit();
-});
-
 Given("I've said I do not have my husband's email address", async () => {
   iAmOnPage(THEIR_EMAIL_ADDRESS);
   await iClearTheForm();
@@ -600,9 +584,3 @@ When('a superuser updates {string} with {string}', async (field: string, value: 
 });
 
 When('I pause the test', () => pause());
-
-When('I reset the jurisdiction connections', async () => {
-  await caseworkerResetsJurisdictionConnections();
-  iAmOnPage(CHECK_JURISDICTION);
-  await iClickSubmit();
-});
