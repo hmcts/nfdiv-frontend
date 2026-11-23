@@ -11,7 +11,7 @@ import {
 } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
 
-import { WaitUntil, iClick, iWaitForVisible } from './element-interaction';
+import { WaitUntil, iClick, iWaitForVisible, iWaitForElement, iDontSeeElementInDOM } from './element-interaction';
 import { TestUserKey } from './idam-user-manager';
 import { logAndThrow, logger } from './logger';
 import {
@@ -120,7 +120,7 @@ export const setUserPathPrefix = (nextUrl: string, user?: string): InternalPageL
 };
 
 export const iDontSeeABackLink = (): void => {
-  I.dontSeeElementInDOM(BACK_LINK_SELECTOR);
+  iDontSeeElementInDOM(BACK_LINK_SELECTOR);
 };
 export const iSeeABackLink = (): void => {
   iWaitForVisible(BACK_LINK_SELECTOR);
@@ -199,7 +199,7 @@ export const iClickToNavigate = async (
   }
   iWaitForUrl(nextUrl, wait, waitUntil);
   if (expectElement) {
-    I.waitForElement(expectedElementSelector, wait);
+    iWaitForElement(expectedElementSelector, wait);
   }
 };
 
