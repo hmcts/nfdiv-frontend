@@ -1,639 +1,167 @@
 Feature: Jurisdiction - can use English or Welsh courts
 
   Background:
-    Given I login with applicant "1"
+    Given I create a new user and login
     And I've completed all questions correctly to get to the jurisdiction section
 
   Scenario: Jurisdiction happy path tests, part one
     # A Applicant1 and Applicant2 are habitually resident
-    Given I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are habitually resident in England and Wales"
+    Given we both live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
+    And the page should include sole divorce connection content "APP_1_APP_2_RESIDENT"
+
 
     # B Applicant1 and Applicant2 were last habitually resident in England and Wales, neither habitually resident
     Given I reset the jurisdiction connections
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    Then the page URL should be "/your-domicile"
-    Given I select "No" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    Then the page URL should be "/habitually-resident-england-wales"
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
+    And neither of us live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_DOMICILE"
+
+    Given neither of us are domiciled in England or Wales
+    Then I click continue and expect URL "HABITUALLY_RESIDENT_ENGLAND_WALES"
+
+    Given I select yes
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
+    And the page should include sole divorce connection content "APP_1_APP_2_LAST_RESIDENT"
+
 
     # C The Applicant2 habitually resides in England and Wales (mixed sex marriage)
     Given I reset the jurisdiction connections
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because your husband is habitually resident in England and Wales"
+    And only my partner lives in England or Wales
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
+    And the page should include sole divorce connection content "APP_2_RESIDENT_SOLE"
+
 
     # D Applicant1 is habitually resident in England and Wales and has been for 12 months
     Given I reset the jurisdiction connections
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are habitually resident in England and Wales and have resided there for at least one year immediately before making this application"
+    And only I live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_LAST_TWELVE_MONTHS"
+
+    Given I select yes
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
+    And the page should include sole divorce connection content "APP_1_RESIDENT_TWELVE_MONTHS"
+
 
     # F Applicant1 and Applicant2 are both domiciled in England and Wales, Applicant1 habitually resident (mixed sex marriage)
     Given I reset the jurisdiction connections
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are domiciled in England and Wales"
-    And the page should include "Read more about domicile"
+    And only I live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_LAST_TWELVE_MONTHS"
+
+    Given I select no
+    Then I click continue and expect URL "JURISDICTION_DOMICILE"
+    And we are both domiciled in England or Wales
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
+    And the page should include sole divorce connection content "APP_1_APP_2_DOMICILED"
+
 
     # G residual jurisdiction applies (Applicant1 resident, same sex couple)
     Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No"
-    And I click continue
-    And I select "No" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    Then the page URL should be '/are-you-eligible-for-residual-jurisdiction'
-    Given I select "Yes"
-    When I click continue
-    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband married each other in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case"
+    Then I go to 'YOUR_DETAILS_URL'
+
+    Given we were a same-sex couple when we got married
+    Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
+
+    Given I go to "WHERE_YOUR_LIVES_ARE_BASED_URL"
+    And only I live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_LAST_TWELVE_MONTHS"
+
+    Given I select no
+    Then I click continue and expect URL "JURISDICTION_DOMICILE"
+
+    Given neither of us are domiciled in England or Wales
+    Then I click continue and expect URL "HABITUALLY_RESIDENT_ENGLAND_WALES"
+
+    Given I select no
+    Then I click continue and expect URL "RESIDUAL_JURISDICTION"
+
+    Given I select yes
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
+    And the page should include sole divorce connection content "RESIDUAL_JURISDICTION_D"
+
 
     # H, E, B Applicant1 domiciled, Applicant1 habitually resident for 6 months and both last habitually resident
   Scenario: Jurisdiction happy path tests, part two
     Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    Then the page URL should be "/living-england-wales-six-months"
-    And I select "Yes"
-    When I click continue
-    Then the page should include "Were you both last habitually resident in England or Wales and does one of you still live here?"
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only you are domiciled in England and Wales"
-    And the page should include "you are domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application"
-    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
+    Then I go to 'YOUR_DETAILS_URL'
+
+    Given we were a same-sex couple when we got married
+    Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
+
+    Given I go to "WHERE_YOUR_LIVES_ARE_BASED_URL"
+    And only I live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_LAST_TWELVE_MONTHS"
+
+    Given I select no
+    Then I click continue and expect URL "JURISDICTION_DOMICILE"
+
+    Given only I am domiciled in England or Wales
+    Then I click continue and expect URL "LIVING_ENGLAND_WALES_SIX_MONTHS"
+
+    Given I select yes
+    Then I click continue and expect URL "HABITUALLY_RESIDENT_ENGLAND_WALES"
+
+    Given I select yes
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
+    And the page should include sole divorce connection content "APP_1_DOMICILED, APP_1_RESIDENT_SIX_MONTHS, APP_1_APP_2_LAST_RESIDENT"
+
 
     # I Applicant2 domiciled (Applicant1 resident)
     Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    And I clear the form
-    And I select "My husband"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    And I select "No" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    When I click continue
-    Then the page URL should be "/habitually-resident-england-wales"
-    And I select "No"
-    When I click continue
-    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because only your husband is domiciled in England and Wales"
+    Then I go to "WHERE_YOUR_LIVES_ARE_BASED_URL"
+
+    Given only I live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_LAST_TWELVE_MONTHS"
+
+    Given I select no
+    Then I click continue and expect URL "JURISDICTION_DOMICILE"
+
+    Given only my partner is domiciled in England or Wales
+    Then I click continue and expect URL "HABITUALLY_RESIDENT_ENGLAND_WALES"
+
+    Given I select no
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
+    And the page should include sole divorce connection content "APP_2_DOMICILED"
+
 
     # J Applicant1 habitually resides in England and Wales (joint application)
     Given I reset the jurisdiction connections
-    And I've said I'm applying as a joint application
-    And I go to '/where-your-lives-are-based'
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you are habitually resident in England and Wales"
+    And I've said I'm making a joint application
+    Then I go to "WHERE_YOUR_LIVES_ARE_BASED_URL"
+
+    Given only I live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
+    And the page should include joint divorce connection content "APP_1_RESIDENT_JOINT"
+
 
   @nightly
   Scenario: Clicking Back takes them to the start of the jurisdiction flow
-    Given I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    When I click back
-    Then the page should include "Check if you can get a divorce in England or Wales"
+    Given we both live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
 
-  @nightly
-  Scenario: Checking additional connections on you-can-use-english-or-welsh-courts page
-    Given I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are habitually resident in England and Wales"
-    When I click for more details
-    Then the page should not include 'My husband and I are habitually resident in England and Wales'
-    Given I select "My husband is habitually resident in England and Wales"
-    When I click continue
-    Then the page should include "Enter your name"
-    When I go to "/"
-    Then the page should include "you and your husband are habitually resident in England and Wales"
-    And the page should include "your husband is habitually resident in England and Wales"
+    Then I click back and expect URL "CHECK_JURISDICTION"
 
   @nightly
   Scenario: The user changes their answer to same-sex or application type
-    Given I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    Given I go to "/your-details"
-    And I select "We were a same-sex couple when we got married"
-    When I click continue
-    Then the page URL should be "/irretrievable-breakdown"
-    Given I go to "/"
-    When I click continue
-    Then the page URL should be "/check-jurisdiction"
+    Given we both live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
 
-    When I click continue
-    Then the page should include "Where your lives are based"
-    Given I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    Given I go to "/how-do-you-want-to-apply"
-    And I select "I want to apply jointly, with my husband"
-    When I click continue
-    Then the page URL should be "/their-email-address"
-    Given I select "Your husband's email address"
-    And I type "simulate-delivered@notifications.service.gov.uk"
-    When I click continue
-    Then the page URL should be "/in-the-uk"
-    Given I go to "/"
-    When I click continue
-    Then the page URL should be "/check-jurisdiction"
+    Given I go to "YOUR_DETAILS_URL"
+    And we were a same-sex couple when we got married
+    Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
+    Given I go to "HOME_URL"
+    Then I click continue and expect URL "CHECK_JURISDICTION"
 
-  @nightly
-  Scenario: Jurisdiction unhappy paths
-    # B Applicant1 and Applicant2 were last habitually resident in England and Wales, Applicant1 habitually resident
-    Given I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    Then the page URL should be "/living-england-wales-twelve-months"
-    Given I select "No"
-    When I click continue
-    Then the page should include "Your domicile"
-    And I select "No" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
+    Then I click continue and expect URL "WHERE_YOUR_LIVES_ARE_BASED_URL"
 
-    # F Applicant1 and Applicant2 are both domiciled in England and Wales, neither habitually resident (mixed sex marriage)
-    Given I reset the jurisdiction connections
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are domiciled in England and Wales"
-    And the page should include "Read more about domicile"
+    Given we both live in England or Wales
+    Then I click continue and expect URL "JURISDICTION_INTERSTITIAL_URL"
 
-    # G residual jurisdiction applies (Applicant1 not resident, same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    Then the page URL should be "/are-you-eligible-for-residual-jurisdiction"
-    Given I select "Yes"
-    When I click continue
-    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband married each other in England and Wales and it would be in the interests of justice for the court to assume jurisdiction in this case"
+    Given I go to "HOW_DO_YOU_WANT_TO_APPLY"
+    And I want to apply jointly
+    Then I click continue and expect URL "THEIR_EMAIL_ADDRESS"
 
-    # F Applicant1 and Applicant2 domiciled (Applicant1 resident, same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are domiciled in England and Wales"
+    Given I enter their email address
+    Then I click continue and expect URL "IN_THE_UK"
 
-    # F Applicant1 and Applicant2 domiciled (Applicant1 not resident, same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because you and your husband are domiciled in England and Wales"
-
-    # F, B Applicant1 and Applicant2 domiciled and both last habitually resident (Applicant1 resident, same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "Yes"
-    When I click continue
-    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because"
-    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
-    And the page should include "you and your husband are domiciled in England and Wales"
-
-    # F, B Applicant1 and Applicant2 domiciled and both last habitually resident (Applicant1 not resident, same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
-    And the page should include "you and your husband are domiciled in England and Wales"
-
-    # F, C Applicant1 and Applicant2 domiciled and Applicant2 habitually resident (same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "your husband is habitually resident in England and Wales"
-    And the page should include "you and your husband are domiciled in England and Wales"
-
-    # F, C, B Applicant1 and Applicant2 domiciled, Applicant2 habitually resident and both last habitually resident (same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "you and your husband are domiciled in England and Wales"
-    And the page should include "your husband is habitually resident in England and Wales"
-    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
-
-    # H, E Applicant1 domiciled and Applicant1 habitually resident for 6 months
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "Yes"
-    When I click continue
-    And I select "No"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only you are domiciled in England and Wales"
-    And the page should include "you are domiciled and habitually resident in England and Wales and have resided there for at least six months immediately before making this application"
-
-    # H, B Applicant1 domiciled and both last habitually resident
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    Then the page should include "Were you both last habitually resident in England or Wales and does one of you still live here?"
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only you are domiciled in England and Wales"
-    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
-
-    # H Applicant1 domiciled (Applicant1 resident)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    And I select "No"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because only you are domiciled in England and Wales"
-
-    # I Applicant2 domiciled (Applicant1 not resident)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    And I select "No" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    When I click continue
-    And I select "No"
-    When I click continue
-    Then the page should include "Your answers indicate that you can apply for a divorce in England and Wales because only your husband is domiciled in England and Wales"
-
-    # I, B Applicant2 domiciled and both last habitually resident (Applicant1 resident)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "Yes" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    And I select "No" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    When I click continue
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only your husband is domiciled in England and Wales"
-    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
-
-    # I, B Applicant2 domiciled and both last habitually resident (Applicant1 not resident)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    And I select "No" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    When I click continue
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only your husband is domiciled in England and Wales"
-    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
-
-    # I, C Applicant2 domiciled and Applicant2 habitually resident (same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only your husband is domiciled in England and Wales"
-    And the page should include "your husband is habitually resident in England and Wales"
-
-    # I, B, C Applicant2 domiciled, Applicant2 habitually resident and both last habitually resident (same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "No" for "Is your domicile in England or Wales?"
-    And I select "Yes" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only your husband is domiciled in England and Wales"
-    And the page should include "your husband is habitually resident in England and Wales"
-    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
-
-    # B, H Applicant1 domiciled and both last habitually resident
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only you are domiciled in England and Wales"
-    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
-
-    # B, H, C Applicant1 domiciled, both last habitually resident and Applicant2 habitually resident (same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "Yes"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only you are domiciled in England and Wales"
-    And the page should include "your husband is habitually resident in England and Wales"
-    And the page should include "you and your husband were last habitually resident in England and Wales and one of you continues to reside there"
-
-    # H Applicant1 domiciled (Applicant1 not resident)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "No" for "Is your husband’s life mainly based in England or Wales?"
-    When I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    When I click continue
-    Then the page URL should be "/habitually-resident-england-wales"
-    And I select "No"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only you are domiciled in England and Wales"
-
-    # H, C Applicant1 domiciled and Applicant2 habitually resident (same sex couple)
-    Given I reset the jurisdiction connections
-    When I go to '/your-details'
-    Then the page should include "Who are you applying to divorce?"
-    Given I clear the form
-    And I select "My husband"
-    And I select "We were a same-sex couple when we got married"
-    And I click continue
-    And I go to '/where-your-lives-are-based'
-    And I select "No" for "Is your life mainly based in England or Wales?"
-    And I select "Yes" for "Is your husband’s life mainly based in England or Wales?"
-    And I click continue
-    And I select "Yes" for "Is your domicile in England or Wales?"
-    And I select "No" for "Is your husband’s domicile in England or Wales?"
-    And I click continue
-    And I select "No"
-    When I click continue
-    Then the page should include "You can use English or Welsh courts to get a divorce"
-    And the page should include "only you are domiciled in England and Wales"
-    And the page should include "your husband is habitually resident in England and Wales"
+    Given I go to "HOME_URL"
+    Then I click continue and expect URL "CHECK_JURISDICTION"
