@@ -63,7 +63,7 @@ Given('I enter an invalid relationship date', () => {
 });
 
 /** Setting the date to the first due to different months having different total number of days **/
-Given(/I enter a relationship date that is (\d+) (?:month|months) in the pa st/, (month: string) => {
+Given(/I enter a relationship date that is (\d+) (?:month|months) in the past/, (month: string) => {
   const date = new Date();
   date.setDate(1);
   if (date.getMonth() - +month === 0) {
