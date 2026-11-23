@@ -131,7 +131,7 @@ const generalApplicationTypeField = (
             type: 'textarea',
             classes: 'govuk-input--width-40',
             labelSize: null,
-            label: l => l.pleaseSpecify,
+            label: l => l.specify,
             validator: isFieldFilledIn,
           },
         },
