@@ -316,21 +316,21 @@ const cy: typeof en = ({ isDivorce, partner, userCase, contactEmail }: CommonCon
     line2: 'Byddwch yn cael e-bost pan fydd y llys wedi cadarnhau’r gorchymyn amodol.',
   },
   clarificationSubmitted: {
-    line1: 'This was the court’s feedback, explaining the information which was needed:',
+    line1: "Dyma adborth y llys, yn esbonio'r wybodaeth oedd ei hangen:",
     line2: userCase.coRefusalClarificationAdditionalInfo,
     withDocuments: {
-      line1: `Your ${partner} has provided the information requested by the court. You’ll receive an email by ${getFormattedDate(
+      line1: `Mae eich ${partner} wedi darparu'r wybodaeth y gofynnodd y llys amdani. Byddwch yn cael e-bost erbyn ${getFormattedDate(
         dayjs(userCase.coClarificationResponsesSubmitted?.[0].value.clarificationDate).add(
           config.get('dates.clarificationSubmittedOffsetDays'),
           'day'
         ),
         SupportedLanguages.Cy
-      )} after the court has reviewed it.`,
+      )} ar ôl i'r llys ei hadolygu.`,
     },
     withoutDocuments: {
-      line1: `You or your ${partner} need to post the documents requested by the court:`,
-      line2: 'address',
-      line3: 'You will receive an update when your documents have been received and checked.',
+      line1: `Mae angen i chi neu'ch ${partner} bostio'r dogfennau y mae'r llys yn gofyn amdanynt:`,
+      line2: 'cyfeiriad',
+      line3: "Byddwch yn cael diweddariad pan fydd eich dogfennau wedi dod i law a'u gwirio.",
     },
   },
   awaitingPronouncement: {

@@ -20,6 +20,13 @@ const en = ({ partner, isDivorce }: CommonContent) => ({
   )} to apply for bailiff service, but you may be able to <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFees'
   )}">get help paying this fee (opens in a new tab)</a>.`,
+  bailiffServiceInfo: {
+    header: 'Before requesting bailiff service',
+    line1: `If your ${partner} is in prison in England or Wales, and you know which prison they are in, you should consider applying for alternative service before requesting a bailiff.`,
+    line2:
+      'For example, you may be able to apply to serve documents through the prison governor as a form of alternative service. If you decide not to apply for alternative service, you should be prepared to explain why it is not suitable in your case.',
+    line3: `Considering alternative service at this stage can help prevent delays. Bailiffs may not be able to complete service at a prison if your ${partner} refuses a visit.  `,
+  },
   buttonText: 'Start now',
 });
 
@@ -37,6 +44,13 @@ const cy = ({ partner, isDivorce }: CommonContent) => ({
   )} i wneud cais am wasanaeth cyflwyno gan feili, ond efallai y gallwch <a class="govuk-link" target="_blank" href="${config.get(
     'govukUrls.getHelpWithCourtFeesCY'
   )}">gael help i dalu’r ffi hon (yn agor mewn tab newydd)</a>.`,
+  bailiffServiceInfo: {
+    header: 'Cyn gwneud cais am gyflwyno trwy feili',
+    line1: `Os yw eich ${partner} yn y carchar yng Nghymru neu Loegr, a'ch bod yn gwybod ym mha garchar maen nhw, dylech ystyried gwneud cais am gyflwyno amgen cyn gofyn am wasanaeth cyflwyno trwy feili.`,
+    line2:
+      'Er enghraifft, efallai y byddwch yn gallu gwneud cais i gyflwyno dogfennau drwy lywodraethwr y carchar fel math o gyflwyno amgen. Os byddwch yn penderfynu peidio â gwneud cais am gyflwyno amgen, dylech fod yn barod i egluro pam nad yw’n addas yn eich achos chi.',
+    line3: `Gall ystyried cyflwyno amgen yn y cam hwn helpu i atal oedi. Efallai na fydd y beili yn gallu cyflwyno mewn carchar os yw eich ${partner} yn gwrthod ymweliad.`,
+  },
   buttonText: 'Dechrau nawr',
 });
 

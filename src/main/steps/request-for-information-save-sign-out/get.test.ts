@@ -9,7 +9,7 @@ describe('RequestForInformationSaveSignOutGetController', () => {
   it('saves and signs out', async () => {
     const controller = new RequestForInformationSaveSignOutGetController();
 
-    const req = mockRequest({ session: { user: { email: 'test@example.com' } } });
+    const req = mockRequest({ session: { user: { email: 'test@example.com', idToken: 'test-id-token' } } });
     const res = mockResponse();
     (res.locals as Record<string, string>).host = 'localhost';
     (req as { path: string }).path = REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT;
@@ -23,7 +23,7 @@ describe('RequestForInformationSaveSignOutGetController', () => {
     );
     expect(res.redirect).toHaveBeenCalledWith(
       303,
-      getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`)
+      getEndIdamSessionUrl(`https://localhost${SAVE_AND_SIGN_OUT}?lng=en`, 'test-id-token')
     );
   });
 });

@@ -28,6 +28,13 @@ const en = ({ isDivorce, partner }: CommonContent) => ({
       isDivorce ? 'divorce papers' : 'papers to end your civil partnership'
     } to your ${partner} in a way other than by post. This could be by sending them by email only (without posting them), including to an email address you've already tried. You could also try sending the papers by text, or through a private message on social media.`,
   },
+  bailiffServiceInfo: {
+    header: 'Before requesting bailiff service',
+    line1: `If your ${partner} is in prison in England or Wales, and you know which prison they are in, you should consider applying for alternative service before requesting a bailiff.`,
+    line2:
+      'For example, you may be able to apply to serve documents through the prison governor as a form of alternative service. If you decide not to apply for alternative service, you should be prepared to explain why it is not suitable in your case.',
+    line3: `Considering alternative service at this stage can help prevent delays. Bailiffs may not be able to complete service at a prison if your ${partner} refuses a visit.  `,
+  },
   noContact: {
     header: `No contact details for your ${partner}`,
     details: `If you do not have any other contact details for your ${partner}, you can try another way to progress your application.`,
@@ -64,6 +71,13 @@ const cy = ({ isDivorce, partner }: CommonContent) => ({
     details: `Mae cyflwyno amgen yn golygu anfon papurau’r ${
       isDivorce ? 'ysgariad' : 'cais i ddod â’ch partneriaeth sifil i ben'
     } at eich ${partner} mewn rhyw ffordd arall heblaw drwy’r post. Gallai hyn olygu eu hanfon drwy e-bost yn unig (heb eu postio), gan gynnwys i gyfeiriad e-bost rydych eisoes wedi’i ddefnyddio. Gallwch hefyd geisio anfon y papurau drwy neges testun, neu drwy neges breifat ar gyfryngau cymdeithasol.`,
+  },
+  bailiffServiceInfo: {
+    header: 'Cyn gwneud cais am gyflwyno trwy feili',
+    line1: `Os yw eich ${partner} yn y carchar yng Nghymru neu Loegr, a'ch bod yn gwybod ym mha garchar maen nhw, dylech ystyried gwneud cais am gyflwyno amgen cyn gofyn am wasanaeth cyflwyno trwy feili.`,
+    line2:
+      'Er enghraifft, efallai y byddwch yn gallu gwneud cais i gyflwyno dogfennau drwy lywodraethwr y carchar fel math o gyflwyno amgen. Os byddwch yn penderfynu peidio â gwneud cais am gyflwyno amgen, dylech fod yn barod i egluro pam nad yw’n addas yn eich achos chi.',
+    line3: `Gall ystyried cyflwyno amgen yn y cam hwn helpu i atal oedi. Efallai na fydd y beili yn gallu cyflwyno mewn carchar os yw eich ${partner} yn gwrthod ymweliad.`,
   },
   noContact: {
     header: `Dim manylion cyswllt ar gyfer eich ${partner}`,
