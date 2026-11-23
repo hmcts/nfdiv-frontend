@@ -6,10 +6,10 @@ export const logger = hmctsLogger.getLogger('common-steps');
 logger.transports.console.colorize = 'all';
 
 export const logAndExit = (error: Error | string | CaseData): never => {
-  if (typeof error === 'string') {
-    logger.error(error);
-  } else if (error instanceof Error) {
+  if (error instanceof Error) {
     logger.error(error.message);
+  } else if (typeof error === 'string') {
+    logger.error(error);
   } else if (typeof error === 'object') {
     logger.error(JSON.stringify(error));
   }
