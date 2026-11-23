@@ -456,7 +456,7 @@ When('I have read the application for divorce', () => {
   iCheckOption('#confirmReadPetitionId');
 });
 
-Then('the page should show an error for field {string}', (fieldName: string) => {
+Then('the page should include an error for field {string}', (fieldName: string) => {
   iWaitForErrorForField(fieldName);
 });
 
