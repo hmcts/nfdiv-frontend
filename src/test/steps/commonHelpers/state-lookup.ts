@@ -1,14 +1,18 @@
 import * as definition from '../../../main/app/case/definition';
 import { State } from '../../../main/app/case/definition';
 
-import { logAndThrow } from './logger';
+import { logAndExit, logAndThrow } from './logger';
 
-const stateEnum = (definition as unknown as { State?: Record<string, State> }).State;
-if (!stateEnum) {
-  throw new Error(
-    'State enum is not available at runtime - is "preserveConstEnums" enabled in src/test/tsconfig.json?'
-  );
-}
+const getStateEnum = (): Record<string, State> => {
+  const stateEnum = (definition as unknown as { State?: Record<string, State> }).State;
+  if (!stateEnum) {
+    return logAndExit(
+      'State enum is not available at runtime - is "preserveConstEnums" enabled in src/test/tsconfig.json?'
+    );
+  }
+  return stateEnum;
+};
+const stateEnum = getStateEnum();
 
 const stateLookup = new Map<string, State>(
   Object.entries(stateEnum).flatMap(([name, value]) => [
