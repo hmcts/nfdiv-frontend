@@ -28,6 +28,32 @@ import { iAmOnPage, iClickToNavigate } from './commonHelpers/navigation';
 import { getApplicantString, getOtherApplicantString } from './commonHelpers/user-interaction';
 
 const CHECK_JURISDICTION_LINK_SELECTOR = `a[href="${CHECK_JURISDICTION}"]`;
+const MORE_DETAILS_COMPONENT_SELECTOR = "span[class='govuk-details__summary-text']";
+
+const parseConnections = (csvConnections: string): JurisdictionConnections[] => {
+  return csvConnections.split(',').map(value => lookupJurisdictionConnection(value.trim()));
+};
+
+const validateOtherConnectionsElements = (
+  connections: JurisdictionConnections[],
+  baseConnections: JurisdictionConnections[]
+): void => {
+  baseConnections.forEach(baseConnection => {
+    if (!connections.includes(baseConnection)) {
+      iDontSeeConnectionsText(baseConnection);
+    }
+  });
+};
+
+const validateOtherSoleDivorceConnectionsElements = (connections: JurisdictionConnections[]): void => {
+  const connectionsValues = getSoleDivorceJurisdictionConnections();
+  validateOtherConnectionsElements(connections, connectionsValues);
+};
+
+const validateOtherJointDivorceConnectionsElements = (connections: JurisdictionConnections[]): void => {
+  const connectionsValues = getJointDivorceJurisdictionConnections();
+  validateOtherConnectionsElements(connections, connectionsValues);
+};
 
 export const iDenyWeLiveInEnglandOrWales = (): void => {
   iSelectYesOrNoForField(YesOrNo.NO, 'applicant1LifeBasedInEnglandAndWales');
@@ -63,32 +89,7 @@ export const iClickCheckJurisdictionLink = async (nextUrl?: string | RegExp, wai
 };
 
 export const iClickMoreDetailsComponent = (): void => {
-  iClickElement("span[class='govuk-details__summary-text']");
-};
-
-const parseConnections = (csvConnections: string): JurisdictionConnections[] => {
-  return csvConnections.split(',').map(value => lookupJurisdictionConnection(value.trim()));
-};
-
-const validateOtherConnectionsElements = (
-  connections: JurisdictionConnections[],
-  baseConnections: JurisdictionConnections[]
-): void => {
-  baseConnections.forEach(baseConnection => {
-    if (!connections.includes(baseConnection)) {
-      iDontSeeConnectionsText(baseConnection);
-    }
-  });
-};
-
-const validateOtherSoleDivorceConnectionsElements = (connections: JurisdictionConnections[]): void => {
-  const connectionsValues = getSoleDivorceJurisdictionConnections();
-  validateOtherConnectionsElements(connections, connectionsValues);
-};
-
-const validateOtherJointDivorceConnectionsElements = (connections: JurisdictionConnections[]): void => {
-  const connectionsValues = getJointDivorceJurisdictionConnections();
-  validateOtherConnectionsElements(connections, connectionsValues);
+  iClickElement(MORE_DETAILS_COMPONENT_SELECTOR);
 };
 
 export const iSeeConnectionsTextParagraph = (connectionValue: JurisdictionConnections): void => {
