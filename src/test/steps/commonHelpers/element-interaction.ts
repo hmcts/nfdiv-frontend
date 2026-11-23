@@ -47,6 +47,14 @@ export const iWaitForInvisible = (selector: string, wait?: number): void => {
   I.waitForInvisible(selector, wait);
 };
 
+export const iSeeElementInDOM = (selector: string): void => {
+  I.seeElementInDOM(selector);
+};
+
+export const iDontSeeElementInDOM = (selector: string): void => {
+  I.dontSeeElementInDOM(selector);
+};
+
 export const iClickElement = (selector: string, wait?: number): void => {
   iWaitForVisible(selector, wait);
   iClick(selector);
@@ -244,10 +252,6 @@ export const iWaitForElementWithText = (selector: string, text: string, wait?: n
   I.waitForText(text, wait, selector);
 };
 
-export const iClickMoreDetailsComponent = (): void => {
-  iClickElement("span[class='govuk-details__summary-text']");
-};
-
 export const iCheckOptionFor = (optionLabel: string, fieldLabel: string): void =>
   I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
 
@@ -319,7 +323,7 @@ export const iWaitForUploadedFile = async (pathToFile: string, wait?: number): P
 export const iDeleteUploadedFile = async (filename: string, wait?: number): Promise<void> => {
   const uploadedFileSelector = `#filesUploaded > li.uploadedFile[data-filename="${filename}"]`;
   await iClickToNavigate(`${uploadedFileSelector} > button.document-delete-button`, wait, await iGrabCurrentUrl());
-  I.dontSeeElementInDOM(uploadedFileSelector);
+  iDontSeeElementInDOM(uploadedFileSelector);
 };
 
 export const iDeleteAllUploadedFiles = async (): Promise<void> => {
