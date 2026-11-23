@@ -1,6 +1,5 @@
 import {
   iClearTheForm,
-  iClick,
   iClickDebounced,
   iClickElement,
   iEnterValueIntoInput,

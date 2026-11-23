@@ -11,7 +11,7 @@ import {
 } from '../../../main/steps/urls';
 import { config as testConfig } from '../../config';
 
-import { WaitUntil, iClick, iWaitForVisible, iWaitForElement, iDontSeeElementInDOM } from './element-interaction';
+import { WaitUntil, iClick, iDontSeeElementInDOM, iWaitForElement, iWaitForVisible } from './element-interaction';
 import { TestUserKey } from './idam-user-manager';
 import { logAndThrow, logger } from './logger';
 import {

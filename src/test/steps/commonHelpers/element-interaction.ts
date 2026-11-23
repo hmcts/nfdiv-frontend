@@ -31,7 +31,11 @@ export const iClick = (selector: string | CodeceptJS.LocatorOrString, options: I
   I.click(selector, null, { ...defaultOptions, ...options });
 };
 
-export const iClickDebounced = async (selector: string | CodeceptJS.LocatorOrString,options: IClickOptions = {}, wait?: number): Promise<void> => {
+export const iClickDebounced = async (
+  selector: string | CodeceptJS.LocatorOrString,
+  options: IClickOptions = {},
+  wait?: number
+): Promise<void> => {
   type WindowWithElementClick = Window & { __lastElementClick?: number };
   const defaultOptions = { noWaitAfter: false };
   I.waitForFunction(
@@ -301,7 +305,7 @@ export const iWaitForErrorSummaryForField = (fieldName: string, wait?: number): 
       '"]',
     wait
   );
-}
+};
 
 export const iWaitForErrorForField = (fieldName: string, wait?: number): void => {
   iWaitForErrorSummaryForField(fieldName, wait);
@@ -310,7 +314,7 @@ export const iWaitForErrorForField = (fieldName: string, wait?: number): void =>
 
 export const iWaitForErrorWithoutSummaryForField = (fieldName: string, wait?: number): void => {
   iWaitForVisible('#' + fieldName + '-error', wait);
-}
+};
 
 const iSetAddressPrivacy = (isPrivate: boolean = true, inRefuge: boolean = false): void => {
   iSelectYesOrNoForField(isPrivate ? YesOrNo.YES : YesOrNo.NO, `${getApplicantString()}AddressPrivate`);

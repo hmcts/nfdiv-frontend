@@ -83,7 +83,7 @@ export const iClickSubmitAndExpectErrorElements = async (fieldName?: string): Pr
 export const iClickSubmitAndExpectErrorElementsWithoutSummary = async (fieldName?: string): Promise<void> => {
   await iClickSubmitAndExpectTheCurrentPage();
   iExpectErrorElementsWithoutSummary(fieldName);
-}
+};
 
 export const iEnterAnInvalidReferenceNumber = (): void => {
   iEnterValueIntoInput('1234123412341234', '#caseReference');
@@ -125,10 +125,13 @@ When('I click continue and expect an error for field {string}', async (fieldName
 When('I click continue and expect an error summary for field {string}', async (fieldName: string) => {
   await iClickSubmitAndExpectErrorSummary(fieldName);
 });
-When('I click continue and expect an error summary for field {string} and an error for field {string}', async (fieldName: string, errorFieldName: string) => {
-  await iClickSubmitAndExpectErrorSummary(fieldName);
-  iWaitForErrorWithoutSummaryForField(errorFieldName);
-});
+When(
+  'I click continue and expect an error summary for field {string} and an error for field {string}',
+  async (fieldName: string, errorFieldName: string) => {
+    await iClickSubmitAndExpectErrorSummary(fieldName);
+    iWaitForErrorWithoutSummaryForField(errorFieldName);
+  }
+);
 When('I click continue and expect an error summary', iClickSubmitAndExpectErrorSummary);
 
 When('I click continue and expect uploadedFiles error elements', async () => {
@@ -145,7 +148,7 @@ When('I click submit and expect final order delay explanation error elements', a
   await iClickSubmitAndExpectErrorElements(`${applicantString}FinalOrderLateExplanation`);
   iExpectErrorSummary('statementOfTruth');
   iExpectErrorElementsWithoutSummary(`${applicantString}FinalOrderStatementOfTruth`);
-})
+});
 
 Given('I enter an invalid relationship date', () => {
   iEnterADateIntoField('! 1 abc', 'relationshipDate');
