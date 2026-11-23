@@ -1,6 +1,7 @@
 import {
   iClearTheForm,
   iClick,
+  iClickDebounced,
   iClickElement,
   iEnterValueIntoInput,
   iWaitForVisible,
@@ -43,21 +44,8 @@ export const iEnterPostcode = (postcode: string): void => {
 
 export const iClickFindAddress = async (wait?: number): Promise<void> => {
   const FIND_ADDRESS_BUTTON_SELECTOR = '#findAddressButton';
-  type WindowWithFindAddressClick = Window & { __lastFindAddressClick?: number };
-
   iWaitForVisible(FIND_ADDRESS_BUTTON_SELECTOR, wait);
-  I.waitForFunction(
-    (debounceTimeoutInSeconds: number) => {
-      const last = (window as WindowWithFindAddressClick).__lastFindAddressClick;
-      return !last || performance.now() - last > debounceTimeoutInSeconds * 1000 + 100;
-    },
-    [GOVUK_FRONTEND_BUTTON_DEBOUNCE_TIMEOUT_IN_SECONDS],
-    wait
-  );
-  iClick(FIND_ADDRESS_BUTTON_SELECTOR);
-  await I.executeScript(() => {
-    (window as WindowWithFindAddressClick).__lastFindAddressClick = performance.now();
-  });
+  await iClickDebounced(FIND_ADDRESS_BUTTON_SELECTOR);
 };
 
 export const iClickCannotFindAddress = (wait?: number): void => {

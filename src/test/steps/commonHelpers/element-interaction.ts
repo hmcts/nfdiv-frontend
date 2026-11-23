@@ -3,6 +3,7 @@ import { Locator, Page } from '@playwright/test';
 import { NoResponseOwnSearches, YesOrNo } from '../../../main/app/case/definition';
 import { SupportedLanguages } from '../../../main/modules/i18n';
 import { HUB_PAGE } from '../../../main/steps/urls';
+import { GOVUK_FRONTEND_BUTTON_DEBOUNCE_TIMEOUT_IN_SECONDS } from '../postcode';
 
 import { iAmOnIdam, iClickToNavigate, iGrabCurrentUrl, iWaitForUrlParam } from './navigation';
 import { isInterimApplicationsUrl } from './url-lookup';
@@ -28,6 +29,23 @@ export type IClickOptions = LocatorClickOptions & { waitForNavigation?: WaitUnti
 export const iClick = (selector: string | CodeceptJS.LocatorOrString, options: IClickOptions = {}): void => {
   const defaultOptions = { noWaitAfter: false };
   I.click(selector, null, { ...defaultOptions, ...options });
+};
+
+export const iClickDebounced = async (selector: string | CodeceptJS.LocatorOrString,options: IClickOptions = {}, wait?: number): Promise<void> => {
+  type WindowWithElementClick = Window & { __lastElementClick?: number };
+  const defaultOptions = { noWaitAfter: false };
+  I.waitForFunction(
+    (debounceTimeoutInSeconds: number) => {
+      const last = (window as WindowWithElementClick).__lastElementClick;
+      return !last || performance.now() - last > debounceTimeoutInSeconds * 1000 + 100;
+    },
+    [GOVUK_FRONTEND_BUTTON_DEBOUNCE_TIMEOUT_IN_SECONDS],
+    wait
+  );
+  I.click(selector, null, { ...defaultOptions, ...options });
+  await I.executeScript(() => {
+    (window as WindowWithElementClick).__lastElementClick = performance.now();
+  });
 };
 
 export const iClickString = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
@@ -264,20 +282,35 @@ export const iWaitForVisibleErrorSummary = (wait?: number): void => {
   iWaitForVisible('div.govuk-error-summary', wait);
 };
 
-export const iWaitForVisibleError = (wait?: number): void => {
-  iWaitForVisibleErrorSummary(wait);
+export const iWaitForVisibleErrorWithoutSummary = (wait?: number): void => {
   iWaitForVisible('p.govuk-error-message', wait);
 };
 
-export const iWaitForErrorForField = (fieldName: string, wait?: number): void => {
+export const iWaitForVisibleError = (wait?: number): void => {
+  iWaitForVisibleErrorSummary(wait);
+  iWaitForVisibleErrorWithoutSummary(wait);
+};
+
+export const iWaitForErrorSummaryForField = (fieldName: string, wait?: number): void => {
+  if (fieldName.toLowerCase().endsWith('date')) {
+    fieldName = fieldName + '-day';
+  }
   iWaitForVisible(
-    "div.govuk-error-summary div.govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href='#" +
+    'div.govuk-error-summary div.govuk-error-summary__body > ul.govuk-error-summary__list > li > a[href="#' +
       fieldName +
-      "']",
+      '"]',
     wait
   );
+}
+
+export const iWaitForErrorForField = (fieldName: string, wait?: number): void => {
+  iWaitForErrorSummaryForField(fieldName, wait);
   iWaitForVisible('#' + fieldName + '-error', wait);
 };
+
+export const iWaitForErrorWithoutSummaryForField = (fieldName: string, wait?: number): void => {
+  iWaitForVisible('#' + fieldName + '-error', wait);
+}
 
 const iSetAddressPrivacy = (isPrivate: boolean = true, inRefuge: boolean = false): void => {
   iSelectYesOrNoForField(isPrivate ? YesOrNo.YES : YesOrNo.NO, `${getApplicantString()}AddressPrivate`);
