@@ -9,8 +9,11 @@ import {
   iEnterValueIntoInput,
   iSelectNo,
   iWaitForErrorForField,
+  iWaitForErrorSummaryForField,
+  iWaitForErrorWithoutSummaryForField,
   iWaitForVisibleError,
   iWaitForVisibleErrorSummary,
+  iWaitForVisibleErrorWithoutSummary,
 } from './commonHelpers/element-interaction';
 import { getApplicantString, getOtherApplicantString } from './commonHelpers/user-interaction';
 import { dateToString, iEnterADateIntoField } from './date';
@@ -30,19 +33,57 @@ export const iEnterValueAsTheirSolicitorEmailAddress = (value: string): void => 
   iEnterValueIntoInput(value, `#${getOtherApplicantString()}SolicitorEmail`);
 };
 
-export const iClickSubmitAndExpectErrorElements = async (fieldName?: string): Promise<void> => {
-  await iClickSubmitAndExpectTheCurrentPage();
+const parseFieldCsv = (fieldCsv: string): string[] => {
+  return fieldCsv.split(',').map(field => field.trim());
+};
+
+export const iExpectErrorSummary = (fieldName?: string): void => {
   if (fieldName) {
-    iWaitForErrorForField(fieldName);
+    const fieldNames = parseFieldCsv(fieldName);
+    fieldNames.forEach(field => {
+      iWaitForErrorSummaryForField(field);
+    });
+  } else {
+    iWaitForVisibleErrorSummary();
+  }
+};
+
+export const iExpectErrorElements = (fieldName?: string): void => {
+  if (fieldName) {
+    const fieldNames = parseFieldCsv(fieldName);
+    fieldNames.forEach(field => {
+      iWaitForErrorForField(field);
+    });
   } else {
     iWaitForVisibleError();
   }
 };
 
-export const iClickSubmitAndExpectErrorSummary = async (): Promise<void> => {
-  await iClickSubmitAndExpectTheCurrentPage();
-  iWaitForVisibleErrorSummary();
+export const iExpectErrorElementsWithoutSummary = (fieldName?: string): void => {
+  if (fieldName) {
+    const fieldNames = parseFieldCsv(fieldName);
+    fieldNames.forEach(field => {
+      iWaitForErrorWithoutSummaryForField(field);
+    });
+  } else {
+    iWaitForVisibleErrorWithoutSummary();
+  }
 };
+
+export const iClickSubmitAndExpectErrorSummary = async (fieldName?: string): Promise<void> => {
+  await iClickSubmitAndExpectTheCurrentPage();
+  iExpectErrorSummary(fieldName);
+};
+
+export const iClickSubmitAndExpectErrorElements = async (fieldName?: string): Promise<void> => {
+  await iClickSubmitAndExpectTheCurrentPage();
+  iExpectErrorElements(fieldName);
+};
+
+export const iClickSubmitAndExpectErrorElementsWithoutSummary = async (fieldName?: string): Promise<void> => {
+  await iClickSubmitAndExpectTheCurrentPage();
+  iExpectErrorElementsWithoutSummary(fieldName);
+}
 
 export const iEnterAnInvalidReferenceNumber = (): void => {
   iEnterValueIntoInput('1234123412341234', '#caseReference');
@@ -52,11 +93,59 @@ export const iEnterAnInvalidAccessCode = (): void => {
 };
 
 When('I click submit and expect error elements', iClickSubmitAndExpectErrorElements);
-When('I click continue and expect error elements', iClickSubmitAndExpectErrorElements);
-When('I click continue and expect error for field {string}', async (fieldName: string) => {
+When('I click submit and expect errors for fields {string}', async (fieldName: string) => {
   await iClickSubmitAndExpectErrorElements(fieldName);
 });
+When('I click submit and expect an error for field {string}', async (fieldName: string) => {
+  await iClickSubmitAndExpectErrorElements(fieldName);
+});
+When('I click submit and expect an error summary for field {string}', async (fieldName: string) => {
+  await iClickSubmitAndExpectErrorSummary(fieldName);
+});
+When(
+  'I click submit and expect an error summary for field {string} and an error for field {string}',
+  async (fieldName: string, errorFieldName: string) => {
+    await iClickSubmitAndExpectErrorSummary(fieldName);
+    iWaitForErrorWithoutSummaryForField(errorFieldName);
+  }
+);
+When(
+  'I click submit and expect an error summary for fields {string} and errors for fields {string}',
+  async (fieldName: string, errorFieldName: string) => {
+    await iClickSubmitAndExpectErrorSummary(fieldName);
+    iWaitForErrorWithoutSummaryForField(errorFieldName);
+  }
+);
+When('I click continue and expect errors for fields {string}', async (fieldName: string) => {
+  await iClickSubmitAndExpectErrorElements(fieldName);
+});
+When('I click continue and expect an error for field {string}', async (fieldName: string) => {
+  await iClickSubmitAndExpectErrorElements(fieldName);
+});
+When('I click continue and expect an error summary for field {string}', async (fieldName: string) => {
+  await iClickSubmitAndExpectErrorSummary(fieldName);
+});
+When('I click continue and expect an error summary for field {string} and an error for field {string}', async (fieldName: string, errorFieldName: string) => {
+  await iClickSubmitAndExpectErrorSummary(fieldName);
+  iWaitForErrorWithoutSummaryForField(errorFieldName);
+});
 When('I click continue and expect an error summary', iClickSubmitAndExpectErrorSummary);
+
+When('I click continue and expect uploadedFiles error elements', async () => {
+  await iClickSubmitAndExpectErrorSummary('file-upload-btn');
+  iExpectErrorElementsWithoutSummary(`${getApplicantString()}UploadedFiles`);
+});
+When('I click submit and expect prayer and statement of truth error elements', async () => {
+  await iClickSubmitAndExpectErrorSummary('iConfirmPrayer, statementOfTruth');
+  const applicantString = getApplicantString();
+  iExpectErrorElementsWithoutSummary(`${applicantString}IConfirmPrayer, ${applicantString}StatementOfTruth`);
+});
+When('I click submit and expect final order delay explanation error elements', async () => {
+  const applicantString = getApplicantString();
+  await iClickSubmitAndExpectErrorElements(`${applicantString}FinalOrderLateExplanation`);
+  iExpectErrorSummary('statementOfTruth');
+  iExpectErrorElementsWithoutSummary(`${applicantString}FinalOrderStatementOfTruth`);
+})
 
 Given('I enter an invalid relationship date', () => {
   iEnterADateIntoField('! 1 abc', 'relationshipDate');
@@ -101,7 +190,7 @@ When('I click find address', async () => {
 });
 When('I click find address and expect error elements', async () => {
   await iClickFindAddress();
-  iWaitForVisibleErrorSummary();
+  iWaitForErrorSummaryForField('postcode');
 });
 When('I enter an invalid postcode', () => {
   iEnterPostcode('not a postcode!');
@@ -109,9 +198,7 @@ When('I enter an invalid postcode', () => {
 When('I enter the default UK postcode', () => {
   iEnterPostcode(getDefaultPostcode());
 });
-When('I cannot find the address in the list', () => {
-  iClickCannotFindAddress(10);
-});
+When('I cannot find the address in the list', iClickCannotFindAddress);
 When('I have an international address', () => {
   iClickCannotEnterUkPostcode();
 });
