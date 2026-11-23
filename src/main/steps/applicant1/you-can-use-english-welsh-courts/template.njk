@@ -15,12 +15,12 @@
         <p class="govuk-body">{{ line1Prefix }}:
           <ul class="govuk-list govuk-list--bullet">
             {% for index in preMadeConnections %}
-              <li>{{ connectionText[index] }}</li>
+              <li id="connection-{{ index }}">{{ connectionText[index] }}</li>
             {% endfor %}
           </ul>
         </p>
       {% else %}
-        <p class="govuk-body">{{ line1Prefix }}
+        <p class="govuk-body" id="connection-{{ preMadeConnections[0] }}">{{ line1Prefix }}
           {{ connectionText[preMadeConnections[0]] }}.
         </p>
       {% endif %}
@@ -45,7 +45,10 @@
 
         {{ govukDetails({
           summaryText: readMore,
-          html: summary
+          html: summary,
+          attributes: {
+            id: readMoreDetails
+          }
         }) }}
 
         <div class="govuk-form-group">
