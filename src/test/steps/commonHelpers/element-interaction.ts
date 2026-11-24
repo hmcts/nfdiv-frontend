@@ -52,11 +52,6 @@ export const iClickDebounced = async (
   });
 };
 
-export const iClickString = (text: string, locator?: CodeceptJS.LocatorOrString, wait?: number): void => {
-  I.waitForText(text, wait);
-  iClick(locator || text);
-};
-
 export const iWaitForElement = (selector: string, wait?: number): void => {
   I.waitForElement(selector, wait);
 };
@@ -67,10 +62,6 @@ export const iWaitForVisible = (selector: string, wait?: number): void => {
 
 export const iWaitForInvisible = (selector: string, wait?: number): void => {
   I.waitForInvisible(selector, wait);
-};
-
-export const iSeeElementInDOM = (selector: string): void => {
-  I.seeElementInDOM(selector);
 };
 
 export const iDontSeeElementInDOM = (selector: string): void => {
@@ -258,24 +249,13 @@ const handleCookieBanner = async (action: 'accept' | 'reject'): Promise<void> =>
   iClickElement(hideButtonSelector);
 };
 
-export const iAcceptCookies = async (): Promise<void> => {
-  await handleCookieBanner('accept');
-};
-
 export const iRejectCookies = async (): Promise<void> => {
   await handleCookieBanner('reject');
-};
-
-export const iWait = (time: number): void => {
-  I.wait(time);
 };
 
 export const iWaitForElementWithText = (selector: string, text: string, wait?: number): void => {
   I.waitForText(text, wait, selector);
 };
-
-export const iCheckOptionFor = (optionLabel: string, fieldLabel: string): void =>
-  I.checkOption(optionLabel, `//*[contains(text(), '${fieldLabel}')]/..`);
 
 export const iEnterValueIntoInput = (value: string, inputSelector: string, wait?: number): void => {
   iWaitForVisible(inputSelector, wait);
@@ -327,9 +307,6 @@ const iSetAddressPrivacy = (isPrivate: boolean = true, inRefuge: boolean = false
 };
 export const iSetPrivateAddress = (isPrivate: boolean = true): void => {
   iSetAddressPrivacy(isPrivate, false);
-};
-export const iSetInRefuge = (inRefuge: boolean = true): void => {
-  iSetAddressPrivacy(true, inRefuge);
 };
 
 export const iClearTheForm = async (): Promise<void> => {

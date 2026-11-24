@@ -101,29 +101,9 @@ export const iEnterAnInvalidAccessCode = (): void => {
   iEnterTheAccessCode('QWERTY45');
 };
 
-When('I click submit and expect errors for fields {string}', async (fieldName: string) => {
-  await iClickSubmitAndExpectErrorElements(fieldName);
-});
 When('I click submit and expect an error for field {string}', async (fieldName: string) => {
   await iClickSubmitAndExpectErrorElements(fieldName);
 });
-When('I click submit and expect an error summary for field {string}', async (fieldName: string) => {
-  await iClickSubmitAndExpectErrorSummary(fieldName);
-});
-When(
-  'I click submit and expect an error summary for field {string} and an error for field {string}',
-  async (fieldName: string, errorFieldName: string) => {
-    await iClickSubmitAndExpectErrorSummary(fieldName);
-    iWaitForErrorWithoutSummaryForField(errorFieldName);
-  }
-);
-When(
-  'I click submit and expect an error summary for fields {string} and errors for fields {string}',
-  async (fieldName: string, errorFieldName: string) => {
-    await iClickSubmitAndExpectErrorSummary(fieldName);
-    iWaitForErrorWithoutSummaryForField(errorFieldName);
-  }
-);
 When('I click continue and expect errors for fields {string}', async (fieldName: string) => {
   await iClickSubmitAndExpectErrorElements(fieldName);
 });
@@ -133,13 +113,6 @@ When('I click continue and expect an error for field {string}', async (fieldName
 When('I click continue and expect an error summary for field {string}', async (fieldName: string) => {
   await iClickSubmitAndExpectErrorSummary(fieldName);
 });
-When(
-  'I click continue and expect an error summary for field {string} and an error for field {string}',
-  async (fieldName: string, errorFieldName: string) => {
-    await iClickSubmitAndExpectErrorSummary(fieldName);
-    iWaitForErrorWithoutSummaryForField(errorFieldName);
-  }
-);
 
 When('I click continue and expect uploadedFiles error elements', async () => {
   await iClickSubmitAndExpectErrorSummary('file-upload-btn');
@@ -148,14 +121,6 @@ When('I click continue and expect uploadedFiles error elements', async () => {
 When('I click continue and expect confirmReadPetition error elements', async () => {
   await iClickSubmitAndExpectErrorSummary('confirmReadPetitionId');
   iExpectErrorElementsWithoutSummary('confirmReadPetition');
-});
-When('I click continue and expect caseReference error elements', async () => {
-  await iClickSubmitAndExpectErrorSummary('undefined');
-  iExpectErrorElementsWithoutSummary('caseReference');
-});
-When('I click continue and expect accessCode error elements', async () => {
-  await iClickSubmitAndExpectErrorSummary('undefined');
-  iExpectErrorElementsWithoutSummary('accessCode');
 });
 
 When('I click submit and expect prayer and statement of truth error elements', async () => {

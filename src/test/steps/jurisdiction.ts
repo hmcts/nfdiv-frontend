@@ -12,7 +12,6 @@ import { caseworkerResetsJurisdictionConnections, iUpdateTheCase } from './commo
 import {
   iCheckOptionValueForField,
   iClearTheForm,
-  iClickElement,
   iClickSubmit,
   iDontSeeElementInDOM,
   iSelectRadioValue,
@@ -28,7 +27,6 @@ import { iAmOnPage, iClickToNavigate } from './commonHelpers/navigation';
 import { getApplicantString, getOtherApplicantString } from './commonHelpers/user-interaction';
 
 const CHECK_JURISDICTION_LINK_SELECTOR = `a[href="${CHECK_JURISDICTION}"]`;
-const MORE_DETAILS_COMPONENT_SELECTOR = "span[class='govuk-details__summary-text']";
 
 const parseConnections = (csvConnections: string): JurisdictionConnections[] => {
   return csvConnections.split(',').map(value => lookupJurisdictionConnection(value.trim()));
@@ -86,10 +84,6 @@ export const onlyPartnerIsDomiciledInEnglandOrWales = (): void => {
 
 export const iClickCheckJurisdictionLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
   await iClickToNavigate(CHECK_JURISDICTION_LINK_SELECTOR, wait, nextUrl || CHECK_JURISDICTION);
-};
-
-export const iClickMoreDetailsComponent = (): void => {
-  iClickElement(MORE_DETAILS_COMPONENT_SELECTOR);
 };
 
 export const iSeeConnectionsTextParagraph = (connectionValue: JurisdictionConnections): void => {
@@ -184,9 +178,4 @@ Given('the page should include sole divorce connection content {string}', (conne
 
 Given('the page should include joint divorce connection content {string}', (connectionValue: string) => {
   thePageShouldIncludeConnectionContent(connectionValue, validateOtherJointDivorceConnectionsElements);
-});
-
-When('I click for more details', iClickMoreDetailsComponent);
-Given('my husband is habitually resident in England and Wales', () => {
-  iCheckJurisdictionConnection(JurisdictionConnections.APP_2_RESIDENT_SOLE);
 });

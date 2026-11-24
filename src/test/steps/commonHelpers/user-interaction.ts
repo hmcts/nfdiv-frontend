@@ -273,11 +273,6 @@ export const getUserEmail = async (index: number): Promise<string> => {
   return user.username;
 };
 
-export const getCaseworker = async (): Promise<TestUserAndPassword> => {
-  const idamUserManager = testConfig.getIdamUserManager();
-  return idamUserManager.getCaseWorker();
-};
-
 export const clearNewUsers = async (): Promise<void> => {
   const idamUserManager = testConfig.getIdamUserManager();
   await idamUserManager.clearAndKeepOnlyOriginalUser();

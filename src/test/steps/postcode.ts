@@ -83,7 +83,6 @@ export const iEnterTheUkAddress = async (address: string): Promise<void> => {
     iEnterTheUkAddressIntoFields(address);
   }
 };
-Given('I enter the UK address {string}', iEnterTheUkAddress);
 Given('I enter my address', async () => {
   await iEnterTheUkAddress(DEFAULT_ADDRESS);
 });
@@ -108,7 +107,6 @@ export const iEnterTheInternationalAddress = async (address: string): Promise<vo
   iEnterValueIntoInput(addressParts[0], '#address1');
   iEnterValueIntoInput(country, '#addressCountry');
 };
-Given('I enter the international address {string}', iEnterTheInternationalAddress);
 Given('I enter my international address', async () => {
   await iEnterTheInternationalAddress(DEFAULT_ADDRESS);
 });

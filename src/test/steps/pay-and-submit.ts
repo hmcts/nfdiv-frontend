@@ -51,13 +51,6 @@ Given('I pay and submit and expect the application to be saved', async () => {
   await completePayment(APPLICATION_SUBMITTED, 15, undefined, getSavedOrSubmittedSelector('Saved'));
 });
 
-Given('I pay and submit the application', async () => {
-  iWaitInUrl(PAY_YOUR_FEE);
-  await iClickSubmit();
-
-  await completePayment(APPLICATION_SUBMITTED, 15, undefined, getSavedOrSubmittedSelector('Submitted'));
-});
-
 Given('I pay and submit the service application', async () => {
   iWaitInUrl(PAY_YOUR_SERVICE_FEE);
   await iClickSubmit();

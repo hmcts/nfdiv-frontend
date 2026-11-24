@@ -122,9 +122,6 @@ export const setUserPathPrefix = (nextUrl: string, user?: string): InternalPageL
 export const iDontSeeABackLink = (): void => {
   iDontSeeElementInDOM(BACK_LINK_SELECTOR);
 };
-export const iSeeABackLink = (): void => {
-  iWaitForVisible(BACK_LINK_SELECTOR);
-};
 export const iClickBackLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
   await iClickToNavigate(BACK_LINK_SELECTOR, wait, nextUrl);
 };
@@ -216,10 +213,6 @@ export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number, expe
 
 export const iWaitInUrl = (url: string, wait?: number, expectedElementSelector?: string): void => {
   iWaitInUrlAsUser(url, undefined, wait, expectedElementSelector);
-};
-
-export const iWaitInErrorPage = (wait?: number): void => {
-  iWaitInUrlAsUser(ERROR_PAGE_URL, undefined, wait);
 };
 
 export const iWaitInPageNotFoundErrorPage = (wait?: number): void => {
