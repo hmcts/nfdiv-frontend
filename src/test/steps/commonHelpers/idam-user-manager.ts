@@ -31,7 +31,7 @@ export class IdamUserManager {
   }
 
   async init(): Promise<IdamUserManager> {
-    await this.createUser(this.testUser.username, this.testUser.password);
+    await this.createUser(TestUserKey.TEST_USER, this.testUser.username, this.testUser.password);
     return this;
   }
 
@@ -49,26 +49,27 @@ export class IdamUserManager {
   }
 
   async createUser(
+    userKey: TestUserKey,
     email: string = this.generateTestUsername(),
     password: string = this.getTestPass(),
     role = ['citizen']
   ): Promise<TestUserAndPassword> {
     await this.waitForCleanup();
-    return this.create(email, password, role);
+    return this.create(email, password, role, userKey);
   }
 
   async createApplicant1(): Promise<TestUserAndPassword> {
-    this.applicant1 = await this.createUser();
+    this.applicant1 = await this.createUser(TestUserKey.APPLICANT_1);
     return this.applicant1;
   }
 
   async createApplicant2(): Promise<TestUserAndPassword> {
-    this.applicant2 = await this.createUser();
+    this.applicant2 = await this.createUser(TestUserKey.APPLICANT_2);
     return this.applicant2;
   }
 
   async createRespondent(): Promise<TestUserAndPassword> {
-    this.respondent = await this.createUser();
+    this.respondent = await this.createUser(TestUserKey.RESPONDENT);
     return this.respondent;
   }
 
@@ -85,11 +86,16 @@ export class IdamUserManager {
     ]
   ): Promise<TestUserAndPassword> {
     await this.waitForCleanup();
-    this.caseWorker = await this.create(email, password, role);
+    this.caseWorker = await this.create(email, password, role, TestUserKey.CASEWORKER);
     return this.caseWorker;
   }
 
-  private async create(email: string, password: string, role: string[]): Promise<TestUserAndPassword> {
+  private async create(
+    email: string,
+    password: string,
+    role: string[],
+    userKey: TestUserKey
+  ): Promise<TestUserAndPassword> {
     try {
       await this.client.post('/testing-support/accounts', {
         email,
@@ -102,13 +108,13 @@ export class IdamUserManager {
         forename: 'FunctionalTest',
         surname: 'LastNameTest',
       });
-      this.logger.info('Created user', email);
+      this.logger.info(`Created ${userKey} user`, email);
       return {
         username: email,
         password,
       };
     } catch (e) {
-      this.logger.error('Error creating user', email, e);
+      this.logger.error(`Error creating ${userKey} user`, email, e);
       throw e;
     }
   }
@@ -118,8 +124,8 @@ export class IdamUserManager {
     return !!user && !!user.username && user.username !== '';
   };
 
-  private async delete(email: string): Promise<void> {
-    email = email.trim();
+  private async delete(userKey: TestUserKey): Promise<void> {
+    const email = this[userKey].username;
     if (email.length === 0) {
       return;
     }
@@ -131,10 +137,11 @@ export class IdamUserManager {
     this.usersBeingDeleted.add(email);
 
     try {
+      this.clearUser(userKey);
       await this.client.delete(`/testing-support/accounts/${email}`);
-      this.logger.info('Deleted user', email);
+      this.logger.info(`Deleted ${userKey} user`, email);
     } catch (e) {
-      this.logger.error('Error deleting user', email, e);
+      this.logger.error(`Error deleting ${userKey} user`, email, e);
     } finally {
       this.usersBeingDeleted.delete(email);
     }
@@ -157,45 +164,41 @@ export class IdamUserManager {
     }
   }
 
-  private getUsersToDelete(): Set<string> {
-    const usersToDelete: Set<string> = new Set();
+  private getUsersToDelete(): Set<TestUserKey> {
+    const usersToDelete: Set<TestUserKey> = new Set();
     if (this.hasUser(TestUserKey.APPLICANT_1)) {
-      usersToDelete.add(this[TestUserKey.APPLICANT_1].username);
-      this.clearUser(TestUserKey.APPLICANT_1);
+      usersToDelete.add(TestUserKey.APPLICANT_1);
     }
     if (this.hasUser(TestUserKey.APPLICANT_2)) {
-      usersToDelete.add(this[TestUserKey.APPLICANT_2].username);
-      this.clearUser(TestUserKey.APPLICANT_2);
+      usersToDelete.add(TestUserKey.APPLICANT_2);
     }
     if (this.hasUser(TestUserKey.RESPONDENT)) {
-      usersToDelete.add(this[TestUserKey.RESPONDENT].username);
-      this.clearUser(TestUserKey.RESPONDENT);
+      usersToDelete.add(TestUserKey.RESPONDENT);
     }
     if (this.hasUser(TestUserKey.CASEWORKER)) {
-      usersToDelete.add(this[TestUserKey.CASEWORKER].username);
-      this.clearUser(TestUserKey.CASEWORKER);
+      usersToDelete.add(TestUserKey.CASEWORKER);
     }
     return usersToDelete;
   }
 
   async deleteAll(): Promise<void> {
-    let usersToDelete: string[] = [];
+    let usersToDelete: TestUserKey[] = [];
     await this.queueCleanup(async () => {
       usersToDelete = Array.from(this.getUsersToDelete());
 
       if (this.hasUser(TestUserKey.TEST_USER)) {
-        usersToDelete.push(this[TestUserKey.TEST_USER].username);
+        usersToDelete.push(TestUserKey.TEST_USER);
       }
     });
-    await Promise.all(usersToDelete.map(email => this.delete(email)));
+    await Promise.all(usersToDelete.map(userKey => this.delete(userKey)));
   }
 
   async clearAndKeepOnlyOriginalUser(): Promise<void> {
-    let usersToDelete: string[] = [];
+    let usersToDelete: TestUserKey[] = [];
     await this.queueCleanup(async () => {
       usersToDelete = Array.from(this.getUsersToDelete());
     });
-    await Promise.all(usersToDelete.map(email => this.delete(email)));
+    await Promise.all(usersToDelete.map(userKey => this.delete(userKey)));
   }
 
   getCurrentUser(): TestUserAndPassword {
@@ -301,6 +304,6 @@ export enum TestUserKey {
   APPLICANT_1 = 'applicant1',
   APPLICANT_2 = 'applicant2',
   RESPONDENT = 'respondent',
-  CASEWORKER = 'caseWorker',
+  CASEWORKER = 'caseworker',
   TEST_USER = 'testUser',
 }
