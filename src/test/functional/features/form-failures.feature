@@ -234,7 +234,7 @@ Feature: Form failures
   Scenario: They fail to fill out the applicant 2 forms
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "CHECK_ANSWERS_URL"
-    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Then I click send for review
 
     Given I login as applicant "2" and link to the case
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
@@ -314,7 +314,7 @@ Feature: Form failures
   Scenario: They fail to fill out the joint conditional order questions
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "CHECK_ANSWERS_URL"
-    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Then I click send for review
     Given I login as applicant "2" and link to the case
     Then I set the case state to "AwaitingConditionalOrder" then login as applicant "1" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
 

@@ -139,6 +139,7 @@ Feature: Jurisdiction - can use English or Welsh courts
 
     Then I click back and expect URL "CHECK_JURISDICTION"
 
+
   @nightly
   Scenario: The user changes their answer to same-sex or application type
     Given we both live in England or Wales

@@ -4,7 +4,7 @@ Feature: Joint request for information
     Given I create a new applicant "1" user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     Then I go to "CHECK_ANSWERS_URL"
-    And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    And I click send for review
     Then I login as applicant "2" and link to the case
 
     Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"

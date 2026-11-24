@@ -30,7 +30,7 @@ Feature: Sole conditional order journey
     Given I want to continue with my divorce application
     Then I click continue and expect URL "REVIEW_YOUR_APPLICATION"
 
-    Given I click yes
+    Given I select yes
     Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
     Given I confirm the statement of truth

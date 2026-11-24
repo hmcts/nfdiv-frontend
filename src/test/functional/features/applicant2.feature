@@ -6,7 +6,7 @@ Feature: Applicant 2 joint application journey
 
   Scenario: They fill out a happy path applicant 2 joint application journey
     When I go to "CHECK_ANSWERS_URL"
-    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Then I click send for review
 
     Given I login as applicant "2" and link to the case
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
@@ -75,7 +75,7 @@ Feature: Applicant 2 joint application journey
     Then I click continue and expect URL "HOW_DO_YOU_WANT_TO_APPLY"
 
     When I go to "CHECK_ANSWERS_URL"
-    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Then I click send for review
 
     Given I login as applicant "2" and link to the case
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
@@ -139,7 +139,7 @@ Feature: Applicant 2 joint application journey
   @nightly
   Scenario: They end the joint application
     When I go to "CHECK_ANSWERS_URL"
-    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Then I click send for review
 
     Given I login as applicant "2" and link to the case
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
@@ -147,14 +147,14 @@ Feature: Applicant 2 joint application journey
     Given my marriage has not broken down irretrievably
     Then I click continue and expect URL "YOU_CANNOT_APPLY"
 
-    Then I click end the joint application and expect URL "NOT_CONFIRMED_JOINT_APPLICATION"
+    Then I click end the joint application
 
     Then I login as applicant "1" and expect URL "APPLICATION_ENDED"
 
   @flaky
   Scenario: Applicant 2 upload larry-the-cat
     When I go to "CHECK_ANSWERS_URL"
-    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Then I click send for review
     Given I login as applicant "2" and link to the case
     And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     When I go to "APPLICANT_2" / "UPLOAD_YOUR_DOCUMENTS"

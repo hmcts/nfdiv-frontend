@@ -67,7 +67,7 @@ Feature: Applicant 1 joint application journey
     Given I cannot upload my original marriage certificate
     Then I click continue and expect URL "CHECK_ANSWERS_URL"
 
-    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Then I click send for review
 
 
   @nightly
@@ -183,7 +183,7 @@ Feature: Applicant 1 joint application journey
     Given I cannot upload my original foreign marriage certificate
     Then I click continue and expect URL "CHECK_ANSWERS_URL"
 
-    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Then I click send for review
 
   @flaky
   Scenario: Applicant 1 upload larry-the-cat

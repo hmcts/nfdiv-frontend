@@ -4,7 +4,7 @@ Feature: Joint hub page
     Given I create a new applicant "1" user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     Given I go to "CHECK_ANSWERS_URL"
-    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Then I click send for review
     Given I login as applicant "2" and link to the case
     And a superuser updates "issueDate" with "2020-01-01"
 

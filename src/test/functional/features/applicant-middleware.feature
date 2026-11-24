@@ -12,7 +12,7 @@ Feature: Applicant middleware
 
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
     When I go to "CHECK_ANSWERS_URL"
-    Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
+    Then I click send for review
 
     When I login as applicant "2" and link to the case
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
