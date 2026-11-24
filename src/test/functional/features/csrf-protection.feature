@@ -1,7 +1,7 @@
 Feature: CSRF protection
 
   Background:
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     Then the page URL should be "YOUR_DETAILS_URL"
     Given I want to divorce my husband
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"

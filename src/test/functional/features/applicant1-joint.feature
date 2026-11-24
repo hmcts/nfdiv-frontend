@@ -1,7 +1,7 @@
 Feature: Applicant 1 joint application journey
 
   Background:
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     Then the page URL should be "YOUR_DETAILS_URL"
     And the page should not include a back link
 

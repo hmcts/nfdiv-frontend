@@ -1,7 +1,7 @@
 Feature: Pre-Issue application withdraw journey
 
   Background:
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     And I've already completed the form using the fixture "completeCase"
     When I go to 'CHECK_ANSWERS_URL'
     And I confirm the prayer and statement of truth

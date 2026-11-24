@@ -1,7 +1,7 @@
 Feature: Sole conditional order journey
 
   Background: Logged in for hub page
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     And I've already completed the form using the fixture "completeCase"
     Then I go to "CHECK_ANSWERS_URL"
     And I confirm the prayer and statement of truth

@@ -1,7 +1,7 @@
 Feature: Respondent journey
 
   Background:
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     And I've already completed the form using the fixture "completeCase"
     Then I go to 'CHECK_ANSWERS_URL'
 

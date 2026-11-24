@@ -1,7 +1,7 @@
 Feature: Sole final order
 
   Background: Logged in for hub page
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
 
   Scenario: Applicant sole final order journey within a year
     Given I've already completed the form using the fixture "finalOrderCompleteCase"

@@ -1,7 +1,7 @@
 Feature: Applicant 2 joint application journey
 
   Background:
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
 
   Scenario: They fill out a happy path applicant 2 joint application journey

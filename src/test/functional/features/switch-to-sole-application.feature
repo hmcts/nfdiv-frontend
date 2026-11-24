@@ -1,7 +1,7 @@
 Feature: Switch to sole application journey
 
   Background:
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     Then I go to "CHECK_ANSWERS_URL"
     And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"

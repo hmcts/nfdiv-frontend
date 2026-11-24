@@ -1,7 +1,7 @@
 Feature: Jurisdiction unhappy path
 
   Background:
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     And I've completed all questions correctly to get to the jurisdiction section
 
   @nightly

@@ -1,6 +1,6 @@
 Feature: Citizen withdraw application journey
   Background: Logged in on check your answers page
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     Given I've already completed the form using the fixture "completeCase"
     And I go to "CHECK_ANSWERS_URL"
 

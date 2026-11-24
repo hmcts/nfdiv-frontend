@@ -2,7 +2,7 @@ Feature: Jurisdiction - may not be able to get a divorce in England and Wales
 
   @nightly
   Scenario: May not have jurisdiction
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     And I've completed all questions correctly to get to the jurisdiction section
 
     # Was not last habitually resident in England or Wales and is not same sex

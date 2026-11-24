@@ -1,7 +1,7 @@
 Feature: Joint request for information
 
   Background: Logged in for hub page
-    Given I create a new user and login
+    Given I create a new applicant "1" user and login
     And I've already completed the form using the fixture "jointApplicant1CompleteCase"
     Then I go to "CHECK_ANSWERS_URL"
     And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
