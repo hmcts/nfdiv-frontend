@@ -185,7 +185,7 @@ const cy: typeof en = (
   stepAnswers: {
     useHwf: `${useHwf === YesOrNo.YES ? 'Byddaf' : 'Na fyddaf'}`,
     hwfReference: `${hwfReference}`,
-    canUploadEvidence: `${canUpload === YesOrNo.YES ? 'Ydy' : 'Nac ydw'}`,
+    canUploadEvidence: `${canUpload === YesOrNo.YES ? 'Ydw' : 'Nac ydw'}`,
     uploadedFiles: `${uploadedDocsFilenames}`,
     alternativeServiceReason: `${alternativeServiceReason}`,
     alternativeServiceMethod:
@@ -231,7 +231,7 @@ const cy: typeof en = (
     alternativeServicePartnerSocialMedia: `${alternativeServicePartnerSocialMedia}`,
     alternativeServicePartnerOtherDetails: `${alternativeServicePartnerOtherDetails}`,
     alternativeServiceMethodJustification: `${alternativeServiceMethodJustification}`,
-    alternativeServiceEvidenceCurrent: `${alternativeServiceEvidenceCurrent === YesOrNo.YES ? 'Ydy' : 'Nac ydw'}`,
+    alternativeServiceEvidenceCurrent: `${alternativeServiceEvidenceCurrent === YesOrNo.YES ? 'Ydy' : 'Nac ydy'}`,
     alternativeServiceDateOfEvidence:
       getFormattedCaseDate(altenativeServiceDateOfEvidence, SupportedLanguages.Cy) || undefined,
   },

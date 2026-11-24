@@ -82,8 +82,8 @@ const cy: typeof en = ({ partner, userCase }: CommonContent, methodLabel) => ({
       ? `Darparwch ddyddiad yr e-bost. Os nad yw'r e-bost o fewn y tri mis diwethaf, efallai na fydd y llys yn ei dderbyn fel tystiolaeth bod eich ${partner} yn defnyddio'r cyfeiriad e-bost bellach. Os oes gennych fwy nag un sgwrs drwy e-bost, darparwch ddyddiad yr e-bost diweddaraf.`
       : `Darparwch ddyddiad y sgwrs gan ddefnyddio'r dull cysylltu a ddewiswyd. Os nad yw'r sgwrs o fewn y tri mis diwethaf, efallai na fydd y llys yn ei derbyn fel tystiolaeth bod eich ${partner} yn defnyddio'r dull cysylltu hwnnw bellach. Os oes gennych sgyrsiau gan ddefnyddio sawl dull cysylltu, darparwch ddyddiad y sgwrs ddiweddaraf.`
   }`,
-  yes: 'Ydw',
-  no: 'Nac ydw',
+  yes: 'Ydy',
+  no: 'Nac ydy',
   errors: {
     applicant1AltServiceMethodActive: {
       required: `${
