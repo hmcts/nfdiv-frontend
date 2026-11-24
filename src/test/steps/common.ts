@@ -106,19 +106,10 @@ Given(
 Given('I go to {string}', (url: string) => {
   iAmOnPage(url);
 });
-Given('I go to {string} and expect element {string}', (url: string, expectedElementSelector: string) => {
-  iAmOnPage(url, undefined, expectedElementSelector);
-});
 
 Then(/^the page URL should be "([^"]*)" \/ "([^"]*)"$/, (user: string, url: string) => {
   iWaitInUrlAsUser(url, user);
 });
-Then(
-  /^the page URL should be "([^"]*)" \/ "([^"]*)" with element "([^"]*)"$/,
-  (user: string, url: string, expectedElementSelector: string) => {
-    iWaitInUrlAsUser(url, user, undefined, expectedElementSelector);
-  }
-);
 Then('the page URL should be {string}', (url: string) => {
   iWaitInUrl(url);
 });
