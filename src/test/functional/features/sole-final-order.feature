@@ -1,4 +1,4 @@
-Feature: Sole final order
+Feature: Sole final order journey
 
   Background: Logged in for hub page
     Given I create a new applicant "1" user and login
@@ -16,7 +16,7 @@ Feature: Sole final order
     And I set the case state to "AwaitingFinalOrder" and sign out
 
     Given I login as applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
-    Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+    Then I click apply for final order
 
     Given I want to finalise my divorce
     Then I click submit and expect hub element "#finalOrderRequestedContent"
@@ -35,7 +35,7 @@ Feature: Sole final order
     And I set the case state to "AwaitingFinalOrder" and sign out
 
     Given I login as applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
-    Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+    Then I click apply for final order
 
     Given I want to finalise my divorce
     Then I click submit to apply for final order as a sole applicant when overdue
@@ -57,7 +57,7 @@ Feature: Sole final order
     And I prepare the case for the respondent to apply for final order
 
     Given I login as the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
-    Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+    Then I click apply for final order
 
     Given I want to finalise my divorce
     And I explain why I need to apply for the final order
@@ -82,7 +82,7 @@ Feature: Sole final order
     And I prepare the case for the respondent to apply for final order
 
     Given I login as the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
-    Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+    Then I click apply for final order
 
     Given I want to finalise my divorce
     And I explain why I need to apply for the final order
@@ -94,7 +94,7 @@ Feature: Sole final order
     Given I click pay and submit but do not complete the payment
     Then I login as applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
 
-    Given I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+    Given I click apply for final order
     And I want to finalise my divorce
     Then I click submit and expect hub element "#finalOrderRequestedContent"
 
@@ -112,7 +112,7 @@ Feature: Sole final order
     And I prepare the case for the respondent to apply for final order
 
     Given I login as the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
-    Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+    Then I click apply for final order
 
     Given I want to finalise my divorce
     And I explain why I need to apply for the final order
@@ -124,7 +124,7 @@ Feature: Sole final order
     Given I click pay and submit but do not complete the payment
     Then I login as applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
 
-    Given I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
+    Given I click apply for final order
     And I want to finalise my divorce
     Then I click continue and expect URL "EXPLAIN_THE_DELAY"
 

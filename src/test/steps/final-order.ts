@@ -1,5 +1,10 @@
 import { State } from '../../main/app/case/definition';
-import { HOW_TO_FINALISE_APPLICATION, HUB_PAGE, PAY_YOUR_FINAL_ORDER_FEE } from '../../main/steps/urls';
+import {
+  FINALISING_YOUR_APPLICATION,
+  HOW_TO_FINALISE_APPLICATION,
+  HUB_PAGE,
+  PAY_YOUR_FINAL_ORDER_FEE,
+} from '../../main/steps/urls';
 
 import { caseworkerUpdatesTheCase } from './commonHelpers/case-interaction';
 import {
@@ -30,10 +35,7 @@ Given(
 );
 
 When('I click apply for final order', async () => {
-  await iClickToNavigate(APPLY_FOR_FINAL_ORDER_BUTTON_SELECTOR);
-});
-When('I click apply for final order and expect URL {string}', async (url: string) => {
-  await iClickToNavigate(APPLY_FOR_FINAL_ORDER_BUTTON_SELECTOR, undefined, url);
+  await iClickToNavigate(APPLY_FOR_FINAL_ORDER_BUTTON_SELECTOR, undefined, FINALISING_YOUR_APPLICATION);
 });
 
 Given('I want to finalise my divorce', () => {
