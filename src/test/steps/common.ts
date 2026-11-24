@@ -21,7 +21,6 @@ import {
 } from './commonHelpers/case-interaction';
 import {
   DEFAULT_PHONE_NUMBER,
-  iAcceptCookies,
   iAgreeTheCourtCanContactMeByEmail,
   iCannotUploadDocs,
   iCannotUploadNameChangeProof,
@@ -31,7 +30,6 @@ import {
   iClickContinueAndExpectHubElement,
   iClickContinueAndExpectUrl,
   iClickElement,
-  iClickProvideInformation,
   iClickStart,
   iClickStartAndExpectUrl,
   iClickSubmit,
@@ -51,13 +49,11 @@ import {
   iEnterTheirDefaultSolicitorEmailAddress,
   iEnterTheirName,
   iEnterValueIntoInput,
-  iRejectCookies,
   iSelectNo,
   iSelectNotFound,
   iSelectRadioValue,
   iSelectRadioValueForField,
   iSelectYes,
-  iSetInRefuge,
   iSetPrivateAddress,
   iToggleLanguageToEnglish,
   iToggleLanguageToWelsh,
@@ -74,7 +70,6 @@ import {
   iClickToNavigate,
   iClickWithdrawLink,
   iDontSeeABackLink,
-  iSeeABackLink,
   iWaitInPageNotFoundErrorPage,
   iWaitInUrl,
   iWaitInUrlAsUser,
@@ -84,7 +79,6 @@ import {
   createNewUserAndLogin,
   getApplicantString,
   getUserKeyByIndex,
-  iClickSignOut,
   iLoginAsUser,
   login,
 } from './commonHelpers/user-interaction';
@@ -155,13 +149,6 @@ Given('I login as applicant {string} and expect URL {string}', async (applicant:
   await iLoginAsUser(userKey, url);
 });
 Given(
-  'I login as applicant {string} and expect URL {string} with element {string}',
-  async (applicant: string, url: string, expectedElementSelector: string) => {
-    const userKey = getUserKeyByIndex(parseInt(applicant));
-    await iLoginAsUser(userKey, url, expectedElementSelector);
-  }
-);
-Given(
   'I login as applicant {string} and expect hub element {string}',
   async (applicant: string, expectedElementSelector: string) => {
     const userKey = getUserKeyByIndex(parseInt(applicant));
@@ -174,18 +161,9 @@ Given('I login as the respondent', async () => {
 Given('I login as the respondent and expect URL {string}', async (url: string) => {
   await iLoginAsUser(TestUserKey.RESPONDENT, url);
 });
-Given(
-  'I login as the respondent and expect URL {string} with element {string}',
-  async (url: string, expectedElementSelector: string) => {
-    await iLoginAsUser(TestUserKey.RESPONDENT, url, expectedElementSelector);
-  }
-);
 Given('I login as the respondent and expect hub element {string}', async (expectedElementSelector: string) => {
   await iLoginAsUser(TestUserKey.RESPONDENT, HUB_PAGE, expectedElementSelector);
 });
-
-When('I accept cookies', iAcceptCookies);
-When('I reject cookies', iRejectCookies);
 
 Given('I want to divorce my husband', () => {
   iSelectRadioValue(Gender.MALE);
@@ -231,24 +209,10 @@ Then('the page should not include element {string}', (selector: string) => {
   iDontSeeElementInDOM(selector);
 });
 Then('the page should not include a back link', iDontSeeABackLink);
-Then('the page should include a back link', iSeeABackLink);
 
-When('I click element {string}', iClickElement);
 When('I click element {string} and expect URL {string}', async (selector: string, url: string) => {
   await iClickToNavigate(selector, undefined, url);
 });
-When(
-  'I click element {string} and expect URL {string} with element {string}',
-  async (selector: string, url: string, expectedElementSelector: string) => {
-    await iClickToNavigate(selector, undefined, url, undefined, expectedElementSelector);
-  }
-);
-When(
-  'I click element {string} and expect hub element {string}',
-  async (selector: string, expectedElementSelector: string) => {
-    await iClickToNavigate(selector, undefined, HUB_PAGE, undefined, expectedElementSelector);
-  }
-);
 
 When('I click back', iClickBackLink);
 When('I click back and expect URL {string}', async (url: string) => {
@@ -281,11 +245,6 @@ When(
     await iClickStartAndExpectUrl(url, undefined, undefined, expectedElementSelector);
   }
 );
-When('I click start and expect hub element {string}', async (expectedElementSelector: string) => {
-  await iClickStartAndExpectUrl(HUB_PAGE, undefined, undefined, expectedElementSelector);
-});
-
-When('I sign out', iClickSignOut);
 
 Given('I set the case state to {string}', async (state: State) => {
   await iSetTheCaseStateAndReSignIn(state);
@@ -298,16 +257,9 @@ Given('I set the case state to {string} and sign out', async (state: State) => {
   await iSetTheCaseStateAndSignOut(state);
 });
 
-When('I click submit', iClickSubmit);
 When('I click submit and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
 });
-When(
-  'I click submit and expect URL {string} with element {string}',
-  async (url: string, expectedElementSelector: string) => {
-    await iClickSubmitAndExpectUrl(url, undefined, undefined, expectedElementSelector);
-  }
-);
 When('I click submit and expect hub element {string}', async (expectedElementSelector: string) => {
   await iClickSubmitAndExpectHubElement(expectedElementSelector);
 });
@@ -315,12 +267,6 @@ When('I click continue', iClickContinue);
 When('I click continue and expect URL {string}', async (url: string) => {
   await iClickContinueAndExpectUrl(url);
 });
-When(
-  'I click continue and expect URL {string} with element {string}',
-  async (url: string, expectedElementSelector: string) => {
-    await iClickContinueAndExpectUrl(url, undefined, undefined, expectedElementSelector);
-  }
-);
 When('I click continue and expect hub element {string}', async (expectedElementSelector: string) => {
   await iClickContinueAndExpectHubElement(expectedElementSelector);
 });
@@ -330,7 +276,6 @@ When('I click continue and the request should redirect to the CSRF error page', 
 When('I click send for review', async () => {
   await iClickSubmitAndExpectUrl(SENT_TO_APPLICANT2_FOR_REVIEW);
 });
-When('I click submit application', iClickSubmit);
 When('I click submit application and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
 });
@@ -341,24 +286,9 @@ When('I click continue to payment and expect URL {string}', async (url: string) 
 When('I click end the joint application', async () => {
   await iClickSubmitAndExpectUrl(NOT_CONFIRMED_JOINT_APPLICATION);
 });
-When('I click save and sign out', async () => {
-  await iClickToNavigate('#saveAndSignOutButton');
-});
 When('I click save and sign out and expect URL {string}', async (url: string) => {
   await iClickToNavigate('#saveAndSignOutButton', undefined, url);
 });
-When('I click provide information', async () => {
-  await iClickProvideInformation();
-});
-When('I click provide information and expect URL {string}', async (url: string) => {
-  await iClickProvideInformation(url);
-});
-When(
-  'I click provide information and expect URL {string} with element {string}',
-  async (url: string, expectedElementSelector: string) => {
-    await iClickProvideInformation(url, undefined, undefined, expectedElementSelector);
-  }
-);
 When('I click respond to the application', async () => {
   await iClickToNavigate('#respondToTheApplicationButton', undefined, REVIEW_THE_APPLICATION);
 });
@@ -386,9 +316,6 @@ When('I do not need my contact details kept private', () => {
 });
 When('I need my contact details kept private', () => {
   iSetPrivateAddress();
-});
-When('I am in a refuge', () => {
-  iSetInRefuge();
 });
 When('I do not need a financial order', iSelectNo);
 When('I need a financial order for myself', () => {
