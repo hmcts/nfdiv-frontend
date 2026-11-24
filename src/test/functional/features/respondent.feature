@@ -53,7 +53,7 @@ Feature: Respondent journey
     Given I do not want to dispute the application
     Then I click continue and expect URL "HOW_DO_YOU_WANT_TO_RESPOND"
 
-    Then I click continue and expect error for field "disputeApplication"
+    Then I click continue and expect an error for field "disputeApplication"
 
     Given I want to dispute the application
     Then I click continue and expect URL "DISPUTING_THE_APPLICATION"
