@@ -68,7 +68,6 @@ export const config = {
   Gherkin: {
     features: './features/**/*.feature',
     steps: [
-      '../steps/check-your-answers.ts',
       '../steps/common.ts',
       '../steps/conditional-order.ts',
       '../steps/date.ts',
@@ -82,7 +81,6 @@ export const config = {
       '../steps/postcode.ts',
       '../steps/request-for-information.ts',
       '../steps/switch-to-sole.ts',
-      '../steps/you-need-to-review-your-application.ts',
     ],
   },
   bootstrap: async (): Promise<void> => {
