@@ -11,7 +11,7 @@ const en = ({ partner }: CommonContent) => {
   };
 
   return {
-    title: `We need up to date information for your ${partner}`,
+    title: `Your ${partner}'s contact details`,
     line1: `We need up to date contact details so that we can send the application to your ${partner}.`,
 
     homeAddress: 'Home address',
@@ -32,7 +32,7 @@ const cy = ({ partner }: CommonContent) => {
   };
 
   return {
-    title: `We need up to date information for your ${partner}`,
+    title: `Your ${partner}'s contact details`,
     line1: `We need up to date contact details so that we can send the application to your ${partner}.`,
 
     homeAddress: 'Home address',
