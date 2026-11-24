@@ -171,7 +171,6 @@ export const autoLogin = {
   },
   check: async (): Promise<void> => {
     iAmOnPage(YOUR_DETAILS_URL);
-    iWaitForNfdServiceLink();
   },
   restore: (cookies: CodeceptJS.Cookie[]): void => {
     I.amOnPage('/info');
@@ -187,7 +186,6 @@ export const autoLoginForApplicant2 = {
   },
   check: async (): Promise<void> => {
     iAmOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
-    iWaitForNfdServiceLink();
   },
   restore: (cookies: CodeceptJS.Cookie[]): void => {
     I.amOnPage('/info');
@@ -203,7 +201,6 @@ export const autoLoginForRespondent = {
   },
   check: async (): Promise<void> => {
     iAmOnPage(APPLICANT_2 + ENTER_YOUR_ACCESS_CODE);
-    iWaitForNfdServiceLink();
   },
   restore: (cookies: CodeceptJS.Cookie[]): void => {
     I.amOnPage('/info');
@@ -222,6 +219,25 @@ export const login = async (
     await autoLoginForApplicant2.login(rejectCookies);
   } else if (userKey === TestUserKey.RESPONDENT) {
     await autoLoginForRespondent.login(rejectCookies);
+  }
+};
+
+export const createNewUserAndLogin = async (
+  userKey: TestUserKey,
+  createCase: boolean = false,
+  rejectCookies: boolean = true
+): Promise<void> => {
+  if (userKey === TestUserKey.APPLICANT_1) {
+    await login(userKey, createCase, rejectCookies);
+    if (!createCase) {
+      await autoLogin.check();
+    }
+  } else if (userKey === TestUserKey.APPLICANT_2) {
+    await login(userKey, rejectCookies);
+    await autoLoginForApplicant2.check();
+  } else if (userKey === TestUserKey.RESPONDENT) {
+    await login(userKey, rejectCookies);
+    await autoLoginForRespondent.check();
   }
 };
 
