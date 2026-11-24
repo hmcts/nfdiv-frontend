@@ -26,7 +26,6 @@ import {
   iCheckOption,
   iCheckOptionValue,
   iClickStartAndExpectUrl,
-  iClickSubmit,
   iClickSubmitAndExpectUrl,
   iEnterTheDefaultEmailAddressInto,
   iEnterValueIntoInput,
