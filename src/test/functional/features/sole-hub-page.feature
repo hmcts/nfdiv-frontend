@@ -47,7 +47,7 @@ Feature: Sole hub page
 
     Given I set the case state to "AwaitingClarification" then login as applicant "1" and expect hub element "#awaitingClarificationSoleContent"
 
-    Given I click provide information and expect URL "PROVIDE_INFORMATION_TO_THE_COURT"
+    Given I click to provide information to the court
     Then I provide additional details
     And I cannot upload some or all of my documents
     Then the page should include element "#cannotUploadYouCanPostConditional"

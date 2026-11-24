@@ -4,9 +4,10 @@ import {
   RequestForInformationJointParties,
   RequestForInformationSoleParties,
 } from '../../main/app/case/definition';
+import { RESPOND_TO_COURT_FEEDBACK } from '../../main/steps/urls';
 
 import { triggerAnEvent } from './commonHelpers/case-interaction';
-import { iEnterValueIntoInput } from './commonHelpers/element-interaction';
+import { iClickProvideInformation, iEnterValueIntoInput } from './commonHelpers/element-interaction';
 import { TestUserKey } from './commonHelpers/idam-user-manager';
 import { getApplicantString } from './commonHelpers/user-interaction';
 
@@ -14,6 +15,11 @@ const REQUEST_FOR_INFORMATION_DETAILS = 'Example request for information details
 const REQUEST_FOR_INFORMATION_THIRD_PARTY_NAME = 'Example third party name';
 const REQUEST_FOR_INFORMATION_THIRD_PARTY_EMAIL_ADDRESS = 'thirdparty@hmcts.net';
 const APPLICANT_RFI_DRAFT_RESPONSE_DETAILS_SELECTOR_SUFFIX = 'RfiDraftResponseDetails';
+
+const getRfiApplicantString = (): 'app1' | 'app2' => {
+  const applicantString = getApplicantString();
+  return applicantString === 'applicant1' ? 'app1' : 'app2';
+};
 
 export const caseworkerIssuesRequestForInformation = async (eventData: Partial<Case>): Promise<void> => {
   await triggerAnEvent(CASEWORKER_REQUEST_FOR_INFORMATION, eventData, TestUserKey.CASEWORKER);
@@ -65,10 +71,9 @@ When('a case worker issues a request for information to a third party on a joint
   });
 });
 
-const getRfiApplicantString = (): 'app1' | 'app2' => {
-  const applicantString = getApplicantString();
-  return applicantString === 'applicant1' ? 'app1' : 'app2';
-};
+When('I click to respond to court feedback', async () => {
+  await iClickProvideInformation(RESPOND_TO_COURT_FEEDBACK);
+});
 
 Given('I provide the requested information', async () => {
   iEnterValueIntoInput(

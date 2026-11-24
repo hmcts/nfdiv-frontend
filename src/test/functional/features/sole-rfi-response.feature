@@ -11,7 +11,7 @@ Feature: Sole request for information response journey
 
   Scenario: Applicant sole rfi journey
     Given I login as applicant "1" and expect hub element "#informationRequestedLine1Sole"
-    Then I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
+    Then I click to respond to court feedback
 
     Given I provide the requested information
     Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
@@ -20,7 +20,7 @@ Feature: Sole request for information response journey
 
     Given a case worker issues a request for information
     And I login as applicant "1" and expect hub element "#informationRequestedLine1Sole"
-    Then I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
+    Then I click to respond to court feedback
 
     Given I cannot upload some or all of my documents
     Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"

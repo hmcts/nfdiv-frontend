@@ -18,7 +18,7 @@ Feature: Joint request for information
     Then I login as applicant "2" and expect hub element "#partnerLine1"
 
     Given I login as applicant "1" and expect hub element "#informationRequestedLine1"
-    Then I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
+    Then I click to respond to court feedback
 
     Given I provide the requested information
     Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
@@ -29,7 +29,7 @@ Feature: Joint request for information
     Then I login as applicant "2" and expect hub element "#partnerLine1"
 
     Given I login as applicant "1" and expect hub element "#informationRequestedLine1"
-    Then I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
+    Then I click to respond to court feedback
 
     Given I cannot upload some or all of my documents
     Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
@@ -39,7 +39,7 @@ Feature: Joint request for information
     Given a case worker issues a request for information to both parties on a joint case
     Then I login as applicant "1" and expect hub element "#informationRequestedLine1"
 
-    Given I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
+    Given I click to respond to court feedback
     And I provide the requested information
     Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
 
@@ -50,7 +50,7 @@ Feature: Joint request for information
     Given a case worker issues a request for information to both parties on a joint case
     Then I login as applicant "1" and expect hub element "#informationRequestedLine1"
 
-    Given I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
+    Given I click to respond to court feedback
     And I cannot upload some or all of my documents
     Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
 
@@ -66,7 +66,7 @@ Feature: Joint request for information
     Then I login as applicant "1" and expect hub element "#partnerLine1"
 
     Given I login as applicant "2" and expect hub element "#informationRequestedLine1"
-    Then I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
+    Then I click to respond to court feedback
 
     Given I provide the requested information
     Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
@@ -77,7 +77,7 @@ Feature: Joint request for information
     Then I login as applicant "1" and expect hub element "#partnerLine1"
 
     Given I login as applicant "2" and expect hub element "#informationRequestedLine1"
-    Then I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
+    Then I click to respond to court feedback
 
     Given I cannot upload some or all of my documents
     Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
@@ -87,7 +87,7 @@ Feature: Joint request for information
     Given a case worker issues a request for information to both parties on a joint case
     Then I login as applicant "2" and expect hub element "#informationRequestedLine1"
 
-    Given I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
+    Given I click to respond to court feedback
     And I provide the requested information
     Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
 
@@ -96,7 +96,7 @@ Feature: Joint request for information
     Given a case worker issues a request for information to both parties on a joint case
     Then I login as applicant "2" and expect hub element "#informationRequestedLine1"
 
-    Given I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
+    Given I click to respond to court feedback
     And I cannot upload some or all of my documents
     Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
 

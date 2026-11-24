@@ -1,5 +1,5 @@
 import { State } from '../../main/app/case/definition';
-import { HUB_PAGE } from '../../main/steps/urls';
+import { HUB_PAGE, PROVIDE_INFORMATION_TO_THE_COURT } from '../../main/steps/urls';
 
 import {
   caseworkerUpdatesCourtCaseHearing,
@@ -7,6 +7,7 @@ import {
   iSetTheCaseStateAndSignInAsUser,
   iUpdateTheCase,
 } from './commonHelpers/case-interaction';
+import { iClickProvideInformation } from './commonHelpers/element-interaction';
 import { getCurrentUserKey, getUserKeyByIndex, iLoginAsUser } from './commonHelpers/user-interaction';
 
 export const progressCaseToAwaitingPronouncement = async (expectedElementSelector?: string): Promise<void> => {
@@ -35,3 +36,6 @@ Given(
     await progressCaseToAwaitingPronouncement(expectedElementSelector);
   }
 );
+When('I click to provide information to the court', async () => {
+  await iClickProvideInformation(PROVIDE_INFORMATION_TO_THE_COURT);
+});

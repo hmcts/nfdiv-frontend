@@ -38,7 +38,7 @@ Feature: Sole conditional order journey
 
   Scenario: Applicant 1 applies for conditional order and provides additional information
     Given I set the case state to "AwaitingClarification" then login as applicant "1" and expect hub element "#awaitingClarificationSoleContent"
-    Then I click provide information and expect URL "PROVIDE_INFORMATION_TO_THE_COURT"
+    Then I click to provide information to the court
 
     Given I clear the form
     Then I provide additional details
@@ -50,7 +50,7 @@ Feature: Sole conditional order journey
   @flaky
   Scenario: Applicant 1 applies for conditional order and provides additional information with uploads
     Given I set the case state to "AwaitingClarification" then login as applicant "1" and expect hub element "#awaitingClarificationSoleContent"
-    Then I click provide information and expect URL "PROVIDE_INFORMATION_TO_THE_COURT"
+    Then I click to provide information to the court
 
     Given I clear the form
     Then I provide additional details

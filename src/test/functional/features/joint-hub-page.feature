@@ -57,7 +57,7 @@ Feature: Joint hub page
   @nightly
   Scenario: Joint hub applicant 1 and applicant 2 submitted documents
     Given I set the case state to "AwaitingClarification" and expect hub element "#awaitingClarificationJointContent"
-    Then I click provide information and expect URL "PROVIDE_INFORMATION_TO_THE_COURT"
+    Then I click to provide information to the court
 
     Given I provide additional details
     Then I click continue and expect hub element "#clarificationSubmittedWithDocumentsContent"
@@ -67,7 +67,7 @@ Feature: Joint hub page
   @nightly
   Scenario: Joint hub applicant 1 and applicant 2 documents not submitted
     Given I set the case state to "AwaitingClarification" and expect hub element "#awaitingClarificationJointContent"
-    Then I click provide information and expect URL "PROVIDE_INFORMATION_TO_THE_COURT"
+    Then I click to provide information to the court
 
     Given I provide additional details
     And I cannot upload some or all of my documents
