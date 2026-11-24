@@ -5,7 +5,7 @@ Feature: Joint final order journey
     And I've already completed the form using the fixture "jointFinalOrderCompleteCase"
     Then I go to "CHECK_ANSWERS_URL"
     And I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
-    Then I enter my valid case reference and valid access code
+    Then I login as applicant "2" and link to the case
 
     Given I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     Then I go to "APPLICANT_2" / "CONFIRM_JOINT_APPLICATION"

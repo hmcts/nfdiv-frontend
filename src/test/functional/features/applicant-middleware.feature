@@ -14,7 +14,7 @@ Feature: Applicant middleware
     When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
-    When I enter my valid case reference and valid access code
+    When I login as applicant "2" and link to the case
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
     When I go to "APPLICANT_1" / "OTHER_COURT_CASES"

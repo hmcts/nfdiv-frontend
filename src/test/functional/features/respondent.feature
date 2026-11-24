@@ -12,7 +12,7 @@ Feature: Respondent journey
     Then a case worker issues the application
 
   Scenario: They fill out a happy path respondent journey
-    And I as respondent enter my valid case reference and valid access code
+    And I login as the respondent and link to the case
 
     Given I click respond to the application
     And I have read the application for divorce
@@ -41,7 +41,7 @@ Feature: Respondent journey
 
   @nightly
   Scenario: They fill out an unhappy path respondent journey
-    And I as respondent enter my valid case reference and valid access code
+    And I login as the respondent and link to the case
 
     Given I click respond to the application
     And I have read the application for divorce
@@ -88,7 +88,7 @@ Feature: Respondent journey
 
   Scenario: They fill out a happy path respondent journey when case is in AwaitingConditionalOrder
     Given I set the case state to "AwaitingConditionalOrder"
-    Then I as respondent enter my valid case reference and valid access code
+    Then I login as the respondent and link to the case
 
     Given I click respond to the application
     And I have read the application for divorce

@@ -8,7 +8,7 @@ Feature: Applicant 2 joint application journey
     When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
-    Given I enter my valid case reference and valid access code
+    Given I login as applicant "2" and link to the case
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
     Given I confirm my marriage has broken down irretrievably
@@ -77,7 +77,7 @@ Feature: Applicant 2 joint application journey
     When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
-    Given I enter my valid case reference and valid access code
+    Given I login as applicant "2" and link to the case
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
     Given I confirm my marriage has broken down irretrievably
@@ -141,7 +141,7 @@ Feature: Applicant 2 joint application journey
     When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
 
-    Given I enter my valid case reference and valid access code
+    Given I login as applicant "2" and link to the case
     Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
 
     Given my marriage has not broken down irretrievably
@@ -155,7 +155,7 @@ Feature: Applicant 2 joint application journey
   Scenario: Applicant 2 upload larry-the-cat
     When I go to "CHECK_ANSWERS_URL"
     Then I click send for review and expect URL "SENT_TO_APPLICANT2_FOR_REVIEW"
-    Given I enter my valid case reference and valid access code
+    Given I login as applicant "2" and link to the case
     And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     When I go to "APPLICANT_2" / "UPLOAD_YOUR_DOCUMENTS"
     Given I upload the file "fixtures/larry-the-cat.jpg"

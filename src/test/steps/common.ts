@@ -565,14 +565,15 @@ When('I delete the file {string}', async (filename: string) => {
   await iDeleteUploadedFile(filename);
 });
 
-When('I enter my valid case reference and valid access code', async () => {
-  await linkUserToCase(TestUserKey.APPLICANT_2);
+When('I login as applicant {string} and link to the case', async (applicant: string) => {
+  const userKey =
+    getUserKeyByIndex(parseInt(applicant)) === TestUserKey.APPLICANT_1
+      ? TestUserKey.APPLICANT_1
+      : TestUserKey.APPLICANT_2;
+  await linkUserToCase(userKey);
 });
-When('I as respondent enter my valid case reference and valid access code', async () => {
+When('I login as the respondent and link to the case', async () => {
   await linkUserToCase(TestUserKey.RESPONDENT);
-});
-When('I as applicant1 enter my valid case reference and valid access code', async () => {
-  await linkUserToCase(TestUserKey.APPLICANT_1);
 });
 
 When('a case worker issues the application', caseworkerIssuesCase);

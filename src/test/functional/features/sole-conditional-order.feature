@@ -10,7 +10,7 @@ Feature: Sole conditional order journey
     And I pay and submit and expect the application to be saved
 
     Given a case worker issues the application
-    And I as respondent enter my valid case reference and valid access code
+    And I login as the respondent and link to the case
     Then I click respond to the application
 
     Given I have read the application for divorce

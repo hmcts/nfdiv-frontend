@@ -2,7 +2,7 @@ Feature: Sole hub page
 
   Background:
     Given I progress the case to AwaitingAos
-    And I as respondent enter my valid case reference and valid access code
+    And I login as the respondent and link to the case
 
   Scenario: Sole hub applicant and respondent pages
     Given I click respond to the application

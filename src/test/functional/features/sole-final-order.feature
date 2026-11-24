@@ -12,7 +12,7 @@ Feature: Sole final order
 
     Given I pay and submit and expect the application to be saved
     And a case worker issues the application
-    Then I as respondent enter my valid case reference and valid access code
+    Then I login as the respondent and link to the case
     And I set the case state to "AwaitingFinalOrder" and sign out
 
     Given I login with applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
@@ -31,7 +31,7 @@ Feature: Sole final order
 
     Given I pay and submit and expect the application to be saved
     And a case worker issues the application
-    Then I as respondent enter my valid case reference and valid access code
+    Then I login as the respondent and link to the case
     And I set the case state to "AwaitingFinalOrder" and sign out
 
     Given I login with applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
@@ -53,7 +53,7 @@ Feature: Sole final order
 
     Given I pay and submit and expect the application to be saved
     And a case worker issues the application
-    Then I as respondent enter my valid case reference and valid access code
+    Then I login as the respondent and link to the case
     And I prepare the case for the respondent to apply for final order
 
     Given I login with the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
@@ -78,7 +78,7 @@ Feature: Sole final order
 
     Given I pay and submit and expect the application to be saved
     And a case worker issues the application
-    Then I as respondent enter my valid case reference and valid access code
+    Then I login as the respondent and link to the case
     And I prepare the case for the respondent to apply for final order
 
     Given I login with the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
@@ -108,7 +108,7 @@ Feature: Sole final order
 
     Given I pay and submit and expect the application to be saved
     And a case worker issues the application
-    Then I as respondent enter my valid case reference and valid access code
+    Then I login as the respondent and link to the case
     And I prepare the case for the respondent to apply for final order
 
     Given I login with the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"

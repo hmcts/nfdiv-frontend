@@ -9,7 +9,7 @@ Feature: Update contact details journey
 
     Given I pay and submit and expect the application to be saved
     And a case worker issues the application
-    Then I as respondent enter my valid case reference and valid access code
+    Then I login as the respondent and link to the case
 
   @nightly
   Scenario: Applicant and Respondent update contact details

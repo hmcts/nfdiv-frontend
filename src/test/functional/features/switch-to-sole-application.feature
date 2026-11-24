@@ -8,7 +8,7 @@ Feature: Switch to sole application journey
 
   @nightly
   Scenario: [1] Switching to Sole application by Applicant 1
-    Given I enter my valid case reference and valid access code
+    Given I login as applicant "2" and link to the case
     And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     Then I go to 'CHECK_JOINT_APPLICATION'
 
@@ -44,7 +44,7 @@ Feature: Switch to sole application journey
 
   @nightly
   Scenario: [3] Switching to Sole application by Applicant 2
-    Given I enter my valid case reference and valid access code
+    Given I login as applicant "2" and link to the case
     And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     Then I go to 'CHECK_JOINT_APPLICATION'
 
@@ -64,7 +64,7 @@ Feature: Switch to sole application journey
 
   @nightly
   Scenario: [4] Switching to Sole application by Applicant 1 in AwaitingApplicant1Response state
-    Given I enter my valid case reference and valid access code
+    Given I login as applicant "2" and link to the case
     And I've already completed the form using the fixture "jointApplicant2CompleteCase" for applicant "2"
     Then I go to 'CHECK_JOINT_APPLICATION'
 
