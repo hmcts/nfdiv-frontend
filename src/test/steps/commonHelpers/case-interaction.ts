@@ -207,6 +207,14 @@ export const getCaseForCurrentUser = async (): Promise<CaseWithId> => {
   return iGetTheCaseForUser(getCurrentUserKey());
 };
 
+export const iEnterTheCaseReference = (caseReference: string): void => {
+  iEnterValueIntoInput(caseReference, '#caseReference');
+};
+
+export const iEnterTheAccessCode = (accessCode: string): void => {
+  iEnterValueIntoInput(accessCode, '#accessCode');
+};
+
 export const linkUserToCase = async (
   userKey: TestUserKey.APPLICANT_1 | TestUserKey.APPLICANT_2 | TestUserKey.RESPONDENT
 ): Promise<void> => {
@@ -229,8 +237,8 @@ export const linkUserToCase = async (
   const pathPrefix = userKey === TestUserKey.APPLICANT_1 ? APPLICANT_1 : APPLICANT_2;
   iAmOnPage(pathPrefix + ENTER_YOUR_ACCESS_CODE);
 
-  iEnterValueIntoInput(fetchedCase.id, '#caseReference');
-  iEnterValueIntoInput(accessCode, '#accessCode');
+  iEnterTheCaseReference(fetchedCase.id);
+  iEnterTheAccessCode(accessCode);
   if (userKey === TestUserKey.APPLICANT_2) {
     await iClickSubmitAndExpectUrl(YOU_NEED_TO_REVIEW_YOUR_APPLICATION);
   } else if (userKey === TestUserKey.RESPONDENT) {
