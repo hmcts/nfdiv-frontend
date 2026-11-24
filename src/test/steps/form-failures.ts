@@ -1,5 +1,6 @@
 import { ChangedNameHow } from '../../main/app/case/definition';
 
+import { iEnterTheAccessCode, iEnterTheCaseReference, iGetTheCaseForUser } from './commonHelpers/case-interaction';
 import {
   iCheckOptionValueForField,
   iClickSubmitAndExpectTheCurrentPage,
@@ -15,7 +16,15 @@ import {
   iWaitForVisibleErrorSummary,
   iWaitForVisibleErrorWithoutSummary,
 } from './commonHelpers/element-interaction';
-import { getApplicantString, getOtherApplicantString } from './commonHelpers/user-interaction';
+import { TestUserKey } from './commonHelpers/idam-user-manager';
+import { logAndThrow } from './commonHelpers/logger';
+import {
+  getApplicantString,
+  getCapitalisedApplicantString,
+  getCurrentUserKey,
+  getOtherApplicantString,
+  getUser,
+} from './commonHelpers/user-interaction';
 import { dateToString, iEnterADateIntoField } from './date';
 import {
   getDefaultPostcode,
@@ -85,14 +94,13 @@ export const iClickSubmitAndExpectErrorElementsWithoutSummary = async (fieldName
   iExpectErrorElementsWithoutSummary(fieldName);
 };
 
-export const iEnterAnInvalidReferenceNumber = (): void => {
-  iEnterValueIntoInput('1234123412341234', '#caseReference');
+export const iEnterAnInvalidCaseReference = (): void => {
+  iEnterTheCaseReference('1234123412341234');
 };
 export const iEnterAnInvalidAccessCode = (): void => {
-  iEnterValueIntoInput('QWERTY45', '#accessCode');
+  iEnterTheAccessCode('QWERTY45');
 };
 
-When('I click submit and expect error elements', iClickSubmitAndExpectErrorElements);
 When('I click submit and expect errors for fields {string}', async (fieldName: string) => {
   await iClickSubmitAndExpectErrorElements(fieldName);
 });
@@ -132,16 +140,32 @@ When(
     iWaitForErrorWithoutSummaryForField(errorFieldName);
   }
 );
-When('I click continue and expect an error summary', iClickSubmitAndExpectErrorSummary);
 
 When('I click continue and expect uploadedFiles error elements', async () => {
   await iClickSubmitAndExpectErrorSummary('file-upload-btn');
   iExpectErrorElementsWithoutSummary(`${getApplicantString()}UploadedFiles`);
 });
+When('I click continue and expect confirmReadPetition error elements', async () => {
+  await iClickSubmitAndExpectErrorSummary('confirmReadPetitionId');
+  iExpectErrorElementsWithoutSummary('confirmReadPetition');
+});
+When('I click continue and expect caseReference error elements', async () => {
+  await iClickSubmitAndExpectErrorSummary('undefined');
+  iExpectErrorElementsWithoutSummary('caseReference');
+});
+When('I click continue and expect accessCode error elements', async () => {
+  await iClickSubmitAndExpectErrorSummary('undefined');
+  iExpectErrorElementsWithoutSummary('accessCode');
+});
+
 When('I click submit and expect prayer and statement of truth error elements', async () => {
   await iClickSubmitAndExpectErrorSummary('iConfirmPrayer, statementOfTruth');
   const applicantString = getApplicantString();
   iExpectErrorElementsWithoutSummary(`${applicantString}IConfirmPrayer, ${applicantString}StatementOfTruth`);
+});
+When('I click submit and expect conditional order statement of truth error elements', async () => {
+  await iClickSubmitAndExpectErrorSummary('statementOfTruth');
+  iExpectErrorElementsWithoutSummary(`co${getCapitalisedApplicantString()}StatementOfTruth`);
 });
 When('I click submit and expect final order delay explanation error elements', async () => {
   const applicantString = getApplicantString();
@@ -218,13 +242,46 @@ When('I enter an invalid phone number', () => {
   iEnterValueIntoInput('12345', `#${getApplicantString()}PhoneNumber`);
 });
 When('I do not agree the courts have jurisdiction', iSelectNo);
-When('I enter an invalid reference number and invalid access code', () => {
-  iEnterAnInvalidReferenceNumber();
+
+let caseReferenceAndAccessCode: { caseReference: string; accessCode: string };
+
+const getCaseReferenceAndAccessCode = async (): Promise<void> => {
+  const fetchedCase = await iGetTheCaseForUser(TestUserKey.APPLICANT_1);
+  const applicant1 = await getUser(TestUserKey.APPLICANT_1);
+
+  const accessCodeField = getCurrentUserKey() === TestUserKey.APPLICANT_1 ? 'accessCodeApplicant1' : 'accessCode';
+  const accessCode = fetchedCase[accessCodeField];
+  if (!accessCode) {
+    return logAndThrow(
+      `No access code (expected in field ${accessCodeField}) was returned for case ${fetchedCase.id} retrieved by ${applicant1.username}`
+    );
+  }
+  caseReferenceAndAccessCode = { caseReference: fetchedCase.id, accessCode };
+};
+
+Given('I get the case reference and access code', async () => {
+  await getCaseReferenceAndAccessCode();
+});
+
+When('I enter an invalid access code', async () => {
+  const { caseReference } = caseReferenceAndAccessCode;
+  iEnterTheCaseReference(caseReference);
   iEnterAnInvalidAccessCode();
 });
-When('I enter an invalid access code', () => {
+When('I enter an invalid case reference', async () => {
+  const { accessCode } = caseReferenceAndAccessCode;
+  iEnterAnInvalidCaseReference();
+  iEnterTheAccessCode(accessCode);
+});
+When('I enter an invalid access code and no case reference', () => {
+  iEnterTheCaseReference('');
   iEnterAnInvalidAccessCode();
 });
-When('I enter an invalid reference number', () => {
-  iEnterAnInvalidReferenceNumber();
+When('I enter an invalid case reference and no access code', () => {
+  iEnterAnInvalidCaseReference();
+  iEnterTheAccessCode('');
+});
+When('I enter an invalid case reference and invalid access code', () => {
+  iEnterAnInvalidCaseReference();
+  iEnterAnInvalidAccessCode();
 });
