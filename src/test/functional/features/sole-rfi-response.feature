@@ -11,7 +11,7 @@ Feature: Sole request for information response journey
     And I sign out
 
   Scenario: Applicant sole rfi journey
-    Given I login with applicant "1" and expect hub element "#informationRequestedLine1Sole"
+    Given I login as applicant "1" and expect hub element "#informationRequestedLine1Sole"
     Then I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
 
     Given I provide the requested information
@@ -20,7 +20,7 @@ Feature: Sole request for information response journey
     Then I click submit and expect hub element "#respondedToRfiLine1Sole"
 
     Given a case worker issues a request for information
-    And I login with applicant "1" and expect hub element "#informationRequestedLine1Sole"
+    And I login as applicant "1" and expect hub element "#informationRequestedLine1Sole"
     Then I click provide information and expect URL "RESPOND_TO_COURT_FEEDBACK"
 
     Given I cannot upload some or all of my documents
@@ -29,4 +29,4 @@ Feature: Sole request for information response journey
     Then I click submit and expect hub element "#awaitingRequestedInformationLine1Sole"
 
     Given a case worker issues a request for information to a third party
-    Then I login with applicant "1" and expect hub element "#otherLine1Sole"
+    Then I login as applicant "1" and expect hub element "#otherLine1Sole"

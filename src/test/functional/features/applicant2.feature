@@ -49,7 +49,7 @@ Feature: Applicant 2 joint application journey
     Given I confirm the prayer and statement of truth
     Then I click continue and expect URL "RESPONSE_SUBMITTED"
 
-    Given I login with applicant "1" and expect URL "CONFIRM_JOINT_APPLICATION"
+    Given I login as applicant "1" and expect URL "CONFIRM_JOINT_APPLICATION"
 
     Given I confirm the prayer and statement of truth
     Then I click continue to payment and expect URL "PAY_AND_SUBMIT"
@@ -59,7 +59,7 @@ Feature: Applicant 2 joint application journey
 
     Then I pay and submit the joint application
 
-    Then I login with applicant "2" and expect hub element "#awaitingDocumentsTitle"
+    Then I login as applicant "2" and expect hub element "#awaitingDocumentsTitle"
 
   @nightly
   Scenario: They fill out an unhappy path applicant 2 joint application journey with help with fees
@@ -149,7 +149,7 @@ Feature: Applicant 2 joint application journey
 
     Then I click end the joint application and expect URL "NOT_CONFIRMED_JOINT_APPLICATION"
 
-    Then I login with applicant "1" and expect URL "APPLICATION_ENDED"
+    Then I login as applicant "1" and expect URL "APPLICATION_ENDED"
 
   @flaky
   Scenario: Applicant 2 upload larry-the-cat

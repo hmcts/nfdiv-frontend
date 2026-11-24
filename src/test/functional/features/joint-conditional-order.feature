@@ -28,7 +28,7 @@ Feature: Joint conditional order journey
     Given I confirm the statement of truth
     Then I click submit and expect hub element "#jointConditionalOrderPendingContent"
 
-    Then I login with applicant "2" and expect URL "HUB_PAGE"
+    Then I login as applicant "2" and expect URL "HUB_PAGE"
 
     Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 
@@ -57,7 +57,7 @@ Feature: Joint conditional order journey
     Given I confirm the statement of truth
     Then I click submit and expect hub element "#jointConditionalOrderPendingContent"
 
-    Then I login with applicant "1" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
+    Then I login as applicant "1" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
 
     Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 

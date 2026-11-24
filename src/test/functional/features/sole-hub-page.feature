@@ -6,14 +6,14 @@ Feature: Sole hub page
 
   Scenario: Sole hub applicant and respondent pages
     Given I click respond to the application
-    Then I login with applicant "1" and expect hub element "#aosAwaitingLine1"
+    Then I login as applicant "1" and expect hub element "#aosAwaitingLine1"
 
     Given I set the case to AosDrafted
     Then I set the case to AosOverdue
 
     Then I click to review my contact details
 
-    Given I login with the respondent
+    Given I login as the respondent
     Then I click respond to the application
 
     Given I have read the application for divorce
@@ -27,23 +27,23 @@ Feature: Sole hub page
     Given I set the case state to "Holding"
     Then I go to "RESPONDENT" / "HUB_PAGE" and expect element "#respondentHoldingContent"
 
-    Then I login with applicant "1" and expect hub element "#holdingContent"
+    Then I login as applicant "1" and expect hub element "#holdingContent"
 
     Given a superuser updates "disputeApplication" with "Yes"
-    Then I login with the respondent and expect hub element "#respondentD8AwaitingContent"
+    Then I login as the respondent and expect hub element "#respondentD8AwaitingContent"
 
-    Then I login with applicant "1" and expect hub element "#d8AwaitingContent"
+    Then I login as applicant "1" and expect hub element "#d8AwaitingContent"
 
     Then I set the case state to "AwaitingConditionalOrder" and expect hub element "#awaitingConditionalOrderContent"
 
     Given I set the case state to "AwaitingGeneralConsideration" and expect hub element "#generalApplicationReceivedSoleContent"
-    Then I login with the respondent and expect hub element "#generalApplicationReceivedSoleContent"
+    Then I login as the respondent and expect hub element "#generalApplicationReceivedSoleContent"
 
     Given I set the case state to "AwaitingLegalAdvisorReferral" and expect hub element "#awaitingLegalAdvisorReferralRespondentContent"
-    Then I login with applicant "1" and expect hub element "#awaitingLegalAdvisorReferralSoleContent"
+    Then I login as applicant "1" and expect hub element "#awaitingLegalAdvisorReferralSoleContent"
 
     Given I progress the case to awaiting pronouncement and expect hub element "#awaitingPronouncementSoleContent"
-    Then I login with the respondent and expect hub element "#awaitingPronouncementRespondentContent"
+    Then I login as the respondent and expect hub element "#awaitingPronouncementRespondentContent"
 
     Given I set the case state to "AwaitingClarification" then login as applicant "1" and expect hub element "#awaitingClarificationSoleContent"
 
@@ -55,7 +55,7 @@ Feature: Sole hub page
     Then I click continue and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
 
     Given I set the case state to "ConditionalOrderPronounced" and expect hub element "#conditionalOrderPronouncedContent"
-    Then I login with the respondent and expect hub element "#conditionalOrderPronouncedRespondentContent"
+    Then I login as the respondent and expect hub element "#conditionalOrderPronouncedRespondentContent"
 
     Given I set the case state to "AwaitingServiceConsideration" then login as applicant "1" and expect hub element "#awaitingServiceConsiderationOrBailiffReferralContent"
 

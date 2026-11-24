@@ -20,7 +20,7 @@ Feature: Switch to sole application journey
     Given I confirm the prayer and statement of truth
     Then I click continue and expect URL "RESPONSE_SUBMITTED"
 
-    Given I login with applicant "1"
+    Given I login as applicant "1"
     Then I go to 'CONFIRM_JOINT_APPLICATION'
 
     Given I confirm the prayer and statement of truth
@@ -72,7 +72,7 @@ Feature: Switch to sole application journey
     And I explain what is incorrect or needs changing
     Then I click continue and expect URL "YOUR_COMMENTS_SENT"
 
-    Given I login with applicant "1"
+    Given I login as applicant "1"
     Then I go to "HOW_DO_YOU_WANT_TO_APPLY"
 
     Given I want to apply on my own

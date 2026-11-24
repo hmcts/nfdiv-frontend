@@ -45,7 +45,7 @@ Feature: Sole conditional order journey
     And I cannot upload some or all of my documents
     Then I click continue and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
 
-    Given I login with the respondent and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
+    Given I login as the respondent and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
 
   @flaky
   Scenario: Applicant 1 applies for conditional order and provides additional information with uploads
@@ -58,4 +58,4 @@ Feature: Sole conditional order journey
     Then I upload the file "fixtures/larry-the-cat.jpg"
     And I click continue and expect hub element "#clarificationSubmittedWithDocumentsContent"
 
-    Then I login with the respondent and expect hub element "#clarificationSubmittedWithDocumentsContent"
+    Then I login as the respondent and expect hub element "#clarificationSubmittedWithDocumentsContent"

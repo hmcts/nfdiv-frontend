@@ -11,17 +11,17 @@ Feature: Joint hub page co partner offline
     Given I set the case state to "Holding" and expect hub element "#applicantSubmittedContent"
     Then I confirm receipt of the application
 
-    Given I login with applicant "1" and expect hub element "#applicantSubmittedContent"
+    Given I login as applicant "1" and expect hub element "#applicantSubmittedContent"
     Then I confirm receipt of the application
     And I set the case state to "AwaitingConditionalOrder"
 
   Scenario: Joint hub both applicants apply for co page when partner is offline
     Given a superuser updates "applicant2Offline" with "Yes"
-    Then I login with applicant "1" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
+    Then I login as applicant "1" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
     And the page should include element "#partnerIsOfflineContent"
     And the page should not include element "#applyForConditionalOrderButton"
 
     Given a superuser updates "applicant1Offline" with "Yes"
-    And I login with applicant "2" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
+    And I login as applicant "2" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
     And the page should include element "#partnerIsOfflineContent"
     And the page should not include element "#applyForConditionalOrderButton"

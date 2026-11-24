@@ -140,41 +140,41 @@ Given('I create a new user and login', async () => {
 Given('I create a new user and login as applicant 2', async () => {
   await login(TestUserKey.APPLICANT_2);
 });
-Given('I login with applicant {string}', async (applicant: string) => {
+Given('I login as applicant {string}', async (applicant: string) => {
   const userKey = getUserKeyByIndex(parseInt(applicant));
   await iLoginAsUser(userKey);
 });
-Given('I login with applicant {string} and expect URL {string}', async (applicant: string, url: string) => {
+Given('I login as applicant {string} and expect URL {string}', async (applicant: string, url: string) => {
   const userKey = getUserKeyByIndex(parseInt(applicant));
   await iLoginAsUser(userKey, url);
 });
 Given(
-  'I login with applicant {string} and expect URL {string} with element {string}',
+  'I login as applicant {string} and expect URL {string} with element {string}',
   async (applicant: string, url: string, expectedElementSelector: string) => {
     const userKey = getUserKeyByIndex(parseInt(applicant));
     await iLoginAsUser(userKey, url, expectedElementSelector);
   }
 );
 Given(
-  'I login with applicant {string} and expect hub element {string}',
+  'I login as applicant {string} and expect hub element {string}',
   async (applicant: string, expectedElementSelector: string) => {
     const userKey = getUserKeyByIndex(parseInt(applicant));
     await iLoginAsUser(userKey, HUB_PAGE, expectedElementSelector);
   }
 );
-Given('I login with the respondent', async () => {
+Given('I login as the respondent', async () => {
   await login(TestUserKey.RESPONDENT);
 });
-Given('I login with the respondent and expect URL {string}', async (url: string) => {
+Given('I login as the respondent and expect URL {string}', async (url: string) => {
   await iLoginAsUser(TestUserKey.RESPONDENT, url);
 });
 Given(
-  'I login with the respondent and expect URL {string} with element {string}',
+  'I login as the respondent and expect URL {string} with element {string}',
   async (url: string, expectedElementSelector: string) => {
     await iLoginAsUser(TestUserKey.RESPONDENT, url, expectedElementSelector);
   }
 );
-Given('I login with the respondent and expect hub element {string}', async (expectedElementSelector: string) => {
+Given('I login as the respondent and expect hub element {string}', async (expectedElementSelector: string) => {
   await iLoginAsUser(TestUserKey.RESPONDENT, HUB_PAGE, expectedElementSelector);
 });
 

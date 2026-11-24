@@ -15,7 +15,7 @@ Feature: Sole final order
     Then I login as the respondent and link to the case
     And I set the case state to "AwaitingFinalOrder" and sign out
 
-    Given I login with applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
+    Given I login as applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -34,7 +34,7 @@ Feature: Sole final order
     Then I login as the respondent and link to the case
     And I set the case state to "AwaitingFinalOrder" and sign out
 
-    Given I login with applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
+    Given I login as applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -56,7 +56,7 @@ Feature: Sole final order
     Then I login as the respondent and link to the case
     And I prepare the case for the respondent to apply for final order
 
-    Given I login with the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
+    Given I login as the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -67,7 +67,7 @@ Feature: Sole final order
     Then I click continue and expect URL "PAY_YOUR_FINAL_ORDER_FEE"
 
     Given I pay and submit the final order application
-    Then I login with applicant "1" and expect hub element "#finalOrderRequestedApplicant2AppliedFirstContent"
+    Then I login as applicant "1" and expect hub element "#finalOrderRequestedApplicant2AppliedFirstContent"
 
   Scenario: Applicant sole final order within a year after respondent does not complete payment
     Given I've already completed the form using the fixture "finalOrderCompleteCase"
@@ -81,7 +81,7 @@ Feature: Sole final order
     Then I login as the respondent and link to the case
     And I prepare the case for the respondent to apply for final order
 
-    Given I login with the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
+    Given I login as the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -92,7 +92,7 @@ Feature: Sole final order
     Then I click continue and expect URL "PAY_YOUR_FINAL_ORDER_FEE"
 
     Given I click pay and submit but do not complete the payment
-    Then I login with applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
+    Then I login as applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
 
     Given I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
     And I want to finalise my divorce
@@ -111,7 +111,7 @@ Feature: Sole final order
     Then I login as the respondent and link to the case
     And I prepare the case for the respondent to apply for final order
 
-    Given I login with the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
+    Given I login as the respondent and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueRespondentCanApplyContent"
     Then I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
 
     Given I want to finalise my divorce
@@ -122,7 +122,7 @@ Feature: Sole final order
     Then I click continue and expect URL "PAY_YOUR_FINAL_ORDER_FEE"
 
     Given I click pay and submit but do not complete the payment
-    Then I login with applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
+    Then I login as applicant "1" and expect hub element "#awaitingFinalOrderOrFinalOrderOverdueContent"
 
     Given I click apply for final order and expect URL "FINALISING_YOUR_APPLICATION"
     And I want to finalise my divorce

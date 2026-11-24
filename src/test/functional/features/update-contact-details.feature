@@ -26,7 +26,7 @@ Feature: Update contact details journey
 
     Then I click continue and expect URL "HUB_PAGE"
 
-    Given I login with applicant "1" and expect URL "HUB_PAGE"
+    Given I login as applicant "1" and expect URL "HUB_PAGE"
     When I click to review my contact details
     Then I click to change my address
 
