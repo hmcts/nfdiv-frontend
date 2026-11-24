@@ -26,6 +26,8 @@ import {
   iCheckOption,
   iCheckOptionValue,
   iClickStartAndExpectUrl,
+  iClickSubmit,
+  iClickSubmitAndExpectUrl,
   iEnterTheDefaultEmailAddressInto,
   iEnterValueIntoInput,
   iSelectNo,
@@ -358,6 +360,9 @@ Given('I enter their new email address', () => {
 });
 Given('I want to send the papers again', () => {
   iSelectRadioValue(NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN);
+});
+When('I click accept and send and expect URL {string}', async (url: string) => {
+  await iClickSubmitAndExpectUrl(url);
 });
 Given('I click continue and expect newPostalAndEmail error elements', async () => {
   await iClickSubmitAndExpectErrorSummary('newPostalAddress');
