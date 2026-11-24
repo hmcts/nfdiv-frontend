@@ -12,7 +12,7 @@ Feature: Update contact details journey
     Then I login as the respondent and link to the case
 
   @nightly
-  Scenario: Applicant and Respondent update contact details
+  Scenario: Applicant and respondent update contact details
     When I click to review my contact details
     Then I click to change my address
 
@@ -26,7 +26,7 @@ Feature: Update contact details journey
 
     Then I click continue and expect URL "HUB_PAGE"
 
-    Given I login as applicant "1" and expect URL "HUB_PAGE"
+    Given I login as applicant "1" and expect hub element "#checkContactDetailsHubLink"
     When I click to review my contact details
     Then I click to change my address
 
