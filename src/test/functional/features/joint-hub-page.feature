@@ -15,16 +15,16 @@ Feature: Joint hub page
     Given I login as applicant "1" and expect hub element "#applicantSubmittedContent"
     Then I confirm receipt of the application
 
-    Given I set the case state to "AwaitingConditionalOrder" and expect hub element "#applicantNotYetAppliedForConditionalOrderContent"
+    Given I set the case state to "AwaitingConditionalOrder" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
     And the page should not include element "#partnerIsOfflineContent"
     Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 
-    Given I login as applicant "2" and expect hub element "#applicantNotYetAppliedForConditionalOrderContent"
+    Given I login as applicant "2" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
     And the page should not include element "#partnerIsOfflineContent"
     Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 
-    Given I set the case state to "ConditionalOrderPronounced" and expect hub element "#conditionalOrderPronouncedJointContent"
-    Then I login as applicant "1" and expect hub element "#conditionalOrderPronouncedJointContent"
+    Given I set the case state to "ConditionalOrderPronounced" and expect hub element "#jointConditionalOrderPronouncedContent"
+    Then I login as applicant "1" and expect hub element "#jointConditionalOrderPronouncedContent"
 
     Given I set the case state to "AwaitingPronouncement" and expect hub element "#awaitingLegalAdvisorReferralJointContent"
     Then I login as applicant "2" and expect hub element "#awaitingLegalAdvisorReferralJointContent"
@@ -39,20 +39,20 @@ Feature: Joint hub page
     Given I set the case state to "AwaitingClarification" and expect hub element "#awaitingClarificationJointContent"
     Then I login as applicant "1" and expect hub element "#awaitingClarificationJointContent"
 
-    Given I set the case state to "AwaitingFinalOrder" and expect hub element "#awaitingFinalOrderJointContent"
+    Given I set the case state to "AwaitingFinalOrder" and expect hub element "#awaitingJointFinalOrderContent"
     And the page should include element "#applyForFinalOrderButton"
 
-    Given I login as applicant "2" and expect hub element "#awaitingFinalOrderJointContent"
+    Given I login as applicant "2" and expect hub element "#awaitingJointFinalOrderContent"
     And the page should include element "#applyForFinalOrderButton"
 
-    Given I set the case state to "AwaitingJointFinalOrder" and expect hub element "#awaitingFinalOrderJointContent"
+    Given I set the case state to "AwaitingJointFinalOrder" and expect hub element "#awaitingJointFinalOrderContent"
     And the page should include element "#applyForFinalOrderButton"
 
-    Given I login as applicant "1" and expect hub element "#awaitingFinalOrderJointContent"
+    Given I login as applicant "1" and expect hub element "#awaitingJointFinalOrderContent"
     And the page should include element "#applyForFinalOrderButton"
 
-    Given I set the case state to "FinalOrderRequested" and expect hub element "#finalOrderRequestedJointContent"
-    Then I login as applicant "2" and expect hub element "#finalOrderRequestedJointContent"
+    Given I set the case state to "FinalOrderRequested" and expect hub element "#jointFinalOrderRequestedContent"
+    Then I login as applicant "2" and expect hub element "#jointFinalOrderRequestedContent"
 
   @nightly
   Scenario: Joint hub applicant 1 and applicant 2 submitted documents

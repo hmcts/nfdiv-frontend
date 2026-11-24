@@ -34,7 +34,7 @@ Feature: Sole conditional order journey
     Then I click continue and expect URL "CHECK_CONDITIONAL_ORDER_ANSWERS_URL"
 
     Given I confirm the statement of truth
-    Then I click submit and expect hub element "#legalAdvisorReferralContent"
+    Then I click submit and expect hub element "#awaitingLegalAdvisorReferralSoleContent"
 
   Scenario: Applicant 1 applies for conditional order and provides additional information
     Given I set the case state to "AwaitingClarification" then login as applicant "1" and expect hub element "#awaitingClarificationSoleContent"
