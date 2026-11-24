@@ -81,6 +81,7 @@ import {
 } from './commonHelpers/navigation';
 import {
   clearNewUsers,
+  createNewUserAndLogin,
   getApplicantString,
   getUserKeyByIndex,
   iClickSignOut,
@@ -134,11 +135,16 @@ Then('the request should redirect to the page not found error page', () => {
   iWaitInPageNotFoundErrorPage();
 });
 
-Given('I create a new user and login', async () => {
-  await login(TestUserKey.APPLICANT_1, true);
+Given('I create a new applicant {string} user and login', async (applicant: string) => {
+  const userKey =
+    getUserKeyByIndex(parseInt(applicant)) === TestUserKey.APPLICANT_1
+      ? TestUserKey.APPLICANT_1
+      : TestUserKey.APPLICANT_2;
+  const createCase: boolean = userKey === TestUserKey.APPLICANT_1;
+  await createNewUserAndLogin(userKey, createCase);
 });
-Given('I create a new user and login as applicant 2', async () => {
-  await login(TestUserKey.APPLICANT_2);
+Given('I create a new respondent user and login', async () => {
+  await createNewUserAndLogin(TestUserKey.RESPONDENT);
 });
 Given('I login as applicant {string}', async (applicant: string) => {
   const userKey = getUserKeyByIndex(parseInt(applicant));
