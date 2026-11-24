@@ -163,6 +163,10 @@ When('I click submit and expect prayer and statement of truth error elements', a
   const applicantString = getApplicantString();
   iExpectErrorElementsWithoutSummary(`${applicantString}IConfirmPrayer, ${applicantString}StatementOfTruth`);
 });
+When('I click submit and expect aos statement of truth error elements', async () => {
+  await iClickSubmitAndExpectErrorSummary('statementOfTruth');
+  iExpectErrorElementsWithoutSummary('aosStatementOfTruth');
+});
 When('I click submit and expect conditional order statement of truth error elements', async () => {
   await iClickSubmitAndExpectErrorSummary('statementOfTruth');
   iExpectErrorElementsWithoutSummary(`co${getCapitalisedApplicantString()}StatementOfTruth`);

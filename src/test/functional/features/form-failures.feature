@@ -224,8 +224,8 @@ Feature: Form failures
     Given I go to "RESPONDENT" / "HOW_THE_COURTS_WILL_CONTACT_YOU"
     Then I click continue and expect URL "ENGLISH_OR_WELSH"
 
-    Given I go to "RESPONDENT"
-    Then I click submit and expect error elements
+    Given I go to "RESPONDENT" / "CHECK_ANSWERS_URL"
+    Then I click submit and expect aos statement of truth error elements
 
     Given I go to "RESPONDENT" / "FINALISING_YOUR_APPLICATION"
     Then I click continue and expect errors for fields "doesApplicant2WantToApplyForFinalOrder, applicant2FinalOrderExplanation"
