@@ -1,13 +1,18 @@
 import { LanguagePreference } from '../../main/app/case/case';
-import { ApplicationType, Gender, State, YesOrNo } from '../../main/app/case/definition';
+import { ApplicationType, Gender, State } from '../../main/app/case/definition';
 import { FinancialOrderForRadioOption } from '../../main/steps/applicant1/who-is-the-financial-order-for/content';
 import { existingOrNew } from '../../main/steps/existing-application/content';
-import { CSRF_TOKEN_ERROR_URL, HUB_PAGE, REVIEW_THE_APPLICATION, THEIR_EMAIL_ADDRESS } from '../../main/steps/urls';
+import {
+  CSRF_TOKEN_ERROR_URL,
+  HUB_PAGE,
+  NOT_CONFIRMED_JOINT_APPLICATION,
+  REVIEW_THE_APPLICATION,
+  SENT_TO_APPLICANT2_FOR_REVIEW,
+} from '../../main/steps/urls';
 import { areRetriesDisabled } from '../config';
 
 import {
   caseworkerIssuesCase,
-  caseworkerUpdatesCourtCaseHearing,
   caseworkerUpdatesTheCase,
   iSetTheCaseStateAndReSignIn,
   iSetTheCaseStateAndSignInAsUser,
@@ -21,7 +26,6 @@ import {
   iCannotUploadDocs,
   iCannotUploadNameChangeProof,
   iCheckOption,
-  iCheckOptionFor,
   iClearTheForm,
   iClickContinue,
   iClickContinueAndExpectHubElement,
@@ -30,7 +34,6 @@ import {
   iClickProvideInformation,
   iClickStart,
   iClickStartAndExpectUrl,
-  iClickString,
   iClickSubmit,
   iClickSubmitAndExpectHubElement,
   iClickSubmitAndExpectUrl,
@@ -58,9 +61,6 @@ import {
   iSetPrivateAddress,
   iToggleLanguageToEnglish,
   iToggleLanguageToWelsh,
-  iWait,
-  iWaitForElement,
-  iWaitForErrorForField,
   iWaitForUploadedFile,
   iWaitForVisible,
 } from './commonHelpers/element-interaction';
@@ -187,13 +187,6 @@ Given('I login as the respondent and expect hub element {string}', async (expect
 When('I accept cookies', iAcceptCookies);
 When('I reject cookies', iRejectCookies);
 
-When('I click {string}', iClickString);
-When('I select {string}', iClickString);
-When('I wait {string} seconds', iWait);
-
-When('I select {string} for {string}', (optionLabel: string, fieldLabel: string) => {
-  iCheckOptionFor(optionLabel, fieldLabel);
-});
 Given('I want to divorce my husband', () => {
   iSelectRadioValue(Gender.MALE);
 });
@@ -230,18 +223,6 @@ Given('I explain why the courts do not have jurisdiction', async () => {
   iEnterValueIntoInput('Example country', '#inWhichCountryIsYourLifeMainlyBased');
 });
 
-Given('I choose {string} from {string}', (option: string, select: string) => {
-  I.selectOption(select, option);
-});
-
-Then('I expect the page title to be {string}', (title: string) => {
-  I.seeInTitle(title);
-});
-
-Then('the page should include {string}', (text: string) => {
-  I.waitForText(text);
-});
-
 Then('the page should include element {string}', (selector: string) => {
   iWaitForVisible(selector);
 });
@@ -252,9 +233,6 @@ Then('the page should not include element {string}', (selector: string) => {
 Then('the page should not include a back link', iDontSeeABackLink);
 Then('the page should include a back link', iSeeABackLink);
 
-Then('the page should include visible element {string}', iWaitForVisible);
-
-When('I select element {string}', iClickElement);
 When('I click element {string}', iClickElement);
 When('I click element {string} and expect URL {string}', async (selector: string, url: string) => {
   await iClickToNavigate(selector, undefined, url);
@@ -349,9 +327,8 @@ When('I click continue and expect hub element {string}', async (expectedElementS
 When('I click continue and the request should redirect to the CSRF error page', async () => {
   await iClickContinueAndExpectUrl(CSRF_TOKEN_ERROR_URL, undefined, undefined, '#badRequestTitle');
 });
-When('I click send for review', iClickSubmit);
-When('I click send for review and expect URL {string}', async (url: string) => {
-  await iClickSubmitAndExpectUrl(url);
+When('I click send for review', async () => {
+  await iClickSubmitAndExpectUrl(SENT_TO_APPLICANT2_FOR_REVIEW);
 });
 When('I click submit application', iClickSubmit);
 When('I click submit application and expect URL {string}', async (url: string) => {
@@ -361,14 +338,8 @@ When('I click continue to payment', iClickSubmit);
 When('I click continue to payment and expect URL {string}', async (url: string) => {
   await iClickSubmitAndExpectUrl(url);
 });
-When('I click pay and submit application', iClickSubmit);
-When('I click accept and send', iClickSubmit);
-When('I click accept and send and expect URL {string}', async (url: string) => {
-  await iClickSubmitAndExpectUrl(url);
-});
-When('I click end the joint application', iClickSubmit);
-When('I click end the joint application and expect URL {string}', async (url: string) => {
-  await iClickSubmitAndExpectUrl(url);
+When('I click end the joint application', async () => {
+  await iClickSubmitAndExpectUrl(NOT_CONFIRMED_JOINT_APPLICATION);
 });
 When('I click save and sign out', async () => {
   await iClickToNavigate('#saveAndSignOutButton');
@@ -388,29 +359,12 @@ When(
     await iClickProvideInformation(url, undefined, undefined, expectedElementSelector);
   }
 );
-When('I click continue to the next steps', async () => {
-  await iClickToNavigate('a.govuk-button[href="/return-to-service"]');
-});
 When('I click respond to the application', async () => {
   await iClickToNavigate('#respondToTheApplicationButton', undefined, REVIEW_THE_APPLICATION);
 });
-When('I click yes', iSelectYes);
 When('I select yes', iSelectYes);
-When('I select yes for field {string}', (field: string) => {
-  iSelectRadioValueForField(YesOrNo.YES, field);
-});
-When('I click no', iSelectNo);
 When('I select no', iSelectNo);
-When('I select no for field {string}', (field: string) => {
-  iSelectRadioValueForField(YesOrNo.NO, field);
-});
 When('I select not found', iSelectNotFound);
-When('I select radio value {string} for field {string}', (value: string, field: string) => {
-  iSelectRadioValueForField(value, field);
-});
-When('I select radio value {string}', (value: string) => {
-  iSelectRadioValueForField(value);
-});
 When('I want to apply jointly', () => {
   iSelectRadioValueForField(ApplicationType.JOINT_APPLICATION);
 });
@@ -462,44 +416,15 @@ When('I have read the application for divorce', () => {
   iCheckOption('#confirmReadPetitionId');
 });
 
-Then('the page should include an error for field {string}', (fieldName: string) => {
-  iWaitForErrorForField(fieldName);
-});
-
-Then('I wait until the page contains image {string}', (text: string) => {
-  I.waitForText(text, 30);
-});
-
-Then('I wait until the page contains file element {string}', (selector: string) => {
-  iWaitForElement(selector, 30);
-});
-
-Then('the page should not include {string}', (text: string) => {
-  I.dontSee(text);
-});
-
-Then('I enter {string} into {string}', (value: string, selector: string) => {
-  iEnterValueIntoInput(value, selector);
-});
 Then('I enter their email address', iEnterTheirDefaultEmailAddress);
 Then("I enter their solicitor's email address", iEnterTheirDefaultSolicitorEmailAddress);
 Then('I enter my HWF reference number', iEnterMyHwfReference);
-Then('we got married in {string} in {string}', (place: string, country: string) => {
-  iEnterValueIntoInput(country, '#ceremonyCountry');
-  iEnterValueIntoInput(place, '#ceremonyPlace');
-});
 Then('I enter the marriage location', () => {
   iEnterValueIntoInput('England', '#ceremonyCountry');
   iEnterValueIntoInput('London', '#ceremonyPlace');
 });
-Then('I enter {string} as my name', (name: string) => {
-  iEnterMyName(name);
-});
 Then('I enter my name', () => {
   iEnterMyName();
-});
-Then('I enter {string} as my name on the certificate', (name: string) => {
-  iEnterMyCertificateName(name);
 });
 Then('I enter my name on the certificate', () => {
   iEnterMyCertificateName();
@@ -507,14 +432,8 @@ Then('I enter my name on the certificate', () => {
 Then('I enter my phone number', () => {
   iEnterValueIntoInput(DEFAULT_PHONE_NUMBER, `#${getApplicantString()}PhoneNumber`);
 });
-Then('I enter {string} as their name', (name: string) => {
-  iEnterTheirName(name);
-});
 Then('I enter their name', () => {
   iEnterTheirName();
-});
-Then('I enter {string} as their name on the certificate', (name: string) => {
-  iEnterTheirCertificateName(name);
 });
 Then('I enter their name on the certificate', () => {
   iEnterTheirCertificateName();
@@ -530,18 +449,6 @@ Then('I explain what is incorrect or needs changing', () => {
   iEnterValueIntoInput('Example incorrect information', `#${getApplicantString()}Explanation`);
 });
 
-Then("I wait until the page doesn't contain {string}", (text: string) => {
-  I.waitForFunction(content => document.body.textContent?.search(content) === -1, [text], 20);
-});
-
-Then('the form input {string} should be {string}', (formInput: string, value: string) => {
-  I.seeInField(formInput, value);
-});
-
-Then('I type {string}', (text: string) => {
-  I.type(text);
-});
-
 Given('I use an invalid CSRF token', async () => {
   await I.executeScript(() => {
     const el = document.querySelector('input[name="_csrf"]');
@@ -552,13 +459,6 @@ Given('I use an invalid CSRF token', async () => {
 });
 
 Given('I clear the form', iClearTheForm);
-
-Given("I've said I do not have my husband's email address", async () => {
-  iAmOnPage(THEIR_EMAIL_ADDRESS);
-  await iClearTheForm();
-  iCheckOption('#applicant1DoesNotKnowApplicant2EmailAddress');
-  await iClickSubmit();
-});
 
 Given('I delete any previously uploaded files', async () => {
   await iDeleteAllUploadedFiles();
@@ -583,8 +483,6 @@ When('I login as the respondent and link to the case', async () => {
 });
 
 When('a case worker issues the application', caseworkerIssuesCase);
-
-When('a case worker updates court case hearing', caseworkerUpdatesCourtCaseHearing);
 
 When('a superuser updates {string} with {string}', async (field: string, value: string) => {
   await caseworkerUpdatesTheCase({ [field]: value });
