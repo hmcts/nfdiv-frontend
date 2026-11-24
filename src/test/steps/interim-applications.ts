@@ -36,6 +36,7 @@ import { TestUserKey } from './commonHelpers/idam-user-manager';
 import { iClickToNavigate } from './commonHelpers/navigation';
 import { getApplicantString, getTheirName, iLoginAsUser, login } from './commonHelpers/user-interaction';
 import { DEFAULT_DATE, dateStringToApi, iEnterADateIntoField } from './date';
+import { iClickSubmitAndExpectErrorSummary, iExpectErrorElementsWithoutSummary } from './form-failures';
 import { completedFormWithFixture } from './happy-path';
 import { DEFAULT_ADDRESS, SECONDARY_ADDRESS, iEnterTheUkAddress } from './postcode';
 
@@ -357,6 +358,10 @@ Given('I enter their new email address', () => {
 });
 Given('I want to send the papers again', () => {
   iSelectRadioValue(NoResponseSendPapersAgainOrTrySomethingElse.SEND_PAPERS_AGAIN);
+});
+Given('I click continue and expect newPostalAndEmail error elements', async () => {
+  await iClickSubmitAndExpectErrorSummary('newPostalAddress');
+  iExpectErrorElementsWithoutSummary(`${getApplicantString()}NoResponsePartnerNewEmailOrAddress`);
 });
 
 // search gov records

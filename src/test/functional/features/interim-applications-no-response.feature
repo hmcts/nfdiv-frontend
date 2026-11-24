@@ -117,8 +117,7 @@ Feature: No response journey
     Given I set the case to AosOverdue to review my options
 
     When I go to "NEW_POSTAL_AND_EMAIL"
-    Then I click continue
-    Then the page should show an error for field "newPostalAddress"
+    Then I click continue and expect newPostalAndEmail error elements
 
   Scenario: No response send papers again or try something else
     Given I set the case to AosOverdue to review my options
