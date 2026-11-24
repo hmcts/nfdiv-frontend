@@ -41,12 +41,6 @@ const initializeTestEnvironment = async () => {
   config.idamUserManager = await userManager.init();
 };
 
-export enum TestUserType {
-  CITIZEN = 'citizen',
-  CITIZEN_SINGLETON = 'citizenSingleton',
-  CITIZEN_APPLICANT_2 = 'citizenApplicant2',
-}
-
 export const areRetriesDisabled = (): boolean => {
   return config.DisableRetries;
 }
