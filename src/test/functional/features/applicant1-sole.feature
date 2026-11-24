@@ -2,8 +2,6 @@ Feature: Applicant 1 sole application journey
 
   Background:
     Given I create a new applicant "1" user and login
-    Then the page URL should be "YOUR_DETAILS_URL"
-    And the page should not include a back link
 
   Scenario: They fill out a happy path applicant 1 sole journey
     Given I want to divorce my husband

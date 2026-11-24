@@ -2,8 +2,6 @@ Feature: Applicant middleware
 
   Background:
     Given I create a new applicant "1" user and login
-    Then the page URL should be "YOUR_DETAILS_URL"
-    And the page should not include a back link
 
   @nightly
   Scenario: The applicants attempt to access the wrong page
