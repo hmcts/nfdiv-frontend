@@ -8,7 +8,6 @@ Feature: Sole request for information response journey
     Then I click continue to payment and expect URL "PAY_YOUR_FEE"
     And I pay and submit and expect the application to be saved
     Then a case worker issues a request for information
-    And I sign out
 
   Scenario: Applicant sole rfi journey
     Given I login as applicant "1" and expect hub element "#informationRequestedLine1Sole"
