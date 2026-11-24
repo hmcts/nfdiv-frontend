@@ -318,7 +318,7 @@ Feature: Form failures
     Given I login as applicant "2" and link to the case
     Then I set the case state to "AwaitingConditionalOrder" then login as applicant "1" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
 
-    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
+    Then I click to apply for a joint conditional order
 
     Then I click continue and expect an error for field "applicant1ApplyForConditionalOrder"
 
@@ -348,7 +348,7 @@ Feature: Form failures
     Given I set the case state to "ConditionalOrderPending"
     Then I go to "APPLICANT_2" / "HUB_PAGE"
 
-    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
+    Then I click to apply for a joint conditional order
 
     Then I click continue and expect an error for field "applicant2ApplyForConditionalOrder"
 

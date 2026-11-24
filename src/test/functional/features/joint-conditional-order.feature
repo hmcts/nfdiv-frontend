@@ -16,7 +16,7 @@ Feature: Joint conditional order journey
   Scenario: Applicant 1 is first in time applicant for conditional order journey
     Given I progress the case to AwaitingConditionalOrder and login as applicant "1"
 
-    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
+    Then I click to apply for a joint conditional order
     And the page should not include a back link
 
     Given I want to continue with my divorce application
@@ -30,7 +30,7 @@ Feature: Joint conditional order journey
 
     Then I login as applicant "2" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
 
-    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
+    Then I click to apply for a joint conditional order
 
     Given I want to continue with my divorce application
     Then I click continue and expect URL "REVIEW_YOUR_JOINT_APPLICATION"
@@ -45,7 +45,7 @@ Feature: Joint conditional order journey
   Scenario: Applicant 2 is first in time applicant for conditional order journey and responds with additional information
     Given I progress the case to AwaitingConditionalOrder and login as applicant "2"
 
-    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
+    Then I click to apply for a joint conditional order
     And the page should not include a back link
 
     Given I want to continue with my divorce application
@@ -59,7 +59,7 @@ Feature: Joint conditional order journey
 
     Then I login as applicant "1" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
 
-    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
+    Then I click to apply for a joint conditional order
 
     Given I want to continue with my divorce application
     Then I click continue and expect URL "REVIEW_YOUR_JOINT_APPLICATION"

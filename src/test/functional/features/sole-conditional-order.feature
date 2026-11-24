@@ -24,7 +24,7 @@ Feature: Sole conditional order journey
   Scenario: Applicant 1 applies for conditional order
     Given I set the case state to "AwaitingConditionalOrder" then login as applicant "1" and expect hub element "#awaitingConditionalOrderContent"
 
-    Given I click apply for conditional order and expect URL "READ_THE_RESPONSE"
+    Given I click apply for conditional order
     Then I click continue and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
 
     Given I want to continue with my divorce application

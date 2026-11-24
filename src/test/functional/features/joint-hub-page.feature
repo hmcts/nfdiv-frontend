@@ -17,11 +17,11 @@ Feature: Joint hub page
 
     Given I set the case state to "AwaitingConditionalOrder" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
     And the page should not include element "#partnerIsOfflineContent"
-    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
+    Then I click to apply for a joint conditional order
 
     Given I login as applicant "2" and expect hub element "#applicantNotYetAppliedForJointConditionalOrderContent"
     And the page should not include element "#partnerIsOfflineContent"
-    Then I click apply for conditional order and expect URL "CONTINUE_WITH_YOUR_APPLICATION"
+    Then I click to apply for a joint conditional order
 
     Given I set the case state to "ConditionalOrderPronounced" and expect hub element "#jointConditionalOrderPronouncedContent"
     Then I login as applicant "1" and expect hub element "#jointConditionalOrderPronouncedContent"
