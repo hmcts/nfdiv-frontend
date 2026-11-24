@@ -241,6 +241,7 @@ describe('AccessCodePostController', () => {
       {
         errorType: 'invalidAccessCode',
         propertyName: 'accessCode',
+        focusId: 'accessCode',
       },
     ]);
     expect(req.locals.logger.info).toHaveBeenCalled();
@@ -268,6 +269,7 @@ describe('AccessCodePostController', () => {
       {
         errorType: 'invalidReference',
         propertyName: 'caseReference',
+        focusId: 'caseReference',
       },
     ]);
   });
