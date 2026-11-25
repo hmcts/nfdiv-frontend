@@ -27,7 +27,7 @@ const en = applicant1UploadDocumentContent => {
     uploadFilesLabel: 'Upload evidence (optional)',
     line1: `If your evidence is in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
       'govukUrls.certifiedTranslation'
-    )}">certified translation</a>.`,
+    )}">certified translation (opens in a new tab)</a>.`,
     line2: 'You may upload multiple documents.',
     line3: 'You cannot upload video or audio recordings.',
     uploadAFile: 'Upload a file',
@@ -69,7 +69,7 @@ const cy: typeof en = applicant1UploadDocumentContent => {
     uploadFilesLabel: 'Upload evidence (optional)',
     line1: `If your evidence is in a language other than English, you'll need to provide a <a class="govuk-link" target="_blank" href="${config.get(
       'govukUrls.certifiedTranslation'
-    )}">certified translation</a>.`,
+    )}">certified translation (opens in a new tab)</a>.`,
     line2: 'You may upload multiple documents.',
     line3: 'You cannot upload video or audio recordings.',
     uploadAFile: 'Upload a file',
