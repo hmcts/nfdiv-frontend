@@ -28,7 +28,8 @@ const en = ({ partner, userCase }: CommonContent, methodLabel) => ({
         ? 'email or chosen contact method'
         : 'chosen contact method'
   } is still actively used by your ${partner}.`,
-  subquestion: `${
+  subquestion: 'Enter date',
+  subquestionHint: `${
     userCase.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
       ? `Provide the date of the email. If the email is more than three months old, the court may not accept it as evidence that your ${partner} is currently using the email address. If you have more than one email conversation, provide the date of the most recent email.`
       : `Provide the date of the conversation using the chosen contact method. If the conversation is more than three months old, the court may not accept it as evidence that your ${partner} is currently using that contact method. If you have conversations using multiple contact methods, provide the date of the most recent conversation.`
@@ -77,7 +78,8 @@ const cy: typeof en = ({ partner, userCase }: CommonContent, methodLabel) => ({
         ? "yr e-bost neu'r dull cysylltu a ddewiswyd"
         : 'y dull cysylltu a ddewiswyd'
   } yn dal i gael ei ddefnyddio'n rheolaidd gan eich ${partner}.`,
-  subquestion: `${
+  subquestion: 'Nodwch y dyddiad',
+  subquestionHint: `${
     userCase.applicant1AltServiceMethod === AlternativeServiceMethod.EMAIL
       ? `Darparwch ddyddiad yr e-bost. Os nad yw'r e-bost o fewn y tri mis diwethaf, efallai na fydd y llys yn ei dderbyn fel tystiolaeth bod eich ${partner} yn defnyddio'r cyfeiriad e-bost bellach. Os oes gennych fwy nag un sgwrs drwy e-bost, darparwch ddyddiad yr e-bost diweddaraf.`
       : `Darparwch ddyddiad y sgwrs gan ddefnyddio'r dull cysylltu a ddewiswyd. Os nad yw'r sgwrs o fewn y tri mis diwethaf, efallai na fydd y llys yn ei derbyn fel tystiolaeth bod eich ${partner} yn defnyddio'r dull cysylltu hwnnw bellach. Os oes gennych sgyrsiau gan ddefnyddio sawl dull cysylltu, darparwch ddyddiad y sgwrs ddiweddaraf.`
@@ -151,7 +153,7 @@ export const form: FormContent = {
               classes: 'govuk-date-input',
               label: l => l.subquestion,
               labelHidden: true,
-              hint: l => l.subquestion,
+              hint: l => l.subquestionHint,
               errorId: 'applicant1AltServiceDateOfEvidence-day',
               values: [
                 {
