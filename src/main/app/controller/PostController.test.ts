@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
 import config from 'config';
 import lodash from 'lodash';
+import { type Mock, vi } from 'vitest';
 
 const { set } = lodash;
 
@@ -27,9 +27,9 @@ import { isPhoneNoValid } from '../form/validation.js';
 
 set(config, 'services.idam.systemPassword', 'DUMMY_VALUE_REPLACE');
 
-jest.unstable_mockModule('../../steps/index.js', () => ({ getNextStepUrl: jest.fn() }));
+vi.mock('../../steps/index.js', () => ({ getNextStepUrl: vi.fn() }));
 const { getNextStepUrl: getNextStepUrlMock } = (await import('../../steps/index.js')) as unknown as {
-  getNextStepUrl: jest.Mock<(...args: any[]) => any>;
+  getNextStepUrl: Mock<(...args: any[]) => any>;
 };
 const { PostController } = await import('./PostController.js');
 
@@ -98,7 +98,7 @@ describe('PostController', () => {
     };
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -128,7 +128,7 @@ describe('PostController', () => {
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockRejectedValueOnce('Error saving');
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockRejectedValueOnce('Error saving');
     const logger = req.locals.logger as unknown as MockedLogger;
     const res = mockResponse();
     await controller.post(req, res);
@@ -156,9 +156,9 @@ describe('PostController', () => {
     const body = { gender: Gender.FEMALE };
     const controller = new PostController(mockFormContent.fields);
 
-    const mockSave = jest.fn((done: (error: string) => void) => done('An error while saving session'));
+    const mockSave = vi.fn((done: (error: string) => void) => done('An error while saving session'));
     const req = mockRequest({ body, session: { save: mockSave } });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce({
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockResolvedValueOnce({
       gender: Gender.FEMALE,
     });
     const res = mockResponse();
@@ -181,7 +181,7 @@ describe('PostController', () => {
 
     const req = mockRequest({ body });
     const res = mockResponse();
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce({
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockResolvedValueOnce({
       sameSex: Checkbox.Checked,
     });
 
@@ -202,7 +202,7 @@ describe('PostController', () => {
     };
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -355,7 +355,7 @@ describe('PostController', () => {
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body, session: { user: { email: 'test@example.com' } } });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockRejectedValue('Error saving');
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -374,7 +374,7 @@ describe('PostController', () => {
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body, userCase, session: { user: { email: 'test@example.com' } } });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockRejectedValue('Error saving');
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -398,7 +398,7 @@ describe('PostController', () => {
     const controller = new PostController(mockFormContent.fields);
 
     const req = mockRequest({ body, userCase, session: { user: { email: 'test@example.com' } } });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockRejectedValue('Error saving');
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockRejectedValue('Error saving');
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -449,7 +449,7 @@ describe('PostController', () => {
 });
 
 interface MockedLogger {
-  info: jest.Mock<(...args: any[]) => any>;
-  error: jest.Mock<(...args: any[]) => any>;
+  info: Mock<(...args: any[]) => any>;
+  error: Mock<(...args: any[]) => any>;
 }
 /* eslint-disable @typescript-eslint/no-explicit-any */

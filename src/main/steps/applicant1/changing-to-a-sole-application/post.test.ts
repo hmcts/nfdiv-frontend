@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { type Mock, vi } from 'vitest';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
@@ -26,7 +26,7 @@ describe('ChangingToASoleApplicationPostController', () => {
     const req = mockRequest({ body });
     req.originalUrl = CHANGING_TO_SOLE_APPLICATION;
 
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(caseData);
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockResolvedValueOnce(caseData);
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -48,7 +48,7 @@ describe('ChangingToASoleApplicationPostController', () => {
     const req = mockRequest({ body, isApplicant2: true });
     req.originalUrl = CHANGING_TO_SOLE_APPLICATION;
 
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(caseData);
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockResolvedValueOnce(caseData);
     const res = mockResponse();
     await controller.post(req, res);
 
@@ -63,8 +63,8 @@ describe('ChangingToASoleApplicationPostController', () => {
     const controller = new ChangingToASoleApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body, isApplicant2: true });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockImplementation(
-      jest.fn(() => {
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockImplementation(
+      vi.fn(() => {
         throw Error;
       })
     );

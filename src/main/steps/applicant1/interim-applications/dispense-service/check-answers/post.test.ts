@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { type Mock, vi } from 'vitest';
 
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
@@ -13,9 +13,9 @@ import {
 import { FormContent } from '../../../../../app/form/Form.js';
 import { dispenseServiceApplicationSequence } from '../../../../dispenseServiceApplicationSequence.js';
 
-jest.unstable_mockModule('../../../../index.js', () => ({
-  getFirstErroredStep: jest.fn(),
-  getNextStepUrl: jest.fn(() => '/next-step-url'),
+vi.mock('../../../../index.js', () => ({
+  getFirstErroredStep: vi.fn(),
+  getNextStepUrl: vi.fn(() => '/next-step-url'),
 }));
 
 const { getFirstErroredStep } = await import('../../../../index.js');
@@ -32,7 +32,7 @@ describe('CheckAnswersController', () => {
   const controller = new CheckAnswersPostController(mockFormContent.fields);
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('Sets the interim application type to dispense with service', async () => {
@@ -45,7 +45,7 @@ describe('CheckAnswersController', () => {
     const req = mockRequest({ body });
     const res = mockResponse();
 
-    (getFirstErroredStep as jest.Mock<(...args: any[]) => any>).mockReturnValue(undefined);
+    (getFirstErroredStep as Mock<(...args: any[]) => any>).mockReturnValue(undefined);
 
     await controller.post(req, res);
 
@@ -59,7 +59,7 @@ describe('CheckAnswersController', () => {
     const res = mockResponse();
 
     const incompleteStepUrl = '/incomplete-step';
-    (getFirstErroredStep as jest.Mock<(...args: any[]) => any>).mockReturnValue(incompleteStepUrl);
+    (getFirstErroredStep as Mock<(...args: any[]) => any>).mockReturnValue(incompleteStepUrl);
 
     await controller.post(req, res);
 

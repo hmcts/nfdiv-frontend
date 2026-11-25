@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { type Mock, vi } from 'vitest';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../test/unit/utils/mockResponse.js';
@@ -7,10 +7,10 @@ import { JURISDICTION_INTERSTITIAL_URL } from '../../steps/urls.js';
 import { CITIZEN_UPDATE, DivorceOrDissolution, JurisdictionConnections, YesOrNo } from '../case/definition.js';
 import { FormContent } from '../form/Form.js';
 
-jest.unstable_mockModule('./connections.js', () => ({ addConnectionsBasedOnQuestions: jest.fn() }));
+vi.mock('./connections.js', () => ({ addConnectionsBasedOnQuestions: vi.fn() }));
 const { addConnectionsBasedOnQuestions: addConnectionsBasedOnQuestionsMock } =
   (await import('./connections.js')) as unknown as {
-    addConnectionsBasedOnQuestions: jest.Mock<(...args: any[]) => any>;
+    addConnectionsBasedOnQuestions: Mock<(...args: any[]) => any>;
   };
 const { JurisdictionPostController } = await import('./JurisdictionPostController.js');
 
@@ -51,7 +51,7 @@ describe('JurisdictionPostController', () => {
     };
 
     const req = mockRequest({ body });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await jurisdictionController.post(req, res);
 
@@ -92,7 +92,7 @@ describe('JurisdictionPostController', () => {
 
     const req = mockRequest({ body });
     req.url = JURISDICTION_INTERSTITIAL_URL;
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await jurisdictionController.post(req, res);
 

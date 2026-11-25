@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { vi } from 'vitest';
 
 import { DivorceOrDissolution } from '../../../main/app/case/definition.js';
 import { AppRequest } from '../../../main/app/controller/AppRequest.js';
@@ -18,16 +18,16 @@ export const mockRequest = ({
     body,
     locals: {
       api: {
-        triggerEvent: jest.fn(),
-        triggerPaymentEvent: jest.fn(),
-        getCaseById: jest.fn(),
-        isApplicant2: jest.fn(),
-        getNewInviteCase: jest.fn(),
-        createCase: jest.fn(),
+        triggerEvent: vi.fn(),
+        triggerPaymentEvent: vi.fn(),
+        getCaseById: vi.fn(),
+        isApplicant2: vi.fn(),
+        getNewInviteCase: vi.fn(),
+        createCase: vi.fn(),
       },
       logger: {
-        info: jest.fn(),
-        error: jest.fn(),
+        info: vi.fn(),
+        error: vi.fn(),
       },
     },
     query: {},
@@ -48,8 +48,8 @@ export const mockRequest = ({
       lang: SupportedLanguages.En,
       existingCaseId: '123456',
       isApplicant2,
-      save: jest.fn((done: () => void) => done()),
-      destroy: jest.fn((done: () => void) => done()),
+      save: vi.fn((done: () => void) => done()),
+      destroy: vi.fn((done: () => void) => done()),
       ...session,
     },
     app: {
@@ -67,7 +67,7 @@ export const mockRequest = ({
     path: '/request',
     url: '/request',
     originalUrl: '/request',
-    logout: jest.fn(),
+    logout: vi.fn(),
   }) as unknown as AppRequest;
 
 export const mockRequestApp2 = ({
@@ -84,16 +84,16 @@ export const mockRequestApp2 = ({
     body,
     locals: {
       api: {
-        triggerEvent: jest.fn(),
-        triggerPaymentEvent: jest.fn(),
-        getCaseById: jest.fn(),
-        isApplicant2: jest.fn(),
-        getNewInviteCase: jest.fn(),
-        createCase: jest.fn(),
+        triggerEvent: vi.fn(),
+        triggerPaymentEvent: vi.fn(),
+        getCaseById: vi.fn(),
+        isApplicant2: vi.fn(),
+        getNewInviteCase: vi.fn(),
+        createCase: vi.fn(),
       },
       logger: {
-        info: jest.fn(),
-        error: jest.fn(),
+        info: vi.fn(),
+        error: vi.fn(),
       },
     },
     query: {},
@@ -114,8 +114,8 @@ export const mockRequestApp2 = ({
       lang: SupportedLanguages.En,
       existingCaseId: '123456',
       isApplicant2,
-      save: jest.fn((done: () => void) => done()),
-      destroy: jest.fn((done: () => void) => done()),
+      save: vi.fn((done: () => void) => done()),
+      destroy: vi.fn((done: () => void) => done()),
       ...session,
     },
     app: {
@@ -133,5 +133,5 @@ export const mockRequestApp2 = ({
     path: '/request/applicant2',
     url: '/request',
     originalUrl: '/request',
-    logout: jest.fn(),
+    logout: vi.fn(),
   }) as unknown as AppRequest;

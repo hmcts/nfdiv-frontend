@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { type Mock, vi } from 'vitest';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse.js';
@@ -13,9 +13,9 @@ import {
 import { FormContent } from '../../../app/form/Form.js';
 import { SAVE_AND_SIGN_OUT } from '../../urls.js';
 
-jest.unstable_mockModule('../../index.js', () => ({ getNextStepUrl: jest.fn() }));
+vi.mock('../../index.js', () => ({ getNextStepUrl: vi.fn() }));
 const { getNextStepUrl: getNextStepUrlMock } = (await import('../../index.js')) as unknown as {
-  getNextStepUrl: jest.Mock<(...args: any[]) => any>;
+  getNextStepUrl: Mock<(...args: any[]) => any>;
 };
 const { default: ReviewTheApplicationPostController } = await import('./post.js');
 
@@ -40,7 +40,7 @@ describe('ReviewTheApplicationPostController', () => {
     const reviewTheApplicationPostController = new ReviewTheApplicationPostController(mockFormContent.fields);
 
     const req = mockRequest({ body, session: { isApplicant2: true, userCase: expectedUserCase } });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
 
     const res = mockResponse();
     await reviewTheApplicationPostController.post(req, res);
@@ -62,7 +62,7 @@ describe('ReviewTheApplicationPostController', () => {
     expectedUserCase['confirmReadPetition'] = Checkbox.Checked;
 
     const req = mockRequest({ body, session: { isApplicant2: true, userCase: expectedUserCase } });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockResolvedValueOnce(expectedUserCase);
 
     const res = mockResponse();
     await reviewTheApplicationPostController.post(req, res);
@@ -81,10 +81,10 @@ describe('ReviewTheApplicationPostController', () => {
     const body = { confirmReadPetition: Checkbox.Checked };
     const reviewTheApplicationPostController = new ReviewTheApplicationPostController(mockFormContent.fields);
 
-    const mockSave = jest.fn((done: (error: string) => void) => done('An error while saving session'));
+    const mockSave = vi.fn((done: (error: string) => void) => done('An error while saving session'));
     const req = mockRequest({ body, session: { save: mockSave } });
-    (req.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockImplementation(
-      jest.fn(() => {
+    (req.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockImplementation(
+      vi.fn(() => {
         throw Error;
       })
     );

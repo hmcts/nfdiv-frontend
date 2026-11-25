@@ -1,5 +1,5 @@
-import { jest } from '@jest/globals';
 import { Application } from 'express';
+import { vi } from 'vitest';
 
 import { Routes } from './routes.js';
 import {
@@ -15,12 +15,12 @@ import {
 describe('Routes', () => {
   it('sets up dynamic step sequence routes', async () => {
     const appMock = {
-      get: jest.fn(),
-      post: jest.fn(),
-      delete: jest.fn(),
-      use: jest.fn(),
+      get: vi.fn(),
+      post: vi.fn(),
+      delete: vi.fn(),
+      use: vi.fn(),
       locals: {
-        errorHandler: jest.fn(),
+        errorHandler: vi.fn(),
       },
     } as unknown as Application;
 

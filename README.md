@@ -48,7 +48,7 @@
 
 Running the application requires the following tools to be installed in your environment:
 
-- [Node.js](https://nodejs.org/) v14.0.0 or later.
+- [Node.js](https://nodejs.org/) v20.0.0 or later.
 - [yarn](https://yarnpkg.com/)
 - [Docker](https://www.docker.com)
 
@@ -128,7 +128,7 @@ yarn lint --fix
 
 #### Unit tests
 
-We uses [Jest](https://jestjs.io//) as the test engine. You can run unit tests by executing the following command:
+We use [Vitest](https://vitest.dev/) as the test engine. You can run unit tests by executing the following command:
 
 ```bash
 yarn test

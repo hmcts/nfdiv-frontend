@@ -1,21 +1,21 @@
-import { jest } from '@jest/globals';
+import { type Mocked, vi } from 'vitest';
 
-jest.unstable_mockModule('axios', () => jest.createMockFromModule('axios'));
-jest.unstable_mockModule('@hmcts/nodejs-logging', () => jest.createMockFromModule('@hmcts/nodejs-logging'));
-jest.useFakeTimers({ legacyFakeTimers: true });
+vi.mock(import('axios'));
+vi.mock(import('@hmcts/nodejs-logging'));
+vi.useFakeTimers({ toFake: ['setTimeout', 'setInterval', 'Date'] });
 
 const { Logger } = await import('@hmcts/nodejs-logging');
 const { default: axios } = await import('axios');
 type AxiosStatic = import('axios').AxiosStatic;
 const logger = {
-  info: jest.fn(),
-  error: jest.fn(),
+  info: vi.fn(),
+  error: vi.fn(),
 };
 Logger.getLogger.mockReturnValue(logger);
 
 const { getServiceAuthToken, initAuthToken } = await import('./get-service-auth-token.js');
 
-const mockedAxios = axios as jest.Mocked<AxiosStatic>;
+const mockedAxios = axios as Mocked<AxiosStatic>;
 
 describe('initAuthToken', () => {
   test('Should set an interval to start fetching a token', () => {

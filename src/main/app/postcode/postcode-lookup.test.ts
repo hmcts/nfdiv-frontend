@@ -1,5 +1,5 @@
-import { jest } from '@jest/globals';
 import axios from 'axios';
+import { type Mocked, vi } from 'vitest';
 import { LoggerInstance } from 'winston';
 
 import {
@@ -11,14 +11,14 @@ import {
 
 import { getAddressesFromPostcode } from './postcode-lookup.js';
 
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+const mockedAxios = axios as Mocked<typeof axios>;
 
 describe('Postcode Lookup', () => {
   let mockLogger: LoggerInstance;
 
   beforeEach(() => {
     mockLogger = {
-      error: jest.fn().mockImplementation((...args: unknown[]) => args[0]),
+      error: vi.fn().mockImplementation((...args: unknown[]) => args[0]),
     } as unknown as LoggerInstance;
   });
 

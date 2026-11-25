@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jest } from '@jest/globals';
+import { type Mock, vi } from 'vitest';
 
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest.js';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse.js';
@@ -18,14 +18,14 @@ import {
 import { AppRequest } from '../../../../../app/controller/AppRequest.js';
 import { GENERAL_APPLICATION_PAYMENT_CALLBACK } from '../../../../urls.js';
 
-jest.unstable_mockModule(
+vi.mock(
   '../../../../../app/payment/PaymentClient',
   async () => import('../../../../../app/payment/__mocks__/PaymentClient.js')
 );
 
 const { mockCreate, mockGet } = (await import('../../../../../app/payment/PaymentClient.js')) as unknown as {
-  mockCreate: jest.Mock<(...args: any[]) => any>;
-  mockGet: jest.Mock<(...args: any[]) => any>;
+  mockCreate: Mock<(...args: any[]) => any>;
+  mockGet: Mock<(...args: any[]) => any>;
 };
 const { default: GeneralApplicationPaymentPostController } = await import('./post.js');
 describe('GeneralApplicationPaymentPostController', () => {
@@ -101,14 +101,14 @@ describe('GeneralApplicationPaymentPostController', () => {
 
       const res = mockResponse();
 
-      (mockReq.locals.api.triggerPaymentEvent as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
+      (mockReq.locals.api.triggerPaymentEvent as Mock<(...args: any[]) => any>).mockReturnValueOnce({
         applicant1GeneralAppPayments: [{ new: 'payment' }],
         applicant1GeneralAppOrderSummary: {
           Fees: [{ value: { FeeCode: 'mock fee code', FeeAmount: 123 } }],
         },
       });
 
-      (mockCreate as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
+      (mockCreate as Mock<(...args: any[]) => any>).mockReturnValueOnce({
         date_created: '1999-12-31T23:59:59.999Z',
         reference: 'mock ref',
         external_reference: 'mock external reference payment id',
@@ -128,7 +128,7 @@ describe('GeneralApplicationPaymentPostController', () => {
       const res = mockResponse();
       const serviceRequest = 'service-request';
 
-      (mockReq.locals.api.triggerEvent as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
+      (mockReq.locals.api.triggerEvent as Mock<(...args: any[]) => any>).mockReturnValueOnce({
         state: State.AwaitingGeneralApplicationPayment,
         applicant1GeneralAppServiceRequest: serviceRequest,
         generalApplications: [
@@ -145,7 +145,7 @@ describe('GeneralApplicationPaymentPostController', () => {
         ],
       });
 
-      (mockCreate as jest.Mock<(...args: any[]) => any>).mockReturnValueOnce({
+      (mockCreate as Mock<(...args: any[]) => any>).mockReturnValueOnce({
         date_created: '1999-12-31T23:59:59.999Z',
         reference: 'mock ref',
         external_reference: 'mock external reference payment id',
