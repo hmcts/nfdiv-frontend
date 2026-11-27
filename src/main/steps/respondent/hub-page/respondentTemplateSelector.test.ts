@@ -250,6 +250,28 @@ describe('RespondentTemplateSelector test', () => {
     expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
   });
 
+  test('should show /general-application-received.njk for state GeneralApplicationReceived and aos is submitted', () => {
+    const userCaseWithAos = {
+      ...userCase,
+      dateAosSubmitted: '2025-01-01',
+      coApplicant1SubmittedDate: undefined,
+    };
+    const theState = displayState.at(State.GeneralApplicationReceived);
+    const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAos, true);
+    expect(soleTemplate).toBe(HubTemplate.GeneralApplicationReceived);
+  });
+
+  test('should show /awaiting-aos.njk for state GeneralApplicationReceived and aos is due', () => {
+    const userCaseWithAosDue = {
+      ...userCase,
+      dateAosSubmitted: undefined,
+      coApplicant1SubmittedDate: undefined,
+    };
+    const theState = displayState.at(State.GeneralApplicationReceived);
+    const soleTemplate = getRespondentHubTemplate(theState, userCaseWithAosDue, false);
+    expect(soleTemplate).toBe(HubTemplate.AwaitingAoS);
+  });
+
   test('should show /pending-refund.njk for state PendingRefund', () => {
     const theState = displayState.at(State.PendingRefund);
     const soleTemplate = getRespondentHubTemplate(theState, userCase, false);

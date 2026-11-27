@@ -115,7 +115,7 @@ export class DocumentManagerController {
 
     let documentsKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
     if (fileUploadJourneyConfiguration) {
-      documentsKey = fileUploadJourneyConfiguration.uploadPath;
+      documentsKey = fileUploadJourneyConfiguration.getUploadPath(req);
     } else if (req.session.userCase.state === State.AwaitingClarification) {
       documentsKey = 'coClarificationUploadDocuments';
     } else if (
@@ -155,7 +155,7 @@ export class DocumentManagerController {
 
     let documentsUploadedKey = isApplicant2 ? 'applicant2DocumentsUploaded' : 'applicant1DocumentsUploaded';
     if (fileUploadJourneyConfiguration) {
-      documentsUploadedKey = fileUploadJourneyConfiguration.uploadPath;
+      documentsUploadedKey = fileUploadJourneyConfiguration.getUploadPath(req);
     } else if (req.session.userCase.state === State.AwaitingClarification) {
       documentsUploadedKey = 'coClarificationUploadDocuments';
     } else if (

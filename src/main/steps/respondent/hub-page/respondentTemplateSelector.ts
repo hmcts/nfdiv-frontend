@@ -36,6 +36,13 @@ export const getRespondentHubTemplate = (
       return HubTemplate.AwaitingLegalAdvisorReferralOrAwaitingPronouncement;
     case State.FinalOrderComplete:
       return HubTemplate.FinalOrderComplete;
+    case State.GeneralApplicationReceived:
+    case State.AwaitingGeneralReferralPayment:
+      if (canSubmitAos) {
+        return HubTemplate.AwaitingAoS;
+      } else {
+        return HubTemplate.GeneralApplicationReceived;
+      }
     case State.AwaitingGeneralConsideration:
     case State.GeneralConsiderationComplete:
       if (userCase.dateFinalOrderSubmitted) {
@@ -60,6 +67,8 @@ export const getRespondentHubTemplate = (
     case State.WelshTranslationRequested:
     case State.WelshTranslationReview:
       return HubTemplate.WelshTranslationRequestedOrReview;
+    case State.AwaitingGenAppDocuments:
+      return HubTemplate.AwaitingGenAppDocuments;
     case State.PendingRefund:
       return HubTemplate.PendingRefund;
     default: {
