@@ -24,6 +24,7 @@ nodejs:
         - AppInsightsInstrumentationKey
         - name: redis6-access-key
           alias: redis-access-key
+        - azure-managed-redis-connection-string
         - frontend-secret
         - os-places-token
         - idam-systemupdate-username
@@ -42,8 +43,8 @@ nodejs:
     IDAM_END_SESSION_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/o/endSession'
     PAYMENTS_API_URL: 'http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     FEES_API_URL: 'http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
-    REDIS_HOST: 'nfdiv-frontend-{{ .Values.global.environment }}.redis.cache.windows.net'
-    REDIS_PORT: 6380
+    REDIS_HOST: 'nfdiv-frontend-{{ .Values.global.environment }}.uksouth.redis.azure.net'
+    REDIS_PORT: 10000
     CCD_URL: 'http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     #CCD_URL: 'https://nfdiv-case-api-pr-3980.preview.platform.hmcts.net'
     #SKIP_DIV_CASE_CHECK: false #this is required to connect to nfdiv-case-api in preview

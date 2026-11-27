@@ -91,6 +91,7 @@ session:
     host:
     port: 6380
     key:
+    connectionString:
 e2e:
   userTestPassword: ''
 appInsights:
