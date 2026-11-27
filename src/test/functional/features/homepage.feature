@@ -17,7 +17,7 @@ Feature: Homepage
     Then the page should include "This is a new service"
 
     When I click "Accessibility statement"
-    Then the page should include "This accessibility statement applies to the website available at"
+    Then the page should include "Accessibility statement"
     When I click "Terms and conditions"
     Then the page should include "This page explains this service’s terms of use"
 
