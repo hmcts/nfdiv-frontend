@@ -246,7 +246,8 @@ Feature: No response journey
     Then the page should include element "#detailsUpdatedTitle"
 
   Scenario: No response update contact details /new-postal-and-email throws error
-    Given I go to "/interim-applications/no-response/new-postal-and-email"
+    Given I set the case state to "AosOverdue"
+    Then I go to "/interim-applications/no-response/new-postal-and-email"
     When I click continue
     Then the page should show an error for field "newPostalAddress"
 
