@@ -18,6 +18,15 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.eslint.json',
   },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+        project: './tsconfig.eslint.json',
+      },
+      node: true,
+    },
+  },
   globals: { Atomics: 'readonly', SharedArrayBuffer: 'readonly' },
   rules: {
     '@typescript-eslint/array-type': 'error',
@@ -28,7 +37,7 @@ module.exports = {
       'error',
       {
         ignoreRestSiblings: true,
-        argsIgnorePattern: "^_"
+        argsIgnorePattern: '^_',
       },
     ],
     '@typescript-eslint/no-var-requires': 'off',

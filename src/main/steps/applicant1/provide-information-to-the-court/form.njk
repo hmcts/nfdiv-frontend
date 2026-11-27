@@ -4,13 +4,13 @@
 {% extends "common/form/form.njk"%}
 
 {% set conditionalText %}
-  <p class="govuk-body govuk-!-margin-top-5">{{ cannotUploadYouCanPost }}<strong>{{ referenceNumber }}</strong></p>
+  <p class="govuk-body govuk-!-margin-top-5" id="cannotUploadYouCanPostConditional">{{ cannotUploadYouCanPost }}<strong>{{ referenceNumber }}</strong></p>
   {{ serviceAddressMacro(serviceAddress, 'heading')  }}
 {% endset %}
 
 {% set coCannotUploadClarificationDocuments %}
   {{ govukCheckboxes({
-    idPrefix: 'coCannotUploadClarificationDocuments',
+    idPrefix: 'cannotUploadDocs',
     name: 'coCannotUploadClarificationDocuments',
     fieldset: {
       legend: {

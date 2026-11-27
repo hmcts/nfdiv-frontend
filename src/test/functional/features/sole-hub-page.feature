@@ -1,141 +1,66 @@
 Feature: Sole hub page
 
   Background:
-    Given I create a new user and login
-    And I've already completed the form using the fixture "issuedCase"
-    Given a superuser updates "issueDate" with "2023-10-31"
-    Then I set the case state to "AwaitingAos"
-    And I enter my valid case reference and valid access code
+    Given I progress the case to AwaitingAos
+    And I login as the respondent and link to the case
 
   Scenario: Sole hub applicant and respondent pages
-    When I go to "/"
-    Then the page should include "Your wife has submitted an application for divorce."
-    When I click "Respond to the application"
-    Then the page URL should be "/respondent/review-the-application"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include "Your application will be checked by court staff."
+    Given I click respond to the application
+    Then I login as applicant "1" and expect hub element "#aosAwaitingLine1"
 
-    Given I set the case state to "AosDrafted"
-    And a superuser updates "aosIsDrafted" with "Yes"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include element "#aosDueAndDraftedLine1"
+    Given I set the case to AosDrafted
+    Then I set the case to AosOverdue
 
-    Given I set the case state to "AosOverdue"
-    And a superuser updates "aosIsDrafted" with "No"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include element "#aosDueLine1"
-    When I click element "#checkContactDetailsHubLink"
-    Then the page URL should be "/check-contact-details"
+    Then I click to review my contact details
 
-    When I sign out
-    And I login with applicant "2"
-    And I go to "/respondent/review-the-application"
-    Then the page should include "Review the divorce application"
-    Given I select "I have read the application for divorce"
+    Given I login as the respondent
+    Then I click respond to the application
 
-    When I click continue
-    Then the page URL should be "/respondent/how-do-you-want-to-respond"
-    Given I've already completed the form using the fixture "respondentCompleteCase" for "respondent"
-    And I go to '/respondent/check-your-answers'
-    And I select "I confirm that:"
+    Given I have read the application for divorce
+    Then I click continue and expect URL "HOW_DO_YOU_WANT_TO_RESPOND"
 
-    When I click submit
-    Then the page URL should be "/respondent/response-submitted"
+    Given I've already completed the form using the fixture "respondentCompleteCase" for the respondent
+    Then I go to 'CHECK_ANSWERS_URL'
+    And I confirm the statement of truth
+    Then I click submit and expect URL "RESPONSE_SUBMITTED"
+
     Given I set the case state to "Holding"
-    When I go to "/"
-    Then the page should include "You have responded to the divorce application. You do not have to do anything further."
-    And the page should include "The next step is for your wife to apply for a 'conditional order'."
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include "Your husband has responded to your divorce application. You can download and read their response (PDF)."
-    Then the page should include "The next step is for you to apply for a ‘conditional order’."
+    Then I go to "RESPONDENT" / "HUB_PAGE" and expect element "#respondentHoldingContent"
+
+    Then I login as applicant "1" and expect hub element "#holdingContent"
 
     Given a superuser updates "disputeApplication" with "Yes"
-    When I sign out
-    And I login with applicant "2"
-    Then the page should include "You have responded to the divorce application and said that you want to dispute it."
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include "Your husband has responded to your application and said they want to defend the divorce. This means they want to try and prevent the divorce."
+    Then I login as the respondent and expect hub element "#respondentD8AwaitingContent"
 
-    Given I set the case state to "AwaitingConditionalOrder"
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include "You can now apply for a ‘conditional order’."
-    Then the page should include "Apply for conditional order"
+    Then I login as applicant "1" and expect hub element "#d8AwaitingContent"
 
-    Given I set the case state to "AwaitingGeneralConsideration"
-    When I go to "/"
-    Then the page should include "The court is reviewing a general application that has been received and will contact you to let you know your next steps."
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include "The court is reviewing a general application that has been received and will contact you to let you know your next steps."
+    Then I set the case state to "AwaitingConditionalOrder" and expect hub element "#awaitingConditionalOrderContent"
 
-    Given I set the case state to "AwaitingLegalAdvisorReferral"
-    When I go to "/"
-    Then the page should include "Your wife has applied for a ‘conditional order’. A conditional order is a document that says the court does not see any reason why you cannot get a divorce"
-    And the page should include "You will receive an email when the conditional order has been granted by the court."
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include "You have applied for a ‘conditional order’. The court will check your application and send it to a judge."
-    And the page should include "After your conditional order is pronounced, you then have to apply for a ‘final order’."
+    Given I set the case state to "AwaitingGeneralConsideration" and expect hub element "#generalApplicationReceivedSoleContent"
+    Then I login as the respondent and expect hub element "#generalApplicationReceivedSoleContent"
 
-    Given I set the case state to "AwaitingPronouncement"
-    And a case worker updates court case hearing
-    When I sign out
-    And I login with applicant "1"
-    Then the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 10 November 2021 at 12:00AM."
-    And the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
-    When I sign out
-    And I login with applicant "2"
-    When I go to "/"
-    And the page should include "The hearing will take place at Birmingham Civil and Family Justice Centre on 10 November 2021 at 12:00AM."
-    Then the page should include "You can view and download your 'certificate of entitlement for a conditional order'."
+    Given I set the case state to "AwaitingLegalAdvisorReferral" and expect hub element "#awaitingLegalAdvisorReferralRespondentContent"
+    Then I login as applicant "1" and expect hub element "#awaitingLegalAdvisorReferralSoleContent"
 
-    Given I set the case state to "AwaitingClarification"
-    Given I sign out
-    And I login with applicant "1"
-    Then the page should include "You need to provide some information before your application can progress."
-    And the page should include "What you need to do"
+    Given I progress the case to awaiting pronouncement and expect hub element "#awaitingPronouncementSoleContent"
+    Then I login as the respondent and expect hub element "#awaitingPronouncementRespondentContent"
 
-    Given I click 'Provide information'
-    Then the page URL should be '/provide-information-to-the-court'
-    And the page should include "Provide information to the court"
-    Given I select "If the court wants you to explain something or provide additional information then write your response here. If the court has just asked you to upload documents then you do not have to write anything, unless you think it’s useful information."
-    And I type "test details"
-    And I select "I cannot upload some or all of my documents"
-    Then the page should include "You can post your documents to the court if you cannot upload them"
-    When I click continue
-    Then the page should include "You need to post the documents requested by the court:"
+    Given I set the case state to "AwaitingClarification" then login as applicant "1" and expect hub element "#awaitingClarificationSoleContent"
 
-    Given I set the case state to "ConditionalOrderPronounced"
-    When I go to "/"
-    Then the page should include "You have been granted a 'conditional order' by the court."
-    And the page should include "You can download and read your conditional order"
-    Given I sign out
-    And I login with applicant "1"
-    Then the page should include "You have been granted a 'conditional order' by the court."
-    Then the page should include "You can view and download your 'conditional order'."
+    Given I click to provide information to the court
+    Then I provide additional details
+    And I cannot upload some or all of my documents
+    Then the page should include element "#cannotUploadYouCanPostConditional"
 
-    Given I set the case state to "AwaitingServiceConsideration"
-    And I sign out
-    When I login with applicant "1"
-    Then the page should include "The court is currently considering your undefined application"
+    Then I click continue and expect hub element "#clarificationSubmittedWithoutDocumentsContent"
 
-    Given I set the case state to "AwaitingBailiffReferral"
-    And I sign out
-    When I login with applicant "1"
-    Then the page should include "The court is currently considering your undefined application"
+    Given I set the case state to "ConditionalOrderPronounced" and expect hub element "#conditionalOrderPronouncedContent"
+    Then I login as the respondent and expect hub element "#conditionalOrderPronouncedRespondentContent"
 
-    Given I set the case state to "BailiffRefused"
-    And I sign out
-    When I login with applicant "1"
-    Then the page should include "The court is currently considering your service application"
+    Given I set the case state to "AwaitingServiceConsideration" then login as applicant "1" and expect hub element "#awaitingServiceConsiderationOrBailiffReferralContent"
 
-    Given I set the case state to "AwaitingBailiffService"
-    And I sign out
-    When I login with applicant "1"
-    Then the page should include "Your application for bailiff service was successful."
+    Given I set the case state to "AwaitingBailiffReferral" and expect hub element "#awaitingServiceConsiderationOrBailiffReferralContent"
+
+    Given I set the case state to "BailiffRefused" and expect hub element "#serviceAdminRefusalOrBailiffRefusalContent"
+
+    Given I set the case state to "AwaitingBailiffService" and expect hub element "#awaitingBailiffServiceContent"

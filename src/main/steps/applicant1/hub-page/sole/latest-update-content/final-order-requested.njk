@@ -1,8 +1,8 @@
 {% if hasApplicant1AppliedForFinalOrderFirst %}
-  <p class="govuk-body">{{ finalOrderRequested.line1 }}</p>
+  <p class="govuk-body" id="finalOrderRequestedContent">{{ finalOrderRequested.line1 }}</p>
   <p class="govuk-body">{{ finalOrderRequested.line2 }}</p>
   <p class="govuk-body">{{ finalOrderRequested.line3 }}</p>
 {% else %}
-  <p class="govuk-body">{{ finalOrderRequested.applicant2AppliedFirstLine1 }}</p>
+  <p class="govuk-body" id="finalOrderRequestedApplicant2AppliedFirstContent">{{ finalOrderRequested.applicant2AppliedFirstLine1 }}</p>
   <p class="govuk-body">{{ finalOrderRequested.applicant2AppliedFirstLine2 }}</p>
 {% endif %}

@@ -1,6 +1,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-<p class="govuk-body">{{ awaitingClarification.line1 }}</p>
+<p class="govuk-body" id="awaitingClarificationSoleContent">{{ awaitingClarification.line1 }}</p>
 
 {% include "applicant1/hub-page/common/court-feedback.njk" %}
 
@@ -15,5 +15,8 @@
 {{ govukButton({
   text: awaitingClarification.buttonText,
   href: awaitingClarification.buttonLink,
-  preventDoubleClick: true
+  preventDoubleClick: true,
+  attributes: {
+    id: 'provideInformationButton'
+  }
 }) }}

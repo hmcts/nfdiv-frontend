@@ -12,21 +12,18 @@ export const config: CodeceptJS.Config = {
   bootstrap: testConfig.bootstrap,
   teardown: testConfig.teardown,
   retry: {
-    Before: 3,
+    Before: testConfig.DisableRetries ? 0 : 3,
   },
   plugins: {
     failOnHook: {
-      enabled: true,
+      enabled: !testConfig.DisableRetries,
       require: '../plugins/fail-on-hook.cjs',
     },
     pauseOnFail: {
       enabled: !testConfig.TestHeadlessBrowser,
     },
     retryFailedStep: {
-      enabled: true,
-    },
-    retryTo: {
-      enabled: true,
+      enabled: !testConfig.DisableRetries,
     },
     screenshotOnFail: {
       enabled: true,

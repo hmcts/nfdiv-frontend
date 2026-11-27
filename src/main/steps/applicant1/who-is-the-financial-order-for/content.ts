@@ -42,7 +42,7 @@ const cy: typeof en = ({ partner }: CommonContent) => ({
   },
 });
 
-enum FinancialOrderForRadioOption {
+export enum FinancialOrderForRadioOption {
   APPLICANT = 'applicant',
   APPLICANT_AND_CHILDREN = 'applicantAndChildren',
 }

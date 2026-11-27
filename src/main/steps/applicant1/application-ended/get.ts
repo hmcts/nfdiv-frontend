@@ -4,13 +4,14 @@ import { Response } from 'express';
 import { ApplicationType, SWITCH_TO_SOLE } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
+import { APPLICATION_ENDED } from '../../urls';
 
 import { generateContent } from './content';
 
 @autobind
 export default class ApplicationEndedGetController extends GetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(__dirname + '/template', generateContent, APPLICATION_ENDED);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

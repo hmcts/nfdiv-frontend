@@ -2092,6 +2092,17 @@ export const enum GeneralApplicationFee {
   FEE0228 = 'FEE0228',
 }
 
+export enum RequestForInformationSoleParties {
+  APPLICANT = 'applicant',
+  OTHER = 'other',
+}
+export enum RequestForInformationJointParties {
+  APPLICANT1 = 'applicant1',
+  APPLICANT2 = 'applicant2',
+  BOTH = 'both',
+  OTHER = 'other',
+}
+
 export const enum InterimApplicationType {
   DISPENSE_WITH_SERVICE = 'dispenseWithService',
   DEEMED_SERVICE = 'deemedService',

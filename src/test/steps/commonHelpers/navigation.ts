@@ -1,0 +1,245 @@
+import { SupportedLanguages } from '../../../main/modules/i18n';
+import { getPageTitleIdFromUrl } from '../../../main/steps/url-utils';
+import {
+  APPLICANT_2,
+  CHECK_ANSWERS_URL,
+  CHECK_CONTACT_DETAILS,
+  ENTER_YOUR_ADDRESS,
+  PageLink,
+  RESPONDENT,
+  VIEW_YOUR_ANSWERS,
+} from '../../../main/steps/urls';
+import { config as testConfig } from '../../config';
+
+import { WaitUntil, iClick, iDontSeeElementInDOM, iWaitForElement, iWaitForVisible } from './element-interaction';
+import { TestUserKey } from './idam-user-manager';
+import { logAndThrow, logger } from './logger';
+import {
+  ERROR_PAGE_URL,
+  InternalPageLink,
+  getUrlWithoutQuery,
+  isFullyQualifiedUrl,
+  isInternalPageLink,
+  isPrefixedRoute,
+  lookupUrl,
+  lookupUserPrefix,
+} from './url-lookup';
+import { isApplicant2, isRespondent } from './user-interaction';
+
+const { I } = inject();
+
+type UrlType = 'string' | 'empty-string' | 'regexp' | undefined;
+const BACK_LINK_SELECTOR = 'a.govuk-back-link';
+const CHECK_ANSWERS_SELECTOR = `a[href="${VIEW_YOUR_ANSWERS}"]`;
+const WITHDRAW_LINK_SELECTOR = 'a#withdrawLink';
+const CHECK_CONTACT_DETAILS_HUB_LINK_SELECTOR = 'a#checkContactDetailsHubLink';
+const CHANGE_ADDRESS_LINK_SELECTOR = 'a#changeAddressLink';
+
+const urlStringToRegExp = (url: string): RegExp => {
+  const escapeRegExp = (toEscape: string) => toEscape.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  const resolved = lookupUrl(url);
+
+  const absolute = isFullyQualifiedUrl(resolved)
+    ? new URL(resolved)
+    : new URL(resolved.startsWith('/') ? resolved : `/${resolved}`, testConfig.TEST_URL);
+
+  const base = `${absolute.origin}${absolute.pathname}`;
+  return new RegExp(`^${escapeRegExp(base)}(?:\\?.*)?(?:#.*)?$`);
+};
+
+const getUserPrefix = (user?: string): string => {
+  user = user?.trim();
+  if (!user) {
+    return '';
+  }
+  if (user === TestUserKey.APPLICANT_1 || user === TestUserKey.APPLICANT_2 || user === TestUserKey.RESPONDENT) {
+    user = `/${user}`;
+  }
+  const userPrefix = lookupUserPrefix(user);
+  if (userPrefix === undefined) {
+    return logAndThrow(`Cannot resolve user prefix URL from: ${user}`);
+  }
+  return userPrefix;
+};
+
+const getTypeOfUrl = (url?: string | RegExp): UrlType => {
+  if (!url) {
+    return undefined;
+  }
+  const urlIsString = typeof url === 'string';
+  if (urlIsString) {
+    if (url.trim().length > 0) {
+      return 'string';
+    }
+    return 'empty-string';
+  }
+  const urlIsRegExp = typeof url === 'object' && url instanceof RegExp;
+  if (urlIsRegExp) {
+    return 'regexp';
+  }
+};
+
+const checkForEqualityAndDiversityRedirect = async (): Promise<void> => {
+  const optOutButtonSelector = 'button[name="opt-out-button"]';
+  if (await iAmOnEqualityAndDiversity()) {
+    logger.info('Got redirected to equality and diversity page. Clicking opt-out button.');
+    iWaitForVisible(optOutButtonSelector);
+    iClick(optOutButtonSelector);
+  }
+};
+
+const iWaitForUrl = (url?: string | RegExp, wait?: number, waitUntil: WaitUntil = 'load'): void => {
+  const urlType = getTypeOfUrl(url);
+  if (urlType === 'empty-string' || urlType === undefined) {
+    logAndThrow(`Cannot wait for URL: "${url}"`);
+  }
+
+  if (urlType === 'string') {
+    url = urlStringToRegExp(url as string);
+  }
+
+  const timeout = wait ? { timeout: wait * 1000 } : {};
+
+  I.waitForURL(url as RegExp, { ...timeout, waitUntil });
+};
+
+export const setUserPathPrefix = (nextUrl: string, user?: string): InternalPageLink | string => {
+  let userPrefix = '';
+  if (user?.trim()) {
+    userPrefix = getUserPrefix(user);
+  } else if (isApplicant2()) {
+    userPrefix = APPLICANT_2;
+  } else if (isRespondent()) {
+    userPrefix = RESPONDENT;
+  }
+  const definedUrl = lookupUrl(nextUrl);
+
+  const prefixedUrl = `${userPrefix}${definedUrl}`;
+  return isPrefixedRoute(prefixedUrl) ? prefixedUrl : definedUrl;
+};
+
+export const iDontSeeABackLink = (): void => {
+  iDontSeeElementInDOM(BACK_LINK_SELECTOR);
+};
+export const iClickBackLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
+  await iClickToNavigate(BACK_LINK_SELECTOR, wait, nextUrl);
+};
+
+export const iClickWithdrawLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
+  await iClickToNavigate(WITHDRAW_LINK_SELECTOR, wait, nextUrl);
+};
+
+export const iClickCheckYourAnswersLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
+  await iClickToNavigate(CHECK_ANSWERS_SELECTOR, wait, nextUrl || VIEW_YOUR_ANSWERS);
+};
+
+export const iClickCheckContactDetailsHubLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
+  await iClickToNavigate(CHECK_CONTACT_DETAILS_HUB_LINK_SELECTOR, wait, nextUrl || CHECK_CONTACT_DETAILS);
+};
+
+export const iClickChangeAddressLink = async (nextUrl?: string | RegExp, wait?: number): Promise<void> => {
+  await iClickToNavigate(CHANGE_ADDRESS_LINK_SELECTOR, wait, nextUrl || ENTER_YOUR_ADDRESS);
+};
+
+export const iWaitForUrlParam = (param: string, value: string, wait: number = 10): void => {
+  I.waitForFunction(
+    ([urlParam, expectedValue]: [string, string]) =>
+      new URL(window.location.href).searchParams.get(urlParam) === expectedValue,
+    [param, value],
+    wait
+  );
+};
+
+export const iAmOnPage = (urlString: string, user?: string, expectedElementSelector?: string): void => {
+  urlString = setUserPathPrefix(urlString, user);
+  const url = new URL(urlString, testConfig.TEST_URL);
+  if (!url.searchParams.has('lng')) {
+    url.searchParams.set('lng', SupportedLanguages.En);
+  }
+  I.amOnPage(url.toString());
+  if (expectedElementSelector && expectedElementSelector.trim().length > 0) {
+    iWaitForVisible(expectedElementSelector);
+  }
+};
+
+export const iClickToNavigate = async (
+  selector: string,
+  wait?: number,
+  nextUrl?: string | RegExp,
+  waitUntil: WaitUntil = 'load',
+  expectedElementSelector: string = ''
+): Promise<void> => {
+  const urlType = getTypeOfUrl(nextUrl);
+
+  iWaitForVisible(selector, wait);
+  if (urlType === 'empty-string' || urlType === undefined) {
+    return iClick(selector, { waitForNavigation: waitUntil });
+  }
+
+  let expectElement: boolean = expectedElementSelector.trim().length > 0;
+  if (urlType === 'string') {
+    nextUrl = setUserPathPrefix(nextUrl as string);
+    if (isInternalPageLink(nextUrl) && !expectElement) {
+      expectElement = true;
+      expectedElementSelector = `#${getPageTitleIdFromUrl(getUrlWithoutQuery(nextUrl) as PageLink)}`;
+    }
+  }
+
+  if (urlType === 'string' && nextUrl === CHECK_ANSWERS_URL) {
+    iClick(selector, { waitForNavigation: 'domcontentloaded' });
+    if (!(await iAmOnNfd())) {
+      await checkForEqualityAndDiversityRedirect();
+    }
+  } else {
+    iClick(selector);
+  }
+  iWaitForUrl(nextUrl, wait, waitUntil);
+  if (expectElement) {
+    iWaitForElement(expectedElementSelector, wait);
+  }
+};
+
+export const iWaitInUrlAsUser = (url: string, user?: string, wait?: number, expectedElementSelector?: string): void => {
+  url = setUserPathPrefix(url, user);
+  I.waitInUrl(url, wait);
+  if (expectedElementSelector && expectedElementSelector.trim().length > 0) {
+    iWaitForVisible(expectedElementSelector, wait);
+  } else if (isInternalPageLink(url)) {
+    expectedElementSelector = `#${getPageTitleIdFromUrl(getUrlWithoutQuery(url) as PageLink)}`;
+    iWaitForVisible(expectedElementSelector, wait);
+  }
+};
+
+export const iWaitInUrl = (url: string, wait?: number, expectedElementSelector?: string): void => {
+  iWaitInUrlAsUser(url, undefined, wait, expectedElementSelector);
+};
+
+export const iWaitInPageNotFoundErrorPage = (wait?: number): void => {
+  iWaitInUrlAsUser(lookupUrl(ERROR_PAGE_URL), undefined, wait, '#pageNotFoundTitle');
+};
+
+export const doesCurrentUrlStartWith = async (serviceUrl: string, currentUrl?: string): Promise<boolean> => {
+  currentUrl = currentUrl || (await I.grabCurrentUrl());
+  return currentUrl.startsWith(serviceUrl);
+};
+
+export const iGrabCurrentUrl = async (): Promise<string> => {
+  const currentUrl = await I.grabCurrentUrl();
+  if (await iAmOnNfd(currentUrl)) {
+    return new URL(currentUrl).pathname;
+  }
+  return currentUrl;
+};
+
+export const iAmOnIdam = async (currentUrl?: string): Promise<boolean> => {
+  return doesCurrentUrlStartWith(testConfig.IDAM_WEB_BASE_URL, currentUrl);
+};
+
+export const iAmOnNfd = async (currentUrl?: string): Promise<boolean> => {
+  return doesCurrentUrlStartWith(testConfig.TEST_URL, currentUrl);
+};
+
+export const iAmOnEqualityAndDiversity = async (): Promise<boolean> => {
+  return doesCurrentUrlStartWith(testConfig.EQUALITY_URL);
+};

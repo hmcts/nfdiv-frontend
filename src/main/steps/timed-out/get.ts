@@ -8,7 +8,7 @@ import { generateContent } from './content';
 @autobind
 export class TimedOutGetController extends EndSessionGetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(__dirname + '/template', generateContent, TIMED_OUT_URL);
   }
 
   protected signoutPagePath(): PageLink {

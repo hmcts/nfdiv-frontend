@@ -1,21 +1,19 @@
 Feature: Applicant middleware
 
   Background:
-    Given I create a new user and login
-    Then the page URL should be "/your-details"
+    Given I create a new applicant "1" user and login
 
   @nightly
   Scenario: The applicants attempt to access the wrong page
-    When I go to '/applicant2/other-court-cases'
-    Then the page URL should be "/error"
+    When I go to "APPLICANT_2" / "OTHER_COURT_CASES"
+    Then the request should redirect to the page not found error page
 
     Given I've already completed the form using the fixture "jointApplicant1CompleteCase"
-    When I go to "/"
-    And I click "Send for review"
-    Then the page URL should be "/application-sent-for-review"
-    When I enter my valid case reference and valid access code
-    Then the page should include "You need to review your joint application"
-    Given I click "Continue"
-    Then the page URL should be "/applicant2/irretrievable-breakdown"
-    When I go to '/other-court-cases'
-    Then the page URL should be "/error"
+    When I go to "CHECK_ANSWERS_URL"
+    Then I click send for review
+
+    When I login as applicant "2" and link to the case
+    Then I click continue and expect URL "HAS_RELATIONSHIP_BROKEN_URL"
+
+    When I go to "APPLICANT_1" / "OTHER_COURT_CASES"
+    Then the request should redirect to the page not found error page

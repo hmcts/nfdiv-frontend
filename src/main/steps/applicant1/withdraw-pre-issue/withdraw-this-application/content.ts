@@ -64,7 +64,6 @@ export const form: FormContent = {
       values: [
         {
           label: l => l[YesOrNo.YES],
-          id: 'yes',
           value: YesOrNo.YES,
           subFields: {
             withdrawApplicationReason: {
@@ -75,7 +74,6 @@ export const form: FormContent = {
         },
         {
           label: l => l[YesOrNo.NO],
-          id: 'no',
           value: YesOrNo.NO,
         },
       ],

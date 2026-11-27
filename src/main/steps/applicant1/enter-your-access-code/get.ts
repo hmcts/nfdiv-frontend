@@ -3,14 +3,14 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
-import { HOME_URL } from '../../urls';
+import { ENTER_YOUR_ACCESS_CODE, HOME_URL } from '../../urls';
 
 import { generateContent } from './content';
 
 @autobind
 export class Applicant1AccessCodeGetController extends GetController {
   constructor() {
-    super(__dirname + '/template.njk', generateContent);
+    super(__dirname + '/template.njk', generateContent, ENTER_YOUR_ACCESS_CODE);
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {

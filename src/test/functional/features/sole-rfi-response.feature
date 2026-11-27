@@ -1,63 +1,31 @@
-Feature: Sole request for information
+Feature: Sole request for information response journey
 
   Background: Logged in for hub page
-    Given I create a new user and login
-    Given I've already completed the form using the fixture "completeCase"
-    And I go to '/check-your-answers'
-    And I click element "#applicant1IConfirmPrayer"
-    And I click element "#applicant1StatementOfTruth"
-    When I click continue to payment
-    And I pay and submit the application
-    Then the page should include element "#applicationSubmittedTitle"
+    Given I create a new applicant "1" user and login
+    And I've already completed the form using the fixture "completeCase"
+    Then I go to 'CHECK_ANSWERS_URL'
+    And I confirm the prayer and statement of truth
+    Then I click continue to payment and expect URL "PAY_YOUR_FEE"
+    And I pay and submit and expect the application to be saved
+    Then a case worker issues a request for information
 
   Scenario: Applicant sole rfi journey
-    Given a case worker issues a request for information
-    When I sign out
-    And I login with applicant "1"
-    Then the page URL should be "/hub-page"
-    And the page should include element "#informationRequestedLine1Sole"
+    Given I login as applicant "1" and expect hub element "#informationRequestedLine1Sole"
+    Then I click to respond to court feedback
 
-    When I click element "#informationRequestedButton"
-    Then the page URL should be "/respond-to-the-courts-feedback"
-    And the page should include element "#respondToCourtsFeedbackTitle"
+    Given I provide the requested information
+    Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
 
-    Given I select element "#app1RfiDraftResponseDetails"
-    And I type "Response Details"
-
-    Given I delete any previously uploaded files
-    Then the page should include visible element "#noFilesUploaded"
-#    When I upload the file "fixtures/larry-the-cat.jpg"
-#    Then I wait until the page contains file element "#Document1"
-
-    When I click continue
-    Then the page URL should be "/review-your-response-to-the-courts-feedback"
-    And the page should include element "#reviewYourResponseTitle"
-
-    When I click submit
-    Then the page URL should be "/hub-page"
-    And the page should include element "#respondedToRfiLine1Sole"
+    Then I click submit and expect hub element "#respondedToRfiLine1Sole"
 
     Given a case worker issues a request for information
-    When I sign out
-    And I login with applicant "1"
-    Then the page URL should be "/hub-page"
-    And the page should include element "#informationRequestedLine1Sole"
+    And I login as applicant "1" and expect hub element "#informationRequestedLine1Sole"
+    Then I click to respond to court feedback
 
-    When I click element "#informationRequestedButton"
-    Then the page URL should be "/respond-to-the-courts-feedback"
-    And the page should include element "#respondToCourtsFeedbackTitle"
+    Given I cannot upload some or all of my documents
+    Then I click continue and expect URL "REVIEW_YOUR_RESPONSE"
 
-    Given I select element "#app1RfiDraftResponseCannotUploadDocs"
-    When I click continue
-    Then the page URL should be "/review-your-response-to-the-courts-feedback"
-    And the page should include element "#reviewYourResponseTitle"
-
-    When I click submit
-    Then the page URL should be "/hub-page"
-    And the page should include element "#awaitingRequestedInformationLine1Sole"
+    Then I click submit and expect hub element "#awaitingRequestedInformationLine1Sole"
 
     Given a case worker issues a request for information to a third party
-    When I sign out
-    And I login with applicant "1"
-    Then the page URL should be "/hub-page"
-    And the page should include element "#otherLine1Sole"
+    Then I login as applicant "1" and expect hub element "#otherLine1Sole"

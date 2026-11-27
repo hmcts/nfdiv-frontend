@@ -3,6 +3,8 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { DivorceOrDissolution } from '../../app/case/definition';
 import { SupportedLanguages } from '../../modules/i18n';
+import { getPageTitleIdFromUrl } from '../url-utils';
+import { PRIVACY_POLICY_URL } from '../urls';
 
 import { PrivacyPolicyGetController } from './get';
 
@@ -20,6 +22,7 @@ describe('PrivacyPolicyGetController', () => {
       ...defaultViewArgs,
       isAmendableStates: undefined,
       userCase: req.session.userCase,
+      titleId: getPageTitleIdFromUrl(PRIVACY_POLICY_URL),
     });
   });
 
@@ -34,6 +37,7 @@ describe('PrivacyPolicyGetController', () => {
       ...defaultViewArgs,
       isAmendableStates: undefined,
       userCase: req.session.userCase,
+      titleId: getPageTitleIdFromUrl(PRIVACY_POLICY_URL),
     });
   });
 });

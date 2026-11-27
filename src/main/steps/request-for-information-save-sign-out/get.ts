@@ -8,7 +8,7 @@ import { generateContent } from './content';
 @autobind
 export class RequestForInformationSaveSignOutGetController extends EndSessionGetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(__dirname + '/template', generateContent, REQUEST_FOR_INFORMATION_SAVE_AND_SIGN_OUT);
   }
 
   protected signoutPagePath(): PageLink {

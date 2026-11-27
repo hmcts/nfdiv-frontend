@@ -51,7 +51,7 @@ export class AccessCodePostController {
         ? caseData.accessCode
         : caseData.accessCodeApplicant1;
       if (expectedAccessCode !== formData.accessCode?.replace(/\s/g, '').toUpperCase()) {
-        req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+        req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode', focusId: 'accessCode' });
         const formattedAccessCode = formData.accessCode?.replace(/\s/g, '').toUpperCase();
         req.locals.logger.info(
           `UserId: "${req.session.user.id}" - Invalid access code for case id: "${caseReference}" (form), ${
@@ -63,7 +63,11 @@ export class AccessCodePostController {
       }
     } catch (err) {
       logger.error(`Error while retrieving data for case ID: "${caseReference}". Error: ${err}`);
-      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseReference' });
+      req.session.errors.push({
+        errorType: 'invalidReference',
+        propertyName: 'caseReference',
+        focusId: 'caseReference',
+      });
     }
 
     if (req.session.errors.length === 0) {
@@ -86,7 +90,7 @@ export class AccessCodePostController {
           req.locals.logger.info(
             `Unlinking userId: "${req.session.user.id}" from existing application: ${req.session.existingCaseId}`
           );
-        } catch (err) {
+        } catch {
           req.locals.logger.error(
             `Could not unlink user(${req.session.user.id}) from case(${req.session.existingCaseId})`
           );

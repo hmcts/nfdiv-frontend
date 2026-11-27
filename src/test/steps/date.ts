@@ -1,26 +1,42 @@
-import { iClick } from './common';
+import { iEnterValueIntoInput } from './commonHelpers/element-interaction';
 
-const { I } = inject();
+export const DEFAULT_DATE = '1/1/2000';
 
-const enterDate = (day: string, month: string, year: string) => {
-  iClick('Day');
-  I.type(day);
-  iClick('Month');
-  I.type(month);
-  iClick('Year');
-  I.type(year);
+const splitDateString = (date: string): [string, string, string] => {
+  const [day, month, year] = date
+    .trim()
+    .split(/[/.\-\s]+/)
+    .map(part => part.trim());
+  return [day, month, year];
 };
 
-/** Setting the date to the first due to different months having different total number of days **/
-Given(/I enter a date (\d+) (?:month|months) ago/, (month: string) => {
-  const date = new Date();
-  date.setDate(1);
-  date.getMonth() - +month === 0 ? date.setMonth(1) : date.setMonth(date.getMonth() - +month);
-  enterDate(date.getDate().toString(), (date.getMonth() + 1).toString(), date.getFullYear().toString());
-});
+export const dateToString = (date: Date): string => {
+  const day = date.getDate().toString();
+  const month = (date.getMonth() + 1).toString();
+  const year = date.getFullYear().toString();
+  return `${day}/${month}/${year}`;
+};
 
-Given(/I enter a date (\d+) (?:year|years) ahead/, (year: string) => {
-  const date = new Date();
-  date.setFullYear(date.getFullYear() + +year);
-  enterDate(date.getDate().toString(), (date.getMonth() + 1).toString(), date.getFullYear().toString());
+export const dateStringToApi = (date: string): string => {
+  const [day, month, year] = splitDateString(date);
+  return year + '-' + month.padStart(2, '0') + '-' + day.padStart(2, '0');
+};
+
+export const iEnterADateIntoField = (date: string, field: string): void => {
+  const [day, month, year] = splitDateString(date);
+
+  iEnterValueIntoInput(day, `#${field}-day`);
+  iEnterValueIntoInput(month, `#${field}-month`);
+  iEnterValueIntoInput(year, `#${field}-year`);
+};
+
+export const iEnterTheDefaultRelationshipDate = (): void => {
+  iEnterADateIntoField(DEFAULT_DATE, 'relationshipDate');
+};
+
+Given('I enter a date of {string} into the {string} field', (date, field: string) => {
+  iEnterADateIntoField(date, field);
+});
+Given('I enter the relationship date', () => {
+  iEnterTheDefaultRelationshipDate();
 });

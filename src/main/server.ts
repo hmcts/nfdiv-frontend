@@ -1,9 +1,10 @@
 import crypto from 'crypto';
 import * as path from 'path';
 
-import * as bodyParser from 'body-parser';
+import { Logger } from '@hmcts/nodejs-logging';
+import bodyParser from 'body-parser';
 import config from 'config';
-import express, { RequestHandler } from 'express';
+import express, { RequestHandler, static as staticMiddleware } from 'express';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
@@ -28,8 +29,6 @@ import { LoadTimeouts } from './modules/timeouts';
 import { TooBusy } from './modules/too-busy';
 import { WebpackDev } from './modules/webpack-dev';
 import { Routes } from './routes';
-
-const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
@@ -50,7 +49,7 @@ function setStaticCachingPolicy(res, file) {
 }
 
 app.use(
-  express.static(path.join(__dirname, 'public'), {
+  staticMiddleware(path.join(__dirname, 'public'), {
     setHeaders: setStaticCachingPolicy,
   })
 );
@@ -103,6 +102,7 @@ app.use((req, res, next) => {
 
     process.on('SIGINT', function () {
       server.close();
+      // eslint-disable-next-line import/no-named-as-default-member
       toobusy.shutdown();
       process.exit();
     });

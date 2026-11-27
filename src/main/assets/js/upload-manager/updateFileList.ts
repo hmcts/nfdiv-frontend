@@ -29,6 +29,7 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
         'govuk-section-break',
         'govuk-section-break--visible'
       );
+      fileEl.dataset.filename = file.name;
       const filenameEl = document.createElement('p');
       filenameEl.classList.add('govuk-body');
       filenameEl.id = `Document${i}`;
@@ -37,7 +38,7 @@ export const updateFileList = (uploadedFiles: UploadedFiles): void => {
 
       const deleteEl = document.createElement('button');
       deleteEl.type = 'submit';
-      deleteEl.classList.add('hmcts-button-link', 'govuk-link--no-visited-state');
+      deleteEl.classList.add('hmcts-button-link', 'govuk-link--no-visited-state', 'document-delete-button');
       deleteEl.id = `Delete${i}`;
       deleteEl.textContent = content.delete;
       deleteEl.setAttribute('form', 'document-delete-form');

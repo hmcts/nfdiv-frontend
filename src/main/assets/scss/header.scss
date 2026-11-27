@@ -15,7 +15,7 @@
     justify-content: flex-end;
   }
 
-  @media (max-width: map-get($govuk-breakpoints, tablet)) {
+  @media (max-width: map.get($govuk-breakpoints, tablet)) {
     &__item:first-child {
       margin: 10px 0 !important;
     }

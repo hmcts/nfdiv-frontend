@@ -259,6 +259,7 @@ export const form: FormContent = {
       labelSize: 'm',
       values: [
         {
+          id: 'statementOfTruth',
           name: 'aosStatementOfTruth',
           label: l => l.iConfirm,
           hint: l => l.confirmSotHint,

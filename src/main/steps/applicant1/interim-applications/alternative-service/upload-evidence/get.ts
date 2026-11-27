@@ -3,13 +3,14 @@ import autobind from 'autobind-decorator';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { GetController } from '../../../../../app/controller/GetController';
 import { FileUploadJourney } from '../../../../../app/document/FileUploadJourneyConfiguration';
+import { UPLOAD_EVIDENCE_ALTERNATIVE } from '../../../../urls';
 
 import { generateContent } from './content';
 
 @autobind
 export default class AlternativeServiceUploadEvidenceGetController extends GetController {
   constructor() {
-    super(__dirname + '/template.njk', generateContent);
+    super(__dirname + '/template.njk', generateContent, UPLOAD_EVIDENCE_ALTERNATIVE);
   }
 
   protected setSessionOverrides(req: AppRequest): void {

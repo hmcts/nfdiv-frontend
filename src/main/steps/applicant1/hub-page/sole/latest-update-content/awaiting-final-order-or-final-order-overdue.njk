@@ -1,10 +1,11 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-<p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdue.line1 }}</p>
+<p class="govuk-body" id="awaitingFinalOrderOrFinalOrderOverdueContent">{{ awaitingFinalOrderOrFinalOrderOverdue.line1 }}</p>
 <p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdue.line2 }}</p>
 <p class="govuk-body">{{ awaitingFinalOrderOrFinalOrderOverdue.line3 }}</p>
 {{ govukButton({
   text: awaitingFinalOrderOrFinalOrderOverdue.buttonText,
   href: awaitingFinalOrderOrFinalOrderOverdue.buttonLink,
-  preventDoubleClick: true
+  preventDoubleClick: true,
+  id: 'applyForFinalOrderButton'
 }) }}
